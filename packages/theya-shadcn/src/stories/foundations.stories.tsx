@@ -139,6 +139,7 @@ const HEADING_TYPE_VALUES: Record<'3xs' | '2xs' | 'xs' | 's' | 'm' | 'l' | 'xl' 
  */
 const PRIMITIVE_HEX: Record<string, string[]> = {
   azure: ['#ecf7ff', '#dcf1ff', '#b4e1ff', '#7acaff', '#46b5ff', '#069cff', '#3292f1', '#0278ca', '#0068ae', '#004877', '#003354', '#001f33'],
+  cyan: ['#ecfcff', '#dcf9ff', '#b4f2ff', '#7ae9ff', '#46e0ff', '#14c8ec', '#14b7d7', '#02a9ca', '#0091ae', '#006377', '#004654', '#002b33'],
   blue: ['#f2f8ff', '#dfeeff', '#cfe6ff', '#bddcff', '#63acff', '#3795ff', '#248bff', '#0068de', '#0057b9', '#00428c', '#002f64', '#001f41'],
   gray: ['#f9f9fe', '#edeef8', '#e1e2eb', '#d8d8ed', '#adadc3', '#9696ac', '#6b6b7e', '#606070', '#4e4e5e', '#393943', '#1b1b1f', '#0a0a0a'],
   green: ['#dff9ea', '#c3e8d2', '#aedec2', '#92d5ae', '#54c181', '#43af70', '#379c61', '#198446', '#156b39', '#144227', '#13301f', '#08110c'],
@@ -371,6 +372,7 @@ const RAMP_FAMILIES = [
   { prefix: 'blue', label: 'Blue (Brand)' },
   { prefix: 'gray', label: 'Gray (Neutral)' },
   { prefix: 'azure', label: 'Azure' },
+  { prefix: 'cyan', label: 'Cyan' },
   { prefix: 'green', label: 'Green' },
   { prefix: 'magenta', label: 'Magenta' },
   { prefix: 'orange', label: 'Orange' },
