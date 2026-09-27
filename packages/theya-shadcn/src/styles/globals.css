@@ -415,7 +415,7 @@
        -overlay-dark already use elsewhere (Tooltip, Sonner). */
     --color-code-bg: #f5f6f8;
     --color-code-text: #20232a;
-    --color-code-tag: #0083b0;
+    --color-code-tag: #00739a; /* was #0083b0 — 3.98:1 on --color-code-bg, under AA 4.5:1; darkened in-hue to 4.96:1 */
     --color-code-attribute: #ba3c46;
     --color-code-string: #387a3b;
     --color-code-number: #b66a1a;
