@@ -407,9 +407,9 @@ export const buttonVariants = cva(
         intent: 'info',
         class: [
           'text-[var(--color-text-text-info)] [&_svg]:text-[var(--color-icon-icon-info)]',
-          'hover:not-disabled:bg-[var(--color-bg-info-bg-info-subtler-hover)]',
-          'focus-visible:bg-[var(--color-bg-info-bg-info-subtler-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-info-bg-info-subtler-pressed)]',
+          'hover:not-disabled:bg-[var(--color-cyan-cyan-050)] [[data-theme=dark]_&]:hover:not-disabled:bg-[var(--color-cyan-cyan-800)]',
+          'focus-visible:bg-[var(--color-cyan-cyan-050)] [[data-theme=dark]_&]:focus-visible:bg-[var(--color-cyan-cyan-800)]',
+          'active:not-disabled:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:active:not-disabled:bg-[var(--color-cyan-cyan-900)]',
         ],
       },
       {
