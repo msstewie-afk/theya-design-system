@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { NotificationsInbox, type InboxNotification } from './notifications-inbox';
-import { Toaster, toast } from '@/components/ui/sonner';
+import { toast } from '@/components/ui/sonner';
 import type { FilterOption } from '@/components/ui/filter';
 
 /**
@@ -44,7 +44,6 @@ const meta: Meta<typeof NotificationsInbox> = {
   decorators: [
     (Story) => (
       <>
-        <Toaster />
         <div className="mx-auto w-full max-w-[720px] px-4 py-6 md:px-6">
           <Story />
         </div>

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { TeamMembers } from './team-members';
-import { Toaster } from '@/components/ui/sonner';
 
 const meta: Meta<typeof TeamMembers> = {
   title: 'Patterns/TeamMembers',
@@ -28,7 +27,6 @@ type Story = StoryObj<typeof TeamMembers>;
 export const Default: Story = {
   render: () => (
     <div className="p-6">
-      <Toaster />
       <TeamMembers />
     </div>
   ),
@@ -38,7 +36,6 @@ export const NoPendingInvites: Story = {
   name: 'No pending invites',
   render: () => (
     <div className="p-6">
-      <Toaster />
       <TeamMembers invites={[]} />
     </div>
   ),

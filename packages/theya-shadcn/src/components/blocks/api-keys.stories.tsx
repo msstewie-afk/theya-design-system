@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ApiKeys } from './api-keys';
-import { Toaster } from '@/components/ui/sonner';
 
 const meta: Meta<typeof ApiKeys> = {
   title: 'Patterns/ApiKeys',
@@ -22,7 +21,6 @@ type Story = StoryObj<typeof ApiKeys>;
 export const Default: Story = {
   render: () => (
     <div className="px-4 py-6 md:px-6">
-      <Toaster />
       <ApiKeys />
     </div>
   ),
@@ -31,7 +29,6 @@ export const Default: Story = {
 export const Empty: Story = {
   render: () => (
     <div className="px-4 py-6 md:px-6">
-      <Toaster />
       <ApiKeys keys={[]} />
     </div>
   ),

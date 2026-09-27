@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { SettingsScreen } from './settings-screen';
-import { Toaster } from '@/components/ui/sonner';
 
 const meta: Meta<typeof SettingsScreen> = {
   title: 'Patterns/SettingsScreen',
@@ -24,7 +23,6 @@ type Story = StoryObj<typeof SettingsScreen>;
 export const Default: Story = {
   render: () => (
     <div className="p-6">
-      <Toaster />
       <SettingsScreen />
     </div>
   ),
@@ -34,7 +32,6 @@ export const NoNotifications: Story = {
   name: 'No notifications section',
   render: () => (
     <div className="p-6">
-      <Toaster />
       <SettingsScreen notifications={[]} />
     </div>
   ),
