@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Star, Check, ArrowRight, Xmark, Trash, Plus } from 'iconoir-react';
 import { Button } from './button';
+import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
 
 const meta: Meta<typeof Button> = {
   title: 'Actions/Button',
@@ -56,7 +57,14 @@ const meta: Meta<typeof Button> = {
     },
     disabled: {
       control: 'boolean',
-      description: 'Hard-disables the button (not focusable). See loading for a soft variant.',
+      description: 'Hard-disables the button (removed from the tab order, no events). See softDisabled for the focusable variant.',
+      table: { category: 'Behavior' },
+    },
+    softDisabled: {
+      control: 'boolean',
+      description:
+        'Looks disabled and ignores clicks/Enter/Space, but stays focusable and hoverable (aria-disabled). ' +
+        'Pair it with a Tooltip that explains why the action is unavailable.',
       table: { category: 'Behavior' },
     },
     loading: {
@@ -261,6 +269,21 @@ export const AsChildPlainLink: Story = {
 
 export const Disabled: Story = {
   args: { children: 'Disabled', disabled: true },
+};
+
+// Soft-disable: the button stays in the tab order, so keyboard and
+// screen-reader users can reach it and hear the tooltip's reason.
+export const SoftDisabledWithReason: Story = {
+  render: () => (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button softDisabled onClick={() => console.warn('softDisabled click leaked through')}>
+          Publish
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>Add a title before publishing</TooltipContent>
+    </Tooltip>
+  ),
 };
 
 export const Loading: Story = {

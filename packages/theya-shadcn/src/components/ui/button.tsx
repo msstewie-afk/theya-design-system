@@ -1,5 +1,5 @@
 import { forwardRef, cloneElement, isValidElement } from 'react';
-import type { ButtonHTMLAttributes, ReactElement, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, MouseEvent, ReactElement, ReactNode } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
@@ -33,6 +33,11 @@ export const buttonVariants = cva(
     // though a button-anchored dropdown can't always match both.
     'rounded-xl',
     'disabled:cursor-not-allowed disabled:opacity-50',
+    // Soft-disable (softDisabled prop): same look as native disabled, but
+    // driven by aria-disabled so the button stays focusable/hoverable (can
+    // carry a tooltip explaining why). Every hover/active rule below is also
+    // gated with not-aria-disabled so a soft-disabled button doesn't react.
+    'aria-disabled:cursor-not-allowed aria-disabled:opacity-50',
     // Focus ring: back to Theya's original token as-is (--color-focus-focus-ring
     // = blue-a300, rgba(55,149,255,0.3)), single ring, no custom override.
     // Same contrast caveat as before: this composites to ~1.2-1.4:1 against
@@ -44,12 +49,12 @@ export const buttonVariants = cva(
     // Transform (the press scale) uses Material's "standard" easing
     // (cubic-bezier(0.4,0,0.2,1)) on both press and release.
     '[transition:background-color_150ms_ease-out,border-color_150ms_ease-out,box-shadow_150ms_ease-out,transform_220ms_cubic-bezier(0.34,1.56,0.64,1)]',
-    'active:not-disabled:[transition:background-color_150ms_ease-out,border-color_150ms_ease-out,box-shadow_150ms_ease-out,transform_150ms_cubic-bezier(0.4,0,0.2,1)]',
+    'active:not-disabled:not-aria-disabled:[transition:background-color_150ms_ease-out,border-color_150ms_ease-out,box-shadow_150ms_ease-out,transform_150ms_cubic-bezier(0.4,0,0.2,1)]',
     // motion-safe: scale only applies if the user hasn't asked for
     // reduced motion (WCAG 2.3.3) — color/border/shadow transitions stay
     // either way since they're not the kind of motion that triggers
     // vestibular issues.
-    'motion-safe:active:not-disabled:scale-[0.96]',
+    'motion-safe:active:not-disabled:not-aria-disabled:scale-[0.96]',
   ],
   {
     variants: {
@@ -61,7 +66,7 @@ export const buttonVariants = cva(
           // Figma quirk carried over as-is: pressed radius bumps up a step from
           // the resting state (was 6->8px; base moved to xl/8px on 2026-09-27,
           // so this now bumps 8->10px to keep the same "grows when pressed" feel).
-          'active:not-disabled:rounded-[var(--size-border-radius-border-radius-2xl)]',
+          'active:not-disabled:not-aria-disabled:rounded-[var(--size-border-radius-border-radius-2xl)]',
         ],
         ghost: 'bg-transparent border-none text-[var(--color-text-text-subtle)]',
       },
@@ -146,8 +151,8 @@ export const buttonVariants = cva(
         intent: 'primary',
         class: [
           'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-dark)]',
-          'hover:not-disabled:bg-[var(--color-bg-primary-bg-primary-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-primary-bg-primary-pressed)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-pressed)]',
         ],
       },
       {
@@ -155,8 +160,8 @@ export const buttonVariants = cva(
         intent: 'info',
         class: [
           'bg-[var(--color-bg-info-bg-info)] text-[var(--color-cyan-cyan-900)]',
-          'hover:not-disabled:bg-[var(--color-bg-info-bg-info-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-info-bg-info-pressed)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-pressed)]',
         ],
       },
       {
@@ -171,8 +176,8 @@ export const buttonVariants = cva(
         intent: 'success',
         class: [
           'bg-[var(--color-bg-success-bg-success)] text-[var(--color-text-text-on-dark)]',
-          'hover:not-disabled:bg-[var(--color-bg-success-bg-success-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-success-bg-success-pressed)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-pressed)]',
         ],
       },
       {
@@ -198,8 +203,8 @@ export const buttonVariants = cva(
         class: [
           'bg-[var(--color-bg-warning-bg-warning)] text-[var(--color-text-text-warning)]',
           '[[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
-          'hover:not-disabled:bg-[var(--color-bg-warning-bg-warning-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-warning-bg-warning-pressed)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-pressed)]',
         ],
       },
       {
@@ -207,8 +212,8 @@ export const buttonVariants = cva(
         intent: 'danger',
         class: [
           'bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-text-text-on-dark)]',
-          'hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-danger-bg-danger-pressed)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-pressed)]',
         ],
       },
       {
@@ -221,8 +226,8 @@ export const buttonVariants = cva(
         intent: 'default',
         class: [
           'bg-[#65656b] text-[var(--color-text-text-on-dark)]',
-          'hover:not-disabled:bg-[#535358]',
-          'active:not-disabled:bg-[#3d3d41]',
+          'hover:not-disabled:not-aria-disabled:bg-[#535358]',
+          'active:not-disabled:not-aria-disabled:bg-[#3d3d41]',
         ],
       },
       {
@@ -235,8 +240,8 @@ export const buttonVariants = cva(
         intent: 'secondary',
         class: [
           'bg-[#6a6c96] text-[var(--color-text-text-on-dark)]',
-          'hover:not-disabled:bg-[#5b5c80]',
-          'active:not-disabled:bg-[#484966]',
+          'hover:not-disabled:not-aria-disabled:bg-[#5b5c80]',
+          'active:not-disabled:not-aria-disabled:bg-[#484966]',
         ],
       },
 
@@ -249,45 +254,57 @@ export const buttonVariants = cva(
         type: 'tonal',
         intent: 'primary',
         class: [
-          'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-subtle)]',
-          'hover:not-disabled:bg-[var(--color-bg-primary-bg-primary-subtle-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-primary-bg-primary-subtle-pressed)]',
+          // Dark: text-link-subtle (#bddcff) fell to 3.86/3.31:1 on the
+          // hover/pressed tints over bg-surface; white clears 4.68:1+ in
+          // every state on both surface and surface-overlay (2026-09-27).
+          'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-subtle)] [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-subtle-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-subtle-pressed)]',
         ],
       },
       {
         type: 'tonal',
         intent: 'info',
         class: [
-          'bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)]',
-          'hover:not-disabled:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:hover:not-disabled:bg-[var(--color-cyan-cyan-700)]',
-          'active:not-disabled:bg-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:active:not-disabled:bg-[var(--color-cyan-cyan-900)]',
+          'bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-100)]', // dark text cyan-200 -> cyan-100: hover (cyan-700) was 4.38:1, now 4.89:1,
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-700)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:active:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-900)]',
         ],
       },
       {
+        // Tonal x success/warning/danger text (2026-09-27, WCAG AA pass):
+        // dark theme's -subtle bgs are light alpha tints, so each hover/
+        // pressed step gets LIGHTER and the mid-tone status text (-200 step)
+        // lost contrast: success 3.59/3.09/2.67, warning 3.74/3.02/2.45,
+        // danger 3.14/2.82/2.51 (rest/hover/pressed on bg-surface). Dark now
+        // uses the palest step that clears 4.5:1 in all three states on both
+        // bg-surface and bg-surface-overlay - the same "on-container" idea as
+        // M3 (tone-90 text on a tone-30 container). Light success also failed
+        // on hover/pressed (green-600: 4.39/3.87), bumped to green-700.
         type: 'tonal',
         intent: 'success',
         class: [
-          'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)]',
-          'hover:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-pressed)]',
+          'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-green-green-700)] [[data-theme=dark]_&]:text-[var(--color-green-green-010)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtle-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtle-pressed)]',
         ],
       },
       {
         type: 'tonal',
         intent: 'warning',
         class: [
-          'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)]',
-          'hover:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-pressed)]',
+          'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)] [[data-theme=dark]_&]:text-[var(--color-orange-orange-005)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-pressed)]',
         ],
       },
       {
         type: 'tonal',
         intent: 'danger',
         class: [
-          'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)]',
-          'hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-pressed)]',
+          'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] [[data-theme=dark]_&]:text-[var(--color-red-red-050)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-pressed)]',
         ],
       },
       {
@@ -297,8 +314,8 @@ export const buttonVariants = cva(
         intent: 'secondary',
         class: [
           'bg-[var(--color-bg-secondary-bg-secondary-subtle)] text-[var(--color-text-text)]',
-          'hover:not-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtle-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtle-pressed)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtle-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtle-pressed)]',
         ],
       },
       {
@@ -307,8 +324,8 @@ export const buttonVariants = cva(
         intent: 'default',
         class: [
           'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text)]',
-          'hover:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-pressed)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-pressed)]',
         ],
       },
 
@@ -319,9 +336,9 @@ export const buttonVariants = cva(
         class: [
           'border-[var(--color-border-border-primary)]',
           '[&_svg]:text-[var(--color-icon-icon-primary)]',
-          'hover:not-disabled:bg-[var(--color-bg-primary-bg-primary-subtler-hover)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-primary-bg-primary-subtler-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-primary-bg-primary-subtler-pressed)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-subtler-pressed)]',
         ],
       },
       {
@@ -330,9 +347,9 @@ export const buttonVariants = cva(
         class: [
           'border-[var(--color-border-border-info)]',
           '[&_svg]:text-[var(--color-icon-icon-info)]',
-          'hover:not-disabled:bg-[var(--color-bg-info-bg-info-subtler-hover)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-info-bg-info-subtler-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-info-bg-info-subtler-pressed)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-subtler-pressed)]',
         ],
       },
       {
@@ -341,9 +358,9 @@ export const buttonVariants = cva(
         class: [
           'border-[var(--color-border-border-success)]',
           '[&_svg]:text-[var(--color-icon-icon-success)]',
-          'hover:not-disabled:bg-[var(--color-bg-success-bg-success-subtler-hover)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-success-bg-success-subtler-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-success-bg-success-subtler-pressed)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtler-pressed)]',
         ],
       },
       {
@@ -352,9 +369,9 @@ export const buttonVariants = cva(
         class: [
           'border-[var(--color-border-border-warning)]',
           '[&_svg]:text-[var(--color-icon-icon-warning)]',
-          'hover:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtler-hover)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-warning-bg-warning-subtler-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtler-pressed)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtler-pressed)]',
         ],
       },
       {
@@ -363,9 +380,9 @@ export const buttonVariants = cva(
         class: [
           'border-[var(--color-border-border-danger)]',
           '[&_svg]:text-[var(--color-icon-icon-danger)]',
-          'hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtler-hover)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-danger-bg-danger-subtler-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtler-pressed)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtler-pressed)]',
         ],
       },
       {
@@ -383,11 +400,14 @@ export const buttonVariants = cva(
         type: 'outlined',
         intent: 'secondary',
         class: [
-          'border-[#6a6c96]',
+          // Dark: #6a6c96 is only 2.82:1 on bg-surface (#282944), under
+          // 1.4.11's 3:1 - dark theme uses border-subtle (#6e709f, 3.01:1),
+          // same lavender family (2026-09-27).
+          'border-[#6a6c96] [[data-theme=dark]_&]:border-[var(--color-border-border-subtle)]',
           '[&_svg]:text-[var(--color-icon-icon)]',
-          'hover:not-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtler-hover)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-secondary-bg-secondary-subtler-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtler-pressed)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtler-pressed)]',
         ],
       },
 
@@ -396,30 +416,36 @@ export const buttonVariants = cva(
         type: 'ghost',
         intent: 'primary',
         class: [
-          'text-[var(--color-text-text-link)] [&_svg]:text-[var(--color-icon-icon-primary)]',
-          'hover:not-disabled:bg-[var(--color-bg-primary-bg-primary-subtler-hover)]',
+          // Dark: text-link (#63acff) dropped to 4.41/3.75:1 on hover/pressed
+          // tints over bg-surface; text-link-subtle (#bddcff) holds 6.28:1+.
+          'text-[var(--color-text-text-link)] [[data-theme=dark]_&]:text-[var(--color-text-text-link-subtle)] [&_svg]:text-[var(--color-icon-icon-primary)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-primary-bg-primary-subtler-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-primary-bg-primary-subtler-pressed)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-subtler-pressed)]',
         ],
       },
       {
         type: 'ghost',
         intent: 'info',
         class: [
-          'text-[var(--color-text-text-info)] [&_svg]:text-[var(--color-icon-icon-info)]',
-          'hover:not-disabled:bg-[var(--color-cyan-cyan-050)] [[data-theme=dark]_&]:hover:not-disabled:bg-[var(--color-cyan-cyan-800)]',
+          // Icon follows the label color: icon-info (#0091ae) was 2.64:1 on
+          // the light pressed bg (cyan-100), under the 3:1 non-text minimum.
+          'text-[var(--color-text-text-info)] [&_svg]:text-[var(--color-text-text-info)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-050)] [[data-theme=dark]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-800)]',
           'focus-visible:bg-[var(--color-cyan-cyan-050)] [[data-theme=dark]_&]:focus-visible:bg-[var(--color-cyan-cyan-800)]',
-          'active:not-disabled:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:active:not-disabled:bg-[var(--color-cyan-cyan-900)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:active:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-900)]',
         ],
       },
       {
         type: 'ghost',
         intent: 'success',
         class: [
-          'text-[var(--color-text-text-success)] [&_svg]:text-[var(--color-icon-icon-success)]',
-          'hover:not-disabled:bg-[var(--color-bg-success-bg-success-subtler-hover)]',
+          // green-600 -> green-700 (light pressed was 4.39:1); dark green-200
+          // -> green-100 (dark pressed was 4.17:1).
+          'text-[var(--color-green-green-700)] [[data-theme=dark]_&]:text-[var(--color-green-green-100)] [&_svg]:text-[var(--color-icon-icon-success)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-success-bg-success-subtler-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-success-bg-success-subtler-pressed)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtler-pressed)]',
         ],
       },
       {
@@ -427,9 +453,9 @@ export const buttonVariants = cva(
         intent: 'warning',
         class: [
           'text-[var(--color-text-text-warning)] [&_svg]:text-[var(--color-icon-icon-warning)]',
-          'hover:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtler-hover)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-warning-bg-warning-subtler-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtler-pressed)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtler-pressed)]',
         ],
       },
       {
@@ -437,9 +463,9 @@ export const buttonVariants = cva(
         intent: 'danger',
         class: [
           'text-[var(--color-text-text-danger)] [&_svg]:text-[var(--color-icon-icon-danger)]',
-          'hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtler-hover)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-danger-bg-danger-subtler-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtler-pressed)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtler-pressed)]',
         ],
       },
       {
@@ -448,9 +474,9 @@ export const buttonVariants = cva(
         intent: 'secondary',
         class: [
           '[&_svg]:text-[var(--color-icon-icon)]',
-          'hover:not-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtler-hover)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-secondary-bg-secondary-subtler-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtler-pressed)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtler-pressed)]',
         ],
       },
 
@@ -476,11 +502,15 @@ export const buttonVariants = cva(
         type: 'outlined',
         intent: 'default',
         class: [
-          'border-[#65656b]',
+          // Dark: #65656b is 2.43:1 on bg-surface (1.4.11 needs 3:1) -> gray-300
+          // (#9696ac, 4.87:1). Hover/press moved from the "-subtle" tier to
+          // "-subtler" like every other Outlined/Ghost intent: in dark, the
+          // -subtle tier washed text-subtle down to 3.51/2.61:1 (2026-09-27).
+          'border-[#65656b] [[data-theme=dark]_&]:border-[var(--color-gray-gray-300)]',
           '[&_svg]:text-[var(--color-text-text-subtle)]',
-          'hover:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)]',
-          'focus-visible:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-pressed)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',
+          'focus-visible:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler-pressed)]',
         ],
       },
       {
@@ -488,9 +518,9 @@ export const buttonVariants = cva(
         intent: 'default',
         class: [
           '[&_svg]:text-[var(--color-text-text-subtle)]',
-          'hover:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)]',
-          'focus-visible:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-pressed)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',
+          'focus-visible:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler-pressed)]',
         ],
       },
 
@@ -555,6 +585,15 @@ export interface ButtonProps
   asChild?: boolean;
   /** Shows a spinner in place of leftIcon and disables the button. Not supported with asChild. */
   loading?: boolean;
+  /**
+   * Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
+   * in the tab order and keeps receiving hover/focus (uses aria-disabled
+   * instead of the native `disabled` attribute). Use it when the user needs
+   * to find the button and learn WHY it's unavailable — wrap it in a
+   * Tooltip with the reason. `disabled` stays the hard version (removed
+   * from the tab order, no events at all).
+   */
+  softDisabled?: boolean;
   children?: ReactNode;
 }
 
@@ -570,14 +609,25 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       rightIcon,
       asChild = false,
       loading = false,
+      softDisabled = false,
       disabled,
       className,
       children,
+      onClick,
       ...rest
     },
     ref,
   ) {
     const isDisabled = disabled || loading;
+    // Soft-disabled buttons still receive the click event (they're focusable
+    // and not natively disabled), so swallow it here. Enter/Space on a
+    // <button> fire the same click event, so keyboard is covered too.
+    const handleClick = softDisabled
+      ? (event: MouseEvent<HTMLButtonElement>) => {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      : onClick;
     const sharedClassName = cn(
       buttonVariants({
         type,
@@ -612,7 +662,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     // opaque child.)
     if (asChild) {
       return (
-        <Slot ref={ref} className={sharedClassName} {...rest}>
+        <Slot
+          ref={ref}
+          className={sharedClassName}
+          aria-disabled={softDisabled || undefined}
+          onClick={handleClick}
+          {...rest}
+        >
           {children}
         </Slot>
       );
@@ -623,9 +679,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type="button"
         disabled={isDisabled}
-        aria-disabled={isDisabled}
-        aria-busy={loading}
+        aria-disabled={isDisabled || softDisabled || undefined}
+        aria-busy={loading || undefined}
         className={sharedClassName}
+        onClick={handleClick}
         {...rest}
       >
         {loading ? <Spinner /> : decorativeIcon(leftIcon)}
