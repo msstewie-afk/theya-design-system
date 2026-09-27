@@ -289,8 +289,8 @@ const BG_TOKEN_ROWS: TokenRow[] = [
   { name: '--color-bg-warning-bg-warning-on-dark', light: '#ffe684', dark: '#ffe684', description: 'Warning fill for use on a dark surface.' },
   { name: '--color-bg-danger-bg-danger', light: '#b40d49', dark: '#A60C3B', description: 'Danger/destructive state fill.' },
   { name: '--color-bg-danger-bg-danger-on-dark', light: '#F78DAD', dark: '#F78DAD', description: 'Danger fill for use on a dark surface.' },
-  { name: '--color-bg-info-bg-info', light: '#0068de', dark: '#00428c', description: 'Informational state fill.' },
-  { name: '--color-bg-info-bg-info-on-dark', light: '#63acff', dark: '#0057b9', description: 'Informational fill for use on a dark surface.' },
+  { name: '--color-bg-info-bg-info', light: '#14c8ec', dark: '#14c8ec', description: 'Informational state fill.' },
+  { name: '--color-bg-info-bg-info-on-dark', light: '#46e0ff', dark: '#02a9ca', description: 'Informational fill for use on a dark surface.' },
   { name: '--color-bg-neutral-bg-neutral-subtle', light: '#edeef8', dark: 'rgba(249, 249, 254, 0.2)', description: 'Low-emphasis neutral fill, e.g. hover/zebra-striping.' },
   { name: '--color-bg-surface-bg-surface', light: '#ffffff', dark: '#282944', description: 'Default page/card surface.' },
   { name: '--color-bg-surface-bg-surface-base', light: '#ffffff', dark: '#282944', description: 'Base app background, beneath surfaces.' },
@@ -335,7 +335,7 @@ const CHART_TOKEN_ROWS: TokenRow[] = [
  */
 const STATUS_TOKEN_ROWS: TokenRow[] = [
   { name: '--color-bg-primary-bg-primary-status', light: '#248bff', dark: '#3795ff', description: 'One step lighter than the solid primary fill — small/decorative tone indicators only (StatusDot, Timeline, BadgeIndicator).' },
-  { name: '--color-bg-info-bg-info-status', light: '#248bff', dark: '#0068de', description: 'Info counterpart of the -status family — same small-indicator use as primary-status.' },
+  { name: '--color-bg-info-bg-info-status', light: '#0091ae', dark: '#14c8ec', description: 'Info counterpart of the -status family — same small-indicator use as primary-status.' },
   { name: '--color-bg-success-bg-success-status', light: '#379C61', dark: '#379C61', description: 'Success counterpart of the -status family. Same value in both themes.' },
   { name: '--color-bg-warning-bg-warning-status', light: '#ffe684', dark: '#d17119', description: 'Warning counterpart of the -status family.' },
   { name: '--color-bg-danger-bg-danger-status', light: '#e63f7b', dark: '#e63f7b', description: 'Danger counterpart of the -status family. Same value in both themes.' },
