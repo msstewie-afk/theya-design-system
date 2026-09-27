@@ -1,4 +1,4 @@
-import { createElement, Fragment, useEffect, useState } from 'react';
+import { createElement, Fragment, useEffect, useRef, useState } from 'react';
 import type { Preview } from '@storybook/react-vite';
 import { addons } from '@storybook/preview-api';
 import { themes } from '@storybook/theming';
@@ -109,6 +109,39 @@ export const globalTypes = {
   },
 };
 
+// Autodocs pages render every exported story from a file together, each
+// wrapped through this same decorator chain — so a naive `createElement(
+// Toaster, ...)` here mounted one Toaster PER STORY on that combined page,
+// giving axe N duplicate `<section aria-label="Notifications ...">`
+// landmarks (landmark-unique, 2026-09-27). SingletonToaster below makes
+// only the first-mounted instance on a given page actually render; if it
+// later unmounts (navigating away), the guard resets so the next page's
+// first instance can take over. A single story canvas (only one instance
+// mounted) behaves exactly as before.
+let activeToasterId = 0;
+let nextToasterId = 0;
+
+function SingletonToaster({ dark }: { dark: boolean }) {
+  const idRef = useRef<number>();
+  if (idRef.current === undefined) idRef.current = ++nextToasterId;
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    const id = idRef.current!;
+    if (activeToasterId === 0) {
+      activeToasterId = id;
+      setIsActive(true);
+    }
+    return () => {
+      if (activeToasterId === id) {
+        activeToasterId = 0;
+      }
+    };
+  }, []);
+
+  return isActive ? createElement(Toaster, { dark }) : null;
+}
+
 export const decorators = [
   // Mounted once globally so any story that fires `toast(...)` (SecretField's
   // copy confirmation, etc.) actually renders it. Individual stories should
@@ -118,7 +151,7 @@ export const decorators = [
   // `parameters.toastTheme`.
   (Story, context) => {
     const dark = (context.parameters.toastTheme ?? context.globals.toastTheme) === 'dark';
-    return createElement(Fragment, null, createElement(Story), createElement(Toaster, { dark }));
+    return createElement(Fragment, null, createElement(Story), createElement(SingletonToaster, { dark }));
   },
 ];
 
