@@ -1,4 +1,4 @@
-import { createContext, useContext, useRef, useEffect } from 'react';
+import { createContext, useContext, useRef, useEffect, useId, useState } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { cn } from '@/lib/utils';
@@ -19,9 +19,11 @@ import { useMediaQuery } from './use-media-query';
  */
 interface PushSheetContextValue {
   onOpenChange?: (open: boolean) => void;
+  titleId: string;
+  setHasTitle: (v: boolean) => void;
 }
 
-const PushSheetContext = createContext<PushSheetContextValue>({});
+const PushSheetContext = createContext<PushSheetContextValue>({ titleId: '', setHasTitle: () => {} });
 
 export interface PushSheetProps extends React.ComponentProps<'div'> {
   open: boolean;
@@ -33,6 +35,12 @@ export interface PushSheetProps extends React.ComponentProps<'div'> {
 export function PushSheet({ open, onOpenChange, side = 'right', width = '22.5rem', className, style, children, ...props }: PushSheetProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const isDesktop = useMediaQuery('(min-width: 768px)');
+  // Tracked (not assumed) so `aria-labelledby` only ever points at an id
+  // that actually exists in the DOM — PushSheetTitle is optional, and a
+  // dangling aria-labelledby would just trade this violation for
+  // aria-valid-attr-value. Same mount-tracking approach as Command's listId.
+  const titleId = useId();
+  const [hasTitle, setHasTitle] = useState(false);
 
   useEffect(() => {
     if (!open || !isDesktop || onOpenChange == null) return;
@@ -52,7 +60,7 @@ export function PushSheet({ open, onOpenChange, side = 'right', width = '22.5rem
 
   if (!isDesktop) {
     return (
-      <PushSheetContext.Provider value={{ onOpenChange }}>
+      <PushSheetContext.Provider value={{ onOpenChange, titleId, setHasTitle }}>
         <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
           <DialogPrimitive.Portal>
             <DialogPrimitive.Overlay
@@ -62,6 +70,7 @@ export function PushSheet({ open, onOpenChange, side = 'right', width = '22.5rem
               )}
             />
             <DialogPrimitive.Content
+              aria-labelledby={hasTitle ? titleId : undefined}
               style={{ width, ...style }}
               className={cn(
                 'fixed inset-y-0 z-50 flex h-full max-w-[92vw] flex-col bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-xl outline-none',
@@ -83,11 +92,12 @@ export function PushSheet({ open, onOpenChange, side = 'right', width = '22.5rem
   }
 
   return (
-    <PushSheetContext.Provider value={{ onOpenChange }}>
+    <PushSheetContext.Provider value={{ onOpenChange, titleId, setHasTitle }}>
       <div
         ref={rootRef}
         role="dialog"
         aria-modal="false"
+        aria-labelledby={hasTitle ? titleId : undefined}
         data-state={open ? 'open' : 'closed'}
         aria-hidden={!open}
         {...({ inert: open ? undefined : true } as Record<string, unknown>)}
@@ -121,8 +131,13 @@ export function PushSheetFooter({ className, ...props }: React.ComponentProps<'d
   return <div className={cn('mt-auto flex items-center justify-end gap-2 border-t border-solid border-[var(--color-border-border-subtle)] px-[1.125rem] py-3.5', className)} {...props} />;
 }
 
-export function PushSheetTitle({ className, ...props }: React.ComponentProps<'h2'>) {
-  return <h2 className={cn('min-w-0 truncate font-body text-body-l font-semibold text-[var(--color-text-text)]', className)} {...props} />;
+export function PushSheetTitle({ id, className, ...props }: React.ComponentProps<'h2'>) {
+  const { titleId, setHasTitle } = useContext(PushSheetContext);
+  useEffect(() => {
+    setHasTitle(true);
+    return () => setHasTitle(false);
+  }, [setHasTitle]);
+  return <h2 id={id ?? titleId} className={cn('min-w-0 truncate font-body text-body-l font-semibold text-[var(--color-text-text)]', className)} {...props} />;
 }
 
 export function PushSheetDescription({ className, ...props }: React.ComponentProps<'p'>) {

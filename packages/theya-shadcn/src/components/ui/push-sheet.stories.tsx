@@ -95,7 +95,7 @@ export const Notifications: Story = {
   render: () => (
     <DemoShell>
       {(open, setOpen) => (
-        <PushSheet open={open} onOpenChange={setOpen} width="26rem">
+        <PushSheet open={open} onOpenChange={setOpen} width="26rem" aria-label="Notifications">
           {/* px-0: NotificationsInbox owns its own horizontal inset in bordered={false}
               mode (on the header/filter row only), so the body must contribute none -
               otherwise the list would double up with it, or the two would fight. */}
