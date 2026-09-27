@@ -1,5 +1,43 @@
 {
   "color": {
+    "cyan": {
+      "cyan-005": {
+        "value": "#ecfcff"
+      },
+      "cyan-010": {
+        "value": "#dcf9ff"
+      },
+      "cyan-050": {
+        "value": "#b4f2ff"
+      },
+      "cyan-100": {
+        "value": "#7ae9ff"
+      },
+      "cyan-200": {
+        "value": "#46e0ff"
+      },
+      "cyan-300": {
+        "value": "#14c8ec"
+      },
+      "cyan-400": {
+        "value": "#14b7d7"
+      },
+      "cyan-500": {
+        "value": "#02a9ca"
+      },
+      "cyan-600": {
+        "value": "#0091ae"
+      },
+      "cyan-700": {
+        "value": "#006377"
+      },
+      "cyan-800": {
+        "value": "#004654"
+      },
+      "cyan-900": {
+        "value": "#002b33"
+      }
+    },
     "blue": {
       "blue-005": {
         "value": "#f2f8ff"
