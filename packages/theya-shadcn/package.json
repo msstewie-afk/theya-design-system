@@ -77,7 +77,7 @@
     "@storybook/react": "^8.3.0",
     "@storybook/react-vite": "^8.3.0",
     "@storybook/test": "8.6.18",
-    "@storybook/test-runner": "^0.24.5",
+    "@storybook/test-runner": "^0.23.0",
     "@tailwindcss/vite": "^4.0.0",
     "@theya/tokens": "workspace:*",
     "@types/node": "^26.2.0",
