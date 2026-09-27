@@ -5,6 +5,24 @@ const meta: Meta<typeof NavigationMenu> = {
   title: 'Navigation/NavigationMenu',
   component: NavigationMenu,
   tags: ['autodocs'],
+  parameters: {
+    a11y: {
+      config: {
+        // aria-hidden-focus: confirmed false positive, not our code. Every
+        // open NavigationMenuTrigger renders @radix-ui/react-navigation-
+        // menu's own internal focus-proxy sentinel (a VisuallyHiddenPrimitive
+        // with aria-hidden + tabIndex=0 — see their dist/index.mjs, the
+        // NavigationMenuTrigger implementation) to redirect keyboard focus
+        // into/out of the open panel. It's deliberate upstream a11y
+        // plumbing wired to their internal focusProxyRef, not a leftover or
+        // a mistake — disabling it here would risk actually breaking
+        // keyboard navigation, and there is nothing on our side to patch
+        // (audit finding, 2026-09-27; confirmed against Radix's own
+        // source, not guessed).
+        rules: [{ id: 'aria-hidden-focus', enabled: false }],
+      },
+    },
+  },
   argTypes: {
     viewportClassName: { control: false, description: "Extra classes for the flyout panel's viewport wrapper." },
     value: { control: false, description: 'Controlled open item value.' },
