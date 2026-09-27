@@ -39,7 +39,7 @@ const TONE_CLASS: Record<ChipTone, string> = {
   success: 'border-transparent bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)]',
   warning: 'border-transparent bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)]',
   destructive: 'border-transparent bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)]',
-  info: 'border-transparent bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-text-text-info)]',
+  info: 'border-transparent bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-bg-info-bg-info-subtle)] [[data-theme=dark]_&]:text-[var(--color-text-text-info)]',
 };
 
 // Border color per tone for the `bordered` prop — a real per-tone border
@@ -92,7 +92,7 @@ const HOVER_CLASS: Record<'subtle' | 'solid', Record<ChipTone, string>> = {
     success: 'hover:bg-[var(--color-bg-success-bg-success-subtle-hover)]',
     warning: 'hover:bg-[var(--color-bg-warning-bg-warning-subtle-hover)]',
     destructive: 'hover:bg-[var(--color-bg-danger-bg-danger-subtle-hover)]',
-    info: 'hover:bg-[var(--color-bg-info-bg-info-subtle-hover)]',
+    info: 'hover:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:hover:bg-[var(--color-bg-info-bg-info-subtle-hover)]',
   },
   solid: {
     neutral: 'hover:bg-[#535358]',
