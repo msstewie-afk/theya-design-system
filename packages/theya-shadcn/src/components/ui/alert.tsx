@@ -20,7 +20,7 @@ export type AlertIndicator = 'none' | 'stripe';
 
 const VARIANT_CLASS: Record<AlertVariant, string> = {
   default: 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] border-[var(--color-border-border-subtle)] [&>svg]:text-[var(--color-icon-icon-subtle)] [&_[data-alert-description]]:text-[var(--color-text-text-subtler)]',
-  info: 'bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-text-text-info)] border-transparent [&>svg]:text-[var(--color-icon-icon-info)]',
+  info: 'bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] border-transparent [&>svg]:text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:[&>svg]:text-[var(--color-cyan-cyan-200)]',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)] border-transparent [&>svg]:text-[var(--color-icon-icon-success)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)] border-transparent [&>svg]:text-[var(--color-icon-icon-warning)]',
   destructive: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] border-transparent [&>svg]:text-[var(--color-icon-icon-danger)]',
@@ -39,6 +39,17 @@ const STRIPE_CLASS: Partial<Record<AlertVariant, string>> = {
 // living inside the alert (the built-in dismiss "X" here, and consumer-built
 // tertiary actions in AlertActions) reads as part of *this* alert instead of
 // a neutral, tone-less control floating on top of it.
+// The dismiss button is a ghost Button, whose hover/pressed fills are tuned for a plain page.
+// On the tinted alert surface those fills disappear, so each tone steps one level denser here,
+// matching the tonal Button states for the same tone.
+const DISMISS_STATE_CLASS: Record<AlertVariant, string> = {
+  default: '',
+  info: 'hover:not-disabled:bg-[var(--color-cyan-cyan-100)] focus-visible:bg-[var(--color-cyan-cyan-100)] active:not-disabled:bg-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:hover:not-disabled:bg-[var(--color-cyan-cyan-700)] [[data-theme=dark]_&]:focus-visible:bg-[var(--color-cyan-cyan-700)] [[data-theme=dark]_&]:active:not-disabled:bg-[var(--color-cyan-cyan-900)]',
+  success: 'hover:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-hover)] focus-visible:bg-[var(--color-bg-success-bg-success-subtle-hover)] active:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-pressed)]',
+  warning: 'hover:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-hover)] focus-visible:bg-[var(--color-bg-warning-bg-warning-subtle-hover)] active:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-pressed)]',
+  destructive: 'hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] focus-visible:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] active:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-pressed)]',
+};
+
 const VARIANT_TO_INTENT: Record<AlertVariant, NonNullable<ButtonProps['intent']>> = {
   default: 'default',
   info: 'info',
@@ -104,7 +115,7 @@ export function Alert({
           size="sm"
           aria-label={dismissLabel}
           onClick={onDismiss}
-          className="absolute right-2 top-2"
+          className={cn('absolute right-2 top-2', DISMISS_STATE_CLASS[variant])}
           leftIcon={<Xmark />}
         />
       )}
