@@ -14,7 +14,7 @@
         "value": "{color.green.green-200}"
       },
       "icon-warning": {
-        "value": "{color.yellow.yellow-200}"
+        "value": "{color.orange.orange-200}"
       },
       "icon-danger": {
         "value": "{color.red.red-200}"
@@ -29,7 +29,7 @@
         "value": "{color.green.green-200}"
       },
       "icon-warning-on-dark": {
-        "value": "{color.yellow.yellow-200}"
+        "value": "{color.orange.orange-200}"
       },
       "icon-danger-on-dark": {
         "value": "{color.red.red-200}"
@@ -57,17 +57,20 @@
       "text-link": {
         "value": "{color.blue.blue-200}"
       },
+      "text-link-subtle": {
+        "value": "{color.blue.blue-100}"
+      },
       "text-success": {
         "value": "{color.green.green-200}"
       },
       "text-warning": {
-        "value": "{color.yellow.yellow-200}"
+        "value": "{color.orange.orange-200}"
       },
       "text-danger": {
         "value": "{color.red.red-200}"
       },
       "text-info": {
-        "value": "{color.blue.blue-200}"
+        "value": "{color.blue.blue-100}"
       },
       "text-on-dark": {
         "value": "{color.white}"
@@ -91,7 +94,7 @@
         "value": "{color.green.green-200}"
       },
       "text-warning-on-dark": {
-        "value": "{color.yellow.yellow-100}"
+        "value": "{color.orange.orange-100}"
       },
       "text-danger-on-dark": {
         "value": "{color.red.red-200}"
@@ -105,7 +108,7 @@
     },
     "border": {
       "border-subtle": {
-        "value": "{color.slate.slate-400}"
+        "value": "{color.slate.slate-450}"
       },
       "border-subtler": {
         "value": "{color.slate.slate-500}"
@@ -120,22 +123,49 @@
         "value": "{color.green.green-200}"
       },
       "border-warning": {
-        "value": "{color.yellow.yellow-200}"
+        "value": "{color.orange.orange-200}"
       },
       "border-danger": {
-        "value": "{color.red.red-200}"
+        "value": "{color.red.red-300}"
       },
       "border": {
         "value": "{color.slate.slate-300}"
       },
       "border-danger-hover": {
-        "value": "{color.red.red-300}"
+        "value": "{color.red.red-200}"
       },
       "border-primary-subtler": {
         "value": "{color.blue.blue-300}"
       },
       "border-white": {
         "value": "{color.white}"
+      },
+      "border-success-hover": {
+        "value": "{color.green.green-200}"
+      },
+      "border-danger-pressed": {
+        "value": "{color.red.red-200}"
+      },
+      "border-success-pressed": {
+        "value": "{color.green.green-200}"
+      },
+      "border-info-hover": {
+        "value": "{color.blue.blue-400}"
+      },
+      "border-info-pressed": {
+        "value": "{color.blue.blue-400}"
+      },
+      "border-primary-hover": {
+        "value": "{color.blue.blue-200}"
+      },
+      "border-primary-pressed": {
+        "value": "{color.blue.blue-200}"
+      },
+      "border-warning-hover": {
+        "value": "{color.orange.orange-200}"
+      },
+      "border-warning-pressed": {
+        "value": "{color.orange.orange-200}"
       }
     },
     "bg": {
@@ -177,6 +207,9 @@
       "primary": {
         "bg-primary": {
           "value": "{color.blue.blue-500}"
+        },
+        "bg-primary-status": {
+          "value": "{color.blue.blue-300}"
         },
         "bg-primary-hover": {
           "value": "{color.blue.blue-600}"
@@ -242,6 +275,9 @@
         "bg-info": {
           "value": "{color.blue.blue-700}"
         },
+        "bg-info-status": {
+          "value": "{color.blue.blue-500}"
+        },
         "bg-info-hover": {
           "value": "{color.blue.blue-800}"
         },
@@ -269,13 +305,16 @@
       },
       "success": {
         "bg-success": {
-          "value": "{color.green.green-700}"
+          "value": "{color.green.green-600}"
+        },
+        "bg-success-status": {
+          "value": "{color.green.green-400}"
         },
         "bg-success-hover": {
-          "value": "{color.green.green-800}"
+          "value": "{color.green.green-700}"
         },
         "bg-success-pressed": {
-          "value": "{color.green.green-900}"
+          "value": "{color.green.green-800}"
         },
         "bg-success-subtle": {
           "value": "{color.green-a.green-a400}"
@@ -293,7 +332,7 @@
           "value": "{color.green-a.green-a300}"
         },
         "bg-success-on-dark": {
-          "value": "{color.green.green-500}"
+          "value": "{color.green.green-200}"
         },
         "bg-success-subtler": {
           "value": "{color.green-a.green-a200}"
@@ -301,36 +340,45 @@
       },
       "warning": {
         "bg-warning": {
-          "value": "{color.yellow.yellow-700}"
+          "value": "{color.orange.orange-700}"
+        },
+        "bg-warning-status": {
+          "value": "{color.orange.orange-400}"
         },
         "bg-warning-hover": {
-          "value": "{color.yellow.yellow-800}"
+          "value": "{color.orange.orange-800}"
         },
         "bg-warning-pressed": {
-          "value": "{color.yellow.yellow-900}"
+          "value": "{color.orange.orange-900}"
         },
         "bg-warning-subtle": {
-          "value": "{color.yellow-a.yellow-a300}"
+          "value": "{color.orange-a.orange-a300}"
         },
         "bg-warning-subtle-hover": {
-          "value": "{color.yellow-a.yellow-a400}"
+          "value": "{color.orange-a.orange-a400}"
         },
         "bg-warning-subtle-pressed": {
-          "value": "{color.yellow-a.yellow-a500}"
+          "value": "{color.orange-a.orange-a500}"
         },
-        "bg-warning-subtler-hover": {
-          "value": "{color.yellow-a.yellow-a100}"
+        "bg-warning-subtler": {
+          "value": "{color.orange-a.orange-a100}"
         },
         "bg-warning-subtler-pressed": {
-          "value": "{color.yellow-a.yellow-a200}"
+          "value": "{color.orange-a.orange-a200}"
         },
         "bg-warning-on-dark": {
-          "value": "{color.yellow.yellow-600}"
+          "value": "{color.yellow.yellow-100}"
+        },
+        "bg-warning-subtler-hover": {
+          "value": "{color.orange-a.orange-a100}"
         }
       },
       "danger": {
         "bg-danger": {
           "value": "{color.red.red-700}"
+        },
+        "bg-danger-status": {
+          "value": "{color.red.red-300}"
         },
         "bg-danger-hover": {
           "value": "{color.red.red-800}"
@@ -347,14 +395,17 @@
         "bg-danger-subtle-pressed": {
           "value": "{color.red-a.red-a600}"
         },
-        "bg-danger-subtler-hover": {
+        "bg-danger-subtler": {
           "value": "{color.red-a.red-a200}"
         },
         "bg-danger-subtler-pressed": {
           "value": "{color.red-a.red-a300}"
         },
         "bg-danger-on-dark": {
-          "value": "{color.red.red-600}"
+          "value": "{color.red.red-100}"
+        },
+        "bg-danger-subtler-hover": {
+          "value": "{color.red-a.red-a200}"
         }
       },
       "input": {
@@ -366,6 +417,12 @@
         },
         "bg-input-danger": {
           "value": "{color.red-a.red-a200}"
+        },
+        "bg-input-danger-pressed": {
+          "value": "{color.red-a.red-a300}"
+        },
+        "bg-input-success": {
+          "value": "rgba(99, 161, 56, 0.2)"
         }
       },
       "surface": {
@@ -429,15 +486,13 @@
         "value": "{color.blue-a.blue-a400}"
       },
       "focus-ring-error": {
-        "value": "{color.red-a.red-a300}"
-      }
-    },
-    "gradient": {
-      "gradient-primary": {
-        "value": "linear-gradient(90deg, {color.primary-gradient.primary-grad-01} 0%, {color.blue.blue-500} 25%, {color.primary-gradient.primary-grad-02} 50%, {color.primary-gradient.primary-grad-03} 100%)"
+        "value": "{color.red-a.red-a400}"
       },
-      "gradient-avatar": {
-        "value": "conic-gradient(from 0deg, {color.blue.blue-200} 33%, {color.purple.purple-200} 70%, {color.teal.teal-200} 100%)"
+      "focus-ring-success": {
+        "value": "{color.green-a.green-a400}"
+      },
+      "focus-ring-warning": {
+        "value": "{color.yellow-a.orange-a400}"
       }
     }
   }

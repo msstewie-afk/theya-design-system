@@ -132,13 +132,17 @@ for v in data["typography_primitive"]["variables"]:
     set_nested(typography_primitive, parts, {"value": val})
 
 # Manual override: Figma's font-family variables still say "Inter" (the
-# Figma file hasn't been updated), but the DS switched to a self-hosted
-# Clash Grotesk. Keeping this here means re-running convert.py after a
-# fresh Figma export won't silently revert the font. Update this (or the
+# Figma file hasn't been updated), but Theya's real source of truth is
+# the self-hosted Sora (see packages/tokens/fonts/fonts.css and the
+# @font-face rule it declares) — "Clash Grotesk" was a leftover from an
+# unrelated reference design system and never had a matching @font-face
+# in this package, so it silently fell back to the browser default.
+# Keeping this override here means re-running convert.py after a fresh
+# Figma export won't silently revert the font. Update this (or the
 # Figma variable itself) if the typeface changes again.
 FONT_FAMILY_OVERRIDES = {
-    "heading": "Clash Grotesk",
-    "body": "Clash Grotesk",
+    "heading": "Sora",
+    "body": "Sora",
 }
 for key, value in FONT_FAMILY_OVERRIDES.items():
     if key in typography_primitive.get("typography", {}).get("font-family", {}):

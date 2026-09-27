@@ -36,7 +36,7 @@
         "type": "dimension"
       },
       "size-control-xl": {
-        "value": "{size.size40}",
+        "value": "{size.size36}",
         "type": "dimension"
       },
       "size-control-sm": {
@@ -52,14 +52,22 @@
         "type": "dimension"
       },
       "size-control-2xl": {
-        "value": "{size.size48}",
+        "value": "{size.size40}",
         "type": "dimension"
       },
       "size-control-3xl": {
-        "value": "{size.size56}",
+        "value": "{size.size44}",
         "type": "dimension"
       },
       "size-control-4xl": {
+        "value": "{size.size48}",
+        "type": "dimension"
+      },
+      "size-control-5xl": {
+        "value": "{size.size56}",
+        "type": "dimension"
+      },
+      "size-control-6xl": {
         "value": "{size.size64}",
         "type": "dimension"
       }
@@ -88,10 +96,18 @@
         "type": "dimension"
       },
       "border-radius-2xl": {
-        "value": "{size.size16}",
+        "value": "{size.size10}",
         "type": "dimension"
       },
       "border-radius-3xl": {
+        "value": "{size.size12}",
+        "type": "dimension"
+      },
+      "border-radius-4xl": {
+        "value": "{size.size16}",
+        "type": "dimension"
+      },
+      "border-radius-5xl": {
         "value": "{size.size32}",
         "type": "dimension"
       },
@@ -257,11 +273,11 @@
         "value": "{size.size10}",
         "type": "dimension"
       },
-      "padding-neg-3xs": {
+      "padding--3xs": {
         "value": -4,
         "type": "dimension"
       },
-      "padding-neg-2xs": {
+      "padding--2xs": {
         "value": -2,
         "type": "dimension"
       }
@@ -387,7 +403,7 @@
         "value": "{size.size32}",
         "type": "dimension"
       },
-      "gap-neg-2xs": {
+      "gap--2xs": {
         "value": -2,
         "type": "dimension"
       }
