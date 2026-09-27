@@ -99,6 +99,7 @@ export const SingleLineWithGradient: Story = {
 export const NoGrid: Story = {
   args: {
     ...MultiLine.args,
+    data: [...dailyData],
     showGrid: false,
     showYAxis: false,
   },

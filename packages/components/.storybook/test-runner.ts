@@ -1,0 +1,34 @@
+import type { TestRunnerConfig } from '@storybook/test-runner';
+import { getStoryContext } from '@storybook/test-runner';
+import { injectAxe, checkA11y, configureAxe } from 'axe-playwright';
+
+/**
+ * Wires axe-core's full violation output (rule id, impact, affected DOM node,
+ * and a "how to fix" summary) into the test-runner's console output — without
+ * this, a11y issues only show up as a bare count ("Found N a11y violations").
+ */
+const config: TestRunnerConfig = {
+  async preVisit(page) {
+    await injectAxe(page);
+  },
+  async postVisit(page, context) {
+    const storyContext = await getStoryContext(page, context);
+
+    // Skip a11y checks for stories that opt out (e.g. deliberately incomplete states)
+    if (storyContext.parameters?.a11y?.disable) {
+      return;
+    }
+
+    await configureAxe(page, {
+      rules: storyContext.parameters?.a11y?.config?.rules ?? [],
+    });
+
+    await checkA11y(page, '#storybook-root', {
+      axeOptions: storyContext.parameters?.a11y?.options,
+      detailedReport: true,
+      detailedReportOptions: { html: true },
+    });
+  },
+};
+
+export default config;
