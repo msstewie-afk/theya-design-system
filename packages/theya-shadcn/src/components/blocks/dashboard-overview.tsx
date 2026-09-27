@@ -221,7 +221,7 @@ export function DashboardOverview({
       <div className="flex flex-col gap-4">
         <div className="flex min-w-0 flex-wrap items-center justify-between gap-2">
           <div className="min-w-0">
-            <h3 className="font-body text-body-l font-semibold leading-tight text-[var(--color-text-text)]">Needs attention</h3>
+            <h2 className="font-body text-body-l font-semibold leading-tight text-[var(--color-text-text)]">Needs attention</h2>
             <CardDescription>{attentionCount > 0 ? 'The items most in need of action right now' : 'Everything is healthy right now'}</CardDescription>
           </div>
           {attentionCount > 0 && (
@@ -382,7 +382,7 @@ export function DashboardOverview({
         <>
           <Separator />
           <div className="flex flex-col gap-4">
-            <h3 className="font-body text-body-l font-semibold leading-tight text-[var(--color-text-text)]">Recent activity</h3>
+            <h2 className="font-body text-body-l font-semibold leading-tight text-[var(--color-text-text)]">Recent activity</h2>
             <Timeline aria-label="Recent account activity">
               {activity.map((item, i) => (
                 <TimelineItem key={i} tone={item.tone} icon={item.icon} time={item.time}>
