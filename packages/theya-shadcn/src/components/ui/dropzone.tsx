@@ -97,20 +97,6 @@ function Dropzone({
         aria-hidden="true"
       />
       <div
-        role="button"
-        tabIndex={disabled || loading ? -1 : 0}
-        aria-labelledby={ariaLabel ? `${contextId} ${labelId}` : labelId}
-        aria-disabled={disabled || undefined}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={describedBy}
-        onClick={openPicker}
-        onKeyDown={(e) => {
-          if (disabled || loading) return;
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openPicker();
-          }
-        }}
         onDragEnter={(e) => {
           if (disabled || loading) return;
           e.preventDefault();
@@ -135,7 +121,7 @@ function Dropzone({
           if (list.length > 0) onFiles(multiple ? list : list.slice(0, 1));
         }}
         className={cn(
-          'group flex w-[450px] h-[280px] flex-col items-center justify-center gap-4 text-center cursor-pointer outline-none',
+          'group relative flex w-[450px] h-[280px] flex-col items-center justify-center gap-4 text-center cursor-pointer outline-none',
           'rounded-[var(--size-border-radius-border-radius-2xl)] border border-dashed',
           'border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
           'p-[var(--size-margin-margin-3xl)]',
@@ -144,8 +130,12 @@ function Dropzone({
           // error or success dropzone on hover — gated off both states below,
           // each with its own matching hover treatment (2026-09-26 fix).
           !error && !successFile && 'hover:not-disabled:border-[var(--color-border-border-primary)] hover:not-disabled:bg-[var(--color-bg-primary-bg-primary-subtle)]',
-          !error && !successFile && 'focus-visible:border-[var(--color-border-border-primary)]',
-          'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          // focus-within, not focus-visible: the real focusable control is
+          // now the stretched overlay <button> below (a nested-interactive
+          // fix — this div used to carry role="button" itself, with the
+          // "Browse" Button nested inside it, which axe flags), not this div.
+          !error && !successFile && 'focus-within:border-[var(--color-border-border-primary)]',
+          'focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
           error && 'border-[var(--color-border-border-danger)] bg-[var(--color-bg-danger-bg-danger-subtle)]',
           error && 'hover:not-disabled:border-[var(--color-border-border-danger-hover)] hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)]',
           !error && successFile && 'border-[var(--color-border-border-success)] bg-[var(--color-bg-success-bg-success-subtle)]',
@@ -155,6 +145,21 @@ function Dropzone({
           disabled && 'pointer-events-none cursor-not-allowed opacity-50',
         )}
       >
+        {/* Stretched hit-target: a real <button>, not role="button" on the
+            outer div — that would nest the "Browse" Button inside another
+            interactive-role element (axe: nested-interactive). Sits behind
+            "Browse" (which gets its own `relative z-10` below) so both stay
+            independently clickable; everything else in the zone is
+            non-interactive, so covering it is fine. */}
+        <button
+          type="button"
+          disabled={disabled || loading}
+          aria-labelledby={ariaLabel ? `${contextId} ${labelId}` : labelId}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={describedBy}
+          onClick={openPicker}
+          className="absolute inset-0 cursor-pointer outline-none disabled:cursor-not-allowed"
+        />
         {ariaLabel && (
           <span id={contextId} className="sr-only">
             {ariaLabel}
@@ -200,7 +205,7 @@ function Dropzone({
               {error ? 'File is uploaded with error' : 'Drag files here'}
             </p>
             <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">or</p>
-            <Button type="filled" intent="primary" size="lg" className="mt-2" onClick={(e) => { e.stopPropagation(); openPicker(); }}>
+            <Button type="filled" intent="primary" size="lg" className="relative z-10 mt-2" onClick={(e) => { e.stopPropagation(); openPicker(); }}>
               Browse
             </Button>
           </div>

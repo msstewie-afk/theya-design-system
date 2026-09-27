@@ -1,4 +1,4 @@
-import { createElement, type KeyboardEvent, type ReactNode } from 'react';
+import { createElement, type ReactNode } from 'react';
 import { Page, MediaImage, MediaVideo, Code, Archive, Xmark, WarningTriangle } from 'iconoir-react';
 import { Button } from './button';
 import { cn } from '@/lib/utils';
@@ -93,15 +93,6 @@ export function Attachment({
   // row (no href) needs the outer element itself to become the focusable
   // control, since there's no other focusable element inside it otherwise.
   const isClickOnly = Boolean(onClick) && !href;
-  const handleKeyDown = isClickOnly
-    ? (event: KeyboardEvent<HTMLDivElement>) => {
-        if (event.target !== event.currentTarget) return; // let nested controls (remove button) handle their own keys
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          onClick?.();
-        }
-      }
-    : undefined;
   // `group` so the icon/thumb box (a descendant) can react to this
   // wrapper's own :focus-within via group-focus-within below.
   const interactiveClasses = isInteractive
@@ -167,6 +158,22 @@ export function Attachment({
       )
     : name;
 
+  // Click-only rows (no href) need the whole surface to be the real
+  // focusable control, same idea as the href <a>'s stretched ::after —
+  // but as an actual sibling <button> rather than role="button" on the
+  // outer element, so a nested `removeButton` never ends up as an
+  // interactive descendant of another interactive-role element
+  // (axe: nested-interactive). Actions/remove sit in their own
+  // `relative z-10` layer above it, so they stay independently clickable.
+  const clickOverlay = isClickOnly ? (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={name}
+      className="absolute inset-0 outline-none"
+    />
+  ) : null;
+
   const metaLine = hasError
     ? error
     : showMeta
@@ -198,13 +205,10 @@ export function Attachment({
         data-slot="attachment"
         data-interactive={isInteractive || undefined}
         data-selected={selected || undefined}
-        onClick={onClick}
-        role={isClickOnly ? 'button' : undefined}
-        tabIndex={isClickOnly ? 0 : undefined}
-        onKeyDown={handleKeyDown}
+        onClick={isClickOnly ? undefined : onClick}
         {...rest}
         className={cn(
-          'inline-flex self-start max-w-[min(100%,20rem)] items-center gap-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid py-2 pl-3',
+          'relative inline-flex self-start max-w-[min(100%,20rem)] items-center gap-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid py-2 pl-3',
           onRemove ? 'pr-1.5' : 'pr-5',
           borderToneClass,
           surfaceBgClass,
@@ -212,6 +216,7 @@ export function Attachment({
           className,
         )}
       >
+        {clickOverlay}
         <span className={cn('flex shrink-0 items-center justify-center size-4', iconColorClass)}>
           {kindIcon(type, previewUrl)}
         </span>
@@ -249,13 +254,10 @@ export function Attachment({
         data-slot="attachment"
         data-interactive={isInteractive || undefined}
         data-selected={selected || undefined}
-        onClick={onClick}
-        role={isClickOnly ? 'button' : undefined}
-        tabIndex={isClickOnly ? 0 : undefined}
-        onKeyDown={handleKeyDown}
+        onClick={isClickOnly ? undefined : onClick}
         {...rest}
         className={cn(
-          'flex items-center gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid',
+          'relative flex items-center gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid',
           'p-[var(--size-margin-margin-s)]',
           borderToneClass,
           surfaceBgClass,
@@ -263,6 +265,7 @@ export function Attachment({
           className,
         )}
       >
+        {clickOverlay}
         <span className={cn('flex items-center justify-center size-10 shrink-0 rounded-[var(--size-border-radius-border-radius-md)] overflow-hidden', iconBoxBgClass)}>
           {previewUrl ? (
             <img src={previewUrl} alt="" className="size-full object-cover" />
@@ -309,10 +312,7 @@ export function Attachment({
       data-slot="attachment"
       data-interactive={isInteractive || undefined}
       data-selected={selected || undefined}
-      onClick={onClick}
-      role={isClickOnly ? 'button' : undefined}
-      tabIndex={isClickOnly ? 0 : undefined}
-      onKeyDown={handleKeyDown}
+      onClick={isClickOnly ? undefined : onClick}
       {...rest}
       className={cn(
         'relative flex w-full flex-col items-center gap-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid p-3 outline-none',
@@ -322,6 +322,7 @@ export function Attachment({
         className,
       )}
     >
+      {clickOverlay}
       <span className={cn('flex aspect-video w-full items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] overflow-hidden', iconBoxBgClass)}>
         {previewUrl ? (
           <img src={previewUrl} alt="" className="size-full object-cover" />

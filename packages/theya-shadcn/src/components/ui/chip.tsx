@@ -1,4 +1,4 @@
-import { useState, cloneElement, isValidElement } from 'react';
+import { useId, useState, cloneElement, isValidElement } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { Xmark, Check } from 'iconoir-react';
@@ -9,16 +9,19 @@ import type { StatusTone } from './status-dot';
 /**
  * A compact pill for one value that can be selected and/or removed —
  * a status, a selected option, a suggestion. Unlike a static label
- * pill, Chip is interactive by default: role="button" + aria-pressed
- * out of the box, toggling on click or Enter/Space. The pressable
- * root is always a <span> (or Slot via asChild) — never a real
- * <button> — so a trailing ChipRemove (a real button) can nest inside
- * it without invalid button-in-button HTML.
+ * pill, Chip is interactive by default: toggles on click or Enter/Space.
+ * The outer element is always a plain <span> (or Slot via asChild) —
+ * the actual pressable control is a real <button>, stretched over the
+ * whole pill (absolute inset-0), so a trailing ChipRemove (also a real
+ * button) sits as its sibling instead of nesting inside another
+ * interactive element (axe: nested-interactive; previously this used
+ * role="button" on the outer span for the same button-in-button
+ * reason, which avoided invalid HTML but still tripped nested-interactive).
  *
  * When interactive AND carrying a ChipRemove, give the Chip an
- * explicit aria-label matching its visible text — a role="button"
- * computes its name from content, which recurses into ChipRemove's
- * own "Remove X" label, producing "X Remove X" without it.
+ * explicit aria-label matching its visible text — otherwise the name
+ * would recurse into ChipRemove's own "Remove X" label, producing
+ * "X Remove X" without it.
  */
 export type ChipTone = StatusTone;
 export type ChipAppearance = 'subtle' | 'solid';
@@ -149,6 +152,8 @@ export function Chip({
   children,
   ...props
 }: ChipProps) {
+  const { 'aria-label': ariaLabelProp, ...restProps } = props;
+  const contentId = useId();
   const [internalPressed, setInternalPressed] = useState(defaultPressed ?? false);
   const isPressed = pressed !== undefined ? pressed : internalPressed;
   const isPressable = interactive && !asChild;
@@ -175,24 +180,16 @@ export function Chip({
 
   return (
     <Comp
+      id={isPressable ? contentId : undefined}
       data-pressed={isSelected ? true : undefined}
-      aria-pressed={isPressable ? isPressed : undefined}
-      aria-disabled={isPressable && disabled ? true : undefined}
-      role={isPressable ? 'button' : undefined}
-      tabIndex={isPressable ? (disabled ? -1 : 0) : undefined}
-      onClick={(event) => {
-        onClick?.(event);
-        if (isPressable && !disabled) activate();
-      }}
-      onKeyDown={(event) => {
-        onKeyDown?.(event);
-        if (isPressable && !disabled && !event.defaultPrevented && (event.key === 'Enter' || event.key === ' ')) {
-          event.preventDefault();
-          activate();
-        }
-      }}
+      data-disabled={isPressable && disabled ? true : undefined}
+      // Non-pressable chips have no overlay button to carry this instead —
+      // a pressable chip's aria-label moves to that button below.
+      aria-label={isPressable ? undefined : ariaLabelProp}
+      onClick={isPressable ? undefined : onClick}
+      onKeyDown={isPressable ? undefined : onKeyDown}
       className={cn(
-        'inline-flex w-fit max-w-full shrink-0 items-center gap-1 border border-solid pl-2',
+        'relative inline-flex w-fit max-w-full shrink-0 items-center gap-1 border border-solid pl-2',
         'font-body text-body-xs font-medium whitespace-nowrap outline-none',
         'transition-[background-color,border-color,color] duration-150 ease-out motion-reduce:transition-none',
         '[&_svg]:pointer-events-none [&_svg]:shrink-0',
@@ -200,7 +197,6 @@ export function Chip({
         // *bare* icon (no existing `size-*` class, e.g. ChipRemove's inner
         // Button icon) — a leading icon passed unstyled falls through to this.
         size === 'lg' ? '[&_svg:not([class*="size-"])]:size-3.5' : '[&_svg:not([class*="size-"])]:size-3',
-        'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
         size === 'sm'
           ? // 1px more than the shared radius-sm token (2px) — Мария's call
             // specifically for Chip's small size; not changing the shared
@@ -213,15 +209,35 @@ export function Chip({
         look === 'solid' ? SOLID_TONE_CLASS[tone] : TONE_CLASS[tone],
         bordered && BORDER_TONE_CLASS[tone],
         isPressable &&
-          cn(
-            'cursor-pointer',
-            HOVER_CLASS[look][tone],
-            'aria-disabled:pointer-events-none aria-disabled:opacity-50',
-          ),
+          cn('cursor-pointer', HOVER_CLASS[look][tone], 'data-[disabled]:pointer-events-none data-[disabled]:opacity-50'),
         className,
       )}
-      {...props}
+      {...restProps}
     >
+      {isPressable && (
+        // The real pressable control — a stretched <button>, not
+        // role="button" on Comp itself. Comp can carry a real nested
+        // <button> (ChipRemove, given its own `relative z-10` below) as a
+        // sibling of this overlay without nesting one interactive-role
+        // element inside another (axe: nested-interactive). Name comes
+        // from an explicit aria-label when given (required once a
+        // ChipRemove sibling exists, see ChipRemove's own doc comment) —
+        // otherwise from this chip's own visible content, same as the old
+        // content-derived role="button" name.
+        <button
+          type="button"
+          aria-pressed={isPressed}
+          disabled={disabled || undefined}
+          aria-label={ariaLabelProp}
+          aria-labelledby={ariaLabelProp ? undefined : contentId}
+          onClick={(event) => {
+            onClick?.(event);
+            if (!disabled) activate();
+          }}
+          onKeyDown={onKeyDown}
+          className="absolute inset-0 outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]"
+        />
+      )}
       {displayIcon != null && decorativeIcon(displayIcon)}
       {children}
     </Comp>
@@ -246,7 +262,7 @@ export function ChipRemove({ className, onClick, children, type: _nativeType, ..
         event.stopPropagation();
         onClick?.(event);
       }}
-      className={cn('-mr-2 shrink-0 text-[var(--color-icon-icon-subtle)]', className)}
+      className={cn('relative z-10 -mr-2 shrink-0 text-[var(--color-icon-icon-subtle)]', className)}
       leftIcon={children ?? <Xmark width={14} height={14} />}
       {...props}
     />
