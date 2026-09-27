@@ -105,6 +105,7 @@ export const CardPlaceholder: Story = {
   parameters: { controls: { exclude: ['className'] } },
   render: () => (
     <div
+      role="status"
       className="flex w-80 max-w-full flex-col gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5"
       aria-busy="true"
       aria-label="Loading site"
