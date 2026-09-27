@@ -94,7 +94,7 @@ const INTENT_TOKENS: Record<BadgeIndicatorIntent, IntentTokens> = {
   warning: {
     // Outlined — extrapolated, not fetched
     filledBg: 'bg-[var(--color-bg-warning-bg-warning-status)]',
-    filledText: 'text-[var(--color-text-text-on-dark)]',
+    filledText: 'text-[var(--color-text-text-warning)] [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
     outlinedBg: 'bg-[var(--color-bg-warning-bg-warning-subtle)]',
     outlinedBorder: 'border-[var(--color-border-border-warning)]',
     outlinedText: 'text-[var(--color-text-text-warning)]',
