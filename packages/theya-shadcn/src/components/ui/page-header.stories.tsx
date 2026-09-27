@@ -89,7 +89,7 @@ export const WithBreadcrumbAndMeta: Story = {
     actions: <Button type="outlined">Visit site</Button>,
     children: (
       <>
-        <Badge variant="success">
+        <Badge tone="success">
           <StatusDot tone="success" />
           Active
         </Badge>

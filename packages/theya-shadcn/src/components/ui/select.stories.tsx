@@ -3,7 +3,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, SelectLabel, SelectSeparator, SelectGroup } from './select';
 import type { SelectTriggerProps, SelectItemProps } from './select';
 import type { StatusTone } from './status-dot';
-import type { BadgeVariant } from './badge';
+import type { BadgeTone } from './badge';
 import { Label } from './label';
 import { Cloud, Globe, Server } from 'iconoir-react';
 
@@ -79,7 +79,7 @@ const meta: Meta<SelectStoryArgs> = {
     },
     badge: {
       control: false,
-      description: 'On SelectItem. { label, variant? } — pill shown after the text.',
+      description: 'On SelectItem. { label, tone? } — pill shown after the text.',
       table: { category: 'Content' },
     },
     description: {
@@ -347,8 +347,8 @@ export const WithBadge: Story = {
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="a" icon={<Server />} badge={{ label: 12 }}>Backend team</SelectItem>
-        <SelectItem value="b" icon={<Cloud />} badge={{ label: 3, variant: 'warning' }}>Infra team</SelectItem>
-        <SelectItem value="c" icon={<Globe />} badge={{ label: 'New', variant: 'success' }}>Growth team</SelectItem>
+        <SelectItem value="b" icon={<Cloud />} badge={{ label: 3, tone: 'warning' }}>Infra team</SelectItem>
+        <SelectItem value="c" icon={<Globe />} badge={{ label: 'New', tone: 'success' }}>Growth team</SelectItem>
       </SelectContent>
     </Select>
   ),

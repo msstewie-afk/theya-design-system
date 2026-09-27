@@ -225,7 +225,7 @@ export function DashboardOverview({
             <CardDescription>{attentionCount > 0 ? 'The items most in need of action right now' : 'Everything is healthy right now'}</CardDescription>
           </div>
           {attentionCount > 0 && (
-            <Badge variant="warning">
+            <Badge tone="warning">
               <StatusDot tone="warning" />
               <span className="tabular-nums">{attentionCount}</span>
               {total > attentionCount && (
@@ -316,7 +316,7 @@ export function DashboardOverview({
               <CardTitle>Requests</CardTitle>
               <CardDescription>Across all sites · last 14 days · millions / day</CardDescription>
             </div>
-            <Badge variant="success">
+            <Badge tone="success">
               <StatusDot tone="success" />
               Healthy
             </Badge>
@@ -333,7 +333,7 @@ export function DashboardOverview({
               <CardDescription>Metered against your plan</CardDescription>
             </div>
             {anyNearLimit && (
-              <Badge variant="warning">
+              <Badge tone="warning">
                 <StatusDot tone="warning" />
                 Near limit
               </Badge>

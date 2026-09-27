@@ -147,7 +147,7 @@ function CounterCarousel() {
           {notes.map((version, i) => (
             <CarouselItem key={version} aria-label={`${i + 1} of ${notes.length}`}>
               <div className={`${TILE} flex-col gap-2`}>
-                <Badge variant="success">
+                <Badge tone="success">
                   <StatusDot tone="success" />
                   Released
                 </Badge>

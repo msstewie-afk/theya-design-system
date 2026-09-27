@@ -44,7 +44,7 @@ export const Default: Story = {
     // the true top/bottom edge reads as rounded.
     <ul className="max-w-md divide-y divide-[var(--color-border-border-subtle)] overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
       <li>
-        <ListItem className="rounded-none" leading={<Globe />} title="shop.seashell.dev" description="Primary domain" trailing={<Badge variant="success">Live</Badge>} />
+        <ListItem className="rounded-none" leading={<Globe />} title="shop.seashell.dev" description="Primary domain" trailing={<Badge tone="success">Live</Badge>} />
       </li>
       <li>
         <ListItem className="rounded-none" leading={<Database />} title="acme_production" description={<>MySQL 8.0<DotSeparator />eu-west-1</>} trailing={<span className="font-mono text-body-m">2.4 GB</span>} />

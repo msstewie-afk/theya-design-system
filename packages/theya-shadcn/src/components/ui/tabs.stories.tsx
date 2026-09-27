@@ -142,11 +142,11 @@ export const WithBadge: Story = {
       <TabsList>
         <TabsTrigger value="logs">
           Logs
-          <Badge variant="neutral">128</Badge>
+          <Badge tone="neutral">128</Badge>
         </TabsTrigger>
         <TabsTrigger value="alerts">
           Alerts
-          <Badge variant="danger">
+          <Badge tone="danger">
             <StatusDot tone="danger" />3 firing
           </Badge>
         </TabsTrigger>

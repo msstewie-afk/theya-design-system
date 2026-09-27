@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { type DateRange } from 'react-day-picker';
 import { Search, Activity, LogIn, CloudUpload, CreditCard, ShieldCheck, UserPlus, Database, Settings } from 'iconoir-react';
 import { Button } from '@/components/ui/button';
-import { Badge, type BadgeVariant } from '@/components/ui/badge';
+import { Badge, type BadgeTone } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import { Combobox } from '@/components/ui/combobox';
@@ -45,7 +45,7 @@ export interface AuditEvent {
 export interface AuditCategoryMeta {
   value: string;
   label: string;
-  badge?: BadgeVariant;
+  badge?: BadgeTone;
   icon?: ReactNode;
 }
 
@@ -246,7 +246,7 @@ function EventRow({ event, category }: { event: AuditEvent; category: AuditCateg
           <span className="flex min-w-0 flex-col gap-0.5">
             <span className="flex flex-wrap items-center gap-2">
               <span className="font-medium">{event.action}</span>
-              <Badge variant={category.badge ?? 'neutral'}>{category.label}</Badge>
+              <Badge tone={category.badge ?? 'neutral'}>{category.label}</Badge>
             </span>
             {event.target && <span className="truncate text-body-s text-[var(--color-text-text-subtler)]">{event.target}</span>}
             <span className="flex flex-wrap items-center gap-x-2 font-body text-body-xs text-[var(--color-text-text-subtler)] sm:hidden">

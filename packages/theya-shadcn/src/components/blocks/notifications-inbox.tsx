@@ -257,7 +257,7 @@ export function NotificationsInbox({
           <ToggleGroupItem value="unread">
             Unread
             {unreadCount > 0 && (
-              <Badge variant="neutral" className="ml-1.5">
+              <Badge tone="neutral" className="ml-1.5">
                 {unreadCount}
               </Badge>
             )}

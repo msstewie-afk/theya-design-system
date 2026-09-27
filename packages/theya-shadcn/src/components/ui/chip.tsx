@@ -65,7 +65,7 @@ const BORDER_TONE_CLASS: Record<ChipTone, string> = {
 // pairing). Used for `appearance="solid"` at rest, AND for a *selected*
 // `appearance="subtle"` (tonal) chip — Мария's call: a selected tonal chip
 // should read as solid, not stay in its tinted state.
-const SOLID_TONE_CLASS: Record<ChipTone, string> = {
+export const SOLID_TONE_CLASS: Record<ChipTone, string> = {
   neutral: 'border-transparent bg-[#65656b] text-[var(--color-text-text-on-dark)]',
   primary: 'border-transparent bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-dark)]',
   // Was a hand-picked hex (#448018) matching Button's OLD workaround for a

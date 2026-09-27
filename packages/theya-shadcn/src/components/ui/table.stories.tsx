@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableCaption } from './table';
 import { DataTableCell } from './data-table-cell';
-import type { BadgeVariant } from './badge';
+import type { BadgeTone } from './badge';
 
 /**
  * Table — semantic HTML table primitives (Table, TableHeader, TableBody,
@@ -62,7 +62,7 @@ const STATUS_LABEL: Record<SiteStatus, string> = {
   error: 'Error',
 };
 
-const STATUS_BADGE: Record<SiteStatus, BadgeVariant> = {
+const STATUS_BADGE: Record<SiteStatus, BadgeTone> = {
   running: 'success',
   suspended: 'warning',
   error: 'danger',
@@ -98,7 +98,7 @@ export const Default: Story = {
             body cells zero TableCell's padding in bodyCellAttrs() — left in,
             the two paddings stack into a doubled 32px inset. */}
             <TableCell className="p-0">
-              <DataTableCell kind="badge" variant={STATUS_BADGE[site.status]} label={STATUS_LABEL[site.status]} />
+              <DataTableCell kind="badge" tone={STATUS_BADGE[site.status]} label={STATUS_LABEL[site.status]} />
             </TableCell>
             <TableCell>{site.plan}</TableCell>
             <TableCell className="text-right tabular-nums">{site.requests.toLocaleString('en-US')}</TableCell>

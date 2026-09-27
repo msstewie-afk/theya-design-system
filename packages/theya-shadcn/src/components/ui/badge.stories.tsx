@@ -16,9 +16,9 @@ const meta = {
   tags: ['autodocs'],
   parameters: { layout: 'centered' },
   argTypes: {
-    variant: {
+    tone: {
       control: 'select',
-      options: ['neutral', 'primary', 'success', 'warning', 'danger', 'info', 'solid'],
+      options: ['neutral', 'primary', 'success', 'warning', 'danger', 'info'],
       description: 'Tone token family applied to the pill.',
     },
     size: {
@@ -29,7 +29,7 @@ const meta = {
     asChild: { control: false, description: 'Renders the child element instead of a span, merging props.' },
     children: { control: 'text', description: 'Badge content.' },
   },
-  args: { children: 'Running', variant: 'neutral', size: 'sm' },
+  args: { children: 'Running', tone: 'neutral', size: 'sm' },
 } satisfies Meta<typeof Badge>;
 
 export default meta;
@@ -40,28 +40,28 @@ export const Default: Story = {};
 
 /** Every tone, from neutral through the solid accent. */
 export const Variants: Story = {
-  parameters: { controls: { exclude: ['variant'] } },
+  parameters: { controls: { exclude: ['tone'] } },
   render: (args) => (
     <div className="flex flex-wrap items-center gap-2">
-      <Badge {...args} variant="neutral">
+      <Badge {...args} tone="neutral">
         Draft
       </Badge>
-      <Badge {...args} variant="primary">
+      <Badge {...args} tone="primary">
         Beta
       </Badge>
-      <Badge {...args} variant="success">
+      <Badge {...args} tone="success">
         Running
       </Badge>
-      <Badge {...args} variant="warning">
+      <Badge {...args} tone="warning">
         Suspended
       </Badge>
-      <Badge {...args} variant="danger">
+      <Badge {...args} tone="danger">
         Error
       </Badge>
-      <Badge {...args} variant="info">
+      <Badge {...args} tone="info">
         Queued
       </Badge>
-      <Badge {...args} variant="solid">
+      <Badge {...args} tone="primary" appearance="filled">
         New
       </Badge>
     </div>
@@ -95,18 +95,18 @@ export const Sizes: Story = {
  */
 export const WithStatusDot: Story = {
   name: 'With status dot',
-  parameters: { controls: { exclude: ['variant', 'children'] } },
+  parameters: { controls: { exclude: ['tone', 'children'] } },
   render: (args) => (
     <div className="flex flex-wrap items-center gap-2">
-      <Badge {...args} variant="success">
+      <Badge {...args} tone="success">
         <StatusDot tone="success" />
         Running
       </Badge>
-      <Badge {...args} variant="warning">
+      <Badge {...args} tone="warning">
         <StatusDot tone="warning" />
         Suspended
       </Badge>
-      <Badge {...args} variant="danger">
+      <Badge {...args} tone="danger">
         <StatusDot tone="danger" />
         Error
       </Badge>
@@ -118,7 +118,7 @@ export const WithStatusDot: Story = {
 export const WithIcon: Story = {
   name: 'With icon',
   args: {
-    variant: 'success',
+    tone: 'success',
     children: (
       <>
         <Check aria-hidden="true" />
@@ -130,7 +130,7 @@ export const WithIcon: Story = {
 
 /** A count or numeral, e.g. an unread tally or a version tag. */
 export const Count: Story = {
-  args: { variant: 'primary', children: '12' },
+  args: { tone: 'primary', children: '12' },
 };
 
 /**
@@ -140,7 +140,7 @@ export const Count: Story = {
 export const AsLink: Story = {
   name: 'As link',
   parameters: { controls: { exclude: ['children'] } },
-  args: { variant: 'neutral' },
+  args: { tone: 'neutral' },
   render: (args) => (
     <Badge {...args} asChild>
       <a href="/sites/shop.seashell.dev">
@@ -148,5 +148,19 @@ export const AsLink: Story = {
         <span className="font-mono">v2.4.0</span>
       </a>
     </Badge>
+  ),
+};
+
+/** `appearance="filled"` — full tone background, same colors as Chip's solid look. */
+export const Filled: Story = {
+  parameters: { controls: { exclude: ['tone', 'appearance'] } },
+  render: (args) => (
+    <div className="flex flex-wrap items-center gap-2">
+      {(['neutral', 'primary', 'success', 'warning', 'danger', 'info'] as const).map((t) => (
+        <Badge key={t} {...args} tone={t} appearance="filled">
+          {t}
+        </Badge>
+      ))}
+    </div>
   ),
 };

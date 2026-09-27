@@ -114,19 +114,19 @@ export const InBadge: Story = {
   parameters: { controls: { exclude: ['tone'] } },
   render: () => (
     <div className="flex flex-wrap items-center gap-2">
-      <Badge variant="success">
+      <Badge tone="success">
         <StatusDot tone="success" />
         Running
       </Badge>
-      <Badge variant="warning">
+      <Badge tone="warning">
         <StatusDot tone="warning" />
         Degraded
       </Badge>
-      <Badge variant="danger">
+      <Badge tone="danger">
         <StatusDot tone="danger" />
         Error
       </Badge>
-      <Badge variant="neutral">
+      <Badge tone="neutral">
         <StatusDot tone="neutral" />
         Suspended
       </Badge>

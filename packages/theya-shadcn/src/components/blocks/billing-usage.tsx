@@ -1,6 +1,6 @@
 import { ArrowUpRight, CreditCard, GraphUp } from 'iconoir-react';
 import { cn } from '@/lib/utils';
-import { Badge, type BadgeVariant } from '@/components/ui/badge';
+import { Badge, type BadgeTone } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { CardDescription } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -26,7 +26,7 @@ export interface BillingPlan {
   name: string;
   price?: string;
   renewal?: string;
-  badge?: BadgeVariant;
+  badge?: BadgeTone;
 }
 
 export interface BillingStat {
@@ -139,7 +139,7 @@ export function BillingUsage({
           <div className="min-w-0 space-y-1">
             <div className="flex flex-wrap items-center gap-2">
               <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">Current plan</span>
-              <Badge variant={plan.badge}>{plan.name}</Badge>
+              <Badge tone={plan.badge}>{plan.name}</Badge>
             </div>
             <p className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               {plan.price && <span className="text-body-l font-semibold tabular-nums text-[var(--color-text-text)]">{plan.price}</span>}
@@ -176,7 +176,7 @@ export function BillingUsage({
                 <h3 className="font-body text-body-l font-semibold leading-tight text-[var(--color-text-text)]">Usage this period</h3>
                 <CardDescription>Metered against your plan quota</CardDescription>
               </div>
-              <Badge variant="neutral">
+              <Badge tone="neutral">
                 <GraphUp aria-hidden="true" />
                 <span className="tabular-nums">{quotas.length}</span> metered
               </Badge>

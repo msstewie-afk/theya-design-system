@@ -79,7 +79,7 @@ export const WithHeaderAction: Story = {
       </CardHeader>
       <CardContent className="flex items-center justify-between">
         <span className="font-mono text-body-m text-[var(--color-text-text)]">shop.seashell.dev</span>
-        <Badge variant="success">
+        <Badge tone="success">
           <StatusDot tone="success" />
           Valid<DotSeparator className="mx-1" />87 days
         </Badge>
@@ -124,7 +124,7 @@ export const InteractiveCard: Story = {
               <CardDescription className="flex items-center">Pro<DotSeparator />eu-west-1</CardDescription>
             </div>
           </div>
-          <Badge variant="success">
+          <Badge tone="success">
             <StatusDot tone="success" />
             Running
           </Badge>

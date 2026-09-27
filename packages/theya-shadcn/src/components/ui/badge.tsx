@@ -1,14 +1,17 @@
 import { Slot } from '@radix-ui/react-slot';
 import { cn } from '@/lib/utils';
 import type { StatusTone } from './status-dot';
+import { SOLID_TONE_CLASS } from './chip';
 
 /**
- * Semantic status pill. Pairs with StatusDot for "dot + label". `variant`
- * is a superset of the canonical StatusTone vocabulary — it shares
- * neutral/primary/success/warning/danger/info and adds the
- * Badge-only `solid` visual (not a status).
+ * Semantic status pill. Pairs with StatusDot for "dot + label". `tone`
+ * is the canonical StatusTone vocabulary (neutral/primary/success/warning/
+ * danger/info). `appearance` is the fill axis: `tonal` (default, tinted
+ * background) or `filled` (full tone background). Filled colors are
+ * Chip's own solid look, imported rather than copied so the two stay in sync.
  */
-export type BadgeVariant = StatusTone | 'solid';
+export type BadgeTone = StatusTone;
+export type BadgeAppearance = 'tonal' | 'filled';
 
 /**
  * 'sm' (default) is the original, only size Badge had. 'md' matches
@@ -21,14 +24,13 @@ export type BadgeVariant = StatusTone | 'solid';
  */
 export type BadgeSize = 'sm' | 'md';
 
-const VARIANT_CLASS: Record<BadgeVariant, string> = {
+const TONAL_CLASS: Record<BadgeTone, string> = {
   neutral: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)] border-transparent',
   primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)] border-transparent',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)] border-transparent',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)] border-transparent',
   danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] border-transparent',
   info: 'bg-[var(--color-cyan-cyan-050)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)] border-transparent',
-  solid: 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)] border-transparent',
 };
 
 // h-8 / size-4 icon copied 1:1 from Chip's size="lg" (see chip.tsx);
@@ -41,12 +43,14 @@ const SIZE_CLASS: Record<BadgeSize, string> = {
 };
 
 export interface BadgeProps extends React.ComponentProps<'span'> {
-  variant?: BadgeVariant;
+  tone?: BadgeTone;
+  /** `tonal` (default) — tinted background. `filled` — full tone background, same colors as Chip's solid look. */
+  appearance?: BadgeAppearance;
   size?: BadgeSize;
   asChild?: boolean;
 }
 
-export function Badge({ className, variant = 'neutral', size = 'sm', asChild = false, ...props }: BadgeProps) {
+export function Badge({ className, tone = 'neutral', appearance = 'tonal', size = 'sm', asChild = false, ...props }: BadgeProps) {
   const Comp = asChild ? Slot : 'span';
   return (
     <Comp
@@ -55,7 +59,7 @@ export function Badge({ className, variant = 'neutral', size = 'sm', asChild = f
         'font-body font-medium outline-none [&_svg]:pointer-events-none',
         'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
         SIZE_CLASS[size],
-        VARIANT_CLASS[variant],
+        appearance === 'filled' ? [SOLID_TONE_CLASS[tone], 'border-transparent'] : TONAL_CLASS[tone],
         className,
       )}
       {...props}
@@ -63,7 +67,7 @@ export function Badge({ className, variant = 'neutral', size = 'sm', asChild = f
   );
 }
 
-/** Translate a canonical StatusTone to the matching Badge variant (every status tone is a valid Badge variant). */
-export function statusToneToBadgeVariant(tone: StatusTone): BadgeVariant {
+/** Translate a canonical StatusTone to the matching Badge tone (identical sets since `solid` moved to `appearance`). */
+export function statusToneToBadgeTone(tone: StatusTone): BadgeTone {
   return tone;
 }

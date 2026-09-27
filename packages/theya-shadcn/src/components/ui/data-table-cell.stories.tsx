@@ -150,17 +150,17 @@ export const Kinds: Story = {
         twoLines={<DataTableCell kind="primary" leading={<Server width={16} height={16} />} value="shop.seashell.dev" mono secondary="Theya Seashell storefront" />}
       />
       <KindRow label='kind="status"' oneLine={<DataTableCell kind="status" tone="success" label="Running" />} twoLines={<DataTableCell kind="status" tone="success" label="Running" lines={2} />} />
-      <KindRow label='kind="badge"' oneLine={<DataTableCell kind="badge" variant="primary" label="Pro" />} twoLines={<DataTableCell kind="badge" variant="primary" label="Pro" lines={2} />} />
+      <KindRow label='kind="badge"' oneLine={<DataTableCell kind="badge" tone="primary" label="Pro" />} twoLines={<DataTableCell kind="badge" tone="primary" label="Pro" lines={2} />} />
       <KindRow
         label="badge + badges"
         oneLine={
           <DataTableCell
             kind="badge"
             badges={[
-              { label: 'Expiring soon', variant: 'warning' },
-              { label: 'Auto-renew', variant: 'neutral' },
-              { label: 'DV', variant: 'info' },
-              { label: 'Wildcard', variant: 'neutral' },
+              { label: 'Expiring soon', tone: 'warning' },
+              { label: 'Auto-renew', tone: 'neutral' },
+              { label: 'DV', tone: 'info' },
+              { label: 'Wildcard', tone: 'neutral' },
             ]}
           />
         }
@@ -169,10 +169,10 @@ export const Kinds: Story = {
             kind="badge"
             lines={2}
             badges={[
-              { label: 'Expiring soon', variant: 'warning' },
-              { label: 'Auto-renew', variant: 'neutral' },
-              { label: 'DV', variant: 'info' },
-              { label: 'Wildcard', variant: 'neutral' },
+              { label: 'Expiring soon', tone: 'warning' },
+              { label: 'Auto-renew', tone: 'neutral' },
+              { label: 'DV', tone: 'info' },
+              { label: 'Wildcard', tone: 'neutral' },
             ]}
           />
         }
@@ -225,10 +225,10 @@ export const Kinds: Story = {
 };
 
 const CERTIFICATE_BADGES = [
-  { label: 'Expiring soon', variant: 'warning' as const },
-  { label: 'Auto-renew', variant: 'neutral' as const },
-  { label: 'DV', variant: 'info' as const },
-  { label: 'Wildcard', variant: 'neutral' as const },
+  { label: 'Expiring soon', tone: 'warning' as const },
+  { label: 'Auto-renew', tone: 'neutral' as const },
+  { label: 'DV', tone: 'info' as const },
+  { label: 'Wildcard', tone: 'neutral' as const },
 ];
 
 /**
@@ -355,7 +355,7 @@ function Demo() {
           <DataTableCell kind="status" tone="success" label="Running" />
         </Row>
         <Row label="badge">
-          <DataTableCell kind="badge" variant="success" label="Active" />
+          <DataTableCell kind="badge" tone="success" label="Active" />
         </Row>
         <Row label="usage">
           <DataTableCell kind="usage" value={7.2} total={10} label="7.2 GB of 10 GB" />

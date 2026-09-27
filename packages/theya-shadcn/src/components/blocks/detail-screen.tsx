@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import type { ReactNode } from 'react';
-import { Badge, statusToneToBadgeVariant } from '@/components/ui/badge';
+import { Badge, statusToneToBadgeTone } from '@/components/ui/badge';
 import { StatusDot, type StatusTone } from '@/components/ui/status-dot';
 import { Stat, type StatTone } from '@/components/ui/stat';
 import { DotSeparator } from '@/components/ui/dot-separator';
@@ -69,7 +69,7 @@ export function DetailScreen({ className, title, status, meta, actions, stats, c
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
               <h1 className={cn('min-w-0 break-words font-body text-heading-s font-semibold text-[var(--color-text-text)]', mono && 'font-mono')}>{title}</h1>
               {status && (
-                <Badge variant={statusToneToBadgeVariant(status.tone)}>
+                <Badge tone={statusToneToBadgeTone(status.tone)}>
                   <StatusDot tone={status.tone} />
                   {status.label}
                 </Badge>

@@ -3,7 +3,7 @@ import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, NavArrowDown, NavArrowUp } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { StatusDot, type StatusTone } from './status-dot';
-import { Badge, type BadgeVariant } from './badge';
+import { Badge, type BadgeTone } from './badge';
 
 /**
  * Single-value picker on @radix-ui/react-select. Carries over TextField's
@@ -189,7 +189,7 @@ export interface SelectItemProps extends React.ComponentProps<typeof SelectPrimi
   /** Colored dot before the text instead of `icon` — same slot, so passing both just shows the dot. */
   status?: StatusTone;
   /** Pill shown after the text, before the checkmark space. */
-  badge?: { label: React.ReactNode; variant?: BadgeVariant };
+  badge?: { label: React.ReactNode; tone?: BadgeTone };
   /** Second line under the text, smaller and subtler — for extra context, not truncated interaction. */
   description?: React.ReactNode;
 }
@@ -241,7 +241,7 @@ function SelectItem({ className, children, icon, iconSize = 'sm', status, badge,
             )}
           </span>
           {badge && (
-            <Badge variant={badge.variant} className="shrink-0 self-center">
+            <Badge tone={badge.tone} className="shrink-0 self-center">
               {badge.label}
             </Badge>
           )}

@@ -2,7 +2,7 @@ import { useState, useMemo, useId, type FormEvent, type ReactNode } from 'react'
 import { UserPlus, Trash, Send, SendMail, Mail } from 'iconoir-react';
 import { toast } from '@/components/ui/sonner';
 import { Button } from '@/components/ui/button';
-import { Badge, type BadgeVariant } from '@/components/ui/badge';
+import { Badge, type BadgeTone } from '@/components/ui/badge';
 import { StatusDot } from '@/components/ui/status-dot';
 import { TextField } from '@/components/ui/text-field';
 import { Label } from '@/components/ui/label';
@@ -32,7 +32,7 @@ export interface TeamRoleOption {
   value: string;
   label: string;
   description?: string;
-  badge?: BadgeVariant;
+  badge?: BadgeTone;
 }
 
 export interface TeamMember {
@@ -297,7 +297,7 @@ export function TeamMembers({
                         <div className="min-w-0">
                           <div className="flex items-center gap-2">
                             <span className="truncate font-medium">{member.name}</span>
-                            {isYou && <Badge variant="neutral">You</Badge>}
+                            {isYou && <Badge tone="neutral">You</Badge>}
                           </div>
                           <span className="truncate text-body-s text-[var(--color-text-text-subtler)]">{member.email}</span>
                         </div>
@@ -306,7 +306,7 @@ export function TeamMembers({
                     <TableCell className="hidden whitespace-nowrap text-[var(--color-text-text-subtler)] sm:table-cell">{formatAgo(member.lastActiveMins)}</TableCell>
                     <TableCell>
                       {isOwner ? (
-                        <Badge variant={role.badge}>{role.label}</Badge>
+                        <Badge tone={role.badge}>{role.label}</Badge>
                       ) : (
                         <Select value={member.role} onValueChange={(value) => changeRole(member, value)} disabled={locked}>
                           <SelectTrigger widthSize="full" aria-label={`Role for ${member.name}`}>
@@ -367,7 +367,7 @@ export function TeamMembers({
                       <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-2">
                           <span className="truncate font-medium">{invite.email}</span>
-                          <Badge variant={role.badge}>{role.label}</Badge>
+                          <Badge tone={role.badge}>{role.label}</Badge>
                         </div>
                         <span className="flex items-center gap-1.5 font-body text-body-xs text-[var(--color-text-text-subtler)]">
                           <StatusDot tone="warning" />

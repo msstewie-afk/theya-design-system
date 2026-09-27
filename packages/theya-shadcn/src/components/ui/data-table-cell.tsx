@@ -4,7 +4,7 @@ import {  } from 'iconoir-react';
 import { KebabIconVertical } from './kebab-icon';
 import { cn } from '@/lib/utils';
 import { Autocomplete, type AutocompleteOption } from './autocomplete';
-import { Badge, type BadgeVariant, type BadgeSize } from './badge';
+import { Badge, type BadgeTone, type BadgeSize } from './badge';
 import { Button, type ButtonProps } from './button';
 import { Checkbox } from './checkbox';
 import { Combobox, type ComboboxOption } from './combobox';
@@ -92,12 +92,12 @@ export interface StatusCellProps extends CellBoxProps {
 
 export interface BadgeCellBadge {
   label: ReactNode;
-  variant?: BadgeVariant;
+  tone?: BadgeTone;
 }
 
 export interface BadgeCellSingle extends CellBoxProps {
   kind: 'badge';
-  variant?: BadgeVariant;
+  tone?: BadgeTone;
   size?: BadgeSize;
   label: ReactNode;
   badges?: undefined;
@@ -113,7 +113,7 @@ export interface BadgeCellMultiple extends CellBoxProps {
   /** Noun used once every badge collapses into one ("4 alerts"). Defaults to "badges". */
   collapsedLabel?: string;
   label?: undefined;
-  variant?: undefined;
+  tone?: undefined;
 }
 
 export type BadgeCellProps = BadgeCellSingle | BadgeCellMultiple;
@@ -325,18 +325,17 @@ function UsageCell({ value, total, label, header }: Omit<UsageCellProps, 'kind'>
 }
 
 /** Worst first. `success` ranks below `neutral` (good news, not a severity); `solid` ranks mild so it never outranks a real warning. */
-const BADGE_SEVERITY_RANK: Record<BadgeVariant, number> = {
+const BADGE_SEVERITY_RANK: Record<BadgeTone, number> = {
   danger: 6,
   warning: 5,
   info: 4,
   primary: 3,
-  solid: 2,
   neutral: 1,
   success: 0,
 };
 
 function sortBadgesBySeverity(badges: BadgeCellBadge[]): BadgeCellBadge[] {
-  return [...badges].sort((a, b) => BADGE_SEVERITY_RANK[b.variant ?? 'neutral'] - BADGE_SEVERITY_RANK[a.variant ?? 'neutral']);
+  return [...badges].sort((a, b) => BADGE_SEVERITY_RANK[b.tone ?? 'neutral'] - BADGE_SEVERITY_RANK[a.tone ?? 'neutral']);
 }
 
 const BADGES_GAP = 4;
@@ -400,23 +399,23 @@ function BadgesCell({ badges, collapsedLabel = 'badges', size }: { badges: Badge
     <div ref={containerRef} className="flex w-full min-w-0 items-center gap-1 overflow-hidden">
       <div ref={mirrorRef} aria-hidden="true" className="pointer-events-none invisible fixed top-0 left-0 flex gap-1">
         {sorted.map((badge, index) => (
-          <Badge key={index} variant={badge.variant} size={size}>
+          <Badge key={index} tone={badge.tone} size={size}>
             {badge.label}
           </Badge>
         ))}
         {steps.slice(1).map((k) => (
-          <Badge key={`collapsed-${k}`} variant={sorted[sorted.length - k].variant} size={size}>
+          <Badge key={`collapsed-${k}`} tone={sorted[sorted.length - k].tone} size={size}>
             {k === sorted.length ? `${k} ${collapsedLabel}` : `${k} more`}
           </Badge>
         ))}
       </div>
       {visible.map((badge, index) => (
-        <Badge key={index} variant={badge.variant} size={size} className="shrink-0">
+        <Badge key={index} tone={badge.tone} size={size} className="shrink-0">
           {badge.label}
         </Badge>
       ))}
       {collapsed && (
-        <Badge variant={collapsed.variant} size={size} className="shrink-0">
+        <Badge tone={collapsed.tone} size={size} className="shrink-0">
           {collapsedText}
         </Badge>
       )}
@@ -764,7 +763,7 @@ function CellContent(props: DataTableCellValueProps) {
       return props.badges ? (
         <BadgesCell badges={props.badges} collapsedLabel={props.collapsedLabel} size={props.size} />
       ) : (
-        <Badge variant={props.variant} size={props.size}>
+        <Badge tone={props.tone} size={props.size}>
           {props.label}
         </Badge>
       );
