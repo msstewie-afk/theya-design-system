@@ -35,7 +35,7 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(functio
     onCopyError,
     onClick,
     type = 'tonal',
-    tone = 'default',
+    tone = 'neutral',
     size = 'md',
     className,
     ...props

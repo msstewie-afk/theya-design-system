@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
  * CSS vars (see Avatar). Colors stay as Tailwind arbitrary-value classes,
  * which are confirmed to work fine.
  */
-export type BadgeIndicatorIntent = 'inactive' | 'info' | 'success' | 'warning' | 'danger';
+export type BadgeIndicatorIntent = 'neutral' | 'info' | 'success' | 'warning' | 'danger';
 export type BadgeIndicatorType = 'filled' | 'outlined';
 export type BadgeIndicatorShape = 'round' | 'square';
 export type BadgeIndicatorSize = 'sm' | 'md';
@@ -55,7 +55,7 @@ interface IntentTokens {
  * fill Button/Chip/Alert-stripe use — which Мария then flagged as too DARK
  * next to StatusDot's own (lighter) Tones, so it landed here instead, on
  * the same `-status` tokens for consistency across every small
- * tone-indicator component in the library. `inactive` first tried the real solid neutral fill
+ * tone-indicator component in the library. `neutral` first tried the real solid neutral fill
  * `bg-neutral-bg-neutral` (Мария: "надо bg-neutral какой-то") with
  * `--color-black` text (that alpha white composites light enough that white
  * text would wash out against it) — but Мария then asked for something less
@@ -69,7 +69,7 @@ interface IntentTokens {
  * Figma re-check once the MCP rate limit resets.
  */
 const INTENT_TOKENS: Record<BadgeIndicatorIntent, IntentTokens> = {
-  inactive: {
+  neutral: {
     filledBg: 'bg-[#6a6c96]',
     filledText: 'text-[var(--color-text-text-on-dark)]',
     outlinedBg: 'bg-[var(--color-bg-secondary-bg-secondary-subtle)]',
@@ -133,7 +133,7 @@ export function BadgeIndicator({
   icon,
   type = 'filled',
   shape = 'round',
-  tone = 'inactive',
+  tone = 'neutral',
   size = 'sm',
   className,
   style,

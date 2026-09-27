@@ -173,7 +173,7 @@ export const ResultIntents: Story = {
               onClick={handleClick}
             />
           </TooltipTrigger>
-          <TooltipContent side="top" tone={state === 'idle' ? 'default' : state}>
+          <TooltipContent side="top" tone={state === 'idle' ? 'neutral' : state}>
             {state === 'success' ? 'Copied' : state === 'danger' ? 'Failed to copy' : 'Copy API key'}
           </TooltipContent>
         </Tooltip>

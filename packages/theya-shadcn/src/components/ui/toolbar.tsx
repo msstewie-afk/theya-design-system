@@ -36,7 +36,7 @@ export type ToolbarButtonProps = Omit<React.ComponentProps<typeof ToolbarPrimiti
 // components cannot be given refs"), which meant arrow-key keyboard
 // navigation inside any Toolbar was at risk of not actually working.
 export const ToolbarButton = forwardRef<HTMLButtonElement, ToolbarButtonProps>(function ToolbarButton(
-  { className, type = 'ghost', tone = 'default', size = 'lg', iconOnly, ...props },
+  { className, type = 'ghost', tone = 'neutral', size = 'lg', iconOnly, ...props },
   ref,
 ) {
   if (process.env.NODE_ENV !== 'production' && iconOnly) {

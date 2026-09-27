@@ -82,7 +82,7 @@ export const buttonVariants = cva(
         warning: '',
         danger: '',
         info: '',
-        default: '',
+        neutral: '',
       },
       size: {
         sm: [
@@ -228,7 +228,7 @@ export const buttonVariants = cva(
         // same lightness-drop ratio as Primary's own default→hover→
         // pressed steps (-7.25% / -16.08%), same as Secondary below.
         type: 'filled',
-        tone: 'default',
+        tone: 'neutral',
         class: [
           'bg-[#65656b] text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[#535358]',
@@ -326,7 +326,7 @@ export const buttonVariants = cva(
       {
         // Default Tonal — subtle version of the Neutral gray.
         type: 'tonal',
-        tone: 'default',
+        tone: 'neutral',
         class: [
           'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)]',
@@ -505,7 +505,7 @@ export const buttonVariants = cva(
       // SecretField, all `intent="default"` by default) picks this up too.
       {
         type: 'outlined',
-        tone: 'default',
+        tone: 'neutral',
         class: [
           // Dark: #65656b is 2.43:1 on bg-surface (1.4.11 needs 3:1) -> gray-300
           // (#9696ac, 4.87:1). Hover/press moved from the "-subtle" tier to
@@ -520,7 +520,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'ghost',
-        tone: 'default',
+        tone: 'neutral',
         class: [
           '[&_svg]:text-[var(--color-text-text-subtle)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',

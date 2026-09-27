@@ -43,7 +43,7 @@ export function CodeBlock({ code, language, filename, copy = true, copyLabel = '
     resetTimer.current = setTimeout(() => setStatus('idle'), 1500);
   };
 
-  const tooltipIntent = status === 'copied' ? 'success' : status === 'error' ? 'danger' : 'default';
+  const tooltipIntent = status === 'copied' ? 'success' : status === 'error' ? 'danger' : 'neutral';
   const tooltipText = status === 'copied' ? 'Copied!' : status === 'error' ? 'Failed to copy' : copyLabel;
 
   const copyButton = copy ? (

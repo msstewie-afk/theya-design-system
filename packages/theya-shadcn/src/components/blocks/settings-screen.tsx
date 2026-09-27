@@ -137,7 +137,7 @@ function ScrollButtons() {
     <div className="fixed bottom-6 right-6 z-10 flex flex-col gap-2">
       <Button
         type="tonal"
-        tone="default"
+        tone="neutral"
         iconOnly
         size="md"
         aria-label="Scroll to top"
@@ -148,7 +148,7 @@ function ScrollButtons() {
       />
       <Button
         type="tonal"
-        tone="default"
+        tone="neutral"
         iconOnly
         size="md"
         aria-label="Scroll to bottom"

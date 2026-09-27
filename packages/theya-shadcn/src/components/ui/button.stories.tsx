@@ -29,7 +29,7 @@ const meta: Meta<typeof Button> = {
     },
     tone: {
       control: 'select',
-      options: ['primary', 'secondary', 'default', 'success', 'warning', 'danger', 'info'],
+      options: ['primary', 'secondary', 'neutral', 'success', 'warning', 'danger', 'info'],
       description: 'Semantic color tone.',
       table: { category: 'Appearance', defaultValue: { summary: 'primary' } },
     },
@@ -116,7 +116,7 @@ export const AllIntentsFilled: Story = {
   name: 'All intents (Filled)',
   render: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-      {(['primary', 'secondary', 'default', 'success', 'warning', 'danger', 'info'] as const).map(
+      {(['primary', 'secondary', 'neutral', 'success', 'warning', 'danger', 'info'] as const).map(
         (tone) => (
           <Button key={tone} type="filled" tone={tone}>
             {tone}
@@ -131,7 +131,7 @@ export const AllIntentsTonal: Story = {
   name: 'All intents (Tonal)',
   render: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-      {(['primary', 'secondary', 'default', 'success', 'warning', 'danger', 'info'] as const).map(
+      {(['primary', 'secondary', 'neutral', 'success', 'warning', 'danger', 'info'] as const).map(
         (tone) => (
           <Button key={tone} type="tonal" tone={tone}>
             {tone}
@@ -146,7 +146,7 @@ export const AllIntentsOutlined: Story = {
   name: 'All intents (Outlined)',
   render: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-      {(['primary', 'secondary', 'default', 'success', 'warning', 'danger', 'info'] as const).map(
+      {(['primary', 'secondary', 'neutral', 'success', 'warning', 'danger', 'info'] as const).map(
         (tone) => (
           <Button key={tone} type="outlined" tone={tone}>
             {tone}
@@ -161,7 +161,7 @@ export const AllIntentsGhost: Story = {
   name: 'All intents (Ghost)',
   render: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-      {(['primary', 'secondary', 'default', 'success', 'warning', 'danger', 'info'] as const).map(
+      {(['primary', 'secondary', 'neutral', 'success', 'warning', 'danger', 'info'] as const).map(
         (tone) => (
           <Button key={tone} type="ghost" tone={tone}>
             {tone}
@@ -331,7 +331,7 @@ function LoadingToggleDemo() {
       <Button loading={loading} data-testid="subject">
         Save
       </Button>
-      <Button type="outlined" tone="default" onClick={() => setLoading((v) => !v)}>
+      <Button type="outlined" tone="neutral" onClick={() => setLoading((v) => !v)}>
         Toggle loading
       </Button>
     </div>

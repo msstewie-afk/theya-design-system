@@ -51,7 +51,7 @@ const DISMISS_STATE_CLASS: Record<AlertVariant, string> = {
 };
 
 const VARIANT_TO_INTENT: Record<AlertVariant, NonNullable<ButtonProps['tone']>> = {
-  default: 'default',
+  default: 'neutral',
   info: 'info',
   success: 'success',
   warning: 'warning',

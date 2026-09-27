@@ -20,7 +20,7 @@ const meta = {
     shape: { control: 'inline-radio', options: ['round', 'square'], description: 'Outer silhouette.' },
     tone: {
       control: 'select',
-      options: ['inactive', 'info', 'success', 'warning', 'danger'],
+      options: ['neutral', 'info', 'success', 'warning', 'danger'],
       description: 'Semantic tone.',
     },
     size: { control: 'inline-radio', options: ['sm', 'md'], description: 'Badge size.' },
@@ -29,7 +29,7 @@ const meta = {
     value: '5',
     type: 'filled',
     shape: 'round',
-    tone: 'inactive',
+    tone: 'neutral',
     size: 'sm',
   },
 } satisfies Meta<typeof BadgeIndicator>;
@@ -45,7 +45,7 @@ export const Intents: Story = {
   parameters: { controls: { exclude: ['tone'] } },
   render: (args) => (
     <div className="flex flex-wrap items-center gap-3">
-      <BadgeIndicator {...args} tone="inactive" />
+      <BadgeIndicator {...args} tone="neutral" />
       <BadgeIndicator {...args} tone="info" />
       <BadgeIndicator {...args} tone="success" />
       <BadgeIndicator {...args} tone="warning" />
@@ -61,12 +61,12 @@ export const TypeComparison: Story = {
   render: (args) => (
     <div className="flex flex-col gap-3">
       <div className="flex flex-wrap items-center gap-3">
-        {(['inactive', 'info', 'success', 'warning', 'danger'] as const).map((tone) => (
+        {(['neutral', 'info', 'success', 'warning', 'danger'] as const).map((tone) => (
           <BadgeIndicator key={tone} {...args} type="filled" tone={tone} />
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-3">
-        {(['inactive', 'info', 'success', 'warning', 'danger'] as const).map((tone) => (
+        {(['neutral', 'info', 'success', 'warning', 'danger'] as const).map((tone) => (
           <BadgeIndicator key={tone} {...args} type="outlined" tone={tone} />
         ))}
       </div>

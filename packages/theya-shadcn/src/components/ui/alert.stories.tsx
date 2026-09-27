@@ -207,7 +207,7 @@ const ACTION_CASES = [
     // Button's `intent` has a full set of status intents matching Alert's own
     // variants (primary/secondary/default/info/success/warning/danger) — the
     // primary action below uses the one that matches its alert's tone.
-    primaryIntent: 'default',
+    primaryTone: 'neutral',
     icon: <InfoCircle />,
     title: 'Scheduled maintenance',
     body: (
@@ -221,7 +221,7 @@ const ACTION_CASES = [
   },
   {
     variant: 'info',
-    primaryIntent: 'info',
+    primaryTone: 'info',
     icon: <InfoCircle />,
     title: 'New region available',
     body: (
@@ -235,7 +235,7 @@ const ACTION_CASES = [
   },
   {
     variant: 'success',
-    primaryIntent: 'success',
+    primaryTone: 'success',
     icon: <CheckCircle />,
     title: 'Certificate issued',
     body: (
@@ -249,7 +249,7 @@ const ACTION_CASES = [
   },
   {
     variant: 'warning',
-    primaryIntent: 'warning',
+    primaryTone: 'warning',
     icon: <WarningTriangle />,
     title: 'Disk almost full',
     body: (
@@ -263,7 +263,7 @@ const ACTION_CASES = [
   },
   {
     variant: 'danger',
-    primaryIntent: 'danger',
+    primaryTone: 'danger',
     icon: <WarningCircle />,
     title: 'Deploy failed',
     body: (
@@ -310,13 +310,13 @@ export const WithActions: Story = {
               <AlertTitle>{c.title}</AlertTitle>
               <AlertDescription>{c.body}</AlertDescription>
               <AlertActions>
-                <Button type="filled" tone={c.primaryIntent} size="sm">
+                <Button type="filled" tone={c.primaryTone} size="sm">
                   {c.primary}
                 </Button>
-                <Button type="outlined" tone={c.primaryIntent} size="sm">
+                <Button type="outlined" tone={c.primaryTone} size="sm">
                   {c.secondary}
                 </Button>
-                <Button type="ghost" tone={c.primaryIntent} size="sm">
+                <Button type="ghost" tone={c.primaryTone} size="sm">
                   {c.tertiary}
                 </Button>
               </AlertActions>

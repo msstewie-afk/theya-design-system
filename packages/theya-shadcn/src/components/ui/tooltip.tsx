@@ -19,17 +19,17 @@ export const TooltipTrigger = TooltipPrimitive.Trigger;
 /**
  * `intent` is for a tooltip that reports the RESULT of an action, not just a
  * hint - e.g. "Copied" after a copy button fires, or "Failed to copy" on
- * error. `default` keeps the neutral dark surface; `success`/`danger` swap
+ * error. `neutral` keeps the neutral dark surface; `success`/`danger` swap
  * to the same solid `--color-bg-{tone}-bg-{tone}` tone StatusDot uses (not
  * the `-subtle` variant) so the result reads as a status, not just more
  * hint text. Text color follows Badge's solid-variant precedent
  * (`--color-icon-icon-on-dark`), and the arrow fill switches with it so the
  * whole bubble reads as one tone.
  */
-export type TooltipIntent = 'default' | 'success' | 'danger';
+export type TooltipIntent = 'neutral' | 'success' | 'danger';
 
 const INTENT_CLASS: Record<TooltipIntent, { surface: string; arrow: string }> = {
-  default: {
+  neutral: {
     surface: 'bg-[var(--color-bg-surface-bg-surface-overlay-dark)] text-[var(--color-text-text-on-dark)]',
     arrow: 'fill-[var(--color-bg-surface-bg-surface-overlay-dark)]',
   },
@@ -47,7 +47,7 @@ export function TooltipContent({
   className,
   sideOffset = 6,
   showArrow = true,
-  tone = 'default',
+  tone = 'neutral',
   children,
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Content> & { showArrow?: boolean; tone?: TooltipIntent }) {

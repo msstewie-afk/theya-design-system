@@ -263,7 +263,7 @@ export function CodeEditor({
     setCopyStatus(next);
     copyResetTimer.current = setTimeout(() => setCopyStatus('idle'), 1500);
   };
-  const copyTooltipIntent = copyStatus === 'copied' ? 'success' : copyStatus === 'error' ? 'danger' : 'default';
+  const copyTooltipIntent = copyStatus === 'copied' ? 'success' : copyStatus === 'error' ? 'danger' : 'neutral';
   const copyTooltipText = copyStatus === 'copied' ? 'Copied!' : copyStatus === 'error' ? 'Failed to copy' : copyLabel;
 
   return (
