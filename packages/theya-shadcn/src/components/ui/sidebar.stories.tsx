@@ -66,7 +66,7 @@ function DemoLayout({ inverse }: { inverse?: boolean }) {
                 actions={
                   <>
                     <DropdownMenuItem><EditPencil /> Rename</DropdownMenuItem>
-                    <DropdownMenuItem variant="danger"><Trash /> Delete</DropdownMenuItem>
+                    <DropdownMenuItem tone="danger"><Trash /> Delete</DropdownMenuItem>
                   </>
                 }
               >
@@ -92,7 +92,7 @@ function DemoLayout({ inverse }: { inverse?: boolean }) {
                 actions={
                   <>
                     <DropdownMenuItem><EditPencil /> Rename</DropdownMenuItem>
-                    <DropdownMenuItem variant="danger"><Trash /> Delete</DropdownMenuItem>
+                    <DropdownMenuItem tone="danger"><Trash /> Delete</DropdownMenuItem>
                   </>
                 }
               >
@@ -162,7 +162,7 @@ function AccountLayout() {
                 <DropdownMenuItem>Switch workspace</DropdownMenuItem>
                 <DropdownMenuItem>Account settings</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem variant="danger">Sign out</DropdownMenuItem>
+                <DropdownMenuItem tone="danger">Sign out</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarFooter>

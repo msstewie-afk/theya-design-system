@@ -109,7 +109,7 @@ export const InteractiveCard: Story = {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>Restart</DropdownMenuItem>
-                <DropdownMenuItem variant="danger">Delete</DropdownMenuItem>
+                <DropdownMenuItem tone="danger">Delete</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </CardAction>

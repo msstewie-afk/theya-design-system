@@ -9,7 +9,7 @@ import { Kbd } from './kbd';
  * primitive the reference wrapped by hand, so no composeSelectHandler
  * shim is needed (Radix's onSelect already works natively — that shim
  * was purely a Base UI compatibility layer). Mirrors DropdownMenu/
- * Menubar: Item supports variant="danger" and inset, plus
+ * Menubar: Item supports tone="danger" and inset, plus
  * Checkbox/Radio items, Sub menus, Label, Separator and Shortcut.
  */
 export const ContextMenu = ContextMenuPrimitive.Root;
@@ -39,10 +39,10 @@ export function ContextMenuContent({ className, ...props }: React.ComponentProps
 
 export interface ContextMenuItemProps extends React.ComponentProps<typeof ContextMenuPrimitive.Item> {
   inset?: boolean;
-  variant?: 'default' | 'danger';
+  tone?: 'neutral' | 'danger';
 }
 
-export function ContextMenuItem({ className, inset, variant = 'default', ...props }: ContextMenuItemProps) {
+export function ContextMenuItem({ className, inset, tone = 'neutral', ...props }: ContextMenuItemProps) {
   return (
     <ContextMenuPrimitive.Item
       className={cn(
@@ -50,7 +50,7 @@ export function ContextMenuItem({ className, inset, variant = 'default', ...prop
         'rounded-[var(--size-border-radius-border-radius-md)] px-2.5 py-2',
         'font-body text-body-m text-[var(--color-text-text)] outline-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
-        variant === 'danger' && 'text-[var(--color-text-text-danger)] data-[highlighted]:bg-[var(--color-bg-danger-bg-danger-subtle)]',
+        tone === 'danger' && 'text-[var(--color-text-text-danger)] data-[highlighted]:bg-[var(--color-bg-danger-bg-danger-subtle)]',
         inset && 'pl-8',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4',

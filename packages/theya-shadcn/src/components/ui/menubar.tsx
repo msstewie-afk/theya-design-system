@@ -80,10 +80,10 @@ export function MenubarContent({
 
 export interface MenubarItemProps extends React.ComponentProps<typeof MenubarPrimitive.Item> {
   inset?: boolean;
-  variant?: 'default' | 'danger';
+  tone?: 'neutral' | 'danger';
 }
 
-export function MenubarItem({ className, inset, variant = 'default', ...props }: MenubarItemProps) {
+export function MenubarItem({ className, inset, tone = 'neutral', ...props }: MenubarItemProps) {
   return (
     <MenubarPrimitive.Item
       className={cn(
@@ -91,7 +91,7 @@ export function MenubarItem({ className, inset, variant = 'default', ...props }:
         'rounded-[var(--size-border-radius-border-radius-md)]',
         'px-2.5 py-2 font-body text-body-m outline-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
-        variant === 'danger' && 'text-[var(--color-text-text-danger)] data-[highlighted]:bg-[var(--color-bg-danger-bg-danger-subtle)]',
+        tone === 'danger' && 'text-[var(--color-text-text-danger)] data-[highlighted]:bg-[var(--color-bg-danger-bg-danger-subtle)]',
         inset && 'pl-8',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4',

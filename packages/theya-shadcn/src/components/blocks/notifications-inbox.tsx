@@ -377,7 +377,7 @@ function NotificationRow({
                 <DropdownMenuItem onClick={() => onToggleRead(false)}>Mark as unread</DropdownMenuItem>
               )}
               <DropdownMenuSeparator />
-              <DropdownMenuItem variant="danger" onClick={() => onDismiss(n)}>
+              <DropdownMenuItem tone="danger" onClick={() => onDismiss(n)}>
                 <Xmark />
                 Dismiss
               </DropdownMenuItem>

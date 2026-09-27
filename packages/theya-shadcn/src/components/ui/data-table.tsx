@@ -314,7 +314,7 @@ export type DataTableRowMenuItem<TData> =
       icon?: ReactNode;
       /** Content pinned to the item's right edge. Stop propagation on its own click handling or it also fires the item's onSelect. */
       trailing?: ReactNode;
-      variant?: 'default' | 'danger';
+      tone?: 'neutral' | 'danger';
       disabled?: boolean | ((row: TData) => boolean);
       onSelect: (row: TData) => void;
     }
@@ -425,7 +425,7 @@ function renderDropdownMenuItems<TData>(items: DataTableRowMenuItem<TData>[], ro
         {renderDropdownMenuItems(item.items, row)}
       </DropdownMenuGroup>
     ) : (
-      <DropdownMenuItem key={item.id} variant={item.variant} disabled={typeof item.disabled === 'function' ? item.disabled(row) : item.disabled} onSelect={() => item.onSelect(row)}>
+      <DropdownMenuItem key={item.id} tone={item.tone} disabled={typeof item.disabled === 'function' ? item.disabled(row) : item.disabled} onSelect={() => item.onSelect(row)}>
         {item.icon}
         {item.trailing ? (
           <>
@@ -457,7 +457,7 @@ function renderContextMenuItems<TData>(items: DataTableRowMenuItem<TData>[], row
         {renderContextMenuItems(item.items, row)}
       </ContextMenuGroup>
     ) : (
-      <ContextMenuItem key={item.id} variant={item.variant} disabled={typeof item.disabled === 'function' ? item.disabled(row) : item.disabled} onSelect={() => item.onSelect(row)}>
+      <ContextMenuItem key={item.id} tone={item.tone} disabled={typeof item.disabled === 'function' ? item.disabled(row) : item.disabled} onSelect={() => item.onSelect(row)}>
         {item.icon}
         {item.trailing ? (
           <>

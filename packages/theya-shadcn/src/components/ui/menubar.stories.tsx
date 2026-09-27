@@ -54,7 +54,7 @@ function EditorMenubar({ bordered, defaultValue }: { bordered?: boolean; default
             </MenubarSubContent>
           </MenubarSub>
           <MenubarSeparator />
-          <MenubarItem variant="danger">Delete</MenubarItem>
+          <MenubarItem tone="danger">Delete</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu value="edit">

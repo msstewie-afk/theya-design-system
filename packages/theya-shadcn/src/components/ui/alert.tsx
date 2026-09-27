@@ -8,18 +8,18 @@ import { Button, type ButtonProps } from './button';
  * selector. Static by default; pass `live="assertive"|"polite"` when
  * mounting one dynamically in response to an event, so it's announced.
  */
-export type AlertVariant = 'default' | 'info' | 'success' | 'warning' | 'danger';
+export type AlertVariant = 'neutral' | 'info' | 'success' | 'warning' | 'danger';
 
 /**
  * `indicator="stripe"` adds a full solid-tone bar flush on the left edge, on
  * top of the variant's existing subtle background — for a banner that needs
  * to read at a glance even before the icon/text color registers. No effect
- * on `variant="default"`, which has no assigned tone to draw the bar from.
+ * on `tone="neutral"`, which has no assigned tone to draw the bar from.
  */
 export type AlertIndicator = 'none' | 'stripe';
 
 const VARIANT_CLASS: Record<AlertVariant, string> = {
-  default: 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] border-[var(--color-border-border-subtle)] [&>svg]:text-[var(--color-icon-icon-subtle)] [&_[data-alert-description]]:text-[var(--color-text-text-subtler)]',
+  neutral: 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] border-[var(--color-border-border-subtle)] [&>svg]:text-[var(--color-icon-icon-subtle)] [&_[data-alert-description]]:text-[var(--color-text-text-subtler)]',
   info: 'bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] border-transparent [&>svg]:text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:[&>svg]:text-[var(--color-cyan-cyan-200)]',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)] border-transparent [&>svg]:text-[var(--color-icon-icon-success)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)] border-transparent [&>svg]:text-[var(--color-icon-icon-warning)]',
@@ -43,7 +43,7 @@ const STRIPE_CLASS: Partial<Record<AlertVariant, string>> = {
 // On the tinted alert surface those fills disappear, so each tone steps one level denser here,
 // matching the tonal Button states for the same tone.
 const DISMISS_STATE_CLASS: Record<AlertVariant, string> = {
-  default: '',
+  neutral: '',
   info: 'hover:not-disabled:bg-[var(--color-cyan-cyan-100)] focus-visible:bg-[var(--color-cyan-cyan-100)] active:not-disabled:bg-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:hover:not-disabled:bg-[var(--color-cyan-cyan-700)] [[data-theme=dark]_&]:focus-visible:bg-[var(--color-cyan-cyan-700)] [[data-theme=dark]_&]:active:not-disabled:bg-[var(--color-cyan-cyan-900)]',
   success: 'hover:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-hover)] focus-visible:bg-[var(--color-bg-success-bg-success-subtle-hover)] active:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-pressed)]',
   warning: 'hover:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-hover)] focus-visible:bg-[var(--color-bg-warning-bg-warning-subtle-hover)] active:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-pressed)]',
@@ -51,7 +51,7 @@ const DISMISS_STATE_CLASS: Record<AlertVariant, string> = {
 };
 
 const VARIANT_TO_INTENT: Record<AlertVariant, NonNullable<ButtonProps['tone']>> = {
-  default: 'neutral',
+  neutral: 'neutral',
   info: 'info',
   success: 'success',
   warning: 'warning',
@@ -59,7 +59,7 @@ const VARIANT_TO_INTENT: Record<AlertVariant, NonNullable<ButtonProps['tone']>> 
 };
 
 export interface AlertProps extends React.ComponentProps<'div'> {
-  variant?: AlertVariant;
+  tone?: AlertVariant;
   /** Full-tone accent bar on the left edge. See `AlertIndicator`. Default `'none'`. */
   indicator?: AlertIndicator;
   /** Adds `shadow-sm`. Off by default — an inline banner usually sits flush in
@@ -75,7 +75,7 @@ export interface AlertProps extends React.ComponentProps<'div'> {
 
 export function Alert({
   className,
-  variant = 'default',
+  tone = 'neutral',
   indicator = 'none',
   shadow = false,
   live,
@@ -85,7 +85,7 @@ export function Alert({
   children,
   ...props
 }: AlertProps) {
-  const stripeClass = indicator === 'stripe' ? STRIPE_CLASS[variant] : undefined;
+  const stripeClass = indicator === 'stripe' ? STRIPE_CLASS[tone] : undefined;
 
   return (
     <div
@@ -93,7 +93,7 @@ export function Alert({
       className={cn(
         'relative flex gap-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid px-4 py-3',
         'font-body text-body-s [&>svg]:size-[1.125rem] [&>svg]:mt-px [&>svg]:shrink-0',
-        VARIANT_CLASS[variant],
+        VARIANT_CLASS[tone],
         shadow && 'shadow-sm',
         dismissible && 'pr-10',
         className,
@@ -110,12 +110,12 @@ export function Alert({
       {dismissible && (
         <Button
           type="ghost"
-          tone={VARIANT_TO_INTENT[variant]}
+          tone={VARIANT_TO_INTENT[tone]}
           iconOnly
           size="sm"
           aria-label={dismissLabel}
           onClick={onDismiss}
-          className={cn('absolute right-2 top-2', DISMISS_STATE_CLASS[variant])}
+          className={cn('absolute right-2 top-2', DISMISS_STATE_CLASS[tone])}
           leftIcon={<Xmark />}
         />
       )}

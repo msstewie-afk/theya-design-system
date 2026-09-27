@@ -556,7 +556,7 @@ export function DataTableToolbar<TData>({
                   return (
                     <DropdownMenuItem
                       key={action.label}
-                      variant={action.destructive ? 'danger' : 'default'}
+                      tone={action.destructive ? 'danger' : 'neutral'}
                       disabled={isDisabled}
                       title={isDisabled ? action.disabledReason?.(selectedRows)?.toString() : undefined}
                       onSelect={() => run(action, visibleCount + index)}
@@ -620,7 +620,7 @@ export function DataTableToolbar<TData>({
           onOpenChange={(o) => {
             if (!o) setConfirmIdx(null);
           }}
-          variant={active.destructive ? 'danger' : 'default'}
+          tone={active.destructive ? 'danger' : 'neutral'}
           title={active.confirm.title(count)}
           description={active.confirm.description?.(count)}
           confirmValue={active.confirm.typeToConfirm}

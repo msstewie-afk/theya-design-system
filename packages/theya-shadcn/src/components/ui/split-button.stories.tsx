@@ -36,7 +36,7 @@ export const Playground: Story = {
           <DropdownMenuItem>
             <Archive /> Save as draft
           </DropdownMenuItem>
-          <DropdownMenuItem variant="danger">
+          <DropdownMenuItem tone="danger">
             <Trash /> Discard
           </DropdownMenuItem>
         </>

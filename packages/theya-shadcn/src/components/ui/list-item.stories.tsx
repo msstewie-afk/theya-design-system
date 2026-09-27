@@ -158,7 +158,7 @@ function NotificationActions({ label, read, onToggleRead, onDismiss }: { label: 
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="danger" onClick={onDismiss}>
+        <DropdownMenuItem tone="danger" onClick={onDismiss}>
           <Xmark />
           Dismiss
         </DropdownMenuItem>

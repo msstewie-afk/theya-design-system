@@ -11,11 +11,11 @@ const meta: Meta<typeof ConfirmDialog> = {
   tags: ['autodocs'],
   argTypes: {
     title: { control: 'text', description: 'Dialog heading.', table: { category: 'Content' } },
-    titleSize: { control: 'inline-radio', options: ['default', 'large'], description: 'Size of the title text.', table: { category: 'Appearance' } },
+    titleSize: { control: 'inline-radio', options: ['neutral', 'large'], description: 'Size of the title text.', table: { category: 'Appearance' } },
     description: { control: 'text', description: 'Body copy, in place of children.', table: { category: 'Content' } },
     showHeaderDivider: { control: 'boolean', description: 'Divider between the header and body.', table: { category: 'Appearance' } },
     showFooterDivider: { control: 'boolean', description: 'Divider between the body and footer.', table: { category: 'Appearance' } },
-    contentGap: { control: 'inline-radio', options: ['default', 'compact', 'none'], description: 'Vertical spacing inside the body.', table: { category: 'Appearance' } },
+    contentGap: { control: 'inline-radio', options: ['neutral', 'compact', 'none'], description: 'Vertical spacing inside the body.', table: { category: 'Appearance' } },
     confirmValue: { control: 'text', description: 'Require the user to type this string exactly to enable the action.', table: { category: 'Behavior' } },
     confirmValueMono: {
       control: 'boolean',
@@ -24,7 +24,7 @@ const meta: Meta<typeof ConfirmDialog> = {
     },
     confirmLabel: { control: 'text', description: 'Label for the confirm button.', table: { category: 'Content' } },
     cancelLabel: { control: 'text', description: 'Label for the cancel button.', table: { category: 'Content' } },
-    variant: { control: 'inline-radio', options: ['danger', 'default'], description: 'Color/tone of the confirm action.', table: { category: 'Appearance' } },
+    tone: { control: 'inline-radio', options: ['danger', 'neutral'], description: 'Color/tone of the confirm action.', table: { category: 'Appearance' } },
     confirmIcon: { control: false, description: 'Optional icon on the confirm button.', table: { category: 'Content' } },
     onConfirm: { control: false, description: 'Called when the confirm action is activated.', table: { category: 'Events' } },
     trigger: { control: false, description: 'Element that opens the dialog when clicked.', table: { category: 'Content' } },
@@ -72,14 +72,14 @@ export const TypedConfirm: Story = {
   ),
 };
 
-/** Without `confirmValue` and no `children`, it's a plain confirmation — no body at all, action enables immediately. A `default` variant suits a non-destructive decision like a restart. */
+/** Without `confirmValue` and no `children`, it's a plain confirmation — no body at all, action enables immediately. A `default` tone suits a non-destructive decision like a restart. */
 export const NonDestructive: Story = {
   name: 'Non-destructive',
   render: () => (
     <ConfirmDialog
       title="Restart server"
       description="Active connections will be dropped during the restart."
-      variant="default"
+      tone="neutral"
       confirmLabel="Restart"
       confirmIcon={<Refresh />}
       trigger={
@@ -109,7 +109,7 @@ export const WithConsequences: Story = {
       }
       onConfirm={() => alert('Confirmed')}
     >
-      <Alert variant="danger">
+      <Alert tone="danger">
         <WarningCircle />
         <AlertDescription>
           Deleting <span className="font-mono text-[var(--color-text-text)]">api.seashell.dev</span> removes 902,540 requests/day of routing,

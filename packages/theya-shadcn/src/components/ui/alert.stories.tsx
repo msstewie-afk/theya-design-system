@@ -16,15 +16,15 @@ const meta = {
   tags: ['autodocs'],
   parameters: { layout: 'padded' },
   argTypes: {
-    variant: {
+    tone: {
       control: 'select',
-      options: ['default', 'info', 'success', 'warning', 'danger'],
+      options: ['neutral', 'info', 'success', 'warning', 'danger'],
       description: 'Tone of the banner.',
     },
     indicator: {
       control: 'select',
       options: ['none', 'stripe'],
-      description: 'Full solid-tone accent bar on the left edge. No effect on variant="default".',
+      description: 'Full solid-tone accent bar on the left edge. No effect on tone="neutral".',
     },
     shadow: {
       control: 'boolean',
@@ -44,7 +44,7 @@ const meta = {
       description: 'Accessible name for the dismiss control. Default "Dismiss".',
     },
   },
-  args: { variant: 'default', indicator: 'none', shadow: false },
+  args: { tone: 'neutral', indicator: 'none', shadow: false },
   decorators: [
     (Story) => (
       <div className="mx-auto w-full max-w-xl">
@@ -73,38 +73,38 @@ export const Default: Story = {
 /** All five tones. Icon color is inherited from the tone — never color-alone:
  * the title text carries the meaning too. */
 export const Tones: Story = {
-  parameters: { controls: { exclude: ['variant'] } },
+  parameters: { controls: { exclude: ['tone'] } },
   render: () => (
     <div className="flex flex-col gap-3">
-      <Alert variant="default">
+      <Alert tone="neutral">
         <InfoCircle />
         <div>
           <AlertTitle>Heads up</AlertTitle>
           <AlertDescription>This is a default alert.</AlertDescription>
         </div>
       </Alert>
-      <Alert variant="info">
+      <Alert tone="info">
         <InfoCircle />
         <div>
           <AlertTitle>Maintenance scheduled</AlertTitle>
           <AlertDescription>Downtime expected Sunday 2am–4am UTC.</AlertDescription>
         </div>
       </Alert>
-      <Alert variant="success">
+      <Alert tone="success">
         <CheckCircle />
         <div>
           <AlertTitle>Deployment successful</AlertTitle>
           <AlertDescription>Your changes are now live.</AlertDescription>
         </div>
       </Alert>
-      <Alert variant="warning">
+      <Alert tone="warning">
         <WarningTriangle />
         <div>
           <AlertTitle>Approaching quota</AlertTitle>
           <AlertDescription>You&apos;re at 90% of your storage limit.</AlertDescription>
         </div>
       </Alert>
-      <Alert variant="danger">
+      <Alert tone="danger">
         <WarningCircle />
         <div>
           <AlertTitle>Deployment failed</AlertTitle>
@@ -122,31 +122,31 @@ export const Tones: Story = {
  * the bar from).
  */
 export const Stripe: Story = {
-  parameters: { controls: { exclude: ['variant'] } },
+  parameters: { controls: { exclude: ['tone'] } },
   render: () => (
     <div className="flex flex-col gap-3">
-      <Alert variant="info" indicator="stripe">
+      <Alert tone="info" indicator="stripe">
         <InfoCircle />
         <div>
           <AlertTitle>Maintenance scheduled</AlertTitle>
           <AlertDescription>Downtime expected Sunday 2am–4am UTC.</AlertDescription>
         </div>
       </Alert>
-      <Alert variant="success" indicator="stripe">
+      <Alert tone="success" indicator="stripe">
         <CheckCircle />
         <div>
           <AlertTitle>Deployment successful</AlertTitle>
           <AlertDescription>Your changes are now live.</AlertDescription>
         </div>
       </Alert>
-      <Alert variant="warning" indicator="stripe">
+      <Alert tone="warning" indicator="stripe">
         <WarningTriangle />
         <div>
           <AlertTitle>Approaching quota</AlertTitle>
           <AlertDescription>You&apos;re at 90% of your storage limit.</AlertDescription>
         </div>
       </Alert>
-      <Alert variant="danger" indicator="stripe">
+      <Alert tone="danger" indicator="stripe">
         <WarningCircle />
         <div>
           <AlertTitle>Deployment failed</AlertTitle>
@@ -160,7 +160,7 @@ export const Stripe: Story = {
 /** `shadow` lifts the banner off the page — for a floating placement (e.g.
  * over content) rather than the default flush-in-flow look. */
 export const Shadow: Story = {
-  args: { variant: 'info', shadow: true },
+  args: { tone: 'info', shadow: true },
   render: (args) => (
     <Alert {...args}>
       <InfoCircle />
@@ -178,7 +178,7 @@ export const Shadow: Story = {
  * `onDismiss` fires and the consumer stops rendering it.
  */
 export const Dismissible: Story = {
-  args: { variant: 'info', dismissible: true },
+  args: { tone: 'info', dismissible: true },
   render: function DismissibleExample(args) {
     const [open, setOpen] = useState(true);
     return (
@@ -203,7 +203,7 @@ export const Dismissible: Story = {
 
 const ACTION_CASES = [
   {
-    variant: 'default',
+    tone: 'neutral',
     // Button's `intent` has a full set of status intents matching Alert's own
     // variants (primary/secondary/default/info/success/warning/danger) — the
     // primary action below uses the one that matches its alert's tone.
@@ -220,7 +220,7 @@ const ACTION_CASES = [
     tertiary: 'Remind me later',
   },
   {
-    variant: 'info',
+    tone: 'info',
     primaryTone: 'info',
     icon: <InfoCircle />,
     title: 'New region available',
@@ -234,7 +234,7 @@ const ACTION_CASES = [
     tertiary: 'Remind me later',
   },
   {
-    variant: 'success',
+    tone: 'success',
     primaryTone: 'success',
     icon: <CheckCircle />,
     title: 'Certificate issued',
@@ -248,7 +248,7 @@ const ACTION_CASES = [
     tertiary: 'Manage renewals',
   },
   {
-    variant: 'warning',
+    tone: 'warning',
     primaryTone: 'warning',
     icon: <WarningTriangle />,
     title: 'Disk almost full',
@@ -262,7 +262,7 @@ const ACTION_CASES = [
     tertiary: 'Remind me later',
   },
   {
-    variant: 'danger',
+    tone: 'danger',
     primaryTone: 'danger',
     icon: <WarningCircle />,
     title: 'Deploy failed',
@@ -297,14 +297,14 @@ const ACTION_CASES = [
 export const WithActions: Story = {
   name: 'With actions',
   args: { dismissible: true },
-  parameters: { controls: { exclude: ['variant'] } },
+  parameters: { controls: { exclude: ['tone'] } },
   render: function WithActionsExample(args) {
     const [dismissed, setDismissed] = useState<string[]>([]);
-    const shown = ACTION_CASES.filter((c) => !dismissed.includes(c.variant));
+    const shown = ACTION_CASES.filter((c) => !dismissed.includes(c.tone));
     return (
       <div className="flex flex-col items-start gap-3">
         {shown.map((c) => (
-          <Alert {...args} key={c.variant} variant={c.variant} className="w-full" onDismiss={() => setDismissed((d) => [...d, c.variant])}>
+          <Alert {...args} key={c.tone} tone={c.tone} className="w-full" onDismiss={() => setDismissed((d) => [...d, c.tone])}>
             {c.icon}
             <div className="min-w-0 w-full">
               <AlertTitle>{c.title}</AlertTitle>

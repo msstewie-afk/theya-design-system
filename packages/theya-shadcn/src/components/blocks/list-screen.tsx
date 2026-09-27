@@ -106,7 +106,7 @@ function RowMenu<Row>({ row, actions, rowLabel }: { row: Row; actions: ListRowAc
             <Fragment key={i}>
               {a.separatorBefore && <DropdownMenuSeparator />}
               <DropdownMenuItem
-                variant={a.destructive ? 'danger' : 'default'}
+                tone={a.destructive ? 'danger' : 'neutral'}
                 onSelect={a.confirm ? () => setTimeout(() => setConfirmIdx(i), 0) : () => a.onSelect?.(row)}
               >
                 {a.icon}
@@ -121,7 +121,7 @@ function RowMenu<Row>({ row, actions, rowLabel }: { row: Row; actions: ListRowAc
         <ConfirmDialog
           open={confirmIdx != null}
           onOpenChange={(o) => !o && setConfirmIdx(null)}
-          variant={active.destructive ? 'danger' : 'default'}
+          tone={active.destructive ? 'danger' : 'neutral'}
           title={active.confirm.title(row)}
           description={active.confirm.description?.(row)}
           confirmValue={active.confirm.typeToConfirm?.(row)}

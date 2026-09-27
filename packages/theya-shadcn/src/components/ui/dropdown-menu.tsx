@@ -61,16 +61,16 @@ function DropdownMenuContent({
 function DropdownMenuItem({
   className,
   inset,
-  variant = 'default',
+  tone = 'neutral',
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
   inset?: boolean;
-  variant?: 'default' | 'danger';
+  tone?: 'neutral' | 'danger';
 }) {
   const size = useContext(DropdownMenuSizeContext);
   return (
     <DropdownMenuPrimitive.Item
-      data-variant={variant}
+      data-tone={tone}
       className={cn(
         'relative flex cursor-default select-none items-center gap-2.5',
         'rounded-[var(--size-border-radius-border-radius-md)]',
@@ -79,11 +79,11 @@ function DropdownMenuItem({
         'transition-colors duration-100 ease-out motion-reduce:transition-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         inset && 'pl-8',
-        'data-[variant=danger]:text-[var(--color-text-text-danger)]',
-        'data-[variant=danger]:data-[highlighted]:bg-[var(--color-bg-danger-bg-danger-subtle)]',
+        'data-[tone=danger]:text-[var(--color-text-text-danger)]',
+        'data-[tone=danger]:data-[highlighted]:bg-[var(--color-bg-danger-bg-danger-subtle)]',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4',
-        '[&_svg]:text-[var(--color-icon-icon-subtle)] data-[variant=danger]:[&_svg]:text-current',
+        '[&_svg]:text-[var(--color-icon-icon-subtle)] data-[tone=danger]:[&_svg]:text-current',
         className,
       )}
       {...props}

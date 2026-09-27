@@ -210,7 +210,7 @@ export const WithSelectionAndRowMenu: Story = {
         items: [
           { id: 'view', label: 'View details', onSelect: (row: Site) => alert(row.domain) },
           { type: 'separator' },
-          { id: 'delete', label: 'Delete', variant: 'danger', onSelect: (row: Site) => alert(`Delete ${row.domain}`) },
+          { id: 'delete', label: 'Delete', tone: 'danger', onSelect: (row: Site) => alert(`Delete ${row.domain}`) },
         ],
       }}
       ariaLabel="Sites"
