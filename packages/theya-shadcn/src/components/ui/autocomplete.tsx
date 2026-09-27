@@ -1,5 +1,5 @@
-import { useState, useRef, useId, useMemo } from 'react';
-import type { ReactNode } from 'react';
+import { useState, useRef, useId, useMemo, useEffect } from 'react';
+import type { KeyboardEvent, ReactNode } from 'react';
 import { Xmark } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { Popover, PopoverAnchor, PopoverContent } from './popover';
@@ -77,7 +77,12 @@ export function Autocomplete({
   const current = isControlled ? (value ?? '') : internal;
   const isInvalid = ariaInvalid === true || ariaInvalid === 'true';
   const [open, setOpen] = useState(false);
+  // Keyboard highlight. -1 = nothing highlighted: this is a free-text
+  // field, so Enter with no highlight must keep what was typed (and let
+  // the key reach a surrounding form) instead of picking the first match.
+  const [activeIndex, setActiveIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
   const generatedId = useId();
   const resolvedId = id ?? generatedId;
   const listId = `${resolvedId}-listbox`;
@@ -95,6 +100,45 @@ export function Autocomplete({
     return options.filter((o) => String(o.label).toLowerCase().startsWith(q));
   }, [options, current, disableFilter]);
 
+  const listVisible = open && !readOnly && !loading && filtered.length > 0;
+  const activeOptionId = listVisible && activeIndex >= 0 && activeIndex < filtered.length
+    ? `${listId}-${activeIndex}`
+    : undefined;
+
+  // Keep the highlighted option in view when arrowing through a long list.
+  useEffect(() => {
+    if (!activeOptionId) return;
+    listRef.current?.querySelector(`#${CSS.escape(activeOptionId)}`)?.scrollIntoView({ block: 'nearest' });
+  }, [activeOptionId]);
+
+  const pick = (option: AutocompleteOption) => {
+    setValue(String(option.label));
+    setOpen(false);
+    setActiveIndex(-1);
+    inputRef.current?.focus();
+  };
+
+  // Keyboard support (WCAG 2.1.1): suggestions used to be reachable by
+  // mouse only — the input handled Escape and nothing else.
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (!readOnly) setOpen(true);
+      setActiveIndex((i) => Math.min(i + 1, filtered.length - 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveIndex((i) => Math.max(i - 1, 0));
+    } else if (e.key === 'Enter') {
+      if (activeOptionId) {
+        e.preventDefault();
+        pick(filtered[activeIndex]);
+      }
+    } else if (e.key === 'Escape') {
+      setOpen(false);
+      setActiveIndex(-1);
+    }
+  };
+
   return (
     <Popover open={open && !readOnly} onOpenChange={setOpen}>
       <PopoverAnchor asChild>
@@ -107,6 +151,7 @@ export function Autocomplete({
             aria-expanded={open}
             aria-controls={listId}
             aria-autocomplete="list"
+            aria-activedescendant={activeOptionId}
             aria-label={ariaLabel}
             aria-labelledby={ariaLabelledby}
             aria-invalid={ariaInvalid}
@@ -116,14 +161,17 @@ export function Autocomplete({
             required={required}
             placeholder={placeholder}
             value={current}
-            onFocus={() => !readOnly && setOpen(true)}
+            onFocus={() => {
+              if (readOnly) return;
+              setOpen(true);
+              setActiveIndex(-1);
+            }}
             onChange={(e) => {
               setValue(e.target.value);
+              setActiveIndex(-1);
               if (!readOnly) setOpen(true);
             }}
-            onKeyDown={(e) => {
-              if (e.key === 'Escape') setOpen(false);
-            }}
+            onKeyDown={handleKeyDown}
             className={cn(
               'w-full rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
               'border-[var(--color-border-border-default)] bg-[var(--color-bg-input-bg-input)]',
@@ -221,18 +269,16 @@ export function Autocomplete({
         ) : filtered.length === 0 ? (
           <div className={cn("px-3 py-2 font-body text-[var(--color-text-text-subtler)]", heightSize === 's' ? 'text-body-s' : 'text-body-m')}>{emptyMessage}</div>
         ) : (
-          <ul id={listId} role="listbox" className="max-h-60 overflow-y-auto">
-            {filtered.map((option) => (
+          <ul ref={listRef} id={listId} role="listbox" className="max-h-60 overflow-y-auto">
+            {filtered.map((option, index) => (
               <li
                 key={option.value}
+                id={`${listId}-${index}`}
                 role="option"
                 aria-selected={String(option.label) === current}
                 onMouseDown={(e) => e.preventDefault()}
-                onClick={() => {
-                  setValue(String(option.label));
-                  setOpen(false);
-                  inputRef.current?.focus();
-                }}
+                onMouseEnter={() => setActiveIndex(index)}
+                onClick={() => pick(option)}
                 className={cn(
                   'flex items-center gap-2.5 cursor-default select-none',
                   'rounded-[var(--size-border-radius-border-radius-md)]',
@@ -240,7 +286,7 @@ export function Autocomplete({
                   // Matches the input's own heightSize-driven text size.
                   heightSize === 's' ? 'text-body-s' : 'text-body-m',
                   'text-[var(--color-text-text)]',
-                  'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
+                  index === activeIndex && 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
                 )}
               >
                 <span className="min-w-0 flex-1 truncate">{option.label}</span>
