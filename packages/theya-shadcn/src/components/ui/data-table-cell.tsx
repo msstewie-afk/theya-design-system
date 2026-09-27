@@ -532,49 +532,52 @@ function CellContent(props: DataTableCellValueProps) {
     case 'menu':
       return <>{props.children}</>;
     case 'input':
+      // TextField has its own working invalid+message wiring (`error`,
+      // below — aria-invalid plus a real aria-describedby'd message, not
+      // aria-errormessage): use it instead of stapling aria-invalid/
+      // aria-errormessage on from outside. That combination this used to
+      // build here left aria-errormessage pointing at a FieldError span
+      // that only mattered if nothing else associated the message —
+      // TextField already does the equivalent internally, so the extra
+      // machinery was redundant right up to the axe aria-valid-attr-value
+      // failure it produced.
       return (
-        <>
-          <TextField
-            id={props.id}
-            value={props.value}
-            type={props.type}
-            placeholder={props.placeholder}
-            disabled={props.disabled}
-            readOnly={props.readOnly}
-            aria-label={props.label}
-            aria-labelledby={props.labelledBy}
-            aria-describedby={props.describedBy}
-            aria-invalid={props.invalid || undefined}
-            aria-errormessage={props.invalid && props.errorMessage ? errorId : undefined}
-            onChange={(event) => props.onValueChange?.(event.target.value)}
-            onBlur={props.onBlur}
-            widthSize="full"
-            className={cn(props.mono && 'font-mono')}
-          />
-          {props.invalid && <FieldError id={errorId} message={props.errorMessage} />}
-        </>
+        <TextField
+          id={props.id}
+          value={props.value}
+          type={props.type}
+          placeholder={props.placeholder}
+          disabled={props.disabled}
+          readOnly={props.readOnly}
+          aria-label={props.label}
+          aria-labelledby={props.labelledBy}
+          aria-describedby={props.describedBy}
+          error={props.invalid ? (props.errorMessage ?? true) : undefined}
+          onChange={(event) => props.onValueChange?.(event.target.value)}
+          onBlur={props.onBlur}
+          widthSize="full"
+          className={cn(props.mono && 'font-mono')}
+        />
       );
     case 'textarea':
+      // Same as 'input' above — TextArea's own `error` prop replaces the
+      // hand-rolled aria-invalid/aria-errormessage/FieldError trio.
       return (
-        <>
-          <TextArea
-            id={props.id}
-            value={props.value}
-            rows={props.rows}
-            placeholder={props.placeholder}
-            disabled={props.disabled}
-            readOnly={props.readOnly}
-            aria-label={props.label}
-            aria-labelledby={props.labelledBy}
-            aria-describedby={props.describedBy}
-            aria-invalid={props.invalid || undefined}
-            aria-errormessage={props.invalid && props.errorMessage ? errorId : undefined}
-            onChange={(event) => props.onValueChange?.(event.target.value)}
-            onBlur={props.onBlur}
-            className="w-full"
-          />
-          {props.invalid && <FieldError id={errorId} message={props.errorMessage} />}
-        </>
+        <TextArea
+          id={props.id}
+          value={props.value}
+          rows={props.rows}
+          placeholder={props.placeholder}
+          disabled={props.disabled}
+          readOnly={props.readOnly}
+          aria-label={props.label}
+          aria-labelledby={props.labelledBy}
+          aria-describedby={props.describedBy}
+          error={props.invalid ? (props.errorMessage ?? true) : undefined}
+          onChange={(event) => props.onValueChange?.(event.target.value)}
+          onBlur={props.onBlur}
+          className="w-full"
+        />
       );
     case 'number':
       // NumberField has no distinct readOnly appearance yet, so readOnly
