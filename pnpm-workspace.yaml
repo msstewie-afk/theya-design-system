@@ -2,7 +2,9 @@ packages:
   - 'packages/*'
 allowBuilds:
   '@bundled-es-modules/glob': true
+  '@swc/core': true
   esbuild: true
   style-dictionary: true
+  unrs-resolver: true
 minimumReleaseAgeExclude:
   - recharts@3.10.0
