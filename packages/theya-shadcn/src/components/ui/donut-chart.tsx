@@ -134,7 +134,12 @@ export function DonutChart({
           aria-hidden="true"
         >
           <ResponsiveContainer width="100%" height="100%">
-            <RechartsPieChart>
+            {/* accessibilityLayer disabled: recharts injects a hidden
+               focusable keyboard-nav surrogate by default, which lands
+               inside this chart's own aria-hidden wrapper (the outer
+               `role="img" aria-label={summary}` element already gives
+               assistive tech the full accessible description). */}
+            <RechartsPieChart accessibilityLayer={false}>
               <Pie
                 data={data}
                 dataKey="value"
