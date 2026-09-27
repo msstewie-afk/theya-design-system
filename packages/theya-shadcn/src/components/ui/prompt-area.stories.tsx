@@ -237,7 +237,10 @@ export const WithModelPicker: Story = {
         <PromptArea placeholder="Send a message…" />
         <div className="flex justify-end">
           <Select value={model} onValueChange={setModel}>
-            <SelectTrigger className="w-fit border-none bg-transparent text-body-s shadow-none">
+            <SelectTrigger
+              className="w-fit border-none bg-transparent text-body-s shadow-none"
+              aria-label="Model"
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

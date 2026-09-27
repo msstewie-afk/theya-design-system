@@ -49,7 +49,7 @@ export const Playground: Story = {
 
 export const Bare: Story = {
   name: 'No label',
-  args: {},
+  args: { 'aria-label': 'Accept terms and conditions' },
 };
 
 export const WithDescription: Story = {
