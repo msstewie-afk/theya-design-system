@@ -250,7 +250,7 @@
           "value": "{color.gray-a.gray-a300}"
         },
         "bg-neutral-subtle": {
-          "value": "{color.gray-a.gray-a200}"
+          "value": "{color.gray-a.gray-a100}"
         },
         "bg-neutral-subtle-hover": {
           "value": "{color.gray-a.gray-a300}"
