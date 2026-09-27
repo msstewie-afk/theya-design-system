@@ -67,7 +67,7 @@
         "value": "{color.orange.orange-200}"
       },
       "text-danger": {
-        "value": "{color.red.red-200}"
+        "value": "{color.red.red-100}"
       },
       "text-info": {
         "value": "{color.cyan.cyan-300}"
@@ -253,10 +253,10 @@
           "value": "{color.gray-a.gray-a100}"
         },
         "bg-neutral-subtle-hover": {
-          "value": "{color.gray-a.gray-a300}"
+          "value": "{color.gray-a.gray-a200}"
         },
         "bg-neutral-subtle-pressed": {
-          "value": "{color.gray-a.gray-a400}"
+          "value": "{color.gray-a.gray-a300}"
         },
         "bg-neutral-subtler-hover": {
           "value": "{color.gray-a.gray-a100}"
