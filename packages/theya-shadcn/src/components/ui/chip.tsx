@@ -29,7 +29,7 @@ export type ChipSize = 'sm' | 'md' | 'lg';
 
 // Base (unselected) look for `appearance="subtle"` — the tinted "tonal"
 // background, matching Button's own `type="tonal"` per-intent colors
-// (`neutral` here maps to Button's `intent="default"`, `destructive` to
+// (`neutral` here maps to Button's `intent="default"`, `danger` to
 // `intent="danger"`). Hover states come from HOVER_CLASS below, same
 // source (Button's tonal compound variants).
 // All six borderless at rest (Мария's call — neutral used to carry a
