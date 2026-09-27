@@ -258,9 +258,9 @@ export const buttonVariants = cva(
         type: 'tonal',
         intent: 'info',
         class: [
-          'bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-text-text-info)]',
-          'hover:not-disabled:bg-[var(--color-bg-info-bg-info-subtle-hover)]',
-          'active:not-disabled:bg-[var(--color-bg-info-bg-info-subtle-pressed)]',
+          'bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)]',
+          'hover:not-disabled:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:hover:not-disabled:bg-[var(--color-cyan-cyan-700)]',
+          'active:not-disabled:bg-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:active:not-disabled:bg-[var(--color-cyan-cyan-900)]',
         ],
       },
       {
