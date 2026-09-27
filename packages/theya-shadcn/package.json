@@ -6,7 +6,7 @@
   "scripts": {
     "storybook": "storybook dev -p 6008",
     "build-storybook": "storybook build",
-    "test-storybook": "test-storybook"
+    "test-storybook": "test-storybook --url http://localhost:6008"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.3",
