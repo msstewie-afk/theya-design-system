@@ -202,7 +202,9 @@ export function Combobox(props: ComboboxProps) {
     } else if (e.key === 'Enter') {
       e.preventDefault();
       const item = items[activeIndex];
-      if (item) {
+      // Disabled options are skipped by pointer (pointer-events-none) but
+      // Enter used to commit them anyway when the highlight landed on one.
+      if (item && !item.disabled) {
         if (multiple) addChip(item);
         else commitSingle(item);
       } else if (allowCreate && !multiple) {
@@ -291,6 +293,10 @@ export function Combobox(props: ComboboxProps) {
             aria-expanded={open}
             aria-controls={listId}
             aria-autocomplete="list"
+            // Tells assistive tech which option the arrow keys highlighted —
+            // focus stays in the input, so without this the highlight was
+            // visual only and screen readers announced nothing on ArrowDown.
+            aria-activedescendant={open && !loading && items[activeIndex] ? `${listId}-${activeIndex}` : undefined}
             aria-label={ariaLabel}
             aria-labelledby={ariaLabelledby}
             aria-invalid={ariaInvalid}
