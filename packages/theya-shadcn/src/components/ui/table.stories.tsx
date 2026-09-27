@@ -138,7 +138,7 @@ export const WithCaption: Story = {
 
 /**
  * Mark a row selected with `data-state="selected"` — it tints to
- * bg-neutral-bg-neutral-subtler. Always mirror selection in an
+ * bg-primary-subtle (bg-primary-subtler on hover), same as DataTable. Always mirror selection in an
  * accessible control (e.g. a checkbox), not color alone; here the
  * selected row also carries `aria-selected`.
  */
