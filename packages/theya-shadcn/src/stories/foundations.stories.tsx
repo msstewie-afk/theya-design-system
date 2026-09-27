@@ -285,7 +285,7 @@ const BG_TOKEN_ROWS: TokenRow[] = [
   { name: '--color-bg-secondary-bg-secondary', light: '#9a9cce', dark: 'rgba(249, 249, 254, 0.2)', description: 'Secondary action fill.' },
   { name: '--color-bg-success-bg-success', light: '#198446', dark: '#156B39', description: 'Success state fill.' },
   { name: '--color-bg-success-bg-success-on-dark', light: '#54C181', dark: '#54C181', description: 'Success fill for use on a dark surface.' },
-  { name: '--color-bg-warning-bg-warning', light: '#ffd52e', dark: '#A54A11', description: 'Warning state fill.' },
+  { name: '--color-bg-warning-bg-warning', light: '#efb300', dark: '#A54A11', description: 'Warning state fill.' },
   { name: '--color-bg-warning-bg-warning-on-dark', light: '#ffe684', dark: '#ffe684', description: 'Warning fill for use on a dark surface.' },
   { name: '--color-bg-danger-bg-danger', light: '#b40d49', dark: '#A60C3B', description: 'Danger/destructive state fill.' },
   { name: '--color-bg-danger-bg-danger-on-dark', light: '#F78DAD', dark: '#F78DAD', description: 'Danger fill for use on a dark surface.' },
@@ -310,7 +310,7 @@ const TEXT_TOKEN_ROWS: TokenRow[] = [
 ];
 
 const BORDER_TOKEN_ROWS: TokenRow[] = [
-  { name: '--color-border-border-subtle', light: '#bec0e9', dark: '#5f6190', description: 'Default border — cards, inputs, dividers between sections.' },
+  { name: '--color-border-border-subtle', light: '#8f91c2', dark: '#6e709f', description: 'Default border — cards, inputs, dividers between sections.' },
   { name: '--color-border-border-subtler', light: '#e7e7f8', dark: '#4b4d77', description: 'Lower-contrast border — dividers between rows within a section.' },
 ];
 
@@ -337,7 +337,7 @@ const STATUS_TOKEN_ROWS: TokenRow[] = [
   { name: '--color-bg-primary-bg-primary-status', light: '#248bff', dark: '#3795ff', description: 'One step lighter than the solid primary fill — small/decorative tone indicators only (StatusDot, Timeline, BadgeIndicator).' },
   { name: '--color-bg-info-bg-info-status', light: '#0091ae', dark: '#14c8ec', description: 'Info counterpart of the -status family — same small-indicator use as primary-status.' },
   { name: '--color-bg-success-bg-success-status', light: '#379C61', dark: '#379C61', description: 'Success counterpart of the -status family. Same value in both themes.' },
-  { name: '--color-bg-warning-bg-warning-status', light: '#ffe684', dark: '#d17119', description: 'Warning counterpart of the -status family.' },
+  { name: '--color-bg-warning-bg-warning-status', light: '#efb300', dark: '#d17119', description: 'Warning counterpart of the -status family.' },
   { name: '--color-bg-danger-bg-danger-status', light: '#e63f7b', dark: '#e63f7b', description: 'Danger counterpart of the -status family. Same value in both themes.' },
 ];
 
