@@ -1,4 +1,4 @@
-import type { ReactNode, MouseEventHandler, KeyboardEventHandler, KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent } from 'react';
+import type { ReactNode, MouseEventHandler, KeyboardEventHandler } from 'react';
 import { cn } from '@/lib/utils';
 
 /**
@@ -8,10 +8,16 @@ import { cn } from '@/lib/utils';
  * notifications row.
  *
  * Pass `href` to make the row a link, or `interactive` for a
- * whole-row selectable/clickable region rendered as role="button" on
- * a plain element (not a real <button>, so a real button — trailing
- * content — can nest inside safely). `trailing` stays a sibling
- * OUTSIDE the link/button region so a row action never nests inside it.
+ * whole-row selectable/clickable region. The pressable control itself
+ * is a real <button>, stretched over the region (absolute inset-0) —
+ * NOT role="button" on the element wrapping the content — so `children`
+ * (e.g. an action button composed into the row, see the Notification
+ * story) can stay a real nested button/link without landing inside
+ * another interactive-role element (axe: nested-interactive); it works
+ * because the content layer sits above the stretched button with
+ * pointer-events-none except on its own real button/link descendants,
+ * which re-enable it for themselves. `trailing` stays a sibling
+ * OUTSIDE the link/button region entirely, same as before.
  */
 export type ListItemSize = 'sm' | 'm' | 'lg';
 
@@ -68,13 +74,16 @@ export function ListItem({ className, size = 'm', leading, title, description, t
     (href != null || interactive) && "rounded-[var(--size-border-radius-border-radius-md)] focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]",
   );
 
-  const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
-    onKeyDown?.(event);
-    if (isPressable && !disabled && !event.defaultPrevented && (event.key === 'Enter' || event.key === ' ')) {
-      event.preventDefault();
-      onClick?.(event as unknown as ReactMouseEvent<HTMLElement>);
-    }
-  };
+  // isPressable-only: the layout classes above move onto an inner content
+  // span instead, because the actual pressable element becomes a real
+  // stretched <button> — `children` can be arbitrary consumer content
+  // (the doc comment above literally shows "an action button"), and a
+  // real button rendered inside a role="button" div is nested-interactive.
+  // pointer-events-none (auto'd back on any nested button/link) makes the
+  // content span click-through to the stretched button everywhere except
+  // its own genuinely-interactive descendants, which keep working exactly
+  // as they already did (they stopPropagation in every story that has one).
+  const contentClass = cn('relative z-10 pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto', regionClass);
 
   return (
     <div
@@ -102,8 +111,17 @@ export function ListItem({ className, size = 'm', leading, title, description, t
           {body}
         </a>
       ) : isPressable ? (
-        <div role="button" tabIndex={disabled ? -1 : 0} aria-pressed={selected || undefined} aria-disabled={disabled || undefined} onClick={disabled ? undefined : onClick} onKeyDown={handleKeyDown} className={regionClass}>
-          {body}
+        <div className="relative min-w-0 flex-1">
+          <button
+            type="button"
+            tabIndex={disabled ? -1 : 0}
+            aria-pressed={selected || undefined}
+            disabled={disabled || undefined}
+            onClick={onClick}
+            onKeyDown={onKeyDown}
+            className="absolute inset-0 rounded-[var(--size-border-radius-border-radius-md)] outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]"
+          />
+          <span className={contentClass}>{body}</span>
         </div>
       ) : (
         <div className={cn('flex min-w-0 flex-1 gap-3', rowAlign)}>{body}</div>
