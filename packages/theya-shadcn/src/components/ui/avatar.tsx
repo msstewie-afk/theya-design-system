@@ -214,7 +214,7 @@ export function AvatarFallback({ className, style, tone = 'subtle', delayMs, ...
         FALLBACK_TEXT_CLASS[avatarSize],
         tone === 'solid'
           ? 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-dark)]'
-          : 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-subtle)]',
+          : 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
         className,
       )}
       style={{ width: '100%', height: '100%', borderRadius: 'inherit', ...style }}

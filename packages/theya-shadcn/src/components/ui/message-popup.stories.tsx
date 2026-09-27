@@ -37,7 +37,7 @@ type Story = StoryObj<typeof MessagePopup>;
 
 const botAvatar = (
   <Avatar className="size-7">
-    <AvatarFallback className="bg-[var(--color-bg-primary-bg-primary-subtle)] font-body text-body-xs text-[var(--color-text-text-link-subtle)]">AI</AvatarFallback>
+    <AvatarFallback className="bg-[var(--color-bg-primary-bg-primary-subtle)] font-body text-body-xs text-[var(--color-text-text-link-on-tonal)]">AI</AvatarFallback>
   </Avatar>
 );
 

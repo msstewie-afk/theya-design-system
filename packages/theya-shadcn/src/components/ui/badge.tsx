@@ -23,7 +23,7 @@ export type BadgeSize = 'sm' | 'md';
 
 const VARIANT_CLASS: Record<BadgeVariant, string> = {
   neutral: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)] border-transparent',
-  primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-subtle)] border-transparent',
+  primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)] border-transparent',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)] border-transparent',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)] border-transparent',
   destructive: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] border-transparent',

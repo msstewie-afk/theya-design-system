@@ -50,7 +50,7 @@ export function Message({ className, variant = 'received', tone = 'filled', avat
               ? cn(
                   'rounded-tr-sm',
                   tone === 'tonal'
-                    ? 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-subtle)]'
+                    ? 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]'
                     : 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)]',
                 )
               : 'rounded-tl-sm bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text)]',

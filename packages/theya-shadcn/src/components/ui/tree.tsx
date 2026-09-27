@@ -344,13 +344,13 @@ function TreeItem({ node, depth, parentId, posInSet, setSize, expandedSet, selec
           'flex h-8 items-center gap-1.5 rounded-[var(--size-border-radius-border-radius-md)] px-2',
           'group-focus-visible/treeitem:shadow-[inset_0_0_0_3px_var(--color-focus-focus-ring)]',
           disabled ? 'cursor-not-allowed text-[var(--color-text-text-subtler)] opacity-60' : 'cursor-pointer',
-          isSelected ? 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-subtle)]' : !disabled && 'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
+          isSelected ? 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]' : !disabled && 'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         )}
       >
         {hasChildren ? (
           <NavArrowRight
             aria-hidden="true"
-            className={cn('size-4 shrink-0 text-[var(--color-icon-icon-subtle)] motion-safe:transition-transform', isExpanded && 'rotate-90', isSelected && 'text-[var(--color-text-text-link-subtle)]')}
+            className={cn('size-4 shrink-0 text-[var(--color-icon-icon-subtle)] motion-safe:transition-transform', isExpanded && 'rotate-90', isSelected && 'text-[var(--color-text-text-link-on-tonal)]')}
           />
         ) : (
           <span aria-hidden="true" className="size-4 shrink-0" />

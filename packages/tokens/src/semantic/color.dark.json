@@ -57,7 +57,7 @@
       "text-link": {
         "value": "{color.blue.blue-200}"
       },
-      "text-link-subtle": {
+      "text-link-on-tonal": {
         "value": "{color.blue.blue-100}"
       },
       "text-success": {
@@ -492,7 +492,7 @@
         "value": "{color.green-a.green-a400}"
       },
       "focus-ring-warning": {
-        "value": "{color.yellow-a.orange-a400}"
+        "value": "{color.yellow-a.yellow-a400}"
       }
     }
   }

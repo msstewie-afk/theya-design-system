@@ -127,10 +127,10 @@ function CalendarDayButton({ className, day, modifiers, ...props }: React.Compon
         'data-[range-middle=true]:rounded-none',
         'data-[range-start=true]:rounded-l-[var(--size-border-radius-border-radius-md)] data-[range-start=true]:rounded-r-none',
         'data-[range-start=true]:bg-[var(--color-bg-primary-bg-primary)] data-[range-start=true]:text-[var(--color-icon-icon-on-dark)]',
-        'data-[range-start=true]:hover:bg-[var(--color-bg-primary-bg-primary-subtle)] data-[range-start=true]:hover:text-[var(--color-text-text-link-subtle)]',
+        'data-[range-start=true]:hover:bg-[var(--color-bg-primary-bg-primary-subtle)] data-[range-start=true]:hover:text-[var(--color-text-text-link-on-tonal)]',
         'data-[range-end=true]:rounded-l-none data-[range-end=true]:rounded-r-[var(--size-border-radius-border-radius-md)]',
         'data-[range-end=true]:bg-[var(--color-bg-primary-bg-primary)] data-[range-end=true]:text-[var(--color-icon-icon-on-dark)]',
-        'data-[range-end=true]:hover:bg-[var(--color-bg-primary-bg-primary-subtle)] data-[range-end=true]:hover:text-[var(--color-text-text-link-subtle)]',
+        'data-[range-end=true]:hover:bg-[var(--color-bg-primary-bg-primary-subtle)] data-[range-end=true]:hover:text-[var(--color-text-text-link-on-tonal)]',
         className,
       )}
       {...props}

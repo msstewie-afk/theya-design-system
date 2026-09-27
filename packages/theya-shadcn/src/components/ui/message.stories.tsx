@@ -29,7 +29,7 @@ type Story = StoryObj<typeof Message>;
 
 const botAvatar = (
   <Avatar className="size-8">
-    <AvatarFallback className="bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-subtle)] text-body-xs">AI</AvatarFallback>
+    <AvatarFallback className="bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)] text-body-xs">AI</AvatarFallback>
   </Avatar>
 );
 

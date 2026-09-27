@@ -225,7 +225,7 @@ export function SidebarSection({
 // canonical StatusTone set rather than inventing a separate one.
 const BADGE_TONE_CLASS: Record<StatusTone, string> = {
   neutral: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)]',
-  primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-subtle)]',
+  primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)]',
   destructive: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)]',
@@ -257,7 +257,7 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, activ
         'transition-colors duration-150 ease-out motion-reduce:transition-none',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-text-text)]',
         'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
-        active && 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-subtle)]',
+        active && 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
         '[&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:opacity-90',
         collapsed && 'mx-auto size-[1.875rem] justify-center p-0',
         className,

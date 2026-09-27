@@ -38,7 +38,7 @@ export type ChipSize = 'sm' | 'md' | 'lg';
 // across all tones, rather than one tone silently defaulting to it).
 const TONE_CLASS: Record<ChipTone, string> = {
   neutral: 'border-transparent bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)]',
-  primary: 'border-transparent bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-subtle)]',
+  primary: 'border-transparent bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
   success: 'border-transparent bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)]',
   warning: 'border-transparent bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)]',
   destructive: 'border-transparent bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)]',

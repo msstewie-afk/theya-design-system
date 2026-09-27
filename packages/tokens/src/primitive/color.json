@@ -643,31 +643,31 @@
       }
     },
     "yellow-a": {
-      "orange-a100": {
+      "yellow-a100": {
         "value": "rgba(239, 179, 0, 0.1)"
       },
-      "orange-a200": {
+      "yellow-a200": {
         "value": "rgba(239, 179, 0, 0.2)"
       },
-      "orange-a300": {
+      "yellow-a300": {
         "value": "rgba(239, 179, 0, 0.3)"
       },
-      "orange-a400": {
+      "yellow-a400": {
         "value": "rgba(239, 179, 0, 0.4)"
       },
-      "orange-a500": {
+      "yellow-a500": {
         "value": "rgba(239, 179, 0, 0.5)"
       },
-      "orange-a600": {
+      "yellow-a600": {
         "value": "rgba(239, 179, 0, 0.6)"
       },
-      "orange-a700": {
+      "yellow-a700": {
         "value": "rgba(239, 179, 0, 0.7)"
       },
-      "orange-a800": {
+      "yellow-a800": {
         "value": "rgba(239, 179, 0, 0.8)"
       },
-      "orange-a900": {
+      "yellow-a900": {
         "value": "rgba(239, 179, 0, 0.9)"
       }
     }

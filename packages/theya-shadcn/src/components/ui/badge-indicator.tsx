@@ -81,7 +81,7 @@ const INTENT_TOKENS: Record<BadgeIndicatorIntent, IntentTokens> = {
     filledText: 'text-[var(--color-text-text-on-dark)]',
     outlinedBg: 'bg-[var(--color-bg-info-bg-info-subtle)]',
     outlinedBorder: 'border-[var(--color-border-border-info)]',
-    outlinedText: 'text-[var(--color-text-text-link-subtle)]',
+    outlinedText: 'text-[var(--color-text-text-link-on-tonal)]',
   },
   success: {
     filledBg: 'bg-[var(--color-bg-success-bg-success-status)]',

@@ -72,7 +72,7 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, ..
           'transition-[background-color,color,border-color] duration-150 ease-out motion-reduce:transition-none',
           'data-[state=inactive]:hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] data-[state=inactive]:hover:text-[var(--color-text-text)]',
           // text-link is now blue-200 (the same saturated primary used by
-          // Button/Ghost's own text color) — text-link-subtle (blue-100)
+          // Button/Ghost's own text color) — text-link-on-tonal (blue-100)
           // is the dedicated lighter tone for text on a tonal/tinted bg.
           'data-[state=active]:border-[var(--color-border-border-primary)] data-[state=active]:text-[var(--color-text-text-link)]',
           'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',

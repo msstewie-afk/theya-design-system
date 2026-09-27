@@ -254,10 +254,10 @@ export const buttonVariants = cva(
         type: 'tonal',
         intent: 'primary',
         class: [
-          // Dark: text-link-subtle (#bddcff) fell to 3.86/3.31:1 on the
+          // Dark: text-link-on-tonal (#bddcff) fell to 3.86/3.31:1 on the
           // hover/pressed tints over bg-surface; white clears 4.68:1+ in
           // every state on both surface and surface-overlay (2026-09-27).
-          'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-subtle)] [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
+          'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)] [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-subtle-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-subtle-pressed)]',
         ],
@@ -417,8 +417,8 @@ export const buttonVariants = cva(
         intent: 'primary',
         class: [
           // Dark: text-link (#63acff) dropped to 4.41/3.75:1 on hover/pressed
-          // tints over bg-surface; text-link-subtle (#bddcff) holds 6.28:1+.
-          'text-[var(--color-text-text-link)] [[data-theme=dark]_&]:text-[var(--color-text-text-link-subtle)] [&_svg]:text-[var(--color-icon-icon-primary)]',
+          // tints over bg-surface; text-link-on-tonal (#bddcff) holds 6.28:1+.
+          'text-[var(--color-text-text-link)] [[data-theme=dark]_&]:text-[var(--color-text-text-link-on-tonal)] [&_svg]:text-[var(--color-icon-icon-primary)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-primary-bg-primary-subtler-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-subtler-pressed)]',
