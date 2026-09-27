@@ -24,6 +24,10 @@ interface CommandContextValue {
   listRef: React.RefObject<HTMLDivElement | null>;
   activeValue: string | null;
   setActiveValue: (v: string | null) => void;
+  /** The CommandList's DOM id — CommandInput points `aria-controls` at it (combobox role requires it). */
+  listId: string;
+  /** Visible (post-filter) option count — CommandList only takes `role="listbox"` once this is >0: an empty listbox has no valid children and trips `aria-required-children`. */
+  itemCount: number;
 }
 
 const CommandContext = createContext<CommandContextValue | null>(null);
@@ -43,7 +47,9 @@ export interface CommandProps extends Omit<React.ComponentProps<'div'>, 'onChang
 export function Command({ className, label, shouldFilter = true, loading = false, children, ...props }: CommandProps) {
   const [search, setSearch] = useState('');
   const [activeValue, setActiveValue] = useState<string | null>(null);
+  const [itemCount, setItemCount] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
+  const listId = useId();
 
   const matches = useCallback(
     (text: string) => !shouldFilter || search.trim() === '' || text.toLowerCase().includes(search.trim().toLowerCase()),
@@ -56,15 +62,17 @@ export function Command({ className, label, shouldFilter = true, loading = false
     const items = listRef.current?.querySelectorAll<HTMLElement>('[data-command-item]');
     if (!items || items.length === 0) {
       setActiveValue(null);
+      setItemCount(0);
       return;
     }
     const values = Array.from(items).map((el) => el.dataset.value ?? '');
     if (!activeValue || !values.includes(activeValue)) setActiveValue(values[0]);
+    setItemCount(items.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, children]);
 
   return (
-    <CommandContext.Provider value={{ search, setSearch, matches, loading, label, listRef, activeValue, setActiveValue }}>
+    <CommandContext.Provider value={{ search, setSearch, matches, loading, label, listRef, activeValue, setActiveValue, listId, itemCount }}>
       <div className={cn('flex h-full w-full flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-surface-bg-surface-overlay)] text-[var(--color-text-text)]', className)} {...props}>
         {children}
       </div>
@@ -120,7 +128,7 @@ export interface CommandInputProps extends Omit<React.ComponentProps<'input'>, '
 }
 
 export function CommandInput({ className, value, onValueChange, ...props }: CommandInputProps) {
-  const { search, setSearch, listRef, activeValue, setActiveValue, label } = useCommandContext('CommandInput');
+  const { search, setSearch, listRef, activeValue, setActiveValue, label, listId } = useCommandContext('CommandInput');
   const current = value ?? search;
 
   // A controlled `value` only ever drove this input's own display — Command's
@@ -151,6 +159,7 @@ export function CommandInput({ className, value, onValueChange, ...props }: Comm
       <input
         role="combobox"
         aria-expanded="true"
+        aria-controls={listId}
         aria-label={props['aria-label'] ?? label}
         value={current}
         onChange={(e) => {
@@ -188,8 +197,23 @@ export function CommandInput({ className, value, onValueChange, ...props }: Comm
 }
 
 export function CommandList({ className, ...props }: React.ComponentProps<'div'>) {
-  const { listRef } = useCommandContext('CommandList');
-  return <div ref={listRef as React.RefObject<HTMLDivElement>} role="listbox" className={cn('max-h-[20.75rem] scroll-py-1 overflow-y-auto overflow-x-hidden', className)} {...props} />;
+  const { listRef, listId, itemCount, label } = useCommandContext('CommandList');
+  return (
+    <div
+      ref={listRef as React.RefObject<HTMLDivElement>}
+      id={listId}
+      // A listbox with zero option children fails aria-required-children —
+      // only claim the role once there's at least one CommandItem to own it.
+      // The empty state (CommandEmpty) still renders either way.
+      role={itemCount > 0 ? 'listbox' : undefined}
+      // role="listbox" is one of the input-type roles aria-input-field-name
+      // checks too — it needs its own accessible name, same source as the
+      // combobox input's (aria-label={props['aria-label'] ?? label} above).
+      aria-label={props['aria-label'] ?? label}
+      className={cn('max-h-[20.75rem] scroll-py-1 overflow-y-auto overflow-x-hidden', className)}
+      {...props}
+    />
+  );
 }
 
 export function CommandEmpty({ className, ...props }: React.ComponentProps<'div'>) {
