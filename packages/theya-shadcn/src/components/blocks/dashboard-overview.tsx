@@ -24,7 +24,7 @@ import { Timeline, TimelineItem, TimelineTitle, TimelineDescription } from '@/co
  *
  *   <DashboardOverview attention={items} stats={kpis} requests={series} />
  */
-export type AttentionTone = 'warning' | 'destructive';
+export type AttentionTone = 'warning' | 'danger';
 
 export interface AttentionItem {
   /** Mono identifier for the affected resource (e.g. a domain). */
@@ -90,8 +90,8 @@ export interface DashboardOverviewProps extends Omit<React.ComponentProps<'div'>
 const NEAR_FULL = 85;
 
 const DEFAULT_ATTENTION: AttentionItem[] = [
-  { id: 'legacy.seashell.dev', tone: 'destructive', severity: 'Error', reason: 'Disk 91% full · backups paused', actionLabel: 'Investigate' },
-  { id: 'old.seashell.dev', tone: 'destructive', severity: 'Error', reason: 'Certificate renewal failed', actionLabel: 'Reissue certificate' },
+  { id: 'legacy.seashell.dev', tone: 'danger', severity: 'Error', reason: 'Disk 91% full · backups paused', actionLabel: 'Investigate' },
+  { id: 'old.seashell.dev', tone: 'danger', severity: 'Error', reason: 'Certificate renewal failed', actionLabel: 'Reissue certificate' },
   { id: 'staging.seashell.dev', tone: 'warning', severity: 'Suspended', reason: 'Over plan quota · suspended yesterday', actionLabel: 'Resume site' },
 ];
 
@@ -176,7 +176,7 @@ const DEFAULT_ACTIVITY: ActivityItem[] = [
     ),
   },
   {
-    tone: 'destructive',
+    tone: 'danger',
     icon: <WarningTriangle />,
     time: '2d ago',
     title: 'Disk almost full',
@@ -254,7 +254,7 @@ export function DashboardOverview({
                     <span className="sr-only">{item.severity}: </span>
                     <span className="truncate font-mono text-body-m font-medium">{item.id}</span>
                   </div>
-                  <p className={cn('flex items-center gap-1.5 font-body text-body-s', item.tone === 'destructive' ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-warning)]')}>
+                  <p className={cn('flex items-center gap-1.5 font-body text-body-s', item.tone === 'danger' ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-warning)]')}>
                     <WarningTriangle className="size-3.5 shrink-0" aria-hidden="true" />
                     <span className="min-w-0 break-words">
                       <span className="font-medium">{item.severity}</span>

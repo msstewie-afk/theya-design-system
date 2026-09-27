@@ -228,7 +228,7 @@ const BADGE_TONE_CLASS: Record<StatusTone, string> = {
   primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)]',
-  destructive: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)]',
   info: 'bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-text-text-info)]',
 };
 

@@ -5,7 +5,7 @@ import { StatusDot } from './status-dot';
 
 /**
  * Badge — a small, non-interactive status pill. Tones map to the subtle
- * token families (neutral / primary / success / warning / destructive /
+ * token families (neutral / primary / success / warning / danger /
  * info) plus a `solid` accent. Pair it with `StatusDot` for the "dot +
  * label" pattern so status is never carried by color alone. Use `asChild`
  * to render the pill as a link or other element.
@@ -18,7 +18,7 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['neutral', 'primary', 'success', 'warning', 'destructive', 'info', 'solid'],
+      options: ['neutral', 'primary', 'success', 'warning', 'danger', 'info', 'solid'],
       description: 'Tone token family applied to the pill.',
     },
     size: {
@@ -55,7 +55,7 @@ export const Variants: Story = {
       <Badge {...args} variant="warning">
         Suspended
       </Badge>
-      <Badge {...args} variant="destructive">
+      <Badge {...args} variant="danger">
         Error
       </Badge>
       <Badge {...args} variant="info">
@@ -106,8 +106,8 @@ export const WithStatusDot: Story = {
         <StatusDot tone="warning" />
         Suspended
       </Badge>
-      <Badge {...args} variant="destructive">
-        <StatusDot tone="destructive" />
+      <Badge {...args} variant="danger">
+        <StatusDot tone="danger" />
         Error
       </Badge>
     </div>

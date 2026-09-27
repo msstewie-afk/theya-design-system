@@ -106,7 +106,7 @@ function RowMenu<Row>({ row, actions, rowLabel }: { row: Row; actions: ListRowAc
             <Fragment key={i}>
               {a.separatorBefore && <DropdownMenuSeparator />}
               <DropdownMenuItem
-                variant={a.destructive ? 'destructive' : 'default'}
+                variant={a.destructive ? 'danger' : 'default'}
                 onSelect={a.confirm ? () => setTimeout(() => setConfirmIdx(i), 0) : () => a.onSelect?.(row)}
               >
                 {a.icon}
@@ -121,7 +121,7 @@ function RowMenu<Row>({ row, actions, rowLabel }: { row: Row; actions: ListRowAc
         <ConfirmDialog
           open={confirmIdx != null}
           onOpenChange={(o) => !o && setConfirmIdx(null)}
-          variant={active.destructive ? 'destructive' : 'default'}
+          variant={active.destructive ? 'danger' : 'default'}
           title={active.confirm.title(row)}
           description={active.confirm.description?.(row)}
           confirmValue={active.confirm.typeToConfirm?.(row)}
@@ -241,7 +241,7 @@ function initials(name: string): string {
   return name.trim().split(/\s+/).slice(0, 2).map((p) => p[0]?.toUpperCase() ?? '').join('');
 }
 
-const STATUS_TONE = { active: 'success', suspended: 'destructive', invited: 'warning' } as const;
+const STATUS_TONE = { active: 'success', suspended: 'danger', invited: 'warning' } as const;
 
 const SEEDED_COLUMNS: ColumnDef<SeededUser, unknown>[] = [
   {

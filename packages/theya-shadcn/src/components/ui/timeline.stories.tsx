@@ -84,7 +84,7 @@ export const Tones: Story = {
       <TimelineItem tone="warning" time="13:40">
         <TimelineTitle>Warning event</TimelineTitle>
       </TimelineItem>
-      <TimelineItem tone="destructive" time="13:11">
+      <TimelineItem tone="danger" time="13:11">
         <TimelineTitle>Failed event</TimelineTitle>
       </TimelineItem>
     </Timeline>
@@ -103,7 +103,7 @@ export const WithIcons: Story = {
         <TimelineTitle>Build passed with retries</TimelineTitle>
         <TimelineDescription>2 flaky tests re-run on eu-west-1</TimelineDescription>
       </TimelineItem>
-      <TimelineItem tone="destructive" icon={<XmarkCircle />} time="2026-06-14 13:11" toneLabel="failed">
+      <TimelineItem tone="danger" icon={<XmarkCircle />} time="2026-06-14 13:11" toneLabel="failed">
         <TimelineTitle>Build failed</TimelineTitle>
         <TimelineDescription>step "test" exited 1</TimelineDescription>
       </TimelineItem>

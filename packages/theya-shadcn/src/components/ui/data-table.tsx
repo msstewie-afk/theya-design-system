@@ -314,7 +314,7 @@ export type DataTableRowMenuItem<TData> =
       icon?: ReactNode;
       /** Content pinned to the item's right edge. Stop propagation on its own click handling or it also fires the item's onSelect. */
       trailing?: ReactNode;
-      variant?: 'default' | 'destructive';
+      variant?: 'default' | 'danger';
       disabled?: boolean | ((row: TData) => boolean);
       onSelect: (row: TData) => void;
     }

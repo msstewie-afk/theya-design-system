@@ -91,7 +91,7 @@ export const SitePreview: Story = {
           <div className="min-w-0">
             <p className="truncate font-mono text-body-m font-medium text-[var(--color-text-text)]">api.seashell.dev</p>
             <p className="mt-1 flex items-center gap-1.5 font-body text-body-s text-[var(--color-text-text-subtler)]">
-              <StatusDot tone="destructive" />
+              <StatusDot tone="danger" />
               Error · last deploy failed
             </p>
             <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 font-body text-body-s">

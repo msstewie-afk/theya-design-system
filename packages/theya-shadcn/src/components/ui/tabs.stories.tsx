@@ -99,8 +99,8 @@ export const WithBadge: Story = {
         </TabsTrigger>
         <TabsTrigger value="alerts">
           Alerts
-          <Badge variant="destructive">
-            <StatusDot tone="destructive" />3 firing
+          <Badge variant="danger">
+            <StatusDot tone="danger" />3 firing
           </Badge>
         </TabsTrigger>
       </TabsList>

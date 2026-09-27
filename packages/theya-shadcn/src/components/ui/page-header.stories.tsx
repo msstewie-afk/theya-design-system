@@ -166,7 +166,7 @@ export const WithKebabMenu: Story = {
             <DropdownMenuItem>Export sites</DropdownMenuItem>
             <DropdownMenuItem>Bulk edit</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive">Delete all</DropdownMenuItem>
+            <DropdownMenuItem variant="danger">Delete all</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </>
@@ -313,7 +313,7 @@ export const AllElements: Story = {
             <DropdownMenuItem>Export sites</DropdownMenuItem>
             <DropdownMenuItem>Bulk edit</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive">Delete all</DropdownMenuItem>
+            <DropdownMenuItem variant="danger">Delete all</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </>

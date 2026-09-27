@@ -41,7 +41,7 @@ const TONE_CLASS: Record<ChipTone, string> = {
   primary: 'border-transparent bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
   success: 'border-transparent bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)]',
   warning: 'border-transparent bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)]',
-  destructive: 'border-transparent bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)]',
+  danger: 'border-transparent bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)]',
   info: 'border-transparent bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)]',
 };
 
@@ -55,7 +55,7 @@ const BORDER_TONE_CLASS: Record<ChipTone, string> = {
   primary: 'border-[var(--color-border-border-primary)]',
   success: 'border-[var(--color-border-border-success)]',
   warning: 'border-[var(--color-border-border-warning)]',
-  destructive: 'border-[var(--color-border-border-danger)]',
+  danger: 'border-[var(--color-border-border-danger)]',
   info: 'border-[var(--color-border-border-info)]',
 };
 
@@ -81,7 +81,7 @@ const SOLID_TONE_CLASS: Record<ChipTone, string> = {
   // in dark theme — text-on-dark clears contrast at every state and matches
   // every other solid tone here; mirrors Button's own fix (2026-09-26).
   warning: 'border-transparent bg-[var(--color-bg-warning-bg-warning)] text-[var(--color-text-text-warning)] [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
-  destructive: 'border-transparent bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-text-text-on-dark)]',
+  danger: 'border-transparent bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-text-text-on-dark)]',
   info: 'border-transparent bg-[var(--color-bg-info-bg-info)] text-[var(--color-cyan-cyan-900)]',
 };
 
@@ -94,7 +94,7 @@ const HOVER_CLASS: Record<'subtle' | 'solid', Record<ChipTone, string>> = {
     primary: 'hover:bg-[var(--color-bg-primary-bg-primary-subtle-hover)]',
     success: 'hover:bg-[var(--color-bg-success-bg-success-subtle-hover)]',
     warning: 'hover:bg-[var(--color-bg-warning-bg-warning-subtle-hover)]',
-    destructive: 'hover:bg-[var(--color-bg-danger-bg-danger-subtle-hover)]',
+    danger: 'hover:bg-[var(--color-bg-danger-bg-danger-subtle-hover)]',
     info: 'hover:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:hover:bg-[var(--color-cyan-cyan-700)]',
   },
   solid: {
@@ -102,7 +102,7 @@ const HOVER_CLASS: Record<'subtle' | 'solid', Record<ChipTone, string>> = {
     primary: 'hover:bg-[var(--color-bg-primary-bg-primary-hover)]',
     success: 'hover:bg-[var(--color-bg-success-bg-success-hover)]',
     warning: 'hover:bg-[var(--color-bg-warning-bg-warning-hover)]',
-    destructive: 'hover:bg-[var(--color-bg-danger-bg-danger-hover)]',
+    danger: 'hover:bg-[var(--color-bg-danger-bg-danger-hover)]',
     info: 'hover:bg-[var(--color-bg-info-bg-info-hover)]',
   },
 };

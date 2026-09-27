@@ -24,7 +24,7 @@ const meta: Meta<typeof ConfirmDialog> = {
     },
     confirmLabel: { control: 'text', description: 'Label for the confirm button.', table: { category: 'Content' } },
     cancelLabel: { control: 'text', description: 'Label for the cancel button.', table: { category: 'Content' } },
-    variant: { control: 'inline-radio', options: ['destructive', 'default'], description: 'Color/intent of the confirm action.', table: { category: 'Appearance' } },
+    variant: { control: 'inline-radio', options: ['danger', 'default'], description: 'Color/intent of the confirm action.', table: { category: 'Appearance' } },
     confirmIcon: { control: false, description: 'Optional icon on the confirm button.', table: { category: 'Content' } },
     onConfirm: { control: false, description: 'Called when the confirm action is activated.', table: { category: 'Events' } },
     trigger: { control: false, description: 'Element that opens the dialog when clicked.', table: { category: 'Content' } },
@@ -109,7 +109,7 @@ export const WithConsequences: Story = {
       }
       onConfirm={() => alert('Confirmed')}
     >
-      <Alert variant="destructive">
+      <Alert variant="danger">
         <WarningCircle />
         <AlertDescription>
           Deleting <span className="font-mono text-[var(--color-text-text)]">api.seashell.dev</span> removes 902,540 requests/day of routing,

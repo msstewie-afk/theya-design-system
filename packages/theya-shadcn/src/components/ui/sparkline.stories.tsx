@@ -17,7 +17,7 @@ const meta: Meta<typeof Sparkline> = {
     data: { control: false, description: 'Ordered values to plot.' },
     tone: {
       control: 'inline-radio',
-      options: ['brand', 'success', 'warning', 'destructive', 'info', 'muted'],
+      options: ['brand', 'success', 'warning', 'danger', 'info', 'muted'],
       description: 'Maps stroke/fill to a semantic token.',
     },
     area: { control: 'boolean', description: 'Soft gradient area fill under the line.' },
@@ -59,7 +59,7 @@ export const SuccessArea: Story = {
 export const Destructive: Story = {
   args: {
     data: [0.2, 0.3, 0.25, 0.5, 0.45, 0.6, 0.4],
-    tone: 'destructive',
+    tone: 'danger',
     ariaLabel: 'Error rate rising slightly over the last 7 days.',
   },
 };

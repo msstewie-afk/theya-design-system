@@ -5,7 +5,7 @@ import type { StatusTone } from './status-dot';
 /**
  * Semantic status pill. Pairs with StatusDot for "dot + label". `variant`
  * is a superset of the canonical StatusTone vocabulary — it shares
- * neutral/primary/success/warning/destructive/info and adds the
+ * neutral/primary/success/warning/danger/info and adds the
  * Badge-only `solid` visual (not a status).
  */
 export type BadgeVariant = StatusTone | 'solid';
@@ -26,7 +26,7 @@ const VARIANT_CLASS: Record<BadgeVariant, string> = {
   primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)] border-transparent',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)] border-transparent',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)] border-transparent',
-  destructive: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] border-transparent',
+  danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] border-transparent',
   info: 'bg-[var(--color-cyan-cyan-050)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)] border-transparent',
   solid: 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)] border-transparent',
 };

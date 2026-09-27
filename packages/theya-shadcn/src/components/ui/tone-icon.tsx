@@ -17,7 +17,7 @@ const TONE_CLASS: Record<StatusTone, string> = {
   info: 'bg-[var(--color-cyan-cyan-050)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)]',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-icon-icon-success)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-icon-icon-warning)]',
-  destructive: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-icon-icon-danger)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-icon-icon-danger)]',
   neutral: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-icon-icon-subtle)]',
   primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-icon-icon-primary)]',
 };
@@ -26,7 +26,7 @@ const DEFAULT_ICON: Record<StatusTone, ReactNode> = {
   info: <InfoCircle />,
   success: <CheckCircle />,
   warning: <WarningTriangle />,
-  destructive: <WarningCircle />,
+  danger: <WarningCircle />,
   neutral: <Bell />,
   primary: <Star />,
 };

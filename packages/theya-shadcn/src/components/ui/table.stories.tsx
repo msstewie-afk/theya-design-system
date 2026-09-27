@@ -65,7 +65,7 @@ const STATUS_LABEL: Record<SiteStatus, string> = {
 const STATUS_BADGE: Record<SiteStatus, BadgeVariant> = {
   running: 'success',
   suspended: 'warning',
-  error: 'destructive',
+  error: 'danger',
 };
 
 /**

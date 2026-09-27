@@ -7,7 +7,7 @@ import { Meter } from './meter';
  * semantics (aria-valuemin/max/now/text) since no Radix meter primitive
  * exists. Use it — not Progress — whenever the number is a static
  * measurement rather than task completion, and carry a threshold `tone`
- * (primary / success / warning / destructive / info).
+ * (primary / success / warning / danger / info).
  */
 const meta = {
   title: 'Feedback/Meter',
@@ -25,7 +25,7 @@ const meta = {
     value: { control: { type: 'range', min: 0, max: 100, step: 1 }, description: 'Current value.' },
     tone: {
       control: { type: 'inline-radio' },
-      options: ['primary', 'success', 'warning', 'destructive', 'info'],
+      options: ['primary', 'success', 'warning', 'danger', 'info'],
       description: 'Fill color.',
     },
     min: { control: false, description: 'Minimum value.' },
@@ -56,7 +56,7 @@ export const Tones: Story = {
     <div className="flex flex-col gap-5">
       <Meter value={0.38} min={0} max={1} label="CPU" tone="success" format={{ style: 'percent' }} />
       <Meter value={0.82} min={0} max={1} label="Memory" tone="warning" format={{ style: 'percent' }} />
-      <Meter value={0.96} min={0} max={1} label="Disk" tone="destructive" format={{ style: 'percent' }} />
+      <Meter value={0.96} min={0} max={1} label="Disk" tone="danger" format={{ style: 'percent' }} />
     </div>
   ),
 };

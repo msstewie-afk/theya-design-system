@@ -30,7 +30,7 @@ const meta: Meta<typeof DropdownMenu> = {
       description: {
         component:
           'Ported from a Base UI reference onto @radix-ui/react-dropdown-menu. Items support ' +
-          '`variant="destructive"` and `inset`, plus checkbox / radio items, a trailing slot, and nested sub-menus.',
+          '`variant="danger"` and `inset`, plus checkbox / radio items, a trailing slot, and nested sub-menus.',
       },
     },
   },
@@ -66,7 +66,7 @@ export const Default: Story = {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive">
+        <DropdownMenuItem variant="danger">
           <Trash /> Delete site
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -94,7 +94,7 @@ export const Open: Story = {
         <DropdownMenuItem>Open site</DropdownMenuItem>
         <DropdownMenuItem>Reissue certificate</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive">
+        <DropdownMenuItem variant="danger">
           <Trash /> Delete site
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -120,7 +120,7 @@ export const GroupsWithLabels: Story = {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuLabel>Danger zone</DropdownMenuLabel>
-          <DropdownMenuItem variant="destructive">
+          <DropdownMenuItem variant="danger">
             <Trash /> Delete site
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -142,8 +142,8 @@ export const Destructive: Story = {
         <DropdownMenuItem>Open site</DropdownMenuItem>
         <DropdownMenuItem>Reissue certificate</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive">Suspend site</DropdownMenuItem>
-        <DropdownMenuItem variant="destructive">
+        <DropdownMenuItem variant="danger">Suspend site</DropdownMenuItem>
+        <DropdownMenuItem variant="danger">
           <Trash /> Delete site
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -279,7 +279,7 @@ export const WithDisabledItem: Story = {
         <DropdownMenuItem>Open site</DropdownMenuItem>
         <DropdownMenuItem disabled>Reissue certificate</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive">
+        <DropdownMenuItem variant="danger">
           <Trash /> Delete site
         </DropdownMenuItem>
       </DropdownMenuContent>

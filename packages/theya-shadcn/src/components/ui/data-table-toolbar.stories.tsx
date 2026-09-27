@@ -17,7 +17,7 @@ interface Site {
 const STATUS: Record<Site['status'], { label: string; tone: StatusTone }> = {
   running: { label: 'Running', tone: 'success' },
   suspended: { label: 'Suspended', tone: 'warning' },
-  error: { label: 'Error', tone: 'destructive' },
+  error: { label: 'Error', tone: 'danger' },
 };
 
 const SITES: Site[] = [

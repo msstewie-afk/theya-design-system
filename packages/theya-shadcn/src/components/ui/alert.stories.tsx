@@ -18,7 +18,7 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'info', 'success', 'warning', 'destructive'],
+      options: ['default', 'info', 'success', 'warning', 'danger'],
       description: 'Tone of the banner.',
     },
     indicator: {
@@ -104,7 +104,7 @@ export const Tones: Story = {
           <AlertDescription>You&apos;re at 90% of your storage limit.</AlertDescription>
         </div>
       </Alert>
-      <Alert variant="destructive">
+      <Alert variant="danger">
         <WarningCircle />
         <div>
           <AlertTitle>Deployment failed</AlertTitle>
@@ -146,7 +146,7 @@ export const Stripe: Story = {
           <AlertDescription>You&apos;re at 90% of your storage limit.</AlertDescription>
         </div>
       </Alert>
-      <Alert variant="destructive" indicator="stripe">
+      <Alert variant="danger" indicator="stripe">
         <WarningCircle />
         <div>
           <AlertTitle>Deployment failed</AlertTitle>
@@ -262,7 +262,7 @@ const ACTION_CASES = [
     tertiary: 'Remind me later',
   },
   {
-    variant: 'destructive',
+    variant: 'danger',
     primaryIntent: 'danger',
     icon: <WarningCircle />,
     title: 'Deploy failed',

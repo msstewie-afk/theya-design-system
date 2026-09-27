@@ -29,7 +29,7 @@ const meta = {
     value: { control: 'text', description: 'Headline figure (string | number); pre-abbreviate large magnitudes.' },
     tone: {
       control: 'select',
-      options: ['success', 'warning', 'destructive', 'neutral', 'primary', 'info'],
+      options: ['success', 'warning', 'danger', 'neutral', 'primary', 'info'],
       description: 'Status tone → renders a bare StatusDot (or ToneIcon, see toneIcon) beside the value, word kept sr-only by default.',
     },
     toneLabel: { control: 'text', description: 'Overrides the sr-only status word.' },
@@ -90,7 +90,7 @@ export const Tones: Story = {
     <div className="grid w-full max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <Stat label="Healthy sites" value={119} tone="success" />
       <Stat label="Needs attention" value={9} tone="warning" />
-      <Stat label="Failing sites" value={2} tone="destructive" />
+      <Stat label="Failing sites" value={2} tone="danger" />
       <Stat label="Suspended" value={4} tone="neutral" />
       <Stat label="Provisioning" value={1} tone="primary" />
       <Stat label="Sync status" value={12} tone="info" />
@@ -116,7 +116,7 @@ export const CompositeValue: Story = {
   },
 };
 
-/** Each delta direction: up (success), down (destructive), flat (muted). */
+/** Each delta direction: up (success), down (danger), flat (muted). */
 export const Deltas: Story = {
   parameters: { fullWidth: true, controls: { exclude: ['delta', 'label', 'value'] } },
   render: () => (

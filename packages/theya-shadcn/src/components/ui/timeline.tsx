@@ -17,7 +17,7 @@ import { cn } from '@/lib/utils';
  * The dot/icon is decorative; for a non-neutral tone an sr-only word
  * is announced so status is never color-alone.
  */
-export type TimelineTone = 'neutral' | 'success' | 'warning' | 'destructive' | 'info' | 'primary';
+export type TimelineTone = 'neutral' | 'success' | 'warning' | 'danger' | 'info' | 'primary';
 
 // Same `-status` family StatusDot uses, and the same light/dark split
 // (Мария caught this on StatusDot first, 2026-09-26, then flagged
@@ -34,7 +34,7 @@ const TONE_DOT: Record<TimelineTone, string> = {
   neutral: 'bg-[var(--color-icon-icon-subtle)]',
   success: 'bg-[var(--color-bg-success-bg-success)] [[data-theme=dark]_&]:bg-[var(--color-bg-success-bg-success-status)]',
   warning: 'bg-[var(--color-yellow-yellow-300)] [[data-theme=dark]_&]:bg-[var(--color-bg-warning-bg-warning-status)]',
-  destructive: 'bg-[var(--color-bg-danger-bg-danger)] [[data-theme=dark]_&]:bg-[var(--color-bg-danger-bg-danger-status)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger)] [[data-theme=dark]_&]:bg-[var(--color-bg-danger-bg-danger-status)]',
   info: 'bg-[var(--color-bg-info-bg-info-status)]',
   primary: 'bg-[var(--color-bg-primary-bg-primary)] [[data-theme=dark]_&]:bg-[var(--color-bg-primary-bg-primary-status)]',
 };
@@ -57,7 +57,7 @@ const TONE_ICON: Record<TimelineTone, string> = {
   neutral: 'bg-[var(--color-icon-icon-subtle)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:text-[var(--color-black)]',
   success: 'bg-[var(--color-bg-success-bg-success)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:bg-[var(--color-bg-success-bg-success-status)]',
   warning: 'bg-[var(--color-yellow-yellow-300)] text-[var(--color-black)] [[data-theme=dark]_&]:bg-[var(--color-bg-warning-bg-warning-status)] [[data-theme=dark]_&]:text-[var(--color-icon-icon-on-dark)]',
-  destructive: 'bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:bg-[var(--color-bg-danger-bg-danger-status)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:bg-[var(--color-bg-danger-bg-danger-status)]',
   info: 'bg-[var(--color-bg-info-bg-info)] text-[var(--color-cyan-cyan-900)]',
   primary: 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:bg-[var(--color-bg-primary-bg-primary-status)]',
 };
@@ -66,7 +66,7 @@ const TONE_SR: Record<TimelineTone, string> = {
   neutral: '',
   success: 'success',
   warning: 'warning',
-  destructive: 'error',
+  danger: 'error',
   info: 'info',
   primary: 'highlighted',
 };

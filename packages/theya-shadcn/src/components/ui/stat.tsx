@@ -34,7 +34,7 @@ const DELTA_SR = { up: 'increased', down: 'decreased', flat: 'no change' } as co
 const TONE_SR: Record<StatTone, string> = {
   success: 'healthy',
   warning: 'needs attention',
-  destructive: 'critical',
+  danger: 'critical',
   neutral: 'neutral',
   primary: 'active',
   info: 'informational',

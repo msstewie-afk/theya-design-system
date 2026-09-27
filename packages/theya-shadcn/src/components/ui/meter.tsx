@@ -14,13 +14,13 @@ import { cn } from '@/lib/utils';
  * and fills 38%). Leaving the default max={100} with a fractional
  * value displays "38%" but fills only ~0.4% — this dev-warns on that.
  */
-export type MeterTone = 'primary' | 'success' | 'warning' | 'destructive' | 'info';
+export type MeterTone = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
 const TONE_INDICATOR: Record<MeterTone, string> = {
   primary: 'bg-[var(--color-bg-primary-bg-primary)]',
   success: 'bg-[var(--color-bg-success-bg-success)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning)]',
-  destructive: 'bg-[var(--color-bg-danger-bg-danger)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger)]',
   info: 'bg-[var(--color-bg-info-bg-info-status)]',
 };
 

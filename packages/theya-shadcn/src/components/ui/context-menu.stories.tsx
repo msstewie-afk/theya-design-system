@@ -79,7 +79,7 @@ export const Default: Story = {
           </ContextMenuSubContent>
         </ContextMenuSub>
         <ContextMenuSeparator />
-        <ContextMenuItem variant="destructive">
+        <ContextMenuItem variant="danger">
           <Trash />
           Delete site
         </ContextMenuItem>
@@ -97,8 +97,8 @@ export const Destructive: Story = {
         <ContextMenuItem>Open site</ContextMenuItem>
         <ContextMenuItem>Reissue certificate</ContextMenuItem>
         <ContextMenuSeparator />
-        <ContextMenuItem variant="destructive">Suspend site</ContextMenuItem>
-        <ContextMenuItem variant="destructive">
+        <ContextMenuItem variant="danger">Suspend site</ContextMenuItem>
+        <ContextMenuItem variant="danger">
           <Trash />
           Delete site
         </ContextMenuItem>
@@ -198,7 +198,7 @@ export const WithDisabledItem: Story = {
         <ContextMenuItem>Open site</ContextMenuItem>
         <ContextMenuItem disabled>Reissue certificate</ContextMenuItem>
         <ContextMenuSeparator />
-        <ContextMenuItem variant="destructive">Delete site</ContextMenuItem>
+        <ContextMenuItem variant="danger">Delete site</ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
   ),

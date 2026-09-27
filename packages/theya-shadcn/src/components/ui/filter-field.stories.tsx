@@ -40,7 +40,7 @@ const ATTRIBUTES: FilterAttribute[] = [
     multiple: true,
     options: [
       { value: 'active', label: 'Active', tone: 'success' },
-      { value: 'suspended', label: 'Suspended', tone: 'destructive' },
+      { value: 'suspended', label: 'Suspended', tone: 'danger' },
       { value: 'pending', label: 'Pending', tone: 'warning' },
     ],
   },
@@ -109,7 +109,7 @@ type AuditRow = {
 };
 
 const SEVERITY_TONE: Record<AuditRow['severity'], StatusTone> = {
-  critical: 'destructive',
+  critical: 'danger',
   warning: 'warning',
   info: 'info',
   resolved: 'success',
@@ -139,7 +139,7 @@ const AUDIT_ATTRIBUTES: FilterAttribute[] = [
     multiple: true,
     searchable: false,
     options: [
-      { value: 'critical', label: 'Critical', tone: 'destructive' },
+      { value: 'critical', label: 'Critical', tone: 'danger' },
       { value: 'warning', label: 'Warning', tone: 'warning' },
       { value: 'info', label: 'Info', tone: 'info' },
       { value: 'resolved', label: 'Resolved', tone: 'success' },

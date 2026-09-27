@@ -8,7 +8,7 @@ import { Button, type ButtonProps } from './button';
  * selector. Static by default; pass `live="assertive"|"polite"` when
  * mounting one dynamically in response to an event, so it's announced.
  */
-export type AlertVariant = 'default' | 'info' | 'success' | 'warning' | 'destructive';
+export type AlertVariant = 'default' | 'info' | 'success' | 'warning' | 'danger';
 
 /**
  * `indicator="stripe"` adds a full solid-tone bar flush on the left edge, on
@@ -23,7 +23,7 @@ const VARIANT_CLASS: Record<AlertVariant, string> = {
   info: 'bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] border-transparent [&>svg]:text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:[&>svg]:text-[var(--color-cyan-cyan-200)]',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)] border-transparent [&>svg]:text-[var(--color-icon-icon-success)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)] border-transparent [&>svg]:text-[var(--color-icon-icon-warning)]',
-  destructive: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] border-transparent [&>svg]:text-[var(--color-icon-icon-danger)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] border-transparent [&>svg]:text-[var(--color-icon-icon-danger)]',
 };
 
 // Solid (non-subtle) tone tokens — same family StatusDot's dot color and
@@ -32,7 +32,7 @@ const STRIPE_CLASS: Partial<Record<AlertVariant, string>> = {
   info: 'bg-[var(--color-bg-info-bg-info)]',
   success: 'bg-[var(--color-bg-success-bg-success)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning)]',
-  destructive: 'bg-[var(--color-bg-danger-bg-danger)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger)]',
 };
 
 // Maps the banner's own tone to Button's `intent` prop, so any ghost control
@@ -47,7 +47,7 @@ const DISMISS_STATE_CLASS: Record<AlertVariant, string> = {
   info: 'hover:not-disabled:bg-[var(--color-cyan-cyan-100)] focus-visible:bg-[var(--color-cyan-cyan-100)] active:not-disabled:bg-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:hover:not-disabled:bg-[var(--color-cyan-cyan-700)] [[data-theme=dark]_&]:focus-visible:bg-[var(--color-cyan-cyan-700)] [[data-theme=dark]_&]:active:not-disabled:bg-[var(--color-cyan-cyan-900)]',
   success: 'hover:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-hover)] focus-visible:bg-[var(--color-bg-success-bg-success-subtle-hover)] active:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-pressed)]',
   warning: 'hover:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-hover)] focus-visible:bg-[var(--color-bg-warning-bg-warning-subtle-hover)] active:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-pressed)]',
-  destructive: 'hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] focus-visible:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] active:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-pressed)]',
+  danger: 'hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] focus-visible:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] active:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-pressed)]',
 };
 
 const VARIANT_TO_INTENT: Record<AlertVariant, NonNullable<ButtonProps['intent']>> = {
@@ -55,7 +55,7 @@ const VARIANT_TO_INTENT: Record<AlertVariant, NonNullable<ButtonProps['intent']>
   info: 'info',
   success: 'success',
   warning: 'warning',
-  destructive: 'danger',
+  danger: 'danger',
 };
 
 export interface AlertProps extends React.ComponentProps<'div'> {

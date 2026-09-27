@@ -113,17 +113,17 @@ export const Sizes: Story = {
 /* Notification row: leading tone icon, unread dot, kebab, action button.     */
 /* -------------------------------------------------------------------------- */
 
-type NotificationTone = 'destructive' | 'warning' | 'info' | 'success';
+type NotificationTone = 'danger' | 'warning' | 'info' | 'success';
 
 const TONE_ICON: Record<NotificationTone, React.ReactNode> = {
-  destructive: <WarningCircle />,
+  danger: <WarningCircle />,
   warning: <WarningTriangle />,
   info: <InfoCircle />,
   success: <CheckCircle />,
 };
 
 const TONE_CIRCLE: Record<NotificationTone, string> = {
-  destructive: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-icon-icon-danger)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-icon-icon-danger)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-icon-icon-warning)]',
   info: 'bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-icon-icon-info)]',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-icon-icon-success)]',
@@ -158,7 +158,7 @@ function NotificationActions({ label, read, onToggleRead, onDismiss }: { label: 
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive" onClick={onDismiss}>
+        <DropdownMenuItem variant="danger" onClick={onDismiss}>
           <Xmark />
           Dismiss
         </DropdownMenuItem>
@@ -240,7 +240,7 @@ export const Notification: Story = {
         <div>
           <p className="mb-2 font-body text-body-xs font-medium uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]">Interactive — row opens on click</p>
           <ul className="divide-y divide-[var(--color-border-border-subtle)] overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
-            <Row id="backup" tone="destructive" title="Backup failed" description="The nightly backup for acme_prod did not complete." action="Retry backup" interactive />
+            <Row id="backup" tone="danger" title="Backup failed" description="The nightly backup for acme_prod did not complete." action="Retry backup" interactive />
             <Row id="deploy" tone="success" title="Deploy succeeded" description="shop.seashell.dev deployed to production in 42s." interactive />
           </ul>
         </div>

@@ -65,7 +65,7 @@ function DropdownMenuItem({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
   inset?: boolean;
-  variant?: 'default' | 'destructive';
+  variant?: 'default' | 'danger';
 }) {
   const size = useContext(DropdownMenuSizeContext);
   return (
@@ -79,11 +79,11 @@ function DropdownMenuItem({
         'transition-colors duration-100 ease-out motion-reduce:transition-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         inset && 'pl-8',
-        'data-[variant=destructive]:text-[var(--color-text-text-danger)]',
-        'data-[variant=destructive]:data-[highlighted]:bg-[var(--color-bg-danger-bg-danger-subtle)]',
+        'data-[variant=danger]:text-[var(--color-text-text-danger)]',
+        'data-[variant=danger]:data-[highlighted]:bg-[var(--color-bg-danger-bg-danger-subtle)]',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4',
-        '[&_svg]:text-[var(--color-icon-icon-subtle)] data-[variant=destructive]:[&_svg]:text-current',
+        '[&_svg]:text-[var(--color-icon-icon-subtle)] data-[variant=danger]:[&_svg]:text-current',
         className,
       )}
       {...props}

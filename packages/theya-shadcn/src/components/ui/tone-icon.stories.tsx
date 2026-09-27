@@ -19,7 +19,7 @@ const meta: Meta<typeof ToneIcon> = {
   argTypes: {
     tone: {
       control: 'select',
-      options: ['info', 'success', 'warning', 'destructive', 'neutral', 'primary'],
+      options: ['info', 'success', 'warning', 'danger', 'neutral', 'primary'],
       description: 'Semantic tone driving the background and default icon.',
     },
     shape: { control: 'select', options: ['circle', 'square'], description: 'Outer silhouette.' },
@@ -52,7 +52,7 @@ export const Tones: Story = {
           ['info', 'Update available'],
           ['success', 'Deployment succeeded'],
           ['warning', 'Disk usage high'],
-          ['destructive', 'Backup failed'],
+          ['danger', 'Backup failed'],
           ['neutral', 'New notification'],
           ['primary', 'Upgraded to Pro'],
         ] as const

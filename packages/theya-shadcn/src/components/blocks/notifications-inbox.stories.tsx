@@ -91,9 +91,9 @@ const EVENT_TYPE_OPTIONS: FilterOption[] = [
 ];
 
 const SECURITY_ALERTS: InboxNotification[] = [
-  { id: 's1', title: 'Brute-force attempt blocked', description: '14 failed logins from 198.51.100.7 in 2 minutes.', time: '5m ago', group: 'Today', tone: 'destructive', read: false, object: 'brute-force' },
-  { id: 's2', title: 'Malware signature detected', description: 'eicar-test-file quarantined on web-01.', time: '1h ago', group: 'Today', tone: 'destructive', read: false, object: 'malware' },
-  { id: 's3', title: 'Firewall rule triggered', description: 'Blocked inbound traffic on port 4444 from 203.0.113.9.', time: 'Yesterday', group: 'Earlier', tone: 'destructive', read: true, object: 'firewall' },
+  { id: 's1', title: 'Brute-force attempt blocked', description: '14 failed logins from 198.51.100.7 in 2 minutes.', time: '5m ago', group: 'Today', tone: 'danger', read: false, object: 'brute-force' },
+  { id: 's2', title: 'Malware signature detected', description: 'eicar-test-file quarantined on web-01.', time: '1h ago', group: 'Today', tone: 'danger', read: false, object: 'malware' },
+  { id: 's3', title: 'Firewall rule triggered', description: 'Blocked inbound traffic on port 4444 from 203.0.113.9.', time: 'Yesterday', group: 'Earlier', tone: 'danger', read: true, object: 'firewall' },
 ];
 
 export const StatusHiddenCustomObjectFacet: Story = {

@@ -444,7 +444,7 @@ function DangerSection({ email, onDeleteAccount }: { email: string; onDeleteAcco
         <h2 className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">Danger zone</h2>
         <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Deleting your account removes every site, database and backup. This cannot be undone after the recovery window.</p>
       </div>
-      <Alert variant="destructive">
+      <Alert variant="danger">
         <WarningTriangle />
         {/* items-start (not items-center) keeps this row's top edge level
             with the icon's own top-of-first-line position from Alert's

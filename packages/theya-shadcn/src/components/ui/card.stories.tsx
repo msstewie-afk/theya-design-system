@@ -17,7 +17,7 @@ const meta: Meta<typeof Card> = {
   parameters: { layout: 'padded' },
   argTypes: {
     size: { control: 'inline-radio', options: [undefined, 'sm', 'md', 'lg'], description: 'Padding scale.' },
-    severity: { control: 'inline-radio', options: ['default', 'info', 'success', 'warning', 'destructive'], description: 'Tinted border/surface for a status card.' },
+    severity: { control: 'inline-radio', options: ['default', 'info', 'success', 'warning', 'danger'], description: 'Tinted border/surface for a status card.' },
   },
 };
 
@@ -109,7 +109,7 @@ export const InteractiveCard: Story = {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>Restart</DropdownMenuItem>
-                <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
+                <DropdownMenuItem variant="danger">Delete</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </CardAction>
@@ -311,7 +311,7 @@ const SEVERITY_COPY: Record<CardSeverity, { icon: typeof InfoCircle | null; labe
   info: { icon: InfoCircle, label: 'Maintenance scheduled', note: 'Sat 02:00 UTC' },
   success: { icon: CheckCircle, label: 'Backup completed', note: 'All sites' },
   warning: { icon: WarningTriangle, label: 'Quota nearing limit', note: '92% used' },
-  destructive: { icon: WarningCircle, label: 'DNS records not propagated', note: 'seashell.dev' },
+  danger: { icon: WarningCircle, label: 'DNS records not propagated', note: 'seashell.dev' },
 };
 
 const SEVERITY_ICON_CLASS: Record<CardSeverity, string> = {
@@ -319,7 +319,7 @@ const SEVERITY_ICON_CLASS: Record<CardSeverity, string> = {
   info: 'text-[var(--color-icon-icon-info)]',
   success: 'text-[var(--color-icon-icon-success)]',
   warning: 'text-[var(--color-icon-icon-warning)]',
-  destructive: 'text-[var(--color-icon-icon-danger)]',
+  danger: 'text-[var(--color-icon-icon-danger)]',
 };
 
 /** Severity tints the surface and supplies matching interactive hover/focus colors. */

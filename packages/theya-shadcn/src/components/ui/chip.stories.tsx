@@ -19,7 +19,7 @@ const meta = {
   argTypes: {
     tone: {
       control: 'select',
-      options: ['neutral', 'primary', 'success', 'warning', 'destructive', 'info'],
+      options: ['neutral', 'primary', 'success', 'warning', 'danger', 'info'],
       description: 'The canonical StatusTone vocabulary (shared with StatusDot/Badge).',
     },
     appearance: {
@@ -115,7 +115,7 @@ export const Tones: Story = {
       <Chip {...args} tone="warning">
         Warning
       </Chip>
-      <Chip {...args} tone="destructive">
+      <Chip {...args} tone="danger">
         Destructive
       </Chip>
       <Chip {...args} tone="info">
@@ -132,14 +132,14 @@ export const Solid: Story = {
   render: (args) => (
     <div className="flex flex-col gap-2">
       <div className="flex flex-wrap items-center gap-1">
-        {(['neutral', 'primary', 'success', 'warning', 'destructive', 'info'] as const).map((tone) => (
+        {(['neutral', 'primary', 'success', 'warning', 'danger', 'info'] as const).map((tone) => (
           <Chip key={tone} {...args} tone={tone} appearance="subtle">
             {tone}
           </Chip>
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-1">
-        {(['neutral', 'primary', 'success', 'warning', 'destructive', 'info'] as const).map((tone) => (
+        {(['neutral', 'primary', 'success', 'warning', 'danger', 'info'] as const).map((tone) => (
           <Chip key={tone} {...args} tone={tone} appearance="solid">
             {tone}
           </Chip>
@@ -157,14 +157,14 @@ export const Bordered: Story = {
   render: (args) => (
     <div className="flex flex-col gap-2">
       <div className="flex flex-wrap items-center gap-1">
-        {(['neutral', 'primary', 'success', 'warning', 'destructive', 'info'] as const).map((tone) => (
+        {(['neutral', 'primary', 'success', 'warning', 'danger', 'info'] as const).map((tone) => (
           <Chip key={tone} {...args} tone={tone} appearance="subtle">
             {tone}
           </Chip>
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-1">
-        {(['neutral', 'primary', 'success', 'warning', 'destructive', 'info'] as const).map((tone) => (
+        {(['neutral', 'primary', 'success', 'warning', 'danger', 'info'] as const).map((tone) => (
           <Chip key={tone} {...args} tone={tone} appearance="subtle" bordered>
             {tone}
           </Chip>
@@ -185,7 +185,7 @@ export const InteractiveTones: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex flex-col gap-2">
-      {(['neutral', 'primary', 'success', 'warning', 'destructive', 'info'] as const).map((tone) => (
+      {(['neutral', 'primary', 'success', 'warning', 'danger', 'info'] as const).map((tone) => (
         <div key={tone} className="flex items-center gap-3">
           <span className="w-20 font-body text-body-xs text-[var(--color-text-text-subtler)] capitalize">{tone}</span>
           <Chip tone={tone}>{tone}</Chip>
@@ -207,8 +207,8 @@ export const WithStatusDot: Story = {
       <Chip interactive={false} tone="success">
         <StatusDot tone="success" /> Running
       </Chip>
-      <Chip interactive={false} tone="destructive">
-        <StatusDot tone="destructive" /> Failed
+      <Chip interactive={false} tone="danger">
+        <StatusDot tone="danger" /> Failed
       </Chip>
     </div>
   ),
@@ -247,10 +247,10 @@ export const WithIcon: Story = {
 /** A count-led label: the numeral carries `tabular-nums` (not `font-mono`, which this system reserves for machine identifiers). */
 export const WithCount: Story = {
   name: 'With count',
-  args: { interactive: false, tone: 'destructive' },
+  args: { interactive: false, tone: 'danger' },
   render: (args) => (
     <Chip {...args}>
-      <StatusDot tone="destructive" />
+      <StatusDot tone="danger" />
       <span className="tabular-nums">5</span> critical
     </Chip>
   ),

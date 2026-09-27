@@ -45,7 +45,7 @@ export interface ConfirmDialogProps {
   confirmValueMono?: boolean;
   confirmLabel?: string;
   cancelLabel?: string;
-  variant?: 'destructive' | 'default';
+  variant?: 'danger' | 'default';
   confirmIcon?: ReactNode;
   onConfirm?: () => void;
   trigger?: ReactNode;
@@ -65,7 +65,7 @@ export function ConfirmDialog({
   confirmValueMono = true,
   confirmLabel = 'Delete',
   cancelLabel = 'Cancel',
-  variant = 'destructive',
+  variant = 'danger',
   confirmIcon,
   onConfirm,
   trigger,
@@ -158,7 +158,7 @@ export function ConfirmDialog({
 
         <AlertDialogFooter>
           <AlertDialogCancel>{cancelLabel}</AlertDialogCancel>
-          <AlertDialogAction type="filled" intent={variant === 'destructive' ? 'danger' : 'primary'} disabled={!ready} onClick={onConfirm} leftIcon={confirmIcon}>
+          <AlertDialogAction type="filled" intent={variant === 'danger' ? 'danger' : 'primary'} disabled={!ready} onClick={onConfirm} leftIcon={confirmIcon}>
             {confirmLabel}
           </AlertDialogAction>
         </AlertDialogFooter>

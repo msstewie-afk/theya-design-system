@@ -72,7 +72,7 @@ const meta: Meta<SelectStoryArgs> = {
     },
     status: {
       control: 'select',
-      options: ['success', 'warning', 'destructive', 'neutral', 'primary', 'info'],
+      options: ['success', 'warning', 'danger', 'neutral', 'primary', 'info'],
       description: 'On SelectItem. Colored dot in the icon slot — mutually exclusive with icon.',
       table: { category: 'Content' },
     },
@@ -286,7 +286,7 @@ export const WithStatus: Story = {
       <SelectContent>
         <SelectItem value="a" status="success">web-01 — running</SelectItem>
         <SelectItem value="b" status="warning">web-02 — degraded</SelectItem>
-        <SelectItem value="c" status="destructive">web-03 — stopped</SelectItem>
+        <SelectItem value="c" status="danger">web-03 — stopped</SelectItem>
       </SelectContent>
     </Select>
   ),

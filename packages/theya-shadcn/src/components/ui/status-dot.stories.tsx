@@ -19,7 +19,7 @@ const meta = {
   argTypes: {
     tone: {
       control: 'select',
-      options: ['success', 'warning', 'destructive', 'neutral', 'primary', 'info'],
+      options: ['success', 'warning', 'danger', 'neutral', 'primary', 'info'],
       description: 'Semantic color of the dot, mapped to a background token.',
     },
     className: { control: false, description: 'Class on the root element.' },
@@ -62,7 +62,7 @@ export const Tones: Story = {
         Degraded
       </li>
       <li className="inline-flex items-center gap-2">
-        <StatusDot tone="destructive" />
+        <StatusDot tone="danger" />
         Error
       </li>
       <li className="inline-flex items-center gap-2">
@@ -97,7 +97,7 @@ export const Inverse: Story = {
         Degraded
       </li>
       <li className="inline-flex items-center gap-2">
-        <StatusDot tone="destructive" inverse />
+        <StatusDot tone="danger" inverse />
         Error
       </li>
       <li className="inline-flex items-center gap-2">
@@ -122,8 +122,8 @@ export const InBadge: Story = {
         <StatusDot tone="warning" />
         Degraded
       </Badge>
-      <Badge variant="destructive">
-        <StatusDot tone="destructive" />
+      <Badge variant="danger">
+        <StatusDot tone="danger" />
         Error
       </Badge>
       <Badge variant="neutral">
@@ -150,7 +150,7 @@ export const InListRow: Story = {
       <li className="flex items-center justify-between gap-3 px-3 py-2">
         <span className="min-w-0 truncate font-mono">api.seashell.dev</span>
         <span className="inline-flex shrink-0 items-center gap-2 text-[var(--color-text-text-subtler)]">
-          <StatusDot tone="destructive" />
+          <StatusDot tone="danger" />
           Error
         </span>
       </li>

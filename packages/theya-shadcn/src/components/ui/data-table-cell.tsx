@@ -326,7 +326,7 @@ function UsageCell({ value, total, label, header }: Omit<UsageCellProps, 'kind'>
 
 /** Worst first. `success` ranks below `neutral` (good news, not a severity); `solid` ranks mild so it never outranks a real warning. */
 const BADGE_SEVERITY_RANK: Record<BadgeVariant, number> = {
-  destructive: 6,
+  danger: 6,
   warning: 5,
   info: 4,
   primary: 3,

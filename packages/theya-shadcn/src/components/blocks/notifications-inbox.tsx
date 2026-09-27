@@ -58,7 +58,7 @@ import {
  * data and the `on*` handlers to wire it to your API.
  */
 
-export type NotificationTone = 'neutral' | 'info' | 'success' | 'warning' | 'destructive';
+export type NotificationTone = 'neutral' | 'info' | 'success' | 'warning' | 'danger';
 
 /** A single notification. */
 export type InboxNotification = {
@@ -81,7 +81,7 @@ export type InboxNotification = {
 };
 
 const STATUS_OPTIONS: FilterOption[] = [
-  { value: 'destructive', label: 'Error' },
+  { value: 'danger', label: 'Error' },
   { value: 'warning', label: 'Warning' },
   { value: 'info', label: 'Info' },
   { value: 'success', label: 'Success' },
@@ -104,7 +104,7 @@ const SEEDED: InboxNotification[] = [
   { id: 'n-2', title: 'New sign-in from a new device', description: "Chrome on macOS · 203.0.113.24. If this wasn't you, review your sessions.", time: '1h ago', group: 'Today', tone: 'warning', read: false },
   { id: 'n-3', title: 'Invoice paid', description: 'Your July invoice of $79.00 was paid.', time: '3h ago', group: 'Today', tone: 'info', read: true },
   { id: 'n-4', title: 'Certificate renews soon', description: 'The certificate for api.seashell.dev renews in 7 days.', time: 'Yesterday', group: 'Earlier', tone: 'neutral', read: false, object: 'api-gateway' },
-  { id: 'n-5', title: 'Backup failed', description: 'The nightly backup for acme_prod did not complete.', time: '2d ago', group: 'Earlier', tone: 'destructive', read: true, object: 'db-prod-01' },
+  { id: 'n-5', title: 'Backup failed', description: 'The nightly backup for acme_prod did not complete.', time: '2d ago', group: 'Earlier', tone: 'danger', read: true, object: 'db-prod-01' },
   { id: 'n-6', title: 'Teammate joined', description: 'Priya Nair accepted your invitation.', time: '3d ago', group: 'Earlier', tone: 'neutral', read: true },
 ];
 
@@ -377,7 +377,7 @@ function NotificationRow({
                 <DropdownMenuItem onClick={() => onToggleRead(false)}>Mark as unread</DropdownMenuItem>
               )}
               <DropdownMenuSeparator />
-              <DropdownMenuItem variant="destructive" onClick={() => onDismiss(n)}>
+              <DropdownMenuItem variant="danger" onClick={() => onDismiss(n)}>
                 <Xmark />
                 Dismiss
               </DropdownMenuItem>

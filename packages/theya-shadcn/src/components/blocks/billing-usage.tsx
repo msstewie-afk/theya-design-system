@@ -75,7 +75,7 @@ const NEAR_LIMIT = 85;
 const INVOICE_STATUS: Record<BillingInvoice['status'], { tone: StatusTone; label: string }> = {
   paid: { tone: 'success', label: 'Paid' },
   due: { tone: 'warning', label: 'Due' },
-  failed: { tone: 'destructive', label: 'Failed' },
+  failed: { tone: 'danger', label: 'Failed' },
 };
 
 const DEFAULT_PLAN: BillingPlan = { name: 'Pro', price: '$79 / mo', renewal: 'Renews Jul 1, 2026', badge: 'primary' };

@@ -56,8 +56,8 @@ export const WithStatus: Story = {
       <DescriptionItem className="sm:items-start">
         <DescriptionTerm>Status</DescriptionTerm>
         <DescriptionDetails>
-          <Badge variant="destructive">
-            <StatusDot tone="destructive" />
+          <Badge variant="danger">
+            <StatusDot tone="danger" />
             Error
           </Badge>
         </DescriptionDetails>

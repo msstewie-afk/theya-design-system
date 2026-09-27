@@ -11,13 +11,13 @@ import { cn } from '@/lib/utils';
  *   <Sparkline data={[3, 5, 4, 6, 5, 7, 9]} tone="success"
  *     ariaLabel="Uptime trending up over the last 7 days." />
  */
-export type SparklineTone = 'brand' | 'success' | 'warning' | 'destructive' | 'info' | 'muted';
+export type SparklineTone = 'brand' | 'success' | 'warning' | 'danger' | 'info' | 'muted';
 
 const TONE_STROKE: Record<SparklineTone, string> = {
   brand: 'var(--color-bg-primary-bg-primary)',
   success: 'var(--color-bg-success-bg-success)',
   warning: 'var(--color-bg-warning-bg-warning)',
-  destructive: 'var(--color-bg-danger-bg-danger)',
+  danger: 'var(--color-bg-danger-bg-danger)',
   // Fixed: was wired to the generic --color-bg-secondary-bg-secondary
   // (grayish) instead of the dedicated blue info family — same systemic
   // bug already fixed in StatusDot/ToneIcon/Chip/Badge/Alert/Timeline/

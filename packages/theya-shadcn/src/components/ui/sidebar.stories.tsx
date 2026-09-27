@@ -60,13 +60,13 @@ function DemoLayout({ inverse }: { inverse?: boolean }) {
               </SidebarItem>
               <SidebarItem
                 icon={<Key />}
-                badge="!" badgeTone="destructive"
+                badge="!" badgeTone="danger"
                 active={active === 'credentials'}
                 onClick={() => setActive('credentials')}
                 actions={
                   <>
                     <DropdownMenuItem><EditPencil /> Rename</DropdownMenuItem>
-                    <DropdownMenuItem variant="destructive"><Trash /> Delete</DropdownMenuItem>
+                    <DropdownMenuItem variant="danger"><Trash /> Delete</DropdownMenuItem>
                   </>
                 }
               >
@@ -92,7 +92,7 @@ function DemoLayout({ inverse }: { inverse?: boolean }) {
                 actions={
                   <>
                     <DropdownMenuItem><EditPencil /> Rename</DropdownMenuItem>
-                    <DropdownMenuItem variant="destructive"><Trash /> Delete</DropdownMenuItem>
+                    <DropdownMenuItem variant="danger"><Trash /> Delete</DropdownMenuItem>
                   </>
                 }
               >
@@ -162,7 +162,7 @@ function AccountLayout() {
                 <DropdownMenuItem>Switch workspace</DropdownMenuItem>
                 <DropdownMenuItem>Account settings</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem variant="destructive">Sign out</DropdownMenuItem>
+                <DropdownMenuItem variant="danger">Sign out</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarFooter>

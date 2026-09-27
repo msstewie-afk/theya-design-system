@@ -22,14 +22,14 @@ import type { AvatarProps } from './avatar';
  * that fine-tuning can hook off [data-slot=button][data-size=…] when
  * it's picked up.
  */
-export type CardSeverity = 'default' | 'info' | 'success' | 'warning' | 'destructive';
+export type CardSeverity = 'default' | 'info' | 'success' | 'warning' | 'danger';
 
 const SEVERITY_CLASS: Record<CardSeverity, string> = {
   default: '',
   info: 'border-[var(--color-border-border-primary)] bg-[var(--color-bg-secondary-bg-secondary-subtle)]',
   success: 'border-[var(--color-border-border-success)] bg-[var(--color-bg-success-bg-success-subtle)]',
   warning: 'border-[var(--color-border-border-warning)] bg-[var(--color-bg-warning-bg-warning-subtle)]',
-  destructive: 'border-[var(--color-border-border-danger)] bg-[var(--color-bg-danger-bg-danger-subtle)]',
+  danger: 'border-[var(--color-border-border-danger)] bg-[var(--color-bg-danger-bg-danger-subtle)]',
 };
 
 // A selected `action="filter"` card used to always switch to primary/blue
@@ -43,7 +43,7 @@ const SEVERITY_SELECTED_CLASS: Record<CardSeverity, string> = {
   info: 'border-[var(--color-border-border-primary)] bg-[var(--color-bg-secondary-bg-secondary-subtle)]',
   success: 'border-[var(--color-border-border-success)] bg-[var(--color-bg-success-bg-success-subtle)]',
   warning: 'border-[var(--color-border-border-warning)] bg-[var(--color-bg-warning-bg-warning-subtle)]',
-  destructive: 'border-[var(--color-border-border-danger)] bg-[var(--color-bg-danger-bg-danger-subtle)]',
+  danger: 'border-[var(--color-border-border-danger)] bg-[var(--color-bg-danger-bg-danger-subtle)]',
 };
 
 // Per-intent focus/hover rings — all now the real translucent
@@ -56,7 +56,7 @@ const SEVERITY_HOVER_CLASS: Record<CardSeverity, string> = {
   info: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
   success: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring-success)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring-success)]',
   warning: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring-warning)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring-warning)]',
-  destructive: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring-error)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring-error)]',
+  danger: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring-error)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring-error)]',
 };
 
 export type CardSize = 'sm' | 'md' | 'lg';
@@ -310,7 +310,7 @@ const SEVERITY_LINK_HOVER: Record<CardSeverity, string> = {
   info: 'group-data-[severity=info]/card:hover:text-[var(--color-text-text-link)]',
   success: 'group-data-[severity=success]/card:hover:text-[var(--color-text-text-success)]',
   warning: 'group-data-[severity=warning]/card:hover:text-[var(--color-text-text-warning)]',
-  destructive: 'group-data-[severity=destructive]/card:hover:text-[var(--color-text-text-danger)]',
+  danger: 'group-data-[severity=danger]/card:hover:text-[var(--color-text-text-danger)]',
 };
 
 export function CardLink({ className, asChild = false, ...props }: CardLinkProps) {

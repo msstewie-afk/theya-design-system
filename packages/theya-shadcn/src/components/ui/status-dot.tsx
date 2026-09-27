@@ -10,9 +10,9 @@ import { cn } from '@/lib/utils';
  * (e.g. Terminal's `inverse` header) — same convention as Terminal/
  * CodeEditor's own `inverse` prop.
  */
-export type StatusTone = 'success' | 'warning' | 'destructive' | 'neutral' | 'primary' | 'info';
+export type StatusTone = 'success' | 'warning' | 'danger' | 'neutral' | 'primary' | 'info';
 
-// success/warning/destructive/primary/info originally all used the same
+// success/warning/danger/primary/info originally all used the same
 // `bg-{tone}-bg-{tone}-status` token in both themes — a dedicated, solid
 // (non-alpha) fill one ramp step lighter than the plain `bg-{tone}` used
 // for filled-button surfaces, since `bg-{tone}` alone read as too dark/
@@ -27,7 +27,7 @@ export type StatusTone = 'success' | 'warning' | 'destructive' | 'neutral' | 'pr
 // Мария caught a bug (2026-09-26): in LIGHT theme the `-status` token is
 // unnecessary and wrong for warning specifically — the plain solid
 // `bg-{tone}-bg-{tone}` fill already reads fine on a light dot for
-// success/destructive/primary/info, so those now use the plain fill in
+// success/danger/primary/info, so those now use the plain fill in
 // light theme, keeping `-status` only for dark theme (via the
 // `[data-theme=dark]` arbitrary-ancestor-variant, same mechanism as
 // button.tsx's filled×warning fix). Warning is the one exception in
@@ -43,7 +43,7 @@ export type StatusTone = 'success' | 'warning' | 'destructive' | 'neutral' | 'pr
 const TONE_CLASS: Record<StatusTone, string> = {
   success: 'bg-[var(--color-bg-success-bg-success)] [[data-theme=dark]_&]:bg-[var(--color-bg-success-bg-success-status)]',
   warning: 'bg-[var(--color-yellow-yellow-300)] [[data-theme=dark]_&]:bg-[var(--color-bg-warning-bg-warning-status)]',
-  destructive: 'bg-[var(--color-bg-danger-bg-danger)] [[data-theme=dark]_&]:bg-[var(--color-bg-danger-bg-danger-status)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger)] [[data-theme=dark]_&]:bg-[var(--color-bg-danger-bg-danger-status)]',
   neutral: 'bg-[var(--color-icon-icon-subtle)]',
   primary: 'bg-[var(--color-bg-primary-bg-primary)] [[data-theme=dark]_&]:bg-[var(--color-bg-primary-bg-primary-status)]',
   info: 'bg-[var(--color-bg-info-bg-info-status)]',
@@ -52,7 +52,7 @@ const TONE_CLASS: Record<StatusTone, string> = {
 const TONE_CLASS_INVERSE: Record<StatusTone, string> = {
   success: 'bg-[var(--color-bg-success-bg-success-on-dark)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning-on-dark)]',
-  destructive: 'bg-[var(--color-bg-danger-bg-danger-on-dark)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger-on-dark)]',
   neutral: 'bg-[var(--color-icon-icon-subtler-on-dark)]',
   primary: 'bg-[var(--color-bg-primary-bg-primary-on-dark)]',
   info: 'bg-[var(--color-bg-info-bg-info-on-dark)]',
