@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, SelectLabel, SelectSeparator, SelectGroup } from './select';
 import type { SelectTriggerProps, SelectItemProps } from './select';
 import type { StatusTone } from './status-dot';
@@ -118,6 +119,11 @@ export const Playground: Story = {
       </Select>
     </div>
   ),
+  // The visible <Label> names the trigger, and the trigger shows the value.
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('combobox', { name: 'Region' });
+    await expect(trigger).toHaveTextContent('eu-west-1, Ireland');
+  },
 };
 
 export const WithGroups: Story = {
@@ -142,6 +148,31 @@ export const WithGroups: Story = {
       </SelectContent>
     </Select>
   ),
+  // Keyboard only: open with Enter, type-ahead, pick, focus returns; Escape cancels.
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('combobox', { name: 'Fruit' });
+    const body = within(document.body);
+
+    await userEvent.tab();
+    await expect(trigger).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    const listbox = await body.findByRole('listbox');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    await userEvent.keyboard('c');
+    await waitFor(() => expect(within(listbox).getByRole('option', { name: 'Carrot' })).toHaveFocus());
+    await userEvent.keyboard('{Enter}');
+
+    await waitFor(() => expect(body.queryByRole('listbox')).toBeNull());
+    await expect(trigger).toHaveTextContent('Carrot');
+    await expect(trigger).toHaveFocus();
+
+    await userEvent.keyboard('{Enter}');
+    await body.findByRole('listbox');
+    await userEvent.keyboard('{ArrowDown}{Escape}');
+    await waitFor(() => expect(body.queryByRole('listbox')).toBeNull());
+    await expect(trigger).toHaveTextContent('Carrot');
+  },
 };
 
 /** heightSize on the Select root drives both the trigger's own height/text size AND the dropdown item text size together. */

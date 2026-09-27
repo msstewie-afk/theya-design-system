@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
 import { Globe, ShieldCheck, Settings } from 'iconoir-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 import { Badge } from './badge';
@@ -40,6 +41,35 @@ export const Default: Story = {
       </TabsContent>
     </Tabs>
   ),
+  // Roving focus: one Tab stop, arrows/Home/End move and activate (automatic mode), wraps.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const [overview, dns, security] = ['Overview', 'DNS records', 'Security'].map((name) =>
+      canvas.getByRole('tab', { name }),
+    );
+
+    await userEvent.tab();
+    await expect(overview).toHaveFocus();
+    await expect(overview).toHaveAttribute('aria-selected', 'true');
+
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(dns).toHaveFocus();
+    await expect(dns).toHaveAttribute('aria-selected', 'true');
+    await expect(canvas.getByRole('tabpanel')).toHaveTextContent('DNS records content.');
+
+    await userEvent.keyboard('{End}');
+    await expect(security).toHaveFocus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(overview).toHaveFocus();
+    await userEvent.keyboard('{ArrowLeft}');
+    await expect(security).toHaveFocus();
+    await userEvent.keyboard('{Home}');
+    await expect(overview).toHaveFocus();
+
+    // Tab leaves the tablist and lands on the panel, not the next tab.
+    await userEvent.tab();
+    await expect(canvas.getByRole('tabpanel')).toHaveFocus();
+  },
 };
 
 export const Disabled: Story = {
@@ -56,6 +86,23 @@ export const Disabled: Story = {
       </TabsContent>
     </Tabs>
   ),
+  // Disabled tab: announced as disabled, skipped by arrow keys, never activated.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const overview = canvas.getByRole('tab', { name: 'Overview' });
+    const dns = canvas.getByRole('tab', { name: 'DNS records' });
+
+    await expect(dns).toHaveAttribute('aria-disabled', 'true');
+    // Radix's button-only attributes must not leak onto the div (nested-interactive fix).
+    await expect(dns).not.toHaveAttribute('type');
+    await expect(dns).not.toHaveAttribute('disabled');
+
+    await userEvent.tab();
+    await expect(overview).toHaveFocus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(overview).toHaveFocus();
+    await expect(dns).toHaveAttribute('aria-selected', 'false');
+  },
 };
 
 /** A leading icon per trigger. */
@@ -151,6 +198,20 @@ function ClosableDemo() {
 
 export const Closable: Story = {
   render: () => <ClosableDemo />,
+  // Closing the active tab moves selection to the first remaining one;
+  // the close control is a real, named button reachable by keyboard.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Close Draft 1' }));
+    await expect(canvas.queryByRole('tab', { name: /Draft 1/ })).toBeNull();
+    await expect(canvas.getByRole('tab', { name: /Draft 2/ })).toHaveAttribute('aria-selected', 'true');
+
+    const closeDraft3 = canvas.getByRole('button', { name: 'Close Draft 3' });
+    closeDraft3.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.queryByRole('tab', { name: /Draft 3/ })).toBeNull();
+    await expect(canvas.getAllByRole('tab')).toHaveLength(1);
+  },
 };
 
 /** Icon-only triggers still need an accessible name — each carries an `aria-label`. */
