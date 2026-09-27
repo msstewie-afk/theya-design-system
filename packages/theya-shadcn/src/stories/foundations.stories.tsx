@@ -95,8 +95,25 @@ function contrastTextColor(color: string): string {
       b = parts[2] * alpha + 255 * (1 - alpha);
     }
   }
-  const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
-  return luminance > 150 ? '#151529' : '#ffffff';
+  // Real WCAG relative luminance (sRGB-gamma-corrected), not the old
+  // 0.299/0.587/0.114 perceived-brightness formula — that one systematically
+  // under-weights blue, so saturated blues like Blue 400/300 scored as
+  // "dark enough" for white text while actually failing AA (color-contrast
+  // audit finding, 2026-09-27). Pick whichever candidate text color gives
+  // the higher contrast ratio against the swatch, computed properly.
+  const relLuminance = (channel: number) => {
+    const c = channel / 255;
+    return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  };
+  const luminance = 0.2126 * relLuminance(r) + 0.7152 * relLuminance(g) + 0.0722 * relLuminance(b);
+  const contrastAgainst = (fgLuminance: number) => {
+    const lighter = Math.max(luminance, fgLuminance);
+    const darker = Math.min(luminance, fgLuminance);
+    return (lighter + 0.05) / (darker + 0.05);
+  };
+  // #151529's own luminance, #ffffff's is 1.
+  const darkTextLuminance = 0.2126 * relLuminance(0x15) + 0.7152 * relLuminance(0x15) + 0.0722 * relLuminance(0x29);
+  return contrastAgainst(1) >= contrastAgainst(darkTextLuminance) ? '#ffffff' : '#151529';
 }
 
 const RAMP_STEPS = ['005', '010', '050', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
