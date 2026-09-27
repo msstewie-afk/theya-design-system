@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
 import { Autocomplete } from './autocomplete';
 
 const meta: Meta<typeof Autocomplete> = {
@@ -48,6 +49,26 @@ export const Default: Story = {
       <Autocomplete options={RESOURCES} placeholder="Search resources" aria-label="Search resources" />
     </div>
   ),
+  // Keyboard-only selection (WCAG 2.1.1): arrows move a highlight that is
+  // exposed via aria-activedescendant, Enter picks it.
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole('combobox', { name: 'Search resources' });
+
+    await userEvent.click(input);
+    await userEvent.type(input, 'd');
+    const listbox = await within(document.body).findByRole('listbox');
+    const options = within(listbox).getAllByRole('option');
+    await expect(options).toHaveLength(3); // prefix match: Databases, DNS records, Domains
+    await expect(options[1]).toHaveTextContent('DNS records');
+    await expect(input).not.toHaveAttribute('aria-activedescendant');
+
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}');
+    await expect(input).toHaveAttribute('aria-activedescendant', options[1].id);
+
+    await userEvent.keyboard('{Enter}');
+    await expect(input).toHaveValue('DNS records');
+    await expect(input).toHaveAttribute('aria-expanded', 'false');
+  },
 };
 
 export const HeightSizes: Story = {
@@ -78,6 +99,22 @@ function ControlledDemo() {
 export const FreeText: Story = {
   name: 'Free text',
   render: () => <ControlledDemo />,
+  // Enter without a highlight keeps the typed text; no match keeps it too.
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole('combobox', { name: 'Search resources' });
+
+    await userEvent.click(input);
+    await userEvent.type(input, 'Datab');
+    await userEvent.keyboard('{Enter}');
+    await expect(input).toHaveValue('Datab');
+
+    await userEvent.clear(input);
+    await userEvent.type(input, 'zzz');
+    await expect(await within(document.body).findByText('No results.')).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    await expect(input).toHaveValue('zzz');
+    await expect(input).toHaveAttribute('aria-expanded', 'false');
+  },
 };
 
 export const Loading: Story = {
