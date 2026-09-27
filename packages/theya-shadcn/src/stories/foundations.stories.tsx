@@ -571,92 +571,240 @@ export const FocusRing: Story = {
   ),
 };
 
+/* ------------------------------------------------------------------ */
+/* Scale documentation helpers (Elevation / Motion / Layering)         */
+/* ------------------------------------------------------------------ */
+
+type SpecRow = { token: string; value: string; use: string; usedBy: string };
+
+// Four-column spec table shared by the scale stories below.
+function SpecTable({ rows, valueLabel = 'Value' }: { rows: SpecRow[]; valueLabel?: string }) {
+  return (
+    <div className="overflow-x-auto rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)]">
+      <table className="w-full border-collapse text-left">
+        <thead>
+          <tr className="border-b border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]">
+            {['Token', valueLabel, 'Use for', 'Used by today'].map((h) => (
+              <th key={h} className="px-4 py-2.5 text-body-s font-medium text-[var(--color-text-text-subtle)]">
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.token} className="border-b border-solid border-[var(--color-border-border-subtler)] align-top last:border-b-0">
+              <td className="whitespace-nowrap px-4 py-3 font-mono text-body-s text-[var(--color-text-text)]">{r.token}</td>
+              <td className="whitespace-nowrap px-4 py-3 font-mono text-body-s text-[var(--color-text-text-subtle)]">{r.value}</td>
+              <td className="px-4 py-3 text-body-m text-[var(--color-text-text)]">{r.use}</td>
+              <td className="px-4 py-3 text-body-s text-[var(--color-text-text-subtle)]">{r.usedBy}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+// Honest status line: the scales exist, components have not migrated yet.
+function MigrationNote({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-info-bg-info-subtle)] px-4 py-3 text-body-s text-[var(--color-text-text)]">
+      {children}
+    </p>
+  );
+}
+
+function SubHeading({ children }: { children: React.ReactNode }) {
+  return <h3 className="text-body-l font-semibold text-[var(--color-text-text)]">{children}</h3>;
+}
+
+/* ---------------------------- Elevation ---------------------------- */
+
+const ELEVATION_ROWS: SpecRow[] = [
+  { token: 'shadow-elevation-xs', value: '1 layer, 2px blur, 8%', use: 'A surface that sits in the page flow and only needs to lift off the background.', usedBy: 'Stat, CodeBlock, CodeEditor, Terminal, Card at rest (shadow-xs)' },
+  { token: 'shadow-elevation-sm', value: '2 layers, 3px blur, 10%', use: 'Small raised details inside a control or a layout.', usedBy: 'Alert, Switch and Slider thumbs, Sidebar, Menubar trigger (shadow-sm)' },
+  { token: 'shadow-elevation-md', value: '2 layers, 10px blur, 10%', use: 'Floating controls and short hints that hover over content.', usedBy: 'Tooltip, floating scroll buttons, DataTableToolbar bulk bar (shadow-md)' },
+  { token: 'shadow-elevation-lg', value: '2 layers, 28px blur, 14%', use: 'Surfaces that drop out of a trigger: menus, popovers, listboxes.', usedBy: 'DropdownMenu, ContextMenu, Menubar, Popover, HoverCard, NavigationMenu, Select, chart tooltips (shadow-lg)' },
+  { token: 'shadow-elevation-xl', value: '2 layers, 56px blur, 18%', use: 'Modal layers that take over the page.', usedBy: 'Dialog, AlertDialog, Drawer, PushSheet, Sonner (shadow-xl)' },
+];
+
+const ELEVATION_DEMO = [
+  { s: 'xs', label: 'Stat', cls: 'shadow-elevation-xs' },
+  { s: 'sm', label: 'Alert', cls: 'shadow-elevation-sm' },
+  { s: 'md', label: 'Tooltip', cls: 'shadow-elevation-md' },
+  { s: 'lg', label: 'Menu', cls: 'shadow-elevation-lg' },
+  { s: 'xl', label: 'Dialog', cls: 'shadow-elevation-xl' },
+] as const;
+
 export const Elevation: Story = {
   render: () => (
     <Page>
-      <Section title="Elevation" description="shadow-elevation-{xs,sm,md,lg,xl} — a Theya-specific ink-tinted scale (rgba(27,27,31,…)), additive alongside Tailwind's own generic shadow-sm/md/lg/xl/2xl utilities already used across the codebase.">
-        <div className="flex flex-wrap gap-6 rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] p-6">
-          {([
-            { s: 'xs', cls: 'grid size-20 place-content-center rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface)] font-mono text-[11px] text-[var(--color-text-text-subtle)] shadow-elevation-xs' },
-            { s: 'sm', cls: 'grid size-20 place-content-center rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface)] font-mono text-[11px] text-[var(--color-text-text-subtle)] shadow-elevation-sm' },
-            { s: 'md', cls: 'grid size-20 place-content-center rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface)] font-mono text-[11px] text-[var(--color-text-text-subtle)] shadow-elevation-md' },
-            { s: 'lg', cls: 'grid size-20 place-content-center rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface)] font-mono text-[11px] text-[var(--color-text-text-subtle)] shadow-elevation-lg' },
-            { s: 'xl', cls: 'grid size-20 place-content-center rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface)] font-mono text-[11px] text-[var(--color-text-text-subtle)] shadow-elevation-xl' },
-          ] as const).map(({ s, cls }) => (
-            <div key={s} className="flex flex-col items-center gap-2">
-              <div className={cls}>
-                {s}
+      <Section
+        title="Elevation"
+        description="Five ink-tinted shadow steps (rgba(27,27,31,...)). The higher the step, the further the surface is from the page. Use as shadow-elevation-{xs|sm|md|lg|xl}."
+      >
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-wrap gap-8 rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] p-8">
+            {ELEVATION_DEMO.map(({ s, label, cls }) => (
+              <div
+                key={s}
+                className={`flex h-24 w-36 flex-col justify-between rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface)] p-3 ${cls}`}
+              >
+                <span className="text-body-m font-medium text-[var(--color-text-text)]">{label}</span>
+                <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">elevation-{s}</span>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <SpecTable rows={ELEVATION_ROWS} valueLabel="Shadow" />
+          <MigrationNote>
+            Components still use Tailwind's generic shadow-xs ... shadow-xl with the same step names. Migration is a 1:1 rename (shadow-lg to shadow-elevation-lg). Focus rings drawn with box-shadow are a separate thing and stay as they are.
+          </MigrationNote>
         </div>
       </Section>
     </Page>
   ),
 };
+
+/* ------------------------------ Motion ----------------------------- */
+
+const DURATION_ROWS: SpecRow[] = [
+  { token: 'duration-fast', value: '100ms', use: 'Micro feedback on the control itself.', usedBy: 'Checkbox, Radio and Switch check marks, DropdownMenu (duration-100)' },
+  { token: 'duration-standard', value: '150ms', use: 'Default for hover, color, border and focus changes.', usedBy: '52 uses across almost every component (duration-150)' },
+  { token: 'duration-moderate', value: '200ms', use: 'Overlays appearing, content expanding or collapsing.', usedBy: 'Dialog, AlertDialog, Accordion, Collapsible, Carousel (duration-200)' },
+  { token: 'duration-slow', value: '300ms', use: 'Value changes and large panels.', usedBy: 'Progress, Meter, PushSheet (duration-300)' },
+];
+
+const EASING_ROWS: SpecRow[] = [
+  { token: 'ease-enter', value: 'cubic-bezier(0, 0, 0.2, 1)', use: 'Things appearing and hover states. The default.', usedBy: '82 uses (ease-out)' },
+  { token: 'ease-exit', value: 'cubic-bezier(0.4, 0, 1, 1)', use: 'Things leaving. Pair with ease-enter on the same element.', usedBy: 'Dialog, AlertDialog (ease-in)' },
+  { token: 'ease-spring', value: 'cubic-bezier(0.34, 1.56, 0.64, 1)', use: 'Selection feedback with a small overshoot.', usedBy: 'Checkbox, Radio, Switch, Button' },
+  { token: 'ease-press', value: 'cubic-bezier(0.4, 0, 0.2, 1)', use: 'Pressing a button down and releasing it.', usedBy: 'Button' },
+];
+
+const DURATION_DEMO = [
+  { name: 'fast', ms: 100, cls: 'duration-fast' },
+  { name: 'standard', ms: 150, cls: 'duration-standard' },
+  { name: 'moderate', ms: 200, cls: 'duration-moderate' },
+  { name: 'slow', ms: 300, cls: 'duration-slow' },
+] as const;
+
+const EASING_DEMO = [
+  { name: 'enter', curve: 'var(--ease-enter)' },
+  { name: 'exit', curve: 'var(--ease-exit)' },
+  { name: 'spring', curve: 'var(--ease-spring)' },
+  { name: 'press', curve: 'var(--ease-press)' },
+] as const;
 
 export const Motion: Story = {
   render: () => (
     <Page>
-      <Section title="Motion" description="duration-{fast,standard,moderate,slow} — semantic names for the duration values already dominant in the codebase (duration-150 alone: 53 uses). Easing needs no new token: ease-out/ease-in are already real Tailwind defaults.">
-        <div className="flex flex-col gap-4 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5">
-          {([
-            { name: 'fast', ms: 100, cls: 'h-full w-full origin-left scale-x-0 rounded-full bg-[var(--color-bg-primary-bg-primary)] ease-out animate-[grow_2.4s_ease-in-out_infinite] duration-fast' },
-            { name: 'standard', ms: 150, cls: 'h-full w-full origin-left scale-x-0 rounded-full bg-[var(--color-bg-primary-bg-primary)] ease-out animate-[grow_2.4s_ease-in-out_infinite] duration-standard' },
-            { name: 'moderate', ms: 200, cls: 'h-full w-full origin-left scale-x-0 rounded-full bg-[var(--color-bg-primary-bg-primary)] ease-out animate-[grow_2.4s_ease-in-out_infinite] duration-moderate' },
-            { name: 'slow', ms: 300, cls: 'h-full w-full origin-left scale-x-0 rounded-full bg-[var(--color-bg-primary-bg-primary)] ease-out animate-[grow_2.4s_ease-in-out_infinite] duration-slow' },
-          ] as const).map(({ name, ms, cls }) => (
-            <div key={name} className="flex items-center gap-4">
-              <span className="w-24 shrink-0 font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">duration-{name}</span>
-              <div className="h-2 flex-1 overflow-hidden rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]">
-                <div className={cls} />
-              </div>
-              <span className="w-14 shrink-0 text-right font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">{ms}ms</span>
+      <Section
+        title="Motion"
+        description="Four durations and four easing curves. Use as duration-{fast|standard|moderate|slow} and ease-{enter|exit|spring|press}. Every transition or animation also gets a reduced-motion guard: motion-reduce:transition-none or motion-reduce:animate-none."
+      >
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-4">
+            <SubHeading>Duration</SubHeading>
+            <div className="flex flex-col gap-4 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5">
+              {DURATION_DEMO.map(({ name, ms, cls }) => (
+                <div key={name} className="flex items-center gap-4">
+                  <span className="w-36 shrink-0 font-mono text-body-s text-[var(--color-text-text-subtle)]">duration-{name}</span>
+                  <div className="h-2 flex-1 overflow-hidden rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]">
+                    <div className={`theya-grow h-full w-full origin-left rounded-full bg-[var(--color-bg-primary-bg-primary)] ${cls}`} />
+                  </div>
+                  <span className="w-14 shrink-0 text-right font-mono text-body-s text-[var(--color-text-text-subtle)]">{ms}ms</span>
+                </div>
+              ))}
             </div>
-          ))}
+            <SpecTable rows={DURATION_ROWS} />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <SubHeading>Easing</SubHeading>
+            <div className="flex flex-col gap-4 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5">
+              {EASING_DEMO.map(({ name, curve }) => (
+                <div key={name} className="flex items-center gap-4">
+                  <span className="w-36 shrink-0 font-mono text-body-s text-[var(--color-text-text-subtle)]">ease-{name}</span>
+                  <div className="relative h-4 flex-1">
+                    <div className="absolute inset-x-0 top-1/2 h-px bg-[var(--color-border-border-subtler)]" />
+                    <div
+                      className="theya-slide absolute top-0 size-4 rounded-full bg-[var(--color-bg-primary-bg-primary)]"
+                      style={{ animationTimingFunction: curve }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <SpecTable rows={EASING_ROWS} valueLabel="Curve" />
+          </div>
+
+          <MigrationNote>
+            Components still use raw Tailwind values (duration-150, ease-out, inline cubic-bezier). Each maps 1:1 to a token above.
+          </MigrationNote>
         </div>
-        <style>{`@keyframes grow { 0%, 10% { transform: scaleX(0); } 50%, 60% { transform: scaleX(1); } 100% { transform: scaleX(1); } }`}</style>
+        {/* Demo-only keyframes. Both demos stop entirely under prefers-reduced-motion. */}
+        <style>{`
+          @keyframes theya-grow { 0%, 10% { transform: scaleX(0); } 50%, 100% { transform: scaleX(1); } }
+          @keyframes theya-slide { from { left: 0; } to { left: calc(100% - 1rem); } }
+          .theya-grow { transform: scaleX(0); animation: theya-grow 2.4s ease-in-out infinite; }
+          .theya-slide { animation: theya-slide 1.6s infinite alternate; }
+          @media (prefers-reduced-motion: reduce) {
+            .theya-grow { animation: none; transform: scaleX(1); }
+            .theya-slide { animation: none; }
+          }
+        `}</style>
       </Section>
     </Page>
   ),
 };
 
-const Z_LAYERS: [string, number][] = [
-  ['z-index-base', 1],
-  ['z-index-sticky', 100],
-  ['z-index-drawer', 200],
-  ['z-index-overlay', 300],
-  ['z-index-modal', 400],
-  ['z-index-popover', 500],
-  ['z-index-toast', 600],
+/* ----------------------------- Layering ---------------------------- */
+
+const LAYER_ROWS: SpecRow[] = [
+  { token: '--z-index-sticky', value: '100', use: 'Headers and bars that stick while the page scrolls.', usedBy: 'Topbar (z-40), AppShell header (z-50)' },
+  { token: '--z-index-drawer', value: '200', use: 'Side and bottom panels that slide over the page.', usedBy: 'Drawer, PushSheet (z-50)' },
+  { token: '--z-index-overlay', value: '300', use: 'The dimmed backdrop behind a modal.', usedBy: 'Dialog and AlertDialog overlays (z-50)' },
+  { token: '--z-index-modal', value: '400', use: 'Dialog content above its backdrop.', usedBy: 'Dialog, AlertDialog (z-50)' },
+  { token: '--z-index-popover', value: '500', use: 'Anything anchored to a trigger. Also works inside a modal.', usedBy: 'Popover, DropdownMenu, ContextMenu, Menubar, HoverCard, Select, NavigationMenu (z-50)' },
+  { token: '--z-index-toast', value: '600', use: 'Notifications that must stay visible over any open layer.', usedBy: 'Sonner (its own z-index)' },
+  { token: '--z-index-tooltip', value: '700', use: 'Tooltips. Always on top, because a tooltip belongs to whatever is under the cursor, including items inside menus and toasts.', usedBy: 'Tooltip (z-50)' },
 ];
 
 export const Layering: Story = {
   name: 'Layering (z-index)',
   render: () => (
     <Page>
-      <Section title="Layering (z-index)" description="A single coordinated stacking order, additive alongside the raw z-10/z-40/z-50/z-[1]/z-[2] numbers already scattered across components (grep 2026-09-26). Tailwind v4's z-index utility isn't @theme-namespaced (confirmed live, 2026-09-26 — it's a fixed utility, unlike shadow/duration) — consume these via the z-(--custom-property) syntax, e.g. z-(--z-index-modal), not a short z-modal class. Adopt per component incrementally, not a forced migration.">
-        <div className="overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)]">
-          {Z_LAYERS.map(([name, value], i) => (
-            <div
-              key={name}
-              className="flex items-center justify-between border-b border-solid border-[var(--color-border-border-subtle)] px-4 py-2 last:border-b-0"
-              style={{ background: i % 2 ? 'var(--color-bg-surface-bg-surface)' : 'var(--color-bg-neutral-bg-neutral-subtle)' }}
-            >
-              <span className="font-mono text-xs text-[var(--color-text-text)]">--{name}</span>
-              <span className="font-mono text-xs text-[var(--color-text-text-subtle)]">{value}</span>
+      <Section
+        title="Layering (z-index)"
+        description="One stacking order for every layer that floats above the page. Tailwind v4 has no z-index theme scale, so there are no short classes: use z-(--z-index-modal), not z-modal."
+      >
+        <div className="flex flex-col gap-6">
+          <SpecTable rows={LAYER_ROWS} />
+          <div className="flex flex-col gap-2">
+            <SubHeading>Local stacking</SubHeading>
+            <p className="max-w-[70ch] text-body-m text-[var(--color-text-text)]">
+              z-[1], z-[2] and z-10 inside Card, charts, InputOTP, ToggleGroup and similar only order the parts of one component against each other. They never compete with the layers above, so they stay as plain numbers and are not tokens.
+            </p>
+          </div>
+          <div className="flex flex-col gap-2">
+            <SubHeading>Proof</SubHeading>
+            <div className="relative h-24 w-full">
+              <div className="absolute left-16 top-8 z-(--z-index-toast) flex h-16 w-40 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-primary-bg-primary)] font-mono text-body-s text-[var(--color-text-text-on-dark)]">
+                z-(--z-index-toast)
+              </div>
+              <div className="absolute left-8 top-0 z-10 flex h-16 w-40 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-danger-bg-danger)] font-mono text-body-s text-[var(--color-text-text-on-dark)]">
+                z-10
+              </div>
             </div>
-          ))}
-        </div>
-        <div className="relative mt-6 h-24 w-full">
-          <div className="absolute left-16 top-8 z-(--z-index-toast) flex h-16 w-32 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-primary-bg-primary)] font-mono text-xs text-[var(--color-text-text-on-dark)]">
-            z-(--z-index-toast)
+            <p className="text-body-s text-[var(--color-text-text-subtle)]">
+              The blue box comes first in the DOM and would lose under plain paint order, yet it renders on top because 600 is greater than 10.
+            </p>
           </div>
-          <div className="absolute left-8 top-0 z-10 flex h-16 w-32 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-danger-bg-danger)] font-mono text-xs text-[var(--color-text-text-on-dark)]">
-            z-10 (plain Tailwind)
-          </div>
+          <MigrationNote>
+            Today every overlay sits on the same z-50 and the order depends on which portal was added last. Migration moves each component to its layer above.
+          </MigrationNote>
         </div>
-        <p className="mt-2 text-xs text-[var(--color-text-text-subtle)]">Live proof the token actually works: the toast box is drawn FIRST in the DOM (would lose to the later z-10 box under plain paint order) yet correctly renders on top, because 600 &gt; 10.</p>
       </Section>
     </Page>
   ),

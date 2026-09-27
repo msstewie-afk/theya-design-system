@@ -206,6 +206,12 @@
   --duration-standard: 150ms;
   --duration-moderate: 200ms;
   --duration-slow: 300ms;
+  /* Easing: names for the four curves already used across components (2026-09-27).
+     Tailwind v4 turns --ease-* into short utilities: ease-enter, ease-exit, ... */
+  --ease-enter: cubic-bezier(0, 0, 0.2, 1); /* same as Tailwind ease-out: enter, hover (default) */
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1); /* same as Tailwind ease-in: exit */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* overshoot: checkbox, radio, switch selection */
+  --ease-press: cubic-bezier(0.4, 0, 0.2, 1); /* button press */
 
   /* ---------- Layering (z-index) ----------
      Real gap (unlike duration/easing above): existing usage is raw,
@@ -226,6 +232,7 @@
   --z-index-modal: 400;
   --z-index-popover: 500;
   --z-index-toast: 600;
+  --z-index-tooltip: 700; /* above everything: a tooltip belongs to whatever is under the cursor */
 
   /* ---------- Elevation (shadow) ----------
      Real gap: only one shadow token exists anywhere in the generated
