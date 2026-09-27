@@ -192,7 +192,12 @@ function Dropzone({
         ) : successFile && !error ? (
           <div className="flex flex-col items-center gap-1">
             <p className="font-body text-heading-s text-[var(--color-text-text)]">{successFile.name}</p>
-            <p className="font-body text-body-xs text-[var(--color-text-text-subtler)]">Uploaded on {successFile.uploadedAt}</p>
+            {/* text-text-subtler doesn't clear AA against this state's
+                tinted bg-success-subtle background (axe: color-contrast) —
+                text-text-success is the pairing every other success surface
+                in this codebase uses with that same background (see Alert,
+                Badge, Button's tonal-success variant). */}
+            <p className="font-body text-body-xs text-[var(--color-text-text-success)]">Uploaded on {successFile.uploadedAt}</p>
           </div>
         ) : (
           /* Label/or/Browse read as one tight group — the outer gap-4 above
@@ -205,7 +210,7 @@ function Dropzone({
               {error ? 'File is uploaded with error' : 'Drag files here'}
             </p>
             <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">or</p>
-            <Button type="filled" intent="primary" size="lg" className="relative z-10 mt-2" onClick={(e) => { e.stopPropagation(); openPicker(); }}>
+            <Button type="filled" intent="primary" size="lg" className="relative z-10 mt-2" disabled={disabled} onClick={(e) => { e.stopPropagation(); openPicker(); }}>
               Browse
             </Button>
           </div>
