@@ -289,6 +289,10 @@
 
     --border: var(--color-border-border-subtle);
     --input: var(--color-bg-input-bg-input);
+    /* ACCEPTED DEVIATION (2026-09-27): the focus ring is a 40%-alpha blue,
+       1.53:1 (light) / 1.87-1.95:1 (dark) — under WCAG 1.4.11's 3:1.
+       Kept deliberately for the soft visual style. See the WCAG audit doc,
+       "Accepted deviations". */
     --ring: var(--color-focus-focus-ring);
 
     /* Points at the real Theya tokens (--color-bg-chart-01..07,

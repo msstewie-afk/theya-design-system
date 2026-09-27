@@ -38,11 +38,15 @@ export const buttonVariants = cva(
     // carry a tooltip explaining why). Every hover/active rule below is also
     // gated with not-aria-disabled so a soft-disabled button doesn't react.
     'aria-disabled:cursor-not-allowed aria-disabled:opacity-50',
-    // Focus ring: back to Theya's original token as-is (--color-focus-focus-ring
-    // = blue-a300, rgba(55,149,255,0.3)), single ring, no custom override.
-    // Same contrast caveat as before: this composites to ~1.2-1.4:1 against
-    // typical backgrounds, under WCAG 1.4.11's 3:1 minimum for focus
-    // indicators — flagging it, not fixing it, per the request to match Theya.
+    // Focus ring: Theya's own token (--color-focus-focus-ring, blue-a400,
+    // rgba(55,149,255,0.4)), single soft ring, no override.
+    // ACCEPTED DEVIATION (Мария, 2026-09-27): composites to 1.53:1 on white,
+    // 1.87:1 on dark bg-surface, 1.95:1 on dark bg-surface-overlay — under
+    // WCAG 1.4.11's 3:1 for a focus indicator. Kept on purpose for the soft
+    // visual style; applies system-wide (~35 components where the ring is the
+    // only focus change). Documented in the project's WCAG audit doc
+    // (claude/wcag-aa-audit-2026-09-27.md, "Accepted deviations"). Do not
+    // "fix" locally in one component — change the token if this is revisited.
     'focus-visible:outline-none',
     'focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
     // Color/border/shadow transitions use a plain ease-out — no overshoot.
