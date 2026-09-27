@@ -124,7 +124,7 @@ export const WithGroups: Story = {
   name: 'With groups',
   render: () => (
     <Select>
-      <SelectTrigger widthSize="m">
+      <SelectTrigger widthSize="m" aria-label="Fruit">
         <SelectValue placeholder="Select a fruit" />
       </SelectTrigger>
       <SelectContent>
@@ -149,7 +149,7 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex flex-col gap-3">
       <Select heightSize="md">
-        <SelectTrigger widthSize="m">
+        <SelectTrigger widthSize="m" aria-label="Medium select">
           <SelectValue placeholder="Medium (40px)" />
         </SelectTrigger>
         <SelectContent>
@@ -157,7 +157,7 @@ export const Sizes: Story = {
         </SelectContent>
       </Select>
       <Select heightSize="sm">
-        <SelectTrigger widthSize="m">
+        <SelectTrigger widthSize="m" aria-label="Small select">
           <SelectValue placeholder="Small (32px)" />
         </SelectTrigger>
         <SelectContent>
@@ -216,7 +216,7 @@ export const InvalidOpen: Story = {
     <div className="flex flex-col gap-1.5">
       <Label htmlFor="plan-invalid">Plan</Label>
       <Select defaultOpen>
-        <SelectTrigger id="plan-invalid" error widthSize="m">
+        <SelectTrigger id="plan-invalid" error widthSize="m" aria-label="Plan">
           <SelectValue placeholder="Select a plan" />
         </SelectTrigger>
         <SelectContent>
@@ -232,7 +232,7 @@ export const InvalidOpen: Story = {
 export const Disabled: Story = {
   render: () => (
     <Select disabled>
-      <SelectTrigger widthSize="m">
+      <SelectTrigger widthSize="m" aria-label="Disabled select">
         <SelectValue placeholder="Disabled" />
       </SelectTrigger>
       <SelectContent>
