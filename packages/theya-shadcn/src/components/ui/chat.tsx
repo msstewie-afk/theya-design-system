@@ -12,6 +12,16 @@ export function Chat({ className, ...props }: React.ComponentProps<'div'>) {
   return <div className={cn('flex min-h-0 flex-col', className)} {...props} />;
 }
 
-export function ChatMessages({ className, 'aria-label': ariaLabel = 'Conversation', ...props }: React.ComponentProps<'div'>) {
-  return <div role="log" aria-label={ariaLabel} className={cn('flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-4', className)} {...props} />;
+export function ChatMessages({ className, tabIndex, 'aria-label': ariaLabel = 'Conversation', ...props }: React.ComponentProps<'div'>) {
+  // tabIndex=0: this region scrolls independently of the page (overflow-y-auto),
+  // so keyboard users need to be able to focus it to scroll it without a mouse.
+  return (
+    <div
+      role="log"
+      aria-label={ariaLabel}
+      tabIndex={tabIndex ?? 0}
+      className={cn('flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-4', className)}
+      {...props}
+    />
+  );
 }
