@@ -26,7 +26,8 @@ export const buttonVariants = cva(
     // select-none removed (2026-09-27) — same fix as Label: it blocked
     // selecting/copying a button's own visible text (Мария), with no real
     // upside once double-click-drag text smear is handled by whitespace-nowrap.
-    'inline-flex items-center justify-center whitespace-nowrap cursor-pointer',
+    // relative: anchors the loading spinner overlay (see Button render).
+    'relative inline-flex items-center justify-center whitespace-nowrap cursor-pointer',
     // Rounder than inputs on purpose (Мария, 2026-09-27): TextField/Select
     // stay at lg (6px), Button steps up to xl (8px) — a deliberate visual
     // difference between "you type into this" and "you press this", even
@@ -632,6 +633,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           event.stopPropagation();
         }
       : onClick;
+    // Data attributes for parent-side styling hooks (e.g. CardAction
+    // compensating its padding per button size). Mirrors the cva axes.
+    const dataAttributes = {
+      'data-slot': 'button',
+      'data-variant': type ?? undefined,
+      'data-intent': intent ?? undefined,
+      'data-size': size ?? undefined,
+      'data-icon-only': iconOnly ? '' : undefined,
+    };
     const sharedClassName = cn(
       buttonVariants({
         type,
@@ -668,6 +678,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       return (
         <Slot
           ref={ref}
+          {...dataAttributes}
           className={sharedClassName}
           aria-disabled={softDisabled || undefined}
           onClick={handleClick}
@@ -682,6 +693,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         type="button"
+        {...dataAttributes}
+        data-loading={loading ? '' : undefined}
         disabled={isDisabled}
         aria-disabled={isDisabled || softDisabled || undefined}
         aria-busy={loading || undefined}
@@ -689,18 +702,38 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         onClick={handleClick}
         {...rest}
       >
-        {loading ? <Spinner /> : decorativeIcon(leftIcon)}
-        {/* aria-live: announces label changes (e.g. "Save changes" → "Saving…"
-            → "Saved") to screen readers — without it those transitions are
-            silent to anyone not looking at the screen. Harmless for buttons
-            whose text never changes, since aria-live only speaks up on
-            actual changes. */}
-        {!iconOnly && (
-          <span aria-live="polite" aria-atomic="true">
-            {children}
+        {/* Loading keeps the button's width: the normal content (icons +
+            label) stays in the layout at opacity 0 and the spinner is laid
+            over it, centered. Previously the spinner was inserted as an
+            extra flex child (or replaced leftIcon, and rightIcon was
+            dropped), so a button without leftIcon grew from 75.6px to
+            97.6px on loading. opacity-0 rather than invisible on purpose:
+            visibility:hidden would drop the label from the accessibility
+            tree and leave the busy button with no accessible name. */}
+        <span
+          className={cn(
+            'inline-flex items-center justify-center gap-[inherit]',
+            loading && 'opacity-0',
+          )}
+        >
+          {decorativeIcon(leftIcon)}
+          {/* aria-live: announces label changes (e.g. "Save changes" →
+              "Saving…" → "Saved") to screen readers — without it those
+              transitions are silent to anyone not looking at the screen.
+              Harmless for buttons whose text never changes, since
+              aria-live only speaks up on actual changes. */}
+          {!iconOnly && (
+            <span aria-live="polite" aria-atomic="true">
+              {children}
+            </span>
+          )}
+          {!iconOnly && decorativeIcon(rightIcon)}
+        </span>
+        {loading && (
+          <span className="absolute inset-0 flex items-center justify-center">
+            <Spinner />
           </span>
         )}
-        {!iconOnly && !loading && decorativeIcon(rightIcon)}
       </button>
     );
   },

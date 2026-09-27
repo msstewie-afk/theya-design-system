@@ -18,8 +18,9 @@ import type { AvatarProps } from './avatar';
  *
  * Simplified vs the reference: CardAction here uses plain
  * items-center rather than per-Button-size negative-margin
- * compensation — our Button doesn't emit a data-size attribute to
- * hook that fine-tuning off of.
+ * compensation. Button now emits data-slot/data-size (2026-09-27), so
+ * that fine-tuning can hook off [data-slot=button][data-size=…] when
+ * it's picked up.
  */
 export type CardSeverity = 'default' | 'info' | 'success' | 'warning' | 'destructive';
 
