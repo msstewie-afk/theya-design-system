@@ -337,16 +337,16 @@
       },
       "warning": {
         "bg-warning": {
-          "value": "{color.yellow.yellow-200}"
-        },
-        "bg-warning-status": {
-          "value": "{color.yellow.yellow-100}"
-        },
-        "bg-warning-hover": {
           "value": "{color.yellow.yellow-300}"
         },
-        "bg-warning-pressed": {
+        "bg-warning-status": {
+          "value": "{color.yellow.yellow-300}"
+        },
+        "bg-warning-hover": {
           "value": "{color.yellow.yellow-400}"
+        },
+        "bg-warning-pressed": {
+          "value": "{color.yellow.yellow-500}"
         },
         "bg-warning-subtle": {
           "value": "{color.yellow.yellow-100}"

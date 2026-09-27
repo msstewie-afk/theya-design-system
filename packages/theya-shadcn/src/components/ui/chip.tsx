@@ -77,7 +77,7 @@ const SOLID_TONE_CLASS: Record<ChipTone, string> = {
   // Warning fill is light in light theme but a punchy dark-orange primitive
   // in dark theme — text-on-dark clears contrast at every state and matches
   // every other solid tone here; mirrors Button's own fix (2026-09-26).
-  warning: 'border-transparent bg-[var(--color-bg-warning-bg-warning)] text-[var(--color-text-text-on-dark)]',
+  warning: 'border-transparent bg-[var(--color-bg-warning-bg-warning)] text-[var(--color-text-text-warning)] [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
   destructive: 'border-transparent bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-text-text-on-dark)]',
   info: 'border-transparent bg-[var(--color-bg-info-bg-info)] text-[var(--color-cyan-cyan-900)]',
 };
