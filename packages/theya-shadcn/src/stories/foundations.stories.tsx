@@ -511,69 +511,191 @@ export const Typography: Story = {
   ),
 };
 
+const RADIUS_ROWS: SpecRow[] = [
+  { token: 'radius-sm', value: '2px', use: 'The smallest inner details.', usedBy: 'Kbd, Skeleton, Tabs indicator, Toolbar, inner parts of Card, DataTable, Sonner' },
+  { token: 'radius-md', value: '4px', use: 'Items inside a container and small controls.', usedBy: 'Menu and list items, Checkbox, Tooltip, Toggle, Tabs triggers, Sidebar items, Command (72 uses)' },
+  { token: 'radius-lg', value: '6px', use: 'Text inputs and input-like controls.', usedBy: 'TextField, Select trigger, Combobox, Autocomplete, NumberField, InputGroup, InputOTP, Password, Filter, Chip' },
+  { token: 'radius-xl', value: '8px', use: 'Buttons, and floating surfaces anchored to a trigger. A menu under a button is never rounder than the button.', usedBy: 'Button, DropdownMenu, ContextMenu, Menubar, Popover, HoverCard, NavigationMenu, Select content, CodeBlock, CodeEditor, Terminal' },
+  { token: 'radius-2xl', value: '10px', use: 'Compact card surfaces on a page.', usedBy: 'Card, Table, DataTable, Alert, Stat, Attachment, OptionCard, Dropzone, File, charts, Patterns blocks' },
+  { token: 'radius-3xl', value: '12px', use: 'Dialogs and full-height panels.', usedBy: 'Dialog, AlertDialog, Drawer, LoginFormSplit' },
+  { token: 'radius-4xl', value: '16px', use: 'Reserved for large containers.', usedBy: 'Not used by components yet' },
+  { token: 'radius-5xl', value: '32px', use: 'Reserved for large decorative shapes.', usedBy: 'Not used by components yet' },
+  { token: 'radius-max', value: '100px', use: 'Pills and round shapes.', usedBy: 'Badge, Progress, Switch, Slider, StatusDot, Stepper (today mostly as rounded-full)' },
+];
+
+const RADIUS_STEPS = [
+  ['sm', 2], ['md', 4], ['lg', 6], ['xl', 8], ['2xl', 10], ['3xl', 12], ['4xl', 16], ['5xl', 32], ['max', 100],
+] as const;
+
+const radius = (step: string) => `var(--size-border-radius-border-radius-${step})`;
+
 export const BorderRadius: Story = {
   name: 'Border radius',
   render: () => (
     <Page>
-      <Section title="Border radius scale" description="--size-border-radius-border-radius-{sm,md,lg,xl,2xl,3xl,max}.">
-        <div className="flex flex-wrap gap-6">
-          {['sm', 'md', 'lg', 'xl', '2xl', '3xl', 'max'].map((r) => (
-            <div key={r} className="flex flex-col items-center gap-2">
-              <div className="size-20 border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]" style={{ borderRadius: `var(--size-border-radius-border-radius-${r})` }} />
-              <p className="font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">--size-border-radius-border-radius-{r}</p>
+      <Section
+        title="Border radius"
+        description="Nine steps. The radius grows with the size of the surface and with how far it sits from the page: a dialog is rounder than the card inside it, the card rounder than its button, the button rounder than its input. Token names below are shortened; the full name is --size-border-radius-border-radius-{step}."
+      >
+        <div className="flex flex-col gap-8">
+          {/* Nested demo: each level uses its own tier, outermost first. */}
+          <div className="rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] p-8">
+            <div className="flex max-w-md flex-col gap-4 bg-[var(--color-bg-surface-bg-surface)] p-5 shadow-elevation-xl" style={{ borderRadius: radius('3xl') }}>
+              <div className="flex items-baseline justify-between">
+                <span className="text-body-l font-semibold text-[var(--color-text-text)]">Dialog</span>
+                <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">3xl · 12px</span>
+              </div>
+              <div className="flex flex-col gap-3 border border-solid border-[var(--color-border-border-subtle)] p-4" style={{ borderRadius: radius('2xl') }}>
+                <div className="flex items-baseline justify-between">
+                  <span className="text-body-m font-medium text-[var(--color-text-text)]">Card</span>
+                  <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">2xl · 10px</span>
+                </div>
+                <div className="flex h-10 items-center justify-between border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-input-bg-input)] px-3" style={{ borderRadius: radius('lg') }}>
+                  <span className="text-body-m text-[var(--color-text-text-subtle)]">Input</span>
+                  <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">lg · 6px</span>
+                </div>
+                <div className="flex items-center justify-between rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] px-3 py-2">
+                  <span className="text-body-m text-[var(--color-text-text)]">List item</span>
+                  <span className="flex items-center gap-2">
+                    <kbd className="border border-solid border-[var(--color-border-border-subtle)] px-1.5 font-mono text-body-s text-[var(--color-text-text-subtle)]" style={{ borderRadius: radius('sm') }}>K</kbd>
+                    <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">md · 4px, key sm · 2px</span>
+                  </span>
+                </div>
+                <div className="flex h-10 items-center justify-between bg-[var(--color-bg-primary-bg-primary)] px-4" style={{ borderRadius: radius('xl') }}>
+                  <span className="text-body-m text-[var(--color-text-text-on-dark)]">Button</span>
+                  <span className="font-mono text-body-s text-[var(--color-text-text-on-dark)]">xl · 8px</span>
+                </div>
+              </div>
             </div>
-          ))}
+          </div>
+
+          <div className="flex flex-wrap gap-5">
+            {RADIUS_STEPS.map(([step, px]) => (
+              <div key={step} className="flex flex-col items-center gap-2">
+                <div className="size-16 border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]" style={{ borderRadius: radius(step) }} />
+                <span className="font-mono text-body-s text-[var(--color-text-text)]">{step}</span>
+                <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">{px}px</span>
+              </div>
+            ))}
+          </div>
+
+          <SpecTable rows={RADIUS_ROWS} />
+
+          <MigrationNote>
+            Tailwind's rounded-* names are shifted against the token names: rounded-sm is token md (4px), rounded-lg is lg (6px), rounded-xl is xl (8px). Plain rounded and rounded-md are not bridged at all and fall back to Tailwind's own 4px and 6px. In components, write the token form: rounded-[var(--size-border-radius-border-radius-lg)].
+          </MigrationNote>
         </div>
       </Section>
     </Page>
   ),
 };
 
-const FOCUS_RINGS = [
-  { label: 'Default', cls: 'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]', onPrimary: false },
-  { label: 'Error', cls: 'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]', onPrimary: false },
-  { label: 'Success', cls: 'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring-success)]', onPrimary: false },
-  { label: 'Warning', cls: 'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring-warning)]', onPrimary: false },
-  { label: 'On primary', cls: 'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring-on-primary)]', onPrimary: true },
+const FOCUS_ROWS: SpecRow[] = [
+  { token: '--color-focus-focus-ring', value: 'rgba(55, 149, 255, 0.4)', use: 'Default ring for every interactive control.', usedBy: 'Almost every control (65 uses of the 4px ring)' },
+  { token: '--color-focus-focus-ring-error', value: 'rgba(208, 45, 75, 0.4)', use: 'Invalid fields, together with the danger border and background.', usedBy: 'TextField, Textarea, Select, Combobox, Autocomplete, DatePicker, NumberField, InputGroup, InputOTP, PromptArea, Slider' },
+  { token: '--color-focus-focus-ring-success', value: 'rgba(55, 156, 97, 0.4)', use: 'Fields and cards in a success state.', usedBy: 'Card (success severity)' },
+  { token: '--color-focus-focus-ring-warning', value: 'rgba(239, 179, 0, 0.4)', use: 'Fields and cards in a warning state.', usedBy: 'Card (warning severity)' },
+  { token: '--color-focus-focus-ring-on-primary', value: 'white 30%', use: 'Controls that sit on a primary-filled surface. Invisible on the plain page by design.', usedBy: 'Checkbox (checked), DataTableToolbar bulk bar' },
+];
+
+const FOCUS_DEMO = [
+  { tone: 'default', label: 'Default', ring: 'var(--color-focus-focus-ring)', border: 'var(--color-border-border-primary)', onPrimary: false },
+  { tone: 'error', label: 'Error', ring: 'var(--color-focus-focus-ring-error)', border: 'var(--color-border-border-danger)', onPrimary: false },
+  { tone: 'success', label: 'Success', ring: 'var(--color-focus-focus-ring-success)', border: 'var(--color-border-border-success)', onPrimary: false },
+  { tone: 'warning', label: 'Warning', ring: 'var(--color-focus-focus-ring-warning)', border: 'var(--color-border-border-warning)', onPrimary: false },
+  { tone: 'on-primary', label: 'On primary', ring: 'var(--color-focus-focus-ring-on-primary)', border: 'transparent', onPrimary: true },
 ] as const;
+
+const FOCUS_RULES = [
+  "The ring is a 4px box-shadow outside the element: focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]. It follows the element's border radius on its own.",
+  'Use an inset ring (shadow-[inset_0_0_0_3px_...]) only where an outer ring would be clipped by overflow: table cells, tree rows, code blocks, the terminal.',
+  'Text fields show the ring on any focus, including a mouse click. Buttons and other controls show it on keyboard focus only (focus-visible).',
+  'Fields pair the soft ring with a solid border color. The border is what meets the 3:1 contrast requirement; the ring alone does not.',
+  'The ring tone follows the state: error for invalid, success or warning for validated states, on-primary on primary-filled surfaces.',
+];
 
 export const FocusRing: Story = {
   name: 'Focus ring',
   render: () => (
     <Page>
-      <Section title="Focus ring" description="Five ring tokens exist, not one: --color-focus-focus-ring-{default,error,success,warning,on-primary}. Tab to each control to see its ring. 'on-primary' is a white-alpha ring (rgb(255 255 255 / 0.3), see globals.css) meant for a control sitting ON a primary-filled surface — a box-shadow ring renders OUTSIDE its element, over whatever is behind it, so it only reads against a primary-colored backdrop, never against plain page background (that was this demo's bug until Мария caught it, 2026-09-27: it put the ring on a primary-filled BUTTON sitting on the plain white page, so the ring rendered over white and was invisible).">
-        <div className="flex flex-wrap gap-6">
-          {FOCUS_RINGS.filter((r) => !r.onPrimary).map(({ label, cls }) => (
-            <div key={label} className="flex flex-col items-center gap-2">
-              <button
-                type="button"
-                className={`w-fit rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] px-4 py-2 text-sm text-[var(--color-text-text)] outline-none ${cls}`}
+      <Section
+        title="Focus ring"
+        description="Five ring tokens, one per state. The previews show each ring at rest; the button under each one lets you check it with Tab."
+      >
+        <div className="flex flex-col gap-8">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))] gap-4">
+            {FOCUS_DEMO.map(({ tone, label, ring, border, onPrimary }) => (
+              <div
+                key={tone}
+                className={`flex flex-col gap-4 rounded-[var(--size-border-radius-border-radius-2xl)] p-4 ${
+                  onPrimary ? 'bg-[var(--color-bg-primary-bg-primary)]' : 'border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]'
+                }`}
               >
-                Tab to me
-              </button>
-              <span className="font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">{label}</span>
+                <span className={`text-body-m font-medium ${onPrimary ? 'text-[var(--color-text-text-on-dark)]' : 'text-[var(--color-text-text)]'}`}>{label}</span>
+                {/* Static preview: the ring exactly as it renders on focus. */}
+                <div
+                  className={`flex h-10 items-center rounded-[var(--size-border-radius-border-radius-lg)] border border-solid px-3 text-body-m ${
+                    onPrimary ? 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)]' : 'bg-[var(--color-bg-input-bg-input)] text-[var(--color-text-text-subtle)]'
+                  }`}
+                  style={{ borderColor: border, boxShadow: `0 0 0 4px ${ring}` }}
+                >
+                  Focused
+                </div>
+                <button
+                  type="button"
+                  className={`w-fit rounded-[var(--size-border-radius-border-radius-xl)] px-3 py-1.5 text-body-s outline-none ${
+                    onPrimary ? 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)]' : 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text)]'
+                  }`}
+                  style={{ ['--demo-ring' as string]: ring }}
+                  data-focus-demo=""
+                >
+                  Tab to me
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <SubHeading>Outside or inset</SubHeading>
+            <div className="flex flex-wrap items-start gap-8">
+              <div className="flex flex-col gap-2">
+                <div className="flex h-10 w-48 items-center rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-primary)] bg-[var(--color-bg-input-bg-input)] px-3 text-body-m text-[var(--color-text-text-subtle)] shadow-[0_0_0_4px_var(--color-focus-focus-ring)]">
+                  Outside, 4px
+                </div>
+                <span className="text-body-s text-[var(--color-text-text-subtle)]">Default for standalone controls.</span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="w-56 overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]">
+                  <div className="border-b border-solid border-[var(--color-border-border-subtler)] px-3 py-2 text-body-m text-[var(--color-text-text)]">Row</div>
+                  <div className="px-3 py-2 text-body-m text-[var(--color-text-text)] shadow-[inset_0_0_0_3px_var(--color-focus-focus-ring)]">Focused row, inset 3px</div>
+                  <div className="border-t border-solid border-[var(--color-border-border-subtler)] px-3 py-2 text-body-m text-[var(--color-text-text)]">Row</div>
+                </div>
+                <span className="text-body-s text-[var(--color-text-text-subtle)]">Inside containers that clip overflow.</span>
+              </div>
             </div>
-          ))}
-          {FOCUS_RINGS.filter((r) => r.onPrimary).map(({ label, cls }) => (
-            <div key={label} className="flex flex-col items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-primary-bg-primary)] p-4">
-              <button
-                type="button"
-                className={`w-fit rounded-[var(--size-border-radius-border-radius-md)] border border-transparent bg-[var(--color-bg-primary-on-primary)] px-4 py-2 text-sm text-[var(--color-text-text-primary)] outline-none ${cls}`}
-              >
-                Tab to me
-              </button>
-              <span className="font-mono text-[0.6875rem] text-[var(--color-text-text-on-primary)]">{label}</span>
-            </div>
-          ))}
+          </div>
+
+          <SpecTable rows={FOCUS_ROWS} />
+
+          <div className="flex flex-col gap-3">
+            <SubHeading>Rules</SubHeading>
+            <ul className="flex max-w-[70ch] list-disc flex-col gap-2 pl-5 text-body-m text-[var(--color-text-text)]">
+              {FOCUS_RULES.map((rule) => (
+                <li key={rule}>{rule}</li>
+              ))}
+            </ul>
+          </div>
+
+          <MigrationNote>
+            Ring widths are not uniform yet: Button, Card and Slider draw 3px instead of 4px. This is under review in the WCAG pass. Button's ring contrast is a documented, accepted exception.
+          </MigrationNote>
         </div>
+        {/* Demo-only: apply the per-card ring on keyboard focus. */}
+        <style>{`[data-focus-demo]:focus-visible { box-shadow: 0 0 0 4px var(--demo-ring); }`}</style>
       </Section>
     </Page>
   ),
 };
-
-/* ------------------------------------------------------------------ */
-/* Scale documentation helpers (Elevation / Motion / Layering)         */
-/* ------------------------------------------------------------------ */
 
 type SpecRow = { token: string; value: string; use: string; usedBy: string };
 
