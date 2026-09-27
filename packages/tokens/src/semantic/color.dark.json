@@ -378,7 +378,7 @@
           "value": "{color.red.red-700}"
         },
         "bg-danger-status": {
-          "value": "{color.red.red-300}"
+          "value": "{color.red.red-400}"
         },
         "bg-danger-hover": {
           "value": "{color.red.red-800}"
