@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Globe, ShieldCheck, Settings } from 'iconoir-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 import { Badge } from './badge';
@@ -198,18 +198,22 @@ function ClosableDemo() {
 
 export const Closable: Story = {
   render: () => <ClosableDemo />,
-  // Closing the active tab moves selection to the first remaining one;
-  // the close control is a real, named button reachable by keyboard.
+  // APG deletable tabs: pointer "×" closes; Delete on the focused tab closes
+  // it and moves focus to the neighbouring tab (not <body>).
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Close Draft 1' }));
-    await expect(canvas.queryByRole('tab', { name: /Draft 1/ })).toBeNull();
-    await expect(canvas.getByRole('tab', { name: /Draft 2/ })).toHaveAttribute('aria-selected', 'true');
+    const draft1 = canvas.getByRole('tab', { name: 'Draft 1' });
+    await expect(draft1).toHaveAttribute('aria-keyshortcuts', 'Delete Backspace');
 
-    const closeDraft3 = canvas.getByRole('button', { name: 'Close Draft 3' });
-    closeDraft3.focus();
-    await userEvent.keyboard('{Enter}');
-    await expect(canvas.queryByRole('tab', { name: /Draft 3/ })).toBeNull();
+    await userEvent.click(canvas.getByTitle('Close Draft 1'));
+    await expect(canvas.queryByRole('tab', { name: 'Draft 1' })).toBeNull();
+    await expect(canvas.getByRole('tab', { name: 'Draft 2' })).toHaveAttribute('aria-selected', 'true');
+
+    await userEvent.tab();
+    await expect(canvas.getByRole('tab', { name: 'Draft 2' })).toHaveFocus();
+    await userEvent.keyboard('{Delete}');
+    await expect(canvas.queryByRole('tab', { name: 'Draft 2' })).toBeNull();
+    await waitFor(() => expect(canvas.getByRole('tab', { name: 'Draft 3' })).toHaveFocus());
     await expect(canvas.getAllByRole('tab')).toHaveLength(1);
   },
 };

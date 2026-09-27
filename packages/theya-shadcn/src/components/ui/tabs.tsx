@@ -47,23 +47,46 @@ export interface TabsTriggerProps extends React.ComponentProps<typeof TabsPrimit
   /** Icon shown before the label. */
   icon?: ReactNode;
   /**
-   * Renders a close "×" control after the trigger's own content (label,
-   * a Badge composed in as a child, etc). Omit for no close control.
-   * Rendered as a real sibling button, never nested inside the trigger's
-   * own interactive element — the trigger itself can't validly contain
-   * another interactive element (the same constraint Chip/ChipRemove and
-   * SidebarItem's actions trigger work around), which is also why this
-   * component renders via `asChild` onto a plain `<div role="tab">`
-   * rather than Radix's own default `<button>`.
+   * Makes the tab closable, following the WAI-ARIA APG "deletable tabs"
+   * pattern: a pointer-only "×" after the trigger's content, and the
+   * Delete / Backspace key on the focused tab for keyboard users
+   * (announced via aria-keyshortcuts).
+   *
+   * The "×" is deliberately NOT a focusable button: role="tab" has
+   * presentational children, so any focusable control inside it is
+   * invisible to screen readers and fails axe's nested-interactive
+   * (it did, until 2026-09-27). It can't sit next to the tab either —
+   * role="tablist" may only own tabs. After a keyboard close, focus moves
+   * to the neighbouring tab so it isn't dropped on <body>.
    */
-  onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  /** Accessible name for the close button. Required when `onClose` is set — it can't be derived from arbitrary children. */
+  onClose?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void;
+  /** Tooltip for the pointer "×" (e.g. "Close Draft 1"). Screen readers get the Delete shortcut instead. */
   closeLabel?: string;
 }
 
-export function TabsTrigger({ className, icon, onClose, closeLabel, children, ...props }: TabsTriggerProps) {
+export function TabsTrigger({ className, icon, onClose, closeLabel, children, onKeyDown, ...props }: TabsTriggerProps) {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    onKeyDown?.(event);
+    if (!onClose || event.defaultPrevented) return;
+    if (event.key !== 'Delete' && event.key !== 'Backspace') return;
+    event.preventDefault();
+    const current = event.currentTarget as HTMLElement;
+    const tabs = Array.from(
+      current.closest('[role="tablist"]')?.querySelectorAll<HTMLElement>('[role="tab"]:not([aria-disabled="true"])') ?? [],
+    );
+    const index = tabs.indexOf(current);
+    const neighbour = tabs[index + 1] ?? tabs[index - 1];
+    onClose(event);
+    requestAnimationFrame(() => neighbour?.isConnected && neighbour.focus());
+  };
+
   return (
-    <TabsPrimitive.Trigger asChild {...props}>
+    <TabsPrimitive.Trigger
+      asChild
+      aria-keyshortcuts={onClose ? 'Delete Backspace' : undefined}
+      onKeyDown={handleKeyDown}
+      {...props}
+    >
       <TabsTriggerDiv
         className={cn(
           '-mb-px inline-flex shrink-0 items-center gap-1.5 cursor-pointer',
@@ -91,22 +114,24 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, ..
         {icon}
         {children}
         {onClose && (
-          <button
-            type="button"
-            aria-label={closeLabel}
+          <span
+            aria-hidden="true"
+            title={closeLabel}
+            // Keep the click from also activating the tab underneath.
+            onMouseDown={(event) => event.stopPropagation()}
+            onPointerDown={(event) => event.stopPropagation()}
             onClick={(event) => {
               event.stopPropagation();
               onClose(event);
             }}
             className={cn(
-              'grid size-4 shrink-0 place-content-center rounded-[var(--size-border-radius-border-radius-sm)]',
-              'text-[var(--color-icon-icon-subtle)] outline-none',
+              'grid size-4 shrink-0 cursor-pointer place-content-center rounded-[var(--size-border-radius-border-radius-sm)]',
+              'text-[var(--color-icon-icon-subtle)]',
               'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
-              'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
             )}
           >
             <Xmark width={12} height={12} aria-hidden="true" />
-          </button>
+          </span>
         )}
       </TabsTriggerDiv>
     </TabsPrimitive.Trigger>
