@@ -1,0 +1,77 @@
+import * as AccordionPrimitive from '@radix-ui/react-accordion';
+import { NavArrowDown } from 'iconoir-react';
+import { cn } from '@/lib/utils';
+
+/**
+ * Vertically stacked, collapsible sections on @radix-ui/react-accordion
+ * — a direct equivalent of the Base UI primitive the reference
+ * wrapped by hand, and simpler to port: Radix's value shape already
+ * matches (a string in single mode, string[] in multiple), so no
+ * array-wrapping translation layer is needed. One real difference:
+ * Radix's `collapsible` prop is NOT a no-op here (it was deprecated
+ * dead weight under Base UI, which always allows collapsing) — under
+ * Radix a single-mode accordion needs `collapsible` to let the open
+ * item close again, so this defaults it to true to match the
+ * reference's described "always collapsible" behavior.
+ */
+export interface AccordionSingleProps extends Omit<React.ComponentProps<typeof AccordionPrimitive.Root>, 'type'> {
+  type: 'single';
+  collapsible?: boolean;
+}
+export interface AccordionMultipleProps extends Omit<React.ComponentProps<typeof AccordionPrimitive.Root>, 'type'> {
+  type: 'multiple';
+}
+export type AccordionProps = AccordionSingleProps | AccordionMultipleProps;
+
+export function Accordion(props: AccordionProps) {
+  // The runtime discriminant (props.type) already guarantees value/onValueChange
+  // match the chosen mode; `any` here breaks out of a union TS can't narrow
+  // through this destructure+spread on its own (same fix as ToggleGroupProps).
+  if (props.type === 'single') {
+    const { collapsible = true, ...rest } = props;
+    return <AccordionPrimitive.Root {...(rest as any)} type="single" collapsible={collapsible} />;
+  }
+  return <AccordionPrimitive.Root {...(props as any)} type="multiple" />;
+}
+
+export function AccordionItem({ className, ...props }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
+  return <AccordionPrimitive.Item className={cn('border-b border-solid border-[var(--color-border-border-subtle)] last:border-b-0', className)} {...props} />;
+}
+
+export function AccordionTrigger({ className, children, ...props }: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
+  return (
+    <AccordionPrimitive.Header className="flex">
+      <AccordionPrimitive.Trigger
+        className={cn(
+          'flex flex-1 items-start justify-between gap-4 rounded-[var(--size-border-radius-border-radius-md)] py-4 cursor-pointer',
+          'text-left font-body text-body-m font-medium text-[var(--color-text-text)] outline-none',
+          'transition-all duration-150 ease-out motion-reduce:transition-none hover:underline',
+          'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          'disabled:pointer-events-none disabled:opacity-50',
+          '[&[data-state=open]>svg]:rotate-180',
+          className,
+        )}
+        {...props}
+      >
+        {children}
+        <NavArrowDown className="pointer-events-none mt-0.5 size-4 shrink-0 text-[var(--color-icon-icon-subtle)] transition-transform duration-200 ease-out motion-reduce:transition-none" />
+      </AccordionPrimitive.Trigger>
+    </AccordionPrimitive.Header>
+  );
+}
+
+export function AccordionContent({ className, children, ...props }: React.ComponentProps<typeof AccordionPrimitive.Content>) {
+  return (
+    <AccordionPrimitive.Content
+      className={cn(
+        'overflow-hidden font-body text-body-m text-[var(--color-text-text-subtler)]',
+        'data-[state=closed]:animate-none data-[state=open]:animate-none',
+        'transition-[height] duration-200 ease-out motion-reduce:transition-none',
+        'data-[state=closed]:h-0 data-[state=open]:h-[var(--radix-accordion-content-height)]',
+      )}
+      {...props}
+    >
+      <div className={cn('pb-4 pt-0', className)}>{children}</div>
+    </AccordionPrimitive.Content>
+  );
+}

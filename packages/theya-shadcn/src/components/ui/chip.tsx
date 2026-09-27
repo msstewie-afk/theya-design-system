@@ -1,0 +1,254 @@
+import { useState, cloneElement, isValidElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
+import { Slot } from '@radix-ui/react-slot';
+import { Xmark, Check } from 'iconoir-react';
+import { cn } from '@/lib/utils';
+import { Button } from './button';
+import type { StatusTone } from './status-dot';
+
+/**
+ * A compact pill for one value that can be selected and/or removed —
+ * a status, a selected option, a suggestion. Unlike a static label
+ * pill, Chip is interactive by default: role="button" + aria-pressed
+ * out of the box, toggling on click or Enter/Space. The pressable
+ * root is always a <span> (or Slot via asChild) — never a real
+ * <button> — so a trailing ChipRemove (a real button) can nest inside
+ * it without invalid button-in-button HTML.
+ *
+ * When interactive AND carrying a ChipRemove, give the Chip an
+ * explicit aria-label matching its visible text — a role="button"
+ * computes its name from content, which recurses into ChipRemove's
+ * own "Remove X" label, producing "X Remove X" without it.
+ */
+export type ChipTone = StatusTone;
+export type ChipAppearance = 'subtle' | 'solid';
+export type ChipSize = 'sm' | 'md' | 'lg';
+
+// Base (unselected) look for `appearance="subtle"` — the tinted "tonal"
+// background, matching Button's own `type="tonal"` per-intent colors
+// (`neutral` here maps to Button's `intent="default"`, `destructive` to
+// `intent="danger"`). Hover states come from HOVER_CLASS below, same
+// source (Button's tonal compound variants).
+// All six borderless at rest (Мария's call — neutral used to carry a
+// visible border here while every other tone didn't; the `bordered` prop
+// below is the deliberate opt-in for a bordered tonal chip, uniformly
+// across all tones, rather than one tone silently defaulting to it).
+const TONE_CLASS: Record<ChipTone, string> = {
+  neutral: 'border-transparent bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)]',
+  primary: 'border-transparent bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-subtle)]',
+  success: 'border-transparent bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)]',
+  warning: 'border-transparent bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)]',
+  destructive: 'border-transparent bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)]',
+  info: 'border-transparent bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-text-text-info)]',
+};
+
+// Border color per tone for the `bordered` prop — a real per-tone border
+// token (not the tinted bg), matching Button/Card's own tone-border
+// vocabulary (--color-border-border-{primary,success,warning,danger,info}).
+// Applied on top of TONE_CLASS/SOLID_TONE_CLASS's `border-transparent`,
+// last in the class list so it wins the border-color slot.
+const BORDER_TONE_CLASS: Record<ChipTone, string> = {
+  neutral: 'border-[var(--color-border-border-subtle)]',
+  primary: 'border-[var(--color-border-border-primary)]',
+  success: 'border-[var(--color-border-border-success)]',
+  warning: 'border-[var(--color-border-border-warning)]',
+  destructive: 'border-[var(--color-border-border-danger)]',
+  info: 'border-[var(--color-border-border-info)]',
+};
+
+// "Solid look" — full-saturation tone background + on-dark text, matching
+// Button's `type="filled"` per-intent colors 1:1 (including its
+// accessibility-adjusted Success hex and the dark-text-on-light Warning
+// pairing). Used for `appearance="solid"` at rest, AND for a *selected*
+// `appearance="subtle"` (tonal) chip — Мария's call: a selected tonal chip
+// should read as solid, not stay in its tinted state.
+const SOLID_TONE_CLASS: Record<ChipTone, string> = {
+  neutral: 'border-transparent bg-[#65656b] text-[var(--color-text-text-on-dark)]',
+  primary: 'border-transparent bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-dark)]',
+  // Was a hand-picked hex (#448018) matching Button's OLD workaround for a
+  // raw-token contrast failure (4.37:1 with white text, under WCAG AA's
+  // 4.5:1) — Button has since been rewired to the real token now that the
+  // green primitive ramp was recalibrated (light 4.87:1, dark 11.8:1,
+  // 2026-09-26), but Chip was never updated to match and kept the stale
+  // hardcoded hex, which is also a different, duller green than the rest of
+  // the palette (Мария: "без токенов, и это наверное наследие Solid, другой
+  // зеленый тон"). Fixed to the real token, mirroring Button 1:1.
+  success: 'border-transparent bg-[var(--color-bg-success-bg-success)] text-[var(--color-text-text-on-dark)]',
+  // Warning fill is light in light theme but a punchy dark-orange primitive
+  // in dark theme — text-on-dark clears contrast at every state and matches
+  // every other solid tone here; mirrors Button's own fix (2026-09-26).
+  warning: 'border-transparent bg-[var(--color-bg-warning-bg-warning)] text-[var(--color-text-text-on-dark)]',
+  destructive: 'border-transparent bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-text-text-on-dark)]',
+  info: 'border-transparent bg-[var(--color-bg-info-bg-info)] text-[var(--color-text-text-on-dark)]',
+};
+
+// Hover shades, one set per "look" (subtle/solid), lifted directly from
+// Button's tonal/filled compound variants so Chip's hover states never
+// drift from Button's — see button.tsx's own TONAL/FILLED sections.
+const HOVER_CLASS: Record<'subtle' | 'solid', Record<ChipTone, string>> = {
+  subtle: {
+    neutral: 'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)]',
+    primary: 'hover:bg-[var(--color-bg-primary-bg-primary-subtle-hover)]',
+    success: 'hover:bg-[var(--color-bg-success-bg-success-subtle-hover)]',
+    warning: 'hover:bg-[var(--color-bg-warning-bg-warning-subtle-hover)]',
+    destructive: 'hover:bg-[var(--color-bg-danger-bg-danger-subtle-hover)]',
+    info: 'hover:bg-[var(--color-bg-info-bg-info-subtle-hover)]',
+  },
+  solid: {
+    neutral: 'hover:bg-[#535358]',
+    primary: 'hover:bg-[var(--color-bg-primary-bg-primary-hover)]',
+    success: 'hover:bg-[var(--color-bg-success-bg-success-hover)]',
+    warning: 'hover:bg-[var(--color-bg-warning-bg-warning-hover)]',
+    destructive: 'hover:bg-[var(--color-bg-danger-bg-danger-hover)]',
+    info: 'hover:bg-[var(--color-bg-info-bg-info-hover)]',
+  },
+};
+
+/** Marks a consumer-provided leading icon as decorative, same rule Button's own `decorativeIcon` uses. */
+function decorativeIcon(node: ReactNode): ReactNode {
+  if (!isValidElement(node)) return node;
+  const props = node.props as Record<string, unknown>;
+  if ('aria-hidden' in props || 'aria-label' in props) return node;
+  return cloneElement(node as ReactElement<Record<string, unknown>>, { 'aria-hidden': 'true' });
+}
+
+export interface ChipProps extends Omit<React.ComponentProps<'span'>, 'onClick' | 'onKeyDown'> {
+  tone?: ChipTone;
+  /** `'subtle'` (default) — tinted background, matches Badge's default look. `'solid'` — full tone background + on-dark text. */
+  appearance?: ChipAppearance;
+  /** Adds a tone-colored border on top of `appearance`. Off by default — every tone (including neutral) is borderless at rest. */
+  bordered?: boolean;
+  size?: ChipSize;
+  /** Leading icon, before the label. Unstyled — sized automatically to the chip's size variant. Replaced by a checkmark when a `appearance="solid"` chip is selected (see `pressed`/`defaultPressed`). */
+  icon?: ReactNode;
+  interactive?: boolean;
+  asChild?: boolean;
+  pressed?: boolean;
+  defaultPressed?: boolean;
+  onPressedChange?: (pressed: boolean) => void;
+  disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLElement>;
+}
+
+export function Chip({
+  className,
+  tone = 'neutral',
+  appearance = 'subtle',
+  bordered = false,
+  size = 'md',
+  icon,
+  interactive = true,
+  pressed,
+  defaultPressed,
+  onPressedChange,
+  asChild = false,
+  disabled,
+  onClick,
+  onKeyDown,
+  children,
+  ...props
+}: ChipProps) {
+  const [internalPressed, setInternalPressed] = useState(defaultPressed ?? false);
+  const isPressed = pressed !== undefined ? pressed : internalPressed;
+  const isPressable = interactive && !asChild;
+  const isSelected = isPressable && isPressed;
+
+  const activate = () => {
+    if (disabled) return;
+    if (pressed === undefined) setInternalPressed((p) => !p);
+    onPressedChange?.(!isPressed);
+  };
+
+  const Comp = asChild ? Slot : 'span';
+
+  // A selected tonal (subtle) chip reads as solid; a solid chip is always
+  // solid. Only the base appearance/selection state decide the look — the
+  // colors themselves are static per render, no CSS-side data-attribute
+  // branching needed.
+  const look: 'subtle' | 'solid' = appearance === 'solid' || isSelected ? 'solid' : 'subtle';
+  // Checkmark swap-in is narrower: only an actually solid-appearance chip
+  // gets it when selected (Мария's call) — a tonal chip that merely *looks*
+  // solid because it's selected keeps its own icon/no-icon as passed.
+  const showSelectedCheck = appearance === 'solid' && isSelected;
+  const displayIcon = showSelectedCheck ? <Check /> : icon;
+
+  return (
+    <Comp
+      data-pressed={isSelected ? true : undefined}
+      aria-pressed={isPressable ? isPressed : undefined}
+      aria-disabled={isPressable && disabled ? true : undefined}
+      role={isPressable ? 'button' : undefined}
+      tabIndex={isPressable ? (disabled ? -1 : 0) : undefined}
+      onClick={(event) => {
+        onClick?.(event);
+        if (isPressable && !disabled) activate();
+      }}
+      onKeyDown={(event) => {
+        onKeyDown?.(event);
+        if (isPressable && !disabled && !event.defaultPrevented && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault();
+          activate();
+        }
+      }}
+      className={cn(
+        'inline-flex w-fit max-w-full shrink-0 items-center gap-1 border border-solid pl-2',
+        'font-body text-body-xs font-medium whitespace-nowrap outline-none',
+        'transition-[background-color,border-color,color] duration-150 ease-out motion-reduce:transition-none',
+        '[&_svg]:pointer-events-none [&_svg]:shrink-0',
+        // Guarded selector (matches Button/corp's own pattern): only sizes a
+        // *bare* icon (no existing `size-*` class, e.g. ChipRemove's inner
+        // Button icon) — a leading icon passed unstyled falls through to this.
+        size === 'lg' ? '[&_svg:not([class*="size-"])]:size-3.5' : '[&_svg:not([class*="size-"])]:size-3',
+        'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        size === 'sm'
+          ? // 1px more than the shared radius-sm token (2px) — Мария's call
+            // specifically for Chip's small size; not changing the shared
+            // token since that would also shift every other radius-sm
+            // consumer (Checkbox, etc.) library-wide.
+            'h-6 rounded-[3px] pr-2'
+          : size === 'lg'
+            ? 'h-8 rounded-[var(--size-border-radius-border-radius-lg)] pr-2.5 text-body-s'
+            : 'h-[26px] rounded-[var(--size-border-radius-border-radius-md)] pr-2',
+        look === 'solid' ? SOLID_TONE_CLASS[tone] : TONE_CLASS[tone],
+        bordered && BORDER_TONE_CLASS[tone],
+        isPressable &&
+          cn(
+            'cursor-pointer',
+            HOVER_CLASS[look][tone],
+            'aria-disabled:pointer-events-none aria-disabled:opacity-50',
+          ),
+        className,
+      )}
+      {...props}
+    >
+      {displayIcon != null && decorativeIcon(displayIcon)}
+      {children}
+    </Comp>
+  );
+}
+
+/**
+ * The trailing "x" for a removable Chip: a 24px hit target (WCAG 2.5.8)
+ * around a 14px icon. Always pass an accessible name
+ * (aria-label="Remove {label}") — Chip's own label isn't available
+ * here to derive one automatically. Its click stops propagation so
+ * removing a chip never also toggles an interactive parent's pressed
+ * state.
+ */
+export function ChipRemove({ className, onClick, children, type: _nativeType, ...props }: React.ComponentProps<'button'>) {
+  return (
+    <Button
+      type="ghost"
+      size="sm"
+      iconOnly
+      onClick={(event) => {
+        event.stopPropagation();
+        onClick?.(event);
+      }}
+      className={cn('-mr-2 shrink-0 text-[var(--color-icon-icon-subtle)]', className)}
+      leftIcon={children ?? <Xmark width={14} height={14} />}
+      {...props}
+    />
+  );
+}

@@ -1,0 +1,74 @@
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+import { cn } from '@/lib/utils';
+
+/** Short hint on hover/focus, on @radix-ui/react-tooltip. Wrap the app once in <TooltipProvider/>. */
+export function TooltipProvider({ delayDuration = 200, ...props }: React.ComponentProps<typeof TooltipPrimitive.Provider>) {
+  return <TooltipPrimitive.Provider delayDuration={delayDuration} {...props} />;
+}
+
+export function Tooltip(props: React.ComponentProps<typeof TooltipPrimitive.Root>) {
+  return (
+    <TooltipProvider>
+      <TooltipPrimitive.Root {...props} />
+    </TooltipProvider>
+  );
+}
+
+export const TooltipTrigger = TooltipPrimitive.Trigger;
+
+/**
+ * `intent` is for a tooltip that reports the RESULT of an action, not just a
+ * hint - e.g. "Copied" after a copy button fires, or "Failed to copy" on
+ * error. `default` keeps the neutral dark surface; `success`/`danger` swap
+ * to the same solid `--color-bg-{tone}-bg-{tone}` tone StatusDot uses (not
+ * the `-subtle` variant) so the result reads as a status, not just more
+ * hint text. Text color follows Badge's solid-variant precedent
+ * (`--color-icon-icon-on-dark`), and the arrow fill switches with it so the
+ * whole bubble reads as one tone.
+ */
+export type TooltipIntent = 'default' | 'success' | 'danger';
+
+const INTENT_CLASS: Record<TooltipIntent, { surface: string; arrow: string }> = {
+  default: {
+    surface: 'bg-[var(--color-bg-surface-bg-surface-overlay-dark)] text-[var(--color-text-text-on-dark)]',
+    arrow: 'fill-[var(--color-bg-surface-bg-surface-overlay-dark)]',
+  },
+  success: {
+    surface: 'bg-[var(--color-bg-success-bg-success)] text-[var(--color-icon-icon-on-dark)]',
+    arrow: 'fill-[var(--color-bg-success-bg-success)]',
+  },
+  danger: {
+    surface: 'bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-icon-icon-on-dark)]',
+    arrow: 'fill-[var(--color-bg-danger-bg-danger)]',
+  },
+};
+
+export function TooltipContent({
+  className,
+  sideOffset = 6,
+  showArrow = true,
+  intent = 'default',
+  children,
+  ...props
+}: React.ComponentProps<typeof TooltipPrimitive.Content> & { showArrow?: boolean; intent?: TooltipIntent }) {
+  const tone = INTENT_CLASS[intent];
+  return (
+    <TooltipPrimitive.Portal>
+      <TooltipPrimitive.Content
+        sideOffset={sideOffset}
+        className={cn(
+          'z-50 w-fit max-w-[600px] break-words rounded-[var(--size-border-radius-border-radius-md)]',
+          'px-2.5 py-1.5 font-body text-body-xs shadow-md',
+          tone.surface,
+          'data-[state=delayed-open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none',
+          'data-[state=closed]:fade-out-0 data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95',
+          className,
+        )}
+        {...props}
+      >
+        {children}
+        {showArrow && <TooltipPrimitive.Arrow className={tone.arrow} />}
+      </TooltipPrimitive.Content>
+    </TooltipPrimitive.Portal>
+  );
+}

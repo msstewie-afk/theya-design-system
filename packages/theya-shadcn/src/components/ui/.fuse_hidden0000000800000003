@@ -1,0 +1,364 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { ArrowLeft, MoreVert, Globe, Plus, Server } from 'iconoir-react';
+import { PageHeader } from './page-header';
+import { Button } from './button';
+import { Badge } from './badge';
+import { StatusDot } from './status-dot';
+import { Chip } from './chip';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from './breadcrumb';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from './dropdown-menu';
+
+const meta: Meta<typeof PageHeader> = {
+  title: 'Layout/PageHeader',
+  component: PageHeader,
+  tags: ['autodocs'],
+  parameters: { layout: 'padded' },
+  argTypes: {
+    title: { control: 'text' },
+    description: { control: 'text' },
+    as: { control: 'inline-radio', options: ['h1', 'h2', 'h3'] },
+    icon: { control: false },
+    tags: { control: false },
+    breadcrumb: { control: false },
+    actions: { control: false },
+    contentActions: { control: false },
+    children: { control: false },
+    className: { control: false },
+  },
+  args: {
+    title: 'Sites',
+    description: 'Every site across your servers.',
+    as: 'h1',
+  },
+  decorators: [
+    (Story) => (
+      <div className="w-full max-w-4xl">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof PageHeader>;
+
+/** Title + description, no actions. */
+export const Default: Story = {};
+
+/** With a primary action on the right (no breadcrumb, so actions sit in the
+ * title row — the same compact single row as a header with no actions at all,
+ * just with the buttons alongside; they drop below the title on mobile). */
+export const WithActions: Story = {
+  args: {
+    actions: (
+      <>
+        <Button type="outlined">Import</Button>
+        <Button type="filled" intent="primary" leftIcon={<Plus />}>
+          Create site
+        </Button>
+      </>
+    ),
+  },
+};
+
+/** A breadcrumb above the title, a status meta row below it (children), and
+ * actions — the actions align to the breadcrumb row, not the title row, since
+ * a breadcrumb is present. */
+export const WithBreadcrumbAndMeta: Story = {
+  args: {
+    title: 'shop.acme.io',
+    description: undefined,
+    breadcrumb: (
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/sites">Sites</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>shop.acme.io</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    ),
+    actions: <Button type="outlined">Visit site</Button>,
+    children: (
+      <>
+        <Badge variant="success">
+          <StatusDot tone="success" />
+          Active
+        </Badge>
+        <span>Production · eu-west-1 · PHP 8.3</span>
+      </>
+    ),
+  },
+};
+
+/** As a section header (`as="h2"`) — smaller in the document outline. No
+ * breadcrumb, so actions stay in the title row, same as `WithActions`. */
+export const SectionHeader: Story = {
+  args: {
+    as: 'h2',
+    title: 'API tokens',
+    description: 'Personal access tokens for the CLI and CI.',
+    actions: (
+      <Button type="filled" intent="primary" size="s">
+        New token
+      </Button>
+    ),
+  },
+};
+
+/**
+ * A back-navigation arrow beside the breadcrumb — composed by hand next to the
+ * `breadcrumb` slot, not a PageHeader (or Breadcrumb) prop: Theya's Breadcrumb
+ * has no `back` composition point yet, unlike corp's, so this is a plain
+ * `<Button iconOnly>` placed alongside it in the slot's own content.
+ */
+export const WithBackNavigation: Story = {
+  args: {
+    title: 'shop.acme.io',
+    description: undefined,
+    breadcrumb: (
+      <div className="flex items-center gap-1">
+        <Button type="ghost" iconOnly size="s" aria-label="Back to sites" leftIcon={<ArrowLeft />} />
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/sites">Sites</BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+    ),
+  },
+};
+
+/**
+ * A kebab menu beside the primary actions — the same overflow-menu pattern
+ * ListItem already uses: `DropdownMenuTrigger asChild` wrapping a Button.
+ * Unlike ListItem's row-level kebab (which stays `ghost` so it doesn't
+ * compete with row content), this one keeps a visible outline so it reads as
+ * a peer of the buttons beside it, not as a quieter afterthought.
+ */
+export const WithKebabMenu: Story = {
+  args: {
+    actions: (
+      <>
+        <Button type="outlined" className="hidden sm:inline-flex">
+          Import
+        </Button>
+        <Button type="filled" intent="primary" leftIcon={<Plus />}>
+          Create site
+        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button type="outlined" iconOnly aria-label="More actions" leftIcon={<MoreVert />} className="[&_svg]:text-[var(--color-text-text)]" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem className="sm:hidden">Import</DropdownMenuItem>
+            <DropdownMenuSeparator className="sm:hidden" />
+            <DropdownMenuItem>Export sites</DropdownMenuItem>
+            <DropdownMenuItem>Bulk edit</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant="destructive">Delete all</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </>
+    ),
+  },
+};
+
+/** A leading icon beside the title — plain and muted, no circle/chip
+ * background. */
+export const WithIcon: Story = {
+  args: {
+    title: 'shop.acme.io',
+    icon: <Globe />,
+    description: undefined,
+  },
+};
+
+/** A row of tags below the title, above the description — small static
+ * (non-removable) Chips plus a small "add tag" affordance. */
+export const WithTags: Story = {
+  args: {
+    title: 'shop.acme.io',
+    description: 'Every site across your servers.',
+    tags: (
+      <>
+        <Chip size="sm" interactive={false}>
+          Production
+        </Chip>
+        <Chip size="sm" interactive={false}>
+          PHP 8.3
+        </Chip>
+        <Button type="ghost" iconOnly size="s" aria-label="Add tag" leftIcon={<Plus />} />
+      </>
+    ),
+  },
+};
+
+/**
+ * A content-actions row below the description — a second, separate action
+ * slot from the top-right `actions`, for a button tied to the description's
+ * content rather than the page as a whole. Always below the description,
+ * never sharing the top row.
+ */
+export const WithContentActions: Story = {
+  args: {
+    title: 'shop.acme.io',
+    description: 'This site was suspended for exceeding its bandwidth quota.',
+    actions: <Button type="outlined">Visit site</Button>,
+    contentActions: (
+      <Button type="outlined" size="s">
+        Reinstate site
+      </Button>
+    ),
+  },
+};
+
+/**
+ * Tabs reading as part of the header, without PageHeader taking on a Tabs
+ * dependency: render <Tabs> directly below <PageHeader> in the same gap-4
+ * flex column, rather than adding a tabs prop to PageHeader itself.
+ */
+export const WithTabs: Story = {
+  render: (args) => (
+    <div className="flex flex-col gap-4">
+      <PageHeader {...args} />
+      <Tabs defaultValue="overview">
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="deployments">Deployments</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
+          Overview content.
+        </TabsContent>
+        <TabsContent value="deployments" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
+          Deployments content.
+        </TabsContent>
+        <TabsContent value="settings" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
+          Settings content.
+        </TabsContent>
+      </Tabs>
+    </div>
+  ),
+  args: {
+    title: 'shop.acme.io',
+    description: undefined,
+  },
+};
+
+/**
+ * Every optional slot at once, for a full visual/spacing check in one place:
+ * back-navigation + breadcrumb, actions + kebab menu, icon, tags, description,
+ * content-actions. Not a realistic single screen — a kitchen-sink story to
+ * sanity-check the whole stack together.
+ */
+export const AllElements: Story = {
+  args: {
+    title: 'shop.acme.io',
+    icon: <Globe />,
+    description:
+      'Every site across your servers, grouped by environment. Production sites are backed up nightly and monitored for uptime; staging and development sites are excluded from paging.',
+    breadcrumb: (
+      <div className="flex items-center gap-1">
+        <Button type="ghost" iconOnly size="s" aria-label="Back to sites" leftIcon={<ArrowLeft />} />
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/sites">Sites</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>shop.acme.io</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+    ),
+    tags: (
+      <>
+        <Chip size="sm" interactive={false}>
+          Production
+        </Chip>
+        <Chip size="sm" interactive={false}>
+          PHP 8.3
+        </Chip>
+        <Button type="ghost" iconOnly size="s" aria-label="Add tag" leftIcon={<Plus />} />
+      </>
+    ),
+    actions: (
+      <>
+        <Button type="outlined" className="hidden sm:inline-flex">
+          Import
+        </Button>
+        <Button type="filled" intent="primary" leftIcon={<Plus />}>
+          Create site
+        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button type="outlined" iconOnly aria-label="More actions" leftIcon={<MoreVert />} className="[&_svg]:text-[var(--color-text-text)]" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem className="sm:hidden">Import</DropdownMenuItem>
+            <DropdownMenuSeparator className="sm:hidden" />
+            <DropdownMenuItem>Export sites</DropdownMenuItem>
+            <DropdownMenuItem>Bulk edit</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant="destructive">Delete all</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </>
+    ),
+    contentActions: (
+      <Button type="outlined" size="s">
+        Reinstate site
+      </Button>
+    ),
+  },
+};
+
+/** Compact recap of the original two-story coverage: a bare header, and the
+ * full single-shot composition (icon + breadcrumb + tags + description + actions). */
+export const Full: Story = {
+  args: {
+    title: 'shop.acme.io',
+    icon: <Server />,
+    description: 'Primary storefront, served from eu-west-1 with 3 replicas.',
+    breadcrumb: (
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Sites</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>shop.acme.io</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    ),
+    tags: (
+      <>
+        <Chip interactive={false} size="sm" tone="success">
+          Active
+        </Chip>
+        <Chip interactive={false} size="sm">
+          Production
+        </Chip>
+      </>
+    ),
+    actions: (
+      <>
+        <Button type="filled" intent="primary" leftIcon={<Plus />}>
+          New deployment
+        </Button>
+        <Button type="ghost" iconOnly aria-label="More actions" leftIcon={<MoreVert />} className="[&_svg]:text-[var(--color-text-text)]" />
+      </>
+    ),
+  },
+};
