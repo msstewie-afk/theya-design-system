@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, within } from '@storybook/test';
 import { Checkbox } from './checkbox';
 
 const meta: Meta<typeof Checkbox> = {
@@ -44,7 +45,22 @@ export default meta;
 type Story = StoryObj<typeof Checkbox>;
 
 export const Playground: Story = {
-  args: { label: 'Accept terms and conditions' },
+  args: { label: 'Accept terms and conditions', onCheckedChange: fn() },
+  // Label click and Space both toggle; the label is the accessible name.
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const box = canvas.getByRole('checkbox', { name: 'Accept terms and conditions' });
+    await expect(box).toHaveAttribute('aria-checked', 'false');
+
+    await userEvent.click(canvas.getByText('Accept terms and conditions'));
+    await expect(box).toHaveAttribute('aria-checked', 'true');
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(true);
+
+    await expect(box).toHaveFocus();
+    await userEvent.keyboard(' ');
+    await expect(box).toHaveAttribute('aria-checked', 'false');
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(false);
+  },
 };
 
 export const Bare: Story = {
@@ -59,6 +75,11 @@ export const WithDescription: Story = {
       description="Get notified when someone comments on your post."
     />
   ),
+  // The description must be announced, not just shown (aria-describedby).
+  play: async ({ canvasElement }) => {
+    const box = within(canvasElement).getByRole('checkbox', { name: 'Email notifications' });
+    await expect(box).toHaveAccessibleDescription('Get notified when someone comments on your post.');
+  },
 };
 
 export const States: Story = {
@@ -72,6 +93,18 @@ export const States: Story = {
 };
 
 export const Disabled: Story = {
+  // Disabled: out of the tab order, clicks don't change state.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const unchecked = canvas.getByRole('checkbox', { name: 'Disabled unchecked' });
+    await expect(unchecked).toBeDisabled();
+
+    await userEvent.click(canvas.getByText('Disabled unchecked'));
+    await expect(unchecked).toHaveAttribute('aria-checked', 'false');
+
+    await userEvent.tab();
+    await expect(unchecked).not.toHaveFocus();
+  },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <Checkbox label="Disabled unchecked" disabled />
@@ -149,4 +182,26 @@ export const ControlledIndeterminate: Story = {
     },
   },
   render: () => <ControlledIndeterminateDemo />,
+  // Parent reflects children (mixed / all / none) and drives them.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const parent = canvas.getByRole('checkbox', { name: 'Select all' });
+    const children = ['Apples', 'Bananas', 'Cherries'].map((name) =>
+      canvas.getByRole('checkbox', { name }),
+    );
+
+    await expect(parent).toHaveAttribute('aria-checked', 'mixed');
+
+    await userEvent.click(parent);
+    for (const child of children) await expect(child).toHaveAttribute('aria-checked', 'true');
+    await expect(parent).toHaveAttribute('aria-checked', 'true');
+
+    await userEvent.click(children[1]);
+    await expect(parent).toHaveAttribute('aria-checked', 'mixed');
+
+    await userEvent.click(parent);
+    await userEvent.click(parent);
+    for (const child of children) await expect(child).toHaveAttribute('aria-checked', 'false');
+    await expect(parent).toHaveAttribute('aria-checked', 'false');
+  },
 };

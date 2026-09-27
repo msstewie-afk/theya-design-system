@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Combobox } from './combobox';
 
 const meta: Meta<typeof Combobox> = {
@@ -80,6 +81,83 @@ function SingleDemo() {
 
 export const Single: Story = {
   render: () => <SingleDemo />,
+  // Type to filter, Enter commits, Escape restores the committed label.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    const input = canvas.getByRole('combobox', { name: 'Framework' });
+
+    await userEvent.click(input);
+    await expect(input).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.type(input, 'rem');
+
+    const listbox = await body.findByRole('listbox');
+    const options = within(listbox).getAllByRole('option');
+    await expect(options).toHaveLength(1);
+    await expect(options[0]).toHaveTextContent('Remix');
+    // The highlighted option is exposed to assistive tech, not just painted.
+    await expect(input).toHaveAttribute('aria-activedescendant', options[0].id);
+
+    await userEvent.keyboard('{Enter}');
+    await expect(input).toHaveValue('Remix');
+    await expect(input).toHaveAttribute('aria-expanded', 'false');
+
+    await userEvent.click(input);
+    await userEvent.type(input, 'zzz');
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(input).toHaveValue('Remix'));
+  },
+};
+
+function KeyboardDemo() {
+  const [value, setValue] = useState<string>('');
+  return (
+    <div className="w-[240px]">
+      <Combobox
+        options={[
+          { value: 'next', label: 'Next.js' },
+          { value: 'remix', label: 'Remix', disabled: true },
+          { value: 'astro', label: 'Astro' },
+        ]}
+        value={value}
+        onValueChange={setValue}
+        placeholder="Select framework…"
+        aria-label="Framework"
+      />
+    </div>
+  );
+}
+
+/**
+ * Regression tests: arrow-key highlight is announced via
+ * aria-activedescendant, and Enter on a disabled option does nothing
+ * (it used to commit it).
+ */
+export const KeyboardNavigation: Story = {
+  name: 'Test: keyboard navigation',
+  render: () => <KeyboardDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    const input = canvas.getByRole('combobox', { name: 'Framework' });
+
+    await userEvent.click(input);
+    const listbox = await body.findByRole('listbox');
+    const [next, remix, astro] = within(listbox).getAllByRole('option');
+    await expect(input).toHaveAttribute('aria-activedescendant', next.id);
+
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(input).toHaveAttribute('aria-activedescendant', remix.id);
+    await expect(remix).toHaveAttribute('aria-disabled', 'true');
+    await userEvent.keyboard('{Enter}');
+    await expect(input).toHaveValue('');
+    await expect(input).toHaveAttribute('aria-expanded', 'true');
+
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(input).toHaveAttribute('aria-activedescendant', astro.id);
+    await userEvent.keyboard('{Enter}');
+    await expect(input).toHaveValue('Astro');
+  },
 };
 
 export const HeightSizes: Story = {
@@ -132,6 +210,22 @@ function MultipleDemo() {
 
 export const Multiple: Story = {
   render: () => <MultipleDemo />,
+  // Enter adds a chip, Backspace on an empty query removes the last one.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('combobox', { name: 'Frameworks' });
+    await expect(canvas.getByRole('button', { name: 'Remove Next.js' })).toBeInTheDocument();
+
+    await userEvent.click(input);
+    await userEvent.type(input, 'ast');
+    await userEvent.keyboard('{Enter}');
+    await expect(await canvas.findByRole('button', { name: 'Remove Astro' })).toBeInTheDocument();
+    await expect(input).toHaveValue('');
+
+    await userEvent.keyboard('{Backspace}');
+    await waitFor(() => expect(canvas.queryByRole('button', { name: 'Remove Astro' })).toBeNull());
+    await expect(canvas.getByRole('button', { name: 'Remove Next.js' })).toBeInTheDocument();
+  },
 };
 
 function MultipleAllowCreateDemo() {
