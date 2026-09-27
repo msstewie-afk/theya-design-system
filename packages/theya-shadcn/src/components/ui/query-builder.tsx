@@ -215,7 +215,7 @@ export function QueryBuilder({
       )}
 
       <div>
-        <Button type="outlined" intent="primary" size="xl" onClick={addCondition} disabled={atLimit || fields.length === 0} leftIcon={<Plus />}>
+        <Button type="outlined" tone="primary" size="xl" onClick={addCondition} disabled={atLimit || fields.length === 0} leftIcon={<Plus />}>
           {addLabel}
         </Button>
       </div>

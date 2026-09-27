@@ -155,7 +155,7 @@ export const VerificationFlow: Story = {
         <p id="otp-verify-help" className="font-body text-body-xs text-[var(--color-text-text-subtler)]">
           Signing in to <span className="font-mono">shop.seashell.dev</span>.
         </p>
-        <Button type="filled" intent="primary" size="2xl" disabled={!complete} leftIcon={<ShieldCheck />} className="w-full">
+        <Button type="filled" tone="primary" size="2xl" disabled={!complete} leftIcon={<ShieldCheck />} className="w-full">
           Verify code
         </Button>
       </div>

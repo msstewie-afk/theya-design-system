@@ -114,10 +114,10 @@ export function OnboardingWizard({
       <Separator />
 
       <div className="flex flex-wrap justify-between gap-3">
-        <Button type="outlined" intent="secondary" size="2xl" disabled={isFirst} onClick={() => goto(currentIndex - 1)} className="max-sm:w-full" leftIcon={<ArrowLeft />}>
+        <Button type="outlined" tone="secondary" size="2xl" disabled={isFirst} onClick={() => goto(currentIndex - 1)} className="max-sm:w-full" leftIcon={<ArrowLeft />}>
           {backLabel}
         </Button>
-        <Button type="filled" intent="primary" size="2xl" onClick={handleNext} className="max-sm:w-full" leftIcon={isLast ? <Check /> : undefined} rightIcon={!isLast ? <ArrowRight /> : undefined}>
+        <Button type="filled" tone="primary" size="2xl" onClick={handleNext} className="max-sm:w-full" leftIcon={isLast ? <Check /> : undefined} rightIcon={!isLast ? <ArrowRight /> : undefined}>
           {isLast ? completeLabel : nextLabel}
         </Button>
       </div>

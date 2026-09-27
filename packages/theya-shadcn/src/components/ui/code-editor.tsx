@@ -324,7 +324,7 @@ export function CodeEditor({
                       onCopyError={() => flashCopyStatus('error')}
                     />
                   </TooltipTrigger>
-                  <TooltipContent intent={copyTooltipIntent}>{copyTooltipText}</TooltipContent>
+                  <TooltipContent tone={copyTooltipIntent}>{copyTooltipText}</TooltipContent>
                 </Tooltip>
               )}
             </div>

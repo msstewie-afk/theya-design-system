@@ -30,10 +30,10 @@ export const Default: Story = {
       meta={['eu-west-1', 'Created Mar 2026', 'v2.4.0']}
       actions={
         <>
-          <Button type="outlined" intent="secondary">
+          <Button type="outlined" tone="secondary">
             Restart
           </Button>
-          <Button type="filled" intent="primary">
+          <Button type="filled" tone="primary">
             Deploy
           </Button>
         </>

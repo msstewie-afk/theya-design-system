@@ -18,7 +18,7 @@ const meta = {
     icon: { control: false, description: 'Icon content (sized by BadgeIndicator, colored via currentColor). Ignored when dot is set.' },
     type: { control: 'inline-radio', options: ['filled', 'outlined'], description: 'Fill style.' },
     shape: { control: 'inline-radio', options: ['round', 'square'], description: 'Outer silhouette.' },
-    intent: {
+    tone: {
       control: 'select',
       options: ['inactive', 'info', 'success', 'warning', 'danger'],
       description: 'Semantic tone.',
@@ -29,7 +29,7 @@ const meta = {
     value: '5',
     type: 'filled',
     shape: 'round',
-    intent: 'inactive',
+    tone: 'inactive',
     size: 'sm',
   },
 } satisfies Meta<typeof BadgeIndicator>;
@@ -42,14 +42,14 @@ export const Default: Story = {};
 
 /** Every intent, Filled. */
 export const Intents: Story = {
-  parameters: { controls: { exclude: ['intent'] } },
+  parameters: { controls: { exclude: ['tone'] } },
   render: (args) => (
     <div className="flex flex-wrap items-center gap-3">
-      <BadgeIndicator {...args} intent="inactive" />
-      <BadgeIndicator {...args} intent="info" />
-      <BadgeIndicator {...args} intent="success" />
-      <BadgeIndicator {...args} intent="warning" />
-      <BadgeIndicator {...args} intent="danger" />
+      <BadgeIndicator {...args} tone="inactive" />
+      <BadgeIndicator {...args} tone="info" />
+      <BadgeIndicator {...args} tone="success" />
+      <BadgeIndicator {...args} tone="warning" />
+      <BadgeIndicator {...args} tone="danger" />
     </div>
   ),
 };
@@ -57,17 +57,17 @@ export const Intents: Story = {
 /** Filled vs Outlined, across every intent. */
 export const TypeComparison: Story = {
   name: 'Filled vs Outlined',
-  parameters: { controls: { exclude: ['intent', 'type'] } },
+  parameters: { controls: { exclude: ['tone', 'type'] } },
   render: (args) => (
     <div className="flex flex-col gap-3">
       <div className="flex flex-wrap items-center gap-3">
-        {(['inactive', 'info', 'success', 'warning', 'danger'] as const).map((intent) => (
-          <BadgeIndicator key={intent} {...args} type="filled" intent={intent} />
+        {(['inactive', 'info', 'success', 'warning', 'danger'] as const).map((tone) => (
+          <BadgeIndicator key={tone} {...args} type="filled" tone={tone} />
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-3">
-        {(['inactive', 'info', 'success', 'warning', 'danger'] as const).map((intent) => (
-          <BadgeIndicator key={intent} {...args} type="outlined" intent={intent} />
+        {(['inactive', 'info', 'success', 'warning', 'danger'] as const).map((tone) => (
+          <BadgeIndicator key={tone} {...args} type="outlined" tone={tone} />
         ))}
       </div>
     </div>

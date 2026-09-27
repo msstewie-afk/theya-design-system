@@ -137,7 +137,7 @@ export const Live: Story = {
         </div>
         <Button
           type="outlined"
-          intent="secondary"
+          tone="secondary"
           size="sm"
           onClick={() => {
             setValue(0);

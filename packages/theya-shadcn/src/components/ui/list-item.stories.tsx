@@ -226,7 +226,7 @@ export const Notification: Story = {
             {action && (
               // mt-2 (was mt-1): nudged 4px further down from the description
               // per Мария's review, so it doesn't crowd the line above it.
-              <Button type="tonal" intent="secondary" size="md" className="mt-2 self-start" onClick={(e) => e.stopPropagation()}>
+              <Button type="tonal" tone="secondary" size="md" className="mt-2 self-start" onClick={(e) => e.stopPropagation()}>
                 {action}
               </Button>
             )}

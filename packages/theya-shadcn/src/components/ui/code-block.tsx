@@ -60,7 +60,7 @@ export function CodeBlock({ code, language, filename, copy = true, copyLabel = '
           className={cn(!hasHeader && 'absolute right-2 top-2 z-10')}
         />
       </TooltipTrigger>
-      <TooltipContent intent={tooltipIntent}>{tooltipText}</TooltipContent>
+      <TooltipContent tone={tooltipIntent}>{tooltipText}</TooltipContent>
     </Tooltip>
   ) : null;
 

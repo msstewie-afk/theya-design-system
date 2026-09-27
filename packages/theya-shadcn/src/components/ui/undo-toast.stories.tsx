@@ -34,7 +34,7 @@ export const Default: Story = {
   render: () => (
     <Button
       type="outlined"
-      intent="secondary"
+      tone="secondary"
       onClick={() =>
         undoToast({
           title: 'Site deleted',
@@ -59,7 +59,7 @@ export const TitleOnly: Story = {
   render: () => (
     <Button
       type="outlined"
-      intent="secondary"
+      tone="secondary"
       onClick={() =>
         undoToast({
           title: 'Backup deleted',
@@ -82,7 +82,7 @@ export const CustomLabelAndIcon: Story = {
   render: () => (
     <Button
       type="outlined"
-      intent="secondary"
+      tone="secondary"
       onClick={() =>
         undoToast({
           title: 'Record removed',
@@ -109,7 +109,7 @@ export const WithoutIcon: Story = {
   render: () => (
     <Button
       type="outlined"
-      intent="secondary"
+      tone="secondary"
       onClick={() =>
         undoToast({
           title: 'File moved to trash',
@@ -135,7 +135,7 @@ export const LongerGraceWindow: Story = {
   render: () => (
     <Button
       type="outlined"
-      intent="danger"
+      tone="danger"
       onClick={() =>
         undoToast({
           title: 'Database dropped',
@@ -157,7 +157,7 @@ export const Playground: Story = {
     <div className="flex flex-wrap items-center gap-3">
       <Button
         type="outlined"
-        intent="secondary"
+        tone="secondary"
         onClick={() =>
           undoToast({
             title: 'Site deleted',
@@ -170,7 +170,7 @@ export const Playground: Story = {
       </Button>
       <Button
         type="outlined"
-        intent="secondary"
+        tone="secondary"
         onClick={() =>
           undoToast({
             title: 'Record removed',
@@ -182,7 +182,7 @@ export const Playground: Story = {
       >
         Remove DNS record
       </Button>
-      <Button type="outlined" intent="secondary" onClick={() => undoToast({ title: 'File moved to trash', icon: null })}>
+      <Button type="outlined" tone="secondary" onClick={() => undoToast({ title: 'File moved to trash', icon: null })}>
         Move to trash
       </Button>
     </div>

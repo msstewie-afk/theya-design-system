@@ -202,11 +202,11 @@ export const Badge: Story = {
       </Avatar>
       <Avatar outline="none">
         <AvatarFallback tone="solid">AL</AvatarFallback>
-        <AvatarBadge dot intent="success" />
+        <AvatarBadge dot tone="success" />
       </Avatar>
       <Avatar>
         <AvatarFallback>AL</AvatarFallback>
-        <AvatarBadge icon={<Star width={8} height={8} aria-hidden="true" />} intent="info" />
+        <AvatarBadge icon={<Star width={8} height={8} aria-hidden="true" />} tone="info" />
       </Avatar>
     </div>
   ),

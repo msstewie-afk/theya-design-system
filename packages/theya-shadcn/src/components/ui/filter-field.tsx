@@ -628,7 +628,7 @@ export function FilterField({
                 <div className="flex justify-end">
                   <Button
                     type="filled"
-                    intent="primary"
+                    tone="primary"
                     size="md"
                     disabled={textOperatorNeedsValue && draft.trim() === ''}
                     onClick={() => applyFilter(active.key, draft, false, active.operators ? textOperator : undefined)}
@@ -718,7 +718,7 @@ export function FilterField({
                 <div className="flex justify-end">
                   <Button
                     type="filled"
-                    intent="primary"
+                    tone="primary"
                     size="md"
                     disabled={numberDraft.min == null && numberDraft.max == null}
                     onClick={() => applyFilter(active.key, encodeNumberRange(numberDraft.min, numberDraft.max))}

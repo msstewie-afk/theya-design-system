@@ -69,7 +69,7 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
         </Label>
       </div>
 
-      <Button type="filled" intent="primary" size="2xl" className="w-full" onClick={submitForm}>
+      <Button type="filled" tone="primary" size="2xl" className="w-full" onClick={submitForm}>
         Sign in
       </Button>
 
@@ -80,7 +80,7 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
             <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">or continue with</span>
             <Separator className="flex-1" />
           </div>
-          <Button type="outlined" intent="secondary" size="2xl" className="w-full" leftIcon={<Github />}>
+          <Button type="outlined" tone="secondary" size="2xl" className="w-full" leftIcon={<Github />}>
             Continue with GitHub
           </Button>
         </>

@@ -75,7 +75,7 @@ export const buttonVariants = cva(
         ],
         ghost: 'bg-transparent border-none text-[var(--color-text-text-subtle)]',
       },
-      intent: {
+      tone: {
         primary: '',
         secondary: '',
         success: '',
@@ -153,7 +153,7 @@ export const buttonVariants = cva(
       // ---------- FILLED × intent ----------
       {
         type: 'filled',
-        intent: 'primary',
+        tone: 'primary',
         class: [
           'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-hover)]',
@@ -162,7 +162,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'filled',
-        intent: 'info',
+        tone: 'info',
         class: [
           'bg-[var(--color-bg-info-bg-info)] text-[var(--color-cyan-cyan-900)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-hover)]',
@@ -178,7 +178,7 @@ export const buttonVariants = cva(
         // the real token clears AA on its own (light theme 4.87:1, dark
         // theme 11.8:1) — wired to it directly, no override needed.
         type: 'filled',
-        intent: 'success',
+        tone: 'success',
         class: [
           'bg-[var(--color-bg-success-bg-success)] text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-hover)]',
@@ -204,7 +204,7 @@ export const buttonVariants = cva(
         // fail); dark theme keeps text-on-dark (the only thing that clears AA
         // against that particular dark-orange bg).
         type: 'filled',
-        intent: 'warning',
+        tone: 'warning',
         class: [
           'bg-[var(--color-bg-warning-bg-warning)] text-[var(--color-text-text-warning)]',
           '[[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
@@ -214,7 +214,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'filled',
-        intent: 'danger',
+        tone: 'danger',
         class: [
           'bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-hover)]',
@@ -228,7 +228,7 @@ export const buttonVariants = cva(
         // same lightness-drop ratio as Primary's own default→hover→
         // pressed steps (-7.25% / -16.08%), same as Secondary below.
         type: 'filled',
-        intent: 'default',
+        tone: 'default',
         class: [
           'bg-[#65656b] text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[#535358]',
@@ -242,7 +242,7 @@ export const buttonVariants = cva(
         // drop Primary uses between its own default→hover→pressed
         // (-7.25% / -16.08% lightness), not hand-picked.
         type: 'filled',
-        intent: 'secondary',
+        tone: 'secondary',
         class: [
           'bg-[#6a6c96] text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[#5b5c80]',
@@ -257,7 +257,7 @@ export const buttonVariants = cva(
       // generalized to every intent.)
       {
         type: 'tonal',
-        intent: 'primary',
+        tone: 'primary',
         class: [
           // Dark: text-link-on-tonal (#bddcff) fell to 3.86/3.31:1 on the
           // hover/pressed tints over bg-surface; white clears 4.68:1+ in
@@ -269,7 +269,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'tonal',
-        intent: 'info',
+        tone: 'info',
         class: [
           'bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-100)]', // dark text cyan-200 -> cyan-100: hover (cyan-700) was 4.38:1, now 4.89:1,
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-700)]',
@@ -287,7 +287,7 @@ export const buttonVariants = cva(
         // M3 (tone-90 text on a tone-30 container). Light success also failed
         // on hover/pressed (green-600: 4.39/3.87), bumped to green-700.
         type: 'tonal',
-        intent: 'success',
+        tone: 'success',
         class: [
           'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-green-green-700)] [[data-theme=dark]_&]:text-[var(--color-green-green-010)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtle-hover)]',
@@ -296,7 +296,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'tonal',
-        intent: 'warning',
+        tone: 'warning',
         class: [
           'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)] [[data-theme=dark]_&]:text-[var(--color-orange-orange-005)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-hover)]',
@@ -305,7 +305,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'tonal',
-        intent: 'danger',
+        tone: 'danger',
         class: [
           'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] [[data-theme=dark]_&]:text-[var(--color-red-red-050)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)]',
@@ -316,7 +316,7 @@ export const buttonVariants = cva(
         // Secondary Tonal — this is the old default Secondary look,
         // unchanged, just renamed conceptually to Tonal.
         type: 'tonal',
-        intent: 'secondary',
+        tone: 'secondary',
         class: [
           'bg-[var(--color-bg-secondary-bg-secondary-subtle)] text-[var(--color-text-text)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtle-hover)]',
@@ -326,7 +326,7 @@ export const buttonVariants = cva(
       {
         // Default Tonal — subtle version of the Neutral gray.
         type: 'tonal',
-        intent: 'default',
+        tone: 'default',
         class: [
           'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)]',
@@ -337,7 +337,7 @@ export const buttonVariants = cva(
       // ---------- OUTLINED × intent ----------
       {
         type: 'outlined',
-        intent: 'primary',
+        tone: 'primary',
         class: [
           'border-[var(--color-border-border-primary)]',
           '[&_svg]:text-[var(--color-icon-icon-primary)]',
@@ -348,7 +348,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'outlined',
-        intent: 'info',
+        tone: 'info',
         class: [
           'border-[var(--color-border-border-info)]',
           '[&_svg]:text-[var(--color-icon-icon-info)]',
@@ -359,7 +359,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'outlined',
-        intent: 'success',
+        tone: 'success',
         class: [
           'border-[var(--color-border-border-success)]',
           '[&_svg]:text-[var(--color-icon-icon-success)]',
@@ -370,7 +370,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'outlined',
-        intent: 'warning',
+        tone: 'warning',
         class: [
           'border-[var(--color-border-border-warning)]',
           '[&_svg]:text-[var(--color-icon-icon-warning)]',
@@ -381,7 +381,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'outlined',
-        intent: 'danger',
+        tone: 'danger',
         class: [
           'border-[var(--color-border-border-danger)]',
           '[&_svg]:text-[var(--color-icon-icon-danger)]',
@@ -403,7 +403,7 @@ export const buttonVariants = cva(
         // been copy-pasted from Tonal's own compound variant above and
         // read noticeably darker than every sibling button as a result.
         type: 'outlined',
-        intent: 'secondary',
+        tone: 'secondary',
         class: [
           // Dark: #6a6c96 is only 2.82:1 on bg-surface (#282944), under
           // 1.4.11's 3:1 - dark theme uses border-subtle (#6e709f, 3.01:1),
@@ -419,7 +419,7 @@ export const buttonVariants = cva(
       // ---------- GHOST × intent ----------
       {
         type: 'ghost',
-        intent: 'primary',
+        tone: 'primary',
         class: [
           // Dark: text-link (#63acff) dropped to 4.41/3.75:1 on hover/pressed
           // tints over bg-surface; text-link-on-tonal (#bddcff) holds 6.28:1+.
@@ -431,7 +431,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'ghost',
-        intent: 'info',
+        tone: 'info',
         class: [
           // Icon follows the label color: icon-info (#0091ae) was 2.64:1 on
           // the light pressed bg (cyan-100), under the 3:1 non-text minimum.
@@ -443,7 +443,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'ghost',
-        intent: 'success',
+        tone: 'success',
         class: [
           // green-600 -> green-700 (light pressed was 4.39:1); dark green-200
           // -> green-100 (dark pressed was 4.17:1).
@@ -455,7 +455,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'ghost',
-        intent: 'warning',
+        tone: 'warning',
         class: [
           'text-[var(--color-text-text-warning)] [&_svg]:text-[var(--color-icon-icon-warning)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtler-hover)]',
@@ -465,7 +465,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'ghost',
-        intent: 'danger',
+        tone: 'danger',
         class: [
           'text-[var(--color-text-text-danger)] [&_svg]:text-[var(--color-icon-icon-danger)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtler-hover)]',
@@ -476,7 +476,7 @@ export const buttonVariants = cva(
       {
         // Same fix as Outlined Secondary above: "-subtle" → "-subtler".
         type: 'ghost',
-        intent: 'secondary',
+        tone: 'secondary',
         class: [
           '[&_svg]:text-[var(--color-icon-icon)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtler-hover)]',
@@ -505,7 +505,7 @@ export const buttonVariants = cva(
       // SecretField, all `intent="default"` by default) picks this up too.
       {
         type: 'outlined',
-        intent: 'default',
+        tone: 'default',
         class: [
           // Dark: #65656b is 2.43:1 on bg-surface (1.4.11 needs 3:1) -> gray-300
           // (#9696ac, 4.87:1). Hover/press moved from the "-subtle" tier to
@@ -520,7 +520,7 @@ export const buttonVariants = cva(
       },
       {
         type: 'ghost',
-        intent: 'default',
+        tone: 'default',
         class: [
           '[&_svg]:text-[var(--color-text-text-subtle)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',
@@ -532,7 +532,7 @@ export const buttonVariants = cva(
     ],
     defaultVariants: {
       type: 'filled',
-      intent: 'primary',
+      tone: 'primary',
       size: 'xl',
     },
   },
@@ -606,7 +606,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(
     {
       type = 'filled',
-      intent = 'primary',
+      tone = 'primary',
       size = 'xl',
       fullWidth = false,
       iconOnly = false,
@@ -638,14 +638,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const dataAttributes = {
       'data-slot': 'button',
       'data-variant': type ?? undefined,
-      'data-intent': intent ?? undefined,
+      'data-tone': tone ?? undefined,
       'data-size': size ?? undefined,
       'data-icon-only': iconOnly ? '' : undefined,
     };
     const sharedClassName = cn(
       buttonVariants({
         type,
-        intent,
+        tone,
         size,
         fullWidth,
         iconOnly,

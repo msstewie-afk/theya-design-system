@@ -278,7 +278,7 @@ export function NotificationsInbox({
               action={
                 <Button
                   type="outlined"
-                  intent="secondary"
+                  tone="secondary"
                   onClick={() => {
                     setFilter('all');
                     setToneFilter([]);

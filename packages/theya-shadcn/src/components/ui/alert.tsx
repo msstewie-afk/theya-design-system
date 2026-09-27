@@ -50,7 +50,7 @@ const DISMISS_STATE_CLASS: Record<AlertVariant, string> = {
   danger: 'hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] focus-visible:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] active:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-pressed)]',
 };
 
-const VARIANT_TO_INTENT: Record<AlertVariant, NonNullable<ButtonProps['intent']>> = {
+const VARIANT_TO_INTENT: Record<AlertVariant, NonNullable<ButtonProps['tone']>> = {
   default: 'default',
   info: 'info',
   success: 'success',
@@ -110,7 +110,7 @@ export function Alert({
       {dismissible && (
         <Button
           type="ghost"
-          intent={VARIANT_TO_INTENT[variant]}
+          tone={VARIANT_TO_INTENT[variant]}
           iconOnly
           size="sm"
           aria-label={dismissLabel}

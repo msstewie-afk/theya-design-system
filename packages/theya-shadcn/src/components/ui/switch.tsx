@@ -24,7 +24,7 @@ const switchVariants = cva(
   ],
   {
     variants: {
-      intent: {
+      tone: {
         primary: '',
         warning: '',
         danger: '',
@@ -32,7 +32,7 @@ const switchVariants = cva(
     },
     compoundVariants: [
       {
-        intent: 'primary',
+        tone: 'primary',
         class: [
           'data-[state=checked]:bg-[var(--color-bg-primary-bg-primary)]',
           'hover:not-disabled:data-[state=checked]:bg-[var(--color-bg-primary-bg-primary-hover)]',
@@ -41,7 +41,7 @@ const switchVariants = cva(
         ],
       },
       {
-        intent: 'warning',
+        tone: 'warning',
         class: [
           'data-[state=checked]:bg-[var(--color-bg-warning-bg-warning)]',
           'hover:not-disabled:data-[state=checked]:bg-[var(--color-bg-warning-bg-warning-hover)]',
@@ -52,7 +52,7 @@ const switchVariants = cva(
         ],
       },
       {
-        intent: 'danger',
+        tone: 'danger',
         class: [
           'data-[state=checked]:bg-[var(--color-bg-danger-bg-danger)]',
           'hover:not-disabled:data-[state=checked]:bg-[var(--color-bg-danger-bg-danger-hover)]',
@@ -61,7 +61,7 @@ const switchVariants = cva(
         ],
       },
     ],
-    defaultVariants: { intent: 'primary' },
+    defaultVariants: { tone: 'primary' },
   },
 );
 
@@ -77,7 +77,7 @@ export interface SwitchProps
 export const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, SwitchProps>(
   function Switch(
     {
-      intent = 'primary',
+      tone = 'primary',
       checkIcon = true,
       label,
       description,
@@ -109,7 +109,7 @@ export const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, Switch
         disabled={disabled}
         aria-label={ariaLabel}
         aria-describedby={descriptionId}
-        className={cn(switchVariants({ intent }), className)}
+        className={cn(switchVariants({ tone }), className)}
         {...rest}
       >
         <SwitchPrimitive.Thumb

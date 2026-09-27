@@ -199,7 +199,7 @@ export const SlotInForm: Story = {
         }}
       >
         <File empty pickLabel="Add image" pickHint="PNG or JPG" inputProps={{ name: 'cover', accept: 'image/png,image/jpeg' }} />
-        <Button type="filled" intent="primary" size="md" onClick={(e) => e.currentTarget.closest('form')?.requestSubmit()}>
+        <Button type="filled" tone="primary" size="md" onClick={(e) => e.currentTarget.closest('form')?.requestSubmit()}>
           Upload
         </Button>
         {submitted && (

@@ -188,7 +188,7 @@ export function CarouselPrevious({ className, ...props }: React.ComponentProps<t
     <Button
       data-slot="carousel-previous"
       type="outlined"
-      intent="secondary"
+      tone="secondary"
       iconOnly
       aria-label="Previous slide"
       className={cn('absolute z-10 rounded-full', orientation === 'horizontal' ? 'left-3 inset-y-0 my-auto' : 'left-1/2 top-3 -translate-x-1/2', className)}
@@ -272,7 +272,7 @@ export function CarouselNext({ className, ...props }: React.ComponentProps<typeo
     <Button
       data-slot="carousel-next"
       type="outlined"
-      intent="secondary"
+      tone="secondary"
       iconOnly
       aria-label="Next slide"
       className={cn('absolute z-10 rounded-full', orientation === 'horizontal' ? 'right-3 inset-y-0 my-auto' : 'left-1/2 bottom-3 -translate-x-1/2', className)}

@@ -383,7 +383,7 @@ function PromptArea({
               {trailing}
               <Button
                 type="filled"
-                intent="primary"
+                tone="primary"
                 size="sm"
                 iconOnly
                 className="ml-auto"

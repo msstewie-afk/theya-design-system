@@ -185,10 +185,10 @@ export const WithButtons: Story = {
             <SelectItem value="name" className="text-body-m">Name</SelectItem>
           </SelectContent>
         </Select>
-        <Button type="outlined" intent="secondary" size="md">
+        <Button type="outlined" tone="secondary" size="md">
           Import
         </Button>
-        <Button type="filled" intent="primary" size="md" leftIcon={<Plus />}>
+        <Button type="filled" tone="primary" size="md" leftIcon={<Plus />}>
           New file
         </Button>
       </Topbar>

@@ -11,7 +11,7 @@ const meta: Meta<typeof Switch> = {
   argTypes: {
     label: { control: 'text', description: 'Label text next to the switch.', table: { category: 'Content' } },
     description: { control: 'text', description: 'Secondary helper line under the label.', table: { category: 'Content' } },
-    intent: { control: 'radio', options: ['primary', 'warning', 'danger'], description: 'Color when on.', table: { category: 'Appearance' } },
+    tone: { control: 'radio', options: ['primary', 'warning', 'danger'], description: 'Color when on.', table: { category: 'Appearance' } },
     checkIcon: { control: 'boolean', description: 'Shows a checkmark inside the thumb when on. Default true.', table: { category: 'Appearance' } },
     disabled: { control: 'boolean', description: 'Disables the switch.', table: { category: 'State' } },
   },
@@ -49,10 +49,10 @@ export const AllStates: Story = {
       <Switch label="On disabled" defaultChecked disabled />
       <Switch label="Off" />
       <Switch label="Off disabled" disabled />
-      <Switch label="On warning" intent="warning" defaultChecked />
-      <Switch label="On warning disabled" intent="warning" defaultChecked disabled />
-      <Switch label="On danger" intent="danger" defaultChecked />
-      <Switch label="On danger disabled" intent="danger" defaultChecked disabled />
+      <Switch label="On warning" tone="warning" defaultChecked />
+      <Switch label="On warning disabled" tone="warning" defaultChecked disabled />
+      <Switch label="On danger" tone="danger" defaultChecked />
+      <Switch label="On danger disabled" tone="danger" defaultChecked disabled />
     </div>
   ),
 };
@@ -60,9 +60,9 @@ export const AllStates: Story = {
 export const Intents: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      <Switch label="Primary" intent="primary" defaultChecked />
-      <Switch label="Warning" intent="warning" defaultChecked />
-      <Switch label="Danger" intent="danger" defaultChecked />
+      <Switch label="Primary" tone="primary" defaultChecked />
+      <Switch label="Warning" tone="warning" defaultChecked />
+      <Switch label="Danger" tone="danger" defaultChecked />
     </div>
   ),
 };

@@ -147,7 +147,7 @@ export function BillingUsage({
             </p>
           </div>
         </div>
-        <Button type="outlined" intent="secondary" onClick={onUpgrade} className="max-md:h-11 max-md:w-full sm:shrink-0" leftIcon={<ArrowUpRight />}>
+        <Button type="outlined" tone="secondary" onClick={onUpgrade} className="max-md:h-11 max-md:w-full sm:shrink-0" leftIcon={<ArrowUpRight />}>
           {upgradeLabel}
         </Button>
       </div>

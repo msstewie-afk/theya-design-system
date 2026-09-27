@@ -77,7 +77,7 @@ export function LoginFormSplit({
               {backHref && (
                 <Button
                   type="outlined"
-                  intent="secondary"
+                  tone="secondary"
                   size="md"
                   asChild
                   className="border-white/30 bg-white/10 text-[var(--color-text-text-on-dark)] backdrop-blur-sm hover:bg-white/20"

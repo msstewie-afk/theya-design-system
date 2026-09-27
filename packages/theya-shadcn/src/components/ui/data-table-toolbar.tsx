@@ -49,7 +49,7 @@ export interface DataTableBulkAction<TData> {
   icon?: ReactNode;
   /** Visual weight for the inline button. Left unset, renders as ghost re-skinned for the primary fill. */
   type?: ButtonProps['type'];
-  intent?: ButtonProps['intent'];
+  tone?: ButtonProps['tone'];
   /**
    * Marks a destructive action. In the overflow menu this maps to
    * DropdownMenuItem's destructive variant and selects the
@@ -501,7 +501,7 @@ export function DataTableToolbar<TData>({
         {/* Off-screen twin of every action, used only to measure width — see useVisibleActionCount. */}
         <div ref={mirrorRef} aria-hidden="true" className="pointer-events-none invisible fixed top-0 left-0 flex gap-1">
           {actions.map((action) => (
-            <Button key={action.label} type={action.type ?? 'ghost'} intent={action.intent} leftIcon={action.icon} className="whitespace-nowrap">
+            <Button key={action.label} type={action.type ?? 'ghost'} tone={action.tone} leftIcon={action.icon} className="whitespace-nowrap">
               {action.label}
             </Button>
           ))}

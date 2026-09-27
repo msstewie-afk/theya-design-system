@@ -201,7 +201,7 @@ export function AuditLog({
                         titleAs="h3"
                         description="Try a different search, category or date range."
                         action={
-                          <Button type="outlined" intent="secondary" onClick={clearFilters}>
+                          <Button type="outlined" tone="secondary" onClick={clearFilters}>
                             Clear filters
                           </Button>
                         }

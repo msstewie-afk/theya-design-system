@@ -31,7 +31,7 @@ export function SplitButton({
   onMainClick,
   menuContent,
   type = 'filled',
-  intent = 'primary',
+  tone = 'primary',
   size = 'lg',
   disabled,
   className,
@@ -41,7 +41,7 @@ export function SplitButton({
     <div className={cn('inline-flex', className)}>
       <Button
         type={type}
-        intent={intent}
+        tone={tone}
         size={size}
         disabled={disabled}
         onClick={onMainClick}
@@ -55,7 +55,7 @@ export function SplitButton({
         <DropdownMenuTrigger asChild>
           <Button
             type={type}
-            intent={intent}
+            tone={tone}
             size={size}
             disabled={disabled}
             iconOnly

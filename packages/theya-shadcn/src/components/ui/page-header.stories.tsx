@@ -58,7 +58,7 @@ export const WithActions: Story = {
     actions: (
       <>
         <Button type="outlined">Import</Button>
-        <Button type="filled" intent="primary" leftIcon={<Plus />}>
+        <Button type="filled" tone="primary" leftIcon={<Plus />}>
           Create site
         </Button>
       </>
@@ -107,7 +107,7 @@ export const SectionHeader: Story = {
     title: 'API tokens',
     description: 'Personal access tokens for the CLI and CI.',
     actions: (
-      <Button type="filled" intent="primary" size="md">
+      <Button type="filled" tone="primary" size="md">
         New token
       </Button>
     ),
@@ -153,7 +153,7 @@ export const WithKebabMenu: Story = {
         <Button type="outlined" className="hidden sm:inline-flex">
           Import
         </Button>
-        <Button type="filled" intent="primary" leftIcon={<Plus />}>
+        <Button type="filled" tone="primary" leftIcon={<Plus />}>
           Create site
         </Button>
         <DropdownMenu>
@@ -300,7 +300,7 @@ export const AllElements: Story = {
         <Button type="outlined" className="hidden sm:inline-flex">
           Import
         </Button>
-        <Button type="filled" intent="primary" leftIcon={<Plus />}>
+        <Button type="filled" tone="primary" leftIcon={<Plus />}>
           Create site
         </Button>
         <DropdownMenu>
@@ -358,7 +358,7 @@ export const Full: Story = {
     ),
     actions: (
       <>
-        <Button type="filled" intent="primary" leftIcon={<Plus />}>
+        <Button type="filled" tone="primary" leftIcon={<Plus />}>
           New deployment
         </Button>
         <Button type="ghost" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />

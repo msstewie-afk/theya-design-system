@@ -24,7 +24,7 @@ const meta: Meta<typeof ConfirmDialog> = {
     },
     confirmLabel: { control: 'text', description: 'Label for the confirm button.', table: { category: 'Content' } },
     cancelLabel: { control: 'text', description: 'Label for the cancel button.', table: { category: 'Content' } },
-    variant: { control: 'inline-radio', options: ['danger', 'default'], description: 'Color/intent of the confirm action.', table: { category: 'Appearance' } },
+    variant: { control: 'inline-radio', options: ['danger', 'default'], description: 'Color/tone of the confirm action.', table: { category: 'Appearance' } },
     confirmIcon: { control: false, description: 'Optional icon on the confirm button.', table: { category: 'Content' } },
     onConfirm: { control: false, description: 'Called when the confirm action is activated.', table: { category: 'Events' } },
     trigger: { control: false, description: 'Element that opens the dialog when clicked.', table: { category: 'Content' } },
@@ -43,7 +43,7 @@ export const Default: Story = {
       title="Delete this server?"
       description="This action cannot be undone."
       trigger={
-        <Button type="filled" intent="danger">
+        <Button type="filled" tone="danger">
           Delete server
         </Button>
       }
@@ -63,7 +63,7 @@ export const TypedConfirm: Story = {
       showFooterDivider={false}
       contentGap="none"
       trigger={
-        <Button type="filled" intent="danger">
+        <Button type="filled" tone="danger">
           Delete site
         </Button>
       }
@@ -83,7 +83,7 @@ export const NonDestructive: Story = {
       confirmLabel="Restart"
       confirmIcon={<Refresh />}
       trigger={
-        <Button type="outlined" intent="secondary">
+        <Button type="outlined" tone="secondary">
           Restart server
         </Button>
       }
@@ -103,7 +103,7 @@ export const WithConsequences: Story = {
       showFooterDivider={false}
       contentGap="none"
       trigger={
-        <Button type="filled" intent="danger">
+        <Button type="filled" tone="danger">
           Delete api.seashell.dev
         </Button>
       }
@@ -132,7 +132,7 @@ export const Open: Story = {
     const [open, setOpen] = useState(true);
     return (
       <div className="flex flex-col items-center gap-3">
-        <Button type="filled" intent="danger" onClick={() => setOpen(true)}>
+        <Button type="filled" tone="danger" onClick={() => setOpen(true)}>
           Reopen
         </Button>
         <ConfirmDialog

@@ -255,7 +255,7 @@ export function TeamMembers({
                 </SelectContent>
               </Select>
             </div>
-          <Button type="filled" intent="primary" className="max-sm:w-full" leftIcon={<UserPlus />}>
+          <Button type="filled" tone="primary" className="max-sm:w-full" leftIcon={<UserPlus />}>
             Send invite
           </Button>
         </form>
@@ -330,7 +330,7 @@ export function TeamMembers({
                           confirmLabel="Remove"
                           confirmIcon={<Trash width={16} height={16} />}
                           trigger={
-                            <Button type="ghost" intent="danger" iconOnly size="md" aria-label={`Remove ${member.name}`} leftIcon={<Trash />} />
+                            <Button type="ghost" tone="danger" iconOnly size="md" aria-label={`Remove ${member.name}`} leftIcon={<Trash />} />
                           }
                           onConfirm={() => removeMember(member)}
                         />
@@ -385,7 +385,7 @@ export function TeamMembers({
                         confirmLabel="Revoke"
                         confirmIcon={<Trash width={16} height={16} />}
                         trigger={
-                          <Button type="ghost" intent="danger" size="md" className="max-sm:flex-1">
+                          <Button type="ghost" tone="danger" size="md" className="max-sm:flex-1">
                             Revoke
                           </Button>
                         }

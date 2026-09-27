@@ -185,7 +185,7 @@ export function Attachment({
   const removeButton = onRemove && (
     <Button
       type="ghost"
-      intent={hasError ? 'danger' : 'default'}
+      tone={hasError ? 'danger' : 'default'}
       size="sm"
       iconOnly
       className="shrink-0"

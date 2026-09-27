@@ -15,7 +15,7 @@ const meta: Meta<typeof Button> = {
         component:
           'Rebuilt on shadcn/ui conventions (Radix Slot + cva + Tailwind v4) — ' +
           'same prop API as the original CSS-modules Button, same tokens, same ' +
-          'visual result. Three independent axes: `type` × `intent` × `size`.',
+          'visual result. Three independent axes: `type` × `tone` × `size`.',
       },
     },
   },
@@ -27,10 +27,10 @@ const meta: Meta<typeof Button> = {
         'Surface treatment: solid fill, softly-tinted fill, outlined, or borderless.',
       table: { category: 'Appearance', defaultValue: { summary: 'filled' } },
     },
-    intent: {
+    tone: {
       control: 'select',
       options: ['primary', 'secondary', 'default', 'success', 'warning', 'danger', 'info'],
-      description: 'Semantic color intent.',
+      description: 'Semantic color tone.',
       table: { category: 'Appearance', defaultValue: { summary: 'primary' } },
     },
     size: {
@@ -97,7 +97,7 @@ export const Playground: Story = {
   args: {
     children: 'Button',
     type: 'filled',
-    intent: 'primary',
+    tone: 'primary',
     size: 'xl',
     // @ts-expect-error — synthetic args below aren't real Button props
     leftIconName: 'none',
@@ -117,9 +117,9 @@ export const AllIntentsFilled: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'default', 'success', 'warning', 'danger', 'info'] as const).map(
-        (intent) => (
-          <Button key={intent} type="filled" intent={intent}>
-            {intent}
+        (tone) => (
+          <Button key={tone} type="filled" tone={tone}>
+            {tone}
           </Button>
         ),
       )}
@@ -132,9 +132,9 @@ export const AllIntentsTonal: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'default', 'success', 'warning', 'danger', 'info'] as const).map(
-        (intent) => (
-          <Button key={intent} type="tonal" intent={intent}>
-            {intent}
+        (tone) => (
+          <Button key={tone} type="tonal" tone={tone}>
+            {tone}
           </Button>
         ),
       )}
@@ -147,9 +147,9 @@ export const AllIntentsOutlined: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'default', 'success', 'warning', 'danger', 'info'] as const).map(
-        (intent) => (
-          <Button key={intent} type="outlined" intent={intent}>
-            {intent}
+        (tone) => (
+          <Button key={tone} type="outlined" tone={tone}>
+            {tone}
           </Button>
         ),
       )}
@@ -162,9 +162,9 @@ export const AllIntentsGhost: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'default', 'success', 'warning', 'danger', 'info'] as const).map(
-        (intent) => (
-          <Button key={intent} type="ghost" intent={intent}>
-            {intent}
+        (tone) => (
+          <Button key={tone} type="ghost" tone={tone}>
+            {tone}
           </Button>
         ),
       )}
@@ -176,16 +176,16 @@ export const AllTypesPrimary: Story = {
   name: 'All types (Primary)',
   render: () => (
     <div style={{ display: 'flex', gap: 8 }}>
-      <Button type="filled" intent="primary">
+      <Button type="filled" tone="primary">
         Filled
       </Button>
-      <Button type="tonal" intent="primary">
+      <Button type="tonal" tone="primary">
         Tonal
       </Button>
-      <Button type="outlined" intent="primary">
+      <Button type="outlined" tone="primary">
         Outlined
       </Button>
-      <Button type="ghost" intent="primary">
+      <Button type="ghost" tone="primary">
         Ghost
       </Button>
     </div>
@@ -331,7 +331,7 @@ function LoadingToggleDemo() {
       <Button loading={loading} data-testid="subject">
         Save
       </Button>
-      <Button type="outlined" intent="default" onClick={() => setLoading((v) => !v)}>
+      <Button type="outlined" tone="default" onClick={() => setLoading((v) => !v)}>
         Toggle loading
       </Button>
     </div>
@@ -392,7 +392,7 @@ function InteractiveLoadingDemo() {
       <Button
         onClick={handleClick}
         loading={status === 'loading'}
-        intent={status === 'success' ? 'success' : 'primary'}
+        tone={status === 'success' ? 'success' : 'primary'}
         className="w-[160px]" // fixed to fit the widest label ("Save changes") so width doesn't jump between states — content stays centered via Button's own justify-center
         leftIcon={
           status === 'success' ? (
@@ -416,7 +416,7 @@ export const InteractiveLoading: Story = {
         story:
           'Click to trigger a simulated async action: Filled Primary → loading ' +
           'spinner → Filled Success with an animated checkmark → back to idle. ' +
-          'The intent color transition (primary → success) rides the same ' +
+          'The tone color transition (primary → success) rides the same ' +
           'background-color transition every Button already has, so it crossfades ' +
           'smoothly on its own — only the checkmark needed its own pop-in keyframe.',
       },

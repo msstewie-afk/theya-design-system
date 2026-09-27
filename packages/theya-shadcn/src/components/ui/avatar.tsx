@@ -250,7 +250,7 @@ export function AvatarBadge({
   size = 'sm',
   type = 'filled',
   shape = 'round',
-  intent = 'danger',
+  tone = 'danger',
   children,
   value,
   ...props
@@ -261,7 +261,7 @@ export function AvatarBadge({
       value={value ?? children}
       type={type}
       shape={shape}
-      intent={intent}
+      tone={tone}
       size={size}
       className={cn('absolute', className)}
       style={{

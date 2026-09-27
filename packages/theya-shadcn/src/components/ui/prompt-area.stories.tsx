@@ -295,7 +295,7 @@ export const WithVoiceInput: Story = {
           trailing={
             <Button
               type={recording ? 'filled' : 'ghost'}
-              intent={recording ? 'danger' : 'default'}
+              tone={recording ? 'danger' : 'default'}
               size="sm"
               iconOnly
               aria-label={recording ? 'Stop recording' : 'Start voice input'}

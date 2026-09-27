@@ -123,7 +123,7 @@ export interface BadgeIndicatorProps extends Omit<React.HTMLAttributes<HTMLSpanE
   icon?: ReactNode;
   type?: BadgeIndicatorType;
   shape?: BadgeIndicatorShape;
-  intent?: BadgeIndicatorIntent;
+  tone?: BadgeIndicatorIntent;
   size?: BadgeIndicatorSize;
 }
 
@@ -133,13 +133,13 @@ export function BadgeIndicator({
   icon,
   type = 'filled',
   shape = 'round',
-  intent = 'inactive',
+  tone = 'inactive',
   size = 'sm',
   className,
   style,
   ...props
 }: BadgeIndicatorProps) {
-  const tokens = INTENT_TOKENS[intent];
+  const tokens = INTENT_TOKENS[tone];
   const box = SIZE_PX[size];
   const isFilled = type === 'filled';
 

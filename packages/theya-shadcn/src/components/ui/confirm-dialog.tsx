@@ -158,7 +158,7 @@ export function ConfirmDialog({
 
         <AlertDialogFooter>
           <AlertDialogCancel>{cancelLabel}</AlertDialogCancel>
-          <AlertDialogAction type="filled" intent={variant === 'danger' ? 'danger' : 'primary'} disabled={!ready} onClick={onConfirm} leftIcon={confirmIcon}>
+          <AlertDialogAction type="filled" tone={variant === 'danger' ? 'danger' : 'primary'} disabled={!ready} onClick={onConfirm} leftIcon={confirmIcon}>
             {confirmLabel}
           </AlertDialogAction>
         </AlertDialogFooter>

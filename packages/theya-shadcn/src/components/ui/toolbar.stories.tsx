@@ -33,7 +33,7 @@ export const BulkActions: Story = {
         <Download /> Export
       </ToolbarButton>
       <ToolbarSeparator />
-      <ToolbarButton type="ghost" intent="danger">
+      <ToolbarButton type="ghost" tone="danger">
         <Trash /> Delete
       </ToolbarButton>
     </Toolbar>
@@ -80,14 +80,14 @@ export const Vertical: Story = {
 
 /** Wired to Button's own type/intent — a destructive action past a separator. */
 export const WithIntent: Story = {
-  name: 'With intent',
+  name: 'With tone',
   render: () => (
     <Toolbar aria-label="Backup actions" className={CARD}>
       <ToolbarButton>
         <Download /> Export
       </ToolbarButton>
       <ToolbarSeparator />
-      <ToolbarButton type="ghost" intent="danger">
+      <ToolbarButton type="ghost" tone="danger">
         <Trash /> Delete
       </ToolbarButton>
     </Toolbar>

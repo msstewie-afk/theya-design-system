@@ -164,7 +164,7 @@ export const WithTrailing: Story = {
               <ContextMenuTrailing>
                 <Button
                   type="ghost"
-                  intent="danger"
+                  tone="danger"
                   size="sm"
                   iconOnly
                   aria-label="Remove auto-responder"

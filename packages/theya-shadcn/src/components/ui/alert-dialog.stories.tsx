@@ -43,7 +43,7 @@ export const Default: Story = {
   render: () => (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button type="filled" intent="danger">
+        <Button type="filled" tone="danger">
           Delete server
         </Button>
       </AlertDialogTrigger>
@@ -66,7 +66,7 @@ export const NonDestructive: Story = {
   render: () => (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button type="outlined" intent="secondary">
+        <Button type="outlined" tone="secondary">
           Reissue certificate
         </Button>
       </AlertDialogTrigger>
@@ -79,7 +79,7 @@ export const NonDestructive: Story = {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction type="filled" intent="primary">Reissue certificate</AlertDialogAction>
+          <AlertDialogAction type="filled" tone="primary">Reissue certificate</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -96,7 +96,7 @@ export const Open: Story = {
   render: () => (
     <AlertDialog defaultOpen>
       <AlertDialogTrigger asChild>
-        <Button type="filled" intent="danger">
+        <Button type="filled" tone="danger">
           Delete API token
         </Button>
       </AlertDialogTrigger>

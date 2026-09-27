@@ -114,7 +114,7 @@ export function ApiKeys({ title = 'API keys', description = 'Keys used to authen
             <Label htmlFor={nameId}>Key name</Label>
             <TextField id={nameId} placeholder="Production deploy" value={name} onChange={(e) => setName(e.target.value)} widthSize="full" />
           </div>
-          <Button type="filled" intent="primary" disabled={!name.trim()} className="max-sm:w-full" leftIcon={<Plus />}>
+          <Button type="filled" tone="primary" disabled={!name.trim()} className="max-sm:w-full" leftIcon={<Plus />}>
             Create key
           </Button>
         </form>
@@ -171,7 +171,7 @@ export function ApiKeys({ title = 'API keys', description = 'Keys used to authen
                       description="Any requests using this key will immediately start failing. You can undo this for a short time after."
                       confirmLabel="Revoke"
                       confirmIcon={<Trash width={16} height={16} />}
-                      trigger={<Button type="ghost" intent="danger" iconOnly size="md" aria-label={`Revoke ${key.name}`} leftIcon={<Trash />} />}
+                      trigger={<Button type="ghost" tone="danger" iconOnly size="md" aria-label={`Revoke ${key.name}`} leftIcon={<Trash />} />}
                       onConfirm={() => revokeKey(key)}
                     />
                   </TableCell>
@@ -193,7 +193,7 @@ export function ApiKeys({ title = 'API keys', description = 'Keys used to authen
             <DialogClose asChild>
               <Button
                 type="filled"
-                intent="primary"
+                tone="primary"
                 onClick={() => {
                   toast.success('Key created', { description: createdSecret?.name });
                   setCreatedSecret(null);

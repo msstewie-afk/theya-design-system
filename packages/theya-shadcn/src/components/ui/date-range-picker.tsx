@@ -62,7 +62,7 @@ export function DateRangePicker({
         <Button
           id={id}
           type="outlined"
-          intent="secondary"
+          tone="secondary"
           size="xl"
           disabled={disabled}
           aria-label={ariaLabel}

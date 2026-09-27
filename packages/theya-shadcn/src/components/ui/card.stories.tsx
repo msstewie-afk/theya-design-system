@@ -39,7 +39,7 @@ export const Default: Story = {
         <p className="flex items-center text-body-s text-[var(--color-text-text-subtler)]">eu-west-1<DotSeparator />PHP 8.3</p>
       </CardContent>
       <CardFooter>
-        <Button type="filled" intent="primary" size="md">
+        <Button type="filled" tone="primary" size="md">
           Save changes
         </Button>
         <Button type="outlined" size="md">
@@ -140,7 +140,7 @@ export const InteractiveCard: Story = {
         </CardHeader>
         <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">Suspended, payment failed.</CardContent>
         <CardFooter>
-          <Button type="filled" intent="primary" size="md">
+          <Button type="filled" tone="primary" size="md">
             Resolve billing
           </Button>
         </CardFooter>
@@ -250,7 +250,7 @@ export const FormSection: Story = {
         <TextField label="Domain" placeholder="shop.seashell.dev" widthSize="md" />
       </CardContent>
       <CardFooter>
-        <Button type="filled" intent="primary" size="md">
+        <Button type="filled" tone="primary" size="md">
           Save changes
         </Button>
       </CardFooter>
@@ -371,7 +371,7 @@ export const DividerEdgeCases: Story = {
           <CardTitle>Header, then footer</CardTitle>
         </CardHeader>
         <CardFooter>
-          <Button type="filled" intent="primary" size="md">
+          <Button type="filled" tone="primary" size="md">
             Confirm
           </Button>
         </CardFooter>

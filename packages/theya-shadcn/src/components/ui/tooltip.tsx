@@ -47,11 +47,11 @@ export function TooltipContent({
   className,
   sideOffset = 6,
   showArrow = true,
-  intent = 'default',
+  tone = 'default',
   children,
   ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Content> & { showArrow?: boolean; intent?: TooltipIntent }) {
-  const tone = INTENT_CLASS[intent];
+}: React.ComponentProps<typeof TooltipPrimitive.Content> & { showArrow?: boolean; tone?: TooltipIntent }) {
+  const toneClass = INTENT_CLASS[tone];
   return (
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Content
@@ -59,7 +59,7 @@ export function TooltipContent({
         className={cn(
           'z-50 w-fit max-w-[600px] break-words rounded-[var(--size-border-radius-border-radius-md)]',
           'px-2.5 py-1.5 font-body text-body-xs shadow-md',
-          tone.surface,
+          toneClass.surface,
           'data-[state=delayed-open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none',
           'data-[state=closed]:fade-out-0 data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95',
           className,
@@ -67,7 +67,7 @@ export function TooltipContent({
         {...props}
       >
         {children}
-        {showArrow && <TooltipPrimitive.Arrow className={tone.arrow} />}
+        {showArrow && <TooltipPrimitive.Arrow className={toneClass.arrow} />}
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   );
