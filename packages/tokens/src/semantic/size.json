@@ -272,14 +272,6 @@
       "padding-s": {
         "value": "{size.size10}",
         "type": "dimension"
-      },
-      "padding--3xs": {
-        "value": -4,
-        "type": "dimension"
-      },
-      "padding--2xs": {
-        "value": -2,
-        "type": "dimension"
       }
     },
     "border-width": {
@@ -401,10 +393,6 @@
       },
       "gap-4xl": {
         "value": "{size.size32}",
-        "type": "dimension"
-      },
-      "gap--2xs": {
-        "value": -2,
         "type": "dimension"
       }
     }
