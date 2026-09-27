@@ -21,7 +21,7 @@ const TONE_INDICATOR: Record<MeterTone, string> = {
   success: 'bg-[var(--color-bg-success-bg-success)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning)]',
   destructive: 'bg-[var(--color-bg-danger-bg-danger)]',
-  info: 'bg-[var(--color-bg-info-bg-info)]',
+  info: 'bg-[var(--color-bg-info-bg-info-status)]',
 };
 
 export interface MeterProps extends Omit<React.ComponentProps<'div'>, 'children'> {

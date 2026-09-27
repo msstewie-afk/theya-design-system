@@ -22,7 +22,7 @@ const TONE_STROKE: Record<SparklineTone, string> = {
   // (grayish) instead of the dedicated blue info family — same systemic
   // bug already fixed in StatusDot/ToneIcon/Chip/Badge/Alert/Timeline/
   // Meter, missed here (Sep 2026).
-  info: 'var(--color-bg-info-bg-info)',
+  info: 'var(--color-icon-icon-info)',
   muted: 'var(--color-icon-icon-subtle)',
 };
 

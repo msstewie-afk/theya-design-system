@@ -154,7 +154,7 @@ export const buttonVariants = cva(
         type: 'filled',
         intent: 'info',
         class: [
-          'bg-[var(--color-bg-info-bg-info)] text-[var(--color-text-text-on-dark)]',
+          'bg-[var(--color-bg-info-bg-info)] text-[var(--color-cyan-cyan-900)]',
           'hover:not-disabled:bg-[var(--color-bg-info-bg-info-hover)]',
           'active:not-disabled:bg-[var(--color-bg-info-bg-info-pressed)]',
         ],
@@ -406,7 +406,7 @@ export const buttonVariants = cva(
         type: 'ghost',
         intent: 'info',
         class: [
-          'text-[var(--color-icon-icon-info)] [&_svg]:text-[var(--color-icon-icon-info)]',
+          'text-[var(--color-text-text-info)] [&_svg]:text-[var(--color-icon-icon-info)]',
           'hover:not-disabled:bg-[var(--color-bg-info-bg-info-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-info-bg-info-subtler-hover)]',
           'active:not-disabled:bg-[var(--color-bg-info-bg-info-subtler-pressed)]',

@@ -46,7 +46,7 @@ const TONE_CLASS: Record<StatusTone, string> = {
   destructive: 'bg-[var(--color-bg-danger-bg-danger)] [[data-theme=dark]_&]:bg-[var(--color-bg-danger-bg-danger-status)]',
   neutral: 'bg-[var(--color-icon-icon-subtle)]',
   primary: 'bg-[var(--color-bg-primary-bg-primary)] [[data-theme=dark]_&]:bg-[var(--color-bg-primary-bg-primary-status)]',
-  info: 'bg-[var(--color-bg-info-bg-info)] [[data-theme=dark]_&]:bg-[var(--color-bg-info-bg-info-status)]',
+  info: 'bg-[var(--color-bg-info-bg-info-status)]',
 };
 
 const TONE_CLASS_INVERSE: Record<StatusTone, string> = {

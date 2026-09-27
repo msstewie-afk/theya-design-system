@@ -79,7 +79,7 @@ const SOLID_TONE_CLASS: Record<ChipTone, string> = {
   // every other solid tone here; mirrors Button's own fix (2026-09-26).
   warning: 'border-transparent bg-[var(--color-bg-warning-bg-warning)] text-[var(--color-text-text-on-dark)]',
   destructive: 'border-transparent bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-text-text-on-dark)]',
-  info: 'border-transparent bg-[var(--color-bg-info-bg-info)] text-[var(--color-text-text-on-dark)]',
+  info: 'border-transparent bg-[var(--color-bg-info-bg-info)] text-[var(--color-cyan-cyan-900)]',
 };
 
 // Hover shades, one set per "look" (subtle/solid), lifted directly from
