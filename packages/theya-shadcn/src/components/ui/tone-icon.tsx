@@ -14,7 +14,7 @@ import type { StatusTone } from './status-dot';
  * sibling text.
  */
 const TONE_CLASS: Record<StatusTone, string> = {
-  info: 'bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-icon-icon-info)]',
+  info: 'bg-[var(--color-cyan-cyan-050)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)]',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-icon-icon-success)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-icon-icon-warning)]',
   destructive: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-icon-icon-danger)]',
