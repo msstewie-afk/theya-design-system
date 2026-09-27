@@ -179,10 +179,6 @@
     "size64": {
       "value": 64,
       "type": "dimension"
-    },
-    "size1-2": {
-      "value": 1.2000000476837158,
-      "type": "dimension"
     }
   }
 }
