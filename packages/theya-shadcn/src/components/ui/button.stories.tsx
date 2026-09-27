@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Star, Check, ArrowRight, Xmark, Trash, Plus } from 'iconoir-react';
 import { Button } from './button';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
@@ -274,16 +275,37 @@ export const Disabled: Story = {
 // Soft-disable: the button stays in the tab order, so keyboard and
 // screen-reader users can reach it and hear the tooltip's reason.
 export const SoftDisabledWithReason: Story = {
-  render: () => (
+  args: { onClick: fn() },
+  render: (args) => (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button softDisabled onClick={() => console.warn('softDisabled click leaked through')}>
+        <Button softDisabled onClick={args.onClick}>
           Publish
         </Button>
       </TooltipTrigger>
       <TooltipContent>Add a title before publishing</TooltipContent>
     </Tooltip>
   ),
+  // Guards the softDisabled contract: reachable by Tab, reason exposed as
+  // a tooltip, click/Enter/Space swallowed.
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: 'Publish' });
+
+    await expect(button).toHaveAttribute('aria-disabled', 'true');
+    await expect(button).not.toBeDisabled();
+
+    await userEvent.tab();
+    await expect(button).toHaveFocus();
+    await expect(
+      await within(document.body).findByRole('tooltip'),
+    ).toHaveTextContent('Add a title before publishing');
+
+    await userEvent.click(button);
+    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard(' ');
+    await expect(args.onClick).not.toHaveBeenCalled();
+  },
 };
 
 export const Loading: Story = {
@@ -299,6 +321,49 @@ export const Loading: Story = {
       <Button iconOnly loading aria-label="Loading" />
     </div>
   ),
+};
+
+function LoadingToggleDemo() {
+  const [loading, setLoading] = useState(false);
+  return (
+    <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+      {/* No leftIcon on purpose: this is the case that used to grow on loading. */}
+      <Button loading={loading} data-testid="subject">
+        Save
+      </Button>
+      <Button type="outlined" intent="default" onClick={() => setLoading((v) => !v)}>
+        Toggle loading
+      </Button>
+    </div>
+  );
+}
+
+/**
+ * Regression test for the loading layout shift (the button used to grow
+ * from 75.6px to 97.6px when it had no leftIcon). The play function
+ * toggles loading and checks the width is unchanged, the spinner is
+ * shown, and the button keeps its accessible name while busy.
+ */
+export const LoadingKeepsWidth: Story = {
+  name: 'Test: loading keeps width',
+  render: () => <LoadingToggleDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const subject = canvas.getByTestId('subject');
+    const before = subject.getBoundingClientRect().width;
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Toggle loading' }));
+
+    await waitFor(() => expect(subject).toHaveAttribute('aria-busy', 'true'));
+    await expect(subject.querySelector('svg.animate-spin')).not.toBeNull();
+    await expect(Math.abs(subject.getBoundingClientRect().width - before)).toBeLessThan(0.5);
+    // Label hidden with opacity, not visibility — still the accessible name.
+    await expect(canvas.getByRole('button', { name: 'Save' })).toBe(subject);
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Toggle loading' }));
+    await waitFor(() => expect(subject).not.toHaveAttribute('aria-busy'));
+    await expect(Math.abs(subject.getBoundingClientRect().width - before)).toBeLessThan(0.5);
+  },
 };
 
 function InteractiveLoadingDemo() {
