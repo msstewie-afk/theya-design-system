@@ -63,7 +63,12 @@ export function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
         // border into the shared grid rather than painting it as part
         // of this row's own hoverable box.
         'shadow-[inset_0_-1px_0_0_var(--color-border-border-subtle)] transition-colors duration-150 ease-out motion-reduce:transition-none',
-        'last:shadow-none hover:bg-[var(--color-bg-neutral-bg-neutral-subtler)] data-[state=selected]:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
+        'last:shadow-none hover:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
+        // Selected: same treatment as DataTable's rows (primary tint, lighter
+        // tint on hover). Was neutral-subtler for both hover and selected, so
+        // a selected row under the pointer looked exactly like an unselected
+        // hovered one (2026-09-27).
+        'data-[state=selected]:bg-[var(--color-bg-primary-bg-primary-subtle)] data-[state=selected]:hover:bg-[var(--color-bg-primary-bg-primary-subtler)]',
         className,
       )}
       {...props}
