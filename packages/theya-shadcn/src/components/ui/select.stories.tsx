@@ -243,6 +243,20 @@ export const Invalid: Story = {
  */
 export const InvalidOpen: Story = {
   name: 'Invalid, open',
+  // Story-only exception: while a Radix Select is open it is modal — it
+  // sets aria-hidden on everything outside its portal (including
+  // #storybook-root with the trigger in it) and keeps focus inside the
+  // listbox. That's the intended pattern; axe flags aria-hidden-focus
+  // only because this story renders the popup already open and scans the
+  // hidden root. Same kind of confirmed-upstream exclusion as
+  // NavigationMenu's; scoped to this one story.
+  parameters: {
+    a11y: {
+      config: {
+        rules: [{ id: 'aria-hidden-focus', enabled: false }],
+      },
+    },
+  },
   render: () => (
     <div className="flex flex-col gap-1.5">
       <Label htmlFor="plan-invalid">Plan</Label>
