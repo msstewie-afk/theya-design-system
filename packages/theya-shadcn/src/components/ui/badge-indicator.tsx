@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
  */
 export type BadgeIndicatorIntent = 'neutral' | 'info' | 'success' | 'warning' | 'danger';
 export type BadgeIndicatorAppearance = 'filled' | 'outlined';
-export type BadgeIndicatorShape = 'round' | 'square';
+export type BadgeIndicatorShape = 'circle' | 'square';
 export type BadgeIndicatorSize = 'sm' | 'md';
 
 const SIZE_PX: Record<BadgeIndicatorSize, number> = { sm: 16, md: 20 };
@@ -132,7 +132,7 @@ export function BadgeIndicator({
   dot = false,
   icon,
   appearance = 'filled',
-  shape = 'round',
+  shape = 'circle',
   tone = 'neutral',
   size = 'sm',
   className,
@@ -149,7 +149,7 @@ export function BadgeIndicator({
 
   if (dot) {
     const dotPx = DOT_PX[size];
-    const dotRadius = shape === 'round' ? 9999 : SQUARE_RADIUS_PX[size];
+    const dotRadius = shape === 'circle' ? 9999 : SQUARE_RADIUS_PX[size];
     return (
       <span
         data-slot="badge-indicator"
@@ -176,7 +176,7 @@ export function BadgeIndicator({
   const geometry: CSSProperties = {
     minWidth: box,
     height: box,
-    borderRadius: shape === 'round' ? 9999 : SQUARE_RADIUS_PX[size],
+    borderRadius: shape === 'circle' ? 9999 : SQUARE_RADIUS_PX[size],
     paddingLeft: hasIcon ? 0 : PADDING_X_PX[size],
     paddingRight: hasIcon ? 0 : PADDING_X_PX[size],
     boxSizing: 'border-box',

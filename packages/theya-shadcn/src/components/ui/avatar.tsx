@@ -249,7 +249,7 @@ export function AvatarBadge({
   separator = true,
   size = 'sm',
   appearance = 'filled',
-  shape = 'round',
+  shape = 'circle',
   tone = 'danger',
   children,
   value,

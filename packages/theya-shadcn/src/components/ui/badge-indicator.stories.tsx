@@ -17,7 +17,7 @@ const meta = {
     dot: { control: 'boolean', description: 'Renders a plain dot instead of value/icon — takes priority over both.' },
     icon: { control: false, description: 'Icon content (sized by BadgeIndicator, colored via currentColor). Ignored when dot is set.' },
     appearance: { control: 'inline-radio', options: ['filled', 'outlined'], description: 'Fill style.' },
-    shape: { control: 'inline-radio', options: ['round', 'square'], description: 'Outer silhouette.' },
+    shape: { control: 'inline-radio', options: ['circle', 'square'], description: 'Outer silhouette.' },
     tone: {
       control: 'select',
       options: ['neutral', 'info', 'success', 'warning', 'danger'],
@@ -28,7 +28,7 @@ const meta = {
   args: {
     value: '5',
     appearance: 'filled',
-    shape: 'round',
+    shape: 'circle',
     tone: 'neutral',
     size: 'sm',
   },
@@ -92,7 +92,7 @@ export const Shapes: Story = {
   parameters: { controls: { exclude: ['shape'] } },
   render: (args) => (
     <div className="flex flex-wrap items-center gap-3">
-      <BadgeIndicator {...args} shape="round" />
+      <BadgeIndicator {...args} shape="circle" />
       <BadgeIndicator {...args} shape="square" />
     </div>
   ),
