@@ -21,7 +21,7 @@ const meta: Meta<typeof ListItem> = {
   tags: ['autodocs'],
   parameters: { layout: 'padded' },
   argTypes: {
-    size: { control: 'inline-radio', options: ['sm', 'm', 'lg'], description: 'Row size.' },
+    size: { control: 'inline-radio', options: ['sm', 'md', 'lg'], description: 'Row size.' },
     title: { control: 'text', description: 'Primary label.' },
     description: { control: 'text', description: 'Secondary line under the title.' },
     leading: { control: false, description: 'Leading visual: an icon, Avatar, or a tone-colored status glyph.' },
@@ -102,7 +102,7 @@ export const Selectable: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="flex max-w-md flex-col gap-4">
-      {(['sm', 'm', 'lg'] as const).map((size) => (
+      {(['sm', 'md', 'lg'] as const).map((size) => (
         <ListItem key={size} size={size} leading={<Server />} title={`Size ${size}`} description="web-01" trailing={<Badge>{size}</Badge>} className="rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]" />
       ))}
     </div>

@@ -177,13 +177,13 @@ export function DialogFooter({ className, showDivider = true, ...props }: Dialog
   );
 }
 
-export function DialogTitle({ className, size = 'default', ...props }: React.ComponentProps<typeof DialogPrimitive.Title> & { size?: 'default' | 'large' }) {
+export function DialogTitle({ className, size = 'md', ...props }: React.ComponentProps<typeof DialogPrimitive.Title> & { size?: 'md' | 'lg' }) {
   return (
     <DialogPrimitive.Title
       className={cn(
         'font-body font-medium leading-tight text-[var(--color-text-text)]',
-        size === 'default' && 'text-heading-s',
-        size === 'large' && 'text-heading-m',
+        size === 'md' && 'text-heading-s',
+        size === 'lg' && 'text-heading-m',
         className,
       )}
       {...props}

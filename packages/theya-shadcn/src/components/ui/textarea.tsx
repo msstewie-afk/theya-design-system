@@ -80,8 +80,8 @@ const textareaVariants = cva(
       // Text size only — see the note above the cva() call for why this
       // doesn't touch the box height the way TextField's heightSize does.
       heightSize: {
-        m: 'text-body-m',
-        s: 'text-body-s',
+        md: 'text-body-m',
+        sm: 'text-body-s',
       },
     },
     compoundVariants: [
@@ -99,7 +99,7 @@ const textareaVariants = cva(
         ],
       },
     ],
-    defaultVariants: { error: false, widthSize: 'full', heightSize: 'm' },
+    defaultVariants: { error: false, widthSize: 'full', heightSize: 'md' },
   },
 );
 
@@ -125,7 +125,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
   {
     error,
     widthSize = 'full',
-    heightSize = 'm',
+    heightSize = 'md',
     label,
     required,
     description,
@@ -178,7 +178,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
         disabled && 'opacity-50',
       )}
     >
-      <span className={cn('font-body text-[var(--color-text-text)]', heightSize === 's' && 'text-body-s')}>{label}</span>
+      <span className={cn('font-body text-[var(--color-text-text)]', heightSize === 'sm' && 'text-body-s')}>{label}</span>
       {required && (
         <span className="text-[var(--color-text-text-danger)] leading-none" aria-hidden="true">
           *

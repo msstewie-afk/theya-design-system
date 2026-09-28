@@ -30,8 +30,8 @@ export interface ComboboxOption {
 
 interface ComboboxCommonProps {
   options: ComboboxOption[];
-  /** Matches TextField's own heightSize: 'm' (40px, body-m) or 's' (32px, body-s) — the dropdown's own text size follows it too. */
-  heightSize?: 'm' | 's';
+  /** Matches TextField's own heightSize: 'md' (40px, body-m) or 'sm' (32px, body-s) — the dropdown's own text size follows it too. */
+  heightSize?: 'md' | 'sm';
   placeholder?: string;
   emptyMessage?: ReactNode;
   loading?: boolean;
@@ -93,7 +93,7 @@ export function Combobox(props: ComboboxProps) {
   const {
     options,
     placeholder = 'Select…',
-    heightSize = 'm',
+    heightSize = 'md',
     emptyMessage = 'No results.',
     loading = false,
     loadingMessage = 'Loading…',
@@ -235,7 +235,7 @@ export function Combobox(props: ComboboxProps) {
         <div
           className={cn(
             'relative flex w-full flex-wrap items-center gap-1',
-            heightSize === 's' ? 'min-h-[var(--size-size-control-size-control-lg)]' : 'min-h-[var(--size-size-control-size-control-2xl)]', // 32px / 40px, matches TextField
+            heightSize === 'sm' ? 'min-h-[var(--size-size-control-size-control-lg)]' : 'min-h-[var(--size-size-control-size-control-2xl)]', // 32px / 40px, matches TextField
             'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid pl-2 pr-1 py-1',
             // Read-only: same visible-but-muted treatment as TextField/
             // Autocomplete (a distinct bg + subtle border), not fully
@@ -330,7 +330,7 @@ export function Combobox(props: ComboboxProps) {
               // the wrapper's own border/bg.
               'aria-[invalid=true]:text-[var(--color-text-text-danger)]',
               'aria-[invalid=true]:placeholder:text-[var(--color-text-text-danger)]',
-              heightSize === 's' ? 'text-body-s' : 'text-body-m',
+              heightSize === 'sm' ? 'text-body-s' : 'text-body-m',
               'px-1 py-0.5',
               readOnly && 'italic cursor-default',
             )}
@@ -343,7 +343,7 @@ export function Combobox(props: ComboboxProps) {
                 // 24px button, halved) exactly at each heightSize, so the
                 // gap to the right edge equals the gap to top/bottom:
                 // m: (40-24)/2 = 8px -> right-2. s: (32-24)/2 = 4px -> right-1.
-                heightSize === 's' ? 'right-1' : 'right-2',
+                heightSize === 'sm' ? 'right-1' : 'right-2',
               )}
             >
               {showClearControl && (currentSingle || currentMultiple.length > 0) && (
@@ -420,12 +420,12 @@ export function Combobox(props: ComboboxProps) {
         className={cn('w-[var(--radix-popover-trigger-width)] p-1', contentClassName)}
       >
         {loading ? (
-          <div className={cn('flex h-16 items-center justify-center gap-2 font-body text-[var(--color-text-text-subtler)]', heightSize === 's' ? 'text-body-s' : 'text-body-m')}>
+          <div className={cn('flex h-16 items-center justify-center gap-2 font-body text-[var(--color-text-text-subtler)]', heightSize === 'sm' ? 'text-body-s' : 'text-body-m')}>
             <span className="size-3 rounded-full border-2 border-[var(--color-border-border-default)] border-t-[var(--color-icon-icon-primary)] animate-spin" />
             {loadingMessage}
           </div>
         ) : items.length === 0 ? (
-          <div className={cn('flex h-16 items-center justify-center font-body text-[var(--color-text-text-subtler)]', heightSize === 's' ? 'text-body-s' : 'text-body-m')}>
+          <div className={cn('flex h-16 items-center justify-center font-body text-[var(--color-text-text-subtler)]', heightSize === 'sm' ? 'text-body-s' : 'text-body-m')}>
             {emptyMessage}
           </div>
         ) : (
@@ -453,7 +453,7 @@ export function Combobox(props: ComboboxProps) {
                     'relative flex cursor-default select-none items-center gap-2',
                     'rounded-[var(--size-border-radius-border-radius-md)]',
                     'px-[var(--size-margin-margin-s)] py-[var(--size-margin-margin-xs)]',
-                    heightSize === 's' ? 'text-body-s' : 'text-body-m', 'text-[var(--color-text-text)]',
+                    heightSize === 'sm' ? 'text-body-s' : 'text-body-m', 'text-[var(--color-text-text)]',
                     index === activeIndex && 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
                     option.disabled && 'pointer-events-none opacity-50',
                   )}

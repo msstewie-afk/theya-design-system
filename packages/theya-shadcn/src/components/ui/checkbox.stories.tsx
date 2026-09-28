@@ -23,7 +23,7 @@ const meta: Meta<typeof Checkbox> = {
     description: { control: 'text', description: 'Helper text under the label.', table: { category: 'Content' } },
     size: {
       control: 'select',
-      options: ['s', 'm'],
+      options: ['sm', 'md'],
       description: '16px or 20px.',
       table: { category: 'Appearance', defaultValue: { summary: 'm' } },
     },
@@ -117,8 +117,8 @@ export const Disabled: Story = {
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <Checkbox size="s" label="Small (16px)" defaultChecked />
-      <Checkbox size="m" label="Medium (20px, default)" defaultChecked />
+      <Checkbox size="sm" label="Small (16px)" defaultChecked />
+      <Checkbox size="md" label="Medium (20px, default)" defaultChecked />
     </div>
   ),
 };

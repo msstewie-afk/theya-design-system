@@ -10,18 +10,18 @@ import { cn } from '@/lib/utils';
  * mirror the equivalent pieces already built for ContextMenu.
  *
  * `size` (set once on DropdownMenuContent) scales item/sub-trigger text
- * to match whatever control opened the menu — a size="l" Button next to
- * a fixed-small menu read visibly inconsistent. Default "m", not the old
- * hardcoded "s" (a leftover from an earlier reference implementation
+ * to match whatever control opened the menu — a size="lg" Button next to
+ * a fixed-small menu read visibly inconsistent. Default "md", not the old
+ * hardcoded "sm" (a leftover from an earlier reference implementation
  * this was ported from, not a real Theya default).
  */
-export type DropdownMenuSize = 'xs' | 's' | 'm' | 'l';
-const DropdownMenuSizeContext = createContext<DropdownMenuSize>('m');
+export type DropdownMenuSize = 'xs' | 'sm' | 'md' | 'lg';
+const DropdownMenuSizeContext = createContext<DropdownMenuSize>('md');
 const SIZE_TO_TEXT_CLASS: Record<DropdownMenuSize, string> = {
   xs: 'text-body-xs',
-  s: 'text-body-s',
-  m: 'text-body-m',
-  l: 'text-body-l',
+  sm: 'text-body-s',
+  md: 'text-body-m',
+  lg: 'text-body-l',
 };
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
@@ -32,7 +32,7 @@ const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
 function DropdownMenuContent({
   className,
   sideOffset = 6,
-  size = 'm',
+  size = 'md',
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Content> & { size?: DropdownMenuSize }) {
   return (

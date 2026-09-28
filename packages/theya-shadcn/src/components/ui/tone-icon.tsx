@@ -34,15 +34,15 @@ const DEFAULT_ICON: Record<StatusTone, ReactNode> = {
 export interface ToneIconProps extends Omit<React.ComponentProps<'span'>, 'children'> {
   tone: StatusTone;
   shape?: 'circle' | 'square';
-  size?: 'sm' | 'default' | 'lg';
+  size?: 'sm' | 'md' | 'lg';
   /** Overrides the tone's default icon. */
   icon?: ReactNode;
 }
 
 const SHAPE_CLASS = { circle: 'rounded-full', square: 'rounded-[var(--size-border-radius-border-radius-md)]' };
-const SIZE_CLASS = { sm: 'size-6 [&_svg]:size-3', default: 'size-8 [&_svg]:size-4', lg: 'size-10 [&_svg]:size-5' };
+const SIZE_CLASS = { sm: 'size-6 [&_svg]:size-3', md: 'size-8 [&_svg]:size-4', lg: 'size-10 [&_svg]:size-5' };
 
-export function ToneIcon({ className, tone, shape = 'circle', size = 'default', icon, ...props }: ToneIconProps) {
+export function ToneIcon({ className, tone, shape = 'circle', size = 'md', icon, ...props }: ToneIconProps) {
   return (
     <span data-slot="tone-icon" aria-hidden="true" className={cn('inline-flex shrink-0 items-center justify-center [&_svg]:shrink-0', TONE_CLASS[tone], SHAPE_CLASS[shape], SIZE_CLASS[size], className)} {...props}>
       {icon ?? DEFAULT_ICON[tone]}

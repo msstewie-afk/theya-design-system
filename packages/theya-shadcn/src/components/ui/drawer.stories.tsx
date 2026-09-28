@@ -184,7 +184,7 @@ function CreateWebsiteDrawer({ direction }: { direction: 'left' | 'right' }) {
             <div className="flex flex-col gap-2">
               <Label htmlFor={`password-${direction}`}>Password</Label>
               <div className="flex items-center gap-2">
-                <Password id={`password-${direction}`} defaultValue="correct-horse-battery" widthSize="l" />
+                <Password id={`password-${direction}`} defaultValue="correct-horse-battery" widthSize="lg" />
                 <Button appearance="outlined" tone="secondary">
                   Generate
                 </Button>

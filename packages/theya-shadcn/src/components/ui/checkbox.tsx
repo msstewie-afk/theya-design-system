@@ -57,8 +57,8 @@ const checkboxVariants = cva(
   {
     variants: {
       size: {
-        s: 'size-[16px]',
-        m: 'size-[var(--size-size-control-size-control-xs)]', // 20px
+        sm: 'size-[16px]',
+        md: 'size-[var(--size-size-control-size-control-xs)]', // 20px
       },
       error: {
         true: '',
@@ -107,7 +107,7 @@ const checkboxVariants = cva(
       },
     ],
     defaultVariants: {
-      size: 'm',
+      size: 'md',
       error: false,
     },
   },
@@ -131,7 +131,7 @@ export const Checkbox = forwardRef<ElementRef<typeof CheckboxPrimitive.Root>, Ch
     {
       indeterminate = false,
       checked,
-      size = 'm',
+      size = 'md',
       error = false,
       label,
       description,
@@ -159,7 +159,7 @@ export const Checkbox = forwardRef<ElementRef<typeof CheckboxPrimitive.Root>, Ch
     }
 
     const resolvedChecked = indeterminate ? 'indeterminate' : checked;
-    const iconSize = size === 's' ? 12 : 16;
+    const iconSize = size === 'sm' ? 12 : 16;
 
     const generatedId = useId();
     const resolvedId = id ?? generatedId;
@@ -246,7 +246,7 @@ export const Checkbox = forwardRef<ElementRef<typeof CheckboxPrimitive.Root>, Ch
             id={descriptionId}
             className={cn(
               'font-body font-normal text-body-s text-[var(--color-text-text-subtler)]',
-              size === 's' ? 'pl-[24px]' : 'pl-[28px]',
+              size === 'sm' ? 'pl-[24px]' : 'pl-[28px]',
               '[[data-surface=primary]_&]:text-[var(--color-text-text-subtle-on-primary)]',
             )}
           >

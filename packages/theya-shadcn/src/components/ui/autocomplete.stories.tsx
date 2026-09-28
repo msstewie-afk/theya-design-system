@@ -19,7 +19,7 @@ const meta: Meta<typeof Autocomplete> = {
   argTypes: {
     heightSize: {
       control: 'radio',
-      options: ['m', 's'],
+      options: ['md', 'sm'],
       description: "Matches TextField's own heightSize: m (default) 40px, body-m | s 32px, body-s. The dropdown's own text size follows it too.",
       table: { category: 'Appearance' },
     },
@@ -75,8 +75,8 @@ export const HeightSizes: Story = {
   name: 'Height sizes (m / s)',
   render: () => (
     <div className="flex flex-col gap-4 w-[280px]">
-      <Autocomplete options={RESOURCES} placeholder="Search resources (m, default)" aria-label="Search resources" heightSize="m" />
-      <Autocomplete options={RESOURCES} placeholder="Search resources (s)" aria-label="Search resources" heightSize="s" />
+      <Autocomplete options={RESOURCES} placeholder="Search resources (m, default)" aria-label="Search resources" heightSize="md" />
+      <Autocomplete options={RESOURCES} placeholder="Search resources (s)" aria-label="Search resources" heightSize="sm" />
     </div>
   ),
 };

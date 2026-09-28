@@ -34,7 +34,7 @@ const meta: Meta<typeof CheckboxGroup> = {
     },
     size: {
       control: 'select',
-      options: ['s', 'm'],
+      options: ['sm', 'md'],
       description: 'Checkbox size for every item, unless an item overrides its own.',
       table: { category: 'Appearance', defaultValue: { summary: 'm' } },
     },

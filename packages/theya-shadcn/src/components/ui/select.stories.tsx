@@ -51,7 +51,7 @@ const meta: Meta<SelectStoryArgs> = {
     heightSize: { control: 'radio', options: ['md', 'sm', 'lg'], description: 'md (default) 40px, body-m — sm 32px, body-s — lg 48px, body-m. Dropdown item text follows it too.', table: { category: 'Appearance' } },
     widthSize: {
       control: 'select',
-      options: ['full', 's', 'm', 'l', 'xl'],
+      options: ['full', 'sm', 'md', 'lg', 'xl'],
       description: 'On SelectTrigger, not Select itself. m (default) 200px | s 60px | l 348px | xl 500px | full fills container.',
       table: { category: 'Appearance' },
     },
@@ -95,7 +95,7 @@ type Story = StoryObj<SelectStoryArgs>;
 
 /** A labelled region picker with grouped options. */
 export const Playground: Story = {
-  args: { heightSize: 'md', widthSize: 'm', error: false },
+  args: { heightSize: 'md', widthSize: 'md', error: false },
   render: (args) => (
     <div className="flex flex-col gap-1.5">
       <Label htmlFor="region">Region</Label>
@@ -130,7 +130,7 @@ export const WithGroups: Story = {
   name: 'With groups',
   render: () => (
     <Select>
-      <SelectTrigger widthSize="m" aria-label="Fruit">
+      <SelectTrigger widthSize="md" aria-label="Fruit">
         <SelectValue placeholder="Select a fruit" />
       </SelectTrigger>
       <SelectContent>
@@ -180,7 +180,7 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex flex-col gap-3">
       <Select heightSize="md">
-        <SelectTrigger widthSize="m" aria-label="Medium select">
+        <SelectTrigger widthSize="md" aria-label="Medium select">
           <SelectValue placeholder="Medium (40px)" />
         </SelectTrigger>
         <SelectContent>
@@ -188,7 +188,7 @@ export const Sizes: Story = {
         </SelectContent>
       </Select>
       <Select heightSize="sm">
-        <SelectTrigger widthSize="m" aria-label="Small select">
+        <SelectTrigger widthSize="md" aria-label="Small select">
           <SelectValue placeholder="Small (32px)" />
         </SelectTrigger>
         <SelectContent>
@@ -204,7 +204,7 @@ export const LongOptions: Story = {
   name: 'Long options',
   render: () => (
     <Select>
-      <SelectTrigger widthSize="l" aria-label="Endpoint">
+      <SelectTrigger widthSize="lg" aria-label="Endpoint">
         <SelectValue placeholder="Choose an endpoint" />
       </SelectTrigger>
       <SelectContent>
@@ -222,7 +222,7 @@ export const Invalid: Story = {
     <div className="flex flex-col gap-1.5">
       <Label htmlFor="plan-rest">Plan</Label>
       <Select>
-        <SelectTrigger id="plan-rest" error widthSize="m">
+        <SelectTrigger id="plan-rest" error widthSize="md">
           <SelectValue placeholder="Select a plan" />
         </SelectTrigger>
         <SelectContent>
@@ -261,7 +261,7 @@ export const InvalidOpen: Story = {
     <div className="flex flex-col gap-1.5">
       <Label htmlFor="plan-invalid">Plan</Label>
       <Select defaultOpen>
-        <SelectTrigger id="plan-invalid" error widthSize="m" aria-label="Plan">
+        <SelectTrigger id="plan-invalid" error widthSize="md" aria-label="Plan">
           <SelectValue placeholder="Select a plan" />
         </SelectTrigger>
         <SelectContent>
@@ -277,7 +277,7 @@ export const InvalidOpen: Story = {
 export const Disabled: Story = {
   render: () => (
     <Select disabled>
-      <SelectTrigger widthSize="m" aria-label="Disabled select">
+      <SelectTrigger widthSize="md" aria-label="Disabled select">
         <SelectValue placeholder="Disabled" />
       </SelectTrigger>
       <SelectContent>
@@ -292,7 +292,7 @@ export const WithIcons: Story = {
   name: 'With icons',
   render: () => (
     <Select defaultValue="a">
-      <SelectTrigger widthSize="m" aria-label="Service">
+      <SelectTrigger widthSize="md" aria-label="Service">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -309,7 +309,7 @@ export const WithMediaIcons: Story = {
   name: 'With media icons',
   render: () => (
     <Select defaultValue="a" heightSize="lg">
-      <SelectTrigger widthSize="m" aria-label="Launch template">
+      <SelectTrigger widthSize="md" aria-label="Launch template">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -325,7 +325,7 @@ export const WithStatus: Story = {
   name: 'With status',
   render: () => (
     <Select defaultValue="a">
-      <SelectTrigger widthSize="m" aria-label="Instance">
+      <SelectTrigger widthSize="md" aria-label="Instance">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -342,7 +342,7 @@ export const WithBadge: Story = {
   name: 'With badge',
   render: () => (
     <Select defaultValue="a">
-      <SelectTrigger widthSize="m" aria-label="Assignee">
+      <SelectTrigger widthSize="md" aria-label="Assignee">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -359,7 +359,7 @@ export const WithDescription: Story = {
   name: 'With description',
   render: () => (
     <Select defaultValue="a" heightSize="lg">
-      <SelectTrigger widthSize="l" aria-label="Plan">
+      <SelectTrigger widthSize="lg" aria-label="Plan">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

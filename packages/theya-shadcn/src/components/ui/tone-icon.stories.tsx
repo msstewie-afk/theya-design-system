@@ -23,10 +23,10 @@ const meta: Meta<typeof ToneIcon> = {
       description: 'Semantic tone driving the background and default icon.',
     },
     shape: { control: 'select', options: ['circle', 'square'], description: 'Outer silhouette.' },
-    size: { control: 'select', options: ['sm', 'default', 'lg'], description: 'Overall size of the icon and its container.' },
+    size: { control: 'select', options: ['sm', 'md', 'lg'], description: 'Overall size of the icon and its container.' },
     icon: { control: false, description: "Overrides the tone's default icon." },
   },
-  args: { tone: 'success', shape: 'circle', size: 'default' },
+  args: { tone: 'success', shape: 'circle', size: 'md' },
 };
 
 export default meta;
@@ -72,7 +72,7 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <ToneIcon tone="success" size="sm" />
-      <ToneIcon tone="success" size="default" />
+      <ToneIcon tone="success" size="md" />
       <ToneIcon tone="success" size="lg" />
     </div>
   ),

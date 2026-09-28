@@ -19,9 +19,9 @@ import { Badge, type BadgeTone } from './badge';
 // truncate with an ellipsis past this width, xl as a ceiling.
 const WIDTH_CLASSES = {
   full: 'w-full',
-  s: 'w-[var(--size-width-width-control-sm)]', // 60px
-  m: 'w-[var(--size-width-width-control-xl)]', // 240px
-  l: 'w-[var(--size-width-width-control-2xl)]', // 348px
+  sm: 'w-[var(--size-width-width-control-sm)]', // 60px
+  md: 'w-[var(--size-width-width-control-xl)]', // 240px
+  lg: 'w-[var(--size-width-width-control-2xl)]', // 348px
   xl: 'w-[var(--size-width-width-control-3xl)]', // 500px
 } as const;
 
@@ -55,7 +55,7 @@ export interface SelectTriggerProps extends React.ComponentProps<typeof SelectPr
   error?: boolean;
 }
 
-function SelectTrigger({ className, widthSize = 'm', error, children, ...props }: SelectTriggerProps) {
+function SelectTrigger({ className, widthSize = 'md', error, children, ...props }: SelectTriggerProps) {
   const heightSize = useContext(SelectSizeContext);
   return (
     <SelectPrimitive.Trigger

@@ -17,8 +17,8 @@ import { TextField, type TextFieldProps } from './text-field';
  * or clear button — the toggle occupies the one right-side slot.
  */
 const WIDTH_SIZE_MAP = {
-  m: 'md', // 200px — TextField's own key names don't match their pixel sizes 1:1 (Figma-vs-token naming mismatch), confirmed: md=200px, lg=348px.
-  l: 'lg', // 348px
+  md: 'md', // 200px — TextField's own key names don't match their pixel sizes 1:1 (Figma-vs-token naming mismatch), confirmed: md=200px, lg=348px.
+  lg: 'lg', // 348px
 } as const;
 
 export interface PasswordProps extends Omit<TextFieldProps, 'type' | 'leftIcon' | 'rightIcon' | 'widthSize'> {
@@ -26,7 +26,7 @@ export interface PasswordProps extends Omit<TextFieldProps, 'type' | 'leftIcon' 
 }
 
 export const Password = forwardRef<HTMLInputElement, PasswordProps>(function Password(
-  { widthSize = 'm', disabled, error, ...rest },
+  { widthSize = 'md', disabled, error, ...rest },
   ref,
 ) {
   const [visible, setVisible] = useState(false);

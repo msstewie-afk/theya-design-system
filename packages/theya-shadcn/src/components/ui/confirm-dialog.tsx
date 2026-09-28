@@ -34,7 +34,7 @@ const FOCUS_FALLBACK_SELECTOR = '[role="region"],[role="dialog"],section,main,fo
 
 export interface ConfirmDialogProps {
   title: ReactNode;
-  titleSize?: 'default' | 'large';
+  titleSize?: 'md' | 'lg';
   description?: ReactNode;
   showHeaderDivider?: boolean;
   showFooterDivider?: boolean;
@@ -56,7 +56,7 @@ export interface ConfirmDialogProps {
 
 export function ConfirmDialog({
   title,
-  titleSize = 'default',
+  titleSize = 'md',
   description,
   showHeaderDivider,
   showFooterDivider,

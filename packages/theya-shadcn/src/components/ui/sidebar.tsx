@@ -304,7 +304,7 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, activ
             <KebabIconHorizontal />
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" size="s">
+        <DropdownMenuContent align="end" size="sm">
           {actions}
         </DropdownMenuContent>
       </DropdownMenu>

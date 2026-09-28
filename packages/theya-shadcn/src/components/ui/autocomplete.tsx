@@ -22,8 +22,8 @@ export interface AutocompleteOption {
 
 export interface AutocompleteProps {
   options: AutocompleteOption[];
-  /** Matches TextField's own heightSize: 'm' (40px, body-m) or 's' (32px, body-s) — the dropdown's own text size follows it too. */
-  heightSize?: 'm' | 's';
+  /** Matches TextField's own heightSize: 'md' (40px, body-m) or 'sm' (32px, body-s) — the dropdown's own text size follows it too. */
+  heightSize?: 'md' | 'sm';
   placeholder?: string;
   value?: string;
   defaultValue?: string;
@@ -50,7 +50,7 @@ export interface AutocompleteProps {
 
 export function Autocomplete({
   options,
-  heightSize = 'm',
+  heightSize = 'md',
   placeholder,
   value,
   defaultValue,
@@ -177,8 +177,8 @@ export function Autocomplete({
               'border-[var(--color-border-border-default)] bg-[var(--color-bg-input-bg-input)]',
               'pl-[var(--size-padding-padding-lg)] text-[var(--color-text-text)]',
               // Same two steps as TextField's own heightSize, so a field
-              // set to "s" next to it reads as the same control.
-              heightSize === 's'
+              // set to "sm" next to it reads as the same control.
+              heightSize === 'sm'
                 ? 'h-[var(--size-size-control-size-control-lg)] text-body-s' // 32px
                 : 'h-[var(--size-size-control-size-control-2xl)] text-body-m', // 40px
               'placeholder:text-[var(--color-text-text-subtler)] outline-none',
@@ -262,12 +262,12 @@ export function Autocomplete({
         className={cn('w-[var(--radix-popover-trigger-width)] p-1', contentClassName)}
       >
         {loading ? (
-          <div className={cn("px-3 py-2 flex items-center gap-2 font-body text-[var(--color-text-text-subtler)]", heightSize === 's' ? 'text-body-s' : 'text-body-m')}>
+          <div className={cn("px-3 py-2 flex items-center gap-2 font-body text-[var(--color-text-text-subtler)]", heightSize === 'sm' ? 'text-body-s' : 'text-body-m')}>
             <span className="size-3 rounded-full border-2 border-[var(--color-border-border-default)] border-t-[var(--color-icon-icon-primary)] animate-spin" />
             {loadingMessage}
           </div>
         ) : filtered.length === 0 ? (
-          <div className={cn("px-3 py-2 font-body text-[var(--color-text-text-subtler)]", heightSize === 's' ? 'text-body-s' : 'text-body-m')}>{emptyMessage}</div>
+          <div className={cn("px-3 py-2 font-body text-[var(--color-text-text-subtler)]", heightSize === 'sm' ? 'text-body-s' : 'text-body-m')}>{emptyMessage}</div>
         ) : (
           <ul ref={listRef} id={listId} role="listbox" className="max-h-60 overflow-y-auto">
             {filtered.map((option, index) => (
@@ -284,7 +284,7 @@ export function Autocomplete({
                   'rounded-[var(--size-border-radius-border-radius-md)]',
                   'px-[var(--size-margin-margin-s)] py-[var(--size-margin-margin-xs)]',
                   // Matches the input's own heightSize-driven text size.
-                  heightSize === 's' ? 'text-body-s' : 'text-body-m',
+                  heightSize === 'sm' ? 'text-body-s' : 'text-body-m',
                   'text-[var(--color-text-text)]',
                   index === activeIndex && 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
                 )}

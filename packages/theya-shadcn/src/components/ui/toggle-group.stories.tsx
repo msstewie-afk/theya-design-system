@@ -8,7 +8,7 @@ const meta: Meta<typeof ToggleGroup> = {
   tags: ['autodocs'],
   argTypes: {
     appearance: { control: 'radio', options: ['tonal', 'outlined', 'ghost'], description: 'Flows to every item via context. Default ghost.' },
-    size: { control: 'radio', options: ['s', 'md', 'lg'], description: 'Flows to every item via context.' },
+    size: { control: 'radio', options: ['sm', 'md', 'lg'], description: 'Flows to every item via context.' },
     type: { control: 'inline-radio', options: ['single', 'multiple'], description: 'Single or multiple selection.' },
     value: { control: false, description: 'Controlled value(s) — a string for type="single", an array for type="multiple".' },
     defaultValue: { control: false, description: 'Uncontrolled initial value(s).' },

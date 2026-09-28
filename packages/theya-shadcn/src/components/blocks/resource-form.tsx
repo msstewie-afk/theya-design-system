@@ -226,7 +226,7 @@ function ResourceFormField({ field, form }: { field: ResourceFieldConfig; form: 
               {field.label}
             </Label>
             <Select value={String(controllerField.value ?? '')} onValueChange={controllerField.onChange}>
-              <SelectTrigger id={id} aria-describedby={field.description ? descriptionId : undefined} aria-invalid={invalid} error={invalid} widthSize="l">
+              <SelectTrigger id={id} aria-describedby={field.description ? descriptionId : undefined} aria-invalid={invalid} error={invalid} widthSize="lg">
                 <SelectValue placeholder={field.placeholder} />
               </SelectTrigger>
               <SelectContent>

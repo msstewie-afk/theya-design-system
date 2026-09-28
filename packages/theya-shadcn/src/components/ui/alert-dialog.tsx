@@ -16,21 +16,21 @@ import { Button, type ButtonProps } from './button';
  * isn't ported — a cosmetic edge case, not core behavior.
  */
 interface AlertDialogLayoutProps {
-  titleSize?: 'default' | 'large';
+  titleSize?: 'md' | 'lg';
   showHeaderDivider?: boolean;
   showFooterDivider?: boolean;
   contentGap?: 'default' | 'compact' | 'none';
 }
 
 const AlertDialogLayoutContext = createContext<Required<AlertDialogLayoutProps>>({
-  titleSize: 'default',
+  titleSize: 'md',
   showHeaderDivider: false,
   showFooterDivider: false,
   contentGap: 'default',
 });
 
 export function AlertDialog({
-  titleSize = 'default',
+  titleSize = 'md',
   showHeaderDivider = false,
   showFooterDivider = false,
   contentGap = 'default',
@@ -130,15 +130,15 @@ export function AlertDialogFooter({ className, showDivider, gap = 'default', ...
   );
 }
 
-export function AlertDialogTitle({ className, size, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Title> & { size?: 'default' | 'large' }) {
+export function AlertDialogTitle({ className, size, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Title> & { size?: 'md' | 'lg' }) {
   const layout = useContext(AlertDialogLayoutContext);
   const resolved = size ?? layout.titleSize;
   return (
     <AlertDialogPrimitive.Title
       className={cn(
         'font-body font-medium leading-tight text-[var(--color-text-text)]',
-        resolved === 'default' && 'text-heading-s',
-        resolved === 'large' && 'text-heading-m',
+        resolved === 'md' && 'text-heading-s',
+        resolved === 'lg' && 'text-heading-m',
         className,
       )}
       {...props}

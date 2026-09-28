@@ -36,7 +36,7 @@ const meta: Meta<typeof Combobox> = {
     triggerLabel: { control: 'text', description: 'Accessible label for the dropdown-open trigger.', table: { category: 'Content' } },
     heightSize: {
       control: 'radio',
-      options: ['m', 's'],
+      options: ['md', 'sm'],
       description: "Matches TextField's own heightSize: m (default) 40px, body-m | s 32px, body-s. Dropdown text size follows it too.",
       table: { category: 'Appearance' },
     },
@@ -164,8 +164,8 @@ export const HeightSizes: Story = {
   name: 'Height sizes (m / s)',
   render: () => (
     <div className="flex flex-col gap-4 w-[240px]">
-      <Combobox options={FRAMEWORKS} placeholder="Select framework… (m, default)" aria-label="Framework" heightSize="m" />
-      <Combobox options={FRAMEWORKS} placeholder="Select framework… (s)" aria-label="Framework" heightSize="s" />
+      <Combobox options={FRAMEWORKS} placeholder="Select framework… (m, default)" aria-label="Framework" heightSize="md" />
+      <Combobox options={FRAMEWORKS} placeholder="Select framework… (s)" aria-label="Framework" heightSize="sm" />
     </div>
   ),
 };

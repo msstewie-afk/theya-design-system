@@ -19,11 +19,11 @@ import { cn } from '@/lib/utils';
  * which re-enable it for themselves. `trailing` stays a sibling
  * OUTSIDE the link/button region entirely, same as before.
  */
-export type ListItemSize = 'sm' | 'm' | 'lg';
+export type ListItemSize = 'sm' | 'md' | 'lg';
 
 const SIZE_CLASS: Record<ListItemSize, string> = {
   sm: 'px-2.5 py-1.5',
-  m: 'px-3 py-2.5 min-h-11',
+  md: 'px-3 py-2.5 min-h-11',
   lg: 'px-4 py-3 min-h-12',
 };
 
@@ -45,7 +45,7 @@ export interface ListItemProps extends Omit<React.ComponentProps<'div'>, 'title'
   disabled?: boolean;
 }
 
-export function ListItem({ className, size = 'm', leading, title, description, trailing, href, interactive = false, selected = false, disabled = false, onClick, onKeyDown, children, ...props }: ListItemProps) {
+export function ListItem({ className, size = 'md', leading, title, description, trailing, href, interactive = false, selected = false, disabled = false, onClick, onKeyDown, children, ...props }: ListItemProps) {
   const isPressable = interactive && href == null;
 
   // `children` renders BELOW description (extra composed content, e.g. an

@@ -9,16 +9,16 @@ import { Checkbox, type CheckboxProps } from './checkbox';
  * (Radix-based) since we don't use Base UI. Give each child Checkbox a
  * `name`; that string is what lands in the group's value array.
  *
- * `size` (default "m") flows to every item via context, same pattern
+ * `size` (default "md") flows to every item via context, same pattern
  * as ToggleGroup — and also drives the list's own item spacing: 10px
- * at "m", 8px at the more compact "s", rather than one fixed gap for
+ * at "md", 8px at the more compact "sm", rather than one fixed gap for
  * both sizes.
  */
 interface CheckboxGroupContextValue {
   value: string[];
   toggle: (name: string, checked: boolean) => void;
   disabled?: boolean;
-  size?: 's' | 'm';
+  size?: 'sm' | 'md';
 }
 
 const CheckboxGroupContext = createContext<CheckboxGroupContextValue | null>(null);
@@ -31,8 +31,8 @@ export interface CheckboxGroupProps {
   onValueChange?: (value: string[]) => void;
   /** Disables every child Checkbox at once. */
   disabled?: boolean;
-  /** Checkbox size for every item, unless an item overrides its own. Defaults to "m". */
-  size?: 's' | 'm';
+  /** Checkbox size for every item, unless an item overrides its own. Defaults to "md". */
+  size?: 'sm' | 'md';
   /** Group label — rendered as a <legend> via the native fieldset. */
   label?: ReactNode;
   children: ReactNode;
@@ -44,7 +44,7 @@ export function CheckboxGroup({
   value,
   onValueChange,
   disabled,
-  size = 'm',
+  size = 'md',
   label,
   children,
   className,
@@ -71,7 +71,7 @@ export function CheckboxGroup({
             {label}
           </legend>
         )}
-        <div className={size === 's' ? 'flex flex-col gap-2' : 'flex flex-col gap-2.5'}>{children}</div>
+        <div className={size === 'sm' ? 'flex flex-col gap-2' : 'flex flex-col gap-2.5'}>{children}</div>
       </fieldset>
     </CheckboxGroupContext.Provider>
   );

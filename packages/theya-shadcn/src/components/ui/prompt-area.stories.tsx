@@ -270,10 +270,10 @@ export const WithToolToggles: Story = {
         placeholder="Send a message…"
         leading={
           <div className="flex items-center gap-1">
-            <Toggle appearance="tonal" size="s" aria-label="Web search">
+            <Toggle appearance="tonal" size="sm" aria-label="Web search">
               <Globe />
             </Toggle>
-            <Toggle appearance="tonal" size="s" aria-label="Extended thinking">
+            <Toggle appearance="tonal" size="sm" aria-label="Extended thinking">
               <Brain />
             </Toggle>
           </div>
@@ -413,7 +413,7 @@ export const WithRecentPrompts: Story = {
               <DropdownMenuTrigger asChild>
                 <Button appearance="ghost" size="sm" iconOnly aria-label="Recent prompts" leftIcon={<Clock />} />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" size="s">
+              <DropdownMenuContent align="end" size="sm">
                 {recent.map((prompt) => (
                   <DropdownMenuItem key={prompt} onSelect={() => setValue(prompt)}>
                     {prompt}

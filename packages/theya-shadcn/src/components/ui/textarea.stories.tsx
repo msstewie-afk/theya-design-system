@@ -30,7 +30,7 @@ const meta: Meta<typeof TextArea> = {
     },
     heightSize: {
       control: 'radio',
-      options: ['m', 's'],
+      options: ['md', 'sm'],
       description: "m (default) body-m — s body-s. Doesn't touch the box height (that's min-h-[80px] + resize), only label/value text size.",
       table: { category: 'Appearance' },
     },

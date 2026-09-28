@@ -7,7 +7,7 @@ const meta: Meta<typeof Password> = {
   title: 'Forms/Password',
   component: Password,
   tags: ['autodocs'],
-  args: { widthSize: 'l' },
+  args: { widthSize: 'lg' },
   parameters: {
     docs: {
       description: {
@@ -25,7 +25,7 @@ const meta: Meta<typeof Password> = {
     disabled: { control: 'boolean', description: 'Disables the input and the show/hide toggle.', table: { category: 'State' } },
     widthSize: {
       control: 'radio',
-      options: ['m', 'l'],
+      options: ['md', 'lg'],
       description: 'm 200px | l (default) 348px',
       table: { category: 'Appearance' },
     },
@@ -66,9 +66,9 @@ export const WithSuccess: Story = {
 export const States: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      <Password label="Default" placeholder="Enter password" widthSize="l" />
-      <Password label="Error" error placeholder="Enter password" widthSize="l" />
-      <Password label="Disabled" disabled defaultValue="secret123" widthSize="l" />
+      <Password label="Default" placeholder="Enter password" widthSize="lg" />
+      <Password label="Error" error placeholder="Enter password" widthSize="lg" />
+      <Password label="Disabled" disabled defaultValue="secret123" widthSize="lg" />
     </div>
   ),
 };
@@ -80,7 +80,7 @@ function StrengthMeterDemo() {
       <Password
         label="Password"
         placeholder="Enter password"
-        widthSize="l"
+        widthSize="lg"
         value={pwd}
         onChange={(e) => setPwd(e.target.value)}
       />
