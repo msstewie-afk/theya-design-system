@@ -136,7 +136,7 @@ function ScrollButtons() {
   return (
     <div className="fixed bottom-6 right-6 z-10 flex flex-col gap-2">
       <Button
-        type="tonal"
+        appearance="tonal"
         tone="neutral"
         iconOnly
         size="md"
@@ -147,7 +147,7 @@ function ScrollButtons() {
         className="shadow-md"
       />
       <Button
-        type="tonal"
+        appearance="tonal"
         tone="neutral"
         iconOnly
         size="md"
@@ -304,7 +304,7 @@ function ProfileSection({ account, onSaveProfile }: { account: SettingsAccount; 
         </div>
         <Separator />
         <div className="flex justify-end">
-          <Button type="filled" tone="primary" size="2xl" leftIcon={<FloppyDisk />}>
+          <Button appearance="filled" tone="primary" size="2xl" leftIcon={<FloppyDisk />}>
             Save changes
           </Button>
         </div>
@@ -351,7 +351,7 @@ function SecuritySection({ recoveryCode, onChangePassword, onEnableTwoFactor }: 
           <TextField id={newId} name="newPassword" type="password" autoComplete="new-password" widthSize="lg" />
         </div>
         <div className="flex justify-end">
-          <Button type="outlined" tone="secondary" size="2xl" leftIcon={<Key />}>
+          <Button appearance="outlined" tone="secondary" size="2xl" leftIcon={<Key />}>
             Update password
           </Button>
         </div>
@@ -385,7 +385,7 @@ function SecuritySection({ recoveryCode, onChangePassword, onEnableTwoFactor }: 
                   <InputOTPSlot index={5} />
                 </InputOTPGroup>
               </InputOTP>
-              <Button type="outlined" tone="secondary" disabled={code.length < 6} onClick={verify}>
+              <Button appearance="outlined" tone="secondary" disabled={code.length < 6} onClick={verify}>
                 Verify code
               </Button>
             </div>
@@ -462,7 +462,7 @@ function DangerSection({ email, onDeleteAccount }: { email: string; onDeleteAcco
           </div>
           <ConfirmDialog
             trigger={
-              <Button type="filled" tone="danger" size="2xl" className="shrink-0 sm:self-center" leftIcon={<Trash />}>
+              <Button appearance="filled" tone="danger" size="2xl" className="shrink-0 sm:self-center" leftIcon={<Trash />}>
                 Delete account
               </Button>
             }

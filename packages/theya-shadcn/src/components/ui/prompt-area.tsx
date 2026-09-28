@@ -382,7 +382,7 @@ function PromptArea({
               )}
               {trailing}
               <Button
-                type="filled"
+                appearance="filled"
                 tone="primary"
                 size="sm"
                 iconOnly

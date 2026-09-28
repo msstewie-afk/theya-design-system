@@ -265,7 +265,7 @@ function DialogDemo() {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Button type="outlined" tone="secondary" onClick={() => setOpen(true)}>
+      <Button appearance="outlined" tone="secondary" onClick={() => setOpen(true)}>
         Open command palette (⌘K)
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>

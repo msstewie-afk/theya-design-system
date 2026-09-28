@@ -49,7 +49,7 @@ type Story = StoryObj;
 /** Success toast with a description. */
 export const Success: Story = {
   render: () => (
-    <Button type="outlined" tone="secondary" onClick={() => toast.success('Certificate issued', { description: 'shop.seashell.dev · valid 90 days' })}>
+    <Button appearance="outlined" tone="secondary" onClick={() => toast.success('Certificate issued', { description: 'shop.seashell.dev · valid 90 days' })}>
       Issue certificate
     </Button>
   ),
@@ -60,7 +60,7 @@ export const ErrorWithRetry: Story = {
   name: 'Error with retry',
   render: () => (
     <Button
-      type="outlined"
+      appearance="outlined"
       tone="danger"
       onClick={() =>
         toast.error("Couldn't reissue certificate", {
@@ -78,7 +78,7 @@ export const ErrorWithRetry: Story = {
 export const Undo: Story = {
   render: () => (
     <Button
-      type="outlined"
+      appearance="outlined"
       tone="secondary"
       onClick={() =>
         toast('Site deleted', {
@@ -97,7 +97,7 @@ export const PromiseToast: Story = {
   name: 'Promise',
   render: () => (
     <Button
-      type="outlined"
+      appearance="outlined"
       tone="secondary"
       onClick={() =>
         toast.promise(new Promise((resolve) => setTimeout(resolve, 1500)), {
@@ -120,7 +120,7 @@ export const PromiseToast: Story = {
 export const Progress: Story = {
   render: () => (
     <Button
-      type="outlined"
+      appearance="outlined"
       tone="secondary"
       onClick={() => {
         const id = toast.progress('Exporting sites…', { value: 0, description: 'shop.seashell.dev · 12 sites' });
@@ -151,7 +151,7 @@ export const ProgressWithConfirm: Story = {
   name: 'Progress with confirm',
   render: () => (
     <Button
-      type="outlined"
+      appearance="outlined"
       tone="secondary"
       onClick={() =>
         toast.progress('Reverting test-mode config in 40s…', {
@@ -174,7 +174,7 @@ export const ProgressWithConfirm: Story = {
  */
 export const Accented: Story = {
   render: () => (
-    <Button type="outlined" tone="secondary" onClick={() => toast.accent('Accented message subject', { description: 'Accented message text.' })}>
+    <Button appearance="outlined" tone="secondary" onClick={() => toast.accent('Accented message subject', { description: 'Accented message text.' })}>
       Show accented toast
     </Button>
   ),
@@ -190,25 +190,25 @@ export const AllKinds: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
       <Button
-        type="tonal"
+        appearance="tonal"
         tone="primary"
         onClick={() => toast.progress('Running step with progress indication', { value: 75, description: 'detailed progress' })}
       >
         Progress
       </Button>
-      <Button type="tonal" tone="danger" onClick={() => toast.error('Failed step with error', { description: 'Error message text.' })}>
+      <Button appearance="tonal" tone="danger" onClick={() => toast.error('Failed step with error', { description: 'Error message text.' })}>
         Error
       </Button>
-      <Button type="tonal" tone="success" onClick={() => toast.success('Finished step with success (done)', { description: 'Success message text.' })}>
+      <Button appearance="tonal" tone="success" onClick={() => toast.success('Finished step with success (done)', { description: 'Success message text.' })}>
         Success
       </Button>
-      <Button type="tonal" tone="warning" onClick={() => toast.warning('Step with warning', { description: 'Warning message text.' })}>
+      <Button appearance="tonal" tone="warning" onClick={() => toast.warning('Step with warning', { description: 'Warning message text.' })}>
         Warning
       </Button>
-      <Button type="tonal" tone="info" onClick={() => toast.info('Step with info', { description: 'Info message text.' })}>
+      <Button appearance="tonal" tone="info" onClick={() => toast.info('Step with info', { description: 'Info message text.' })}>
         Info
       </Button>
-      <Button type="tonal" tone="primary" onClick={() => toast.accent('Accented message subject', { description: 'Accented message text.' })}>
+      <Button appearance="tonal" tone="primary" onClick={() => toast.accent('Accented message subject', { description: 'Accented message text.' })}>
         Accented
       </Button>
     </div>
@@ -225,16 +225,16 @@ export const Dark: Story = {
   parameters: { toastTheme: 'dark' },
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Button type="tonal" tone="success" onClick={() => toast.success('Certificate issued', { description: 'shop.seashell.dev · 90 days' })}>
+      <Button appearance="tonal" tone="success" onClick={() => toast.success('Certificate issued', { description: 'shop.seashell.dev · 90 days' })}>
         Success
       </Button>
-      <Button type="tonal" tone="danger" onClick={() => toast.error("Couldn't reissue certificate")}>
+      <Button appearance="tonal" tone="danger" onClick={() => toast.error("Couldn't reissue certificate")}>
         Error
       </Button>
-      <Button type="tonal" tone="warning" onClick={() => toast.warning('Approaching quota')}>
+      <Button appearance="tonal" tone="warning" onClick={() => toast.warning('Approaching quota')}>
         Warning
       </Button>
-      <Button type="tonal" tone="secondary" onClick={() => toast('Site deleted', { description: 'legacy.seashell.dev · recoverable for 30 days', action: { label: 'Undo', onClick: () => toast.success('Restored') } })}>
+      <Button appearance="tonal" tone="secondary" onClick={() => toast('Site deleted', { description: 'legacy.seashell.dev · recoverable for 30 days', action: { label: 'Undo', onClick: () => toast.success('Restored') } })}>
         Undo
       </Button>
     </div>
@@ -245,22 +245,22 @@ export const Dark: Story = {
 export const Playground: Story = {
   render: () => (
     <div className="flex min-h-[220px] flex-wrap items-center gap-3">
-      <Button type="tonal" tone="secondary" onClick={() => toast('Saved')}>
+      <Button appearance="tonal" tone="secondary" onClick={() => toast('Saved')}>
         Show toast
       </Button>
-      <Button type="tonal" tone="success" onClick={() => toast.success('Certificate issued')}>
+      <Button appearance="tonal" tone="success" onClick={() => toast.success('Certificate issued')}>
         Show success
       </Button>
-      <Button type="tonal" tone="warning" onClick={() => toast.warning('Disk almost full')}>
+      <Button appearance="tonal" tone="warning" onClick={() => toast.warning('Disk almost full')}>
         Show warning
       </Button>
-      <Button type="tonal" tone="danger" onClick={() => toast.error('Deploy failed')}>
+      <Button appearance="tonal" tone="danger" onClick={() => toast.error('Deploy failed')}>
         Show error
       </Button>
-      <Button type="tonal" tone="info" onClick={() => toast.info('New region available')}>
+      <Button appearance="tonal" tone="info" onClick={() => toast.info('New region available')}>
         Show info
       </Button>
-      <Button type="tonal" tone="primary" onClick={() => toast.accent('Accented message subject')}>
+      <Button appearance="tonal" tone="primary" onClick={() => toast.accent('Accented message subject')}>
         Show accented
       </Button>
     </div>
@@ -279,16 +279,16 @@ export const ErrorPersistsUntilDismissed: Story = {
   name: 'Error persists until dismissed',
   render: () => (
     <div className="flex min-h-[260px] flex-wrap items-center gap-3">
-      <Button type="tonal" tone="danger" onClick={() => toast.error('Couldn’t reissue certificate', { description: 'shop.seashell.dev — the CA rejected the request.' })}>
+      <Button appearance="tonal" tone="danger" onClick={() => toast.error('Couldn’t reissue certificate', { description: 'shop.seashell.dev — the CA rejected the request.' })}>
         Show persistent error
       </Button>
-      <Button type="tonal" tone="danger" onClick={() => toast.error('Retrying…', { duration: 3000, description: 'Expires on its own.' })}>
+      <Button appearance="tonal" tone="danger" onClick={() => toast.error('Retrying…', { duration: 3000, description: 'Expires on its own.' })}>
         Show transient error
       </Button>
-      <Button type="tonal" tone="warning" onClick={() => toast.warning('Disk almost full')}>
+      <Button appearance="tonal" tone="warning" onClick={() => toast.warning('Disk almost full')}>
         Show warning (auto-dismisses, still closeable)
       </Button>
-      <Button type="tonal" tone="success" onClick={() => toast.success('Saved')}>
+      <Button appearance="tonal" tone="success" onClick={() => toast.success('Saved')}>
         Show success (auto-dismisses, still closeable)
       </Button>
     </div>

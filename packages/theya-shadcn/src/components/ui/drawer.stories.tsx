@@ -31,7 +31,7 @@ function RenameSiteDrawer() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           Rename site
         </Button>
       </DrawerTrigger>
@@ -48,12 +48,12 @@ function RenameSiteDrawer() {
         </DrawerBody>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button type="ghost" tone="secondary">
+            <Button appearance="ghost" tone="secondary">
               Cancel
             </Button>
           </DrawerClose>
           <DrawerClose asChild>
-            <Button type="filled" tone="primary">
+            <Button appearance="filled" tone="primary">
               Save changes
             </Button>
           </DrawerClose>
@@ -74,7 +74,7 @@ export const FixedWidth: Story = {
   render: () => (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           Rename site
         </Button>
       </DrawerTrigger>
@@ -91,12 +91,12 @@ export const FixedWidth: Story = {
         </DrawerBody>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button type="ghost" tone="secondary">
+            <Button appearance="ghost" tone="secondary">
               Cancel
             </Button>
           </DrawerClose>
           <DrawerClose asChild>
-            <Button type="filled" tone="primary">
+            <Button appearance="filled" tone="primary">
               Save changes
             </Button>
           </DrawerClose>
@@ -116,7 +116,7 @@ export const Open: Story = {
   render: (_args, context) => (
     <Drawer defaultOpen={context.viewMode !== 'docs'}>
       <DrawerTrigger asChild>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           Reopen
         </Button>
       </DrawerTrigger>
@@ -133,12 +133,12 @@ export const Open: Story = {
         </DrawerBody>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button type="ghost" tone="secondary">
+            <Button appearance="ghost" tone="secondary">
               Cancel
             </Button>
           </DrawerClose>
           <DrawerClose asChild>
-            <Button type="filled" tone="primary">
+            <Button appearance="filled" tone="primary">
               Save changes
             </Button>
           </DrawerClose>
@@ -153,7 +153,7 @@ function CreateWebsiteDrawer({ direction }: { direction: 'left' | 'right' }) {
   return (
     <Drawer direction={direction}>
       <DrawerTrigger asChild>
-        <Button type="filled" tone="primary">
+        <Button appearance="filled" tone="primary">
           Create website
         </Button>
       </DrawerTrigger>
@@ -185,7 +185,7 @@ function CreateWebsiteDrawer({ direction }: { direction: 'left' | 'right' }) {
               <Label htmlFor={`password-${direction}`}>Password</Label>
               <div className="flex items-center gap-2">
                 <Password id={`password-${direction}`} defaultValue="correct-horse-battery" widthSize="l" />
-                <Button type="outlined" tone="secondary">
+                <Button appearance="outlined" tone="secondary">
                   Generate
                 </Button>
               </div>
@@ -194,12 +194,12 @@ function CreateWebsiteDrawer({ direction }: { direction: 'left' | 'right' }) {
         </DrawerBody>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button type="ghost" tone="secondary">
+            <Button appearance="ghost" tone="secondary">
               Cancel
             </Button>
           </DrawerClose>
           <DrawerClose asChild>
-            <Button type="filled" tone="primary">
+            <Button appearance="filled" tone="primary">
               Create
             </Button>
           </DrawerClose>

@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
  * heading rotor.
  *
  * For a quieter action instead of the default filled look, pass
- * `<Button type="tonal">` yourself — there is no automatic "subtle"
+ * `<Button appearance="tonal">` yourself — there is no automatic "subtle"
  * re-styling of whatever Button you pass (Theya's Button has no
  * data-slot/data-variant hooks for that, unlike the corp reference).
  */

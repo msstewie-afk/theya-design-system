@@ -20,7 +20,7 @@ const meta: Meta<typeof Button> = {
     },
   },
   argTypes: {
-    type: {
+    appearance: {
       control: 'select',
       options: ['filled', 'tonal', 'outlined', 'ghost'],
       description:
@@ -96,7 +96,7 @@ type IconName = keyof typeof ICONS;
 export const Playground: Story = {
   args: {
     children: 'Button',
-    type: 'filled',
+    appearance: 'filled',
     tone: 'primary',
     size: 'xl',
     // @ts-expect-error — synthetic args below aren't real Button props
@@ -118,7 +118,7 @@ export const AllIntentsFilled: Story = {
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'neutral', 'success', 'warning', 'danger', 'info'] as const).map(
         (tone) => (
-          <Button key={tone} type="filled" tone={tone}>
+          <Button key={tone} appearance="filled" tone={tone}>
             {tone}
           </Button>
         ),
@@ -133,7 +133,7 @@ export const AllIntentsTonal: Story = {
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'neutral', 'success', 'warning', 'danger', 'info'] as const).map(
         (tone) => (
-          <Button key={tone} type="tonal" tone={tone}>
+          <Button key={tone} appearance="tonal" tone={tone}>
             {tone}
           </Button>
         ),
@@ -148,7 +148,7 @@ export const AllIntentsOutlined: Story = {
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'neutral', 'success', 'warning', 'danger', 'info'] as const).map(
         (tone) => (
-          <Button key={tone} type="outlined" tone={tone}>
+          <Button key={tone} appearance="outlined" tone={tone}>
             {tone}
           </Button>
         ),
@@ -163,7 +163,7 @@ export const AllIntentsGhost: Story = {
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'neutral', 'success', 'warning', 'danger', 'info'] as const).map(
         (tone) => (
-          <Button key={tone} type="ghost" tone={tone}>
+          <Button key={tone} appearance="ghost" tone={tone}>
             {tone}
           </Button>
         ),
@@ -176,16 +176,16 @@ export const AllTypesPrimary: Story = {
   name: 'All types (Primary)',
   render: () => (
     <div style={{ display: 'flex', gap: 8 }}>
-      <Button type="filled" tone="primary">
+      <Button appearance="filled" tone="primary">
         Filled
       </Button>
-      <Button type="tonal" tone="primary">
+      <Button appearance="tonal" tone="primary">
         Tonal
       </Button>
-      <Button type="outlined" tone="primary">
+      <Button appearance="outlined" tone="primary">
         Outlined
       </Button>
-      <Button type="ghost" tone="primary">
+      <Button appearance="ghost" tone="primary">
         Ghost
       </Button>
     </div>
@@ -231,7 +231,7 @@ export const AsChild: Story = {
           'With `asChild`, Button styles apply to the child element directly instead ' +
           'of wrapping it in a <button> — useful for router links that need to look ' +
           'like a Button but keep their own semantics/navigation behavior. Note this ' +
-          'is `asChild` + Button\'s default `type="filled"` look — see the next story ' +
+          'is `asChild` + Button\'s default `appearance="filled"` look — see the next story ' +
           'for `asChild` used without any Button visual styling.',
       },
     },
@@ -312,10 +312,10 @@ export const Loading: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
       <Button loading>Filled</Button>
-      <Button type="tonal" loading>
+      <Button appearance="tonal" loading>
         Tonal
       </Button>
-      <Button type="outlined" loading>
+      <Button appearance="outlined" loading>
         Outlined
       </Button>
       <Button iconOnly loading aria-label="Loading" />
@@ -331,7 +331,7 @@ function LoadingToggleDemo() {
       <Button loading={loading} data-testid="subject">
         Save
       </Button>
-      <Button type="outlined" tone="neutral" onClick={() => setLoading((v) => !v)}>
+      <Button appearance="outlined" tone="neutral" onClick={() => setLoading((v) => !v)}>
         Toggle loading
       </Button>
     </div>

@@ -42,7 +42,7 @@ export const Default: Story = {
   render: () => (
     <Dialog>
       <DialogTrigger asChild>
-        <Button type="filled" tone="primary">
+        <Button appearance="filled" tone="primary">
           Create site
         </Button>
       </DialogTrigger>
@@ -59,12 +59,12 @@ export const Default: Story = {
         </DialogBody>
         <DialogFooter showDivider={false}>
           <DialogClose asChild>
-            <Button type="outlined" tone="secondary">
+            <Button appearance="outlined" tone="secondary">
               Cancel
             </Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button type="filled" tone="primary">
+            <Button appearance="filled" tone="primary">
               Create site
             </Button>
           </DialogClose>
@@ -84,7 +84,7 @@ export const Open: Story = {
   render: (_args, context) => (
     <Dialog defaultOpen={context.viewMode !== 'docs'}>
       <DialogTrigger asChild>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           Reopen
         </Button>
       </DialogTrigger>
@@ -95,12 +95,12 @@ export const Open: Story = {
         </DialogHeader>
         <DialogFooter showDivider={false}>
           <DialogClose asChild>
-            <Button type="outlined" tone="secondary">
+            <Button appearance="outlined" tone="secondary">
               Cancel
             </Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button type="filled" tone="primary">
+            <Button appearance="filled" tone="primary">
               Reissue certificate
             </Button>
           </DialogClose>
@@ -126,7 +126,7 @@ export const OverflowRepro: Story = {
   render: (_args, context) => (
     <Dialog defaultOpen={context.viewMode !== 'docs'}>
       <DialogTrigger asChild>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           Reopen
         </Button>
       </DialogTrigger>
@@ -156,12 +156,12 @@ export const OverflowRepro: Story = {
         </DialogBody>
         <DialogFooter showDivider={false}>
           <DialogClose asChild>
-            <Button type="outlined" tone="secondary">
+            <Button appearance="outlined" tone="secondary">
               Cancel
             </Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button type="filled" tone="primary">
+            <Button appearance="filled" tone="primary">
               Save
             </Button>
           </DialogClose>
@@ -247,13 +247,13 @@ function MigrationWizard() {
           <MigrationStep step={step} />
           {isLast ? (
             <DialogClose asChild>
-              <Button type="filled" tone="primary" className="mt-2 self-start">
+              <Button appearance="filled" tone="primary" className="mt-2 self-start">
                 Done
               </Button>
             </DialogClose>
           ) : (
             <Button
-              type="filled"
+              appearance="filled"
               tone="primary"
               className="mt-2 self-start"
               rightIcon={<ArrowRight />}
@@ -274,7 +274,7 @@ export const Fullscreen: Story = {
   render: () => (
     <Dialog>
       <DialogTrigger asChild>
-        <Button type="filled" tone="primary">
+        <Button appearance="filled" tone="primary">
           Migrate to Shield
         </Button>
       </DialogTrigger>
@@ -293,7 +293,7 @@ export const FullscreenOpen: Story = {
   render: (_args, context) => (
     <Dialog defaultOpen={context.viewMode !== 'docs'}>
       <DialogTrigger asChild>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           Reopen
         </Button>
       </DialogTrigger>

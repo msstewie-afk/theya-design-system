@@ -61,7 +61,7 @@ export function DateRangePicker({
       <PopoverTrigger asChild>
         <Button
           id={id}
-          type="outlined"
+          appearance="outlined"
           tone="secondary"
           size="xl"
           disabled={disabled}

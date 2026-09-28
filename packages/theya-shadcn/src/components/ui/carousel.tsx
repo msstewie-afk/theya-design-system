@@ -187,7 +187,7 @@ export function CarouselPrevious({ className, ...props }: React.ComponentProps<t
   return (
     <Button
       data-slot="carousel-previous"
-      type="outlined"
+      appearance="outlined"
       tone="secondary"
       iconOnly
       aria-label="Previous slide"
@@ -271,7 +271,7 @@ export function CarouselNext({ className, ...props }: React.ComponentProps<typeo
   return (
     <Button
       data-slot="carousel-next"
-      type="outlined"
+      appearance="outlined"
       tone="secondary"
       iconOnly
       aria-label="Next slide"

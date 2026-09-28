@@ -163,7 +163,7 @@ export const WithTrailing: Story = {
               <span className="flex-1 truncate">Auto-responder</span>
               <ContextMenuTrailing>
                 <Button
-                  type="ghost"
+                  appearance="ghost"
                   tone="danger"
                   size="sm"
                   iconOnly

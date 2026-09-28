@@ -169,11 +169,11 @@ export function AlertDialogDescription({ className, ...props }: React.ComponentP
 }
 
 /** The confirming action. Defaults to a danger-intent Button and closes the dialog. */
-export function AlertDialogAction({ type = 'filled', tone = 'danger', ...props }: ButtonProps) {
-  return <AlertDialogPrimitive.Action asChild><Button type={type} tone={tone} {...props} /></AlertDialogPrimitive.Action>;
+export function AlertDialogAction({ appearance = 'filled', tone = 'danger', ...props }: ButtonProps) {
+  return <AlertDialogPrimitive.Action asChild><Button appearance={appearance} tone={tone} {...props} /></AlertDialogPrimitive.Action>;
 }
 
 /** The dismissing action. Renders an outlined Button and closes the dialog. */
-export function AlertDialogCancel({ type = 'outlined', tone = 'secondary', ...props }: ButtonProps) {
-  return <AlertDialogPrimitive.Cancel asChild><Button type={type} tone={tone} {...props} /></AlertDialogPrimitive.Cancel>;
+export function AlertDialogCancel({ appearance = 'outlined', tone = 'secondary', ...props }: ButtonProps) {
+  return <AlertDialogPrimitive.Cancel asChild><Button appearance={appearance} tone={tone} {...props} /></AlertDialogPrimitive.Cancel>;
 }

@@ -41,7 +41,7 @@ function DemoShell({ children }: { children: (open: boolean, setOpen: (v: boolea
         <header className="flex h-14 shrink-0 items-center justify-between border-b border-solid border-[var(--color-border-border-subtle)] px-4">
           <span className="font-body text-body-l font-medium text-[var(--color-text-text)]">Dashboard</span>
           <Button
-            type="ghost"
+            appearance="ghost"
             iconOnly
             size="md"
             aria-label={open ? 'Close notifications' : 'Open notifications'}
@@ -68,7 +68,7 @@ export const Default: Story = {
           <PushSheetHeader>
             <PushSheetTitle>Panel title</PushSheetTitle>
             <PushSheetClose asChild>
-              <Button type="ghost" iconOnly size="sm" aria-label="Close" leftIcon={<Xmark />} />
+              <Button appearance="ghost" iconOnly size="sm" aria-label="Close" leftIcon={<Xmark />} />
             </PushSheetClose>
           </PushSheetHeader>
           <PushSheetBody>
@@ -129,7 +129,7 @@ export const MobileOverlay: Story = {
           <PushSheetHeader>
             <PushSheetTitle>Panel title</PushSheetTitle>
             <PushSheetClose asChild>
-              <Button type="ghost" iconOnly size="sm" aria-label="Close" leftIcon={<Xmark />} />
+              <Button appearance="ghost" iconOnly size="sm" aria-label="Close" leftIcon={<Xmark />} />
             </PushSheetClose>
           </PushSheetHeader>
           <PushSheetBody>

@@ -29,7 +29,7 @@ export const Default: Story = {
         // so a word-separated label needs its own leading space.
         label=" aliases"
         description="Alternate addresses for existing mailboxes"
-        actions={<Button type="ghost" iconOnly size="md" aria-label="View aliases" leftIcon={<NavArrowRight />} />}
+        actions={<Button appearance="ghost" iconOnly size="md" aria-label="View aliases" leftIcon={<NavArrowRight />} />}
       />
     </div>
   ),

@@ -91,7 +91,7 @@ function CreateSiteForm() {
           )}
         />
         <div className="flex justify-end">
-          <Button type="filled" tone="primary" disabled={!form.formState.isValid} leftIcon={<Plus />}>
+          <Button appearance="filled" tone="primary" disabled={!form.formState.isValid} leftIcon={<Plus />}>
             Create site
           </Button>
         </div>

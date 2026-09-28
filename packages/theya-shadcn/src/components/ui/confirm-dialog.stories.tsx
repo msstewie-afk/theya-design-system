@@ -43,7 +43,7 @@ export const Default: Story = {
       title="Delete this server?"
       description="This action cannot be undone."
       trigger={
-        <Button type="filled" tone="danger">
+        <Button appearance="filled" tone="danger">
           Delete server
         </Button>
       }
@@ -63,7 +63,7 @@ export const TypedConfirm: Story = {
       showFooterDivider={false}
       contentGap="none"
       trigger={
-        <Button type="filled" tone="danger">
+        <Button appearance="filled" tone="danger">
           Delete site
         </Button>
       }
@@ -83,7 +83,7 @@ export const NonDestructive: Story = {
       confirmLabel="Restart"
       confirmIcon={<Refresh />}
       trigger={
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           Restart server
         </Button>
       }
@@ -103,7 +103,7 @@ export const WithConsequences: Story = {
       showFooterDivider={false}
       contentGap="none"
       trigger={
-        <Button type="filled" tone="danger">
+        <Button appearance="filled" tone="danger">
           Delete api.seashell.dev
         </Button>
       }
@@ -132,7 +132,7 @@ export const Open: Story = {
     const [open, setOpen] = useState(true);
     return (
       <div className="flex flex-col items-center gap-3">
-        <Button type="filled" tone="danger" onClick={() => setOpen(true)}>
+        <Button appearance="filled" tone="danger" onClick={() => setOpen(true)}>
           Reopen
         </Button>
         <ConfirmDialog

@@ -63,7 +63,7 @@ export const buttonVariants = cva(
   ],
   {
     variants: {
-      type: {
+      appearance: {
         filled: '',
         tonal: '',
         outlined: [
@@ -152,7 +152,7 @@ export const buttonVariants = cva(
 
       // ---------- FILLED × intent ----------
       {
-        type: 'filled',
+        appearance: 'filled',
         tone: 'primary',
         class: [
           'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-dark)]',
@@ -161,7 +161,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'filled',
+        appearance: 'filled',
         tone: 'info',
         class: [
           'bg-[var(--color-bg-info-bg-info)] text-[var(--color-cyan-cyan-900)]',
@@ -177,7 +177,7 @@ export const buttonVariants = cva(
         // effect on this button. Now that green's primitive ramp is fixed,
         // the real token clears AA on its own (light theme 4.87:1, dark
         // theme 11.8:1) — wired to it directly, no override needed.
-        type: 'filled',
+        appearance: 'filled',
         tone: 'success',
         class: [
           'bg-[var(--color-bg-success-bg-success)] text-[var(--color-text-text-on-dark)]',
@@ -203,7 +203,7 @@ export const buttonVariants = cva(
         // gets the real ink token (matches Tonal exactly, fixes the 1.42:1
         // fail); dark theme keeps text-on-dark (the only thing that clears AA
         // against that particular dark-orange bg).
-        type: 'filled',
+        appearance: 'filled',
         tone: 'warning',
         class: [
           'bg-[var(--color-bg-warning-bg-warning)] text-[var(--color-text-text-warning)]',
@@ -213,7 +213,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'filled',
+        appearance: 'filled',
         tone: 'danger',
         class: [
           'bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-text-text-on-dark)]',
@@ -227,7 +227,7 @@ export const buttonVariants = cva(
         // flatter, more neutral gray. Hover/pressed derived with the
         // same lightness-drop ratio as Primary's own default→hover→
         // pressed steps (-7.25% / -16.08%), same as Secondary below.
-        type: 'filled',
+        appearance: 'filled',
         tone: 'neutral',
         class: [
           'bg-[#65656b] text-[var(--color-text-text-on-dark)]',
@@ -241,7 +241,7 @@ export const buttonVariants = cva(
         // for now. Hover/pressed derived by applying the same lightness
         // drop Primary uses between its own default→hover→pressed
         // (-7.25% / -16.08% lightness), not hand-picked.
-        type: 'filled',
+        appearance: 'filled',
         tone: 'secondary',
         class: [
           'bg-[#6a6c96] text-[var(--color-text-text-on-dark)]',
@@ -256,7 +256,7 @@ export const buttonVariants = cva(
       // pattern. (This is what Secondary Filled used to look like,
       // generalized to every intent.)
       {
-        type: 'tonal',
+        appearance: 'tonal',
         tone: 'primary',
         class: [
           // Dark: text-link-on-tonal (#bddcff) fell to 3.86/3.31:1 on the
@@ -268,7 +268,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'tonal',
+        appearance: 'tonal',
         tone: 'info',
         class: [
           'bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-100)]', // dark text cyan-200 -> cyan-100: hover (cyan-700) was 4.38:1, now 4.89:1,
@@ -286,7 +286,7 @@ export const buttonVariants = cva(
         // bg-surface and bg-surface-overlay - the same "on-container" idea as
         // M3 (tone-90 text on a tone-30 container). Light success also failed
         // on hover/pressed (green-600: 4.39/3.87), bumped to green-700.
-        type: 'tonal',
+        appearance: 'tonal',
         tone: 'success',
         class: [
           'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-green-green-700)] [[data-theme=dark]_&]:text-[var(--color-green-green-010)]',
@@ -295,7 +295,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'tonal',
+        appearance: 'tonal',
         tone: 'warning',
         class: [
           'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)] [[data-theme=dark]_&]:text-[var(--color-orange-orange-005)]',
@@ -304,7 +304,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'tonal',
+        appearance: 'tonal',
         tone: 'danger',
         class: [
           'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] [[data-theme=dark]_&]:text-[var(--color-red-red-050)]',
@@ -315,7 +315,7 @@ export const buttonVariants = cva(
       {
         // Secondary Tonal — this is the old default Secondary look,
         // unchanged, just renamed conceptually to Tonal.
-        type: 'tonal',
+        appearance: 'tonal',
         tone: 'secondary',
         class: [
           'bg-[var(--color-bg-secondary-bg-secondary-subtle)] text-[var(--color-text-text)]',
@@ -325,7 +325,7 @@ export const buttonVariants = cva(
       },
       {
         // Default Tonal — subtle version of the Neutral gray.
-        type: 'tonal',
+        appearance: 'tonal',
         tone: 'neutral',
         class: [
           'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text)]',
@@ -336,7 +336,7 @@ export const buttonVariants = cva(
 
       // ---------- OUTLINED × intent ----------
       {
-        type: 'outlined',
+        appearance: 'outlined',
         tone: 'primary',
         class: [
           'border-[var(--color-border-border-primary)]',
@@ -347,7 +347,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'outlined',
+        appearance: 'outlined',
         tone: 'info',
         class: [
           'border-[var(--color-border-border-info)]',
@@ -358,7 +358,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'outlined',
+        appearance: 'outlined',
         tone: 'success',
         class: [
           'border-[var(--color-border-border-success)]',
@@ -369,7 +369,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'outlined',
+        appearance: 'outlined',
         tone: 'warning',
         class: [
           'border-[var(--color-border-border-warning)]',
@@ -380,7 +380,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'outlined',
+        appearance: 'outlined',
         tone: 'danger',
         class: [
           'border-[var(--color-border-border-danger)]',
@@ -402,7 +402,7 @@ export const buttonVariants = cva(
         // lighter "-subtler" wash for its hover/press fill; Secondary had
         // been copy-pasted from Tonal's own compound variant above and
         // read noticeably darker than every sibling button as a result.
-        type: 'outlined',
+        appearance: 'outlined',
         tone: 'secondary',
         class: [
           // Dark: #6a6c96 is only 2.82:1 on bg-surface (#282944), under
@@ -418,7 +418,7 @@ export const buttonVariants = cva(
 
       // ---------- GHOST × intent ----------
       {
-        type: 'ghost',
+        appearance: 'ghost',
         tone: 'primary',
         class: [
           // Dark: text-link (#63acff) dropped to 4.41/3.75:1 on hover/pressed
@@ -430,7 +430,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'ghost',
+        appearance: 'ghost',
         tone: 'info',
         class: [
           // Icon follows the label color: icon-info (#0091ae) was 2.64:1 on
@@ -442,7 +442,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'ghost',
+        appearance: 'ghost',
         tone: 'success',
         class: [
           // green-600 -> green-700 (light pressed was 4.39:1); dark green-200
@@ -454,7 +454,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'ghost',
+        appearance: 'ghost',
         tone: 'warning',
         class: [
           'text-[var(--color-text-text-warning)] [&_svg]:text-[var(--color-icon-icon-warning)]',
@@ -464,7 +464,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'ghost',
+        appearance: 'ghost',
         tone: 'danger',
         class: [
           'text-[var(--color-text-text-danger)] [&_svg]:text-[var(--color-icon-icon-danger)]',
@@ -475,7 +475,7 @@ export const buttonVariants = cva(
       },
       {
         // Same fix as Outlined Secondary above: "-subtle" → "-subtler".
-        type: 'ghost',
+        appearance: 'ghost',
         tone: 'secondary',
         class: [
           '[&_svg]:text-[var(--color-icon-icon)]',
@@ -504,7 +504,7 @@ export const buttonVariants = cva(
       // instead of the fixed hex — CopyButton (used by CodeBlock/CodeEditor/
       // SecretField, all `intent="default"` by default) picks this up too.
       {
-        type: 'outlined',
+        appearance: 'outlined',
         tone: 'neutral',
         class: [
           // Dark: #65656b is 2.43:1 on bg-surface (1.4.11 needs 3:1) -> gray-300
@@ -519,7 +519,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        type: 'ghost',
+        appearance: 'ghost',
         tone: 'neutral',
         class: [
           '[&_svg]:text-[var(--color-text-text-subtle)]',
@@ -531,7 +531,7 @@ export const buttonVariants = cva(
 
     ],
     defaultVariants: {
-      type: 'filled',
+      appearance: 'filled',
       tone: 'primary',
       size: 'xl',
     },
@@ -578,7 +578,7 @@ function decorativeIcon(node: ReactNode): ReactNode {
 }
 
 export interface ButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color' | 'type'>,
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'>,
     VariantProps<typeof buttonVariants> {
   /** Renders as a square icon-only button (no label). Provide the icon via leftIcon. */
   iconOnly?: boolean;
@@ -605,7 +605,7 @@ export interface ButtonProps
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(
     {
-      type = 'filled',
+      appearance = 'filled',
       tone = 'primary',
       size = 'xl',
       fullWidth = false,
@@ -637,14 +637,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     // compensating its padding per button size). Mirrors the cva axes.
     const dataAttributes = {
       'data-slot': 'button',
-      'data-variant': type ?? undefined,
+      'data-appearance': appearance ?? undefined,
       'data-tone': tone ?? undefined,
       'data-size': size ?? undefined,
       'data-icon-only': iconOnly ? '' : undefined,
     };
     const sharedClassName = cn(
       buttonVariants({
-        type,
+        appearance,
         tone,
         size,
         fullWidth,

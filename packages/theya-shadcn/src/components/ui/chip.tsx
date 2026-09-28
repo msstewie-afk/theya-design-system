@@ -255,7 +255,7 @@ export function Chip({
 export function ChipRemove({ className, onClick, children, type: _nativeType, ...props }: React.ComponentProps<'button'>) {
   return (
     <Button
-      type="ghost"
+      appearance="ghost"
       size="sm"
       iconOnly
       onClick={(event) => {

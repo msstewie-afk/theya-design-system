@@ -136,7 +136,7 @@ export const Live: Story = {
           <Progress value={value} aria-labelledby="deploy-label" />
         </div>
         <Button
-          type="outlined"
+          appearance="outlined"
           tone="secondary"
           size="sm"
           onClick={() => {

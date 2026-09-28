@@ -158,7 +158,7 @@ export function Filter({
         {count > 0 && (
           <div className="border-t border-solid border-[var(--color-border-border-subtle)] p-1">
             <Button
-              type="ghost"
+              appearance="ghost"
               size="md"
               onClick={() => setSelected([])}
               className="w-full justify-start !pl-2 text-[var(--color-text-text-subtler)]"

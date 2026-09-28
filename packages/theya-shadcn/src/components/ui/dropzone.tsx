@@ -210,7 +210,7 @@ function Dropzone({
               {error ? 'File is uploaded with error' : 'Drag files here'}
             </p>
             <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">or</p>
-            <Button type="filled" tone="primary" size="lg" className="relative z-10 mt-2" disabled={disabled} onClick={(e) => { e.stopPropagation(); openPicker(); }}>
+            <Button appearance="filled" tone="primary" size="lg" className="relative z-10 mt-2" disabled={disabled} onClick={(e) => { e.stopPropagation(); openPicker(); }}>
               Browse
             </Button>
           </div>
@@ -267,7 +267,7 @@ function Dropzone({
                   </div>
                   {onRemove && (
                     <Button
-                      type="ghost"
+                      appearance="ghost"
                       size="sm"
                       iconOnly
                       disabled={disabled}

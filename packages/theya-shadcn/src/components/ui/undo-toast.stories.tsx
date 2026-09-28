@@ -33,7 +33,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => (
     <Button
-      type="outlined"
+      appearance="outlined"
       tone="secondary"
       onClick={() =>
         undoToast({
@@ -58,7 +58,7 @@ export const TitleOnly: Story = {
   name: 'Title only',
   render: () => (
     <Button
-      type="outlined"
+      appearance="outlined"
       tone="secondary"
       onClick={() =>
         undoToast({
@@ -81,7 +81,7 @@ export const CustomLabelAndIcon: Story = {
   name: 'Custom label and icon',
   render: () => (
     <Button
-      type="outlined"
+      appearance="outlined"
       tone="secondary"
       onClick={() =>
         undoToast({
@@ -108,7 +108,7 @@ export const WithoutIcon: Story = {
   name: 'Without icon',
   render: () => (
     <Button
-      type="outlined"
+      appearance="outlined"
       tone="secondary"
       onClick={() =>
         undoToast({
@@ -134,7 +134,7 @@ export const LongerGraceWindow: Story = {
   name: 'Longer grace window',
   render: () => (
     <Button
-      type="outlined"
+      appearance="outlined"
       tone="danger"
       onClick={() =>
         undoToast({
@@ -156,7 +156,7 @@ export const Playground: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
       <Button
-        type="outlined"
+        appearance="outlined"
         tone="secondary"
         onClick={() =>
           undoToast({
@@ -169,7 +169,7 @@ export const Playground: Story = {
         Delete site
       </Button>
       <Button
-        type="outlined"
+        appearance="outlined"
         tone="secondary"
         onClick={() =>
           undoToast({
@@ -182,7 +182,7 @@ export const Playground: Story = {
       >
         Remove DNS record
       </Button>
-      <Button type="outlined" tone="secondary" onClick={() => undoToast({ title: 'File moved to trash', icon: null })}>
+      <Button appearance="outlined" tone="secondary" onClick={() => undoToast({ title: 'File moved to trash', icon: null })}>
         Move to trash
       </Button>
     </div>

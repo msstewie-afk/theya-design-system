@@ -68,11 +68,11 @@ export const AsButtonTrigger: Story = {
   render: () => (
     <div className="flex items-center gap-6">
       <div className="flex flex-col items-center gap-2">
-        <Button type="outlined" iconOnly aria-label="Kebab (vertical, custom)" leftIcon={<KebabIconVertical className="text-[var(--color-text-text)]" />} />
+        <Button appearance="outlined" iconOnly aria-label="Kebab (vertical, custom)" leftIcon={<KebabIconVertical className="text-[var(--color-text-text)]" />} />
         <span className="text-body-s text-[var(--color-text-text-subtler)]">vertical</span>
       </div>
       <div className="flex flex-col items-center gap-2">
-        <Button type="outlined" iconOnly aria-label="Kebab (horizontal, custom)" leftIcon={<KebabIconHorizontal className="text-[var(--color-text-text)]" />} />
+        <Button appearance="outlined" iconOnly aria-label="Kebab (horizontal, custom)" leftIcon={<KebabIconHorizontal className="text-[var(--color-text-text)]" />} />
         <span className="text-body-s text-[var(--color-text-text-subtler)]">horizontal</span>
       </div>
     </div>

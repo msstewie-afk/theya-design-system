@@ -39,10 +39,10 @@ export const Default: Story = {
         <p className="flex items-center text-body-s text-[var(--color-text-text-subtler)]">eu-west-1<DotSeparator />PHP 8.3</p>
       </CardContent>
       <CardFooter>
-        <Button type="filled" tone="primary" size="md">
+        <Button appearance="filled" tone="primary" size="md">
           Save changes
         </Button>
-        <Button type="outlined" size="md">
+        <Button appearance="outlined" size="md">
           Cancel
         </Button>
       </CardFooter>
@@ -72,7 +72,7 @@ export const WithHeaderAction: Story = {
           <CardDescription>TLS coverage across your domains.</CardDescription>
         </div>
         <CardAction>
-          <Button type="outlined" size="md">
+          <Button appearance="outlined" size="md">
             Issue certificate
           </Button>
         </CardAction>
@@ -105,7 +105,7 @@ export const InteractiveCard: Story = {
           <CardAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button type="ghost" iconOnly size="md" aria-label="Actions for settings.seashell.dev" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
+                <Button appearance="ghost" iconOnly size="md" aria-label="Actions for settings.seashell.dev" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>Restart</DropdownMenuItem>
@@ -140,7 +140,7 @@ export const InteractiveCard: Story = {
         </CardHeader>
         <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">Suspended, payment failed.</CardContent>
         <CardFooter>
-          <Button type="filled" tone="primary" size="md">
+          <Button appearance="filled" tone="primary" size="md">
             Resolve billing
           </Button>
         </CardFooter>
@@ -160,7 +160,7 @@ function ActionKindsExample() {
             <CardDescription>in catch-all@seashell.dev</CardDescription>
           </div>
           <CardAction>
-            <Button type="ghost" iconOnly size="md" aria-label="Add catch-all address" leftIcon={<Plus />} />
+            <Button appearance="ghost" iconOnly size="md" aria-label="Add catch-all address" leftIcon={<Plus />} />
           </CardAction>
         </CardHeader>
         <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">Handle mail sent to unknown addresses.</CardContent>
@@ -212,7 +212,7 @@ function ProgrammaticCardLinkExample() {
           <CardAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button type="ghost" iconOnly size="md" aria-label="Actions for shield.seashell.dev" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
+                <Button appearance="ghost" iconOnly size="md" aria-label="Actions for shield.seashell.dev" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>Restart</DropdownMenuItem>
@@ -250,7 +250,7 @@ export const FormSection: Story = {
         <TextField label="Domain" placeholder="shop.seashell.dev" widthSize="md" />
       </CardContent>
       <CardFooter>
-        <Button type="filled" tone="primary" size="md">
+        <Button appearance="filled" tone="primary" size="md">
           Save changes
         </Button>
       </CardFooter>
@@ -339,7 +339,7 @@ export const Severity: Story = {
                 </div>
               </div>
               <CardAction>
-                <Button type="ghost" iconOnly size="md" aria-label={`More actions for ${label}`} leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
+                <Button appearance="ghost" iconOnly size="md" aria-label={`More actions for ${label}`} leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
               </CardAction>
             </CardHeader>
           </Card>
@@ -371,14 +371,14 @@ export const DividerEdgeCases: Story = {
           <CardTitle>Header, then footer</CardTitle>
         </CardHeader>
         <CardFooter>
-          <Button type="filled" tone="primary" size="md">
+          <Button appearance="filled" tone="primary" size="md">
             Confirm
           </Button>
         </CardFooter>
       </Card>
       <Card>
         <CardFooter>
-          <Button type="outlined" size="md">
+          <Button appearance="outlined" size="md">
             Footer only
           </Button>
         </CardFooter>
@@ -437,7 +437,7 @@ export const TitleOnlyWithAction: Story = {
         <CardHeader className="items-center">
           <CardTitle>Allowlist</CardTitle>
           <CardAction>
-            <Button type="ghost" iconOnly size="md" aria-label="Actions for Allowlist" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
+            <Button appearance="ghost" iconOnly size="md" aria-label="Actions for Allowlist" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
           </CardAction>
         </CardHeader>
       </Card>
@@ -445,7 +445,7 @@ export const TitleOnlyWithAction: Story = {
         <CardHeader className="items-center">
           <CardTitle>Port Rules</CardTitle>
           <CardAction>
-            <Button type="outlined" size="md">
+            <Button appearance="outlined" size="md">
               Manage
             </Button>
           </CardAction>
@@ -455,7 +455,7 @@ export const TitleOnlyWithAction: Story = {
         <CardHeader className="items-center">
           <CardTitle>Country and ASN Rules</CardTitle>
           <CardAction>
-            <Button type="outlined" size="lg">
+            <Button appearance="outlined" size="lg">
               Add rule
             </Button>
           </CardAction>

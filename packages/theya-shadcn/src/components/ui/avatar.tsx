@@ -248,7 +248,7 @@ export function AvatarBadge({
   style,
   separator = true,
   size = 'sm',
-  type = 'filled',
+  appearance = 'filled',
   shape = 'round',
   tone = 'danger',
   children,
@@ -259,7 +259,7 @@ export function AvatarBadge({
     <BadgeIndicator
       data-slot="avatar-badge"
       value={value ?? children}
-      type={type}
+      appearance={appearance}
       shape={shape}
       tone={tone}
       size={size}

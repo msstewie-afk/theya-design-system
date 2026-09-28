@@ -169,7 +169,7 @@ export function AuditLog({
             <DateRangePicker value={range} onChange={setRange} placeholder="Any date" aria-label="Filter by date range" />
           </div>
           {hasFilters && (
-            <Button type="ghost" onClick={clearFilters} className="max-md:h-11">
+            <Button appearance="ghost" onClick={clearFilters} className="max-md:h-11">
               Clear filters
             </Button>
           )}
@@ -201,7 +201,7 @@ export function AuditLog({
                         titleAs="h3"
                         description="Try a different search, category or date range."
                         action={
-                          <Button type="outlined" tone="secondary" onClick={clearFilters}>
+                          <Button appearance="outlined" tone="secondary" onClick={clearFilters}>
                             Clear filters
                           </Button>
                         }

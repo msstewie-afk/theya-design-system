@@ -30,7 +30,7 @@ export function SplitButton({
   children,
   onMainClick,
   menuContent,
-  type = 'filled',
+  appearance = 'filled',
   tone = 'primary',
   size = 'lg',
   disabled,
@@ -40,7 +40,7 @@ export function SplitButton({
   return (
     <div className={cn('inline-flex', className)}>
       <Button
-        type={type}
+        appearance={appearance}
         tone={tone}
         size={size}
         disabled={disabled}
@@ -54,7 +54,7 @@ export function SplitButton({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            type={type}
+            appearance={appearance}
             tone={tone}
             size={size}
             disabled={disabled}

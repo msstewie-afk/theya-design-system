@@ -627,7 +627,7 @@ export function FilterField({
                 </div>
                 <div className="flex justify-end">
                   <Button
-                    type="filled"
+                    appearance="filled"
                     tone="primary"
                     size="md"
                     disabled={textOperatorNeedsValue && draft.trim() === ''}
@@ -717,7 +717,7 @@ export function FilterField({
                 </div>
                 <div className="flex justify-end">
                   <Button
-                    type="filled"
+                    appearance="filled"
                     tone="primary"
                     size="md"
                     disabled={numberDraft.min == null && numberDraft.max == null}

@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
  * which are confirmed to work fine.
  */
 export type BadgeIndicatorIntent = 'neutral' | 'info' | 'success' | 'warning' | 'danger';
-export type BadgeIndicatorType = 'filled' | 'outlined';
+export type BadgeIndicatorAppearance = 'filled' | 'outlined';
 export type BadgeIndicatorShape = 'round' | 'square';
 export type BadgeIndicatorSize = 'sm' | 'md';
 
@@ -121,7 +121,7 @@ export interface BadgeIndicatorProps extends Omit<React.HTMLAttributes<HTMLSpanE
   dot?: boolean;
   /** Icon content (sized by BadgeIndicator, colored via currentColor). Ignored when `dot` is set. */
   icon?: ReactNode;
-  type?: BadgeIndicatorType;
+  appearance?: BadgeIndicatorAppearance;
   shape?: BadgeIndicatorShape;
   tone?: BadgeIndicatorIntent;
   size?: BadgeIndicatorSize;
@@ -131,7 +131,7 @@ export function BadgeIndicator({
   value,
   dot = false,
   icon,
-  type = 'filled',
+  appearance = 'filled',
   shape = 'round',
   tone = 'neutral',
   size = 'sm',
@@ -141,7 +141,7 @@ export function BadgeIndicator({
 }: BadgeIndicatorProps) {
   const tokens = INTENT_TOKENS[tone];
   const box = SIZE_PX[size];
-  const isFilled = type === 'filled';
+  const isFilled = appearance === 'filled';
 
   const colorClass = isFilled
     ? cn(tokens.filledBg, tokens.filledText)

@@ -307,7 +307,7 @@ export function CodeEditor({
             // gap-3 that separates the label from this button group.
             <div className="flex items-center gap-1">
               {clearable && (
-                <Button type="ghost" size="sm" onClick={handleClear} disabled={disabled || readOnly || liveText.length === 0}>
+                <Button appearance="ghost" size="sm" onClick={handleClear} disabled={disabled || readOnly || liveText.length === 0}>
                   {clearLabel}
                 </Button>
               )}
@@ -319,7 +319,7 @@ export function CodeEditor({
                       label={null}
                       aria-label={copyLabel}
                       size="sm"
-                      type="ghost"
+                      appearance="ghost"
                       onCopied={() => flashCopyStatus('copied')}
                       onCopyError={() => flashCopyStatus('error')}
                     />

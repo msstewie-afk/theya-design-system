@@ -263,7 +263,7 @@ export function DashboardOverview({
                     </span>
                   </p>
                 </div>
-                <Button type="outlined" tone="secondary" className="max-md:h-11 max-md:w-full sm:shrink-0" onClick={() => onAttentionAction?.(item)}>
+                <Button appearance="outlined" tone="secondary" className="max-md:h-11 max-md:w-full sm:shrink-0" onClick={() => onAttentionAction?.(item)}>
                   {item.actionLabel}
                 </Button>
               </li>
@@ -279,14 +279,14 @@ export function DashboardOverview({
         {attentionCount > 0 && (onViewAll || viewAllHref) && (
           <div>
             {viewAllHref ? (
-              <Button type="ghost" tone="secondary" size="md" asChild>
+              <Button appearance="ghost" tone="secondary" size="md" asChild>
                 <a href={viewAllHref}>
                   View all
                   <ArrowRight />
                 </a>
               </Button>
             ) : (
-              <Button type="ghost" tone="secondary" size="md" onClick={onViewAll} rightIcon={<ArrowRight />}>
+              <Button appearance="ghost" tone="secondary" size="md" onClick={onViewAll} rightIcon={<ArrowRight />}>
                 View all
               </Button>
             )}

@@ -48,7 +48,7 @@ export interface DataTableBulkAction<TData> {
   label: string;
   icon?: ReactNode;
   /** Visual weight for the inline button. Left unset, renders as ghost re-skinned for the primary fill. */
-  type?: ButtonProps['type'];
+  appearance?: ButtonProps['appearance'];
   tone?: ButtonProps['tone'];
   /**
    * Marks a destructive action. In the overflow menu this maps to
@@ -501,7 +501,7 @@ export function DataTableToolbar<TData>({
         {/* Off-screen twin of every action, used only to measure width — see useVisibleActionCount. */}
         <div ref={mirrorRef} aria-hidden="true" className="pointer-events-none invisible fixed top-0 left-0 flex gap-1">
           {actions.map((action) => (
-            <Button key={action.label} type={action.type ?? 'ghost'} tone={action.tone} leftIcon={action.icon} className="whitespace-nowrap">
+            <Button key={action.label} appearance={action.appearance ?? 'ghost'} tone={action.tone} leftIcon={action.icon} className="whitespace-nowrap">
               {action.label}
             </Button>
           ))}
@@ -525,7 +525,7 @@ export function DataTableToolbar<TData>({
           {visible.map((action, index) => {
             const isDisabled = action.disabled?.(selectedRows) ?? false;
             const button = (
-              <ToolbarButton disabled={isDisabled} className={cn('whitespace-nowrap', !action.type && onFilled)} onClick={() => run(action, index)}>
+              <ToolbarButton disabled={isDisabled} className={cn('whitespace-nowrap', !action.appearance && onFilled)} onClick={() => run(action, index)}>
                 {action.icon}
                 {action.label}
               </ToolbarButton>

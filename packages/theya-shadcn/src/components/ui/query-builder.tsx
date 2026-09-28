@@ -207,7 +207,7 @@ export function QueryBuilder({
                   <ValueEditor condition={condition} field={field} editor={opMeta?.editor ?? 'none'} label={fieldLabel} onValue={(v) => updateCondition(condition.id, { value: v })} />
                 </div>
 
-                <Button type="ghost" iconOnly size="md" className="self-center" aria-label={`Remove ${fieldLabel} condition`} onClick={() => removeCondition(condition.id)} leftIcon={<Xmark />} />
+                <Button appearance="ghost" iconOnly size="md" className="self-center" aria-label={`Remove ${fieldLabel} condition`} onClick={() => removeCondition(condition.id)} leftIcon={<Xmark />} />
               </li>
             );
           })}
@@ -215,7 +215,7 @@ export function QueryBuilder({
       )}
 
       <div>
-        <Button type="outlined" tone="primary" size="xl" onClick={addCondition} disabled={atLimit || fields.length === 0} leftIcon={<Plus />}>
+        <Button appearance="outlined" tone="primary" size="xl" onClick={addCondition} disabled={atLimit || fields.length === 0} leftIcon={<Plus />}>
           {addLabel}
         </Button>
       </div>

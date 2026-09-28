@@ -198,7 +198,7 @@ function AttachmentsDemo() {
         }
         onSubmit={() => setFiles([])}
         leading={
-          <Button type="ghost" size="sm" iconOnly aria-label="Attach a file" leftIcon={<AttachmentIcon />} onClick={() => inputRef.current?.click()} />
+          <Button appearance="ghost" size="sm" iconOnly aria-label="Attach a file" leftIcon={<AttachmentIcon />} onClick={() => inputRef.current?.click()} />
         }
         attachments={
           files.length > 0 ? (
@@ -294,7 +294,7 @@ export const WithVoiceInput: Story = {
           placeholder={recording ? 'Listening…' : 'Send a message…'}
           trailing={
             <Button
-              type={recording ? 'filled' : 'ghost'}
+              appearance={recording ? 'filled' : 'ghost'}
               tone={recording ? 'danger' : 'neutral'}
               size="sm"
               iconOnly
@@ -411,7 +411,7 @@ export const WithRecentPrompts: Story = {
           trailing={
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button type="ghost" size="sm" iconOnly aria-label="Recent prompts" leftIcon={<Clock />} />
+                <Button appearance="ghost" size="sm" iconOnly aria-label="Recent prompts" leftIcon={<Clock />} />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" size="s">
                 {recent.map((prompt) => (

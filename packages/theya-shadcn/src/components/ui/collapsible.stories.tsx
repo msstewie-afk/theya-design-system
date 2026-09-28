@@ -25,7 +25,7 @@ function Demo() {
   return (
     <Collapsible open={open} onOpenChange={setOpen} className="w-[320px]">
       <CollapsibleTrigger asChild>
-        <Button type="outlined" size="md" rightIcon={<NavArrowDown className={open ? 'rotate-180' : undefined} />}>
+        <Button appearance="outlined" size="md" rightIcon={<NavArrowDown className={open ? 'rotate-180' : undefined} />}>
           Advanced settings
         </Button>
       </CollapsibleTrigger>
@@ -50,7 +50,7 @@ function ShowAdvancedSettingsDemo() {
     <Collapsible open={open} onOpenChange={setOpen} className="w-[320px]">
       <TextField label="Domain" placeholder="shop.seashell.dev" />
       <CollapsibleTrigger asChild>
-        <Button type="outlined" size="md" className="mt-4" rightIcon={<NavArrowDown className={open ? 'rotate-180' : undefined} />}>
+        <Button appearance="outlined" size="md" className="mt-4" rightIcon={<NavArrowDown className={open ? 'rotate-180' : undefined} />}>
           Show advanced settings
         </Button>
       </CollapsibleTrigger>
@@ -74,7 +74,7 @@ export const Open: Story = {
   render: () => (
     <Collapsible defaultOpen className="w-[320px]">
       <CollapsibleTrigger asChild>
-        <Button type="outlined" size="md" rightIcon={<NavArrowDown className="rotate-180" />}>
+        <Button appearance="outlined" size="md" rightIcon={<NavArrowDown className="rotate-180" />}>
           Advanced settings
         </Button>
       </CollapsibleTrigger>
@@ -92,7 +92,7 @@ export const Disabled: Story = {
   render: () => (
     <Collapsible disabled className="w-[320px]">
       <CollapsibleTrigger asChild>
-        <Button type="outlined" size="md" disabled rightIcon={<NavArrowDown />}>
+        <Button appearance="outlined" size="md" disabled rightIcon={<NavArrowDown />}>
           Advanced settings
         </Button>
       </CollapsibleTrigger>

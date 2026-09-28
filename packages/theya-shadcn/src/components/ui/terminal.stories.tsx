@@ -157,7 +157,7 @@ export const WithTools: Story = {
     ariaLabel: 'Build output',
     tools: (
       <Button
-        type="outlined"
+        appearance="outlined"
         size="md"
         leftIcon={<Refresh />}
         className={cn(

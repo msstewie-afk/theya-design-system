@@ -41,7 +41,7 @@ export const Playground: Story = {
   render: () => (
     <Popover>
       <PopoverTrigger asChild>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           Open popover
         </Button>
       </PopoverTrigger>
@@ -64,7 +64,7 @@ export const Default: Story = {
   render: (args) => (
     <Popover {...args}>
       <PopoverTrigger asChild>
-        <Button type="outlined" tone="secondary" leftIcon={<Filter />}>
+        <Button appearance="outlined" tone="secondary" leftIcon={<Filter />}>
           Filters
         </Button>
       </PopoverTrigger>
@@ -97,7 +97,7 @@ export const InlineForm: Story = {
   render: (args) => (
     <Popover {...args}>
       <PopoverTrigger asChild>
-        <Button type="outlined" tone="secondary" leftIcon={<ControlSlider />}>
+        <Button appearance="outlined" tone="secondary" leftIcon={<ControlSlider />}>
           Edit limits
         </Button>
       </PopoverTrigger>
@@ -118,12 +118,12 @@ export const InlineForm: Story = {
           <Separator />
           <div className="flex justify-end gap-2">
             <PopoverClose asChild>
-              <Button type="outlined" tone="secondary">
+              <Button appearance="outlined" tone="secondary">
                 Cancel
               </Button>
             </PopoverClose>
             <PopoverClose asChild>
-              <Button type="filled" tone="primary">
+              <Button appearance="filled" tone="primary">
                 Save limits
               </Button>
             </PopoverClose>
@@ -139,18 +139,18 @@ export const IconTrigger: Story = {
   render: (args) => (
     <Popover {...args}>
       <PopoverTrigger asChild>
-        <Button type="outlined" tone="secondary" iconOnly aria-label="More options" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
+        <Button appearance="outlined" tone="secondary" iconOnly aria-label="More options" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
       </PopoverTrigger>
       <PopoverContent align="end" className="w-56">
         <div className="flex flex-col gap-1">
-          <Button type="ghost" tone="secondary" className="justify-start">
+          <Button appearance="ghost" tone="secondary" className="justify-start">
             View details
           </Button>
-          <Button type="ghost" tone="secondary" className="justify-start">
+          <Button appearance="ghost" tone="secondary" className="justify-start">
             Reissue certificate
           </Button>
           <PopoverClose asChild>
-            <Button type="ghost" tone="danger" className="justify-start">
+            <Button appearance="ghost" tone="danger" className="justify-start">
               Suspend site
             </Button>
           </PopoverClose>
@@ -168,14 +168,14 @@ export const Controlled: Story = {
       <div className="flex flex-col items-center gap-3">
         <Popover {...args} open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
-            <Button type="outlined" tone="secondary">
+            <Button appearance="outlined" tone="secondary">
               {open ? 'Close panel' : 'Open panel'}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-72">
             <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">This panel&apos;s open state is owned by the parent component.</p>
             <PopoverClose asChild>
-              <Button type="outlined" tone="secondary" className="mt-3 w-full">
+              <Button appearance="outlined" tone="secondary" className="mt-3 w-full">
                 Done
               </Button>
             </PopoverClose>
@@ -195,7 +195,7 @@ export const Open: Story = {
   render: (args) => (
     <Popover {...args}>
       <PopoverTrigger asChild>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           Filters
         </Button>
       </PopoverTrigger>

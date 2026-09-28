@@ -16,7 +16,7 @@ const meta = {
     value: { control: 'text', description: "Qty/text content, e.g. '5' or '99+'. Ignored when dot is set; if icon is also set, icon wins." },
     dot: { control: 'boolean', description: 'Renders a plain dot instead of value/icon — takes priority over both.' },
     icon: { control: false, description: 'Icon content (sized by BadgeIndicator, colored via currentColor). Ignored when dot is set.' },
-    type: { control: 'inline-radio', options: ['filled', 'outlined'], description: 'Fill style.' },
+    appearance: { control: 'inline-radio', options: ['filled', 'outlined'], description: 'Fill style.' },
     shape: { control: 'inline-radio', options: ['round', 'square'], description: 'Outer silhouette.' },
     tone: {
       control: 'select',
@@ -27,7 +27,7 @@ const meta = {
   },
   args: {
     value: '5',
-    type: 'filled',
+    appearance: 'filled',
     shape: 'round',
     tone: 'neutral',
     size: 'sm',
@@ -62,12 +62,12 @@ export const TypeComparison: Story = {
     <div className="flex flex-col gap-3">
       <div className="flex flex-wrap items-center gap-3">
         {(['neutral', 'info', 'success', 'warning', 'danger'] as const).map((tone) => (
-          <BadgeIndicator key={tone} {...args} type="filled" tone={tone} />
+          <BadgeIndicator key={tone} {...args} appearance="filled" tone={tone} />
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-3">
         {(['neutral', 'info', 'success', 'warning', 'danger'] as const).map((tone) => (
-          <BadgeIndicator key={tone} {...args} type="outlined" tone={tone} />
+          <BadgeIndicator key={tone} {...args} appearance="outlined" tone={tone} />
         ))}
       </div>
     </div>

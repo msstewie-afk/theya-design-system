@@ -109,7 +109,7 @@ export function Alert({
       {children}
       {dismissible && (
         <Button
-          type="ghost"
+          appearance="ghost"
           tone={VARIANT_TO_INTENT[tone]}
           iconOnly
           size="sm"

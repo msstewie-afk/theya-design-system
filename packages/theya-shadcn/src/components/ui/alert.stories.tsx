@@ -192,7 +192,7 @@ export const Dismissible: Story = {
             </div>
           </Alert>
         ) : (
-          <Button type="outlined" tone="secondary" size="sm" onClick={() => setOpen(true)}>
+          <Button appearance="outlined" tone="secondary" size="sm" onClick={() => setOpen(true)}>
             Show alert again
           </Button>
         )}
@@ -310,13 +310,13 @@ export const WithActions: Story = {
               <AlertTitle>{c.title}</AlertTitle>
               <AlertDescription>{c.body}</AlertDescription>
               <AlertActions>
-                <Button type="filled" tone={c.primaryTone} size="sm">
+                <Button appearance="filled" tone={c.primaryTone} size="sm">
                   {c.primary}
                 </Button>
-                <Button type="outlined" tone={c.primaryTone} size="sm">
+                <Button appearance="outlined" tone={c.primaryTone} size="sm">
                   {c.secondary}
                 </Button>
-                <Button type="ghost" tone={c.primaryTone} size="sm">
+                <Button appearance="ghost" tone={c.primaryTone} size="sm">
                   {c.tertiary}
                 </Button>
               </AlertActions>
@@ -324,7 +324,7 @@ export const WithActions: Story = {
           </Alert>
         ))}
         {dismissed.length > 0 ? (
-          <Button type="outlined" tone="secondary" size="sm" onClick={() => setDismissed([])}>
+          <Button appearance="outlined" tone="secondary" size="sm" onClick={() => setDismissed([])}>
             Show dismissed alerts
           </Button>
         ) : null}

@@ -54,7 +54,7 @@ export function CodeBlock({ code, language, filename, copy = true, copyLabel = '
           label={null}
           aria-label={copyLabel}
           size="sm"
-          type={hasHeader ? 'ghost' : 'tonal'}
+          appearance={hasHeader ? 'ghost' : 'tonal'}
           onCopied={() => flashStatus('copied')}
           onCopyError={() => flashStatus('error')}
           className={cn(!hasHeader && 'absolute right-2 top-2 z-10')}

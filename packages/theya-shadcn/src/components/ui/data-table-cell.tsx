@@ -509,7 +509,7 @@ function CellSkeleton({ kind, leading, secondary }: { kind: DataTableCellKind; l
 /** The trigger for a `menu` cell: the row's overflow control. Ghost, full 44px touch target below md. */
 export function DataTableCellMenuTrigger({ label, className, children, ...props }: ButtonProps & { label: string }) {
   return (
-    <Button type="ghost" iconOnly size="md" aria-label={label} className={cn('max-md:size-11 [&_svg]:text-[var(--color-text-text)]', className)} leftIcon={children ?? <KebabIconVertical />} {...props} />
+    <Button appearance="ghost" iconOnly size="md" aria-label={label} className={cn('max-md:size-11 [&_svg]:text-[var(--color-text-text)]', className)} leftIcon={children ?? <KebabIconVertical />} {...props} />
   );
 }
 

@@ -51,7 +51,7 @@ function SecretField({
       </code>
       {revealable && (
         <Button
-          type="ghost"
+          appearance="ghost"
           size="sm"
           iconOnly
           aria-label={revealed ? `Hide ${label.toLowerCase()}` : `Reveal ${label.toLowerCase()}`}
@@ -64,7 +64,7 @@ function SecretField({
         value={value}
         label={null}
         aria-label="Copy value"
-        type="ghost"
+        appearance="ghost"
         onCopied={() => toast.success(copyToastTitle, { description: 'Paste it somewhere safe now.' })}
         onCopyError={() => {
           // Clipboard blocked, denied, or unavailable. Reveal the value (when

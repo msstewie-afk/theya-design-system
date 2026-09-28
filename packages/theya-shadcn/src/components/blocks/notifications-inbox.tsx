@@ -224,14 +224,14 @@ export function NotificationsInbox({
         </div>
         <div className="flex items-center gap-1">
           {onOpenSettings && (
-            <Button type="ghost" iconOnly size="md" aria-label="Notification settings" onClick={onOpenSettings} leftIcon={<Settings />} />
+            <Button appearance="ghost" iconOnly size="md" aria-label="Notification settings" onClick={onOpenSettings} leftIcon={<Settings />} />
           )}
           {unreadCount > 0 && (
-            <Button type="ghost" size="md" onClick={markAllRead} leftIcon={<DoubleCheck />}>
+            <Button appearance="ghost" size="md" onClick={markAllRead} leftIcon={<DoubleCheck />}>
               Mark all read
             </Button>
           )}
-          {onClose && <Button type="ghost" iconOnly size="md" aria-label="Close" onClick={onClose} leftIcon={<Xmark />} />}
+          {onClose && <Button appearance="ghost" iconOnly size="md" aria-label="Close" onClick={onClose} leftIcon={<Xmark />} />}
         </div>
       </header>
 
@@ -277,7 +277,7 @@ export function NotificationsInbox({
               description="Try a different status, object, or switch back to All."
               action={
                 <Button
-                  type="outlined"
+                  appearance="outlined"
                   tone="secondary"
                   onClick={() => {
                     setFilter('all');
@@ -359,7 +359,7 @@ function NotificationRow({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
-                type="ghost"
+                appearance="ghost"
                 iconOnly
                 size="md"
                 aria-label={`Actions for ${n.title}`}

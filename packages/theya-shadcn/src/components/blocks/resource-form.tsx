@@ -175,11 +175,11 @@ export function ResourceForm({ title, description, sections, onSubmit, onCancel,
 
       <div className="flex justify-end gap-2">
         {onCancel && (
-          <Button type="outlined" tone="secondary" size="2xl" onClick={onCancel} className="max-sm:w-full">
+          <Button appearance="outlined" tone="secondary" size="2xl" onClick={onCancel} className="max-sm:w-full">
             {cancelLabel}
           </Button>
         )}
-        <Button type="filled" tone="primary" size="2xl" disabled={form.formState.isSubmitting} className="max-sm:w-full">
+        <Button appearance="filled" tone="primary" size="2xl" disabled={form.formState.isSubmitting} className="max-sm:w-full">
           {submitLabel}
         </Button>
       </div>

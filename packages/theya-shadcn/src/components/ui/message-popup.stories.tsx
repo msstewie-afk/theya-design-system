@@ -45,7 +45,7 @@ function AssistantPopup() {
   return (
     <MessagePopup>
       <MessagePopupTrigger>
-        <Button type="filled" tone="primary" iconOnly aria-label="Open assistant" leftIcon={<ChatBubbleEmpty />} className="rounded-full" />
+        <Button appearance="filled" tone="primary" iconOnly aria-label="Open assistant" leftIcon={<ChatBubbleEmpty />} className="rounded-full" />
       </MessagePopupTrigger>
       <MessagePopupContent title="Assistant" description="Ask about your account">
         <Chat className="min-h-0 flex-1">

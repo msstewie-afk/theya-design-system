@@ -47,7 +47,7 @@ export const Default: Story = {
   render: (args) => (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button type="ghost" tone="secondary" iconOnly leftIcon={<Copy />} aria-label="Copy API key" />
+        <Button appearance="ghost" tone="secondary" iconOnly leftIcon={<Copy />} aria-label="Copy API key" />
       </TooltipTrigger>
       <TooltipContent {...args} />
     </Tooltip>
@@ -62,25 +62,25 @@ export const Sides: Story = {
     <div className="flex flex-wrap items-center justify-center gap-3">
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button type="outlined" tone="secondary">Top</Button>
+          <Button appearance="outlined" tone="secondary">Top</Button>
         </TooltipTrigger>
         <TooltipContent {...args} side="top">Opens above</TooltipContent>
       </Tooltip>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button type="outlined" tone="secondary">Right</Button>
+          <Button appearance="outlined" tone="secondary">Right</Button>
         </TooltipTrigger>
         <TooltipContent {...args} side="right">Opens to the right</TooltipContent>
       </Tooltip>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button type="outlined" tone="secondary">Bottom</Button>
+          <Button appearance="outlined" tone="secondary">Bottom</Button>
         </TooltipTrigger>
         <TooltipContent {...args} side="bottom">Opens below</TooltipContent>
       </Tooltip>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button type="outlined" tone="secondary">Left</Button>
+          <Button appearance="outlined" tone="secondary">Left</Button>
         </TooltipTrigger>
         <TooltipContent {...args} side="left">Opens to the left</TooltipContent>
       </Tooltip>
@@ -94,7 +94,7 @@ export const OnTextButton: Story = {
   render: (args) => (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button type="outlined" tone="secondary" leftIcon={<Refresh />}>
+        <Button appearance="outlined" tone="secondary" leftIcon={<Refresh />}>
           Reissue certificate
         </Button>
       </TooltipTrigger>
@@ -109,7 +109,7 @@ export const WithIdentifier: Story = {
   render: (args) => (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button type="ghost" tone="secondary" iconOnly leftIcon={<InfoCircle />} aria-label="Region details" />
+        <Button appearance="ghost" tone="secondary" iconOnly leftIcon={<InfoCircle />} aria-label="Region details" />
       </TooltipTrigger>
       <TooltipContent {...args} />
     </Tooltip>
@@ -122,7 +122,7 @@ export const Open: Story = {
   render: (args) => (
     <Tooltip defaultOpen>
       <TooltipTrigger asChild>
-        <Button type="outlined" tone="secondary">Hover or focus me</Button>
+        <Button appearance="outlined" tone="secondary">Hover or focus me</Button>
       </TooltipTrigger>
       <TooltipContent {...args} />
     </Tooltip>
@@ -138,7 +138,7 @@ export const LongContent: Story = {
   render: (args) => (
     <Tooltip defaultOpen>
       <TooltipTrigger asChild>
-        <Button type="outlined" tone="secondary">Renewal details</Button>
+        <Button appearance="outlined" tone="secondary">Renewal details</Button>
       </TooltipTrigger>
       <TooltipContent {...args} />
     </Tooltip>
@@ -165,7 +165,7 @@ export const ResultIntents: Story = {
         <Tooltip open={state !== 'idle' ? true : undefined}>
           <TooltipTrigger asChild>
             <Button
-              type="ghost"
+              appearance="ghost"
               tone="secondary"
               iconOnly
               leftIcon={<Copy />}

@@ -33,7 +33,7 @@ export const BulkActions: Story = {
         <Download /> Export
       </ToolbarButton>
       <ToolbarSeparator />
-      <ToolbarButton type="ghost" tone="danger">
+      <ToolbarButton appearance="ghost" tone="danger">
         <Trash /> Delete
       </ToolbarButton>
     </Toolbar>
@@ -87,7 +87,7 @@ export const WithIntent: Story = {
         <Download /> Export
       </ToolbarButton>
       <ToolbarSeparator />
-      <ToolbarButton type="ghost" tone="danger">
+      <ToolbarButton appearance="ghost" tone="danger">
         <Trash /> Delete
       </ToolbarButton>
     </Toolbar>

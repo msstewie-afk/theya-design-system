@@ -57,8 +57,8 @@ export const WithActions: Story = {
   args: {
     actions: (
       <>
-        <Button type="outlined">Import</Button>
-        <Button type="filled" tone="primary" leftIcon={<Plus />}>
+        <Button appearance="outlined">Import</Button>
+        <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
           Create site
         </Button>
       </>
@@ -86,7 +86,7 @@ export const WithBreadcrumbAndMeta: Story = {
         </BreadcrumbList>
       </Breadcrumb>
     ),
-    actions: <Button type="outlined">Visit site</Button>,
+    actions: <Button appearance="outlined">Visit site</Button>,
     children: (
       <>
         <Badge tone="success">
@@ -107,7 +107,7 @@ export const SectionHeader: Story = {
     title: 'API tokens',
     description: 'Personal access tokens for the CLI and CI.',
     actions: (
-      <Button type="filled" tone="primary" size="md">
+      <Button appearance="filled" tone="primary" size="md">
         New token
       </Button>
     ),
@@ -126,7 +126,7 @@ export const WithBackNavigation: Story = {
     description: undefined,
     breadcrumb: (
       <div className="flex items-center gap-1">
-        <Button type="ghost" iconOnly size="md" aria-label="Back to sites" leftIcon={<ArrowLeft />} />
+        <Button appearance="ghost" iconOnly size="md" aria-label="Back to sites" leftIcon={<ArrowLeft />} />
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -150,15 +150,15 @@ export const WithKebabMenu: Story = {
   args: {
     actions: (
       <>
-        <Button type="outlined" className="hidden sm:inline-flex">
+        <Button appearance="outlined" className="hidden sm:inline-flex">
           Import
         </Button>
-        <Button type="filled" tone="primary" leftIcon={<Plus />}>
+        <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
           Create site
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button type="outlined" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />
+            <Button appearance="outlined" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem className="sm:hidden">Import</DropdownMenuItem>
@@ -198,7 +198,7 @@ export const WithTags: Story = {
         <Chip interactive={false}>
           PHP 8.3
         </Chip>
-        <Button type="ghost" iconOnly size="md" aria-label="Add tag" leftIcon={<Plus />} />
+        <Button appearance="ghost" iconOnly size="md" aria-label="Add tag" leftIcon={<Plus />} />
       </>
     ),
   },
@@ -214,9 +214,9 @@ export const WithContentActions: Story = {
   args: {
     title: 'shop.seashell.dev',
     description: 'This site was suspended for exceeding its bandwidth quota.',
-    actions: <Button type="outlined">Visit site</Button>,
+    actions: <Button appearance="outlined">Visit site</Button>,
     contentActions: (
-      <Button type="outlined" size="md">
+      <Button appearance="outlined" size="md">
         Reinstate site
       </Button>
     ),
@@ -270,7 +270,7 @@ export const AllElements: Story = {
       'Every site across your servers, grouped by environment. Production sites are backed up nightly and monitored for uptime; staging and development sites are excluded from paging.',
     breadcrumb: (
       <div className="flex items-center gap-1">
-        <Button type="ghost" iconOnly size="md" aria-label="Back to sites" leftIcon={<ArrowLeft />} />
+        <Button appearance="ghost" iconOnly size="md" aria-label="Back to sites" leftIcon={<ArrowLeft />} />
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -292,20 +292,20 @@ export const AllElements: Story = {
         <Chip interactive={false}>
           PHP 8.3
         </Chip>
-        <Button type="ghost" iconOnly size="md" aria-label="Add tag" leftIcon={<Plus />} />
+        <Button appearance="ghost" iconOnly size="md" aria-label="Add tag" leftIcon={<Plus />} />
       </>
     ),
     actions: (
       <>
-        <Button type="outlined" className="hidden sm:inline-flex">
+        <Button appearance="outlined" className="hidden sm:inline-flex">
           Import
         </Button>
-        <Button type="filled" tone="primary" leftIcon={<Plus />}>
+        <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
           Create site
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button type="outlined" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />
+            <Button appearance="outlined" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem className="sm:hidden">Import</DropdownMenuItem>
@@ -319,7 +319,7 @@ export const AllElements: Story = {
       </>
     ),
     contentActions: (
-      <Button type="outlined" size="md">
+      <Button appearance="outlined" size="md">
         Reinstate site
       </Button>
     ),
@@ -358,10 +358,10 @@ export const Full: Story = {
     ),
     actions: (
       <>
-        <Button type="filled" tone="primary" leftIcon={<Plus />}>
+        <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
           New deployment
         </Button>
-        <Button type="ghost" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />
+        <Button appearance="ghost" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />
       </>
     ),
   },

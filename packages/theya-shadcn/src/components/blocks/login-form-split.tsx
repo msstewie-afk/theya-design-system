@@ -76,7 +76,7 @@ export function LoginFormSplit({
               {logo}
               {backHref && (
                 <Button
-                  type="outlined"
+                  appearance="outlined"
                   tone="secondary"
                   size="md"
                   asChild

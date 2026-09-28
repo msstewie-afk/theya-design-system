@@ -50,7 +50,7 @@ export const Default: Story = {
   render: () => (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button type="ghost" tone="secondary" size="md" iconOnly leftIcon={<KebabIconHorizontal />} aria-label="Open actions for shop.seashell.dev" className="[&_svg]:text-[var(--color-text-text)]" />
+        <Button appearance="ghost" tone="secondary" size="md" iconOnly leftIcon={<KebabIconHorizontal />} aria-label="Open actions for shop.seashell.dev" className="[&_svg]:text-[var(--color-text-text)]" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel className="font-mono text-heading-2xs normal-case tracking-normal">shop.seashell.dev</DropdownMenuLabel>
@@ -84,7 +84,7 @@ export const Open: Story = {
   render: (_args, context) => (
     <DropdownMenu defaultOpen={context.viewMode !== 'docs'}>
       <DropdownMenuTrigger asChild>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           Actions
         </Button>
       </DropdownMenuTrigger>
@@ -107,7 +107,7 @@ export const GroupsWithLabels: Story = {
   render: () => (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           Grouped actions
         </Button>
       </DropdownMenuTrigger>
@@ -134,7 +134,7 @@ export const Destructive: Story = {
   render: () => (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           Manage site
         </Button>
       </DropdownMenuTrigger>
@@ -160,7 +160,7 @@ export const CheckboxAndRadio: Story = {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button type="outlined" tone="secondary">
+          <Button appearance="outlined" tone="secondary">
             View
           </Button>
         </DropdownMenuTrigger>
@@ -190,7 +190,7 @@ export const WithSubMenu: Story = {
   render: () => (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button type="outlined" tone="secondary" leftIcon={<Plus />}>
+        <Button appearance="outlined" tone="secondary" leftIcon={<Plus />}>
           Add
         </Button>
       </DropdownMenuTrigger>
@@ -221,7 +221,7 @@ export const WithTrailing: Story = {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button type="outlined" tone="secondary">
+          <Button appearance="outlined" tone="secondary">
             Manage a.smith7
           </Button>
         </DropdownMenuTrigger>
@@ -242,7 +242,7 @@ export const WithTrailing: Story = {
               <span className="flex-1 truncate">Auto-responder</span>
               <DropdownMenuTrailing>
                 <Button
-                  type="ghost"
+                  appearance="ghost"
                   tone="danger"
                   size="sm"
                   iconOnly
@@ -271,7 +271,7 @@ export const WithDisabledItem: Story = {
   render: () => (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           Manage staging.seashell.dev
         </Button>
       </DropdownMenuTrigger>

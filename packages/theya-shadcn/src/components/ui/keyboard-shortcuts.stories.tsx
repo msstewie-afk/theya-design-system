@@ -58,7 +58,7 @@ export const Default: Story = {
     groups,
     description: 'A quick reference for getting around faster.',
     trigger: (
-      <Button type="outlined" tone="secondary" leftIcon={<KeyCommand />}>
+      <Button appearance="outlined" tone="secondary" leftIcon={<KeyCommand />}>
         Shortcuts
       </Button>
     ),
@@ -96,13 +96,13 @@ export const ScopedHotkey: Story = {
       <div className="flex w-[420px] flex-col gap-4 font-body text-body-s">
         <div className="rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] p-4">
           <p className="mb-2 font-medium text-[var(--color-text-text)]">Sidebar (out of scope)</p>
-          <Button type="outlined" tone="secondary" size="md">
+          <Button appearance="outlined" tone="secondary" size="md">
             Sidebar button
           </Button>
         </div>
         <div ref={mainRef} className="rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-primary)] p-4">
           <p className="mb-2 font-medium text-[var(--color-text-text)]">Main area (in scope)</p>
-          <Button type="filled" tone="secondary" size="md">
+          <Button appearance="filled" tone="secondary" size="md">
             Main area button
           </Button>
         </div>
@@ -118,7 +118,7 @@ export const Open: Story = {
     groups,
     description: 'A quick reference for getting around faster.',
     trigger: (
-      <Button type="outlined" tone="secondary">
+      <Button appearance="outlined" tone="secondary">
         Shortcuts
       </Button>
     ),
@@ -139,7 +139,7 @@ export const SingleGroup: Story = {
       },
     ],
     trigger: (
-      <Button type="outlined" tone="secondary">
+      <Button appearance="outlined" tone="secondary">
         Keyboard help
       </Button>
     ),

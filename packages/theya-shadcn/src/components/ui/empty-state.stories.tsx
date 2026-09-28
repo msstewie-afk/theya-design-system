@@ -36,7 +36,7 @@ const meta = {
     titleAs: 'h2',
     description: 'Connect a domain to start serving traffic from this account.',
     action: (
-      <Button type="filled" tone="primary" leftIcon={<Plus />}>
+      <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
         Create site
       </Button>
     ),
@@ -62,7 +62,7 @@ export const Filtered: Story = {
     filteredTitle: 'No results',
     filteredDescription: 'Try adjusting your filters or search query.',
     filteredAction: (
-      <Button type="outlined" tone="secondary">
+      <Button appearance="outlined" tone="secondary">
         Clear filters
       </Button>
     ),
@@ -77,7 +77,7 @@ export const NoResults: Story = {
     title: 'No certificates match eu-west-1',
     description: 'Try a different region or clear the filter to see all 12 certificates.',
     action: (
-      <Button type="outlined" tone="secondary">
+      <Button appearance="outlined" tone="secondary">
         Clear filters
       </Button>
     ),
@@ -105,10 +105,10 @@ export const TwoActions: Story = {
     description: 'Invite a teammate, or read how roles and permissions work.',
     action: (
       <>
-        <Button type="filled" tone="primary">
+        <Button appearance="filled" tone="primary">
           Invite teammate
         </Button>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           View docs
         </Button>
       </>
@@ -130,10 +130,10 @@ export const ComposedFromParts: Story = {
         Logs for <span className="font-mono">shop.seashell.dev</span> will appear here after the first deploy.
       </EmptyStateDescription>
       <EmptyStateActions>
-        <Button type="filled" tone="primary">
+        <Button appearance="filled" tone="primary">
           Trigger deploy
         </Button>
-        <Button type="outlined" tone="secondary">
+        <Button appearance="outlined" tone="secondary">
           View docs
         </Button>
       </EmptyStateActions>
@@ -150,7 +150,7 @@ export const LongContent: Story = {
     title: 'No matching results for staging.eu-west-1.shop.seashell.dev',
     description: 'Nothing matches this very specific filter. Broaden the query or clear it to see every record in the region.',
     action: (
-      <Button type="outlined" tone="secondary">
+      <Button appearance="outlined" tone="secondary">
         Clear filters
       </Button>
     ),

@@ -99,7 +99,7 @@ function RowMenu<Row>({ row, actions, rowLabel }: { row: Row; actions: ListRowAc
     <DataTableCell kind="menu">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button type="ghost" iconOnly size="md" aria-label={`Actions for ${rowLabel}`} className="max-md:size-11" leftIcon={<KebabIconVertical />} />
+          <Button appearance="ghost" iconOnly size="md" aria-label={`Actions for ${rowLabel}`} className="max-md:size-11" leftIcon={<KebabIconVertical />} />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           {actions.map((a, i) => (

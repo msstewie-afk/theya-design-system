@@ -193,7 +193,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
         !disabled &&
         !rest.readOnly && (
           <Button
-            type="ghost"
+            appearance="ghost"
             size="sm"
             iconOnly
             onClick={handleClear}

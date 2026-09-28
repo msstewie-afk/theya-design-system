@@ -143,7 +143,7 @@ function NotificationActions({ label, read, onToggleRead, onDismiss }: { label: 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button type="ghost" iconOnly size="md" aria-label={`Actions for ${label}`} onClick={(e) => e.stopPropagation()} leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />
+        <Button appearance="ghost" iconOnly size="md" aria-label={`Actions for ${label}`} onClick={(e) => e.stopPropagation()} leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {read ? (
@@ -226,7 +226,7 @@ export const Notification: Story = {
             {action && (
               // mt-2 (was mt-1): nudged 4px further down from the description
               // per Мария's review, so it doesn't crowd the line above it.
-              <Button type="tonal" tone="secondary" size="md" className="mt-2 self-start" onClick={(e) => e.stopPropagation()}>
+              <Button appearance="tonal" tone="secondary" size="md" className="mt-2 self-start" onClick={(e) => e.stopPropagation()}>
                 {action}
               </Button>
             )}
@@ -265,7 +265,7 @@ export const InteractiveWithAction: Story = {
         leading={<Server />}
         title="shop.seashell.dev"
         description={<>Production<DotSeparator />eu-west-1</>}
-        trailing={<Button type="ghost" iconOnly size="md" aria-label="More actions" onClick={(e) => e.stopPropagation()} leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />}
+        trailing={<Button appearance="ghost" iconOnly size="md" aria-label="More actions" onClick={(e) => e.stopPropagation()} leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />}
       />
     </div>
   ),

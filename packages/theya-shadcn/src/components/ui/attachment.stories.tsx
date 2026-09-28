@@ -99,7 +99,7 @@ export const MimeTypes: Story = {
 export const CustomAction: Story = {
   name: 'Custom action',
   args: {
-    actions: <Button type="ghost" size="sm" iconOnly aria-label="Download quarterly-report.pdf" leftIcon={<Download />} />,
+    actions: <Button appearance="ghost" size="sm" iconOnly aria-label="Download quarterly-report.pdf" leftIcon={<Download />} />,
     onRemove: () => {},
   },
 };
@@ -122,7 +122,7 @@ export const Card: Story = {
         name="release.mp4"
         type="video/mp4"
         size={48400000}
-        actions={<Button type="ghost" size="sm" iconOnly aria-label="Download release.mp4" leftIcon={<Download />} />}
+        actions={<Button appearance="ghost" size="sm" iconOnly aria-label="Download release.mp4" leftIcon={<Download />} />}
       />
     </div>
   ),
@@ -282,7 +282,7 @@ export const AsLink: Story = {
         name="quarterly-report.pdf"
         type="application/pdf"
         size={248000}
-        actions={<Button type="ghost" size="sm" iconOnly aria-label="More actions" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />}
+        actions={<Button appearance="ghost" size="sm" iconOnly aria-label="More actions" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />}
       />
       <Attachment variant="row" href="#cover" name="cover.png" type="image/png" size={184000} />
       <Attachment variant="row" name="static.csv" type="text/plain" size={9200} />
@@ -330,7 +330,7 @@ export const InteractiveStates: Story = {
           name="quarterly-report.pdf"
           type="application/pdf"
           size={248000}
-          actions={<Button type="ghost" size="sm" iconOnly aria-label="More actions" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />}
+          actions={<Button appearance="ghost" size="sm" iconOnly aria-label="More actions" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />}
         />
         <Attachment variant="row" href="#cover" name="cover.png" type="image/png" size={184000} selected />
         <Attachment variant="row" name="static.csv" type="text/plain" size={9200} />
