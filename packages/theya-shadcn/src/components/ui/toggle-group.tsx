@@ -33,16 +33,16 @@ import { toggleVariants } from './toggle';
  */
 const ToggleGroupContext = createContext<VariantProps<typeof toggleVariants>>({
   size: 'md',
-  variant: 'ghost',
+  appearance: 'ghost',
 });
 
 export type ToggleGroupProps = React.ComponentProps<typeof ToggleGroupPrimitive.Root> &
   VariantProps<typeof toggleVariants>;
 
-function ToggleGroup({ className, variant = 'ghost', size, children, ...props }: ToggleGroupProps) {
+function ToggleGroup({ className, appearance = 'ghost', size, children, ...props }: ToggleGroupProps) {
   return (
-    <ToggleGroupPrimitive.Root className={cn('flex w-fit items-center rounded-[var(--size-border-radius-border-radius-md)]', className)} data-variant={variant} {...props}>
-      <ToggleGroupContext.Provider value={{ variant, size }}>{children}</ToggleGroupContext.Provider>
+    <ToggleGroupPrimitive.Root className={cn('flex w-fit items-center rounded-[var(--size-border-radius-border-radius-md)]', className)} data-appearance={appearance} {...props}>
+      <ToggleGroupContext.Provider value={{ appearance, size }}>{children}</ToggleGroupContext.Provider>
     </ToggleGroupPrimitive.Root>
   );
 }
@@ -51,28 +51,28 @@ export interface ToggleGroupItemProps
   extends React.ComponentProps<typeof ToggleGroupPrimitive.Item>,
     VariantProps<typeof toggleVariants> {}
 
-function ToggleGroupItem({ className, children, variant, size, ...props }: ToggleGroupItemProps) {
+function ToggleGroupItem({ className, children, appearance, size, ...props }: ToggleGroupItemProps) {
   const context = useContext(ToggleGroupContext);
-  const resolvedVariant = context.variant ?? variant;
+  const resolvedAppearance = context.appearance ?? appearance;
   const resolvedSize = context.size ?? size;
 
   return (
     <ToggleGroupPrimitive.Item
-      data-variant={resolvedVariant}
+      data-appearance={resolvedAppearance}
       className={cn(
-        toggleVariants({ variant: resolvedVariant, size: resolvedSize }),
+        toggleVariants({ appearance: resolvedAppearance, size: resolvedSize }),
         'shrink-0 rounded-none first:rounded-l-[var(--size-border-radius-border-radius-md)]',
         'last:rounded-r-[var(--size-border-radius-border-radius-md)]',
         // outline only: cancel toggleVariants' own real border and draw
         // the seam as an inset shadow instead — see the file-level note.
-        'data-[variant=outline]:border-0',
-        'data-[variant=outline]:not-first:-ml-px',
+        'data-[appearance=outlined]:border-0',
+        'data-[appearance=outlined]:not-first:-ml-px',
         // Pressed items keep a frame too — just recolored to primary
         // instead of losing it, matching the reference's "grey at rest,
         // swapped for the ring when pressed, never stacked" rule.
-        'data-[variant=outline]:data-[state=off]:shadow-[inset_0_0_0_1px_var(--color-border-border-default)]',
-        'data-[variant=outline]:data-[state=on]:shadow-[inset_0_0_0_1px_var(--color-bg-primary-bg-primary)]',
-        'data-[variant=outline]:data-[state=on]:z-[1]',
+        'data-[appearance=outlined]:data-[state=off]:shadow-[inset_0_0_0_1px_var(--color-border-border-default)]',
+        'data-[appearance=outlined]:data-[state=on]:shadow-[inset_0_0_0_1px_var(--color-bg-primary-bg-primary)]',
+        'data-[appearance=outlined]:data-[state=on]:z-[1]',
         'focus-visible:z-10',
         className,
       )}

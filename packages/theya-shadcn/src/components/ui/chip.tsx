@@ -24,10 +24,10 @@ import type { StatusTone } from './status-dot';
  * "X Remove X" without it.
  */
 export type ChipTone = StatusTone;
-export type ChipAppearance = 'subtle' | 'solid';
+export type ChipAppearance = 'tonal' | 'filled';
 export type ChipSize = 'sm' | 'md' | 'lg';
 
-// Base (unselected) look for `appearance="subtle"` — the tinted "tonal"
+// Base (unselected) look for `appearance="tonal"` — the tinted "tonal"
 // background, matching Button's own `type="tonal"` per-intent colors
 // (`neutral` here maps to Button's `intent="default"`, `danger` to
 // `intent="danger"`). Hover states come from HOVER_CLASS below, same
@@ -62,8 +62,8 @@ const BORDER_TONE_CLASS: Record<ChipTone, string> = {
 // "Solid look" — full-saturation tone background + on-dark text, matching
 // Button's `type="filled"` per-intent colors 1:1 (including its
 // accessibility-adjusted Success hex and the dark-text-on-light Warning
-// pairing). Used for `appearance="solid"` at rest, AND for a *selected*
-// `appearance="subtle"` (tonal) chip — Мария's call: a selected tonal chip
+// pairing). Used for `appearance="filled"` at rest, AND for a *selected*
+// `appearance="tonal"` (tonal) chip — Мария's call: a selected tonal chip
 // should read as solid, not stay in its tinted state.
 export const SOLID_TONE_CLASS: Record<ChipTone, string> = {
   neutral: 'border-transparent bg-[#65656b] text-[var(--color-text-text-on-dark)]',
@@ -88,8 +88,8 @@ export const SOLID_TONE_CLASS: Record<ChipTone, string> = {
 // Hover shades, one set per "look" (subtle/solid), lifted directly from
 // Button's tonal/filled compound variants so Chip's hover states never
 // drift from Button's — see button.tsx's own TONAL/FILLED sections.
-const HOVER_CLASS: Record<'subtle' | 'solid', Record<ChipTone, string>> = {
-  subtle: {
+const HOVER_CLASS: Record<'tonal' | 'filled', Record<ChipTone, string>> = {
+  tonal: {
     neutral: 'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)]',
     primary: 'hover:bg-[var(--color-bg-primary-bg-primary-subtle-hover)]',
     success: 'hover:bg-[var(--color-bg-success-bg-success-subtle-hover)]',
@@ -97,7 +97,7 @@ const HOVER_CLASS: Record<'subtle' | 'solid', Record<ChipTone, string>> = {
     danger: 'hover:bg-[var(--color-bg-danger-bg-danger-subtle-hover)]',
     info: 'hover:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:hover:bg-[var(--color-cyan-cyan-700)]',
   },
-  solid: {
+  filled: {
     neutral: 'hover:bg-[#535358]',
     primary: 'hover:bg-[var(--color-bg-primary-bg-primary-hover)]',
     success: 'hover:bg-[var(--color-bg-success-bg-success-hover)]',
@@ -117,12 +117,12 @@ function decorativeIcon(node: ReactNode): ReactNode {
 
 export interface ChipProps extends Omit<React.ComponentProps<'span'>, 'onClick' | 'onKeyDown'> {
   tone?: ChipTone;
-  /** `'subtle'` (default) — tinted background, matches Badge's default look. `'solid'` — full tone background + on-dark text. */
+  /** `'tonal'` (default) — tinted background, matches Badge's default look. `'filled'` — full tone background + on-dark text. */
   appearance?: ChipAppearance;
   /** Adds a tone-colored border on top of `appearance`. Off by default — every tone (including neutral) is borderless at rest. */
   bordered?: boolean;
   size?: ChipSize;
-  /** Leading icon, before the label. Unstyled — sized automatically to the chip's size variant. Replaced by a checkmark when a `appearance="solid"` chip is selected (see `pressed`/`defaultPressed`). */
+  /** Leading icon, before the label. Unstyled — sized automatically to the chip's size variant. Replaced by a checkmark when a `appearance="filled"` chip is selected (see `pressed`/`defaultPressed`). */
   icon?: ReactNode;
   interactive?: boolean;
   asChild?: boolean;
@@ -137,7 +137,7 @@ export interface ChipProps extends Omit<React.ComponentProps<'span'>, 'onClick' 
 export function Chip({
   className,
   tone = 'neutral',
-  appearance = 'subtle',
+  appearance = 'tonal',
   bordered = false,
   size = 'md',
   icon,
@@ -171,11 +171,11 @@ export function Chip({
   // solid. Only the base appearance/selection state decide the look — the
   // colors themselves are static per render, no CSS-side data-attribute
   // branching needed.
-  const look: 'subtle' | 'solid' = appearance === 'solid' || isSelected ? 'solid' : 'subtle';
+  const look: 'tonal' | 'filled' = appearance === 'filled' || isSelected ? 'filled' : 'tonal';
   // Checkmark swap-in is narrower: only an actually solid-appearance chip
   // gets it when selected (Мария's call) — a tonal chip that merely *looks*
   // solid because it's selected keeps its own icon/no-icon as passed.
-  const showSelectedCheck = appearance === 'solid' && isSelected;
+  const showSelectedCheck = appearance === 'filled' && isSelected;
   const displayIcon = showSelectedCheck ? <Check /> : icon;
 
   return (
@@ -206,7 +206,7 @@ export function Chip({
           : size === 'lg'
             ? 'h-8 rounded-[var(--size-border-radius-border-radius-lg)] pr-2.5 text-body-s'
             : 'h-[26px] rounded-[var(--size-border-radius-border-radius-md)] pr-2',
-        look === 'solid' ? SOLID_TONE_CLASS[tone] : TONE_CLASS[tone],
+        look === 'filled' ? SOLID_TONE_CLASS[tone] : TONE_CLASS[tone],
         bordered && BORDER_TONE_CLASS[tone],
         isPressable &&
           cn('cursor-pointer', HOVER_CLASS[look][tone], 'data-[disabled]:pointer-events-none data-[disabled]:opacity-50'),

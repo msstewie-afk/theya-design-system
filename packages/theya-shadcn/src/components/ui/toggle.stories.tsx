@@ -7,7 +7,7 @@ const meta: Meta<typeof Toggle> = {
   component: Toggle,
   tags: ['autodocs'],
   argTypes: {
-    variant: { control: 'radio', options: ['tonal', 'outline', 'ghost'], description: 'Fill style.', table: { category: 'Appearance' } },
+    appearance: { control: 'radio', options: ['tonal', 'outlined', 'ghost'], description: 'Fill style.', table: { category: 'Appearance' } },
     size: { control: 'radio', options: ['s', 'md', 'lg'], description: 'Toggle size.', table: { category: 'Appearance' } },
     disabled: { control: 'boolean', description: 'Disables the toggle.', table: { category: 'State' } },
     pressed: { control: 'boolean', description: 'Controlled pressed state.', table: { category: 'State' } },
@@ -38,13 +38,13 @@ export const IconOnly: Story = {
 export const Variants: Story = {
   render: () => (
     <div className="flex gap-3">
-      <Toggle variant="tonal" aria-label="Bold">
+      <Toggle appearance="tonal" aria-label="Bold">
         <Bold />
       </Toggle>
-      <Toggle variant="outline" aria-label="Italic">
+      <Toggle appearance="outlined" aria-label="Italic">
         <Italic />
       </Toggle>
-      <Toggle variant="ghost" aria-label="Underline">
+      <Toggle appearance="ghost" aria-label="Underline">
         <Underline />
       </Toggle>
     </div>

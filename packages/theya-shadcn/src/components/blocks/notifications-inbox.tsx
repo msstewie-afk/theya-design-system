@@ -244,7 +244,7 @@ export function NotificationsInbox({
         </div>
         <ToggleGroup
           type="single"
-          variant="outline"
+          appearance="outlined"
           size="md"
           value={filter}
           // type="single" can clear to "" on re-press; keep a filter selected.

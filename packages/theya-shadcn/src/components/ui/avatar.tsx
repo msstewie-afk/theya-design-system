@@ -8,8 +8,8 @@ import type { BadgeIndicatorProps } from './badge-indicator';
 export type AvatarSize = 'sm' | 'md' | 'lg'; // 32 / 48 / 64 — Figma Small/Medium/Large
 export type AvatarShape = 'circle' | 'square';
 /** Fallback fill treatment — independent of `outline`. */
-export type AvatarTone = 'subtle' | 'solid';
-/** Ring treatment, independent of `tone`. 'none' draws no ring at all. */
+export type AvatarAppearance = 'tonal' | 'filled';
+/** Ring treatment, independent of `appearance`. 'none' draws no ring at all. */
 export type AvatarOutline = 'none' | 'solid' | 'gradient';
 /** Figma's Type variant — which content the avatar shows. */
 export type AvatarContentType = 'icon' | 'image' | 'text';
@@ -99,7 +99,7 @@ export interface AvatarProps extends React.ComponentProps<typeof AvatarPrimitive
   /** `type="image"`: shown while the image loads or if it fails to load. Falls back to `initials`, then `icon`. */
   fallback?: ReactNode;
   /** Fill for `AvatarFallback` when using the `type` shorthand (`text`/`icon`/an image's fallback). Independent of `outline`. */
-  tone?: AvatarTone;
+  appearance?: AvatarAppearance;
 }
 
 /**
@@ -121,7 +121,7 @@ export function Avatar({
   src,
   alt,
   fallback,
-  tone = 'subtle',
+  appearance = 'tonal',
   children,
   ...props
 }: AvatarProps) {
@@ -135,13 +135,13 @@ export function Avatar({
   // `type`) still works exactly as before.
   const resolvedChildren =
     type === 'text' ? (
-      <AvatarFallback tone={tone}>{initials}</AvatarFallback>
+      <AvatarFallback appearance={appearance}>{initials}</AvatarFallback>
     ) : type === 'icon' ? (
-      <AvatarFallback tone={tone}>{icon}</AvatarFallback>
+      <AvatarFallback appearance={appearance}>{icon}</AvatarFallback>
     ) : type === 'image' ? (
       <>
         <AvatarImage src={src} alt={alt ?? ''} />
-        <AvatarFallback tone={tone}>{fallback ?? initials ?? icon}</AvatarFallback>
+        <AvatarFallback appearance={appearance}>{fallback ?? initials ?? icon}</AvatarFallback>
       </>
     ) : (
       children
@@ -201,10 +201,10 @@ export function AvatarImage({ className, style, ...props }: React.ComponentProps
 }
 
 export interface AvatarFallbackProps extends React.ComponentProps<typeof AvatarPrimitive.Fallback> {
-  tone?: AvatarTone;
+  appearance?: AvatarAppearance;
 }
 
-export function AvatarFallback({ className, style, tone = 'subtle', delayMs, ...props }: AvatarFallbackProps) {
+export function AvatarFallback({ className, style, appearance = 'tonal', delayMs, ...props }: AvatarFallbackProps) {
   const avatarSize = useContext(AvatarSizeContext);
   return (
     <AvatarPrimitive.Fallback
@@ -212,7 +212,7 @@ export function AvatarFallback({ className, style, tone = 'subtle', delayMs, ...
       className={cn(
         'flex items-center justify-center font-body font-semibold',
         FALLBACK_TEXT_CLASS[avatarSize],
-        tone === 'solid'
+        appearance === 'filled'
           ? 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-dark)]'
           : 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
         className,

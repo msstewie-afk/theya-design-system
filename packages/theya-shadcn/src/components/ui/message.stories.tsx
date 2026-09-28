@@ -17,7 +17,7 @@ const meta: Meta<typeof Message> = {
   parameters: { layout: 'padded' },
   argTypes: {
     variant: { control: 'inline-radio', options: ['received', 'sent'], description: 'Message direction.' },
-    tone: { control: 'inline-radio', options: ['filled', 'tonal'], description: 'Only affects variant="sent": filled (solid primary) or tonal (primary-subtle).' },
+    appearance: { control: 'inline-radio', options: ['filled', 'tonal'], description: 'Only affects variant="sent": filled (solid primary) or tonal (primary-subtle).' },
     avatar: { control: false, description: 'Leading Avatar (usually shown on received messages).' },
     author: { control: 'text', description: 'Sender name shown above the bubble.' },
     timestamp: { control: 'text', description: 'Time label shown beside the author.' },
@@ -70,7 +70,7 @@ export const WithAttachment: Story = {
   name: 'With attachment',
   render: () => (
     <div className="max-w-xl">
-      <Message variant="sent" tone="tonal" timestamp="10:04 AM">
+      <Message variant="sent" appearance="tonal" timestamp="10:04 AM">
         <div className="flex flex-col gap-2">
           <Attachment name="error-log.txt" size={18400} />
           <span>Here is the log from the failed deploy.</span>
@@ -84,10 +84,10 @@ export const WithAttachment: Story = {
 export const Tone: Story = {
   render: () => (
     <div className="flex max-w-xl flex-col items-end gap-2">
-      <Message variant="sent" tone="filled" timestamp="9:33 AM">
+      <Message variant="sent" appearance="filled" timestamp="9:33 AM">
         Filled (default) — solid primary.
       </Message>
-      <Message variant="sent" tone="tonal" timestamp="9:33 AM">
+      <Message variant="sent" appearance="tonal" timestamp="9:33 AM">
         Tonal — lighter primary-subtle.
       </Message>
     </div>

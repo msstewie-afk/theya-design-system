@@ -37,7 +37,7 @@ const meta = {
       options: ['icon', 'image', 'text'],
       description: 'Shorthand for the content variant — renders icon/image/initials without composing AvatarImage/AvatarFallback by hand.',
     },
-    tone: { control: 'inline-radio', options: ['subtle', 'solid'], description: 'Fill for AvatarFallback when using the type shorthand.' },
+    appearance: { control: 'inline-radio', options: ['tonal', 'filled'], description: 'Fill for AvatarFallback when using the type shorthand.' },
     initials: { control: 'text', description: 'type="text": the initials/short text to show.' },
     src: { control: 'text', description: 'type="image": the image source.' },
     alt: { control: 'text', description: 'type="image": required alt text, announced in place of the photo.' },
@@ -123,13 +123,13 @@ export const FallbackTone: Story = {
     <div className="flex items-end gap-6">
       <div className="flex flex-col items-center gap-1.5">
         <Avatar outline="none">
-          <AvatarFallback tone="subtle">AL</AvatarFallback>
+          <AvatarFallback appearance="tonal">AL</AvatarFallback>
         </Avatar>
         <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">Subtle</span>
       </div>
       <div className="flex flex-col items-center gap-1.5">
         <Avatar outline="none">
-          <AvatarFallback tone="solid">AL</AvatarFallback>
+          <AvatarFallback appearance="filled">AL</AvatarFallback>
         </Avatar>
         <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">Solid</span>
       </div>
@@ -201,7 +201,7 @@ export const Badge: Story = {
         <AvatarBadge>9+</AvatarBadge>
       </Avatar>
       <Avatar outline="none">
-        <AvatarFallback tone="solid">AL</AvatarFallback>
+        <AvatarFallback appearance="filled">AL</AvatarFallback>
         <AvatarBadge dot tone="success" />
       </Avatar>
       <Avatar>
@@ -254,11 +254,11 @@ export const Group: Story = {
     <div className="flex -space-x-2">
       {['AL', 'GH', 'AT', 'MH'].map((initials) => (
         <Avatar key={initials} outline="none" className="border-2 border-solid border-[var(--color-bg-surface-bg-surface)]">
-          <AvatarFallback tone="solid">{initials}</AvatarFallback>
+          <AvatarFallback appearance="filled">{initials}</AvatarFallback>
         </Avatar>
       ))}
       <Avatar outline="none" className="border-2 border-solid border-[var(--color-bg-surface-bg-surface)]">
-        <AvatarFallback tone="solid" className="bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)]">
+        <AvatarFallback appearance="filled" className="bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)]">
           +5
         </AvatarFallback>
       </Avatar>

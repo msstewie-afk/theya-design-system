@@ -270,10 +270,10 @@ export const WithToolToggles: Story = {
         placeholder="Send a message…"
         leading={
           <div className="flex items-center gap-1">
-            <Toggle variant="tonal" size="s" aria-label="Web search">
+            <Toggle appearance="tonal" size="s" aria-label="Web search">
               <Globe />
             </Toggle>
-            <Toggle variant="tonal" size="s" aria-label="Extended thinking">
+            <Toggle appearance="tonal" size="s" aria-label="Extended thinking">
               <Brain />
             </Toggle>
           </div>

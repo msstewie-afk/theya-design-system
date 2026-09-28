@@ -17,18 +17,18 @@ export type MessageVariant = 'received' | 'sent';
  * nested content (an Attachment's own hardcoded ink-on-surface text/icon
  * colors) reads correctly without needing an -on-primary override.
  */
-export type MessageTone = 'filled' | 'tonal';
+export type MessageAppearance = 'filled' | 'tonal';
 
 export interface MessageProps extends React.ComponentProps<'div'> {
   variant?: MessageVariant;
-  tone?: MessageTone;
+  appearance?: MessageAppearance;
   /** Leading Avatar (usually shown on received messages). */
   avatar?: ReactNode;
   author?: ReactNode;
   timestamp?: ReactNode;
 }
 
-export function Message({ className, variant = 'received', tone = 'filled', avatar, author, timestamp, children, ...props }: MessageProps) {
+export function Message({ className, variant = 'received', appearance = 'filled', avatar, author, timestamp, children, ...props }: MessageProps) {
   return (
     <div data-slot="message" data-variant={variant} className={cn('flex w-full gap-2.5', variant === 'sent' ? 'flex-row-reverse' : 'flex-row', className)} {...props}>
       {avatar != null && <div data-slot="message-avatar" className="shrink-0 pt-0.5">{avatar}</div>}
@@ -41,7 +41,7 @@ export function Message({ className, variant = 'received', tone = 'filled', avat
         )}
         <div
           data-slot="message-bubble"
-          data-tone={variant === 'sent' ? tone : undefined}
+          data-appearance={variant === 'sent' ? appearance : undefined}
           className={cn(
             // text-body-m (was text-body-s): the bubble text is the actual
             // message content, not secondary meta — default-font rule.
@@ -49,7 +49,7 @@ export function Message({ className, variant = 'received', tone = 'filled', avat
             variant === 'sent'
               ? cn(
                   'rounded-tr-sm',
-                  tone === 'tonal'
+                  appearance === 'tonal'
                     ? 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]'
                     : 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)]',
                 )

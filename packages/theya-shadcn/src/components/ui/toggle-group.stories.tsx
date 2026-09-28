@@ -7,7 +7,7 @@ const meta: Meta<typeof ToggleGroup> = {
   component: ToggleGroup,
   tags: ['autodocs'],
   argTypes: {
-    variant: { control: 'radio', options: ['tonal', 'outline', 'ghost'], description: 'Flows to every item via context. Default ghost.' },
+    appearance: { control: 'radio', options: ['tonal', 'outlined', 'ghost'], description: 'Flows to every item via context. Default ghost.' },
     size: { control: 'radio', options: ['s', 'md', 'lg'], description: 'Flows to every item via context.' },
     type: { control: 'inline-radio', options: ['single', 'multiple'], description: 'Single or multiple selection.' },
     value: { control: false, description: 'Controlled value(s) — a string for type="single", an array for type="multiple".' },
@@ -22,7 +22,7 @@ type Story = StoryObj<typeof ToggleGroup>;
 
 export const Outline: Story = {
   render: () => (
-    <ToggleGroup type="single" defaultValue="left" variant="outline">
+    <ToggleGroup type="single" defaultValue="left" appearance="outlined">
       <ToggleGroupItem value="left" aria-label="Align left">
         <AlignLeft />
       </ToggleGroupItem>
@@ -38,7 +38,7 @@ export const Outline: Story = {
 
 export const Tonal: Story = {
   render: () => (
-    <ToggleGroup type="multiple" variant="tonal">
+    <ToggleGroup type="multiple" appearance="tonal">
       <ToggleGroupItem value="bold" aria-label="Bold">
         <Bold />
       </ToggleGroupItem>
@@ -54,7 +54,7 @@ export const Tonal: Story = {
 
 export const Ghost: Story = {
   render: () => (
-    <ToggleGroup type="multiple" variant="ghost">
+    <ToggleGroup type="multiple" appearance="ghost">
       <ToggleGroupItem value="bold" aria-label="Bold">
         <Bold />
       </ToggleGroupItem>

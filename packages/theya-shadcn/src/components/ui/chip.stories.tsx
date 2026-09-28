@@ -24,7 +24,7 @@ const meta = {
     },
     appearance: {
       control: 'inline-radio',
-      options: ['subtle', 'solid'],
+      options: ['tonal', 'filled'],
       description: 'Tinted background (default) vs full tone background + on-dark text.',
     },
     bordered: {
@@ -36,7 +36,7 @@ const meta = {
       options: ['sm', 'md', 'lg'],
       description: '24px (sm) / 26px (md) / 32px (lg) — all clear the 24px remove-target floor.',
     },
-    icon: { control: false, description: 'Leading icon. Swapped for a checkmark automatically on a selected `appearance="solid"` chip.' },
+    icon: { control: false, description: 'Leading icon. Swapped for a checkmark automatically on a selected `appearance="filled"` chip.' },
     interactive: { control: 'boolean', description: 'On by default — a real role="button" with press/keyboard handling.' },
     pressed: { control: 'boolean', description: 'Controlled selected state.' },
     defaultPressed: { control: 'boolean', description: 'Uncontrolled initial selected state.' },
@@ -86,10 +86,10 @@ export const SelectedLooks: Story = {
     const [solidPressed, setSolidPressed] = useState(true);
     return (
       <div className="flex items-center gap-3">
-        <Chip tone="success" appearance="subtle" pressed={tonalPressed} onPressedChange={setTonalPressed}>
+        <Chip tone="success" appearance="tonal" pressed={tonalPressed} onPressedChange={setTonalPressed}>
           Tonal, selected
         </Chip>
-        <Chip tone="success" appearance="solid" pressed={solidPressed} onPressedChange={setSolidPressed}>
+        <Chip tone="success" appearance="filled" pressed={solidPressed} onPressedChange={setSolidPressed}>
           Solid, selected
         </Chip>
       </div>
@@ -125,7 +125,7 @@ export const Tones: Story = {
   ),
 };
 
-/** `appearance="solid"` — full tone background + on-dark text, next to the default `subtle` tint. */
+/** `appearance="filled"` — full tone background + on-dark text, next to the default `subtle` tint. */
 export const Solid: Story = {
   args: { interactive: false },
   parameters: { controls: { exclude: ['tone', 'appearance', 'interactive'] } },
@@ -133,14 +133,14 @@ export const Solid: Story = {
     <div className="flex flex-col gap-2">
       <div className="flex flex-wrap items-center gap-1">
         {(['neutral', 'primary', 'success', 'warning', 'danger', 'info'] as const).map((tone) => (
-          <Chip key={tone} {...args} tone={tone} appearance="subtle">
+          <Chip key={tone} {...args} tone={tone} appearance="tonal">
             {tone}
           </Chip>
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-1">
         {(['neutral', 'primary', 'success', 'warning', 'danger', 'info'] as const).map((tone) => (
-          <Chip key={tone} {...args} tone={tone} appearance="solid">
+          <Chip key={tone} {...args} tone={tone} appearance="filled">
             {tone}
           </Chip>
         ))}
@@ -158,14 +158,14 @@ export const Bordered: Story = {
     <div className="flex flex-col gap-2">
       <div className="flex flex-wrap items-center gap-1">
         {(['neutral', 'primary', 'success', 'warning', 'danger', 'info'] as const).map((tone) => (
-          <Chip key={tone} {...args} tone={tone} appearance="subtle">
+          <Chip key={tone} {...args} tone={tone} appearance="tonal">
             {tone}
           </Chip>
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-1">
         {(['neutral', 'primary', 'success', 'warning', 'danger', 'info'] as const).map((tone) => (
-          <Chip key={tone} {...args} tone={tone} appearance="subtle" bordered>
+          <Chip key={tone} {...args} tone={tone} appearance="tonal" bordered>
             {tone}
           </Chip>
         ))}

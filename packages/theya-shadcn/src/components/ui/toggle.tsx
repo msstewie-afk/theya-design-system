@@ -23,14 +23,14 @@ const toggleVariants = cva(
   ],
   {
     variants: {
-      variant: {
+      appearance: {
         tonal: [
           'data-[state=off]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
           'data-[state=off]:hover:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)]',
           'data-[state=on]:bg-[var(--color-bg-primary-bg-primary-subtle)]',
           'data-[state=on]:hover:not-disabled:bg-[var(--color-bg-primary-bg-primary-subtle-hover)]',
         ],
-        outline: [
+        outlined: [
           'border border-solid bg-transparent',
           'data-[state=off]:border-[var(--color-border-border-default)]',
           'data-[state=off]:hover:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
@@ -54,7 +54,7 @@ const toggleVariants = cva(
         lg: 'h-[var(--size-size-control-size-control-4xl)] min-w-[var(--size-size-control-size-control-4xl)] px-3.5 text-body-m', // 48px
       },
     },
-    defaultVariants: { variant: 'ghost', size: 'md' },
+    defaultVariants: { appearance: 'ghost', size: 'md' },
   },
 );
 
@@ -62,8 +62,8 @@ export interface ToggleProps
   extends React.ComponentProps<typeof TogglePrimitive.Root>,
     VariantProps<typeof toggleVariants> {}
 
-function Toggle({ className, variant, size, ...props }: ToggleProps) {
-  return <TogglePrimitive.Root className={cn(toggleVariants({ variant, size }), className)} {...props} />;
+function Toggle({ className, appearance, size, ...props }: ToggleProps) {
+  return <TogglePrimitive.Root className={cn(toggleVariants({ appearance, size }), className)} {...props} />;
 }
 
 export { Toggle, toggleVariants };
