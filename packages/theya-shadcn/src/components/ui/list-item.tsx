@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import type { ReactNode, MouseEventHandler, KeyboardEventHandler } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -47,6 +48,13 @@ export interface ListItemProps extends Omit<React.ComponentProps<'div'>, 'title'
 
 export function ListItem({ className, size = 'md', leading, title, description, trailing, href, interactive = false, selected = false, disabled = false, onClick, onKeyDown, children, ...props }: ListItemProps) {
   const isPressable = interactive && href == null;
+  // The stretched button is empty (the visible text sits in a sibling span
+  // on top of it), so it takes its accessible name/description from the
+  // title/description by id — without this it had no name at all
+  // (axe button-name, found in the 2026-09-28 full test-runner pass).
+  const baseId = useId();
+  const titleId = title != null ? `${baseId}-title` : undefined;
+  const descriptionId = description != null ? `${baseId}-description` : undefined;
 
   // `children` renders BELOW description (extra composed content, e.g. an
   // action button) — centering leading+content against that combined height
@@ -61,8 +69,8 @@ export function ListItem({ className, size = 'md', leading, title, description, 
     <>
       {leading != null && <span data-slot="list-item-leading" className="flex shrink-0 items-center text-[var(--color-icon-icon-subtle)] [&_svg:not([class*='size-'])]:size-4">{leading}</span>}
       <span data-slot="list-item-content" className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
-        {title != null && <span data-slot="list-item-title" className="truncate font-medium">{title}</span>}
-        {description != null && <span data-slot="list-item-description" className="truncate font-body text-body-s text-[var(--color-text-text-subtler)]">{description}</span>}
+        {title != null && <span id={titleId} data-slot="list-item-title" className="truncate font-medium">{title}</span>}
+        {description != null && <span id={descriptionId} data-slot="list-item-description" className="truncate font-body text-body-s text-[var(--color-text-text-subtler)]">{description}</span>}
         {children}
       </span>
     </>
@@ -116,6 +124,8 @@ export function ListItem({ className, size = 'md', leading, title, description, 
             type="button"
             tabIndex={disabled ? -1 : 0}
             aria-pressed={selected || undefined}
+            aria-labelledby={titleId}
+            aria-describedby={descriptionId}
             disabled={disabled || undefined}
             onClick={onClick}
             onKeyDown={onKeyDown}
