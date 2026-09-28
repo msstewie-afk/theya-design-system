@@ -209,7 +209,9 @@ export function CommandList({ className, ...props }: React.ComponentProps<'div'>
       // role="listbox" is one of the input-type roles aria-input-field-name
       // checks too — it needs its own accessible name, same source as the
       // combobox input's (aria-label={props['aria-label'] ?? label} above).
-      aria-label={props['aria-label'] ?? label}
+      // Only with the role: aria-label on a role-less <div> is prohibited
+      // (axe aria-prohibited-attr on the Loading story, 2026-09-28).
+      aria-label={itemCount > 0 ? (props['aria-label'] ?? label) : undefined}
       className={cn('max-h-[20.75rem] scroll-py-1 overflow-y-auto overflow-x-hidden', className)}
       {...props}
     />
@@ -252,16 +254,27 @@ export interface CommandGroupProps extends Omit<React.ComponentProps<'div'>, 'ch
 }
 
 export function CommandGroup({ className, heading, children, ...props }: CommandGroupProps) {
+  // A listbox may only own options and groups — the heading used to be a
+  // loose text node between options (axe aria-required-children on the
+  // Inline story, 2026-09-28). role="group" named by its heading is the
+  // valid ARIA shape and lets screen readers announce the section.
+  const headingId = useId();
   return (
-    <div className={cn('overflow-hidden p-1 text-[var(--color-text-text)]', '[&:not(:has([data-command-item]))]:hidden', className)} {...props}>
-      {heading != null && <div className="px-2.5 pb-1 pt-2 font-body text-body-xs font-medium uppercase tracking-[0.05em] text-[var(--color-text-text-subtler)]">{heading}</div>}
+    <div
+      role="group"
+      aria-labelledby={heading != null ? headingId : undefined}
+      className={cn('overflow-hidden p-1 text-[var(--color-text-text)]', '[&:not(:has([data-command-item]))]:hidden', className)}
+      {...props}
+    >
+      {heading != null && <div id={headingId} className="px-2.5 pb-1 pt-2 font-body text-body-xs font-medium uppercase tracking-[0.05em] text-[var(--color-text-text-subtler)]">{heading}</div>}
       {children}
     </div>
   );
 }
 
 export function CommandSeparator({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div role="separator" className={cn('-mx-1 my-1 h-px bg-[var(--color-border-border-subtle)]', className)} {...props} />;
+  // Decorative, and role="separator" isn't an allowed child of a listbox.
+  return <div aria-hidden="true" className={cn('-mx-1 my-1 h-px bg-[var(--color-border-border-subtle)]', className)} {...props} />;
 }
 
 export interface CommandItemProps extends Omit<React.ComponentProps<'div'>, 'value' | 'onClick' | 'onSelect'> {
