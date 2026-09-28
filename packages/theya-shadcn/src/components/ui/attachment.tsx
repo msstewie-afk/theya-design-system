@@ -78,6 +78,7 @@ export function Attachment({
   actions,
   className,
   onClick,
+  'aria-pressed': ariaPressed,
   ...rest
 }: AttachmentProps) {
   const hasError = Boolean(error);
@@ -170,6 +171,10 @@ export function Attachment({
       type="button"
       onClick={onClick}
       aria-label={name}
+      // Toggle state belongs on the control, not the wrapper: aria-pressed on
+      // the role-less outer <div> was invalid (axe aria-allowed-attr,
+      // 2026-09-28 full test-runner pass).
+      aria-pressed={ariaPressed}
       className="absolute inset-0 outline-none"
     />
   ) : null;
@@ -238,12 +243,21 @@ export function Attachment({
 
   if (variant === 'line') {
     return (
-      <div {...rest} className={cn('flex self-start w-full items-center gap-2 py-1', className)}>
+      <div
+        {...rest}
+        data-slot="attachment"
+        data-interactive={isInteractive || undefined}
+        className={cn('flex self-start w-full items-center gap-2 py-1', isClickOnly && 'relative cursor-pointer rounded-[var(--size-border-radius-border-radius-md)] focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]', className)}
+      >
+        {/* Same stretched-button overlay as the other variants — 'line'
+            used to drop onClick entirely, so a click-only line row was
+            unclickable (File relied on role="button" on this div). */}
+        {clickOverlay}
         <span className="font-body text-body-m font-medium text-[var(--color-text-text)] truncate flex-1">{name}</span>
         {size !== undefined && (
           <span className="font-body text-body-xs text-[var(--color-text-text-subtler)] shrink-0">{humanSize(size)}</span>
         )}
-        {removeButton}
+        {removeButton && <span className="relative z-10">{removeButton}</span>}
       </div>
     );
   }

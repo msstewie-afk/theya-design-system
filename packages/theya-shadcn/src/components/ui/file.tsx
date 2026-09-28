@@ -89,12 +89,14 @@ export function File({
     if (inputRef.current) inputRef.current.value = '';
   };
 
-  // onClick/role/tabIndex/keydown go directly onto Attachment itself
-  // (it accepts and forwards arbitrary HTML attributes) rather than a
-  // separate wrapping div — that's what lets Attachment's OWN
-  // isInteractive detection see the click and apply its real hover-
-  // border/focus-ring styling, instead of the click living outside a
-  // component that has no idea it's interactive.
+  // onClick goes directly onto Attachment itself rather than a separate
+  // wrapping div — that's what lets Attachment's OWN isInteractive
+  // detection see the click and apply its real hover-border/focus-ring
+  // styling. Attachment renders its own stretched <button> for a
+  // click-only row, so File must NOT also add role="button"/tabIndex/
+  // onKeyDown to the outer element: that made the wrapper a second
+  // interactive control around the overlay button and the remove button
+  // (axe nested-interactive x7, 2026-09-28 full test-runner pass).
   const attachmentEl = file && (
     <Attachment
       name={file.name}
@@ -112,18 +114,6 @@ export function File({
       actions={actions}
       onRemove={isLink || readOnly || disabled ? undefined : handleRemove}
       onClick={isInteractive && !href ? openPicker : undefined}
-      role={isInteractive && !href ? 'button' : undefined}
-      tabIndex={isInteractive && !href ? 0 : undefined}
-      onKeyDown={
-        isInteractive && !href
-          ? (e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                openPicker();
-              }
-            }
-          : undefined
-      }
       className={cn(disabled && 'opacity-50 cursor-not-allowed')}
     />
   );

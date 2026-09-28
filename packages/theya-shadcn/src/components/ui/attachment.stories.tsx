@@ -309,8 +309,8 @@ export const Selected: Story = {
             size={f.size}
             selected={picked === f.name}
             aria-pressed={picked === f.name}
-            // role="button"/tabIndex/onKeyDown are now built into Attachment
-            // itself for any onClick-only (no href) row — see attachment.tsx.
+            // Any onClick-only (no href) row gets a real stretched <button>
+            // inside Attachment; aria-pressed is forwarded onto it.
             onClick={() => setPicked(f.name)}
           />
         ))}
