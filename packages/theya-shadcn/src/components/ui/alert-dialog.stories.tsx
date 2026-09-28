@@ -61,7 +61,7 @@ export const Default: Story = {
   ),
 };
 
-/** A non-destructive confirm — pass a non-danger intent to AlertDialogAction to override its danger default. */
+/** A non-destructive confirm — pass a non-danger tone to AlertDialogAction to override its danger default. */
 export const NonDestructive: Story = {
   render: () => (
     <AlertDialog>

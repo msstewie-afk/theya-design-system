@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
  * CSS vars (see Avatar). Colors stay as Tailwind arbitrary-value classes,
  * which are confirmed to work fine.
  */
-export type BadgeIndicatorIntent = 'neutral' | 'info' | 'success' | 'warning' | 'danger';
+export type BadgeIndicatorTone = 'neutral' | 'info' | 'success' | 'warning' | 'danger';
 export type BadgeIndicatorAppearance = 'filled' | 'outlined';
 export type BadgeIndicatorShape = 'circle' | 'square';
 export type BadgeIndicatorSize = 'sm' | 'md';
@@ -36,7 +36,7 @@ const ICON_PX: Record<BadgeIndicatorSize, number> = { sm: 10, md: 12 };
 // extrapolated up one step.
 const PADDING_X_PX: Record<BadgeIndicatorSize, number> = { sm: 4, md: 5 };
 
-interface IntentTokens {
+interface ToneTokens {
   filledBg: string;
   filledText: string;
   outlinedBg: string;
@@ -62,13 +62,13 @@ interface IntentTokens {
  * flatly gray, so it's on Button's own filled-Secondary base color instead
  * (`#6a6c96`, a purple-leaning gray — not yet a semantic token, hardcoded
  * the same way Button itself hardcodes it, see button.tsx's own
- * `intent: 'secondary'` compound variant), with white `text-on-dark` (same
+ * `tone: 'secondary'` compound variant), with white `text-on-dark` (same
  * pairing Button uses, confirmed working contrast).
  * Outlined treatment (all subtle-bg + tone border/text) is unaffected by
  * this fix and still EXTRAPOLATED for Success/Warning/Danger — worth a
  * Figma re-check once the MCP rate limit resets.
  */
-const INTENT_TOKENS: Record<BadgeIndicatorIntent, IntentTokens> = {
+const TONE_TOKENS: Record<BadgeIndicatorTone, ToneTokens> = {
   neutral: {
     filledBg: 'bg-[#6a6c96]',
     filledText: 'text-[var(--color-text-text-on-dark)]',
@@ -123,7 +123,7 @@ export interface BadgeIndicatorProps extends Omit<React.HTMLAttributes<HTMLSpanE
   icon?: ReactNode;
   appearance?: BadgeIndicatorAppearance;
   shape?: BadgeIndicatorShape;
-  tone?: BadgeIndicatorIntent;
+  tone?: BadgeIndicatorTone;
   size?: BadgeIndicatorSize;
 }
 
@@ -139,7 +139,7 @@ export function BadgeIndicator({
   style,
   ...props
 }: BadgeIndicatorProps) {
-  const tokens = INTENT_TOKENS[tone];
+  const tokens = TONE_TOKENS[tone];
   const box = SIZE_PX[size];
   const isFilled = appearance === 'filled';
 

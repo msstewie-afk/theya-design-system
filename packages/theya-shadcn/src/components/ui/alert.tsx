@@ -8,7 +8,7 @@ import { Button, type ButtonProps } from './button';
  * selector. Static by default; pass `live="assertive"|"polite"` when
  * mounting one dynamically in response to an event, so it's announced.
  */
-export type AlertVariant = 'neutral' | 'info' | 'success' | 'warning' | 'danger';
+export type AlertTone = 'neutral' | 'info' | 'success' | 'warning' | 'danger';
 
 /**
  * `indicator="stripe"` adds a full solid-tone bar flush on the left edge, on
@@ -18,7 +18,7 @@ export type AlertVariant = 'neutral' | 'info' | 'success' | 'warning' | 'danger'
  */
 export type AlertIndicator = 'none' | 'stripe';
 
-const VARIANT_CLASS: Record<AlertVariant, string> = {
+const TONE_CLASS: Record<AlertTone, string> = {
   neutral: 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] border-[var(--color-border-border-subtle)] [&>svg]:text-[var(--color-icon-icon-subtle)] [&_[data-alert-description]]:text-[var(--color-text-text-subtler)]',
   info: 'bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] border-transparent [&>svg]:text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:[&>svg]:text-[var(--color-cyan-cyan-200)]',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)] border-transparent [&>svg]:text-[var(--color-icon-icon-success)]',
@@ -28,21 +28,21 @@ const VARIANT_CLASS: Record<AlertVariant, string> = {
 
 // Solid (non-subtle) tone tokens — same family StatusDot's dot color and
 // Badge's solid variant use, not the `-subtle` background tokens above.
-const STRIPE_CLASS: Partial<Record<AlertVariant, string>> = {
+const STRIPE_CLASS: Partial<Record<AlertTone, string>> = {
   info: 'bg-[var(--color-bg-info-bg-info)]',
   success: 'bg-[var(--color-bg-success-bg-success)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning)]',
   danger: 'bg-[var(--color-bg-danger-bg-danger)]',
 };
 
-// Maps the banner's own tone to Button's `intent` prop, so any ghost control
+// Maps the banner's own tone to Button's `tone` prop, so any ghost control
 // living inside the alert (the built-in dismiss "X" here, and consumer-built
 // tertiary actions in AlertActions) reads as part of *this* alert instead of
 // a neutral, tone-less control floating on top of it.
 // The dismiss button is a ghost Button, whose hover/pressed fills are tuned for a plain page.
 // On the tinted alert surface those fills disappear, so each tone steps one level denser here,
 // matching the tonal Button states for the same tone.
-const DISMISS_STATE_CLASS: Record<AlertVariant, string> = {
+const DISMISS_STATE_CLASS: Record<AlertTone, string> = {
   neutral: '',
   info: 'hover:not-disabled:bg-[var(--color-cyan-cyan-100)] focus-visible:bg-[var(--color-cyan-cyan-100)] active:not-disabled:bg-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:hover:not-disabled:bg-[var(--color-cyan-cyan-700)] [[data-theme=dark]_&]:focus-visible:bg-[var(--color-cyan-cyan-700)] [[data-theme=dark]_&]:active:not-disabled:bg-[var(--color-cyan-cyan-900)]',
   success: 'hover:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-hover)] focus-visible:bg-[var(--color-bg-success-bg-success-subtle-hover)] active:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-pressed)]',
@@ -50,7 +50,7 @@ const DISMISS_STATE_CLASS: Record<AlertVariant, string> = {
   danger: 'hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] focus-visible:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] active:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-pressed)]',
 };
 
-const VARIANT_TO_INTENT: Record<AlertVariant, NonNullable<ButtonProps['tone']>> = {
+const TONE_TO_BUTTON_TONE: Record<AlertTone, NonNullable<ButtonProps['tone']>> = {
   neutral: 'neutral',
   info: 'info',
   success: 'success',
@@ -59,7 +59,7 @@ const VARIANT_TO_INTENT: Record<AlertVariant, NonNullable<ButtonProps['tone']>> 
 };
 
 export interface AlertProps extends React.ComponentProps<'div'> {
-  tone?: AlertVariant;
+  tone?: AlertTone;
   /** Full-tone accent bar on the left edge. See `AlertIndicator`. Default `'none'`. */
   indicator?: AlertIndicator;
   /** Adds `shadow-sm`. Off by default — an inline banner usually sits flush in
@@ -93,7 +93,7 @@ export function Alert({
       className={cn(
         'relative flex gap-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid px-4 py-3',
         'font-body text-body-s [&>svg]:size-[1.125rem] [&>svg]:mt-px [&>svg]:shrink-0',
-        VARIANT_CLASS[tone],
+        TONE_CLASS[tone],
         shadow && 'shadow-sm',
         dismissible && 'pr-10',
         className,
@@ -110,7 +110,7 @@ export function Alert({
       {dismissible && (
         <Button
           appearance="ghost"
-          tone={VARIANT_TO_INTENT[tone]}
+          tone={TONE_TO_BUTTON_TONE[tone]}
           iconOnly
           size="sm"
           aria-label={dismissLabel}

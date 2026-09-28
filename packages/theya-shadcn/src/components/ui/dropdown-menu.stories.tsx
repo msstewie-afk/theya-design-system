@@ -129,7 +129,7 @@ export const GroupsWithLabels: Story = {
   ),
 };
 
-/** The destructive variant turns the row (text + color) destructive for irreversible actions. Intent is text plus color - never color alone. */
+/** `tone="danger"` turns the row (text + color) destructive for irreversible actions. The meaning is carried by text plus color - never color alone. */
 export const Destructive: Story = {
   render: () => (
     <DropdownMenu>

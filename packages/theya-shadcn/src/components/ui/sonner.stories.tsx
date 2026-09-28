@@ -21,7 +21,7 @@ import { Button } from './button';
  * button's own color doesn't try to preview which toast it fires there,
  * only its label does. The multi-kind demos (AllKinds, Dark, Playground,
  * ErrorPersistsUntilDismissed) use `tonal` buttons matched to each toast's
- * own intent instead, so the row of triggers previews the tones at a
+ * own tone instead, so the row of triggers previews the tones at a
  * glance. A `filled`/`danger` button next to an unrelated `success` toast
  * was a real mismatch fixed in this file.
  */

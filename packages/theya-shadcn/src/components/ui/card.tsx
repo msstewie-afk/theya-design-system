@@ -46,7 +46,7 @@ const SEVERITY_SELECTED_CLASS: Record<CardSeverity, string> = {
   danger: 'border-[var(--color-border-border-danger)] bg-[var(--color-bg-danger-bg-danger-subtle)]',
 };
 
-// Per-intent focus/hover rings — all now the real translucent
+// Per-tone focus/hover rings — all now the real translucent
 // --color-focus-focus-ring-* tokens (0.3 alpha), not a solid
 // --color-border-border-* color standing in for one. `warning` needed a
 // new token added to the DS (--color-focus-focus-ring-warning, Мария's

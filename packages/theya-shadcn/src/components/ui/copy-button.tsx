@@ -73,8 +73,8 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(functio
       <Button
         ref={ref}
         appearance={appearance}
-        // While copied, borrow the intent slot to flash tonal success
-        // feedback — the caller's own intent (default: "default") comes
+        // While copied, borrow the tone slot to flash tonal success
+        // feedback — the caller's own tone (default: "neutral") comes
         // back once the reset timer flips `copied` back to false.
         tone={copied ? 'success' : tone}
         size={size}

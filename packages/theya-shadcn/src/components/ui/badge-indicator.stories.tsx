@@ -37,10 +37,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Use the Controls panel to switch type/shape/intent/size. */
+/** Use the Controls panel to switch appearance/shape/tone/size. */
 export const Default: Story = {};
 
-/** Every intent, Filled. */
+/** Every tone, Filled. */
 export const Intents: Story = {
   parameters: { controls: { exclude: ['tone'] } },
   render: (args) => (
@@ -54,7 +54,7 @@ export const Intents: Story = {
   ),
 };
 
-/** Filled vs Outlined, across every intent. */
+/** Filled vs Outlined, across every tone. */
 export const TypeComparison: Story = {
   name: 'Filled vs Outlined',
   parameters: { controls: { exclude: ['tone', 'type'] } },

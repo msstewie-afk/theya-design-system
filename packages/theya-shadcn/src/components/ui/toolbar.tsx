@@ -23,8 +23,8 @@ export const Toolbar = ({ className, ...props }: React.ComponentProps<typeof Too
 );
 
 // Wired to Button's own cva (buttonVariants) rather than a hardcoded class
-// list, so a ToolbarButton can take the full type/intent range — e.g.
-// `type="ghost" intent="danger"` for a destructive action past a separator —
+// list, so a ToolbarButton can take the full appearance/tone range — e.g.
+// `appearance="ghost" tone="danger"` for a destructive action past a separator —
 // the same way the reference ties its ToolbarButton to its own buttonVariants.
 export type ToolbarButtonProps = Omit<React.ComponentProps<typeof ToolbarPrimitive.Button>, 'type'> &
   VariantProps<typeof buttonVariants> & { appearance?: VariantProps<typeof buttonVariants>['appearance'] };

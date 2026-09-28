@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
  * "multiple" | "range". Used standalone or inside a Popover by
  * DatePicker/DateRangePicker. Nav/day buttons are styled directly with
  * our tokens rather than through our Button component — Button's API
- * (type/intent/size) doesn't map cleanly onto shadcn's buttonVariants
+ * (appearance/tone/size) doesn't map cleanly onto shadcn's buttonVariants
  * shape the reference used (variant/size), so mixing the two risked
  * confusing which system governs which class.
  */

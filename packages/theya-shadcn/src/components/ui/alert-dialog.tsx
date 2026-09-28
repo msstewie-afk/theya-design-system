@@ -168,7 +168,7 @@ export function AlertDialogDescription({ className, ...props }: React.ComponentP
   return <AlertDialogPrimitive.Description className={cn('font-body text-body-s leading-relaxed text-[var(--color-text-text-subtler)]', className)} {...props} />;
 }
 
-/** The confirming action. Defaults to a danger-intent Button and closes the dialog. */
+/** The confirming action. Defaults to a danger-tone Button and closes the dialog. */
 export function AlertDialogAction({ appearance = 'filled', tone = 'danger', ...props }: ButtonProps) {
   return <AlertDialogPrimitive.Action asChild><Button appearance={appearance} tone={tone} {...props} /></AlertDialogPrimitive.Action>;
 }

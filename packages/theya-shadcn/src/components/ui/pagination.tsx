@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
  * ellipsis for gaps. Pure presentational — every clickable part takes
  * asChild, so it drives from a real <Link> (URL pagination) or a
  * <button> (client paging) equally well. Styled directly with our
- * tokens rather than through Button — Button's type/intent/size API
+ * tokens rather than through Button — Button's appearance/tone/size API
  * doesn't map onto shadcn's variant/size shape the reference used.
  */
 export function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
@@ -25,10 +25,18 @@ export function PaginationItem(props: React.ComponentProps<'li'>) {
 export interface PaginationLinkProps extends React.ComponentProps<'a'> {
   isActive?: boolean;
   asChild?: boolean;
-  size?: 'icon' | 'default';
 }
 
-export function PaginationLink({ className, isActive, size = 'icon', asChild = false, ...props }: PaginationLinkProps) {
+export function PaginationLink({
+  className,
+  isActive,
+  wide = false,
+  asChild = false,
+  ...props
+}: PaginationLinkProps & {
+  /** @internal Previous/Next only: padded label layout instead of the square page-number cell. */
+  wide?: boolean;
+}) {
   const Comp = asChild ? Slot : 'a';
   return (
     <Comp
@@ -38,7 +46,7 @@ export function PaginationLink({ className, isActive, size = 'icon', asChild = f
         'rounded-[var(--size-border-radius-border-radius-md)]',
         'font-body text-body-s tabular-nums',
         'transition-colors duration-150 ease-out motion-reduce:transition-none',
-        size === 'icon' ? 'size-[30px]' : 'h-[30px] px-2.5',
+        wide ? 'h-[30px] px-2.5' : 'size-[30px]',
         isActive
           ? 'bg-[var(--color-bg-secondary-bg-secondary-subtle)] font-medium text-[var(--color-text-text)]'
           : 'text-[var(--color-text-text-subtler)] hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-text-text)]',
@@ -52,7 +60,7 @@ export function PaginationLink({ className, isActive, size = 'icon', asChild = f
 
 export function PaginationPrevious({ className, children, asChild, ...props }: PaginationLinkProps) {
   return (
-    <PaginationLink asChild={asChild} size="default" aria-label="Go to previous page" className={cn('gap-1', className)} {...props}>
+    <PaginationLink asChild={asChild} wide aria-label="Go to previous page" className={cn('gap-1', className)} {...props}>
       {children ?? (
         <>
           <NavArrowLeft width={16} height={16} aria-hidden="true" />
@@ -65,7 +73,7 @@ export function PaginationPrevious({ className, children, asChild, ...props }: P
 
 export function PaginationNext({ className, children, asChild, ...props }: PaginationLinkProps) {
   return (
-    <PaginationLink asChild={asChild} size="default" aria-label="Go to next page" className={cn('gap-1', className)} {...props}>
+    <PaginationLink asChild={asChild} wide aria-label="Go to next page" className={cn('gap-1', className)} {...props}>
       {children ?? (
         <>
           <span className="max-sm:sr-only">Next</span>

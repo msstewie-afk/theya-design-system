@@ -52,7 +52,7 @@ export interface DataTableBulkAction<TData> {
   tone?: ButtonProps['tone'];
   /**
    * Marks a destructive action. In the overflow menu this maps to
-   * DropdownMenuItem's destructive variant and selects the
+   * DropdownMenuItem's `tone="danger"` and selects the
    * destructive ConfirmDialog. Deliberately does NOT tint an inline
    * button — destructive red on the primary fill fails contrast.
    */

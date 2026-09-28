@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 /**
  * Rebuilt on shadcn's pattern (Radix Slot + cva + Tailwind) instead of
  * CSS modules. The prop API is unchanged from the old Theya Button —
- * variant/type/intent/size/fullWidth/iconOnly/leftIcon/rightIcon all mean
+ * appearance/tone/size/fullWidth/iconOnly/leftIcon/rightIcon all mean
  * exactly what they meant before. Every color/spacing value below is
  * copied 1:1 from the old Button.module.css (same CSS custom properties,
  * just referenced as Tailwind arbitrary values instead of a .module.css
@@ -150,7 +150,7 @@ export const buttonVariants = cva(
         class: '[&_svg]:size-[var(--size-icon-icon-sm)]', // 16px
       },
 
-      // ---------- FILLED × intent ----------
+      // ---------- FILLED × tone ----------
       {
         appearance: 'filled',
         tone: 'primary',
@@ -222,7 +222,7 @@ export const buttonVariants = cva(
         ],
       },
       {
-        // "Default" intent — dark neutral gray, hand-tuned to 3%
+        // "Neutral" tone — dark neutral gray, hand-tuned to 3%
         // saturation (down from bg-neutral's original ~7.7%) for a
         // flatter, more neutral gray. Hover/pressed derived with the
         // same lightness-drop ratio as Primary's own default→hover→
@@ -250,11 +250,11 @@ export const buttonVariants = cva(
         ],
       },
 
-      // ---------- TONAL × intent ----------
+      // ---------- TONAL × tone ----------
       // Same idea as Filled, but always uses the "-subtle" background
       // tier instead of the solid one — softer fill, same interaction
       // pattern. (This is what Secondary Filled used to look like,
-      // generalized to every intent.)
+      // generalized to every tone.)
       {
         appearance: 'tonal',
         tone: 'primary',
@@ -334,7 +334,7 @@ export const buttonVariants = cva(
         ],
       },
 
-      // ---------- OUTLINED × intent ----------
+      // ---------- OUTLINED × tone ----------
       {
         appearance: 'outlined',
         tone: 'primary',
@@ -398,7 +398,7 @@ export const buttonVariants = cva(
         // bar with no extra color work needed.
         //
         // Hover/press: fixed from the "-subtle" tier (Tonal's solid-fill
-        // strength) to "-subtler" — every other Outlined intent uses the
+        // strength) to "-subtler" — every other Outlined tone uses the
         // lighter "-subtler" wash for its hover/press fill; Secondary had
         // been copy-pasted from Tonal's own compound variant above and
         // read noticeably darker than every sibling button as a result.
@@ -416,7 +416,7 @@ export const buttonVariants = cva(
         ],
       },
 
-      // ---------- GHOST × intent ----------
+      // ---------- GHOST × tone ----------
       {
         appearance: 'ghost',
         tone: 'primary',
@@ -486,7 +486,7 @@ export const buttonVariants = cva(
       },
 
       // ---------- OUTLINED/GHOST × default ----------
-      // Was missing entirely: with no compound variant for intent="default"
+      // Was missing entirely: with no compound variant for tone="neutral"
       // on these two types, the button fell through to the bare type-level
       // base classes only (a border with no color, an icon with no color,
       // and no hover/press fill at all) — the "no color anywhere" bug.
@@ -502,14 +502,14 @@ export const buttonVariants = cva(
       // copy-button icon: "слишком светлый цвет у иконки-кнопки ghost
       // справа"). Fixed by pointing the icon at the same token as the text
       // instead of the fixed hex — CopyButton (used by CodeBlock/CodeEditor/
-      // SecretField, all `intent="default"` by default) picks this up too.
+      // SecretField, all `tone="neutral"` by default) picks this up too.
       {
         appearance: 'outlined',
         tone: 'neutral',
         class: [
           // Dark: #65656b is 2.43:1 on bg-surface (1.4.11 needs 3:1) -> gray-300
           // (#9696ac, 4.87:1). Hover/press moved from the "-subtle" tier to
-          // "-subtler" like every other Outlined/Ghost intent: in dark, the
+          // "-subtler" like every other Outlined/Ghost tone: in dark, the
           // -subtle tier washed text-subtle down to 3.51/2.61:1 (2026-09-27).
           'border-[#65656b] [[data-theme=dark]_&]:border-[var(--color-gray-gray-300)]',
           '[&_svg]:text-[var(--color-text-text-subtle)]',

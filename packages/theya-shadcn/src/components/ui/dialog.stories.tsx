@@ -230,7 +230,7 @@ function MigrationWizard() {
   const isLast = step === MIGRATION_STEPS.length - 1;
 
   return (
-    <DialogContent size="fullscreen">
+    <DialogContent size="full">
       <DialogHeader className="gap-2">
         <div className="flex flex-col gap-1 pr-10">
           <DialogTitle>Migrate to Firewall Shield</DialogTitle>

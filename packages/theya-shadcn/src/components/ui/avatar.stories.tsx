@@ -114,8 +114,8 @@ export const Outline: Story = {
 };
 
 /** `AvatarFallback`'s `tone` — independent of `outline` — controls only the
- * fallback's own fill: `tone="subtle"` (default) is the soft brand-tinted
- * fill; `tone="solid"` is a filled brand background. Shown here with
+ * fallback's own fill: `appearance="tonal"` (default) is the soft brand-tinted
+ * fill; `appearance="filled"` is a filled brand background. Shown here with
  * `outline="none"` to isolate the fill difference. */
 export const FallbackTone: Story = {
   name: 'Fallback tone',
@@ -185,9 +185,9 @@ export const Sizes: Story = {
 
 /** A `BadgeIndicator` pinned to the top-right corner — a sibling of
  * `AvatarImage`/`AvatarFallback` inside `Avatar`. Takes a qty value
- * (children/`value`), `dot` for a plain status dot, or `icon`; `intent`
+ * (children/`value`), `dot` for a plain status dot, or `icon`; `tone`
  * defaults to `danger` (notification-count red) but takes any
- * `BadgeIndicator` intent. */
+ * `BadgeIndicator` tone. */
 export const Badge: Story = {
   render: () => (
     <div className="flex items-end gap-4">

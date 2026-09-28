@@ -263,7 +263,7 @@ export function CodeEditor({
     setCopyStatus(next);
     copyResetTimer.current = setTimeout(() => setCopyStatus('idle'), 1500);
   };
-  const copyTooltipIntent = copyStatus === 'copied' ? 'success' : copyStatus === 'error' ? 'danger' : 'neutral';
+  const copyTooltipTone = copyStatus === 'copied' ? 'success' : copyStatus === 'error' ? 'danger' : 'neutral';
   const copyTooltipText = copyStatus === 'copied' ? 'Copied!' : copyStatus === 'error' ? 'Failed to copy' : copyLabel;
 
   return (
@@ -324,7 +324,7 @@ export function CodeEditor({
                       onCopyError={() => flashCopyStatus('error')}
                     />
                   </TooltipTrigger>
-                  <TooltipContent tone={copyTooltipIntent}>{copyTooltipText}</TooltipContent>
+                  <TooltipContent tone={copyTooltipTone}>{copyTooltipText}</TooltipContent>
                 </Tooltip>
               )}
             </div>

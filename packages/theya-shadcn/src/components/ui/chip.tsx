@@ -28,9 +28,9 @@ export type ChipAppearance = 'tonal' | 'filled';
 export type ChipSize = 'sm' | 'md' | 'lg';
 
 // Base (unselected) look for `appearance="tonal"` — the tinted "tonal"
-// background, matching Button's own `type="tonal"` per-intent colors
-// (`neutral` here maps to Button's `intent="default"`, `danger` to
-// `intent="danger"`). Hover states come from HOVER_CLASS below, same
+// background, matching Button's own `appearance="tonal"` per-tone colors
+// (`neutral` here maps to Button's `tone="neutral"`, `danger` to
+// `tone="danger"`). Hover states come from HOVER_CLASS below, same
 // source (Button's tonal compound variants).
 // All six borderless at rest (Мария's call — neutral used to carry a
 // visible border here while every other tone didn't; the `bordered` prop
@@ -60,7 +60,7 @@ const BORDER_TONE_CLASS: Record<ChipTone, string> = {
 };
 
 // "Solid look" — full-saturation tone background + on-dark text, matching
-// Button's `type="filled"` per-intent colors 1:1 (including its
+// Button's `appearance="filled"` per-tone colors 1:1 (including its
 // accessibility-adjusted Success hex and the dark-text-on-light Warning
 // pairing). Used for `appearance="filled"` at rest, AND for a *selected*
 // `appearance="tonal"` (tonal) chip — Мария's call: a selected tonal chip

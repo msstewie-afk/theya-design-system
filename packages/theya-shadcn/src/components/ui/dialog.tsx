@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
  * (a side slide-over): this scales/fades in place. Esc, focus-trap,
  * scroll-lock and return-focus come from Radix.
  *
- * `DialogContent size="fullscreen"` swaps the centered popup for a
+ * `DialogContent size="full"` swaps the centered popup for a
  * viewport-filling surface (header / scrolling DialogBody / footer) so a
  * multi-step wizard can take the screen over without leaving Dialog's
  * modal semantics.
@@ -49,7 +49,7 @@ const dialogContentVariants = cva(
       size: {
         // Mobile: keep a 1rem side gutter and cap height with internal scroll
         // so the footer never gets pushed off a short viewport.
-        default: [
+        md: [
           'left-1/2 top-1/2 grid w-[calc(100%-2rem)] max-w-lg max-h-[calc(100svh-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-[var(--size-border-radius-border-radius-3xl)] border',
           'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
           'data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%]',
@@ -62,14 +62,14 @@ const dialogContentVariants = cva(
         // would push the footer under the address bar. Header/footer pinned
         // (`shrink-0`), body allowed to shrink below content height
         // (`min-h-0`, since a column flex item defaults to `min-height: auto`).
-        fullscreen: [
+        full: [
           'inset-x-0 top-0 flex h-svh w-full max-w-none flex-col overflow-hidden rounded-none border-0',
           '[&>[data-slot=dialog-header]]:shrink-0 [&>[data-slot=dialog-footer]]:shrink-0',
           '[&>[data-slot=dialog-body]]:min-h-0',
         ],
       },
     },
-    defaultVariants: { size: 'default' },
+    defaultVariants: { size: 'md' },
   },
 );
 
@@ -86,7 +86,7 @@ export function DialogContent({ className, children, showCloseButton = true, siz
     <DialogPortal>
       <DialogOverlay />
       <DialogPrimitive.Content
-        data-size={size ?? 'default'}
+        data-size={size ?? 'md'}
         data-gap={gap}
         className={cn(
           dialogContentVariants({ size }),
@@ -136,7 +136,7 @@ export function DialogHeader({ className, showDivider = true, ...props }: Dialog
 }
 
 /**
- * The scrolling middle region. Required for `size="fullscreen"` (that variant
+ * The scrolling middle region. Required for `size="full"` (that variant
  * clips its own overflow, so the body owns the scroll and header + footer
  * stay pinned). The default centered variant scrolls as one box, so plain
  * padded content works there too. `showDivider` draws the same inset line

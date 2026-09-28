@@ -17,7 +17,7 @@ export function Tooltip(props: React.ComponentProps<typeof TooltipPrimitive.Root
 export const TooltipTrigger = TooltipPrimitive.Trigger;
 
 /**
- * `intent` is for a tooltip that reports the RESULT of an action, not just a
+ * `tone` is for a tooltip that reports the RESULT of an action, not just a
  * hint - e.g. "Copied" after a copy button fires, or "Failed to copy" on
  * error. `neutral` keeps the neutral dark surface; `success`/`danger` swap
  * to the same solid `--color-bg-{tone}-bg-{tone}` tone StatusDot uses (not
@@ -26,9 +26,9 @@ export const TooltipTrigger = TooltipPrimitive.Trigger;
  * (`--color-icon-icon-on-dark`), and the arrow fill switches with it so the
  * whole bubble reads as one tone.
  */
-export type TooltipIntent = 'neutral' | 'success' | 'danger';
+export type TooltipTone = 'neutral' | 'success' | 'danger';
 
-const INTENT_CLASS: Record<TooltipIntent, { surface: string; arrow: string }> = {
+const TONE_CLASS: Record<TooltipTone, { surface: string; arrow: string }> = {
   neutral: {
     surface: 'bg-[var(--color-bg-surface-bg-surface-overlay-dark)] text-[var(--color-text-text-on-dark)]',
     arrow: 'fill-[var(--color-bg-surface-bg-surface-overlay-dark)]',
@@ -50,8 +50,8 @@ export function TooltipContent({
   tone = 'neutral',
   children,
   ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Content> & { showArrow?: boolean; tone?: TooltipIntent }) {
-  const toneClass = INTENT_CLASS[tone];
+}: React.ComponentProps<typeof TooltipPrimitive.Content> & { showArrow?: boolean; tone?: TooltipTone }) {
+  const toneClass = TONE_CLASS[tone];
   return (
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Content

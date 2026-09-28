@@ -88,7 +88,7 @@ export const Default: Story = {
   ),
 };
 
-/** The destructive variant turns the row (text + highlight fill) destructive for irreversible actions. */
+/** `tone="danger"` turns the row (text + highlight fill) destructive for irreversible actions. */
 export const Destructive: Story = {
   render: () => (
     <ContextMenu>

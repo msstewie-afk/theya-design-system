@@ -49,7 +49,7 @@ export const Password = forwardRef<HTMLInputElement, PasswordProps>(function Pas
           className={cn(
             'pointer-events-auto flex size-6 items-center justify-center rounded-[var(--size-border-radius-border-radius-lg)]',
             // Ghost/danger colors below, matching Button's own
-            // type="ghost" intent="danger" combo — this toggle stayed
+            // appearance="ghost" tone="danger" combo — this toggle stayed
             // neutral gray before even while the field around it was
             // fully danger-styled.
             hasError

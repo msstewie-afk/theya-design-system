@@ -7,7 +7,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } from './dropdo
 /**
  * Not in the reference repo — built from scratch by composing our own
  * Button (main action) + a slim icon-only caret Button that opens a
- * DropdownMenu of secondary actions. Both halves share type/intent/size
+ * DropdownMenu of secondary actions. Both halves share appearance/tone/size
  * so they read as one control; only the divider and independent hover/
  * focus states reveal the seam.
  *

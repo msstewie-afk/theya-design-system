@@ -146,7 +146,7 @@ export const LongContent: Story = {
 };
 
 /**
- * `intent` reports the RESULT of an action rather than hinting at one - e.g.
+ * `tone` reports the RESULT of an action rather than hinting at one - e.g.
  * confirming a copy succeeded or flagging that it failed. Click each button
  * to see the tooltip flip to its result state; it resets a moment later.
  */

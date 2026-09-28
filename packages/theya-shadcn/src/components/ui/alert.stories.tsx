@@ -204,7 +204,7 @@ export const Dismissible: Story = {
 const ACTION_CASES = [
   {
     tone: 'neutral',
-    // Button's `intent` has a full set of status intents matching Alert's own
+    // Button's `tone` has a full set of status tones matching Alert's own
     // variants (primary/secondary/default/info/success/warning/danger) — the
     // primary action below uses the one that matches its alert's tone.
     primaryTone: 'neutral',
@@ -285,7 +285,7 @@ const ACTION_CASES = [
  * what a "you must decide something" alert usually needs.
  *
  * All five variants, so the tone treatment of the controls is visible in one
- * place: every control's `intent` matches its alert's own tone
+ * place: every control's `tone` matches its alert's own tone
  * (`default`/`info`/`success`/`warning`/`danger`) — the filled primary
  * action, the outlined secondary action, the ghost tertiary action, and the
  * built-in dismiss "X" all read as part of *this* alert rather than a

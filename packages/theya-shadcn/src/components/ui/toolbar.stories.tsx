@@ -78,7 +78,7 @@ export const Vertical: Story = {
   ),
 };
 
-/** Wired to Button's own type/intent — a destructive action past a separator. */
+/** Wired to Button's own appearance/tone — a destructive action past a separator. */
 export const WithIntent: Story = {
   name: 'With tone',
   render: () => (

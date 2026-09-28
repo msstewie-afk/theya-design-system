@@ -43,7 +43,7 @@ export function CodeBlock({ code, language, filename, copy = true, copyLabel = '
     resetTimer.current = setTimeout(() => setStatus('idle'), 1500);
   };
 
-  const tooltipIntent = status === 'copied' ? 'success' : status === 'error' ? 'danger' : 'neutral';
+  const tooltipTone = status === 'copied' ? 'success' : status === 'error' ? 'danger' : 'neutral';
   const tooltipText = status === 'copied' ? 'Copied!' : status === 'error' ? 'Failed to copy' : copyLabel;
 
   const copyButton = copy ? (
@@ -60,7 +60,7 @@ export function CodeBlock({ code, language, filename, copy = true, copyLabel = '
           className={cn(!hasHeader && 'absolute right-2 top-2 z-10')}
         />
       </TooltipTrigger>
-      <TooltipContent tone={tooltipIntent}>{tooltipText}</TooltipContent>
+      <TooltipContent tone={tooltipTone}>{tooltipText}</TooltipContent>
     </Tooltip>
   ) : null;
 
