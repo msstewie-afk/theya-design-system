@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { TimeRangePicker, type TimeRange } from './time-range-picker';
 import { Label } from './label';
 
@@ -32,6 +33,16 @@ const meta: Meta<typeof TimeRangePicker> = {
 export default meta;
 type Story = StoryObj<typeof TimeRangePicker>;
 
+const body = () => within(document.body);
+const optionNames = () => body().getAllByRole('option').map((o) => o.textContent?.trim());
+
+/** Opens a TimeField list and clicks an option by its label. */
+async function pickTime(field: HTMLElement, label: string) {
+  await userEvent.click(field);
+  await userEvent.click(await body().findByRole('option', { name: label }));
+  await waitFor(() => expect(body().queryByRole('listbox')).toBeNull());
+}
+
 function ControlledDemo(args: React.ComponentProps<typeof TimeRangePicker>) {
   const [value, setValue] = useState<TimeRange>({});
   return (
@@ -47,6 +58,26 @@ function ControlledDemo(args: React.ComponentProps<typeof TimeRangePicker>) {
 /** An empty range. */
 export const Default: Story = {
   render: (args) => <ControlledDemo {...args} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const start = canvas.getByRole('combobox', { name: 'Start time' });
+    const end = canvas.getByRole('combobox', { name: 'End time' });
+
+    await pickTime(start, '9:00 AM');
+    await expect(canvas.getByText('09:00 to —')).toBeInTheDocument();
+
+    // The end list starts at the chosen start.
+    await userEvent.click(end);
+    await body().findByRole('listbox');
+    await expect(optionNames()[0]).toBe('9:00 AM');
+    await userEvent.click(body().getByRole('option', { name: '5:00 PM' }));
+    await expect(canvas.getByText('09:00 to 17:00')).toBeInTheDocument();
+
+    // Moving the start past the end drops the end instead of inverting.
+    await pickTime(start, '6:00 PM');
+    await expect(canvas.getByText('18:00 to —')).toBeInTheDocument();
+    await expect(end).toHaveValue('');
+  },
 };
 
 /** A pre-filled business-hours range. */
@@ -56,6 +87,15 @@ export const Preselected: Story = {
       <TimeRangePicker {...args} defaultValue={{ start: '09:00', end: '17:00' }} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('combobox', { name: 'Start time' })).toHaveValue('9:00 AM');
+    const end = canvas.getByRole('combobox', { name: 'End time' });
+    await expect(end).toHaveValue('5:00 PM');
+    // Uncontrolled: a pick sticks.
+    await pickTime(end, '6:00 PM');
+    await expect(end).toHaveValue('6:00 PM');
+  },
 };
 
 export const HourCycle24: Story = {
@@ -65,6 +105,11 @@ export const HourCycle24: Story = {
       <TimeRangePicker {...args} hourCycle={24} defaultValue={{ start: '09:00', end: '17:00' }} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('combobox', { name: 'Start time' })).toHaveValue('09:00');
+    await expect(canvas.getByRole('combobox', { name: 'End time' })).toHaveValue('17:00');
+  },
 };
 
 /** 24-hour labels with a wired group label and a custom step — a maintenance window. */
@@ -72,10 +117,19 @@ export const TwentyFourHour: Story = {
   name: '24-hour, with label',
   render: (args) => (
     <div className="flex flex-col gap-1.5 w-[380px]">
-      <Label>Maintenance window</Label>
-      <TimeRangePicker {...args} hourCycle={24} step={60} defaultValue={{ start: '01:00', end: '04:00' }} />
+      <Label id="maintenance-window">Maintenance window</Label>
+      <TimeRangePicker {...args} aria-labelledby="maintenance-window" hourCycle={24} step={60} defaultValue={{ start: '01:00', end: '04:00' }} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    // The visible label names the pair.
+    const group = within(canvasElement).getByRole('group', { name: 'Maintenance window' });
+    const end = within(group).getByRole('combobox', { name: 'End time' });
+    await userEvent.click(end);
+    await body().findByRole('listbox');
+    await expect(optionNames().slice(0, 3)).toEqual(['01:00', '02:00', '03:00']);
+    await userEvent.keyboard('{Escape}');
+  },
 };
 
 export const Disabled: Story = {
@@ -84,4 +138,9 @@ export const Disabled: Story = {
       <TimeRangePicker {...args} disabled defaultValue={{ start: '09:00', end: '17:00' }} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('combobox', { name: 'Start time' })).toBeDisabled();
+    await expect(canvas.getByRole('combobox', { name: 'End time' })).toBeDisabled();
+  },
 };
