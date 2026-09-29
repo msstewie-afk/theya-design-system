@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, within } from '@storybook/test';
 import { MaskedInput } from './masked-input';
 
 const meta: Meta<typeof MaskedInput> = {
@@ -43,6 +44,11 @@ export const Default: Story = {
     'aria-label': 'Phone number',
     className: 'w-[220px]',
   },
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole('textbox', { name: 'Phone number' });
+    // The "1" in the mask prefix must not be re-read as user input.
+    await expect(input).toHaveValue('+1 (415) 555-2671');
+  },
 };
 
 export const Typing: Story = {
@@ -50,6 +56,38 @@ export const Typing: Story = {
     mask: '+1 (___) ___-____',
     'aria-label': 'Phone number',
     className: 'w-[220px]',
+    onUnmaskedChange: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const input = within(canvasElement).getByRole('textbox', { name: 'Phone number' });
+    await expect(input).toHaveValue('');
+
+    await userEvent.type(input, '4');
+    await expect(input).toHaveValue('+1 (4');
+
+    // Letters can't fill a digit slot — ignored.
+    await userEvent.type(input, 'ab');
+    await expect(input).toHaveValue('+1 (4');
+
+    await userEvent.type(input, '15');
+    // No trailing ") " after a finished group, so Backspace deletes the digit.
+    await expect(input).toHaveValue('+1 (415');
+    await userEvent.type(input, '{Backspace}');
+    await expect(input).toHaveValue('+1 (41');
+    await userEvent.type(input, '5');
+
+    await userEvent.type(input, '5552671');
+    await expect(input).toHaveValue('+1 (415) 555-2671');
+    await expect(args.onUnmaskedChange).toHaveBeenLastCalledWith('4155552671');
+
+    // Mask is full — extra digits are dropped.
+    await userEvent.type(input, '9');
+    await expect(input).toHaveValue('+1 (415) 555-2671');
+
+    // Clearing leaves an empty field, not a stuck "+1 (" prefix.
+    await userEvent.clear(input);
+    await expect(input).toHaveValue('');
+    await expect(args.onUnmaskedChange).toHaveBeenLastCalledWith('');
   },
 };
 
@@ -70,6 +108,17 @@ export const Formats: Story = {
       </div>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('textbox', { name: 'Card number' })).toHaveValue('4242 4242 4242 4242');
+    await expect(canvas.getByRole('textbox', { name: 'IPv4 address' })).toHaveValue('192.168.000.001');
+
+    const expiry = canvas.getByRole('textbox', { name: 'Expiry' });
+    await expect(expiry).toHaveValue('04/27');
+    await userEvent.clear(expiry);
+    await userEvent.type(expiry, '1229');
+    await expect(expiry).toHaveValue('12/29');
+  },
 };
 
 export const Invalid: Story = {
@@ -79,5 +128,10 @@ export const Invalid: Story = {
     error: true,
     'aria-label': 'Phone number',
     className: 'w-[220px]',
+  },
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole('textbox', { name: 'Phone number' });
+    await expect(input).toHaveValue('+1 (415) 555');
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
   },
 };
