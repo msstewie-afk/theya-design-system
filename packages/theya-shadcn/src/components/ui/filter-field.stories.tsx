@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { FilterField, FILTER_FIELD_SEARCH_KEY, parseFilterDate, parseFilterNumber, type FilterAttribute, type AppliedFilter } from './filter-field';
 import { StatusDot, type StatusTone } from './status-dot';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table';
@@ -30,6 +31,18 @@ const meta: Meta<typeof FilterField> = {
 
 export default meta;
 type Story = StoryObj<typeof FilterField>;
+
+const body = () => within(document.body);
+
+/** Text of the row the combobox currently points at. */
+const activeRowText = (input: HTMLElement) => {
+  const id = input.getAttribute('aria-activedescendant');
+  return id ? document.getElementById(id)?.textContent?.trim() : undefined;
+};
+
+async function waitClosed() {
+  await waitFor(() => expect(body().queryByRole('dialog')).toBeNull());
+}
 
 const ATTRIBUTES: FilterAttribute[] = [
   { key: 'name', label: 'Name', type: 'text', operators: true },
@@ -72,6 +85,48 @@ function Demo() {
 
 export const Default: Story = {
   render: () => <Demo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('combobox', { name: 'Filter servers' });
+    await expect(input).toHaveAttribute('aria-expanded', 'false');
+
+    // An applied chip opens its editor — it is a button, not a toggle.
+    const chip = canvas.getByRole('button', { name: 'Status: Active' });
+    await expect(chip).not.toHaveAttribute('aria-pressed');
+
+    // Step one: the input drives the attribute list via activedescendant.
+    await userEvent.click(input);
+    await expect(input).toHaveAttribute('aria-expanded', 'true');
+    await expect(body().getByRole('listbox', { name: 'Filter by…' })).toBeInTheDocument();
+    // Empty query: the disabled "Search for" row is skipped.
+    await expect(activeRowText(input)).toBe('Name');
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(activeRowText(input)).toBe('Name');
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(activeRowText(input)).toBe('Status');
+
+    // Step two for a multi-select: picking keeps the editor open.
+    await userEvent.keyboard('{Enter}');
+    await userEvent.click(await body().findByRole('option', { name: /Suspended/ }));
+    await expect(canvas.getByRole('button', { name: 'Status: Suspended' })).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    await waitClosed();
+
+    // Typed text becomes a search chip from the highlighted "Search for" row.
+    await userEvent.click(input);
+    await userEvent.type(input, 'nginx');
+    await expect(activeRowText(input)).toContain('Search for "nginx"');
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByRole('button', { name: 'Remove search "nginx"' })).toBeInTheDocument();
+    await expect(input).toHaveValue('');
+
+    // Backspace in the empty input removes the last chip.
+    await userEvent.keyboard('{Backspace}');
+    await expect(canvas.queryByRole('button', { name: 'Remove search "nginx"' })).toBeNull();
+    await expect(canvas.getByText('2 filters applied')).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    await waitClosed();
+  },
 };
 
 export const Empty: Story = {
@@ -80,6 +135,50 @@ export const Empty: Story = {
       <FilterField attributes={ATTRIBUTES} aria-label="Filter servers" />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('combobox', { name: 'Filter servers' });
+    await expect(canvas.getByText('No filters applied')).toBeInTheDocument();
+
+    // Non-searchable select: its own listbox takes focus; arrows + Enter apply.
+    await userEvent.click(input);
+    await userEvent.click(body().getByRole('option', { name: 'Region' }));
+    const regions = await body().findByRole('listbox', { name: 'Region' });
+    await waitFor(() => expect(regions).toHaveFocus());
+    await userEvent.keyboard('{ArrowDown}{Enter}');
+    await waitClosed();
+    await expect(canvas.getByRole('button', { name: 'Region: us-east-1' })).toBeInTheDocument();
+
+    // Text attribute with operators: Enter applies "contains".
+    await userEvent.click(input);
+    await userEvent.click(body().getByRole('option', { name: 'Name' }));
+    await userEvent.type(await body().findByRole('textbox', { name: 'Name contains' }), 'web{Enter}');
+    await waitClosed();
+    await expect(canvas.getByRole('button', { name: 'Name: Contains web' })).toBeInTheDocument();
+
+    // Number range: only a minimum -> "3+".
+    await userEvent.click(input);
+    await userEvent.click(body().getByRole('option', { name: 'Replicas' }));
+    await userEvent.type(await body().findByRole('spinbutton', { name: 'Replicas minimum' }), '3');
+    await userEvent.click(body().getByRole('button', { name: 'Apply' }));
+    await waitClosed();
+    await expect(canvas.getByRole('button', { name: 'Replicas: 3+' })).toBeInTheDocument();
+    await expect(canvas.getByText('3 filters applied')).toBeInTheDocument();
+
+    // Removing a chip keeps focus in the field.
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove filter Name: Contains web' }));
+    await expect(input).toHaveFocus();
+    await userEvent.keyboard('{Escape}');
+
+    // Ctrl/Cmd+A selects every chip; Backspace clears them all.
+    input.focus();
+    await userEvent.keyboard('{Control>}a{/Control}');
+    await expect(canvas.getByText('2 filters selected. Press Backspace or Delete to remove.')).toBeInTheDocument();
+    await userEvent.keyboard('{Backspace}');
+    await expect(canvas.getByText('No filters applied')).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    await waitClosed();
+  },
 };
 
 export const Disabled: Story = {
@@ -88,6 +187,13 @@ export const Disabled: Story = {
       <FilterField attributes={ATTRIBUTES} defaultValue={[{ key: 'status', value: 'active' }]} disabled aria-label="Filter servers" />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('combobox', { name: 'Filter servers' })).toBeDisabled();
+    await expect(canvas.getByRole('button', { name: 'Add filter' })).toBeDisabled();
+    await expect(canvas.getByRole('button', { name: 'Status: Active' })).toBeDisabled();
+    await expect(canvas.getByRole('button', { name: 'Remove filter Status: Active' })).toBeDisabled();
+  },
 };
 
 /** On a mobile viewport the field's 520px floor shrinks to fit the container instead of overflowing it — shown in a 360px frame with a chip applied so the shrink is visible against real content. */
