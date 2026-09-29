@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, within } from '@storybook/test';
 import { NumberField } from './number-field';
 
 const meta: Meta<typeof NumberField> = {
@@ -43,12 +44,40 @@ export const Playground: Story = {
 
 export const WithMinMax: Story = {
   name: 'With min/max',
-  args: { defaultValue: 5, min: 0, max: 10, 'aria-label': 'Quantity (0-10)' },
+  args: { defaultValue: 5, min: 0, max: 10, 'aria-label': 'Quantity (0-10)', onValueChange: fn() },
   render: (args) => (
     <div className="w-[160px]">
       <NumberField {...args} />
     </div>
   ),
+  // Arrow keys step (Shift = 10x), values clamp to min/max, the stepper
+  // buttons disable at the bounds, and the spinbutton reports its range.
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('spinbutton', { name: 'Quantity (0-10)' });
+    const increase = canvas.getByRole('button', { name: 'Increase' });
+    const decrease = canvas.getByRole('button', { name: 'Decrease' });
+    await expect(input).toHaveAttribute('aria-valuemin', '0');
+    await expect(input).toHaveAttribute('aria-valuemax', '10');
+
+    await userEvent.click(input);
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(input).toHaveAttribute('aria-valuenow', '6');
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(6);
+
+    await userEvent.keyboard('{Shift>}{ArrowUp}{/Shift}');
+    await expect(input).toHaveValue('10');
+    await expect(increase).toBeDisabled();
+
+    await userEvent.keyboard('{Shift>}{ArrowDown}{ArrowDown}{/Shift}');
+    await expect(input).toHaveValue('0');
+    await expect(decrease).toBeDisabled();
+
+    await userEvent.click(increase);
+    await userEvent.click(increase);
+    await expect(input).toHaveAttribute('aria-valuenow', '2');
+    await expect(decrease).toBeEnabled();
+  },
 };
 
 export const Invalid: Story = {
