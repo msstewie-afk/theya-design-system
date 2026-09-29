@@ -44,6 +44,11 @@ function InputOTPSlot({ index, className, ...props }: React.ComponentProps<'div'
 
   return (
     <div
+      // Slots are a visual mirror of the single real <input>, which already
+      // exposes the value to assistive tech. Without aria-hidden a screen
+      // reader in browse mode reads every digit a second time as loose text.
+      aria-hidden="true"
+      data-slot="input-otp-slot"
       data-active={isActive}
       className={cn(
         // Separate boxes with a gap (via InputOTPGroup's gap-2), not a
