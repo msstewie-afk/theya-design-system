@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId, useRef } from 'react';
 import { Calendar as CalendarIcon, NavArrowDown, Xmark } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { Calendar } from './calendar';
@@ -57,6 +57,12 @@ export function DatePicker({
   calendarProps,
 }: DatePickerProps) {
   const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  // The trigger's accessible name comes from aria-label or a <label for>,
+  // both of which REPLACE the button's own text — so the chosen date (or
+  // placeholder) was never announced. The value span is wired in as the
+  // accessible description instead ("Start date, button, Jun 16, 2026").
+  const valueId = useId();
   const [internal, setInternal] = useState<Date | undefined>(defaultValue);
   const selected = value !== undefined ? value : internal;
 
@@ -80,12 +86,13 @@ export function DatePicker({
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <button
+            ref={triggerRef}
             type="button"
             id={id}
             disabled={disabled}
             aria-label={ariaLabel}
             aria-invalid={ariaInvalid}
-            aria-describedby={ariaDescribedby}
+            aria-describedby={[valueId, ariaDescribedby].filter(Boolean).join(' ')}
             data-error={isError || undefined}
             className={cn(
               'flex w-full items-center gap-2',
@@ -127,6 +134,7 @@ export function DatePicker({
           >
             <CalendarIcon />
             <span
+              id={valueId}
               className={cn(
                 'min-w-0 flex-1 truncate text-left',
                 // The placeholder branch set its own explicit color, which
@@ -145,6 +153,10 @@ export function DatePicker({
           <Calendar
             mode="single"
             selected={selected}
+            // Open on the selected date's month (react-day-picker defaults to
+            // today's month, so a June value opened on September and
+            // autoFocus landed on today instead of the chosen day).
+            defaultMonth={selected}
             onSelect={(next) => {
               commit(next);
               setOpen(false);
@@ -162,6 +174,9 @@ export function DatePicker({
             onClick={(e) => {
               e.stopPropagation();
               commit(undefined);
+              // The clear button unmounts once the value is gone; without
+              // this, focus fell to <body>.
+              triggerRef.current?.focus();
             }}
             className={cn(
               'pointer-events-auto flex items-center justify-center size-6 rounded-[var(--size-border-radius-border-radius-md)]',
