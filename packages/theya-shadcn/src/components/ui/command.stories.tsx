@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
+
+// Spy for the "Disabled item" story's play function.
+const onSelectAction = fn();
 import { Globe, Settings, HomeSimple, Wrench, ArrowUpRight, RefreshDouble, ShieldCheck, Trash } from 'iconoir-react';
 import {
   Command,
@@ -76,6 +80,29 @@ export const Inline: Story = {
       </Command>
     </div>
   ),
+  // Keyboard model: the first option starts highlighted and is exposed via
+  // aria-activedescendant; arrows move it; typing filters; Escape clears.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('combobox', { name: 'Command menu' });
+    const highlighted = () => canvas.getByRole('option', { selected: true });
+
+    await userEvent.click(input);
+    await waitFor(() => expect(highlighted()).toHaveTextContent('Dashboard'));
+    await expect(input).toHaveAttribute('aria-activedescendant', highlighted().id);
+
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(highlighted()).toHaveTextContent('Sites');
+    await expect(input).toHaveAttribute('aria-activedescendant', highlighted().id);
+
+    await userEvent.type(input, 'tool');
+    await waitFor(() => expect(canvas.getAllByRole('option')).toHaveLength(1));
+    await expect(highlighted()).toHaveTextContent('Tools');
+
+    await userEvent.keyboard('{Escape}');
+    await expect(input).toHaveValue('');
+    await expect(canvas.getAllByRole('option')).toHaveLength(4);
+  },
 };
 
 /** `icon`/`toneIcon` (leading glyph) and `description` (second line) — for results that need more than a bare label, like search hits or entities. */
@@ -172,13 +199,13 @@ export const DisabledItem: Story = {
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Actions">
-            <CommandItem value="reissue">
+            <CommandItem value="reissue" onSelect={onSelectAction}>
               <RefreshDouble /> Reissue certificate
             </CommandItem>
-            <CommandItem value="suspend">
+            <CommandItem value="suspend" onSelect={onSelectAction}>
               <ShieldCheck /> Suspend site
             </CommandItem>
-            <CommandItem value="delete" disabled>
+            <CommandItem value="delete" disabled onSelect={onSelectAction}>
               <Trash /> Delete site
               <CommandShortcut>suspend first</CommandShortcut>
             </CommandItem>
@@ -188,6 +215,27 @@ export const DisabledItem: Story = {
       </Command>
     </div>
   ),
+  // The disabled row never takes the highlight, so Enter can't land on it.
+  play: async ({ canvasElement }) => {
+    onSelectAction.mockClear();
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('combobox', { name: 'Command menu' });
+    const highlighted = () => canvas.getByRole('option', { selected: true });
+    await expect(canvas.getByRole('option', { name: /Delete site/ })).toHaveAttribute('aria-disabled', 'true');
+
+    await userEvent.click(input);
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}{ArrowDown}');
+    await expect(highlighted()).toHaveTextContent('Suspend site');
+
+    await userEvent.keyboard('{Enter}');
+    await expect(onSelectAction).toHaveBeenCalledTimes(1);
+    await expect(onSelectAction).toHaveBeenLastCalledWith('suspend');
+
+    await userEvent.type(input, 'delete');
+    await expect(canvas.queryByRole('option', { selected: true })).toBeNull();
+    await userEvent.keyboard('{Enter}');
+    await expect(onSelectAction).toHaveBeenCalledTimes(1);
+  },
 };
 
 /** The empty state — a query pre-seeded to match nothing, so CommandEmpty shows without interaction. */
