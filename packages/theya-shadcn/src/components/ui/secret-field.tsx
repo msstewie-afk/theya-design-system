@@ -15,9 +15,12 @@ export interface SecretFieldProps {
   className?: string;
 }
 
+function maskTail(value: string) {
+  return value.length > 4 ? value.slice(-4) : '';
+}
+
 function maskValue(value: string) {
-  const tail = value.length > 4 ? value.slice(-4) : '';
-  return '•'.repeat(10) + tail;
+  return '•'.repeat(10) + maskTail(value);
 }
 
 function SecretField({
@@ -45,7 +48,10 @@ function SecretField({
         ) : (
           <>
             <span aria-hidden="true">{maskValue(value)}</span>
-            <span className="sr-only">{`${label} hidden`}</span>
+            {/* The visible tail is how sighted users tell keys apart — say it too. */}
+            <span className="sr-only">
+              {maskTail(value) ? `${label} hidden, ends in ${maskTail(value)}` : `${label} hidden`}
+            </span>
           </>
         )}
       </code>
@@ -54,7 +60,11 @@ function SecretField({
           appearance="ghost"
           size="sm"
           iconOnly
-          aria-label={revealed ? `Hide ${label.toLowerCase()}` : `Reveal ${label.toLowerCase()}`}
+          // A toggle keeps one stable name and reports state via aria-pressed.
+          // Swapping the name as well announced "Hide API key, pressed" —
+          // two conflicting signals. Label isn't lowercased: it breaks
+          // acronyms ("API key" -> "api key").
+          aria-label={`Show ${label}`}
           aria-pressed={revealed}
           onClick={() => setRevealed((r) => !r)}
           leftIcon={revealed ? <Eye /> : <EyeClosed />}
@@ -63,7 +73,8 @@ function SecretField({
       <CopyButton
         value={value}
         label={null}
-        aria-label="Copy value"
+        // Named after the label so several fields on one page stay distinct.
+        aria-label={`Copy ${label}`}
         appearance="ghost"
         onCopied={() => toast.success(copyToastTitle, { description: 'Paste it somewhere safe now.' })}
         onCopyError={() => {
