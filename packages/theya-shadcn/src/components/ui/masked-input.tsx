@@ -58,6 +58,7 @@ function buildMasked(
   replacement: Record<string, RegExp>,
   showMask: boolean,
 ): { masked: string; raw: string } {
+  if (inputChars.length === 0 && !showMask) return { masked: '', raw: '' };
   let masked = '';
   let raw = '';
   let ptr = 0;
@@ -76,17 +77,51 @@ function buildMasked(
         else break;
       }
     } else {
-      if (!ranOut || showMask) masked += ch;
+      // Without showMask, stop at the literals after the last entered char.
+      // Appending them ("+1 (415) ") would make Backspace a no-op: the
+      // deleted literal just comes back on the next re-parse.
+      if (showMask) masked += ch;
+      else if (!ranOut && ptr < inputChars.length) masked += ch;
       else break;
     }
   }
   return { masked, raw };
 }
 
-/** Strips characters from raw input that can't fill any mask slot. */
+/**
+ * Pulls the slot characters out of whatever is in the field.
+ *
+ * The field's own value is already formatted, so it contains mask
+ * literals — and some of those literals are themselves valid slot chars
+ * (the "1" in "+1 (___) ___-____"). Filtering by pattern alone would
+ * re-consume them as user input on every keystroke and shift every
+ * digit by one. So when the value starts with the mask's leading
+ * literal prefix we treat it as formatted and skip any character that
+ * sits exactly where the mask has the same literal. Otherwise (pasted
+ * or typed digits, "4155552671") every pattern-matching char counts.
+ */
 function normalizeMaskChars(raw: string, mask: string, replacement: Record<string, RegExp>): string[] {
   const patterns = Object.values(replacement);
-  return raw.split('').filter((ch) => patterns.some((p) => p.test(ch)));
+  const fits = (ch: string) => patterns.some((p) => p.test(ch));
+  const isSlot = (ch: string | undefined) => ch !== undefined && ch in replacement;
+
+  let prefixEnd = 0;
+  while (prefixEnd < mask.length && !isSlot(mask[prefixEnd])) prefixEnd++;
+  const prefix = mask.slice(0, prefixEnd);
+
+  // Backspacing into the prefix ("+1 (" -> "+1 ") leaves no user input.
+  if (prefix && raw.length <= prefix.length && prefix.startsWith(raw)) return [];
+
+  if (!prefix || !raw.startsWith(prefix)) return raw.split('').filter(fits);
+
+  const out: string[] = [];
+  for (let i = 0; i < raw.length; i++) {
+    const ch = raw[i];
+    const maskCh = mask[i];
+    if (maskCh !== undefined && !isSlot(maskCh) && ch === maskCh) continue;
+    if (fits(ch)) out.push(ch);
+  }
+  return out;
 }
 
 export const MaskedInput = forwardRef<HTMLInputElement, MaskedInputProps>(function MaskedInput(
