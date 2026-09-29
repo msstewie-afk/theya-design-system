@@ -146,6 +146,10 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
         ref={setRefs}
         id={resolvedId}
         disabled={disabled}
+        // Was destructured and only used for the visual asterisk (which is
+        // aria-hidden), never passed down: screen readers didn't hear
+        // "required" and native form validation ignored it (3.3.2 / 4.1.2).
+        required={required}
         value={value}
         defaultValue={defaultValue}
         onChange={(e) => {
