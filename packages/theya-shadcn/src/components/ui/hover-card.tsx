@@ -21,7 +21,7 @@ export function HoverCardContent({ className, align = 'center', sideOffset = 8, 
           'z-50 w-80 max-w-[calc(100vw-2rem)] origin-[var(--radix-hover-card-content-transform-origin)] rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)]',
           'bg-[var(--color-bg-surface-bg-surface-overlay)] p-4 shadow-lg outline-none',
           'text-[var(--color-text-text)]',
-          'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none',
+          'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
           'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
           className,
         )}

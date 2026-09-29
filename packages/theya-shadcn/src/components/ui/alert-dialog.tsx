@@ -51,7 +51,7 @@ export function AlertDialogOverlay({ className, ...props }: React.ComponentProps
     <AlertDialogPrimitive.Overlay
       className={cn(
         'fixed inset-0 z-50 bg-black/40 backdrop-blur-[1px]',
-        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 motion-reduce:animate-none',
+        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 motion-reduce:animate-none!',
         className,
       )}
       {...props}
@@ -72,7 +72,7 @@ export function AlertDialogContent({ className, ...props }: React.ComponentProps
           layout.contentGap === 'default' && 'gap-4',
           layout.contentGap === 'compact' && 'gap-2',
           layout.contentGap === 'none' && 'gap-0',
-          'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none',
+          'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
           'data-[state=open]:duration-200 data-[state=open]:ease-out data-[state=closed]:duration-150 data-[state=closed]:ease-in',
           'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
           'data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%]',

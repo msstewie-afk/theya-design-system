@@ -66,7 +66,7 @@ export function PushSheet({ open, onOpenChange, side = 'right', width = '22.5rem
             <DialogPrimitive.Overlay
               className={cn(
                 'fixed inset-0 z-50 bg-black/40',
-                'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+                'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 motion-reduce:animate-none!',
               )}
             />
             <DialogPrimitive.Content
@@ -75,7 +75,7 @@ export function PushSheet({ open, onOpenChange, side = 'right', width = '22.5rem
               className={cn(
                 'fixed inset-y-0 z-50 flex h-full max-w-[92vw] flex-col bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-xl outline-none',
                 'transition ease-out motion-reduce:transition-none',
-                'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:duration-300',
+                'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:duration-300 motion-reduce:animate-none!',
                 side === 'right'
                   ? 'right-0 border-l border-solid border-[var(--color-border-border-subtle)] data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right'
                   : 'left-0 border-r border-solid border-[var(--color-border-border-subtle)] data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left',

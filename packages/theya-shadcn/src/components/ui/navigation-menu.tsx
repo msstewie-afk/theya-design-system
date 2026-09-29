@@ -29,7 +29,7 @@ export function NavigationMenu({
             'origin-[top_center] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
             'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] shadow-lg',
             'transition-[width,height] duration-200 ease-out motion-reduce:transition-none',
-            'data-[state=open]:animate-in data-[state=closed]:animate-out',
+            'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
             'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
             viewportClassName,
           )}
@@ -75,7 +75,7 @@ export function NavigationMenuContent({ className, ...props }: React.ComponentPr
     <NavigationMenuPrimitive.Content
       className={cn(
         'w-[calc(100vw-2rem)] p-2 sm:w-max sm:min-w-[22rem]',
-        'data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in',
+        'data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in motion-reduce:animate-none!',
         'data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52',
         'data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52',
         className,
