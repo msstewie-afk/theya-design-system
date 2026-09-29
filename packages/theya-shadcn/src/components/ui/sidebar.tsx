@@ -223,12 +223,16 @@ export function SidebarSection({
 // Same tone vocabulary as Badge/StatusDot — a Sidebar item's own badge is a
 // tiny status pill (notification/message count, etc.), so it takes the
 // canonical StatusTone set rather than inventing a separate one.
+// Dark theme: the -subtle pills are light alpha tints, and the mid-tone
+// status text on them fell under 4.5:1 (success 3.59, warning 3.74 on
+// bg-surface) — same fix as Button's tonal variants (2026-09-27): the
+// palest ramp step, i.e. M3's "on-container" text.
 const BADGE_TONE_CLASS: Record<StatusTone, string> = {
   neutral: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)]',
-  primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
-  success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)]',
-  warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)]',
-  danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)]',
+  primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)] [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
+  success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)] [[data-theme=dark]_&]:text-[var(--color-green-green-010)]',
+  warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)] [[data-theme=dark]_&]:text-[var(--color-orange-orange-005)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] [[data-theme=dark]_&]:text-[var(--color-red-red-050)]',
   info: 'bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-text-text-info)]',
 };
 
@@ -267,7 +271,19 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, activ
       {icon}
       <span className={cn('flex-1', collapsed && 'sr-only')}>{children}</span>
       {!collapsed && badge != null && (
-        <span className={cn('ml-auto rounded-full px-1.5 py-px font-body text-body-xs font-semibold transition-opacity duration-150', BADGE_TONE_CLASS[badgeTone], actions && 'group-hover/item:opacity-0 group-focus-within/item:opacity-0')}>
+        <span
+          className={cn(
+            'ml-auto rounded-full px-1.5 py-px font-body text-body-xs font-semibold transition-opacity duration-150',
+            BADGE_TONE_CLASS[badgeTone],
+            // On the active row the pill's translucent tint stacked on the
+            // row's own primary tint and sank to 2.92:1 in dark (axe
+            // color-contrast, Sidebar/Inverse, 2026-09-28). An opaque
+            // surface-colored "cut-out" pill keeps every tone >= its idle
+            // contrast in both themes.
+            active && 'bg-[var(--color-bg-surface-bg-surface)]',
+            actions && 'group-hover/item:opacity-0 group-focus-within/item:opacity-0',
+          )}
+        >
           {badge}
         </span>
       )}
