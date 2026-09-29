@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import { useState, useMemo, useCallback, useRef, useEffect, useId } from 'react';
 import type { ReactNode, KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { NavArrowRight, Page, Folder } from 'iconoir-react';
 import { cn } from '@/lib/utils';
@@ -307,6 +307,11 @@ function TreeItem({ node, depth, parentId, posInSet, setSize, expandedSet, selec
   const isSelected = selected === node.id;
   const isTabbable = activeId === node.id;
   const disabled = !!node.disabled;
+  // The treeitem <li> also wraps its expanded children, so a name computed
+  // from content was "app layout.tsx page.tsx sites …" — screen readers read
+  // a whole folder's contents on every step. Point the name at the row's
+  // own label instead.
+  const labelId = useId();
 
   const entry: FlatNode = { node, depth, parentId, posInSet, setSize, hasChildren };
   const indent = `${(depth - 1) * 1}rem`;
@@ -324,6 +329,7 @@ function TreeItem({ node, depth, parentId, posInSet, setSize, expandedSet, selec
       role="treeitem"
       data-slot="tree-item"
       data-tree-id={node.id}
+      aria-labelledby={labelId}
       aria-expanded={hasChildren ? isExpanded : undefined}
       aria-selected={isSelected}
       aria-level={depth}
@@ -360,7 +366,7 @@ function TreeItem({ node, depth, parentId, posInSet, setSize, expandedSet, selec
           {node.icon ?? <DefaultIcon className="size-4" />}
         </span>
 
-        <span data-slot="tree-label" className="min-w-0 flex-1 truncate">{node.label}</span>
+        <span id={labelId} data-slot="tree-label" className="min-w-0 flex-1 truncate">{node.label}</span>
       </div>
 
       {hasChildren && isExpanded && (
