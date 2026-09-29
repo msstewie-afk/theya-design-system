@@ -80,6 +80,59 @@ export const WithMinMax: Story = {
   },
 };
 
+/**
+ * Typing edits a draft; the value is parsed, clamped and reported once on
+ * blur or Enter. Empty input reverts, Escape discards, arrows step from the
+ * draft. With min=5 you can type "12" without it snapping to 5 midway.
+ */
+export const TypingCommitsOnBlur: Story = {
+  name: 'Typing commits on blur/Enter',
+  args: { defaultValue: 10, min: 5, max: 50, 'aria-label': 'Replicas (5-50)', onValueChange: fn() },
+  render: (args) => (
+    <div className="w-[160px]">
+      <NumberField {...args} />
+    </div>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const input = within(canvasElement).getByRole('spinbutton', { name: 'Replicas (5-50)' });
+
+    // "12" with min=5: no snapping while typing, one report on blur.
+    await userEvent.clear(input);
+    await userEvent.type(input, '12');
+    await expect(input).toHaveValue('12');
+    await expect(args.onValueChange).not.toHaveBeenCalled();
+    await userEvent.tab();
+    await expect(input).toHaveAttribute('aria-valuenow', '12');
+    await expect(args.onValueChange).toHaveBeenCalledTimes(1);
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(12);
+
+    // Over max + Enter: clamped on commit.
+    await userEvent.clear(input);
+    await userEvent.type(input, '99{Enter}');
+    await expect(input).toHaveValue('50');
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(50);
+
+    // Emptied then blurred: reverts, no report.
+    await userEvent.clear(input);
+    await expect(input).toHaveValue('');
+    await userEvent.tab();
+    await expect(input).toHaveValue('50');
+    await expect(args.onValueChange).toHaveBeenCalledTimes(2);
+
+    // Escape discards the draft.
+    await userEvent.clear(input);
+    await userEvent.type(input, '7{Escape}');
+    await expect(input).toHaveValue('50');
+
+    // Arrow steps from the draft on screen, not the last committed value.
+    await userEvent.clear(input);
+    await userEvent.type(input, '7');
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(input).toHaveValue('8');
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(8);
+  },
+};
+
 export const Invalid: Story = {
   args: { defaultValue: 0, 'aria-label': 'Quantity', 'aria-invalid': true },
   render: (args) => (
