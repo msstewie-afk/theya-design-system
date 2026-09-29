@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { ArrowRight } from 'iconoir-react';
 import {
   Dialog,
@@ -72,6 +73,33 @@ export const Default: Story = {
       </DialogContent>
     </Dialog>
   ),
+  // Modal contract: named/described dialog, focus moves inside and stays
+  // trapped under Tab, the X and Escape both close and return focus to the
+  // trigger. Ends closed (an open modal aria-hides #storybook-root).
+  play: async ({ canvasElement }) => {
+    const body = within(document.body);
+    const trigger = within(canvasElement).getByRole('button', { name: 'Create site' });
+
+    await userEvent.click(trigger);
+    const dialog = await body.findByRole('dialog', { name: 'Create site' });
+    await expect(dialog).toHaveAccessibleDescription('Point a domain at a new site. You can change the region later.');
+    await waitFor(() => expect(dialog.contains(document.activeElement)).toBe(true));
+
+    for (let i = 0; i < 6; i++) {
+      await userEvent.tab();
+      await expect(dialog.contains(document.activeElement)).toBe(true);
+    }
+
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Close' }));
+    await waitFor(() => expect(body.queryByRole('dialog')).toBeNull());
+    await waitFor(() => expect(trigger).toHaveFocus());
+
+    await userEvent.keyboard('{Enter}');
+    await body.findByRole('dialog', { name: 'Create site' });
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('dialog')).toBeNull());
+    await waitFor(() => expect(trigger).toHaveFocus());
+  },
 };
 
 /**
