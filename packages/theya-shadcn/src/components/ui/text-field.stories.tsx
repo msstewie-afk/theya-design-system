@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
 import { Star, Search, User, Mail, Lock, Heart, Home, Settings, Xmark } from 'iconoir-react';
 
 const iconMap = { Star, Search, User, Mail, Lock, Heart, Home, Settings, Xmark, None: null } as const;
@@ -58,6 +59,19 @@ type Story = StoryObj<typeof TextField>;
 
 export const Playground: Story = {
   args: { label: 'Email', placeholder: 'you@example.com' },
+  // Uncontrolled: the clear button appears once there's text, clears it,
+  // disappears, and leaves focus in the field.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('textbox', { name: 'Email' });
+    await expect(canvas.queryByRole('button', { name: 'Clear input' })).toBeNull();
+
+    await userEvent.type(input, 'maria@theya.dev');
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear input' }));
+    await expect(input).toHaveValue('');
+    await expect(input).toHaveFocus();
+    await expect(canvas.queryByRole('button', { name: 'Clear input' })).toBeNull();
+  },
 };
 
 export const Bare: Story = {
@@ -67,6 +81,10 @@ export const Bare: Story = {
 
 export const Required: Story = {
   args: { label: 'Workspace name', required: true, placeholder: 'my-team' },
+  // "Required" must reach the input itself, not only the (aria-hidden) asterisk.
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByRole('textbox', { name: 'Workspace name' })).toBeRequired();
+  },
 };
 
 export const Clearable: Story = {
@@ -87,6 +105,19 @@ export const Clearable: Story = {
         onChange={(e) => setValue(e.target.value)}
       />
     );
+  },
+  // Controlled: clearing goes through onChange, typing brings the button back.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('textbox', { name: 'Search' });
+    await expect(input).toHaveValue('Clear me');
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear input' }));
+    await expect(input).toHaveValue('');
+    await expect(input).toHaveFocus();
+
+    await userEvent.type(input, 'abc');
+    await expect(canvas.getByRole('button', { name: 'Clear input' })).toBeInTheDocument();
   },
 };
 
@@ -130,6 +161,11 @@ export const WithDescription: Story = {
     description: 'This will be your unique workspace address.',
     placeholder: 'my-team',
   },
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByRole('textbox', { name: 'Workspace URL' })).toHaveAccessibleDescription(
+      'This will be your unique workspace address.',
+    );
+  },
 };
 
 export const WithError: Story = {
@@ -139,6 +175,13 @@ export const WithError: Story = {
     required: true,
     error: 'This required field contains an error. Please fix it',
     defaultValue: 'not-an-email',
+  },
+  // The error is exposed, not just painted red: invalid + read as the description.
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole('textbox', { name: 'Email' });
+    await expect(input).toBeInvalid();
+    await expect(input).toBeRequired();
+    await expect(input).toHaveAccessibleDescription('This required field contains an error. Please fix it');
   },
 };
 
