@@ -1,4 +1,4 @@
-import { useId, useMemo } from 'react';
+import { useMemo } from 'react';
 import type { ReactNode } from 'react';
 import { Check, Xmark } from 'iconoir-react';
 import { cn } from '@/lib/utils';
@@ -31,7 +31,6 @@ export interface PasswordStrengthMeterProps {
  * rainbow gradient.
  */
 export function PasswordStrengthMeter({ value, rules = DEFAULT_RULES, className }: PasswordStrengthMeterProps) {
-  const labelId = useId();
 
   const { score, percent, statusLabel, barColor, percentColor, checks } = useMemo(() => {
     const evaluated = rules.map((rule) => ({ label: rule.label, met: rule.test(value) }));
@@ -58,7 +57,11 @@ export function PasswordStrengthMeter({ value, rules = DEFAULT_RULES, className 
       <div className="flex items-center gap-2">
         <div
           role="progressbar"
-          aria-labelledby={labelId}
+          // Named by what it measures; the band goes in valuetext. It used
+          // to be labelled by the band text itself, so its name was "—" or
+          // "Weak" and the percentage was read with no context.
+          aria-label="Password strength"
+          aria-valuetext={statusLabel || 'No password entered'}
           aria-valuenow={percent}
           aria-valuemin={0}
           aria-valuemax={100}
@@ -70,7 +73,7 @@ export function PasswordStrengthMeter({ value, rules = DEFAULT_RULES, className 
           />
         </div>
         <span
-          id={labelId}
+          aria-hidden="true"
           className="font-body font-normal text-body-s w-14 text-right"
           style={{ color: percent ? percentColor : 'var(--color-text-text-subtler)' }}
         >
@@ -103,6 +106,8 @@ export function PasswordStrengthMeter({ value, rules = DEFAULT_RULES, className 
               style={{ color: c.met ? 'var(--color-text-text)' : 'var(--color-text-text-subtler)' }}
             >
               {c.label}
+              {/* Met/unmet was only the hidden icon + text color. */}
+              <span className="sr-only">{c.met ? ', met' : ', not met'}</span>
             </span>
           </li>
         ))}

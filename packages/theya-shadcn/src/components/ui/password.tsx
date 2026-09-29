@@ -44,7 +44,9 @@ export const Password = forwardRef<HTMLInputElement, PasswordProps>(function Pas
           type="button"
           onClick={() => setVisible((v) => !v)}
           disabled={disabled}
-          aria-label={visible ? 'Hide password' : 'Show password'}
+          // Toggle button: one stable name, state via aria-pressed. Swapping
+          // the name as well announced "Hide password, pressed".
+          aria-label="Show password"
           aria-pressed={visible}
           className={cn(
             'pointer-events-auto flex size-6 items-center justify-center rounded-[var(--size-border-radius-border-radius-lg)]',
