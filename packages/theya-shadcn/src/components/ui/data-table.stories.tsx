@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Trash, Archive, Mail } from 'iconoir-react';
 import { DataTable, DataTableColumnHeader } from './data-table';
@@ -164,6 +165,24 @@ const columnsTwoLine: ColumnDef<Site, unknown>[] = [
 
 export const Basic: Story = {
   render: () => <DataTable columns={columns} data={DATA} ariaLabel="Sites" />,
+  // Sorting: the header button cycles asc/desc, the column header exposes
+  // aria-sort, rows reorder; works from the keyboard too.
+  play: async ({ canvasElement }) => {
+    const table = within(canvasElement).getByRole('table', { name: 'Sites' });
+    const t = within(table);
+    const header = t.getByRole('columnheader', { name: /Domain/ });
+    const firstDomain = () => within(t.getAllByRole('row')[1]).getAllByRole('cell')[0].textContent;
+    await expect(header).toHaveAttribute('aria-sort', 'none');
+
+    await userEvent.click(t.getByRole('button', { name: 'Domain' }));
+    await expect(header).toHaveAttribute('aria-sort', 'ascending');
+    await expect(firstDomain()).toContain('blog.seashell.dev');
+
+    t.getByRole('button', { name: 'Domain' }).focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(header).toHaveAttribute('aria-sort', 'descending');
+    await expect(firstDomain()).toContain('staging.seashell.dev');
+  },
 };
 
 /**
@@ -190,8 +209,8 @@ export const WithSelectionAndRowMenu: Story = {
         <DataTableToolbar
           table={table}
           actions={[
-            { label: 'Send email', icon: <Mail />, onSelect: (rows) => alert(`Emailing ${rows.length} site(s)`) },
-            { label: 'Archive', icon: <Archive />, onSelect: (rows) => alert(`Archiving ${rows.length} site(s)`) },
+            { label: 'Send email', icon: <Mail />, onSelect: (rows) => console.log(`Emailing ${rows.length} site(s)`) },
+            { label: 'Archive', icon: <Archive />, onSelect: (rows) => console.log(`Archiving ${rows.length} site(s)`) },
             {
               label: 'Delete',
               icon: <Trash />,
@@ -199,7 +218,7 @@ export const WithSelectionAndRowMenu: Story = {
               confirm: {
                 title: (count) => `Delete ${count} site(s)?`,
                 description: () => 'This action cannot be undone.',
-                onConfirm: (rows) => alert(`Deleted ${rows.length} site(s)`),
+                onConfirm: (rows) => console.log(`Deleted ${rows.length} site(s)`),
               },
             },
           ]}
@@ -208,14 +227,40 @@ export const WithSelectionAndRowMenu: Story = {
       rowMenu={{
         contextual: true,
         items: [
-          { id: 'view', label: 'View details', onSelect: (row: Site) => alert(row.domain) },
+          { id: 'view', label: 'View details', onSelect: (row: Site) => console.log(row.domain) },
           { type: 'separator' },
-          { id: 'delete', label: 'Delete', tone: 'danger', onSelect: (row: Site) => alert(`Delete ${row.domain}`) },
+          { id: 'delete', label: 'Delete', tone: 'danger', onSelect: (row: Site) => console.log(`Delete ${row.domain}`) },
         ],
       }}
       ariaLabel="Sites"
     />
   ),
+  // Selecting a row swaps in the bulk-action bar with a live count; select
+  // all and clear work; the row menu opens from its trigger. Ends with the
+  // menu closed and nothing selected.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    const rowBoxes = () => canvas.getAllByRole('checkbox').filter((el) => el.getAttribute('aria-label') !== 'Select all');
+
+    await userEvent.click(rowBoxes()[0]);
+    await expect(rowBoxes()[0]).toHaveAttribute('aria-checked', 'true');
+    await expect(canvas.getByText('selected').parentElement).toHaveTextContent('1 selected');
+    await expect(canvas.getByRole('toolbar', { name: 'Bulk actions' })).toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Select all' }));
+    await waitFor(() => expect(canvas.getByText('selected').parentElement).toHaveTextContent('4 selected'));
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear selection' }));
+    await waitFor(() => expect(canvas.queryByRole('toolbar', { name: 'Bulk actions' })).toBeNull());
+    for (const box of rowBoxes()) await expect(box).toHaveAttribute('aria-checked', 'false');
+
+    const menuTriggers = canvas.getAllByRole('button', { name: 'Row actions' });
+    await userEvent.click(menuTriggers[0]);
+    await expect(await body.findByRole('menuitem', { name: 'View details' })).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('menu')).toBeNull());
+  },
 };
 
 export const Loading: Story = {
