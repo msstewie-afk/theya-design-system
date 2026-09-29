@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
 import { Password } from './password';
 import { PasswordStrengthMeter } from './password-strength-meter';
 
@@ -43,6 +44,25 @@ type Story = StoryObj<typeof Password>;
 
 export const Playground: Story = {
   args: { label: 'Password', placeholder: 'Enter password' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByLabelText('Password');
+    const toggle = canvas.getByRole('button', { name: 'Show password' });
+
+    await userEvent.type(input, 'hunter2');
+    await expect(input).toHaveAttribute('type', 'password');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+
+    await userEvent.click(toggle);
+    await expect(input).toHaveAttribute('type', 'text');
+    await expect(input).toHaveValue('hunter2');
+    // Same name, state flips — not a renamed button.
+    await expect(canvas.getByRole('button', { name: 'Show password' })).toHaveAttribute('aria-pressed', 'true');
+
+    await userEvent.click(toggle);
+    await expect(input).toHaveAttribute('type', 'password');
+    await expect(input).toHaveValue('hunter2');
+  },
 };
 
 export const WithDescription: Story = {
@@ -51,11 +71,19 @@ export const WithDescription: Story = {
     description: 'Must be at least 8 characters.',
     placeholder: 'Enter password',
   },
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByLabelText('New password')).toHaveAccessibleDescription('Must be at least 8 characters.');
+  },
 };
 
 export const WithError: Story = {
   name: 'With error message',
   args: { label: 'Password', error: 'Password is too short.', defaultValue: 'abc' },
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByLabelText('Password');
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await expect(input).toHaveAccessibleDescription('Password is too short.');
+  },
 };
 
 export const WithSuccess: Story = {
@@ -71,6 +99,15 @@ export const States: Story = {
       <Password label="Disabled" disabled defaultValue="secret123" widthSize="lg" />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByLabelText('Disabled')).toBeDisabled();
+    // The toggle is disabled with its field; the others stay usable.
+    const toggles = canvas.getAllByRole('button', { name: 'Show password' });
+    await expect(toggles).toHaveLength(3);
+    await expect(toggles[2]).toBeDisabled();
+    await expect(toggles[0]).toBeEnabled();
+  },
 };
 
 function StrengthMeterDemo() {
@@ -102,4 +139,27 @@ export const StrengthMeter: Story = {
     },
   },
   render: () => <StrengthMeterDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const meter = canvas.getByRole('progressbar', { name: 'Password strength' });
+    await expect(meter).toHaveAttribute('aria-valuenow', '0');
+    await expect(meter).toHaveAttribute('aria-valuetext', 'No password entered');
+
+    const input = canvas.getByLabelText('Password');
+    await userEvent.type(input, 'abc');
+    await expect(meter).toHaveAttribute('aria-valuetext', 'Weak');
+    await expect(canvas.getByText('Password strength: Weak')).toBeInTheDocument();
+    // Each rule states met / not met, not only via icon and color.
+    await expect(canvas.getByText('Lowercase letter')).toHaveTextContent('Lowercase letter, met');
+    await expect(canvas.getByText('Number')).toHaveTextContent('Number, not met');
+
+    // lower + upper = 2 of 5 rules.
+    await userEvent.type(input, 'DE');
+    await expect(meter).toHaveAttribute('aria-valuetext', 'Good');
+
+    // "abcDE12!" meets all five.
+    await userEvent.type(input, '12!');
+    await expect(meter).toHaveAttribute('aria-valuenow', '100');
+    await expect(meter).toHaveAttribute('aria-valuetext', 'Strong');
+  },
 };
