@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { DatePicker } from './date-picker';
 import { Label } from './label';
 
@@ -72,12 +73,38 @@ export const WithLabel: Story = {
 export const WithValue: Story = {
   name: 'With value',
   args: { 'aria-label': 'Start date', defaultValue: new Date(2026, 5, 16) },
+  // The chosen date is announced (as the description, since aria-label
+  // replaces the button text); keyboard picking in the calendar updates it
+  // and returns focus to the trigger. Ends closed.
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Start date' });
+    await expect(trigger).toHaveAccessibleDescription('Jun 16, 2026');
+
+    await userEvent.click(trigger);
+    const calendar = await within(document.body).findByRole('grid');
+    await waitFor(() => expect(calendar.contains(document.activeElement)).toBe(true));
+    await userEvent.keyboard('{ArrowRight}{Enter}');
+
+    await waitFor(() => expect(within(document.body).queryByRole('grid')).toBeNull());
+    await expect(trigger).toHaveAccessibleDescription('Jun 17, 2026');
+    await waitFor(() => expect(trigger).toHaveFocus());
+  },
 };
 
 /** The clear button appears once a date is selected. */
 export const WithClear: Story = {
   name: 'With clear button',
   args: { 'aria-label': 'Start date', defaultValue: new Date(2026, 5, 16), showClear: true },
+  // Clearing resets to the placeholder, removes the clear button and puts
+  // focus back on the trigger instead of dropping it on <body>.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('button', { name: 'Start date' });
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear date' }));
+    await expect(trigger).toHaveAccessibleDescription('Pick a date');
+    await expect(canvas.queryByRole('button', { name: 'Clear date' })).toBeNull();
+    await expect(trigger).toHaveFocus();
+  },
 };
 
 /** Disabled blocks interaction and dims the trigger. */
