@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Filter } from './filter';
 
 const meta: Meta<typeof Filter> = {
@@ -21,6 +22,14 @@ const meta: Meta<typeof Filter> = {
 export default meta;
 type Story = StoryObj<typeof Filter>;
 
+const body = () => within(document.body);
+
+async function closePopover(trigger: HTMLElement) {
+  await userEvent.keyboard('{Escape}');
+  await waitFor(() => expect(body().queryByRole('dialog')).toBeNull());
+  await waitFor(() => expect(trigger).toHaveFocus());
+}
+
 const STATUS_OPTIONS = [
   { value: 'active', label: 'Active', count: 24 },
   { value: 'suspended', label: 'Suspended', count: 3 },
@@ -29,11 +38,45 @@ const STATUS_OPTIONS = [
 
 export const Default: Story = {
   render: () => <Filter label="Status" options={STATUS_OPTIONS} />,
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Status' });
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+    await userEvent.click(trigger);
+    const group = await body().findByRole('group', { name: 'Status' });
+    await userEvent.click(within(group).getByRole('checkbox', { name: /Active/ }));
+    await userEvent.click(within(group).getByRole('checkbox', { name: /Pending/ }));
+    await expect(within(group).getByRole('checkbox', { name: /Active/ })).toBeChecked();
+
+    // The count is read after the facet name, not before it.
+    await expect(trigger).toHaveAccessibleName('Status, 2 selected');
+
+    // Clearing keeps focus inside the popover.
+    await userEvent.click(body().getByRole('button', { name: 'Clear 2 selected' }));
+    await expect(trigger).toHaveAccessibleName('Status');
+    await expect(body().queryByRole('button', { name: /Clear/ })).toBeNull();
+    await waitFor(() => expect(within(group).getByRole('checkbox', { name: /Active/ })).toHaveFocus());
+
+    await closePopover(trigger);
+  },
 };
 
 export const WithSelection: Story = {
   name: 'With selection',
   render: () => <Filter label="Status" options={STATUS_OPTIONS} defaultValue={['active']} />,
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Status, 1 selected' });
+    // Keyboard: Space toggles the focused checkbox.
+    trigger.focus();
+    await userEvent.keyboard('{Enter}');
+    const group = await body().findByRole('group', { name: 'Status' });
+    const suspended = within(group).getByRole('checkbox', { name: /Suspended/ });
+    suspended.focus();
+    await userEvent.keyboard(' ');
+    await expect(suspended).toBeChecked();
+    await expect(trigger).toHaveAccessibleName('Status, 2 selected');
+    await closePopover(trigger);
+  },
 };
 
 export const Searchable: Story = {
@@ -49,6 +92,24 @@ export const Searchable: Story = {
       ]}
     />
   ),
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Owner' });
+    await userEvent.click(trigger);
+    const search = await body().findByRole('textbox', { name: 'Search Owner' });
+    const group = body().getByRole('group', { name: 'Owner' });
+
+    await userEvent.type(search, 'ma');
+    await expect(within(group).getAllByRole('checkbox')).toHaveLength(1);
+    await expect(within(group).getByRole('checkbox', { name: 'Maria Garcia' })).toBeInTheDocument();
+
+    await userEvent.clear(search);
+    await userEvent.type(search, 'zzz');
+    await expect(within(group).getByText('No options')).toBeInTheDocument();
+
+    await userEvent.clear(search);
+    await expect(within(group).getAllByRole('checkbox')).toHaveLength(4);
+    await closePopover(trigger);
+  },
 };
 
 export const FilterBar: Story = {
@@ -59,4 +120,16 @@ export const FilterBar: Story = {
       <Filter label="Type" options={[{ value: 'shared', label: 'Shared' }, { value: 'vps', label: 'VPS' }, { value: 'dedicated', label: 'Dedicated' }]} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const status = canvas.getByRole('button', { name: 'Status' });
+    const type = canvas.getByRole('button', { name: 'Type' });
+
+    // Facets keep independent selections.
+    await userEvent.click(type);
+    await userEvent.click(within(await body().findByRole('group', { name: 'Type' })).getByRole('checkbox', { name: 'VPS' }));
+    await closePopover(type);
+    await expect(type).toHaveAccessibleName('Type, 1 selected');
+    await expect(status).toHaveAccessibleName('Status');
+  },
 };
