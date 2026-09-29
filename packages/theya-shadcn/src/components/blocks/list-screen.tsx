@@ -322,6 +322,9 @@ export function ListScreen<Row extends Record<string, unknown> = SeededUser>(pro
       columns={rowMenuColumns}
       data={data}
       getRowId={props.getRowId as ((row: Row) => string) | undefined}
+      // Was computed for the row menu only and never handed to DataTable, so
+      // every selection checkbox was just "Select row".
+      getRowLabel={getRowLabel}
       getRowHref={props.getRowHref}
       loading={props.loading}
       emptyMessage={props.emptyMessage ?? 'No results.'}

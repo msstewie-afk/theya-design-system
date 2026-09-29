@@ -626,6 +626,19 @@ export function DataTable<TData>({
   const infinite = !!onLoadMore;
   const virtualActive = virtualized && !!effectiveMaxHeight;
 
+  // Without getRowLabel every row checkbox is named "Select row" and every
+  // clickable row "View details for row", so a screen reader can't tell
+  // rows apart. Warn in development, like Button's iconOnly check.
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production' || getRowLabel) return;
+    if (enableSelection || onRowClick) {
+      console.warn(
+        '[DataTable] Pass `getRowLabel` when enableSelection or onRowClick is set — ' +
+          'otherwise every row control gets the same generic accessible name ("Select row").',
+      );
+    }
+  }, [enableSelection, onRowClick, getRowLabel]);
+
   useEffect(() => {
     if (!fillViewport || maxHeight !== undefined) return;
     const root = rootRef.current;

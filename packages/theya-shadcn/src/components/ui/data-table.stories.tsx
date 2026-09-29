@@ -203,6 +203,7 @@ export const WithSelectionAndRowMenu: Story = {
       columns={columns}
       data={DATA}
       getRowId={(row) => row.id}
+      getRowLabel={(row) => row.domain}
       enableSelection
       selectAll="toolbar"
       toolbar={(table) => (
@@ -242,6 +243,8 @@ export const WithSelectionAndRowMenu: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
     const rowBoxes = () => canvas.getAllByRole('checkbox').filter((el) => el.getAttribute('aria-label') !== 'Select all');
+    // getRowLabel gives each row control its own name.
+    await expect(canvas.getByRole('checkbox', { name: 'Select shop.seashell.dev' })).toBeInTheDocument();
 
     await userEvent.click(rowBoxes()[0]);
     await expect(rowBoxes()[0]).toHaveAttribute('aria-checked', 'true');
