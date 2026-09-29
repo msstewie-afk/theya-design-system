@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fireEvent, userEvent, waitFor, within } from '@storybook/test';
 import {
   Area as RechartsArea,
   AreaChart,
@@ -87,14 +88,22 @@ function SelectionReadout({ range }: { range: ChartSelectionRange | null }) {
           Selected: <span className="font-medium text-[var(--color-text-text)]">{range.from} – {range.to}</span>
         </>
       ) : (
-        'Drag across the chart to select a range. Click once to clear it.'
+        'Drag across the chart, or focus it and use Shift + arrow keys, to select a range. Click once or press Esc to clear it.'
       )}
     </p>
   );
 }
 
-function InteractiveExample({ kind = 'area' }: { kind?: 'area' | 'line' | 'bar' }) {
-  const [range, setRange] = useState<ChartSelectionRange | null>(null);
+function InteractiveExample({
+  kind = 'area',
+  initialRange = null,
+  disabled = false,
+}: {
+  kind?: 'area' | 'line' | 'bar';
+  initialRange?: ChartSelectionRange | null;
+  disabled?: boolean;
+}) {
+  const [range, setRange] = useState<ChartSelectionRange | null>(initialRange);
 
   const common = {
     data: DATA,
@@ -138,7 +147,7 @@ function InteractiveExample({ kind = 'area' }: { kind?: 'area' | 'line' | 'bar' 
   return (
     <div className="flex flex-col gap-3">
       <SelectionReadout range={range} />
-      <ChartRangeSelection labels={labels} selectedRange={range} onRangeChange={setRange}>
+      <ChartRangeSelection labels={labels} selectedRange={range} onRangeChange={setRange} disabled={disabled} aria-label="Select a date range">
         {chart}
       </ChartRangeSelection>
     </div>
@@ -151,7 +160,9 @@ function InteractiveExample({ kind = 'area' }: { kind?: 'area' | 'line' | 'bar' 
  * ordered x-axis `labels`. The selected range can be controlled to filter
  * data, update a detail view, or synchronize another chart.
  */
-const meta = {
+// Typed as Meta (not `satisfies`) so stories that supply children/labels
+// through `render` aren't required to repeat them as args.
+const meta: Meta<typeof ChartRangeSelection> = {
   title: 'Data Display/ChartRangeSelection',
   component: ChartRangeSelection,
   tags: ['autodocs'],
@@ -177,22 +188,97 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof ChartRangeSelection>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof ChartRangeSelection>;
+
+const readout = (root: HTMLElement) => root.querySelector('p[aria-live]') as HTMLElement;
+const liveRegion = (group: HTMLElement) => group.querySelector('[aria-live]') as HTMLElement;
 
 /** Drag from one x-axis value to another. The readout shows the controlled value. */
 export const Area: Story = {
   render: () => <InteractiveExample />,
+  play: async ({ canvasElement }) => {
+    const group = within(canvasElement).getByRole('group', { name: 'Select a date range' });
+    await expect(group).toHaveAttribute('tabindex', '0');
+    await expect(group).toHaveAccessibleDescription(/Shift plus arrow keys/);
+
+    group.focus();
+    // First arrow shows the cursor on the first value, the next moves it.
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(liveRegion(group)).toHaveTextContent('Aug 1');
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(liveRegion(group)).toHaveTextContent('Aug 2');
+
+    await userEvent.keyboard('{Shift>}{ArrowRight}{ArrowRight}{/Shift}');
+    await expect(liveRegion(group)).toHaveTextContent('Selected Aug 2 to Aug 4');
+    await expect(readout(canvasElement)).toHaveTextContent('Selected: Aug 2 – Aug 4');
+
+    // Extending backwards past the anchor flips the range around it.
+    await userEvent.keyboard('{Shift>}{ArrowLeft}{ArrowLeft}{ArrowLeft}{/Shift}');
+    await expect(readout(canvasElement)).toHaveTextContent('Selected: Aug 1 – Aug 2');
+
+    await userEvent.keyboard('{Shift>}{End}{/Shift}');
+    await expect(readout(canvasElement)).toHaveTextContent('Selected: Aug 2 – Aug 10');
+
+    await userEvent.keyboard('{Escape}');
+    await expect(liveRegion(group)).toHaveTextContent('Selection cleared');
+    await expect(readout(canvasElement)).toHaveTextContent(/Drag across the chart/);
+  },
 };
 
 /** The wrapper works with a multi-series line chart without changing its data model. */
 export const Line: Story = {
   render: () => <InteractiveExample kind="line" />,
+  play: async ({ canvasElement }) => {
+    // Pointer drag across the plot: from ~20% to ~70% of its width.
+    const surface = canvasElement.querySelector('.recharts-wrapper') as HTMLElement;
+    const grid = canvasElement.querySelector('.recharts-cartesian-grid') as SVGGElement;
+    const box = grid.getBoundingClientRect();
+    const y = box.top + box.height / 2;
+    const at = (f: number) => ({ clientX: box.left + box.width * f, clientY: y });
+
+    // Recharts reads activeLabel for mousedown from the last hover, so the
+    // pointer has to move onto the plot first, like a real mouse does.
+    const tick = () => new Promise((r) => setTimeout(r, 50));
+    fireEvent.mouseMove(surface, at(0.2));
+    await tick();
+    fireEvent.mouseDown(surface, at(0.2));
+    await tick();
+    fireEvent.mouseMove(surface, at(0.45));
+    await tick();
+    fireEvent.mouseMove(surface, at(0.7));
+    await tick();
+    fireEvent.mouseUp(surface, at(0.7));
+    await waitFor(() => expect(readout(canvasElement)).toHaveTextContent(/Selected: Aug \d+ – Aug \d+/));
+    const [, from, to] = readout(canvasElement).textContent!.match(/Aug (\d+) – Aug (\d+)/)!;
+    await expect(Number(from)).toBeLessThan(Number(to));
+
+    // A single click clears it.
+    fireEvent.mouseMove(surface, at(0.5));
+    await tick();
+    fireEvent.mouseDown(surface, at(0.5));
+    await tick();
+    fireEvent.mouseUp(surface, at(0.5));
+    await waitFor(() => expect(readout(canvasElement)).toHaveTextContent(/Drag across the chart/));
+  },
 };
 
 /** The same selection behavior can wrap a categorical bar chart. */
 export const Bar: Story = {
   render: () => <InteractiveExample kind="bar" />,
+};
+
+/** Disabled keeps the highlight but takes the selector out of the tab order and ignores keys and drags. */
+export const Disabled: Story = {
+  render: () => <InteractiveExample kind="bar" disabled initialRange={{ from: 'Aug 3', to: 'Aug 6' }} />,
+  play: async ({ canvasElement }) => {
+    const group = within(canvasElement).getByRole('group', { name: 'Select a date range' });
+    await expect(group).toHaveAttribute('aria-disabled', 'true');
+    await expect(group).not.toHaveAttribute('tabindex');
+    group.focus();
+    await userEvent.keyboard('{Escape}{Shift>}{ArrowRight}{/Shift}');
+    await expect(readout(canvasElement)).toHaveTextContent('Selected: Aug 3 – Aug 6');
+  },
 };
