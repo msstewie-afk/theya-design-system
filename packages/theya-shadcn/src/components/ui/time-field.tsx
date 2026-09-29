@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Combobox, type ComboboxOption } from './combobox';
 
 /**
@@ -116,7 +116,11 @@ export function TimeField({
   'aria-describedby': ariaDescribedby,
 }: TimeFieldProps) {
   const isControlled = value !== undefined;
-  const current = isControlled ? (value ?? '') : (defaultValue ?? '');
+  // Uncontrolled mode needs its own state: the Combobox below is always
+  // driven by `current`, so reading defaultValue here directly froze the
+  // field on its initial value and ignored every pick.
+  const [internal, setInternal] = useState(defaultValue ?? '');
+  const current = isControlled ? (value ?? '') : internal;
 
   const options = useMemo(() => {
     const base = buildTimeOptions(min, max, step, hourCycle);
@@ -134,6 +138,7 @@ export function TimeField({
       onValueChange={(next) => {
         const parsed = parseTimeInput(next, min, max);
         if (parsed === null) return;
+        if (!isControlled) setInternal(parsed);
         onChange?.(parsed);
       }}
       allowCreate
