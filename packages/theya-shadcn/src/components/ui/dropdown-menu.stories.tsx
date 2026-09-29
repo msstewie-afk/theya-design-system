@@ -1,5 +1,6 @@
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Plus, Trash, Xmark } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
 import { Button } from './button';
@@ -45,6 +46,14 @@ const meta: Meta<typeof DropdownMenu> = {
 export default meta;
 type Story = StoryObj<typeof DropdownMenu>;
 
+// Play-function helpers. Menus portal to <body>, so queries go through
+// document.body; every play ends with the menu closed, because an open modal
+// menu aria-hides #storybook-root and the post-play axe scan would flag it.
+const page = () => within(document.body);
+const menuClosed = () => waitFor(() => expect(page().queryByRole('menu')).toBeNull());
+const focusedItem = (name: string | RegExp) =>
+  waitFor(() => expect(page().getByRole('menuitem', { name })).toHaveFocus());
+
 /** A row overflow menu: an icon-only trigger, a labelled group with a shortcut, and a destructive row. */
 export const Default: Story = {
   render: () => (
@@ -72,6 +81,28 @@ export const Default: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
+  // Keyboard only: Enter opens with the first item focused, arrows/End move,
+  // Escape closes and returns focus to the trigger.
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Open actions for shop.seashell.dev' });
+    await expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+
+    await userEvent.tab();
+    await expect(trigger).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await page().findByRole('menu');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await focusedItem(/^Open site/);
+
+    await userEvent.keyboard('{ArrowDown}');
+    await focusedItem(/^Copy domain/);
+    await userEvent.keyboard('{End}');
+    await focusedItem('Delete site');
+
+    await userEvent.keyboard('{Escape}');
+    await menuClosed();
+    await expect(trigger).toHaveFocus();
+  },
 };
 
 /**
@@ -183,6 +214,26 @@ export const CheckboxAndRadio: Story = {
       </DropdownMenu>
     );
   },
+  // Checkbox and radio rows expose their state and keep it across reopen.
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'View' });
+
+    await userEvent.click(trigger);
+    await expect(await page().findByRole('menuitemcheckbox', { name: 'Status' })).toHaveAttribute('aria-checked', 'true');
+    await userEvent.click(page().getByRole('menuitemcheckbox', { name: 'Plan' }));
+    await menuClosed();
+
+    await userEvent.click(trigger);
+    await expect(await page().findByRole('menuitemcheckbox', { name: 'Plan' })).toHaveAttribute('aria-checked', 'true');
+    await userEvent.click(page().getByRole('menuitemradio', { name: 'Created' }));
+    await menuClosed();
+
+    await userEvent.click(trigger);
+    await expect(await page().findByRole('menuitemradio', { name: 'Created' })).toHaveAttribute('aria-checked', 'true');
+    await expect(page().getByRole('menuitemradio', { name: 'Name' })).toHaveAttribute('aria-checked', 'false');
+    await userEvent.keyboard('{Escape}');
+    await menuClosed();
+  },
 };
 
 /** A nested sub-menu groups secondary actions (copy variants) behind a SubTrigger with a trailing chevron. */
@@ -208,6 +259,27 @@ export const WithSubMenu: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
+  // ArrowRight opens the sub-menu on its first item, ArrowLeft returns.
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Add' });
+    trigger.focus();
+    await userEvent.keyboard('{Enter}');
+    await focusedItem('Create site');
+
+    await userEvent.keyboard('{End}');
+    const sub = page().getByRole('menuitem', { name: 'Copy' });
+    await expect(sub).toHaveFocus();
+    await expect(sub).toHaveAttribute('aria-haspopup', 'menu');
+
+    await userEvent.keyboard('{ArrowRight}');
+    await focusedItem('Copy URL');
+    await userEvent.keyboard('{ArrowLeft}');
+    await waitFor(() => expect(page().getByRole('menuitem', { name: 'Copy' })).toHaveFocus());
+    await expect(page().queryByRole('menuitem', { name: 'Copy URL' })).toBeNull();
+
+    await userEvent.keyboard('{Escape}');
+    await menuClosed();
+  },
 };
 
 /**
@@ -285,4 +357,17 @@ export const WithDisabledItem: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
+  // Disabled rows are announced as disabled and skipped by the arrow keys.
+  play: async ({ canvasElement }) => {
+    within(canvasElement).getByRole('button', { name: 'Manage staging.seashell.dev' }).focus();
+    await userEvent.keyboard('{Enter}');
+    await focusedItem('Open site');
+    await expect(page().getByRole('menuitem', { name: 'Reissue certificate' })).toHaveAttribute('aria-disabled', 'true');
+
+    await userEvent.keyboard('{ArrowDown}');
+    await focusedItem('Delete site');
+
+    await userEvent.keyboard('{Escape}');
+    await menuClosed();
+  },
 };
