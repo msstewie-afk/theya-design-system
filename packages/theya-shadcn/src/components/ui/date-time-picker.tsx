@@ -100,13 +100,19 @@ export function DateTimePicker({
         className={cn('sm:flex-1', dateClassName)}
       />
       <TimeField
-        value={timeValue}
+        // Always controlled: `undefined` would flip TimeField into its
+        // uncontrolled mode, where it keeps a pick the parent never took.
+        value={timeValue ?? ''}
         onChange={onTime}
         step={step}
         hourCycle={hourCycle}
         placeholder={timePlaceholder}
         disabled={disabled}
         aria-label={ariaLabel ? `${ariaLabel} time` : 'Time'}
+        // The error applies to the whole date+time value, so both fields
+        // show it (only the date field did before).
+        aria-invalid={ariaInvalid}
+        aria-describedby={ariaDescribedby}
         className={cn('sm:w-40', timeClassName)}
       />
     </div>
