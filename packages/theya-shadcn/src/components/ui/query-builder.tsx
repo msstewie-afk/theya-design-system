@@ -1,4 +1,4 @@
-import { useState, useRef, useId, useCallback } from 'react';
+import { useState, useRef, useId, useCallback, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { Plus, Xmark } from 'iconoir-react';
 import { cn } from '@/lib/utils';
@@ -109,6 +109,27 @@ export function QueryBuilder({
   const uid = useId();
   const idc = useRef(0);
 
+  // Focus management (2026-09-29): removing a row unmounted the focused
+  // remove button and dropped focus on <body>; adding a row left focus on
+  // "Add condition" with no cue that a new row appeared. After add, focus
+  // goes to the new row's field; after remove, to the next row's remove
+  // button (or the previous one, or "Add condition" when none are left).
+  const rootRef = useRef<HTMLDivElement>(null);
+  const pendingFocus = useRef<{ kind: 'field' | 'remove' | 'add'; index: number } | null>(null);
+  useEffect(() => {
+    const target = pendingFocus.current;
+    if (!target || !rootRef.current) return;
+    pendingFocus.current = null;
+    const pick = (selector: string) => Array.from(rootRef.current!.querySelectorAll<HTMLElement>(selector))[target.index];
+    const el =
+      target.kind === 'field'
+        ? pick('[data-qb-field]')
+        : target.kind === 'remove'
+          ? pick('[data-qb-remove]')
+          : rootRef.current.querySelector<HTMLElement>('[data-qb-add]');
+    el?.focus();
+  });
+
   const commit = useCallback(
     (next: QueryValue) => {
       if (value === undefined) setInternal(next);
@@ -123,6 +144,7 @@ export function QueryBuilder({
     const field = fields[0];
     if (!field) return;
     const op = OPERATORS[field.type][0];
+    pendingFocus.current = { kind: 'field', index: state.conditions.length };
     commit({
       ...state,
       conditions: [...state.conditions, { id: `${uid}-${++idc.current}`, field: field.name, operator: op.value, value: undefined }],
@@ -132,7 +154,12 @@ export function QueryBuilder({
   const updateCondition = (id: string, patch: Partial<QueryCondition>) =>
     setConditions(state.conditions.map((c) => (c.id === id ? { ...c, ...patch } : c)));
 
-  const removeCondition = (id: string) => setConditions(state.conditions.filter((c) => c.id !== id));
+  const removeCondition = (id: string) => {
+    const index = state.conditions.findIndex((c) => c.id === id);
+    const remaining = state.conditions.length - 1;
+    pendingFocus.current = remaining === 0 ? { kind: 'add', index: 0 } : { kind: 'remove', index: Math.min(index, remaining - 1) };
+    setConditions(state.conditions.filter((c) => c.id !== id));
+  };
 
   const changeField = (id: string, fieldName: string) => {
     const field = fields.find((f) => f.name === fieldName);
@@ -143,7 +170,7 @@ export function QueryBuilder({
   const atLimit = maxConditions != null && state.conditions.length >= maxConditions;
 
   return (
-    <div role="group" aria-label={ariaLabel} className={cn('flex flex-col gap-3', className)}>
+    <div ref={rootRef} role="group" aria-label={ariaLabel} className={cn('flex flex-col gap-3', className)}>
       {state.conditions.length > 1 && (
         <div className="flex items-center gap-2 font-body text-body-s text-[var(--color-text-text-subtler)]">
           <span>Match</span>
@@ -178,7 +205,7 @@ export function QueryBuilder({
             return (
               <li key={condition.id} className="contents">
                 <Select value={condition.field} onValueChange={(v) => changeField(condition.id, v)}>
-                  <SelectTrigger className="w-full" aria-label="Field">
+                  <SelectTrigger data-qb-field="" className="w-full" aria-label="Field">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -207,7 +234,7 @@ export function QueryBuilder({
                   <ValueEditor condition={condition} field={field} editor={opMeta?.editor ?? 'none'} label={fieldLabel} onValue={(v) => updateCondition(condition.id, { value: v })} />
                 </div>
 
-                <Button appearance="ghost" iconOnly size="md" className="self-center" aria-label={`Remove ${fieldLabel} condition`} onClick={() => removeCondition(condition.id)} leftIcon={<Xmark />} />
+                <Button data-qb-remove="" appearance="ghost" iconOnly size="md" className="self-center" aria-label={`Remove ${fieldLabel} condition`} onClick={() => removeCondition(condition.id)} leftIcon={<Xmark />} />
               </li>
             );
           })}
@@ -215,7 +242,7 @@ export function QueryBuilder({
       )}
 
       <div>
-        <Button appearance="outlined" tone="primary" size="xl" onClick={addCondition} disabled={atLimit || fields.length === 0} leftIcon={<Plus />}>
+        <Button data-qb-add="" appearance="outlined" tone="primary" size="xl" onClick={addCondition} disabled={atLimit || fields.length === 0} leftIcon={<Plus />}>
           {addLabel}
         </Button>
       </div>
