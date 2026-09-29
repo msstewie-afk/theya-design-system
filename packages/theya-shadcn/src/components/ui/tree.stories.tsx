@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Cloud, Database, Globe } from 'iconoir-react';
 import { Tree, type TreeNode } from './tree';
 
@@ -87,7 +88,39 @@ export default meta;
 type Story = StoryObj<typeof Tree>;
 
 /** A file tree. Click a chevron to expand, click a row to select; or focus a row and use Up/Down, Left/Right, Home/End, Enter/Space, and type-ahead. */
-export const Default: Story = {};
+export const Default: Story = {
+  // WAI-ARIA tree keyboard model: one Tab stop, Up/Down, Home/End,
+  // Left collapses / Right expands then steps in, type-ahead, Enter selects.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const item = (name: string) => canvas.getByRole('treeitem', { name });
+    const focused = (name: string) => waitFor(() => expect(item(name)).toHaveFocus());
+    await expect(canvas.getByRole('tree', { name: 'Project files' })).toBeInTheDocument();
+
+    await userEvent.tab();
+    await focused('app');
+    await userEvent.keyboard('{ArrowDown}');
+    await focused('layout.tsx');
+    await userEvent.keyboard('{End}');
+    await focused('readme.md');
+    await userEvent.keyboard('{Home}');
+    await focused('app');
+
+    await userEvent.keyboard('{ArrowLeft}');
+    await expect(item('app')).toHaveAttribute('aria-expanded', 'false');
+    await expect(canvas.queryByRole('treeitem', { name: 'layout.tsx' })).toBeNull();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(item('app')).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.keyboard('{ArrowRight}');
+    await focused('layout.tsx');
+    await expect(item('layout.tsx')).toHaveAttribute('aria-level', '2');
+
+    await userEvent.keyboard('r');
+    await focused('readme.md');
+    await userEvent.keyboard('{Enter}');
+    await expect(item('readme.md')).toHaveAttribute('aria-selected', 'true');
+  },
+};
 
 /** Collapsed at first load — no `defaultExpandedIds`, so only the top level shows. Right (or a click) expands a parent in place. */
 export const Collapsed: Story = {
@@ -123,6 +156,21 @@ export const DisabledNode: Story = {
         children: [{ id: 'staging-app', label: 'app.staging.seashell.dev' }],
       },
     ],
+  },
+  // Disabled rows are announced as disabled and skipped by the arrow keys.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const item = (name: string) => canvas.getByRole('treeitem', { name });
+    await expect(item('billing.seashell.dev')).toHaveAttribute('aria-disabled', 'true');
+
+    await userEvent.tab();
+    await waitFor(() => expect(item('production')).toHaveFocus());
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(item('app.seashell.dev')).toHaveFocus());
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(item('app.seashell.dev')).toHaveFocus();
+    await userEvent.keyboard('{End}');
+    await expect(item('app.seashell.dev')).toHaveFocus();
   },
 };
 
