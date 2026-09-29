@@ -159,6 +159,9 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
       ref={ref}
       id={resolvedId}
       disabled={disabled}
+      // Same bug as TextField (fixed 2026-09-29): required only drove the
+      // aria-hidden asterisk and never reached the element.
+      required={required}
       aria-label={ariaLabel}
       aria-describedby={messageId}
       aria-invalid={hasError || undefined}
