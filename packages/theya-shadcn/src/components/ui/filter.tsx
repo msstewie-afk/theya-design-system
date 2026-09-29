@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useId } from 'react';
 import { NavArrowDown } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { Button } from './button';
@@ -61,6 +61,8 @@ export function Filter({
   const selected = value ?? internal;
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
+  const listRef = useRef<HTMLDivElement>(null);
+  const optionIdPrefix = useId();
 
   const setSelected = (next: string[]) => {
     if (value === undefined) setInternal(next);
@@ -85,6 +87,10 @@ export function Filter({
           type="button"
           disabled={disabled}
           data-active={count > 0 || undefined}
+          // The badge alone made the name "2 Status"; the count is spoken
+          // after the facet name instead. Set as one string — an sr-only
+          // span added a stray space ("Status , 2 selected").
+          aria-label={count > 0 ? `${label}, ${count} selected` : undefined}
           className={cn(
             'flex w-fit items-center gap-2 whitespace-nowrap',
             'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
@@ -111,7 +117,7 @@ export function Filter({
           {...props}
         >
           {count > 0 && (
-            <span className="flex size-[22px] items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-primary-bg-primary)] font-body text-body-xs text-[var(--color-icon-icon-on-dark)]">
+            <span aria-hidden="true" className="flex size-[22px] items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-primary-bg-primary)] font-body text-body-xs text-[var(--color-icon-icon-on-dark)]">
               {count}
             </span>
           )}
@@ -132,12 +138,13 @@ export function Filter({
             />
           </div>
         )}
-        <div role="group" aria-label={label} className="max-h-64 overflow-y-auto p-1">
+        <div ref={listRef} role="group" aria-label={label} className="max-h-64 overflow-y-auto p-1">
           {shown.length === 0 ? (
             <p className="px-2 py-6 text-center font-body text-body-s text-[var(--color-text-text-subtler)]">No options</p>
           ) : (
             shown.map((o) => {
               const isOn = selected.includes(o.value);
+              const optionLabelId = `${optionIdPrefix}-${o.value}`;
               return (
                 <label
                   key={o.value}
@@ -147,8 +154,13 @@ export function Filter({
                     'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] has-[:focus-visible]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
                   )}
                 >
-                  <Checkbox checked={isOn} onCheckedChange={() => toggle(o.value)} />
-                  <span className="min-w-0 flex-1 truncate">{o.label}</span>
+                  {/* Named by the option text only — the wrapping <label> also
+                      pulled the count in ("Active 24") and Checkbox's own
+                      dev check can't see a wrapping label. */}
+                  <Checkbox checked={isOn} onCheckedChange={() => toggle(o.value)} aria-labelledby={optionLabelId} />
+                  <span id={optionLabelId} className="min-w-0 flex-1 truncate">
+                    {o.label}
+                  </span>
                   {o.count != null && <span className="tabular-nums text-body-xs text-[var(--color-text-text-subtler)]">{o.count}</span>}
                 </label>
               );
@@ -160,7 +172,12 @@ export function Filter({
             <Button
               appearance="ghost"
               size="md"
-              onClick={() => setSelected([])}
+              onClick={() => {
+                setSelected([]);
+                // This button unmounts once nothing is selected; without
+                // this, focus fell out of the popover to <body>.
+                listRef.current?.querySelector<HTMLElement>('[role="checkbox"]')?.focus();
+              }}
               className="w-full justify-start !pl-2 text-[var(--color-text-text-subtler)]"
             >
               Clear {count} selected
