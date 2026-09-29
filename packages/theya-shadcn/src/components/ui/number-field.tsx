@@ -14,7 +14,16 @@ const WIDTH_CLASSES = {
  * No Radix (or any headless-primitive) equivalent exists for this — Base
  * UI has its own NumberField but Radix doesn't, so this is built from
  * scratch rather than ported. Draft v1: click +/- buttons, Up/Down arrow
- * keys (Shift = 10x step), and min/max clamping. Deferred: Alt for a
+ * keys (Shift = 10x step), and min/max clamping.
+ *
+ * Typing edits a draft string: nothing is clamped and onValueChange does
+ * not fire until the edit is committed on blur or Enter (parsed, clamped,
+ * reported once). Empty or non-numeric input reverts to the last value;
+ * Escape discards the draft. Arrow keys and the +/- buttons still change
+ * the value immediately. Before 2026-09-29 every keystroke was clamped,
+ * so with min=5 typing "12" produced 5, then 52 -> max, and the field
+ * could not be emptied. Same commit model as React Aria's NumberField and
+ * a native <input type="number">. Deferred: Alt for a
  * smaller step, Home/End jump-to-bound, and press-and-hold repeat on the
  * buttons — the reference component supports all three via Base UI.
  */
@@ -36,7 +45,7 @@ export interface NumberFieldProps {
   'aria-label'?: string;
   'aria-labelledby'?: string;
   'aria-describedby'?: string;
-  'aria-invalid'?: boolean;
+  'aria-invalid'?: boolean | 'true' | 'false';
 }
 
 const clamp = (n: number, min?: number, max?: number) => {
@@ -81,6 +90,26 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
     },
     [isControlled, min, max, onValueChange],
   );
+
+  // What the user is typing, before it's committed. null = not editing.
+  const [draft, setDraft] = useState<string | null>(null);
+  const parseDraft = (text: string | null) => {
+    if (text === null || text.trim() === '') return undefined;
+    const n = Number(text.trim().replace(',', '.'));
+    return Number.isFinite(n) ? n : undefined;
+  };
+  const commitDraft = () => {
+    if (draft === null) return;
+    const parsed = parseDraft(draft);
+    setDraft(null);
+    if (parsed !== undefined && clamp(parsed, min, max) !== current) setValue(parsed);
+  };
+  // Arrows step from what's on screen, including an uncommitted draft.
+  const stepFrom = (delta: number) => {
+    const base = parseDraft(draft) ?? current;
+    setDraft(null);
+    setValue(base + delta);
+  };
 
   const isInvalid = ariaInvalid === true || ariaInvalid === 'true';
 
@@ -165,18 +194,22 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
         aria-invalid={ariaInvalid}
         disabled={disabled}
         placeholder={placeholder}
-        value={current}
-        onChange={(e) => {
-          const n = Number(e.target.value.replace(/[^0-9.-]/g, ''));
-          if (!Number.isNaN(n)) setValue(n);
-        }}
+        value={draft ?? String(current)}
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={commitDraft}
         onKeyDown={(e) => {
           if (e.key === 'ArrowUp') {
             e.preventDefault();
-            setValue(current + (e.shiftKey ? step * 10 : step));
+            stepFrom(e.shiftKey ? step * 10 : step);
           } else if (e.key === 'ArrowDown') {
             e.preventDefault();
-            setValue(current - (e.shiftKey ? step * 10 : step));
+            stepFrom(-(e.shiftKey ? step * 10 : step));
+          } else if (e.key === 'Enter') {
+            // Commit, but let Enter still submit a surrounding form.
+            commitDraft();
+          } else if (e.key === 'Escape' && draft !== null) {
+            e.preventDefault();
+            setDraft(null);
           }
         }}
         className={cn(
