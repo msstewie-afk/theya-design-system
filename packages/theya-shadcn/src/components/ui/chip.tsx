@@ -125,6 +125,8 @@ export interface ChipProps extends Omit<React.ComponentProps<'span'>, 'onClick' 
   /** Leading icon, before the label. Unstyled — sized automatically to the chip's size variant. Replaced by a checkmark when a `appearance="filled"` chip is selected (see `pressed`/`defaultPressed`). */
   icon?: ReactNode;
   interactive?: boolean;
+  /** Interactive chips toggle (aria-pressed) by default. Pass false for a chip that performs an action instead, e.g. opens an editor — it is then a plain button with no pressed state. */
+  toggleable?: boolean;
   asChild?: boolean;
   pressed?: boolean;
   defaultPressed?: boolean;
@@ -142,6 +144,7 @@ export function Chip({
   size = 'md',
   icon,
   interactive = true,
+  toggleable = true,
   pressed,
   defaultPressed,
   onPressedChange,
@@ -160,7 +163,7 @@ export function Chip({
   const isSelected = isPressable && isPressed;
 
   const activate = () => {
-    if (disabled) return;
+    if (disabled || !toggleable) return;
     if (pressed === undefined) setInternalPressed((p) => !p);
     onPressedChange?.(!isPressed);
   };
@@ -226,7 +229,7 @@ export function Chip({
         // content-derived role="button" name.
         <button
           type="button"
-          aria-pressed={isPressed}
+          aria-pressed={toggleable ? isPressed : undefined}
           disabled={disabled || undefined}
           aria-label={ariaLabelProp}
           aria-labelledby={ariaLabelProp ? undefined : contentId}
