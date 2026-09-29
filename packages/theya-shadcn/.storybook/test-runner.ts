@@ -12,6 +12,13 @@ import { injectAxe, checkA11y, configureAxe } from 'axe-playwright';
  */
 const config: TestRunnerConfig = {
   async preVisit(page) {
+    // Run every story with prefers-reduced-motion. axe checks contrast on
+    // whatever is on screen at that instant, so an open/fade-in animation
+    // still in flight reads as low-contrast text and fails at random
+    // (NavigationMenu/Open, 2026-09-29: 709/710 with the flyout mid-fade).
+    // Components already honour motion-reduce, so this checks their final
+    // resting state, which is what the a11y audit is about.
+    await page.emulateMedia({ reducedMotion: 'reduce' });
     await injectAxe(page);
   },
   async postVisit(page, context) {
