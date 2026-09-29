@@ -128,6 +128,13 @@ export function AreaChart({
   const clipId = useId();
   const [chartRef, chartWidth] = useElementWidth<HTMLDivElement>();
   const fmt = useMemo(() => format ?? ((v: number) => `${Math.round(v * 10) / 10}${unit}`), [format, unit]);
+  // Recharts 3 keeps chart data in a Redux/immer store, and immer deep-
+  // freezes whatever it's given — including the caller's own array and
+  // point objects. Anything that later writes to that array (the app, or
+  // Storybook reusing the same args across stories) then throws "Cannot
+  // assign to read only property '0'" (9 AreaChart/LineChart failures in
+  // the 2026-09-28 test-runner pass). Hand Recharts a private copy.
+  const chartData = useMemo(() => data.map((point) => ({ ...point })), [data]);
 
   const activeSeries = useMemo(() => series ?? [], [series]);
   const multi = activeSeries.length > 0;
@@ -229,7 +236,7 @@ export function AreaChart({
       aria-label={summary}
     >
       <ResponsiveContainer width="100%" height={height}>
-        <RechartsAreaChart data={data as AreaChartMultiPoint[]} margin={floatingAxis ? { top: 16, right: 14, bottom: 4, left: 12 } : { top: 16, right: 14, bottom: 4, left: 0 }}>
+        <RechartsAreaChart data={chartData as AreaChartMultiPoint[]} margin={floatingAxis ? { top: 16, right: 14, bottom: 4, left: 12 } : { top: 16, right: 14, bottom: 4, left: 0 }}>
           <defs>
             {multi ? (
               activeSeries.map((s, i) => (

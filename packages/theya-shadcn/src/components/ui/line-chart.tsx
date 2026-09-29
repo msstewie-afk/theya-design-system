@@ -59,6 +59,13 @@ function niceMax(v: number, step: number) {
 
 export function LineChart({ data, series, height = 260, yStep = 1, unit = '', labelPrefix = '', format, legend = true, showXAxis = true, showYAxis = true, ariaLabel, className }: LineChartProps) {
   const fmt = useMemo(() => format ?? ((v: number) => `${Math.round(v * 10) / 10}${unit}`), [format, unit]);
+  // Recharts 3 keeps chart data in a Redux/immer store, and immer deep-
+  // freezes whatever it's given — including the caller's own array and
+  // point objects. Anything that later writes to that array (the app, or
+  // Storybook reusing the same args across stories) then throws "Cannot
+  // assign to read only property '0'" (9 AreaChart/LineChart failures in
+  // the 2026-09-28 test-runner pass). Hand Recharts a private copy.
+  const chartData = useMemo(() => data.map((point) => ({ ...point })), [data]);
 
   const dataMax = useMemo(() => {
     let m = 0;
@@ -92,7 +99,7 @@ export function LineChart({ data, series, height = 260, yStep = 1, unit = '', la
   return (
     <div data-slot="line-chart" className={cn('relative z-[2] w-full', className)} role="img" aria-label={summary}>
       <ResponsiveContainer width="100%" height={height}>
-        <RechartsLineChart data={data} margin={{ top: 16, right: 14, bottom: 4, left: 0 }}>
+        <RechartsLineChart data={chartData} margin={{ top: 16, right: 14, bottom: 4, left: 0 }}>
           <CartesianGrid vertical={false} stroke="var(--color-border-border-subtle)" strokeOpacity={0.6} />
           <XAxis dataKey="label" hide={!showXAxis} interval={interval} tickLine={false} axisLine={false} tickMargin={10} tick={tickStyle} />
           <YAxis width={40} hide={!showYAxis} domain={[0, yMax]} ticks={ticks} tickLine={false} axisLine={false} tickFormatter={(v: number) => (v === 0 ? '0' : fmt(v))} tick={tickStyle} />

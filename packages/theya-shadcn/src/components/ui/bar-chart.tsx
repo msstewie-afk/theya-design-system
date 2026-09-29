@@ -42,6 +42,13 @@ function niceMax(v: number, step: number) {
 
 export function BarChart({ data, orientation = 'vertical', height = 240, valueStep = 1, unit = '', labelPrefix = '', format, ariaLabel, className }: BarChartProps) {
   const fmt = useMemo(() => format ?? ((v: number) => `${Math.round(v * 10) / 10}${unit}`), [format, unit]);
+  // Recharts 3 keeps chart data in a Redux/immer store, and immer deep-
+  // freezes whatever it's given — including the caller's own array and
+  // point objects. Anything that later writes to that array (the app, or
+  // Storybook reusing the same args across stories) then throws "Cannot
+  // assign to read only property '0'" (9 AreaChart/LineChart failures in
+  // the 2026-09-28 test-runner pass). Hand Recharts a private copy.
+  const chartData = useMemo(() => data.map((point) => ({ ...point })), [data]);
 
   const step = valueStep > 0 ? valueStep : 1;
   const values = data.map((d) => d.value);
@@ -71,7 +78,7 @@ export function BarChart({ data, orientation = 'vertical', height = 240, valueSt
   return (
     <div className={cn('relative z-[2] w-full', className)} role="img" aria-label={summary}>
       <ResponsiveContainer width="100%" height={height}>
-        <RechartsBarChart data={data} layout={horizontal ? 'vertical' : 'horizontal'} margin={{ top: 16, right: 14, bottom: 4, left: 0 }}>
+        <RechartsBarChart data={chartData} layout={horizontal ? 'vertical' : 'horizontal'} margin={{ top: 16, right: 14, bottom: 4, left: 0 }}>
           <CartesianGrid vertical={horizontal} horizontal={!horizontal} stroke="var(--color-border-border-subtle)" strokeOpacity={0.6} />
           {horizontal ? (
             <>

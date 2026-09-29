@@ -78,6 +78,13 @@ export function DonutChart({
   className,
 }: DonutChartProps) {
   const fmt = useMemo(() => format ?? ((v: number) => `${Math.round(v * 10) / 10}${unit}`), [format, unit]);
+  // Recharts 3 keeps chart data in a Redux/immer store, and immer deep-
+  // freezes whatever it's given — including the caller's own array and
+  // point objects. Anything that later writes to that array (the app, or
+  // Storybook reusing the same args across stories) then throws "Cannot
+  // assign to read only property '0'" (9 AreaChart/LineChart failures in
+  // the 2026-09-28 test-runner pass). Hand Recharts a private copy.
+  const chartData = useMemo(() => data.map((point) => ({ ...point })), [data]);
   const total = useMemo(() => data.reduce((s, d) => s + d.value, 0), [data]);
   const pct = (v: number) => (total > 0 ? Math.round((v / total) * 100) : 0);
 
@@ -141,7 +148,7 @@ export function DonutChart({
                assistive tech the full accessible description). */}
             <RechartsPieChart accessibilityLayer={false}>
               <Pie
-                data={data}
+                data={chartData}
                 dataKey="value"
                 nameKey="label"
                 rootTabIndex={-1}
