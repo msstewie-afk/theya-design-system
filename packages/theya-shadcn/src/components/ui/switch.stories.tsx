@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, within } from '@storybook/test';
 import { Switch } from './switch';
 
 const meta: Meta<typeof Switch> = {
@@ -21,7 +22,21 @@ export default meta;
 type Story = StoryObj<typeof Switch>;
 
 export const Playground: Story = {
-  args: { label: 'Enable notifications' },
+  args: { label: 'Enable notifications', onCheckedChange: fn() },
+  // Label click and Space both toggle; state is exposed as aria-checked.
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const toggle = canvas.getByRole('switch', { name: 'Enable notifications' });
+    await expect(toggle).toHaveAttribute('aria-checked', 'false');
+
+    await userEvent.click(canvas.getByText('Enable notifications'));
+    await expect(toggle).toHaveAttribute('aria-checked', 'true');
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(true);
+
+    toggle.focus();
+    await userEvent.keyboard(' ');
+    await expect(toggle).toHaveAttribute('aria-checked', 'false');
+  },
 };
 
 export const Bare: Story = {
@@ -33,6 +48,11 @@ export const WithDescription: Story = {
   args: {
     label: 'Marketing emails',
     description: 'Receive occasional updates about new features.',
+  },
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByRole('switch', { name: 'Marketing emails' })).toHaveAccessibleDescription(
+      'Receive occasional updates about new features.',
+    );
   },
 };
 

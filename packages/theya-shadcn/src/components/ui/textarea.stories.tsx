@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, within } from '@storybook/test';
 import { TextArea } from './textarea';
 
 const meta: Meta<typeof TextArea> = {
@@ -57,6 +58,9 @@ export const Bare: Story = {
 
 export const Required: Story = {
   args: { label: 'Bio', required: true, placeholder: 'Tell us about yourself' },
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByRole('textbox', { name: 'Bio' })).toBeRequired();
+  },
 };
 
 export const WithDescription: Story = {
@@ -64,6 +68,9 @@ export const WithDescription: Story = {
     label: 'Feedback',
     description: 'Max 500 characters.',
     placeholder: 'What did you think?',
+  },
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByRole('textbox', { name: 'Feedback' })).toHaveAccessibleDescription('Max 500 characters.');
   },
 };
 
@@ -73,6 +80,12 @@ export const WithError: Story = {
     label: 'Feedback',
     required: true,
     error: 'This field can\u2019t be empty.',
+  },
+  play: async ({ canvasElement }) => {
+    const field = within(canvasElement).getByRole('textbox', { name: 'Feedback' });
+    await expect(field).toBeInvalid();
+    await expect(field).toBeRequired();
+    await expect(field).toHaveAccessibleDescription('This field can\u2019t be empty.');
   },
 };
 

@@ -1,4 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+
+// Radix RadioGroup checks the newly focused radio only while an arrow key is
+// still held down (it moves focus a frame later and reads a keydown/keyup
+// flag). userEvent's instant down+up releases the key before that frame, so
+// hold it like a real key press until the move has landed.
+async function pressArrow(key: 'ArrowDown' | 'ArrowUp', target: () => HTMLElement) {
+  await userEvent.keyboard(`{${key}>}`);
+  await waitFor(() => expect(target()).toHaveFocus());
+  await userEvent.keyboard(`{/${key}}`);
+}
 import { RadioGroup, Radio } from './radio';
 
 const meta: Meta<typeof Radio> = {
@@ -28,6 +39,26 @@ export const Playground: Story = {
       <Radio value="c" label="Option C" />
     </RadioGroup>
   ),
+  // One Tab stop on the checked radio; arrows move AND select, wrapping.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const [a, b, c] = ['Option A', 'Option B', 'Option C'].map((name) => canvas.getByRole('radio', { name }));
+
+    await userEvent.tab();
+    await expect(a).toHaveFocus();
+    await expect(a).toBeChecked();
+
+    await pressArrow('ArrowDown', () => b);
+    await waitFor(() => expect(b).toBeChecked());
+    await expect(a).not.toBeChecked();
+
+    await pressArrow('ArrowDown', () => c);
+    await pressArrow('ArrowDown', () => a);
+    await waitFor(() => expect(a).toBeChecked());
+
+    await userEvent.click(canvas.getByText('Option C'));
+    await expect(c).toBeChecked();
+  },
 };
 
 export const WithDescription: Story = {
@@ -37,6 +68,9 @@ export const WithDescription: Story = {
       <Radio value="yearly" label="Yearly" description="Billed once a year, save 20%." />
     </RadioGroup>
   ),
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByRole('radio', { name: 'Yearly' })).toHaveAccessibleDescription('Billed once a year, save 20%.');
+  },
 };
 
 export const States: Story = {
