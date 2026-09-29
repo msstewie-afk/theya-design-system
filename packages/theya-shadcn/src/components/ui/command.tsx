@@ -65,8 +65,13 @@ export function Command({ className, label, shouldFilter = true, loading = false
       setItemCount(0);
       return;
     }
-    const values = Array.from(items).map((el) => el.dataset.value ?? '');
-    if (!activeValue || !values.includes(activeValue)) setActiveValue(values[0]);
+    // Disabled items can't hold the highlight (2026-09-29: they could, so
+    // Enter silently did nothing and the doc's "skipped by keyboard nav"
+    // wasn't true).
+    const values = Array.from(items)
+      .filter((el) => el.getAttribute('aria-disabled') !== 'true')
+      .map((el) => el.dataset.value ?? '');
+    if (!activeValue || !values.includes(activeValue)) setActiveValue(values[0] ?? null);
     setItemCount(items.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, children]);
@@ -144,9 +149,11 @@ export function CommandInput({ className, value, onValueChange, ...props }: Comm
   }, [value]);
 
   const moveHighlight = (dir: 1 | -1) => {
-    const items = listRef.current?.querySelectorAll<HTMLElement>('[data-command-item]');
-    if (!items || items.length === 0) return;
-    const values = Array.from(items).map((el) => el.dataset.value ?? '');
+    const items = Array.from(listRef.current?.querySelectorAll<HTMLElement>('[data-command-item]') ?? []).filter(
+      (el) => el.getAttribute('aria-disabled') !== 'true',
+    );
+    if (items.length === 0) return;
+    const values = items.map((el) => el.dataset.value ?? '');
     const index = Math.max(values.indexOf(activeValue ?? ''), 0);
     const next = Math.min(Math.max(index + dir, 0), values.length - 1);
     setActiveValue(values[next]);
@@ -160,6 +167,10 @@ export function CommandInput({ className, value, onValueChange, ...props }: Comm
         role="combobox"
         aria-expanded="true"
         aria-controls={listId}
+        // Focus stays in the input, so the highlighted option must be
+        // pointed at explicitly or screen readers announce nothing on
+        // ArrowUp/Down (same fix as Combobox, f78db5e).
+        aria-activedescendant={activeValue ? commandItemId(listId, activeValue) : undefined}
         aria-label={props['aria-label'] ?? label}
         value={current}
         onChange={(e) => {
@@ -292,6 +303,10 @@ export interface CommandItemProps extends Omit<React.ComponentProps<'div'>, 'val
   breadcrumb?: ReactNode;
 }
 
+// Option ids derived from the list id + item value, so the input can
+// reference the highlighted one via aria-activedescendant.
+const commandItemId = (listId: string, value: string) => `${listId}-opt-${value.replace(/[^\w-]/g, '_')}`;
+
 export function CommandItem({ className, value, keywords, onSelect, disabled, icon, toneIcon, description, breadcrumb, children, ...props }: CommandItemProps) {
   const ctx = useCommandContext('CommandItem');
   const reactId = useId();
@@ -305,6 +320,7 @@ export function CommandItem({ className, value, keywords, onSelect, disabled, ic
   return (
     <div
       role="option"
+      id={commandItemId(ctx.listId, itemValue)}
       aria-selected={isHighlighted}
       data-command-item=""
       data-value={itemValue}
