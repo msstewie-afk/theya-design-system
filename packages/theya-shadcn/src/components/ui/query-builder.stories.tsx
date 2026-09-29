@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { QueryBuilder, type QueryField, type QueryValue } from './query-builder';
 
 const meta: Meta<typeof QueryBuilder> = {
@@ -112,4 +113,34 @@ function ControlledDemo() {
 /** Controlled: the parent owns the query and can read it live. */
 export const Controlled: Story = {
   render: () => <ControlledDemo />,
+  // Add a row (focus lands on its field), edit its value, switch all/any,
+  // remove rows (focus moves to the next remove button, then to Add).
+  // The JSON readout shows what the parent receives.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    const json = () => JSON.parse(canvasElement.querySelector('pre')!.textContent!);
+    const add = canvas.getByRole('button', { name: 'Add condition' });
+
+    await userEvent.click(add);
+    await waitFor(() => expect(canvas.getAllByRole('combobox', { name: 'Field' })[1]).toHaveFocus());
+    await expect(json().conditions).toHaveLength(2);
+
+    await userEvent.type(canvas.getAllByRole('textbox', { name: 'Name value' })[1], 'docs');
+    await expect(json().conditions[1]).toMatchObject({ field: 'name', operator: 'contains', value: 'docs' });
+
+    await userEvent.click(canvas.getByRole('combobox', { name: 'Match type' }));
+    await userEvent.click(await body.findByRole('option', { name: 'any' }));
+    await waitFor(() => expect(json().match).toBe('any'));
+
+    await userEvent.click(canvas.getAllByRole('button', { name: 'Remove Name condition' })[0]);
+    await expect(json().conditions).toHaveLength(1);
+    await expect(json().conditions[0].value).toBe('docs');
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove Name condition' })).toHaveFocus());
+
+    await userEvent.keyboard('{Enter}');
+    await expect(json().conditions).toHaveLength(0);
+    await expect(canvas.getByText(/No conditions yet/)).toBeInTheDocument();
+    await waitFor(() => expect(add).toHaveFocus());
+  },
 };
