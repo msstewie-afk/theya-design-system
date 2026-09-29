@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Refresh, WarningCircle } from 'iconoir-react';
 import { Alert, AlertDescription } from './alert';
 import { ConfirmDialog } from './confirm-dialog';
@@ -11,11 +12,11 @@ const meta: Meta<typeof ConfirmDialog> = {
   tags: ['autodocs'],
   argTypes: {
     title: { control: 'text', description: 'Dialog heading.', table: { category: 'Content' } },
-    titleSize: { control: 'inline-radio', options: ['neutral', 'large'], description: 'Size of the title text.', table: { category: 'Appearance' } },
+    titleSize: { control: 'inline-radio', options: ['md', 'lg'], description: 'Size of the title text.', table: { category: 'Appearance' } },
     description: { control: 'text', description: 'Body copy, in place of children.', table: { category: 'Content' } },
     showHeaderDivider: { control: 'boolean', description: 'Divider between the header and body.', table: { category: 'Appearance' } },
     showFooterDivider: { control: 'boolean', description: 'Divider between the body and footer.', table: { category: 'Appearance' } },
-    contentGap: { control: 'inline-radio', options: ['neutral', 'compact', 'none'], description: 'Vertical spacing inside the body.', table: { category: 'Appearance' } },
+    contentGap: { control: 'inline-radio', options: ['default', 'compact', 'none'], description: 'Vertical spacing inside the body.', table: { category: 'Appearance' } },
     confirmValue: { control: 'text', description: 'Require the user to type this string exactly to enable the action.', table: { category: 'Behavior' } },
     confirmValueMono: {
       control: 'boolean',
@@ -38,7 +39,8 @@ export default meta;
 type Story = StoryObj<typeof ConfirmDialog>;
 
 export const Default: Story = {
-  render: () => (
+  args: { onConfirm: fn() },
+  render: (args) => (
     <ConfirmDialog
       title="Delete this server?"
       description="This action cannot be undone."
@@ -47,14 +49,38 @@ export const Default: Story = {
           Delete server
         </Button>
       }
-      onConfirm={() => alert('Confirmed')}
+      onConfirm={args.onConfirm}
     />
   ),
+  // Opens as a modal alertdialog with focus inside; Escape cancels and
+  // returns focus to the trigger; the action confirms and closes.
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    const trigger = canvas.getByRole('button', { name: 'Delete server' });
+
+    await userEvent.click(trigger);
+    const dialog = await body.findByRole('alertdialog', { name: 'Delete this server?' });
+    await expect(dialog).toHaveAccessibleDescription('This action cannot be undone.');
+    await waitFor(() => expect(dialog.contains(document.activeElement)).toBe(true));
+
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('alertdialog')).toBeNull());
+    await waitFor(() => expect(trigger).toHaveFocus());
+    await expect(args.onConfirm).not.toHaveBeenCalled();
+
+    await userEvent.click(trigger);
+    await userEvent.click(await body.findByRole('button', { name: 'Delete' }));
+    await expect(args.onConfirm).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(body.queryByRole('alertdialog')).toBeNull());
+  },
+
 };
 
 export const TypedConfirm: Story = {
   name: 'Typed confirm',
-  render: () => (
+  args: { onConfirm: fn() },
+  render: (args) => (
     <ConfirmDialog
       title="Delete shop.seashell.dev?"
       description="This will permanently remove the site and all its data."
@@ -67,9 +93,39 @@ export const TypedConfirm: Story = {
           Delete site
         </Button>
       }
-      onConfirm={() => alert('Confirmed')}
+      onConfirm={args.onConfirm}
     />
   ),
+  // The action stays disabled until the exact value is typed; the field
+  // resets when the dialog closes.
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Delete site' }));
+    const dialog = await body.findByRole('alertdialog', { name: 'Delete shop.seashell.dev?' });
+    const field = within(dialog).getByRole('textbox', { name: /to confirm/ });
+    const action = within(dialog).getByRole('button', { name: 'Delete' });
+    await expect(action).toBeDisabled();
+
+    await userEvent.type(field, 'shop.seashell');
+    await expect(action).toBeDisabled();
+    await userEvent.type(field, '.dev');
+    await expect(action).toBeEnabled();
+
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Cancel' }));
+    await waitFor(() => expect(body.queryByRole('alertdialog')).toBeNull());
+    await expect(args.onConfirm).not.toHaveBeenCalled();
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Delete site' }));
+    const reopened = await body.findByRole('alertdialog');
+    await expect(within(reopened).getByRole('textbox', { name: /to confirm/ })).toHaveValue('');
+    // Leave it closed: an open modal aria-hides #storybook-root, which the
+    // post-play axe scan would read as aria-hidden-focus on the trigger.
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('alertdialog')).toBeNull());
+  },
+
 };
 
 /** Without `confirmValue` and no `children`, it's a plain confirmation — no body at all, action enables immediately. A `default` tone suits a non-destructive decision like a restart. */
@@ -87,7 +143,7 @@ export const NonDestructive: Story = {
           Restart server
         </Button>
       }
-      onConfirm={() => alert('Confirmed')}
+      onConfirm={() => console.log('Confirmed')}
     />
   ),
 };
@@ -107,7 +163,7 @@ export const WithConsequences: Story = {
           Delete api.seashell.dev
         </Button>
       }
-      onConfirm={() => alert('Confirmed')}
+      onConfirm={() => console.log('Confirmed')}
     >
       <Alert tone="danger">
         <WarningCircle />
@@ -141,7 +197,7 @@ export const Open: Story = {
           confirmLabel="Delete site"
           open={open}
           onOpenChange={setOpen}
-          onConfirm={() => alert('Confirmed')}
+          onConfirm={() => console.log('Confirmed')}
         >
           <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">
             This permanently removes <span className="font-mono text-[var(--color-text-text)]">shop.seashell.dev</span> and its backups. This cannot be undone.
