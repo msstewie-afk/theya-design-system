@@ -5,6 +5,49 @@ import { Calendar } from './calendar';
 import { Popover, PopoverTrigger, PopoverContent } from './popover';
 
 /**
+ * Trigger classes shared by DatePicker and DateRangePicker so both read as
+ * the same SelectTrigger-style form field (border, hover/focus ring,
+ * height, disabled and error treatment). Right padding is added by the
+ * caller depending on whether the clear button is shown.
+ */
+export const dateFieldTriggerClassName = cn(
+  'flex w-full items-center gap-2',
+  'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
+  'border-[var(--color-border-border-default)] bg-[var(--color-bg-input-bg-input)]',
+  'px-[var(--size-margin-margin-s)] text-[var(--color-text-text)]',
+  'h-[var(--size-size-control-size-control-2xl)] text-body-m',
+  'transition-[border-color,background-color,box-shadow] duration-150 ease-out motion-reduce:transition-none outline-none',
+  'hover:not-disabled:not-data-[error=true]:border-[var(--color-border-border-primary)]',
+  'focus-visible:not-data-[error=true]:border-[var(--color-border-border-primary)]',
+  // Same equal-specificity clash as the border rules above —
+  // this unconditional focus bg was never guarded, so it could
+  // still win over the invalid trigger's danger bg on focus.
+  'focus-visible:not-data-[error=true]:bg-[var(--color-bg-input-bg-input-active)]',
+  'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+  'disabled:cursor-not-allowed disabled:border-[var(--color-border-border-subtle)] disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)] disabled:text-[var(--color-text-text-subtler)] disabled:italic',
+  'data-[state=open]:not-data-[error=true]:border-[var(--color-border-border-primary)]',
+  'data-[state=open]:bg-[var(--color-bg-input-bg-input-active)]',
+  // Text color never had an error override at all — the
+  // selected date (or placeholder) stayed neutral gray
+  // regardless of the danger border/bg around it.
+  'data-[error=true]:border-[var(--color-border-border-danger)] data-[error=true]:bg-[var(--color-bg-input-bg-input-danger)] data-[error=true]:text-[var(--color-text-text-danger)]',
+  // Named explicitly too (belt-and-suspenders alongside the
+  // :not() guards above) — same fix pattern as Select/InputGroup.
+  'data-[error=true]:hover:border-[var(--color-border-border-danger-hover)]',
+  'data-[error=true]:focus-visible:border-[var(--color-border-border-danger)]',
+  // One step denser than the idle/hover danger bg while
+  // actively focused (keyboard) or with its own popup open.
+  'data-[error=true]:focus-visible:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
+  'data-[error=true]:focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
+  'data-[error=true]:data-[state=open]:border-[var(--color-border-border-danger)]',
+  'data-[error=true]:data-[state=open]:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
+  '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4',
+  '[&_svg]:text-[var(--color-icon-icon)] disabled:[&_svg]:text-[var(--color-icon-icon-subtle)]',
+  // Calendar icon stayed neutral regardless of error before.
+  'data-[error=true]:[&_svg]:text-[var(--color-icon-icon-danger)]',
+);
+
+/**
  * Single-date field composing a SelectTrigger-styled button + Popover +
  * Calendar. The trigger copies SelectTrigger's own classes verbatim
  * (border, hover/focus ring, height, disabled/error treatment) so it
@@ -95,40 +138,7 @@ export function DatePicker({
             aria-describedby={[valueId, ariaDescribedby].filter(Boolean).join(' ')}
             data-error={isError || undefined}
             className={cn(
-              'flex w-full items-center gap-2',
-              'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
-              'border-[var(--color-border-border-default)] bg-[var(--color-bg-input-bg-input)]',
-              'px-[var(--size-margin-margin-s)] text-[var(--color-text-text)]',
-              'h-[var(--size-size-control-size-control-2xl)] text-body-m',
-              'transition-[border-color,background-color,box-shadow] duration-150 ease-out motion-reduce:transition-none outline-none',
-              'hover:not-disabled:not-data-[error=true]:border-[var(--color-border-border-primary)]',
-              'focus-visible:not-data-[error=true]:border-[var(--color-border-border-primary)]',
-              // Same equal-specificity clash as the border rules above —
-              // this unconditional focus bg was never guarded, so it could
-              // still win over the invalid trigger's danger bg on focus.
-              'focus-visible:not-data-[error=true]:bg-[var(--color-bg-input-bg-input-active)]',
-              'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
-              'disabled:cursor-not-allowed disabled:border-[var(--color-border-border-subtle)] disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)] disabled:text-[var(--color-text-text-subtler)] disabled:italic',
-              'data-[state=open]:not-data-[error=true]:border-[var(--color-border-border-primary)]',
-              'data-[state=open]:bg-[var(--color-bg-input-bg-input-active)]',
-              // Text color never had an error override at all — the
-              // selected date (or placeholder) stayed neutral gray
-              // regardless of the danger border/bg around it.
-              'data-[error=true]:border-[var(--color-border-border-danger)] data-[error=true]:bg-[var(--color-bg-input-bg-input-danger)] data-[error=true]:text-[var(--color-text-text-danger)]',
-              // Named explicitly too (belt-and-suspenders alongside the
-              // :not() guards above) — same fix pattern as Select/InputGroup.
-              'data-[error=true]:hover:border-[var(--color-border-border-danger-hover)]',
-              'data-[error=true]:focus-visible:border-[var(--color-border-border-danger)]',
-              // One step denser than the idle/hover danger bg while
-              // actively focused (keyboard) or with its own popup open.
-              'data-[error=true]:focus-visible:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
-              'data-[error=true]:focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
-              'data-[error=true]:data-[state=open]:border-[var(--color-border-border-danger)]',
-              'data-[error=true]:data-[state=open]:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
-              '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4',
-              '[&_svg]:text-[var(--color-icon-icon)] disabled:[&_svg]:text-[var(--color-icon-icon-subtle)]',
-              // Calendar icon stayed neutral regardless of error before.
-              'data-[error=true]:[&_svg]:text-[var(--color-icon-icon-danger)]',
+              dateFieldTriggerClassName,
               showClearControl ? 'pr-16' : 'pr-9',
             )}
           >
