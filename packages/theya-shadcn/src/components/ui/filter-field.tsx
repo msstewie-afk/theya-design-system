@@ -217,10 +217,16 @@ export function FilterField({
     return attributes.filter((attribute) => attribute.label.toLowerCase().includes(q));
   }, [attributes, normalizedQuery]);
 
-  const [highlighted, setHighlighted] = useState(0);
+  // The "Search for" row (index 0) is disabled while the query is empty,
+  // so highlighting starts on the first attribute instead of on a row
+  // that Enter can't act on.
+  const firstHighlightable = normalizedQuery ? 0 : 1;
+  const [highlighted, setHighlighted] = useState(firstHighlightable);
   useEffect(() => {
-    setHighlighted(0);
+    setHighlighted(normalizedQuery ? 0 : 1);
   }, [normalizedQuery, open, activeKey]);
+  const optionId = (index: number) => `${listboxId}-option-${index}`;
+  const stepOneOpen = open && activeKey === null;
 
   const setFilters = (next: AppliedFilter[]) => {
     if (!isControlled) setInternal(next);
@@ -289,7 +295,7 @@ export function FilterField({
     setAllSelected(false);
     setFilters([...filters, { key: FILTER_FIELD_SEARCH_KEY, value: next }]);
     setQuery('');
-    setHighlighted(0);
+    setHighlighted(1);
     inputRef.current?.focus();
   };
 
@@ -351,7 +357,7 @@ export function FilterField({
       setHighlighted((h) => Math.min(h + 1, lastIndex));
     } else if (event.key === 'ArrowUp') {
       event.preventDefault();
-      setHighlighted((h) => Math.max(h - 1, 0));
+      setHighlighted((h) => Math.max(h - 1, firstHighlightable));
     } else if (event.key === 'Enter') {
       event.preventDefault();
       if (highlighted === 0) commitSearch();
@@ -424,7 +430,9 @@ export function FilterField({
                 // input surface, same as Combobox) — always size="sm".
                 size="sm"
                 interactive={!isSearch}
-                pressed={false}
+                // Clicking a chip opens its editor; it isn't a toggle, so no
+                // aria-pressed ("toggle button, not pressed" before).
+                toggleable={false}
                 disabled={disabled}
                 className={allSelected ? 'shadow-[0_0_0_2px_var(--color-border-border-primary)]' : undefined}
                 aria-label={isSearch ? undefined : label}
@@ -480,6 +488,15 @@ export function FilterField({
             }}
             onKeyDown={handleKeyDown}
             onBlur={() => setAllSelected(false)}
+            // Step one's listbox is driven from this input (focus never
+            // moves into it), so the input has to be a combobox pointing at
+            // the highlighted row — otherwise arrow keys moved an invisible
+            // highlight screen readers never heard.
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded={stepOneOpen}
+            aria-controls={stepOneOpen ? listboxId : undefined}
+            aria-activedescendant={stepOneOpen ? optionId(highlighted) : undefined}
             aria-label={ariaLabel ?? placeholder}
             aria-labelledby={ariaLabelledby}
             aria-describedby={ariaDescribedby}
@@ -525,6 +542,7 @@ export function FilterField({
         {active === undefined ? (
           <div id={listboxId} role="listbox" aria-label={attributeLabel} className="max-h-64 overflow-y-auto p-1">
             <div
+              id={optionId(0)}
               role="option"
               aria-selected={highlighted === 0}
               aria-disabled={normalizedQuery === '' || undefined}
@@ -552,6 +570,7 @@ export function FilterField({
               return (
                 <div
                   key={attribute.key}
+                  id={optionId(index + 1)}
                   role="option"
                   aria-selected={isHighlighted}
                   onMouseEnter={() => setHighlighted(index + 1)}
@@ -642,6 +661,7 @@ export function FilterField({
                 id={optionListboxId}
                 role="listbox"
                 aria-label={active.label}
+                aria-multiselectable={active.multiple || undefined}
                 tabIndex={0}
                 aria-activedescendant={`${optionListboxId}-${optionHighlighted}`}
                 onKeyDown={(event) => {
@@ -720,8 +740,14 @@ export function FilterField({
                     appearance="filled"
                     tone="primary"
                     size="md"
-                    disabled={numberDraft.min == null && numberDraft.max == null}
-                    onClick={() => applyFilter(active.key, encodeNumberRange(numberDraft.min, numberDraft.max))}
+                    // Not disabled on an empty draft: NumberField commits typed
+                    // text on blur, so a typed "3" only lands here when this
+                    // click blurs the field — a disabled Apply swallowed that
+                    // first click. An empty range is ignored instead.
+                    onClick={() => {
+                      if (numberDraft.min == null && numberDraft.max == null) return;
+                      applyFilter(active.key, encodeNumberRange(numberDraft.min, numberDraft.max));
+                    }}
                   >
                     {applyLabel}
                   </Button>
