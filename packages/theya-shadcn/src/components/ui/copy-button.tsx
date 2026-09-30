@@ -6,7 +6,8 @@ import { Button, type ButtonProps } from './button';
 
 /**
  * Copies a string to the clipboard and confirms it via icon swap + a
- * polite aria-live announcement. Doesn't toast itself — wire `onCopied`/
+ * polite announcement (the "Copied" label via Button's own live label, or
+ * a dedicated live region when icon-only). Doesn't toast itself — wire `onCopied`/
  * `onCopyError` to `sonner`'s `toast` (see ./sonner) at the call site,
  * as SecretField does, so callers that don't want a toast aren't forced
  * into one.
@@ -43,6 +44,10 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(functio
   ref,
 ) {
   const [copied, setCopied] = useState(false);
+  // Bumped on every successful copy. A second copy inside the reset window
+  // left the live region text unchanged, so it wasn't announced again; the
+  // trailing no-break space alternates to make each copy a new string.
+  const [copyCount, setCopyCount] = useState(0);
   const timer = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
@@ -52,6 +57,7 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(functio
       if (!navigator.clipboard) throw new Error('Clipboard unavailable');
       await navigator.clipboard.writeText(value);
       setCopied(true);
+      setCopyCount((n) => n + 1);
       window.clearTimeout(timer.current);
       timer.current = setTimeout(() => setCopied(false), resetDelay);
       onCopied?.(value);
@@ -86,9 +92,14 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(functio
       >
         {displayLabel}
       </Button>
-      <span aria-live="polite" className="sr-only">
-        {copied ? 'Copied to clipboard' : ''}
-      </span>
+      {/* Icon-only only: with a visible label, Button's own aria-live label
+          span already announces "Copy" -> "Copied", and this region made it
+          two announcements in a row. */}
+      {iconOnly && (
+        <span aria-live="polite" className="sr-only">
+          {copied ? `Copied to clipboard${copyCount % 2 ? '' : '\u00a0'}` : ''}
+        </span>
+      )}
     </>
   );
 });
