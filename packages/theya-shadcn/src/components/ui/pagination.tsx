@@ -25,6 +25,14 @@ export function PaginationItem(props: React.ComponentProps<'li'>) {
 export interface PaginationLinkProps extends React.ComponentProps<'a'> {
   isActive?: boolean;
   asChild?: boolean;
+  /**
+   * Not navigable (e.g. Previous on page 1). Drops the href so the link is
+   * out of the tab order and Enter does nothing, keeps role="link" +
+   * aria-disabled so it's still announced. aria-disabled +
+   * pointer-events-none alone (what stories used) only blocked the mouse:
+   * the link stayed focusable and Enter still followed it.
+   */
+  disabled?: boolean;
 }
 
 export function PaginationLink({
@@ -32,6 +40,8 @@ export function PaginationLink({
   isActive,
   wide = false,
   asChild = false,
+  disabled = false,
+  href,
   ...props
 }: PaginationLinkProps & {
   /** @internal Previous/Next only: padded label layout instead of the square page-number cell. */
@@ -41,12 +51,16 @@ export function PaginationLink({
   return (
     <Comp
       aria-current={isActive ? 'page' : undefined}
+      href={disabled ? undefined : href}
+      role={disabled ? 'link' : undefined}
+      aria-disabled={disabled || undefined}
       className={cn(
         'inline-flex items-center justify-center gap-1.5 cursor-pointer',
         'rounded-[var(--size-border-radius-border-radius-md)]',
         'font-body text-body-s tabular-nums',
         'transition-colors duration-150 ease-out motion-reduce:transition-none',
         wide ? 'h-[30px] px-2.5' : 'size-[30px]',
+        disabled && 'pointer-events-none opacity-50',
         isActive
           ? 'bg-[var(--color-bg-secondary-bg-secondary-subtle)] font-medium text-[var(--color-text-text)]'
           : 'text-[var(--color-text-text-subtler)] hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-text-text)]',
