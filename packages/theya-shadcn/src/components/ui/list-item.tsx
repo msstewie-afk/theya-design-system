@@ -46,7 +46,7 @@ export interface ListItemProps extends Omit<React.ComponentProps<'div'>, 'title'
   disabled?: boolean;
 }
 
-export function ListItem({ className, size = 'md', leading, title, description, trailing, href, interactive = false, selected = false, disabled = false, onClick, onKeyDown, children, ...props }: ListItemProps) {
+export function ListItem({ className, size = 'md', leading, title, description, trailing, href, interactive = false, selected, disabled = false, onClick, onKeyDown, children, ...props }: ListItemProps) {
   const isPressable = interactive && href == null;
   // The stretched button is empty (the visible text sits in a sibling span
   // on top of it), so it takes its accessible name/description from the
@@ -123,7 +123,11 @@ export function ListItem({ className, size = 'md', leading, title, description, 
           <button
             type="button"
             tabIndex={disabled ? -1 : 0}
-            aria-pressed={selected || undefined}
+            // A selectable row (selected passed, true or false) is a toggle;
+            // an action-only row (selected omitted) is a plain button. It
+            // used to be pressed="true" or nothing, so unselected rows in a
+            // selectable list didn't read as toggles at all.
+            aria-pressed={selected}
             aria-labelledby={titleId}
             aria-describedby={descriptionId}
             disabled={disabled || undefined}
