@@ -227,8 +227,16 @@ export function Attachment({
         </span>
         <span className="min-w-0 flex flex-col items-start">
           <span className="font-body text-body-m font-medium text-[var(--color-text-text)] truncate max-w-[10rem]">{nameEl}</span>
-          {size !== undefined && (
-            <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">{humanSize(size)}</span>
+          {/* The error text itself, not only the danger border/bg: 'pill'
+              and 'line' used to drop it, so a rejected file was flagged
+              by color alone with no reason given (WCAG 1.4.1). */}
+          {hasError ? (
+            <span className="font-body text-body-xs text-[var(--color-text-text-danger)]">
+              <WarningTriangle width={11} height={11} className="inline mr-1 -mt-0.5" aria-hidden="true" />
+              {error}
+            </span>
+          ) : (
+            size !== undefined && <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">{humanSize(size)}</span>
           )}
         </span>
         {(actions || removeButton) && (
@@ -256,8 +264,13 @@ export function Attachment({
         {/* nameEl, not name: with `href` it is the real <a>. 'line' and
             'card' rendered the plain name, silently dropping href. */}
         <span className="font-body text-body-m font-medium text-[var(--color-text-text)] truncate flex-1">{nameEl}</span>
-        {size !== undefined && (
-          <span className="font-body text-body-xs text-[var(--color-text-text-subtler)] shrink-0">{humanSize(size)}</span>
+        {hasError ? (
+          <span className="font-body text-body-xs text-[var(--color-text-text-danger)] shrink-0">
+            <WarningTriangle width={11} height={11} className="inline mr-1 -mt-0.5" aria-hidden="true" />
+            {error}
+          </span>
+        ) : (
+          size !== undefined && <span className="font-body text-body-xs text-[var(--color-text-text-subtler)] shrink-0">{humanSize(size)}</span>
         )}
         {removeButton && <span className="relative z-10">{removeButton}</span>}
       </div>
