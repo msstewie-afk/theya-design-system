@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import type { ColumnDef, RowSelectionState } from '@tanstack/react-table';
 import { Archive, Refresh, Search, Trash } from 'iconoir-react';
 import { DataTable, DataTableColumnHeader } from './data-table';
@@ -7,6 +8,7 @@ import { DataTableToolbar, type DataTableBulkAction } from './data-table-toolbar
 import { DataTableCell } from './data-table-cell';
 import { TextField } from './text-field';
 import type { StatusTone } from './status-dot';
+import { toast } from './sonner';
 
 interface Site {
   domain: string;
@@ -52,9 +54,14 @@ const columns: ColumnDef<Site, unknown>[] = [
   },
 ];
 
+// Spies, not alert(): a native dialog blocks the page (and the tests).
+const onReissue = fn();
+const onArchive = fn();
+const onDelete = fn();
+
 const ACTIONS: DataTableBulkAction<Site>[] = [
-  { label: 'Reissue', icon: <Refresh />, onSelect: (rows) => alert(`Reissue queued for ${rows.length} sites`) },
-  { label: 'Archive', icon: <Archive />, onSelect: (rows) => alert(`Archived ${rows.length} sites`) },
+  { label: 'Reissue', icon: <Refresh />, onSelect: (rows) => onReissue(rows.map((r) => r.domain)) },
+  { label: 'Archive', icon: <Archive />, onSelect: (rows) => onArchive(rows.map((r) => r.domain)) },
   {
     label: 'Delete',
     icon: <Trash />,
@@ -64,6 +71,7 @@ const ACTIONS: DataTableBulkAction<Site>[] = [
       typeToConfirm: 'delete',
       confirmLabel: 'Delete sites',
       confirmIcon: <Trash />,
+      onConfirm: (rows) => onDelete(rows.map((r) => r.domain)),
       undo: {
         title: (count) => `${count} sites moved to trash`,
         description: () => 'Recoverable for 30 days',
@@ -146,9 +154,34 @@ const meta: Meta<typeof DataTableToolbar> = {
 export default meta;
 type Story = StoryObj<typeof ToolbarDemo>;
 
+const selectAll = (root: HTMLElement) => within(root).getByRole('checkbox', { name: 'Select all' });
+const bar = (root: HTMLElement) => root.querySelector('[data-slot="data-table-toolbar"]') as HTMLElement;
+
 /** Idle: the select-all checkbox on the left, the table's filter on the right. */
 export const Default: Story = {
   render: () => <ToolbarDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(bar(canvasElement)).toHaveAttribute('data-state', 'default');
+
+    // Keyboard select-all flips the bar; focus follows to the new checkbox.
+    selectAll(canvasElement).focus();
+    await userEvent.keyboard(' ');
+    await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'selected'));
+    await expect(bar(canvasElement)).toHaveTextContent('5 selected');
+    await waitFor(() => expect(selectAll(canvasElement)).toHaveFocus());
+
+    // Clear flips it back, focus stays in the toolbar.
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear selection' }));
+    await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'default'));
+    await waitFor(() => expect(selectAll(canvasElement)).toHaveFocus());
+
+    // Select all respects the filter.
+    await userEvent.type(canvas.getByRole('textbox', { name: 'Filter domains' }), 'shop');
+    await userEvent.click(selectAll(canvasElement));
+    await waitFor(() => expect(bar(canvasElement)).toHaveTextContent('1 selected'));
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear selection' }));
+  },
 };
 
 /**
@@ -158,6 +191,21 @@ export const Default: Story = {
  */
 export const Selected: Story = {
   render: () => <ToolbarDemo initialSelection={{ 'shop.seashell.dev': true, 'api.seashell.dev': true }} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(bar(canvasElement)).toHaveTextContent('2 selected');
+    await expect(selectAll(canvasElement)).toHaveAttribute('aria-checked', 'mixed');
+    // Bulk actions are one toolbar (one tab stop, arrows between).
+    const actions = canvas.getByRole('toolbar', { name: 'Bulk actions' });
+    await expect(within(actions).getByRole('button', { name: 'Archive' })).toBeInTheDocument();
+
+    onArchive.mockClear();
+    await userEvent.click(within(actions).getByRole('button', { name: 'Archive' }));
+    await expect(onArchive).toHaveBeenCalledWith(['shop.seashell.dev', 'api.seashell.dev']);
+    // The action clears the selection; focus lands on select-all, not <body>.
+    await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'default'));
+    await waitFor(() => expect(selectAll(canvasElement)).toHaveFocus());
+  },
 };
 
 /**
@@ -168,4 +216,27 @@ export const Selected: Story = {
  */
 export const Overflow: Story = {
   render: () => <ToolbarDemo maxVisible={2} initialSelection={{ 'shop.seashell.dev': true, 'api.seashell.dev': true, 'docs.seashell.dev': true }} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const page = within(document.body);
+    await expect(bar(canvasElement)).toHaveTextContent('3 selected');
+    // maxVisible=2: Delete lives in the overflow menu, in red.
+    await expect(canvas.queryByRole('button', { name: 'Delete' })).toBeNull();
+    await userEvent.click(canvas.getByRole('button', { name: 'More bulk actions' }));
+    await userEvent.click(await page.findByRole('menuitem', { name: 'Delete' }));
+
+    // Type-to-confirm, then an undo toast; the selection clears.
+    const dialog = await page.findByRole('alertdialog');
+    await expect(dialog).toHaveTextContent('Delete 3 sites?');
+    const confirm = within(dialog).getByRole('button', { name: 'Delete sites' });
+    await expect(confirm).toBeDisabled();
+    await userEvent.type(within(dialog).getByRole('textbox'), 'delete');
+    onDelete.mockClear();
+    await userEvent.click(confirm);
+    await expect(onDelete).toHaveBeenCalledWith(['shop.seashell.dev', 'api.seashell.dev', 'docs.seashell.dev']);
+    await expect(await page.findByText('3 sites moved to trash')).toBeInTheDocument();
+    await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'default'));
+    toast.dismiss();
+    await waitFor(() => expect(document.querySelectorAll('[data-sonner-toast]')).toHaveLength(0), { timeout: 3000 });
+  },
 };
