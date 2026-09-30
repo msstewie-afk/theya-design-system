@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { AlignLeft, AlignCenter, AlignRight, Bold, Italic, Underline } from 'iconoir-react';
 import { ToggleGroup, ToggleGroupItem } from './toggle-group';
 
@@ -22,7 +23,7 @@ type Story = StoryObj<typeof ToggleGroup>;
 
 export const Outline: Story = {
   render: () => (
-    <ToggleGroup type="single" defaultValue="left" appearance="outlined">
+    <ToggleGroup type="single" defaultValue="left" appearance="outlined" aria-label="Text alignment">
       <ToggleGroupItem value="left" aria-label="Align left">
         <AlignLeft />
       </ToggleGroupItem>
@@ -34,11 +35,25 @@ export const Outline: Story = {
       </ToggleGroupItem>
     </ToggleGroup>
   ),
+  play: async ({ canvasElement }) => {
+    const group = within(within(canvasElement).getByRole('radiogroup', { name: 'Text alignment' }));
+    // type="single": Radix renders a radiogroup of radios, one checked at a time.
+    const left = group.getByRole('radio', { name: 'Align left' });
+    const center = group.getByRole('radio', { name: 'Align center' });
+    await expect(left).toHaveAttribute('aria-checked', 'true');
+    await userEvent.click(center);
+    await expect(center).toHaveAttribute('aria-checked', 'true');
+    await expect(left).toHaveAttribute('aria-checked', 'false');
+    // Roving focus: one tab stop, arrows move between items.
+    await expect(center).toHaveFocus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(group.getByRole('radio', { name: 'Align right' })).toHaveFocus();
+  },
 };
 
 export const Tonal: Story = {
   render: () => (
-    <ToggleGroup type="multiple" appearance="tonal">
+    <ToggleGroup type="multiple" appearance="tonal" aria-label="Text style">
       <ToggleGroupItem value="bold" aria-label="Bold">
         <Bold />
       </ToggleGroupItem>
@@ -50,11 +65,24 @@ export const Tonal: Story = {
       </ToggleGroupItem>
     </ToggleGroup>
   ),
+  play: async ({ canvasElement }) => {
+    const group = within(within(canvasElement).getByRole('toolbar', { name: 'Text style' }));
+    // type="multiple": Radix renders a toolbar of independent pressed buttons.
+    const bold = group.getByRole('button', { name: 'Bold' });
+    const italic = group.getByRole('button', { name: 'Italic' });
+    await userEvent.click(bold);
+    await userEvent.click(italic);
+    await expect(bold).toHaveAttribute('aria-pressed', 'true');
+    await expect(italic).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(bold);
+    await expect(bold).toHaveAttribute('aria-pressed', 'false');
+    await expect(italic).toHaveAttribute('aria-pressed', 'true');
+  },
 };
 
 export const Ghost: Story = {
   render: () => (
-    <ToggleGroup type="multiple" appearance="ghost">
+    <ToggleGroup type="multiple" appearance="ghost" aria-label="Text style">
       <ToggleGroupItem value="bold" aria-label="Bold">
         <Bold />
       </ToggleGroupItem>

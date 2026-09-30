@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Bold, Italic, Underline } from 'iconoir-react';
 import { Toggle } from './toggle';
 
@@ -24,6 +25,17 @@ export const Playground: Story = {
       <Bold /> Bold
     </Toggle>
   ),
+  play: async ({ canvasElement }) => {
+    const toggle = within(canvasElement).getByRole('button', { name: 'Bold' });
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    await expect(toggle).toHaveAttribute('data-state', 'on');
+    // Space toggles back; the name stays the same.
+    await userEvent.keyboard(' ');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    await expect(toggle).toHaveAccessibleName('Bold');
+  },
 };
 
 export const IconOnly: Story = {
@@ -81,4 +93,11 @@ export const States: Story = {
       </Toggle>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('button', { name: 'Unpressed' })).toHaveAttribute('aria-pressed', 'false');
+    await expect(canvas.getByRole('button', { name: 'Pressed' })).toHaveAttribute('aria-pressed', 'true');
+    const disabled = canvas.getByRole('button', { name: 'Disabled' });
+    await expect(disabled).toBeDisabled();
+  },
 };

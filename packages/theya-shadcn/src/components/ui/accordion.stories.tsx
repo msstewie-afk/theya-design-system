@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './accordion';
 
 const meta: Meta<typeof Accordion> = {
@@ -60,6 +61,34 @@ export const Single: Story = {
       </AccordionItem>
     </Accordion>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const one = canvas.getByRole('button', { name: 'What is a CNAME record?' });
+    const two = canvas.getByRole('button', { name: 'How long does propagation take?' });
+    await expect(one).toHaveAttribute('aria-expanded', 'false');
+
+    await userEvent.click(one);
+    await expect(one).toHaveAttribute('aria-expanded', 'true');
+    await expect(canvas.getByRole('region', { name: 'What is a CNAME record?' })).toBeVisible();
+
+    // Single: opening another closes the first.
+    await userEvent.click(two);
+    await expect(two).toHaveAttribute('aria-expanded', 'true');
+    await expect(one).toHaveAttribute('aria-expanded', 'false');
+
+    // collapsible defaults to true: the open item closes on its own trigger.
+    await userEvent.click(two);
+    await expect(two).toHaveAttribute('aria-expanded', 'false');
+
+    // Arrow keys move between triggers; Home/End jump.
+    one.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(two).toHaveFocus();
+    await userEvent.keyboard('{End}');
+    await expect(canvas.getByRole('button', { name: 'Can I use a wildcard certificate?' })).toHaveFocus();
+    await userEvent.keyboard('{Home}');
+    await expect(one).toHaveFocus();
+  },
 };
 
 export const Multiple: Story = {
@@ -75,6 +104,16 @@ export const Multiple: Story = {
       </AccordionItem>
     </Accordion>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const one = canvas.getByRole('button', { name: 'Section one' });
+    const two = canvas.getByRole('button', { name: 'Section two' });
+    await userEvent.click(one);
+    await userEvent.click(two);
+    // Multiple: both stay open.
+    await expect(one).toHaveAttribute('aria-expanded', 'true');
+    await expect(two).toHaveAttribute('aria-expanded', 'true');
+  },
 };
 
 /** No `defaultValue` — every section starts collapsed; `collapsible` still lets the opened item close back to none. */
@@ -115,4 +154,14 @@ export const DisabledItem: Story = {
       </AccordionItem>
     </Accordion>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const first = canvas.getByRole('button', { name: 'Active plan' });
+    await expect(first).toHaveAttribute('aria-expanded', 'true');
+    await expect(canvas.getByRole('button', { name: 'Enterprise add-ons (contact sales)' })).toBeDisabled();
+    // Arrow navigation skips the disabled trigger.
+    first.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(canvas.getByRole('button', { name: 'Billing history' })).toHaveFocus();
+  },
 };
