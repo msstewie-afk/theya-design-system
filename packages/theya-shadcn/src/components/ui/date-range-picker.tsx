@@ -31,6 +31,7 @@ export interface DateRangePickerProps {
   id?: string;
   className?: string;
   'aria-label'?: string;
+  'aria-labelledby'?: string;
   'aria-invalid'?: boolean | 'true' | 'false';
   'aria-describedby'?: string;
   calendarProps?: Omit<React.ComponentProps<typeof Calendar>, 'mode' | 'selected' | 'onSelect' | 'numberOfMonths'>;
@@ -47,6 +48,7 @@ export function DateRangePicker({
   id,
   className,
   'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby,
   'aria-invalid': ariaInvalid,
   'aria-describedby': ariaDescribedby,
   calendarProps,
@@ -89,6 +91,7 @@ export function DateRangePicker({
             id={id}
             disabled={disabled}
             aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledby}
             aria-invalid={ariaInvalid}
             aria-describedby={[valueId, ariaDescribedby].filter(Boolean).join(' ')}
             data-error={isError || undefined}
