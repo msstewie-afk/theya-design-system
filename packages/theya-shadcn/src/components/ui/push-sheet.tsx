@@ -45,16 +45,33 @@ export function PushSheet({ open, onOpenChange, side = 'right', width = '22.5rem
   useEffect(() => {
     if (!open || !isDesktop || onOpenChange == null) return;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onOpenChange(false);
+      if (event.key !== 'Escape' || event.defaultPrevented) return;
+      // Escape inside another open layer (a Select/menu/popover in the
+      // sheet, or a separate dialog) belongs to that layer. This listener
+      // used to close the sheet too, so one Escape closed both.
+      const target = event.target as HTMLElement | null;
+      const inOtherLayer = target?.closest('[data-radix-popper-content-wrapper], [role="dialog"], [role="alertdialog"], [role="menu"], [role="listbox"]');
+      if (inOtherLayer && inOtherLayer !== rootRef.current) return;
+      onOpenChange(false);
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [open, isDesktop, onOpenChange]);
 
+  // Remember what had focus when the sheet opened, so closing can hand
+  // focus back there. Closing used to blur() the focused element inside
+  // the sheet, dropping keyboard users onto <body>.
+  const openerRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
-    if (open) return;
+    if (open) {
+      const active = document.activeElement as HTMLElement | null;
+      openerRef.current = active && active !== document.body && !rootRef.current?.contains(active) ? active : null;
+      return;
+    }
     if (rootRef.current?.contains(document.activeElement)) {
-      (document.activeElement as HTMLElement | null)?.blur();
+      const opener = openerRef.current;
+      if (opener && opener.isConnected) opener.focus();
+      else (document.activeElement as HTMLElement | null)?.blur();
     }
   }, [open]);
 
