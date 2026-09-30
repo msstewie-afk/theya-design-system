@@ -1,29 +1,10 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useId } from 'react';
 import type { ReactNode } from 'react';
 import { ArrowUp, Square } from 'iconoir-react';
 import { cn } from '@/lib/utils';
+import { matchesAccept } from '@/lib/accept';
 import { Button } from './button';
 import { Popover, PopoverAnchor, PopoverContent } from './popover';
-
-/**
- * Checks a file against an `accept` string that may list several
- * comma-separated patterns (`"image/*,.pdf,.txt,.json"`) — a bare
- * `file.type.match(accept.replace('*', '.*'))` treats the whole list as one
- * regex (so nothing beyond the first pattern can ever match). Each pattern
- * is checked on its own: a leading-dot pattern matches the filename
- * extension, anything else matches the MIME type (with `*` as a wildcard).
- */
-function matchesAccept(file: File, accept: string): boolean {
-  return accept.split(',').some((raw) => {
-    const pattern = raw.trim();
-    if (!pattern) return false;
-    if (pattern.startsWith('.')) return file.name.toLowerCase().endsWith(pattern.toLowerCase());
-    // Escape regex metachars first (this doesn't touch `*`), then turn the
-    // now-safely-isolated `*` into a wildcard.
-    const escaped = pattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*');
-    return new RegExp(`^${escaped}$`).test(file.type);
-  });
-}
 
 function ExclamationCircle({ className }: { className?: string }) {
   return (
@@ -136,6 +117,10 @@ function PromptArea({
   const dragDepth = useRef(0);
   const [trigger, setTrigger] = useState<Trigger | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const listId = useId();
+  const counterId = useId();
+  const errorId = useId();
+  const optionId = (index: number) => `${listId}-option-${index}`;
 
   const acceptFiles = (fileList: FileList | File[]) => {
     if (!onFilesAdded && !onFileRejected) return;
@@ -225,7 +210,10 @@ function PromptArea({
     });
   };
 
-  const canSubmit = text.trim().length > 0 && !disabled && !busy;
+  const overLimit = maxLength != null && text.length > maxLength;
+  // Over the limit blocks sending: the error said the message was too long
+  // while Enter / the Send button still submitted it.
+  const canSubmit = text.trim().length > 0 && !disabled && !busy && !overLimit;
 
   const submit = useCallback(() => {
     if (!canSubmit) return;
@@ -276,7 +264,6 @@ function PromptArea({
   };
 
   const nearLimit = maxLength != null && text.length >= maxLength * 0.8;
-  const overLimit = maxLength != null && text.length > maxLength;
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -359,6 +346,14 @@ function PromptArea({
               placeholder={placeholder}
               disabled={disabled}
               aria-label={ariaLabel}
+              // The @ / "/" menu is driven from the textarea (focus stays
+              // here), so it points at the highlighted option. A textarea
+              // can't take role="combobox"; textbox supports these three.
+              aria-autocomplete={mentions || commands ? 'list' : undefined}
+              aria-controls={menuOpen ? listId : undefined}
+              aria-activedescendant={menuOpen ? optionId(activeIndex) : undefined}
+              aria-invalid={overLimit || undefined}
+              aria-describedby={[nearLimit ? counterId : null, overLimit ? errorId : null].filter(Boolean).join(' ') || undefined}
               className={cn(
                 'block max-h-[50vh] w-full cursor-text resize-none bg-transparent',
                 'px-[var(--size-padding-padding-lg)] py-[var(--size-margin-margin-s)]',
@@ -372,6 +367,7 @@ function PromptArea({
               {leading}
               {nearLimit && (
                 <span
+                  id={counterId}
                   className={cn(
                     'font-body text-body-xs tabular-nums',
                     overLimit ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-subtler)]',
@@ -402,10 +398,11 @@ function PromptArea({
           onOpenAutoFocus={(e) => e.preventDefault()}
           className="w-64 p-1"
         >
-          <ul role="listbox" aria-label={trigger?.type === '@' ? 'Mentions' : 'Commands'}>
+          <ul id={listId} role="listbox" aria-label={trigger?.type === '@' ? 'Mentions' : 'Commands'}>
             {filtered.map((item, index) => (
               <li
                 key={item.id}
+                id={optionId(index)}
                 role="option"
                 aria-selected={index === activeIndex}
                 onMouseDown={(e) => e.preventDefault()}
@@ -430,7 +427,7 @@ function PromptArea({
       </Popover>
 
       {overLimit && (
-        <p role="alert" className="flex items-center gap-1.5 font-body text-body-xs text-[var(--color-text-text-danger)]">
+        <p id={errorId} role="alert" className="flex items-center gap-1.5 font-body text-body-xs text-[var(--color-text-text-danger)]">
           <ExclamationCircle className="shrink-0 text-[var(--color-icon-icon-danger)]" />
           <span>
             Message exceeds the {maxLength}-character limit ({text.length}/{maxLength}).
