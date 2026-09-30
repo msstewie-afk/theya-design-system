@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, within } from '@storybook/test';
 import { Stepper } from './stepper';
 
 const meta: Meta<typeof Stepper> = {
@@ -19,6 +20,17 @@ const meta: Meta<typeof Stepper> = {
 
 export default meta;
 type Story = StoryObj<typeof Stepper>;
+
+/** Status word each step announces, in order. */
+async function expectStatuses(root: HTMLElement, expected: Array<'completed' | 'current step' | 'upcoming'>) {
+  const items = within(root).getAllByRole('listitem');
+  await expect(items).toHaveLength(expected.length);
+  for (const [i, status] of expected.entries()) {
+    await expect(items[i]).toHaveTextContent(`step ${i + 1} of ${expected.length}, ${status}:`);
+    if (status === 'current step') await expect(items[i]).toHaveAttribute('aria-current', 'step');
+    else await expect(items[i]).not.toHaveAttribute('aria-current');
+  }
+}
 
 const STEPS = [
   { label: 'Account' },
@@ -48,6 +60,11 @@ export const Horizontal: Story = {
       <Stepper {...args} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const list = within(canvasElement).getByRole('list', { name: 'Progress' });
+    await expectStatuses(list, ['completed', 'current step', 'upcoming']);
+    await expect(within(list).getAllByRole('listitem')[1]).toHaveTextContent('Plan');
+  },
 };
 
 export const Vertical: Story = {
@@ -57,6 +74,9 @@ export const Vertical: Story = {
       <Stepper {...args} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    await expectStatuses(canvasElement, ['completed', 'current step', 'upcoming']);
+  },
 };
 
 export const Complete: Story = {
@@ -66,6 +86,10 @@ export const Complete: Story = {
       <Stepper {...args} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    // current === steps.length: everything done, nothing current.
+    await expectStatuses(canvasElement, ['completed', 'completed', 'completed']);
+  },
 };
 
 export const CenteredLabels: Story = {
@@ -87,6 +111,9 @@ export const FirstStep: Story = {
       <Stepper {...args} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    await expectStatuses(canvasElement, ['current step', 'upcoming', 'upcoming']);
+  },
 };
 
 /** Not started yet: pass a value below 0 so no step is current. */
@@ -98,6 +125,9 @@ export const NotStarted: Story = {
       <Stepper {...args} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    await expectStatuses(canvasElement, ['upcoming', 'upcoming', 'upcoming']);
+  },
 };
 
 /** Regression check: 5 plain-label (no description) horizontal steps at several `current` values — every gap between indicators should read as the same width at every value. */
@@ -110,6 +140,19 @@ export const HorizontalEvenGaps: Story = {
       ))}
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    // The regression this story guards: equal spacing between indicators
+    // at every progress value, measured rather than eyeballed.
+    const lists = within(canvasElement).getAllByRole('list');
+    await expect(lists).toHaveLength(4);
+    for (const list of lists) {
+      const lefts = within(list)
+        .getAllByRole('listitem')
+        .map((li) => (li.querySelector('span') as HTMLElement).getBoundingClientRect().left);
+      const gaps = lefts.slice(1).map((x, i) => x - lefts[i]);
+      for (const gap of gaps) await expect(Math.abs(gap - gaps[0])).toBeLessThanOrEqual(1);
+    }
+  },
 };
 
 /** Both orientations side by side at the same progress, showing how the same data drives a compact header or a roomy rail. */
