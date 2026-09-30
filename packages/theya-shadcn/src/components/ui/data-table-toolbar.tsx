@@ -286,7 +286,7 @@ const MIN_TRAILING_WIDTH = 160;
  * off-screen mirror (measuring the live label would be circular).
  */
 function useSelectAllFits(label: ReactNode, minTrailingWidth: number) {
-  const barRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLDivElement | null>(null);
   const mirrorRef = useRef<HTMLDivElement>(null);
   const [fits, setFits] = useState(true);
 
@@ -400,6 +400,37 @@ export function DataTableToolbar<TData>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usesSelectAllScope, rowSelectionState]);
 
+  // The idle and selected bars are separate trees, so flipping between
+  // them (select all, Clear, a finished bulk action) unmounted the focused
+  // control and focus fell to <body>. Track focus inside the toolbar and,
+  // after a flip, put it on the select-all checkbox, which sits in the
+  // same spot in both states.
+  const hasSelection = count > 0;
+  const focusInsideRef = useRef(false);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!focusInsideRef.current) return;
+    const activeEl = document.activeElement;
+    if (activeEl && activeEl !== document.body && rootRef.current?.contains(activeEl)) return;
+    if (activeEl && activeEl !== document.body) {
+      focusInsideRef.current = false;
+      return;
+    }
+    rootRef.current?.querySelector<HTMLElement>('[role="checkbox"]')?.focus();
+  }, [hasSelection]);
+  const trackFocus = {
+    onFocusCapture: () => {
+      focusInsideRef.current = true;
+    },
+    onBlurCapture: (event: React.FocusEvent) => {
+      // Moving to a control outside the toolbar (not an unmount) clears it.
+      if (event.relatedTarget && !rootRef.current?.contains(event.relatedTarget as Node)) focusInsideRef.current = false;
+    },
+  };
+  const setRoot = (node: HTMLDivElement | null) => {
+    rootRef.current = node;
+  };
+
   const active = confirmIdx != null ? actions[confirmIdx] : null;
   const { visibleCount, containerRef, mirrorRef, clearRef } = useVisibleActionCount(actions, maxVisible, count > 0);
   const visible = actions.slice(0, visibleCount);
@@ -480,6 +511,8 @@ export function DataTableToolbar<TData>({
   const bar =
     count > 0 ? (
       <div
+        ref={setRoot}
+        {...trackFocus}
         data-slot="data-table-toolbar"
         data-state="selected"
         data-surface="primary"
@@ -577,7 +610,11 @@ export function DataTableToolbar<TData>({
       </div>
     ) : (
       <div
-        ref={idleBarRef}
+        ref={(node) => {
+          idleBarRef.current = node;
+          setRoot(node);
+        }}
+        {...trackFocus}
         data-slot="data-table-toolbar"
         data-state="default"
         data-select-all-label-hidden={selectable && !selectAllFits ? 'true' : undefined}
