@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Undo } from 'iconoir-react';
 import { toast } from './sonner';
 import { undoToast } from './undo-toast';
@@ -26,6 +27,19 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// Spies wrapped around the stories' own callbacks so tests can count them.
+const undoSpy = fn();
+const commitSpy = fn();
+
+const body = () => within(document.body);
+const toastByTitle = (title: string) => body().findByText(title, { selector: '[data-title]' });
+
+/** Dismiss every toast and wait until none are left (keeps stories isolated). */
+async function clearToasts() {
+  toast.dismiss();
+  await waitFor(() => expect(document.querySelectorAll('[data-sonner-toast]')).toHaveLength(0), { timeout: 3000 });
+}
+
 /**
  * The default flow: delete optimistically, then offer a 10s undo. Undo
  * confirms a restore; letting it lapse commits.
@@ -39,14 +53,57 @@ export const Default: Story = {
         undoToast({
           title: 'Site deleted',
           description: 'legacy.seashell.dev · recoverable for 30 days',
-          onUndo: () => toast.success('Site restored'),
-          onCommit: () => toast('Delete committed'),
+          onUndo: () => {
+            undoSpy();
+            toast.success('Site restored');
+          },
+          onCommit: () => {
+            commitSpy();
+            toast('Delete committed');
+          },
         })
       }
     >
       Delete site
     </Button>
   ),
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Delete site' });
+    undoSpy.mockClear();
+    commitSpy.mockClear();
+
+    // Undo rolls back and never commits.
+    await userEvent.click(trigger);
+    const first = (await toastByTitle('Site deleted')).closest('[data-sonner-toast]') as HTMLElement;
+    // No close "X": dismissing would quietly commit a destructive action.
+    await expect(first.querySelector('[data-close-button]')).toBeNull();
+    await userEvent.click(within(first).getByRole('button', { name: 'Undo' }));
+    await expect(undoSpy).toHaveBeenCalledTimes(1);
+    await expect(await toastByTitle('Site restored')).toBeInTheDocument();
+    await clearToasts();
+    await expect(commitSpy).not.toHaveBeenCalled();
+
+    // Keyboard route inside the grace window: Alt+T jumps to the toasts.
+    await userEvent.click(trigger);
+    await toastByTitle('Site deleted');
+    await userEvent.keyboard('{Alt>}t{/Alt}');
+    await waitFor(() => expect(document.activeElement?.closest('[data-sonner-toaster]')).not.toBeNull());
+    const undo = body().getByRole('button', { name: 'Undo' });
+    for (let i = 0; i < 5 && document.activeElement !== undo; i++) await userEvent.tab();
+    await expect(undo).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await expect(undoSpy).toHaveBeenCalledTimes(2);
+    await clearToasts();
+
+    // Letting it go (dismissed) commits exactly once.
+    await userEvent.click(trigger);
+    await toastByTitle('Site deleted');
+    toast.dismiss();
+    await waitFor(() => expect(commitSpy).toHaveBeenCalledTimes(1));
+    await clearToasts();
+    await expect(commitSpy).toHaveBeenCalledTimes(1);
+    await expect(undoSpy).toHaveBeenCalledTimes(2);
+  },
 };
 
 /**
@@ -98,6 +155,14 @@ export const CustomLabelAndIcon: Story = {
       Remove DNS record
     </Button>
   ),
+  play: async ({ canvasElement }) => {
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Remove DNS record' }));
+    const item = (await toastByTitle('Record removed')).closest('[data-sonner-toast]') as HTMLElement;
+    await expect(within(item).getByText('MX · mail.seashell.dev')).toBeInTheDocument();
+    await userEvent.click(within(item).getByRole('button', { name: 'Restore' }));
+    await expect(await toastByTitle('Record restored')).toBeInTheDocument();
+    await clearToasts();
+  },
 };
 
 /**
