@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Filter, ControlSlider } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
 import { Popover, PopoverTrigger, PopoverContent, PopoverClose } from './popover';
@@ -36,6 +37,8 @@ const meta: Meta<typeof Popover> = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const page = () => within(document.body);
 
 export const Playground: Story = {
   render: () => (
@@ -90,6 +93,19 @@ export const Default: Story = {
       </PopoverContent>
     </Popover>
   ),
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Filters' });
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.click(trigger);
+    // The panel is named by its trigger, not an anonymous "dialog".
+    const panel = await page().findByRole('dialog', { name: 'Filters' });
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    // Focus moves into the panel; Escape closes and returns it.
+    await waitFor(() => expect(panel.contains(document.activeElement)).toBe(true));
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(page().queryByRole('dialog')).toBeNull());
+    await expect(trigger).toHaveFocus();
+  },
 };
 
 /** An inline edit form. A PopoverClose cancel + a save button anchor the footer. */
@@ -186,6 +202,16 @@ export const Controlled: Story = {
         </p>
       </div>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Open panel' }));
+    await expect(canvas.getByText('true')).toBeInTheDocument();
+    // PopoverClose closes through onOpenChange, and focus returns.
+    await userEvent.click(await page().findByRole('button', { name: 'Done' }));
+    await waitFor(() => expect(page().queryByRole('dialog')).toBeNull());
+    await expect(canvas.getByText('false')).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Open panel' })).toHaveFocus();
   },
 };
 

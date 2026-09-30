@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Copy, InfoCircle, Refresh } from 'iconoir-react';
 import { Tooltip, TooltipTrigger, TooltipContent } from './tooltip';
 import { Button } from './button';
@@ -52,6 +53,15 @@ export const Default: Story = {
       <TooltipContent {...args} />
     </Tooltip>
   ),
+  play: async ({ canvasElement }) => {
+    // The tooltip is supplementary; the icon button's name is its aria-label.
+    const trigger = within(canvasElement).getByRole('button', { name: 'Copy API key' });
+    await userEvent.hover(trigger);
+    await within(document.body).findByRole('tooltip');
+    await expect(trigger).toHaveAccessibleName('Copy API key');
+    await userEvent.unhover(trigger);
+    await waitFor(() => expect(within(document.body).queryByRole('tooltip')).toBeNull());
+  },
 };
 
 /** All four sides. Radix is collision-aware, so a side flips automatically
@@ -101,6 +111,18 @@ export const OnTextButton: Story = {
       <TooltipContent {...args} />
     </Tooltip>
   ),
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Reissue certificate' });
+    // Keyboard focus shows it too (not hover-only), and it describes the trigger.
+    trigger.focus();
+    const tip = await within(document.body).findByRole('tooltip');
+    await expect(tip).toHaveTextContent('Fetches a fresh 90-day certificate');
+    await expect(trigger).toHaveAccessibleDescription('Fetches a fresh 90-day certificate');
+    // Escape dismisses without moving focus.
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(within(document.body).queryByRole('tooltip')).toBeNull());
+    await expect(trigger).toHaveFocus();
+  },
 };
 
 /** Hints scale to short identifiers too. */

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -59,6 +60,23 @@ export const Default: Story = {
       </AlertDialogContent>
     </AlertDialog>
   ),
+  play: async ({ canvasElement }) => {
+    const page = within(document.body);
+    const trigger = within(canvasElement).getByRole('button', { name: 'Delete server' });
+    await userEvent.click(trigger);
+    const dialog = await page.findByRole('alertdialog', { name: 'Delete this server?' });
+    await expect(dialog).toHaveAccessibleDescription('This action cannot be undone. All data will be permanently removed.');
+    // A destructive confirm opens on the safe choice.
+    await waitFor(() => expect(within(dialog).getByRole('button', { name: 'Cancel' })).toHaveFocus());
+    // Escape closes and returns focus to the trigger.
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(page.queryByRole('alertdialog')).toBeNull());
+    await expect(trigger).toHaveFocus();
+    // The action closes it too.
+    await userEvent.click(trigger);
+    await userEvent.click(await page.findByRole('button', { name: 'Delete' }));
+    await waitFor(() => expect(page.queryByRole('alertdialog')).toBeNull());
+  },
 };
 
 /** A non-destructive confirm — pass a non-danger tone to AlertDialogAction to override its danger default. */

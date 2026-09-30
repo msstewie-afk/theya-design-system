@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Globe } from 'iconoir-react';
 import { HoverCard, HoverCardTrigger, HoverCardContent } from './hover-card';
 import { StatusDot } from './status-dot';
@@ -49,6 +50,18 @@ export const Default: Story = {
       </HoverCardContent>
     </HoverCard>
   ),
+  play: async ({ canvasElement }) => {
+    const link = within(canvasElement).getByRole('link', { name: 'shop.seashell.dev' });
+    // Opens on hover (after the delay) and on keyboard focus too.
+    await userEvent.hover(link);
+    await expect(await within(document.body).findByText('184,320 requests today')).toBeVisible();
+    await userEvent.unhover(link);
+    await waitFor(() => expect(within(document.body).queryByText('184,320 requests today')).toBeNull(), { timeout: 3000 });
+    link.focus();
+    await expect(await within(document.body).findByText('184,320 requests today')).toBeVisible();
+    link.blur();
+    await waitFor(() => expect(within(document.body).queryByText('184,320 requests today')).toBeNull(), { timeout: 3000 });
+  },
 };
 
 /** `align` and `sideOffset` position the card against the trigger. Here the
