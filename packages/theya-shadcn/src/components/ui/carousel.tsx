@@ -71,8 +71,19 @@ export function Carousel({ orientation = 'horizontal', opts, setApi, plugins, cl
 
   const onSelect = useCallback((api: CarouselApi) => {
     if (!api) return;
-    setCanScrollPrev(api.canScrollPrev());
-    setCanScrollNext(api.canScrollNext());
+    const prev = api.canScrollPrev();
+    const next = api.canScrollNext();
+    // Paging to the first/last slide disables the arrow that was just
+    // pressed; a disabled button drops focus to <body>. Hand it to the
+    // carousel region instead so keyboard users stay in place.
+    const active = document.activeElement as HTMLElement | null;
+    const slot = active?.getAttribute('data-slot');
+    if ((slot === 'carousel-previous' && !prev) || (slot === 'carousel-next' && !next)) {
+      const root = active?.closest<HTMLElement>('[data-slot="carousel"]');
+      if (root && api.rootNode() && root.contains(api.rootNode())) root.focus();
+    }
+    setCanScrollPrev(prev);
+    setCanScrollNext(next);
   }, []);
 
   const scrollPrev = useCallback(() => api?.scrollPrev(), [api]);
@@ -207,7 +218,7 @@ export interface CarouselIndicatorsProps extends Omit<React.ComponentProps<'div'
 }
 
 /**
- * Pagination dots for a Carousel's current slide — the "dash" style
+ * Slide picker for a Carousel's current slide — the "dash" style
  * (small dot, active one widens into a pill). Must render inside a
  * <Carousel>; reads position from the same embla api CarouselPrevious/
  * CarouselNext use, so it stays in sync with drag/swipe/arrow-key
@@ -237,15 +248,18 @@ export function CarouselIndicators({ className, variant = 'default', ...props }:
   if (count < 2) return null;
 
   return (
-    <div data-slot="carousel-indicators" role="tablist" aria-label="Slides" className={cn('flex items-center gap-1.5', className)} {...props}>
+    // A group of plain buttons, not tablist/tab: the tabs pattern also
+    // needs tabpanels, aria-controls and roving arrow-key focus, none of
+    // which apply here, so it announced an incomplete widget. The current
+    // slide is marked with aria-current instead of aria-selected.
+    <div data-slot="carousel-indicators" role="group" aria-label="Slides" className={cn('flex items-center gap-1.5', className)} {...props}>
       {Array.from({ length: count }, (_, i) => {
         const active = i === selectedIndex;
         return (
           <button
             key={i}
             type="button"
-            role="tab"
-            aria-selected={active}
+            aria-current={active || undefined}
             aria-label={`Go to slide ${i + 1}`}
             onClick={() => api?.scrollTo(i)}
             className={cn(
