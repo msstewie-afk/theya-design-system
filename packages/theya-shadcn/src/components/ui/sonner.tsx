@@ -155,7 +155,10 @@ export const toast: ToastApi = Object.assign(((...args: Parameters<ToastApi>) =>
           {description}
           <div className="flex items-center gap-2">
             <span className="shrink-0 font-body text-body-xs text-[var(--color-text-text-subtler)] tabular-nums">{Math.round(pct)}%</span>
-            <Progress value={pct} className="flex-1" />
+            {/* Named after the toast's own message: an unnamed progressbar
+                is an axe aria-progressbar-name violation and is announced
+                as just "progress bar". */}
+            <Progress value={pct} aria-label={typeof message === 'string' ? message : 'Progress'} className="flex-1" />
           </div>
         </div>
       ),
