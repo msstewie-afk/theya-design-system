@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { File } from './file';
 import { Button } from './button';
 
@@ -44,13 +45,43 @@ const meta: Meta<typeof File> = {
 export default meta;
 type Story = StoryObj<typeof File>;
 
+const inputs = (root: HTMLElement) => Array.from(root.querySelectorAll<HTMLInputElement>('input[type="file"]'));
+const doc = (name: string, type = 'text/plain') => new globalThis.File(['x'], name, { type });
+
+/**
+ * Sets a real FileList on the input and fires change, like the browser
+ * does after the picker closes. userEvent.upload instead refocuses the
+ * hidden input (focus would never land there for real) and overrides
+ * `files` with a property FormData can't see.
+ */
+function choose(input: HTMLInputElement, file: globalThis.File) {
+  const data = new DataTransfer();
+  data.items.add(file);
+  input.files = data.files;
+  input.dispatchEvent(new Event('change', { bubbles: true }));
+}
+
 export const Default: Story = {
-  args: { name: 'quarterly-report.pdf', size: 248000, meta: 'Modified 2 days ago', type: 'application/pdf' },
+  args: { name: 'quarterly-report.pdf', size: 248000, meta: 'Modified 2 days ago', type: 'application/pdf', onFileChange: fn() },
   render: (args) => (
     <div className="max-w-56">
       <File {...args} />
     </div>
   ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('button', { name: 'quarterly-report.pdf' })).toBeInTheDocument();
+    // Picking again replaces the file in place.
+    choose(inputs(canvasElement)[0], doc('q3-final.pdf', 'application/pdf'));
+    await expect(await canvas.findByRole('button', { name: 'q3-final.pdf' })).toBeInTheDocument();
+    await expect(args.onFileChange).toHaveBeenLastCalledWith(expect.objectContaining({ name: 'q3-final.pdf' }));
+
+    // Removing hands focus to the picker that replaces the file.
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove q3-final.pdf' }));
+    await expect(args.onFileChange).toHaveBeenLastCalledWith(null);
+    const picker = await canvas.findByRole('button', { name: 'Add file' });
+    await waitFor(() => expect(picker).toHaveFocus());
+  },
 };
 
 export const Empty: Story = {
@@ -152,6 +183,13 @@ export const ReadOnly: Story = {
       <File {...args} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('quarterly-report.pdf')).toBeInTheDocument();
+    // Presentation only: nothing to press, the input can't open.
+    await expect(canvas.queryByRole('button')).toBeNull();
+    await expect(inputs(canvasElement)[0]).toBeDisabled();
+  },
 };
 
 export const AsLink: Story = {
@@ -162,6 +200,13 @@ export const AsLink: Story = {
       <File {...args} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('link', { name: /quarterly-report\.pdf/ })).toHaveAttribute('href', 'https://example.com/quarterly-report.pdf');
+    // A link, not a picker: no file input, no remove.
+    await expect(inputs(canvasElement)).toHaveLength(0);
+    await expect(canvas.queryByRole('button', { name: /Remove/ })).toBeNull();
+  },
 };
 
 /**
@@ -181,6 +226,21 @@ export const Slot: Story = {
       <File variant="row" name="archive.zip" size={1280000} meta="Modified 1 month ago" />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const [first] = canvas.getAllByRole('button', { name: 'Add file' });
+    await expect(canvas.getByRole('button', { name: 'Add image PNG or JPG, up to 25 MB' })).toBeInTheDocument();
+
+    // Picking swaps the tile for the file; focus follows onto it.
+    first.focus();
+    choose(inputs(canvasElement)[0], doc('notes.txt'));
+    const picked = await canvas.findByRole('button', { name: 'notes.txt' });
+    await waitFor(() => expect(picked).toHaveFocus());
+
+    // Removing swaps back; focus lands on the tile again.
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove notes.txt' }));
+    await waitFor(() => expect(canvas.getAllByRole('button', { name: 'Add file' })[0]).toHaveFocus());
+  },
 };
 
 /** The slot needs no state of its own: the file lives in the input, so a plain form submits it. */
@@ -209,5 +269,18 @@ export const SlotInForm: Story = {
         )}
       </form>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // The chosen file travels with a plain form submit.
+    choose(inputs(canvasElement)[0], doc('cover.png', 'image/png'));
+    await canvas.findByRole('button', { name: 'cover.png' });
+    await userEvent.click(canvas.getByRole('button', { name: 'Upload' }));
+    await expect(await canvas.findByText('cover.png', { selector: 'span.font-mono' })).toBeInTheDocument();
+
+    // Clearing empties the input too, so the next submit carries nothing.
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove cover.png' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Upload' }));
+    await expect(await canvas.findByText('nothing', { selector: 'span.font-mono' })).toBeInTheDocument();
   },
 };
