@@ -11,8 +11,13 @@ import { cn } from '@/lib/utils';
  * react-day-picker for Calendar. Defaults to direction="bottom";
  * pass another to change the edge.
  */
-export function Drawer({ direction = 'bottom', ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>) {
-  return <DrawerPrimitive.Root direction={direction} {...props} />;
+export function Drawer({ direction = 'bottom', autoFocus = true, ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>) {
+  // vaul defaults autoFocus to false (to avoid popping the mobile keyboard),
+  // which left focus on the trigger BEHIND the modal overlay — a hidden,
+  // aria-hidden element — while the drawer was open. Default it on; pass
+  // autoFocus={false} for a drawer that opens straight onto a text input
+  // on touch devices if the keyboard pop is unwanted.
+  return <DrawerPrimitive.Root direction={direction} autoFocus={autoFocus} {...props} />;
 }
 
 export const DrawerTrigger = DrawerPrimitive.Trigger;
