@@ -1,4 +1,4 @@
-import { useRef, useState, useId } from 'react';
+import { useRef, useState, useId, useEffect } from 'react';
 import { CloudUpload, Xmark, Page, Check, WarningCircle } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { Button } from './button';
@@ -22,7 +22,10 @@ export interface StagedFile {
 
 export interface DropzoneProps {
   onFiles: (files: File[]) => void;
+  /** Accepted types, same syntax as <input accept> (".pdf,image/*"). Applied to dropped files too, not only the picker. */
   accept?: string;
+  /** Called with dropped files that don't match `accept` (they are not passed to onFiles). Use it to show an error. */
+  onReject?: (files: File[]) => void;
   multiple?: boolean;
   disabled?: boolean;
   hint?: string;
@@ -51,9 +54,30 @@ function humanSize(bytes: number): string {
   return `${rounded} ${units[unit]}`;
 }
 
+/**
+ * Does `file` match an <input accept> string? Extensions (".pdf"), exact
+ * MIME types ("application/pdf") and wildcards ("image/*"). An empty or
+ * missing accept matches everything.
+ */
+function matchesAccept(file: File, accept: string | undefined): boolean {
+  if (!accept?.trim()) return true;
+  const name = file.name.toLowerCase();
+  const type = file.type.toLowerCase();
+  return accept
+    .split(',')
+    .map((token) => token.trim().toLowerCase())
+    .filter(Boolean)
+    .some((token) => {
+      if (token.startsWith('.')) return name.endsWith(token);
+      if (token.endsWith('/*')) return type.startsWith(token.slice(0, -1));
+      return type === token;
+    });
+}
+
 function Dropzone({
   onFiles,
   accept,
+  onReject,
   multiple = true,
   disabled = false,
   hint,
@@ -72,6 +96,21 @@ function Dropzone({
   const labelId = useId();
   const contextId = useId();
   const dragDepth = useRef(0);
+  const rootRef = useRef<HTMLDivElement>(null);
+  // Index of a just-removed row: once the parent drops it from `files`,
+  // focus moves to the row that took its place (or the previous one, or
+  // the zone) instead of falling to <body> with the unmounted button.
+  const pendingFocus = useRef<number | null>(null);
+  useEffect(() => {
+    const index = pendingFocus.current;
+    if (index === null) return;
+    pendingFocus.current = null;
+    const root = rootRef.current;
+    if (!root) return;
+    const removes = root.querySelectorAll<HTMLElement>('[data-dropzone-remove]');
+    const target = removes[Math.min(index, removes.length - 1)] ?? root.querySelector<HTMLElement>('[data-dropzone-trigger]');
+    target?.focus();
+  }, [files]);
 
   const describedBy = [hint ? hintId : null, error ? errorId : null].filter(Boolean).join(' ') || undefined;
 
@@ -80,7 +119,7 @@ function Dropzone({
   };
 
   return (
-    <div className={cn('flex w-[450px] min-w-0 flex-col gap-3', className)}>
+    <div ref={rootRef} className={cn('flex w-[450px] min-w-0 flex-col gap-3', className)}>
       <input
         ref={inputRef}
         type="file"
@@ -118,7 +157,12 @@ function Dropzone({
           setIsDragging(false);
           if (disabled || loading) return;
           const list = e.dataTransfer.files ? Array.from(e.dataTransfer.files) : [];
-          if (list.length > 0) onFiles(multiple ? list : list.slice(0, 1));
+          // The picker enforces `accept` itself; a drop bypassed it and
+          // handed any file type to onFiles.
+          const accepted = list.filter((file) => matchesAccept(file, accept));
+          const rejected = list.filter((file) => !matchesAccept(file, accept));
+          if (rejected.length > 0) onReject?.(rejected);
+          if (accepted.length > 0) onFiles(multiple ? accepted : accepted.slice(0, 1));
         }}
         className={cn(
           'group relative flex w-[450px] h-[280px] flex-col items-center justify-center gap-4 text-center cursor-pointer outline-none',
@@ -153,6 +197,7 @@ function Dropzone({
             non-interactive, so covering it is fine. */}
         <button
           type="button"
+          data-dropzone-trigger
           disabled={disabled || loading}
           aria-labelledby={ariaLabel ? `${contextId} ${labelId}` : labelId}
           aria-invalid={error ? true : undefined}
@@ -187,11 +232,18 @@ function Dropzone({
             <CloudUpload width={24} height={24} aria-hidden="true" />
           )}
         </span>
+        {/* Every branch carries labelId: the overlay button is labelled by
+            it, and the loading/success branches used to have no element
+            with that id, leaving the button without a name. */}
         {loading && !error ? (
-          <p className="font-body text-heading-s text-[var(--color-text-text)]">Uploading…</p>
+          <p id={labelId} className="font-body text-heading-s text-[var(--color-text-text)]">
+            Uploading…
+          </p>
         ) : successFile && !error ? (
           <div className="flex flex-col items-center gap-1">
-            <p className="font-body text-heading-s text-[var(--color-text-text)]">{successFile.name}</p>
+            <p id={labelId} className="font-body text-heading-s text-[var(--color-text-text)]">
+              {successFile.name}
+            </p>
             {/* text-text-subtler doesn't clear AA against this state's
                 tinted bg-success-subtle background (axe: color-contrast) —
                 text-text-success is the pairing every other success surface
@@ -210,7 +262,22 @@ function Dropzone({
               {error ? 'File is uploaded with error' : 'Drag files here'}
             </p>
             <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">or</p>
-            <Button appearance="filled" tone="primary" size="lg" className="relative z-10 mt-2" disabled={disabled} onClick={(e) => { e.stopPropagation(); openPicker(); }}>
+            {/* Pointer target only: the overlay button already opens the
+                picker from the keyboard, so a second tab stop doing the
+                same thing is hidden from the tab order and from AT. */}
+            <Button
+              appearance="filled"
+              tone="primary"
+              size="lg"
+              className="relative z-10 mt-2"
+              disabled={disabled}
+              tabIndex={-1}
+              aria-hidden="true"
+              onClick={(e) => {
+                e.stopPropagation();
+                openPicker();
+              }}
+            >
               Browse
             </Button>
           </div>
@@ -272,7 +339,11 @@ function Dropzone({
                       iconOnly
                       disabled={disabled}
                       aria-label={`Remove ${file.name}`}
-                      onClick={() => onRemove(index)}
+                      data-dropzone-remove
+                      onClick={() => {
+                        pendingFocus.current = index;
+                        onRemove(index);
+                      }}
                       leftIcon={<Xmark />}
                     />
                   )}
