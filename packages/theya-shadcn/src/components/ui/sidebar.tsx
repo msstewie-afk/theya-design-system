@@ -123,6 +123,17 @@ export function SidebarHeader({ className, ...props }: React.ComponentProps<'div
   return <div className={cn('flex h-14 items-center gap-2.5 px-3.5', collapsed && 'justify-center px-0', className)} {...props} />;
 }
 
+/**
+ * Collapse and Expand are two different buttons (the collapse chevron
+ * unmounts, the brand mark becomes the expand button), so toggling
+ * unmounted the focused control and focus fell to <body>. Hand focus to
+ * the other toggle once the swap has rendered.
+ */
+function focusOtherToggle(from: HTMLElement) {
+  const scope = from.closest<HTMLElement>('#theya-sidebar-rail') ?? from.ownerDocument;
+  requestAnimationFrame(() => scope.querySelector<HTMLElement>('[data-sidebar-toggle]')?.focus());
+}
+
 export function SidebarBrand({ className, children, ...props }: React.ComponentProps<'div'>) {
   const { collapsed, setCollapsed } = useSidebar();
   const mark = (
@@ -149,7 +160,11 @@ export function SidebarBrand({ className, children, ...props }: React.ComponentP
         aria-expanded={false}
         aria-controls="theya-sidebar-rail"
         title="Expand sidebar"
-        onClick={() => setCollapsed(false)}
+        data-sidebar-toggle
+        onClick={(event) => {
+          setCollapsed(false);
+          focusOtherToggle(event.currentTarget);
+        }}
         className={cn(
           'mx-auto rounded-[var(--size-border-radius-border-radius-lg)] outline-none',
           'hover:shadow-[0_0_0_2px_var(--color-border-border-default)]',
@@ -179,7 +194,11 @@ export function SidebarCollapse({ className, ...props }: React.ComponentProps<'b
       aria-label="Collapse sidebar"
       aria-expanded
       aria-controls="theya-sidebar-rail"
-      onClick={() => setCollapsed(true)}
+      data-sidebar-toggle
+      onClick={(event) => {
+        setCollapsed(true);
+        focusOtherToggle(event.currentTarget);
+      }}
       className={cn(
         'ml-auto grid size-7 place-content-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)] max-md:hidden',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
@@ -248,15 +267,19 @@ export interface SidebarItemProps extends React.ComponentProps<'a'> {
 
 export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, active, className, children, onClick, ...props }: SidebarItemProps) {
   const { collapsed, setMobileOpen } = useSidebar();
+  // An <a> with no href isn't focusable and has no link role, so onClick-only
+  // items were unreachable from the keyboard. Without href it's a button.
+  const Comp = (props.href != null ? 'a' : 'button') as 'a';
   const link = (
-    <a
+    <Comp
+      {...(props.href == null ? ({ type: 'button' } as Record<string, string>) : {})}
       aria-current={active ? 'page' : undefined}
       onClick={(e) => {
         setMobileOpen(false);
         onClick?.(e);
       }}
       className={cn(
-        'flex items-center gap-2.5 rounded-[var(--size-border-radius-border-radius-md)] px-2.5 py-2',
+        'flex w-full items-center gap-2.5 rounded-[var(--size-border-radius-border-radius-md)] px-2.5 py-2 text-left',
         'font-body text-body-m font-medium text-[var(--color-text-text-subtler)] whitespace-nowrap cursor-pointer',
         'transition-colors duration-150 ease-out motion-reduce:transition-none',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-text-text)]',
@@ -287,7 +310,7 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, activ
           {badge}
         </span>
       )}
-    </a>
+    </Comp>
   );
 
   // No actions (or collapsed, where there's no room for a trailing trigger):
