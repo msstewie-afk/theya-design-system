@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import type { ReactNode } from 'react';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import { cn } from '@/lib/utils';
@@ -20,9 +21,16 @@ export interface OptionCardProps
 }
 
 function OptionCard({ className, value, title, description, icon, ...props }: OptionCardProps) {
+  // Named by the title, described by the description. From content alone
+  // the radio's name ran both together ("HTTP-01Serve a token file…").
+  const baseId = useId();
+  const titleId = `${baseId}-title`;
+  const descriptionId = description ? `${baseId}-description` : undefined;
   return (
     <RadioGroupPrimitive.Item
       value={value}
+      aria-labelledby={titleId}
+      aria-describedby={descriptionId}
       className={cn(
         'group relative flex w-full items-start gap-3 text-left cursor-pointer outline-none',
         'rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid',
@@ -51,11 +59,11 @@ function OptionCard({ className, value, title, description, icon, ...props }: Op
         </span>
       )}
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="font-body text-body-m font-medium leading-tight text-[var(--color-text-text)]">
+        <span id={titleId} className="font-body text-body-m font-medium leading-tight text-[var(--color-text-text)]">
           {title}
         </span>
         {description && (
-          <span className="font-body text-body-s font-normal text-[var(--color-text-text-subtler)]">
+          <span id={descriptionId} className="font-body text-body-s font-normal text-[var(--color-text-text-subtler)]">
             {description}
           </span>
         )}
