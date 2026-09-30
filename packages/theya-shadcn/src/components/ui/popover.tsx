@@ -1,3 +1,4 @@
+import { createContext, useContext, useId, useRef } from 'react';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { cn } from '@/lib/utils';
 
@@ -7,8 +8,32 @@ import { cn } from '@/lib/utils';
  * reference needed a custom context to bridge anchor->content because
  * Base UI's Positioner takes an explicit anchor prop instead.
  */
-const Popover = PopoverPrimitive.Root;
-const PopoverTrigger = PopoverPrimitive.Trigger;
+/*
+ * Radix renders the content as role="dialog" with no accessible name, so
+ * every popover was announced as just "dialog" (axe aria-dialog-name).
+ * By default the content is now labelled by its trigger ("Filters",
+ * "Open panel"). Popovers opened from a bare PopoverAnchor (Combobox,
+ * FilterField, PromptArea) have no trigger, so no reference is added
+ * there — pass aria-label / aria-labelledby on the content instead.
+ */
+const PopoverLabelContext = createContext<{ triggerId: string; hasTrigger: React.MutableRefObject<boolean> } | null>(null);
+
+function Popover(props: React.ComponentProps<typeof PopoverPrimitive.Root>) {
+  const triggerId = useId();
+  const hasTrigger = useRef(false);
+  return (
+    <PopoverLabelContext.Provider value={{ triggerId, hasTrigger }}>
+      <PopoverPrimitive.Root {...props} />
+    </PopoverLabelContext.Provider>
+  );
+}
+
+function PopoverTrigger({ id, ...props }: React.ComponentProps<typeof PopoverPrimitive.Trigger>) {
+  const ctx = useContext(PopoverLabelContext);
+  if (ctx) ctx.hasTrigger.current = true;
+  return <PopoverPrimitive.Trigger id={id ?? ctx?.triggerId} {...props} />;
+}
+
 const PopoverAnchor = PopoverPrimitive.Anchor;
 const PopoverClose = PopoverPrimitive.Close;
 
@@ -18,11 +43,15 @@ function PopoverContent({
   sideOffset = 6,
   ...props
 }: React.ComponentProps<typeof PopoverPrimitive.Content>) {
+  const ctx = useContext(PopoverLabelContext);
+  const named = props['aria-label'] != null || props['aria-labelledby'] != null;
+  const labelledBy = !named && ctx?.hasTrigger.current ? ctx.triggerId : undefined;
   return (
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content
         align={align}
         sideOffset={sideOffset}
+        aria-labelledby={labelledBy}
         className={cn(
           'z-50 w-72 outline-none',
           'rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
