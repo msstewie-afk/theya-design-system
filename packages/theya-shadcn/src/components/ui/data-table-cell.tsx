@@ -36,12 +36,11 @@ const LazySparkline = lazy(() => import('./sparkline').then((m) => ({ default: m
  * Simplified vs the reference: there is no TagInput component in this
  * design system — the `tags` kind is built on Combobox in multiple
  * mode with allowCreate instead, so free-typed tags still work but
- * without a dedicated remove-on-Backspace-at-caret affordance. There
- * is also no single-date DatePicker in this design system yet (only
- * DateRangePicker) — `date` is not implemented for that reason; ask
- * for date-picker.tsx to add it. DateRangePicker itself has no
- * showClear/readOnly of its own — `date-range` maps readOnly to
- * disabled, a known simplification vs the reference.
+ * without a dedicated remove-on-Backspace-at-caret affordance. A
+ * single-date `date` kind is not implemented yet (DatePicker exists
+ * now, so it can be added on request). DateRangePicker has no readOnly
+ * of its own — `date-range` maps readOnly to disabled, a known
+ * simplification vs the reference.
  */
 export type DataTableCellKind = 'text' | 'mono' | 'primary' | 'status' | 'badge' | 'usage' | 'sparkline' | 'input' | 'textarea' | 'number' | 'select' | 'combobox' | 'autocomplete' | 'tags' | 'date-range' | 'switch' | 'slider' | 'selector' | 'menu' | 'custom';
 
@@ -607,10 +606,19 @@ function CellContent(props: DataTableCellValueProps) {
       );
     case 'select':
       return (
-        <Select value={props.value} onValueChange={props.onValueChange} disabled={props.disabled}>
+        // readOnly used to only drop the trigger from the tab order: a
+        // pointer could still open it and change the value, while keyboard
+        // users couldn't reach the value at all. Now it stays focusable
+        // (aria-readonly) and simply never opens.
+        <Select
+          value={props.value}
+          onValueChange={props.readOnly ? undefined : props.onValueChange}
+          disabled={props.disabled}
+          open={props.readOnly ? false : undefined}
+        >
           <SelectTrigger
             id={props.id}
-            tabIndex={props.readOnly ? -1 : undefined}
+            aria-readonly={props.readOnly || undefined}
             aria-label={props.label}
             aria-labelledby={props.labelledBy}
             aria-describedby={props.describedBy}
@@ -687,10 +695,8 @@ function CellContent(props: DataTableCellValueProps) {
         />
       );
     case 'date-range':
-      // DateRangePicker has no readOnly/showClear of its own yet — readOnly
-      // maps to disabled here — and no aria-labelledby extension point, so
-      // `labelledBy` is silently unsupported for this kind; pass `label`.
-      // Both are known simplifications vs the reference.
+      // DateRangePicker has no readOnly of its own — readOnly maps to
+      // disabled here, a known simplification vs the reference.
       return (
         <DateRangePicker
           id={props.id}
@@ -701,6 +707,7 @@ function CellContent(props: DataTableCellValueProps) {
           disabled={props.disabled || props.readOnly}
           calendarProps={props.calendarProps}
           aria-label={props.label}
+          aria-labelledby={props.labelledBy}
           aria-describedby={props.describedBy}
           aria-invalid={props.invalid || undefined}
           className="w-full font-body text-body-m"
