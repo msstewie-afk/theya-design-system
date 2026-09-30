@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Trash, Xmark } from 'iconoir-react';
 import { Button } from './button';
 import {
@@ -86,6 +87,23 @@ export const Default: Story = {
       </ContextMenuContent>
     </ContextMenu>
   ),
+  play: async ({ canvasElement }) => {
+    const page = within(document.body);
+    const target = within(canvasElement).getByText('Right-click shop.seashell.dev');
+    await userEvent.pointer({ keys: '[MouseRight]', target });
+    const menu = await page.findByRole('menu');
+    // Keyboard inside the menu: arrows move, ArrowRight opens the sub-menu.
+    await waitFor(() => expect(menu.contains(document.activeElement)).toBe(true));
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(page.getByRole('menuitem', { name: /Open site/ })).toHaveFocus();
+    page.getByRole('menuitem', { name: 'Copy' }).focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(await page.findByRole('menuitem', { name: 'Copy URL' })).toBeInTheDocument();
+    await waitFor(() => expect(page.getByRole('menuitem', { name: 'Copy URL' })).toHaveFocus());
+    // Escape closes everything.
+    await userEvent.keyboard('{Escape}{Escape}');
+    await waitFor(() => expect(page.queryByRole('menu')).toBeNull());
+  },
 };
 
 /** `tone="danger"` turns the row (text + highlight fill) destructive for irreversible actions. */

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationEllipsis } from './pagination';
 
 const meta: Meta<typeof Pagination> = {
@@ -49,6 +50,13 @@ export const Default: Story = {
       </PaginationContent>
     </Pagination>
   ),
+  play: async ({ canvasElement }) => {
+    const nav = within(within(canvasElement).getByRole('navigation', { name: 'Pagination' }));
+    await expect(nav.getByRole('link', { name: '2' })).toHaveAttribute('aria-current', 'page');
+    await expect(nav.getByRole('link', { name: '1' })).not.toHaveAttribute('aria-current');
+    await expect(nav.getByRole('link', { name: 'Go to previous page' })).toHaveAttribute('href');
+    await expect(nav.getByText('More pages')).toBeInTheDocument();
+  },
 };
 
 /** A short, fully-enumerated range — no ellipsis needed when every page fits. The first page is current. */
@@ -58,7 +66,7 @@ export const ShortRange: Story = {
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href="#" aria-disabled className="pointer-events-none opacity-50" />
+          <PaginationPrevious href="#" disabled />
         </PaginationItem>
         {[1, 2, 3, 4].map((page) => (
           <PaginationItem key={page}>
@@ -73,6 +81,15 @@ export const ShortRange: Story = {
       </PaginationContent>
     </Pagination>
   ),
+  play: async ({ canvasElement }) => {
+    const nav = within(within(canvasElement).getByRole('navigation', { name: 'Pagination' }));
+    // disabled Previous: announced, but not navigable or focusable.
+    const prev = nav.getByRole('link', { name: 'Go to previous page' });
+    await expect(prev).toHaveAttribute('aria-disabled', 'true');
+    await expect(prev).not.toHaveAttribute('href');
+    await userEvent.tab();
+    await expect(nav.getByRole('link', { name: '1' })).toHaveFocus();
+  },
 };
 
 /** A long range with ellipses on both sides of the current page — the common "1 … 6 7 8 … 24" windowed pattern. */

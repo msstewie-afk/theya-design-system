@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink } from './navigation-menu';
 
 const meta: Meta<typeof NavigationMenu> = {
@@ -99,6 +100,21 @@ function ProductNav({ defaultValue }: { defaultValue?: string }) {
 
 export const Default: Story = {
   render: () => <ProductNav />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const nav = canvas.getByRole('navigation', { name: 'Product menu' });
+    const products = within(nav).getByRole('button', { name: 'Products' });
+    await expect(products).toHaveAttribute('aria-expanded', 'false');
+    products.focus();
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(products).toHaveAttribute('aria-expanded', 'true'));
+    // The open panel's links are real links in the nav landmark.
+    await expect(await within(nav).findByRole('link', { name: /Hosting/ })).toBeInTheDocument();
+    // Escape closes and keeps focus on the trigger.
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(products).toHaveAttribute('aria-expanded', 'false'));
+    await expect(products).toHaveFocus();
+  },
 };
 
 /** The Products panel open by default — no click needed to see the mega-menu grid. */

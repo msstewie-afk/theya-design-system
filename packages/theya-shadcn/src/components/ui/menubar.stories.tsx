@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import {
   Menubar,
   MenubarMenu,
@@ -87,6 +88,26 @@ function EditorMenubar({ bordered, defaultValue }: { bordered?: boolean; default
 
 export const Default: Story = {
   render: () => <EditorMenubar />,
+  play: async ({ canvasElement }) => {
+    const page = within(document.body);
+    const bar = within(canvasElement).getByRole('menubar', { name: 'Editor menu' });
+    const file = within(bar).getByRole('menuitem', { name: 'File' });
+    // One tab stop; arrows move between top-level menus.
+    file.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(within(bar).getByRole('menuitem', { name: 'Edit' })).toHaveFocus();
+
+    // Enter opens; ArrowRight moves to the next menu while open.
+    await userEvent.keyboard('{Enter}');
+    await expect(await page.findByRole('menuitem', { name: 'Undo' })).toBeInTheDocument();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(await page.findByRole('menuitemcheckbox', { name: 'Show sidebar' })).toHaveAttribute('aria-checked', 'true');
+
+    // Escape closes and returns focus to the top-level trigger.
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(page.queryByRole('menu')).toBeNull());
+    await expect(within(bar).getByRole('menuitem', { name: 'View' })).toHaveFocus();
+  },
 };
 
 /** `bordered={false}` drops the border + shadow, so the bar blends into a surrounding app toolbar instead of reading as a floating card. */
