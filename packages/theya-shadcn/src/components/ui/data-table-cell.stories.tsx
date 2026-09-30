@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Server } from 'iconoir-react';
 import { DataTableCell } from './data-table-cell';
 import { Table, TableBody, TableRow, TableCell } from './table';
@@ -81,7 +82,7 @@ function InputCell({ label, initial = '', lines, ...rest }: { label: string; ini
   return <DataTableCell kind="input" value={value} onValueChange={setValue} label={label} lines={lines} {...rest} />;
 }
 
-function SelectCell({ label, initial = '', lines, ...rest }: { label: string; initial?: string; lines?: 1 | 2; placeholder?: string; disabled?: boolean; invalid?: boolean }) {
+function SelectCell({ label, initial = '', lines, ...rest }: { label: string; initial?: string; lines?: 1 | 2; placeholder?: string; disabled?: boolean; readOnly?: boolean; invalid?: boolean }) {
   const [value, setValue] = useState(initial);
   return <DataTableCell kind="select" value={value} onValueChange={setValue} options={PLANS} label={label} lines={lines} {...rest} />;
 }
@@ -294,6 +295,67 @@ export const Editable: Story = {
       </TableBody>
     </Table>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const page = within(document.body);
+
+    // input: controlled value round-trips.
+    const name = canvas.getByRole('textbox', { name: 'Display name for shop.seashell.dev' });
+    await userEvent.clear(name);
+    await userEvent.type(name, 'Storefront');
+    await expect(name).toHaveValue('Storefront');
+
+    // invalid: flagged and described by its message.
+    const bad = canvas.getByRole('textbox', { name: 'Domain for api.seashell.dev' });
+    await expect(bad).toHaveAttribute('aria-invalid', 'true');
+    await expect(bad).toHaveAccessibleDescription('A domain cannot contain spaces');
+    await expect(canvas.getByRole('textbox', { name: 'Domain for docs.seashell.dev' })).toBeDisabled();
+
+    // select: keyboard open, move, pick.
+    const plan = canvas.getByRole('combobox', { name: 'Plan for shop.seashell.dev' });
+    await expect(plan).toHaveTextContent('Pro');
+    plan.focus();
+    await userEvent.keyboard('{Enter}');
+    await page.findByRole('listbox');
+    await userEvent.keyboard('{ArrowDown}{Enter}');
+    await waitFor(() => expect(page.queryByRole('listbox')).toBeNull());
+    await expect(plan).toHaveTextContent('Scale');
+
+    // date-range: the range rides on the description (aria-label replaces the text).
+    await expect(canvas.getByRole('button', { name: 'Billing period for shop.seashell.dev' })).toHaveAccessibleDescription('Sep 1, 2026 – Sep 30, 2026');
+    await expect(canvas.getByRole('button', { name: 'Billing period for docs.seashell.dev' })).toBeDisabled();
+  },
+};
+
+/**
+ * `readOnly` shows the value without letting it change. A read-only select
+ * stays in the tab order (so the value can be reached and read) but never
+ * opens; a read-only input is a normal read-only text field.
+ */
+export const ReadOnly: Story = {
+  name: 'Read-only',
+  args: { value: '' },
+  render: () => (
+    <Table className="max-w-xl">
+      <TableBody>
+        <Row label='kind="select"'>
+          <SelectCell label="Plan for shop.seashell.dev" initial="Pro" readOnly />
+        </Row>
+      </TableBody>
+    </Table>
+  ),
+  play: async ({ canvasElement }) => {
+    const plan = within(canvasElement).getByRole('combobox', { name: 'Plan for shop.seashell.dev' });
+    await expect(plan).toHaveAttribute('aria-readonly', 'true');
+    await expect(plan).not.toHaveAttribute('tabindex', '-1');
+    plan.focus();
+    await expect(plan).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await userEvent.click(plan);
+    await new Promise((r) => setTimeout(r, 150));
+    await expect(within(document.body).queryByRole('listbox')).toBeNull();
+    await expect(plan).toHaveTextContent('Pro');
+  },
 };
 
 /**
