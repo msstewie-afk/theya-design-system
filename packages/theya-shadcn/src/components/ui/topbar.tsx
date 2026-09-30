@@ -175,6 +175,9 @@ export function TopbarSearch({
         </div>
       </PopoverAnchor>
       <PopoverContent
+        // Anchor-opened (no Radix Trigger), so PopoverContent can't label
+        // itself by one; without this the panel was an unnamed "dialog".
+        aria-label={(props as { 'aria-label'?: string })['aria-label'] ?? placeholder ?? 'Search'}
         align="start"
         sideOffset={6}
         className="w-[var(--radix-popover-trigger-width)] max-h-[var(--available-height)] overflow-y-auto p-0"

@@ -399,6 +399,10 @@ export function Combobox(props: ComboboxProps) {
         </div>
       </PopoverAnchor>
       <PopoverContent
+        // Anchor-opened (no Radix Trigger), so PopoverContent can't label
+        // itself by one; without this the panel was an unnamed "dialog".
+        aria-labelledby={ariaLabelledby}
+        aria-label={ariaLabelledby ? undefined : (ariaLabel ?? 'Options')}
         align="start"
         onOpenAutoFocus={(e) => e.preventDefault()}
         // Opening via `onFocus` on the input (no Radix `Trigger`, unlike

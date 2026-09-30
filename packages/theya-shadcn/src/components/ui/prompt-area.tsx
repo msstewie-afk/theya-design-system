@@ -393,6 +393,8 @@ function PromptArea({
           </div>
         </PopoverAnchor>
         <PopoverContent
+          // Anchor-opened: name the panel after its menu (was an unnamed "dialog").
+          aria-label={trigger?.type === '@' ? 'Mentions' : 'Commands'}
           align="start"
           side="top"
           onOpenAutoFocus={(e) => e.preventDefault()}
