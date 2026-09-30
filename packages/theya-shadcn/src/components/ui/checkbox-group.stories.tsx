@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { CheckboxGroup, CheckboxGroupItem } from './checkbox-group';
 
 const meta: Meta<typeof CheckboxGroup> = {
@@ -57,6 +58,17 @@ export const Default: Story = {
       <CheckboxGroupItem name="push" label="Push notifications" />
     </CheckboxGroup>
   ),
+  play: async ({ canvasElement }) => {
+    const group = within(within(canvasElement).getByRole('group', { name: 'Notify me by' }));
+    await expect(group.getByRole('checkbox', { name: 'Email' })).toBeChecked();
+    await userEvent.click(group.getByRole('checkbox', { name: 'SMS' }));
+    await expect(group.getByRole('checkbox', { name: 'SMS' })).toBeChecked();
+    await expect(group.getByRole('checkbox', { name: 'Email' })).toBeChecked();
+    // Space toggles the focused item.
+    group.getByRole('checkbox', { name: 'Email' }).focus();
+    await userEvent.keyboard(' ');
+    await expect(group.getByRole('checkbox', { name: 'Email' })).not.toBeChecked();
+  },
 };
 
 function ControlledDemo() {
@@ -77,6 +89,14 @@ function ControlledDemo() {
 
 export const Controlled: Story = {
   render: () => <ControlledDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('value: [email, push]')).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Email' }));
+    await expect(canvas.getByText('value: [push]')).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'SMS' }));
+    await expect(canvas.getByText('value: [push, sms]')).toBeInTheDocument();
+  },
 };
 
 export const Disabled: Story = {
@@ -87,4 +107,8 @@ export const Disabled: Story = {
       <CheckboxGroupItem name="push" label="Push notifications" />
     </CheckboxGroup>
   ),
+  play: async ({ canvasElement }) => {
+    const boxes = within(canvasElement).getAllByRole('checkbox');
+    for (const box of boxes) await expect(box).toBeDisabled();
+  },
 };

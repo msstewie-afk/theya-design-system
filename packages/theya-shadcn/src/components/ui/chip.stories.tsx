@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Check } from 'iconoir-react';
 import { Chip, ChipRemove } from './chip';
 import { StatusDot } from './status-dot';
@@ -56,6 +57,14 @@ type Story = StoryObj<typeof meta>;
 /** Interactive by default: click or press Enter/Space to toggle — no props needed. */
 export const Interactive: Story = {
   args: { children: 'Critical' },
+  play: async ({ canvasElement }) => {
+    const chip = within(canvasElement).getByRole('button', { name: 'Critical' });
+    await expect(chip).toHaveAttribute('aria-pressed', 'false');
+    await userEvent.click(chip);
+    await expect(chip).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.keyboard('{Enter}');
+    await expect(chip).toHaveAttribute('aria-pressed', 'false');
+  },
 };
 
 /** Controlled: the parent owns `pressed` via `onPressedChange`, same shape as Toggle. */
@@ -302,6 +311,13 @@ export const RemoveDoesNotTogglePressed: Story = {
         <ChipRemove aria-label="Remove Critical" onClick={() => setRemoved(true)} />
       </Chip>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // The chip's own name excludes the nested remove button's label.
+    await expect(canvas.getByRole('button', { name: 'Critical' })).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Critical' }));
+    await expect(canvas.getByText('Removed (pressed was never toggled)')).toBeInTheDocument();
   },
 };
 

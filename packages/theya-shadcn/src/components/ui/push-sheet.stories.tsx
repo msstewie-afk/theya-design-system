@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Bell, Xmark } from 'iconoir-react';
 import { PushSheet, PushSheetHeader, PushSheetTitle, PushSheetBody, PushSheetClose } from './push-sheet';
 import { Button } from './button';
@@ -44,8 +45,10 @@ function DemoShell({ children }: { children: (open: boolean, setOpen: (v: boolea
             appearance="ghost"
             iconOnly
             size="md"
-            aria-label={open ? 'Close notifications' : 'Open notifications'}
-            aria-pressed={open}
+            // Stable name + expanded state (it opens a panel). Swapping the
+            // name as well as aria-pressed read "Close notifications, pressed".
+            aria-label="Notifications panel"
+            aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
             leftIcon={<Bell />}
           />
@@ -80,6 +83,35 @@ export const Default: Story = {
       )}
     </DemoShell>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const bell = canvas.getByRole('button', { name: 'Notifications panel' });
+    // Non-modal: a named dialog beside the page, not over it.
+    const sheet = canvas.getByRole('dialog', { name: 'Panel title' });
+    await expect(sheet).toHaveAttribute('aria-modal', 'false');
+    await expect(bell).toHaveAttribute('aria-expanded', 'true');
+
+    // Closed: hidden and inert, name stays the same, state flips.
+    await userEvent.click(bell);
+    await waitFor(() => expect(canvas.queryByRole('dialog')).toBeNull());
+    await expect(bell).toHaveAttribute('aria-expanded', 'false');
+    await expect(bell).toHaveAccessibleName('Notifications panel');
+
+    // Opened from the bell, closed from inside: focus returns to the bell.
+    await userEvent.click(bell);
+    const close = within(await canvas.findByRole('dialog', { name: 'Panel title' })).getByRole('button', { name: 'Close' });
+    close.focus();
+    await userEvent.click(close);
+    await waitFor(() => expect(canvas.queryByRole('dialog')).toBeNull());
+    await waitFor(() => expect(bell).toHaveFocus());
+
+    // Escape from the page closes it too.
+    await userEvent.click(bell);
+    await canvas.findByRole('dialog', { name: 'Panel title' });
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(canvas.queryByRole('dialog')).toBeNull());
+    await userEvent.click(bell);
+  },
 };
 
 /**

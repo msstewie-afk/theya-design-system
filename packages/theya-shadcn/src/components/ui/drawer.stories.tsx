@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerBody, DrawerFooter, DrawerClose } from './drawer';
 import { Button } from './button';
 import { Label } from './label';
@@ -66,6 +67,22 @@ function RenameSiteDrawer() {
 /** Trigger opens a bottom sheet; Esc, the scrim, the X, or a swipe-down close it. */
 export const Default: Story = {
   render: () => <RenameSiteDrawer />,
+  play: async ({ canvasElement }) => {
+    const page = within(document.body);
+    const trigger = within(canvasElement).getByRole('button', { name: 'Rename site' });
+    await userEvent.click(trigger);
+    const drawer = await page.findByRole('dialog', { name: 'Rename site' });
+    await waitFor(() => expect(drawer.contains(document.activeElement)).toBe(true));
+    // The built-in close button closes it and hands focus back.
+    await userEvent.click(within(drawer).getByRole('button', { name: 'Close' }));
+    await waitFor(() => expect(page.queryByRole('dialog')).toBeNull());
+    await waitFor(() => expect(trigger).toHaveFocus());
+    // Escape too.
+    await userEvent.click(trigger);
+    await page.findByRole('dialog', { name: 'Rename site' });
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(page.queryByRole('dialog')).toBeNull());
+  },
 };
 
 /** width="fixed" caps the sheet at a centered max width on larger screens, matching the reference's sheet width, instead of spanning edge-to-edge. */
