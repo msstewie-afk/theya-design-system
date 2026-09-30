@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Plus } from 'iconoir-react';
 import { cn } from '@/lib/utils';
@@ -67,6 +67,32 @@ export function File({
     !empty && initialName ? { name: initialName, size: initialSize ?? 0, type: initialType ?? '', previewUrl: initialPreviewUrl } : null,
   );
 
+  const rootRef = useRef<HTMLDivElement>(null);
+  // Picking a file swaps the dashed picker for the Attachment, and removing
+  // swaps it back — either way the focused button unmounts and focus fell
+  // to <body>. Remember where focus should land once the swap renders.
+  const pendingFocus = useRef<'attachment' | 'picker' | null>(null);
+  useEffect(() => {
+    const target = pendingFocus.current;
+    if (!target) return;
+    pendingFocus.current = null;
+    const root = rootRef.current;
+    if (!root) return;
+    const el =
+      target === 'picker'
+        ? root.querySelector<HTMLElement>('[data-file-picker]')
+        : root.querySelector<HTMLElement>('button:not([aria-label^="Remove"]), a');
+    el?.focus();
+  }, [file]);
+
+  // Blob URLs made for image previews were never revoked (one leaked per
+  // pick). Revoke the previous one when it's replaced, and on unmount.
+  const blobUrl = file?.previewUrl?.startsWith('blob:') ? file.previewUrl : undefined;
+  useEffect(() => {
+    if (!blobUrl) return;
+    return () => URL.revokeObjectURL(blobUrl);
+  }, [blobUrl]);
+
   const isLink = Boolean(href);
   const isInteractive = !isLink && !readOnly && !disabled;
 
@@ -77,6 +103,7 @@ export function File({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const picked = e.target.files?.[0];
     if (picked) {
+      if (!file) pendingFocus.current = 'attachment';
       const nextPreview = picked.type.startsWith('image/') ? URL.createObjectURL(picked) : undefined;
       setFile({ name: picked.name, size: picked.size, type: picked.type, previewUrl: nextPreview });
       onFileChange?.(picked);
@@ -84,6 +111,7 @@ export function File({
   };
 
   const handleRemove = () => {
+    pendingFocus.current = 'picker';
     setFile(null);
     onFileChange?.(null);
     if (inputRef.current) inputRef.current.value = '';
@@ -123,7 +151,7 @@ export function File({
   }
 
   return (
-    <div className={cn(variant === 'card' ? 'flex w-full' : 'inline-flex', className)}>
+    <div ref={rootRef} className={cn(variant === 'card' ? 'flex w-full' : 'inline-flex', className)}>
       <input
         ref={inputRef}
         type="file"
@@ -140,6 +168,7 @@ export function File({
       ) : (
         <button
           type="button"
+          data-file-picker
           onClick={openPicker}
           disabled={!isInteractive}
           className={cn(
