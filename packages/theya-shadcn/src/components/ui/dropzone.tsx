@@ -1,6 +1,7 @@
 import { useRef, useState, useId, useEffect } from 'react';
 import { CloudUpload, Xmark, Page, Check, WarningCircle } from 'iconoir-react';
 import { cn } from '@/lib/utils';
+import { matchesAccept } from '@/lib/accept';
 import { Button } from './button';
 import { Separator } from './separator';
 
@@ -52,26 +53,6 @@ function humanSize(bytes: number): string {
   }
   const rounded = value < 10 ? Math.round(value * 10) / 10 : Math.round(value);
   return `${rounded} ${units[unit]}`;
-}
-
-/**
- * Does `file` match an <input accept> string? Extensions (".pdf"), exact
- * MIME types ("application/pdf") and wildcards ("image/*"). An empty or
- * missing accept matches everything.
- */
-function matchesAccept(file: File, accept: string | undefined): boolean {
-  if (!accept?.trim()) return true;
-  const name = file.name.toLowerCase();
-  const type = file.type.toLowerCase();
-  return accept
-    .split(',')
-    .map((token) => token.trim().toLowerCase())
-    .filter(Boolean)
-    .some((token) => {
-      if (token.startsWith('.')) return name.endsWith(token);
-      if (token.endsWith('/*')) return type.startsWith(token.slice(0, -1));
-      return type === token;
-    });
 }
 
 function Dropzone({
