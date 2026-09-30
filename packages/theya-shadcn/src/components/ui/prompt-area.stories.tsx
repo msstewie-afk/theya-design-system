@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Attachment as AttachmentIcon, Microphone, Globe, Brain, Clock, Sparks } from 'iconoir-react';
+import { matchesAccept } from '@/lib/accept';
 import { PromptArea } from './prompt-area';
 import { Attachment } from './attachment';
 import { Button } from './button';
@@ -17,7 +19,7 @@ const meta: Meta<typeof PromptArea> = {
     docs: {
       description: {
         component:
-          'The composer for a chat / AI assistant — an auto-growing textarea with a send button. Enter submits, Shift+Enter adds a newline. Built in stages: this is Stage 1 (core composer). Later stages add real attachment handling, a trailing tool slot, context/mentions, and suggestions.',
+          'The composer for a chat / AI assistant — an auto-growing textarea with a send button. Enter submits, Shift+Enter adds a newline. Includes a real Stop while busy, a character limit that blocks sending, drag/drop and paste attachments (validated against accept/maxFileSize), leading/trailing tool slots, and "@" / "/" menus that insert plain text.',
       },
     },
   },
@@ -57,6 +59,20 @@ const meta: Meta<typeof PromptArea> = {
 export default meta;
 type Story = StoryObj<typeof PromptArea>;
 
+const field = (root: HTMLElement) => within(root).getByRole('textbox') as HTMLTextAreaElement;
+const activeOption = (input: HTMLElement) => {
+  const id = input.getAttribute('aria-activedescendant');
+  return id ? document.getElementById(id)?.textContent?.trim() : undefined;
+};
+
+function drop(target: HTMLElement, files: File[]) {
+  const data = new DataTransfer();
+  files.forEach((file) => data.items.add(file));
+  for (const type of ['dragenter', 'dragover', 'drop']) {
+    target.dispatchEvent(new DragEvent(type, { dataTransfer: data, bubbles: true, cancelable: true }));
+  }
+}
+
 /** Type a message and press Enter (or the send button) to submit. */
 export const Default: Story = {
   render: function DefaultExample(args) {
@@ -74,17 +90,50 @@ export const Default: Story = {
       </div>
     );
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = field(canvasElement);
+    const send = canvas.getByRole('button', { name: 'Send' });
+    await expect(send).toBeDisabled();
+
+    // Whitespace alone can't be sent.
+    await userEvent.type(input, '   ');
+    await expect(send).toBeDisabled();
+    await userEvent.clear(input);
+
+    // Shift+Enter is a newline, Enter sends the trimmed text and clears.
+    await userEvent.type(input, 'Hello{Shift>}{Enter}{/Shift}world');
+    await expect(input).toHaveValue('Hello\nworld');
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByText(/sent: Hello/)).toBeInTheDocument();
+    await expect(input).toHaveValue('');
+  },
 };
 
 /** A counter appears once the field is close to `maxLength`, turning danger at/over the limit. */
 export const WithCharacterLimit: Story = {
   name: 'With character limit',
-  args: { maxLength: 120 },
+  args: { maxLength: 120, onSubmit: fn() },
   render: (args) => (
     <div className="max-w-xl">
       <PromptArea {...args} defaultValue="This message is getting long enough to approach the character limit set on this field" />
     </div>
   ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const input = field(canvasElement);
+    // Near the limit a counter appears and describes the field.
+    await userEvent.type(input, ' and a bit more');
+    await expect(input).toHaveAccessibleDescription(/\d+\/120/);
+
+    // Over the limit: error, aria-invalid, and sending is blocked.
+    await userEvent.type(input, ' plus quite a lot more text');
+    await expect(canvas.getByRole('alert')).toHaveTextContent('exceeds the 120-character limit');
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await expect(canvas.getByRole('button', { name: 'Send' })).toBeDisabled();
+    await userEvent.keyboard('{Enter}');
+    await expect(args.onSubmit).not.toHaveBeenCalled();
+  },
 };
 
 /** Busy: a response is streaming, so the send button becomes a real Stop control (not just a disabled spinner) — click it to cancel. */
@@ -97,6 +146,15 @@ export const Busy: Story = {
       </div>
     );
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Busy: a real, enabled Stop control; Enter doesn't send.
+    const stop = canvas.getByRole('button', { name: 'Stop generating' });
+    await expect(stop).toBeEnabled();
+    await userEvent.click(stop);
+    await expect(canvas.getByRole('button', { name: 'Send' })).toBeInTheDocument();
+    await expect(canvas.getByRole('status')).toHaveTextContent('Response finished.');
+  },
 };
 
 export const Disabled: Story = {
@@ -106,6 +164,10 @@ export const Disabled: Story = {
       <PromptArea {...args} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    await expect(field(canvasElement)).toBeDisabled();
+    await expect(within(canvasElement).getByRole('button', { name: 'Send' })).toBeDisabled();
+  },
 };
 
 /** Press Up in the empty field to re-open the last sent message for editing — the same shortcut Claude/ChatGPT use. */
@@ -131,6 +193,17 @@ export const EditLastMessage: Story = {
       </div>
     );
   },
+  play: async ({ canvasElement }) => {
+    const input = field(canvasElement);
+    input.focus();
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(input).toHaveValue('Create a staging environment for the shop.seashell.dev site');
+    // In a non-empty field Up is a normal caret move, not "edit last".
+    await userEvent.type(input, ' now');
+    await userEvent.keyboard('{Enter}');
+    await expect(input).toHaveValue('');
+    await expect(within(canvasElement).getByText('Create a staging environment for the shop.seashell.dev site now')).toBeInTheDocument();
+  },
 };
 
 type StagedFile = { name: string; size: number; error?: string };
@@ -154,11 +227,11 @@ function AttachmentsDemo() {
 
   // Same accept/size rules PromptArea itself checks for drag-drop and
   // paste — the file-picker button uses its own plain <input type="file">
-  // (PromptArea doesn't own a picker button), so it has to repeat that
-  // check itself rather than silently accepting anything.
+  // (PromptArea doesn't own a picker button), so it re-checks with the
+  // shared matcher (it used the regex-on-the-whole-list version before).
   const addFilesFromPicker = (incoming: File[]) => {
     for (const file of incoming) {
-      if (ACCEPT.split(',').every((pattern) => !file.type.match(pattern.trim().replace('*', '.*')) && !file.name.endsWith(pattern.trim().replace('*', '')))) {
+      if (!matchesAccept(file, ACCEPT)) {
         setFiles((prev) => [...prev, { name: file.name, size: file.size, error: 'File type not allowed' }]);
         continue;
       }
@@ -224,6 +297,25 @@ function AttachmentsDemo() {
 export const WithAttachments: Story = {
   name: 'With attachments',
   render: () => <AttachmentsDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const surface = canvasElement.querySelector('[data-slot="prompt-area"]') as HTMLElement;
+    // Drop: accepted and rejected files both show up, the rejected one with a reason.
+    drop(surface, [
+      new File(['%PDF'], 'brief.pdf', { type: 'application/pdf' }),
+      new File(['x'], 'setup.exe', { type: 'application/x-msdownload' }),
+    ]);
+    await expect(await canvas.findByText('brief.pdf')).toBeInTheDocument();
+    await expect(await canvas.findByText('File type not allowed')).toBeInTheDocument();
+
+    // The picker path uses the same matcher: ".pdf" is accepted there too.
+    const picker = canvasElement.querySelector('input[type="file"]') as HTMLInputElement;
+    const data = new DataTransfer();
+    data.items.add(new File(['{}'], 'notes.json', { type: 'application/json' }));
+    picker.files = data.files;
+    picker.dispatchEvent(new Event('change', { bubbles: true }));
+    await expect(await canvas.findByText('notes.json')).toBeInTheDocument();
+  },
 };
 
 /** `leading` composes with any picker — here a model Select, alongside the attach button. Neither is built into PromptArea itself; the slot just holds whatever the app needs. */
@@ -326,6 +418,29 @@ export const WithMentions: Story = {
       />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const input = field(canvasElement);
+    await expect(input).toHaveAttribute('aria-autocomplete', 'list');
+    await userEvent.type(input, 'Ask @ma');
+    // The textarea points at the highlighted option of the open list.
+    const list = await within(document.body).findByRole('listbox', { name: 'Mentions' });
+    await expect(input).toHaveAttribute('aria-controls', list.id);
+    await expect(activeOption(input)).toContain('@marcus');
+    await userEvent.keyboard('{Enter}');
+    await expect(input).toHaveValue('Ask @marcus ');
+    await waitFor(() => expect(within(document.body).queryByRole('listbox')).toBeNull());
+    await expect(input).not.toHaveAttribute('aria-activedescendant');
+
+    // Arrows move and wrap; Escape closes without inserting.
+    await userEvent.type(input, '@');
+    await within(document.body).findByRole('listbox', { name: 'Mentions' });
+    await expect(activeOption(input)).toContain('@sarah');
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(activeOption(input)).toContain('@priya');
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(within(document.body).queryByRole('listbox')).toBeNull());
+    await expect(input).toHaveValue('Ask @marcus @');
+  },
 };
 
 /** Type "/" then a query to open a filtered command menu — same mechanics as mentions, a separate list. */
@@ -343,6 +458,16 @@ export const WithSlashCommands: Story = {
       />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const input = field(canvasElement);
+    await userEvent.type(input, '/tr');
+    await within(document.body).findByRole('listbox', { name: 'Commands' });
+    await userEvent.keyboard('{Tab}');
+    await expect(input).toHaveValue('/translate ');
+    // A "/" inside a word (e.g. a URL) doesn't open the menu.
+    await userEvent.type(input, 'see a/b');
+    await expect(within(document.body).queryByRole('listbox')).toBeNull();
+  },
 };
 
 /** Context pills (a referenced file, a selected page) render through the same `attachments` slot as real file chips — it's a generic strip, not upload-specific. */
