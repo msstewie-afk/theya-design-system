@@ -10,19 +10,29 @@ import { cn } from '@/lib/utils';
  * handle is a real role="separator": arrow keys resize, Home/End
  * jump, double-click resets.
  *
+ * Sizes: in v4 a NUMBER is pixels and a unitless STRING is a percentage
+ * (`defaultSize={30}` is 30px, `defaultSize="30%"` is 30%). The stories
+ * used bare numbers as if they were percentages until 2026-09-30.
+ *
  *   <ResizablePanelGroup orientation="horizontal">
- *     <ResizablePanel defaultSize={30} minSize={20}>Sidebar</ResizablePanel>
+ *     <ResizablePanel defaultSize="30%" minSize="20%">Sidebar</ResizablePanel>
  *     <ResizableHandle withHandle aria-label="Resize sidebar" />
  *     <ResizablePanel>Main</ResizablePanel>
  *   </ResizablePanelGroup>
  */
-export function ResizablePanelGroup({ className, orientation = 'horizontal', ...props }: React.ComponentProps<typeof Group>) {
+export function ResizablePanelGroup({ className, orientation = 'horizontal', style, ...props }: React.ComponentProps<typeof Group>) {
   return (
     <Group
       data-slot="resizable-panel-group"
       data-orientation={orientation}
       orientation={orientation}
       className={cn('flex h-full w-full data-[orientation=vertical]:flex-col', className)}
+      // The library sets inline `height: 100%; width: 100%`, which beats any
+      // class — a consumer's `h-80` was silently ignored, and a vertical
+      // group inside an auto-height parent collapsed its panels to 0px.
+      // Clearing them lets the classes above (h-full/w-full by default,
+      // overridable via className) size the group. User style still wins.
+      style={{ height: undefined, width: undefined, ...style }}
       {...props}
     />
   );
