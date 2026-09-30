@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Check, NavArrowRight, Database, WarningCircle, CheckCircle, Globe, InfoCircle, Server, WarningTriangle, Undo, Xmark } from 'iconoir-react';
 import { KebabIconVertical } from './kebab-icon';
 import { cn } from '@/lib/utils';
@@ -79,6 +80,10 @@ export const LinkRows: Story = {
       ))}
     </ul>
   ),
+  play: async ({ canvasElement }) => {
+    const link = within(canvasElement).getByRole('link', { name: /shop\.seashell\.dev/ });
+    await expect(link).toHaveAttribute('href', '#shop.seashell.dev');
+  },
 };
 
 /** Selectable button rows (no href); the middle row is selected. */
@@ -95,6 +100,15 @@ export const Selectable: Story = {
         ))}
       </ul>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Every row in a selectable list reads as a toggle, not just the selected one.
+    await expect(canvas.getByRole('button', { name: 'Databases' })).toHaveAttribute('aria-pressed', 'true');
+    await expect(canvas.getByRole('button', { name: 'Overview' })).toHaveAttribute('aria-pressed', 'false');
+    await userEvent.click(canvas.getByRole('button', { name: 'Backups' }));
+    await expect(canvas.getByRole('button', { name: 'Backups' })).toHaveAttribute('aria-pressed', 'true');
+    await expect(canvas.getByRole('button', { name: 'Databases' })).toHaveAttribute('aria-pressed', 'false');
   },
 };
 
@@ -269,4 +283,13 @@ export const InteractiveWithAction: Story = {
       />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // An action row (no `selected`) is a plain button, described by its second line.
+    const row = canvas.getByRole('button', { name: 'shop.seashell.dev' });
+    await expect(row).not.toHaveAttribute('aria-pressed');
+    await expect(row).toHaveAccessibleDescription(/Production/);
+    // The trailing action is its own control.
+    await expect(canvas.getByRole('button', { name: 'More actions' })).toBeInTheDocument();
+  },
 };

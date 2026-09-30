@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Cloud, Globe, ShieldCheck, Server, Network } from 'iconoir-react';
 import { OptionCardGroup, OptionCard } from './option-card';
 
@@ -29,6 +30,18 @@ export const Default: Story = {
       <OptionCard value="dns-01" title="DNS-01" description="Add a TXT record. Required for wildcard certificates." icon={<ShieldCheck />} />
     </OptionCardGroup>
   ),
+  play: async ({ canvasElement }) => {
+    const group = within(within(canvasElement).getByRole('radiogroup', { name: 'Validation method' }));
+    // Named by the title, described by the description (not run together).
+    const http = group.getByRole('radio', { name: 'HTTP-01' });
+    await expect(http).toHaveAccessibleDescription('Serve a token file over port 80. Fastest for a single host.');
+    await userEvent.click(http);
+    await expect(http).toHaveAttribute('aria-checked', 'true');
+    // Arrow keys move the selection.
+    // Radix RadioGroup checks on arrow only while the key is held.
+    await userEvent.keyboard('{ArrowRight>}{/ArrowRight}');
+    await expect(group.getByRole('radio', { name: 'DNS-01' })).toHaveAttribute('aria-checked', 'true');
+  },
 };
 
 /** Name the group with a heading via aria-labelledby instead of aria-label. */
@@ -59,6 +72,15 @@ export const RegionPicker: Story = {
       <OptionCard value="ap-south-1" title="ap-south-1" description="Mumbai. Not available on this plan." icon={<Server />} disabled />
     </OptionCardGroup>
   ),
+  play: async ({ canvasElement }) => {
+    const group = within(within(canvasElement).getByRole('radiogroup', { name: 'Deployment region' }));
+    await expect(group.getByRole('radio', { name: 'ap-south-1' })).toBeDisabled();
+    // Arrow navigation skips the disabled option and wraps.
+    group.getByRole('radio', { name: 'us-east-1' }).focus();
+    // Radix RadioGroup checks on arrow only while the key is held.
+    await userEvent.keyboard('{ArrowRight>}{/ArrowRight}');
+    await expect(group.getByRole('radio', { name: 'eu-west-1' })).toHaveAttribute('aria-checked', 'true');
+  },
 };
 
 /** Controlled — the parent owns `value` and updates it from `onValueChange`, mirroring the selection in a readout below. */
@@ -77,6 +99,11 @@ export const Controlled: Story = {
         </p>
       </div>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('radio', { name: 'HTTP-01' }));
+    await expect(canvas.getByText('http-01')).toBeInTheDocument();
   },
 };
 

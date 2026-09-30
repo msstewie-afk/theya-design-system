@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { HomeSimple, Globe, Settings, ShieldCheck, Key, Lifebelt, Plus, Trash, EditPencil } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
 import {
@@ -113,6 +114,24 @@ function DemoLayout({ inverse }: { inverse?: boolean }) {
 
 export const Default: Story = {
   render: () => <DemoLayout />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const nav = within(canvas.getByRole('navigation', { name: 'Main' }));
+    // onClick-only items are real, focusable buttons with aria-current.
+    const sites = nav.getByRole('button', { name: /Sites/ });
+    await expect(sites).toHaveAttribute('aria-current', 'page');
+    const dashboard = nav.getByRole('button', { name: 'Dashboard' });
+    dashboard.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(dashboard).toHaveAttribute('aria-current', 'page');
+    await expect(sites).not.toHaveAttribute('aria-current');
+
+    // Collapse <-> expand swaps buttons; focus follows instead of dropping.
+    await userEvent.click(canvas.getByRole('button', { name: 'Collapse sidebar' }));
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Expand sidebar' })).toHaveFocus());
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Collapse sidebar' })).toHaveFocus());
+  },
 };
 
 /** `inverse` puts the rail on the dark token set regardless of the page's own theme (`data-theme="dark"` scoped to the rail). */

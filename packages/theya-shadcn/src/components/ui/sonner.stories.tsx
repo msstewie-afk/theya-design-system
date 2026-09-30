@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { toast } from './sonner';
 import { Button } from './button';
 
@@ -47,12 +48,27 @@ export default meta;
 type Story = StoryObj;
 
 /** Success toast with a description. */
+const page = () => within(document.body);
+
+async function clearToasts() {
+  toast.dismiss();
+  await waitFor(() => expect(document.querySelectorAll('[data-sonner-toast]')).toHaveLength(0), { timeout: 3000 });
+}
+
 export const Success: Story = {
   render: () => (
     <Button appearance="outlined" tone="secondary" onClick={() => toast.success('Certificate issued', { description: 'shop.seashell.dev · valid 90 days' })}>
       Issue certificate
     </Button>
   ),
+  play: async ({ canvasElement }) => {
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Issue certificate' }));
+    await expect(await page().findByText('Certificate issued')).toBeInTheDocument();
+    await expect(page().getByText('shop.seashell.dev · valid 90 days')).toBeInTheDocument();
+    // Toasts land in a polite live region.
+    await expect(page().getByText('Certificate issued').closest('[aria-live]')).toHaveAttribute('aria-live', 'polite');
+    await clearToasts();
+  },
 };
 
 /** Error toast with a retry action. Persists until dismissed (see toast.error's own JSDoc). */
@@ -72,6 +88,16 @@ export const ErrorWithRetry: Story = {
       Reissue (will fail)
     </Button>
   ),
+  play: async ({ canvasElement }) => {
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Reissue (will fail)' }));
+    const title = await page().findByText("Couldn't reissue certificate");
+    const item = title.closest('[data-sonner-toast]') as HTMLElement;
+    // Errors persist and always carry a close button.
+    await expect(within(item).getByRole('button', { name: /close/i })).toBeInTheDocument();
+    await userEvent.click(within(item).getByRole('button', { name: 'Retry' }));
+    await expect(await page().findByText('Retrying…')).toBeInTheDocument();
+    await clearToasts();
+  },
 };
 
 /** Optimistic action with an Undo button — see undoToast for the packaged version of this pattern. */
@@ -140,6 +166,14 @@ export const Progress: Story = {
       Export sites (progress)
     </Button>
   ),
+  play: async ({ canvasElement }) => {
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Export sites (progress)' }));
+    // The bar is named after the toast, not an anonymous progressbar.
+    const bar = await page().findByRole('progressbar', { name: 'Exporting sites…' });
+    await expect(bar).toBeInTheDocument();
+    await expect(await page().findByText('Export complete', {}, { timeout: 6000 })).toBeInTheDocument();
+    await clearToasts();
+  },
 };
 
 /**
