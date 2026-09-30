@@ -134,6 +134,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
     className,
     id,
     'aria-label': ariaLabel,
+    'aria-describedby': ariaDescribedby,
     ...rest
   },
   ref,
@@ -163,14 +164,14 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
       // aria-hidden asterisk and never reached the element.
       required={required}
       aria-label={ariaLabel}
-      aria-describedby={messageId}
+      // Merged with the consumer's, not overwritten by it via `rest`.
+      aria-describedby={[messageId, ariaDescribedby].filter(Boolean).join(' ') || undefined}
       aria-invalid={hasError || undefined}
       className={cn(textareaVariants({ error: hasError, widthSize, heightSize }), className)}
       {...rest}
     />
   );
 
-  if (!label) return field;
 
   const labelEl = (
     <label
@@ -200,6 +201,19 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
       {description}
     </span>
   ) : null;
+
+  // No visible label: still render the message (it used to return the
+  // bare field, so error/description text was never shown or announced).
+  if (!label) {
+    return messageEl ? (
+      <div className="flex flex-col gap-1.5 w-full">
+        {field}
+        {messageEl}
+      </div>
+    ) : (
+      field
+    );
+  }
 
   if (labelPosition === 'left') {
     return (

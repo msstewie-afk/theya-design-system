@@ -66,6 +66,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
     defaultValue,
     onChange,
     'aria-label': ariaLabel,
+    'aria-describedby': ariaDescribedby,
     // Defaults to "off" so a plain TextField (search boxes, filters, any
     // non-credential field) doesn't get mistaken for a login field by a
     // password-manager extension when there's no real autocomplete
@@ -157,7 +158,10 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
           onChange?.(e);
         }}
         aria-label={ariaLabel}
-        aria-describedby={messageId}
+        // Merged, not overwritten: a consumer's aria-describedby used to
+        // sit in `rest` after this and replace messageId (even when
+        // undefined), cutting the field off from its own error message.
+        aria-describedby={[messageId, ariaDescribedby].filter(Boolean).join(' ') || undefined}
         aria-invalid={hasError || undefined}
         autoComplete={autoComplete}
         className={cn(
@@ -210,8 +214,6 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
     </div>
   );
 
-  if (!label) return input;
-
   const labelEl = (
     <label
       htmlFor={resolvedId}
@@ -247,6 +249,20 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
       {description}
     </span>
   ) : null;
+
+  // No visible label (aria-label only): still render the message. This
+  // used to return the bare input, so error/description text was never
+  // shown or announced — the field was flagged by its red border alone.
+  if (!label) {
+    return messageEl ? (
+      <div className="flex flex-col gap-1.5 w-full">
+        {input}
+        {messageEl}
+      </div>
+    ) : (
+      input
+    );
+  }
 
   if (labelPosition === 'left') {
     return (
