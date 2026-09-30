@@ -2,7 +2,18 @@ import type { ReactNode } from 'react';
 import { NavArrowDown } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { Button, type ButtonProps } from './button';
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } from './dropdown-menu';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, type DropdownMenuSize } from './dropdown-menu';
+
+// Button sizes -> DropdownMenu text sizes. DropdownMenu only has
+// xs/sm/md/lg; "xl" was passed through and "2xl" mapped to a non-existent
+// "l", so both menus rendered with no text-size class at all.
+const MENU_SIZE: Record<NonNullable<ButtonProps['size']>, DropdownMenuSize> = {
+  sm: 'sm',
+  md: 'md',
+  lg: 'lg',
+  xl: 'lg',
+  '2xl': 'lg',
+};
 
 /**
  * Not in the reference repo — built from scratch by composing our own
@@ -24,12 +35,15 @@ export interface SplitButtonProps extends Omit<ButtonProps, 'children' | 'iconOn
   onMainClick?: () => void;
   /** Content rendered inside the DropdownMenu opened by the caret — typically DropdownMenuItem elements. */
   menuContent: ReactNode;
+  /** Accessible name of the caret that opens the menu. Default "More actions" — make it specific when several split buttons share a screen, e.g. "More send options". */
+  menuLabel?: string;
 }
 
 export function SplitButton({
   children,
   onMainClick,
   menuContent,
+  menuLabel = 'More actions',
   appearance = 'filled',
   tone = 'primary',
   size = 'lg',
@@ -60,11 +74,11 @@ export function SplitButton({
             disabled={disabled}
             iconOnly
             leftIcon={<NavArrowDown />}
-            aria-label="More actions"
+            aria-label={menuLabel}
             className="rounded-l-none"
           />
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" size={size === '2xl' ? 'l' : (size ?? 'lg')}>
+        <DropdownMenuContent align="end" size={MENU_SIZE[size ?? 'lg']}>
           {menuContent}
         </DropdownMenuContent>
       </DropdownMenu>
