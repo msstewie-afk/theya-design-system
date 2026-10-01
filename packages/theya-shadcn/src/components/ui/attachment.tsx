@@ -1,5 +1,5 @@
-import { createElement, type ReactNode } from 'react';
-import { Page, MediaImage, MediaVideo, Code, Archive, Xmark, WarningTriangle } from 'iconoir-react';
+import { createElement, useId, type ReactNode } from 'react';
+import { Page, MediaImage, MediaVideo, Code, Archive, Xmark, WarningTriangle, Refresh } from 'iconoir-react';
 import { Button } from './button';
 import { cn } from '@/lib/utils';
 
@@ -42,6 +42,13 @@ export interface AttachmentProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   onRemove?: () => void;
   /** Accessible name for the remove button. Default "Remove {name}". */
   removeLabel?: string;
+  /**
+   * What a click-only row does, e.g. "Replace file". Shown in place of the
+   * meta line while the row is hovered or keyboard-focused, and read as
+   * the click control's description ("report.pdf, button, Replace file").
+   * Ignored with `href` or `error`.
+   */
+  clickHint?: string;
   actions?: ReactNode;
   className?: string;
 }
@@ -75,6 +82,7 @@ export function Attachment({
   mimeLabels = ATTACHMENT_MIME_LABELS,
   onRemove,
   removeLabel,
+  clickHint,
   actions,
   className,
   onClick,
@@ -94,6 +102,29 @@ export function Attachment({
   // row (no href) needs the outer element itself to become the focusable
   // control, since there's no other focusable element inside it otherwise.
   const isClickOnly = Boolean(onClick) && !href;
+
+  // The click hint swaps in for the meta line only while the overlay
+  // button itself is hovered or keyboard-focused — keyed on the overlay
+  // via :has(), not plain group-hover/focus-within, so hovering or
+  // focusing the Remove button (its own z-10 layer) doesn't announce
+  // "Replace file".
+  const hintId = useId();
+  const hint = isClickOnly && clickHint && !hasError ? clickHint : undefined;
+  const ON_ACTION_SHOW =
+    'hidden group-has-[[data-slot=attachment-click]:hover]:inline-flex group-has-[[data-slot=attachment-click]:focus-visible]:inline-flex';
+  const ON_ACTION_HIDE =
+    'group-has-[[data-slot=attachment-click]:hover]:hidden group-has-[[data-slot=attachment-click]:focus-visible]:hidden';
+  const metaHideClass = hint ? ON_ACTION_HIDE : undefined;
+  const hintEl = hint ? (
+    <span
+      id={hintId}
+      data-slot="attachment-hint"
+      className={cn(ON_ACTION_SHOW, 'items-center gap-1 font-body text-body-xs text-[var(--color-text-text-link)]')}
+    >
+      <Refresh width={11} height={11} aria-hidden="true" />
+      {hint}
+    </span>
+  ) : null;
   // `group` so the icon/thumb box (a descendant) can react to this
   // wrapper's own :focus-within via group-focus-within below.
   const interactiveClasses = isInteractive
@@ -169,8 +200,10 @@ export function Attachment({
   const clickOverlay = isClickOnly ? (
     <button
       type="button"
+      data-slot="attachment-click"
       onClick={onClick}
       aria-label={name}
+      aria-describedby={hint ? hintId : undefined}
       // Toggle state belongs on the control, not the wrapper: aria-pressed on
       // the role-less outer <div> was invalid (axe aria-allowed-attr,
       // 2026-09-28 full test-runner pass).
@@ -236,7 +269,10 @@ export function Attachment({
               {error}
             </span>
           ) : (
-            size !== undefined && <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">{humanSize(size)}</span>
+            <>
+              {size !== undefined && <span className={cn('font-body text-body-xs text-[var(--color-text-text-subtler)]', metaHideClass)}>{humanSize(size)}</span>}
+              {hintEl}
+            </>
           )}
         </span>
         {(actions || removeButton) && (
@@ -255,7 +291,7 @@ export function Attachment({
         {...rest}
         data-slot="attachment"
         data-interactive={isInteractive || undefined}
-        className={cn('flex self-start w-full items-center gap-2 py-1', isInteractive && 'relative cursor-pointer rounded-[var(--size-border-radius-border-radius-md)] focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]', className)}
+        className={cn('flex self-start w-full items-center gap-2 py-1', isInteractive && 'group relative cursor-pointer rounded-[var(--size-border-radius-border-radius-md)] focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]', className)}
       >
         {/* Same stretched-button overlay as the other variants — 'line'
             used to drop onClick entirely, so a click-only line row was
@@ -270,7 +306,10 @@ export function Attachment({
             {error}
           </span>
         ) : (
-          size !== undefined && <span className="font-body text-body-xs text-[var(--color-text-text-subtler)] shrink-0">{humanSize(size)}</span>
+          <>
+            {size !== undefined && <span className={cn('font-body text-body-xs text-[var(--color-text-text-subtler)] shrink-0', metaHideClass)}>{humanSize(size)}</span>}
+            {hintEl && <span className="shrink-0">{hintEl}</span>}
+          </>
         )}
         {removeButton && <span className="relative z-10">{removeButton}</span>}
       </div>
@@ -318,12 +357,14 @@ export function Attachment({
               className={cn(
                 'font-body text-body-xs truncate',
                 hasError ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-subtler)]',
+                metaHideClass,
               )}
             >
               {hasError && <WarningTriangle width={11} height={11} className="inline mr-1 -mt-0.5" aria-hidden="true" />}
               {metaLine}
             </span>
           )}
+          {hintEl}
         </span>
         {(actions || removeButton) && (
           <span className="relative z-10 flex shrink-0 items-center gap-1">
@@ -376,11 +417,13 @@ export function Attachment({
               className={cn(
                 'font-body text-body-xs truncate w-full',
                 hasError ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-subtler)]',
+                metaHideClass,
               )}
             >
               {metaLine}
             </span>
           )}
+          {hintEl}
         </span>
         {actions}
         {removeButton}

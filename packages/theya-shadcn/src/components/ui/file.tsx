@@ -29,6 +29,8 @@ export interface FileProps
   pickLabel?: string;
   /** Optional secondary line under pickLabel in the empty tile, e.g. "PNG or JPG, up to 25 MB". */
   pickHint?: ReactNode;
+  /** Shown on hover/keyboard focus of a filled, clickable slot, and read as its description — says that a click picks a new file in place of this one. Default "Replace file". */
+  replaceLabel?: string;
   /** Presentation-only: the input remains mounted but cannot be activated. */
   readOnly?: boolean;
   disabled?: boolean;
@@ -45,6 +47,7 @@ export function File({
   empty = false,
   pickLabel = 'Add file',
   pickHint,
+  replaceLabel = 'Replace file',
   readOnly = false,
   disabled = false,
   accept,
@@ -142,6 +145,7 @@ export function File({
       actions={actions}
       onRemove={isLink || readOnly || disabled ? undefined : handleRemove}
       onClick={isInteractive && !href ? openPicker : undefined}
+      clickHint={isInteractive && !href ? replaceLabel : undefined}
       className={cn(disabled && 'opacity-50 cursor-not-allowed')}
     />
   );
