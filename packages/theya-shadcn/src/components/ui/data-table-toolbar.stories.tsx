@@ -240,3 +240,22 @@ export const Overflow: Story = {
     await waitFor(() => expect(document.querySelectorAll('[data-sonner-toast]')).toHaveLength(0), { timeout: 3000 });
   },
 };
+
+/**
+ * Narrow bar, no `maxVisible`: actions that don't fit collapse into the
+ * "more" menu by measured width. This silently never happened before —
+ * Toolbar dropped the ref the measurement reads, so only maxVisible capped.
+ */
+export const NarrowOverflow: Story = {
+  render: () => (
+    <div style={{ width: 360 }}>
+      <ToolbarDemo initialSelection={{ 'shop.seashell.dev': true }} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(bar(canvasElement)).toHaveAttribute('data-state', 'selected');
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'More bulk actions' })).toBeInTheDocument());
+    await expect(canvas.queryByRole('button', { name: 'Delete' })).toBeNull();
+  },
+};
