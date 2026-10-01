@@ -20,6 +20,8 @@ const meta: Meta<typeof SplitButton> = {
     onMainClick: { control: false, description: 'Called when the primary action is clicked.' },
     menuContent: { control: false, description: 'Content rendered inside the DropdownMenu opened by the caret — typically DropdownMenuItem elements.' },
     menuLabel: { control: 'text', description: 'Accessible name of the caret that opens the menu. Default "More actions".' },
+    appearance: { control: 'inline-radio', options: ['filled', 'tonal', 'outlined', 'ghost'], description: 'Shared by both halves.' },
+    tone: { control: 'select', options: ['primary', 'secondary', 'neutral', 'info', 'success', 'warning', 'danger'], description: 'Shared by both halves.' },
   },
 };
 
@@ -119,5 +121,50 @@ export const Disabled: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('button', { name: 'Send' })).toBeDisabled();
     await expect(canvas.getByRole('button', { name: 'More actions' })).toBeDisabled();
+  },
+};
+
+const APPEARANCES = ['filled', 'tonal', 'outlined', 'ghost'] as const;
+const TONES = ['primary', 'secondary', 'neutral', 'danger'] as const;
+
+/** Every appearance × a few tones — mainly to review the divider between the halves. */
+export const Appearances: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      {APPEARANCES.map((appearance) => (
+        <div key={appearance} className="flex items-center gap-4">
+          <span className="w-20 text-body-s">{appearance}</span>
+          {TONES.map((tone) => (
+            <SplitButton
+              key={tone}
+              appearance={appearance}
+              tone={tone}
+              menuLabel={`More ${appearance} ${tone} actions`}
+              menuContent={menuItems()}
+            >
+              {tone}
+            </SplitButton>
+          ))}
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const groups = canvasElement.querySelectorAll<HTMLElement>('[data-slot="split-button"]');
+    await expect(groups).toHaveLength(APPEARANCES.length * TONES.length);
+    groups.forEach((group, i) => {
+      const appearance = APPEARANCES[Math.floor(i / TONES.length)];
+      const divider = group.querySelector('[data-slot="split-button-divider"]');
+      const gap = getComputedStyle(group).columnGap;
+      if (appearance === 'ghost') {
+        // No fill to show a gap against — a token-colored hairline instead.
+        expect(divider).not.toBeNull();
+        expect(gap).toBe('normal');
+      } else {
+        // A real gap shows the background behind; no painted divider.
+        expect(divider).toBeNull();
+        expect(gap).toBe('2px');
+      }
+    });
   },
 };
