@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Bell, Search, DoubleCheck, Check, Xmark, Settings } from 'iconoir-react';
 import { KebabIconHorizontal } from '../ui/kebab-icon';
@@ -117,8 +117,10 @@ export type NotificationsInboxProps = {
   notifications?: InboxNotification[];
   /** Fired when "Mark all as read" is pressed. */
   onMarkAllRead?: () => void;
-  /** Fired when a single notification is marked read (e.g. opened). */
+  /** Fired when a single notification is marked read — opened, or "Mark as read" from its menu. */
   onNotificationRead?: (notification: InboxNotification) => void;
+  /** Fired when a notification is marked unread from its menu. */
+  onNotificationUnread?: (notification: InboxNotification) => void;
   /** Fired when a notification is dismissed (before the undo grace window). */
   onDismiss?: (notification: InboxNotification) => void;
   /** Fired when the settings icon is pressed. Omit to hide the action. */
@@ -148,6 +150,7 @@ export function NotificationsInbox({
   notifications: notificationsProp,
   onMarkAllRead,
   onNotificationRead,
+  onNotificationUnread,
   onDismiss,
   onOpenSettings,
   onClose,
@@ -184,11 +187,39 @@ export function NotificationsInbox({
 
   const setRead = (id: string, read: boolean) => setItems((prev) => prev.map((n) => (n.id === id ? { ...n, read } : n)));
 
+  // Several actions unmount the control that was just used ("Mark all
+  // read" hides itself, "Clear filters" goes with the empty state, a
+  // dismissed row takes its menu trigger with it), which dropped focus to
+  // <body> (WCAG 2.4.3). Next frame, if focus was lost, move it to
+  // `target` (falls back to the section itself).
+  const sectionRef = useRef<HTMLElement>(null);
+  const keepFocus = (target?: () => HTMLElement | null | undefined) => {
+    requestAnimationFrame(() => {
+      const ae = document.activeElement;
+      if (ae && ae !== document.body && ae !== document.documentElement) return;
+      const el = target?.() ?? sectionRef.current;
+      if (!el) return;
+      if (el === sectionRef.current && !el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
+      el.focus();
+    });
+  };
+  const rowControl = (id: string) =>
+    sectionRef.current?.querySelector<HTMLElement>(`[data-notification-id="${id}"] :is(a, button:not([aria-haspopup]))`);
+
+  // Menu "Mark as read/unread" used to update local state only — the host
+  // never heard about it, so its server state drifted from what the user saw.
+  const toggleRead = (n: InboxNotification, read: boolean) => {
+    setRead(n.id, read);
+    if (read) onNotificationRead?.(n);
+    else onNotificationUnread?.(n);
+  };
+
   const markAllRead = () => {
     if (unreadCount === 0) return;
     setItems((prev) => prev.map((n) => ({ ...n, read: true })));
     onMarkAllRead?.();
     toast.success('All notifications marked as read');
+    keepFocus();
   };
 
   const open = (n: InboxNotification) => {
@@ -200,6 +231,11 @@ export function NotificationsInbox({
 
   const dismiss = (n: InboxNotification) => {
     const index = items.findIndex((x) => x.id === n.id);
+    // Focus moves to the row that takes this one's place (or the one
+    // before it, for the last row).
+    const vi = visible.findIndex((x) => x.id === n.id);
+    const neighbour = visible[vi + 1] ?? visible[vi - 1];
+    keepFocus(() => (neighbour ? rowControl(neighbour.id) : null));
     setItems((prev) => prev.filter((x) => x.id !== n.id));
     onDismiss?.(n);
     undoToast({
@@ -216,7 +252,7 @@ export function NotificationsInbox({
   };
 
   return (
-    <section data-slot="notifications-inbox" className="flex flex-col gap-4">
+    <section ref={sectionRef} data-slot="notifications-inbox" className="flex flex-col gap-4 outline-none">
       <header className={cn('flex flex-wrap items-start justify-between gap-3', !bordered && 'px-[1.125rem]')}>
         <div className="min-w-0">
           <p className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">{title}</p>
@@ -283,6 +319,8 @@ export function NotificationsInbox({
                     setFilter('all');
                     setToneFilter([]);
                     setObjectFilter([]);
+                    // All filters off -> every item shows; land on the first row.
+                    keepFocus(() => (items[0] ? rowControl(items[0].id) : null));
                   }}
                 >
                   Clear filters
@@ -303,7 +341,7 @@ export function NotificationsInbox({
               </p>
               <ul role="list" aria-label={`${group.label} notifications`} className="flex flex-col divide-y divide-[var(--color-border-border-subtle)]">
                 {group.items.map((n) => (
-                  <NotificationRow key={n.id} notification={n} onOpen={open} onToggleRead={(read) => setRead(n.id, read)} onDismiss={dismiss} />
+                  <NotificationRow key={n.id} notification={n} onOpen={open} onToggleRead={(read) => toggleRead(n, read)} onDismiss={dismiss} />
                 ))}
               </ul>
             </div>
@@ -333,7 +371,7 @@ function NotificationRow({
   const unread = !n.read;
 
   return (
-    <li>
+    <li data-notification-id={n.id}>
       <ListItem
         className="rounded-none"
         interactive={n.href == null}
