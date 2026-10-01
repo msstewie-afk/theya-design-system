@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Search } from 'iconoir-react';
 import { TextField } from '../components/ui/text-field';
+import { tokenValue } from './token-values';
 
 const meta: Meta = {
   title: 'Design System/Foundations',
@@ -74,6 +75,9 @@ function Section({ title, description, children }: { title: string; description?
  * not re-derived or guessed.
  */
 type TokenRow = { name: string; light: string; dark: string; description: string };
+// Light/dark values come from the build, not from this file.
+const withValues = (rows: { name: string; description: string }[]): TokenRow[] =>
+  rows.map((r) => ({ ...r, light: tokenValue(r.name, 'light'), dark: tokenValue(r.name, 'dark') }));
 
 function contrastTextColor(color: string): string {
   let r = 255;
@@ -118,33 +122,27 @@ function contrastTextColor(color: string): string {
 
 const RAMP_STEPS = ['005', '010', '050', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
 
-// Hardcoded from @theya/tokens' built variables.css (--typography-body-*
-// and --typography-heading-* — same values in light and dark, type scale
+// Read from @theya/tokens' built variables.css (--typography-body-* and
+// --typography-heading-heading-* — same in light and dark, the type scale
 // doesn't change by theme). Displayed next to each sample in the
 // Typography story per Мария's request (2026-09-26): "типографика
 // неполная, где значения размеров шрифтов, weight и тд" — the story
 // used to render only the sample text, with no visible numbers.
-const BODY_TYPE_VALUES: Record<'xs' | 's' | 'm' | 'l' | 'xl', { size: string; lineHeight: string; weight: number }> = {
-  xs: { size: '11px', lineHeight: '14px', weight: 400 },
-  s: { size: '12px', lineHeight: '16px', weight: 400 },
-  m: { size: '14px', lineHeight: '20px', weight: 400 },
-  l: { size: '16px', lineHeight: '22px', weight: 400 },
-  xl: { size: '24px', lineHeight: '28px', weight: 400 },
-};
+const typeValues = (prefix: string) => ({
+  size: tokenValue(`${prefix}-size`),
+  lineHeight: tokenValue(`${prefix}-line-height`),
+  weight: Number(tokenValue(`${prefix}-weight`)),
+});
+const BODY_TYPE_VALUES = Object.fromEntries((['xs', 's', 'm', 'l', 'xl'] as const).map((k) => [k, typeValues(`--typography-body-${k}`)])) as Record<
+  'xs' | 's' | 'm' | 'l' | 'xl',
+  { size: string; lineHeight: string; weight: number }
+>;
 
 // Includes 2xs/3xs — previously missing from this story even though the
 // tokens (and the `text-heading-2xs`/`text-heading-3xs` utilities) exist.
-const HEADING_TYPE_VALUES: Record<'3xs' | '2xs' | 'xs' | 's' | 'm' | 'l' | 'xl' | '2xl' | '3xl', { size: string; lineHeight: string; weight: number }> = {
-  '3xs': { size: '10px', lineHeight: '14px', weight: 500 },
-  '2xs': { size: '12px', lineHeight: '16px', weight: 600 },
-  xs: { size: '16px', lineHeight: '22px', weight: 700 },
-  s: { size: '20px', lineHeight: '28px', weight: 600 },
-  m: { size: '24px', lineHeight: '30px', weight: 700 },
-  l: { size: '28px', lineHeight: '32px', weight: 700 },
-  xl: { size: '32px', lineHeight: '40px', weight: 700 },
-  '2xl': { size: '60px', lineHeight: '72px', weight: 700 },
-  '3xl': { size: '100px', lineHeight: '112px', weight: 200 },
-};
+const HEADING_TYPE_VALUES = Object.fromEntries(
+  (['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl'] as const).map((k) => [k, typeValues(`--typography-heading-heading-${k}`)]),
+) as Record<'3xs' | '2xs' | 'xs' | 's' | 'm' | 'l' | 'xl' | '2xl' | '3xl', { size: string; lineHeight: string; weight: number }>;
 
 /**
  * Labels each swatch with the primitive-scale step it resolves to (e.g.
@@ -154,20 +152,11 @@ const HEADING_TYPE_VALUES: Record<'3xs' | '2xs' | 'xs' | 's' | 'm' | 'l' | 'xl' 
  * that isn't an exact primitive hex (e.g. the rgba() alpha overlays used
  * by several dark-theme values, which aren't a single scale step).
  */
-const PRIMITIVE_HEX: Record<string, string[]> = {
-  azure: ['#ecf7ff', '#dcf1ff', '#b4e1ff', '#7acaff', '#46b5ff', '#069cff', '#3292f1', '#0278ca', '#0068ae', '#004877', '#003354', '#001f33'],
-  cyan: ['#ecfcff', '#dcf9ff', '#b4f2ff', '#7ae9ff', '#46e0ff', '#14c8ec', '#14b7d7', '#02a9ca', '#0091ae', '#006377', '#004654', '#002b33'],
-  blue: ['#f2f8ff', '#dfeeff', '#cfe6ff', '#bddcff', '#63acff', '#3795ff', '#248bff', '#0068de', '#0057b9', '#00428c', '#002f64', '#001f41'],
-  gray: ['#f9f9fe', '#edeef8', '#e1e2eb', '#d8d8ed', '#adadc3', '#9696ac', '#6b6b7e', '#606070', '#4e4e5e', '#393943', '#1b1b1f', '#0a0a0a'],
-  green: ['#dff9ea', '#c3e8d2', '#aedec2', '#92d5ae', '#54c181', '#43af70', '#379c61', '#198446', '#156b39', '#144227', '#13301f', '#08110c'],
-  magenta: ['#fbe5f5', '#fbc6ec', '#f9a6e2', '#f282d2', '#ec6ec9', '#e651bc', '#d02ca2', '#bc2692', '#a21379', '#850b63', '#580741', '#40022f'],
-  orange: ['#fff3e5', '#ffe2c0', '#ffd4a2', '#ffc784', '#ff9f2e', '#ef8100', '#d17119', '#b44b00', '#8e2f00', '#a54a11', '#8a3e0f', '#5d2f13'],
-  purple: ['#faf0fd', '#f2dafb', '#e9bdf8', '#db8df7', '#cc75eb', '#c859ef', '#c04ae8', '#9a38bc', '#7c259a', '#5f1778', '#430c56', '#330742'],
-  red: ['#fff1f7', '#ffdce8', '#ffc2d6', '#f78dad', '#f05a7e', '#e63f7b', '#b40d49', '#82052f', '#640728', '#a60c3b', '#8a0b32', '#5c0f27'],
-  slate: ['#f7f7fe', '#e7e7f8', '#caccf0', '#bec0e9', '#a9aade', '#9a9cce', '#5f6190', '#4b4d77', '#393a5d', '#282944', '#151529', '#0c0c18'],
-  teal: ['#eafbfb', '#c9f3f2', '#92e7e5', '#56cdca', '#18bbb6', '#02a8a3', '#10827d', '#097a76', '#006d69', '#005350', '#003e3c', '#002625'],
-  yellow: ['#fffae5', '#fff2c0', '#ffeca2', '#ffe684', '#ffd52e', '#efb300', '#c7930d', '#a97900', '#8e5f00', '#583800', '#3c2500', '#1d1000'],
-};
+const PRIMITIVE_FAMILIES = ['azure', 'cyan', 'blue', 'gray', 'green', 'magenta', 'orange', 'purple', 'red', 'slate', 'teal', 'yellow'] as const;
+// Built primitive ramps (--color-<family>-<family>-<step>), lower-cased hex.
+const PRIMITIVE_HEX: Record<string, string[]> = Object.fromEntries(
+  PRIMITIVE_FAMILIES.map((f) => [f, RAMP_STEPS.map((step) => tokenValue(`--color-${f}-${f}-${step}`).toLowerCase())]),
+);
 
 const HEX_TO_PRIMITIVE_LABEL: Record<string, string> = {
   // Real standalone tokens (--color-white/--color-black), not part of any
@@ -295,51 +284,51 @@ function TokenTable({ rows }: { rows: TokenRow[] }) {
   );
 }
 
-const BG_TOKEN_ROWS: TokenRow[] = [
-  { name: '--color-bg-primary-bg-primary', light: '#0068de', dark: '#0068de', description: 'Primary action fill — buttons, active states. Same in both themes.' },
-  { name: '--color-bg-primary-bg-primary-subtle', light: '#dfeeff', dark: 'rgba(55, 149, 255, 0.5)', description: 'Low-emphasis primary fill, e.g. selected-row or info-callout background.' },
-  { name: '--color-bg-primary-bg-primary-on-dark', light: '#248bff', dark: '#0068de', description: 'Primary fill for use on an already-dark surface (e.g. inside the sidebar).' },
-  { name: '--color-bg-secondary-bg-secondary', light: '#9a9cce', dark: 'rgba(249, 249, 254, 0.2)', description: 'Secondary action fill.' },
-  { name: '--color-bg-success-bg-success', light: '#198446', dark: '#156B39', description: 'Success state fill.' },
-  { name: '--color-bg-success-bg-success-on-dark', light: '#54C181', dark: '#54C181', description: 'Success fill for use on a dark surface.' },
-  { name: '--color-bg-warning-bg-warning', light: '#efb300', dark: '#A54A11', description: 'Warning state fill.' },
-  { name: '--color-bg-warning-bg-warning-on-dark', light: '#ffe684', dark: '#ffe684', description: 'Warning fill for use on a dark surface.' },
-  { name: '--color-bg-danger-bg-danger', light: '#b40d49', dark: '#A60C3B', description: 'Danger/destructive state fill.' },
-  { name: '--color-bg-danger-bg-danger-on-dark', light: '#F78DAD', dark: '#F78DAD', description: 'Danger fill for use on a dark surface.' },
-  { name: '--color-bg-info-bg-info', light: '#14c8ec', dark: '#14c8ec', description: 'Informational state fill.' },
-  { name: '--color-bg-info-bg-info-on-dark', light: '#46e0ff', dark: '#02a9ca', description: 'Informational fill for use on a dark surface.' },
-  { name: '--color-bg-neutral-bg-neutral-subtle', light: '#edeef8', dark: 'rgba(249, 249, 254, 0.2)', description: 'Low-emphasis neutral fill, e.g. hover/zebra-striping.' },
-  { name: '--color-bg-surface-bg-surface', light: '#ffffff', dark: '#282944', description: 'Default page/card surface.' },
-  { name: '--color-bg-surface-bg-surface-base', light: '#ffffff', dark: '#282944', description: 'Base app background, beneath surfaces.' },
-  { name: '--color-bg-surface-bg-surface-overlay', light: '#ffffff', dark: '#0c0c18', description: 'Modal/popover/overlay surface, above the base surface.' },
-  { name: '--color-bg-input-bg-input', light: '#ffffff', dark: '#000000', description: 'Form control fill (input, select, textarea).' },
-  { name: '--color-bg-layout-bg-sidebar', light: '#393a5d', dark: '#0c0c18', description: 'Sidebar navigation background.' },
-  { name: '--color-bg-layout-bg-sidebar-selected', light: '#4b4d77', dark: '#282944', description: 'Selected sidebar item background.' },
-];
+const BG_TOKEN_ROWS: TokenRow[] = withValues([
+  { name: '--color-bg-primary-bg-primary', description: 'Primary action fill — buttons, active states. Same in both themes.' },
+  { name: '--color-bg-primary-bg-primary-subtle', description: 'Low-emphasis primary fill, e.g. selected-row or info-callout background.' },
+  { name: '--color-bg-primary-bg-primary-on-dark', description: 'Primary fill for use on an already-dark surface (e.g. inside the sidebar).' },
+  { name: '--color-bg-secondary-bg-secondary', description: 'Secondary action fill.' },
+  { name: '--color-bg-success-bg-success', description: 'Success state fill.' },
+  { name: '--color-bg-success-bg-success-on-dark', description: 'Success fill for use on a dark surface.' },
+  { name: '--color-bg-warning-bg-warning', description: 'Warning state fill.' },
+  { name: '--color-bg-warning-bg-warning-on-dark', description: 'Warning fill for use on a dark surface.' },
+  { name: '--color-bg-danger-bg-danger', description: 'Danger/destructive state fill.' },
+  { name: '--color-bg-danger-bg-danger-on-dark', description: 'Danger fill for use on a dark surface.' },
+  { name: '--color-bg-info-bg-info', description: 'Informational state fill.' },
+  { name: '--color-bg-info-bg-info-on-dark', description: 'Informational fill for use on a dark surface.' },
+  { name: '--color-bg-neutral-bg-neutral-subtle', description: 'Low-emphasis neutral fill, e.g. hover/zebra-striping.' },
+  { name: '--color-bg-surface-bg-surface', description: 'Default page/card surface.' },
+  { name: '--color-bg-surface-bg-surface-base', description: 'Base app background, beneath surfaces.' },
+  { name: '--color-bg-surface-bg-surface-overlay', description: 'Modal/popover/overlay surface, above the base surface.' },
+  { name: '--color-bg-input-bg-input', description: 'Form control fill (input, select, textarea).' },
+  { name: '--color-bg-layout-bg-sidebar', description: 'Sidebar navigation background.' },
+  { name: '--color-bg-layout-bg-sidebar-selected', description: 'Selected sidebar item background.' },
+]);
 
-const TEXT_TOKEN_ROWS: TokenRow[] = [
-  { name: '--color-text-text', light: '#151529', dark: '#f7f7fe', description: 'Default body/heading text color.' },
-  { name: '--color-text-text-subtle', light: '#393a5d', dark: '#caccf0', description: 'De-emphasized text — captions, helper text, metadata.' },
-  { name: '--color-text-text-link', light: '#0068de', dark: '#63acff', description: 'Hyperlink text color.' },
-  { name: '--color-text-text-on-dark', light: '#ffffff', dark: '#ffffff', description: 'Text for use on a dark/colored fill (e.g. inside a primary button). Same in both themes.' },
-  { name: '--color-text-text-link-on-dark', light: '#bddcff', dark: '#63acff', description: 'Link text for use on a dark/colored fill.' },
-  { name: '--color-text-text-subtle-on-dark', light: '#bec0e9', dark: '#caccf0', description: 'De-emphasized text for use on a dark/colored fill.' },
-];
+const TEXT_TOKEN_ROWS: TokenRow[] = withValues([
+  { name: '--color-text-text', description: 'Default body/heading text color.' },
+  { name: '--color-text-text-subtle', description: 'De-emphasized text — captions, helper text, metadata.' },
+  { name: '--color-text-text-link', description: 'Hyperlink text color.' },
+  { name: '--color-text-text-on-dark', description: 'Text for use on a dark/colored fill (e.g. inside a primary button). Same in both themes.' },
+  { name: '--color-text-text-link-on-dark', description: 'Link text for use on a dark/colored fill.' },
+  { name: '--color-text-text-subtle-on-dark', description: 'De-emphasized text for use on a dark/colored fill.' },
+]);
 
-const BORDER_TOKEN_ROWS: TokenRow[] = [
-  { name: '--color-border-border-subtle', light: '#8f91c2', dark: '#6e709f', description: 'Default border — cards, inputs, dividers between sections.' },
-  { name: '--color-border-border-subtler', light: '#e7e7f8', dark: '#4b4d77', description: 'Lower-contrast border — dividers between rows within a section.' },
-];
+const BORDER_TOKEN_ROWS: TokenRow[] = withValues([
+  { name: '--color-border-border-subtle', description: 'Default border — cards, inputs, dividers between sections.' },
+  { name: '--color-border-border-subtler', description: 'Lower-contrast border — dividers between rows within a section.' },
+]);
 
-const CHART_TOKEN_ROWS: TokenRow[] = [
-  { name: '--color-bg-chart-01', light: '#0068de', dark: '#0068de', description: 'Chart series 1 (blue) — deliberately matches --color-bg-primary-bg-primary. Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-02', light: '#bc2692', dark: '#bc2692', description: 'Chart series 2 (magenta). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-03', light: '#097a76', dark: '#097a76', description: 'Chart series 3 (teal). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-04', light: '#4b4d77', dark: '#4b4d77', description: 'Chart series 4 (slate). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-05', light: '#82052f', dark: '#82052f', description: 'Chart series 5 (red). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-06', light: '#198446', dark: '#198446', description: 'Chart series 6 (green). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-07', light: '#0278ca', dark: '#0278ca', description: 'Chart series 7 (azure). Primitive-derived, theme-invariant.' },
-];
+const CHART_TOKEN_ROWS: TokenRow[] = withValues([
+  { name: '--color-bg-chart-01', description: 'Chart series 1 (blue) — deliberately matches --color-bg-primary-bg-primary. Primitive-derived, theme-invariant.' },
+  { name: '--color-bg-chart-02', description: 'Chart series 2 (magenta). Primitive-derived, theme-invariant.' },
+  { name: '--color-bg-chart-03', description: 'Chart series 3 (teal). Primitive-derived, theme-invariant.' },
+  { name: '--color-bg-chart-04', description: 'Chart series 4 (slate). Primitive-derived, theme-invariant.' },
+  { name: '--color-bg-chart-05', description: 'Chart series 5 (red). Primitive-derived, theme-invariant.' },
+  { name: '--color-bg-chart-06', description: 'Chart series 6 (green). Primitive-derived, theme-invariant.' },
+  { name: '--color-bg-chart-07', description: 'Chart series 7 (azure). Primitive-derived, theme-invariant.' },
+]);
 
 /**
  * The bg-{tone}-bg-{tone}-status family (2026-09-26 addition, see overview.md):
@@ -350,13 +339,13 @@ const CHART_TOKEN_ROWS: TokenRow[] = [
  * instead, since a small isolated element needs a background that reads
  * the same regardless of backdrop, which alpha-neutral can't guarantee).
  */
-const STATUS_TOKEN_ROWS: TokenRow[] = [
-  { name: '--color-bg-primary-bg-primary-status', light: '#248bff', dark: '#3795ff', description: 'One step lighter than the solid primary fill — small/decorative tone indicators only (StatusDot, Timeline, BadgeIndicator).' },
-  { name: '--color-bg-info-bg-info-status', light: '#0091ae', dark: '#14c8ec', description: 'Info counterpart of the -status family — same small-indicator use as primary-status.' },
-  { name: '--color-bg-success-bg-success-status', light: '#379C61', dark: '#379C61', description: 'Success counterpart of the -status family. Same value in both themes.' },
-  { name: '--color-bg-warning-bg-warning-status', light: '#efb300', dark: '#d17119', description: 'Warning counterpart of the -status family.' },
-  { name: '--color-bg-danger-bg-danger-status', light: '#e63f7b', dark: '#e63f7b', description: 'Danger counterpart of the -status family. Same value in both themes.' },
-];
+const STATUS_TOKEN_ROWS: TokenRow[] = withValues([
+  { name: '--color-bg-primary-bg-primary-status', description: 'One step lighter than the solid primary fill — small/decorative tone indicators only (StatusDot, Timeline, BadgeIndicator).' },
+  { name: '--color-bg-info-bg-info-status', description: 'Info counterpart of the -status family — same small-indicator use as primary-status.' },
+  { name: '--color-bg-success-bg-success-status', description: 'Success counterpart of the -status family. Same value in both themes.' },
+  { name: '--color-bg-warning-bg-warning-status', description: 'Warning counterpart of the -status family.' },
+  { name: '--color-bg-danger-bg-danger-status', description: 'Danger counterpart of the -status family. Same value in both themes.' },
+]);
 
 const ALL_TOKEN_ROWS: TokenRow[] = [...BG_TOKEN_ROWS, ...STATUS_TOKEN_ROWS, ...TEXT_TOKEN_ROWS, ...BORDER_TOKEN_ROWS, ...CHART_TOKEN_ROWS];
 
@@ -531,15 +520,15 @@ export const Typography: Story = {
 };
 
 const RADIUS_ROWS: SpecRow[] = [
-  { token: 'radius-sm', value: '2px', use: 'The smallest inner details.', usedBy: 'Kbd, Skeleton, Tabs indicator, Toolbar, inner parts of Card, DataTable, Sonner' },
-  { token: 'radius-md', value: '4px', use: 'Items inside a container and small controls.', usedBy: 'Menu and list items, Checkbox, Tooltip, Toggle, Tabs triggers, Sidebar items, Command (72 uses)' },
-  { token: 'radius-lg', value: '6px', use: 'Text inputs and input-like controls.', usedBy: 'TextField, Select trigger, Combobox, Autocomplete, NumberField, InputGroup, InputOTP, Password, Filter, Chip' },
-  { token: 'radius-xl', value: '8px', use: 'Buttons, and floating surfaces anchored to a trigger. A menu under a button is never rounder than the button.', usedBy: 'Button, DropdownMenu, ContextMenu, Menubar, Popover, HoverCard, NavigationMenu, Select content, CodeBlock, CodeEditor, Terminal' },
-  { token: 'radius-2xl', value: '10px', use: 'Compact card surfaces on a page.', usedBy: 'Card, Table, DataTable, Alert, Stat, Attachment, OptionCard, Dropzone, File, charts, Patterns blocks' },
-  { token: 'radius-3xl', value: '12px', use: 'Dialogs and full-height panels.', usedBy: 'Dialog, AlertDialog, Drawer, LoginFormSplit' },
-  { token: 'radius-4xl', value: '16px', use: 'Reserved for large containers.', usedBy: 'Not used by components yet' },
-  { token: 'radius-5xl', value: '32px', use: 'Reserved for large decorative shapes.', usedBy: 'Not used by components yet' },
-  { token: 'radius-max', value: '100px', use: 'Pills and round shapes.', usedBy: 'Badge, Progress, Switch, Slider, StatusDot, Stepper (today mostly as rounded-full)' },
+  { token: 'radius-sm', value: tokenValue('--size-border-radius-border-radius-sm'), use: 'The smallest inner details.', usedBy: 'Kbd, Skeleton, Tabs indicator, Toolbar, inner parts of Card, DataTable, Sonner' },
+  { token: 'radius-md', value: tokenValue('--size-border-radius-border-radius-md'), use: 'Items inside a container and small controls.', usedBy: 'Menu and list items, Checkbox, Tooltip, Toggle, Tabs triggers, Sidebar items, Command (72 uses)' },
+  { token: 'radius-lg', value: tokenValue('--size-border-radius-border-radius-lg'), use: 'Text inputs and input-like controls.', usedBy: 'TextField, Select trigger, Combobox, Autocomplete, NumberField, InputGroup, InputOTP, Password, Filter, Chip' },
+  { token: 'radius-xl', value: tokenValue('--size-border-radius-border-radius-xl'), use: 'Buttons, and floating surfaces anchored to a trigger. A menu under a button is never rounder than the button.', usedBy: 'Button, DropdownMenu, ContextMenu, Menubar, Popover, HoverCard, NavigationMenu, Select content, CodeBlock, CodeEditor, Terminal' },
+  { token: 'radius-2xl', value: tokenValue('--size-border-radius-border-radius-2xl'), use: 'Compact card surfaces on a page.', usedBy: 'Card, Table, DataTable, Alert, Stat, Attachment, OptionCard, Dropzone, File, charts, Patterns blocks' },
+  { token: 'radius-3xl', value: tokenValue('--size-border-radius-border-radius-3xl'), use: 'Dialogs and full-height panels.', usedBy: 'Dialog, AlertDialog, Drawer, LoginFormSplit' },
+  { token: 'radius-4xl', value: tokenValue('--size-border-radius-border-radius-4xl'), use: 'Reserved for large containers.', usedBy: 'Not used by components yet' },
+  { token: 'radius-5xl', value: tokenValue('--size-border-radius-border-radius-5xl'), use: 'Reserved for large decorative shapes.', usedBy: 'Not used by components yet' },
+  { token: 'radius-max', value: tokenValue('--size-border-radius-border-radius-max'), use: 'Pills and round shapes.', usedBy: 'Badge, Progress, Switch, Slider, StatusDot, Stepper (today mostly as rounded-full)' },
 ];
 
 const RADIUS_STEPS = [
@@ -610,11 +599,11 @@ export const BorderRadius: Story = {
 };
 
 const FOCUS_ROWS: SpecRow[] = [
-  { token: '--color-focus-focus-ring', value: 'rgba(55, 149, 255, 0.4)', use: 'Default ring for every interactive control.', usedBy: 'Almost every control (65 uses of the 4px ring)' },
-  { token: '--color-focus-focus-ring-error', value: 'rgba(208, 45, 75, 0.4)', use: 'Invalid fields, together with the danger border and background.', usedBy: 'TextField, Textarea, Select, Combobox, Autocomplete, DatePicker, NumberField, InputGroup, InputOTP, PromptArea, Slider' },
-  { token: '--color-focus-focus-ring-success', value: 'rgba(55, 156, 97, 0.4)', use: 'Fields and cards in a success state.', usedBy: 'Card (success severity)' },
-  { token: '--color-focus-focus-ring-warning', value: 'rgba(239, 179, 0, 0.4)', use: 'Fields and cards in a warning state.', usedBy: 'Card (warning severity)' },
-  { token: '--color-focus-focus-ring-on-primary', value: 'white 30%', use: 'Controls that sit on a primary-filled surface. Invisible on the plain page by design.', usedBy: 'Checkbox (checked), DataTableToolbar bulk bar' },
+  { token: '--color-focus-focus-ring', value: tokenValue('--color-focus-focus-ring'), use: 'Default ring for every interactive control.', usedBy: 'Almost every control (65 uses of the 4px ring)' },
+  { token: '--color-focus-focus-ring-error', value: tokenValue('--color-focus-focus-ring-error'), use: 'Invalid fields, together with the danger border and background.', usedBy: 'TextField, Textarea, Select, Combobox, Autocomplete, DatePicker, NumberField, InputGroup, InputOTP, PromptArea, Slider' },
+  { token: '--color-focus-focus-ring-success', value: tokenValue('--color-focus-focus-ring-success'), use: 'Fields and cards in a success state.', usedBy: 'Card (success severity)' },
+  { token: '--color-focus-focus-ring-warning', value: tokenValue('--color-focus-focus-ring-warning'), use: 'Fields and cards in a warning state.', usedBy: 'Card (warning severity)' },
+  { token: '--color-focus-focus-ring-on-primary', value: tokenValue('--color-focus-focus-ring-on-primary'), use: 'Controls that sit on a primary-filled surface. Invisible on the plain page by design.', usedBy: 'Checkbox (checked), DataTableToolbar bulk bar' },
 ];
 
 const FOCUS_DEMO = [
@@ -762,12 +751,20 @@ function SubHeading({ children }: { children: React.ReactNode }) {
 
 /* ---------------------------- Elevation ---------------------------- */
 
+// "2 layers, 28px blur, 14%" — summarized from the built shadow value.
+function shadowSummary(name: string): string {
+  const layers = tokenValue(name).split(/,(?![^(]*\))/).map((l) => l.trim());
+  const blur = Math.max(...layers.map((l) => parseFloat(l.split(/\s+/)[2]) || 0));
+  const alpha = Math.max(...layers.map((l) => parseFloat(l.match(/rgba?\([^)]*,\s*([\d.]+)\)/)?.[1] ?? '0')));
+  return `${layers.length} layer${layers.length > 1 ? 's' : ''}, ${blur}px blur, ${Math.round(alpha * 100)}%`;
+}
+
 const ELEVATION_ROWS: SpecRow[] = [
-  { token: 'shadow-elevation-xs', value: '1 layer, 2px blur, 8%', use: 'A surface that sits in the page flow and only needs to lift off the background.', usedBy: 'Stat, CodeBlock, CodeEditor, Terminal, Card at rest (shadow-xs)' },
-  { token: 'shadow-elevation-sm', value: '2 layers, 3px blur, 10%', use: 'Small raised details inside a control or a layout.', usedBy: 'Alert, Switch and Slider thumbs, Sidebar, Menubar trigger (shadow-sm)' },
-  { token: 'shadow-elevation-md', value: '2 layers, 10px blur, 10%', use: 'Floating controls and short hints that hover over content.', usedBy: 'Tooltip, floating scroll buttons, DataTableToolbar bulk bar (shadow-md)' },
-  { token: 'shadow-elevation-lg', value: '2 layers, 28px blur, 14%', use: 'Surfaces that drop out of a trigger: menus, popovers, listboxes.', usedBy: 'DropdownMenu, ContextMenu, Menubar, Popover, HoverCard, NavigationMenu, Select, chart tooltips (shadow-lg)' },
-  { token: 'shadow-elevation-xl', value: '2 layers, 56px blur, 18%', use: 'Modal layers that take over the page.', usedBy: 'Dialog, AlertDialog, Drawer, PushSheet, Sonner (shadow-xl)' },
+  { token: 'shadow-elevation-xs', value: shadowSummary('--elevation-xs'), use: 'A surface that sits in the page flow and only needs to lift off the background.', usedBy: 'Stat, CodeBlock, CodeEditor, Terminal, Card at rest' },
+  { token: 'shadow-elevation-sm', value: shadowSummary('--elevation-sm'), use: 'Small raised details inside a control or a layout.', usedBy: 'Alert, Switch and Slider thumbs, Sidebar, Menubar trigger' },
+  { token: 'shadow-elevation-md', value: shadowSummary('--elevation-md'), use: 'Floating controls and short hints that hover over content.', usedBy: 'Tooltip, floating scroll buttons, DataTableToolbar bulk bar' },
+  { token: 'shadow-elevation-lg', value: shadowSummary('--elevation-lg'), use: 'Surfaces that drop out of a trigger: menus, popovers, listboxes.', usedBy: 'DropdownMenu, ContextMenu, Menubar, Popover, HoverCard, NavigationMenu, Select, chart tooltips' },
+  { token: 'shadow-elevation-xl', value: shadowSummary('--elevation-xl'), use: 'Modal layers that take over the page.', usedBy: 'Dialog, AlertDialog, Drawer, PushSheet, Sonner' },
 ];
 
 const ELEVATION_DEMO = [
@@ -799,7 +796,7 @@ export const Elevation: Story = {
           </div>
           <SpecTable rows={ELEVATION_ROWS} valueLabel="Shadow" />
           <MigrationNote>
-            Components still use Tailwind's generic shadow-xs ... shadow-xl with the same step names. Migration is a 1:1 rename (shadow-lg to shadow-elevation-lg). Focus rings drawn with box-shadow are a separate thing and stay as they are.
+            Migrated 2026-10-01: every component uses shadow-elevation-*. Values live in @theya/tokens (--elevation-*). Focus rings drawn with box-shadow are a separate thing.
           </MigrationNote>
         </div>
       </Section>
@@ -810,17 +807,17 @@ export const Elevation: Story = {
 /* ------------------------------ Motion ----------------------------- */
 
 const DURATION_ROWS: SpecRow[] = [
-  { token: 'duration-fast', value: '100ms', use: 'Micro feedback on the control itself.', usedBy: 'Checkbox, Radio and Switch check marks, DropdownMenu (duration-100)' },
-  { token: 'duration-standard', value: '150ms', use: 'Default for hover, color, border and focus changes.', usedBy: '52 uses across almost every component (duration-150)' },
-  { token: 'duration-moderate', value: '200ms', use: 'Overlays appearing, content expanding or collapsing.', usedBy: 'Dialog, AlertDialog, Accordion, Collapsible, Carousel (duration-200)' },
-  { token: 'duration-slow', value: '300ms', use: 'Value changes and large panels.', usedBy: 'Progress, Meter, PushSheet (duration-300)' },
+  { token: 'duration-fast', value: tokenValue('--motion-duration-fast'), use: 'Micro feedback on the control itself.', usedBy: 'Checkbox, Radio and Switch check marks, DropdownMenu' },
+  { token: 'duration-standard', value: tokenValue('--motion-duration-standard'), use: 'Default for hover, color, border and focus changes.', usedBy: 'Almost every component' },
+  { token: 'duration-moderate', value: tokenValue('--motion-duration-moderate'), use: 'Overlays appearing, content expanding or collapsing.', usedBy: 'Dialog, AlertDialog, Accordion, Collapsible, Carousel' },
+  { token: 'duration-slow', value: tokenValue('--motion-duration-slow'), use: 'Value changes and large panels.', usedBy: 'Progress, Meter, PushSheet' },
 ];
 
 const EASING_ROWS: SpecRow[] = [
-  { token: 'ease-enter', value: 'cubic-bezier(0, 0, 0.2, 1)', use: 'Things appearing and hover states. The default.', usedBy: '82 uses (ease-out)' },
-  { token: 'ease-exit', value: 'cubic-bezier(0.4, 0, 1, 1)', use: 'Things leaving. Pair with ease-enter on the same element.', usedBy: 'Dialog, AlertDialog (ease-in)' },
-  { token: 'ease-spring', value: 'cubic-bezier(0.34, 1.56, 0.64, 1)', use: 'Selection feedback with a small overshoot.', usedBy: 'Checkbox, Radio, Switch, Button' },
-  { token: 'ease-press', value: 'cubic-bezier(0.4, 0, 0.2, 1)', use: 'Pressing a button down and releasing it.', usedBy: 'Button' },
+  { token: 'ease-enter', value: tokenValue('--motion-easing-enter'), use: 'Things appearing and hover states. The default.', usedBy: 'Almost every transition' },
+  { token: 'ease-exit', value: tokenValue('--motion-easing-exit'), use: 'Things leaving. Pair with ease-enter on the same element.', usedBy: 'Dialog, AlertDialog' },
+  { token: 'ease-spring', value: tokenValue('--motion-easing-spring'), use: 'Selection feedback with a small overshoot.', usedBy: 'Checkbox, Radio, Switch, Button' },
+  { token: 'ease-press', value: tokenValue('--motion-easing-press'), use: 'Pressing a button down and releasing it.', usedBy: 'Button' },
 ];
 
 const DURATION_DEMO = [
@@ -881,7 +878,7 @@ export const Motion: Story = {
           </div>
 
           <MigrationNote>
-            Components still use raw Tailwind values (duration-150, ease-out, inline cubic-bezier). Each maps 1:1 to a token above.
+            Migrated 2026-10-01: components use duration-fast/standard/moderate/slow and ease-enter/exit/spring/press. Values live in @theya/tokens (--motion-*). One off-scale value remains on purpose: Button's 220ms press spring.
           </MigrationNote>
         </div>
         {/* Demo-only keyframes. Both demos stop entirely under prefers-reduced-motion. */}
@@ -903,13 +900,13 @@ export const Motion: Story = {
 /* ----------------------------- Layering ---------------------------- */
 
 const LAYER_ROWS: SpecRow[] = [
-  { token: '--z-index-sticky', value: '100', use: 'Headers and bars that stick while the page scrolls.', usedBy: 'Topbar (z-40), AppShell header (z-50)' },
-  { token: '--z-index-drawer', value: '200', use: 'Side and bottom panels that slide over the page.', usedBy: 'Drawer, PushSheet (z-50)' },
-  { token: '--z-index-overlay', value: '300', use: 'The dimmed backdrop behind a modal.', usedBy: 'Dialog and AlertDialog overlays (z-50)' },
-  { token: '--z-index-modal', value: '400', use: 'Dialog content above its backdrop.', usedBy: 'Dialog, AlertDialog (z-50)' },
-  { token: '--z-index-popover', value: '500', use: 'Anything anchored to a trigger. Also works inside a modal.', usedBy: 'Popover, DropdownMenu, ContextMenu, Menubar, HoverCard, Select, NavigationMenu (z-50)' },
-  { token: '--z-index-toast', value: '600', use: 'Notifications that must stay visible over any open layer.', usedBy: 'Sonner (its own z-index)' },
-  { token: '--z-index-tooltip', value: '700', use: 'Tooltips. Always on top, because a tooltip belongs to whatever is under the cursor, including items inside menus and toasts.', usedBy: 'Tooltip (z-50)' },
+  { token: '--z-index-sticky', value: tokenValue('--layer-sticky'), use: 'Headers and bars that stick while the page scrolls.', usedBy: 'Topbar' },
+  { token: '--z-index-drawer', value: tokenValue('--layer-drawer'), use: 'Side and bottom panels that slide over the page.', usedBy: 'Drawer and PushSheet, backdrop and panel on the same layer' },
+  { token: '--z-index-overlay', value: tokenValue('--layer-overlay'), use: 'The dimmed backdrop behind a modal.', usedBy: 'Dialog and AlertDialog backdrops' },
+  { token: '--z-index-modal', value: tokenValue('--layer-modal'), use: 'Dialog content above its backdrop.', usedBy: 'Dialog, AlertDialog' },
+  { token: '--z-index-popover', value: tokenValue('--layer-popover'), use: 'Anything anchored to a trigger. Also works inside a modal.', usedBy: 'Popover, DropdownMenu, ContextMenu, Menubar, HoverCard, Select. NavigationMenu still uses a local z-10 (no portal yet)' },
+  { token: '--z-index-toast', value: tokenValue('--layer-toast'), use: 'Notifications that must stay visible over any open layer.', usedBy: 'Sonner (inline zIndex var(--z-index-toast))' },
+  { token: '--z-index-tooltip', value: tokenValue('--layer-tooltip'), use: 'Tooltips. Always on top, because a tooltip belongs to whatever is under the cursor, including items inside menus and toasts.', usedBy: 'Tooltip, AppShell skip link while focused' },
 ];
 
 export const Layering: Story = {
@@ -943,7 +940,7 @@ export const Layering: Story = {
             </p>
           </div>
           <MigrationNote>
-            Today every overlay sits on the same z-50 and the order depends on which portal was added last. Migration moves each component to its layer above.
+            Migrated 2026-10-01: every overlay sits on its layer above. Values live in @theya/tokens (--layer-*).
           </MigrationNote>
         </div>
       </Section>
