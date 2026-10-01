@@ -91,12 +91,19 @@ function fieldSchema(field: ResourceFieldConfig): ZodTypeAny {
   }
 
   if (kind === 'select') {
-    return required ? z.string().min(1, `Select a ${field.label.toLowerCase()}.`) : z.string().optional();
+    // "Select a engine" -> "Select an engine".
+    const article = /^[aeiou]/i.test(field.label) ? 'an' : 'a';
+    return required ? z.string().min(1, `Select ${article} ${field.label.toLowerCase()}.`) : z.string().optional();
   }
 
   let base = z.string();
-  if (kind === 'email') base = base.email(`Enter a valid email.`);
   if (required) base = base.min(1, `${field.label} is required.`);
+  if (kind === 'email') {
+    const email = base.email('Enter a valid email.');
+    // Optional emails default to '' — which .email() rejected, so an
+    // empty optional email field blocked the submit.
+    return required ? email : email.or(z.literal('')).optional();
+  }
   return required ? base : base.optional();
 }
 
@@ -131,6 +138,7 @@ export function ResourceForm({ title, description, sections, onSubmit, onCancel,
   const schema = useMemo(() => buildSchema(sections), [sections]);
   const defaultValues = useMemo(() => buildDefaults(sections), [sections]);
 
+  const formId = useId();
   const form = useForm<ResourceFormValues>({
     // Cast: schema is built dynamically from a Record<string, ZodTypeAny>, so
     // zod infers a generic Record<string, unknown> shape that doesn't
@@ -139,11 +147,22 @@ export function ResourceForm({ title, description, sections, onSubmit, onCancel,
     resolver: zodResolver(schema) as never,
     defaultValues,
     mode: 'onTouched',
+    // react-hook-form focuses the first invalid field through the ref it
+    // registered — but Select/NumberField/Switch go through Controller and
+    // never hand it a ref, so an invalid select got no focus at all. Focus
+    // by id instead, in on-screen order.
+    shouldFocusError: false,
   });
 
-  const handleSubmit = form.handleSubmit(async (values) => {
-    await onSubmit(values);
-  });
+  const handleSubmit = form.handleSubmit(
+    async (values) => {
+      await onSubmit(values);
+    },
+    (errors) => {
+      const first = sections.flatMap((s) => s.fields).find((f) => errors[f.name]);
+      if (first) document.getElementById(fieldId(formId, first.name))?.focus();
+    },
+  );
 
   return (
     <form onSubmit={handleSubmit} noValidate className={cn('flex w-full flex-col gap-6', className)}>
@@ -165,7 +184,7 @@ export function ResourceForm({ title, description, sections, onSubmit, onCancel,
               </div>
             )}
             {section.fields.map((field) => (
-              <ResourceFormField key={field.name} field={field} form={form} />
+              <ResourceFormField key={field.name} field={field} form={form} id={fieldId(formId, field.name)} />
             ))}
           </div>
         ))}
@@ -187,12 +206,20 @@ export function ResourceForm({ title, description, sections, onSubmit, onCancel,
   );
 }
 
-function ResourceFormField({ field, form }: { field: ResourceFieldConfig; form: ReturnType<typeof useForm<ResourceFormValues>> }) {
-  const id = useId();
-  const descriptionId = useId();
+function fieldId(formId: string, name: string) {
+  return `${formId}-${name}`;
+}
+
+function ResourceFormField({ field, form, id }: { field: ResourceFieldConfig; form: ReturnType<typeof useForm<ResourceFormValues>>; id: string }) {
+  const descriptionId = `${id}-description`;
+  const errorId = `${id}-error`;
   const kind = field.kind ?? 'text';
   const error = form.formState.errors[field.name]?.message as string | undefined;
   const invalid = Boolean(error);
+  // The error text was only role="alert" (announced once as it appeared)
+  // and never tied to the control, so returning to the field later read
+  // no error at all (WCAG 3.3.1). It's now part of the description.
+  const describedBy = [field.description ? descriptionId : null, error ? errorId : null].filter(Boolean).join(' ') || undefined;
 
   if (kind === 'switch') {
     return (
@@ -206,9 +233,9 @@ function ResourceFormField({ field, form }: { field: ResourceFieldConfig; form: 
                 {field.label}
               </Label>
               {field.description && <FieldDescription id={descriptionId}>{field.description}</FieldDescription>}
-              {error && <FieldError>{error}</FieldError>}
+              {error && <FieldError id={errorId}>{error}</FieldError>}
             </div>
-            <Switch id={id} checked={Boolean(controllerField.value)} onCheckedChange={controllerField.onChange} aria-describedby={field.description ? descriptionId : undefined} aria-invalid={invalid} className="mt-0.5 shrink-0" />
+            <Switch id={id} checked={Boolean(controllerField.value)} onCheckedChange={controllerField.onChange} aria-describedby={describedBy} aria-invalid={invalid} className="mt-0.5 shrink-0" />
           </Field>
         )}
       />
@@ -226,7 +253,7 @@ function ResourceFormField({ field, form }: { field: ResourceFieldConfig; form: 
               {field.label}
             </Label>
             <Select value={String(controllerField.value ?? '')} onValueChange={controllerField.onChange}>
-              <SelectTrigger id={id} aria-describedby={field.description ? descriptionId : undefined} aria-invalid={invalid} error={invalid} widthSize="lg">
+              <SelectTrigger id={id} aria-describedby={describedBy} aria-invalid={invalid} error={invalid} widthSize="lg">
                 <SelectValue placeholder={field.placeholder} />
               </SelectTrigger>
               <SelectContent>
@@ -238,7 +265,7 @@ function ResourceFormField({ field, form }: { field: ResourceFieldConfig; form: 
               </SelectContent>
             </Select>
             {field.description && <FieldDescription id={descriptionId}>{field.description}</FieldDescription>}
-            {error && <FieldError>{error}</FieldError>}
+            {error && <FieldError id={errorId}>{error}</FieldError>}
           </Field>
         )}
       />
@@ -263,12 +290,12 @@ function ResourceFormField({ field, form }: { field: ResourceFieldConfig; form: 
               max={field.max}
               step={field.step}
               placeholder={field.placeholder}
-              aria-describedby={field.description ? descriptionId : undefined}
+              aria-describedby={describedBy}
               aria-invalid={invalid}
               widthSize="md"
             />
             {field.description && <FieldDescription id={descriptionId}>{field.description}</FieldDescription>}
-            {error && <FieldError>{error}</FieldError>}
+            {error && <FieldError id={errorId}>{error}</FieldError>}
           </Field>
         )}
       />
@@ -281,9 +308,9 @@ function ResourceFormField({ field, form }: { field: ResourceFieldConfig; form: 
         <Label htmlFor={id} required={field.required}>
           {field.label}
         </Label>
-        <TextArea id={id} rows={field.rows} widthSize="lg" placeholder={field.placeholder} aria-describedby={field.description ? descriptionId : undefined} aria-invalid={invalid} error={invalid} {...form.register(field.name)} />
+        <TextArea id={id} rows={field.rows} widthSize="lg" placeholder={field.placeholder} aria-describedby={describedBy} aria-invalid={invalid} error={invalid} {...form.register(field.name)} />
         {field.description && <FieldDescription id={descriptionId}>{field.description}</FieldDescription>}
-        {error && <FieldError>{error}</FieldError>}
+        {error && <FieldError id={errorId}>{error}</FieldError>}
       </Field>
     );
   }
@@ -302,14 +329,14 @@ function ResourceFormField({ field, form }: { field: ResourceFieldConfig; form: 
         autoComplete={autoComplete}
         placeholder={field.placeholder}
         className={field.mono ? 'font-mono' : undefined}
-        aria-describedby={field.description ? descriptionId : undefined}
+        aria-describedby={describedBy}
         aria-invalid={invalid}
         error={invalid}
         widthSize="lg"
         {...form.register(field.name)}
       />
       {field.description && <FieldDescription id={descriptionId}>{field.description}</FieldDescription>}
-      {error && <FieldError>{error}</FieldError>}
+      {error && <FieldError id={errorId}>{error}</FieldError>}
     </Field>
   );
 }
