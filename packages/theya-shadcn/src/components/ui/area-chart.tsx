@@ -332,7 +332,7 @@ export function AreaChart({
         <ul className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1" aria-hidden="true">
           {activeSeries.map((s, i) => (
             <li key={s.key} className="flex items-center gap-1.5 text-[0.6875rem] text-[var(--color-text-text-subtler)]">
-              <span className="inline-block size-2.5 shrink-0 rounded-[0.1875rem]" style={{ background: seriesColor(i) }} />
+              <span className="inline-block size-2.5 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)]" style={{ background: seriesColor(i) }} />
               {s.name}
             </li>
           ))}
@@ -444,7 +444,7 @@ function AreaChartMultiTooltip({ active, payload, label, fmt, labelPrefix, serie
           const si = indexFor(entry.dataKey);
           return (
             <div key={i} className="flex items-center gap-2 font-body text-body-xs">
-              <span className="inline-block size-2 shrink-0 rounded-[0.125rem]" style={{ background: seriesColor(si < 0 ? i : si) }} />
+              <span className="inline-block size-2 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)]" style={{ background: seriesColor(si < 0 ? i : si) }} />
               <span className="text-[var(--color-text-text-subtler)]">{si < 0 ? String(entry.dataKey ?? '') : series[si].name}</span>
               <span className="ml-auto font-semibold tabular-nums text-[var(--color-text-text)]">{typeof entry.value === 'number' ? fmt(entry.value) : entry.value}</span>
             </div>

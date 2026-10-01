@@ -52,7 +52,7 @@ export function Calendar({
         dropdown: cn('absolute inset-0 bg-[var(--color-bg-surface-bg-surface-overlay)] opacity-0', defaultClassNames.dropdown),
         caption_label: cn(
           'font-medium text-[var(--color-text-text)]',
-          captionLayout === 'label' ? 'text-body-s' : 'flex h-8 items-center gap-1 rounded-md pl-2 pr-1 text-body-s [&>svg]:size-3.5 [&>svg]:text-[var(--color-icon-icon-subtle)]',
+          captionLayout === 'label' ? 'text-body-s' : 'flex h-8 items-center gap-1 rounded-[var(--size-border-radius-border-radius-lg)] pl-2 pr-1 text-body-s [&>svg]:size-3.5 [&>svg]:text-[var(--color-icon-icon-subtle)]',
           defaultClassNames.caption_label,
         ),
         month_grid: cn('w-full border-collapse', defaultClassNames.month_grid),

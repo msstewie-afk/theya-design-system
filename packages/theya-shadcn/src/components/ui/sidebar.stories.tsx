@@ -42,7 +42,7 @@ function DemoLayout({ inverse }: { inverse?: boolean }) {
   const [active, setActive] = useState('sites');
   return (
     <SidebarProvider>
-      <div className="flex h-[560px] border border-solid border-[var(--color-border-border-subtle)] rounded-lg overflow-hidden" style={{ width: 760 }}>
+      <div className="flex h-[560px] border border-solid border-[var(--color-border-border-subtle)] rounded-[var(--size-border-radius-border-radius-lg)] overflow-hidden" style={{ width: 760 }}>
         <Sidebar inverse={inverse} className="!h-full">
           <SidebarHeader>
             <SidebarBrand>Theya</SidebarBrand>
@@ -142,7 +142,7 @@ export const Inverse: Story = {
 function AccountLayout() {
   return (
     <SidebarProvider>
-      <div className="flex h-[420px] border border-solid border-[var(--color-border-border-subtle)] rounded-lg overflow-hidden" style={{ width: 760 }}>
+      <div className="flex h-[420px] border border-solid border-[var(--color-border-border-subtle)] rounded-[var(--size-border-radius-border-radius-lg)] overflow-hidden" style={{ width: 760 }}>
         <Sidebar className="!h-full">
           <SidebarHeader>
             <SidebarBrand>Theya</SidebarBrand>

@@ -32,7 +32,7 @@ export const buttonVariants = cva(
     // stay at lg (6px), Button steps up to xl (8px) — a deliberate visual
     // difference between "you type into this" and "you press this", even
     // though a button-anchored dropdown can't always match both.
-    'rounded-xl',
+    'rounded-[var(--size-border-radius-border-radius-xl)]',
     'disabled:cursor-not-allowed disabled:opacity-50',
     // Soft-disable (softDisabled prop): same look as native disabled, but
     // driven by aria-disabled so the button stays focusable/hoverable (can

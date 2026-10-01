@@ -45,15 +45,15 @@ export function Message({ className, variant = 'received', appearance = 'filled'
           className={cn(
             // text-body-m (was text-body-s): the bubble text is the actual
             // message content, not secondary meta — default-font rule.
-            'min-w-0 max-w-[85%] rounded-2xl px-3.5 py-2 font-body text-body-m leading-relaxed [overflow-wrap:anywhere] sm:max-w-[75%]',
+            'min-w-0 max-w-[85%] rounded-[var(--size-border-radius-border-radius-2xl)] px-3.5 py-2 font-body text-body-m leading-relaxed [overflow-wrap:anywhere] sm:max-w-[75%]',
             variant === 'sent'
               ? cn(
-                  'rounded-tr-sm',
+                  'rounded-tr-[var(--size-border-radius-border-radius-md)]',
                   appearance === 'tonal'
                     ? 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]'
                     : 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)]',
                 )
-              : 'rounded-tl-sm bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text)]',
+              : 'rounded-tl-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text)]',
           )}
         >
           {children}

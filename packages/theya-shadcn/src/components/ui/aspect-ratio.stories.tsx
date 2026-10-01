@@ -94,7 +94,7 @@ export const RegionTile: Story = {
   ],
   render: () => (
     <AspectRatio ratio={1} className={BOX}>
-      <span className="absolute bottom-2 left-2 rounded bg-[var(--color-bg-surface-bg-surface-overlay-dark)] px-2 py-0.5 font-mono text-body-xs text-[var(--color-text-text-on-dark)]">
+      <span className="absolute bottom-2 left-2 rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-surface-bg-surface-overlay-dark)] px-2 py-0.5 font-mono text-body-xs text-[var(--color-text-text-on-dark)]">
         eu-west-1
       </span>
     </AspectRatio>

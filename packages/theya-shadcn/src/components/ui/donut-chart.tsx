@@ -121,7 +121,7 @@ export function DonutChart({
             >
               {Array.from({ length: legendItems }).map((_, i) => (
                 <li key={i} className="flex items-center gap-1.5">
-                  <Skeleton className="size-2.5 shrink-0 rounded-[0.1875rem]" />
+                  <Skeleton className="size-2.5 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)]" />
                   <Skeleton className="h-3 w-16" />
                 </li>
               ))}
@@ -202,7 +202,7 @@ export function DonutChart({
           >
             {data.map((d, i) => (
               <li key={d.label} className="flex items-center gap-1.5 font-body text-body-xs text-[var(--color-text-text-subtler)]">
-                <span className="inline-block size-2.5 shrink-0 rounded-[0.1875rem]" style={{ background: sliceColor(i) }} />
+                <span className="inline-block size-2.5 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)]" style={{ background: sliceColor(i) }} />
                 <span>{d.label}</span>
                 <span className="font-medium tabular-nums text-[var(--color-text-text)]">{fmt(d.value)}</span>
                 <span className="tabular-nums">({pct(d.value)}%)</span>

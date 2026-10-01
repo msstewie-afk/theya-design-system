@@ -37,7 +37,7 @@ type Story = StoryObj<typeof PushSheet>;
 function DemoShell({ children }: { children: (open: boolean, setOpen: (v: boolean) => void) => React.ReactNode }) {
   const [open, setOpen] = useState(true);
   return (
-    <div className="flex h-[480px] overflow-hidden rounded-lg border border-solid border-[var(--color-border-border-subtle)]">
+    <div className="flex h-[480px] overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)]">
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex h-14 shrink-0 items-center justify-between border-b border-solid border-[var(--color-border-border-subtle)] px-4">
           <span className="font-body text-body-l font-medium text-[var(--color-text-text)]">Dashboard</span>

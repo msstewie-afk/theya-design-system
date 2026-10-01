@@ -70,7 +70,7 @@ function RangeChartTooltip({ active, payload, label }: { active?: boolean; paylo
       <div className="flex flex-col gap-0.5">
         {payload.map((entry, i) => (
           <div key={i} className="flex items-center gap-2 font-body text-body-xs">
-            <span className="inline-block size-2 shrink-0 rounded-[0.125rem]" style={{ background: entry.color }} />
+            <span className="inline-block size-2 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)]" style={{ background: entry.color }} />
             <span className="text-[var(--color-text-text-subtler)]">{entry.name ?? String(entry.dataKey ?? '')}</span>
             <span className="ml-auto font-semibold tabular-nums text-[var(--color-text-text)]">{entry.value}</span>
           </div>

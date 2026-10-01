@@ -50,7 +50,7 @@ type Story = StoryObj<typeof ContextMenu>;
 /** A shared dashed target region. Right-click it to open the menu. */
 function Target({ children }: { children: React.ReactNode }) {
   return (
-    <ContextMenuTrigger className="flex h-28 w-full max-w-sm select-none items-center justify-center rounded-lg border border-dashed border-[var(--color-border-border-default)] font-body text-body-m text-[var(--color-text-text-subtler)]">
+    <ContextMenuTrigger className="flex h-28 w-full max-w-sm select-none items-center justify-center rounded-[var(--size-border-radius-border-radius-lg)] border border-dashed border-[var(--color-border-border-default)] font-body text-body-m text-[var(--color-text-text-subtler)]">
       {children}
     </ContextMenuTrigger>
   );
@@ -238,7 +238,7 @@ const SITE_ACTIONS = [
 export const WithVisibleAlternative: Story = {
   render: () => (
     <ContextMenu>
-      <ContextMenuTrigger className="flex w-full max-w-sm items-center justify-between gap-3 rounded-lg border border-solid border-[var(--color-border-border-default)] p-4">
+      <ContextMenuTrigger className="flex w-full max-w-sm items-center justify-between gap-3 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-default)] p-4">
         <span className="font-mono text-body-m text-[var(--color-text-text)]">shop.seashell.dev</span>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
