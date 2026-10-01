@@ -1,7 +1,7 @@
 import { createElement, Fragment, useEffect, useRef, useState } from 'react';
 import type { Preview } from '@storybook/react-vite';
 import { addons } from '@storybook/preview-api';
-import { themes } from '@storybook/theming';
+import { create, themes } from '@storybook/theming';
 import { DocsContainer, type DocsContainerProps } from '@storybook/addon-docs/blocks';
 import { Toaster } from '../src/components/ui/sonner';
 import '../src/styles/globals.css';
@@ -67,6 +67,18 @@ if (typeof document !== 'undefined') {
   channel.on(THEME_CHANGED, (theme: StorybookTheme) => applyPreviewTheme(theme));
 }
 
+// Docs page + story preview blocks sit on our own surface-base token, not
+// Storybook's built-in content color (#1b1c1d in its dark theme, so in
+// dark mode every component was previewed on a background it never ships
+// on). Docs render inside the preview iframe, where the token CSS vars are
+// defined, so the theme can reference them directly — an earlier attempt
+// set this from manager.ts, which has no access to the tokens.
+const SURFACE = 'var(--color-bg-surface-bg-surface-base)';
+const docsThemes = {
+  light: create({ ...themes.light, base: 'light', appContentBg: SURFACE, appPreviewBg: SURFACE }),
+  dark: create({ ...themes.dark, base: 'dark', appContentBg: SURFACE, appPreviewBg: SURFACE }),
+};
+
 function ThemedDocsContainer({ children, context }: DocsContainerProps) {
   const [theme, setTheme] = useState<StorybookTheme>(storedTheme);
 
@@ -80,7 +92,7 @@ function ThemedDocsContainer({ children, context }: DocsContainerProps) {
 
   return createElement(
     DocsContainer,
-    { context, theme: theme === 'dark' ? themes.dark : themes.light },
+    { context, theme: theme === 'dark' ? docsThemes.dark : docsThemes.light },
     children
   );
 }
