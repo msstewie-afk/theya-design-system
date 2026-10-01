@@ -24,6 +24,7 @@ const meta: Meta<typeof File> = {
     meta: { control: 'text', description: 'Secondary metadata, e.g. "Modified today".', table: { category: 'Content' } },
     pickLabel: { control: 'text', description: 'Label shown in the empty (dashed) tile. Default "Add file".', table: { category: 'Content' } },
     pickHint: { control: 'text', description: 'Optional secondary line under pickLabel in the empty tile, e.g. "PNG or JPG, up to 25 MB".', table: { category: 'Content' } },
+    replaceLabel: { control: 'text', description: 'Shown on hover/keyboard focus of a filled slot and read as its description. Default "Replace file".', table: { category: 'Content' } },
     error: { control: 'text', description: 'Error message; overrides meta when set.', table: { category: 'State' } },
     empty: { control: 'boolean', description: 'Starts the slot without file metadata (the dashed "add" tile).', table: { category: 'State' } },
     readOnly: { control: 'boolean', description: 'Presentation-only: the input remains mounted but cannot be activated.', table: { category: 'State' } },
@@ -282,5 +283,37 @@ export const SlotInForm: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Remove cover.png' }));
     await userEvent.click(canvas.getByRole('button', { name: 'Upload' }));
     await expect(await canvas.findByText('nothing', { selector: 'span.font-mono' })).toBeInTheDocument();
+  },
+};
+
+/**
+ * A filled slot is one big click target that opens the picker. While it's
+ * hovered or keyboard-focused, the meta line turns into "Replace file", and
+ * the same text is the control's accessible description — so nobody clicks
+ * a file card expecting to open it and gets a file dialog instead.
+ * `replaceLabel` localizes it.
+ */
+export const ReplaceHint: Story = {
+  args: { name: 'quarterly-report.pdf', size: 248000, type: 'application/pdf' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const card = canvas.getByRole('button', { name: 'quarterly-report.pdf' });
+    await expect(card).toHaveAccessibleDescription('Replace file');
+    const hint = canvas.getByText('Replace file');
+    const meta = canvas.getByText(/242 KB/);
+    await expect(hint).not.toBeVisible();
+    await expect(meta).toBeVisible();
+
+    // Keyboard focus on the card swaps the meta line for the hint.
+    await userEvent.tab();
+    await expect(card).toHaveFocus();
+    await waitFor(() => expect(hint).toBeVisible());
+    await expect(meta).not.toBeVisible();
+
+    // Focus on Remove is a different action — the hint goes away.
+    await userEvent.tab();
+    await expect(canvas.getByRole('button', { name: 'Remove quarterly-report.pdf' })).toHaveFocus();
+    await waitFor(() => expect(hint).not.toBeVisible());
+    await expect(meta).toBeVisible();
   },
 };
