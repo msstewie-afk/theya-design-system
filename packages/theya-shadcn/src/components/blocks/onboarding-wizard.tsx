@@ -1,4 +1,5 @@
 import { useState, useCallback, useId } from 'react';
+import type { UseFormReturn } from 'react-hook-form';
 import type { ReactNode } from 'react';
 import { ArrowLeft, ArrowRight, Check, Globe } from 'iconoir-react';
 import { useForm } from 'react-hook-form';
@@ -18,6 +19,12 @@ export interface WizardStep {
   label: string;
   description?: string;
   content?: ReactNode;
+  /**
+   * Runs on Next before leaving this step; return false (or resolve to
+   * false) to stay — e.g. `() => form.trigger()`. Without it, Next always
+   * advanced, so an empty required field was simply skipped.
+   */
+  validate?: () => boolean | Promise<boolean>;
 }
 
 export interface OnboardingWizardProps {
@@ -46,7 +53,7 @@ export interface OnboardingWizardProps {
 export function OnboardingWizard({
   title = 'Create a new site',
   description,
-  steps = DEFAULT_STEPS,
+  steps: stepsProp,
   current: controlledCurrent,
   onStepChange,
   onComplete,
@@ -56,6 +63,8 @@ export function OnboardingWizard({
   orientation = 'horizontal',
   className,
 }: OnboardingWizardProps) {
+  const defaultSteps = useDefaultSteps();
+  const steps = stepsProp ?? defaultSteps;
   const isControlled = controlledCurrent != null;
   const [uncontrolled, setUncontrolled] = useState(0);
   const total = steps.length;
@@ -68,17 +77,25 @@ export function OnboardingWizard({
 
   const headingId = useId();
   const panelLabelId = useId();
+  const nextId = useId();
 
   const goto = useCallback(
     (next: number) => {
       const clamped = Math.min(Math.max(next, 0), Math.max(total - 1, 0));
       if (!isControlled) setUncontrolled(clamped);
       onStepChange?.(clamped);
+      // Back to the first step disables Back, which drops its focus to
+      // <body> (WCAG 2.4.3). Land on Next instead.
+      requestAnimationFrame(() => {
+        const ae = document.activeElement as HTMLElement | null;
+        if (!ae || ae === document.body || (ae as HTMLButtonElement).disabled) document.getElementById(nextId)?.focus();
+      });
     },
-    [isControlled, onStepChange, total],
+    [isControlled, onStepChange, total, nextId],
   );
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    if (activeStep?.validate && !(await activeStep.validate())) return;
     if (isLast) {
       onComplete?.();
       return;
@@ -108,7 +125,14 @@ export function OnboardingWizard({
         <h3 id={panelLabelId} className="sr-only">
           {`Step ${currentIndex + 1} of ${total}: ${activeStep?.label ?? ''}`}
         </h3>
-        {activeStep?.content}
+        {/* Every step stays mounted, inactive ones hidden: rendering only the
+            active step's content unmounted the rest, so Back showed an
+            empty form and a picked plan reset. */}
+        {steps.map((step, i) => (
+          <div key={step.id ?? i} hidden={i !== currentIndex} className={i === currentIndex ? 'contents' : undefined}>
+            {step.content}
+          </div>
+        ))}
       </div>
 
       <Separator />
@@ -117,7 +141,7 @@ export function OnboardingWizard({
         <Button appearance="outlined" tone="secondary" size="2xl" disabled={isFirst} onClick={() => goto(currentIndex - 1)} className="max-sm:w-full" leftIcon={<ArrowLeft />}>
           {backLabel}
         </Button>
-        <Button appearance="filled" tone="primary" size="2xl" onClick={handleNext} className="max-sm:w-full" leftIcon={isLast ? <Check /> : undefined} rightIcon={!isLast ? <ArrowRight /> : undefined}>
+        <Button id={nextId} appearance="filled" tone="primary" size="2xl" onClick={handleNext} className="max-sm:w-full" leftIcon={isLast ? <Check /> : undefined} rightIcon={!isLast ? <ArrowRight /> : undefined}>
           {isLast ? completeLabel : nextLabel}
         </Button>
       </div>
@@ -135,16 +159,12 @@ const domainSchema = z.object({
 
 type DomainValues = z.infer<typeof domainSchema>;
 
-function DomainStep() {
-  const form = useForm<DomainValues>({
-    resolver: zodResolver(domainSchema),
-    defaultValues: { domain: '' },
-    mode: 'onTouched',
-  });
-
+function DomainStep({ form }: { form: UseFormReturn<DomainValues> }) {
   return (
     <Form {...form}>
-      <form className="flex flex-col gap-4" noValidate>
+      {/* No onSubmit used to mean Enter in the field did a native GET submit
+          and reloaded the page. */}
+      <form className="flex flex-col gap-4" noValidate onSubmit={(e) => e.preventDefault()}>
         <FormField
           control={form.control}
           name="domain"
@@ -181,9 +201,7 @@ const PLANS: { id: PlanId; title: string; price: string; description: string }[]
   { id: 'business', title: 'Business', price: '$60 / mo', description: 'Unlimited sites, 100 GB disk, priority support.' },
 ];
 
-function PlanStep() {
-  const [plan, setPlan] = useState<PlanId>('pro');
-
+function PlanStep({ plan, setPlan }: { plan: PlanId; setPlan: (plan: PlanId) => void }) {
   return (
     <fieldset className="min-w-0">
       <legend className="mb-3 font-body text-body-s font-medium text-[var(--color-text-text)]">Choose a plan</legend>
@@ -197,8 +215,9 @@ function PlanStep() {
   );
 }
 
-function ReviewStep() {
-  const selected = PLANS.find((p) => p.id === 'pro') ?? PLANS[0];
+function ReviewStep({ domain, plan }: { domain: string; plan: PlanId }) {
+  // Was hardcoded to shop.seashell.dev + Pro whatever the user entered.
+  const selected = PLANS.find((p) => p.id === plan) ?? PLANS[0];
 
   return (
     <div className="flex flex-col gap-4">
@@ -209,7 +228,7 @@ function ReviewStep() {
       <DescriptionList>
         <DescriptionItem>
           <DescriptionTerm>Domain</DescriptionTerm>
-          <DescriptionDetails className="font-mono">shop.seashell.dev</DescriptionDetails>
+          <DescriptionDetails className="font-mono">{domain.trim() || '—'}</DescriptionDetails>
         </DescriptionItem>
         <DescriptionItem>
           <DescriptionTerm>Plan</DescriptionTerm>
@@ -224,8 +243,22 @@ function ReviewStep() {
   );
 }
 
-const DEFAULT_STEPS: WizardStep[] = [
-  { id: 'domain', label: 'Domain', description: 'Name your site', content: <DomainStep /> },
-  { id: 'plan', label: 'Plan', description: 'Pick a tier', content: <PlanStep /> },
-  { id: 'review', label: 'Review', description: 'Confirm and create', content: <ReviewStep /> },
-];
+/**
+ * The seeded demo flow, with its state lifted here so the steps share it:
+ * Review shows what was actually entered, and Domain validates on Next.
+ * Always called (hook rules) — used only when no `steps` prop is passed.
+ */
+function useDefaultSteps(): WizardStep[] {
+  const form = useForm<DomainValues>({
+    resolver: zodResolver(domainSchema),
+    defaultValues: { domain: '' },
+    mode: 'onTouched',
+  });
+  const [plan, setPlan] = useState<PlanId>('pro');
+  const domain = form.watch('domain');
+  return [
+    { id: 'domain', label: 'Domain', description: 'Name your site', content: <DomainStep form={form} />, validate: () => form.trigger('domain', { shouldFocus: true }) },
+    { id: 'plan', label: 'Plan', description: 'Pick a tier', content: <PlanStep plan={plan} setPlan={setPlan} /> },
+    { id: 'review', label: 'Review', description: 'Confirm and create', content: <ReviewStep domain={domain} plan={plan} /> },
+  ];
+}
