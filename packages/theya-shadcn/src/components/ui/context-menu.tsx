@@ -13,6 +13,22 @@ import { Kbd } from './kbd';
  * Checkbox/Radio items, Sub menus, Label, Separator and Shortcut.
  */
 export const ContextMenu = ContextMenuPrimitive.Root;
+/**
+ * The right-click / long-press region. Deliberately NOT focusable: a
+ * trigger is usually a big area (a row, a card, a canvas), and making
+ * each one a Tab stop would flood keyboard navigation — while still not
+ * helping on macOS, which has no context-menu key.
+ *
+ * Rule (WCAG 2.1.1): a context menu is an accelerator, never the only
+ * path. Every action in it must also be reachable from a visible control
+ * — a "…" menu button, a toolbar, an inline button. DataTable's
+ * `rowMenu.contextual` follows this (the kebab column stays). See the
+ * WithVisibleAlternative story for the pattern.
+ *
+ * When a focusable element inside the region has focus, Shift+F10 / the
+ * Menu key (Windows) and VoiceOver's VO+Shift+M still open this menu: the
+ * browser fires `contextmenu` on the focused element and it bubbles here.
+ */
 export const ContextMenuTrigger = ContextMenuPrimitive.Trigger;
 export const ContextMenuGroup = ContextMenuPrimitive.Group;
 export const ContextMenuRadioGroup = ContextMenuPrimitive.RadioGroup;
