@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { DatePicker } from './date-picker';
 import { TimeField } from './time-field';
@@ -9,6 +9,14 @@ import { TimeField } from './time-field';
  * choosing a date keeps the current time, choosing a time applies it
  * to the chosen date (or today if none set yet). Stacks on a phone,
  * sits side by side from sm up.
+ *
+ * Date before time: the Date still needs *some* time, so it carries
+ * 00:00 — but the time field stays empty (placeholder) until the user
+ * picks a time, instead of showing a "12:00 AM" nobody chose. onChange's
+ * second argument says whether the time was actually set, so a form can
+ * ask for it rather than accept a silent midnight. A value that arrives
+ * from outside (value/defaultValue) counts as having its time set, so a
+ * real midnight still shows as 12:00 AM.
  */
 function pad(n: number) {
   return String(n).padStart(2, '0');
@@ -17,7 +25,8 @@ function pad(n: number) {
 export interface DateTimePickerProps {
   value?: Date;
   defaultValue?: Date;
-  onChange?: (value: Date | undefined) => void;
+  /** `timeSet` is false while only the date was picked — the Date then carries a placeholder 00:00. */
+  onChange?: (value: Date | undefined, meta: { timeSet: boolean }) => void;
   step?: number;
   hourCycle?: 12 | 24;
   datePlaceholder?: string;
@@ -57,23 +66,37 @@ export function DateTimePicker({
   const isControlled = value !== undefined;
   const [internal, setInternal] = useState<Date | undefined>(defaultValue);
   const current = isControlled ? value : internal;
+  const [timeSet, setTimeSet] = useState(() => (value ?? defaultValue) !== undefined);
 
-  const set = (next: Date | undefined) => {
+  // A controlled value we didn't emit came from the parent (a reset, a
+  // loaded record): treat its time as set, or unset if it's cleared.
+  // Adjusted during render (React's "storing info from previous renders"
+  // pattern) so the time field never flashes a stale state.
+  const emittedRef = useRef<Date | undefined>(undefined);
+  const [prevValue, setPrevValue] = useState(value);
+  if (isControlled && value !== prevValue) {
+    setPrevValue(value);
+    if (value !== emittedRef.current) setTimeSet(value !== undefined);
+  }
+
+  const set = (next: Date | undefined, nextTimeSet: boolean) => {
+    emittedRef.current = next;
+    setTimeSet(nextTimeSet);
     if (!isControlled) setInternal(next);
-    onChange?.(next);
+    onChange?.(next, { timeSet: nextTimeSet });
   };
 
-  const timeValue = current ? `${pad(current.getHours())}:${pad(current.getMinutes())}` : undefined;
+  const timeValue = current && timeSet ? `${pad(current.getHours())}:${pad(current.getMinutes())}` : undefined;
 
   const onDate = (d: Date | undefined) => {
     if (!d) {
-      set(undefined);
+      set(undefined, false);
       return;
     }
     const next = new Date(d);
-    if (current) next.setHours(current.getHours(), current.getMinutes(), 0, 0);
+    if (current && timeSet) next.setHours(current.getHours(), current.getMinutes(), 0, 0);
     else next.setHours(0, 0, 0, 0);
-    set(next);
+    set(next, timeSet);
   };
 
   const onTime = (t: string) => {
@@ -81,7 +104,7 @@ export function DateTimePicker({
     const [h, m] = t.split(':').map(Number);
     const base = current ? new Date(current) : new Date();
     base.setHours(h, m, 0, 0);
-    set(base);
+    set(base, true);
   };
 
   return (
