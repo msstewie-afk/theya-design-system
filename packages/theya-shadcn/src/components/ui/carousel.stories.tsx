@@ -254,6 +254,13 @@ export const WithIndicators: Story = {
     const canvas = within(canvasElement);
     const dots = within(canvas.getByRole('group', { name: 'Slides' }));
     await waitFor(() => expect(dots.getAllByRole('button')).toHaveLength(4));
+    // WCAG 2.5.8: every dot's hit area is at least 24x24, even though
+    // the drawn dot is 8px.
+    for (const dot of dots.getAllByRole('button')) {
+      const { width, height } = dot.getBoundingClientRect();
+      await expect(width).toBeGreaterThanOrEqual(24);
+      await expect(height).toBeGreaterThanOrEqual(24);
+    }
     await expect(dots.getByRole('button', { name: 'Go to slide 1' })).toHaveAttribute('aria-current', 'true');
 
     await userEvent.click(dots.getByRole('button', { name: 'Go to slide 3' }));
