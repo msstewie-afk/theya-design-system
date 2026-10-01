@@ -28,7 +28,7 @@ export const DrawerClose = DrawerPrimitive.Close;
 // forwardRef: Radix's Portal hands each child a ref (asChild + Presence) to
 // track its exit animation; as a plain function this dropped it under React 18.
 export const DrawerOverlay = forwardRef<React.ElementRef<typeof DrawerPrimitive.Overlay>, React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>>(function DrawerOverlay({ className, ...props }, ref) {
-  return <DrawerPrimitive.Overlay ref={ref} className={cn('fixed inset-0 z-50 bg-black/40', className)} {...props} />;
+  return <DrawerPrimitive.Overlay ref={ref} className={cn('fixed inset-0 z-drawer bg-black/40', className)} {...props} />;
 });
 
 export interface DrawerContentProps extends React.ComponentProps<typeof DrawerPrimitive.Content> {
@@ -42,7 +42,7 @@ export function DrawerContent({ className, children, width = 'full', ...props }:
       <DrawerOverlay />
       <DrawerPrimitive.Content
         className={cn(
-          'fixed z-50 flex flex-col bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-elevation-xl outline-none',
+          'fixed z-drawer flex flex-col bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-elevation-xl outline-none',
           'group/drawer-content',
           'data-[vaul-drawer-direction=bottom]:inset-x-0 data-[vaul-drawer-direction=bottom]:bottom-0',
           'data-[vaul-drawer-direction=bottom]:max-h-[92svh] data-[vaul-drawer-direction=bottom]:rounded-t-[var(--size-border-radius-border-radius-3xl)]',

@@ -57,6 +57,10 @@ export function Toaster({ closeButton = true, dark = false, position = 'bottom-r
               }),
           '--border-radius': 'var(--size-border-radius-border-radius-2xl)',
           '--toast-close-button-transform': 'translateY(-50%)',
+          // Sonner pins its <ol> at z-index 999999999, above everything incl.
+          // tooltips; put it on the shared layering scale instead (inline
+          // style beats its stylesheet). Fallback = the token's value.
+          zIndex: 'var(--z-index-toast, 600)',
         } as React.CSSProperties
       }
       toastOptions={{

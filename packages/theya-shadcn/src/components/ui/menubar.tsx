@@ -64,7 +64,7 @@ export function MenubarContent({
         alignOffset={alignOffset}
         sideOffset={sideOffset}
         className={cn(
-          'z-50 min-w-[12rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
+          'z-popover min-w-[12rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
           'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-elevation-lg',
           'text-[var(--color-text-text)]',
           'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
@@ -190,7 +190,7 @@ export function MenubarSubContent({ className, ...props }: React.ComponentProps<
     <MenubarPrimitive.Portal>
       <MenubarPrimitive.SubContent
         className={cn(
-          'z-50 min-w-[10rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
+          'z-popover min-w-[10rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
           'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-elevation-lg',
           'text-[var(--color-text-text)]',
           'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',

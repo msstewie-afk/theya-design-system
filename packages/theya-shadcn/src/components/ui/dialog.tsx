@@ -27,7 +27,7 @@ export const DialogOverlay = forwardRef<React.ElementRef<typeof DialogPrimitive.
     <DialogPrimitive.Overlay
       ref={ref}
       className={cn(
-        'fixed inset-0 z-50 bg-black/40 backdrop-blur-[1px]',
+        'fixed inset-0 z-overlay bg-black/40 backdrop-blur-[1px]',
         'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
         'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         className,
@@ -43,7 +43,7 @@ const dialogContentVariants = cva(
     // container the auto track would otherwise grow to the widest child's
     // max-content (a long description on one line, a rigid field row),
     // pushing content past `max-w-lg` and clipping it on the right.
-    'fixed z-50 border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-0 text-[var(--color-text-text)] shadow-elevation-xl [&>*]:min-w-0',
+    'fixed z-modal border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-0 text-[var(--color-text-text)] shadow-elevation-xl [&>*]:min-w-0',
     'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
     'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
     'data-[state=open]:duration-moderate data-[state=open]:ease-enter data-[state=closed]:duration-standard data-[state=closed]:ease-exit',

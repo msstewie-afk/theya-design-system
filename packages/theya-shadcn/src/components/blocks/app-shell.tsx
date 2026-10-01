@@ -132,7 +132,7 @@ export function AppShell({
   return (
     <SidebarProvider defaultCollapsed={defaultCollapsed}>
       <a href="#main-content"
-        className="sr-only rounded-[var(--size-border-radius-border-radius-md)] focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-50 focus:border focus:border-solid focus:border-[var(--color-border-border-subtle)] focus:bg-[var(--color-bg-surface-bg-surface)] focus:px-3 focus:py-2 focus:font-body focus:text-body-s focus:font-medium focus:text-[var(--color-text-text)] focus:shadow-elevation-md focus:outline-none focus:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]"
+        className="sr-only rounded-[var(--size-border-radius-border-radius-md)] focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-tooltip focus:border focus:border-solid focus:border-[var(--color-border-border-subtle)] focus:bg-[var(--color-bg-surface-bg-surface)] focus:px-3 focus:py-2 focus:font-body focus:text-body-s focus:font-medium focus:text-[var(--color-text-text)] focus:shadow-elevation-md focus:outline-none focus:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]"
       >
         Skip to main content
       </a>

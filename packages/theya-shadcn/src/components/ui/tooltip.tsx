@@ -57,7 +57,7 @@ export function TooltipContent({
       <TooltipPrimitive.Content
         sideOffset={sideOffset}
         className={cn(
-          'z-50 w-fit max-w-[600px] break-words rounded-[var(--size-border-radius-border-radius-md)]',
+          'z-tooltip w-fit max-w-[600px] break-words rounded-[var(--size-border-radius-border-radius-md)]',
           'px-2.5 py-1.5 font-body text-body-xs shadow-elevation-md',
           toneClass.surface,
           'data-[state=delayed-open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',

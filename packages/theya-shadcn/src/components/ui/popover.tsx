@@ -53,7 +53,7 @@ function PopoverContent({
         sideOffset={sideOffset}
         aria-labelledby={labelledBy}
         className={cn(
-          'z-50 w-72 outline-none',
+          'z-popover w-72 outline-none',
           'rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
           'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)]',
           'p-[var(--size-margin-margin-lg)] shadow-elevation-lg text-[var(--color-text-text)]',
