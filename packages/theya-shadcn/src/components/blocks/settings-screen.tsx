@@ -81,27 +81,37 @@ export interface SettingsScreenProps extends Omit<React.ComponentProps<'div'>, '
   /** Fired when a notification switch is flipped ("changes apply immediately" — persist it here). */
   onNotificationChange?: (id: string, checked: boolean) => void;
   onDeleteAccount?: () => void;
+  /**
+   * Prefix for the section ids (profile, security, notifications, danger).
+   * They stay readable by default so links like `/settings#security` keep
+   * working; set a prefix only when two SettingsScreens share a page, so
+   * their anchors don't collide.
+   */
+  idPrefix?: string;
+  /** Accessible name of the section nav. Give each screen its own when two share a page (landmarks must be distinguishable). Default "Settings sections". */
+  navLabel?: string;
 }
 
-export function SettingsScreen({ className, account = DEFAULT_ACCOUNT, recoveryCode = DEFAULT_RECOVERY_CODE, notifications = DEFAULT_NOTIFICATIONS, onSaveProfile, onChangePassword, onEnableTwoFactor, twoFactorEnabled = false, onRegenerateRecoveryCode, onNotificationChange, onDeleteAccount, ...props }: SettingsScreenProps) {
+export function SettingsScreen({ className, account = DEFAULT_ACCOUNT, recoveryCode = DEFAULT_RECOVERY_CODE, notifications = DEFAULT_NOTIFICATIONS, onSaveProfile, onChangePassword, onEnableTwoFactor, twoFactorEnabled = false, onRegenerateRecoveryCode, onNotificationChange, onDeleteAccount, idPrefix = '', navLabel = 'Settings sections', ...props }: SettingsScreenProps) {
   const showNotifications = notifications.length > 0;
-  const sections = ALL_SECTIONS.filter((s) => s.id !== 'notifications' || showNotifications);
+  const sections = ALL_SECTIONS.filter((s) => s.id !== 'notifications' || showNotifications).map((s) => ({ ...s, id: `${idPrefix}${s.id}` }));
   const activeId = useActiveSection(sections.map((s) => s.id));
 
   return (
     <div className={cn('grid gap-6 lg:grid-cols-[200px_1fr] lg:gap-8', className)} {...props}>
-      <SectionNav sections={sections} activeId={activeId} />
+      <SectionNav sections={sections} activeId={activeId} label={navLabel} />
       <div className="flex min-w-0 flex-col gap-10">
-        <ProfileSection account={account} onSaveProfile={onSaveProfile} />
+        <ProfileSection id={`${idPrefix}profile`} account={account} onSaveProfile={onSaveProfile} />
         <SecuritySection
+          id={`${idPrefix}security`}
           recoveryCode={recoveryCode}
           twoFactorEnabled={twoFactorEnabled}
           onChangePassword={onChangePassword}
           onEnableTwoFactor={onEnableTwoFactor}
           onRegenerateRecoveryCode={onRegenerateRecoveryCode}
         />
-        {showNotifications && <NotificationsSection notifications={notifications} onChange={onNotificationChange} />}
-        <DangerSection email={account.email} onDeleteAccount={onDeleteAccount} />
+        {showNotifications && <NotificationsSection id={`${idPrefix}notifications`} notifications={notifications} onChange={onNotificationChange} />}
+        <DangerSection id={`${idPrefix}danger`} email={account.email} onDeleteAccount={onDeleteAccount} />
       </div>
       <ScrollButtons />
     </div>
@@ -257,9 +267,9 @@ function useActiveSection(ids: string[]) {
  * SidebarItem's visual language (size, radius, hover, active treatment)
  * rather than inventing its own.
  */
-function SectionNav({ sections, activeId }: { sections: ReadonlyArray<{ id: string; label: string }>; activeId?: string }) {
+function SectionNav({ sections, activeId, label }: { sections: ReadonlyArray<{ id: string; label: string }>; activeId?: string; label: string }) {
   return (
-    <nav aria-label="Settings sections" className="hidden lg:block">
+    <nav aria-label={label} className="hidden lg:block">
       <ul className="sticky top-6 flex flex-col gap-0.5">
         {sections.map((s) => {
           const active = s.id === activeId;
@@ -287,7 +297,7 @@ function SectionNav({ sections, activeId }: { sections: ReadonlyArray<{ id: stri
   );
 }
 
-function ProfileSection({ account, onSaveProfile }: { account: SettingsAccount; onSaveProfile?: FormEventHandler<HTMLFormElement> }) {
+function ProfileSection({ id, account, onSaveProfile }: { id: string; account: SettingsAccount; onSaveProfile?: FormEventHandler<HTMLFormElement> }) {
   const fullNameId = useId();
   const emailId = useId();
 
@@ -301,7 +311,7 @@ function ProfileSection({ account, onSaveProfile }: { account: SettingsAccount; 
   };
 
   return (
-    <div id="profile" className="scroll-mt-6 flex flex-col gap-6">
+    <div id={id} className="scroll-mt-6 flex flex-col gap-6">
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <div className="min-w-0">
           <h2 className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">Profile</h2>
@@ -337,12 +347,14 @@ function demoRecoveryCode(): string {
 }
 
 function SecuritySection({
+  id,
   recoveryCode,
   twoFactorEnabled,
   onChangePassword,
   onEnableTwoFactor,
   onRegenerateRecoveryCode,
 }: {
+  id: string;
   recoveryCode: string;
   twoFactorEnabled: boolean;
   onChangePassword?: FormEventHandler<HTMLFormElement>;
@@ -401,7 +413,7 @@ function SecuritySection({
   };
 
   return (
-    <div id="security" className="scroll-mt-6 flex flex-col gap-6">
+    <div id={id} className="scroll-mt-6 flex flex-col gap-6">
       <div className="min-w-0">
         <h2 className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">Security</h2>
         <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Change your password and manage two-factor authentication.</p>
@@ -527,9 +539,12 @@ function SecuritySection({
   );
 }
 
-function NotificationsSection({ notifications, onChange }: { notifications: SettingsNotification[]; onChange?: (id: string, checked: boolean) => void }) {
+function NotificationsSection({ id, notifications, onChange }: { id: string; notifications: SettingsNotification[]; onChange?: (id: string, checked: boolean) => void }) {
+  // Switch ids from useId: the raw row ids ("deploy-failures") were global
+  // and collided with a second SettingsScreen or any same-named element.
+  const uid = useId();
   return (
-    <div id="notifications" className="scroll-mt-6 flex flex-col gap-6">
+    <div id={id} className="scroll-mt-6 flex flex-col gap-6">
       <div className="min-w-0">
         <h2 className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">Notifications</h2>
         <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Choose which account events email you. Changes apply immediately.</p>
@@ -538,12 +553,12 @@ function NotificationsSection({ notifications, onChange }: { notifications: Sett
         {notifications.map((row, i) => (
           <div key={row.id} className={cn('flex items-start justify-between gap-4 py-4', i > 0 && 'border-t border-solid border-[var(--color-border-border-subtle)]', i === 0 && 'pt-0', i === notifications.length - 1 && 'pb-0')}>
             <div className="min-w-0">
-              <Label htmlFor={row.id} className="font-medium">
+              <Label htmlFor={`${uid}-${row.id}`} className="font-medium">
                 {row.label}
               </Label>
               <p className="mt-0.5 font-body text-body-s text-[var(--color-text-text-subtler)]">{row.helper}</p>
             </div>
-            <Switch id={row.id} defaultChecked={row.defaultChecked} aria-label={row.label} onCheckedChange={(checked) => onChange?.(row.id, checked)} className="mt-0.5 shrink-0" />
+            <Switch id={`${uid}-${row.id}`} defaultChecked={row.defaultChecked} aria-label={row.label} onCheckedChange={(checked) => onChange?.(row.id, checked)} className="mt-0.5 shrink-0" />
           </div>
         ))}
       </div>
@@ -551,7 +566,7 @@ function NotificationsSection({ notifications, onChange }: { notifications: Sett
   );
 }
 
-function DangerSection({ email, onDeleteAccount }: { email: string; onDeleteAccount?: () => void }) {
+function DangerSection({ id, email, onDeleteAccount }: { id: string; email: string; onDeleteAccount?: () => void }) {
   const handleDelete = () => {
     if (onDeleteAccount) {
       onDeleteAccount();
@@ -565,7 +580,7 @@ function DangerSection({ email, onDeleteAccount }: { email: string; onDeleteAcco
   };
 
   return (
-    <div id="danger" className="scroll-mt-6 flex flex-col gap-6">
+    <div id={id} className="scroll-mt-6 flex flex-col gap-6">
       <div className="min-w-0">
         <h2 className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">Danger zone</h2>
         <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Deleting your account removes every site, database and backup. This cannot be undone after the recovery window.</p>
