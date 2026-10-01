@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { DateTimePicker } from './date-time-picker';
 import { Label } from './label';
 
@@ -19,7 +19,7 @@ const meta: Meta<typeof DateTimePicker> = {
   },
   argTypes: {
     value: { control: false, description: 'Controlled combined date+time value.' },
-    onChange: { control: false, description: 'Fires with the new combined date+time value.' },
+    onChange: { control: false, description: 'Fires with the new combined date+time value and `{ timeSet }` — false while only the date was picked (the Date then carries a placeholder 00:00).' },
     hourCycle: { control: 'inline-radio', options: [12, 24], description: '12-hour (AM/PM) or 24-hour time labels.', table: { category: 'Appearance' } },
     showClear: { control: 'boolean', description: 'Show a clear button in the date field.', table: { category: 'Appearance' } },
     disabled: { control: 'boolean', description: 'Disables the date and time fields.', table: { category: 'State' } },
@@ -60,7 +60,17 @@ async function pickDay(trigger: HTMLElement, days: number) {
 
 function ControlledDemo(args: React.ComponentProps<typeof DateTimePicker>) {
   const [value, setValue] = useState<Date | undefined>();
-  return <DateTimePicker {...args} value={value} onChange={setValue} aria-label="Appointment" />;
+  return (
+    <DateTimePicker
+      {...args}
+      value={value}
+      onChange={(next, meta) => {
+        setValue(next);
+        args.onChange?.(next, meta);
+      }}
+      aria-label="Appointment"
+    />
+  );
 }
 
 /** Empty: pick a date, then a time. */
@@ -163,5 +173,39 @@ export const Invalid: Story = {
     await expect(date).toHaveAttribute('aria-invalid', 'true');
     await expect(time).toHaveAttribute('aria-invalid', 'true');
     await expect(time).toHaveAccessibleDescription('That slot is already booked.');
+  },
+};
+
+/**
+ * Date before time: the time field stays empty instead of showing a
+ * "12:00 AM" nobody picked, and onChange reports `timeSet: false` so a
+ * form can ask for the time.
+ */
+export const DateFirst: Story = {
+  args: { onChange: fn() },
+  render: (args) => <ControlledDemo {...args} />,
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const date = canvas.getByRole('button', { name: 'Appointment' });
+    const time = canvas.getByRole('combobox', { name: 'Appointment time' });
+
+    await pickDay(date, 1);
+    await expect(time).toHaveValue('');
+    await expect(args.onChange).toHaveBeenLastCalledWith(expect.any(Date), { timeSet: false });
+
+    await pickTime(time, '9:00 AM');
+    await expect(time).toHaveValue('9:00 AM');
+    await expect(args.onChange).toHaveBeenLastCalledWith(expect.any(Date), { timeSet: true });
+    const [picked] = (args.onChange as ReturnType<typeof fn>).mock.lastCall!;
+    await expect([picked.getHours(), picked.getMinutes()]).toEqual([9, 0]);
+  },
+};
+
+/** A real midnight that comes in from outside is a chosen time — it shows. */
+export const PreselectedMidnight: Story = {
+  args: { defaultValue: new Date(2026, 6, 18, 0, 0), 'aria-label': 'Appointment' },
+  play: async ({ canvasElement }) => {
+    const time = within(canvasElement).getByRole('combobox', { name: 'Appointment time' });
+    await expect(time).toHaveValue('12:00 AM');
   },
 };
