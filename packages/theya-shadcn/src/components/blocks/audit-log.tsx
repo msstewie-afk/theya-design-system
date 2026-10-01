@@ -132,10 +132,16 @@ export function AuditLog({
   });
 
   const hasFilters = q.length > 0 || selectedCats.length > 0 || !!range?.from;
+  // Both "Clear filters" buttons unmount once nothing is filtered, which
+  // dropped focus to <body> (WCAG 2.4.3). Land it on the search box —
+  // the start of the filter row, where the user is likely to go next.
   const clearFilters = () => {
     setQuery('');
     setSelectedCats([]);
     setRange(undefined);
+    // By id, not a ref: InputGroupInput is a plain function component
+    // and drops `ref` under React 18.
+    document.getElementById(searchId)?.focus();
   };
 
   return (
@@ -219,7 +225,7 @@ export function AuditLog({
           ) : (
             <>
               <span className="tabular-nums">{filtered.length}</span> {filtered.length === 1 ? 'event' : 'events'}
-              {hasFilters ? ' match your filters' : ''}
+              {hasFilters ? (filtered.length === 1 ? ' matches your filters' : ' match your filters') : ''}
             </>
           )}
         </p>
