@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Trash, Xmark } from 'iconoir-react';
 import { Button } from './button';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from './dropdown-menu';
+import { KebabIconHorizontal } from './kebab-icon';
 import {
   ContextMenu,
   ContextMenuTrigger,
@@ -29,7 +31,8 @@ const meta: Meta<typeof ContextMenu> = {
     docs: {
       description: {
         component:
-          'Compositional — ContextMenu (Root) itself takes only open/onOpenChange/modal/dir. Build the menu from ContextMenuContent/Item/CheckboxItem/RadioItem/Label/Separator/Sub*.',
+          'Compositional — ContextMenu (Root) itself takes only open/onOpenChange/modal/dir. Build the menu from ContextMenuContent/Item/CheckboxItem/RadioItem/Label/Separator/Sub*.\n\n' +
+          '**Rule: a context menu is an accelerator, never the only path.** The trigger region is not focusable, so keyboard users (and touch users who never long-press) can only reach these actions another way. Every item must also live in a visible control — a "…" menu button, a toolbar, an inline button. See *With Visible Alternative*.',
       },
     },
   },
@@ -220,4 +223,71 @@ export const WithDisabledItem: Story = {
       </ContextMenuContent>
     </ContextMenu>
   ),
+};
+
+const SITE_ACTIONS = [
+  { label: 'Open site' },
+  { label: 'Clear cache' },
+  { label: 'Delete site', danger: true },
+] as const;
+
+/**
+ * The required pattern: right-click is a shortcut, the "…" button is the
+ * path everyone can reach. Both menus list the same actions.
+ */
+export const WithVisibleAlternative: Story = {
+  render: () => (
+    <ContextMenu>
+      <ContextMenuTrigger className="flex w-full max-w-sm items-center justify-between gap-3 rounded-lg border border-solid border-[var(--color-border-border-default)] p-4">
+        <span className="font-mono text-body-m text-[var(--color-text-text)]">shop.seashell.dev</span>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button appearance="ghost" tone="secondary" size="md" iconOnly leftIcon={<KebabIconHorizontal />} aria-label="Actions for shop.seashell.dev" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {SITE_ACTIONS.map((a) => (
+              <DropdownMenuItem key={a.label} tone={'danger' in a ? 'danger' : undefined}>
+                {'danger' in a && <Trash />}
+                {a.label}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </ContextMenuTrigger>
+      <ContextMenuContent>
+        {SITE_ACTIONS.map((a, i) => (
+          <Fragment key={a.label}>
+            {'danger' in a && i > 0 && <ContextMenuSeparator />}
+            <ContextMenuItem tone={'danger' in a ? 'danger' : 'neutral'}>
+              {'danger' in a && <Trash />}
+              {a.label}
+            </ContextMenuItem>
+          </Fragment>
+        ))}
+      </ContextMenuContent>
+    </ContextMenu>
+  ),
+  play: async ({ canvasElement }) => {
+    const page = within(document.body);
+    const canvas = within(canvasElement);
+    const names = SITE_ACTIONS.map((a) => a.label);
+
+    // Keyboard only: Tab reaches the "…" button, Enter opens the same actions.
+    await userEvent.tab();
+    const more = canvas.getByRole('button', { name: 'Actions for shop.seashell.dev' });
+    await expect(more).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    const dropdown = await page.findByRole('menu');
+    await expect(within(dropdown).getAllByRole('menuitem').map((el) => el.textContent?.trim())).toEqual(names);
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(page.queryByRole('menu')).toBeNull());
+    await waitFor(() => expect(more).toHaveFocus());
+
+    // Right-click on the card offers exactly the same set.
+    await userEvent.pointer({ keys: '[MouseRight]', target: canvas.getByText('shop.seashell.dev') });
+    const context = await page.findByRole('menu');
+    await expect(within(context).getAllByRole('menuitem').map((el) => el.textContent?.trim())).toEqual(names);
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(page.queryByRole('menu')).toBeNull());
+  },
 };
