@@ -1,4 +1,5 @@
-import { forwardRef, useId, useEffect } from 'react';
+import { forwardRef, useId } from 'react';
+import { useMissingNameWarning } from '@/lib/a11y-dev';
 import type { TextareaHTMLAttributes, ReactNode } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
@@ -142,17 +143,10 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
   const hasError = Boolean(error);
   const errorMessage = error !== true ? error : undefined;
 
-  if (process.env.NODE_ENV !== 'production') {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (!label && !ariaLabel) {
-        console.warn('[TextArea] Missing accessible name: pass `label` or `aria-label`.');
-      }
-    }, [label, ariaLabel]);
-  }
 
   const generatedId = useId();
   const resolvedId = id ?? generatedId;
+  useMissingNameWarning('TextArea', resolvedId);
   const messageId = errorMessage || description ? `${resolvedId}-message` : undefined;
 
   const field = (

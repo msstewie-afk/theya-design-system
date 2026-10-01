@@ -1,4 +1,5 @@
-import { forwardRef, useId, useEffect } from 'react';
+import { forwardRef, useId } from 'react';
+import { useMissingNameWarning } from '@/lib/a11y-dev';
 import type { ComponentPropsWithoutRef, ElementRef, ReactNode } from 'react';
 import * as SwitchPrimitive from '@radix-ui/react-switch';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -89,17 +90,10 @@ export const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, Switch
     },
     ref,
   ) {
-    if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useEffect(() => {
-        if (!label && !ariaLabel) {
-          console.warn('[Switch] Missing accessible name: pass `label` or `aria-label`.');
-        }
-      }, [label, ariaLabel]);
-    }
 
     const generatedId = useId();
     const resolvedId = id ?? generatedId;
+    useMissingNameWarning('Switch', resolvedId);
     const descriptionId = description ? `${resolvedId}-description` : undefined;
 
     const track = (

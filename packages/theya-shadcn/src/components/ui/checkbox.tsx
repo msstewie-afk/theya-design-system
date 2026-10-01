@@ -1,4 +1,5 @@
-import { forwardRef, useId, useEffect } from 'react';
+import { forwardRef, useId } from 'react';
+import { useMissingNameWarning } from '@/lib/a11y-dev';
 import type { ComponentPropsWithoutRef, ElementRef, ReactNode } from 'react';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -144,25 +145,13 @@ export const Checkbox = forwardRef<ElementRef<typeof CheckboxPrimitive.Root>, Ch
     },
     ref,
   ) {
-    // Dev-only warning for a checkbox with no accessible name at all —
-    // mirrors the iconOnly-without-aria-label warning added to Button.
-    if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useEffect(() => {
-        if (!label && !ariaLabel && !ariaLabelledBy) {
-          console.warn(
-            '[Checkbox] Missing accessible name: pass `label`, `aria-label`, or ' +
-              '`aria-labelledby` so screen reader users know what this checkbox does.',
-          );
-        }
-      }, [label, ariaLabel, ariaLabelledBy]);
-    }
 
     const resolvedChecked = indeterminate ? 'indeterminate' : checked;
     const iconSize = size === 'sm' ? 12 : 16;
 
     const generatedId = useId();
     const resolvedId = id ?? generatedId;
+    useMissingNameWarning('Checkbox', resolvedId);
     const descriptionId = description ? `${resolvedId}-description` : undefined;
 
     const box = (

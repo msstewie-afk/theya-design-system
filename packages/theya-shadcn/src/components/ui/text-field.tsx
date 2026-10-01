@@ -1,4 +1,5 @@
-import { forwardRef, useId, useEffect, useRef, useState, useCallback } from 'react';
+import { forwardRef, useId, useRef, useState, useCallback } from 'react';
+import { useMissingNameWarning } from '@/lib/a11y-dev';
 import type { ReactNode } from 'react';
 import { Xmark, Check } from 'iconoir-react';
 import { cn } from '@/lib/utils';
@@ -85,17 +86,10 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
   const errorMessage = error !== true ? error : undefined;
   const successMessage = success !== true ? success : undefined;
 
-  if (process.env.NODE_ENV !== 'production') {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (!label && !ariaLabel) {
-        console.warn('[TextField] Missing accessible name: pass `label` or `aria-label`.');
-      }
-    }, [label, ariaLabel]);
-  }
 
   const generatedId = useId();
   const resolvedId = id ?? generatedId;
+  useMissingNameWarning('TextField', resolvedId);
   const messageId = errorMessage || successMessage || description ? `${resolvedId}-message` : undefined;
 
   const innerRef = useRef<HTMLInputElement | null>(null);

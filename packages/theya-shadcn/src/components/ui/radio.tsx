@@ -1,4 +1,5 @@
-import { forwardRef, useId, useEffect } from 'react';
+import { forwardRef, useId } from 'react';
+import { useMissingNameWarning } from '@/lib/a11y-dev';
 import type { ComponentPropsWithoutRef, ElementRef, ReactNode } from 'react';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import { cn } from '@/lib/utils';
@@ -17,17 +18,10 @@ export const Radio = forwardRef<ElementRef<typeof RadioGroupPrimitive.Item>, Rad
     { label, description, disabled, className, id, 'aria-label': ariaLabel, ...rest },
     ref,
   ) {
-    if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useEffect(() => {
-        if (!label && !ariaLabel) {
-          console.warn('[Radio] Missing accessible name: pass `label` or `aria-label`.');
-        }
-      }, [label, ariaLabel]);
-    }
 
     const generatedId = useId();
     const resolvedId = id ?? generatedId;
+    useMissingNameWarning('Radio', resolvedId);
     const descriptionId = description ? `${resolvedId}-description` : undefined;
 
     const box = (
