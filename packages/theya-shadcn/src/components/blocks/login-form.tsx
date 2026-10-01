@@ -1,4 +1,5 @@
-import type { ComponentProps, FormEventHandler, MouseEvent } from 'react';
+import { useId, useState } from 'react';
+import type { ComponentProps, FormEventHandler } from 'react';
 import { Github } from 'iconoir-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,10 +16,10 @@ import { cn } from '@/lib/utils';
  * `onSubmit` to your auth action and the `*Href` props to your real
  * routes. For 2FA, follow this with InputOTP.
  *
- * Our Button always renders a native type="button" (its own `type`
- * prop means visual variant, not the HTML attribute), so the submit
- * button here calls form.requestSubmit() explicitly instead of
- * relying on native type="submit" form association.
+ * Validates before `onSubmit`: an empty or malformed email and an empty
+ * password show errors on the fields, focus the first one, and don't
+ * reach `onSubmit` (the form is `noValidate`, so it used to submit
+ * empty credentials with no feedback at all).
  */
 export interface LoginFormProps extends Omit<ComponentProps<'div'>, 'onSubmit'> {
   onSubmit?: FormEventHandler<HTMLFormElement>;
@@ -28,30 +29,60 @@ export interface LoginFormProps extends Omit<ComponentProps<'div'>, 'onSubmit'> 
   signupHref?: string;
   /** Show the "or continue with" single sign-on row. */
   showSso?: boolean;
+  /** Fired by "Continue with GitHub" (it had no handler, so it did nothing). */
+  onSso?: () => void;
   /** Wrap the fields in a bordered Card. Turn off when the form already sits in its own visually distinct area (e.g. the right pane of `LoginFormSplit`) — a Card there is a boundary around a boundary. */
   card?: boolean;
 }
 
-export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref = '#', signupHref = '#', showSso = true, card = true, ...props }: LoginFormProps) {
+export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref = '#', signupHref = '#', showSso = true, onSso, card = true, ...props }: LoginFormProps) {
+  // Per-instance ids: the fixed "login-email"/"login-password" collided
+  // when two forms shared a page (e.g. LoginForm + LoginFormSplit in Docs).
+  const uid = useId();
+  const emailId = `${uid}-email`;
+  const passwordId = `${uid}-password`;
+  const rememberId = `${uid}-remember`;
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    const data = new FormData(e.currentTarget);
+    const email = String(data.get('email') ?? '').trim();
+    const password = String(data.get('password') ?? '');
+    const next = {
+      email: !email ? 'Enter your email.' : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'Enter a valid email address.' : undefined,
+      password: password ? undefined : 'Enter your password.',
+    };
+    setErrors(next);
+    if (next.email || next.password) {
+      e.preventDefault();
+      document.getElementById(next.email ? emailId : passwordId)?.focus();
+      return;
+    }
     if (onSubmit) onSubmit(e);
     else e.preventDefault();
-  };
-
-  const submitForm = (event: MouseEvent<HTMLButtonElement>) => {
-    event.currentTarget.closest('form')?.requestSubmit();
   };
 
   const fields = (
     <>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="login-email">Email</Label>
-        <TextField id="login-email" name="email" type="email" inputMode="email" autoComplete="email" placeholder="you@seashell.dev" required widthSize="full" />
+        <Label htmlFor={emailId}>Email</Label>
+        <TextField
+          id={emailId}
+          name="email"
+          type="email"
+          inputMode="email"
+          autoComplete="email"
+          placeholder="you@seashell.dev"
+          required
+          widthSize="full"
+          error={errors.email}
+          onChange={() => errors.email && setErrors((p) => ({ ...p, email: undefined }))}
+        />
       </div>
 
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <Label htmlFor="login-password">Password</Label>
+          <Label htmlFor={passwordId}>Password</Label>
           <a
             href={forgotHref}
             className="rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]"
@@ -59,17 +90,26 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
             Forgot password?
           </a>
         </div>
-        <TextField id="login-password" name="password" type="password" autoComplete="current-password" required widthSize="full" />
+        <TextField
+          id={passwordId}
+          name="password"
+          type="password"
+          autoComplete="current-password"
+          required
+          widthSize="full"
+          error={errors.password}
+          onChange={() => errors.password && setErrors((p) => ({ ...p, password: undefined }))}
+        />
       </div>
 
       <div className="flex items-center gap-2">
-        <Checkbox id="login-remember" name="remember" defaultChecked />
-        <Label htmlFor="login-remember" className="font-normal text-[var(--color-text-text-subtler)]">
+        <Checkbox id={rememberId} name="remember" defaultChecked />
+        <Label htmlFor={rememberId} className="font-normal text-[var(--color-text-text-subtler)]">
           Keep me signed in for 30 days
         </Label>
       </div>
 
-      <Button appearance="filled" tone="primary" size="2xl" className="w-full" onClick={submitForm}>
+      <Button type="submit" appearance="filled" tone="primary" size="2xl" className="w-full">
         Sign in
       </Button>
 
@@ -80,7 +120,7 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
             <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">or continue with</span>
             <Separator className="flex-1" />
           </div>
-          <Button appearance="outlined" tone="secondary" size="2xl" className="w-full" leftIcon={<Github />}>
+          <Button appearance="outlined" tone="secondary" size="2xl" className="w-full" leftIcon={<Github />} onClick={onSso}>
             Continue with GitHub
           </Button>
         </>
