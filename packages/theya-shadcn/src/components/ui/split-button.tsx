@@ -19,8 +19,8 @@ const MENU_SIZE: Record<NonNullable<ButtonProps['size']>, DropdownMenuSize> = {
  * Not in the reference repo — built from scratch by composing our own
  * Button (main action) + a slim icon-only caret Button that opens a
  * DropdownMenu of secondary actions. Both halves share appearance/tone/size
- * so they read as one control; only the divider and independent hover/
- * focus states reveal the seam.
+ * so they read as one control; only the 2px gap (a hairline for ghost)
+ * and independent hover/focus states reveal the seam.
  *
  * The menu's item text size is synced to `size` too, via
  * DropdownMenuContent's own `size` prop. `leftIcon`/`rightIcon` pass
@@ -52,7 +52,16 @@ export function SplitButton({
   ...props
 }: SplitButtonProps) {
   return (
-    <div className={cn('inline-flex', className)}>
+    // Filled/tonal/outlined halves are split by a real 2px gap, not a
+    // painted line: the gap shows whatever background the button sits on,
+    // so it never needs a color (a white/20 line vanished on light fills,
+    // and a "surface"-colored line would clash on non-surface backgrounds).
+    // Ghost has no fill, so a gap alone separates nothing — it gets a
+    // hairline in the border-subtle token instead.
+    <div
+      data-slot="split-button"
+      className={cn('inline-flex', appearance === 'ghost' ? 'items-stretch' : 'gap-[var(--size-size2)]', className)}
+    >
       <Button
         appearance={appearance}
         tone={tone}
@@ -64,7 +73,13 @@ export function SplitButton({
       >
         {children}
       </Button>
-      <div className="w-px bg-white/20" aria-hidden="true" />
+      {appearance === 'ghost' && (
+        <div
+          data-slot="split-button-divider"
+          className="w-[var(--size-size1)] bg-[var(--color-border-border-subtle)]"
+          aria-hidden="true"
+        />
+      )}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
