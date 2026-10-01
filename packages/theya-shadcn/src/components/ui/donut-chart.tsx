@@ -159,7 +159,7 @@ export function DonutChart({
                 strokeWidth={2}
                 isAnimationActive={animate}
                 animationDuration={640}
-                animationEasing="ease-enter"
+                animationEasing="ease-out"
               >
                 {data.map((d, i) => (
                   <Cell key={d.label} fill={sliceColor(i)} />

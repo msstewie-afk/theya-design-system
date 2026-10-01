@@ -202,7 +202,10 @@
      2026-10-01, which silently generated NO `duration-fast/standard/…`
      utility (same trap as `--z-*` vs `--z-index-*`). All components
      now use the named steps (migrated 2026-10-01); the one off-scale
-     value left is Button's 220ms press spring. */
+     value left is Button's 220ms press spring. NOT tokens: Recharts'
+     `animationEasing="ease-out"` props in the chart components are
+     Recharts' own easing names, not Tailwind classes — a bulk
+     ease-out -> ease-enter rename must skip them (it broke them once). */
   --transition-duration-fast: 100ms;
   --transition-duration-standard: 150ms;
   --transition-duration-moderate: 200ms;
