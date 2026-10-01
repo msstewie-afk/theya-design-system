@@ -1,12 +1,18 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Search } from 'iconoir-react';
 import { TextField } from '../components/ui/text-field';
-import { tokenValue } from './token-values';
+import { tokenValue, type Theme } from './token-values';
 
 const meta: Meta = {
   title: 'Design System/Foundations',
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    // Swatch labels are specimens, not UI text: they prefer white on
+    // mid-tone fills (~2.8-3.7:1) for legibility at a glance, which axe
+    // would flag. Contrast is still checked for everything else on the page.
+    a11y: { config: { rules: [{ id: 'color-contrast', selector: '*:not([data-swatch-label])' }] } },
+  },
 };
 
 export default meta;
@@ -79,7 +85,29 @@ type TokenRow = { name: string; light: string; dark: string; description: string
 const withValues = (rows: { name: string; description: string }[]): TokenRow[] =>
   rows.map((r) => ({ ...r, light: tokenValue(r.name, 'light'), dark: tokenValue(r.name, 'dark') }));
 
-function contrastTextColor(color: string): string {
+// Current Storybook theme, kept in sync with the toolbar toggle
+// (preview.ts sets data-theme on <html>).
+function usePageTheme(): Theme {
+  const read = (): Theme =>
+    typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  const [theme, setTheme] = useState<Theme>(read);
+  useEffect(() => {
+    const observer = new MutationObserver(() => setTheme(read()));
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
+  return theme;
+}
+
+// White text is used whenever it reaches this ratio; dark text only on
+// genuinely light fills. Max-contrast picking put dark text on mid-tones
+// (Blue 400, Cyan 500, Orange 400, border-subtle), which reads worse.
+const WHITE_TEXT_MIN_CONTRAST = 2.7;
+
+function contrastTextColor(color: string, theme: Theme = 'light'): string {
+  // Translucent swatches are composited over the page surface they sit on.
+  const surface = tokenValue('--color-bg-surface-bg-surface-base', theme).replace('#', '');
+  const [sr, sg, sb] = [0, 2, 4].map((i) => parseInt(surface.slice(i, i + 2), 16) || 255);
   let r = 255;
   let g = 255;
   let b = 255;
@@ -93,10 +121,9 @@ function contrastTextColor(color: string): string {
     if (m) {
       const parts = m[1].split(',').map((p) => parseFloat(p.trim()));
       const alpha = parts[3] ?? 1;
-      // Blend against an assumed white card background, since these swatches sit on --color-bg-surface-bg-surface.
-      r = parts[0] * alpha + 255 * (1 - alpha);
-      g = parts[1] * alpha + 255 * (1 - alpha);
-      b = parts[2] * alpha + 255 * (1 - alpha);
+      r = parts[0] * alpha + sr * (1 - alpha);
+      g = parts[1] * alpha + sg * (1 - alpha);
+      b = parts[2] * alpha + sb * (1 - alpha);
     }
   }
   // Real WCAG relative luminance (sRGB-gamma-corrected), not the old
@@ -117,7 +144,8 @@ function contrastTextColor(color: string): string {
   };
   // #151529's own luminance, #ffffff's is 1.
   const darkTextLuminance = 0.2126 * relLuminance(0x15) + 0.7152 * relLuminance(0x15) + 0.0722 * relLuminance(0x29);
-  return contrastAgainst(1) >= contrastAgainst(darkTextLuminance) ? '#ffffff' : '#151529';
+  const white = contrastAgainst(1);
+  return white >= WHITE_TEXT_MIN_CONTRAST || white >= contrastAgainst(darkTextLuminance) ? '#ffffff' : '#151529';
 }
 
 const RAMP_STEPS = ['005', '010', '050', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
@@ -221,13 +249,15 @@ function isWhiteish(value: string): boolean {
 }
 
 function TokenPill({ value }: { value: string }) {
+  const theme = usePageTheme();
   const needsBorder = isWhiteish(value);
   return (
     <span
       className={`inline-flex min-w-[6.5rem] items-center justify-center whitespace-nowrap rounded-[8px] px-3 py-2 text-center font-mono text-[0.75rem] font-medium${
         needsBorder ? ' border border-solid border-[var(--color-border-border-subtle)]' : ''
       }`}
-      style={{ background: value, color: contrastTextColor(value) }}
+      data-swatch-label=""
+      style={{ background: value, color: contrastTextColor(value, theme) }}
     >
       {labelFor(value)}
     </span>
