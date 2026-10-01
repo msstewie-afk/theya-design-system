@@ -1,4 +1,4 @@
-import { useState, useId, useRef, useCallback } from 'react';
+import { useState, useId, useRef, useCallback, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from './button';
@@ -98,23 +98,50 @@ export function ConfirmDialog({
   if (open && !prevOpenRef.current) captureOpener();
   prevOpenRef.current = Boolean(open);
 
+  // Next frame, if focus fell to <body>, move it to the captured fallback.
+  // Idempotent — safe to schedule from several exits.
+  const restoreFocusIfLost = useCallback(() => {
+    const fb = fallbackRef.current;
+    requestAnimationFrame(() => {
+      const ae = document.activeElement;
+      const lost = !ae || ae === document.body || ae === document.documentElement;
+      if (lost && fb?.isConnected) {
+        if (!fb.hasAttribute('tabindex')) fb.setAttribute('tabindex', '-1');
+        fb.focus();
+      }
+    });
+  }, []);
+
+  const reportedOpenRef = useRef(false);
   const handleOpenChange = (next: boolean) => {
+    reportedOpenRef.current = next;
     if (next) {
       captureOpener();
     } else {
       setValue('');
-      const fb = fallbackRef.current;
-      requestAnimationFrame(() => {
-        const ae = document.activeElement;
-        const lost = !ae || ae === document.body || ae === document.documentElement;
-        if (lost && fb?.isConnected) {
-          if (!fb.hasAttribute('tabindex')) fb.setAttribute('tabindex', '-1');
-          fb.focus();
-        }
-      });
+      restoreFocusIfLost();
     }
     onOpenChange?.(next);
   };
+
+  // handleOpenChange(false) alone isn't enough for the case this exists
+  // for: when onConfirm removes the row holding an *uncontrolled* dialog,
+  // Radix reports the close from an effect after render — but the dialog
+  // has already unmounted with its row, so that call never comes and focus
+  // stayed on <body> (found by the ApiKeys revoke test, 2026-10-01). So
+  // also restore on confirm, and on unmount while open.
+  const handleConfirm = () => {
+    onConfirm?.();
+    restoreFocusIfLost();
+  };
+  const isOpenRef = useRef(false);
+  isOpenRef.current = open ?? reportedOpenRef.current;
+  useEffect(
+    () => () => {
+      if (isOpenRef.current) restoreFocusIfLost();
+    },
+    [restoreFocusIfLost],
+  );
 
   return (
     <AlertDialog
@@ -158,7 +185,7 @@ export function ConfirmDialog({
 
         <AlertDialogFooter>
           <AlertDialogCancel>{cancelLabel}</AlertDialogCancel>
-          <AlertDialogAction appearance="filled" tone={tone === 'danger' ? 'danger' : 'primary'} disabled={!ready} onClick={onConfirm} leftIcon={confirmIcon}>
+          <AlertDialogAction appearance="filled" tone={tone === 'danger' ? 'danger' : 'primary'} disabled={!ready} onClick={handleConfirm} leftIcon={confirmIcon}>
             {confirmLabel}
           </AlertDialogAction>
         </AlertDialogFooter>
