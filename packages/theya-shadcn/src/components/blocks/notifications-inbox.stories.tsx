@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { NotificationsInbox, type InboxNotification } from './notifications-inbox';
 import { toast } from '@/components/ui/sonner';
 import type { FilterOption } from '@/components/ui/filter';
@@ -27,7 +28,8 @@ const meta: Meta<typeof NotificationsInbox> = {
     description: { control: 'text', description: 'Supporting copy under the title.', table: { category: 'Content' } },
     notifications: { control: false, description: 'The notifications, newest first. Defaults to a seeded inbox.', table: { category: 'Content' } },
     onMarkAllRead: { control: false, description: 'Fired when "Mark all as read" is pressed.', table: { category: 'Events' } },
-    onNotificationRead: { control: false, description: 'Fired when a single notification is marked read (e.g. opened).', table: { category: 'Events' } },
+    onNotificationRead: { control: false, description: 'Fired when a single notification is marked read — opened, or "Mark as read" from its menu.', table: { category: 'Events' } },
+    onNotificationUnread: { control: false, description: 'Fired when a notification is marked unread from its menu.', table: { category: 'Events' } },
     onDismiss: { control: false, description: 'Fired when a notification is dismissed (before the undo grace window).', table: { category: 'Events' } },
     onOpenSettings: { control: false, description: 'Fired when the settings icon is pressed. Omit to hide the action.', table: { category: 'Events' } },
     onClose: { control: false, description: 'Adds a close icon button to the header. Omit to hide it.', table: { category: 'Events' } },
@@ -59,8 +61,82 @@ const meta: Meta<typeof NotificationsInbox> = {
 export default meta;
 type Story = StoryObj<typeof NotificationsInbox>;
 
-/** Seeded defaults: six notifications across Today / Earlier, some unread. */
-export const Default: Story = {};
+const body = () => within(document.body);
+async function clearToasts() {
+  toast.dismiss();
+  await waitFor(() => expect(document.querySelectorAll('[data-sonner-toast]')).toHaveLength(0), { timeout: 3000 });
+}
+const titles = (canvasElement: HTMLElement) =>
+  [...canvasElement.querySelectorAll('[data-notification-id]')].map((li) => li.getAttribute('data-notification-id'));
+const rowButton = (canvasElement: HTMLElement, title: string) =>
+  within(canvasElement).getByRole('button', { name: new RegExp(`^${title}`) });
+const unreadToggle = (canvasElement: HTMLElement) => within(canvasElement).getByRole('radio', { name: /^Unread/ });
+
+async function menuAction(canvasElement: HTMLElement, title: string, item: string) {
+  await userEvent.click(within(canvasElement).getByRole('button', { name: `Actions for ${title}` }));
+  await userEvent.click(await body().findByRole('menuitem', { name: item }));
+  await waitFor(() => expect(body().queryByRole('menu')).toBeNull());
+}
+
+/**
+ * Seeded defaults: six notifications across Today / Earlier, some unread.
+ * Open marks read; the menu marks read/unread and dismisses (with undo);
+ * filters combine; every action that removes its own control keeps focus.
+ */
+export const Default: Story = {
+  args: { onNotificationRead: fn(), onNotificationUnread: fn(), onDismiss: fn(), onMarkAllRead: fn() },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    await expect(titles(canvasElement)).toEqual(['n-1', 'n-2', 'n-3', 'n-4', 'n-5', 'n-6']);
+    await expect(unreadToggle(canvasElement)).toHaveAccessibleName('Unread 3');
+    await expect(rowButton(canvasElement, 'Deploy succeeded')).toHaveAccessibleName(/Unread/);
+
+    // Opening an unread row marks it read.
+    await userEvent.click(rowButton(canvasElement, 'New sign-in from a new device'));
+    await expect(args.onNotificationRead).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'n-2' }));
+    await expect(rowButton(canvasElement, 'New sign-in from a new device')).not.toHaveAccessibleName(/Unread/);
+    await expect(unreadToggle(canvasElement)).toHaveAccessibleName('Unread 2');
+
+    // The menu reports read/unread to the host too.
+    await menuAction(canvasElement, 'Invoice paid', 'Mark as unread');
+    await expect(args.onNotificationUnread).toHaveBeenCalledWith(expect.objectContaining({ id: 'n-3' }));
+    await menuAction(canvasElement, 'Deploy succeeded', 'Mark as read');
+    await expect(args.onNotificationRead).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'n-1' }));
+    await expect(unreadToggle(canvasElement)).toHaveAccessibleName('Unread 2');
+
+    // Unread view.
+    await userEvent.click(unreadToggle(canvasElement));
+    await waitFor(() => expect(titles(canvasElement)).toEqual(['n-3', 'n-4']));
+
+    // + Status: Error -> nothing matches; "Clear filters" resets and focuses the first row.
+    await userEvent.click(canvas.getByRole('button', { name: 'Status' }));
+    const statuses = await body().findByRole('group', { name: 'Status' });
+    await userEvent.click(within(statuses).getByRole('checkbox', { name: /Error/ }));
+    await userEvent.keyboard('{Escape}');
+    await expect(await canvas.findByRole('heading', { name: 'No notifications match these filters' })).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear filters' }));
+    await waitFor(() => expect(titles(canvasElement)).toHaveLength(6));
+    await waitFor(() => expect(rowButton(canvasElement, 'Deploy succeeded')).toHaveFocus());
+
+    // Dismiss: focus moves to the row that takes its place; undo restores it in place.
+    await menuAction(canvasElement, 'Invoice paid', 'Dismiss');
+    await waitFor(() => expect(titles(canvasElement)).toEqual(['n-1', 'n-2', 'n-4', 'n-5', 'n-6']));
+    await expect(args.onDismiss).toHaveBeenCalledWith(expect.objectContaining({ id: 'n-3' }));
+    await waitFor(() => expect(rowButton(canvasElement, 'Certificate renews soon')).toHaveFocus());
+    const dismissed = (await body().findByText('Notification dismissed', { selector: '[data-title]' })).closest('[data-sonner-toast]') as HTMLElement;
+    await userEvent.click(within(dismissed).getByRole('button', { name: 'Undo' }));
+    await waitFor(() => expect(titles(canvasElement)).toEqual(['n-1', 'n-2', 'n-3', 'n-4', 'n-5', 'n-6']));
+    await clearToasts();
+
+    // Mark all read: the button hides itself, focus stays in the inbox.
+    await userEvent.click(canvas.getByRole('button', { name: 'Mark all read' }));
+    await expect(args.onMarkAllRead).toHaveBeenCalledTimes(1);
+    await expect(canvas.queryByRole('button', { name: 'Mark all read' })).toBeNull();
+    await expect(unreadToggle(canvasElement)).toHaveAccessibleName('Unread');
+    await waitFor(() => expect(document.activeElement).toBe(canvasElement.querySelector('[data-slot="notifications-inbox"]')));
+    await clearToasts();
+  },
+};
 
 /** All read: the "Mark all as read" action is disabled; Unread filter is empty. */
 const ALL_READ: InboxNotification[] = [
@@ -75,6 +151,11 @@ export const AllRead: Story = {
 /** Empty: the "all caught up" state. */
 export const Empty: Story = {
   args: { notifications: [] },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('heading', { name: "You're all caught up" })).toBeInTheDocument();
+    await expect(canvas.queryByRole('button', { name: 'Mark all read' })).toBeNull();
+  },
 };
 
 /**
