@@ -252,7 +252,24 @@ export function CarouselIndicators({ className, variant = 'default', ...props }:
     // needs tabpanels, aria-controls and roving arrow-key focus, none of
     // which apply here, so it announced an incomplete widget. The current
     // slide is marked with aria-current instead of aria-selected.
-    <div data-slot="carousel-indicators" role="group" aria-label="Slides" className={cn('flex items-center gap-1.5', className)} {...props}>
+    //
+    // Hit area vs. visual: each button is a 24px-tall pill with 8px side
+    // padding (WCAG 2.5.8 target size: 24x24 for a dot, 40x24 for the
+    // active one) and draws an 8px dot inside it. Buttons sit flush, so the
+    // visible gap is a uniform 16px between every pair, active or not.
+    //
+    // Colors: inactive used bg-secondary-subtle (#e7e7f8, 1.22:1 light /
+    // white 10%, 1.36:1 dark) and was nearly invisible.
+    // Light: icon-subtler (#9a9cce, 2.62:1). DELIBERATE DEVIATION from
+    // WCAG 1.4.11 (3:1) — border-subtle (3.0:1) read too heavy next to
+    // the active dot; design decision, 2026-10-01.
+    // Dark: border-subtle (#6e709f, 3.01:1, passes). icon-subtler can't be
+    // used there — it's #caccf0 in dark, brighter than the active dot.
+    // Active used bg-primary
+    // (#0068de in both themes, only 2.71:1 on the dark surface); now
+    // icon-primary, which lightens in dark (#63acff). The active dot is
+    // also wider, so the state never relies on color alone.
+    <div data-slot="carousel-indicators" role="group" aria-label="Slides" className={cn('flex items-center', className)} {...props}>
       {Array.from({ length: count }, (_, i) => {
         const active = i === selectedIndex;
         return (
@@ -262,18 +279,23 @@ export function CarouselIndicators({ className, variant = 'default', ...props }:
             aria-current={active || undefined}
             aria-label={`Go to slide ${i + 1}`}
             onClick={() => api?.scrollTo(i)}
-            className={cn(
-              'h-1.5 rounded-full outline-none transition-[width,background-color] duration-200 ease-out focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
-              active ? 'w-6' : 'w-1.5',
-              variant === 'on-dark'
-                ? active
-                  ? 'bg-[var(--color-icon-icon-on-dark)]'
-                  : 'bg-white/40 hover:bg-white/60'
-                : active
-                  ? 'bg-[var(--color-bg-primary-bg-primary)]'
-                  : 'bg-[var(--color-bg-secondary-bg-secondary-subtle)] hover:bg-[var(--color-bg-secondary-bg-secondary-subtle-hover)]',
-            )}
-          />
+            className="group flex h-6 min-w-6 cursor-pointer items-center justify-center rounded-full px-2 outline-none focus-visible:shadow-[0_0_0_2px_var(--color-focus-focus-ring)]"
+          >
+            <span
+              aria-hidden="true"
+              className={cn(
+                'h-2 rounded-full transition-[width,background-color] duration-200 ease-out',
+                active ? 'w-6' : 'w-2',
+                variant === 'on-dark'
+                  ? active
+                    ? 'bg-[var(--color-icon-icon-on-dark)]'
+                    : 'bg-white/50 group-hover:bg-white/70'
+                  : active
+                    ? 'bg-[var(--color-icon-icon-primary)]'
+                    : 'bg-[var(--color-icon-icon-subtler)] [[data-theme=dark]_&]:bg-[var(--color-border-border-subtle)] group-hover:bg-[var(--color-icon-icon-subtle)]',
+              )}
+            />
+          </button>
         );
       })}
     </div>
