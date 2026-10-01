@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, within } from '@storybook/test';
 import { Separator } from './separator';
 
 const meta: Meta<typeof Separator> = {
@@ -12,13 +13,18 @@ const meta: Meta<typeof Separator> = {
       options: ['horizontal', 'vertical'],
       description: 'Axis the divider runs along.',
     },
+    emphasis: {
+      control: 'inline-radio',
+      options: ['subtle', 'strong'],
+      description: 'Line weight. `subtle` (default, border-subtler) stays below interactive borders; `strong` (border-subtle) matches a form-field border.',
+    },
     decorative: {
       control: 'boolean',
       description: 'When true (default) the rule is aria-hidden; set false to expose role="separator".',
     },
     className: { control: false, description: 'Class on the root element.' },
   },
-  args: { orientation: 'horizontal', decorative: true },
+  args: { orientation: 'horizontal', decorative: true, emphasis: 'subtle' },
 };
 
 export default meta;
@@ -98,4 +104,40 @@ export const Semantic: Story = {
       </section>
     </div>
   ),
+};
+
+/**
+ * Two weights. `subtle` is the default everywhere — dividers stay quieter
+ * than the borders of things you can interact with. Reach for `strong`
+ * when a divider separates major regions and has to hold its own.
+ */
+export const Emphasis: Story = {
+  parameters: { controls: { exclude: ['emphasis', 'orientation'] } },
+  render: () => (
+    <div className="flex w-full max-w-sm flex-col gap-6">
+      <div>
+        <p className="mb-2 font-body text-body-s text-[var(--color-text-text-subtler)]">subtle (default)</p>
+        <Separator data-testid="subtle" />
+      </div>
+      <div>
+        <p className="mb-2 font-body text-body-s text-[var(--color-text-text-subtler)]">strong</p>
+        <Separator data-testid="strong" emphasis="strong" />
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const color = (el: HTMLElement) => getComputedStyle(el).backgroundColor;
+    const token = (name: string) => {
+      const probe = document.createElement('div');
+      probe.style.backgroundColor = `var(${name})`;
+      canvasElement.appendChild(probe);
+      const value = getComputedStyle(probe).backgroundColor;
+      probe.remove();
+      return value;
+    };
+    await expect(color(canvas.getByTestId('subtle'))).toBe(token('--color-border-border-subtler'));
+    await expect(color(canvas.getByTestId('strong'))).toBe(token('--color-border-border-subtle'));
+    await expect(color(canvas.getByTestId('subtle'))).not.toBe(color(canvas.getByTestId('strong')));
+  },
 };
