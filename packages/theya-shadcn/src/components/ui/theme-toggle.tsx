@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { forwardRef, useState, useEffect } from 'react';
 import { HalfMoon, SunLight } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { useTheme } from './use-theme';
@@ -10,7 +10,9 @@ import { useTheme } from './use-theme';
  * avoid an SSR/hydration flash showing the wrong icon before the real
  * data-theme attribute is read from the DOM.
  */
-export function ThemeToggle({ className, ...props }: React.ComponentProps<'button'>) {
+// forwardRef: a wrapper over a native control must pass refs through (focus
+// by ref, Radix asChild triggers); a plain function drops them under React 18.
+export const ThemeToggle = forwardRef<HTMLButtonElement, React.ComponentPropsWithoutRef<'button'>>(function ThemeToggle({ className, ...props }, ref) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -18,6 +20,7 @@ export function ThemeToggle({ className, ...props }: React.ComponentProps<'butto
 
   return (
     <button
+      ref={ref}
       type="button"
       aria-label="Toggle theme"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
@@ -36,4 +39,4 @@ export function ThemeToggle({ className, ...props }: React.ComponentProps<'butto
       {isDark ? <SunLight /> : <HalfMoon />}
     </button>
   );
-}
+});

@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { forwardRef, createContext, useContext } from 'react';
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
 import { cn } from '@/lib/utils';
 import { Button, type ButtonProps } from './button';
@@ -46,9 +46,12 @@ export function AlertDialog({
 export const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
 export const AlertDialogPortal = AlertDialogPrimitive.Portal;
 
-export function AlertDialogOverlay({ className, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Overlay>) {
+// forwardRef: Radix's Portal hands each child a ref (asChild + Presence) to
+// track its exit animation; as a plain function this dropped it under React 18.
+export const AlertDialogOverlay = forwardRef<React.ElementRef<typeof AlertDialogPrimitive.Overlay>, React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>>(function AlertDialogOverlay({ className, ...props }, ref) {
   return (
     <AlertDialogPrimitive.Overlay
+      ref={ref}
       className={cn(
         'fixed inset-0 z-50 bg-black/40 backdrop-blur-[1px]',
         'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 motion-reduce:animate-none!',
@@ -57,7 +60,7 @@ export function AlertDialogOverlay({ className, ...props }: React.ComponentProps
       {...props}
     />
   );
-}
+});
 
 export function AlertDialogContent({ className, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Content>) {
   const layout = useContext(AlertDialogLayoutContext);

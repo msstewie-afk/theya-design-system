@@ -1,4 +1,4 @@
-import { useId, useMemo, useState, useRef, useLayoutEffect, lazy, Suspense } from 'react';
+import { forwardRef, useId, useMemo, useState, useRef, useLayoutEffect, lazy, Suspense } from 'react';
 import type { ReactNode } from 'react';
 import {  } from 'iconoir-react';
 import { KebabIconVertical } from './kebab-icon';
@@ -506,11 +506,13 @@ function CellSkeleton({ kind, leading, secondary }: { kind: DataTableCellKind; l
 }
 
 /** The trigger for a `menu` cell: the row's overflow control. Ghost, full 44px touch target below md. */
-export function DataTableCellMenuTrigger({ label, className, children, ...props }: ButtonProps & { label: string }) {
+// forwardRef: used as a DropdownMenuTrigger asChild child, which needs the ref
+// for positioning and focus return ("Function components cannot be given refs").
+export const DataTableCellMenuTrigger = forwardRef<HTMLButtonElement, ButtonProps & { label: string }>(function DataTableCellMenuTrigger({ label, className, children, ...props }, ref) {
   return (
-    <Button appearance="ghost" iconOnly size="md" aria-label={label} className={cn('max-md:size-11 [&_svg]:text-[var(--color-text-text)]', className)} leftIcon={children ?? <KebabIconVertical />} {...props} />
+    <Button ref={ref} appearance="ghost" iconOnly size="md" aria-label={label} className={cn('max-md:size-11 [&_svg]:text-[var(--color-text-text)]', className)} leftIcon={children ?? <KebabIconVertical />} {...props} />
   );
-}
+});
 
 /** aria-errormessage takes an ID reference, not the message — render it off-screen next to the field it belongs to. */
 function FieldError({ id, message }: { id: string; message?: string }) {

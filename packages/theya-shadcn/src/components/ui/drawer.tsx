@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';
 import { Xmark } from 'iconoir-react';
 import { cn } from '@/lib/utils';
@@ -24,9 +25,11 @@ export const DrawerTrigger = DrawerPrimitive.Trigger;
 export const DrawerPortal = DrawerPrimitive.Portal;
 export const DrawerClose = DrawerPrimitive.Close;
 
-export function DrawerOverlay({ className, ...props }: React.ComponentProps<typeof DrawerPrimitive.Overlay>) {
-  return <DrawerPrimitive.Overlay className={cn('fixed inset-0 z-50 bg-black/40', className)} {...props} />;
-}
+// forwardRef: Radix's Portal hands each child a ref (asChild + Presence) to
+// track its exit animation; as a plain function this dropped it under React 18.
+export const DrawerOverlay = forwardRef<React.ElementRef<typeof DrawerPrimitive.Overlay>, React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>>(function DrawerOverlay({ className, ...props }, ref) {
+  return <DrawerPrimitive.Overlay ref={ref} className={cn('fixed inset-0 z-50 bg-black/40', className)} {...props} />;
+});
 
 export interface DrawerContentProps extends React.ComponentProps<typeof DrawerPrimitive.Content> {
   /** Bottom/top drawers only: 'full' spans edge-to-edge (default, current behavior). 'fixed' caps the sheet at a centered max width on larger screens, matching the reference's sm:max-w-xl. */

@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useRef, useState } from 'react';
+import { forwardRef, createContext, useContext, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Menu, Search } from 'iconoir-react';
 import { cn } from '@/lib/utils';
@@ -49,10 +49,13 @@ export function Topbar({ className, orientation = 'horizontal', children, ...pro
 }
 
 /** Hamburger that opens the rail on mobile (hidden ≥ md). */
-export function TopbarMenu({ className, ...props }: React.ComponentProps<'button'>) {
+// forwardRef: a wrapper over a native control must pass refs through (focus
+// by ref, Radix asChild triggers); a plain function drops them under React 18.
+export const TopbarMenu = forwardRef<HTMLButtonElement, React.ComponentPropsWithoutRef<'button'>>(function TopbarMenu({ className, ...props }, ref) {
   const { setMobileOpen } = useSidebar();
   return (
     <button
+      ref={ref}
       type="button"
       aria-label="Open menu"
       onClick={() => setMobileOpen(true)}
@@ -67,7 +70,7 @@ export function TopbarMenu({ className, ...props }: React.ComponentProps<'button
       <Menu className="size-5" />
     </button>
   );
-}
+});
 
 /**
  * A live search field, not a dialog trigger: typing filters in place and

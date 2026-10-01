@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
 /**
@@ -93,9 +94,12 @@ function InputGroupAddon({ className, position = 'start', divider = true, ...pro
 }
 
 /** Borderless field — the GROUP owns border/hover/focus, this drops its own chrome. */
-function InputGroupInput({ className, type, ...props }: React.ComponentProps<'input'>) {
+// forwardRef: it dropped `ref` under React 18 (a plain function), so callers
+// couldn't focus the field by ref (AuditLog had to fall back to getElementById).
+const InputGroupInput = forwardRef<HTMLInputElement, React.ComponentPropsWithoutRef<'input'>>(function InputGroupInput({ className, type, ...props }, ref) {
   return (
     <input
+      ref={ref}
       type={type}
       className={cn(
         'h-full w-full min-w-0 flex-1 bg-transparent px-[var(--size-margin-margin-s)]',
@@ -111,6 +115,6 @@ function InputGroupInput({ className, type, ...props }: React.ComponentProps<'in
       {...props}
     />
   );
-}
+});
 
 export { InputGroup, InputGroupAddon, InputGroupInput };

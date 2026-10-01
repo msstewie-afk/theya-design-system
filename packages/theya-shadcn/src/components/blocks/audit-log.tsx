@@ -1,4 +1,4 @@
-import { useState, useMemo, useId } from 'react';
+import { useState, useMemo, useId, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { type DateRange } from 'react-day-picker';
 import { Search, Activity, LogIn, CloudUpload, CreditCard, ShieldCheck, UserPlus, Database, Settings } from 'iconoir-react';
@@ -110,6 +110,7 @@ export function AuditLog({
   const [selectedCats, setSelectedCats] = useState<string[]>([]);
   const [range, setRange] = useState<DateRange | undefined>(undefined);
   const searchId = useId();
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const catMap = useMemo(() => {
     const map = new Map<string, AuditCategoryMeta>();
@@ -139,9 +140,7 @@ export function AuditLog({
     setQuery('');
     setSelectedCats([]);
     setRange(undefined);
-    // By id, not a ref: InputGroupInput is a plain function component
-    // and drops `ref` under React 18.
-    document.getElementById(searchId)?.focus();
+    searchRef.current?.focus();
   };
 
   return (
@@ -163,7 +162,7 @@ export function AuditLog({
               <InputGroupAddon position="start" divider={false}>
                 <Search />
               </InputGroupAddon>
-              <InputGroupInput id={searchId} type="search" placeholder={searchPlaceholder} autoCapitalize="none" autoCorrect="off" spellCheck={false} value={query} onChange={(e) => setQuery(e.target.value)} />
+              <InputGroupInput ref={searchRef} id={searchId} type="search" placeholder={searchPlaceholder} autoCapitalize="none" autoCorrect="off" spellCheck={false} value={query} onChange={(e) => setQuery(e.target.value)} />
             </InputGroup>
           </div>
           {catOptions.length > 0 && (

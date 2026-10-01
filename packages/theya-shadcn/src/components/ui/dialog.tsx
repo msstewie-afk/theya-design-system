@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -19,9 +20,12 @@ export const DialogTrigger = DialogPrimitive.Trigger;
 export const DialogClose = DialogPrimitive.Close;
 export const DialogPortal = DialogPrimitive.Portal;
 
-export function DialogOverlay({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Overlay>) {
+// forwardRef: Radix's Portal hands each child a ref (asChild + Presence) to
+// track its exit animation; as a plain function this dropped it under React 18.
+export const DialogOverlay = forwardRef<React.ElementRef<typeof DialogPrimitive.Overlay>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>>(function DialogOverlay({ className, ...props }, ref) {
   return (
     <DialogPrimitive.Overlay
+      ref={ref}
       className={cn(
         'fixed inset-0 z-50 bg-black/40 backdrop-blur-[1px]',
         'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
@@ -31,7 +35,7 @@ export function DialogOverlay({ className, ...props }: React.ComponentProps<type
       {...props}
     />
   );
-}
+});
 
 const dialogContentVariants = cva(
   [

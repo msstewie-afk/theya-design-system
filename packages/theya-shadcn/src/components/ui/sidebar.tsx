@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useRef, useCallback, useEffect } from 'react';
+import { forwardRef, createContext, useContext, useState, useRef, useCallback, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { NavArrowLeft } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
@@ -185,11 +185,14 @@ export function SidebarBrand({ className, children, ...props }: React.ComponentP
   );
 }
 
-export function SidebarCollapse({ className, ...props }: React.ComponentProps<'button'>) {
+// forwardRef: a wrapper over a native control must pass refs through (focus
+// by ref, Radix asChild triggers); a plain function drops them under React 18.
+export const SidebarCollapse = forwardRef<HTMLButtonElement, React.ComponentPropsWithoutRef<'button'>>(function SidebarCollapse({ className, ...props }, ref) {
   const { collapsed, setCollapsed } = useSidebar();
   if (collapsed) return null;
   return (
     <button
+      ref={ref}
       type="button"
       aria-label="Collapse sidebar"
       aria-expanded
@@ -210,7 +213,7 @@ export function SidebarCollapse({ className, ...props }: React.ComponentProps<'b
       <NavArrowLeft width={16} height={16} aria-hidden="true" />
     </button>
   );
-}
+});
 
 export function SidebarNav({ className, 'aria-label': ariaLabel = 'Main', ...props }: React.ComponentProps<'nav'>) {
   return <nav aria-label={ariaLabel} className={cn('flex-1 overflow-y-auto px-3 py-1', className)} {...props} />;

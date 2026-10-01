@@ -1,4 +1,4 @@
-import { createContext, useContext, useRef, useEffect, useId, useState } from 'react';
+import { forwardRef, createContext, useContext, useRef, useEffect, useId, useState } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { cn } from '@/lib/utils';
@@ -161,7 +161,9 @@ export function PushSheetDescription({ className, ...props }: React.ComponentPro
   return <p className={cn('font-body text-body-s text-[var(--color-text-text-subtler)]', className)} {...props} />;
 }
 
-export function PushSheetClose({ asChild, onClick, children, ...props }: React.ComponentProps<'button'> & { asChild?: boolean }) {
+// forwardRef: a wrapper over a native control must pass refs through (focus
+// by ref, Radix asChild triggers); a plain function drops them under React 18.
+export const PushSheetClose = forwardRef<HTMLButtonElement, React.ComponentPropsWithoutRef<'button'> & { asChild?: boolean }>(function PushSheetClose({ asChild, onClick, children, ...props }, ref) {
   const { onOpenChange } = useContext(PushSheetContext);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     onClick?.(event);
@@ -169,8 +171,8 @@ export function PushSheetClose({ asChild, onClick, children, ...props }: React.C
   };
   const Comp = asChild ? Slot : 'button';
   return (
-    <Comp onClick={handleClick} {...(asChild ? {} : { type: 'button' as const })} {...props}>
+    <Comp ref={ref} onClick={handleClick} {...(asChild ? {} : { type: 'button' as const })} {...props}>
       {children}
     </Comp>
   );
-}
+});

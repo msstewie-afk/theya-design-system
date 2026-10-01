@@ -1,4 +1,4 @@
-import { useId, useState, cloneElement, isValidElement } from 'react';
+import { forwardRef, useId, useState, cloneElement, isValidElement } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { Xmark, Check } from 'iconoir-react';
@@ -255,9 +255,12 @@ export function Chip({
  * removing a chip never also toggles an interactive parent's pressed
  * state.
  */
-export function ChipRemove({ className, onClick, children, type: _nativeType, ...props }: React.ComponentProps<'button'>) {
+// forwardRef: a wrapper over a native control must pass refs through (focus
+// by ref, Radix asChild triggers); a plain function drops them under React 18.
+export const ChipRemove = forwardRef<HTMLButtonElement, React.ComponentPropsWithoutRef<'button'>>(function ChipRemove({ className, onClick, children, type: _nativeType, ...props }, ref) {
   return (
     <Button
+      ref={ref}
       appearance="ghost"
       size="sm"
       iconOnly
@@ -270,4 +273,4 @@ export function ChipRemove({ className, onClick, children, type: _nativeType, ..
       {...props}
     />
   );
-}
+});

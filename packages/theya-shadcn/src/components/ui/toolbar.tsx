@@ -15,12 +15,18 @@ import { buttonVariants } from './button';
  * those controls. Use this for a cluster of actions/view controls
  * that belong together (formatting bar, bulk-action bar).
  */
-export const Toolbar = ({ className, ...props }: React.ComponentProps<typeof ToolbarPrimitive.Root>) => (
-  <ToolbarPrimitive.Root
-    className={cn('flex items-center gap-1', 'data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch', className)}
-    {...props}
-  />
-);
+// forwardRef: DataTableToolbar measures its bulk-action overflow through this
+// ref (containerRef); as a plain arrow function it was always null, so width-
+// based collapsing into the "more" menu never ran — only maxVisible did.
+export const Toolbar = forwardRef<React.ElementRef<typeof ToolbarPrimitive.Root>, React.ComponentPropsWithoutRef<typeof ToolbarPrimitive.Root>>(function Toolbar({ className, ...props }, ref) {
+  return (
+    <ToolbarPrimitive.Root
+      ref={ref}
+      className={cn('flex items-center gap-1', 'data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch', className)}
+      {...props}
+    />
+  );
+});
 
 // Wired to Button's own cva (buttonVariants) rather than a hardcoded class
 // list, so a ToolbarButton can take the full appearance/tone range — e.g.
