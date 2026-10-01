@@ -18,6 +18,8 @@ const meta: Meta<typeof SettingsScreen> = {
     onNotificationChange: { control: false, description: 'Fired when a notification switch is flipped — persist it here.', table: { category: 'Events' } },
     twoFactorEnabled: { control: 'boolean', description: 'Two-factor already on: status + "Generate new code" instead of the setup form.', table: { category: 'State' } },
     onRegenerateRecoveryCode: { control: false, description: 'Returns a fresh recovery code; the old one should stop working.', table: { category: 'Events' } },
+    navLabel: { control: 'text', description: 'Accessible name of the section nav; give each screen its own when two share a page.', table: { category: 'Content' } },
+    idPrefix: { control: 'text', description: 'Prefix for section ids. Readable by default (links like /settings#security keep working); set it when two SettingsScreens share a page.', table: { category: 'Behavior' } },
     onDeleteAccount: { control: false, description: 'Called when account deletion is confirmed.', table: { category: 'Events' } },
   },
 };
@@ -146,5 +148,37 @@ export const NoNotifications: Story = {
     await expect(canvas.queryByRole('heading', { name: 'Notifications' })).toBeNull();
     await expect(canvas.queryByRole('link', { name: 'Notifications', hidden: true })).toBeNull();
     await expect(canvas.getByRole('heading', { name: 'Danger zone' })).toBeInTheDocument();
+  },
+};
+
+/**
+ * Two screens on one page: with `idPrefix` on the second, no id repeats and
+ * every section link lands in its own screen. Section ids stay readable
+ * (`#security`) for deep links.
+ */
+export const TwoOnOnePage: Story = {
+  name: 'Two on one page',
+  render: () => (
+    <div className="flex flex-col gap-16 p-6">
+      <SettingsScreen />
+      <SettingsScreen idPrefix="team-" navLabel="Team settings sections" account={{ fullName: 'Seashell team', email: 'team@seashell.dev' }} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const ids = [...canvasElement.querySelectorAll('[id]')].map((el) => el.id);
+    const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
+    await expect(dupes).toEqual([]);
+    await expect(canvasElement.querySelector('#security')).not.toBeNull();
+    await expect(canvasElement.querySelector('#team-security')).not.toBeNull();
+    // Each screen's nav points into its own sections.
+    const navs = canvasElement.querySelectorAll('nav[aria-label$="ettings sections"]');
+    await expect(navs).toHaveLength(2);
+    navs.forEach((nav, i) => {
+      for (const a of nav.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')) {
+        const target = document.getElementById(a.getAttribute('href')!.slice(1));
+        expect(target).not.toBeNull();
+        expect(target!.id.startsWith('team-')).toBe(i === 1);
+      }
+    });
   },
 };
