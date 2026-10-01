@@ -40,7 +40,7 @@ const axisProps = {
 // white box — wrong in dark theme and inconsistent with every DS chart
 // (AreaChart/LineChart/BarChart's own tooltips, and DonutChart's), which
 // all use this exact card: `bg-surface-overlay` + `border-subtle` +
-// `shadow-lg`, semantic text tokens throughout so it reads correctly in
+// `shadow-elevation-lg`, semantic text tokens throughout so it reads correctly in
 // both themes. This story uses raw `recharts` primitives directly (to
 // demo ChartRangeSelection wrapping an arbitrary chart, not a Theya
 // component), so it needs its own copy of that same tooltip card rather
@@ -58,14 +58,14 @@ function RangeChartTooltip({ active, payload, label }: { active?: boolean; paylo
   if (payload.length === 1) {
     const v = payload[0].value;
     return (
-      <div className="flex flex-col gap-px rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-lg">
+      <div className="flex flex-col gap-px rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-elevation-lg">
         <span className="text-[0.6875rem] text-[var(--color-text-text-subtler)]">{label}</span>
         <span className="font-body text-body-s font-semibold tabular-nums text-[var(--color-text-text)]">{v}</span>
       </div>
     );
   }
   return (
-    <div className="flex flex-col gap-1 rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-lg">
+    <div className="flex flex-col gap-1 rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-elevation-lg">
       <span className="text-[0.6875rem] text-[var(--color-text-text-subtler)]">{label}</span>
       <div className="flex flex-col gap-0.5">
         {payload.map((entry, i) => (

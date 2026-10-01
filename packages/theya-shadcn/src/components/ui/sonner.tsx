@@ -64,7 +64,7 @@ export function Toaster({ closeButton = true, dark = false, position = 'bottom-r
         classNames: {
           toast:
             'group toast has-[[data-description]]:items-start! has-[[data-description]]:[&_[data-icon]]:mt-1 ' +
-            (dark ? 'border-0 shadow-xl' : 'border border-solid shadow-lg') +
+            (dark ? 'border-0 shadow-elevation-xl' : 'border border-solid shadow-elevation-lg') +
             ' has-[[data-close-button]]:pr-12!',
           content: 'flex-1 min-w-0',
           // 14px, not the Figma frame's raw Heading XS/16px value — Мария
@@ -174,7 +174,7 @@ export const toast: ToastApi = Object.assign(((...args: Parameters<ToastApi>) =>
         // bg-info-subtle in the Figma file) — `!` because this overrides
         // the Toaster's own --normal-bg/-text/-border, on top of dark mode.
         toast: cn(
-          'bg-[var(--color-bg-primary-bg-primary-subtle)]! border-transparent! text-[var(--color-text-text)]! shadow-lg',
+          'bg-[var(--color-bg-primary-bg-primary-subtle)]! border-transparent! text-[var(--color-text-text)]! shadow-elevation-lg',
           classNames?.toast,
         ),
         title: cn('font-body text-body-m font-semibold', classNames?.title),

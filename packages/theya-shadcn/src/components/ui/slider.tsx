@@ -81,7 +81,7 @@ function Slider({
           aria-valuetext={formatValue ? formatValue(values[i] ?? min, i) : undefined}
           className={cn(
             'relative block size-4 shrink-0 rounded-full border border-solid',
-            'bg-[var(--color-bg-input-bg-input)] shadow-sm outline-none',
+            'bg-[var(--color-bg-input-bg-input)] shadow-elevation-sm outline-none',
             'transition-[border-color,box-shadow] duration-150 ease-out motion-reduce:transition-none',
             invalid ? 'border-[var(--color-border-border-danger)]' : 'border-[var(--color-border-border-primary)]',
             'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',

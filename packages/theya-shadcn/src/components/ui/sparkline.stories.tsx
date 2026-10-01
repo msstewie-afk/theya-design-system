@@ -68,7 +68,7 @@ export const Destructive: Story = {
 export const InAStatRow: Story = {
   name: 'In a stat row',
   render: (args) => (
-    <div className="flex w-72 items-center justify-between gap-4 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 shadow-xs">
+    <div className="flex w-72 items-center justify-between gap-4 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 shadow-elevation-xs">
       <div className="flex flex-col">
         <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">Requests</span>
         <span className="font-body text-heading-xs font-semibold tabular-nums text-[var(--color-text-text)]">4.2M</span>

@@ -138,7 +138,7 @@ function SelectContent({
           'relative z-50 w-fit min-w-[var(--radix-select-trigger-width)] max-w-[var(--radix-select-content-available-width)] overflow-hidden',
           'rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
           'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)]',
-          'text-[var(--color-text-text)] shadow-lg',
+          'text-[var(--color-text-text)] shadow-elevation-lg',
           'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
           'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
           'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',

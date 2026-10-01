@@ -58,7 +58,7 @@ export function TooltipContent({
         sideOffset={sideOffset}
         className={cn(
           'z-50 w-fit max-w-[600px] break-words rounded-[var(--size-border-radius-border-radius-md)]',
-          'px-2.5 py-1.5 font-body text-body-xs shadow-md',
+          'px-2.5 py-1.5 font-body text-body-xs shadow-elevation-md',
           toneClass.surface,
           'data-[state=delayed-open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
           'data-[state=closed]:fade-out-0 data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95',

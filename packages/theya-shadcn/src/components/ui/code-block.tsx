@@ -65,7 +65,7 @@ export function CodeBlock({ code, language, filename, copy = true, copyLabel = '
   ) : null;
 
   return (
-    <div className={cn('relative min-w-0 max-w-full overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] shadow-xs', className)} {...props}>
+    <div className={cn('relative min-w-0 max-w-full overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] shadow-elevation-xs', className)} {...props}>
       {hasHeader ? (
         <div className="flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] px-3 py-2">
           <div className="flex min-w-0 flex-1 items-baseline gap-2">

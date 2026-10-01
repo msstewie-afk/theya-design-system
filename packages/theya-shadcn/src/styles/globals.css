@@ -246,10 +246,10 @@
      (identical value in variables.css and variables-dark.css); revisit
      if dark-theme shadows ever need their own tuning. Namespaced
      `shadow-elevation-*` rather than reusing Tailwind's own default
-     `shadow-sm/md/lg/xl` names, so this is additive: the ~47 existing
-     bare `shadow-sm/md/lg/xl/2xl/none` usages (grep 2026-09-26) keep
-     using Tailwind's generic default shadows unless a component is
-     deliberately switched over to the Theya-specific scale. */
+     `shadow-sm/md/lg/xl` names. Every component now uses this scale
+     (54 usages migrated 1:1, 2026-10-01); don't reintroduce bare
+     Tailwind `shadow-xs..xl`. `shadow-none` and focus rings
+     (`shadow-[0_0_0_4px_…]`) are separate and stay as they are. */
   --shadow-elevation-xs: 0 1px 2px 0 rgba(27, 27, 31, 0.08);
   --shadow-elevation-sm: 0 1px 2px -1px rgba(27, 27, 31, 0.1), 0 1px 3px 0 rgba(27, 27, 31, 0.08);
   --shadow-elevation-md: 0 2px 4px -2px rgba(27, 27, 31, 0.1), 0 4px 10px -2px rgba(27, 27, 31, 0.1);

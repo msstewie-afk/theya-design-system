@@ -518,7 +518,7 @@ export function DataTableToolbar<TData>({
         data-surface="primary"
         className={cn(
           shell,
-          'flex items-center gap-2 border-transparent bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)] shadow-md',
+          'flex items-center gap-2 border-transparent bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)] shadow-elevation-md',
           embedded && 'rounded-none border-x-0 border-b-0 border-t border-[var(--color-border-border-subtle)] shadow-none',
           className,
         )}

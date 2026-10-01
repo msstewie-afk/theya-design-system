@@ -62,7 +62,7 @@ export interface AlertProps extends React.ComponentProps<'div'> {
   tone?: AlertTone;
   /** Full-tone accent bar on the left edge. See `AlertIndicator`. Default `'none'`. */
   indicator?: AlertIndicator;
-  /** Adds `shadow-sm`. Off by default — an inline banner usually sits flush in
+  /** Adds `shadow-elevation-sm`. Off by default — an inline banner usually sits flush in
    * the page flow and doesn't need to lift off it; turn on for an alert
    * floating over content (e.g. a toast-like placement) instead of inline. */
   shadow?: boolean;
@@ -94,7 +94,7 @@ export function Alert({
         'relative flex gap-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid px-4 py-3',
         'font-body text-body-s [&>svg]:size-[1.125rem] [&>svg]:mt-px [&>svg]:shrink-0',
         TONE_CLASS[tone],
-        shadow && 'shadow-sm',
+        shadow && 'shadow-elevation-sm',
         dismissible && 'pr-10',
         className,
       )}

@@ -40,7 +40,7 @@ export function ContextMenuContent({ className, ...props }: React.ComponentProps
       <ContextMenuPrimitive.Content
         className={cn(
           'z-50 min-w-[12rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
-          'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-lg',
+          'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-elevation-lg',
           'text-[var(--color-text-text)]',
           'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
           'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
@@ -165,7 +165,7 @@ export function ContextMenuSubContent({ className, ...props }: React.ComponentPr
       <ContextMenuPrimitive.SubContent
         className={cn(
           'z-50 min-w-[10rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
-          'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-lg',
+          'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-elevation-lg',
           'text-[var(--color-text-text)]',
           'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
           'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',

@@ -28,7 +28,7 @@ const meta = {
     },
     shadow: {
       control: 'boolean',
-      description: 'Adds shadow-sm. Off by default for an inline banner.',
+      description: 'Adds shadow-elevation-sm. Off by default for an inline banner.',
     },
     live: {
       control: 'select',

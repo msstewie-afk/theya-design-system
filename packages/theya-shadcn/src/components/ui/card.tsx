@@ -52,7 +52,7 @@ const SEVERITY_SELECTED_CLASS: Record<CardSeverity, string> = {
 // new token added to the DS (--color-focus-focus-ring-warning, Мария's
 // call) since only default/error/success existed before this.
 const SEVERITY_HOVER_CLASS: Record<CardSeverity, string> = {
-  default: 'hover:border-[var(--color-border-border-primary)] hover:shadow-sm hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
+  default: 'hover:border-[var(--color-border-border-primary)] hover:shadow-elevation-sm hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
   info: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
   success: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring-success)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring-success)]',
   warning: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring-warning)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring-warning)]',
@@ -141,7 +141,7 @@ export function Card({
       aria-disabled={disabled || undefined}
       className={cn(
         'group/card isolate relative min-w-0 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid',
-        'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-xs',
+        'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-elevation-xs',
         SEVERITY_CLASS[severity],
         isInteractive && cn('transition-[border-color,box-shadow] duration-150 ease-out motion-reduce:transition-none', SEVERITY_HOVER_CLASS[severity]),
         isSelectedFilter && SEVERITY_SELECTED_CLASS[severity],

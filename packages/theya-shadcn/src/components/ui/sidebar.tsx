@@ -139,7 +139,7 @@ export function SidebarBrand({ className, children, ...props }: React.ComponentP
   const mark = (
     <span
       aria-hidden="true"
-      className="grid size-[1.875rem] shrink-0 place-content-center rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)] shadow-sm"
+      className="grid size-[1.875rem] shrink-0 place-content-center rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)] shadow-elevation-sm"
     >
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <polygon points="12 2 2 7 12 12 22 7 12 2" />

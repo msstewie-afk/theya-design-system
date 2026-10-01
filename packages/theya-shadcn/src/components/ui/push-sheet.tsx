@@ -90,7 +90,7 @@ export function PushSheet({ open, onOpenChange, side = 'right', width = '22.5rem
               aria-labelledby={hasTitle ? titleId : undefined}
               style={{ width, ...style }}
               className={cn(
-                'fixed inset-y-0 z-50 flex h-full max-w-[92vw] flex-col bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-xl outline-none',
+                'fixed inset-y-0 z-50 flex h-full max-w-[92vw] flex-col bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-elevation-xl outline-none',
                 'transition ease-out motion-reduce:transition-none',
                 'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:duration-300 motion-reduce:animate-none!',
                 side === 'right'

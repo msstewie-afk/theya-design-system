@@ -415,7 +415,7 @@ function AreaChartFloatingXTick({ x, y, payload, index, lastIndex }: FloatingTic
 function AreaChartTooltip({ active, value, label, fmt, labelPrefix }: { active?: boolean; value?: number; label?: ReactNode; fmt: (v: number) => string; labelPrefix: string }) {
   if (!active || value == null) return null;
   return (
-    <div className="flex flex-col gap-px rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-lg">
+    <div className="flex flex-col gap-px rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-elevation-lg">
       <span className="text-[0.6875rem] text-[var(--color-text-text-subtler)]">
         {labelPrefix}
         {label}
@@ -434,7 +434,7 @@ function AreaChartMultiTooltip({ active, payload, label, fmt, labelPrefix, serie
   if (!active || !payload || !payload.length) return null;
   const indexFor = (key?: string | number) => series.findIndex((s) => s.key === key);
   return (
-    <div className="flex flex-col gap-1 rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-lg">
+    <div className="flex flex-col gap-1 rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-elevation-lg">
       <span className="text-[0.6875rem] text-[var(--color-text-text-subtler)]">
         {labelPrefix}
         {label}

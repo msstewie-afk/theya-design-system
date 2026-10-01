@@ -109,7 +109,7 @@ export function Terminal({ className, lines, user, host, connection = 'connected
       data-slot="terminal"
       data-inverse={inverse || undefined}
       className={cn(
-        'flex max-w-full min-w-0 flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid shadow-xs',
+        'flex max-w-full min-w-0 flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid shadow-elevation-xs',
         inverse ? 'border-[var(--color-code-border-inverse)] bg-[var(--color-code-bg-inverse)]' : 'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         className,
       )}

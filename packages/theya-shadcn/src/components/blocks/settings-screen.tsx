@@ -169,7 +169,7 @@ function ScrollButtons() {
         disabled={state.atTop}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         leftIcon={<ArrowUp />}
-        className="shadow-md"
+        className="shadow-elevation-md"
       />
       <Button
         appearance="tonal"
@@ -180,7 +180,7 @@ function ScrollButtons() {
         disabled={state.atBottom}
         onClick={() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })}
         leftIcon={<ArrowDown />}
-        className="shadow-md"
+        className="shadow-elevation-md"
       />
     </div>
   );

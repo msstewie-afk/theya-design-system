@@ -20,7 +20,7 @@ export const Menubar = ({ className, bordered = true, ...props }: MenubarProps) 
   <MenubarPrimitive.Root
     className={cn(
       'flex items-center gap-0.5 rounded-[var(--size-border-radius-border-radius-xl)] p-1',
-      bordered && 'border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-sm',
+      bordered && 'border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-sm',
       className,
     )}
     {...props}
@@ -65,7 +65,7 @@ export function MenubarContent({
         sideOffset={sideOffset}
         className={cn(
           'z-50 min-w-[12rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
-          'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-lg',
+          'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-elevation-lg',
           'text-[var(--color-text-text)]',
           'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
           'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
@@ -191,7 +191,7 @@ export function MenubarSubContent({ className, ...props }: React.ComponentProps<
       <MenubarPrimitive.SubContent
         className={cn(
           'z-50 min-w-[10rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
-          'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-lg',
+          'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-elevation-lg',
           'text-[var(--color-text-text)]',
           'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
           'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',

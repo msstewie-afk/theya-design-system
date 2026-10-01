@@ -27,7 +27,7 @@ export function NavigationMenu({
           className={cn(
             'relative mt-2 h-[var(--radix-navigation-menu-viewport-height)] w-[var(--radix-navigation-menu-viewport-width)]',
             'origin-[top_center] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
-            'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] shadow-lg',
+            'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] shadow-elevation-lg',
             'transition-[width,height] duration-200 ease-out motion-reduce:transition-none',
             'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
             'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',

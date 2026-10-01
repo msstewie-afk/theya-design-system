@@ -67,7 +67,7 @@ export function Stat({ className, variant = 'card', label, value, icon, tone, to
       role="group"
       aria-label={label}
       className={cn(
-        variant === 'card' && 'rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 shadow-xs',
+        variant === 'card' && 'rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 shadow-elevation-xs',
         'text-[var(--color-text-text)]',
         className,
       )}

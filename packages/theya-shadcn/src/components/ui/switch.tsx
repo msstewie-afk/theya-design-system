@@ -109,7 +109,7 @@ export const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, Switch
         <SwitchPrimitive.Thumb
           className={cn(
             'group relative flex items-center justify-center',
-            'size-[14px] rounded-full bg-[var(--color-icon-icon-on-dark)] shadow-sm',
+            'size-[14px] rounded-full bg-[var(--color-icon-icon-on-dark)] shadow-elevation-sm',
             'translate-x-[3px] data-[state=checked]:translate-x-[19px]',
             'transition-transform duration-200 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)] motion-reduce:transition-none',
           )}

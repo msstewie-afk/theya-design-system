@@ -52,7 +52,7 @@ type Story = StoryObj<CommandStoryArgs>;
 
 export const Inline: Story = {
   render: () => (
-    <div className="w-[380px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-sm">
+    <div className="w-[380px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-elevation-sm">
       <Command label="Command menu">
         <CommandInput placeholder="Type a command or search…" />
         <CommandList>
@@ -109,7 +109,7 @@ export const Inline: Story = {
 export const WithDescriptions: Story = {
   name: 'With icons and descriptions',
   render: () => (
-    <div className="w-[420px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-sm">
+    <div className="w-[420px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-elevation-sm">
       <Command label="Command menu">
         <CommandInput placeholder="Search sites, pages and actions…" />
         <CommandList>
@@ -136,7 +136,7 @@ export const WithDescriptions: Story = {
 export const WithBreadcrumb: Story = {
   name: 'With breadcrumb',
   render: () => (
-    <div className="w-[420px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-sm">
+    <div className="w-[420px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-elevation-sm">
       <Command label="Command menu">
         <CommandInput placeholder="Search settings…" value="review" readOnly />
         <CommandList>
@@ -163,7 +163,7 @@ export const WithBreadcrumb: Story = {
 export const EntityResults: Story = {
   name: 'Entity results',
   render: () => (
-    <div className="w-[380px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-sm">
+    <div className="w-[380px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-elevation-sm">
       <Command label="Command menu">
         <CommandInput placeholder="Search sites…" />
         <CommandList>
@@ -193,7 +193,7 @@ export const EntityResults: Story = {
 export const DisabledItem: Story = {
   name: 'Disabled item',
   render: () => (
-    <div className="w-[380px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-sm">
+    <div className="w-[380px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-elevation-sm">
       <Command label="Command menu">
         <CommandInput placeholder="Run a command…" />
         <CommandList>
@@ -241,7 +241,7 @@ export const DisabledItem: Story = {
 /** The empty state — a query pre-seeded to match nothing, so CommandEmpty shows without interaction. */
 export const Empty: Story = {
   render: () => (
-    <div className="w-[380px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-sm">
+    <div className="w-[380px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-elevation-sm">
       <Command label="Command menu">
         <CommandInput placeholder="Search…" value="no-such-command" readOnly />
         <CommandList>
@@ -264,7 +264,7 @@ export const Empty: Story = {
 /** Pass `<Command loading>` while fetching and place a `<CommandLoading>` as a sibling of `<CommandList>` (a listbox may not own a status region). It shows a spinner + "Loading…" and suppresses CommandEmpty. This story stays loading so the row is visible. */
 export const Loading: Story = {
   render: () => (
-    <div className="w-[380px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-sm">
+    <div className="w-[380px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-elevation-sm">
       <Command label="Command menu" loading>
         <CommandInput placeholder="Search sites…" />
         <CommandLoading />
@@ -283,7 +283,7 @@ function AsyncFetchDemo() {
     return () => window.clearTimeout(t);
   }, []);
   return (
-    <div className="w-[380px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-sm">
+    <div className="w-[380px] rounded-lg border border-solid border-[var(--color-border-border-subtle)] shadow-elevation-sm">
       <Command label="Command menu" loading={loading}>
         <CommandInput placeholder="Search sites…" />
         <CommandLoading />

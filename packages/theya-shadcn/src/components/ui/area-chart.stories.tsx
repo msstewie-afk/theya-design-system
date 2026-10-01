@@ -152,7 +152,7 @@ export const InCard: Story = {
   name: 'In card',
   parameters: { controls: { exclude: ['height'] } },
   render: (args) => (
-    <div className="rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5 shadow-xs">
+    <div className="rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5 shadow-elevation-xs">
       <div className="flex items-baseline justify-between gap-4">
         <div className="flex flex-col gap-0.5">
           <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">Requests / day</span>

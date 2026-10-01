@@ -44,7 +44,7 @@ function DropdownMenuContent({
             'z-50 min-w-[12rem] max-w-[calc(100vw-2rem)] overflow-x-hidden overflow-y-auto',
             'rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
             'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)]',
-            'p-[var(--size-margin-margin-2xs)] shadow-lg',
+            'p-[var(--size-margin-margin-2xs)] shadow-elevation-lg',
             'text-[var(--color-text-text)]',
             'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
             'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
@@ -229,7 +229,7 @@ function DropdownMenuSubContent({
       <DropdownMenuPrimitive.SubContent
         className={cn(
           'z-50 min-w-[10rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
-          'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-lg',
+          'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-elevation-lg',
           'text-[var(--color-text-text)]',
           'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
           'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',

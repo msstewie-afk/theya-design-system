@@ -65,7 +65,7 @@ export const InCard: Story = {
   parameters: { controls: { exclude: ['orientation'] } },
   args: { orientation: 'horizontal' },
   render: (args) => (
-    <div className="w-full max-w-sm rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-xs">
+    <div className="w-full max-w-sm rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-xs">
       <div className="flex items-center justify-between px-4 py-3">
         <span className="font-mono text-body-m text-[var(--color-text-text)]">shop.seashell.dev</span>
         <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">eu-west-1</span>
