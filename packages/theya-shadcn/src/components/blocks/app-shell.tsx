@@ -53,6 +53,12 @@ export interface AppShellProps {
   user?: { name: string; org?: string; initials?: string };
   searchPlaceholder?: string;
   /** Wire the topbar search to a command palette (⌘K). */
+  /** Shows the Notifications button and fires when it's pressed. Omitted -> no button (it used to render with no way to handle it). */
+  onOpenNotifications?: () => void;
+  /** Red dot + "unread" in the button's name. Default false — it used to be hardcoded on, so it always claimed unread. */
+  unreadNotifications?: boolean;
+  /** Shows the Help button and fires when it's pressed. */
+  onOpenHelp?: () => void;
   onSearch?: () => void;
   defaultCollapsed?: boolean;
   children: ReactNode;
@@ -109,6 +115,9 @@ export function AppShell({
   user = DEFAULT_USER,
   searchPlaceholder = 'Search...',
   onSearch,
+  onOpenNotifications,
+  unreadNotifications = false,
+  onOpenHelp,
   defaultCollapsed,
   children,
 }: AppShellProps) {
@@ -205,12 +214,16 @@ export function AppShell({
             <TopbarSearch onClick={onSearch} placeholder={searchPlaceholder} />
             <TopbarSpacer />
             {actions}
-            <TopbarAction badge aria-label="Notifications">
-              <Bell />
-            </TopbarAction>
-            <TopbarAction aria-label="Help">
-              <Lifebelt />
-            </TopbarAction>
+            {onOpenNotifications && (
+              <TopbarAction badge={unreadNotifications} aria-label="Notifications" onClick={onOpenNotifications}>
+                <Bell />
+              </TopbarAction>
+            )}
+            {onOpenHelp && (
+              <TopbarAction aria-label="Help" onClick={onOpenHelp}>
+                <Lifebelt />
+              </TopbarAction>
+            )}
             <ThemeToggle />
           </Topbar>
 
