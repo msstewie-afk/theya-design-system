@@ -37,7 +37,10 @@ export default {
       ],
     },
     js: {
-      transformGroup: 'js',
+      // Not transformGroup 'js': that group uses size/rem, which turned our
+      // unitless px sizes into rem (12 -> "12rem"). Same transforms as the
+      // js group, but size/px like the CSS platform.
+      transforms: ['attribute/cti', 'name/pascal', 'size/px', 'color/hex'],
       buildPath: 'build/js/',
       files: [
         {
@@ -51,7 +54,7 @@ export default {
       ],
     },
     'tailwind-json': {
-      transformGroup: 'js',
+      transforms: ['attribute/cti', 'name/pascal', 'size/px', 'color/hex'],
       buildPath: 'build/tailwind/',
       files: [
         {
