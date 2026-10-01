@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { ArrowUpRight, CreditCard, GraphUp } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { Badge, type BadgeTone } from '@/components/ui/badge';
@@ -127,6 +128,7 @@ export function BillingUsage({
   upgradeLabel = 'Upgrade plan',
   ...props
 }: BillingUsageProps) {
+  const kpiHeadingId = useId();
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <h2 className="sr-only">{title}</h2>
@@ -147,16 +149,19 @@ export function BillingUsage({
             </p>
           </div>
         </div>
-        <Button appearance="outlined" tone="secondary" onClick={onUpgrade} className="max-md:h-11 max-md:w-full sm:shrink-0" leftIcon={<ArrowUpRight />}>
-          {upgradeLabel}
-        </Button>
+        {/* Only with a handler — without one it rendered as a dead button. */}
+        {onUpgrade && (
+          <Button appearance="outlined" tone="secondary" onClick={onUpgrade} className="max-md:h-11 max-md:w-full sm:shrink-0" leftIcon={<ArrowUpRight />}>
+            {upgradeLabel}
+          </Button>
+        )}
       </div>
 
       <Separator />
 
       {stats.length > 0 && (
-        <section aria-labelledby="billing-kpi-heading">
-          <h3 id="billing-kpi-heading" className="sr-only">
+        <section aria-labelledby={kpiHeadingId}>
+          <h3 id={kpiHeadingId} className="sr-only">
             Billing at a glance
           </h3>
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">

@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import type { ReactNode } from 'react';
 import { WarningTriangle, ArrowRight, CheckCircle, Globe, Pause, Refresh, ShieldCheck, Activity } from 'iconoir-react';
 import { cn } from '@/lib/utils';
@@ -207,6 +208,7 @@ export function DashboardOverview({
   viewAllHref,
   ...props
 }: DashboardOverviewProps) {
+  const kpiHeadingId = useId();
   const attentionCount = attention.length;
   const total = attentionTotal ?? attentionCount;
   const anyNearLimit = quotas.some((q) => pctOf(q.used, q.total) >= NEAR_FULL);
@@ -263,9 +265,20 @@ export function DashboardOverview({
                     </span>
                   </p>
                 </div>
-                <Button appearance="outlined" tone="secondary" className="max-md:h-11 max-md:w-full sm:shrink-0" onClick={() => onAttentionAction?.(item)}>
-                  {item.actionLabel}
-                </Button>
+                {/* Only with a handler (it rendered dead without one). Named
+                    with its target: a list of "Investigate"/"Resume site"
+                    buttons didn't say which site; visible word stays first. */}
+                {onAttentionAction && (
+                  <Button
+                    appearance="outlined"
+                    tone="secondary"
+                    className="max-md:h-11 max-md:w-full sm:shrink-0"
+                    aria-label={`${item.actionLabel}: ${item.id}`}
+                    onClick={() => onAttentionAction(item)}
+                  >
+                    {item.actionLabel}
+                  </Button>
+                )}
               </li>
             ))}
           </ul>
@@ -297,8 +310,8 @@ export function DashboardOverview({
       <Separator />
 
       {stats.length > 0 && (
-        <section aria-labelledby="dashboard-kpi-heading">
-          <h2 id="dashboard-kpi-heading" className="sr-only">
+        <section aria-labelledby={kpiHeadingId}>
+          <h2 id={kpiHeadingId} className="sr-only">
             Account health at a glance
           </h2>
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
