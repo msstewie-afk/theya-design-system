@@ -130,6 +130,7 @@ export function TeamMembers({
   const [email, setEmail] = useState('');
   const [inviteRole, setInviteRole] = useState(roles[0]?.value ?? 'member');
   const [touched, setTouched] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const emailId = useId();
   const emailErrId = useId();
   const inviteRoleId = useId();
@@ -142,19 +143,42 @@ export function TeamMembers({
   const roleOf = (value: string): TeamRoleOption => roleMap.get(value) ?? { value, label: value, badge: 'neutral' };
 
   const trimmedEmail = email.trim();
-  const emailValid = EMAIL_RE.test(trimmedEmail);
-  const showEmailError = touched && trimmedEmail.length > 0 && !emailValid;
+  const lowerEmail = trimmedEmail.toLowerCase();
+  // Errors, in order: empty (only after a submit attempt — tabbing past
+  // an empty field isn't a mistake), malformed (after blur or submit),
+  // already on the team, already invited. The empty case used to fail
+  // silently: submit did nothing and said nothing.
+  const emailError = !trimmedEmail
+    ? submitted
+      ? 'Enter an email address.'
+      : null
+    : !EMAIL_RE.test(trimmedEmail)
+      ? touched || submitted
+        ? 'Enter a valid email address.'
+        : null
+      : members.some((m) => m.email.toLowerCase() === lowerEmail)
+        ? 'This person is already a member.'
+        : invites.some((i) => i.email.toLowerCase() === lowerEmail)
+          ? 'This email already has a pending invite.'
+          : null;
+  const showEmailError = emailError != null;
 
   function sendInvite(e: FormEvent) {
     e.preventDefault();
     setTouched(true);
-    if (!emailValid) return;
+    setSubmitted(true);
+    const blocked = !trimmedEmail || !EMAIL_RE.test(trimmedEmail) || members.some((m) => m.email.toLowerCase() === lowerEmail) || invites.some((i) => i.email.toLowerCase() === lowerEmail);
+    if (blocked) {
+      document.getElementById(emailId)?.focus();
+      return;
+    }
     const invite: TeamInvite = { id: `inv-${Date.now()}`, email: trimmedEmail, role: inviteRole, invitedAgo: 'Just now' };
     setInvites((prev) => [invite, ...prev]);
     onInvite?.(trimmedEmail, inviteRole);
     toast.success('Invite sent', { description: `${trimmedEmail} · ${roleOf(inviteRole).label}` });
     setEmail('');
     setTouched(false);
+    setSubmitted(false);
   }
 
   function changeRole(member: TeamMember, role: string) {
@@ -236,7 +260,7 @@ export function TeamMembers({
               />
               {showEmailError && (
                 <p id={emailErrId} role="alert" className="font-body text-body-s font-medium text-[var(--color-text-text-danger)]">
-                  Enter a valid email address.
+                  {emailError}
                 </p>
               )}
             </div>
@@ -376,7 +400,17 @@ export function TeamMembers({
                       </div>
                     </div>
                     <div className="flex shrink-0 items-center gap-2 max-sm:w-full">
-                      <Button appearance="ghost" size="md" className="max-sm:flex-1" onClick={() => resendInvite(invite)} leftIcon={<Send />}>
+                      <Button
+                        appearance="ghost"
+                        size="md"
+                        className="max-sm:flex-1"
+                        // Named per invite: every row has the same visible
+                        // "Resend", so a screen reader heard several identical
+                        // buttons. The visible word stays first (2.5.3).
+                        aria-label={`Resend invite to ${invite.email}`}
+                        onClick={() => resendInvite(invite)}
+                        leftIcon={<Send />}
+                      >
                         Resend
                       </Button>
                       <ConfirmDialog
@@ -385,7 +419,7 @@ export function TeamMembers({
                         confirmLabel="Revoke"
                         confirmIcon={<Trash width={16} height={16} />}
                         trigger={
-                          <Button appearance="ghost" tone="danger" size="md" className="max-sm:flex-1">
+                          <Button appearance="ghost" tone="danger" size="md" className="max-sm:flex-1" aria-label={`Revoke invite for ${invite.email}`}>
                             Revoke
                           </Button>
                         }
