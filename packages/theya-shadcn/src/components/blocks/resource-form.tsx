@@ -179,7 +179,7 @@ export function ResourceForm({ title, description, sections, onSubmit, onCancel,
             {cancelLabel}
           </Button>
         )}
-        <Button appearance="filled" tone="primary" size="2xl" disabled={form.formState.isSubmitting} className="max-sm:w-full">
+        <Button type="submit" appearance="filled" tone="primary" size="2xl" disabled={form.formState.isSubmitting} className="max-sm:w-full">
           {submitLabel}
         </Button>
       </div>

@@ -255,7 +255,7 @@ export function TeamMembers({
                 </SelectContent>
               </Select>
             </div>
-          <Button appearance="filled" tone="primary" className="max-sm:w-full" leftIcon={<UserPlus />}>
+          <Button type="submit" appearance="filled" tone="primary" className="max-sm:w-full" leftIcon={<UserPlus />}>
             Send invite
           </Button>
         </form>

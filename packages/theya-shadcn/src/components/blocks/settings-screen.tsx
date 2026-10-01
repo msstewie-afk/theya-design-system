@@ -304,7 +304,7 @@ function ProfileSection({ account, onSaveProfile }: { account: SettingsAccount; 
         </div>
         <Separator />
         <div className="flex justify-end">
-          <Button appearance="filled" tone="primary" size="2xl" leftIcon={<FloppyDisk />}>
+          <Button type="submit" appearance="filled" tone="primary" size="2xl" leftIcon={<FloppyDisk />}>
             Save changes
           </Button>
         </div>
@@ -351,7 +351,7 @@ function SecuritySection({ recoveryCode, onChangePassword, onEnableTwoFactor }: 
           <TextField id={newId} name="newPassword" type="password" autoComplete="new-password" widthSize="lg" />
         </div>
         <div className="flex justify-end">
-          <Button appearance="outlined" tone="secondary" size="2xl" leftIcon={<Key />}>
+          <Button type="submit" appearance="outlined" tone="secondary" size="2xl" leftIcon={<Key />}>
             Update password
           </Button>
         </div>

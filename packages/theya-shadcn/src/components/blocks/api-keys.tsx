@@ -114,7 +114,7 @@ export function ApiKeys({ title = 'API keys', description = 'Keys used to authen
             <Label htmlFor={nameId}>Key name</Label>
             <TextField id={nameId} placeholder="Production deploy" value={name} onChange={(e) => setName(e.target.value)} widthSize="full" />
           </div>
-          <Button appearance="filled" tone="primary" disabled={!name.trim()} className="max-sm:w-full" leftIcon={<Plus />}>
+          <Button type="submit" appearance="filled" tone="primary" disabled={!name.trim()} className="max-sm:w-full" leftIcon={<Plus />}>
             Create key
           </Button>
         </form>
