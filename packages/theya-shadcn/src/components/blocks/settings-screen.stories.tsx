@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
+import { toast } from '@/components/ui/sonner';
 import { SettingsScreen } from './settings-screen';
 
 const meta: Meta<typeof SettingsScreen> = {
@@ -9,12 +10,14 @@ const meta: Meta<typeof SettingsScreen> = {
   parameters: { layout: 'fullscreen' },
   argTypes: {
     account: { control: false, description: '{ fullName, email } shown in the profile section.', table: { category: 'Content' } },
-    recoveryCode: { control: 'text', description: 'Recovery code shown once after enabling two-factor.', table: { category: 'Content' } },
+    recoveryCode: { control: 'text', description: 'Shown once, in a dialog, right after two-factor is enabled — never on the page.', table: { category: 'Content' } },
     notifications: { control: false, description: 'Notification toggle rows. Pass [] to omit the Notifications section.', table: { category: 'Content' } },
     onSaveProfile: { control: false, description: 'Called when the profile form is submitted.', table: { category: 'Events' } },
     onChangePassword: { control: false, description: 'Called when the change-password form is submitted.', table: { category: 'Events' } },
     onEnableTwoFactor: { control: false, description: 'Called with the entered code when two-factor is enabled.', table: { category: 'Events' } },
     onNotificationChange: { control: false, description: 'Fired when a notification switch is flipped — persist it here.', table: { category: 'Events' } },
+    twoFactorEnabled: { control: 'boolean', description: 'Two-factor already on: status + "Generate new code" instead of the setup form.', table: { category: 'State' } },
+    onRegenerateRecoveryCode: { control: false, description: 'Returns a fresh recovery code; the old one should stop working.', table: { category: 'Events' } },
     onDeleteAccount: { control: false, description: 'Called when account deletion is confirmed.', table: { category: 'Events' } },
   },
 };
@@ -29,7 +32,7 @@ const formValues = (e: React.FormEvent<HTMLFormElement>) => Object.fromEntries(n
 
 /** Every section end to end: profile save, password validation, 2FA, a notification switch, typed-confirm delete. */
 export const Default: Story = {
-  args: { onEnableTwoFactor: fn(), onNotificationChange: fn(), onDeleteAccount: fn() },
+  args: { onEnableTwoFactor: fn(), onRegenerateRecoveryCode: fn(() => 'NEW1-CODE-2345-6789'), onNotificationChange: fn(), onDeleteAccount: fn() },
   render: (args) => (
     <div className="p-6">
       <SettingsScreen {...args} onSaveProfile={(e) => onSave(formValues(e))} onChangePassword={(e) => onPassword(formValues(e))} />
@@ -79,16 +82,38 @@ export const Default: Story = {
     await waitFor(() => expect(onPassword).toHaveBeenCalledWith({ currentPassword: 'old-pass-1', newPassword: 'new-pass-22' }));
     await expect(next).not.toHaveAttribute('aria-invalid', 'true');
 
-    // Two-factor: Verify stays disabled until all six digits are in.
+    // Two-factor: no recovery code on the page before setup.
+    await expect(canvasElement).not.toHaveTextContent('K7Q2-9MTX-4BWP-1ZHL');
     const verify = canvas.getByRole('button', { name: 'Verify code' });
     await expect(verify).toBeDisabled();
     await userEvent.click(canvas.getByRole('textbox', { name: 'Enter the 6-digit code' }));
     await userEvent.keyboard('12345');
     await expect(verify).toBeDisabled();
-    await userEvent.keyboard('6');
-    await expect(verify).toBeEnabled();
-    await userEvent.click(verify);
+    // Enter verifies too (the field is in a form now).
+    await userEvent.keyboard('6{Enter}');
     await expect(args.onEnableTwoFactor).toHaveBeenCalledWith('123456');
+
+    // The code appears once, in a dialog; the page shows status instead.
+    let codeDialog = await body().findByRole('dialog', { name: 'Save your recovery code' });
+    await expect(codeDialog).toHaveTextContent('K7Q2-9MTX-4BWP-1ZHL');
+    await expect(canvas.queryByRole('button', { name: 'Verify code' })).toBeNull();
+    await userEvent.click(within(codeDialog).getByRole('button', { name: 'Done' }));
+    await waitFor(() => expect(body().queryByRole('dialog')).toBeNull());
+    const regenerate = canvas.getByRole('button', { name: 'Generate new code' });
+    await waitFor(() => expect(regenerate).toHaveFocus());
+    await expect(canvasElement).not.toHaveTextContent('K7Q2-9MTX-4BWP-1ZHL');
+
+    // Regenerate: behind a confirm, then a new code, once.
+    await userEvent.click(regenerate);
+    const confirmRegen = await body().findByRole('alertdialog', { name: 'Generate a new recovery code?' });
+    await userEvent.click(within(confirmRegen).getByRole('button', { name: 'Generate new code' }));
+    await waitFor(() => expect(args.onRegenerateRecoveryCode).toHaveBeenCalledTimes(1));
+    codeDialog = await body().findByRole('dialog', { name: 'Save your recovery code' });
+    await expect(codeDialog).toHaveTextContent('NEW1-CODE-2345-6789');
+    await userEvent.click(within(codeDialog).getByRole('button', { name: 'Done' }));
+    await waitFor(() => expect(body().queryByRole('dialog')).toBeNull());
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Generate new code' })).toHaveFocus());
+    toast.dismiss();
 
     // Notification switches report to the host ("changes apply immediately").
     const weekly = canvas.getByRole('switch', { name: 'Weekly summary' });
