@@ -138,7 +138,7 @@ export function TopbarSearch({
         aria-keyshortcuts="Meta+K Control+K"
         className={cn(
           'flex h-9 w-9 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-text-text-subtler)]',
-          'transition-colors duration-150 ease-out motion-reduce:transition-none',
+          'transition-colors duration-standard ease-enter motion-reduce:transition-none',
           'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
           'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
           className,

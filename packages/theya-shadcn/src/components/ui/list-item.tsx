@@ -99,7 +99,7 @@ export function ListItem({ className, size = 'md', leading, title, description, 
       data-selected={selected || undefined}
       className={cn(
         'relative flex w-full min-w-0 items-center gap-3 rounded-[var(--size-border-radius-border-radius-md)]',
-        'font-body text-body-m text-[var(--color-text-text)] transition-colors duration-150 ease-out motion-reduce:transition-none',
+        'font-body text-body-m text-[var(--color-text-text)] transition-colors duration-standard ease-enter motion-reduce:transition-none',
         SIZE_CLASS[size],
         // Selected uses `-subtle` (one step darker than hover's `-subtler`)
         // so a selected-but-not-hovered row stays visually distinct from a

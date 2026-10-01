@@ -29,7 +29,7 @@ export const ThemeToggle = forwardRef<HTMLButtonElement, React.ComponentPropsWit
         'rounded-[var(--size-border-radius-border-radius-md)]',
         'text-[var(--color-icon-icon-subtle)] cursor-pointer',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
-        'transition-colors duration-150 ease-out motion-reduce:transition-none',
+        'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
         '[&>svg]:size-[18px]',
         className,

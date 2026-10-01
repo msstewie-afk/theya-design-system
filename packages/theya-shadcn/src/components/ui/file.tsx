@@ -184,7 +184,7 @@ export function File({
             'flex w-full flex-col items-center gap-2 p-3',
             'rounded-[var(--size-border-radius-border-radius-2xl)] border border-dashed',
             'border-[var(--color-border-border-default)] bg-[var(--color-bg-surface-bg-surface)]',
-            'transition-colors duration-150 ease-out motion-reduce:transition-none',
+            'transition-colors duration-standard ease-enter motion-reduce:transition-none',
             'hover:not-disabled:border-[var(--color-border-border-primary)]',
             'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
             'disabled:cursor-not-allowed disabled:opacity-50',

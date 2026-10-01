@@ -58,7 +58,7 @@ export function PaginationLink({
         'inline-flex items-center justify-center gap-1.5 cursor-pointer',
         'rounded-[var(--size-border-radius-border-radius-md)]',
         'font-body text-body-s tabular-nums',
-        'transition-colors duration-150 ease-out motion-reduce:transition-none',
+        'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         wide ? 'h-[30px] px-2.5' : 'size-[30px]',
         disabled && 'pointer-events-none opacity-50',
         isActive

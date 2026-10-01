@@ -165,7 +165,7 @@ function AccountLayout() {
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
-                  className="mt-1 flex w-full items-center gap-2.5 rounded-[var(--size-border-radius-border-radius-md)] px-2.5 py-2 text-left outline-none transition-colors duration-150 ease-out hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)] data-[state=open]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]"
+                  className="mt-1 flex w-full items-center gap-2.5 rounded-[var(--size-border-radius-border-radius-md)] px-2.5 py-2 text-left outline-none transition-colors duration-standard ease-enter hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)] data-[state=open]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]"
                 >
                   <Avatar>
                     <AvatarFallback>MS</AvatarFallback>

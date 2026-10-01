@@ -76,7 +76,7 @@ export function AlertDialogContent({ className, ...props }: React.ComponentProps
           layout.contentGap === 'compact' && 'gap-2',
           layout.contentGap === 'none' && 'gap-0',
           'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
-          'data-[state=open]:duration-200 data-[state=open]:ease-out data-[state=closed]:duration-150 data-[state=closed]:ease-in',
+          'data-[state=open]:duration-moderate data-[state=open]:ease-enter data-[state=closed]:duration-standard data-[state=closed]:ease-exit',
           'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
           'data-[state=closed]:slide-out-to-top-[2%] data-[state=open]:slide-in-from-top-[2%]',
           className,

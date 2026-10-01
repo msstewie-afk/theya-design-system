@@ -136,7 +136,7 @@ export function DateRangePicker({
             className={cn(
               'pointer-events-auto flex items-center justify-center size-6 rounded-[var(--size-border-radius-border-radius-md)]',
               'text-[var(--color-icon-icon-subtle)] hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
-              'transition-colors duration-150 ease-out motion-reduce:transition-none',
+              'transition-colors duration-standard ease-enter motion-reduce:transition-none',
             )}
           >
             <Xmark width={14} height={14} aria-hidden="true" />

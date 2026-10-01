@@ -62,7 +62,7 @@ export function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
         // Inset shadow, not a border: border-collapse resolves a real
         // border into the shared grid rather than painting it as part
         // of this row's own hoverable box.
-        'shadow-[inset_0_-1px_0_0_var(--color-border-border-subtle)] transition-colors duration-150 ease-out motion-reduce:transition-none',
+        'shadow-[inset_0_-1px_0_0_var(--color-border-border-subtle)] transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'last:shadow-none hover:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
         // Selected: same treatment as DataTable's rows (primary tint, lighter
         // tint on hover). Was neutral-subtler for both hover and selected, so

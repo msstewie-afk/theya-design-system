@@ -279,7 +279,7 @@ export function AreaChart({
                 fill={`url(#${gradientId}-${i})`}
                 isAnimationActive={animate}
                 animationDuration={720}
-                animationEasing="ease-out"
+                animationEasing="ease-enter"
                 activeDot={{ r: 4, fill: seriesColor(i), stroke: 'var(--color-bg-surface-bg-surface)', strokeWidth: 2 }}
               />
             ))
@@ -294,7 +294,7 @@ export function AreaChart({
               fill={`url(#${gradientId})`}
               isAnimationActive={animate}
               animationDuration={720}
-              animationEasing="ease-out"
+              animationEasing="ease-enter"
               activeDot={{ r: 4.5, fill: CHART_COLORS[0], stroke: 'var(--color-bg-surface-bg-surface)', strokeWidth: 2.5 }}
               dot={(props: { cx?: number; cy?: number; index?: number }) => {
                 const { cx, cy, index } = props;

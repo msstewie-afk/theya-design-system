@@ -51,7 +51,7 @@ export function MessagePopupContent({
               aria-label="Close"
               className={cn(
                 'grid size-6 shrink-0 place-items-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)]',
-                'transition-colors duration-150 ease-out motion-reduce:transition-none',
+                'transition-colors duration-standard ease-enter motion-reduce:transition-none',
                 'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
                 'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
               )}

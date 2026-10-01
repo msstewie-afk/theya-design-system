@@ -97,7 +97,7 @@ export function BarChart({ data, orientation = 'vertical', height = 240, valueSt
               <BarChartTooltip active={active} value={payload && payload.length && typeof payload[0]?.value === 'number' ? payload[0].value : undefined} label={label} fmt={fmt} labelPrefix={labelPrefix} />
             )}
           />
-          <Bar dataKey="value" fill={FILL} radius={horizontal ? [0, 5, 5, 0] : [5, 5, 0, 0]} maxBarSize={horizontal ? 22 : 48} isAnimationActive={animate} animationDuration={640} animationEasing="ease-out" />
+          <Bar dataKey="value" fill={FILL} radius={horizontal ? [0, 5, 5, 0] : [5, 5, 0, 0]} maxBarSize={horizontal ? 22 : 48} isAnimationActive={animate} animationDuration={640} animationEasing="ease-enter" />
         </RechartsBarChart>
       </ResponsiveContainer>
     </div>

@@ -33,7 +33,7 @@ function InputGroup({ className, onMouseDown, ...props }: React.ComponentProps<'
         'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
         'border-[var(--color-border-border-default)] bg-[var(--color-bg-input-bg-input)]',
         'text-body-m text-[var(--color-text-text)]',
-        'transition-[border-color,background-color,box-shadow] duration-150 ease-out motion-reduce:transition-none',
+        'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
         'has-[input:hover]:not-has-[input:disabled]:not-has-[input[aria-invalid=true]]:border-[var(--color-border-border-primary)]',
         'not-has-[input[aria-invalid=true]]:focus-within:border-[var(--color-border-border-primary)]',
         // Same equal-specificity clash as the border rule above — this

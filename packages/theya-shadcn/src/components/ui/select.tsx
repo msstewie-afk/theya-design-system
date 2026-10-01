@@ -72,7 +72,7 @@ function SelectTrigger({ className, widthSize = 'md', error, children, ...props 
           : heightSize === 'lg'
             ? 'h-[var(--size-size-control-size-control-4xl)] text-body-m'
             : 'h-[var(--size-size-control-size-control-2xl)] text-body-m',
-        'transition-[border-color,background-color,box-shadow] duration-150 ease-out motion-reduce:transition-none outline-none',
+        'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none outline-none',
         'data-[placeholder]:text-[var(--color-text-text-subtler)]',
         // data-[placeholder] and data-[error=true] are independent
         // attributes that can both be true at once (an invalid Select

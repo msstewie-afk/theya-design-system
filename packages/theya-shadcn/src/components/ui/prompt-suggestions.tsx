@@ -31,7 +31,7 @@ function PromptSuggestions({ items, onSelect, className, ...props }: PromptSugge
             'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]',
             'px-[var(--size-margin-margin-s)] py-[var(--size-margin-margin-xs)]',
             'font-body text-body-s text-[var(--color-text-text)] cursor-pointer',
-            'transition-colors duration-150 ease-out motion-reduce:transition-none',
+            'transition-colors duration-standard ease-enter motion-reduce:transition-none',
             'hover:border-[var(--color-border-border-primary)] hover:bg-[var(--color-bg-primary-bg-primary-subtler)]',
             'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
           )}

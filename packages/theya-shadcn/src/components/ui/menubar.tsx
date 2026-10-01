@@ -39,7 +39,7 @@ export function MenubarTrigger({ className, ...props }: React.ComponentProps<typ
       className={cn(
         'flex items-center rounded-[var(--size-border-radius-border-radius-md)]',
         'px-3 py-1.5 font-body text-body-m font-medium text-[var(--color-text-text)] outline-none cursor-pointer',
-        'transition-colors duration-150 ease-out motion-reduce:transition-none',
+        'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[state=open]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',

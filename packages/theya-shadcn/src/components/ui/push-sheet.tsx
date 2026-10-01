@@ -91,8 +91,8 @@ export function PushSheet({ open, onOpenChange, side = 'right', width = '22.5rem
               style={{ width, ...style }}
               className={cn(
                 'fixed inset-y-0 z-50 flex h-full max-w-[92vw] flex-col bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-elevation-xl outline-none',
-                'transition ease-out motion-reduce:transition-none',
-                'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-200 data-[state=open]:duration-300 motion-reduce:animate-none!',
+                'transition ease-enter motion-reduce:transition-none',
+                'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-moderate data-[state=open]:duration-slow motion-reduce:animate-none!',
                 side === 'right'
                   ? 'right-0 border-l border-solid border-[var(--color-border-border-subtle)] data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right'
                   : 'left-0 border-r border-solid border-[var(--color-border-border-subtle)] data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left',
@@ -119,7 +119,7 @@ export function PushSheet({ open, onOpenChange, side = 'right', width = '22.5rem
         aria-hidden={!open}
         {...({ inert: open ? undefined : true } as Record<string, unknown>)}
         style={{ width: open ? width : '0px', ...style }}
-        className={cn('h-full shrink-0 overflow-hidden transition-[width] duration-300 ease-out motion-reduce:transition-none', className)}
+        className={cn('h-full shrink-0 overflow-hidden transition-[width] duration-slow ease-enter motion-reduce:transition-none', className)}
         {...props}
       >
         <div

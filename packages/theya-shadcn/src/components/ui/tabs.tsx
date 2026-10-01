@@ -92,7 +92,7 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
           '-mb-px inline-flex shrink-0 items-center gap-1.5 cursor-pointer',
           'rounded-t-[var(--size-border-radius-border-radius-md)] border-b-2 border-solid border-transparent',
           'px-3 py-2.5 font-body text-body-m font-medium text-[var(--color-text-text-subtler)]',
-          'transition-[background-color,color,border-color] duration-150 ease-out motion-reduce:transition-none',
+          'transition-[background-color,color,border-color] duration-standard ease-enter motion-reduce:transition-none',
           'data-[state=inactive]:hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] data-[state=inactive]:hover:text-[var(--color-text-text)]',
           // text-link is now blue-200 (the same saturated primary used by
           // Button/Ghost's own text color) — text-link-on-tonal (blue-100)

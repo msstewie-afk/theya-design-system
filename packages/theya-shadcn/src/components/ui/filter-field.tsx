@@ -388,7 +388,7 @@ export function FilterField({
             'flex min-h-[var(--size-size-control-size-control-2xl)] w-[25rem] max-w-full shrink flex-wrap items-center gap-[3px]',
             'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid px-[3px] py-[3px]',
             'border-[var(--color-border-border-default)] bg-[var(--color-bg-input-bg-input)]',
-            'transition-[border-color,box-shadow] duration-150 ease-out motion-reduce:transition-none',
+            'transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
             'hover:not-data-[disabled]:border-[var(--color-border-border-primary)]',
             'focus-within:border-[var(--color-border-border-primary)]',
             'focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
@@ -410,7 +410,7 @@ export function FilterField({
               disabled={disabled}
               className={cn(
                 'grid size-6 shrink-0 place-items-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)]',
-                'transition-colors duration-150 ease-out motion-reduce:transition-none',
+                'transition-colors duration-standard ease-enter motion-reduce:transition-none',
                 'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
                 'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
                 'disabled:pointer-events-none',
@@ -601,7 +601,7 @@ export function FilterField({
                 }}
                 className={cn(
                   'grid size-6 shrink-0 place-items-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)]',
-                  'transition-colors duration-150 ease-out motion-reduce:transition-none',
+                  'transition-colors duration-standard ease-enter motion-reduce:transition-none',
                   'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
                   'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
                 )}

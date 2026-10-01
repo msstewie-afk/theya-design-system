@@ -35,7 +35,7 @@ export function BreadcrumbLink({
   return (
     <Comp
       className={cn(
-        'inline-flex items-center gap-1.5 transition-colors duration-150 ease-out motion-reduce:transition-none hover:text-[var(--color-text-text)]',
+        'inline-flex items-center gap-1.5 transition-colors duration-standard ease-enter motion-reduce:transition-none hover:text-[var(--color-text-text)]',
         className,
       )}
       {...props}

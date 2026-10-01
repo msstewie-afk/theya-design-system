@@ -119,7 +119,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
   const stepButtonClass = cn(
     'flex w-9 shrink-0 items-center justify-center',
     'outline-none cursor-pointer',
-    'transition-colors duration-150 ease-out motion-reduce:transition-none',
+    'transition-colors duration-standard ease-enter motion-reduce:transition-none',
     // +/- glyph stayed neutral icon-subtle regardless of invalid before —
     // matching the field's own danger treatment now.
     isInvalid
@@ -140,7 +140,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
         WIDTH_CLASSES[widthSize],
         'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
         'border-[var(--color-border-border-default)] bg-[var(--color-bg-input-bg-input)]',
-        'transition-[border-color,background-color,box-shadow] duration-150 ease-out motion-reduce:transition-none',
+        'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
         'has-[input:hover]:not-has-[input:disabled]:not-has-[input[aria-invalid=true]]:border-[var(--color-border-border-primary)]',
         'has-[input:focus-visible]:not-has-[input[aria-invalid=true]]:border-[var(--color-border-border-primary)]',
         'has-[input:focus-visible]:bg-[var(--color-bg-input-bg-input-active)]',

@@ -17,7 +17,7 @@ const switchVariants = cva(
     // Disabled off — combined with data-state so specificity always wins
     // over the checked/hover color rules (same fix as Checkbox/Radio).
     'disabled:data-[state=unchecked]:bg-[var(--color-bg-secondary-bg-secondary-subtle)]',
-    'transition-[background-color,transform] duration-150 ease-out motion-reduce:transition-none',
+    'transition-[background-color,transform] duration-standard ease-enter motion-reduce:transition-none',
     'cursor-pointer disabled:cursor-not-allowed',
     'motion-safe:active:not-disabled:scale-[0.95]',
     'focus-visible:outline-none',
@@ -111,7 +111,7 @@ export const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, Switch
             'group relative flex items-center justify-center',
             'size-[14px] rounded-full bg-[var(--color-icon-icon-on-dark)] shadow-elevation-sm',
             'translate-x-[3px] data-[state=checked]:translate-x-[19px]',
-            'transition-transform duration-200 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)] motion-reduce:transition-none',
+            'transition-transform duration-moderate ease-spring motion-reduce:transition-none',
           )}
         >
           {checkIcon && (
@@ -130,9 +130,9 @@ export const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, Switch
                 // references the black primitive directly, same way the
                 // thumb itself already does for white.
                 'text-[var(--color-black)]',
-                'scale-50 opacity-0 transition-[opacity,transform] duration-100 ease-out motion-reduce:transition-none',
+                'scale-50 opacity-0 transition-[opacity,transform] duration-fast ease-enter motion-reduce:transition-none',
                 'group-data-[state=checked]:scale-100 group-data-[state=checked]:opacity-100',
-                'group-data-[state=checked]:duration-200 group-data-[state=checked]:[transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]',
+                'group-data-[state=checked]:duration-moderate group-data-[state=checked]:ease-spring',
               )}
             />
           )}

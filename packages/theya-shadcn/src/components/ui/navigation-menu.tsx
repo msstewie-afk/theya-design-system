@@ -28,7 +28,7 @@ export function NavigationMenu({
             'relative mt-2 h-[var(--radix-navigation-menu-viewport-height)] w-[var(--radix-navigation-menu-viewport-width)]',
             'origin-[top_center] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
             'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] shadow-elevation-lg',
-            'transition-[width,height] duration-200 ease-out motion-reduce:transition-none',
+            'transition-[width,height] duration-moderate ease-enter motion-reduce:transition-none',
             'data-[state=open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
             'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
             viewportClassName,
@@ -52,7 +52,7 @@ export function NavigationMenuTrigger({ className, children, ...props }: React.C
         'group inline-flex h-9 w-max items-center justify-center gap-1',
         'rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-surface-bg-surface)]',
         'px-3 py-2 font-body text-body-m font-medium text-[var(--color-text-text)] outline-none cursor-pointer',
-        'transition-colors duration-150 ease-out motion-reduce:transition-none',
+        'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[state=open]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
@@ -63,7 +63,7 @@ export function NavigationMenuTrigger({ className, children, ...props }: React.C
     >
       {children}
       <NavArrowDown
-        className="relative top-px size-3.5 text-[var(--color-icon-icon-subtle)] transition-transform duration-200 ease-out motion-reduce:transition-none group-data-[state=open]:rotate-180"
+        className="relative top-px size-3.5 text-[var(--color-icon-icon-subtle)] transition-transform duration-moderate ease-enter motion-reduce:transition-none group-data-[state=open]:rotate-180"
         aria-hidden="true"
       />
     </NavigationMenuPrimitive.Trigger>
@@ -91,7 +91,7 @@ export function NavigationMenuLink({ className, ...props }: React.ComponentProps
       className={cn(
         'flex flex-col gap-1 rounded-[var(--size-border-radius-border-radius-md)] p-2.5',
         'font-body text-body-m leading-tight text-[var(--color-text-text)] no-underline outline-none',
-        'transition-colors duration-150 ease-out motion-reduce:transition-none',
+        'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'focus-visible:bg-[var(--color-bg-neutral-bg-neutral-subtle)] focus-visible:outline-none',
         'data-[active]:bg-[var(--color-bg-neutral-bg-neutral-subtle)] data-[active]:font-medium',

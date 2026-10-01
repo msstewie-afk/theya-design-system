@@ -101,7 +101,7 @@ export function Filter({
               : heightSize === 'lg'
                 ? 'h-[var(--size-size-control-size-control-4xl)] text-body-m'
                 : 'h-[var(--size-size-control-size-control-2xl)] text-body-m',
-            'transition-[border-color,background-color,box-shadow] duration-150 ease-out motion-reduce:transition-none outline-none',
+            'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none outline-none',
             'hover:not-disabled:border-[var(--color-border-border-primary)]',
             'focus-visible:border-[var(--color-border-border-primary)]',
             'focus-visible:bg-[var(--color-bg-input-bg-input-active)]',

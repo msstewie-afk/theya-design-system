@@ -186,7 +186,7 @@ export function Autocomplete({
               'aria-[invalid=true]:text-[var(--color-text-text-danger)]',
               'aria-[invalid=true]:placeholder:text-[var(--color-text-text-danger)]',
               showClear && current && !disabled ? 'pr-9' : 'pr-[var(--size-padding-padding-xs)]',
-              'transition-[border-color,background-color,box-shadow] duration-150 ease-out motion-reduce:transition-none',
+              'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
               'hover:not-disabled:not-read-only:not-aria-[invalid=true]:border-[var(--color-border-border-primary)]',
               'focus-visible:not-read-only:not-aria-[invalid=true]:border-[var(--color-border-border-primary)]',
               // Guarded the same way as the border rule above — this bg

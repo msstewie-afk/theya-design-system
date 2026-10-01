@@ -16,7 +16,7 @@ export const dateFieldTriggerClassName = cn(
   'border-[var(--color-border-border-default)] bg-[var(--color-bg-input-bg-input)]',
   'px-[var(--size-margin-margin-s)] text-[var(--color-text-text)]',
   'h-[var(--size-size-control-size-control-2xl)] text-body-m',
-  'transition-[border-color,background-color,box-shadow] duration-150 ease-out motion-reduce:transition-none outline-none',
+  'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none outline-none',
   'hover:not-disabled:not-data-[error=true]:border-[var(--color-border-border-primary)]',
   'focus-visible:not-data-[error=true]:border-[var(--color-border-border-primary)]',
   // Same equal-specificity clash as the border rules above —
@@ -191,7 +191,7 @@ export function DatePicker({
             className={cn(
               'pointer-events-auto flex items-center justify-center size-6 rounded-[var(--size-border-radius-border-radius-md)]',
               'text-[var(--color-icon-icon-subtle)] hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
-              'transition-colors duration-150 ease-out motion-reduce:transition-none',
+              'transition-colors duration-standard ease-enter motion-reduce:transition-none',
             )}
           >
             <Xmark width={14} height={14} aria-hidden="true" />

@@ -53,7 +53,7 @@ export function ResizableHandle({ withHandle = false, className, 'aria-label': a
       aria-label={ariaLabel ?? 'Resize panel'}
       className={cn(
         'relative flex w-px items-center justify-center bg-[var(--color-border-border-subtle)] outline-none',
-        'transition-colors duration-150 ease-out motion-reduce:transition-none',
+        'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'focus-visible:z-10 focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
         'hover:bg-[var(--color-border-border-default)] data-[separator=disabled]:cursor-default data-[separator=disabled]:opacity-50 aria-disabled:opacity-50',
         '[[data-orientation=vertical]>&]:h-px [[data-orientation=vertical]>&]:w-full',

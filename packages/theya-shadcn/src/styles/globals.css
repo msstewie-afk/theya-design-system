@@ -196,16 +196,17 @@
      codebase as bare Tailwind utilities (duration-150 alone: 53 uses,
      -200: 16, -300: 5, -100: 4, confirmed via grep 2026-09-26) — these
      are Tailwind's own default duration scale, not invented numbers.
-     This just gives the already-dominant values SEMANTIC names as an
-     additional utility (e.g. `duration-standard`), coexisting with the
-     bare `duration-150` class already used everywhere — no forced
-     migration. Easing needs no entry here: `ease-out`/`ease-in` (83/2
-     uses) are already real Tailwind default theme values
-     (cubic-bezier(0, 0, 0.2, 1) / (0.4, 0, 1, 1)), not undefined ones. */
-  --duration-fast: 100ms;
-  --duration-standard: 150ms;
-  --duration-moderate: 200ms;
-  --duration-slow: 300ms;
+     Namespaced `--transition-duration-*` — that is the theme key
+     Tailwind v4's `duration-*` utility actually reads (checked in
+     tailwindcss@4.3.3 lib.js). They were `--duration-*` until
+     2026-10-01, which silently generated NO `duration-fast/standard/…`
+     utility (same trap as `--z-*` vs `--z-index-*`). All components
+     now use the named steps (migrated 2026-10-01); the one off-scale
+     value left is Button's 220ms press spring. */
+  --transition-duration-fast: 100ms;
+  --transition-duration-standard: 150ms;
+  --transition-duration-moderate: 200ms;
+  --transition-duration-slow: 300ms;
   /* Easing: names for the four curves already used across components (2026-09-27).
      Tailwind v4 turns --ease-* into short utilities: ease-enter, ease-exit, ... */
   --ease-enter: cubic-bezier(0, 0, 0.2, 1); /* same as Tailwind ease-out: enter, hover (default) */

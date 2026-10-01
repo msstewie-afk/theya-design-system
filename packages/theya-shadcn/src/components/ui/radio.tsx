@@ -35,7 +35,7 @@ export const Radio = forwardRef<ElementRef<typeof RadioGroupPrimitive.Item>, Rad
           'peer relative inline-flex size-[var(--size-size-control-size-control-xs)] shrink-0',
           'items-center justify-center rounded-full',
           'bg-[var(--color-bg-input-bg-input)] border border-solid border-[var(--color-border-border-default)]',
-          'transition-[background-color,border-color,box-shadow,transform] duration-150 ease-out motion-reduce:transition-none',
+          'transition-[background-color,border-color,box-shadow,transform] duration-standard ease-enter motion-reduce:transition-none',
           'cursor-pointer disabled:cursor-not-allowed',
           'motion-safe:active:not-disabled:scale-[0.9]',
           'hover:not-disabled:data-[state=unchecked]:border-[var(--color-border-border-primary)]',
@@ -53,9 +53,9 @@ export const Radio = forwardRef<ElementRef<typeof RadioGroupPrimitive.Item>, Rad
           forceMount
           className={cn(
             'size-[10px] rounded-full bg-[var(--color-bg-primary-bg-primary)]',
-            'scale-0 opacity-0 transition-[opacity,transform] duration-100 ease-out motion-reduce:transition-none',
+            'scale-0 opacity-0 transition-[opacity,transform] duration-fast ease-enter motion-reduce:transition-none',
             'data-[state=checked]:scale-100 data-[state=checked]:opacity-100',
-            'data-[state=checked]:duration-200 data-[state=checked]:[transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]',
+            'data-[state=checked]:duration-moderate data-[state=checked]:ease-spring',
             disabled && 'data-[state=checked]:opacity-40 bg-[var(--color-icon-icon-subtler)] data-[state=unchecked]:opacity-0',
           )}
         />

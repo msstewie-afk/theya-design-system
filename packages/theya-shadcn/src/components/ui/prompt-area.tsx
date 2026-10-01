@@ -275,7 +275,7 @@ function PromptArea({
             className={cn(
               'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
               'border-[var(--color-border-border-default)] bg-[var(--color-bg-input-bg-input)]',
-              'transition-[border-color,background-color,box-shadow] duration-150 ease-out motion-reduce:transition-none',
+              'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
               // The plain (non-error) focus-within rules below have a
               // pseudo-class in their selector, giving them higher CSS
               // specificity than overLimit's own plain, unconditional

@@ -45,7 +45,7 @@ export function AccordionTrigger({ className, children, ...props }: React.Compon
         className={cn(
           'flex flex-1 items-start justify-between gap-4 rounded-[var(--size-border-radius-border-radius-md)] py-4 cursor-pointer',
           'text-left font-body text-body-m font-medium text-[var(--color-text-text)] outline-none',
-          'transition-all duration-150 ease-out motion-reduce:transition-none hover:underline',
+          'transition-all duration-standard ease-enter motion-reduce:transition-none hover:underline',
           'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
           'disabled:pointer-events-none disabled:opacity-50',
           '[&[data-state=open]>svg]:rotate-180',
@@ -54,7 +54,7 @@ export function AccordionTrigger({ className, children, ...props }: React.Compon
         {...props}
       >
         {children}
-        <NavArrowDown className="pointer-events-none mt-0.5 size-4 shrink-0 text-[var(--color-icon-icon-subtle)] transition-transform duration-200 ease-out motion-reduce:transition-none" />
+        <NavArrowDown className="pointer-events-none mt-0.5 size-4 shrink-0 text-[var(--color-icon-icon-subtle)] transition-transform duration-moderate ease-enter motion-reduce:transition-none" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );
@@ -66,7 +66,7 @@ export function AccordionContent({ className, children, ...props }: React.Compon
       className={cn(
         'overflow-hidden font-body text-body-m text-[var(--color-text-text-subtler)]',
         'data-[state=closed]:animate-none data-[state=open]:animate-none',
-        'transition-[height] duration-200 ease-out motion-reduce:transition-none',
+        'transition-[height] duration-moderate ease-enter motion-reduce:transition-none',
         'data-[state=closed]:h-0 data-[state=open]:h-[var(--radix-accordion-content-height)]',
       )}
       {...props}

@@ -98,7 +98,7 @@ export function Sidebar({ inverse, className, children, ...props }: SidebarProps
         className={cn(
           'sticky top-0 hidden h-svh w-[var(--rail-w)] flex-shrink-0 flex-col overflow-hidden md:flex',
           'border-r border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]',
-          'transition-[width] duration-200 ease-out motion-reduce:transition-none',
+          'transition-[width] duration-moderate ease-enter motion-reduce:transition-none',
           className,
         )}
         {...props}
@@ -284,7 +284,7 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, activ
       className={cn(
         'flex w-full items-center gap-2.5 rounded-[var(--size-border-radius-border-radius-md)] px-2.5 py-2 text-left',
         'font-body text-body-m font-medium text-[var(--color-text-text-subtler)] whitespace-nowrap cursor-pointer',
-        'transition-colors duration-150 ease-out motion-reduce:transition-none',
+        'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-text-text)]',
         'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
         active && 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
@@ -299,7 +299,7 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, activ
       {!collapsed && badge != null && (
         <span
           className={cn(
-            'ml-auto rounded-full px-1.5 py-px font-body text-body-xs font-semibold transition-opacity duration-150',
+            'ml-auto rounded-full px-1.5 py-px font-body text-body-xs font-semibold transition-opacity duration-standard',
             BADGE_TONE_CLASS[badgeTone],
             // On the active row the pill's translucent tint stacked on the
             // row's own primary tint and sank to 2.92:1 in dark (axe

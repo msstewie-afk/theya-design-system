@@ -68,7 +68,7 @@ export function PasswordStrengthMeter({ value, rules = DEFAULT_RULES, className 
           className="flex-1 h-1.5 rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)] overflow-hidden"
         >
           <div
-            className="h-full rounded-full transition-[width,background-color] duration-200 ease-out motion-reduce:transition-none"
+            className="h-full rounded-full transition-[width,background-color] duration-moderate ease-enter motion-reduce:transition-none"
             style={{ width: `${percent}%`, backgroundColor: barColor }}
           />
         </div>

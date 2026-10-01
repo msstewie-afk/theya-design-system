@@ -76,7 +76,7 @@ function DropdownMenuItem({
         'rounded-[var(--size-border-radius-border-radius-md)]',
         'px-[var(--size-margin-margin-s)] py-[var(--size-margin-margin-xs)]',
         SIZE_TO_TEXT_CLASS[size], 'text-[var(--color-text-text)] outline-none',
-        'transition-colors duration-100 ease-out motion-reduce:transition-none',
+        'transition-colors duration-fast ease-enter motion-reduce:transition-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         inset && 'pl-8',
         'data-[tone=danger]:text-[var(--color-text-text-danger)]',

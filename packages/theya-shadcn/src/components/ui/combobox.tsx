@@ -269,7 +269,7 @@ export function Combobox(props: ComboboxProps) {
             // inner input is actively focused.
             'has-[input[aria-invalid=true]]:focus-within:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
             'has-[input[aria-invalid=true]]:focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
-            'transition-[border-color,background-color,box-shadow] duration-150 ease-out motion-reduce:transition-none',
+            'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
             disabled && 'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] text-[var(--color-text-text-subtler)] italic',
             (showClearControl || showTriggerControl) && 'pr-9',
             className,

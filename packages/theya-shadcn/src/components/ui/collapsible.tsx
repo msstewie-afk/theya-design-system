@@ -19,7 +19,7 @@ export function CollapsibleContent({ className, ...props }: React.ComponentProps
   return (
     <CollapsiblePrimitive.Content
       className={cn(
-        'overflow-hidden transition-[height] duration-200 ease-out motion-reduce:transition-none',
+        'overflow-hidden transition-[height] duration-moderate ease-enter motion-reduce:transition-none',
         'data-[state=closed]:h-0 data-[state=open]:h-[var(--radix-collapsible-content-height)]',
         className,
       )}

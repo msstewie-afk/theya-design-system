@@ -50,11 +50,11 @@ export const buttonVariants = cva(
     // "fix" locally in one component — change the token if this is revisited.
     'focus-visible:outline-none',
     'focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
-    // Color/border/shadow transitions use a plain ease-out — no overshoot.
+    // Color/border/shadow transitions use a plain ease-enter — no overshoot.
     // Transform (the press scale) uses Material's "standard" easing
     // (cubic-bezier(0.4,0,0.2,1)) on both press and release.
-    '[transition:background-color_150ms_ease-out,border-color_150ms_ease-out,box-shadow_150ms_ease-out,transform_220ms_cubic-bezier(0.34,1.56,0.64,1)]',
-    'active:not-disabled:not-aria-disabled:[transition:background-color_150ms_ease-out,border-color_150ms_ease-out,box-shadow_150ms_ease-out,transform_150ms_cubic-bezier(0.4,0,0.2,1)]',
+    '[transition:background-color_var(--transition-duration-standard)_var(--ease-enter),border-color_var(--transition-duration-standard)_var(--ease-enter),box-shadow_var(--transition-duration-standard)_var(--ease-enter),transform_220ms_var(--ease-spring)]',
+    'active:not-disabled:not-aria-disabled:[transition:background-color_var(--transition-duration-standard)_var(--ease-enter),border-color_var(--transition-duration-standard)_var(--ease-enter),box-shadow_var(--transition-duration-standard)_var(--ease-enter),transform_var(--transition-duration-standard)_var(--ease-press)]',
     // motion-safe: scale only applies if the user hasn't asked for
     // reduced motion (WCAG 2.3.3) — color/border/shadow transitions stay
     // either way since they're not the kind of motion that triggers

@@ -85,7 +85,7 @@ export function Meter({ value, min = 0, max = 100, label, format, getValueLabel,
                 key={i}
                 aria-hidden="true"
                 className={cn(
-                  'h-1.5 flex-1 rounded-full transition-colors duration-300 ease-out motion-reduce:transition-none',
+                  'h-1.5 flex-1 rounded-full transition-colors duration-slow ease-enter motion-reduce:transition-none',
                   lit ? TONE_INDICATOR[tone] : 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
                 )}
               />
@@ -95,7 +95,7 @@ export function Meter({ value, min = 0, max = 100, label, format, getValueLabel,
       ) : (
         <div className="h-1.5 w-full overflow-hidden rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]">
           <div
-            className={cn('h-full rounded-full transition-[width] duration-300 ease-out motion-reduce:transition-none', TONE_INDICATOR[tone])}
+            className={cn('h-full rounded-full transition-[width] duration-slow ease-enter motion-reduce:transition-none', TONE_INDICATOR[tone])}
             style={{ width: `${pct}%` }}
           />
         </div>

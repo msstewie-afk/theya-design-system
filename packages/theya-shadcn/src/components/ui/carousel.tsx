@@ -284,7 +284,7 @@ export function CarouselIndicators({ className, variant = 'default', ...props }:
             <span
               aria-hidden="true"
               className={cn(
-                'h-2 rounded-full transition-[width,background-color] duration-200 ease-out',
+                'h-2 rounded-full transition-[width,background-color] duration-moderate ease-enter',
                 active ? 'w-6' : 'w-2',
                 variant === 'on-dark'
                   ? active

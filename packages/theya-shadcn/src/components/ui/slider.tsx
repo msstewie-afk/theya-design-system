@@ -82,7 +82,7 @@ function Slider({
           className={cn(
             'relative block size-4 shrink-0 rounded-full border border-solid',
             'bg-[var(--color-bg-input-bg-input)] shadow-elevation-sm outline-none',
-            'transition-[border-color,box-shadow] duration-150 ease-out motion-reduce:transition-none',
+            'transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
             invalid ? 'border-[var(--color-border-border-danger)]' : 'border-[var(--color-border-border-primary)]',
             'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
             'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',

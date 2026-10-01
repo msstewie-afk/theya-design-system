@@ -194,7 +194,7 @@ export function Chip({
       className={cn(
         'relative inline-flex w-fit max-w-full shrink-0 items-center gap-1 border border-solid pl-2',
         'font-body text-body-xs font-medium whitespace-nowrap outline-none',
-        'transition-[background-color,border-color,color] duration-150 ease-out motion-reduce:transition-none',
+        'transition-[background-color,border-color,color] duration-standard ease-enter motion-reduce:transition-none',
         '[&_svg]:pointer-events-none [&_svg]:shrink-0',
         // Guarded selector (matches Button/corp's own pattern): only sizes a
         // *bare* icon (no existing `size-*` class, e.g. ChipRemove's inner

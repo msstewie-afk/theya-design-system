@@ -16,7 +16,7 @@ export function Progress({ className, value = 0, ...props }: ProgressProps) {
   return (
     <ProgressPrimitive.Root value={pct} className={cn('h-1.5 w-full overflow-hidden rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]', className)} {...props}>
       <ProgressPrimitive.Indicator
-        className="h-full rounded-full bg-[var(--color-bg-primary-bg-primary)] transition-[transform] duration-300 ease-out motion-reduce:transition-none"
+        className="h-full rounded-full bg-[var(--color-bg-primary-bg-primary)] transition-[transform] duration-slow ease-enter motion-reduce:transition-none"
         style={{ transform: `translateX(-${100 - pct}%)` }}
       />
     </ProgressPrimitive.Root>

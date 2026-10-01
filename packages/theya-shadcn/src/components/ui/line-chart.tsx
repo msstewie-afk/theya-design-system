@@ -123,7 +123,7 @@ export function LineChart({ data, series, height = 260, yStep = 1, unit = '', la
               activeDot={{ r: 4, fill: seriesColor(i), stroke: 'var(--color-bg-surface-bg-surface)', strokeWidth: 2 }}
               isAnimationActive={animate}
               animationDuration={680}
-              animationEasing="ease-out"
+              animationEasing="ease-enter"
             />
           ))}
         </RechartsLineChart>

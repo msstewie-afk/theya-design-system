@@ -235,7 +235,7 @@ function DataTableColumnHeader<TData, TValue>({ column, title, className }: { co
       title={title}
       className={cn(
         'group -mx-2 inline-flex h-7 max-w-full items-center gap-1.5 rounded-[var(--size-border-radius-border-radius-sm)] px-2',
-        'font-heading text-heading-2xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)] transition-colors duration-150 ease-out motion-reduce:transition-none',
+        'font-heading text-heading-2xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)] transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:text-[var(--color-text-text)]',
         'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
         align === 'right' && 'flex-row-reverse',

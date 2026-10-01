@@ -143,7 +143,7 @@ export function Card({
         'group/card isolate relative min-w-0 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid',
         'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-elevation-xs',
         SEVERITY_CLASS[severity],
-        isInteractive && cn('transition-[border-color,box-shadow] duration-150 ease-out motion-reduce:transition-none', SEVERITY_HOVER_CLASS[severity]),
+        isInteractive && cn('transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none', SEVERITY_HOVER_CLASS[severity]),
         isSelectedFilter && SEVERITY_SELECTED_CLASS[severity],
         // Was gated on `resolvedAction` alone, so the legacy `interactive`
         // + stretched `CardLink` composition (no `action`/`href` set) never

@@ -63,7 +63,7 @@ function InputOTPSlot({ index, className, ...props }: React.ComponentProps<'div'
         'group-has-[:disabled]:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
         'group-has-[:disabled]:text-[var(--color-text-text-subtler)] group-has-[:disabled]:italic',
         'text-body-m text-[var(--color-text-text)] outline-none',
-        'transition-[border-color,box-shadow] duration-150 ease-out motion-reduce:transition-none',
+        'transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
         'data-[active=true]:z-10 data-[active=true]:border-[var(--color-border-border-primary)]',
         'data-[active=true]:bg-[var(--color-bg-input-bg-input-active)]',
         'data-[active=true]:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',

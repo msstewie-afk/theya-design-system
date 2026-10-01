@@ -26,7 +26,7 @@ export function Calendar({
     'inline-flex items-center justify-center size-7 rounded-[var(--size-border-radius-border-radius-md)]',
     'text-[var(--color-icon-icon-subtle)] cursor-pointer select-none',
     'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
-    'transition-colors duration-150 ease-out motion-reduce:transition-none',
+    'transition-colors duration-standard ease-enter motion-reduce:transition-none',
     'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
   );
 
@@ -118,7 +118,7 @@ function CalendarDayButton({ className, day, modifiers, ...props }: React.Compon
       className={cn(
         'flex aspect-square size-auto w-full min-w-[34px] items-center justify-center rounded-[var(--size-border-radius-border-radius-md)]',
         'text-body-s font-normal text-[var(--color-text-text)] cursor-pointer',
-        'transition-colors duration-150 ease-out motion-reduce:transition-none',
+        'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
         'disabled:cursor-not-allowed disabled:pointer-events-none',

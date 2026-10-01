@@ -81,7 +81,7 @@ export function Sparkline({ data, tone = 'brand', area = false, showLast = true,
               fill={`url(#${gradientId})`}
               isAnimationActive={animate}
               animationDuration={520}
-              animationEasing="ease-out"
+              animationEasing="ease-enter"
               dot={lastDot}
               activeDot={false}
             />
@@ -97,7 +97,7 @@ export function Sparkline({ data, tone = 'brand', area = false, showLast = true,
               strokeLinejoin="round"
               isAnimationActive={animate}
               animationDuration={520}
-              animationEasing="ease-out"
+              animationEasing="ease-enter"
               dot={lastDot}
               activeDot={false}
             />

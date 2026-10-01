@@ -150,7 +150,7 @@ function Dropzone({
           'rounded-[var(--size-border-radius-border-radius-2xl)] border border-dashed',
           'border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
           'p-[var(--size-margin-margin-3xl)]',
-          'transition-[border-color,background-color,box-shadow] duration-150 ease-out motion-reduce:transition-none',
+          'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
           // Hover/focus were unconditionally primary, painting over an
           // error or success dropzone on hover — gated off both states below,
           // each with its own matching hover treatment (2026-09-26 fix).
@@ -193,7 +193,7 @@ function Dropzone({
         )}
         <span
           className={cn(
-            'grid size-14 place-items-center rounded-full transition-colors duration-150 ease-out motion-reduce:transition-none',
+            'grid size-14 place-items-center rounded-full transition-colors duration-standard ease-enter motion-reduce:transition-none',
             error
               ? 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-icon-icon-danger)]'
               : loading

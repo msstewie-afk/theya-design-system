@@ -57,7 +57,7 @@ export const Password = forwardRef<HTMLInputElement, PasswordProps>(function Pas
             hasError
               ? 'text-[var(--color-icon-icon-danger)] hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtler-hover)]'
               : 'text-[var(--color-icon-icon-subtle)] hover:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
-            'transition-colors duration-150 ease-out motion-reduce:transition-none',
+            'transition-colors duration-standard ease-enter motion-reduce:transition-none',
             'disabled:cursor-not-allowed',
           )}
         >
