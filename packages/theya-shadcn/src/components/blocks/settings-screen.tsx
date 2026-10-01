@@ -71,10 +71,12 @@ export interface SettingsScreenProps extends Omit<React.ComponentProps<'div'>, '
   onSaveProfile?: FormEventHandler<HTMLFormElement>;
   onChangePassword?: FormEventHandler<HTMLFormElement>;
   onEnableTwoFactor?: (code: string) => void;
+  /** Fired when a notification switch is flipped ("changes apply immediately" — persist it here). */
+  onNotificationChange?: (id: string, checked: boolean) => void;
   onDeleteAccount?: () => void;
 }
 
-export function SettingsScreen({ className, account = DEFAULT_ACCOUNT, recoveryCode = DEFAULT_RECOVERY_CODE, notifications = DEFAULT_NOTIFICATIONS, onSaveProfile, onChangePassword, onEnableTwoFactor, onDeleteAccount, ...props }: SettingsScreenProps) {
+export function SettingsScreen({ className, account = DEFAULT_ACCOUNT, recoveryCode = DEFAULT_RECOVERY_CODE, notifications = DEFAULT_NOTIFICATIONS, onSaveProfile, onChangePassword, onEnableTwoFactor, onNotificationChange, onDeleteAccount, ...props }: SettingsScreenProps) {
   const showNotifications = notifications.length > 0;
   const sections = ALL_SECTIONS.filter((s) => s.id !== 'notifications' || showNotifications);
   const activeId = useActiveSection(sections.map((s) => s.id));
@@ -85,7 +87,7 @@ export function SettingsScreen({ className, account = DEFAULT_ACCOUNT, recoveryC
       <div className="flex min-w-0 flex-col gap-10">
         <ProfileSection account={account} onSaveProfile={onSaveProfile} />
         <SecuritySection recoveryCode={recoveryCode} onChangePassword={onChangePassword} onEnableTwoFactor={onEnableTwoFactor} />
-        {showNotifications && <NotificationsSection notifications={notifications} />}
+        {showNotifications && <NotificationsSection notifications={notifications} onChange={onNotificationChange} />}
         <DangerSection email={account.email} onDeleteAccount={onDeleteAccount} />
       </div>
       <ScrollButtons />
@@ -319,9 +321,24 @@ function SecuritySection({ recoveryCode, onChangePassword, onEnableTwoFactor }: 
   const otpId = useId();
   const otpHintId = useId();
   const [code, setCode] = useState('');
+  const [pwErrors, setPwErrors] = useState<{ current?: string; next?: string }>({});
 
+  // Empty fields used to sail through to "Password updated". Required
+  // fields + a minimum length now; the first invalid field takes focus.
   const handlePassword: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const current = String(data.get('currentPassword') ?? '');
+    const next = String(data.get('newPassword') ?? '');
+    const errors = {
+      current: current ? undefined : 'Enter your current password.',
+      next: !next ? 'Enter a new password.' : next.length < 8 ? 'Use at least 8 characters.' : next === current ? 'Choose a password different from the current one.' : undefined,
+    };
+    setPwErrors(errors);
+    if (errors.current || errors.next) {
+      document.getElementById(errors.current ? currentId : newId)?.focus();
+      return;
+    }
     if (onChangePassword) {
       onChangePassword(e);
       return;
@@ -344,11 +361,27 @@ function SecuritySection({ recoveryCode, onChangePassword, onEnableTwoFactor }: 
       <form onSubmit={handlePassword} className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <Label htmlFor={currentId}>Current password</Label>
-          <TextField id={currentId} name="currentPassword" type="password" autoComplete="current-password" widthSize="lg" />
+          <TextField
+            id={currentId}
+            name="currentPassword"
+            type="password"
+            autoComplete="current-password"
+            widthSize="lg"
+            error={pwErrors.current}
+            onChange={() => pwErrors.current && setPwErrors((p) => ({ ...p, current: undefined }))}
+          />
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor={newId}>New password</Label>
-          <TextField id={newId} name="newPassword" type="password" autoComplete="new-password" widthSize="lg" />
+          <TextField
+            id={newId}
+            name="newPassword"
+            type="password"
+            autoComplete="new-password"
+            widthSize="lg"
+            error={pwErrors.next}
+            onChange={() => pwErrors.next && setPwErrors((p) => ({ ...p, next: undefined }))}
+          />
         </div>
         <div className="flex justify-end">
           <Button type="submit" appearance="outlined" tone="secondary" size="2xl" leftIcon={<Key />}>
@@ -401,7 +434,7 @@ function SecuritySection({ recoveryCode, onChangePassword, onEnableTwoFactor }: 
   );
 }
 
-function NotificationsSection({ notifications }: { notifications: SettingsNotification[] }) {
+function NotificationsSection({ notifications, onChange }: { notifications: SettingsNotification[]; onChange?: (id: string, checked: boolean) => void }) {
   return (
     <div id="notifications" className="scroll-mt-6 flex flex-col gap-6">
       <div className="min-w-0">
@@ -417,7 +450,7 @@ function NotificationsSection({ notifications }: { notifications: SettingsNotifi
               </Label>
               <p className="mt-0.5 font-body text-body-s text-[var(--color-text-text-subtler)]">{row.helper}</p>
             </div>
-            <Switch id={row.id} defaultChecked={row.defaultChecked} aria-label={row.label} className="mt-0.5 shrink-0" />
+            <Switch id={row.id} defaultChecked={row.defaultChecked} aria-label={row.label} onCheckedChange={(checked) => onChange?.(row.id, checked)} className="mt-0.5 shrink-0" />
           </div>
         ))}
       </div>
