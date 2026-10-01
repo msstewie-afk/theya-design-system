@@ -253,14 +253,20 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
   // No visible label (aria-label only): still render the message. This
   // used to return the bare input, so error/description text was never
   // shown or announced — the field was flagged by its red border alone.
+  //
+  // The wrapper is ALWAYS rendered — `display: contents` (layout-
+  // transparent, same as the bare field) while there's no message. It used
+  // to be `messageEl ? <div>…</div> : input`, so the root element type
+  // flipped whenever an error appeared or cleared and React remounted the
+  // field: focus moved onto it was lost, and in an uncontrolled field the
+  // first keystroke (which typically clears the error) wiped the typed
+  // value. Found by the SettingsScreen password test, 2026-10-01.
   if (!label) {
-    return messageEl ? (
-      <div className="flex flex-col gap-1.5 w-full">
+    return (
+      <div className={messageEl ? 'flex flex-col gap-1.5 w-full' : 'contents'}>
         {input}
         {messageEl}
       </div>
-    ) : (
-      input
     );
   }
 

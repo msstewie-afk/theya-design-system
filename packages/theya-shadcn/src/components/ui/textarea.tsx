@@ -204,14 +204,20 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
 
   // No visible label: still render the message (it used to return the
   // bare field, so error/description text was never shown or announced).
+  //
+  // The wrapper is ALWAYS rendered — `display: contents` (layout-
+  // transparent, same as the bare field) while there's no message. It used
+  // to be `messageEl ? <div>…</div> : field`, so the root element type
+  // flipped whenever an error appeared or cleared and React remounted the
+  // field: focus moved onto it was lost, and in an uncontrolled field the
+  // first keystroke (which typically clears the error) wiped the typed
+  // value. Found by the SettingsScreen password test, 2026-10-01.
   if (!label) {
-    return messageEl ? (
-      <div className="flex flex-col gap-1.5 w-full">
+    return (
+      <div className={messageEl ? 'flex flex-col gap-1.5 w-full' : 'contents'}>
         {field}
         {messageEl}
       </div>
-    ) : (
-      field
     );
   }
 
