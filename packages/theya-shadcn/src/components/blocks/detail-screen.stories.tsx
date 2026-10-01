@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { DetailScreen } from './detail-screen';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -64,4 +65,18 @@ export const Default: Story = {
     </DetailScreen>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Page heading, status as text (not color alone), actions, facts.
+    await expect(canvas.getByRole('heading', { level: 1, name: 'shop.seashell.dev' })).toBeInTheDocument();
+    await expect(canvas.getByText('Running')).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Deploy' })).toBeInTheDocument();
+    await expect(canvas.getByText('of 10 GB')).toBeInTheDocument();
+    // The body's Tabs work by keyboard inside the screen.
+    const overview = canvas.getByRole('tab', { name: 'Overview' });
+    overview.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(canvas.getByRole('tab', { name: 'Logs' })).toHaveAttribute('aria-selected', 'true'));
+    await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Logs content goes here.');
+  },
 };

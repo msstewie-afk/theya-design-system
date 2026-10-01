@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, within } from '@storybook/test';
 import { DashboardOverview } from './dashboard-overview';
 
 const meta: Meta<typeof DashboardOverview> = {
@@ -28,11 +29,39 @@ const meta: Meta<typeof DashboardOverview> = {
 export default meta;
 type Story = StoryObj<typeof DashboardOverview>;
 
+/** Attention actions are named with their target and report the item; quotas expose their numbers. */
 export const Default: Story = {
-  render: () => <DashboardOverview onViewAll={() => alert('View all clicked')} onAttentionAction={(item) => alert(`Action for ${item.id}`)} />,
+  args: { onViewAll: fn(), onAttentionAction: fn() },
+  render: (args) => <DashboardOverview onViewAll={args.onViewAll} onAttentionAction={args.onAttentionAction} />,
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('heading', { level: 1, name: 'Dashboard' })).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Investigate: legacy.seashell.dev' }));
+    await expect(args.onAttentionAction).toHaveBeenCalledWith(expect.objectContaining({ id: 'legacy.seashell.dev' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Resume site: staging.seashell.dev' }));
+    await expect(args.onAttentionAction).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'staging.seashell.dev' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'View all' }));
+    await expect(args.onViewAll).toHaveBeenCalledTimes(1);
+    // Every quota bar carries its numbers in its name.
+    for (const bar of canvas.getAllByRole('progressbar')) await expect(bar).toHaveAccessibleName(/ of .*percent/);
+  },
 };
 
+/** Nothing to act on: the all-clear message, no "View all". */
 export const Healthy: Story = {
   name: 'Healthy (no attention items)',
-  render: () => <DashboardOverview attention={[]} />,
+  render: () => <DashboardOverview attention={[]} onViewAll={fn()} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Nothing needs your attention.')).toBeInTheDocument();
+    await expect(canvas.queryByRole('button', { name: 'View all' })).toBeNull();
+  },
+};
+
+/** Without a handler the attention rows show no (dead) action buttons. */
+export const ReadOnly: Story = {
+  render: () => <DashboardOverview />,
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).queryByRole('button', { name: /^Investigate/ })).toBeNull();
+  },
 };

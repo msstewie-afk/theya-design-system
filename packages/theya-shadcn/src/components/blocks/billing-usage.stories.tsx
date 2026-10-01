@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, within } from '@storybook/test';
 import { BillingUsage } from './billing-usage';
 
 const meta: Meta<typeof BillingUsage> = {
@@ -23,10 +24,34 @@ const meta: Meta<typeof BillingUsage> = {
 export default meta;
 type Story = StoryObj<typeof BillingUsage>;
 
+/** Upgrade is wired; quotas and invoices are readable without color. */
 export const Default: Story = {
-  render: () => (
+  args: { onUpgrade: fn() },
+  render: (args) => (
     <div className="p-6">
-      <BillingUsage onUpgrade={() => alert('Upgrade clicked')} />
+      <BillingUsage onUpgrade={args.onUpgrade} />
     </div>
   ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: /Upgrade/ }));
+    await expect(args.onUpgrade).toHaveBeenCalledTimes(1);
+    for (const bar of canvas.getAllByRole('progressbar')) await expect(bar).toHaveAccessibleName(/ of .*percent/);
+    // Invoice status is text next to the dot, never the dot alone.
+    const rows = within(canvas.getByRole('table')).getAllByRole('row').slice(1);
+    await expect(rows.length).toBeGreaterThan(0);
+    for (const row of rows) await expect(within(row).getAllByRole('cell')[3].textContent?.trim()).not.toBe('');
+  },
+};
+
+/** No handler: no dead Upgrade button. */
+export const NoUpgrade: Story = {
+  render: () => (
+    <div className="p-6">
+      <BillingUsage />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).queryByRole('button', { name: /Upgrade/ })).toBeNull();
+  },
 };
