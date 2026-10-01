@@ -43,38 +43,10 @@
    same way if a bolder code style shows up later. */
 @import '@fontsource/fira-code/400.css';
 
-/* ----------------------------------------------------------------
-   Contrast fix, light theme only (Sep 2026): --color-text-text-link
-   ships as --color-blue-blue-500 (#0068de), which is only 4.41:1
-   against --color-bg-primary-bg-primary-subtle (#dfeeff) — just under
-   the 4.5:1 WCAG AA minimum for normal text. Surfaced via Sidebar's/
-   SectionNav's active-item state and AvatarFallback, which both pair
-   these two tokens directly. Bumped one ramp step to
-   --color-blue-blue-600 (#0057b9), 5.81:1 against the same bg —
-   confirmed with Мария (blue-600 over blue-700, minimal shift). Dark
-   theme's text-text-link (#63acff) is a different value tuned for a
-   dark surface and wasn't flagged — meant to be left untouched, but a
-   bare :root selector doesn't actually leave it untouched: :root and
-   [data-theme="dark"] (variables-dark.css) have equal specificity and
-   both match <html>, so whichever rule is LATER in source order wins
-   regardless of "theme intent" — this one, imported after
-   variables-dark.css, was winning in both themes. Every consumer of
-   text-text-link was rendering blue-600 even in dark mode (found
-   2026-09-26 during dark-theme QA — Tonal/Ghost Button, Toggle,
-   ToggleGroup, Chip, Badge, Avatar, BadgeIndicator all looked
-   low-contrast for the same underlying reason). Scoped with
-   :not([data-theme="dark"]) below so dark theme's own text-link wins —
-   which itself got bumped the same day from blue-200 (#63acff, only
-   2.7:1 against Tonal's bg-primary-subtle) to blue-100 (#bddcff, 4.52:1).
-   MUST stay unlayered (not inside @layer base like the bridge blocks
-   below): @theya/tokens' variables.css is itself plain unlayered CSS,
-   and an unlayered rule always wins over an @layer-wrapped one
-   regardless of source order — an @layer base version of this override
-   silently loses every time. */
-:root:not([data-theme='dark']) {
-  --color-text-text-link: var(--color-blue-blue-600);
-}
-/* ---------------------------------------------------------------- */
+/* Light-theme --color-text-text-link is blue-600 (#0057b9), not Figma's
+   blue-500 (#0068de, 4.41:1 on bg-primary-subtle, under AA). That used to
+   be an unlayered CSS override here; since 2026-10-01 it is a code token
+   (packages/tokens/src/code/color.light.json) built into variables.css. */
 
 @theme {
   /* ---------- Radius ----------
@@ -196,6 +168,9 @@
   --text-body-xs--letter-spacing: var(--typography-body-xs-letter-spacing);
   --text-body-xs--font-weight: var(--typography-body-xs-weight);
 
+  /* Motion, layering and elevation VALUES live in packages/tokens
+     (src/code/foundation.json, 2026-10-01); this @theme block only maps
+     them onto the theme keys Tailwind generates utilities from. */
   /* ---------- Motion ----------
      Duration values were already the de-facto convention across the
      codebase as bare Tailwind utilities (duration-150 alone: 53 uses,
@@ -211,16 +186,16 @@
      `animationEasing="ease-out"` props in the chart components are
      Recharts' own easing names, not Tailwind classes — a bulk
      ease-out -> ease-enter rename must skip them (it broke them once). */
-  --transition-duration-fast: 100ms;
-  --transition-duration-standard: 150ms;
-  --transition-duration-moderate: 200ms;
-  --transition-duration-slow: 300ms;
+  --transition-duration-fast: var(--motion-duration-fast); /* 100ms */
+  --transition-duration-standard: var(--motion-duration-standard); /* 150ms */
+  --transition-duration-moderate: var(--motion-duration-moderate); /* 200ms */
+  --transition-duration-slow: var(--motion-duration-slow); /* 300ms */
   /* Easing: names for the four curves already used across components (2026-09-27).
      Tailwind v4 turns --ease-* into short utilities: ease-enter, ease-exit, ... */
-  --ease-enter: cubic-bezier(0, 0, 0.2, 1); /* same as Tailwind ease-out: enter, hover (default) */
-  --ease-exit: cubic-bezier(0.4, 0, 1, 1); /* same as Tailwind ease-in: exit */
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* overshoot: checkbox, radio, switch selection */
-  --ease-press: cubic-bezier(0.4, 0, 0.2, 1); /* button press */
+  --ease-enter: var(--motion-easing-enter); /* same as Tailwind ease-out: enter, hover (default) */
+  --ease-exit: var(--motion-easing-exit); /* same as Tailwind ease-in: exit */
+  --ease-spring: var(--motion-easing-spring); /* overshoot: checkbox, radio, switch selection */
+  --ease-press: var(--motion-easing-press); /* button press */
 
   /* ---------- Layering (z-index) ----------
      Real gap (unlike duration/easing above): existing usage is raw,
@@ -234,14 +209,14 @@
      wrong guess (`--z-*`) silently generated no utility at all. Additive
      only: existing z-10/z-50/etc. usages are NOT migrated by this change,
      adopt incrementally per component. */
-  --z-index-base: 1;
-  --z-index-sticky: 100;
-  --z-index-drawer: 200;
-  --z-index-overlay: 300;
-  --z-index-modal: 400;
-  --z-index-popover: 500;
-  --z-index-toast: 600;
-  --z-index-tooltip: 700; /* above everything: a tooltip belongs to whatever is under the cursor */
+  --z-index-base: var(--layer-base);
+  --z-index-sticky: var(--layer-sticky);
+  --z-index-drawer: var(--layer-drawer);
+  --z-index-overlay: var(--layer-overlay);
+  --z-index-modal: var(--layer-modal);
+  --z-index-popover: var(--layer-popover);
+  --z-index-toast: var(--layer-toast);
+  --z-index-tooltip: var(--layer-tooltip); /* above everything: a tooltip belongs to whatever is under the cursor */
 
   /* ---------- Elevation (shadow) ----------
      Real gap: only one shadow token exists anywhere in the generated
@@ -259,11 +234,11 @@
      (54 usages migrated 1:1, 2026-10-01); don't reintroduce bare
      Tailwind `shadow-xs..xl`. `shadow-none` and focus rings
      (`shadow-[0_0_0_4px_…]`) are separate and stay as they are. */
-  --shadow-elevation-xs: 0 1px 2px 0 rgba(27, 27, 31, 0.08);
-  --shadow-elevation-sm: 0 1px 2px -1px rgba(27, 27, 31, 0.1), 0 1px 3px 0 rgba(27, 27, 31, 0.08);
-  --shadow-elevation-md: 0 2px 4px -2px rgba(27, 27, 31, 0.1), 0 4px 10px -2px rgba(27, 27, 31, 0.1);
-  --shadow-elevation-lg: 0 8px 16px -6px rgba(27, 27, 31, 0.14), 0 12px 28px -8px rgba(27, 27, 31, 0.14);
-  --shadow-elevation-xl: 0 16px 32px -10px rgba(27, 27, 31, 0.18), 0 24px 56px -12px rgba(27, 27, 31, 0.18);
+  --shadow-elevation-xs: var(--elevation-xs);
+  --shadow-elevation-sm: var(--elevation-sm);
+  --shadow-elevation-md: var(--elevation-md);
+  --shadow-elevation-lg: var(--elevation-lg);
+  --shadow-elevation-xl: var(--elevation-xl);
 }
 
 /* ==========================================================
@@ -345,75 +320,11 @@
     --size-margin-margin-l: var(--size-margin-margin-lg);
     /* ---------------------------------------------------------------- */
 
-    /* ----------------------------------------------------------------
-       White-alpha primitives + -on-primary semantic tokens. For a
-       component sitting on a solid --color-bg-primary-bg-primary fill
-       (DataTableToolbar's selected bar, etc.) — the same idea as the
-       real -on-dark family (--color-text-text-on-dark and friends,
-       used in the shadcn alias block above), but that family has no
-       white-alpha steps and nothing named -on-primary. Authored
-       directly here as a stopgap rather than through the Figma →
-       Style Dictionary pipeline, since the -on-primary set doesn't
-       exist as Figma variables yet — replace with the generated
-       equivalents once it does, keeping these same names so nothing
-       downstream has to change. Declared ONLY here in :root, same as
-       the code palette's -inverse set below — white-on-primary
-       doesn't change between light/dark theme, so
-       [data-theme='dark'] never touches these.
-       ---------------------------------------------------------------- */
-    --white-a100: rgb(255 255 255 / 0.1);
-    --white-a200: rgb(255 255 255 / 0.2);
-    --white-a300: rgb(255 255 255 / 0.3);
-    --white-a400: rgb(255 255 255 / 0.4);
-    --white-a500: rgb(255 255 255 / 0.5);
-    --white-a600: rgb(255 255 255 / 0.6);
-    --white-a700: rgb(255 255 255 / 0.7);
-    --white-a800: rgb(255 255 255 / 0.8);
-    --white-a900: rgb(255 255 255 / 0.9);
-
-    --color-text-text-on-primary: #ffffff;
-    --color-text-text-subtle-on-primary: var(--white-a800);
-    --color-icon-icon-on-primary: var(--white-a800);
-    --color-border-border-on-primary: var(--white-a700);
-    --color-focus-focus-ring-on-primary: var(--white-a300);
-    /* Checkbox's checked/indeterminate fill on this surface — inverted
-       from its normal state (fill primary, check white): fill white,
-       check reads var(--color-icon-icon-primary) instead (already a
-       real token, no -on-primary variant needed for it). */
-    --color-bg-primary-on-primary: #ffffff;
-    /* Ghost button on this surface: no fill at rest (the primary surface
-       itself shows through), a faint white wash on hover/press instead
-       of the ordinary neutral-bg hover/press tokens (which read as
-       near-invisible against a solid primary fill). */
-    --color-bg-primary-on-primary-hover: var(--white-a200);
-    --color-bg-primary-on-primary-pressed: var(--white-a300);
-    /* ---------------------------------------------------------------- */
-
-    /* ----------------------------------------------------------------
-       Chart palette, authored directly here as a stopgap (same
-       convention as the white-alpha/-on-primary block above) — doesn't
-       exist as a Figma-sourced semantic token yet. Previously chart
-       components each hardcoded their own array of semantic bg-*-bg-*
-       tokens (primary/secondary/success/warning/danger), and
-       --color-bg-info-bg-info happened to be the exact same hex as
-       --color-bg-primary-bg-primary (#0068de) — two indistinguishable
-       series/slices. These are primitives instead, picked for maximum
-       distinction, all at their -500 step (Мария's call, Sep 2026).
-       Primitives have no light/dark split of their own, so declared
-       ONLY here in :root, same reasoning as the white-alpha set above.
-       The --chart-1..7 shadcn alias above points at these. */
-    /* chart-01 is blue on purpose, matching --color-bg-primary-bg-primary
-       (both resolve to the same primitive, #0068de) — a single-series
-       chart tied to the brand color and a multi-series chart's first
-       slice/line read as the same blue, not two different ones. */
-    --color-bg-chart-01: var(--color-blue-blue-500);
-    --color-bg-chart-02: var(--color-magenta-magenta-500);
-    --color-bg-chart-03: var(--color-teal-teal-500);
-    --color-bg-chart-04: var(--color-slate-slate-500);
-    --color-bg-chart-05: var(--color-red-red-500);
-    --color-bg-chart-06: var(--color-green-green-500);
-    --color-bg-chart-07: var(--color-azure-azure-500);
-    /* ---------------------------------------------------------------- */
+    /* White-alpha (--white-a100..900), the -on-primary set and the chart
+       palette (--color-bg-chart-01..07) used to be authored here as
+       stopgaps. Since 2026-10-01 they are code tokens in
+       packages/tokens/src/code/color.json, built into variables.css and
+       variables-dark.css under the same names. */
 
     /* ----------------------------------------------------------------
        Code syntax-highlighting palette ("Luna Pro" — Мария's requested

@@ -8,6 +8,9 @@ export default {
     'src/semantic/size.json',
     'src/semantic/typography.json',
     'src/semantic/color.dark.json',
+    // Theme-independent code tokens (see style-dictionary.config.mjs).
+    'src/code/color.json',
+    'src/code/foundation.json',
   ],
   platforms: {
     css: {
