@@ -4,8 +4,8 @@
   "private": true,
   "description": "Theya design system, rebuilt on shadcn/ui (Radix + Tailwind v4)",
   "scripts": {
-    "storybook": "storybook dev -p 6008",
-    "build-storybook": "storybook build",
+    "storybook": "pnpm --filter @theya/tokens build && storybook dev -p 6008",
+    "build-storybook": "pnpm --filter @theya/tokens build && storybook build",
     "test-storybook": "test-storybook --url http://localhost:6008"
   },
   "dependencies": {
