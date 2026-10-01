@@ -1,6 +1,6 @@
 import { useEffect, useId, useState } from 'react';
 import type { FormEventHandler, FormEvent } from 'react';
-import { Key, FloppyDisk, ShieldCheck, Trash, WarningTriangle, ArrowUp, ArrowDown } from 'iconoir-react';
+import { Key, FloppyDisk, ShieldCheck, Trash, WarningTriangle, ArrowUp, ArrowDown, Refresh } from 'iconoir-react';
 import { toast } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -13,6 +13,8 @@ import { SecretField } from '@/components/ui/secret-field';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { undoToast } from '@/components/ui/undo-toast';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
+import { StatusDot } from '@/components/ui/status-dot';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@/components/ui/dialog';
 
 /**
  * A sectioned account-settings page composed entirely from shipped
@@ -54,7 +56,7 @@ export interface SettingsNotification {
 
 const DEFAULT_ACCOUNT: SettingsAccount = { fullName: 'Dana Okafor', email: 'dana.okafor@seashell.dev' };
 
-/** Recovery code shown once after enabling two-factor. */
+/** Recovery code shown once, in a dialog, right after two-factor is enabled. */
 const DEFAULT_RECOVERY_CODE = 'K7Q2-9MTX-4BWP-1ZHL';
 
 const DEFAULT_NOTIFICATIONS: SettingsNotification[] = [
@@ -65,7 +67,12 @@ const DEFAULT_NOTIFICATIONS: SettingsNotification[] = [
 
 export interface SettingsScreenProps extends Omit<React.ComponentProps<'div'>, 'title'> {
   account?: SettingsAccount;
+  /** Shown once, in a dialog, right after two-factor is enabled — never on the page itself. */
   recoveryCode?: string;
+  /** Two-factor already on: the section shows its status instead of the setup form. Default false. */
+  twoFactorEnabled?: boolean;
+  /** Returns a fresh recovery code ("Generate new code"); the old one should stop working. Defaults to a random demo code. */
+  onRegenerateRecoveryCode?: () => string | Promise<string>;
   /** Notification toggle rows. Pass [] to omit the Notifications section. */
   notifications?: SettingsNotification[];
   onSaveProfile?: FormEventHandler<HTMLFormElement>;
@@ -76,7 +83,7 @@ export interface SettingsScreenProps extends Omit<React.ComponentProps<'div'>, '
   onDeleteAccount?: () => void;
 }
 
-export function SettingsScreen({ className, account = DEFAULT_ACCOUNT, recoveryCode = DEFAULT_RECOVERY_CODE, notifications = DEFAULT_NOTIFICATIONS, onSaveProfile, onChangePassword, onEnableTwoFactor, onNotificationChange, onDeleteAccount, ...props }: SettingsScreenProps) {
+export function SettingsScreen({ className, account = DEFAULT_ACCOUNT, recoveryCode = DEFAULT_RECOVERY_CODE, notifications = DEFAULT_NOTIFICATIONS, onSaveProfile, onChangePassword, onEnableTwoFactor, twoFactorEnabled = false, onRegenerateRecoveryCode, onNotificationChange, onDeleteAccount, ...props }: SettingsScreenProps) {
   const showNotifications = notifications.length > 0;
   const sections = ALL_SECTIONS.filter((s) => s.id !== 'notifications' || showNotifications);
   const activeId = useActiveSection(sections.map((s) => s.id));
@@ -86,7 +93,13 @@ export function SettingsScreen({ className, account = DEFAULT_ACCOUNT, recoveryC
       <SectionNav sections={sections} activeId={activeId} />
       <div className="flex min-w-0 flex-col gap-10">
         <ProfileSection account={account} onSaveProfile={onSaveProfile} />
-        <SecuritySection recoveryCode={recoveryCode} onChangePassword={onChangePassword} onEnableTwoFactor={onEnableTwoFactor} />
+        <SecuritySection
+          recoveryCode={recoveryCode}
+          twoFactorEnabled={twoFactorEnabled}
+          onChangePassword={onChangePassword}
+          onEnableTwoFactor={onEnableTwoFactor}
+          onRegenerateRecoveryCode={onRegenerateRecoveryCode}
+        />
         {showNotifications && <NotificationsSection notifications={notifications} onChange={onNotificationChange} />}
         <DangerSection email={account.email} onDeleteAccount={onDeleteAccount} />
       </div>
@@ -315,7 +328,33 @@ function ProfileSection({ account, onSaveProfile }: { account: SettingsAccount; 
   );
 }
 
-function SecuritySection({ recoveryCode, onChangePassword, onEnableTwoFactor }: { recoveryCode: string; onChangePassword?: FormEventHandler<HTMLFormElement>; onEnableTwoFactor?: (code: string) => void }) {
+function demoRecoveryCode(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  const raw = Array.from(bytes, (b) => chars[b % chars.length]).join('');
+  return raw.match(/.{4}/g)!.join('-');
+}
+
+function SecuritySection({
+  recoveryCode,
+  twoFactorEnabled,
+  onChangePassword,
+  onEnableTwoFactor,
+  onRegenerateRecoveryCode,
+}: {
+  recoveryCode: string;
+  twoFactorEnabled: boolean;
+  onChangePassword?: FormEventHandler<HTMLFormElement>;
+  onEnableTwoFactor?: (code: string) => void;
+  onRegenerateRecoveryCode?: () => string | Promise<string>;
+}) {
+  const [enabled, setEnabled] = useState(twoFactorEnabled);
+  // The code to show in the one-time dialog; null = dialog closed. The page
+  // itself never renders a recovery code (it used to, permanently, under a
+  // "Shown once" caption — even before two-factor was on).
+  const [shownCode, setShownCode] = useState<string | null>(null);
+  const regenerateId = useId();
   const currentId = useId();
   const newId = useId();
   const otpId = useId();
@@ -346,10 +385,19 @@ function SecuritySection({ recoveryCode, onChangePassword, onEnableTwoFactor }: 
     toast.success('Password updated', { description: 'Use your new password the next time you sign in.' });
   };
 
-  const verify = () => {
-    if (onEnableTwoFactor) onEnableTwoFactor(code);
-    else toast.success('Two-factor enabled', { description: 'Store your recovery code somewhere safe.' });
+  const verify = (e: FormEvent) => {
+    // A form now, so Enter in the code field verifies too.
+    e.preventDefault();
+    if (code.length < 6) return;
+    onEnableTwoFactor?.(code);
     setCode('');
+    setEnabled(true);
+    setShownCode(recoveryCode);
+  };
+
+  const regenerate = async () => {
+    const next = onRegenerateRecoveryCode ? await onRegenerateRecoveryCode() : demoRecoveryCode();
+    setShownCode(next);
   };
 
   return (
@@ -393,19 +441,44 @@ function SecuritySection({ recoveryCode, onChangePassword, onEnableTwoFactor }: 
       <Separator />
 
       <div className="flex flex-col gap-4">
-          <div className="flex items-start gap-3">
-            <span aria-hidden="true" className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-icon-icon-primary)] [&_svg]:size-[1.125rem]">
-              <ShieldCheck />
-            </span>
-            <div className="min-w-0">
-              <p className="font-body text-body-m font-medium">Two-factor authentication</p>
+        <div className="flex items-start gap-3">
+          <span aria-hidden="true" className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-icon-icon-primary)] [&_svg]:size-[1.125rem]">
+            <ShieldCheck />
+          </span>
+          <div className="min-w-0">
+            <p className="font-body text-body-m font-medium">Two-factor authentication</p>
+            {enabled ? (
+              <p className="mt-0.5 flex items-center gap-1.5 font-body text-body-s text-[var(--color-text-text-subtler)]">
+                <StatusDot tone="success" />
+                On. Your recovery code was shown once when you turned it on.
+              </p>
+            ) : (
               <p id={otpHintId} className="mt-0.5 font-body text-body-s text-[var(--color-text-text-subtler)]">
                 Open your authenticator app and enter the 6-digit code to confirm setup. We never store the code itself.
               </p>
-            </div>
+            )}
           </div>
+        </div>
 
-          <div className="flex flex-col gap-2">
+        {enabled ? (
+          <div className="flex flex-col items-start gap-2">
+            <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">Lost your recovery code? Generate a new one — the old code stops working.</p>
+            <ConfirmDialog
+              tone="neutral"
+              title="Generate a new recovery code?"
+              description="Your current recovery code will stop working immediately."
+              confirmLabel="Generate new code"
+              confirmIcon={<Refresh />}
+              onConfirm={regenerate}
+              trigger={
+                <Button id={regenerateId} appearance="outlined" tone="secondary" leftIcon={<Refresh />}>
+                  Generate new code
+                </Button>
+              }
+            />
+          </div>
+        ) : (
+          <form onSubmit={verify} className="flex flex-col gap-2">
             <Label htmlFor={otpId}>Enter the 6-digit code</Label>
             <div className="flex flex-wrap items-center gap-3">
               <InputOTP id={otpId} maxLength={6} inputMode="numeric" value={code} onChange={setCode} aria-describedby={otpHintId}>
@@ -418,18 +491,38 @@ function SecuritySection({ recoveryCode, onChangePassword, onEnableTwoFactor }: 
                   <InputOTPSlot index={5} />
                 </InputOTPGroup>
               </InputOTP>
-              <Button appearance="outlined" tone="secondary" disabled={code.length < 6} onClick={verify}>
+              <Button type="submit" appearance="outlined" tone="secondary" disabled={code.length < 6}>
                 Verify code
               </Button>
             </div>
-          </div>
-
-        <div className="flex flex-col gap-2">
-          <p className="font-body text-body-m font-medium">Recovery code</p>
-          <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">Shown once. Save it now: it lets you sign in if you lose your device.</p>
-          <SecretField value={recoveryCode} label="Recovery code" defaultRevealed />
-        </div>
+          </form>
+        )}
       </div>
+
+      {/* One-time reveal, like a new API key: the only place the code appears. */}
+      <Dialog open={shownCode != null} onOpenChange={(open) => !open && setShownCode(null)}>
+        <DialogContent
+          // The control that opened this (Verify, or the confirm's action)
+          // is gone by the time it closes; land on "Generate new code".
+          onCloseAutoFocus={(e) => {
+            e.preventDefault();
+            document.getElementById(regenerateId)?.focus();
+          }}
+        >
+          <DialogHeader>
+            <DialogTitle>Save your recovery code</DialogTitle>
+            <DialogDescription>This is the only time it is shown. It lets you sign in if you lose access to your authenticator app.</DialogDescription>
+          </DialogHeader>
+          {shownCode && <SecretField value={shownCode} label="Recovery code" defaultRevealed className="mx-6" />}
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button appearance="filled" tone="primary" onClick={() => toast.success('Two-factor is on', { description: 'Keep your recovery code somewhere safe.' })}>
+                Done
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
