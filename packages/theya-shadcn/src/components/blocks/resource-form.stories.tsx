@@ -1,5 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { ResourceForm } from './resource-form';
+
+const body = () => within(document.body);
+
+/** Picks a Select option by keyboard (type-ahead) — Radix Select ignores synthetic pointer picks. */
+async function pickByKeyboard(trigger: HTMLElement, letter: string, expected: string) {
+  trigger.focus();
+  await userEvent.keyboard('{Enter}');
+  const listbox = await body().findByRole('listbox');
+  await userEvent.keyboard(letter);
+  await waitFor(() => expect(within(listbox).getByRole('option', { name: expected })).toHaveFocus());
+  await userEvent.keyboard('{Enter}');
+  await waitFor(() => expect(body().queryByRole('listbox')).toBeNull());
+}
 
 const meta: Meta<typeof ResourceForm> = {
   title: 'Patterns/ResourceForm',
@@ -20,9 +34,15 @@ const meta: Meta<typeof ResourceForm> = {
 export default meta;
 type Story = StoryObj<typeof ResourceForm>;
 
+/**
+ * Submitting empty: every required field reports, the error is part of
+ * each control's description, focus goes to the first invalid field —
+ * including a Select, which react-hook-form alone couldn't focus.
+ */
 export const CreateDatabase: Story = {
   name: 'Create database',
-  render: () => (
+  args: { onSubmit: fn(), onCancel: fn() },
+  render: (args) => (
     <div className="p-6">
       <ResourceForm
         title="Create database"
@@ -49,16 +69,48 @@ export const CreateDatabase: Story = {
             ],
           },
         ]}
-        onSubmit={async (values) => alert(JSON.stringify(values, null, 2))}
-        onCancel={() => alert('Cancelled')}
+        onSubmit={args.onSubmit}
+        onCancel={args.onCancel}
         submitLabel="Create database"
       />
     </div>
   ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const submit = canvas.getByRole('button', { name: 'Create database' });
+    const name = canvas.getByRole('textbox', { name: /^Name/ });
+    const engine = canvas.getByRole('combobox', { name: /^Engine/ });
+
+    await userEvent.click(submit);
+    await waitFor(() => expect(name).toHaveAccessibleDescription('Name is required.'));
+    await expect(engine).toHaveAccessibleDescription('Select an engine.');
+    await expect(name).toHaveAttribute('aria-invalid', 'true');
+    await waitFor(() => expect(name).toHaveFocus());
+    await expect(args.onSubmit).not.toHaveBeenCalled();
+
+    // Name fixed -> the Select is now the first invalid field and gets focus.
+    await userEvent.type(name, 'acme_prod');
+    await userEvent.click(submit);
+    await waitFor(() => expect(engine).toHaveFocus());
+    await expect(name).not.toHaveAttribute('aria-invalid', 'true');
+
+    await pickByKeyboard(engine, 'p', 'PostgreSQL 16');
+    await waitFor(() => expect(engine).not.toHaveAccessibleDescription('Select an engine.'));
+    await userEvent.click(canvas.getByRole('switch', { name: /^Public access/ }));
+    await userEvent.click(submit);
+    await waitFor(() =>
+      expect(args.onSubmit).toHaveBeenCalledWith({ name: 'acme_prod', engine: 'postgres', storage: 10, description: '', publicAccess: true }),
+    );
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Cancel' }));
+    await expect(args.onCancel).toHaveBeenCalledTimes(1);
+  },
 };
 
+/** An optional email may stay empty, but a filled one must be valid. */
 export const Sectioned: Story = {
-  render: () => (
+  args: { onSubmit: fn() },
+  render: (args) => (
     <div className="p-6">
       <ResourceForm
         title="Create user"
@@ -68,6 +120,7 @@ export const Sectioned: Story = {
             fields: [
               { name: 'email', label: 'Email', kind: 'email', required: true, placeholder: 'you@seashell.dev' },
               { name: 'password', label: 'Password', kind: 'password', required: true },
+              { name: 'recoveryEmail', label: 'Recovery email', kind: 'email', placeholder: 'backup@example.com', description: 'Optional.' },
             ],
           },
           {
@@ -88,8 +141,28 @@ export const Sectioned: Story = {
             ],
           },
         ]}
-        onSubmit={async (values) => alert(JSON.stringify(values, null, 2))}
+        onSubmit={args.onSubmit}
       />
     </div>
   ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByRole('textbox', { name: /^Email/ }), 'new@seashell.dev');
+    await userEvent.type(canvas.getByLabelText(/^Password/), 'hunter2-hunter2');
+    await pickByKeyboard(canvas.getByRole('combobox', { name: /^Role/ }), 'v', 'Viewer');
+
+    const recovery = canvas.getByRole('textbox', { name: /^Recovery email/ });
+    await userEvent.type(recovery, 'not-an-email');
+    await userEvent.click(canvas.getByRole('button', { name: 'Save' }));
+    await waitFor(() => expect(recovery).toHaveAccessibleDescription('Optional. Enter a valid email.'));
+    await expect(recovery).toHaveFocus();
+    await expect(args.onSubmit).not.toHaveBeenCalled();
+
+    // Empty optional email is fine (it used to fail .email() on '').
+    await userEvent.clear(recovery);
+    await userEvent.click(canvas.getByRole('button', { name: 'Save' }));
+    await waitFor(() =>
+      expect(args.onSubmit).toHaveBeenCalledWith({ email: 'new@seashell.dev', password: 'hunter2-hunter2', recoveryEmail: '', role: 'viewer' }),
+    );
+  },
 };
