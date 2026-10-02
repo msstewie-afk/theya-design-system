@@ -590,7 +590,7 @@ export function FilterField({
           </div>
         ) : (
           <div ref={stepTwoRef}>
-            <div className="flex items-center gap-1 border-b border-solid border-[var(--color-border-border-subtle)] p-1.5">
+            <div className="flex items-center gap-1 border-b border-solid border-[var(--color-border-border-subtler)] p-1.5">
               <button
                 type="button"
                 aria-label="Back to attributes"

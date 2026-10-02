@@ -161,7 +161,7 @@ export function CommandInput({ className, value, onValueChange, ...props }: Comm
   };
 
   return (
-    <div className="flex h-12 items-center gap-2.5 border-b border-solid border-[var(--color-border-border-subtle)] px-3.5">
+    <div className="flex h-12 items-center gap-2.5 border-b border-solid border-[var(--color-border-border-subtler)] px-3.5">
       <Search width={16} height={16} className="shrink-0 text-[var(--color-icon-icon-subtle)]" aria-hidden="true" />
       <input
         role="combobox"
@@ -285,7 +285,7 @@ export function CommandGroup({ className, heading, children, ...props }: Command
 
 export function CommandSeparator({ className, ...props }: React.ComponentProps<'div'>) {
   // Decorative, and role="separator" isn't an allowed child of a listbox.
-  return <div aria-hidden="true" className={cn('-mx-1 my-1 h-px bg-[var(--color-border-border-subtle)]', className)} {...props} />;
+  return <div aria-hidden="true" className={cn('-mx-1 my-1 h-px bg-[var(--color-border-border-subtler)]', className)} {...props} />;
 }
 
 export interface CommandItemProps extends Omit<React.ComponentProps<'div'>, 'value' | 'onClick' | 'onSelect'> {
@@ -366,7 +366,7 @@ export function CommandFooter({ className, children, ...props }: React.Component
   return (
     <div
       className={cn(
-        'flex items-center gap-3 border-t border-solid border-[var(--color-border-border-subtle)]',
+        'flex items-center gap-3 border-t border-solid border-[var(--color-border-border-subtler)]',
         'px-3.5 py-2 font-body text-body-xs text-[var(--color-text-text-subtler)]',
         className,
       )}

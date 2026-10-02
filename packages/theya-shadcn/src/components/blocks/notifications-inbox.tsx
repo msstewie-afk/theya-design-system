@@ -334,12 +334,12 @@ export function NotificationsInbox({
               <p
                 className={cn(
                   'bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-[1.125rem] py-2 font-body text-body-xs font-medium tracking-wide text-[var(--color-text-text-subtler)] uppercase',
-                  gi > 0 && 'border-t border-solid border-[var(--color-border-border-subtle)]',
+                  gi > 0 && 'border-t border-solid border-[var(--color-border-border-subtler)]',
                 )}
               >
                 {group.label}
               </p>
-              <ul role="list" aria-label={`${group.label} notifications`} className="flex flex-col divide-y divide-[var(--color-border-border-subtle)]">
+              <ul role="list" aria-label={`${group.label} notifications`} className="flex flex-col divide-y divide-[var(--color-border-border-subtler)]">
                 {group.items.map((n) => (
                   <NotificationRow key={n.id} notification={n} onOpen={open} onToggleRead={(read) => toggleRead(n, read)} onDismiss={dismiss} />
                 ))}

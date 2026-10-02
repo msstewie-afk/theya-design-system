@@ -159,7 +159,7 @@ export function MenubarLabel({ className, inset, ...props }: React.ComponentProp
 }
 
 export function MenubarSeparator({ className, ...props }: React.ComponentProps<typeof MenubarPrimitive.Separator>) {
-  return <MenubarPrimitive.Separator className={cn('-mx-1 my-1 h-px bg-[var(--color-border-border-subtle)]', className)} {...props} />;
+  return <MenubarPrimitive.Separator className={cn('-mx-1 my-1 h-px bg-[var(--color-border-border-subtler)]', className)} {...props} />;
 }
 
 export function MenubarShortcut({ className, ...props }: React.ComponentProps<'span'>) {

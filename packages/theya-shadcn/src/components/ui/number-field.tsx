@@ -174,7 +174,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
           // Divider between button and input didn't know about invalid —
           // stayed the neutral (blue-violet-tinted) subtle border even in
           // an all-red invalid field. Fixed 2026-09-26.
-          isInvalid ? 'border-[var(--color-border-border-danger)]' : 'border-[var(--color-border-border-subtle)]',
+          isInvalid ? 'border-[var(--color-border-border-danger)]' : 'border-[var(--color-border-border-subtler)]',
         )}
       >
         <Minus />
@@ -233,7 +233,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
         className={cn(
           stepButtonClass,
           'border-l border-solid',
-          isInvalid ? 'border-[var(--color-border-border-danger)]' : 'border-[var(--color-border-border-subtle)]',
+          isInvalid ? 'border-[var(--color-border-border-danger)]' : 'border-[var(--color-border-border-subtler)]',
         )}
       >
         <Plus />

@@ -129,7 +129,7 @@ export function ContextMenuLabel({ className, inset, ...props }: React.Component
 }
 
 export function ContextMenuSeparator({ className, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Separator>) {
-  return <ContextMenuPrimitive.Separator className={cn('-mx-1 my-1 h-px bg-[var(--color-border-border-subtle)]', className)} {...props} />;
+  return <ContextMenuPrimitive.Separator className={cn('-mx-1 my-1 h-px bg-[var(--color-border-border-subtler)]', className)} {...props} />;
 }
 
 export function ContextMenuShortcut({ className, ...props }: React.ComponentProps<'kbd'>) {

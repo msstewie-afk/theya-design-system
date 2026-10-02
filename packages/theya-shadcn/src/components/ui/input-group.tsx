@@ -84,8 +84,8 @@ function InputGroupAddon({ className, position = 'start', divider = true, ...pro
         'group-has-[input[aria-invalid=true]]:text-[var(--color-icon-icon-danger)]',
         'group-has-[input:disabled]:text-[var(--color-icon-icon-subtle)]',
         '[&_svg]:size-4 [&_svg]:shrink-0',
-        divider && position === 'start' && 'border-r border-solid border-[var(--color-border-border-subtle)]',
-        divider && position === 'end' && 'border-l border-solid border-[var(--color-border-border-subtle)]',
+        divider && position === 'start' && 'border-r border-solid border-[var(--color-border-border-subtler)]',
+        divider && position === 'end' && 'border-l border-solid border-[var(--color-border-border-subtler)]',
         className,
       )}
       {...props}

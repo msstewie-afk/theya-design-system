@@ -41,7 +41,7 @@ export function MessagePopupContent({
       {...props}
     >
       {(title != null || description != null || showClose) && (
-        <div className="flex items-start justify-between gap-2 border-b border-solid border-[var(--color-border-border-subtle)] px-4 py-3">
+        <div className="flex items-start justify-between gap-2 border-b border-solid border-[var(--color-border-border-subtler)] px-4 py-3">
           <div className="min-w-0">
             {title != null && <p className="truncate font-body text-body-m font-medium text-[var(--color-text-text)]">{title}</p>}
             {description != null && <p className="truncate font-body text-body-xs text-[var(--color-text-text-subtler)]">{description}</p>}

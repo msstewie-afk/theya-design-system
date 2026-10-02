@@ -248,7 +248,7 @@ export function DashboardOverview({
             {attention.map((item) => (
               <li
                 key={item.id}
-                className="relative flex flex-col gap-3 px-5 py-4 after:absolute after:inset-x-5 after:bottom-0 after:h-px after:bg-[var(--color-border-border-subtle)] last:after:hidden sm:flex-row sm:items-center sm:justify-between"
+                className="relative flex flex-col gap-3 px-5 py-4 after:absolute after:inset-x-5 after:bottom-0 after:h-px after:bg-[var(--color-border-border-subtler)] last:after:hidden sm:flex-row sm:items-center sm:justify-between"
               >
                 <div className="min-w-0 space-y-1.5">
                   <div className="flex items-center gap-2">
@@ -382,7 +382,7 @@ export function DashboardOverview({
             })}
 
             {capacity.length > 0 && (
-              <div className="flex flex-col gap-2 border-t border-solid border-[var(--color-border-border-subtle)] pt-4">
+              <div className="flex flex-col gap-2 border-t border-solid border-[var(--color-border-border-subtler)] pt-4">
                 <p className="font-body text-body-s font-medium">Storage breakdown</p>
                 <UsageBar segments={capacity} total={capacityTotal} formatValue={capacityFormat} />
               </div>

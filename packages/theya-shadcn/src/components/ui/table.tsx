@@ -81,7 +81,7 @@ export function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
     <th
       data-slot="table-head"
       className={cn(
-        'h-auto truncate border-b border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
+        'h-auto truncate border-b border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'px-4 py-2.5 text-left align-middle font-heading text-heading-2xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]',
         'first:rounded-tl-[calc(var(--size-border-radius-border-radius-2xl)-1px)] last:rounded-tr-[calc(var(--size-border-radius-border-radius-2xl)-1px)]',
         className,

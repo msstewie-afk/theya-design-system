@@ -216,7 +216,7 @@ export function BillingUsage({
               })}
 
               {storageBreakdown.length > 0 && (
-                <div className="flex flex-col gap-2 border-t border-solid border-[var(--color-border-border-subtle)] pt-4">
+                <div className="flex flex-col gap-2 border-t border-solid border-[var(--color-border-border-subtler)] pt-4">
                   <p className="font-body text-body-s font-medium">Storage breakdown</p>
                   <UsageBar segments={storageBreakdown} total={storageTotal} formatValue={(n) => `${n} ${storageUnit}`} />
                 </div>

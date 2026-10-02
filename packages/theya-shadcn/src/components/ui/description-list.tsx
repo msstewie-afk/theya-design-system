@@ -18,7 +18,7 @@ export function DescriptionItem({ className, ...props }: React.ComponentProps<'d
     <div
       data-slot="description-item"
       className={cn(
-        'grid grid-cols-1 gap-1 border-b border-solid border-[var(--color-border-border-subtle)] py-3 last:border-b-0',
+        'grid grid-cols-1 gap-1 border-b border-solid border-[var(--color-border-border-subtler)] py-3 last:border-b-0',
         'sm:grid-cols-[minmax(8rem,12rem)_1fr] sm:items-baseline sm:gap-4',
         className,
       )}

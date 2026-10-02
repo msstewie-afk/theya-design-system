@@ -15,7 +15,7 @@ export function TabsList({ className, ...props }: React.ComponentProps<typeof Ta
   return (
     <TabsPrimitive.List
       className={cn(
-        'flex gap-0.5 overflow-x-auto overflow-y-hidden border-b border-solid border-[var(--color-border-border-subtle)]',
+        'flex gap-0.5 overflow-x-auto overflow-y-hidden border-b border-solid border-[var(--color-border-border-subtler)]',
         '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
         className,
       )}

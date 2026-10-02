@@ -272,8 +272,8 @@ export function CodeEditor({
       className={cn(
         'overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
         // Same resting border in both surfaces — border-subtle already
-        // reads fine against the dark Luna background too (it's what the
-        // header's own border-b already uses there).
+        // reads fine against the dark Luna background too. (The header's
+        // inner border-b is a divider, so it uses border-subtler.)
         'border-[var(--color-border-border-subtle)]',
         // Interaction states, same convention as TextField: primary-hover
         // on hover, solid primary while focused — in both surfaces.
@@ -290,7 +290,7 @@ export function CodeEditor({
       {hasHeader && (
         // Header always stays on the regular (theme-reactive) surface —
         // `inverse` only forces the code area below it, per Мария's call.
-        <div className="flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] px-3 py-2">
+        <div className="flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-surface-bg-surface)] px-3 py-2">
           <div className="flex min-w-0 flex-1 items-baseline gap-2">
             {filename && <span className="truncate font-code text-body-m font-medium text-[var(--color-text-text)]">{filename}</span>}
             {language && (

@@ -35,7 +35,7 @@ export function Accordion(props: AccordionProps) {
 }
 
 export function AccordionItem({ className, ...props }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
-  return <AccordionPrimitive.Item className={cn('border-b border-solid border-[var(--color-border-border-subtle)] last:border-b-0', className)} {...props} />;
+  return <AccordionPrimitive.Item className={cn('border-b border-solid border-[var(--color-border-border-subtler)] last:border-b-0', className)} {...props} />;
 }
 
 export function AccordionTrigger({ className, children, ...props }: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {

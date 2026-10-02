@@ -551,7 +551,7 @@ function NotificationsSection({ id, notifications, onChange }: { id: string; not
       </div>
       <div className="flex flex-col">
         {notifications.map((row, i) => (
-          <div key={row.id} className={cn('flex items-start justify-between gap-4 py-4', i > 0 && 'border-t border-solid border-[var(--color-border-border-subtle)]', i === 0 && 'pt-0', i === notifications.length - 1 && 'pb-0')}>
+          <div key={row.id} className={cn('flex items-start justify-between gap-4 py-4', i > 0 && 'border-t border-solid border-[var(--color-border-border-subtler)]', i === 0 && 'pt-0', i === notifications.length - 1 && 'pb-0')}>
             <div className="min-w-0">
               <Label htmlFor={`${uid}-${row.id}`} className="font-medium">
                 {row.label}

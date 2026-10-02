@@ -150,7 +150,7 @@ export function TerminalHeader({ className, user, host, connection = 'connected'
       data-slot="terminal-header"
       className={cn(
         'flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-solid px-3 py-2.5',
-        inverse ? 'border-[var(--color-code-border-inverse)] bg-[var(--color-code-bg-inverse)]' : 'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]',
+        inverse ? 'border-[var(--color-code-border-inverse)] bg-[var(--color-code-bg-inverse)]' : 'border-[var(--color-border-border-subtler)] bg-[var(--color-bg-surface-bg-surface)]',
         className,
       )}
       {...props}

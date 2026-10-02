@@ -127,7 +127,7 @@ export function Filter({
       </PopoverTrigger>
       <PopoverContent align={align} className="w-60 p-0">
         {searchable && (
-          <div className="border-b border-solid border-[var(--color-border-border-subtle)] p-2">
+          <div className="border-b border-solid border-[var(--color-border-border-subtler)] p-2">
             <TextField
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -168,7 +168,7 @@ export function Filter({
           )}
         </div>
         {count > 0 && (
-          <div className="border-t border-solid border-[var(--color-border-border-subtle)] p-1">
+          <div className="border-t border-solid border-[var(--color-border-border-subtler)] p-1">
             <Button
               appearance="ghost"
               size="md"

@@ -379,7 +379,7 @@ export function TeamMembers({
             <EmptyState icon={<Mail />} title="No pending invites" titleAs="h4" description="Everyone you've invited has already joined." />
           </div>
         ) : (
-            <ul role="list" className="flex flex-col divide-y divide-[var(--color-border-border-subtle)]">
+            <ul role="list" className="flex flex-col divide-y divide-[var(--color-border-border-subtler)]">
               {invites.map((invite) => {
                 const role = roleOf(invite.role);
                 return (

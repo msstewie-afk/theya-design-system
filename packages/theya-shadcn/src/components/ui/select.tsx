@@ -254,7 +254,7 @@ function SelectItem({ className, children, icon, iconSize = 'sm', status, badge,
 function SelectSeparator({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.Separator>) {
   return (
     <SelectPrimitive.Separator
-      className={cn('-mx-1 my-1 h-px bg-[var(--color-border-border-subtle)]', className)}
+      className={cn('-mx-1 my-1 h-px bg-[var(--color-border-border-subtler)]', className)}
       {...props}
     />
   );
