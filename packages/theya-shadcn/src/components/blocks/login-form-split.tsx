@@ -80,7 +80,7 @@ export function LoginFormSplit({
                   tone="secondary"
                   size="md"
                   asChild
-                  className="border-white/30 bg-white/10 text-[var(--color-text-text-on-dark)] backdrop-blur-sm hover:bg-white/20"
+                  className="border-[var(--color-border-border-on-dark)] bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-hover)] text-[var(--color-text-text-on-dark)] backdrop-blur-sm hover:bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-pressed)]"
                   rightIcon={<ArrowRight />}
                 >
                   <a href={backHref}>{backLabel}</a>

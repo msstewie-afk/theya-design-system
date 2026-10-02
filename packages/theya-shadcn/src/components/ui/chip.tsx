@@ -66,7 +66,7 @@ const BORDER_TONE_CLASS: Record<ChipTone, string> = {
 // `appearance="tonal"` (tonal) chip — Мария's call: a selected tonal chip
 // should read as solid, not stay in its tinted state.
 export const SOLID_TONE_CLASS: Record<ChipTone, string> = {
-  neutral: 'border-transparent bg-[#65656b] text-[var(--color-text-text-on-dark)]',
+  neutral: 'border-transparent bg-[var(--color-bg-neutral-bg-neutral-strong)] text-[var(--color-text-text-on-dark)]',
   primary: 'border-transparent bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-dark)]',
   // Was a hand-picked hex (#448018) matching Button's OLD workaround for a
   // raw-token contrast failure (4.37:1 with white text, under WCAG AA's
@@ -98,7 +98,7 @@ const HOVER_CLASS: Record<'tonal' | 'filled', Record<ChipTone, string>> = {
     info: 'hover:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:hover:bg-[var(--color-cyan-cyan-700)]',
   },
   filled: {
-    neutral: 'hover:bg-[#535358]',
+    neutral: 'hover:bg-[var(--color-bg-neutral-bg-neutral-strong-hover)]',
     primary: 'hover:bg-[var(--color-bg-primary-bg-primary-hover)]',
     success: 'hover:bg-[var(--color-bg-success-bg-success-hover)]',
     warning: 'hover:bg-[var(--color-bg-warning-bg-warning-hover)]',

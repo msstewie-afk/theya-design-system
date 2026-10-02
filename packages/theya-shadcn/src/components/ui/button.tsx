@@ -234,13 +234,14 @@ export const buttonVariants = cva(
         // saturation (down from bg-neutral's original ~7.7%) for a
         // flatter, more neutral gray. Hover/pressed derived with the
         // same lightness-drop ratio as Primary's own default→hover→
-        // pressed steps (-7.25% / -16.08%), same as Secondary below.
+        // pressed steps (-7.25% / -16.08%). Now tokens: bg-neutral-strong
+        // on the graphite primitives (2026-10-02).
         appearance: 'filled',
         tone: 'neutral',
         class: [
-          'bg-[#65656b] text-[var(--color-text-text-on-dark)]',
-          'hover:not-disabled:not-aria-disabled:bg-[#535358]',
-          'active:not-disabled:not-aria-disabled:bg-[#3d3d41]',
+          'bg-[var(--color-bg-neutral-bg-neutral-strong)] text-[var(--color-text-text-on-dark)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-strong-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-strong-pressed)]',
         ],
       },
       {
@@ -495,10 +496,8 @@ export const buttonVariants = cva(
       // on these two types, the button fell through to the bare type-level
       // base classes only (a border with no color, an icon with no color,
       // and no hover/press fill at all) — the "no color anywhere" bug.
-      // Border stays the same fixed hardcoded gray Filled+default's own BG
-      // uses (#65656b) — deliberate, a border color that should look the
-      // same regardless of theme, same idea as Secondary's own hardcoded
-      // border. The ICON, though, was ALSO pinned to that same fixed hex —
+      // Border uses border-neutral (graphite-500 light, gray-300 dark —
+      // see the variant below). The ICON, though, was ALSO pinned to that same fixed hex —
       // wrong, since the button's own label text right next to it already
       // uses the theme-reactive `text-text-subtle` (from the base `ghost`/
       // `outlined` type classes) and looks correct in both themes; the icon
@@ -512,11 +511,11 @@ export const buttonVariants = cva(
         appearance: 'outlined',
         tone: 'neutral',
         class: [
-          // Dark: #65656b is 2.43:1 on bg-surface (1.4.11 needs 3:1) -> gray-300
-          // (#9696ac, 4.87:1). Hover/press moved from the "-subtle" tier to
+          // border-neutral: graphite-500 light; gray-300 dark (graphite-500
+          // is 2.43:1 on dark bg-surface, 1.4.11 needs 3:1; gray-300 4.87:1). Hover/press moved from the "-subtle" tier to
           // "-subtler" like every other Outlined/Ghost tone: in dark, the
           // -subtle tier washed text-subtle down to 3.51/2.61:1 (2026-09-27).
-          'border-[#65656b] [[data-theme=dark]_&]:border-[var(--color-gray-gray-300)]',
+          'border-[var(--color-border-border-neutral)]',
           '[&_svg]:text-[var(--color-text-text-subtle)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',

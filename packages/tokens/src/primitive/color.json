@@ -423,6 +423,17 @@
         "value": "#edeef8"
       }
     },
+    "graphite": {
+      "graphite-500": {
+        "value": "#65656b"
+      },
+      "graphite-600": {
+        "value": "#535358"
+      },
+      "graphite-700": {
+        "value": "#3d3d41"
+      }
+    },
     "teal": {
       "teal-005": {
         "value": "#eafbfb"

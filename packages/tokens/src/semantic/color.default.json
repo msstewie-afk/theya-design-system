@@ -172,6 +172,12 @@
       },
       "border-secondary": {
         "value": "{color.slate.slate-400}"
+      },
+      "border-neutral": {
+        "value": "{color.graphite.graphite-500}"
+      },
+      "border-on-dark": {
+        "value": "{white-a300}"
       }
     },
     "bg": {
@@ -290,6 +296,15 @@
         },
         "bg-neutral-subtle-hover-2": {
           "value": "{color.gray.gray-050}"
+        },
+        "bg-neutral-strong": {
+          "value": "{color.graphite.graphite-500}"
+        },
+        "bg-neutral-strong-hover": {
+          "value": "{color.graphite.graphite-600}"
+        },
+        "bg-neutral-strong-pressed": {
+          "value": "{color.graphite.graphite-700}"
         }
       },
       "info": {
