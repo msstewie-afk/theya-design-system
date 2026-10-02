@@ -1,4 +1,4 @@
-import { useId, useMemo } from 'react';
+import { useEffect, useId, useMemo, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { Controller, useForm, type ControllerRenderProps } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -165,12 +165,23 @@ export function ResourceForm({ title, description, sections, onSubmit, onCancel,
       const invalidFields = sections.flatMap((s) => s.fields).filter((f) => errors[f.name]);
       // One error: straight to the field. Several: to the summary at the
       // top, so the later ones aren't missed below the fold.
-      if (invalidFields.length > 1) requestAnimationFrame(() => document.getElementById(summaryId)?.focus());
+      if (invalidFields.length > 1) focusSummary.current = true;
       else if (invalidFields[0]) document.getElementById(fieldId(formId, invalidFields[0].name))?.focus();
     },
   );
 
   const summaryId = `${formId}-error-summary`;
+  // Focus the summary after the render that mounts it — and after the
+  // submit button's loading state has settled (a rAF from the invalid
+  // callback could land before either, leaving focus on <body>).
+  const focusSummary = useRef(false);
+  useEffect(() => {
+    if (!focusSummary.current || form.formState.isSubmitting) return;
+    const summary = document.getElementById(summaryId);
+    if (!summary) return;
+    focusSummary.current = false;
+    summary.focus();
+  });
   const allFields = sections.flatMap((s) => s.fields);
   const errorFields = form.formState.submitCount > 0 ? allFields.filter((f) => form.formState.errors[f.name]) : [];
 
