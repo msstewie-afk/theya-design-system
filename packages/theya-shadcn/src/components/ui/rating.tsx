@@ -34,8 +34,12 @@ const STAR_SIZE: Record<RatingSize, string> = {
 // Padding that brings each radio's hit area to at least 24px.
 const HIT_PAD: Record<RatingSize, string> = { sm: 'p-1', md: 'p-0.5' };
 
-/** One star, `fill` 0–1 (fraction drawn from the left). */
-function Star({ fill, size }: { fill: number; size: RatingSize }) {
+/**
+ * One star, `fill` 0–1 (fraction drawn from the left). Exported as
+ * RatingStar for single-star markers elsewhere (a favourite in a card) so
+ * they share the outline + stroked fill and its contrast.
+ */
+export function RatingStar({ fill, size }: { fill: number; size: RatingSize }) {
   const pct = Math.max(0, Math.min(1, fill)) * 100;
   return (
     <span aria-hidden="true" className={cn('relative inline-block shrink-0', STAR_SIZE[size])}>
@@ -122,7 +126,7 @@ export const Rating = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, Ra
         className={cn('inline-flex items-center gap-0.5', className)}
       >
         {stars.map((n) => (
-          <Star key={n} size={size} fill={current - (n - 1)} />
+          <RatingStar key={n} size={size} fill={current - (n - 1)} />
         ))}
       </span>
     );
@@ -160,7 +164,7 @@ export const Rating = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, Ra
             HIT_PAD[size],
           )}
         >
-          <Star size={size} fill={n <= shown ? 1 : 0} />
+          <RatingStar size={size} fill={n <= shown ? 1 : 0} />
         </RadioGroupPrimitive.Item>
       ))}
     </RadioGroupPrimitive.Root>

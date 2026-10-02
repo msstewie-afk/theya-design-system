@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Globe, InfoCircle, CheckCircle, WarningTriangle, WarningCircle, Plus, OpenBook, OpenNewWindow, ArrowRight, Bookmark, BookmarkSolid, Trash, Refresh, MediaImage, Star, StarSolid, Calendar, Lock, StatsUpSquare, Link as LinkIcon, ClipboardCheck } from 'iconoir-react';
+import { Globe, InfoCircle, CheckCircle, WarningTriangle, WarningCircle, Plus, OpenBook, OpenNewWindow, ArrowRight, Bookmark, BookmarkSolid, Trash, Refresh, MediaImage, Star, Calendar, Lock, StatsUpSquare, Link as LinkIcon, ClipboardCheck } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardAction, CardFooter, CardLink, CardMedia, CardAvatar, type CardSeverity } from './card';
 import { DotSeparator } from './dot-separator';
@@ -10,6 +10,7 @@ import { StatusDot } from './status-dot';
 import { TextField } from './text-field';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './dropdown-menu';
 import { Switch } from './switch';
+import { RatingStar } from './rating';
 
 const meta: Meta<typeof Card> = {
   title: 'Layout/Card',
@@ -707,8 +708,11 @@ export const Compact: Story = {
           >
             <ClipboardCheck />
           </span>
-          <CardTitle className="text-heading-s">Tasks</CardTitle>
-          <StarSolid aria-label="Favourite" role="img" className="size-4 shrink-0 text-[var(--color-icon-icon-rating)]" />
+          {/* `!`: Card size="sm" shrinks titles to body-s via a group variant, which outranks a plain class. */}
+          <CardTitle className="text-heading-s!">Tasks</CardTitle>
+          <span role="img" aria-label="Favourite" className="inline-flex">
+            <RatingStar fill={1} size="sm" />
+          </span>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="neutral">My docs</Badge>
