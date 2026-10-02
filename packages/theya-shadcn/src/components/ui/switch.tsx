@@ -47,9 +47,7 @@ const switchVariants = cva(
           'data-[state=checked]:bg-[var(--color-bg-warning-bg-warning)]',
           'hover:not-disabled:data-[state=checked]:bg-[var(--color-bg-warning-bg-warning-hover)]',
           'disabled:data-[state=checked]:bg-[var(--color-bg-warning-bg-warning-subtle)] disabled:data-[state=checked]:border-transparent',
-          // No low-alpha focus-ring-warning token exists — solid halo at
-          // border-warning instead, same reasoning as Checkbox's error ring.
-          'focus-visible:data-[state=checked]:shadow-[0_0_0_4px_var(--color-border-border-warning)]',
+          'focus-visible:data-[state=checked]:focus-ring-warning',
         ],
       },
       {
@@ -58,7 +56,7 @@ const switchVariants = cva(
           'data-[state=checked]:bg-[var(--color-bg-danger-bg-danger)]',
           'hover:not-disabled:data-[state=checked]:bg-[var(--color-bg-danger-bg-danger-hover)]',
           'disabled:data-[state=checked]:bg-[var(--color-bg-danger-bg-danger-subtle)] disabled:data-[state=checked]:border-transparent',
-          'focus-visible:data-[state=checked]:shadow-[0_0_0_4px_var(--color-border-border-danger)]',
+          'focus-visible:data-[state=checked]:focus-ring-error',
         ],
       },
     ],

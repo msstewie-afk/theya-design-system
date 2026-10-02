@@ -110,6 +110,11 @@ export function Terminal({ className, lines, user, host, connection = 'connected
       data-inverse={inverse || undefined}
       className={cn(
         'flex max-w-full min-w-0 flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid shadow-elevation-xs',
+        // Focus ring on the frame, outside, when the scrollable log has
+        // keyboard focus: it sits on the page surface, so it reads the same
+        // as everywhere else instead of vanishing into the dark code bg,
+        // and the frame's overflow-hidden can't clip it.
+        'has-[[data-slot=terminal-body]:focus-visible]:focus-ring',
         inverse ? 'border-[var(--color-code-border-inverse)] bg-[var(--color-code-bg-inverse)]' : 'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         className,
       )}
@@ -215,7 +220,7 @@ export function TerminalBody({ className, lines, ariaLabel = 'Terminal output', 
         'min-w-0 flex-1 overflow-y-auto overflow-x-hidden px-4 py-3.5',
         'font-mono text-body-m leading-relaxed',
         inverse ? 'text-[var(--color-code-text-inverse)]' : 'text-[var(--color-text-text)]',
-        'outline-none focus-visible:focus-ring-inset',
+        'outline-none',
         !className && 'h-[clamp(14rem,50vh,32rem)]',
         className,
       )}

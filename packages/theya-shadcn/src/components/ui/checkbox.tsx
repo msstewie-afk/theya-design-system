@@ -100,10 +100,9 @@ const checkboxVariants = cva(
           'border-[var(--color-border-border-danger)]',
           'data-[state=checked]:bg-[var(--color-bg-danger-bg-danger)] data-[state=checked]:border-transparent',
           'data-[state=indeterminate]:bg-[var(--color-bg-danger-bg-danger)] data-[state=indeterminate]:border-transparent',
-          // focus-ring-error (rgba(208,45,75,.3)) is only 1.60:1 on white,
-          // same problem as the default ring — bumped to a solid halo at
-          // full border-danger color instead of the low-alpha token.
-          'focus-visible:shadow-[0_0_0_4px_var(--color-border-border-danger)]',
+          // Translucent like every other ring (accepted deviation 2026-09-27:
+          // the ring's contrast is changed by the token, never per component).
+          'focus-visible:focus-ring-error',
         ],
       },
     ],

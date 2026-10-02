@@ -605,7 +605,7 @@
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
 /* Inset variant, where an overflow container would clip an outset ring
-   (Table cells, Tree rows, Terminal, CodeBlock). */
+   (Tree rows inside their scroll container). */
 @utility focus-ring-inset {
   --tw-shadow: inset 0 0 0 4px var(--color-focus-focus-ring);
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);

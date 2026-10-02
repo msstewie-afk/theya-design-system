@@ -117,12 +117,14 @@ export const buttonVariants = cva(
           '[[data-surface=primary]_&]:focus-visible:focus-ring-on-primary!',
         ],
       },
+      // Status tones focus in their own color, like Card severity, Switch and
+      // Checkbox; the rest keep the default blue ring.
       tone: {
         primary: '',
         secondary: '',
-        success: '',
-        warning: '',
-        danger: '',
+        success: 'focus-visible:focus-ring-success',
+        warning: 'focus-visible:focus-ring-warning',
+        danger: 'focus-visible:focus-ring-error',
         info: '',
         neutral: '',
       },

@@ -65,7 +65,7 @@ export function CodeBlock({ code, language, filename, copy = true, copyLabel = '
   ) : null;
 
   return (
-    <div className={cn('relative min-w-0 max-w-full overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] shadow-elevation-xs', className)} {...props}>
+    <div className={cn('relative min-w-0 max-w-full overflow-hidden has-[>pre:focus-visible]:focus-ring rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] shadow-elevation-xs', className)} {...props}>
       {hasHeader ? (
         <div className="flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-surface-bg-surface)] px-3 py-2">
           <div className="flex min-w-0 flex-1 items-baseline gap-2">
@@ -95,7 +95,9 @@ export function CodeBlock({ code, language, filename, copy = true, copyLabel = '
           // composite, not meant for code) before, so the two components
           // rendered code at visibly different sizes.
           'overflow-x-auto overflow-y-hidden p-4 font-code text-[13px] leading-[20.8px] text-[var(--color-text-text)]',
-          'outline-none focus-visible:focus-ring-inset',
+          // Ring lives on the outer frame (has-[>pre:focus-visible]), same as
+          // Terminal: outside the frame's overflow-hidden, on the page bg.
+          'outline-none',
           !hasHeader && copy && 'pr-12',
         )}
       >

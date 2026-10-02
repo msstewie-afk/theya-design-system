@@ -328,6 +328,16 @@ const SEVERITY_ICON_CLASS: Record<CardSeverity, string> = {
   danger: 'text-[var(--color-icon-icon-danger)]',
 };
 
+// Actions inside a severity card take the card's tone, so their hover
+// fill and focus ring match the card's own (default stays neutral).
+const SEVERITY_BUTTON_TONE = {
+  default: 'neutral',
+  info: 'info',
+  success: 'success',
+  warning: 'warning',
+  danger: 'danger',
+} as const satisfies Record<CardSeverity, string>;
+
 /** Severity tints the surface and supplies matching interactive hover/focus colors. */
 export const Severity: Story = {
   render: () => (
@@ -345,7 +355,15 @@ export const Severity: Story = {
                 </div>
               </div>
               <CardAction>
-                <Button appearance="ghost" iconOnly size="md" aria-label={`More actions for ${label}`} leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />
+                <Button
+                  appearance="ghost"
+                  tone={SEVERITY_BUTTON_TONE[severity]}
+                  iconOnly
+                  size="md"
+                  aria-label={`More actions for ${label}`}
+                  leftIcon={<KebabIconHorizontal />}
+                  className={severity === 'default' ? '[&_svg]:text-[var(--color-icon-icon)]' : undefined}
+                />
               </CardAction>
             </CardHeader>
           </Card>
