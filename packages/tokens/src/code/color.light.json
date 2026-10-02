@@ -2,6 +2,9 @@
   "color": {
     "text": {
       "text-link": { "value": "{color.blue.blue-600}" }
+    },
+    "border": {
+      "border-subtler": { "value": "{color.slate.slate-050}" }
     }
   }
 }

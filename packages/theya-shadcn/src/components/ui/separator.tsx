@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 export type SeparatorEmphasis = 'subtle' | 'strong';
 
 const EMPHASIS_CLASS: Record<SeparatorEmphasis, string> = {
-  // Quieter than any interactive boundary (1.22:1 light / 1.76:1 dark).
+  // Quieter than any interactive boundary (1.57:1 light / 1.76:1 dark).
   // Fine for a decorative divider: WCAG 1.4.11 doesn't apply to it.
   subtle: 'bg-[var(--color-border-border-subtler)]',
   // Same weight as a form-field border (3.0:1 / 3.01:1) — for a divider
