@@ -53,11 +53,10 @@ const SHAPE_RADIUS: Record<AvatarShape, { outer: string; gap: string; content: s
 
 // Figma's "Avatar gradient" style — an angular (conic) sweep through
 // blue-200 (#63acff), purple-200 (#cc75eb), teal-200 (#18bbb6), per node
-// 32031:22869 confirmed by Мария. No semantic Theya token covers a
-// raw-palette gradient like this yet, so the hex stops are used directly —
-// swap in real tokens if/when they exist. Rotation start angle is a visual
+// 32031:22869 confirmed by Мария. Decorative, so it reads the primitives
+// directly (no semantic role fits a palette gradient). Rotation start angle is a visual
 // approximation, not pulled from an exact Figma angle value.
-const AVATAR_GRADIENT = 'conic-gradient(from 0deg, #63acff, #cc75eb, #18bbb6, #63acff)';
+const AVATAR_GRADIENT = 'conic-gradient(from 0deg, var(--color-blue-blue-200), var(--color-purple-purple-200), var(--color-teal-teal-200), var(--color-blue-blue-200))';
 
 const FULL_SIZE_STYLE: CSSProperties = { width: '100%', height: '100%', boxSizing: 'border-box' };
 
