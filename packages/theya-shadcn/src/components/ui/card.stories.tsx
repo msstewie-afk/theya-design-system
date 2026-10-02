@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Globe, InfoCircle, CheckCircle, WarningTriangle, WarningCircle, Plus, OpenBook, OpenNewWindow, ArrowRight } from 'iconoir-react';
+import { Globe, InfoCircle, CheckCircle, WarningTriangle, WarningCircle, Plus, OpenBook, OpenNewWindow, ArrowRight, Bookmark, BookmarkSolid, Trash, Refresh, MediaImage, Star, StarSolid, Calendar, Lock, StatsUpSquare, Link as LinkIcon, ClipboardCheck } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardAction, CardFooter, CardLink, CardMedia, CardAvatar, type CardSeverity } from './card';
 import { DotSeparator } from './dot-separator';
@@ -9,6 +9,7 @@ import { Badge } from './badge';
 import { StatusDot } from './status-dot';
 import { TextField } from './text-field';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './dropdown-menu';
+import { Switch } from './switch';
 
 const meta: Meta<typeof Card> = {
   title: 'Layout/Card',
@@ -619,5 +620,101 @@ export const Filled: Story = {
         </CardFooter>
       </Card>
     </div>
+  ),
+};
+
+/**
+ * Wide resource row: identity on the left (logo tile, name, product URL),
+ * state controls opposite it (bookmark, enabled switch), and a strip of
+ * quick actions with the destructive one set apart on the right. Built from
+ * the regular parts — CardHeader + CardAction + CardContent.
+ */
+export const ResourceRow: Story = {
+  name: 'Resource row',
+  render: function ResourceRowExample() {
+    const [saved, setSaved] = useState(false);
+    const [enabled, setEnabled] = useState(true);
+    const actions = [
+      { icon: <Refresh />, label: 'Redeploy' },
+      { icon: <MediaImage />, label: 'Media library' },
+      { icon: <Star />, label: 'Reviews' },
+      { icon: <Calendar />, label: 'Schedule' },
+      { icon: <Lock />, label: 'Access' },
+      { icon: <StatsUpSquare />, label: 'Analytics' },
+    ];
+    return (
+      <Card className="w-full max-w-2xl">
+        <CardHeader divider={false}>
+          <div className="flex min-w-0 flex-col gap-2">
+            <span
+              aria-hidden="true"
+              className="grid size-10 place-items-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-primary-bg-primary-subtle)] font-body text-body-m font-semibold text-[var(--color-text-text-link-on-tonal)]"
+            >
+              S
+            </span>
+            <div className="min-w-0">
+              <CardTitle>Solarge</CardTitle>
+              <a
+                href="https://solarge.app/products/builder"
+                className="mt-0.5 flex min-w-0 items-center gap-1 font-body text-body-xs text-[var(--color-text-text-subtler)] hover:text-[var(--color-text-text-link)] [&_svg]:size-3 [&_svg]:shrink-0"
+              >
+                <LinkIcon aria-hidden="true" />
+                <span className="truncate">https://solarge.app/products/builder</span>
+              </a>
+            </div>
+          </div>
+          <CardAction className="gap-2">
+            <Button
+              appearance="ghost"
+              size="sm"
+              iconOnly
+              aria-label="Bookmark Solarge"
+              aria-pressed={saved}
+              onClick={() => setSaved((v) => !v)}
+              leftIcon={saved ? <BookmarkSolid /> : <Bookmark />}
+            />
+            <Switch aria-label="Solarge enabled" checked={enabled} onCheckedChange={setEnabled} />
+          </CardAction>
+        </CardHeader>
+        <CardContent className="flex items-center justify-between gap-3 pt-0">
+          <div className="flex flex-wrap items-center gap-1">
+            {actions.map((a) => (
+              <Button key={a.label} appearance="ghost" size="sm" iconOnly aria-label={a.label} leftIcon={a.icon} />
+            ))}
+            <span className="ml-1 font-body text-body-s font-medium text-[var(--color-text-text-success)]">
+              <span aria-hidden="true">▲ </span>+27<span className="sr-only"> new reviews this week</span>
+            </span>
+          </div>
+          <Button appearance="ghost" tone="danger" size="sm" iconOnly aria-label="Delete Solarge" leftIcon={<Trash />} />
+        </CardContent>
+      </Card>
+    );
+  },
+};
+
+/**
+ * Compact horizontal summary: one row for identity (icon tile, title, a
+ * favourite marker), one for context (a badge and when it was last opened).
+ */
+export const Compact: Story = {
+  render: () => (
+    <Card size="sm" className="w-full max-w-sm">
+      <CardHeader divider={false} className="flex-col gap-2">
+        <div className="flex items-center gap-2">
+          <span
+            aria-hidden="true"
+            className="grid size-7 shrink-0 place-items-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-icon-icon-subtle)] [&_svg]:size-4"
+          >
+            <ClipboardCheck />
+          </span>
+          <CardTitle className="text-body-l">Tasks</CardTitle>
+          <StarSolid aria-label="Favourite" role="img" className="size-4 shrink-0 text-[var(--color-border-border-rating)]" />
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge tone="neutral">My docs</Badge>
+          <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">Last viewed by you today at 10:09 AM</span>
+        </div>
+      </CardHeader>
+    </Card>
   ),
 };
