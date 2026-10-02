@@ -18,7 +18,7 @@ import { Timeline, TimelineItem, TimelineTitle, TimelineDescription } from './ti
  * `<ol role="list">`; name the feed with `aria-label`.
  */
 const meta: Meta<typeof Timeline> = {
-  title: 'Data Display/Timeline',
+  title: 'Data/Timeline',
   component: Timeline,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

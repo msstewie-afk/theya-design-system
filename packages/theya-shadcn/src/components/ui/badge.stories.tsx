@@ -11,7 +11,7 @@ import { StatusDot } from './status-dot';
  * to render the pill as a link or other element.
  */
 const meta = {
-  title: 'Data Display/Badge',
+  title: 'Labels/Badge',
   component: Badge,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

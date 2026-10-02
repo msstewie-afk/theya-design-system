@@ -27,7 +27,7 @@ import { Button } from './button';
  * was a real mismatch fixed in this file.
  */
 const meta: Meta = {
-  title: 'Feedback/Toaster',
+  title: 'Status & Feedback/Toaster',
   tags: ['autodocs'],
   parameters: {
     docs: { description: { component: 'Mount <Toaster /> once near the app root (already done globally for this Storybook), then trigger toasts with `toast` from this module.' } },

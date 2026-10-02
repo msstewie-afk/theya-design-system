@@ -13,7 +13,7 @@ import { Switch } from './switch';
 type Args = Record<string, never>;
 
 const meta: Meta<Args> = {
-  title: 'Forms/Form',
+  title: 'Form Structure/Form',
   tags: ['autodocs'],
   parameters: {
     docs: {

@@ -4,7 +4,7 @@ import { Badge } from './badge';
 import { StatusDot } from './status-dot';
 
 const meta: Meta<typeof DescriptionList> = {
-  title: 'Data Display/DescriptionList',
+  title: 'Data/DescriptionList',
   component: DescriptionList,
   tags: ['autodocs'],
   parameters: {

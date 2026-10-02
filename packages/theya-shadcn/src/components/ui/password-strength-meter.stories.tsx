@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PasswordStrengthMeter } from './password-strength-meter';
 
 const meta: Meta<typeof PasswordStrengthMeter> = {
-  title: 'Forms/PasswordStrengthMeter',
+  title: 'Text Input/PasswordStrengthMeter',
   component: PasswordStrengthMeter,
   tags: ['autodocs'],
   parameters: {
@@ -10,7 +10,7 @@ const meta: Meta<typeof PasswordStrengthMeter> = {
       description: {
         component:
           'Standalone composition helper meant to sit below a Password field — pass it the same controlled ' +
-          'value. Solid color per score band (danger/warning/success), no gradient. See Forms/Password → ' +
+          'value. Solid color per score band (danger/warning/success), no gradient. See Text Input/Password → ' +
           '"Strength meter" for it paired with an actual input.',
       },
     },

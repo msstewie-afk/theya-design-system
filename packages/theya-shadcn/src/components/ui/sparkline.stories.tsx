@@ -9,7 +9,7 @@ import { Sparkline } from './sparkline';
  * it (the sparkline is one `role="img"` with no other read).
  */
 const meta: Meta<typeof Sparkline> = {
-  title: 'Data Display/Sparkline',
+  title: 'Charts/Sparkline',
   component: Sparkline,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

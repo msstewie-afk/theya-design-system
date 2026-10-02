@@ -3,7 +3,7 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 import { Switch } from './switch';
 
 const meta: Meta<typeof Switch> = {
-  title: 'Forms/Switch',
+  title: 'Selection/Switch',
   component: Switch,
   tags: ['autodocs'],
   parameters: {

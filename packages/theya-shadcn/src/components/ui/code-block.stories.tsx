@@ -18,7 +18,7 @@ const CONFIG_SAMPLE = `export default {
 const SNIPPET = `pnpm add @radix-ui/react-dialog\npnpm add iconoir-react`;
 
 const meta = {
-  title: 'Data Display/CodeBlock',
+  title: 'Code/CodeBlock',
   component: CodeBlock,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

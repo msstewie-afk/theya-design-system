@@ -12,7 +12,7 @@ import { Badge } from './badge';
  * text label (e.g. "Running") or place it inside a labelled Badge.
  */
 const meta = {
-  title: 'Data Display/StatusDot',
+  title: 'Status & Feedback/StatusDot',
   component: StatusDot,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

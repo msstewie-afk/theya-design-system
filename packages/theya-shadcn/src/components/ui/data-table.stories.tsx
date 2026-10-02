@@ -8,7 +8,7 @@ import { DataTableCell } from './data-table-cell';
 import type { StatusTone } from './status-dot';
 
 const meta: Meta<typeof DataTable> = {
-  title: 'Data Display/DataTable',
+  title: 'Data/DataTable',
   component: DataTable,
   tags: ['autodocs'],
   parameters: {

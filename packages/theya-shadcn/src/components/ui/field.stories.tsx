@@ -7,7 +7,7 @@ import { NumberField } from './number-field';
 import { Switch } from './switch';
 
 const meta: Meta<typeof Field> = {
-  title: 'Forms/Field',
+  title: 'Form Structure/Field',
   component: Field,
   tags: ['autodocs'],
   argTypes: {

@@ -15,11 +15,11 @@ import type { FilterOption } from '@/components/ui/filter';
  * are icon-only ghost buttons.
  *
  * Pure content - no Bell trigger, no open/close state of its own. See the
- * `Notifications` story on `Overlays/Push sheet` for how a caller assembles
+ * `Notifications` story on `Overlays/PushSheet` for how a caller assembles
  * the trigger + panel around it.
  */
 const meta: Meta<typeof NotificationsInbox> = {
-  title: 'Patterns/Notifications inbox',
+  title: 'Patterns/NotificationsInbox',
   component: NotificationsInbox,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },

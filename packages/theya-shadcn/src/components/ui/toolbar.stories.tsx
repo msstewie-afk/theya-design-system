@@ -3,7 +3,7 @@ import { Trash, Copy, Download, Bold, Italic, Underline } from 'iconoir-react';
 import { Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator, ToolbarLink } from './toolbar';
 
 const meta: Meta<typeof Toolbar> = {
-  title: 'Navigation/Toolbar',
+  title: 'Layout/Toolbar',
   component: Toolbar,
   tags: ['autodocs'],
   argTypes: {

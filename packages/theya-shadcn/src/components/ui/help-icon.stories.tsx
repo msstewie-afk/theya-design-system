@@ -18,7 +18,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '.
  * otherwise `label`.
  */
 const meta: Meta<typeof HelpIcon> = {
-  title: 'Overlays/HelpIcon',
+  title: 'Labels/HelpIcon',
   component: HelpIcon,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

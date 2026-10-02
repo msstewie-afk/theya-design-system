@@ -27,7 +27,7 @@ import { Button } from './button';
 type CommandStoryArgs = React.ComponentProps<typeof Command> & Pick<CommandItemProps, 'icon' | 'toneIcon' | 'description' | 'breadcrumb'>;
 
 const meta: Meta<CommandStoryArgs> = {
-  title: 'Navigation/Command',
+  title: 'Search & Filter/Command',
   tags: ['autodocs'],
   parameters: {
     docs: {

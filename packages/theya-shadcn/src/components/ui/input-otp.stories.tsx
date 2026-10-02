@@ -10,7 +10,7 @@ import { Button } from './button';
 type Args = { maxLength?: number; disabled?: boolean };
 
 const meta: Meta<Args> = {
-  title: 'Forms/InputOTP',
+  title: 'Text Input/InputOTP',
   tags: ['autodocs'],
   parameters: {
     docs: {

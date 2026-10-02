@@ -5,7 +5,7 @@ import { Field, FieldDescription } from './field';
 import { Label } from './label';
 
 const meta: Meta<typeof Fieldset> = {
-  title: 'Forms/Fieldset',
+  title: 'Form Structure/Fieldset',
   component: Fieldset,
   tags: ['autodocs'],
   argTypes: {

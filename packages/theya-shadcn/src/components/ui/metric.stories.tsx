@@ -4,7 +4,7 @@ import { Metric } from './metric';
 import { Button } from './button';
 
 const meta: Meta<typeof Metric> = {
-  title: 'Data Display/Metric',
+  title: 'Data/Metric',
   tags: ['autodocs'],
   argTypes: {
     icon: { control: false, description: 'Optional leading icon (decorative — the visible value/label carry the meaning).' },

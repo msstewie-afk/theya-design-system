@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback } from './avatar';
  * scale) themes every avatar and the count chip together.
  */
 const meta = {
-  title: 'Data Display/AvatarGroup',
+  title: 'Labels/AvatarGroup',
   component: AvatarGroup,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

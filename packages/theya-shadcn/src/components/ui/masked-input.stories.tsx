@@ -3,7 +3,7 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 import { MaskedInput } from './masked-input';
 
 const meta: Meta<typeof MaskedInput> = {
-  title: 'Forms/MaskedInput',
+  title: 'Text Input/MaskedInput',
   component: MaskedInput,
   tags: ['autodocs'],
   parameters: {

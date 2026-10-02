@@ -44,7 +44,7 @@ const FILES: TreeNode[] = [
 ];
 
 const meta: Meta<typeof Tree> = {
-  title: 'Data Display/Tree',
+  title: 'Data/Tree',
   component: Tree,
   // NOT tags: ['autodocs'] — TreeNode is self-referential
   // (children?: TreeNode[]), and Storybook's docgen-driven Docs-page

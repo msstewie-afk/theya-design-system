@@ -3,7 +3,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Filter } from './filter';
 
 const meta: Meta<typeof Filter> = {
-  title: 'Navigation/Filter',
+  title: 'Search & Filter/Filter',
   component: Filter,
   tags: ['autodocs'],
   argTypes: {

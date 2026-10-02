@@ -20,7 +20,7 @@ const USAGE = [
  * chart is exposed as one `role="img"`.
  */
 const meta = {
-  title: 'Data Display/LineChart',
+  title: 'Charts/LineChart',
   component: LineChart,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

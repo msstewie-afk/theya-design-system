@@ -8,7 +8,7 @@ type IconName = keyof typeof iconMap;
 import { TextField } from './text-field';
 
 const meta: Meta<typeof TextField> = {
-  title: 'Forms/TextField',
+  title: 'Text Input/TextField',
   component: TextField,
   tags: ['autodocs'],
   args: { widthSize: 'md' },

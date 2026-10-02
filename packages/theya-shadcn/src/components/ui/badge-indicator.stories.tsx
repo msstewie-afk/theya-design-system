@@ -8,7 +8,7 @@ import { BadgeIndicator } from './badge-indicator';
  * filled or outlined treatment with a round or squared corner.
  */
 const meta = {
-  title: 'Data Display/BadgeIndicator',
+  title: 'Status & Feedback/BadgeIndicator',
   component: BadgeIndicator,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

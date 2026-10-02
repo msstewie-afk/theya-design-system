@@ -3,7 +3,7 @@ import { Sparks } from 'iconoir-react';
 import { PromptSuggestions } from './prompt-suggestions';
 
 const meta: Meta<typeof PromptSuggestions> = {
-  title: 'Forms/PromptSuggestions',
+  title: 'AI & Chat/PromptSuggestions',
   component: PromptSuggestions,
   tags: ['autodocs'],
   parameters: {

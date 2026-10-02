@@ -18,7 +18,7 @@ import { Button } from './button';
  * document outline (the common case here).
  */
 const meta = {
-  title: 'Data Display/EmptyState',
+  title: 'Status & Feedback/EmptyState',
   component: EmptyState,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

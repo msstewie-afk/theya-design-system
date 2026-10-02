@@ -16,7 +16,7 @@ const STORAGE = [
  * summarizing the split (the chart is exposed as one `role="img"`).
  */
 const meta = {
-  title: 'Data Display/DonutChart',
+  title: 'Charts/DonutChart',
   component: DonutChart,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

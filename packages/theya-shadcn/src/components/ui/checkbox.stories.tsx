@@ -4,7 +4,7 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 import { Checkbox } from './checkbox';
 
 const meta: Meta<typeof Checkbox> = {
-  title: 'Forms/Checkbox',
+  title: 'Selection/Checkbox',
   component: Checkbox,
   tags: ['autodocs'],
   parameters: {

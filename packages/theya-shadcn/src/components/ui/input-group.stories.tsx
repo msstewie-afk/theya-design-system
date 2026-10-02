@@ -4,7 +4,7 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from './input-group';
 import { Label } from './label';
 
 const meta: Meta<typeof InputGroup> = {
-  title: 'Forms/InputGroup',
+  title: 'Text Input/InputGroup',
   component: InputGroup,
   tags: ['autodocs'],
   parameters: {

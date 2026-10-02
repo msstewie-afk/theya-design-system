@@ -4,7 +4,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { Slider } from './slider';
 
 const meta: Meta<typeof Slider> = {
-  title: 'Forms/Slider',
+  title: 'Selection/Slider',
   component: Slider,
   tags: ['autodocs'],
   argTypes: {

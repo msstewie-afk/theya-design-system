@@ -42,7 +42,7 @@ type SelectStoryArgs = React.ComponentProps<typeof Select> &
   Pick<SelectItemProps, 'icon' | 'iconSize' | 'status' | 'badge' | 'description'>;
 
 const meta: Meta<SelectStoryArgs> = {
-  title: 'Forms/Select',
+  title: 'Selection/Select',
   tags: ['autodocs'],
   parameters: {
     docs: { description: { component: 'Single-value picker on @radix-ui/react-select. Shares widthSize/heightSize/error conventions with TextField — the dropdown item text matches the trigger size too.' } },

@@ -17,7 +17,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
  * row or `interactive` for a selectable button row.
  */
 const meta: Meta<typeof ListItem> = {
-  title: 'Data Display/ListItem',
+  title: 'Data/ListItem',
   component: ListItem,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

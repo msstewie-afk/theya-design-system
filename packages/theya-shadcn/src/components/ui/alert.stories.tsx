@@ -11,7 +11,7 @@ import { Button } from './button';
  * in response to an event so screen readers announce it.
  */
 const meta = {
-  title: 'Feedback/Alert',
+  title: 'Status & Feedback/Alert',
   component: Alert,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

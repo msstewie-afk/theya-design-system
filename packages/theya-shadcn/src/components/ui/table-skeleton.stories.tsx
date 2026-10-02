@@ -3,7 +3,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead } from './table';
 import { TableSkeletonRows } from './table-skeleton';
 
 const meta: Meta<typeof TableSkeletonRows> = {
-  title: 'Feedback/TableSkeleton',
+  title: 'Status & Feedback/TableSkeleton',
   component: TableSkeletonRows,
   tags: ['autodocs'],
   argTypes: {

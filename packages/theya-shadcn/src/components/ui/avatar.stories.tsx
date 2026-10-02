@@ -19,7 +19,7 @@ import { StatusDot } from './status-dot';
  * fallback content is announced as plain text/icon.
  */
 const meta = {
-  title: 'Data Display/Avatar',
+  title: 'Labels/Avatar',
   component: Avatar,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

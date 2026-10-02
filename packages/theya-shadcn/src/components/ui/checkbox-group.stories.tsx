@@ -4,7 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { CheckboxGroup, CheckboxGroupItem } from './checkbox-group';
 
 const meta: Meta<typeof CheckboxGroup> = {
-  title: 'Forms/CheckboxGroup',
+  title: 'Selection/CheckboxGroup',
   component: CheckboxGroup,
   tags: ['autodocs'],
   argTypes: {

@@ -3,7 +3,7 @@ import { expect, within } from '@storybook/test';
 import { TextArea } from './textarea';
 
 const meta: Meta<typeof TextArea> = {
-  title: 'Forms/TextArea',
+  title: 'Text Input/TextArea',
   component: TextArea,
   tags: ['autodocs'],
   args: { widthSize: 'lg' },

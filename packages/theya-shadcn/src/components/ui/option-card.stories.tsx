@@ -5,7 +5,7 @@ import { Cloud, Globe, ShieldCheck, Server, Network } from 'iconoir-react';
 import { OptionCardGroup, OptionCard } from './option-card';
 
 const meta: Meta<typeof OptionCardGroup> = {
-  title: 'Forms/OptionCard',
+  title: 'Selection/OptionCard',
   component: OptionCardGroup,
   tags: ['autodocs'],
   argTypes: {

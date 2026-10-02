@@ -11,7 +11,7 @@ import { Kbd } from './kbd';
  * treatment instead.
  */
 const meta = {
-  title: 'Data Display/Kbd',
+  title: 'Labels/Kbd',
   component: Kbd,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

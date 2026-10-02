@@ -41,7 +41,7 @@ const TRAFFIC = [
  * to assistive tech as a single `role="img"`.
  */
 const meta = {
-  title: 'Data Display/AreaChart',
+  title: 'Charts/AreaChart',
   component: AreaChart,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

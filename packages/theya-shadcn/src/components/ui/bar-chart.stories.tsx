@@ -26,7 +26,7 @@ const REGIONS = [
  * prop. Always pass a meaningful `ariaLabel` (the chart is one `role="img"`).
  */
 const meta = {
-  title: 'Data Display/BarChart',
+  title: 'Charts/BarChart',
   component: BarChart,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

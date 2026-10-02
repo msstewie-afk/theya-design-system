@@ -7,7 +7,7 @@ import { Button } from './button';
 import { Separator } from './separator';
 
 const meta: Meta<typeof Attachment> = {
-  title: 'Data Display/Attachment',
+  title: 'Files/Attachment',
   component: Attachment,
   tags: ['autodocs'],
   parameters: {

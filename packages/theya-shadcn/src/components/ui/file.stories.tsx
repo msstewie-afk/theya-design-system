@@ -5,7 +5,7 @@ import { File } from './file';
 import { Button } from './button';
 
 const meta: Meta<typeof File> = {
-  title: 'Forms/File',
+  title: 'Files/File',
   component: File,
   tags: ['autodocs'],
   parameters: {

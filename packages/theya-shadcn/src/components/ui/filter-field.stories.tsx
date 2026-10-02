@@ -6,7 +6,7 @@ import { StatusDot, type StatusTone } from './status-dot';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table';
 
 const meta: Meta<typeof FilterField> = {
-  title: 'Navigation/FilterField',
+  title: 'Search & Filter/FilterField',
   tags: ['autodocs'],
   parameters: {
     docs: {

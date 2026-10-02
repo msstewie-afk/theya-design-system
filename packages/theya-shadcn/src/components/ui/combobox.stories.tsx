@@ -4,7 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Combobox } from './combobox';
 
 const meta: Meta<typeof Combobox> = {
-  title: 'Forms/Combobox',
+  title: 'Selection/Combobox',
   tags: ['autodocs'],
   parameters: {
     docs: {

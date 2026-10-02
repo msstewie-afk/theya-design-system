@@ -4,7 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { QueryBuilder, type QueryField, type QueryValue } from './query-builder';
 
 const meta: Meta<typeof QueryBuilder> = {
-  title: 'Navigation/QueryBuilder',
+  title: 'Search & Filter/QueryBuilder',
   component: QueryBuilder,
   tags: ['autodocs'],
   parameters: {

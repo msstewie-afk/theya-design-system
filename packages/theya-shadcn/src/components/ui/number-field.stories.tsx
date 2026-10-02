@@ -3,7 +3,7 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 import { NumberField } from './number-field';
 
 const meta: Meta<typeof NumberField> = {
-  title: 'Forms/NumberField',
+  title: 'Text Input/NumberField',
   component: NumberField,
   tags: ['autodocs'],
   parameters: {

@@ -14,7 +14,7 @@ import { Card, CardHeader, CardTitle, CardContent } from './card';
  * chart or table.
  */
 const meta = {
-  title: 'Data Display/Stat',
+  title: 'Data/Stat',
   component: Stat,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

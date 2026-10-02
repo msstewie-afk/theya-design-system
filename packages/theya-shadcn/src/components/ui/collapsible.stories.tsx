@@ -7,7 +7,7 @@ import { Button } from './button';
 import { TextField } from './text-field';
 
 const meta: Meta<typeof Collapsible> = {
-  title: 'Disclosure/Collapsible',
+  title: 'Layout/Collapsible',
   component: Collapsible,
   tags: ['autodocs'],
   argTypes: {

@@ -10,7 +10,7 @@ import { Meter } from './meter';
  * (primary / success / warning / danger / info).
  */
 const meta = {
-  title: 'Feedback/Meter',
+  title: 'Status & Feedback/Meter',
   component: Meter,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

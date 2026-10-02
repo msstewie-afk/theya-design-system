@@ -10,7 +10,7 @@ import { Avatar, AvatarFallback } from './avatar';
  * the messages region takes the rest.
  */
 const meta = {
-  title: 'Data Display/Chat',
+  title: 'AI & Chat/Chat',
   component: Chat,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

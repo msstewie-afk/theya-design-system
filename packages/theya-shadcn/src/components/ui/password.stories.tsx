@@ -5,7 +5,7 @@ import { Password } from './password';
 import { PasswordStrengthMeter } from './password-strength-meter';
 
 const meta: Meta<typeof Password> = {
-  title: 'Forms/Password',
+  title: 'Text Input/Password',
   component: Password,
   tags: ['autodocs'],
   args: { widthSize: 'lg' },

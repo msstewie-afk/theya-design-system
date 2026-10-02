@@ -13,7 +13,7 @@ import { StatusDot } from './status-dot';
  * Pass `interactive={false}` for a purely static status pill.
  */
 const meta = {
-  title: 'Data Display/Chip',
+  title: 'Labels/Chip',
   component: Chip,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

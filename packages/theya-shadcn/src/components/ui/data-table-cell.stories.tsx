@@ -7,7 +7,7 @@ import { DataTableCell } from './data-table-cell';
 import { Table, TableBody, TableRow, TableCell } from './table';
 
 const meta: Meta<typeof DataTableCell> = {
-  title: 'Data Display/DataTableCell',
+  title: 'Data/DataTableCell',
   component: DataTableCell,
   tags: ['autodocs'],
   parameters: {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { UsageBar } from './usage-bar';
 
 const meta: Meta<typeof UsageBar> = {
-  title: 'Data Display/UsageBar',
+  title: 'Status & Feedback/UsageBar',
   component: UsageBar,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

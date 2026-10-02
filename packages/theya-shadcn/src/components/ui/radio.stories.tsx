@@ -13,7 +13,7 @@ async function pressArrow(key: 'ArrowDown' | 'ArrowUp', target: () => HTMLElemen
 import { RadioGroup, Radio } from './radio';
 
 const meta: Meta<typeof Radio> = {
-  title: 'Forms/Radio',
+  title: 'Selection/Radio',
   component: Radio,
   tags: ['autodocs'],
   parameters: {

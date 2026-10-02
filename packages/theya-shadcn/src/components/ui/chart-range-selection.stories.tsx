@@ -163,7 +163,7 @@ function InteractiveExample({
 // Typed as Meta (not `satisfies`) so stories that supply children/labels
 // through `render` aren't required to repeat them as args.
 const meta: Meta<typeof ChartRangeSelection> = {
-  title: 'Data Display/ChartRangeSelection',
+  title: 'Charts/ChartRangeSelection',
   component: ChartRangeSelection,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

@@ -11,7 +11,7 @@ import { Attachment } from './attachment';
  * light (omit on consecutive messages from the same sender).
  */
 const meta: Meta<typeof Message> = {
-  title: 'Data Display/Message',
+  title: 'AI & Chat/Message',
   component: Message,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

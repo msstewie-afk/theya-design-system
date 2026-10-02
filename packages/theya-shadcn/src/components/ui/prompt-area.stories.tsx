@@ -12,7 +12,7 @@ import { PromptSuggestions } from './prompt-suggestions';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './dropdown-menu';
 
 const meta: Meta<typeof PromptArea> = {
-  title: 'Forms/PromptArea',
+  title: 'AI & Chat/PromptArea',
   component: PromptArea,
   tags: ['autodocs'],
   parameters: {

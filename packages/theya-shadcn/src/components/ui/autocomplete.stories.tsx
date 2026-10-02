@@ -4,7 +4,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { Autocomplete } from './autocomplete';
 
 const meta: Meta<typeof Autocomplete> = {
-  title: 'Forms/Autocomplete',
+  title: 'Selection/Autocomplete',
   component: Autocomplete,
   tags: ['autodocs'],
   parameters: {

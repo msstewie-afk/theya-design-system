@@ -4,7 +4,7 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Dropzone, type StagedFile } from './dropzone';
 
 const meta: Meta<typeof Dropzone> = {
-  title: 'Forms/Dropzone',
+  title: 'Files/Dropzone',
   tags: ['autodocs'],
   argTypes: {
     'aria-label': { control: 'text', description: 'Accessible name for the drop zone.', table: { category: 'Content' } },

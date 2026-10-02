@@ -3,7 +3,7 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { SecretField } from './secret-field';
 
 const meta: Meta<typeof SecretField> = {
-  title: 'Forms/SecretField',
+  title: 'Text Input/SecretField',
   component: SecretField,
   tags: ['autodocs'],
   parameters: {

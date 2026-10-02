@@ -10,7 +10,7 @@ import { DotSeparator } from './dot-separator';
  * consistent everywhere.
  */
 const meta = {
-  title: 'Data Display/DotSeparator',
+  title: 'Labels/DotSeparator',
   component: DotSeparator,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

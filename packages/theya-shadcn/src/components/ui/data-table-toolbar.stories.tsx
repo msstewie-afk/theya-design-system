@@ -115,7 +115,7 @@ function ToolbarDemo({ actions = ACTIONS, maxVisible, initialSelection = {} }: {
 }
 
 const meta: Meta<typeof DataTableToolbar> = {
-  title: 'Data Display/DataTableToolbar',
+  title: 'Data/DataTableToolbar',
   component: DataTableToolbar,
   tags: ['autodocs'],
   parameters: {

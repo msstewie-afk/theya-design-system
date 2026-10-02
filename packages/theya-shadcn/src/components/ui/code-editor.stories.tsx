@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { CodeEditor } from './code-editor';
 
 const meta: Meta<typeof CodeEditor> = {
-  title: 'Data Display/CodeEditor',
+  title: 'Code/CodeEditor',
   component: CodeEditor,
   tags: ['autodocs'],
   argTypes: {

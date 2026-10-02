@@ -4,7 +4,7 @@ import { PropertyGrid, type PropertyGridItem, type PropertyValue } from './prope
 import { Slider } from './slider';
 
 const meta: Meta<typeof PropertyGrid> = {
-  title: 'Forms/PropertyGrid',
+  title: 'Form Structure/PropertyGrid',
   component: PropertyGrid,
   tags: ['autodocs'],
   argTypes: {

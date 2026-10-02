@@ -11,7 +11,7 @@ import { Button } from './button';
  * no known total, use Skeleton instead.
  */
 const meta = {
-  title: 'Feedback/Progress',
+  title: 'Status & Feedback/Progress',
   component: Progress,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

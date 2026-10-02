@@ -13,13 +13,13 @@ import { Button } from './button';
  * dismissed, `onCommit` runs once to finalise. It is a function, not a
  * component — these stories are Buttons that call it. The global
  * `<Toaster/>` (mounted in `.storybook/preview.ts`) renders the toast, so
- * these stories don't mount their own (see Feedback/Toaster's own comment
+ * these stories don't mount their own (see Status & Feedback/Toaster's own comment
  * for why a second instance would just eat the calls). Use for reversible
  * deletes (sites, DNS records, files); for high-stakes/irreversible actions
  * use a typed-confirm Dialog instead.
  */
 const meta = {
-  title: 'Feedback/Undo toast',
+  title: 'Status & Feedback/UndoToast',
   component: Button,
   parameters: { layout: 'centered' },
 } satisfies Meta<typeof Button>;

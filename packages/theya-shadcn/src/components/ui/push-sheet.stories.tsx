@@ -16,7 +16,7 @@ import { NotificationsInbox } from '@/components/blocks/notifications-inbox';
  * center, rather than a one-off form or confirmation (use `Sheet` for those).
  */
 const meta: Meta<typeof PushSheet> = {
-  title: 'Overlays/Push sheet',
+  title: 'Overlays/PushSheet',
   component: PushSheet,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },

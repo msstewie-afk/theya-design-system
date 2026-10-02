@@ -17,7 +17,7 @@ import type { BadgeTone } from './badge';
  * (a text label, not a bare colored dot).
  */
 const meta: Meta<typeof Table> = {
-  title: 'Data Display/Table',
+  title: 'Data/Table',
   component: Table,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },

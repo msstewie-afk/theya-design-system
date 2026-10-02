@@ -12,7 +12,7 @@ import { ToneIcon } from './tone-icon';
  * visible text label, status is never color-alone.
  */
 const meta: Meta<typeof ToneIcon> = {
-  title: 'Data Display/ToneIcon',
+  title: 'Labels/ToneIcon',
   component: ToneIcon,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

@@ -13,7 +13,7 @@ import { Skeleton } from './skeleton';
  * skeletons themselves are already `aria-hidden` by default).
  */
 const meta = {
-  title: 'Feedback/Skeleton',
+  title: 'Status & Feedback/Skeleton',
   component: Skeleton,
   tags: ['autodocs'],
   parameters: { layout: 'centered' },

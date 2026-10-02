@@ -18,7 +18,7 @@ import { cn } from '@/lib/utils';
  * real terminal chrome shouldn't flip pale in light theme.
  */
 const meta: Meta<typeof Terminal> = {
-  title: 'Data Display/Terminal',
+  title: 'Code/Terminal',
   component: Terminal,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },
