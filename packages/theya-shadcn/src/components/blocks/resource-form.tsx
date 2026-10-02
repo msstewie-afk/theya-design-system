@@ -193,7 +193,7 @@ export function ResourceForm({ title, description, sections, onSubmit, onCancel,
           <div className="min-w-0 flex-1">
             <AlertTitle>{`Fix ${errorFields.length} fields to continue`}</AlertTitle>
             <AlertDescription>
-              <ul className="mt-1 flex list-none flex-col gap-2 pl-0">
+              <ul className="mt-1 flex list-disc flex-col gap-2 pl-5">
                 {errorFields.map((f) => (
                   <li key={f.name}>
                     <a
