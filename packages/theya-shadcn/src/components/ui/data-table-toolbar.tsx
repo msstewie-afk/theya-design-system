@@ -518,13 +518,13 @@ export function DataTableToolbar<TData>({
         data-surface="primary"
         className={cn(
           shell,
-          'flex items-center gap-2 border-transparent bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)] shadow-elevation-md',
+          'flex items-center gap-2 border-transparent bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)] shadow-elevation-md',
           embedded && 'rounded-none border-x-0 border-b-0 border-t border-[var(--color-border-border-subtler)] shadow-none',
           className,
         )}
         {...props}
       >
-        <Label className="flex w-fit cursor-pointer items-center gap-2 font-body text-body-m text-[var(--color-icon-icon-on-dark)]">
+        <Label className="flex w-fit cursor-pointer items-center gap-2 font-body text-body-m text-[var(--color-text-text-on-primary)]">
           {selectAllCheckboxWithTooltip}
           <span className="inline-block min-w-[10ch] whitespace-nowrap" aria-live="polite">
             <span className="tabular-nums">{count}</span> selected

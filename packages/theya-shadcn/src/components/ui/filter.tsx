@@ -117,7 +117,7 @@ export function Filter({
           {...props}
         >
           {count > 0 && (
-            <span aria-hidden="true" className="flex size-[22px] items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-primary-bg-primary)] font-body text-body-xs text-[var(--color-icon-icon-on-dark)]">
+            <span aria-hidden="true" className="flex size-[22px] items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-primary-bg-primary)] font-body text-body-xs text-[var(--color-text-text-on-primary)]">
               {count}
             </span>
           )}

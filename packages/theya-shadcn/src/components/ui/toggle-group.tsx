@@ -71,7 +71,7 @@ function ToggleGroupItem({ className, children, appearance, size, ...props }: To
         // instead of losing it, matching the reference's "grey at rest,
         // swapped for the ring when pressed, never stacked" rule.
         'data-[appearance=outlined]:data-[state=off]:shadow-[inset_0_0_0_1px_var(--color-border-border-default)]',
-        'data-[appearance=outlined]:data-[state=on]:shadow-[inset_0_0_0_1px_var(--color-bg-primary-bg-primary)]',
+        'data-[appearance=outlined]:data-[state=on]:shadow-[inset_0_0_0_1px_var(--color-border-border-primary)]',
         'data-[appearance=outlined]:data-[state=on]:z-[1]',
         'focus-visible:z-10',
         className,

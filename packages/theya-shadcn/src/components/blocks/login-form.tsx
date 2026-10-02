@@ -131,7 +131,7 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
   return (
     <div className={cn('flex w-full max-w-sm flex-col gap-6', className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
-        <div aria-hidden="true" className="grid size-11 place-content-center rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-primary-bg-primary)] font-body text-body-l font-semibold text-[var(--color-icon-icon-on-dark)]">
+        <div aria-hidden="true" className="grid size-11 place-content-center rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-primary-bg-primary)] font-body text-body-l font-semibold text-[var(--color-text-text-on-primary)]">
           {appName.charAt(0)}
         </div>
         <h1 className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">Sign in to {appName}</h1>

@@ -125,11 +125,9 @@ export const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, Switch
                 // checkmark needs a fixed dark color to match, not the
                 // theme-reactive icon-icon token (slate-500 in light, but
                 // slate-005/near-white in dark, so it vanished against the
-                // white thumb once dark mode flipped it). No semantic
-                // "dark icon on a light surface" token exists yet, so this
-                // references the black primitive directly, same way the
-                // thumb itself already does for white.
-                'text-[var(--color-black)]',
+                // white thumb once dark mode flipped it). icon-on-light is
+                // the fixed dark glyph for a light surface in both themes.
+                'text-[var(--color-icon-icon-on-light)]',
                 'scale-50 opacity-0 transition-[opacity,transform] duration-fast ease-enter motion-reduce:transition-none',
                 'group-data-[state=checked]:scale-100 group-data-[state=checked]:opacity-100',
                 'group-data-[state=checked]:duration-moderate group-data-[state=checked]:ease-spring',

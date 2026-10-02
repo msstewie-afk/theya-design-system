@@ -55,7 +55,7 @@ export function Message({ className, variant = 'received', appearance = 'filled'
                   'rounded-tr-[var(--size-border-radius-border-radius-md)]',
                   appearance === 'tonal'
                     ? 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]'
-                    : 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)]',
+                    : 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)]',
                 )
               : 'rounded-tl-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text)]',
           )}

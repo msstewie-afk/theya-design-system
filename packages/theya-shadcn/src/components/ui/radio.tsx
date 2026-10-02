@@ -39,7 +39,9 @@ export const Radio = forwardRef<ElementRef<typeof RadioGroupPrimitive.Item>, Rad
           'cursor-pointer disabled:cursor-not-allowed',
           'motion-safe:active:not-disabled:scale-[0.9]',
           'hover:not-disabled:data-[state=unchecked]:border-[var(--color-border-border-primary)]',
-          'data-[state=checked]:border-[var(--color-bg-primary-bg-primary)]',
+          // border-primary, not bg-primary: in dark it's the lighter #63acff, so the
+          // checked ring keeps contrast on the dark input fill (1.4.11).
+          'data-[state=checked]:border-[var(--color-border-border-primary)]',
           'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
           'disabled:data-[state=unchecked]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
           'disabled:data-[state=unchecked]:border-[var(--color-border-border-subtle)]',
@@ -52,7 +54,7 @@ export const Radio = forwardRef<ElementRef<typeof RadioGroupPrimitive.Item>, Rad
         <RadioGroupPrimitive.Indicator
           forceMount
           className={cn(
-            'size-[10px] rounded-full bg-[var(--color-bg-primary-bg-primary)]',
+            'size-[10px] rounded-full bg-[var(--color-icon-icon-primary)]',
             'scale-0 opacity-0 transition-[opacity,transform] duration-fast ease-enter motion-reduce:transition-none',
             'data-[state=checked]:scale-100 data-[state=checked]:opacity-100',
             'data-[state=checked]:duration-moderate data-[state=checked]:ease-spring',

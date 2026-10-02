@@ -130,7 +130,7 @@ function PropertyRow({
       </div>
       {!isLast && (
         <div className="col-span-2">
-          <Separator className="bg-[var(--color-border-border-subtler)]" />
+          <Separator />
         </div>
       )}
     </>

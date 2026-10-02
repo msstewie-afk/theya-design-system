@@ -33,7 +33,7 @@ export type TimelineTone = 'neutral' | 'success' | 'warning' | 'danger' | 'info'
 const TONE_DOT: Record<TimelineTone, string> = {
   neutral: 'bg-[var(--color-icon-icon-subtle)]',
   success: 'bg-[var(--color-bg-success-bg-success)] [[data-theme=dark]_&]:bg-[var(--color-bg-success-bg-success-status)]',
-  warning: 'bg-[var(--color-yellow-yellow-300)] [[data-theme=dark]_&]:bg-[var(--color-bg-warning-bg-warning-status)]',
+  warning: 'bg-[var(--color-bg-warning-bg-warning-status)]',
   danger: 'bg-[var(--color-bg-danger-bg-danger)] [[data-theme=dark]_&]:bg-[var(--color-bg-danger-bg-danger-status)]',
   info: 'bg-[var(--color-bg-info-bg-info-status)]',
   primary: 'bg-[var(--color-bg-primary-bg-primary)] [[data-theme=dark]_&]:bg-[var(--color-bg-primary-bg-primary-status)]',
@@ -54,9 +54,9 @@ const TONE_DOT: Record<TimelineTone, string> = {
 // solid `icon-icon-subtle`, never a `-status`/`-bg` token — same pairing
 // issue the Switch checkmark fix solved earlier this session.
 const TONE_ICON: Record<TimelineTone, string> = {
-  neutral: 'bg-[var(--color-icon-icon-subtle)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:text-[var(--color-black)]',
+  neutral: 'bg-[var(--color-icon-icon-subtle)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:text-[var(--color-icon-icon-on-light)]',
   success: 'bg-[var(--color-bg-success-bg-success)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:bg-[var(--color-bg-success-bg-success-status)]',
-  warning: 'bg-[var(--color-yellow-yellow-300)] text-[var(--color-black)] [[data-theme=dark]_&]:bg-[var(--color-bg-warning-bg-warning-status)] [[data-theme=dark]_&]:text-[var(--color-icon-icon-on-dark)]',
+  warning: 'bg-[var(--color-bg-warning-bg-warning-status)] text-[var(--color-icon-icon-warning)] [[data-theme=dark]_&]:text-[var(--color-icon-icon-on-dark)]',
   danger: 'bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:bg-[var(--color-bg-danger-bg-danger-status)]',
   info: 'bg-[var(--color-bg-info-bg-info)] text-[var(--color-text-text-on-dark)]',
   primary: 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:bg-[var(--color-bg-primary-bg-primary-status)]',

@@ -39,7 +39,7 @@ const toggleVariants = cva(
           // toggle-group.tsx) so a standalone Toggle and a grouped one
           // read as the same control. Fixed 2026-09-26 (dark-theme QA) —
           // was stuck on border-default in every state.
-          'data-[state=on]:border-[var(--color-bg-primary-bg-primary)]',
+          'data-[state=on]:border-[var(--color-border-border-primary)]',
           'data-[state=on]:bg-[var(--color-bg-primary-bg-primary-subtle)]',
         ],
         ghost: [

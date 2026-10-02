@@ -3,3 +3,4 @@ build
 packages/components/storybook-static/
 packages/theya-shadcn/storybook-static/
 .DS_Store
+.fuse_hidden*

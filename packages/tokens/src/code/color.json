@@ -50,6 +50,9 @@
     "icon": {
       "icon-on-primary": {
         "value": "{white-a800}"
+      },
+      "icon-on-light": {
+        "value": "{color.slate.slate-800}"
       }
     },
     "border": {

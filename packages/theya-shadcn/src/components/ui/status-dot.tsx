@@ -42,7 +42,7 @@ export type StatusTone = 'success' | 'warning' | 'danger' | 'neutral' | 'primary
 // `icon-icon-subtle` token, same as ToneIcon's own neutral glyph color.
 const TONE_CLASS: Record<StatusTone, string> = {
   success: 'bg-[var(--color-bg-success-bg-success)] [[data-theme=dark]_&]:bg-[var(--color-bg-success-bg-success-status)]',
-  warning: 'bg-[var(--color-yellow-yellow-300)] [[data-theme=dark]_&]:bg-[var(--color-bg-warning-bg-warning-status)]',
+  warning: 'bg-[var(--color-bg-warning-bg-warning-status)]',
   danger: 'bg-[var(--color-bg-danger-bg-danger)] [[data-theme=dark]_&]:bg-[var(--color-bg-danger-bg-danger-status)]',
   neutral: 'bg-[var(--color-icon-icon-subtle)]',
   primary: 'bg-[var(--color-bg-primary-bg-primary)] [[data-theme=dark]_&]:bg-[var(--color-bg-primary-bg-primary-status)]',

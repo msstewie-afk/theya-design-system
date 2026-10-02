@@ -76,7 +76,7 @@ export function Toaster({ closeButton = true, dark = false, position = 'bottom-r
           // guess above.
           title: 'font-body text-body-m font-semibold',
           description: dark ? 'font-body text-body-s text-[var(--color-text-text-subtle-on-dark)]' : 'font-body text-body-s text-[var(--color-text-text-subtler)]',
-          actionButton: 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)] rounded-[var(--size-border-radius-border-radius-sm)]',
+          actionButton: 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)] rounded-[var(--size-border-radius-border-radius-sm)]',
           cancelButton: dark
             ? 'bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-hover)] text-[var(--color-text-text-subtle-on-dark)] rounded-[var(--size-border-radius-border-radius-sm)]'
             : 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)] rounded-[var(--size-border-radius-border-radius-sm)]',
