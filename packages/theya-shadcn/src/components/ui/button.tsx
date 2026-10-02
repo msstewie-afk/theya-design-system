@@ -329,7 +329,7 @@ export const buttonVariants = cva(
         appearance: 'tonal',
         tone: 'success',
         class: [
-          'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-green-green-700)] [[data-theme=dark]_&]:text-[var(--color-green-green-010)]',
+          'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success-on-tonal)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtle-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtle-pressed)]',
         ],
@@ -484,9 +484,9 @@ export const buttonVariants = cva(
         appearance: 'ghost',
         tone: 'success',
         class: [
-          // green-600 -> green-700 (light pressed was 4.39:1); dark green-200
-          // -> green-100 (dark pressed was 4.17:1).
-          'text-[var(--color-green-green-700)] [[data-theme=dark]_&]:text-[var(--color-green-green-100)] [&_svg]:text-[var(--color-icon-icon-success)]',
+          // text-success-on-tonal (green-700 / green-010): plain text-success
+          // was 4.39:1 (light) / 4.17:1 (dark) on the pressed fill.
+          'text-[var(--color-text-text-success-on-tonal)] [&_svg]:text-[var(--color-icon-icon-success)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-success-bg-success-subtler-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtler-pressed)]',
@@ -549,7 +549,7 @@ export const buttonVariants = cva(
           // "-subtler" like every other Outlined/Ghost tone: in dark, the
           // -subtle tier washed text-subtle down to 3.51/2.61:1 (2026-09-27).
           'border-[var(--color-border-border-neutral)]',
-          '[&_svg]:text-[var(--color-text-text-subtle)]',
+          '[&_svg]:text-[var(--color-icon-icon-subtle)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler-pressed)]',
@@ -559,7 +559,7 @@ export const buttonVariants = cva(
         appearance: 'ghost',
         tone: 'neutral',
         class: [
-          '[&_svg]:text-[var(--color-text-text-subtle)]',
+          '[&_svg]:text-[var(--color-icon-icon-subtle)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler-pressed)]',

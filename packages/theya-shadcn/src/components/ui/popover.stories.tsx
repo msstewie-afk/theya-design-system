@@ -155,7 +155,7 @@ export const IconTrigger: Story = {
   render: (args) => (
     <Popover {...args}>
       <PopoverTrigger asChild>
-        <Button appearance="outlined" tone="secondary" iconOnly aria-label="More options" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
+        <Button appearance="outlined" tone="secondary" iconOnly aria-label="More options" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />
       </PopoverTrigger>
       <PopoverContent align="end" className="w-56">
         <div className="flex flex-col gap-1">

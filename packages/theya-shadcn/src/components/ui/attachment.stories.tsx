@@ -303,7 +303,7 @@ export const AsLink: Story = {
         name="quarterly-report.pdf"
         type="application/pdf"
         size={248000}
-        actions={<Button appearance="ghost" size="sm" iconOnly aria-label="More actions" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />}
+        actions={<Button appearance="ghost" size="sm" iconOnly aria-label="More actions" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />}
       />
       <RemovableAttachment variant="row" href="#cover" name="cover.png" type="image/png" size={184000} />
       <RemovableAttachment variant="row" name="static.csv" type="text/plain" size={9200} />
@@ -351,7 +351,7 @@ export const InteractiveStates: Story = {
           name="quarterly-report.pdf"
           type="application/pdf"
           size={248000}
-          actions={<Button appearance="ghost" size="sm" iconOnly aria-label="More actions" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />}
+          actions={<Button appearance="ghost" size="sm" iconOnly aria-label="More actions" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />}
         />
         <RemovableAttachment variant="row" href="#cover" name="cover.png" type="image/png" size={184000} selected />
         <RemovableAttachment variant="row" name="static.csv" type="text/plain" size={9200} />

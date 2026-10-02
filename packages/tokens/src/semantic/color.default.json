@@ -112,7 +112,7 @@
         "value": "{color.slate.slate-400}"
       },
       "text-success-on-tonal": {
-        "value": "{color.green.green-600}"
+        "value": "{color.green.green-700}"
       },
       "text-warning-on-tonal": {
         "value": "{color.yellow.yellow-900}"

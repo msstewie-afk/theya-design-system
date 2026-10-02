@@ -158,7 +158,7 @@ export const WithKebabMenu: Story = {
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button appearance="outlined" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />
+            <Button appearance="outlined" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-icon-icon)]" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem className="sm:hidden">Import</DropdownMenuItem>
@@ -305,7 +305,7 @@ export const AllElements: Story = {
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button appearance="outlined" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />
+            <Button appearance="outlined" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-icon-icon)]" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem className="sm:hidden">Import</DropdownMenuItem>
@@ -361,7 +361,7 @@ export const Full: Story = {
         <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
           New deployment
         </Button>
-        <Button appearance="ghost" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />
+        <Button appearance="ghost" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-icon-icon)]" />
       </>
     ),
   },

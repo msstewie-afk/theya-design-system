@@ -579,7 +579,7 @@ export function DataTableToolbar<TData>({
           {overflow.length > 0 && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <ToolbarButton aria-label="More bulk actions" iconOnly className={cn('[&_svg]:text-[var(--color-text-text)]', onFilled)}>
+                <ToolbarButton aria-label="More bulk actions" iconOnly className={cn('[&_svg]:text-[var(--color-icon-icon)]', onFilled)}>
                   <KebabIconVertical />
                 </ToolbarButton>
               </DropdownMenuTrigger>

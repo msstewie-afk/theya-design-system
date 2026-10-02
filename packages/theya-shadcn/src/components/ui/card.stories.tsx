@@ -107,7 +107,7 @@ export const InteractiveCard: Story = {
           <CardAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button appearance="ghost" iconOnly size="md" aria-label="Actions for settings.seashell.dev" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
+                <Button appearance="ghost" iconOnly size="md" aria-label="Actions for settings.seashell.dev" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>Restart</DropdownMenuItem>
@@ -218,7 +218,7 @@ function ProgrammaticCardLinkExample() {
           <CardAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button appearance="ghost" iconOnly size="md" aria-label="Actions for shield.seashell.dev" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
+                <Button appearance="ghost" iconOnly size="md" aria-label="Actions for shield.seashell.dev" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>Restart</DropdownMenuItem>
@@ -345,7 +345,7 @@ export const Severity: Story = {
                 </div>
               </div>
               <CardAction>
-                <Button appearance="ghost" iconOnly size="md" aria-label={`More actions for ${label}`} leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
+                <Button appearance="ghost" iconOnly size="md" aria-label={`More actions for ${label}`} leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />
               </CardAction>
             </CardHeader>
           </Card>
@@ -443,7 +443,7 @@ export const TitleOnlyWithAction: Story = {
         <CardHeader className="items-center">
           <CardTitle>Allowlist</CardTitle>
           <CardAction>
-            <Button appearance="ghost" iconOnly size="md" aria-label="Actions for Allowlist" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />
+            <Button appearance="ghost" iconOnly size="md" aria-label="Actions for Allowlist" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />
           </CardAction>
         </CardHeader>
       </Card>

@@ -157,7 +157,7 @@ function NotificationActions({ label, read, onToggleRead, onDismiss }: { label: 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button appearance="ghost" iconOnly size="md" aria-label={`Actions for ${label}`} onClick={(e) => e.stopPropagation()} leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />
+        <Button appearance="ghost" iconOnly size="md" aria-label={`Actions for ${label}`} onClick={(e) => e.stopPropagation()} leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-icon-icon)]" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {read ? (
@@ -279,7 +279,7 @@ export const InteractiveWithAction: Story = {
         leading={<Server />}
         title="shop.seashell.dev"
         description={<>Production<DotSeparator />eu-west-1</>}
-        trailing={<Button appearance="ghost" iconOnly size="md" aria-label="More actions" onClick={(e) => e.stopPropagation()} leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-text-text)]" />}
+        trailing={<Button appearance="ghost" iconOnly size="md" aria-label="More actions" onClick={(e) => e.stopPropagation()} leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-icon-icon)]" />}
       />
     </div>
   ),

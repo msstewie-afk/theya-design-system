@@ -510,7 +510,7 @@ function CellSkeleton({ kind, leading, secondary }: { kind: DataTableCellKind; l
 // for positioning and focus return ("Function components cannot be given refs").
 export const DataTableCellMenuTrigger = forwardRef<HTMLButtonElement, ButtonProps & { label: string }>(function DataTableCellMenuTrigger({ label, className, children, ...props }, ref) {
   return (
-    <Button ref={ref} appearance="ghost" iconOnly size="md" aria-label={label} className={cn('max-md:size-11 [&_svg]:text-[var(--color-text-text)]', className)} leftIcon={children ?? <KebabIconVertical />} {...props} />
+    <Button ref={ref} appearance="ghost" iconOnly size="md" aria-label={label} className={cn('max-md:size-11 [&_svg]:text-[var(--color-icon-icon)]', className)} leftIcon={children ?? <KebabIconVertical />} {...props} />
   );
 });
 
