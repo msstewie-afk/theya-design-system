@@ -21,9 +21,9 @@ export type AlertIndicator = 'none' | 'stripe';
 const TONE_CLASS: Record<AlertTone, string> = {
   neutral: 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] border-[var(--color-border-border-subtle)] [&>svg]:text-[var(--color-icon-icon-subtle)] [&_[data-alert-description]]:text-[var(--color-text-text-subtler)]',
   info: 'bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] border-transparent [&>svg]:text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:[&>svg]:text-[var(--color-cyan-cyan-200)]',
-  success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)] border-transparent [&>svg]:text-[var(--color-icon-icon-success)]',
-  warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)] border-transparent [&>svg]:text-[var(--color-icon-icon-warning)]',
-  danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] border-transparent [&>svg]:text-[var(--color-icon-icon-danger)]',
+  success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success-on-tonal)] border-transparent [&>svg]:text-[var(--color-icon-icon-success)]',
+  warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning-on-tonal)] border-transparent [&>svg]:text-[var(--color-icon-icon-warning)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger-on-tonal)] border-transparent [&>svg]:text-[var(--color-icon-icon-danger)]',
 };
 
 // Solid (non-subtle) tone tokens — same family StatusDot's dot color and

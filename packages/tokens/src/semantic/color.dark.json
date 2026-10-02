@@ -107,6 +107,21 @@
       },
       "text-disabled": {
         "value": "{color.slate.slate-300}"
+      },
+      "text-success-on-tonal": {
+        "value": "{color.green.green-010}"
+      },
+      "text-warning-on-tonal": {
+        "value": "{color.orange.orange-005}"
+      },
+      "text-danger-on-tonal": {
+        "value": "{color.red.red-050}"
+      },
+      "text-info-on-tonal": {
+        "value": "{color.cyan.cyan-300}"
+      },
+      "text-subtler-on-tonal": {
+        "value": "{color.blue.blue-100}"
       }
     },
     "border": {

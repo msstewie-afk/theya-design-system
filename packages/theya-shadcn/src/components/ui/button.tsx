@@ -305,7 +305,7 @@ export const buttonVariants = cva(
         appearance: 'tonal',
         tone: 'warning',
         class: [
-          'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)] [[data-theme=dark]_&]:text-[var(--color-orange-orange-005)]',
+          'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning-on-tonal)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-pressed)]',
         ],
@@ -314,7 +314,7 @@ export const buttonVariants = cva(
         appearance: 'tonal',
         tone: 'danger',
         class: [
-          'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] [[data-theme=dark]_&]:text-[var(--color-red-red-050)]',
+          'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger-on-tonal)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-pressed)]',
         ],

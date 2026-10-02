@@ -63,7 +63,7 @@ function OptionCard({ className, value, title, description, icon, ...props }: Op
           {title}
         </span>
         {description && (
-          <span id={descriptionId} className="font-body text-body-s font-normal text-[var(--color-text-text-subtler)]">
+          <span id={descriptionId} className="font-body text-body-s font-normal text-[var(--color-text-text-subtler)] group-data-[state=checked]:text-[var(--color-text-text-subtler-on-tonal)]">
             {description}
           </span>
         )}

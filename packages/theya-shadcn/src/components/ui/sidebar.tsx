@@ -252,10 +252,10 @@ export function SidebarSection({
 const BADGE_TONE_CLASS: Record<StatusTone, string> = {
   neutral: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)]',
   primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)] [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
-  success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success)] [[data-theme=dark]_&]:text-[var(--color-green-green-010)]',
-  warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning)] [[data-theme=dark]_&]:text-[var(--color-orange-orange-005)]',
-  danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger)] [[data-theme=dark]_&]:text-[var(--color-red-red-050)]',
-  info: 'bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-text-text-info)]',
+  success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success-on-tonal)]',
+  warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning-on-tonal)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger-on-tonal)]',
+  info: 'bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-text-text-info-on-tonal)]',
 };
 
 export interface SidebarItemProps extends React.ComponentProps<'a'> {
