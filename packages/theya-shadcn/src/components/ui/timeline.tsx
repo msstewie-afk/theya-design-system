@@ -58,7 +58,7 @@ const TONE_ICON: Record<TimelineTone, string> = {
   success: 'bg-[var(--color-bg-success-bg-success)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:bg-[var(--color-bg-success-bg-success-status)]',
   warning: 'bg-[var(--color-yellow-yellow-300)] text-[var(--color-black)] [[data-theme=dark]_&]:bg-[var(--color-bg-warning-bg-warning-status)] [[data-theme=dark]_&]:text-[var(--color-icon-icon-on-dark)]',
   danger: 'bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:bg-[var(--color-bg-danger-bg-danger-status)]',
-  info: 'bg-[var(--color-bg-info-bg-info)] text-[var(--color-cyan-cyan-900)]',
+  info: 'bg-[var(--color-bg-info-bg-info)] text-[var(--color-text-text-on-dark)]',
   primary: 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:bg-[var(--color-bg-primary-bg-primary-status)]',
 };
 

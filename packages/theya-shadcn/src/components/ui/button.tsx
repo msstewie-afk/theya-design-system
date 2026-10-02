@@ -172,7 +172,7 @@ export const buttonVariants = cva(
         appearance: 'filled',
         tone: 'info',
         class: [
-          'bg-[var(--color-bg-info-bg-info)] text-[var(--color-cyan-cyan-900)]',
+          'bg-[var(--color-bg-info-bg-info)] text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-pressed)]',
         ],
@@ -278,9 +278,9 @@ export const buttonVariants = cva(
         appearance: 'tonal',
         tone: 'info',
         class: [
-          'bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-100)]', // dark text cyan-200 -> cyan-100: hover (cyan-700) was 4.38:1, now 4.89:1,
-          'hover:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-700)]',
-          'active:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:active:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-900)]',
+          'bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-text-text-info-on-tonal)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-subtle-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-subtle-pressed)]',
         ],
       },
       {
@@ -442,9 +442,9 @@ export const buttonVariants = cva(
           // Icon follows the label color: icon-info (#0091ae) was 2.64:1 on
           // the light pressed bg (cyan-100), under the 3:1 non-text minimum.
           'text-[var(--color-text-text-info)] [&_svg]:text-[var(--color-text-text-info)]',
-          'hover:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-050)] [[data-theme=dark]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-800)]',
-          'focus-visible:bg-[var(--color-cyan-cyan-050)] [[data-theme=dark]_&]:focus-visible:bg-[var(--color-cyan-cyan-800)]',
-          'active:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:active:not-disabled:not-aria-disabled:bg-[var(--color-cyan-cyan-900)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-subtler-hover)]',
+          'focus-visible:bg-[var(--color-bg-info-bg-info-subtler-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-subtler-pressed)]',
         ],
       },
       {

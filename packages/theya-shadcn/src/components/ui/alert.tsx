@@ -22,7 +22,7 @@ export type AlertIndicator = 'none' | 'stripe';
 // text (plain text-{tone} was 3.72:1 for warning in dark).
 const TONE_CLASS: Record<AlertTone, string> = {
   neutral: 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] border-[var(--color-border-border-subtle)] [&>svg]:text-[var(--color-icon-icon-subtle)] [&_[data-alert-description]]:text-[var(--color-text-text-subtler)]',
-  info: 'bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] border-transparent [&>svg]:text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:[&>svg]:text-[var(--color-cyan-cyan-200)]',
+  info: 'bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-text-text-info-on-tonal)] border-transparent [&>svg]:text-[var(--color-text-text-info-on-tonal)] [&_[data-slot=button][data-appearance=ghost]]:text-[var(--color-text-text-info-on-tonal)]',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success-on-tonal)] border-transparent [&>svg]:text-[var(--color-icon-icon-success)] [&_[data-slot=button][data-appearance=ghost]]:text-[var(--color-text-text-success-on-tonal)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning-on-tonal)] border-transparent [&>svg]:text-[var(--color-icon-icon-warning)] [&_[data-slot=button][data-appearance=ghost]]:text-[var(--color-text-text-warning-on-tonal)]',
   danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger-on-tonal)] border-transparent [&>svg]:text-[var(--color-icon-icon-danger)] [&_[data-slot=button][data-appearance=ghost]]:text-[var(--color-text-text-danger-on-tonal)]',
@@ -46,7 +46,7 @@ const STRIPE_CLASS: Partial<Record<AlertTone, string>> = {
 // matching the tonal Button states for the same tone.
 const DISMISS_STATE_CLASS: Record<AlertTone, string> = {
   neutral: '',
-  info: 'hover:not-disabled:bg-[var(--color-cyan-cyan-100)] focus-visible:bg-[var(--color-cyan-cyan-100)] active:not-disabled:bg-[var(--color-cyan-cyan-200)] [[data-theme=dark]_&]:hover:not-disabled:bg-[var(--color-cyan-cyan-700)] [[data-theme=dark]_&]:focus-visible:bg-[var(--color-cyan-cyan-700)] [[data-theme=dark]_&]:active:not-disabled:bg-[var(--color-cyan-cyan-900)]',
+  info: 'hover:not-disabled:bg-[var(--color-bg-info-bg-info-subtle-hover)] focus-visible:bg-[var(--color-bg-info-bg-info-subtle-hover)] active:not-disabled:bg-[var(--color-bg-info-bg-info-subtle-pressed)]',
   success: 'hover:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-hover)] focus-visible:bg-[var(--color-bg-success-bg-success-subtle-hover)] active:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-pressed)]',
   warning: 'hover:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-hover)] focus-visible:bg-[var(--color-bg-warning-bg-warning-subtle-hover)] active:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-pressed)]',
   danger: 'hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] focus-visible:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] active:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-pressed)]',

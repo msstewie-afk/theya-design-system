@@ -42,7 +42,7 @@ const TONE_CLASS: Record<ChipTone, string> = {
   success: 'border-transparent bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success-on-tonal)]',
   warning: 'border-transparent bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning-on-tonal)]',
   danger: 'border-transparent bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger-on-tonal)]',
-  info: 'border-transparent bg-[var(--color-cyan-cyan-050)] text-[var(--color-cyan-cyan-900)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-800)] [[data-theme=dark]_&]:text-[var(--color-cyan-cyan-200)]',
+  info: 'border-transparent bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-text-text-info-on-tonal)]',
 };
 
 // Border color per tone for the `bordered` prop — a real per-tone border
@@ -82,7 +82,7 @@ export const SOLID_TONE_CLASS: Record<ChipTone, string> = {
   // every other solid tone here; mirrors Button's own fix (2026-09-26).
   warning: 'border-transparent bg-[var(--color-bg-warning-bg-warning)] text-[var(--color-text-text-warning)] [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
   danger: 'border-transparent bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-text-text-on-dark)]',
-  info: 'border-transparent bg-[var(--color-bg-info-bg-info)] text-[var(--color-cyan-cyan-900)]',
+  info: 'border-transparent bg-[var(--color-bg-info-bg-info)] text-[var(--color-text-text-on-dark)]',
 };
 
 // Hover shades, one set per "look" (subtle/solid), lifted directly from
@@ -95,7 +95,7 @@ const HOVER_CLASS: Record<'tonal' | 'filled', Record<ChipTone, string>> = {
     success: 'hover:bg-[var(--color-bg-success-bg-success-subtle-hover)]',
     warning: 'hover:bg-[var(--color-bg-warning-bg-warning-subtle-hover)]',
     danger: 'hover:bg-[var(--color-bg-danger-bg-danger-subtle-hover)]',
-    info: 'hover:bg-[var(--color-cyan-cyan-100)] [[data-theme=dark]_&]:hover:bg-[var(--color-cyan-cyan-700)]',
+    info: 'hover:bg-[var(--color-bg-info-bg-info-subtle-hover)]',
   },
   filled: {
     neutral: 'hover:bg-[var(--color-bg-neutral-bg-neutral-strong-hover)]',

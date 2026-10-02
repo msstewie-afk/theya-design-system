@@ -76,7 +76,7 @@ const TONE_TOKENS: Record<BadgeIndicatorTone, ToneTokens> = {
     outlinedText: 'text-[var(--color-text-text-subtler)]',
   },
   info: {
-    filledBg: 'bg-[var(--color-bg-info-bg-info-status)] [[data-theme=dark]_&]:bg-[var(--color-cyan-cyan-700)]',
+    filledBg: 'bg-[var(--color-bg-info-bg-info)]',
     filledText: 'text-[var(--color-text-text-on-dark)]',
     outlinedBg: 'bg-[var(--color-bg-info-bg-info-subtle)]',
     outlinedBorder: 'border-[var(--color-border-border-info)]',

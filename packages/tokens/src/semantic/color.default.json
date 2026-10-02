@@ -70,7 +70,7 @@
         "value": "{color.red.red-500}"
       },
       "text-info": {
-        "value": "{color.cyan.cyan-700}"
+        "value": "{color.cyan.cyan-600}"
       },
       "text-on-dark": {
         "value": "{color.white}"
@@ -135,7 +135,7 @@
         "value": "{color.blue.blue-500}"
       },
       "border-info": {
-        "value": "{color.cyan.cyan-600}"
+        "value": "{color.cyan.cyan-400}"
       },
       "border-success": {
         "value": "{color.green.green-500}"
@@ -168,10 +168,10 @@
         "value": "{color.green.green-700}"
       },
       "border-info-hover": {
-        "value": "{color.cyan.cyan-700}"
+        "value": "{color.cyan.cyan-500}"
       },
       "border-info-pressed": {
-        "value": "{color.cyan.cyan-800}"
+        "value": "{color.cyan.cyan-600}"
       },
       "border-primary-hover": {
         "value": "{color.blue.blue-600}"
@@ -324,31 +324,31 @@
       },
       "info": {
         "bg-info": {
-          "value": "{color.cyan.cyan-300}"
-        },
-        "bg-info-status": {
-          "value": "{color.cyan.cyan-600}"
-        },
-        "bg-info-hover": {
-          "value": "{color.cyan.cyan-400}"
-        },
-        "bg-info-pressed": {
           "value": "{color.cyan.cyan-500}"
         },
+        "bg-info-status": {
+          "value": "{color.cyan.cyan-500}"
+        },
+        "bg-info-hover": {
+          "value": "{color.cyan.cyan-600}"
+        },
+        "bg-info-pressed": {
+          "value": "{color.cyan.cyan-700}"
+        },
         "bg-info-subtle": {
-          "value": "{color.cyan.cyan-005}"
+          "value": "{color.cyan.cyan-010}"
         },
         "bg-info-subtle-hover": {
-          "value": "{color.cyan.cyan-010}"
-        },
-        "bg-info-subtle-pressed": {
           "value": "{color.cyan.cyan-050}"
         },
+        "bg-info-subtle-pressed": {
+          "value": "{color.cyan.cyan-100}"
+        },
         "bg-info-subtler-hover": {
-          "value": "{color.cyan.cyan-005}"
+          "value": "{color.cyan.cyan-010}"
         },
         "bg-info-subtler-pressed": {
-          "value": "{color.cyan.cyan-010}"
+          "value": "{color.cyan.cyan-050}"
         },
         "bg-info-on-dark": {
           "value": "{color.cyan.cyan-200}"
