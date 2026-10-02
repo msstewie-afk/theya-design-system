@@ -52,7 +52,10 @@ const SEVERITY_SELECTED_CLASS: Record<CardSeverity, string> = {
 // new token added to the DS (--color-focus-focus-ring-warning, Мария's
 // call) since only default/error/success existed before this.
 const SEVERITY_HOVER_CLASS: Record<CardSeverity, string> = {
-  default: 'hover:border-[var(--color-border-border-primary)] hover:shadow-elevation-sm hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
+  // Ring and lift in ONE shadow value: as two utilities (shadow-elevation-sm
+  // + shadow-[ring]) both set --tw-shadow and the later-generated one won,
+  // so the ring vanished on hover after the elevation-token migration.
+  default: 'hover:border-[var(--color-border-border-primary)] hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring),var(--elevation-sm)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
   info: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
   success: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring-success)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring-success)]',
   warning: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring-warning)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring-warning)]',
