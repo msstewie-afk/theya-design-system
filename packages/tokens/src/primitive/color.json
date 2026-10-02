@@ -298,6 +298,35 @@
         "value": "rgba(55, 156, 97, 0.9)"
       }
     },
+    "cyan-a": {
+      "cyan-a100": {
+        "value": "rgba(0, 150, 174, 0.1)"
+      },
+      "cyan-a200": {
+        "value": "rgba(0, 150, 174, 0.2)"
+      },
+      "cyan-a300": {
+        "value": "rgba(0, 150, 174, 0.3)"
+      },
+      "cyan-a400": {
+        "value": "rgba(0, 150, 174, 0.4)"
+      },
+      "cyan-a500": {
+        "value": "rgba(0, 150, 174, 0.5)"
+      },
+      "cyan-a600": {
+        "value": "rgba(0, 150, 174, 0.6)"
+      },
+      "cyan-a700": {
+        "value": "rgba(0, 150, 174, 0.7)"
+      },
+      "cyan-a800": {
+        "value": "rgba(0, 150, 174, 0.8)"
+      },
+      "cyan-a900": {
+        "value": "rgba(0, 150, 174, 0.9)"
+      }
+    },
     "orange-a": {
       "orange-a100": {
         "value": "rgba(255, 160, 77, 0.1)"

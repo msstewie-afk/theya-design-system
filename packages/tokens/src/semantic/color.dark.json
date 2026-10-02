@@ -70,7 +70,7 @@
         "value": "{color.red.red-100}"
       },
       "text-info": {
-        "value": "{color.cyan.cyan-200}"
+        "value": "{color.cyan.cyan-100}"
       },
       "text-on-dark": {
         "value": "{color.white}"
@@ -118,7 +118,7 @@
         "value": "{color.red.red-050}"
       },
       "text-info-on-tonal": {
-        "value": "{color.cyan.cyan-100}"
+        "value": "{color.cyan.cyan-010}"
       },
       "text-subtler-on-tonal": {
         "value": "{color.blue.blue-100}"
@@ -336,19 +336,19 @@
           "value": "{color.cyan.cyan-700}"
         },
         "bg-info-subtle": {
-          "value": "{color.cyan.cyan-800}"
+          "value": "{color.cyan-a.cyan-a400}"
         },
         "bg-info-subtle-hover": {
-          "value": "{color.cyan.cyan-700}"
+          "value": "{color.cyan-a.cyan-a500}"
         },
         "bg-info-subtle-pressed": {
-          "value": "{color.cyan.cyan-900}"
+          "value": "{color.cyan-a.cyan-a600}"
         },
         "bg-info-subtler-hover": {
-          "value": "{color.cyan.cyan-800}"
+          "value": "{color.cyan-a.cyan-a200}"
         },
         "bg-info-subtler-pressed": {
-          "value": "{color.cyan.cyan-900}"
+          "value": "{color.cyan-a.cyan-a300}"
         },
         "bg-info-on-dark": {
           "value": "{color.cyan.cyan-500}"
