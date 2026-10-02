@@ -77,17 +77,11 @@
       }
     },
     "slate": {
-      "slate-700": {
-        "value": "#282944"
-      },
-      "slate-800": {
-        "value": "#151529"
-      },
-      "slate-900": {
-        "value": "#0c0c18"
-      },
       "slate-005": {
         "value": "#f7f7fe"
+      },
+      "slate-010": {
+        "value": "#e7e7f8"
       },
       "slate-050": {
         "value": "#caccf0"
@@ -104,20 +98,26 @@
       "slate-350": {
         "value": "#8f91c2"
       },
-      "slate-600": {
-        "value": "#393a5d"
-      },
       "slate-400": {
-        "value": "#5f6190"
+        "value": "#6e709f"
       },
       "slate-450": {
-        "value": "#6e709f"
+        "value": "#5f6190"
       },
       "slate-500": {
         "value": "#4b4d77"
       },
-      "slate-010": {
-        "value": "#e7e7f8"
+      "slate-600": {
+        "value": "#393a5d"
+      },
+      "slate-700": {
+        "value": "#282944"
+      },
+      "slate-800": {
+        "value": "#151529"
+      },
+      "slate-900": {
+        "value": "#0c0c18"
       }
     },
     "white": {

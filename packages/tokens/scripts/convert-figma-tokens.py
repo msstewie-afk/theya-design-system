@@ -1,3 +1,6 @@
+# RETIRED 2026-10-02: tokens are now edited in src/ directly and copied to
+# Figma by hand. Running this regenerates src/primitive and src/semantic
+# from the old figma-export/ snapshot and silently reverts those edits.
 import json, re, os
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))

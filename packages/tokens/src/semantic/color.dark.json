@@ -108,7 +108,7 @@
     },
     "border": {
       "border-subtle": {
-        "value": "{color.slate.slate-450}"
+        "value": "{color.slate.slate-400}"
       },
       "border-subtler": {
         "value": "{color.slate.slate-500}"

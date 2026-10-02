@@ -72,8 +72,8 @@ const checkboxVariants = cva(
         class: [
           // WCAG 1.4.11 non-text contrast fix: border-subtle (slate-100,
           // #bec0e9) was only 1.76:1 on white — well under the 3:1 floor
-          // for a UI-component boundary. border-default (slate-400
-          // light / slate-300 dark) clears 3:1 in both themes.
+          // for a UI-component boundary. border-default (= border-subtle:
+          // slate-350 light / slate-400 dark) clears 3:1 in both themes.
           'border-[var(--color-border-border-default)]',
           'hover:not-disabled:data-[state=unchecked]:border-[var(--color-border-border-primary)]',
           'data-[state=checked]:bg-[var(--color-bg-primary-bg-primary)] data-[state=checked]:border-transparent',

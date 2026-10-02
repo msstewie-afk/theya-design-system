@@ -197,6 +197,15 @@ Object.entries(PRIMITIVE_HEX).forEach(([family, hexes]) => {
     HEX_TO_PRIMITIVE_LABEL[hex] = `${family[0].toUpperCase()}${family.slice(1)} ${RAMP_STEPS[i]}`;
   });
 });
+// Half steps (slate-350/450) sit between ramp columns: labelled by name
+// in token tables, not shown as their own column in the ramp grid.
+const HALF_STEPS = ['350', '450'];
+PRIMITIVE_FAMILIES.forEach((family) => {
+  HALF_STEPS.forEach((step) => {
+    const hex = tokenValue(`--color-${family}-${family}-${step}`).toLowerCase();
+    if (hex.startsWith('#')) HEX_TO_PRIMITIVE_LABEL[hex] = `${family[0].toUpperCase()}${family.slice(1)} ${step}`;
+  });
+});
 
 function rgbToHex(r: number, g: number, b: number): string {
   const c = (n: number) => Math.round(n).toString(16).padStart(2, '0');
