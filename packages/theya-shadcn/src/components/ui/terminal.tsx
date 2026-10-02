@@ -108,6 +108,10 @@ export function Terminal({ className, lines, user, host, connection = 'connected
     <div
       data-slot="terminal"
       data-inverse={inverse || undefined}
+      // Inverse = a dark island: scope the dark token set to it, like
+      // Sidebar's inverse rail, so anything composed inside (tools
+      // buttons, chips) renders its dark-theme look with no overrides.
+      data-theme={inverse ? 'dark' : undefined}
       className={cn(
         'flex max-w-full min-w-0 flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid shadow-elevation-xs',
         // Focus ring on the frame, outside, when the scrollable log has

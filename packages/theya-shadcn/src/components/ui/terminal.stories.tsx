@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Refresh } from 'iconoir-react';
 import { Terminal, TerminalLine, type TerminalLineData } from './terminal';
 import { Button } from './button';
-import { cn } from '@/lib/utils';
 
 /**
  * Terminal — a read-only console scrollback viewer. Renders a mono
@@ -138,11 +137,9 @@ export const ConnectionStates: Story = {
 };
 
 /** A right-aligned `tools` slot in the header — here a verb-first
- * action. The row wraps to a clean full-width row below `sm`. Since
- * `inverse` darkens the header too, the button needs its own
- * --color-*-on-dark override (same family the header itself uses —
- * there's no generalized "Button on an inverse surface" treatment
- * yet, flagged as an open item). */
+ * action. The row wraps to a clean full-width row below `sm`. An
+ * `inverse` terminal scopes data-theme="dark", so a plain Button here
+ * renders its dark-theme look with no overrides. */
 export const WithTools: Story = {
   render: (args) => (
     <div className="w-[480px]">
@@ -156,15 +153,7 @@ export const WithTools: Story = {
     status: 'Connected · 12ms',
     ariaLabel: 'Build output',
     tools: (
-      <Button
-        appearance="outlined"
-        size="md"
-        leftIcon={<Refresh />}
-        className={cn(
-          'border-[var(--color-border-border-subtle)] text-[var(--color-text-text-on-dark)] [&_svg]:text-[var(--color-icon-icon-on-dark)]',
-          'hover:not-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-hover)] active:not-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-pressed)]',
-        )}
-      >
+      <Button appearance="outlined" tone="secondary" size="md" leftIcon={<Refresh />}>
         Rerun build
       </Button>
     ),
