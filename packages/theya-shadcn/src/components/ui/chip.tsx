@@ -37,7 +37,7 @@ export type ChipSize = 'sm' | 'md' | 'lg';
 // below is the deliberate opt-in for a bordered tonal chip, uniformly
 // across all tones, rather than one tone silently defaulting to it).
 const TONE_CLASS: Record<ChipTone, string> = {
-  neutral: 'border-transparent bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)]',
+  neutral: 'border-transparent bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtle)]',
   primary: 'border-transparent bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
   success: 'border-transparent bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success-on-tonal)]',
   warning: 'border-transparent bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning-on-tonal)]',
