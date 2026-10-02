@@ -203,6 +203,11 @@ export function Card({
             '[--card-select-inset:calc(var(--spacing)*5+var(--size-size-control-size-control-xs)+var(--spacing)*3)]',
             'data-[size=sm]:[--card-select-inset:calc(var(--spacing)*3+var(--size-size-control-size-control-xs)+var(--spacing)*3)]',
             'data-[size=md]:[--card-select-inset:calc(var(--spacing)*4+var(--size-size-control-size-control-xs)+var(--spacing)*3)]',
+            // With a CardMedia the control moves onto the image (below), so
+            // the text column keeps the normal side padding.
+            'has-[>[data-slot=card-media]]:[--card-select-inset:calc(var(--spacing)*5)]',
+            'has-[>[data-slot=card-media]]:data-[size=sm]:[--card-select-inset:calc(var(--spacing)*3)]',
+            'has-[>[data-slot=card-media]]:data-[size=md]:[--card-select-inset:calc(var(--spacing)*4)]',
           ),
         className,
       )}
@@ -243,6 +248,10 @@ export function Card({
             'group-data-[size=sm]/card:left-3 group-data-[size=sm]/card:top-2.5',
             'group-data-[size=md]/card:left-4 group-data-[size=md]/card:top-3',
             'group-data-[size=lg]/card:left-5 group-data-[size=lg]/card:top-4',
+            // On a media card: top-right corner of the image, on a small
+            // surface chip so the control keeps its contrast over any photo.
+            'group-has-[>[data-slot=card-media]]/card:left-auto! group-has-[>[data-slot=card-media]]/card:top-3! group-has-[>[data-slot=card-media]]/card:right-3 group-has-[>[data-slot=card-media]]/card:h-auto',
+            'group-has-[>[data-slot=card-media]]/card:rounded-[var(--size-border-radius-border-radius-md)] group-has-[>[data-slot=card-media]]/card:bg-[var(--color-bg-surface-bg-surface)] group-has-[>[data-slot=card-media]]/card:p-1 group-has-[>[data-slot=card-media]]/card:shadow-elevation-sm',
           )}
         >
           {resolvedSelectable === 'checkbox' ? (

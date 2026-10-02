@@ -722,3 +722,43 @@ export const Compact: Story = {
     </Card>
   ),
 };
+
+/**
+ * Selectable + `CardMedia`: the control moves to the image's top-right corner,
+ * on a small surface chip so it stays visible over any photo, and the text
+ * keeps the normal padding.
+ */
+export const SelectableWithMedia: Story = {
+  name: 'Selectable with media',
+  render: function SelectableWithMediaExample() {
+    const [picked, setPicked] = useState<string[]>(['sites']);
+    const toggle = (id: string) => (next: boolean) =>
+      setPicked((p) => (next ? [...p, id] : p.filter((x) => x !== id)));
+    return (
+      <div className="flex flex-wrap items-start gap-4">
+        {[
+          { id: 'sites', title: 'Seashell Sites', sub: 'Website builder', price: '$19/mo' },
+          { id: 'mail', title: 'Seashell Mail', sub: 'Business email', price: '$4/mo' },
+        ].map((p) => (
+          <Card
+            key={p.id}
+            className="w-[280px]"
+            selectable="checkbox"
+            selected={picked.includes(p.id)}
+            onSelectedChange={toggle(p.id)}
+            selectLabel={`Select ${p.title}`}
+          >
+            <CardMedia src="/asset-examples/nova-web.jpg" alt="" />
+            <CardHeader divider={false}>
+              <div>
+                <CardTitle>{p.title}</CardTitle>
+                <CardDescription>{p.sub}</CardDescription>
+              </div>
+              <Badge tone="primary">{p.price}</Badge>
+            </CardHeader>
+          </Card>
+        ))}
+      </div>
+    );
+  },
+};
