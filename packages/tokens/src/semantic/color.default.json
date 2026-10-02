@@ -14,13 +14,13 @@
         "value": "{color.green.green-500}"
       },
       "icon-warning": {
-        "value": "{color.yellow.yellow-900}"
+        "value": "{color.yellow.yellow-600}"
       },
       "icon-danger": {
         "value": "{color.red.red-400}"
       },
       "icon-info": {
-        "value": "{color.cyan.cyan-600}"
+        "value": "{color.cyan.cyan-500}"
       },
       "icon-on-dark": {
         "value": "{color.white}"

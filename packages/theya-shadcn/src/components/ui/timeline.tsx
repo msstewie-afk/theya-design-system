@@ -56,7 +56,10 @@ const TONE_DOT: Record<TimelineTone, string> = {
 const TONE_ICON: Record<TimelineTone, string> = {
   neutral: 'bg-[var(--color-icon-icon-subtle)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:text-[var(--color-icon-icon-on-light)]',
   success: 'bg-[var(--color-bg-success-bg-success)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:bg-[var(--color-bg-success-bg-success-status)]',
-  warning: 'bg-[var(--color-bg-warning-bg-warning-status)] text-[var(--color-icon-icon-warning)] [[data-theme=dark]_&]:text-[var(--color-icon-icon-on-dark)]',
+  // Light ink is icon-on-light, not icon-warning: icon-warning is now the
+  // lighter yellow-600 (2.9:1 on this yellow-300 fill), meant for icons on
+  // white/tonal surfaces, not for ink on a solid status fill.
+  warning: 'bg-[var(--color-bg-warning-bg-warning-status)] text-[var(--color-icon-icon-on-light)] [[data-theme=dark]_&]:text-[var(--color-icon-icon-on-dark)]',
   danger: 'bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:bg-[var(--color-bg-danger-bg-danger-status)]',
   info: 'bg-[var(--color-bg-info-bg-info)] text-[var(--color-text-text-on-dark)]',
   primary: 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)] [[data-theme=dark]_&]:bg-[var(--color-bg-primary-bg-primary-status)]',

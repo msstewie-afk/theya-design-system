@@ -78,6 +78,9 @@ export const buttonVariants = cva(
       // any white overlay drops white text under 4.5:1 on primary.
       // `!`: the tone rules' own [data-theme=dark] overrides have the same
       // specificity and would otherwise win in dark.
+      // Outlined/ghost icons use icon-on-primary (white 80%), a step softer
+      // than the white label — same icon-vs-text rule as on light surfaces
+      // (3.9:1 at rest, above the 3:1 non-text minimum).
       appearance: {
         filled: [
           '[[data-surface=primary]_&]:bg-[var(--color-bg-primary-on-primary)]! [[data-surface=primary]_&]:text-[var(--color-text-text-on-primary-fill)]!',
@@ -102,7 +105,7 @@ export const buttonVariants = cva(
           '[[data-surface=primary]_&]:border-[var(--color-border-border-on-primary)]! [[data-surface=primary]_&]:text-[var(--color-text-text-on-primary)]!',
           '[[data-surface=primary]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary-hover)]!',
           '[[data-surface=primary]_&]:active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary-pressed)]!',
-          '[[data-surface=primary]_&]:[&_svg]:text-current!',
+          '[[data-surface=primary]_&]:[&_svg]:text-[var(--color-icon-icon-on-primary)]!',
           '[[data-surface=primary]_&]:focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring-on-primary)]!',
         ],
         ghost: [
@@ -110,7 +113,7 @@ export const buttonVariants = cva(
           '[[data-surface=primary]_&]:text-[var(--color-text-text-on-primary)]!',
           '[[data-surface=primary]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary-hover)]!',
           '[[data-surface=primary]_&]:active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary-pressed)]!',
-          '[[data-surface=primary]_&]:[&_svg]:text-current!',
+          '[[data-surface=primary]_&]:[&_svg]:text-[var(--color-icon-icon-on-primary)]!',
           '[[data-surface=primary]_&]:focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring-on-primary)]!',
         ],
       },
@@ -472,9 +475,9 @@ export const buttonVariants = cva(
         appearance: 'ghost',
         tone: 'info',
         class: [
-          // Icon follows the label color: icon-info (#0091ae) was 2.64:1 on
-          // the light pressed bg (cyan-100), under the 3:1 non-text minimum.
-          'text-[var(--color-text-text-info)] [&_svg]:text-[var(--color-text-text-info)]',
+          // icon-info is cyan-500 since 2026-10-02 (a step lighter than the
+          // cyan-600 label): 3.27:1 on the pressed bg (cyan-050), above 3:1.
+          'text-[var(--color-text-text-info)] [&_svg]:text-[var(--color-icon-icon-info)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-info-bg-info-subtler-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-subtler-pressed)]',
