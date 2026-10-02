@@ -257,7 +257,7 @@ export function CardHeader({ className, divider, size, ...props }: React.Compone
         // included, so the line's ends always line up with the content.
         (divider === undefined || divider) &&
           cn(
-            "after:absolute after:bottom-0 after:h-px after:bg-[var(--color-border-border-subtle)] after:content-['']",
+            "after:absolute after:bottom-0 after:h-px after:bg-[var(--color-border-border-subtler)] after:content-['']",
             size === 'sm' && 'after:inset-x-3',
             size === 'md' && 'after:inset-x-4',
             !size &&
@@ -362,7 +362,7 @@ export function CardFooter({ className, ...props }: React.ComponentProps<'div'>)
         'group-data-[selectable]/card:pl-12',
         // Divider — see the matching comment in CardHeader: an inset
         // ::after line, not a full-bleed border.
-        "after:absolute after:top-0 after:h-px after:bg-[var(--color-border-border-subtle)] after:content-['']",
+        "after:absolute after:top-0 after:h-px after:bg-[var(--color-border-border-subtler)] after:content-['']",
         'after:inset-x-5',
         'group-data-[size=sm]/card:after:inset-x-3',
         'group-data-[size=md]/card:after:inset-x-4',
