@@ -18,8 +18,8 @@ function Label({
     <LabelPrimitive.Root
       className={cn(
         'flex items-center gap-1 font-body text-body-m text-[var(--color-text-text)]',
-        'peer-disabled:cursor-not-allowed peer-disabled:text-[var(--color-text-text-subtler)]',
-        'group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:text-[var(--color-text-text-subtler)]',
+        'peer-disabled:cursor-not-allowed peer-disabled:text-[var(--color-text-text-disabled)]',
+        'group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:text-[var(--color-text-text-disabled)]',
         'data-[error=true]:text-[var(--color-text-text-danger)]',
         className,
       )}

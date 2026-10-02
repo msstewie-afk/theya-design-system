@@ -109,7 +109,7 @@ const InputGroupInput = forwardRef<HTMLInputElement, React.ComponentPropsWithout
         // group wrapper's own border/bg — this input never got either.
         'aria-[invalid=true]:text-[var(--color-text-text-danger)]',
         'aria-[invalid=true]:placeholder:text-[var(--color-text-text-danger)]',
-        'disabled:cursor-not-allowed disabled:text-[var(--color-text-text-subtler)] disabled:italic',
+        'disabled:cursor-not-allowed disabled:text-[var(--color-text-text-disabled)] disabled:italic',
         className,
       )}
       {...props}

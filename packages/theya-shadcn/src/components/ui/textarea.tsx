@@ -43,7 +43,7 @@ const textareaVariants = cva(
     'transition-[background-color,border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
     'outline-none resize',
     'disabled:cursor-not-allowed disabled:resize-none disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
-    'disabled:border-[var(--color-border-border-subtle)] disabled:text-[var(--color-text-text-subtler)] disabled:italic',
+    'disabled:border-[var(--color-border-border-subtle)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
     'read-only:cursor-default read-only:italic read-only:resize-none',
     'read-only:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
     'read-only:border-[var(--color-border-border-subtle)]',

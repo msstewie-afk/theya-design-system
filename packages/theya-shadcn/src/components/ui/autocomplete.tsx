@@ -207,7 +207,7 @@ export function Autocomplete({
               'aria-[invalid=true]:focus-visible:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
               'aria-[invalid=true]:focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
               'disabled:cursor-not-allowed disabled:border-[var(--color-border-border-subtle)]',
-              'disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)] disabled:text-[var(--color-text-text-subtler)] disabled:italic',
+              'disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
               'read-only:cursor-default read-only:italic read-only:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
             )}
           />

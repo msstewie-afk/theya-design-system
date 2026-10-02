@@ -61,7 +61,7 @@ function InputOTPSlot({ index, className, ...props }: React.ComponentProps<'div'
         // bg-neutral-subtler), not just the container's opacity-50.
         'group-has-[:disabled]:border-[var(--color-border-border-subtle)]',
         'group-has-[:disabled]:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
-        'group-has-[:disabled]:text-[var(--color-text-text-subtler)] group-has-[:disabled]:italic',
+        'group-has-[:disabled]:text-[var(--color-text-text-disabled)] group-has-[:disabled]:italic',
         'text-body-m text-[var(--color-text-text)] outline-none',
         'transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
         'data-[active=true]:z-10 data-[active=true]:border-[var(--color-border-border-primary)]',
