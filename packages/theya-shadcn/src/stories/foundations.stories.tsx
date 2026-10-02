@@ -479,13 +479,13 @@ export const Typography: Story = {
       <Section title="Font families" description="--font-body, --font-heading, --font-code — set directly since Tailwind's built-in font-mono utility does NOT read our --font-code token.">
         <div className="flex flex-col gap-4">
           <p style={{ fontFamily: 'var(--font-body)' }} className="text-lg text-[var(--color-text-text)]">
-            --font-body — The quick brown fox jumps over the lazy dog
+            --font-body ({tokenValue('--typography-font-family-body').split(',')[0]}) — The quick brown fox jumps over the lazy dog · Съешь ещё этих мягких булок
           </p>
           <p style={{ fontFamily: 'var(--font-heading)' }} className="text-lg text-[var(--color-text-text)]">
-            --font-heading — The quick brown fox jumps over the lazy dog
+            --font-heading ({tokenValue('--typography-font-family-heading').split(',')[0]}) — The quick brown fox jumps over the lazy dog · Съешь ещё этих мягких булок
           </p>
           <p style={{ fontFamily: 'var(--font-code)' }} className="text-lg text-[var(--color-text-text)]">
-            --font-code — The quick brown fox jumps over the lazy dog
+            --font-code (Fira Code) — The quick brown fox jumps over the lazy dog
           </p>
         </div>
       </Section>
