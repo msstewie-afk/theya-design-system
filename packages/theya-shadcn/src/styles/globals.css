@@ -31,13 +31,13 @@
 @import '@theya/tokens/build/css/variables.css';
 @import '@theya/tokens/build/css/variables-dark.css';
 
-/* Self-hosted font (Manrope) + @font-face rule — without this, --font-heading
+/* Self-hosted font (Geologica) + @font-face rule — without this, --font-heading
    and --font-body resolve to a font name the browser never actually
    loaded, and everything silently falls back to the system font. */
 @import '@theya/tokens/fonts/fonts.css';
 
 /* Fira Code (free, SIL OFL 1.1) for --font-code — self-hosted via
-   @fontsource, same reasoning as Manrope above: without an actual @font-face
+   @fontsource, same reasoning as Geologica above: without an actual @font-face
    being loaded, --font-code would silently fall back past it. 400
    (regular) is enough for code blocks/editor; add 500/600 weights the
    same way if a bolder code style shows up later. */
@@ -80,6 +80,18 @@
   /* ---------- Font families ---------- */
   --font-heading: var(--typography-font-family-heading);
   --font-body: var(--typography-font-family-body);
+  /* Tailwind's font-thin … font-black utilities read these. Without them
+     they'd stay at CSS's nominal 100–900, which Geologica renders a step
+     heavier than the design (its weight tokens are shifted −125). */
+  --font-weight-thin: var(--typography-weight-thin);
+  --font-weight-extralight: var(--typography-weight-extralight);
+  --font-weight-light: var(--typography-weight-light);
+  --font-weight-normal: var(--typography-weight-regular);
+  --font-weight-medium: var(--typography-weight-medium);
+  --font-weight-semibold: var(--typography-weight-semibold);
+  --font-weight-bold: var(--typography-weight-bold);
+  --font-weight-extrabold: var(--typography-weight-extrabold);
+  --font-weight-black: var(--typography-weight-black);
   /* Overridden to Fira Code (free, SIL OFL 1.1) — needs the actual font
      loaded (see fonts.css/@fontsource setup below), falls back to the
      Style Dictionary token and then a generic mono stack if it isn't. */
@@ -478,7 +490,7 @@
     /* ---------------------------------------------------------------- */
   }
 
-  /* Default body text: 14px / 400 (Regular) / Manrope — body-m. Components
+  /* Default body text: 14px / Regular (275) / Geologica — body-m. Components
      no longer need to repeat font-body/text-body-m/font-normal just to
      get baseline text; only add those classes when overriding away from
      this default (headings, body-s/l/xl, weight-emphasize, etc). */

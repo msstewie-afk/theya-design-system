@@ -2,10 +2,10 @@
   "typography": {
     "font-family": {
       "heading": {
-        "value": "Manrope, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
+        "value": "Geologica, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
       },
       "body": {
-        "value": "Manrope, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
+        "value": "Geologica, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
       },
       "code": {
         "value": "Inconsolata"
@@ -13,31 +13,31 @@
     },
     "weight": {
       "regular": {
-        "value": "400"
+        "value": "275"
       },
       "semibold": {
-        "value": "600"
+        "value": "475"
       },
       "medium": {
-        "value": "500"
+        "value": "375"
       },
       "bold": {
-        "value": "700"
+        "value": "575"
       },
       "extrabold": {
-        "value": "800"
+        "value": "675"
       },
       "black": {
-        "value": "900"
+        "value": "775"
       },
       "light": {
-        "value": "300"
+        "value": "175"
       },
       "thin": {
         "value": "100"
       },
       "extralight": {
-        "value": "200"
+        "value": "100"
       }
     },
     "italic": {

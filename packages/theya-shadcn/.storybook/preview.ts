@@ -6,20 +6,19 @@ import { DocsContainer, type DocsContainerProps } from '@storybook/addon-docs/bl
 import { Toaster } from '../src/components/ui/sonner';
 import '../src/styles/globals.css';
 
-// Preload the most-used Manrope weights (400 body, 500 medium/button,
-// 600 emphasize/heading-s) so the real font is already in the browser's
+// Preload Geologica's Latin and Cyrillic files (one variable file each
+// covers every weight) so the real font is already in the browser's
 // cache by the time any story first renders text. Without this, the
 // `font-display: swap` fallback-then-swap can land WHILE a Radix Popper
 // menu is already open (autoUpdate's ResizeObserver sees the trigger's/
 // content's text reflow and repositions), which is what caused the
 // first-open jump. `?url` lets Vite resolve the real dev/build path
 // instead of hand-guessing it.
-import manropeRegularUrl from '@theya/tokens/fonts/manrope/manrope-latin-400-normal.woff2?url';
-import manropeMediumUrl from '@theya/tokens/fonts/manrope/manrope-latin-500-normal.woff2?url';
-import manropeSemiboldUrl from '@theya/tokens/fonts/manrope/manrope-latin-600-normal.woff2?url';
+import geologicaLatinUrl from '@theya/tokens/fonts/geologica/geologica-latin-wght-normal.woff2?url';
+import geologicaCyrillicUrl from '@theya/tokens/fonts/geologica/geologica-cyrillic-wght-normal.woff2?url';
 
 if (typeof document !== 'undefined') {
-  for (const href of [manropeRegularUrl, manropeMediumUrl, manropeSemiboldUrl]) {
+  for (const href of [geologicaLatinUrl, geologicaCyrillicUrl]) {
     if (document.head.querySelector(`link[rel="preload"][href="${href}"]`)) continue;
     const link = document.createElement('link');
     link.rel = 'preload';
