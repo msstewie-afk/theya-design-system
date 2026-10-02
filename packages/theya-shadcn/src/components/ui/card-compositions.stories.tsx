@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ArrowRight, BadgeCheck, ClipboardCheck, Community, Download, Globe, Group, Headset, Medal, Sparks } from 'iconoir-react';
+import { ArrowRight, BadgeCheck, ClipboardCheck, Community, Download, Globe, Group, Headset, Medal, Sparks, StarSolid } from 'iconoir-react';
 import { Card, CardAction, CardAvatar, CardContent, CardDescription, CardFooter, CardHeader, CardMedia, CardTitle } from './card';
 import { Avatar } from './avatar';
 import { AvatarGroup } from './avatar-group';
@@ -79,10 +79,10 @@ export const Marketplace: Story = {
         <div className="flex w-full items-start justify-between">
           <LogoTile letter="S" />
           <div className="flex items-center gap-1">
-            <span role="img" aria-label="Featured" className="grid size-6 place-items-center rounded-full bg-[var(--color-bg-warning-bg-warning)] text-[var(--color-text-text-warning)] [&_svg]:size-3.5 [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]">
-              <Medal />
+            <span role="img" aria-label="Featured" className="grid size-6 place-items-center rounded-full bg-[var(--color-bg-warning-bg-warning)] text-[var(--color-text-text-warning)] [&_svg]:size-3 [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]">
+              <StarSolid />
             </span>
-            <span role="img" aria-label="Includes support" className="grid size-6 place-items-center rounded-full bg-[var(--color-bg-success-bg-success)] text-[var(--color-text-text-on-dark)] [&_svg]:size-3.5">
+            <span role="img" aria-label="Includes support" className="grid size-6 place-items-center rounded-full bg-[var(--color-bg-success-bg-success)] text-[var(--color-text-text-on-dark)] [&_svg]:size-3">
               <Headset />
             </span>
           </div>
