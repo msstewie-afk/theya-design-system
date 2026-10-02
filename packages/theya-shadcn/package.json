@@ -6,7 +6,8 @@
   "scripts": {
     "storybook": "pnpm --filter @theya/tokens build && storybook dev -p 6008",
     "build-storybook": "pnpm --filter @theya/tokens build && storybook build",
-    "test-storybook": "test-storybook --url http://localhost:6008"
+    "test-storybook": "test-storybook --url http://localhost:6008",
+    "test-storybook:dark": "THEYA_THEME=dark test-storybook --url http://localhost:6008"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.3",

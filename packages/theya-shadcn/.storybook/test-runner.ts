@@ -19,6 +19,12 @@ const config: TestRunnerConfig = {
     // Components already honour motion-reduce, so this checks their final
     // resting state, which is what the a11y audit is about.
     await page.emulateMedia({ reducedMotion: 'reduce' });
+    // THEYA_THEME=dark runs the whole suite (play + axe) in the dark theme:
+    // same data-theme switch preview.ts applies from the toolbar toggle,
+    // set before the story renders so portals and mount-time reads see it.
+    if (process.env.THEYA_THEME === 'dark') {
+      await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
+    }
     await injectAxe(page);
   },
   async postVisit(page, context) {
