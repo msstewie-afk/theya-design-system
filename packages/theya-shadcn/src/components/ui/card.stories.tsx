@@ -708,8 +708,8 @@ export const Compact: Story = {
           >
             <ClipboardCheck />
           </span>
-          {/* `!`: Card size="sm" shrinks titles to body-s via a group variant, which outranks a plain class. */}
-          <CardTitle className="text-heading-s!">Tasks</CardTitle>
+          {/* `!`: Card size="sm" shrinks titles to body-s (12px) via a group variant; one step up (14px), which outranks a plain class. */}
+          <CardTitle className="text-body-m!">Tasks</CardTitle>
           <span role="img" aria-label="Favourite" className="inline-flex">
             <RatingStar fill={1} size="sm" />
           </span>
