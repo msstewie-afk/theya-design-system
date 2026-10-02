@@ -36,7 +36,7 @@ export function Table({ className, containerLabel, ...props }: TableProps) {
       // composed straight into a bare Table (no DataTable) still gets a
       // real 44/56px row height instead of silently falling through to
       // auto (the var chain it reads is otherwise undefined here).
-      className="relative isolate w-full overflow-x-auto overflow-y-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] outline-none [--wp-row-h:2.75rem] [--wp-row-h-2:3.5rem] focus-visible:shadow-[inset_0_0_0_4px_var(--color-focus-focus-ring)]"
+      className="relative isolate w-full overflow-x-auto overflow-y-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] outline-none [--wp-row-h:2.75rem] [--wp-row-h-2:3.5rem] focus-visible:focus-ring-inset"
       {...(containerLabel ? { role: 'region', 'aria-label': containerLabel } : {})}
     >
       <table data-slot="table" className={cn('w-full border-collapse font-body text-body-m', className)} {...props} />

@@ -84,7 +84,8 @@ function Slider({
             'bg-[var(--color-bg-input-bg-input)] shadow-elevation-sm outline-none',
             'transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
             invalid ? 'border-[var(--color-border-border-danger)]' : 'border-[var(--color-border-border-primary)]',
-            'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
+            // Hover lifts the thumb; the ring is reserved for keyboard focus.
+            'hover:shadow-elevation-md',
             'focus-visible:focus-ring',
             invalid && 'focus-visible:focus-ring-error',
             'data-[disabled]:pointer-events-none',

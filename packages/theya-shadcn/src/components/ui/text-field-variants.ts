@@ -69,7 +69,7 @@ export const textFieldVariants = cva(
           'hover:not-disabled:not-read-only:not-focus:border-[var(--color-border-border-success-hover)]',
           'focus-visible:not-read-only:border-[var(--color-border-border-success)]',
           'focus-visible:not-read-only:bg-[var(--color-bg-input-bg-input-success)]',
-          'focus-visible:not-read-only:shadow-[0_0_0_4px_var(--color-focus-focus-ring-success)]',
+          'focus-visible:not-read-only:focus-ring-success',
         ],
         false: '',
       },

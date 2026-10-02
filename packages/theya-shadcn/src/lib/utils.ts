@@ -20,7 +20,14 @@ const twMerge = extendTailwindMerge({
       // belong to twMerge's `shadow` group: a later shadow-* on the same
       // variant (an invalid-state ring, a per-tone ring) replaces them,
       // exactly as it replaced the arbitrary shadow-[...] they stand for.
-      shadow: ['focus-ring', 'focus-ring-error'],
+      shadow: [
+        'focus-ring',
+        'focus-ring-error',
+        'focus-ring-success',
+        'focus-ring-warning',
+        'focus-ring-on-primary',
+        'focus-ring-inset',
+      ],
       'font-size': [
         {
           text: [

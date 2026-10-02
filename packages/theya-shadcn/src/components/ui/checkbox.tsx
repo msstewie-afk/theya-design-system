@@ -91,7 +91,7 @@ const checkboxVariants = cva(
           '[[data-surface=primary]_&]:data-[state=indeterminate]:border-transparent',
           // Focus ring: low-alpha white instead of the brand focus ring,
           // which would be nearly invisible against the primary fill.
-          '[[data-surface=primary]_&]:focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring-on-primary)]',
+          '[[data-surface=primary]_&]:focus-visible:focus-ring-on-primary',
         ],
       },
       {

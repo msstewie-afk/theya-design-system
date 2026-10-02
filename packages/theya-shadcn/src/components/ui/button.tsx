@@ -55,7 +55,7 @@ export const buttonVariants = cva(
     // (claude/wcag-aa-audit-2026-09-27.md, "Accepted deviations"). Do not
     // "fix" locally in one component — change the token if this is revisited.
     'focus-visible:outline-none',
-    'focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
+    'focus-visible:focus-ring',
     // Color/border/shadow transitions use a plain ease-enter — no overshoot.
     // Transform (the press scale) uses Material's "standard" easing
     // (cubic-bezier(0.4,0,0.2,1)) on both press and release.
@@ -87,14 +87,14 @@ export const buttonVariants = cva(
           '[[data-surface=primary]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--white-a900)]!',
           '[[data-surface=primary]_&]:active:not-disabled:not-aria-disabled:bg-[var(--white-a800)]!',
           '[[data-surface=primary]_&]:[&_svg]:text-current!',
-          '[[data-surface=primary]_&]:focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring-on-primary)]!',
+          '[[data-surface=primary]_&]:focus-visible:focus-ring-on-primary!',
         ],
         tonal: [
           '[[data-surface=primary]_&]:bg-[var(--white-a800)]! [[data-surface=primary]_&]:text-[var(--color-text-text-on-primary-fill)]!',
           '[[data-surface=primary]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--white-a900)]!',
           '[[data-surface=primary]_&]:active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary)]!',
           '[[data-surface=primary]_&]:[&_svg]:text-current!',
-          '[[data-surface=primary]_&]:focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring-on-primary)]!',
+          '[[data-surface=primary]_&]:focus-visible:focus-ring-on-primary!',
         ],
         outlined: [
           'bg-transparent border border-solid text-[var(--color-text-text-subtle)]',
@@ -106,7 +106,7 @@ export const buttonVariants = cva(
           '[[data-surface=primary]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary-hover)]!',
           '[[data-surface=primary]_&]:active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary-pressed)]!',
           '[[data-surface=primary]_&]:[&_svg]:text-[var(--color-icon-icon-on-primary)]!',
-          '[[data-surface=primary]_&]:focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring-on-primary)]!',
+          '[[data-surface=primary]_&]:focus-visible:focus-ring-on-primary!',
         ],
         ghost: [
           'bg-transparent border-none text-[var(--color-text-text-subtle)]',
@@ -114,7 +114,7 @@ export const buttonVariants = cva(
           '[[data-surface=primary]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary-hover)]!',
           '[[data-surface=primary]_&]:active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary-pressed)]!',
           '[[data-surface=primary]_&]:[&_svg]:text-[var(--color-icon-icon-on-primary)]!',
-          '[[data-surface=primary]_&]:focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring-on-primary)]!',
+          '[[data-surface=primary]_&]:focus-visible:focus-ring-on-primary!',
         ],
       },
       tone: {

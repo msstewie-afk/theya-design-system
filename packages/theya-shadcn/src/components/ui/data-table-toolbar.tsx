@@ -189,7 +189,7 @@ const onFilled =
   'text-[var(--color-text-text-on-primary)] [&_svg]:text-[var(--color-icon-icon-on-primary)] ' +
   'hover:not-disabled:bg-[var(--color-bg-primary-on-primary-hover)] hover:text-[var(--color-text-text-on-primary)] ' +
   'active:not-disabled:bg-[var(--color-bg-primary-on-primary-pressed)] ' +
-  'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring-on-primary)]';
+  'focus-visible:focus-ring-on-primary';
 
 function SelectAllTooltip({ children, content }: { children: React.ReactElement; content: ReactNode }) {
   const [open, setOpen] = useState(false);

@@ -559,9 +559,10 @@
    focus-ring + 12 focus-ring-error, 51 files) uses these utilities; the
    arbitrary shadow-[0_0_0_4px_…] form is gone. twMerge knows them as
    the `shadow` group (src/lib/utils.ts), so a later shadow-* on the same
-   variant still replaces them. Left as arbitrary values on purpose: the
-   3px rings on primary/tone buttons, the 2px Carousel dot ring and the
-   inset rings — see the Focus Ring Decision backlog item.
+   variant still replaces them. Focus Ring Decision (2026-10-02): ONE
+   width, 4px, everywhere — Button, Card, Rating and Carousel moved up
+   from 3px/2px; tone, on-primary and inset variants are utilities too.
+   The ring means keyboard focus only: hover never draws it.
 
    Why @utility instead of just adding another @theme token: some
    repeated patterns aren't a single color/size value Tailwind's
@@ -588,6 +589,25 @@
 }
 @utility focus-ring-error {
   --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring-error);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility focus-ring-success {
+  --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring-success);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility focus-ring-warning {
+  --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring-warning);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+/* White ring for controls on the primary fill (data-surface=primary). */
+@utility focus-ring-on-primary {
+  --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring-on-primary);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+/* Inset variant, where an overflow container would clip an outset ring
+   (Table cells, Tree rows, Terminal, CodeBlock). */
+@utility focus-ring-inset {
+  --tw-shadow: inset 0 0 0 4px var(--color-focus-focus-ring);
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
 /* ---------------------------------------------------------------- */

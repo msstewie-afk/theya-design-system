@@ -279,7 +279,7 @@ export function CarouselIndicators({ className, variant = 'default', ...props }:
             aria-current={active || undefined}
             aria-label={`Go to slide ${i + 1}`}
             onClick={() => api?.scrollTo(i)}
-            className="group flex h-6 min-w-6 cursor-pointer items-center justify-center rounded-full px-2 outline-none focus-visible:shadow-[0_0_0_2px_var(--color-focus-focus-ring)]"
+            className="group flex h-6 min-w-6 cursor-pointer items-center justify-center rounded-full px-2 outline-none focus-visible:focus-ring"
           >
             <span
               aria-hidden="true"

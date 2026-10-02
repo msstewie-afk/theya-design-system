@@ -46,20 +46,18 @@ const SEVERITY_SELECTED_CLASS: Record<CardSeverity, string> = {
   danger: 'border-[var(--color-border-border-danger)] bg-[var(--color-bg-danger-bg-danger-subtle)]',
 };
 
-// Per-tone focus/hover rings — all now the real translucent
-// --color-focus-focus-ring-* tokens (0.3 alpha), not a solid
-// --color-border-border-* color standing in for one. `warning` needed a
-// new token added to the DS (--color-focus-focus-ring-warning, Мария's
-// call) since only default/error/success existed before this.
+// Hover and focus are separate signals (2026-10-02): hover changes the
+// border and lifts the card, the translucent ring appears only on
+// keyboard focus (focus-within), in the card's tone. Hover lift is gated
+// with not-focus-within: hover sorts after focus-within, and both set
+// box-shadow, so an unconditional hover lift would hide the ring while a
+// focused card is under the pointer.
 const SEVERITY_HOVER_CLASS: Record<CardSeverity, string> = {
-  // Ring and lift in ONE shadow value: as two utilities (shadow-elevation-sm
-  // + shadow-[ring]) both set --tw-shadow and the later-generated one won,
-  // so the ring vanished on hover after the elevation-token migration.
-  default: 'hover:border-[var(--color-border-border-primary)] hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring),var(--elevation-sm)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
-  info: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
-  success: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring-success)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring-success)]',
-  warning: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring-warning)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring-warning)]',
-  danger: 'hover:shadow-[0_0_0_3px_var(--color-focus-focus-ring-error)] focus-within:shadow-[0_0_0_3px_var(--color-focus-focus-ring-error)]',
+  default: 'hover:border-[var(--color-border-border-primary)] hover:not-focus-within:shadow-elevation-sm focus-within:focus-ring',
+  info: 'hover:border-[var(--color-border-border-primary)] hover:not-focus-within:shadow-elevation-sm focus-within:focus-ring',
+  success: 'hover:border-[var(--color-border-border-success)] hover:not-focus-within:shadow-elevation-sm focus-within:focus-ring-success',
+  warning: 'hover:border-[var(--color-border-border-warning)] hover:not-focus-within:shadow-elevation-sm focus-within:focus-ring-warning',
+  danger: 'hover:border-[var(--color-border-border-danger)] hover:not-focus-within:shadow-elevation-sm focus-within:focus-ring-error',
 };
 
 export type CardSize = 'sm' | 'md' | 'lg';

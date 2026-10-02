@@ -95,7 +95,7 @@ export function CodeBlock({ code, language, filename, copy = true, copyLabel = '
           // composite, not meant for code) before, so the two components
           // rendered code at visibly different sizes.
           'overflow-x-auto overflow-y-hidden p-4 font-code text-[13px] leading-[20.8px] text-[var(--color-text-text)]',
-          'outline-none focus-visible:shadow-[inset_0_0_0_3px_var(--color-focus-focus-ring)]',
+          'outline-none focus-visible:focus-ring-inset',
           !hasHeader && copy && 'pr-12',
         )}
       >

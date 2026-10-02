@@ -215,7 +215,7 @@ export function TerminalBody({ className, lines, ariaLabel = 'Terminal output', 
         'min-w-0 flex-1 overflow-y-auto overflow-x-hidden px-4 py-3.5',
         'font-mono text-body-m leading-relaxed',
         inverse ? 'text-[var(--color-code-text-inverse)]' : 'text-[var(--color-text-text)]',
-        'outline-none focus-visible:shadow-[inset_0_0_0_3px_var(--color-focus-focus-ring)]',
+        'outline-none focus-visible:focus-ring-inset',
         !className && 'h-[clamp(14rem,50vh,32rem)]',
         className,
       )}

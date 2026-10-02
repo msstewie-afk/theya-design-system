@@ -158,7 +158,7 @@ export const Rating = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, Ra
           }}
           className={cn(
             'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] outline-none',
-            'focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring)]',
+            'focus-visible:focus-ring',
             'disabled:cursor-not-allowed',
             'motion-safe:transition-transform motion-safe:active:not-disabled:scale-90',
             HIT_PAD[size],
