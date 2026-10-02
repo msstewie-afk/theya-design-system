@@ -707,8 +707,8 @@ export const Compact: Story = {
           >
             <ClipboardCheck />
           </span>
-          <CardTitle className="text-body-l">Tasks</CardTitle>
-          <StarSolid aria-label="Favourite" role="img" className="size-4 shrink-0 text-[var(--color-border-border-rating)]" />
+          <CardTitle className="text-heading-s">Tasks</CardTitle>
+          <StarSolid aria-label="Favourite" role="img" className="size-4 shrink-0 text-[var(--color-icon-icon-rating)]" />
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="neutral">My docs</Badge>
