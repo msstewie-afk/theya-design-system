@@ -188,25 +188,29 @@ export function ResourceForm({ title, description, sections, onSubmit, onCancel,
       {errorFields.length > 1 && (
         <Alert id={summaryId} tabIndex={-1} tone="danger" live="assertive" className="outline-none focus-visible:focus-ring">
           <WarningCircle />
-          <AlertTitle>{`Fix ${errorFields.length} fields to continue`}</AlertTitle>
-          <AlertDescription>
-            <ul className="mt-1 flex list-none flex-col gap-2 pl-0">
-              {errorFields.map((f) => (
-                <li key={f.name}>
-                  <a
-                    href={`#${fieldId(formId, f.name)}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.getElementById(fieldId(formId, f.name))?.focus();
-                    }}
-                    className="rounded-[var(--size-border-radius-border-radius-sm)] underline underline-offset-4 focus-visible:outline-none focus-visible:focus-ring"
-                  >
-                    {String(form.formState.errors[f.name]?.message ?? f.label)}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </AlertDescription>
+          {/* One wrapper: Alert lays its direct children out in a row, so a
+              bare title + description sat side by side instead of stacked. */}
+          <div className="min-w-0 flex-1">
+            <AlertTitle>{`Fix ${errorFields.length} fields to continue`}</AlertTitle>
+            <AlertDescription>
+              <ul className="mt-1 flex list-none flex-col gap-2 pl-0">
+                {errorFields.map((f) => (
+                  <li key={f.name}>
+                    <a
+                      href={`#${fieldId(formId, f.name)}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        document.getElementById(fieldId(formId, f.name))?.focus();
+                      }}
+                      className="rounded-[var(--size-border-radius-border-radius-sm)] underline underline-offset-4 focus-visible:outline-none focus-visible:focus-ring"
+                    >
+                      {String(form.formState.errors[f.name]?.message ?? f.label)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </AlertDescription>
+          </div>
         </Alert>
       )}
 
