@@ -1,10 +1,12 @@
 import { useId, useState } from 'react';
-import type { ComponentProps, FormEventHandler } from 'react';
-import { Github } from 'iconoir-react';
+import type { ComponentProps, FormEventHandler, ReactNode } from 'react';
+import { Github, WarningCircle } from 'iconoir-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { TextField } from '@/components/ui/text-field';
+import { Password } from '@/components/ui/password';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
@@ -33,9 +35,17 @@ export interface LoginFormProps extends Omit<ComponentProps<'div'>, 'onSubmit'> 
   onSso?: () => void;
   /** Wrap the fields in a bordered Card. Turn off when the form already sits in its own visually distinct area (e.g. the right pane of `LoginFormSplit`) — a Card there is a boundary around a boundary. */
   card?: boolean;
+  /** Shows the submit button's spinner while your auth call runs. */
+  loading?: boolean;
+  /**
+   * A sign-in failure from your auth call (wrong password, locked
+   * account, no such account), shown above the fields. The typed email
+   * stays in place. Say what happened and what to do next.
+   */
+  error?: ReactNode;
 }
 
-export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref = '#', signupHref = '#', showSso = true, onSso, card = true, ...props }: LoginFormProps) {
+export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref = '#', signupHref = '#', showSso = true, onSso, card = true, loading = false, error, ...props }: LoginFormProps) {
   // Per-instance ids: the fixed "login-email"/"login-password" collided
   // when two forms shared a page (e.g. LoginForm + LoginFormSplit in Docs).
   const uid = useId();
@@ -64,6 +74,12 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
 
   const fields = (
     <>
+      {error && (
+        <Alert tone="danger" live="assertive">
+          <WarningCircle />
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
       <div className="flex flex-col gap-2">
         <Label htmlFor={emailId}>Email</Label>
         <TextField
@@ -81,25 +97,24 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
       </div>
 
       <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
-          <Label htmlFor={passwordId}>Password</Label>
-          <a
-            href={forgotHref}
-            className="rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:focus-ring"
-          >
-            Forgot password?
-          </a>
-        </div>
-        <TextField
+        <Label htmlFor={passwordId}>Password</Label>
+        <Password
           id={passwordId}
           name="password"
-          type="password"
           autoComplete="current-password"
           required
           widthSize="full"
           error={errors.password}
           onChange={() => errors.password && setErrors((p) => ({ ...p, password: undefined }))}
         />
+        {/* Below the field, not beside the label: there it sat between the
+            email and password fields in Tab order. */}
+        <a
+          href={forgotHref}
+          className="self-start rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:focus-ring"
+        >
+          Forgot password?
+        </a>
       </div>
 
       <div className="flex items-center gap-2">
@@ -109,7 +124,7 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
         </Label>
       </div>
 
-      <Button type="submit" appearance="filled" tone="primary" size="2xl" className="w-full">
+      <Button type="submit" appearance="filled" tone="primary" size="2xl" loading={loading} className="w-full">
         Sign in
       </Button>
 

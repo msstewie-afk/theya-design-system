@@ -5,6 +5,7 @@ import { toast } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { TextField } from '@/components/ui/text-field';
+import { Password } from '@/components/ui/password';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
@@ -421,10 +422,9 @@ function SecuritySection({
       <form onSubmit={handlePassword} className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <Label htmlFor={currentId}>Current password</Label>
-          <TextField
+          <Password
             id={currentId}
             name="currentPassword"
-            type="password"
             autoComplete="current-password"
             widthSize="lg"
             error={pwErrors.current}
@@ -433,12 +433,13 @@ function SecuritySection({
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor={newId}>New password</Label>
-          <TextField
+          <Password
             id={newId}
             name="newPassword"
-            type="password"
             autoComplete="new-password"
             widthSize="lg"
+            // Requirements up front, not only once they've been broken.
+            description="Use at least 8 characters."
             error={pwErrors.next}
             onChange={() => pwErrors.next && setPwErrors((p) => ({ ...p, next: undefined }))}
           />

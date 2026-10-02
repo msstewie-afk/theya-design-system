@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { Xmark, Check } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { Button } from './button';
+import { OptionalMark } from './label';
 import { textFieldVariants, type TextFieldProps as BaseTextFieldProps } from './text-field-variants';
 
 // Wrapper width lives here (not on the input itself) so absolute-
@@ -54,6 +55,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
     success,
     label,
     required,
+    optional,
     description,
     leftIcon,
     rightIcon,
@@ -225,6 +227,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
           *
         </span>
       )}
+      {optional && !required && <OptionalMark />}
     </label>
   );
 

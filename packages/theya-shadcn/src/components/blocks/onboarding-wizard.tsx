@@ -38,6 +38,8 @@ export interface OnboardingWizardProps {
   backLabel?: string;
   nextLabel?: string;
   orientation?: 'horizontal' | 'vertical';
+  /** Spinner on the final button while your create call runs (set it from onComplete). */
+  completing?: boolean;
   className?: string;
 }
 
@@ -61,6 +63,7 @@ export function OnboardingWizard({
   backLabel = 'Back',
   nextLabel = 'Next',
   orientation = 'horizontal',
+  completing = false,
   className,
 }: OnboardingWizardProps) {
   const defaultSteps = useDefaultSteps();
@@ -138,10 +141,10 @@ export function OnboardingWizard({
       <Separator />
 
       <div className="flex flex-wrap justify-between gap-3">
-        <Button appearance="outlined" tone="secondary" size="2xl" disabled={isFirst} onClick={() => goto(currentIndex - 1)} className="max-sm:w-full" leftIcon={<ArrowLeft />}>
+        <Button appearance="outlined" tone="secondary" size="2xl" disabled={isFirst || completing} onClick={() => goto(currentIndex - 1)} className="max-sm:w-full" leftIcon={<ArrowLeft />}>
           {backLabel}
         </Button>
-        <Button id={nextId} appearance="filled" tone="primary" size="2xl" onClick={handleNext} className="max-sm:w-full" leftIcon={isLast ? <Check /> : undefined} rightIcon={!isLast ? <ArrowRight /> : undefined}>
+        <Button id={nextId} appearance="filled" tone="primary" size="2xl" onClick={handleNext} loading={isLast && completing} className="max-sm:w-full" leftIcon={isLast ? <Check /> : undefined} rightIcon={!isLast ? <ArrowRight /> : undefined}>
           {isLast ? completeLabel : nextLabel}
         </Button>
       </div>

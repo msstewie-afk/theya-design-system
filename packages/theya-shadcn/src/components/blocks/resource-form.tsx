@@ -9,6 +9,9 @@ import { Separator } from '@/components/ui/separator';
 import { Field, FieldDescription, FieldError } from '@/components/ui/field';
 import { Label } from '@/components/ui/label';
 import { TextField } from '@/components/ui/text-field';
+import { Password } from '@/components/ui/password';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { WarningCircle } from 'iconoir-react';
 import { TextArea } from '@/components/ui/textarea';
 import { NumberField } from '@/components/ui/number-field';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -159,10 +162,17 @@ export function ResourceForm({ title, description, sections, onSubmit, onCancel,
       await onSubmit(values);
     },
     (errors) => {
-      const first = sections.flatMap((s) => s.fields).find((f) => errors[f.name]);
-      if (first) document.getElementById(fieldId(formId, first.name))?.focus();
+      const invalidFields = sections.flatMap((s) => s.fields).filter((f) => errors[f.name]);
+      // One error: straight to the field. Several: to the summary at the
+      // top, so the later ones aren't missed below the fold.
+      if (invalidFields.length > 1) requestAnimationFrame(() => document.getElementById(summaryId)?.focus());
+      else if (invalidFields[0]) document.getElementById(fieldId(formId, invalidFields[0].name))?.focus();
     },
   );
+
+  const summaryId = `${formId}-error-summary`;
+  const allFields = sections.flatMap((s) => s.fields);
+  const errorFields = form.formState.submitCount > 0 ? allFields.filter((f) => form.formState.errors[f.name]) : [];
 
   return (
     <form onSubmit={handleSubmit} noValidate className={cn('flex w-full flex-col gap-6', className)}>
@@ -171,6 +181,33 @@ export function ResourceForm({ title, description, sections, onSubmit, onCancel,
           {title && <h2 className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">{title}</h2>}
           {description && <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">{description}</p>}
         </div>
+      )}
+
+      {/* Shown after a submit with 2+ errors and updated live as they're
+          fixed; each item jumps to its field. Single errors don't need it. */}
+      {errorFields.length > 1 && (
+        <Alert id={summaryId} tabIndex={-1} tone="danger" live="assertive" className="outline-none focus-visible:focus-ring">
+          <WarningCircle />
+          <AlertTitle>{`Fix ${errorFields.length} fields to continue`}</AlertTitle>
+          <AlertDescription>
+            <ul className="mt-1 flex list-disc flex-col gap-0.5 pl-5">
+              {errorFields.map((f) => (
+                <li key={f.name}>
+                  <a
+                    href={`#${fieldId(formId, f.name)}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById(fieldId(formId, f.name))?.focus();
+                    }}
+                    className="rounded-[var(--size-border-radius-border-radius-sm)] underline underline-offset-4 focus-visible:outline-none focus-visible:focus-ring"
+                  >
+                    {String(form.formState.errors[f.name]?.message ?? f.label)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </AlertDescription>
+        </Alert>
       )}
 
       <div className="flex flex-col gap-6">
@@ -198,7 +235,7 @@ export function ResourceForm({ title, description, sections, onSubmit, onCancel,
             {cancelLabel}
           </Button>
         )}
-        <Button type="submit" appearance="filled" tone="primary" size="2xl" disabled={form.formState.isSubmitting} className="max-sm:w-full">
+        <Button type="submit" appearance="filled" tone="primary" size="2xl" loading={form.formState.isSubmitting} className="max-sm:w-full">
           {submitLabel}
         </Button>
       </div>
@@ -249,7 +286,7 @@ function ResourceFormField({ field, form, id }: { field: ResourceFieldConfig; fo
         name={field.name}
         render={({ field: controllerField }) => (
           <Field invalid={invalid} required={field.required}>
-            <Label htmlFor={id} required={field.required}>
+            <Label htmlFor={id} required={field.required} optional={!field.required}>
               {field.label}
             </Label>
             <Select value={String(controllerField.value ?? '')} onValueChange={controllerField.onChange}>
@@ -279,7 +316,7 @@ function ResourceFormField({ field, form, id }: { field: ResourceFieldConfig; fo
         name={field.name}
         render={({ field: controllerField }) => (
           <Field invalid={invalid} required={field.required}>
-            <Label htmlFor={id} required={field.required}>
+            <Label htmlFor={id} required={field.required} optional={!field.required}>
               {field.label}
             </Label>
             <NumberField
@@ -305,7 +342,7 @@ function ResourceFormField({ field, form, id }: { field: ResourceFieldConfig; fo
   if (kind === 'textarea') {
     return (
       <Field invalid={invalid} required={field.required}>
-        <Label htmlFor={id} required={field.required}>
+        <Label htmlFor={id} required={field.required} optional={!field.required}>
           {field.label}
         </Label>
         <TextArea id={id} rows={field.rows} widthSize="lg" placeholder={field.placeholder} aria-describedby={describedBy} aria-invalid={invalid} error={invalid} {...form.register(field.name)} />
@@ -315,12 +352,25 @@ function ResourceFormField({ field, form, id }: { field: ResourceFieldConfig; fo
     );
   }
 
-  const nativeType = kind === 'email' ? 'email' : kind === 'password' ? 'password' : 'text';
-  const autoComplete = kind === 'email' ? 'email' : kind === 'password' ? 'new-password' : undefined;
+  if (kind === 'password') {
+    return (
+      <Field invalid={invalid} required={field.required}>
+        <Label htmlFor={id} required={field.required} optional={!field.required}>
+          {field.label}
+        </Label>
+        <Password id={id} autoComplete="new-password" placeholder={field.placeholder} aria-describedby={describedBy} aria-invalid={invalid} error={invalid} widthSize="lg" {...form.register(field.name)} />
+        {field.description && <FieldDescription id={descriptionId}>{field.description}</FieldDescription>}
+        {error && <FieldError id={errorId}>{error}</FieldError>}
+      </Field>
+    );
+  }
+
+  const nativeType = kind === 'email' ? 'email' : 'text';
+  const autoComplete = kind === 'email' ? 'email' : undefined;
 
   return (
     <Field invalid={invalid} required={field.required}>
-      <Label htmlFor={id} required={field.required}>
+      <Label htmlFor={id} required={field.required} optional={!field.required}>
         {field.label}
       </Label>
       <TextField

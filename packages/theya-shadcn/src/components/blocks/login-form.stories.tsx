@@ -84,3 +84,16 @@ export const NoSso: Story = {
     await expect(within(canvasElement).queryByRole('button', { name: 'Continue with GitHub' })).toBeNull();
   },
 };
+
+/** A failed sign-in from your auth call: the reason and the next step sit above the fields, the email stays. */
+export const SignInError: Story = {
+  name: 'Sign-in error',
+  render: () => (
+    <div className="flex min-h-[600px] items-center justify-center p-6">
+      <LoginForm error="That email and password don't match. Check the password, or reset it below." />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByRole('alert')).toHaveTextContent("That email and password don't match.");
+  },
+};

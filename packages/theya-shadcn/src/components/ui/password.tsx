@@ -19,6 +19,7 @@ import { TextField, type TextFieldProps } from './text-field';
 const WIDTH_SIZE_MAP = {
   md: 'md', // 200px — TextField's own key names don't match their pixel sizes 1:1 (Figma-vs-token naming mismatch), confirmed: md=200px, lg=348px.
   lg: 'lg', // 348px
+  full: 'full', // fills its container, e.g. a sign-in card
 } as const;
 
 export interface PasswordProps extends Omit<TextFieldProps, 'type' | 'leftIcon' | 'rightIcon' | 'widthSize'> {

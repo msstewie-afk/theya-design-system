@@ -64,7 +64,7 @@ export const CreateDatabase: Story = {
                 ],
               },
               { name: 'storage', label: 'Storage (GB)', kind: 'number', required: true, min: 1, max: 500, defaultValue: 10 },
-              { name: 'description', label: 'Description', kind: 'textarea', placeholder: 'What is this database for?', description: 'Optional — shown to teammates on the databases list.' },
+              { name: 'description', label: 'Description', kind: 'textarea', placeholder: 'What is this database for?', description: 'Shown to teammates on the databases list.' },
               { name: 'publicAccess', label: 'Public access', kind: 'switch', description: 'Allow connections from outside the private network.' },
             ],
           },
@@ -85,13 +85,21 @@ export const CreateDatabase: Story = {
     await waitFor(() => expect(name).toHaveAccessibleDescription('Name is required.'));
     await expect(engine).toHaveAccessibleDescription('Select an engine.');
     await expect(name).toHaveAttribute('aria-invalid', 'true');
-    await waitFor(() => expect(name).toHaveFocus());
     await expect(args.onSubmit).not.toHaveBeenCalled();
 
-    // Name fixed -> the Select is now the first invalid field and gets focus.
+    // Two errors -> focus lands on the summary at the top; its links jump
+    // to the fields.
+    const summary = (await canvas.findByText('Fix 2 fields to continue')).closest('[role="alert"]') as HTMLElement;
+    await expect(summary).not.toBeNull();
+    await waitFor(() => expect(summary).toHaveFocus());
+    await userEvent.click(within(summary).getByRole('link', { name: 'Name is required.' }));
+    await expect(name).toHaveFocus();
+
+    // Name fixed -> one error left: no summary, focus goes to the Select.
     await userEvent.type(name, 'acme_prod');
     await userEvent.click(submit);
     await waitFor(() => expect(engine).toHaveFocus());
+    await expect(canvas.queryByText(/Fix \d+ fields/)).toBeNull();
     await expect(name).not.toHaveAttribute('aria-invalid', 'true');
 
     await pickByKeyboard(engine, 'p', 'PostgreSQL 16');
@@ -120,7 +128,7 @@ export const Sectioned: Story = {
             fields: [
               { name: 'email', label: 'Email', kind: 'email', required: true, placeholder: 'you@seashell.dev' },
               { name: 'password', label: 'Password', kind: 'password', required: true },
-              { name: 'recoveryEmail', label: 'Recovery email', kind: 'email', placeholder: 'backup@example.com', description: 'Optional.' },
+              { name: 'recoveryEmail', label: 'Recovery email', kind: 'email', placeholder: 'backup@example.com' },
             ],
           },
           {
@@ -154,7 +162,7 @@ export const Sectioned: Story = {
     const recovery = canvas.getByRole('textbox', { name: /^Recovery email/ });
     await userEvent.type(recovery, 'not-an-email');
     await userEvent.click(canvas.getByRole('button', { name: 'Save' }));
-    await waitFor(() => expect(recovery).toHaveAccessibleDescription('Optional. Enter a valid email.'));
+    await waitFor(() => expect(recovery).toHaveAccessibleDescription('Enter a valid email.'));
     await expect(recovery).toHaveFocus();
     await expect(args.onSubmit).not.toHaveBeenCalled();
 

@@ -117,6 +117,8 @@ export interface TextFieldProps
   label?: ReactNode;
   /** Shows a small red asterisk after the label. */
   required?: boolean;
+  /** Shows "(optional)" after the label. Ignored when `required`. */
+  optional?: boolean;
   /** Helper text below the field. Hidden when `error` or `success` is set. */
   description?: ReactNode;
   /**

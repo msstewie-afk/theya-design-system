@@ -2,6 +2,17 @@ import * as LabelPrimitive from '@radix-ui/react-label';
 import { cn } from '@/lib/utils';
 
 /**
+ * "(optional)" after a label. Forms mark BOTH kinds of field: required
+ * with the red asterisk, optional with this word, so nobody has to guess
+ * what an unmarked field means (Baymard forms audit, 2026-10-02). Shared by
+ * Label, TextField and TextArea so the three can't drift apart. Short
+ * all-required forms (sign-in, change password) may leave both off.
+ */
+export function OptionalMark() {
+  return <span className="font-body text-body-s font-normal text-[var(--color-text-text-subtler)]">(optional)</span>;
+}
+
+/**
  * Standalone Label — the piece Field/Form compose on top of. Cascades
  * disabled styling from a peer/group native control the same way
  * shadcn's own Label does. `required` renders the same asterisk mark
@@ -11,9 +22,10 @@ import { cn } from '@/lib/utils';
 function Label({
   className,
   required,
+  optional,
   children,
   ...props
-}: React.ComponentProps<typeof LabelPrimitive.Root> & { 'data-error'?: boolean; required?: boolean }) {
+}: React.ComponentProps<typeof LabelPrimitive.Root> & { 'data-error'?: boolean; required?: boolean; optional?: boolean }) {
   return (
     <LabelPrimitive.Root
       className={cn(
@@ -31,6 +43,7 @@ function Label({
           *
         </span>
       )}
+      {optional && !required && <OptionalMark />}
     </LabelPrimitive.Root>
   );
 }

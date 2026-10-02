@@ -3,6 +3,7 @@ import { useMissingNameWarning } from '@/lib/a11y-dev';
 import type { TextareaHTMLAttributes, ReactNode } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
+import { OptionalMark } from './label';
 
 function ExclamationCircle({ className }: { className?: string }) {
   return (
@@ -110,6 +111,8 @@ export interface TextAreaProps
   label?: ReactNode;
   /** Shows a small red asterisk after the label. */
   required?: boolean;
+  /** Shows "(optional)" after the label. Ignored when `required`. */
+  optional?: boolean;
   /** Helper text below the field. Hidden when `error` is set. */
   description?: ReactNode;
   /**
@@ -129,6 +132,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
     heightSize = 'md',
     label,
     required,
+    optional,
     description,
     labelPosition = 'top',
     disabled,
@@ -182,6 +186,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
           *
         </span>
       )}
+      {optional && !required && <OptionalMark />}
     </label>
   );
 
