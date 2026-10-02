@@ -42,7 +42,7 @@ export function DrawerContent({ className, children, width = 'full', ...props }:
       <DrawerOverlay />
       <DrawerPrimitive.Content
         className={cn(
-          'fixed z-drawer flex flex-col bg-[var(--color-bg-surface-bg-surface-overlay)] text-[var(--color-text-text)] shadow-elevation-xl outline-none',
+          'fixed z-drawer flex flex-col bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-elevation-xl outline-none',
           'group/drawer-content',
           'data-[vaul-drawer-direction=bottom]:inset-x-0 data-[vaul-drawer-direction=bottom]:bottom-0',
           'data-[vaul-drawer-direction=bottom]:max-h-[92svh] data-[vaul-drawer-direction=bottom]:rounded-t-[var(--size-border-radius-border-radius-3xl)]',
