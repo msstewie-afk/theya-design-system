@@ -69,17 +69,50 @@ export const buttonVariants = cva(
   ],
   {
     variants: {
+      // On a primary surface (an ancestor with data-surface="primary", e.g.
+      // Card appearance="filled") every tone collapses to one on-primary
+      // treatment per appearance — brand colors can't sit on the brand fill.
+      // Same ancestor-variant pattern as Checkbox. Filled/tonal are light
+      // pills with dark-blue text (text-on-primary-fill, 7.3:1+); outlined/
+      // ghost keep white text and darken on hover/press (black 10/20%), since
+      // any white overlay drops white text under 4.5:1 on primary.
+      // `!`: the tone rules' own [data-theme=dark] overrides have the same
+      // specificity and would otherwise win in dark.
       appearance: {
-        filled: '',
-        tonal: '',
+        filled: [
+          '[[data-surface=primary]_&]:bg-[var(--color-bg-primary-on-primary)]! [[data-surface=primary]_&]:text-[var(--color-text-text-on-primary-fill)]!',
+          '[[data-surface=primary]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--white-a900)]!',
+          '[[data-surface=primary]_&]:active:not-disabled:not-aria-disabled:bg-[var(--white-a800)]!',
+          '[[data-surface=primary]_&]:[&_svg]:text-current!',
+          '[[data-surface=primary]_&]:focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring-on-primary)]!',
+        ],
+        tonal: [
+          '[[data-surface=primary]_&]:bg-[var(--white-a800)]! [[data-surface=primary]_&]:text-[var(--color-text-text-on-primary-fill)]!',
+          '[[data-surface=primary]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--white-a900)]!',
+          '[[data-surface=primary]_&]:active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary)]!',
+          '[[data-surface=primary]_&]:[&_svg]:text-current!',
+          '[[data-surface=primary]_&]:focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring-on-primary)]!',
+        ],
         outlined: [
           'bg-transparent border border-solid text-[var(--color-text-text-subtle)]',
           // Figma quirk carried over as-is: pressed radius bumps up a step from
           // the resting state (was 6->8px; base moved to xl/8px on 2026-09-27,
           // so this now bumps 8->10px to keep the same "grows when pressed" feel).
           'active:not-disabled:not-aria-disabled:rounded-[var(--btn-radius-pressed,var(--size-border-radius-border-radius-2xl))]',
+          '[[data-surface=primary]_&]:border-[var(--color-border-border-on-primary)]! [[data-surface=primary]_&]:text-[var(--color-text-text-on-primary)]!',
+          '[[data-surface=primary]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary-hover)]!',
+          '[[data-surface=primary]_&]:active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary-pressed)]!',
+          '[[data-surface=primary]_&]:[&_svg]:text-current!',
+          '[[data-surface=primary]_&]:focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring-on-primary)]!',
         ],
-        ghost: 'bg-transparent border-none text-[var(--color-text-text-subtle)]',
+        ghost: [
+          'bg-transparent border-none text-[var(--color-text-text-subtle)]',
+          '[[data-surface=primary]_&]:text-[var(--color-text-text-on-primary)]!',
+          '[[data-surface=primary]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary-hover)]!',
+          '[[data-surface=primary]_&]:active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary-pressed)]!',
+          '[[data-surface=primary]_&]:[&_svg]:text-current!',
+          '[[data-surface=primary]_&]:focus-visible:shadow-[0_0_0_3px_var(--color-focus-focus-ring-on-primary)]!',
+        ],
       },
       tone: {
         primary: '',

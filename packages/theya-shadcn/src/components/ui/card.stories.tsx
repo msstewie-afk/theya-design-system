@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Globe, InfoCircle, CheckCircle, WarningTriangle, WarningCircle, Plus } from 'iconoir-react';
+import { Globe, InfoCircle, CheckCircle, WarningTriangle, WarningCircle, Plus, OpenBook, OpenNewWindow, ArrowRight } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardAction, CardFooter, CardLink, CardMedia, CardAvatar, type CardSeverity } from './card';
 import { DotSeparator } from './dot-separator';
@@ -544,7 +544,7 @@ export const WithMedia: Story = {
     <Card className="w-[280px]">
       <CardMedia src="/asset-examples/nova-web.jpg" alt="" />
       <CardHeader>
-        <CardTitle>Nova</CardTitle>
+        <CardTitle>Solarge</CardTitle>
         <CardDescription>Agentic AI builder for websites & apps.</CardDescription>
       </CardHeader>
       <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">$54.99 per month</CardContent>
@@ -568,5 +568,52 @@ export const WithAvatar: Story = {
         <p className="text-body-s text-[var(--color-text-text-subtler)]">I build agents/workforces at Relevance AI in the AI Ops team.</p>
       </CardContent>
     </Card>
+  ),
+};
+
+/**
+ * `appearance="filled"` — the brand card on the primary fill. Titles,
+ * descriptions, icons and dividers adapt through re-pointed tokens; Buttons
+ * and Checkboxes inside switch to their on-primary treatment
+ * (`data-surface="primary"`). Every appearance of Button is shown so the
+ * on-primary set can be checked in both themes.
+ */
+export const Filled: Story = {
+  render: () => (
+    <div className="flex flex-wrap items-start gap-4">
+      <Card appearance="filled" className="w-[300px]">
+        <CardHeader divider={false}>
+          <span
+            aria-hidden="true"
+            className="grid size-9 place-items-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--white-a200)] [&_svg]:size-5"
+          >
+            <OpenBook />
+          </span>
+          <CardAction>
+            <Button appearance="ghost" size="sm" iconOnly aria-label="Open documentation in a new tab" leftIcon={<OpenNewWindow />} />
+          </CardAction>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-1">
+          <CardTitle>Documentation</CardTitle>
+          <CardDescription>Explore comprehensive guides, tutorials, FAQs, and best practices for building with Solarge.</CardDescription>
+        </CardContent>
+        <CardFooter>
+          <Button appearance="tonal" size="md" rightIcon={<ArrowRight />}>Get started</Button>
+        </CardFooter>
+      </Card>
+      <Card appearance="filled" className="w-[300px]">
+        <CardHeader>
+          <div>
+            <CardTitle>Upgrade to Pro</CardTitle>
+            <CardDescription>Unlimited sites, staging and daily backups.</CardDescription>
+          </div>
+        </CardHeader>
+        <CardFooter className="flex flex-wrap gap-2">
+          <Button appearance="filled" size="md">Upgrade</Button>
+          <Button appearance="outlined" size="md">Compare plans</Button>
+          <Button appearance="ghost" size="md">Later</Button>
+        </CardFooter>
+      </Card>
+    </div>
   ),
 };

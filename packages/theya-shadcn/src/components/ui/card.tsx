@@ -79,9 +79,32 @@ export type CardPrimaryAction =
 
 export type CardSelectable = 'radio' | 'checkbox';
 
+export type CardAppearance = 'outlined' | 'filled';
+
+/**
+ * `filled`: a brand card on the primary fill. It sets data-surface="primary"
+ * (Button and Checkbox switch to their on-primary treatment inside it) and
+ * re-points the text/icon/border tokens for everything inside, so titles,
+ * descriptions, icons and dividers adapt without per-part props. `severity`
+ * doesn't apply to a filled card.
+ */
+const FILLED_CLASS = cn(
+  'border-transparent bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)]',
+  '[--color-text-text:var(--color-text-text-on-primary)]',
+  '[--color-text-text-subtle:var(--color-text-text-subtle-on-primary)]',
+  '[--color-text-text-subtler:var(--color-text-text-subtle-on-primary)]',
+  '[--color-icon-icon:var(--color-text-text-on-primary)]',
+  '[--color-icon-icon-subtle:var(--color-icon-icon-on-primary)]',
+  '[--color-icon-icon-subtler:var(--color-icon-icon-on-primary)]',
+  '[--color-border-border-subtle:var(--color-border-border-on-primary)]',
+  '[--color-border-border-subtler:var(--white-a300)]',
+);
+
 export interface CardProps extends React.ComponentProps<'div'> {
   size?: CardSize;
   severity?: CardSeverity;
+  /** `outlined` (default) surface card, or `filled` brand card on the primary color. */
+  appearance?: CardAppearance;
   interactive?: boolean;
   /** Primary action for the whole card. Providing one makes the card interactive automatically. */
   action?: CardPrimaryAction;
@@ -110,7 +133,8 @@ export interface CardProps extends React.ComponentProps<'div'> {
 export function Card({
   className,
   size,
-  severity = 'default',
+  severity: severityProp = 'default',
+  appearance = 'outlined',
   action,
   href,
   interactive = false,
@@ -129,12 +153,16 @@ export function Card({
   const isSelectedFilter = resolvedAction?.type === 'filter' && resolvedAction.active;
   const overlayClassName = 'absolute inset-0 z-0 rounded-[inherit] border-0 bg-transparent p-0 outline-none';
   const resolvedSelectable = disabled ? undefined : selectable;
+  const isFilled = appearance === 'filled';
+  const severity: CardSeverity = isFilled ? 'default' : severityProp;
 
   return (
     <div
       data-slot="card"
       data-size={size || undefined}
       data-severity={severity !== 'default' ? severity : undefined}
+      data-appearance={isFilled ? 'filled' : undefined}
+      data-surface={isFilled ? 'primary' : undefined}
       data-interactive={isInteractive || undefined}
       data-legacy-interactive={interactive || undefined}
       data-action={resolvedAction?.type}
@@ -146,6 +174,7 @@ export function Card({
         'group/card isolate relative min-w-0 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid',
         'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-elevation-xs',
         SEVERITY_CLASS[severity],
+        isFilled && FILLED_CLASS,
         isInteractive && cn('transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none', SEVERITY_HOVER_CLASS[severity]),
         isSelectedFilter && SEVERITY_SELECTED_CLASS[severity],
         // Was gated on `resolvedAction` alone, so the legacy `interactive`
