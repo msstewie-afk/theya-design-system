@@ -117,8 +117,12 @@ export const InteractiveCard: Story = {
       </Card>
       <Card action={{ type: 'link', href: '/sites/shop.seashell.dev' }} className="w-fit">
         <CardHeader>
-          <div className="flex min-w-0 flex-1 items-center gap-2.5">
-            <Globe className="shrink-0 text-[var(--color-icon-icon-subtle)]" />
+          {/* Icon aligns to the title line, not the middle of title + description:
+              items-start, and a wrapper one title-line tall (same text size). */}
+          <div className="flex min-w-0 flex-1 items-start gap-2.5">
+            <span aria-hidden="true" className="flex h-[1lh] shrink-0 items-center text-body-l">
+              <Globe className="text-[var(--color-icon-icon-subtle)]" />
+            </span>
             <div className="min-w-0">
               <CardTitle className="truncate font-mono">shop.seashell.dev</CardTitle>
               <CardDescription className="flex items-center">Pro<DotSeparator />eu-west-1</CardDescription>

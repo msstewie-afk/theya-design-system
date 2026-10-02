@@ -56,18 +56,17 @@ export function ListItem({ className, size = 'md', leading, title, description, 
   const titleId = title != null ? `${baseId}-title` : undefined;
   const descriptionId = description != null ? `${baseId}-description` : undefined;
 
-  // `children` renders BELOW description (extra composed content, e.g. an
-  // action button) — centering leading+content against that combined height
-  // pulls the leading icon down off the title/description text it's meant to
-  // sit beside. items-start (top-aligning leading with the content column's
-  // top, i.e. the title) keeps it pinned to the text regardless of whatever
-  // renders below; items-center (the common case — just title/description)
-  // stays the better default when there's nothing extra underneath.
-  const rowAlign = children != null ? 'items-start' : 'items-center';
+  // Leading visual aligns to the TITLE line, not the middle of the text
+  // block (Мария, 2026-10-02): the row is items-start and the leading slot
+  // is at least one line tall (min-h-[1lh], same font as the title), with
+  // its content centered in that line. A small icon sits level with the
+  // title whether a description or extra children follow; a larger visual
+  // (avatar) just grows downward from the top.
+  const rowAlign = 'items-start';
 
   const body = (
     <>
-      {leading != null && <span data-slot="list-item-leading" className="flex shrink-0 items-center text-[var(--color-icon-icon-subtle)] [&_svg:not([class*='size-'])]:size-4">{leading}</span>}
+      {leading != null && <span data-slot="list-item-leading" className="flex min-h-[1lh] shrink-0 items-center text-[var(--color-icon-icon-subtle)] [&_svg:not([class*='size-'])]:size-4">{leading}</span>}
       <span data-slot="list-item-content" className="flex min-w-0 flex-1 flex-col gap-0.5 text-left">
         {title != null && <span id={titleId} data-slot="list-item-title" className="truncate font-medium">{title}</span>}
         {description != null && <span id={descriptionId} data-slot="list-item-description" className="truncate font-body text-body-s text-[var(--color-text-text-subtler)]">{description}</span>}
