@@ -239,6 +239,7 @@ export function Card({
       {resolvedSelectable && (
         <div
           data-slot="card-select-control"
+          data-control={resolvedSelectable}
           className={cn(
             // One title line tall, in the title's own text size, with the
             // control centered in it — so it sits level with the title.
@@ -251,7 +252,9 @@ export function Card({
             // On a media card: top-right corner of the image, on a small
             // surface chip so the control keeps its contrast over any photo.
             'group-has-[>[data-slot=card-media]]/card:left-auto! group-has-[>[data-slot=card-media]]/card:top-3! group-has-[>[data-slot=card-media]]/card:right-3 group-has-[>[data-slot=card-media]]/card:h-auto',
-            'group-has-[>[data-slot=card-media]]/card:rounded-[var(--size-border-radius-border-radius-md)] group-has-[>[data-slot=card-media]]/card:bg-[var(--color-bg-surface-bg-surface)] group-has-[>[data-slot=card-media]]/card:p-1 group-has-[>[data-slot=card-media]]/card:shadow-elevation-sm',
+            // Nested radius = control radius + padding (4 + 4 = 8px) so the curves
+            // run parallel; a radio's chip is a circle like the radio itself.
+            'group-has-[>[data-slot=card-media]]/card:rounded-[var(--size-border-radius-border-radius-xl)] group-has-[>[data-slot=card-media]]/card:data-[control=radio]:rounded-full group-has-[>[data-slot=card-media]]/card:bg-[var(--color-bg-surface-bg-surface)] group-has-[>[data-slot=card-media]]/card:p-1 group-has-[>[data-slot=card-media]]/card:shadow-elevation-sm',
           )}
         >
           {resolvedSelectable === 'checkbox' ? (
