@@ -65,7 +65,7 @@ export function UsageBar({ className, segments, total, showLegend = true, format
         <ul data-slot="usage-bar-legend" className="flex flex-wrap gap-x-4 gap-y-1.5">
           {parts.map((p, i) => (
             <li key={`${p.label}-${i}`} className="flex min-w-0 items-center gap-2 font-body text-body-s">
-              <span aria-hidden="true" className="size-2.5 shrink-0 rounded-full" style={{ background: p.color }} />
+              <span aria-hidden="true" className="size-2.5 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)]" style={{ background: p.color }} />
               <span className="min-w-0 truncate text-[var(--color-text-text-subtler)]">{p.label}</span>
               <span className="shrink-0 tabular-nums text-[var(--color-text-text)]">{formatValue(p.value)}</span>
             </li>

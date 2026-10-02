@@ -1,10 +1,30 @@
-import { useState } from 'react';
+import { useState, type ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Download } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
 import { Attachment } from './attachment';
 import { Button } from './button';
 import { Separator } from './separator';
+
+
+/** Story helper: an Attachment whose remove button really removes it (reload the story to bring it back). */
+function RemovableAttachment(props: ComponentProps<typeof Attachment>) {
+  const [gone, setGone] = useState(false);
+  if (gone) return null;
+  const { onRemove } = props;
+  return (
+    <Attachment
+      {...props}
+      onRemove={
+        onRemove &&
+        (() => {
+          onRemove();
+          setGone(true);
+        })
+      }
+    />
+  );
+}
 
 const meta: Meta<typeof Attachment> = {
   title: 'Files/Attachment',
@@ -14,6 +34,7 @@ const meta: Meta<typeof Attachment> = {
     docs: { description: { component: 'The display unit File is built on — pill/card/row/line variants.' } },
   },
   args: { name: 'quarterly-report.pdf', size: 248000 },
+  render: (args) => <RemovableAttachment {...args} />,
   argTypes: {
     name: { control: 'text', description: 'File name.', table: { category: 'Content' } },
     size: { control: 'number', description: 'File size in bytes, formatted for display.', table: { category: 'Content' } },
@@ -49,10 +70,10 @@ export const Default: Story = {};
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-col gap-4 w-[280px]">
-      <Attachment variant="card" name="report.pdf" size={242000} type="application/pdf" onRemove={() => {}} />
-      <Attachment variant="row" name="report.pdf" size={242000} type="application/pdf" onRemove={() => {}} />
-      <Attachment variant="pill" name="report.pdf" size={242000} type="application/pdf" onRemove={() => {}} />
-      <Attachment variant="line" name="report.pdf" size={242000} onRemove={() => {}} />
+      <RemovableAttachment variant="card" name="report.pdf" size={242000} type="application/pdf" onRemove={() => {}} />
+      <RemovableAttachment variant="row" name="report.pdf" size={242000} type="application/pdf" onRemove={() => {}} />
+      <RemovableAttachment variant="pill" name="report.pdf" size={242000} type="application/pdf" onRemove={() => {}} />
+      <RemovableAttachment variant="line" name="report.pdf" size={242000} onRemove={() => {}} />
     </div>
   ),
 };
@@ -71,11 +92,11 @@ export const StagedList: Story = {
   name: 'Staged list',
   render: () => (
     <div className="flex max-w-[600px] flex-row flex-wrap gap-2">
-      <Attachment name="logo.svg" size={12800} onRemove={() => {}} />
-      <Attachment name="demo.mp4" type="video/mp4" size={48400000} onRemove={() => {}} />
-      <Attachment name="data.csv" type="text/plain" size={9200} onRemove={() => {}} />
-      <Attachment name="archive.zip" type="application/zip" size={1280000} onRemove={() => {}} />
-      <Attachment name="main.ts" size={4100} onRemove={() => {}} />
+      <RemovableAttachment name="logo.svg" size={12800} onRemove={() => {}} />
+      <RemovableAttachment name="demo.mp4" type="video/mp4" size={48400000} onRemove={() => {}} />
+      <RemovableAttachment name="data.csv" type="text/plain" size={9200} onRemove={() => {}} />
+      <RemovableAttachment name="archive.zip" type="application/zip" size={1280000} onRemove={() => {}} />
+      <RemovableAttachment name="main.ts" size={4100} onRemove={() => {}} />
     </div>
   ),
 };
@@ -85,11 +106,11 @@ export const MimeTypes: Story = {
   name: 'Mime types',
   render: () => (
     <div className="flex max-w-[600px] flex-row flex-wrap gap-2">
-      <Attachment name="quarterly-report" type="application/pdf" size={248000} />
-      <Attachment name="cover" type="image/png" size={184000} />
-      <Attachment name="release" type="video/mp4" size={48400000} />
-      <Attachment name="export" type="text/plain" size={9200} />
-      <Attachment name="bundle" type="application/zip" size={1280000} />
+      <RemovableAttachment name="quarterly-report" type="application/pdf" size={248000} />
+      <RemovableAttachment name="cover" type="image/png" size={184000} />
+      <RemovableAttachment name="release" type="video/mp4" size={48400000} />
+      <RemovableAttachment name="export" type="text/plain" size={9200} />
+      <RemovableAttachment name="bundle" type="application/zip" size={1280000} />
     </div>
   ),
 };
@@ -108,8 +129,8 @@ export const CustomAction: Story = {
 export const Card: Story = {
   render: () => (
     <div className="grid max-w-2xl grid-cols-3 gap-3">
-      <Attachment variant="card" name="quarterly-report.pdf" type="application/pdf" size={248000} onRemove={() => {}} />
-      <Attachment
+      <RemovableAttachment variant="card" name="quarterly-report.pdf" type="application/pdf" size={248000} onRemove={() => {}} />
+      <RemovableAttachment
         variant="card"
         name="cover.png"
         type="image/png"
@@ -117,7 +138,7 @@ export const Card: Story = {
         previewUrl="/asset-examples/nova-web.jpg"
         onRemove={() => {}}
       />
-      <Attachment
+      <RemovableAttachment
         variant="card"
         name="release.mp4"
         type="video/mp4"
@@ -145,7 +166,7 @@ export const LocalizedLabels: Story = {
     };
     return (
       <div className="grid max-w-2xl grid-cols-3 gap-3">
-        <Attachment
+        <RemovableAttachment
           variant="card"
           name="quartalsbericht.pdf"
           type="application/pdf"
@@ -154,7 +175,7 @@ export const LocalizedLabels: Story = {
           onRemove={() => {}}
           removeLabel="quartalsbericht.pdf entfernen"
         />
-        <Attachment
+        <RemovableAttachment
           variant="card"
           name="titelbild.png"
           type="image/png"
@@ -165,7 +186,7 @@ export const LocalizedLabels: Story = {
           removeLabel="titelbild.png entfernen"
         />
         {/* text/plain is untranslated here, so it keeps the English fallback. */}
-        <Attachment
+        <RemovableAttachment
           variant="card"
           name="export.csv"
           type="text/plain"
@@ -191,14 +212,14 @@ export const ErrorStates: Story = {
   render: () => (
     <div className="flex max-w-2xl flex-col gap-4">
       <div className="flex flex-wrap items-start gap-2">
-        <Attachment name="backup.tar.gz" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
-        <Attachment name="notes.pages" error="File type is not supported" />
+        <RemovableAttachment name="backup.tar.gz" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
+        <RemovableAttachment name="notes.pages" error="File type is not supported" />
       </div>
       <div className="flex flex-col gap-2">
-        <Attachment variant="row" name="backup.tar.gz" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
+        <RemovableAttachment variant="row" name="backup.tar.gz" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
       </div>
       <div className="grid grid-cols-3 gap-3">
-        <Attachment variant="card" name="backup.tar.gz" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
+        <RemovableAttachment variant="card" name="backup.tar.gz" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
       </div>
     </div>
   ),
@@ -210,12 +231,12 @@ export const MetaText: Story = {
   render: () => (
     <div className="flex max-w-2xl flex-col gap-4">
       <div className="flex flex-wrap items-start gap-2">
-        <Attachment name="logo.svg" size={12800} metaText="Uploaded by ada" />
-        <Attachment name="main.ts" size={4100} metaText="Modified 2 days ago" onRemove={() => {}} />
+        <RemovableAttachment name="logo.svg" size={12800} metaText="Uploaded by ada" />
+        <RemovableAttachment name="main.ts" size={4100} metaText="Modified 2 days ago" onRemove={() => {}} />
       </div>
-      <Attachment variant="row" name="quarterly-report.pdf" type="application/pdf" size={248000} metaText="Modified 2 days ago" />
+      <RemovableAttachment variant="row" name="quarterly-report.pdf" type="application/pdf" size={248000} metaText="Modified 2 days ago" />
       <div className="grid grid-cols-3 gap-3">
-        <Attachment variant="card" name="cover.png" type="image/png" size={184000} previewUrl="/asset-examples/nova-web.jpg" metaText="Uploaded today" />
+        <RemovableAttachment variant="card" name="cover.png" type="image/png" size={184000} previewUrl="/asset-examples/nova-web.jpg" metaText="Uploaded today" />
       </div>
     </div>
   ),
@@ -225,10 +246,10 @@ export const MetaText: Story = {
 export const Line: Story = {
   render: () => (
     <div className="flex max-w-lg flex-col gap-1.5">
-      <Attachment variant="line" name="quarterly-report.pdf" size={248000} onRemove={() => {}} />
-      <Attachment variant="line" name="cover.png" size={184000} onRemove={() => {}} />
-      <Attachment variant="line" name="backup.tar.gz" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
-      <Attachment variant="line" name="notes.md" size={4100} />
+      <RemovableAttachment variant="line" name="quarterly-report.pdf" size={248000} onRemove={() => {}} />
+      <RemovableAttachment variant="line" name="cover.png" size={184000} onRemove={() => {}} />
+      <RemovableAttachment variant="line" name="backup.tar.gz" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
+      <RemovableAttachment variant="line" name="notes.md" size={4100} />
     </div>
   ),
 };
@@ -241,12 +262,12 @@ export const LongNames: Story = {
     return (
       <div className="flex max-w-2xl flex-col gap-4">
         <div className="flex flex-wrap items-start gap-2">
-          <Attachment name={long} size={5300000000} onRemove={() => {}} />
+          <RemovableAttachment name={long} size={5300000000} onRemove={() => {}} />
         </div>
-        <Attachment variant="line" name={long} size={5300000000} onRemove={() => {}} />
-        <Attachment variant="row" name={long} type="application/zip" size={5300000000} onRemove={() => {}} />
+        <RemovableAttachment variant="line" name={long} size={5300000000} onRemove={() => {}} />
+        <RemovableAttachment variant="row" name={long} type="application/zip" size={5300000000} onRemove={() => {}} />
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <Attachment variant="card" name={long} type="application/zip" size={5300000000} onRemove={() => {}} />
+          <RemovableAttachment variant="card" name={long} type="application/zip" size={5300000000} onRemove={() => {}} />
         </div>
       </div>
     );
@@ -257,7 +278,7 @@ export const KindLabel: Story = {
   name: 'Kind label',
   render: () => (
     <div className="flex flex-col gap-2 w-[280px]">
-      <Attachment variant="row" name="cover.png" size={820000} type="image/png" showKind onRemove={() => {}} />
+      <RemovableAttachment variant="row" name="cover.png" size={820000} type="image/png" showKind onRemove={() => {}} />
     </div>
   ),
 };
@@ -265,9 +286,9 @@ export const KindLabel: Story = {
 export const Row: Story = {
   render: () => (
     <div className="flex max-w-lg flex-col gap-2 w-[360px]">
-      <Attachment variant="row" name="quarterly-report.pdf" type="application/pdf" size={248000} onRemove={() => {}} />
-      <Attachment variant="row" name="cover.png" type="image/png" size={184000} onRemove={() => {}} />
-      <Attachment variant="row" name="archive.zip" type="application/zip" size={1280000} onRemove={() => {}} />
+      <RemovableAttachment variant="row" name="quarterly-report.pdf" type="application/pdf" size={248000} onRemove={() => {}} />
+      <RemovableAttachment variant="row" name="cover.png" type="image/png" size={184000} onRemove={() => {}} />
+      <RemovableAttachment variant="row" name="archive.zip" type="application/zip" size={1280000} onRemove={() => {}} />
     </div>
   ),
 };
@@ -276,7 +297,7 @@ export const AsLink: Story = {
   name: 'As link',
   render: () => (
     <div className="flex max-w-lg flex-col gap-2 w-[360px]">
-      <Attachment
+      <RemovableAttachment
         variant="row"
         href="#quarterly-report"
         name="quarterly-report.pdf"
@@ -284,8 +305,8 @@ export const AsLink: Story = {
         size={248000}
         actions={<Button appearance="ghost" size="sm" iconOnly aria-label="More actions" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />}
       />
-      <Attachment variant="row" href="#cover" name="cover.png" type="image/png" size={184000} />
-      <Attachment variant="row" name="static.csv" type="text/plain" size={9200} />
+      <RemovableAttachment variant="row" href="#cover" name="cover.png" type="image/png" size={184000} />
+      <RemovableAttachment variant="row" name="static.csv" type="text/plain" size={9200} />
     </div>
   ),
 };
@@ -301,7 +322,7 @@ export const Selected: Story = {
     return (
       <div className="grid max-w-2xl grid-cols-3 gap-3">
         {files.map((f) => (
-          <Attachment
+          <RemovableAttachment
             key={f.name}
             variant="card"
             name={f.name}
@@ -324,7 +345,7 @@ export const InteractiveStates: Story = {
   render: () => (
     <div className="flex max-w-lg flex-col gap-4">
       <div className="flex flex-col gap-2 w-[360px]">
-        <Attachment
+        <RemovableAttachment
           variant="row"
           href="#quarterly-report"
           name="quarterly-report.pdf"
@@ -332,13 +353,13 @@ export const InteractiveStates: Story = {
           size={248000}
           actions={<Button appearance="ghost" size="sm" iconOnly aria-label="More actions" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-text-text)]" />}
         />
-        <Attachment variant="row" href="#cover" name="cover.png" type="image/png" size={184000} selected />
-        <Attachment variant="row" name="static.csv" type="text/plain" size={9200} />
+        <RemovableAttachment variant="row" href="#cover" name="cover.png" type="image/png" size={184000} selected />
+        <RemovableAttachment variant="row" name="static.csv" type="text/plain" size={9200} />
       </div>
       <div className="flex flex-wrap items-start gap-2">
-        <Attachment href="#logo" name="logo.svg" size={12800} />
-        <Attachment href="#main" name="main.ts" size={4100} selected />
-        <Attachment name="static.txt" size={2400} />
+        <RemovableAttachment href="#logo" name="logo.svg" size={12800} />
+        <RemovableAttachment href="#main" name="main.ts" size={4100} selected />
+        <RemovableAttachment name="static.txt" size={2400} />
       </div>
     </div>
   ),
