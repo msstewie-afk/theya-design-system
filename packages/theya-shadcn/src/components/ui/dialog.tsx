@@ -107,7 +107,7 @@ export function DialogContent({ className, children, showCloseButton = true, siz
             className={cn(
               'absolute right-4 top-4 flex items-center justify-center size-7 rounded-[var(--size-border-radius-border-radius-md)]',
               'text-[var(--color-icon-icon-subtle)] hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
-              'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+              'focus-visible:outline-none focus-visible:focus-ring',
             )}
           >
             <Xmark width={16} height={16} aria-hidden="true" />

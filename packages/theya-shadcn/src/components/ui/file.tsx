@@ -186,7 +186,7 @@ export function File({
             'border-[var(--color-border-border-default)] bg-[var(--color-bg-surface-bg-surface)]',
             'transition-colors duration-standard ease-enter motion-reduce:transition-none',
             'hover:not-disabled:border-[var(--color-border-border-primary)]',
-            'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+            'focus-visible:outline-none focus-visible:focus-ring',
             'disabled:cursor-not-allowed disabled:opacity-50',
           )}
         >

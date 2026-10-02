@@ -53,7 +53,7 @@ export function MessagePopupContent({
                 'grid size-6 shrink-0 place-items-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)]',
                 'transition-colors duration-standard ease-enter motion-reduce:transition-none',
                 'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
-                'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+                'focus-visible:outline-none focus-visible:focus-ring',
               )}
             >
               <Xmark width={16} height={16} aria-hidden="true" />

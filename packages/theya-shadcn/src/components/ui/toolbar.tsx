@@ -98,7 +98,7 @@ export function ToolbarLink({ className, ...props }: React.ComponentProps<typeof
       className={cn(
         'inline-flex h-[var(--size-size-control-size-control-lg)] items-center px-2.5',
         'font-body text-body-s font-medium text-[var(--color-text-text-link)] underline-offset-4 hover:underline',
-        'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)] rounded-[var(--size-border-radius-border-radius-sm)]',
+        'focus-visible:outline-none focus-visible:focus-ring rounded-[var(--size-border-radius-border-radius-sm)]',
         className,
       )}
       {...props}

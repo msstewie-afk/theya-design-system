@@ -62,7 +62,7 @@ export const TopbarMenu = forwardRef<HTMLButtonElement, React.ComponentPropsWith
       className={cn(
         'grid size-11 shrink-0 place-content-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)] md:hidden',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
-        'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'focus-visible:outline-none focus-visible:focus-ring',
         className,
       )}
       {...props}
@@ -140,7 +140,7 @@ export function TopbarSearch({
           'flex h-9 w-9 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-text-text-subtler)]',
           'transition-colors duration-standard ease-enter motion-reduce:transition-none',
           'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
-          'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          'focus-visible:outline-none focus-visible:focus-ring',
           className,
         )}
         {...(props as React.ComponentProps<'button'>)}
@@ -235,7 +235,7 @@ export function TopbarAction({ className, badge, 'aria-label': ariaLabel, ...pro
       className={cn(
         'relative grid size-[2.125rem] place-content-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)]',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
-        'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'focus-visible:outline-none focus-visible:focus-ring',
         '[&>svg]:size-[1.125rem]',
         className,
       )}

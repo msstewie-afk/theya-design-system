@@ -78,7 +78,7 @@ export function ListItem({ className, size = 'md', leading, title, description, 
   const regionClass = cn(
     'flex min-w-0 flex-1 gap-3',
     rowAlign,
-    (href != null || interactive) && "rounded-[var(--size-border-radius-border-radius-md)] focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]",
+    (href != null || interactive) && "rounded-[var(--size-border-radius-border-radius-md)] focus-visible:outline-none focus-visible:focus-ring",
   );
 
   // isPressable-only: the layout classes above move onto an inner content
@@ -132,7 +132,7 @@ export function ListItem({ className, size = 'md', leading, title, description, 
             disabled={disabled || undefined}
             onClick={onClick}
             onKeyDown={onKeyDown}
-            className="absolute inset-0 rounded-[var(--size-border-radius-border-radius-md)] outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]"
+            className="absolute inset-0 rounded-[var(--size-border-radius-border-radius-md)] outline-none focus-visible:focus-ring"
           />
           <span className={contentClass}>{body}</span>
         </div>

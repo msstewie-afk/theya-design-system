@@ -134,8 +134,8 @@ export function Attachment({
         // primary ring, so an invalid/error row focused blue instead of
         // red. Fixed 2026-09-26.
         hasError
-          ? 'focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]'
-          : 'focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          ? 'focus-within:focus-ring-error'
+          : 'focus-within:focus-ring',
         hasError
           ? 'hover:border-[var(--color-border-border-danger-hover)] active:border-[var(--color-border-border-danger-pressed)]'
           : 'hover:border-[var(--color-border-border-primary)] active:border-[var(--color-border-border-primary)]',
@@ -291,7 +291,7 @@ export function Attachment({
         {...rest}
         data-slot="attachment"
         data-interactive={isInteractive || undefined}
-        className={cn('flex self-start w-full items-center gap-2 py-1', isInteractive && 'group relative cursor-pointer rounded-[var(--size-border-radius-border-radius-md)] focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]', className)}
+        className={cn('flex self-start w-full items-center gap-2 py-1', isInteractive && 'group relative cursor-pointer rounded-[var(--size-border-radius-border-radius-md)] focus-within:focus-ring', className)}
       >
         {/* Same stretched-button overlay as the other variants — 'line'
             used to drop onClick entirely, so a click-only line row was

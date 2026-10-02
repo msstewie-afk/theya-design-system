@@ -61,7 +61,7 @@ const textareaVariants = cva(
           // One step denser than the idle/hover danger bg while actively
           // focused/being typed into.
           'focus-visible:not-read-only:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
-          'focus-visible:not-read-only:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
+          'focus-visible:not-read-only:focus-ring-error',
           // The base placeholder:text-subtler rule above has no invalid
           // guard, so an empty invalid field (the WithError story has no
           // defaultValue) showed its placeholder in neutral gray even
@@ -96,7 +96,7 @@ const textareaVariants = cva(
           // missing here, so a focused TextArea never got the same
           // "active field" highlight TextField gets, just a ring.
           'focus-visible:not-read-only:bg-[var(--color-bg-input-bg-input-active)]',
-          'focus-visible:not-read-only:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          'focus-visible:not-read-only:focus-ring',
         ],
       },
     ],

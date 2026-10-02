@@ -281,7 +281,7 @@ export function CodeEditor({
         'focus-within:border-[var(--color-border-border-primary)]',
         inverse ? 'bg-[var(--color-code-bg-inverse)]' : 'bg-[var(--color-code-bg)]',
         'font-body text-body-s shadow-elevation-xs transition-[border-color,box-shadow]',
-        'focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'focus-within:focus-ring',
         disabled && 'pointer-events-none opacity-60',
         className,
       )}

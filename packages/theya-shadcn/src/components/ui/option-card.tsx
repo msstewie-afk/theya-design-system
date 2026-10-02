@@ -38,7 +38,7 @@ function OptionCard({ className, value, title, description, icon, ...props }: Op
         'p-[var(--size-margin-margin-lg)]',
         'transition-[background-color,border-color] duration-standard ease-enter motion-reduce:transition-none',
         'hover:not-disabled:not-data-[state=checked]:border-[var(--color-border-border-primary)]',
-        'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'focus-visible:focus-ring',
         'data-[state=checked]:border-[var(--color-border-border-primary)]',
         'data-[state=checked]:bg-[var(--color-bg-primary-bg-primary-subtle)]',
         'disabled:cursor-not-allowed disabled:opacity-50',

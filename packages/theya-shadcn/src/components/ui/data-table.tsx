@@ -237,7 +237,7 @@ function DataTableColumnHeader<TData, TValue>({ column, title, className }: { co
         'group -mx-2 inline-flex h-7 max-w-full items-center gap-1.5 rounded-[var(--size-border-radius-border-radius-sm)] px-2',
         'font-heading text-heading-2xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)] transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:text-[var(--color-text-text)]',
-        'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'focus-visible:outline-none focus-visible:focus-ring',
         align === 'right' && 'flex-row-reverse',
         className,
       )}
@@ -931,7 +931,7 @@ export function DataTable<TData>({
                 {isPrimary ? (
                   <RowLink
                     href={href}
-                    className="block max-w-full truncate rounded-[var(--size-border-radius-border-radius-sm)] font-medium outline-none after:absolute after:inset-0 after:content-[''] hover:text-[var(--color-text-text-link)] focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]"
+                    className="block max-w-full truncate rounded-[var(--size-border-radius-border-radius-sm)] font-medium outline-none after:absolute after:inset-0 after:content-[''] hover:text-[var(--color-text-text-link)] focus-visible:focus-ring"
                   >
                     {content}
                   </RowLink>

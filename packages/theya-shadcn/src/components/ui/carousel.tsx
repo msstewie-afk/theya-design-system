@@ -167,7 +167,7 @@ export function Carousel({ orientation = 'horizontal', opts, setApi, plugins, cl
         onKeyDown={handleKeyDown}
         className={cn(
           'relative rounded-[var(--size-border-radius-border-radius-2xl)] outline-none',
-          'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          'focus-visible:focus-ring',
           className,
         )}
         {...props}

@@ -27,7 +27,7 @@ export function Calendar({
     'text-[var(--color-icon-icon-subtle)] cursor-pointer select-none',
     'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
     'transition-colors duration-standard ease-enter motion-reduce:transition-none',
-    'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+    'focus-visible:outline-none focus-visible:focus-ring',
   );
 
   return (
@@ -46,7 +46,7 @@ export function Calendar({
         dropdowns: cn('flex h-[30px] w-full items-center justify-center gap-1.5 text-body-s font-medium', defaultClassNames.dropdowns),
         dropdown_root: cn(
           'relative rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-default)]',
-          'has-focus:border-[var(--color-border-border-primary)] has-focus:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          'has-focus:border-[var(--color-border-border-primary)] has-focus:focus-ring',
           defaultClassNames.dropdown_root,
         ),
         dropdown: cn('absolute inset-0 bg-[var(--color-bg-surface-bg-surface-overlay)] opacity-0', defaultClassNames.dropdown),
@@ -120,7 +120,7 @@ function CalendarDayButton({ className, day, modifiers, ...props }: React.Compon
         'text-body-s font-normal text-[var(--color-text-text)] cursor-pointer',
         'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
-        'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'focus-visible:outline-none focus-visible:focus-ring',
         'disabled:cursor-not-allowed disabled:pointer-events-none',
         'data-[selected-single=true]:bg-[var(--color-bg-primary-bg-primary)] data-[selected-single=true]:text-[var(--color-text-text-on-primary)]',
         'data-[selected-single=true]:hover:bg-[var(--color-bg-primary-bg-primary-hover)]',

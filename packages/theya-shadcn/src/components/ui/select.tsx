@@ -86,7 +86,7 @@ function SelectTrigger({ className, widthSize = 'md', error, children, ...props 
         'hover:not-disabled:not-data-[error=true]:border-[var(--color-border-border-primary)]',
         'focus-visible:border-[var(--color-border-border-primary)]',
         'focus-visible:bg-[var(--color-bg-input-bg-input-active)]',
-        'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'focus-visible:focus-ring',
         'disabled:cursor-not-allowed disabled:border-[var(--color-border-border-subtle)] disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
         'data-[state=open]:border-[var(--color-border-border-primary)]',
         'data-[state=open]:bg-[var(--color-bg-input-bg-input-active)]',
@@ -96,7 +96,7 @@ function SelectTrigger({ className, widthSize = 'md', error, children, ...props 
         // One step denser than the idle/hover danger bg while actively
         // focused (keyboard) or with its own popup open.
         'data-[error=true]:focus-visible:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
-        'data-[error=true]:focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
+        'data-[error=true]:focus-visible:focus-ring-error',
         // The open state's own neutral border (data-[state=open]:border-primary
         // above) sits at equal specificity with the error rule, so which one
         // wins is down to declaration order, not intent — name the combined

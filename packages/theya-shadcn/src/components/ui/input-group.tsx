@@ -40,7 +40,7 @@ function InputGroup({ className, onMouseDown, ...props }: React.ComponentProps<'
         // was unguarded, so it could win over the invalid group's danger
         // bg on focus-within.
         'not-has-[input[aria-invalid=true]]:focus-within:bg-[var(--color-bg-input-bg-input-active)]',
-        'focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'focus-within:focus-ring',
         'has-[input:disabled]:cursor-not-allowed has-[input:disabled]:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
         'has-[input:disabled]:border-[var(--color-border-border-subtle)]',
         // Both border AND background change on error, matching
@@ -55,7 +55,7 @@ function InputGroup({ className, onMouseDown, ...props }: React.ComponentProps<'
         // One step denser than the idle/hover danger bg while the inner
         // input is actively focused.
         'has-[input[aria-invalid=true]]:focus-within:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
-        'has-[input[aria-invalid=true]]:focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
+        'has-[input[aria-invalid=true]]:focus-within:focus-ring-error',
         className,
       )}
       {...props}

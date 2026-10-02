@@ -105,7 +105,7 @@ export function Filter({
             'hover:not-disabled:border-[var(--color-border-border-primary)]',
             'focus-visible:border-[var(--color-border-border-primary)]',
             'focus-visible:bg-[var(--color-bg-input-bg-input-active)]',
-            'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+            'focus-visible:focus-ring',
             'disabled:cursor-not-allowed disabled:border-[var(--color-border-border-subtle)] disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
             'data-[state=open]:border-[var(--color-border-border-primary)]',
             'data-[state=open]:bg-[var(--color-bg-input-bg-input-active)]',

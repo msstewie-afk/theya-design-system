@@ -654,7 +654,7 @@ const FOCUS_DEMO = [
 ] as const;
 
 const FOCUS_RULES = [
-  "The ring is a 4px box-shadow outside the element: focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]. It follows the element's border radius on its own.",
+  "The ring is a 4px box-shadow outside the element: focus-visible:focus-ring. It follows the element's border radius on its own.",
   'Use an inset ring (shadow-[inset_0_0_0_3px_...]) only where an outer ring would be clipped by overflow: table cells, tree rows, code blocks, the terminal.',
   'Text fields show the ring on any focus, including a mouse click. Buttons and other controls show it on keyboard focus only (focus-visible).',
   'Fields pair the soft ring with a solid border color. The border is what meets the 3:1 contrast requirement; the ring alone does not.',
@@ -706,7 +706,7 @@ export const FocusRing: Story = {
             <SubHeading>Outside or inset</SubHeading>
             <div className="flex flex-wrap items-start gap-8">
               <div className="flex flex-col gap-2">
-                <div className="flex h-10 w-48 items-center rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-primary)] bg-[var(--color-bg-input-bg-input)] px-3 text-body-m text-[var(--color-text-text-subtle)] shadow-[0_0_0_4px_var(--color-focus-focus-ring)]">
+                <div className="flex h-10 w-48 items-center rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-primary)] bg-[var(--color-bg-input-bg-input)] px-3 text-body-m text-[var(--color-text-text-subtle)] focus-ring">
                   Outside, 4px
                 </div>
                 <span className="text-body-s text-[var(--color-text-text-subtle)]">Default for standalone controls.</span>

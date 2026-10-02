@@ -258,7 +258,7 @@ export function Combobox(props: ComboboxProps) {
             // this could still paint the neutral "active" blue bg over an
             // invalid combobox on focus.
             !readOnly && 'focus-within:not-has-[input[aria-invalid=true]]:bg-[var(--color-bg-input-bg-input-active)]',
-            !readOnly && 'focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+            !readOnly && 'focus-within:focus-ring',
             // Both border AND bg change together on error, matching
             // TextField's own danger pairing.
             'has-[input[aria-invalid=true]]:border-[var(--color-border-border-danger)]',
@@ -268,7 +268,7 @@ export function Combobox(props: ComboboxProps) {
             // One step denser than the idle/hover danger bg while the
             // inner input is actively focused.
             'has-[input[aria-invalid=true]]:focus-within:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
-            'has-[input[aria-invalid=true]]:focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
+            'has-[input[aria-invalid=true]]:focus-within:focus-ring-error',
             'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
             disabled && 'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] text-[var(--color-text-text-subtler)] italic',
             (showClearControl || showTriggerControl) && 'pr-9',

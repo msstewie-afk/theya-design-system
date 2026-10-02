@@ -127,8 +127,8 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
       : 'text-[var(--color-icon-icon-subtle)] hover:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:not-disabled:text-[var(--color-icon-icon)]',
     'focus-visible:relative focus-visible:z-10 focus-visible:outline-none',
     isInvalid
-      ? 'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]'
-      : 'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+      ? 'focus-visible:focus-ring-error'
+      : 'focus-visible:focus-ring',
     'disabled:pointer-events-none disabled:opacity-40',
     '[&_svg]:size-4 [&_svg]:shrink-0',
   );
@@ -144,7 +144,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
         'has-[input:hover]:not-has-[input:disabled]:not-has-[input[aria-invalid=true]]:border-[var(--color-border-border-primary)]',
         'has-[input:focus-visible]:not-has-[input[aria-invalid=true]]:border-[var(--color-border-border-primary)]',
         'has-[input:focus-visible]:bg-[var(--color-bg-input-bg-input-active)]',
-        'has-[input:focus-visible]:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'has-[input:focus-visible]:focus-ring',
         // Matches TextField's 5-point disabled spec exactly (border,
         // bg, text, italic — no opacity).
         'has-[input:disabled]:border-[var(--color-border-border-subtle)]',
@@ -159,7 +159,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
         // One step denser than the idle/hover danger bg while the inner
         // input is actively focused.
         'has-[input[aria-invalid=true]]:has-[input:focus-visible]:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
-        'has-[input[aria-invalid=true]]:has-[input:focus-visible]:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
+        'has-[input[aria-invalid=true]]:has-[input:focus-visible]:focus-ring-error',
         className,
       )}
     >

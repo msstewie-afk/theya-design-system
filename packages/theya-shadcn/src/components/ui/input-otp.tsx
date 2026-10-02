@@ -66,7 +66,7 @@ function InputOTPSlot({ index, className, ...props }: React.ComponentProps<'div'
         'transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
         'data-[active=true]:z-10 data-[active=true]:border-[var(--color-border-border-primary)]',
         'data-[active=true]:bg-[var(--color-bg-input-bg-input-active)]',
-        'data-[active=true]:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'data-[active=true]:focus-ring',
         'group-has-[[aria-invalid=true]]:border-[var(--color-border-border-danger)]',
         'group-has-[[aria-invalid=true]]:bg-[var(--color-bg-input-bg-input-danger)]',
         // Active slot's own border/bg (above) don't know about invalid —
@@ -77,7 +77,7 @@ function InputOTPSlot({ index, className, ...props }: React.ComponentProps<'div'
         // One step denser than the idle/inactive danger bg for the
         // actively-focused slot.
         'group-has-[[aria-invalid=true]]:data-[active=true]:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
-        'group-has-[[aria-invalid=true]]:data-[active=true]:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
+        'group-has-[[aria-invalid=true]]:data-[active=true]:focus-ring-error',
         className,
       )}
       {...props}

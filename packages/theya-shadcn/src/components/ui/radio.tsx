@@ -42,7 +42,7 @@ export const Radio = forwardRef<ElementRef<typeof RadioGroupPrimitive.Item>, Rad
           // border-primary, not bg-primary: in dark it's the lighter #63acff, so the
           // checked ring keeps contrast on the dark input fill (1.4.11).
           'data-[state=checked]:border-[var(--color-border-border-primary)]',
-          'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          'focus-visible:outline-none focus-visible:focus-ring',
           'disabled:data-[state=unchecked]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
           'disabled:data-[state=unchecked]:border-[var(--color-border-border-subtle)]',
           'disabled:data-[state=checked]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',

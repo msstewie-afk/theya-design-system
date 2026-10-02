@@ -9,7 +9,7 @@ const helpIconVariants = cva(
     'relative inline-flex shrink-0 justify-center rounded-full text-[var(--color-icon-icon-subtle)] outline-none',
     'transition-colors duration-standard ease-enter motion-reduce:transition-none',
     'hover:text-[var(--color-icon-icon)] data-[state=delayed-open]:text-[var(--color-icon-icon)] data-[state=instant-open]:text-[var(--color-icon-icon)]',
-    'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+    'focus-visible:outline-none focus-visible:focus-ring',
     '[&_svg]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0',
   ),
   {

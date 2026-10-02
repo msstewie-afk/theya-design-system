@@ -85,7 +85,7 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
           <Label htmlFor={passwordId}>Password</Label>
           <a
             href={forgotHref}
-            className="rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]"
+            className="rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:focus-ring"
           >
             Forgot password?
           </a>
@@ -159,7 +159,7 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
         Don&apos;t have an account?{' '}
         <a
           href={signupHref}
-          className="rounded-[var(--size-border-radius-border-radius-sm)] font-body font-medium text-[var(--color-text-text-link)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]"
+          className="rounded-[var(--size-border-radius-border-radius-sm)] font-body font-medium text-[var(--color-text-text-link)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:focus-ring"
         >
           Create one
         </a>

@@ -194,7 +194,7 @@ export function Autocomplete({
               // below, so unguarded it could still paint the neutral
               // "active" blue over an invalid field on focus.
               'focus-visible:not-read-only:not-aria-[invalid=true]:bg-[var(--color-bg-input-bg-input-active)]',
-              'focus-visible:not-read-only:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+              'focus-visible:not-read-only:focus-ring',
               // Both border AND bg change together on error, matching
               // TextField's own danger pairing.
               'aria-[invalid=true]:border-[var(--color-border-border-danger)]',
@@ -205,7 +205,7 @@ export function Autocomplete({
               // One step denser than the idle/hover danger bg while
               // actively focused.
               'aria-[invalid=true]:focus-visible:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
-              'aria-[invalid=true]:focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
+              'aria-[invalid=true]:focus-visible:focus-ring-error',
               'disabled:cursor-not-allowed disabled:border-[var(--color-border-border-subtle)]',
               'disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
               'read-only:cursor-default read-only:italic read-only:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',

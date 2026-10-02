@@ -78,7 +78,7 @@ const checkboxVariants = cva(
           'hover:not-disabled:data-[state=unchecked]:border-[var(--color-border-border-primary)]',
           'data-[state=checked]:bg-[var(--color-bg-primary-bg-primary)] data-[state=checked]:border-transparent',
           'data-[state=indeterminate]:bg-[var(--color-bg-primary-bg-primary)] data-[state=indeterminate]:border-transparent',
-          'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          'focus-visible:focus-ring',
           // --- on-primary surface overrides (not disabled, not error) ---
           // Unchecked: default border swaps for the on-primary outline.
           '[[data-surface=primary]_&]:not-disabled:data-[state=unchecked]:border-[var(--color-border-border-on-primary)]',

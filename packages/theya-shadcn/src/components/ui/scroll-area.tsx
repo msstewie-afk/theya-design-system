@@ -14,7 +14,7 @@ export function ScrollArea({ className, children, type = 'hover', scrollHideDela
       <ScrollAreaPrimitive.Viewport
         data-slot="scroll-area-viewport"
         tabIndex={0}
-        className="size-full rounded-[inherit] outline-none transition-shadow focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]"
+        className="size-full rounded-[inherit] outline-none transition-shadow focus-visible:focus-ring"
       >
         {children}
       </ScrollAreaPrimitive.Viewport>

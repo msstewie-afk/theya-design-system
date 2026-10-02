@@ -283,7 +283,7 @@ function SectionNav({ sections, activeId, label }: { sections: ReadonlyArray<{ i
                   'font-body text-body-m font-medium text-[var(--color-text-text-subtler)]',
                   'transition-colors duration-standard ease-enter motion-reduce:transition-none',
                   'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-text-text)]',
-                  'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+                  'focus-visible:outline-none focus-visible:focus-ring',
                   active && 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
                 )}
               >

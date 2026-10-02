@@ -238,7 +238,7 @@ export function Chip({
             if (!disabled) activate();
           }}
           onKeyDown={onKeyDown}
-          className="absolute inset-0 outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]"
+          className="absolute inset-0 outline-none focus-visible:focus-ring"
         />
       )}
       {displayIcon != null && decorativeIcon(displayIcon)}

@@ -23,7 +23,7 @@ export const dateFieldTriggerClassName = cn(
   // this unconditional focus bg was never guarded, so it could
   // still win over the invalid trigger's danger bg on focus.
   'focus-visible:not-data-[error=true]:bg-[var(--color-bg-input-bg-input-active)]',
-  'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+  'focus-visible:focus-ring',
   'disabled:cursor-not-allowed disabled:border-[var(--color-border-border-subtle)] disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
   'data-[state=open]:not-data-[error=true]:border-[var(--color-border-border-primary)]',
   'data-[state=open]:bg-[var(--color-bg-input-bg-input-active)]',
@@ -38,7 +38,7 @@ export const dateFieldTriggerClassName = cn(
   // One step denser than the idle/hover danger bg while
   // actively focused (keyboard) or with its own popup open.
   'data-[error=true]:focus-visible:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
-  'data-[error=true]:focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
+  'data-[error=true]:focus-visible:focus-ring-error',
   'data-[error=true]:data-[state=open]:border-[var(--color-border-border-danger)]',
   'data-[error=true]:data-[state=open]:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
   '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4',

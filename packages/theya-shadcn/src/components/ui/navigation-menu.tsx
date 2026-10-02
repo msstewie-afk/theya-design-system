@@ -104,7 +104,7 @@ export function NavigationMenuTrigger({ className, children, ...props }: React.C
         'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[state=open]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
-        'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'focus-visible:outline-none focus-visible:focus-ring',
         'disabled:pointer-events-none disabled:opacity-50',
         className,
       )}

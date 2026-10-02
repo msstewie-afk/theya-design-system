@@ -168,7 +168,7 @@ export function SidebarBrand({ className, children, ...props }: React.ComponentP
         className={cn(
           'mx-auto rounded-[var(--size-border-radius-border-radius-lg)] outline-none',
           'hover:shadow-[0_0_0_2px_var(--color-border-border-default)]',
-          'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          'focus-visible:focus-ring',
           className,
         )}
       >
@@ -205,7 +205,7 @@ export const SidebarCollapse = forwardRef<HTMLButtonElement, React.ComponentProp
       className={cn(
         'ml-auto grid size-7 place-content-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)] max-md:hidden',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
-        'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'focus-visible:outline-none focus-visible:focus-ring',
         className,
       )}
       {...props}
@@ -286,7 +286,7 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, activ
         'font-body text-body-m font-medium text-[var(--color-text-text-subtler)] whitespace-nowrap cursor-pointer',
         'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-text-text)]',
-        'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'focus-visible:outline-none focus-visible:focus-ring',
         active && 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
         '[&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:opacity-90',
         collapsed && 'mx-auto size-[1.875rem] justify-center p-0',
@@ -340,7 +340,7 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, activ
               'text-[var(--color-text-text)] opacity-0 outline-none',
               'group-hover/item:opacity-100 group-focus-within/item:opacity-100 data-[state=open]:opacity-100',
               'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
-              'focus-visible:opacity-100 focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+              'focus-visible:opacity-100 focus-visible:focus-ring',
             )}
           >
             <KebabIconHorizontal />

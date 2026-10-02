@@ -84,7 +84,7 @@ export function Toaster({ closeButton = true, dark = false, position = 'bottom-r
             'size-7! rounded-[var(--size-border-radius-border-radius-sm)]! border-0! bg-transparent! opacity-80! ' +
             (dark ? 'text-[var(--color-icon-icon-subtler-on-dark)]! hover:bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-hover)]!' : 'text-[var(--color-icon-icon-subtle)]! hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]!') +
             ' left-auto! right-[13px]! top-1/2! transition-colors hover:opacity-100! ' +
-            'focus-visible:outline-none! focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]! [&_svg]:size-4!',
+            'focus-visible:outline-none! focus-visible:focus-ring! [&_svg]:size-4!',
           error: dark ? '[&_[data-icon]]:text-[var(--color-icon-icon-danger-on-dark)]' : '[&_[data-icon]]:text-[var(--color-icon-icon-danger)]',
           success: dark ? '[&_[data-icon]]:text-[var(--color-icon-icon-success-on-dark)]' : '[&_[data-icon]]:text-[var(--color-icon-icon-success)]',
           // Fixed 2026-09-26 (DS-wide token pass): '--color-icon-icon-warning-bright' was
@@ -150,7 +150,7 @@ export const toast: ToastApi = Object.assign(((...args: Parameters<ToastApi>) =>
           'absolute! right-[13px]! top-3! h-7! rounded-[var(--size-border-radius-border-radius-sm)]! border-0! bg-transparent! px-2! ' +
             'text-body-xs! font-medium! text-[var(--color-text-text)]! opacity-80! shadow-none! transition-colors ' +
             'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]! hover:opacity-100! focus-visible:outline-none! ' +
-            'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]!',
+            'focus-visible:focus-ring!',
           classNames?.actionButton,
         ),
       },
@@ -186,7 +186,7 @@ export const toast: ToastApi = Object.assign(((...args: Parameters<ToastApi>) =>
         closeButton: cn(
           'size-7! rounded-[var(--size-border-radius-border-radius-sm)]! border-0! bg-transparent! text-[var(--color-icon-icon-subtle)]! opacity-80! ' +
             'left-auto! right-[13px]! top-1/2! transition-colors hover:bg-[var(--color-bg-primary-bg-primary-subtle-hover)]! hover:opacity-100! ' +
-            'focus-visible:outline-none! focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]! [&_svg]:size-4!',
+            'focus-visible:outline-none! focus-visible:focus-ring! [&_svg]:size-4!',
           classNames?.closeButton,
         ),
       },

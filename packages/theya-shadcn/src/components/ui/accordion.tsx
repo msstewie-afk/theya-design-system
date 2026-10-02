@@ -46,7 +46,7 @@ export function AccordionTrigger({ className, children, ...props }: React.Compon
           'flex flex-1 items-start justify-between gap-4 rounded-[var(--size-border-radius-border-radius-md)] py-4 cursor-pointer',
           'text-left font-body text-body-m font-medium text-[var(--color-text-text)] outline-none',
           'transition-all duration-standard ease-enter motion-reduce:transition-none hover:underline',
-          'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          'focus-visible:outline-none focus-visible:focus-ring',
           'disabled:pointer-events-none disabled:opacity-50',
           '[&[data-state=open]>svg]:rotate-180',
           className,

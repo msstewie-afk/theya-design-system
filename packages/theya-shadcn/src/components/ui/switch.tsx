@@ -21,7 +21,7 @@ const switchVariants = cva(
     'cursor-pointer disabled:cursor-not-allowed',
     'motion-safe:active:not-disabled:scale-[0.95]',
     'focus-visible:outline-none',
-    'focus-visible:data-[state=unchecked]:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+    'focus-visible:data-[state=unchecked]:focus-ring',
   ],
   {
     variants: {
@@ -38,7 +38,7 @@ const switchVariants = cva(
           'data-[state=checked]:bg-[var(--color-bg-primary-bg-primary)]',
           'hover:not-disabled:data-[state=checked]:bg-[var(--color-bg-primary-bg-primary-hover)]',
           'disabled:data-[state=checked]:bg-[var(--color-bg-primary-bg-primary-subtle)] disabled:data-[state=checked]:border-transparent',
-          'focus-visible:data-[state=checked]:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          'focus-visible:data-[state=checked]:focus-ring',
         ],
       },
       {

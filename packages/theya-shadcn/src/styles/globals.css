@@ -245,7 +245,8 @@
      `shadow-sm/md/lg/xl` names. Every component now uses this scale
      (54 usages migrated 1:1, 2026-10-01); don't reintroduce bare
      Tailwind `shadow-xs..xl`. `shadow-none` and focus rings
-     (`shadow-[0_0_0_4px_…]`) are separate and stay as they are. */
+     (`focus-ring` / `focus-ring-error`, see the @utility block) are
+     separate. */
   --shadow-elevation-xs: var(--elevation-xs);
   --shadow-elevation-sm: var(--elevation-sm);
   --shadow-elevation-md: var(--elevation-md);
@@ -554,9 +555,13 @@
    Semantic-alias utilities (previously spiked elsewhere, ported from
    Material DS spike, 2026-09-26).
 
-   MECHANISM ONLY — this does not migrate any existing component. It
-   establishes the pattern so future component work can adopt it
-   incrementally instead of repeating a long arbitrary-value string.
+   ADOPTED 2026-10-02: every 4px focus ring in the components (72
+   focus-ring + 12 focus-ring-error, 51 files) uses these utilities; the
+   arbitrary shadow-[0_0_0_4px_…] form is gone. twMerge knows them as
+   the `shadow` group (src/lib/utils.ts), so a later shadow-* on the same
+   variant still replaces them. Left as arbitrary values on purpose: the
+   3px rings on primary/tone buttons, the 2px Carousel dot ring and the
+   inset rings — see the Focus Ring Decision backlog item.
 
    Why @utility instead of just adding another @theme token: some
    repeated patterns aren't a single color/size value Tailwind's
@@ -571,23 +576,19 @@
    order, the same guarantee arbitrary-value bracket syntax gets for
    free but a hand-authored class normally wouldn't.
 
-   Proof-of-concept target: the focus-ring shadow. Confirmed via grep
-   (2026-09-26) that `shadow-[0_0_0_4px_var(--color-focus-focus-ring)]`
-   is repeated VERBATIM in 47 component files. Adopting this utility in
-   any of them is optional/incremental — swap
-   `focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]` for
-   `focus-visible:focus-ring` wherever a component is next touched, no
-   forced rewrite pass needed.
-
    Add further @utility entries here as more repeated arbitrary-value
-   patterns turn up during later passes (e.g. the danger/invalid-state
-   focus ring, `--color-focus-focus-ring-error`, follows the identical
-   shape below if/when that one is confirmed to repeat as often). */
+   patterns turn up during later passes. */
+/* Both compose box-shadow exactly the way Tailwind's own shadow-[...]
+   does (--tw-shadow + the shared stack), so they are byte-for-byte the
+   arbitrary value they replace: ring and inset-shadow utilities on the same element
+   still stack with them, and a shadow-elevation-* still replaces them. */
 @utility focus-ring {
-  box-shadow: 0 0 0 4px var(--color-focus-focus-ring);
+  --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
 @utility focus-ring-error {
-  box-shadow: 0 0 0 4px var(--color-focus-focus-ring-error);
+  --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring-error);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
 /* ---------------------------------------------------------------- */
 

@@ -58,7 +58,7 @@ export const textFieldVariants = cva(
           // One step denser than the idle/hover danger bg while actively
           // focused/being typed into.
           'focus-visible:not-read-only:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
-          'focus-visible:not-read-only:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
+          'focus-visible:not-read-only:focus-ring-error',
         ],
         false: '',
       },
@@ -103,7 +103,7 @@ export const textFieldVariants = cva(
           'focus-visible:not-read-only:border-[var(--color-border-border-primary)]',
           'focus-visible:not-read-only:bg-[var(--color-bg-input-bg-input-active)]',
           // Figma spec uses the low-alpha token as-is (rgba(55,149,255,0.3)).
-          'focus-visible:not-read-only:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          'focus-visible:not-read-only:focus-ring',
         ],
       },
     ],

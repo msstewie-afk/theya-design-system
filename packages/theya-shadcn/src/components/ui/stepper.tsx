@@ -136,7 +136,7 @@ function StepIndicator({
       className={cn(
         'flex size-7 shrink-0 items-center justify-center rounded-full font-body text-body-s font-medium tabular-nums',
         isComplete && 'bg-[var(--color-bg-success-bg-success)] text-[var(--color-text-text-on-dark)]',
-        isCurrent && 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)] shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        isCurrent && 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)] focus-ring',
         !isComplete && !isCurrent && 'border border-solid border-[var(--color-border-border-default)] bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text-subtler)]',
       )}
     >

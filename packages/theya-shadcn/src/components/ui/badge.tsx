@@ -57,7 +57,7 @@ export function Badge({ className, tone = 'neutral', appearance = 'tonal', size 
       className={cn(
         'inline-flex w-fit shrink-0 items-center whitespace-nowrap rounded-full border border-solid',
         'font-body font-medium outline-none [&_svg]:pointer-events-none',
-        'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'focus-visible:focus-ring',
         SIZE_CLASS[size],
         appearance === 'filled' ? [SOLID_TONE_CLASS[tone], 'border-transparent'] : TONAL_CLASS[tone],
         className,

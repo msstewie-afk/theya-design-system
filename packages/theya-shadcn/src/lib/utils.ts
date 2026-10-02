@@ -16,6 +16,11 @@ import { extendTailwindMerge } from 'tailwind-merge';
 const twMerge = extendTailwindMerge({
   extend: {
     classGroups: {
+      // Theya's @utility focus rings (globals.css) set box-shadow, so they
+      // belong to twMerge's `shadow` group: a later shadow-* on the same
+      // variant (an invalid-state ring, a per-tone ring) replaces them,
+      // exactly as it replaced the arbitrary shadow-[...] they stand for.
+      shadow: ['focus-ring', 'focus-ring-error'],
       'font-size': [
         {
           text: [

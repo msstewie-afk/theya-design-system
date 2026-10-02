@@ -391,7 +391,7 @@ export function FilterField({
             'transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
             'hover:not-data-[disabled]:border-[var(--color-border-border-primary)]',
             'focus-within:border-[var(--color-border-border-primary)]',
-            'focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+            'focus-within:focus-ring',
             disabled && 'cursor-not-allowed bg-[var(--color-bg-neutral-bg-neutral-subtler)] opacity-70',
             className,
           )}
@@ -412,7 +412,7 @@ export function FilterField({
                 'grid size-6 shrink-0 place-items-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)]',
                 'transition-colors duration-standard ease-enter motion-reduce:transition-none',
                 'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
-                'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+                'focus-visible:outline-none focus-visible:focus-ring',
                 'disabled:pointer-events-none',
               )}
             >
@@ -611,7 +611,7 @@ export function FilterField({
                   'grid size-6 shrink-0 place-items-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)]',
                   'transition-colors duration-standard ease-enter motion-reduce:transition-none',
                   'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
-                  'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+                  'focus-visible:outline-none focus-visible:focus-ring',
                 )}
               >
                 <ArrowLeft width={16} height={16} />

@@ -98,7 +98,7 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
           // Button/Ghost's own text color) — text-link-on-tonal (blue-100)
           // is the dedicated lighter tone for text on a tonal/tinted bg.
           'data-[state=active]:border-[var(--color-border-border-primary)] data-[state=active]:text-[var(--color-text-text-link)]',
-          'focus-visible:outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          'focus-visible:outline-none focus-visible:focus-ring',
           // Disabled: no opacity-based dimming on the whole element — the
           // parent's opacity would multiply straight through the text
           // color, and axe flagged the resulting blend as under AA's
@@ -142,7 +142,7 @@ export function TabsContent({ className, ...props }: React.ComponentProps<typeof
   return (
     <TabsPrimitive.Content
       className={cn(
-        'outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)] rounded-[var(--size-border-radius-border-radius-md)]',
+        'outline-none focus-visible:focus-ring rounded-[var(--size-border-radius-border-radius-md)]',
         className,
       )}
       {...props}

@@ -160,7 +160,7 @@ function Dropzone({
           // fix — this div used to carry role="button" itself, with the
           // "Browse" Button nested inside it, which axe flags), not this div.
           !error && !successFile && 'focus-within:border-[var(--color-border-border-primary)]',
-          'focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+          'focus-within:focus-ring',
           error && 'border-[var(--color-border-border-danger)] bg-[var(--color-bg-danger-bg-danger-subtle)]',
           error && 'hover:not-disabled:border-[var(--color-border-border-danger-hover)] hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)]',
           !error && successFile && 'border-[var(--color-border-border-success)] bg-[var(--color-bg-success-bg-success-subtle)]',

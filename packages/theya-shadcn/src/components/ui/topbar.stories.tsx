@@ -82,7 +82,7 @@ function DefaultDemo() {
         <button
           type="button"
           aria-label="Open account menu"
-          className="ml-1 rounded-full outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]"
+          className="ml-1 rounded-full outline-none focus-visible:focus-ring"
         >
           <Avatar>
             <AvatarFallback>AM</AvatarFallback>
@@ -144,7 +144,7 @@ export const Vertical: Story = {
           <button
             type="button"
             aria-label="Open account menu"
-            className="mb-2 rounded-full outline-none focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]"
+            className="mb-2 rounded-full outline-none focus-visible:focus-ring"
           >
             <Avatar>
               <AvatarFallback>AM</AvatarFallback>

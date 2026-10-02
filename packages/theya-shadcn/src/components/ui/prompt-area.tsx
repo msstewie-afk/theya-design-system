@@ -286,7 +286,7 @@ function PromptArea({
               !disabled && !overLimit && 'hover:not-focus-within:border-[var(--color-border-border-primary)]',
               !overLimit && 'focus-within:border-[var(--color-border-border-primary)]',
               !overLimit && 'focus-within:bg-[var(--color-bg-input-bg-input-active)]',
-              !overLimit && 'focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+              !overLimit && 'focus-within:focus-ring',
               disabled && 'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
               isDragging && 'border-[var(--color-border-border-primary)] bg-[var(--color-bg-primary-bg-primary-subtle)]',
               overLimit && [
@@ -298,7 +298,7 @@ function PromptArea({
                 // denser than the idle/hover danger bg, matching the same
                 // "pressed/active = denser" treatment as every other field.
                 'focus-within:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
-                'focus-within:shadow-[0_0_0_4px_var(--color-focus-focus-ring-error)]',
+                'focus-within:focus-ring-error',
               ],
               className,
             )}

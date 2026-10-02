@@ -205,7 +205,7 @@ export function ChartRangeSelection({
       }}
       className={cn(
         'relative z-[2] w-full rounded-[var(--size-border-radius-border-radius-lg)] outline-none',
-        'focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]',
+        'focus-visible:focus-ring',
         !disabled && 'cursor-crosshair select-none',
         className,
       )}
