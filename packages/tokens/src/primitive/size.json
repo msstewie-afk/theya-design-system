@@ -16,8 +16,16 @@
       "value": 12,
       "type": "dimension"
     },
+    "size13": {
+      "value": 13,
+      "type": "dimension"
+    },
     "size16": {
       "value": 16,
+      "type": "dimension"
+    },
+    "size17": {
+      "value": 17,
       "type": "dimension"
     },
     "size20": {
@@ -110,6 +118,10 @@
     },
     "size14": {
       "value": 14,
+      "type": "dimension"
+    },
+    "size15": {
+      "value": 15,
       "type": "dimension"
     },
     "size26": {

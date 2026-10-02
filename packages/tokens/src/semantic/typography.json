@@ -129,7 +129,7 @@
           "value": "{typography.weight.bold}"
         },
         "size": {
-          "value": "{size.size16}"
+          "value": "{size.size17}"
         },
         "line-height": {
           "value": "{size.size22}"
@@ -149,7 +149,7 @@
           "value": "{typography.weight.semibold}"
         },
         "size": {
-          "value": "{size.size12}"
+          "value": "{size.size13}"
         },
         "line-height": {
           "value": "{size.size16}"
@@ -191,7 +191,7 @@
           "value": "{typography.weight.medium}"
         },
         "size": {
-          "value": "{size.size16}"
+          "value": "{size.size17}"
         },
         "line-height": {
           "value": "{size.size20}"
@@ -208,7 +208,7 @@
           "value": "{typography.weight.medium}"
         },
         "size": {
-          "value": "{size.size14}"
+          "value": "{size.size15}"
         },
         "line-height": {
           "value": "{size.size16}"
@@ -225,7 +225,7 @@
           "value": "{typography.weight.medium}"
         },
         "size": {
-          "value": "{size.size12}"
+          "value": "{size.size13}"
         },
         "line-height": {
           "value": "{size.size14}"
@@ -279,7 +279,7 @@
           "value": "{typography.weight.semibold}"
         },
         "size": {
-          "value": "{size.size16}"
+          "value": "{size.size17}"
         },
         "line-height": {
           "value": "{size.size22}"
@@ -314,7 +314,7 @@
           "value": "{typography.weight.bold}"
         },
         "size": {
-          "value": "{size.size14}"
+          "value": "{size.size15}"
         },
         "line-height": {
           "value": "{size.size20}"
@@ -346,7 +346,7 @@
           "value": "{typography.weight.bold}"
         },
         "size": {
-          "value": "{size.size12}"
+          "value": "{size.size13}"
         },
         "line-height": {
           "value": "{size.size16}"
@@ -378,10 +378,10 @@
           "value": "{typography.weight.bold}"
         },
         "size": {
-          "value": "{size.size11}"
+          "value": "{size.size12}"
         },
         "line-height": {
-          "value": "{size.size14}"
+          "value": "{size.size16}"
         },
         "letter-spacing": {
           "value": "{size.size0}"

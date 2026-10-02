@@ -70,7 +70,7 @@ export function BarChart({ data, orientation = 'vertical', height = 240, valueSt
     setAnimate(!reduce);
   }, []);
 
-  const tickStyle = { fill: 'var(--color-text-text-subtler)', fontSize: 11 } as const;
+  const tickStyle = { fill: 'var(--color-text-text-subtler)', fontSize: 12 } as const; // = body-xs (SVG attrs can't read the CSS token)
 
   const leader = data.length ? data.reduce((a, b) => (b.value > a.value ? b : a)) : null;
   const summary = ariaLabel ?? (leader ? `Comparison across ${data.length} categories; highest is ${leader.label} at ${fmt(leader.value)}.` : 'No data to compare');
@@ -108,7 +108,7 @@ function BarChartTooltip({ active, value, label, fmt, labelPrefix }: { active?: 
   if (!active || value == null) return null;
   return (
     <div className="flex flex-col gap-px rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-elevation-lg">
-      <span className="text-[0.6875rem] text-[var(--color-text-text-subtler)]">
+      <span className="text-body-xs text-[var(--color-text-text-subtler)]">
         {labelPrefix}
         {label}
       </span>

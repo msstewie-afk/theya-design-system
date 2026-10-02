@@ -313,7 +313,7 @@ export function AreaChart({
             tickLine={false}
             axisLine={false}
             tickMargin={10}
-            tick={(floatingAxis ? (props: FloatingTickProps & { index?: number }) => <AreaChartFloatingXTick {...props} lastIndex={xTicks.length - 1} /> : { fill: 'var(--color-text-text-subtler)', fontSize: 11 }) as any}
+            tick={(floatingAxis ? (props: FloatingTickProps & { index?: number }) => <AreaChartFloatingXTick {...props} lastIndex={xTicks.length - 1} /> : { fill: 'var(--color-text-text-subtler)', fontSize: 12 }) as any}
           />
           <YAxis
             width={floatingAxis ? 8 : 40}
@@ -323,7 +323,7 @@ export function AreaChart({
             tickLine={false}
             axisLine={false}
             tickFormatter={yTickFormatter}
-            tick={(floatingAxis ? (props: FloatingTickProps) => <AreaChartFloatingYTick {...props} formatter={yTickFormatter} /> : { fill: 'var(--color-text-text-subtler)', fontSize: 11 }) as any}
+            tick={(floatingAxis ? (props: FloatingTickProps) => <AreaChartFloatingYTick {...props} formatter={yTickFormatter} /> : { fill: 'var(--color-text-text-subtler)', fontSize: 12 }) as any}
           />
         </RechartsAreaChart>
       </ResponsiveContainer>
@@ -331,7 +331,7 @@ export function AreaChart({
       {multi && legend && activeSeries.length > 0 && (
         <ul className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1" aria-hidden="true">
           {activeSeries.map((s, i) => (
-            <li key={s.key} className="flex items-center gap-1.5 text-[0.6875rem] text-[var(--color-text-text-subtler)]">
+            <li key={s.key} className="flex items-center gap-1.5 text-body-xs text-[var(--color-text-text-subtler)]">
               <span className="inline-block size-2.5 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)]" style={{ background: seriesColor(i) }} />
               {s.name}
             </li>
@@ -385,7 +385,7 @@ function AreaChartFloatingYTick({ x, y, payload, formatter }: FloatingTickProps 
   return (
     <g>
       <rect x={chipX} y={y - FLOATING_CHIP_HEIGHT / 2} width={w} height={FLOATING_CHIP_HEIGHT} rx={FLOATING_CHIP_HEIGHT / 2} fill="var(--area-chart-background)" fillOpacity={0.85} />
-      <text ref={textRef} x={chipX + w / 2} y={y} dy={3.5} textAnchor="middle" fontSize={11} fill="var(--color-text-text-subtler)">
+      <text ref={textRef} x={chipX + w / 2} y={y} dy={3.5} textAnchor="middle" fontSize={12} fill="var(--color-text-text-subtler)">
         {text}
       </text>
     </g>
@@ -405,7 +405,7 @@ function AreaChartFloatingXTick({ x, y, payload, index, lastIndex }: FloatingTic
   return (
     <g>
       <path d={d} fill="var(--area-chart-background)" fillOpacity={0.85} />
-      <text ref={textRef} x={isLast ? anchorX - pad : anchorX + pad} y={chipY + FLOATING_CHIP_HEIGHT / 2} dy={3.5} textAnchor={isLast ? 'end' : 'start'} fontSize={11} fill="var(--color-text-text-subtler)">
+      <text ref={textRef} x={isLast ? anchorX - pad : anchorX + pad} y={chipY + FLOATING_CHIP_HEIGHT / 2} dy={3.5} textAnchor={isLast ? 'end' : 'start'} fontSize={12} fill="var(--color-text-text-subtler)">
         {text}
       </text>
     </g>
@@ -416,7 +416,7 @@ function AreaChartTooltip({ active, value, label, fmt, labelPrefix }: { active?:
   if (!active || value == null) return null;
   return (
     <div className="flex flex-col gap-px rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-elevation-lg">
-      <span className="text-[0.6875rem] text-[var(--color-text-text-subtler)]">
+      <span className="text-body-xs text-[var(--color-text-text-subtler)]">
         {labelPrefix}
         {label}
       </span>
@@ -435,7 +435,7 @@ function AreaChartMultiTooltip({ active, payload, label, fmt, labelPrefix, serie
   const indexFor = (key?: string | number) => series.findIndex((s) => s.key === key);
   return (
     <div className="flex flex-col gap-1 rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-elevation-lg">
-      <span className="text-[0.6875rem] text-[var(--color-text-text-subtler)]">
+      <span className="text-body-xs text-[var(--color-text-text-subtler)]">
         {labelPrefix}
         {label}
       </span>

@@ -94,7 +94,7 @@ export function LineChart({ data, series, height = 260, yStep = 1, unit = '', la
   }, []);
 
   const summary = ariaLabel ?? `${series.map((s) => s.name).join(', ')} across ${data.length} points`;
-  const tickStyle = { fill: 'var(--color-text-text-subtler)', fontSize: 11 } as const;
+  const tickStyle = { fill: 'var(--color-text-text-subtler)', fontSize: 12 } as const; // = body-xs (SVG attrs can't read the CSS token)
 
   return (
     <div data-slot="line-chart" className={cn('relative z-[2] w-full', className)} role="img" aria-label={summary}>
@@ -132,7 +132,7 @@ export function LineChart({ data, series, height = 260, yStep = 1, unit = '', la
       {legend && series.length > 0 && (
         <ul className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1" aria-hidden="true">
           {series.map((s, i) => (
-            <li key={s.key} className="flex items-center gap-1.5 text-[0.6875rem] text-[var(--color-text-text-subtler)]">
+            <li key={s.key} className="flex items-center gap-1.5 text-body-xs text-[var(--color-text-text-subtler)]">
               <span className="inline-block size-2.5 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)]" style={{ background: seriesColor(i) }} />
               {s.name}
             </li>
@@ -153,7 +153,7 @@ function LineChartTooltip({ active, payload, label, fmt, labelPrefix, series }: 
   const indexFor = (key?: string | number) => series.findIndex((s) => s.key === key);
   return (
     <div className="flex flex-col gap-1 rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-elevation-lg">
-      <span className="text-[0.6875rem] text-[var(--color-text-text-subtler)]">
+      <span className="text-body-xs text-[var(--color-text-text-subtler)]">
         {labelPrefix}
         {label}
       </span>

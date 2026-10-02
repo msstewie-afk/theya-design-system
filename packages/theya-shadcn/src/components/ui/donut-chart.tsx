@@ -173,7 +173,7 @@ export function DonutChart({
                   if (!active || v == null) return null;
                   return (
                     <div className="flex flex-col gap-px rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-elevation-lg">
-                      <span className="text-[0.6875rem] text-[var(--color-text-text-subtler)]">{String(p?.name ?? '')}</span>
+                      <span className="text-body-xs text-[var(--color-text-text-subtler)]">{String(p?.name ?? '')}</span>
                       <span className="font-body text-body-s font-semibold tabular-nums text-[var(--color-text-text)]">
                         {fmt(v)} <span className="font-normal text-[var(--color-text-text-subtler)]">({pct(v)}%)</span>
                       </span>
@@ -187,7 +187,7 @@ export function DonutChart({
           {showCenter && (
             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
               <span className="whitespace-nowrap font-body text-heading-xs font-semibold tabular-nums text-[var(--color-text-text)]">{centerValue ?? fmt(total)}</span>
-              <span className="text-[0.6875rem] text-[var(--color-text-text-subtler)]">{centerLabel}</span>
+              <span className="text-body-xs text-[var(--color-text-text-subtler)]">{centerLabel}</span>
             </div>
           )}
         </div>
