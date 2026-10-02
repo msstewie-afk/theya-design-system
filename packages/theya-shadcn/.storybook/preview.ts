@@ -16,9 +16,16 @@ import '../src/styles/globals.css';
 // instead of hand-guessing it.
 import geologicaLatinUrl from '@theya/tokens/fonts/geologica/geologica-latin-wght-normal.woff2?url';
 import geologicaCyrillicUrl from '@theya/tokens/fonts/geologica/geologica-cyrillic-wght-normal.woff2?url';
+// Fira Code too: DropdownMenu/ContextMenu/Command shortcuts are the first
+// font-mono text most stories render, so without a preload the face loads
+// on the first menu open, the menu re-measures when it lands, and the open
+// menu shifts by ~0.5px once (measured 02.10: y 53.5 -> 54 exactly when
+// document.fonts went from loading to loaded). Products should preload it
+// the same way.
+import firaCodeUrl from '@fontsource/fira-code/files/fira-code-latin-400-normal.woff2?url';
 
 if (typeof document !== 'undefined') {
-  for (const href of [geologicaLatinUrl, geologicaCyrillicUrl]) {
+  for (const href of [geologicaLatinUrl, geologicaCyrillicUrl, firaCodeUrl]) {
     if (document.head.querySelector(`link[rel="preload"][href="${href}"]`)) continue;
     const link = document.createElement('link');
     link.rel = 'preload';
