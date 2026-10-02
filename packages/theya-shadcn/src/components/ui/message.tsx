@@ -32,7 +32,11 @@ export function Message({ className, variant = 'received', appearance = 'filled'
   return (
     <div data-slot="message" data-variant={variant} className={cn('flex w-full gap-2.5', variant === 'sent' ? 'flex-row-reverse' : 'flex-row', className)} {...props}>
       {avatar != null && <div data-slot="message-avatar" className="shrink-0 pt-0.5">{avatar}</div>}
-      <div className={cn('flex min-w-0 flex-col gap-1', variant === 'sent' && 'items-end')}>
+      {/* The width cap lives on this column, not the bubble: a % max-width on
+          the bubble resolved against a shrink-to-fit parent, and with
+          overflow-wrap:anywhere a short message collapsed to one character
+          per line. */}
+      <div className={cn('flex min-w-0 max-w-[85%] flex-col gap-1 sm:max-w-[75%]', variant === 'sent' && 'items-end')}>
         {(author != null || timestamp != null) && (
           <div className="flex items-center gap-2 px-1 font-body text-body-xs text-[var(--color-text-text-subtler)]">
             {author != null && <span className="font-medium text-[var(--color-text-text)]">{author}</span>}
@@ -45,7 +49,7 @@ export function Message({ className, variant = 'received', appearance = 'filled'
           className={cn(
             // text-body-m (was text-body-s): the bubble text is the actual
             // message content, not secondary meta — default-font rule.
-            'min-w-0 max-w-[85%] rounded-[var(--size-border-radius-border-radius-2xl)] px-3.5 py-2 font-body text-body-m leading-relaxed [overflow-wrap:anywhere] sm:max-w-[75%]',
+            'min-w-0 max-w-full rounded-[var(--size-border-radius-border-radius-2xl)] px-3.5 py-2 font-body text-body-m leading-relaxed [overflow-wrap:anywhere]',
             variant === 'sent'
               ? cn(
                   'rounded-tr-[var(--size-border-radius-border-radius-md)]',

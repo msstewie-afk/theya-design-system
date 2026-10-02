@@ -9,7 +9,7 @@ const meta: Meta<typeof NavigationMenu> = {
   // The flyout is position:absolute under the bar (no Portal — see the
   // component doc), so the Docs canvas, which clips overflow, cut it off.
   // Reserve room for the open panel instead.
-  decorators: [(Story) => <div className="min-h-[28rem]"><Story /></div>],
+  decorators: [(Story) => <div className="min-h-[14rem]"><Story /></div>],
   parameters: {
     a11y: {
       config: {
