@@ -45,6 +45,9 @@
       },
       "icon-primary-hover": {
         "value": "{color.blue.blue-600}"
+      },
+      "icon-rating": {
+        "value": "{color.yellow.yellow-300}"
       }
     },
     "text": {
@@ -193,6 +196,9 @@
       },
       "border-on-dark": {
         "value": "{white-a300}"
+      },
+      "border-rating": {
+        "value": "{color.yellow.yellow-500}"
       }
     },
     "bg": {
