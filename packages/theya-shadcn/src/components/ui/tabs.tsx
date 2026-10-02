@@ -107,7 +107,7 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
           // either). Text goes to a dedicated, flatly-lighter-but-still-
           // compliant tone (4.66:1 on white) instead; only the icon (which
           // only needs 3:1) still dims via opacity.
-          'data-[disabled]:pointer-events-none data-[disabled]:cursor-not-allowed data-[disabled]:text-[#6f7199] data-[disabled]:[&_svg]:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0',
+          'data-[disabled]:pointer-events-none data-[disabled]:cursor-not-allowed data-[disabled]:text-[var(--color-text-text-disabled)] data-[disabled]:[&_svg]:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0',
           className,
         )}
       >

@@ -289,7 +289,7 @@ export function CarouselIndicators({ className, variant = 'default', ...props }:
                 variant === 'on-dark'
                   ? active
                     ? 'bg-[var(--color-icon-icon-on-dark)]'
-                    : 'bg-white/50 group-hover:bg-white/70'
+                    : 'bg-[var(--color-bg-secondary-bg-secondary-on-dark)] group-hover:bg-[var(--color-bg-secondary-bg-secondary-on-dark-hover)]'
                   : active
                     ? 'bg-[var(--color-icon-icon-primary)]'
                     : 'bg-[var(--color-icon-icon-subtler)] [[data-theme=dark]_&]:bg-[var(--color-border-border-subtle)] group-hover:bg-[var(--color-icon-icon-subtle)]',

@@ -82,7 +82,7 @@ export function PushSheet({ open, onOpenChange, side = 'right', width = '22.5rem
           <DialogPrimitive.Portal>
             <DialogPrimitive.Overlay
               className={cn(
-                'fixed inset-0 z-drawer bg-black/40',
+                'fixed inset-0 z-drawer bg-[var(--color-bg-surface-bg-scrim)]',
                 'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 motion-reduce:animate-none!',
               )}
             />

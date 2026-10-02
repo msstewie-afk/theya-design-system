@@ -26,6 +26,9 @@
   "white-a900": {
     "value": "rgb(255 255 255 / 0.9)"
   },
+  "black-a400": {
+    "value": "rgb(0 0 0 / 0.4)"
+  },
   "color": {
     "text": {
       "text-on-primary": {

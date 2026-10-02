@@ -244,17 +244,15 @@ export const buttonVariants = cva(
         ],
       },
       {
-        // Secondary — new base color (#6a6c96), not yet in the Style
-        // Dictionary token set, so hardcoded here as an arbitrary value
-        // for now. Hover/pressed derived by applying the same lightness
-        // drop Primary uses between its own default→hover→pressed
-        // (-7.25% / -16.08% lightness), not hand-picked.
+        // Secondary — bg-secondary-strong ramp (slate-400 → 450 → 500,
+        // 4.69:1 with white text). Replaced the hand-derived #6a6c96 /
+        // #5b5c80 / #484966 (2026-10-02); within a few % lightness.
         appearance: 'filled',
         tone: 'secondary',
         class: [
-          'bg-[#6a6c96] text-[var(--color-text-text-on-dark)]',
-          'hover:not-disabled:not-aria-disabled:bg-[#5b5c80]',
-          'active:not-disabled:not-aria-disabled:bg-[#484966]',
+          'bg-[var(--color-bg-secondary-bg-secondary-strong)] text-[var(--color-text-text-on-dark)]',
+          'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-strong-hover)]',
+          'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-strong-pressed)]',
         ],
       },
 
@@ -413,10 +411,9 @@ export const buttonVariants = cva(
         appearance: 'outlined',
         tone: 'secondary',
         class: [
-          // Dark: #6a6c96 is only 2.82:1 on bg-surface (#282944), under
-          // 1.4.11's 3:1 - dark theme uses border-subtle (#6e709f, 3.01:1),
-          // same lavender family (2026-09-27).
-          'border-[#6a6c96] [[data-theme=dark]_&]:border-[var(--color-border-border-subtle)]',
+          // border-secondary = slate-400 in both themes: 4.69:1 on white,
+          // 3.01:1 on dark bg-surface (1.4.11 needs 3:1).
+          'border-[var(--color-border-border-secondary)]',
           '[&_svg]:text-[var(--color-icon-icon)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-secondary-bg-secondary-subtler-hover)]',

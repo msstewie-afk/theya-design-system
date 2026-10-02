@@ -78,11 +78,11 @@ export function Toaster({ closeButton = true, dark = false, position = 'bottom-r
           description: dark ? 'font-body text-body-s text-[var(--color-text-text-subtle-on-dark)]' : 'font-body text-body-s text-[var(--color-text-text-subtler)]',
           actionButton: 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-icon-icon-on-dark)] rounded-[var(--size-border-radius-border-radius-sm)]',
           cancelButton: dark
-            ? 'bg-white/10 text-[var(--color-text-text-subtle-on-dark)] rounded-[var(--size-border-radius-border-radius-sm)]'
+            ? 'bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-hover)] text-[var(--color-text-text-subtle-on-dark)] rounded-[var(--size-border-radius-border-radius-sm)]'
             : 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)] rounded-[var(--size-border-radius-border-radius-sm)]',
           closeButton:
             'size-7! rounded-[var(--size-border-radius-border-radius-sm)]! border-0! bg-transparent! opacity-80! ' +
-            (dark ? 'text-[var(--color-icon-icon-subtler-on-dark)]! hover:bg-white/10!' : 'text-[var(--color-icon-icon-subtle)]! hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]!') +
+            (dark ? 'text-[var(--color-icon-icon-subtler-on-dark)]! hover:bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-hover)]!' : 'text-[var(--color-icon-icon-subtle)]! hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]!') +
             ' left-auto! right-[13px]! top-1/2! transition-colors hover:opacity-100! ' +
             'focus-visible:outline-none! focus-visible:shadow-[0_0_0_4px_var(--color-focus-focus-ring)]! [&_svg]:size-4!',
           error: dark ? '[&_[data-icon]]:text-[var(--color-icon-icon-danger-on-dark)]' : '[&_[data-icon]]:text-[var(--color-icon-icon-danger)]',

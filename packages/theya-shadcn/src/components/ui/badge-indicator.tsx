@@ -60,9 +60,8 @@ interface ToneTokens {
  * `--color-black` text (that alpha white composites light enough that white
  * text would wash out against it) — but Мария then asked for something less
  * flatly gray, so it's on Button's own filled-Secondary base color instead
- * (`#6a6c96`, a purple-leaning gray — not yet a semantic token, hardcoded
- * the same way Button itself hardcodes it, see button.tsx's own
- * `tone: 'secondary'` compound variant), with white `text-on-dark` (same
+ * (`bg-secondary-strong`, slate-400, a purple-leaning gray — same token
+ * as button.tsx's `tone: 'secondary'` filled variant), with white `text-on-dark` (same
  * pairing Button uses, confirmed working contrast).
  * Outlined treatment (all subtle-bg + tone border/text) is unaffected by
  * this fix and still EXTRAPOLATED for Success/Warning/Danger — worth a
@@ -70,7 +69,7 @@ interface ToneTokens {
  */
 const TONE_TOKENS: Record<BadgeIndicatorTone, ToneTokens> = {
   neutral: {
-    filledBg: 'bg-[#6a6c96]',
+    filledBg: 'bg-[var(--color-bg-secondary-bg-secondary-strong)]',
     filledText: 'text-[var(--color-text-text-on-dark)]',
     outlinedBg: 'bg-[var(--color-bg-secondary-bg-secondary-subtle)]',
     outlinedBorder: 'border-[var(--color-border-border)]',

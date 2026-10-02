@@ -28,7 +28,7 @@ export const DrawerClose = DrawerPrimitive.Close;
 // forwardRef: Radix's Portal hands each child a ref (asChild + Presence) to
 // track its exit animation; as a plain function this dropped it under React 18.
 export const DrawerOverlay = forwardRef<React.ElementRef<typeof DrawerPrimitive.Overlay>, React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>>(function DrawerOverlay({ className, ...props }, ref) {
-  return <DrawerPrimitive.Overlay ref={ref} className={cn('fixed inset-0 z-drawer bg-black/40', className)} {...props} />;
+  return <DrawerPrimitive.Overlay ref={ref} className={cn('fixed inset-0 z-drawer bg-[var(--color-bg-surface-bg-scrim)]', className)} {...props} />;
 });
 
 export interface DrawerContentProps extends React.ComponentProps<typeof DrawerPrimitive.Content> {
