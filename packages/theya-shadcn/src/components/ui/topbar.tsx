@@ -161,6 +161,14 @@ export function TopbarSearch({
           <input
             ref={inputRef}
             type="text"
+            // "search" in name keeps iCloud Passwords from offering credentials here;
+            // it ignores autoComplete="off" and the data-*-ignore hints.
+            name="topbar-search"
+            autoComplete="off"
+            data-1p-ignore="true"
+            data-lpignore="true"
+            data-bwignore="true"
+            data-form-type="other"
             value={actualValue}
             onChange={(event) => {
               const next = event.target.value;

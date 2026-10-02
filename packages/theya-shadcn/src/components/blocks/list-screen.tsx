@@ -209,7 +209,7 @@ function ListToolbar<Row>({ table, primaryKey, searchPlaceholder, facets, bulkAc
               <InputGroupAddon position="start" divider={false}>
                 <Search />
               </InputGroupAddon>
-              <InputGroupInput id={searchId} type="search" placeholder={searchPlaceholder} autoCapitalize="none" autoCorrect="off" spellCheck={false} value={query} onChange={(e) => searchCol?.setFilterValue(e.target.value)} />
+              <InputGroupInput id={searchId} name="list-search" autoComplete="off" data-1p-ignore="true" data-lpignore="true" type="search" placeholder={searchPlaceholder} autoCapitalize="none" autoCorrect="off" spellCheck={false} value={query} onChange={(e) => searchCol?.setFilterValue(e.target.value)} />
             </InputGroup>
           </div>
         )}

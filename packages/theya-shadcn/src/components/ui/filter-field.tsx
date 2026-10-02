@@ -475,6 +475,14 @@ export function FilterField({
             ref={inputRef}
             id={id}
             type="text"
+            // "search" in name keeps iCloud Passwords from offering credentials here;
+            // it ignores autoComplete="off" and the data-*-ignore hints.
+            name="filter-search"
+            autoComplete="off"
+            data-1p-ignore="true"
+            data-lpignore="true"
+            data-bwignore="true"
+            data-form-type="other"
             value={text}
             disabled={disabled}
             placeholder={filters.length > 0 ? undefined : placeholder}

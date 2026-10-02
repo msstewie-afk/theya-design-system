@@ -164,6 +164,14 @@ export function CommandInput({ className, value, onValueChange, ...props }: Comm
     <div className="flex h-12 items-center gap-2.5 border-b border-solid border-[var(--color-border-border-subtler)] px-3.5">
       <Search width={16} height={16} className="shrink-0 text-[var(--color-icon-icon-subtle)]" aria-hidden="true" />
       <input
+        // "search" in name keeps iCloud Passwords from offering credentials
+        // here; it ignores autoComplete="off" and the data-*-ignore hints.
+        name="command-search"
+        autoComplete="off"
+        data-1p-ignore="true"
+        data-lpignore="true"
+        data-bwignore="true"
+        data-form-type="other"
         role="combobox"
         aria-expanded="true"
         aria-controls={listId}
