@@ -32,7 +32,13 @@ export const buttonVariants = cva(
     // stay at lg (6px), Button steps up to xl (8px) — a deliberate visual
     // difference between "you type into this" and "you press this", even
     // though a button-anchored dropdown can't always match both.
-    'rounded-[var(--size-border-radius-border-radius-xl)]',
+    // Radius comes from --btn-radius so a size can step it down without a
+    // class conflict: sm/md (28/32px) use lg (6px), lg+ keep xl (8px) —
+    // 8px on a 28px button read as disproportionately round (Мария,
+    // 2026-10-02). A menu under an sm/md button may be one step rounder
+    // than the button; accepted, since those sizes live in compact spots
+    // (cards) with few dropdowns.
+    'rounded-[var(--btn-radius,var(--size-border-radius-border-radius-xl))]',
     'disabled:cursor-not-allowed disabled:opacity-50',
     // Soft-disable (softDisabled prop): same look as native disabled, but
     // driven by aria-disabled so the button stays focusable/hoverable (can
@@ -71,7 +77,7 @@ export const buttonVariants = cva(
           // Figma quirk carried over as-is: pressed radius bumps up a step from
           // the resting state (was 6->8px; base moved to xl/8px on 2026-09-27,
           // so this now bumps 8->10px to keep the same "grows when pressed" feel).
-          'active:not-disabled:not-aria-disabled:rounded-[var(--size-border-radius-border-radius-2xl)]',
+          'active:not-disabled:not-aria-disabled:rounded-[var(--btn-radius-pressed,var(--size-border-radius-border-radius-2xl))]',
         ],
         ghost: 'bg-transparent border-none text-[var(--color-text-text-subtle)]',
       },
@@ -87,6 +93,7 @@ export const buttonVariants = cva(
       size: {
         sm: [
           'h-[var(--size-size-control-size-control-md)]', // 28px
+          '[--btn-radius:var(--size-border-radius-border-radius-lg)] [--btn-radius-pressed:var(--size-border-radius-border-radius-xl)]',
           'px-[var(--size-padding-padding-xs)] gap-[var(--size-size4)]',
           '[font-family:var(--typography-button-s-font)] font-normal',
           '[font-size:var(--typography-button-s-size)]',
@@ -96,6 +103,7 @@ export const buttonVariants = cva(
         ],
         md: [
           'h-[var(--size-size-control-size-control-lg)]', // 32px
+          '[--btn-radius:var(--size-border-radius-border-radius-lg)] [--btn-radius-pressed:var(--size-border-radius-border-radius-xl)]',
           'px-[var(--size-padding-padding-md)] gap-[var(--size-size4)]',
           '[font-family:var(--typography-button-m-font)] font-normal',
           '[font-size:var(--typography-button-m-size)]',
