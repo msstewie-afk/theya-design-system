@@ -190,7 +190,7 @@ export function ResourceForm({ title, description, sections, onSubmit, onCancel,
           <WarningCircle />
           <AlertTitle>{`Fix ${errorFields.length} fields to continue`}</AlertTitle>
           <AlertDescription>
-            <ul className="mt-1 flex list-disc flex-col gap-0.5 pl-5">
+            <ul className="mt-1 flex list-none flex-col gap-2 pl-0">
               {errorFields.map((f) => (
                 <li key={f.name}>
                   <a
