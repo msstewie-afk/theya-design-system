@@ -6,10 +6,6 @@ const meta: Meta<typeof NavigationMenu> = {
   title: 'Navigation/NavigationMenu',
   component: NavigationMenu,
   tags: ['autodocs'],
-  // The flyout is position:absolute under the bar (no Portal — see the
-  // component doc), so the Docs canvas, which clips overflow, cut it off.
-  // Reserve room for the open panel instead.
-  decorators: [(Story) => <div className="min-h-[14rem]"><Story /></div>],
   parameters: {
     a11y: {
       config: {
@@ -124,4 +120,7 @@ export const Default: Story = {
 /** The Products panel open by default — no click needed to see the mega-menu grid. */
 export const Open: Story = {
   render: () => <ProductNav defaultValue="products" />,
+  // Open from the start, and the flyout floats (position: fixed): reserve
+  // room so it doesn't cover the next block on the Docs page.
+  decorators: [(Story) => <div className="min-h-[14rem]"><Story /></div>],
 };

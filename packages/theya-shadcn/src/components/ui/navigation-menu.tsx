@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef } from 'react';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { NavArrowDown } from 'iconoir-react';
 import { cn } from '@/lib/utils';
@@ -12,6 +13,13 @@ import { cn } from '@/lib/utils';
  * list (rather than Base UI's single shared Portal/Positioner), and
  * direction animation keys off `data-motion` rather than
  * `data-activation-direction`.
+ *
+ * The flyout is `position: fixed`, placed under the bar from the Root's
+ * bounding box (re-measured on scroll/resize), so an `overflow: hidden`
+ * ancestor no longer clips it. Not a Portal on purpose: the panel's links
+ * stay inside the `<nav>` landmark in the DOM. Placement self-corrects for
+ * a transformed ancestor (which would otherwise become the fixed
+ * containing block).
  */
 export function NavigationMenu({
   className,
@@ -19,10 +27,51 @@ export function NavigationMenu({
   viewportClassName,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Root> & { viewportClassName?: string }) {
+  const rootRef = useRef<HTMLElement>(null);
+  const anchorRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    const anchor = anchorRef.current;
+    if (!root || !anchor) return;
+    let frame = 0;
+    const place = () => {
+      const target = root.getBoundingClientRect();
+      // Measure from 0,0 first: under a transformed ancestor "fixed" is
+      // relative to that ancestor, not the viewport, and this delta absorbs it.
+      anchor.style.left = '0px';
+      anchor.style.top = '0px';
+      const origin = anchor.getBoundingClientRect();
+      anchor.style.left = `${target.left - origin.left}px`;
+      anchor.style.top = `${target.bottom - origin.top}px`;
+    };
+    // Scroll can fire many times per frame: coalesce it. Observers already
+    // batch, so they place directly (rAF doesn't run in a hidden tab).
+    const schedule = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(place);
+    };
+    place();
+    window.addEventListener('scroll', schedule, true);
+    window.addEventListener('resize', schedule);
+    // Re-place when the bar resizes, when the page around it reflows (the
+    // bar can move without resizing), and whenever a panel opens.
+    const observer = new ResizeObserver(place);
+    observer.observe(root);
+    observer.observe(document.body);
+    const opened = new MutationObserver(place);
+    opened.observe(anchor, { childList: true, subtree: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule, true);
+      window.removeEventListener('resize', schedule);
+      observer.disconnect();
+      opened.disconnect();
+    };
+  }, []);
   return (
-    <NavigationMenuPrimitive.Root className={cn('relative z-10 flex max-w-max flex-1 items-center justify-center', className)} {...props}>
+    <NavigationMenuPrimitive.Root ref={rootRef} className={cn('relative z-10 flex max-w-max flex-1 items-center justify-center', className)} {...props}>
       {children}
-      <div className={cn('absolute left-0 top-full flex justify-center')}>
+      <div ref={anchorRef} data-slot="navigation-menu-anchor" className="fixed z-popover flex justify-center">
         <NavigationMenuPrimitive.Viewport
           className={cn(
             'relative mt-2 h-[var(--radix-navigation-menu-viewport-height)] w-[var(--radix-navigation-menu-viewport-width)]',
