@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Calendar, ChatBubbleEmpty, Plus } from 'iconoir-react';
 import { Kanban, KanbanCard, type KanbanColumn, type KanbanItem } from './kanban';
 import { Badge } from './badge';
@@ -147,6 +148,52 @@ export const Default: Story = {
         {last && <p className="text-body-s text-[var(--color-text-text-subtle)]">Last move: {last}</p>}
       </div>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // While dragging, the overlay copy shows the same text; take the sortable slot.
+    const card = (key: string) =>
+      canvas
+        .getAllByText(key)
+        .map((n) => n.closest('[aria-roledescription="sortable"]'))
+        .find(Boolean) as HTMLElement;
+    const inColumn = (title: string, key: string) => within(canvas.getByRole('heading', { name: title }).closest('section') as HTMLElement).queryAllByText(key)[0] ?? null;
+    const settle = () => new Promise((r) => setTimeout(r, 250));
+
+    // Keyboard move: Space picks up, → moves to the next column, Space drops.
+    // Let dnd-kit finish measuring the board before the first key.
+    await settle();
+    card('SITE-142').focus();
+    await expect(card('SITE-142')).toHaveFocus();
+    await userEvent.keyboard(' ');
+    await waitFor(() => expect(card('SITE-142')).toHaveAttribute('aria-pressed', 'true'), { timeout: 2000 });
+    const liveRegion = () => Array.from(document.querySelectorAll('[aria-live]')).map((n) => n.textContent).join(' ');
+    await waitFor(() => expect(liveRegion()).toMatch(/Picked up SITE-142 Move DNS to the new provider/));
+    await userEvent.keyboard('{ArrowRight}');
+    await settle();
+    await userEvent.keyboard(' ');
+    await settle();
+    await waitFor(() => expect(canvas.getByText(/^Last move:/)).toHaveTextContent('t1 → In progress'));
+    await expect(inColumn('In progress', 'SITE-142')).toBeInTheDocument();
+    await expect(inColumn('Backlog', 'SITE-142')).not.toBeInTheDocument();
+
+    // Escape cancels: the card stays where it was and no move is reported.
+    const before = canvas.getByText(/^Last move:/).textContent;
+    card('SITE-151').focus();
+    await userEvent.keyboard(' ');
+    await settle();
+    await userEvent.keyboard('{ArrowRight}');
+    await settle();
+    await userEvent.keyboard('{Escape}');
+    await settle();
+    await expect(inColumn('Backlog', 'SITE-151')).toBeInTheDocument();
+    await expect(canvas.getByText(/^Last move:/).textContent).toBe(before);
+
+    // Nothing is left mid-drag.
+    await waitFor(() => expect(canvasElement.querySelector('[aria-pressed="true"]')).toBeNull());
+
+    // Over the WIP limit the counter turns into a danger badge with a spoken explanation.
+    await expect(canvas.getByText(/over the limit of 3/)).toBeInTheDocument();
   },
 };
 
