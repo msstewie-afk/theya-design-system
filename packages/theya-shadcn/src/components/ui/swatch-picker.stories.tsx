@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { expect, userEvent, within } from '@storybook/test';
 import { SwatchPicker, type SwatchOption } from './swatch-picker';
 import { swatchPickerGuidelines } from './swatch-picker.guidelines';
 
@@ -87,7 +88,26 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** Product variant picker: the legend spells out the selected color; Rust is out of stock. */
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole('radiogroup', { name: 'Color: Navy' });
+    const navy = within(group).getByRole('radio', { name: 'Navy' });
+    await expect(navy).toBeChecked();
+    // Arrow keys move the selection (radio group) and the legend names the new color.
+    navy.focus();
+    // Radix checks a radio on focus only while the arrow key is down — hold it (as with Radio).
+    await userEvent.keyboard('{ArrowRight>}');
+    await userEvent.keyboard('{/ArrowRight}');
+    await expect(within(group).getByRole('radio', { name: 'Sage' })).toBeChecked();
+    await expect(group).toHaveAccessibleName('Color: Sage');
+    // An out-of-stock variant is announced as such and can still be chosen.
+    const rust = within(group).getByRole('radio', { name: 'Rust, out of stock' });
+    await userEvent.click(rust);
+    await expect(rust).toBeChecked();
+    await expect(group).toHaveAccessibleName('Color: Rust');
+  },
+};
 
 /** Sizes: sm for product cards, md for filters, lg for the product page. */
 export const Sizes: Story = {
@@ -111,6 +131,19 @@ export const Multiple: Story = {
     const [value, setValue] = useState<string[]>(['navy', 'sage']);
     return <SwatchPicker type="multiple" options={PRODUCT_COLORS} legend="Color" value={value} onValueChange={setValue} />;
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const navy = canvas.getByRole('button', { name: 'Navy' });
+    const sand = canvas.getByRole('button', { name: 'Sand' });
+    await expect(navy).toHaveAttribute('aria-pressed', 'true');
+    await expect(canvas.getByText(/Navy, Sage/)).toBeInTheDocument();
+    // Toggle buttons: each one on/off independently; the legend lists the selection.
+    await userEvent.click(navy);
+    await userEvent.click(sand);
+    await expect(navy).toHaveAttribute('aria-pressed', 'false');
+    await expect(sand).toHaveAttribute('aria-pressed', 'true');
+    await expect(canvas.getByText(/^Sage, Sand$/)).toBeInTheDocument();
+  },
 };
 
 /** Label/tag color picker without a legend — needs an aria-label. */
@@ -123,9 +156,19 @@ export const LabelColor: Story = {
 export const WithMax: Story = {
   name: 'With max',
   args: { options: LABEL_COLORS, legend: undefined, defaultValue: 'gray', size: 'sm', max: 5, 'aria-label': 'Available colors' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole('radiogroup', { name: 'Available colors' });
+    await expect(within(group).getAllByRole('radio')).toHaveLength(5);
+    await expect(group).toHaveTextContent('+4 more');
+  },
 };
 
 /** Disabled group. */
 export const Disabled: Story = {
   args: { disabled: true },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    for (const radio of canvas.getAllByRole('radio')) await expect(radio).toBeDisabled();
+  },
 };
