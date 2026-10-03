@@ -3,6 +3,7 @@ import { expect, waitFor, within } from '@storybook/test';
 import { useState } from 'react';
 import { Countdown } from './countdown';
 import { Button } from './button';
+import { countdownGuidelines } from './countdown.guidelines';
 
 /**
  * Countdown — time left until a deadline. Inline (inherits the surrounding
@@ -16,7 +17,7 @@ const meta = {
   title: 'Data/Countdown',
   component: Countdown,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: countdownGuidelines },
   argTypes: {
     to: { control: false, description: 'Deadline: a Date, an ISO string or a timestamp in ms.' },
     appearance: { control: 'inline-radio', options: ['inline', 'blocks'], description: 'Inline text or one tile per unit.' },

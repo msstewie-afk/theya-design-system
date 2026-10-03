@@ -5,6 +5,7 @@ import { Calendar, ChatBubbleEmpty, Plus } from 'iconoir-react';
 import { Kanban, KanbanCard, type KanbanColumn, type KanbanItem } from './kanban';
 import { Badge } from './badge';
 import { Button } from './button';
+import { kanbanGuidelines } from './kanban.guidelines';
 
 /**
  * Kanban — columns of cards moved by drag and drop, pointer or keyboard.
@@ -101,7 +102,7 @@ const meta = {
   title: 'Data/Kanban',
   component: Kanban,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: kanbanGuidelines },
   argTypes: {
     columns: { control: false, description: 'id, title, tone (status dot), limit (soft WIP limit).' },
     items: { control: false, description: 'Flat array; each item has columnId, order = array order.' },

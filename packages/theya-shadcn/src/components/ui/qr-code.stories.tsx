@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ShieldCheck } from 'iconoir-react';
 import { QrCode } from './qr-code';
 import { SecretField } from './secret-field';
+import { qrCodeGuidelines } from './qr-code.guidelines';
 
 const OTPAUTH = 'otpauth://totp/Seashell:maria%40seashell.dev?secret=JBSWY3DPEHPK3PXP&issuer=Seashell';
 
@@ -15,7 +16,7 @@ const meta = {
   title: 'Data/QrCode',
   component: QrCode,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { layout: 'centered', guidelines: qrCodeGuidelines },
   argTypes: {
     value: { control: 'text', description: 'Text or URL to encode.', table: { category: 'Content' } },
     label: { control: 'text', description: 'Accessible name — what scanning does.', table: { category: 'Content' } },

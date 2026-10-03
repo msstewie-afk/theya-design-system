@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Scheduler, type SchedulerEvent } from './scheduler';
+import { schedulerGuidelines } from './scheduler.guidelines';
 
 /**
  * Scheduler — week / day time grid with drag-to-move and resize, month grid
@@ -35,7 +36,7 @@ const meta = {
   title: 'Data/Scheduler',
   component: Scheduler,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: schedulerGuidelines },
   argTypes: {
     events: { control: false, description: 'id, title, start, end, allDay, tone, locked.' },
     view: { control: false },

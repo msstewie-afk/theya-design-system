@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Price } from './price';
+import { priceGuidelines } from './price.guidelines';
 
 /**
  * Price — a money amount with period, "From", previous price, discount
@@ -11,7 +12,7 @@ const meta = {
   title: 'Data/Price',
   component: Price,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { layout: 'centered', guidelines: priceGuidelines },
   argTypes: {
     amount: { control: 'number', table: { category: 'Content' } },
     currency: { control: 'text', description: 'ISO 4217, e.g. USD, EUR, BGN, JPY.', table: { category: 'Content' } },

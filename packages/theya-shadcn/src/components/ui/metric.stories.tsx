@@ -2,9 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Mail, WarningCircle, NavArrowRight } from 'iconoir-react';
 import { Metric } from './metric';
 import { Button } from './button';
+import { metricGuidelines } from './metric.guidelines';
 
 const meta: Meta<typeof Metric> = {
   title: 'Data/Metric',
+  parameters: { guidelines: metricGuidelines },
   tags: ['autodocs'],
   argTypes: {
     icon: { control: false, description: 'Optional leading icon (decorative — the visible value/label carry the meaning).' },

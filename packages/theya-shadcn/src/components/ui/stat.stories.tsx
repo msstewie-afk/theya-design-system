@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Globe, ShieldCheck, Server } from 'iconoir-react';
 import { Stat } from './stat';
 import { Card, CardHeader, CardTitle, CardContent } from './card';
+import { statGuidelines } from './stat.guidelines';
 
 /**
  * Stat — a compact KPI metric card: a muted label, a large tabular-nums
@@ -17,7 +18,7 @@ const meta = {
   title: 'Data/Stat',
   component: Stat,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: statGuidelines },
   decorators: [
     // A single Stat is a ~260px dashboard tile; the multi-Stat grid stories
     // (Tones/Deltas/KpiRow) opt out via `parameters.fullWidth` so their
