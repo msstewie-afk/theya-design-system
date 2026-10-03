@@ -103,8 +103,11 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
 
       {/* Desktop: one table, plan header sticky. */}
       {/* table-fixed + colgroup: the feature column gets a fixed share and
-          every plan column the same fluid width, so the plan blocks line up. */}
-      <table className="hidden w-full table-fixed border-separate border-spacing-0 font-body md:table">
+          every plan column the same fluid width. The 12px gap between
+          columns comes from border-spacing, not cell padding, so each plan
+          card fills its column exactly and the row lines below start and
+          end on the card's edges. */}
+      <table className="-mx-3 hidden w-[calc(100%+1.5rem)] table-fixed border-separate border-spacing-x-3 border-spacing-y-0 font-body md:table">
         <caption className="sr-only">{`Plan comparison, prices per month billed ${period}`}</caption>
         <colgroup>
           <col className="w-[22%]" />
@@ -118,7 +121,7 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
               <span className="sr-only">Feature</span>
             </th>
             {plans.map((p) => (
-              <th key={p.id} scope="col" className="sticky top-0 z-[1] bg-[var(--color-bg-surface-bg-surface-base)] px-2 pb-4 text-left align-top font-normal">
+              <th key={p.id} scope="col" className="sticky top-0 z-[1] bg-[var(--color-bg-surface-bg-surface-base)] px-0 pb-4 text-left align-top font-normal">
                 <div
                   className={cn(
                     'flex h-full flex-col gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid p-4',
@@ -153,7 +156,7 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
                   </span>
                 </th>
                 {plans.map((p) => (
-                  <td key={p.id} className="border-t border-solid border-[var(--color-border-border-subtler)] px-6 py-3 align-top">
+                  <td key={p.id} className="border-t border-solid border-[var(--color-border-border-subtler)] px-4 py-3 align-top">
                     <FeatureValue value={f.values[p.id]} strong={different} />
                   </td>
                 ))}

@@ -7,6 +7,11 @@ const meta: Meta<typeof PricedOptions> = {
   component: PricedOptions,
   tags: ['autodocs'],
   parameters: { layout: 'padded' },
+  argTypes: {
+    appearance: { control: 'inline-radio', options: ['cards', 'list'], description: '`cards`: OptionCards. `list`: radios on dividers, price on the right — for secondary choices on a page that already has cards.' },
+    priceMode: { control: 'inline-radio', options: ['extra', 'total'], description: '`extra`: add-on prices ("+$4 / mo", 0 = "Included"). `total`: full price of each option.' },
+    columns: { control: 'inline-radio', options: [1, 2, 3], description: 'Grid columns from sm up (cards only).' },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof PricedOptions>;
@@ -54,4 +59,19 @@ export const Region: Story = {
       <PricedOptions {...args} />
     </div>
   ),
+};
+
+/** The same choice without cards: radios on dividers, price on the right. Lighter next to other cards. */
+export const List: Story = {
+  args: { ...Backups.args, appearance: 'list' },
+  render: (args) => (
+    <div className="max-w-lg">
+      <PricedOptions {...args} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('radio', { name: 'Weekly' })).toBeChecked();
+    await expect(canvas.getByRole('radio', { name: 'Daily' })).toHaveAccessibleDescription('Kept 30 days +$4 / mo');
+  },
 };

@@ -177,10 +177,10 @@ export function Checkout({ email = 'dana@seashell.dev', taxRate = 0.2, taxLabel 
                   />
                   <PricedOptions
                     legend="Server region"
+                    appearance="list"
                     description="Pick the one closest to most of your visitors."
                     value={region}
                     onValueChange={setRegion}
-                    columns={3}
                     options={[
                       { value: 'eu-west', title: 'Frankfurt', description: 'Europe', price: 0 },
                       { value: 'us-east', title: 'Virginia', description: 'Americas', price: 0 },

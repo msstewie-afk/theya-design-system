@@ -16,7 +16,7 @@ type Story = StoryObj<typeof PlanComparison>;
 /** Yearly by default with the saving on the toggle; "Only differences" hides identical rows. */
 export const Default: Story = {
   render: (args) => (
-    <div className="max-w-5xl">
+    <div className="mx-auto max-w-5xl">
       <PlanComparison {...args} />
     </div>
   ),
@@ -40,7 +40,7 @@ export const Default: Story = {
 export const WithCurrentPlan: Story = {
   args: { currentPlanId: 'starter' },
   render: (args) => (
-    <div className="max-w-5xl">
+    <div className="mx-auto max-w-5xl">
       <PlanComparison {...args} />
     </div>
   ),
