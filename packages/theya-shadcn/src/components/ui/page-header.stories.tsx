@@ -9,12 +9,13 @@ import { Chip } from './chip';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from './breadcrumb';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from './dropdown-menu';
+import { pageHeaderGuidelines } from './page-header.guidelines';
 
 const meta: Meta<typeof PageHeader> = {
   title: 'Layout/PageHeader',
   component: PageHeader,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: pageHeaderGuidelines, layout: 'padded' },
   argTypes: {
     title: { control: 'text', description: 'Page heading text.' },
     description: { control: 'text', description: "Supporting line below the title. Capped at 540px so a long line wraps for readability." },

@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { AspectRatio } from './aspect-ratio';
+import { aspectRatioGuidelines } from './aspect-ratio.guidelines';
 
 const meta: Meta<typeof AspectRatio> = {
   title: 'Layout/AspectRatio',
   component: AspectRatio,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: aspectRatioGuidelines, layout: 'padded' },
   argTypes: {
     ratio: {
       control: { type: 'number', step: 0.01 },

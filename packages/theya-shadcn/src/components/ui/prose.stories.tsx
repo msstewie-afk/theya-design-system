@@ -3,6 +3,7 @@ import { Prose } from './prose';
 import { Alert, AlertDescription, AlertTitle } from './alert';
 import { Button } from './button';
 import { CodeBlock } from './code-block';
+import { proseGuidelines } from './prose.guidelines';
 
 /**
  * Prose — typography for long-form content: help articles, docs,
@@ -17,7 +18,7 @@ const meta = {
   title: 'Layout/Prose',
   component: Prose,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: proseGuidelines, layout: 'padded' },
   argTypes: {
     size: {
       control: 'inline-radio',

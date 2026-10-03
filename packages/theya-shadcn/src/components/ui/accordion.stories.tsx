@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './accordion';
+import { accordionGuidelines } from './accordion.guidelines';
 
 const meta: Meta<typeof Accordion> = {
   title: 'Layout/Accordion',
   component: Accordion,
   tags: ['autodocs'],
+  parameters: { guidelines: accordionGuidelines },
   argTypes: {
     type: {
       control: 'select',

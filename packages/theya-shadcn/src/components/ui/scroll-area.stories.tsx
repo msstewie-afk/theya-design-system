@@ -3,12 +3,13 @@ import { expect, userEvent, within } from '@storybook/test';
 import { ScrollArea, ScrollBar } from './scroll-area';
 import { Separator } from './separator';
 import { Chip } from './chip';
+import { scrollAreaGuidelines } from './scroll-area.guidelines';
 
 const meta: Meta<typeof ScrollArea> = {
   title: 'Layout/ScrollArea',
   component: ScrollArea,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: scrollAreaGuidelines, layout: 'padded' },
   argTypes: {
     type: {
       control: 'select',

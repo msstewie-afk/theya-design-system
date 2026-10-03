@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Trash, Copy, Download, Bold, Italic, Underline } from 'iconoir-react';
 import { Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator, ToolbarLink } from './toolbar';
+import { toolbarGuidelines } from './toolbar.guidelines';
 
 const meta: Meta<typeof Toolbar> = {
   title: 'Layout/Toolbar',
   component: Toolbar,
   tags: ['autodocs'],
+  parameters: { guidelines: toolbarGuidelines },
   argTypes: {
     orientation: { control: 'inline-radio', options: ['horizontal', 'vertical'], description: 'Toolbar layout direction.' },
     dir: { control: 'inline-radio', options: ['ltr', 'rtl'], description: 'Reading direction, affects arrow-key navigation.' },

@@ -5,11 +5,13 @@ import { NavArrowDown } from 'iconoir-react';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from './collapsible';
 import { Button } from './button';
 import { TextField } from './text-field';
+import { collapsibleGuidelines } from './collapsible.guidelines';
 
 const meta: Meta<typeof Collapsible> = {
   title: 'Layout/Collapsible',
   component: Collapsible,
   tags: ['autodocs'],
+  parameters: { guidelines: collapsibleGuidelines },
   argTypes: {
     open: { control: false, description: 'Controlled open state.' },
     defaultOpen: { control: false, description: 'Uncontrolled initial open state.' },

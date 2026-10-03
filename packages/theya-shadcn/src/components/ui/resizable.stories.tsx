@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from './resizable';
 import { ScrollArea } from './scroll-area';
+import { resizableGuidelines } from './resizable.guidelines';
 
 const meta: Meta<typeof ResizablePanelGroup> = {
   title: 'Layout/Resizable',
   component: ResizablePanelGroup,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: resizableGuidelines, layout: 'padded' },
   argTypes: {
     orientation: {
       control: 'select',

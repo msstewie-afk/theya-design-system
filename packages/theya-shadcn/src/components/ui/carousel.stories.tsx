@@ -4,12 +4,13 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, CarouselIndicators, type CarouselApi } from './carousel';
 import { Badge } from './badge';
 import { StatusDot } from './status-dot';
+import { carouselGuidelines } from './carousel.guidelines';
 
 const meta: Meta<typeof Carousel> = {
   title: 'Layout/Carousel',
   component: Carousel,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: carouselGuidelines, layout: 'padded' },
   argTypes: {
     orientation: {
       control: 'select',
