@@ -10,12 +10,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Toggle } from './toggle';
 import { PromptSuggestions } from './prompt-suggestions';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './dropdown-menu';
+import { promptAreaGuidelines } from './prompt-area.guidelines';
 
 const meta: Meta<typeof PromptArea> = {
   title: 'AI & Chat/PromptArea',
   component: PromptArea,
   tags: ['autodocs'],
   parameters: {
+    guidelines: promptAreaGuidelines,
     docs: {
       description: {
         component:

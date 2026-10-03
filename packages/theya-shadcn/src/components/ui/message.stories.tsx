@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Message } from './message';
 import { Avatar, AvatarFallback } from './avatar';
 import { Attachment } from './attachment';
+import { messageGuidelines } from './message.guidelines';
 
 /**
  * Message — one chat/assistant bubble. `received` = left + muted; `sent` =
@@ -14,7 +15,7 @@ const meta: Meta<typeof Message> = {
   title: 'AI & Chat/Message',
   component: Message,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: messageGuidelines, layout: 'padded' },
   argTypes: {
     variant: { control: 'inline-radio', options: ['received', 'sent'], description: 'Message direction.' },
     appearance: { control: 'inline-radio', options: ['filled', 'tonal'], description: 'Only affects variant="sent": filled (solid primary) or tonal (primary-subtle).' },

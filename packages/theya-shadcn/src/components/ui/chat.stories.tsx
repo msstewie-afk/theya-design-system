@@ -4,6 +4,7 @@ import { Chat, ChatMessages } from './chat';
 import { Message } from './message';
 import { PromptArea } from './prompt-area';
 import { Avatar, AvatarFallback } from './avatar';
+import { chatGuidelines } from './chat.guidelines';
 
 /**
  * Chat — the layout for a conversation: a scrolling `ChatMessages`
@@ -14,7 +15,7 @@ const meta = {
   title: 'AI & Chat/Chat',
   component: Chat,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: chatGuidelines, layout: 'padded' },
 } satisfies Meta<typeof Chat>;
 
 export default meta;

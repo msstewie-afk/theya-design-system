@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Sparks } from 'iconoir-react';
 import { PromptSuggestions } from './prompt-suggestions';
+import { promptSuggestionsGuidelines } from './prompt-suggestions.guidelines';
 
 const meta: Meta<typeof PromptSuggestions> = {
   title: 'AI & Chat/PromptSuggestions',
   component: PromptSuggestions,
   tags: ['autodocs'],
   parameters: {
+    guidelines: promptSuggestionsGuidelines,
     docs: {
       description: {
         component:
