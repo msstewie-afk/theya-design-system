@@ -217,6 +217,7 @@ const preview: Preview = {
           'Patterns',
           'Patterns: Commerce',
           'Patterns: Catalog',
+          'Patterns: Search',
         ];
         const [categoryA, componentA] = a.title.split('/');
         const [categoryB, componentB] = b.title.split('/');
