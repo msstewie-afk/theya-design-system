@@ -78,10 +78,17 @@ export const ValueOutput: Story = {
     await expect(out('valid')).toHaveTextContent('true');
     await expect((input as HTMLInputElement).value.replace(/\D/g, '')).toContain('888123456');
 
-    // Backspace over a formatting character deletes a digit instead of the space.
-    const before = (input as HTMLInputElement).value.replace(/\D/g, '').length;
-    await userEvent.keyboard('{Backspace}');
-    await expect((input as HTMLInputElement).value.replace(/\D/g, '').length).toBe(before - 1);
+    // Backspace right after a formatting space (caret mid-number) deletes the digit
+    // before the space; what's shown and what's emitted stay the same number.
+    await userEvent.clear(input);
+    await userEvent.type(input, '0888123456');
+    const shown = (input as HTMLInputElement).value;
+    await expect(shown).toMatch(/\s/);
+    const afterSpace = shown.indexOf(' ') + 1;
+    await userEvent.type(input, '{Backspace}', { initialSelectionStart: afterSpace, initialSelectionEnd: afterSpace });
+    const digits = (input as HTMLInputElement).value.replace(/\D/g, '');
+    await expect(digits).toBe(shown.replace(/\D/g, '').slice(0, afterSpace - 2) + shown.replace(/\D/g, '').slice(afterSpace - 1));
+    await expect(out('value')).toHaveTextContent(`+359${digits.replace(/^0/, '')}`);
 
     // A number with +code switches the country.
     await userEvent.clear(input);
