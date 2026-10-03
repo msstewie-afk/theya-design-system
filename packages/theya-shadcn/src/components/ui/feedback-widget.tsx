@@ -1,4 +1,4 @@
-import { useId, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 import { ThumbsDown, ThumbsUp } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { Button } from './button';
@@ -66,6 +66,19 @@ export function FeedbackWidget({
   const [picked, setPicked] = useState<string[]>([]);
   const [comment, setComment] = useState('');
   const detailsRef = useRef<HTMLFormElement>(null);
+  const voteRefs = useRef<Partial<Record<FeedbackVote, HTMLButtonElement | null>>>({});
+  // Send / Skip unmount the follow-up form while focus is inside it; move focus to
+  // the chosen answer so it doesn't drop to <body>.
+  const refocusVote = useRef(false);
+  const finish = () => {
+    refocusVote.current = Boolean(detailsRef.current?.contains(document.activeElement));
+    setStep('done');
+  };
+  useEffect(() => {
+    if (step !== 'done' || !refocusVote.current || !vote) return;
+    refocusVote.current = false;
+    voteRefs.current[vote]?.focus();
+  }, [step, vote]);
   const titleId = useId();
   const sm = size === 'sm';
 
@@ -82,7 +95,7 @@ export function FeedbackWidget({
     e.preventDefault();
     if (!vote) return;
     onSubmit?.({ vote, reasons: picked, comment: comment.trim() });
-    setStep('done');
+    finish();
   };
 
   const chips = vote === 'yes' ? positiveReasons : reasons;
@@ -99,6 +112,9 @@ export function FeedbackWidget({
           {(['yes', 'no'] as const).map((v) => (
             <Button
               key={v}
+              ref={(el) => {
+                voteRefs.current[v] = el;
+              }}
               appearance={vote === v ? 'tonal' : 'outlined'}
               tone={vote === v ? 'primary' : 'secondary'}
               size={sm ? 'sm' : 'md'}
@@ -131,7 +147,7 @@ export function FeedbackWidget({
             <Button type="submit" appearance="filled" tone="primary" size={sm ? 'md' : 'lg'}>
               Send feedback
             </Button>
-            <Button appearance="ghost" tone="neutral" size={sm ? 'md' : 'lg'} onClick={() => setStep('done')}>
+            <Button appearance="ghost" tone="neutral" size={sm ? 'md' : 'lg'} onClick={finish}>
               Skip
             </Button>
           </div>
