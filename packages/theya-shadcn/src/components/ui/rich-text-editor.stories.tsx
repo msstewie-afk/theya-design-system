@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { RichTextEditor, RICH_TEXT_TOOLS_BASIC } from './rich-text-editor';
 import { CodeBlock } from './code-block';
 
@@ -16,6 +17,18 @@ const RELEASE_NOTE = `<h2>Scheduled maintenance</h2>
   <li>Backups made during the window are kept as usual.</li>
 </ul>
 <p>Questions? See the <a href="https://example.com/status">status page</a>.</p>`;
+
+/** Puts the caret at the end of an editor through the DOM (user-event can't do {End} in contenteditable). */
+async function caretToEnd(el: HTMLElement) {
+  el.focus();
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  range.collapse(false);
+  const sel = window.getSelection()!;
+  sel.removeAllRanges();
+  sel.addRange(range);
+  await new Promise((r) => setTimeout(r, 50));
+}
 
 const meta = {
   title: 'Text Input/RichTextEditor',
@@ -74,11 +87,26 @@ export const Basic: Story = {
 export const WithLimit: Story = {
   name: 'With limit',
   args: { maxLength: 280, label: 'Status update', defaultValue: '<p>Deploys are back to normal after the 14:10 incident.</p>', tools: ['bold', 'italic', 'link'] },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const editor = canvas.getByRole('textbox', { name: 'Status update' });
+    await expect(canvas.getByText(/^52\/280/)).toBeInTheDocument();
+    await caretToEnd(editor);
+    await userEvent.keyboard(' Thanks!');
+    await waitFor(() => expect(canvas.getByText(/^60\/280/)).toBeInTheDocument());
+  },
 };
 
 /** Error state with a message. */
 export const Invalid: Story = {
   args: { defaultValue: '', label: 'Release notes', required: true, error: 'Release notes are required.' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const editor = canvas.getByRole('textbox', { name: /Release notes/ });
+    await expect(editor).toHaveAttribute('aria-invalid', 'true');
+    await expect(editor).toHaveAttribute('aria-required', 'true');
+    await expect(editor).toHaveAccessibleDescription('Release notes are required.');
+  },
 };
 
 /** Disabled. */
@@ -102,5 +130,49 @@ export const Controlled: Story = {
         <CodeBlock code={html || '(empty)'} language="html" />
       </div>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    const editor = canvas.getByRole('textbox', { name: 'Template' });
+    const html = () => canvasElement.querySelector('pre code')!.textContent ?? '';
+    // Select the whole document through the DOM; ProseMirror picks it up from selectionchange.
+    const selectAll = async () => {
+      editor.focus();
+      window.getSelection()!.selectAllChildren(editor);
+      await new Promise((r) => setTimeout(r, 50));
+    };
+
+    // Typing replaces the selection; the HTML output follows.
+    await selectAll();
+    await userEvent.keyboard('Release notes');
+    await waitFor(() => expect(html()).toBe('<p>Release notes</p>'));
+
+    // Bold from the toolbar: the button reflects the state.
+    await selectAll();
+    const bold = canvas.getByRole('button', { name: 'Bold' });
+    await userEvent.click(bold);
+    await waitFor(() => expect(html()).toBe('<p><strong>Release notes</strong></p>'));
+    await expect(bold).toHaveAttribute('aria-pressed', 'true');
+
+    // Markdown-style shortcut: "- " at the start of a line starts a list.
+    await caretToEnd(editor);
+    await userEvent.keyboard('{Enter}- First item');
+    await waitFor(() => expect(html()).toContain('<ul><li><p>First item</p></li></ul>'));
+
+    // Link from the popover; a bare domain gets https://.
+    await selectAll();
+    await userEvent.click(canvas.getByRole('button', { name: 'Link' }));
+    const dialog = await body.findByRole('dialog', { name: 'Link' });
+    await userEvent.type(within(dialog).getByLabelText('URL'), 'example.com{Enter}');
+    await waitFor(() => expect(html()).toContain('href="https://example.com"'));
+    await waitFor(() => expect(body.queryByRole('dialog', { name: 'Link' })).not.toBeInTheDocument());
+    // Focus goes back to the editor after the popover.
+    await waitFor(() => expect(editor).toHaveFocus());
+
+    // Clearing everything reports an empty string, not "<p></p>".
+    await selectAll();
+    await userEvent.keyboard('{Backspace}');
+    await waitFor(() => expect(html()).toBe('(empty)'));
   },
 };
