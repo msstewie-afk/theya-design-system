@@ -66,7 +66,8 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
     const isCurrent = p.id === currentPlanId;
     return (
       <Button
-        appearance={p.recommended ? 'filled' : 'outlined'}
+        // Tonal, not outlined, for the others: the cards already have borders.
+        appearance={p.recommended ? 'filled' : 'tonal'}
         tone={p.recommended ? 'primary' : 'secondary'}
         size="lg"
         fullWidth
@@ -79,29 +80,26 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
     );
   };
 
+  const periodToggle = (
+    <ToggleGroup type="single" appearance="outlined" value={period} onValueChange={(v) => v && setPeriod(v as BillingPeriod)} aria-label="Billing period">
+      <ToggleGroupItem value="monthly">Monthly</ToggleGroupItem>
+      <ToggleGroupItem value="yearly">
+        Yearly
+        {maxSaving > 0 && (
+          <Badge tone="success" className="ml-2">
+            Save up to {maxSaving}%
+          </Badge>
+        )}
+      </ToggleGroupItem>
+    </ToggleGroup>
+  );
+
   return (
     // Container query, not viewport: the table/tabs switch follows the
     // space the component actually gets (a narrow column, a docs block).
     <div className={cn('@container flex w-full flex-col gap-5', className)}>
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <ToggleGroup type="single" appearance="outlined" value={period} onValueChange={(v) => v && setPeriod(v as BillingPeriod)} aria-label="Billing period">
-          <ToggleGroupItem value="monthly">Monthly</ToggleGroupItem>
-          <ToggleGroupItem value="yearly">
-            Yearly
-            {maxSaving > 0 && (
-              <Badge tone="success" className="ml-2">
-                Save up to {maxSaving}%
-              </Badge>
-            )}
-          </ToggleGroupItem>
-        </ToggleGroup>
-        <div className="hidden items-center gap-2 @3xl:flex">
-          <Switch id={diffId} checked={onlyDifferences} onCheckedChange={setOnlyDifferences} />
-          <label htmlFor={diffId} className="cursor-pointer font-body text-body-m text-[var(--color-text-text)]">
-            Only differences
-          </label>
-        </div>
-      </div>
+      {/* Narrow: the period toggle sits above the tabs. */}
+      <div className="@3xl:hidden">{periodToggle}</div>
 
       {/* Desktop: one table, plan header sticky. */}
       {/* table-fixed + colgroup: the feature column gets a fixed share and
@@ -118,6 +116,14 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
           ))}
         </colgroup>
         <thead>
+          {/* Period toggle, centred over the plan cards (its own row so it
+              shares the plan columns). */}
+          <tr>
+            <td className="p-0" />
+            <td colSpan={plans.length} className="p-0 pb-5">
+              <div className="flex justify-center">{periodToggle}</div>
+            </td>
+          </tr>
           <tr>
             <th scope="col" className="sticky top-0 z-[1] bg-[var(--color-bg-surface-bg-surface-base)] p-0 text-left align-bottom">
               <span className="sr-only">Feature</span>
@@ -144,6 +150,18 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
                 </div>
               </th>
             ))}
+          </tr>
+          {/* The row filter, under the plan cards on their right edge. */}
+          <tr>
+            <td className="p-0" />
+            <td colSpan={plans.length} className="p-0 pb-4">
+              <div className="flex items-center justify-end gap-2">
+                <Switch id={diffId} checked={onlyDifferences} onCheckedChange={setOnlyDifferences} />
+                <label htmlFor={diffId} className="cursor-pointer font-body text-body-m text-[var(--color-text-text)]">
+                  Only differences
+                </label>
+              </div>
+            </td>
           </tr>
         </thead>
         <tbody>
