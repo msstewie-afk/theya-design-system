@@ -553,6 +553,12 @@
   ::selection {
     background-color: color-mix(in oklch, var(--color-bg-primary-bg-primary) 22%, transparent);
   }
+  /* 22% of the primary blue all but vanished on the dark surfaces
+     (Мария, 2026-10-03) — dark needs a denser tint to read as selected. */
+  [data-theme='dark'] ::selection,
+  [data-theme='dark']::selection {
+    background-color: color-mix(in oklch, var(--color-bg-primary-bg-primary) 50%, transparent);
+  }
 }
 
 /* ==========================================================
