@@ -70,14 +70,14 @@ export const Incident: Story = {
   },
 };
 
-/** Every tone, filled and tonal. */
+/** Every tone, filled and tonal. Several bars on one page each need their own `aria-label` — landmarks must be unique (axe landmark-unique). */
 export const Tones: Story = {
   parameters: { controls: { exclude: ['tone', 'appearance'] } },
   render: (args) => (
     <div className="flex flex-col gap-2">
       {(['filled', 'tonal'] as const).map((appearance) =>
         (['primary', 'neutral', 'info', 'success', 'warning', 'danger'] as const).map((tone) => (
-          <AnnouncementBar key={`${appearance}-${tone}`} {...args} tone={tone} appearance={appearance} icon={<InfoCircle />}>
+          <AnnouncementBar key={`${appearance}-${tone}`} {...args} tone={tone} appearance={appearance} icon={<InfoCircle />} aria-label={`Announcement, ${appearance} ${tone}`}>
             {appearance} · {tone} — Certificates now renew 30 days early. <a href="#">Details</a>
           </AnnouncementBar>
         )),
