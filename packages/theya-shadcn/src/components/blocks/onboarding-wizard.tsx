@@ -1,4 +1,4 @@
-import { useState, useCallback, useId } from 'react';
+import { createContext, useCallback, useContext, useId, useState } from 'react';
 import type { UseFormReturn } from 'react-hook-form';
 import type { ReactNode } from 'react';
 import { ArrowLeft, ArrowRight, Check, Globe } from 'iconoir-react';
@@ -25,6 +25,22 @@ export interface WizardStep {
    * advanced, so an empty required field was simply skipped.
    */
   validate?: () => boolean | Promise<boolean>;
+}
+
+interface WizardContextValue {
+  /** Jump to a step by index or id (e.g. from an "Edit" link on a review step). */
+  goTo: (step: number | string) => void;
+  /** Same as pressing Next — runs the step's `validate` first. Wire it to Enter in a step's form. */
+  next: () => void;
+}
+
+const WizardContext = createContext<WizardContextValue | null>(null);
+
+/** For step content: navigate the surrounding OnboardingWizard. */
+export function useWizard(): WizardContextValue {
+  const ctx = useContext(WizardContext);
+  if (!ctx) throw new Error('useWizard must be used inside OnboardingWizard step content.');
+  return ctx;
 }
 
 export interface OnboardingWizardProps {
@@ -81,29 +97,41 @@ export function OnboardingWizard({
   const headingId = useId();
   const panelLabelId = useId();
   const nextId = useId();
+  const panelId = useId();
 
   const goto = useCallback(
     (next: number) => {
       const clamped = Math.min(Math.max(next, 0), Math.max(total - 1, 0));
       if (!isControlled) setUncontrolled(clamped);
       onStepChange?.(clamped);
-      // Back to the first step disables Back, which drops its focus to
-      // <body> (WCAG 2.4.3). Land on Next instead.
+      // If the move left focus nowhere — Back disabled on the first step,
+      // or a Stepper/Edit link that just got hidden — land on the new
+      // step's first field, else on Next (WCAG 2.4.3).
       requestAnimationFrame(() => {
         const ae = document.activeElement as HTMLElement | null;
-        if (!ae || ae === document.body || (ae as HTMLButtonElement).disabled) document.getElementById(nextId)?.focus();
+        const lost = !ae || ae === document.body || (ae as HTMLButtonElement).disabled || !ae.offsetParent;
+        if (!lost) return;
+        const panel = document.getElementById(panelId);
+        const field = panel?.querySelector<HTMLElement>(':scope > div:not([hidden]) :is(input, select, textarea, [role="radio"][tabindex="0"], [role="combobox"])');
+        (field ?? document.getElementById(nextId))?.focus();
       });
     },
-    [isControlled, onStepChange, total, nextId],
+    [isControlled, onStepChange, total, nextId, panelId],
   );
 
   const handleNext = async () => {
+    if (completing) return;
     if (activeStep?.validate && !(await activeStep.validate())) return;
     if (isLast) {
       onComplete?.();
       return;
     }
     goto(currentIndex + 1);
+  };
+
+  const goTo = (target: number | string) => {
+    const index = typeof target === 'number' ? target : steps.findIndex((s) => s.id === target);
+    if (index >= 0) goto(index);
   };
 
   return (
@@ -119,23 +147,32 @@ export function OnboardingWizard({
           </h2>
           {description && <p className="mt-0.5 font-body text-body-s text-[var(--color-text-text-subtler)]">{description}</p>}
         </div>
-        <Stepper steps={steps.map((s) => ({ label: s.label, description: s.description }))} current={currentIndex} orientation={orientation} aria-label={`${title} progress`} />
+        <Stepper
+          steps={steps.map((s) => ({ label: s.label, description: s.description }))}
+          current={currentIndex}
+          orientation={orientation}
+          aria-label={`${title} progress`}
+          // Completed steps are links back; nothing ahead can be skipped to.
+          onStepClick={completing ? undefined : (i) => i < currentIndex && goto(i)}
+        />
       </div>
 
       <Separator />
 
-      <div role="group" aria-labelledby={panelLabelId} className="flex flex-col gap-4">
+      <div id={panelId} role="group" aria-labelledby={panelLabelId} className="flex flex-col gap-4">
         <h3 id={panelLabelId} className="sr-only">
           {`Step ${currentIndex + 1} of ${total}: ${activeStep?.label ?? ''}`}
         </h3>
         {/* Every step stays mounted, inactive ones hidden: rendering only the
             active step's content unmounted the rest, so Back showed an
             empty form and a picked plan reset. */}
-        {steps.map((step, i) => (
-          <div key={step.id ?? i} hidden={i !== currentIndex} className={i === currentIndex ? 'contents' : undefined}>
-            {step.content}
-          </div>
-        ))}
+        <WizardContext.Provider value={{ goTo, next: () => void handleNext() }}>
+          {steps.map((step, i) => (
+            <div key={step.id ?? i} hidden={i !== currentIndex} className={i === currentIndex ? 'contents' : undefined}>
+              {step.content}
+            </div>
+          ))}
+        </WizardContext.Provider>
       </div>
 
       <Separator />
@@ -163,11 +200,19 @@ const domainSchema = z.object({
 type DomainValues = z.infer<typeof domainSchema>;
 
 function DomainStep({ form }: { form: UseFormReturn<DomainValues> }) {
+  const { next } = useWizard();
   return (
     <Form {...form}>
-      {/* No onSubmit used to mean Enter in the field did a native GET submit
-          and reloaded the page. */}
-      <form className="flex flex-col gap-4" noValidate onSubmit={(e) => e.preventDefault()}>
+      {/* Enter in the field = Next (validates first). With no onSubmit it
+          used to do a native GET submit and reload the page. */}
+      <form
+        className="flex flex-col gap-4"
+        noValidate
+        onSubmit={(e) => {
+          e.preventDefault();
+          next();
+        }}
+      >
         <FormField
           control={form.control}
           name="domain"
@@ -219,6 +264,7 @@ function PlanStep({ plan, setPlan }: { plan: PlanId; setPlan: (plan: PlanId) => 
 }
 
 function ReviewStep({ domain, plan }: { domain: string; plan: PlanId }) {
+  const { goTo } = useWizard();
   // Was hardcoded to shop.seashell.dev + Pro whatever the user entered.
   const selected = PLANS.find((p) => p.id === plan) ?? PLANS[0];
 
@@ -229,13 +275,20 @@ function ReviewStep({ domain, plan }: { domain: string; plan: PlanId }) {
         <p className="min-w-0 break-words font-body text-body-s text-[var(--color-text-text)]">Review the details below, then create your site. You can change any of this later from the site settings.</p>
       </div>
       <DescriptionList>
+        {/* Each group links straight back to the step that set it. */}
         <DescriptionItem>
           <DescriptionTerm>Domain</DescriptionTerm>
-          <DescriptionDetails className="font-mono">{domain.trim() || '—'}</DescriptionDetails>
+          <DescriptionDetails className="flex items-baseline justify-between gap-3">
+            <span className="min-w-0 break-all font-mono">{domain.trim() || '—'}</span>
+            <EditLink label="domain" onClick={() => goTo('domain')} />
+          </DescriptionDetails>
         </DescriptionItem>
         <DescriptionItem>
           <DescriptionTerm>Plan</DescriptionTerm>
-          <DescriptionDetails>{`${selected.title}, ${selected.price}`}</DescriptionDetails>
+          <DescriptionDetails className="flex items-baseline justify-between gap-3">
+            <span className="min-w-0">{`${selected.title}, ${selected.price}`}</span>
+            <EditLink label="plan" onClick={() => goTo('plan')} />
+          </DescriptionDetails>
         </DescriptionItem>
         <DescriptionItem>
           <DescriptionTerm>Region</DescriptionTerm>
@@ -243,6 +296,18 @@ function ReviewStep({ domain, plan }: { domain: string; plan: PlanId }) {
         </DescriptionItem>
       </DescriptionList>
     </div>
+  );
+}
+
+function EditLink({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="shrink-0 cursor-pointer rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link)] underline-offset-4 outline-none hover:underline focus-visible:focus-ring"
+    >
+      Edit<span className="sr-only"> {label}</span>
+    </button>
   );
 }
 

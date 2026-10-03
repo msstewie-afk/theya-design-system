@@ -57,22 +57,20 @@ export const Default: Story = {
     await waitFor(() => expect(domain).toHaveAccessibleDescription(/Enter a valid domain/));
     await expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 3');
 
-    // Enter in the field doesn't reload the page (the form had no onSubmit).
+    // Enter in the field works like Next (validates, then advances) — and
+    // doesn't reload the page.
     await userEvent.clear(domain);
     await userEvent.type(domain, 'blog.example.dev{Enter}');
-    await expect(domain).toHaveValue('blog.example.dev');
-
-    await userEvent.click(next);
     await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 2 of 3: Plan'));
     await expect(canvas.queryByRole('textbox', { name: 'Domain' })).toBeNull();
     await userEvent.click(canvas.getByRole('radio', { name: /^Business/ }));
 
     // Back to step 1: the typed domain is still there, and with Back now
-    // disabled, focus lands on Next instead of <body>.
+    // disabled, focus lands on the step's field instead of <body>.
     await userEvent.click(back);
     await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 3'));
     await expect(canvas.getByRole('textbox', { name: 'Domain' })).toHaveValue('blog.example.dev');
-    await waitFor(() => expect(next).toHaveFocus());
+    await waitFor(() => expect(canvas.getByRole('textbox', { name: 'Domain' })).toHaveFocus());
 
     await userEvent.click(next);
     await waitFor(() => expect(canvas.getByRole('radio', { name: /^Business/ })).toBeChecked());
@@ -81,6 +79,15 @@ export const Default: Story = {
     // Review reflects the real choices (was hardcoded).
     await expect(canvas.getByText('blog.example.dev')).toBeVisible();
     await expect(canvas.getByText('Business, $60 / mo')).toBeVisible();
+
+    // Review's Edit links and the Stepper's completed steps jump back.
+    await userEvent.click(canvas.getByRole('button', { name: 'Edit plan' }));
+    await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 2 of 3: Plan'));
+    await userEvent.click(canvas.getByRole('button', { name: /^Domain \(go back to this step\)/ }));
+    await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 3: Domain'));
+    await userEvent.click(next);
+    await userEvent.click(next);
+    await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 3 of 3: Review'));
 
     await userEvent.click(canvas.getByRole('button', { name: 'Create site' }));
     await expect(args.onComplete).toHaveBeenCalledTimes(1);
