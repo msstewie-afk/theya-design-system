@@ -11,6 +11,11 @@ import { cn } from '@/lib/utils';
  * Height: give the root a fixed height (`h-72`) or a cap (`max-h-60`) —
  * the viewport inherits the cap, so a list shorter than it doesn't scroll.
  *
+ * `aria-label` / `aria-labelledby` name the scroll region: they go on the
+ * focusable viewport together with role="region" (axe:
+ * scrollable-region-focusable wants it focusable, and a focusable region
+ * needs a name), not on the wrapper div where the attribute is invalid.
+ *
  * `focusable` (default true) makes the viewport a tab stop so keyboard
  * users can scroll plain content. Turn it off inside widgets that already
  * own the keyboard (a combobox/command listbox driven by
@@ -31,14 +36,20 @@ export function ScrollArea({
   focusable = true,
   viewportRef,
   viewportClassName,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby,
   ...props
 }: ScrollAreaProps) {
+  const named = Boolean(ariaLabel || ariaLabelledby);
   return (
     <ScrollAreaPrimitive.Root data-slot="scroll-area" type={type} scrollHideDelay={scrollHideDelay} className={cn('relative overflow-hidden', className)} {...props}>
       <ScrollAreaPrimitive.Viewport
         ref={viewportRef}
         data-slot="scroll-area-viewport"
         tabIndex={focusable ? 0 : undefined}
+        role={named ? 'region' : undefined}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledby}
         className={cn(
           // max-h-[inherit]: a max-h cap on the root (not a fixed height)
           // otherwise never reaches the scrolling element.
