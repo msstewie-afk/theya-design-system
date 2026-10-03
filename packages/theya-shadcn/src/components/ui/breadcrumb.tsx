@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { NavArrowRight, MoreHoriz } from 'iconoir-react';
 import { cn } from '@/lib/utils';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './dropdown-menu';
 
 /**
  * The topbar trail. Sentence case, hairline chevrons. The last item
@@ -35,7 +36,7 @@ export function BreadcrumbLink({
   return (
     <Comp
       className={cn(
-        'inline-flex items-center gap-1.5 transition-colors duration-standard ease-enter motion-reduce:transition-none hover:text-[var(--color-text-text)]',
+        'inline-flex items-center gap-1.5 rounded-[var(--size-border-radius-border-radius-sm)] outline-none transition-colors duration-standard ease-enter motion-reduce:transition-none hover:text-[var(--color-text-text)] focus-visible:focus-ring',
         className,
       )}
       {...props}
@@ -82,7 +83,40 @@ export function BreadcrumbSeparator({ children, className, ...props }: React.Com
   );
 }
 
-export function BreadcrumbEllipsis({ className, ...props }: React.ComponentProps<'span'>) {
+export interface BreadcrumbEllipsisProps extends React.ComponentProps<'span'> {
+  /**
+   * The levels the ellipsis stands for, top first. With them, the ellipsis
+   * is a button that opens a menu of those links, so a folded path stays
+   * navigable. Without them it's a decorative marker only.
+   */
+  items?: { label: string; href: string }[];
+}
+
+export function BreadcrumbEllipsis({ className, items, ...props }: BreadcrumbEllipsisProps) {
+  if (items?.length) {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          aria-label={`Show ${items.length} more ${items.length === 1 ? 'level' : 'levels'}`}
+          className={cn(
+            'grid size-6 cursor-pointer place-items-center rounded-[var(--size-border-radius-border-radius-sm)] outline-none',
+            'transition-colors duration-standard ease-enter motion-reduce:transition-none',
+            'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-text-text)] focus-visible:focus-ring data-[state=open]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
+            className,
+          )}
+        >
+          <MoreHoriz aria-hidden="true" className="size-4" />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start">
+          {items.map((item) => (
+            <DropdownMenuItem key={item.href} asChild>
+              <a href={item.href}>{item.label}</a>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  }
   return (
     <span role="presentation" aria-hidden="true" className={cn('flex size-9 items-center justify-center', className)} {...props}>
       <MoreHoriz className="size-4" />
