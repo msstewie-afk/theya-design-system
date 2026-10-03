@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Rating } from './rating';
+import { ratingGuidelines } from './rating.guidelines';
 
 // Radix RadioGroup checks the newly focused radio only while the arrow key
 // is still held (same helper as Radio's stories).
@@ -16,6 +17,7 @@ const meta: Meta<typeof Rating> = {
   component: Rating,
   tags: ['autodocs'],
   parameters: {
+    guidelines: ratingGuidelines,
     docs: {
       description: {
         component:

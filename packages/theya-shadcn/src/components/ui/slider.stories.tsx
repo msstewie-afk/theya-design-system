@@ -2,11 +2,13 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { Slider } from './slider';
+import { sliderGuidelines } from './slider.guidelines';
 
 const meta: Meta<typeof Slider> = {
   title: 'Selection/Slider',
   component: Slider,
   tags: ['autodocs'],
+  parameters: { guidelines: sliderGuidelines },
   argTypes: {
     min: { control: 'number', description: 'Minimum value (aria-valuemin).', table: { category: 'Range' } },
     max: { control: 'number', description: 'Maximum value (aria-valuemax).', table: { category: 'Range' } },

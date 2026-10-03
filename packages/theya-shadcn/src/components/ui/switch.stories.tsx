@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { Switch } from './switch';
+import { switchGuidelines } from './switch.guidelines';
 
 const meta: Meta<typeof Switch> = {
   title: 'Selection/Switch',
   component: Switch,
   tags: ['autodocs'],
   parameters: {
+    guidelines: switchGuidelines,
     docs: { description: { component: 'Built on Radix Switch. Uncontrolled by default via `defaultChecked`.' } },
   },
   argTypes: {

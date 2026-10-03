@@ -2,11 +2,13 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Combobox } from './combobox';
+import { comboboxGuidelines } from './combobox.guidelines';
 
 const meta: Meta<typeof Combobox> = {
   title: 'Selection/Combobox',
   tags: ['autodocs'],
   parameters: {
+    guidelines: comboboxGuidelines,
     docs: {
       description: {
         component:

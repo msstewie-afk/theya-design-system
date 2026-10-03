@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { SwatchPicker, type SwatchOption } from './swatch-picker';
+import { swatchPickerGuidelines } from './swatch-picker.guidelines';
 
 /**
  * SwatchPicker — choose a color, material or pattern by its look. Single
@@ -61,7 +62,7 @@ const meta = {
   title: 'Selection/SwatchPicker',
   component: SwatchPicker,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: swatchPickerGuidelines },
   argTypes: {
     options: { control: false, description: 'Swatches: value, label and color / colors / image; unavailable, disabled.' },
     type: { control: false, description: 'single (radio group) or multiple (pressed buttons).' },

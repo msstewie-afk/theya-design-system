@@ -2,12 +2,14 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { Autocomplete } from './autocomplete';
+import { autocompleteGuidelines } from './autocomplete.guidelines';
 
 const meta: Meta<typeof Autocomplete> = {
   title: 'Selection/Autocomplete',
   component: Autocomplete,
   tags: ['autodocs'],
   parameters: {
+    guidelines: autocompleteGuidelines,
     docs: {
       description: {
         component:

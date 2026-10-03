@@ -100,7 +100,10 @@ export function GuidelinesIntro({ guidelines: g }: { guidelines: ComponentGuidel
 function DoDontCard({ kind, example, caption }: { kind: 'do' | 'dont'; example: ReactNode; caption: ReactNode }) {
   const isDo = kind === 'do';
   return (
-    <figure className="m-0 flex flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
+    // Two-column pairs: the figure spans both rows of the pair's grid as a
+    // subgrid, so example and caption rows line up across Do and Don't — the
+    // green and red lines sit at the same height whatever the caption length.
+    <figure className="m-0 flex flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] md:row-span-2 md:grid md:grid-rows-subgrid md:gap-0">
       <div className="flex min-h-32 flex-1 items-center justify-center bg-[var(--color-bg-surface-bg-surface-base)] p-6">{example}</div>
       <figcaption
         className={cn(
@@ -139,7 +142,7 @@ export function GuidelinesDetails({ guidelines: g }: { guidelines: ComponentGuid
       <section className="flex flex-col gap-4">
         <H>Do and don’t</H>
         {g.doDont.map((p, i) => (
-          <div key={i} className="grid gap-4 md:grid-cols-2">
+          <div key={i} className="grid gap-4 md:grid-cols-2 md:grid-rows-[1fr_auto] md:gap-y-0">
             <DoDontCard kind="do" {...p.do} />
             <DoDontCard kind="dont" {...p.dont} />
           </div>

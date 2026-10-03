@@ -2,11 +2,13 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { CheckboxGroup, CheckboxGroupItem } from './checkbox-group';
+import { checkboxGroupGuidelines } from './checkbox-group.guidelines';
 
 const meta: Meta<typeof CheckboxGroup> = {
   title: 'Selection/CheckboxGroup',
   component: CheckboxGroup,
   tags: ['autodocs'],
+  parameters: { guidelines: checkboxGroupGuidelines },
   argTypes: {
     label: {
       control: 'text',

@@ -3,11 +3,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Cloud, Globe, ShieldCheck, Server, Network } from 'iconoir-react';
 import { OptionCardGroup, OptionCard } from './option-card';
+import { optionCardGuidelines } from './option-card.guidelines';
 
 const meta: Meta<typeof OptionCardGroup> = {
   title: 'Selection/OptionCard',
   component: OptionCardGroup,
   tags: ['autodocs'],
+  parameters: { guidelines: optionCardGuidelines },
   argTypes: {
     defaultValue: { control: 'text', description: 'Initially selected value (uncontrolled).', table: { category: 'Content' } },
     disabled: { control: 'boolean', description: 'Disables every card in the group.', table: { category: 'State' } },

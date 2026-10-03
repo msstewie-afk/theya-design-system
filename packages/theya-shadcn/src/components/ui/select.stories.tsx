@@ -5,7 +5,7 @@ import type { SelectTriggerProps, SelectItemProps } from './select';
 import type { StatusTone } from './status-dot';
 import type { BadgeTone } from './badge';
 import { Label } from './label';
-import { Cloud, Globe, Server } from 'iconoir-react';
+import { Bell, Cloud, Database, Globe, Lock, Server, StatsUpSquare } from 'iconoir-react';
 import { selectGuidelines } from './select.guidelines';
 
 function RocketIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -110,12 +110,19 @@ export const Playground: Story = {
             <SelectLabel>Europe</SelectLabel>
             <SelectItem value="eu-west-1">eu-west-1, Ireland</SelectItem>
             <SelectItem value="eu-central-1">eu-central-1, Frankfurt</SelectItem>
+            <SelectItem value="eu-north-1">eu-north-1, Stockholm</SelectItem>
           </SelectGroup>
           <SelectSeparator />
           <SelectGroup>
             <SelectLabel>Americas</SelectLabel>
             <SelectItem value="us-east-1">us-east-1, Virginia</SelectItem>
             <SelectItem value="us-west-2">us-west-2, Oregon</SelectItem>
+          </SelectGroup>
+          <SelectSeparator />
+          <SelectGroup>
+            <SelectLabel>Asia Pacific</SelectLabel>
+            <SelectItem value="ap-south-1">ap-south-1, Mumbai</SelectItem>
+            <SelectItem value="ap-southeast-1">ap-southeast-1, Singapore</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
@@ -140,12 +147,14 @@ export const WithGroups: Story = {
           <SelectLabel>Fruits</SelectLabel>
           <SelectItem value="apple">Apple</SelectItem>
           <SelectItem value="banana">Banana</SelectItem>
+          <SelectItem value="mango">Mango</SelectItem>
         </SelectGroup>
         <SelectSeparator />
         <SelectGroup>
           <SelectLabel>Vegetables</SelectLabel>
           <SelectItem value="carrot">Carrot</SelectItem>
           <SelectItem value="potato">Potato</SelectItem>
+          <SelectItem value="spinach">Spinach</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
@@ -187,6 +196,11 @@ export const Sizes: Story = {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="a">Option A</SelectItem>
+          <SelectItem value="b">Option B</SelectItem>
+          <SelectItem value="c">Option C</SelectItem>
+          <SelectItem value="d">Option D</SelectItem>
+          <SelectItem value="e">Option E</SelectItem>
+          <SelectItem value="f">Option F</SelectItem>
         </SelectContent>
       </Select>
       <Select heightSize="sm">
@@ -195,6 +209,11 @@ export const Sizes: Story = {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="a">Option A</SelectItem>
+          <SelectItem value="b">Option B</SelectItem>
+          <SelectItem value="c">Option C</SelectItem>
+          <SelectItem value="d">Option D</SelectItem>
+          <SelectItem value="e">Option E</SelectItem>
+          <SelectItem value="f">Option F</SelectItem>
         </SelectContent>
       </Select>
     </div>
@@ -213,6 +232,9 @@ export const LongOptions: Story = {
         <SelectItem value="a">shop.seashell.dev.eu-west-1.internal-lb-01.prod</SelectItem>
         <SelectItem value="b">api.seashell.dev.us-east-1.internal-lb-02.prod</SelectItem>
         <SelectItem value="c">docs.seashell.dev.ap-southeast-2.edge-03.staging</SelectItem>
+        <SelectItem value="d">cdn.seashell.dev.eu-central-1.edge-04.prod</SelectItem>
+        <SelectItem value="e">auth.seashell.dev.us-west-2.internal-lb-05.prod</SelectItem>
+        <SelectItem value="f">status.seashell.dev.ap-south-1.edge-06.staging</SelectItem>
       </SelectContent>
     </Select>
   ),
@@ -228,9 +250,12 @@ export const Invalid: Story = {
           <SelectValue placeholder="Select a plan" />
         </SelectTrigger>
         <SelectContent>
+          <SelectItem value="free">Free</SelectItem>
           <SelectItem value="starter">Starter</SelectItem>
           <SelectItem value="pro">Pro</SelectItem>
+          <SelectItem value="business">Business</SelectItem>
           <SelectItem value="scale">Scale</SelectItem>
+          <SelectItem value="enterprise">Enterprise</SelectItem>
         </SelectContent>
       </Select>
     </div>
@@ -267,9 +292,12 @@ export const InvalidOpen: Story = {
           <SelectValue placeholder="Select a plan" />
         </SelectTrigger>
         <SelectContent>
+          <SelectItem value="free">Free</SelectItem>
           <SelectItem value="starter">Starter</SelectItem>
           <SelectItem value="pro">Pro</SelectItem>
+          <SelectItem value="business">Business</SelectItem>
           <SelectItem value="scale">Scale</SelectItem>
+          <SelectItem value="enterprise">Enterprise</SelectItem>
         </SelectContent>
       </Select>
     </div>
@@ -284,6 +312,11 @@ export const Disabled: Story = {
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="a">Option A</SelectItem>
+        <SelectItem value="b">Option B</SelectItem>
+        <SelectItem value="c">Option C</SelectItem>
+        <SelectItem value="d">Option D</SelectItem>
+        <SelectItem value="e">Option E</SelectItem>
+        <SelectItem value="f">Option F</SelectItem>
       </SelectContent>
     </Select>
   ),
@@ -301,6 +334,9 @@ export const WithIcons: Story = {
         <SelectItem value="a" icon={<Server />}>Compute</SelectItem>
         <SelectItem value="b" icon={<Cloud />}>Storage</SelectItem>
         <SelectItem value="c" icon={<Globe />}>Networking</SelectItem>
+        <SelectItem value="d" icon={<Database />}>Databases</SelectItem>
+        <SelectItem value="e" icon={<StatsUpSquare />}>Monitoring</SelectItem>
+        <SelectItem value="f" icon={<Lock />}>Security</SelectItem>
       </SelectContent>
     </Select>
   ),
@@ -317,6 +353,10 @@ export const WithMediaIcons: Story = {
       <SelectContent>
         <SelectItem value="a" icon={<RocketIcon />} iconSize="lg">Standard launch</SelectItem>
         <SelectItem value="b" icon={<RocketIcon />} iconSize="lg">Fast-track deploy</SelectItem>
+        <SelectItem value="c" icon={<RocketIcon />} iconSize="lg">Canary release</SelectItem>
+        <SelectItem value="d" icon={<RocketIcon />} iconSize="lg">Blue-green deploy</SelectItem>
+        <SelectItem value="e" icon={<RocketIcon />} iconSize="lg">Scheduled launch</SelectItem>
+        <SelectItem value="f" icon={<RocketIcon />} iconSize="lg">Rollback</SelectItem>
       </SelectContent>
     </Select>
   ),
@@ -334,6 +374,9 @@ export const WithStatus: Story = {
         <SelectItem value="a" status="success">web-01 — running</SelectItem>
         <SelectItem value="b" status="warning">web-02 — degraded</SelectItem>
         <SelectItem value="c" status="danger">web-03 — stopped</SelectItem>
+        <SelectItem value="d" status="success">web-04 — running</SelectItem>
+        <SelectItem value="e" status="success">db-01 — running</SelectItem>
+        <SelectItem value="f" status="warning">cache-01 — degraded</SelectItem>
       </SelectContent>
     </Select>
   ),
@@ -351,6 +394,9 @@ export const WithBadge: Story = {
         <SelectItem value="a" icon={<Server />} badge={{ label: 12 }}>Backend team</SelectItem>
         <SelectItem value="b" icon={<Cloud />} badge={{ label: 3, tone: 'warning' }}>Infra team</SelectItem>
         <SelectItem value="c" icon={<Globe />} badge={{ label: 'New', tone: 'success' }}>Growth team</SelectItem>
+        <SelectItem value="d" icon={<Database />} badge={{ label: 7 }}>Data team</SelectItem>
+        <SelectItem value="e" icon={<Lock />} badge={{ label: 2, tone: 'warning' }}>Security team</SelectItem>
+        <SelectItem value="f" icon={<Bell />} badge={{ label: 5 }}>Support team</SelectItem>
       </SelectContent>
     </Select>
   ),
@@ -371,8 +417,17 @@ export const WithDescription: Story = {
         <SelectItem value="b" icon={<Cloud />} description="For growing teams, up to 20 seats">
           Pro
         </SelectItem>
-        <SelectItem value="c" icon={<Globe />} description="Custom limits, SSO, dedicated support">
+        <SelectItem value="c" icon={<Database />} description="Extra storage and daily backups">
+          Business
+        </SelectItem>
+        <SelectItem value="d" icon={<StatsUpSquare />} description="Usage-based, pay for what you run">
+          Scale
+        </SelectItem>
+        <SelectItem value="e" icon={<Globe />} description="Custom limits, SSO, dedicated support">
           Enterprise
+        </SelectItem>
+        <SelectItem value="f" icon={<Lock />} description="Isolated hardware, compliance reports">
+          Dedicated
         </SelectItem>
       </SelectContent>
     </Select>

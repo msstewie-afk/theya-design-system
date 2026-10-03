@@ -8,7 +8,7 @@ export const toggleGroupGuidelines: ComponentGuidelines = {
   whenNotToUse: [
     { text: 'Switching between panels of content', instead: 'Tabs' },
     { text: 'A choice in a form that’s saved later', instead: 'RadioGroup' },
-    { text: 'More than ~5 options', instead: 'Select' },
+    { text: 'More than 5 options', instead: 'Select' },
   ],
   anatomy: [
     { part: 'Group', description: <><C>type</C> single/multiple, <C>appearance</C> (<C>outlined</C> for a visible segmented control, <C>ghost</C> for toolbars).</> },

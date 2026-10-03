@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './button';
 import { RangeField, type RangeValue } from './range-field';
+import { rangeFieldGuidelines } from './range-field.guidelines';
 
 /**
  * RangeField — a two-thumb slider plus "From"/"To" number fields that stay
@@ -13,7 +14,7 @@ const meta = {
   title: 'Selection/RangeField',
   component: RangeField,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: rangeFieldGuidelines },
   argTypes: {
     label: { control: 'text', table: { category: 'Content' } },
     description: { control: 'text', table: { category: 'Content' } },

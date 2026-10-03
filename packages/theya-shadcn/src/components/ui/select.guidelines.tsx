@@ -3,11 +3,29 @@ import { Label } from './label';
 import { Radio, RadioGroup } from './radio';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
 
+// 8 options: inside the 6–15 range a Select is meant for.
+const REGIONS = [
+  ['eu-central', 'EU (Frankfurt)'],
+  ['eu-west', 'EU (Ireland)'],
+  ['eu-north', 'EU (Stockholm)'],
+  ['us-east', 'US (Virginia)'],
+  ['us-west', 'US (Oregon)'],
+  ['ca', 'Canada (Montreal)'],
+  ['ap-south', 'Asia Pacific (Mumbai)'],
+  ['ap-se', 'Asia Pacific (Singapore)'],
+] as const;
+
+const regionItems = REGIONS.map(([value, label]) => (
+  <SelectItem key={value} value={value}>
+    {label}
+  </SelectItem>
+));
+
 export const selectGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['One choice from about 5–15 known options when space is tight.', 'Values people recognise rather than type: a region, a plan, a sort order.'],
+  whenToUse: ['One choice from 6–15 known options (up to 5 → RadioGroup, over 15 → Combobox).', 'Values people recognise rather than type: a region, a plan, a sort order.'],
   whenNotToUse: [
-    { text: 'Two to four options — show them all', instead: 'RadioGroup or ToggleGroup' },
+    { text: 'Up to 5 options — show them all', instead: 'RadioGroup or ToggleGroup' },
     { text: 'Long lists people search in', instead: 'Combobox' },
     { text: 'Several values at once', instead: 'CheckboxGroup or TagInput' },
     { text: 'Actions, not values', instead: 'DropdownMenu' },
@@ -22,12 +40,18 @@ export const selectGuidelines: ComponentGuidelines = {
     {
       do: {
         example: (
-          <RadioGroup defaultValue="monthly" aria-label="Billing">
-            <Radio value="monthly" label="Monthly" />
-            <Radio value="yearly" label="Yearly" />
-          </RadioGroup>
+          <div className="flex flex-col gap-2">
+            <span id="gl-sel-billing-radio" className="font-body text-body-m font-medium text-[var(--color-text-text)]">
+              Billing
+            </span>
+            <RadioGroup defaultValue="monthly" aria-labelledby="gl-sel-billing-radio">
+              <Radio value="monthly" label="Monthly" />
+              <Radio value="quarterly" label="Quarterly" />
+              <Radio value="yearly" label="Yearly" />
+            </RadioGroup>
+          </div>
         ),
-        caption: 'Two options: show both, one click.',
+        caption: 'Up to 5 options: show them all as radios — compared at a glance, picked in one click.',
       },
       dont: {
         example: (
@@ -39,12 +63,13 @@ export const selectGuidelines: ComponentGuidelines = {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="monthly">Monthly</SelectItem>
+                <SelectItem value="quarterly">Quarterly</SelectItem>
                 <SelectItem value="yearly">Yearly</SelectItem>
               </SelectContent>
             </Select>
           </div>
         ),
-        caption: 'A select hides two options behind an extra click.',
+        caption: 'Three options hidden in a select — an extra click to see what the choices even are.',
       },
     },
     {
@@ -57,25 +82,23 @@ export const selectGuidelines: ComponentGuidelines = {
                 <SelectValue placeholder="Choose a region" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="eu">EU (Frankfurt)</SelectItem>
-                <SelectItem value="us">US (Virginia)</SelectItem>
+                {regionItems}
               </SelectContent>
             </Select>
           </div>
         ),
-        caption: 'No answer yet? The placeholder says what to pick.',
+        caption: '8 regions — in the 6–15 range a Select fits. No answer yet, so the placeholder says what to pick.',
       },
       dont: {
         example: (
           <div className="flex flex-col gap-2">
             <Label htmlFor="gl-sel-region2">Data region</Label>
-            <Select defaultValue="eu">
+            <Select defaultValue="eu-central">
               <SelectTrigger id="gl-sel-region2" widthSize="md">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="eu">EU (Frankfurt)</SelectItem>
-                <SelectItem value="us">US (Virginia)</SelectItem>
+                {regionItems}
               </SelectContent>
             </Select>
           </div>

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { ColorField, ColorPicker } from './color-picker';
 import { Card } from './card';
+import { colorPickerGuidelines } from './color-picker.guidelines';
 
 /**
  * ColorPicker — saturation/brightness area, hue and alpha sliders, HEX/RGB/HSL
@@ -17,7 +18,7 @@ const meta = {
   title: 'Selection/ColorPicker',
   component: ColorPicker,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: colorPickerGuidelines },
   argTypes: {
     value: { control: 'color', description: 'Hex color (#rrggbb, or #rrggbbaa with alpha).' },
     defaultValue: { control: 'text', description: 'Initial color when uncontrolled.' },

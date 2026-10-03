@@ -11,12 +11,14 @@ async function pressArrow(key: 'ArrowDown' | 'ArrowUp', target: () => HTMLElemen
   await userEvent.keyboard(`{/${key}}`);
 }
 import { RadioGroup, Radio } from './radio';
+import { radioGuidelines } from './radio.guidelines';
 
 const meta: Meta<typeof Radio> = {
   title: 'Selection/Radio',
   component: Radio,
   tags: ['autodocs'],
   parameters: {
+    guidelines: radioGuidelines,
     docs: {
       description: { component: 'Built on Radix RadioGroup. Wrap `Radio` items in `RadioGroup`.' },
     },
