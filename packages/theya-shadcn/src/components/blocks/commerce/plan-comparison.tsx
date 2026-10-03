@@ -69,7 +69,8 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
         // Tonal, not outlined, for the others: the cards already have borders.
         appearance={p.recommended ? 'filled' : 'tonal'}
         tone={p.recommended ? 'primary' : 'secondary'}
-        size="lg"
+        // md, like every button inside a card (6px radius).
+        size="md"
         fullWidth
         disabled={isCurrent}
         onClick={() => onSelect?.(p.id, period)}
