@@ -4,6 +4,7 @@ import { Controller, useForm, type ControllerRenderProps } from 'react-hook-form
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z, type ZodTypeAny } from 'zod';
 import { cn } from '@/lib/utils';
+import { emailProblem } from '@/lib/email';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Field, FieldDescription, FieldError } from '@/components/ui/field';
@@ -102,10 +103,14 @@ function fieldSchema(field: ResourceFieldConfig): ZodTypeAny {
   let base = z.string();
   if (required) base = base.min(1, `${field.label} is required.`);
   if (kind === 'email') {
-    const email = base.email('Enter a valid email.');
-    // Optional emails default to '' — which .email() rejected, so an
-    // empty optional email field blocked the submit.
-    return required ? email : email.or(z.literal('')).optional();
+    // Specific messages (missing @, incomplete domain, …) instead of one
+    // generic "invalid". emailProblem('') is undefined, so an empty
+    // optional email still passes.
+    const email = base.superRefine((value, ctx) => {
+      const problem = emailProblem(value);
+      if (problem) ctx.addIssue({ code: 'custom', message: problem });
+    });
+    return required ? email : email.optional();
   }
   return required ? base : base.optional();
 }

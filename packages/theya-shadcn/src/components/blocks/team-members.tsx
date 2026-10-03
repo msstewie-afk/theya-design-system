@@ -14,6 +14,7 @@ import { undoToast } from '@/components/ui/undo-toast';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
+import { emailProblem } from '@/lib/email';
 
 /**
  * A reusable team/members management screen. Owns: an invite-by-
@@ -73,7 +74,6 @@ const SEEDED_INVITES: TeamInvite[] = [
   { id: 'inv-2', email: 'lee@seashell.dev', role: 'admin', invitedAgo: '5h ago' },
 ];
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function initials(name: string): string {
   return name
@@ -152,9 +152,9 @@ export function TeamMembers({
     ? submitted
       ? 'Enter an email address.'
       : null
-    : !EMAIL_RE.test(trimmedEmail)
+    : emailProblem(trimmedEmail)
       ? touched || submitted
-        ? 'Enter a valid email address.'
+        ? emailProblem(trimmedEmail)!
         : null
       : members.some((m) => m.email.toLowerCase() === lowerEmail)
         ? 'This person is already a member.'
@@ -167,7 +167,7 @@ export function TeamMembers({
     e.preventDefault();
     setTouched(true);
     setSubmitted(true);
-    const blocked = !trimmedEmail || !EMAIL_RE.test(trimmedEmail) || members.some((m) => m.email.toLowerCase() === lowerEmail) || invites.some((i) => i.email.toLowerCase() === lowerEmail);
+    const blocked = !trimmedEmail || Boolean(emailProblem(trimmedEmail)) || members.some((m) => m.email.toLowerCase() === lowerEmail) || invites.some((i) => i.email.toLowerCase() === lowerEmail);
     if (blocked) {
       document.getElementById(emailId)?.focus();
       return;

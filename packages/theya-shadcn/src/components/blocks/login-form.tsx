@@ -10,6 +10,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
+import { emailProblem } from '@/lib/email';
 
 /**
  * A complete, reusable sign-in block. Composed entirely from shipped
@@ -59,7 +60,7 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
     const email = String(data.get('email') ?? '').trim();
     const password = String(data.get('password') ?? '');
     const next = {
-      email: !email ? 'Enter your email.' : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'Enter a valid email address.' : undefined,
+      email: !email ? 'Enter your email.' : emailProblem(email),
       password: password ? undefined : 'Enter your password.',
     };
     setErrors(next);
@@ -92,7 +93,17 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
           required
           widthSize="full"
           error={errors.email}
-          onChange={() => errors.email && setErrors((p) => ({ ...p, email: undefined }))}
+          // Checked when the field is left (a filled one only — no nagging
+          // on an untouched field), and re-checked live while an error is
+          // shown, so it disappears the moment the address is fixed.
+          onBlur={(e) => {
+            const v = e.currentTarget.value.trim();
+            if (v) setErrors((p) => ({ ...p, email: emailProblem(v) }));
+          }}
+          onChange={(e) => {
+            const v = e.currentTarget.value.trim();
+            if (errors.email) setErrors((p) => ({ ...p, email: v ? emailProblem(v) : 'Enter your email.' }));
+          }}
         />
       </div>
 

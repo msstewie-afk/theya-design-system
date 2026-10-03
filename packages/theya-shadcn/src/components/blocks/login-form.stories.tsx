@@ -56,7 +56,7 @@ export const Default: Story = {
 
     await userEvent.type(email, 'dana@');
     await userEvent.click(signIn);
-    await waitFor(() => expect(email).toHaveAccessibleDescription('Enter a valid email address.'));
+    await waitFor(() => expect(email).toHaveAccessibleDescription('Add the domain after the @, e.g. example.com.'));
 
     // Email fixed: the password is now the first invalid field.
     await userEvent.type(email, 'seashell.dev');

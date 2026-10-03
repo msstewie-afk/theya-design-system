@@ -77,7 +77,7 @@ export const Default: Story = {
     await expect(emailInput).toHaveAccessibleDescription('Enter an email address.');
 
     await userEvent.type(emailInput, 'nope');
-    await expect(canvas.getByRole('alert')).toHaveTextContent('Enter a valid email address.');
+    await expect(canvas.getByRole('alert')).toHaveTextContent('An email address needs an @, e.g. name@example.com.');
     await userEvent.clear(emailInput);
     await userEvent.type(emailInput, 'Priya@seashell.dev');
     await expect(canvas.getByRole('alert')).toHaveTextContent('This person is already a member.');

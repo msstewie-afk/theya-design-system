@@ -3,6 +3,7 @@ import type { FormEventHandler, FormEvent } from 'react';
 import { Key, FloppyDisk, ShieldCheck, Trash, WarningTriangle, ArrowUp, ArrowDown, Refresh } from 'iconoir-react';
 import { toast } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
+import { emailProblem } from '@/lib/email';
 import { Button } from '@/components/ui/button';
 import { TextField } from '@/components/ui/text-field';
 import { Password } from '@/components/ui/password';
@@ -301,9 +302,21 @@ function SectionNav({ sections, activeId, label }: { sections: ReadonlyArray<{ i
 function ProfileSection({ id, account, onSaveProfile }: { id: string; account: SettingsAccount; onSaveProfile?: FormEventHandler<HTMLFormElement> }) {
   const fullNameId = useId();
   const emailId = useId();
+  const [errors, setErrors] = useState<{ fullName?: string; email?: string }>({});
+  const checkEmail = (v: string) => (v.trim() ? emailProblem(v) : 'Enter your email.');
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const next = {
+      fullName: String(data.get('fullName') ?? '').trim() ? undefined : 'Enter your name.',
+      email: checkEmail(String(data.get('email') ?? '')),
+    };
+    setErrors(next);
+    if (next.fullName || next.email) {
+      document.getElementById(next.fullName ? fullNameId : emailId)?.focus();
+      return;
+    }
     if (onSaveProfile) {
       onSaveProfile(e);
       return;
@@ -321,11 +334,31 @@ function ProfileSection({ id, account, onSaveProfile }: { id: string; account: S
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <Label htmlFor={fullNameId}>Full name</Label>
-            <TextField id={fullNameId} name="fullName" autoComplete="name" defaultValue={account.fullName} widthSize="lg" />
+            <TextField
+              id={fullNameId}
+              name="fullName"
+              autoComplete="name"
+              defaultValue={account.fullName}
+              widthSize="lg"
+              error={errors.fullName}
+              onChange={(e) => errors.fullName && setErrors((p) => ({ ...p, fullName: e.currentTarget.value.trim() ? undefined : 'Enter your name.' }))}
+            />
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor={emailId}>Email</Label>
-            <TextField id={emailId} name="email" type="email" inputMode="email" autoComplete="email" defaultValue={account.email} widthSize="lg" />
+            <TextField
+              id={emailId}
+              name="email"
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              defaultValue={account.email}
+              widthSize="lg"
+              error={errors.email}
+              // Checked on leaving the field; re-checked live once wrong.
+              onBlur={(e) => setErrors((p) => ({ ...p, email: checkEmail(e.currentTarget.value) }))}
+              onChange={(e) => errors.email && setErrors((p) => ({ ...p, email: checkEmail(e.currentTarget.value) }))}
+            />
           </div>
         </div>
         <Separator />
@@ -441,6 +474,12 @@ function SecuritySection({
             // Requirements up front, not only once they've been broken.
             description="Use at least 8 characters."
             error={pwErrors.next}
+            onBlur={(e) => {
+              const v = e.currentTarget.value;
+              // Only once something is typed: leaving an empty field (e.g. to
+              // reach the show-password toggle) isn't an error yet.
+              if (v && v.length < 8) setPwErrors((p) => ({ ...p, next: 'Use at least 8 characters.' }));
+            }}
             onChange={() => pwErrors.next && setPwErrors((p) => ({ ...p, next: undefined }))}
           />
         </div>

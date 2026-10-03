@@ -162,7 +162,7 @@ export const Sectioned: Story = {
     const recovery = canvas.getByRole('textbox', { name: /^Recovery email/ });
     await userEvent.type(recovery, 'not-an-email');
     await userEvent.click(canvas.getByRole('button', { name: 'Save' }));
-    await waitFor(() => expect(recovery).toHaveAccessibleDescription('Enter a valid email.'));
+    await waitFor(() => expect(recovery).toHaveAccessibleDescription('An email address needs an @, e.g. name@example.com.'));
     await expect(recovery).toHaveFocus();
     await expect(args.onSubmit).not.toHaveBeenCalled();
 
