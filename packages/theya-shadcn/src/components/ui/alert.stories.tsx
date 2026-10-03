@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { InfoCircle, CheckCircle, WarningTriangle, WarningCircle } from 'iconoir-react';
 import { Alert, AlertTitle, AlertDescription, AlertActions } from './alert';
 import { Button } from './button';
+import { alertGuidelines } from './alert.guidelines';
 
 /**
  * Alert — an inline feedback banner. Put an iconoir icon as the first child
@@ -14,7 +15,7 @@ const meta = {
   title: 'Status & Feedback/Alert',
   component: Alert,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: alertGuidelines, layout: 'padded' },
   argTypes: {
     tone: {
       control: 'select',

@@ -6,6 +6,7 @@ import type { StatusTone } from './status-dot';
 import type { BadgeTone } from './badge';
 import { Label } from './label';
 import { Cloud, Globe, Server } from 'iconoir-react';
+import { selectGuidelines } from './select.guidelines';
 
 function RocketIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -45,6 +46,7 @@ const meta: Meta<SelectStoryArgs> = {
   title: 'Selection/Select',
   tags: ['autodocs'],
   parameters: {
+    guidelines: selectGuidelines,
     docs: { description: { component: 'Single-value picker on @radix-ui/react-select. Shares widthSize/heightSize/error conventions with TextField — the dropdown item text matches the trigger size too.' } },
   },
   argTypes: {

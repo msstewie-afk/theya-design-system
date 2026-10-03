@@ -6,6 +6,7 @@ import { Star, Search, User, Mail, Lock, Heart, Home, Settings, Xmark } from 'ic
 const iconMap = { Star, Search, User, Mail, Lock, Heart, Home, Settings, Xmark, None: null } as const;
 type IconName = keyof typeof iconMap;
 import { TextField } from './text-field';
+import { textFieldGuidelines } from './text-field.guidelines';
 
 const meta: Meta<typeof TextField> = {
   title: 'Text Input/TextField',
@@ -13,6 +14,7 @@ const meta: Meta<typeof TextField> = {
   tags: ['autodocs'],
   args: { widthSize: 'md' },
   parameters: {
+    guidelines: textFieldGuidelines,
     docs: {
       description: {
         component:

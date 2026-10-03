@@ -4,6 +4,7 @@ import { addons } from '@storybook/preview-api';
 import { create, themes } from '@storybook/theming';
 import { DocsContainer, type DocsContainerProps } from '@storybook/addon-docs/blocks';
 import { Toaster } from '../src/components/ui/sonner';
+import { DocsPage } from './docs-page';
 import '../src/styles/globals.css';
 
 // Preload Geologica's Latin and Cyrillic files (one variable file each
@@ -183,6 +184,8 @@ const preview: Preview = {
     },
     docs: {
       container: ThemedDocsContainer,
+      // Standard autodocs blocks + use-guidelines (parameters.guidelines).
+      page: DocsPage,
     },
     options: {
       // A function (not the plain `{ order: [...] }` object form) so a

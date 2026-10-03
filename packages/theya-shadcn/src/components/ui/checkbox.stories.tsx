@@ -2,12 +2,14 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { Checkbox } from './checkbox';
+import { checkboxGuidelines } from './checkbox.guidelines';
 
 const meta: Meta<typeof Checkbox> = {
   title: 'Selection/Checkbox',
   component: Checkbox,
   tags: ['autodocs'],
   parameters: {
+    guidelines: checkboxGuidelines,
     docs: {
       description: {
         component:

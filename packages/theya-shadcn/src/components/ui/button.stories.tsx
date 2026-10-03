@@ -4,12 +4,14 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Star, Check, ArrowRight, Xmark, Trash, Plus } from 'iconoir-react';
 import { Button } from './button';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
+import { buttonGuidelines } from './button.guidelines';
 
 const meta: Meta<typeof Button> = {
   title: 'Actions/Button',
   component: Button,
   tags: ['autodocs'],
   parameters: {
+    guidelines: buttonGuidelines,
     docs: {
       description: {
         component:

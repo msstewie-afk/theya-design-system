@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Check, GitBranch } from 'iconoir-react';
 import { Badge } from './badge';
 import { StatusDot } from './status-dot';
+import { badgeGuidelines } from './badge.guidelines';
 
 /**
  * Badge — a small, non-interactive status pill. Tones map to the subtle
@@ -14,7 +15,7 @@ const meta = {
   title: 'Labels/Badge',
   component: Badge,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: badgeGuidelines, layout: 'centered' },
   argTypes: {
     tone: {
       control: 'select',

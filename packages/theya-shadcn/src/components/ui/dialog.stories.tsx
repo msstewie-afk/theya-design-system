@@ -17,11 +17,13 @@ import { Button } from './button';
 import { Label } from './label';
 import { TextField } from './text-field';
 import { NumberField } from './number-field';
+import { dialogGuidelines } from './dialog.guidelines';
 
 const meta: Meta<typeof Dialog> = {
   title: 'Overlays/Dialog',
   component: Dialog,
   tags: ['autodocs'],
+  parameters: { guidelines: dialogGuidelines },
   argTypes: {
     open: { control: false, description: 'Controlled open state.' },
     defaultOpen: { control: false, description: 'Uncontrolled initial open state.' },

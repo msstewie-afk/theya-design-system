@@ -11,12 +11,13 @@ import { TextField } from './text-field';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './dropdown-menu';
 import { Switch } from './switch';
 import { RatingStar } from './rating';
+import { cardGuidelines } from './card.guidelines';
 
 const meta: Meta<typeof Card> = {
   title: 'Layout/Card',
   component: Card,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: cardGuidelines, layout: 'padded' },
   argTypes: {
     size: { control: 'inline-radio', options: [undefined, 'sm', 'md', 'lg'], description: 'Padding scale.' },
     severity: { control: 'inline-radio', options: ['default', 'info', 'success', 'warning', 'danger'], description: 'Tinted border/surface for a status card.' },
