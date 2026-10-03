@@ -5,11 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger, DrawerBody } from '@/components/ui/drawer';
 import { EmptyState } from '@/components/ui/empty-state';
-import { NumberField } from '@/components/ui/number-field';
 import { Radio, RadioGroup } from '@/components/ui/radio';
+import { RangeField } from '@/components/ui/range-field';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { Slider } from '@/components/ui/slider';
 import { TextField } from '@/components/ui/text-field';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { ItemCard } from './item-card';
@@ -123,9 +122,9 @@ export function FacetedList({ items, noun = { one: 'extension', many: 'extension
         {`${noun.many[0].toUpperCase()}${noun.many.slice(1)}`}
       </h2>
       <div className="flex gap-8">
-        <aside aria-label="Filters" className="hidden w-64 shrink-0 @4xl:block">
+        <section aria-label="Filters" className="hidden w-64 shrink-0 @4xl:block">
           {panel}
-        </aside>
+        </section>
 
         <div className="flex min-w-0 flex-1 flex-col gap-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -243,7 +242,19 @@ function FilterPanel({ items, filters, toggle, update, maxPrice }: { items: Cata
           const count = items.filter((i) => matches(i, { ...filters, pricing: [p] }, undefined)).length;
           return <FacetOption key={p} label={p === 'free' ? 'Free' : 'Paid'} count={count} checked={filters.pricing.includes(p)} onChange={() => toggle('pricing', p)} />;
         })}
-        <PriceRange max={maxPrice} value={filters.priceRange} onChange={(r) => update({ priceRange: r })} />
+        {/* Local filtering, so the list follows the drag live (onValueChange).
+            If filtering moves to a request, switch to onValueCommit. */}
+        <RangeField
+          label="Price per month"
+          min={0}
+          max={maxPrice}
+          value={filters.priceRange ?? [0, maxPrice]}
+          onValueChange={(r) => update({ priceRange: r[0] === 0 && r[1] === maxPrice ? null : r })}
+          formatValue={(v) => `$${v}`}
+          histogram={priceHistogram(items, filters, maxPrice)}
+          heightSize="sm"
+          className="mt-1"
+        />
       </fieldset>
       <Separator />
       <fieldset className="m-0 min-w-0 border-0 p-0">
@@ -327,18 +338,12 @@ function FacetOption({ label, count, checked, onChange }: { label: string; count
   );
 }
 
-/** Slider plus typed inputs: dragging is imprecise, typing an exact bound is not. */
-function PriceRange({ max, value, onChange }: { max: number; value: [number, number] | null; onChange: (r: [number, number] | null) => void }) {
-  const current = value ?? [0, max];
-  const set = (r: [number, number]) => onChange(r[0] === 0 && r[1] === max ? null : r);
-  return (
-    <div className="mt-2 flex flex-col gap-3">
-      <Slider min={0} max={max} step={1} value={current} onValueChange={(v) => set([v[0], v[1]] as [number, number])} aria-label="Price per month" formatValue={(v) => `$${v}`} />
-      <div className="flex items-center gap-2">
-        <NumberField aria-label="Minimum price per month" value={current[0]} min={0} max={current[1]} onValueChange={(v) => set([v, current[1]])} heightSize="sm" widthSize="full" />
-        <span aria-hidden="true" className="text-[var(--color-text-text-subtler)]">–</span>
-        <NumberField aria-label="Maximum price per month" value={current[1]} min={current[0]} max={max} onValueChange={(v) => set([current[0], v])} heightSize="sm" widthSize="full" />
-      </div>
-    </div>
-  );
+/** How many items each price bucket holds under every other filter — where the results are along the scale. */
+function priceHistogram(items: CatalogItem[], filters: Filters, maxPrice: number, buckets = 6): number[] {
+  const counts = Array<number>(buckets).fill(0);
+  for (const i of items) {
+    if (!matches(i, filters, 'priceRange')) continue;
+    counts[Math.min(buckets - 1, Math.floor((i.price / maxPrice) * buckets))]++;
+  }
+  return counts;
 }

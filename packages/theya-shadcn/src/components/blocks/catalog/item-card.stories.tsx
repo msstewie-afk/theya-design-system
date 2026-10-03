@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { ItemCard } from './item-card';
-import { DEMO_ITEMS } from './demo-data';
+import { DEMO_HARDWARE, DEMO_ITEMS, DEMO_SCREENSHOTS } from './demo-data';
 
 const meta: Meta<typeof ItemCard> = {
   title: 'Patterns: Catalog/ItemCard',
@@ -60,4 +60,51 @@ export const WithCompare: Story = {
     await userEvent.click(box);
     await expect(box).toBeChecked();
   },
+};
+
+/** Product shots on white: `contain` keeps the whole object, square frames line up in a row. */
+export const ProductImages: Story = {
+  render: () => (
+    <ul className="grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {DEMO_HARDWARE.map(({ image, ...item }) => (
+        <li key={item.id}>
+          <ItemCard item={item} href={`#${item.id}`} image={{ src: image }} imageAspect="1/1" imageFit="contain" />
+        </li>
+      ))}
+    </ul>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // The picture is decorative by default: the name is the link's name already.
+    await expect(canvas.getByRole('link', { name: 'Dedicated server by Arbor' })).toBeVisible();
+    await expect(canvas.queryAllByRole('img')).toHaveLength(0);
+    const tops = [...canvasElement.querySelectorAll('img')].map((i) => Math.round(i.getBoundingClientRect().height));
+    await expect(new Set(tops).size).toBe(1);
+  },
+};
+
+/** Screenshots or covers: `cover` fills the frame. */
+export const CoverImages: Story = {
+  render: () => (
+    <ul className="grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {DEMO_ITEMS.slice(0, 3).map((item, i) => (
+        <li key={item.id}>
+          <ItemCard item={item} href={`#${item.id}`} image={{ src: DEMO_SCREENSHOTS[i] }} />
+        </li>
+      ))}
+    </ul>
+  ),
+};
+
+/** In a list the picture becomes a square thumbnail on the left. */
+export const ListWithImages: Story = {
+  render: () => (
+    <ul className="flex max-w-4xl flex-col gap-3">
+      {DEMO_HARDWARE.map(({ image, ...item }) => (
+        <li key={item.id}>
+          <ItemCard item={item} layout="list" href={`#${item.id}`} image={{ src: image }} imageFit="contain" />
+        </li>
+      ))}
+    </ul>
+  ),
 };

@@ -130,3 +130,14 @@ export const DEMO_PICKS: CuratedPick[] = [
   { item: byId('image-slim'), note: 'Halves page weight on most image-heavy sites without anyone changing how they upload.' },
   { item: byId('uptime-watch'), note: 'Free, quiet and accurate. You hear from it only when something is actually down.' },
 ];
+
+/** Hardware add-ons with product shots on white — for ItemCard's `image` with `imageFit="contain"`. */
+export const DEMO_HARDWARE: (CatalogItem & { image: string })[] = [
+  { id: 'dedicated-server', name: 'Dedicated server', vendor: 'Arbor', category: 'Hardware', icon: 'cloud', summary: '8 cores, 64 GB RAM, two NVMe drives in RAID 1.', rating: 4.8, reviewCount: 312, installs: 2100, price: 89, compatibility: ['Linux', 'Windows'], added: '2026-08-01', image: '/asset-examples/product-rack-server.svg' },
+  { id: 'nvme-storage', name: 'NVMe storage add-on', vendor: 'Fjord', category: 'Hardware', icon: 'backup', summary: '1 TB of fast block storage you can attach to any server.', rating: 4.6, reviewCount: 148, installs: 5400, price: 15, compatibility: ['Linux', 'Windows'], added: '2026-06-12', image: '/asset-examples/product-ssd.svg' },
+  { id: 'firewall-appliance', name: 'Firewall appliance', vendor: 'Kestrel', category: 'Hardware', icon: 'shield', summary: 'Hardware firewall in front of your servers, managed for you.', rating: 4.4, reviewCount: 87, installs: 940, price: 29, compatibility: ['Any server'], added: '2026-04-18', image: '/asset-examples/product-router.svg' },
+  { id: 'security-key', name: 'Hardware security key', vendor: 'Seashell Labs', category: 'Hardware', icon: 'shield', summary: 'Phishing-proof sign-in for the panel. Shipped to your door.', rating: 4.9, reviewCount: 523, installs: 8800, price: 3, compatibility: ['USB-C', 'NFC'], added: '2026-09-10', image: '/asset-examples/product-security-key.svg' },
+];
+
+/** Screenshots for extensions — `imageFit="cover"`. */
+export const DEMO_SCREENSHOTS = ['/asset-examples/nova-web.jpg', '/asset-examples/login-carousel-01.jpg', '/asset-examples/login-carousel-02.jpg', '/asset-examples/login-carousel-03.jpg'];

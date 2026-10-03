@@ -21,8 +21,21 @@ export interface ItemCardProps {
   href?: string;
   /** Shows a "Compare" checkbox (for the Comparison pattern). */
   compare?: { checked: boolean; onChange: (checked: boolean) => void; disabled?: boolean };
+  /**
+   * Product picture. Grid: full width above the content. List: a square
+   * thumbnail on the left. Replaces the icon tile. `alt` defaults to empty —
+   * the name is already the card link's name; pass it only when the picture
+   * says something the text doesn't (a colour, a variant).
+   */
+  image?: { src: string; alt?: string };
+  /** Grid only. Fixed ratio, so pictures in a row are the same height. Default 4/3. */
+  imageAspect?: '1/1' | '4/3' | '3/4';
+  /** `cover` fills and crops (screenshots, covers); `contain` shows the whole object on a neutral backdrop (product shots). */
+  imageFit?: 'cover' | 'contain';
   className?: string;
 }
+
+const ASPECT = { '1/1': 'aspect-square', '4/3': 'aspect-[4/3]', '3/4': 'aspect-[3/4]' } as const;
 
 /**
  * One catalog entry. The whole card is the link (its visible edge is the
@@ -30,7 +43,7 @@ export interface ItemCardProps {
  * same order: what it is, who makes it, rating with review count, reach,
  * what it works with, and the price. Grid for browsing, list for scanning.
  */
-export function ItemCard({ item, layout = 'grid', href = '#', compare, className }: ItemCardProps) {
+export function ItemCard({ item, layout = 'grid', href = '#', compare, image, imageAspect = '4/3', imageFit = 'cover', className }: ItemCardProps) {
   const compareId = useId();
   const rating = (
     <span className="inline-flex items-center gap-1">
@@ -63,11 +76,23 @@ export function ItemCard({ item, layout = 'grid', href = '#', compare, className
     </div>
   );
 
+  const picture = (cls: string) =>
+    image && (
+      // contain: product shots are shot on white. Light theme multiplies the
+      // white into the neutral backdrop; dark theme keeps a white plate
+      // instead (a white photo inside a dark frame reads as a hole).
+      <div className={cn('shrink-0 overflow-hidden bg-[var(--color-bg-neutral-bg-neutral-subtle)]', imageFit === 'contain' && 'in-data-[theme=dark]:bg-[var(--color-white)]', cls)}>
+        <img src={image.src} alt={image.alt ?? ''} loading="lazy" className={cn('size-full', imageFit === 'contain' ? 'object-contain p-4 mix-blend-multiply in-data-[theme=dark]:mix-blend-normal' : 'object-cover')} />
+      </div>
+    );
+
   return (
-    <Card action={{ type: 'link', href, ariaLabel: `${item.name} by ${item.vendor}` }} className={cn('h-full', className)}>
-      <CardContent className={cn('flex h-full gap-3', layout === 'grid' ? 'flex-col' : 'flex-col sm:flex-row sm:items-center')}>
+    <Card action={{ type: 'link', href, ariaLabel: `${item.name} by ${item.vendor}` }} className={cn('flex h-full flex-col', className)}>
+      {/* Full-bleed on top; the radius is the card's minus its 1px border. */}
+      {layout === 'grid' && picture(cn('w-full rounded-t-[calc(var(--size-border-radius-border-radius-2xl)-1px)]', ASPECT[imageAspect]))}
+      <CardContent className={cn('flex flex-1 gap-3', layout === 'grid' ? 'flex-col' : 'flex-col sm:flex-row sm:items-center')}>
         <div className={cn('flex min-w-0 items-start gap-3', layout === 'list' && 'sm:flex-1')}>
-          <ItemIcon icon={item.icon} />
+          {image ? layout === 'list' && picture(cn('size-24 rounded-[var(--size-border-radius-border-radius-xl)]', imageFit === 'contain' && '[&_img]:p-2')) : <ItemIcon icon={item.icon} />}
           <div className="min-w-0">
             <p className="font-body text-body-l font-semibold text-[var(--color-text-text)]">{item.name}</p>
             <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{item.vendor}</p>
