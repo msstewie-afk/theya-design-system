@@ -105,7 +105,8 @@ export function OrderSummary({ lines, totals, currency = 'USD', title = 'Order s
         <SummaryRow term="Subtotal" value={money(totals.subtotal)} />
         {totals.discount > 0 && <SummaryRow term="Discount" value={`−${money(totals.discount)}`} valueClassName="text-[var(--color-text-text-success)]" />}
         <SummaryRow term={taxLabel} value={money(totals.tax)} />
-        <Separator className="my-1" />
+        {/* The rule above Total is the row's own border: a <dl> may only
+            hold dt/dd groups, so no Separator element in here. */}
         <SummaryRow term="Total" value={money(totals.total)} strong />
       </dl>
       {children}
@@ -115,7 +116,7 @@ export function OrderSummary({ lines, totals, currency = 'USD', title = 'Order s
 
 function SummaryRow({ term, value, strong, valueClassName }: { term: ReactNode; value: ReactNode; strong?: boolean; valueClassName?: string }) {
   return (
-    <div className={cn('flex items-baseline justify-between gap-3 text-[var(--color-text-text)]', strong && 'text-body-l font-semibold')}>
+    <div className={cn('flex items-baseline justify-between gap-3 text-[var(--color-text-text)]', strong && 'mt-1 border-t border-solid border-[var(--color-border-border-subtle)] pt-3 text-body-l font-semibold')}>
       <dt className={strong ? undefined : 'text-[var(--color-text-text-subtle)]'}>{term}</dt>
       <dd className={cn('m-0 tabular-nums', valueClassName)}>{value}</dd>
     </div>
