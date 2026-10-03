@@ -3,12 +3,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { File } from './file';
 import { Button } from './button';
+import { fileGuidelines } from './file.guidelines';
 
 const meta: Meta<typeof File> = {
   title: 'Files/File',
   component: File,
   tags: ['autodocs'],
   parameters: {
+    guidelines: fileGuidelines,
     docs: {
       description: {
         component:

@@ -2,10 +2,12 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Dropzone, type StagedFile } from './dropzone';
+import { dropzoneGuidelines } from './dropzone.guidelines';
 
 const meta: Meta<typeof Dropzone> = {
   title: 'Files/Dropzone',
   tags: ['autodocs'],
+  parameters: { guidelines: dropzoneGuidelines },
   argTypes: {
     'aria-label': { control: 'text', description: 'Accessible name for the drop zone.', table: { category: 'Content' } },
     hint: { control: 'text', description: 'Helper text shown below the drag/browse prompt.', table: { category: 'Content' } },

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { ImageCropper, getCroppedImage, type CropState } from './image-cropper';
 import { Button } from './button';
 import { Card } from './card';
+import { imageCropperGuidelines } from './image-cropper.guidelines';
 
 /**
  * ImageCropper — a fixed crop frame (by `aspect`, optionally round) with the
@@ -18,7 +19,7 @@ const meta = {
   title: 'Files/ImageCropper',
   component: ImageCropper,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: imageCropperGuidelines, layout: 'padded' },
   argTypes: {
     src: { control: 'text', description: 'Image URL (same-origin or CORS-enabled to export).' },
     aspect: { control: { type: 'number', step: 0.1 }, description: 'Width / height of the crop frame.' },

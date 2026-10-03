@@ -5,6 +5,7 @@ import { KebabIconHorizontal } from './kebab-icon';
 import { Attachment } from './attachment';
 import { Button } from './button';
 import { Separator } from './separator';
+import { attachmentGuidelines } from './attachment.guidelines';
 
 
 /** Story helper: an Attachment whose remove button really removes it (reload the story to bring it back). */
@@ -31,6 +32,7 @@ const meta: Meta<typeof Attachment> = {
   component: Attachment,
   tags: ['autodocs'],
   parameters: {
+    guidelines: attachmentGuidelines,
     docs: { description: { component: 'The display unit File is built on — pill/card/row/line variants.' } },
   },
   args: { name: 'quarterly-report.pdf', size: 248000 },
