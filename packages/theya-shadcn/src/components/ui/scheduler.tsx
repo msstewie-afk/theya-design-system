@@ -356,7 +356,14 @@ function TimeGrid({
   }, [hourHeight, scrollToHour]);
 
   // Drag state: a preview of the event being moved/resized.
-  const [drag, setDrag] = useState<{ id: string; start: Date; end: Date } | null>(null);
+  const [drag, setDragState] = useState<{ id: string; start: Date; end: Date } | null>(null);
+  // Mirror of `drag` for onPointerUp: pointermove renders aren't flushed synchronously,
+  // so a quick drag-and-release read a stale `drag` (null) and the move was lost.
+  const dragRef = useRef<{ id: string; start: Date; end: Date } | null>(null);
+  const setDrag = (next: { id: string; start: Date; end: Date } | null) => {
+    dragRef.current = next;
+    setDragState(next);
+  };
   const dragInfo = useRef<{
     event: SchedulerEvent;
     mode: 'move' | 'resize';
@@ -370,8 +377,14 @@ function TimeGrid({
   const onPointerDown = (e: React.PointerEvent, event: SchedulerEvent, mode: 'move' | 'resize') => {
     if (!onEventChange || event.locked || e.button !== 0) return;
     e.stopPropagation();
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     dragInfo.current = { event, mode, x: e.clientX, y: e.clientY, moved: false };
+    // Capture can throw for a pointer the browser no longer tracks (e.g. synthetic
+    // or already-released); the drag still works through the element's own handlers.
+    try {
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    } catch {
+      /* no capture */
+    }
   };
   const onPointerMove = (e: React.PointerEvent) => {
     const info = dragInfo.current;
@@ -394,7 +407,8 @@ function TimeGrid({
     const info = dragInfo.current;
     dragInfo.current = null;
     if (!info) return;
-    if (info.moved && drag) onEventChange?.(info.event, { start: drag.start, end: drag.end });
+    const preview = dragRef.current;
+    if (info.moved && preview) onEventChange?.(info.event, { start: preview.start, end: preview.end });
     else if (!info.moved && info.mode === 'move') onEventClick?.(info.event);
     setDrag(null);
   };
