@@ -106,7 +106,7 @@
         "value": "{color.cyan.cyan-200}"
       },
       "text-code": {
-        "value": "{color.red.red-200}"
+        "value": "{color.red.red-100}"
       },
       "text-disabled": {
         "value": "{color.slate.slate-300}"
