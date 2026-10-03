@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Lightbox, type LightboxImage } from './lightbox';
 
 /**
@@ -61,6 +62,42 @@ export const Gallery: Story = {
       </>
     );
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    const opener = canvas.getByRole('button', { name: /^Open image 2:/ });
+    const live = () => document.querySelector('[role="dialog"] [aria-live="polite"]')!;
+
+    // Opens at the clicked image; the position is announced and the thumbnail marked.
+    await userEvent.click(opener);
+    const dialog = await body.findByRole('dialog', { name: 'Seashell Sites screenshots' });
+    await expect(live()).toHaveTextContent('Image 2 of 5: Deploy log streaming in a terminal panel');
+    await expect(within(dialog).getByRole('button', { name: /^Show image 2:/ })).toHaveAttribute('aria-current', 'true');
+
+    // Arrow keys page, wrapping at both ends.
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(live()).toHaveTextContent('Image 3 of 5');
+    await userEvent.keyboard('{ArrowLeft}{ArrowLeft}{ArrowLeft}');
+    await expect(live()).toHaveTextContent('Image 5 of 5');
+
+    // + zooms, 0 resets; the button label follows.
+    await userEvent.keyboard('+');
+    await expect(within(dialog).getByRole('button', { name: 'Zoom out' })).toBeInTheDocument();
+    await userEvent.keyboard('0');
+    await expect(within(dialog).getByRole('button', { name: 'Zoom in' })).toBeInTheDocument();
+    // Paging resets the zoom.
+    await userEvent.keyboard('+{ArrowRight}');
+    await expect(within(dialog).getByRole('button', { name: 'Zoom in' })).toBeInTheDocument();
+
+    // A thumbnail jumps straight to its image.
+    await userEvent.click(within(dialog).getByRole('button', { name: /^Show image 4:/ }));
+    await expect(live()).toHaveTextContent('Image 4 of 5: Storefront home page on a laptop');
+
+    // Esc closes and focus returns to the image that opened the viewer.
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
+    await waitFor(() => expect(opener).toHaveFocus());
+  },
 };
 
 /** A single image: no counter, arrows or thumbnails — just zoom and close. */
@@ -76,5 +113,18 @@ export const SingleImage: Story = {
         <Lightbox {...args} open={open} onOpenChange={setOpen} title="Storefront screenshot" />
       </>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    await userEvent.click(canvas.getByRole('button', { name: 'Open storefront screenshot' }));
+    const dialog = await body.findByRole('dialog', { name: 'Storefront screenshot' });
+    // One image: no paging controls or thumbnails, arrows do nothing.
+    await expect(within(dialog).queryByRole('button', { name: 'Next image' })).not.toBeInTheDocument();
+    await expect(within(dialog).queryByRole('group', { name: 'Thumbnails' })).not.toBeInTheDocument();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(dialog.querySelector('[aria-live="polite"]')).toHaveTextContent('Image 1 of 1');
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Close' }));
+    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
   },
 };
