@@ -21,12 +21,14 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from './dropdown-menu';
+import { dropdownMenuGuidelines } from './dropdown-menu.guidelines';
 
 const meta: Meta<typeof DropdownMenu> = {
   title: 'Menus/DropdownMenu',
   component: DropdownMenu,
   tags: ['autodocs'],
   parameters: {
+    guidelines: dropdownMenuGuidelines,
     docs: {
       description: {
         component:

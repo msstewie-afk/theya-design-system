@@ -22,12 +22,14 @@ import {
   ContextMenuSubTrigger,
   ContextMenuSubContent,
 } from './context-menu';
+import { contextMenuGuidelines } from './context-menu.guidelines';
 
 const meta: Meta<typeof ContextMenu> = {
   title: 'Menus/ContextMenu',
   component: ContextMenu,
   tags: ['autodocs'],
   parameters: {
+    guidelines: contextMenuGuidelines,
     docs: {
       description: {
         component:
