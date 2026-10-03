@@ -217,7 +217,8 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
                 setPromoOpen(true);
                 requestAnimationFrame(() => document.getElementById(promoId)?.focus());
               }}
-              className="self-start rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link)] underline-offset-4 outline-none hover:underline focus-visible:focus-ring"
+              // link-on-tonal: plain text-link is under 4.5:1 on the summary panel in dark.
+              className="self-start rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link-on-tonal)] underline-offset-4 outline-none hover:underline focus-visible:focus-ring"
             >
               Have a promo code?
             </button>

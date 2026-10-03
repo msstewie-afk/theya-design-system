@@ -65,7 +65,8 @@ export function CompletionScreen({ title = "You're all set", description, orderN
                 <button
                   type="button"
                   onClick={onResendEmail}
-                  className="cursor-pointer rounded-[var(--size-border-radius-border-radius-sm)] font-medium text-[var(--color-text-text-link)] underline underline-offset-4 outline-none focus-visible:focus-ring"
+                  // On the neutral-subtle panel plain text-link was 4.38:1 in dark.
+                  className="cursor-pointer rounded-[var(--size-border-radius-border-radius-sm)] font-medium text-[var(--color-text-text-link-on-tonal)] underline underline-offset-4 outline-none focus-visible:focus-ring"
                 >
                   send it again
                 </button>

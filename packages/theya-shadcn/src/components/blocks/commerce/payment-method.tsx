@@ -150,7 +150,9 @@ export const PaymentMethod = forwardRef<PaymentMethodHandle, PaymentMethodProps>
       <TabsContent value="card">
         {/* One enclosed block with a lock: people read the card fields as
             the secured part of the page. */}
-        <fieldset className="m-0 flex min-w-0 flex-col gap-4 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] p-5">
+        {/* Surface, not a tinted fill: the fields' translucent error fill
+            blended with a tinted block dropped their text under 4.5:1 in dark. */}
+        <fieldset className="m-0 flex min-w-0 flex-col gap-4 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5">
           <legend className="sr-only">Card details</legend>
           <p className="flex items-center gap-2 font-body text-body-s text-[var(--color-text-text-subtle)]">
             <Lock className="size-4 shrink-0 text-[var(--color-icon-icon-success)]" aria-hidden="true" />
