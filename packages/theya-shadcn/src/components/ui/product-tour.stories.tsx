@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Bell, Plus, Search } from 'iconoir-react';
 import { ProductTour, type TourStep } from './product-tour';
 import { Button } from './button';
@@ -110,6 +111,50 @@ export const Default: Story = {
         />
       </>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    const start = canvas.getByRole('button', { name: 'Start tour' });
+    const dialog = () => body.getByRole('dialog');
+
+    // Opens on the centered welcome step with focus inside the card.
+    await userEvent.click(start);
+    await waitFor(() => expect(dialog()).toHaveAccessibleName('Welcome to the new Sites page'));
+    await waitFor(() => expect(dialog()).toHaveFocus());
+    await expect(within(dialog()).getByText('1 of 5')).toBeInTheDocument();
+    await expect(within(dialog()).queryByRole('button', { name: 'Back' })).not.toBeInTheDocument();
+
+    // Next / → / ← move between steps; the card follows the target.
+    await userEvent.click(within(dialog()).getByRole('button', { name: 'Next' }));
+    await waitFor(() => expect(dialog()).toHaveAccessibleName('Search everything'));
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(dialog()).toHaveAccessibleName('Create a site'));
+    await userEvent.keyboard('{ArrowLeft}');
+    await waitFor(() => expect(dialog()).toHaveAccessibleName('Search everything'));
+
+    // Tab stays inside the card.
+    await waitFor(() => expect(dialog()).toHaveFocus());
+    for (let i = 0; i < 6; i++) {
+      await userEvent.tab();
+      await expect(dialog().contains(document.activeElement)).toBe(true);
+    }
+
+    // Esc skips: the step is reported and focus goes back to what opened the tour.
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
+    await expect(canvas.getByText('Skipped at step 2')).toBeInTheDocument();
+    await waitFor(() => expect(start).toHaveFocus());
+
+    // Done on the last step completes.
+    await userEvent.click(start);
+    for (let i = 0; i < 4; i++) {
+      await waitFor(() => expect(dialog()).toHaveFocus());
+      await userEvent.keyboard('{ArrowRight}');
+    }
+    await waitFor(() => expect(dialog()).toHaveAccessibleName('Your sites'));
+    await userEvent.click(within(dialog()).getByRole('button', { name: 'Done' }));
+    await expect(canvas.getByText('Completed')).toBeInTheDocument();
   },
 };
 
