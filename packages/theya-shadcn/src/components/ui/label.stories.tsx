@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Label } from './label';
+import { labelGuidelines } from './label.guidelines';
 
 const meta: Meta<typeof Label> = {
   title: 'Form Structure/Label',
   component: Label,
   tags: ['autodocs'],
+  parameters: { guidelines: labelGuidelines },
   argTypes: {
     required: { control: 'boolean', description: 'Renders the same asterisk mark used everywhere a label appears.' },
     'data-error': { control: 'boolean', description: 'Danger-styles the label, matching the field it describes.' },

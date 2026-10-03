@@ -5,11 +5,13 @@ import { TextField } from './text-field';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
 import { NumberField } from './number-field';
 import { Switch } from './switch';
+import { fieldGuidelines } from './field.guidelines';
 
 const meta: Meta<typeof Field> = {
   title: 'Form Structure/Field',
   component: Field,
   tags: ['autodocs'],
+  parameters: { guidelines: fieldGuidelines },
   argTypes: {
     invalid: { control: 'boolean', description: 'Marks the field invalid; propagates data-invalid to its parts.', table: { category: 'State' } },
     required: { control: 'boolean', description: 'Marks the field required; propagates data-required to its parts.', table: { category: 'State' } },

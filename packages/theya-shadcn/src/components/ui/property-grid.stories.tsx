@@ -2,11 +2,13 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { PropertyGrid, type PropertyGridItem, type PropertyValue } from './property-grid';
 import { Slider } from './slider';
+import { propertyGridGuidelines } from './property-grid.guidelines';
 
 const meta: Meta<typeof PropertyGrid> = {
   title: 'Form Structure/PropertyGrid',
   component: PropertyGrid,
   tags: ['autodocs'],
+  parameters: { guidelines: propertyGridGuidelines },
   argTypes: {
     items: { control: false, description: 'Row schema — name/label/type/options/placeholder/description/readOnly/render drive which control renders per row.' },
     defaultValues: { control: false, description: 'Initial values keyed by item name (uncontrolled).' },

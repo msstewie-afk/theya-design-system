@@ -9,6 +9,7 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, For
 import { TextField } from './text-field';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
 import { Switch } from './switch';
+import { formGuidelines } from './form.guidelines';
 
 type Args = Record<string, never>;
 
@@ -16,6 +17,7 @@ const meta: Meta<Args> = {
   title: 'Form Structure/Form',
   tags: ['autodocs'],
   parameters: {
+    guidelines: formGuidelines,
     docs: {
       description: {
         component:

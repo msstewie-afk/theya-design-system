@@ -75,7 +75,13 @@ export function PropertyGrid({
     <div
       id={id}
       className={cn('grid', className)}
-      style={{ gridTemplateColumns: 'minmax(0, max-content) minmax(0, 1fr)' }}
+      // The value column keeps at least 8rem (NumberField's default width): with minmax(0, 1fr) a long
+      // label (up to maxLabelWidth) took the row in a narrow panel and the
+      // controls collapsed to a few px (or overflowed, for NumberField).
+      // Now the label column gives way and its text wraps — but never
+      // narrower than its longest word (min-content), so words don't spill
+      // under the control.
+      style={{ gridTemplateColumns: 'minmax(min-content, max-content) minmax(min(8rem, 100%), 1fr)' }}
     >
       {items.map((item, index) => (
         <PropertyRow
@@ -120,7 +126,7 @@ function PropertyRow({
         control's own `md`/240px) floating at the column's left edge
         with dead space before the separator's actual end.
       */}
-      <div className="flex flex-col items-end justify-center py-3">
+      <div className="flex min-w-0 flex-col items-end justify-center py-3">
         <PropertyControl fieldId={fieldId} item={item} value={value} onChange={onChange} />
         {item.description && (
           <span className="font-body text-body-xs text-[var(--color-text-text-subtler)] mt-0.5">

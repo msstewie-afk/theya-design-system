@@ -3,11 +3,13 @@ import { Fieldset } from './fieldset';
 import { TextField } from './text-field';
 import { Field, FieldDescription } from './field';
 import { Label } from './label';
+import { fieldsetGuidelines } from './fieldset.guidelines';
 
 const meta: Meta<typeof Fieldset> = {
   title: 'Form Structure/Fieldset',
   component: Fieldset,
   tags: ['autodocs'],
+  parameters: { guidelines: fieldsetGuidelines },
   argTypes: {
     legend: { control: 'text', description: 'Section heading.', table: { category: 'Content' } },
     description: { control: 'text', description: 'Supporting copy under the legend.', table: { category: 'Content' } },
