@@ -133,7 +133,7 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
               <th key={p.id} scope="col" className="sticky top-0 z-[1] bg-[var(--color-bg-surface-bg-surface-base)] px-0 pb-4 text-left align-top font-normal">
                 <div
                   className={cn(
-                    'flex h-full flex-col gap-6 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid p-4',
+                    'flex h-full flex-col gap-8 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid p-4',
                     p.recommended ? 'border-[var(--color-border-border-primary)] bg-[var(--color-bg-primary-bg-primary-subtle)]' : 'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]',
                   )}
                 >
