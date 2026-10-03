@@ -133,10 +133,18 @@ function Column({
         <h3 id={headingId} className="min-w-0 truncate text-body-m font-medium text-[var(--color-text-text)]">
           {column.title}
         </h3>
-        <Badge tone={over ? 'danger' : 'neutral'} className="shrink-0 tabular-nums">
-          {column.limit !== undefined ? `${count}/${column.limit}` : count}
-          {over && <span className="sr-only"> — over the limit of {column.limit}</span>}
-        </Badge>
+        {/* Plain counter; a danger Badge only when over the limit. The neutral tonal Badge
+            (text-subtler) fails contrast on the column's neutral-subtler fill in dark. */}
+        {over ? (
+          <Badge tone="danger" className="shrink-0 tabular-nums">
+            {count}/{column.limit}
+            <span className="sr-only"> — over the limit of {column.limit}</span>
+          </Badge>
+        ) : (
+          <span className="shrink-0 text-body-s tabular-nums text-[var(--color-text-text-subtle)]">
+            {column.limit !== undefined ? `${count}/${column.limit}` : count}
+          </span>
+        )}
         {actions && <div className="ms-auto flex items-center">{actions}</div>}
       </header>
       <SortableContext id={column.id} items={itemIds} strategy={verticalListSortingStrategy}>
