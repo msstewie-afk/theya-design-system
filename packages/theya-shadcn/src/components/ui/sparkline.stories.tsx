@@ -39,7 +39,10 @@ const meta: Meta<typeof Sparkline> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+// StoryObj<typeof Sparkline>, not <typeof meta>: meta is annotated as
+// Meta<typeof Sparkline>, so typeof meta loses the props and render's args
+// resolved to {} (TS2741, required `data`).
+type Story = StoryObj<typeof Sparkline>;
 
 /** A plain brand-tone line with a dot on the latest point. */
 export const Default: Story = {};
