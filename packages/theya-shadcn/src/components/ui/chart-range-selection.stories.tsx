@@ -14,6 +14,7 @@ import {
   YAxis,
 } from 'recharts';
 import { ChartRangeSelection, type ChartSelectionRange } from './chart-range-selection';
+import { chartRangeSelectionGuidelines } from './chart-range-selection.guidelines';
 
 const DATA = [
   { label: 'Aug 1', requests: 38, errors: 8 },
@@ -166,7 +167,7 @@ const meta: Meta<typeof ChartRangeSelection> = {
   title: 'Charts/ChartRangeSelection',
   component: ChartRangeSelection,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: chartRangeSelectionGuidelines, layout: 'padded' },
   argTypes: {
     // `children`/`labels` are excluded from controls for the same reason
     // BarChart's `data` is: this Storybook 8.6.x setup crashes when a

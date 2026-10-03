@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { LineChart } from './line-chart';
+import { lineChartGuidelines } from './line-chart.guidelines';
 
 const USAGE = [
   { label: 'Mon', cpu: 32, mem: 51 },
@@ -23,7 +24,7 @@ const meta = {
   title: 'Charts/LineChart',
   component: LineChart,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: lineChartGuidelines, layout: 'padded' },
   argTypes: {
     data: { control: false, description: '{ label } + one numeric key per series.' },
     series: { control: false, description: '{ key, name } series to draw (up to 7).' },

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Sparkline } from './sparkline';
+import { sparklineGuidelines } from './sparkline.guidelines';
 
 /**
  * Sparkline — a tiny, axis-less inline trend for a table cell, Stat card, or
@@ -12,7 +13,7 @@ const meta: Meta<typeof Sparkline> = {
   title: 'Charts/Sparkline',
   component: Sparkline,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: sparklineGuidelines, layout: 'centered' },
   argTypes: {
     data: { control: false, description: 'Ordered values to plot.' },
     tone: {

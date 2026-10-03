@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { BarChart } from './bar-chart';
+import { barChartGuidelines } from './bar-chart.guidelines';
 
 const DEPLOYS = [
   { label: 'Mon', value: 4 },
@@ -29,7 +30,7 @@ const meta = {
   title: 'Charts/BarChart',
   component: BarChart,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: barChartGuidelines, layout: 'padded' },
   argTypes: {
     // `data` is intentionally NOT a controllable arg: Storybook freezes args
     // after the first render, and re-running its args-enhancers/spy-wrapping

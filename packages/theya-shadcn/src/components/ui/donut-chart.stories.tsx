@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DonutChart } from './donut-chart';
+import { donutChartGuidelines } from './donut-chart.guidelines';
 
 const STORAGE = [
   { label: 'Production', value: 62 },
@@ -19,7 +20,7 @@ const meta = {
   title: 'Charts/DonutChart',
   component: DonutChart,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: donutChartGuidelines, layout: 'padded' },
   argTypes: {
     data: { control: false, description: '{ label, value } slices (up to 7).' },
     height: { control: { type: 'number' }, description: 'Ring area height in px (width is fluid).' },

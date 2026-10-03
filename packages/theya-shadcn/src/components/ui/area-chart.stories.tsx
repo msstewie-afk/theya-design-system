@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { AreaChart } from './area-chart';
+import { areaChartGuidelines } from './area-chart.guidelines';
 
 const WEEK = [
   { label: 'Mon', value: 3.0 },
@@ -44,7 +45,7 @@ const meta = {
   title: 'Charts/AreaChart',
   component: AreaChart,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: areaChartGuidelines, layout: 'padded' },
   argTypes: {
     data: { control: false, description: 'Ordered { label, value } points, or { label } + one numeric key per series.' },
     series: { control: false, description: '{ key, name } series to draw (up to 5); omit for the single-series `value` chart.' },
