@@ -65,7 +65,7 @@ export const CreateDatabase: Story = {
               },
               { name: 'storage', label: 'Storage (GB)', kind: 'number', required: true, min: 1, max: 500, defaultValue: 10 },
               { name: 'description', label: 'Description', kind: 'textarea', placeholder: 'What is this database for?', description: 'Shown to teammates on the databases list.' },
-              { name: 'publicAccess', label: 'Public access', kind: 'switch', description: 'Allow connections from outside the private network.' },
+              { name: 'publicAccess', label: 'Public access', kind: 'checkbox', description: 'Allow connections from outside the private network.' },
             ],
           },
         ]}
@@ -104,7 +104,7 @@ export const CreateDatabase: Story = {
 
     await pickByKeyboard(engine, 'p', 'PostgreSQL 16');
     await waitFor(() => expect(engine).not.toHaveAccessibleDescription('Select an engine.'));
-    await userEvent.click(canvas.getByRole('switch', { name: /^Public access/ }));
+    await userEvent.click(canvas.getByRole('checkbox', { name: /^Public access/ }));
     await userEvent.click(submit);
     await waitFor(() =>
       expect(args.onSubmit).toHaveBeenCalledWith({ name: 'acme_prod', engine: 'postgres', storage: 10, description: '', publicAccess: true }),

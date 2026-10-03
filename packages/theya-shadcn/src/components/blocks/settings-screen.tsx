@@ -1,6 +1,6 @@
 import { useEffect, useId, useState } from 'react';
 import type { FormEventHandler, FormEvent } from 'react';
-import { Key, FloppyDisk, ShieldCheck, Trash, WarningTriangle, ArrowUp, ArrowDown, Refresh } from 'iconoir-react';
+import { Key, FloppyDisk, ShieldCheck, Trash, WarningTriangle, ArrowUp, ArrowDown, Refresh, Check } from 'iconoir-react';
 import { toast } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { emailProblem } from '@/lib/email';
@@ -583,6 +583,14 @@ function NotificationsSection({ id, notifications, onChange }: { id: string; not
   // Switch ids from useId: the raw row ids ("deploy-failures") were global
   // and collided with a second SettingsScreen or any same-named element.
   const uid = useId();
+  // Changes apply on toggle, so confirm each one where it happened: a short
+  // "Saved" beside the switch (announced politely), gone after 2s.
+  const [savedId, setSavedId] = useState<string | null>(null);
+  useEffect(() => {
+    if (!savedId) return;
+    const t = setTimeout(() => setSavedId(null), 2000);
+    return () => clearTimeout(t);
+  }, [savedId]);
   return (
     <div id={id} className="scroll-mt-6 flex flex-col gap-6">
       <div className="min-w-0">
@@ -598,7 +606,25 @@ function NotificationsSection({ id, notifications, onChange }: { id: string; not
               </Label>
               <p className="mt-0.5 font-body text-body-s text-[var(--color-text-text-subtler)]">{row.helper}</p>
             </div>
-            <Switch id={`${uid}-${row.id}`} defaultChecked={row.defaultChecked} aria-label={row.label} onCheckedChange={(checked) => onChange?.(row.id, checked)} className="mt-0.5 shrink-0" />
+            <div className="mt-0.5 flex shrink-0 items-center gap-2">
+              <span role="status" className="flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-success)]">
+                {savedId === row.id && (
+                  <>
+                    <Check className="size-4" aria-hidden="true" />
+                    Saved
+                  </>
+                )}
+              </span>
+              <Switch
+                id={`${uid}-${row.id}`}
+                defaultChecked={row.defaultChecked}
+                aria-label={row.label}
+                onCheckedChange={(checked) => {
+                  onChange?.(row.id, checked);
+                  setSavedId(row.id);
+                }}
+              />
+            </div>
           </div>
         ))}
       </div>

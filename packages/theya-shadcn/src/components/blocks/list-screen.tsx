@@ -15,6 +15,7 @@ import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { undoToast } from '@/components/ui/undo-toast';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { StatusDot } from '@/components/ui/status-dot';
+import { EmptyState } from '@/components/ui/empty-state';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 
 /**
@@ -327,7 +328,27 @@ export function ListScreen<Row extends Record<string, unknown> = SeededUser>(pro
       getRowLabel={getRowLabel}
       getRowHref={props.getRowHref}
       loading={props.loading}
-      emptyMessage={props.emptyMessage ?? 'No results.'}
+      emptyMessage={props.emptyMessage}
+      // No custom message: an empty list says why and offers a way out.
+      // With a search or filter on, "Clear filters" resets them all (the
+      // search box is a column filter too); otherwise it's just empty.
+      emptyState={
+        props.emptyMessage
+          ? undefined
+          : (table) => (
+              <EmptyState
+                title={`No ${noun.many} yet`}
+                filtered={table.getState().columnFilters.length > 0}
+                filteredTitle={`No ${noun.many} match`}
+                filteredDescription="Try a different search, or remove a filter."
+                filteredAction={
+                  <Button appearance="outlined" tone="secondary" onClick={() => table.resetColumnFilters()}>
+                    Clear filters
+                  </Button>
+                }
+              />
+            )
+      }
       ariaLabel={props.ariaLabel ?? 'List'}
       enableSelection={Boolean(props.bulkActions?.length)}
       selectAll="toolbar"

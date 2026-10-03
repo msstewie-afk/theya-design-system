@@ -17,6 +17,7 @@ import { TextArea } from '@/components/ui/textarea';
 import { NumberField } from '@/components/ui/number-field';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import { Checkbox } from '@/components/ui/checkbox';
 
 /**
  * A config-driven create/edit resource form: pass a list of field
@@ -36,7 +37,12 @@ import { Switch } from '@/components/ui/switch';
  *     onSubmit={(values) => createDatabase(values)}
  *   />
  */
-export type ResourceFieldKind = 'text' | 'email' | 'password' | 'textarea' | 'number' | 'select' | 'switch';
+/**
+ * `checkbox` for a yes/no field: the choice applies when the form is saved.
+ * `switch` still works but is deprecated here — a switch promises an
+ * immediate effect, which a form with a Save button doesn't have.
+ */
+export type ResourceFieldKind = 'text' | 'email' | 'password' | 'textarea' | 'number' | 'select' | 'checkbox' | 'switch';
 
 export interface ResourceFieldOption {
   value: string;
@@ -85,13 +91,16 @@ function fieldSchema(field: ResourceFieldConfig): ZodTypeAny {
   const kind = field.kind ?? 'text';
   const required = field.required ?? false;
 
-  if (kind === 'switch') return z.boolean();
+  if (kind === 'switch' || kind === 'checkbox') return z.boolean();
 
   if (kind === 'number') {
-    const base = z.coerce.number({ message: `${field.label} must be a number.` });
+    // Starts empty (no invented 0): an untouched required number now says
+    // it's required instead of silently submitting 0.
+    const base = z.number({ error: (issue) => (issue.input === undefined ? `${field.label} is required.` : `${field.label} must be a number.`) });
     const withMin = field.min != null ? base.min(field.min, `${field.label} must be at least ${field.min}.`) : base;
     const withMax = field.max != null ? withMin.max(field.max, `${field.label} must be at most ${field.max}.`) : withMin;
-    return required ? withMax : withMax.optional();
+    const cleaned = (v: unknown) => (v === null || v === '' || (typeof v === 'number' && Number.isNaN(v)) ? undefined : v);
+    return z.preprocess(cleaned, required ? withMax : withMax.optional());
   }
 
   if (kind === 'select') {
@@ -130,10 +139,10 @@ function buildDefaults(sections: ResourceFormSection[]): ResourceFormValues {
       const kind = field.kind ?? 'text';
       if (field.defaultValue !== undefined) {
         defaults[field.name] = field.defaultValue;
-      } else if (kind === 'switch') {
+      } else if (kind === 'switch' || kind === 'checkbox') {
         defaults[field.name] = false;
       } else if (kind === 'number') {
-        defaults[field.name] = field.min ?? 0;
+        // Left empty — see fieldSchema.
       } else {
         defaults[field.name] = '';
       }
@@ -293,6 +302,25 @@ function ResourceFormField({ field, form, id }: { field: ResourceFieldConfig; fo
               {error && <FieldError id={errorId}>{error}</FieldError>}
             </div>
             <Switch id={id} checked={Boolean(controllerField.value)} onCheckedChange={controllerField.onChange} aria-describedby={describedBy} aria-invalid={invalid} className="mt-0.5 shrink-0" />
+          </Field>
+        )}
+      />
+    );
+  }
+
+  if (kind === 'checkbox') {
+    return (
+      <Controller
+        control={form.control}
+        name={field.name}
+        render={({ field: controllerField }) => (
+          <Field invalid={invalid} className="flex-row items-start gap-3">
+            <Checkbox id={id} checked={Boolean(controllerField.value)} onCheckedChange={(v) => controllerField.onChange(v === true)} aria-describedby={describedBy} aria-invalid={invalid} className="mt-0.5 shrink-0" />
+            <div className="min-w-0">
+              <Label htmlFor={id}>{field.label}</Label>
+              {field.description && <FieldDescription id={descriptionId}>{field.description}</FieldDescription>}
+              {error && <FieldError id={errorId}>{error}</FieldError>}
+            </div>
           </Field>
         )}
       />
