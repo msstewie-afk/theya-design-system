@@ -112,6 +112,10 @@ export function InlineEdit({
   const fieldRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const restoreFocus = useRef(false);
+  // The field is disabled while saving, so a failed save can't focus it right
+  // away (focus() on a disabled input is a no-op and focus stayed on <body>);
+  // it's refocused once `saving` flips back.
+  const refocusField = useRef(false);
   const fieldId = useId();
   const singleLine = !multiline;
   const inherit = inheritFont && singleLine;
@@ -125,6 +129,12 @@ export function InlineEdit({
       displayRef.current?.focus();
     }
   }, [editing]);
+
+  useEffect(() => {
+    if (saving || !refocusField.current) return;
+    refocusField.current = false;
+    fieldRef.current?.focus();
+  }, [saving]);
 
   const start = () => {
     if (readOnly || disabled) return;
@@ -162,7 +172,7 @@ export function InlineEdit({
       setEditing(false);
     } catch (err) {
       setError(err instanceof Error && err.message ? err.message : 'Couldn’t save. Try again.');
-      fieldRef.current?.focus();
+      refocusField.current = true;
     } finally {
       setSaving(false);
     }
