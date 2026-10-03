@@ -10,7 +10,7 @@ export const kebabIconGuidelines: ComponentGuidelines = {
     { text: 'A truncated path or pagination gap', instead: 'BreadcrumbEllipsis / PaginationEllipsis' },
   ],
   anatomy: [
-    { part: 'Glyph', description: <><C>KebabIconVertical</C> or <C>KebabIconHorizontal</C>, <C>size</C> sm/md/lg; inherits the text colour.</> },
+    { part: 'Glyph', description: <><C>KebabIconVertical</C> or <C>KebabIconHorizontal</C>, <C>size</C> sm/md/lg; inherits the text color.</> },
     { part: 'Button', description: <>always inside an icon-only Button that opens the menu.</> },
   ],
   doDont: [

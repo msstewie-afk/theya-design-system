@@ -33,7 +33,7 @@ export const badgeGuidelines: ComponentGuidelines = {
             <Badge tone="success">Node.js</Badge>
           </div>
         ),
-        caption: 'Status colours as decoration teach people that red doesn’t mean anything.',
+        caption: 'Status colors as decoration teach people that red doesn’t mean anything.',
       },
     },
     {
@@ -42,7 +42,7 @@ export const badgeGuidelines: ComponentGuidelines = {
     },
   ],
   a11y: [
-    'Never colour alone: the label carries the meaning.',
+    'Never color alone: the label carries the meaning.',
     <>For a bare count, add context for screen readers: <C>3</C> + sr-only “unread messages”.</>,
     'A badge isn’t focusable; if it does something, it’s a Chip or a Button.',
   ],

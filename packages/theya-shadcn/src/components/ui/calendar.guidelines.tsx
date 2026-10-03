@@ -40,6 +40,6 @@ export const calendarGuidelines: ComponentGuidelines = {
     'Arrows move by day, Page Up/Down by month, Home/End to week start/end; Enter selects.',
     <>Give it a name (<C>aria-label</C>) when no heading says what the dates are for.</>,
     <>Two calendars on one page: name each one’s month navigation (<C>{'labels={{ labelNav }}'}</C>) so the landmarks differ.</>,
-    'Explain disabled days in text — a greyed day says nothing about why.',
+    'Explain disabled days in text — a grayed-out day says nothing about why.',
   ],
 };

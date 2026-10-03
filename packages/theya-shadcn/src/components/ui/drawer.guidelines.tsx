@@ -7,7 +7,7 @@ export const drawerGuidelines: ComponentGuidelines = {
   whenToUse: ['Short, touch-first tasks from the bottom of a phone screen: sort, filters, share, a few actions.', 'Content people dismiss with a swipe.'],
   whenNotToUse: [
     { text: 'Long or multi-step forms', instead: 'a page or Dialog' },
-    { text: 'Side panels on desktop', instead: 'Sheet or PushSheet' },
+    { text: 'Side panels on desktop', instead: 'PushSheet' },
     { text: 'Confirming a destructive action', instead: 'AlertDialog' },
   ],
   anatomy: [

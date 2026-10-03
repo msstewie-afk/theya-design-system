@@ -9,7 +9,7 @@ export const alertGuidelines: ComponentGuidelines = {
     'A warning before an action, or the summary of errors after submitting a form.',
   ],
   whenNotToUse: [
-    { text: 'A confirmation that something just happened', instead: 'Toast' },
+    { text: 'A confirmation that something just happened', instead: 'Toaster' },
     { text: 'A problem with one field', instead: 'the field’s own error' },
     { text: 'Site-wide news or maintenance', instead: 'AnnouncementBar' },
     { text: 'A decision that blocks the page', instead: 'AlertDialog' },
@@ -63,13 +63,13 @@ export const alertGuidelines: ComponentGuidelines = {
             <AlertTitle>New: dark theme is here</AlertTitle>
           </Alert>
         ),
-        caption: 'Danger for news wears out the colour for real problems.',
+        caption: 'Danger for news wears out the color for real problems.',
       },
     },
   ],
   a11y: [
     <>Appearing after an action? Set <C>live</C> (<C>polite</C>, or <C>assertive</C> for errors) so it’s announced. Static alerts don’t need it.</>,
-    'The tone is also in words (the title), not only in colour and icon.',
+    'The tone is also in words (the title), not only in color and icon.',
     'For a form error summary, move focus to the alert after submit.',
   ],
 };

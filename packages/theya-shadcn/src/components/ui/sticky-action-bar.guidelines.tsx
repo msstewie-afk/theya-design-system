@@ -17,7 +17,7 @@ export const stickyActionBarGuidelines: ComponentGuidelines = {
   whenNotToUse: [
     { text: 'Short forms where the buttons are already in view' },
     { text: 'Navigation', instead: 'Tabs or a bottom nav' },
-    { text: 'A message without actions', instead: 'Alert or Toast' },
+    { text: 'A message without actions', instead: 'Alert or Toaster' },
   ],
   anatomy: [
     { part: 'Bar', description: <><C>bar</C> (full-width strip) or <C>floating</C> (centered card); <C>sticky</C> or <C>fixed</C>.</> },

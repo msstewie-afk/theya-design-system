@@ -9,7 +9,7 @@ export const messagePopupGuidelines: ComponentGuidelines = {
   whenToUse: ['A help or AI assistant that lives in a corner while the page stays usable beside it.'],
   whenNotToUse: [
     { text: 'Forms people must complete', instead: 'Dialog or a page' },
-    { text: 'Notifications', instead: 'Toast' },
+    { text: 'Notifications', instead: 'Toaster' },
   ],
   anatomy: [
     { part: 'Launcher', description: 'a round icon button with a name.' },

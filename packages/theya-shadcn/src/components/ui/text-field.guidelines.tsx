@@ -5,7 +5,7 @@ export const textFieldGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: ['Short free text on one line: a name, an email, a domain, a URL, a code.', 'With a visible label above it, every time.'],
   whenNotToUse: [
-    { text: 'More than a line of text', instead: 'Textarea' },
+    { text: 'More than a line of text', instead: 'TextArea' },
     { text: 'Picking from known values', instead: 'Select or Combobox' },
     { text: 'A number people step up and down', instead: 'NumberField' },
     { text: 'A password', instead: 'Password' },

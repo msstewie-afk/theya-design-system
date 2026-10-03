@@ -6,7 +6,7 @@ export const messageGuidelines: ComponentGuidelines = {
   whenToUse: ['One turn in a conversation, inside ChatMessages.', <><C>variant</C> received (left) / sent (right); author and time when they help.</>],
   whenNotToUse: [
     { text: 'System notices in a transcript (“Agent joined”)', instead: 'a centered small text line' },
-    { text: 'Notifications outside a chat', instead: 'Alert or Toast' },
+    { text: 'Notifications outside a chat', instead: 'Alert or Toaster' },
   ],
   anatomy: [
     { part: 'Bubble', description: <>received: muted, left; sent: primary, right. <C>appearance</C> filled/tonal.</> },

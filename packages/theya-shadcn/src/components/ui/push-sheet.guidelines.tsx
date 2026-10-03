@@ -29,7 +29,7 @@ export const pushSheetGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: ['Details of a selected item beside the list, while the list stays usable: inspect, compare, pick the next one.'],
   whenNotToUse: [
-    { text: 'Tasks that must be finished or cancelled', instead: 'Dialog or Sheet (modal)' },
+    { text: 'Tasks that must be finished or cancelled', instead: 'Dialog' },
     { text: 'Confirmations', instead: 'AlertDialog' },
   ],
   anatomy: [

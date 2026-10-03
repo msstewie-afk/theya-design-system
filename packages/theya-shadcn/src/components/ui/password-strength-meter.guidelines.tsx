@@ -19,5 +19,5 @@ export const passwordStrengthMeterGuidelines: ComponentGuidelines = {
       dont: { example: <span className="font-body text-body-m text-[var(--color-text-text-danger)]">Weak</span>, caption: 'A verdict without the rules leaves people guessing what to add.' },
     },
   ],
-  a11y: ['The bar is a progressbar with a text value (Weak/Good/Strong).', 'Each rule is text with a met/not-met state, not colour only.'],
+  a11y: ['The bar is a progressbar with a text value (Weak/Good/Strong).', 'Each rule is text with a met/not-met state, not color only.'],
 };

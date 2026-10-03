@@ -6,7 +6,7 @@ export const propertyGridGuidelines: ComponentGuidelines = {
   whenToUse: ['Viewing and editing an object’s properties in a compact two-column list: an inspector panel, a resource’s settings, a selected item’s details.', <><C>readOnly</C> items for values people see but can’t change.</>],
   whenNotToUse: [
     { text: 'A form people fill once (sign-up, checkout)', instead: 'a stacked form (TextField, Form)' },
-    { text: 'Read-only facts with no editing', instead: 'a description list' },
+    { text: 'Read-only facts with no editing', instead: 'DescriptionList' },
     { text: 'Many records with the same fields', instead: 'DataTable' },
   ],
   anatomy: [

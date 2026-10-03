@@ -18,7 +18,7 @@ export const dialogGuidelines: ComponentGuidelines = {
   whenNotToUse: [
     { text: 'Confirming something destructive', instead: 'ConfirmDialog / AlertDialog' },
     { text: 'Long forms, or content people compare with the page', instead: 'Drawer or a page' },
-    { text: 'A message that needs no answer', instead: 'Toast or Alert' },
+    { text: 'A message that needs no answer', instead: 'Toaster or Alert' },
     { text: 'Extra detail next to a control', instead: 'Popover' },
   ],
   anatomy: [
