@@ -46,6 +46,17 @@ const TONAL_DISMISS_CLASS: Record<AnnouncementBarTone, string> = {
 const FILLED_DISMISS_CLASS =
   'hover:bg-[var(--color-bg-primary-on-primary-hover)] active:bg-[var(--color-bg-primary-on-primary-pressed)] focus-visible:focus-ring-on-primary';
 
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+/** First focusable element after `node` in document order (outside it), or null. */
+function nextFocusableAfter(node: HTMLElement) {
+  for (const el of document.querySelectorAll<HTMLElement>(FOCUSABLE)) {
+    if (node.contains(el)) continue;
+    if (node.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING && el.getClientRects().length > 0) return el;
+  }
+  return null;
+}
+
 function readDismissed(key?: string) {
   if (!key) return false;
   try {
@@ -96,7 +107,12 @@ export function AnnouncementBar({
 
   const filled = appearance === 'filled';
 
-  const dismiss = () => {
+  const dismiss = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // The dismiss button disappears with the bar; send focus to whatever comes
+    // next on the page instead of letting it fall to <body>.
+    const bar = e.currentTarget.closest<HTMLElement>('[data-slot="announcement-bar"]');
+    const next = bar ? nextFocusableAfter(bar) : null;
+    if (next) requestAnimationFrame(() => next.focus());
     if (dismissKey) {
       try {
         window.localStorage.setItem(`theya:announcement:${dismissKey}`, 'dismissed');

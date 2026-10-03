@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { InfoCircle, Sparks, Tools, WarningTriangle } from 'iconoir-react';
 import { AnnouncementBar } from './announcement-bar';
 import { Button } from './button';
@@ -125,4 +126,21 @@ export const RememberedDismissal: Story = {
       </Button>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const KEY = 'theya:announcement:storybook-demo-v1';
+    const bar = () => canvas.queryByRole('region', { name: 'Announcement' });
+    // This test may run after someone dismissed it by hand.
+    if (!bar()) return;
+    try {
+      // Dismiss: the bar goes, the choice is remembered, and focus moves on to the
+      // next control instead of falling to <body>.
+      await userEvent.click(canvas.getByRole('button', { name: 'Dismiss announcement' }));
+      await expect(bar()).not.toBeInTheDocument();
+      await expect(window.localStorage.getItem(KEY)).toBe('dismissed');
+      await waitFor(() => expect(canvas.getByRole('button', { name: 'Show again' })).toHaveFocus());
+    } finally {
+      window.localStorage.removeItem(KEY);
+    }
+  },
 };
