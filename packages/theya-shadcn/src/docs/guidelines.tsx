@@ -6,6 +6,7 @@
  * and when to use at the top, anatomy, do/don't and accessibility after
  * the stories — so every page has the same shape.
  */
+/// <reference types="vite/client" />
 import type { ReactNode } from 'react';
 import { Check, Xmark } from 'iconoir-react';
 import { cn } from '@/lib/utils';
@@ -55,6 +56,37 @@ export function C({ children }: { children: ReactNode }) {
   return <code className="rounded-[var(--size-border-radius-border-radius-sm)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-1 py-px font-mono text-[0.85em] text-[var(--color-text-text)]">{children}</code>;
 }
 
+// Component names known to the library, from file names (no modules are
+// loaded — the glob is lazy and only its keys are read). Used to set just
+// the names inside an `instead` hint in code style, not the whole phrase.
+const pascal = (kebab: string) => kebab.replace(/(^|-)([a-z0-9])/g, (_, __, c: string) => c.toUpperCase());
+const COMPONENT_NAMES = new Set([
+  ...Object.keys(import.meta.glob('../components/**/*.tsx'))
+    .map((path) => path.split('/').pop()!.replace(/\.tsx$/, ''))
+    .filter((name) => !/\.(stories|guidelines|test)$/.test(name))
+    .map(pascal),
+  // Exports whose name differs from their file.
+  'TextArea', 'RadioGroup', 'Toaster', 'ColorField', 'RatingStar', 'FormItem', 'BreadcrumbEllipsis', 'PaginationEllipsis', 'InputOTP', 'formatPrice',
+]);
+
+// Splits on PascalCase words (optional plural "s") and code-like tokens:
+// a.b calls/paths, prop="value", and Component(...) forms.
+const INSTEAD_TOKEN = /(\b[A-Z][A-Za-z]*s?\b|\b\w+(?:\.\w+)+\b|\b\w+="[^"]*")/;
+
+function isCode(token: string) {
+  if (/\.|="/.test(token)) return true;
+  return COMPONENT_NAMES.has(token) || (token.endsWith('s') && COMPONENT_NAMES.has(token.slice(0, -1)));
+}
+
+/** An `instead` hint: component names and code in code style, the rest plain. */
+function Instead({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(INSTEAD_TOKEN).map((part, i) => (i % 2 === 1 && isCode(part) ? <C key={i}>{part}</C> : part))}
+    </>
+  );
+}
+
 /** Top of the page: status, when to use, when not to. */
 export function GuidelinesIntro({ guidelines: g }: { guidelines: ComponentGuidelines }) {
   const s = STATUS[g.status];
@@ -85,7 +117,7 @@ export function GuidelinesIntro({ guidelines: g }: { guidelines: ComponentGuidel
                 {w.instead && (
                   <>
                     {' → '}
-                    <C>{w.instead}</C>
+                    <Instead text={w.instead} />
                   </>
                 )}
               </>
