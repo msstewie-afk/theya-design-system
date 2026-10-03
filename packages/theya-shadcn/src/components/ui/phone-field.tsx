@@ -70,6 +70,16 @@ export interface PhoneFieldProps {
 const flag = (code: string) => String.fromCodePoint(...[...code].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65));
 const digitsOf = (s: string) => s.replace(/\D/g, '');
 
+/** Index in `text` right after its `count`-th digit (0 when count is 0). */
+function caretAfterDigits(text: string, count: number) {
+  if (count <= 0) return 0;
+  let seen = 0;
+  for (let i = 0; i < text.length; i++) {
+    if (/\d/.test(text[i]) && ++seen === count) return i + 1;
+  }
+  return text.length;
+}
+
 function browserCountry(): CountryCode | undefined {
   if (typeof navigator === 'undefined') return undefined;
   const region = navigator.language.split('-')[1]?.toUpperCase();
@@ -121,6 +131,7 @@ export function PhoneField({
   const [national, setNational] = useState(() => (initial?.country ? formatNational(initial.nationalNumber, initial.country) : ''));
   const [lengthError, setLengthError] = useState<string>();
   const [open, setOpen] = useState(false);
+  const picked = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const lastEmitted = useRef(valueProp ?? defaultValue ?? '');
   const generatedId = useId();
@@ -182,8 +193,23 @@ export function PhoneField({
     let digits = digitsOf(raw);
     // Backspace over a formatting character (space, bracket, dash) leaves
     // the digits unchanged and the formatter would put the character right
-    // back — delete the digit before it instead.
-    if (digits === digitsOf(national) && raw.length < national.length) digits = digits.slice(0, -1);
+    // back — delete the digit before it instead. Uses the caret, not the end:
+    // slicing the last digit dropped the wrong digit when the caret was in
+    // the middle, and the emitted value no longer matched what was shown.
+    if (digits === digitsOf(national) && raw.length < national.length) {
+      const caret = e.target.selectionStart ?? raw.length;
+      const digitsBefore = digitsOf(raw.slice(0, caret)).length;
+      if (digitsBefore > 0) {
+        digits = digits.slice(0, digitsBefore - 1) + digits.slice(digitsBefore);
+        const next = formatTyping(digits, country);
+        setNational(next);
+        if (lengthError) setLengthError(check(digits, country));
+        emit(digits, country);
+        const pos = caretAfterDigits(next, digitsBefore - 1);
+        requestAnimationFrame(() => inputRef.current?.setSelectionRange(pos, pos));
+        return;
+      }
+    }
     const caretAtEnd = e.target.selectionStart === raw.length;
     if (caretAtEnd) {
       apply(digits, country);
@@ -209,7 +235,9 @@ export function PhoneField({
     setNational(formatNational(digits, c));
     if (lengthError) setLengthError(check(digits, c));
     emit(digits, c);
-    requestAnimationFrame(() => inputRef.current?.focus());
+    // Focus moves to the number in the popover's onCloseAutoFocus — a rAF here
+    // raced Radix returning focus to the trigger and sometimes lost.
+    picked.current = true;
   };
 
   const example = getExampleNumber(country, examples)?.formatNational();
@@ -258,7 +286,18 @@ export function PhoneField({
               <NavArrowDown aria-hidden="true" className="size-3.5 text-[var(--color-icon-icon-subtle)]" />
             </button>
           </PopoverTrigger>
-          <PopoverContent align="start" className="w-[320px] p-0" aria-label="Choose a country">
+          <PopoverContent
+            align="start"
+            className="w-[320px] p-0"
+            aria-label="Choose a country"
+            onCloseAutoFocus={(e) => {
+              // After a pick, continue in the number; Esc / click-away returns to the trigger.
+              if (!picked.current) return;
+              picked.current = false;
+              e.preventDefault();
+              inputRef.current?.focus();
+            }}
+          >
             <Command label="Countries">
               <CommandInput placeholder="Search country or code" />
               <CommandList className="p-1">
