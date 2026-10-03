@@ -1,4 +1,4 @@
-import { useId, useRef, useState, type ClipboardEvent, type KeyboardEvent, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ClipboardEvent, type KeyboardEvent, type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 import { Chip, ChipRemove } from './chip';
 
@@ -84,6 +84,9 @@ export function TagInput({
   const [draft, setDraft] = useState('');
   const [announcement, setAnnouncement] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  // Focus is restored after render: at the `max` limit the input isn't mounted
+  // yet when a chip is removed, so focusing it synchronously dropped focus on <body>.
+  const refocus = useRef(false);
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const messageId = `${inputId}-message`;
@@ -124,8 +127,14 @@ export function TagInput({
     const removed = tags[index];
     commit(tags.filter((_, i) => i !== index));
     setAnnouncement(`Removed ${removed}`);
-    inputRef.current?.focus();
+    refocus.current = true;
   };
+
+  useEffect(() => {
+    if (!refocus.current) return;
+    refocus.current = false;
+    inputRef.current?.focus();
+  }, [tags]);
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (delimiters.includes(e.key)) {
