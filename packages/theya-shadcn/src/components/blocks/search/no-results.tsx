@@ -93,7 +93,7 @@ export function SearchNoResults({ query, scope, elsewhere = [], didYouMean, popu
           <ul className="flex flex-col gap-1">
             {popular.map((p) => (
               <li key={p.id}>
-                <a href={p.href} className="-mx-2 flex items-center gap-3 rounded-[var(--size-border-radius-border-radius-md)] px-2 py-1.5 outline-none hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] focus-visible:focus-ring">
+                <a href={p.href} className="-mx-2 flex items-center gap-3 rounded-[var(--size-border-radius-border-radius-md)] px-2 py-1.5 outline-none hover:bg-[var(--color-bg-neutral-bg-neutral-subtler)] focus-visible:focus-ring">
                   <TypeIcon type={p.type} />
                   <span className="min-w-0">
                     <span className="block font-body text-body-m font-medium text-[var(--color-text-text)]">{p.title}</span>

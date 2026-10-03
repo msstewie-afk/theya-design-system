@@ -87,7 +87,7 @@ export function StatusTracker({
     <div className={cn('@container flex w-full flex-col gap-6', className)}>
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex min-w-0 flex-col gap-1">
-          <h1 className="font-body text-heading-m font-semibold text-[var(--color-text-text)]">{title}</h1>
+          <h1 className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">{title}</h1>
           <p className="font-body text-body-s text-[var(--color-text-text-subtle)]">
             <span className="font-mono">{reference}</span>
             {` · Started ${startedLabel}`}
@@ -101,7 +101,7 @@ export function StatusTracker({
       {/* The answer first: where it is and how long is left. */}
       <section aria-labelledby={`${uid}-now`} className="flex flex-col gap-4 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5">
         <div className="flex flex-col gap-1">
-          <h2 id={`${uid}-now`} className="font-body text-heading-xs font-semibold text-[var(--color-text-text)]">
+          <h2 id={`${uid}-now`} className="font-body text-body-l font-semibold text-[var(--color-text-text)]">
             {headline}
           </h2>
           {state === 'running' && (

@@ -32,6 +32,8 @@ export interface ReviewsProps {
   summary?: { average: number; count: number; distribution: Record<1 | 2 | 3 | 4 | 5, number> };
   pageSize?: number;
   onWriteReview?: () => void;
+  /** Overrides the heading style when Reviews is a section of a larger page. */
+  headingClassName?: string;
   className?: string;
 }
 
@@ -52,7 +54,7 @@ function Stars({ value }: { value: number }) {
  * before "Show more", and the developer's reply right under the review it
  * answers.
  */
-export function Reviews({ reviews, summary, pageSize = 4, onWriteReview, className }: ReviewsProps) {
+export function Reviews({ reviews, summary, pageSize = 4, onWriteReview, headingClassName, className }: ReviewsProps) {
   const [star, setStar] = useState<number | null>(null);
   const [sort, setSort] = useState<ReviewSort>('relevant');
   const [visible, setVisible] = useState(pageSize);
@@ -72,7 +74,7 @@ export function Reviews({ reviews, summary, pageSize = 4, onWriteReview, classNa
   return (
     <section aria-labelledby={headingId} className={cn('flex flex-col gap-6', className)}>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 id={headingId} className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">
+        <h2 id={headingId} className={headingClassName ?? 'font-body text-body-l font-semibold text-[var(--color-text-text)]'}>
           Reviews
         </h2>
         {onWriteReview && (

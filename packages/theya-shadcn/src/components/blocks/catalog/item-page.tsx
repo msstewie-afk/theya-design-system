@@ -13,6 +13,12 @@ import { Reviews, type Review, type ReviewsProps } from './reviews';
 import { SpecSheet, type SpecGroup } from './spec-sheet';
 import type { CatalogItem } from './types';
 
+/**
+ * Page hierarchy (patterns convention): page title text-heading-s (20px),
+ * section titles text-body-l semibold (16px), subsections body-m semibold.
+ */
+const SECTION_TITLE = 'font-body text-body-l font-semibold text-[var(--color-text-text)]';
+
 export interface ItemPageProps {
   item: CatalogItem;
   /** Category path, top level first; the item itself is added last. */
@@ -72,7 +78,7 @@ export function ItemPage({ item, breadcrumbs = [], images = [], highlights = [],
           <div className="flex items-start gap-4">
             <ItemIcon icon={item.icon} size="lg" />
             <div className="min-w-0">
-              <h1 id={`${uid}-title`} className="font-body text-heading-m font-semibold text-[var(--color-text-text)]">
+              <h1 id={`${uid}-title`} className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">
                 {item.name}
               </h1>
               <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">by {item.vendor}</p>
@@ -129,13 +135,13 @@ export function ItemPage({ item, breadcrumbs = [], images = [], highlights = [],
 
       {description.length > 0 && (
         <section id={ids.overview} aria-labelledby={`${ids.overview}-h`} className="flex max-w-3xl scroll-mt-6 flex-col gap-4">
-          <h2 id={`${ids.overview}-h`} className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">
+          <h2 id={`${ids.overview}-h`} className={SECTION_TITLE}>
             Overview
           </h2>
           <div id={`${ids.overview}-body`} className="flex flex-col gap-4">
             {(showFull || !longText ? description : description.slice(0, 2)).map((d, i) => (
               <div key={i} className="flex flex-col gap-1">
-                {d.title && <h3 className="font-body text-body-l font-semibold text-[var(--color-text-text)]">{d.title}</h3>}
+                {d.title && <h3 className="font-body text-body-m font-semibold text-[var(--color-text-text)]">{d.title}</h3>}
                 <div className="font-body text-body-m text-[var(--color-text-text-subtle)]">{d.body}</div>
               </div>
             ))}
@@ -158,7 +164,7 @@ export function ItemPage({ item, breadcrumbs = [], images = [], highlights = [],
         <>
           <Separator />
           <section id={ids.specs} aria-labelledby={`${ids.specs}-h`} className="flex max-w-3xl scroll-mt-6 flex-col gap-4">
-            <h2 id={`${ids.specs}-h`} className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">
+            <h2 id={`${ids.specs}-h`} className={SECTION_TITLE}>
               Specifications
             </h2>
             <SpecSheet groups={specs} />
@@ -170,7 +176,7 @@ export function ItemPage({ item, breadcrumbs = [], images = [], highlights = [],
         <>
           <Separator />
           <div id={ids.reviews} className="max-w-3xl scroll-mt-6">
-            <Reviews reviews={reviews} summary={reviewSummary} onWriteReview={onWriteReview} />
+            <Reviews reviews={reviews} summary={reviewSummary} onWriteReview={onWriteReview} headingClassName={SECTION_TITLE} />
           </div>
         </>
       )}

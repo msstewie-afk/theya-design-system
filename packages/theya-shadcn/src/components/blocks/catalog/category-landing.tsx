@@ -54,7 +54,7 @@ export function CategoryLanding({ title, description, total, allHref, categories
     <div className={cn('@container flex w-full flex-col gap-10', className)}>
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div className="flex max-w-2xl flex-col gap-1">
-          <h1 className="font-body text-heading-m font-semibold text-[var(--color-text-text)]">{title}</h1>
+          <h1 className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">{title}</h1>
           {description && <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">{description}</p>}
         </div>
         <a href={allHref} className={linkClass}>
@@ -64,7 +64,7 @@ export function CategoryLanding({ title, description, total, allHref, categories
       </header>
 
       <section aria-labelledby={`${uid}-cat`} className="flex flex-col gap-4">
-        <h2 id={`${uid}-cat`} className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">
+        <h2 id={`${uid}-cat`} className="font-body text-body-l font-semibold text-[var(--color-text-text)]">
           Browse by category
         </h2>
         <ul className="grid grid-cols-1 gap-3 @md:grid-cols-2 @3xl:grid-cols-3 @5xl:grid-cols-6">
@@ -87,7 +87,7 @@ export function CategoryLanding({ title, description, total, allHref, categories
       {popular && popular.items.length > 0 && (
         <section aria-labelledby={`${uid}-pop`} className="flex flex-col gap-4">
           <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <h2 id={`${uid}-pop`} className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">
+            <h2 id={`${uid}-pop`} className="font-body text-body-l font-semibold text-[var(--color-text-text)]">
               {`Popular in ${popular.category}`}
             </h2>
             <a href={popular.href} className={linkClass}>
@@ -109,7 +109,7 @@ export function CategoryLanding({ title, description, total, allHref, categories
       {picks.length > 0 && (
         <section aria-labelledby={`${uid}-picks`} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <h2 id={`${uid}-picks`} className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">
+            <h2 id={`${uid}-picks`} className="font-body text-body-l font-semibold text-[var(--color-text-text)]">
               Editor's picks
             </h2>
             <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">Chosen by our team. Not paid placements.</p>

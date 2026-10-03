@@ -61,7 +61,7 @@ export function AccountOverview({ user, attention = [], areas, className }: Acco
           <AvatarFallback>{initials(user.name)}</AvatarFallback>
         </Avatar>
         <div className="min-w-0">
-          <h1 className="font-body text-heading-m font-semibold text-[var(--color-text-text)]">{user.name}</h1>
+          <h1 className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">{user.name}</h1>
           <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">{[user.email, user.workspace].filter(Boolean).join(' · ')}</p>
           {user.memberSince && <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{`Member since ${user.memberSince}`}</p>}
         </div>

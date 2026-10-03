@@ -41,7 +41,7 @@ export function CompletionScreen({ title = "You're all set", description, orderN
         <span aria-hidden="true" className="grid size-14 place-items-center rounded-full bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-icon-icon-success)] [&_svg]:size-7">
           <CheckCircle />
         </span>
-        <h2 id={titleId} className="font-body text-heading-m font-semibold text-[var(--color-text-text)]">
+        <h2 id={titleId} className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">
           {title}
         </h2>
         {description && <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">{description}</p>}

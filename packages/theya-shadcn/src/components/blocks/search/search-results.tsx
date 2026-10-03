@@ -186,7 +186,7 @@ export function ResultList({ items, query, className }: { items: SearchItem[]; q
   return (
     <ul className={cn('flex flex-col', className)}>
       {items.map((item) => (
-        <li key={item.id} className="relative -mx-3 flex items-start gap-3 rounded-[var(--size-border-radius-border-radius-lg)] px-3 py-3 has-[a:hover]:bg-[var(--color-bg-neutral-bg-neutral-subtle)] has-[a:focus-visible]:focus-ring">
+        <li key={item.id} className="relative -mx-3 flex items-start gap-3 rounded-[var(--size-border-radius-border-radius-lg)] px-3 py-3 has-[a:hover]:bg-[var(--color-bg-neutral-bg-neutral-subtler)] has-[a:focus-visible]:focus-ring">
           <TypeIcon type={item.type} />
           <div className="flex min-w-0 flex-1 flex-col gap-0.5">
             {/* The title link stretches over the whole row; the ring is drawn on the row. */}
