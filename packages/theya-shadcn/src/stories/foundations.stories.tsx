@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Search } from 'iconoir-react';
 import { TextField } from '../components/ui/text-field';
 import { tokenValue, type Theme } from './token-values';
+import { TokenArchitecturePage, UsagePrinciplesPage } from './token-architecture';
 
 const meta: Meta = {
   title: 'Design System/Foundations',
@@ -17,6 +18,18 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj;
+
+/** How the token layers fit together — first, because every page below builds on it. */
+export const TokenArchitecture: Story = {
+  name: 'Token architecture',
+  render: () => <TokenArchitecturePage />,
+};
+
+/** Which token goes where, for every category. */
+export const UsagePrinciples: Story = {
+  name: 'Usage principles',
+  render: () => <UsagePrinciplesPage />,
+};
 
 /**
  * A living reference built ONLY from CSS custom properties confirmed
