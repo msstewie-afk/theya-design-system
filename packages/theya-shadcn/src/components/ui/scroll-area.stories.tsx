@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
 import { ScrollArea, ScrollBar } from './scroll-area';
 import { Separator } from './separator';
 import { Chip } from './chip';
@@ -104,4 +105,19 @@ export const LongContent: Story = {
       </div>
     </ScrollArea>
   ),
+  play: async ({ canvasElement }) => {
+    const root = canvasElement.querySelector<HTMLElement>('[data-slot="scroll-area"], [dir]') ?? canvasElement.firstElementChild as HTMLElement;
+    const viewport = canvasElement.querySelector<HTMLElement>('[data-radix-scroll-area-viewport]')!;
+    // max-h on the root reaches the viewport: the content scrolls inside a 288px box
+    // instead of the box growing to fit it.
+    await expect(viewport.scrollHeight).toBeGreaterThan(viewport.clientHeight);
+    await expect(root.getBoundingClientRect().height).toBeLessThanOrEqual(288 + 1);
+    // The viewport is a tab stop, so keyboard users can reach and scroll it.
+    await userEvent.tab();
+    await expect(viewport).toHaveFocus();
+    // Scrolling moves the content, not the page.
+    viewport.scrollTop = 200;
+    await expect(viewport.scrollTop).toBeGreaterThan(0);
+    await expect(within(viewport).getByText('Deploy log')).toBeInTheDocument();
+  },
 };
