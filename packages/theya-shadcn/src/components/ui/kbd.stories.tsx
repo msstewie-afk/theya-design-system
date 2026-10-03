@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Kbd } from './kbd';
+import { kbdGuidelines } from './kbd.guidelines';
 
 /**
  * Kbd — a small inline keyboard-key hint rendered as a native `<kbd>`
@@ -14,7 +15,7 @@ const meta = {
   title: 'Labels/Kbd',
   component: Kbd,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: kbdGuidelines, layout: 'centered' },
   argTypes: {
     children: {
       control: 'text',

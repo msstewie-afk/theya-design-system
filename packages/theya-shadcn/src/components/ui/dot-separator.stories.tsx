@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DotSeparator } from './dot-separator';
+import { dotSeparatorGuidelines } from './dot-separator.guidelines';
 
 /**
  * DotSeparator — a small inline middot (·) for joining short metadata
@@ -13,7 +14,7 @@ const meta = {
   title: 'Labels/DotSeparator',
   component: DotSeparator,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: dotSeparatorGuidelines, layout: 'centered' },
   argTypes: {
     className: { control: false, description: 'A small inline "·" divider between meta text items.' },
   },

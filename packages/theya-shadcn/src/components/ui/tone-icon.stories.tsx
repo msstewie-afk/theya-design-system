@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Rocket } from 'iconoir-react';
 import { ToneIcon } from './tone-icon';
+import { toneIconGuidelines } from './tone-icon.guidelines';
 
 /**
  * ToneIcon — a tone-tinted glyph (subtle-fill circle/square + a
@@ -15,7 +16,7 @@ const meta: Meta<typeof ToneIcon> = {
   title: 'Labels/ToneIcon',
   component: ToneIcon,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: toneIconGuidelines, layout: 'centered' },
   argTypes: {
     tone: {
       control: 'select',

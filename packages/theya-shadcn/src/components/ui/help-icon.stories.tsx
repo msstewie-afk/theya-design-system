@@ -6,6 +6,7 @@ import { Label } from './label';
 import { TextField } from './text-field';
 import { Switch } from './switch';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from './table';
+import { helpIconGuidelines } from './help-icon.guidelines';
 
 /**
  * HelpIcon — a question-mark glyph that reveals a short hint on hover or keyboard
@@ -21,7 +22,7 @@ const meta: Meta<typeof HelpIcon> = {
   title: 'Labels/HelpIcon',
   component: HelpIcon,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: helpIconGuidelines, layout: 'centered' },
   argTypes: {
     children: { control: 'text', description: 'The hint text shown in the tooltip.' },
     label: {

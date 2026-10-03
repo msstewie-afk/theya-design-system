@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { AvatarGroup } from './avatar-group';
 import { Avatar, AvatarFallback } from './avatar';
+import { avatarGroupGuidelines } from './avatar-group.guidelines';
 
 /**
  * AvatarGroup — a stack of overlapping Avatars with a trailing "+N" overflow.
@@ -12,7 +13,7 @@ const meta = {
   title: 'Labels/AvatarGroup',
   component: AvatarGroup,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: avatarGroupGuidelines, layout: 'centered' },
   argTypes: {
     max: { control: { type: 'number', min: 1 }, description: 'Max avatars to show before collapsing the rest into a "+N" count.' },
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'], description: 'Size applied to every Avatar child.' },

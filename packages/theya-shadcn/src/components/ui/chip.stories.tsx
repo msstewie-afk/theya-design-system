@@ -4,6 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Check } from 'iconoir-react';
 import { Chip, ChipRemove } from './chip';
 import { StatusDot } from './status-dot';
+import { chipGuidelines } from './chip.guidelines';
 
 /**
  * Chip — a compact pill for one value that can be selected and/or removed.
@@ -16,7 +17,7 @@ const meta = {
   title: 'Labels/Chip',
   component: Chip,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: chipGuidelines, layout: 'centered' },
   argTypes: {
     tone: {
       control: 'select',

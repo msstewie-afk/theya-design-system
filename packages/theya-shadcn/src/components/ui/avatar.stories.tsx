@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Star } from 'iconoir-react'; // matches Figma's own Icon-type example (Icon16 / Star) — verified against iconoir-react's export list (dist/index.d.ts)
 import { Avatar, AvatarImage, AvatarFallback, AvatarBadge } from './avatar';
 import { StatusDot } from './status-dot';
+import { avatarGuidelines } from './avatar.guidelines';
 
 /**
  * Avatar — a circular (or squircle) identity marker on @radix-ui/react-avatar
@@ -22,7 +23,7 @@ const meta = {
   title: 'Labels/Avatar',
   component: Avatar,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: avatarGuidelines, layout: 'centered' },
   argTypes: {
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'], description: 'Avatar diameter.' },
     shape: { control: 'inline-radio', options: ['circle', 'square'], description: 'Outer silhouette — circle or squircle.' },
