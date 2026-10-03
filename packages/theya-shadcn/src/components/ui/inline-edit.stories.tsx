@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { InlineEdit } from './inline-edit';
 import { inlineEditGuidelines } from './inline-edit.guidelines';
 
@@ -35,7 +36,39 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** Click the text (or Tab to it and press Enter), edit, then Enter to save or Escape to cancel. */
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const display = () => canvas.getByRole('button', { name: /^Edit Site name:/ });
+
+    // Click → field with the text selected; Enter saves and focus returns to the value.
+    await userEvent.click(display());
+    const field = canvas.getByRole('textbox', { name: 'Site name' });
+    await expect(field).toHaveFocus();
+    await expect((field as HTMLInputElement).selectionEnd! - (field as HTMLInputElement).selectionStart!).toBe('Seashell storefront'.length);
+    await userEvent.keyboard('Main shop{Enter}');
+    await expect(display()).toHaveAccessibleName('Edit Site name: Main shop');
+    await expect(display()).toHaveFocus();
+
+    // Escape cancels and keeps the saved value.
+    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard('Something else{Escape}');
+    await expect(display()).toHaveAccessibleName('Edit Site name: Main shop');
+    await expect(display()).toHaveFocus();
+
+    // Leaving the field saves (saveOnBlur); surrounding spaces are trimmed.
+    await userEvent.click(display());
+    await userEvent.keyboard('  Outlet  ');
+    await userEvent.click(canvasElement);
+    await expect(display()).toHaveAccessibleName('Edit Site name: Outlet');
+
+    // Moving focus to the component's own Cancel doesn't count as leaving.
+    await userEvent.click(display());
+    await userEvent.keyboard('Draft');
+    await userEvent.click(canvas.getByRole('button', { name: 'Cancel' }));
+    await expect(display()).toHaveAccessibleName('Edit Site name: Outlet');
+  },
+};
 
 /** An empty value shows the placeholder in a muted color, inviting a first entry. */
 export const Empty: Story = {
@@ -47,17 +80,55 @@ export const Validation: Story = {
   args: {
     validate: (v: string) => (!v ? 'Enter a site name.' : v.length > 32 ? 'Use 32 characters or fewer.' : undefined),
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: /^Edit Site name:/ }));
+    const field = canvas.getByRole('textbox', { name: 'Site name' });
+    await userEvent.clear(field);
+    await userEvent.keyboard('{Enter}');
+    // Stays open with the message tied to the field.
+    await expect(field).toHaveAttribute('aria-invalid', 'true');
+    await expect(canvas.getByText('Enter a site name.')).toBeInTheDocument();
+    await expect(field).toHaveFocus();
+    // Typing clears the message; a valid value saves.
+    await userEvent.keyboard('Docs');
+    await expect(canvas.queryByText('Enter a site name.')).not.toBeInTheDocument();
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByRole('button', { name: 'Edit Site name: Docs' })).toBeInTheDocument();
+  },
 };
 
 /** `onSave` returning a promise shows a spinner on Save; the field is locked until it settles. */
 export const AsyncSave: Story = {
   args: { onSave: () => new Promise<void>((resolve) => setTimeout(resolve, 900)) },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: /^Edit Site name:/ }));
+    await userEvent.keyboard('Pending name{Enter}');
+    // While saving: field and both buttons are locked.
+    await expect(canvas.getByRole('textbox', { name: 'Site name' })).toBeDisabled();
+    await expect(canvas.getByRole('button', { name: 'Save Site name' })).toBeDisabled();
+    await expect(canvas.getByRole('button', { name: 'Cancel' })).toBeDisabled();
+    const display = await canvas.findByRole('button', { name: 'Edit Site name: Pending name' }, { timeout: 3000 });
+    await waitFor(() => expect(display).toHaveFocus());
+  },
 };
 
 /** A rejected save keeps the field open with the error, so nothing typed is lost. */
 export const SaveFails: Story = {
   args: {
     onSave: () => new Promise<void>((_, reject) => setTimeout(() => reject(new Error('Site names must be unique — shop already exists.')), 700)),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: /^Edit Site name:/ }));
+    await userEvent.keyboard('shop{Enter}');
+    // The error shows, the typed text is kept, and focus is back in the field to fix it.
+    await expect(await canvas.findByText(/Site names must be unique/, undefined, { timeout: 3000 })).toBeInTheDocument();
+    const field = canvas.getByRole('textbox', { name: 'Site name' });
+    await expect(field).toHaveValue('shop');
+    await expect(field).toBeEnabled();
+    await waitFor(() => expect(field).toHaveFocus());
   },
 };
 
