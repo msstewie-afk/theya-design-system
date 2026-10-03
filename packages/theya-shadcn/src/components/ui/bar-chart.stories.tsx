@@ -64,7 +64,9 @@ const meta = {
 } satisfies Meta<typeof BarChart>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+// StoryObj<typeof BarChart>, not <typeof meta>: meta has no `data` arg (each story passes it in render), so render's args
+// lost the component props (TS2322, required `data`).
+type Story = StoryObj<typeof BarChart>;
 
 /** Vertical columns: deploys per day. Hover for the crosshair tooltip. */
 export const Vertical: Story = {

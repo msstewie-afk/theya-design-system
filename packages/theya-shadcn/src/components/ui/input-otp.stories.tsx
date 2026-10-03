@@ -8,7 +8,15 @@ import { Label } from './label';
 import { Button } from './button';
 import { inputOtpGuidelines } from './input-otp.guidelines';
 
-type Args = { maxLength?: number; disabled?: boolean };
+// argTypes documents value/onChange/containerClassName too, so they belong
+// in Args (TS2353 otherwise).
+type Args = {
+  maxLength?: number;
+  disabled?: boolean;
+  value?: string;
+  onChange?: (value: string) => void;
+  containerClassName?: string;
+};
 
 const meta: Meta<Args> = {
   title: 'Text Input/InputOTP',

@@ -23,7 +23,9 @@ const meta: Meta<typeof KeyboardShortcuts> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+// StoryObj<typeof KeyboardShortcuts>, not <typeof meta>: meta is annotated as Meta<typeof KeyboardShortcuts>, so render's args
+// lost the component props (TS2741, required `groups`).
+type Story = StoryObj<typeof KeyboardShortcuts>;
 
 const groups: ShortcutGroup[] = [
   {
