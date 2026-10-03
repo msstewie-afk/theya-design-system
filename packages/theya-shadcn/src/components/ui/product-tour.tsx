@@ -149,6 +149,19 @@ export function ProductTour({
     [stepProp, steps.length, onStepChange],
   );
 
+  // Return focus to whatever opened the tour (e.g. a "Take the tour" button)
+  // when it closes — skip, Esc or Done. It used to stay on <body>.
+  const returnFocusTo = useRef<HTMLElement | null>(null);
+  useLayoutEffect(() => {
+    if (open) {
+      returnFocusTo.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      return;
+    }
+    const el = returnFocusTo.current;
+    returnFocusTo.current = null;
+    if (el?.isConnected) el.focus({ preventScroll: true });
+  }, [open]);
+
   // Start from defaultStep each time an uncontrolled tour reopens.
   useEffect(() => {
     if (open && stepProp === undefined) setStepState(defaultStep);
