@@ -10,6 +10,7 @@ import { Badge } from './badge';
 import { StatusDot } from './status-dot';
 import { Button } from './button';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from './dropdown-menu';
+import { listItemGuidelines } from './list-item.guidelines';
 
 /**
  * ListItem — a single row in a vertical list: leading visual, title +
@@ -20,7 +21,7 @@ const meta: Meta<typeof ListItem> = {
   title: 'Data/ListItem',
   component: ListItem,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: listItemGuidelines },
   argTypes: {
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'], description: 'Row size.' },
     title: { control: 'text', description: 'Primary label.' },

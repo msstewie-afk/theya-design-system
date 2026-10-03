@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableCaption } from './table';
 import { DataTableCell } from './data-table-cell';
 import type { BadgeTone } from './badge';
+import { tableGuidelines } from './table.guidelines';
 
 /**
  * Table — semantic HTML table primitives (Table, TableHeader, TableBody,
@@ -20,7 +21,7 @@ const meta: Meta<typeof Table> = {
   title: 'Data/Table',
   component: Table,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: tableGuidelines },
   argTypes: {
     containerLabel: {
       control: 'text',

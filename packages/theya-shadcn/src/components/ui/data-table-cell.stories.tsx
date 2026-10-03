@@ -5,12 +5,14 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Server } from 'iconoir-react';
 import { DataTableCell } from './data-table-cell';
 import { Table, TableBody, TableRow, TableCell } from './table';
+import { dataTableCellGuidelines } from './data-table-cell.guidelines';
 
 const meta: Meta<typeof DataTableCell> = {
   title: 'Data/DataTableCell',
   component: DataTableCell,
   tags: ['autodocs'],
   parameters: {
+    guidelines: dataTableCellGuidelines,
     docs: {
       description: {
         component:

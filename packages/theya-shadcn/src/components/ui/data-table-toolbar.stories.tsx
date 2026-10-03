@@ -9,6 +9,7 @@ import { DataTableCell } from './data-table-cell';
 import { TextField } from './text-field';
 import type { StatusTone } from './status-dot';
 import { toast } from './sonner';
+import { dataTableToolbarGuidelines } from './data-table-toolbar.guidelines';
 
 interface Site {
   domain: string;
@@ -119,6 +120,7 @@ const meta: Meta<typeof DataTableToolbar> = {
   component: DataTableToolbar,
   tags: ['autodocs'],
   parameters: {
+    guidelines: dataTableToolbarGuidelines,
     layout: 'padded',
     docs: {
       description: {

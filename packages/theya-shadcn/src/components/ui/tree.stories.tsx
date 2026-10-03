@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Cloud, Database, Globe } from 'iconoir-react';
 import { Tree, type TreeNode } from './tree';
+import { treeGuidelines } from './tree.guidelines';
 
 /**
  * Tree — an accessible hierarchical tree view (WAI-ARIA Tree View
@@ -52,7 +53,7 @@ const meta: Meta<typeof Tree> = {
   // trying to fully unroll it (found live on this exact component,
   // Sep 2026). table.disable on the recursive props below is belt-
   // and-suspenders in case autodocs gets re-enabled later.
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: treeGuidelines },
   argTypes: {
     items: { control: false, table: { disable: true }, description: 'Nested TreeNode[] data.' },
     defaultExpandedIds: { control: false, description: 'Uncontrolled initial set of expanded node ids.' },

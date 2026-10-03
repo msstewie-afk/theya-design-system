@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { CheckCircle, WarningTriangle, XmarkCircle, GitCommit } from 'iconoir-react';
 import { Timeline, TimelineItem, TimelineTitle, TimelineDescription } from './timeline';
+import { timelineGuidelines } from './timeline.guidelines';
 
 /**
  * Timeline — a vertical activity/event feed. A left rail draws a tone
@@ -21,7 +22,7 @@ const meta: Meta<typeof Timeline> = {
   title: 'Data/Timeline',
   component: Timeline,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: timelineGuidelines },
   argTypes: {
     'aria-label': {
       control: 'text',

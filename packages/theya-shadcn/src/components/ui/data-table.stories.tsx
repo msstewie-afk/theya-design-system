@@ -6,12 +6,14 @@ import { DataTable, DataTableColumnHeader } from './data-table';
 import { DataTableToolbar } from './data-table-toolbar';
 import { DataTableCell } from './data-table-cell';
 import type { StatusTone } from './status-dot';
+import { dataTableGuidelines } from './data-table.guidelines';
 
 const meta: Meta<typeof DataTable> = {
   title: 'Data/DataTable',
   component: DataTable,
   tags: ['autodocs'],
   parameters: {
+    guidelines: dataTableGuidelines,
     docs: {
       description: {
         component:

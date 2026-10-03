@@ -2,12 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DescriptionList, DescriptionItem, DescriptionTerm, DescriptionDetails } from './description-list';
 import { Badge } from './badge';
 import { StatusDot } from './status-dot';
+import { descriptionListGuidelines } from './description-list.guidelines';
 
 const meta: Meta<typeof DescriptionList> = {
   title: 'Data/DescriptionList',
   component: DescriptionList,
   tags: ['autodocs'],
   parameters: {
+    guidelines: descriptionListGuidelines,
     docs: {
       description: {
         component: 'Compositional — DescriptionList (<dl>) itself takes only standard HTML props. Build entries from DescriptionItem/DescriptionTerm/DescriptionDetails.',
