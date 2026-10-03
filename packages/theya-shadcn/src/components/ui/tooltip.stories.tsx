@@ -4,6 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Copy, InfoCircle, Refresh } from 'iconoir-react';
 import { Tooltip, TooltipTrigger, TooltipContent } from './tooltip';
 import { Button } from './button';
+import { tooltipGuidelines } from './tooltip.guidelines';
 
 /**
  * Tooltip — short hint on hover/focus, built on @radix-ui/react-tooltip and
@@ -18,7 +19,7 @@ const meta: Meta<typeof TooltipContent> = {
   title: 'Overlays/Tooltip',
   component: TooltipContent,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: tooltipGuidelines, layout: 'centered' },
   argTypes: {
     side: {
       control: 'select',

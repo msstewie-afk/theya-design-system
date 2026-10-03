@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { KeyCommand } from 'iconoir-react';
 import { KeyboardShortcuts, type ShortcutGroup } from './keyboard-shortcuts';
 import { Button } from './button';
+import { keyboardShortcutsGuidelines } from './keyboard-shortcuts.guidelines';
 
 /**
  * KeyboardShortcuts — a help dialog listing an app's shortcuts, composed from
@@ -14,7 +15,7 @@ const meta: Meta<typeof KeyboardShortcuts> = {
   title: 'Overlays/KeyboardShortcuts',
   component: KeyboardShortcuts,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: keyboardShortcutsGuidelines, layout: 'centered' },
   argTypes: {
     groups: { control: false, description: 'Grouped shortcut lists shown in the dialog.' },
     trigger: { control: false, description: 'Element that opens the dialog when clicked.' },

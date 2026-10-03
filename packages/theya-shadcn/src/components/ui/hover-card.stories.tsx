@@ -3,6 +3,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Globe } from 'iconoir-react';
 import { HoverCard, HoverCardTrigger, HoverCardContent } from './hover-card';
 import { StatusDot } from './status-dot';
+import { hoverCardGuidelines } from './hover-card.guidelines';
 
 /**
  * HoverCard — a preview surface that opens when a real interactive trigger (a
@@ -17,7 +18,7 @@ const meta: Meta<typeof HoverCard> = {
   title: 'Overlays/HoverCard',
   component: HoverCard,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: hoverCardGuidelines, layout: 'centered' },
   argTypes: {
     openDelay: { control: { type: 'number', min: 0, step: 100 }, description: 'Delay in ms before the card opens on hover.' },
     closeDelay: { control: { type: 'number', min: 0, step: 100 }, description: 'Delay in ms before the card closes after the pointer leaves.' },

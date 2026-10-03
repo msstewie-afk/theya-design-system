@@ -6,6 +6,7 @@ import { Chat, ChatMessages } from './chat';
 import { Message } from './message';
 import { PromptArea } from './prompt-area';
 import { Avatar, AvatarFallback } from './avatar';
+import { messagePopupGuidelines } from './message-popup.guidelines';
 
 /**
  * MessagePopup — a floating chat/assistant panel anchored to a launcher
@@ -17,6 +18,7 @@ const meta: Meta<typeof MessagePopup> = {
   component: MessagePopup,
   tags: ['autodocs'],
   parameters: {
+    guidelines: messagePopupGuidelines,
     layout: 'centered',
     docs: {
       description: {

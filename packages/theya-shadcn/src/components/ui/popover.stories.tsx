@@ -10,6 +10,7 @@ import { NumberField } from './number-field';
 import { Label } from './label';
 import { Checkbox } from './checkbox';
 import { Separator } from './separator';
+import { popoverGuidelines } from './popover.guidelines';
 
 /**
  * Popover — a floating panel anchored to a trigger, on @radix-ui/react-popover.
@@ -25,7 +26,7 @@ const meta: Meta<typeof Popover> = {
   title: 'Overlays/Popover',
   component: Popover,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: popoverGuidelines, layout: 'centered' },
   argTypes: {
     modal: { control: 'boolean', description: 'Trap focus and block outside interaction while open.' },
     defaultOpen: { control: 'boolean', description: 'Open uncontrolled on mount.' },

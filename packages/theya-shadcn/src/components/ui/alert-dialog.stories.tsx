@@ -13,11 +13,13 @@ import {
 } from './alert-dialog';
 import { Button } from './button';
 import { Trash } from 'iconoir-react';
+import { alertDialogGuidelines } from './alert-dialog.guidelines';
 
 const meta: Meta<typeof AlertDialog> = {
   title: 'Overlays/AlertDialog',
   component: AlertDialog,
   tags: ['autodocs'],
+  parameters: { guidelines: alertDialogGuidelines },
   argTypes: {
     open: {
       control: 'boolean',

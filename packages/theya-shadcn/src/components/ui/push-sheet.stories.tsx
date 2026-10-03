@@ -5,6 +5,7 @@ import { Bell, Xmark } from 'iconoir-react';
 import { PushSheet, PushSheetHeader, PushSheetTitle, PushSheetBody, PushSheetClose } from './push-sheet';
 import { Button } from './button';
 import { NotificationsInbox } from '@/components/blocks/notifications-inbox';
+import { pushSheetGuidelines } from './push-sheet.guidelines';
 
 /**
  * PushSheet - a non-modal side panel that pushes page content aside instead of
@@ -19,7 +20,7 @@ const meta: Meta<typeof PushSheet> = {
   title: 'Overlays/PushSheet',
   component: PushSheet,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: { guidelines: pushSheetGuidelines, layout: 'fullscreen' },
   // Every story below fully overrides `render`, so this only satisfies
   // `open`'s required prop type for the Meta.
   args: { open: false },

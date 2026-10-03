@@ -5,6 +5,7 @@ import { Bell, Plus, Search } from 'iconoir-react';
 import { ProductTour, type TourStep } from './product-tour';
 import { Button } from './button';
 import { Card } from './card';
+import { productTourGuidelines } from './product-tour.guidelines';
 
 /**
  * ProductTour — spotlight + card walkthrough. Steps point at elements by
@@ -67,7 +68,7 @@ const meta = {
   title: 'Overlays/ProductTour',
   component: ProductTour,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: productTourGuidelines, layout: 'padded' },
   argTypes: {
     steps: { control: false, description: 'target (selector/ref/getter), title, content, media, side, align, spotlightPadding, interactive.' },
     open: { control: false },

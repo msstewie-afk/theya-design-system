@@ -5,11 +5,13 @@ import { Refresh, WarningCircle } from 'iconoir-react';
 import { Alert, AlertDescription } from './alert';
 import { ConfirmDialog } from './confirm-dialog';
 import { Button } from './button';
+import { confirmDialogGuidelines } from './confirm-dialog.guidelines';
 
 const meta: Meta<typeof ConfirmDialog> = {
   title: 'Overlays/ConfirmDialog',
   component: ConfirmDialog,
   tags: ['autodocs'],
+  parameters: { guidelines: confirmDialogGuidelines },
   argTypes: {
     title: { control: 'text', description: 'Dialog heading.', table: { category: 'Content' } },
     titleSize: { control: 'inline-radio', options: ['md', 'lg'], description: 'Size of the title text.', table: { category: 'Appearance' } },

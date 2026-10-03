@@ -5,12 +5,14 @@ import { Button } from './button';
 import { Label } from './label';
 import { TextField } from './text-field';
 import { Password } from './password';
+import { drawerGuidelines } from './drawer.guidelines';
 
 const meta: Meta<typeof Drawer> = {
   title: 'Overlays/Drawer',
   component: Drawer,
   tags: ['autodocs'],
   parameters: {
+    guidelines: drawerGuidelines,
     docs: {
       description: {
         component: 'A real swipe-gesture bottom sheet on vaul - drag the handle or panel to dismiss. Distinct from Sheet, which has no drag physics.',

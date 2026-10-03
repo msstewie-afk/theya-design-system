@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Lightbox, type LightboxImage } from './lightbox';
+import { lightboxGuidelines } from './lightbox.guidelines';
 
 /**
  * Lightbox — full-screen image viewer on Radix Dialog: previous/next
@@ -13,7 +14,7 @@ const meta = {
   title: 'Overlays/Lightbox',
   component: Lightbox,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: lightboxGuidelines, layout: 'padded' },
   argTypes: {
     open: { control: false },
     onOpenChange: { control: false },
