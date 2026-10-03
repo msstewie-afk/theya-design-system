@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Refresh } from 'iconoir-react';
 import { Terminal, TerminalLine, type TerminalLineData } from './terminal';
 import { Button } from './button';
+import { terminalGuidelines } from './terminal.guidelines';
 
 /**
  * Terminal — a read-only console scrollback viewer. Renders a mono
@@ -20,7 +21,7 @@ const meta: Meta<typeof Terminal> = {
   title: 'Code/Terminal',
   component: Terminal,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: terminalGuidelines },
   argTypes: {
     connection: {
       control: 'select',

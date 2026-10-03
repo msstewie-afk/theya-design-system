@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { CodeBlock } from './code-block';
+import { codeBlockGuidelines } from './code-block.guidelines';
 
 /**
  * CodeBlock — a static, read-only snippet in a mono surface box with a copy
@@ -21,7 +22,7 @@ const meta = {
   title: 'Code/CodeBlock',
   component: CodeBlock,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: codeBlockGuidelines },
   argTypes: {
     code: { control: 'text', description: 'Source text shown in the block.' },
     language: { control: 'text', description: 'Language hint shown as a muted label in the header (no highlighting applied).' },

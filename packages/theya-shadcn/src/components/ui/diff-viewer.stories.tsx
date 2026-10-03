@@ -3,6 +3,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
 import { DiffViewer, type DiffView } from './diff-viewer';
 import { Button } from './button';
+import { diffViewerGuidelines } from './diff-viewer.guidelines';
 
 /**
  * DiffViewer — read-only comparison of two texts in the CodeBlock frame.
@@ -77,7 +78,7 @@ const meta = {
   title: 'Code/DiffViewer',
   component: DiffViewer,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: diffViewerGuidelines },
   argTypes: {
     oldValue: { control: 'text', description: 'Original text.' },
     newValue: { control: 'text', description: 'Changed text.' },

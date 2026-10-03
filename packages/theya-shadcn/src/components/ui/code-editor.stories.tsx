@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { CodeEditor } from './code-editor';
+import { codeEditorGuidelines } from './code-editor.guidelines';
 
 const meta: Meta<typeof CodeEditor> = {
   title: 'Code/CodeEditor',
   component: CodeEditor,
+  parameters: { guidelines: codeEditorGuidelines },
   tags: ['autodocs'],
   argTypes: {
     value: { control: false, description: 'Controlled value.', table: { category: 'State' } },
