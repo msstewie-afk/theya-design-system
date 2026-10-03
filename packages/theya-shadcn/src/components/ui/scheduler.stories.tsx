@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Scheduler, type SchedulerEvent } from './scheduler';
 
 /**
@@ -87,6 +88,52 @@ function Editable(args: React.ComponentProps<typeof Scheduler>) {
 /** Week view: drag to move (also across days), drag the bottom edge to resize, click an empty slot to create. The locked event can't move. */
 export const Week: Story = {
   render: (args) => <Editable {...args} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const title = () => canvas.getByRole('heading', { level: 2 });
+    const log = () => canvas.getByText(/^(Opened|Moved|Created)/);
+
+    // Navigation: next week, then back with Today.
+    await expect(title()).toHaveTextContent('Oct 5 – 11, 2026');
+    await userEvent.click(canvas.getByRole('button', { name: 'Next week' }));
+    await expect(title()).toHaveTextContent('Oct 12 – 18, 2026');
+    await userEvent.click(canvas.getByRole('button', { name: 'Today' }));
+    await expect(title()).toHaveTextContent('Oct 5 – 11, 2026');
+
+    // Events are buttons named with title, day and time; click and Enter open them.
+    const deploy = canvas.getByRole('button', { name: /^Deploy 4\.12 to staging, Monday, October 5, 2026, 9:30/ });
+    await userEvent.click(deploy);
+    await expect(log()).toHaveTextContent('Opened “Deploy 4.12 to staging”');
+    deploy.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(log()).toHaveTextContent('Opened “Deploy 4.12 to staging”');
+
+    // Drag down by one hour (48px per hour): the event moves in 15-minute steps.
+    const box = deploy.getBoundingClientRect();
+    const x = box.left + box.width / 2;
+    const y = box.top + 8;
+    // Native pointer events (user-event's pointer moves didn't reliably reach the handler).
+    const fire = (type: string, clientY: number) =>
+      deploy.dispatchEvent(new PointerEvent(type, { bubbles: true, cancelable: true, composed: true, pointerId: 1, pointerType: 'mouse', isPrimary: true, button: 0, buttons: type === 'pointerup' ? 0 : 1, clientX: x, clientY }));
+    fire('pointerdown', y);
+    fire('pointermove', y + 24);
+    fire('pointermove', y + 48);
+    fire('pointerup', y + 48);
+    await waitFor(() => expect(log()).toHaveTextContent(/^Moved “Deploy 4\.12 to staging”/));
+    await expect(canvas.getByRole('button', { name: /^Deploy 4\.12 to staging, .*10:30/ })).toBeInTheDocument();
+
+    // The locked event doesn't drag: a press-and-move just opens it.
+    const locked = canvas.getByRole('button', { name: /^Certificate renewal window/ });
+    await userEvent.click(locked);
+    await expect(log()).toHaveTextContent('Opened “Certificate renewal window”');
+
+    // Clicking an empty slot creates an event there.
+    const tuesday = canvas.getByRole('group', { name: 'Tuesday, October 6, 2026' });
+    const col = tuesday.getBoundingClientRect();
+    await userEvent.pointer({ keys: '[MouseLeft]', target: tuesday, coords: { clientX: col.left + 10, clientY: col.top + 48 * 17 + 5 } });
+    await waitFor(() => expect(log()).toHaveTextContent(/^Created/));
+    await expect(canvas.getByRole('button', { name: /^New event, Tuesday, October 6, 2026, 5:00/ })).toBeInTheDocument();
+  },
 };
 
 /** Day view, with overlapping events side by side and the "now" line. */
@@ -99,6 +146,18 @@ export const Day: Story = {
 export const Month: Story = {
   args: { defaultView: 'month' },
   render: (args) => <Editable {...args} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('heading', { level: 2 })).toHaveTextContent('October 2026');
+    // Oct 20 has four events; three show, the rest is behind "+1 more", which opens the day.
+    const day = canvas.getByRole('group', { name: 'Tuesday, October 20, 2026, 4 events' });
+    const chips = within(day).getAllByRole('button').filter((b) => !b.textContent?.startsWith('+'));
+    await expect(chips).toHaveLength(3);
+    await userEvent.click(within(day).getByRole('button', { name: /^\+1 more/ }));
+    await expect(canvas.getByRole('heading', { level: 2 })).toHaveTextContent('Tuesday, October 20, 2026');
+    await expect(canvas.getByRole('radio', { name: 'Day' })).toBeChecked();
+    await expect(canvas.getByRole('button', { name: /^Docs sprint/ })).toBeInTheDocument();
+  },
 };
 
 /** Read-only: no onEventChange / onSlotClick. */
