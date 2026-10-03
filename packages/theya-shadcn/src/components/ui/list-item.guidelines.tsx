@@ -11,7 +11,7 @@ export const listItemGuidelines: ComponentGuidelines = {
   whenNotToUse: [
     { text: 'Several comparable columns', instead: 'DataTable' },
     { text: 'Menu commands', instead: 'DropdownMenu' },
-    { text: 'Picking one of a few options', instead: 'OptionCard or Radio' },
+    { text: 'Picking one of a few options', instead: 'OptionCard or RadioGroup' },
   ],
   anatomy: [
     { part: 'Leading', description: 'icon, avatar or thumbnail.', optional: true },

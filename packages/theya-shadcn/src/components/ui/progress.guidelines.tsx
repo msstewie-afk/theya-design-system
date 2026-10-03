@@ -8,7 +8,7 @@ export const progressGuidelines: ComponentGuidelines = {
   whenNotToUse: [
     { text: 'How full something is (disk, quota)', instead: 'Meter' },
     { text: 'Content loading for the first time', instead: 'Skeleton' },
-    { text: 'A background task people shouldn’t wait on', instead: 'a progress toast (toast.progress)' },
+    { text: 'A background task people shouldn’t wait on', instead: 'Toaster (toast.progress)' },
     { text: 'Named steps of a flow', instead: 'Stepper' },
   ],
   anatomy: [

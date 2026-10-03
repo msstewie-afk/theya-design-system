@@ -11,7 +11,7 @@ export const timelineGuidelines: ComponentGuidelines = {
     { text: 'Raw console output', instead: 'Terminal' },
   ],
   anatomy: [
-    { part: 'Rail', description: <>a dot, or a chip with <C>icon</C>, coloured by <C>tone</C>; a line to the next event.</> },
+    { part: 'Rail', description: <>a dot, or a chip with <C>icon</C>, colored by <C>tone</C>; a line to the next event.</> },
     { part: 'Time', description: <><C>time</C> — absolute, or relative with the exact time on hover.</> },
     { part: 'Title', description: 'what happened.' },
     { part: 'Description', description: 'the object or detail.', optional: true },

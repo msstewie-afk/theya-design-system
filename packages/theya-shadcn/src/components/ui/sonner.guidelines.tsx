@@ -15,7 +15,7 @@ export const toasterGuidelines: ComponentGuidelines = {
   whenNotToUse: [
     { text: 'An error people must fix on this page (form, field)', instead: 'Alert or the field’s error' },
     { text: 'Something that needs a decision', instead: 'AlertDialog' },
-    { text: 'Undo after a destructive action', instead: 'undoToast' },
+    { text: 'Undo after a destructive action', instead: 'UndoToast' },
     { text: 'Site-wide news', instead: 'AnnouncementBar' },
   ],
   anatomy: [

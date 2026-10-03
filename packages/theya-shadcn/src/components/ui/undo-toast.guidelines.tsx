@@ -10,7 +10,7 @@ export const undoToastGuidelines: ComponentGuidelines = {
   ],
   whenNotToUse: [
     { text: 'The action can’t be rolled back (data wiped, email sent, payment)', instead: 'ConfirmDialog' },
-    { text: 'Plain success feedback', instead: 'toast.success' },
+    { text: 'Plain success feedback', instead: 'Toaster (toast.success)' },
   ],
   anatomy: [
     { part: 'Title', description: 'what was done: “Site archived”.' },

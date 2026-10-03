@@ -10,7 +10,7 @@ export const announcementBarGuidelines: ComponentGuidelines = {
   ],
   whenNotToUse: [
     { text: 'A message about one page or section', instead: 'Alert' },
-    { text: 'Feedback on an action just taken', instead: 'Toast' },
+    { text: 'Feedback on an action just taken', instead: 'Toaster' },
     { text: 'Something that needs a decision before going on', instead: 'AlertDialog' },
   ],
   anatomy: [
