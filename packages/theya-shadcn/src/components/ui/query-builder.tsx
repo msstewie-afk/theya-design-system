@@ -170,7 +170,7 @@ export function QueryBuilder({
   const atLimit = maxConditions != null && state.conditions.length >= maxConditions;
 
   return (
-    <div ref={rootRef} role="group" aria-label={ariaLabel} className={cn('flex flex-col gap-3', className)}>
+    <div ref={rootRef} role="group" aria-label={ariaLabel} className={cn('@container flex flex-col gap-3', className)}>
       {state.conditions.length > 1 && (
         <div className="flex items-center gap-2 font-body text-body-s text-[var(--color-text-text-subtler)]">
           <span>Match</span>
@@ -196,16 +196,20 @@ export function QueryBuilder({
         // bare NumberField vs nothing at all for a boolean). Each <li> is
         // `contents` so its children become direct grid items in the shared
         // column tracks.
-        <ul className="grid grid-cols-[10rem_11rem_auto_auto] items-start gap-2">
+        // Below a 36rem container the four fixed tracks didn't fit, so rows
+        // were clipped on the right. There each condition becomes its own
+        // small grid instead: field + remove on the first line, operator and
+        // value stacked under the field.
+        <ul className="flex flex-col gap-4 @xl:grid @xl:grid-cols-[10rem_11rem_auto_auto] @xl:items-start @xl:gap-2">
           {state.conditions.map((condition) => {
             const field = fields.find((f) => f.name === condition.field);
             const ops = operatorsFor(field);
             const opMeta = ops.find((o) => o.value === condition.operator) ?? ops[0];
             const fieldLabel = field?.label ?? 'field';
             return (
-              <li key={condition.id} className="contents">
+              <li key={condition.id} className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-2 @xl:contents">
                 <Select value={condition.field} onValueChange={(v) => changeField(condition.id, v)}>
-                  <SelectTrigger data-qb-field="" className="w-full" aria-label="Field">
+                  <SelectTrigger data-qb-field="" className="col-start-1 row-start-1 w-full @xl:col-auto @xl:row-auto" aria-label="Field">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -218,7 +222,7 @@ export function QueryBuilder({
                 </Select>
 
                 <Select value={condition.operator} onValueChange={(v) => updateCondition(condition.id, { operator: v, value: undefined })}>
-                  <SelectTrigger className="w-full" aria-label={`${fieldLabel} condition`}>
+                  <SelectTrigger className="col-start-1 w-full @xl:col-auto" aria-label={`${fieldLabel} condition`}>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -230,11 +234,11 @@ export function QueryBuilder({
                   </SelectContent>
                 </Select>
 
-                <div className="min-w-0 pr-2">
+                <div className="col-start-1 min-w-0 @xl:col-auto @xl:pr-2">
                   <ValueEditor condition={condition} field={field} editor={opMeta?.editor ?? 'none'} label={fieldLabel} onValue={(v) => updateCondition(condition.id, { value: v })} />
                 </div>
 
-                <Button data-qb-remove="" appearance="ghost" iconOnly size="md" className="self-center" aria-label={`Remove ${fieldLabel} condition`} onClick={() => removeCondition(condition.id)} leftIcon={<Xmark />} />
+                <Button data-qb-remove="" appearance="ghost" iconOnly size="md" className="col-start-2 row-start-1 self-center @xl:col-auto @xl:row-auto" aria-label={`Remove ${fieldLabel} condition`} onClick={() => removeCondition(condition.id)} leftIcon={<Xmark />} />
               </li>
             );
           })}
