@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, waitFor, within } from '@storybook/test';
 import { ChatBubbleEmpty, EditPencil, Plus } from 'iconoir-react';
 import { Fab } from './fab';
 import { fabGuidelines } from './fab.guidelines';
@@ -134,5 +135,18 @@ export const CollapseOnScroll: Story = {
         <Fab {...args} position="bottom-end" collapseOnScroll scrollContainer={scroller} />
       </Frame>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const fab = canvas.getByRole('button', { name: 'New site' });
+    const list = canvas.getByRole('region', { name: 'Sites' });
+    await expect(fab).toHaveAttribute('data-collapsed', 'false');
+    // Scrolling down folds it; the label stays the accessible name.
+    list.scrollTop = 400;
+    await waitFor(() => expect(fab).toHaveAttribute('data-collapsed', 'true'));
+    await expect(fab).toHaveAccessibleName('New site');
+    // Back to the top unfolds it.
+    list.scrollTop = 0;
+    await waitFor(() => expect(fab).toHaveAttribute('data-collapsed', 'false'));
   },
 };

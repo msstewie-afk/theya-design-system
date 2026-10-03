@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { useEffect, useState } from 'react';
 import { ImageCropper, getCroppedImage, type CropState } from './image-cropper';
 import { Button } from './button';
@@ -97,5 +98,25 @@ export const ExportFlow: Story = {
         </div>
       </Card>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const info = () => canvasElement.querySelector('.font-code')?.textContent ?? '';
+    await waitFor(() => expect(info()).toMatch(/· 100% · 0°$/), { timeout: 3000 });
+    const area = canvas.getByRole('group', { name: 'Crop profile photo' });
+    // + zooms (10%), the slider follows; arrows pan the crop.
+    area.focus();
+    await userEvent.keyboard('+');
+    await waitFor(() => expect(info()).toMatch(/· 110% ·/));
+    await expect(canvas.getByRole('slider', { name: 'Zoom' })).toHaveAttribute('aria-valuetext', '110%');
+    const at = info().match(/at (\d+),(\d+)/)!;
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(info().match(/at (\d+),/)![1]).not.toBe(at[1]));
+    // Rotate, then export a real image.
+    await userEvent.click(canvas.getByRole('button', { name: 'Rotate 90 degrees' }));
+    await waitFor(() => expect(info()).toMatch(/· 90°$/));
+    await userEvent.click(canvas.getByRole('button', { name: 'Save photo' }));
+    const img = (await canvas.findByRole('img', { name: 'Cropped profile photo' }, { timeout: 3000 })) as HTMLImageElement;
+    await waitFor(() => expect(img.naturalWidth).toBe(256));
   },
 };

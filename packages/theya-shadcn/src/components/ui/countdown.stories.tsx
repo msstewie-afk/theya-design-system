@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, waitFor, within } from '@storybook/test';
 import { useState } from 'react';
 import { Countdown } from './countdown';
 import { Button } from './button';
@@ -89,6 +90,16 @@ export const TrimLeading: Story = {
 /** `urgentBelow` turns the numbers danger in the final stretch. */
 export const Urgent: Story = {
   args: { to: inMs(0, 0, 4, 30), urgentBelow: 300 },
+  play: async ({ canvasElement }) => {
+    const timers = within(canvasElement).getAllByRole('timer');
+    // Under urgentBelow the numbers switch to the danger color.
+    await expect(timers[0].className).toContain('text-text-danger');
+    // Under a minute of minute-resolution it speaks seconds; here it's minutes.
+    await expect(timers[0]).toHaveTextContent(/[34] minutes/);
+    // It ticks.
+    const first = timers[0].querySelector('[aria-hidden]')!.textContent;
+    await waitFor(() => expect(timers[0].querySelector('[aria-hidden]')!.textContent).not.toBe(first), { timeout: 2500 });
+  },
   render: (args) => (
     <div className="flex flex-col items-start gap-4 text-body-m text-[var(--color-text-text)]">
       <p>
@@ -129,6 +140,11 @@ export const ResendCode: Story = {
 /** After the deadline `completed` replaces the zeros. */
 export const Completed: Story = {
   args: { to: Date.now() - 1000, completed: 'Sale has ended' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Sale has ended')).toBeInTheDocument();
+    await expect(canvas.queryByRole('timer')).not.toBeInTheDocument();
+  },
   render: (args) => (
     <p className="text-body-m text-[var(--color-text-text-subtle)]">
       <Countdown {...args} />
@@ -139,4 +155,15 @@ export const Completed: Story = {
 /** Paused: frozen at its current value. */
 export const Paused: Story = {
   args: { paused: true, appearance: 'blocks' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const timer = canvas.getByRole('timer');
+    // One sentence for screen readers; the tiles themselves are hidden from them.
+    await expect(timer).toHaveTextContent(/2 days, 4 hours, 1[12] minutes left/);
+    await expect(within(timer).getByText('days').closest('[aria-hidden]')).not.toBeNull();
+    // Paused: the value doesn't change.
+    const text = timer.textContent;
+    await new Promise((r) => setTimeout(r, 1200));
+    await expect(timer.textContent).toBe(text);
+  },
 };

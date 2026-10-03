@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
 import { DiffViewer, type DiffView } from './diff-viewer';
 import { Button } from './button';
@@ -117,7 +118,26 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** Unified view: removals above additions, unchanged runs collapsed around the changes. */
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const region = canvas.getByRole('region', { name: 'Changes in nginx/example.conf' });
+    // Stats are spoken in words, not only "+N −M".
+    await expect(canvasElement).toHaveTextContent(/\(\d+ lines added, \d+ removed\)/);
+    // Changed lines carry a spoken prefix; word-level changes are <ins>/<del>.
+    await expect(region).toHaveTextContent('Added:');
+    await expect(region).toHaveTextContent('Removed:');
+    await expect(region.querySelector('ins')).not.toBeNull();
+    // A collapsed run expands in place and its button goes away.
+    const gaps = within(region).getAllByRole('button', { name: /^Show \d+ unchanged lines?$/ });
+    const lines = () => region.querySelectorAll('.flex').length;
+    const before = lines();
+    const hidden = Number(gaps[0].textContent!.match(/\d+/)![0]);
+    await userEvent.click(gaps[0]);
+    await expect(within(region).queryAllByRole('button', { name: /^Show \d+ unchanged/ })).toHaveLength(gaps.length - 1);
+    await expect(lines()).toBe(before - 1 + hidden);
+  },
+};
 
 /** Split view: old on the left, new on the right. Long lines wrap by default. */
 export const Split: Story = {
@@ -128,6 +148,16 @@ export const Split: Story = {
 export const WithViewToggle: Story = {
   name: 'With view toggle',
   args: { viewToggle: true },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const unified = canvas.getByRole('radio', { name: 'Unified' });
+    const split = canvas.getByRole('radio', { name: 'Split' });
+    await expect(unified).toBeChecked();
+    await userEvent.click(split);
+    await expect(split).toBeChecked();
+    // Split rows have two halves separated by a border.
+    await expect(canvasElement.querySelector('[data-diff-body] .border-l')).not.toBeNull();
+  },
 };
 
 /** Controlled view, e.g. remembered per user. */
@@ -190,4 +220,9 @@ export const LongLinesAndHeight: Story = {
 export const NoChanges: Story = {
   name: 'No changes',
   args: { newValue: OLD_CONFIG },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('No changes')).toBeInTheDocument();
+    await expect(canvasElement).not.toHaveTextContent(/lines added/);
+  },
 };
