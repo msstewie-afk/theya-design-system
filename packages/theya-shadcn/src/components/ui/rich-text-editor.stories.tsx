@@ -90,9 +90,10 @@ export const WithLimit: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const editor = canvas.getByRole('textbox', { name: 'Status update' });
+    const user = userEvent.setup({ delay: 15 });
     await expect(canvas.getByText(/^52\/280/)).toBeInTheDocument();
     await caretToEnd(editor);
-    await userEvent.keyboard(' Thanks!');
+    await user.keyboard(' Thanks!');
     await waitFor(() => expect(canvas.getByText(/^60\/280/)).toBeInTheDocument());
   },
 };
@@ -135,6 +136,9 @@ export const Controlled: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
     const editor = canvas.getByRole('textbox', { name: 'Template' });
+    // Keys into contenteditable need a small gap: at full-suite load a keystroke
+    // occasionally landed while ProseMirror was still reading the previous DOM change.
+    const user = userEvent.setup({ delay: 15 });
     const html = () => canvasElement.querySelector('pre code')!.textContent ?? '';
     // Select the whole document through the DOM; ProseMirror picks it up from selectionchange.
     const selectAll = async () => {
@@ -145,7 +149,7 @@ export const Controlled: Story = {
 
     // Typing replaces the selection; the HTML output follows.
     await selectAll();
-    await userEvent.keyboard('Release notes');
+    await user.keyboard('Release notes');
     await waitFor(() => expect(html()).toBe('<p>Release notes</p>'));
 
     // Bold from the toolbar: the button reflects the state.
@@ -157,7 +161,7 @@ export const Controlled: Story = {
 
     // Markdown-style shortcut: "- " at the start of a line starts a list.
     await caretToEnd(editor);
-    await userEvent.keyboard('{Enter}- First item');
+    await user.keyboard('{Enter}- First item');
     await waitFor(() => expect(html()).toContain('<ul><li><p>First item</p></li></ul>'));
 
     // Link from the popover; a bare domain gets https://.
@@ -172,7 +176,7 @@ export const Controlled: Story = {
 
     // Clearing everything reports an empty string, not "<p></p>".
     await selectAll();
-    await userEvent.keyboard('{Backspace}');
+    await user.keyboard('{Backspace}');
     await waitFor(() => expect(html()).toBe('(empty)'));
   },
 };
