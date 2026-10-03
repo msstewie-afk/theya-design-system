@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { Fragment, useId, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Check, NavArrowLeft, NavArrowRight } from 'iconoir-react';
 import { cn } from '@/lib/utils';
@@ -50,12 +50,13 @@ export function ItemPage({ item, breadcrumbs = [], images = [], highlights = [],
         <Breadcrumb>
           <BreadcrumbList>
             {breadcrumbs.map((b) => (
-              <span key={b.href} className="contents">
+              // Fragment, not a wrapper element: <ol> may only contain <li>.
+              <Fragment key={b.href}>
                 <BreadcrumbItem>
                   <BreadcrumbLink href={b.href}>{b.label}</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
-              </span>
+              </Fragment>
             ))}
             <BreadcrumbItem>
               <BreadcrumbPage>{item.name}</BreadcrumbPage>

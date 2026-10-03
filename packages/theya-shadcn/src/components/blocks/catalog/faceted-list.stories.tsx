@@ -38,7 +38,7 @@ export const Default: Story = {
     await userEvent.click(within(applied).getByRole('button', { name: 'Clear all' }));
     await waitFor(() => expect(count(canvasElement)).toHaveTextContent('24 extensions'));
 
-    await userEvent.click(canvas.getByRole('button', { name: /^Show \d+ more$/ }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Show 9 more' }));
     await expect(canvas.getByText('Showing 18 of 24')).toBeVisible();
   },
 };

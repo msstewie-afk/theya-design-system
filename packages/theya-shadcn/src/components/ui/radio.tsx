@@ -6,7 +6,21 @@ import { cn } from '@/lib/utils';
 
 /** Requires: npm i @radix-ui/react-radio-group */
 
-export const RadioGroup = RadioGroupPrimitive.Root;
+/**
+ * Vertical list by default with a 12px gap between options (same rhythm as
+ * CheckboxGroup md); `orientation="horizontal"` lays them out in a row.
+ * Pass `className` to override (e.g. `gap-0` for rows with their own padding).
+ */
+export const RadioGroup = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>>(function RadioGroup({ className, orientation, ...props }, ref) {
+  return (
+    <RadioGroupPrimitive.Root
+      ref={ref}
+      orientation={orientation}
+      className={cn('flex', orientation === 'horizontal' ? 'flex-row flex-wrap gap-x-6 gap-y-3' : 'flex-col gap-3', className)}
+      {...props}
+    />
+  );
+});
 
 export interface RadioProps extends ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item> {
   label?: ReactNode;

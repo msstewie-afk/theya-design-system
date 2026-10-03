@@ -71,7 +71,7 @@ export function CheckboxGroup({
             {label}
           </legend>
         )}
-        <div className={size === 'sm' ? 'flex flex-col gap-2' : 'flex flex-col gap-2.5'}>{children}</div>
+        <div className={size === 'sm' ? 'flex flex-col gap-2' : 'flex flex-col gap-3'}>{children}</div>
       </fieldset>
     </CheckboxGroupContext.Provider>
   );

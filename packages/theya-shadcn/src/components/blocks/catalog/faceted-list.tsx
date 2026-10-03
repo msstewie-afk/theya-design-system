@@ -29,6 +29,8 @@ const SORT_LABEL: Record<SortKey, string> = {
 const FACET_LABEL: Record<ListFacet, string> = { category: 'Category', vendor: 'Vendor', compatibility: 'Works with' };
 /** Values shown before "Show N more". */
 const TRUNCATE_AT = 5;
+/** Facet group headings: the caps label style of table headers, so they don't blend with the options. */
+const FACET_HEADING = 'mb-3 p-0 font-heading text-heading-2xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]';
 
 interface Filters {
   category: string[];
@@ -235,8 +237,8 @@ function FilterPanel({ items, filters, toggle, update, maxPrice }: { items: Cata
         </div>
       ))}
       <Separator />
-      <fieldset className="m-0 flex min-w-0 flex-col gap-2 border-0 p-0">
-        <legend className="mb-2 p-0 font-body text-body-m font-semibold text-[var(--color-text-text)]">Price</legend>
+      <fieldset className="m-0 flex min-w-0 flex-col gap-3 border-0 p-0">
+        <legend className={FACET_HEADING}>Price</legend>
         {(['free', 'paid'] as const).map((p) => {
           const count = items.filter((i) => matches(i, { ...filters, pricing: [p] }, undefined)).length;
           return <FacetOption key={p} label={p === 'free' ? 'Free' : 'Paid'} count={count} checked={filters.pricing.includes(p)} onChange={() => toggle('pricing', p)} />;
@@ -245,10 +247,10 @@ function FilterPanel({ items, filters, toggle, update, maxPrice }: { items: Cata
       </fieldset>
       <Separator />
       <fieldset className="m-0 min-w-0 border-0 p-0">
-        <legend id={ratingId} className="mb-2 p-0 font-body text-body-m font-semibold text-[var(--color-text-text)]">
+        <legend id={ratingId} className={FACET_HEADING}>
           Rating
         </legend>
-        <RadioGroup aria-labelledby={ratingId} value={String(filters.minRating)} onValueChange={(v) => update({ minRating: Number(v) })} className="flex flex-col gap-2">
+        <RadioGroup aria-labelledby={ratingId} value={String(filters.minRating)} onValueChange={(v) => update({ minRating: Number(v) })}>
           {[0, 4.5, 4, 3].map((r) => (
             <Radio key={r} value={String(r)} label={r === 0 ? 'Any rating' : `${r} ★ & up`} />
           ))}
@@ -274,8 +276,8 @@ function ListFacetGroup({ facet, items, filters, toggle }: { facet: ListFacet; i
   const hidden = filtered.length - shown.length;
 
   return (
-    <fieldset className="m-0 flex min-w-0 flex-col gap-2 border-0 p-0">
-      <legend className="mb-2 p-0 font-body text-body-m font-semibold text-[var(--color-text-text)]">{FACET_LABEL[facet]}</legend>
+    <fieldset className="m-0 flex min-w-0 flex-col gap-3 border-0 p-0">
+      <legend className={FACET_HEADING}>{FACET_LABEL[facet]}</legend>
       {searchable && (
         <TextField
           id={searchId}

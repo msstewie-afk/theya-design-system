@@ -47,10 +47,11 @@ export function ItemCard({ item, layout = 'grid', href = '#', compare, className
       </span>
       <DotSeparator />
       {`${formatInstalls(item.installs)} installs`}
-      <DotSeparator />
-      {item.compatibility.join(', ')}
     </p>
   );
+  // Own line: appended to the line above it wrapped mid-list and left a
+  // dangling dot at the start of the second line.
+  const works = <p className="font-body text-body-s text-[var(--color-text-text-subtle)]">{`Works with ${item.compatibility.join(', ')}`}</p>;
   const price = <span className="shrink-0 font-body text-body-m font-semibold tabular-nums text-[var(--color-text-text)]">{formatItemPrice(item.price)}</span>;
   const compareBox = compare && (
     // relative z-[1]: above the card's stretched link, so it gets the click.
@@ -71,16 +72,30 @@ export function ItemCard({ item, layout = 'grid', href = '#', compare, className
             <p className="font-body text-body-l font-semibold text-[var(--color-text-text)]">{item.name}</p>
             <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{item.vendor}</p>
             {layout === 'list' && <p className="mt-1 font-body text-body-m text-[var(--color-text-text-subtle)]">{item.summary}</p>}
-            {layout === 'list' && <div className="mt-1">{meta}</div>}
+            {layout === 'list' && (
+              <div className="mt-1 flex flex-col gap-1">
+                {works}
+                {meta}
+              </div>
+            )}
           </div>
         </div>
         {layout === 'grid' && (
           <>
-            <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">{item.summary}</p>
-            {meta}
-            <div className="mt-auto flex items-center justify-between gap-3 pt-1">
-              {price}
-              {compareBox}
+            {/* flex-1: the summary absorbs the height difference, so the
+                facts + price block sits at the bottom and lines up across
+                cards in a row. pt-2 opens the gap above that block (20px in
+                all); inside it the two lines stay close (4px) to read as one. */}
+            <p className="flex-1 font-body text-body-m text-[var(--color-text-text-subtle)]">{item.summary}</p>
+            <div className="flex flex-col gap-1 pt-2">
+              {/* Works-with first: it's the only line that can wrap, and the
+                  block is bottom-aligned, so rating and price stay level. */}
+              {works}
+              {meta}
+              <div className="flex items-center justify-between gap-3">
+                {price}
+                {compareBox}
+              </div>
             </div>
           </>
         )}

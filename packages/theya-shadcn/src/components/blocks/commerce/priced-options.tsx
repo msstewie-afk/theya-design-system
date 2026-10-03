@@ -75,7 +75,7 @@ export function PricedOptions({ legend, description, options, value, defaultValu
         </p>
       )}
       {appearance === 'list' ? (
-        <RadioGroup aria-labelledby={legendId} value={selected} onValueChange={change} className={cn('flex flex-col', !description && 'mt-2')}>
+        <RadioGroup aria-labelledby={legendId} value={selected} onValueChange={change} className={cn('gap-0', !description && 'mt-2')}>
           {options.map((o, i) => {
             const id = `${uid}-${o.value}`;
             return (
