@@ -3,12 +3,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { TimeRangePicker, type TimeRange } from './time-range-picker';
 import { Label } from './label';
+import { timeRangePickerGuidelines } from './time-range-picker.guidelines';
 
 const meta: Meta<typeof TimeRangePicker> = {
   title: 'Date & Time/TimeRangePicker',
   component: TimeRangePicker,
   tags: ['autodocs'],
   parameters: {
+    guidelines: timeRangePickerGuidelines,
     docs: {
       description: {
         component:

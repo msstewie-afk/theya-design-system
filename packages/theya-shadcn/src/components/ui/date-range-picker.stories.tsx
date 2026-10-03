@@ -4,12 +4,14 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import type { DateRange } from 'react-day-picker';
 import { DateRangePicker } from './date-range-picker';
 import { Label } from './label';
+import { dateRangePickerGuidelines } from './date-range-picker.guidelines';
 
 const meta: Meta<typeof DateRangePicker> = {
   title: 'Date & Time/DateRangePicker',
   component: DateRangePicker,
   tags: ['autodocs'],
   parameters: {
+    guidelines: dateRangePickerGuidelines,
     docs: {
       description: {
         component:

@@ -3,12 +3,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { TimeField } from './time-field';
 import { Label } from './label';
+import { timeFieldGuidelines } from './time-field.guidelines';
 
 const meta: Meta<typeof TimeField> = {
   title: 'Date & Time/TimeField',
   component: TimeField,
   tags: ['autodocs'],
   parameters: {
+    guidelines: timeFieldGuidelines,
     docs: {
       description: {
         component: 'A time picker built on Combobox with allowCreate — type a time off the step grid and it commits directly.',

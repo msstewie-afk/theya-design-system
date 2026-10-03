@@ -3,12 +3,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { DateTimePicker } from './date-time-picker';
 import { Label } from './label';
+import { dateTimePickerGuidelines } from './date-time-picker.guidelines';
 
 const meta: Meta<typeof DateTimePicker> = {
   title: 'Date & Time/DateTimePicker',
   component: DateTimePicker,
   tags: ['autodocs'],
   parameters: {
+    guidelines: dateTimePickerGuidelines,
     docs: {
       description: {
         component:

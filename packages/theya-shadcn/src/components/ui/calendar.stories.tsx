@@ -3,11 +3,13 @@ import type * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import type { DateRange } from 'react-day-picker';
 import { Calendar } from './calendar';
+import { calendarGuidelines } from './calendar.guidelines';
 
 const meta: Meta<typeof Calendar> = {
   title: 'Date & Time/Calendar',
   tags: ['autodocs'],
   parameters: {
+    guidelines: calendarGuidelines,
     docs: { description: { component: 'Themed date grid on react-day-picker (v10). Backs single/multiple/range selection.' } },
   },
   argTypes: {
