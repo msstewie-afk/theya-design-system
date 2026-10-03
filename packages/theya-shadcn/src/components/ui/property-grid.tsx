@@ -198,6 +198,7 @@ function PropertyControl({
             value={typeof value === 'number' ? value : undefined}
             onValueChange={onChange}
             placeholder={placeholder}
+            widthSize="full"
           />
         </div>
       );

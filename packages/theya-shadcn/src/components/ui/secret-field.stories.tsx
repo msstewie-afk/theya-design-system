@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { SecretField } from './secret-field';
+import { secretFieldGuidelines } from './secret-field.guidelines';
 
 const meta: Meta<typeof SecretField> = {
   title: 'Text Input/SecretField',
   component: SecretField,
   tags: ['autodocs'],
   parameters: {
+    guidelines: secretFieldGuidelines,
     docs: { description: { component: 'Masked by default: ten bullets plus the last 4 chars, value kept out of the DOM until revealed. Copy confirms via a sonner toast.' } },
   },
   argTypes: {

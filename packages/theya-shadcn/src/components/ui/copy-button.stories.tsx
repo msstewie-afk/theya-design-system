@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { CopyButton } from './copy-button';
+import { copyButtonGuidelines } from './copy-button.guidelines';
 
 const meta: Meta<typeof CopyButton> = {
   title: 'Actions/CopyButton',
   component: CopyButton,
   tags: ['autodocs'],
   parameters: {
+    guidelines: copyButtonGuidelines,
     docs: {
       description: {
         component:

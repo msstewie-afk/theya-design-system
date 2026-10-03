@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { PasswordStrengthMeter } from './password-strength-meter';
+import { passwordStrengthMeterGuidelines } from './password-strength-meter.guidelines';
 
 const meta: Meta<typeof PasswordStrengthMeter> = {
   title: 'Text Input/PasswordStrengthMeter',
   component: PasswordStrengthMeter,
   tags: ['autodocs'],
   parameters: {
+    guidelines: passwordStrengthMeterGuidelines,
     docs: {
       description: {
         component:

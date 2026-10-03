@@ -7,6 +7,7 @@ import { Price } from './price';
 import { ScrollArea } from './scroll-area';
 import { StickyActionBar } from './sticky-action-bar';
 import { TextField } from './text-field';
+import { stickyActionBarGuidelines } from './sticky-action-bar.guidelines';
 
 /**
  * StickyActionBar — actions pinned to the bottom while content scrolls:
@@ -22,7 +23,7 @@ const meta = {
   title: 'Actions/StickyActionBar',
   component: StickyActionBar,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: stickyActionBarGuidelines, layout: 'padded' },
   argTypes: {
     variant: { control: 'inline-radio', options: ['bar', 'floating'], table: { category: 'Layout' } },
     position: { control: 'inline-radio', options: ['sticky', 'fixed'], table: { category: 'Layout' } },

@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { ChatBubbleEmpty, EditPencil, Plus } from 'iconoir-react';
 import { Fab } from './fab';
+import { fabGuidelines } from './fab.guidelines';
 
 /**
  * Fab — floating action button for the single primary action of a screen.
@@ -18,7 +19,7 @@ const meta = {
   title: 'Actions/Fab',
   component: Fab,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: fabGuidelines, layout: 'centered' },
   argTypes: {
     label: { control: 'text', description: 'Text of the extended FAB. Empty = round icon-only FAB.', table: { category: 'Content' } },
     icon: { control: false, description: 'The action icon, always shown.', table: { category: 'Content' } },

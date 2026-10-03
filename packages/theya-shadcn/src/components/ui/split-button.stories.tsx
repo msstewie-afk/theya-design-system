@@ -3,12 +3,14 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Trash, Send, Archive } from 'iconoir-react';
 import { SplitButton } from './split-button';
 import { DropdownMenuItem } from './dropdown-menu';
+import { splitButtonGuidelines } from './split-button.guidelines';
 
 const meta: Meta<typeof SplitButton> = {
   title: 'Actions/SplitButton',
   component: SplitButton,
   tags: ['autodocs'],
   parameters: {
+    guidelines: splitButtonGuidelines,
     docs: {
       description: {
         component: 'Not in the reference repo — composed from scratch with our own Button + DropdownMenu.',

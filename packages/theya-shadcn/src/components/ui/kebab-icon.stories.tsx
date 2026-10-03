@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { KebabIconVertical, KebabIconHorizontal } from './kebab-icon';
 import { Button } from './button';
+import { kebabIconGuidelines } from './kebab-icon.guidelines';
 
 /**
  * Custom kebab/overflow-menu glyphs (vertical + horizontal dots) —
@@ -14,7 +15,7 @@ const meta: Meta<typeof KebabIconVertical> = {
   title: 'Actions/KebabIcon',
   component: KebabIconVertical,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: kebabIconGuidelines, layout: 'centered' },
   argTypes: {
     size: { control: 'select', options: ['sm', 'md', 'lg'], description: 'Icon size: sm (12px) / md (16px, default) / lg (20px).' },
     className: { control: false, description: 'Extra classes — color comes from `currentColor`, so this is typically just a text-color token.' },

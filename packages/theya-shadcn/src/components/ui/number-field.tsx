@@ -4,10 +4,14 @@ import { cn } from '@/lib/utils';
 
 const WIDTH_CLASSES = {
   full: 'w-full',
-  sm: 'w-[var(--size-width-width-control-sm)]', // Figma "Small", 60px
-  md: 'w-[var(--size-width-width-control-xl)]', // Figma "Medium", 240px
-  lg: 'w-[var(--size-width-width-control-2xl)]', // Figma "Large", 348px
-  xl: 'w-[var(--size-width-width-control-3xl)]', // Figma "XLarge", 500px
+  // 128px: both step buttons (2×36) + ~5 digits. Was the TextField sm token
+  // (60px) — narrower than the two buttons alone, so the input collapsed to
+  // 0px and the buttons clipped. No size token at this step yet (scale jumps
+  // 100 → 200), hence the raw rem value.
+  sm: 'w-32',
+  md: 'w-[var(--size-width-width-control-xl)]', // 224px
+  lg: 'w-[var(--size-width-width-control-2xl)]', // 348px
+  xl: 'w-[var(--size-width-width-control-3xl)]', // 500px
 } as const;
 
 /**
@@ -38,7 +42,13 @@ export interface NumberFieldProps {
   placeholder?: string;
   id?: string;
   className?: string;
-  /** Matches TextField's width scale. Defaults to 'full' (previous, unconditional behavior). */
+  /**
+   * sm 128px (default — a stepper holds a short number), md 224, lg 348,
+   * xl 500, full = 100% of the container. Until 2026-10-03 the default was
+   * 'full', so the field took whatever width its parent had (stretched in
+   * forms, every consumer wrapped it in its own fixed-width div), and sm was
+   * 60px, too narrow for the buttons.
+   */
   widthSize?: keyof typeof WIDTH_CLASSES;
   /** Matches TextField's heightSize: md 40px (default), sm 32px with 12px text and the 4px radius — for dense rows (cart quantities, table cells). */
   heightSize?: 'sm' | 'md';
@@ -68,7 +78,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
     placeholder,
     id,
     className,
-    widthSize = 'full',
+    widthSize = 'sm',
     heightSize = 'md',
     decrementLabel = 'Decrease',
     incrementLabel = 'Increase',
@@ -140,7 +150,10 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
   return (
     <div
       className={cn(
-        'inline-flex items-stretch overflow-hidden',
+        // min-w-min: overflow-hidden turns a flex item's automatic min-width
+        // into 0, so in a flex row the field used to squeeze until the input
+        // disappeared. Now it never goes below buttons + the input's minimum.
+        'inline-flex min-w-min items-stretch overflow-hidden',
         heightSize === 'sm' ? 'h-[var(--size-size-control-size-control-lg)] rounded-[var(--size-border-radius-border-radius-md)]' : 'h-[var(--size-size-control-size-control-2xl)] rounded-[var(--size-border-radius-border-radius-lg)]',
         WIDTH_CLASSES[widthSize],
         'border border-solid',
@@ -218,7 +231,9 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
           }
         }}
         className={cn(
-          'h-full min-w-0 flex-1 bg-transparent px-2 text-center outline-none',
+          // w-0 + min-w-12: an <input> has an intrinsic ~20ch width; without w-0 that
+          // becomes the field's minimum and every size below ~250px is ignored.
+          'h-full w-0 min-w-12 flex-1 bg-transparent px-2 text-center outline-none',
           heightSize === 'sm' ? 'text-body-s' : 'text-body-m',
           'tabular-nums text-[var(--color-text-text)]',
           'placeholder:text-[var(--color-text-text-subtler)]',

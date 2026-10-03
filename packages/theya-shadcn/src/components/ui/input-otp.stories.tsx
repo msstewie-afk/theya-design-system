@@ -6,6 +6,7 @@ import { ShieldCheck } from 'iconoir-react';
 import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from './input-otp';
 import { Label } from './label';
 import { Button } from './button';
+import { inputOtpGuidelines } from './input-otp.guidelines';
 
 type Args = { maxLength?: number; disabled?: boolean };
 
@@ -13,6 +14,7 @@ const meta: Meta<Args> = {
   title: 'Text Input/InputOTP',
   tags: ['autodocs'],
   parameters: {
+    guidelines: inputOtpGuidelines,
     docs: {
       description: {
         component:

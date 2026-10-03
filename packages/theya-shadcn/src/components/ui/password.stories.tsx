@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { Password } from './password';
 import { PasswordStrengthMeter } from './password-strength-meter';
+import { passwordGuidelines } from './password.guidelines';
 
 const meta: Meta<typeof Password> = {
   title: 'Text Input/Password',
@@ -10,6 +11,7 @@ const meta: Meta<typeof Password> = {
   tags: ['autodocs'],
   args: { widthSize: 'lg' },
   parameters: {
+    guidelines: passwordGuidelines,
     docs: {
       description: {
         component: 'TextField variant with a show/hide toggle. Shares border/bg/focus/error/success/disabled/read-only styling with TextField, but only two widths (m 200px, l 348px) and no left icon or clear button — the toggle occupies the right slot.',

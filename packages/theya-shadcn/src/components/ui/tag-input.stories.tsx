@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { emailProblem } from '@/lib/email';
 import { Label } from './label';
 import { TagInput } from './tag-input';
+import { tagInputGuidelines } from './tag-input.guidelines';
 
 /**
  * TagInput — several free-form values as chips: tags, emails, domains.
@@ -15,7 +16,7 @@ const meta = {
   title: 'Text Input/TagInput',
   component: TagInput,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: tagInputGuidelines, layout: 'padded' },
   argTypes: {
     placeholder: { control: 'text', table: { category: 'Content' } },
     description: { control: 'text', table: { category: 'Content' } },

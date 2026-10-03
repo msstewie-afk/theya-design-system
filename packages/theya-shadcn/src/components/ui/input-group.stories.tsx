@@ -2,12 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Search, Globe, Key } from 'iconoir-react';
 import { InputGroup, InputGroupAddon, InputGroupInput } from './input-group';
 import { Label } from './label';
+import { inputGroupGuidelines } from './input-group.guidelines';
 
 const meta: Meta<typeof InputGroup> = {
   title: 'Text Input/InputGroup',
   component: InputGroup,
   tags: ['autodocs'],
   parameters: {
+    guidelines: inputGroupGuidelines,
     docs: {
       description: {
         component:

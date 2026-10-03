@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 import { TextArea } from './textarea';
+import { textareaGuidelines } from './textarea.guidelines';
 
 const meta: Meta<typeof TextArea> = {
   title: 'Text Input/TextArea',
@@ -8,6 +9,7 @@ const meta: Meta<typeof TextArea> = {
   tags: ['autodocs'],
   args: { widthSize: 'lg' },
   parameters: {
+    guidelines: textareaGuidelines,
     docs: {
       description: {
         component:

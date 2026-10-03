@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { PhoneField } from './phone-field';
+import { phoneFieldGuidelines } from './phone-field.guidelines';
 
 /**
  * PhoneField — country-code picker + number formatted as you type in that
@@ -13,7 +14,7 @@ const meta = {
   title: 'Text Input/PhoneField',
   component: PhoneField,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: phoneFieldGuidelines, layout: 'padded' },
   argTypes: {
     label: { control: 'text', table: { category: 'Content' } },
     description: { control: 'text', table: { category: 'Content' } },

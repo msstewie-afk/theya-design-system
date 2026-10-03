@@ -2,11 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Bold, Italic, Underline } from 'iconoir-react';
 import { Toggle } from './toggle';
+import { toggleGuidelines } from './toggle.guidelines';
 
 const meta: Meta<typeof Toggle> = {
   title: 'Actions/Toggle',
   component: Toggle,
   tags: ['autodocs'],
+  parameters: { guidelines: toggleGuidelines },
   argTypes: {
     appearance: { control: 'radio', options: ['tonal', 'outlined', 'ghost'], description: 'Fill style.', table: { category: 'Appearance' } },
     size: { control: 'radio', options: ['sm', 'md', 'lg'], description: 'Toggle size.', table: { category: 'Appearance' } },

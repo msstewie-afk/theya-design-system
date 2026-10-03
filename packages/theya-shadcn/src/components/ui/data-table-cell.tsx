@@ -598,12 +598,10 @@ function CellContent(props: DataTableCellValueProps) {
           aria-labelledby={props.labelledBy}
           aria-describedby={props.describedBy}
           aria-invalid={props.invalid || undefined}
-          // NumberField has no widthSize of its own — w-full is baked into
-          // its own base classes unconditionally, so it always fills
-          // whatever contains it. A stepper stretched across a wide column
-          // reads wrong, so it's capped here rather than left full-width,
-          // matching the same max-w-[10rem] convention as usage/slider.
-          className="min-w-0 max-w-[10rem] font-body text-body-m"
+          // Fills the cell, capped so a stepper isn't stretched across a
+          // wide column (same max-w-[10rem] convention as usage/slider).
+          widthSize="full"
+          className="max-w-[10rem] font-body text-body-m"
         />
       );
     case 'select':

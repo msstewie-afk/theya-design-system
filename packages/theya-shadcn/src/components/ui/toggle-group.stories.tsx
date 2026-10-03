@@ -2,11 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { AlignLeft, AlignCenter, AlignRight, Bold, Italic, Underline } from 'iconoir-react';
 import { ToggleGroup, ToggleGroupItem } from './toggle-group';
+import { toggleGroupGuidelines } from './toggle-group.guidelines';
 
 const meta: Meta<typeof ToggleGroup> = {
   title: 'Actions/ToggleGroup',
   component: ToggleGroup,
   tags: ['autodocs'],
+  parameters: { guidelines: toggleGroupGuidelines },
   argTypes: {
     appearance: { control: 'radio', options: ['tonal', 'outlined', 'ghost'], description: 'Flows to every item via context. Default ghost.' },
     size: { control: 'radio', options: ['sm', 'md', 'lg'], description: 'Flows to every item via context.' },

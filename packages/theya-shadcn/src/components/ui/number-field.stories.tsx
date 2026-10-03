@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { NumberField } from './number-field';
+import { numberFieldGuidelines } from './number-field.guidelines';
 
 const meta: Meta<typeof NumberField> = {
   title: 'Text Input/NumberField',
   component: NumberField,
   tags: ['autodocs'],
   parameters: {
+    guidelines: numberFieldGuidelines,
     docs: {
       description: {
         component:
@@ -24,7 +26,8 @@ const meta: Meta<typeof NumberField> = {
     step: { control: { type: 'number' }, description: 'Increment/decrement amount.', table: { category: 'Behavior' } },
     disabled: { control: 'boolean', description: 'Disables the field and its stepper buttons.', table: { category: 'State' } },
     placeholder: { control: 'text', description: 'Placeholder text shown when empty.', table: { category: 'Content' } },
-    widthSize: { control: false, description: "Matches TextField's width scale. Defaults to 'full'.", table: { category: 'Appearance' } },
+    widthSize: { control: 'select', options: ['sm', 'md', 'lg', 'xl', 'full'], description: 'sm 128px (default), md 224, lg 348, xl 500, full = container width.', table: { category: 'Appearance' } },
+    heightSize: { control: 'inline-radio', options: ['md', 'sm'], description: 'md 40px (default), sm 32px for dense rows.', table: { category: 'Appearance' } },
     decrementLabel: { control: 'text', description: 'Accessible label for the decrement button.', table: { category: 'Content' } },
     incrementLabel: { control: 'text', description: 'Accessible label for the increment button.', table: { category: 'Content' } },
   },
@@ -35,21 +38,13 @@ type Story = StoryObj<typeof NumberField>;
 
 export const Playground: Story = {
   args: { defaultValue: 0, 'aria-label': 'Quantity' },
-  render: (args) => (
-    <div className="w-[160px]">
-      <NumberField {...args} />
-    </div>
-  ),
+  render: (args) => <NumberField {...args} />,
 };
 
 export const WithMinMax: Story = {
   name: 'With min/max',
   args: { defaultValue: 5, min: 0, max: 10, 'aria-label': 'Quantity (0-10)', onValueChange: fn() },
-  render: (args) => (
-    <div className="w-[160px]">
-      <NumberField {...args} />
-    </div>
-  ),
+  render: (args) => <NumberField {...args} />,
   // Arrow keys step (Shift = 10x), values clamp to min/max, the stepper
   // buttons disable at the bounds, and the spinbutton reports its range.
   play: async ({ canvasElement, args }) => {
@@ -88,11 +83,7 @@ export const WithMinMax: Story = {
 export const TypingCommitsOnBlur: Story = {
   name: 'Typing commits on blur/Enter',
   args: { defaultValue: 10, min: 5, max: 50, 'aria-label': 'Replicas (5-50)', onValueChange: fn() },
-  render: (args) => (
-    <div className="w-[160px]">
-      <NumberField {...args} />
-    </div>
-  ),
+  render: (args) => <NumberField {...args} />,
   play: async ({ canvasElement, args }) => {
     const input = within(canvasElement).getByRole('spinbutton', { name: 'Replicas (5-50)' });
 
@@ -135,18 +126,30 @@ export const TypingCommitsOnBlur: Story = {
 
 export const Invalid: Story = {
   args: { defaultValue: 0, 'aria-label': 'Quantity', 'aria-invalid': true },
-  render: (args) => (
-    <div className="w-[160px]">
-      <NumberField {...args} />
-    </div>
-  ),
+  render: (args) => <NumberField {...args} />,
 };
 
 export const Disabled: Story = {
   args: { defaultValue: 5, disabled: true, 'aria-label': 'Quantity' },
-  render: (args) => (
-    <div className="w-[160px]">
-      <NumberField {...args} />
+  render: (args) => <NumberField {...args} />,
+};
+
+/**
+ * The width comes from the component, not its parent: sm by default, full
+ * only when a fixed-width cell or column should decide. In a squeezed flex
+ * row it stops at buttons + a 48px input instead of collapsing.
+ */
+export const Widths: Story = {
+  render: () => (
+    <div className="flex flex-col items-start gap-4">
+      {(['sm', 'md', 'lg'] as const).map((w) => (
+        <NumberField key={w} widthSize={w} defaultValue={8} aria-label={`Width ${w}`} />
+      ))}
+      <NumberField heightSize="sm" defaultValue={8} aria-label="Width sm, height sm" />
+      <div className="flex w-[200px] items-center gap-2 border border-dashed border-[var(--color-border-border-subtle)] p-2">
+        <span className="font-body text-body-s text-[var(--color-text-text-subtle)]">Squeezed row</span>
+        <NumberField defaultValue={8} aria-label="In a squeezed row" />
+      </div>
     </div>
   ),
 };

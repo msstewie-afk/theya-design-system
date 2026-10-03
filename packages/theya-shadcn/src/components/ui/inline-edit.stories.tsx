@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { InlineEdit } from './inline-edit';
+import { inlineEditGuidelines } from './inline-edit.guidelines';
 
 /**
  * InlineEdit — change one value in place. Reads as text until clicked or
@@ -13,7 +14,7 @@ const meta = {
   title: 'Text Input/InlineEdit',
   component: InlineEdit,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: inlineEditGuidelines, layout: 'padded' },
   argTypes: {
     label: { control: 'text', description: 'Accessible name of the value.', table: { category: 'Content' } },
     placeholder: { control: 'text', description: 'Shown when the value is empty.', table: { category: 'Content' } },

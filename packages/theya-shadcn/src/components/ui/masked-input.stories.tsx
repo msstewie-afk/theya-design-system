@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { MaskedInput } from './masked-input';
+import { maskedInputGuidelines } from './masked-input.guidelines';
 
 const meta: Meta<typeof MaskedInput> = {
   title: 'Text Input/MaskedInput',
   component: MaskedInput,
   tags: ['autodocs'],
   parameters: {
+    guidelines: maskedInputGuidelines,
     docs: {
       description: {
         component:
