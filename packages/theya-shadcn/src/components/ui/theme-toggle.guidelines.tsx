@@ -12,5 +12,5 @@ export const themeToggleGuidelines: ComponentGuidelines = {
       dont: { example: <span className="font-body text-body-m text-[var(--color-text-text-subtle)]">A theme switch in every page header</span>, caption: 'Repeating a global setting on every page makes it look page-specific.' },
     },
   ],
-  a11y: ['Its name is “Toggle theme”. Known gap: the current theme isn’t exposed to screen readers yet — it should become “Switch to dark/light theme” or aria-pressed.', 'Keyboard: a regular button, Enter or Space.'],
+  a11y: ['Its name says the action — “Switch to dark theme” / “Switch to light theme” — so it also tells which theme is on now.', 'Keyboard: a regular button, Enter or Space.'],
 };

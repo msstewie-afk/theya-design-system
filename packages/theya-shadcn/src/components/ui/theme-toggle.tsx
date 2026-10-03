@@ -22,7 +22,10 @@ export const ThemeToggle = forwardRef<HTMLButtonElement, React.ComponentPropsWit
     <button
       ref={ref}
       type="button"
-      aria-label="Toggle theme"
+      // Names the action, so it also says the current state: "Switch to
+      // dark theme" means light is on. Was a static "Toggle theme" that
+      // never told screen-reader users which theme was active.
+      aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       className={cn(
         'relative grid place-content-center size-[34px]',
