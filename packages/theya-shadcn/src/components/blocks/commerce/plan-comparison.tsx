@@ -49,8 +49,8 @@ export interface PlanComparisonProps {
  * Plans side by side. The period toggle shows the yearly saving up front;
  * values use the same unit in every column; rows that differ read stronger
  * than rows that don't, and "Only differences" hides the identical ones.
- * The plan header row sticks while scrolling the features. Below md the
- * table becomes one tab per plan, since columns don't fit a phone.
+ * The plan header row sticks while scrolling the features. Under 768px of
+ * its own width the table becomes one tab per plan.
  */
 export function PlanComparison({ plans, features, defaultPeriod = 'yearly', currency = 'USD', onSelect, currentPlanId, className }: PlanComparisonProps) {
   const [period, setPeriod] = useState<BillingPeriod>(defaultPeriod);
@@ -80,7 +80,9 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
   };
 
   return (
-    <div className={cn('flex w-full flex-col gap-5', className)}>
+    // Container query, not viewport: the table/tabs switch follows the
+    // space the component actually gets (a narrow column, a docs block).
+    <div className={cn('@container flex w-full flex-col gap-5', className)}>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <ToggleGroup type="single" appearance="outlined" value={period} onValueChange={(v) => v && setPeriod(v as BillingPeriod)} aria-label="Billing period">
           <ToggleGroupItem value="monthly">Monthly</ToggleGroupItem>
@@ -93,7 +95,7 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
             )}
           </ToggleGroupItem>
         </ToggleGroup>
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 @3xl:flex">
           <Switch id={diffId} checked={onlyDifferences} onCheckedChange={setOnlyDifferences} />
           <label htmlFor={diffId} className="cursor-pointer font-body text-body-m text-[var(--color-text-text)]">
             Only differences
@@ -107,7 +109,7 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
           columns comes from border-spacing, not cell padding, so each plan
           card fills its column exactly and the row lines below start and
           end on the card's edges. */}
-      <table className="-mx-3 hidden w-[calc(100%+1.5rem)] table-fixed border-separate border-spacing-x-3 border-spacing-y-0 font-body md:table">
+      <table className="-mx-3 hidden w-[calc(100%+1.5rem)] table-fixed border-separate border-spacing-x-3 border-spacing-y-0 font-body @3xl:table">
         <caption className="sr-only">{`Plan comparison, prices per month billed ${period}`}</caption>
         <colgroup>
           <col className="w-[22%]" />
@@ -167,7 +169,7 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
       </table>
 
       {/* Phone: a tab per plan. */}
-      <Tabs defaultValue={plans.find((p) => p.recommended)?.id ?? plans[0]?.id} className="md:hidden">
+      <Tabs defaultValue={plans.find((p) => p.recommended)?.id ?? plans[0]?.id} className="@3xl:hidden">
         <TabsList aria-label="Plans">
           {plans.map((p) => (
             <TabsTrigger key={p.id} value={p.id}>
