@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useCallback, useLayoutEffect, useRef, type FocusEvent, type ReactNode } from 'react';
 import { Xmark } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { Button } from './button';
@@ -51,6 +51,30 @@ export function StickyActionBar({
   'aria-label': ariaLabel = 'Actions',
   ...props
 }: StickyActionBarProps) {
+  // The bar usually closes because of an action inside it (Discard, Clear
+  // selection, Save) — it unmounts with focus inside and focus fell to <body>.
+  // Remember where focus came from and return it there.
+  const cameFrom = useRef<HTMLElement | null>(null);
+  const restore = useRef(false);
+  // Ref callback: on unmount React detaches the ref while the node is still in
+  // the document, so we can see whether focus was inside it.
+  // Stable (useCallback) so React only calls it on mount/unmount, not every render.
+  const lastBar = useRef<HTMLDivElement | null>(null);
+  const barRef = useCallback((el: HTMLDivElement | null) => {
+    if (!el && document.activeElement && lastBar.current?.contains(document.activeElement)) restore.current = true;
+    lastBar.current = el;
+  }, []);
+  useLayoutEffect(() => {
+    if (open || !restore.current) return;
+    restore.current = false;
+    const el = cameFrom.current;
+    if (el?.isConnected) el.focus({ preventScroll: true });
+  }, [open]);
+  const onFocusIn = (e: FocusEvent<HTMLDivElement>) => {
+    const from = e.relatedTarget as HTMLElement | null;
+    if (from && !e.currentTarget.contains(from)) cameFrom.current = from;
+  };
+
   if (!open) return null;
   const floating = variant === 'floating';
 
@@ -60,6 +84,8 @@ export function StickyActionBar({
       aria-label={ariaLabel}
       data-slot="sticky-action-bar"
       data-variant={variant}
+      ref={barRef}
+      onFocus={onFocusIn}
       className={cn(
         position === 'fixed' ? 'fixed inset-x-0' : 'sticky',
         'bottom-0 z-(--z-index-sticky)',
