@@ -82,15 +82,19 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
   };
 
   const periodToggle = (
-    // The saving badge sits beside the toggle, not inside "Yearly": on the
-    // selected item's tinted fill its own tint lost contrast in dark.
-    <div className="flex flex-wrap items-center gap-3">
-      <ToggleGroup type="single" appearance="outlined" value={period} onValueChange={(v) => v && setPeriod(v as BillingPeriod)} aria-label="Billing period">
-        <ToggleGroupItem value="monthly">Monthly</ToggleGroupItem>
-        <ToggleGroupItem value="yearly">Yearly</ToggleGroupItem>
-      </ToggleGroup>
-      {maxSaving > 0 && <Badge tone="success">Save up to {maxSaving}% yearly</Badge>}
-    </div>
+    <ToggleGroup type="single" appearance="outlined" value={period} onValueChange={(v) => v && setPeriod(v as BillingPeriod)} aria-label="Billing period">
+      <ToggleGroupItem value="monthly">Monthly</ToggleGroupItem>
+      <ToggleGroupItem value="yearly">
+        Yearly
+        {/* Filled, not tonal: a tinted badge on the selected item's tinted
+            fill lost contrast in dark. */}
+        {maxSaving > 0 && (
+          <Badge tone="success" appearance="filled" className="ml-2">
+            Save up to {maxSaving}%
+          </Badge>
+        )}
+      </ToggleGroupItem>
+    </ToggleGroup>
   );
 
   return (
