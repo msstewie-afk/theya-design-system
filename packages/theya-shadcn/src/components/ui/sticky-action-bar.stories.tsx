@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { FolderSettings, Trash } from 'iconoir-react';
 import { Button } from './button';
 import { Checkbox } from './checkbox';
@@ -66,6 +67,20 @@ export const UnsavedChanges: Story = {
       </ScrollArea>
     );
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Nothing to save: no bar.
+    await expect(canvas.queryByRole('region', { name: 'Actions' })).not.toBeInTheDocument();
+    const name = canvas.getByLabelText('Name');
+    await userEvent.type(name, ' v2');
+    const bar = canvas.getByRole('region', { name: 'Actions' });
+    await expect(within(bar).getByText('You have unsaved changes')).toBeInTheDocument();
+    // Discard closes the bar; focus goes back to the field it came from, not <body>.
+    await userEvent.click(within(bar).getByRole('button', { name: 'Discard' }));
+    await expect(canvas.queryByRole('region', { name: 'Actions' })).not.toBeInTheDocument();
+    await expect(name).toHaveValue('Seashell storefront');
+    await waitFor(() => expect(name).toHaveFocus());
+  },
 };
 
 /** Select rows: a floating bar shows the count and bulk actions; the close button clears the selection. */
@@ -104,6 +119,21 @@ export const BulkSelection: Story = {
         </StickyActionBar>
       </ScrollArea>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const bar = () => canvas.queryByRole('region', { name: 'Bulk actions' });
+    await expect(within(bar()!).getByText('2 selected')).toBeInTheDocument();
+    // The count follows the selection (polite live region).
+    const site7 = canvas.getByRole('checkbox', { name: 'site-07.seashell.dev' });
+    await userEvent.click(site7);
+    await expect(within(bar()!).getByText('3 selected')).toBeInTheDocument();
+    await expect(within(bar()!).getByText('3 selected')).toHaveAttribute('aria-live', 'polite');
+    // Clear selection empties it and closes the bar; focus returns to the last checkbox used.
+    await userEvent.click(within(bar()!).getByRole('button', { name: 'Clear selection' }));
+    await expect(bar()).not.toBeInTheDocument();
+    await expect(canvas.queryAllByRole('checkbox', { checked: true })).toHaveLength(0);
+    await waitFor(() => expect(site7).toHaveFocus());
   },
 };
 
