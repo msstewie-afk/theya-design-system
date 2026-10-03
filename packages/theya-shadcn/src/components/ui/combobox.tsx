@@ -4,6 +4,7 @@ import { NavArrowDown, Check, Xmark, Plus } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { Popover, PopoverAnchor, PopoverContent } from './popover';
 import { Chip, ChipRemove } from './chip';
+import { ScrollArea } from './scroll-area';
 
 /**
  * No Radix combobox primitive exists — built on our own Popover, per
@@ -130,6 +131,13 @@ export function Combobox(props: ComboboxProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
+  // Keep the keyboard highlight visible: ArrowDown past the visible rows
+  // used to move the highlight out of view without scrolling the list.
+  useEffect(() => {
+    if (!open) return;
+    document.getElementById(`${listId}-${activeIndex}`)?.scrollIntoView({ block: 'nearest' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeIndex, open]);
   const inputRef = useRef<HTMLInputElement>(null);
   const listId = useId();
   const showClearControl = showClear && !readOnly;
@@ -433,7 +441,8 @@ export function Combobox(props: ComboboxProps) {
             {emptyMessage}
           </div>
         ) : (
-          <ul id={listId} role="listbox" className="max-h-60 overflow-y-auto">
+          <ScrollArea focusable={false} className="max-h-60">
+          <ul id={listId} role="listbox">
             {items.map((option, index) => {
               const isCreateRow = showCreateRow && index === 0;
               const isSelected = multiple
@@ -477,6 +486,7 @@ export function Combobox(props: ComboboxProps) {
               );
             })}
           </ul>
+          </ScrollArea>
         )}
       </PopoverContent>
     </Popover>

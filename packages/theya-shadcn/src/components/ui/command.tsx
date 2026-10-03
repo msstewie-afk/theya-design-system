@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useRef, useLayoutEffect, useCallba
 import type { ReactNode } from 'react';
 import { Search } from 'iconoir-react';
 import { cn } from '@/lib/utils';
+import { ScrollArea } from './scroll-area';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './dialog';
 import { ToneIcon } from './tone-icon';
 import type { StatusTone } from './status-dot';
@@ -218,22 +219,26 @@ export function CommandInput({ className, value, onValueChange, ...props }: Comm
 export function CommandList({ className, ...props }: React.ComponentProps<'div'>) {
   const { listRef, listId, itemCount, label } = useCommandContext('CommandList');
   return (
-    <div
-      ref={listRef as React.RefObject<HTMLDivElement>}
-      id={listId}
-      // A listbox with zero option children fails aria-required-children —
-      // only claim the role once there's at least one CommandItem to own it.
-      // The empty state (CommandEmpty) still renders either way.
-      role={itemCount > 0 ? 'listbox' : undefined}
-      // role="listbox" is one of the input-type roles aria-input-field-name
-      // checks too — it needs its own accessible name, same source as the
-      // combobox input's (aria-label={props['aria-label'] ?? label} above).
-      // Only with the role: aria-label on a role-less <div> is prohibited
-      // (axe aria-prohibited-attr on the Loading story, 2026-09-28).
-      aria-label={itemCount > 0 ? (props['aria-label'] ?? label) : undefined}
-      className={cn('max-h-[20.75rem] scroll-py-1 overflow-y-auto overflow-x-hidden', className)}
-      {...props}
-    />
+    // Overlay scrollbar; not a tab stop — the CommandInput owns the keyboard
+    // and scrolls the highlighted item into view itself. className goes on
+    // the scroll root, so a consumer's max-h-* / p-* keep working.
+    <ScrollArea focusable={false} className={cn('max-h-[20.75rem]', className)} viewportClassName="scroll-py-1">
+      <div
+        ref={listRef as React.RefObject<HTMLDivElement>}
+        id={listId}
+        // A listbox with zero option children fails aria-required-children —
+        // only claim the role once there's at least one CommandItem to own it.
+        // The empty state (CommandEmpty) still renders either way.
+        role={itemCount > 0 ? 'listbox' : undefined}
+        // role="listbox" is one of the input-type roles aria-input-field-name
+        // checks too — it needs its own accessible name, same source as the
+        // combobox input's. Only with the role: aria-label on a role-less
+        // <div> is prohibited (axe aria-prohibited-attr, 2026-09-28).
+        aria-label={itemCount > 0 ? (props['aria-label'] ?? label) : undefined}
+        className="overflow-x-hidden"
+        {...props}
+      />
+    </ScrollArea>
   );
 }
 

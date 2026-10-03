@@ -41,7 +41,7 @@ function DropdownMenuContent({
         <DropdownMenuPrimitive.Content
           sideOffset={sideOffset}
           className={cn(
-            'z-popover min-w-[12rem] max-w-[calc(100vw-2rem)] overflow-x-hidden overflow-y-auto',
+            'z-popover min-w-[12rem] max-w-[calc(100vw-2rem)] overflow-x-hidden overflow-y-auto scrollbar-thin',
             'rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
             'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)]',
             'p-[var(--size-margin-margin-2xs)] shadow-elevation-lg',

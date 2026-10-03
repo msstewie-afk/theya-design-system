@@ -620,6 +620,18 @@
   --tw-shadow: inset 0 0 0 4px var(--color-focus-focus-ring);
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
+/* Native-scroll fallback for containers that can't take the ScrollArea
+   overlay (a Radix menu Content is itself the scroller): thin bar,
+   transparent track, the same translucent thumb as ScrollArea's. Unlike the
+   overlay it still takes the thin bar's width on systems with classic
+   (always-visible) scrollbars. */
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--black-a400) transparent;
+  [data-theme='dark'] & {
+    scrollbar-color: var(--white-a400) transparent;
+  }
+}
 /* ---------------------------------------------------------------- */
 
 /*

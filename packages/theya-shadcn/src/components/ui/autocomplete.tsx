@@ -2,6 +2,7 @@ import { useState, useRef, useId, useMemo, useEffect } from 'react';
 import type { KeyboardEvent, ReactNode } from 'react';
 import { Xmark } from 'iconoir-react';
 import { cn } from '@/lib/utils';
+import { ScrollArea } from './scroll-area';
 import { Popover, PopoverAnchor, PopoverContent } from './popover';
 
 /**
@@ -273,7 +274,8 @@ export function Autocomplete({
         ) : filtered.length === 0 ? (
           <div className={cn("px-3 py-2 font-body text-[var(--color-text-text-subtler)]", heightSize === 'sm' ? 'text-body-s' : 'text-body-m')}>{emptyMessage}</div>
         ) : (
-          <ul ref={listRef} id={listId} role="listbox" className="max-h-60 overflow-y-auto">
+          <ScrollArea focusable={false} className="max-h-60">
+          <ul ref={listRef} id={listId} role="listbox">
             {filtered.map((option, index) => (
               <li
                 key={option.value}
@@ -305,6 +307,7 @@ export function Autocomplete({
               </li>
             ))}
           </ul>
+          </ScrollArea>
         )}
       </PopoverContent>
     </Popover>
