@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { PhoneField } from './phone-field';
 import { phoneFieldGuidelines } from './phone-field.guidelines';
 
@@ -63,6 +64,51 @@ export const ValueOutput: Story = {
         </dl>
       </div>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    const input = canvas.getByLabelText('Phone number');
+    const out = (term: string) => canvas.getByText(term, { selector: 'dt' }).nextElementSibling as HTMLElement;
+    const countryButton = () => canvas.getByRole('button', { name: /^Country code:/ });
+
+    // Typing in the default country formats as you go and reports E.164.
+    await userEvent.type(input, '888123456');
+    await expect(out('value')).toHaveTextContent('+359888123456');
+    await expect(out('valid')).toHaveTextContent('true');
+    await expect((input as HTMLInputElement).value.replace(/\D/g, '')).toContain('888123456');
+
+    // Backspace over a formatting character deletes a digit instead of the space.
+    const before = (input as HTMLInputElement).value.replace(/\D/g, '').length;
+    await userEvent.keyboard('{Backspace}');
+    await expect((input as HTMLInputElement).value.replace(/\D/g, '').length).toBe(before - 1);
+
+    // A number with +code switches the country.
+    await userEvent.clear(input);
+    await userEvent.type(input, '+44 20 7946 0958');
+    await expect(countryButton()).toHaveAccessibleName(/United Kingdom \+44/);
+    await expect(out('value')).toHaveTextContent('+442079460958');
+    await expect(out('country')).toHaveTextContent('GB');
+
+    // Too short: the length check runs on blur, then live while fixing.
+    await userEvent.clear(input);
+    await userEvent.type(input, '20');
+    await userEvent.tab();
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await expect(canvas.getByText(/too short for United Kingdom/)).toBeInTheDocument();
+    await userEvent.click(input);
+    await userEvent.type(input, '79460958');
+    await waitFor(() => expect(input).not.toHaveAttribute('aria-invalid'));
+
+    // Picking a country from the searchable list re-emits and returns focus to the number.
+    await userEvent.click(countryButton());
+    const search = await body.findByPlaceholderText('Search country or code');
+    await userEvent.type(search, 'germany');
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(countryButton()).toHaveAccessibleName(/Germany \+49/));
+    await expect(out('country')).toHaveTextContent('DE');
+    await expect(out('value')).toHaveTextContent(/^\+49/);
+    await waitFor(() => expect(input).toHaveFocus());
   },
 };
 
