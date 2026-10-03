@@ -18,19 +18,27 @@ export interface OptionCardProps
   title: string;
   description?: string;
   icon?: ReactNode;
+  /**
+   * Right-aligned detail before the radio dot — typically the option's
+   * price ("$4 / mo"), so each choice shows its cost without opening it.
+   * Announced after the description (it joins aria-describedby).
+   */
+  aside?: ReactNode;
 }
 
-function OptionCard({ className, value, title, description, icon, ...props }: OptionCardProps) {
+function OptionCard({ className, value, title, description, icon, aside, ...props }: OptionCardProps) {
   // Named by the title, described by the description. From content alone
   // the radio's name ran both together ("HTTP-01Serve a token file…").
   const baseId = useId();
   const titleId = `${baseId}-title`;
   const descriptionId = description ? `${baseId}-description` : undefined;
+  const asideId = aside ? `${baseId}-aside` : undefined;
+  const describedBy = [descriptionId, asideId].filter(Boolean).join(' ') || undefined;
   return (
     <RadioGroupPrimitive.Item
       value={value}
       aria-labelledby={titleId}
-      aria-describedby={descriptionId}
+      aria-describedby={describedBy}
       className={cn(
         'group relative flex w-full items-start gap-3 text-left cursor-pointer outline-none',
         'rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid',
@@ -68,6 +76,7 @@ function OptionCard({ className, value, title, description, icon, ...props }: Op
           </span>
         )}
       </span>
+      {aside && <span id={asideId} className="shrink-0 text-right font-body text-body-m font-medium tabular-nums text-[var(--color-text-text)]">{aside}</span>}
       <span
         aria-hidden="true"
         className={cn(

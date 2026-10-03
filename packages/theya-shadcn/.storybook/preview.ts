@@ -215,6 +215,7 @@ const preview: Preview = {
           'AI & Chat',
           'Layout',
           'Patterns',
+          'Patterns: Commerce',
         ];
         const [categoryA, componentA] = a.title.split('/');
         const [categoryB, componentB] = b.title.split('/');
