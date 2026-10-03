@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { NavArrowLeft, NavArrowRight, Xmark, ZoomIn, ZoomOut } from 'iconoir-react';
 import { cn } from '@/lib/utils';
@@ -88,6 +88,14 @@ export function Lightbox({ images, open, onOpenChange, index: indexProp, onIndex
     setOffset({ x: 0, y: 0 });
   }, [index, open]);
 
+  // The viewer is usually opened from a gallery button, not a Dialog.Trigger, and
+  // Radix only returns focus to its own trigger — so focus fell to <body> on close.
+  // Remember what had focus when it opened and return there.
+  const returnFocusTo = useRef<HTMLElement | null>(null);
+  useLayoutEffect(() => {
+    if (open) returnFocusTo.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  }, [open]);
+
   // Preload neighbours so previous/next shows instantly.
   useEffect(() => {
     if (!open || count < 2) return;
@@ -159,6 +167,14 @@ export function Lightbox({ images, open, onOpenChange, index: indexProp, onIndex
           data-slot="lightbox"
           onKeyDown={onKeyDown}
           aria-describedby={undefined}
+          onCloseAutoFocus={(e) => {
+            const el = returnFocusTo.current;
+            returnFocusTo.current = null;
+            if (el?.isConnected) {
+              e.preventDefault();
+              el.focus({ preventScroll: true });
+            }
+          }}
           className="fixed inset-0 z-modal flex flex-col text-[var(--color-white)] outline-none data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 motion-reduce:animate-none!"
         >
           <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>
