@@ -207,7 +207,9 @@ function ChannelSlider({
 }) {
   const drag = useDrag((x) => onChange(x * max), onCommit);
   const onKeyDown = (e: React.KeyboardEvent) => {
-    const step = (keyStep(e) * max) / 100;
+    // In the slider's own units (hue: degrees, opacity: percent) — 1, or 10 with Shift.
+    // Was 1% of the range, so hue moved 3.6° per key and the docs' "by 1" was wrong.
+    const step = keyStep(e);
     const next: Record<string, number> = {
       ArrowLeft: value - step,
       ArrowDown: value - step,
@@ -277,14 +279,19 @@ function DraftInput({
         setDraft(value);
         e.currentTarget.select();
       }}
-      onChange={(e) => setDraft(e.target.value)}
+      onChange={(e) => {
+        // Typing after an Enter commit (focus stays in the field) starts a new draft.
+        setEditing(true);
+        setDraft(e.target.value);
+      }}
       onBlur={commit}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
+          // Commit and show the resulting value (normalized, clamped or reverted) —
+          // previously the raw typed text stayed on screen after Enter.
           commit();
-          setDraft(e.currentTarget.value);
-          setEditing(true);
+          e.currentTarget.select();
         }
       }}
       // Fields are narrow: drop TextField's asymmetric side padding for an even px-2.
@@ -518,7 +525,9 @@ export function ColorPicker({
   className,
   ...props
 }: ColorPickerProps) {
-  const isEmpty = (value ?? defaultValue) === '';
+  // "No color" ('') needs its own state when uncontrolled: the HSV state always holds a color.
+  const [emptyState, setEmptyState] = useState(defaultValue === '');
+  const isEmpty = value !== undefined ? value === '' : emptyState;
   const [hsva, setHsva] = useColorState(value, defaultValue || '#3b6fd6', alpha, onValueChange);
   const [format, setFormat] = useState<ColorFormat>(defaultFormat ?? formats[0] ?? 'hex');
   const views = viewsProp ?? (swatches?.length ? ['palette', 'custom'] : ['custom']);
@@ -535,6 +544,7 @@ export function ColorPicker({
   hsvaRef.current = hsva;
   const commit = () => onValueCommit?.(toHex(hsvaRef.current, alpha));
   const set = (patch: Partial<Hsva>, andCommit = false) => {
+    setEmptyState(false);
     const next = { ...hsvaRef.current, ...patch };
     hsvaRef.current = next;
     setHsva(next);
@@ -543,6 +553,7 @@ export function ColorPicker({
   const setRgba = (next: Rgba) => set(rgbToHsv(next, hsvaRef.current.h), true);
   const setFromHex = (c: string) => {
     if (c === '') {
+      setEmptyState(true);
       onValueChange?.('');
       onValueCommit?.('');
       return;
