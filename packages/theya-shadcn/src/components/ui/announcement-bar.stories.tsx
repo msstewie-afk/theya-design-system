@@ -3,6 +3,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { InfoCircle, Sparks, Tools, WarningTriangle } from 'iconoir-react';
 import { AnnouncementBar } from './announcement-bar';
 import { Button } from './button';
+import { announcementBarGuidelines } from './announcement-bar.guidelines';
 
 /**
  * AnnouncementBar — a full-width strip above the header for something that
@@ -15,7 +16,7 @@ const meta = {
   title: 'Status & Feedback/AnnouncementBar',
   component: AnnouncementBar,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: { layout: 'fullscreen', guidelines: announcementBarGuidelines },
   argTypes: {
     tone: { control: 'inline-radio', options: ['primary', 'neutral', 'info', 'success', 'warning', 'danger'], table: { category: 'Appearance' } },
     appearance: { control: 'inline-radio', options: ['filled', 'tonal'], table: { category: 'Appearance' } },

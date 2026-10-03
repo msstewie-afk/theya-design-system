@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Star } from 'iconoir-react'; // verified export — see avatar.stories.tsx note
 import { BadgeIndicator } from './badge-indicator';
+import { badgeIndicatorGuidelines } from './badge-indicator.guidelines';
 
 /**
  * BadgeIndicator — a small counter/status indicator (16/20px), distinct from
@@ -11,7 +12,7 @@ const meta = {
   title: 'Status & Feedback/BadgeIndicator',
   component: BadgeIndicator,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { layout: 'centered', guidelines: badgeIndicatorGuidelines },
   argTypes: {
     value: { control: 'text', description: "Qty/text content, e.g. '5' or '99+'. Ignored when dot is set; if icon is also set, icon wins." },
     dot: { control: 'boolean', description: 'Renders a plain dot instead of value/icon — takes priority over both.' },

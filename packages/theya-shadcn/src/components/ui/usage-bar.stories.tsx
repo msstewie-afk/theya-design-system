@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { UsageBar } from './usage-bar';
+import { usageBarGuidelines } from './usage-bar.guidelines';
 
 const meta: Meta<typeof UsageBar> = {
   title: 'Status & Feedback/UsageBar',
   component: UsageBar,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: usageBarGuidelines },
   decorators: [
     (Story) => (
       <div className="w-[420px] max-w-full">

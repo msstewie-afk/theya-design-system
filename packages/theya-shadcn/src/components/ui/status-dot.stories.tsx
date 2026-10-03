@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { StatusDot } from './status-dot';
 import { Badge } from './badge';
+import { statusDotGuidelines } from './status-dot.guidelines';
 
 /**
  * StatusDot — a 7px semantic color dot rendered beside a text label to
@@ -15,7 +16,7 @@ const meta = {
   title: 'Status & Feedback/StatusDot',
   component: StatusDot,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { layout: 'centered', guidelines: statusDotGuidelines },
   argTypes: {
     tone: {
       control: 'select',

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { toast } from './sonner';
 import { Button } from './button';
+import { toasterGuidelines } from './sonner.guidelines';
 
 /**
  * Toaster (sonner) — mounted once globally in `.storybook/preview.ts`
@@ -30,6 +31,7 @@ const meta: Meta = {
   title: 'Status & Feedback/Toaster',
   tags: ['autodocs'],
   parameters: {
+    guidelines: toasterGuidelines,
     docs: { description: { component: 'Mount <Toaster /> once near the app root (already done globally for this Storybook), then trigger toasts with `toast` from this module.' } },
   },
   argTypes: {

@@ -4,6 +4,7 @@ import { Undo } from 'iconoir-react';
 import { toast } from './sonner';
 import { undoToast } from './undo-toast';
 import { Button } from './button';
+import { undoToastGuidelines } from './undo-toast.guidelines';
 
 /**
  * undoToast — the optimistic-destructive pattern over sonner. Apply the
@@ -21,7 +22,7 @@ import { Button } from './button';
 const meta = {
   title: 'Status & Feedback/UndoToast',
   component: Button,
-  parameters: { layout: 'centered' },
+  parameters: { layout: 'centered', guidelines: undoToastGuidelines },
 } satisfies Meta<typeof Button>;
 
 export default meta;

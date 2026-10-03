@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Table, TableHeader, TableBody, TableRow, TableHead } from './table';
 import { TableSkeletonRows } from './table-skeleton';
+import { tableSkeletonGuidelines } from './table-skeleton.guidelines';
 
 const meta: Meta<typeof TableSkeletonRows> = {
   title: 'Status & Feedback/TableSkeleton',
   component: TableSkeletonRows,
+  parameters: { guidelines: tableSkeletonGuidelines },
   tags: ['autodocs'],
   argTypes: {
     rows: { control: { type: 'number', min: 1 }, description: 'Number of skeleton rows. Default 6.' },

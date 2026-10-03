@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Meter } from './meter';
+import { meterGuidelines } from './meter.guidelines';
 
 /**
  * Meter — a labelled bar for a measured value inside a known range (disk
@@ -13,7 +14,7 @@ const meta = {
   title: 'Status & Feedback/Meter',
   component: Meter,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { layout: 'centered', guidelines: meterGuidelines },
   decorators: [
     (Story) => (
       <div className="w-[340px] max-w-full">

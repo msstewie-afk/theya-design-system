@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { FeedbackWidget, type FeedbackDetails, type FeedbackVote } from './feedback-widget';
 import { Prose } from './prose';
+import { feedbackWidgetGuidelines } from './feedback-widget.guidelines';
 
 /**
  * FeedbackWidget — "Was this helpful?" with Yes/No. A "No" opens an
@@ -13,7 +14,7 @@ const meta = {
   title: 'Status & Feedback/FeedbackWidget',
   component: FeedbackWidget,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: feedbackWidgetGuidelines },
   argTypes: {
     question: { control: 'text', table: { category: 'Content' } },
     askOnPositive: { control: 'boolean', description: 'Also ask a follow-up after Yes.', table: { category: 'Behavior' } },

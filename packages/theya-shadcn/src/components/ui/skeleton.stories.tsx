@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Skeleton } from './skeleton';
+import { skeletonGuidelines } from './skeleton.guidelines';
 
 /**
  * Skeleton — a placeholder block you size to the content it stands in for
@@ -16,7 +17,7 @@ const meta = {
   title: 'Status & Feedback/Skeleton',
   component: Skeleton,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { layout: 'centered', guidelines: skeletonGuidelines },
   argTypes: {
     className: {
       control: 'text',

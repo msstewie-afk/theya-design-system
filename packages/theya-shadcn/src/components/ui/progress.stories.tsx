@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Progress } from './progress';
 import { Button } from './button';
+import { progressGuidelines } from './progress.guidelines';
 
 /**
  * Progress — determinate bar, 0–100, for an operation advancing toward done
@@ -14,7 +15,7 @@ const meta = {
   title: 'Status & Feedback/Progress',
   component: Progress,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { layout: 'centered', guidelines: progressGuidelines },
   decorators: [
     (Story) => (
       <div className="w-[320px] max-w-full">

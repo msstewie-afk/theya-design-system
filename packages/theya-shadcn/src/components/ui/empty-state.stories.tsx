@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Globe, Search, Box, Plus } from 'iconoir-react';
 import { EmptyState, EmptyStateIcon, EmptyStateTitle, EmptyStateDescription, EmptyStateActions } from './empty-state';
 import { Button } from './button';
+import { emptyStateGuidelines } from './empty-state.guidelines';
 
 /**
  * EmptyState — the centered no-data / zero-state placeholder. Use it when
@@ -21,7 +22,7 @@ const meta = {
   title: 'Status & Feedback/EmptyState',
   component: EmptyState,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: emptyStateGuidelines },
   argTypes: {
     title: { control: 'text', description: 'Heading text — carries the accessible meaning.' },
     description: { control: 'text', description: 'Optional supporting copy below the title.' },
