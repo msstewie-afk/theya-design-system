@@ -133,21 +133,27 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
               <th key={p.id} scope="col" className="sticky top-0 z-[1] bg-[var(--color-bg-surface-bg-surface-base)] px-0 pb-4 text-left align-top font-normal">
                 <div
                   className={cn(
-                    'flex h-full flex-col gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid p-4',
+                    'flex h-full flex-col gap-6 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid p-4',
                     p.recommended ? 'border-[var(--color-border-border-primary)] bg-[var(--color-bg-primary-bg-primary-subtle)]' : 'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]',
                   )}
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="font-body text-body-l font-semibold text-[var(--color-text-text)]">{p.name}</span>
-                    {p.recommended && (
-                      <Badge tone="primary" appearance="filled">
-                        Recommended
-                      </Badge>
-                    )}
+                  {/* Header (name + description) and the buying part (price +
+                      button) as two groups, with more air between them. */}
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-body text-body-l font-semibold text-[var(--color-text-text)]">{p.name}</span>
+                      {p.recommended && (
+                        <Badge tone="primary" appearance="filled">
+                          Recommended
+                        </Badge>
+                      )}
+                    </div>
+                    {p.description && <p className={cn('font-body text-body-s', p.recommended ? 'text-[var(--color-text-text-subtler-on-tonal)]' : 'text-[var(--color-text-text-subtler)]')}>{p.description}</p>}
                   </div>
-                  {p.description && <p className={cn('font-body text-body-s', p.recommended ? 'text-[var(--color-text-text-subtler-on-tonal)]' : 'text-[var(--color-text-text-subtler)]')}>{p.description}</p>}
-                  <PlanPrice plan={p} period={period} currency={currency} tonal={p.recommended} />
-                  {action(p)}
+                  <div className="mt-auto flex flex-col gap-3">
+                    <PlanPrice plan={p} period={period} currency={currency} tonal={p.recommended} />
+                    {action(p)}
+                  </div>
                 </div>
               </th>
             ))}
