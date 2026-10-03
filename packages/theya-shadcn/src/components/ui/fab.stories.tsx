@@ -120,7 +120,8 @@ export const CollapseOnScroll: Story = {
     const scroller = useRef<HTMLDivElement>(null);
     return (
       <Frame>
-        <div ref={scroller} className="h-full overflow-y-auto p-4">
+        {/* Keyboard users must be able to scroll the demo too (axe scrollable-region-focusable): focusable, named region, same pattern as Terminal. */}
+        <div ref={scroller} tabIndex={0} role="region" aria-label="Sites" className="h-full overflow-y-auto p-4 outline-none focus-visible:focus-ring">
           <ul className="flex flex-col gap-2">
             {Array.from({ length: 30 }, (_, i) => (
               <li key={i} className="rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] px-3 py-2.5 font-body text-body-m text-[var(--color-text-text)]">
