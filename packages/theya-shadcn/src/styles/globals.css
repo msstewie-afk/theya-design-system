@@ -43,6 +43,10 @@
    same way if a bolder code style shows up later. */
 @import '@fontsource/fira-code/400.css';
 
+/* Long-form content typography (<Prose>): help, docs, legal, rendered
+   Markdown. Plain CSS in @layer components, see the file header for why. */
+@import './prose.css';
+
 /* Light-theme --color-text-text-link is blue-600 (#0057b9), not Figma's
    blue-500 (#0068de, 4.41:1 on bg-primary-subtle, under AA). That used to
    be an unlayered CSS override here; since 2026-10-01 it is a code token

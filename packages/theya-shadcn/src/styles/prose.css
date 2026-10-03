@@ -1,0 +1,284 @@
+/**
+ * Prose — typography for long-form content Theya doesn't build itself:
+ * help articles, docs, changelogs, legal pages, rendered Markdown/CMS HTML.
+ * Applied by the <Prose> component (`.prose` + `data-size`).
+ *
+ * Why plain CSS instead of Tailwind descendant variants: every rule here has
+ * to (a) stay at class-level specificity so a utility class on an inner
+ * element still wins, and (b) skip anything inside `.not-prose` (a Button,
+ * Alert or Card dropped into an article). That needs
+ * `:where(el):not(:where(.not-prose, .not-prose *))` on every selector —
+ * unreadable as arbitrary variants, and Tailwind can't see class strings
+ * built at runtime. Lives in @layer components, so utilities always win.
+ *
+ * Sizes map the body + heading scale one step at a time:
+ *   sm — body-s base, for side panels and in-product help
+ *   md — body-m base (default), docs and articles
+ *   lg — body-l base, marketing/editorial reading
+ * Line-height is deliberately looser than the body tokens (1.6 vs ~1.33):
+ * the tokens are tuned for UI labels and short copy, and paragraph after
+ * paragraph at 20px/15px reads cramped. Headings keep their token
+ * line-heights.
+ */
+
+@layer components {
+  .prose {
+    --prose-fs: var(--typography-body-m-size);
+    --prose-weight: var(--typography-body-m-weight);
+    --prose-strong: var(--typography-body-m-weight-strong);
+    --prose-flow: calc(var(--prose-fs) * 1.25);
+    --prose-h1: var(--typography-heading-heading-l-size);
+    --prose-h1-lh: var(--typography-heading-heading-l-line-height);
+    --prose-h1-weight: var(--typography-heading-heading-l-weight);
+    --prose-h2: var(--typography-heading-heading-m-size);
+    --prose-h2-lh: var(--typography-heading-heading-m-line-height);
+    --prose-h2-weight: var(--typography-heading-heading-m-weight);
+    --prose-h3: var(--typography-heading-heading-s-size);
+    --prose-h3-lh: var(--typography-heading-heading-s-line-height);
+    --prose-h3-weight: var(--typography-heading-heading-s-weight);
+    --prose-h4: var(--typography-heading-heading-xs-size);
+    --prose-h4-lh: var(--typography-heading-heading-xs-line-height);
+    --prose-h4-weight: var(--typography-heading-heading-xs-weight);
+
+    max-width: 70ch;
+    font-family: var(--font-body);
+    font-size: var(--prose-fs);
+    font-weight: var(--prose-weight);
+    line-height: 1.6;
+    color: var(--color-text-text);
+    overflow-wrap: break-word;
+  }
+
+  .prose[data-size='sm'] {
+    --prose-fs: var(--typography-body-s-size);
+    --prose-weight: var(--typography-body-s-weight);
+    --prose-strong: var(--typography-body-s-weight-strong);
+    --prose-h1: var(--typography-heading-heading-m-size);
+    --prose-h1-lh: var(--typography-heading-heading-m-line-height);
+    --prose-h1-weight: var(--typography-heading-heading-m-weight);
+    --prose-h2: var(--typography-heading-heading-s-size);
+    --prose-h2-lh: var(--typography-heading-heading-s-line-height);
+    --prose-h2-weight: var(--typography-heading-heading-s-weight);
+    --prose-h3: var(--typography-heading-heading-xs-size);
+    --prose-h3-lh: var(--typography-heading-heading-xs-line-height);
+    --prose-h3-weight: var(--typography-heading-heading-xs-weight);
+    --prose-h4: var(--typography-body-m-size);
+    --prose-h4-lh: var(--typography-body-m-line-height);
+    --prose-h4-weight: var(--typography-body-m-weight-strong);
+  }
+
+  .prose[data-size='lg'] {
+    --prose-fs: var(--typography-body-l-size);
+    --prose-weight: var(--typography-body-l-weight);
+    --prose-strong: var(--typography-body-l-weight-strong);
+    --prose-h1: var(--typography-heading-heading-xl-size);
+    --prose-h1-lh: var(--typography-heading-heading-xl-line-height);
+    --prose-h1-weight: var(--typography-heading-heading-xl-weight);
+    --prose-h2: var(--typography-heading-heading-l-size);
+    --prose-h2-lh: var(--typography-heading-heading-l-line-height);
+    --prose-h2-weight: var(--typography-heading-heading-l-weight);
+    --prose-h3: var(--typography-heading-heading-m-size);
+    --prose-h3-lh: var(--typography-heading-heading-m-line-height);
+    --prose-h3-weight: var(--typography-heading-heading-m-weight);
+    --prose-h4: var(--typography-heading-heading-s-size);
+    --prose-h4-lh: var(--typography-heading-heading-s-line-height);
+    --prose-h4-weight: var(--typography-heading-heading-s-weight);
+  }
+
+  /* ---------- Vertical rhythm ----------
+     Every block starts at 0 and only the gap BETWEEN siblings is set, so the
+     first/last child never adds space inside a Card or panel. */
+  .prose :where(p, ul, ol, dl, blockquote, pre, table, figure, hr, img, video, h1, h2, h3, h4, h5, h6):not(:where(.not-prose, .not-prose *)) {
+    margin: 0;
+  }
+  .prose :where(*):not(:where(.not-prose *)) + :where(p, ul, ol, dl, blockquote, pre, table, figure, img, video, .not-prose):not(:where(.not-prose *)) {
+    margin-top: var(--prose-flow);
+  }
+  .prose :where(*):not(:where(.not-prose *)) + :where(h1, h2, h3, h4, h5, h6):not(:where(.not-prose *)) {
+    margin-top: calc(var(--prose-flow) * 1.75);
+  }
+  .prose :where(h1, h2, h3, h4, h5, h6):not(:where(.not-prose *)) + :where(*):not(:where(.not-prose *)) {
+    margin-top: calc(var(--prose-flow) * 0.5);
+  }
+
+  /* ---------- Headings ---------- */
+  .prose :where(h1, h2, h3, h4, h5, h6):not(:where(.not-prose, .not-prose *)) {
+    font-family: var(--font-heading);
+    color: var(--color-text-text);
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+  .prose :where(h1):not(:where(.not-prose, .not-prose *)) {
+    font-size: var(--prose-h1);
+    line-height: var(--prose-h1-lh);
+    font-weight: var(--prose-h1-weight);
+  }
+  .prose :where(h2):not(:where(.not-prose, .not-prose *)) {
+    font-size: var(--prose-h2);
+    line-height: var(--prose-h2-lh);
+    font-weight: var(--prose-h2-weight);
+  }
+  .prose :where(h3):not(:where(.not-prose, .not-prose *)) {
+    font-size: var(--prose-h3);
+    line-height: var(--prose-h3-lh);
+    font-weight: var(--prose-h3-weight);
+  }
+  .prose :where(h4, h5, h6):not(:where(.not-prose, .not-prose *)) {
+    font-size: var(--prose-h4);
+    line-height: var(--prose-h4-lh);
+    font-weight: var(--prose-h4-weight);
+  }
+
+  /* ---------- Inline ---------- */
+  .prose :where(strong, b):not(:where(.not-prose, .not-prose *)) {
+    font-weight: var(--prose-strong);
+  }
+  /* Links are always underlined inside prose: in running text the color
+     alone isn't enough to tell a link from a word (WCAG 1.4.1). */
+  .prose :where(a):not(:where(.not-prose, .not-prose *)) {
+    color: var(--color-text-text-link);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    border-radius: var(--size-border-radius-border-radius-sm);
+  }
+  .prose :where(a):not(:where(.not-prose, .not-prose *)):hover {
+    color: var(--color-text-text-link-hover);
+    text-decoration-thickness: 2px;
+  }
+  .prose :where(a):not(:where(.not-prose, .not-prose *)):focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--color-focus-focus-ring);
+  }
+  .prose :where(code):not(:where(pre code, .not-prose, .not-prose *)) {
+    font-family: var(--font-code);
+    font-size: 0.875em;
+    padding: 0.125em 0.375em;
+    border-radius: var(--size-border-radius-border-radius-md);
+    background: var(--color-bg-neutral-bg-neutral-subtle);
+    color: var(--color-text-text-code);
+    overflow-wrap: anywhere;
+  }
+  .prose :where(kbd):not(:where(.not-prose, .not-prose *)) {
+    font-family: var(--font-mono);
+    font-size: 0.8125em;
+    padding: 0.0625em 0.375em;
+    border: 1px solid var(--color-border-border-subtle);
+    border-radius: var(--size-border-radius-border-radius-sm);
+    background: var(--color-bg-neutral-bg-neutral-subtle);
+    color: var(--color-text-text-subtler);
+  }
+  .prose :where(mark):not(:where(.not-prose, .not-prose *)) {
+    padding: 0 0.125em;
+    border-radius: var(--size-border-radius-border-radius-sm);
+    background: var(--color-bg-warning-bg-warning-subtle);
+    color: inherit;
+  }
+  .prose :where(small):not(:where(.not-prose, .not-prose *)) {
+    font-size: 0.875em;
+    color: var(--color-text-text-subtle);
+  }
+
+  /* ---------- Lists ---------- */
+  .prose :where(ul, ol):not(:where(.not-prose, .not-prose *)) {
+    padding-inline-start: 1.5em;
+  }
+  .prose :where(ul):not(:where(.not-prose, .not-prose *)) {
+    list-style-type: disc;
+  }
+  .prose :where(ol):not(:where(.not-prose, .not-prose *)) {
+    list-style-type: decimal;
+  }
+  .prose :where(ul ul, ol ul):not(:where(.not-prose, .not-prose *)) {
+    list-style-type: circle;
+  }
+  .prose :where(ol ol):not(:where(.not-prose, .not-prose *)) {
+    list-style-type: lower-alpha;
+  }
+  .prose :where(li):not(:where(.not-prose, .not-prose *))::marker {
+    color: var(--color-text-text-subtle);
+  }
+  .prose :where(li + li, li > ul, li > ol, li > p + p):not(:where(.not-prose, .not-prose *)) {
+    margin-top: calc(var(--prose-flow) * 0.4);
+  }
+  .prose :where(li > p):not(:where(.not-prose, .not-prose *)) {
+    margin: 0;
+  }
+  .prose :where(dt):not(:where(.not-prose, .not-prose *)) {
+    font-weight: var(--prose-strong);
+  }
+  .prose :where(dd):not(:where(.not-prose, .not-prose *)) {
+    margin: calc(var(--prose-flow) * 0.25) 0 0;
+    padding-inline-start: 1.5em;
+  }
+  .prose :where(dd + dt):not(:where(.not-prose, .not-prose *)) {
+    margin-top: calc(var(--prose-flow) * 0.75);
+  }
+
+  /* ---------- Blocks ---------- */
+  .prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
+    padding-inline-start: 1em;
+    border-inline-start: 3px solid var(--color-border-border-subtle);
+    color: var(--color-text-text-subtle);
+  }
+  .prose :where(pre):not(:where(.not-prose, .not-prose *)) {
+    padding: 1em;
+    overflow-x: auto;
+    border: 1px solid var(--color-border-border-subtler);
+    border-radius: var(--size-border-radius-border-radius-lg);
+    background: var(--color-bg-neutral-bg-neutral-subtler);
+    font-family: var(--font-code);
+    font-size: 0.875em;
+    line-height: 1.6;
+    color: var(--color-text-text);
+  }
+  .prose :where(pre code):not(:where(.not-prose, .not-prose *)) {
+    font: inherit;
+    color: inherit;
+  }
+  .prose :where(hr):not(:where(.not-prose, .not-prose *)) {
+    border: 0;
+    border-top: 1px solid var(--color-border-border-subtler);
+    margin-block: calc(var(--prose-flow) * 2);
+  }
+  .prose :where(img, video):not(:where(.not-prose, .not-prose *)) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--size-border-radius-border-radius-lg);
+  }
+  .prose :where(figcaption):not(:where(.not-prose, .not-prose *)) {
+    margin-top: 0.5em;
+    font-size: var(--typography-body-s-size);
+    line-height: var(--typography-body-s-line-height);
+    color: var(--color-text-text-subtle);
+  }
+
+  /* ---------- Tables ----------
+     Wide tables: wrap in <div className="not-prose overflow-x-auto"> or use
+     the Table component — a bare <table> can't scroll on its own. */
+  .prose :where(table):not(:where(.not-prose, .not-prose *)) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375em;
+    line-height: 1.5;
+  }
+  .prose :where(th):not(:where(.not-prose, .not-prose *)) {
+    padding: 0.5em 0.75em;
+    border-bottom: 1px solid var(--color-border-border-subtle);
+    text-align: start;
+    vertical-align: bottom;
+    font-weight: var(--prose-strong);
+  }
+  .prose :where(td):not(:where(.not-prose, .not-prose *)) {
+    padding: 0.5em 0.75em;
+    border-bottom: 1px solid var(--color-border-border-subtler);
+    vertical-align: top;
+  }
+  .prose :where(th:first-child, td:first-child):not(:where(.not-prose, .not-prose *)) {
+    padding-inline-start: 0;
+  }
+  .prose :where(th:last-child, td:last-child):not(:where(.not-prose, .not-prose *)) {
+    padding-inline-end: 0;
+  }
+}
