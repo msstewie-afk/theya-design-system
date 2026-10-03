@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { FeedbackWidget, type FeedbackDetails, type FeedbackVote } from './feedback-widget';
 import { Prose } from './prose';
 
@@ -43,6 +44,37 @@ export const Default: Story = {
       </div>
     );
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const log = () => canvasElement.querySelector('pre')!.textContent ?? '';
+    const yes = canvas.getByRole('button', { name: 'Yes' });
+    const no = canvas.getByRole('button', { name: 'No' });
+
+    // The vote is reported at once; No opens the follow-up with focus on its first control.
+    await userEvent.click(no);
+    await expect(no).toHaveAttribute('aria-pressed', 'true');
+    await expect(yes).toHaveAttribute('aria-pressed', 'false');
+    await expect(log()).toBe('onVote: no');
+    const group = canvas.getByRole('group', { name: /What went wrong/ });
+    const firstChip = within(group).getByRole('button', { name: 'Inaccurate' });
+    await waitFor(() => expect(firstChip).toHaveFocus());
+
+    // Reasons toggle; the comment is trimmed; Send reports everything once.
+    await userEvent.click(firstChip);
+    await expect(firstChip).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.type(canvas.getByLabelText(/Anything else\?/), '  Missing a CLI example  ');
+    await userEvent.click(canvas.getByRole('button', { name: 'Send feedback' }));
+    await expect(log()).toContain(`onSubmit: {"vote":"no","reasons":["Inaccurate"],"comment":"Missing a CLI example"}`);
+    await expect(canvas.getByText('Thanks for your feedback.')).toBeVisible();
+    // The form is gone; focus lands on the chosen answer instead of <body>.
+    await expect(canvas.queryByRole('button', { name: 'Send feedback' })).not.toBeInTheDocument();
+    await waitFor(() => expect(no).toHaveFocus());
+
+    // Changing the answer to Yes reports it; without askOnPositive there's no follow-up.
+    await userEvent.click(yes);
+    await expect(log()).toMatch(/onVote: yes$/);
+    await expect(canvas.queryByRole('group', { name: /What worked/ })).not.toBeInTheDocument();
+  },
 };
 
 /** At the end of a help article, under a divider. */
@@ -63,4 +95,15 @@ export const EndOfArticle: Story = {
 /** Compact, under an assistant answer; asks what worked after a Yes too. */
 export const UnderAnAnswer: Story = {
   args: { size: 'sm', question: 'Did this answer help?', askOnPositive: true },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const yes = canvas.getByRole('button', { name: 'Yes' });
+    await userEvent.click(yes);
+    // askOnPositive: Yes asks what worked, too.
+    await expect(canvas.getByRole('group', { name: /What worked/ })).toBeInTheDocument();
+    // Skip closes the follow-up without a submit and keeps focus on the answer.
+    await userEvent.click(canvas.getByRole('button', { name: 'Skip' }));
+    await expect(canvas.getByText('Thanks for your feedback.')).toBeVisible();
+    await waitFor(() => expect(yes).toHaveFocus());
+  },
 };
