@@ -39,11 +39,22 @@ const config: TestRunnerConfig = {
       rules: storyContext.parameters?.a11y?.config?.rules ?? [],
     });
 
-    await checkA11y(page, '#storybook-root', {
-      axeOptions: storyContext.parameters?.a11y?.options,
-      detailedReport: true,
-      detailedReportOptions: { html: true },
-    });
+    // The a11y addon in the preview runs its own axe after a play function
+    // finishes; when ours starts in the same moment axe throws "Axe is already
+    // running". Retry briefly instead of failing a story that passed.
+    for (let attempt = 0; ; attempt++) {
+      try {
+        await checkA11y(page, '#storybook-root', {
+          axeOptions: storyContext.parameters?.a11y?.options,
+          detailedReport: true,
+          detailedReportOptions: { html: true },
+        });
+        break;
+      } catch (error) {
+        if (attempt >= 10 || !String(error).includes('Axe is already running')) throw error;
+        await page.waitForTimeout(200);
+      }
+    }
   },
 };
 
