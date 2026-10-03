@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { RichTextEditor, RICH_TEXT_TOOLS_BASIC } from './rich-text-editor';
 import { CodeBlock } from './code-block';
+import { richTextEditorGuidelines } from './rich-text-editor.guidelines';
 
 /**
  * RichTextEditor — formatted text input on Tiptap. Value is HTML; content uses
@@ -34,7 +35,7 @@ const meta = {
   title: 'Text Input/RichTextEditor',
   component: RichTextEditor,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { layout: 'padded', guidelines: richTextEditorGuidelines },
   argTypes: {
     value: { control: false, description: 'HTML (controlled).' },
     defaultValue: { control: false, description: 'Initial HTML.' },
