@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { NumberField } from '@/components/ui/number-field';
 import { TextField } from '@/components/ui/text-field';
 import { undoToast } from '@/components/ui/undo-toast';
-import { OrderSummary, computeTotals, formatMoney, type OrderLine, type OrderTotals } from './shared';
+import { OrderSummary, computeTotals, formatMoney, withDots, type OrderLine, type OrderTotals } from './shared';
 
 export interface CartLine extends OrderLine {
   /** Lines bought one at a time (a plan, a domain term) hide the quantity field. */
@@ -131,7 +131,8 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
                         max={line.maxQuantity}
                         onValueChange={(q) => setQuantity(line, i, q)}
                         widthSize="full"
-                        className="w-32"
+                        heightSize="sm"
+                        className="w-28"
                         decrementLabel={`Fewer ${line.name}`}
                         incrementLabel={`More ${line.name}`}
                       />
@@ -236,9 +237,9 @@ function CartRow({ line, currency, first, children }: { line: CartLine; currency
     <li className={cn('flex flex-col gap-3 py-4 sm:flex-row sm:items-start sm:justify-between', !first && 'border-t border-solid border-[var(--color-border-border-subtler)]')}>
       <div className="min-w-0">
         <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">{line.name}</p>
-        {line.detail && <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{line.detail}</p>}
+        {line.detail && <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{withDots(line.detail)}</p>}
         <p className="mt-1 font-body text-body-s tabular-nums text-[var(--color-text-text-subtle)]">
-          {line.quantity > 1 ? `${formatMoney(line.unitPrice, currency)} each · ${formatMoney(line.unitPrice * line.quantity, currency)}` : formatMoney(line.unitPrice, currency)}
+          {line.quantity > 1 ? withDots(`${formatMoney(line.unitPrice, currency)} each · ${formatMoney(line.unitPrice * line.quantity, currency)}`) : formatMoney(line.unitPrice, currency)}
         </p>
       </div>
       <div className="flex flex-wrap items-center gap-2 sm:justify-end">{children}</div>

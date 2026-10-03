@@ -189,6 +189,7 @@ export function Checkout({ email = 'dana@seashell.dev', taxRate = 0.2, taxLabel 
                   />
                   <PricedOptions
                     legend="Backups"
+                    appearance="list"
                     value={backups}
                     onValueChange={setBackups}
                     options={Object.entries(BACKUPS).map(([value, b]) => ({ value, title: value[0].toUpperCase() + value.slice(1), description: b.label.split(', ')[1], price: b.monthly, priceUnit: '/ mo' }))}

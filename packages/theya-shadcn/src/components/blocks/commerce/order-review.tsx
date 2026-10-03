@@ -4,7 +4,8 @@ import { Lock } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { DescriptionDetails, DescriptionItem, DescriptionList, DescriptionTerm } from '@/components/ui/description-list';
-import { OrderSummary, formatMoney, type OrderLine, type OrderTotals } from './shared';
+import { Separator } from '@/components/ui/separator';
+import { OrderSummary, formatMoney, withDots, type OrderLine, type OrderTotals } from './shared';
 
 export interface ReviewSection {
   id: string;
@@ -45,8 +46,11 @@ export function OrderReview({ sections, lines, totals, currency = 'USD', taxLabe
           </h2>
           <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Check the details below. You're charged only when you press Pay.</p>
         </div>
-        {sections.map((section) => (
-          <section key={section.id} aria-label={section.title} className="flex flex-col gap-1 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] px-5 py-3">
+        {/* Groups are separated by dividers, not boxed: the summary is the
+            only panel on this screen. */}
+        {sections.map((section, i) => (
+          <section key={section.id} aria-label={section.title} className="flex flex-col gap-1">
+            {i > 0 && <Separator className="mb-4" />}
             <div className="flex items-center justify-between gap-3 py-1">
               <h3 className="font-body text-body-l font-semibold text-[var(--color-text-text)]">{section.title}</h3>
               {section.onEdit && (
@@ -63,7 +67,7 @@ export function OrderReview({ sections, lines, totals, currency = 'USD', taxLabe
               {section.rows.map((r) => (
                 <DescriptionItem key={r.term}>
                   <DescriptionTerm>{r.term}</DescriptionTerm>
-                  <DescriptionDetails>{r.value}</DescriptionDetails>
+                  <DescriptionDetails>{withDots(r.value)}</DescriptionDetails>
                 </DescriptionItem>
               ))}
             </DescriptionList>

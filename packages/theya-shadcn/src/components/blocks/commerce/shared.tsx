@@ -2,6 +2,7 @@ import { useId } from 'react';
 import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
+import { DotSeparator } from '@/components/ui/dot-separator';
 
 /**
  * Pieces shared by the Commerce patterns (Cart, Checkout, OrderReview…):
@@ -10,6 +11,21 @@ import { Separator } from '@/components/ui/separator';
 
 export function formatMoney(amount: number, currency = 'USD', locale = 'en-US'): string {
   return new Intl.NumberFormat(locale, { style: 'currency', currency, minimumFractionDigits: amount % 1 === 0 ? 0 : 2, maximumFractionDigits: 2 }).format(amount);
+}
+
+/**
+ * Meta facts written as "Domain · 1 year" render with the system
+ * DotSeparator (8px either side) instead of a bare "·" squeezed between
+ * spaces. Non-strings pass through.
+ */
+export function withDots(value: ReactNode): ReactNode {
+  if (typeof value !== 'string' || !value.includes(' · ')) return value;
+  return value.split(' · ').map((part, i) => (
+    <span key={i}>
+      {i > 0 && <DotSeparator />}
+      {part}
+    </span>
+  ));
 }
 
 export interface OrderLine {
@@ -60,7 +76,9 @@ export function OrderSummary({ lines, totals, currency = 'USD', title = 'Order s
   return (
     <section
       aria-labelledby={headingId}
-      className={cn('flex flex-col gap-4 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5', className)}
+      // A filled panel, not another bordered card: it sits next to option
+      // cards and forms, which already carry the outlines.
+      className={cn('flex flex-col gap-4 rounded-[var(--size-border-radius-border-radius-2xl)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] p-5', className)}
       {...props}
     >
       <h2 id={headingId} className="font-body text-body-l font-semibold text-[var(--color-text-text)]">
@@ -75,7 +93,7 @@ export function OrderSummary({ lines, totals, currency = 'USD', title = 'Order s
                   {l.name}
                   {l.quantity > 1 && <span className="text-[var(--color-text-text-subtler)]"> × {l.quantity}</span>}
                 </p>
-                {l.detail && <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{l.detail}</p>}
+                {l.detail && <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{withDots(l.detail)}</p>}
               </div>
               <span className="shrink-0 font-body text-body-m tabular-nums text-[var(--color-text-text)]">{money(l.unitPrice * l.quantity)}</span>
             </li>

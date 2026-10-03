@@ -40,6 +40,8 @@ export interface NumberFieldProps {
   className?: string;
   /** Matches TextField's width scale. Defaults to 'full' (previous, unconditional behavior). */
   widthSize?: keyof typeof WIDTH_CLASSES;
+  /** Matches TextField's heightSize: md 40px (default), sm 32px with 12px text and the 4px radius — for dense rows (cart quantities, table cells). */
+  heightSize?: 'sm' | 'md';
   decrementLabel?: string;
   incrementLabel?: string;
   'aria-label'?: string;
@@ -67,6 +69,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
     id,
     className,
     widthSize = 'full',
+    heightSize = 'md',
     decrementLabel = 'Decrease',
     incrementLabel = 'Increase',
     'aria-label': ariaLabel,
@@ -117,7 +120,8 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
   // — tabbing to +/- while the field was invalid showed the primary ring
   // instead of the error one. Fixed 2026-09-26.
   const stepButtonClass = cn(
-    'flex w-9 shrink-0 items-center justify-center',
+    'flex shrink-0 items-center justify-center',
+    heightSize === 'sm' ? 'w-8 [&_svg]:size-3.5' : 'w-9',
     'outline-none cursor-pointer',
     'transition-colors duration-standard ease-enter motion-reduce:transition-none',
     // +/- glyph stayed neutral icon-subtle regardless of invalid before —
@@ -136,9 +140,10 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
   return (
     <div
       className={cn(
-        'inline-flex h-[var(--size-size-control-size-control-2xl)] items-stretch overflow-hidden',
+        'inline-flex items-stretch overflow-hidden',
+        heightSize === 'sm' ? 'h-[var(--size-size-control-size-control-lg)] rounded-[var(--size-border-radius-border-radius-md)]' : 'h-[var(--size-size-control-size-control-2xl)] rounded-[var(--size-border-radius-border-radius-lg)]',
         WIDTH_CLASSES[widthSize],
-        'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
+        'border border-solid',
         'border-[var(--color-border-border-default)] bg-[var(--color-bg-input-bg-input)]',
         'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
         'has-[input:hover]:not-has-[input:disabled]:not-has-[input[aria-invalid=true]]:border-[var(--color-border-border-primary)]',
@@ -214,7 +219,8 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
         }}
         className={cn(
           'h-full min-w-0 flex-1 bg-transparent px-2 text-center outline-none',
-          'text-body-m tabular-nums text-[var(--color-text-text)]',
+          heightSize === 'sm' ? 'text-body-s' : 'text-body-m',
+          'tabular-nums text-[var(--color-text-text)]',
           'placeholder:text-[var(--color-text-text-subtler)]',
           // Value AND placeholder both go danger when invalid — this input
           // never got either, so an invalid NumberField's number (or its

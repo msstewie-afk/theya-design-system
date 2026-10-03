@@ -67,8 +67,18 @@ function OptionCard({ className, value, title, description, icon, aside, ...prop
         </span>
       )}
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span id={titleId} className="font-body text-body-m font-medium leading-tight text-[var(--color-text-text)]">
-          {title}
+        {/* Title and aside share a wrapping row: in a narrow card a long
+            title ("Frankfurt") pushes the price onto the next line instead
+            of running into it. */}
+        <span className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
+          <span id={titleId} className="min-w-0 break-words font-body text-body-m font-medium leading-tight text-[var(--color-text-text)]">
+            {title}
+          </span>
+          {aside && (
+            <span id={asideId} className="font-body text-body-m font-medium tabular-nums text-[var(--color-text-text)]">
+              {aside}
+            </span>
+          )}
         </span>
         {description && (
           <span id={descriptionId} className="font-body text-body-s font-normal text-[var(--color-text-text-subtler)] group-data-[state=checked]:text-[var(--color-text-text-subtler-on-tonal)]">
@@ -76,7 +86,6 @@ function OptionCard({ className, value, title, description, icon, aside, ...prop
           </span>
         )}
       </span>
-      {aside && <span id={asideId} className="shrink-0 text-right font-body text-body-m font-medium tabular-nums text-[var(--color-text-text)]">{aside}</span>}
       <span
         aria-hidden="true"
         className={cn(

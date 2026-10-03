@@ -102,11 +102,19 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
       </div>
 
       {/* Desktop: one table, plan header sticky. */}
-      <table className="hidden w-full border-separate border-spacing-0 font-body md:table">
+      {/* table-fixed + colgroup: the feature column gets a fixed share and
+          every plan column the same fluid width, so the plan blocks line up. */}
+      <table className="hidden w-full table-fixed border-separate border-spacing-0 font-body md:table">
         <caption className="sr-only">{`Plan comparison, prices per month billed ${period}`}</caption>
+        <colgroup>
+          <col className="w-[22%]" />
+          {plans.map((p) => (
+            <col key={p.id} />
+          ))}
+        </colgroup>
         <thead>
           <tr>
-            <th scope="col" className="sticky top-0 z-[1] w-1/4 bg-[var(--color-bg-surface-bg-surface-base)] p-0 text-left align-bottom">
+            <th scope="col" className="sticky top-0 z-[1] bg-[var(--color-bg-surface-bg-surface-base)] p-0 text-left align-bottom">
               <span className="sr-only">Feature</span>
             </th>
             {plans.map((p) => (

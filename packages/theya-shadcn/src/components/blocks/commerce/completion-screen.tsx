@@ -4,6 +4,7 @@ import { CheckCircle } from 'iconoir-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { DescriptionDetails, DescriptionItem, DescriptionList, DescriptionTerm } from '@/components/ui/description-list';
+import { withDots } from './shared';
 
 export interface CompletionAction {
   label: string;
@@ -80,7 +81,7 @@ export function CompletionScreen({ title = "You're all set", description, orderN
           {details.map((d) => (
             <DescriptionItem key={d.term}>
               <DescriptionTerm>{d.term}</DescriptionTerm>
-              <DescriptionDetails>{d.value}</DescriptionDetails>
+              <DescriptionDetails>{withDots(d.value)}</DescriptionDetails>
             </DescriptionItem>
           ))}
         </DescriptionList>
