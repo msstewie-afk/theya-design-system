@@ -70,8 +70,8 @@ export function CompareBar({ items, max = 4, onRemove, onClear, onCompare, class
         <Button appearance="ghost" tone="secondary" size="md" onClick={onClear}>
           Clear
         </Button>
-        {/* aria-disabled, not disabled: it stays focusable and the hint tells why. */}
-        <Button data-compare-button="" appearance="filled" tone="primary" size="md" aria-disabled={!ready || undefined} aria-describedby={hintId} onClick={() => ready && onCompare()}>
+        {/* softDisabled, not disabled: it stays focusable and the hint tells why. */}
+        <Button data-compare-button="" appearance="filled" tone="primary" size="md" softDisabled={!ready} aria-describedby={hintId} onClick={onCompare}>
           {`Compare (${items.length})`}
         </Button>
       </div>
