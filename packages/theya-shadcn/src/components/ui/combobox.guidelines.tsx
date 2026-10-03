@@ -15,7 +15,7 @@ export const comboboxGuidelines: ComponentGuidelines = {
   whenNotToUse: [
     { text: 'Up to 15 known options', instead: 'Select (6–15) or RadioGroup (up to 5)' },
     { text: 'Free text where suggestions only help', instead: 'Autocomplete' },
-    { text: 'Searching content, not choosing a value', instead: 'SearchBox' },
+    { text: 'Searching content, not choosing a value', instead: 'SearchBox (Patterns: Search)' },
   ],
   anatomy: [
     { part: 'Input', description: 'typing filters the list (label and keywords).' },

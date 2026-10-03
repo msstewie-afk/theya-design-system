@@ -20,6 +20,7 @@ import {
 } from './command';
 import type { CommandItemProps } from './command';
 import { Button } from './button';
+import { commandGuidelines } from './command.guidelines';
 
 // Docs-only args type: Command's own props plus the CommandItem props
 // we want documented in this single table — they live on a different
@@ -30,6 +31,7 @@ const meta: Meta<CommandStoryArgs> = {
   title: 'Search & Filter/Command',
   tags: ['autodocs'],
   parameters: {
+    guidelines: commandGuidelines,
     docs: {
       description: {
         component: 'Not built on Base UI Autocomplete or cmdk — a self-contained inline list with our own filtering and keyboard nav (↑/↓/↵/Esc).',

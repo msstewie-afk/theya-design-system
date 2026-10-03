@@ -2,12 +2,14 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { QueryBuilder, type QueryField, type QueryValue } from './query-builder';
+import { queryBuilderGuidelines } from './query-builder.guidelines';
 
 const meta: Meta<typeof QueryBuilder> = {
   title: 'Search & Filter/QueryBuilder',
   component: QueryBuilder,
   tags: ['autodocs'],
   parameters: {
+    guidelines: queryBuilderGuidelines,
     docs: {
       description: {
         component: 'The heavier sibling of Filter — compose arbitrary field-operator-value conditions. Uses Combobox(multiple) in place of a standalone MultiSelect.',

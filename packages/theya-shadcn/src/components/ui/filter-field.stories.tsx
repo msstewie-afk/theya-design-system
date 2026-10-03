@@ -4,11 +4,13 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { FilterField, FILTER_FIELD_SEARCH_KEY, parseFilterDate, parseFilterNumber, type FilterAttribute, type AppliedFilter } from './filter-field';
 import { StatusDot, type StatusTone } from './status-dot';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table';
+import { filterFieldGuidelines } from './filter-field.guidelines';
 
 const meta: Meta<typeof FilterField> = {
   title: 'Search & Filter/FilterField',
   tags: ['autodocs'],
   parameters: {
+    guidelines: filterFieldGuidelines,
     docs: {
       description: {
         component:

@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Filter } from './filter';
+import { filterGuidelines } from './filter.guidelines';
 
 const meta: Meta<typeof Filter> = {
   title: 'Search & Filter/Filter',
   component: Filter,
   tags: ['autodocs'],
+  parameters: { guidelines: filterGuidelines },
   argTypes: {
     label: { control: 'text', description: 'The facet name shown on the trigger, e.g. "Status".', table: { category: 'Content' } },
     options: { control: false, description: 'Selectable filter options.', table: { category: 'Content' } },
