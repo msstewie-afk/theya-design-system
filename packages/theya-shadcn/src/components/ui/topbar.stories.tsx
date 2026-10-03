@@ -8,11 +8,13 @@ import { Avatar, AvatarFallback } from './avatar';
 import { Button } from './button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
 import { Plus } from 'iconoir-react';
+import { topbarGuidelines } from './topbar.guidelines';
 
 const meta: Meta<typeof Topbar> = {
   title: 'Navigation/Topbar',
   component: Topbar,
   tags: ['autodocs'],
+  parameters: { guidelines: topbarGuidelines },
   argTypes: {
     orientation: { control: 'inline-radio', options: ['horizontal', 'vertical'], description: 'Defaults to horizontal.' },
   },

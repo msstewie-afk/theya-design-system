@@ -2,12 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { UrlTabs } from './url-tabs';
 import { TabsList, TabsTrigger, TabsContent } from './tabs';
+import { urlTabsGuidelines } from './url-tabs.guidelines';
 
 const meta: Meta<typeof UrlTabs> = {
   title: 'Navigation/UrlTabs',
   component: UrlTabs,
   tags: ['autodocs'],
   parameters: {
+    guidelines: urlTabsGuidelines,
     docs: {
       description: {
         component: 'Keeps a Tabs value in a URL query param (?tab=...) via the History API by default. Framework-agnostic.',

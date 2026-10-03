@@ -2,12 +2,14 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationEllipsis } from './pagination';
+import { paginationGuidelines } from './pagination.guidelines';
 
 const meta: Meta<typeof Pagination> = {
   title: 'Navigation/Pagination',
   component: Pagination,
   tags: ['autodocs'],
   parameters: {
+    guidelines: paginationGuidelines,
     docs: {
       description: {
         component:

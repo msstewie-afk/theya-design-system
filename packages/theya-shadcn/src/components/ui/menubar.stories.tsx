@@ -16,11 +16,13 @@ import {
   MenubarSubTrigger,
   MenubarSubContent,
 } from './menubar';
+import { menubarGuidelines } from './menubar.guidelines';
 
 const meta: Meta<typeof Menubar> = {
   title: 'Navigation/Menubar',
   component: Menubar,
   tags: ['autodocs'],
+  parameters: { guidelines: menubarGuidelines },
   argTypes: {
     bordered: {
       control: 'boolean',

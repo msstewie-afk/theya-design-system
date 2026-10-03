@@ -16,14 +16,16 @@ import {
 } from './sidebar';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from './dropdown-menu';
 import { Avatar, AvatarFallback } from './avatar';
+import { sidebarGuidelines } from './sidebar.guidelines';
 
 const meta: Meta<typeof Sidebar> = {
   title: 'Navigation/Sidebar',
   component: Sidebar,
   parameters: {
+    guidelines: sidebarGuidelines,
     docs: {
       description: {
-        component: 'A collapsible rail (300px → 64px). Below md it becomes a slide-over on Sheet.',
+        component: 'A collapsible rail (224px → 64px). Below md it becomes a slide-over Drawer.',
       },
     },
   },

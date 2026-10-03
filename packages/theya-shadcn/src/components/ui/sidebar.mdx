@@ -11,18 +11,22 @@ import {
   SidebarItem,
   SidebarFooter,
 } from './sidebar';
+import { GuidelinesIntro, GuidelinesDetails } from '@/docs/guidelines';
+import { sidebarGuidelines } from './sidebar.guidelines';
 
 <Meta of={SidebarStories} />
 
 # Sidebar
 
-A collapsible app rail (300px → 64px). A composition primitive, not a single component: wrap
+A collapsible app rail (224px → 64px). A composition primitive, not a single component: wrap
 your app in `SidebarProvider`, then render `Sidebar` alongside your main content and populate
-it from the parts below. On `md+` it's a sticky rail; below `md` it becomes a slide-over on
-`Sheet`. Collapsed state persists in a cookie.
+it from the parts below. On `md+` it's a sticky rail; below `md` it becomes a slide-over
+`Drawer`. Collapsed state persists in a cookie.
 
 This page documents every part's own props — the autodocs table on a single-component page
 only covers one component, and Sidebar is a family of nine.
+
+<GuidelinesIntro guidelines={sidebarGuidelines} />
 
 <Canvas of={SidebarStories.Default} />
 
@@ -35,7 +39,7 @@ Wraps the rail and your main content. Owns collapsed/mobile-open state and expos
 
 ## Sidebar
 
-The rail itself (renders both the desktop `<aside>` and the mobile `Sheet` slide-over).
+The rail itself (renders both the desktop `<aside>` and the mobile `Drawer` slide-over).
 
 <ArgTypes of={Sidebar} />
 
@@ -87,3 +91,5 @@ A single nav link — icon, label, an optional tone-able `badge`, and an optiona
 Pinned to the bottom of the rail — settings/support links, an account switcher, etc.
 
 <ArgTypes of={SidebarFooter} />
+
+<GuidelinesDetails guidelines={sidebarGuidelines} />

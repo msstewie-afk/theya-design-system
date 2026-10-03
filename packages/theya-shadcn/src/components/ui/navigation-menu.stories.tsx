@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink } from './navigation-menu';
+import { navigationMenuGuidelines } from './navigation-menu.guidelines';
 
 const meta: Meta<typeof NavigationMenu> = {
   title: 'Navigation/NavigationMenu',
   component: NavigationMenu,
   tags: ['autodocs'],
   parameters: {
+    guidelines: navigationMenuGuidelines,
     a11y: {
       config: {
         // aria-hidden-focus: confirmed false positive, not our code. Every

@@ -5,11 +5,13 @@ import { Globe, ShieldCheck, Settings } from 'iconoir-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 import { Badge } from './badge';
 import { StatusDot } from './status-dot';
+import { tabsGuidelines } from './tabs.guidelines';
 
 const meta: Meta<typeof Tabs> = {
   title: 'Navigation/Tabs',
   component: Tabs,
   tags: ['autodocs'],
+  parameters: { guidelines: tabsGuidelines },
   argTypes: {
     value: { control: false, description: 'Controlled active tab value.' },
     defaultValue: { control: false, description: 'Uncontrolled initial active tab value.' },

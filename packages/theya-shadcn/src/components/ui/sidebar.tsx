@@ -11,7 +11,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } from './dropdo
 import type { StatusTone } from './status-dot';
 
 /**
- * A collapsible rail (248px → 64px). Composition primitive: wrap your
+ * A collapsible rail (224px → 64px). Composition primitive: wrap your
  * app in SidebarProvider, render Sidebar + your main content.
  * Collapsed state persists in a cookie. On md+ it's a sticky rail;
  * below md it's a slide-over on our Drawer (vaul) — Esc,

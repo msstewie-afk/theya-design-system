@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 import { Stepper } from './stepper';
+import { stepperGuidelines } from './stepper.guidelines';
 
 const meta: Meta<typeof Stepper> = {
   title: 'Navigation/Stepper',
   component: Stepper,
   tags: ['autodocs'],
+  parameters: { guidelines: stepperGuidelines },
   argTypes: {
     steps: { control: false, description: 'Ordered list of { label, description } steps.' },
     current: { control: { type: 'number', min: 0 }, description: '0-based index of the in-progress step.' },

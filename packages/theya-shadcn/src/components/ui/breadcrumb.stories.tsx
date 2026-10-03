@@ -2,11 +2,13 @@ import { Home } from 'iconoir-react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, screen, userEvent, within } from '@storybook/test';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis } from './breadcrumb';
+import { breadcrumbGuidelines } from './breadcrumb.guidelines';
 
 const meta: Meta<typeof Breadcrumb> = {
   title: 'Navigation/Breadcrumb',
   tags: ['autodocs'],
   parameters: {
+    guidelines: breadcrumbGuidelines,
     docs: {
       description: {
         component:
