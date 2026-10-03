@@ -91,8 +91,10 @@ function SortableCard({ id, children }: { id: string; children: React.ReactNode 
       className={cn(
         'relative cursor-grab touch-manipulation rounded-[var(--size-border-radius-border-radius-lg)] outline-none focus-visible:focus-ring',
         // The card's own slot while it's being dragged: an outlined placeholder.
+        // opacity-0, not invisible: the focused slot must keep its accessible
+        // name during a keyboard drag (visibility:hidden dropped it).
         isDragging &&
-          'cursor-grabbing [&>*]:invisible before:absolute before:inset-0 before:rounded-[inherit] before:border-2 before:border-dashed before:border-[var(--color-border-border-primary)] before:bg-[var(--color-bg-primary-bg-primary-subtler,transparent)] before:content-[""]',
+          'cursor-grabbing [&>*]:opacity-0 before:absolute before:inset-0 before:rounded-[inherit] before:border-2 before:border-dashed before:border-[var(--color-border-border-primary)] before:bg-[var(--color-bg-primary-bg-primary-subtler,transparent)] before:content-[""]',
       )}
     >
       {children}
@@ -278,7 +280,9 @@ export function Kanban<T extends KanbanItem>({
 
   const announcements: Announcements = {
     onDragStart: ({ active }) => `Picked up ${getItemLabel(itemById(active.id)!)}. In ${position(active.id)}.`,
-    onDragOver: ({ active, over }) => (over ? `${getItemLabel(itemById(active.id)!)} moved to ${position(active.id)}.` : undefined),
+    // dnd-kit reports "over" the card itself right after pickup; announcing that
+    // replaced "Picked up …" in the live region before it was read.
+    onDragOver: ({ active, over }) => (over && over.id !== active.id ? `${getItemLabel(itemById(active.id)!)} moved to ${position(active.id)}.` : undefined),
     onDragEnd: ({ active, over }) =>
       over ? `Dropped ${getItemLabel(itemById(active.id)!)} in ${position(active.id)}.` : `Dropped ${getItemLabel(itemById(active.id)!)}.`,
     onDragCancel: ({ active }) => `Cancelled. ${getItemLabel(itemById(active.id)!)} returned to its place.`,
