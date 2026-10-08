@@ -60,7 +60,8 @@ export function PaginationLink({
       role={disabled ? 'link' : undefined}
       aria-disabled={disabled || undefined}
       className={cn(
-        'inline-flex items-center justify-center gap-1.5 cursor-pointer',
+        'inline-flex items-center justify-center gap-1.5',
+        !disabled && 'cursor-pointer',
         'rounded-[var(--size-border-radius-border-radius-md)]',
         'font-body text-body-s tabular-nums',
         'transition-colors duration-standard ease-enter motion-reduce:transition-none',

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, within } from '@storybook/test';
 import { CodeEditor } from './code-editor';
 import { codeEditorGuidelines } from './code-editor.guidelines';
 
@@ -46,6 +47,24 @@ export const PlainText: Story = {
       <CodeEditor aria-label="Notes" defaultValue={'# Deployment notes\n\nRemember to flush the cache after each release.'} minHeight="8rem" />
     </div>
   ),
+  // Keyboard (WCAG 2.1.2): Tab indents inside the editor, so Escape first
+  // releases it — the next Tab then leaves, the way CodeMirror documents.
+  // Native events: CodeMirror reads keyCode, and user-event's own Tab would
+  // wrap back to the editor (it is the only stop in this story). A Tab the
+  // editor doesn't cancel is one the browser uses to move focus on.
+  play: async ({ canvasElement }) => {
+    // CodeMirror mounts after the first render.
+    const editor = await within(canvasElement).findByRole('textbox', { name: 'Notes' }, { timeout: 5000 });
+    editor.focus();
+    const key = (k: string, keyCode: number) => {
+      const event = new KeyboardEvent('keydown', { key: k, code: k, keyCode, bubbles: true, cancelable: true });
+      editor.dispatchEvent(event);
+      return event;
+    };
+    await expect(key('Tab', 9).defaultPrevented).toBe(true);
+    key('Escape', 27);
+    await expect(key('Tab', 9).defaultPrevented).toBe(false);
+  },
 };
 
 export const WithHeader: Story = {

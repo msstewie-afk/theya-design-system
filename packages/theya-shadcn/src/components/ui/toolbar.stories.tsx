@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
 import { Trash, Copy, Download, Bold, Italic, Underline } from 'iconoir-react';
 import { Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator, ToolbarLink } from './toolbar';
 import { toolbarGuidelines } from './toolbar.guidelines';
@@ -62,6 +63,20 @@ export const FormattingBar: Story = {
       <ToolbarLink href="#">Learn more</ToolbarLink>
     </Toolbar>
   ),
+  // Keyboard: one Tab stop; arrows move between the items, the link included.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.tab();
+    await expect(canvas.getByRole('button', { name: 'Bold' })).toHaveFocus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(canvas.getByRole('button', { name: 'Italic' })).toHaveFocus();
+    await userEvent.keyboard('{ArrowRight}{ArrowRight}');
+    await expect(canvas.getByRole('link', { name: 'Learn more' })).toHaveFocus();
+    await userEvent.keyboard('{Home}');
+    await expect(canvas.getByRole('button', { name: 'Bold' })).toHaveFocus();
+    await userEvent.tab();
+    await expect(canvasElement.querySelector('[role="toolbar"]')).not.toContainElement(document.activeElement as HTMLElement);
+  },
 };
 
 /** `orientation="vertical"` — arrow-up/arrow-down move between items instead of left/right. */

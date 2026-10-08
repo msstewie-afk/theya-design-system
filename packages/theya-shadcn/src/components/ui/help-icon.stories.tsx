@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { InfoCircle } from 'iconoir-react';
 import { HelpIcon } from './help-icon';
 import { Field } from './field';
@@ -51,7 +52,17 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** The glyph on its own. Hover or focus it to read the hint. */
-export const Default: Story = {};
+export const Default: Story = {
+  // Keyboard: the glyph is a Tab stop; focus shows the hint, Escape hides it.
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button');
+    await userEvent.tab();
+    await expect(trigger).toHaveFocus();
+    await expect(await within(document.body).findByRole('tooltip')).toHaveTextContent('Renewal runs 30 days before expiry.');
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(within(document.body).queryByRole('tooltip')).toBeNull());
+  },
+};
 
 /** The usual home: beside a field label. Label is a flex row, so the glyph
  * drops in as a sibling with no extra layout — the label's own text stays

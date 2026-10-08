@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import type { ColumnDef } from '@tanstack/react-table';
@@ -198,6 +199,36 @@ export const Basic: Story = {
     await userEvent.keyboard('{Enter}');
     await expect(header).toHaveAttribute('aria-sort', 'descending');
     await expect(firstDomain()).toContain('staging.seashell.dev');
+  },
+};
+
+/**
+ * `onRowClick`: the whole row opens the item. Rows are Tab stops and open
+ * with Enter or Space too; `getRowLabel` names each one for screen readers.
+ */
+export const ClickableRows: Story = {
+  name: 'Clickable rows',
+  render: function Render() {
+    const [opened, setOpened] = useState('');
+    return (
+      <div className="flex flex-col gap-3">
+        <DataTable columns={columns} data={DATA} ariaLabel="Sites" onRowClick={(site) => setOpened(site.domain)} getRowLabel={(site) => site.domain} />
+        {opened && <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtle)]">Opened {opened}</p>}
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const phone = window.matchMedia('(max-width: 639.98px)').matches;
+    const row = canvas.getByRole(phone ? 'listitem' : 'row', { name: 'View details for docs.seashell.dev' });
+    await userEvent.click(row);
+    await expect(canvas.getByText('Opened docs.seashell.dev')).toBeInTheDocument();
+    // Keyboard: the row is a Tab stop and Enter opens it.
+    const next = canvas.getByRole(phone ? 'listitem' : 'row', { name: 'View details for staging.seashell.dev' });
+    next.focus();
+    await expect(next).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByText('Opened staging.seashell.dev')).toBeInTheDocument();
   },
 };
 

@@ -22,6 +22,15 @@
  *   one-line truncation (text-overflow: ellipsis) is listed separately.
  * - 1.4.4 Resize Text: the same clipping check with the root font size at
  *   200% (text-only zoom; full-page zoom is covered by the 360px reflow run).
+ * - Keyboard, Tab only (no story-specific keys):
+ *   2.1.1 — every visible tab stop is reached by Tab, and nothing that looks
+ *   clickable (cursor: pointer) is left without a keyboard way in (not
+ *   focusable, no focusable inside or around it);
+ *   2.1.2 — Tab never cycles inside part of the page without a way out
+ *   (a modal is allowed when Escape releases it);
+ *   2.4.3 — no positive tabindex and no CSS reordering (flex/grid order,
+ *   row-reverse / column-reverse) around tab stops, which make the Tab
+ *   order differ from what's on screen.
  *
  * Writes a11y/auto.json (per component: stories checked and failures per
  * criterion). scripts/build-a11y.mjs reads it as evidence.
@@ -90,10 +99,29 @@ function clippedText() {
 const STYLE_PROPS = ['outlineStyle', 'outlineWidth', 'outlineColor', 'boxShadow', 'borderTopColor', 'borderBottomColor', 'backgroundColor', 'color', 'textDecorationLine'];
 
 async function checkStory(page, story) {
-  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '1.4.12': [], '1.4.4': [], truncated: [] };
+  // Start Tab from the top of the page. blur() alone isn't enough: the
+  // browser keeps the last focused element as the starting point, so after
+  // a play function the first Tab would skip everything before it.
+  const fromTop = () =>
+    page.evaluate(() => {
+      let s = document.getElementById('theya-tab-start');
+      if (!s) {
+        s = document.createElement('span');
+        s.id = 'theya-tab-start';
+        s.tabIndex = -1;
+        document.body.prepend(s);
+      }
+      s.focus();
+    });
+  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [] };
   const load = async () => {
     await page.goto(`${URL_BASE}/iframe.html?id=${story.id}&viewMode=story`, { waitUntil: 'load' });
     await page.waitForSelector('#storybook-root > *', { timeout: 10000 }).catch(() => {});
+    // The preview runs the story's play function on load; check the state it
+    // leaves, not one it is still changing (a dialog opening mid-Tab).
+    await page
+      .waitForFunction(() => ['finished', 'played', 'completed', 'errored', 'aborted'].includes(window.__STORYBOOK_PREVIEW__?.currentRender?.phase), null, { timeout: 15000 })
+      .catch(() => {});
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(300);
   };
@@ -134,7 +162,7 @@ async function checkStory(page, story) {
   // blur lets components that track focus in React state (InputOTP's
   // active slot) re-render first.
   await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
-  await page.evaluate(() => document.activeElement instanceof HTMLElement && document.activeElement.blur());
+  await fromTop();
   // Styles of the focused element, its five nearest ancestors, and what sits
   // next to it (two levels up): InputOTP's real input is invisible and the
   // active slot beside it shows the focus.
@@ -173,6 +201,120 @@ async function checkStory(page, story) {
       if ((await look()) === blurred) result['2.4.7'].push(info.desc);
     }
   }
+
+  // 2.1.1 / 2.1.2 / 2.4.3 — fresh load, Tab through everything.
+  await load();
+  await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
+  // Move the starting point first: leaving a field can change what's on
+  // screen (InlineEdit closes its editor on blur).
+  await fromTop();
+  await page.waitForTimeout(150);
+  const plan = await page.evaluate(() => {
+    const desc = (el) => `${el.tagName.toLowerCase()}${el.getAttribute('aria-label') ? ` "${el.getAttribute('aria-label')}"` : ` "${(el.textContent ?? '').trim().slice(0, 30)}"`}`;
+    const visible = (el) => {
+      const r = el.getBoundingClientRect();
+      const cs = getComputedStyle(el);
+      return r.width > 0 && r.height > 0 && cs.visibility !== 'hidden' && cs.display !== 'none' && !el.closest('[aria-hidden=true], [inert]');
+    };
+    const FOCUSABLE = 'a[href], button, input, select, textarea, iframe, summary, [tabindex], [contenteditable=true], [contenteditable=""]';
+    const root = document.getElementById('storybook-root');
+    // A container that is a tab stop but holds focusable items (Radix's
+    // roving-focus groups: radiogroup, toolbar, tablist) hands focus to an
+    // item at once; the item is the stop to expect.
+    // Not expected as stops: items of a roving-focus group (Radix collection
+    // items — one stop per group, arrows inside), links inside editable text,
+    // controls in a disabled fieldset.
+    const tabbables = [...root.querySelectorAll(FOCUSABLE)].filter(
+      (el) =>
+        el.tabIndex >= 0 &&
+        !el.matches(':disabled') &&
+        el.type !== 'hidden' &&
+        visible(el) &&
+        !(el.matches('[tabindex]:not(a, button, input, select, textarea, iframe, summary)') && el.querySelector(FOCUSABLE)) &&
+        !el.matches('[data-radix-collection-item]') &&
+        !el.parentElement?.closest('[contenteditable=true], [contenteditable=""]'),
+    );
+    tabbables.forEach((el, i) => el.setAttribute('data-theya-tab', String(i)));
+    const order = [];
+    for (const el of tabbables) {
+      if (el.tabIndex > 0) order.push(`${desc(el)} has tabindex=${el.tabIndex}`);
+      for (let n = el; n && n !== root; n = n.parentElement) {
+        const cs = getComputedStyle(n);
+        const parent = n.parentElement && getComputedStyle(n.parentElement);
+        if (cs.order !== '0' && parent && /flex|grid/.test(parent.display)) { order.push(`${desc(el)}: an ancestor has CSS order ${cs.order}`); break; }
+        if (/reverse/.test(cs.flexDirection) && /flex/.test(cs.display) && n.querySelectorAll('[data-theya-tab]').length > 1) { order.push(`${desc(el)}: inside flex-direction ${cs.flexDirection}`); break; }
+      }
+    }
+    // Looks clickable but has no keyboard way in.
+    const mouseOnly = [];
+    for (const el of root.querySelectorAll('*')) {
+      if (!(el instanceof HTMLElement) || !visible(el) || getComputedStyle(el).cursor !== 'pointer') continue;
+      if (el.matches(FOCUSABLE) || el.closest(`${FOCUSABLE}, label`) || el.querySelector(FOCUSABLE)) continue;
+      // Its parent shows the pointer too: report the outermost one only.
+      if (el.parentElement && getComputedStyle(el.parentElement).cursor === 'pointer') continue;
+      mouseOnly.push(desc(el));
+    }
+    return { count: tabbables.length, descs: tabbables.map(desc), order: [...new Set(order)], mouseOnly };
+  });
+  // A story can opt a criterion out with a reason:
+  // parameters.a11y.auto = { skip: ['2.1.1'], reason: '…' }.
+  const skip = await page.evaluate(() => window.__STORYBOOK_PREVIEW__?.currentRender?.story?.parameters?.a11y?.auto?.skip ?? []);
+  result['2.4.3'] = plan.order;
+  result['2.1.1'].push(...plan.mouseOnly.map((d) => `pointer only: ${d}`));
+  if (plan.count) {
+    await fromTop();
+    const where = () =>
+      page.evaluate(() => {
+        const el = document.activeElement;
+        if (!el || el === document.body || el === document.documentElement) return 'out';
+        const i = el.getAttribute('data-theya-tab');
+        return i ?? (el.closest('#storybook-root') ? 'other' : 'portal');
+      });
+    const visited = new Set();
+    const trail = [];
+    let escaped = false;
+    for (let i = 0; i < Math.min(plan.count * 2 + 6, 90); i++) {
+      await page.keyboard.press('Tab');
+      const w = await where();
+      if (w === 'out') { escaped = true; break; }
+      trail.push(w);
+      if (/^\d+$/.test(w)) visited.add(Number(w));
+    }
+    if (!escaped) {
+      // Still inside after more Tabs than there are stops: a cycle. A modal
+      // may hold focus as long as Escape lets it go; an editor that takes Tab
+      // (CodeMirror) lets go after Escape, once per editor; and a cycle that
+      // Shift+Tab leaves (Sonner sends focus back to where it came from when
+      // Tab leaves the toasts) is not a trap.
+      let freed = false;
+      let last = trail.at(-1);
+      for (let i = 0; i < plan.count * 2 + 8 && !freed; i++) {
+        if (i === 0 || (await where()) === last) await page.keyboard.press('Escape');
+        await page.keyboard.press('Tab');
+        const w = await where();
+        if (w === 'out') freed = true;
+        if (/^\d+$/.test(w)) visited.add(Number(w));
+        last = w;
+      }
+      if (!freed) {
+        const cycle = new Set(trail.slice(-plan.count - 4));
+        for (let i = 0; i < plan.count + 6 && !freed; i++) {
+          await page.keyboard.press('Shift+Tab');
+          const w = await where();
+          if (w === 'out' || !cycle.has(w)) freed = true;
+        }
+        if (freed) escaped = true;
+      }
+      if (!freed) result['2.1.2'].push(`Tab cycles and neither Escape nor Shift+Tab leaves it (last stops: ${trail.slice(-4).join(', ')})`);
+    }
+    // Unreached stops count only when Tab got all the way out: inside a trap
+    // the trap is the finding.
+    if (escaped) {
+      for (let i = 0; i < plan.count; i++) if (!visited.has(i)) result['2.1.1'].push(`not reached by Tab: ${plan.descs[i]}`);
+    }
+  }
+
+  for (const k of skip) result[k] = [];
 
   // 1.4.12 and 1.4.4 — fresh load each, spacing / 200% text.
   for (const [crit, css] of [
@@ -215,13 +357,13 @@ const byComponent = {};
 for (const r of results.sort((a, b) => a.id.localeCompare(b.id))) {
   const name = componentOf.get(r.title);
   if (!name) continue;
-  const c = (byComponent[name] ??= { stories: 0, errors: 0, '2.5.3': [], '2.4.7': [], '1.4.12': [], '1.4.4': [], truncated: [] });
+  const c = (byComponent[name] ??= { stories: 0, errors: 0, '2.5.3': [], '2.4.7': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [] });
   c.stories += 1;
   if (r.error) {
     c.errors += 1;
     continue;
   }
-  for (const k of ['2.5.3', '2.4.7', '1.4.12', '1.4.4', 'truncated']) for (const f of r[k]) c[k].push(`${r.name}: ${f}`);
+  for (const k of ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3', 'truncated']) for (const f of r[k]) c[k].push(`${r.name}: ${f}`);
 }
 // --only re-checks some components and keeps the rest of the last full run.
 const previous = ONLY && fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')).components : {};
@@ -232,5 +374,5 @@ fs.writeFileSync(
 );
 const fails = (k) => Object.values(byComponent).filter((c) => c[k].length).length;
 console.log(`a11y-auto: ${results.length} stories, ${Object.keys(byComponent).length} components → a11y/auto.json`);
-for (const k of ['2.5.3', '2.4.7', '1.4.12', '1.4.4']) console.log(`  ${k}: ${fails(k)} component(s) with failures`);
+for (const k of ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3']) console.log(`  ${k}: ${fails(k)} component(s) with failures`);
 console.log(`  errors: ${results.filter((r) => r.error).length} stories`);

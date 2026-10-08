@@ -8,7 +8,8 @@
  *   (test-runner.ts; a violation fails the build). Listed: how many stories,
  *   and any rule a story or the meta switches off.
  * - keyboard: stories whose play test drives the keyboard
- *   (userEvent.keyboard / userEvent.tab), out of the stories with a play test.
+ *   (userEvent.keyboard / .tab — also via userEvent.setup() — a pressArrow helper, a dispatched
+ *   KeyboardEvent), out of the stories with a play test.
  * - reducedMotion: whether the component's source moves things (animations,
  *   transform / size transitions) and guards them with motion-safe: /
  *   motion-reduce:; "none" if nothing moves. Color and opacity fades and the
@@ -49,6 +50,7 @@ const manual = JSON.parse(fs.readFileSync(path.join(ROOT, 'a11y/manual.json'), '
 const { criteria } = JSON.parse(fs.readFileSync(path.join(ROOT, 'a11y/criteria.json'), 'utf8'));
 // Browser checks from scripts/a11y-auto.mjs (label in name, focus visible, text spacing, resize text).
 const AUTO_FILE = path.join(ROOT, 'a11y/auto.json');
+const AUTO_KEYS = ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
 const auto = fs.existsSync(AUTO_FILE) ? JSON.parse(fs.readFileSync(AUTO_FILE, 'utf8')) : { components: {} };
 
 // Criteria some enabled, non-experimental axe-core rule checks: tag wcag111 → 1.1.1.
@@ -109,7 +111,9 @@ function readStories(file) {
     const playProp = s.obj && prop(s.obj, 'play');
     if (playProp) {
       play += 1;
-      if (/userEvent\.(keyboard|tab)\(/.test(playProp.getText())) keyboard += 1;
+      // userEvent's keyboard / tab, a story helper that wraps it (pressArrow),
+      // or a dispatched KeyboardEvent.
+      if (/\b(?:userEvent|user)\.(keyboard|tab)\(|\bpressArrow\(|new KeyboardEvent\(|fireEvent\.keyDown\(/.test(playProp.getText())) keyboard += 1;
     }
     const params = s.obj && unwrap(prop(s.obj, 'parameters')?.initializer);
     const rules = disabledRules(params && ts.isObjectLiteralExpression(params) ? prop(params, 'a11y') : null);
@@ -176,6 +180,8 @@ const TRAITS = {
   shortcuts: /addEventListener\(\s*['"]keydown['"]|useHotkeys|\bshortcut/i,
   graphics: /recharts|<canvas\b|role=['"](?:img|meter|progressbar)['"]|<svg\b[^>]*viewBox/,
   colorMeaning: /\btone\b|\bseverity\b|success|danger|warning/,
+  // Widgets with their own arrow-key model: Tab alone doesn't prove them.
+  composite: /role=['"](?:grid|listbox|tree|treegrid|menu|menubar|tablist|radiogroup|toolbar|slider|spinbutton)['"]|(?:Tabs|RadioGroup|Toolbar|Slider|Menubar|NavigationMenu|ToggleGroup|DropdownMenu|ContextMenu|Select)Primitive|\bDayPicker\b|from ['"]cmdk['"]|EditorView|useEditor\b/,
   auth: /['"]password['"]|one-time-code|current-password|new-password|\bOTPInput\b/,
 };
 
@@ -218,7 +224,7 @@ function criterionStatus(c, row, traits, evidence) {
   if (c.scope !== 'component') return c.scope;
   if (!c.appliesTo.some((t) => t === 'any' || traits.includes(t))) return 'n/a';
   if (row.deviations.some((d) => d.criterion === c.id)) return 'deviation';
-  if (c.evidence.includes('auto') && row.autoFindings(c.id).length) return 'fails';
+  if (row.autoFindings(c.id).length) return 'fails';
   const needed = c.evidence.filter((e) => e !== 'axe' || AXE_CRITERIA.has(c.id));
   const have = needed.filter((e) => evidence(e, c.id));
   if (needed.length && have.length === needed.length) return 'verified';
@@ -253,7 +259,10 @@ for (const c of index.components) {
     kind === 'axe'
       ? s.stories > 0 &&
         !s.exclusions.some((e) => e.rules.some((r) => RULE_CRITERIA.get(r)?.includes(id)) && (e.story === '*' || s.exclusions.filter((x) => x.rules.some((r) => RULE_CRITERIA.get(r)?.includes(id))).length >= s.stories))
-    : kind === 'keyboard' ? s.keyboard > 0
+    // A keyboard play test, or — for components without their own arrow-key
+    // model — the Tab pass of a11y-auto with nothing found.
+    : kind === 'keyboard'
+      ? s.keyboard > 0 || (!traits.includes('composite') && !!autoRow && autoRow.stories > autoRow.errors && ['2.1.1', '2.1.2', '2.4.3'].every((k) => Array.isArray(autoRow[k]) && !autoRow[k].length))
     : kind === 'reflow360' ? s.stories > 0
     : kind === 'reducedMotion' ? source.reducedMotion !== 'unguarded'
     : kind === 'auto' ? !!autoRow && autoRow.stories > autoRow.errors && !autoRow[id]?.length
@@ -273,8 +282,8 @@ for (const c of index.components) {
     deviations,
     traits,
     wcag,
-    ...(autoRow && ['2.5.3', '2.4.7', '1.4.12', '1.4.4'].some((k) => autoRow[k]?.length)
-      ? { autoFindings: Object.fromEntries(['2.5.3', '2.4.7', '1.4.12', '1.4.4'].filter((k) => autoRow[k]?.length).map((k) => [k, autoRow[k]])) }
+    ...(autoRow && AUTO_KEYS.some((k) => autoRow[k]?.length)
+      ? { autoFindings: Object.fromEntries(AUTO_KEYS.filter((k) => autoRow[k]?.length).map((k) => [k, autoRow[k]])) }
       : {}),
   });
 }

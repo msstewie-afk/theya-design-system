@@ -969,9 +969,16 @@ export function DataTable<TData>({
         ref={virtualIndex !== undefined ? rowVirtualizer.measureElement : undefined}
         data-index={virtualIndex}
         data-state={selectionActive && row.getIsSelected() ? 'selected' : undefined}
+        // A clickable row is a Tab stop (Enter / Space open it), like the
+        // stacked phone row below; before, its key handler could never fire
+        // on desktop (WCAG 2.1.1). The pointer cursor only where a click does
+        // something.
+        tabIndex={clickable ? 0 : undefined}
         className={cn(
-          'group/row cursor-pointer shadow-[inset_0_-1px_0_0_var(--color-border-border-subtler)] data-[context-menu-open]:bg-[var(--color-bg-neutral-bg-neutral-subtler)] has-[[data-state=open]]:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
+          'group/row shadow-[inset_0_-1px_0_0_var(--color-border-border-subtler)] data-[context-menu-open]:bg-[var(--color-bg-neutral-bg-neutral-subtler)] has-[[data-state=open]]:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
           'data-[state=selected]:bg-[var(--color-bg-primary-bg-primary-subtle)] data-[state=selected]:hover:bg-[var(--color-bg-primary-bg-primary-subtler)]',
+          (href || clickable) && 'cursor-pointer',
+          clickable && 'outline-none focus-visible:focus-ring',
           href && 'relative',
         )}
         aria-label={clickable ? t.dataTable.viewDetails(getRowLabel?.(row.original)) : undefined}

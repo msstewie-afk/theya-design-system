@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { KeyCommand } from 'iconoir-react';
 import { KeyboardShortcuts, type ShortcutGroup } from './keyboard-shortcuts';
 import { Button } from './button';
@@ -71,6 +72,14 @@ export const Default: Story = {
 /** No trigger: the "?" hotkey opens it from anywhere on the page. */
 export const HotkeyToOpen: Story = {
   args: { groups, hotkey: '?' },
+  // Keyboard: "?" opens the list from anywhere, Escape closes it.
+  play: async () => {
+    await userEvent.keyboard('?');
+    const dialog = await within(document.body).findByRole('dialog');
+    await expect(dialog).toBeVisible();
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(within(document.body).queryByRole('dialog')).toBeNull());
+  },
   render: (args) => (
     <div className="flex flex-col items-center gap-3 font-body text-body-s text-[var(--color-text-text-subtler)]">
       <p>

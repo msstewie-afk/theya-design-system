@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { WheelPicker } from './wheel-picker';
 import { wheelPickerGuidelines } from './wheel-picker.guidelines';
 
@@ -26,7 +27,20 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  // Keyboard: ↑ ↓ step, Home / End jump; the chosen option is aria-selected.
+  play: async ({ canvasElement }) => {
+    const list = within(canvasElement).getByRole('listbox', { name: 'Backup interval' });
+    const option = (name: string) => within(list).getByRole('option', { name });
+    list.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(option('2 hours')).toHaveAttribute('aria-selected', 'true'));
+    await userEvent.keyboard('{End}');
+    await waitFor(() => expect(option('Daily')).toHaveAttribute('aria-selected', 'true'));
+    await userEvent.keyboard('{Home}');
+    await waitFor(() => expect(option('15 minutes')).toHaveAttribute('aria-selected', 'true'));
+  },
+};
 
 export const FiveRows: Story = { name: 'Five rows', args: { rows: 5 } };
 

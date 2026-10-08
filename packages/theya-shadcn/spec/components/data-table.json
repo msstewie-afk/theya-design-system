@@ -413,6 +413,10 @@
         "id": "data-datatable--basic"
       },
       {
+        "name": "ClickableRows",
+        "id": "data-datatable--clickable-rows"
+      },
+      {
         "name": "TwoLineRows",
         "id": "data-datatable--two-line-rows"
       },

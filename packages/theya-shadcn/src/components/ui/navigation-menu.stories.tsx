@@ -125,4 +125,10 @@ export const Open: Story = {
   // Open from the start, and the flyout floats (position: fixed): reserve
   // room so it doesn't cover the next block on the Docs page.
   decorators: [(Story) => <div className="min-h-[14rem]"><Story /></div>],
+  parameters: {
+    // Opened by `defaultValue`, not from the keyboard: Radix sends Tab from a
+    // trigger into its panel only when the panel was opened with Enter /
+    // Space / ↓ (as in Default), so here Tab passes over the open panel.
+    a11y: { auto: { skip: ['2.1.1'], reason: 'Panel opened programmatically; the keyboard path is Enter on the trigger (Default story).' } },
+  },
 };

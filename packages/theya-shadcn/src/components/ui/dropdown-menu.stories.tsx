@@ -114,6 +114,11 @@ export const Default: Story = {
  * closed in Docs, open in Canvas.
  */
 export const Open: Story = {
+  parameters: {
+    // Opened by `defaultOpen`, so Radix focuses the menu itself, not an item
+    // (opening from the keyboard focuses the first item, which shows focus).
+    a11y: { auto: { skip: ['2.4.7'], reason: 'Menu opened programmatically; the focused container is never reached from the keyboard path.' } },
+  },
   render: (_args, context) => (
     <DropdownMenu defaultOpen={context.viewMode !== 'docs'}>
       <DropdownMenuTrigger asChild>
