@@ -1,0 +1,28 @@
+{
+  "$comment": "Hand-kept part of the accessibility matrix (scripts/build-a11y.mjs merges it with what it reads from the code). screenReader: one entry per real assistive-technology pass, e.g. { \"Button\": [{ \"at\": \"VoiceOver\", \"browser\": \"Safari 19\", \"date\": \"2026-10-05\", \"result\": \"pass\", \"notes\": \"\" }] }. deviations: accepted deviations specific to one component. focusRingOnly: components where the soft focus ring is the only visible focus change (WCAG 1.4.11 accepted deviation, see the WCAG audit, 2026-09-27). traits: per-component corrections to the traits build-a11y.mjs reads from the code ({ add, remove, note }). reviews: one recorded manual review per criterion, e.g. { \"Button\": { \"2.5.3\": { \"result\": \"pass\", \"date\": \"2026-10-08\", \"by\": \"Maria\", \"note\": \"\" } } }.",
+  "screenReader": {},
+  "traits": {
+    "Resizable": { "add": ["interactive", "drag"], "note": "The handle comes from react-resizable-panels; it is focusable and moves with the arrow keys." },
+    "TextEffect": { "remove": ["timed"], "note": "Plays once on reveal; nothing times out." },
+    "Dropzone": { "add": ["graphics"], "note": "Renders the shared error icon (field-error-icon.tsx), an inline SVG the source scan no longer sees." },
+    "PhoneField": { "add": ["graphics"], "note": "Renders the shared error icon (field-error-icon.tsx), an inline SVG the source scan no longer sees." },
+    "PromptArea": { "add": ["graphics"], "note": "Renders the shared error icon (field-error-icon.tsx), an inline SVG the source scan no longer sees." },
+    "TagInput": { "add": ["graphics"], "note": "Renders the shared error icon (field-error-icon.tsx), an inline SVG the source scan no longer sees." },
+    "TextArea": { "add": ["graphics"], "note": "Renders the shared error icon (field-error-icon.tsx), an inline SVG the source scan no longer sees." }
+  },
+  "reviews": {},
+  "deviations": {
+    "Carousel": [
+      { "criterion": "1.4.11", "note": "Inactive indicator dots in the light theme are 2.62:1 on white (needs 3:1). The active slide stays identifiable — it is a wider pill. Decision 2026-10-01." }
+    ],
+    "ContextMenu": [
+      { "criterion": "2.1.1", "note": "Met by rule: the trigger area is not a Tab stop, so every action must also be in a visible control (a “…” button, a toolbar)." }
+    ]
+  },
+  "focusRingOnly": [
+    "Accordion", "Badge", "Card", "Carousel", "Checkbox", "Chip", "CodeBlock", "DataTable", "DataTableToolbar", "Dialog", "Drawer",
+    "File", "HelpIcon", "ListItem", "MessagePopup", "OptionCard", "Pagination", "PromptSuggestions", "Radio", "ScrollArea", "Slider",
+    "Toaster", "Switch", "Table", "Tabs", "Terminal", "ThemeToggle", "Toggle", "ToggleGroup", "Toolbar", "Topbar", "Tree", "Sidebar",
+    "Resizable", "NumberField", "Button", "DensityToggle"
+  ]
+}

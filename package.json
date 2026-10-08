@@ -1,0 +1,16 @@
+{
+  "name": "theya",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Theya — a shadcn/Radix/Tailwind design system",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build:tokens": "pnpm --filter @theya/tokens build",
+    "changeset": "changeset",
+    "version-packages": "changeset version && pnpm install --lockfile-only",
+    "tag-release": "changeset tag"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.0"
+  }
+}

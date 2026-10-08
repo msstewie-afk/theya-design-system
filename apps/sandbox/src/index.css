@@ -1,0 +1,3 @@
+/* Everything (Tailwind, tokens, fonts, DS sources for class scanning)
+   comes through the DS stylesheet; this app adds nothing of its own yet. */
+@import '@theya/shadcn/styles/globals.css';

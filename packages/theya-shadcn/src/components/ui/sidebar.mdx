@@ -1,0 +1,95 @@
+import { Meta, ArgTypes, Canvas } from '@storybook/blocks';
+import * as SidebarStories from './sidebar.stories';
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarHeader,
+  SidebarBrand,
+  SidebarCollapse,
+  SidebarNav,
+  SidebarSection,
+  SidebarItem,
+  SidebarFooter,
+} from './sidebar';
+import { GuidelinesIntro, GuidelinesDetails } from '../../docs/guidelines';
+import { sidebarGuidelines } from './sidebar.guidelines';
+
+<Meta of={SidebarStories} />
+
+# Sidebar
+
+A collapsible app rail (224px → 64px). A composition primitive, not a single component: wrap
+your app in `SidebarProvider`, then render `Sidebar` alongside your main content and populate
+it from the parts below. On `md+` it's a sticky rail; below `md` it becomes a slide-over
+`Drawer`. Collapsed state persists in a cookie.
+
+This page documents every part's own props — the autodocs table on a single-component page
+only covers one component, and Sidebar is a family of nine.
+
+<GuidelinesIntro guidelines={sidebarGuidelines} />
+
+<Canvas of={SidebarStories.Default} />
+
+## SidebarProvider
+
+Wraps the rail and your main content. Owns collapsed/mobile-open state and exposes it via
+`useSidebar()`.
+
+<ArgTypes of={SidebarProvider} />
+
+## Sidebar
+
+The rail itself (renders both the desktop `<aside>` and the mobile `Drawer` slide-over).
+
+<ArgTypes of={Sidebar} />
+
+<Canvas of={SidebarStories.Inverse} />
+
+## SidebarHeader
+
+The top row — usually `SidebarBrand` + `SidebarCollapse`.
+
+<ArgTypes of={SidebarHeader} />
+
+## SidebarBrand
+
+The logo mark + product name. When the rail is collapsed, this doubles as the "Expand sidebar"
+control (the only way out of a collapsed rail — WCAG 2.1.1).
+
+<ArgTypes of={SidebarBrand} />
+
+## SidebarCollapse
+
+The collapse toggle. Hidden automatically while already collapsed (the brand mark takes over).
+
+<ArgTypes of={SidebarCollapse} />
+
+## SidebarNav
+
+The scrollable nav landmark that holds one or more `SidebarSection`s.
+
+<ArgTypes of={SidebarNav} />
+
+## SidebarSection
+
+A labelled group of items, with an optional trailing `action` next to the label (e.g. an
+"Add" button).
+
+<ArgTypes of={SidebarSection} />
+
+## SidebarItem
+
+A single nav link — icon, label, an optional tone-able `badge`, and an optional hover-revealed
+`actions` menu.
+
+<ArgTypes of={SidebarItem} />
+
+<Canvas of={SidebarStories.WithAccount} />
+
+## SidebarFooter
+
+Pinned to the bottom of the rail — settings/support links, an account switcher, etc.
+
+<ArgTypes of={SidebarFooter} />
+
+<GuidelinesDetails guidelines={sidebarGuidelines} />

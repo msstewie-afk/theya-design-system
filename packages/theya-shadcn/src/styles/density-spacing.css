@@ -1,0 +1,149 @@
+/*
+  Density-aware spacing (DENSITY.md).
+
+  Tailwind's numeric padding / margin / gap and offset utilities (p-4, gap-3, mt-6, top-5 …)
+  are redefined here so they follow data-density: anything up to 8px stays
+  exactly as written — the inside of controls (icon gaps, chip and button
+  padding) keeps its proportions, and the rule "side padding larger than the
+  icon gap" holds — while the part above 8px grows or shrinks by
+  --size-density-density-space-delta (−0.4 compact, 0 default, +0.4
+  comfortable), rounded to 2px:
+
+    written   8  12  16  20  24  32
+    compact   8  10  12  16  18  22
+    comfort.  8  14  20  24  30  42
+
+  With the default delta (0) every value is exactly what Tailwind gives, so
+  the default look does not change. Each @utility below merges into the core
+  utility of the same name (its declaration comes last and wins); arbitrary
+  values (p-[3px]), p-px, auto and negative margins are left alone.
+  The --size-padding/gap/margin tokens get the same mapping in density.css.
+*/
+
+@utility p-* {
+  padding: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility px-* {
+  padding-inline: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility py-* {
+  padding-block: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility pt-* {
+  padding-top: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility pb-* {
+  padding-bottom: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility ps-* {
+  padding-inline-start: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility pe-* {
+  padding-inline-end: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility pl-* {
+  padding-left: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility pr-* {
+  padding-right: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility m-* {
+  margin: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility mx-* {
+  margin-inline: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility my-* {
+  margin-block: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility mt-* {
+  margin-top: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility mb-* {
+  margin-bottom: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility ms-* {
+  margin-inline-start: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility me-* {
+  margin-inline-end: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility ml-* {
+  margin-left: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility mr-* {
+  margin-right: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility gap-* {
+  gap: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility gap-x-* {
+  column-gap: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility gap-y-* {
+  row-gap: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+/*
+  Offsets (top-5, start-4, inset-x-6 …) follow the same mapping. They place
+  things relative to a padded box: an inset divider whose ends line up with
+  the content padding, a control pinned at the padding corner. If padding
+  grew with density and the offset didn't, a comfortable card's divider
+  stopped 4px short of its text and its checkbox floated above the title.
+*/
+
+@utility inset-* {
+  inset: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility inset-x-* {
+  inset-inline: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility inset-y-* {
+  inset-block: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility top-* {
+  top: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility bottom-* {
+  bottom: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility start-* {
+  inset-inline-start: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility end-* {
+  inset-inline-end: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility left-* {
+  left: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}
+
+@utility right-* {
+  right: calc(var(--spacing) * --value(number) + round(nearest, (max(var(--spacing) * --value(number), 8px) - 8px) * var(--size-density-density-space-delta, 0), 2px));
+}

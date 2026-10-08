@@ -1,0 +1,23 @@
+{
+  "description": "Default density. Defines the density-only tokens; the control ramp keeps its values from src/semantic/size.json.",
+  "size": {
+    "density": {
+      "density-row": {
+        "value": "{size.size44}",
+        "description": "Table / DataTable row, one line of content"
+      },
+      "density-row-2": {
+        "value": "{size.size56}",
+        "description": "Table / DataTable row, two lines of content"
+      },
+      "density-item-py": {
+        "value": "{size.size8}",
+        "description": "Vertical padding of menu, select and command items"
+      },
+      "density-space-delta": {
+        "value": "0",
+        "description": "Spacing above 8px grows or shrinks by this share (padding, margin, gap). Unitless."
+      }
+    }
+  }
+}

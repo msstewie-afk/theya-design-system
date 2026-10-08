@@ -1,0 +1,10 @@
+{
+  "elevation": {
+    "xs": { "value": "0 1px 2px 0 rgba(0, 0, 0, 0.32)" },
+    "sm": { "value": "0 1px 2px -1px rgba(0, 0, 0, 0.4), 0 1px 3px 0 rgba(0, 0, 0, 0.32)" },
+    "md": { "value": "0 2px 4px -2px rgba(0, 0, 0, 0.4), 0 4px 10px -2px rgba(0, 0, 0, 0.4)" },
+    "lg": { "value": "0 0 0 1px rgba(255, 255, 255, 0.06), 0 8px 16px -6px rgba(0, 0, 0, 0.5), 0 12px 28px -8px rgba(0, 0, 0, 0.5)" },
+    "xl": { "value": "0 0 0 1px rgba(255, 255, 255, 0.08), 0 16px 32px -10px rgba(0, 0, 0, 0.6), 0 24px 56px -12px rgba(0, 0, 0, 0.6)" },
+    "edge-up": { "value": "0 -16px 32px -10px rgba(0, 0, 0, 0.5), 0 -24px 56px -12px rgba(0, 0, 0, 0.5)" }
+  }
+}

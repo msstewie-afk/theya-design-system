@@ -1,0 +1,53 @@
+{
+  "description": "Lime: lime primary with forest-green text on it, green-tinted neutrals, near-black green dark mode; Manrope, pill buttons, softer radii",
+  "primary": "#9fe870",
+  "onPrimary": "#163300",
+  "neutral": {
+    "hue": 140,
+    "chroma": 0.1
+  },
+  "font": "Manrope",
+  "radius": {
+    "scale": 1.5,
+    "button": "max",
+    "field": "xl"
+  },
+  "light": {
+    "tokens": {
+      "bg-surface-bg-surface-base": "#ffffff",
+      "bg-surface-bg-surface": "#ffffff",
+      "bg-neutral-bg-neutral-subtle": "#ecefec",
+      "text-text": "#0e0f0c",
+      "text-text-subtle": "#454745",
+      "text-text-link": "#163300",
+      "text-text-link-hover": "#163300",
+      "text-text-link-on-tonal": "#163300",
+      "icon-icon-primary": "#163300",
+      "border-border-primary": "#163300"
+    }
+  },
+  "dark": {
+    "tokens": {
+      "bg-surface-bg-surface-base": "#121512",
+      "bg-surface-bg-surface": "#121512",
+      "bg-surface-bg-surface-overlay": "#2b2d2a",
+      "bg-input-bg-input": "#121512",
+      "bg-primary-bg-primary-subtle": "#292c29",
+      "bg-primary-bg-primary-subtle-hover": "#333632",
+      "bg-primary-bg-primary-subtle-pressed": "#3d403c",
+      "text-text": "#f4f7f4",
+      "text-text-subtle": "#c6c8c5",
+      "text-text-subtler": "#a0a3a0",
+      "text-text-link": "#9fe870",
+      "text-text-link-hover": "#b6ee93",
+      "text-text-link-on-tonal": "#9fe870",
+      "icon-icon-primary": "#9fe870",
+      "border-border-primary": "#9fe870",
+      "border-border-subtler": "#373a37"
+    }
+  },
+  "accept": [
+    "primary hue vs success",
+    "light: bg-primary-bg-primary on bg-surface-bg-surface-base"
+  ]
+}

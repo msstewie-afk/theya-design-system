@@ -1,0 +1,39 @@
+{
+  "description": "Comfortable: every control one step up the ramp, table rows +8px, menu items +4px. For touch-first or low-density screens.",
+  "size": {
+    "size-control": {
+      "size-control-md": {
+        "value": "{size.size32}"
+      },
+      "size-control-lg": {
+        "value": "{size.size36}"
+      },
+      "size-control-xl": {
+        "value": "{size.size40}"
+      },
+      "size-control-2xl": {
+        "value": "{size.size44}"
+      },
+      "size-control-3xl": {
+        "value": "{size.size48}"
+      },
+      "size-control-4xl": {
+        "value": "{size.size56}"
+      }
+    },
+    "density": {
+      "density-row": {
+        "value": "52px"
+      },
+      "density-row-2": {
+        "value": "{size.size64}"
+      },
+      "density-item-py": {
+        "value": "{size.size12}"
+      },
+      "density-space-delta": {
+        "value": "0.4"
+      }
+    }
+  }
+}

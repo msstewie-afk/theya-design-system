@@ -1,0 +1,122 @@
+#!/usr/bin/env node
+/**
+ * Density modes: `data-density="compact" | "comfortable"` on <html> or on
+ * any container (a dense table inside a regular page) resizes controls,
+ * table rows and menu items without touching components.
+ *
+ * Sources (src/density/<mode>.json, same token paths as src/semantic):
+ * - default.json defines the density-only tokens (--size-density-*) at :root;
+ * - every other file is a mode: it overrides control-ramp steps and the
+ *   density tokens under [data-density='<mode>'].
+ * A [data-density='default'] block is emitted too, with the default value of
+ * everything any mode overrides, so a default island inside a compact page
+ * goes back to normal.
+ *
+ * Works in nested containers because components read these variables
+ * directly (h-[var(--size-size-control-…)]), not through a :root alias.
+ *
+ * Checks: a mode may only override tokens that exist (in size.json or
+ * default.json), and within a mode the control ramp must never go down
+ * (a larger step smaller than the one before it). Two neighbouring steps
+ * landing on the same value is allowed — shifting part of the ramp by one
+ * step always makes the edge meet its unshifted neighbour — and is listed
+ * in the build output so it is a visible choice.
+ *
+ * Output: build/css/density.css. Run as part of `pnpm build`.
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { spaced } from './lib/density-spacing.mjs';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const read = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
+
+const primitives = read('src/primitive/size.json').size;
+const resolve = (value, where) => {
+  if (typeof value === 'number') return `${value}px`;
+  const ref = String(value).match(/^\{size\.([a-z0-9-]+)\}$/);
+  if (ref) {
+    const p = primitives[ref[1]];
+    if (!p) throw new Error(`${where}: unknown primitive {size.${ref[1]}}`);
+    return `${p.value}px`;
+  }
+  if (/^\d+(\.\d+)?px$/.test(value)) return value;
+  // Unitless factors (density-space-delta) pass through as they are.
+  if (/^-?\d*\.?\d+$/.test(value) && /delta|scale/.test(where)) return value;
+  throw new Error(`${where}: expected {size.sizeN} or a px value, got ${value}`);
+};
+
+/** token JSON → Map(css var → px) */
+function flatten(json, file) {
+  const out = new Map();
+  const walk = (node, trail) => {
+    if (node && typeof node === 'object' && 'value' in node) {
+      out.set(`--${trail.join('-')}`, resolve(node.value, `${file} ${trail.join('.')}`));
+      return;
+    }
+    if (node && typeof node === 'object') for (const [k, v] of Object.entries(node)) if (k !== 'description') walk(v, [...trail, k]);
+  };
+  walk(json, []);
+  return out;
+}
+
+const base = flatten(read('src/semantic/size.json'), 'size.json');
+const densityDefaults = flatten(read('src/density/default.json'), 'default.json');
+const known = new Map([...base, ...densityDefaults]);
+
+const modes = fs
+  .readdirSync(path.join(ROOT, 'src/density'))
+  .filter((f) => f.endsWith('.json') && f !== 'default.json')
+  .sort()
+  .map((f) => ({ name: f.replace(/\.json$/, ''), json: read(`src/density/${f}`) }))
+  .map((m) => ({ ...m, tokens: flatten(m.json, `${m.name}.json`) }));
+
+const problems = [];
+const notes = [];
+const RAMP = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl'].map((s) => `--size-size-control-size-control-${s}`);
+for (const mode of modes) {
+  for (const token of mode.tokens.keys()) if (!known.has(token)) problems.push(`${mode.name}: ${token} is not a Theya size token`);
+  const ramp = RAMP.filter((t) => known.has(t)).map((t) => [t, parseFloat(mode.tokens.get(t) ?? known.get(t))]);
+  for (let i = 1; i < ramp.length; i++) {
+    const [name, px] = ramp[i];
+    const [prevName, prevPx] = ramp[i - 1];
+    if (px < prevPx) problems.push(`${mode.name}: ${name} (${px}px) is smaller than ${prevName} (${prevPx}px)`);
+    else if (px === prevPx) notes.push(`${mode.name}: ${prevName.replace('--size-size-control-size-control-', '')} and ${name.replace('--size-size-control-size-control-', '')} are both ${px}px`);
+  }
+}
+
+/*
+ * Spacing tokens (padding / gap / margin) follow the shared rule in
+ * lib/density-spacing.mjs (same as the Tailwind utilities in theya-shadcn's
+ * density-spacing.css).
+ */
+const SPACING = /^--size-(padding|gap|margin)-/;
+for (const mode of modes) {
+  const delta = parseFloat(mode.tokens.get('--size-density-density-space-delta') ?? '0');
+  if (!delta) continue;
+  for (const [token, value] of base) {
+    if (!SPACING.test(token)) continue;
+    const px = parseFloat(value);
+    const next = spaced(px, delta);
+    if (next !== px && !mode.tokens.has(token)) mode.tokens.set(token, `${next}px`);
+  }
+}
+
+const block = (selector, map) => `${selector} {\n${[...map].map(([k, v]) => `  ${k}: ${v};`).join('\n')}\n}`;
+const overridden = new Set(modes.flatMap((m) => [...m.tokens.keys()]));
+const css = [
+  `/**\n * Density modes — generated by scripts/build-density.mjs from src/density/*.json. Do not edit.\n * Use: data-density="${modes.map((m) => m.name).join('" | "')}" on <html> or any container.\n */`,
+  block(':root', densityDefaults),
+  `/* default: resets an island inside a denser/looser container */\n` +
+    block("[data-density='default']", new Map([...overridden].filter((t) => known.has(t)).map((t) => [t, known.get(t)]))),
+  ...modes.map((m) => `/* ${m.json.description ?? m.name} */\n` + block(`[data-density='${m.name}']`, m.tokens)),
+];
+
+fs.mkdirSync(path.join(ROOT, 'build/css'), { recursive: true });
+fs.writeFileSync(path.join(ROOT, 'build/css/density.css'), css.join('\n\n') + '\n');
+console.log(`density: ${modes.map((m) => m.name).join(', ')} → build/css/density.css${notes.length ? `\n  (same size: ${notes.join('; ')})` : ''}`);
+if (problems.length) {
+  console.error(`Density problems:\n  ${problems.join('\n  ')}`);
+  process.exit(1);
+}

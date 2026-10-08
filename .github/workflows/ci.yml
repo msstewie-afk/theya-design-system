@@ -1,0 +1,241 @@
+# CI for the Theya monorepo.
+#
+# checks     — every run: types, generated spec and public API report are
+#              up to date, the sandbox app builds against the package.
+# storybook  — after checks: static Storybook, then the test-runner on it:
+#              play + axe in light and dark, visual regression in both.
+# react-19   — after checks, alongside storybook: the same code with React 19
+#              forced across the workspace (the package supports 18 and 19,
+#              dev and the main jobs stay on 18): types, then play + axe.
+#
+# The repo is private for now, so Actions minutes count against the monthly
+# free quota. A push to main runs only `checks` (a few minutes); the long
+# jobs run on pull requests, by hand (Actions → CI → Run workflow) and once
+# a week. Full runs stay available locally (test-storybook, test-visual)
+# and the git pre-commit gate catches the fast failures before a push.
+# Docs-only changes (*.md, .claude/, .changeset/) start nothing.
+# When the repo is public again, drop the `if:` on the long jobs.
+#
+# Visual baselines are rendered on this runner and kept in the Actions
+# cache (never in git: macOS and Linux render fonts differently, so local
+# baselines stay local). Each green run saves the current set; the next run
+# compares against it. When a visual change is intended, run this workflow
+# by hand (Actions → CI → Run workflow) with "accept visual changes" on.
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['**/*.md', '.claude/**', '.changeset/**']
+  pull_request:
+    paths-ignore: ['**/*.md', '.claude/**', '.changeset/**']
+  # Weekly full run (Monday 05:17 UTC) keeps the visual baselines fresh.
+  schedule:
+    - cron: '17 5 * * 1'
+  workflow_dispatch:
+    inputs:
+      accept_visual:
+        description: Accept visual changes (re-record every baseline)
+        type: boolean
+        default: false
+
+# A newer push to the same branch cancels the run still in progress.
+# Runner image pinned: visual baselines are only comparable on the same
+# OS image (fonts, anti-aliasing). Moving to a newer one = re-record them
+# with "accept visual changes".
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: 22
+  PNPM_VERSION: 11.8.0
+
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:tokens
+
+      - name: Types
+        working-directory: packages/theya-shadcn
+        run: pnpm exec tsc --noEmit -p .
+
+      - name: Spec and public API are up to date
+        working-directory: packages/theya-shadcn
+        run: pnpm api:check
+
+      - name: Sandbox app builds against the package
+        run: pnpm --filter @theya/sandbox build
+
+  storybook:
+    needs: checks
+    if: github.event_name != 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: packages/theya-shadcn
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+        working-directory: .
+      # playwright is a dependency of the test-runner, not of this package,
+      # so it has no bin here (and npx picks the unlinked workspace copy):
+      # run the CLI of the exact Playwright the test-runner resolves.
+      - name: Install Chromium for the test-runner
+        run: |
+          PW_DIR=$(node -e "const r=require.resolve('@storybook/test-runner');console.log(require('path').dirname(require.resolve('playwright/package.json',{paths:[r]})))")
+          echo "playwright $(node -p "require('$PW_DIR/package.json').version") at $PW_DIR"
+          node "$PW_DIR/cli.js" install --with-deps chromium
+
+      - name: Build Storybook
+        run: pnpm build-storybook --quiet
+
+      - name: Serve Storybook on :6008
+        id: serve
+        run: |
+          python3 -m http.server 6008 --directory storybook-static >/dev/null 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:6008/index.json >/dev/null && exit 0; sleep 1; done
+          echo "Storybook did not start" && exit 1
+
+      - name: Play + axe, light
+        run: pnpm test-storybook
+
+      - name: Play + axe, dark
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        run: pnpm test-storybook:dark
+
+      # ---- Visual regression -------------------------------------------
+      - name: Restore visual baselines
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        id: baselines
+        uses: actions/cache/restore@v4
+        with:
+          path: packages/theya-shadcn/__visual__
+          key: vrt-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: vrt-${{ runner.os }}-
+
+      # No baselines yet (first run, or the cache expired) or changes were
+      # accepted by hand: record instead of compare.
+      - name: Decide visual mode
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        id: mode
+        run: |
+          if [ -z "${{ steps.baselines.outputs.cache-matched-key }}" ] || [ "${{ inputs.accept_visual }}" = "true" ]; then
+            echo "flags=-u" >> "$GITHUB_OUTPUT"
+            echo "Recording visual baselines"
+          else
+            echo "flags=" >> "$GITHUB_OUTPUT"
+            echo "Comparing with ${{ steps.baselines.outputs.cache-matched-key }}"
+          fi
+          rm -rf __visual__/light/__diff__ __visual__/dark/__diff__
+
+      # CI=false: a story added since the last baseline gets its first
+      # snapshot recorded (as locally) instead of failing as "missing".
+      - name: Visual, light
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        env:
+          CI: 'false'
+        run: pnpm test-visual ${{ steps.mode.outputs.flags }}
+
+      - name: Visual, dark
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        env:
+          CI: 'false'
+        run: pnpm test-visual:dark ${{ steps.mode.outputs.flags }}
+
+      - name: Upload visual diffs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diffs
+          path: packages/theya-shadcn/__visual__/*/__diff__/
+          if-no-files-found: ignore
+          retention-days: 14
+
+      # Only a green run (or accepted changes) becomes the next baseline.
+      # Pull requests compare but never save, so they can't move main's baseline.
+      - name: Save visual baselines
+        if: success() && github.event_name != 'pull_request'
+        uses: actions/cache/save@v4
+        with:
+          path: packages/theya-shadcn/__visual__
+          key: vrt-${{ runner.os }}-${{ github.run_id }}
+
+  react-19:
+    needs: checks
+    if: github.event_name != 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: packages/theya-shadcn
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      # Overrides reach every package, so no dependency can pull React 18
+      # into the Storybook bundle.
+      - name: Force React 19
+        working-directory: .
+        run: |
+          cat >> pnpm-workspace.yaml <<'YAML'
+          overrides:
+            react: ^19.0.0
+            react-dom: ^19.0.0
+            '@types/react': ^19.0.0
+            '@types/react-dom': ^19.0.0
+          YAML
+          pnpm install --no-frozen-lockfile
+      - name: Only React 19 is installed
+        working-directory: .
+        run: |
+          node -p "'react ' + require('./packages/theya-shadcn/node_modules/react/package.json').version"
+          if ls node_modules/.pnpm | grep -E '^react(-dom)?@18\.'; then echo "React 18 still installed"; exit 1; fi
+      - run: pnpm build:tokens
+        working-directory: .
+
+      - name: Types
+        run: pnpm exec tsc --noEmit -p .
+
+      - name: Install Chromium for the test-runner
+        run: |
+          PW_DIR=$(node -e "const r=require.resolve('@storybook/test-runner');console.log(require('path').dirname(require.resolve('playwright/package.json',{paths:[r]})))")
+          node "$PW_DIR/cli.js" install --with-deps chromium
+
+      - name: Build Storybook
+        run: pnpm build-storybook --quiet
+
+      - name: Serve Storybook on :6008
+        run: |
+          python3 -m http.server 6008 --directory storybook-static >/dev/null 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:6008/index.json >/dev/null && exit 0; sleep 1; done
+          echo "Storybook did not start" && exit 1
+
+      # Light only: play tests and axe don't depend on the theme for React
+      # behaviour; the storybook job covers dark and visual regression.
+      - name: Play + axe on React 19
+        run: pnpm test-storybook

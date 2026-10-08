@@ -1,0 +1,132 @@
+import { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { Star } from 'iconoir-react'; // verified export — see avatar.stories.tsx note
+import { BadgeIndicator } from './badge-indicator';
+import { badgeIndicatorGuidelines } from './badge-indicator.guidelines';
+
+/**
+ * BadgeIndicator — a small counter/status indicator (16/20px), distinct from
+ * the pill-shaped `Badge`. Shows a qty value, a plain dot, or an icon, in a
+ * filled or outlined treatment with a round or squared corner.
+ */
+const meta = {
+  title: 'Status & Feedback/BadgeIndicator',
+  component: BadgeIndicator,
+  tags: ['autodocs'],
+  parameters: { layout: 'centered', guidelines: badgeIndicatorGuidelines },
+  argTypes: {
+    value: { control: 'text', description: "Qty/text content, e.g. '5' or '99+'. Ignored when dot is set; if icon is also set, icon wins." },
+    dot: { control: 'boolean', description: 'Renders a plain dot instead of value/icon — takes priority over both.' },
+    icon: { control: false, description: 'Icon content (sized by BadgeIndicator, colored via currentColor). Ignored when dot is set.' },
+    appearance: { control: 'inline-radio', options: ['filled', 'outlined'], description: 'Fill style.' },
+    shape: { control: 'inline-radio', options: ['circle', 'square'], description: 'Outer silhouette.' },
+    tone: {
+      control: 'select',
+      options: ['neutral', 'info', 'success', 'warning', 'danger'],
+      description: 'Semantic tone.',
+    },
+    size: { control: 'inline-radio', options: ['sm', 'md'], description: 'Badge size.' },
+  },
+  args: {
+    value: '5',
+    appearance: 'filled',
+    shape: 'circle',
+    tone: 'neutral',
+    size: 'sm',
+  },
+} satisfies Meta<typeof BadgeIndicator>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+/** Use the Controls panel to switch appearance/shape/tone/size. */
+export const Default: Story = {};
+
+/** Every tone, Filled. */
+export const Intents: Story = {
+  parameters: { controls: { exclude: ['tone'] } },
+  render: (args) => (
+    <div className="flex flex-wrap items-center gap-3">
+      <BadgeIndicator {...args} tone="neutral" />
+      <BadgeIndicator {...args} tone="info" />
+      <BadgeIndicator {...args} tone="success" />
+      <BadgeIndicator {...args} tone="warning" />
+      <BadgeIndicator {...args} tone="danger" />
+    </div>
+  ),
+};
+
+/** Filled vs Outlined, across every tone. */
+export const TypeComparison: Story = {
+  name: 'Filled vs Outlined',
+  parameters: { controls: { exclude: ['tone', 'type'] } },
+  render: (args) => (
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-wrap items-center gap-3">
+        {(['neutral', 'info', 'success', 'warning', 'danger'] as const).map((tone) => (
+          <BadgeIndicator key={tone} {...args} appearance="filled" tone={tone} />
+        ))}
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        {(['neutral', 'info', 'success', 'warning', 'danger'] as const).map((tone) => (
+          <BadgeIndicator key={tone} {...args} appearance="outlined" tone={tone} />
+        ))}
+      </div>
+    </div>
+  ),
+};
+
+/** The three value types: qty text, a plain dot, and an icon. */
+export const Types: Story = {
+  parameters: { controls: { exclude: ['value', 'dot', 'icon'] } },
+  render: (args) => (
+    <div className="flex flex-wrap items-center gap-3">
+      <BadgeIndicator {...args} value="5" />
+      <BadgeIndicator {...args} value="99+" />
+      <BadgeIndicator {...args} dot />
+      <BadgeIndicator {...args} icon={<Star width={10} height={10} aria-hidden="true" />} />
+    </div>
+  ),
+};
+
+/** Round vs squared corners. */
+export const Shapes: Story = {
+  parameters: { controls: { exclude: ['shape'] } },
+  render: (args) => (
+    <div className="flex flex-wrap items-center gap-3">
+      <BadgeIndicator {...args} shape="circle" />
+      <BadgeIndicator {...args} shape="square" />
+    </div>
+  ),
+};
+
+/** Small (16px) vs Medium (20px). */
+export const Sizes: Story = {
+  parameters: { controls: { exclude: ['size'] } },
+  render: (args) => (
+    <div className="flex flex-wrap items-center gap-3">
+      <BadgeIndicator {...args} size="sm" />
+      <BadgeIndicator {...args} size="md" />
+    </div>
+  ),
+};
+
+/** `pulse`: two rings spread three times, then rest. Change `pulseKey` to replay. */
+export const Pulse: Story = {
+  render: () => {
+    const [n, setN] = useState(0);
+    return (
+      <div className="flex items-center gap-6 font-body text-body-m text-[var(--color-text-text)]">
+        <span className="inline-flex items-center gap-2">
+          Inbox <BadgeIndicator dot tone="danger" pulse pulseKey={n} />
+        </span>
+        <span className="inline-flex items-center gap-2">
+          Updates <BadgeIndicator value={String(3 + n)} tone="info" pulse pulseKey={n} />
+        </span>
+        <button type="button" className="cursor-pointer rounded-[var(--size-border-radius-border-radius-md)] px-2 py-1 text-body-s text-[var(--color-text-text-link)] focus-visible:focus-ring" onClick={() => setN((x) => x + 1)}>
+          New item
+        </button>
+      </div>
+    );
+  },
+};

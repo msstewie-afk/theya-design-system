@@ -1,0 +1,400 @@
+{
+  "size": {
+    "icon": {
+      "icon-xs": {
+        "value": "{size.size12}",
+        "type": "dimension"
+      },
+      "icon-sm": {
+        "value": "{size.size16}",
+        "type": "dimension"
+      },
+      "icon-lg": {
+        "value": "{size.size32}",
+        "type": "dimension"
+      },
+      "icon-md": {
+        "value": "{size.size24}",
+        "type": "dimension"
+      },
+      "icon-xl": {
+        "value": "{size.size48}",
+        "type": "dimension"
+      },
+      "icon-2xs": {
+        "value": "{size.size8}",
+        "type": "dimension"
+      }
+    },
+    "size-control": {
+      "size-control-xs": {
+        "value": "{size.size20}",
+        "type": "dimension"
+      },
+      "size-control-md": {
+        "value": "{size.size28}",
+        "type": "dimension"
+      },
+      "size-control-xl": {
+        "value": "{size.size36}",
+        "type": "dimension"
+      },
+      "size-control-sm": {
+        "value": "{size.size24}",
+        "type": "dimension"
+      },
+      "size-control-2xs": {
+        "value": "{size.size16}",
+        "type": "dimension"
+      },
+      "size-control-lg": {
+        "value": "{size.size32}",
+        "type": "dimension"
+      },
+      "size-control-2xl": {
+        "value": "{size.size40}",
+        "type": "dimension"
+      },
+      "size-control-3xl": {
+        "value": "{size.size44}",
+        "type": "dimension"
+      },
+      "size-control-4xl": {
+        "value": "{size.size48}",
+        "type": "dimension"
+      },
+      "size-control-5xl": {
+        "value": "{size.size56}",
+        "type": "dimension"
+      },
+      "size-control-6xl": {
+        "value": "{size.size64}",
+        "type": "dimension"
+      }
+    },
+    "control": {
+      "control-xs": {
+        "value": "{size.size20}",
+        "type": "dimension"
+      }
+    },
+    "border-radius": {
+      "border-radius-sm": {
+        "value": "{size.size2}",
+        "type": "dimension"
+      },
+      "border-radius-md": {
+        "value": "{size.size4}",
+        "type": "dimension"
+      },
+      "border-radius-lg": {
+        "value": "{size.size6}",
+        "type": "dimension"
+      },
+      "border-radius-xl": {
+        "value": "{size.size8}",
+        "type": "dimension"
+      },
+      "border-radius-2xl": {
+        "value": "{size.size10}",
+        "type": "dimension"
+      },
+      "border-radius-3xl": {
+        "value": "{size.size12}",
+        "type": "dimension"
+      },
+      "border-radius-4xl": {
+        "value": "{size.size16}",
+        "type": "dimension"
+      },
+      "border-radius-5xl": {
+        "value": "{size.size32}",
+        "type": "dimension"
+      },
+      "border-radius-max": {
+        "value": "{size.size100}",
+        "type": "dimension"
+      }
+    },
+    "width": {
+      "width-control-xs": {
+        "value": "{size.size20}",
+        "type": "dimension"
+      },
+      "width-control-sm": {
+        "value": "{size.size60}",
+        "type": "dimension"
+      },
+      "width-control-lg": {
+        "value": "{size.size200}",
+        "type": "dimension"
+      },
+      "width-control-2xl": {
+        "value": "{size.size348}",
+        "type": "dimension"
+      },
+      "width-control-3xl": {
+        "value": "{size.size500}",
+        "type": "dimension"
+      },
+      "width-dropdown-sm": {
+        "value": "{size.size152}",
+        "type": "dimension"
+      },
+      "width-dropdown-md": {
+        "value": "{size.size224}",
+        "type": "dimension"
+      },
+      "width-form": {
+        "value": "{size.size216}",
+        "type": "dimension"
+      },
+      "width-notification": {
+        "value": "{size.size400}",
+        "type": "dimension"
+      },
+      "width-sidebar": {
+        "value": "{size.size224}",
+        "type": "dimension"
+      },
+      "width-drawer-sm": {
+        "value": "{size.size512}",
+        "type": "dimension"
+      },
+      "width-drawer-md": {
+        "value": "{size.size640}",
+        "type": "dimension"
+      },
+      "width-drawer-lg": {
+        "value": "{size.size900}",
+        "type": "dimension"
+      },
+      "width-drawer-xl": {
+        "value": "{size.size1000}",
+        "type": "dimension"
+      },
+      "width-control-md": {
+        "value": "{size.size100}",
+        "type": "dimension"
+      },
+      "width-control-xl": {
+        "value": "{size.size224}",
+        "type": "dimension"
+      }
+    },
+    "margin": {
+      "margin-2xs": {
+        "value": "{size.size4}",
+        "type": "dimension"
+      },
+      "margin-xs": {
+        "value": "{size.size8}",
+        "type": "dimension"
+      },
+      "margin-md": {
+        "value": "{size.size12}",
+        "type": "dimension"
+      },
+      "margin-lg": {
+        "value": "{size.size16}",
+        "type": "dimension"
+      },
+      "margin-xl": {
+        "value": "{size.size20}",
+        "type": "dimension"
+      },
+      "margin-2xl": {
+        "value": "{size.size24}",
+        "type": "dimension"
+      },
+      "margin-3xl": {
+        "value": "{size.size28}",
+        "type": "dimension"
+      },
+      "margin-4xl": {
+        "value": "{size.size32}",
+        "type": "dimension"
+      },
+      "margin-3xs": {
+        "value": "{size.size3}",
+        "type": "dimension"
+      },
+      "margin-4xs": {
+        "value": "{size.size2}",
+        "type": "dimension"
+      },
+      "margin-s": {
+        "value": "{size.size10}",
+        "type": "dimension"
+      }
+    },
+    "padding": {
+      "padding-2xs": {
+        "value": "{size.size4}",
+        "type": "dimension"
+      },
+      "padding-xs": {
+        "value": "{size.size8}",
+        "type": "dimension"
+      },
+      "padding-md": {
+        "value": "{size.size12}",
+        "type": "dimension"
+      },
+      "padding-lg": {
+        "value": "{size.size16}",
+        "type": "dimension"
+      },
+      "padding-xl": {
+        "value": "{size.size20}",
+        "type": "dimension"
+      },
+      "padding2xl": {
+        "value": "{size.size24}",
+        "type": "dimension"
+      },
+      "padding-3xl": {
+        "value": "{size.size28}",
+        "type": "dimension"
+      },
+      "padding-4xl": {
+        "value": "{size.size32}",
+        "type": "dimension"
+      },
+      "padding-3xs": {
+        "value": "{size.size2}",
+        "type": "dimension"
+      },
+      "padding-15xs": {
+        "value": "{size.size6}",
+        "type": "dimension"
+      },
+      "padding-s": {
+        "value": "{size.size10}",
+        "type": "dimension"
+      }
+    },
+    "border-width": {
+      "border-width-sm": {
+        "value": "{size.size1}",
+        "type": "dimension"
+      },
+      "border-width-md": {
+        "value": "{size.size2}",
+        "type": "dimension"
+      },
+      "border-width-lg": {
+        "value": "{size.size4}",
+        "type": "dimension"
+      },
+      "border-width-xl": {
+        "value": "{size.size6}",
+        "type": "dimension"
+      },
+      "border-width-2xl": {
+        "value": "{size.size8}",
+        "type": "dimension"
+      },
+      "border-width-3xl": {
+        "value": "{size.size12}",
+        "type": "dimension"
+      }
+    },
+    "size-system": {
+      "page-margin": {
+        "value": 120,
+        "type": "dimension"
+      },
+      "page-gap": {
+        "value": 100,
+        "type": "dimension"
+      },
+      "section-margin": {
+        "value": 60,
+        "type": "dimension"
+      },
+      "section-gap": {
+        "value": 24,
+        "type": "dimension"
+      },
+      "block-margin-m": {
+        "value": 48,
+        "type": "dimension"
+      },
+      "block-margin-s": {
+        "value": 32,
+        "type": "dimension"
+      },
+      "block-gap-xl": {
+        "value": 48,
+        "type": "dimension"
+      },
+      "block-gap-l": {
+        "value": 32,
+        "type": "dimension"
+      },
+      "block-gap-m": {
+        "value": 24,
+        "type": "dimension"
+      },
+      "block-gap-s": {
+        "value": 16,
+        "type": "dimension"
+      },
+      "block-gap-xs": {
+        "value": 12,
+        "type": "dimension"
+      },
+      "block-gap-2xs": {
+        "value": 8,
+        "type": "dimension"
+      }
+    },
+    "gap": {
+      "gap-4xs": {
+        "value": "{size.size2}",
+        "type": "dimension"
+      },
+      "gap-3xs": {
+        "value": "{size.size3}",
+        "type": "dimension"
+      },
+      "gap-2xs": {
+        "value": "{size.size4}",
+        "type": "dimension"
+      },
+      "gap-xs": {
+        "value": "{size.size8}",
+        "type": "dimension"
+      },
+      "gap-s": {
+        "value": "{size.size10}",
+        "type": "dimension"
+      },
+      "gap-md": {
+        "value": "{size.size12}",
+        "type": "dimension"
+      },
+      "gap-lg": {
+        "value": "{size.size16}",
+        "type": "dimension"
+      },
+      "gap-xl": {
+        "value": "{size.size20}",
+        "type": "dimension"
+      },
+      "gap-2xl": {
+        "value": "{size.size24}",
+        "type": "dimension"
+      },
+      "gap-3xl": {
+        "value": "{size.size28}",
+        "type": "dimension"
+      },
+      "gap-4xl": {
+        "value": "{size.size32}",
+        "type": "dimension"
+      }
+    }
+  }
+}

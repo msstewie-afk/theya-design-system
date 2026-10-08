@@ -1,0 +1,369 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { ArrowLeft, Globe, Plus, Server } from 'iconoir-react';
+import { KebabIconVertical } from './kebab-icon';
+import { PageHeader } from './page-header';
+import { Button } from './button';
+import { Badge } from './badge';
+import { StatusDot } from './status-dot';
+import { Chip } from './chip';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from './breadcrumb';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from './dropdown-menu';
+import { pageHeaderGuidelines } from './page-header.guidelines';
+
+const meta: Meta<typeof PageHeader> = {
+  title: 'Layout/PageHeader',
+  component: PageHeader,
+  tags: ['autodocs'],
+  parameters: { guidelines: pageHeaderGuidelines, layout: 'padded' },
+  argTypes: {
+    title: { control: 'text', description: 'Page heading text.' },
+    description: { control: 'text', description: "Supporting line below the title. Capped at 540px so a long line wraps for readability." },
+    as: { control: 'inline-radio', options: ['h1', 'h2', 'h3'], description: 'Heading element rendered for the title.' },
+    icon: { control: false, description: "Leading icon beside the title. Plain — no chip/circle background, sized to the title's own scale." },
+    tags: { control: false, description: 'Row of tags/chips below the title, above the description.' },
+    breadcrumb: { control: false, description: 'Content above the title — typically a Breadcrumb.' },
+    actions: { control: false, description: 'Right-aligned action row. Sits beside the breadcrumb when given, otherwise beside the title, vertically centered on that row.' },
+    contentActions: {
+      control: false,
+      description: 'A second action row tied to the description/content — always below it, outside the actions-centering row.',
+    },
+    children: { control: false, description: 'Content rendered below the header, e.g. tabs.' },
+    className: { control: false, description: 'Class on the root element.' },
+  },
+  args: {
+    title: 'Sites',
+    description: 'Every site across your servers.',
+    as: 'h1',
+  },
+  decorators: [
+    (Story) => (
+      <div className="w-full max-w-4xl">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof PageHeader>;
+
+/** Title + description, no actions. */
+export const Default: Story = {};
+
+/** With a primary action on the right (no breadcrumb, so actions sit in the
+ * title row — the same compact single row as a header with no actions at all,
+ * just with the buttons alongside; they drop below the title on mobile). */
+export const WithActions: Story = {
+  args: {
+    actions: (
+      <>
+        <Button appearance="outlined">Import</Button>
+        <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
+          Create site
+        </Button>
+      </>
+    ),
+  },
+};
+
+/** A breadcrumb above the title, a status meta row below it (children), and
+ * actions — the actions align to the breadcrumb row, not the title row, since
+ * a breadcrumb is present. */
+export const WithBreadcrumbAndMeta: Story = {
+  args: {
+    title: 'shop.seashell.dev',
+    description: undefined,
+    breadcrumb: (
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/sites">Sites</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>shop.seashell.dev</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    ),
+    actions: <Button appearance="outlined">Visit site</Button>,
+    children: (
+      <>
+        <Badge tone="success">
+          <StatusDot tone="success" />
+          Active
+        </Badge>
+        <span>Production · eu-west-1 · Node 20</span>
+      </>
+    ),
+  },
+};
+
+/** As a section header (`as="h2"`) — smaller in the document outline. No
+ * breadcrumb, so actions stay in the title row, same as `WithActions`. */
+export const SectionHeader: Story = {
+  args: {
+    as: 'h2',
+    title: 'API tokens',
+    description: 'Personal access tokens for the CLI and CI.',
+    actions: (
+      <Button appearance="filled" tone="primary" size="md">
+        New token
+      </Button>
+    ),
+  },
+};
+
+/**
+ * A back-navigation arrow beside the breadcrumb — composed by hand next to the
+ * `breadcrumb` slot, not a PageHeader (or Breadcrumb) prop: Theya's Breadcrumb
+ * has no `back` composition point yet, so this is a plain
+ * `<Button iconOnly>` placed alongside it in the slot's own content.
+ */
+export const WithBackNavigation: Story = {
+  args: {
+    title: 'shop.seashell.dev',
+    description: undefined,
+    breadcrumb: (
+      <div className="flex items-center gap-1">
+        <Button appearance="ghost" iconOnly size="md" aria-label="Back to sites" leftIcon={<ArrowLeft />} />
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/sites">Sites</BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+    ),
+  },
+};
+
+/**
+ * A kebab menu beside the primary actions — the same overflow-menu pattern
+ * ListItem already uses: `DropdownMenuTrigger asChild` wrapping a Button.
+ * Unlike ListItem's row-level kebab (which stays `ghost` so it doesn't
+ * compete with row content), this one keeps a visible outline so it reads as
+ * a peer of the buttons beside it, not as a quieter afterthought.
+ */
+export const WithKebabMenu: Story = {
+  args: {
+    actions: (
+      <>
+        <Button appearance="outlined" className="hidden sm:inline-flex">
+          Import
+        </Button>
+        <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
+          Create site
+        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button appearance="outlined" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-icon-icon)]" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem className="sm:hidden">Import</DropdownMenuItem>
+            <DropdownMenuSeparator className="sm:hidden" />
+            <DropdownMenuItem>Export sites</DropdownMenuItem>
+            <DropdownMenuItem>Bulk edit</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem tone="danger">Delete all</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </>
+    ),
+  },
+};
+
+/** A leading icon beside the title — plain and muted, no circle/chip
+ * background. */
+export const WithIcon: Story = {
+  args: {
+    title: 'shop.seashell.dev',
+    icon: <Globe />,
+    description: undefined,
+  },
+};
+
+/** A row of tags below the title, above the description — small static
+ * (non-removable) Chips plus a small "add tag" affordance. */
+export const WithTags: Story = {
+  args: {
+    title: 'shop.seashell.dev',
+    description: 'Every site across your servers.',
+    tags: (
+      <>
+        <Chip interactive={false}>
+          Production
+        </Chip>
+        <Chip interactive={false}>
+          Node 20
+        </Chip>
+        <Button appearance="ghost" iconOnly size="md" aria-label="Add tag" leftIcon={<Plus />} />
+      </>
+    ),
+  },
+};
+
+/**
+ * A content-actions row below the description — a second, separate action
+ * slot from the top-right `actions`, for a button tied to the description's
+ * content rather than the page as a whole. Always below the description,
+ * never sharing the top row.
+ */
+export const WithContentActions: Story = {
+  args: {
+    title: 'shop.seashell.dev',
+    description: 'This site was suspended for exceeding its bandwidth quota.',
+    actions: <Button appearance="outlined">Visit site</Button>,
+    contentActions: (
+      <Button appearance="outlined" size="md">
+        Reinstate site
+      </Button>
+    ),
+  },
+};
+
+/**
+ * Tabs reading as part of the header, without PageHeader taking on a Tabs
+ * dependency: render <Tabs> directly below <PageHeader> in the same gap-4
+ * flex column, rather than adding a tabs prop to PageHeader itself.
+ */
+export const WithTabs: Story = {
+  render: (args) => (
+    <div className="flex flex-col gap-4">
+      <PageHeader {...args} />
+      <Tabs defaultValue="overview">
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="deployments">Deployments</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
+        </TabsList>
+        <TabsContent value="overview" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
+          Overview content.
+        </TabsContent>
+        <TabsContent value="deployments" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
+          Deployments content.
+        </TabsContent>
+        <TabsContent value="settings" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
+          Settings content.
+        </TabsContent>
+      </Tabs>
+    </div>
+  ),
+  args: {
+    title: 'shop.seashell.dev',
+    description: undefined,
+  },
+};
+
+/**
+ * Every optional slot at once, for a full visual/spacing check in one place:
+ * back-navigation + breadcrumb, actions + kebab menu, icon, tags, description,
+ * content-actions. Not a realistic single screen — a kitchen-sink story to
+ * sanity-check the whole stack together.
+ */
+export const AllElements: Story = {
+  args: {
+    title: 'shop.seashell.dev',
+    icon: <Globe />,
+    description:
+      'Every site across your servers, grouped by environment. Production sites are backed up nightly and monitored for uptime; staging and development sites are excluded from paging.',
+    breadcrumb: (
+      <div className="flex items-center gap-1">
+        <Button appearance="ghost" iconOnly size="md" aria-label="Back to sites" leftIcon={<ArrowLeft />} />
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/sites">Sites</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>shop.seashell.dev</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+    ),
+    tags: (
+      <>
+        <Chip interactive={false}>
+          Production
+        </Chip>
+        <Chip interactive={false}>
+          Node 20
+        </Chip>
+        <Button appearance="ghost" iconOnly size="md" aria-label="Add tag" leftIcon={<Plus />} />
+      </>
+    ),
+    actions: (
+      <>
+        <Button appearance="outlined" className="hidden sm:inline-flex">
+          Import
+        </Button>
+        <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
+          Create site
+        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button appearance="outlined" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-icon-icon)]" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem className="sm:hidden">Import</DropdownMenuItem>
+            <DropdownMenuSeparator className="sm:hidden" />
+            <DropdownMenuItem>Export sites</DropdownMenuItem>
+            <DropdownMenuItem>Bulk edit</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem tone="danger">Delete all</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </>
+    ),
+    contentActions: (
+      <Button appearance="outlined" size="md">
+        Reinstate site
+      </Button>
+    ),
+  },
+};
+
+/** Compact recap of the original two-story coverage: a bare header, and the
+ * full single-shot composition (icon + breadcrumb + tags + description + actions). */
+export const Full: Story = {
+  args: {
+    title: 'shop.seashell.dev',
+    icon: <Server />,
+    description: 'Primary storefront, served from eu-west-1 with 3 replicas.',
+    breadcrumb: (
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">Sites</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>shop.seashell.dev</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    ),
+    tags: (
+      <>
+        <Chip interactive={false} tone="success">
+          Active
+        </Chip>
+        <Chip interactive={false}>
+          Production
+        </Chip>
+      </>
+    ),
+    actions: (
+      <>
+        <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
+          New deployment
+        </Button>
+        <Button appearance="ghost" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-icon-icon)]" />
+      </>
+    ),
+  },
+};

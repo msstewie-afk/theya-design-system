@@ -1,0 +1,224 @@
+# Theya
+
+> Theya is a React design system built on shadcn/ui (Radix + Tailwind v4). Package `@theya/shadcn` v0.1.0, 157 components, each with use-guidelines (when to use, when not and what instead, anatomy, do/don’t, accessibility) and typed props.
+
+Rules for building UI with Theya:
+
+- Import each component from its own entry: `import { Button } from '@theya/shadcn/ui/button'`. Use Theya components instead of raw shadcn/ui or hand-written equivalents.
+- Before choosing a component, read its "When not to use" list: it names the component to use instead.
+- Colors, spacing, radii and type come from Theya tokens (CSS variables such as `var(--color-text-text)`); don’t hard-code hex values or Tailwind palette colors.
+- Status tones are `neutral | primary | success | warning | danger | info`; never carry meaning by color alone.
+- Icon-only controls need an `aria-label`; a tooltip doesn’t replace it.
+
+Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable records live in the package: `packages/theya-shadcn/spec/index.json` and `spec/components/<name>.json`. Links below open each component’s Docs page in this Storybook.
+
+## Actions
+
+- [Button](./?path=/docs/actions-button--docs): To do something: save, submit, create, delete, start a flow, open a dialog.
+- [CopyButton](./?path=/docs/actions-copybutton--docs): Next to a value people paste somewhere else: an API key, a DNS record, a command, a link.
+- [DensityToggle](./?path=/docs/actions-densitytoggle--docs) (beta): Products with data-heavy screens (tables, admin forms), where some people want more rows on screen and others want larger targets.
+- [Fab](./?path=/docs/actions-fab--docs) (beta): The one main action of a screen that must stay reachable while scrolling, mostly on mobile: “New message”, “Add site”.
+- [KebabIcon](./?path=/docs/actions-kebabicon--docs): The trigger of an overflow menu: “more actions” for a row, a card or a toolbar.
+- [SplitButton](./?path=/docs/actions-splitbutton--docs): One main action with a few variations of it: “Deploy” / Deploy to staging / Deploy without cache.
+- [StickyActionBar](./?path=/docs/actions-stickyactionbar--docs) (beta): Save / Discard at the end of a long form, kept in view while scrolling.
+- [ThemeToggle](./?path=/docs/actions-themetoggle--docs): A quick light/dark switch in the top bar.
+- [Toggle](./?path=/docs/actions-toggle--docs): A button that stays pressed: bold in an editor, “Show archived”, pin.
+- [ToggleGroup](./?path=/docs/actions-togglegroup--docs): Switching a view or a filter among 2–5 options, all visible: Grid / List, All / Unread, Monthly / Yearly.
+
+## AI & Chat
+
+- [Chat](./?path=/docs/ai-chat-chat--docs) (beta): A conversation surface: an AI assistant, support chat, comments thread in real time.
+- [HoldToTalk](./?path=/docs/ai-chat-holdtotalk--docs) (beta): Voice input in a prompt or chat composer, where speaking replaces typing for one message.
+- [Message](./?path=/docs/ai-chat-message--docs) (beta): One turn in a conversation, inside ChatMessages.
+- [PromptArea](./?path=/docs/ai-chat-promptarea--docs) (beta): The composer of a chat or AI assistant: multi-line input that grows, send and stop, attachments, @mentions and /commands.
+- [PromptSuggestions](./?path=/docs/ai-chat-promptsuggestions--docs) (beta): Starting points above an empty composer — what the assistant is good at, as tap-to-ask prompts.
+
+## Charts
+
+- [AreaChart](./?path=/docs/charts-areachart--docs): One quantity over time where the volume matters: traffic, requests, storage used.
+- [BarChart](./?path=/docs/charts-barchart--docs): Comparing a value across categories: load by region, deploys per day, tickets per team.
+- [ChartRangeSelection](./?path=/docs/charts-chartrangeselection--docs) (beta): Selecting a span on an ordered x-axis to zoom in or filter: “show errors from Aug 3 to Aug 6”.
+- [DonutChart](./?path=/docs/charts-donutchart--docs): Parts of one whole, up to 7: storage by environment, plan mix, traffic by source.
+- [LineChart](./?path=/docs/charts-linechart--docs): Comparing a few trends over the same time: CPU vs memory, this week vs last.
+- [Sparkline](./?path=/docs/charts-sparkline--docs): The shape of a trend next to its number: a stat card, a table cell, a list row.
+
+## Code
+
+- [CodeBlock](./?path=/docs/code-codeblock--docs): A command, snippet or config the user reads and copies: install steps, a DNS record, an API example.
+- [CodeEditor](./?path=/docs/code-codeeditor--docs) (beta): Editing config, templates, rules or scripts in the product: JSON, HTML, CSS, JS/TS, shell.
+- [DiffViewer](./?path=/docs/code-diffviewer--docs) (beta): Reviewing a change before applying it: config, a template, a policy, a file restored from backup.
+- [Terminal](./?path=/docs/code-terminal--docs) (beta): Live or past console output: a web SSH session, a deploy or build log, a tail of access logs.
+
+## Data
+
+- [Countdown](./?path=/docs/data-countdown--docs) (beta): Time left until a deadline that matters to the user: a trial ending, a maintenance window starting, “resend code in 0:42”.
+- [DataTable](./?path=/docs/data-datatable--docs): Lists of records people scan, sort, filter, select and act on: sites, domains, invoices, users.
+- [DataTableCell](./?path=/docs/data-datatablecell--docs): Every cell of a DataTable: pick the kind by content — text, mono, primary, status, badge, usage, sparkline.
+- [DataTableToolbar](./?path=/docs/data-datatabletoolbar--docs): Above a selectable DataTable: filter / search when idle, bulk actions when rows are selected — in the same strip.
+- [DescriptionList](./?path=/docs/data-descriptionlist--docs): Properties of one object: site details, an invoice header, a certificate.
+- [Kanban](./?path=/docs/data-kanban--docs) (beta): Work moving through stages: tickets, a deploy pipeline, content review.
+- [ListItem](./?path=/docs/data-listitem--docs): Lists lighter than a table: settings sections, notifications, a resource picker.
+- [Metric](./?path=/docs/data-metric--docs): Quick-glance counts repeated as rows inside a card: mailboxes used, aliases, records pending.
+- [Price](./?path=/docs/data-price--docs) (beta): Any amount of money in the UI: plan cards, checkout, invoices, add-ons.
+- [QrCode](./?path=/docs/data-qrcode--docs) (beta): Moving something from screen to phone: 2FA setup, a Wi-Fi or app link, a payment or ticket.
+- [Scheduler](./?path=/docs/data-scheduler--docs) (beta): Events placed in time: maintenance windows, bookings, shifts, release plans.
+- [Stat](./?path=/docs/data-stat--docs): Headline numbers on a dashboard or overview: active sites, uptime, revenue — 2 to 4 in a row.
+- [Table](./?path=/docs/data-table--docs): Static tabular data with a few rows and no sorting, paging or selection: a price breakdown, DNS records, a spec sheet.
+- [Timeline](./?path=/docs/data-timeline--docs): A sequence of events in time: activity on a site, an incident’s history, an order’s progress.
+- [Tree](./?path=/docs/data-tree--docs) (beta): Real hierarchy people expand and pick from: files and folders, DNS zones, nested categories.
+
+## Date & Time
+
+- [Calendar](./?path=/docs/date-time-calendar--docs): The calendar is the content: picking a booking day, showing availability, choosing several days.
+- [DatePicker](./?path=/docs/date-time-datepicker--docs): One date near today that people pick by looking at a month: a start date, a due date, a delivery day.
+- [DateRangePicker](./?path=/docs/date-time-daterangepicker--docs): A start and end date picked together: a report period, a booking, a filter.
+- [DateTimePicker](./?path=/docs/date-time-datetimepicker--docs): A moment that needs both date and time: a scheduled send, a maintenance window, a reminder.
+- [TimeField](./?path=/docs/date-time-timefield--docs): A time of day: a daily backup time, a meeting start, a reminder.
+- [TimeRangePicker](./?path=/docs/date-time-timerangepicker--docs): A start and end time within one day: opening hours, a maintenance window, quiet hours.
+
+## Files
+
+- [Attachment](./?path=/docs/files-attachment--docs): Showing a file that’s already attached: in a message, a ticket, a list of uploads.
+- [Dropzone](./?path=/docs/files-dropzone--docs): Uploading one or several files where dragging from the desktop is common: documents, media, imports.
+- [File](./?path=/docs/files-file--docs): One file in a form: a logo, a certificate, a document to attach.
+- [ImageCropper](./?path=/docs/files-imagecropper--docs) (beta): Framing an uploaded image before saving: avatar, logo, cover, product photo.
+
+## Form Structure
+
+- [Field](./?path=/docs/form-structure-field--docs): Stacking a Label, a control, a description and an error for controls that don’t draw them themselves (Select, Combobox, DatePicker, custom).
+- [Fieldset](./?path=/docs/form-structure-fieldset--docs): Grouping related controls under one name: an address, notification settings, a section of a long form.
+- [Form](./?path=/docs/form-structure-form--docs): Forms with validation on react-hook-form: FormField per control, FormItem with FormLabel, FormDescription and FormMessage.
+- [Label](./?path=/docs/form-structure-label--docs): Naming any form control that doesn’t draw its own label — Select, Combobox, DatePicker, NumberField, custom controls.
+- [PropertyGrid](./?path=/docs/form-structure-propertygrid--docs): Viewing and editing an object’s properties in a compact two-column list: an inspector panel, a resource’s settings, a selected item’s details.
+
+## Labels
+
+- [Avatar](./?path=/docs/labels-avatar--docs): Showing who: a person, a team or an account next to their name — in lists, comments, menus.
+- [AvatarGroup](./?path=/docs/labels-avatargroup--docs): Showing that several people are involved — collaborators, assignees, viewers — when the exact list is secondary.
+- [Badge](./?path=/docs/labels-badge--docs): A short status or label attached to something: “Active”, “Beta”, “Expired”.
+- [Chip](./?path=/docs/labels-chip--docs): Selectable or removable values: quick filters (“Critical”, “Mine”), selected tags, suggestions.
+- [DotSeparator](./?path=/docs/labels-dotseparator--docs): Separating short inline facts on one line: “eu-west-1 · Created Mar 2026 · v2.4.0”.
+- [HelpIcon](./?path=/docs/labels-helpicon--docs): One line of optional background next to a label, a column header or a stat: what a term means, why a setting exists.
+- [Kbd](./?path=/docs/labels-kbd--docs): Showing a keyboard key or shortcut in text, menus, tooltips and help: ⌘ K, Esc, ?.
+- [ToneIcon](./?path=/docs/labels-toneicon--docs): Leading a row or card whose meaning is a tone: a warning in a list, a success step, an info note.
+
+## Layout
+
+- [Accordion](./?path=/docs/layout-accordion--docs): Several sections people scan by heading and open one or two of: FAQs, settings groups, long details.
+- [AspectRatio](./?path=/docs/layout-aspectratio--docs): Media whose box must keep its shape before it loads: previews, thumbnails, video, maps.
+- [Card](./?path=/docs/layout-card--docs): A self-contained unit people scan and compare: an item in a grid, the summary of one object, a settings section.
+- [Carousel](./?path=/docs/layout-carousel--docs): Browsing a set of similar, optional items one or a few at a time: templates, screenshots, product photos.
+- [Collapsible](./?path=/docs/layout-collapsible--docs): One optional region people expand on demand: “Advanced settings”, “Show 12 more”, technical details.
+- [PageHeader](./?path=/docs/layout-pageheader--docs): The top of a page or major section: title, a line of description, and the page’s main action on the right.
+- [Prose](./?path=/docs/layout-prose--docs): Long-form content Theya doesn’t lay out itself: help articles, changelogs, legal pages, rendered Markdown or CMS HTML.
+- [Resizable](./?path=/docs/layout-resizable--docs): Work views where people balance two or three panes themselves: file tree + editor, list + details, editor + preview.
+- [ScrollArea](./?path=/docs/layout-scrollarea--docs): A region that must scroll inside a fixed space: a list in a popover or panel, a log, a long menu.
+- [Separator](./?path=/docs/layout-separator--docs): A quiet line between groups that spacing alone doesn’t separate: menu groups, list rows, toolbar sections.
+- [Toolbar](./?path=/docs/layout-toolbar--docs): A row of related commands sharing one tab stop: bulk actions on a selection, text formatting, editor tools.
+
+## Menus
+
+- [ContextMenu](./?path=/docs/menus-contextmenu--docs): A right-click shortcut in tool-like surfaces: a file grid, a canvas, a code editor, a kanban card.
+- [DropdownMenu](./?path=/docs/menus-dropdownmenu--docs): Secondary actions behind a trigger: “more actions” for a row or card, a user menu, a split button’s options.
+
+## Motion
+
+- [AnimatedIcon](./?path=/docs/motion-animatedicon--docs) (beta): A small cue that answers an action: Copy turns into a tick, a menu button folds into ×, a refresh arrow turns.
+- [CardFan](./?path=/docs/motion-cardfan--docs) (beta): A playful group of 3–5 cards in a hero or an about page: team members, plans, product shots.
+- [CardStack](./?path=/docs/motion-cardstack--docs) (beta): A landing or empty-state showcase that cycles a few cards: testimonials, highlights, recent invoices.
+- [CountUp](./?path=/docs/motion-countup--docs) (beta): A headline figure on a landing page: “12,400 sites”, “99.98% uptime”, “3× faster”.
+- [Marquee](./?path=/docs/motion-marquee--docs) (beta): A strip of customer logos, short quotes or partner names on a landing page — “trusted by”.
+- [MarqueeColumns](./?path=/docs/motion-marqueecolumns--docs) (beta): A decorative wall of cards behind or beside a hero: testimonials, templates, integrations.
+- [OrbitCarousel](./?path=/docs/motion-orbitcarousel--docs) (beta): A showcase on a landing page: case studies, product shots, a few campaign cards.
+- [ProgressRing](./?path=/docs/motion-progressring--docs) (beta): A single completion figure on a card or a landing bento: setup 75% done, 3 of 4 steps.
+- [Reveal](./?path=/docs/motion-reveal--docs) (beta): Landing and marketing pages: feature blocks, cards, a pricing row easing in as the reader scrolls down.
+- [SurfaceEffect](./?path=/docs/motion-surfaceeffect--docs) (beta): Feature and pricing cards on a landing page: a glow under the pointer (`spotlight`), a light running round the border of the plan you recommend (`beam`), a gentle `tilt`, `shine` or `lift` on hover.
+- [SwipeDeck](./?path=/docs/motion-swipedeck--docs) (beta): A quick keep-or-skip pass over a short set: templates to try, suggested domains, onboarding interests.
+- [TextEffect](./?path=/docs/motion-texteffect--docs) (beta): A hero headline or one key word on a landing page: letters rising in (`split`), a code-like reveal (`scramble`), a soft highlight (`shimmer`), rotating phrases (`typewriter`).
+- [TickerList](./?path=/docs/motion-tickerlist--docs) (beta): A few rows of recent activity inside a showcase card: transactions, signups, deploys.
+
+## Navigation
+
+- [Breadcrumb](./?path=/docs/navigation-breadcrumb--docs): Showing where a page sits in a hierarchy of three or more levels, and letting people go up.
+- [Link](./?path=/docs/navigation-link--docs): Going somewhere: another page, a section, a document, an external site.
+- [Menubar](./?path=/docs/navigation-menubar--docs): An application-style menu bar for editors and tools: File, Edit, View, each with many commands.
+- [NavigationMenu](./?path=/docs/navigation-navigationmenu--docs): A horizontal site or product header with a few top-level sections, some opening a panel of links.
+- [Pagination](./?path=/docs/navigation-pagination--docs): Long lists and tables split into pages people jump between: search results, logs, invoices.
+- [Sidebar](./?path=/docs/navigation-sidebar--docs): App navigation with several sections people switch between all day.
+- [Stepper](./?path=/docs/navigation-stepper--docs): A process done in order over several screens: onboarding, checkout, a setup wizard.
+- [Tabs](./?path=/docs/navigation-tabs--docs): Switching between views of the same object: Overview, Settings, Logs.
+- [Topbar](./?path=/docs/navigation-topbar--docs): The app header above the content: breadcrumb or page context on the left, a few global actions on the right.
+- [UrlTabs](./?path=/docs/navigation-urltabs--docs): Page-level tabs people link to, share, or return to after reload: a resource’s Settings or Billing tab.
+
+## Overlays
+
+- [AlertDialog](./?path=/docs/overlays-alertdialog--docs): Confirming one deliberate, usually destructive or irreversible action before it happens.
+- [ConfirmDialog](./?path=/docs/overlays-confirmdialog--docs): High-stakes, irreversible deletes where a click isn’t enough: `confirmValue` makes people type the name.
+- [Dialog](./?path=/docs/overlays-dialog--docs): A short, focused task that needs an answer before going on: rename, invite, a form of a few fields.
+- [Drawer](./?path=/docs/overlays-drawer--docs): Short, touch-first tasks from the bottom of a phone screen: sort, filters, share, a few actions.
+- [HoverCard](./?path=/docs/overlays-hovercard--docs): A quick preview of what a link points to — a user, a site, a ticket — that people could also get by clicking.
+- [KeyboardShortcuts](./?path=/docs/overlays-keyboardshortcuts--docs): A help dialog listing an app’s shortcuts, opened from a menu or with “?”.
+- [Lightbox](./?path=/docs/overlays-lightbox--docs) (beta): Looking closely at images — screenshots, product photos, attachments — and moving through a set.
+- [MessagePopup](./?path=/docs/overlays-messagepopup--docs) (beta): A help or AI assistant that lives in a corner while the page stays usable beside it.
+- [Popover](./?path=/docs/overlays-popover--docs): A small panel tied to a control: a quick setting, a filter, a picker, extra details on tap.
+- [ProductTour](./?path=/docs/overlays-producttour--docs) (beta): Introducing what changed on a redesigned screen, once, in 2–5 steps.
+- [PushSheet](./?path=/docs/overlays-pushsheet--docs): Details of a selected item beside the list, while the list stays usable: inspect, compare, pick the next one.
+- [Tooltip](./?path=/docs/overlays-tooltip--docs): Naming an icon-only control (“Copy API key”) or adding a short hint to something focusable.
+
+## Search & Filter
+
+- [Command](./?path=/docs/search-filter-command--docs): A ⌘K palette (`CommandDialog`): jump to any page or run any action by typing.
+- [Filter](./?path=/docs/search-filter-filter--docs): Narrowing a list or table by a few facets: status, region, owner.
+- [FilterField](./?path=/docs/search-filter-filterfield--docs): Keyword search and filtering by many attributes in one field: servers, logs, users.
+- [QueryBuilder](./?path=/docs/search-filter-querybuilder--docs): Saved segments, alert rules, automation triggers — conditions people compose and come back to.
+
+## Selection
+
+- [Autocomplete](./?path=/docs/selection-autocomplete--docs): Free text where common values are worth suggesting: a hostname, a city, a recent search.
+- [Checkbox](./?path=/docs/selection-checkbox--docs): Independent yes/no choices that apply when the form is saved.
+- [CheckboxGroup](./?path=/docs/selection-checkboxgroup--docs): Several related yes/no choices that form one value (“Notify me by: Email, SMS”).
+- [ColorPicker](./?path=/docs/selection-colorpicker--docs) (beta): Any color, including custom: brand and theme colors, chart series, white-label setup.
+- [Combobox](./?path=/docs/selection-combobox--docs): Picking from a long list people search rather than scroll: regions, users, domains.
+- [OptionCard](./?path=/docs/selection-optioncard--docs): A one-of choice where each option needs a title, a line of explanation and often a price: plans, verification methods, delivery.
+- [Radio](./?path=/docs/selection-radio--docs): Exactly one of 2–5 options, all visible so people can compare them.
+- [RangeField](./?path=/docs/selection-rangefield--docs): A numeric range people set roughly and sometimes exactly: price filter, size, response time.
+- [Rating](./?path=/docs/selection-rating--docs): Leaving a 1–5 score (review form).
+- [Select](./?path=/docs/selection-select--docs): One choice from 6–15 known options (up to 5 → RadioGroup, over 15 → Combobox).
+- [Slider](./?path=/docs/selection-slider--docs): A value where roughly right is good enough and seeing the position helps: volume, concurrency, a budget.
+- [SwatchPicker](./?path=/docs/selection-swatchpicker--docs): Choosing by look: product color or material, a label color, a color facet in a filter.
+- [Switch](./?path=/docs/selection-switch--docs): A setting that takes effect the moment it’s flipped — no Save button.
+- [WheelPicker](./?path=/docs/selection-wheelpicker--docs) (beta): Picking one value from a short ordered scale — an interval, a duration, a size — where nudging up or down is the natural gesture.
+
+## Status & Feedback
+
+- [Alert](./?path=/docs/status-feedback-alert--docs): A message about this page or section that stays until it’s resolved.
+- [AnnouncementBar](./?path=/docs/status-feedback-announcementbar--docs) (beta): Something that concerns everyone on every page: planned maintenance, an ongoing incident, a policy change.
+- [BadgeIndicator](./?path=/docs/status-feedback-badgeindicator--docs): A count or a “something new” dot on an icon, avatar or nav item: unread notifications, pending invites.
+- [EmptyState](./?path=/docs/status-feedback-emptystate--docs): A list, table or section with nothing in it yet — explain what will appear and how to start.
+- [FeedbackWidget](./?path=/docs/status-feedback-feedbackwidget--docs) (beta): “Was this helpful?” at the end of a help article, a docs page or an AI answer.
+- [Meter](./?path=/docs/status-feedback-meter--docs): How full something is within a known range: disk, memory, a quota, seats used.
+- [Progress](./?path=/docs/status-feedback-progress--docs): A task with a known percent done: upload, restore, export, install.
+- [Skeleton](./?path=/docs/status-feedback-skeleton--docs): First load of content whose shape is known: a card, a list, a profile header.
+- [Toaster](./?path=/docs/status-feedback-toaster--docs): Short feedback on an action just taken: saved, sent, copied, failed.
+- [Spinner](./?path=/docs/status-feedback-spinner--docs) (beta): A short wait inside a control or a small area: a button that is saving, a list that is loading, a file being read.
+- [StatusDot](./?path=/docs/status-feedback-statusdot--docs): Live state next to its text label: Running, Stopped, Degraded, Online.
+- [SuccessCheck](./?path=/docs/status-feedback-successcheck--docs) (beta): The moment something succeeds: a success Alert or Toast, a finished step, a "Saved" confirmation.
+- [TableSkeleton](./?path=/docs/status-feedback-tableskeleton--docs): First load of a hand-built Table: real headers, skeleton rows.
+- [UndoToast](./?path=/docs/status-feedback-undotoast--docs): A destructive action that can be held back for a few seconds: delete a file, archive a site, remove a member.
+- [UsageBar](./?path=/docs/status-feedback-usagebar--docs): A total split into up to four parts: storage by type, bandwidth by site, seats by role.
+
+## Text Input
+
+- [InlineEdit](./?path=/docs/text-input-inlineedit--docs) (beta): Renaming one value where it’s shown: a site name, a page title, a note.
+- [InputGroup](./?path=/docs/text-input-inputgroup--docs): A fixed prefix or suffix that is part of the value’s format: https://, .theya.app, /mo, GB.
+- [InputOTP](./?path=/docs/text-input-inputotp--docs): A one-time code of known length from an SMS, email or authenticator app.
+- [MaskedInput](./?path=/docs/text-input-maskedinput--docs) (beta): A value with one fixed format people type character by character: a card number, an IPv4 address, a date in a fixed form.
+- [NumberField](./?path=/docs/text-input-numberfield--docs): A count or amount people adjust in small steps: quantity, seats, retention days, CPU cores.
+- [Password](./?path=/docs/text-input-password--docs): Signing in, setting or changing a password — with show/hide.
+- [PasswordStrengthMeter](./?path=/docs/text-input-passwordstrengthmeter--docs): Under a new-password field, to show how close the password is to the rules as it’s typed.
+- [PhoneField](./?path=/docs/text-input-phonefield--docs) (beta): Any phone number: account, 2FA by SMS, contact details.
+- [RichTextEditor](./?path=/docs/text-input-richtexteditor--docs) (beta): Text that is published or sent with formatting: announcements, product descriptions, email templates, ticket replies.
+- [SecretField](./?path=/docs/text-input-secretfield--docs): Showing a secret the person needs to copy: API key, token, webhook secret, recovery code.
+- [TagInput](./?path=/docs/text-input-taginput--docs) (beta): Several free-form values of one kind: email recipients, domains, IP ranges, tags.
+- [TextField](./?path=/docs/text-input-textfield--docs): Short free text on one line: a name, an email, a domain, a URL, a code.
+- [TextArea](./?path=/docs/text-input-textarea--docs): Text that can run to several lines: a description, a message, notes, a list one per line.

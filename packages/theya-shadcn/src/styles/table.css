@@ -1,0 +1,150 @@
+/*
+  Table on a phone (below 640px), driven by data attributes that table.tsx
+  sets. Plain CSS rather than Tailwind classes on every part: the rules
+  depend on the table's mode and on attributes Table adds to the cells
+  after render (labels taken from the column headers, hidden columns of a
+  page), which utility classes on the individual parts can't see.
+
+  [data-mobile='stack']  one item per row: the first column is the title,
+                         every cell with a data-label a label/value pair,
+                         [data-stack-action] pinned to the item's top end.
+  [data-mobile='paged']  the first column stays, the rest shows a few at a
+                         time; cells of other pages carry [data-col-hidden].
+  [data-sticky-first]    the first column stays put while the table
+                         scrolls sideways (any width).
+*/
+
+@layer components {
+  /* Item padding on a phone: 16 / 12px, following data-density like p-4 / py-3. */
+  [data-slot='table'] {
+    --table-stack-pad-x: calc(1rem + round(nearest, 8px * var(--size-density-density-space-delta, 0), 2px));
+    --table-stack-pad-y: calc(0.75rem + round(nearest, 4px * var(--size-density-density-space-delta, 0), 2px));
+  }
+
+  /* !important only where a part's own utility classes (TableCell's padding and corner radius, text-end on a numeric cell,
+     a DataTableCell's fixed row height)
+     would otherwise win: utilities sit in a later layer. Display is left
+     alone so a cell's own `hidden` still hides it. */
+  @media (width < 40rem) {
+    /* ---------- stack ---------- */
+    [data-slot='table'][data-mobile='stack'],
+    [data-slot='table'][data-mobile='stack'] > tbody {
+      display: block;
+    }
+
+    /* Header row: kept for screen readers, hidden on screen. */
+    [data-slot='table'][data-mobile='stack'] > thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    [data-slot='table'][data-mobile='stack'] > tbody > tr {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+      padding: var(--table-stack-pad-y) var(--table-stack-pad-x);
+      /* The row line stays TableRow's own, edge to edge like on a wide screen. */
+    }
+
+    /* Room for the pinned action on the title line only; the fields below keep the full width. */
+    [data-slot='table'][data-mobile='stack'] > tbody > tr:has(> [data-stack-action]) > td:first-child {
+      padding-inline-end: 2.5rem !important;
+    }
+
+    /* Cells are flex items here (blockified), so a `hidden` cell stays hidden. */
+    [data-slot='table'][data-mobile='stack'] > tbody > tr > td {
+      min-width: 0;
+      padding: 0 !important;
+      border-radius: 0 !important;
+    }
+
+    /* A DataTableCell inside sizes to its content: no row box, no own gutter. */
+    [data-slot='table'][data-mobile='stack'] > tbody > tr > td > [data-kind] {
+      height: auto !important;
+      min-height: 0 !important;
+      padding-inline: 0 !important;
+    }
+
+    [data-slot='table'][data-mobile='stack'] > tbody > tr > td[data-label] {
+      display: grid;
+      grid-template-columns: minmax(0, 7rem) minmax(0, 1fr);
+      align-items: baseline;
+      justify-items: start;
+      column-gap: 1rem;
+      text-align: start !important;
+      font-size: var(--text-body-s);
+      line-height: var(--text-body-s--line-height);
+    }
+
+    /* A field (Select, input) takes the whole value column, not its content width. */
+    [data-slot='table'][data-mobile='stack'] > tbody > tr > td[data-label] > :is(button[role='combobox'], input, [data-slot='text-field']) {
+      justify-self: stretch;
+    }
+
+    [data-slot='table'][data-mobile='stack'] > tbody > tr > td[data-label]::before {
+      content: attr(data-label);
+      /* The body text's own weight (a mono cell's label stays in the body font). */
+      font-family: var(--font-body);
+      font-weight: var(--font-weight-normal, inherit);
+      color: var(--color-text-text-subtler);
+    }
+
+    /* The title: the first column (other full-width cells keep their own weight). */
+    [data-slot='table'][data-mobile='stack'] > tbody > tr > td:first-child:not([data-label]):not([data-stack-action]) {
+      font-weight: var(--font-weight-medium, 500);
+    }
+
+    [data-slot='table'][data-mobile='stack'] > tbody > tr > td[data-stack-action] {
+      position: absolute;
+      inset-inline-end: 0.5rem;
+      top: 0.5rem;
+    }
+
+    /* ---------- paged ---------- */
+    [data-slot='table'][data-mobile='paged'] [data-col-hidden] {
+      display: none !important;
+    }
+  }
+
+  /* ---------- sticky first column ---------- */
+  [data-slot='table'][data-sticky-first] > * > tr > :first-child {
+    position: sticky;
+    inset-inline-start: 0;
+    z-index: 1;
+    box-shadow: inset -1px 0 0 0 var(--color-border-border-subtle);
+  }
+
+  [dir='rtl'] [data-slot='table'][data-sticky-first] > * > tr > :first-child {
+    box-shadow: inset 1px 0 0 0 var(--color-border-border-subtle);
+  }
+
+  /* Body cells need their own fill to cover what scrolls under them; it
+     follows the row's hover / selected fill. */
+  [data-slot='table'][data-sticky-first] > tbody > tr > td:first-child {
+    background-color: var(--color-bg-surface-bg-surface);
+    background-image: linear-gradient(var(--table-row-fill, transparent), var(--table-row-fill, transparent));
+  }
+
+  /* That fill covers the row's own line (TableRow draws it on the row),
+     so the frozen cell repeats it. */
+  [data-slot='table'][data-sticky-first] > tbody > tr:not(:last-child) > td:first-child {
+    box-shadow: inset -1px 0 0 0 var(--color-border-border-subtle), inset 0 -1px 0 0 var(--color-border-border-subtler);
+  }
+
+  [dir='rtl'] [data-slot='table'][data-sticky-first] > tbody > tr:not(:last-child) > td:first-child {
+    box-shadow: inset 1px 0 0 0 var(--color-border-border-subtle), inset 0 -1px 0 0 var(--color-border-border-subtler);
+  }
+
+  [data-slot='table'][data-sticky-first] > tbody > tr:hover {
+    --table-row-fill: var(--color-bg-neutral-bg-neutral-subtler);
+  }
+
+  [data-slot='table'][data-sticky-first] > tbody > tr[data-state='selected'] {
+    --table-row-fill: var(--color-bg-primary-bg-primary-subtle);
+  }
+}

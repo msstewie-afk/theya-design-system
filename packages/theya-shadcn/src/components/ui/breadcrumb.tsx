@@ -1,0 +1,131 @@
+'use client';
+
+import type { ReactNode } from 'react';
+import { Slot } from '@radix-ui/react-slot';
+import { NavArrowRight, MoreHoriz } from 'iconoir-react';
+import { cn } from '../../lib/utils';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './dropdown-menu';
+import { useTheyaI18n } from '../../lib/i18n';
+
+/**
+ * The topbar trail. Sentence case, hairline chevrons. The last item
+ * is the current page (BreadcrumbPage, not a link).
+ */
+export function Breadcrumb(props: React.ComponentProps<'nav'>) {
+  const { t } = useTheyaI18n();
+  return <nav aria-label={t.breadcrumb.label} {...props} />;
+}
+
+export function BreadcrumbList({ className, ...props }: React.ComponentProps<'ol'>) {
+  return (
+    <ol
+      className={cn('flex flex-wrap items-center gap-2 font-body text-body-s text-[var(--color-text-text-subtler)]', className)}
+      {...props}
+    />
+  );
+}
+
+export function BreadcrumbItem({ className, ...props }: React.ComponentProps<'li'>) {
+  return <li className={cn('inline-flex items-center gap-2', className)} {...props} />;
+}
+
+export function BreadcrumbLink({
+  className,
+  asChild,
+  icon,
+  children,
+  ...props
+}: React.ComponentProps<'a'> & { asChild?: boolean; /** Icon before the label. Omit `children` for an icon-only crumb — pass `aria-label` for its accessible name. */ icon?: ReactNode }) {
+  const Comp = asChild ? Slot : 'a';
+  return (
+    <Comp
+      className={cn(
+        'inline-flex items-center gap-1.5 rounded-[var(--size-border-radius-border-radius-sm)] outline-none transition-colors duration-standard ease-enter motion-reduce:transition-none hover:text-[var(--color-text-text)] focus-visible:focus-ring',
+        className,
+      )}
+      {...props}
+    >
+      {icon && (
+        <span className="flex size-4 shrink-0 items-center justify-center" aria-hidden="true">
+          {icon}
+        </span>
+      )}
+      {children}
+    </Comp>
+  );
+}
+
+export function BreadcrumbPage({
+  className,
+  icon,
+  children,
+  ...props
+}: React.ComponentProps<'span'> & { /** Icon before the label. Omit `children` for an icon-only crumb — pass `aria-label` for its accessible name. */ icon?: ReactNode }) {
+  return (
+    <span
+      role="link"
+      aria-disabled="true"
+      aria-current="page"
+      className={cn('inline-flex items-center gap-1.5 font-medium text-[var(--color-text-text)]', className)}
+      {...props}
+    >
+      {icon && (
+        <span className="flex size-4 shrink-0 items-center justify-center" aria-hidden="true">
+          {icon}
+        </span>
+      )}
+      {children}
+    </span>
+  );
+}
+
+export function BreadcrumbSeparator({ children, className, ...props }: React.ComponentProps<'li'>) {
+  return (
+    <li role="presentation" aria-hidden="true" className={cn('[&>svg]:size-3.5 text-[var(--color-icon-icon-subtler)]', className)} {...props}>
+      {children ?? <NavArrowRight className="rtl:-scale-x-100" />}
+    </li>
+  );
+}
+
+export interface BreadcrumbEllipsisProps extends React.ComponentProps<'span'> {
+  /**
+   * The levels the ellipsis stands for, top first. With them, the ellipsis
+   * is a button that opens a menu of those links, so a folded path stays
+   * navigable. Without them it's a decorative marker only.
+   */
+  items?: { label: string; href: string }[];
+}
+
+export function BreadcrumbEllipsis({ className, items, ...props }: BreadcrumbEllipsisProps) {
+  const { t } = useTheyaI18n();
+  if (items?.length) {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          aria-label={t.breadcrumb.showMore(items.length)}
+          className={cn(
+            'grid size-6 cursor-pointer place-items-center rounded-[var(--size-border-radius-border-radius-sm)] outline-none',
+            'transition-colors duration-standard ease-enter motion-reduce:transition-none',
+            'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-text-text)] focus-visible:focus-ring data-[state=open]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
+            className,
+          )}
+        >
+          <MoreHoriz aria-hidden="true" className="size-4" />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start">
+          {items.map((item) => (
+            <DropdownMenuItem key={item.href} asChild>
+              <a href={item.href}>{item.label}</a>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  }
+  return (
+    <span role="presentation" aria-hidden="true" className={cn('flex size-9 items-center justify-center', className)} {...props}>
+      <MoreHoriz className="size-4" />
+      <span className="sr-only">{t.breadcrumb.more}</span>
+    </span>
+  );
+}

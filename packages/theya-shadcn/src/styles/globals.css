@@ -1,0 +1,633 @@
+/**
+ * theya-shadcn/src/styles/globals.css
+ *
+ * Single entry point for styles. Tailwind v4 is CSS-first — no
+ * tailwind.config.js needed for this; everything lives here.
+ *
+ * Load order matters:
+ * 1. Tailwind itself
+ * 2. Theya's raw generated tokens (the actual color/size/typography values)
+ * 3. @theme — teaches Tailwind's utility generator about Theya's tokens,
+ *    so classes like `rounded-lg` or `text-heading-xl` resolve to them
+ * 4. shadcn alias layer — points shadcn's fixed variable names
+ *    (--primary, --background, etc.) at the matching Theya token
+ */
+
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import './forced-colors.css';
+/* Padding / margin / gap follow data-density (see the file). */
+@import './density-spacing.css';
+
+/* Explicit layer order, so the @utility blocks at the end of this file
+   (focus-ring etc.) always win over @layer base. Tailwind v4 infers `theme, base, components, utilities` implicitly from
+   import order, but an inferred order is easy to invalidate by accident
+   (e.g. reordering imports above). Declaring it explicitly here means any
+   future @utility block below is GUARANTEED to win over @layer base rules
+   regardless of source-file edit order, without relying on the implicit
+   default. Matches Tailwind's own default order — this changes nothing
+   about current behavior, it just makes the guarantee explicit. */
+@layer theme, base, components, utilities;
+
+/* Theya's Style Dictionary output — adjust path once @theya/tokens is
+   linked into this project (workspace package or copied build/). */
+@import '@theya/tokens/build/css/variables.css';
+@import '@theya/tokens/build/css/variables-dark.css';
+/* Product profiles: <html data-brand="…"> recolors the primary ramp (THEMING.md). */
+@import '@theya/tokens/build/css/profiles.css';
+/* Density modes: data-density="compact" | "comfortable" on <html> or any container (DENSITY.md). */
+@import '@theya/tokens/build/css/density.css';
+
+/* Self-hosted font (Geologica) + @font-face rule — without this, --font-heading
+   and --font-body resolve to a font name the browser never actually
+   loaded, and everything silently falls back to the system font. */
+@import '@theya/tokens/fonts/fonts.css';
+
+/* Fira Code (free, SIL OFL 1.1) for --font-code — self-hosted via
+   @fontsource, same reasoning as Geologica above: without an actual @font-face
+   being loaded, --font-code would silently fall back past it. 400 for
+   code; 500 for font-medium mono labels (CodeBlock filename), which the
+   browser would otherwise fake-bold from 400. */
+@import '@fontsource/fira-code/400.css';
+@import '@fontsource/fira-code/500.css';
+
+/* Long-form content typography (<Prose>): help, docs, legal, rendered
+   Markdown. Plain CSS in @layer components, see the file header for why. */
+@import './prose.css';
+
+/* Table on a phone: stacked rows, column pages, sticky first column
+   (table.tsx). Plain CSS in @layer components, see the file header. */
+@import './table.css';
+
+/* Keyframes for the Motion presets (Marquee, TextEffect, surfaces). */
+@import './motion.css';
+
+/* Tailwind v4 only scans the project that runs it for class names. When an
+   app in apps/* imports this file, the DS sources live in another package,
+   so point Tailwind at them explicitly — relative to this file, so it works
+   from Storybook and from any app. */
+@source '../components';
+@source '../lib';
+
+/* Light-theme --color-text-text-link is blue-600 (#0057b9), not Figma's
+   blue-500 (#0068de, 4.41:1 on bg-primary-subtle, under AA). That used to
+   be an unlayered CSS override here; since 2026-10-01 it is a code token
+   (packages/tokens/src/code/color.light.json) built into variables.css. */
+
+@theme {
+  /* ---------- Radius ----------
+     Theya's full 9-step scale, exposed as normal Tailwind radius
+     utilities (rounded-xs … rounded-full) instead of shadcn's single
+     --radius + calc() convention. 10px/12px inserted 2026-09-27 between
+     xl(8px) and the old 2xl(16px) for an outer-shell step between plain
+     controls (lg, 6px) and the old jump straight to 16px — the whole
+     tail shifted down a step (old 2xl/3xl -> 4xl/5xl) the same way
+     size-control's ramp did earlier this session, no new primitives
+     needed (size10/size12 already existed). rounded-2xl/-3xl aren't
+     called as plain Tailwind utilities anywhere in the codebase yet
+     (everything consumes the token directly via
+     rounded-[var(--size-border-radius-border-radius-*)]) — kept in
+     sync here regardless, for whoever reaches for the named class.
+     Components use the token form only (named/raw radii normalized
+     2026-10-01). Note the names are shifted vs the tokens (rounded-sm =
+     token md = 4px), and `rounded` / `rounded-md` aren't bridged here at
+     all — they silently fall back to Tailwind's defaults (4px / 6px).
+     Prefer the token form. Deliberate off-scale: Chip size sm 3px. */
+  --radius-xs: var(--size-border-radius-border-radius-sm); /* 2px */
+  --radius-sm: var(--size-border-radius-border-radius-md); /* 4px */
+  --radius-lg: var(--size-border-radius-border-radius-lg); /* 6px */
+  --radius-xl: var(--size-border-radius-border-radius-xl); /* 8px */
+  --radius-2xl: var(--size-border-radius-border-radius-2xl); /* 10px — NEW */
+  --radius-3xl: var(--size-border-radius-border-radius-3xl); /* 12px — NEW */
+  --radius-4xl: var(--size-border-radius-border-radius-4xl); /* 16px — was 2xl */
+  --radius-5xl: var(--size-border-radius-border-radius-5xl); /* 32px — was 3xl */
+  --radius-full: var(--size-border-radius-border-radius-max); /* 100px / pill */
+
+  /* ---------- Font families ---------- */
+  --font-heading: var(--typography-font-family-heading);
+  --font-body: var(--typography-font-family-body);
+  /* Tailwind's font-thin … font-black utilities read these. Without them
+     they'd stay at CSS's nominal 100–900, which Geologica renders a step
+     heavier than the design (its weight tokens are shifted −125). */
+  --font-weight-thin: var(--typography-weight-thin);
+  --font-weight-extralight: var(--typography-weight-extralight);
+  --font-weight-light: var(--typography-weight-light);
+  --font-weight-normal: var(--typography-weight-regular);
+  --font-weight-medium: var(--typography-weight-medium);
+  --font-weight-semibold: var(--typography-weight-semibold);
+  --font-weight-bold: var(--typography-weight-bold);
+  --font-weight-extrabold: var(--typography-weight-extrabold);
+  --font-weight-black: var(--typography-weight-black);
+  /* Fira Code (free, SIL OFL 1.1) with a generic mono fallback — the stack
+     lives in the token (typography.font-family.code), so Figma's
+     font-family/code variable gets the same family. Needs the font loaded
+     (see the @fontsource import above). */
+  --font-code: var(--typography-font-family-code);
+  /* Tailwind's own `font-mono` utility had no entry here, so every
+     existing `font-mono` usage across the codebase (Terminal, Kbd,
+     Stat/Metric composite values, secret fields, etc.) silently fell
+     back to the browser's generic monospace stack instead of Fira Code
+     — found while wiring Terminal's inverse mode (Sep 2026). Aliasing
+     `font-mono` to the same value as `--font-code` fixes all of those
+     at once rather than hunting down every call site. */
+  --font-mono: var(--typography-font-family-code);
+
+  /* ---------- Composite text styles ----------
+     `text-heading-xl` / `text-body-m` apply size + line-height +
+     letter-spacing + weight together via Tailwind v4's paired
+     --text-*--line-height / --text-*--letter-spacing / --text-*--font-weight
+     variables, matching how the tokens are actually structured. */
+  --text-heading-3xl: var(--typography-heading-heading-3xl-size);
+  --text-heading-3xl--line-height: var(--typography-heading-heading-3xl-line-height);
+  --text-heading-3xl--letter-spacing: var(--typography-heading-heading-3xl-letter-spacing);
+  --text-heading-3xl--font-weight: var(--typography-heading-heading-3xl-weight);
+
+  --text-heading-2xl: var(--typography-heading-heading-2xl-size);
+  --text-heading-2xl--line-height: var(--typography-heading-heading-2xl-line-height);
+  --text-heading-2xl--letter-spacing: var(--typography-heading-heading-2xl-letter-spacing);
+  --text-heading-2xl--font-weight: var(--typography-heading-heading-2xl-weight);
+
+  --text-heading-xl: var(--typography-heading-heading-xl-size);
+  --text-heading-xl--line-height: var(--typography-heading-heading-xl-line-height);
+  --text-heading-xl--letter-spacing: var(--typography-heading-heading-xl-letter-spacing);
+  --text-heading-xl--font-weight: var(--typography-heading-heading-xl-weight);
+
+  --text-heading-l: var(--typography-heading-heading-l-size);
+  --text-heading-l--line-height: var(--typography-heading-heading-l-line-height);
+  --text-heading-l--letter-spacing: var(--typography-heading-heading-l-letter-spacing);
+  --text-heading-l--font-weight: var(--typography-heading-heading-l-weight);
+
+  --text-heading-m: var(--typography-heading-heading-m-size);
+  --text-heading-m--line-height: var(--typography-heading-heading-m-line-height);
+  --text-heading-m--letter-spacing: var(--typography-heading-heading-m-letter-spacing);
+  --text-heading-m--font-weight: var(--typography-heading-heading-m-weight);
+
+  --text-heading-s: var(--typography-heading-heading-s-size);
+  --text-heading-s--line-height: var(--typography-heading-heading-s-line-height);
+  --text-heading-s--letter-spacing: var(--typography-heading-heading-s-letter-spacing);
+  --text-heading-s--font-weight: var(--typography-heading-heading-s-weight);
+
+  --text-heading-xs: var(--typography-heading-heading-xs-size);
+  --text-heading-xs--line-height: var(--typography-heading-heading-xs-line-height);
+  --text-heading-xs--letter-spacing: var(--typography-heading-heading-xs-letter-spacing);
+  --text-heading-xs--font-weight: var(--typography-heading-heading-xs-weight);
+
+  --text-heading-2xs: var(--typography-heading-heading-2xs-size);
+  --text-heading-2xs--line-height: var(--typography-heading-heading-2xs-line-height);
+  --text-heading-2xs--letter-spacing: var(--typography-heading-heading-2xs-letter-spacing);
+  --text-heading-2xs--font-weight: var(--typography-heading-heading-2xs-weight);
+
+  --text-heading-3xs: var(--typography-heading-heading-3xs-size);
+  --text-heading-3xs--line-height: var(--typography-heading-heading-3xs-line-height);
+  --text-heading-3xs--letter-spacing: var(--typography-heading-heading-3xs-letter-spacing);
+  --text-heading-3xs--font-weight: var(--typography-heading-heading-3xs-weight);
+
+  --text-body-xl: var(--typography-body-xl-size);
+  --text-body-xl--line-height: var(--typography-body-xl-line-height);
+  --text-body-xl--letter-spacing: var(--typography-body-xl-letter-spacing);
+  --text-body-xl--font-weight: var(--typography-body-xl-weight);
+
+  --text-body-l: var(--typography-body-l-size);
+  --text-body-l--line-height: var(--typography-body-l-line-height);
+  --text-body-l--letter-spacing: var(--typography-body-l-letter-spacing);
+  --text-body-l--font-weight: var(--typography-body-l-weight);
+
+  --text-body-m: var(--typography-body-m-size);
+  --text-body-m--line-height: var(--typography-body-m-line-height);
+  --text-body-m--letter-spacing: var(--typography-body-m-letter-spacing);
+  --text-body-m--font-weight: var(--typography-body-m-weight);
+
+  --text-body-s: var(--typography-body-s-size);
+  --text-body-s--line-height: var(--typography-body-s-line-height);
+  --text-body-s--letter-spacing: var(--typography-body-s-letter-spacing);
+  --text-body-s--font-weight: var(--typography-body-s-weight);
+
+  --text-body-xs: var(--typography-body-xs-size);
+  --text-body-xs--line-height: var(--typography-body-xs-line-height);
+  --text-body-xs--letter-spacing: var(--typography-body-xs-letter-spacing);
+  --text-body-xs--font-weight: var(--typography-body-xs-weight);
+
+  /* Motion, layering and elevation VALUES live in packages/tokens
+     (src/code/foundation.json, 2026-10-01); this @theme block only maps
+     them onto the theme keys Tailwind generates utilities from. */
+  /* ---------- Motion ----------
+     Duration values were already the de-facto convention across the
+     codebase as bare Tailwind utilities (duration-150 alone: 53 uses,
+     -200: 16, -300: 5, -100: 4, confirmed via grep 2026-09-26) — these
+     are Tailwind's own default duration scale, not invented numbers.
+     Namespaced `--transition-duration-*` — that is the theme key
+     Tailwind v4's `duration-*` utility actually reads (checked in
+     tailwindcss@4.3.3 lib.js). They were `--duration-*` until
+     2026-10-01, which silently generated NO `duration-fast/standard/…`
+     utility (same trap as `--z-*` vs `--z-index-*`). All components
+     now use the named steps (migrated 2026-10-01); the one off-scale
+     value left is Button's 220ms press spring. NOT tokens: Recharts'
+     `animationEasing="ease-out"` props in the chart components are
+     Recharts' own easing names, not Tailwind classes — a bulk
+     ease-out -> ease-enter rename must skip them (it broke them once). */
+  --transition-duration-fast: var(--motion-duration-fast); /* 100ms */
+  --transition-duration-standard: var(--motion-duration-standard); /* 150ms */
+  --transition-duration-moderate: var(--motion-duration-moderate); /* 200ms */
+  --transition-duration-slow: var(--motion-duration-slow); /* 300ms */
+  --transition-duration-slower: var(--motion-duration-slower); /* 450ms: landing reveals (Motion presets) */
+  /* Easing: names for the four curves already used across components (2026-09-27).
+     Tailwind v4 turns --ease-* into short utilities: ease-enter, ease-exit, ... */
+  --ease-enter: var(--motion-easing-enter); /* same as Tailwind ease-out: enter, hover (default) */
+  --ease-exit: var(--motion-easing-exit); /* same as Tailwind ease-in: exit */
+  --ease-spring: var(--motion-easing-spring); /* overshoot: checkbox, radio, switch selection */
+  --ease-press: var(--motion-easing-press); /* button press */
+  --ease-glide: var(--motion-easing-glide); /* long expo-out settle: landing reveals, marquee pause */
+
+  /* ---------- Layering (z-index) ----------
+     Real gap (unlike duration/easing above): existing usage is raw,
+     uncoordinated numbers — z-50/z-40/z-10/z-[1]/z-[2] (grep 2026-09-26)
+     — with no shared ordering between components that weren't designed
+     against each other. The named layers and their order were agreed
+     with Мария (2026-09-26), per the token-selection rule; values live
+     in packages/tokens (foundation.json, `layer`). Namespaced as Tailwind's own `--z-index-*` theme key — confirmed
+     via a live visual stacking-order test (2026-09-26) after an initial
+     wrong guess (`--z-*`) silently generated no utility at all. Additive
+     only: existing z-10/z-50/etc. usages are NOT migrated by this change,
+     adopt incrementally per component. */
+  --z-index-base: var(--layer-base);
+  --z-index-sticky: var(--layer-sticky);
+  --z-index-drawer: var(--layer-drawer);
+  --z-index-overlay: var(--layer-overlay);
+  --z-index-modal: var(--layer-modal);
+  --z-index-popover: var(--layer-popover);
+  --z-index-toast: var(--layer-toast);
+  --z-index-tooltip: var(--layer-tooltip); /* above everything: a tooltip belongs to whatever is under the cursor */
+
+  /* ---------- Elevation (shadow) ----------
+     Real gap: the generated tokens had a single unused shadow
+     (--color-elevation-shadow-button) and no scale. Theya's own 5-step
+     scale was agreed with Мария (2026-09-26) and made theme-reactive on
+     2026-10-06: light shadows are tinted toward slate-900, dark ones are
+     black at a higher alpha with a faint light rim on floating layers
+     (lg/xl); values in packages/tokens/src/code/elevation(.dark).json.
+     `elevation-edge-up` is for panels pinned to the bottom edge (bottom
+     Drawer): the shadow falls up onto the content they cover. Namespaced
+     `shadow-elevation-*` rather than reusing Tailwind's own default
+     `shadow-sm/md/lg/xl` names. Every component now uses this scale
+     (54 usages migrated 1:1, 2026-10-01); don't reintroduce bare
+     Tailwind `shadow-xs..xl`. `shadow-none` and focus rings
+     (`focus-ring` / `focus-ring-error`, see the @utility block) are
+     separate. */
+  --shadow-elevation-xs: var(--elevation-xs);
+  --shadow-elevation-sm: var(--elevation-sm);
+  --shadow-elevation-md: var(--elevation-md);
+  --shadow-elevation-lg: var(--elevation-lg);
+  --shadow-elevation-xl: var(--elevation-xl);
+  --shadow-elevation-edge-up: var(--elevation-edge-up);
+}
+
+/* ==========================================================
+   shadcn variable alias layer
+   Points shadcn's expected variable names at Theya's tokens.
+   ========================================================== */
+@layer base {
+  :root {
+    --background: var(--color-bg-surface-bg-surface-base);
+    --foreground: var(--color-text-text);
+
+    --card: var(--color-bg-surface-bg-surface);
+    --card-foreground: var(--color-text-text);
+
+    --popover: var(--color-bg-surface-bg-surface-overlay);
+    --popover-foreground: var(--color-text-text);
+
+    --primary: var(--color-bg-primary-bg-primary);
+    --primary-foreground: var(--color-text-text-on-primary); /* white in Theya, dark on a light brand fill (profiles) */
+
+    --secondary: var(--color-bg-secondary-bg-secondary);
+    --secondary-foreground: var(--color-text-text);
+
+    --muted: var(--color-bg-neutral-bg-neutral-subtle);
+    --muted-foreground: var(--color-text-text-subtle);
+
+    --accent: var(--color-bg-primary-bg-primary-subtle);
+    --accent-foreground: var(--color-text-text-link);
+
+    --destructive: var(--color-bg-danger-bg-danger);
+    --destructive-foreground: var(--color-text-text-on-dark);
+
+    --border: var(--color-border-border);
+    --input: var(--color-bg-input-bg-input);
+    /* ACCEPTED DEVIATION (2026-09-27): the focus ring is a 40%-alpha blue,
+       1.53:1 (light) / 1.87-1.95:1 (dark) — under WCAG 1.4.11's 3:1.
+       Kept deliberately for the soft visual style. See the WCAG audit doc,
+       "Accepted deviations". */
+    --ring: var(--color-focus-focus-ring);
+
+    /* Points at the real Theya tokens (--color-bg-chart-01..07,
+       declared below near the white-alpha/-on-primary stopgap block) —
+       not straight at primitives, so anything reading the *-chart-*
+       family finds it under Theya's own naming convention too. */
+    --chart-1: var(--color-bg-chart-01);
+    --chart-2: var(--color-bg-chart-02);
+    --chart-3: var(--color-bg-chart-03);
+    --chart-4: var(--color-bg-chart-04);
+    --chart-5: var(--color-bg-chart-05);
+    --chart-6: var(--color-bg-chart-06);
+    --chart-7: var(--color-bg-chart-07);
+
+    --sidebar: var(--color-bg-layout-bg-sidebar);
+    --sidebar-foreground: var(--color-text-text-on-dark);
+    --sidebar-primary: var(--color-bg-primary-bg-primary);
+    --sidebar-primary-foreground: var(--color-text-text-on-primary);
+    --sidebar-accent: var(--color-bg-layout-bg-sidebar-selected);
+    --sidebar-accent-foreground: var(--color-text-text-on-dark);
+    --sidebar-border: var(--color-border-border-subtler);
+    --sidebar-ring: var(--color-focus-focus-ring);
+
+    /* --------------------------------------------------------------------
+       BRIDGE, corrected: a wide audit found that --color-icon-*,
+       --color-border-border-{primary,success,warning,danger},
+       --color-text-text-{success,warning,danger}, and several
+       --color-bg-*-subtle names ALL actually exist as real tokens in
+       @theya/tokens — they just weren't visible in an earlier direct
+       grep of this file (they come through the @import chain). The
+       original bridge below approximated them (e.g. text-warning was
+       set to a bright yellow background color instead of its real
+       near-black #1e0800), so those approximations have been removed —
+       the real imported values now take over for all of them.
+       Only --color-border-border-default (renamed to plain
+       --color-border-border in 2026-10; kept so older code still
+       resolves) and the --size-margin-margin-m/-l naming (the real
+       tokens are named "md"/"lg", not "m"/"l") still need an alias. */
+    --color-border-border-default: var(--color-border-border);
+    --size-margin-margin-m: var(--size-margin-margin-md);
+    --size-margin-margin-l: var(--size-margin-margin-lg);
+    /* ---------------------------------------------------------------- */
+
+    /* White-alpha (--white-a100..900), the -on-primary set and the chart
+       palette (--color-bg-chart-01..07) used to be authored here as
+       stopgaps. Since 2026-10-01 they are code tokens in
+       packages/tokens/src/code/color.json, built into variables.css and
+       variables-dark.css under the same names. */
+
+    /* Code syntax-highlighting palette (Luna Pro: Light / Midnight) and its
+       fixed -inverse set are tokens since 2026-10-06: color.code.* in
+       packages/tokens/src/semantic/color.{default,dark}.json and
+       color.code.*-inverse in src/code/color.json, built into
+       variables.css / variables-dark.css under the same names. */
+  }
+
+  /* Theya's existing dark-theme convention (see ThemeProvider.tsx) —
+     [data-theme="dark"], not shadcn's default .dark class. */
+  [data-theme='dark'] {
+    --background: var(--color-bg-surface-bg-surface-base);
+    --foreground: var(--color-text-text);
+
+    --card: var(--color-bg-surface-bg-surface);
+    --card-foreground: var(--color-text-text);
+
+    --popover: var(--color-bg-surface-bg-surface-overlay);
+    --popover-foreground: var(--color-text-text);
+
+    --primary: var(--color-bg-primary-bg-primary-on-dark);
+    --primary-foreground: var(--color-text-text-on-primary);
+
+    --secondary: var(--color-bg-secondary-bg-secondary);
+    --secondary-foreground: var(--color-text-text-on-dark);
+
+    --muted: var(--color-bg-neutral-bg-neutral-subtle);
+    --muted-foreground: var(--color-text-text-subtle-on-dark);
+
+    --accent: var(--color-bg-primary-bg-primary-subtle);
+    --accent-foreground: var(--color-text-text-link-on-dark);
+
+    --destructive: var(--color-bg-danger-bg-danger);
+    --destructive-foreground: var(--color-text-text-on-dark);
+
+    --border: var(--color-border-border);
+    --input: var(--color-bg-input-bg-input);
+    --ring: var(--color-focus-focus-ring);
+
+    /* Same --color-bg-chart-01..07 as the light block — those are
+       declared only once, in :root (no "-on-dark" step exists for
+       them), so this just inherits them. */
+    --chart-1: var(--color-bg-chart-01);
+    --chart-2: var(--color-bg-chart-02);
+    --chart-3: var(--color-bg-chart-03);
+    --chart-4: var(--color-bg-chart-04);
+    --chart-5: var(--color-bg-chart-05);
+    --chart-6: var(--color-bg-chart-06);
+    --chart-7: var(--color-bg-chart-07);
+
+    --sidebar: var(--color-bg-surface-bg-surface-overlay-dark);
+    --sidebar-foreground: var(--color-text-text-on-dark);
+    --sidebar-primary: var(--color-bg-primary-bg-primary-on-dark);
+    --sidebar-primary-foreground: var(--color-text-text-on-primary);
+    --sidebar-accent: var(--color-bg-surface-bg-surface-overlay-dark-hover);
+    --sidebar-accent-foreground: var(--color-text-text-on-dark);
+    --sidebar-border: var(--color-border-border-subtler);
+    --sidebar-ring: var(--color-focus-focus-ring);
+
+    /* --------------------------------------------------------------------
+       BRIDGE, corrected: a wide audit found that --color-icon-*,
+       --color-border-border-{primary,success,warning,danger},
+       --color-text-text-{success,warning,danger}, and several
+       --color-bg-*-subtle names ALL actually exist as real tokens in
+       @theya/tokens — they just weren't visible in an earlier direct
+       grep of this file (they come through the @import chain). The
+       original bridge below approximated them (e.g. text-warning was
+       set to a bright yellow background color instead of its real
+       near-black #1e0800), so those approximations have been removed —
+       the real imported values now take over for all of them.
+       Only --color-border-border-default (renamed to plain
+       --color-border-border in 2026-10; kept so older code still
+       resolves) and the --size-margin-margin-m/-l naming (the real
+       tokens are named "md"/"lg", not "m"/"l") still need an alias. */
+    --color-border-border-default: var(--color-border-border);
+    --size-margin-margin-m: var(--size-margin-margin-md);
+    --size-margin-margin-l: var(--size-margin-margin-lg);
+    /* ---------------------------------------------------------------- */
+
+  }
+
+  /* Default body text: 14px / Regular (275) / Geologica — body-m. Components
+     no longer need to repeat font-body/text-body-m/font-normal just to
+     get baseline text; only add those classes when overriding away from
+     this default (headings, body-s/l/xl, weight-emphasize, etc). */
+  /* Reserve the vertical scrollbar's own width whether or not a
+     scrollbar is actually needed right now. Without this, any action
+     that shortens the page below the scroll threshold (clearing a
+     table via a filter, collapsing a list, closing an expanded row...)
+     removes the browser's scrollbar and the whole page — including
+     anything right-aligned, like a toolbar's trailing button — visibly
+     shifts sideways by the scrollbar's width. Root-caused from
+     NotificationsInbox: selecting a Status/Object filter shrinks the
+     list, which drops the page below the scroll threshold, which was
+     shifting "Mark all read" and everything after it. Universal to any
+     scrollable page here, not specific to that one component.
+     scrollbar-gutter is supported in every current evergreen browser. */
+  html {
+    scrollbar-gutter: stable;
+    /* Every native scrollbar (tables, code, toolbars, the page) looks like
+       ScrollArea's overlay: thin, no track, translucent thumb. A bare
+       horizontal scrollbar under a table showed a white track in the dark
+       theme. scrollbar-color inherits; scrollbar-width is set per element
+       below (a utility like [scrollbar-width:none] still wins). */
+    scrollbar-color: var(--black-a400) transparent;
+  }
+  html[data-theme='dark'] {
+    scrollbar-color: var(--white-a400) transparent;
+    /* Native controls (date/time pickers, number spinners, autofill)
+       follow the dark theme too. */
+    color-scheme: dark;
+  }
+  * {
+    scrollbar-width: thin;
+  }
+
+  /* Radix's scroll-lock (react-remove-scroll, used by Select, Dialog,
+     Popover, DropdownMenu, etc.) assumes the page's vertical scrollbar
+     will disappear the moment it sets `overflow: hidden` on <body>, so it
+     compensates by adding a matching `padding-right`/`margin-right` (the
+     measured scrollbar width) to keep content from shifting.
+     But with `scrollbar-gutter: stable` above, the scrollbar's track is
+     ALWAYS reserved — the scrollbar never actually disappears, so there's
+     nothing to compensate for. Radix's compensation becomes a second,
+     redundant reservation stacked on top of the gutter's own, which is
+     exactly the "opening a Select shrinks everything by ~15px" bug: body
+     width visibly drops every time any scroll-locking Radix primitive
+     opens. Zeroing the margin whenever Radix's own data-scroll-locked
+     marker is present removes the redundant one and leaves just the
+     stable gutter, which was already doing the job.
+     Note: in its default (margin) mode the lock also resets <body>'s
+     padding to its margins (usually 0). So don't pad <body> itself — pad a
+     wrapper inside it — or opening any Select shifts the page by that
+     padding. Storybook's padded layout is moved off <body> for this
+     reason (.storybook/preview.css). */
+  body[data-scroll-locked] {
+    margin-right: 0 !important;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: var(--text-body-m);
+    line-height: var(--text-body-m--line-height);
+    font-weight: var(--text-body-m--font-weight);
+    letter-spacing: var(--text-body-m--letter-spacing);
+    color: var(--foreground);
+    background-color: var(--background);
+  }
+
+  /* Native text-selection highlight in Theya's primary color instead of
+     the browser/OS default (which read as purple). Same color-mix/alpha
+     treatment CodeMirror's own .cm-selectionBackground already uses, for
+     consistency between selecting plain text and selecting code. */
+  ::selection {
+    background-color: color-mix(in oklch, var(--color-bg-primary-bg-primary) 22%, transparent);
+  }
+  /* 22% of the primary blue all but vanished on the dark surfaces
+     (Мария, 2026-10-03) — dark needs a denser tint to read as selected. */
+  [data-theme='dark'] ::selection,
+  [data-theme='dark']::selection {
+    background-color: color-mix(in oklch, var(--color-bg-primary-bg-primary) 50%, transparent);
+  }
+}
+
+/* ==========================================================
+   Composite utilities: focus rings and thin scrollbars (2026-09-26).
+
+   ADOPTED 2026-10-02: every 4px focus ring in the components (72
+   focus-ring + 12 focus-ring-error, 51 files) uses these utilities; the
+   arbitrary shadow-[0_0_0_4px_…] form is gone. twMerge knows them as
+   the `shadow` group (src/lib/utils.ts), so a later shadow-* on the same
+   variant still replaces them. Focus Ring Decision (2026-10-02): ONE
+   width, 4px, everywhere — Button, Card, Rating and Carousel moved up
+   from 3px/2px; tone, on-primary and inset variants are utilities too.
+   The ring means keyboard focus only: hover never draws it.
+
+   Why @utility instead of just adding another @theme token: some
+   repeated patterns aren't a single color/size value Tailwind's
+   token-driven utility generator can pick up on its own (@theme
+   handles `--color-*`/`--radius-*`/etc. and auto-generates matching
+   bg-/text-/border-/rounded- classes) — they're a fixed COMBINATION of
+   CSS properties (here: box-shadow shape + a token-driven color). A
+   real Tailwind v4 @utility lets that combination become one class,
+   still themeable via the token underneath, and — because it's
+   declared in the explicit `utilities` layer above — it's guaranteed
+   to win over any @layer base/components rule regardless of source
+   order, the same guarantee arbitrary-value bracket syntax gets for
+   free but a hand-authored class normally wouldn't.
+
+   Add further @utility entries here as more repeated arbitrary-value
+   patterns turn up during later passes. */
+/* Both compose box-shadow exactly the way Tailwind's own shadow-[...]
+   does (--tw-shadow + the shared stack), so they are byte-for-byte the
+   arbitrary value they replace: ring and inset-shadow utilities on the same element
+   still stack with them, and a shadow-elevation-* still replaces them. */
+@utility focus-ring {
+  --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility focus-ring-error {
+  --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring-error);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility focus-ring-success {
+  --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring-success);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility focus-ring-warning {
+  --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring-warning);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+/* White ring for controls on the primary fill (data-surface=primary). */
+@utility focus-ring-on-primary {
+  --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring-on-primary);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+/* Inset variant, where an overflow container would clip an outset ring
+   (Tree rows inside their scroll container). */
+@utility focus-ring-inset {
+  --tw-shadow: inset 0 0 0 4px var(--color-focus-focus-ring);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+/* Native-scroll fallback for containers that can't take the ScrollArea
+   overlay (a Radix menu Content is itself the scroller): thin bar,
+   transparent track, the same translucent thumb as ScrollArea's. Unlike the
+   overlay it still takes the thin bar's width on systems with classic
+   (always-visible) scrollbars. */
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--black-a400) transparent;
+  [data-theme='dark'] & {
+    scrollbar-color: var(--white-a400) transparent;
+  }
+}
+/* ---------------------------------------------------------------- */
+
+/*
+ * Usage once this is loaded:
+ *   <h1 className="font-heading text-heading-xl">Title</h1>
+ *   <p className="font-body text-body-m">Body copy</p>
+ *   <div className="rounded-lg">...</div>        // 6px, Theya's border-radius-lg step
+ *   <button className="bg-primary text-primary-foreground">...</button>
+ *
+ * TODO:
+ * - body weight-emphasize/weight-strong variants exist in the tokens but
+ *   aren't wired yet — add on demand.
+ * - Confirm @theya/tokens package path once it's actually linked into
+ *   this project (workspace dep vs published package).
+ */
+
+/* Phones: iOS Safari zooms the whole page when a focused field's text is
+   smaller than 16px, so below sm every editable field is at least 16px.
+   max(16px, 1em): on a form control 1em is the PARENT's size, so a field
+   that inherits a bigger font (InlineEdit inheritFont inside a heading)
+   keeps it. Deliberately unlayered: it has to beat the text-body-*
+   utility on the field itself. */
+@media (max-width: 639.98px) {
+  :is(
+      input:not([type='checkbox'], [type='radio'], [type='range'], [type='color'], [type='file'], [type='button'], [type='submit'], [type='reset'], [type='image'], [type='hidden']),
+      textarea,
+      select,
+      [contenteditable]:not([contenteditable='false'])
+    ) {
+    font-size: max(16px, 1em);
+  }
+}

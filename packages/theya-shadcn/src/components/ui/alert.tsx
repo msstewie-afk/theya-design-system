@@ -1,0 +1,144 @@
+'use client';
+
+import { Xmark } from 'iconoir-react';
+import { cn } from '../../lib/utils';
+import { Button, type ButtonProps } from './button';
+import { useTheyaI18n } from '../../lib/i18n';
+
+/**
+ * No library dependency — an inline feedback banner. Put an icon as
+ * the first child; it inherits the tone color via the parent's [&>svg]
+ * selector. Static by default; pass `live="assertive"|"polite"` when
+ * mounting one dynamically in response to an event, so it's announced.
+ */
+export type AlertTone = 'neutral' | 'info' | 'success' | 'warning' | 'danger';
+
+/**
+ * `indicator="stripe"` adds a full solid-tone bar flush on the left edge, on
+ * top of the variant's existing subtle background — for a banner that needs
+ * to read at a glance even before the icon/text color registers. No effect
+ * on `tone="neutral"`, which has no assigned tone to draw the bar from.
+ */
+export type AlertIndicator = 'none' | 'stripe';
+
+// Ghost action buttons sit on the tinted fill, so they take the on-tonal
+// text (plain text-{tone} was 3.72:1 for warning in dark).
+const TONE_CLASS: Record<AlertTone, string> = {
+  neutral: 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] border-[var(--color-border-border-subtle)] [&>svg]:text-[var(--color-icon-icon-subtle)] [&_[data-alert-description]]:text-[var(--color-text-text-subtler)]',
+  info: 'bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-text-text-info-on-tonal)] border-transparent [&>svg]:text-[var(--color-text-text-info-on-tonal)] [&_[data-slot=button][data-appearance=ghost]]:text-[var(--color-text-text-info-on-tonal)]',
+  success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success-on-tonal)] border-transparent [&>svg]:text-[var(--color-icon-icon-success)] [&_[data-slot=button][data-appearance=ghost]]:text-[var(--color-text-text-success-on-tonal)]',
+  warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning-on-tonal)] border-transparent [&>svg]:text-[var(--color-icon-icon-warning)] [&_[data-slot=button][data-appearance=ghost]]:text-[var(--color-text-text-warning-on-tonal)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger-on-tonal)] border-transparent [&>svg]:text-[var(--color-icon-icon-danger)] [&_[data-slot=button][data-appearance=ghost]]:text-[var(--color-text-text-danger-on-tonal)]',
+};
+
+// Solid (non-subtle) tone tokens — same family StatusDot's dot color and
+// Badge's solid variant use, not the `-subtle` background tokens above.
+const STRIPE_CLASS: Partial<Record<AlertTone, string>> = {
+  info: 'bg-[var(--color-bg-info-bg-info)]',
+  success: 'bg-[var(--color-bg-success-bg-success)]',
+  warning: 'bg-[var(--color-bg-warning-bg-warning)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger)]',
+};
+
+// Maps the banner's own tone to Button's `tone` prop, so any ghost control
+// living inside the alert (the built-in dismiss "X" here, and consumer-built
+// tertiary actions in AlertActions) reads as part of *this* alert instead of
+// a neutral, tone-less control floating on top of it.
+// The dismiss button is a ghost Button, whose hover/pressed fills are tuned for a plain page.
+// On the tinted alert surface those fills disappear, so each tone steps one level denser here,
+// matching the tonal Button states for the same tone.
+const DISMISS_STATE_CLASS: Record<AlertTone, string> = {
+  neutral: '',
+  info: 'hover:not-disabled:bg-[var(--color-bg-info-bg-info-subtle-hover)] focus-visible:bg-[var(--color-bg-info-bg-info-subtle-hover)] active:not-disabled:bg-[var(--color-bg-info-bg-info-subtle-pressed)]',
+  success: 'hover:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-hover)] focus-visible:bg-[var(--color-bg-success-bg-success-subtle-hover)] active:not-disabled:bg-[var(--color-bg-success-bg-success-subtle-pressed)]',
+  warning: 'hover:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-hover)] focus-visible:bg-[var(--color-bg-warning-bg-warning-subtle-hover)] active:not-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-pressed)]',
+  danger: 'hover:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] focus-visible:bg-[var(--color-bg-danger-bg-danger-subtle-hover)] active:not-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-pressed)]',
+};
+
+const TONE_TO_BUTTON_TONE: Record<AlertTone, NonNullable<ButtonProps['tone']>> = {
+  neutral: 'neutral',
+  info: 'info',
+  success: 'success',
+  warning: 'warning',
+  danger: 'danger',
+};
+
+export interface AlertProps extends React.ComponentProps<'div'> {
+  tone?: AlertTone;
+  /** Full-tone accent bar on the left edge. See `AlertIndicator`. Default `'none'`. */
+  indicator?: AlertIndicator;
+  /** Adds `shadow-elevation-sm`. Off by default — an inline banner usually sits flush in
+   * the page flow and doesn't need to lift off it; turn on for an alert
+   * floating over content (e.g. a toast-like placement) instead of inline. */
+  shadow?: boolean;
+  /** Announce as a live region when mounted dynamically. Omit for static banners. */
+  live?: 'polite' | 'assertive';
+  dismissible?: boolean;
+  dismissLabel?: string;
+  onDismiss?: () => void;
+}
+
+export function Alert({
+  className,
+  tone = 'neutral',
+  indicator = 'none',
+  shadow = false,
+  live,
+  dismissible = false,
+  dismissLabel,
+  onDismiss,
+  children,
+  ...props
+}: AlertProps) {
+  const { t } = useTheyaI18n();
+  if (dismissLabel === undefined) dismissLabel = t.alert.dismiss;
+  const stripeClass = indicator === 'stripe' ? STRIPE_CLASS[tone] : undefined;
+
+  return (
+    <div
+      role={live === 'assertive' ? 'alert' : live === 'polite' ? 'status' : undefined}
+      className={cn(
+        'relative flex gap-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid px-4 py-3',
+        'font-body text-body-s [&>svg]:size-[1.125rem] [&>svg]:mt-px [&>svg]:shrink-0',
+        TONE_CLASS[tone],
+        shadow && 'shadow-elevation-sm',
+        dismissible && 'pe-10',
+        className,
+      )}
+      {...props}
+    >
+      {stripeClass && (
+        <span
+          aria-hidden
+          className={cn('absolute inset-y-0 start-0 w-1 rounded-s-[var(--size-border-radius-border-radius-2xl)]', stripeClass)}
+        />
+      )}
+      {children}
+      {dismissible && (
+        <Button
+          appearance="ghost"
+          tone={TONE_TO_BUTTON_TONE[tone]}
+          iconOnly
+          size="sm"
+          aria-label={dismissLabel}
+          onClick={onDismiss}
+          className={cn('absolute end-2 top-2', "max-sm:after:absolute max-sm:after:-inset-2 max-sm:after:content-['']", DISMISS_STATE_CLASS[tone])}
+          leftIcon={<Xmark />}
+        />
+      )}
+    </div>
+  );
+}
+
+export function AlertTitle({ className, ...props }: React.ComponentProps<'div'>) {
+  return <div className={cn('font-semibold text-body-m', className)} {...props} />;
+}
+
+export function AlertDescription({ className, ...props }: React.ComponentProps<'div'>) {
+  return <div data-alert-description className={cn('mt-0.5 text-body-s [&_p]:leading-[var(--size-size20)]', className)} {...props} />;
+}
+
+/** The row of buttons/links under the body. */
+export function AlertActions({ className, ...props }: React.ComponentProps<'div'>) {
+  return <div className={cn('mt-2.5 flex flex-wrap items-center gap-2', className)} {...props} />;
+}

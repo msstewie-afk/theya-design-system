@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "theya": {
+      "command": "node",
+      "args": ["packages/theya-shadcn/mcp/server.mjs"]
+    }
+  }
+}

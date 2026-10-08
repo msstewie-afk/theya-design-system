@@ -1,0 +1,196 @@
+{
+  "size": {
+    "size2": {
+      "value": 2,
+      "type": "dimension"
+    },
+    "size4": {
+      "value": 4,
+      "type": "dimension"
+    },
+    "size8": {
+      "value": 8,
+      "type": "dimension"
+    },
+    "size12": {
+      "value": 12,
+      "type": "dimension"
+    },
+    "size13": {
+      "value": 13,
+      "type": "dimension"
+    },
+    "size16": {
+      "value": 16,
+      "type": "dimension"
+    },
+    "size17": {
+      "value": 17,
+      "type": "dimension"
+    },
+    "size20": {
+      "value": 20,
+      "type": "dimension"
+    },
+    "size24": {
+      "value": 24,
+      "type": "dimension"
+    },
+    "size28": {
+      "value": 28,
+      "type": "dimension"
+    },
+    "size32": {
+      "value": 32,
+      "type": "dimension"
+    },
+    "size36": {
+      "value": 36,
+      "type": "dimension"
+    },
+    "size40": {
+      "value": 40,
+      "type": "dimension"
+    },
+    "size44": {
+      "value": 44,
+      "type": "dimension"
+    },
+    "size48": {
+      "value": 48,
+      "type": "dimension"
+    },
+    "size60": {
+      "value": 60,
+      "type": "dimension"
+    },
+    "size152": {
+      "value": 152,
+      "type": "dimension"
+    },
+    "size200": {
+      "value": 200,
+      "type": "dimension"
+    },
+    "size224": {
+      "value": 224,
+      "type": "dimension"
+    },
+    "size348": {
+      "value": 348,
+      "type": "dimension"
+    },
+    "size400": {
+      "value": 400,
+      "type": "dimension"
+    },
+    "size500": {
+      "value": 500,
+      "type": "dimension"
+    },
+    "size512": {
+      "value": 512,
+      "type": "dimension"
+    },
+    "size640": {
+      "value": 640,
+      "type": "dimension"
+    },
+    "size900": {
+      "value": 900,
+      "type": "dimension"
+    },
+    "size1000": {
+      "value": 1000,
+      "type": "dimension"
+    },
+    "size216": {
+      "value": 216,
+      "type": "dimension"
+    },
+    "size56": {
+      "value": 56,
+      "type": "dimension"
+    },
+    "size100": {
+      "value": 100,
+      "type": "dimension"
+    },
+    "size14": {
+      "value": 14,
+      "type": "dimension"
+    },
+    "size15": {
+      "value": 15,
+      "type": "dimension"
+    },
+    "size26": {
+      "value": 26,
+      "type": "dimension"
+    },
+    "size6": {
+      "value": 6,
+      "type": "dimension"
+    },
+    "size30": {
+      "value": 30,
+      "type": "dimension"
+    },
+    "size22": {
+      "value": 22,
+      "type": "dimension"
+    },
+    "size3": {
+      "value": 3,
+      "type": "dimension"
+    },
+    "size1": {
+      "value": 1,
+      "type": "dimension"
+    },
+    "size120": {
+      "value": 120,
+      "type": "dimension"
+    },
+    "size72": {
+      "value": 72,
+      "type": "dimension"
+    },
+    "size80": {
+      "value": 80,
+      "type": "dimension"
+    },
+    "size92": {
+      "value": 92,
+      "type": "dimension"
+    },
+    "size112": {
+      "value": 112,
+      "type": "dimension"
+    },
+    "size132": {
+      "value": 132,
+      "type": "dimension"
+    },
+    "size0": {
+      "value": 0,
+      "type": "dimension"
+    },
+    "size0-5": {
+      "value": 0.5,
+      "type": "dimension"
+    },
+    "size10": {
+      "value": 10,
+      "type": "dimension"
+    },
+    "size11": {
+      "value": 11,
+      "type": "dimension"
+    },
+    "size64": {
+      "value": 64,
+      "type": "dimension"
+    }
+  }
+}

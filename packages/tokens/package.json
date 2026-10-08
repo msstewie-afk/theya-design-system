@@ -1,0 +1,22 @@
+{
+  "name": "@theya/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for the Theya landing-page design system",
+  "license": "UNLICENSED",
+  "main": "build/js/tokens.js",
+  "types": "build/js/tokens.d.ts",
+  "scripts": {
+    "build": "npm run build:light && npm run build:dark && npm run build:profiles && npm run build:density && npm run build:dtcg",
+    "build:light": "style-dictionary build --config style-dictionary.config.mjs",
+    "build:dark": "style-dictionary build --config style-dictionary.dark.config.mjs",
+    "figma:payload": "node scripts/figma-payload.mjs",
+    "figma:check": "node scripts/figma-payload.mjs && node scripts/figma-run.mjs check",
+    "figma:sync": "node scripts/figma-payload.mjs && node scripts/figma-run.mjs sync",
+    "build:profiles": "node scripts/build-profiles.mjs",
+    "build:density": "node scripts/build-density.mjs",
+    "build:dtcg": "node scripts/build-dtcg.mjs && node scripts/check-dtcg.mjs"
+  },
+  "devDependencies": {
+    "style-dictionary": "^4.4.0"
+  }
+}

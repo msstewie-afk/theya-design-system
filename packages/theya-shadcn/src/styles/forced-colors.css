@@ -1,0 +1,83 @@
+/*
+ * Windows High Contrast / forced colors (`@media (forced-colors: active)`).
+ *
+ * In forced colors the browser replaces every color with a few system
+ * colors (Canvas, CanvasText, ButtonText, Highlight, …) and removes
+ * box-shadows and background images. Theya draws a lot with fills and
+ * shadows, so without this file: the focus ring vanished (it's a
+ * box-shadow), buttons, tabs and toggles lost their edges (they're
+ * fills), and selected/pressed/current states looked like everything
+ * else. Shapes that only exist as fills (switch, slider, progress,
+ * meter) are handled in their components with `forced-colors:` classes.
+ *
+ * Rules use ARIA/state attributes, not class names, so new components
+ * that follow the same patterns are covered without changes here.
+ */
+@media (forced-colors: active) {
+  /* Focus: an outline survives forced colors; the box-shadow ring doesn't. */
+  :focus-visible {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Edges for controls that are only a fill. An outline instead of a
+     border, so nothing moves; the focus outline above replaces it. */
+  button,
+  [role='button'],
+  [role='tab'],
+  [role='switch'],
+  [role='radio'],
+  [role='checkbox'],
+  [role='option'],
+  [role='menuitem'],
+  [role='menuitemradio'],
+  [role='menuitemcheckbox'],
+  [role='treeitem'],
+  a[aria-current] {
+    outline: 1px solid ButtonText;
+    outline-offset: -1px;
+  }
+
+  /* Selected, pressed, checked and current: the system highlight. */
+  [aria-selected='true'],
+  [aria-pressed='true'],
+  [aria-current='page'],
+  [aria-current='step'],
+  [aria-current='true'],
+  [aria-checked='true'][role='menuitemradio'],
+  [aria-checked='true'][role='menuitemcheckbox'],
+  [data-state='on'],
+  [data-state='active'][role='tab'],
+  [data-selected='true'] {
+    forced-color-adjust: none;
+    background-color: Highlight !important;
+    color: HighlightText !important;
+    outline-color: Highlight;
+  }
+  /* forced-color-adjust is inherited: without this, children with their
+     own fill or text color (a tree row, a calendar day, a step number)
+     would show their brand colors on top of the highlight. */
+  :is(
+      [aria-selected='true'],
+      [aria-pressed='true'],
+      [aria-current='page'],
+      [aria-current='step'],
+      [aria-current='true'],
+      [data-state='on'],
+      [data-state='active'][role='tab'],
+      [data-selected='true']
+    )
+    * {
+    background-color: transparent !important;
+    border-color: HighlightText !important;
+    color: HighlightText !important;
+  }
+
+  /* Disabled reads as disabled, not as missing. */
+  :disabled,
+  [aria-disabled='true'],
+  [data-disabled] {
+    color: GrayText !important;
+    outline-color: GrayText;
+  }
+}

@@ -1,0 +1,12 @@
+/*
+ * Storybook's "padded" layout puts its 1rem padding on <body>. Radix's
+ * scroll lock (Select, Dialog, menus…) resets <body>'s padding while it is
+ * open, so every story shifted by 16px when a Select opened. Pad the story
+ * root instead; <body> stays unpadded, as it should in a product.
+ */
+body.sb-main-padded {
+  padding: 0 !important;
+}
+body.sb-main-padded #storybook-root {
+  padding: 1rem;
+}

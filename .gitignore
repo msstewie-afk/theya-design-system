@@ -1,0 +1,14 @@
+node_modules
+build
+packages/theya-shadcn/storybook-static/
+.DS_Store
+.fuse_hidden*
+
+# local test-run logs
+*.log
+
+# visual regression baselines and diffs (local, per machine)
+__visual__/
+.claude/skills/design-process-map/
+.claude/.gate/
+.claude/gate-names.local

@@ -1,0 +1,136 @@
+{
+  "white-a100": {
+    "value": "rgb(255 255 255 / 0.1)"
+  },
+  "white-a200": {
+    "value": "rgb(255 255 255 / 0.2)"
+  },
+  "white-a300": {
+    "value": "rgb(255 255 255 / 0.3)"
+  },
+  "white-a400": {
+    "value": "rgb(255 255 255 / 0.4)"
+  },
+  "white-a500": {
+    "value": "rgb(255 255 255 / 0.5)"
+  },
+  "white-a600": {
+    "value": "rgb(255 255 255 / 0.6)"
+  },
+  "white-a700": {
+    "value": "rgb(255 255 255 / 0.7)"
+  },
+  "white-a800": {
+    "value": "rgb(255 255 255 / 0.8)"
+  },
+  "white-a900": {
+    "value": "rgb(255 255 255 / 0.9)"
+  },
+  "black-a100": {
+    "value": "rgb(0 0 0 / 0.1)"
+  },
+  "black-a200": {
+    "value": "rgb(0 0 0 / 0.2)"
+  },
+  "black-a400": {
+    "value": "rgb(0 0 0 / 0.4)"
+  },
+  "color": {
+    "text": {
+      "text-on-primary": {
+        "value": "{color.white}"
+      },
+      "text-subtle-on-primary": {
+        "value": "{white-a900}"
+      },
+      "text-on-primary-fill": {
+        "value": "{color.blue.blue-700}"
+      }
+    },
+    "icon": {
+      "icon-on-primary": {
+        "value": "{white-a800}"
+      },
+      "icon-on-light": {
+        "value": "{color.slate.slate-800}"
+      }
+    },
+    "border": {
+      "border-on-primary": {
+        "value": "{white-a700}"
+      }
+    },
+    "focus": {
+      "focus-ring-on-primary": {
+        "value": "{white-a300}"
+      }
+    },
+    "bg": {
+      "chart-01": {
+        "value": "{color.blue.blue-500}"
+      },
+      "chart-02": {
+        "value": "{color.magenta.magenta-500}"
+      },
+      "chart-03": {
+        "value": "{color.teal.teal-500}"
+      },
+      "chart-04": {
+        "value": "{color.slate.slate-500}"
+      },
+      "chart-05": {
+        "value": "{color.red.red-500}"
+      },
+      "chart-06": {
+        "value": "{color.green.green-500}"
+      },
+      "chart-07": {
+        "value": "{color.azure.azure-500}"
+      },
+      "primary-on-primary": {
+        "value": "{color.white}"
+      },
+      "primary-on-primary-hover": {
+        "value": "{black-a100}"
+      },
+      "primary-on-primary-pressed": {
+        "value": "{black-a200}"
+      }
+    },
+    "code": {
+      "bg-inverse": {
+        "value": "#0b0e14"
+      },
+      "text-inverse": {
+        "value": "#abb2bf"
+      },
+      "tag-inverse": {
+        "value": "#56b6c2"
+      },
+      "attribute-inverse": {
+        "value": "#e06c75"
+      },
+      "string-inverse": {
+        "value": "#98c379"
+      },
+      "number-inverse": {
+        "value": "#d19a66"
+      },
+      "selector-inverse": {
+        "value": "#61afef"
+      },
+      "comment-inverse": {
+        "value": "#969da9",
+        "comment": "Brightened from Atom One Dark #5c6370 (~3.2:1) to ~7.1:1: Terminal dim lines read poorly at the AA floor."
+      },
+      "invalid-inverse": {
+        "value": "#e88088",
+        "comment": "Brightened from #e0505c (~5.0:1) to ~7.2:1: red mono text compresses on near-black."
+      },
+      "border-inverse": {
+        "value": "#5f6190",
+        "comment": "Fixed copy of border-subtle dark (#5f6190): a theme-reactive border reads too bright here when the page is light."
+      }
+    }
+  }
+}

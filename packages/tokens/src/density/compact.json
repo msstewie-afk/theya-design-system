@@ -1,0 +1,39 @@
+{
+  "description": "Compact: every control one step down the ramp (-4px), table rows -8px, menu items -4px. For data-heavy screens: tables, admin forms, dense toolbars.",
+  "size": {
+    "size-control": {
+      "size-control-md": {
+        "value": "{size.size24}"
+      },
+      "size-control-lg": {
+        "value": "{size.size28}"
+      },
+      "size-control-xl": {
+        "value": "{size.size32}"
+      },
+      "size-control-2xl": {
+        "value": "{size.size36}"
+      },
+      "size-control-3xl": {
+        "value": "{size.size40}"
+      },
+      "size-control-4xl": {
+        "value": "{size.size44}"
+      }
+    },
+    "density": {
+      "density-row": {
+        "value": "{size.size36}"
+      },
+      "density-row-2": {
+        "value": "{size.size48}"
+      },
+      "density-item-py": {
+        "value": "{size.size4}"
+      },
+      "density-space-delta": {
+        "value": "-0.4"
+      }
+    }
+  }
+}

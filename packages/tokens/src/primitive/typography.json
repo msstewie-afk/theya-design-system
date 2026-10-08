@@ -1,0 +1,73 @@
+{
+  "typography": {
+    "font-family": {
+      "heading": {
+        "value": "Geologica, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
+      },
+      "body": {
+        "value": "Geologica, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
+      },
+      "code": {
+        "value": "'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace"
+      }
+    },
+    "weight": {
+      "regular": {
+        "value": "275"
+      },
+      "semibold": {
+        "value": "475"
+      },
+      "medium": {
+        "value": "375"
+      },
+      "bold": {
+        "value": "575"
+      },
+      "extrabold": {
+        "value": "675"
+      },
+      "black": {
+        "value": "775"
+      },
+      "light": {
+        "value": "175"
+      },
+      "thin": {
+        "value": "100"
+      },
+      "extralight": {
+        "value": "100"
+      }
+    },
+    "italic": {
+      "thin-italic": {
+        "value": "Thin Italic"
+      },
+      "extralight-italic": {
+        "value": "ExtraLight Italic"
+      },
+      "light-italic": {
+        "value": "Light Italic"
+      },
+      "italic": {
+        "value": " Italic"
+      },
+      "medium-italic": {
+        "value": "Medium Italic"
+      },
+      "semibold-italic": {
+        "value": "SemiBold Italic"
+      },
+      "bold-italic": {
+        "value": "Bold Italic"
+      },
+      "extrabold-italic": {
+        "value": "ExtraBold Italic"
+      },
+      "black-italic": {
+        "value": "Black Italic"
+      }
+    }
+  }
+}

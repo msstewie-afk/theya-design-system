@@ -1,0 +1,38 @@
+{
+  "description": "Iris: violet primary, indigo links, cool near-neutral grays, blue-black dark mode; Onest, sharp radii (fields 2px)",
+  "primary": "#743de4",
+  "neutral": {
+    "hue": 262,
+    "chroma": 0.18
+  },
+  "font": "Onest",
+  "radius": {
+    "anchor": { "lg": 2 }
+  },
+  "light": {
+    "tokens": {
+      "bg-surface-bg-surface-base": "#ffffff",
+      "bg-surface-bg-surface": "#ffffff",
+      "bg-neutral-bg-neutral-subtler": "#f9fbfc",
+      "bg-neutral-bg-neutral-subtle": "#f3f5f7",
+      "bg-neutral-bg-neutral-subtle-hover": "#eff1f3",
+      "border-border-subtler": "#e1e3e5",
+      "text-text": "#161b25",
+      "text-text-link": "#4e46dd",
+      "text-text-link-hover": "#3f37c4"
+    }
+  },
+  "dark": {
+    "tokens": {
+      "bg-surface-bg-surface-base": "#0c111a",
+      "bg-surface-bg-surface": "#131821",
+      "bg-surface-bg-surface-overlay": "#1f252e",
+      "bg-input-bg-input": "#1f252e",
+      "border-border-subtler": "#1f252e",
+      "text-text": "#d7dde6",
+      "text-text-subtle": "#a9aeb8",
+      "text-text-link": "#9590f5",
+      "text-text-link-hover": "#b1adf8"
+    }
+  }
+}

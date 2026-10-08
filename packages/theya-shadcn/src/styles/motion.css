@@ -1,0 +1,536 @@
+/*
+  Keyframes for the Motion presets (landing pages): Marquee, TextEffect
+  and the decorative surfaces. Components reference them through
+  Tailwind's arbitrary animation utilities (animate-[theya-marquee_…]);
+  every animated element also carries motion-reduce:animate-none.
+  Several are ported from Kinetics (MIT, kinetics.colorion.co).
+*/
+
+/* Marquee: the track holds the items twice, so -50% lands exactly where it started.
+   --marquee-dir is -1 left-to-right, 1 right-to-left (set by Marquee from the text direction). */
+@keyframes theya-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(50% * var(--marquee-dir, -1)));
+  }
+}
+
+/* MarqueeColumns: the same idea vertically — each column holds its items twice. */
+@keyframes theya-marquee-y {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+/* TickerList: a row slides up out of the window, the next slides in. */
+@keyframes theya-ticker-in {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* TextEffect shimmer: a light band flows through gradient-clipped text. */
+@keyframes theya-shimmer-text {
+  to {
+    background-position: -200% center;
+  }
+}
+
+/* TextEffect typewriter caret. */
+@keyframes theya-caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* SurfaceEffect beam: a conic gradient spins behind the inset panel. */
+@keyframes theya-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* Aurora: blurred colour fields drift back and forth. */
+@keyframes theya-aurora-drift {
+  0% {
+    transform: translate(-6%, -4%) rotate(0deg) scale(1.1);
+  }
+  100% {
+    transform: translate(6%, 4%) rotate(8deg) scale(1.3);
+  }
+}
+
+/* Rating: sparks thrown from the picked star (--spark-x/y set per spark). */
+@keyframes theya-spark {
+  0% {
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+  65% {
+    opacity: 1;
+    scale: 0.8;
+  }
+  100% {
+    opacity: 0;
+    translate: var(--spark-x) var(--spark-y);
+    scale: 0;
+  }
+}
+
+/* A one-off pop: a selected chip, a changed counter, a new tag. Uses `scale`, so it
+   doesn't fight a component's own transform. */
+@keyframes theya-pop-soft {
+  40% {
+    scale: 1.12;
+  }
+}
+
+@keyframes theya-pop {
+  40% {
+    scale: 1.3;
+  }
+}
+
+@keyframes theya-pop-in {
+  from {
+    scale: 0.4;
+    opacity: 0;
+  }
+}
+
+@keyframes theya-pop-out {
+  to {
+    scale: 0.4;
+    opacity: 0;
+  }
+}
+
+/* SuccessCheck (and other drawn strokes): a pathLength=1 stroke drawn on. */
+@keyframes theya-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Skeleton: a soft highlight sweeps across the placeholder. */
+@keyframes theya-skeleton-sweep {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* undoToast: the grace-period bar drains to nothing. */
+@keyframes theya-drain {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/*
+  Bloom — how menus, selects and popovers open (Kinetics' Command Palette Bloom, MIT).
+  The content unfolds from the edge next to its trigger and its items slide in one
+  after another. Components opt in with `data-bloom` on the content; the closing fade
+  stays theirs. The clip sits 24px outside the box, so its rounded corners and shadow
+  are drawn from the first frame. Items slide from the trigger side only when the menu
+  opens downwards: an offset towards the menu's far end would overflow it and flash a
+  scrollbar.
+*/
+@keyframes theya-bloom-down {
+  from {
+    clip-path: inset(-24px -24px 100% -24px);
+  }
+  to {
+    clip-path: inset(-24px);
+  }
+}
+
+@keyframes theya-bloom-up {
+  from {
+    clip-path: inset(100% -24px -24px -24px);
+  }
+  to {
+    clip-path: inset(-24px);
+  }
+}
+
+@keyframes theya-bloom-right {
+  from {
+    clip-path: inset(-24px 100% -24px -24px);
+  }
+  to {
+    clip-path: inset(-24px);
+  }
+}
+
+@keyframes theya-bloom-left {
+  from {
+    clip-path: inset(-24px -24px -24px 100%);
+  }
+  to {
+    clip-path: inset(-24px);
+  }
+}
+
+@keyframes theya-bloom-item {
+  from {
+    opacity: 0;
+    translate: 0 var(--bloom-item-y, 0);
+  }
+}
+
+[data-bloom][data-state='open'] {
+  animation: theya-bloom-down var(--transition-duration-slower) var(--ease-glide);
+}
+[data-bloom][data-state='open'][data-side='top'] {
+  animation-name: theya-bloom-up;
+}
+[data-bloom][data-state='open'][data-side='right'] {
+  animation-name: theya-bloom-right;
+}
+[data-bloom][data-state='open'][data-side='left'] {
+  animation-name: theya-bloom-left;
+}
+[data-bloom][data-state='open'][data-side='bottom'] {
+  --bloom-item-y: -6px;
+}
+[data-bloom][data-state='open'] :is([role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio'], [role='option']) {
+  animation: theya-bloom-item 360ms var(--ease-glide) both;
+}
+[data-bloom][data-state='open'] :is([role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio'], [role='option']):nth-child(2) {
+  animation-delay: 30ms;
+}
+[data-bloom][data-state='open'] :is([role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio'], [role='option']):nth-child(3) {
+  animation-delay: 60ms;
+}
+[data-bloom][data-state='open'] :is([role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio'], [role='option']):nth-child(4) {
+  animation-delay: 90ms;
+}
+[data-bloom][data-state='open'] :is([role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio'], [role='option']):nth-child(5) {
+  animation-delay: 120ms;
+}
+[data-bloom][data-state='open'] :is([role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio'], [role='option']):nth-child(n + 6) {
+  animation-delay: 150ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-bloom][data-state='open'],
+  [data-bloom][data-state='open'] :is([role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio'], [role='option']) {
+    animation: none;
+  }
+}
+
+/* Spinner: the arc grows and shrinks while the ring turns (CSS Loaders' Meridian, MIT). */
+@keyframes theya-dashring {
+  0% {
+    stroke-dasharray: 1 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+/* A slow fade in and out: what loaders do instead of moving, with reduced motion. */
+@keyframes theya-breathe {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Progress indeterminate: a 40%-wide bar sweeps across the track. */
+@keyframes theya-indeterminate {
+  from {
+    translate: -100% 0;
+  }
+  to {
+    translate: 260% 0;
+  }
+}
+
+/* ChatTyping: three dots bounce in turn. */
+@keyframes theya-typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+/* BadgeIndicator pulse: a ring spreads from the badge. */
+@keyframes theya-pulse-ring {
+  from {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  to {
+    transform: scale(3.4);
+    opacity: 0;
+  }
+}
+
+/* HoldToTalk: waveform bars while held. */
+@keyframes theya-talk {
+  from {
+    transform: scaleY(0.18);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ---- Animated icons (animated-icon.tsx) ------------------------------------
+ * Parts are addressed by [data-part]; transforms use view-box coordinates so
+ * origins are in the 24×24 icon grid. Durations and easings are the motion
+ * tokens; the busy loops (1s / 2s linear) are spinner speeds, not UI motion.
+ */
+.theya-anim-icon {
+  overflow: visible;
+}
+.theya-anim-icon [data-part] {
+  transform-box: view-box;
+}
+
+/* draw — Check */
+.theya-anim-icon[data-motion='draw'] [data-part='draw'] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='draw'] [data-part='draw'],
+.theya-anim-icon[data-trigger='hover'][data-motion='draw']:hover [data-part='draw'],
+.theya-anim-icon[data-trigger='loop'][data-motion='draw'] [data-part='draw'] {
+  animation: theya-icon-draw var(--transition-duration-slow) var(--ease-glide) both;
+}
+.theya-anim-icon[data-trigger='loop'] [data-part] {
+  animation-iteration-count: infinite;
+}
+
+/* copy — back sheet slides; active → tick */
+.theya-anim-icon[data-motion='copy'] [data-part='back'],
+.theya-anim-icon[data-motion='copy'] [data-part='off'] {
+  transition: transform var(--transition-duration-moderate) var(--ease-spring), opacity var(--transition-duration-fast) ease-out;
+  transform-origin: 12px 12px;
+}
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-motion='copy']:not([data-active]) [data-part='back'],
+.theya-anim-icon[data-motion='copy']:not([data-active]):hover [data-part='back'] {
+  transform: translate(-1.5px, -1.5px);
+}
+.theya-anim-icon[data-motion='copy'] [data-part='on'] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset var(--transition-duration-slow) var(--ease-glide) 80ms;
+}
+.theya-anim-icon[data-motion='copy'][data-active] [data-part='off'] {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.theya-anim-icon[data-motion='copy'][data-active] [data-part='on'] {
+  stroke-dashoffset: 0;
+}
+
+/* ring — Bell */
+.theya-anim-icon[data-motion='ring'] [data-part='body'] {
+  transform-origin: 12px 2px;
+}
+.theya-anim-icon[data-motion='ring'] [data-part='clapper'] {
+  transform-origin: 12px 18px;
+}
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='ring'] [data-part='body'],
+.theya-anim-icon[data-trigger='hover'][data-motion='ring']:hover [data-part='body'],
+.theya-anim-icon[data-trigger='loop'][data-motion='ring'] [data-part='body'] {
+  animation: theya-icon-ring var(--transition-duration-slower) ease-in-out;
+}
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='ring'] [data-part='clapper'],
+.theya-anim-icon[data-trigger='hover'][data-motion='ring']:hover [data-part='clapper'],
+.theya-anim-icon[data-trigger='loop'][data-motion='ring'] [data-part='clapper'] {
+  animation: theya-icon-clapper var(--transition-duration-slower) ease-in-out 60ms;
+}
+
+/* turn — Settings (quarter turn), spin — Refresh (full turn / loop) */
+.theya-anim-icon[data-motion='turn'] [data-part='turn'],
+.theya-anim-icon[data-motion='spin'] [data-part='spin'] {
+  transform-origin: 12px 12px;
+}
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='turn'] [data-part='turn'],
+.theya-anim-icon[data-trigger='hover'][data-motion='turn']:hover [data-part='turn'] {
+  animation: theya-icon-turn var(--transition-duration-slower) var(--ease-spring);
+}
+.theya-anim-icon[data-trigger='loop'][data-motion='turn'] [data-part='turn'] {
+  animation: theya-icon-spin 2s linear infinite;
+}
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='spin'] [data-part='spin'],
+.theya-anim-icon[data-trigger='hover'][data-motion='spin']:hover [data-part='spin'] {
+  animation: theya-icon-spin var(--transition-duration-slower) var(--ease-glide);
+}
+.theya-anim-icon[data-trigger='loop'][data-motion='spin'] [data-part='spin'] {
+  animation: theya-icon-spin 1s linear infinite;
+}
+
+/* lid — Trash */
+.theya-anim-icon[data-motion='lid'] [data-part='lid'] {
+  transform-origin: 3px 6px;
+}
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='lid'] [data-part='lid'],
+.theya-anim-icon[data-trigger='hover'][data-motion='lid']:hover [data-part='lid'],
+.theya-anim-icon[data-trigger='loop'][data-motion='lid'] [data-part='lid'] {
+  animation: theya-icon-lid var(--transition-duration-slower) var(--ease-spring);
+}
+
+/* eye — blink on hover; active → closed */
+.theya-anim-icon[data-motion='eye'] [data-part='off'],
+.theya-anim-icon[data-motion='eye'] [data-part='on'] {
+  transform-origin: 12px 12px;
+  transition: opacity var(--transition-duration-fast) ease-out, transform var(--transition-duration-moderate) var(--ease-enter);
+}
+.theya-anim-icon[data-motion='eye'] [data-part='on'] {
+  opacity: 0;
+  transform: scaleY(0.4);
+}
+.theya-anim-icon[data-motion='eye'][data-active] [data-part='off'] {
+  opacity: 0;
+  transform: scaleY(0.4);
+}
+.theya-anim-icon[data-motion='eye'][data-active] [data-part='on'] {
+  opacity: 1;
+  transform: none;
+}
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='eye']:not([data-active]) [data-part='off'],
+.theya-anim-icon[data-trigger='hover'][data-motion='eye']:not([data-active]):hover [data-part='off'] {
+  animation: theya-icon-blink var(--transition-duration-slow) ease-in-out;
+}
+
+/* nudge — ArrowRight */
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='nudge'] [data-part='nudge'],
+.theya-anim-icon[data-trigger='hover'][data-motion='nudge']:hover [data-part='nudge'],
+.theya-anim-icon[data-trigger='loop'][data-motion='nudge'] [data-part='nudge'] {
+  animation: theya-icon-nudge var(--transition-duration-slow) var(--ease-spring);
+}
+[dir='rtl'] .theya-anim-icon[data-motion='nudge'] {
+  transform: scaleX(-1);
+}
+
+/* drop / lift — Download / Upload */
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='drop'] [data-part='arrow'],
+.theya-anim-icon[data-trigger='hover'][data-motion='drop']:hover [data-part='arrow'],
+.theya-anim-icon[data-trigger='loop'][data-motion='drop'] [data-part='arrow'] {
+  animation: theya-icon-drop var(--transition-duration-slow) var(--ease-spring);
+}
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='lift'] [data-part='arrow'],
+.theya-anim-icon[data-trigger='hover'][data-motion='lift']:hover [data-part='arrow'],
+.theya-anim-icon[data-trigger='loop'][data-motion='lift'] [data-part='arrow'] {
+  animation: theya-icon-lift var(--transition-duration-slow) var(--ease-spring);
+}
+
+/* plus — active → × */
+.theya-anim-icon[data-motion='plus'] [data-part='turn'] {
+  transform-origin: 12px 12px;
+  transition: transform var(--transition-duration-moderate) var(--ease-spring);
+}
+.theya-anim-icon[data-motion='plus'][data-active] [data-part='turn'] {
+  transform: rotate(45deg);
+}
+
+/* heart — beat on hover; active → filled */
+.theya-anim-icon[data-motion='heart'] [data-part='heart'] {
+  transform-origin: 12px 12px;
+  fill: transparent;
+  transition: fill var(--transition-duration-fast) ease-out;
+}
+.theya-anim-icon[data-motion='heart'][data-active] [data-part='heart'] {
+  fill: currentColor;
+  animation: theya-icon-beat var(--transition-duration-slow) var(--ease-spring);
+}
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='heart'] [data-part='heart'],
+.theya-anim-icon[data-trigger='hover'][data-motion='heart']:hover [data-part='heart'],
+.theya-anim-icon[data-trigger='loop'][data-motion='heart'] [data-part='heart'] {
+  animation: theya-icon-beat var(--transition-duration-slow) var(--ease-spring);
+}
+
+/* menu — active → × */
+.theya-anim-icon[data-motion='menu'] [data-part] {
+  transition: transform var(--transition-duration-moderate) var(--ease-spring), opacity var(--transition-duration-fast) ease-out;
+}
+.theya-anim-icon[data-motion='menu'] [data-part='top'] { transform-origin: 12px 5px; }
+.theya-anim-icon[data-motion='menu'] [data-part='mid'] { transform-origin: 12px 12px; }
+.theya-anim-icon[data-motion='menu'] [data-part='bottom'] { transform-origin: 12px 19px; }
+.theya-anim-icon[data-motion='menu'][data-active] [data-part='top'] { transform: translateY(7px) rotate(45deg) scaleX(0.8); }
+.theya-anim-icon[data-motion='menu'][data-active] [data-part='mid'] { opacity: 0; transform: scaleX(0); }
+.theya-anim-icon[data-motion='menu'][data-active] [data-part='bottom'] { transform: translateY(-7px) rotate(-45deg) scaleX(0.8); }
+
+@keyframes theya-icon-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes theya-icon-ring {
+  0%, 100% { transform: rotate(0); }
+  15% { transform: rotate(14deg); }
+  35% { transform: rotate(-12deg); }
+  55% { transform: rotate(7deg); }
+  75% { transform: rotate(-4deg); }
+}
+@keyframes theya-icon-clapper {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-1.5px); }
+  45% { transform: translateX(1.5px); }
+  70% { transform: translateX(-0.75px); }
+}
+@keyframes theya-icon-turn { from { transform: rotate(0); } to { transform: rotate(90deg); } }
+@keyframes theya-icon-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+@keyframes theya-icon-lid {
+  0%, 100% { transform: none; }
+  40% { transform: translateY(-1.5px) rotate(-10deg); }
+}
+@keyframes theya-icon-blink {
+  0%, 100% { transform: none; }
+  45% { transform: scaleY(0.1); }
+}
+@keyframes theya-icon-nudge {
+  0%, 100% { transform: none; }
+  45% { transform: translateX(3px); }
+}
+@keyframes theya-icon-drop {
+  0%, 100% { transform: none; }
+  45% { transform: translateY(2.5px); }
+}
+@keyframes theya-icon-lift {
+  0%, 100% { transform: none; }
+  45% { transform: translateY(-2.5px); }
+}
+@keyframes theya-icon-beat {
+  0%, 100% { transform: none; }
+  30% { transform: scale(1.18); }
+  55% { transform: scale(0.94); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theya-anim-icon [data-part] {
+    animation: none !important;
+    transition: none !important;
+  }
+}
