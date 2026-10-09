@@ -86,10 +86,12 @@ export function Toaster({ closeButton = true, dark = false, position = 'bottom-r
           // back to Sonner's 15/22.5 w500 title and its own grey 13/18.2 description.
           title: 'font-body! text-body-m! font-semibold!',
           description: dark ? 'font-body! text-body-s! text-[var(--color-text-text-subtle-on-dark)]!' : 'font-body! text-body-s! text-[var(--color-text-text-subtler)]!',
-          actionButton: 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)] rounded-[var(--size-border-radius-border-radius-sm)]',
+          // Sonner paints [data-button] with --normal-text / --normal-bg (a near-black
+          // pill on light) and its own 4px radius and weight 500; `!` keeps Theya's.
+          actionButton: 'bg-[var(--color-bg-primary-bg-primary)]! text-[var(--color-text-text-on-primary)]! rounded-[var(--size-border-radius-border-radius-sm)]! font-medium!',
           cancelButton: dark
-            ? 'bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-hover)] text-[var(--color-text-text-subtle-on-dark)] rounded-[var(--size-border-radius-border-radius-sm)]'
-            : 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)] rounded-[var(--size-border-radius-border-radius-sm)]',
+            ? 'bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-hover)]! text-[var(--color-text-text-subtle-on-dark)]! rounded-[var(--size-border-radius-border-radius-sm)]! font-medium!'
+            : 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]! text-[var(--color-text-text-subtler)]! rounded-[var(--size-border-radius-border-radius-sm)]! font-medium!',
           closeButton:
             'size-7! rounded-[var(--size-border-radius-border-radius-sm)]! border-0! bg-transparent! max-sm:after:absolute max-sm:after:-inset-2 max-sm:after:content-[""] opacity-80! ' +
             (dark ? 'text-[var(--color-icon-icon-subtler-on-dark)]! hover:bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-hover)]!' : 'text-[var(--color-icon-icon-subtle)]! hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]!') +
@@ -164,9 +166,12 @@ export const toast: ToastApi = Object.assign(((...args: Parameters<ToastApi>) =>
         ...classNames,
         toast: cn('has-[[data-action]]:pe-13!', classNames?.toast),
         actionButton: cn(
-          'absolute! end-[13px]! top-3! h-7! rounded-[var(--size-border-radius-border-radius-sm)]! border-0! bg-transparent! px-2! ' +
-            'text-body-xs! font-medium! text-[var(--color-text-text)]! opacity-80! shadow-none! transition-colors ' +
-            'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]! hover:opacity-100! focus-visible:outline-none! ' +
+          // Ghost action. The Toaster's filled actionButton classes are `!` too,
+          // so colour and fill go through data-[button]: for higher specificity
+          // instead of relying on stylesheet order.
+          'absolute! end-[13px]! top-3! h-7! rounded-[var(--size-border-radius-border-radius-sm)]! border-0! data-[button]:bg-transparent! px-2! ' +
+            'text-body-xs! font-medium! data-[button]:text-[var(--color-text-text)]! opacity-80! shadow-none! transition-colors ' +
+            'data-[button]:hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]! hover:opacity-100! focus-visible:outline-none! ' +
             'focus-visible:focus-ring! ' +
             ON_DARK,
           classNames?.actionButton,
