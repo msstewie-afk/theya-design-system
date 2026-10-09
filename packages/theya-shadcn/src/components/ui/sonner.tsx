@@ -74,17 +74,18 @@ export function Toaster({ closeButton = true, dark = false, position = 'bottom-r
         classNames: {
           toast:
             'group toast has-[[data-description]]:items-start! has-[[data-description]]:[&_[data-icon]]:mt-1 ' +
-            (dark ? 'border-0 shadow-elevation-xl' : 'border border-solid shadow-elevation-lg') +
+            (dark ? 'border-0! shadow-elevation-xl!' : 'border! border-solid! shadow-elevation-lg!') +
             ' has-[[data-close-button]]:pe-12!' +
             // A toast is a Tab stop (Sonner, alt+T): Theya's focus ring
             // instead of Sonner's faint 2px rgba(0,0,0,.2) one.
             ' focus-visible:outline-none! focus-visible:focus-ring!',
           content: 'flex-1 min-w-0',
-          // 14px, not the Figma frame's raw Heading XS/16px value — Мария
-          // confirmed 14px live in Storybook, overriding the Figma-derived
-          // guess above.
-          title: 'font-body text-body-m font-semibold',
-          description: dark ? 'font-body text-body-s text-[var(--color-text-text-subtle-on-dark)]' : 'font-body text-body-s text-[var(--color-text-text-subtler)]',
+          // Sonner injects its own unlayered stylesheet ([data-sonner-toast]
+          // [data-title] etc.), which beats Tailwind's @layer utilities — so
+          // every type/shadow/border class here needs `!`, or the toast falls
+          // back to Sonner's 15/22.5 w500 title and its own grey 13/18.2 description.
+          title: 'font-body! text-body-m! font-semibold!',
+          description: dark ? 'font-body! text-body-s! text-[var(--color-text-text-subtle-on-dark)]!' : 'font-body! text-body-s! text-[var(--color-text-text-subtler)]!',
           actionButton: 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)] rounded-[var(--size-border-radius-border-radius-sm)]',
           cancelButton: dark
             ? 'bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-hover)] text-[var(--color-text-text-subtle-on-dark)] rounded-[var(--size-border-radius-border-radius-sm)]'
@@ -199,11 +200,11 @@ export const toast: ToastApi = Object.assign(((...args: Parameters<ToastApi>) =>
         // bg-info-subtle in the Figma file) — `!` because this overrides
         // the Toaster's own --normal-bg/-text/-border, on top of dark mode.
         toast: cn(
-          'bg-[var(--color-bg-primary-bg-primary-subtle)]! border-transparent! text-[var(--color-text-text)]! shadow-elevation-lg',
+          'bg-[var(--color-bg-primary-bg-primary-subtle)]! border-transparent! text-[var(--color-text-text)]! shadow-elevation-lg!',
           classNames?.toast,
         ),
-        title: cn('font-body text-body-m font-semibold', classNames?.title),
-        description: cn('font-body text-body-s text-[var(--color-text-text-subtler)]', classNames?.description),
+        title: cn('font-body! text-body-m! font-semibold!', classNames?.title),
+        description: cn('font-body! text-body-s! text-[var(--color-text-text-subtler)]!', classNames?.description),
         closeButton: cn(
           'size-7! rounded-[var(--size-border-radius-border-radius-sm)]! border-0! bg-transparent! max-sm:after:absolute max-sm:after:-inset-2 max-sm:after:content-[""] text-[var(--color-icon-icon-subtle)]! opacity-80! ' +
             'start-auto! end-[13px]! top-1/2! transition-colors hover:bg-[var(--color-bg-primary-bg-primary-subtle-hover)]! hover:opacity-100! ' +
