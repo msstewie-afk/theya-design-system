@@ -4,6 +4,7 @@ import { forwardRef, createContext, useContext, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Menu, Search } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { useScrollPadding } from '../../lib/scroll-padding';
 import { useSidebar } from './sidebar';
 import { Kbd } from './kbd';
 import { textFieldVariants } from './text-field-variants';
@@ -31,9 +32,13 @@ export interface TopbarProps extends React.ComponentProps<'header'> {
 }
 
 export function Topbar({ className, orientation = 'horizontal', children, ...props }: TopbarProps) {
+  // Keep Tab-focused content from scrolling under the sticky bar (WCAG 2.4.11).
+  const headerRef = useRef<HTMLElement>(null);
+  useScrollPadding(headerRef, 'top', orientation === 'horizontal');
   return (
     <TopbarOrientationContext.Provider value={orientation}>
       <header
+        ref={headerRef}
         data-orientation={orientation}
         className={cn(
           'sticky z-sticky flex items-center border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]/90 backdrop-blur-md',

@@ -11,12 +11,40 @@
     "TextArea": { "add": ["graphics"], "note": "Renders the shared error icon (field-error-icon.tsx), an inline SVG the source scan no longer sees." }
   },
   "reviews": {
+    "AlertDialog": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Modal: focus is trapped inside."}
+    },
+    "AnnouncementBar": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Not sticky by default; fixed 2026-10-22: reserves its height as scroll-padding on its scroll container (lib/scroll-padding), so Tab-focused content stops clear of it when sticky."}
+    },
+    "AreaChart": {
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Recharts tooltip on hover only; closes on Escape (Recharts 3.10), pointer-events:none so moving onto it keeps it, no timer."}
+    },
     "Autocomplete": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: new autoComplete prop (default \"off\") reaches the combobox <input>, so a country/organization/email typeahead can carry its purpose token."},
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Suggestions open on focus; Escape closes, no timer."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Focus-outside exemption covers only its own input; Tab elsewhere closes it."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Picking a suggestion sets the text, closes its own listbox and keeps focus in the input."}
     },
+    "BarChart": {
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Recharts hover tooltip: Escape closes, stays without a timer."}
+    },
+    "Breadcrumb": {
+      "2.4.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Text crumbs in a named nav; the overflow trigger says \"Show N more levels\"."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Overflow menu is a modal DropdownMenu."}
+    },
     "Card": {
+      "2.4.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: the whole-card link/filter overlay is named by CardTitle (aria-labelledby) unless it has its own label; the raw URL is only a last resort without a title."},
+      "2.5.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No multipoint or path gesture; tilt/spotlight is decorative hover only."},
+      "2.5.7": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Not draggable; actions are links, buttons or selection controls."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "A selectable card's checkbox/radio only calls onSelectedChange; the card link is a separate click."}
+    },
+    "CardFan": {
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Hover/focus fans out its own cards inside its box, covering nothing else; no timer."},
+      "2.5.8": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "In the open fan each back card shows a strip equal to the offset, floored only at 0, so on phones it can be under 24px; the Default story turns axe target-size off. Design decision pending (Maria)."}
+    },
+    "CardStack": {
+      "1.4.13": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Hover/focus only pause autoplay."}
     },
     "Carousel": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No autoplay: no Autoplay plugin is imported; `plugins` passes through to Embla."}
@@ -27,21 +55,41 @@
     "CheckboxGroup": {
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Checking only updates the set and calls onValueChange."}
     },
+    "CodeBlock": {
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Copy tooltip is stock Tooltip; the Copied bubble follows a click (status message)."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Tooltip closes on blur."}
+    },
+    "CodeEditor": {
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "No CodeMirror hover tooltips; the copy tooltip is stock."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "No sticky chrome; tooltip closes on blur."}
+    },
     "ColorPicker": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Color values are never data about the user (\"off\" by design)."},
+      "1.4.13": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "The \"Change photo\" button appears on hover/focus over the corner of the clickable eyedropper photo and cannot be dismissed without moving the pointer. Design decision pending (Maria): always visible, or moved off the image."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Popover dismisses on focus outside."},
+      "2.5.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Area and sliders use a simple single-pointer drag, no path or multipoint."},
+      "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "A click on the area or a slider track sets the value; swatches and hex/RGB/HSL inputs are further non-drag ways."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Dragging and onCommit only finalize the color value; focus stays in the picker."}
     },
     "Combobox": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: new autoComplete prop (default \"off\") reaches the combobox <input>."},
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The listbox opens on focus; Escape closes it, no timer."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Focus-outside exemption covers only its own input."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Committing closes its own popup and keeps focus on the input."}
     },
     "Command": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "CommandInput sets autoComplete=\"off\" then spreads props, so it can be overridden; a command palette collects no data about the user."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Hover only moves the active item."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Inline or inside a modal Dialog; the list keeps the active item in view."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Typing filters the list and moves aria-activedescendant; focus stays in the input."}
     },
     "ConfirmDialog": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "The type-to-confirm field echoes a resource name, not data about the user."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Modal: focus is trapped inside."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The type-to-confirm input only sets a value; onConfirm runs from the explicit button."}
+    },
+    "ContextMenu": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix ContextMenu, modal."}
     },
     "CountUp": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A one-shot number animation; nothing is limited."}
@@ -51,44 +99,100 @@
     },
     "DataTable": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Renders no inputs of its own; editable cells are DataTableCell."},
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: the select-all tooltip ignored Escape while hovered (its click guard swallowed every close); Escape now dismisses it."},
       "2.1.4": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No character-key shortcut: Enter / Space / arrows on its own elements, focus-scoped."},
+      "2.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Only the loading skeleton sweep loops; it indicates loading and stops when data arrives (motion-reduce stills it)."},
+      "2.4.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Row links wrap the primary column text; pager buttons are \"Go to page N\"."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: the focusin scroll correction now counts the sticky header row, so a focused cell is not left under it."},
+      "2.5.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Paged-column swipe on phones always comes with ColumnPageDots tap buttons; no column-resize or row-reorder drag."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Selection checkboxes only toggle selection; cell navigation is user-driven keys."}
     },
     "DataTableCell": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Edits row records (domains, owners), not the user's own data; kind=\"custom\" is the escape hatch."},
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "revealOnHover controls also show on focus-within and cover nothing."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "No sticky styling of its own."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Cell controls forward value changes with no focus or submit side effects."}
     },
     "DataTableToolbar": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No text inputs of its own; the search slot is the consumer's FilterField."},
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: the select-all tooltip ignored Escape while hovered (its click guard swallowed every close); Escape now dismisses it."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Not sticky; overlays are menus, tooltip and a modal dialog."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Focus moves to select-all only when focus was lost to <body>."}
+    },
+    "DatePicker": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Popover dismisses on focus outside."}
+    },
+    "DateRangePicker": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Popover dismisses on focus outside."}
     },
     "DateTimePicker": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Arbitrary dates and times, not a birthday field."},
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "DatePicker opens on click; TimeField listbox closes on Escape."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "DatePicker and TimeField."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Picking a date or time only updates the value; no jump to the time field."}
     },
     "DensityToggle": {
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Changes row spacing only; content and meaning stay the same."}
     },
+    "Dialog": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Modal: focus is trapped inside."}
+    },
     "DiffViewer": {
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Split/unified switch re-renders the same diff in place."}
     },
+    "DonutChart": {
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Recharts slice tooltip on hover: Escape closes, no timer."}
+    },
     "Drawer": {
-      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Its only timer restores focus after close; the slide is a transition."}
+      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Its only timer restores focus after close; the slide is a transition."},
+      "2.2.2": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Nothing moves on its own; the slide plays once."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "vaul Drawer, modal."}
+    },
+    "DropdownMenu": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix DropdownMenu, modal by default."}
+    },
+    "Dropzone": {
+      "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The whole zone is a button that opens the file picker, plus a Browse button."}
+    },
+    "Fab": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: reserves its height as scroll-padding on its scroll container (lib/scroll-padding), so Tab-focused content stops clear of it (bottom, height plus offset; verified)."}
     },
     "FeedbackWidget": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Free-text comment; no WCAG input purpose applies."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Yes/No are buttons (activation, not a setting); the follow-up is sent only by Send."}
     },
+    "File": {
+      "2.4.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The link text is the file name."}
+    },
     "Filter": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Option-list search, not data about the user."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Popover dismisses on focus outside."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Option checkboxes only toggle the selection."}
     },
     "FilterField": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Filter operands, not data about the user."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "The popover opens on click or typing, not on focus or hover."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Focus-outside exemption covers only the field itself."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Applying a filter adds a chip; focus stays within the field and its own popover."}
     },
     "Form": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No session or submit timeout; the only timing is the invalid-field shake."}
+    },
+    "HelpIcon": {
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Theya Tooltip on a real button."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Tooltip closes on blur."}
+    },
+    "HoldToTalk": {
+      "2.5.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Press-and-hold in place is neither path-based nor multipoint; slide-off cancel is the 2.5.2 abort."},
+      "2.5.7": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No dragging: hold and release in place; guidelines point long recordings to a Record/Stop button."}
+    },
+    "HoverCard": {
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix HoverCard: Escape, hoverable, persistent."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Closes on trigger blur."}
+    },
+    "ImageCropper": {
+      "2.5.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Pinch zoom has Zoom out/in buttons and a slider. With controls={false} the guidelines (2026-10-22) require the page to offer its own zoom buttons."},
+      "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: a click centres the frame on that point (pan without dragging), verified with a real mouse; zoom/rotate are buttons."}
     },
     "InlineEdit": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: autoComplete now reaches the multiline TextArea too (it only reached the single-line TextField)."},
@@ -100,13 +204,27 @@
     },
     "InputOTP": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "input-otp renders autoComplete=\"one-time-code\" by default and the prop overrides it."},
-      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "One real <input> with visual slots: no auto-advance between fields, no auto-submit in stories."}
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "One real <input> with visual slots: no auto-advance between fields, no auto-submit in stories."},
+      "3.3.8": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "one-time-code autofill and paste fill every slot; fixed 2026-10-22: spaces and dashes in a pasted code are stripped instead of dropping the paste."}
     },
     "Kanban": {
-      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Only the drop animation is timed."}
+      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Only the drop animation is timed."},
+      "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Cards move by drag; the guidelines require an app-built \"Move to…\" menu, the controlled items prop makes it possible and the 4px activation distance lets in-card clicks through."}
     },
     "KeyboardShortcuts": {
-      "2.1.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: `hotkey` takes a chord (\"Mod+/\", lib/hotkey) as well as a bare character, so the app can remap it; undefined turns it off; scopeRef limits it to focus. A bare character is ignored while typing."}
+      "2.1.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: `hotkey` takes a chord (\"Mod+/\", lib/hotkey) as well as a bare character, so the app can remap it; undefined turns it off; scopeRef limits it to focus. A bare character is ignored while typing."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "In a modal Dialog."}
+    },
+    "Lightbox": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Full-screen modal Dialog."},
+      "2.5.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Swipe has tap alternatives: thumbnails, and (fixed 2026-10-22) Previous/Next also on phones when the thumbnail strip is off."},
+      "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Drag-to-pan while zoomed: a click zooms in centred on the clicked point."}
+    },
+    "LineChart": {
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Recharts hover tooltip: Escape closes, no timer."}
+    },
+    "ListItem": {
+      "2.4.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The row link wraps the title and description."}
     },
     "Marquee": {
       "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Pauses on hover and focus-within, with a Pause button on by default."}
@@ -118,41 +236,69 @@
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Spreads props onto TextField, so tel / cc-number / cc-exp / postal-code pass through."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "onChange re-masks and emits; no focus or submit logic."}
     },
+    "Menubar": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix menus dismiss on focus outside."}
+    },
+    "MessagePopup": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Popover without overrides."}
+    },
+    "NavigationMenu": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix closes the flyout when focus leaves the nav."}
+    },
     "NumberField": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Arbitrary quantities; no input purpose applies."},
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Only the step \"bump\" animation is timed."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Typing and steppers change the value in place."}
     },
     "OrbitCarousel": {
-      "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Autoplay is off by default; when on, it stops on hover/focus, has Pause/Play, and is off under reduced motion."}
+      "1.4.13": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Hover/focus only hold autoplay."},
+      "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Autoplay is off by default; when on, it stops on hover/focus, has Pause/Play, and is off under reduced motion."},
+      "2.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Autoplay off by default; when on, it pauses on hover/focus and has Pause/Play."}
+    },
+    "Pagination": {
+      "2.4.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Previous/Next are named; page numbers sit in a nav labelled \"Pagination\" with aria-current."}
     },
     "Password": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: defaults to autoComplete=\"current-password\" instead of inheriting TextField's \"off\"; pass \"new-password\" when setting one."},
-      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Show/hide toggles visibility in place."}
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Show/hide toggles visibility in place."},
+      "3.3.8": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "current-password autofill, paste and copy allowed, show-password toggle."}
     },
     "PhoneField": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "autoComplete defaults to \"tel\"; fixed 2026-10-22: overridable (\"work tel\", or \"off\" for someone else's number)."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "The country list opens on click."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Popover dismisses on focus outside."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Choosing a country moves focus to the number input of the same labelled field (documented)."}
     },
+    "Popover": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Dismisses on focus outside (sheet mode is modal)."}
+    },
     "ProductTour": {
-      "2.1.4": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No character-key shortcut: Escape and arrows while the tour is open."}
+      "2.1.4": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No character-key shortcut: Escape and arrows while the tour is open."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Non-modal, but Tab stays inside the card and each step focuses it."}
     },
     "ProgressRing": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A fill animation that shows a value."}
     },
     "PromptArea": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Chat prompt; no input purpose applies."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "The mention menu opens on \"@\" or \"/\", typed by the user."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Focus stays in the textarea; Tab selects and closes the mention list."},
+      "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Drag-and-drop files: guidelines (2026-10-22) require an Attach button in leading/trailing with onFilesAdded; the slots make it possible."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Typing has no side effects; Enter is the explicit, documented send action."}
     },
     "PropertyGrid": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Built-in rows edit resource properties (\"off\"); a personal-data row uses type=\"custom\" with its own TextField autoComplete."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "No sticky parts; modal Select."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Row controls only set their property value."}
     },
     "PushSheet": {
-      "2.1.4": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No character-key shortcut: Escape while the sheet is open."}
+      "2.1.4": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No character-key shortcut: Escape while the sheet is open."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Desktop: in-flow panel; phones: modal Dialog."}
     },
     "QueryBuilder": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Query operands, not data about the user."},
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Combobox, DatePicker and Select editors; no hover reveals of its own."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Modal Selects; no sticky chrome."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Field/operator/value changes only update the query; focus moves follow Add/Remove buttons."}
     },
     "RangeField": {
@@ -160,29 +306,57 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Slider and inputs only set the range."}
     },
     "Rating": {
+      "1.4.13": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Hover previews its own stars; nothing new appears."},
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Only the star pop animation is timed."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Picking a value calls onValueChange; focus does not move."}
+    },
+    "Resizable": {
+      "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The separator resizes by drag or keyboard; guidelines (2026-10-22) require collapse/expand or preset-size buttons when resizing is a user feature."}
     },
     "RichTextEditor": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Rich text content; no input purpose applies."},
       "2.1.4": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Every shortcut has ⌘/Ctrl and is scoped to the focused editor; markdown input rules are text formatting, not shortcuts."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Link popover dismisses on focus outside."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Edits emit through onUpdate; the link popover applies on its own submit."}
     },
     "Scheduler": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A 60 s interval moves the \"now\" line; nothing is limited."},
+      "2.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The aria-hidden \"now\" line steps once a minute without animation, like a clock; `now` can freeze it."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Headers sit outside the scrolling body, so they cannot overlap focused events."},
+      "2.5.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Move/resize are simple start-to-end drags; navigation is buttons."},
+      "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "A click fires onEventClick (locked events too); guidelines tell the app to open an editor with date and time fields."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The view switch re-renders the calendar in place."}
     },
     "SecretField": {
       "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "A revealed secret is never auto-hidden. Fixed 2026-10-22: when the value can't be revealed, the copy-failed toast is the only explanation, so it now stays until dismissed."}
     },
     "Select": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix Select, modal."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix Select: the listbox closes and focus returns to the trigger."}
     },
+    "Sidebar": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Sticky rail in its own column; phones: modal."}
+    },
+    "SplitButton": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Menu is a modal DropdownMenu."}
+    },
+    "StickyActionBar": {
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: reserves its height as scroll-padding on its scroll container (lib/scroll-padding), so Tab-focused content stops clear of it (bottom; verified on the Unsaved changes story)."}
+    },
     "SwatchPicker": {
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Swatch name tooltips are stock Tooltip."},
+      "2.4.11": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Inline group, no overlay or sticky parts."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Selection only sets the value."}
+    },
+    "SwipeDeck": {
+      "2.5.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Skip and Keep buttons do the same as the swipe; hideButtons is documented as needing another non-drag way."},
+      "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Skip and Keep call the same decide() as dragging the card away."}
     },
     "Switch": {
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix Switch with no side effects."}
+    },
+    "Table": {
+      "2.5.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Paged-column swipe on phones always comes with ColumnPageDots tap buttons."}
     },
     "TagInput": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Tag lists; no input purpose applies."},
@@ -192,19 +366,28 @@
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Spreads native textarea props, so autoComplete (e.g. street-address) passes through."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Native textarea with no change side effects."}
     },
+    "TextEffect": {
+      "2.2.2": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "Shimmer (infinite 3 s sweep) and typewriter (endless loop, blinking caret) start on their own, run past 5 s and have no pause/stop; only reduced motion stops them. Design decision pending (Maria)."}
+    },
     "TextField": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "autoComplete defaults to \"off\" and any token passes through to the <input>."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "No side effects; Clear empties the value and refocuses the same input."}
     },
     "TickerList": {
-      "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Rotation stops on hover/focus and with a Pause button; still under reduced motion."}
+      "1.4.13": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Hover/focus only hold the rotation."},
+      "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Rotation stops on hover/focus and with a Pause button; still under reduced motion."},
+      "2.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Holds on hover/focus with a Pause button on by default; hidePause documented as needing another stop."}
     },
     "TimeField": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Arbitrary times; no input purpose applies."},
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Combobox listbox: Escape closes, no timer."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Combobox."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Value change parses the time; focus does not move."}
     },
     "TimeRangePicker": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A time range; no input purpose applies."},
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Two TimeFields."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Two TimeFields."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Changing the start only clears an end that is now earlier; no auto-advance."}
     },
     "Toaster": {
@@ -213,14 +396,21 @@
     "ToggleGroup": {
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix ToggleGroup with no custom change handling."}
     },
+    "Tooltip": {
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix Tooltip without disableHoverableContent: Escape, hoverable, persistent."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Closes on trigger blur."}
+    },
     "Topbar": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "TopbarSearch sets autoComplete=\"off\" then spreads props; a site search collects no data about the user."},
+      "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: reserves its height as scroll-padding on its scroll container (lib/scroll-padding), so Tab-focused content stops clear of it (56 px + 8 px gap, verified)."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Typing opens the results popover (an allowed combobox popup)."}
     },
     "UndoToast": {
       "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The grace window (default 10 s, `duration` option) pauses while hovered or, fixed 2026-10-22, while keyboard focus is in the toasts, so Undo can always be reached; the drain bar pauses with it. Scale `duration` with a user \"more time\" setting."}
     },
     "WheelPicker": {
+      "2.5.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Simple vertical drag and the mouse wheel; no path or multipoint."},
+      "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: pointer capture swallowed the option click; a press without movement now picks the row under the pointer (verified with a real mouse)."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Selecting clamps the index, sets the value and calls onValueChange."}
     }
   },

@@ -227,12 +227,14 @@ export function Lightbox({ images, open, onOpenChange, index: indexProp, onIndex
                 style={{ transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})` }}
               />
             </div>
+            {/* Phones hide the arrows behind the thumbnail strip; without the strip they
+                are the tap alternative to swiping (WCAG 2.5.1). */}
             {count > 1 && (
               <>
-                <ControlButton label={t.lightbox.previous} onClick={() => go(index - 1)} className="absolute top-1/2 start-3 -translate-y-1/2 max-sm:hidden sm:start-4">
+                <ControlButton label={t.lightbox.previous} onClick={() => go(index - 1)} className={cn('absolute top-1/2 start-3 -translate-y-1/2 sm:start-4', showThumbs && 'max-sm:hidden')}>
                   <NavArrowLeft aria-hidden="true" className="rtl:-scale-x-100" />
                 </ControlButton>
-                <ControlButton label={t.lightbox.next} onClick={() => go(index + 1)} className="absolute top-1/2 end-3 -translate-y-1/2 max-sm:hidden sm:end-4">
+                <ControlButton label={t.lightbox.next} onClick={() => go(index + 1)} className={cn('absolute top-1/2 end-3 -translate-y-1/2 sm:end-4', showThumbs && 'max-sm:hidden')}>
                   <NavArrowRight aria-hidden="true" className="rtl:-scale-x-100" />
                 </ControlButton>
               </>

@@ -216,7 +216,16 @@ function SelectAllTooltip({ children, content }: { children: React.ReactElement;
       >
         {children}
       </TooltipTrigger>
-      <TooltipContent side="bottom">{content}</TooltipContent>
+      <TooltipContent
+        side="bottom"
+        // The hover guard above keeps a click from closing the tooltip; it must
+        // not swallow Escape too (WCAG 1.4.13: dismissible without moving).
+        onEscapeKeyDown={() => {
+          hoveredRef.current = false;
+        }}
+      >
+        {content}
+      </TooltipContent>
     </Tooltip>
   );
 }

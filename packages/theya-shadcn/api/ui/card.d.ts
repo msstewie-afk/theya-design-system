@@ -40,7 +40,7 @@ export declare function CardHeader({ className, divider, size, ...props }: React
     divider?: boolean;
     size?: 'sm' | 'md';
 }): import("react").JSX.Element;
-export declare function CardTitle({ className, ...props }: React.ComponentProps<'div'>): import("react").JSX.Element;
+export declare function CardTitle({ className, id, ...props }: React.ComponentProps<'div'>): import("react").JSX.Element;
 export declare function CardDescription({ className, ...props }: React.ComponentProps<'div'>): import("react").JSX.Element;
 export interface CardLinkProps extends React.ComponentProps<'a'> {
     asChild?: boolean;

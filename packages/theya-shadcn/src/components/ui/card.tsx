@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { createContext, useContext, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cn } from '../../lib/utils';
 import { Radio, RadioGroup } from './radio';
@@ -168,6 +168,11 @@ const EFFECT_CLASS: Record<CardEffect, string> = {
   ),
 };
 
+// The whole-card link/filter overlay is named by the card's title (WCAG
+// 2.4.4) unless it gets its own label. CardTitle registers here so the
+// overlay only points aria-labelledby at a title that exists.
+const CardTitleContext = createContext<{ id: string; setPresent: (present: boolean) => void } | null>(null);
+
 export function Card({
   className,
   size,
@@ -188,6 +193,9 @@ export function Card({
   ...props
 }: CardProps) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+  const [hasTitle, setHasTitle] = useState(false);
+  const titleContext = useMemo(() => ({ id: titleId, setPresent: setHasTitle }), [titleId]);
   const effect = disabled ? undefined : effectProp;
   const tracksPointer = effect === 'tilt' || effect === 'spotlight';
   const track = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -215,6 +223,13 @@ export function Card({
   const isInteractive = !disabled && (interactive || resolvedAction != null);
   const isSelectedFilter = resolvedAction?.type === 'filter' && resolvedAction.active;
   const overlayClassName = 'absolute inset-0 z-0 rounded-[inherit] border-0 bg-transparent p-0 outline-none';
+  // Explicit label, else the card's title, else (no title at all) the URL.
+  const overlayName = (label?: string, fallback?: string) => {
+    const explicit = label || props['aria-label'];
+    if (explicit) return { 'aria-label': explicit };
+    if (hasTitle) return { 'aria-labelledby': titleId };
+    return fallback ? { 'aria-label': fallback } : {};
+  };
   const resolvedSelectable = disabled ? undefined : selectable;
   const isFilled = appearance === 'filled';
   const tone: CardTone = isFilled ? 'neutral' : toneProp;
@@ -283,7 +298,7 @@ export function Card({
       {...props}
     >
       {resolvedAction?.type === 'link' && (
-        <a data-slot="card-link-overlay" href={resolvedAction.href} aria-label={resolvedAction.ariaLabel || props['aria-label'] || resolvedAction.href} className={overlayClassName} />
+        <a data-slot="card-link-overlay" href={resolvedAction.href} {...overlayName(resolvedAction.ariaLabel, resolvedAction.href)} className={overlayClassName} />
       )}
       {resolvedAction?.type === 'external-link' && (
         <a
@@ -291,7 +306,7 @@ export function Card({
           href={resolvedAction.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={resolvedAction.ariaLabel || props['aria-label'] || resolvedAction.href}
+          {...overlayName(resolvedAction.ariaLabel, resolvedAction.href)}
           className={overlayClassName}
         />
       )}
@@ -299,7 +314,7 @@ export function Card({
         <button
           data-slot="card-filter-overlay"
           type="button"
-          aria-label={resolvedAction.ariaLabel}
+          {...overlayName(resolvedAction.ariaLabel)}
           aria-pressed={resolvedAction.active}
           onClick={() => resolvedAction.onChange(!resolvedAction.active)}
           className={overlayClassName}
@@ -343,7 +358,7 @@ export function Card({
           )}
         </div>
       )}
-      {children}
+      <CardTitleContext.Provider value={titleContext}>{children}</CardTitleContext.Provider>
     </div>
   );
 }
@@ -400,10 +415,18 @@ export function CardHeader({ className, divider, size, ...props }: React.Compone
   );
 }
 
-export function CardTitle({ className, ...props }: React.ComponentProps<'div'>) {
+export function CardTitle({ className, id, ...props }: React.ComponentProps<'div'>) {
+  const card = useContext(CardTitleContext);
+  const setPresent = card?.setPresent;
+  useLayoutEffect(() => {
+    if (!setPresent) return;
+    setPresent(true);
+    return () => setPresent(false);
+  }, [setPresent]);
   return (
     <div
       data-slot="card-title"
+      id={id ?? card?.id}
       className={cn(
         'flex items-center font-body text-body-l font-semibold text-[var(--color-text-text)]',
         'group-data-[size=sm]/card:text-body-s group-data-[size=md]/card:text-body-s',

@@ -4868,7 +4868,7 @@ Also accepts the props of: HTMLAttributes.
 **Accessibility**
 
 - Name it with `label`; the frame is focusable — arrows pan, + / − zoom.
-- The zoom slider and rotate button are real controls with names, for people who can’t drag or pinch.
+- For people who can’t drag or pinch: a click centres the frame on that point, and the zoom buttons, slider and rotate button are real controls with names. With controls={false} the page must offer its own zoom buttons (WCAG 2.5.1).
 - Give the result a meaningful alt where it’s shown.
 
 ## InlineEdit
@@ -7078,6 +7078,7 @@ Also accepts the props of: HTMLAttributes.
 
 - Name it with `aria-label` (default “Message”); status changes (sending, stopped, limit) go to a live region.
 - Send and Stop are one named button that switches label while busy, so focus never jumps.
+- With `onFilesAdded`, also put an Attach button in `leading` / `trailing` that opens a file picker: drag-and-drop and paste alone exclude people who can’t drag (WCAG 2.5.7).
 
 ## PromptSuggestions
 
@@ -7704,6 +7705,7 @@ Also accepts the props of: HTMLAttributes.
 
 - The handle is role="separator": arrow keys resize, Home/End jump, double-click resets.
 - Give each handle an `aria-label` that names what it resizes.
+- When resizing is a user feature, pair the handle with buttons that collapse/expand or set a preset size (the panel’s imperative collapse(), expand(), resize()): dragging and the keyboard aren’t enough for people who can’t drag (WCAG 2.5.7).
 
 ## Reveal
 

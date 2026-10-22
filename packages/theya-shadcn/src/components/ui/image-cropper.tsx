@@ -162,6 +162,9 @@ export function ImageCropper({
   /* Pointer: one pointer pans, two pinch-zoom. */
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const pinch = useRef<{ dist: number; zoom: number } | null>(null);
+  // A press that doesn't move (and never became a pinch) is a click: it
+  // centres the frame on that point — panning without dragging (WCAG 2.5.7).
+  const press = useRef<{ x: number; y: number; tap: boolean } | null>(null);
   const centerOf = (clientX: number, clientY: number) => {
     const rect = containerRef.current!.getBoundingClientRect();
     return { x: clientX - rect.left - rect.width / 2, y: clientY - rect.top - rect.height / 2 };
@@ -171,6 +174,7 @@ export function ImageCropper({
     if (e.button !== 0) return;
     e.currentTarget.setPointerCapture(e.pointerId);
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    press.current = pointers.current.size === 1 ? { x: e.clientX, y: e.clientY, tap: true } : null;
     if (pointers.current.size === 2) {
       const [a, b] = [...pointers.current.values()];
       pinch.current = { dist: Math.hypot(a.x - b.x, a.y - b.y), zoom };
@@ -181,6 +185,7 @@ export function ImageCropper({
     const prev = pointers.current.get(e.pointerId);
     if (!prev) return;
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (press.current && Math.hypot(e.clientX - press.current.x, e.clientY - press.current.y) > 4) press.current.tap = false;
     if (pointers.current.size === 2 && pinch.current) {
       const [a, b] = [...pointers.current.values()];
       const mid = centerOf((a.x + b.x) / 2, (a.y + b.y) / 2);
@@ -190,6 +195,11 @@ export function ImageCropper({
     setOffset((o) => clampOffset({ x: o.x + e.clientX - prev.x, y: o.y + e.clientY - prev.y }));
   };
   const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.type === 'pointerup' && press.current?.tap && pointers.current.size === 1) {
+      const p = centerOf(e.clientX, e.clientY);
+      setOffset((o) => clampOffset({ x: o.x - p.x, y: o.y - p.y }));
+    }
+    press.current = null;
     pointers.current.delete(e.pointerId);
     if (pointers.current.size < 2) pinch.current = null;
     if (pointers.current.size === 0) setMoving(false);

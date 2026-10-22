@@ -84,7 +84,16 @@ function SelectAllTooltip({ children, content }: { children: ReactElement; conte
       >
         {children}
       </TooltipTrigger>
-      <TooltipContent side="bottom">{content}</TooltipContent>
+      <TooltipContent
+        side="bottom"
+        // The hover guard above keeps a click from closing the tooltip; it must
+        // not swallow Escape too (WCAG 1.4.13: dismissible without moving).
+        onEscapeKeyDown={() => {
+          hoveredRef.current = false;
+        }}
+      >
+        {content}
+      </TooltipContent>
     </Tooltip>
   );
 }
@@ -912,7 +921,10 @@ export function DataTable<TData>({
       if (hiddenLeft > 0) el.scrollBy({ left: -hiddenLeft });
       else if (hiddenRight > 0) el.scrollBy({ left: hiddenRight });
       if (el.scrollHeight > el.clientHeight) {
-        const above = view.top - (rect.top - FOCUS_RING);
+        // A sticky header covers the top of the view (WCAG 2.4.11).
+        const head = el.querySelector<HTMLElement>('thead th');
+        const headCover = head && window.getComputedStyle(head).position === 'sticky' ? head.getBoundingClientRect().bottom - view.top : 0;
+        const above = view.top + Math.max(0, headCover) - (rect.top - FOCUS_RING);
         const below = rect.bottom + FOCUS_RING - view.bottom;
         if (above > 0) el.scrollBy({ top: -above });
         else if (below > 0) el.scrollBy({ top: below });

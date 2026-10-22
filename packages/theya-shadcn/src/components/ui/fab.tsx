@@ -1,7 +1,8 @@
 'use client';
 
-import { forwardRef, useEffect, useId, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from 'react';
+import { forwardRef, useCallback, useEffect, useId, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from 'react';
 import { cn } from '../../lib/utils';
+import { useScrollPadding } from '../../lib/scroll-padding';
 import { buttonVariants } from './button';
 import { useTheyaI18n } from '../../lib/i18n';
 
@@ -139,6 +140,17 @@ export const Fab = forwardRef<HTMLButtonElement, FabProps>(function Fab(
 ) {
   const scrolledAway = useCollapseOnScroll(Boolean(label) && collapseOnScroll, scrollContainer);
   const folded = Boolean(label) && (collapsedProp ?? scrolledAway);
+  // Keep Tab-focused content from scrolling under the pinned FAB (WCAG 2.4.11).
+  const ownRef = useRef<HTMLButtonElement | null>(null);
+  useScrollPadding(ownRef, 'bottom', position !== 'none');
+  const setRef = useCallback(
+    (node: HTMLButtonElement | null) => {
+      ownRef.current = node;
+      if (typeof ref === 'function') ref(node);
+      else if (ref) (ref as React.MutableRefObject<HTMLButtonElement | null>).current = node;
+    },
+    [ref],
+  );
 
   if (process.env.NODE_ENV !== 'production' && !label && !props['aria-label'] && !props['aria-labelledby']) {
     console.warn('[Fab] An icon-only FAB needs an accessible name — pass aria-label (or a label).');
@@ -146,7 +158,7 @@ export const Fab = forwardRef<HTMLButtonElement, FabProps>(function Fab(
 
   return (
     <button
-      ref={ref}
+      ref={setRef}
       type={type}
       data-slot="fab"
       data-size={size}
@@ -223,6 +235,7 @@ export function FabSpeedDial({ actions, icon, openLabel, closeLabel, size = 'md'
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
+  useScrollPadding(root, 'bottom', position !== 'none');
   const listId = useId();
 
   useEffect(() => {

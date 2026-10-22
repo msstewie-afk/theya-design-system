@@ -3,6 +3,7 @@
 import { useCallback, useLayoutEffect, useRef, type FocusEvent, type ReactNode } from 'react';
 import { Xmark } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { useScrollPadding } from '../../lib/scroll-padding';
 import { Button } from './button';
 import { useTheyaI18n } from '../../lib/i18n';
 
@@ -66,6 +67,8 @@ export function StickyActionBar({
   // the document, so we can see whether focus was inside it.
   // Stable (useCallback) so React only calls it on mount/unmount, not every render.
   const lastBar = useRef<HTMLDivElement | null>(null);
+  // Keep Tab-focused fields from scrolling under the bar (WCAG 2.4.11).
+  useScrollPadding(lastBar, 'bottom', open);
   const barRef = useCallback((el: HTMLDivElement | null) => {
     if (!el && document.activeElement && lastBar.current?.contains(document.activeElement)) restore.current = true;
     lastBar.current = el;

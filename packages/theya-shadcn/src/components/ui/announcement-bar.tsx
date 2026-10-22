@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Xmark } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { useScrollPadding } from '../../lib/scroll-padding';
 import { SOLID_TONE_CLASS } from './chip';
 import { useTheyaI18n } from '../../lib/i18n';
 
@@ -105,6 +106,9 @@ export function AnnouncementBar({
   // Starts visible on the server/first paint, then hides if remembered —
   // reading storage during render would mismatch hydration.
   const [hidden, setHidden] = useState(false);
+  // A sticky bar keeps Tab-focused content from scrolling under it (WCAG 2.4.11).
+  const barRef = useRef<HTMLDivElement>(null);
+  useScrollPadding(barRef, 'top', sticky && !hidden);
   useEffect(() => {
     if (readDismissed(dismissKey)) setHidden(true);
   }, [dismissKey]);
@@ -132,6 +136,7 @@ export function AnnouncementBar({
 
   return (
     <div
+      ref={barRef}
       role="region"
       aria-label={ariaLabel}
       data-slot="announcement-bar"

@@ -25,6 +25,9 @@ function InputOTP({
         containerClassName,
       )}
       className={cn('disabled:cursor-not-allowed', className)}
+      // Codes are often copied as "123 456" or "123-456"; without this the
+      // digits-only pattern drops the whole paste (WCAG 3.3.8).
+      pasteTransformer={(text) => text.replace(/[\s-]/g, '')}
       {...props}
     />
   );

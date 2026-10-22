@@ -65,7 +65,7 @@ export function WheelPicker({ options, value, defaultValue, onValueChange, rows 
   }, []);
 
   // Drag: one row per 36px moved.
-  const drag = useRef<{ y: number; from: number } | null>(null);
+  const drag = useRef<{ y: number; from: number; moved: boolean } | null>(null);
   const middle = (rows - 1) / 2;
 
   return (
@@ -85,14 +85,24 @@ export function WheelPicker({ options, value, defaultValue, onValueChange, rows 
       }}
       onPointerDown={(event) => {
         if (disabled) return;
-        drag.current = { y: event.clientY, from: index };
+        drag.current = { y: event.clientY, from: index, moved: false };
         event.currentTarget.setPointerCapture?.(event.pointerId);
       }}
       onPointerMove={(event) => {
         if (!drag.current) return;
+        if (Math.abs(drag.current.y - event.clientY) > 4) drag.current.moved = true;
         select(drag.current.from + Math.round((drag.current.y - event.clientY) / ROW));
       }}
-      onPointerUp={() => (drag.current = null)}
+      onPointerUp={(event) => {
+        // Pointer capture retargets the click to the listbox, so an option's
+        // onClick never fires: a press without movement picks the row under
+        // the pointer here instead — choosing without dragging (WCAG 2.5.7).
+        if (drag.current && !drag.current.moved) {
+          const top = event.currentTarget.getBoundingClientRect().top;
+          select(index + Math.floor((event.clientY - top) / ROW) - middle);
+        }
+        drag.current = null;
+      }}
       onPointerCancel={() => (drag.current = null)}
       className={cn(
         'relative w-40 shrink-0 cursor-ns-resize touch-none select-none overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]',

@@ -40,7 +40,7 @@ export const imageCropperGuidelines: ComponentGuidelines = {
   ],
   a11y: [
     <>Name it with <C>label</C>; the frame is focusable — arrows pan, + / − zoom.</>,
-    'The zoom slider and rotate button are real controls with names, for people who can’t drag or pinch.',
+    'For people who can’t drag or pinch: a click centres the frame on that point, and the zoom buttons, slider and rotate button are real controls with names. With controls={false} the page must offer its own zoom buttons (WCAG 2.5.1).',
     'Give the result a meaningful alt where it’s shown.',
   ],
 };

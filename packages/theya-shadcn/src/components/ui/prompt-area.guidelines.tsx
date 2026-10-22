@@ -30,5 +30,6 @@ export const promptAreaGuidelines: ComponentGuidelines = {
   a11y: [
     <>Name it with <C>aria-label</C> (default “Message”); status changes (sending, stopped, limit) go to a live region.</>,
     'Send and Stop are one named button that switches label while busy, so focus never jumps.',
+    <>With <C>onFilesAdded</C>, also put an Attach button in <C>leading</C> / <C>trailing</C> that opens a file picker: drag-and-drop and paste alone exclude people who can’t drag (WCAG 2.5.7).</>,
   ],
 };

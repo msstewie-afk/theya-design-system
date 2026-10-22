@@ -43,5 +43,6 @@ export const resizableGuidelines: ComponentGuidelines = {
   a11y: [
     'The handle is role="separator": arrow keys resize, Home/End jump, double-click resets.',
     <>Give each handle an <C>aria-label</C> that names what it resizes.</>,
+    'When resizing is a user feature, pair the handle with buttons that collapse/expand or set a preset size (the panel’s imperative collapse(), expand(), resize()): dragging and the keyboard aren’t enough for people who can’t drag (WCAG 2.5.7).',
   ],
 };
