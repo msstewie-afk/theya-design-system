@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { CardFan } from './card-fan';
 import { Card, CardTitle, CardDescription, CardContent } from './card';
 import { Avatar } from './avatar';
@@ -31,9 +31,9 @@ type Story = StoryObj<typeof meta>;
 /** Hover the stack (or Tab into it): the cards fan out and the one under the pointer lifts. */
 export const Default: Story = {
   parameters: {
-    // target-size off: an open fan overlaps the cards by design, so a back
-    // card's visible strip can be thinner than 24px. Hover or focus lifts
-    // that card to the front at full size, which is the target people use.
+    // axe target-size off: it measures the rotated cards by their bounding
+    // boxes, which overlap far more than the cards do. The real check is in
+    // the play test: every card's visible strip is at least 24px (WCAG 2.5.8).
     a11y: { config: { rules: [{ id: 'target-size', enabled: false }] } },
   },
   render: (args) => (
@@ -59,5 +59,13 @@ export const Default: Story = {
     await userEvent.tab();
     await expect(fan).toHaveAttribute('data-open');
     await expect(canvas.getAllByRole('link')).toHaveLength(4);
+    // Open fan: each card shows at least a 24px strip next to the one before it.
+    await waitFor(
+      () => {
+        const lefts = [...canvasElement.querySelectorAll('[data-slot=card-fan-item]')].map((el) => el.getBoundingClientRect().left);
+        for (let i = 1; i < lefts.length; i++) expect(lefts[i] - lefts[i - 1]).toBeGreaterThanOrEqual(24);
+      },
+      { timeout: 2000 },
+    );
   },
 };

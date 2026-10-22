@@ -1477,7 +1477,7 @@ Docs: ./?path=/docs/motion-cardfan--docs
 
 **CardFan props**
 
-- `offset?`: `number`, default `88` — Horizontal distance between neighbouring cards when open, px (default 88). Tightened automatically when the container is too narrow for it.
+- `offset?`: `number`, default `88` — Horizontal distance between neighbouring cards when open, px (default 88). Tightened automatically when the container is too narrow for it, but never below 24px (the tap target).
 - `spread?`: `number`, default `8` — Rotation between neighbouring cards when open, degrees (default 8).
 
 Also accepts the props of: HTMLAttributes.

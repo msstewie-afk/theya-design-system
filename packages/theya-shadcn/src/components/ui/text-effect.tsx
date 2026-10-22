@@ -13,9 +13,11 @@ import { useInView, useReducedMotion } from './use-in-view';
  * - `scramble` — random glyphs settle into the text left to right
  *   (Scramble Reveal), 35ms a frame.
  * - `shimmer` — a light band flows through the text, endlessly
- *   (Gradient Shimmer Text): text-subtle with a text-link highlight.
- * - `typewriter` — types and deletes through `phrases` with a blinking
- *   caret (Typewriter).
+ *   (Gradient Shimmer Text): text-subtle with a text-link highlight. An
+ *   accepted WCAG 2.2.2 deviation (Maria, 2026-10-22): decorative, the
+ *   text stays readable, and reduced motion stops it.
+ * - `typewriter` — types and deletes through `phrases` once with a
+ *   blinking caret (Typewriter), then rests on the last phrase.
  *
  * Screen readers always get the plain text (all phrases for the
  * typewriter); the animated letters are hidden from them. With
@@ -154,6 +156,9 @@ function Shimmer({ text }: { text: string }) {
 
 function Typewriter({ phrases, reduced }: { phrases: string[]; reduced: boolean }) {
   const [text, setText] = useState(reduced ? (phrases[0] ?? '') : '');
+  // One pass through the phrases, then it rests on the last one and the
+  // caret goes away: endless motion would need a pause control (WCAG 2.2.2).
+  const [done, setDone] = useState(false);
   // A new array with the same phrases (an inline prop) must not restart the loop.
   const key = phrases.join('\n');
   const latest = useRef(phrases);
@@ -164,6 +169,7 @@ function Typewriter({ phrases, reduced }: { phrases: string[]; reduced: boolean 
       setText(phrases[0] ?? '');
       return;
     }
+    setDone(false);
     let phrase = 0;
     let chars = 0;
     let deleting = false;
@@ -173,7 +179,10 @@ function Typewriter({ phrases, reduced }: { phrases: string[]; reduced: boolean 
       setText(word.slice(0, chars));
       let wait = 55;
       if (!deleting && chars < word.length) chars++;
-      else if (!deleting) {
+      else if (!deleting && phrase === phrases.length - 1) {
+        setDone(true);
+        return;
+      } else if (!deleting) {
         deleting = true;
         wait = 1100;
       } else if (chars > 0) {
@@ -192,7 +201,9 @@ function Typewriter({ phrases, reduced }: { phrases: string[]; reduced: boolean 
   return (
     <span aria-hidden="true">
       {text}
-      <span className="ms-0.5 inline-block h-[1.1em] w-0.5 translate-y-[0.15em] animate-[theya-caret-blink_1s_steps(1)_infinite] bg-[var(--color-icon-icon-primary)] motion-reduce:hidden" />
+      {!done && (
+        <span className="ms-0.5 inline-block h-[1.1em] w-0.5 translate-y-[0.15em] animate-[theya-caret-blink_1s_steps(1)_infinite] bg-[var(--color-icon-icon-primary)] motion-reduce:hidden" />
+      )}
     </span>
   );
 }

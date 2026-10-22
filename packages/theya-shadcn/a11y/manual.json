@@ -41,7 +41,7 @@
     },
     "CardFan": {
       "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Hover/focus fans out its own cards inside its box, covering nothing else; no timer."},
-      "2.5.8": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "In the open fan each back card shows a strip equal to the offset, floored only at 0, so on phones it can be under 24px; the Default story turns axe target-size off. Design decision pending (Maria)."}
+      "2.5.8": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22 (Maria's call): the open fan's offset never goes below 24px, so every back card's strip is a 24px target; axe target-size is back on in the stories."}
     },
     "CardStack": {
       "1.4.13": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Hover/focus only pause autoplay."}
@@ -65,7 +65,7 @@
     },
     "ColorPicker": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Color values are never data about the user (\"off\" by design)."},
-      "1.4.13": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "The \"Change photo\" button appears on hover/focus over the corner of the clickable eyedropper photo and cannot be dismissed without moving the pointer. Design decision pending (Maria): always visible, or moved off the image."},
+      "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22 (Maria's call): the Change photo button is always visible instead of appearing on hover over the photo."},
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Popover dismisses on focus outside."},
       "2.5.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Area and sliders use a simple single-pointer drag, no path or multipoint."},
       "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "A click on the area or a slider track sets the value; swatches and hex/RGB/HSL inputs are further non-drag ways."},
@@ -367,7 +367,7 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Native textarea with no change side effects."}
     },
     "TextEffect": {
-      "2.2.2": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "Shimmer (infinite 3 s sweep) and typewriter (endless loop, blinking caret) start on their own, run past 5 s and have no pause/stop; only reduced motion stops them. Design decision pending (Maria)."}
+      "2.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: the typewriter plays through its phrases once, rests on the last one and drops the caret. The endless shimmer is an accepted deviation (see deviations)."}
     },
     "TextField": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "autoComplete defaults to \"off\" and any token passes through to the <input>."},
@@ -420,6 +420,9 @@
     ],
     "ContextMenu": [
       { "criterion": "2.1.1", "note": "Met by rule: the trigger area is not a Tab stop, so every action must also be in a visible control (a “…” button, a toolbar)." }
+    ],
+    "TextEffect": [
+      { "criterion": "2.2.2", "note": "The shimmer effect loops endlessly with no pause control. Accepted by Maria, 2026-10-22: decorative, the text stays readable throughout, and reduced motion stops it. The typewriter plays once." }
     ]
   },
   "focusRingOnly": [

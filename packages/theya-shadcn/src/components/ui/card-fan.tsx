@@ -15,9 +15,11 @@ import { cn } from '../../lib/utils';
 export interface CardFanProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Rotation between neighbouring cards when open, degrees (default 8). */
   spread?: number;
-  /** Horizontal distance between neighbouring cards when open, px (default 88). Tightened automatically when the container is too narrow for it. */
+  /** Horizontal distance between neighbouring cards when open, px (default 88). Tightened automatically when the container is too narrow for it, but never below 24px (the tap target). */
   offset?: number;
 }
+
+const MIN_STRIP = 24;
 
 export function CardFan({ spread = 8, offset = 88, className, children, onPointerEnter, onPointerLeave, onFocus, onBlur, onClick, ...props }: CardFanProps) {
   const cards = Children.toArray(children);
@@ -37,7 +39,8 @@ export function CardFan({ spread = 8, offset = 88, className, children, onPointe
       // Outer card: its offset, half its width, and how far its top swings out.
       const swing = item.offsetHeight * Math.sin((mid * spread * Math.PI) / 180);
       const room = (root.clientWidth / 2 - item.offsetWidth / 2 - swing) / mid;
-      setFit(Math.max(0, Math.min(offset, Math.floor(room))));
+      // Never below 24px: each back card's visible strip is its tap target (WCAG 2.5.8).
+      setFit(Math.max(MIN_STRIP, Math.min(offset, Math.floor(room))));
     };
     measure();
     const ro = new ResizeObserver(measure);

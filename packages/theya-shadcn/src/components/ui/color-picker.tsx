@@ -298,8 +298,9 @@ function DraftInput({
           e.currentTarget.select();
         }
       }}
-      // Fields are narrow: drop TextField's asymmetric side padding for an even px-2.
-      className={cn(textFieldVariants({ heightSize: 'sm' }), 'min-w-0 px-2 tabular-nums', className)}
+      // Fields are narrow: an even 8px instead of TextField's 16/8. ps/pe, not
+      // px — the variants set logical ps/pe, which px-2 didn't override.
+      className={cn(textFieldVariants({ heightSize: 'sm' }), 'min-w-0 ps-2 pe-2 tabular-nums', className)}
     />
   );
 }
@@ -417,7 +418,7 @@ function PhotoSource({
   }
 
   return (
-    <div className="group/photo relative">
+    <div className="relative">
       <img
         ref={imgRef}
         src={url}
@@ -431,7 +432,8 @@ function PhotoSource({
         size="sm"
         appearance="tonal"
         onClick={() => inputRef.current?.click()}
-        className="absolute end-2 top-2 opacity-0 transition-opacity group-hover/photo:opacity-100 focus-visible:opacity-100 [@media(hover:none)]:opacity-100"
+        // Always visible: shown only on hover it covered part of the photo you pick from (WCAG 1.4.13).
+        className="absolute end-2 top-2"
       >
         {t.colorPicker.changePhoto}
       </Button>

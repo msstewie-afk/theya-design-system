@@ -58,7 +58,7 @@
           "type": "number",
           "required": false,
           "default": "88",
-          "description": "Horizontal distance between neighbouring cards when open, px (default 88). Tightened automatically when the container is too narrow for it."
+          "description": "Horizontal distance between neighbouring cards when open, px (default 88). Tightened automatically when the container is too narrow for it, but never below 24px (the tap target)."
         },
         {
           "name": "spread",
