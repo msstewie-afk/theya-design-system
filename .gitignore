@@ -12,3 +12,6 @@ __visual__/
 .claude/skills/design-process-map/
 .claude/.gate/
 .claude/gate-names.local
+
+# Claude Code per-machine settings
+.claude/settings.local.json
