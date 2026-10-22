@@ -229,7 +229,7 @@ export function Autocomplete({
           {showClear && current && !disabled && !readOnly && (
             <button
               type="button"
-              aria-label={t.common.clear}
+              aria-label={ariaLabel ? t.textField.clearFor(ariaLabel) : t.textField.clear}
               onClick={() => {
                 setValue('');
                 inputRef.current?.focus();

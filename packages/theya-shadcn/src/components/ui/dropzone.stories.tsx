@@ -78,8 +78,8 @@ export const Playground: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = zone(canvasElement);
-    await expect(trigger).toHaveAccessibleName('Upload TLS certificate Drag files here');
-    await expect(trigger).toHaveAccessibleDescription('JPG, PNG, GIF, WEBP up to 125 MB');
+    await expect(trigger).toHaveAccessibleName('Upload TLS certificate Choose files');
+    await expect(trigger).toHaveAccessibleDescription('Drag files here JPG, PNG, GIF, WEBP up to 125 MB');
     // One tab stop for the zone: "Browse" is a pointer target only.
     await expect(canvas.getByText('Browse').closest('button')).toHaveAttribute('tabindex', '-1');
 
@@ -123,8 +123,8 @@ export const WithError: Story = {
   play: async ({ canvasElement }) => {
     const trigger = zone(canvasElement);
     await expect(trigger).toHaveAttribute('aria-invalid', 'true');
-    await expect(trigger).toHaveAccessibleName('Upload file File is uploaded with error');
-    await expect(trigger).toHaveAccessibleDescription('JPG, PNG, GIF, WEBP only, up to 125 MB');
+    await expect(trigger).toHaveAccessibleName('Upload file Choose files');
+    await expect(trigger).toHaveAccessibleDescription(/^File is uploaded with error JPG, PNG, GIF, WEBP only, up to 125 MB/);
     await expect(within(canvasElement).getByRole('alert')).toHaveTextContent('JPG, PNG, GIF, WEBP only, up to 125 MB');
   },
 };
@@ -141,7 +141,8 @@ export const Success: Story = {
   ),
   play: async ({ canvasElement }) => {
     // The confirmation state still gives the zone a name.
-    await expect(zone(canvasElement)).toHaveAccessibleName('Upload resume Alex Smith-Product Designer.pdf');
+    await expect(zone(canvasElement)).toHaveAccessibleName('Upload resume Choose files');
+    await expect(zone(canvasElement)).toHaveAccessibleDescription(/^Alex Smith-Product Designer\.pdf/);
   },
 };
 
@@ -154,7 +155,8 @@ export const Loading: Story = {
   play: async ({ canvasElement }) => {
     const trigger = zone(canvasElement);
     await expect(trigger).toBeDisabled();
-    await expect(trigger).toHaveAccessibleName('Upload resume Uploading…');
+    await expect(trigger).toHaveAccessibleName('Upload resume Choose files');
+    await expect(trigger).toHaveAccessibleDescription(/^Uploading…/);
   },
 };
 

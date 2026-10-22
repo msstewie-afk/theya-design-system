@@ -90,7 +90,7 @@ Docs: ./?path=/docs/status-feedback-alert--docs
 **Alert props**
 
 - `dismissible?`: `boolean`, default `false`
-- `dismissLabel?`: `string`, default `Dismiss (localized: alert.dismiss)`
+- `dismissLabel?`: `string`, default `Dismiss alert (localized: alert.dismiss)`
 - `indicator?`: `"none" | "stripe"`, default `none` — Full-tone accent bar on the left edge. See `AlertIndicator`. Default `'none'`.
 - `live?`: `"assertive" | "polite"` — Announce as a live region when mounted dynamically. Omit for static banners.
 - `onDismiss?`: `(() => void)`
@@ -2506,7 +2506,7 @@ Docs: ./?path=/docs/overlays-confirmdialog--docs
 - `title`: `ReactNode`
 - `cancelLabel?`: `string`, default `Cancel (localized: common.cancel)`
 - `confirmIcon?`: `ReactNode`
-- `confirmLabel?`: `string`, default `Delete (localized: confirmDialog.confirm)`
+- `confirmLabel?`: `string`
 - `confirmValue?`: `string` — Require the user to type this string exactly to enable the action.
 - `confirmValueMono?`: `boolean`, default `true` — Monospace the typed value (a domain, slug, id, etc). Set false for a non-identifier value like an email. Defaults to true.
 - `contentGap?`: `"none" | "md" | "sm"`, default `md`
@@ -2681,6 +2681,7 @@ Docs: ./?path=/docs/actions-copybutton--docs
 - `resetDelay?`: `number`, default `1500` — ms before the button reverts from the copied state. Default 1500.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`, default `md`
 - `softDisabled?`: `boolean` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
+- `subject?`: `string` — What gets copied ("API key"): names the button "Copy API key" for assistive tech, so several CopyButtons stay distinct (WCAG 2.4.6). The visible label stays short.
 - `success?`: `boolean` — The action just succeeded: a tick draws itself in place of leftIcon (Kinetics'
 - `tone?`: `"neutral" | "info" | "success" | "warning" | "danger" | "primary" | "secondary" | null`, default `neutral`
 
@@ -6201,12 +6202,12 @@ Docs: ./?path=/docs/text-input-numberfield--docs
 - `aria-label?`: `string`
 - `aria-labelledby?`: `string`
 - `className?`: `string`
-- `decrementLabel?`: `string`, default `Decrease (localized: numberField.decrement)`
+- `decrementLabel?`: `string`
 - `defaultValue?`: `number`
 - `disabled?`: `boolean`
 - `heightSize?`: `"md" | "sm"`, default `md` — Matches TextField's heightSize: md 40px (default), sm 32px with 12px text and the 4px radius — for dense rows (cart quantities, table cells).
 - `id?`: `string`
-- `incrementLabel?`: `string`, default `Increase (localized: numberField.increment)`
+- `incrementLabel?`: `string`
 - `max?`: `number`
 - `min?`: `number`
 - `onValueChange?`: `((value: number) => void)`
@@ -8242,6 +8243,7 @@ Docs: ./?path=/docs/navigation-sidebar--docs
 **SidebarItem props**
 
 - `actions?`: `ReactNode` — DropdownMenuItem(s) for a hover-revealed "more actions" trigger. Omit for no trigger. Hidden when the rail is collapsed.
+- `actionsLabel?`: `string` — Name of the actions trigger. Default "More actions for {item}" when the item's text is a string.
 - `active?`: `boolean`
 - `badge?`: `ReactNode`
 - `badgeTone?`: `"neutral" | "info" | "success" | "warning" | "danger" | "primary"`, default `neutral` — Tone for the badge pill (e.g. a notification count). Default 'neutral'.

@@ -27,7 +27,7 @@ export const ru: TheyaMessages = {
     remove: (name) => `Удалить ${name}`,
     more: (n) => `ещё ${n}`,
   },
-  alert: { dismiss: 'Скрыть' },
+  alert: { dismiss: 'Скрыть уведомление' },
   announcementBar: { dismiss: 'Скрыть объявление', label: 'Объявление' },
   autocomplete: { suggestions: 'Подсказки' },
   breadcrumb: {
@@ -46,6 +46,7 @@ export const ru: TheyaMessages = {
     trend: (points) => `Динамика по ${points} ${plural(points, 'точке', 'точкам', 'точкам')}`,
     seriesTrend: (names, points) => `${names}: ${points} ${plural(points, 'точка', 'точки', 'точек')}`,
     range: (first, last, peak, peakLabel) => `от ${first} до ${last}, максимум ${peak} (${peakLabel})`,
+    spark: (first, last, low, high) => `от ${first} до ${last}, минимум ${low}, максимум ${high}`,
     comparison: (count, label, value) => `Сравнение ${count} ${plural(count, 'категории', 'категорий', 'категорий')}; больше всего — ${label}: ${value}.`,
     noData: 'Нет данных для сравнения',
     total: 'Всего',
@@ -76,14 +77,16 @@ export const ru: TheyaMessages = {
     select: 'Выбрать',
   },
   confirmDialog: {
+    confirmNeutral: 'Подтвердить',
     confirm: 'Удалить',
     typeToConfirm: (value: ReactNode): ReactNode => createElement(Fragment, null, 'Введите ', value, ' для подтверждения'),
   },
-  copyButton: { copy: 'Копировать', copied: 'Скопировано', announced: 'Скопировано в буфер обмена' },
-  dataTableCell: { unlimited: 'Без ограничений', badges: (n) => `${n} ${plural(n, 'метка', 'метки', 'меток')}` },
+  copyButton: { copy: 'Копировать', copied: 'Скопировано', announced: 'Скопировано в буфер обмена', copyFor: (subject) => `Копировать: ${subject}` },
+  dataTableCell: { unlimited: 'Без ограничений', badges: (n) => `${n} ${plural(n, 'элемент', 'элемента', 'элементов')}` },
   table: { columnPages: 'Колонки таблицы', showColumns: (from, to, total) => (from === to ? `Показать колонку ${from} из ${total}` : `Показать колонки ${from}–${to} из ${total}`) },
   marquee: { pause: 'Остановить анимацию', play: 'Запустить анимацию' },
   dataTable: {
+    rowActionsFor: (label) => `Действия: ${label}`,
     selectAll: 'Выбрать все',
     selectAllTooltip: 'Выбрать все',
     selectAllOnPage: 'Выбрать все строки на странице',
@@ -116,6 +119,7 @@ export const ru: TheyaMessages = {
     split: 'Рядом',
   },
   dropzone: {
+    choose: 'Выбрать файлы',
     uploading: 'Загрузка…',
     uploadedOn: (date) => `Загружено ${date}`,
     error: 'Файл загружен с ошибкой',
@@ -214,7 +218,7 @@ export const ru: TheyaMessages = {
     thumbnails: 'Миниатюры',
     show: (n, alt) => `Показать изображение ${n}: ${alt}`,
   },
-  numberField: { decrement: 'Уменьшить', increment: 'Увеличить' },
+  numberField: { decrement: 'Уменьшить', increment: 'Увеличить', decrementFor: (label) => `Уменьшить: ${label}`, incrementFor: (label) => `Увеличить: ${label}` },
   pagination: {
     label: 'Страницы',
     previous: 'Назад',
@@ -356,7 +360,7 @@ export const ru: TheyaMessages = {
     copyManually: 'Выделите значение и скопируйте вручную.',
     insecure: 'Копирование здесь недоступно — откройте страницу по защищённому соединению (https).',
   },
-  sidebar: { navigation: 'Навигация', expand: 'Развернуть боковую панель', collapse: 'Свернуть боковую панель', main: 'Основное меню', moreActions: 'Другие действия' },
+  sidebar: { navigation: 'Навигация', expand: 'Развернуть боковую панель', collapse: 'Свернуть боковую панель', main: 'Основное меню', moreActions: 'Другие действия', moreActionsFor: (item) => `Другие действия: ${item}` },
   toaster: { progress: 'Ход выполнения' },
   splitButton: { menu: 'Другие действия' },
   stepper: {
@@ -374,7 +378,7 @@ export const ru: TheyaMessages = {
     invalid: ' (ошибка)',
   },
   terminal: { output: 'Вывод терминала', connecting: 'Подключение…', disconnected: 'Отключено', connected: 'Подключено', error: 'Ошибка', warning: 'Предупреждение' },
-  textField: { clear: 'Очистить поле' },
+  textField: { clear: 'Очистить поле', clearFor: (label) => `Очистить: ${label}` },
   themeToggle: { toLight: 'Включить светлую тему', toDark: 'Включить тёмную тему' },
   densityToggle: { label: 'Плотность', compact: 'Компактно', default: 'Обычно', comfortable: 'Просторно' },
   timeRangePicker: { start: 'Время начала', end: 'Время окончания', to: '—' },
@@ -404,6 +408,7 @@ export const ru: TheyaMessages = {
     next: 'Следующая карточка',
   },
   colorPicker: {
+    openFor: (label) => `Выбрать цвет: ${label}`,
     area: 'Насыщенность и яркость',
     areaValue: (s, v) => `Насыщенность ${s}%, яркость ${v}%`,
     changePhoto: 'Сменить фото',

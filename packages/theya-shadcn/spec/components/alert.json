@@ -97,7 +97,7 @@
           "name": "dismissLabel",
           "type": "string",
           "required": false,
-          "default": "Dismiss (localized: alert.dismiss)"
+          "default": "Dismiss alert (localized: alert.dismiss)"
         },
         {
           "name": "indicator",

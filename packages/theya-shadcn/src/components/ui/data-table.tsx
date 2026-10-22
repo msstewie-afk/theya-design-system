@@ -524,7 +524,7 @@ function renderContextMenuItems<TData>(items: DataTableRowMenuItem<TData>[], row
 /** Lets a row's context menu reach the overflow menu in the same row, so a right-click doesn't leave both open at once. */
 const RowMenuCoordination = createContext<{ register: (close: () => void) => void } | null>(null);
 
-function RowDropdownMenu<TData>({ menu, row }: { menu: DataTableRowMenu<TData>; row: TData }) {
+function RowDropdownMenu<TData>({ menu, row, rowLabel }: { menu: DataTableRowMenu<TData>; row: TData; rowLabel?: string }) {
   const { t } = useTheyaI18n();
   const items = resolveRowMenuItems(menu, row);
   const [open, setOpen] = useState(false);
@@ -548,7 +548,8 @@ function RowDropdownMenu<TData>({ menu, row }: { menu: DataTableRowMenu<TData>; 
       >
         <DropdownMenuTrigger asChild>
           <DataTableCellMenuTrigger
-            label={resolveRowMenuLabel(menu, row, t.dataTable.rowActions)}
+            // Names the row it acts on (WCAG 2.4.6), not "Row actions" on every row.
+            label={resolveRowMenuLabel(menu, row, rowLabel ? t.dataTable.rowActionsFor(rowLabel) : t.dataTable.rowActions)}
             onKeyDown={(event) => {
               if (event.key === 'Escape') closedByKeyboardRef.current = true;
             }}
@@ -779,7 +780,7 @@ export function DataTable<TData>({
       resolved.push({
         id: ROW_MENU_COLUMN_ID,
         header: () => <span className="sr-only">{t.dataTable.actionsColumn}</span>,
-        cell: ({ row }) => <RowDropdownMenu menu={rowMenu} row={row.original} />,
+        cell: ({ row }) => <RowDropdownMenu menu={rowMenu} row={row.original} rowLabel={getRowLabel?.(row.original)} />,
         size: 56,
         minSize: 56,
         maxSize: 56,

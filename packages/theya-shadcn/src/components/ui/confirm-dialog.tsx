@@ -77,7 +77,8 @@ export function ConfirmDialog({
   children,
 }: ConfirmDialogProps) {
   const { t } = useTheyaI18n();
-  if (confirmLabel === undefined) confirmLabel = t.confirmDialog.confirm;
+  // "Delete" only for a destructive confirm; a neutral one says "Confirm" (WCAG 2.4.6).
+  if (confirmLabel === undefined) confirmLabel = tone === 'danger' ? t.confirmDialog.confirm : t.confirmDialog.confirmNeutral;
   if (cancelLabel === undefined) cancelLabel = t.common.cancel;
   const inputId = useId();
   const bodyId = useId();

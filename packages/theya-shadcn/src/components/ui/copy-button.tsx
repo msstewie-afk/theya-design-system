@@ -21,6 +21,8 @@ export interface CopyButtonProps
   value: string;
   /** Visible label beside the icon. Pass null for icon-only (then set aria-label). Default "Copy". */
   label?: ReactNode;
+  /** What gets copied ("API key"): names the button "Copy API key" for assistive tech, so several CopyButtons stay distinct (WCAG 2.4.6). The visible label stays short. */
+  subject?: string;
   /** Label shown for `resetDelay`ms after a successful copy. Default "Copied". */
   copiedLabel?: ReactNode;
   /** ms before the button reverts from the copied state. Default 1500. */
@@ -33,6 +35,7 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(functio
   {
     value,
     label,
+    subject,
     copiedLabel,
     resetDelay = 1500,
     onCopied,
@@ -96,6 +99,7 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(functio
         leftIcon={<CopyAnimated trigger="active" active={copied} />}
         onClick={handleClick}
         className={cn(className)}
+        aria-label={subject && !props['aria-label'] && !copied ? t.copyButton.copyFor(subject) : undefined}
         {...props}
       >
         {displayLabel}

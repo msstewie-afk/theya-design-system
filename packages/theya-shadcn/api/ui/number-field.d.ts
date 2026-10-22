@@ -31,8 +31,6 @@ export interface NumberFieldProps {
 export declare const NumberField: import("react").ForwardRefExoticComponent<NumberFieldProps & import("react").RefAttributes<HTMLInputElement>>;
 
 // Defaults
-// NumberField.decrementLabel = Decrease (localized: numberField.decrement)
 // NumberField.heightSize = md
-// NumberField.incrementLabel = Increase (localized: numberField.increment)
 // NumberField.step = 1
 // NumberField.widthSize = sm

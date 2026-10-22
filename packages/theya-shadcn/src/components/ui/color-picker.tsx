@@ -846,7 +846,9 @@ export function ColorField({
                 so the button sits 2px further out to keep it in place. */}
             <button
               type="button"
-              aria-label={t.colorPicker.open}
+              // Names the field (WCAG 2.4.6): several color fields otherwise all
+              // read "Open color picker".
+              aria-label={typeof label === 'string' ? t.colorPicker.openFor(label) : t.colorPicker.open}
               className={cn(
                 'absolute top-1/2 z-[1] grid size-6 -translate-y-1/2 cursor-pointer place-items-center rounded-[var(--size-border-radius-border-radius-md)] outline-none focus-visible:focus-ring disabled:cursor-not-allowed',
                 heightSize === 'sm' ? 'start-1.5' : 'start-2',
@@ -859,7 +861,7 @@ export function ColorField({
               />
             </button>
           </PopoverTrigger>
-          <PopoverContent align="start" className="w-auto" aria-label={t.colorPicker.label} sheetTitle={label ?? t.colorPicker.label} sheetClassName="pt-0">
+          <PopoverContent align="start" className="w-auto" aria-label={typeof label === 'string' ? label : t.colorPicker.label} sheetTitle={label ?? t.colorPicker.label} sheetClassName="pt-0">
             <ColorPicker value={current} onValueChange={change} onValueCommit={onValueCommit} alpha={alpha} {...pickerProps} />
           </PopoverContent>
         </Popover>

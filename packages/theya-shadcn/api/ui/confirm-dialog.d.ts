@@ -25,7 +25,6 @@ export declare function ConfirmDialog({ title, titleSize, description, showHeade
 
 // Defaults
 // ConfirmDialog.cancelLabel = Cancel (localized: common.cancel)
-// ConfirmDialog.confirmLabel = Delete (localized: confirmDialog.confirm)
 // ConfirmDialog.confirmValueMono = true
 // ConfirmDialog.contentGap = md
 // ConfirmDialog.titleSize = md

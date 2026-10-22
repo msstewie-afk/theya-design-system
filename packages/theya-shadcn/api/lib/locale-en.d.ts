@@ -40,6 +40,7 @@ export declare const en: {
         trend: (points: number) => string;
         seriesTrend: (names: string, points: number) => string;
         range: (first: string, last: string, peak: string, peakLabel: string) => string;
+        spark: (first: string, last: string, low: string, high: string) => string;
         comparison: (count: number, label: string, value: string) => string;
         noData: string;
         total: string;
@@ -83,6 +84,7 @@ export declare const en: {
         select: string;
     };
     confirmDialog: {
+        confirmNeutral: string;
         confirm: string;
         typeToConfirm: (value: ReactNode) => ReactNode;
     };
@@ -90,6 +92,7 @@ export declare const en: {
         copy: string;
         copied: string;
         announced: string;
+        copyFor: (subject: string) => string;
     };
     dataTableCell: {
         unlimited: string;
@@ -104,6 +107,7 @@ export declare const en: {
         play: string;
     };
     dataTable: {
+        rowActionsFor: (label: string) => string;
         selectAll: string;
         selectAllTooltip: string;
         selectAllOnPage: string;
@@ -147,6 +151,7 @@ export declare const en: {
         split: string;
     };
     dropzone: {
+        choose: string;
         uploading: string;
         uploadedOn: (date: string) => string;
         error: string;
@@ -258,6 +263,8 @@ export declare const en: {
     numberField: {
         decrement: string;
         increment: string;
+        decrementFor: (label: string) => string;
+        incrementFor: (label: string) => string;
     };
     pagination: {
         label: string;
@@ -458,6 +465,7 @@ export declare const en: {
         collapse: string;
         main: string;
         moreActions: string;
+        moreActionsFor: (item: string) => string;
     };
     toaster: {
         progress: string;
@@ -494,6 +502,7 @@ export declare const en: {
     };
     textField: {
         clear: string;
+        clearFor: (label: string) => string;
     };
     themeToggle: {
         toLight: string;
@@ -557,6 +566,7 @@ export declare const en: {
         next: string;
     };
     colorPicker: {
+        openFor: (label: string) => string;
         area: string;
         areaValue: (s: number, v: number) => string;
         changePhoto: string;
@@ -614,6 +624,7 @@ export declare const enLocale: {
             trend: (points: number) => string;
             seriesTrend: (names: string, points: number) => string;
             range: (first: string, last: string, peak: string, peakLabel: string) => string;
+            spark: (first: string, last: string, low: string, high: string) => string;
             comparison: (count: number, label: string, value: string) => string;
             noData: string;
             total: string;
@@ -657,6 +668,7 @@ export declare const enLocale: {
             select: string;
         };
         confirmDialog: {
+            confirmNeutral: string;
             confirm: string;
             typeToConfirm: (value: ReactNode) => ReactNode;
         };
@@ -664,6 +676,7 @@ export declare const enLocale: {
             copy: string;
             copied: string;
             announced: string;
+            copyFor: (subject: string) => string;
         };
         dataTableCell: {
             unlimited: string;
@@ -678,6 +691,7 @@ export declare const enLocale: {
             play: string;
         };
         dataTable: {
+            rowActionsFor: (label: string) => string;
             selectAll: string;
             selectAllTooltip: string;
             selectAllOnPage: string;
@@ -721,6 +735,7 @@ export declare const enLocale: {
             split: string;
         };
         dropzone: {
+            choose: string;
             uploading: string;
             uploadedOn: (date: string) => string;
             error: string;
@@ -832,6 +847,8 @@ export declare const enLocale: {
         numberField: {
             decrement: string;
             increment: string;
+            decrementFor: (label: string) => string;
+            incrementFor: (label: string) => string;
         };
         pagination: {
             label: string;
@@ -1032,6 +1049,7 @@ export declare const enLocale: {
             collapse: string;
             main: string;
             moreActions: string;
+            moreActionsFor: (item: string) => string;
         };
         toaster: {
             progress: string;
@@ -1068,6 +1086,7 @@ export declare const enLocale: {
         };
         textField: {
             clear: string;
+            clearFor: (label: string) => string;
         };
         themeToggle: {
             toLight: string;
@@ -1131,6 +1150,7 @@ export declare const enLocale: {
             next: string;
         };
         colorPicker: {
+            openFor: (label: string) => string;
             area: string;
             areaValue: (s: number, v: number) => string;
             changePhoto: string;

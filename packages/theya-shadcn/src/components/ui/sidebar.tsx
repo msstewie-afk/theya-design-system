@@ -271,10 +271,12 @@ export interface SidebarItemProps extends React.ComponentProps<'a'> {
   badgeTone?: StatusTone;
   /** DropdownMenuItem(s) for a hover-revealed "more actions" trigger. Omit for no trigger. Hidden when the rail is collapsed. */
   actions?: ReactNode;
+  /** Name of the actions trigger. Default "More actions for {item}" when the item's text is a string. */
+  actionsLabel?: string;
   active?: boolean;
 }
 
-export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, active, className, children, onClick, ...props }: SidebarItemProps) {
+export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, actionsLabel, active, className, children, onClick, ...props }: SidebarItemProps) {
   const { t } = useTheyaI18n();
   const { collapsed, setMobileOpen } = useSidebar();
   // An <a> with no href isn't focusable and has no link role, so onClick-only
@@ -339,7 +341,9 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, activ
         <DropdownMenuTrigger asChild>
           <button
             type="button"
-            aria-label={t.sidebar.moreActions}
+            // Names the item it acts on (WCAG 2.4.6): a list of rows otherwise
+            // gives many identical "More actions" buttons.
+            aria-label={actionsLabel ?? (typeof children === 'string' ? t.sidebar.moreActionsFor(children) : t.sidebar.moreActions)}
             onClick={(e) => e.stopPropagation()}
             className={cn(
               'absolute end-1.5 top-1/2 -translate-y-1/2 grid size-6 place-content-center',

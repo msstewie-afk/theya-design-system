@@ -86,8 +86,7 @@
         {
           "name": "decrementLabel",
           "type": "string",
-          "required": false,
-          "default": "Decrease (localized: numberField.decrement)"
+          "required": false
         },
         {
           "name": "defaultValue",
@@ -118,8 +117,7 @@
         {
           "name": "incrementLabel",
           "type": "string",
-          "required": false,
-          "default": "Increase (localized: numberField.increment)"
+          "required": false
         },
         {
           "name": "max",

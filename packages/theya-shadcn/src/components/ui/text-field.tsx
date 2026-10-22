@@ -195,7 +195,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
             size="sm"
             iconOnly
             onClick={handleClear}
-            aria-label={t.textField.clear}
+            // Names the field it clears (WCAG 2.4.6).
+            aria-label={typeof label === 'string' ? t.textField.clearFor(label) : ariaLabel ? t.textField.clearFor(ariaLabel) : t.textField.clear}
             leftIcon={<Xmark />}
             className="absolute end-[var(--size-padding-padding-xs)] top-1/2 -translate-y-1/2"
           />

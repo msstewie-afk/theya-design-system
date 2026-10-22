@@ -72,6 +72,7 @@ function Dropzone({
   const hintId = useId();
   const labelId = useId();
   const contextId = useId();
+  const actionId = useId();
   const dragDepth = useRef(0);
   const rootRef = useRef<HTMLDivElement>(null);
   // Index of a just-removed row: once the parent drops it from `files`,
@@ -176,9 +177,12 @@ function Dropzone({
           type="button"
           data-dropzone-trigger
           disabled={disabled || loading}
-          aria-labelledby={ariaLabel ? `${contextId} ${labelId}` : labelId}
+          // Named by what it does ("Choose files"); the status line ("Drag files
+          // here", the uploaded file, the error) describes it (WCAG 2.4.6) —
+          // as the name it read "File is uploaded with error".
+          aria-labelledby={ariaLabel ? `${contextId} ${actionId}` : actionId}
           aria-invalid={error ? true : undefined}
-          aria-describedby={describedBy}
+          aria-describedby={[labelId, describedBy].filter(Boolean).join(' ')}
           onClick={openPicker}
           className="absolute inset-0 cursor-pointer outline-none disabled:cursor-not-allowed"
         />
@@ -187,6 +191,9 @@ function Dropzone({
             {ariaLabel}
           </span>
         )}
+        <span id={actionId} className="sr-only">
+          {t.dropzone.choose}
+        </span>
         <span
           className={cn(
             'grid size-14 place-items-center rounded-full transition-colors duration-standard ease-enter motion-reduce:transition-none',

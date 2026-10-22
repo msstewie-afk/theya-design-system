@@ -210,14 +210,14 @@ export const Field: Story = {
     await userEvent.type(input, 'nope{Enter}');
     await expect(input).toHaveValue('#E8833A');
     // The swatch opens the picker; Esc closes it and returns focus to the swatch.
-    const trigger = canvas.getAllByRole('button', { name: 'Open color picker' })[0];
+    const trigger = canvas.getAllByRole('button', { name: 'Choose color for Primary color' })[0];
     await userEvent.click(trigger);
-    const dialog = await body.findByRole('dialog', { name: 'Color picker' });
+    const dialog = await body.findByRole('dialog', { name: 'Primary color' });
     // With brand swatches the picker opens on Palette, Custom one tab away.
     await expect(within(dialog).getByRole('tab', { name: 'Palette', selected: true })).toBeInTheDocument();
     await expect(within(dialog).getByRole('tab', { name: 'Custom' })).toBeInTheDocument();
     await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(body.queryByRole('dialog', { name: 'Color picker' })).not.toBeInTheDocument());
+    await waitFor(() => expect(body.queryByRole('dialog', { name: 'Primary color' })).not.toBeInTheDocument());
     await expect(trigger).toHaveFocus();
   },
 };

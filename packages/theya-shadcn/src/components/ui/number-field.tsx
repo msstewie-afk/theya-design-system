@@ -92,8 +92,10 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
   ref,
 ) {
   const { t } = useTheyaI18n();
-  if (decrementLabel === undefined) decrementLabel = t.numberField.decrement;
-  if (incrementLabel === undefined) incrementLabel = t.numberField.increment;
+  // Steppers say which field they change (WCAG 2.4.6): several NumberFields
+  // on a page otherwise give identical "Decrease"/"Increase" buttons.
+  if (decrementLabel === undefined) decrementLabel = ariaLabel ? t.numberField.decrementFor(ariaLabel) : t.numberField.decrement;
+  if (incrementLabel === undefined) incrementLabel = ariaLabel ? t.numberField.incrementFor(ariaLabel) : t.numberField.increment;
   const generatedId = useId();
   const resolvedId = id ?? generatedId;
   const isControlled = value !== undefined;

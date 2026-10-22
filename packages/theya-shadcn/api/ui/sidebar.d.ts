@@ -31,9 +31,10 @@ export interface SidebarItemProps extends React.ComponentProps<'a'> {
     badge?: ReactNode;
     badgeTone?: StatusTone;
     actions?: ReactNode;
+    actionsLabel?: string;
     active?: boolean;
 }
-export declare function SidebarItem({ icon, badge, badgeTone, actions, active, className, children, onClick, ...props }: SidebarItemProps): import("react").JSX.Element;
+export declare function SidebarItem({ icon, badge, badgeTone, actions, actionsLabel, active, className, children, onClick, ...props }: SidebarItemProps): import("react").JSX.Element;
 export declare function SidebarFooter({ className, ...props }: React.ComponentProps<'div'>): import("react").JSX.Element;
 
 // Defaults

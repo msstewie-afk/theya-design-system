@@ -19,7 +19,7 @@ export const en = {
     remove: (name: string) => `Remove ${name}`,
     more: (n: number) => `${n} more`,
   },
-  alert: { dismiss: 'Dismiss' },
+  alert: { dismiss: 'Dismiss alert' },
   announcementBar: { dismiss: 'Dismiss announcement', label: 'Announcement' },
   autocomplete: { suggestions: 'Suggestions' },
   breadcrumb: {
@@ -38,6 +38,7 @@ export const en = {
     trend: (points: number) => `Trend across ${points} points`,
     seriesTrend: (names: string, points: number) => `${names} across ${points} points`,
     range: (first: string, last: string, peak: string, peakLabel: string) => `from ${first} to ${last}, peak ${peak} (${peakLabel})`,
+    spark: (first: string, last: string, low: string, high: string) => `from ${first} to ${last}, low ${low}, high ${high}`,
     comparison: (count: number, label: string, value: string) => `Comparison across ${count} categories; highest is ${label} at ${value}.`,
     noData: 'No data to compare',
     total: 'Total',
@@ -68,14 +69,16 @@ export const en = {
     select: 'Select',
   },
   confirmDialog: {
+    confirmNeutral: 'Confirm',
     confirm: 'Delete',
     typeToConfirm: (value: ReactNode): ReactNode => createElement(Fragment, null, 'Type ', value, ' to confirm'),
   },
-  copyButton: { copy: 'Copy', copied: 'Copied', announced: 'Copied to clipboard' },
-  dataTableCell: { unlimited: 'Unlimited', badges: (n: number) => `${n} badges` },
+  copyButton: { copy: 'Copy', copied: 'Copied', announced: 'Copied to clipboard', copyFor: (subject: string) => `Copy ${subject}` },
+  dataTableCell: { unlimited: 'Unlimited', badges: (n: number) => `${n} ${plural(n, 'item', 'items')}` },
   table: { columnPages: 'Table columns', showColumns: (from: number, to: number, total: number) => (from === to ? `Show column ${from} of ${total}` : `Show columns ${from}–${to} of ${total}`) },
   marquee: { pause: 'Pause animation', play: 'Play animation' },
   dataTable: {
+    rowActionsFor: (label: string) => `Actions for ${label}`,
     selectAll: 'Select all',
     selectAllTooltip: 'Select All',
     selectAllOnPage: 'Select all rows on this page',
@@ -108,6 +111,7 @@ export const en = {
     split: 'Split',
   },
   dropzone: {
+    choose: 'Choose files',
     uploading: 'Uploading…',
     uploadedOn: (date: string) => `Uploaded on ${date}`,
     error: 'File is uploaded with error',
@@ -206,7 +210,7 @@ export const en = {
     thumbnails: 'Thumbnails',
     show: (n: number, alt: string) => `Show image ${n}: ${alt}`,
   },
-  numberField: { decrement: 'Decrease', increment: 'Increase' },
+  numberField: { decrement: 'Decrease', increment: 'Increase', decrementFor: (label: string) => `Decrease ${label}`, incrementFor: (label: string) => `Increase ${label}` },
   pagination: {
     label: 'Pagination',
     previous: 'Previous',
@@ -348,7 +352,7 @@ export const en = {
     copyManually: 'Select the value and copy it manually.',
     insecure: "Copying isn't available here — try a secure (https) connection.",
   },
-  sidebar: { navigation: 'Navigation', expand: 'Expand sidebar', collapse: 'Collapse sidebar', main: 'Main', moreActions: 'More actions' },
+  sidebar: { navigation: 'Navigation', expand: 'Expand sidebar', collapse: 'Collapse sidebar', main: 'Main', moreActions: 'More actions', moreActionsFor: (item: string) => `More actions for ${item}` },
   toaster: { progress: 'Progress' },
   splitButton: { menu: 'More actions' },
   stepper: {
@@ -367,7 +371,7 @@ export const en = {
     invalid: ' (invalid)',
   },
   terminal: { output: 'Terminal output', connecting: 'Connecting…', disconnected: 'Disconnected', connected: 'Connected', error: 'Error', warning: 'Warning' },
-  textField: { clear: 'Clear input' },
+  textField: { clear: 'Clear input', clearFor: (label: string) => `Clear ${label}` },
   themeToggle: { toLight: 'Switch to light theme', toDark: 'Switch to dark theme' },
   densityToggle: { label: 'Density', compact: 'Compact', default: 'Default', comfortable: 'Comfortable' },
   timeRangePicker: { start: 'Start time', end: 'End time', to: 'to' },
@@ -392,6 +396,7 @@ export const en = {
     next: 'Next card',
   },
   colorPicker: {
+    openFor: (label: string) => `Choose color for ${label}`,
     area: 'Saturation and brightness',
     areaValue: (s: number, v: number) => `Saturation ${s}%, brightness ${v}%`,
     changePhoto: 'Change photo',

@@ -116,6 +116,12 @@
           "description": "DropdownMenuItem(s) for a hover-revealed \"more actions\" trigger. Omit for no trigger. Hidden when the rail is collapsed."
         },
         {
+          "name": "actionsLabel",
+          "type": "string",
+          "required": false,
+          "description": "Name of the actions trigger. Default \"More actions for {item}\" when the item's text is a string."
+        },
+        {
           "name": "active",
           "type": "boolean",
           "required": false

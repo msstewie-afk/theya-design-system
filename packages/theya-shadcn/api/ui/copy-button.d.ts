@@ -6,6 +6,7 @@ import { type ButtonProps } from './button';
 export interface CopyButtonProps extends Omit<ButtonProps, 'children' | 'loading' | 'leftIcon' | 'rightIcon'> {
     value: string;
     label?: ReactNode;
+    subject?: string;
     copiedLabel?: ReactNode;
     resetDelay?: number;
     onCopied?: (value: string) => void;

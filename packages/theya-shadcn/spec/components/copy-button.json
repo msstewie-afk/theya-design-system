@@ -144,6 +144,12 @@
           "description": "Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays\nin the tab order and keeps receiving hover/focus (uses aria-disabled\ninstead of the native `disabled` attribute). Use it when the user needs\nto find the button and learn WHY it's unavailable — wrap it in a\nTooltip with the reason. `disabled` stays the hard version (removed\nfrom the tab order, no events at all)."
         },
         {
+          "name": "subject",
+          "type": "string",
+          "required": false,
+          "description": "What gets copied (\"API key\"): names the button \"Copy API key\" for assistive tech, so several CopyButtons stay distinct (WCAG 2.4.6). The visible label stays short."
+        },
+        {
           "name": "success",
           "type": "boolean",
           "required": false,

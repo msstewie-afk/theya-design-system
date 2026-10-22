@@ -44,7 +44,7 @@ export interface SparklineProps {
 }
 
 export function Sparkline({ data, tone = 'brand', area = false, showLast = true, height = 32, width, ariaLabel, className }: SparklineProps) {
-  const { t } = useTheyaI18n();
+  const { t, locale } = useTheyaI18n();
   const gradientId = useId();
   const stroke = TONE_STROKE[tone];
   const points = useMemo(() => data.map((value, i) => ({ i, value })), [data]);
@@ -63,9 +63,17 @@ export function Sparkline({ data, tone = 'brand', area = false, showLast = true,
   };
 
   const margin = { top: 4, right: 4, bottom: 4, left: 4 };
+  // Default name says what the line does, not just how many points it has
+  // (WCAG 2.4.6): "Trend across 12 points: from 40 to 72, low 31, high 80".
+  // Pass ariaLabel to name the metric ("CPU usage, last 24 hours").
+  const finite = data.filter((v) => Number.isFinite(v));
+  const fmt = (v: number) => new Intl.NumberFormat(locale).format(v);
+  const summary = finite.length
+    ? `${t.chart.trend(data.length)}: ${t.chart.spark(fmt(finite[0]), fmt(finite[finite.length - 1]), fmt(Math.min(...finite)), fmt(Math.max(...finite)))}`
+    : t.chart.trend(data.length);
 
   return (
-    <div data-slot="sparkline" className={cn('inline-block', width == null && 'w-full', className)} style={width != null ? { width, height } : { height }} role="img" aria-label={ariaLabel ?? t.chart.trend(data.length)}>
+    <div data-slot="sparkline" className={cn('inline-block', width == null && 'w-full', className)} style={width != null ? { width, height } : { height }} role="img" aria-label={ariaLabel ?? summary}>
       <ResponsiveContainer width="100%" height="100%">
         {area ? (
           <AreaChart accessibilityLayer={false} data={points} margin={margin}>

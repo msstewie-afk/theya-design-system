@@ -294,7 +294,7 @@ export const WithSelectionAndRowMenu: Story = {
       const c = within(canvasElement);
       await expect(c.queryAllByRole('checkbox')).toHaveLength(0);
       await expect(c.queryByRole('toolbar', { name: 'Bulk actions' })).toBeNull();
-      await userEvent.click(c.getAllByRole('button', { name: 'Row actions' })[0]);
+      await userEvent.click(c.getAllByRole('button', { name: /^(Row actions|Actions for .+)$/ })[0]);
       await expect(await within(document.body).findByRole('menuitem', { name: 'View details' })).toBeInTheDocument();
       await userEvent.keyboard('{Escape}');
       await waitFor(() => expect(within(document.body).queryByRole('menu')).toBeNull());
@@ -319,7 +319,7 @@ export const WithSelectionAndRowMenu: Story = {
     await waitFor(() => expect(canvas.queryByRole('toolbar', { name: 'Bulk actions' })).toBeNull());
     for (const box of rowBoxes()) await expect(box).toHaveAttribute('aria-checked', 'false');
 
-    const menuTriggers = canvas.getAllByRole('button', { name: 'Row actions' });
+    const menuTriggers = canvas.getAllByRole('button', { name: /^(Row actions|Actions for .+)$/ });
     await userEvent.click(menuTriggers[0]);
     await expect(await body.findByRole('menuitem', { name: 'View details' })).toBeInTheDocument();
     await userEvent.keyboard('{Escape}');

@@ -65,13 +65,13 @@ export const Playground: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('textbox', { name: 'Email' });
-    await expect(canvas.queryByRole('button', { name: 'Clear input' })).toBeNull();
+    await expect(canvas.queryByRole('button', { name: 'Clear Email' })).toBeNull();
 
     await userEvent.type(input, 'maria@theya.dev');
-    await userEvent.click(canvas.getByRole('button', { name: 'Clear input' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear Email' }));
     await expect(input).toHaveValue('');
     await expect(input).toHaveFocus();
-    await expect(canvas.queryByRole('button', { name: 'Clear input' })).toBeNull();
+    await expect(canvas.queryByRole('button', { name: 'Clear Email' })).toBeNull();
   },
 };
 
@@ -113,12 +113,12 @@ export const Clearable: Story = {
     const input = canvas.getByRole('textbox', { name: 'Search' });
     await expect(input).toHaveValue('Clear me');
 
-    await userEvent.click(canvas.getByRole('button', { name: 'Clear input' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear Search' }));
     await expect(input).toHaveValue('');
     await expect(input).toHaveFocus();
 
     await userEvent.type(input, 'abc');
-    await expect(canvas.getByRole('button', { name: 'Clear input' })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Clear Search' })).toBeInTheDocument();
   },
 };
 

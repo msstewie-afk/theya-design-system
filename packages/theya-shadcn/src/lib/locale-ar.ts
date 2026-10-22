@@ -30,7 +30,7 @@ export const ar: TheyaMessages = {
     remove: (name) => `إزالة ${name}`,
     more: (n) => `${n} أخرى`,
   },
-  alert: { dismiss: 'إخفاء' },
+  alert: { dismiss: 'إخفاء التنبيه' },
   announcementBar: { dismiss: 'إخفاء الإعلان', label: 'إعلان' },
   autocomplete: { suggestions: 'اقتراحات' },
   breadcrumb: {
@@ -43,6 +43,7 @@ export const ar: TheyaMessages = {
     trend: (points) => `الاتجاه عبر ${points} نقطة`,
     seriesTrend: (names, points) => `${names} عبر ${points} نقطة`,
     range: (first, last, peak, peakLabel) => `من ${first} إلى ${last}، الذروة ${peak} (${peakLabel})`,
+    spark: (first, last, low, high) => `من ${first} إلى ${last}، الأدنى ${low}، الأعلى ${high}`,
     comparison: (count, label, value) => `مقارنة بين ${count} فئات؛ الأعلى ${label} بقيمة ${value}.`,
     noData: 'لا توجد بيانات للمقارنة',
     total: 'الإجمالي',
@@ -62,14 +63,16 @@ export const ar: TheyaMessages = {
   combobox: { placeholder: 'اختر…', create: (query) => `إنشاء "${query}"`, clear: 'مسح الاختيار', open: 'فتح الخيارات', options: 'الخيارات' },
   command: { title: 'لوحة الأوامر', description: 'ابحث عن الصفحات والإجراءات أو نفّذ أمرًا.', navigate: 'تنقّل', select: 'اختيار' },
   confirmDialog: {
+    confirmNeutral: 'تأكيد',
     confirm: 'حذف',
     typeToConfirm: (value: ReactNode): ReactNode => createElement(Fragment, null, 'اكتب ', value, ' للتأكيد'),
   },
-  copyButton: { copy: 'نسخ', copied: 'تم النسخ', announced: 'تم النسخ إلى الحافظة' },
-  dataTableCell: { unlimited: 'غير محدود', badges: (n) => `${n} شارات` },
+  copyButton: { copy: 'نسخ', copied: 'تم النسخ', announced: 'تم النسخ إلى الحافظة', copyFor: (subject) => `نسخ ${subject}` },
+  dataTableCell: { unlimited: 'غير محدود', badges: (n) => `${n} عناصر` },
   table: { columnPages: 'أعمدة الجدول', showColumns: (from, to, total) => (from === to ? `عرض العمود ${from} من ${total}` : `عرض الأعمدة ${from}–${to} من ${total}`) },
   marquee: { pause: 'إيقاف الحركة مؤقتًا', play: 'تشغيل الحركة' },
   dataTable: {
+    rowActionsFor: (label) => `إجراءات ${label}`,
     selectAll: 'تحديد الكل',
     selectAllTooltip: 'تحديد الكل',
     selectAllOnPage: 'تحديد كل الصفوف في هذه الصفحة',
@@ -102,6 +105,7 @@ export const ar: TheyaMessages = {
     split: 'جنبًا إلى جنب',
   },
   dropzone: {
+    choose: 'اختيار الملفات',
     uploading: 'جارٍ الرفع…',
     uploadedOn: (date) => `تم الرفع في ${date}`,
     error: 'تم رفع الملف مع حدوث خطأ',
@@ -193,7 +197,7 @@ export const ar: TheyaMessages = {
     thumbnails: 'الصور المصغّرة',
     show: (n, alt) => `عرض الصورة ${n}: ${alt}`,
   },
-  numberField: { decrement: 'إنقاص', increment: 'زيادة' },
+  numberField: { decrement: 'إنقاص', increment: 'زيادة', decrementFor: (label) => `إنقاص ${label}`, incrementFor: (label) => `زيادة ${label}` },
   pagination: { label: 'ترقيم الصفحات', previous: 'السابق', previousPage: 'الانتقال إلى الصفحة السابقة', next: 'التالي', nextPage: 'الانتقال إلى الصفحة التالية', more: 'مزيد من الصفحات' },
   password: {
     show: 'إظهار كلمة المرور',
@@ -322,7 +326,7 @@ export const ar: TheyaMessages = {
     copyManually: 'حدد القيمة وانسخها يدويًا.',
     insecure: 'النسخ غير متاح هنا — جرّب اتصالًا آمنًا (https).',
   },
-  sidebar: { navigation: 'التنقل', expand: 'توسيع الشريط الجانبي', collapse: 'طي الشريط الجانبي', main: 'التنقل الرئيسي', moreActions: 'مزيد من الإجراءات' },
+  sidebar: { navigation: 'التنقل', expand: 'توسيع الشريط الجانبي', collapse: 'طي الشريط الجانبي', main: 'التنقل الرئيسي', moreActions: 'مزيد من الإجراءات', moreActionsFor: (item) => `مزيد من الإجراءات لـ ${item}` },
   toaster: { progress: 'التقدم' },
   splitButton: { menu: 'مزيد من الإجراءات' },
   stepper: {
@@ -340,7 +344,7 @@ export const ar: TheyaMessages = {
     invalid: ' (غير صالح)',
   },
   terminal: { output: 'مخرجات الطرفية', connecting: 'جارٍ الاتصال…', disconnected: 'غير متصل', connected: 'متصل', error: 'خطأ', warning: 'تحذير' },
-  textField: { clear: 'مسح الإدخال' },
+  textField: { clear: 'مسح الإدخال', clearFor: (label) => `مسح ${label}` },
   themeToggle: { toLight: 'التبديل إلى السمة الفاتحة', toDark: 'التبديل إلى السمة الداكنة' },
   densityToggle: { label: 'الكثافة', compact: 'مضغوط', default: 'افتراضي', comfortable: 'مريح' },
   timeRangePicker: { start: 'وقت البدء', end: 'وقت الانتهاء', to: 'إلى' },
@@ -370,6 +374,7 @@ export const ar: TheyaMessages = {
     next: 'البطاقة التالية',
   },
   colorPicker: {
+    openFor: (label) => `اختيار لون لـ ${label}`,
     area: 'التشبع والسطوع',
     areaValue: (s, v) => `التشبع ${s}%، السطوع ${v}%`,
     changePhoto: 'تغيير الصورة',

@@ -50,8 +50,8 @@ export const WithMinMax: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('spinbutton', { name: 'Quantity (0-10)' });
-    const increase = canvas.getByRole('button', { name: 'Increase' });
-    const decrease = canvas.getByRole('button', { name: 'Decrease' });
+    const increase = canvas.getByRole('button', { name: 'Increase Quantity (0-10)' });
+    const decrease = canvas.getByRole('button', { name: 'Decrease Quantity (0-10)' });
     await expect(input).toHaveAttribute('aria-valuemin', '0');
     await expect(input).toHaveAttribute('aria-valuemax', '10');
 

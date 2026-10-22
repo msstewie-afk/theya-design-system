@@ -73,8 +73,7 @@
         {
           "name": "confirmLabel",
           "type": "string",
-          "required": false,
-          "default": "Delete (localized: confirmDialog.confirm)"
+          "required": false
         },
         {
           "name": "confirmValue",

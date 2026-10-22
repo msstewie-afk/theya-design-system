@@ -18,7 +18,7 @@ export declare function AlertDescription({ className, ...props }: React.Componen
 export declare function AlertActions({ className, ...props }: React.ComponentProps<'div'>): import("react").JSX.Element;
 
 // Defaults
-// Alert.dismissLabel = Dismiss (localized: alert.dismiss)
+// Alert.dismissLabel = Dismiss alert (localized: alert.dismiss)
 // Alert.dismissible = false
 // Alert.indicator = none
 // Alert.shadow = false

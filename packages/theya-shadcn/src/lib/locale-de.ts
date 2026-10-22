@@ -21,7 +21,7 @@ export const de: TheyaMessages = {
     remove: (name) => `${name} entfernen`,
     more: (n) => `${n} weitere`,
   },
-  alert: { dismiss: 'Ausblenden' },
+  alert: { dismiss: 'Hinweis ausblenden' },
   announcementBar: { dismiss: 'Ankündigung ausblenden', label: 'Ankündigung' },
   autocomplete: { suggestions: 'Vorschläge' },
   breadcrumb: {
@@ -40,6 +40,7 @@ export const de: TheyaMessages = {
     trend: (points) => `Verlauf über ${points} Datenpunkte`,
     seriesTrend: (names, points) => `${names} über ${points} Datenpunkte`,
     range: (first, last, peak, peakLabel) => `von ${first} bis ${last}, Höchstwert ${peak} (${peakLabel})`,
+    spark: (first, last, low, high) => `von ${first} bis ${last}, Tiefstwert ${low}, Höchstwert ${high}`,
     comparison: (count, label, value) => `Vergleich über ${count} Kategorien; am höchsten ist ${label} mit ${value}.`,
     noData: 'Keine Daten zum Vergleichen',
     total: 'Gesamt',
@@ -70,14 +71,16 @@ export const de: TheyaMessages = {
     select: 'Auswählen',
   },
   confirmDialog: {
+    confirmNeutral: 'Bestätigen',
     confirm: 'Löschen',
     typeToConfirm: (value: ReactNode): ReactNode => createElement(Fragment, null, 'Zur Bestätigung ', value, ' eingeben'),
   },
-  copyButton: { copy: 'Kopieren', copied: 'Kopiert', announced: 'In die Zwischenablage kopiert' },
-  dataTableCell: { unlimited: 'Unbegrenzt', badges: (n) => `${n} ${plural(n, 'Kennzeichnung', 'Kennzeichnungen')}` },
+  copyButton: { copy: 'Kopieren', copied: 'Kopiert', announced: 'In die Zwischenablage kopiert', copyFor: (subject) => `${subject} kopieren` },
+  dataTableCell: { unlimited: 'Unbegrenzt', badges: (n) => `${n} ${plural(n, 'Eintrag', 'Einträge')}` },
   table: { columnPages: 'Tabellenspalten', showColumns: (from, to, total) => (from === to ? `Spalte ${from} von ${total} anzeigen` : `Spalten ${from}–${to} von ${total} anzeigen`) },
   marquee: { pause: 'Animation anhalten', play: 'Animation abspielen' },
   dataTable: {
+    rowActionsFor: (label) => `Aktionen für ${label}`,
     selectAll: 'Alle auswählen',
     selectAllTooltip: 'Alle auswählen',
     selectAllOnPage: 'Alle Zeilen auf dieser Seite auswählen',
@@ -110,6 +113,7 @@ export const de: TheyaMessages = {
     split: 'Nebeneinander',
   },
   dropzone: {
+    choose: 'Dateien auswählen',
     uploading: 'Wird hochgeladen…',
     uploadedOn: (date) => `Hochgeladen am ${date}`,
     error: 'Die Datei wurde mit einem Fehler hochgeladen',
@@ -208,7 +212,7 @@ export const de: TheyaMessages = {
     thumbnails: 'Miniaturansichten',
     show: (n, alt) => `Bild ${n} anzeigen: ${alt}`,
   },
-  numberField: { decrement: 'Verringern', increment: 'Erhöhen' },
+  numberField: { decrement: 'Verringern', increment: 'Erhöhen', decrementFor: (label) => `${label} verringern`, incrementFor: (label) => `${label} erhöhen` },
   pagination: {
     label: 'Seitennavigation',
     previous: 'Zurück',
@@ -350,7 +354,7 @@ export const de: TheyaMessages = {
     copyManually: 'Markieren Sie den Wert und kopieren Sie ihn manuell.',
     insecure: 'Kopieren ist hier nicht verfügbar – versuchen Sie es über eine sichere Verbindung (https).',
   },
-  sidebar: { navigation: 'Navigation', expand: 'Seitenleiste ausklappen', collapse: 'Seitenleiste einklappen', main: 'Hauptnavigation', moreActions: 'Weitere Aktionen' },
+  sidebar: { navigation: 'Navigation', expand: 'Seitenleiste ausklappen', collapse: 'Seitenleiste einklappen', main: 'Hauptnavigation', moreActions: 'Weitere Aktionen', moreActionsFor: (item) => `Weitere Aktionen für ${item}` },
   toaster: { progress: 'Fortschritt' },
   splitButton: { menu: 'Weitere Aktionen' },
   stepper: {
@@ -368,7 +372,7 @@ export const de: TheyaMessages = {
     invalid: ' (ungültig)',
   },
   terminal: { output: 'Terminalausgabe', connecting: 'Verbindung wird hergestellt…', disconnected: 'Getrennt', connected: 'Verbunden', error: 'Fehler', warning: 'Warnung' },
-  textField: { clear: 'Eingabe löschen' },
+  textField: { clear: 'Eingabe löschen', clearFor: (label) => `${label} löschen` },
   themeToggle: { toLight: 'Zum hellen Design wechseln', toDark: 'Zum dunklen Design wechseln' },
   densityToggle: { label: 'Dichte', compact: 'Kompakt', default: 'Standard', comfortable: 'Großzügig' },
   timeRangePicker: { start: 'Startzeit', end: 'Endzeit', to: 'bis' },
@@ -398,6 +402,7 @@ export const de: TheyaMessages = {
     next: 'Nächste Karte',
   },
   colorPicker: {
+    openFor: (label) => `Farbe wählen: ${label}`,
     area: 'Sättigung und Helligkeit',
     areaValue: (s, v) => `Sättigung ${s} %, Helligkeit ${v} %`,
     changePhoto: 'Foto ändern',
