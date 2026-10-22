@@ -259,7 +259,11 @@ export function Combobox(props: ComboboxProps) {
             // 32px / 40px, matches TextField. sm: 2px vertical padding so a row of
             // 24px chips (+ border) stays 32px instead of growing to 34px.
             heightSize === 'sm' ? 'py-0.5 min-h-[var(--size-size-control-size-control-lg)]' : 'py-1 min-h-[var(--size-size-control-size-control-2xl)]',
-            'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid ps-2 pe-1',
+            'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
+            // With chips, the side gap equals the vertical one — (height − 24px chip − 2px
+            // border) / 2, i.e. 3px sm / 7px md — so a chip sits the same distance from the
+            // start edge as from top and bottom; otherwise TextField's inset.
+            multiple && selectedMultipleOptions.length > 0 ? (heightSize === 'sm' ? 'px-[calc((var(--size-size-control-size-control-lg)_-_1.5rem_-_2px)/2)]' : 'px-[calc((var(--size-size-control-size-control-2xl)_-_1.5rem_-_2px)/2)]') : 'ps-2 pe-1',
             // Read-only: same visible-but-muted treatment as TextField/
             // Autocomplete (a distinct bg + subtle border), not fully
             // transparent — a transparent border+bg made the whole field

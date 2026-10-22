@@ -201,7 +201,11 @@ export function TagInput({
           }
         }}
         className={cn(
-          'relative flex w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid pe-1 ps-2',
+          'relative flex w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
+          // With chips, the side gap equals the vertical one — a 24px chip centred in the
+          // control height leaves (height − 24 − 2px border) / 2 above and below — so a chip
+          // sits the same distance from every edge (3px sm, 7px md). Empty: TextField's inset.
+          tags.length > 0 ? (heightSize === 'sm' ? 'px-[calc((var(--size-size-control-size-control-lg)_-_1.5rem_-_2px)/2)]' : 'px-[calc((var(--size-size-control-size-control-2xl)_-_1.5rem_-_2px)/2)]') : 'pe-1 ps-2',
           // sm: 2px vertical padding so a row of 24px chips (+ border) still fits the
           // 32px control height and lines up with TextField / Select sm (was 34px).
           heightSize === 'sm' ? 'py-0.5 min-h-[var(--size-size-control-size-control-lg)]' : 'py-1 min-h-[var(--size-size-control-size-control-2xl)]',
