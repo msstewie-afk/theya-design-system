@@ -18,7 +18,7 @@ export interface StagedFile {
 
 export interface DropzoneProps {
   onFiles: (files: File[]) => void;
-  /** Accepted types, same syntax as <input accept> (".pdf,image/*"). Applied to dropped files too, not only the picker. */
+  /** Accepted types, same syntax as `<input accept>` (".pdf,image/*"). Applied to dropped files too, not only the picker. */
   accept?: string;
   /** Called with dropped files that don't match `accept` (they are not passed to onFiles). Use it to show an error. */
   onReject?: (files: File[]) => void;

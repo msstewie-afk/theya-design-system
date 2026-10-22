@@ -48,7 +48,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Render onto the child element instead of a <div> — e.g. `<Prose asChild><article>…</article></Prose>`."
+          "description": "Render onto the child element instead of a `<div>` — e.g. `<Prose asChild><article>…</article></Prose>`."
         },
         {
           "name": "size",

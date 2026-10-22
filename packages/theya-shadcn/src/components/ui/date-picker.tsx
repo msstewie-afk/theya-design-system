@@ -56,7 +56,7 @@ export const dateFieldTriggerClassName = cn(
  * (border, hover/focus ring, height, disabled/error treatment) so it
  * reads as a form field rather than a generic button — calendar icon
  * leading, chevron trailing, same as Select's own chevron. It's a
- * plain <button>, not SelectTrigger itself: Radix's Select primitive
+ * plain `<button>`, not SelectTrigger itself: Radix's Select primitive
  * is built around an option-list popup (role="option" children), not
  * arbitrary content like a Calendar, so the real primitive can't be
  * reused here — only its visual treatment.
@@ -64,7 +64,7 @@ export const dateFieldTriggerClassName = cn(
  * The trailing chevron and optional clear button live in a sibling
  * pointer-events-none overlay (clear itself is pointer-events-auto),
  * not inside the trigger's own DOM — nesting an interactive clear
- * button inside the trigger <button> would be invalid HTML (button
+ * button inside the trigger `<button>` would be invalid HTML (button
  * inside button).
  *
  * Controlled with value/onChange, or uncontrolled with defaultValue.

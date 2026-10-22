@@ -5,7 +5,7 @@
   "import": "import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationEllipsis } from '@theya/shadcn/ui/pagination';",
   "status": "stable",
   "category": "Navigation",
-  "description": "Numbered page navigation. Square number buttons, prev/next controls,\nellipsis for gaps. Pure presentational — every clickable part takes\nasChild, so it drives from a real <Link> (URL pagination) or a\n<button> (client paging) equally well. Styled directly with our\ntokens rather than through Button: the page cells are a compact square\nsize Button has no step for, and the active page uses a secondary\nsubtle fill rather than one of Button's appearances.",
+  "description": "Numbered page navigation. Square number buttons, prev/next controls,\nellipsis for gaps. Pure presentational — every clickable part takes\nasChild, so it drives from a real <Link> (URL pagination) or a\n`<button>` (client paging) equally well. Styled directly with our\ntokens rather than through Button: the page cells are a compact square\nsize Button has no step for, and the active page uses a secondary\nsubtle fill rather than one of Button's appearances.",
   "whenToUse": [
     "Long lists and tables split into pages people jump between: search results, logs, invoices.",
     "When the position in the set matters (“page 3 of 10”)."
@@ -54,7 +54,7 @@
   "components": [
     {
       "name": "Pagination",
-      "description": "Numbered page navigation. Square number buttons, prev/next controls,\nellipsis for gaps. Pure presentational — every clickable part takes\nasChild, so it drives from a real <Link> (URL pagination) or a\n<button> (client paging) equally well. Styled directly with our\ntokens rather than through Button: the page cells are a compact square\nsize Button has no step for, and the active page uses a secondary\nsubtle fill rather than one of Button's appearances.",
+      "description": "Numbered page navigation. Square number buttons, prev/next controls,\nellipsis for gaps. Pure presentational — every clickable part takes\nasChild, so it drives from a real <Link> (URL pagination) or a\n`<button>` (client paging) equally well. Styled directly with our\ntokens rather than through Button: the page cells are a compact square\nsize Button has no step for, and the active page uses a secondary\nsubtle fill rather than one of Button's appearances.",
       "props": []
     },
     {

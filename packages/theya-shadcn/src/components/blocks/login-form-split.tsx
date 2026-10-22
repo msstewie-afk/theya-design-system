@@ -18,7 +18,7 @@ export interface LoginFormSplitProps extends LoginFormProps {
   slides: LoginFormSplitSlide[];
   /** Overlay caption above the dots, bottom-left of the image. */
   tagline?: ReactNode;
-  /** Top-left mark over the image — pass an <img> (or any ReactNode) to brand it. No default: renders nothing until you give it a logo. */
+  /** Top-left mark over the image — pass an `<img>` (or any ReactNode) to brand it. No default: renders nothing until you give it a logo. */
   logo?: ReactNode;
   /** Top-right link over the image, e.g. back to the marketing site. Omit to hide it. */
   backHref?: string;

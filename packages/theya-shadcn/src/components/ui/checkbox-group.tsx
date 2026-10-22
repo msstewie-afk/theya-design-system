@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 import { Checkbox, type CheckboxProps } from './checkbox';
 
 /**
- * A native <fieldset> of related Checkboxes that share one value: the
+ * A native `<fieldset>` of related Checkboxes that share one value: the
  * array of the checked items' `name`s. Each CheckboxGroupItem is our own
  * (Radix-based) Checkbox, wired to the group through context. Give every
  * item a `name`; that string is what lands in the value array.
@@ -33,7 +33,7 @@ export interface CheckboxGroupProps {
   disabled?: boolean;
   /** Checkbox size for every item, unless an item overrides its own. Defaults to "md". */
   size?: 'sm' | 'md';
-  /** Group label — rendered as a <legend> via the native fieldset. */
+  /** Group label — rendered as a `<legend>` via the native fieldset. */
   label?: ReactNode;
   children: ReactNode;
   className?: string;

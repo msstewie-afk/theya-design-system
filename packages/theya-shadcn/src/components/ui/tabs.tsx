@@ -107,7 +107,7 @@ export function TabsList({ className, children, variant = 'underline', onPointer
 /**
  * Radix's TabsPrimitive.Trigger hardcodes `type="button"` and the raw
  * `disabled` boolean attribute onto whatever it renders, assuming a real
- * <button>. We render onto a <div role="tab"> instead (a tab can't validly
+ * `<button>`. We render onto a `<div role="tab">` instead (a tab can't validly
  * nest another interactive control — see `onClose` below), so those two
  * attributes land on the div as invalid HTML — and on a disabled trigger,
  * gave axe's nested-interactive rule a div that reads as both a native

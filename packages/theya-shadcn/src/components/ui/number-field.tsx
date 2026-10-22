@@ -19,7 +19,7 @@ const WIDTH_CLASSES = {
 
 /**
  * Theya's numeric stepper. Radix has no number-field primitive, so this
- * is a plain <input role="spinbutton"> between two step buttons. Draft
+ * is a plain `<input role="spinbutton">` between two step buttons. Draft
  * v1: click +/- buttons, Up/Down arrow keys (Shift = 10x step), and
  * min/max clamping.
  *
@@ -30,7 +30,7 @@ const WIDTH_CLASSES = {
  * the value immediately. Before 2026-09-29 every keystroke was clamped,
  * so with min=5 typing "12" produced 5, then 52 -> max, and the field
  * could not be emptied. Same commit model as a native
- * <input type="number">. Deferred: Alt for a smaller step, Home/End
+ * `<input type="number">`. Deferred: Alt for a smaller step, Home/End
  * jump-to-bound, and press-and-hold repeat on the buttons.
  */
 export interface NumberFieldProps {

@@ -199,7 +199,7 @@ Docs: ./?path=/docs/overlays-alertdialog--docs
 **AlertDialogAction props**
 
 - `appearance?`: `"filled" | "tonal" | "outlined" | "ghost" | null`, default `filled`
-- `asChild?`: `boolean` — Render onto the child element instead of a <button> (shadcn/Radix Slot convention).
+- `asChild?`: `boolean` — Render onto the child element instead of a `<button>` (shadcn/Radix Slot convention).
 - `badge?`: `ReactNode | ButtonBadge` — Count or status pinned to the top-right corner (a BadgeIndicator, sm,
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `fullWidth?`: `boolean | null`
@@ -215,7 +215,7 @@ Docs: ./?path=/docs/overlays-alertdialog--docs
 **AlertDialogCancel props**
 
 - `appearance?`: `"filled" | "tonal" | "outlined" | "ghost" | null`, default `outlined`
-- `asChild?`: `boolean` — Render onto the child element instead of a <button> (shadcn/Radix Slot convention).
+- `asChild?`: `boolean` — Render onto the child element instead of a `<button>` (shadcn/Radix Slot convention).
 - `badge?`: `ReactNode | ButtonBadge` — Count or status pinned to the top-right corner (a BadgeIndicator, sm,
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `fullWidth?`: `boolean | null`
@@ -1193,7 +1193,7 @@ Docs: ./?path=/docs/actions-button--docs
 **Button props**
 
 - `appearance?`: `"filled" | "tonal" | "outlined" | "ghost" | null`, default `filled`
-- `asChild?`: `boolean`, default `false` — Render onto the child element instead of a <button> (shadcn/Radix Slot convention).
+- `asChild?`: `boolean`, default `false` — Render onto the child element instead of a `<button>` (shadcn/Radix Slot convention).
 - `badge?`: `ReactNode | ButtonBadge` — Count or status pinned to the top-right corner (a BadgeIndicator, sm,
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `fullWidth?`: `boolean | null`, default `false`
@@ -1588,7 +1588,7 @@ Docs: ./?path=/docs/layout-carousel--docs
 **CarouselPrevious props**
 
 - `appearance?`: `"filled" | "tonal" | "outlined" | "ghost" | null`
-- `asChild?`: `boolean` — Render onto the child element instead of a <button> (shadcn/Radix Slot convention).
+- `asChild?`: `boolean` — Render onto the child element instead of a `<button>` (shadcn/Radix Slot convention).
 - `badge?`: `ReactNode | ButtonBadge` — Count or status pinned to the top-right corner (a BadgeIndicator, sm,
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `fullWidth?`: `boolean | null`
@@ -1608,7 +1608,7 @@ Docs: ./?path=/docs/layout-carousel--docs
 **CarouselNext props**
 
 - `appearance?`: `"filled" | "tonal" | "outlined" | "ghost" | null`
-- `asChild?`: `boolean` — Render onto the child element instead of a <button> (shadcn/Radix Slot convention).
+- `asChild?`: `boolean` — Render onto the child element instead of a `<button>` (shadcn/Radix Slot convention).
 - `badge?`: `ReactNode | ButtonBadge` — Count or status pinned to the top-right corner (a BadgeIndicator, sm,
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `fullWidth?`: `boolean | null`
@@ -1872,7 +1872,7 @@ Docs: ./?path=/docs/selection-checkboxgroup--docs
 - `className?`: `string`
 - `defaultValue?`: `string[]` — Uncontrolled initial checked set.
 - `disabled?`: `boolean` — Disables every child Checkbox at once.
-- `label?`: `ReactNode` — Group label — rendered as a <legend> via the native fieldset.
+- `label?`: `ReactNode` — Group label — rendered as a `<legend>` via the native fieldset.
 - `onValueChange?`: `((value: string[]) => void)`
 - `size?`: `"md" | "sm"`, default `md` — Checkbox size for every item, unless an item overrides its own. Defaults to "md".
 - `value?`: `string[]` — Controlled checked set (pair with onValueChange).
@@ -2669,7 +2669,7 @@ Docs: ./?path=/docs/actions-copybutton--docs
 
 - `value`: `string` — Text written to the clipboard.
 - `appearance?`: `"filled" | "tonal" | "outlined" | "ghost" | null`, default `tonal`
-- `asChild?`: `boolean` — Render onto the child element instead of a <button> (shadcn/Radix Slot convention).
+- `asChild?`: `boolean` — Render onto the child element instead of a `<button>` (shadcn/Radix Slot convention).
 - `badge?`: `ReactNode | ButtonBadge` — Count or status pinned to the top-right corner (a BadgeIndicator, sm,
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `copiedLabel?`: `ReactNode`, default `Copied (localized: copyButton.copied)` — Label shown for `resetDelay`ms after a successful copy. Default "Copied".
@@ -3016,7 +3016,7 @@ Docs: ./?path=/docs/data-datatablecell--docs
 
 - `label`: `string`
 - `appearance?`: `"filled" | "tonal" | "outlined" | "ghost" | null`
-- `asChild?`: `boolean` — Render onto the child element instead of a <button> (shadcn/Radix Slot convention).
+- `asChild?`: `boolean` — Render onto the child element instead of a `<button>` (shadcn/Radix Slot convention).
 - `badge?`: `ReactNode | ButtonBadge` — Count or status pinned to the top-right corner (a BadgeIndicator, sm,
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `fullWidth?`: `boolean | null`
@@ -3939,7 +3939,7 @@ Docs: ./?path=/docs/files-dropzone--docs
 **Dropzone props**
 
 - `onFiles`: `(files: File[]) => void`
-- `accept?`: `string` — Accepted types, same syntax as <input accept> (".pdf,image/*"). Applied to dropped files too, not only the picker.
+- `accept?`: `string` — Accepted types, same syntax as `<input accept>` (".pdf,image/*"). Applied to dropped files too, not only the picker.
 - `aria-label?`: `string`
 - `className?`: `string`
 - `disabled?`: `boolean`, default `false`
@@ -4306,7 +4306,7 @@ Docs: ./?path=/docs/form-structure-fieldset--docs
 **Fieldset props**
 
 - `description?`: `ReactNode` — Supporting line below the legend.
-- `legend?`: `ReactNode` — Group caption, rendered as the <legend>.
+- `legend?`: `ReactNode` — Group caption, rendered as the `<legend>`.
 
 Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes.
 
@@ -4903,7 +4903,7 @@ Docs: ./?path=/docs/text-input-inlineedit--docs
 - `className?`: `string`
 - `defaultValue?`: `string`, default `` — Uncontrolled starting value.
 - `disabled?`: `boolean`, default `false`
-- `inheritFont?`: `boolean`, default `false` — Take the surrounding typography (e.g. inside an <h1>) instead of the field's own type step. Single-line only.
+- `inheritFont?`: `boolean`, default `false` — Take the surrounding typography (e.g. inside an `<h1>`) instead of the field's own type step. Single-line only.
 - `multiline?`: `boolean`, default `false` — Multi-line text: TextArea while editing, line breaks kept on display. Enter adds a line, ⌘/Ctrl+Enter saves.
 - `onSave?`: `((value: string) => void | Promise<void>)` — Called with the new value. Return a promise to show a saving state;
 - `placeholder?`: `string`, default `Add a value (localized: inlineEdit.placeholder)` — Shown in place of an empty value.
@@ -5089,7 +5089,7 @@ Docs: ./?path=/docs/data-kanban--docs
 - `renderItem`: `(item: T, state: { overlay: boolean; }) => ReactNode`
 - `columnWidth?`: `string | number`, default `288` — Column width.
 - `emptyMessage?`: `ReactNode`, default `No items (localized: kanban.empty)` — Shown in an empty column.
-- `getItemLabel?`: `((item: T) => string)`, default `(item) => item.id` — Text used for screen-reader announcements ("Picked up <label>").
+- `getItemLabel?`: `((item: T) => string)`, default `(item) => item.id` — Text used for screen-reader announcements ("Picked up `<label>`").
 - `label?`: `string`, default `Board (localized: kanban.label)` — Accessible name of the board.
 - `onItemsChange?`: `((items: T[], move: KanbanMove) => void)` — Called on drop with the reordered array and what moved.
 - `renderColumnActions?`: `((column: KanbanColumn) => ReactNode)` — Extra content in a column header, after the counter (e.g. an add button).
@@ -5504,7 +5504,7 @@ Docs: ./?path=/docs/navigation-link--docs
 
 **Link props**
 
-- `asChild?`: `boolean`, default `false` — Render onto the child element (a router link) instead of an <a>.
+- `asChild?`: `boolean`, default `false` — Render onto the child element (a router link) instead of an `<a>`.
 - `inverse?`: `boolean`, default `false` — Colors and focus ring for a dark or primary surface.
 - `size?`: `"md" | "lg" | "sm" | "xs"` — Type step for a standalone link. Omit inside text to inherit the surrounding size.
 - `underline?`: `boolean`, default `false` — Always underlined (links in running text). Off: underline on hover only.
@@ -7234,7 +7234,7 @@ Docs: ./?path=/docs/layout-prose--docs
 
 **Prose props**
 
-- `asChild?`: `boolean`, default `false` — Render onto the child element instead of a <div> — e.g. `<Prose asChild><article>…</article></Prose>`.
+- `asChild?`: `boolean`, default `false` — Render onto the child element instead of a `<div>` — e.g. `<Prose asChild><article>…</article></Prose>`.
 - `size?`: `"md" | "lg" | "sm"`, default `md` — Base text step: `sm` body-s (side panels, in-product help), `md` body-m (default, docs/articles), `lg` body-l (editorial). Headings scale with it.
 
 Also accepts the props of: HTMLAttributes.

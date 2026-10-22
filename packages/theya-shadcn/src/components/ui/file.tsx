@@ -8,7 +8,7 @@ import { Attachment, type AttachmentProps } from './attachment';
 import { useTheyaI18n } from '../../lib/i18n';
 
 /**
- * A file-input slot backed by a real <input type="file">, shown as an
+ * A file-input slot backed by a real `<input type="file">`, shown as an
  * Attachment. Without `empty`, the supplied name/size/meta is the
  * initial filled state and clicking opens the picker to replace it;
  * `empty` starts with the dashed picker instead. `readOnly` is a deliberately non-interactive

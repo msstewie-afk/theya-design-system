@@ -6,7 +6,7 @@ import { TextField } from './text-field';
 /**
  * Formats as you type against a fixed template (phone, card, date, IP).
  * The masking logic is Theya's own; the field it renders IS a TextField
- * (not a hand-styled raw <input>), so it inherits TextField's chrome,
+ * (not a hand-styled raw `<input>`), so it inherits TextField's chrome,
  * height, focus ring, and error/danger treatment instead of duplicating
  * them.
  *

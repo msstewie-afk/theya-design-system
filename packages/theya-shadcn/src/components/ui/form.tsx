@@ -23,7 +23,7 @@ import { Label } from './label';
  * A11y note: FormLabel's htmlFor reliably names native controls
  * (TextField/TextArea/Select trigger). Radix controls exposed as
  * buttons — Switch, Checkbox, RadioGroupItem — aren't reliably named
- * by <label for>, so give those an explicit aria-label instead.
+ * by `<label for>`, so give those an explicit aria-label instead.
  */
 const Form = FormProvider;
 

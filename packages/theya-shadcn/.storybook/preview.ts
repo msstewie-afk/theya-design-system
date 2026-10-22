@@ -89,9 +89,15 @@ if (typeof document !== 'undefined') {
 // on). Docs render inside the preview iframe, where the token CSS vars are
 // defined, so the theme can reference them directly.
 const SURFACE = 'var(--color-bg-surface-bg-surface-base)';
+// Docs pages use Theya's own typefaces, so the Storybook blocks (title,
+// description, props table, story headings) and the guideline sections
+// rendered by Theya components read as one page. Sizes are set in
+// preview.css.
+const FONT_BASE = 'var(--typography-font-family-body)';
+const FONT_CODE = 'var(--typography-font-family-code)';
 const docsThemes = {
-  light: create({ ...themes.light, base: 'light', appContentBg: SURFACE, appPreviewBg: SURFACE }),
-  dark: create({ ...themes.dark, base: 'dark', appContentBg: SURFACE, appPreviewBg: SURFACE }),
+  light: create({ ...themes.light, base: 'light', appContentBg: SURFACE, appPreviewBg: SURFACE, fontBase: FONT_BASE, fontCode: FONT_CODE }),
+  dark: create({ ...themes.dark, base: 'dark', appContentBg: SURFACE, appPreviewBg: SURFACE, fontBase: FONT_BASE, fontCode: FONT_CODE }),
 };
 
 function ThemedDocsContainer({ children, context }: DocsContainerProps) {

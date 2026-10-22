@@ -37,7 +37,7 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
   underline?: boolean;
   /** Colors and focus ring for a dark or primary surface. */
   inverse?: boolean;
-  /** Render onto the child element (a router link) instead of an <a>. */
+  /** Render onto the child element (a router link) instead of an `<a>`. */
   asChild?: boolean;
 }
 

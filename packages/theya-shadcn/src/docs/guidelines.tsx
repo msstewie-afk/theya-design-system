@@ -38,12 +38,12 @@ const STATUS = {
 } as const;
 
 function H({ children }: { children: ReactNode }) {
-  return <h2 className="m-0 font-body text-heading-xs font-semibold text-[var(--color-text-text)]">{children}</h2>;
+  return <h2 className="m-0 font-heading text-heading-s font-semibold text-[var(--color-text-text)]">{children}</h2>;
 }
 
 function Bullets({ items, className }: { items: ReactNode[]; className?: string }) {
   return (
-    <ul className={cn('m-0 flex list-disc flex-col gap-1.5 pl-5 font-body text-body-m text-[var(--color-text-text)]', className)}>
+    <ul className={cn('m-0 flex list-disc flex-col gap-1 pl-5 font-body text-body-m leading-6 text-[var(--color-text-text)]', className)}>
       {items.map((t, i) => (
         <li key={i}>{t}</li>
       ))}
@@ -147,7 +147,7 @@ function DoDontCard({ kind, example, caption }: { kind: 'do' | 'dont'; example: 
           {isDo ? <Check aria-hidden="true" className="size-4" /> : <Xmark aria-hidden="true" className="size-4" />}
           {isDo ? 'Do' : 'Don’t'}
         </span>
-        <span className="font-body text-body-m text-[var(--color-text-text)]">{caption}</span>
+        <span className="font-body text-body-m leading-6 text-[var(--color-text-text)]">{caption}</span>
       </figcaption>
     </figure>
   );
@@ -159,7 +159,7 @@ export function GuidelinesDetails({ guidelines: g, a11yStatus }: { guidelines: C
     <div className="sb-unstyled my-10 flex flex-col gap-10">
       <section className="flex flex-col gap-3">
         <H>Anatomy</H>
-        <ol className="m-0 flex list-decimal flex-col gap-1.5 pl-5 font-body text-body-m text-[var(--color-text-text)]">
+        <ol className="m-0 flex list-decimal flex-col gap-1 pl-5 font-body text-body-m leading-6 text-[var(--color-text-text)]">
           {g.anatomy.map((a) => (
             <li key={a.part}>
               <span className="font-semibold">{a.part}</span>

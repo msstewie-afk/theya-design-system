@@ -19,7 +19,7 @@ import { BadgeIndicator, type BadgeIndicatorTone } from './badge-indicator';
  * class), so this should render pixel-identical to the old component.
  *
  * New: `asChild` (shadcn convention) — renders the button's styles onto
- * its child element via Radix Slot instead of a <button>, e.g. to make a
+ * its child element via Radix Slot instead of a `<button>`, e.g. to make a
  * Next.js <Link> look like a Button.
  *
  * Requires: npm i class-variance-authority @radix-ui/react-slot
@@ -610,7 +610,7 @@ export interface ButtonProps
   leftIcon?: ReactNode;
   /** Icon rendered after the label. */
   rightIcon?: ReactNode;
-  /** Render onto the child element instead of a <button> (shadcn/Radix Slot convention). */
+  /** Render onto the child element instead of a `<button>` (shadcn/Radix Slot convention). */
   asChild?: boolean;
   /** Shows a spinner in place of leftIcon and disables the button. Not supported with asChild. */
   loading?: boolean;

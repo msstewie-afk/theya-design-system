@@ -7,7 +7,7 @@ import { cn } from '../../lib/utils';
 
 /**
  * Segmented one-time-code field on the headless `input-otp` library.
- * Renders one real <input>; put `aria-invalid` on <InputOTP> itself (not
+ * Renders one real `<input>`; put `aria-invalid` on <InputOTP> itself (not
  * a slot) since that's the single real focusable element the library
  * mounts. Pair with visible, described error text via aria-describedby
  * — the danger border alone isn't sufficient (color-only signal).

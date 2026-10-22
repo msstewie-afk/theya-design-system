@@ -50,7 +50,7 @@ export const UsagePrinciples: Story = {
  * wrong for a reference/token page — content this dense reads better
  * narrower than the viewport. ~70% width, centered. */
 function Page({ children }: { children: React.ReactNode }) {
-  return <div className="mx-auto flex w-full max-w-[70%] flex-col gap-10 pt-[100px]">{children}</div>;
+  return <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 pt-6 sm:pt-16">{children}</div>;
 }
 
 function ColorSwatch({ label, varName, fg }: { label: string; varName: string; fg?: string }) {
@@ -75,8 +75,8 @@ function Section({ title, description, children }: { title: string; description?
   return (
     <section className="flex flex-col gap-4 border-b border-solid border-[var(--color-border-border)] pb-10 last:border-b-0">
       <div>
-        <h2 className="text-xl font-semibold text-[var(--color-text-text)]">{title}</h2>
-        {description && <p className="mt-1 max-w-2xl text-sm text-[var(--color-text-text-subtle)]">{description}</p>}
+        <h2 className="m-0 font-heading text-heading-s font-semibold text-[var(--color-text-text)]">{title}</h2>
+        {description && <p className="mt-1 mb-0 max-w-2xl font-body text-body-s text-[var(--color-text-text-subtle)]">{description}</p>}
       </div>
       {children}
     </section>
@@ -184,6 +184,15 @@ const BODY_TYPE_VALUES = Object.fromEntries((['xs', 's', 'm', 'l', 'xl'] as cons
 const HEADING_TYPE_VALUES = Object.fromEntries(
   (['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl'] as const).map((k) => [k, typeValues(`--typography-heading-heading-${k}`)]),
 ) as Record<'3xs' | '2xs' | 'xs' | 's' | 'm' | 'l' | 'xl' | '2xl' | '3xl', { size: string; lineHeight: string; weight: number }>;
+
+// Literal class names: Tailwind only generates utilities it can find as
+// whole strings in the source, so `text-heading-${size}` would leave the
+// sizes no component uses (2xl, 3xl) without styles.
+const BODY_CLASS = { xs: 'text-body-xs', s: 'text-body-s', m: 'text-body-m', l: 'text-body-l', xl: 'text-body-xl' } as const;
+const HEADING_CLASS = {
+  '3xs': 'text-heading-3xs', '2xs': 'text-heading-2xs', xs: 'text-heading-xs', s: 'text-heading-s', m: 'text-heading-m',
+  l: 'text-heading-l', xl: 'text-heading-xl', '2xl': 'text-heading-2xl', '3xl': 'text-heading-3xl',
+} as const;
 
 /**
  * Labels each swatch with the primitive-scale step it resolves to (e.g.
@@ -509,10 +518,10 @@ export const Typography: Story = {
           {(['xs', 's', 'm', 'l', 'xl'] as const).map((size) => {
             const v = BODY_TYPE_VALUES[size];
             return (
-              <div key={size} className="flex flex-wrap items-baseline gap-4 border-b border-solid border-[var(--color-border-border)] pb-3">
-                <span className="w-32 shrink-0 font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">text-body-{size}</span>
-                <span className={`text-body-${size} text-[var(--color-text-text)]`}>The quick brown fox jumps over the lazy dog</span>
-                <span className="ml-auto shrink-0 font-mono text-[0.6875rem] text-[var(--color-text-text-subtler)]">
+              <div key={size} className="grid grid-cols-[8rem_minmax(0,1fr)] items-baseline gap-x-4 gap-y-1 border-b border-solid border-[var(--color-border-border)] pb-3 last:border-b-0 last:pb-0 sm:grid-cols-[8rem_minmax(0,1fr)_auto]">
+                <span className="font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">text-body-{size}</span>
+                <span className={`${BODY_CLASS[size]} min-w-0 truncate text-[var(--color-text-text)]`}>The quick brown fox jumps over the lazy dog</span>
+                <span className="col-start-2 font-mono text-[0.6875rem] text-[var(--color-text-text-subtler)] sm:col-start-auto">
                   {v.size} / {v.lineHeight} · weight {v.weight}
                 </span>
               </div>
@@ -525,10 +534,10 @@ export const Typography: Story = {
           {(['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl'] as const).map((size) => {
             const v = HEADING_TYPE_VALUES[size];
             return (
-              <div key={size} className="flex flex-wrap items-baseline gap-4 border-b border-solid border-[var(--color-border-border)] pb-3">
-                <span className="w-32 shrink-0 font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">text-heading-{size}</span>
-                <span className={`text-heading-${size} font-semibold text-[var(--color-text-text)]`}>The quick brown fox</span>
-                <span className="ml-auto shrink-0 font-mono text-[0.6875rem] text-[var(--color-text-text-subtler)]">
+              <div key={size} className="grid grid-cols-[8rem_minmax(0,1fr)] items-baseline gap-x-4 gap-y-1 border-b border-solid border-[var(--color-border-border)] pb-3 last:border-b-0 last:pb-0 sm:grid-cols-[8rem_minmax(0,1fr)_auto]">
+                <span className="font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">text-heading-{size}</span>
+                <span className={`${HEADING_CLASS[size]} min-w-0 truncate text-[var(--color-text-text)]`}>The quick brown fox</span>
+                <span className="col-start-2 font-mono text-[0.6875rem] text-[var(--color-text-text-subtler)] sm:col-start-auto">
                   {v.size} / {v.lineHeight} · weight {v.weight}
                 </span>
               </div>
@@ -539,15 +548,15 @@ export const Typography: Story = {
       <Section title="Font weights" description="Each body size carries 3 weight steps (base/emphasize/strong) as separate tokens rather than a single shared font-weight scale — e.g. --typography-body-m-weight(-emphasize|-strong).">
         <div className="flex flex-col gap-4">
           {(['xs', 's', 'm', 'l', 'xl'] as const).map((size) => (
-            <div key={size} className="flex flex-wrap items-baseline gap-6 border-b border-solid border-[var(--color-border-border)] pb-3">
+            <div key={size} className="flex flex-wrap items-baseline gap-6 border-b border-solid border-[var(--color-border-border)] pb-3 last:border-b-0 last:pb-0">
               <span className="w-32 shrink-0 font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">body-{size}</span>
-              <span className={`text-body-${size} text-[var(--color-text-text)]`} style={{ fontWeight: `var(--typography-body-${size}-weight)` }}>
+              <span className={`${BODY_CLASS[size]} text-[var(--color-text-text)]`} style={{ fontWeight: `var(--typography-body-${size}-weight)` }}>
                 Base
               </span>
-              <span className={`text-body-${size} text-[var(--color-text-text)]`} style={{ fontWeight: `var(--typography-body-${size}-weight-emphasize)` }}>
+              <span className={`${BODY_CLASS[size]} text-[var(--color-text-text)]`} style={{ fontWeight: `var(--typography-body-${size}-weight-emphasize)` }}>
                 Emphasize
               </span>
-              <span className={`text-body-${size} text-[var(--color-text-text)]`} style={{ fontWeight: `var(--typography-body-${size}-weight-strong)` }}>
+              <span className={`${BODY_CLASS[size]} text-[var(--color-text-text)]`} style={{ fontWeight: `var(--typography-body-${size}-weight-strong)` }}>
                 Strong
               </span>
             </div>
@@ -557,12 +566,12 @@ export const Typography: Story = {
       <Section title="Letter spacing" description="Each body size has its own tracking value plus a separate -uppercase step for all-caps labels — e.g. --typography-body-m-letter-spacing(-uppercase).">
         <div className="flex flex-col gap-4">
           {(['xs', 's', 'm', 'l', 'xl'] as const).map((size) => (
-            <div key={size} className="flex flex-wrap items-baseline gap-6 border-b border-solid border-[var(--color-border-border)] pb-3">
+            <div key={size} className="flex flex-wrap items-baseline gap-6 border-b border-solid border-[var(--color-border-border)] pb-3 last:border-b-0 last:pb-0">
               <span className="w-32 shrink-0 font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">body-{size}</span>
-              <span className={`text-body-${size} text-[var(--color-text-text)]`} style={{ letterSpacing: `var(--typography-body-${size}-letter-spacing)` }}>
+              <span className={`${BODY_CLASS[size]} text-[var(--color-text-text)]`} style={{ letterSpacing: `var(--typography-body-${size}-letter-spacing)` }}>
                 Tracking
               </span>
-              <span className={`text-body-${size} uppercase text-[var(--color-text-text)]`} style={{ letterSpacing: `var(--typography-body-${size}-letter-spacing-uppercase)` }}>
+              <span className={`${BODY_CLASS[size]} uppercase text-[var(--color-text-text)]`} style={{ letterSpacing: `var(--typography-body-${size}-letter-spacing-uppercase)` }}>
                 Uppercase tracking
               </span>
             </div>

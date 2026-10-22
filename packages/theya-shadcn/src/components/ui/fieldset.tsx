@@ -2,12 +2,12 @@ import { cn } from '../../lib/utils';
 import type { ReactNode } from 'react';
 
 /**
- * No library dependency — a native <fieldset>/<legend> pair. Assistive
+ * No library dependency — a native `<fieldset>`/`<legend>` pair. Assistive
  * tech announces the group name on entry, and the native `disabled`
  * attribute cascades to every control inside for free.
  */
 export interface FieldsetProps extends React.ComponentProps<'fieldset'> {
-  /** Group caption, rendered as the <legend>. */
+  /** Group caption, rendered as the `<legend>`. */
   legend?: ReactNode;
   /** Supporting line below the legend. */
   description?: ReactNode;

@@ -422,7 +422,7 @@ export function CardDescription({ className, ...props }: React.ComponentProps<'d
 
 /**
  * The optional stretched primary action for an interactive Card.
- * Renders an <a> by default; pass asChild for a router link or
+ * Renders an `<a>` by default; pass asChild for a router link or
  * programmatic-navigation button.
  */
 export interface CardLinkProps extends React.ComponentProps<'a'> {

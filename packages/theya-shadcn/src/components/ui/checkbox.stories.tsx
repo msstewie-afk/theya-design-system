@@ -13,10 +13,9 @@ const meta: Meta<typeof Checkbox> = {
     docs: {
       description: {
         component:
-          'Rebuilt on Radix Checkbox (a real `<button role="checkbox">`) instead ' +
-          'of a visually-hidden native `<input>`. Radix natively supports a ' +
-          'three-state `checked` (`true | false | "indeterminate"`), so ' +
-          '`indeterminate` no longer needs manual DOM manipulation.',
+          'A box people tick to turn one option on or off, or to pick several from a list. ' +
+          'Built on Radix Checkbox (a real `<button role="checkbox">`), so `checked` can also be ' +
+          '`"indeterminate"` — for a parent whose items are partly selected.',
       },
     },
   },
@@ -27,7 +26,7 @@ const meta: Meta<typeof Checkbox> = {
       control: 'select',
       options: ['sm', 'md'],
       description: '16px or 20px.',
-      table: { category: 'Appearance', defaultValue: { summary: 'm' } },
+      table: { category: 'Appearance', defaultValue: { summary: 'md' } },
     },
     error: {
       control: 'boolean',

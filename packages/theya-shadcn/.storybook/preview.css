@@ -10,3 +10,64 @@ body.sb-main-padded {
 body.sb-main-padded #storybook-root {
   padding: 1rem;
 }
+
+/*
+ * Docs page typography. Storybook's docs blocks bring their own scale
+ * (14px text, 32/24/20px headings, emotion classes); these rules put the
+ * blocks' own prose on Theya's type tokens so it matches the guideline
+ * sections, which are Theya components (src/docs/guidelines.tsx, marked
+ * .sb-unstyled). Story previews (.docs-story) and Theya sections are left
+ * alone.
+ * - page title: heading-l; story headings: heading-s (same as guideline
+ *   section headings);
+ * - descriptions: body-m, 24px line;
+ * - inline code: one style everywhere (neutral fill, no border).
+ */
+.sbdocs.sbdocs-content {
+  color: var(--color-text-text);
+}
+.sbdocs-content h1:not(.sb-unstyled *):not(.docs-story *) {
+  font-family: var(--typography-font-family-heading);
+  font-size: var(--typography-heading-heading-l-size);
+  line-height: var(--typography-heading-heading-l-line-height);
+  font-weight: 600;
+  letter-spacing: normal;
+  margin-bottom: 12px;
+}
+.sbdocs-content h2:not(.sb-unstyled *):not(.docs-story *) {
+  font-family: var(--typography-font-family-heading);
+  font-size: var(--typography-heading-heading-m-size);
+  line-height: var(--typography-heading-heading-m-line-height);
+  font-weight: 600;
+  border-bottom-color: var(--color-border-border-subtler);
+  margin: 48px 0 12px;
+}
+.sbdocs-content h3:not(.sb-unstyled *):not(.docs-story *) {
+  font-family: var(--typography-font-family-heading);
+  font-size: var(--typography-heading-heading-s-size);
+  line-height: var(--typography-heading-heading-s-line-height);
+  font-weight: 600;
+  margin: 40px 0 12px;
+}
+.sbdocs-content :is(p, li):not(.sb-unstyled *):not(.docs-story *):not(.docblock-argstable *) {
+  font-size: var(--typography-body-m-size);
+  line-height: 24px;
+}
+.sbdocs-content p:not(.sb-unstyled *):not(.docs-story *):not(.docblock-argstable *) {
+  color: var(--color-text-text-subtle);
+}
+.sbdocs-content code:not(pre code):not(.docs-story *) {
+  border: 0;
+  border-radius: var(--size-border-radius-border-radius-sm);
+  background: var(--color-bg-neutral-bg-neutral-subtle);
+  color: var(--color-text-text);
+  padding: 1px 4px;
+  font-size: 0.85em;
+}
+/* Props table: scroll sideways on phones instead of being cut off. */
+@media (max-width: 640px) {
+  .sbdocs-content .docblock-argstable {
+    display: block;
+    overflow-x: auto;
+  }
+}

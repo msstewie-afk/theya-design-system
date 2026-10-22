@@ -79,7 +79,7 @@ export interface InlineEditProps {
   size?: InlineEditSize;
   /** Multi-line text: TextArea while editing, line breaks kept on display. Enter adds a line, ⌘/Ctrl+Enter saves. */
   multiline?: boolean;
-  /** Take the surrounding typography (e.g. inside an <h1>) instead of the field's own type step. Single-line only. */
+  /** Take the surrounding typography (e.g. inside an `<h1>`) instead of the field's own type step. Single-line only. */
   inheritFont?: boolean;
   /** Not editable: plain text, no hover, no edit hint. */
   readOnly?: boolean;

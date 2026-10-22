@@ -6,7 +6,7 @@ import { type VariantProps } from 'class-variance-authority';
 import { type BadgeIndicatorTone } from './badge-indicator';
 export declare const buttonVariants: (props?: ({
     appearance?: "filled" | "outlined" | "tonal" | "ghost" | null | undefined;
-    tone?: "warning" | "neutral" | "info" | "success" | "danger" | "primary" | "secondary" | null | undefined;
+    tone?: "warning" | "success" | "info" | "neutral" | "danger" | "primary" | "secondary" | null | undefined;
     size?: "sm" | "md" | "lg" | "xl" | "2xl" | null | undefined;
     fullWidth?: boolean | null | undefined;
     iconOnly?: boolean | null | undefined;

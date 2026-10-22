@@ -67,7 +67,7 @@ export interface KanbanProps<T extends KanbanItem> extends Omit<React.ComponentP
   /** Called on drop with the reordered array and what moved. */
   onItemsChange?: (items: T[], move: KanbanMove) => void;
   renderItem: (item: T, state: { overlay: boolean }) => React.ReactNode;
-  /** Text used for screen-reader announcements ("Picked up <label>"). */
+  /** Text used for screen-reader announcements ("Picked up `<label>`"). */
   getItemLabel?: (item: T) => string;
   /** Extra content in a column header, after the counter (e.g. an add button). */
   renderColumnActions?: (column: KanbanColumn) => React.ReactNode;

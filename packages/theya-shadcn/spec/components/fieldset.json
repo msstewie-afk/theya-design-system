@@ -69,7 +69,7 @@
           "name": "legend",
           "type": "ReactNode",
           "required": false,
-          "description": "Group caption, rendered as the <legend>."
+          "description": "Group caption, rendered as the `<legend>`."
         }
       ]
     }

@@ -16,7 +16,7 @@ import { useTheyaI18n } from '../../lib/i18n';
  * several side by side to build a filter bar. Distinct from
  * MultiSelect (an inline form control that IS the value) and Combobox
  * (pick one option): this narrows a view, so it reads as button +
- * popover and clears back to "no filter". Uses a plain <button>
+ * popover and clears back to "no filter". Uses a plain `<button>`
  * copying SelectTrigger's own classes rather than SelectTrigger
  * itself — Radix Select assumes an option-list popup, not this
  * checkbox-list content.

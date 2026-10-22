@@ -70,7 +70,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Render onto the child element (a router link) instead of an <a>."
+          "description": "Render onto the child element (a router link) instead of an `<a>`."
         },
         {
           "name": "inverse",

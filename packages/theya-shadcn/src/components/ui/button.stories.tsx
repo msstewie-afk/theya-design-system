@@ -15,9 +15,9 @@ const meta: Meta<typeof Button> = {
     docs: {
       description: {
         component:
-          'Rebuilt on shadcn/ui conventions (Radix Slot + cva + Tailwind v4) — ' +
-          'same prop API as the original CSS-modules Button, same tokens, same ' +
-          'visual result. Three independent axes: `type` × `tone` × `size`.',
+          'An action people take: save, submit, create, delete, open a flow. ' +
+          'Three independent axes — `appearance` (filled, tonal, outlined, ghost) × `tone` × `size` — ' +
+          'plus loading, success and soft-disabled states.',
       },
     },
   },
@@ -115,7 +115,7 @@ export const Playground: Story = {
 };
 
 export const AllIntentsFilled: Story = {
-  name: 'All intents (Filled)',
+  name: 'All tones (Filled)',
   render: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'neutral', 'success', 'warning', 'danger', 'info'] as const).map(
@@ -130,7 +130,7 @@ export const AllIntentsFilled: Story = {
 };
 
 export const AllIntentsTonal: Story = {
-  name: 'All intents (Tonal)',
+  name: 'All tones (Tonal)',
   render: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'neutral', 'success', 'warning', 'danger', 'info'] as const).map(
@@ -145,7 +145,7 @@ export const AllIntentsTonal: Story = {
 };
 
 export const AllIntentsOutlined: Story = {
-  name: 'All intents (Outlined)',
+  name: 'All tones (Outlined)',
   render: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'neutral', 'success', 'warning', 'danger', 'info'] as const).map(
@@ -160,7 +160,7 @@ export const AllIntentsOutlined: Story = {
 };
 
 export const AllIntentsGhost: Story = {
-  name: 'All intents (Ghost)',
+  name: 'All tones (Ghost)',
   render: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       {(['primary', 'secondary', 'neutral', 'success', 'warning', 'danger', 'info'] as const).map(
@@ -175,7 +175,7 @@ export const AllIntentsGhost: Story = {
 };
 
 export const AllTypesPrimary: Story = {
-  name: 'All types (Primary)',
+  name: 'All appearances (Primary)',
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
       <Button appearance="filled" tone="primary">

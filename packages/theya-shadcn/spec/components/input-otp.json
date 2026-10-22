@@ -5,7 +5,7 @@
   "import": "import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from '@theya/shadcn/ui/input-otp';",
   "status": "stable",
   "category": "Text Input",
-  "description": "Segmented one-time-code field on the headless `input-otp` library.\nRenders one real <input>; put `aria-invalid` on <InputOTP> itself (not\na slot) since that's the single real focusable element the library\nmounts. Pair with visible, described error text via aria-describedby\n— the danger border alone isn't sufficient (color-only signal).",
+  "description": "Segmented one-time-code field on the headless `input-otp` library.\nRenders one real `<input>`; put `aria-invalid` on <InputOTP> itself (not\na slot) since that's the single real focusable element the library\nmounts. Pair with visible, described error text via aria-describedby\n— the danger border alone isn't sufficient (color-only signal).",
   "whenToUse": [
     "A one-time code of known length from an SMS, email or authenticator app."
   ],
@@ -52,7 +52,7 @@
   "components": [
     {
       "name": "InputOTP",
-      "description": "Segmented one-time-code field on the headless `input-otp` library.\nRenders one real <input>; put `aria-invalid` on <InputOTP> itself (not\na slot) since that's the single real focusable element the library\nmounts. Pair with visible, described error text via aria-describedby\n— the danger border alone isn't sufficient (color-only signal).",
+      "description": "Segmented one-time-code field on the headless `input-otp` library.\nRenders one real `<input>`; put `aria-invalid` on <InputOTP> itself (not\na slot) since that's the single real focusable element the library\nmounts. Pair with visible, described error text via aria-describedby\n— the danger border alone isn't sufficient (color-only signal).",
       "props": [
         {
           "name": "containerClassName",

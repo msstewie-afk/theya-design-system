@@ -25,7 +25,7 @@ export type ProseSize = 'sm' | 'md' | 'lg';
 export interface ProseProps extends React.ComponentProps<'div'> {
   /** Base text step: `sm` body-s (side panels, in-product help), `md` body-m (default, docs/articles), `lg` body-l (editorial). Headings scale with it. */
   size?: ProseSize;
-  /** Render onto the child element instead of a <div> — e.g. `<Prose asChild><article>…</article></Prose>`. */
+  /** Render onto the child element instead of a `<div>` — e.g. `<Prose asChild><article>…</article></Prose>`. */
   asChild?: boolean;
 }
 

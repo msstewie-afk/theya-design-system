@@ -12,7 +12,7 @@ import { cn } from '../../lib/utils';
  *
  * Pass `href` to make the row a link, or `interactive` for a
  * whole-row selectable/clickable region. The pressable control itself
- * is a real <button>, stretched over the region (absolute inset-0) —
+ * is a real `<button>`, stretched over the region (absolute inset-0) —
  * NOT role="button" on the element wrapping the content — so `children`
  * (e.g. an action button composed into the row, see the Notification
  * story) can stay a real nested button/link without landing inside

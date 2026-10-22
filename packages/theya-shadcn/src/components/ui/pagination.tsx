@@ -9,7 +9,7 @@ import { useTheyaI18n } from '../../lib/i18n';
  * Numbered page navigation. Square number buttons, prev/next controls,
  * ellipsis for gaps. Pure presentational — every clickable part takes
  * asChild, so it drives from a real <Link> (URL pagination) or a
- * <button> (client paging) equally well. Styled directly with our
+ * `<button>` (client paging) equally well. Styled directly with our
  * tokens rather than through Button: the page cells are a compact square
  * size Button has no step for, and the active page uses a secondary
  * subtle fill rather than one of Button's appearances.

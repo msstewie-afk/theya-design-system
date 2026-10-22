@@ -9,15 +9,15 @@ import { Check, Minus } from 'iconoir-react';
 import { cn } from '../../lib/utils';
 
 /**
- * Rebuilt on Radix Checkbox instead of a visually-hidden native <input>.
- * Radix's Root renders as a real <button role="checkbox"> and natively
+ * Rebuilt on Radix Checkbox instead of a visually-hidden native `<input>`.
+ * Radix's Root renders as a real `<button role="checkbox">` and natively
  * supports a three-state `checked` (true | false | 'indeterminate') —
  * so indeterminate no longer needs a manual useEffect setting
  * `.indeterminate` on a ref.
  *
  * State is controlled via Radix's own `checked` / `defaultChecked` /
  * `onCheckedChange` (not the native `checked`/`onChange` pair, since the
- * interactive element is a button, not an <input>). `indeterminate` is
+ * interactive element is a button, not an `<input>`). `indeterminate` is
  * kept as a convenience alias for checked="indeterminate".
  *
  * On-primary surface: wrap an ancestor in `data-surface="primary"` (e.g.

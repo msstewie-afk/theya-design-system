@@ -75,7 +75,7 @@
           "name": "asChild",
           "type": "boolean",
           "required": false,
-          "description": "Render onto the child element instead of a <button> (shadcn/Radix Slot convention)."
+          "description": "Render onto the child element instead of a `<button>` (shadcn/Radix Slot convention)."
         },
         {
           "name": "badge",

@@ -18,10 +18,9 @@ const meta: Meta<typeof TextField> = {
     docs: {
       description: {
         component:
-          'Sourced from Figma (node 6709:7414 + sibling states), Type=Outline / Height=Large only. ' +
-          'Value/label text uses body-m (14px, the project default) rather than the file\u2019s literal ' +
-          'body/l (16px). Enabled border uses border-default (matching Checkbox) rather than the ' +
-          'file\u2019s literal border-subtle.',
+          'A single-line text input with its label, helper text and error or success message. ' +
+          'Height comes from `heightSize` (sm 32 · md 40 · lg 48 px) and width from `widthSize`; ' +
+          'the label sits above the field or, with `labelPosition="left"`, beside it.',
       },
     },
   },

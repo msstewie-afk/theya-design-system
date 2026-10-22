@@ -102,7 +102,7 @@
           "type": "((item: T) => string)",
           "required": false,
           "default": "(item) => item.id",
-          "description": "Text used for screen-reader announcements (\"Picked up <label>\")."
+          "description": "Text used for screen-reader announcements (\"Picked up `<label>`\")."
         },
         {
           "name": "label",

@@ -28,7 +28,7 @@ export interface PromptMenuItem {
  *    toggles, mic button) without baking any of them in.
  * 4. `@`/`/` menus — typing "@" or "/" then a query opens a filtered
  *    popup (mentions / commands); Enter/Tab inserts the picked item's
- *    label as PLAIN TEXT. Note: this is a plain <textarea>, not
+ *    label as PLAIN TEXT. Note: this is a plain `<textarea>`, not
  *    contentEditable, so there is no inline visual "pill" token —
  *    that would need a full contentEditable rebuild, a separate,
  *    bigger change.

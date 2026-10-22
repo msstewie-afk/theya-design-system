@@ -12,8 +12,8 @@ import type { StatusTone } from './status-dot';
  * A compact pill for one value that can be selected and/or removed —
  * a status, a selected option, a suggestion. Unlike a static label
  * pill, Chip is interactive by default: toggles on click or Enter/Space.
- * The outer element is always a plain <span> (or Slot via asChild) —
- * the actual pressable control is a real <button>, stretched over the
+ * The outer element is always a plain `<span>` (or Slot via asChild) —
+ * the actual pressable control is a real `<button>`, stretched over the
  * whole pill (absolute inset-0), so a trailing ChipRemove (also a real
  * button) sits as its sibling instead of nesting inside another
  * interactive element (axe: nested-interactive; previously this used

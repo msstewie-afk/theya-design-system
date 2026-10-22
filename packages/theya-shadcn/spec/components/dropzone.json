@@ -68,7 +68,7 @@
           "name": "accept",
           "type": "string",
           "required": false,
-          "description": "Accepted types, same syntax as <input accept> (\".pdf,image/*\"). Applied to dropped files too, not only the picker."
+          "description": "Accepted types, same syntax as `<input accept>` (\".pdf,image/*\"). Applied to dropped files too, not only the picker."
         },
         {
           "name": "aria-label",

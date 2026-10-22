@@ -79,7 +79,7 @@
           "name": "label",
           "type": "ReactNode",
           "required": false,
-          "description": "Group label — rendered as a <legend> via the native fieldset."
+          "description": "Group label — rendered as a `<legend>` via the native fieldset."
         },
         {
           "name": "onValueChange",

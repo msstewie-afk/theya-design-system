@@ -10,7 +10,7 @@ import { cn } from '../../lib/utils';
  * action={<Button>Create site</Button>} />`) or the parts directly.
  *
  * a11y: the icon chip is decorative — the title carries the meaning.
- * Title renders a styled <p> by default; pass `titleAs="h2"` when the
+ * Title renders a styled `<p>` by default; pass `titleAs="h2"` when the
  * empty state is the primary content of its region, so it joins the
  * heading rotor.
  *

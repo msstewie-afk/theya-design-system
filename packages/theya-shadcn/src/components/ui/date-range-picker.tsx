@@ -19,7 +19,7 @@ import { useMediaQuery } from './use-media-query';
  * It used to render an outlined Button instead, so it didn't match
  * DatePicker, had no error styling, and ignored `showClear` (documented in
  * the stories but never implemented). Now it mirrors DatePicker: the
- * range is the trigger's accessible description (aria-label / <label for>
+ * range is the trigger's accessible description (aria-label / `<label for>`
  * replace the button text), the calendar opens on the selected range's
  * month, and clearing returns focus to the trigger.
  */
