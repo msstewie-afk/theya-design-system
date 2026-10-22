@@ -8,13 +8,10 @@
 #              forced across the workspace (the package supports 18 and 19,
 #              dev and the main jobs stay on 18): types, then play + axe.
 #
-# The repo is private for now, so Actions minutes count against the monthly
-# free quota. A push to main runs only `checks` (a few minutes); the long
-# jobs run on pull requests, by hand (Actions → CI → Run workflow) and once
-# a week. Full runs stay available locally (test-storybook, test-visual)
-# and the git pre-commit gate catches the fast failures before a push.
+# The repo is public, so Actions minutes are free: every push to main and
+# every pull request runs all three jobs. The weekly run keeps the visual
+# baselines from expiring in the cache when nothing is pushed.
 # Docs-only changes (*.md, .claude/, .changeset/) start nothing.
-# When the repo is public again, drop the `if:` on the long jobs.
 #
 # Visual baselines are rendered on this runner and kept in the Actions
 # cache (never in git: macOS and Linux render fonts differently, so local
@@ -80,7 +77,6 @@ jobs:
 
   storybook:
     needs: checks
-    if: github.event_name != 'push'
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     defaults:
@@ -182,7 +178,6 @@ jobs:
 
   react-19:
     needs: checks
-    if: github.event_name != 'push'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     defaults:
