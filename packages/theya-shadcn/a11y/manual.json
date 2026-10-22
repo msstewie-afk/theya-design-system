@@ -1,5 +1,5 @@
 {
-  "$comment": "Hand-kept part of the accessibility matrix (scripts/build-a11y.mjs merges it with what it reads from the code). screenReader: one entry per real assistive-technology pass, e.g. { \"Button\": [{ \"at\": \"VoiceOver\", \"browser\": \"Safari 19\", \"date\": \"2026-10-05\", \"result\": \"pass\", \"notes\": \"\" }] }. deviations: accepted deviations specific to one component. focusRingOnly: components where the soft focus ring is the only visible focus change (WCAG 1.4.11 accepted deviation, see the WCAG audit, 2026-09-27). traits: per-component corrections to the traits build-a11y.mjs reads from the code ({ add, remove, note }). reviews: one recorded manual review per criterion, e.g. { \"Button\": { \"2.5.3\": { \"result\": \"pass\", \"date\": \"2026-10-08\", \"by\": \"Maria\", \"note\": \"\" } } }.",
+  "$comment": "Hand-kept part of the accessibility matrix (scripts/build-a11y.mjs merges it with what it reads from the code). screenReader: one entry per real assistive-technology pass, e.g. { \"Button\": [{ \"at\": \"VoiceOver\", \"browser\": \"Safari 19\", \"date\": \"2026-10-05\", \"result\": \"pass\", \"notes\": \"\" }] }. deviations: accepted deviations specific to one component. focusRingOnly: components where the soft focus ring is the only visible focus change (WCAG 1.4.11 accepted deviation, see the WCAG audit, 2026-09-27). traits: per-component corrections to the traits build-a11y.mjs reads from the code ({ add, remove, note }). reviews: one recorded manual review per criterion (result: pass | fail | n/a — n/a confirms the code trait was a false positive for that criterion), e.g. { \"Button\": { \"2.5.3\": { \"result\": \"pass\", \"date\": \"2026-10-08\", \"by\": \"Maria\", \"note\": \"\" } } }.",
   "screenReader": {},
   "traits": {
     "Resizable": { "add": ["interactive", "drag"], "note": "The handle comes from react-resizable-panels; it is focusable and moves with the arrow keys." },
@@ -10,7 +10,220 @@
     "TagInput": { "add": ["graphics"], "note": "Renders the shared error icon (field-error-icon.tsx), an inline SVG the source scan no longer sees." },
     "TextArea": { "add": ["graphics"], "note": "Renders the shared error icon (field-error-icon.tsx), an inline SVG the source scan no longer sees." }
   },
-  "reviews": {},
+  "reviews": {
+    "Autocomplete": {
+      "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: new autoComplete prop (default \"off\") reaches the combobox <input>, so a country/organization/email typeahead can carry its purpose token."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Picking a suggestion sets the text, closes its own listbox and keeps focus in the input."}
+    },
+    "Card": {
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "A selectable card's checkbox/radio only calls onSelectedChange; the card link is a separate click."}
+    },
+    "Carousel": {
+      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No autoplay: no Autoplay plugin is imported; `plugins` passes through to Embla."}
+    },
+    "Checkbox": {
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix Checkbox; onCheckedChange passes through with no focus, submit or navigation."}
+    },
+    "CheckboxGroup": {
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Checking only updates the set and calls onValueChange."}
+    },
+    "ColorPicker": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Color values are never data about the user (\"off\" by design)."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Dragging and onCommit only finalize the color value; focus stays in the picker."}
+    },
+    "Combobox": {
+      "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: new autoComplete prop (default \"off\") reaches the combobox <input>."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Committing closes its own popup and keeps focus on the input."}
+    },
+    "Command": {
+      "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "CommandInput sets autoComplete=\"off\" then spreads props, so it can be overridden; a command palette collects no data about the user."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Typing filters the list and moves aria-activedescendant; focus stays in the input."}
+    },
+    "ConfirmDialog": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "The type-to-confirm field echoes a resource name, not data about the user."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The type-to-confirm input only sets a value; onConfirm runs from the explicit button."}
+    },
+    "CountUp": {
+      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A one-shot number animation; nothing is limited."}
+    },
+    "Countdown": {
+      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Displays time left to the app's own deadline; the component imposes none."}
+    },
+    "DataTable": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Renders no inputs of its own; editable cells are DataTableCell."},
+      "2.1.4": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No character-key shortcut: Enter / Space / arrows on its own elements, focus-scoped."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Selection checkboxes only toggle selection; cell navigation is user-driven keys."}
+    },
+    "DataTableCell": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Edits row records (domains, owners), not the user's own data; kind=\"custom\" is the escape hatch."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Cell controls forward value changes with no focus or submit side effects."}
+    },
+    "DataTableToolbar": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No text inputs of its own; the search slot is the consumer's FilterField."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Focus moves to select-all only when focus was lost to <body>."}
+    },
+    "DateTimePicker": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Arbitrary dates and times, not a birthday field."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Picking a date or time only updates the value; no jump to the time field."}
+    },
+    "DensityToggle": {
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Changes row spacing only; content and meaning stay the same."}
+    },
+    "DiffViewer": {
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Split/unified switch re-renders the same diff in place."}
+    },
+    "Drawer": {
+      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Its only timer restores focus after close; the slide is a transition."}
+    },
+    "FeedbackWidget": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Free-text comment; no WCAG input purpose applies."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Yes/No are buttons (activation, not a setting); the follow-up is sent only by Send."}
+    },
+    "Filter": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Option-list search, not data about the user."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Option checkboxes only toggle the selection."}
+    },
+    "FilterField": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Filter operands, not data about the user."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Applying a filter adds a chip; focus stays within the field and its own popover."}
+    },
+    "Form": {
+      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No session or submit timeout; the only timing is the invalid-field shake."}
+    },
+    "InlineEdit": {
+      "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: autoComplete now reaches the multiline TextArea too (it only reached the single-line TextField)."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Typing updates the draft; saving is submit, ⌘/Ctrl+Enter or (opt-in) blur."}
+    },
+    "InputGroup": {
+      "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "InputGroupInput spreads native input props, so autoComplete passes through."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Only a pointer down on padding/addons focuses its own input."}
+    },
+    "InputOTP": {
+      "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "input-otp renders autoComplete=\"one-time-code\" by default and the prop overrides it."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "One real <input> with visual slots: no auto-advance between fields, no auto-submit in stories."}
+    },
+    "Kanban": {
+      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Only the drop animation is timed."}
+    },
+    "KeyboardShortcuts": {
+      "2.1.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: `hotkey` takes a chord (\"Mod+/\", lib/hotkey) as well as a bare character, so the app can remap it; undefined turns it off; scopeRef limits it to focus. A bare character is ignored while typing."}
+    },
+    "Marquee": {
+      "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Pauses on hover and focus-within, with a Pause button on by default."}
+    },
+    "MarqueeColumns": {
+      "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Pauses on hover and focus-within, with a Pause button on by default."}
+    },
+    "MaskedInput": {
+      "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Spreads props onto TextField, so tel / cc-number / cc-exp / postal-code pass through."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "onChange re-masks and emits; no focus or submit logic."}
+    },
+    "NumberField": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Arbitrary quantities; no input purpose applies."},
+      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Only the step \"bump\" animation is timed."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Typing and steppers change the value in place."}
+    },
+    "OrbitCarousel": {
+      "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Autoplay is off by default; when on, it stops on hover/focus, has Pause/Play, and is off under reduced motion."}
+    },
+    "Password": {
+      "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: defaults to autoComplete=\"current-password\" instead of inheriting TextField's \"off\"; pass \"new-password\" when setting one."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Show/hide toggles visibility in place."}
+    },
+    "PhoneField": {
+      "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "autoComplete defaults to \"tel\"; fixed 2026-10-22: overridable (\"work tel\", or \"off\" for someone else's number)."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Choosing a country moves focus to the number input of the same labelled field (documented)."}
+    },
+    "ProductTour": {
+      "2.1.4": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No character-key shortcut: Escape and arrows while the tour is open."}
+    },
+    "ProgressRing": {
+      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A fill animation that shows a value."}
+    },
+    "PromptArea": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Chat prompt; no input purpose applies."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Typing has no side effects; Enter is the explicit, documented send action."}
+    },
+    "PropertyGrid": {
+      "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Built-in rows edit resource properties (\"off\"); a personal-data row uses type=\"custom\" with its own TextField autoComplete."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Row controls only set their property value."}
+    },
+    "PushSheet": {
+      "2.1.4": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No character-key shortcut: Escape while the sheet is open."}
+    },
+    "QueryBuilder": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Query operands, not data about the user."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Field/operator/value changes only update the query; focus moves follow Add/Remove buttons."}
+    },
+    "RangeField": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A numeric range; no input purpose applies."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Slider and inputs only set the range."}
+    },
+    "Rating": {
+      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Only the star pop animation is timed."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Picking a value calls onValueChange; focus does not move."}
+    },
+    "RichTextEditor": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Rich text content; no input purpose applies."},
+      "2.1.4": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Every shortcut has ⌘/Ctrl and is scoped to the focused editor; markdown input rules are text formatting, not shortcuts."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Edits emit through onUpdate; the link popover applies on its own submit."}
+    },
+    "Scheduler": {
+      "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A 60 s interval moves the \"now\" line; nothing is limited."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The view switch re-renders the calendar in place."}
+    },
+    "SecretField": {
+      "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "A revealed secret is never auto-hidden. Fixed 2026-10-22: when the value can't be revealed, the copy-failed toast is the only explanation, so it now stays until dismissed."}
+    },
+    "Select": {
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix Select: the listbox closes and focus returns to the trigger."}
+    },
+    "SwatchPicker": {
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Selection only sets the value."}
+    },
+    "Switch": {
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix Switch with no side effects."}
+    },
+    "TagInput": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Tag lists; no input purpose applies."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Delimiters/blur add tags; Enter on an empty draft submits the form on purpose (documented)."}
+    },
+    "TextArea": {
+      "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Spreads native textarea props, so autoComplete (e.g. street-address) passes through."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Native textarea with no change side effects."}
+    },
+    "TextField": {
+      "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "autoComplete defaults to \"off\" and any token passes through to the <input>."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "No side effects; Clear empties the value and refocuses the same input."}
+    },
+    "TickerList": {
+      "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Rotation stops on hover/focus and with a Pause button; still under reduced motion."}
+    },
+    "TimeField": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Arbitrary times; no input purpose applies."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Value change parses the time; focus does not move."}
+    },
+    "TimeRangePicker": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A time range; no input purpose applies."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Changing the start only clears an end that is now earlier; no auto-advance."}
+    },
+    "Toaster": {
+      "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: keyboard focus inside the toasts pauses the timer like hover (Sonner 2.0.8 only paused on hover); a toast with an action/cancel stays until dismissed unless a duration is passed; toast.error persists; apps can feed Toaster `duration` from a user setting."}
+    },
+    "ToggleGroup": {
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix ToggleGroup with no custom change handling."}
+    },
+    "Topbar": {
+      "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "TopbarSearch sets autoComplete=\"off\" then spreads props; a site search collects no data about the user."},
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Typing opens the results popover (an allowed combobox popup)."}
+    },
+    "UndoToast": {
+      "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The grace window (default 10 s, `duration` option) pauses while hovered or, fixed 2026-10-22, while keyboard focus is in the toasts, so Undo can always be reached; the drain bar pauses with it. Scale `duration` with a user \"more time\" setting."}
+    },
+    "WheelPicker": {
+      "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Selecting clamps the index, sets the value and calls onValueChange."}
+    }
+  },
   "deviations": {
     "Carousel": [
       { "criterion": "1.4.11", "note": "Inactive indicator dots in the light theme are 2.62:1 on white (needs 3:1). The active slide stays identifiable — it is a wider pill. Decision 2026-10-01." }

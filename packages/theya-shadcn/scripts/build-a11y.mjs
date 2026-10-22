@@ -223,8 +223,11 @@ function readAllTraits(files) {
 function criterionStatus(c, row, traits, evidence) {
   if (c.scope !== 'component') return c.scope;
   if (!c.appliesTo.some((t) => t === 'any' || traits.includes(t))) return 'n/a';
+  // A manual review can confirm the trait was a false positive for this
+  // criterion (e.g. a countdown that only displays time sets no time limit).
+  if (row.review(c.id)?.result === 'n/a') return 'n/a';
   if (row.deviations.some((d) => d.criterion === c.id)) return 'deviation';
-  if (row.autoFindings(c.id).length) return 'fails';
+  if (row.autoFindings(c.id).length || row.review(c.id)?.result === 'fail') return 'fails';
   const needed = c.evidence.filter((e) => e !== 'axe' || AXE_CRITERIA.has(c.id));
   const have = needed.filter((e) => evidence(e, c.id));
   if (needed.length && have.length === needed.length) return 'verified';
@@ -270,7 +273,7 @@ for (const c of index.components) {
     : kind === 'review' ? reviews[id]?.result === 'pass'
     : false;
   const autoRow = auto.components[c.name];
-  const partialRow = { deviations, autoFindings: (id) => autoRow?.[id] ?? [] };
+  const partialRow = { deviations, autoFindings: (id) => autoRow?.[id] ?? [], review: (id) => reviews[id] };
   const wcag = Object.fromEntries(criteria.map((cr) => [cr.id, criterionStatus(cr, partialRow, traits, evidence)]));
   rows.push({
     name: c.name,

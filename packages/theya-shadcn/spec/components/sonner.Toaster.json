@@ -112,6 +112,10 @@
         "id": "status-feedback-toaster--undo"
       },
       {
+        "name": "FocusPausesTimer",
+        "id": "status-feedback-toaster--focus-pauses-timer"
+      },
+      {
         "name": "PromiseToast",
         "id": "status-feedback-toaster--promise-toast"
       },

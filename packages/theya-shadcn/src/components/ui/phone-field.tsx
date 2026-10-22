@@ -64,6 +64,8 @@ export interface PhoneFieldProps {
   disabled?: boolean;
   /** Name for the hidden input that carries the E.164 value in a native form post. */
   name?: string;
+  /** Autofill token (WCAG 1.3.5). Default "tel"; e.g. "work tel", or "off" for someone else's number. */
+  autoComplete?: string;
   id?: string;
   className?: string;
   /** Language for country names in the picker. */
@@ -125,6 +127,7 @@ export function PhoneField({
   heightSize = 'md',
   disabled = false,
   name,
+  autoComplete = 'tel',
   id,
   className,
   locale: localeProp,
@@ -320,7 +323,7 @@ export function PhoneField({
           id={inputId}
           type="tel"
           inputMode="tel"
-          autoComplete="tel"
+          autoComplete={autoComplete}
           value={national}
           onChange={onChange}
           onBlur={onBlur}

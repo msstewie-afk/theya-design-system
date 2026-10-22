@@ -70,7 +70,7 @@
           "name": "duration",
           "type": "number",
           "required": false,
-          "description": "Grace period before the action commits (ms)."
+          "description": "Grace period before the action commits (ms). Scale it with a user \"more time\" setting (WCAG 2.2.1)."
         },
         {
           "name": "undoLabel",

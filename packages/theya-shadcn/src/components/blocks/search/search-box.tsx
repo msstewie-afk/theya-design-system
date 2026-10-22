@@ -4,6 +4,7 @@ import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import type { KeyboardEvent, ReactNode } from 'react';
 import { ArrowRight, ClockRotateRight, Search } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
+import { isApplePlatform, isCharacterHotkey, isTypingTarget, matchesHotkey } from '../../../lib/hotkey';
 import { Kbd } from '../../ui/kbd';
 import { TextField } from '../../ui/text-field';
 import { TYPE_META, TypeIcon, search } from './shared';
@@ -25,8 +26,13 @@ export interface SearchBoxProps {
   /** Opens one item directly from the "Go to" group. */
   onNavigate?: (item: SearchItem) => void;
   placeholder?: string;
-  /** Focus the field with "/" from anywhere on the page. Default true. */
-  shortcut?: boolean;
+  /**
+   * Focus the field from anywhere on the page: true = "/", or a chord
+   * like "Mod+K" (lib/hotkey); false turns it off. Default true. A bare
+   * character is a WCAG 2.1.4 character-key shortcut, so let users turn
+   * it off or remap it (feed this prop from a setting).
+   */
+  shortcut?: boolean | string;
   maxSuggestions?: number;
   maxItems?: number;
   className?: string;
@@ -64,6 +70,8 @@ export function SearchBox({
   maxItems = 4,
   className,
 }: SearchBoxProps) {
+  const hotkey = shortcut === true ? '/' : shortcut || undefined;
+  const hotkeyLabel = hotkey?.replace(/\bMod\b/, isApplePlatform() ? '⌘' : 'Ctrl');
   const [value, setValue] = useState('');
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(-1);
@@ -114,16 +122,16 @@ export function SearchBox({
     if (activeOption) document.getElementById(activeOption.id)?.scrollIntoView({ block: 'nearest' });
   }, [activeOption]);
   useEffect(() => {
-    if (!shortcut) return;
+    if (!hotkey) return;
     const onKey = (e: globalThis.KeyboardEvent) => {
-      const t = e.target as HTMLElement;
-      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey || t.closest('input, textarea, select, [contenteditable="true"]')) return;
+      if (!matchesHotkey(e, hotkey)) return;
+      if (isCharacterHotkey(hotkey) && isTypingTarget(e.target)) return;
       e.preventDefault();
       inputRef.current?.focus();
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
-  }, [shortcut]);
+  }, [hotkey]);
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
@@ -180,7 +188,7 @@ export function SearchBox({
         onClick={() => setOpen(true)}
         onKeyDown={onKeyDown}
         leftIcon={<Search />}
-        rightIcon={shortcut && !value ? <Kbd aria-hidden="true">/</Kbd> : undefined}
+        rightIcon={hotkey && !value ? <Kbd aria-hidden="true">{hotkeyLabel}</Kbd> : undefined}
         widthSize="full"
       />
 

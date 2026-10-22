@@ -27,10 +27,12 @@ const WIDTH_SIZE_MAP = {
 
 export interface PasswordProps extends Omit<TextFieldProps, 'type' | 'leftIcon' | 'rightIcon' | 'widthSize'> {
   widthSize?: keyof typeof WIDTH_SIZE_MAP;
+  /** Default "current-password" (sign-in). Use "new-password" when setting one (WCAG 1.3.5, password managers). */
+  autoComplete?: TextFieldProps['autoComplete'];
 }
 
 export const Password = forwardRef<HTMLInputElement, PasswordProps>(function Password(
-  { widthSize = 'md', disabled, error, ...rest },
+  { widthSize = 'md', autoComplete = 'current-password', disabled, error, ...rest },
   ref,
 ) {
   const { t } = useTheyaI18n();
@@ -41,6 +43,7 @@ export const Password = forwardRef<HTMLInputElement, PasswordProps>(function Pas
     <TextField
       ref={ref}
       type={visible ? 'text' : 'password'}
+      autoComplete={autoComplete}
       disabled={disabled}
       error={error}
       widthSize={WIDTH_SIZE_MAP[widthSize]}

@@ -60,7 +60,7 @@ export default meta;
 type Story = StoryObj<typeof TextField>;
 
 export const Playground: Story = {
-  args: { label: 'Email', placeholder: 'you@example.com' },
+  args: { label: 'Email', type: 'email', autoComplete: 'email', placeholder: 'you@example.com' },
   // Uncontrolled: the clear button appears once there's text, clears it,
   // disappears, and leaves focus in the field.
   play: async ({ canvasElement }) => {
@@ -174,6 +174,7 @@ export const WithError: Story = {
   name: 'With error message',
   args: {
     label: 'Email',
+    autoComplete: 'email',
     required: true,
     error: 'This required field contains an error. Please fix it',
     defaultValue: 'not-an-email',
@@ -189,7 +190,7 @@ export const WithError: Story = {
 
 export const WithSuccess: Story = {
   name: 'With success message',
-  args: { label: 'Email', success: 'Looks good!', defaultValue: 'you@example.com' },
+  args: { label: 'Email', type: 'email', autoComplete: 'email', success: 'Looks good!', defaultValue: 'you@example.com' },
 };
 
 export const LeftLabel: Story = {
@@ -204,7 +205,7 @@ export const LeftLabel: Story = {
 
 export const ReadOnly: Story = {
   name: 'Read-only',
-  args: { label: 'Email', readOnly: true, defaultValue: 'you@example.com' },
+  args: { label: 'Email', type: 'email', autoComplete: 'email', readOnly: true, defaultValue: 'you@example.com' },
 };
 
 export const States: Story = {

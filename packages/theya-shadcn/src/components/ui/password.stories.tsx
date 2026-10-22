@@ -80,7 +80,7 @@ export const WithDescription: Story = {
 
 export const WithError: Story = {
   name: 'With error message',
-  args: { label: 'Password', error: 'Password is too short.', defaultValue: 'abc' },
+  args: { label: 'Password', autoComplete: 'new-password', error: 'Password is too short.', defaultValue: 'abc' },
   play: async ({ canvasElement }) => {
     const input = within(canvasElement).getByLabelText('Password');
     await expect(input).toHaveAttribute('aria-invalid', 'true');
@@ -90,7 +90,7 @@ export const WithError: Story = {
 
 export const WithSuccess: Story = {
   name: 'With success message',
-  args: { label: 'Password', success: 'Strong password!', defaultValue: 'correct-horse-battery-staple' },
+  args: { label: 'Password', autoComplete: 'new-password', success: 'Strong password!', defaultValue: 'correct-horse-battery-staple' },
 };
 
 export const States: Story = {
@@ -118,6 +118,7 @@ function StrengthMeterDemo() {
     <div className="flex flex-col gap-3 w-full max-w-[348px]">
       <Password
         label="Password"
+        autoComplete="new-password"
         placeholder="Enter password"
         widthSize="lg"
         value={pwd}

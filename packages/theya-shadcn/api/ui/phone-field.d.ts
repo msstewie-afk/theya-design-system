@@ -22,14 +22,16 @@ export interface PhoneFieldProps {
     heightSize?: PhoneFieldSize;
     disabled?: boolean;
     name?: string;
+    autoComplete?: string;
     id?: string;
     className?: string;
     locale?: string;
     'aria-label'?: string;
 }
-export declare function PhoneField({ value: valueProp, defaultValue, onValueChange, defaultCountry, preferredCountries, label, description, error: errorProp, required, optional, heightSize, disabled, name, id, className, locale: localeProp, 'aria-label': ariaLabel, }: PhoneFieldProps): import("react").JSX.Element;
+export declare function PhoneField({ value: valueProp, defaultValue, onValueChange, defaultCountry, preferredCountries, label, description, error: errorProp, required, optional, heightSize, disabled, name, autoComplete, id, className, locale: localeProp, 'aria-label': ariaLabel, }: PhoneFieldProps): import("react").JSX.Element;
 
 // Defaults
+// PhoneField.autoComplete = tel
 // PhoneField.disabled = false
 // PhoneField.heightSize = md
 // PhoneField.preferredCountries = []

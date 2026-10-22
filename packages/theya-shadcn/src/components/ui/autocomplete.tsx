@@ -43,6 +43,12 @@ export interface AutocompleteProps {
   required?: boolean;
   id?: string;
   name?: string;
+  /**
+   * The input's purpose for autofill, e.g. "country-name", "organization",
+   * "email" (WCAG 1.3.5). Default "off": the browser's own suggestion list
+   * would cover this one.
+   */
+  autoComplete?: string;
   className?: string;
   contentClassName?: string;
   'aria-label'?: string;
@@ -68,6 +74,7 @@ export function Autocomplete({
   required,
   id,
   name,
+  autoComplete = 'off',
   className,
   contentClassName,
   'aria-label': ariaLabel,
@@ -154,6 +161,7 @@ export function Autocomplete({
             ref={inputRef}
             id={resolvedId}
             name={name}
+            autoComplete={autoComplete}
             role="combobox"
             aria-expanded={open}
             aria-controls={listId}

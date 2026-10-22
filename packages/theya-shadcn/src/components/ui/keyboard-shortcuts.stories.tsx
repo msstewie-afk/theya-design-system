@@ -124,6 +124,32 @@ export const ScopedHotkey: Story = {
   },
 };
 
+/**
+ * A chord hotkey ("Mod+/" = ⌘/ on Apple, Ctrl+/ elsewhere) instead of a
+ * bare character. A shortcut with ⌘ / Ctrl / Alt is outside WCAG 2.1.4,
+ * and a chord from a user setting is how an app lets people remap it.
+ */
+export const ChordHotkey: Story = {
+  args: { groups, hotkey: 'Mod+/' },
+  play: async () => {
+    const body = within(document.body);
+    // The bare key doesn't open it.
+    await userEvent.keyboard('/');
+    await expect(body.queryByRole('dialog')).toBeNull();
+    const mod = /Mac|iPhone|iPad/.test(navigator.platform) ? 'Meta' : 'Control';
+    await userEvent.keyboard(`{${mod}>}/{/${mod}}`);
+    await expect(await body.findByRole('dialog')).toBeVisible();
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('dialog')).toBeNull());
+  },
+  render: (args) => (
+    <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">
+      Press ⌘/ (Ctrl+/ on Windows and Linux) to open the shortcuts.
+      <KeyboardShortcuts {...args} />
+    </p>
+  ),
+};
+
 /** Opened, for the open-state baseline: grouped rows with key caps. */
 export const Open: Story = {
   args: {

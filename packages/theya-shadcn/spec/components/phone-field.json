@@ -55,6 +55,13 @@
           "required": false
         },
         {
+          "name": "autoComplete",
+          "type": "string",
+          "required": false,
+          "default": "tel",
+          "description": "Autofill token (WCAG 1.3.5). Default \"tel\"; e.g. \"work tel\", or \"off\" for someone else's number."
+        },
+        {
           "name": "className",
           "type": "string",
           "required": false

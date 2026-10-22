@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { Toaster as SonnerToaster, toast as sonnerToast, type ExternalToast, type ToasterProps } from 'sonner';
 import { Progress } from './progress';
@@ -27,6 +28,13 @@ import { cn } from '../../lib/utils';
  * `closeButton` defaults to `true` (every toast gets one) — pass `false`
  * to turn it off globally, same sonner prop as before, just a different
  * default.
+ *
+ * Timing (WCAG 2.2.1): the timer pauses on hover and — unlike Sonner on
+ * its own — while keyboard focus is inside the toasts. Toasts with an
+ * action or cancel button stay until dismissed unless you pass a
+ * `duration`. Plain toasts close after Sonner's 4 s; give users a
+ * "keep notifications open" setting and feed it to `duration`
+ * (`Number.POSITIVE_INFINITY`, or 10× the default).
  */
 export interface DsToasterProps extends ToasterProps {
   dark?: boolean;
@@ -34,6 +42,30 @@ export interface DsToasterProps extends ToasterProps {
 
 export function Toaster({ closeButton = true, dark = false, position = 'bottom-right', toastOptions, icons, ...props }: DsToasterProps) {
   const { resolvedTheme } = useTheme();
+
+  // Sonner pauses toast timers while the list is hovered (onMouseEnter →
+  // expanded) but not while it has keyboard focus, so Tab-ing to an action
+  // can lose the race. Mirror focus into the same hover state: React derives
+  // onMouseEnter/Leave from mouseover/mouseout, so dispatching those on the
+  // list drives Sonner's own state. (Sonner 2.0.8.)
+  useEffect(() => {
+    const listOf = (node: EventTarget | null) => (node instanceof Element ? node.closest<HTMLElement>('[data-sonner-toaster]') : null);
+    const onFocusIn = (e: FocusEvent) => {
+      const list = listOf(e.target);
+      if (list && listOf(e.relatedTarget) !== list) list.dispatchEvent(new MouseEvent('mouseover', { bubbles: true, relatedTarget: null }));
+    };
+    const onFocusOut = (e: FocusEvent) => {
+      const list = listOf(e.target);
+      if (!list || listOf(e.relatedTarget) === list || list.matches(':hover')) return;
+      list.dispatchEvent(new MouseEvent('mouseout', { bubbles: true, relatedTarget: document.body }));
+    };
+    document.addEventListener('focusin', onFocusIn);
+    document.addEventListener('focusout', onFocusOut);
+    return () => {
+      document.removeEventListener('focusin', onFocusIn);
+      document.removeEventListener('focusout', onFocusOut);
+    };
+  }, []);
 
   return (
     <SonnerToaster
@@ -128,13 +160,21 @@ export type ProgressToastData = Omit<ExternalToast, 'description'> & {
   description?: ReactNode;
 };
 
+// A toast with a button stays until dismissed (WCAG 2.2.1): reaching the
+// button by keyboard or screen reader takes longer than Sonner's 4 s.
+// An explicit `duration` (e.g. undoToast's grace window) still wins.
+const persistIfActionable = (data?: ExternalToast): ExternalToast | undefined =>
+  data && (data.action || data.cancel) && data.duration === undefined ? { duration: Number.POSITIVE_INFINITY, closeButton: true, ...data } : data;
+
 type ToastApi = typeof sonnerToast & {
   progress: (message: Parameters<typeof sonnerToast>[0], data: ProgressToastData) => ReturnType<typeof sonnerToast>;
   accent: (message: Parameters<typeof sonnerToast>[0], data?: ExternalToast) => ReturnType<typeof sonnerToast>;
 };
 
 /**
- * sonner's API with three additions:
+ * sonner's API with these additions:
+ * - A toast with an `action` or `cancel` persists until dismissed
+ *   unless you pass a `duration`.
  * - `toast.error` persists until dismissed (an error scrolled past is
  *   an error hit again) and always renders a close button.
  * - `toast.warning` always renders a close button.
@@ -151,11 +191,14 @@ type ToastApi = typeof sonnerToast & {
  *   status kinds (a tip, a new-feature callout, not success/error/warning/
  *   info about an action just taken).
  */
-export const toast: ToastApi = Object.assign(((...args: Parameters<ToastApi>) => sonnerToast(...args)) as ToastApi, sonnerToast, {
+export const toast: ToastApi = Object.assign(((message: Parameters<ToastApi>[0], data?: ExternalToast) => sonnerToast(message, persistIfActionable(data))) as ToastApi, sonnerToast, {
   error: ((message: Parameters<ToastApi['error']>[0], data?: Parameters<ToastApi['error']>[1]) =>
     sonnerToast.error(message, { duration: Number.POSITIVE_INFINITY, closeButton: true, ...data })) as ToastApi['error'],
   warning: ((message: Parameters<ToastApi['warning']>[0], data?: Parameters<ToastApi['warning']>[1]) =>
-    sonnerToast.warning(message, { closeButton: true, ...data })) as ToastApi['warning'],
+    sonnerToast.warning(message, { closeButton: true, ...persistIfActionable(data) })) as ToastApi['warning'],
+  success: ((message: Parameters<ToastApi['success']>[0], data?: ExternalToast) => sonnerToast.success(message, persistIfActionable(data))) as ToastApi['success'],
+  info: ((message: Parameters<ToastApi['info']>[0], data?: ExternalToast) => sonnerToast.info(message, persistIfActionable(data))) as ToastApi['info'],
+  message: ((message: Parameters<ToastApi['message']>[0], data?: ExternalToast) => sonnerToast.message(message, persistIfActionable(data))) as ToastApi['message'],
   progress: ((message: Parameters<ToastApi>[0], data: ProgressToastData) => {
     const { value, description, classNames, ...rest } = data;
     const pct = Math.min(100, Math.max(0, value));
@@ -196,7 +239,7 @@ export const toast: ToastApi = Object.assign(((...args: Parameters<ToastApi>) =>
     });
   }) as ToastApi['progress'],
   accent: ((message: Parameters<typeof sonnerToast>[0], data?: ExternalToast) => {
-    const { classNames, ...rest } = data ?? {};
+    const { classNames, ...rest } = persistIfActionable(data) ?? {};
     return sonnerToast(message, {
       ...rest,
       classNames: {

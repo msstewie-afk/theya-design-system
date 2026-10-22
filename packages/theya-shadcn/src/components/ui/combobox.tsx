@@ -31,6 +31,12 @@ export interface ComboboxOption {
 
 interface ComboboxCommonProps {
   options: ComboboxOption[];
+  /**
+   * The input's purpose for autofill, e.g. "country-name", "organization",
+   * "email" (WCAG 1.3.5). Default "off": the browser's own suggestion list
+   * would cover this one.
+   */
+  autoComplete?: string;
   /** Matches TextField's own heightSize: 'md' (40px, body-m) or 'sm' (32px, body-s) — the dropdown's own text size follows it too. */
   heightSize?: 'md' | 'sm';
   placeholder?: string;
@@ -112,6 +118,7 @@ export function Combobox(props: ComboboxProps) {
     disabled = false,
     readOnly = false,
     id,
+    autoComplete = 'off',
     className,
     contentClassName,
     renderOption,
@@ -303,6 +310,7 @@ export function Combobox(props: ComboboxProps) {
           <input
             ref={inputRef}
             id={id}
+            autoComplete={autoComplete}
             role="combobox"
             aria-expanded={open}
             aria-controls={listId}

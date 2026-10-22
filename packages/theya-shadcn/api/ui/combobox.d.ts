@@ -10,6 +10,7 @@ export interface ComboboxOption {
 }
 interface ComboboxCommonProps {
     options: ComboboxOption[];
+    autoComplete?: string;
     heightSize?: 'md' | 'sm';
     placeholder?: string;
     emptyMessage?: ReactNode;

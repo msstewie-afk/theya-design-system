@@ -25,8 +25,8 @@ type Story = StoryObj<typeof Fieldset>;
 export const Playground: Story = {
   render: () => (
     <Fieldset legend="Contact" description="How we'll reach you." className="w-[320px] max-w-full">
-      <TextField label="Name" placeholder="Jane Doe" />
-      <TextField label="Email" placeholder="jane@example.com" />
+      <TextField label="Name" autoComplete="name" placeholder="Jane Doe" />
+      <TextField label="Email" type="email" autoComplete="email" placeholder="jane@example.com" />
     </Fieldset>
   ),
 };
@@ -36,8 +36,8 @@ export const NoHeader: Story = {
   name: 'No legend',
   render: () => (
     <Fieldset className="w-[320px] max-w-full">
-      <TextField label="Street" placeholder="123 Main St" />
-      <TextField label="City" placeholder="Springfield" />
+      <TextField label="Street" autoComplete="address-line1" placeholder="123 Main St" />
+      <TextField label="City" autoComplete="address-level2" placeholder="Springfield" />
     </Fieldset>
   ),
 };
@@ -47,8 +47,8 @@ export const LegendOnly: Story = {
   name: 'Legend only',
   render: () => (
     <Fieldset legend="Billing address" className="w-[320px] max-w-full">
-      <TextField label="Street" placeholder="123 Main St" />
-      <TextField label="City" placeholder="Springfield" />
+      <TextField label="Street" autoComplete="billing address-line1" placeholder="123 Main St" />
+      <TextField label="City" autoComplete="billing address-level2" placeholder="Springfield" />
     </Fieldset>
   ),
 };
@@ -79,12 +79,12 @@ export const MultipleSections: Story = {
     // Fieldset) reads as "separate group" on its own — no divider line needed.
     <div className="flex w-[320px] max-w-full flex-col gap-8">
       <Fieldset legend="Contact" description="How we'll reach you.">
-        <TextField label="Name" placeholder="Jane Doe" />
-        <TextField label="Email" placeholder="jane@example.com" />
+        <TextField label="Name" autoComplete="name" placeholder="Jane Doe" />
+        <TextField label="Email" type="email" autoComplete="email" placeholder="jane@example.com" />
       </Fieldset>
       <Fieldset legend="Billing address">
-        <TextField label="Street" placeholder="123 Main St" />
-        <TextField label="City" placeholder="Springfield" />
+        <TextField label="Street" autoComplete="billing address-line1" placeholder="123 Main St" />
+        <TextField label="City" autoComplete="billing address-level2" placeholder="Springfield" />
       </Fieldset>
     </div>
   ),
@@ -93,8 +93,8 @@ export const MultipleSections: Story = {
 export const Disabled: Story = {
   render: () => (
     <Fieldset legend="Billing address" disabled className="w-[320px] max-w-full">
-      <TextField label="Street" placeholder="123 Main St" />
-      <TextField label="City" placeholder="Springfield" />
+      <TextField label="Street" autoComplete="billing address-line1" placeholder="123 Main St" />
+      <TextField label="City" autoComplete="billing address-level2" placeholder="Springfield" />
     </Fieldset>
   ),
 };

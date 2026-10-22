@@ -42,6 +42,8 @@ export const Default: Story = {
     mask: '+1 (___) ___-____',
     defaultValue: '+1 (415) 555-2671',
     'aria-label': 'Phone number',
+    autoComplete: 'tel',
+    inputMode: 'tel',
     className: 'w-[220px]',
   },
   play: async ({ canvasElement }) => {
@@ -55,6 +57,8 @@ export const Typing: Story = {
   args: {
     mask: '+1 (___) ___-____',
     'aria-label': 'Phone number',
+    autoComplete: 'tel',
+    inputMode: 'tel',
     className: 'w-[220px]',
     onUnmaskedChange: fn(),
   },
@@ -96,11 +100,11 @@ export const Formats: Story = {
     <div className="flex flex-col gap-4 w-[220px]">
       <div>
         <p className="font-body text-body-s mb-1 text-[var(--color-text-text)]">Card number</p>
-        <MaskedInput mask="____ ____ ____ ____" defaultValue="4242 4242 4242 4242" aria-label="Card number" />
+        <MaskedInput mask="____ ____ ____ ____" defaultValue="4242 4242 4242 4242" aria-label="Card number" autoComplete="cc-number" inputMode="numeric" />
       </div>
       <div>
         <p className="font-body text-body-s mb-1 text-[var(--color-text-text)]">Expiry</p>
-        <MaskedInput mask="__/__" defaultValue="04/27" aria-label="Expiry" />
+        <MaskedInput mask="__/__" defaultValue="04/27" aria-label="Expiry" autoComplete="cc-exp" inputMode="numeric" />
       </div>
       <div>
         <p className="font-body text-body-s mb-1 text-[var(--color-text-text)]">IPv4 address</p>
@@ -127,6 +131,8 @@ export const Invalid: Story = {
     defaultValue: '+1 (415) 555',
     error: true,
     'aria-label': 'Phone number',
+    autoComplete: 'tel',
+    inputMode: 'tel',
     className: 'w-[220px]',
   },
   play: async ({ canvasElement }) => {

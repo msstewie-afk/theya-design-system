@@ -85,6 +85,13 @@
           "required": false
         },
         {
+          "name": "autoComplete",
+          "type": "string",
+          "required": false,
+          "default": "off",
+          "description": "The input's purpose for autofill, e.g. \"country-name\", \"organization\",\n\"email\" (WCAG 1.3.5). Default \"off\": the browser's own suggestion list\nwould cover this one."
+        },
+        {
           "name": "className",
           "type": "string",
           "required": false

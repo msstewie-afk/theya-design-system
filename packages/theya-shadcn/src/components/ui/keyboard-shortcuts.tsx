@@ -6,19 +6,20 @@ import { cn } from '../../lib/utils';
 import { Kbd } from './kbd';
 import { Dialog, DialogBody, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './dialog';
 import { useTheyaI18n } from '../../lib/i18n';
+import { isCharacterHotkey, isTypingTarget, matchesHotkey } from '../../lib/hotkey';
 
 /**
  * A help dialog listing an app's keyboard shortcuts. Composes Dialog +
- * Kbd. Set `hotkey` (e.g. "?") to open it from anywhere — the global
- * listener ignores keys typed into an input/textarea/select/
- * contenteditable. Kbd shows the shortcut, it doesn't bind it (wire
- * the real handlers in your app).
+ * Kbd. Set `hotkey` to open it from anywhere: "?" or a chord such as
+ * "Mod+/" (⌘ on Apple, Ctrl elsewhere) — see lib/hotkey. Kbd shows the
+ * shortcut, it doesn't bind it (wire the real handlers in your app).
  *
- * `hotkey` is a bare, unmodified character shortcut — WCAG 2.1.4
- * requires turn-off, remap, or "active only on focus" for that shape
- * of shortcut. Pass `scopeRef` (a ref to your app's main work area) to
- * satisfy the third option: the listener then only fires while focus
- * is inside that container. Omitting it keeps it document-wide.
+ * A bare character hotkey ("?") is a WCAG 2.1.4 character-key
+ * shortcut: it is ignored while typing in an input/textarea/select/
+ * contenteditable, and the app must give users a way to turn it off or
+ * remap it (pass `undefined` or their chosen chord from a setting), or
+ * pass `scopeRef` (your main work area) so it only fires while focus is
+ * inside it. A chord with Ctrl / ⌘ / Alt also fires while typing.
  */
 export interface Shortcut {
   /** Keys in one chord, or sequential chords separated by "then". */
@@ -42,17 +43,12 @@ function getShortcutSteps(keys: string[]) {
   }, [[]]);
 }
 
-function isTypingTarget(target: EventTarget | null) {
-  if (!(target instanceof HTMLElement)) return false;
-  if (target.isContentEditable) return true;
-  return /^(input|textarea|select)$/i.test(target.tagName);
-}
-
 export interface KeyboardShortcutsProps extends Omit<React.ComponentProps<typeof DialogContent>, 'children' | 'title'> {
   groups: ShortcutGroup[];
   title?: ReactNode;
   description?: ReactNode;
   trigger?: ReactElement;
+  /** "?" or a chord like "Mod+/" (lib/hotkey). A bare character needs a user off/remap setting or `scopeRef` (WCAG 2.1.4). */
   hotkey?: string;
   scopeRef?: RefObject<HTMLElement | null>;
   open?: boolean;
@@ -91,10 +87,9 @@ export function KeyboardShortcuts({
     if (!hotkey) return;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.defaultPrevented) return;
-      if (event.ctrlKey || event.metaKey || event.altKey) return;
-      if (isTypingTarget(event.target)) return;
+      if (isCharacterHotkey(hotkey) && isTypingTarget(event.target)) return;
       if (scopeRef && !scopeRef.current?.contains(document.activeElement)) return;
-      if (event.key.toLowerCase() === hotkey.toLowerCase()) {
+      if (matchesHotkey(event, hotkey)) {
         event.preventDefault();
         setOpen(true);
       }

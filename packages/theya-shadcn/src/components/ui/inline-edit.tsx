@@ -231,6 +231,7 @@ export function InlineEdit({
                 rows={Math.max(2, draft.split('\n').length)}
                 className="min-h-0 resize-y [field-sizing:content]"
                 disabled={saving}
+                autoComplete={autoComplete}
               />
             ) : (
               <TextField

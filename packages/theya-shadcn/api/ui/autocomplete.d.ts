@@ -24,6 +24,7 @@ export interface AutocompleteProps {
     required?: boolean;
     id?: string;
     name?: string;
+    autoComplete?: string;
     className?: string;
     contentClassName?: string;
     'aria-label'?: string;
@@ -31,9 +32,10 @@ export interface AutocompleteProps {
     'aria-invalid'?: boolean | 'true' | 'false';
     'aria-describedby'?: string;
 }
-export declare function Autocomplete({ options, heightSize, placeholder, value, defaultValue, onValueChange, emptyMessage, loading, loadingMessage, disableFilter, showClear, disabled, readOnly, required, id, name, className, contentClassName, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-invalid': ariaInvalid, 'aria-describedby': ariaDescribedby, }: AutocompleteProps): import("react").JSX.Element;
+export declare function Autocomplete({ options, heightSize, placeholder, value, defaultValue, onValueChange, emptyMessage, loading, loadingMessage, disableFilter, showClear, disabled, readOnly, required, id, name, autoComplete, className, contentClassName, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-invalid': ariaInvalid, 'aria-describedby': ariaDescribedby, }: AutocompleteProps): import("react").JSX.Element;
 
 // Defaults
+// Autocomplete.autoComplete = off
 // Autocomplete.disableFilter = false
 // Autocomplete.emptyMessage = No results. (localized: common.noResults)
 // Autocomplete.heightSize = md

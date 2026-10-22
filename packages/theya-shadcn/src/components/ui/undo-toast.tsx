@@ -13,7 +13,7 @@ import { toast } from './sonner';
 export interface UndoToastOptions {
   title: string;
   description?: string;
-  /** Grace period before the action commits (ms). */
+  /** Grace period before the action commits (ms). Scale it with a user "more time" setting (WCAG 2.2.1). */
   duration?: number;
   undoLabel?: string;
   /** Defaults to a trash glyph; pass null to omit. */
@@ -25,8 +25,8 @@ export interface UndoToastOptions {
 export function undoToast({ title, description, duration = 10000, undoLabel = getTheyaMessages().undoToast.undo, icon = <Trash width={16} height={16} />, onUndo, onCommit }: UndoToastOptions) {
   let undone = false;
   // A thin bar drains over the grace window (Kinetics' Undo Snackbar, MIT), so the time
-  // left to undo is visible. Sonner pauses its timer while the toasts are hovered
-  // (expanded); the bar pauses with it. It keeps running with reduced motion: it is
+  // left to undo is visible. The timer pauses while the toasts are hovered or hold
+  // keyboard focus (both set data-expanded, see Toaster); the bar pauses with it. It keeps running with reduced motion: it is
   // the time left, not decoration. Rendered with the title so a description-less toast
   // keeps its single-line layout.
   const timedTitle = (

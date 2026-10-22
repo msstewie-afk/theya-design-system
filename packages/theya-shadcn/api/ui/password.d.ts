@@ -9,8 +9,10 @@ declare const WIDTH_SIZE_MAP: {
 };
 export interface PasswordProps extends Omit<TextFieldProps, 'type' | 'leftIcon' | 'rightIcon' | 'widthSize'> {
     widthSize?: keyof typeof WIDTH_SIZE_MAP;
+    autoComplete?: TextFieldProps['autoComplete'];
 }
 export declare const Password: import("react").ForwardRefExoticComponent<PasswordProps & import("react").RefAttributes<HTMLInputElement>>;
 
 // Defaults
+// Password.autoComplete = current-password
 // Password.widthSize = md

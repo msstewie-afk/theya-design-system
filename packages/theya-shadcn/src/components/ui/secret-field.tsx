@@ -87,11 +87,12 @@ function SecretField({
           // Clipboard blocked, denied, or unavailable. Reveal the value (when
           // allowed) so it can be copied by hand — masked, it isn't in the DOM.
           if (revealable) setRevealed(true);
-          // Explicit duration: toast.error persists until dismissed by
-          // default, which is right for a failed operation but not for a
-          // blocked clipboard — the fallback is already on screen.
+          // toast.error persists until dismissed by default. When the value
+          // is revealed the fallback is already on screen, so 6 s is enough;
+          // when it can't be revealed the toast is the only explanation, so
+          // it stays (WCAG 2.2.1).
           toast.error(t.secretField.copyFailed, {
-            duration: 6000,
+            ...(revealable ? { duration: 6000 } : {}),
             description: revealable ? t.secretField.copyManually : t.secretField.insecure,
           });
         }}

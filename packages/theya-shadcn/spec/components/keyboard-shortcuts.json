@@ -79,7 +79,8 @@
         {
           "name": "hotkey",
           "type": "string",
-          "required": false
+          "required": false,
+          "description": "\"?\" or a chord like \"Mod+/\" (lib/hotkey). A bare character needs a user off/remap setting or `scopeRef` (WCAG 2.1.4)."
         },
         {
           "name": "onOpenChange",
@@ -141,6 +142,10 @@
       {
         "name": "ScopedHotkey",
         "id": "overlays-keyboardshortcuts--scoped-hotkey"
+      },
+      {
+        "name": "ChordHotkey",
+        "id": "overlays-keyboardshortcuts--chord-hotkey"
       },
       {
         "name": "Open",

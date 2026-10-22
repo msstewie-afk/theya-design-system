@@ -116,6 +116,45 @@ export const Undo: Story = {
       Delete site
     </Button>
   ),
+  // A toast with a button stays until dismissed (WCAG 2.2.1): Sonner's
+  // default 4 s is too short to reach Undo by keyboard.
+  play: async ({ canvasElement }) => {
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Delete site' }));
+    const body = within(document.body);
+    await body.findByText('Site deleted');
+    await new Promise((r) => setTimeout(r, 4600));
+    await expect(body.getByRole('button', { name: 'Undo' })).toBeVisible();
+    await userEvent.click(body.getByRole('button', { name: /close/i }));
+    await waitFor(() => expect(body.queryByText('Site deleted')).toBeNull());
+  },
+};
+
+/**
+ * Keyboard focus inside a toast pauses its timer, like hover does (WCAG
+ * 2.2.1). Sonner pauses only on hover; the Toaster mirrors focus into it.
+ */
+export const FocusPausesTimer: Story = {
+  name: 'Focus pauses the timer',
+  render: () => (
+    <Button appearance="outlined" tone="secondary" onClick={() => toast.success('Backup finished', { description: 'shop.seashell.dev · 2.4 GB' })}>
+      Run backup
+    </Button>
+  ),
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Run backup' });
+    await userEvent.click(trigger);
+    const body = within(document.body);
+    const title = await body.findByText('Backup finished');
+    // Focus the toast itself (a Tab stop), as a keyboard user reaching it would.
+    const item = title.closest<HTMLElement>('[data-sonner-toast]')!;
+    item.focus();
+    await waitFor(() => expect(item.closest('[data-sonner-toaster]')?.querySelector('[data-expanded="true"]')).not.toBeNull());
+    await new Promise((r) => setTimeout(r, 4600));
+    await expect(body.getByText('Backup finished')).toBeVisible();
+    // Focus leaves: the timer runs again and the toast closes on its own.
+    trigger.focus();
+    await waitFor(() => expect(body.queryByText('Backup finished')).toBeNull(), { timeout: 6000 });
+  },
 };
 
 /** Promise toast: loading → success / error. */

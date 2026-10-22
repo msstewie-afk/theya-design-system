@@ -719,6 +719,7 @@ Docs: ./?path=/docs/selection-autocomplete--docs
 - `aria-invalid?`: `boolean | "true" | "false"`
 - `aria-label?`: `string`
 - `aria-labelledby?`: `string`
+- `autoComplete?`: `string`, default `off` — The input's purpose for autofill, e.g. "country-name", "organization",
 - `className?`: `string`
 - `contentClassName?`: `string`
 - `defaultValue?`: `string`
@@ -2325,6 +2326,7 @@ Docs: ./?path=/docs/selection-combobox--docs
 - `aria-invalid?`: `boolean | "true" | "false"`
 - `aria-label?`: `string`
 - `aria-labelledby?`: `string`
+- `autoComplete?`: `string` — The input's purpose for autofill, e.g. "country-name", "organization",
 - `chevronLabel?`: `string`, default `Open options (localized: combobox.open)` — Accessible label for the chevron button that opens the list.
 - `className?`: `string`
 - `clearLabel?`: `string`, default `Clear selection (localized: combobox.clear)`
@@ -5245,7 +5247,7 @@ Docs: ./?path=/docs/overlays-keyboardshortcuts--docs
 - `defaultOpen?`: `boolean`
 - `description?`: `ReactNode`
 - `gap?`: `"none" | "md" | "sm"` — Spacing between the header, body, and footer sections: `md` (default), `sm`, or `none`.
-- `hotkey?`: `string`
+- `hotkey?`: `string` — "?" or a chord like "Mod+/" (lib/hotkey). A bare character needs a user off/remap setting or `scopeRef` (WCAG 2.1.4).
 - `onOpenChange?`: `((open: boolean) => void)`
 - `open?`: `boolean`
 - `scopeRef?`: `RefObject<HTMLElement | null>`
@@ -6529,6 +6531,7 @@ Docs: ./?path=/docs/text-input-password--docs
 
 **Password props**
 
+- `autoComplete?`: `HTMLInputAutoCompleteAttribute`, default `current-password` — Default "current-password" (sign-in). Use "new-password" when setting one (WCAG 1.3.5, password managers).
 - `description?`: `ReactNode` — Helper text below the field. Hidden when `error` or `success` is set.
 - `error?`: `ReactNode` — Error message shown below the field with a warning icon, and
 - `heightSize?`: `"md" | "lg" | "sm" | null`
@@ -6648,6 +6651,7 @@ Docs: ./?path=/docs/text-input-phonefield--docs
 **PhoneField props**
 
 - `aria-label?`: `string`
+- `autoComplete?`: `string`, default `tel` — Autofill token (WCAG 1.3.5). Default "tel"; e.g. "work tel", or "off" for someone else's number.
 - `className?`: `string`
 - `defaultCountry?`: `"AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AR" | "AS" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BW" | "BY" | "BZ" | "CA" | "CC" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CU" | "CV" | "CW" | "CX" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FM" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IR" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KP" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MH" | "MK" | "ML" | "MM" | "MN" | "MO" | "MP" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NF" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PR" | "PS" | "PT" | "PW" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SD" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SY" | "SZ" | "TA" | "TC" | "TD" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VI" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW"` — Starting country when there's no value. Defaults to the browser's region, then US.
 - `defaultValue?`: `string` — Uncontrolled starting value in E.164.
@@ -10550,7 +10554,7 @@ Docs: ./?path=/docs/status-feedback-undotoast--docs
 
 - `title`: `string`
 - `description?`: `string`
-- `duration?`: `number` — Grace period before the action commits (ms).
+- `duration?`: `number` — Grace period before the action commits (ms). Scale it with a user "more time" setting (WCAG 2.2.1).
 - `undoLabel?`: `string`
 - `icon?`: `ReactNode` — Defaults to a trash glyph; pass null to omit.
 - `onUndo?`: `() => void`
