@@ -375,10 +375,10 @@ function LoadingToggleDemo() {
 }
 
 /**
- * Regression test for the loading layout shift (the button used to grow
- * from 75.6px to 97.6px when it had no leftIcon). The play function
- * toggles loading and checks the width is unchanged, the spinner is
- * shown, and the button keeps its accessible name while busy.
+ * Turning on loading keeps the button's width, with or without a leftIcon.
+ * The play function toggles loading and checks that the width stays the
+ * same, the spinner shows, and the button keeps its accessible name while
+ * busy.
  */
 export const LoadingKeepsWidth: Story = {
   name: 'Test: loading keeps width',

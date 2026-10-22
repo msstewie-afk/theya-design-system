@@ -4,22 +4,22 @@
  * ("Token architecture", "Usage principles"). Values shown here are read
  * from the token build (token-values.ts), so they can't drift from it.
  */
-import type { ReactNode } from 'react';
+import { Fragment, type ReactNode } from 'react';
 import { NavArrowRight } from 'iconoir-react';
 import { tokenValue } from './token-values';
 
 /* ------------------------------ helpers ------------------------------ */
 
 function Page({ children }: { children: ReactNode }) {
-  return <div className="mx-auto flex w-full max-w-[70%] flex-col gap-10 pt-[100px]">{children}</div>;
+  return <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 pt-6 sm:pt-16">{children}</div>;
 }
 
 function Section({ title, description, children }: { title: string; description?: ReactNode; children: ReactNode }) {
   return (
     <section className="flex flex-col gap-4 border-b border-solid border-[var(--color-border-border)] pb-10 last:border-b-0">
       <div>
-        <h2 className="text-xl font-semibold text-[var(--color-text-text)]">{title}</h2>
-        {description && <p className="mt-1 max-w-[70ch] text-body-m text-[var(--color-text-text-subtle)]">{description}</p>}
+        <h2 className="m-0 font-heading text-heading-s font-semibold text-[var(--color-text-text)]">{title}</h2>
+        {description && <p className="mt-1 mb-0 max-w-[70ch] font-body text-body-m text-[var(--color-text-text-subtle)]">{description}</p>}
       </div>
       {children}
     </section>
@@ -136,7 +136,8 @@ function TokenChip({ name, layer }: { name: string; layer: 'primitive' | 'semant
   const value = layer === 'usage' ? null : tokenValue(name);
   return (
     <span className="flex min-w-0 flex-col gap-0.5">
-      <code className="truncate font-mono text-body-s text-[var(--color-text-text)]" title={name}>
+      {/* Primitive and semantic names stay on one line; the class in a component wraps, so the sample column stays in view. */}
+      <code className={`font-mono text-body-s text-[var(--color-text-text)] ${layer === 'usage' ? '[overflow-wrap:anywhere]' : 'whitespace-nowrap'}`}>
         {name}
       </code>
       {value && <span className="font-mono text-body-xs text-[var(--color-text-text-subtler)]">{value}</span>}
@@ -162,11 +163,23 @@ export function TokenArchitecturePage() {
       >
         <ol className="flex flex-col gap-2">
           {LAYERS.map((l, i) => (
-            <li key={l.name} className={`${panel} grid gap-x-6 gap-y-2 p-5 md:grid-cols-[12rem_minmax(0,1fr)]`}>
+            <li key={l.name} className={`${panel} grid gap-x-6 gap-y-2 p-5 md:grid-cols-[14rem_minmax(0,1fr)]`}>
               <div className="flex flex-col gap-1">
                 <span className="font-heading text-heading-2xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]">{`Layer ${i + 1}`}</span>
                 <span className="text-body-l font-semibold text-[var(--color-text-text)]">{l.name}</span>
-                <span className="break-all font-mono text-body-xs text-[var(--color-text-text-subtle)]">{l.where}</span>
+                <span className="font-mono text-body-xs text-[var(--color-text-text-subtle)]">
+                  {/* Paths wrap only after a slash. */}
+                  {l.where.split('/').map((part, j, all) => (
+                    <Fragment key={j}>
+                      {part}
+                      {j < all.length - 1 && (
+                        <>
+                          /<wbr />
+                        </>
+                      )}
+                    </Fragment>
+                  ))}
+                </span>
               </div>
               <div className="flex flex-col gap-2">
                 <p className="text-body-m text-[var(--color-text-text)]">{l.what}</p>
@@ -180,7 +193,7 @@ export function TokenArchitecturePage() {
       <Section title="From value to class" description="The same path for every kind of token. Values are read from the current build.">
         {/* Scrolls sideways on narrow screens, so it's focusable for keyboard scrolling. */}
         <div role="region" aria-label="Token chains" tabIndex={0} className={`${panel} overflow-x-auto outline-none focus-visible:focus-ring`}>
-          <table className="w-full min-w-[52rem] border-collapse text-left">
+          <table className="w-full min-w-[44rem] border-collapse text-left">
             <thead>
               <tr className="border-b border-solid border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]">
                 {/* Empty columns (row label, arrows, sample) get <td>: an empty <th> is an unnamed header. */}

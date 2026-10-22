@@ -179,8 +179,8 @@ const BODY_TYPE_VALUES = Object.fromEntries((['xs', 's', 'm', 'l', 'xl'] as cons
   { size: string; lineHeight: string; weight: number }
 >;
 
-// Includes 2xs/3xs — previously missing from this story even though the
-// tokens (and the `text-heading-2xs`/`text-heading-3xs` utilities) exist.
+// Every heading step, including 2xs and 3xs (`text-heading-2xs`,
+// `text-heading-3xs`).
 const HEADING_TYPE_VALUES = Object.fromEntries(
   (['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl'] as const).map((k) => [k, typeValues(`--typography-heading-heading-${k}`)]),
 ) as Record<'3xs' | '2xs' | 'xs' | 's' | 'm' | 'l' | 'xl' | '2xl' | '3xl', { size: string; lineHeight: string; weight: number }>;
@@ -652,9 +652,9 @@ export const BorderRadius: Story = {
 
           <SpecTable rows={RADIUS_ROWS} />
 
-          <MigrationNote>
+          <Note>
             Tailwind's rounded-* names are shifted against the token names: rounded-sm is token md (4px), rounded-lg is lg (6px), rounded-xl is xl (8px). Plain rounded and rounded-md are not bridged at all and fall back to Tailwind's own 4px and 6px. In components, write the token form: rounded-[var(--size-border-radius-border-radius-lg)].
-          </MigrationNote>
+          </Note>
         </div>
       </Section>
     </Page>
@@ -757,9 +757,9 @@ export const FocusRing: Story = {
             </ul>
           </div>
 
-          <MigrationNote>
-            Ring widths are not uniform yet: Button, Card and Slider draw 3px instead of 4px. This is under review in the WCAG pass. Button's ring contrast is a documented, accepted exception.
-          </MigrationNote>
+          <Note>
+            Known exceptions: Button, Card and Slider draw a 3px ring instead of 4px. The soft ring's contrast is an accepted deviation from WCAG 1.4.11, listed on the Accessibility page.
+          </Note>
         </div>
         {/* Demo-only: apply the per-card ring on keyboard focus. */}
         <style>{`[data-focus-demo]:focus-visible { box-shadow: 0 0 0 4px var(--demo-ring); }`}</style>
@@ -770,39 +770,66 @@ export const FocusRing: Story = {
 
 type SpecRow = { token: string; value: string; use: string; usedBy: string };
 
-// Four-column spec table shared by the scale stories below.
-// The box scrolls sideways on narrow screens, so it's a tab stop (axe
-// scrollable-region-focusable) with a name for screen readers.
-function SpecTable({ rows, valueLabel = 'Value' }: { rows: SpecRow[]; valueLabel?: string }) {
+// Four-column spec table shared by the scale stories below. On a phone it
+// turns into stacked cards (Mobile rule: tables never scroll sideways); from
+// sm up it is a plain table.
+function SpecTable({
+  rows,
+  tokenLabel = 'Token',
+  valueLabel = 'Value',
+  usedByLabel = 'Used by',
+}: {
+  rows: SpecRow[];
+  tokenLabel?: string;
+  valueLabel?: string;
+  usedByLabel?: string;
+}) {
+  const frame = 'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)]';
   return (
-    <div role="group" aria-label="Token table" tabIndex={0} className="overflow-x-auto outline-none focus-visible:focus-ring rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)]">
-      <table className="w-full border-collapse text-left">
-        <thead>
-          <tr className="border-b border-solid border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]">
-            {['Token', valueLabel, 'Use for', 'Used by today'].map((h) => (
-              <th key={h} className="px-4 py-2.5 text-body-s font-medium text-[var(--color-text-text-subtle)]">
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r) => (
-            <tr key={r.token} className="border-b border-solid border-[var(--color-border-border-subtler)] align-top last:border-b-0">
-              <td className="whitespace-nowrap px-4 py-3 font-mono text-body-s text-[var(--color-text-text)]">{r.token}</td>
-              <td className="whitespace-nowrap px-4 py-3 font-mono text-body-s text-[var(--color-text-text-subtle)]">{r.value}</td>
-              <td className="px-4 py-3 text-body-m text-[var(--color-text-text)]">{r.use}</td>
-              <td className="px-4 py-3 text-body-s text-[var(--color-text-text-subtle)]">{r.usedBy}</td>
+    <>
+      <ul className={`${frame} m-0 flex list-none flex-col p-0 sm:hidden`}>
+        {rows.map((r) => (
+          <li key={r.token} className="flex flex-col gap-1.5 border-b border-solid border-[var(--color-border-border-subtler)] px-4 py-3 last:border-b-0">
+            <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
+              <span className="font-mono text-body-s text-[var(--color-text-text)] [overflow-wrap:anywhere]">{r.token}</span>
+              <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">{r.value}</span>
+            </div>
+            <p className="m-0 text-body-m text-[var(--color-text-text)]">{r.use}</p>
+            <p className="m-0 text-body-s text-[var(--color-text-text-subtle)]">
+              <span className="font-medium">{usedByLabel}:</span> {r.usedBy}
+            </p>
+          </li>
+        ))}
+      </ul>
+      <div className={`${frame} hidden overflow-hidden sm:block`}>
+        <table className="w-full border-collapse text-left">
+          <thead>
+            <tr className="border-b border-solid border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]">
+              {[tokenLabel, valueLabel, 'Use for', usedByLabel].map((h) => (
+                <th key={h} scope="col" className="px-4 py-2.5 text-body-s font-medium text-[var(--color-text-text-subtle)]">
+                  {h}
+                </th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.token} className="border-b border-solid border-[var(--color-border-border-subtler)] align-top last:border-b-0">
+                <td className="px-4 py-3 font-mono text-body-s text-[var(--color-text-text)] [overflow-wrap:anywhere] lg:whitespace-nowrap">{r.token}</td>
+                <td className="whitespace-nowrap px-4 py-3 font-mono text-body-s text-[var(--color-text-text-subtle)]">{r.value}</td>
+                <td className="px-4 py-3 text-body-m text-[var(--color-text-text)]">{r.use}</td>
+                <td className="px-4 py-3 text-body-s text-[var(--color-text-text-subtle)]">{r.usedBy}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
 
-// Honest status line: the scales exist, components have not migrated yet.
-function MigrationNote({ children }: { children: React.ReactNode }) {
+// A short note under a scale: a known exception or where the values live.
+function Note({ children }: { children: React.ReactNode }) {
   return (
     <p className="rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-info-bg-info-subtle)] px-4 py-3 text-body-s text-[var(--color-text-text)]">
       {children}
@@ -849,11 +876,11 @@ export const Elevation: Story = {
         description="Five shadow steps, tinted toward slate-900 in light and black with a faint light rim on floating layers in dark. The higher the step, the further the surface is from the page; lg and xl add a 1px ambient layer because they float. Use as shadow-elevation-{xs|sm|md|lg|xl}; shadow-elevation-edge-up for a panel pinned to the bottom edge."
       >
         <div className="flex flex-col gap-6">
-          <div className="flex flex-wrap gap-8 rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] p-8">
+          <div className="grid grid-cols-2 gap-6 rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] p-6 sm:flex sm:flex-wrap sm:gap-8 sm:p-8">
             {ELEVATION_DEMO.map(({ s, label, cls }) => (
               <div
                 key={s}
-                className={`flex h-24 w-36 flex-col justify-between rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface)] p-3 ${cls}`}
+                className={`flex h-24 flex-col justify-between sm:w-36 rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface)] p-3 ${cls}`}
               >
                 <span className="text-body-m font-medium text-[var(--color-text-text)]">{label}</span>
                 <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">elevation-{s}</span>
@@ -861,28 +888,9 @@ export const Elevation: Story = {
             ))}
           </div>
           <SpecTable rows={ELEVATION_ROWS} valueLabel="Shadow" />
-          <div className="flex flex-col gap-4">
-            <SubHeading>Built in</SubHeading>
-            <p className="max-w-[70ch] text-body-m text-[var(--color-text-text)]">
-              These move without any prop. Keyframes live in src/styles/motion.css; most are adapted from Kinetics and CSS Loaders (MIT, see THIRD-PARTY-NOTICES.md).
-            </p>
-            <SpecTable rows={BUILT_IN_ROWS} valueLabel="What moves" />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <SubHeading>Rules</SubHeading>
-            <ul className="flex max-w-[70ch] list-disc flex-col gap-2 pl-5 text-body-m text-[var(--color-text-text)]">
-              <li>Motion answers an action or a change of state. Nothing animates on first render: a chip that starts selected or the starting step of a Stepper stays still.</li>
-              <li>Short and once: feedback stays under half a second. Anything that repeats stops on its own within 5 seconds (BadgeIndicator pulse rings three times) or has a pause (Marquee) — WCAG 2.2.2.</li>
-              <li>Reduced motion: transitions and one-off effects are dropped and the end state shows at once; loaders don’t freeze but fade slowly; a timer (undoToast’s bar) keeps running, because it is information.</li>
-              <li>Decorative, endless motion (Aurora, Border beam, Neon glow, Float bob) is a preset for landing pages and promos — one per screen, never in forms or settings.</li>
-              <li>A new effect goes into Motion › Micro-interactions first, as a “Now / Variant” pair, and becomes a default only once it is chosen.</li>
-            </ul>
-          </div>
-
-          <MigrationNote>
-            Migrated 2026-10-01: every component uses shadow-elevation-*. Values live in @theya/tokens (--elevation-*). Focus rings drawn with box-shadow are a separate thing.
-          </MigrationNote>
+          <Note>
+            Values live in @theya/tokens (--elevation-*). Focus rings are also drawn with box-shadow, but they are a separate scale: see Focus ring.
+          </Note>
         </div>
       </Section>
     </Page>
@@ -914,7 +922,7 @@ const BUILT_IN_ROWS: SpecRow[] = [
   { token: 'Menus', value: 'Bloom', use: 'DropdownMenu, ContextMenu, Menubar, Select and Popover unfold from the trigger side; items slide in one by one.', usedBy: 'Kinetics · Command Palette Bloom' },
   { token: 'Spinner', value: 'growing arc', use: 'Button loading, Combobox, Autocomplete, Command, Dropzone.', usedBy: 'CSS Loaders · Meridian' },
   { token: 'Skeleton', value: 'sweep', use: 'A soft highlight runs across the fully rounded placeholder.', usedBy: 'Kinetics · Skeleton Sweep' },
-  { token: 'Progress', value: 'sweep, segments', use: 'indeterminate sweeps; segments fill one after another.', usedBy: 'Kinetics · Indeterminate Bar, Segment Loader' },
+  { token: 'Progress', value: 'sweep, segments', use: 'An indeterminate bar sweeps; segments fill one after another.', usedBy: 'Kinetics · Indeterminate Bar, Segment Loader' },
   { token: 'Stepper', value: 'fill, pop', use: 'The segment fills green, then the new current step pops.', usedBy: 'Kinetics · Step Progress' },
   { token: 'Form', value: 'shake', use: 'A failed submit shakes each invalid field once.', usedBy: 'Kinetics · Error Shake' },
   { token: 'Chip, Rating, SwatchPicker', value: 'pop', use: 'The chosen item springs up; Rating stars light up in turn and the picked one throws sparks.', usedBy: 'Kinetics · Choice Chips, Star Rating, Swatch Picker' },
@@ -927,12 +935,13 @@ const BUILT_IN_ROWS: SpecRow[] = [
 ];
 
 const DURATION_DEMO = [
-  { name: 'fast', ms: 100, cls: 'duration-fast' },
-  { name: 'standard', ms: 150, cls: 'duration-standard' },
-  { name: 'moderate', ms: 200, cls: 'duration-moderate' },
-  { name: 'slow', ms: 300, cls: 'duration-slow' },
-  { name: 'slower', ms: 450, cls: 'duration-slower' },
+  { name: 'fast', ms: 100 },
+  { name: 'standard', ms: 150 },
+  { name: 'moderate', ms: 200 },
+  { name: 'slow', ms: 300 },
+  { name: 'slower', ms: 450 },
 ] as const;
+const DURATION_MAX = 450;
 
 const EASING_DEMO = [
   { name: 'enter', curve: 'var(--ease-enter)' },
@@ -953,13 +962,13 @@ export const Motion: Story = {
           <div className="flex flex-col gap-4">
             <SubHeading>Duration</SubHeading>
             <div className="flex flex-col gap-4 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)] p-5">
-              {DURATION_DEMO.map(({ name, ms, cls }) => (
-                <div key={name} className="flex items-center gap-4">
-                  <span className="w-36 shrink-0 font-mono text-body-s text-[var(--color-text-text-subtle)]">duration-{name}</span>
-                  <div className="h-2 flex-1 overflow-hidden rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]">
-                    <div className={`theya-grow h-full w-full origin-left rounded-full bg-[var(--color-bg-primary-bg-primary)] ${cls}`} />
+              {DURATION_DEMO.map(({ name, ms }) => (
+                <div key={name} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1.5 sm:flex">
+                  <span className="font-mono text-body-s text-[var(--color-text-text-subtle)] sm:w-36 sm:shrink-0">duration-{name}</span>
+                  <div className="order-last col-span-2 h-2 overflow-hidden sm:order-none sm:flex-1 rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]">
+                    <div className="h-full rounded-full bg-[var(--color-bg-primary-bg-primary)]" style={{ width: `${(ms / DURATION_MAX) * 100}%` }} />
                   </div>
-                  <span className="w-14 shrink-0 text-right font-mono text-body-s text-[var(--color-text-text-subtle)]">{ms}ms</span>
+                  <span className="text-right font-mono sm:w-14 sm:shrink-0 text-body-s text-[var(--color-text-text-subtle)]">{ms}ms</span>
                 </div>
               ))}
             </div>
@@ -970,9 +979,9 @@ export const Motion: Story = {
             <SubHeading>Easing</SubHeading>
             <div className="flex flex-col gap-4 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)] p-5">
               {EASING_DEMO.map(({ name, curve }) => (
-                <div key={name} className="flex items-center gap-4">
-                  <span className="w-36 shrink-0 font-mono text-body-s text-[var(--color-text-text-subtle)]">ease-{name}</span>
-                  <div className="relative h-4 flex-1">
+                <div key={name} className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-4">
+                  <span className="font-mono text-body-s text-[var(--color-text-text-subtle)] sm:w-36 sm:shrink-0">ease-{name}</span>
+                  <div className="relative h-4 sm:flex-1">
                     <div className="absolute inset-x-0 top-1/2 h-px bg-[var(--color-border-border-subtler)]" />
                     <div
                       className="theya-slide absolute top-0 size-4 rounded-full bg-[var(--color-bg-primary-bg-primary)]"
@@ -985,18 +994,34 @@ export const Motion: Story = {
             <SpecTable rows={EASING_ROWS} valueLabel="Curve" />
           </div>
 
-          <MigrationNote>
-            Migrated 2026-10-01: components use duration-fast/standard/moderate/slow and ease-enter/exit/spring/press. Values live in @theya/tokens (--motion-*). One off-scale value remains on purpose: Button's 220ms press spring.
-          </MigrationNote>
+          <div className="flex flex-col gap-4">
+            <SubHeading>Built in</SubHeading>
+            <p className="max-w-[70ch] text-body-m text-[var(--color-text-text)]">
+              These move without any prop. Keyframes live in src/styles/motion.css; most are adapted from Kinetics and CSS Loaders (MIT, see THIRD-PARTY-NOTICES.md).
+            </p>
+            <SpecTable rows={BUILT_IN_ROWS} tokenLabel="Component" valueLabel="What moves" usedByLabel="Adapted from" />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <SubHeading>Rules</SubHeading>
+            <ul className="flex max-w-[70ch] list-disc flex-col gap-2 pl-5 text-body-m text-[var(--color-text-text)]">
+              <li>Motion answers an action or a change of state. Nothing animates on first render: a chip that starts selected or the starting step of a Stepper stays still.</li>
+              <li>Short and once: feedback stays under half a second. Anything that repeats stops on its own within 5 seconds (BadgeIndicator pulse rings three times) or has a pause (Marquee) — WCAG 2.2.2.</li>
+              <li>Reduced motion: transitions and one-off effects are dropped and the end state shows at once; loaders don’t freeze but fade slowly; a timer (undoToast’s bar) keeps running, because it is information.</li>
+              <li>Decorative, endless motion (Aurora, Border beam, Neon glow, Float bob) is a preset for landing pages and promos — one per screen, never in forms or settings.</li>
+              <li>A new effect goes into Motion › Micro-interactions first, as a “Now / Variant” pair, and becomes a default only once it is chosen.</li>
+            </ul>
+          </div>
+
+          <Note>
+            Values live in @theya/tokens (--motion-*). One value is off the scale on purpose: Button's press spring runs 220ms.
+          </Note>
         </div>
-        {/* Demo-only keyframes. Both demos stop entirely under prefers-reduced-motion. */}
+        {/* Demo-only keyframes. The easing demo stops under prefers-reduced-motion. The track ends at 88% so ease-spring's overshoot stays inside the panel. */}
         <style>{`
-          @keyframes theya-grow { 0%, 10% { transform: scaleX(0); } 50%, 100% { transform: scaleX(1); } }
-          @keyframes theya-slide { from { left: 0; } to { left: calc(100% - 1rem); } }
-          .theya-grow { transform: scaleX(0); animation: theya-grow 2.4s ease-in-out infinite; }
+          @keyframes theya-slide { from { left: 0; } to { left: calc(88% - 1rem); } }
           .theya-slide { animation: theya-slide 1.6s infinite alternate; }
           @media (prefers-reduced-motion: reduce) {
-            .theya-grow { animation: none; transform: scaleX(1); }
             .theya-slide { animation: none; }
           }
         `}</style>
@@ -1039,7 +1064,7 @@ export const Layering: Story = {
               <div className="absolute left-16 top-8 z-(--z-index-toast) flex h-16 w-40 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-primary-bg-primary)] font-mono text-body-s text-[var(--color-text-text-on-primary)]">
                 z-(--z-index-toast)
               </div>
-              <div className="absolute left-8 top-0 z-10 flex h-16 w-40 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-danger-bg-danger)] font-mono text-body-s text-[var(--color-text-text-on-dark)]">
+              <div className="absolute left-8 top-0 z-10 flex h-16 w-40 items-start px-3 py-2 rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-danger-bg-danger)] font-mono text-body-s text-[var(--color-text-text-on-dark)]">
                 z-10
               </div>
             </div>
@@ -1047,9 +1072,9 @@ export const Layering: Story = {
               The blue box comes first in the DOM and would lose under plain paint order, yet it renders on top because 600 is greater than 10.
             </p>
           </div>
-          <MigrationNote>
-            Migrated 2026-10-01: every overlay sits on its layer above. Values live in @theya/tokens (--layer-*).
-          </MigrationNote>
+          <Note>
+            Values live in @theya/tokens (--layer-*); globals.css maps them to the --z-index-* names above.
+          </Note>
         </div>
       </Section>
     </Page>

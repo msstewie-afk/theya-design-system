@@ -209,7 +209,7 @@ export function A11yMatrixPage() {
   };
 
   return (
-    <div className="sb-unstyled flex max-w-[72rem] flex-col gap-6 font-body text-[var(--color-text-text)]">
+    <div className="sb-unstyled mx-auto flex w-full max-w-[72rem] flex-col gap-6 pt-6 font-body text-[var(--color-text-text)] sm:pt-16">
       <header className="flex flex-col gap-2">
         <h1 className="m-0 font-heading text-heading-l">Accessibility</h1>
         <p className="m-0 max-w-[65ch] text-body-m text-[var(--color-text-text-subtle)]">

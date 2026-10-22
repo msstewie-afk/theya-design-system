@@ -132,7 +132,7 @@ export const NotStarted: Story = {
   },
 };
 
-/** Regression check: 5 plain-label (no description) horizontal steps at several `current` values — every gap between indicators should read as the same width at every value. */
+/** Five plain-label horizontal steps (no descriptions) at several `current` values: the gaps between indicators stay the same width at every value. */
 export const HorizontalEvenGaps: Story = {
   name: 'Horizontal even gaps',
   render: () => (

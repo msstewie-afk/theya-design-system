@@ -114,7 +114,7 @@ function NotesStep() {
 
 /**
  * Consumer-supplied steps keep their own state across Back/Next: inactive
- * steps are hidden, not unmounted (they used to unmount and reset).
+ * steps are hidden, not unmounted, so nothing resets.
  */
 export const CustomSteps: Story = {
   render: () => (

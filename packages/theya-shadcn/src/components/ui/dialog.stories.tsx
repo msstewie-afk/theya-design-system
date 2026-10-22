@@ -141,18 +141,13 @@ export const Open: Story = {
 };
 
 /**
- * REPRO (bug): a long description plus a row of three NumberFields.
- * DialogContent is a grid + overflow-y-auto, and a scroll container's single
- * implicit column has no min-width constraint, so the track expands to the
- * widest child's max-content (the description and the field row both exceed
- * the box), clipping content past max-w-lg on the right - the Seconds field
- * and footer buttons disappear. Fix: dialogContentVariants already carries
- * [&>*]:min-w-0 to pin the column to the box. Canvas-only like Open, since a
- * render-open dialog traps focus; this story is the VRT guard against the
- * regression returning.
+ * A long description and a row of three NumberFields stay inside the
+ * dialog: the content column never grows past `max-w-lg`, so the last field
+ * and the footer buttons stay in view. Opens on the canvas only, like Open,
+ * because an open dialog traps focus; the visual test watches this layout.
  */
 export const OverflowRepro: Story = {
-  name: 'Overflow (repro)',
+  name: 'Long content',
   render: (_args, context) => (
     <Dialog defaultOpen={context.viewMode !== 'docs'}>
       <DialogTrigger asChild>

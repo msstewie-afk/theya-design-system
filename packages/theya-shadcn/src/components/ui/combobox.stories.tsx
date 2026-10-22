@@ -130,9 +130,8 @@ function KeyboardDemo() {
 }
 
 /**
- * Regression tests: arrow-key highlight is announced via
- * aria-activedescendant, and Enter on a disabled option does nothing
- * (it used to commit it).
+ * Keyboard check: the highlighted option is announced through
+ * aria-activedescendant, and Enter on a disabled option does nothing.
  */
 export const KeyboardNavigation: Story = {
   name: 'Test: keyboard navigation',
