@@ -201,8 +201,10 @@ export function TagInput({
           }
         }}
         className={cn(
-          'relative flex w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid py-1 pe-1 ps-2',
-          heightSize === 'sm' ? 'min-h-[var(--size-size-control-size-control-lg)]' : 'min-h-[var(--size-size-control-size-control-2xl)]',
+          'relative flex w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid pe-1 ps-2',
+          // sm: 2px vertical padding so a row of 24px chips (+ border) still fits the
+          // 32px control height and lines up with TextField / Select sm (was 34px).
+          heightSize === 'sm' ? 'py-0.5 min-h-[var(--size-size-control-size-control-lg)]' : 'py-1 min-h-[var(--size-size-control-size-control-2xl)]',
           'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
           readOnly
             ? 'cursor-default border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]'

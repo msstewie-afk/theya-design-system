@@ -154,7 +154,9 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
   // instead of the error one. Fixed 2026-09-26.
   const stepButtonClass = cn(
     'flex shrink-0 items-center justify-center',
-    heightSize === 'sm' ? 'w-8 [&_svg]:size-3.5' : 'w-9',
+    // Icon size lives here only: a shared [&_svg]:size-4 further down used to
+    // win the tailwind-merge and made the sm glyphs 16px instead of 14px.
+    heightSize === 'sm' ? 'w-8 [&_svg]:size-3.5' : 'w-9 [&_svg]:size-4',
     'outline-none cursor-pointer',
     'transition-colors duration-standard ease-enter motion-reduce:transition-none',
     // +/- glyph stayed neutral icon-subtle regardless of invalid before —
@@ -167,7 +169,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
       ? 'focus-visible:focus-ring-error'
       : 'focus-visible:focus-ring',
     'disabled:pointer-events-none disabled:opacity-40',
-    '[&_svg]:size-4 [&_svg]:shrink-0',
+    '[&_svg]:shrink-0',
   );
 
   return (

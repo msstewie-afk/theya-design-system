@@ -256,8 +256,10 @@ export function Combobox(props: ComboboxProps) {
         <div
           className={cn(
             'relative flex w-full flex-wrap items-center gap-1',
-            heightSize === 'sm' ? 'min-h-[var(--size-size-control-size-control-lg)]' : 'min-h-[var(--size-size-control-size-control-2xl)]', // 32px / 40px, matches TextField
-            'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid ps-2 pe-1 py-1',
+            // 32px / 40px, matches TextField. sm: 2px vertical padding so a row of
+            // 24px chips (+ border) stays 32px instead of growing to 34px.
+            heightSize === 'sm' ? 'py-0.5 min-h-[var(--size-size-control-size-control-lg)]' : 'py-1 min-h-[var(--size-size-control-size-control-2xl)]',
+            'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid ps-2 pe-1',
             // Read-only: same visible-but-muted treatment as TextField/
             // Autocomplete (a distinct bg + subtle border), not fully
             // transparent — a transparent border+bg made the whole field
