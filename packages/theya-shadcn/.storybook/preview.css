@@ -19,7 +19,8 @@ body.sb-main-padded #storybook-root {
  * .sb-unstyled). Story previews (.docs-story) and Theya sections are left
  * alone.
  * - page title: heading-l; story headings: heading-s (same as guideline
- *   section headings);
+ *   section headings); weights come from the heading tokens, so a Docs
+ *   page and a Foundations page (docs-page.tsx) set headings the same way;
  * - descriptions: body-m, 24px line;
  * - inline code: one style everywhere (neutral fill, no border).
  */
@@ -30,7 +31,8 @@ body.sb-main-padded #storybook-root {
   font-family: var(--typography-font-family-heading);
   font-size: var(--typography-heading-heading-l-size);
   line-height: var(--typography-heading-heading-l-line-height);
-  font-weight: 600;
+  font-weight: var(--typography-heading-heading-l-weight);
+  color: var(--color-text-text);
   letter-spacing: normal;
   margin-bottom: 12px;
 }
@@ -38,7 +40,8 @@ body.sb-main-padded #storybook-root {
   font-family: var(--typography-font-family-heading);
   font-size: var(--typography-heading-heading-m-size);
   line-height: var(--typography-heading-heading-m-line-height);
-  font-weight: 600;
+  font-weight: var(--typography-heading-heading-m-weight);
+  color: var(--color-text-text);
   border-bottom-color: var(--color-border-border-subtler);
   margin: 48px 0 12px;
 }
@@ -46,7 +49,8 @@ body.sb-main-padded #storybook-root {
   font-family: var(--typography-font-family-heading);
   font-size: var(--typography-heading-heading-s-size);
   line-height: var(--typography-heading-heading-s-line-height);
-  font-weight: 600;
+  font-weight: var(--typography-heading-heading-s-weight);
+  color: var(--color-text-text);
   margin: 40px 0 12px;
 }
 .sbdocs-content :is(p, li):not(.sb-unstyled *):not(.docs-story *):not(.docblock-argstable *) {

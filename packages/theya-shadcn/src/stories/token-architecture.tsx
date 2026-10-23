@@ -4,37 +4,10 @@
  * ("Token architecture", "Usage principles"). Values shown here are read
  * from the token build (token-values.ts), so they can't drift from it.
  */
-import { Fragment, type ReactNode } from 'react';
-import { NavArrowRight } from 'iconoir-react';
+import type { ReactNode } from 'react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 import { tokenValue } from './token-values';
-
-/* ------------------------------ helpers ------------------------------ */
-
-function Page({ children }: { children: ReactNode }) {
-  return <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 pt-6 sm:pt-16">{children}</div>;
-}
-
-function Section({ title, description, children }: { title: string; description?: ReactNode; children: ReactNode }) {
-  return (
-    <section className="flex flex-col gap-4 border-b border-solid border-[var(--color-border-border)] pb-10 last:border-b-0">
-      <div>
-        <h2 className="m-0 font-heading text-heading-s font-semibold text-[var(--color-text-text)]">{title}</h2>
-        {description && <p className="mt-1 mb-0 max-w-[70ch] font-body text-body-m text-[var(--color-text-text-subtle)]">{description}</p>}
-      </div>
-      {children}
-    </section>
-  );
-}
-
-function SubHeading({ children }: { children: ReactNode }) {
-  return <h3 className="text-body-l font-semibold text-[var(--color-text-text)]">{children}</h3>;
-}
-
-function Code({ children }: { children: ReactNode }) {
-  return <code className="rounded-[var(--size-border-radius-border-radius-sm)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-1 py-px font-mono text-[0.85em] text-[var(--color-text-text)]">{children}</code>;
-}
-
-const panel = 'rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)]';
+import { Breakable, Code, DocsPage, DocsSection, DocsSubheading, LIST, NUMBERED, TEXT } from './docs-page';
 
 /* --------------------------- Architecture ---------------------------- */
 
@@ -131,16 +104,14 @@ const CHAINS: Chain[] = [
   },
 ];
 
-function TokenChip({ name, layer }: { name: string; layer: 'primitive' | 'semantic' | 'usage' }) {
+function TokenChip({ name, withValue = true }: { name: string; withValue?: boolean }) {
   if (name === '—') return <span className="text-body-s text-[var(--color-text-text-subtler)]">no primitive</span>;
-  const value = layer === 'usage' ? null : tokenValue(name);
   return (
     <span className="flex min-w-0 flex-col gap-0.5">
-      {/* Primitive and semantic names stay on one line; the class in a component wraps, so the sample column stays in view. */}
-      <code className={`font-mono text-body-s text-[var(--color-text-text)] ${layer === 'usage' ? '[overflow-wrap:anywhere]' : 'whitespace-nowrap'}`}>
-        {name}
+      <code className="font-mono text-body-s text-[var(--color-text-text)]">
+        <Breakable>{name}</Breakable>
       </code>
-      {value && <span className="font-mono text-body-xs text-[var(--color-text-text-subtler)]">{value}</span>}
+      {withValue && <span className="font-mono text-body-xs text-[var(--color-text-text-subtler)]">{tokenValue(name)}</span>}
     </span>
   );
 }
@@ -156,88 +127,64 @@ const NAME_PARTS: { part: string; example: string; values: ReactNode }[] = [
 
 export function TokenArchitecturePage() {
   return (
-    <Page>
-      <Section
-        title="Token architecture"
-        description="Every visual value in Theya comes from a token, and tokens are organised in layers. Each layer may only reference the one below it. Read top to bottom: from a raw value to the class in a component."
-      >
-        <ol className="flex flex-col gap-2">
-          {LAYERS.map((l, i) => (
-            <li key={l.name} className={`${panel} grid gap-x-6 gap-y-2 p-5 md:grid-cols-[14rem_minmax(0,1fr)]`}>
-              <div className="flex flex-col gap-1">
-                <span className="font-heading text-heading-2xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]">{`Layer ${i + 1}`}</span>
-                <span className="text-body-l font-semibold text-[var(--color-text-text)]">{l.name}</span>
-                <span className="font-mono text-body-xs text-[var(--color-text-text-subtle)]">
-                  {/* Paths wrap only after a slash. */}
-                  {l.where.split('/').map((part, j, all) => (
-                    <Fragment key={j}>
-                      {part}
-                      {j < all.length - 1 && (
-                        <>
-                          /<wbr />
-                        </>
-                      )}
-                    </Fragment>
-                  ))}
-                </span>
-              </div>
-              <div className="flex flex-col gap-2">
-                <p className="text-body-m text-[var(--color-text-text)]">{l.what}</p>
-                <p className="text-body-m font-medium text-[var(--color-text-text)]">{l.rule}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </Section>
+    <DocsPage
+      title="Token architecture"
+      description="Every visual value in Theya comes from a token, and tokens are organised in layers. Each layer may only reference the one below it. Read top to bottom: from a raw value to the class in a component."
+    >
+      {/* A list, not cards: the layers are read in order, one after another. */}
+      <ol className="m-0 flex list-none flex-col p-0">
+        {LAYERS.map((l, i) => (
+          <li
+            key={l.name}
+            className="grid gap-x-8 gap-y-2 border-t border-solid border-[var(--color-border-border-subtler)] py-6 first:border-t-0 first:pt-0 last:pb-0 md:grid-cols-[14rem_minmax(0,1fr)]"
+          >
+            <div className="flex flex-col gap-1">
+              <span className="font-heading text-heading-2xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]">{`Layer ${i + 1}`}</span>
+              <span className="text-body-l font-semibold text-[var(--color-text-text)]">{l.name}</span>
+              <span className="font-mono text-body-xs text-[var(--color-text-text-subtle)]">
+                <Breakable>{l.where}</Breakable>
+              </span>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p className={TEXT}>{l.what}</p>
+              <p className={`${TEXT} font-medium`}>{l.rule}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
 
-      <Section title="From value to class" description="The same path for every kind of token. Values are read from the current build.">
-        {/* Scrolls sideways on narrow screens, so it's focusable for keyboard scrolling. */}
-        <div role="region" aria-label="Token chains" tabIndex={0} className={`${panel} overflow-x-auto outline-none focus-visible:focus-ring`}>
-          <table className="w-full min-w-[44rem] border-collapse text-left">
-            <thead>
-              <tr className="border-b border-solid border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]">
-                {/* Empty columns (row label, arrows, sample) get <td>: an empty <th> is an unnamed header. */}
-                {['', 'Primitive', '', 'Semantic', '', 'In a component', ''].map((h, i) =>
-                  h ? (
-                    <th key={i} scope="col" className="px-3 py-2.5 text-body-s font-medium text-[var(--color-text-text-subtle)]">
-                      {h}
-                    </th>
-                  ) : (
-                    <td key={i} />
-                  ),
-                )}
-              </tr>
-            </thead>
-            <tbody>
-              {CHAINS.map((c) => (
-                <tr key={c.kind} className="border-b border-solid border-[var(--color-border-border-subtler)] align-middle last:border-b-0">
-                  <th scope="row" className="px-3 py-3 text-body-m font-medium text-[var(--color-text-text)]">
-                    {c.kind}
-                  </th>
-                  <td className="px-3 py-3">
-                    <TokenChip name={c.primitive} layer="primitive" />
-                  </td>
-                  <td aria-hidden="true" className="text-[var(--color-icon-icon-subtler)] [&_svg]:size-4">
-                    <NavArrowRight />
-                  </td>
-                  <td className="px-3 py-3">
-                    <TokenChip name={c.semantic} layer="semantic" />
-                  </td>
-                  <td aria-hidden="true" className="text-[var(--color-icon-icon-subtler)] [&_svg]:size-4">
-                    <NavArrowRight />
-                  </td>
-                  <td className="px-3 py-3">
-                    <TokenChip name={c.usage} layer="usage" />
-                  </td>
-                  <td className="px-3 py-3">{c.sample}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Section>
+      <DocsSection title="From value to class" description="The same path for every kind of token. Values are read from the current build.">
+        <Table containerLabel="Token chains">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Kind</TableHead>
+              <TableHead>Primitive</TableHead>
+              <TableHead>Semantic</TableHead>
+              <TableHead>In a component</TableHead>
+              <TableHead>Result</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {CHAINS.map((c) => (
+              <TableRow key={c.kind}>
+                <TableCell className="align-top text-body-s font-medium sm:w-[14%]">{c.kind}</TableCell>
+                <TableCell className="align-top sm:w-[20%]">
+                  <TokenChip name={c.primitive} />
+                </TableCell>
+                <TableCell className="align-top sm:w-[26%]">
+                  <TokenChip name={c.semantic} />
+                </TableCell>
+                <TableCell className="align-top">
+                  <TokenChip name={c.usage} withValue={false} />
+                </TableCell>
+                <TableCell className="align-top sm:w-[10%]">{c.sample}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </DocsSection>
 
-      <Section
+      <DocsSection
         title="Naming"
         description={
           <>
@@ -245,35 +192,31 @@ export function TokenArchitecturePage() {
           </>
         }
       >
-        <div role="group" aria-label="Naming parts" tabIndex={0} className={`${panel} overflow-x-auto outline-none focus-visible:focus-ring`}>
-          <table className="w-full border-collapse text-left">
-            <thead>
-              <tr className="border-b border-solid border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]">
-                {['Part', 'Example', 'Values'].map((h) => (
-                  <th key={h} className="px-4 py-2.5 text-body-s font-medium text-[var(--color-text-text-subtle)]">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {NAME_PARTS.map((p) => (
-                <tr key={p.part} className="border-b border-solid border-[var(--color-border-border-subtler)] align-top last:border-b-0">
-                  <td className="whitespace-nowrap px-4 py-3 text-body-m font-medium text-[var(--color-text-text)]">{p.part}</td>
-                  <td className="whitespace-nowrap px-4 py-3 font-mono text-body-s text-[var(--color-text-text)]">{p.example}</td>
-                  <td className="px-4 py-3 text-body-m text-[var(--color-text-text-subtle)]">{p.values}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="max-w-[70ch] text-body-m text-[var(--color-text-text)]">
+        <Table containerLabel="Naming parts">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Part</TableHead>
+              <TableHead>Example</TableHead>
+              <TableHead>Values</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {NAME_PARTS.map((p) => (
+              <TableRow key={p.part}>
+                <TableCell className="align-top text-body-s font-medium sm:w-[16%]">{p.part}</TableCell>
+                <TableCell className="align-top font-mono text-body-s sm:w-[16%]">{p.example}</TableCell>
+                <TableCell className="align-top text-body-s text-[var(--color-text-text-subtle)]">{p.values}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <p className={TEXT}>
           Size tokens use the same idea with a t-shirt scale: <Code>--size-{'{group}'}-{'{group}'}-{'{step}'}</Code>, steps from <Code>4xs</Code> to <Code>6xl</Code> — <Code>size-control</Code> (heights), <Code>border-radius</Code>, <Code>gap</Code>, <Code>padding</Code>, <Code>margin</Code>, <Code>border-width</Code>, <Code>icon</Code>, <Code>width</Code>. The group name is repeated because it is both the folder and the token name in the source; that is a known quirk, kept for parity with Figma.
         </p>
-      </Section>
+      </DocsSection>
 
-      <Section title="Themes" description="Light and dark are two builds of the same names.">
-        <ul className="flex max-w-[70ch] list-disc flex-col gap-2 pl-5 text-body-m text-[var(--color-text-text)]">
+      <DocsSection title="Themes" description="Light and dark are two builds of the same names.">
+        <ul className={LIST}>
           <li>
             The build writes <Code>variables.css</Code> on <Code>:root</Code> and <Code>variables-dark.css</Code> on <Code>[data-theme="dark"]</Code>. Switching the attribute switches every semantic colour at once.
           </li>
@@ -285,12 +228,12 @@ export function TokenArchitecturePage() {
             A part that must stay dark in both themes (Terminal, inverse CodeEditor, Tooltip) uses the <Code>-on-dark</Code> tokens or forces <Code>data-theme="dark"</Code> on its own subtree.
           </li>
         </ul>
-      </Section>
+      </DocsSection>
 
-      <Section title="Where tokens come from" description="Code is the source of truth since 2 October 2026.">
-        <ol className="flex max-w-[70ch] list-decimal flex-col gap-2 pl-5 text-body-m text-[var(--color-text-text)]">
+      <DocsSection title="Where tokens come from" description="Code is the source of truth.">
+        <ol className={NUMBERED}>
           <li>
-            Tokens are edited as JSON in <Code>packages/tokens/src</Code>. Figma is updated by hand to match; the old Figma export script is retired.
+            Tokens are edited as JSON in <Code>packages/tokens/src</Code>. Figma is updated by hand to match.
           </li>
           <li>
             Style Dictionary builds CSS custom properties, a JS module and a Tailwind JSON (<Code>pnpm --filter @theya/tokens build</Code>, also run by <Code>pnpm storybook</Code>).
@@ -302,8 +245,8 @@ export function TokenArchitecturePage() {
             <Code>globals.css</Code> imports both files and the fonts, then the <Code>@theme</Code> bridge.
           </li>
         </ol>
-      </Section>
-    </Page>
+      </DocsSection>
+    </DocsPage>
   );
 }
 
@@ -312,7 +255,7 @@ export function TokenArchitecturePage() {
 const GENERAL: ReactNode[] = [
   <>Choose a token by its role, not its value. Info and primary are the same blue today; an info badge still uses the info tokens, so it follows when info changes.</>,
   <>Components use semantic tokens. Primitives appear only where a palette is the point — chart series, a deliberately fixed-dark surface — and every such case is listed under Exceptions below.</>,
-  <>No raw values for colour, radius, shadow, duration, easing or z-index: no hex, no <Code>rounded-[7px]</Code>, no <Code>duration-[180ms]</Code>. Layout spacing uses Tailwind's 4px scale, see Spacing.</>,
+  <>No raw values for colour, radius, shadow, duration, easing or z-index: no hex, no <Code>rounded-[7px]</Code>, no <Code>duration-[180ms]</Code>. Layout spacing uses Tailwind's 4px scale, see Spacing and size below.</>,
   <>Pair by surface. The fill decides its ink: a solid fill takes <Code>-on-dark</Code> text and icons, a tinted fill takes <Code>-on-tonal</Code>, the brand surface takes <Code>-on-primary</Code>. Default text on a coloured fill is a bug even when it happens to pass contrast.</>,
   <>Missing a value? Add a token (with light and dark) in <Code>src/code</Code> and document it here. A local constant is a token nobody can find.</>,
   <>A state changes everything that signals it together: invalid is border and background, never the border alone; disabled uses the disabled tokens, never <Code>opacity-50</Code> on top.</>,
@@ -387,50 +330,51 @@ const EXCEPTIONS: { where: string; what: string }[] = [
 
 export function UsagePrinciplesPage() {
   return (
-    <Page>
-      <Section title="Usage principles" description="The rules that decide which token goes where. They hold for every category; the sections below add what is specific to each.">
-        <ol className="flex max-w-[75ch] list-decimal flex-col gap-3 pl-5 text-body-m text-[var(--color-text-text)] marker:font-semibold">
-          {GENERAL.map((r, i) => (
-            <li key={i} className="pl-1">
-              {r}
-            </li>
-          ))}
-        </ol>
-      </Section>
+    <DocsPage
+      title="Usage principles"
+      description="The rules that decide which token goes where. They hold for every category; the sections below add what is specific to each."
+    >
+      <ol className={NUMBERED}>
+        {GENERAL.map((r, i) => (
+          <li key={i}>{r}</li>
+        ))}
+      </ol>
 
       {CATEGORIES.map((c) => (
-        <Section key={c.title} title={c.title}>
-          <ul className="flex max-w-[75ch] list-disc flex-col gap-2.5 pl-5 text-body-m text-[var(--color-text-text)]">
+        <DocsSection key={c.title} title={c.title}>
+          <ul className={LIST}>
             {c.rules.map((r, i) => (
               <li key={i}>{r}</li>
             ))}
           </ul>
-        </Section>
+        </DocsSection>
       ))}
 
-      <Section title="Exceptions" description="Every place a component deliberately leaves the rules above. Anything not listed here is a bug.">
-        <div role="group" aria-label="Exceptions" tabIndex={0} className={`${panel} overflow-x-auto outline-none focus-visible:focus-ring`}>
-          <table className="w-full border-collapse text-left">
-            <tbody>
-              {EXCEPTIONS.map((e) => (
-                <tr key={e.where} className="border-b border-solid border-[var(--color-border-border-subtler)] align-top last:border-b-0">
-                  <th scope="row" className="whitespace-nowrap px-4 py-3 text-body-m font-medium text-[var(--color-text-text)]">
-                    {e.where}
-                  </th>
-                  <td className="px-4 py-3 text-body-m text-[var(--color-text-text-subtle)]">{e.what}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <SubHeading>Before adding a token</SubHeading>
-        <ol className="flex max-w-[75ch] list-decimal flex-col gap-2 pl-5 text-body-m text-[var(--color-text-text)]">
+      <DocsSection title="Exceptions" description="Every place a component deliberately leaves the rules above. Anything not listed here is a bug.">
+        <Table containerLabel="Exceptions">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Where</TableHead>
+              <TableHead>What and why</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {EXCEPTIONS.map((e) => (
+              <TableRow key={e.where}>
+                <TableCell className="align-top text-body-s font-medium sm:w-[30%]">{e.where}</TableCell>
+                <TableCell className="align-top text-body-s text-[var(--color-text-text-subtle)]">{e.what}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <DocsSubheading>Before adding a token</DocsSubheading>
+        <ol className={NUMBERED}>
           <li>Look for an existing semantic token with the right role — the name, not the hex.</li>
           <li>If none fits, add it to the semantic layer (or src/code) with a reference to a primitive, in both colour files.</li>
           <li>Check contrast against every surface it will sit on, in both themes.</li>
           <li>Rebuild tokens, use it, and document it on the matching Foundations page.</li>
         </ol>
-      </Section>
-    </Page>
+      </DocsSection>
+    </DocsPage>
   );
 }

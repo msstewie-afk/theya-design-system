@@ -2,13 +2,16 @@ import { useEffect, useMemo, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Search } from 'iconoir-react';
 import { TextField } from '../components/ui/text-field';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 import { tokenValue, type Theme } from './token-values';
 import { TokenArchitecturePage, UsagePrinciplesPage } from './token-architecture';
+import { Code, DocsPage, DocsSection, LIST, Note, Preview, SpecTable, TEXT, type SpecRow } from './docs-page';
 
 const meta: Meta = {
   title: 'Design System/Foundations',
   parameters: {
-    layout: 'padded',
+    // The page column (DocsPage) owns all the spacing, like a Docs page.
+    layout: 'fullscreen',
     // Swatch labels are specimens, not UI text: they prefer white on
     // mid-tone fills (~2.8-3.7:1) for legibility at a glance, which axe
     // would flag. Contrast is still checked for everything else on the page.
@@ -30,58 +33,6 @@ export const UsagePrinciples: Story = {
   name: 'Usage principles',
   render: () => <UsagePrinciplesPage />,
 };
-
-/**
- * A living reference built ONLY from CSS custom properties confirmed
- * present in globals.css (via `grep -oE '\-\-[a-z0-9-]+'`), not from
- * names assumed by convention. This matters: a prior pass across this
- * session's components used an invented --color-icon-* namespace,
- * several --color-border-border-{primary,success,warning,danger} and
- * --color-text-text-{success,warning,danger} tokens, --size-margin-
- * margin-* spacing tokens, and per-tone --color-bg-*-subtle variants
- * beyond primary — NONE of which exist in the real file. Since an
- * unresolved var() silently renders as nothing rather than erroring,
- * those components likely have missing colors/spacing in practice.
- * That's a separate remediation pass; this page documents only what
- * is verified to actually exist right now.
- */
-
-/** Constrains page width — Мария's call (2026-09-26): full-bleed reads
- * wrong for a reference/token page — content this dense reads better
- * narrower than the viewport. ~70% width, centered. */
-function Page({ children }: { children: React.ReactNode }) {
-  return <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 pt-6 sm:pt-16">{children}</div>;
-}
-
-function ColorSwatch({ label, varName, fg }: { label: string; varName: string; fg?: string }) {
-  return (
-    <div className="flex flex-col gap-1.5">
-      <div className="flex h-14 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)]" style={{ background: `var(${varName})` }}>
-        {fg && (
-          <span style={{ color: `var(${fg})` }} className="text-xs font-medium">
-            Aa
-          </span>
-        )}
-      </div>
-      <div className="min-w-0">
-        <p className="truncate text-xs font-medium text-[var(--color-text-text)]">{label}</p>
-        <p className="truncate font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">{varName}</p>
-      </div>
-    </div>
-  );
-}
-
-function Section({ title, description, children }: { title: string; description?: string; children: React.ReactNode }) {
-  return (
-    <section className="flex flex-col gap-4 border-b border-solid border-[var(--color-border-border)] pb-10 last:border-b-0">
-      <div>
-        <h2 className="m-0 font-heading text-heading-s font-semibold text-[var(--color-text-text)]">{title}</h2>
-        {description && <p className="mt-1 mb-0 max-w-2xl font-body text-body-s text-[var(--color-text-text-subtle)]">{description}</p>}
-      </div>
-      {children}
-    </section>
-  );
-}
 
 /**
  * Token reference table: a row list (not a bordered grid table) — token
@@ -284,8 +235,8 @@ function TokenPill({ value }: { value: string }) {
   const needsBorder = isWhiteish(value);
   return (
     <span
-      className={`inline-flex min-w-[6.5rem] items-center justify-center whitespace-nowrap rounded-[8px] px-3 py-2 text-center font-mono text-[0.75rem] font-medium${
-        needsBorder ? ' border border-solid border-[var(--color-border-border)]' : ''
+      className={`inline-flex min-w-[6.5rem] items-center justify-center whitespace-nowrap rounded-[var(--size-border-radius-border-radius-xl)] px-3 py-2 text-center font-mono text-body-s font-medium${
+        needsBorder ? ' border border-solid border-[var(--color-border-border-subtle)]' : ''
       }`}
       data-swatch-label=""
       style={{ background: value, color: contrastTextColor(value, theme) }}
@@ -304,7 +255,7 @@ function TokenTable({ rows }: { rows: TokenRow[] }) {
   }, [rows, query]);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       {/* Reuses TextField (hover/focus/pressed states come from the component).
           name/id contain "search" so the iCloud Passwords extension skips the field;
           it ignores autoComplete="off" and the data-*-ignore hints below. */}
@@ -323,24 +274,40 @@ function TokenTable({ rows }: { rows: TokenRow[] }) {
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Filter tokens by name or description…"
       />
-      <div className="grid grid-cols-[minmax(0,1fr)_7rem_7rem] items-baseline gap-x-4 sm:gap-x-10 border-b border-solid border-[var(--color-border-border)] pb-3 pt-6 text-xs font-medium uppercase tracking-wide text-[var(--color-text-text-subtle)]">
-        <span>Token and description</span>
-        <span>Light theme</span>
-        <span>Dark theme</span>
-      </div>
-      <div className="flex flex-col">
-        {filtered.map((r) => (
-          <div key={r.name} className="grid grid-cols-[minmax(0,1fr)_7rem_7rem] items-start gap-x-4 sm:gap-x-10 gap-y-2 border-b border-solid border-[var(--color-border-border-subtler)] py-5 last:border-b-0">
-            <div className="flex min-w-0 flex-col gap-2">
-              <code className="w-fit rounded-[var(--size-border-radius-border-radius-sm)] border border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-2 py-1 font-mono text-[0.75rem] text-[var(--color-text-text)]">{r.name}</code>
-              <p className="text-xs text-[var(--color-text-text-subtle)]">{r.description}</p>
-            </div>
-            <TokenPill value={r.light} />
-            <TokenPill value={r.dark} />
-          </div>
-        ))}
-        {filtered.length === 0 && <p className="py-6 text-center text-sm text-[var(--color-text-text-subtle)]">No tokens match “{query}”.</p>}
-      </div>
+      <Table containerLabel="Semantic colour tokens">
+        <TableHeader>
+          <TableRow>
+            <TableHead>Token and description</TableHead>
+            <TableHead>Light theme</TableHead>
+            <TableHead>Dark theme</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {filtered.map((r) => (
+            <TableRow key={r.name}>
+              <TableCell className="align-top">
+                <span className="flex min-w-0 flex-col gap-1">
+                  <code className="font-mono text-body-s text-[var(--color-text-text)] [overflow-wrap:anywhere]">{r.name}</code>
+                  <span className="text-body-s text-[var(--color-text-text-subtle)]">{r.description}</span>
+                </span>
+              </TableCell>
+              <TableCell className="align-top sm:w-[9rem]">
+                <TokenPill value={r.light} />
+              </TableCell>
+              <TableCell className="align-top sm:w-[9rem]">
+                <TokenPill value={r.dark} />
+              </TableCell>
+            </TableRow>
+          ))}
+          {filtered.length === 0 && (
+            <TableRow>
+              <TableCell colSpan={3} className="text-center text-[var(--color-text-text-subtle)]">
+                No tokens match “{query}”.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
     </div>
   );
 }
@@ -422,10 +389,10 @@ function RampSwatch({ prefix, step }: { prefix: string; step: string }) {
   return (
     <div className="flex flex-col gap-1">
       <div
-        className={`h-12 rounded-[8px]${needsBorder ? ' border border-solid border-[var(--color-border-border)]' : ''}`}
+        className={`h-12 rounded-[var(--size-border-radius-border-radius-xl)]${needsBorder ? ' border border-solid border-[var(--color-border-border-subtle)]' : ''}`}
         style={{ background: `var(${varName})` }}
       />
-      <p className="text-center font-mono text-[0.625rem] text-[var(--color-text-text-subtle)]">{step}</p>
+      <p className="m-0 text-center font-mono text-body-xs text-[var(--color-text-text-subtle)]">{step}</p>
     </div>
   );
 }
@@ -455,8 +422,8 @@ const RAMP_FAMILIES = [
 function RampFamily({ prefix, label }: { prefix: string; label: string }) {
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-xs font-medium text-[var(--color-text-text)]">
-        {label} <span className="font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">--color-{prefix}-{prefix}-*</span>
+      <p className="m-0 text-body-m font-medium text-[var(--color-text-text)]">
+        {label} <span className="font-mono text-body-s font-normal text-[var(--color-text-text-subtle)]">--color-{prefix}-{prefix}-*</span>
       </p>
       <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-12">
         {RAMP_STEPS.map((step) => (
@@ -469,87 +436,114 @@ function RampFamily({ prefix, label }: { prefix: string; label: string }) {
 
 export const Colors: Story = {
   render: () => (
-    <Page>
-      <Section
-        title="Semantic tokens"
-        description="All bg-*/text-*/border-*/chart-* semantic tokens — token + description, then Light/Dark shown as color swatches, searchable below. Values read directly from @theya/tokens' generated variables.css / variables-dark.css, not re-derived."
-      >
+    <DocsPage
+      title="Colors"
+      description="Semantic tokens are what components use; each one points at a step of a primitive ramp, with a separate value for light and dark. Values are read from the token build, so they can't drift from it."
+    >
+      <DocsSection title="Semantic tokens" description="Fills, status fills, text, borders and the chart palette, with the light and dark value of each. Filter by name or description.">
         <TokenTable rows={ALL_TOKEN_ROWS} />
-      </Section>
-      <Section title="Primitive ramps" description="All 11 primitive color families, each a 12-step scale (005…900). Primitives have no light/dark split — the same hex is used in both themes; only the semantic tokens above vary by theme.">
+      </DocsSection>
+      <DocsSection
+        title="Primitive ramps"
+        description="Twelve colour families, each a 12-step scale from 005 to 900. Primitives are the same in both themes; only the semantic tokens above change."
+      >
         <div className="flex flex-col gap-6">
           {RAMP_FAMILIES.map((f) => (
             <RampFamily key={f.prefix} prefix={f.prefix} label={f.label} />
           ))}
         </div>
-      </Section>
-      <Section title="Chart palette" description="--color-bg-chart-01…07 — categorical series colors, shared across every chart component. 01 is deliberately the same blue as --color-bg-primary-bg-primary. Same swatch style as the semantic tokens above, since these are the same kind of token.">
+      </DocsSection>
+      <DocsSection
+        title="Chart palette"
+        description={
+          <>
+            <Code>--color-bg-chart-01…07</Code>: categorical series colours, shared by every chart. 01 is the same blue as <Code>--color-bg-primary-bg-primary</Code>.
+          </>
+        }
+      >
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-7">
           {CHART_TOKEN_ROWS.map((r) => (
             <div key={r.name} className="flex flex-col items-center gap-2">
               <TokenPill value={r.light} />
-              <span className="text-center font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">{r.name.replace('--color-bg-chart-', 'Chart ')}</span>
+              <span className="text-center font-mono text-body-xs text-[var(--color-text-text-subtle)]">{r.name.replace('--color-bg-chart-', 'Chart ')}</span>
             </div>
           ))}
         </div>
-      </Section>
-    </Page>
+      </DocsSection>
+    </DocsPage>
   ),
 };
 
+// One row of a type scale: class, sample, size / line height / weight.
+function ScaleRow({ name, sampleClass, sample, values }: { name: string; sampleClass: string; sample: string; values: { size: string; lineHeight: string; weight: number } }) {
+  return (
+    <div className="grid grid-cols-[8rem_minmax(0,1fr)] items-baseline gap-x-4 gap-y-1 border-b border-solid border-[var(--color-border-border-subtler)] py-3 first:pt-0 last:border-b-0 last:pb-0 sm:grid-cols-[9rem_minmax(0,1fr)_auto]">
+      <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">{name}</span>
+      <span className={`${sampleClass} min-w-0 truncate text-[var(--color-text-text)]`}>{sample}</span>
+      <span className="col-start-2 font-mono text-body-s text-[var(--color-text-text-subtler)] sm:col-start-auto">
+        {values.size} / {values.lineHeight} · weight {values.weight}
+      </span>
+    </div>
+  );
+}
+
 export const Typography: Story = {
   render: () => (
-    <Page>
-      <Section title="Font families" description="--font-body, --font-heading, --font-code — set directly since Tailwind's built-in font-mono utility does NOT read our --font-code token.">
-        <div className="flex flex-col gap-4">
-          <p style={{ fontFamily: 'var(--font-body)' }} className="text-lg text-[var(--color-text-text)]">
-            --font-body ({tokenValue('--typography-font-family-body').split(',')[0]}) — The quick brown fox jumps over the lazy dog · Съешь ещё этих мягких булок
-          </p>
-          <p style={{ fontFamily: 'var(--font-heading)' }} className="text-lg text-[var(--color-text-text)]">
-            --font-heading ({tokenValue('--typography-font-family-heading').split(',')[0]}) — The quick brown fox jumps over the lazy dog · Съешь ещё этих мягких булок
-          </p>
-          <p style={{ fontFamily: 'var(--font-code)' }} className="text-lg text-[var(--color-text-text)]">
-            --font-code (Fira Code) — The quick brown fox jumps over the lazy dog
-          </p>
+    <DocsPage
+      title="Typography"
+      description="Two families and two scales: body for anything people read, heading for titles. Each class sets size, line height, letter spacing and weight together."
+    >
+      <DocsSection
+        title="Font families"
+        description={
+          <>
+            <Code>--font-body</Code>, <Code>--font-heading</Code> and <Code>--font-code</Code>. Code text uses <Code>font-mono</Code>, which globals.css points at <Code>--font-code</Code>.
+          </>
+        }
+      >
+        <div className="flex flex-col">
+          {[
+            { v: '--font-body', name: tokenValue('--typography-font-family-body').split(',')[0], sample: 'The quick brown fox jumps over the lazy dog · Съешь ещё этих мягких булок' },
+            { v: '--font-heading', name: tokenValue('--typography-font-family-heading').split(',')[0], sample: 'The quick brown fox jumps over the lazy dog · Съешь ещё этих мягких булок' },
+            { v: '--font-code', name: 'Fira Code', sample: 'The quick brown fox jumps over the lazy dog' },
+          ].map((f) => (
+            <div key={f.v} className="flex flex-col gap-1 border-b border-solid border-[var(--color-border-border-subtler)] py-3 first:pt-0 last:border-b-0 last:pb-0">
+              <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">
+                {f.v} · {f.name}
+              </span>
+              <span style={{ fontFamily: `var(${f.v})` }} className="text-body-xl text-[var(--color-text-text)]">
+                {f.sample}
+              </span>
+            </div>
+          ))}
         </div>
-      </Section>
-      <Section title="Body scale" description="text-body-xs/s/m/l/xl — Tailwind v4 generates these as text-* utilities directly from the --text-body-* theme keys.">
-        <div className="flex flex-col gap-4">
-          {(['xs', 's', 'm', 'l', 'xl'] as const).map((size) => {
-            const v = BODY_TYPE_VALUES[size];
-            return (
-              <div key={size} className="grid grid-cols-[8rem_minmax(0,1fr)] items-baseline gap-x-4 gap-y-1 border-b border-solid border-[var(--color-border-border)] pb-3 last:border-b-0 last:pb-0 sm:grid-cols-[8rem_minmax(0,1fr)_auto]">
-                <span className="font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">text-body-{size}</span>
-                <span className={`${BODY_CLASS[size]} min-w-0 truncate text-[var(--color-text-text)]`}>The quick brown fox jumps over the lazy dog</span>
-                <span className="col-start-2 font-mono text-[0.6875rem] text-[var(--color-text-text-subtler)] sm:col-start-auto">
-                  {v.size} / {v.lineHeight} · weight {v.weight}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </Section>
-      <Section title="Heading scale" description="text-heading-3xs through text-heading-3xl.">
-        <div className="flex flex-col gap-4">
-          {(['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl'] as const).map((size) => {
-            const v = HEADING_TYPE_VALUES[size];
-            return (
-              <div key={size} className="grid grid-cols-[8rem_minmax(0,1fr)] items-baseline gap-x-4 gap-y-1 border-b border-solid border-[var(--color-border-border)] pb-3 last:border-b-0 last:pb-0 sm:grid-cols-[8rem_minmax(0,1fr)_auto]">
-                <span className="font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">text-heading-{size}</span>
-                <span className={`${HEADING_CLASS[size]} min-w-0 truncate text-[var(--color-text-text)]`}>The quick brown fox</span>
-                <span className="col-start-2 font-mono text-[0.6875rem] text-[var(--color-text-text-subtler)] sm:col-start-auto">
-                  {v.size} / {v.lineHeight} · weight {v.weight}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </Section>
-      <Section title="Font weights" description="Each body size carries 3 weight steps (base/emphasize/strong) as separate tokens rather than a single shared font-weight scale — e.g. --typography-body-m-weight(-emphasize|-strong).">
-        <div className="flex flex-col gap-4">
+      </DocsSection>
+      <DocsSection title="Body scale" description={<><Code>text-body-xs</Code> to <Code>text-body-xl</Code>.</>}>
+        <div className="flex flex-col">
           {(['xs', 's', 'm', 'l', 'xl'] as const).map((size) => (
-            <div key={size} className="flex flex-wrap items-baseline gap-6 border-b border-solid border-[var(--color-border-border)] pb-3 last:border-b-0 last:pb-0">
-              <span className="w-32 shrink-0 font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">body-{size}</span>
+            <ScaleRow key={size} name={`text-body-${size}`} sampleClass={BODY_CLASS[size]} sample="The quick brown fox jumps over the lazy dog" values={BODY_TYPE_VALUES[size]} />
+          ))}
+        </div>
+      </DocsSection>
+      <DocsSection title="Heading scale" description={<><Code>text-heading-3xs</Code> to <Code>text-heading-3xl</Code>.</>}>
+        <div className="flex flex-col">
+          {(['3xs', '2xs', 'xs', 's', 'm', 'l', 'xl', '2xl', '3xl'] as const).map((size) => (
+            <ScaleRow key={size} name={`text-heading-${size}`} sampleClass={HEADING_CLASS[size]} sample={size === '3xl' ? 'Quick fox' : 'The quick brown fox'} values={HEADING_TYPE_VALUES[size]} />
+          ))}
+        </div>
+      </DocsSection>
+      <DocsSection
+        title="Font weights"
+        description={
+          <>
+            Each body size has three weights as separate tokens — base, emphasize and strong: <Code>--typography-body-m-weight(-emphasize|-strong)</Code>.
+          </>
+        }
+      >
+        <div className="flex flex-col">
+          {(['xs', 's', 'm', 'l', 'xl'] as const).map((size) => (
+            <div key={size} className="flex flex-wrap items-baseline gap-x-6 gap-y-1 border-b border-solid border-[var(--color-border-border-subtler)] py-3 first:pt-0 last:border-b-0 last:pb-0">
+              <span className="w-32 shrink-0 font-mono text-body-s text-[var(--color-text-text-subtle)]">body-{size}</span>
               <span className={`${BODY_CLASS[size]} text-[var(--color-text-text)]`} style={{ fontWeight: `var(--typography-body-${size}-weight)` }}>
                 Base
               </span>
@@ -562,12 +556,19 @@ export const Typography: Story = {
             </div>
           ))}
         </div>
-      </Section>
-      <Section title="Letter spacing" description="Each body size has its own tracking value plus a separate -uppercase step for all-caps labels — e.g. --typography-body-m-letter-spacing(-uppercase).">
-        <div className="flex flex-col gap-4">
+      </DocsSection>
+      <DocsSection
+        title="Letter spacing"
+        description={
+          <>
+            Each body size has its own tracking and a wider step for all-caps labels: <Code>--typography-body-m-letter-spacing(-uppercase)</Code>.
+          </>
+        }
+      >
+        <div className="flex flex-col">
           {(['xs', 's', 'm', 'l', 'xl'] as const).map((size) => (
-            <div key={size} className="flex flex-wrap items-baseline gap-6 border-b border-solid border-[var(--color-border-border)] pb-3 last:border-b-0 last:pb-0">
-              <span className="w-32 shrink-0 font-mono text-[0.6875rem] text-[var(--color-text-text-subtle)]">body-{size}</span>
+            <div key={size} className="flex flex-wrap items-baseline gap-x-6 gap-y-1 border-b border-solid border-[var(--color-border-border-subtler)] py-3 first:pt-0 last:border-b-0 last:pb-0">
+              <span className="w-32 shrink-0 font-mono text-body-s text-[var(--color-text-text-subtle)]">body-{size}</span>
               <span className={`${BODY_CLASS[size]} text-[var(--color-text-text)]`} style={{ letterSpacing: `var(--typography-body-${size}-letter-spacing)` }}>
                 Tracking
               </span>
@@ -577,21 +578,21 @@ export const Typography: Story = {
             </div>
           ))}
         </div>
-      </Section>
-    </Page>
+      </DocsSection>
+    </DocsPage>
   ),
 };
 
 const RADIUS_ROWS: SpecRow[] = [
   { token: 'radius-sm', value: tokenValue('--size-border-radius-border-radius-sm'), use: 'The smallest inner details.', usedBy: 'Kbd, Toolbar, inner parts of Card, DataTable, Sonner' },
-  { token: 'radius-md', value: tokenValue('--size-border-radius-border-radius-md'), use: 'Items inside a container and small controls.', usedBy: 'Menu and list items, Checkbox, Tooltip, Toggle, Tabs triggers, Sidebar items, Command (72 uses)' },
+  { token: 'radius-md', value: tokenValue('--size-border-radius-border-radius-md'), use: 'Items inside a container and small controls.', usedBy: 'Menu and list items, Checkbox, Tooltip, Toggle, Tabs triggers, Sidebar items, Command' },
   { token: 'radius-lg', value: tokenValue('--size-border-radius-border-radius-lg'), use: 'Text inputs and input-like controls.', usedBy: 'TextField, Select trigger, Combobox, Autocomplete, NumberField, InputGroup, InputOTP, Password, Filter, Chip' },
   { token: 'radius-xl', value: tokenValue('--size-border-radius-border-radius-xl'), use: 'Buttons, and floating surfaces anchored to a trigger. A menu under a button is never rounder than the button.', usedBy: 'Button, DropdownMenu, ContextMenu, Menubar, Popover, HoverCard, NavigationMenu, Select content, CodeBlock, CodeEditor, Terminal' },
   { token: 'radius-2xl', value: tokenValue('--size-border-radius-border-radius-2xl'), use: 'Compact card surfaces on a page.', usedBy: 'Card, Table, DataTable, Alert, Stat, Attachment, OptionCard, Dropzone, File, charts, Patterns blocks' },
   { token: 'radius-3xl', value: tokenValue('--size-border-radius-border-radius-3xl'), use: 'Dialogs and full-height panels.', usedBy: 'Dialog, AlertDialog, Drawer, LoginFormSplit' },
   { token: 'radius-4xl', value: tokenValue('--size-border-radius-border-radius-4xl'), use: 'Reserved for large containers.', usedBy: 'Not used by components yet' },
   { token: 'radius-5xl', value: tokenValue('--size-border-radius-border-radius-5xl'), use: 'Reserved for large decorative shapes.', usedBy: 'Not used by components yet' },
-  { token: 'radius-max', value: tokenValue('--size-border-radius-border-radius-max'), use: 'Pills and round shapes.', usedBy: 'Badge, Progress, Switch, Slider, StatusDot, Stepper (today mostly as rounded-full)' },
+  { token: 'radius-max', value: tokenValue('--size-border-radius-border-radius-max'), use: 'Pills and round shapes.', usedBy: 'Badge, Progress, Switch, Slider, StatusDot, Stepper' },
 ];
 
 const RADIUS_STEPS = [
@@ -603,66 +604,66 @@ const radius = (step: string) => `var(--size-border-radius-border-radius-${step}
 export const BorderRadius: Story = {
   name: 'Border radius',
   render: () => (
-    <Page>
-      <Section
-        title="Border radius"
-        description="Nine steps. The radius grows with the size of the surface and with how far it sits from the page: a dialog is rounder than the card inside it, the card rounder than its button, the button rounder than its input. Token names below are shortened; the full name is --size-border-radius-border-radius-{step}."
-      >
-        <div className="flex flex-col gap-8">
-          {/* Nested demo: each level uses its own tier, outermost first. */}
-          <div className="rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] p-8">
-            <div className="flex max-w-md flex-col gap-4 bg-[var(--color-bg-surface-bg-surface)] p-5 shadow-elevation-xl" style={{ borderRadius: radius('3xl') }}>
-              <div className="flex items-baseline justify-between">
-                <span className="text-body-l font-semibold text-[var(--color-text-text)]">Dialog</span>
-                <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">3xl · 12px</span>
-              </div>
-              <div className="flex flex-col gap-3 border border-solid border-[var(--color-border-border)] p-4" style={{ borderRadius: radius('2xl') }}>
-                <div className="flex items-baseline justify-between">
-                  <span className="text-body-m font-medium text-[var(--color-text-text)]">Card</span>
-                  <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">2xl · 10px</span>
-                </div>
-                <div className="flex h-10 items-center justify-between border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] px-3" style={{ borderRadius: radius('lg') }}>
-                  <span className="text-body-m text-[var(--color-text-text-subtle)]">Input</span>
-                  <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">lg · 6px</span>
-                </div>
-                <div className="flex items-center justify-between rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] px-3 py-2">
-                  <span className="text-body-m text-[var(--color-text-text)]">List item</span>
-                  <span className="flex items-center gap-2">
-                    <kbd className="border border-solid border-[var(--color-border-border)] px-1.5 font-mono text-body-s text-[var(--color-text-text-subtle)]" style={{ borderRadius: radius('sm') }}>K</kbd>
-                    <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">md · 4px, key sm · 2px</span>
-                  </span>
-                </div>
-                <div className="flex h-10 items-center justify-between bg-[var(--color-bg-primary-bg-primary)] px-4" style={{ borderRadius: radius('xl') }}>
-                  <span className="text-body-m text-[var(--color-text-text-on-dark)]">Button</span>
-                  <span className="font-mono text-body-s text-[var(--color-text-text-on-dark)]">xl · 8px</span>
-                </div>
-              </div>
+    <DocsPage
+      title="Border radius"
+      description={
+        <>
+          Nine steps. The radius grows with the size of the surface and with how far it sits from the page: a dialog is rounder than the card inside it, the card rounder than its button, the button rounder than its input. Token names below are shortened; the full name is <Code>--size-border-radius-border-radius-{'{step}'}</Code>.
+        </>
+      }
+    >
+      {/* Nested demo: each level uses its own tier, outermost first. */}
+      <Preview muted>
+        <div className="flex max-w-md flex-col gap-4 bg-[var(--color-bg-surface-bg-surface)] p-5 shadow-elevation-xl" style={{ borderRadius: radius('3xl') }}>
+          <div className="flex items-baseline justify-between gap-3">
+            <span className="text-body-l font-semibold text-[var(--color-text-text)]">Dialog</span>
+            <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">3xl · 12px</span>
+          </div>
+          <div className="flex flex-col gap-3 border border-solid border-[var(--color-border-border-subtle)] p-4" style={{ borderRadius: radius('2xl') }}>
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="text-body-m font-medium text-[var(--color-text-text)]">Card</span>
+              <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">2xl · 10px</span>
+            </div>
+            <div className="flex h-10 items-center justify-between gap-3 border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] px-3" style={{ borderRadius: radius('lg') }}>
+              <span className="text-body-m text-[var(--color-text-text-subtle)]">Input</span>
+              <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">lg · 6px</span>
+            </div>
+            <div className="flex items-center justify-between gap-3 rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] px-3 py-2">
+              <span className="text-body-m text-[var(--color-text-text)]">List item</span>
+              <span className="flex items-center gap-2">
+                <kbd className="border border-solid border-[var(--color-border-border)] px-1.5 font-mono text-body-s text-[var(--color-text-text-subtle)]" style={{ borderRadius: radius('sm') }}>K</kbd>
+                <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">md · 4px, key sm · 2px</span>
+              </span>
+            </div>
+            <div className="flex h-10 items-center justify-between gap-3 bg-[var(--color-bg-primary-bg-primary)] px-4" style={{ borderRadius: radius('xl') }}>
+              <span className="text-body-m text-[var(--color-text-text-on-dark)]">Button</span>
+              <span className="font-mono text-body-s text-[var(--color-text-text-on-dark)]">xl · 8px</span>
             </div>
           </div>
-
-          <div className="flex flex-wrap gap-5">
-            {RADIUS_STEPS.map(([step, px]) => (
-              <div key={step} className="flex flex-col items-center gap-2">
-                <div className="size-16 border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]" style={{ borderRadius: radius(step) }} />
-                <span className="font-mono text-body-s text-[var(--color-text-text)]">{step}</span>
-                <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">{px}px</span>
-              </div>
-            ))}
-          </div>
-
-          <SpecTable rows={RADIUS_ROWS} />
-
-          <Note>
-            Tailwind's rounded-* names are shifted against the token names: rounded-sm is token md (4px), rounded-lg is lg (6px), rounded-xl is xl (8px). Plain rounded and rounded-md are not bridged at all and fall back to Tailwind's own 4px and 6px. In components, write the token form: rounded-[var(--size-border-radius-border-radius-lg)].
-          </Note>
         </div>
-      </Section>
-    </Page>
+      </Preview>
+
+      <div className="flex flex-wrap gap-5">
+        {RADIUS_STEPS.map(([step, px]) => (
+          <div key={step} className="flex flex-col items-center gap-2">
+            <div className="size-16 border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]" style={{ borderRadius: radius(step) }} />
+            <span className="font-mono text-body-s text-[var(--color-text-text)]">{step}</span>
+            <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">{px}px</span>
+          </div>
+        ))}
+      </div>
+
+      <SpecTable label="Radius tokens" rows={RADIUS_ROWS} />
+
+      <Note>
+        Tailwind's <Code>rounded-*</Code> names are shifted against the token names: <Code>rounded-sm</Code> is token md (4px), <Code>rounded-lg</Code> is lg (6px), <Code>rounded-xl</Code> is xl (8px). Plain <Code>rounded</Code> and <Code>rounded-md</Code> are not bridged at all and fall back to Tailwind's own 4px and 6px. In components, write the token form: <Code>rounded-[var(--size-border-radius-border-radius-lg)]</Code>.
+      </Note>
+    </DocsPage>
   ),
 };
 
 const FOCUS_ROWS: SpecRow[] = [
-  { token: '--color-focus-focus-ring', value: tokenValue('--color-focus-focus-ring'), use: 'Default ring for every interactive control.', usedBy: 'Almost every control (65 uses of the 4px ring)' },
+  { token: '--color-focus-focus-ring', value: tokenValue('--color-focus-focus-ring'), use: 'Default ring for every interactive control.', usedBy: 'Almost every control' },
   { token: '--color-focus-focus-ring-error', value: tokenValue('--color-focus-focus-ring-error'), use: 'Invalid fields, together with the danger border and background.', usedBy: 'TextField, Textarea, Select, Combobox, Autocomplete, DatePicker, NumberField, InputGroup, InputOTP, PromptArea, Slider' },
   { token: '--color-focus-focus-ring-success', value: tokenValue('--color-focus-focus-ring-success'), use: 'Fields and cards in a success state.', usedBy: 'Card (success tone)' },
   { token: '--color-focus-focus-ring-warning', value: tokenValue('--color-focus-focus-ring-warning'), use: 'Fields and cards in a warning state.', usedBy: 'Card (warning tone)' },
@@ -678,168 +679,90 @@ const FOCUS_DEMO = [
 ] as const;
 
 const FOCUS_RULES = [
-  "The ring is a 4px box-shadow outside the element: focus-visible:focus-ring. It follows the element's border radius on its own.",
-  'Use an inset ring (shadow-[inset_0_0_0_3px_...]) only where an outer ring would be clipped by overflow: table cells, tree rows, code blocks, the terminal.',
-  'Text fields show the ring on any focus, including a mouse click. Buttons and other controls show it on keyboard focus only (focus-visible).',
-  'Fields pair the soft ring with a solid border color. The border is what meets the 3:1 contrast requirement; the ring alone does not.',
-  'The ring tone follows the state: error for invalid, success or warning for validated states, on-primary on primary-filled surfaces.',
+  <>The ring is a 4px box-shadow outside the element: <Code>focus-visible:focus-ring</Code>. It follows the element's border radius on its own.</>,
+  <>Use an inset ring (<Code>shadow-[inset_0_0_0_3px_...]</Code>) only where an outer ring would be clipped by overflow: table cells, tree rows, code blocks, the terminal.</>,
+  <>Text fields show the ring on any focus, including a mouse click. Buttons and other controls show it on keyboard focus only (<Code>focus-visible</Code>).</>,
+  <>Fields pair the soft ring with a solid border colour. The border is what meets the 3:1 contrast requirement; the ring alone does not.</>,
+  <>The ring tone follows the state: error for invalid, success or warning for validated states, on-primary on primary-filled surfaces.</>,
 ];
 
 export const FocusRing: Story = {
   name: 'Focus ring',
   render: () => (
-    <Page>
-      <Section
-        title="Focus ring"
-        description="Five ring tokens, one per state. The previews show each ring at rest; the button under each one lets you check it with Tab."
-      >
-        <div className="flex flex-col gap-8">
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))] gap-4">
-            {FOCUS_DEMO.map(({ tone, label, ring, border, onPrimary }) => (
-              <div
-                key={tone}
-                className={`flex flex-col gap-4 rounded-[var(--size-border-radius-border-radius-2xl)] p-4 ${
-                  onPrimary ? 'bg-[var(--color-bg-primary-bg-primary)]' : 'border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)]'
-                }`}
-              >
-                <span className={`text-body-m font-medium ${onPrimary ? 'text-[var(--color-text-text-on-dark)]' : 'text-[var(--color-text-text)]'}`}>{label}</span>
-                {/* Static preview: the ring exactly as it renders on focus. */}
-                <div
-                  className={`flex h-10 items-center rounded-[var(--size-border-radius-border-radius-lg)] border border-solid px-3 text-body-m ${
-                    onPrimary ? 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)]' : 'bg-[var(--color-bg-input-bg-input)] text-[var(--color-text-text-subtle)]'
-                  }`}
-                  style={{ borderColor: border, boxShadow: `0 0 0 4px ${ring}` }}
-                >
-                  Focused
-                </div>
-                <button
-                  type="button"
-                  className={`w-fit rounded-[var(--size-border-radius-border-radius-xl)] px-3 py-1.5 text-body-s outline-none ${
-                    onPrimary ? 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)]' : 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text)]'
-                  }`}
-                  style={{ ['--demo-ring' as string]: ring }}
-                  data-focus-demo=""
-                >
-                  Tab to me
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <SubHeading>Outside or inset</SubHeading>
-            <div className="flex flex-wrap items-start gap-8">
-              <div className="flex flex-col gap-2">
-                <div className="flex h-10 w-48 items-center rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-primary)] bg-[var(--color-bg-input-bg-input)] px-3 text-body-m text-[var(--color-text-text-subtle)] focus-ring">
-                  Outside, 4px
-                </div>
-                <span className="text-body-s text-[var(--color-text-text-subtle)]">Default for standalone controls.</span>
-              </div>
-              <div className="flex flex-col gap-2">
-                <div className="w-56 overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)]">
-                  <div className="border-b border-solid border-[var(--color-border-border-subtler)] px-3 py-2 text-body-m text-[var(--color-text-text)]">Row</div>
-                  <div className="px-3 py-2 text-body-m text-[var(--color-text-text)] shadow-[inset_0_0_0_3px_var(--color-focus-focus-ring)]">Focused row, inset 3px</div>
-                  <div className="border-t border-solid border-[var(--color-border-border-subtler)] px-3 py-2 text-body-m text-[var(--color-text-text)]">Row</div>
-                </div>
-                <span className="text-body-s text-[var(--color-text-text-subtle)]">Inside containers that clip overflow.</span>
-              </div>
+    <DocsPage
+      title="Focus ring"
+      description="Five ring tokens, one per state. The previews show each ring at rest; the button under each one lets you check it with Tab."
+    >
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))] gap-4">
+        {FOCUS_DEMO.map(({ tone, label, ring, border, onPrimary }) => (
+          <div
+            key={tone}
+            className={`flex flex-col gap-4 rounded-[var(--size-border-radius-border-radius-2xl)] p-4 ${
+              onPrimary ? 'bg-[var(--color-bg-primary-bg-primary)]' : 'border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]'
+            }`}
+          >
+            <span className={`text-body-m font-medium ${onPrimary ? 'text-[var(--color-text-text-on-dark)]' : 'text-[var(--color-text-text)]'}`}>{label}</span>
+            {/* Static preview: the ring exactly as it renders on focus. */}
+            <div
+              className={`flex h-10 items-center rounded-[var(--size-border-radius-border-radius-lg)] border border-solid px-3 text-body-m ${
+                onPrimary ? 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)]' : 'bg-[var(--color-bg-input-bg-input)] text-[var(--color-text-text-subtle)]'
+              }`}
+              style={{ borderColor: border, boxShadow: `0 0 0 4px ${ring}` }}
+            >
+              Focused
             </div>
+            <button
+              type="button"
+              className={`w-fit rounded-[var(--size-border-radius-border-radius-xl)] px-3 py-1.5 text-body-s outline-none ${
+                onPrimary ? 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)]' : 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text)]'
+              }`}
+              style={{ ['--demo-ring' as string]: ring }}
+              data-focus-demo=""
+            >
+              Tab to me
+            </button>
           </div>
+        ))}
+      </div>
 
-          <SpecTable rows={FOCUS_ROWS} />
-
-          <div className="flex flex-col gap-3">
-            <SubHeading>Rules</SubHeading>
-            <ul className="flex max-w-[70ch] list-disc flex-col gap-2 pl-5 text-body-m text-[var(--color-text-text)]">
-              {FOCUS_RULES.map((rule) => (
-                <li key={rule}>{rule}</li>
-              ))}
-            </ul>
+      <DocsSection title="Outside or inset">
+        <div className="flex flex-wrap items-start gap-8">
+          <div className="flex flex-col gap-2">
+            <div className="flex h-10 w-48 items-center rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-primary)] bg-[var(--color-bg-input-bg-input)] px-3 text-body-m text-[var(--color-text-text-subtle)] focus-ring">
+              Outside, 4px
+            </div>
+            <span className="text-body-s text-[var(--color-text-text-subtle)]">Default for standalone controls.</span>
           </div>
-
-          <Note>
-            Known exceptions: Button, Card and Slider draw a 3px ring instead of 4px. The soft ring's contrast is an accepted deviation from WCAG 1.4.11, listed on the Accessibility page.
-          </Note>
+          <div className="flex flex-col gap-2">
+            <div className="w-56 overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]">
+              <div className="border-b border-solid border-[var(--color-border-border-subtler)] px-3 py-2 text-body-m text-[var(--color-text-text)]">Row</div>
+              <div className="px-3 py-2 text-body-m text-[var(--color-text-text)] shadow-[inset_0_0_0_3px_var(--color-focus-focus-ring)]">Focused row, inset 3px</div>
+              <div className="border-t border-solid border-[var(--color-border-border-subtler)] px-3 py-2 text-body-m text-[var(--color-text-text)]">Row</div>
+            </div>
+            <span className="text-body-s text-[var(--color-text-text-subtle)]">Inside containers that clip overflow.</span>
+          </div>
         </div>
-        {/* Demo-only: apply the per-card ring on keyboard focus. */}
-        <style>{`[data-focus-demo]:focus-visible { box-shadow: 0 0 0 4px var(--demo-ring); }`}</style>
-      </Section>
-    </Page>
+      </DocsSection>
+
+      <DocsSection title="Tokens">
+        <SpecTable label="Focus ring tokens" rows={FOCUS_ROWS} />
+      </DocsSection>
+
+      <DocsSection title="Rules">
+        <ul className={LIST}>
+          {FOCUS_RULES.map((rule, i) => (
+            <li key={i}>{rule}</li>
+          ))}
+        </ul>
+        <Note>
+          Known exceptions: Button, Card and Slider draw a 3px ring instead of 4px. The soft ring's contrast is an accepted deviation from WCAG 1.4.11, listed on the Accessibility page.
+        </Note>
+      </DocsSection>
+      {/* Demo-only: apply the per-card ring on keyboard focus. */}
+      <style>{`[data-focus-demo]:focus-visible { box-shadow: 0 0 0 4px var(--demo-ring); }`}</style>
+    </DocsPage>
   ),
 };
-
-type SpecRow = { token: string; value: string; use: string; usedBy: string };
-
-// Four-column spec table shared by the scale stories below. On a phone it
-// turns into stacked cards (Mobile rule: tables never scroll sideways); from
-// sm up it is a plain table.
-function SpecTable({
-  rows,
-  tokenLabel = 'Token',
-  valueLabel = 'Value',
-  usedByLabel = 'Used by',
-}: {
-  rows: SpecRow[];
-  tokenLabel?: string;
-  valueLabel?: string;
-  usedByLabel?: string;
-}) {
-  const frame = 'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)]';
-  return (
-    <>
-      <ul className={`${frame} m-0 flex list-none flex-col p-0 sm:hidden`}>
-        {rows.map((r) => (
-          <li key={r.token} className="flex flex-col gap-1.5 border-b border-solid border-[var(--color-border-border-subtler)] px-4 py-3 last:border-b-0">
-            <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
-              <span className="font-mono text-body-s text-[var(--color-text-text)] [overflow-wrap:anywhere]">{r.token}</span>
-              <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">{r.value}</span>
-            </div>
-            <p className="m-0 text-body-m text-[var(--color-text-text)]">{r.use}</p>
-            <p className="m-0 text-body-s text-[var(--color-text-text-subtle)]">
-              <span className="font-medium">{usedByLabel}:</span> {r.usedBy}
-            </p>
-          </li>
-        ))}
-      </ul>
-      <div className={`${frame} hidden overflow-hidden sm:block`}>
-        <table className="w-full border-collapse text-left">
-          <thead>
-            <tr className="border-b border-solid border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]">
-              {[tokenLabel, valueLabel, 'Use for', usedByLabel].map((h) => (
-                <th key={h} scope="col" className="px-4 py-2.5 text-body-s font-medium text-[var(--color-text-text-subtle)]">
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.token} className="border-b border-solid border-[var(--color-border-border-subtler)] align-top last:border-b-0">
-                <td className="px-4 py-3 font-mono text-body-s text-[var(--color-text-text)] [overflow-wrap:anywhere] lg:whitespace-nowrap">{r.token}</td>
-                <td className="whitespace-nowrap px-4 py-3 font-mono text-body-s text-[var(--color-text-text-subtle)]">{r.value}</td>
-                <td className="px-4 py-3 text-body-m text-[var(--color-text-text)]">{r.use}</td>
-                <td className="px-4 py-3 text-body-s text-[var(--color-text-text-subtle)]">{r.usedBy}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
-  );
-}
-
-// A short note under a scale: a known exception or where the values live.
-function Note({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-info-bg-info-subtle)] px-4 py-3 text-body-s text-[var(--color-text-text)]">
-      {children}
-    </p>
-  );
-}
-
-function SubHeading({ children }: { children: React.ReactNode }) {
-  return <h3 className="text-body-l font-semibold text-[var(--color-text-text)]">{children}</h3>;
-}
 
 /* ---------------------------- Elevation ---------------------------- */
 
@@ -870,30 +793,30 @@ const ELEVATION_DEMO = [
 
 export const Elevation: Story = {
   render: () => (
-    <Page>
-      <Section
-        title="Elevation"
-        description="Five shadow steps, tinted toward slate-900 in light and black with a faint light rim on floating layers in dark. The higher the step, the further the surface is from the page; lg and xl add a 1px ambient layer because they float. Use as shadow-elevation-{xs|sm|md|lg|xl}; shadow-elevation-edge-up for a panel pinned to the bottom edge."
-      >
-        <div className="flex flex-col gap-6">
-          <div className="grid grid-cols-2 gap-6 rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] p-6 sm:flex sm:flex-wrap sm:gap-8 sm:p-8">
-            {ELEVATION_DEMO.map(({ s, label, cls }) => (
-              <div
-                key={s}
-                className={`flex h-24 flex-col justify-between sm:w-36 rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface)] p-3 ${cls}`}
-              >
-                <span className="text-body-m font-medium text-[var(--color-text-text)]">{label}</span>
-                <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">elevation-{s}</span>
-              </div>
-            ))}
+    <DocsPage
+      title="Elevation"
+      description={
+        <>
+          Five shadow steps, tinted toward slate-900 in light and black with a faint light rim on floating layers in dark. The higher the step, the further the surface is from the page; lg and xl add a 1px ambient layer because they float. Use as <Code>shadow-elevation-{'{xs|sm|md|lg|xl}'}</Code>; <Code>shadow-elevation-edge-up</Code> for a panel pinned to the bottom edge.
+        </>
+      }
+    >
+      <Preview muted className="grid grid-cols-2 gap-6 sm:flex sm:flex-wrap sm:gap-8">
+        {ELEVATION_DEMO.map(({ s, label, cls }) => (
+          <div
+            key={s}
+            className={`flex h-24 flex-col justify-between rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface)] p-3 sm:w-36 ${cls}`}
+          >
+            <span className="text-body-m font-medium text-[var(--color-text-text)]">{label}</span>
+            <span className="font-mono text-body-s text-[var(--color-text-text-subtle)]">elevation-{s}</span>
           </div>
-          <SpecTable rows={ELEVATION_ROWS} valueLabel="Shadow" />
-          <Note>
-            Values live in @theya/tokens (--elevation-*). Focus rings are also drawn with box-shadow, but they are a separate scale: see Focus ring.
-          </Note>
-        </div>
-      </Section>
-    </Page>
+        ))}
+      </Preview>
+      <SpecTable label="Elevation tokens" rows={ELEVATION_ROWS} valueLabel="Shadow" />
+      <Note>
+        Values live in <Code>@theya/tokens</Code> (<Code>--elevation-*</Code>). Focus rings are also drawn with box-shadow, but they are a separate scale: see Focus ring.
+      </Note>
+    </DocsPage>
   ),
 };
 
@@ -953,80 +876,76 @@ const EASING_DEMO = [
 
 export const Motion: Story = {
   render: () => (
-    <Page>
-      <Section
-        title="Motion"
-        description="Five durations and five easing curves, as duration-{fast|standard|moderate|slow|slower} and ease-{enter|exit|spring|press|glide}. Components already move on their own (see Built in, below); the Motion presets add landing-page effects; Motion › Micro-interactions is the library of every effect, built in or not. Every transition or animation has a reduced-motion guard."
+    <DocsPage
+      title="Motion"
+      description={
+        <>
+          Five durations and five easing curves: <Code>duration-{'{fast|standard|moderate|slow|slower}'}</Code> and <Code>ease-{'{enter|exit|spring|press|glide}'}</Code>. Components already move on their own (see Built in, below); the Motion presets add landing-page effects; Motion › Micro-interactions is the library of every effect, built in or not. Every transition or animation has a reduced-motion guard.
+        </>
+      }
+    >
+      <DocsSection title="Duration">
+        <Preview className="flex flex-col gap-4">
+          {DURATION_DEMO.map(({ name, ms }) => (
+            <div key={name} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1.5 sm:flex">
+              <span className="font-mono text-body-s text-[var(--color-text-text-subtle)] sm:w-36 sm:shrink-0">duration-{name}</span>
+              <div className="order-last col-span-2 h-2 overflow-hidden rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)] sm:order-none sm:flex-1">
+                <div className="h-full rounded-full bg-[var(--color-bg-primary-bg-primary)]" style={{ width: `${(ms / DURATION_MAX) * 100}%` }} />
+              </div>
+              <span className="text-right font-mono text-body-s text-[var(--color-text-text-subtle)] sm:w-14 sm:shrink-0">{ms}ms</span>
+            </div>
+          ))}
+        </Preview>
+        <SpecTable label="Duration tokens" rows={DURATION_ROWS} />
+      </DocsSection>
+
+      <DocsSection title="Easing">
+        <Preview className="flex flex-col gap-4">
+          {EASING_DEMO.map(({ name, curve }) => (
+            <div key={name} className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-4">
+              <span className="font-mono text-body-s text-[var(--color-text-text-subtle)] sm:w-36 sm:shrink-0">ease-{name}</span>
+              <div className="relative h-4 sm:flex-1">
+                <div className="absolute inset-x-0 top-1/2 h-px bg-[var(--color-border-border-subtler)]" />
+                <div className="theya-slide absolute top-0 size-4 rounded-full bg-[var(--color-bg-primary-bg-primary)]" style={{ animationTimingFunction: curve }} />
+              </div>
+            </div>
+          ))}
+        </Preview>
+        <SpecTable label="Easing tokens" rows={EASING_ROWS} valueLabel="Curve" />
+      </DocsSection>
+
+      <DocsSection
+        title="Built in"
+        description={
+          <>
+            These move without any prop. Keyframes live in <Code>src/styles/motion.css</Code>; most are adapted from Kinetics and CSS Loaders (MIT, see THIRD-PARTY-NOTICES.md).
+          </>
+        }
       >
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-4">
-            <SubHeading>Duration</SubHeading>
-            <div className="flex flex-col gap-4 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)] p-5">
-              {DURATION_DEMO.map(({ name, ms }) => (
-                <div key={name} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1.5 sm:flex">
-                  <span className="font-mono text-body-s text-[var(--color-text-text-subtle)] sm:w-36 sm:shrink-0">duration-{name}</span>
-                  <div className="order-last col-span-2 h-2 overflow-hidden sm:order-none sm:flex-1 rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]">
-                    <div className="h-full rounded-full bg-[var(--color-bg-primary-bg-primary)]" style={{ width: `${(ms / DURATION_MAX) * 100}%` }} />
-                  </div>
-                  <span className="text-right font-mono sm:w-14 sm:shrink-0 text-body-s text-[var(--color-text-text-subtle)]">{ms}ms</span>
-                </div>
-              ))}
-            </div>
-            <SpecTable rows={DURATION_ROWS} />
-          </div>
+        <SpecTable label="Built-in motion" rows={BUILT_IN_ROWS} tokenLabel="Component" valueLabel="What moves" usedByLabel="Adapted from" />
+      </DocsSection>
 
-          <div className="flex flex-col gap-4">
-            <SubHeading>Easing</SubHeading>
-            <div className="flex flex-col gap-4 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)] p-5">
-              {EASING_DEMO.map(({ name, curve }) => (
-                <div key={name} className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-4">
-                  <span className="font-mono text-body-s text-[var(--color-text-text-subtle)] sm:w-36 sm:shrink-0">ease-{name}</span>
-                  <div className="relative h-4 sm:flex-1">
-                    <div className="absolute inset-x-0 top-1/2 h-px bg-[var(--color-border-border-subtler)]" />
-                    <div
-                      className="theya-slide absolute top-0 size-4 rounded-full bg-[var(--color-bg-primary-bg-primary)]"
-                      style={{ animationTimingFunction: curve }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-            <SpecTable rows={EASING_ROWS} valueLabel="Curve" />
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <SubHeading>Built in</SubHeading>
-            <p className="max-w-[70ch] text-body-m text-[var(--color-text-text)]">
-              These move without any prop. Keyframes live in src/styles/motion.css; most are adapted from Kinetics and CSS Loaders (MIT, see THIRD-PARTY-NOTICES.md).
-            </p>
-            <SpecTable rows={BUILT_IN_ROWS} tokenLabel="Component" valueLabel="What moves" usedByLabel="Adapted from" />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <SubHeading>Rules</SubHeading>
-            <ul className="flex max-w-[70ch] list-disc flex-col gap-2 pl-5 text-body-m text-[var(--color-text-text)]">
-              <li>Motion answers an action or a change of state. Nothing animates on first render: a chip that starts selected or the starting step of a Stepper stays still.</li>
-              <li>Short and once: feedback stays under half a second. Anything that repeats stops on its own within 5 seconds (BadgeIndicator pulse rings three times) or has a pause (Marquee) — WCAG 2.2.2.</li>
-              <li>Reduced motion: transitions and one-off effects are dropped and the end state shows at once; loaders don’t freeze but fade slowly; a timer (undoToast’s bar) keeps running, because it is information.</li>
-              <li>Decorative, endless motion (Aurora, Border beam, Neon glow, Float bob) is a preset for landing pages and promos — one per screen, never in forms or settings.</li>
-              <li>A new effect goes into Motion › Micro-interactions first, as a “Now / Variant” pair, and becomes a default only once it is chosen.</li>
-            </ul>
-          </div>
-
-          <Note>
-            Values live in @theya/tokens (--motion-*). One value is off the scale on purpose: Button's press spring runs 220ms.
-          </Note>
-        </div>
-        {/* Demo-only keyframes. The easing demo stops under prefers-reduced-motion. The track ends at 88% so ease-spring's overshoot stays inside the panel. */}
-        <style>{`
-          @keyframes theya-slide { from { left: 0; } to { left: calc(88% - 1rem); } }
-          .theya-slide { animation: theya-slide 1.6s infinite alternate; }
-          @media (prefers-reduced-motion: reduce) {
-            .theya-slide { animation: none; }
-          }
-        `}</style>
-      </Section>
-    </Page>
+      <DocsSection title="Rules">
+        <ul className={LIST}>
+          <li>Motion answers an action or a change of state. Nothing animates on first render: a chip that starts selected or the starting step of a Stepper stays still.</li>
+          <li>Short and once: feedback stays under half a second. Anything that repeats stops on its own within 5 seconds (BadgeIndicator pulse rings three times) or has a pause (Marquee) — WCAG 2.2.2.</li>
+          <li>Reduced motion: transitions and one-off effects are dropped and the end state shows at once; loaders don’t freeze but fade slowly; a timer (undoToast’s bar) keeps running, because it is information.</li>
+          <li>Decorative, endless motion (Aurora, Border beam, Neon glow, Float bob) is a preset for landing pages and promos — one per screen, never in forms or settings.</li>
+          <li>A new effect goes into Motion › Micro-interactions first, as a “Now / Variant” pair, and becomes a default only once it is chosen.</li>
+        </ul>
+        <Note>
+          Values live in <Code>@theya/tokens</Code> (<Code>--motion-*</Code>). One value is off the scale on purpose: Button's press spring runs 220ms.
+        </Note>
+      </DocsSection>
+      {/* Demo-only keyframes. The easing demo stops under prefers-reduced-motion. The track ends at 88% so ease-spring's overshoot stays inside the frame. */}
+      <style>{`
+        @keyframes theya-slide { from { left: 0; } to { left: calc(88% - 1rem); } }
+        .theya-slide { animation: theya-slide 1.6s infinite alternate; }
+        @media (prefers-reduced-motion: reduce) {
+          .theya-slide { animation: none; }
+        }
+      `}</style>
+    </DocsPage>
   ),
 };
 
@@ -1037,7 +956,7 @@ const LAYER_ROWS: SpecRow[] = [
   { token: '--z-index-drawer', value: tokenValue('--layer-drawer'), use: 'Side and bottom panels that slide over the page.', usedBy: 'Drawer and PushSheet, backdrop and panel on the same layer' },
   { token: '--z-index-overlay', value: tokenValue('--layer-overlay'), use: 'The dimmed backdrop behind a modal.', usedBy: 'Dialog and AlertDialog backdrops' },
   { token: '--z-index-modal', value: tokenValue('--layer-modal'), use: 'Dialog content above its backdrop.', usedBy: 'Dialog, AlertDialog' },
-  { token: '--z-index-popover', value: tokenValue('--layer-popover'), use: 'Anything anchored to a trigger. Also works inside a modal.', usedBy: 'Popover, DropdownMenu, ContextMenu, Menubar, HoverCard, Select. NavigationMenu still uses a local z-10 (no portal yet)' },
+  { token: '--z-index-popover', value: tokenValue('--layer-popover'), use: 'Anything anchored to a trigger. Also works inside a modal.', usedBy: 'Popover, DropdownMenu, ContextMenu, Menubar, HoverCard, Select. NavigationMenu renders in place with a local z-10' },
   { token: '--z-index-toast', value: tokenValue('--layer-toast'), use: 'Notifications that must stay visible over any open layer.', usedBy: 'Sonner (inline zIndex var(--z-index-toast))' },
   { token: '--z-index-tooltip', value: tokenValue('--layer-tooltip'), use: 'Tooltips. Always on top, because a tooltip belongs to whatever is under the cursor, including items inside menus and toasts.', usedBy: 'Tooltip, WorkspaceLayout skip link while focused' },
 ];
@@ -1045,39 +964,36 @@ const LAYER_ROWS: SpecRow[] = [
 export const Layering: Story = {
   name: 'Layering (z-index)',
   render: () => (
-    <Page>
-      <Section
-        title="Layering (z-index)"
-        description="One stacking order for every layer that floats above the page. Tailwind v4 has no z-index theme scale, so there are no short classes: use z-(--z-index-modal), not z-modal."
-      >
-        <div className="flex flex-col gap-6">
-          <SpecTable rows={LAYER_ROWS} />
-          <div className="flex flex-col gap-2">
-            <SubHeading>Local stacking</SubHeading>
-            <p className="max-w-[70ch] text-body-m text-[var(--color-text-text)]">
-              z-[1], z-[2] and z-10 inside Card, charts, InputOTP, ToggleGroup and similar only order the parts of one component against each other. They never compete with the layers above, so they stay as plain numbers and are not tokens.
-            </p>
+    <DocsPage
+      title="Layering (z-index)"
+      description={
+        <>
+          One stacking order for every layer that floats above the page. Tailwind v4 has no z-index theme scale, so there are no short classes: use <Code>z-(--z-index-modal)</Code>, not <Code>z-modal</Code>.
+        </>
+      }
+    >
+      <SpecTable label="Layer tokens" rows={LAYER_ROWS} />
+      <Note>
+        Values live in <Code>@theya/tokens</Code> (<Code>--layer-*</Code>); globals.css maps them to the <Code>--z-index-*</Code> names above.
+      </Note>
+
+      <DocsSection title="Local stacking">
+        <p className={TEXT}>
+          <Code>z-[1]</Code>, <Code>z-[2]</Code> and <Code>z-10</Code> inside Card, charts, InputOTP, ToggleGroup and similar only order the parts of one component against each other. They never compete with the layers above, so they stay as plain numbers and are not tokens.
+        </p>
+      </DocsSection>
+
+      <DocsSection title="Proof" description="The blue box comes first in the DOM and would lose under plain paint order, yet it renders on top because 600 is greater than 10.">
+        <div className="relative h-24 w-full">
+          <div className="absolute left-16 top-8 z-(--z-index-toast) flex h-16 w-40 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-primary-bg-primary)] font-mono text-body-s text-[var(--color-text-text-on-primary)]">
+            z-(--z-index-toast)
           </div>
-          <div className="flex flex-col gap-2">
-            <SubHeading>Proof</SubHeading>
-            <div className="relative h-24 w-full">
-              <div className="absolute left-16 top-8 z-(--z-index-toast) flex h-16 w-40 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-primary-bg-primary)] font-mono text-body-s text-[var(--color-text-text-on-primary)]">
-                z-(--z-index-toast)
-              </div>
-              <div className="absolute left-8 top-0 z-10 flex h-16 w-40 items-start px-3 py-2 rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-danger-bg-danger)] font-mono text-body-s text-[var(--color-text-text-on-dark)]">
-                z-10
-              </div>
-            </div>
-            <p className="text-body-s text-[var(--color-text-text-subtle)]">
-              The blue box comes first in the DOM and would lose under plain paint order, yet it renders on top because 600 is greater than 10.
-            </p>
+          <div className="absolute left-8 top-0 z-10 flex h-16 w-40 items-start rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-danger-bg-danger)] px-3 py-2 font-mono text-body-s text-[var(--color-text-text-on-dark)]">
+            z-10
           </div>
-          <Note>
-            Values live in @theya/tokens (--layer-*); globals.css maps them to the --z-index-* names above.
-          </Note>
         </div>
-      </Section>
-    </Page>
+      </DocsSection>
+    </DocsPage>
   ),
 };
 
@@ -1122,47 +1038,46 @@ const MOBILE_RULES = [
 export const Mobile: Story = {
   name: 'Mobile',
   render: () => (
-    <Page>
-      <Section
-        title="Mobile"
-        description="Theya targets two phone widths: 360 px (Android) and 375 px (iPhone). Below sm (640 px) is a phone; at md (768 px) Sidebar and PushSheet turn from a Drawer into an inline panel."
-      >
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-3">
-            <SubHeading>Touch targets</SubHeading>
-            <div className="flex flex-wrap items-end gap-8">
-              {[
-                { size: 44, label: '44 px — recommended' },
-                { size: 24, label: '24 px — minimum' },
-              ].map(({ size, label }) => (
-                <div key={size} className="flex flex-col items-start gap-2">
-                  <div
-                    className="flex items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] border border-dashed border-[var(--color-border-border-primary)] bg-[var(--color-bg-primary-bg-primary-subtle)]"
-                    style={{ width: size, height: size }}
-                  />
-                  <span className="text-body-s text-[var(--color-text-text-subtle)]">{label}</span>
-                </div>
-              ))}
-              <div className="flex flex-col items-start gap-2">
-                <div className="relative flex size-11 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] border border-dashed border-[var(--color-border-border-primary)]">
-                  <span className="size-5 rounded-full bg-[var(--color-bg-primary-bg-primary)]" />
-                </div>
-                <span className="text-body-s text-[var(--color-text-text-subtle)]">20 px control, 44 px hit area</span>
-              </div>
+    <DocsPage
+      title="Mobile"
+      description="Theya targets two phone widths: 360 px (Android) and 375 px (iPhone). Below sm (640 px) is a phone; at md (768 px) Sidebar and PushSheet turn from a Drawer into an inline panel."
+    >
+      <DocsSection title="Touch targets">
+        <div className="flex flex-wrap items-end gap-8">
+          {[
+            { size: 44, label: '44 px — recommended' },
+            { size: 24, label: '24 px — minimum' },
+          ].map(({ size, label }) => (
+            <div key={size} className="flex flex-col items-start gap-2">
+              <div
+                className="flex items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] border border-dashed border-[var(--color-border-border-primary)] bg-[var(--color-bg-primary-bg-primary-subtle)]"
+                style={{ width: size, height: size }}
+              />
+              <span className="text-body-s text-[var(--color-text-text-subtle)]">{label}</span>
             </div>
-            <SpecTable rows={TOUCH_ROWS} valueLabel="Size" />
+          ))}
+          <div className="flex flex-col items-start gap-2">
+            <div className="relative flex size-11 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)] border border-dashed border-[var(--color-border-border-primary)]">
+              <span className="size-5 rounded-full bg-[var(--color-bg-primary-bg-primary)]" />
+            </div>
+            <span className="text-body-s text-[var(--color-text-text-subtle)]">20 px control, 44 px hit area</span>
           </div>
+        </div>
+        <SpecTable label="Touch targets" rows={TOUCH_ROWS} tokenLabel="Target" valueLabel="Size" />
+      </DocsSection>
 
-          <div className="flex flex-col gap-3">
-            <SubHeading>Viewport height</SubHeading>
-            <SpecTable rows={VIEWPORT_ROWS} valueLabel="Unit" />
-          </div>
+      <DocsSection title="Viewport height">
+        <SpecTable label="Viewport units" rows={VIEWPORT_ROWS} tokenLabel="Unit" valueLabel="Viewport" />
+      </DocsSection>
 
-          <div className="flex flex-col gap-3">
-            <SubHeading>Overlays on a phone</SubHeading>
-            <SpecTable rows={OVERLAY_ROWS} valueLabel="Behaviour" />
-            <pre tabIndex={0} aria-label="Code example" className="overflow-x-auto outline-none focus-visible:focus-ring rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] p-4 font-mono text-body-s text-[var(--color-text-text)]">
-              {`// A popover that becomes a bottom sheet below 640px:
+      <DocsSection title="Overlays on a phone">
+        <SpecTable label="Overlays on a phone" rows={OVERLAY_ROWS} tokenLabel="Component" valueLabel="Behaviour" />
+        <pre
+          tabIndex={0}
+          aria-label="Code example"
+          className="m-0 overflow-x-auto rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] p-4 font-mono text-body-s text-[var(--color-text-text)] outline-none focus-visible:focus-ring"
+        >
+          {`// A popover that becomes a bottom sheet below 640px:
 <Popover sheet>
   <PopoverTrigger asChild>…</PopoverTrigger>
   <PopoverContent sheetTitle="Status">…</PopoverContent>
@@ -1171,25 +1086,20 @@ export const Mobile: Story = {
 // Dialog or Drawer, decided by the product:
 const isPhone = useMediaQuery('(max-width: 639.98px)');
 return isPhone ? <Drawer>…</Drawer> : <Dialog>…</Dialog>;`}
-            </pre>
-          </div>
+        </pre>
+      </DocsSection>
 
-          <div className="flex flex-col gap-3">
-            <SubHeading>Safe area</SubHeading>
-            <SpecTable rows={SAFE_AREA_ROWS} valueLabel="For" />
-          </div>
+      <DocsSection title="Safe area">
+        <SpecTable label="Safe area" rows={SAFE_AREA_ROWS} tokenLabel="Value" valueLabel="For" />
+      </DocsSection>
 
-          <div className="flex flex-col gap-3">
-            <SubHeading>Rules</SubHeading>
-            <ul className="flex max-w-[70ch] list-disc flex-col gap-2 pl-5 text-body-m text-[var(--color-text-text)]">
-              {MOBILE_RULES.map((rule) => (
-                <li key={rule}>{rule}</li>
-              ))}
-            </ul>
-          </div>
-
-        </div>
-      </Section>
-    </Page>
+      <DocsSection title="Rules">
+        <ul className={LIST}>
+          {MOBILE_RULES.map((rule) => (
+            <li key={rule}>{rule}</li>
+          ))}
+        </ul>
+      </DocsSection>
+    </DocsPage>
   ),
 };
