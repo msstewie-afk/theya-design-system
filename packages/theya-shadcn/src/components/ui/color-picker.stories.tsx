@@ -26,17 +26,8 @@ const PALETTE = [
   '#2196a8', '#2fb8d1', '#7adbe8', '#bdeef5', '#000000', '#ffffff',
 ];
 
-// A small landscape as an inline SVG, so the photo view works offline.
-const PHOTO = `data:image/svg+xml;utf8,${encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="260" viewBox="0 0 600 260">
-    <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6b38a"/><stop offset="1" stop-color="#f7e2c4"/></linearGradient></defs>
-    <rect width="600" height="260" fill="url(#sky)"/>
-    <circle cx="430" cy="110" r="42" fill="#fbe9a8"/>
-    <path d="M0 170 L120 110 L230 160 L340 95 L470 165 L600 120 L600 260 L0 260Z" fill="#7a5c86"/>
-    <path d="M0 200 L150 160 L300 205 L450 170 L600 200 L600 260 L0 260Z" fill="#4a3d63"/>
-    <path d="M0 235 L600 222 L600 260 L0 260Z" fill="#2c2a3f"/>
-  </svg>`,
-)}`;
+// One of Theya's own example images (public/asset-examples): pink and blue, so the photo palette has range.
+const PHOTO = '/asset-examples/product-router.jpg';
 
 const meta = {
   title: 'Selection/ColorPicker',
@@ -141,10 +132,10 @@ export const WithAlpha: Story = {
   },
 };
 
-/** Upload flow: the From photo view starts empty. */
+/** From photo: colors picked from an image (one of Theya's examples); "Change photo" uploads another. */
 export const FromPhoto: Story = {
   name: 'From photo',
-  args: { views: ['photo', 'custom'] },
+  args: { views: ['photo', 'custom'], photo: PHOTO },
   render: Default.render,
 };
 

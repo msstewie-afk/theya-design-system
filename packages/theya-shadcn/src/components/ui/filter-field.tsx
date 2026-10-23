@@ -562,7 +562,10 @@ export function FilterField({
         onPointerDownOutside={(event) => {
           if (fieldRef.current?.contains(event.target as Node)) event.preventDefault();
         }}
-        className={cn('max-h-[var(--radix-popover-content-available-height)] overflow-y-auto p-0', active?.type === 'date' ? 'w-auto' : 'w-fit min-w-72 max-w-[var(--radix-popover-trigger-width)]')}
+        // A fixed 320px for the list and every editor (the calendar sizes itself):
+        // with w-fit the popover jumped between steps and grew as you typed (the
+        // clear button widened the field). 320 = 12 + 136 operator + 8 + 152 value + 12.
+        className={cn('max-h-[var(--radix-popover-content-available-height)] overflow-y-auto p-0', active?.type === 'date' ? 'w-auto' : 'w-80 max-w-[var(--radix-popover-trigger-width)]')}
       >
         {active === undefined ? (
           <div id={listboxId} role="listbox" aria-label={attributeLabel} className="max-h-64 overflow-y-auto p-1">
@@ -745,8 +748,7 @@ export function FilterField({
             ) : active.type === 'number' ? (
               <div className="flex flex-col gap-3 p-3">
                 {/* Min and Max side by side: label 4px above its field, 8px between the
-                    two, 12px around. Width comes from the sums: 128 + 8 + 128 + 2 × 12 = 288,
-                    the popover's own minimum (Figma's 288). */}
+                    two, 12px around: 12 + 144 + 8 + 144 + 12 = the popover's 320. */}
                 <div className="grid grid-cols-2 gap-2">
                   <NumberField
                     value={numberDraft.min}

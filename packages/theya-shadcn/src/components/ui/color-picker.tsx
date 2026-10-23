@@ -677,30 +677,27 @@ export function ColorPicker({
     </Select>
   );
   const inputRow = (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       <div className="flex items-center gap-2.5">
         {formatSelect}
         <div className="grid min-w-0 flex-1 grid-cols-3 gap-x-2.5">{channelFields}</div>
       </div>
+      {/* Opacity: no caption (it misaligned the row, Maria 2026-10-23); the "%"
+          in the value says what it is, and the field keeps its accessible name.
+          Same width as the format select, straight under it. */}
       {alpha && (
-        <div className="flex items-center gap-3">
-          {/* Visible caption; the field keeps its own accessible label. Auto
-              width: "Непрозрачность" / "Deckkraft" don't fit the select's column. */}
-          <span aria-hidden="true" className="shrink-0 whitespace-nowrap font-body text-body-s text-[var(--color-text-text-subtle)]">
-            {t.colorPicker.opacity}
-          </span>
-          <div className="w-20 shrink-0">
-            <DraftInput
-              label={t.colorPicker.opacityPercent}
-              value={isEmpty ? '' : `${Math.round(hsva.a * 100)}%`}
-              onCommit={(d) => {
-                const n = intIn(0, 100)(d);
-                if (n === null) return false;
-                set({ a: n / 100 }, true);
-                return true;
-              }}
-            />
-          </div>
+        <div className="w-[4.75rem]">
+          <DraftInput
+            label={t.colorPicker.opacityPercent}
+            value={isEmpty ? '' : `${Math.round(hsva.a * 100)}%`}
+            onCommit={(d) => {
+              const n = intIn(0, 100)(d);
+              if (n === null) return false;
+              set({ a: n / 100 }, true);
+              return true;
+            }}
+            className="w-full"
+          />
         </div>
       )}
     </div>
