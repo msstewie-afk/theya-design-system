@@ -146,7 +146,7 @@ export function WheelPicker({ options, value, defaultValue, onValueChange, rows 
   );
   if (!label) return wheel;
   return (
-    <div className="inline-flex flex-col gap-1.5">
+    <div className="inline-flex flex-col gap-1">
       {/* Like a <label for>: a click on it focuses the wheel. */}
       <Label id={labelId} onClick={() => !disabled && box.current?.focus()}>
         {label}

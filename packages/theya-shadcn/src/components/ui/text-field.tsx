@@ -255,7 +255,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
   // value. Found by the Preferences password test, 2026-10-01.
   if (!label) {
     return (
-      <div className={messageEl ? 'flex flex-col gap-1.5 w-full' : 'contents'}>
+      <div className={messageEl ? 'flex flex-col gap-1 w-full' : 'contents'}>
         {input}
         {messageEl}
       </div>
@@ -268,7 +268,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
     return (
       <div className="flex flex-col items-start gap-1 sm:flex-row sm:gap-0">
         {labelEl}
-        <div className="flex w-full flex-col gap-1.5 flex-1 min-w-0">
+        <div className="flex w-full flex-col gap-1 flex-1 min-w-0">
           {input}
           {messageEl}
         </div>
@@ -279,7 +279,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
   return (
     <div className="flex flex-col items-start gap-1 w-full">
       {labelEl}
-      <div className="flex flex-col gap-1.5 w-full">
+      <div className="flex flex-col gap-1 w-full">
         {input}
         {messageEl}
       </div>

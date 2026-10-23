@@ -204,7 +204,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
   // value. Found by the Preferences password test, 2026-10-01.
   if (!label) {
     return (
-      <div className={messageEl ? 'flex flex-col gap-1.5 w-full' : 'contents'}>
+      <div className={messageEl ? 'flex flex-col gap-1 w-full' : 'contents'}>
         {field}
         {messageEl}
       </div>
@@ -217,7 +217,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
     return (
       <div className="flex flex-col items-start gap-1 sm:flex-row sm:gap-0">
         {labelEl}
-        <div className="flex w-full flex-col gap-1.5 flex-1 min-w-0">
+        <div className="flex w-full flex-col gap-1 flex-1 min-w-0">
           {field}
           {messageEl}
         </div>
@@ -228,7 +228,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
   return (
     <div className="flex flex-col items-start gap-1 w-full">
       {labelEl}
-      <div className="flex flex-col gap-1.5 w-full">
+      <div className="flex flex-col gap-1 w-full">
         {field}
         {messageEl}
       </div>

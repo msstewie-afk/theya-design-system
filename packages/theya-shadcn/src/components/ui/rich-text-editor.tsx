@@ -185,7 +185,7 @@ function LinkTool({ editor, disabled }: { editor: Editor; disabled?: boolean }) 
             apply();
           }}
         >
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <Label htmlFor={inputId}>{t.richTextEditor.url}</Label>
             <input
               id={inputId}
@@ -443,7 +443,7 @@ export function RichTextEditor({
   }) ?? 0;
 
   return (
-    <div className={cn('flex flex-col gap-1.5', className)}>
+    <div className={cn('flex flex-col gap-1', className)}>
       {label && (
         <Label id={labelId} onClick={() => editor?.commands.focus()}>
           {label}

@@ -169,7 +169,7 @@ export function DateTimePicker({
   );
   if (!label && !description) return fields;
   return (
-    <div className={cn('flex flex-col gap-1.5', className)}>
+    <div className={cn('flex flex-col gap-1', className)}>
       {label && (
         <Label id={labelId} htmlFor={dateId} required={required} optional={optional}>
           {label}

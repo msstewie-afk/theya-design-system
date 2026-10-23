@@ -30,7 +30,7 @@ export function Field({
       data-invalid={invalid || undefined}
       data-required={required || undefined}
       data-disabled={disabled || undefined}
-      className={cn('flex flex-col gap-2', className)}
+      className={cn('flex flex-col gap-1', className)}
       {...props}
     />
   );

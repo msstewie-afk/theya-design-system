@@ -241,7 +241,7 @@ export const Rating = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, Ra
   );
   if (!visibleLabel) return group;
   return (
-    <div className="inline-flex flex-col gap-1.5">
+    <div className="inline-flex flex-col gap-1">
       <Label id={labelId} required={required} optional={optional}>
         {visibleLabel}
       </Label>

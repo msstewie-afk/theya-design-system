@@ -615,7 +615,7 @@ export function FilterField({
           </div>
         ) : (
           <div ref={editorRef}>
-            <div className="flex items-center gap-1 border-b border-solid border-[var(--color-border-border-subtler)] p-1.5">
+            <div className="flex items-center gap-1 border-b border-solid border-[var(--color-border-border-subtler)] p-2">
               <button
                 type="button"
                 aria-label={t.filterField.back}
@@ -638,8 +638,10 @@ export function FilterField({
             </div>
 
             {active.type === 'text' ? (
-              // Editors: 12px inside, 16px from the fields to Apply (Maria, 2026-10-23).
-              <div className="flex flex-col gap-4 p-3">
+              // Editors on the 4px grid (Maria, 2026-10-23): 12px padding, 12px from the
+              // fields to Apply; Apply md is 32px, the same height as the sm fields. The header's 8px puts the back
+              // arrow's icon (16 in a 24 button) on the same 12px edge as the content.
+              <div className="flex flex-col gap-3 p-3">
                 <div className="flex items-center gap-2">
                   {active.operators && (
                     <Select heightSize="sm" value={textOperator} onValueChange={(v) => setTextOperator(v as TextFilterOperator)}>
@@ -741,10 +743,11 @@ export function FilterField({
                 </CommandList>
               </Command>
             ) : active.type === 'number' ? (
-              <div className="flex flex-col gap-4 p-3">
-                {/* Min and Max side by side, each a labelled sm field: label-to-field
-                    6px, between the two 12px, so each label reads with its own field. */}
-                <div className="grid grid-cols-2 gap-3">
+              <div className="flex flex-col gap-3 p-3">
+                {/* Min and Max side by side: label 4px above its field, 8px between the
+                    two, 12px around. Width comes from the sums: 128 + 8 + 128 + 2 × 12 = 288,
+                    the popover's own minimum (Figma's 288). */}
+                <div className="grid grid-cols-2 gap-2">
                   <NumberField
                     value={numberDraft.min}
                     onValueChange={(min) => setNumberDraft((prev) => ({ ...prev, min }))}

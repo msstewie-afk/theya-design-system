@@ -201,7 +201,7 @@ export function TagInput({
   for (const { tag, message } of invalid) messages.push(`${tag}: ${message}`);
 
   return (
-    <div data-slot="tag-input" className={cn('flex w-full flex-col gap-1.5', className)}>
+    <div data-slot="tag-input" className={cn('flex w-full flex-col gap-1', className)}>
       {label && (
         <Label htmlFor={inputId} required={required} optional={optional} className={cn(heightSize === 'sm' && 'text-body-s')}>
           {label}

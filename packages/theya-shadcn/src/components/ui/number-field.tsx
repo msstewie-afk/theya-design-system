@@ -306,7 +306,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
   );
   if (!labelled) return field;
   return (
-    <div className={cn('flex flex-col gap-1.5', WIDTH_CLASSES[widthSize], className)}>
+    <div className={cn('flex flex-col gap-1', WIDTH_CLASSES[widthSize], className)}>
       {label && (
         <Label htmlFor={resolvedId} required={required} optional={optional} className={cn(heightSize === 'sm' && 'text-body-s')}>
           {label}

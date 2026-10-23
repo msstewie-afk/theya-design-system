@@ -859,7 +859,7 @@ export function ColorField({
   const swatchSize = heightSize === 'sm' ? 'size-5' : 'size-6';
 
   return (
-    <div className={cn('flex flex-col gap-1.5', className)}>
+    <div className={cn('flex flex-col gap-1', className)}>
       {label && <Label htmlFor={id}>{label}</Label>}
       <div className="relative">
         <Popover sheet>

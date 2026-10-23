@@ -228,7 +228,7 @@ export function SwatchPicker(props: SwatchPickerProps) {
   if (!legend) return <div className={className}>{group}</div>;
 
   return (
-    <div className={cn('flex flex-col gap-1.5', className)}>
+    <div className={cn('flex flex-col gap-1', className)}>
       <div id={legendId} className="text-body-m text-[var(--color-text-text)]">
         <span className="font-medium">{legend}</span>
         {/* Same mark as Label: required shows on screen, not only to assistive tech (WCAG 3.3.2). */}

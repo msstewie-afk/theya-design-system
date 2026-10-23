@@ -77,7 +77,7 @@ function FormItem({ className, ...props }: React.ComponentProps<'div'>) {
   const { name } = useContext(FormFieldContext);
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn('grid gap-2', className)} {...props} />
+      <div ref={ref} className={cn('grid gap-1', className)} {...props} />
       {name && <ShakeOnFailedSubmit name={name} target={ref} />}
     </FormItemContext.Provider>
   );

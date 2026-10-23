@@ -268,7 +268,7 @@ export function PhoneField({
   const sm = heightSize === 'sm';
 
   return (
-    <div data-slot="phone-field" className={cn('flex w-full flex-col gap-1.5', className)}>
+    <div data-slot="phone-field" className={cn('flex w-full flex-col gap-1', className)}>
       {label && (
         <Label htmlFor={inputId} required={required} optional={optional} className={cn(sm && 'text-body-s')}>
           {label}
