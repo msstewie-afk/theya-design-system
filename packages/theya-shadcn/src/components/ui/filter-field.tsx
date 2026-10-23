@@ -638,7 +638,8 @@ export function FilterField({
             </div>
 
             {active.type === 'text' ? (
-              <div className="flex flex-col gap-2 p-2">
+              // Editors: 12px inside, 16px from the fields to Apply (Maria, 2026-10-23).
+              <div className="flex flex-col gap-4 p-3">
                 <div className="flex items-center gap-2">
                   {active.operators && (
                     <Select heightSize="sm" value={textOperator} onValueChange={(v) => setTextOperator(v as TextFilterOperator)}>
@@ -740,26 +741,30 @@ export function FilterField({
                 </CommandList>
               </Command>
             ) : active.type === 'number' ? (
-              <div className="flex flex-col gap-2 p-2">
-                <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-4 p-3">
+                {/* Min and Max side by side, each a labelled sm field: label-to-field
+                    6px, between the two 12px, so each label reads with its own field. */}
+                <div className="grid grid-cols-2 gap-3">
                   <NumberField
                     value={numberDraft.min}
                     onValueChange={(min) => setNumberDraft((prev) => ({ ...prev, min }))}
                     // Visible "Min"/"Max" (WCAG 3.3.2): a placeholder disappears once you type.
                     label={t.filterField.min}
+                    heightSize="sm"
+                    widthSize="full"
                     aria-label={t.filterField.minimum(String(active.label))}
                     decrementLabel={t.filterField.decreaseMin(String(active.label))}
                     incrementLabel={t.filterField.increaseMin(String(active.label))}
-                    className="w-full"
                   />
                   <NumberField
                     value={numberDraft.max}
                     onValueChange={(max) => setNumberDraft((prev) => ({ ...prev, max }))}
                     label={t.filterField.max}
+                    heightSize="sm"
+                    widthSize="full"
                     aria-label={t.filterField.maximum(String(active.label))}
                     decrementLabel={t.filterField.decreaseMax(String(active.label))}
                     incrementLabel={t.filterField.increaseMax(String(active.label))}
-                    className="w-full"
                   />
                 </div>
                 <div className="flex justify-end">

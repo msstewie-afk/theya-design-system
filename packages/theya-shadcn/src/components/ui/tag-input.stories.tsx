@@ -18,6 +18,9 @@ const meta = {
   tags: ['autodocs'],
   parameters: { guidelines: tagInputGuidelines, layout: 'padded' },
   argTypes: {
+    label: { control: 'text', description: 'Visible label (WCAG 3.3.2). Without it, name the field with aria-label.', table: { category: 'Content' } },
+    required: { control: 'boolean', description: 'Red asterisk after the label.', table: { category: 'State' } },
+    optional: { control: 'boolean', description: '"(optional)" after the label.', table: { category: 'State' } },
     placeholder: { control: 'text', table: { category: 'Content' } },
     description: { control: 'text', table: { category: 'Content' } },
     error: { control: 'text', description: 'External error shown under the field.', table: { category: 'State' } },

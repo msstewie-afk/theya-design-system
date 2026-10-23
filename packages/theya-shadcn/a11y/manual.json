@@ -100,7 +100,7 @@
       "2.5.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Area and sliders use a simple single-pointer drag, no path or multipoint."},
       "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "A click on the area or a slider track sets the value; swatches and hex/RGB/HSL inputs are further non-drag ways."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Dragging and onCommit only finalize the color value; focus stays in the picker."},
-      "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: visible R/G/B, H/S/L and Hex captions under the channel fields (real <label>s), Maria's call; channel names localized."}
+      "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: a visible letter before each channel field (R/G/B, H/S/L; Hex needs none, the select says HEX), a real <label>; Maria's call. Channel names localized."}
     },
     "Combobox": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: new autoComplete prop (default \"off\") reaches the combobox <input>."},
@@ -246,7 +246,7 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Chips, operators and steppers interpolate the filter label."},
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Focus-outside exemption covers only the field itself."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Applying a filter adds a chip; focus stays within the field and its own popover."},
-      "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: the number filter shows visible \"Min\"/\"Max\" labels above its fields, Maria's call."}
+      "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: the number filter shows labelled Min and Max fields side by side (sm, like the text filter), Maria's call."}
     },
     "Form": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No session or submit timeout; the only timing is the invalid-field shake."},

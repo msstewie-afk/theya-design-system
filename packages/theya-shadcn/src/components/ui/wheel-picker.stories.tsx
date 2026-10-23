@@ -14,6 +14,7 @@ const meta = {
   tags: ['autodocs'],
   parameters: { guidelines: wheelPickerGuidelines, layout: 'centered' },
   argTypes: {
+    label: { control: 'text', description: 'Visible label (WCAG 3.3.2). Without it, name the field with aria-label.', table: { category: 'Content' } },
     rows: { control: 'inline-radio', options: [3, 5], description: 'Rows visible at once.' },
     disabled: { control: 'boolean' },
   },

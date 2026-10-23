@@ -27,6 +27,9 @@ const meta: Meta<typeof Rating> = {
   },
   args: { 'aria-label': 'Rate this host', defaultValue: 3 },
   argTypes: {
+    label: { control: 'text', description: 'Visible label (WCAG 3.3.2). Without it, name the field with aria-label.', table: { category: 'Content' } },
+    required: { control: 'boolean', description: 'Red asterisk after the label.', table: { category: 'State' } },
+    optional: { control: 'boolean', description: '"(optional)" after the label.', table: { category: 'State' } },
     value: { control: 'number', description: 'Controlled value, 0 = no rating.', table: { category: 'State' } },
     defaultValue: { control: 'number', description: 'Uncontrolled initial value.', table: { category: 'State' } },
     max: { control: 'number', description: 'Number of stars. Default 5.', table: { category: 'Content' } },

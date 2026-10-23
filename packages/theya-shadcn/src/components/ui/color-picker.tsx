@@ -264,7 +264,7 @@ function DraftInput({
   onCommit: (draft: string) => boolean;
   /** Accessible name ("Red"). */
   label: string;
-  /** Visible caption under the field ("R"), a real <label> for it (WCAG 3.3.2). */
+  /** Visible caption before the field ("R"), a real <label> for it (WCAG 3.3.2). */
   caption?: string;
   /** On the wrapper when there's a caption, else on the input (grid placement). */
   className?: string;
@@ -314,11 +314,11 @@ function DraftInput({
   );
   if (!caption) return input;
   return (
-    <div className={cn('flex min-w-0 flex-col gap-1', className)}>
-      {input}
-      <label htmlFor={id} className="text-center font-body text-body-xs text-[var(--color-text-text-subtler)]">
+    <div className={cn('flex min-w-0 items-center gap-1', className)}>
+      <label htmlFor={id} className="shrink-0 font-body text-body-s text-[var(--color-text-text-subtle)]">
         {caption}
       </label>
+      {input}
     </div>
   );
 }
@@ -610,7 +610,6 @@ export function ColorPicker({
     format === 'hex' ? (
       <DraftInput
         label={t.colorPicker.hex}
-        caption={t.colorPicker.hex}
         inputMode="text"
         className="col-span-3"
         inputClassName="font-code uppercase"
@@ -659,9 +658,10 @@ export function ColorPicker({
 
   // Row one: format select + the three channels. Opacity gets a row of its
   // own underneath: four fields in one row left each about 40px on a
-  // phone, too narrow for "255". Each channel has a visible caption under
-  // it (R/G/B, H/S/L, Hex): the format select alone left the boxes
-  // unlabelled, and it's hidden when there's one format (Maria, 2026-10-23).
+  // phone, too narrow for "255". Each channel has a visible letter before
+  // it (R/G/B, H/S/L): the format select alone left the boxes unlabelled,
+  // and it's hidden when there's one format. Hex needs none — the select
+  // says HEX (Maria, 2026-10-23: letters inline, not captions underneath).
   const formatSelect = formats.length > 1 && (
     <Select heightSize="sm" value={format} onValueChange={(f) => setFormat(f as ColorFormat)}>
       <SelectTrigger widthSize="sm" aria-label={t.colorPicker.format} className="w-[4.75rem] shrink-0">
@@ -678,10 +678,9 @@ export function ColorPicker({
   );
   const inputRow = (
     <div className="flex flex-col gap-1.5">
-      {/* items-start: the select lines up with the fields, the captions hang below. */}
-      <div className="flex items-start gap-1.5">
+      <div className="flex items-center gap-2.5">
         {formatSelect}
-        <div className="grid min-w-0 flex-1 grid-cols-3 gap-1.5">{channelFields}</div>
+        <div className="grid min-w-0 flex-1 grid-cols-3 gap-x-2.5">{channelFields}</div>
       </div>
       {alpha && (
         <div className="flex items-center gap-3">

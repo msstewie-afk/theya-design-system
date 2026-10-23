@@ -18,6 +18,10 @@ const meta: Meta<typeof NumberField> = {
     },
   },
   argTypes: {
+    label: { control: 'text', description: 'Visible label (WCAG 3.3.2). Without it, name the field with aria-label.', table: { category: 'Content' } },
+    description: { control: 'text', description: 'Helper text under the field.', table: { category: 'Content' } },
+    required: { control: 'boolean', description: 'Red asterisk after the label.', table: { category: 'State' } },
+    optional: { control: 'boolean', description: '"(optional)" after the label.', table: { category: 'State' } },
     value: { control: false, description: 'Controlled value.', table: { category: 'State' } },
     defaultValue: { control: { type: 'number' }, description: 'Uncontrolled initial value.', table: { category: 'State' } },
     onValueChange: { control: false, description: 'Fires with the new value on change.', table: { category: 'Events' } },

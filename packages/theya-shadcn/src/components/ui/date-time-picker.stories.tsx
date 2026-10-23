@@ -19,6 +19,10 @@ const meta: Meta<typeof DateTimePicker> = {
     },
   },
   argTypes: {
+    label: { control: 'text', description: 'Visible label (WCAG 3.3.2). Without it, name the field with aria-label.', table: { category: 'Content' } },
+    description: { control: 'text', description: 'Helper text under the field.', table: { category: 'Content' } },
+    required: { control: 'boolean', description: 'Red asterisk after the label.', table: { category: 'State' } },
+    optional: { control: 'boolean', description: '"(optional)" after the label.', table: { category: 'State' } },
     value: { control: false, description: 'Controlled combined date+time value.' },
     onChange: { control: false, description: 'Fires with the new combined date+time value and `{ timeSet }` — false while only the date was picked (the Date then carries a placeholder 00:00).' },
     hourCycle: { control: 'inline-radio', options: [12, 24], description: '12-hour (AM/PM) or 24-hour time labels.', table: { category: 'Appearance' } },

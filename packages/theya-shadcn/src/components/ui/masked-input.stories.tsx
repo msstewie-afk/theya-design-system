@@ -17,6 +17,10 @@ const meta: Meta<typeof MaskedInput> = {
     },
   },
   argTypes: {
+    label: { control: 'text', description: 'Visible label (WCAG 3.3.2). Without it, name the field with aria-label.', table: { category: 'Content' } },
+    description: { control: 'text', description: 'Helper text under the field.', table: { category: 'Content' } },
+    required: { control: 'boolean', description: 'Red asterisk after the label.', table: { category: 'State' } },
+    optional: { control: 'boolean', description: '"(optional)" after the label.', table: { category: 'State' } },
     mask: { control: 'text', description: 'Mask template, e.g. "+1 (___) ___-____" or "__/__/____".', table: { category: 'Behavior' } },
     replacement: {
       control: false,

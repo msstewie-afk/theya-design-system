@@ -65,6 +65,7 @@ const meta = {
   tags: ['autodocs'],
   parameters: { layout: 'padded', guidelines: swatchPickerGuidelines },
   argTypes: {
+    required: { control: 'boolean', description: 'Red asterisk after the legend (single selection).' },
     options: { control: false, description: 'Swatches: value, label and color / colors / image; unavailable, disabled.' },
     type: { control: false, description: 'single (radio group) or multiple (pressed buttons).' },
     legend: { control: 'text', description: 'Group label; shown as "Legend: selected name".' },
