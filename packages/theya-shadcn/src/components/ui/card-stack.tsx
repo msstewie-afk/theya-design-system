@@ -4,6 +4,7 @@ import { Children, useEffect, useState } from 'react';
 import { useDirection } from '@radix-ui/react-direction';
 import { Pause, Play, NavArrowRight } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { inertProps } from '../../lib/inert';
 import { useTheyaI18n } from '../../lib/i18n';
 import { Button } from './button';
 import { useMediaQuery } from './use-media-query';
@@ -106,7 +107,7 @@ export function CardStack({ interval = 4000, depth = 2, hideControls = false, la
                 key={i}
                 data-slot="card-stack-item"
                 aria-hidden={isFront ? undefined : true}
-                {...(isFront ? {} : ({ inert: '' } as object))}
+                {...inertProps(!isFront)}
                 className={cn(
                   '[grid-area:stack] transition-[transform,opacity] duration-slower ease-glide motion-reduce:transition-none',
                   layout === 'fan' ? 'origin-bottom-left' : 'origin-top',

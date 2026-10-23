@@ -60,6 +60,11 @@ export const Default: Story = {
     // CardTitle is a div; count only text outside the aria-hidden back cards.
     const exposed = (re: RegExp) => canvas.queryAllByText(re).filter((el) => !el.closest('[aria-hidden="true"]'));
     await expect(exposed(/twelve client sites/)).toHaveLength(1);
+    // Every aria-hidden card is also inert, on React 18 and 19 alike (React 19
+    // used to drop inert="" as falsy, leaving the back cards focusable).
+    const backCards = [...canvasElement.querySelectorAll('[aria-hidden="true"]')].filter((el) => el.tagName !== 'svg' && el.textContent?.trim());
+    await expect(backCards.length).toBeGreaterThan(0);
+    for (const el of backCards) await expect(el).toHaveAttribute('inert');
     // Only the front card is exposed.
     await expect(exposed(/Staging and rollbacks/)).toHaveLength(0);
 

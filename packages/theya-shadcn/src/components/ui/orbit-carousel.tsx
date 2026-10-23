@@ -3,6 +3,7 @@
 import { Children, useEffect, useRef, useState } from 'react';
 import { NavArrowLeft, NavArrowRight, Pause, Play } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { inertProps } from '../../lib/inert';
 import { useTheyaI18n } from '../../lib/i18n';
 import { Button } from './button';
 import { useMediaQuery } from './use-media-query';
@@ -149,7 +150,7 @@ function Drum({ items, turn, index, itemWidth, transition }: ShapeProps) {
             key={i}
             data-slot="orbit-carousel-item"
             aria-hidden={current ? undefined : true}
-            {...(current ? {} : ({ inert: '' } as object))}
+            {...inertProps(!current)}
             className={cn('absolute inset-x-0 top-1/2 [backface-visibility:hidden]', transition, !current && 'opacity-80')}
             style={{ transform: `translateY(-50%) rotateY(${i * step}deg) translateZ(${radius}px)` }}
           >
@@ -178,7 +179,7 @@ function Wheel({ items, turn, index, itemWidth, transition }: ShapeProps) {
             key={i}
             data-slot="orbit-carousel-item"
             aria-hidden={current ? undefined : true}
-            {...(current ? {} : ({ inert: '' } as object))}
+            {...inertProps(!current)}
             className={cn('absolute top-1/2', transition, !visible && 'pointer-events-none')}
             style={{
               width: itemWidth,

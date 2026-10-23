@@ -63,6 +63,11 @@ export const Drum: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('heading', { name: 'Discover' })).toBeInTheDocument();
     await expect(canvas.queryByRole('heading', { name: 'Direction' })).toBeNull();
+    // Every aria-hidden card is also inert, on React 18 and 19 alike (React 19
+    // used to drop inert="" as falsy, leaving the back cards focusable).
+    const backCards = [...canvasElement.querySelectorAll('[aria-hidden="true"]')].filter((el) => el.tagName !== 'svg' && el.textContent?.trim());
+    await expect(backCards.length).toBeGreaterThan(0);
+    for (const el of backCards) await expect(el).toHaveAttribute('inert');
     await userEvent.click(canvas.getByRole('button', { name: 'Next slide' }));
     await waitFor(() => expect(canvas.getByRole('heading', { name: 'Direction' })).toBeInTheDocument());
     canvas.getByRole('group', { name: 'Case study' }).focus();
