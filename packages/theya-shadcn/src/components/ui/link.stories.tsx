@@ -6,7 +6,8 @@ import { linkGuidelines } from './link.guidelines';
 /**
  * Link — inline navigation text. Inherits the surrounding type by default;
  * `size` sets it for a standalone link. Underlined on hover, or always with
- * `underline` (links in running text). `inverse` for dark surfaces.
+ * `underline`. In running text it needs a cue besides color: `underline`, or
+ * one weight step above the text (`font-semibold`). `inverse` for dark surfaces.
  */
 const meta = {
   title: 'Navigation/Link',

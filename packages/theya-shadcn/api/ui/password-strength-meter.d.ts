@@ -6,6 +6,7 @@ export interface PasswordStrengthRule {
     label: ReactNode;
     test: (value: string) => boolean;
 }
+export type PasswordStrengthBand = 'weak' | 'good' | 'strong';
 export interface PasswordStrengthMeterProps {
     value: string;
     rules?: PasswordStrengthRule[];

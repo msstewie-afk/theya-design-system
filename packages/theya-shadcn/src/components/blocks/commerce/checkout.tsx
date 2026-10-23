@@ -112,7 +112,12 @@ export function Checkout({ email = 'dana@seashell.dev', taxRate = 0.2, taxLabel 
 
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-6 py-8">
         {done ? (
+          // The review (and the Pay button, natively disabled while the
+          // charge runs) is replaced by this screen, so focus would end on
+          // <body>; focusOnMount lands it on the result title instead, which
+          // also announces the outcome.
           <CompletionScreen
+            focusOnMount
             description="Your Pro plan is active and seashell.shop is registered."
             orderNumber="SH-20261003-4821"
             email={email}

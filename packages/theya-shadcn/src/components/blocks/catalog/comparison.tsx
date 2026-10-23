@@ -33,14 +33,31 @@ export interface CompareBarProps {
  * the bottom of the scroll area), shows what is in it with a way to take
  * each one out, leaves the empty slots visible so the limit is obvious, and
  * says what is missing instead of silently disabling "Compare".
+ *
+ * Focus: removing a pick moves focus to the next pick's remove button (or
+ * the previous one when it was the last). When the tray empties (last
+ * remove or "Clear") it unmounts, so the parent has to place focus —
+ * CompareFlow moves it to the results list.
  */
 export function CompareBar({ items, max = 4, onRemove, onClear, onCompare, className }: CompareBarProps) {
   const hintId = useId();
+  const rootRef = useRef<HTMLElement>(null);
+  // Slot index of the pick just removed; focus lands there once the list re-renders.
+  const removedAt = useRef<number | null>(null);
+  useEffect(() => {
+    const i = removedAt.current;
+    if (i === null) return;
+    removedAt.current = null;
+    const buttons = rootRef.current?.querySelectorAll<HTMLElement>('[data-compare-remove]');
+    // None left: the tray has unmounted and the parent places focus.
+    if (buttons?.length) buttons[Math.min(i, buttons.length - 1)].focus();
+  }, [items]);
   const ready = items.length >= 2;
   const hint = !ready ? 'Pick at least 2 to compare.' : items.length >= max ? `That's the maximum of ${max}. Remove one to add another.` : `You can add up to ${max}.`;
   if (!items.length) return null;
   return (
     <section
+      ref={rootRef}
       aria-label="Comparison"
       className={cn(
         'sticky bottom-4 z-10 flex flex-col gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3 shadow-elevation-lg @3xl:flex-row @3xl:items-center',
@@ -60,7 +77,19 @@ export function CompareBar({ items, max = 4, onRemove, onClear, onCompare, class
             <li key={item.id} className="flex h-10 min-w-0 items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] ps-1 pe-0.5">
               <ItemIcon icon={item.icon} size="sm" />
               <span className="min-w-0 flex-1 truncate font-body text-body-s font-medium text-[var(--color-text-text)]">{item.name}</span>
-              <Button appearance="ghost" tone="secondary" size="sm" iconOnly leftIcon={<Xmark />} aria-label={`Remove ${item.name} from comparison`} onClick={() => onRemove(item.id)} />
+              <Button
+                data-compare-remove=""
+                appearance="ghost"
+                tone="secondary"
+                size="sm"
+                iconOnly
+                leftIcon={<Xmark />}
+                aria-label={`Remove ${item.name} from comparison`}
+                onClick={() => {
+                  removedAt.current = i;
+                  onRemove(item.id);
+                }}
+              />
             </li>
           );
         })}
@@ -138,10 +167,26 @@ export interface ComparisonTableProps {
  * as on the cards. Rows where the items differ are emphasised and "Only
  * differences" hides the rest. The attribute column stays pinned while the
  * columns scroll sideways on narrow screens.
+ *
+ * Focus: removing a column moves focus to the next column's remove button
+ * (or the previous one when it was the last); with no columns left it goes
+ * to the table's scroll region.
  */
 export function ComparisonTable({ items, getHref, onRemove, className }: ComparisonTableProps) {
   const [onlyDifferences, setOnlyDifferences] = useState(false);
   const diffId = useId();
+  const regionRef = useRef<HTMLDivElement>(null);
+  // Column index of the item just removed; focus lands there once the table re-renders.
+  const removedAt = useRef<number | null>(null);
+  useEffect(() => {
+    const i = removedAt.current;
+    if (i === null) return;
+    removedAt.current = null;
+    const region = regionRef.current;
+    const buttons = region?.querySelectorAll<HTMLElement>('[data-compare-remove]');
+    if (buttons?.length) buttons[Math.min(i, buttons.length - 1)].focus();
+    else region?.focus();
+  }, [items]);
   const rows = useMemo(() => buildRows(items), [items]);
   const differs = (r: CompareRow) => new Set(items.map(r.key)).size > 1;
   const shown = rows.filter((r) => !onlyDifferences || differs(r));
@@ -156,7 +201,7 @@ export function ComparisonTable({ items, getHref, onRemove, className }: Compari
         </label>
       </div>
       {/* Focusable scroll region (keyboard users can scroll it); the ring sits on its frame. */}
-      <div role="region" aria-label="Comparison table" tabIndex={0} className="relative overflow-x-auto rounded-[var(--size-border-radius-border-radius-lg)] outline-none focus-visible:focus-ring">
+      <div ref={regionRef} role="region" aria-label="Comparison table" tabIndex={0} className="relative overflow-x-auto rounded-[var(--size-border-radius-border-radius-lg)] outline-none focus-visible:focus-ring">
         <table className="w-full table-fixed border-collapse font-body" style={{ minWidth: `${10 + items.length * 13}rem` }}>
           <caption className="sr-only">{`Comparing ${items.map((i) => i.name).join(', ')}`}</caption>
           <colgroup>
@@ -168,12 +213,26 @@ export function ComparisonTable({ items, getHref, onRemove, className }: Compari
           <thead>
             <tr>
               <td className="sticky start-0 z-[1] bg-[var(--color-bg-surface-bg-surface-base)] p-0" />
-              {items.map((item) => (
+              {items.map((item, i) => (
                 <th key={item.id} scope="col" className="px-4 pb-4 text-start align-top font-normal">
                   <div className="flex flex-col gap-3">
                     <div className="flex items-start justify-between gap-2">
                       <ItemIcon icon={item.icon} />
-                      {onRemove && <Button appearance="ghost" tone="secondary" size="sm" iconOnly leftIcon={<Xmark />} aria-label={`Remove ${item.name} from comparison`} onClick={() => onRemove(item.id)} />}
+                      {onRemove && (
+                        <Button
+                          data-compare-remove=""
+                          appearance="ghost"
+                          tone="secondary"
+                          size="sm"
+                          iconOnly
+                          leftIcon={<Xmark />}
+                          aria-label={`Remove ${item.name} from comparison`}
+                          onClick={() => {
+                            removedAt.current = i;
+                            onRemove(item.id);
+                          }}
+                        />
+                      )}
                     </div>
                     <div>
                       <a
@@ -237,7 +296,8 @@ export interface CompareFlowProps {
  * The whole compare loop: tick "Compare" on cards, the tray collects them,
  * "Compare (n)" opens the side-by-side table, "Back to results" returns
  * with the picks intact. Focus moves to the table heading and back to the
- * Compare button so keyboard and screen-reader users don't lose their place.
+ * Compare button so keyboard and screen-reader users don't lose their place;
+ * when the tray empties, focus moves to the results list.
  */
 export function CompareFlow({ items, max = 4, initialSelection, getHref, className }: CompareFlowProps) {
   const sel = useCompareSelection(max, initialSelection);
@@ -245,6 +305,10 @@ export function CompareFlow({ items, max = 4, initialSelection, getHref, classNa
   const rootRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const returning = useRef(false);
+  const listRef = useRef<HTMLUListElement>(null);
+  // Set when the tray is about to empty from inside it (last remove, Clear):
+  // the tray unmounts with the focused button, so focus goes to the results.
+  const trayEmptying = useRef(false);
   const selected = sel.ids.map((id) => items.find((i) => i.id === id)).filter((i): i is CatalogItem => !!i);
 
   useEffect(() => {
@@ -263,11 +327,29 @@ export function CompareFlow({ items, max = 4, initialSelection, getHref, classNa
     }
   }, [view, selected.length]);
 
+  useEffect(() => {
+    if (!trayEmptying.current || selected.length) return;
+    trayEmptying.current = false;
+    // preventScroll: the tray sat right over the list, so the list is
+    // already in view; don't jump the page to its top.
+    listRef.current?.focus({ preventScroll: true });
+  }, [selected.length]);
+
+  const removeFromTray = (id: string) => {
+    if (selected.length === 1 && selected[0].id === id) trayEmptying.current = true;
+    sel.remove(id);
+  };
+  const clearTray = () => {
+    trayEmptying.current = true;
+    sel.clear();
+  };
+
   return (
     <div ref={rootRef} className={cn('@container flex w-full flex-col gap-5', className)}>
       {view === 'browse' ? (
         <>
-          <ul className="grid gap-4 @xl:grid-cols-2 @4xl:grid-cols-3">
+          {/* tabIndex -1: focus target when the tray empties (no ring, it's programmatic only). */}
+          <ul ref={listRef} tabIndex={-1} className="grid gap-4 outline-none @xl:grid-cols-2 @4xl:grid-cols-3">
             {items.map((item) => {
               const checked = sel.ids.includes(item.id);
               return (
@@ -277,7 +359,7 @@ export function CompareFlow({ items, max = 4, initialSelection, getHref, classNa
               );
             })}
           </ul>
-          <CompareBar items={selected} max={max} onRemove={sel.remove} onClear={sel.clear} onCompare={() => setView('compare')} />
+          <CompareBar items={selected} max={max} onRemove={removeFromTray} onClear={clearTray} onCompare={() => setView('compare')} />
         </>
       ) : (
         <>

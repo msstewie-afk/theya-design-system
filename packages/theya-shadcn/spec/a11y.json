@@ -8416,7 +8416,7 @@
       },
       "keyboard": {
         "tested": 0,
-        "playTests": 0
+        "playTests": 1
       },
       "reducedMotion": "respected",
       "forcedColors": "global",

@@ -85,15 +85,15 @@
     },
     {
       "criterion": "1.4.1",
-      "result": "fail",
-      "finding": "The 'Sign up' link in the footer line has no underline until hover; its color against the surrounding text is about 1.6:1 (light) and 1.5:1 (dark), under the 3:1 needed when color is the main cue. Same pattern as SignUpForm, NoResults and SearchResults — worth deciding once for the library (Link docs ask for underline in running text)."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: The sign-up link in the footer sentence is font-semibold, one weight step above the text, so it no longer relies on color. (was: The 'Sign up' link in the footer line has no underline until hover; its color against the surrounding text is about 1.6:1 (light) and 1.5:1 (dark), under the 3:1 needed when color is the main cue. Same pattern as SignUpForm, NoResults and SearchResults — worth deciding once for the library (Link docs ask for underline in running text).)"
     }
   ],
   "LoginFormSplit": [
     {
       "criterion": "2.2.2",
-      "result": "fail",
-      "finding": "The image carousel autoplays every 6s by default (autoplayInterval = 6000) and loops indefinitely, with no pause control and no prefers-reduced-motion check (login-form-split.tsx, the setInterval effect). Needs a pause/stop control or no autoplay by default, and should stop under reduced motion."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: Autoplay is off under prefers-reduced-motion, holds while the panel is hovered or focused, and a named Pause / Play button stops it. (was: The image carousel autoplays every 6s by default (autoplayInterval = 6000) and loops indefinitely, with no pause control and no prefers-reduced-motion check (login-form-split.tsx, the setInterval effect). Needs a pause/stop control or no autoplay by default, and should stop under reduced motion.)"
     },
     {
       "criterion": "1.4.10",
@@ -259,8 +259,8 @@
     },
     {
       "criterion": "2.4.3",
-      "result": "fail",
-      "finding": "Removing an item with its row's Remove button unmounts the row together with the focused button, so focus falls back to the document body (saved-items.tsx, remove() called from the per-item icon Button). Should move focus to the next item, the previous one, or the heading."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: Removing a row moves focus to the next row’s Remove (else the previous one); the last one focuses the empty state. (was: Removing an item with its row's Remove button unmounts the row together with the focused button, so focus falls back to the document body (saved-items.tsx, remove() called from the per-item icon Button). Should move focus to the next item, the previous one, or the heading.)"
     }
   ],
   "SignUpForm": [
@@ -276,8 +276,8 @@
     },
     {
       "criterion": "1.4.1",
-      "result": "fail",
-      "finding": "Links inside running text (the 'Sign in' link in the header line, Terms of Service and Privacy Policy in the terms sentence) use Link without underline; link color vs the surrounding text-subtle is about 1.6:1 (light) / 1.5:1 (dark), below 3:1, and font-medium is the only other cue. Link's own docs say to set underline in running text (sign-up-form.tsx, the Link elements in AuthHeader children and the terms paragraph)."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: Links in sentences (Sign in, Terms, Privacy) are font-semibold, one weight step above the text. (was: Links inside running text (the 'Sign in' link in the header line, Terms of Service and Privacy Policy in the terms sentence) use Link without underline; link color vs the surrounding text-subtle is about 1.6:1 (light) / 1.5:1 (dark), below 3:1, and font-medium is the only other cue. Link's own docs say to set underline in running text (sign-up-form.tsx, the Link elements in AuthHeader children and the terms paragraph).)"
     }
   ],
   "StatusTracker": [
@@ -310,8 +310,8 @@
     },
     {
       "criterion": "1.4.1",
-      "result": "fail",
-      "finding": "The 'Did you mean' and 'matches in …' buttons sit inside sentences styled as links with no underline until hover; link color vs the text-subtle sentence is about 1.6:1 (light) / 1.5:1 (dark), below 3:1 (no-results.tsx, linkButton class)."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: Link-style buttons in the sentences are font-semibold, one weight step above the text. (was: The 'Did you mean' and 'matches in …' buttons sit inside sentences styled as links with no underline until hover; link color vs the text-subtle sentence is about 1.6:1 (light) / 1.5:1 (dark), below 3:1 (no-results.tsx, linkButton class).)"
     }
   ],
   "SearchBox": [
@@ -334,8 +334,8 @@
   "SearchResults": [
     {
       "criterion": "2.4.3",
-      "result": "fail",
-      "finding": "'View all N <type>' switches the scope to that type, which unmounts the 'All' view and the button with it, so focus falls back to the document body (search-results.tsx, the View all Button calling changeScope). Should move focus to the selected tab or the first result. The same happens when the last 'Show N more' page is shown and that button disappears."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: “View all N” focuses the new view’s tab panel; the last “Show N more” focuses the first revealed result. (was: 'View all N <type>' switches the scope to that type, which unmounts the 'All' view and the button with it, so focus falls back to the document body (search-results.tsx, the View all Button calling changeScope). Should move focus to the selected tab or the first result. The same happens when the last 'Show N more' page is shown and that button disappears.)"
     },
     {
       "criterion": "2.4.3",
@@ -344,8 +344,8 @@
     },
     {
       "criterion": "1.4.1",
-      "result": "fail",
-      "finding": "The 'Search only for “…”' button inside the typo-correction sentence is styled as a link with no underline until hover; link color vs the text-subtle sentence is about 1.6:1 (light) / 1.5:1 (dark), below 3:1 (search-results.tsx, the correction <p>). Matched words themselves pass: <mark> in semibold with a transparent background, not color."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: “Search only for …” is font-semibold, one weight step above the text. (was: The 'Search only for “…”' button inside the typo-correction sentence is styled as a link with no underline until hover; link color vs the text-subtle sentence is about 1.6:1 (light) / 1.5:1 (dark), below 3:1 (search-results.tsx, the correction <p>). Matched words themselves pass: <mark> in semibold with a transparent background, not color.)"
     }
   ],
   "ItemCard": [
@@ -385,8 +385,8 @@
     },
     {
       "criterion": "2.4.3",
-      "result": "fail",
-      "finding": "Removing an item with its X button (tray or table header) unmounts the focused button, and Clear unmounts the whole tray (CompareBar returns null when empty), so focus falls to <body> (comparison.tsx: CompareBar onRemove/onClear, ComparisonTable onRemove). Exception: dropping below two in the table view refocuses Compare. Focus should move to the next pick, the tray's Compare button, or the card's checkbox."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: Removing from the tray or the table moves focus to the next pick (else previous); an emptied tray focuses the card list. (was: Removing an item with its X button (tray or table header) unmounts the focused button, and Clear unmounts the whole tray (CompareBar returns null when empty), so focus falls to <body> (comparison.tsx: CompareBar onRemove/onClear, ComparisonTable onRemove). Exception: dropping below two in the table view refocuses Compare. Focus should move to the next pick, the tray's Compare button, or the card's checkbox.)"
     },
     {
       "criterion": "1.3.1",
@@ -407,8 +407,8 @@
     },
     {
       "criterion": "2.4.3",
-      "result": "fail",
-      "finding": "Activating a 'Remove filter' chip, Clear all, the empty state's Clear all filters, or the last 'Show N more' unmounts the focused button and focus falls to <body> (faceted-list.tsx: chips map, clearAll, EmptyState action, the visible < results.length branch). Focus should move to a neighbouring chip, the result count/heading, or the first newly shown item."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: Removing a filter chip focuses the next chip (else previous, else the section heading); Clear all focuses the heading; the last “Show N more” focuses the first revealed result. (was: Activating a 'Remove filter' chip, Clear all, the empty state's Clear all filters, or the last 'Show N more' unmounts the focused button and focus falls to <body> (faceted-list.tsx: chips map, clearAll, EmptyState action, the visible < results.length branch). Focus should move to a neighbouring chip, the result count/heading, or the first newly shown item.)"
     }
   ],
   "ItemPage": [
@@ -441,8 +441,8 @@
     },
     {
       "criterion": "2.4.3",
-      "result": "fail",
-      "finding": "'Show all' (shown while a star filter is on) and the last 'Show N more reviews' unmount themselves when activated, so focus falls to <body> (reviews.tsx: the star && Button inside the live <p>, the visible < list.length branch). Also, 'Show all' sits inside the aria-live paragraph, so its label is announced as part of the count, and the '★' in 'with 1 ★' is read as a symbol name."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: “Show all” focuses the review list and sits outside the live region; the last “Show more” focuses the first revealed review; “★” is read as “star”. (was: 'Show all' (shown while a star filter is on) and the last 'Show N more reviews' unmount themselves when activated, so focus falls to <body> (reviews.tsx: the star && Button inside the live <p>, the visible < list.length branch). Also, 'Show all' sits inside the aria-live paragraph, so its label is announced as part of the count, and the '★' in 'with 1 ★' is read as a symbol name.)"
     }
   ],
   "SpecSheet": [
@@ -465,13 +465,13 @@
     },
     {
       "criterion": "1.4.1",
-      "result": "fail",
-      "finding": "On the bar, the current section's trigger differs from the others only by text color (text-link-on-tonal), with no non-color cue (mega-menu.tsx, NavigationMenuTrigger className). A current plain link gets a background and medium weight, so only section triggers are affected. Needs a second cue, e.g. an underline/indicator or the data-active background."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: The current section’s trigger gets the same tinted fill and weight as a current link. (was: On the bar, the current section's trigger differs from the others only by text color (text-link-on-tonal), with no non-color cue (mega-menu.tsx, NavigationMenuTrigger className). A current plain link gets a background and medium weight, so only section triggers are affected. Needs a second cue, e.g. an underline/indicator or the data-active background.)"
     },
     {
       "criterion": "1.3.1",
-      "result": "fail",
-      "finding": "Drawer: column titles are <p> styled as group headings (the same titles are h3 in the bar) and their lists aren't labelled by them (mega-menu.tsx, Accordion content groupHeading <p>). A current plain link in the drawer has aria-current but no visual marking."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: Drawer column titles are h4 headings that label their lists; the current drawer link gets the tinted fill. (was: Drawer: column titles are <p> styled as group headings (the same titles are h3 in the bar) and their lists aren't labelled by them (mega-menu.tsx, Accordion content groupHeading <p>). A current plain link in the drawer has aria-current but no visual marking.)"
     }
   ],
   "PageBreadcrumbs": [
@@ -516,8 +516,8 @@
     },
     {
       "criterion": "2.4.3",
-      "result": "fail",
-      "finding": "Finishing (Cancel plan, Pause plan, Switch to …) swaps the flow for CompletionScreen without moving focus: the pressed button unmounts, focus drops to <body> and the outcome isn't announced. Resume plan does the same on the way back, since step is unchanged and the focus effect doesn't run (cancellation-flow.tsx, finish() and the `if (outcome)` branch)."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: The outcome screen takes focus on its title (CompletionScreen focusOnMount); Resume returns focus to the confirmation heading. (was: Finishing (Cancel plan, Pause plan, Switch to …) swaps the flow for CompletionScreen without moving focus: the pressed button unmounts, focus drops to <body> and the outcome isn't announced. Resume plan does the same on the way back, since step is unchanged and the focus effect doesn't run (cancellation-flow.tsx, finish() and the `if (outcome)` branch).)"
     }
   ],
   "Cart": [
@@ -533,8 +533,8 @@
     },
     {
       "criterion": "2.4.3",
-      "result": "fail",
-      "finding": "Applying a valid promo code unmounts the field and the Apply button (setPromoOpen(false)), so focus drops to <body>, and 'Code … applied' appears without a live region (cart.tsx, applyPromo()). Removing a line also drops focus with the row; the toast announces it, but focus is not placed anywhere."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: Applying a code focuses Remove code and a status region announces it; removing a line focuses the same control on the next line (else previous, else the heading, else the empty state). (was: Applying a valid promo code unmounts the field and the Apply button (setPromoOpen(false)), so focus drops to <body>, and 'Code … applied' appears without a live region (cart.tsx, applyPromo()). Removing a line also drops focus with the row; the toast announces it, but focus is not placed anywhere.)"
     }
   ],
   "Checkout": [
@@ -550,8 +550,8 @@
     },
     {
       "criterion": "4.1.3",
-      "result": "fail",
-      "finding": "After Pay, the done branch replaces the page with CompletionScreen without moving focus or announcing the result; focus is already lost during the charge because Button's loading sets native disabled (button.tsx, isDisabled = disabled || loading) on the focused Pay button (checkout.tsx, pay() and the `done` branch)."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: After Pay the completion title takes focus and is read with its description. (was: After Pay, the done branch replaces the page with CompletionScreen without moving focus or announcing the result; focus is already lost during the charge because Button's loading sets native disabled (button.tsx, isDisabled = disabled || loading) on the focused Pay button (checkout.tsx, pay() and the `done` branch).)"
     }
   ],
   "CompletionScreen": [
@@ -567,8 +567,8 @@
     },
     {
       "criterion": "2.4.3",
-      "result": "fail",
-      "finding": "The title has no tabIndex=-1 and the component has no ref or autofocus option, so the flows that swap it in (Checkout, CancellationFlow) have no target to move focus to (completion-screen.tsx, the h2)."
+      "result": "pass",
+      "finding": "Fixed 2026-10-23: New focusOnMount prop: the title (tabIndex -1, described by the summary) takes focus when the screen appears. (was: The title has no tabIndex=-1 and the component has no ref or autofocus option, so the flows that swap it in (Checkout, CancellationFlow) have no target to move focus to (completion-screen.tsx, the h2).)"
     }
   ],
   "OrderReview": [

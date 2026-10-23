@@ -70,6 +70,93 @@ export const Default: Story = {
   },
 };
 
+/**
+ * Removing a chip moves focus to the next chip, or the previous one when it
+ * was the last; when no chips are left ("Clear all", the last chip) focus
+ * goes to the section heading instead of <body>.
+ */
+export const ChipFocus: Story = {
+  name: 'Test: chip focus',
+  // Drives the sidebar, which is a drawer at phone widths.
+  tags: ['desktop-play'],
+  render: (args) => (
+    <div className="md:min-w-[64rem]">
+      <FacetedList {...args} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const heading = canvas.getByRole('heading', { name: 'Extensions' });
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Security' }));
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Backups' }));
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Free' }));
+    const applied = canvas.getByRole('group', { name: 'Applied filters' });
+
+    // Middle chip: focus moves to the next chip.
+    await userEvent.click(within(applied).getByRole('button', { name: 'Remove filter: Backups' }));
+    await waitFor(() => expect(within(applied).getByRole('button', { name: 'Remove filter: Free' })).toHaveFocus());
+
+    // Last chip, by keyboard: focus moves to the previous chip.
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(within(applied).getByRole('button', { name: 'Remove filter: Security' })).toHaveFocus());
+
+    // Only chip: the group goes away, focus lands on the heading.
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(canvas.queryByRole('group', { name: 'Applied filters' })).not.toBeInTheDocument());
+    await waitFor(() => expect(heading).toHaveFocus());
+
+    // "Clear all" removes the group too.
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Security' }));
+    await userEvent.click(within(canvas.getByRole('group', { name: 'Applied filters' })).getByRole('button', { name: 'Clear all' }));
+    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('24 extensions'));
+    await waitFor(() => expect(heading).toHaveFocus());
+  },
+};
+
+/** The empty state's "Clear all filters" goes away with the filters; focus goes to the heading. */
+export const EmptyStateClearFocus: Story = {
+  name: 'Test: empty state clear focus',
+  tags: ['desktop-play'],
+  render: (args) => (
+    <div className="md:min-w-[64rem]">
+      <FacetedList {...args} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Both Fjord items are rated under 4.5: nothing matches.
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Fjord' }));
+    await userEvent.click(canvas.getByRole('radio', { name: '4.5 ★ & up' }));
+    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('0 extensions'));
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear all filters' }));
+    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('24 extensions'));
+    await waitFor(() => expect(canvas.getByRole('heading', { name: 'Extensions' })).toHaveFocus());
+  },
+};
+
+/** The last "Show N more" goes away; focus moves to the first result it revealed. */
+export const ShowMoreFocus: Story = {
+  name: 'Test: show more focus',
+  render: (args) => (
+    <div className="md:min-w-[64rem]">
+      <FacetedList {...args} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // 24 items, 9 per page: the button stays after the first click (focus stays on it)…
+    const more = canvas.getByRole('button', { name: 'Show 9 more' });
+    await userEvent.click(more);
+    await expect(canvas.getByText('Showing 18 of 24')).toBeVisible();
+    await expect(canvas.getByRole('button', { name: 'Show 6 more' })).toHaveFocus();
+    // …and disappears after the second: focus goes to result 19 (Node Toolkit, in relevance order).
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByText('Showing 24 of 24')).toBeVisible();
+    await expect(canvas.queryByRole('button', { name: 'Show 6 more' })).not.toBeInTheDocument();
+    await waitFor(() => expect(canvas.getByRole('link', { name: 'Node Toolkit by Forge' })).toHaveFocus());
+  },
+};
+
 /** Narrow: filters move into a drawer whose footer says how many results you'll get. */
 export const Narrow: Story = {
   render: (args) => (

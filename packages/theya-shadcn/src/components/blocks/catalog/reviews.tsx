@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
@@ -55,12 +55,29 @@ function Stars({ value }: { value: number }) {
  * complaints), sorting that includes "Lowest rated", several reviews
  * before "Show more", and the developer's reply right under the review it
  * answers.
+ *
+ * Focus: "Show all" moves focus to the review list once it's gone; when the
+ * last "Show N more reviews" disappears, focus goes to the first newly
+ * shown review.
  */
 export function Reviews({ reviews, summary, pageSize = 4, onWriteReview, headingClassName, className }: ReviewsProps) {
   const [star, setStar] = useState<number | null>(null);
   const [sort, setSort] = useState<ReviewSort>('relevant');
   const [visible, setVisible] = useState(pageSize);
   const headingId = useId();
+  const listRef = useRef<HTMLUListElement>(null);
+  // Set by "Show all" / "Show N more": the control and where focus goes if it unmounts.
+  const pendingFocus = useRef<{ from: HTMLElement; to: 'list' | number } | null>(null);
+
+  useEffect(() => {
+    const p = pendingFocus.current;
+    if (!p) return;
+    pendingFocus.current = null;
+    if (p.from.isConnected) return;
+    const list = listRef.current;
+    const target = p.to === 'list' ? list : list?.children[p.to];
+    (target instanceof HTMLElement ? target : list)?.focus();
+  }, [star, visible]);
 
   const distribution = summary?.distribution ?? ([1, 2, 3, 4, 5] as const).reduce((d, s) => ({ ...d, [s]: reviews.filter((r) => Math.round(r.rating) === s).length }), {} as Record<1 | 2 | 3 | 4 | 5, number>);
   const count = summary?.count ?? reviews.length;
@@ -132,10 +149,30 @@ export function Reviews({ reviews, summary, pageSize = 4, onWriteReview, heading
       <Separator />
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="font-body text-body-m text-[var(--color-text-text-subtle)]" aria-live="polite">
-          {star ? `${list.length} ${list.length === 1 ? 'review' : 'reviews'} with ${star} ★` : `${list.length} reviews`}
+        <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">
+          {/* Only the count is live; "Show all" sits outside so its label isn't read with it. */}
+          <span aria-live="polite" aria-atomic="true">
+            {star ? (
+              <>
+                {`${list.length} ${list.length === 1 ? 'review' : 'reviews'} with ${star} `}
+                <span aria-hidden="true">★</span>
+                <span className="sr-only">{star === 1 ? 'star' : 'stars'}</span>
+              </>
+            ) : (
+              `${list.length} reviews`
+            )}
+          </span>
           {star && (
-            <Button appearance="ghost" tone="secondary" size="sm" onClick={() => setStar(null)} className="ms-2">
+            <Button
+              appearance="ghost"
+              tone="secondary"
+              size="sm"
+              onClick={(e) => {
+                pendingFocus.current = { from: e.currentTarget, to: 'list' };
+                setStar(null);
+              }}
+              className="ms-2"
+            >
               Show all
             </Button>
           )}
@@ -154,9 +191,11 @@ export function Reviews({ reviews, summary, pageSize = 4, onWriteReview, heading
         </Select>
       </div>
 
-      <ul className="flex flex-col">
+      {/* tabIndex -1 on the list and its items: focus targets after "Show all" /
+          the last "Show more" (programmatic only, so no ring). */}
+      <ul ref={listRef} tabIndex={-1} className="flex flex-col outline-none">
         {list.slice(0, visible).map((r, i) => (
-          <li key={r.id} className={cn('flex flex-col gap-2 py-5', i > 0 && 'border-t border-solid border-[var(--color-border-border-subtler)]')}>
+          <li key={r.id} tabIndex={-1} className={cn('flex flex-col gap-2 py-5 outline-none', i > 0 && 'border-t border-solid border-[var(--color-border-border-subtler)]')}>
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
               <Stars value={r.rating} />
               <span className="sr-only">{`${r.rating} out of 5 stars`}</span>
@@ -182,7 +221,15 @@ export function Reviews({ reviews, summary, pageSize = 4, onWriteReview, heading
         ))}
       </ul>
       {visible < list.length && (
-        <Button appearance="outlined" tone="secondary" className="self-center" onClick={() => setVisible((v) => v + pageSize)}>
+        <Button
+          appearance="outlined"
+          tone="secondary"
+          className="self-center"
+          onClick={(e) => {
+            pendingFocus.current = { from: e.currentTarget, to: visible };
+            setVisible((v) => v + pageSize);
+          }}
+        >
           {`Show ${Math.min(pageSize, list.length - visible)} more reviews`}
         </Button>
       )}

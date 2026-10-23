@@ -183,7 +183,7 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
 
       <p className="text-center font-body text-body-s text-[var(--color-text-text-subtler)]">
         Don&apos;t have an account?{' '}
-        <Link href={signupHref} className="font-body font-medium">
+        <Link href={signupHref} className="font-body font-semibold">
           Create one
         </Link>
       </p>

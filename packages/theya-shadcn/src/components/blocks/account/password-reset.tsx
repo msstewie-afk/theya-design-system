@@ -8,7 +8,7 @@ import { Label } from '../../ui/label';
 import { Password } from '../../ui/password';
 import { TextField } from '../../ui/text-field';
 import { emailProblem } from '../../../lib/email';
-import { AuthFrame, AuthHeader, authLink, MIN_PASSWORD, passwordProblem } from './auth-shared';
+import { AuthFrame, AuthHeader, MIN_PASSWORD, passwordProblem } from './auth-shared';
 import { Link } from '../../ui/link';
 
 export type ResetStep = 'request' | 'sent' | 'expired' | 'reset' | 'done';
@@ -81,7 +81,7 @@ export function PasswordReset({ appName = 'Theya', initialStep = 'request', defa
   };
 
   const back = (
-    <Link href={signInHref} size="md" className={`${authLink} self-center`}>
+    <Link href={signInHref} size="md" className="self-center font-medium">
       Back to sign in
     </Link>
   );

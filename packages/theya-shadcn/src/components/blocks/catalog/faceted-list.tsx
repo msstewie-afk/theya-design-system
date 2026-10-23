@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { FilterList, List, ViewGrid, Xmark } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
 import { Button } from '../../ui/button';
@@ -44,6 +44,12 @@ interface Filters {
 
 const EMPTY: Filters = { category: [], vendor: [], compatibility: [], pricing: [], priceRange: null, minRating: 0 };
 
+/**
+ * Where focus goes after the next render if the control just used (`from`)
+ * has unmounted: a chip by index, the section heading, or a result by index.
+ */
+type PendingFocus = { from: HTMLElement; to: { chip: number } | { heading: true } | { result: number } };
+
 export interface FacetedListProps {
   items: CatalogItem[];
   /** Noun for the count: { one: 'extension', many: 'extensions' }. */
@@ -78,6 +84,11 @@ function matches(item: CatalogItem, f: Filters, skip?: keyof Filters): boolean {
  * above the results as removable chips. Results load in pages with "Show
  * more" and a count — no endless scroll. Under ~900px of its own width the
  * filters move into a drawer with a sticky "Show N results".
+ *
+ * Focus: removing a chip moves focus to the next chip (or the previous one);
+ * with no chips left ("Clear all", the empty state's "Clear all filters" or
+ * the last chip) it goes to the section heading. When the last "Show N
+ * more" disappears, focus moves to the first newly shown result.
  */
 export function FacetedList({ items, noun = { one: 'extension', many: 'extensions' }, pageSize = 9, getHref, className }: FacetedListProps) {
   const [filters, setFilters] = useState<Filters>(EMPTY);
@@ -85,6 +96,29 @@ export function FacetedList({ items, noun = { one: 'extension', many: 'extension
   const [layout, setLayout] = useState<'grid' | 'list'>('grid');
   const [visible, setVisible] = useState(pageSize);
   const headingId = useId();
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const chipsRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const pendingFocus = useRef<PendingFocus | null>(null);
+
+  // After the render that follows a chip/clear/"Show more" click: if that
+  // control unmounted, focus would fall to <body> — move it on instead.
+  useEffect(() => {
+    const p = pendingFocus.current;
+    if (!p) return;
+    pendingFocus.current = null;
+    if (p.from.isConnected) return;
+    const { to } = p;
+    let target: HTMLElement | null | undefined;
+    if ('chip' in to) {
+      const chips = chipsRef.current?.querySelectorAll<HTMLElement>('[data-filter-chip]');
+      if (chips?.length) target = chips[Math.min(to.chip, chips.length - 1)];
+    } else if ('result' in to) {
+      // The result's own link (the card's stretched link).
+      target = listRef.current?.children[to.result]?.querySelector<HTMLElement>('a[href], button');
+    }
+    (target ?? headingRef.current)?.focus();
+  }, [filters, visible]);
 
   const maxPrice = Math.max(...items.map((i) => i.price), 1);
   const results = useMemo(() => {
@@ -112,7 +146,10 @@ export function FacetedList({ items, noun = { one: 'extension', many: 'extension
     ...(filters.priceRange ? [{ key: 'range', label: `$${filters.priceRange[0]}–$${filters.priceRange[1]} / mo`, remove: () => update({ priceRange: null }) }] : []),
     ...(filters.minRating ? [{ key: 'rating', label: `${filters.minRating}★ & up`, remove: () => update({ minRating: 0 }) }] : []),
   ];
-  const clearAll = () => update(EMPTY);
+  const clearAll = (e: React.MouseEvent<HTMLElement>) => {
+    pendingFocus.current = { from: e.currentTarget, to: { heading: true } };
+    update(EMPTY);
+  };
 
   const panel = (
     <FilterPanel items={items} filters={filters} toggle={toggle} update={update} maxPrice={maxPrice} />
@@ -120,7 +157,8 @@ export function FacetedList({ items, noun = { one: 'extension', many: 'extension
 
   return (
     <section aria-labelledby={headingId} className={cn('@container w-full', className)}>
-      <h2 id={headingId} className="sr-only">
+      {/* tabIndex -1: focus target when the chips or the empty state go away. */}
+      <h2 ref={headingRef} id={headingId} tabIndex={-1} className="sr-only outline-none">
         {`${noun.many[0].toUpperCase()}${noun.many.slice(1)}`}
       </h2>
       <div className="flex gap-8">
@@ -180,9 +218,21 @@ export function FacetedList({ items, noun = { one: 'extension', many: 'extension
           </div>
 
           {chips.length > 0 && (
-            <div className="flex flex-wrap items-center gap-2" aria-label="Applied filters" role="group">
-              {chips.map((c) => (
-                <Button key={c.key} appearance="tonal" tone="secondary" size="sm" rightIcon={<Xmark />} onClick={c.remove} aria-label={`Remove filter: ${c.label}`}>
+            <div ref={chipsRef} className="flex flex-wrap items-center gap-2" aria-label="Applied filters" role="group">
+              {chips.map((c, i) => (
+                <Button
+                  key={c.key}
+                  data-filter-chip=""
+                  appearance="tonal"
+                  tone="secondary"
+                  size="sm"
+                  rightIcon={<Xmark />}
+                  onClick={(e) => {
+                    pendingFocus.current = { from: e.currentTarget, to: chips.length > 1 ? { chip: i } : { heading: true } };
+                    c.remove();
+                  }}
+                  aria-label={`Remove filter: ${c.label}`}
+                >
                   {c.label}
                 </Button>
               ))}
@@ -204,7 +254,7 @@ export function FacetedList({ items, noun = { one: 'extension', many: 'extension
             />
           ) : (
             <>
-              <ul className={cn('grid gap-4', layout === 'grid' ? '@xl:grid-cols-2 @5xl:grid-cols-3' : 'grid-cols-1')}>
+              <ul ref={listRef} className={cn('grid gap-4', layout === 'grid' ? '@xl:grid-cols-2 @5xl:grid-cols-3' : 'grid-cols-1')}>
                 {results.slice(0, visible).map((item) => (
                   <li key={item.id}>
                     <ItemCard item={item} layout={layout} href={getHref?.(item)} />
@@ -214,7 +264,14 @@ export function FacetedList({ items, noun = { one: 'extension', many: 'extension
               <div className="flex flex-col items-center gap-2 pt-2">
                 <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{`Showing ${Math.min(visible, results.length)} of ${results.length}`}</p>
                 {visible < results.length && (
-                  <Button appearance="outlined" tone="secondary" onClick={() => setVisible((v) => v + pageSize)}>
+                  <Button
+                    appearance="outlined"
+                    tone="secondary"
+                    onClick={(e) => {
+                      pendingFocus.current = { from: e.currentTarget, to: { result: visible } };
+                      setVisible((v) => v + pageSize);
+                    }}
+                  >
                     {`Show ${Math.min(pageSize, results.length - visible)} more`}
                   </Button>
                 )}

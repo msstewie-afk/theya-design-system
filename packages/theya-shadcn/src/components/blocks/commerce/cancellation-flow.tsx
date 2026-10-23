@@ -44,14 +44,18 @@ export function CancellationFlow({ planName = 'Pro', accessUntil = 'Nov 3, 2026'
   const reasonId = useId();
   // The step's buttons are replaced on every move, so focus would drop to
   // <body>; move it to the new step's heading instead (not on first render).
+  // `outcome` is a dependency too: "Resume plan" brings back the same step,
+  // so `step` alone wouldn't change and focus would be lost on the way back.
+  // While an outcome is shown, CompletionScreen focuses its own title.
   const moved = useRef(false);
   useEffect(() => {
     if (!moved.current) {
       moved.current = true;
       return;
     }
+    if (outcome) return;
     document.getElementById(titleId)?.focus();
-  }, [step, titleId]);
+  }, [step, outcome, titleId]);
 
   const finish = (o: CancellationOutcome) => {
     setOutcome(o);
@@ -70,7 +74,10 @@ export function CancellationFlow({ planName = 'Pro', accessUntil = 'Nov 3, 2026'
       paused: { title: `${planName} plan paused`, description: `Billing stops for ${pauseMonths} months from ${accessUntil}; your sites and data are kept.` },
     }[outcome];
     return (
+      // Replaces the step whose button was just pressed: focus the result
+      // title so it isn't lost to <body> and the outcome is read out.
       <CompletionScreen
+        focusOnMount
         className={className}
         title={copy.title}
         description={copy.description}
@@ -118,7 +125,8 @@ export function CancellationFlow({ planName = 'Pro', accessUntil = 'Nov 3, 2026'
           <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">If cost or timing is the issue, one of these may suit you better. Otherwise, carry on.</p>
           <OptionCardGroup aria-label="What would you like to do?" value={choice} onValueChange={(v) => setChoice(v as typeof choice)} className="sm:grid-cols-1">
             {downgradeTo && <OptionCard value="downgrade" icon={<ArrowDown />} title={`Switch to ${downgradeTo.name}`} description={`Keep one site online for ${downgradeTo.price}.`} />}
-            {pauseMonths && <OptionCard value="pause" icon={<Pause />} title={`Pause for up to ${pauseMonths} months`} description="No charges while paused; sites go offline, data is kept." />}
+            {/* Ternary, not &&: pauseMonths={0} would render a literal "0". */}
+            {pauseMonths ? <OptionCard value="pause" icon={<Pause />} title={`Pause for up to ${pauseMonths} months`} description="No charges while paused; sites go offline, data is kept." /> : null}
             <OptionCard value="cancel" icon={<Xmark />} title="Cancel the plan" description={`Access ends on ${accessUntil}.`} />
           </OptionCardGroup>
           <div className="flex flex-col gap-2">

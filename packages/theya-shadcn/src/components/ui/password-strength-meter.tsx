@@ -20,10 +20,39 @@ const defaultRules = (labels: { length: string; upper: string; lower: string; nu
   { label: labels.symbol, test: (v) => /[^A-Za-z0-9]/.test(v) },
 ];
 
+export type PasswordStrengthBand = 'weak' | 'good' | 'strong';
+
+/**
+ * Score band, proportional to the number of rules: up to a third of the
+ * rules met is weak, more than two thirds is strong, good in between.
+ * Integer math (3·met vs. total) so there's no rounding at the edges.
+ * For the default 5 rules that's 0–1 weak, 2–3 good, 4–5 strong; with 3
+ * rules 0–1 / 2 / 3, with 2 rules 0 / 1 / 2 — every band is reachable from
+ * 2 rules up. (The old "≤ total − 2 is good" made good unreachable at 3
+ * rules or fewer: 2 of 3 already read strong.)
+ */
+function strengthBand(met: number, total: number): PasswordStrengthBand {
+  if (met * 3 <= total) return 'weak';
+  if (met * 3 > total * 2) return 'strong';
+  return 'good';
+}
+
+const BAR_COLOR: Record<PasswordStrengthBand, string> = {
+  weak: 'var(--color-bg-danger-bg-danger)',
+  good: 'var(--color-bg-warning-bg-warning)',
+  strong: 'var(--color-bg-success-bg-success)',
+};
+
+const PERCENT_COLOR: Record<PasswordStrengthBand, string> = {
+  weak: 'var(--color-text-text-danger)',
+  good: 'var(--color-text-text-warning)',
+  strong: 'var(--color-text-text-success)',
+};
+
 export interface PasswordStrengthMeterProps {
   /** The current password value to evaluate. */
   value: string;
-  /** Override the default 5 rules (length/upper/lower/number/symbol). */
+  /** Override the default 5 rules (length/upper/lower/number/symbol). The Weak / Good / Strong bands scale with the number of rules. */
   rules?: PasswordStrengthRule[];
   className?: string;
 }
@@ -42,20 +71,10 @@ export function PasswordStrengthMeter({ value, rules: rulesProp, className }: Pa
     const evaluated = rules.map((rule) => ({ label: rule.label, met: rule.test(value) }));
     const s = evaluated.filter((c) => c.met).length;
     const p = value ? Math.round((s / rules.length) * 100) : 0;
-    const status = !value ? '' : s <= 1 ? t.password.weak : s <= rules.length - 2 ? t.password.good : t.password.strong;
-    const bar =
-      s <= 1
-        ? 'var(--color-bg-danger-bg-danger)'
-        : s <= rules.length - 2
-          ? 'var(--color-bg-warning-bg-warning)'
-          : 'var(--color-bg-success-bg-success)';
-    const pctColor =
-      s <= 1
-        ? 'var(--color-text-text-danger)'
-        : s <= rules.length - 2
-          ? 'var(--color-text-text-warning)'
-          : 'var(--color-text-text-success)';
-    return { score: s, percent: p, statusLabel: status, barColor: bar, percentColor: pctColor, checks: evaluated };
+    // One band drives the label and both colors, so they can't drift apart.
+    const band = strengthBand(s, rules.length);
+    const status = !value ? '' : t.password[band];
+    return { score: s, percent: p, statusLabel: status, barColor: BAR_COLOR[band], percentColor: PERCENT_COLOR[band], checks: evaluated };
   }, [value, rules]);
 
   return (

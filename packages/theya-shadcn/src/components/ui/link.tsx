@@ -12,9 +12,11 @@ import { cn } from '../../lib/utils';
  * - `size` omitted (default): inherits font and size from the surrounding
  *   text, for a link inside a sentence. Set it for a standalone link
  *   (body-xs … body-l).
- * - `underline`: off by default — the underline appears on hover. Turn it
- *   on for a link inside running text, where color alone can't tell it from
- *   a word (WCAG 1.4.1); the hover then thickens it, as in Prose.
+ * - `underline`: off by default — the underline appears on hover. Inside
+ *   running text, color alone can't tell a link from a word (WCAG 1.4.1), so
+ *   give it a second cue: either turn `underline` on (the hover then thickens
+ *   it, as in Prose) or set the link one weight step above the surrounding
+ *   text (`font-semibold` over regular body text) via `className`.
  * - `inverse`: the -on-dark link colors and the white focus ring, for a
  *   dark or primary surface (same name as StatusDot / Sidebar `inverse`).
  * - `asChild`: renders onto a router link (Next.js <Link>, React Router).
@@ -33,7 +35,7 @@ const SIZE_CLASS: Record<LinkSize, string> = {
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   /** Type step for a standalone link. Omit inside text to inherit the surrounding size. */
   size?: 'xs' | 'sm' | 'md' | 'lg';
-  /** Always underlined (links in running text). Off: underline on hover only. */
+  /** Always underlined. Off: underline on hover only — then a link in running text needs a heavier weight instead. */
   underline?: boolean;
   /** Colors and focus ring for a dark or primary surface. */
   inverse?: boolean;

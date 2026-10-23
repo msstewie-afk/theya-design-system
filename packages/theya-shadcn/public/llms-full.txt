@@ -5508,19 +5508,20 @@ Docs: ./?path=/docs/navigation-link--docs
 
 - Label: says where it goes: “Billing settings”, not “click here”. `size` xs–lg, or inherited.
 - Underline: on hover by default; always with `underline`, thicker on hover.
+- Weight: inherited by default; inside running text without `underline`, one step above the surrounding text (`font-semibold` over body text).
 
 **Link props**
 
 - `asChild?`: `boolean`, default `false` — Render onto the child element (a router link) instead of an `<a>`.
 - `inverse?`: `boolean`, default `false` — Colors and focus ring for a dark or primary surface.
 - `size?`: `"md" | "lg" | "sm" | "xs"` — Type step for a standalone link. Omit inside text to inherit the surrounding size.
-- `underline?`: `boolean`, default `false` — Always underlined (links in running text). Off: underline on hover only.
+- `underline?`: `boolean`, default `false` — Always underlined. Off: underline on hover only — then a link in running text needs a heavier weight instead.
 
 Also accepts the props of: AnchorHTMLAttributes, SVGAttributes, ButtonHTMLAttributes, ImgHTMLAttributes, HTMLAttributes.
 
 **Do / Don’t**
 
-- Do: In running text the link is underlined, so it doesn’t rely on color alone.
+- Do: In running text the link is underlined (or set one weight step heavier, `font-semibold`), so it doesn’t rely on color alone.
 
   ```tsx
   <p className={TEXT}>
@@ -5528,7 +5529,7 @@ Also accepts the props of: AnchorHTMLAttributes, SVGAttributes, ButtonHTMLAttrib
   </p>
   ```
 
-- Don’t: Without the underline the link is just a blue word to anyone who can’t tell the colors apart.
+- Don’t: With neither an underline nor a heavier weight, the link is just a blue word to anyone who can’t tell the colors apart.
 
   ```tsx
   <p className={TEXT}>
@@ -5552,7 +5553,7 @@ Also accepts the props of: AnchorHTMLAttributes, SVGAttributes, ButtonHTMLAttrib
 **Accessibility**
 
 - The text says where the link goes; “here”, “more” and “link” don’t make sense read out of context in a links list.
-- Use `underline` inside running text (WCAG 1.4.1).
+- Inside running text, don’t rely on color alone (WCAG 1.4.1): use `underline`, or a weight one step above the surrounding text (`font-semibold` over body text).
 - On a dark or primary surface use `inverse`: the default link color and focus ring don’t have the contrast there.
 - A link that opens a new tab says so in its text, e.g. “Pricing (opens in a new tab)”.
 
@@ -6622,7 +6623,7 @@ Docs: ./?path=/docs/text-input-passwordstrengthmeter--docs
 
 - `value`: `string` — The current password value to evaluate.
 - `className?`: `string`
-- `rules?`: `PasswordStrengthRule[]` — Override the default 5 rules (length/upper/lower/number/symbol).
+- `rules?`: `PasswordStrengthRule[]` — Override the default 5 rules (length/upper/lower/number/symbol). The Weak / Good / Strong bands scale with the number of rules.
 
 **Do / Don’t**
 

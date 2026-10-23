@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, within } from '@storybook/test';
 import { PasswordStrengthMeter } from './password-strength-meter';
 import { passwordStrengthMeterGuidelines } from './password-strength-meter.guidelines';
 
@@ -80,9 +81,15 @@ export const Strong: Story = {
   ),
 };
 
-/** `rules` replaces the default checklist with your own labels and tests; the score is measured against those rules. */
+/** `rules` replaces the default checklist with your own labels and tests; the score is measured against those rules, in proportion: here `"hunter2"` passes two of the three rules, so it reads Good (up to a third met is Weak, more than two thirds Strong). */
 export const CustomRules: Story = {
   name: 'Custom rules',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // 2 of 3 rules: Good, not Strong — the bands scale with the number of rules.
+    await expect(canvas.getByRole('progressbar')).toHaveAttribute('aria-valuetext', 'Good');
+    await expect(canvas.getByText('Good')).toBeVisible();
+  },
   render: () => (
     <div className="w-full max-w-[348px]">
       <PasswordStrengthMeter

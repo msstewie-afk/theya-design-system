@@ -21,7 +21,7 @@ export const megaMenuGuidelines: ComponentGuidelines = {
   doDont: [],
   a11y: [
     'The bar and the drawer are both navigation landmarks named “Main”; only one of them is shown at a time.',
-    'In a panel, each column heading names the list of links under it.',
-    'The current section is announced as “current section”, and a current top-level link is marked as the current page.',
+    'In a panel and in the drawer, each column heading is a real heading (h3 in the bar, h4 under the drawer’s section headers) and names the list of links under it.',
+    'The current section is announced as “current section”, and a current top-level link is marked as the current page. In the bar both also get a tinted fill, and in the drawer a current link gets the same fill, so the mark doesn’t rely on text color alone (WCAG 1.4.1).',
   ],
 };

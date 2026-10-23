@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Bookmark, Xmark } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
 import { Badge } from '../../ui/badge';
@@ -60,21 +60,61 @@ export function SavedItems({ items: initial, primaryAction, onRemove, currency =
   const available = items.filter((i) => i.price !== null);
   const allSelected = selected.length > 0 && selected.length === items.length;
 
+  // Removing takes the control just used with it — a row's Remove button
+  // goes with its row, and the whole list (bulk bar included) gives way to
+  // the empty state when the last item goes — which dropped focus to
+  // <body> (WCAG 2.4.3). Handlers record where focus goes next; it moves
+  // once that change has rendered.
+  const focusNext = useRef<(() => HTMLElement | null | undefined) | null>(null);
+  const removeButtons = useRef(new Map<string, HTMLButtonElement>());
+  const emptyId = `${uid}-empty`;
+  useEffect(() => {
+    if (!focusNext.current) return;
+    const target = focusNext.current();
+    focusNext.current = null;
+    target?.focus();
+  });
+
   const remove = (ids: string[]) => {
     const removed = items.filter((i) => ids.includes(i.id));
+    // Nothing left: the empty state takes focus.
+    if (items.every((i) => ids.includes(i.id))) focusNext.current = () => document.getElementById(emptyId);
     setItems((cur) => cur.filter((i) => !ids.includes(i.id)));
     setSelected((cur) => cur.filter((id) => !ids.includes(id)));
     undoToast({
       title: ids.length === 1 ? `Removed “${removed[0].title}”` : `Removed ${ids.length} items`,
-      onUndo: () => setItems((cur) => [...cur, ...removed]),
+      onUndo: () => {
+        // Undo from the empty state: the element focus came from is gone
+        // (so the toast can't hand focus back to it); land on the first
+        // restored row's Remove button instead (topmost, after sorting).
+        if (document.getElementById(emptyId))
+          focusNext.current = () =>
+            removed
+              .map((r) => removeButtons.current.get(r.id))
+              .filter((el): el is HTMLButtonElement => !!el)
+              .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1))[0];
+        setItems((cur) => [...cur, ...removed]);
+      },
       onCommit: () => onRemove?.(ids),
     });
+  };
+
+  // A row's own Remove: focus moves to the Remove button of the row that
+  // takes its place, or of the row above when it was the last one.
+  const removeRow = (id: string) => {
+    const at = sorted.findIndex((i) => i.id === id);
+    const neighbour = sorted[at + 1] ?? sorted[at - 1];
+    if (neighbour) focusNext.current = () => removeButtons.current.get(neighbour.id);
+    remove([id]);
   };
 
   if (!items.length)
     return (
       <EmptyState
-        className={className}
+        id={emptyId}
+        // Focus target once the last item is removed; not a tab stop.
+        tabIndex={-1}
+        className={cn('outline-none', className)}
         icon={<Bookmark />}
         title="Nothing saved yet"
         description="Save plans and add-ons to compare them later or buy them together. Saved items stay here until you remove them."
@@ -176,7 +216,20 @@ export function SavedItems({ items: initial, primaryAction, onRemove, currency =
                 </div>
               </div>
               {/* Remove in the top-right corner, where people look for it. */}
-              <Button appearance="ghost" tone="secondary" size="sm" iconOnly leftIcon={<Xmark />} aria-label={`Remove ${item.title}`} onClick={() => remove([item.id])} className="-me-1 -mt-1 shrink-0" />
+              <Button
+                ref={(el) => {
+                  if (el) removeButtons.current.set(item.id, el);
+                  else removeButtons.current.delete(item.id);
+                }}
+                appearance="ghost"
+                tone="secondary"
+                size="sm"
+                iconOnly
+                leftIcon={<Xmark />}
+                aria-label={`Remove ${item.title}`}
+                onClick={() => removeRow(item.id)}
+                className="-me-1 -mt-1 shrink-0"
+              />
             </li>
           );
         })}

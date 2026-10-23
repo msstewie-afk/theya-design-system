@@ -71,10 +71,28 @@ export function SearchResults({ index, defaultQuery = '', defaultScope = 'all', 
     searched.current = true;
   }, [query, exact]);
 
+  // "View all N" goes away with the "All" view it sits in, and the last
+  // "Show N more" goes away once everything is shown; both dropped focus to
+  // <body> (WCAG 2.4.3). Handlers record where focus goes next; it moves
+  // once that change has rendered.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const focusNext = useRef<(() => HTMLElement | null | undefined) | null>(null);
+  useEffect(() => {
+    if (!focusNext.current) return;
+    const target = focusNext.current();
+    focusNext.current = null;
+    target?.focus();
+  });
+  // The new view's tab panel: Radix makes it focusable and names it after
+  // its tab ("Domains 3"), so it says which view this is and how many.
+  const panel = () => rootRef.current?.querySelector<HTMLElement>('[role="tabpanel"]');
+  // The link of the nth result in the one-type list.
+  const resultLink = (n: number) => panel()?.querySelectorAll<HTMLElement>(':scope ul > li')[n]?.querySelector<HTMLElement>('a');
+
   const plural = (n: number) => (n === 1 ? 'result' : 'results');
 
   return (
-    <div className={cn('@container flex w-full flex-col gap-6', className)}>
+    <div ref={rootRef} className={cn('@container flex w-full flex-col gap-6', className)}>
       <form
         role="search"
         aria-label="Site"
@@ -109,7 +127,7 @@ export function SearchResults({ index, defaultQuery = '', defaultScope = 'all', 
               <button
                 type="button"
                 onClick={() => run(query, { exact: true })}
-                className="cursor-pointer rounded-[var(--size-border-radius-border-radius-sm)] font-medium text-[var(--color-text-text-link)] underline-offset-4 outline-none hover:underline focus-visible:focus-ring"
+                className="cursor-pointer rounded-[var(--size-border-radius-border-radius-sm)] font-semibold text-[var(--color-text-text-link)] underline-offset-4 outline-none hover:underline focus-visible:focus-ring"
               >
                 {`Search only for “${query}”`}
               </button>
@@ -148,7 +166,15 @@ export function SearchResults({ index, defaultQuery = '', defaultScope = 'all', 
                           {TYPE_META[c.type].many}
                         </h2>
                         {c.count > groupSize && (
-                          <Button appearance="ghost" tone="primary" size="sm" onClick={() => changeScope(c.type)}>
+                          <Button
+                            appearance="ghost"
+                            tone="primary"
+                            size="sm"
+                            onClick={() => {
+                              focusNext.current = panel;
+                              changeScope(c.type);
+                            }}
+                          >
                             {`View all ${c.count}`}
                             <span className="sr-only">{` ${TYPE_META[c.type].many.toLowerCase()}`}</span>
                           </Button>
@@ -165,7 +191,19 @@ export function SearchResults({ index, defaultQuery = '', defaultScope = 'all', 
                 {visible < inScope.length && (
                   <div className="flex flex-col items-center gap-2">
                     <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{`Showing ${visible} of ${inScope.length}`}</p>
-                    <Button appearance="outlined" tone="secondary" onClick={() => setVisible((v) => v + pageSize)}>
+                    <Button
+                      appearance="outlined"
+                      tone="secondary"
+                      onClick={() => {
+                        // This press shows the rest, so the button goes
+                        // away: focus the first result it revealed.
+                        if (visible + pageSize >= inScope.length) {
+                          const first = visible;
+                          focusNext.current = () => resultLink(first);
+                        }
+                        setVisible((v) => v + pageSize);
+                      }}
+                    >
                       {`Show ${Math.min(pageSize, inScope.length - visible)} more`}
                     </Button>
                   </div>

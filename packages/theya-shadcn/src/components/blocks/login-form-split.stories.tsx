@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { LoginFormSplit } from './login-form-split';
 import { loginFormSplitGuidelines } from './login-form-split.guidelines';
 
@@ -78,4 +79,53 @@ export const WithLogoAndBackLink: Story = {
       />
     </div>
   ),
+};
+
+const wait = (ms: number) => new Promise((r) => window.setTimeout(r, ms));
+
+/** Autoplay holds on hover and focus, and the Pause / Play button next to the dots stops and restarts it (WCAG 2.2.2). A short interval here so the test doesn't wait long. */
+export const AutoplayPause: Story = {
+  name: 'Autoplay with Pause / Play',
+  render: () => (
+    <div className="flex min-h-[640px] items-center justify-center p-6">
+      <LoginFormSplit slides={SLIDES} tagline="Where Data Becomes Intelligence" autoplayInterval={700} onSubmit={(e) => e.preventDefault()} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Below md the image panel isn't shown at all.
+    if (!window.matchMedia('(min-width: 768px)').matches) return;
+    // prefers-reduced-motion: no autoplay, so no toggle either.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      await expect(canvas.queryByRole('button', { name: 'Pause' })).not.toBeInTheDocument();
+      return;
+    }
+    const dots = within(canvas.getByRole('group', { name: 'Slides' }));
+    const current = () => dots.getAllByRole('button').findIndex((b) => b.getAttribute('aria-current') === 'true');
+    const panel = canvas.getByRole('region', { name: 'Where Data Becomes Intelligence' }).parentElement as HTMLElement;
+    // Leave the panel: no hover and no focus inside it, so only the toggle decides.
+    const leave = async (el: HTMLElement) => {
+      el.blur();
+      await userEvent.unhover(panel);
+    };
+
+    // It runs on its own.
+    const start = current();
+    await waitFor(() => expect(current()).not.toBe(start), { timeout: 3000 });
+
+    // Pause: named, and the slide stays put after the pointer and focus leave.
+    const toggle = canvas.getByRole('button', { name: 'Pause' });
+    await userEvent.click(toggle);
+    await waitFor(() => expect(toggle).toHaveAccessibleName('Play'));
+    await leave(toggle);
+    const held = current();
+    await wait(1600);
+    await expect(current()).toBe(held);
+
+    // Play: it moves again.
+    await userEvent.click(toggle);
+    await waitFor(() => expect(toggle).toHaveAccessibleName('Pause'));
+    await leave(toggle);
+    await waitFor(() => expect(current()).not.toBe(held), { timeout: 3000 });
+  },
 };

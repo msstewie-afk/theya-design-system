@@ -25,7 +25,7 @@ export interface SearchNoResultsProps {
 }
 
 const linkButton =
-  'cursor-pointer rounded-[var(--size-border-radius-border-radius-sm)] font-medium text-[var(--color-text-text-link)] underline-offset-4 outline-none hover:underline focus-visible:focus-ring';
+  'cursor-pointer rounded-[var(--size-border-radius-border-radius-sm)] font-semibold text-[var(--color-text-text-link)] underline-offset-4 outline-none hover:underline focus-visible:focus-ring';
 
 /**
  * Never a dead end: says plainly that nothing matched (with the query, so

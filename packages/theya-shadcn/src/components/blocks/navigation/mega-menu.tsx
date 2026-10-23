@@ -62,6 +62,11 @@ function panelWidth(s: MegaSection): string {
 
 const groupHeading = 'font-heading text-heading-2xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]';
 
+// The current destination's non-color cue, shared by the bar and the drawer: the
+// same tinted fill and medium weight NavigationMenuLink gives `data-active`
+// (WCAG 1.4.1 — the link-on-tonal text color alone isn't enough).
+const currentFill = 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] font-medium';
+
 /**
  * Site navigation for many destinations. On wide screens each section
  * opens a panel with its sub-areas grouped under headings (with a line of
@@ -81,9 +86,13 @@ export function MegaMenu({ items, currentId, layout = 'auto', className }: MegaM
           {items.map((item) =>
             isSection(item) ? (
               <NavigationMenuItem key={item.id} value={item.id}>
-                {/* link-on-tonal, not link: the open trigger sits on a tinted fill, where
-                    plain link blue drops to 4.4:1 in dark (on-tonal is 7.3:1). */}
-                <NavigationMenuTrigger className={cn(item.id === currentId && 'text-[var(--color-text-text-link-on-tonal)]')}>
+                {/* link-on-tonal, not link: the current trigger sits on a tinted fill, where
+                    plain link blue drops to 4.4:1 in dark (on-tonal is 7.3:1). The fill is
+                    the non-color cue, matching a current plain link (data-active). */}
+                <NavigationMenuTrigger
+                  data-current={item.id === currentId ? '' : undefined}
+                  className={cn(item.id === currentId && [currentFill, 'text-[var(--color-text-text-link-on-tonal)]'])}
+                >
                   {item.label}
                   {item.id === currentId && <span className="sr-only"> (current section)</span>}
                 </NavigationMenuTrigger>
@@ -182,21 +191,25 @@ export function MegaMenu({ items, currentId, layout = 'auto', className }: MegaM
                             {item.overview.label}
                             <ArrowRight aria-hidden="true" className="size-4 rtl:-scale-x-100" />
                           </Link>
-                          {item.columns.map((col) => (
-                            <div key={col.title} className="flex flex-col gap-1">
-                              <p className={groupHeading}>{col.title}</p>
-                              <ul className="flex flex-col">
-                                {col.links.map((l) => (
-                                  <li key={l.href}>
-                                    <a href={l.href} className="flex items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)] py-2 font-body text-body-m text-[var(--color-text-text)] outline-none focus-visible:focus-ring">
-                                      {l.label}
-                                      {l.badge && <Badge tone="primary">{l.badge}</Badge>}
-                                    </a>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
+                          {item.columns.map((col, ci) => {
+                            // h4: under the drawer title (h2) and the section's accordion header (h3).
+                            const hid = `${uid}-drawer-${item.id}-${ci}`;
+                            return (
+                              <div key={col.title} className="flex flex-col gap-1">
+                                <h4 id={hid} className={groupHeading}>{col.title}</h4>
+                                <ul aria-labelledby={hid} className="flex flex-col">
+                                  {col.links.map((l) => (
+                                    <li key={l.href}>
+                                      <a href={l.href} className="flex items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)] py-2 font-body text-body-m text-[var(--color-text-text)] outline-none focus-visible:focus-ring">
+                                        {l.label}
+                                        {l.badge && <Badge tone="primary">{l.badge}</Badge>}
+                                      </a>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            );
+                          })}
                         </div>
                       </AccordionContent>
                     </AccordionItem>
@@ -205,7 +218,11 @@ export function MegaMenu({ items, currentId, layout = 'auto', className }: MegaM
                       key={item.id}
                       href={item.href}
                       aria-current={item.id === currentId ? 'page' : undefined}
-                      className="flex border-b border-solid border-[var(--color-border-border-subtler)] py-4 font-body text-body-m font-medium text-[var(--color-text-text)] outline-none focus-visible:focus-ring"
+                      className={cn(
+                        'flex border-b border-solid border-[var(--color-border-border-subtler)] py-4 font-body text-body-m font-medium text-[var(--color-text-text)] outline-none focus-visible:focus-ring',
+                        // The fill bleeds into the drawer padding so the label stays on the same edge as the other rows.
+                        item.id === currentId && [currentFill, '-mx-3 rounded-[var(--size-border-radius-border-radius-md)] px-3'],
+                      )}
                     >
                       {item.label}
                     </a>

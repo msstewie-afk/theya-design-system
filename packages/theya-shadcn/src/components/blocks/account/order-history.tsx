@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useMemo, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Download, NavArrowDown, Refresh, Search } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
 import { Badge } from '../../ui/badge';
@@ -67,6 +67,19 @@ export function OrderHistory({ orders, pageSize = 5, onReorder, currency = 'USD'
       .filter((o) => !q || o.number.toLowerCase().includes(q) || o.lines.some((l) => l.name.toLowerCase().includes(q)));
   }, [orders, query, status]);
 
+  // The last "Show N more" and the empty state's "Show all orders" unmount
+  // once used, which dropped focus to <body> (WCAG 2.4.3). Both reveal
+  // orders, so focus moves to the first one revealed — its Details button,
+  // the row's first control — once the list has rendered.
+  const listRef = useRef<HTMLUListElement>(null);
+  const focusRow = useRef<number | null>(null);
+  useEffect(() => {
+    if (focusRow.current === null) return;
+    const row = listRef.current?.children[focusRow.current];
+    focusRow.current = null;
+    row?.querySelector<HTMLElement>('button[aria-controls]')?.focus();
+  });
+
   return (
     <section aria-labelledby={`${uid}-h`} className={cn('@container flex w-full flex-col gap-4', className)}>
       <h2 id={`${uid}-h`} className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">
@@ -119,6 +132,7 @@ export function OrderHistory({ orders, pageSize = 5, onReorder, currency = 'USD'
               appearance="outlined"
               tone="secondary"
               onClick={() => {
+                focusRow.current = 0;
                 setQuery('');
                 setStatus('all');
               }}
@@ -128,7 +142,7 @@ export function OrderHistory({ orders, pageSize = 5, onReorder, currency = 'USD'
           }
         />
       ) : (
-        <ul className="flex flex-col divide-y divide-[var(--color-border-border-subtler)] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]">
+        <ul ref={listRef} className="flex flex-col divide-y divide-[var(--color-border-border-subtler)] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]">
           {filtered.slice(0, visible).map((o) => {
             const isOpen = open.includes(o.id);
             const detailsId = `${uid}-${o.id}`;
@@ -214,7 +228,15 @@ export function OrderHistory({ orders, pageSize = 5, onReorder, currency = 'USD'
       {visible < filtered.length && (
         <div className="flex flex-col items-center gap-2">
           <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{`Showing ${visible} of ${filtered.length}`}</p>
-          <Button appearance="outlined" tone="secondary" onClick={() => setVisible((v) => v + pageSize)}>
+          <Button
+            appearance="outlined"
+            tone="secondary"
+            onClick={() => {
+              // This press shows the rest, so the button goes away.
+              if (visible + pageSize >= filtered.length) focusRow.current = visible;
+              setVisible((v) => v + pageSize);
+            }}
+          >
             {`Show ${Math.min(pageSize, filtered.length - visible)} more`}
           </Button>
         </div>

@@ -26,6 +26,9 @@ export const Default: Story = {
 
     await userEvent.click(canvas.getByRole('button', { name: 'View all 3 domains' }));
     await expect(canvas.getByRole('tab', { name: 'Domains 3' })).toHaveAttribute('aria-selected', 'true');
+    // "View all" goes with the "All" view: focus moves to the new view's
+    // panel, named after its tab (WCAG 2.4.3).
+    await waitFor(() => expect(document.activeElement).toBe(canvas.getByRole('tabpanel', { name: 'Domains 3' })));
     await expect(canvas.getByRole('link', { name: /seashell-blog\.com/ })).toBeVisible();
 
     const field = canvas.getByRole('searchbox', { name: 'Search' });
@@ -33,6 +36,19 @@ export const Default: Story = {
     await userEvent.type(field, 'env{Enter}');
     await expect(args.onSearch).toHaveBeenCalledWith('env');
     await waitFor(() => expect(canvas.getByRole('heading', { level: 1 })).toHaveFocus());
+  },
+};
+
+/** One type: a flat list with "Show more"; when the last page is shown, focus moves to the first result it revealed. */
+export const OneType: Story = {
+  args: { defaultQuery: 'seashell', defaultScope: 'domain', pageSize: 2 },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('tab', { name: 'Domains 3' })).toHaveAttribute('aria-selected', 'true');
+    await expect(canvas.getByText('Showing 2 of 3')).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Show 1 more' }));
+    await expect(canvas.queryByRole('button', { name: 'Show 1 more' })).toBeNull();
+    await waitFor(() => expect(document.activeElement).toBe(canvas.getByRole('link', { name: /staging\.seashell\.shop/ })));
   },
 };
 

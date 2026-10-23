@@ -1,6 +1,6 @@
 'use client';
 
-import { useId } from 'react';
+import { useEffect, useId, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { CheckCircle } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
@@ -26,6 +26,16 @@ export interface CompletionScreenProps {
   /** The logical next step — usually "start using what you bought". */
   primaryAction?: CompletionAction;
   secondaryActions?: CompletionAction[];
+  /**
+   * Move keyboard focus to the title when the screen mounts. Turn it on
+   * when a flow swaps this screen in place of the step that was just
+   * submitted (after Pay, after confirming a cancellation): the pressed
+   * button is gone, so focus would otherwise drop to <body> and the result
+   * would go unannounced. Screen readers then read the title, followed by
+   * the description. Leave it off when the screen is a page's initial
+   * content, so loading the page doesn't steal focus.
+   */
+  focusOnMount?: boolean;
   className?: string;
 }
 
@@ -35,18 +45,41 @@ export interface CompletionScreenProps {
  * email went and what to do if it doesn't arrive, and a clear next step
  * instead of a dead end.
  */
-export function CompletionScreen({ title = "You're all set", description, orderNumber, email, onResendEmail, details = [], primaryAction, secondaryActions = [], className }: CompletionScreenProps) {
+export function CompletionScreen({ title = "You're all set", description, orderNumber, email, onResendEmail, details = [], primaryAction, secondaryActions = [], focusOnMount = false, className }: CompletionScreenProps) {
   const titleId = useId();
+  const descriptionId = useId();
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  // Mount only: the screen replaces the submitted step, so this runs once,
+  // after the swap has rendered. Re-renders (e.g. "send it again") must not
+  // pull focus back to the title.
+  useEffect(() => {
+    if (focusOnMount) titleRef.current?.focus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <section aria-labelledby={titleId} className={cn('mx-auto flex w-full max-w-xl flex-col gap-6', className)}>
       <div className="flex flex-col items-center gap-3 text-center">
         <span aria-hidden="true" className="grid size-14 place-items-center rounded-full bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-icon-icon-success)] [&_svg]:size-7">
           <CheckCircle />
         </span>
-        <h2 id={titleId} className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">
+        {/* tabIndex={-1}: focusable from script (focusOnMount) without
+            joining the Tab order; outline-none like the other headings that
+            receive programmatic focus. The description is attached so it's
+            read together with the title on focus. */}
+        <h2
+          ref={titleRef}
+          id={titleId}
+          tabIndex={-1}
+          aria-describedby={description ? descriptionId : undefined}
+          className="font-body text-heading-s font-semibold text-[var(--color-text-text)] outline-none"
+        >
           {title}
         </h2>
-        {description && <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">{description}</p>}
+        {description && (
+          <p id={descriptionId} className="font-body text-body-m text-[var(--color-text-text-subtle)]">
+            {description}
+          </p>
+        )}
         {orderNumber && (
           <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">
             Order <span className="font-mono text-[var(--color-text-text)]">{orderNumber}</span>

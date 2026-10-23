@@ -18,6 +18,7 @@ export const linkGuidelines: ComponentGuidelines = {
   anatomy: [
     { part: 'Label', description: <>says where it goes: “Billing settings”, not “click here”. <C>size</C> xs–lg, or inherited.</> },
     { part: 'Underline', description: <>on hover by default; always with <C>underline</C>, thicker on hover.</> },
+    { part: 'Weight', description: <>inherited by default; inside running text without <C>underline</C>, one step above the surrounding text (<C>font-semibold</C> over body text).</> },
   ],
   doDont: [
     {
@@ -27,7 +28,7 @@ export const linkGuidelines: ComponentGuidelines = {
             Read the <Link href="#gl-link" underline>refund policy</Link> before you cancel.
           </p>
         ),
-        caption: 'In running text the link is underlined, so it doesn’t rely on color alone.',
+        caption: <>In running text the link is underlined (or set one weight step heavier, <C>font-semibold</C>), so it doesn’t rely on color alone.</>,
       },
       dont: {
         example: (
@@ -35,7 +36,7 @@ export const linkGuidelines: ComponentGuidelines = {
             Read the <Link href="#gl-link">refund policy</Link> before you cancel.
           </p>
         ),
-        caption: 'Without the underline the link is just a blue word to anyone who can’t tell the colors apart.',
+        caption: 'With neither an underline nor a heavier weight, the link is just a blue word to anyone who can’t tell the colors apart.',
       },
     },
     {
@@ -51,7 +52,7 @@ export const linkGuidelines: ComponentGuidelines = {
   ],
   a11y: [
     'The text says where the link goes; “here”, “more” and “link” don’t make sense read out of context in a links list.',
-    <>Use <C>underline</C> inside running text (WCAG 1.4.1).</>,
+    <>Inside running text, don’t rely on color alone (WCAG 1.4.1): use <C>underline</C>, or a weight one step above the surrounding text (<C>font-semibold</C> over body text).</>,
     <>On a dark or primary surface use <C>inverse</C>: the default link color and focus ring don’t have the contrast there.</>,
     <>A link that opens a new tab says so in its text, e.g. “Pricing (opens in a new tab)”.</>,
   ],

@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { Bookmark, Cart as CartIcon, Trash } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
 import { Button } from '../../ui/button';
@@ -34,6 +34,18 @@ export interface CartProps {
   className?: string;
 }
 
+// Where focus goes after the next render, when an action removes the control
+// that had it (a row leaving a list, the promo field closing).
+type RowControl = 'quantity' | 'save' | 'remove' | 'move';
+type PendingFocus = { kind: 'row'; list: 'lines' | 'saved'; index: number; control: RowControl } | { kind: 'remove-code' } | { kind: 'promo-link' };
+
+const ROW_CONTROL: Record<RowControl, string> = {
+  quantity: '[data-cart-control="quantity"] input',
+  save: '[data-cart-control="save"]',
+  remove: '[data-cart-control="remove"]',
+  move: '[data-cart-control="move"]',
+};
+
 const demoPromo = (code: string, subtotal: number): PromoResult =>
   code.trim().toUpperCase() === 'WELCOME10' ? { discount: Math.round(subtotal * 10) / 100 } : { error: `“${code.trim()}” isn't a valid code. Check the spelling, or the date it expires.` };
 
@@ -51,14 +63,46 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
   const [promoCode, setPromoCode] = useState('');
   const [promo, setPromo] = useState<{ code: string; rate: number } | null>(null);
   const [promoError, setPromoError] = useState<string>();
+  // Announced through the polite status region below, which is always
+  // mounted so the message is a change screen readers pick up.
+  const [promoStatus, setPromoStatus] = useState('');
   const promoId = useId();
   const headingId = useId();
+  const rootRef = useRef<HTMLDivElement>(null);
+  // EmptyState is a plain function component (no ref on React 18): found by id.
+  const emptyId = useId();
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const removeCodeRef = useRef<HTMLButtonElement>(null);
+  const promoLinkRef = useRef<HTMLButtonElement>(null);
+  const pendingFocus = useRef<PendingFocus | null>(null);
+
+  // Runs after every render; acts only when an action above queued a target.
+  useEffect(() => {
+    const pending = pendingFocus.current;
+    if (!pending) return;
+    pendingFocus.current = null;
+    if (pending.kind === 'remove-code') return removeCodeRef.current?.focus();
+    if (pending.kind === 'promo-link') return promoLinkRef.current?.focus();
+    // A row left its list. Only step in if focus was actually lost with it:
+    // a quantity typed down to 0 commits on blur, when focus has already
+    // moved on to wherever the user tabbed.
+    const active = document.activeElement;
+    if (active && active !== document.body && active.isConnected) return;
+    if (!rootRef.current) return document.getElementById(emptyId)?.focus();
+    const rows = rootRef.current.querySelectorAll<HTMLElement>(`[data-cart-list="${pending.list}"] > li`);
+    // Same control on the next row (it now sits at the removed row's index),
+    // else on the previous one, else the cart heading.
+    const row = rows[pending.index] ?? rows[pending.index - 1];
+    const target = row?.querySelector<HTMLElement>(ROW_CONTROL[pending.control]) ?? row?.querySelector<HTMLElement>(ROW_CONTROL.remove);
+    (target ?? headingRef.current)?.focus();
+  });
 
   const subtotal = lines.reduce((s, l) => s + l.unitPrice * l.quantity, 0);
   const discount = promo ? Math.round(subtotal * promo.rate * 100) / 100 : 0;
   const totals = computeTotals(lines, { taxRate, discount });
 
-  const remove = (line: CartLine, index: number) => {
+  const remove = (line: CartLine, index: number, control: RowControl = 'remove') => {
+    pendingFocus.current = { kind: 'row', list: 'lines', index, control };
     setLines((ls) => ls.filter((l) => l.id !== line.id));
     undoToast({
       title: `${line.name} removed`,
@@ -66,14 +110,16 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
     });
   };
   const setQuantity = (line: CartLine, index: number, quantity: number) => {
-    if (quantity <= 0) remove(line, index);
+    if (quantity <= 0) remove(line, index, 'quantity');
     else setLines((ls) => ls.map((l) => (l.id === line.id ? { ...l, quantity } : l)));
   };
-  const saveForLater = (line: CartLine) => {
+  const saveForLater = (line: CartLine, index: number) => {
+    pendingFocus.current = { kind: 'row', list: 'lines', index, control: 'save' };
     setLines((ls) => ls.filter((l) => l.id !== line.id));
     setSaved((s) => [line, ...s]);
   };
-  const moveToCart = (line: CartLine) => {
+  const moveToCart = (line: CartLine, index: number) => {
+    pendingFocus.current = { kind: 'row', list: 'saved', index, control: 'move' };
     setSaved((s) => s.filter((l) => l.id !== line.id));
     setLines((ls) => [...ls, line]);
   };
@@ -87,15 +133,29 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
       setPromoError(result.error);
       return;
     }
-    setPromo({ code: promoCode.trim().toUpperCase(), rate: subtotal ? result.discount / subtotal : 0 });
+    const code = promoCode.trim().toUpperCase();
+    setPromo({ code, rate: subtotal ? result.discount / subtotal : 0 });
     setPromoError(undefined);
     setPromoOpen(false);
+    setPromoStatus(`Code ${code} applied`);
+    // The field and Apply button unmount; land on the control that takes
+    // their place.
+    pendingFocus.current = { kind: 'remove-code' };
+  };
+  const removePromo = () => {
+    if (promo) setPromoStatus(`Code ${promo.code} removed`);
+    setPromo(null);
+    pendingFocus.current = { kind: 'promo-link' };
   };
 
   if (!lines.length && !saved.length) {
     return (
       <EmptyState
-        className={className}
+        // Focus target when the last line is removed and nothing is saved:
+        // the whole cart view is replaced, so there's no row or heading left.
+        id={emptyId}
+        tabIndex={-1}
+        className={cn('outline-none', className)}
         icon={<CartIcon />}
         title="Your cart is empty"
         description="Plans, domains and add-ons you pick show up here."
@@ -111,18 +171,19 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
   }
 
   return (
-    <div className={cn('grid w-full gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start', className)}>
+    <div ref={rootRef} className={cn('grid w-full gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start', className)}>
       <div className="flex min-w-0 flex-col gap-6">
         <section aria-labelledby={headingId} className="flex flex-col gap-3">
-          <h2 id={headingId} className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">
+          {/* tabIndex={-1}: focus fallback when the last line is removed. */}
+          <h2 ref={headingRef} id={headingId} tabIndex={-1} className="font-body text-heading-s font-semibold text-[var(--color-text-text)] outline-none">
             {`Cart (${lines.length})`}
           </h2>
           {lines.length ? (
-            <ul className="flex flex-col">
+            <ul data-cart-list="lines" className="flex flex-col">
               {lines.map((line, i) => (
                 <CartRow key={line.id} line={line} currency={currency} first={i === 0}>
                   {line.quantityEditable && (
-                    <div className="flex items-center gap-2">
+                    <div data-cart-control="quantity" className="flex items-center gap-2">
                       <Label htmlFor={`${line.id}-qty`} className="text-body-s text-[var(--color-text-text-subtle)]">
                         Qty
                       </Label>
@@ -140,10 +201,10 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
                       />
                     </div>
                   )}
-                  <Button appearance="ghost" tone="secondary" size="sm" leftIcon={<Bookmark />} onClick={() => saveForLater(line)} aria-label={`Save ${line.name} for later`}>
+                  <Button appearance="ghost" tone="secondary" size="sm" leftIcon={<Bookmark />} onClick={() => saveForLater(line, i)} data-cart-control="save" aria-label={`Save ${line.name} for later`}>
                     Save for later
                   </Button>
-                  <Button appearance="ghost" tone="danger" size="sm" leftIcon={<Trash />} onClick={() => remove(line, i)} aria-label={`Remove ${line.name}`}>
+                  <Button appearance="ghost" tone="danger" size="sm" leftIcon={<Trash />} onClick={() => remove(line, i)} data-cart-control="remove" aria-label={`Remove ${line.name}`}>
                     Remove
                   </Button>
                 </CartRow>
@@ -157,10 +218,10 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
         {saved.length > 0 && (
           <section aria-label="Saved for later" className="flex flex-col gap-3">
             <h2 className="font-body text-body-l font-semibold text-[var(--color-text-text)]">{`Saved for later (${saved.length})`}</h2>
-            <ul className="flex flex-col">
+            <ul data-cart-list="saved" className="flex flex-col">
               {saved.map((line, i) => (
                 <CartRow key={line.id} line={line} currency={currency} first={i === 0}>
-                  <Button appearance="outlined" tone="secondary" size="sm" onClick={() => moveToCart(line)} aria-label={`Move ${line.name} to cart`}>
+                  <Button appearance="outlined" tone="secondary" size="sm" onClick={() => moveToCart(line, i)} data-cart-control="move" aria-label={`Move ${line.name} to cart`}>
                     Move to cart
                   </Button>
                 </CartRow>
@@ -172,12 +233,17 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
 
       <OrderSummary lines={lines} totals={totals} currency={currency} taxLabel={taxLabel} hideLines className="lg:sticky lg:top-6">
         <div className="flex flex-col gap-2">
+          {/* Mounted before any message so the change is announced; sr-only
+              (absolutely positioned) so it takes no space in the gap. */}
+          <p role="status" data-slot="cart-promo-status" className="sr-only">
+            {promoStatus}
+          </p>
           {promo ? (
             <p className="flex items-center justify-between gap-2 font-body text-body-s text-[var(--color-text-text-subtle)]">
               <span>
                 Code <span className="font-mono text-[var(--color-text-text)]">{promo.code}</span> applied
               </span>
-              <Button appearance="ghost" tone="secondary" size="sm" onClick={() => setPromo(null)}>
+              <Button ref={removeCodeRef} appearance="ghost" tone="secondary" size="sm" onClick={removePromo}>
                 Remove code
               </Button>
             </p>
@@ -214,6 +280,7 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
             // Behind a link: an open field invites people to leave and go
             // looking for a code they don't have.
             <button
+              ref={promoLinkRef}
               type="button"
               onClick={() => {
                 setPromoOpen(true);

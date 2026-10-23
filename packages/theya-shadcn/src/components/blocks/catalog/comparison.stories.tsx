@@ -60,6 +60,75 @@ export const Full: Story = {
   },
 };
 
+/**
+ * Removing a pick from the tray moves focus to the next pick's remove
+ * button, or the previous one when it was the last; when the tray empties
+ * it unmounts and focus goes to the results list instead of <body>.
+ */
+export const TrayRemoveFocus: Story = {
+  name: 'Test: tray remove keeps focus',
+  args: { initialSelection: ['shieldwall', 'secret-scanner', 'login-guard'] },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const bar = canvas.getByRole('region', { name: 'Comparison' });
+
+    // Middle one: focus moves to the next pick.
+    await userEvent.click(within(bar).getByRole('button', { name: 'Remove Secret Scanner from comparison' }));
+    await waitFor(() => expect(within(bar).getByRole('button', { name: 'Remove Login Guard from comparison' })).toHaveFocus());
+
+    // Last one, by keyboard: focus moves to the previous pick.
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(within(bar).getByRole('button', { name: 'Remove Shieldwall from comparison' })).toHaveFocus());
+
+    // Only one: the tray goes away, focus lands on the results list.
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(canvas.queryByRole('region', { name: 'Comparison' })).not.toBeInTheDocument());
+    await waitFor(() => expect(canvas.getByRole('checkbox', { name: 'Compare Shieldwall' }).closest('ul')).toHaveFocus());
+  },
+};
+
+/** "Clear" empties the tray; focus goes to the results list instead of <body>. */
+export const ClearFocus: Story = {
+  name: 'Test: clear keeps focus',
+  args: { initialSelection: ['shieldwall', 'login-guard'] },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const bar = canvas.getByRole('region', { name: 'Comparison' });
+    await userEvent.click(within(bar).getByRole('button', { name: 'Clear' }));
+    await waitFor(() => expect(canvas.queryByRole('region', { name: 'Comparison' })).not.toBeInTheDocument());
+    await waitFor(() => expect(canvas.getByRole('checkbox', { name: 'Compare Shieldwall' }).closest('ul')).toHaveFocus());
+    await expect(canvas.getByRole('checkbox', { name: 'Compare Shieldwall' })).not.toBeChecked();
+  },
+};
+
+/**
+ * Removing a column in the table moves focus to the next column's remove
+ * button, or the previous one when it was the last; dropping below two
+ * returns to the results with focus on "Compare".
+ */
+export const TableRemoveFocus: Story = {
+  name: 'Test: table remove keeps focus',
+  args: { initialSelection: ['shieldwall', 'secret-scanner', 'login-guard', 'certpilot'] },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Compare (4)' }));
+    await waitFor(() => expect(canvas.getByRole('heading', { name: 'Comparing 4 extensions' })).toHaveFocus());
+
+    // First column: focus moves to the next column's remove button.
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Shieldwall from comparison' }));
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove Secret Scanner from comparison' })).toHaveFocus());
+
+    // Last column, by keyboard: focus moves to the previous column's.
+    canvas.getByRole('button', { name: 'Remove CertPilot from comparison' }).focus();
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove Login Guard from comparison' })).toHaveFocus());
+
+    // Below two: back to the results, focus on "Compare".
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Compare (1)' })).toHaveFocus());
+  },
+};
+
 /** The table on its own: attribute column pinned, columns scroll sideways when narrow. */
 export const Table: StoryObj<typeof ComparisonTable> = {
   render: () => <ComparisonTable items={DEMO_ITEMS.filter((i) => ['vault-backup', 'snapshot-pro', 'restore-point'].includes(i.id))} />,

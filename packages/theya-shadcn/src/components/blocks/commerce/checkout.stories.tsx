@@ -39,7 +39,12 @@ export const Default: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Review order' }));
 
     await userEvent.click(await canvas.findByRole('button', { name: 'Pay $420' }));
-    await expect(await canvas.findByRole('heading', { name: "You're all set" })).toBeVisible();
+    const done = await canvas.findByRole('heading', { name: "You're all set" });
+    await expect(done).toBeVisible();
+    // The review (and the Pay button) is gone: focus lands on the result
+    // title, not <body>, and the title carries the outcome line.
+    await waitFor(() => expect(done).toHaveFocus());
+    await expect(done).toHaveAccessibleDescription('Your Pro plan is active and seashell.shop is registered.');
     await expect(args.onComplete).toHaveBeenCalledTimes(1);
   },
 };

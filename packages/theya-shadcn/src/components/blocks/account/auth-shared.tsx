@@ -14,7 +14,9 @@ export function AuthHeader({ appName, title, children }: { appName: string; titl
   );
 }
 
-export const authLink = 'font-medium';
+// Links inside auth sentences sit one weight step above the body text, so they
+// are not marked by color alone (WCAG 1.4.1).
+export const authLink = 'font-semibold';
 
 export function AuthFrame({ className, children }: { className?: string; children: ReactNode }) {
   return <div className={cn('flex w-full max-w-sm flex-col gap-6', className)}>{children}</div>;
