@@ -799,7 +799,7 @@ function CellContent(props: DataTableCellValueProps) {
         <span className="flex min-w-0 items-center gap-3">
           {props.leading && <span className="flex shrink-0 items-center">{props.leading}</span>}
           <span className="flex min-w-0 flex-col gap-y-0.5">
-            <span className={cn('truncate font-body text-body-m font-medium', props.mono && 'font-mono')}>{props.value}</span>
+            <span className={cn('truncate font-body text-body-m', props.mono ? 'font-mono font-code-medium' : 'font-medium')}>{props.value}</span>
             {props.secondary != null && (
               <span className={cn('truncate font-body text-body-s font-normal text-[var(--color-text-text-subtler)]', props.secondaryMono && 'font-mono')}>{props.secondary}</span>
             )}

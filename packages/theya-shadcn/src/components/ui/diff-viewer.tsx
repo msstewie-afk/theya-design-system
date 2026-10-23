@@ -377,7 +377,7 @@ export function DiffViewer({
         <div className="flex shrink-0 flex-wrap items-center gap-x-3 gap-y-2 border-b border-solid border-[var(--color-border-border-subtler)] px-3 py-2">
           <div className="flex min-w-0 flex-1 items-baseline gap-2">
             {(filename || oldFilename) && (
-              <span className="min-w-0 truncate font-code text-body-m font-medium text-[var(--color-text-text)]">
+              <span className="min-w-0 truncate font-code text-body-m font-code-medium text-[var(--color-text-text)]">
                 {isRename ? (
                   <>
                     <span className="text-[var(--color-text-text-subtle)]">{oldFilename}</span>

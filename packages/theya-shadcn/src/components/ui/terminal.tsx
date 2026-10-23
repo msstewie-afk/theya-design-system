@@ -180,7 +180,7 @@ export function TerminalHeader({ className, user, host, connection = 'connected'
         </div>
         <div className="min-w-0">
           {userHost && (
-            <div className={cn('truncate font-mono text-body-m font-medium', inverse ? 'text-[var(--color-text-text-on-dark)]' : 'text-[var(--color-text-text)]')}>
+            <div className={cn('truncate font-mono text-body-m font-code-medium', inverse ? 'text-[var(--color-text-text-on-dark)]' : 'text-[var(--color-text-text)]')}>
               {userHost}
             </div>
           )}

@@ -256,7 +256,7 @@ export function DashboardOverview({
                   <div className="flex items-center gap-2">
                     <StatusDot tone={item.tone} />
                     <span className="sr-only">{item.severity}: </span>
-                    <span className="truncate font-mono text-body-m font-medium">{item.id}</span>
+                    <span className="truncate font-mono text-body-m font-code-medium">{item.id}</span>
                   </div>
                   <p className={cn('flex items-center gap-1.5 font-body text-body-s', item.tone === 'danger' ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-warning)]')}>
                     <WarningTriangle className="size-3.5 shrink-0" aria-hidden="true" />

@@ -587,6 +587,15 @@
   --tw-shadow: inset 0 0 0 4px var(--color-focus-focus-ring);
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
+/* Medium weight for Fira Code labels (CodeBlock / CodeEditor / DiffViewer
+   filename, Terminal user@host, mono DataTable primary cell). Theya's
+   font-medium is 375, below Fira Code's lightest loaded face (400), so the
+   browser picked the 400 face and the @fontsource 500 import above never
+   rendered. 500 is Fira's own Medium face, not a Theya weight step, so it
+   is named here once instead of as a raw font-[500] per component. */
+@utility font-code-medium {
+  font-weight: 500;
+}
 /* Native-scroll fallback for containers that can't take the ScrollArea
    overlay (a Radix menu Content is itself the scroller): thin bar,
    transparent track, the same translucent thumb as ScrollArea's. Unlike the

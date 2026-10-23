@@ -302,7 +302,7 @@ export function CodeEditor({
         // `inverse` only forces the code area below it, per Мария's call.
         <div className="flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-surface-bg-surface)] px-3 py-2">
           <div className="flex min-w-0 flex-1 items-baseline gap-2">
-            {filename && <span className="truncate font-code text-body-m font-medium text-[var(--color-text-text)]">{filename}</span>}
+            {filename && <span className="truncate font-code text-body-m font-code-medium text-[var(--color-text-text)]">{filename}</span>}
             {language && (
               // size="sm" is a deliberate exception to the "external chip
               // = md" default (Мария's call) — this reads as a compact

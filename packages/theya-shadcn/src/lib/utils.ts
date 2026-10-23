@@ -28,6 +28,10 @@ const twMerge = extendTailwindMerge({
         'focus-ring-on-primary',
         'focus-ring-inset',
       ],
+      // font-code-medium (globals.css) is a weight, not a family: without
+      // this, twMerge reads `font-*` as font-family and drops font-mono /
+      // font-code on the same element.
+      'font-weight': ['font-code-medium'],
       'font-size': [
         {
           text: [
