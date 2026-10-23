@@ -77,7 +77,7 @@ export function TickerList({ visible = 3, interval = 2500, hidePause = false, cl
           size="sm"
           iconOnly
           aria-label={paused ? t.cardDeck.play : t.cardDeck.pause}
-          aria-pressed={paused}
+          // No aria-pressed: the name already changes (Pause / Play); both would read as "Play, pressed".
           leftIcon={paused ? <Play /> : <Pause />}
           onClick={() => setPaused((p) => !p)}
           className="self-end"

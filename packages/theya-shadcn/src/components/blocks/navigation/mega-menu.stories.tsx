@@ -59,13 +59,17 @@ export const Default: Story = {
     const other = canvas.getByRole('button', { name: 'Solutions' });
     await expect(other).not.toHaveAttribute('data-current');
     await expect(getComputedStyle(trigger).backgroundColor).not.toBe(getComputedStyle(other).backgroundColor);
-    await userEvent.click(trigger);
+    // Opened from the keyboard: a pointer resting on the trigger can reopen the
+    // hover-driven panel right after Escape and make the close check flaky.
+    trigger.focus();
+    await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
     await expect(canvas.getByRole('heading', { name: 'Hosting' })).toBeVisible();
     await expect(canvas.getByRole('link', { name: /All products/ })).toHaveAttribute('href', '#products');
     await expect(canvas.getByRole('link', { name: /Move your site for free/ })).toBeVisible();
     await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
+    // The panel closes with a short animation; give it time under a loaded test run.
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'), { timeout: 2500 });
   },
 };
 

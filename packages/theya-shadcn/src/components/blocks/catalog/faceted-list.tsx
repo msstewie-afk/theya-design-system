@@ -333,6 +333,10 @@ function FilterPanel({ items, filters, toggle, update, maxPrice }: { items: Cata
 function ListFacetGroup({ facet, items, filters, toggle }: { facet: ListFacet; items: CatalogItem[]; filters: Filters; toggle: (facet: ListFacet, value: string) => void }) {
   const [expanded, setExpanded] = useState(false);
   const [query, setQuery] = useState('');
+  // Values ticked while this group has focus stay in place until focus
+  // leaves the group: unticking one past the first TRUNCATE_AT would
+  // otherwise hide it and drop focus to the page (WCAG 2.4.3).
+  const [pinned, setPinned] = useState<string[]>([]);
   const searchId = useId();
   const base = items.filter((i) => matches(i, filters, facet));
   // Options sorted by how many results they lead to (most useful first),
@@ -342,11 +346,16 @@ function ListFacetGroup({ facet, items, filters, toggle }: { facet: ListFacet; i
     .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value));
   const searchable = options.length > 8;
   const filtered = query ? options.filter((o) => o.value.toLowerCase().includes(query.toLowerCase())) : options;
-  const shown = expanded || query ? filtered : filtered.filter((o, i) => i < TRUNCATE_AT || filters[facet].includes(o.value));
+  const shown = expanded || query ? filtered : filtered.filter((o, i) => i < TRUNCATE_AT || filters[facet].includes(o.value) || pinned.includes(o.value));
   const hidden = filtered.length - shown.length;
 
   return (
-    <fieldset className="m-0 flex min-w-0 flex-col gap-3 border-0 p-0">
+    <fieldset
+      className="m-0 flex min-w-0 flex-col gap-3 border-0 p-0"
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setPinned([]);
+      }}
+    >
       <legend className={FACET_HEADING}>{FACET_LABEL[facet]}</legend>
       {searchable && (
         <TextField
@@ -361,7 +370,16 @@ function ListFacetGroup({ facet, items, filters, toggle }: { facet: ListFacet; i
         />
       )}
       {shown.map((o) => (
-        <FacetOption key={o.value} label={o.value} count={o.count} checked={filters[facet].includes(o.value)} onChange={() => toggle(facet, o.value)} />
+        <FacetOption
+          key={o.value}
+          label={o.value}
+          count={o.count}
+          checked={filters[facet].includes(o.value)}
+          onChange={() => {
+            setPinned((p) => (p.includes(o.value) ? p : [...p, o.value]));
+            toggle(facet, o.value);
+          }}
+        />
       ))}
       {query && !filtered.length && <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">No matches.</p>}
       {(hidden > 0 || (expanded && !query && options.length > TRUNCATE_AT)) && (

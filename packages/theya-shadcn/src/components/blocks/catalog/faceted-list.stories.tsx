@@ -113,6 +113,42 @@ export const ChipFocus: Story = {
   },
 };
 
+/** Unticking a value past the first five keeps it in place, with focus on it, until focus leaves the facet; then the list folds again. */
+export const UntickKeepsFocus: Story = {
+  name: 'Test: untick keeps focus',
+  tags: ['desktop-play'],
+  render: (args) => (
+    <div className="md:min-w-[64rem]">
+      <FacetedList {...args} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // A facet group with more values than it shows at first.
+    const group = canvas
+      .getAllByRole('group')
+      .find((g) => g.tagName === 'FIELDSET' && within(g).queryByRole('button', { name: /^Show \d+ more$/ }));
+    await expect(group).toBeDefined();
+    const facet = within(group!);
+    await userEvent.click(facet.getByRole('button', { name: /^Show \d+ more$/ }));
+    const boxes = facet.getAllByRole('checkbox');
+    const last = boxes[boxes.length - 1];
+    await userEvent.click(last);
+    await userEvent.click(facet.getByRole('button', { name: 'Show less' }));
+    // Selected, so it stays visible after folding (same element); untick it by keyboard.
+    const box = last;
+    await expect(box).toBeInTheDocument();
+    box.focus();
+    await userEvent.keyboard(' ');
+    await waitFor(() => expect(box).not.toBeChecked());
+    await expect(box).toBeInTheDocument();
+    await expect(box).toHaveFocus();
+    // Leaving the facet folds it again.
+    box.blur();
+    await waitFor(() => expect(box).not.toBeInTheDocument());
+  },
+};
+
 /** The empty state's "Clear all filters" goes away with the filters; focus goes to the heading. */
 export const EmptyStateClearFocus: Story = {
   name: 'Test: empty state clear focus',

@@ -62,7 +62,7 @@ export const Default: Story = {
       await expect(canvas.queryByRole('button', { name: 'Pause' })).toBeNull();
     } else {
       await userEvent.click(canvas.getByRole('button', { name: 'Pause' }));
-      await expect(canvas.getByRole('button', { name: 'Play' })).toHaveAttribute('aria-pressed', 'true');
+      await expect(canvas.getByRole('button', { name: 'Play' })).not.toHaveAttribute('aria-pressed');
     }
   },
 };

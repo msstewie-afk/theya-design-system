@@ -101,7 +101,7 @@
           "name": "loading",
           "type": "boolean",
           "required": false,
-          "description": "Shows a spinner in place of leftIcon and disables the button. Not supported with asChild."
+          "description": "Shows a spinner in place of leftIcon and blocks the button while the action runs. It\nworks like `softDisabled` (aria-disabled, clicks ignored) rather than native `disabled`,\nso a focused button keeps focus during the wait. Not supported with asChild."
         },
         {
           "name": "menuLabel",

@@ -205,7 +205,7 @@ Docs: ./?path=/docs/overlays-alertdialog--docs
 - `fullWidth?`: `boolean | null`
 - `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon.
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
-- `loading?`: `boolean` — Shows a spinner in place of leftIcon and disables the button. Not supported with asChild.
+- `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`
 - `softDisabled?`: `boolean` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
@@ -221,7 +221,7 @@ Docs: ./?path=/docs/overlays-alertdialog--docs
 - `fullWidth?`: `boolean | null`
 - `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon.
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
-- `loading?`: `boolean` — Shows a spinner in place of leftIcon and disables the button. Not supported with asChild.
+- `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`
 - `softDisabled?`: `boolean` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
@@ -1199,7 +1199,7 @@ Docs: ./?path=/docs/actions-button--docs
 - `fullWidth?`: `boolean | null`, default `false`
 - `iconOnly?`: `boolean`, default `false` — Renders as a square icon-only button (no label). Provide the icon via leftIcon.
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
-- `loading?`: `boolean`, default `false` — Shows a spinner in place of leftIcon and disables the button. Not supported with asChild.
+- `loading?`: `boolean`, default `false` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`, default `xl`
 - `softDisabled?`: `boolean`, default `false` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
@@ -1594,7 +1594,7 @@ Docs: ./?path=/docs/layout-carousel--docs
 - `fullWidth?`: `boolean | null`
 - `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon.
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
-- `loading?`: `boolean` — Shows a spinner in place of leftIcon and disables the button. Not supported with asChild.
+- `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`
 - `softDisabled?`: `boolean` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
@@ -1614,7 +1614,7 @@ Docs: ./?path=/docs/layout-carousel--docs
 - `fullWidth?`: `boolean | null`
 - `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon.
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
-- `loading?`: `boolean` — Shows a spinner in place of leftIcon and disables the button. Not supported with asChild.
+- `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`
 - `softDisabled?`: `boolean` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
@@ -3023,7 +3023,7 @@ Docs: ./?path=/docs/data-datatablecell--docs
 - `fullWidth?`: `boolean | null`
 - `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon.
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
-- `loading?`: `boolean` — Shows a spinner in place of leftIcon and disables the button. Not supported with asChild.
+- `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`
 - `softDisabled?`: `boolean` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
@@ -8645,7 +8645,7 @@ Docs: ./?path=/docs/actions-splitbutton--docs
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `fullWidth?`: `boolean | null`
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
-- `loading?`: `boolean` — Shows a spinner in place of leftIcon and disables the button. Not supported with asChild.
+- `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `menuLabel?`: `string`, default `More actions (localized: splitButton.menu)` — Accessible name of the caret that opens the menu. Default "More actions" — make it specific when several split buttons share a screen, e.g. "More send options".
 - `onMainClick?`: `(() => void)` — Called when the primary action is clicked.
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.

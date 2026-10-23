@@ -612,7 +612,11 @@ export interface ButtonProps
   rightIcon?: ReactNode;
   /** Render onto the child element instead of a `<button>` (shadcn/Radix Slot convention). */
   asChild?: boolean;
-  /** Shows a spinner in place of leftIcon and disables the button. Not supported with asChild. */
+  /**
+   * Shows a spinner in place of leftIcon and blocks the button while the action runs. It
+   * works like `softDisabled` (aria-disabled, clicks ignored) rather than native `disabled`,
+   * so a focused button keeps focus during the wait. Not supported with asChild.
+   */
   loading?: boolean;
   /**
    * The action just succeeded: a tick draws itself in place of leftIcon (Kinetics'
@@ -679,11 +683,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) {
-    const isDisabled = disabled || loading;
-    // Soft-disabled buttons still receive the click event (they're focusable
-    // and not natively disabled), so swallow it here. Enter/Space on a
-    // <button> fire the same click event, so keyboard is covered too.
-    const handleClick = softDisabled
+    // Loading blocks the button the soft way: native `disabled` would drop
+    // focus to the page while the action runs (WCAG 2.4.3).
+    const blocked = softDisabled || loading;
+    // Soft-disabled and loading buttons still receive the click event (they're
+    // focusable and not natively disabled), so swallow it here. Enter/Space on
+    // a <button> fire the same click event, so keyboard is covered too, and so
+    // is a form's implicit submit, which clicks the submit button.
+    const handleClick = blocked
       ? (event: MouseEvent<HTMLButtonElement>) => {
           event.preventDefault();
           event.stopPropagation();
@@ -765,8 +772,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...dataAttributes}
         data-loading={loading ? '' : undefined}
         data-success={success ? '' : undefined}
-        disabled={isDisabled}
-        aria-disabled={isDisabled || softDisabled || undefined}
+        disabled={disabled}
+        aria-disabled={disabled || blocked || undefined}
         aria-busy={loading || undefined}
         className={sharedClassName}
         onClick={handleClick}

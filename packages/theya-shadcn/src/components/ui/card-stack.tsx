@@ -130,7 +130,7 @@ export function CardStack({ interval = 4000, depth = 2, hideControls = false, la
               size="md"
               iconOnly
               aria-label={paused ? t.cardDeck.play : t.cardDeck.pause}
-              aria-pressed={paused}
+              // No aria-pressed: the name already changes (Pause / Play); both would read as "Play, pressed".
               leftIcon={paused ? <Play /> : <Pause />}
               onClick={() => setPaused((p) => !p)}
             />

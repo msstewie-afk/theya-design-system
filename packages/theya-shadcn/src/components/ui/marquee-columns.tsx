@@ -72,7 +72,7 @@ export function MarqueeColumns({ columns, duration = 40, gap = '1rem', pauseButt
           size="sm"
           iconOnly
           aria-label={paused ? t.marquee.play : t.marquee.pause}
-          aria-pressed={paused}
+          // No aria-pressed: the name already changes (Pause / Play); both would read as "Play, pressed".
           leftIcon={paused ? <Play /> : <Pause />}
           onClick={() => setPaused((p) => !p)}
           className="self-end motion-reduce:hidden"

@@ -115,7 +115,8 @@ export const AsyncSave: Story = {
     await userEvent.keyboard('Pending name{Enter}');
     // While saving: field and both buttons are locked.
     await expect(canvas.getByRole('textbox', { name: 'Site name' })).toBeDisabled();
-    await expect(canvas.getByRole('button', { name: 'Save Site name' })).toBeDisabled();
+    // Save is loading: blocked with aria-disabled, so it keeps focus if it had it.
+    await expect(canvas.getByRole('button', { name: 'Save Site name' })).toHaveAttribute('aria-disabled', 'true');
     await expect(canvas.getByRole('button', { name: 'Cancel' })).toBeDisabled();
     const display = await canvas.findByRole('button', { name: 'Edit Site name: Pending name' }, { timeout: 3000 });
     await waitFor(() => expect(display).toHaveFocus());

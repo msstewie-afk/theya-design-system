@@ -414,6 +414,47 @@ export const LoadingKeepsWidth: Story = {
   },
 };
 
+function LoadingFocusDemo() {
+  const [loading, setLoading] = useState(false);
+  const [saves, setSaves] = useState(0);
+  return (
+    <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+      <Button
+        loading={loading}
+        onClick={() => {
+          setSaves((n) => n + 1);
+          setLoading(true);
+          setTimeout(() => setLoading(false), 600);
+        }}
+      >
+        Save
+      </Button>
+      <span data-testid="saves">{saves}</span>
+    </div>
+  );
+}
+
+/** While `loading`, the button keeps keyboard focus and ignores further presses; focus is still there when it finishes. */
+export const LoadingKeepsFocus: Story = {
+  name: 'Test: loading keeps focus',
+  render: () => <LoadingFocusDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const save = canvas.getByRole('button', { name: 'Save' });
+    save.focus();
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(save).toHaveAttribute('aria-busy', 'true'));
+    await expect(save).toHaveAttribute('aria-disabled', 'true');
+    await expect(save).not.toBeDisabled();
+    await expect(save).toHaveFocus();
+    // A second press while busy does nothing.
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByTestId('saves')).toHaveTextContent('1');
+    await waitFor(() => expect(save).not.toHaveAttribute('aria-busy'));
+    await expect(save).toHaveFocus();
+  },
+};
+
 function InteractiveLoadingDemo() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
 

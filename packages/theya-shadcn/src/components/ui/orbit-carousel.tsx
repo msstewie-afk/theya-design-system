@@ -117,7 +117,7 @@ export function OrbitCarousel({ shape = 'drum', itemWidth = 240, autoplay, onInd
             size="md"
             iconOnly
             aria-label={paused ? t.cardDeck.play : t.cardDeck.pause}
-            aria-pressed={paused}
+            // No aria-pressed: the name already changes (Pause / Play); both would read as "Play, pressed".
             leftIcon={paused ? <Play /> : <Pause />}
             onClick={() => setPaused((p) => !p)}
           />
