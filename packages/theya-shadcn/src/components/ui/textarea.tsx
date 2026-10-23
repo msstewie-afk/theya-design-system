@@ -32,8 +32,8 @@ const textareaVariants = cva(
     'bg-[var(--color-bg-input-bg-input)] border border-solid',
     'border-[var(--color-border-border)]',
     'text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-subtler)]',
-    // 4px extra left padding vs the right side, per request.
-    'ps-[calc(var(--size-margin-margin-xs)+4px)] pe-[var(--size-margin-margin-xs)] py-[var(--size-margin-margin-s)]',
+    // 12px on both sides, the same inset as every 32/40px field (Мария, 2026-10-23).
+    'px-[var(--size-padding-padding-md)] py-[var(--size-margin-margin-s)]',
     'transition-[background-color,border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
     'outline-none resize',
     'disabled:cursor-not-allowed disabled:resize-none disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',

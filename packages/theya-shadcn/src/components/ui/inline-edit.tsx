@@ -36,15 +36,16 @@ export type InlineEditSize = 'sm' | 'md';
 const keepFieldFocus = (e: React.MouseEvent) => e.preventDefault();
 
 // Single-line display mirrors TextField: heightSize sm/md (32/40px,
-// body-s/body-m), leading padding-lg + 1px border.
+// body-s/body-m), 12px on both sides + 1px border. The pencil then sits
+// where TextField's trailing icons do, 12px from the end.
 const DISPLAY_SIZE_CLASS: Record<InlineEditSize, string> = {
   sm: 'h-[var(--size-size-control-size-control-lg)] text-body-s',
   md: 'h-[var(--size-size-control-size-control-2xl)] text-body-m',
 };
-const SINGLE_PADDING = 'pe-[var(--size-padding-padding-xs)] ps-[var(--size-padding-padding-lg)]';
-// Multiline display mirrors TextArea's own box: 8+4px leading, 8px
-// trailing, 10px vertical, 1px border.
-const MULTI_PADDING = 'ps-[calc(var(--size-margin-margin-xs)+4px)] pe-[var(--size-margin-margin-xs)] py-[var(--size-margin-margin-s)]';
+const SINGLE_PADDING = 'px-[var(--size-padding-padding-md)]';
+// Multiline display mirrors TextArea's own box: 12px on both sides, 10px
+// vertical, 1px border.
+const MULTI_PADDING = 'px-[var(--size-padding-padding-md)] py-[var(--size-margin-margin-s)]';
 const MULTI_TEXT: Record<InlineEditSize, string> = { sm: 'text-body-s', md: 'text-body-m' };
 // inheritFont: both modes take the surrounding typography and size to it.
 // Important (!) because TextField's heightSize sets its own height and type
