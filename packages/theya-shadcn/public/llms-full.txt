@@ -3324,10 +3324,14 @@ Docs: ./?path=/docs/date-time-datetimepicker--docs
 - `dateClassName?`: `string`
 - `datePlaceholder?`: `string`, default `Pick a date (localized: datePicker.placeholder)`
 - `defaultValue?`: `Date`
+- `description?`: `ReactNode` — Helper text under the fields.
 - `disabled?`: `boolean`
 - `hourCycle?`: `"12" | "24"`, default `12`
 - `id?`: `string`
+- `label?`: `ReactNode` — Visible label above both fields; it names the date field and, as "{label} time", the time field (WCAG 3.3.2). Without it, use aria-label.
 - `onChange?`: `((value: Date, meta: { timeSet: boolean; }) => void)` — `timeSet` is false while only the date was picked — the Date then carries a placeholder 00:00.
+- `optional?`: `boolean` — "(optional)" after the label.
+- `required?`: `boolean` — Red asterisk after the label.
 - `showClear?`: `boolean`, default `false` — Show the inline clear button in the date field. Default false.
 - `step?`: `number`, default `30`
 - `timeClassName?`: `string`
@@ -3356,7 +3360,7 @@ Docs: ./?path=/docs/date-time-datetimepicker--docs
 
 **Accessibility**
 
-- Name it with `aria-label`: the date part gets that name, the time part gets it plus “time” (“Send at time”).
+- Give it a visible `label`: it names the date part, and the time part as “Send at time”. Without one, `aria-label` does the same invisibly.
 - If the time is required, say so when it’s missing — don’t store 00:00.
 - Say the time zone in the description when people in several zones use it.
 
@@ -5742,18 +5746,24 @@ Docs: ./?path=/docs/text-input-maskedinput--docs
 
 **Anatomy**
 
-- Field: TextField’s input and chrome; label it with a Label (htmlFor) or aria-label.
+- Field: TextField’s input and chrome; give it a visible label (label prop), and the format in description when the mask alone isn’t clear.
 - Mask: `mask` template with placeholder chars; `showMask` shows it while empty.
 
 **MaskedInput props**
 
 - `mask`: `string` — Mask template, e.g. "+1 (___) ___-____" or "__/__/____".
 - `defaultValue?`: `string`
+- `description?`: `ReactNode` — Helper text below the field. Hidden when `error` or `success` is set.
 - `error?`: `ReactNode` — Same error prop as TextField — turns the field danger-styled and can carry a message.
+- `heightSize?`: `"md" | "lg" | "sm" | null`
+- `label?`: `ReactNode`
+- `labelPosition?`: `"top" | "left"` — 'top' (default) stacks label above the field. 'left' puts a fixed 216px label column beside it, matching Figma's horizontal Formfield layout.
 - `modify?`: `MaskedInputModify` — Conditionally tweak mask/replacement/showMask before masking.
 - `onChange?`: `((e: ChangeEvent<HTMLInputElement>) => void)`
 - `onUnmaskedChange?`: `((raw: string) => void)` — Called with the raw value (mask literals stripped) on every change.
+- `optional?`: `boolean` — Shows "(optional)" after the label. Ignored when `required`.
 - `replacement?`: `string | Record<string, RegExp>` — Placeholder-char to allowed-pattern map. Default { _: /\d/ }. Pass a string like "#" as shorthand for { "#": /./ }.
+- `required?`: `boolean` — Shows a small red asterisk after the label.
 - `showMask?`: `boolean`, default `false` — Show the full mask template while empty.
 - `track?`: `MaskedInputTrack` — Conditionally transform the entered value before masking.
 - `value?`: `string`
@@ -6204,14 +6214,18 @@ Docs: ./?path=/docs/text-input-numberfield--docs
 - `className?`: `string`
 - `decrementLabel?`: `string`
 - `defaultValue?`: `number`
+- `description?`: `ReactNode` — Helper text under the field, e.g. the allowed range.
 - `disabled?`: `boolean`
 - `heightSize?`: `"md" | "sm"`, default `md` — Matches TextField's heightSize: md 40px (default), sm 32px with 12px text and the 4px radius — for dense rows (cart quantities, table cells).
 - `id?`: `string`
 - `incrementLabel?`: `string`
+- `label?`: `ReactNode` — Visible label above the field (WCAG 3.3.2). Without it, name the field with aria-label.
 - `max?`: `number`
 - `min?`: `number`
 - `onValueChange?`: `((value: number) => void)`
+- `optional?`: `boolean` — "(optional)" after the label.
 - `placeholder?`: `string`
+- `required?`: `boolean` — Red asterisk after the label.
 - `step?`: `number`, default `1`
 - `value?`: `number`
 - `widthSize?`: `"md" | "lg" | "sm" | "xl" | "full"`, default `sm` — sm 128px (default — a stepper holds a short number), md 224, lg 348,
@@ -6237,7 +6251,7 @@ Docs: ./?path=/docs/text-input-numberfield--docs
 **Accessibility**
 
 - It’s a spinbutton: `aria-valuenow/min/max` are set, arrows change the value.
-- Name the − / + buttons if “Decrease/Increase” isn’t clear enough (decrementLabel / incrementLabel).
+- Give it a visible `label` (and the range in `description`); `aria-label` only where the context already shows the name. The − / + buttons take the name: “Increase Replicas”.
 - Say the unit in the label (“Retention, days”).
 
 ## OptionCard
@@ -7353,7 +7367,7 @@ Docs: ./?path=/docs/data-qrcode--docs
 
 - `icon?`: `ReactNode` — Optional mark in the center (a logo or icon, ~20% of the code). Raises `level` to H.
 - `label?`: `string`, default `QR code (localized: qrCode.label)` — Accessible name. Describe what scanning does, not what it is: "Scan to add Seashell to your authenticator app".
-- `level?`: `"L" | "M" | "Q" | "H"`, default `M` — Error correction: how much of the code can be damaged or covered and
+- `level?`: `"H" | "L" | "M" | "Q"`, default `M` — Error correction: how much of the code can be damaged or covered and
 - `loading?`: `boolean`, default `false` — Shows a placeholder of the same size while the value is being fetched.
 - `size?`: `"md" | "lg" | "sm"`, default `md` — Rendered edge length including the quiet zone: sm 128px, md 160px (default), lg 200px.
 - `value?`: `string` — The text or URL to encode (e.g. an `otpauth://` URI for 2FA setup).
@@ -7614,9 +7628,12 @@ Docs: ./?path=/docs/selection-rating--docs
 - `clearable?`: `boolean`, default `false` — A click on the currently selected star resets the rating to 0.
 - `defaultValue?`: `number`, default `0`
 - `formatLabel?`: `((value: number, max: number) => string)`, default `localized: rating.value` — Accessible text for a value ("3 of 5"). Localize here.
+- `label?`: `ReactNode` — Visible label above the stars, naming the group (WCAG 3.3.2). Input mode only; without it, use aria-label.
 - `max?`: `number`, default `5` — Number of stars. Default 5.
 - `onValueChange?`: `((value: number) => void)`
+- `optional?`: `boolean` — "(optional)" after the label.
 - `readOnly?`: `boolean`, default `false` — Display only: one image named by the value, fractional values allowed.
+- `required?`: `boolean` — Red asterisk after the label.
 - `size?`: `"md" | "sm"`, default `md`
 - `value?`: `number` — Controlled value, 0 = no rating. Fractions are drawn only in readOnly.
 
@@ -7648,6 +7665,7 @@ Also accepts the props of: RadioGroupProps, HTMLAttributes.
 **Accessibility**
 
 - Input mode is a radio group: arrows change the score, each star is named “3 of 5”.
+- Say what’s being rated with a visible `label`; `aria-label` only where the context already shows it.
 - Read-only is one image named with the exact value (“4.6 of 5”); `formatLabel` changes the wording.
 - Filled vs empty differs in shape (solid vs outline), not only color.
 
@@ -9448,11 +9466,14 @@ Docs: ./?path=/docs/text-input-taginput--docs
 - `error?`: `string` — External error (e.g. "Add at least one recipient"). Shown under the field, above per-value errors.
 - `heightSize?`: `"md" | "sm"`, default `md`
 - `id?`: `string`
+- `label?`: `ReactNode` — Visible label above the field (WCAG 3.3.2). Without it, name the field with aria-label.
 - `max?`: `number` — Maximum number of values; the input hides once it's reached.
 - `name?`: `string`
 - `onValueChange?`: `((value: string[]) => void)`
+- `optional?`: `boolean` — "(optional)" after the label.
 - `placeholder?`: `string`, default `Type and press Enter (localized: tagInput.placeholder)`
 - `readOnly?`: `boolean`, default `false`
+- `required?`: `boolean` — Red asterisk after the label.
 - `transform?`: `((tag: string) => string)` — Normalize each value before it's added, e.g. `(v) => v.toLowerCase()` for emails and domains. Trimmed first.
 - `validate?`: `((tag: string) => string)` — Return a message for a bad value (it's still added, as a danger chip), undefined when it's fine.
 - `value?`: `string[]` — Controlled list of values.
@@ -9474,6 +9495,7 @@ Docs: ./?path=/docs/text-input-taginput--docs
 
 **Accessibility**
 
+- Give it a visible `label`, and say how to add (“Press Enter or comma”) in `description`: the placeholder disappears once there are tags.
 - Additions and removals are announced.
 - Backspace in the empty input removes the last chip; each chip’s remove button is named.
 - Invalid values stay visible with their reason — never dropped silently.
@@ -10736,6 +10758,7 @@ Docs: ./?path=/docs/selection-wheelpicker--docs
 - `options`: `WheelPickerOption[]`
 - `defaultValue?`: `string`
 - `disabled?`: `boolean`, default `false`
+- `label?`: `ReactNode` — Visible label above the wheel, naming the list (WCAG 3.3.2). Without it, use aria-label.
 - `onValueChange?`: `((value: string) => void)`
 - `rows?`: `"3" | "5"`, default `3` — Rows visible at once: 3 (default) or 5.
 - `value?`: `string`
@@ -10760,5 +10783,5 @@ Also accepts the props of: HTMLAttributes.
 **Accessibility**
 
 - A listbox: ↑ ↓ move one option, Page Up / Page Down a screen, Home / End to the ends.
-- Always give it a name (aria-label or aria-labelledby).
+- Give it a visible `label` (a click on it focuses the wheel); `aria-label` only where the context already shows the name.
 - With reduced motion the wheel jumps to the option instead of rolling.

@@ -408,6 +408,9 @@ export const ru: TheyaMessages = {
     next: 'Следующая карточка',
   },
   colorPicker: {
+    channels: { r: 'Красный', g: 'Зелёный', b: 'Синий', h: 'Тон, градусы', s: 'Насыщенность, проценты', l: 'Светлота, проценты' },
+    // Visible captions under the channel fields; letters in every language, like design tools.
+    captions: { r: 'R', g: 'G', b: 'B', h: 'H', s: 'S', l: 'L' },
     openFor: (label) => `Выбрать цвет: ${label}`,
     area: 'Насыщенность и яркость',
     areaValue: (s, v) => `Насыщенность ${s}%, яркость ${v}%`,

@@ -5,6 +5,7 @@ import { cn } from '../../lib/utils';
 import { Chip, ChipRemove } from './chip';
 import { useTheyaI18n } from '../../lib/i18n';
 import { FieldErrorIcon } from './field-error-icon';
+import { Label } from './label';
 
 /**
  * Several free-form values as chips in one field: tags, email addresses,
@@ -37,6 +38,12 @@ export interface TagInputProps {
   /** Maximum number of values; the input hides once it's reached. */
   max?: number;
   placeholder?: string;
+  /** Visible label above the field (WCAG 3.3.2). Without it, name the field with aria-label. */
+  label?: ReactNode;
+  /** Red asterisk after the label. */
+  required?: boolean;
+  /** "(optional)" after the label. */
+  optional?: boolean;
   /** Helper text under the field (replaced by the error while there is one). */
   description?: ReactNode;
   /** External error (e.g. "Add at least one recipient"). Shown under the field, above per-value errors. */
@@ -62,6 +69,9 @@ export function TagInput({
   delimiters = DEFAULT_DELIMITERS,
   max,
   placeholder,
+  label,
+  required,
+  optional,
   description,
   error,
   heightSize = 'md',
@@ -192,6 +202,11 @@ export function TagInput({
 
   return (
     <div data-slot="tag-input" className={cn('flex w-full flex-col gap-1.5', className)}>
+      {label && (
+        <Label htmlFor={inputId} required={required} optional={optional} className={cn(heightSize === 'sm' && 'text-body-s')}>
+          {label}
+        </Label>
+      )}
       {/* Clicking anywhere in the box (not just on the input) puts the caret in. */}
       <div
         onMouseDown={(e) => {
@@ -255,6 +270,8 @@ export function TagInput({
             ref={inputRef}
             id={inputId}
             name={name}
+            // aria-, not native required: an empty draft is fine once tags exist.
+            aria-required={required || undefined}
             value={draft}
             disabled={disabled}
             placeholder={tags.length === 0 ? placeholder : undefined}

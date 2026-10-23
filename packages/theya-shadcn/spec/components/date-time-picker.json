@@ -45,7 +45,7 @@
     }
   ],
   "a11y": [
-    "Name it with `aria-label`: the date part gets that name, the time part gets it plus “time” (“Send at time”).",
+    "Give it a visible `label`: it names the date part, and the time part as “Send at time”. Without one, `aria-label` does the same invisibly.",
     "If the time is required, say so when it’s missing — don’t store 00:00.",
     "Say the time zone in the description when people in several zones use it."
   ],
@@ -95,6 +95,12 @@
           "required": false
         },
         {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Helper text under the fields."
+        },
+        {
           "name": "disabled",
           "type": "boolean",
           "required": false
@@ -115,10 +121,28 @@
           "required": false
         },
         {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Visible label above both fields; it names the date field and, as \"{label} time\", the time field (WCAG 3.3.2). Without it, use aria-label."
+        },
+        {
           "name": "onChange",
           "type": "((value: Date, meta: { timeSet: boolean; }) => void)",
           "required": false,
           "description": "`timeSet` is false while only the date was picked — the Date then carries a placeholder 00:00."
+        },
+        {
+          "name": "optional",
+          "type": "boolean",
+          "required": false,
+          "description": "\"(optional)\" after the label."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "description": "Red asterisk after the label."
         },
         {
           "name": "showClear",

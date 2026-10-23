@@ -71,10 +71,10 @@
           "name": "level",
           "type": "QrCodeLevel",
           "values": [
+            "H",
             "L",
             "M",
-            "Q",
-            "H"
+            "Q"
           ],
           "required": false,
           "default": "M",

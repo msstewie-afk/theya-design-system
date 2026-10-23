@@ -153,3 +153,16 @@ export const Widths: Story = {
     </div>
   ),
 };
+
+/** With a visible label and the allowed range shown under it (WCAG 3.3.2). */
+export const WithLabel: Story = {
+  args: { label: 'Replicas', description: 'Between 1 and 10.', required: true, min: 1, max: 10, defaultValue: 3, widthSize: 'md' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('spinbutton', { name: 'Replicas' });
+    await expect(input).toHaveAccessibleDescription('Between 1 and 10.');
+    // The steppers say which field they change.
+    await userEvent.click(canvas.getByRole('button', { name: 'Increase Replicas' }));
+    await expect(input).toHaveValue('4');
+  },
+};

@@ -1,9 +1,10 @@
 'use client';
 
-import { forwardRef, useState, useCallback, useId, useRef } from 'react';
+import { forwardRef, useState, useCallback, useId, useRef, type ReactNode } from 'react';
 import { Minus, Plus } from 'iconoir-react';
 import { cn } from '../../lib/utils';
 import { useTheyaI18n } from '../../lib/i18n';
+import { Label } from './label';
 
 const WIDTH_CLASSES = {
   full: 'w-full',
@@ -56,6 +57,14 @@ export interface NumberFieldProps {
   heightSize?: 'sm' | 'md';
   decrementLabel?: string;
   incrementLabel?: string;
+  /** Visible label above the field (WCAG 3.3.2). Without it, name the field with aria-label. */
+  label?: ReactNode;
+  /** Helper text under the field, e.g. the allowed range. */
+  description?: ReactNode;
+  /** Red asterisk after the label. */
+  required?: boolean;
+  /** "(optional)" after the label. */
+  optional?: boolean;
   'aria-label'?: string;
   'aria-labelledby'?: string;
   'aria-describedby'?: string;
@@ -84,6 +93,10 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
     heightSize = 'md',
     decrementLabel,
     incrementLabel,
+    label,
+    description,
+    required,
+    optional,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledby,
     'aria-describedby': ariaDescribedby,
@@ -94,8 +107,11 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
   const { t } = useTheyaI18n();
   // Steppers say which field they change (WCAG 2.4.6): several NumberFields
   // on a page otherwise give identical "Decrease"/"Increase" buttons.
-  if (decrementLabel === undefined) decrementLabel = ariaLabel ? t.numberField.decrementFor(ariaLabel) : t.numberField.decrement;
-  if (incrementLabel === undefined) incrementLabel = ariaLabel ? t.numberField.incrementFor(ariaLabel) : t.numberField.increment;
+  const name = ariaLabel ?? (typeof label === 'string' ? label : undefined);
+  if (decrementLabel === undefined) decrementLabel = name ? t.numberField.decrementFor(name) : t.numberField.decrement;
+  if (incrementLabel === undefined) incrementLabel = name ? t.numberField.incrementFor(name) : t.numberField.increment;
+  const labelled = Boolean(label || description);
+  const descriptionId = useId();
   const generatedId = useId();
   const resolvedId = id ?? generatedId;
   const isControlled = value !== undefined;
@@ -174,7 +190,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
     '[&_svg]:shrink-0',
   );
 
-  return (
+  const field = (
     <div
       className={cn(
         // min-w-min: overflow-hidden turns a flex item's automatic min-width
@@ -182,7 +198,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
         // disappeared. Now it never goes below buttons + the input's minimum.
         'inline-flex min-w-min items-stretch overflow-hidden',
         heightSize === 'sm' ? 'h-[var(--size-size-control-size-control-lg)] rounded-[var(--size-border-radius-border-radius-md)]' : 'h-[var(--size-size-control-size-control-2xl)] rounded-[var(--size-border-radius-border-radius-lg)]',
-        WIDTH_CLASSES[widthSize],
+        labelled ? 'w-full' : WIDTH_CLASSES[widthSize],
         'border border-solid',
         'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
         'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
@@ -205,7 +221,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
         // input is actively focused.
         'has-[input[aria-invalid=true]]:has-[input:focus-visible]:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
         'has-[input[aria-invalid=true]]:has-[input:focus-visible]:focus-ring-error',
-        className,
+        !labelled && className,
       )}
     >
       <button
@@ -235,7 +251,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
         aria-valuemax={max}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledby}
-        aria-describedby={ariaDescribedby}
+        aria-describedby={[ariaDescribedby, description ? descriptionId : null].filter(Boolean).join(' ') || undefined}
         aria-invalid={ariaInvalid}
         disabled={disabled}
         placeholder={placeholder}
@@ -286,6 +302,22 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
       >
         <Plus />
       </button>
+    </div>
+  );
+  if (!labelled) return field;
+  return (
+    <div className={cn('flex flex-col gap-1.5', WIDTH_CLASSES[widthSize], className)}>
+      {label && (
+        <Label htmlFor={resolvedId} required={required} optional={optional} className={cn(heightSize === 'sm' && 'text-body-s')}>
+          {label}
+        </Label>
+      )}
+      {field}
+      {description && (
+        <span id={descriptionId} className="font-body text-body-xs text-[var(--color-text-text-subtler)]">
+          {description}
+        </span>
+      )}
     </div>
   );
 });

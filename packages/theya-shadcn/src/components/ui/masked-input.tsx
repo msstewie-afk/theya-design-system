@@ -1,7 +1,7 @@
 'use client';
 
 import { forwardRef, useState, useCallback } from 'react';
-import { TextField } from './text-field';
+import { TextField, type TextFieldProps } from './text-field';
 
 /**
  * Formats as you type against a fixed template (phone, card, date, IP).
@@ -22,7 +22,10 @@ export type MaskedInputTrack = (rawInput: string) => string;
 export type MaskedInputModify = (rawInput: string) => MaskedInputModifyResult;
 
 export interface MaskedInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange'> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'required'>,
+    // TextField's visible label, help text and required/optional marks (WCAG 3.3.2):
+    // they always reached TextField at runtime, now they're typed.
+    Pick<TextFieldProps, 'label' | 'description' | 'required' | 'optional' | 'labelPosition' | 'heightSize'> {
   /** Mask template, e.g. "+1 (___) ___-____" or "__/__/____". */
   mask: string;
   /** Placeholder-char to allowed-pattern map. Default { _: /\d/ }. Pass a string like "#" as shorthand for { "#": /./ }. */

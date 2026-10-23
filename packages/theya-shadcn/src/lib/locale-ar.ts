@@ -374,6 +374,9 @@ export const ar: TheyaMessages = {
     next: 'البطاقة التالية',
   },
   colorPicker: {
+    channels: { r: 'أحمر', g: 'أخضر', b: 'أزرق', h: 'تدرج اللون، بالدرجات', s: 'التشبع، بالنسبة المئوية', l: 'الإضاءة، بالنسبة المئوية' },
+    // Visible captions under the channel fields; letters in every language, like design tools.
+    captions: { r: 'R', g: 'G', b: 'B', h: 'H', s: 'S', l: 'L' },
     openFor: (label) => `اختيار لون لـ ${label}`,
     area: 'التشبع والسطوع',
     areaValue: (s, v) => `التشبع ${s}%، السطوع ${v}%`,

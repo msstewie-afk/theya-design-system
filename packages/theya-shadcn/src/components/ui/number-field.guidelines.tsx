@@ -32,7 +32,7 @@ export const numberFieldGuidelines: ComponentGuidelines = {
   ],
   a11y: [
     <>It’s a spinbutton: <C>aria-valuenow/min/max</C> are set, arrows change the value.</>,
-    'Name the − / + buttons if “Decrease/Increase” isn’t clear enough (decrementLabel / incrementLabel).',
+    <>Give it a visible <C>label</C> (and the range in <C>description</C>); <C>aria-label</C> only where the context already shows the name. The − / + buttons take the name: “Increase Replicas”.</>,
     'Say the unit in the label (“Retention, days”).',
   ],
 };

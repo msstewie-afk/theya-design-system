@@ -255,24 +255,33 @@ function DraftInput({
   value,
   onCommit,
   label,
+  caption,
   className,
+  inputClassName,
   inputMode = 'numeric',
 }: {
   value: string;
   onCommit: (draft: string) => boolean;
-  /** Accessible name ("Red") — the format select says which channels these are. */
+  /** Accessible name ("Red"). */
   label: string;
+  /** Visible caption under the field ("R"), a real <label> for it (WCAG 3.3.2). */
+  caption?: string;
+  /** On the wrapper when there's a caption, else on the input (grid placement). */
   className?: string;
+  /** Always on the input (font, case). */
+  inputClassName?: string;
   inputMode?: 'numeric' | 'text';
 }) {
+  const id = useId();
   const [draft, setDraft] = useState(value);
   const [editing, setEditing] = useState(false);
   const commit = () => {
     setEditing(false);
     if (!onCommit(draft)) setDraft(value);
   };
-  return (
+  const input = (
     <input
+      id={id}
       aria-label={label}
       inputMode={inputMode}
       spellCheck={false}
@@ -300,8 +309,17 @@ function DraftInput({
       }}
       // Fields are narrow: an even 8px instead of TextField's 16/8. ps/pe, not
       // px — the variants set logical ps/pe, which px-2 didn't override.
-      className={cn(textFieldVariants({ heightSize: 'sm' }), 'min-w-0 ps-2 pe-2 tabular-nums', className)}
+      className={cn(textFieldVariants({ heightSize: 'sm' }), 'min-w-0 ps-2 pe-2 tabular-nums', !caption && className, inputClassName)}
     />
+  );
+  if (!caption) return input;
+  return (
+    <div className={cn('flex min-w-0 flex-col gap-1', className)}>
+      {input}
+      <label htmlFor={id} className="text-center font-body text-body-xs text-[var(--color-text-text-subtler)]">
+        {caption}
+      </label>
+    </div>
   );
 }
 
@@ -592,8 +610,10 @@ export function ColorPicker({
     format === 'hex' ? (
       <DraftInput
         label={t.colorPicker.hex}
+        caption={t.colorPicker.hex}
         inputMode="text"
-        className="col-span-3 font-code uppercase"
+        className="col-span-3"
+        inputClassName="font-code uppercase"
         value={isEmpty ? '' : opaque.toUpperCase()}
         onCommit={(d) => {
           const parsed = parseHex(d);
@@ -606,7 +626,8 @@ export function ColorPicker({
       (['r', 'g', 'b'] as const).map((ch) => (
         <DraftInput
           key={ch}
-          label={{ r: 'Red', g: 'Green', b: 'Blue' }[ch]}
+          label={t.colorPicker.channels[ch]}
+          caption={t.colorPicker.captions[ch]}
           value={isEmpty ? '' : String(rgba[ch])}
           onCommit={(d) => {
             const n = intIn(0, 255)(d);
@@ -620,7 +641,8 @@ export function ColorPicker({
       (['h', 's', 'l'] as const).map((ch) => (
         <DraftInput
           key={ch}
-          label={{ h: 'Hue, degrees', s: 'Saturation, percent', l: 'Lightness, percent' }[ch]}
+          label={t.colorPicker.channels[ch]}
+          caption={t.colorPicker.captions[ch]}
           value={isEmpty ? '' : String(hsl[ch])}
           onCommit={(d) => {
             const n = intIn(0, ch === 'h' ? 360 : 100)(d);
@@ -637,8 +659,9 @@ export function ColorPicker({
 
   // Row one: format select + the three channels. Opacity gets a row of its
   // own underneath: four fields in one row left each about 40px on a
-  // phone, too narrow for "255". The format select already names the
-  // channels, so there are no captions under them.
+  // phone, too narrow for "255". Each channel has a visible caption under
+  // it (R/G/B, H/S/L, Hex): the format select alone left the boxes
+  // unlabelled, and it's hidden when there's one format (Maria, 2026-10-23).
   const formatSelect = formats.length > 1 && (
     <Select heightSize="sm" value={format} onValueChange={(f) => setFormat(f as ColorFormat)}>
       <SelectTrigger widthSize="sm" aria-label={t.colorPicker.format} className="w-[4.75rem] shrink-0">
@@ -655,7 +678,8 @@ export function ColorPicker({
   );
   const inputRow = (
     <div className="flex flex-col gap-1.5">
-      <div className="flex items-center gap-1.5">
+      {/* items-start: the select lines up with the fields, the captions hang below. */}
+      <div className="flex items-start gap-1.5">
         {formatSelect}
         <div className="grid min-w-0 flex-1 grid-cols-3 gap-1.5">{channelFields}</div>
       </div>

@@ -34,7 +34,7 @@ export const dateTimePickerGuidelines: ComponentGuidelines = {
     },
   ],
   a11y: [
-    <>Name it with <C>aria-label</C>: the date part gets that name, the time part gets it plus “time” (“Send at time”).</>,
+    <>Give it a visible <C>label</C>: it names the date part, and the time part as “Send at time”. Without one, <C>aria-label</C> does the same invisibly.</>,
     'If the time is required, say so when it’s missing — don’t store 00:00.',
     'Say the time zone in the description when people in several zones use it.',
   ],

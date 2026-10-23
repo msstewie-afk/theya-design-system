@@ -46,7 +46,7 @@
   ],
   "a11y": [
     "A listbox: ↑ ↓ move one option, Page Up / Page Down a screen, Home / End to the ends.",
-    "Always give it a name (aria-label or aria-labelledby).",
+    "Give it a visible `label` (a click on it focuses the wheel); `aria-label` only where the context already shows the name.",
     "With reduced motion the wheel jumps to the option instead of rolling."
   ],
   "components": [
@@ -68,6 +68,12 @@
           "type": "boolean",
           "required": false,
           "default": "false"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Visible label above the wheel, naming the list (WCAG 3.3.2). Without it, use aria-label."
         },
         {
           "name": "onValueChange",
@@ -111,6 +117,10 @@
       {
         "name": "Controlled",
         "id": "selection-wheelpicker--controlled"
+      },
+      {
+        "name": "WithLabel",
+        "id": "selection-wheelpicker--with-label"
       }
     ]
   }

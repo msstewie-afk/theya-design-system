@@ -2,7 +2,6 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { emailProblem } from '../../lib/email';
-import { Label } from './label';
 import { TagInput } from './tag-input';
 import { tagInputGuidelines } from './tag-input.guidelines';
 
@@ -168,16 +167,25 @@ export const ReadOnlyAndDisabled: Story = {
   ),
 };
 
-/** Controlled, with a visible label. */
+/** Controlled, with a visible label and the way to add written out (the placeholder goes away once there are tags). */
 export const WithLabel: Story = {
   parameters: { controls: { disable: true } },
   render: function Render() {
     const [value, setValue] = useState<string[]>(['10.0.0.0/8']);
     return (
-      <div className="flex flex-col gap-1.5">
-        <Label htmlFor="allowlist">IP allowlist</Label>
-        <TagInput id="allowlist" value={value} onValueChange={setValue} placeholder="CIDR range, e.g. 192.168.0.0/16" />
-      </div>
+      <TagInput
+        label="IP allowlist"
+        required
+        description="Press Enter or comma to add a range."
+        value={value}
+        onValueChange={setValue}
+        placeholder="CIDR range, e.g. 192.168.0.0/16"
+      />
     );
+  },
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole('textbox', { name: 'IP allowlist' });
+    await expect(input).toHaveAccessibleDescription('Press Enter or comma to add a range.');
+    await expect(input).toHaveAttribute('aria-required', 'true');
   },
 };

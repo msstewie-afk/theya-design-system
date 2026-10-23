@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { cn } from '../../lib/utils';
+import { Label } from './label';
 
 /**
  * A wheel for a short ordered list — an interval, a duration, a size (Kinetics'
@@ -25,12 +26,15 @@ export interface WheelPickerProps extends Omit<React.ComponentProps<'div'>, 'onC
   /** Rows visible at once: 3 (default) or 5. */
   rows?: 3 | 5;
   disabled?: boolean;
+  /** Visible label above the wheel, naming the list (WCAG 3.3.2). Without it, use aria-label. */
+  label?: ReactNode;
 }
 
 const ROW = 36;
 
-export function WheelPicker({ options, value, defaultValue, onValueChange, rows = 3, disabled = false, className, 'aria-label': ariaLabel, ...props }: WheelPickerProps) {
+export function WheelPicker({ options, value, defaultValue, onValueChange, rows = 3, disabled = false, label, className, 'aria-label': ariaLabel, ...props }: WheelPickerProps) {
   const id = useId();
+  const labelId = useId();
   const [internal, setInternal] = useState(defaultValue ?? options[0]?.value);
   const current = value ?? internal;
   const index = Math.max(0, options.findIndex((o) => o.value === current));
@@ -68,12 +72,13 @@ export function WheelPicker({ options, value, defaultValue, onValueChange, rows 
   const drag = useRef<{ y: number; from: number; moved: boolean } | null>(null);
   const middle = (rows - 1) / 2;
 
-  return (
+  const wheel = (
     <div
       ref={box}
       role="listbox"
       tabIndex={disabled ? -1 : 0}
-      aria-label={ariaLabel}
+      aria-label={label ? undefined : ariaLabel}
+      aria-labelledby={label ? labelId : undefined}
       aria-disabled={disabled || undefined}
       aria-activedescendant={options.length ? `${id}-${index}` : undefined}
       data-slot="wheel-picker"
@@ -137,6 +142,16 @@ export function WheelPicker({ options, value, defaultValue, onValueChange, rows 
           </div>
         ))}
       </div>
+    </div>
+  );
+  if (!label) return wheel;
+  return (
+    <div className="inline-flex flex-col gap-1.5">
+      {/* Like a <label for>: a click on it focuses the wheel. */}
+      <Label id={labelId} onClick={() => !disabled && box.current?.focus()}>
+        {label}
+      </Label>
+      {wheel}
     </div>
   );
 }

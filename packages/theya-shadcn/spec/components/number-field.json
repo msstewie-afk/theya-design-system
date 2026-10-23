@@ -51,7 +51,7 @@
   ],
   "a11y": [
     "It’s a spinbutton: `aria-valuenow/min/max` are set, arrows change the value.",
-    "Name the − / + buttons if “Decrease/Increase” isn’t clear enough (decrementLabel / incrementLabel).",
+    "Give it a visible `label` (and the range in `description`); `aria-label` only where the context already shows the name. The − / + buttons take the name: “Increase Replicas”.",
     "Say the unit in the label (“Retention, days”)."
   ],
   "components": [
@@ -94,6 +94,12 @@
           "required": false
         },
         {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Helper text under the field, e.g. the allowed range."
+        },
+        {
           "name": "disabled",
           "type": "boolean",
           "required": false
@@ -120,6 +126,12 @@
           "required": false
         },
         {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Visible label above the field (WCAG 3.3.2). Without it, name the field with aria-label."
+        },
+        {
           "name": "max",
           "type": "number",
           "required": false
@@ -135,9 +147,21 @@
           "required": false
         },
         {
+          "name": "optional",
+          "type": "boolean",
+          "required": false,
+          "description": "\"(optional)\" after the label."
+        },
+        {
           "name": "placeholder",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "description": "Red asterisk after the label."
         },
         {
           "name": "step",
@@ -195,6 +219,10 @@
       {
         "name": "Widths",
         "id": "text-input-numberfield--widths"
+      },
+      {
+        "name": "WithLabel",
+        "id": "text-input-numberfield--with-label"
       }
     ]
   }

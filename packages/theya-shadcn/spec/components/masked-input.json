@@ -25,7 +25,7 @@
   "anatomy": [
     {
       "part": "Field",
-      "description": "TextField’s input and chrome; label it with a Label (htmlFor) or aria-label."
+      "description": "TextField’s input and chrome; give it a visible label (label prop), and the format in description when the mask alone isn’t clear."
     },
     {
       "part": "Mask",
@@ -65,10 +65,36 @@
           "required": false
         },
         {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Helper text below the field. Hidden when `error` or `success` is set."
+        },
+        {
           "name": "error",
           "type": "ReactNode",
           "required": false,
           "description": "Same error prop as TextField — turns the field danger-styled and can carry a message."
+        },
+        {
+          "name": "heightSize",
+          "type": "\"md\" | \"lg\" | \"sm\" | null",
+          "required": false
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false
+        },
+        {
+          "name": "labelPosition",
+          "type": "\"top\" | \"left\"",
+          "values": [
+            "top",
+            "left"
+          ],
+          "required": false,
+          "description": "'top' (default) stacks label above the field. 'left' puts a fixed 216px label column beside it, matching Figma's horizontal Formfield layout."
         },
         {
           "name": "modify",
@@ -88,10 +114,22 @@
           "description": "Called with the raw value (mask literals stripped) on every change."
         },
         {
+          "name": "optional",
+          "type": "boolean",
+          "required": false,
+          "description": "Shows \"(optional)\" after the label. Ignored when `required`."
+        },
+        {
           "name": "replacement",
           "type": "string | Record<string, RegExp>",
           "required": false,
           "description": "Placeholder-char to allowed-pattern map. Default { _: /\\d/ }. Pass a string like \"#\" as shorthand for { \"#\": /./ }."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "description": "Shows a small red asterisk after the label."
         },
         {
           "name": "showMask",

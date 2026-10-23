@@ -45,6 +45,7 @@
     }
   ],
   "a11y": [
+    "Give it a visible `label`, and say how to add (“Press Enter or comma”) in `description`: the placeholder disappears once there are tags.",
     "Additions and removals are announced.",
     "Backspace in the empty input removes the last chip; each chip’s remove button is named.",
     "Invalid values stay visible with their reason — never dropped silently."
@@ -116,6 +117,12 @@
           "required": false
         },
         {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Visible label above the field (WCAG 3.3.2). Without it, name the field with aria-label."
+        },
+        {
           "name": "max",
           "type": "number",
           "required": false,
@@ -132,6 +139,12 @@
           "required": false
         },
         {
+          "name": "optional",
+          "type": "boolean",
+          "required": false,
+          "description": "\"(optional)\" after the label."
+        },
+        {
           "name": "placeholder",
           "type": "string",
           "required": false,
@@ -142,6 +155,12 @@
           "type": "boolean",
           "required": false,
           "default": "false"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "description": "Red asterisk after the label."
         },
         {
           "name": "transform",

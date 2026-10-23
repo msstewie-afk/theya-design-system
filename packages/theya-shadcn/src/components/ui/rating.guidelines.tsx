@@ -31,6 +31,7 @@ export const ratingGuidelines: ComponentGuidelines = {
   ],
   a11y: [
     'Input mode is a radio group: arrows change the score, each star is named “3 of 5”.',
+    <>Say what’s being rated with a visible <C>label</C>; <C>aria-label</C> only where the context already shows it.</>,
     <>Read-only is one image named with the exact value (“4.6 of 5”); <C>formatLabel</C> changes the wording.</>,
     'Filled vs empty differs in shape (solid vs outline), not only color.',
   ],

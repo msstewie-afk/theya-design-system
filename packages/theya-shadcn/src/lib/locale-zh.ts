@@ -354,6 +354,9 @@ export const zh: TheyaMessages = {
     next: '下一张卡片',
   },
   colorPicker: {
+    channels: { r: '红', g: '绿', b: '蓝', h: '色相，度', s: '饱和度，百分比', l: '亮度，百分比' },
+    // Visible captions under the channel fields; letters in every language, like design tools.
+    captions: { r: 'R', g: 'G', b: 'B', h: 'H', s: 'S', l: 'L' },
     openFor: (label) => `为${label}选择颜色`,
     area: '饱和度和亮度',
     areaValue: (s, v) => `饱和度 ${s}%，亮度 ${v}%`,

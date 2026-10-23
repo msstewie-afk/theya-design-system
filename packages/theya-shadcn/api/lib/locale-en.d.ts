@@ -566,6 +566,22 @@ export declare const en: {
         next: string;
     };
     colorPicker: {
+        channels: {
+            r: string;
+            g: string;
+            b: string;
+            h: string;
+            s: string;
+            l: string;
+        };
+        captions: {
+            r: string;
+            g: string;
+            b: string;
+            h: string;
+            s: string;
+            l: string;
+        };
         openFor: (label: string) => string;
         area: string;
         areaValue: (s: number, v: number) => string;
@@ -1150,6 +1166,22 @@ export declare const enLocale: {
             next: string;
         };
         colorPicker: {
+            channels: {
+                r: string;
+                g: string;
+                b: string;
+                h: string;
+                s: string;
+                l: string;
+            };
+            captions: {
+                r: string;
+                g: string;
+                b: string;
+                h: string;
+                s: string;
+                l: string;
+            };
             openFor: (label: string) => string;
             area: string;
             areaValue: (s: number, v: number) => string;

@@ -41,7 +41,7 @@ export const Default: Story = {
   args: {
     mask: '+1 (___) ___-____',
     defaultValue: '+1 (415) 555-2671',
-    'aria-label': 'Phone number',
+    label: 'Phone number',
     autoComplete: 'tel',
     inputMode: 'tel',
     className: 'w-[220px]',

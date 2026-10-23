@@ -1,10 +1,11 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useId, useRef, useState, type ReactNode } from 'react';
 import { cn } from '../../lib/utils';
 import { DatePicker } from './date-picker';
 import { TimeField } from './time-field';
 import { useTheyaI18n } from '../../lib/i18n';
+import { Label } from './label';
 
 /**
  * Pick a date and a time together, composing DatePicker (a Calendar
@@ -42,6 +43,14 @@ export interface DateTimePickerProps {
   dateClassName?: string;
   timeClassName?: string;
   calendarProps?: React.ComponentProps<typeof DatePicker>['calendarProps'];
+  /** Visible label above both fields; it names the date field and, as "{label} time", the time field (WCAG 3.3.2). Without it, use aria-label. */
+  label?: ReactNode;
+  /** Helper text under the fields. */
+  description?: ReactNode;
+  /** Red asterisk after the label. */
+  required?: boolean;
+  /** "(optional)" after the label. */
+  optional?: boolean;
   'aria-label'?: string;
   'aria-invalid'?: boolean | 'true' | 'false';
   'aria-describedby'?: string;
@@ -62,11 +71,21 @@ export function DateTimePicker({
   dateClassName,
   timeClassName,
   calendarProps,
+  label,
+  description,
+  required,
+  optional,
   'aria-label': ariaLabel,
   'aria-invalid': ariaInvalid,
   'aria-describedby': ariaDescribedby,
 }: DateTimePickerProps) {
   const { t } = useTheyaI18n();
+  const generatedId = useId();
+  const dateId = id ?? generatedId;
+  const labelId = useId();
+  const timeWordId = useId();
+  const descriptionId = useId();
+  const describedBy = [ariaDescribedby, description ? descriptionId : null].filter(Boolean).join(' ') || undefined;
   if (datePlaceholder === undefined) datePlaceholder = t.datePicker.placeholder;
   if (timePlaceholder === undefined) timePlaceholder = t.timeField.placeholder;
   const isControlled = value !== undefined;
@@ -113,18 +132,18 @@ export function DateTimePicker({
     set(base, true);
   };
 
-  return (
-    <div className={cn('flex flex-col gap-2 sm:flex-row', className)}>
+  const fields = (
+    <div className={cn('flex flex-col gap-2 sm:flex-row', !(label || description) && className)}>
       <DatePicker
         value={current}
         onChange={onDate}
         placeholder={datePlaceholder}
         showClear={showClear}
         disabled={disabled}
-        id={id}
-        aria-label={ariaLabel}
+        id={dateId}
+        aria-label={label ? undefined : ariaLabel}
         aria-invalid={ariaInvalid}
-        aria-describedby={ariaDescribedby}
+        aria-describedby={describedBy}
         calendarProps={calendarProps}
         className={cn('sm:flex-1', dateClassName)}
       />
@@ -137,13 +156,34 @@ export function DateTimePicker({
         hourCycle={hourCycle}
         placeholder={timePlaceholder}
         disabled={disabled}
-        aria-label={ariaLabel ? t.timeField.timeOf(ariaLabel) : t.timeField.time}
+        aria-label={label ? undefined : ariaLabel ? t.timeField.timeOf(ariaLabel) : t.timeField.time}
+        // With a visible label the time field reads "{label} time" from it.
+        aria-labelledby={label ? `${labelId} ${timeWordId}` : undefined}
         // The error applies to the whole date+time value, so both fields
         // show it (only the date field did before).
         aria-invalid={ariaInvalid}
-        aria-describedby={ariaDescribedby}
+        aria-describedby={describedBy}
         className={cn('sm:w-40', timeClassName)}
       />
+    </div>
+  );
+  if (!label && !description) return fields;
+  return (
+    <div className={cn('flex flex-col gap-1.5', className)}>
+      {label && (
+        <Label id={labelId} htmlFor={dateId} required={required} optional={optional}>
+          {label}
+        </Label>
+      )}
+      <span id={timeWordId} hidden>
+        {t.timeField.time}
+      </span>
+      {fields}
+      {description && (
+        <span id={descriptionId} className="font-body text-body-xs text-[var(--color-text-text-subtler)]">
+          {description}
+        </span>
+      )}
     </div>
   );
 }

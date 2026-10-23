@@ -44,6 +44,7 @@
   ],
   "a11y": [
     "Input mode is a radio group: arrows change the score, each star is named “3 of 5”.",
+    "Say what’s being rated with a visible `label`; `aria-label` only where the context already shows it.",
     "Read-only is one image named with the exact value (“4.6 of 5”); `formatLabel` changes the wording.",
     "Filled vs empty differs in shape (solid vs outline), not only color."
   ],
@@ -72,6 +73,12 @@
           "default": "localized: rating.value"
         },
         {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Visible label above the stars, naming the group (WCAG 3.3.2). Input mode only; without it, use aria-label."
+        },
+        {
           "name": "max",
           "type": "number",
           "required": false,
@@ -84,11 +91,23 @@
           "required": false
         },
         {
+          "name": "optional",
+          "type": "boolean",
+          "required": false,
+          "description": "\"(optional)\" after the label."
+        },
+        {
           "name": "readOnly",
           "type": "boolean",
           "required": false,
           "default": "false",
           "description": "Display only: one image named by the value, fractional values allowed."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "description": "Red asterisk after the label."
         },
         {
           "name": "size",
@@ -161,6 +180,10 @@
       {
         "name": "Controlled",
         "id": "selection-rating--controlled"
+      },
+      {
+        "name": "WithLabel",
+        "id": "selection-rating--with-label"
       }
     ]
   }

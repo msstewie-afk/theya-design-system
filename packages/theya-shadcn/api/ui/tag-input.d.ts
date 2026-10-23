@@ -12,6 +12,9 @@ export interface TagInputProps {
     delimiters?: string[];
     max?: number;
     placeholder?: string;
+    label?: ReactNode;
+    required?: boolean;
+    optional?: boolean;
     description?: ReactNode;
     error?: string;
     heightSize?: TagInputSize;
@@ -23,7 +26,7 @@ export interface TagInputProps {
     'aria-label'?: string;
     'aria-labelledby'?: string;
 }
-export declare function TagInput({ value: valueProp, defaultValue, onValueChange, validate, transform, delimiters, max, placeholder, description, error, heightSize, disabled, readOnly, id, name, className, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, }: TagInputProps): import("react").JSX.Element;
+export declare function TagInput({ value: valueProp, defaultValue, onValueChange, validate, transform, delimiters, max, placeholder, label, required, optional, description, error, heightSize, disabled, readOnly, id, name, className, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, }: TagInputProps): import("react").JSX.Element;
 
 // Defaults
 // TagInput.defaultValue = []

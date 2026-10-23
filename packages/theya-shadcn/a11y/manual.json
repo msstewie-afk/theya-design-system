@@ -100,7 +100,7 @@
       "2.5.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Area and sliders use a simple single-pointer drag, no path or multipoint."},
       "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "A click on the area or a slider track sets the value; swatches and hex/RGB/HSL inputs are further non-drag ways."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Dragging and onCommit only finalize the color value; focus stays in the picker."},
-      "3.3.2": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "RGB/HSL channel inputs have no visible captions; with a single format the select that implies them is hidden. Pending Maria (visual)."}
+      "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: visible R/G/B, H/S/L and Hex captions under the channel fields (real <label>s), Maria's call; channel names localized."}
     },
     "Combobox": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: new autoComplete prop (default \"off\") reaches the combobox <input>."},
@@ -180,7 +180,7 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Time half named \"{label} time\"."},
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "DatePicker and TimeField."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Picking a date or time only updates the value; no jump to the time field."},
-      "3.3.2": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "The time half can only be named by aria-label; the guideline models aria-label instead of a visible label."}
+      "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: `label`/`description`/`required`/`optional` props: the visible label names the date field and, as \"{label} time\", the time field."}
     },
     "DensityToggle": {
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Changes row spacing only; content and meaning stay the same."},
@@ -246,7 +246,7 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Chips, operators and steppers interpolate the filter label."},
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Focus-outside exemption covers only the field itself."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Applying a filter adds a chip; focus stays within the field and its own popover."},
-      "3.3.2": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "Number filter Min/Max fields are identified only by placeholders. Pending Maria (visual)."}
+      "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: the number filter shows visible \"Min\"/\"Max\" labels above its fields, Maria's call."}
     },
     "Form": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No session or submit timeout; the only timing is the invalid-field shake."},
@@ -319,7 +319,7 @@
     "MaskedInput": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Spreads props onto TextField, so tel / cc-number / cc-exp / postal-code pass through."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "onChange re-masks and emits; no focus or submit logic."},
-      "3.3.2": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "Props omit label/description; the format shows only as a placeholder; stories use aria-label."}
+      "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: label, description, required and optional are typed (they always reached TextField); stories use a visible label."}
     },
     "Menubar": {
       "2.4.6": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Ships no strings."},
@@ -340,7 +340,7 @@
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Only the step \"bump\" animation is timed."},
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: steppers say \"Decrease/Increase {label}\" when the field has an aria-label."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Typing and steppers change the value in place."},
-      "3.3.2": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "No label/description props; min/max never shown."}
+      "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: `label`/`description`/`required`/`optional` props; the steppers take the label (\"Increase Replicas\")."}
     },
     "OrbitCarousel": {
       "1.4.13": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Hover/focus only hold autoplay."},
@@ -431,7 +431,7 @@
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Only the star pop animation is timed."},
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"{n} of {max}\" inside the named group."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Picking a value calls onValueChange; focus does not move."},
-      "3.3.2": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "Input mode is named only by aria-label."}
+      "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: `label` prop: a visible label names the radio group."}
     },
     "Resizable": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Resize panel\", overridable."},
@@ -494,7 +494,7 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Swatches named by their labels."},
       "2.4.11": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Inline group, no overlay or sticky parts."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Selection only sets the value."},
-      "3.3.2": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "required does not show a visible mark on the legend."}
+      "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: `required` shows the red asterisk after the legend."}
     },
     "SwipeDeck": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Skip\"/\"Keep\" and \"{Keep|Skip}. n cards left\"."},
@@ -517,7 +517,7 @@
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Tag lists; no input purpose applies."},
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Remove {tag}\", \"Added/Removed {value}\"."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Delimiters/blur add tags; Enter on an empty draft submits the form on purpose (documented)."},
-      "3.3.2": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "No label prop; the delimiter instruction is a placeholder hidden once tags exist."}
+      "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: `label`/`required`/`optional` props; the WithLabel story writes out \"Press Enter or comma to add\" in the description."}
     },
     "Terminal": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Terminal output\", connection status."}
@@ -592,7 +592,7 @@
       "2.5.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Simple vertical drag and the mouse wheel; no path or multipoint."},
       "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: pointer capture swallowed the option click; a press without movement now picks the row under the pointer (verified with a real mouse)."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Selecting clamps the index, sets the value and calls onValueChange."},
-      "3.3.2": {"result": "fail", "date": "2026-10-22", "by": "Claude (code review)", "note": "Named only by aria-label."}
+      "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: `label` prop: a visible label names the list; a click on it focuses the wheel."}
     }
   },
   "deviations": {

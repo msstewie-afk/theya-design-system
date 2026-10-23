@@ -231,6 +231,12 @@ export function SwatchPicker(props: SwatchPickerProps) {
     <div className={cn('flex flex-col gap-1.5', className)}>
       <div id={legendId} className="text-body-m text-[var(--color-text-text)]">
         <span className="font-medium">{legend}</span>
+        {/* Same mark as Label: required shows on screen, not only to assistive tech (WCAG 3.3.2). */}
+        {props.type !== 'multiple' && props.required && (
+          <span aria-hidden="true" className="ms-0.5 text-[var(--color-text-text-danger)]">
+            *
+          </span>
+        )}
         {!hideValueLabel && selectedLabel && (
           <>
             <span className="font-medium">:</span> <span className="text-[var(--color-text-text-subtle)]">{selectedLabel}</span>

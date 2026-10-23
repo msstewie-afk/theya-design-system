@@ -113,3 +113,12 @@ export const Controlled: Story = {
     );
   },
 };
+
+/** With a visible label naming the group (WCAG 3.3.2). */
+export const WithLabel: Story = {
+  args: { label: 'Rate this host', 'aria-label': undefined, defaultValue: 0 },
+  play: async ({ canvasElement }) => {
+    const group = within(canvasElement).getByRole('radiogroup', { name: 'Rate this host' });
+    await expect(group).toBeInTheDocument();
+  },
+};

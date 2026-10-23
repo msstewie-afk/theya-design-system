@@ -2,7 +2,6 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { DateTimePicker } from './date-time-picker';
-import { Label } from './label';
 import { dateTimePickerGuidelines } from './date-time-picker.guidelines';
 
 const meta: Meta<typeof DateTimePicker> = {
@@ -122,14 +121,15 @@ export const Preselected: Story = {
 export const WithLabel: Story = {
   render: (args) => (
     <div className="flex flex-col gap-1.5">
-      <Label htmlFor="deploy-at">Schedule deploy</Label>
-      <DateTimePicker {...args} id="deploy-at" hourCycle={24} aria-label="Schedule deploy" />
+      <DateTimePicker {...args} label="Schedule deploy" description="Runs in your workspace's time zone." hourCycle={24} />
     </div>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('button', { name: 'Schedule deploy' })).toBeInTheDocument();
-    const time = canvas.getByRole('combobox', { name: 'Schedule deploy time' });
+    // The visible label names both halves.
+    const time = canvas.getByRole('combobox', { name: /^Schedule deploy time$/i });
+    await expect(time).toHaveAccessibleDescription("Runs in your workspace's time zone.");
     await expect(time).toHaveValue('');
     await userEvent.click(time);
     await body().findByRole('listbox');

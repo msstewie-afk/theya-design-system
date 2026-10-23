@@ -402,6 +402,9 @@ export const de: TheyaMessages = {
     next: 'Nächste Karte',
   },
   colorPicker: {
+    channels: { r: 'Rot', g: 'Grün', b: 'Blau', h: 'Farbton, Grad', s: 'Sättigung, Prozent', l: 'Helligkeit, Prozent' },
+    // Visible captions under the channel fields; letters in every language, like design tools.
+    captions: { r: 'R', g: 'G', b: 'B', h: 'H', s: 'S', l: 'L' },
     openFor: (label) => `Farbe wählen: ${label}`,
     area: 'Sättigung und Helligkeit',
     areaValue: (s, v) => `Sättigung ${s} %, Helligkeit ${v} %`,

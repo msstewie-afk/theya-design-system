@@ -56,3 +56,14 @@ export const Controlled: Story = {
     );
   },
 };
+
+/** With a visible label; a click on it focuses the wheel, like a label on a field. */
+export const WithLabel: Story = {
+  args: { label: 'Backup interval', 'aria-label': undefined },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const list = canvas.getByRole('listbox', { name: 'Backup interval' });
+    await userEvent.click(canvas.getByText('Backup interval'));
+    await expect(list).toHaveFocus();
+  },
+};

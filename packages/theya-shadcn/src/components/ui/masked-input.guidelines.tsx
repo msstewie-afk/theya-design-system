@@ -12,7 +12,7 @@ export const maskedInputGuidelines: ComponentGuidelines = {
     { text: 'Free text, names, emails', instead: 'TextField' },
   ],
   anatomy: [
-    { part: 'Field', description: 'TextField’s input and chrome; label it with a Label (htmlFor) or aria-label.' },
+    { part: 'Field', description: 'TextField’s input and chrome; give it a visible label (label prop), and the format in description when the mask alone isn’t clear.' },
     { part: 'Mask', description: <><C>mask</C> template with placeholder chars; <C>showMask</C> shows it while empty.</> },
   ],
   doDont: [

@@ -20,5 +20,5 @@ export const tagInputGuidelines: ComponentGuidelines = {
       dont: { example: <TextField label="Recipients" defaultValue="dana@seashell.shop, ops@seashell.shop" description="Separate with commas" widthSize="lg" />, caption: 'A comma list in one field hides which value is wrong.' },
     },
   ],
-  a11y: ['Additions and removals are announced.', 'Backspace in the empty input removes the last chip; each chip’s remove button is named.', <>Invalid values stay visible with their reason — never dropped silently.</>],
+  a11y: [<>Give it a visible <C>label</C>, and say how to add (“Press Enter or comma”) in <C>description</C>: the placeholder disappears once there are tags.</>, 'Additions and removals are announced.', 'Backspace in the empty input removes the last chip; each chip’s remove button is named.', <>Invalid values stay visible with their reason — never dropped silently.</>],
 };

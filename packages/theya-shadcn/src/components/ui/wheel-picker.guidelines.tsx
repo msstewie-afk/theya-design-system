@@ -1,4 +1,4 @@
-import { type ComponentGuidelines } from '../../docs/guidelines';
+import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { WheelPicker } from './wheel-picker';
 
 const INTERVALS = ['15 minutes', '30 minutes', '1 hour', '2 hours', '6 hours'].map((label) => ({ value: label, label }));
@@ -28,7 +28,7 @@ export const wheelPickerGuidelines: ComponentGuidelines = {
   ],
   a11y: [
     'A listbox: ↑ ↓ move one option, Page Up / Page Down a screen, Home / End to the ends.',
-    'Always give it a name (aria-label or aria-labelledby).',
+    <>Give it a visible <C>label</C> (a click on it focuses the wheel); <C>aria-label</C> only where the context already shows the name.</>,
     'With reduced motion the wheel jumps to the option instead of rolling.',
   ],
 };

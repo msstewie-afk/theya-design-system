@@ -745,7 +745,8 @@ export function FilterField({
                   <NumberField
                     value={numberDraft.min}
                     onValueChange={(min) => setNumberDraft((prev) => ({ ...prev, min }))}
-                    placeholder={t.filterField.min}
+                    // Visible "Min"/"Max" (WCAG 3.3.2): a placeholder disappears once you type.
+                    label={t.filterField.min}
                     aria-label={t.filterField.minimum(String(active.label))}
                     decrementLabel={t.filterField.decreaseMin(String(active.label))}
                     incrementLabel={t.filterField.increaseMin(String(active.label))}
@@ -754,7 +755,7 @@ export function FilterField({
                   <NumberField
                     value={numberDraft.max}
                     onValueChange={(max) => setNumberDraft((prev) => ({ ...prev, max }))}
-                    placeholder={t.filterField.max}
+                    label={t.filterField.max}
                     aria-label={t.filterField.maximum(String(active.label))}
                     decrementLabel={t.filterField.decreaseMax(String(active.label))}
                     incrementLabel={t.filterField.increaseMax(String(active.label))}

@@ -396,6 +396,9 @@ export const en = {
     next: 'Next card',
   },
   colorPicker: {
+    channels: { r: 'Red', g: 'Green', b: 'Blue', h: 'Hue, degrees', s: 'Saturation, percent', l: 'Lightness, percent' },
+    // Visible captions under the channel fields; letters in every language, like design tools.
+    captions: { r: 'R', g: 'G', b: 'B', h: 'H', s: 'S', l: 'L' },
     openFor: (label: string) => `Choose color for ${label}`,
     area: 'Saturation and brightness',
     areaValue: (s: number, v: number) => `Saturation ${s}%, brightness ${v}%`,

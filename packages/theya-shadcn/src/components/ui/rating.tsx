@@ -1,10 +1,11 @@
 'use client';
 
-import { forwardRef, useCallback, useRef, useState } from 'react';
-import type { CSSProperties, ComponentPropsWithoutRef, ElementRef } from 'react';
+import { forwardRef, useCallback, useId, useRef, useState } from 'react';
+import type { CSSProperties, ComponentPropsWithoutRef, ElementRef, ReactNode } from 'react';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import { cn } from '../../lib/utils';
 import { useTheyaI18n } from '../../lib/i18n';
+import { Label } from './label';
 
 /**
  * Star rating, two modes:
@@ -88,6 +89,12 @@ export interface RatingProps extends RootProps {
   clearable?: boolean;
   /** Accessible text for a value ("3 of 5"). Localize here. */
   formatLabel?: (value: number, max: number) => string;
+  /** Visible label above the stars, naming the group (WCAG 3.3.2). Input mode only; without it, use aria-label. */
+  label?: ReactNode;
+  /** Red asterisk after the label. */
+  required?: boolean;
+  /** "(optional)" after the label. */
+  optional?: boolean;
 }
 
 export const Rating = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, RatingProps>(function Rating(
@@ -100,6 +107,9 @@ export const Rating = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, Ra
     readOnly = false,
     clearable = false,
     formatLabel: formatLabelProp,
+    label: visibleLabel,
+    required,
+    optional,
     disabled,
     className,
     'aria-label': ariaLabel,
@@ -112,6 +122,7 @@ export const Rating = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, Ra
   const [internal, setInternal] = useState(defaultValue);
   const [hovered, setHovered] = useState<number | null>(null);
   const current = value ?? internal;
+  const labelId = useId();
   const stars = Array.from({ length: max }, (_, i) => i + 1);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -171,12 +182,14 @@ export const Rating = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, Ra
   }
 
   const shown = hovered ?? current;
-  return (
+  const group = (
     <RadioGroupPrimitive.Root
       ref={setRootRef}
       data-slot="rating"
       orientation="horizontal"
-      aria-label={ariaLabel}
+      aria-label={visibleLabel ? undefined : ariaLabel}
+      aria-labelledby={visibleLabel ? labelId : undefined}
+      required={required}
       disabled={disabled}
       value={current > 0 ? String(current) : ''}
       onValueChange={(v) => commit(Number(v))}
@@ -225,5 +238,14 @@ export const Rating = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, Ra
         </span>
       )}
     </RadioGroupPrimitive.Root>
+  );
+  if (!visibleLabel) return group;
+  return (
+    <div className="inline-flex flex-col gap-1.5">
+      <Label id={labelId} required={required} optional={optional}>
+        {visibleLabel}
+      </Label>
+      {group}
+    </div>
   );
 });
