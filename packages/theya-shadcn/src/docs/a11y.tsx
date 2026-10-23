@@ -9,10 +9,12 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import matrix from '../../spec/a11y.json';
 import { Badge } from '../components/ui/badge';
+import { Stat } from '../components/ui/stat';
 import type { StatusTone } from '../components/ui/status-dot';
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 import { TextField } from '../components/ui/text-field';
 import { ToggleGroup, ToggleGroupItem } from '../components/ui/toggle-group';
-import { cn } from '../lib/utils';
+import { Code, DocsPage, DocsSection, LIST, TEXT } from '../stories/docs-page';
 
 interface ScreenReaderPass {
   at: string;
@@ -83,33 +85,35 @@ function SbLink({ path, children }: { path: string; children: ReactNode }) {
   );
 }
 
-type Cell = { tone: StatusTone; label: string; detail?: ReactNode };
+/** `short` is the label in the matrix, where eight columns share 1000px; the Docs page block shows `label`. */
+type Cell = { tone: StatusTone; label: string; short?: string; detail?: ReactNode };
 
 function axeCell(r: A11yRow): Cell {
   const ex = r.axe.exclusions.flatMap((e) => e.rules.map((rule) => `${rule} (${e.story === '*' ? 'all stories' : e.story})`));
   return {
     tone: ex.length ? 'warning' : 'success',
     label: `${r.axe.stories} × light + dark`,
+    short: `${r.axe.stories} stor${r.axe.stories === 1 ? 'y' : 'ies'}`,
     detail: ex.length ? <>Rule switched off, with the reason in the story: {ex.join(', ')}</> : 'Every story, both themes, no violations allowed (CI).',
   };
 }
 function keyboardCell(r: A11yRow): Cell {
-  if (r.keyboard.tested) return { tone: 'success', label: `${r.keyboard.tested} play test${r.keyboard.tested > 1 ? 's' : ''}`, detail: `${r.keyboard.tested} of ${r.keyboard.playTests} interaction tests drive the keyboard.` };
+  if (r.keyboard.tested) return { tone: 'success', label: `${r.keyboard.tested} play test${r.keyboard.tested > 1 ? 's' : ''}`, short: `${r.keyboard.tested} test${r.keyboard.tested > 1 ? 's' : ''}`, detail: `${r.keyboard.tested} of ${r.keyboard.playTests} interaction tests drive the keyboard.` };
   if (r.keyboard.playTests) return { tone: 'neutral', label: 'Pointer only', detail: `${r.keyboard.playTests} interaction test${r.keyboard.playTests > 1 ? 's' : ''}, none uses the keyboard.` };
-  return { tone: 'neutral', label: 'No play test', detail: 'Rendered and checked by axe only.' };
+  return { tone: 'neutral', label: 'No play test', short: 'None', detail: 'Rendered and checked by axe only.' };
 }
 function motionCell(r: A11yRow): Cell {
-  if (r.reducedMotion === 'respected') return { tone: 'success', label: 'Respected', detail: 'Movement stops with prefers-reduced-motion.' };
+  if (r.reducedMotion === 'respected') return { tone: 'success', label: 'Respected', short: 'Guarded', detail: 'Movement stops with prefers-reduced-motion.' };
   if (r.reducedMotion === 'unguarded') return { tone: 'danger', label: 'Not guarded', detail: <>Moves without a reduced-motion guard: {r.moving?.join(', ')}</> };
   return { tone: 'neutral', label: 'No motion', detail: 'Nothing moves in its own styles (color fades and the loading spinner aside).' };
 }
 function forcedCell(r: A11yRow): Cell {
   return r.forcedColors === 'component'
-    ? { tone: 'success', label: 'Own rules', detail: 'Component-level forced-colors rules on top of the global ones.' }
-    : { tone: 'success', label: 'Global rules', detail: 'Covered by the shared high-contrast stylesheet (focus, edges, selected states).' };
+    ? { tone: 'success', label: 'Own rules', short: 'Own', detail: 'Component-level forced-colors rules on top of the global ones.' }
+    : { tone: 'success', label: 'Global rules', short: 'Global', detail: 'Covered by the shared high-contrast stylesheet (focus, edges, selected states).' };
 }
 function srCell(r: A11yRow): Cell {
-  if (!r.screenReader.length) return { tone: 'neutral', label: 'Not tested yet', detail: 'Roles and names are checked by axe; no pass with a real screen reader is recorded.' };
+  if (!r.screenReader.length) return { tone: 'neutral', label: 'Not tested yet', short: 'Not yet', detail: 'Roles and names are checked by axe; no pass with a real screen reader is recorded.' };
   const issues = r.screenReader.some((p) => p.result === 'issues');
   return {
     tone: issues ? 'warning' : 'success',
@@ -130,6 +134,7 @@ function criteriaCell(r: A11yRow): Cell {
   return {
     tone: ids.some((id) => r.wcag[id] === 'fails') ? 'danger' : open.length ? 'neutral' : 'success',
     label: `${count('verified')} of ${ids.length} verified`,
+    short: `${count('verified')} / ${ids.length}`,
     detail: open.length ? (
       <>
         Apply to this component: {ids.length} of 55. Still open:{' '}
@@ -148,14 +153,14 @@ function criteriaCell(r: A11yRow): Cell {
   };
 }
 
-const COLUMNS: { key: string; label: string; cell: (r: A11yRow) => Cell }[] = [
-  { key: 'criteria', label: 'WCAG 2.2 criteria', cell: criteriaCell },
-  { key: 'axe', label: 'Automated (axe)', cell: axeCell },
+const COLUMNS: { key: string; label: string; short?: string; cell: (r: A11yRow) => Cell }[] = [
+  { key: 'criteria', label: 'WCAG 2.2 criteria', short: 'Verified', cell: criteriaCell },
+  { key: 'axe', label: 'Automated (axe)', short: 'axe', cell: axeCell },
   { key: 'keyboard', label: 'Keyboard', cell: keyboardCell },
-  { key: 'motion', label: 'Reduced motion', cell: motionCell },
+  { key: 'motion', label: 'Reduced motion', short: 'Motion', cell: motionCell },
   { key: 'forced', label: 'High contrast', cell: forcedCell },
   { key: 'sr', label: 'Screen reader', cell: srCell },
-  { key: 'deviations', label: 'Known deviations', cell: deviationCell },
+  { key: 'deviations', label: 'Known deviations', short: 'Deviations', cell: deviationCell },
 ];
 
 /** Status block for one component's Docs page (by its Storybook title). */
@@ -209,106 +214,94 @@ export function A11yMatrixPage() {
   };
 
   return (
-    <div className="sb-unstyled mx-auto flex w-full max-w-[72rem] flex-col gap-6 pt-6 font-body text-[var(--color-text-text)] sm:pt-16">
-      <header className="flex flex-col gap-2">
-        <h1 className="m-0 font-heading text-heading-l">Accessibility</h1>
-        <p className="m-0 max-w-[65ch] text-body-m text-[var(--color-text-text-subtle)]">
-          Target: <strong>WCAG 2.2 AA</strong>, with accepted deviations listed below. The table is generated from the tests and the code on every
-          change (<code>pnpm a11y</code>), so it can’t claim more than CI checks. Screen-reader passes and manual reviews are recorded by hand.
-        </p>
-        <p className="m-0 max-w-[65ch] text-body-m text-[var(--color-text-text-subtle)]">
-          WCAG conformance belongs to a page or a product, not to a library: Theya’s components are built and tested to <em>support</em> WCAG 2.2 AA.
-          Of the 55 A and AA criteria, the ones marked <em>Product</em> below are properties of the app (page titles, captions, navigation across pages)
-          that a component can only help with.
-        </p>
-      </header>
+    <DocsPage
+      title="Accessibility"
+      description={
+        <>
+          Target: <strong className="font-medium text-[var(--color-text-text)]">WCAG 2.2 AA</strong>, with accepted deviations listed below. The tables are generated from the tests and the code on every change (<Code>pnpm a11y</Code>), so they can’t claim more than CI checks. Screen-reader passes and manual reviews are recorded by hand.
+        </>
+      }
+    >
+      <p className={`${TEXT} text-[var(--color-text-text-subtle)]`}>
+        WCAG conformance belongs to a page or a product, not to a library: Theya’s components are built and tested to <em>support</em> WCAG 2.2 AA. Of the 55 A and AA criteria, the ones marked <em>Product</em> below are properties of the app (page titles, captions, navigation across pages) that a component can only help with.
+      </p>
 
-      <dl className="m-0 grid grid-cols-2 gap-3 sm:grid-cols-5">
-        {[
-          [String(ROWS.length), 'components'],
-          [`${totals.stories} × 2`, 'stories checked by axe, light + dark'],
-          [`${totals.keyboard}`, 'with keyboard play tests'],
-          [`${totals.deviations}`, 'with an accepted deviation'],
-          [`${totals.sr}`, 'tested with a screen reader'],
-        ].map(([n, l]) => (
-          <div key={l} className="flex flex-col gap-0.5 rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtler)] p-3">
-            <dt className="order-2 text-body-s text-[var(--color-text-text-subtle)]">{l}</dt>
-            <dd className="order-1 m-0 font-heading text-heading-s tabular-nums">{n}</dd>
-          </div>
-        ))}
-      </dl>
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        <Stat label="Components" value={ROWS.length} />
+        <Stat label="Stories checked by axe, light and dark" value={`${totals.stories} × 2`} />
+        <Stat label="With keyboard play tests" value={totals.keyboard} />
+        <Stat label="With an accepted deviation" value={totals.deviations} />
+        <Stat label="Tested with a screen reader" value={totals.sr} />
+      </div>
 
-      <section className="flex flex-col gap-2">
-        <h2 className="m-0 font-heading text-heading-xs">Library-wide</h2>
-        <ul className="m-0 flex list-disc flex-col gap-1 pl-5 text-body-m">
+      <DocsSection title="Library-wide">
+        <ul className={LIST}>
           <li>
-            <strong>Focus ring (1.4.11), accepted deviation.</strong> The soft ring is 1.53:1 on white and ~1.9:1 on dark surfaces (needs 3:1). Where it is the only
-            visible focus change, the component lists 1.4.11. Fields, menus and outlined/ghost buttons also change border or background on focus and pass.
+            <span className="font-medium">Focus ring (1.4.11), accepted deviation.</span> The soft ring is 1.53:1 on white and ~1.9:1 on dark surfaces (needs 3:1). Where it is the only visible focus change, the component lists 1.4.11. Fields, menus and outlined/ghost buttons also change border or background on focus and pass.
           </li>
           <li>
-            <strong>Out of scope for a component library:</strong> page language and titles, consistent navigation, session timing — they need a real product around
-            the components.
+            <span className="font-medium">Out of scope for a component library:</span> page language and titles, consistent navigation, session timing — they need a real product around the components.
           </li>
           <li>
-            <strong>Target size (2.5.8):</strong> controls are 28px and up (24px in compact density). axe’s target-size rule, off by default, is
-            switched on in the test runner, so every story is measured.
+            <span className="font-medium">Target size (2.5.8):</span> controls are 28px and up (24px in compact density). axe’s target-size rule, off by default, is switched on in the test runner, so every story is measured.
           </li>
-          {totals.unguarded > 0 && <li><strong>{totals.unguarded}</strong> component(s) still move without a reduced-motion guard — see the table.</li>}
+          {totals.unguarded > 0 && (
+            <li>
+              <span className="font-medium">{totals.unguarded}</span> component(s) still move without a reduced-motion guard — see By component.
+            </li>
+          )}
         </ul>
-      </section>
+      </DocsSection>
 
       <CriteriaTable />
 
-      <h2 className="m-0 font-heading text-heading-xs">By component</h2>
-      <div className="flex flex-wrap items-end gap-3">
-        <TextField label="Find a component" value={query} onChange={(e) => setQuery(e.target.value)} className="w-64 max-w-full" />
-        {/* The four filters are wider than a phone: the group wraps. */}
-        <ToggleGroup type="single" appearance="outlined" size="sm" aria-label="Show" value={filter} onValueChange={(v) => v && setFilter(v as Filter)} className="max-w-full flex-wrap">
-          <ToggleGroupItem value="all">All</ToggleGroupItem>
-          <ToggleGroupItem value="deviations">With deviations</ToggleGroupItem>
-          <ToggleGroupItem value="no-keyboard">No keyboard test</ToggleGroupItem>
-          <ToggleGroupItem value="sr">Screen reader tested</ToggleGroupItem>
-        </ToggleGroup>
-      </div>
+      <DocsSection title="By component" description="Verified: WCAG criteria verified, out of those that apply to the component. axe: stories checked in both themes. Details for every cell are on the component’s Docs page, under Accessibility.">
+        <div className="flex flex-wrap items-end gap-3">
+          <TextField label="Find a component" value={query} onChange={(e) => setQuery(e.target.value)} widthSize="md" />
+          {/* The four filters are wider than a phone: the group wraps. */}
+          <ToggleGroup type="single" appearance="outlined" size="sm" aria-label="Show" value={filter} onValueChange={(v) => v && setFilter(v as Filter)} className="max-w-full flex-wrap">
+            <ToggleGroupItem value="all">All</ToggleGroupItem>
+            <ToggleGroupItem value="deviations">With deviations</ToggleGroupItem>
+            <ToggleGroupItem value="no-keyboard">No keyboard test</ToggleGroupItem>
+            <ToggleGroupItem value="sr">Screen reader tested</ToggleGroupItem>
+          </ToggleGroup>
+        </div>
 
-      <div className="overflow-x-auto rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border)]" role="region" aria-label="Accessibility matrix" tabIndex={0}>
-        <table className="w-full border-collapse text-left text-body-s">
-          <caption className="sr-only">Accessibility status per component, {rows.length} shown</caption>
-          <thead>
-            <tr className="bg-[var(--color-bg-neutral-bg-neutral-subtler)]">
-              <th scope="col" className="px-3 py-2 font-semibold">Component</th>
+        <Table containerLabel="Accessibility matrix">
+          <TableCaption className="sr-only">Accessibility status per component, {rows.length} shown</TableCaption>
+          <TableHeader>
+            <TableRow>
+              {/* px-3: eight columns fit the 1000px column without scrolling. */}
+              <TableHead className="px-3">Component</TableHead>
               {COLUMNS.map((c) => (
-                <th key={c.key} scope="col" className="px-3 py-2 font-semibold">{c.label}</th>
+                <TableHead key={c.key} className="px-3">
+                  {c.short ?? c.label}
+                </TableHead>
               ))}
-            </tr>
-          </thead>
-          <tbody>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {rows.map((r) => (
-              <tr key={r.name} className="border-t border-solid border-[var(--color-border-border-subtler)] align-top">
-                <th scope="row" className="px-3 py-2 font-medium">
-                  {r.title ? (
-                    <SbLink path={`/docs/${sbId(r.title)}--docs`}>{r.name}</SbLink>
-                  ) : (
-                    r.name
-                  )}
-                </th>
+              <TableRow key={r.name}>
+                <TableCell className="px-3 align-top text-body-s font-medium">
+                  {r.title ? <SbLink path={`/docs/${sbId(r.title)}--docs`}>{r.name}</SbLink> : r.name}
+                </TableCell>
                 {COLUMNS.map((c) => {
                   const v = c.cell(r);
                   return (
-                    <td key={c.key} className="px-3 py-2">
-                      <Badge tone={v.tone} title={typeof v.detail === 'string' ? v.detail : undefined}>{v.label}</Badge>
-                    </td>
+                    <TableCell key={c.key} className="px-3 align-top text-body-s">
+                      <Badge tone={v.tone} title={typeof v.detail === 'string' ? v.detail : v.label}>
+                        {v.short ?? v.label}
+                      </Badge>
+                    </TableCell>
                   );
                 })}
-              </tr>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
-      </div>
-      <p className={cn('m-0 text-body-s text-[var(--color-text-text-subtle)]')}>
-        Details for each cell are on the component’s Docs page, under Accessibility.
-      </p>
-    </div>
+          </TableBody>
+        </Table>
+      </DocsSection>
+    </DocsPage>
   );
 }
 
@@ -316,57 +309,53 @@ export function A11yMatrixPage() {
 function CriteriaTable() {
   const scopeLabel = { component: 'Per component', library: 'Library-wide', product: 'Product' } as const;
   return (
-    <section className="flex flex-col gap-2">
-      <h2 className="m-0 font-heading text-heading-xs">By criterion</h2>
-      <p className="m-0 max-w-[65ch] text-body-s text-[var(--color-text-text-subtle)]">
-        A cell counts as verified only when every kind of evidence the criterion needs exists; some of it makes it partly verified. Which criteria apply
-        to a component is read from its code (inputs, overlays, timers, drag…).
-      </p>
-      <div className="overflow-x-auto rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border)]" role="region" aria-label="WCAG criteria" tabIndex={0}>
-        <table className="w-full border-collapse text-left text-body-s">
-          <caption className="sr-only">WCAG 2.2 A and AA criteria and how far Theya's components are verified against each</caption>
-          <thead>
-            <tr className="bg-[var(--color-bg-neutral-bg-neutral-subtler)]">
-              <th scope="col" className="px-3 py-2 font-semibold">Criterion</th>
-              <th scope="col" className="px-3 py-2 font-semibold">Level</th>
-              <th scope="col" className="px-3 py-2 font-semibold">Scope</th>
-              <th scope="col" className="px-3 py-2 font-semibold">Components</th>
-              <th scope="col" className="px-3 py-2 font-semibold">Evidence it needs</th>
-            </tr>
-          </thead>
-          <tbody>
-            {CRITERIA.map((c) => {
-              const applies = STATUS.reduce((n, s) => n + (c.counts[s.key] ?? 0), 0);
-              return (
-                <tr key={c.id} className="border-t border-solid border-[var(--color-border-border-subtler)] align-top">
-                  <th scope="row" className="px-3 py-2 font-medium">
-                    <span className="tabular-nums">{c.id}</span> {c.name}
-                  </th>
-                  <td className="px-3 py-2">{c.level}</td>
-                  <td className="px-3 py-2">{scopeLabel[c.scope]}</td>
-                  <td className="px-3 py-2">
-                    {c.scope === 'component' ? (
-                      <div className="flex flex-wrap gap-1">
-                        {STATUS.filter((s) => c.counts[s.key]).map((s) => (
-                          <Badge key={s.key} tone={s.tone}>
-                            {s.label}: {c.counts[s.key]}
-                          </Badge>
-                        ))}
-                        <span className="self-center text-[var(--color-text-text-subtle)]">of {applies}</span>
-                      </div>
-                    ) : (
-                      <span className="text-[var(--color-text-text-subtle)]">{c.note}</span>
-                    )}
-                  </td>
-                  <td className="px-3 py-2 text-[var(--color-text-text-subtle)]">
-                    {c.evidence?.length ? c.evidence.map((e) => EVIDENCE_LABEL[e] ?? e).join(' + ') : c.scope === 'component' ? 'Nothing automated yet' : '—'}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    </section>
+    <DocsSection
+      title="By criterion"
+      description="A cell counts as verified only when every kind of evidence the criterion needs exists; some of it makes it partly verified. Which criteria apply to a component is read from its code (inputs, overlays, timers, drag…)."
+    >
+      <Table containerLabel="WCAG criteria">
+        <TableCaption className="sr-only">WCAG 2.2 A and AA criteria and how far Theya's components are verified against each</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Criterion</TableHead>
+            <TableHead>Level</TableHead>
+            <TableHead>Scope</TableHead>
+            <TableHead>Components</TableHead>
+            <TableHead>Evidence it needs</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {CRITERIA.map((c) => {
+            const applies = STATUS.reduce((n, s) => n + (c.counts[s.key] ?? 0), 0);
+            return (
+              <TableRow key={c.id}>
+                <TableCell className="align-top text-body-s font-medium sm:w-[24%]">
+                  <span className="tabular-nums">{c.id}</span> {c.name}
+                </TableCell>
+                <TableCell className="align-top text-body-s">{c.level}</TableCell>
+                <TableCell className="align-top text-body-s sm:whitespace-nowrap">{scopeLabel[c.scope]}</TableCell>
+                <TableCell className="align-top text-body-s sm:w-[34%]">
+                  {c.scope === 'component' ? (
+                    <div className="flex flex-wrap items-center gap-1">
+                      {STATUS.filter((s) => c.counts[s.key]).map((s) => (
+                        <Badge key={s.key} tone={s.tone}>
+                          {s.label}: {c.counts[s.key]}
+                        </Badge>
+                      ))}
+                      <span className="text-[var(--color-text-text-subtle)]">of {applies}</span>
+                    </div>
+                  ) : (
+                    <span className="text-[var(--color-text-text-subtle)]">{c.note}</span>
+                  )}
+                </TableCell>
+                <TableCell className="align-top text-body-s text-[var(--color-text-text-subtle)]">
+                  {c.evidence?.length ? c.evidence.map((e) => EVIDENCE_LABEL[e] ?? e).join(' + ') : c.scope === 'component' ? 'Nothing automated yet' : '—'}
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </DocsSection>
   );
 }

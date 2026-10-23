@@ -3,7 +3,8 @@ import { A11yMatrixPage } from '../docs/a11y';
 
 const meta: Meta = {
   title: 'Design System/Accessibility',
-  parameters: { layout: 'padded' },
+  // The page column (DocsPage) owns the spacing, like a Docs page.
+  parameters: { layout: 'fullscreen' },
 };
 
 export default meta;
