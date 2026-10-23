@@ -13,6 +13,13 @@ import { formGuidelines } from './form.guidelines';
 
 type Args = Record<string, never>;
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   react-hook-form binding layer —
+//   FormField/FormItem/FormLabel/FormControl/FormMessage. `Form` is a bare
+//   re-export of RHF's FormProvider, so it has no props of its own to document
+//   here; the real API surface is react-hook-form's `useForm` plus each
+//   `FormField`'s `name`/`control`/`render`.
 const meta: Meta<Args> = {
   title: 'Form Structure/Form',
   tags: ['autodocs'],
@@ -21,7 +28,7 @@ const meta: Meta<Args> = {
     docs: {
       description: {
         component:
-          'react-hook-form binding layer — FormField/FormItem/FormLabel/FormControl/FormMessage. `Form` is a bare re-export of RHF\'s FormProvider, so it has no props of its own to document here; the real API surface is react-hook-form\'s `useForm` plus each `FormField`\'s `name`/`control`/`render`.',
+          "Forms with validation on react-hook-form: each control gets its label, help text and error, and errors are tied to their fields automatically.",
       },
     },
   },

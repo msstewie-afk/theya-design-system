@@ -12,7 +12,15 @@ const meta = {
   title: 'Selection/WheelPicker',
   component: WheelPicker,
   tags: ['autodocs'],
-  parameters: { guidelines: wheelPickerGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Picks one value from a short ordered scale — an interval, a duration, a size — by scrolling, dragging or with the arrow keys.",
+      },
+    },
+    guidelines: wheelPickerGuidelines, layout: 'centered',
+  },
   argTypes: {
     label: { control: 'text', description: 'Visible label (WCAG 3.3.2). Without it, name the field with aria-label.', table: { category: 'Content' } },
     rows: { control: 'inline-radio', options: [3, 5], description: 'Rows visible at once.' },

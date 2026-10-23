@@ -16,7 +16,15 @@ const meta = {
   title: 'Text Input/TagInput',
   component: TagInput,
   tags: ['autodocs'],
-  parameters: { guidelines: tagInputGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Several free-form values of one kind as chips: email recipients, domains, IP ranges, tags. Invalid values stay visible, marked, instead of being dropped.",
+      },
+    },
+    guidelines: tagInputGuidelines, layout: 'padded',
+  },
   argTypes: {
     label: { control: 'text', description: 'Visible label (WCAG 3.3.2). Without it, name the field with aria-label.', table: { category: 'Content' } },
     required: { control: 'boolean', description: 'Red asterisk after the label.', table: { category: 'State' } },

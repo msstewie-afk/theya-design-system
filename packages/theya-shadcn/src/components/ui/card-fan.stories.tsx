@@ -17,7 +17,15 @@ const meta = {
   title: 'Motion/CardFan',
   component: CardFan,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', guidelines: cardFanGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A group of 3–5 cards that fans out on hover or focus, the active one lifting. For a hero or an about page.",
+      },
+    },
+    layout: 'centered', guidelines: cardFanGuidelines,
+  },
   argTypes: {
     spread: { control: { type: 'number', min: 0, max: 20 }, description: 'Rotation between neighbouring cards when open, degrees.' },
     offset: { control: { type: 'number', min: 16, max: 120 }, description: 'Horizontal distance between neighbouring cards when open, px.' },

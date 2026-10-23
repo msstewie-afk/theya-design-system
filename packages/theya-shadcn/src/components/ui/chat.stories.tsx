@@ -15,7 +15,15 @@ const meta = {
   title: 'AI & Chat/Chat',
   component: Chat,
   tags: ['autodocs'],
-  parameters: { guidelines: chatGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "The layout of a conversation: a transcript that scrolls and a composer pinned below it. Give Chat a height and the messages take the rest.",
+      },
+    },
+    guidelines: chatGuidelines, layout: 'padded',
+  },
 } satisfies Meta<typeof Chat>;
 
 export default meta;

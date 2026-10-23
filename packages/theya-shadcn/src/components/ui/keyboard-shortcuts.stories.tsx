@@ -16,7 +16,15 @@ const meta: Meta<typeof KeyboardShortcuts> = {
   title: 'Overlays/KeyboardShortcuts',
   component: KeyboardShortcuts,
   tags: ['autodocs'],
-  parameters: { guidelines: keyboardShortcutsGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A help dialog that lists an app’s keyboard shortcuts in groups, opened from a menu or with “?”.",
+      },
+    },
+    guidelines: keyboardShortcutsGuidelines, layout: 'centered',
+  },
   argTypes: {
     groups: { control: false, description: 'Grouped shortcut lists shown in the dialog.' },
     trigger: { control: false, description: 'Element that opens the dialog when clicked.' },

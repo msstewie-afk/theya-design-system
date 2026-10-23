@@ -45,7 +45,15 @@ const meta = {
   title: 'Charts/AreaChart',
   component: AreaChart,
   tags: ['autodocs'],
-  parameters: { guidelines: areaChartGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "One quantity over time where the volume matters — traffic, requests, storage used — or a few stacked series that add up to a total.",
+      },
+    },
+    guidelines: areaChartGuidelines, layout: 'padded',
+  },
   argTypes: {
     data: { control: false, description: 'Ordered { label, value } points, or { label } + one numeric key per series.' },
     series: { control: false, description: '{ key, name } series to draw (up to 5); omit for the single-series `value` chart.' },

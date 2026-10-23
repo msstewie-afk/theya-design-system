@@ -14,7 +14,15 @@ const meta = {
   title: 'Overlays/Lightbox',
   component: Lightbox,
   tags: ['autodocs'],
-  parameters: { guidelines: lightboxGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Looks closely at images — screenshots, product photos, attachments — full screen, with previous / next, zoom and thumbnails.",
+      },
+    },
+    guidelines: lightboxGuidelines, layout: 'padded',
+  },
   argTypes: {
     open: { control: false },
     onOpenChange: { control: false },

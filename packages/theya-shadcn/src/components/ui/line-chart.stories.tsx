@@ -25,7 +25,15 @@ const meta = {
   title: 'Charts/LineChart',
   component: LineChart,
   tags: ['autodocs'],
-  parameters: { guidelines: lineChartGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Compares a few trends over the same period: CPU against memory, this week against last. Every series is named in the legend and the tooltip.",
+      },
+    },
+    guidelines: lineChartGuidelines, layout: 'padded',
+  },
   argTypes: {
     data: { control: false, description: '{ label } + one numeric key per series.' },
     series: { control: false, description: '{ key, name } series to draw (up to 7).' },

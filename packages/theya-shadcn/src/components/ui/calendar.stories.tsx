@@ -6,12 +6,21 @@ import type { DateRange } from 'react-day-picker';
 import { Calendar } from './calendar';
 import { calendarGuidelines } from './calendar.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Themed date grid on react-day-picker (v10). Backs single/multiple/range
+//   selection.
 const meta: Meta<typeof Calendar> = {
   title: 'Date & Time/Calendar',
   tags: ['autodocs'],
   parameters: {
     guidelines: calendarGuidelines,
-    docs: { description: { component: 'Themed date grid on react-day-picker (v10). Backs single/multiple/range selection.' } },
+    docs: {
+      description: {
+        component:
+          "A month grid for when the calendar is the content: picking a booking day, showing availability, choosing several days or a range.",
+      },
+    },
   },
   argTypes: {
     showOutsideDays: { control: 'boolean', description: 'Render days from the adjacent months that fill the edge cells.', table: { category: 'Appearance' } },

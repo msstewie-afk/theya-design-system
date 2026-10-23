@@ -26,7 +26,15 @@ const meta = {
   title: 'Motion/MarqueeColumns',
   component: MarqueeColumns,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: marqueeColumnsGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Columns of cards drifting up and down, neighbours in opposite directions, beside a hero on a landing page.",
+      },
+    },
+    layout: 'padded', guidelines: marqueeColumnsGuidelines,
+  },
   argTypes: {
     columns: { control: false, description: 'One array of cards per column.' },
     duration: { control: { type: 'number', min: 10, max: 120 }, description: 'Seconds for one loop of the first column.' },

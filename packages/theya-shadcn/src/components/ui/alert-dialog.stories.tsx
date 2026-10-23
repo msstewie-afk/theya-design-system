@@ -19,7 +19,15 @@ const meta: Meta<typeof AlertDialog> = {
   title: 'Overlays/AlertDialog',
   component: AlertDialog,
   tags: ['autodocs'],
-  parameters: { guidelines: alertDialogGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Asks people to confirm one deliberate action before it happens, usually destructive or irreversible: losing data, money or access.",
+      },
+    },
+    guidelines: alertDialogGuidelines,
+  },
   argTypes: {
     open: {
       control: 'boolean',

@@ -7,7 +7,15 @@ const meta: Meta<typeof AccessTokens> = {
   title: 'Patterns/AccessTokens',
   component: AccessTokens,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Creating, listing and revoking API keys: a form for a new key, the key shown once to copy, and a table of existing keys.",
+      },
+    },
+    layout: 'fullscreen',
+  },
   argTypes: {
     title: { control: 'text', description: 'Section heading.', table: { category: 'Content' } },
     description: { control: 'text', description: 'Supporting copy under the title.', table: { category: 'Content' } },

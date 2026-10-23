@@ -23,7 +23,15 @@ const meta = {
   title: 'Labels/Avatar',
   component: Avatar,
   tags: ['autodocs'],
-  parameters: { guidelines: avatarGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Shows who: a person, a team or an account, next to their name. A photo when there is one, initials or an icon otherwise.",
+      },
+    },
+    guidelines: avatarGuidelines, layout: 'centered',
+  },
   argTypes: {
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'], description: 'Avatar diameter.' },
     shape: { control: 'inline-radio', options: ['circle', 'square'], description: 'Outer silhouette — circle or squircle.' },

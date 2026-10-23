@@ -4,6 +4,10 @@ import { expect, userEvent, within } from '@storybook/test';
 import { Autocomplete } from './autocomplete';
 import { autocompleteGuidelines } from './autocomplete.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Built on our own Popover. The value is the TEXT the user typed; they can
+//   pick a suggestion to fill the input, or submit their own text.
 const meta: Meta<typeof Autocomplete> = {
   title: 'Selection/Autocomplete',
   component: Autocomplete,
@@ -13,8 +17,7 @@ const meta: Meta<typeof Autocomplete> = {
     docs: {
       description: {
         component:
-          'Built on our own Popover. The value is the TEXT the user typed; ' +
-          'they can pick a suggestion to fill the input, or submit their own text.',
+          "Free text with suggestions: a hostname, a city, a recent search. Any typed value is valid; the suggestions only save typing.",
       },
     },
   },

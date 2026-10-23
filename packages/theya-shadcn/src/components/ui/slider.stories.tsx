@@ -8,7 +8,15 @@ const meta: Meta<typeof Slider> = {
   title: 'Selection/Slider',
   component: Slider,
   tags: ['autodocs'],
-  parameters: { guidelines: sliderGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A value where roughly right is good enough and seeing the position helps: volume, concurrency, a budget. Two thumbs for a range.",
+      },
+    },
+    guidelines: sliderGuidelines,
+  },
   argTypes: {
     min: { control: 'number', description: 'Minimum value (aria-valuemin).', table: { category: 'Range' } },
     max: { control: 'number', description: 'Maximum value (aria-valuemax).', table: { category: 'Range' } },

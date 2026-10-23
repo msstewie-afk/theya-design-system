@@ -26,7 +26,15 @@ const meta: Meta<typeof Popover> = {
   title: 'Overlays/Popover',
   component: Popover,
   tags: ['autodocs'],
-  parameters: { guidelines: popoverGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A small panel tied to a control: a quick setting, a filter, a picker, extra details. People can close it without losing anything.",
+      },
+    },
+    guidelines: popoverGuidelines, layout: 'centered',
+  },
   argTypes: {
     modal: { control: 'boolean', description: 'Trap focus and block outside interaction while open.' },
     defaultOpen: { control: 'boolean', description: 'Open uncontrolled on mount.' },

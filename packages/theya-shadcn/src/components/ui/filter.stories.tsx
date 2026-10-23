@@ -7,7 +7,15 @@ const meta: Meta<typeof Filter> = {
   title: 'Search & Filter/Filter',
   component: Filter,
   tags: ['autodocs'],
-  parameters: { guidelines: filterGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Narrows a list or table by a few facets — status, region, owner — with several values per facet and a count for each.",
+      },
+    },
+    guidelines: filterGuidelines,
+  },
   argTypes: {
     label: { control: 'text', description: 'The facet name shown on the trigger, e.g. "Status".', table: { category: 'Content' } },
     options: { control: false, description: 'Selectable filter options.', table: { category: 'Content' } },

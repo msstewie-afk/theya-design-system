@@ -19,7 +19,15 @@ const meta = {
   title: 'Motion/AnimatedIcon',
   component: AnimatedIcon,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: animatedIconGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Icons that move to answer an action: Copy turns into a tick, a menu button folds into ×, a refresh arrow turns. Also a hint on hover for a few key buttons.",
+      },
+    },
+    layout: 'padded', guidelines: animatedIconGuidelines,
+  },
   argTypes: {
     name: { control: 'select', options: Object.keys(ANIMATED_ICONS), description: 'Which icon (or import the named component, e.g. CopyAnimated).' },
     trigger: { control: 'inline-radio', options: ['hover', 'active', 'loop'], description: 'When the motion plays.' },

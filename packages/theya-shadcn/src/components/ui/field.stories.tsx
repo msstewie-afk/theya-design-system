@@ -11,7 +11,15 @@ const meta: Meta<typeof Field> = {
   title: 'Form Structure/Field',
   component: Field,
   tags: ['autodocs'],
-  parameters: { guidelines: fieldGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Stacks a label, a control, a help line and an error for controls that don’t draw them themselves: Select, Combobox, DatePicker or a custom one.",
+      },
+    },
+    guidelines: fieldGuidelines,
+  },
   argTypes: {
     invalid: { control: 'boolean', description: 'Marks the field invalid; propagates data-invalid to its parts.', table: { category: 'State' } },
     required: { control: 'boolean', description: 'Marks the field required; propagates data-required to its parts.', table: { category: 'State' } },

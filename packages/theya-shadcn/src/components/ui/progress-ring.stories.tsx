@@ -12,7 +12,15 @@ const meta = {
   title: 'Motion/ProgressRing',
   component: ProgressRing,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: progressRingGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A ring that fills to its value when it scrolls into view: setup 75% done, 3 of 4 steps.",
+      },
+    },
+    layout: 'padded', guidelines: progressRingGuidelines,
+  },
   argTypes: {
     value: { control: { type: 'range', min: 0, max: 100 }, description: 'The value, 0–max.' },
     max: { control: 'number', description: 'Upper bound (default 100).' },

@@ -22,7 +22,15 @@ const meta: Meta<typeof Menubar> = {
   title: 'Navigation/Menubar',
   component: Menubar,
   tags: ['autodocs'],
-  parameters: { guidelines: menubarGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "An application-style menu bar for editors and tools — File, Edit, View — each with many commands.",
+      },
+    },
+    guidelines: menubarGuidelines,
+  },
   argTypes: {
     bordered: {
       control: 'boolean',

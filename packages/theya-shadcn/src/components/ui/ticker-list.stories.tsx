@@ -11,7 +11,15 @@ const meta = {
   title: 'Motion/TickerList',
   component: TickerList,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: tickerListGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A few rows of recent activity taking turns inside a showcase card: transactions, signups, deploys.",
+      },
+    },
+    layout: 'padded', guidelines: tickerListGuidelines,
+  },
   argTypes: {
     visible: { control: { type: 'number', min: 1, max: 6 }, description: 'Rows on screen at once.' },
     interval: { control: { type: 'number', min: 1000, step: 250 }, description: 'Time between moves, ms.' },

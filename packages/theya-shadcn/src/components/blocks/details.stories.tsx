@@ -8,7 +8,15 @@ const meta: Meta<typeof Details> = {
   title: 'Patterns/Details',
   component: Details,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "The page of one object: a header with its status and actions, a row of key facts and numbers, then the content — usually tabs.",
+      },
+    },
+    layout: 'fullscreen',
+  },
   argTypes: {
     title: { control: 'text', description: 'The resource identifier; rendered mono when it looks like a domain/id.', table: { category: 'Content' } },
     status: { control: false, description: 'Status indicator shown beside the title, e.g. a StatusDot or Badge.', table: { category: 'Content' } },

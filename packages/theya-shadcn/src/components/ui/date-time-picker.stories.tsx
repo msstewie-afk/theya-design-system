@@ -4,6 +4,11 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { DateTimePicker } from './date-time-picker';
 import { dateTimePickerGuidelines } from './date-time-picker.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Pick a date and a time together, composing DatePicker (a Calendar popover)
+//   with TimeField (a time list). Fields stack on a phone and sit side by side
+//   from sm up.
 const meta: Meta<typeof DateTimePicker> = {
   title: 'Date & Time/DateTimePicker',
   component: DateTimePicker,
@@ -13,8 +18,7 @@ const meta: Meta<typeof DateTimePicker> = {
     docs: {
       description: {
         component:
-          'Pick a date and a time together, composing DatePicker (a Calendar popover) with TimeField (a time ' +
-          'list). Fields stack on a phone and sit side by side from sm up.',
+          "A moment that needs both a date and a time: a scheduled send, a maintenance window, a reminder.",
       },
     },
   },

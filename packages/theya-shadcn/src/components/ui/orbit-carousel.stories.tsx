@@ -27,7 +27,15 @@ const meta = {
   title: 'Motion/OrbitCarousel',
   component: OrbitCarousel,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: orbitCarouselGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Cards on a turning drum or along the rim of a wheel, for a showcase on a landing page.",
+      },
+    },
+    layout: 'padded', guidelines: orbitCarouselGuidelines,
+  },
   argTypes: {
     shape: { control: 'inline-radio', options: ['drum', 'wheel'], description: '`drum`: a cylinder turning on its vertical axis. `wheel`: the rim of a large wheel to the start side, rolling vertically.' },
     itemWidth: { control: { type: 'number', min: 160, max: 360, step: 10 }, description: 'Card width, px.' },

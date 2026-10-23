@@ -6,7 +6,15 @@ const meta: Meta<typeof BillingUsage> = {
   title: 'Patterns/BillingUsage',
   component: BillingUsage,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "The billing overview of an account: the current plan with an upgrade action, usage against quotas and recent invoices.",
+      },
+    },
+    layout: 'fullscreen',
+  },
   argTypes: {
     title: { control: 'text', description: 'Page heading.', table: { category: 'Content' } },
     plan: { control: false, description: 'Current plan summary card.', table: { category: 'Content' } },

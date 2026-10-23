@@ -5,6 +5,11 @@ import { File } from './file';
 import { Button } from './button';
 import { fileGuidelines } from './file.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   A file-input slot backed by a real `<input type="file">`, shown as an
+//   Attachment. Clicking a filled slot picks a replacement; `empty` starts
+//   with the dashed "add" tile.
 const meta: Meta<typeof File> = {
   title: 'Files/File',
   component: File,
@@ -14,7 +19,7 @@ const meta: Meta<typeof File> = {
     docs: {
       description: {
         component:
-          'A file-input slot backed by a real `<input type="file">`, shown as an Attachment. Clicking a filled slot picks a replacement; `empty` starts with the dashed "add" tile.',
+          "One file in a form — a logo, a certificate, a document — showing the current file and letting people replace it.",
       },
     },
   },

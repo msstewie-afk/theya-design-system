@@ -6,7 +6,15 @@ const meta: Meta<typeof WorkspaceLayout> = {
   title: 'Patterns/WorkspaceLayout',
   component: WorkspaceLayout,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "The shell of an app: a collapsible sidebar, a top bar with breadcrumbs and actions, and the content area — with a skip link and a phone layout.",
+      },
+    },
+    layout: 'fullscreen',
+  },
   argTypes: {
     brand: { control: 'text', description: 'Product/workspace name shown in the sidebar header.', table: { category: 'Content' } },
     nav: { control: false, description: 'Sidebar nav groups.', table: { category: 'Content' } },

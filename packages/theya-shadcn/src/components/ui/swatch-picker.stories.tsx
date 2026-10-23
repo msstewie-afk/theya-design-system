@@ -63,7 +63,15 @@ const meta = {
   title: 'Selection/SwatchPicker',
   component: SwatchPicker,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: swatchPickerGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Choosing by look: a product color or material, a label color, a color facet in a filter. One or several.",
+      },
+    },
+    layout: 'padded', guidelines: swatchPickerGuidelines,
+  },
   argTypes: {
     required: { control: 'boolean', description: 'Red asterisk after the legend (single selection).' },
     options: { control: false, description: 'Swatches: value, label and color / colors / image; unavailable, disabled.' },

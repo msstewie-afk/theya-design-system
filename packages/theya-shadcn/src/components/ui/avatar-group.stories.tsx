@@ -13,7 +13,15 @@ const meta = {
   title: 'Labels/AvatarGroup',
   component: AvatarGroup,
   tags: ['autodocs'],
-  parameters: { guidelines: avatarGroupGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A stack of avatars with a “+N” at the end, for when several people are involved and the exact list is secondary.",
+      },
+    },
+    guidelines: avatarGroupGuidelines, layout: 'centered',
+  },
   argTypes: {
     max: { control: { type: 'number', min: 1 }, description: 'Max avatars to show before collapsing the rest into a "+N" count.' },
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'], description: 'Size applied to every Avatar child.' },

@@ -11,7 +11,15 @@ const meta: Meta<typeof Collapsible> = {
   title: 'Layout/Collapsible',
   component: Collapsible,
   tags: ['autodocs'],
-  parameters: { guidelines: collapsibleGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "One region people open on demand: “Advanced settings”, “Show 12 more”, technical details.",
+      },
+    },
+    guidelines: collapsibleGuidelines,
+  },
   argTypes: {
     open: { control: false, description: 'Controlled open state.' },
     defaultOpen: { control: false, description: 'Uncontrolled initial open state.' },

@@ -4,6 +4,15 @@ import { expect, screen, userEvent, within } from '@storybook/test';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis } from './breadcrumb';
 import { breadcrumbGuidelines } from './breadcrumb.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   The topbar trail of links ending in the current page. Composed from named
+//   parts: Breadcrumb wraps a BreadcrumbList of BreadcrumbItems. Ancestors are
+//   BreadcrumbLinks; the final level is a BreadcrumbPage (current,
+//   non-navigable). BreadcrumbSeparator renders a decorative chevron;
+//   BreadcrumbEllipsis collapses a long middle; pass it `items` and it opens a
+//   menu of the hidden levels. Both BreadcrumbLink and BreadcrumbPage accept
+//   an icon prop — omit children for an icon-only crumb (pass aria-label).
 const meta: Meta<typeof Breadcrumb> = {
   title: 'Navigation/Breadcrumb',
   tags: ['autodocs'],
@@ -12,11 +21,7 @@ const meta: Meta<typeof Breadcrumb> = {
     docs: {
       description: {
         component:
-          'The topbar trail of links ending in the current page. Composed from named parts: Breadcrumb wraps a ' +
-          'BreadcrumbList of BreadcrumbItems. Ancestors are BreadcrumbLinks; the final level is a BreadcrumbPage ' +
-          '(current, non-navigable). BreadcrumbSeparator renders a decorative chevron; BreadcrumbEllipsis collapses ' +
-          'a long middle; pass it `items` and it opens a menu of the hidden levels. Both BreadcrumbLink and BreadcrumbPage accept an icon prop — omit children for an ' +
-          'icon-only crumb (pass aria-label).',
+          "Shows where a page sits in a hierarchy of three or more levels and lets people go up. Long trails fold their middle into a menu.",
       },
     },
   },

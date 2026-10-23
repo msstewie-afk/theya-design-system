@@ -15,7 +15,15 @@ const meta = {
   title: 'Labels/Kbd',
   component: Kbd,
   tags: ['autodocs'],
-  parameters: { guidelines: kbdGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Shows a keyboard key or a shortcut in text, menus and tooltips: ⌘ K, Esc, ?. It only displays the shortcut; it doesn’t bind one.",
+      },
+    },
+    guidelines: kbdGuidelines, layout: 'centered',
+  },
   argTypes: {
     children: {
       control: 'text',

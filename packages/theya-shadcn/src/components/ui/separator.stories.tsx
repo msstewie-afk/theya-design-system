@@ -7,7 +7,15 @@ const meta: Meta<typeof Separator> = {
   title: 'Layout/Separator',
   component: Separator,
   tags: ['autodocs'],
-  parameters: { guidelines: separatorGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A quiet line between groups that spacing alone doesn’t separate: menu groups, list rows, toolbar sections.",
+      },
+    },
+    guidelines: separatorGuidelines, layout: 'padded',
+  },
   argTypes: {
     orientation: {
       control: 'select',

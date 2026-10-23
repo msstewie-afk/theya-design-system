@@ -8,7 +8,15 @@ const meta: Meta<typeof Toggle> = {
   title: 'Actions/Toggle',
   component: Toggle,
   tags: ['autodocs'],
-  parameters: { guidelines: toggleGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A button that stays pressed: bold in an editor, “Show archived”, pin. For a setting that applies at once, use Switch.",
+      },
+    },
+    guidelines: toggleGuidelines,
+  },
   argTypes: {
     appearance: { control: 'radio', options: ['tonal', 'outlined', 'ghost'], description: 'Fill style.', table: { category: 'Appearance' } },
     size: { control: 'radio', options: ['sm', 'md', 'lg'], description: 'Toggle size.', table: { category: 'Appearance' } },

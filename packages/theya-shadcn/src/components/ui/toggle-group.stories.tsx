@@ -8,7 +8,15 @@ const meta: Meta<typeof ToggleGroup> = {
   title: 'Actions/ToggleGroup',
   component: ToggleGroup,
   tags: ['autodocs'],
-  parameters: { guidelines: toggleGroupGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A row of 2–5 buttons for switching a view or a filter, all options visible: Grid / List, All / Unread. One at a time, or several with `type=\"multiple\"`.",
+      },
+    },
+    guidelines: toggleGroupGuidelines,
+  },
   argTypes: {
     appearance: { control: 'radio', options: ['tonal', 'outlined', 'ghost'], description: 'Flows to every item via context. Default ghost.' },
     size: { control: 'radio', options: ['sm', 'md', 'lg'], description: 'Flows to every item via context.' },

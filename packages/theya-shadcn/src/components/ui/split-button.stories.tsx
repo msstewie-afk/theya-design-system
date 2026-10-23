@@ -5,6 +5,9 @@ import { SplitButton } from './split-button';
 import { DropdownMenuItem } from './dropdown-menu';
 import { splitButtonGuidelines } from './split-button.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Composed from our own Button + DropdownMenu.
 const meta: Meta<typeof SplitButton> = {
   title: 'Actions/SplitButton',
   component: SplitButton,
@@ -13,7 +16,7 @@ const meta: Meta<typeof SplitButton> = {
     guidelines: splitButtonGuidelines,
     docs: {
       description: {
-        component: 'Composed from our own Button + DropdownMenu.',
+        component: "One main action with a few variations of it in a menu: “Deploy”, then Deploy to staging, Deploy without cache.",
       },
     },
   },

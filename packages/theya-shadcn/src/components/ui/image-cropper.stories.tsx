@@ -20,7 +20,15 @@ const meta = {
   title: 'Files/ImageCropper',
   component: ImageCropper,
   tags: ['autodocs'],
-  parameters: { guidelines: imageCropperGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Framing an uploaded image before it’s saved — an avatar, a logo, a cover — to a fixed shape.",
+      },
+    },
+    guidelines: imageCropperGuidelines, layout: 'padded',
+  },
   argTypes: {
     src: { control: 'text', description: 'Image URL (same-origin or CORS-enabled to export).' },
     aspect: { control: { type: 'number', step: 0.1 }, description: 'Width / height of the crop frame.' },

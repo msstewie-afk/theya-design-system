@@ -8,7 +8,15 @@ const meta: Meta<typeof Toolbar> = {
   title: 'Layout/Toolbar',
   component: Toolbar,
   tags: ['autodocs'],
-  parameters: { guidelines: toolbarGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A row of related commands that takes one Tab stop, with the arrow keys moving between them: text formatting, editor tools, bulk actions.",
+      },
+    },
+    guidelines: toolbarGuidelines,
+  },
   argTypes: {
     orientation: { control: 'inline-radio', options: ['horizontal', 'vertical'], description: 'Toolbar layout direction.' },
     dir: { control: 'inline-radio', options: ['ltr', 'rtl'], description: 'Reading direction, affects arrow-key navigation.' },

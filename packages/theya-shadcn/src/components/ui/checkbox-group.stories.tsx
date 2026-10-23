@@ -8,7 +8,15 @@ const meta: Meta<typeof CheckboxGroup> = {
   title: 'Selection/CheckboxGroup',
   component: CheckboxGroup,
   tags: ['autodocs'],
-  parameters: { guidelines: checkboxGroupGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Several related yes / no choices that form one value: “Notify me by: Email, SMS”. Up to about eight options, all visible.",
+      },
+    },
+    guidelines: checkboxGroupGuidelines,
+  },
   argTypes: {
     label: {
       control: 'text',

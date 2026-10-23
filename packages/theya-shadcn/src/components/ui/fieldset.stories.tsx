@@ -9,7 +9,15 @@ const meta: Meta<typeof Fieldset> = {
   title: 'Form Structure/Fieldset',
   component: Fieldset,
   tags: ['autodocs'],
-  parameters: { guidelines: fieldsetGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Groups related controls under one name — an address, notification settings, a section of a long form — and can switch the whole group off at once.",
+      },
+    },
+    guidelines: fieldsetGuidelines,
+  },
   argTypes: {
     legend: { control: 'text', description: 'Section heading.', table: { category: 'Content' } },
     description: { control: 'text', description: 'Supporting copy under the legend.', table: { category: 'Content' } },

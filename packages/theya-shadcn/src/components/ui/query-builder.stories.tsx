@@ -4,6 +4,10 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { QueryBuilder, type QueryField, type QueryValue } from './query-builder';
 import { queryBuilderGuidelines } from './query-builder.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   The heavier sibling of Filter — compose arbitrary field-operator-value
+//   conditions. Uses Combobox(multiple) in place of a standalone MultiSelect.
 const meta: Meta<typeof QueryBuilder> = {
   title: 'Search & Filter/QueryBuilder',
   component: QueryBuilder,
@@ -12,7 +16,7 @@ const meta: Meta<typeof QueryBuilder> = {
     guidelines: queryBuilderGuidelines,
     docs: {
       description: {
-        component: 'The heavier sibling of Filter — compose arbitrary field-operator-value conditions. Uses Combobox(multiple) in place of a standalone MultiSelect.',
+        component: "Conditions people build and come back to — saved segments, alert rules, automation triggers — with operators beyond “is”: greater than, between, contains.",
       },
     },
   },

@@ -7,6 +7,17 @@ import { DataTableCell } from './data-table-cell';
 import { Table, TableBody, TableRow, TableCell } from './table';
 import { dataTableCellGuidelines } from './data-table-cell.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   The shared cell-rendering vocabulary for a DataTable: value kinds
+//   (text/mono/primary/status/badge/usage/sparkline), editable kinds
+//   (input/select/combobox/tags/date-range/…), and control kinds
+//   (selector/menu). Props are a discriminated union keyed by `kind` — each
+//   kind's own field set is documented on its own interface (TextCellProps,
+//   MonoCellProps, StatusCellProps, BadgeCellSingle/Multiple, UsageCellProps,
+//   SparklineCellProps, SelectorCellProps, etc. in data-table-cell.tsx), not
+//   flattened into one argTypes table here since the union would make most
+//   rows show as "-" for any single kind.
 const meta: Meta<typeof DataTableCell> = {
   title: 'Data/DataTableCell',
   component: DataTableCell,
@@ -16,7 +27,7 @@ const meta: Meta<typeof DataTableCell> = {
     docs: {
       description: {
         component:
-          'The shared cell-rendering vocabulary for a DataTable: value kinds (text/mono/primary/status/badge/usage/sparkline), editable kinds (input/select/combobox/tags/date-range/…), and control kinds (selector/menu). Props are a discriminated union keyed by `kind` — each kind\'s own field set is documented on its own interface (TextCellProps, MonoCellProps, StatusCellProps, BadgeCellSingle/Multiple, UsageCellProps, SparklineCellProps, SelectorCellProps, etc. in data-table-cell.tsx), not flattened into one argTypes table here since the union would make most rows show as "-" for any single kind.',
+          "The cells of a DataTable, one kind per type of content — text, status, usage, a sparkline — plus editable cells for changing a value right in the table.",
       },
     },
   },

@@ -24,7 +24,15 @@ const meta = {
   title: 'Actions/StickyActionBar',
   component: StickyActionBar,
   tags: ['autodocs'],
-  parameters: { guidelines: stickyActionBarGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Keeps actions in view while the content scrolls: Save and Discard under a long form, bulk actions for a selection, the one primary button of a phone screen.",
+      },
+    },
+    guidelines: stickyActionBarGuidelines, layout: 'padded',
+  },
   argTypes: {
     variant: { control: 'inline-radio', options: ['bar', 'floating'], table: { category: 'Layout' } },
     position: { control: 'inline-radio', options: ['sticky', 'fixed'], table: { category: 'Layout' } },

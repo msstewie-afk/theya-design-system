@@ -6,7 +6,15 @@ const meta: Meta<typeof LoginForm> = {
   title: 'Patterns/LoginForm',
   component: LoginForm,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A complete sign-in form: email and password with validation, “Keep me signed in”, links to reset the password and to sign up.",
+      },
+    },
+    layout: 'fullscreen',
+  },
   argTypes: {
     onSubmit: { control: false, description: 'Fires on form submit.', table: { category: 'Events' } },
     appName: { control: 'text', description: 'Product name shown in the heading and on the brand mark.', table: { category: 'Content' } },

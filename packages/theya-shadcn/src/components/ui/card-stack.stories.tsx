@@ -16,7 +16,15 @@ const meta = {
   title: 'Motion/CardStack',
   component: CardStack,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', guidelines: cardStackGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A deck that shows its cards one after another on a timer, with Pause and Next. For a landing page or an empty state.",
+      },
+    },
+    layout: 'centered', guidelines: cardStackGuidelines,
+  },
   argTypes: {
     interval: { control: { type: 'number', min: 1500, step: 500 }, description: 'Time each card stays in front, ms.' },
     depth: { control: { type: 'number', min: 0, max: 4 }, description: 'Cards visible behind the front one.' },

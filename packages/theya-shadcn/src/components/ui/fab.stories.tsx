@@ -20,7 +20,15 @@ const meta = {
   title: 'Actions/Fab',
   component: Fab,
   tags: ['autodocs'],
-  parameters: { guidelines: fabGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A floating button for the one main action of a screen, mostly on a phone. Round with an icon, or extended with a label; `collapseOnScroll` folds the extended one while scrolling down.",
+      },
+    },
+    guidelines: fabGuidelines, layout: 'centered',
+  },
   argTypes: {
     label: { control: 'text', description: 'Text of the extended FAB. Empty = round icon-only FAB.', table: { category: 'Content' } },
     icon: { control: false, description: 'The action icon, always shown.', table: { category: 'Content' } },

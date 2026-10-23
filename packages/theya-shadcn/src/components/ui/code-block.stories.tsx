@@ -22,7 +22,15 @@ const meta = {
   title: 'Code/CodeBlock',
   component: CodeBlock,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: codeBlockGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Code people read and copy: install steps, a DNS record, an API example. Monospaced, with a copy button.",
+      },
+    },
+    layout: 'padded', guidelines: codeBlockGuidelines,
+  },
   argTypes: {
     code: { control: 'text', description: 'Source text shown in the block.' },
     language: { control: 'text', description: 'Language hint shown as a muted label in the header (no highlighting applied).' },

@@ -10,7 +10,15 @@ const meta: Meta<typeof Carousel> = {
   title: 'Layout/Carousel',
   component: Carousel,
   tags: ['autodocs'],
-  parameters: { guidelines: carouselGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Browsing a set of similar items one or a few at a time: templates, screenshots, product photos.",
+      },
+    },
+    guidelines: carouselGuidelines, layout: 'padded',
+  },
   argTypes: {
     orientation: {
       control: 'select',

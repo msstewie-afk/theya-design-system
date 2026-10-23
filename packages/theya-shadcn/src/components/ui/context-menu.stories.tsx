@@ -24,6 +24,16 @@ import {
 } from './context-menu';
 import { contextMenuGuidelines } from './context-menu.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Compositional — ContextMenu (Root) itself takes only
+//   open/onOpenChange/modal/dir. Build the menu from
+//   ContextMenuContent/Item/CheckboxItem/RadioItem/Label/Separator/Sub*.
+//   **Rule: a context menu is an accelerator, never the only path.** The
+//   trigger region is not focusable, so keyboard users (and touch users who
+//   never long-press) can only reach these actions another way. Every item
+//   must also live in a visible control — a "…" menu button, a toolbar, an
+//   inline button. See *With Visible Alternative*.
 const meta: Meta<typeof ContextMenu> = {
   title: 'Menus/ContextMenu',
   component: ContextMenu,
@@ -33,8 +43,7 @@ const meta: Meta<typeof ContextMenu> = {
     docs: {
       description: {
         component:
-          'Compositional — ContextMenu (Root) itself takes only open/onOpenChange/modal/dir. Build the menu from ContextMenuContent/Item/CheckboxItem/RadioItem/Label/Separator/Sub*.\n\n' +
-          '**Rule: a context menu is an accelerator, never the only path.** The trigger region is not focusable, so keyboard users (and touch users who never long-press) can only reach these actions another way. Every item must also live in a visible control — a "…" menu button, a toolbar, an inline button. See *With Visible Alternative*.',
+          "A right-click menu for tool-like surfaces: a file grid, a canvas, a kanban card. A shortcut only — every action in it is also reachable another way.",
       },
     },
   },

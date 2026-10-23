@@ -27,13 +27,21 @@ function RemovableAttachment(props: ComponentProps<typeof Attachment>) {
   );
 }
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   The display unit File is built on — pill/card/row/line variants.
 const meta: Meta<typeof Attachment> = {
   title: 'Files/Attachment',
   component: Attachment,
   tags: ['autodocs'],
   parameters: {
     guidelines: attachmentGuidelines,
-    docs: { description: { component: 'The display unit File is built on — pill/card/row/line variants.' } },
+    docs: {
+      description: {
+        component:
+          "A file that’s already attached — in a message, a ticket, a list of uploads — as a pill, a card, a row or a line. Staged files can be removed, failed ones say why.",
+      },
+    },
   },
   args: { name: 'quarterly-report.pdf', size: 248000 },
   render: (args) => <RemovableAttachment {...args} />,

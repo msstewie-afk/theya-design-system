@@ -15,7 +15,15 @@ const meta = {
   title: 'Text Input/InlineEdit',
   component: InlineEdit,
   tags: ['autodocs'],
-  parameters: { guidelines: inlineEditGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Changes one value where it’s shown — a site name, a page title — without opening a form. Enter saves, Escape cancels.",
+      },
+    },
+    guidelines: inlineEditGuidelines, layout: 'padded',
+  },
   argTypes: {
     label: { control: 'text', description: 'Accessible name of the value.', table: { category: 'Content' } },
     placeholder: { control: 'text', description: 'Shown when the value is empty.', table: { category: 'Content' } },

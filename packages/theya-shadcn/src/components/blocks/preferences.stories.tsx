@@ -7,7 +7,15 @@ const meta: Meta<typeof Preferences> = {
   title: 'Patterns/Preferences',
   component: Preferences,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "An account settings page in sections — profile, security, notifications, danger zone — with an in-page navigation.",
+      },
+    },
+    layout: 'fullscreen',
+  },
   argTypes: {
     account: { control: false, description: '{ fullName, email } shown in the profile section.', table: { category: 'Content' } },
     recoveryCode: { control: 'text', description: 'Shown once, in a dialog, right after two-factor is enabled — never on the page.', table: { category: 'Content' } },

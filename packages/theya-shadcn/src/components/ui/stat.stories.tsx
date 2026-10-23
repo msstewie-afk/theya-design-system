@@ -18,7 +18,15 @@ const meta = {
   title: 'Data/Stat',
   component: Stat,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: statGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A headline number on a dashboard — active sites, uptime, revenue — with an optional status and its change against the previous period.",
+      },
+    },
+    layout: 'padded', guidelines: statGuidelines,
+  },
   decorators: [
     // A single Stat is a ~260px dashboard tile; the multi-Stat grid stories
     // (Tones/Deltas/KpiRow) opt out via `parameters.fullWidth` so their

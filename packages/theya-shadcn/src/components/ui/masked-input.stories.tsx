@@ -3,6 +3,10 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 import { MaskedInput } from './masked-input';
 import { maskedInputGuidelines } from './masked-input.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   A TextField that formats as you type against a fixed pattern (phone, card,
+//   date, IP).
 const meta: Meta<typeof MaskedInput> = {
   title: 'Text Input/MaskedInput',
   component: MaskedInput,
@@ -12,7 +16,7 @@ const meta: Meta<typeof MaskedInput> = {
     docs: {
       description: {
         component:
-          'A TextField that formats as you type against a fixed pattern (phone, card, date, IP).',
+          "A value with one fixed format, formatted as people type: a card number, an IP address, a date in a fixed form.",
       },
     },
   },

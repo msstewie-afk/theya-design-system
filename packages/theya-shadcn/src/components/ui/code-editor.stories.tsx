@@ -7,7 +7,15 @@ import { codeEditorGuidelines } from './code-editor.guidelines';
 const meta: Meta<typeof CodeEditor> = {
   title: 'Code/CodeEditor',
   component: CodeEditor,
-  parameters: { guidelines: codeEditorGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Editing code inside the product — config, templates, rules, scripts — with highlighting and line numbers. Read-only for long code people need to look through.",
+      },
+    },
+    guidelines: codeEditorGuidelines,
+  },
   tags: ['autodocs'],
   argTypes: {
     value: { control: false, description: 'Controlled value.', table: { category: 'State' } },

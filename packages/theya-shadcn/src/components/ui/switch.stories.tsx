@@ -3,13 +3,21 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 import { Switch } from './switch';
 import { switchGuidelines } from './switch.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Built on Radix Switch. Uncontrolled by default via `defaultChecked`.
 const meta: Meta<typeof Switch> = {
   title: 'Selection/Switch',
   component: Switch,
   tags: ['autodocs'],
   parameters: {
     guidelines: switchGuidelines,
-    docs: { description: { component: 'Built on Radix Switch. Uncontrolled by default via `defaultChecked`.' } },
+    docs: {
+      description: {
+        component:
+          "A setting that takes effect the moment it’s flipped, with no Save button: turning a feature, a service or a notification on and off.",
+      },
+    },
   },
   argTypes: {
     label: { control: 'text', description: 'Label text next to the switch.', table: { category: 'Content' } },

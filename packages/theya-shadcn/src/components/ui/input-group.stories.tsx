@@ -4,6 +4,11 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from './input-group';
 import { Label } from './label';
 import { inputGroupGuidelines } from './input-group.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   A borderless field wrapped with prefix/suffix addons (text or an icon)
+//   inside one bordered container that owns the shared focus ring — focusing
+//   the field lights up the whole group via focus-within.
 const meta: Meta<typeof InputGroup> = {
   title: 'Text Input/InputGroup',
   component: InputGroup,
@@ -13,7 +18,7 @@ const meta: Meta<typeof InputGroup> = {
     docs: {
       description: {
         component:
-          'A borderless field wrapped with prefix/suffix addons (text or an icon) inside one bordered container that owns the shared focus ring — focusing the field lights up the whole group via focus-within.',
+          "A field with a fixed prefix or suffix that is part of the value’s format — https://, .theya.app, /mo — or a button inside its border.",
       },
     },
   },

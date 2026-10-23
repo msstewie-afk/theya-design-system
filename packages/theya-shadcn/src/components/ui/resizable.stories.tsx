@@ -8,7 +8,15 @@ const meta: Meta<typeof ResizablePanelGroup> = {
   title: 'Layout/Resizable',
   component: ResizablePanelGroup,
   tags: ['autodocs'],
-  parameters: { guidelines: resizableGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Panes people size themselves by dragging the divider or with the keyboard: a file tree next to an editor, a list next to its details.",
+      },
+    },
+    guidelines: resizableGuidelines, layout: 'padded',
+  },
   argTypes: {
     orientation: {
       control: 'select',

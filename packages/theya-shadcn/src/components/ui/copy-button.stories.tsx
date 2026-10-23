@@ -3,6 +3,11 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { CopyButton } from './copy-button';
 import { copyButtonGuidelines } from './copy-button.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Wraps Button. Copies `value`, swaps to a success check + "Copied" and
+//   announces it politely. Deliberately no toast of its own — wire onCopied /
+//   onCopyError to sonner at the call site (see SecretField).
 const meta: Meta<typeof CopyButton> = {
   title: 'Actions/CopyButton',
   component: CopyButton,
@@ -12,7 +17,7 @@ const meta: Meta<typeof CopyButton> = {
     docs: {
       description: {
         component:
-          'Wraps Button. Copies `value`, swaps to a success check + "Copied" and announces it politely. Deliberately no toast of its own — wire onCopied / onCopyError to sonner at the call site (see SecretField).',
+          "Copies a value people will paste somewhere else — an API key, a DNS record, a command — and confirms it with a tick.",
       },
     },
   },

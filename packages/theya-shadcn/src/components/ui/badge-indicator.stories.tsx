@@ -13,7 +13,15 @@ const meta = {
   title: 'Status & Feedback/BadgeIndicator',
   component: BadgeIndicator,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', guidelines: badgeIndicatorGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A count or a “something new” dot on an icon, an avatar or a nav item: unread notifications, pending invites.",
+      },
+    },
+    layout: 'centered', guidelines: badgeIndicatorGuidelines,
+  },
   argTypes: {
     value: { control: 'text', description: "Qty/text content, e.g. '5' or '99+'. Ignored when dot is set; if icon is also set, icon wins." },
     dot: { control: 'boolean', description: 'Renders a plain dot instead of value/icon — takes priority over both.' },

@@ -21,7 +21,15 @@ const meta: Meta<typeof Terminal> = {
   title: 'Code/Terminal',
   component: Terminal,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: terminalGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Console output, live or past: a web SSH session, a build log, a tail of access logs. Follows the newest line and can show the connection state.",
+      },
+    },
+    layout: 'padded', guidelines: terminalGuidelines,
+  },
   argTypes: {
     connection: {
       control: 'select',

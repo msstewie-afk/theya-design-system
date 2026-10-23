@@ -4,6 +4,11 @@ import { Badge } from './badge';
 import { StatusDot } from './status-dot';
 import { descriptionListGuidelines } from './description-list.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Compositional — DescriptionList (<dl>) itself takes only standard HTML
+//   props. Build entries from
+//   DescriptionItem/DescriptionTerm/DescriptionDetails.
 const meta: Meta<typeof DescriptionList> = {
   title: 'Data/DescriptionList',
   component: DescriptionList,
@@ -12,7 +17,7 @@ const meta: Meta<typeof DescriptionList> = {
     guidelines: descriptionListGuidelines,
     docs: {
       description: {
-        component: 'Compositional — DescriptionList (<dl>) itself takes only standard HTML props. Build entries from DescriptionItem/DescriptionTerm/DescriptionDetails.',
+        component: "Label and value pairs about one object: site details, an invoice header, a review step before confirming.",
       },
     },
   },

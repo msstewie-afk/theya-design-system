@@ -21,7 +21,15 @@ const meta: Meta<typeof ListItem> = {
   title: 'Data/ListItem',
   component: ListItem,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: listItemGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "One row of a list lighter than a table: settings sections, notifications, a resource picker. The whole row can be a link or a selectable item.",
+      },
+    },
+    layout: 'padded', guidelines: listItemGuidelines,
+  },
   argTypes: {
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'], description: 'Row size.' },
     title: { control: 'text', description: 'Primary label.' },

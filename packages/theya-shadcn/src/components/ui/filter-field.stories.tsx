@@ -6,6 +6,11 @@ import { StatusDot, type StatusTone } from './status-dot';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table';
 import { filterFieldGuidelines } from './filter-field.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   One compact field combining keyword search and attribute-based filtering:
+//   a two-step popover (search/attribute list, then a type-specific value
+//   editor).
 const meta: Meta<typeof FilterField> = {
   title: 'Search & Filter/FilterField',
   tags: ['autodocs'],
@@ -14,8 +19,7 @@ const meta: Meta<typeof FilterField> = {
     docs: {
       description: {
         component:
-          'One compact field combining keyword search and attribute-based filtering: ' +
-          'a two-step popover (search/attribute list, then a type-specific value editor).',
+          "Keyword search and filtering by many attributes in one field — servers, logs, users — with the applied filters shown as chips people can edit.",
       },
     },
   },

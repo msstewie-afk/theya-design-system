@@ -8,7 +8,15 @@ const meta: Meta<typeof AspectRatio> = {
   title: 'Layout/AspectRatio',
   component: AspectRatio,
   tags: ['autodocs'],
-  parameters: { guidelines: aspectRatioGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Keeps a box at a fixed shape before its media loads, so previews, thumbnails and video don’t make the page jump.",
+      },
+    },
+    guidelines: aspectRatioGuidelines, layout: 'padded',
+  },
   argTypes: {
     ratio: {
       control: { type: 'number', step: 0.01 },

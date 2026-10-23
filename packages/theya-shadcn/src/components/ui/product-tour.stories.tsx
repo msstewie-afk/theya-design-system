@@ -68,7 +68,15 @@ const meta = {
   title: 'Overlays/ProductTour',
   component: ProductTour,
   tags: ['autodocs'],
-  parameters: { guidelines: productTourGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Introduces what changed on a screen, once, in 2–5 steps — or teaches one action by having people do it.",
+      },
+    },
+    guidelines: productTourGuidelines, layout: 'padded',
+  },
   argTypes: {
     steps: { control: false, description: 'target (selector/ref/getter), title, content, media, side, align, spotlightPadding, interactive.' },
     open: { control: false },

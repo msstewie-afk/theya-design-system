@@ -2,6 +2,12 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PasswordStrengthMeter } from './password-strength-meter';
 import { passwordStrengthMeterGuidelines } from './password-strength-meter.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Standalone composition helper meant to sit below a Password field — pass
+//   it the same controlled value. Solid color per score band
+//   (danger/warning/success), no gradient. See Text Input/Password → "Strength
+//   meter" for it paired with an actual input.
 const meta: Meta<typeof PasswordStrengthMeter> = {
   title: 'Text Input/PasswordStrengthMeter',
   component: PasswordStrengthMeter,
@@ -11,9 +17,7 @@ const meta: Meta<typeof PasswordStrengthMeter> = {
     docs: {
       description: {
         component:
-          'Standalone composition helper meant to sit below a Password field — pass it the same controlled ' +
-          'value. Solid color per score band (danger/warning/success), no gradient. See Text Input/Password → ' +
-          '"Strength meter" for it paired with an actual input.',
+          "Sits under a new-password field and shows, as people type, how close the password is to the rules.",
       },
     },
   },

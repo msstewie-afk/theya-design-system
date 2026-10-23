@@ -115,6 +115,10 @@ function ToolbarDemo({ actions = ACTIONS, maxVisible, initialSelection = {} }: {
   );
 }
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   The strip above a DataTable: idle it holds the select-all + filter/search;
+//   once rows are selected it becomes the primary-filled bulk-action bar.
 const meta: Meta<typeof DataTableToolbar> = {
   title: 'Data/DataTableToolbar',
   component: DataTableToolbar,
@@ -124,7 +128,7 @@ const meta: Meta<typeof DataTableToolbar> = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'The strip above a DataTable: idle it holds the select-all + filter/search; once rows are selected it becomes the primary-filled bulk-action bar.',
+        component: "The strip above a DataTable: search and filters when nothing is selected, bulk actions once rows are selected.",
       },
     },
   },

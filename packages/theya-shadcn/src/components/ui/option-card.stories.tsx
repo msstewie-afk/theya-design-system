@@ -9,7 +9,15 @@ const meta: Meta<typeof OptionCardGroup> = {
   title: 'Selection/OptionCard',
   component: OptionCardGroup,
   tags: ['autodocs'],
-  parameters: { guidelines: optionCardGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A one-of choice where each option needs a title, a line of explanation and often a price: plans, verification methods, delivery.",
+      },
+    },
+    guidelines: optionCardGuidelines,
+  },
   argTypes: {
     defaultValue: { control: 'text', description: 'Initially selected value (uncontrolled).', table: { category: 'Content' } },
     disabled: { control: 'boolean', description: 'Disables every card in the group.', table: { category: 'State' } },

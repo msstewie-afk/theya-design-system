@@ -11,7 +11,15 @@ const meta: Meta<typeof ConfirmDialog> = {
   title: 'Overlays/ConfirmDialog',
   component: ConfirmDialog,
   tags: ['autodocs'],
-  parameters: { guidelines: confirmDialogGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Confirms a high-stakes delete by asking people to type the name of what they delete: a domain, a database, an organisation.",
+      },
+    },
+    guidelines: confirmDialogGuidelines,
+  },
   argTypes: {
     title: { control: 'text', description: 'Dialog heading.', table: { category: 'Content' } },
     titleSize: { control: 'inline-radio', options: ['md', 'lg'], description: 'Size of the title text.', table: { category: 'Appearance' } },

@@ -8,7 +8,15 @@ const meta: Meta<typeof OnboardingWizard> = {
   title: 'Patterns/OnboardingWizard',
   component: OnboardingWizard,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A setup done in a few steps: the current step’s content, a Stepper showing progress, and Back / Next.",
+      },
+    },
+    layout: 'fullscreen',
+  },
   argTypes: {
     title: { control: 'text', description: 'Wizard heading.', table: { category: 'Content' } },
     description: { control: 'text', description: 'Supporting copy under the title.', table: { category: 'Content' } },

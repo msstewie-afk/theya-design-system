@@ -18,7 +18,15 @@ const meta: Meta<typeof Card> = {
   title: 'Layout/Card',
   component: Card,
   tags: ['autodocs'],
-  parameters: { guidelines: cardGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A self-contained unit people scan and compare: an item in a grid, the summary of one object. The whole card can be a link or a filter.",
+      },
+    },
+    guidelines: cardGuidelines, layout: 'padded',
+  },
   argTypes: {
     size: { control: 'inline-radio', options: [undefined, 'sm', 'md', 'lg'], description: 'Padding scale.' },
     tone: { control: 'inline-radio', options: ['neutral', 'info', 'success', 'warning', 'danger'], description: 'Tinted border/surface for a status card.' },

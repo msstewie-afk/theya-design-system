@@ -14,7 +14,15 @@ const meta = {
   title: 'Labels/DotSeparator',
   component: DotSeparator,
   tags: ['autodocs'],
-  parameters: { guidelines: dotSeparatorGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A small dot between short facts on one line: “eu-west-1 · Created Mar 2026 · v2.4.0”.",
+      },
+    },
+    guidelines: dotSeparatorGuidelines, layout: 'centered',
+  },
   argTypes: {
     className: { control: false, description: 'A small inline "·" divider between meta text items.' },
   },

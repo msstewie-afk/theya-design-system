@@ -6,7 +6,15 @@ import { metricGuidelines } from './metric.guidelines';
 
 const meta: Meta<typeof Metric> = {
   title: 'Data/Metric',
-  parameters: { guidelines: metricGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A small count with its label, repeated as rows inside a card: mailboxes used, aliases, records pending.",
+      },
+    },
+    guidelines: metricGuidelines,
+  },
   tags: ['autodocs'],
   argTypes: {
     icon: { control: false, description: 'Optional leading icon (decorative — the visible value/label carry the meaning).' },

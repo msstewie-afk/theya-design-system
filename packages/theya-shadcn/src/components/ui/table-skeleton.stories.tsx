@@ -6,7 +6,15 @@ import { tableSkeletonGuidelines } from './table-skeleton.guidelines';
 const meta: Meta<typeof TableSkeletonRows> = {
   title: 'Status & Feedback/TableSkeleton',
   component: TableSkeletonRows,
-  parameters: { guidelines: tableSkeletonGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Skeleton rows under real column headers for the first load of a table, without a flash when the data comes back fast.",
+      },
+    },
+    guidelines: tableSkeletonGuidelines,
+  },
   tags: ['autodocs'],
   argTypes: {
     rows: { control: { type: 'number', min: 1 }, description: 'Number of skeleton rows. Default 6.' },

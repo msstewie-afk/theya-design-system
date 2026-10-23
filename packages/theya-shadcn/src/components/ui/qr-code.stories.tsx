@@ -16,7 +16,15 @@ const meta = {
   title: 'Data/QrCode',
   component: QrCode,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', guidelines: qrCodeGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Moves something from the screen to a phone: 2FA setup, a Wi-Fi or app link, a ticket. Always shown with the same value as text, for people who can’t scan.",
+      },
+    },
+    layout: 'centered', guidelines: qrCodeGuidelines,
+  },
   argTypes: {
     value: { control: 'text', description: 'Text or URL to encode.', table: { category: 'Content' } },
     label: { control: 'text', description: 'Accessible name — what scanning does.', table: { category: 'Content' } },

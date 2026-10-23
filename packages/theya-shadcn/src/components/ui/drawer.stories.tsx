@@ -6,6 +6,10 @@ import { Label } from './label';
 import { TextField } from './text-field';
 import { drawerGuidelines } from './drawer.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   A real swipe-gesture bottom sheet on vaul - drag the handle or panel to
+//   dismiss. Distinct from Sheet, which has no drag physics.
 const meta: Meta<typeof Drawer> = {
   title: 'Overlays/Drawer',
   component: Drawer,
@@ -14,7 +18,7 @@ const meta: Meta<typeof Drawer> = {
     guidelines: drawerGuidelines,
     docs: {
       description: {
-        component: 'A real swipe-gesture bottom sheet on vaul - drag the handle or panel to dismiss. Distinct from Sheet, which has no drag physics.',
+        component: "A panel that slides up from the bottom of a phone screen for short, touch-first tasks — sort, filters, share — and is dismissed with a swipe.",
       },
     },
   },

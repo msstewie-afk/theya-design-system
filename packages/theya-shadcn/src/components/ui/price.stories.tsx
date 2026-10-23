@@ -12,7 +12,15 @@ const meta = {
   title: 'Data/Price',
   component: Price,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', guidelines: priceGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Any amount of money in the interface, formatted for the locale, with a period, “From”, an old price or “Free”. Read aloud as one sentence.",
+      },
+    },
+    layout: 'centered', guidelines: priceGuidelines,
+  },
   argTypes: {
     amount: { control: 'number', table: { category: 'Content' } },
     currency: { control: 'text', description: 'ISO 4217, e.g. USD, EUR, BGN, JPY.', table: { category: 'Content' } },

@@ -16,7 +16,15 @@ const meta = {
   title: 'Status & Feedback/StatusDot',
   component: StatusDot,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', guidelines: statusDotGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A small colored dot next to a status word — Running, Stopped, Degraded — for dense lists and tables where a Badge is too heavy.",
+      },
+    },
+    layout: 'centered', guidelines: statusDotGuidelines,
+  },
   argTypes: {
     tone: {
       control: 'select',

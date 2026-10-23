@@ -20,7 +20,15 @@ const meta: Meta<typeof PushSheet> = {
   title: 'Overlays/PushSheet',
   component: PushSheet,
   tags: ['autodocs'],
-  parameters: { guidelines: pushSheetGuidelines, layout: 'fullscreen' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A side panel that pushes the page aside instead of covering it, so the list next to it stays usable: inspect an item, compare, pick the next one.",
+      },
+    },
+    guidelines: pushSheetGuidelines, layout: 'fullscreen',
+  },
   // Every story below fully overrides `render`, so this only satisfies
   // `open`'s required prop type for the Meta.
   args: { open: false },

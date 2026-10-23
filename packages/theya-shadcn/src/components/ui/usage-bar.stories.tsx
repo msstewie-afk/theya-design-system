@@ -6,7 +6,15 @@ const meta: Meta<typeof UsageBar> = {
   title: 'Status & Feedback/UsageBar',
   component: UsageBar,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: usageBarGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A total split into up to four parts against a limit: storage by type, bandwidth by site, seats by role.",
+      },
+    },
+    layout: 'padded', guidelines: usageBarGuidelines,
+  },
   decorators: [
     (Story) => (
       <div className="w-full max-w-[420px] max-w-full">

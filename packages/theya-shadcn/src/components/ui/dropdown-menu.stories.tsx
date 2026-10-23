@@ -23,6 +23,11 @@ import {
 } from './dropdown-menu';
 import { dropdownMenuGuidelines } from './dropdown-menu.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Built on @radix-ui/react-dropdown-menu. Items support `tone="danger"` and
+//   `inset`, plus checkbox / radio items, a trailing slot, and nested
+//   sub-menus.
 const meta: Meta<typeof DropdownMenu> = {
   title: 'Menus/DropdownMenu',
   component: DropdownMenu,
@@ -32,8 +37,7 @@ const meta: Meta<typeof DropdownMenu> = {
     docs: {
       description: {
         component:
-          'Built on @radix-ui/react-dropdown-menu. Items support ' +
-          '`tone="danger"` and `inset`, plus checkbox / radio items, a trailing slot, and nested sub-menus.',
+          "Secondary actions behind a trigger — “more actions” for a row or a card, a user menu — and settings that toggle in place.",
       },
     },
   },

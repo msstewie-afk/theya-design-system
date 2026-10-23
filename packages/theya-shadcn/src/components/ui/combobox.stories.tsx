@@ -4,6 +4,11 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Combobox } from './combobox';
 import { comboboxGuidelines } from './combobox.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   A searchable picker on the Theya Popover: type to filter, pick one value,
+//   or collect several as chips with `multiple`. Not included yet: animated
+//   chip changes, and a single-line scrolling chip row (chips always wrap).
 const meta: Meta<typeof Combobox> = {
   title: 'Selection/Combobox',
   tags: ['autodocs'],
@@ -12,8 +17,7 @@ const meta: Meta<typeof Combobox> = {
     docs: {
       description: {
         component:
-          'A searchable picker on the Theya Popover: type to filter, pick one value, or collect several as chips with `multiple`. ' +
-          'Not included yet: animated chip changes, and a single-line scrolling chip row (chips always wrap).',
+          "Picks from a long list people search rather than scroll — regions, users, domains. One value, or several shown as chips.",
       },
     },
   },

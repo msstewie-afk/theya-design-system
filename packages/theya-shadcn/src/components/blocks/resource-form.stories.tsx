@@ -6,7 +6,15 @@ const meta: Meta<typeof ResourceForm> = {
   title: 'Patterns/ResourceForm',
   component: ResourceForm,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A create or edit form built from a list of fields in sections, with validation and an error summary on submit.",
+      },
+    },
+    layout: 'fullscreen',
+  },
   argTypes: {
     title: { control: 'text', description: 'Form heading.', table: { category: 'Content' } },
     description: { control: 'text', description: 'Supporting copy under the title.', table: { category: 'Content' } },

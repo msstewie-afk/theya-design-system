@@ -15,7 +15,15 @@ const meta = {
   title: 'Status & Feedback/Alert',
   component: Alert,
   tags: ['autodocs'],
-  parameters: { guidelines: alertGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A message about this page or section that stays until it’s resolved: a warning before an action, the summary of errors after a submit.",
+      },
+    },
+    guidelines: alertGuidelines, layout: 'padded',
+  },
   argTypes: {
     tone: {
       control: 'select',

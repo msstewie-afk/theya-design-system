@@ -11,7 +11,15 @@ const meta: Meta<typeof Tabs> = {
   title: 'Navigation/Tabs',
   component: Tabs,
   tags: ['autodocs'],
-  parameters: { guidelines: tabsGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Switches between views of the same object — Overview, Settings, Logs — two to about six sections people move between in any order.",
+      },
+    },
+    guidelines: tabsGuidelines,
+  },
   argTypes: {
     value: { control: false, description: 'Controlled active tab value.' },
     defaultValue: { control: false, description: 'Uncontrolled initial active tab value.' },

@@ -6,7 +6,15 @@ const meta: Meta<typeof Label> = {
   title: 'Form Structure/Label',
   component: Label,
   tags: ['autodocs'],
-  parameters: { guidelines: labelGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Names a form control that doesn’t draw its own label — Select, Combobox, DatePicker, custom controls — and marks it required or optional.",
+      },
+    },
+    guidelines: labelGuidelines,
+  },
   argTypes: {
     required: { control: 'boolean', description: 'Renders the same asterisk mark used everywhere a label appears.' },
     'data-error': { control: 'boolean', description: 'Danger-styles the label, matching the field it describes.' },

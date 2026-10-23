@@ -12,6 +12,12 @@ async function pressArrow(key: 'ArrowRight' | 'ArrowLeft', target: () => HTMLEle
   await userEvent.keyboard(`{/${key}}`);
 }
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Star rating. As input it is a radio group (arrows, Home/End, one Tab
+//   stop); `readOnly` draws fractional values and is announced as one image
+//   ("4.5 of 5"). Empty stars are outlines, filled ones solid, so the state
+//   never depends on color alone.
 const meta: Meta<typeof Rating> = {
   title: 'Selection/Rating',
   component: Rating,
@@ -21,7 +27,7 @@ const meta: Meta<typeof Rating> = {
     docs: {
       description: {
         component:
-          'Star rating. As input it is a radio group (arrows, Home/End, one Tab stop); `readOnly` draws fractional values and is announced as one image ("4.5 of 5"). Empty stars are outlines, filled ones solid, so the state never depends on color alone.',
+          "Leaving a score from 1 to 5 stars, or showing an average next to the number of reviews.",
       },
     },
   },

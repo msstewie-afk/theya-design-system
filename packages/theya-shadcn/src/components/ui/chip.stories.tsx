@@ -17,7 +17,15 @@ const meta = {
   title: 'Labels/Chip',
   component: Chip,
   tags: ['autodocs'],
-  parameters: { guidelines: chipGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "One value people can select or remove: a quick filter, a selected tag, a suggestion. Unlike Badge, it’s interactive.",
+      },
+    },
+    guidelines: chipGuidelines, layout: 'centered',
+  },
   argTypes: {
     tone: {
       control: 'select',

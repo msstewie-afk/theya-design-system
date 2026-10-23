@@ -15,7 +15,15 @@ const meta = {
   title: 'Text Input/PhoneField',
   component: PhoneField,
   tags: ['autodocs'],
-  parameters: { guidelines: phoneFieldGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A phone number with a country code, formatted as people type and checked when they leave the field.",
+      },
+    },
+    guidelines: phoneFieldGuidelines, layout: 'padded',
+  },
   argTypes: {
     label: { control: 'text', table: { category: 'Content' } },
     description: { control: 'text', table: { category: 'Content' } },

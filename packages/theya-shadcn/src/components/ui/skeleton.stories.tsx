@@ -17,7 +17,15 @@ const meta = {
   title: 'Status & Feedback/Skeleton',
   component: Skeleton,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', guidelines: skeletonGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Placeholder shapes for content whose layout is known, during a short first load: a card, a list, a profile header.",
+      },
+    },
+    layout: 'centered', guidelines: skeletonGuidelines,
+  },
   argTypes: {
     className: {
       control: 'text',

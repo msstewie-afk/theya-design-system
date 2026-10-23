@@ -7,7 +7,15 @@ const meta: Meta<typeof TeamMembers> = {
   title: 'Patterns/TeamMembers',
   component: TeamMembers,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Managing a team: invite by email with a role, change roles, remove members with an undo, and resend or revoke pending invites.",
+      },
+    },
+    layout: 'fullscreen',
+  },
   argTypes: {
     title: { control: 'text', description: 'Section heading.', table: { category: 'Content' } },
     description: { control: 'text', description: 'Supporting copy under the title.', table: { category: 'Content' } },

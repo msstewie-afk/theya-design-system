@@ -33,7 +33,15 @@ const meta = {
   title: 'Motion/SwipeDeck',
   component: SwipeDeck,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', guidelines: swipeDeckGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A quick keep-or-skip pass over a short set of cards; buttons and arrow keys do the same as a swipe.",
+      },
+    },
+    layout: 'centered', guidelines: swipeDeckGuidelines,
+  },
   argTypes: {
     items: { control: false, description: 'The cards, top first.' },
     getKey: { control: false, description: 'Stable key for an item.' },

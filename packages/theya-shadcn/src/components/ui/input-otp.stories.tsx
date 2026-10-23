@@ -18,6 +18,12 @@ type Args = {
   containerClassName?: string;
 };
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   A segmented one-time-code field on input-otp: each character lands in its
+//   own slot, with an active focus ring and a blinking caret. Use for a 2FA
+//   token, an email/SMS verification code, or a recovery code. Always give it
+//   an accessible name and pair aria-invalid with a described, visible error.
 const meta: Meta<Args> = {
   title: 'Text Input/InputOTP',
   tags: ['autodocs'],
@@ -26,7 +32,7 @@ const meta: Meta<Args> = {
     docs: {
       description: {
         component:
-          'A segmented one-time-code field on input-otp: each character lands in its own slot, with an active focus ring and a blinking caret. Use for a 2FA token, an email/SMS verification code, or a recovery code. Always give it an accessible name and pair aria-invalid with a described, visible error.',
+          "A one-time code of known length from an SMS, an email or an authenticator app, one character per box.",
       },
     },
   },

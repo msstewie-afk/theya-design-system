@@ -9,7 +9,15 @@ const meta: Meta<typeof ScrollArea> = {
   title: 'Layout/ScrollArea',
   component: ScrollArea,
   tags: ['autodocs'],
-  parameters: { guidelines: scrollAreaGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A region that scrolls inside a fixed space — a list in a popover, a log, a long menu — with a thin scrollbar that takes no width.",
+      },
+    },
+    guidelines: scrollAreaGuidelines, layout: 'padded',
+  },
   argTypes: {
     type: {
       control: 'select',

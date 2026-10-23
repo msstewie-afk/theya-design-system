@@ -12,16 +12,18 @@ import {
   SidebarFooter,
 } from './sidebar';
 import { GuidelinesIntro, GuidelinesDetails } from '../../docs/guidelines';
+import { A11yStatus } from '../../docs/a11y';
 import { sidebarGuidelines } from './sidebar.guidelines';
 
 <Meta of={SidebarStories} />
 
 # Sidebar
 
-A collapsible app rail (224px → 64px). A composition primitive, not a single component: wrap
-your app in `SidebarProvider`, then render `Sidebar` alongside your main content and populate
-it from the parts below. On `md+` it's a sticky rail; below `md` it becomes a slide-over
-`Drawer`. Collapsed state persists in a cookie.
+App navigation people switch between all day: grouped destinations, counts and per-item actions. Collapses to an icon rail and becomes a slide-over panel on a phone.
+
+Sidebar is a family of parts: wrap your app in `SidebarProvider`, then render `Sidebar` next to
+your main content and fill it from the parts below. The rail is 224px wide, 64px collapsed, and
+remembers its state in a cookie.
 
 This page documents every part's own props — the autodocs table on a single-component page
 only covers one component, and Sidebar is a family of nine.
@@ -92,4 +94,4 @@ Pinned to the bottom of the rail — settings/support links, an account switcher
 
 <ArgTypes of={SidebarFooter} />
 
-<GuidelinesDetails guidelines={sidebarGuidelines} />
+<GuidelinesDetails guidelines={sidebarGuidelines} a11yStatus={<A11yStatus title="Navigation/Sidebar" />} />

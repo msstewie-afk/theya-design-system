@@ -167,7 +167,15 @@ const meta: Meta<typeof ChartRangeSelection> = {
   title: 'Charts/ChartRangeSelection',
   component: ChartRangeSelection,
   tags: ['autodocs'],
-  parameters: { guidelines: chartRangeSelectionGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Adds drag-to-select to a chart, with a keyboard path too: pick a span of the x-axis to zoom in or filter the data below.",
+      },
+    },
+    guidelines: chartRangeSelectionGuidelines, layout: 'padded',
+  },
   argTypes: {
     // `children`/`labels` are excluded from controls for the same reason
     // BarChart's `data` is: this Storybook 8.6.x setup crashes when a

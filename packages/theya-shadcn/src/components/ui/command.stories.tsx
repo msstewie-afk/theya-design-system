@@ -27,6 +27,10 @@ import { commandGuidelines } from './command.guidelines';
 // sub-component and Meta<typeof Command> alone can't see them.
 type CommandStoryArgs = React.ComponentProps<typeof Command> & Pick<CommandItemProps, 'icon' | 'toneIcon' | 'description' | 'breadcrumb'>;
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Not built on Base UI Autocomplete or cmdk — a self-contained inline list
+//   with our own filtering and keyboard nav (↑/↓/↵/Esc).
 const meta: Meta<CommandStoryArgs> = {
   title: 'Search & Filter/Command',
   tags: ['autodocs'],
@@ -34,7 +38,7 @@ const meta: Meta<CommandStoryArgs> = {
     guidelines: commandGuidelines,
     docs: {
       description: {
-        component: 'Not built on Base UI Autocomplete or cmdk — a self-contained inline list with our own filtering and keyboard nav (↑/↓/↵/Esc).',
+        component: "A ⌘K palette to jump to any page or run any action by typing, or a searchable list of actions inside a popover.",
       },
     },
   },

@@ -5,6 +5,13 @@ import { DatePicker } from './date-picker';
 import { Label } from './label';
 import { datePickerGuidelines } from './date-picker.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Single-date field composing a SelectTrigger-styled button + Popover +
+//   Calendar. Always carries an accessible name (a visible Label via
+//   id/htmlFor, or aria-label). Controlled with value/onChange, or
+//   uncontrolled with defaultValue. Pass calendarProps for min/max matchers
+//   etc.
 const meta: Meta<typeof DatePicker> = {
   title: 'Date & Time/DatePicker',
   component: DatePicker,
@@ -14,9 +21,7 @@ const meta: Meta<typeof DatePicker> = {
     docs: {
       description: {
         component:
-          'Single-date field composing a SelectTrigger-styled button + Popover + Calendar. Always carries an ' +
-          'accessible name (a visible Label via id/htmlFor, or aria-label). Controlled with value/onChange, or ' +
-          'uncontrolled with defaultValue. Pass calendarProps for min/max matchers etc.',
+          "One date people pick by looking at a month — a start date, a due date, a delivery day — with days that don’t fit the rules disabled.",
       },
     },
   },

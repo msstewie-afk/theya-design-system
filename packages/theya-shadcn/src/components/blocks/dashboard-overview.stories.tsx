@@ -6,7 +6,15 @@ const meta: Meta<typeof DashboardOverview> = {
   title: 'Patterns/DashboardOverview',
   component: DashboardOverview,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "The first screen of an account: what needs attention first, then the key numbers, request traffic, usage and recent activity.",
+      },
+    },
+    layout: 'fullscreen',
+  },
   argTypes: {
     title: { control: 'text', description: 'Page heading.', table: { category: 'Content' } },
     summary: { control: false, description: 'Subtitle line below the title.', table: { category: 'Content' } },

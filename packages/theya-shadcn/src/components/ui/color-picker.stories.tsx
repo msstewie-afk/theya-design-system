@@ -33,7 +33,15 @@ const meta = {
   title: 'Selection/ColorPicker',
   component: ColorPicker,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: colorPickerGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Picks any color, custom ones included: brand and theme colors, chart series. ColorField puts it into a form as a field with a swatch.",
+      },
+    },
+    layout: 'padded', guidelines: colorPickerGuidelines,
+  },
   argTypes: {
     value: { control: 'color', description: 'Hex color (#rrggbb, or #rrggbbaa with alpha).' },
     defaultValue: { control: 'text', description: 'Initial color when uncontrolled.' },

@@ -19,7 +19,15 @@ const meta: Meta<typeof HoverCard> = {
   title: 'Overlays/HoverCard',
   component: HoverCard,
   tags: ['autodocs'],
-  parameters: { guidelines: hoverCardGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A quick preview of what a link points to — a user, a site, a ticket — on hover or focus. People can always get the same by clicking.",
+      },
+    },
+    guidelines: hoverCardGuidelines, layout: 'centered',
+  },
   argTypes: {
     openDelay: { control: { type: 'number', min: 0, step: 100 }, description: 'Delay in ms before the card opens on hover.' },
     closeDelay: { control: { type: 'number', min: 0, step: 100 }, description: 'Delay in ms before the card closes after the pointer leaves.' },

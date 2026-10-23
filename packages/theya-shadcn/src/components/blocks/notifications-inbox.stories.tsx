@@ -22,7 +22,15 @@ const meta: Meta<typeof NotificationsInbox> = {
   title: 'Patterns/NotificationsInbox',
   component: NotificationsInbox,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A notifications center: All / Unread, filters by status and object, mark as read, and an undo when something is removed.",
+      },
+    },
+    layout: 'fullscreen',
+  },
   argTypes: {
     title: { control: 'text', description: 'Section heading (sentence case).', table: { category: 'Content' } },
     description: { control: 'text', description: 'Supporting copy under the title.', table: { category: 'Content' } },

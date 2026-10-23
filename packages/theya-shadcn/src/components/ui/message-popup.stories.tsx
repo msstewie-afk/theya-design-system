@@ -13,6 +13,12 @@ import { messagePopupGuidelines } from './message-popup.guidelines';
  * button, built on Popover. The trigger opens a fixed-width panel holding a
  * Chat transcript and a PromptArea.
  */
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   MessagePopup is a bare re-export of Popover (Root), so it has no props of
+//   its own beyond Popover's open/defaultOpen/onOpenChange/modal. Build the
+//   panel from MessagePopupTrigger/MessagePopupContent
+//   (title/description/showClose).
 const meta: Meta<typeof MessagePopup> = {
   title: 'Overlays/MessagePopup',
   component: MessagePopup,
@@ -23,7 +29,7 @@ const meta: Meta<typeof MessagePopup> = {
     docs: {
       description: {
         component:
-          'MessagePopup is a bare re-export of Popover (Root), so it has no props of its own beyond Popover\'s open/defaultOpen/onOpenChange/modal. Build the panel from MessagePopupTrigger/MessagePopupContent (title/description/showClose).',
+          "A help or AI assistant that opens in a corner while the page stays usable beside it.",
       },
     },
   },

@@ -4,6 +4,12 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 import { Checkbox } from './checkbox';
 import { checkboxGuidelines } from './checkbox.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   A box people tick to turn one option on or off, or to pick several from a
+//   list. Built on Radix Checkbox (a real `<button role="checkbox">`), so
+//   `checked` can also be `"indeterminate"` — for a parent whose items are
+//   partly selected.
 const meta: Meta<typeof Checkbox> = {
   title: 'Selection/Checkbox',
   component: Checkbox,
@@ -13,9 +19,7 @@ const meta: Meta<typeof Checkbox> = {
     docs: {
       description: {
         component:
-          'A box people tick to turn one option on or off, or to pick several from a list. ' +
-          'Built on Radix Checkbox (a real `<button role="checkbox">`), so `checked` can also be ' +
-          '`"indeterminate"` — for a parent whose items are partly selected.',
+          "Turns one option on or off, or picks several from a list; the choice applies when the form is saved. A parent box can be partly checked.",
       },
     },
   },

@@ -16,7 +16,15 @@ const meta: Meta<typeof ToneIcon> = {
   title: 'Labels/ToneIcon',
   component: ToneIcon,
   tags: ['autodocs'],
-  parameters: { guidelines: toneIconGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "An icon on a tinted shape that leads a row or a card whose meaning is a tone — warning, success, info. Fill, shape and color together, so it still reads in grayscale.",
+      },
+    },
+    guidelines: toneIconGuidelines, layout: 'centered',
+  },
   argTypes: {
     tone: {
       control: 'select',

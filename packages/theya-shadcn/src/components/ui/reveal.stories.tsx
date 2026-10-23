@@ -13,7 +13,15 @@ const meta = {
   title: 'Motion/Reveal',
   component: Reveal,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: revealGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Content that eases in the first time it scrolls into view, on landing and marketing pages. With reduced motion it is simply there.",
+      },
+    },
+    layout: 'padded', guidelines: revealGuidelines,
+  },
   argTypes: {
     effect: { control: 'inline-radio', options: ['rise', 'fade', 'scale', 'blur'], description: 'How the content enters.' },
     delay: { control: 'number', description: 'Wait this long (ms) after it comes into view.' },

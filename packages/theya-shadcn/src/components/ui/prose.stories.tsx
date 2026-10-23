@@ -18,7 +18,15 @@ const meta = {
   title: 'Layout/Prose',
   component: Prose,
   tags: ['autodocs'],
-  parameters: { guidelines: proseGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Typography for long text Theya doesn’t lay out itself: help articles, changelogs, legal pages, rendered Markdown. Plain HTML inside gets the type scale, colors and spacing.",
+      },
+    },
+    guidelines: proseGuidelines, layout: 'padded',
+  },
   argTypes: {
     size: {
       control: 'inline-radio',

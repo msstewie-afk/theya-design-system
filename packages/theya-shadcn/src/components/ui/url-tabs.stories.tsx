@@ -4,6 +4,10 @@ import { UrlTabs } from './url-tabs';
 import { TabsList, TabsTrigger, TabsContent } from './tabs';
 import { urlTabsGuidelines } from './url-tabs.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Keeps a Tabs value in a URL query param (?tab=...) via the History API by
+//   default. Framework-agnostic.
 const meta: Meta<typeof UrlTabs> = {
   title: 'Navigation/UrlTabs',
   component: UrlTabs,
@@ -12,7 +16,7 @@ const meta: Meta<typeof UrlTabs> = {
     guidelines: urlTabsGuidelines,
     docs: {
       description: {
-        component: 'Keeps a Tabs value in a URL query param (?tab=...) via the History API by default. Framework-agnostic.',
+        component: "Tabs people link to, share or come back to after a reload: the tab is kept in the page address.",
       },
     },
   },

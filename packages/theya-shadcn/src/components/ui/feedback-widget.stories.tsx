@@ -14,7 +14,15 @@ const meta = {
   title: 'Status & Feedback/FeedbackWidget',
   component: FeedbackWidget,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: feedbackWidgetGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "“Was this helpful?” at the end of a help article or an AI answer, with an optional follow-up after “No”.",
+      },
+    },
+    layout: 'padded', guidelines: feedbackWidgetGuidelines,
+  },
   argTypes: {
     question: { control: 'text', table: { category: 'Content' } },
     askOnPositive: { control: 'boolean', description: 'Also ask a follow-up after Yes.', table: { category: 'Behavior' } },

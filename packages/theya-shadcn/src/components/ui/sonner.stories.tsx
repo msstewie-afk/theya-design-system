@@ -25,12 +25,21 @@ import { toasterGuidelines } from './sonner.guidelines';
  * glance. A `filled`/`danger` button next to an unrelated `success` toast
  * was a real mismatch fixed in this file.
  */
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Mount <Toaster /> once near the app root (already done globally for this
+//   Storybook), then trigger toasts with `toast` from this module.
 const meta: Meta = {
   title: 'Status & Feedback/Toaster',
   tags: ['autodocs'],
   parameters: {
     guidelines: toasterGuidelines,
-    docs: { description: { component: 'Mount <Toaster /> once near the app root (already done globally for this Storybook), then trigger toasts with `toast` from this module.' } },
+    docs: {
+      description: {
+        component:
+          "Short feedback on an action just taken — saved, sent, copied, failed — and the progress or result of a task running in the background.",
+      },
+    },
   },
   argTypes: {
     dark: {

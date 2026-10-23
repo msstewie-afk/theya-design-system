@@ -14,7 +14,15 @@ const meta = {
   title: 'Status & Feedback/Meter',
   component: Meter,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', guidelines: meterGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "How full something is within a known range: disk, memory, a quota, seats used — or a score, also as segments.",
+      },
+    },
+    layout: 'centered', guidelines: meterGuidelines,
+  },
   decorators: [
     (Story) => (
       <div className="w-full max-w-[340px] max-w-full">

@@ -7,7 +7,15 @@ import { dropzoneGuidelines } from './dropzone.guidelines';
 const meta: Meta<typeof Dropzone> = {
   title: 'Files/Dropzone',
   tags: ['autodocs'],
-  parameters: { guidelines: dropzoneGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Uploading files by dragging them from the desktop or browsing for them, with what’s staged, uploading and done shown below.",
+      },
+    },
+    guidelines: dropzoneGuidelines,
+  },
   argTypes: {
     'aria-label': { control: 'text', description: 'Accessible name for the drop zone.', table: { category: 'Content' } },
     hint: { control: 'text', description: 'Helper text shown below the drag/browse prompt.', table: { category: 'Content' } },

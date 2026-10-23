@@ -4,6 +4,11 @@ import { Trash, Mail } from 'iconoir-react';
 import { toast } from '../ui/sonner';
 import { ListView } from './list-view';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   A reusable list/index screen: DataTable + DataTableToolbar wired to
+//   search, FilterField-based facets and bulk actions, plus a per-row actions
+//   menu.
 const meta: Meta<typeof ListView> = {
   title: 'Patterns/ListView',
   component: ListView,
@@ -12,7 +17,7 @@ const meta: Meta<typeof ListView> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'A reusable list/index screen: DataTable + DataTableToolbar wired to search, FilterField-based facets and bulk actions, plus a per-row actions menu.',
+        component: "A list screen for many records: a table with search, filters and bulk actions, and a menu of actions on every row.",
       },
     },
   },

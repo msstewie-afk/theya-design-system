@@ -15,7 +15,15 @@ const meta: Meta<typeof Message> = {
   title: 'AI & Chat/Message',
   component: Message,
   tags: ['autodocs'],
-  parameters: { guidelines: messageGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "One turn in a conversation: received on the left, sent on the right, with an author and time when they help. The body can hold text, an attachment or any content.",
+      },
+    },
+    guidelines: messageGuidelines, layout: 'padded',
+  },
   argTypes: {
     variant: { control: 'inline-radio', options: ['received', 'sent'], description: 'Message direction.' },
     appearance: { control: 'inline-radio', options: ['filled', 'tonal'], description: 'Only affects variant="sent": filled (solid primary) or tonal (primary-subtle).' },

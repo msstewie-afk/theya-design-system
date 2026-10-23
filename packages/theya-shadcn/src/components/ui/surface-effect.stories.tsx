@@ -8,7 +8,15 @@ const meta = {
   title: 'Motion/SurfaceEffect',
   component: SurfaceEffect,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: surfaceEffectGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Decorative effects for landing-page cards — a glow under the pointer, a light running round the border, a tilt — and Aurora, a drifting color field behind a hero.",
+      },
+    },
+    layout: 'padded', guidelines: surfaceEffectGuidelines,
+  },
   argTypes: { effect: { control: 'inline-radio', options: ['spotlight', 'beam', 'tilt', 'shine', 'lift'] }, children: { control: false } },
   args: { effect: 'spotlight' },
 } satisfies Meta<typeof SurfaceEffect>;

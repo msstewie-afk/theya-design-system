@@ -14,7 +14,15 @@ const meta = {
   title: 'Status & Feedback/SuccessCheck',
   component: SuccessCheck,
   tags: ['autodocs'],
-  parameters: { guidelines: successCheckGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A success icon that draws itself once, ring then tick, at the moment something succeeds. Always next to text that says what succeeded.",
+      },
+    },
+    guidelines: successCheckGuidelines, layout: 'centered',
+  },
   argTypes: {
     className: { control: false, description: 'Size and colour, like any icon (e.g. size-5 text-[var(--color-icon-icon-success)]).' },
   },

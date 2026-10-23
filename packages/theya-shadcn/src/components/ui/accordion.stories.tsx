@@ -7,7 +7,15 @@ const meta: Meta<typeof Accordion> = {
   title: 'Layout/Accordion',
   component: Accordion,
   tags: ['autodocs'],
-  parameters: { guidelines: accordionGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Sections people scan by heading and open one or two of: FAQs, settings groups, long details.",
+      },
+    },
+    guidelines: accordionGuidelines,
+  },
   argTypes: {
     type: {
       control: 'select',

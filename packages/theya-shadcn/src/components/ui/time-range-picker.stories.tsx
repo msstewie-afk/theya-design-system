@@ -5,6 +5,11 @@ import { TimeRangePicker, type TimeRange } from './time-range-picker';
 import { Label } from './label';
 import { timeRangePickerGuidelines } from './time-range-picker.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   A start + end time pair, two TimeFields with a "to" separator. The end
+//   field’s earliest option follows the chosen start, so you cannot pick an
+//   end before the start.
 const meta: Meta<typeof TimeRangePicker> = {
   title: 'Date & Time/TimeRangePicker',
   component: TimeRangePicker,
@@ -14,8 +19,7 @@ const meta: Meta<typeof TimeRangePicker> = {
     docs: {
       description: {
         component:
-          'A start + end time pair, two TimeFields with a "to" separator. The end field\u2019s earliest option ' +
-          'follows the chosen start, so you cannot pick an end before the start.',
+          "A start and end time within one day: opening hours, a maintenance window, quiet hours. The end can’t be earlier than the start.",
       },
     },
   },

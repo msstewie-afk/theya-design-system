@@ -5,6 +5,10 @@ import { TimeField } from './time-field';
 import { Label } from './label';
 import { timeFieldGuidelines } from './time-field.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   A time picker built on Combobox with allowCreate — type a time off the
+//   step grid and it commits directly.
 const meta: Meta<typeof TimeField> = {
   title: 'Date & Time/TimeField',
   component: TimeField,
@@ -13,7 +17,7 @@ const meta: Meta<typeof TimeField> = {
     guidelines: timeFieldGuidelines,
     docs: {
       description: {
-        component: 'A time picker built on Combobox with allowCreate — type a time off the step grid and it commits directly.',
+        component: "A time of day — a daily backup, a meeting start, a reminder — picked from a list or typed.",
       },
     },
   },

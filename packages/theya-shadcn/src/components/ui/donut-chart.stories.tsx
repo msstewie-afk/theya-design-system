@@ -20,7 +20,15 @@ const meta = {
   title: 'Charts/DonutChart',
   component: DonutChart,
   tags: ['autodocs'],
-  parameters: { guidelines: donutChartGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Shows the parts of one whole, up to seven slices, with the total in the center. The legend repeats every name, value and percent, so color is never the only cue.",
+      },
+    },
+    guidelines: donutChartGuidelines, layout: 'padded',
+  },
   argTypes: {
     data: { control: false, description: '{ label, value } slices (up to 7).' },
     height: { control: { type: 'number' }, description: 'Ring area height in px (width is fluid).' },

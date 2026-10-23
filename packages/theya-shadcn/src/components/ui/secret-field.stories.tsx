@@ -3,13 +3,22 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { SecretField } from './secret-field';
 import { secretFieldGuidelines } from './secret-field.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Masked by default: ten bullets plus the last 4 chars, value kept out of
+//   the DOM until revealed. Copy confirms via a sonner toast.
 const meta: Meta<typeof SecretField> = {
   title: 'Text Input/SecretField',
   component: SecretField,
   tags: ['autodocs'],
   parameters: {
     guidelines: secretFieldGuidelines,
-    docs: { description: { component: 'Masked by default: ten bullets plus the last 4 chars, value kept out of the DOM until revealed. Copy confirms via a sonner toast.' } },
+    docs: {
+      description: {
+        component:
+          "Shows a secret people need to copy — an API key, a token, a recovery code — hidden until they reveal it.",
+      },
+    },
   },
   argTypes: {
     copyToastTitle: { control: 'text', description: 'Title of the copy-success toast.', table: { category: 'Content' } },

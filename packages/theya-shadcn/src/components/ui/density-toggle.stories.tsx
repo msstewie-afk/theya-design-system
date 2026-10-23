@@ -8,6 +8,12 @@ import { DensityToggle } from './density-toggle';
 import type { Density } from './use-density';
 import { densityToggleGuidelines } from './density-toggle.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Compact / default / comfortable. Uncontrolled it sets data-density on
+//   <html>; controlled (value + onValueChange) it only reports the choice, for
+//   one region. Density resizes controls one step along the size ramp, table
+//   rows and menu items — see DENSITY.md.
 const meta: Meta<typeof DensityToggle> = {
   title: 'Actions/DensityToggle',
   component: DensityToggle,
@@ -17,7 +23,7 @@ const meta: Meta<typeof DensityToggle> = {
     docs: {
       description: {
         component:
-          'Compact / default / comfortable. Uncontrolled it sets data-density on <html>; controlled (value + onValueChange) it only reports the choice, for one region. Density resizes controls one step along the size ramp, table rows and menu items — see DENSITY.md.',
+          "Lets people choose how tight the interface is: compact, default or comfortable. One option is always on.",
       },
     },
   },

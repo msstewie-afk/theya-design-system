@@ -77,7 +77,15 @@ const meta = {
   title: 'Code/DiffViewer',
   component: DiffViewer,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: diffViewerGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Shows what changed between two versions before people apply it: a config, a template, a file restored from backup.",
+      },
+    },
+    layout: 'padded', guidelines: diffViewerGuidelines,
+  },
   argTypes: {
     oldValue: { control: 'text', description: 'Original text.' },
     newValue: { control: 'text', description: 'Changed text.' },

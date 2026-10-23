@@ -13,7 +13,15 @@ const meta: Meta<typeof Sparkline> = {
   title: 'Charts/Sparkline',
   component: Sparkline,
   tags: ['autodocs'],
-  parameters: { guidelines: sparklineGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A tiny trend line without axes, next to the number it belongs to: in a stat card, a table cell or a list row.",
+      },
+    },
+    guidelines: sparklineGuidelines, layout: 'centered',
+  },
   argTypes: {
     data: { control: false, description: 'Ordered values to plot.' },
     tone: {

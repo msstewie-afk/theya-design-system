@@ -102,7 +102,15 @@ const meta = {
   title: 'Data/Kanban',
   component: Kanban,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: kanbanGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Work moving through stages — tickets, a deploy pipeline, content review — with cards people drag between columns and optional limits per column.",
+      },
+    },
+    layout: 'padded', guidelines: kanbanGuidelines,
+  },
   argTypes: {
     columns: { control: false, description: 'id, title, tone (status dot), limit (soft WIP limit).' },
     items: { control: false, description: 'Flat array; each item has columnId, order = array order.' },

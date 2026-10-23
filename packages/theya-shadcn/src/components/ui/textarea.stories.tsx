@@ -3,6 +3,11 @@ import { expect, within } from '@storybook/test';
 import { TextArea } from './textarea';
 import { textareaGuidelines } from './textarea.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Multi-line text input, vertically resizable. Shares
+//   border/focus/error/disabled/read-only treatment with TextField (no success
+//   state, no left/right icons here).
 const meta: Meta<typeof TextArea> = {
   title: 'Text Input/TextArea',
   component: TextArea,
@@ -13,8 +18,7 @@ const meta: Meta<typeof TextArea> = {
     docs: {
       description: {
         component:
-          'Multi-line text input, vertically resizable. Shares border/focus/error/disabled/read-only ' +
-          'treatment with TextField (no success state, no left/right icons here).',
+          "Text that can run to several lines: a description, a message, notes, a list with one item per line.",
       },
     },
   },

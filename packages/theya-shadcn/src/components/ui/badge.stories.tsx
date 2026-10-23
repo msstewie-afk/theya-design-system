@@ -15,7 +15,15 @@ const meta = {
   title: 'Labels/Badge',
   component: Badge,
   tags: ['autodocs'],
-  parameters: { guidelines: badgeGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A short label attached to something: a status (“Active”, “Expired”), a stage (“Beta”) or a count. It isn’t clickable; for a selectable value, use Chip.",
+      },
+    },
+    guidelines: badgeGuidelines, layout: 'centered',
+  },
   argTypes: {
     tone: {
       control: 'select',

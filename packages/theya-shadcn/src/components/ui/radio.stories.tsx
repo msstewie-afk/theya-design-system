@@ -13,6 +13,9 @@ async function pressArrow(key: 'ArrowDown' | 'ArrowUp', target: () => HTMLElemen
 import { RadioGroup, Radio } from './radio';
 import { radioGuidelines } from './radio.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Built on Radix RadioGroup. Wrap `Radio` items in `RadioGroup`.
 const meta: Meta<typeof Radio> = {
   title: 'Selection/Radio',
   component: Radio,
@@ -20,7 +23,7 @@ const meta: Meta<typeof Radio> = {
   parameters: {
     guidelines: radioGuidelines,
     docs: {
-      description: { component: 'Built on Radix RadioGroup. Wrap `Radio` items in `RadioGroup`.' },
+      description: { component: "Picks exactly one of 2–5 options, all visible so people can compare them, with a line of explanation under each when the difference needs it." },
     },
   },
   argTypes: {

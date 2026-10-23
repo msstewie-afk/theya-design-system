@@ -8,7 +8,15 @@ const meta = {
   title: 'Motion/Marquee',
   component: Marquee,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: marqueeGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "An endless strip of logos or short quotes on a landing page. It pauses on hover, on focus and with its own button.",
+      },
+    },
+    layout: 'padded', guidelines: marqueeGuidelines,
+  },
   argTypes: {
     duration: { control: 'number', description: 'Seconds for one loop.' },
     reverse: { control: 'boolean', description: 'Run against the reading direction.' },

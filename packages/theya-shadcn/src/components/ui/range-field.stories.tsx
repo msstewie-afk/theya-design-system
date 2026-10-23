@@ -15,7 +15,15 @@ const meta = {
   title: 'Selection/RangeField',
   component: RangeField,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: rangeFieldGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A numeric range people set roughly with two thumbs or exactly in From / To fields: a price filter, a size, a response time.",
+      },
+    },
+    layout: 'padded', guidelines: rangeFieldGuidelines,
+  },
   argTypes: {
     label: { control: 'text', table: { category: 'Content' } },
     description: { control: 'text', table: { category: 'Content' } },

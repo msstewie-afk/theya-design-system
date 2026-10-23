@@ -22,7 +22,15 @@ const meta = {
   title: 'Status & Feedback/EmptyState',
   component: EmptyState,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: emptyStateGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Fills a list, table or section that has nothing in it yet: says what will appear and how to start, or, after a search, that nothing matched.",
+      },
+    },
+    layout: 'padded', guidelines: emptyStateGuidelines,
+  },
   argTypes: {
     title: { control: 'text', description: 'Heading text — carries the accessible meaning.' },
     description: { control: 'text', description: 'Optional supporting copy below the title.' },

@@ -12,7 +12,15 @@ const meta = {
   title: 'Navigation/Link',
   component: Link,
   tags: ['autodocs'],
-  parameters: { guidelines: linkGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Text that takes people somewhere: another page, a section, a document, an external site. Inside a sentence it takes the size of the text around it.",
+      },
+    },
+    guidelines: linkGuidelines, layout: 'centered',
+  },
   argTypes: {
     size: {
       control: 'select',

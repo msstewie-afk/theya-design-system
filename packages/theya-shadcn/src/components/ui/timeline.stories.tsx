@@ -22,7 +22,15 @@ const meta: Meta<typeof Timeline> = {
   title: 'Data/Timeline',
   component: Timeline,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: timelineGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Events in order, newest first: activity on a site, the history of an incident, the progress of an order.",
+      },
+    },
+    layout: 'padded', guidelines: timelineGuidelines,
+  },
   argTypes: {
     'aria-label': {
       control: 'text',

@@ -9,6 +9,12 @@ import { DataTableCell } from './data-table-cell';
 import type { StatusTone } from './status-dot';
 import { dataTableGuidelines } from './data-table.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   A TanStack-react-table wrapper — sorting, pagination, row selection,
+//   synchronized overflow/context row menus, pinned columns, a first-load
+//   skeleton, and the accessible whole-row stretched-link pattern. The largest
+//   single build of the session, alongside DataTableCell and DataTableToolbar.
 const meta: Meta<typeof DataTable> = {
   title: 'Data/DataTable',
   component: DataTable,
@@ -18,7 +24,7 @@ const meta: Meta<typeof DataTable> = {
     docs: {
       description: {
         component:
-          'A TanStack-react-table wrapper — sorting, pagination, row selection, synchronized overflow/context row menus, pinned columns, a first-load skeleton, and the accessible whole-row stretched-link pattern. The largest single build of the session, alongside DataTableCell and DataTableToolbar.',
+          "Records people scan, sort, filter, select and act on: sites, domains, invoices, users. Rows can open a detail page or carry their own actions.",
       },
     },
   },

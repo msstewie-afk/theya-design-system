@@ -12,7 +12,15 @@ const meta = {
   title: 'AI & Chat/HoldToTalk',
   component: HoldToTalk,
   tags: ['autodocs'],
-  parameters: { guidelines: holdToTalkGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Push-to-talk for a prompt: hold to speak, release to send, slide away or press Escape to cancel. It shows the state; the recording itself is up to the app.",
+      },
+    },
+    guidelines: holdToTalkGuidelines, layout: 'centered',
+  },
   argTypes: {
     label: { control: 'text', description: 'Accessible name. Default “Hold to talk”.' },
     disabled: { control: 'boolean' },

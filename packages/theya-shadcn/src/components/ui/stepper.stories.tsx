@@ -7,7 +7,15 @@ const meta: Meta<typeof Stepper> = {
   title: 'Navigation/Stepper',
   component: Stepper,
   tags: ['autodocs'],
-  parameters: { guidelines: stepperGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Shows a process done in order over several screens — onboarding, checkout, a setup wizard — and which step people are on.",
+      },
+    },
+    guidelines: stepperGuidelines,
+  },
   argTypes: {
     steps: { control: false, description: 'Ordered list of { label, description } steps.' },
     current: { control: { type: 'number', min: 0 }, description: '0-based index of the in-progress step.' },

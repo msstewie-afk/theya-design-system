@@ -23,7 +23,15 @@ const meta: Meta<typeof HelpIcon> = {
   title: 'Labels/HelpIcon',
   component: HelpIcon,
   tags: ['autodocs'],
-  parameters: { guidelines: helpIconGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A question mark next to a label, a column header or a number that shows one line of explanation on hover, focus or tap.",
+      },
+    },
+    guidelines: helpIconGuidelines, layout: 'centered',
+  },
   argTypes: {
     children: { control: 'text', description: 'The hint text shown in the tooltip.' },
     label: {

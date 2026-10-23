@@ -6,6 +6,12 @@ import { DateRangePicker } from './date-range-picker';
 import { Label } from './label';
 import { dateRangePickerGuidelines } from './date-range-picker.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Start/end date field composing a SelectTrigger-styled button + Popover + a
+//   range Calendar. Stays open through selection (a range needs two clicks);
+//   two months show by default and stack below md. For a single date use
+//   DatePicker; for an always-visible grid use Calendar.
 const meta: Meta<typeof DateRangePicker> = {
   title: 'Date & Time/DateRangePicker',
   component: DateRangePicker,
@@ -15,9 +21,7 @@ const meta: Meta<typeof DateRangePicker> = {
     docs: {
       description: {
         component:
-          'Start/end date field composing a SelectTrigger-styled button + Popover + a range Calendar. Stays open ' +
-          'through selection (a range needs two clicks); two months show by default and stack below md. For a ' +
-          'single date use DatePicker; for an always-visible grid use Calendar.',
+          "A start and an end date picked together — a report period, a booking, a filter — so people see the length of the span while choosing.",
       },
     },
   },

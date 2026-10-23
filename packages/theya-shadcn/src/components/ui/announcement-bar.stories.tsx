@@ -16,7 +16,15 @@ const meta = {
   title: 'Status & Feedback/AnnouncementBar',
   component: AnnouncementBar,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen', guidelines: announcementBarGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A full-width strip above the header for something that concerns everyone on every page: planned maintenance, an incident, a policy change.",
+      },
+    },
+    layout: 'fullscreen', guidelines: announcementBarGuidelines,
+  },
   argTypes: {
     tone: { control: 'inline-radio', options: ['primary', 'neutral', 'info', 'success', 'warning', 'danger'], table: { category: 'Appearance' } },
     appearance: { control: 'inline-radio', options: ['filled', 'tonal'], table: { category: 'Appearance' } },

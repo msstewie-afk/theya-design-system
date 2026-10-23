@@ -12,6 +12,13 @@ import { PromptSuggestions } from './prompt-suggestions';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './dropdown-menu';
 import { promptAreaGuidelines } from './prompt-area.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   The composer for a chat / AI assistant — an auto-growing textarea with a
+//   send button. Enter submits, Shift+Enter adds a newline. Includes a real
+//   Stop while busy, a character limit that blocks sending, drag/drop and
+//   paste attachments (validated against accept/maxFileSize), leading/trailing
+//   tool slots, and "@" / "/" menus that insert plain text.
 const meta: Meta<typeof PromptArea> = {
   title: 'AI & Chat/PromptArea',
   component: PromptArea,
@@ -21,7 +28,7 @@ const meta: Meta<typeof PromptArea> = {
     docs: {
       description: {
         component:
-          'The composer for a chat / AI assistant — an auto-growing textarea with a send button. Enter submits, Shift+Enter adds a newline. Includes a real Stop while busy, a character limit that blocks sending, drag/drop and paste attachments (validated against accept/maxFileSize), leading/trailing tool slots, and "@" / "/" menus that insert plain text.',
+          "The composer of a chat or AI assistant: a field that grows as people type, Send and Stop, attachments, @mentions and /commands. Enter sends, Shift+Enter starts a new line.",
       },
     },
   },

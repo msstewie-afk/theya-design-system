@@ -3,6 +3,10 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { ThemeToggle } from './theme-toggle';
 import { themeToggleGuidelines } from './theme-toggle.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Toggles data-theme="dark" on <html>, matching Theya’s existing dark-theme
+//   convention.
 const meta: Meta<typeof ThemeToggle> = {
   title: 'Actions/ThemeToggle',
   component: ThemeToggle,
@@ -11,7 +15,7 @@ const meta: Meta<typeof ThemeToggle> = {
     guidelines: themeToggleGuidelines,
     docs: {
       description: {
-        component: 'Toggles data-theme="dark" on <html>, matching Theya\u2019s existing dark-theme convention.',
+        component: "A quick switch between the light and dark theme, for the top bar.",
       },
     },
   },

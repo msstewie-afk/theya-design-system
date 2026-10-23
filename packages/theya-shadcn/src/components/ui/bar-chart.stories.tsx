@@ -30,7 +30,15 @@ const meta = {
   title: 'Charts/BarChart',
   component: BarChart,
   tags: ['autodocs'],
-  parameters: { guidelines: barChartGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Compares one value across categories: load by region, deploys per day, tickets per team. Horizontal for a ranked list with long labels.",
+      },
+    },
+    guidelines: barChartGuidelines, layout: 'padded',
+  },
   argTypes: {
     // `data` is intentionally NOT a controllable arg: Storybook freezes args
     // after the first render, and re-running its args-enhancers/spy-wrapping

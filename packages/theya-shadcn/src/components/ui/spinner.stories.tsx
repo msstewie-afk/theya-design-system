@@ -11,7 +11,15 @@ const meta = {
   title: 'Status & Feedback/Spinner',
   component: Spinner,
   tags: ['autodocs'],
-  parameters: { guidelines: spinnerGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A short wait inside a control or a small area: a button that is saving, a list that is loading.",
+      },
+    },
+    guidelines: spinnerGuidelines, layout: 'centered',
+  },
   argTypes: {
     className: { control: false, description: 'Size and colour, like an icon (size-4 text-[var(--color-icon-icon-primary)]).' },
   },

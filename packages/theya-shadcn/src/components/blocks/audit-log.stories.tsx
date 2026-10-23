@@ -6,7 +6,15 @@ const meta: Meta<typeof AuditLog> = {
   title: 'Patterns/AuditLog',
   component: AuditLog,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Who did what, and when: an activity feed with search, filters by category and date, and an empty state that tells a filtered result from no events at all.",
+      },
+    },
+    layout: 'fullscreen',
+  },
   argTypes: {
     title: { control: 'text', description: 'Section heading.', table: { category: 'Content' } },
     description: { control: 'text', description: 'Supporting copy under the title.', table: { category: 'Content' } },

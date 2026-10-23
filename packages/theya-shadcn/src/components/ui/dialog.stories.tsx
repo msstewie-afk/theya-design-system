@@ -23,7 +23,15 @@ const meta: Meta<typeof Dialog> = {
   title: 'Overlays/Dialog',
   component: Dialog,
   tags: ['autodocs'],
-  parameters: { guidelines: dialogGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A short, focused task that needs an answer before going on — rename, invite, a form of a few fields — without leaving the page.",
+      },
+    },
+    guidelines: dialogGuidelines,
+  },
   argTypes: {
     open: { control: false, description: 'Controlled open state.' },
     defaultOpen: { control: false, description: 'Uncontrolled initial open state.' },

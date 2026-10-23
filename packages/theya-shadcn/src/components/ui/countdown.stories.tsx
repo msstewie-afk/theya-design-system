@@ -18,7 +18,15 @@ const meta = {
   component: Countdown,
   tags: ['autodocs'],
   // Live digits change every run — the visual test masks them, the layout is still compared.
-  parameters: { layout: 'padded', guidelines: countdownGuidelines, visual: { mask: ['[role="timer"]'] } },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Time left until a deadline that matters: a trial ending, maintenance starting, “resend the code in 0:42”.",
+      },
+    },
+    layout: 'padded', guidelines: countdownGuidelines, visual: { mask: ['[role="timer"]'] },
+  },
   argTypes: {
     to: { control: false, description: 'Deadline: a Date, an ISO string or a timestamp in ms.' },
     appearance: { control: 'inline-radio', options: ['inline', 'blocks'], description: 'Inline text or one tile per unit.' },

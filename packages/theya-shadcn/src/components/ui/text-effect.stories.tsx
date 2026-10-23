@@ -8,7 +8,15 @@ const meta = {
   title: 'Motion/TextEffect',
   component: TextEffect,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: textEffectGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Animated headline text for landing pages: letters rising in, a code-like reveal, a soft shimmer, rotating phrases.",
+      },
+    },
+    layout: 'padded', guidelines: textEffectGuidelines,
+  },
   argTypes: {
     effect: { control: 'inline-radio', options: ['split', 'scramble', 'shimmer', 'typewriter'] },
     trigger: { control: 'inline-radio', options: ['view', 'hover', 'mount'], description: 'When split / scramble start.' },

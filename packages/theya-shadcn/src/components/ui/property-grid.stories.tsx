@@ -8,7 +8,15 @@ const meta: Meta<typeof PropertyGrid> = {
   title: 'Form Structure/PropertyGrid',
   component: PropertyGrid,
   tags: ['autodocs'],
-  parameters: { guidelines: propertyGridGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Views and edits the properties of one object in a compact two-column list: an inspector panel, a resource’s settings, a selected item’s details.",
+      },
+    },
+    guidelines: propertyGridGuidelines,
+  },
   argTypes: {
     items: { control: false, description: 'Row schema — name/label/type/options/placeholder/description/readOnly/render drive which control renders per row.' },
     defaultValues: { control: false, description: 'Initial values keyed by item name (uncontrolled).' },

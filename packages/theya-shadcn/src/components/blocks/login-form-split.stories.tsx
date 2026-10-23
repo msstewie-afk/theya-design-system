@@ -11,7 +11,15 @@ const meta: Meta<typeof LoginFormSplit> = {
   title: 'Patterns/LoginFormSplit',
   component: LoginFormSplit,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "The wide sign-in page in two columns: images with a tagline on one side, the sign-in form on the other. On a phone only the form remains.",
+      },
+    },
+    layout: 'padded',
+  },
   argTypes: {
     slides: {
       control: false,

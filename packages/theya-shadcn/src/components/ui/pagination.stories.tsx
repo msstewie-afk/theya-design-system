@@ -4,6 +4,11 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationEllipsis } from './pagination';
 import { paginationGuidelines } from './pagination.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Compositional — Pagination itself (<nav>) takes no custom props. Build the
+//   row from PaginationContent/PaginationItem/PaginationLink (isActive, size)
+//   /PaginationPrevious/PaginationNext/PaginationEllipsis.
 const meta: Meta<typeof Pagination> = {
   title: 'Navigation/Pagination',
   component: Pagination,
@@ -13,7 +18,7 @@ const meta: Meta<typeof Pagination> = {
     docs: {
       description: {
         component:
-          'Compositional — Pagination itself (<nav>) takes no custom props. Build the row from PaginationContent/PaginationItem/PaginationLink (isActive, size) /PaginationPrevious/PaginationNext/PaginationEllipsis.',
+          "Splits a long list or table into pages people jump between — search results, logs, invoices — and shows where they are.",
       },
     },
   },

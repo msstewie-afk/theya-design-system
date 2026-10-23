@@ -19,7 +19,15 @@ const meta: Meta<typeof TooltipContent> = {
   title: 'Overlays/Tooltip',
   component: TooltipContent,
   tags: ['autodocs'],
-  parameters: { guidelines: tooltipGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Names an icon-only control or adds a short hint to something focusable, on hover and focus. It repeats what is already there; never the only place for information.",
+      },
+    },
+    guidelines: tooltipGuidelines, layout: 'centered',
+  },
   argTypes: {
     side: {
       control: 'select',

@@ -35,7 +35,15 @@ const meta = {
   title: 'Text Input/RichTextEditor',
   component: RichTextEditor,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: richTextEditorGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Text that is published or sent with formatting: announcements, product descriptions, email templates. A smaller toolbar for replies and comments.",
+      },
+    },
+    layout: 'padded', guidelines: richTextEditorGuidelines,
+  },
   argTypes: {
     value: { control: false, description: 'HTML (controlled).' },
     defaultValue: { control: false, description: 'Initial HTML.' },

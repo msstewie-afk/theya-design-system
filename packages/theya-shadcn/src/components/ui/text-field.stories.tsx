@@ -8,6 +8,12 @@ type IconName = keyof typeof iconMap;
 import { TextField } from './text-field';
 import { textFieldGuidelines } from './text-field.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   A single-line text input with its label, helper text and error or success
+//   message. Height comes from `heightSize` (sm 32 · md 40 · lg 48 px) and
+//   width from `widthSize`; the label sits above the field or, with
+//   `labelPosition="left"`, beside it.
 const meta: Meta<typeof TextField> = {
   title: 'Text Input/TextField',
   component: TextField,
@@ -18,9 +24,7 @@ const meta: Meta<typeof TextField> = {
     docs: {
       description: {
         component:
-          'A single-line text input with its label, helper text and error or success message. ' +
-          'Height comes from `heightSize` (sm 32 · md 40 · lg 48 px) and width from `widthSize`; ' +
-          'the label sits above the field or, with `labelPosition="left"`, beside it.',
+          "Short free text on one line — a name, an email, a domain, a code — always with a visible label, plus help text and an error or success message.",
       },
     },
   },

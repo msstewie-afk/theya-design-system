@@ -15,7 +15,15 @@ const meta: Meta<typeof PageHeader> = {
   title: 'Layout/PageHeader',
   component: PageHeader,
   tags: ['autodocs'],
-  parameters: { guidelines: pageHeaderGuidelines, layout: 'padded' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "The top of a page or a large section: the title, a line of description and the page’s main action.",
+      },
+    },
+    guidelines: pageHeaderGuidelines, layout: 'padded',
+  },
   argTypes: {
     title: { control: 'text', description: 'Page heading text.' },
     description: { control: 'text', description: "Supporting line below the title. Capped at 540px so a long line wraps for readability." },

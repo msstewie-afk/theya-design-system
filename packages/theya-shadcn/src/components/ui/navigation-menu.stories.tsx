@@ -8,6 +8,12 @@ const meta: Meta<typeof NavigationMenu> = {
   component: NavigationMenu,
   tags: ['autodocs'],
   parameters: {
+    docs: {
+      description: {
+        component:
+          "A horizontal site or product header with a few top-level sections, some opening a panel of links.",
+      },
+    },
     guidelines: navigationMenuGuidelines,
     a11y: {
       config: {

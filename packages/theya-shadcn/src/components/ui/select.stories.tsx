@@ -42,12 +42,22 @@ type SelectStoryArgs = React.ComponentProps<typeof Select> &
   Pick<SelectTriggerProps, 'widthSize' | 'error'> &
   Pick<SelectItemProps, 'icon' | 'iconSize' | 'tone' | 'badge' | 'description'>;
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   Single-value picker on @radix-ui/react-select. Shares
+//   widthSize/heightSize/error conventions with TextField — the dropdown item
+//   text matches the trigger size too.
 const meta: Meta<SelectStoryArgs> = {
   title: 'Selection/Select',
   tags: ['autodocs'],
   parameters: {
     guidelines: selectGuidelines,
-    docs: { description: { component: 'Single-value picker on @radix-ui/react-select. Shares widthSize/heightSize/error conventions with TextField — the dropdown item text matches the trigger size too.' } },
+    docs: {
+      description: {
+        component:
+          "One choice from about 6–15 known options people recognise rather than type: a region, a plan, a sort order.",
+      },
+    },
   },
   argTypes: {
     heightSize: { control: 'radio', options: ['md', 'sm', 'lg'], description: 'md (default) 40px, body-m — sm 32px, body-s — lg 48px, body-m. Dropdown item text follows it too.', table: { category: 'Appearance' } },

@@ -15,7 +15,15 @@ const meta = {
   title: 'Status & Feedback/Progress',
   component: Progress,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', guidelines: progressGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "How far a task has got: an upload, an export, an install. Indeterminate when the length is unknown, in stages when there is a known number of them.",
+      },
+    },
+    layout: 'centered', guidelines: progressGuidelines,
+  },
   decorators: [
     (Story) => (
       <div className="w-[320px] max-w-full">

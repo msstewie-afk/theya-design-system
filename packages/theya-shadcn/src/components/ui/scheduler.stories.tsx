@@ -36,7 +36,15 @@ const meta = {
   title: 'Data/Scheduler',
   component: Scheduler,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: schedulerGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "Events placed in time — maintenance windows, bookings, shifts — by day, week or month. Events can be moved by drag, and new ones created from an empty slot.",
+      },
+    },
+    layout: 'padded', guidelines: schedulerGuidelines,
+  },
   argTypes: {
     events: { control: false, description: 'id, title, start, end, allDay, tone, locked.' },
     view: { control: false },

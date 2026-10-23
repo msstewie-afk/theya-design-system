@@ -22,7 +22,15 @@ const meta: Meta<typeof Table> = {
   title: 'Data/Table',
   component: Table,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: tableGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A plain table for a few rows of data: a price breakdown, DNS records, a spec sheet. For sorting, paging or selection, use DataTable.",
+      },
+    },
+    layout: 'padded', guidelines: tableGuidelines,
+  },
   argTypes: {
     containerLabel: {
       control: 'text',

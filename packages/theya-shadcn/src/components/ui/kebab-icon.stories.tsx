@@ -15,7 +15,15 @@ const meta: Meta<typeof KebabIconVertical> = {
   title: 'Actions/KebabIcon',
   component: KebabIconVertical,
   tags: ['autodocs'],
-  parameters: { guidelines: kebabIconGuidelines, layout: 'centered' },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "The “more actions” icon for the trigger of an overflow menu: vertical in rows and cards, horizontal in toolbars and headers.",
+      },
+    },
+    guidelines: kebabIconGuidelines, layout: 'centered',
+  },
   argTypes: {
     size: { control: 'select', options: ['sm', 'md', 'lg'], description: 'Icon size: sm (12px) / md (16px, default) / lg (20px).' },
     className: { control: false, description: 'Extra classes — color comes from `currentColor`, so this is typically just a text-color token.' },

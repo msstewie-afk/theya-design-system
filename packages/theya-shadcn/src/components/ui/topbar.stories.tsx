@@ -14,7 +14,15 @@ const meta: Meta<typeof Topbar> = {
   title: 'Navigation/Topbar',
   component: Topbar,
   tags: ['autodocs'],
-  parameters: { guidelines: topbarGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "The app header above the content: page context on the left, a few global actions on the right.",
+      },
+    },
+    guidelines: topbarGuidelines,
+  },
   argTypes: {
     orientation: { control: 'inline-radio', options: ['horizontal', 'vertical'], description: 'Defaults to horizontal.' },
   },

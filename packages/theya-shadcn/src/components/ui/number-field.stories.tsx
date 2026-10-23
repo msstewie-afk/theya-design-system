@@ -3,6 +3,11 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 import { NumberField } from './number-field';
 import { numberFieldGuidelines } from './number-field.guidelines';
 
+// Notes moved from the Docs description (the page now shows a reader-facing
+// summary):
+//   No Radix (or other headless-primitive) equivalent exists — built from
+//   scratch. Deferred: Alt-for-smaller-step, Home/End jump-to-bound,
+//   press-and-hold repeat on the buttons.
 const meta: Meta<typeof NumberField> = {
   title: 'Text Input/NumberField',
   component: NumberField,
@@ -12,8 +17,7 @@ const meta: Meta<typeof NumberField> = {
     docs: {
       description: {
         component:
-          'No Radix (or other headless-primitive) equivalent exists — built from scratch. Deferred: ' +
-          'Alt-for-smaller-step, Home/End jump-to-bound, press-and-hold repeat on the buttons.',
+          "A count or amount people adjust in small steps — quantity, seats, retention days — with buttons, arrow keys or typing.",
       },
     },
   },

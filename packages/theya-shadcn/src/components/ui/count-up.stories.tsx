@@ -8,7 +8,15 @@ const meta = {
   title: 'Motion/CountUp',
   component: CountUp,
   tags: ['autodocs'],
-  parameters: { layout: 'padded', guidelines: countUpGuidelines },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "A headline number that counts up when it scrolls into view: “12,400 sites”, “99.98% uptime”. For landing pages.",
+      },
+    },
+    layout: 'padded', guidelines: countUpGuidelines,
+  },
   argTypes: {
     to: { control: 'number', description: 'The value to land on.' },
     from: { control: 'number', description: 'Where to start.' },
