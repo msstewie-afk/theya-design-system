@@ -32,6 +32,7 @@ const meta: Meta<typeof Tabs> = {
 export default meta;
 type Story = StoryObj<typeof Tabs>;
 
+/** Underline tabs, with the active one underlined. The list is one Tab stop; the arrow keys, Home and End move between tabs and switch the panel. */
 export const Default: Story = {
   render: () => (
     <Tabs defaultValue="overview" className="w-full max-w-[400px]">
@@ -82,6 +83,7 @@ export const Default: Story = {
   },
 };
 
+/** A `disabled` tab stays visible but is skipped by the arrow keys and can't be opened. */
 export const Disabled: Story = {
   render: () => (
     <Tabs defaultValue="overview" className="w-full max-w-[400px]">
@@ -206,6 +208,7 @@ function ClosableDemo() {
   );
 }
 
+/** `onClose` adds a close button to each tab; Delete or Backspace on a focused tab closes it too, and focus moves to the next tab. */
 export const Closable: Story = {
   render: () => <ClosableDemo />,
   // APG deletable tabs: pointer "×" closes; Delete on the focused tab closes

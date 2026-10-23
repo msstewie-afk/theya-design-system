@@ -52,6 +52,7 @@ export const Default: Story = {
   },
 };
 
+/** `placing` puts the pay button into its loading state while the order goes through, so it can't be pressed twice. */
 export const Placing: Story = {
   args: { placing: true },
   render: (args) => (

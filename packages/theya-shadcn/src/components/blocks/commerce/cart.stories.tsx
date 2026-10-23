@@ -46,6 +46,7 @@ export const Default: Story = {
   },
 };
 
+/** No lines and nothing saved for later: an empty state with a Browse plans button. */
 export const Empty: Story = {
   args: { lines: [], saved: [] },
 };

@@ -96,6 +96,7 @@ function EditorMenubar({ bordered, defaultValue }: { bordered?: boolean; default
   );
 }
 
+/** File, Edit and View menus with shortcuts, a submenu, and checkbox and radio items. The bar is one Tab stop; the arrow keys move between menus and Escape closes one. */
 export const Default: Story = {
   render: () => <EditorMenubar />,
   play: async ({ canvasElement }) => {

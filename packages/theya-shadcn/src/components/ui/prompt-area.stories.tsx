@@ -166,6 +166,7 @@ export const Busy: Story = {
   },
 };
 
+/** `disabled`: the text stays readable, but the field and the send button are inactive. */
 export const Disabled: Story = {
   args: { disabled: true, defaultValue: 'You cannot edit this right now' },
   render: (args) => (
@@ -303,6 +304,7 @@ function AttachmentsDemo() {
   );
 }
 
+/** Files dropped on the composer, pasted or picked with the attach button show as removable chips above the field; a file of the wrong type or size appears with the reason it was rejected. */
 export const WithAttachments: Story = {
   name: 'With attachments',
   render: () => <AttachmentsDemo />,

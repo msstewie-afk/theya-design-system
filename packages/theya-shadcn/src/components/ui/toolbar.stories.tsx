@@ -34,6 +34,7 @@ type Story = StoryObj<typeof Toolbar>;
 // max-w-full + flex-wrap: on a phone the actions wrap onto a second row instead of running off the screen.
 const CARD = 'w-fit max-w-full flex-wrap rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-1';
 
+/** Commands for selected items, with the destructive one set apart by a separator and the `danger` tone. */
 export const BulkActions: Story = {
   name: 'Bulk actions',
   render: () => (
@@ -52,6 +53,7 @@ export const BulkActions: Story = {
   ),
 };
 
+/** Grouped icon-only formatting buttons, then a link: one Tab stop, with the arrow keys moving across all of them. */
 export const FormattingBar: Story = {
   name: 'Formatting bar',
   render: () => (

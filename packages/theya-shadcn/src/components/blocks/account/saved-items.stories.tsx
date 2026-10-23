@@ -32,6 +32,7 @@ export const Default: Story = {
   },
 };
 
+/** Nothing saved: an empty state explains what saving is for and links to the catalog. */
 export const Empty: Story = {
   args: { items: [] },
 };

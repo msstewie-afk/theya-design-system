@@ -46,6 +46,7 @@ const STATUS_OPTIONS = [
   { value: 'pending', label: 'Pending', count: 7 },
 ];
 
+/** A facet with nothing selected: the trigger shows only its label, and each option in the popover carries a count. */
 export const Default: Story = {
   render: () => <Filter label="Status" options={STATUS_OPTIONS} />,
   play: async ({ canvasElement }) => {
@@ -73,6 +74,7 @@ export const Default: Story = {
   },
 };
 
+/** `defaultValue` pre-selects options; the trigger shows a count badge and reads as “Status, 1 selected”. */
 export const WithSelection: Story = {
   name: 'With selection',
   render: () => <Filter label="Status" options={STATUS_OPTIONS} defaultValue={['active']} />,
@@ -93,6 +95,7 @@ export const WithSelection: Story = {
   },
 };
 
+/** `searchable` adds a search box above the options, for facets with many values such as owners. */
 export const Searchable: Story = {
   render: () => (
     <Filter
@@ -126,6 +129,7 @@ export const Searchable: Story = {
   },
 };
 
+/** Several filters in a row, one per facet, each keeping its own selection. */
 export const FilterBar: Story = {
   name: 'Filter bar',
   render: () => (

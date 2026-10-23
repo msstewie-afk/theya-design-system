@@ -28,6 +28,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** The spinner at 24px in the primary icon colour, inside a `role="status"` wrapper that names it for screen readers. */
 export const Default: Story = {
   render: () => (
     <span role="status" aria-label="Loading" className="inline-flex text-[var(--color-icon-icon-primary)]">

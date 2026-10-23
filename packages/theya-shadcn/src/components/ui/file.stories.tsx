@@ -69,6 +69,7 @@ function choose(input: HTMLInputElement, file: globalThis.File) {
   input.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
+/** A filled slot with the file's name, size and `meta`: click it to pick a replacement, or remove the file to get the empty tile back. */
 export const Default: Story = {
   args: { name: 'quarterly-report.pdf', size: 248000, meta: 'Modified 2 days ago', type: 'application/pdf', onFileChange: fn() },
   render: (args) => (
@@ -92,6 +93,7 @@ export const Default: Story = {
   },
 };
 
+/** `empty` starts with the dashed "Add file" tile; clicking it opens the file picker. */
 export const Empty: Story = {
   args: { empty: true },
   render: (args) => (
@@ -115,6 +117,7 @@ export const Variants: Story = {
   ),
 };
 
+/** The default `card` variant in a grid of files, with an empty tile at the end for adding another. */
 export const CardGrid: Story = {
   name: 'Card Grid',
   render: () => (
@@ -129,6 +132,7 @@ export const CardGrid: Story = {
   ),
 };
 
+/** `variant="row"` lays files out as full-width rows, for a vertical list of attachments. */
 export const RowVariant: Story = {
   name: 'Row variant',
   render: () => (
@@ -183,6 +187,7 @@ export const WithError: Story = {
   ),
 };
 
+/** `readOnly` shows the file with nothing to press — for an attachment people can see but not change. */
 export const ReadOnly: Story = {
   name: 'Read-only',
   args: { name: 'quarterly-report.pdf', size: 248000, meta: 'Modified 2 days ago', readOnly: true },
@@ -200,6 +205,7 @@ export const ReadOnly: Story = {
   },
 };
 
+/** With `href`, the whole slot is a link to the file instead of a picker — no replace, no remove. */
 export const AsLink: Story = {
   name: 'Link',
   args: { name: 'quarterly-report.pdf', size: 248000, href: 'https://example.com/quarterly-report.pdf' },

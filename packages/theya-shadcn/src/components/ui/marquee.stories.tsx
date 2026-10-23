@@ -32,6 +32,7 @@ type Story = StoryObj<typeof meta>;
 
 const NAMES = ['Northwind', 'Kestrel', 'Quartz', 'Lumen', 'Babel', 'Seashell', 'Harbor', 'Fieldnote'];
 
+/** A strip of names that loops with faded edges and a pause button (default); it also pauses on hover or focus, and screen readers hear each name once. */
 export const Default: Story = {
   render: (args) => (
     <Marquee {...args} className="max-w-3xl">

@@ -30,6 +30,7 @@ const meta: Meta<typeof Breadcrumb> = {
 export default meta;
 type Story = StoryObj<typeof Breadcrumb>;
 
+/** A three-level trail: two ancestor links, then the current page, which isn't a link. */
 export const Default: Story = {
   render: () => (
     <Breadcrumb>

@@ -30,6 +30,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** Counts from `from` to `to` over `duration` once it scrolls into view; screen readers hear only the final value. */
 export const Default: Story = {
   render: (args) => (
     <p className="font-body text-heading-l font-semibold text-[var(--color-text-text)]">

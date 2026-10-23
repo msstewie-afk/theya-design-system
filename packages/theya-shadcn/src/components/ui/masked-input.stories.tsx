@@ -45,6 +45,7 @@ const meta: Meta<typeof MaskedInput> = {
 export default meta;
 type Story = StoryObj<typeof MaskedInput>;
 
+/** A phone mask with a saved value: the literals in `mask` — the `+1`, brackets and dash — are filled in for people, not typed. */
 export const Default: Story = {
   args: {
     mask: '+1 (___) ___-____',
@@ -61,6 +62,7 @@ export const Default: Story = {
   },
 };
 
+/** Formats as people type: letters can't fill a digit slot, digits past the end are dropped, and `onUnmaskedChange` gets the raw digits. */
 export const Typing: Story = {
   args: {
     mask: '+1 (___) ___-____',
@@ -103,6 +105,7 @@ export const Typing: Story = {
   },
 };
 
+/** Different `mask` patterns on the same component: a card number, an expiry date and an IPv4 address. */
 export const Formats: Story = {
   render: () => (
     <div className="flex flex-col gap-4 w-[220px]">
@@ -133,6 +136,7 @@ export const Formats: Story = {
   },
 };
 
+/** `error` marks an incomplete value invalid with the danger styling, the same as TextField. */
 export const Invalid: Story = {
   args: {
     mask: '+1 (___) ___-____',

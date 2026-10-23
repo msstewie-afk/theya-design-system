@@ -50,6 +50,7 @@ const meta: Meta<typeof Password> = {
 export default meta;
 type Story = StoryObj<typeof Password>;
 
+/** The interactive example driven by the Controls below; the eye button shows or hides what was typed without clearing it. */
 export const Playground: Story = {
   args: { label: 'Password', placeholder: 'Enter password' },
   play: async ({ canvasElement }) => {
@@ -73,6 +74,7 @@ export const Playground: Story = {
   },
 };
 
+/** `description` adds helper text under the field — state the rules before people start typing. */
 export const WithDescription: Story = {
   args: {
     label: 'New password',
@@ -84,6 +86,7 @@ export const WithDescription: Story = {
   },
 };
 
+/** `error` turns the field danger-styled and reads the message as the input's description. */
 export const WithError: Story = {
   name: 'With error message',
   args: { label: 'Password', autoComplete: 'new-password', error: 'Password is too short.', defaultValue: 'abc' },
@@ -94,11 +97,13 @@ export const WithError: Story = {
   },
 };
 
+/** `success` confirms the value with a success-styled field and message. */
 export const WithSuccess: Story = {
   name: 'With success message',
   args: { label: 'Password', autoComplete: 'new-password', success: 'Strong password!', defaultValue: 'correct-horse-battery-staple' },
 };
 
+/** Default, error and disabled side by side; in the disabled field the show/hide toggle is disabled too. */
 export const States: Story = {
   render: () => (
     <div className="flex flex-col gap-4">

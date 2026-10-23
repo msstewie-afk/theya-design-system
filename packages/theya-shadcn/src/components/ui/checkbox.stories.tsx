@@ -49,6 +49,7 @@ const meta: Meta<typeof Checkbox> = {
 export default meta;
 type Story = StoryObj<typeof Checkbox>;
 
+/** The interactive example, driven by the Controls below — clicking the label or pressing Space toggles the box. */
 export const Playground: Story = {
   args: { label: 'Accept terms and conditions', onCheckedChange: fn() },
   // Label click and Space both toggle; the label is the accessible name.
@@ -68,11 +69,13 @@ export const Playground: Story = {
   },
 };
 
+/** No visible label: give the box an `aria-label` so screen readers still announce what it controls. */
 export const Bare: Story = {
   name: 'No label',
   args: { 'aria-label': 'Accept terms and conditions' },
 };
 
+/** `description` adds helper text under the label, and screen readers announce it with the box. */
 export const WithDescription: Story = {
   render: () => (
     <Checkbox
@@ -87,6 +90,7 @@ export const WithDescription: Story = {
   },
 };
 
+/** Unchecked, checked and `indeterminate` — the last one for a parent whose items are only partly selected. */
 export const States: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -97,6 +101,7 @@ export const States: Story = {
   ),
 };
 
+/** `disabled` in each state: the box is muted, skipped by Tab, and clicks don't change it. */
 export const Disabled: Story = {
   // Disabled: out of the tab order, clicks don't change state.
   play: async ({ canvasElement }) => {
@@ -119,6 +124,7 @@ export const Disabled: Story = {
   ),
 };
 
+/** `size="sm"` and `size="md"` (default) — use the small one in dense lists and tables. */
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -128,6 +134,7 @@ export const Sizes: Story = {
   ),
 };
 
+/** `error`: the box and its focus ring turn danger-colored, for a required box that hasn't been ticked. */
 export const ErrorState: Story = {
   name: 'Error',
   render: () => (

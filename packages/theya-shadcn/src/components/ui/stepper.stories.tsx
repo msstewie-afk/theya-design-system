@@ -63,6 +63,7 @@ const VERTICAL_STEPS = [
   { label: 'Review and deploy' },
 ];
 
+/** Horizontal (default) with the second step in progress: the first shows as complete, the last as upcoming. */
 export const Horizontal: Story = {
   args: { steps: STEPS, current: 1 },
   render: (args) => (
@@ -77,6 +78,7 @@ export const Horizontal: Story = {
   },
 };
 
+/** `orientation="vertical"`: steps stack in a column, leaving room for longer descriptions under each label. */
 export const Vertical: Story = {
   args: { steps: STEPS, current: 1, orientation: 'vertical' },
   render: (args) => (
@@ -89,6 +91,7 @@ export const Vertical: Story = {
   },
 };
 
+/** `current` equal to the number of steps: every step shows as complete and none is current. */
 export const Complete: Story = {
   args: { steps: STEPS, current: STEPS.length },
   render: (args) => (
@@ -102,6 +105,7 @@ export const Complete: Story = {
   },
 };
 
+/** `labelAlign="center"`: labels sit centered under their indicators — keep them to a word or two. */
 export const CenteredLabels: Story = {
   name: 'Centered labels',
   args: { steps: [{ label: 'One' }, { label: 'Two' }, { label: 'Three' }], current: 1, labelAlign: 'center' },

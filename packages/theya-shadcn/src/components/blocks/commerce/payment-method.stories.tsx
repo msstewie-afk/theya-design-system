@@ -65,6 +65,7 @@ export const Amex: Story = {
   },
 };
 
+/** `defaultMethod="paypal"` opens on the PayPal tab, which needs no card details — people approve the payment in a new window. */
 export const PayPal: Story = {
   args: { defaultMethod: 'paypal', now: NOW },
   render: (args) => (

@@ -92,6 +92,7 @@ function ShowAdvancedSettingsDemo() {
   );
 }
 
+/** Optional fields tucked under a form: the trigger sits below the always-visible field, and the revealed fields join the form's tab order. */
 export const ShowAdvancedSettings: Story = {
   name: 'Show advanced settings',
   render: () => <ShowAdvancedSettingsDemo />,

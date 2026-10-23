@@ -28,6 +28,7 @@ const meta: Meta<typeof Metric> = {
 export default meta;
 type Story = StoryObj<typeof Metric>;
 
+/** One Metric row with every part: icon, value and label, a description line and a trailing action. */
 export const Default: Story = {
   render: () => (
     <div className="w-full max-w-[360px] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">

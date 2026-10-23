@@ -51,6 +51,7 @@ const meta: Meta<typeof Rating> = {
 export default meta;
 type Story = StoryObj<typeof Rating>;
 
+/** An editable rating starting at three stars; click a star or use the arrow keys to change it. */
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -84,6 +85,7 @@ export const ReadOnly: Story = {
   },
 };
 
+/** `size="sm"` and `size="md"`; the hit area stays at least 24px at either size. */
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-col gap-3">
@@ -104,6 +106,7 @@ export const Clearable: Story = {
   },
 };
 
+/** `disabled` keeps the current value visible but stops it from being changed. */
 export const Disabled: Story = {
   args: { disabled: true, defaultValue: 4, 'aria-label': 'Disabled rating' },
 };

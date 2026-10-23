@@ -106,6 +106,7 @@ function ProductNav({ defaultValue }: { defaultValue?: string }) {
   );
 }
 
+/** Two sections that open a panel of links, plus a plain Pricing link; Enter opens a panel and Escape closes it, returning focus to its trigger. */
 export const Default: Story = {
   render: () => <ProductNav />,
   play: async ({ canvasElement }) => {

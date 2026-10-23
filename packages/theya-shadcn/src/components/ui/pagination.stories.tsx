@@ -27,6 +27,7 @@ const meta: Meta<typeof Pagination> = {
 export default meta;
 type Story = StoryObj<typeof Pagination>;
 
+/** Previous and Next around the numbered pages, with the current page marked and an ellipsis for the skipped range. */
 export const Default: Story = {
   render: () => (
     <Pagination>

@@ -37,6 +37,7 @@ const BOX = 'rounded-[var(--size-border-radius-border-radius-2xl)] border border
 
 const Spacer = () => <p className="flex h-[70vh] items-end pb-6 text-body-s text-[var(--color-text-text-subtler)]">Scroll down ↓</p>;
 
+/** One card that rises into view the first time it scrolls in — scroll the canvas, or try another `effect` in the Controls below. */
 export const Default: Story = {
   render: (args) => (
     <div className="max-w-md">

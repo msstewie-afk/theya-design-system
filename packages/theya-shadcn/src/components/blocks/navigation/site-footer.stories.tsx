@@ -60,6 +60,7 @@ export const Default: Story = {
   },
 };
 
+/** Only the link columns and legal links — no tagline, contact details, status, social icons or language picker — for smaller sites. */
 export const Minimal: Story = {
   args: { contact: [], status: undefined, social: [], tagline: undefined },
 };

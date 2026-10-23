@@ -43,6 +43,7 @@ const meta: Meta<typeof LoginFormSplit> = {
 export default meta;
 type Story = StoryObj<typeof LoginFormSplit>;
 
+/** A carousel of three images with a tagline on one side, the sign-in form on the other; on a phone only the form remains. */
 export const Default: Story = {
   render: () => (
     <div className="flex min-h-[640px] items-center justify-center p-6">
@@ -51,6 +52,7 @@ export const Default: Story = {
   ),
 };
 
+/** One slide renders as a static image — no dots, no autoplay. */
 export const SingleImageNoAutoplay: Story = {
   name: 'Single image (no carousel chrome)',
   render: () => (
@@ -60,6 +62,7 @@ export const SingleImageNoAutoplay: Story = {
   ),
 };
 
+/** `logo` puts a mark top-left over the image, and `backHref` adds a “Back to website” link top-right. */
 export const WithLogoAndBackLink: Story = {
   name: 'With logo and back link',
   render: () => (

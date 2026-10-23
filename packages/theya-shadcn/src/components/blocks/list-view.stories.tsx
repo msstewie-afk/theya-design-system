@@ -179,6 +179,7 @@ export const WithBulkAndRowActions: Story = {
   },
 };
 
+/** `loading`: skeleton rows stand in for the data, and the result count stays hidden until the rows arrive. */
 export const Loading: Story = {
   render: () => (
     <div className="px-4 py-6 md:px-6">

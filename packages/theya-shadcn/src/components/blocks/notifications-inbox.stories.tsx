@@ -160,6 +160,7 @@ const ALL_READ: InboxNotification[] = [
   { id: 'r2', title: 'Teammate joined', description: 'Priya Nair accepted your invitation.', time: '2d ago', group: 'Earlier', tone: 'neutral', read: true },
 ];
 
+/** Everything already read: the "Mark all read" action is hidden and the Unread view is empty. */
 export const AllRead: Story = {
   args: { notifications: ALL_READ },
 };
@@ -193,6 +194,7 @@ const SECURITY_ALERTS: InboxNotification[] = [
   { id: 's3', title: 'Sign-in from a new device', description: 'Firefox on Linux, from 203.0.113.9. Not you? Revoke the session.', time: 'Yesterday', group: 'Earlier', tone: 'danger', read: true, object: 'new-device' },
 ];
 
+/** For a feed where every item has the same tone: `showStatusFilter={false}` hides the Status filter, and `objectFilterLabel` with `objectOptions` turns the second filter into "Event type", here preselected. */
 export const StatusHiddenCustomObjectFacet: Story = {
   name: 'Status hidden, custom object facet',
   args: {

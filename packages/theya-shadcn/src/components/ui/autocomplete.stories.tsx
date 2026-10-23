@@ -49,6 +49,7 @@ const ENVIRONMENTS = [
   { value: 'staging', label: 'staging', note: 'In use by 2 services' },
 ];
 
+/** Type to see matching suggestions; the arrow keys move through them and Enter fills the input with the highlighted one. */
 export const Default: Story = {
   render: () => (
     <div className="w-[280px]">
@@ -77,6 +78,7 @@ export const Default: Story = {
   },
 };
 
+/** `heightSize="md"` (default) and `heightSize="sm"`; the suggestion text follows the field's size. */
 export const HeightSizes: Story = {
   name: 'Height sizes (m / s)',
   render: () => (
@@ -102,6 +104,7 @@ function ControlledDemo() {
   );
 }
 
+/** The typed text is the value: Enter without a highlighted suggestion keeps it, and so does text that matches nothing. */
 export const FreeText: Story = {
   name: 'Free text',
   render: () => <ControlledDemo />,
@@ -123,6 +126,7 @@ export const FreeText: Story = {
   },
 };
 
+/** `loading` shows a spinner and a loading message in the dropdown while suggestions are being fetched. */
 export const Loading: Story = {
   render: () => (
     <div className="w-[280px]">
@@ -131,6 +135,7 @@ export const Loading: Story = {
   ),
 };
 
+/** A `note` on each option adds a short line of context beside it — here, where each name is already in use, so a reuse is easy to tell from a typo. */
 export const WithTrailingNote: Story = {
   name: 'With trailing note',
   render: () => (
@@ -140,6 +145,7 @@ export const WithTrailingNote: Story = {
   ),
 };
 
+/** `readOnly`: the value stays visible and selectable, but typing and the suggestion list are off. */
 export const ReadOnly: Story = {
   name: 'Read-only',
   render: () => (
@@ -154,6 +160,7 @@ export const ReadOnly: Story = {
   ),
 };
 
+/** `disabled`: the field can't be focused, typed into or opened. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-[280px]">

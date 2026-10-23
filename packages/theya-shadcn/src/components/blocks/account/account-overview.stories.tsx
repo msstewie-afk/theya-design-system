@@ -25,6 +25,7 @@ export const Default: Story = {
   },
 };
 
+/** With an empty `attention` list the “Needs your attention” section is left out, and the account areas lead the page. */
 export const NothingToDo: Story = {
   args: { attention: [] },
 };

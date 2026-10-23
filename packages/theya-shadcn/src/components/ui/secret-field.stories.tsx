@@ -42,6 +42,7 @@ async function withClipboard(writeText: (text: string) => Promise<void>, run: ()
   }
 }
 
+/** The interactive example, driven by the Controls below — masked until Show is pressed, and Copy works either way. */
 export const Playground: Story = {
   args: { value: KEY, label: 'API key' },
   render: (args) => (
@@ -74,6 +75,7 @@ export const Playground: Story = {
   },
 };
 
+/** `defaultRevealed`: the full value shows on load, for a secret people have just created and need to save. */
 export const RevealedByDefault: Story = {
   name: 'Revealed by default',
   args: { value: KEY, label: 'API key', defaultRevealed: true },
@@ -89,6 +91,7 @@ export const RevealedByDefault: Story = {
   },
 };
 
+/** `revealable={false}`: no Show button, so the value can only be copied, never displayed. */
 export const NotRevealable: Story = {
   name: 'Not revealable',
   args: { value: KEY, label: 'API key', revealable: false },

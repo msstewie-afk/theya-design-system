@@ -13,6 +13,7 @@ const meta: Meta<typeof SearchNoResults> = {
 export default meta;
 type Story = StoryObj<typeof SearchNoResults>;
 
+/** Nothing matched the query: the message repeats what was searched, then lists tips and a few popular pages to go to instead. */
 export const Default: Story = {};
 
 /** A close spelling exists: offered first. */

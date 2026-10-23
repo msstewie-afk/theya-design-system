@@ -31,6 +31,7 @@ const meta: Meta<typeof Switch> = {
 export default meta;
 type Story = StoryObj<typeof Switch>;
 
+/** The interactive example, driven by the Controls below — clicking the label or pressing Space flips the switch. */
 export const Playground: Story = {
   args: { label: 'Enable notifications', onCheckedChange: fn() },
   // Label click and Space both toggle; state is exposed as aria-checked.
@@ -49,11 +50,13 @@ export const Playground: Story = {
   },
 };
 
+/** No visible label: pass an `aria-label` so the switch still has a name for screen readers. */
 export const Bare: Story = {
   name: 'No label',
   args: { 'aria-label': 'Toggle dark mode' },
 };
 
+/** `description` adds a helper line under the label, announced together with the switch. */
 export const WithDescription: Story = {
   args: {
     label: 'Marketing emails',
@@ -66,11 +69,13 @@ export const WithDescription: Story = {
   },
 };
 
+/** `checkIcon={false}`: the thumb stays plain when on, with no checkmark inside. */
 export const NoCheckIcon: Story = {
   name: 'checkIcon = false',
   args: { label: 'Plain toggle, no checkmark', defaultChecked: true, checkIcon: false },
 };
 
+/** Every on, off and disabled combination for each `tone`, side by side. */
 export const AllStates: Story = {
   name: 'All states (from Figma)',
   render: () => (
@@ -87,6 +92,7 @@ export const AllStates: Story = {
   ),
 };
 
+/** `tone="primary"` (default), `"warning"` and `"danger"` — use warning or danger when turning the setting on carries a risk. */
 export const Intents: Story = {
   render: () => (
     <div className="flex flex-col gap-4">

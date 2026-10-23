@@ -62,6 +62,7 @@ const meta: Meta<typeof TextField> = {
 export default meta;
 type Story = StoryObj<typeof TextField>;
 
+/** The interactive example driven by the Controls below — type something and the built-in clear button appears. */
 export const Playground: Story = {
   args: { label: 'Email', type: 'email', autoComplete: 'email', placeholder: 'you@example.com' },
   // Uncontrolled: the clear button appears once there's text, clears it,
@@ -79,11 +80,13 @@ export const Playground: Story = {
   },
 };
 
+/** Without a `label`, give the field an `aria-label` so it still has a name — only where the context labels it, like a search bar. */
 export const Bare: Story = {
   name: 'No label',
   args: { placeholder: 'Search…', 'aria-label': 'Search' },
 };
 
+/** `required` adds the asterisk to the label and marks the input itself as required. */
 export const Required: Story = {
   args: { label: 'Workspace name', required: true, placeholder: 'my-team' },
   // "Required" must reach the input itself, not only the (aria-hidden) asterisk.
@@ -92,6 +95,7 @@ export const Required: Story = {
   },
 };
 
+/** A controlled field: the built-in clear button empties it through your `onChange` handler. Uncontrolled fields get the button with no wiring. */
 export const Clearable: Story = {
   name: 'Clearable (built-in clear button)',
   parameters: { controls: { disable: true } },
@@ -126,6 +130,7 @@ export const Clearable: Story = {
   },
 };
 
+/** `leftIcon` puts a decorative icon at the start of the field; pick a different one in the Controls. */
 export const WithLeftIcon: Story = {
   name: 'With left icon',
   args: { label: 'Favorite', placeholder: 'Text', iconName: 'Star' } as never,
@@ -143,6 +148,7 @@ export const WithLeftIcon: Story = {
   },
 };
 
+/** `rightIcon` puts a decorative icon at the end of the field, in place of the built-in clear button. */
 export const WithRightIcon: Story = {
   name: 'With right icon',
   args: { label: 'Favorite', placeholder: 'Text', iconName: 'Star' } as never,
@@ -160,6 +166,7 @@ export const WithRightIcon: Story = {
   },
 };
 
+/** `description` adds helper text under the field, read out as the input's description. */
 export const WithDescription: Story = {
   args: {
     label: 'Workspace URL',
@@ -173,6 +180,7 @@ export const WithDescription: Story = {
   },
 };
 
+/** `error` turns the field danger-styled, marks it invalid and reads the message as its description. */
 export const WithError: Story = {
   name: 'With error message',
   args: {
@@ -191,11 +199,13 @@ export const WithError: Story = {
   },
 };
 
+/** `success` confirms a valid value with success styling and a message under the field. */
 export const WithSuccess: Story = {
   name: 'With success message',
   args: { label: 'Email', type: 'email', autoComplete: 'email', success: 'Looks good!', defaultValue: 'you@example.com' },
 };
 
+/** `labelPosition="left"` puts the label beside the field in a fixed column — for dense settings forms where labels line up. */
 export const LeftLabel: Story = {
   name: 'Left label (horizontal)',
   args: {
@@ -206,11 +216,13 @@ export const LeftLabel: Story = {
   },
 };
 
+/** `readOnly` shows a value people can select and copy but not change. */
 export const ReadOnly: Story = {
   name: 'Read-only',
   args: { label: 'Email', type: 'email', autoComplete: 'email', readOnly: true, defaultValue: 'you@example.com' },
 };
 
+/** The field's states side by side: enabled, focused, disabled and error. */
 export const States: Story = {
   name: 'States (from Figma)',
   render: () => (

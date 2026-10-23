@@ -26,10 +26,12 @@ const meta: Meta<typeof Label> = {
 export default meta;
 type Story = StoryObj<typeof Label>;
 
+/** Interactive example — set the text, `required` and `data-error` in the Controls below. */
 export const Playground: Story = {
   args: { children: 'Email address' },
 };
 
+/** `data-error` turns the label danger-colored to match a field in error. */
 export const Error: Story = {
   args: { children: 'Email address', 'data-error': true },
 };

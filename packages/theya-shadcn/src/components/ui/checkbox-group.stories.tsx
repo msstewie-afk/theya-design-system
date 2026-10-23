@@ -60,6 +60,7 @@ const meta: Meta<typeof CheckboxGroup> = {
 export default meta;
 type Story = StoryObj<typeof CheckboxGroup>;
 
+/** Uncontrolled with `defaultValue`: the group label is the legend, and each item toggles on its own. */
 export const Default: Story = {
   render: () => (
     <CheckboxGroup label="Notify me by" defaultValue={['email']}>
@@ -97,6 +98,7 @@ function ControlledDemo() {
   );
 }
 
+/** `value` and `onValueChange` keep the checked names in your state — printed under the group as they change. */
 export const Controlled: Story = {
   render: () => <ControlledDemo />,
   play: async ({ canvasElement }) => {
@@ -109,6 +111,7 @@ export const Controlled: Story = {
   },
 };
 
+/** `disabled` on the group turns off every item at once, and their checked state stays visible. */
 export const Disabled: Story = {
   render: () => (
     <CheckboxGroup label="Notify me by" defaultValue={['email']} disabled>

@@ -95,6 +95,7 @@ type Story = StoryObj<typeof Button>;
 const ICONS = { none: undefined, star: <Star />, check: <Check />, arrowRight: <ArrowRight />, close: <Xmark />, trash: <Trash />, plus: <Plus /> } as const;
 type IconName = keyof typeof ICONS;
 
+/** The interactive example: set `appearance`, `tone`, `size` and the states in the Controls below, and pick a `leftIcon` or `rightIcon` from the icon lists. */
 export const Playground: Story = {
   args: {
     children: 'Button',
@@ -114,6 +115,7 @@ export const Playground: Story = {
   ),
 };
 
+/** `appearance="filled"` in every `tone` — the loudest treatment, for the one main action in a view. */
 export const AllIntentsFilled: Story = {
   name: 'All tones (Filled)',
   render: () => (
@@ -129,6 +131,7 @@ export const AllIntentsFilled: Story = {
   ),
 };
 
+/** `appearance="tonal"` in every `tone`: a softly tinted fill for secondary actions that still need presence. */
 export const AllIntentsTonal: Story = {
   name: 'All tones (Tonal)',
   render: () => (
@@ -144,6 +147,7 @@ export const AllIntentsTonal: Story = {
   ),
 };
 
+/** `appearance="outlined"` in every `tone`: a bordered button that sits quietly next to a filled primary action. */
 export const AllIntentsOutlined: Story = {
   name: 'All tones (Outlined)',
   render: () => (
@@ -159,6 +163,7 @@ export const AllIntentsOutlined: Story = {
   ),
 };
 
+/** `appearance="ghost"` in every `tone`: no fill or border until hover, for low-emphasis actions and toolbars. */
 export const AllIntentsGhost: Story = {
   name: 'All tones (Ghost)',
   render: () => (
@@ -174,6 +179,7 @@ export const AllIntentsGhost: Story = {
   ),
 };
 
+/** The four appearances side by side in `tone="primary"`, from the loudest (`filled`) to the quietest (`ghost`). */
 export const AllTypesPrimary: Story = {
   name: 'All appearances (Primary)',
   render: () => (
@@ -194,6 +200,7 @@ export const AllTypesPrimary: Story = {
   ),
 };
 
+/** The five sizes from `sm` to `2xl`; `xl` is the default and matches the height of text fields, selects and filters. */
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
@@ -206,6 +213,7 @@ export const Sizes: Story = {
   ),
 };
 
+/** `leftIcon` and `rightIcon` sit beside the label; `iconOnly` makes a square button that needs an `aria-label`. */
 export const WithIcons: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
@@ -250,6 +258,7 @@ export const WithBadge: Story = {
   },
 };
 
+/** `fullWidth` stretches the button to the width of its container — handy in narrow forms, dialogs and mobile layouts. */
 export const FullWidth: Story = {
   render: () => (
     <div style={{ width: 320 }}>
@@ -304,12 +313,14 @@ export const AsChildPlainLink: Story = {
   ),
 };
 
+/** `disabled` takes the button out of the tab order and ignores every event; use `softDisabled` when people need to learn why. */
 export const Disabled: Story = {
   args: { children: 'Disabled', disabled: true },
 };
 
 // Soft-disable: the button stays in the tab order, so keyboard and
 // screen-reader users can reach it and hear the tooltip's reason.
+/** `softDisabled` looks disabled and ignores clicks, Enter and Space, but stays focusable so a Tooltip can say why the action is unavailable. */
 export const SoftDisabledWithReason: Story = {
   args: { onClick: fn() },
   render: (args) => (
@@ -344,6 +355,7 @@ export const SoftDisabledWithReason: Story = {
   },
 };
 
+/** `loading` shows a spinner where the left icon goes and disables the button — here across appearances and as an icon-only button. */
 export const Loading: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>

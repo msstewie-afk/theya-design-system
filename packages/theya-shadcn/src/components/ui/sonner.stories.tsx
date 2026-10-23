@@ -64,6 +64,7 @@ async function clearToasts() {
   await waitFor(() => expect(document.querySelectorAll('[data-sonner-toast]')).toHaveLength(0), { timeout: 3000 });
 }
 
+/** `toast.success()` with a `description`: a short confirmation of what just happened, plus a line of detail. */
 export const Success: Story = {
   render: () => (
     <Button appearance="outlined" tone="secondary" onClick={() => toast.success('Certificate issued', { description: 'shop.seashell.dev · valid 90 days' })}>

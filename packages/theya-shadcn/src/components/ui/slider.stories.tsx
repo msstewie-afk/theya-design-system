@@ -35,6 +35,7 @@ const meta: Meta<typeof Slider> = {
 export default meta;
 type Story = StoryObj<typeof Slider>;
 
+/** The interactive example: try `min`, `max`, `step`, `orientation` and `invalid` in the Controls below. */
 export const Playground: Story = {
   args: { defaultValue: [50], 'aria-label': 'Volume' },
   render: (args) => (
@@ -132,6 +133,7 @@ export const Invalid: Story = {
   ),
 };
 
+/** `disabled` keeps the value visible but locks the slider against pointer and keyboard input. */
 export const Disabled: Story = {
   args: { defaultValue: [50], disabled: true, 'aria-label': 'Volume' },
   render: (args) => (

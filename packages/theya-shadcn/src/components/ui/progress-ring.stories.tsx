@@ -36,6 +36,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** A ring at 75% in the primary tone, with the percentage in the middle; it fills when it scrolls into view. */
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const ring = within(canvasElement).getByRole('progressbar', { name: 'Components generated' });

@@ -105,6 +105,7 @@ export const Preselected: Story = {
   },
 };
 
+/** `hourCycle={24}` shows the range as 09:00 to 17:00 instead of AM/PM times. */
 export const HourCycle24: Story = {
   name: '24-hour',
   render: (args) => (
@@ -139,6 +140,7 @@ export const TwentyFourHour: Story = {
   },
 };
 
+/** `disabled` locks both fields while the chosen range stays readable. */
 export const Disabled: Story = {
   render: (args) => (
     <div className="w-full max-w-[380px]">

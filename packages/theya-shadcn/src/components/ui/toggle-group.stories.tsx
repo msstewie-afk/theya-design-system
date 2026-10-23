@@ -31,6 +31,7 @@ const meta: Meta<typeof ToggleGroup> = {
 export default meta;
 type Story = StoryObj<typeof ToggleGroup>;
 
+/** `appearance="outlined"` with `type="single"`: one alignment is on at a time, and arrow keys move between the items. */
 export const Outline: Story = {
   render: () => (
     <ToggleGroup type="single" defaultValue="left" appearance="outlined" aria-label="Text alignment">
@@ -61,6 +62,7 @@ export const Outline: Story = {
   },
 };
 
+/** `appearance="tonal"` with `type="multiple"`: each style toggles on and off on its own. */
 export const Tonal: Story = {
   render: () => (
     <ToggleGroup type="multiple" appearance="tonal" aria-label="Text style">
@@ -90,6 +92,7 @@ export const Tonal: Story = {
   },
 };
 
+/** `appearance="ghost"`, the default: items stay borderless until hovered or pressed, for toolbars where the group shouldn't draw attention. */
 export const Ghost: Story = {
   render: () => (
     <ToggleGroup type="multiple" appearance="ghost" aria-label="Text style">

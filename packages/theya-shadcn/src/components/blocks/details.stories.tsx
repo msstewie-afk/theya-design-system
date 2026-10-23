@@ -30,6 +30,7 @@ const meta: Meta<typeof Details> = {
 export default meta;
 type Story = StoryObj<typeof Details>;
 
+/** A site's page: the title with its status and Restart / Deploy actions, a line of facts, four key numbers, then tabs for the content below. */
 export const Default: Story = {
   render: () => (
     <div className="px-4 py-6 md:px-6">

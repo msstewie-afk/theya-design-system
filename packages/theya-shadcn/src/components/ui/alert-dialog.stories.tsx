@@ -50,6 +50,7 @@ const meta: Meta<typeof AlertDialog> = {
 export default meta;
 type Story = StoryObj<typeof AlertDialog>;
 
+/** A destructive confirm: the action is danger-toned by default and the dialog opens with focus on Cancel; Escape closes it and returns focus to the trigger. */
 export const Default: Story = {
   render: () => (
     <AlertDialog>

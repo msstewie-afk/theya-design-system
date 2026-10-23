@@ -145,6 +145,7 @@ export const Playground: Story = {
   },
 };
 
+/** `SelectGroup` and `SelectLabel` head each set of options and `SelectSeparator` divides them; type a letter to jump to a match. */
 export const WithGroups: Story = {
   name: 'With groups',
   render: () => (
@@ -314,6 +315,7 @@ export const InvalidOpen: Story = {
   ),
 };
 
+/** `disabled` on `Select`: the trigger is dimmed and the list can't be opened. */
 export const Disabled: Story = {
   render: () => (
     <Select disabled>

@@ -26,6 +26,7 @@ export const Default: Story = {
   },
 };
 
+/** `initialCount={0}` shows every specification at once, with no "Show all" button. */
 export const AllVisible: Story = {
   args: { initialCount: 0 },
 };

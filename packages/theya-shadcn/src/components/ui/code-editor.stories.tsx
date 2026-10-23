@@ -48,6 +48,7 @@ const meta: Meta<typeof CodeEditor> = {
 export default meta;
 type Story = StoryObj<typeof CodeEditor>;
 
+/** No `language`, so no syntax coloring — plain notes with line numbers. Tab indents inside the editor; press Escape first to Tab out of it. */
 export const PlainText: Story = {
   name: 'Plain text',
   render: () => (
@@ -75,6 +76,7 @@ export const PlainText: Story = {
   },
 };
 
+/** `filename` and `language` add a header bar above the code, and `copy` and `clearable` add Copy and Clear buttons to it. */
 export const WithHeader: Story = {
   name: 'With header',
   render: () => (
@@ -84,6 +86,7 @@ export const WithHeader: Story = {
   ),
 };
 
+/** `readOnly`: the code can be selected and copied but not edited — for generated output people need to read or paste elsewhere. */
 export const ReadOnly: Story = {
   name: 'Read-only',
   render: () => (
@@ -101,6 +104,7 @@ export const ReadOnly: Story = {
   ),
 };
 
+/** `language` picks the syntax coloring: CSS on the regular surface, and a shell script on the dark `inverse` surface so it reads as a terminal. */
 export const Languages: Story = {
   name: 'Language coloring',
   parameters: { controls: { disable: true } },
@@ -118,6 +122,7 @@ export const Languages: Story = {
   ),
 };
 
+/** `inverse` keeps the code area on a fixed dark surface in both light and dark themes; the header follows the page's theme. */
 export const Inverse: Story = {
   name: 'Inverse (forced dark)',
   parameters: { controls: { disable: true } },
@@ -149,6 +154,7 @@ function ControlledDemo() {
   );
 }
 
+/** Controlled with `value` and `onChange` — the character count below updates as you type. */
 export const Controlled: Story = {
   render: () => <ControlledDemo />,
 };

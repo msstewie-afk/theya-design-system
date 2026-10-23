@@ -164,6 +164,7 @@ export const Small: Story = {
   args: { heightSize: 'sm', label: 'Price per month', min: 0, max: 200, histogram: PRICE_HISTOGRAM, formatValue: (v: number) => `€${v}` },
 };
 
+/** `disabled`: the chosen range stays visible, but the thumbs and the From / To fields can't be changed. */
 export const Disabled: Story = {
   args: { disabled: true, defaultValue: [50, 300] },
 };

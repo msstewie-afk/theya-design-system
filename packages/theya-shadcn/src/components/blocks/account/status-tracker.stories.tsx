@@ -54,6 +54,7 @@ export const Failed: Story = {
   },
 };
 
+/** `state="done"`: every step is ticked off, and `doneActions` offer where to go next. */
 export const Completed: Story = {
   args: {
     state: 'done',

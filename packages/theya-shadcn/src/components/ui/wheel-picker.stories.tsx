@@ -36,6 +36,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** Three rows, the chosen value in the middle: scroll, drag, or use the arrow keys, Home and End. */
 export const Default: Story = {
   // Keyboard: ↑ ↓ step, Home / End jump; the chosen option is aria-selected.
   play: async ({ canvasElement }) => {
@@ -51,6 +52,7 @@ export const Default: Story = {
   },
 };
 
+/** `rows={5}` shows two neighbours on each side of the chosen value, for more context on the scale. */
 export const FiveRows: Story = { name: 'Five rows', args: { rows: 5 } };
 
 /** Controlled, with the value shown next to it. */

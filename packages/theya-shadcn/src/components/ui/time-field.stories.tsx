@@ -98,6 +98,7 @@ export const Preselected: Story = {
   },
 };
 
+/** `hourCycle={24}`: the options and the field read as 24-hour times, such as 14:30. */
 export const HourCycle24: Story = {
   name: '24-hour',
   render: () => (
@@ -136,6 +137,7 @@ export const WithLabel: Story = {
   },
 };
 
+/** `step={15}` offers a time every 15 minutes instead of the default 30. */
 export const CustomStep: Story = {
   name: 'Custom step (15 min)',
   render: () => (
@@ -145,6 +147,7 @@ export const CustomStep: Story = {
   ),
 };
 
+/** `min` and `max` limit the list to business hours; a typed time outside the range is rejected, one inside it is accepted even off the step grid. */
 export const MinMax: Story = {
   name: 'Min/max range',
   render: () => (
@@ -172,6 +175,7 @@ export const MinMax: Story = {
   },
 };
 
+/** `disabled`: the time stays readable, but the field can't be focused or opened. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-[200px]">

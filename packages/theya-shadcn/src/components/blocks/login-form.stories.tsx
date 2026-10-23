@@ -81,6 +81,7 @@ export const Default: Story = {
   },
 };
 
+/** `showSso={false}` drops the “or continue with” row, leaving only email and password. */
 export const NoSso: Story = {
   name: 'No SSO',
   render: () => (

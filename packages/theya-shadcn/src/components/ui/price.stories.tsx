@@ -38,6 +38,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** €19.99 a month at `size="lg"`, formatted for `locale="en-IE"`; change the amount, currency and locale in the Controls below. */
 export const Default: Story = {};
 
 /** sm → xl. At lg/xl the symbol and cents are a bit smaller, on the same baseline. */

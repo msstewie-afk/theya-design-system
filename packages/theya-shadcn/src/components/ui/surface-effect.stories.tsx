@@ -32,6 +32,7 @@ const Content = ({ title }: { title: string }) => (
   </div>
 );
 
+/** A card with `effect="spotlight"` (default): a soft glow follows the pointer — hover the card, or pick another effect in the Controls. */
 export const Default: Story = {
   render: (args) => (
     <SurfaceEffect {...args} className={`max-w-sm ${args.effect === 'beam' ? 'rounded-[var(--size-border-radius-border-radius-2xl)]' : CARD}`}>
@@ -56,6 +57,7 @@ export const AllEffects: Story = {
   ),
 };
 
+/** `Aurora` placed behind a hero section: a slow-drifting color field, with the heading and text kept on top at full contrast. */
 export const AuroraHero: Story = {
   name: 'Aurora behind a hero',
   render: () => (

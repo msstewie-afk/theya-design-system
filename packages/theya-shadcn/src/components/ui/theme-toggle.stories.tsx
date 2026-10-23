@@ -27,6 +27,7 @@ const meta: Meta<typeof ThemeToggle> = {
 export default meta;
 type Story = StoryObj<typeof ThemeToggle>;
 
+/** An icon button that flips the whole page between light and dark; its label names the theme a press will switch to. */
 export const Playground: Story = {
   // The name says what a press will do, and flips with the theme.
   // Clicks twice so the page ends in the theme it started in.

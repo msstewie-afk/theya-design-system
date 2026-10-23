@@ -54,6 +54,7 @@ const meta: Meta<typeof Accordion> = {
 export default meta;
 type Story = StoryObj<typeof Accordion>;
 
+/** `type="single"`: opening a section closes the one that was open, and the open section can be closed again. */
 export const Single: Story = {
   render: () => (
     <Accordion type="single" className="w-full max-w-[400px]">
@@ -101,6 +102,7 @@ export const Single: Story = {
   },
 };
 
+/** `type="multiple"`: any number of sections can stay open at once. */
 export const Multiple: Story = {
   render: () => (
     <Accordion type="multiple" className="w-full max-w-[400px]">

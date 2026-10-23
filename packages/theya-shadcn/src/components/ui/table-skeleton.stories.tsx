@@ -25,6 +25,7 @@ const meta: Meta<typeof TableSkeletonRows> = {
 export default meta;
 type Story = StoryObj<typeof TableSkeletonRows>;
 
+/** Five skeleton rows under real column headers; the last column is right-aligned and narrower, matching the numbers it will hold. */
 export const Default: Story = {
   render: () => (
     <Table className="w-full max-w-[500px]">

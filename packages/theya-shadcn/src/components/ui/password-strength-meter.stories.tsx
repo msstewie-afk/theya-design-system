@@ -30,6 +30,7 @@ const meta: Meta<typeof PasswordStrengthMeter> = {
 export default meta;
 type Story = StoryObj<typeof PasswordStrengthMeter>;
 
+/** Interactive example — type a password into `value` in the Controls below and watch the bar and the checklist update. */
 export const Playground: Story = {
   args: { value: 'abc' },
   render: (args) => (
@@ -39,6 +40,7 @@ export const Playground: Story = {
   ),
 };
 
+/** No password yet: the bar is empty, no strength is shown and every rule is unmet. */
 export const Empty: Story = {
   args: { value: '' },
   render: (args) => (
@@ -48,6 +50,7 @@ export const Empty: Story = {
   ),
 };
 
+/** `value="abc"`: only one rule passes, so the bar shows the weak band in the danger color. */
 export const Weak: Story = {
   args: { value: 'abc' },
   render: (args) => (
@@ -57,8 +60,9 @@ export const Weak: Story = {
   ),
 };
 
+/** `value="abcdef12"`: three of the five default rules pass — long enough, with lowercase letters and a number — so the meter reads Good. */
 export const Good: Story = {
-  args: { value: 'abcDEF12' },
+  args: { value: 'abcdef12' },
   render: (args) => (
     <div className="w-full max-w-[348px]">
       <PasswordStrengthMeter {...args} />
@@ -66,6 +70,7 @@ export const Good: Story = {
   ),
 };
 
+/** `value="correct-Horse-Battery-9!"` meets all five default rules, so the bar fills in the success color. */
 export const Strong: Story = {
   args: { value: 'correct-Horse-Battery-9!' },
   render: (args) => (
@@ -75,6 +80,7 @@ export const Strong: Story = {
   ),
 };
 
+/** `rules` replaces the default checklist with your own labels and tests; the score is measured against those rules. */
 export const CustomRules: Story = {
   name: 'Custom rules',
   render: () => (

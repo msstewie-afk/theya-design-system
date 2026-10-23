@@ -89,6 +89,7 @@ function Demo() {
   );
 }
 
+/** With one filter applied: open the field to pick an attribute and its value, or type to add a keyword search chip. */
 export const Default: Story = {
   render: () => <Demo />,
   play: async ({ canvasElement }) => {
@@ -135,6 +136,7 @@ export const Default: Story = {
   },
 };
 
+/** No filters yet: each attribute type has its own value editor — a list, text with operators, a number range, a date. */
 export const Empty: Story = {
   render: () => (
     <div className="w-full max-w-[600px]">
@@ -187,6 +189,7 @@ export const Empty: Story = {
   },
 };
 
+/** `disabled` turns off the input, the add button and every applied chip, while the chips stay readable. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-full max-w-[600px]">

@@ -466,6 +466,7 @@ function Demo() {
   );
 }
 
+/** Every `kind` in one table: text, mono, primary, status, badge and usage, the editable input, select, switch and slider, and the loading placeholder. */
 export const AllKinds: Story = {
   name: 'All kinds',
   render: () => <Demo />,

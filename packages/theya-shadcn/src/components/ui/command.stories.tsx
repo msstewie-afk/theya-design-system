@@ -56,6 +56,7 @@ const meta: Meta<CommandStoryArgs> = {
 export default meta;
 type Story = StoryObj<CommandStoryArgs>;
 
+/** An inline list with grouped items and a shortcut: typing filters, the arrow keys move the highlight, and Escape clears the query. */
 export const Inline: Story = {
   render: () => (
     <div className="w-full max-w-[380px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
@@ -341,6 +342,7 @@ function DialogDemo() {
   );
 }
 
+/** `CommandDialog`: the same list in a modal, opened from a button here — the usual shape for an app-wide ⌘K palette. */
 export const AsDialog: Story = {
   name: 'As dialog',
   render: () => <DialogDemo />,

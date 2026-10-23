@@ -117,6 +117,7 @@ export const Controlled: Story = {
   },
 };
 
+/** A `disabled` card stays visible but can't be selected — for an option that doesn't apply right now. */
 export const Disabled: Story = {
   render: () => (
     <OptionCardGroup defaultValue="http-01" aria-label="Validation method" className="w-full max-w-[480px]">

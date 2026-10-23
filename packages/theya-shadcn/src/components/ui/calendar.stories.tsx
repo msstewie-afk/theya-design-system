@@ -57,6 +57,7 @@ function SingleDemo(args: CalendarArgs) {
   return <Calendar {...args} mode="single" selected={date} onSelect={setDate} />;
 }
 
+/** `mode="single"`: one date at a time, starting on today. The arrow keys move between days and Enter picks one. */
 export const Single: Story = {
   render: (args) => <SingleDemo {...args} />,
   // Keyboard: arrows move between days, Enter picks the focused one.
@@ -117,6 +118,7 @@ function DisabledDemo(args: CalendarArgs) {
   return <Calendar {...args} mode="single" selected={date} onSelect={setDate} disabled={{ before: new Date() }} />;
 }
 
+/** `disabled={{ before: new Date() }}` makes past days unselectable, as in a booking flow. */
 export const Disabled: Story = {
   render: (args) => <DisabledDemo {...args} />,
 };

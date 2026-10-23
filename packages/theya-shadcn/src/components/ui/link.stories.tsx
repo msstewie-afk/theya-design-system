@@ -39,6 +39,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** The interactive example driven by the Controls below — try `underline`, `inverse` and the `size` steps. */
 export const Playground: Story = {};
 
 /** The four standalone steps; without `size` the link takes the parent's type. */

@@ -72,6 +72,7 @@ function Sample({ label = 'Domains' }: { label?: string }) {
   );
 }
 
+/** The interactive example: each option sets the density of the whole page and one is always on; `size` in the Controls below switches between toolbar and form height. */
 export const Playground: Story = {
   // Page-wide: each press moves <html data-density>, "Default" removes it.
   // Ends on Default so the page is left as it was.

@@ -50,6 +50,7 @@ type Story = StoryObj<typeof meta>;
 
 const page = () => within(document.body);
 
+/** A basic popover: the button opens a small panel with a title, a hint and two fields, and Escape or a click outside closes it. */
 export const Playground: Story = {
   render: () => (
     <Popover>

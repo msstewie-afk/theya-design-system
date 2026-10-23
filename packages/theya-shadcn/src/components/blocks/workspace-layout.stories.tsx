@@ -124,6 +124,7 @@ export const MinimalTopbar: Story = {
   },
 };
 
+/** `defaultCollapsed`: the sidebar starts as a narrow icon-only rail to give the content more room, and the Expand sidebar button opens it again. */
 export const Collapsed: Story = {
   render: () => (
     <WorkspaceLayout defaultCollapsed>

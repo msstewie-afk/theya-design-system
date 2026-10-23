@@ -31,6 +31,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** Three deploys on screen, moving on every `interval`; Pause stops it, and nothing moves under reduced motion. */
 export const Default: Story = {
   render: (args) => (
     <Card className="w-[22rem] max-w-full">

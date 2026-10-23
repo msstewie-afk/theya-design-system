@@ -77,6 +77,7 @@ type Story = StoryObj<typeof Attachment>;
 /** Name + size with a type icon picked from the extension. */
 export const Default: Story = {};
 
+/** The same file in all four `variant` shapes — `card`, `row`, `pill` and `line` — each with a remove control. */
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-col gap-4 w-[280px]">
@@ -211,6 +212,7 @@ export const LocalizedLabels: Story = {
   },
 };
 
+/** `error` replaces the meta line with the reason the file failed, announced as an alert and styled destructive. */
 export const WithError: Story = {
   name: 'With error',
   args: { name: 'backup.tar.gz', size: 5300000000, error: 'Exceeds the 2 GB upload limit', onRemove: () => {} },
@@ -284,6 +286,7 @@ export const LongNames: Story = {
   },
 };
 
+/** `showKind` spells out the file kind from its MIME type (“PNG image”) in the meta line. */
 export const KindLabel: Story = {
   name: 'Kind label',
   render: () => (
@@ -293,6 +296,7 @@ export const KindLabel: Story = {
   ),
 };
 
+/** `variant="row"`: type icon, name and size on one line, for files listed one under another. */
 export const Row: Story = {
   render: () => (
     <div className="flex max-w-lg flex-col gap-2 w-full max-w-[360px]">
@@ -303,6 +307,7 @@ export const Row: Story = {
   ),
 };
 
+/** `href` turns the name into a real link that covers the whole row, while `actions` stay separately clickable; the row without `href` is static. */
 export const AsLink: Story = {
   name: 'As link',
   render: () => (
@@ -321,6 +326,7 @@ export const AsLink: Story = {
   ),
 };
 
+/** `selected` rings the picked file; click another card to move the selection. */
 export const Selected: Story = {
   render: function SelectedExample() {
     const files = [
@@ -350,6 +356,7 @@ export const Selected: Story = {
   },
 };
 
+/** Linked, selected and static attachments as rows and as pills — hover and focus them to compare the states. */
 export const InteractiveStates: Story = {
   name: 'Interactive states',
   render: () => (

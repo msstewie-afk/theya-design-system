@@ -153,6 +153,7 @@ export const RequiredAndOptional: Story = {
   ),
 };
 
+/** `disabled` shows a saved number, formatted, with both the country picker and the field turned off. */
 export const Disabled: Story = {
   args: { defaultValue: '+12015550123', disabled: true },
 };

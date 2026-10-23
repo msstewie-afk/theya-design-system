@@ -42,6 +42,7 @@ function visit(tab: string | null, hash = '') {
   window.dispatchEvent(new PopStateEvent('popstate'));
 }
 
+/** Switching tabs writes `?tab=` to the address, and the default tab leaves it out; Back, Forward and shared links open the right tab. */
 export const Default: Story = {
   render: () => (
     <UrlTabs defaultValue="overview" values={['overview', 'dns', 'security']} className="w-full max-w-[400px]">

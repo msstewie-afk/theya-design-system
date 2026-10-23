@@ -30,6 +30,7 @@ const meta: Meta<typeof PromptSuggestions> = {
 export default meta;
 type Story = StoryObj<typeof PromptSuggestions>;
 
+/** Three suggestion cards with an icon each; picking one passes it to `onSelect`, typically to fill the composer below. */
 export const Default: Story = {
   args: {
     items: [

@@ -53,15 +53,18 @@ const meta: Meta<typeof TextArea> = {
 export default meta;
 type Story = StoryObj<typeof TextArea>;
 
+/** Interactive example with a label and placeholder — change the label, helper text, error and width in the Controls below. */
 export const Playground: Story = {
   args: { label: 'Bio', placeholder: 'Tell us about yourself' },
 };
 
+/** No visible label: give the field an `aria-label` so it still has a name, and use this only where the context already says what to type. */
 export const Bare: Story = {
   name: 'No label',
   args: { placeholder: 'Tell us about yourself', 'aria-label': 'Bio' },
 };
 
+/** `required` adds the asterisk to the label and marks the field as required for assistive tech. */
 export const Required: Story = {
   args: { label: 'Bio', required: true, placeholder: 'Tell us about yourself' },
   play: async ({ canvasElement }) => {
@@ -69,6 +72,7 @@ export const Required: Story = {
   },
 };
 
+/** `description` puts helper text under the field, such as a length limit, and links it to the textarea as its description. */
 export const WithDescription: Story = {
   args: {
     label: 'Feedback',
@@ -80,6 +84,7 @@ export const WithDescription: Story = {
   },
 };
 
+/** `error` shows the message under the field, danger-styles it and marks it invalid — say what's wrong and how to fix it. */
 export const WithError: Story = {
   name: 'With error message',
   args: {
@@ -95,6 +100,7 @@ export const WithError: Story = {
   },
 };
 
+/** `labelPosition="left"` puts the label in a column beside the field for two-column forms; on narrow screens the label moves back on top. */
 export const LeftLabel: Story = {
   name: 'Left label (horizontal)',
   args: {
@@ -105,11 +111,13 @@ export const LeftLabel: Story = {
   },
 };
 
+/** `readOnly`: the text can be selected and copied but not changed — for submitted content that should stay visible. */
 export const ReadOnly: Story = {
   name: 'Read-only',
   args: { label: 'Feedback', readOnly: true, defaultValue: 'Submitted feedback, cannot be edited.' },
 };
 
+/** `widthSize` from `sm` to `xl`: pick the width that fits the expected length of the answer; `full` fills the container. */
 export const Widths: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
@@ -121,6 +129,7 @@ export const Widths: Story = {
   ),
 };
 
+/** Default, focused, disabled, error and read-only side by side — the same treatments TextField uses. */
 export const States: Story = {
   name: 'States (from TextField)',
   render: () => (

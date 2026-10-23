@@ -52,6 +52,7 @@ const regions = (root: HTMLElement) => Array.from(root.querySelectorAll<HTMLElem
 // CopyButton's own region comes after Button's (which lives inside the button).
 const live = (root: HTMLElement) => regions(root).filter((el) => !el.closest('button'))[0];
 
+/** The interactive example driven by the Controls below: click to copy `value`, and the tick and "Copied" show until `resetDelay` passes. */
 export const Playground: Story = {
   args: { value: 'npm install @theya/shadcn', resetDelay: 400, onCopied: fn(), onCopyError: fn() },
   play: async ({ canvasElement, args }) => {
@@ -87,6 +88,7 @@ export const Playground: Story = {
   },
 };
 
+/** `label={null}` with an `aria-label`: just the icon, with the copy announced to screen readers — for tight spots like a table cell. */
 export const IconOnly: Story = {
   args: { value: 'sk-abc123...', label: null, 'aria-label': 'Copy API key' },
   play: async ({ canvasElement }) => {
@@ -108,6 +110,7 @@ export const IconOnly: Story = {
   },
 };
 
+/** Every `size`, from `sm` to `2xl`, matching Button. */
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>

@@ -146,11 +146,13 @@ export const WithLabel: Story = {
   },
 };
 
+/** `hourCycle={24}`: the time list uses 24-hour labels (00:00, 00:30…) with no AM/PM. */
 export const HourCycle24: Story = {
   name: '24-hour',
   render: (args) => <ControlledDemo {...args} hourCycle={24} />,
 };
 
+/** `disabled`: both the date and the time field are inactive. */
 export const Disabled: Story = {
   args: { disabled: true, 'aria-label': 'Appointment' },
   play: async ({ canvasElement }) => {

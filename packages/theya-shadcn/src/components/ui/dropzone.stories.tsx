@@ -81,6 +81,7 @@ function StagedDemo() {
   );
 }
 
+/** A working zone with two staged files, one of them rejected: browse or drop files to add rows, and remove them with their controls. */
 export const Playground: Story = {
   render: () => <StagedDemo />,
   play: async ({ canvasElement }) => {
@@ -108,6 +109,7 @@ export const Playground: Story = {
   },
 };
 
+/** The resting state: a drag-or-browse prompt, with a `hint` listing the accepted types and size. */
 export const Empty: Story = {
   render: () => (
     <div className="w-full max-w-[480px]">
@@ -116,6 +118,7 @@ export const Empty: Story = {
   ),
 };
 
+/** `error` turns the zone danger-styled and announces the message as an alert. */
 export const WithError: Story = {
   name: 'With error',
   render: () => (
@@ -137,6 +140,7 @@ export const WithError: Story = {
   },
 };
 
+/** `successFile` replaces the prompt with a confirmation of the uploaded file — a tick, its name and the upload date. */
 export const Success: Story = {
   render: () => (
     <div className="w-full max-w-[450px]">
@@ -154,6 +158,7 @@ export const Success: Story = {
   },
 };
 
+/** `loading` shows a spinner with “Uploading…” and makes the zone non-interactive until the upload ends. */
 export const Loading: Story = {
   render: () => (
     <div className="w-full max-w-[450px]">
@@ -168,6 +173,7 @@ export const Loading: Story = {
   },
 };
 
+/** `disabled` turns off both dropping and browsing. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-full max-w-[480px]">

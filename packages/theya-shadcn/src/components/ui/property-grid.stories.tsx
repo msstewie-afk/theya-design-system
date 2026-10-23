@@ -58,6 +58,7 @@ const DEFAULT_VALUES: Record<string, PropertyValue> = {
   notes: 'Primary storefront',
 };
 
+/** Each row picks its control from `type` — text, select, number, switch, textarea — with starting values from `defaultValues`. */
 export const Default: Story = {
   args: { items: ITEMS, defaultValues: DEFAULT_VALUES },
   render: (args) => (
@@ -76,10 +77,12 @@ function EditingDemo() {
   );
 }
 
+/** Controlled with `values` and `onValuesChange`, starting empty, so every row is ready for input. */
 export const Editing: Story = {
   render: () => <EditingDemo />,
 };
 
+/** Every row `readOnly`: the grid shows values as plain text, for a details view with nothing to change. */
 export const ReadOnlyStory: Story = {
   name: 'Read Only',
   render: () => (
@@ -92,6 +95,7 @@ export const ReadOnlyStory: Story = {
   ),
 };
 
+/** One `readOnly` row among editable ones — for a property that is fixed once the object exists. */
 export const MixedReadOnly: Story = {
   name: 'Mixed Read Only',
   render: () => (
@@ -104,6 +108,7 @@ export const MixedReadOnly: Story = {
   ),
 };
 
+/** The label column is as wide as its longest label: short labels keep it narrow, a long one widens it. */
 export const SizedToLongestLabel: Story = {
   name: 'Sized To Longest Label',
   render: () => (
@@ -127,6 +132,7 @@ export const SizedToLongestLabel: Story = {
   ),
 };
 
+/** `maxLabelWidth="10ch"` caps the label column; labels longer than that truncate with an ellipsis. */
 export const NarrowLabelColumn: Story = {
   name: 'Narrow Label Column',
   render: () => (
@@ -144,6 +150,7 @@ export const NarrowLabelColumn: Story = {
   ),
 };
 
+/** `type: 'custom'` with a `render` function puts any control in a row — here a Slider with its value beside it. */
 export const CustomControl: Story = {
   name: 'Custom Control',
   render: () => (

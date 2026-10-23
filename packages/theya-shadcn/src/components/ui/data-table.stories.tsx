@@ -172,6 +172,7 @@ const columnsTwoLine: ColumnDef<Site, unknown>[] = [
   },
 ];
 
+/** Sortable columns: click a header, or focus it and press Enter, to sort. On a phone the rows stack into items with label/value pairs. */
 export const Basic: Story = {
   render: () => <DataTable columns={columns} data={DATA} ariaLabel="Sites" />,
 
@@ -249,6 +250,7 @@ export const TwoLineRows: Story = {
   render: () => <DataTable columns={columnsTwoLine} data={DATA} lines={2} ariaLabel="Sites" />,
 };
 
+/** `enableSelection` with `selectAll="toolbar"`: selecting rows swaps in a bulk-action bar with a live count, and `rowMenu` gives every row an actions menu, also on right-click. */
 export const WithSelectionAndRowMenu: Story = {
 
   name: 'With selection and row menu',
@@ -355,10 +357,12 @@ export const PagedColumns: Story = {
   },
 };
 
+/** `loading` shows `skeletonRows` placeholder rows under the real headers while the data loads. */
 export const Loading: Story = {
   render: () => <DataTable columns={columns} data={[]} loading skeletonRows={4} ariaLabel="Sites" />,
 };
 
+/** No rows: the `emptyMessage` takes their place. */
 export const EmptyState: Story = {
   name: 'Empty state',
   render: () => <DataTable columns={columns} data={[]} emptyMessage="No sites yet." ariaLabel="Sites" />,

@@ -48,6 +48,7 @@ const meta: Meta<typeof ConfirmDialog> = {
 export default meta;
 type Story = StoryObj<typeof ConfirmDialog>;
 
+/** A plain confirmation: the trigger opens it, Escape or Cancel closes it, and the danger action runs `onConfirm`. */
 export const Default: Story = {
   args: { onConfirm: fn() },
   render: (args) => (
@@ -87,6 +88,7 @@ export const Default: Story = {
 
 };
 
+/** `confirmValue` keeps the delete action disabled until the exact name is typed — for deletes that can't be undone. */
 export const TypedConfirm: Story = {
   name: 'Typed confirm',
   args: { onConfirm: fn() },

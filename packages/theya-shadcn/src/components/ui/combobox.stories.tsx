@@ -84,6 +84,7 @@ function SingleDemo() {
   );
 }
 
+/** One value: type to filter, Enter picks the highlighted option, and Escape puts back the last committed label. */
 export const Single: Story = {
   render: () => <SingleDemo />,
   // Type to filter, Enter commits, Escape restores the committed label.
@@ -164,6 +165,7 @@ export const KeyboardNavigation: Story = {
   },
 };
 
+/** `heightSize="md"` (default) and `heightSize="sm"` — the same heights as TextField, so a combobox lines up with the inputs beside it. */
 export const HeightSizes: Story = {
   name: 'Height sizes (m / s)',
   render: () => (
@@ -191,6 +193,7 @@ function SingleAllowCreateDemo() {
   );
 }
 
+/** `allowCreate`: whatever is typed becomes the value even when no option matches — for free-form entries with suggestions. */
 export const SingleAllowCreate: Story = {
   name: 'Single — allowCreate',
   render: () => <SingleAllowCreateDemo />,
@@ -212,6 +215,7 @@ function MultipleDemo() {
   );
 }
 
+/** `multiple`: each pick becomes a chip, and Backspace in an empty field removes the last one. */
 export const Multiple: Story = {
   render: () => <MultipleDemo />,
   // Enter adds a chip, Backspace on an empty query removes the last one.
@@ -250,11 +254,13 @@ function MultipleAllowCreateDemo() {
   );
 }
 
+/** `allowCreate` with `createOnDelimiter`: a Create row commits new entries, and typing a space or comma turns the current text into a chip — handy for tags. */
 export const MultipleAllowCreate: Story = {
   name: 'Multiple — allowCreate + delimiter',
   render: () => <MultipleAllowCreateDemo />,
 };
 
+/** `showClear`: a clear button appears once a value is selected, so the choice can be reset in one click. */
 export const WithClear: Story = {
   name: 'With clear button',
   render: () => (
@@ -264,6 +270,7 @@ export const WithClear: Story = {
   ),
 };
 
+/** `loading`: the dropdown shows a loading message instead of options while results are fetched. */
 export const Loading: Story = {
   render: () => (
     <div className="w-[240px]">
@@ -272,6 +279,7 @@ export const Loading: Story = {
   ),
 };
 
+/** `readOnly`: chips stay readable on a muted fill, with no dropdown, clear or remove controls. */
 export const ReadOnly: Story = {
   name: 'Read-only',
   render: () => (
@@ -281,6 +289,7 @@ export const ReadOnly: Story = {
   ),
 };
 
+/** `disabled`: the field is muted and can't be focused or opened. */
 export const Disabled: Story = {
   render: () => (
     <div className="w-[240px]">

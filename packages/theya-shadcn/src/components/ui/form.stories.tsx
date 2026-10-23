@@ -109,6 +109,7 @@ function CreateSiteForm() {
   );
 }
 
+/** A create-site form validated with a zod schema as people type: errors appear under each field, and Create site stays disabled until everything is valid. */
 export const Default: Story = {
   render: () => <CreateSiteForm />,
 };
@@ -152,6 +153,7 @@ function InvalidForm() {
   );
 }
 
+/** A field that fails validation: the label and input turn danger-colored and the message under the help text says what to fix. */
 export const Invalid: Story = {
   render: () => <InvalidForm />,
 };
@@ -189,6 +191,7 @@ function SwitchForm() {
   );
 }
 
+/** A Switch bound to a form field, with its label and help text beside it — give the switch an `aria-label` too, since a label element can't reliably name it. */
 export const WithSwitch: Story = {
   name: 'With switch',
   render: () => <SwitchForm />,

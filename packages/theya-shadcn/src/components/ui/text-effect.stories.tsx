@@ -31,6 +31,7 @@ type Story = StoryObj<typeof meta>;
 
 const H = 'font-body text-heading-l font-semibold text-[var(--color-text-text)]';
 
+/** `effect="split"`: letters rise in one after another when the heading scrolls into view. */
 export const Split: Story = {
   render: (args) => <TextEffect {...args} as="h2" className={H} />,
   play: async ({ canvasElement }) => {
@@ -44,11 +45,13 @@ export const Scramble: Story = {
   render: (args) => <TextEffect {...args} as="p" className="font-mono text-heading-m text-[var(--color-text-text)]" />,
 };
 
+/** `effect="shimmer"`: a band of light runs through the text on a loop — keep it to one short line. */
 export const Shimmer: Story = {
   args: { effect: 'shimmer', children: 'Now with hourly backups' },
   render: (args) => <TextEffect {...args} as="p" className="text-heading-s font-semibold" />,
 };
 
+/** `effect="typewriter"`: types and deletes each of the `phrases` in turn, while screen readers get all of them at once. */
 export const Typewriter: Story = {
   args: { effect: 'typewriter', children: undefined, phrases: ['your shop.', 'your blog.', 'your docs.'] },
   render: (args) => (

@@ -36,6 +36,7 @@ const meta: Meta<typeof Radio> = {
 export default meta;
 type Story = StoryObj<typeof Radio>;
 
+/** Three options in a `RadioGroup`: the group is one Tab stop, and the arrow keys move and select at once. */
 export const Playground: Story = {
   render: () => (
     <RadioGroup defaultValue="a" className="flex flex-col gap-3">
@@ -66,6 +67,7 @@ export const Playground: Story = {
   },
 };
 
+/** `description` adds a line under each label to explain how the options differ; it's read out as the radio's description. */
 export const WithDescription: Story = {
   render: () => (
     <RadioGroup defaultValue="monthly" className="flex flex-col gap-3">
@@ -78,6 +80,7 @@ export const WithDescription: Story = {
   },
 };
 
+/** Unchecked, checked, disabled, and disabled + checked. */
 export const States: Story = {
   render: () => (
     <div className="flex flex-col gap-3">

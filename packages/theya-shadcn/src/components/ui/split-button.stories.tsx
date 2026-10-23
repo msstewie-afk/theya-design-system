@@ -51,6 +51,7 @@ const menuItems = (onSelect?: (label: string) => void) => (
 
 const onMenuSelect = fn();
 
+/** The interactive example driven by the Controls below: the main half runs the action, the caret opens a menu of its variations. */
 export const Playground: Story = {
   // An action spy instead of alert(): a native dialog blocks the page.
   args: { onMainClick: fn(), menuLabel: 'More send options' },
@@ -116,6 +117,7 @@ export const Sizes: Story = {
   },
 };
 
+/** `disabled` turns off both halves — the main action and the menu caret. */
 export const Disabled: Story = {
   render: () => (
     <SplitButton disabled menuContent={menuItems()}>

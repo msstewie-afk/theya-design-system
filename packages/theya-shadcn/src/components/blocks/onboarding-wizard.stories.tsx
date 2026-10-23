@@ -102,6 +102,7 @@ export const Default: Story = {
   },
 };
 
+/** `orientation="vertical"` lists the Stepper's steps top to bottom instead of across. */
 export const Vertical: Story = {
   render: () => (
     <div className="flex max-w-3xl p-6">

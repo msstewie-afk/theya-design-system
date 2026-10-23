@@ -96,6 +96,7 @@ export const Default: Story = {
   },
 };
 
+/** `loading` shows skeleton rows in place of the events, and the status line reads "Loading events…". */
 export const Loading: Story = {
   render: () => (
     <div className="p-6">

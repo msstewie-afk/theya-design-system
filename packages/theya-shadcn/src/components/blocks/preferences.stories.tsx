@@ -144,6 +144,7 @@ export const Default: Story = {
   },
 };
 
+/** `notifications={[]}` leaves out the Notifications section and its link in the section nav. */
 export const NoNotifications: Story = {
   name: 'No notifications section',
   render: () => (

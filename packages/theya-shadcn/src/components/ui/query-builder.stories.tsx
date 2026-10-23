@@ -63,10 +63,12 @@ function Demo() {
   );
 }
 
+/** A query with one condition, Status is any of Active; Add condition appends more rows. */
 export const Default: Story = {
   render: () => <Demo />,
 };
 
+/** No conditions yet: an empty message and the Add condition button to start from. */
 export const Empty: Story = {
   render: () => (
     <div className="w-full max-w-[640px]">

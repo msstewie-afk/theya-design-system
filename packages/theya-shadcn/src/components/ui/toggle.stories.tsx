@@ -28,6 +28,7 @@ const meta: Meta<typeof Toggle> = {
 export default meta;
 type Story = StoryObj<typeof Toggle>;
 
+/** The interactive example, driven by the Controls below — click it or press Space to press and release it. */
 export const Playground: Story = {
   args: { 'aria-label': 'Bold' },
   render: (args) => (
@@ -48,6 +49,7 @@ export const Playground: Story = {
   },
 };
 
+/** Icon only: the toggle becomes a square, and `aria-label` gives it its accessible name. */
 export const IconOnly: Story = {
   args: { 'aria-label': 'Bold' },
   render: (args) => (
@@ -57,6 +59,7 @@ export const IconOnly: Story = {
   ),
 };
 
+/** `appearance="tonal"`, `"outlined"` and `"ghost"` (default) — ghost suits toolbars, the others stand out more on their own. */
 export const Variants: Story = {
   render: () => (
     <div className="flex gap-3">
@@ -73,6 +76,7 @@ export const Variants: Story = {
   ),
 };
 
+/** `size="sm"`, `"md"` (default) and `"lg"`; icon-only toggles stay square at every size. */
 export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-3">
@@ -102,6 +106,7 @@ export const Sizes: Story = {
   },
 };
 
+/** Unpressed, pressed (`defaultPressed`) and `disabled`. */
 export const States: Story = {
   render: () => (
     <div className="flex gap-3">

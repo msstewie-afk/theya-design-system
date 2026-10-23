@@ -39,6 +39,7 @@ const meta: Meta<typeof Field> = {
 export default meta;
 type Story = StoryObj<typeof Field>;
 
+/** A Label, a control and a FieldDescription stacked in one Field, with the help line under the control. */
 export const Default: Story = {
   render: () => (
     <Field>
@@ -62,6 +63,7 @@ export const Required: Story = {
   ),
 };
 
+/** `invalid` on Field, with a FieldError under the control saying how to fix the value. */
 export const Invalid: Story = {
   render: () => (
     <Field invalid>
@@ -74,6 +76,7 @@ export const Invalid: Story = {
   ),
 };
 
+/** `disabled` on Field alongside a disabled control — use the help line to say why it can't be changed. */
 export const Disabled: Story = {
   render: () => (
     <Field disabled>
@@ -86,6 +89,7 @@ export const Disabled: Story = {
   ),
 };
 
+/** Field around controls that don't draw their own label and help text: a Select, a NumberField and an inline Switch. */
 export const NonNativeControls: Story = {
   name: 'Non-native controls',
   render: () => (

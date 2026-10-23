@@ -30,6 +30,7 @@ const meta: Meta<typeof Fieldset> = {
 export default meta;
 type Story = StoryObj<typeof Fieldset>;
 
+/** A `legend` and `description` over two fields, grouped and announced as one section. */
 export const Playground: Story = {
   render: () => (
     <Fieldset legend="Contact" description="How we'll reach you." className="w-[320px] max-w-full">
@@ -98,6 +99,7 @@ export const MultipleSections: Story = {
   ),
 };
 
+/** `disabled` switches off every field inside at once — for a section that depends on another setting. */
 export const Disabled: Story = {
   render: () => (
     <Fieldset legend="Billing address" disabled className="w-[320px] max-w-full">

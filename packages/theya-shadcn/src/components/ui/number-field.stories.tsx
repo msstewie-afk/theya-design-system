@@ -44,11 +44,13 @@ const meta: Meta<typeof NumberField> = {
 export default meta;
 type Story = StoryObj<typeof NumberField>;
 
+/** The interactive example, driven by the Controls below — step with the buttons or the arrow keys, or type a number. */
 export const Playground: Story = {
   args: { defaultValue: 0, 'aria-label': 'Quantity' },
   render: (args) => <NumberField {...args} />,
 };
 
+/** `min` and `max`: values clamp to the range and the matching button disables at each end; Shift with an arrow key steps by 10. */
 export const WithMinMax: Story = {
   name: 'With min/max',
   args: { defaultValue: 5, min: 0, max: 10, 'aria-label': 'Quantity (0-10)', onValueChange: fn() },
@@ -132,11 +134,13 @@ export const TypingCommitsOnBlur: Story = {
   },
 };
 
+/** `aria-invalid`: the field turns danger-colored — pair it with an error message that says what to change. */
 export const Invalid: Story = {
   args: { defaultValue: 0, 'aria-label': 'Quantity', 'aria-invalid': true },
   render: (args) => <NumberField {...args} />,
 };
 
+/** `disabled`: the value stays readable, but the field and both stepper buttons are inactive. */
 export const Disabled: Story = {
   args: { defaultValue: 5, disabled: true, 'aria-label': 'Quantity' },
   render: (args) => <NumberField {...args} />,
