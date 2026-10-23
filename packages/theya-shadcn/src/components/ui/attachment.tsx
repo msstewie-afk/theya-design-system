@@ -260,7 +260,7 @@ export function Attachment({
         )}
       >
         {clickOverlay}
-        <span className={cn('flex shrink-0 items-center justify-center size-4', iconColorClass)}>
+        <span className={cn('flex shrink-0 items-center justify-center size-4 [&>svg]:size-full', iconColorClass)}>
           {kindIcon(type, previewUrl)}
         </span>
         <span className="min-w-0 flex flex-col items-start">
@@ -343,7 +343,7 @@ export function Attachment({
           {previewUrl ? (
             <img src={previewUrl} alt="" className="size-full object-cover" />
           ) : (
-            <span className={cn('flex items-center justify-center size-4', iconColorClass)}>
+            <span className={cn('flex items-center justify-center size-4 [&>svg]:size-full', iconColorClass)}>
               {kindIcon(type, previewUrl)}
             </span>
           )}
@@ -402,7 +402,7 @@ export function Attachment({
         {previewUrl ? (
           <img src={previewUrl} alt="" className="size-full object-cover" />
         ) : (
-          <span className={cn('size-6', iconColorClass)}>
+          <span className={cn('size-6 [&>svg]:size-full', iconColorClass)}>
             {kindIcon(type, previewUrl)}
           </span>
         )}
