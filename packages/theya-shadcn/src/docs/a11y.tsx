@@ -163,24 +163,31 @@ const COLUMNS: { key: string; label: string; short?: string; cell: (r: A11yRow) 
   { key: 'deviations', label: 'Known deviations', short: 'Deviations', cell: deviationCell },
 ];
 
-/** Status block for one component's Docs page (by its Storybook title). */
+/**
+ * Status block for one component's Docs page (by its Storybook title). It
+ * follows the hand-written accessibility notes in the same section, so it
+ * opens with its own heading and 32px above it: notes, then the generated
+ * status, read as two blocks.
+ */
 export function A11yStatus({ title }: { title: string }) {
   const row = ROWS.find((r) => r.title === title);
   if (!row) return null;
   return (
-    <div className="flex flex-col gap-2">
-      <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtle)]">
-        Status against WCAG 2.2 AA, generated from the tests and the code. Full table:{' '}
-        <SbLink path="/story/design-system-accessibility--matrix">Design System / Accessibility</SbLink>
-        .
-      </p>
-      <dl className="m-0 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-[max-content_1fr]">
+    <div className="mt-5 flex flex-col gap-4">
+      <div className="flex flex-col gap-1">
+        <h3 className="m-0 font-body text-body-l font-semibold text-[var(--color-text-text)]">Status against WCAG 2.2 AA</h3>
+        <p className="m-0 font-body text-body-m leading-6 text-[var(--color-text-text-subtle)]">
+          Generated from the tests and the code. Full table:{' '}
+          <SbLink path="/story/design-system-accessibility--matrix">Design System / Accessibility</SbLink>.
+        </p>
+      </div>
+      <dl className="m-0 flex flex-col gap-5 sm:grid sm:grid-cols-[max-content_1fr] sm:gap-x-6">
         {COLUMNS.map((c) => {
           const v = c.cell(row);
           return (
-            <div key={c.key} className="contents">
+            <div key={c.key} className="flex flex-col gap-2 sm:contents">
               <dt className="font-body text-body-m font-semibold text-[var(--color-text-text)]">{c.label}</dt>
-              <dd className="m-0 flex min-w-0 flex-col items-start gap-1">
+              <dd className="m-0 flex min-w-0 flex-col items-start gap-2">
                 <Badge tone={v.tone}>{v.label}</Badge>
                 {v.detail && <span className="font-body text-body-s text-[var(--color-text-text-subtle)]">{v.detail}</span>}
               </dd>
