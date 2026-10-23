@@ -2,12 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { toast } from '../ui/sonner';
 import { AccessTokens } from './access-tokens';
+import { accessTokensGuidelines } from './access-tokens.guidelines';
 
 const meta: Meta<typeof AccessTokens> = {
   title: 'Patterns/AccessTokens',
   component: AccessTokens,
   tags: ['autodocs'],
   parameters: {
+    guidelines: accessTokensGuidelines,
     docs: {
       description: {
         component:

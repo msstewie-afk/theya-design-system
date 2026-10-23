@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { ResourceForm } from './resource-form';
+import { resourceFormGuidelines } from './resource-form.guidelines';
 
 const meta: Meta<typeof ResourceForm> = {
   title: 'Patterns/ResourceForm',
   component: ResourceForm,
   tags: ['autodocs'],
   parameters: {
+    guidelines: resourceFormGuidelines,
     docs: {
       description: {
         component:

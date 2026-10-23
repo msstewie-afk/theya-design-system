@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { BillingUsage } from './billing-usage';
+import { billingUsageGuidelines } from './billing-usage.guidelines';
 
 const meta: Meta<typeof BillingUsage> = {
   title: 'Patterns/BillingUsage',
   component: BillingUsage,
   tags: ['autodocs'],
   parameters: {
+    guidelines: billingUsageGuidelines,
     docs: {
       description: {
         component:

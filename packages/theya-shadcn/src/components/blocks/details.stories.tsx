@@ -3,12 +3,14 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Details } from './details';
 import { Button } from '../ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../ui/tabs';
+import { detailsGuidelines } from './details.guidelines';
 
 const meta: Meta<typeof Details> = {
   title: 'Patterns/Details',
   component: Details,
   tags: ['autodocs'],
   parameters: {
+    guidelines: detailsGuidelines,
     docs: {
       description: {
         component:

@@ -2,12 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { toast } from '../ui/sonner';
 import { Preferences } from './preferences';
+import { preferencesGuidelines } from './preferences.guidelines';
 
 const meta: Meta<typeof Preferences> = {
   title: 'Patterns/Preferences',
   component: Preferences,
   tags: ['autodocs'],
   parameters: {
+    guidelines: preferencesGuidelines,
     docs: {
       description: {
         component:

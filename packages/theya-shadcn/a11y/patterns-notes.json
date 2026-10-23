@@ -1,0 +1,60 @@
+{
+  "$comment": "Accessibility notes for the 14 core patterns (Storybook Patterns/*), written with their use-guidelines on 2026-10-23. Hand-off for extending the matrix (build-a11y.mjs) to blocks: one entry per pattern, each a WCAG criterion with a finding. Source is code reading, not a test or a screen-reader pass, so treat result as 'expected' until a review confirms it. result: pass | fail. The reader-facing version of the same notes is in each <block>.guidelines.tsx (a11y).",
+  "AccessTokens": [
+    { "criterion": "3.3.4", "result": "pass", "finding": "Revoke opens a ConfirmDialog and the toast offers undo; a revoked key can be restored." },
+    { "criterion": "4.1.2", "result": "pass", "finding": "The new key is shown once in a dialog inside a SecretField with its own named Copy button." }
+  ],
+  "AuditLog": [
+    { "criterion": "1.4.1", "result": "pass", "finding": "Event category is a word in a Badge plus an icon chip, not color alone." },
+    { "criterion": "1.3.1", "result": "pass", "finding": "The empty state tells 'nothing matches the filters' from 'no events yet'." }
+  ],
+  "BillingUsage": [
+    { "criterion": "1.4.1", "result": "pass", "finding": "Invoice status is a StatusDot with a text label; quota fullness is given as numbers and percent, not only by the bar." },
+    { "criterion": "2.4.6", "result": "pass", "finding": "Plan, usage and invoices are headed sections." }
+  ],
+  "DashboardOverview": [
+    { "criterion": "1.3.2", "result": "pass", "finding": "'Needs attention' is first in DOM order, not only placed first visually." },
+    { "criterion": "1.1.1", "result": "pass", "finding": "Usage is stated in numbers and percent; the chart and bars repeat the text." }
+  ],
+  "Details": [
+    { "criterion": "1.4.1", "result": "pass", "finding": "Status is a dot with a word." },
+    { "criterion": "2.4.6", "result": "pass", "finding": "The resource title is the page heading; an id or domain in it is set in monospace." }
+  ],
+  "ListView": [
+    { "criterion": "3.3.4", "result": "pass", "finding": "Destructive row and bulk actions confirm first and offer undo in the toast." },
+    { "criterion": "1.4.10", "result": "pass", "finding": "The DataTable stacks rows into items below 640px instead of scrolling sideways." }
+  ],
+  "LoginForm": [
+    { "criterion": "3.3.1", "result": "pass", "finding": "Empty or malformed email and an empty password show errors on the fields, focus the first invalid field and block onSubmit." },
+    { "criterion": "1.3.5", "result": "pass", "finding": "autoComplete=\"email\" and \"current-password\" on the fields." }
+  ],
+  "LoginFormSplit": [
+    { "criterion": "2.2.2", "result": "fail", "finding": "The image carousel autoplays every 6s by default (autoplayInterval = 6000) and loops indefinitely, with no pause control and no prefers-reduced-motion check (login-form-split.tsx, the setInterval effect). Needs a pause/stop control or no autoplay by default, and should stop under reduced motion." },
+    { "criterion": "1.4.10", "result": "pass", "finding": "Below md the image panel is dropped and only the form remains." }
+  ],
+  "NotificationsInbox": [
+    { "criterion": "1.4.1", "result": "pass", "finding": "Unread rows differ visually and announce 'Unread'." },
+    { "criterion": "4.1.2", "result": "pass", "finding": "The whole row is one interactive control; its actions menu is a separate control in the trailing slot." }
+  ],
+  "OnboardingWizard": [
+    { "criterion": "1.3.1", "result": "pass", "finding": "Root is role=\"group\" labelled by the wizard heading; the Stepper marks the current step." },
+    { "criterion": "3.3.7", "result": "pass", "finding": "Inactive steps are hidden, not unmounted, so Back returns to what was entered." }
+  ],
+  "Preferences": [
+    { "criterion": "4.1.2", "result": "pass", "finding": "The section nav sets aria-current on the section in view." },
+    { "criterion": "3.3.4", "result": "pass", "finding": "Deleting the account requires typing the account email in a ConfirmDialog." }
+  ],
+  "ResourceForm": [
+    { "criterion": "3.3.1", "result": "pass", "finding": "One error moves focus to its field; several move focus to an error summary (Alert, live=assertive) that links to each field." },
+    { "criterion": "1.3.1", "result": "pass", "finding": "Errors are tied to their fields and set the field's own danger state (error prop), not only the text below." }
+  ],
+  "TeamMembers": [
+    { "criterion": "1.4.1", "result": "pass", "finding": "Roles are words in Badges and Selects." },
+    { "criterion": "3.3.4", "result": "pass", "finding": "Remove member and revoke invite confirm first and offer undo in the toast." }
+  ],
+  "WorkspaceLayout": [
+    { "criterion": "2.4.1", "result": "pass", "finding": "A skip link is the first Tab stop and jumps to the content." },
+    { "criterion": "1.3.1", "result": "pass", "finding": "Both navigation landmarks have names." },
+    { "criterion": "1.4.10", "result": "pass", "finding": "Below md the sidebar is a slide-over panel; a long identifier crumb doesn't make the page scroll at 360px." }
+  ]
+}

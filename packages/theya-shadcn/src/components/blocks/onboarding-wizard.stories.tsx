@@ -3,12 +3,14 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { OnboardingWizard } from './onboarding-wizard';
 import { TextField } from '../ui/text-field';
 import { Label } from '../ui/label';
+import { onboardingWizardGuidelines } from './onboarding-wizard.guidelines';
 
 const meta: Meta<typeof OnboardingWizard> = {
   title: 'Patterns/OnboardingWizard',
   component: OnboardingWizard,
   tags: ['autodocs'],
   parameters: {
+    guidelines: onboardingWizardGuidelines,
     docs: {
       description: {
         component:

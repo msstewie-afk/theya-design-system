@@ -3,6 +3,7 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { NotificationsInbox, type InboxNotification } from './notifications-inbox';
 import { toast } from '../ui/sonner';
 import type { FilterOption } from '../ui/filter';
+import { notificationsInboxGuidelines } from './notifications-inbox.guidelines';
 
 /**
  * NotificationsInbox - a notifications center / inbox block composed from
@@ -23,6 +24,7 @@ const meta: Meta<typeof NotificationsInbox> = {
   component: NotificationsInbox,
   tags: ['autodocs'],
   parameters: {
+    guidelines: notificationsInboxGuidelines,
     docs: {
       description: {
         component:

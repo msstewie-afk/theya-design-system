@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { WorkspaceLayout } from './workspace-layout';
+import { workspaceLayoutGuidelines } from './workspace-layout.guidelines';
 
 const meta: Meta<typeof WorkspaceLayout> = {
   title: 'Patterns/WorkspaceLayout',
   component: WorkspaceLayout,
   tags: ['autodocs'],
   parameters: {
+    guidelines: workspaceLayoutGuidelines,
     docs: {
       description: {
         component:

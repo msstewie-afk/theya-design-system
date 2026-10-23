@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { LoginForm } from './login-form';
+import { loginFormGuidelines } from './login-form.guidelines';
 
 const meta: Meta<typeof LoginForm> = {
   title: 'Patterns/LoginForm',
   component: LoginForm,
   tags: ['autodocs'],
   parameters: {
+    guidelines: loginFormGuidelines,
     docs: {
       description: {
         component:

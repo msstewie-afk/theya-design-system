@@ -171,15 +171,18 @@ export function GuidelinesDetails({ guidelines: g, a11yStatus }: { guidelines: C
         </ol>
       </section>
 
-      <section className="flex flex-col gap-4">
-        <H>Do and don’t</H>
-        {g.doDont.map((p, i) => (
-          <div key={i} className="grid gap-4 md:grid-cols-2 md:grid-rows-[1fr_auto] md:gap-y-0">
-            <DoDontCard kind="do" {...p.do} />
-            <DoDontCard kind="dont" {...p.dont} />
-          </div>
-        ))}
-      </section>
+      {/* Patterns are whole screens, too big for a do / don't card: they leave doDont empty and the section is skipped. */}
+      {g.doDont.length > 0 && (
+        <section className="flex flex-col gap-4">
+          <H>Do and don’t</H>
+          {g.doDont.map((p, i) => (
+            <div key={i} className="grid gap-4 md:grid-cols-2 md:grid-rows-[1fr_auto] md:gap-y-0">
+              <DoDontCard kind="do" {...p.do} />
+              <DoDontCard kind="dont" {...p.dont} />
+            </div>
+          ))}
+        </section>
+      )}
 
       <section className="flex flex-col gap-3">
         <H>Accessibility</H>

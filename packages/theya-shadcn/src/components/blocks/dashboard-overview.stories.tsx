@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { DashboardOverview } from './dashboard-overview';
+import { dashboardOverviewGuidelines } from './dashboard-overview.guidelines';
 
 const meta: Meta<typeof DashboardOverview> = {
   title: 'Patterns/DashboardOverview',
   component: DashboardOverview,
   tags: ['autodocs'],
   parameters: {
+    guidelines: dashboardOverviewGuidelines,
     docs: {
       description: {
         component:

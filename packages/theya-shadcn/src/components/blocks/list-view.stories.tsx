@@ -3,6 +3,7 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Trash, Mail } from 'iconoir-react';
 import { toast } from '../ui/sonner';
 import { ListView } from './list-view';
+import { listViewGuidelines } from './list-view.guidelines';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -14,6 +15,7 @@ const meta: Meta<typeof ListView> = {
   component: ListView,
   tags: ['autodocs'],
   parameters: {
+    guidelines: listViewGuidelines,
     layout: 'fullscreen',
     docs: {
       description: {

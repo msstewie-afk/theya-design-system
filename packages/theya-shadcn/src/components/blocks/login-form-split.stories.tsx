@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { LoginFormSplit } from './login-form-split';
+import { loginFormSplitGuidelines } from './login-form-split.guidelines';
 
 const SLIDES = [
   { src: '/asset-examples/login-carousel-01.jpg', alt: 'Abstract city of tall blue blocks' },
@@ -12,6 +13,7 @@ const meta: Meta<typeof LoginFormSplit> = {
   component: LoginFormSplit,
   tags: ['autodocs'],
   parameters: {
+    guidelines: loginFormSplitGuidelines,
     docs: {
       description: {
         component:
