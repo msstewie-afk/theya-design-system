@@ -42,7 +42,7 @@ export function Topbar({ className, orientation = 'horizontal', children, ...pro
         data-orientation={orientation}
         className={cn(
           'sticky z-sticky flex items-center border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]/90 backdrop-blur-md',
-          orientation === 'horizontal' && 'top-0 h-14 gap-3.5 border-b px-6 max-md:px-4',
+          orientation === 'horizontal' && 'top-0 h-14 gap-4 border-b px-6 max-md:px-4',
           orientation === 'vertical' && 'start-0 top-0 h-svh w-14 flex-col gap-2 py-3',
           className,
         )}

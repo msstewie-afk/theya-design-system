@@ -94,7 +94,7 @@ export function MegaMenu({ items, currentId, layout = 'auto', className }: MegaM
                         const hid = `${uid}-${item.id}-${ci}`;
                         return (
                           <div key={col.title} className="flex flex-col gap-2">
-                            <h3 id={hid} className={cn(groupHeading, 'px-2.5')}>
+                            <h3 id={hid} className={cn(groupHeading, 'px-3')}>
                               {col.title}
                             </h3>
                             <ul aria-labelledby={hid} className="flex flex-col">

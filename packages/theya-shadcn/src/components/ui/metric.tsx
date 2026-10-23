@@ -29,7 +29,7 @@ export function Metric({ className, icon, value, label, description, actions, ..
       data-slot="metric"
       role="group"
       aria-label={description ? `${label}, ${description}` : label}
-      className={cn('group/metric flex min-h-[4.125rem] items-center justify-between gap-3 py-[1.125rem] ps-5 pe-4', className)}
+      className={cn('group/metric flex min-h-[4.125rem] items-center justify-between gap-3 py-5 ps-5 pe-4', className)}
       {...props}
     >
       <div data-slot="metric-header" className="flex min-w-0 flex-1 -translate-y-px flex-col gap-1">

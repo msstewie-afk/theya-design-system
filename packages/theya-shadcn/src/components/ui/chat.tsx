@@ -71,7 +71,7 @@ export function ChatTyping({ label, avatar, className, ...props }: React.Compone
       <span
         role="status"
         aria-label={label ?? t.chat.typing}
-        className="inline-flex items-center gap-1 rounded-[var(--size-border-radius-border-radius-2xl)] rounded-ss-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-3.5 py-3 text-[var(--color-icon-icon-subtle)]"
+        className="inline-flex items-center gap-1 rounded-[var(--size-border-radius-border-radius-2xl)] rounded-ss-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-4 py-3 text-[var(--color-icon-icon-subtle)]"
       >
         {[0, 160, 320].map((delay) => (
           <i

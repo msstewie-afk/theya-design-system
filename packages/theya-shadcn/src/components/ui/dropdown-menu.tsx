@@ -74,9 +74,9 @@ function DropdownMenuItem({
     <DropdownMenuPrimitive.Item
       data-tone={tone}
       className={cn(
-        'relative flex cursor-default select-none items-center gap-2.5',
+        'relative flex cursor-default select-none items-center gap-2',
         'rounded-[var(--size-border-radius-border-radius-md)]',
-        'px-[var(--size-margin-margin-s)] py-[var(--size-density-density-item-py)]',
+        'px-3 py-[var(--size-density-density-item-py)]',
         SIZE_TO_TEXT_CLASS[size], 'text-[var(--color-text-text)] outline-none',
         'transition-colors duration-fast ease-enter motion-reduce:transition-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
@@ -105,7 +105,7 @@ function DropdownMenuCheckboxItem({
       checked={checked}
       className={cn(
         'relative flex cursor-default select-none items-center gap-2',
-        'rounded-[var(--size-border-radius-border-radius-md)] py-[var(--size-density-density-item-py)] ps-8 pe-2.5',
+        'rounded-[var(--size-border-radius-border-radius-md)] py-[var(--size-density-density-item-py)] ps-8 pe-3',
         SIZE_TO_TEXT_CLASS[size], 'text-[var(--color-text-text)] outline-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
@@ -133,7 +133,7 @@ function DropdownMenuRadioItem({
     <DropdownMenuPrimitive.RadioItem
       className={cn(
         'relative flex cursor-default select-none items-center gap-2',
-        'rounded-[var(--size-border-radius-border-radius-md)] py-[var(--size-density-density-item-py)] ps-8 pe-2.5',
+        'rounded-[var(--size-border-radius-border-radius-md)] py-[var(--size-density-density-item-py)] ps-8 pe-3',
         SIZE_TO_TEXT_CLASS[size], 'text-[var(--color-text-text)] outline-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
@@ -162,7 +162,7 @@ function DropdownMenuLabel({
         // Top and bottom padding both match the side padding, regardless of
         // position (first group header or a later one after a separator) -
         // a group header always needs the same breathing room around it.
-        'px-[var(--size-margin-margin-s)] py-[var(--size-margin-margin-s)]',
+        'px-3 py-3',
         'font-heading text-heading-3xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]',
         inset && 'ps-8',
         className,
@@ -208,7 +208,7 @@ function DropdownMenuSubTrigger({
     <DropdownMenuPrimitive.SubTrigger
       className={cn(
         'flex cursor-default select-none items-center rounded-[var(--size-border-radius-border-radius-md)]',
-        'px-2.5 py-[var(--size-density-density-item-py)] outline-none', SIZE_TO_TEXT_CLASS[size],
+        'px-3 py-[var(--size-density-density-item-py)] outline-none', SIZE_TO_TEXT_CLASS[size],
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[state=open]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         inset && 'ps-8',

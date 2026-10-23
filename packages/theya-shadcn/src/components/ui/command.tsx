@@ -169,7 +169,7 @@ export function CommandInput({ className, value, onValueChange, ...props }: Comm
   };
 
   return (
-    <div className="flex h-12 items-center gap-2.5 border-b border-solid border-[var(--color-border-border-subtler)] px-3.5">
+    <div className="flex h-12 items-center gap-2 border-b border-solid border-[var(--color-border-border-subtler)] px-4">
       <Search width={16} height={16} className="shrink-0 text-[var(--color-icon-icon-subtle)]" aria-hidden="true" />
       <input
         // "search" in name keeps iCloud Passwords from offering credentials
@@ -298,7 +298,7 @@ export function CommandGroup({ className, heading, children, ...props }: Command
       className={cn('overflow-hidden p-1 text-[var(--color-text-text)]', '[&:not(:has([data-command-item]))]:hidden', className)}
       {...props}
     >
-      {heading != null && <div id={headingId} className="px-2.5 pb-1 pt-2 font-body text-body-xs font-medium uppercase tracking-[0.05em] text-[var(--color-text-text-subtler)]">{heading}</div>}
+      {heading != null && <div id={headingId} className="px-3 pb-1 pt-2 font-body text-body-xs font-medium uppercase tracking-[0.05em] text-[var(--color-text-text-subtler)]">{heading}</div>}
       {children}
     </div>
   );
@@ -350,8 +350,8 @@ export function CommandItem({ className, value, keywords, onSelect, disabled, ic
       onMouseEnter={() => !disabled && ctx.setActiveValue(itemValue)}
       onClick={() => !disabled && onSelect?.(value ?? itemValue)}
       className={cn(
-        'relative flex cursor-default select-none items-center gap-2.5 rounded-[var(--size-border-radius-border-radius-md)]',
-        'px-2.5 py-[var(--size-density-density-item-py)] font-body text-body-m text-[var(--color-text-text)] outline-none',
+        'relative flex cursor-default select-none items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)]',
+        'px-3 py-[var(--size-density-density-item-py)] font-body text-body-m text-[var(--color-text-text)] outline-none',
         // Plain bg fill, matching Select's own dropdown-item highlight convention — no extra ring.
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         disabled && 'pointer-events-none opacity-50',
@@ -389,7 +389,7 @@ export function CommandFooter({ className, children, ...props }: React.Component
     <div
       className={cn(
         'flex items-center gap-3 border-t border-solid border-[var(--color-border-border-subtler)]',
-        'px-3.5 py-2 font-body text-body-xs text-[var(--color-text-text-subtler)]',
+        'px-4 py-2 font-body text-body-xs text-[var(--color-text-text-subtler)]',
         className,
       )}
       {...props}

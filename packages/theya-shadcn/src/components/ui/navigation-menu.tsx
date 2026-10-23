@@ -137,7 +137,7 @@ export function NavigationMenuLink({ className, ...props }: React.ComponentProps
   return (
     <NavigationMenuPrimitive.Link
       className={cn(
-        'flex flex-col gap-1 rounded-[var(--size-border-radius-border-radius-md)] p-2.5',
+        'flex flex-col gap-1 rounded-[var(--size-border-radius-border-radius-md)] p-3',
         'font-body text-body-m leading-tight text-[var(--color-text-text)] no-underline outline-none',
         'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',

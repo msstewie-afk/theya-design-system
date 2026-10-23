@@ -255,7 +255,7 @@ export function NotificationsInbox({
 
   return (
     <section ref={sectionRef} data-slot="notifications-inbox" className="flex flex-col gap-4 outline-none">
-      <header className={cn('flex flex-wrap items-start justify-between gap-3', !bordered && 'px-[1.125rem]')}>
+      <header className={cn('flex flex-wrap items-start justify-between gap-3', !bordered && 'px-5')}>
         <div className="min-w-0">
           <p className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">{title}</p>
           {description && <p className="mt-1 max-w-2xl font-body text-body-s text-[var(--color-text-text-subtler)]">{description}</p>}
@@ -275,7 +275,7 @@ export function NotificationsInbox({
 
       {/* Two groups, 16px apart: the Status/Object selects (8px apart from each
           other), and the All/Unread toggle. */}
-      <div className={cn('flex flex-wrap items-center gap-4', !bordered && 'px-[1.125rem]')}>
+      <div className={cn('flex flex-wrap items-center gap-4', !bordered && 'px-5')}>
         <div className="flex flex-wrap items-center gap-2">
           {showStatusFilter && <Filter label="Status" options={STATUS_OPTIONS} value={toneFilter} onValueChange={setToneFilter} />}
           <Filter label={objectFilterLabel} searchable options={objectOptions} value={objectFilter} onValueChange={setObjectFilter} />
@@ -335,7 +335,7 @@ export function NotificationsInbox({
             <div key={group.label}>
               <p
                 className={cn(
-                  'bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-[1.125rem] py-2 font-body text-body-xs font-medium tracking-wide text-[var(--color-text-text-subtler)] uppercase',
+                  'bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-5 py-2 font-body text-body-xs font-medium tracking-wide text-[var(--color-text-text-subtler)] uppercase',
                   gi > 0 && 'border-t border-solid border-[var(--color-border-border-subtler)]',
                 )}
               >

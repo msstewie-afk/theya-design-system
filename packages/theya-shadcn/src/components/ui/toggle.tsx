@@ -54,7 +54,7 @@ const toggleVariants = cva(
       size: {
         sm: 'h-[var(--size-size-control-size-control-lg)] min-w-[var(--size-size-control-size-control-lg)] px-2.5 text-body-s', // 32px
         md: 'h-[var(--size-size-control-size-control-2xl)] min-w-[var(--size-size-control-size-control-2xl)] px-3 text-body-m', // 40px — shared default row height with TextField/Select/Filter/Button
-        lg: 'h-[var(--size-size-control-size-control-4xl)] min-w-[var(--size-size-control-size-control-4xl)] px-3.5 text-body-m', // 48px
+        lg: 'h-[var(--size-size-control-size-control-4xl)] min-w-[var(--size-size-control-size-control-4xl)] px-4 text-body-m', // 48px
       },
       // Icon-only: drop the side padding so `min-w` (= the row height) makes
       // the control square. With padding kept, sm came out 36x32 and an

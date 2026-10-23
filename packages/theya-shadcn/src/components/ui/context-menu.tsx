@@ -63,8 +63,8 @@ export function ContextMenuItem({ className, inset, tone = 'neutral', ...props }
   return (
     <ContextMenuPrimitive.Item
       className={cn(
-        'relative flex min-h-[calc(var(--size-density-density-item-py)_*_2_+_1.25rem)] cursor-default select-none items-center gap-2.5',
-        'rounded-[var(--size-border-radius-border-radius-md)] px-2.5 py-[var(--size-density-density-item-py)]',
+        'relative flex min-h-[calc(var(--size-density-density-item-py)_*_2_+_1.25rem)] cursor-default select-none items-center gap-2',
+        'rounded-[var(--size-border-radius-border-radius-md)] px-3 py-[var(--size-density-density-item-py)]',
         'font-body text-body-m text-[var(--color-text-text)] outline-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         tone === 'danger' && 'text-[var(--color-text-text-danger)] data-[highlighted]:bg-[var(--color-bg-danger-bg-danger-subtle)]',
@@ -84,7 +84,7 @@ export function ContextMenuCheckboxItem({ className, children, checked, ...props
       checked={checked}
       className={cn(
         'relative flex cursor-default select-none items-center gap-2',
-        'rounded-[var(--size-border-radius-border-radius-md)] py-[var(--size-density-density-item-py)] ps-8 pe-2.5',
+        'rounded-[var(--size-border-radius-border-radius-md)] py-[var(--size-density-density-item-py)] ps-8 pe-3',
         'font-body text-body-m outline-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
@@ -107,7 +107,7 @@ export function ContextMenuRadioItem({ className, children, ...props }: React.Co
     <ContextMenuPrimitive.RadioItem
       className={cn(
         'relative flex cursor-default select-none items-center gap-2',
-        'rounded-[var(--size-border-radius-border-radius-md)] py-[var(--size-density-density-item-py)] ps-8 pe-2.5',
+        'rounded-[var(--size-border-radius-border-radius-md)] py-[var(--size-density-density-item-py)] ps-8 pe-3',
         'font-body text-body-m outline-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
@@ -126,7 +126,7 @@ export function ContextMenuRadioItem({ className, children, ...props }: React.Co
 }
 
 export function ContextMenuLabel({ className, inset, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Label> & { inset?: boolean }) {
-  return <ContextMenuPrimitive.Label className={cn('px-2.5 pb-1 pt-1.5 font-body text-body-xs font-medium text-[var(--color-text-text-subtler)]', inset && 'ps-8', className)} {...props} />;
+  return <ContextMenuPrimitive.Label className={cn('px-3 pb-1 pt-1.5 font-body text-body-xs font-medium text-[var(--color-text-text-subtler)]', inset && 'ps-8', className)} {...props} />;
 }
 
 export function ContextMenuSeparator({ className, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Separator>) {
@@ -146,7 +146,7 @@ export function ContextMenuSubTrigger({ className, inset, children, ...props }: 
     <ContextMenuPrimitive.SubTrigger
       className={cn(
         'flex cursor-default select-none items-center rounded-[var(--size-border-radius-border-radius-md)]',
-        'px-2.5 py-[var(--size-density-density-item-py)] font-body text-body-m outline-none',
+        'px-3 py-[var(--size-density-density-item-py)] font-body text-body-m outline-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[state=open]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         inset && 'ps-8',

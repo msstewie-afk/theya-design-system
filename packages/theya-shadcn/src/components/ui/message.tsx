@@ -49,7 +49,7 @@ export function Message({ className, variant = 'received', appearance = 'filled'
           className={cn(
             // text-body-m (was text-body-s): the bubble text is the actual
             // message content, not secondary meta — default-font rule.
-            'min-w-0 max-w-full rounded-[var(--size-border-radius-border-radius-2xl)] px-3.5 py-2 font-body text-body-m leading-[var(--size-size20)] [overflow-wrap:anywhere]',
+            'min-w-0 max-w-full rounded-[var(--size-border-radius-border-radius-2xl)] px-4 py-2 font-body text-body-m leading-[var(--size-size20)] [overflow-wrap:anywhere]',
             variant === 'sent'
               ? cn(
                   'rounded-se-[var(--size-border-radius-border-radius-md)]',

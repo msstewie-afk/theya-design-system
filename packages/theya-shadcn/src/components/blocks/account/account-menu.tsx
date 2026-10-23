@@ -130,7 +130,7 @@ export function AccountMenu({
 
       <DropdownMenuContent align="end" className="w-72">
         {/* Identity: who is signed in. Not a section header, so normal case. */}
-        <div className="flex items-center gap-3 px-[var(--size-margin-margin-s)] py-2">
+        <div className="flex items-center gap-3 px-3 py-2">
           {avatar}
           <div className="min-w-0">
             <p className="truncate font-body text-body-m font-medium text-[var(--color-text-text)]">{user.name}</p>

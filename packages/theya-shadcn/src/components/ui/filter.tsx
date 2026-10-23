@@ -153,7 +153,7 @@ export function Filter({
                 <label
                   key={o.value}
                   className={cn(
-                    'flex cursor-pointer items-center gap-2.5 rounded-[var(--size-border-radius-border-radius-md)]',
+                    'flex cursor-pointer items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)]',
                     'px-2 py-1.5 font-body text-body-m text-[var(--color-text-text)]',
                     'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] has-[:focus-visible]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
                   )}

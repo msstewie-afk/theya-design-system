@@ -577,8 +577,8 @@ export function FilterField({
               onMouseEnter={() => setActiveRow(0)}
               onClick={commitSearch}
               className={cn(
-                'flex cursor-default select-none items-center gap-2.5 rounded-[var(--size-border-radius-border-radius-md)]',
-                'px-2.5 py-2 font-body text-body-s outline-none',
+                'flex cursor-default select-none items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)]',
+                'px-3 py-2 font-body text-body-s outline-none',
                 '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:text-[var(--color-icon-icon-subtle)]',
                 normalizedQuery === ''
                   ? 'pointer-events-none text-[var(--color-text-text-subtler)] opacity-70'
@@ -604,8 +604,8 @@ export function FilterField({
                   onMouseEnter={() => setActiveRow(index + 1)}
                   onClick={() => openStep(attribute.key)}
                   className={cn(
-                    'flex cursor-pointer select-none items-center gap-2.5 rounded-[var(--size-border-radius-border-radius-md)]',
-                    'px-2.5 py-2 font-body text-body-s text-[var(--color-text-text)] outline-none',
+                    'flex cursor-pointer select-none items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)]',
+                    'px-3 py-2 font-body text-body-s text-[var(--color-text-text)] outline-none',
                     '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:text-[var(--color-icon-icon-subtle)]',
                     isActiveRow && 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
                   )}
@@ -720,8 +720,8 @@ export function FilterField({
                     onMouseEnter={() => setActiveOption(index)}
                     onClick={() => applyFilter(active.key, option.value)}
                     className={cn(
-                      'flex cursor-default select-none items-center gap-2.5 rounded-[var(--size-border-radius-border-radius-md)]',
-                      'px-2.5 py-2 font-body text-body-s text-[var(--color-text-text)] outline-none',
+                      'flex cursor-default select-none items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)]',
+                      'px-3 py-2 font-body text-body-s text-[var(--color-text-text)] outline-none',
                       index === activeOption && 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
                     )}
                   >

@@ -91,9 +91,9 @@ export function MenubarItem({ className, inset, tone = 'neutral', ...props }: Me
   return (
     <MenubarPrimitive.Item
       className={cn(
-        'relative flex cursor-default select-none items-center gap-2.5',
+        'relative flex cursor-default select-none items-center gap-2',
         'rounded-[var(--size-border-radius-border-radius-md)]',
-        'px-2.5 py-[var(--size-density-density-item-py)] font-body text-body-m outline-none',
+        'px-3 py-[var(--size-density-density-item-py)] font-body text-body-m outline-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         tone === 'danger' && 'text-[var(--color-text-text-danger)] data-[highlighted]:bg-[var(--color-bg-danger-bg-danger-subtle)]',
         inset && 'ps-8',
@@ -112,7 +112,7 @@ export function MenubarCheckboxItem({ className, children, checked, ...props }: 
       checked={checked}
       className={cn(
         'relative flex cursor-default select-none items-center gap-2',
-        'rounded-[var(--size-border-radius-border-radius-md)] py-[var(--size-density-density-item-py)] ps-8 pe-2.5',
+        'rounded-[var(--size-border-radius-border-radius-md)] py-[var(--size-density-density-item-py)] ps-8 pe-3',
         'font-body text-body-m outline-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
@@ -135,7 +135,7 @@ export function MenubarRadioItem({ className, children, ...props }: React.Compon
     <MenubarPrimitive.RadioItem
       className={cn(
         'relative flex cursor-default select-none items-center gap-2',
-        'rounded-[var(--size-border-radius-border-radius-md)] py-[var(--size-density-density-item-py)] ps-8 pe-2.5',
+        'rounded-[var(--size-border-radius-border-radius-md)] py-[var(--size-density-density-item-py)] ps-8 pe-3',
         'font-body text-body-m outline-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
@@ -156,7 +156,7 @@ export function MenubarRadioItem({ className, children, ...props }: React.Compon
 export function MenubarLabel({ className, inset, ...props }: React.ComponentProps<typeof MenubarPrimitive.Label> & { inset?: boolean }) {
   return (
     <MenubarPrimitive.Label
-      className={cn('px-2.5 pb-1 pt-1.5 font-body text-body-xs font-medium text-[var(--color-text-text-subtler)]', inset && 'ps-8', className)}
+      className={cn('px-3 pb-1 pt-1.5 font-body text-body-xs font-medium text-[var(--color-text-text-subtler)]', inset && 'ps-8', className)}
       {...props}
     />
   );
@@ -175,7 +175,7 @@ export function MenubarSubTrigger({ className, inset, children, ...props }: Reac
     <MenubarPrimitive.SubTrigger
       className={cn(
         'flex cursor-default select-none items-center rounded-[var(--size-border-radius-border-radius-md)]',
-        'px-2.5 py-[var(--size-density-density-item-py)] font-body text-body-m outline-none',
+        'px-3 py-[var(--size-density-density-item-py)] font-body text-body-m outline-none',
         'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[state=open]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         inset && 'ps-8',

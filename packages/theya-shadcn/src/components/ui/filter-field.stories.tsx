@@ -205,10 +205,10 @@ export const Disabled: Story = {
   },
 };
 
-/** On a mobile viewport the field's default 25rem (400px) width shrinks to fit the container instead of overflowing it — shown in a 360px frame with a chip applied so the shrink is visible against real content. */
+/** On a mobile viewport the field's default 25rem (400px) width shrinks to fit the container instead of overflowing it — here a 360px container, with a chip applied so the shrink is visible against real content. (No frame lines: on a phone they hugged the field's edges and read as a broken border.) */
 export const Mobile: Story = {
   render: () => (
-    <div className="w-full max-w-[360px] max-w-full border-x border-solid border-[var(--color-border-border)]">
+    <div className="w-full max-w-[360px]">
       <FilterField attributes={ATTRIBUTES} defaultValue={[{ key: 'status', value: 'active' }]} aria-label="Filter servers" />
     </div>
   ),

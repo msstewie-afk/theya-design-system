@@ -151,15 +151,15 @@ export function PushSheet({ open, onOpenChange, side = 'right', width = '22.5rem
 }
 
 export function PushSheetHeader({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('flex items-center justify-between gap-2 border-b border-solid border-[var(--color-border-border-subtler)] px-[1.125rem] py-4 text-start', className)} {...props} />;
+  return <div className={cn('flex items-center justify-between gap-2 border-b border-solid border-[var(--color-border-border-subtler)] px-5 py-4 text-start', className)} {...props} />;
 }
 
 export function PushSheetBody({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('flex flex-1 flex-col gap-4 overflow-y-auto px-[1.125rem] py-5', className)} {...props} />;
+  return <div className={cn('flex flex-1 flex-col gap-4 overflow-y-auto px-5 py-5', className)} {...props} />;
 }
 
 export function PushSheetFooter({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('mt-auto flex items-center justify-end gap-2 border-t border-solid border-[var(--color-border-border-subtler)] px-[1.125rem] py-3.5', className)} {...props} />;
+  return <div className={cn('mt-auto flex items-center justify-end gap-2 border-t border-solid border-[var(--color-border-border-subtler)] px-5 py-4', className)} {...props} />;
 }
 
 export function PushSheetTitle({ id, className, ...props }: React.ComponentProps<'h2'>) {

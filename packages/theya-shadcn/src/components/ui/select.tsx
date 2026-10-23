@@ -172,7 +172,7 @@ function SelectLabel({ className, ...props }: React.ComponentProps<typeof Select
   return (
     <SelectPrimitive.Label
       className={cn(
-        'px-[var(--size-margin-margin-s)] pb-[var(--size-margin-margin-4xs)] pt-[var(--size-margin-margin-xs)]',
+        'px-3 pb-[var(--size-margin-margin-4xs)] pt-[var(--size-margin-margin-xs)]',
         // Was a hardcoded 10px with no token at all — the only group-label
         // style in the system not built on font-heading/text-heading-*.
         // Matches DropdownMenuLabel's convention now.
@@ -203,7 +203,7 @@ function SelectItem({ className, children, icon, iconSize = 'sm', tone, badge, d
       className={cn(
         'relative flex w-full cursor-default select-none items-center gap-2',
         'rounded-[var(--size-border-radius-border-radius-md)]',
-        'py-[var(--size-density-density-item-py)] ps-[var(--size-margin-margin-s)] pe-8',
+        'py-[var(--size-density-density-item-py)] ps-3 pe-8',
         // Matches the trigger's own heightSize-driven text size — was
         // always text-body-m regardless of the trigger's size before.
         heightSize === 'sm' ? 'text-body-s' : 'text-body-m',

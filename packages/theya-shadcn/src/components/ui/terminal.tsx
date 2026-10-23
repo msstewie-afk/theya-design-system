@@ -231,7 +231,7 @@ export function TerminalBody({ className, lines, ariaLabel, live = 'polite', inv
       aria-label={ariaLabel}
       tabIndex={0}
       className={cn(
-        'min-w-0 flex-1 overflow-y-auto overflow-x-hidden px-4 py-3.5',
+        'min-w-0 flex-1 overflow-y-auto overflow-x-hidden px-4 py-4',
         'font-mono text-body-m leading-[var(--size-size20)]',
         inverse ? 'text-[var(--color-code-text-inverse)]' : 'text-[var(--color-text-text)]',
         'outline-none',

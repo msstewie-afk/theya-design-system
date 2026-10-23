@@ -207,12 +207,12 @@ export const WithButtons: Story = {
   ),
 };
 
-/** Mobile layout (≤ md): the rail toggle appears as a 44px touch target and the search shrinks narrower. Shown in a 360px frame. */
+/** Mobile layout (≤ md): the rail toggle appears as a 44px touch target and the search shrinks narrower. Shown in a 360px container. */
 export const Mobile: Story = {
   parameters: { viewport: { defaultViewport: 'android360' } },
   render: () => (
     <SidebarProvider>
-      <div className="w-full max-w-[360px] max-w-full border-x border-solid border-[var(--color-border-border)]">
+      <div className="w-full max-w-[360px]">
         <Topbar>
           <TopbarMenu />
           <TopbarSearch />

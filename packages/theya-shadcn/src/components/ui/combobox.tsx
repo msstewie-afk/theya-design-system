@@ -485,7 +485,7 @@ export function Combobox(props: ComboboxProps) {
                   className={cn(
                     'relative flex cursor-default select-none items-center gap-2',
                     'rounded-[var(--size-border-radius-border-radius-md)]',
-                    'px-[var(--size-margin-margin-s)] py-[var(--size-margin-margin-xs)]',
+                    'px-3 py-[var(--size-margin-margin-xs)]',
                     heightSize === 'sm' ? 'text-body-s' : 'text-body-m', 'text-[var(--color-text-text)]',
                     index === activeIndex && 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
                     option.disabled && 'pointer-events-none opacity-50',

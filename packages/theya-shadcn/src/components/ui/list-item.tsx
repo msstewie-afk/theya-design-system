@@ -25,7 +25,7 @@ import { cn } from '../../lib/utils';
 export type ListItemSize = 'sm' | 'md' | 'lg';
 
 const SIZE_CLASS: Record<ListItemSize, string> = {
-  sm: 'px-2.5 py-1.5',
+  sm: 'px-3 py-1.5',
   md: 'px-3 py-2.5 min-h-11',
   lg: 'px-4 py-3 min-h-12',
 };

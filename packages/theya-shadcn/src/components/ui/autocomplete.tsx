@@ -300,9 +300,9 @@ export function Autocomplete({
                 onMouseEnter={() => setActiveIndex(index)}
                 onClick={() => pick(option)}
                 className={cn(
-                  'flex items-center gap-2.5 cursor-default select-none',
+                  'flex items-center gap-2 cursor-default select-none',
                   'rounded-[var(--size-border-radius-border-radius-md)]',
-                  'px-[var(--size-margin-margin-s)] py-[var(--size-margin-margin-xs)]',
+                  'px-3 py-[var(--size-margin-margin-xs)]',
                   // Matches the input's own heightSize-driven text size.
                   heightSize === 'sm' ? 'text-body-s' : 'text-body-m',
                   'text-[var(--color-text-text)]',
