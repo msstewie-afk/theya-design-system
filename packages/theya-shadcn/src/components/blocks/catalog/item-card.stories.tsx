@@ -3,12 +3,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { ItemCard } from './item-card';
 import { DEMO_HARDWARE, DEMO_ITEMS, DEMO_SCREENSHOTS } from './demo-data';
+import { itemCardGuidelines } from './item-card.guidelines';
 
 const meta: Meta<typeof ItemCard> = {
   title: 'Patterns: Catalog/ItemCard',
   component: ItemCard,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    guidelines: itemCardGuidelines,
+    layout: 'padded',
+  },
   args: { item: DEMO_ITEMS[0], href: '#shieldwall' },
 };
 export default meta;

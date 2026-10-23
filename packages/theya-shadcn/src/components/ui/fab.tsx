@@ -30,6 +30,16 @@ export type FabSize = 'sm' | 'md' | 'lg';
 export type FabTone = 'primary' | 'secondary' | 'neutral';
 export type FabAppearance = 'filled' | 'tonal';
 export type FabPosition = 'bottom-end' | 'bottom-start' | 'bottom-center' | 'none';
+export type FabShape = 'round' | 'square';
+
+// Square FAB corner radius per size, roughly a quarter of the height so the
+// three sizes read as one family: 40px -> 12, 56px -> 16, 64px -> 16.
+// The pressed radius stays the same (no morph into a circle).
+const SQUARE_RADIUS_CLASS: Record<FabSize, string> = {
+  sm: '[--btn-radius:var(--size-border-radius-border-radius-3xl)] [--btn-radius-pressed:var(--size-border-radius-border-radius-3xl)]',
+  md: '[--btn-radius:var(--size-border-radius-border-radius-4xl)] [--btn-radius-pressed:var(--size-border-radius-border-radius-4xl)]',
+  lg: '[--btn-radius:var(--size-border-radius-border-radius-4xl)] [--btn-radius-pressed:var(--size-border-radius-border-radius-4xl)]',
+};
 
 const SIZE_CLASS: Record<FabSize, string> = {
   // 40px, 24px icon -> 8px padding
@@ -72,6 +82,8 @@ export interface FabProps extends Omit<React.ComponentProps<'button'>, 'children
   label?: ReactNode;
   /** sm 40px, md 56px (default), lg 64px. */
   size?: FabSize;
+  /** `round` (default): a circle, a pill when extended. `square`: rounded corners (12px sm, 16px md/lg). */
+  shape?: FabShape;
   tone?: FabTone;
   appearance?: FabAppearance;
   /** Where it's pinned. `none` renders it in normal flow. */
@@ -126,6 +138,7 @@ export const Fab = forwardRef<HTMLButtonElement, FabProps>(function Fab(
     icon,
     label,
     size = 'md',
+    shape = 'round',
     tone = 'primary',
     appearance = 'filled',
     position = 'bottom-end',
@@ -162,12 +175,15 @@ export const Fab = forwardRef<HTMLButtonElement, FabProps>(function Fab(
       type={type}
       data-slot="fab"
       data-size={size}
+      data-shape={shape}
       data-collapsed={label ? String(folded) : undefined}
       className={cn(
         buttonVariants({ appearance, tone, size: '2xl' }),
         SIZE_CLASS[size],
-        // Circle when icon-only or folded, pill when extended.
-        '[--btn-radius:var(--size-border-radius-border-radius-max)] [--btn-radius-pressed:var(--size-border-radius-border-radius-max)]',
+        // round: circle when icon-only or folded, pill when extended.
+        shape === 'square'
+          ? SQUARE_RADIUS_CLASS[size]
+          : '[--btn-radius:var(--size-border-radius-border-radius-max)] [--btn-radius-pressed:var(--size-border-radius-border-radius-max)]',
         'gap-0 shadow-elevation-lg hover:not-disabled:shadow-elevation-xl',
         // Hover lift (Kinetics' Hover Lift, MIT): the FAB rises 4px as its shadow grows, on the
         // spring. Button's own transition list has no `translate`, so it's restated here.
@@ -214,6 +230,8 @@ export interface FabSpeedDialProps {
   openLabel?: string;
   closeLabel?: string;
   size?: FabSize;
+  /** Shape of the trigger and the actions. Default `round`. */
+  shape?: FabShape;
   tone?: FabTone;
   position?: FabPosition;
   className?: string;
@@ -230,7 +248,7 @@ const DIAL_RADIUS = 76;
  * Escape closes and returns focus to the trigger. Choosing an action, or pressing
  * outside, closes it. With reduced motion the actions simply appear.
  */
-export function FabSpeedDial({ actions, icon, openLabel, closeLabel, size = 'md', tone = 'primary', position = 'bottom-end', className }: FabSpeedDialProps) {
+export function FabSpeedDial({ actions, icon, openLabel, closeLabel, size = 'md', shape = 'round', tone = 'primary', position = 'bottom-end', className }: FabSpeedDialProps) {
   const { t } = useTheyaI18n();
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
@@ -275,6 +293,7 @@ export function FabSpeedDial({ actions, icon, openLabel, closeLabel, size = 'md'
         ref={trigger}
         position="none"
         size={size}
+        shape={shape}
         tone={tone}
         aria-expanded={open}
         aria-controls={listId}
@@ -299,6 +318,7 @@ export function FabSpeedDial({ actions, icon, openLabel, closeLabel, size = 'md'
               <Fab
                 position="none"
                 size="sm"
+                shape={shape}
                 appearance="tonal"
                 tone={tone}
                 icon={action.icon}

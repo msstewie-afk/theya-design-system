@@ -2,12 +2,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { Reviews } from './reviews';
 import { DEMO_REVIEWS } from './demo-data';
+import { reviewsGuidelines } from './reviews.guidelines';
 
 const meta: Meta<typeof Reviews> = {
   title: 'Patterns: Catalog/Reviews',
   component: Reviews,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    guidelines: reviewsGuidelines,
+    layout: 'padded',
+  },
   args: { reviews: DEMO_REVIEWS, onWriteReview: fn() },
   decorators: [(Story) => <div className="max-w-3xl">{Story()}</div>],
 };

@@ -3,12 +3,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, screen, userEvent, within } from '@storybook/test';
 import { AccountMenu, DEFAULT_ACCOUNT_LINKS, type ThemePreference } from './account-menu';
 import { DEMO_USER, DEMO_WORKSPACES } from './demo-data';
+import { accountMenuGuidelines } from './account-menu.guidelines';
 
 const meta: Meta<typeof AccountMenu> = {
   title: 'Patterns: Account/AccountMenu',
   component: AccountMenu,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: accountMenuGuidelines, layout: 'padded' },
   args: { user: DEMO_USER, onSignOut: fn(), onWorkspaceChange: fn() },
   decorators: [(Story) => <div className="flex justify-end">{Story()}</div>],
 };

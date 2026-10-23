@@ -2,12 +2,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { ItemPage } from './item-page';
 import { DEMO_DESCRIPTION, DEMO_HIGHLIGHTS, DEMO_IMAGES, DEMO_ITEM, DEMO_ITEMS, DEMO_REVIEW_SUMMARY, DEMO_REVIEWS, DEMO_SPECS } from './demo-data';
+import { itemPageGuidelines } from './item-page.guidelines';
 
 const meta: Meta<typeof ItemPage> = {
   title: 'Patterns: Catalog/ItemPage',
   component: ItemPage,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    guidelines: itemPageGuidelines,
+    layout: 'padded',
+  },
   args: {
     item: DEMO_ITEM,
     breadcrumbs: [

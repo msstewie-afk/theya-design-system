@@ -2,12 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, screen, userEvent, waitFor, within } from '@storybook/test';
 import { MegaMenu } from './mega-menu';
 import { DEMO_MENU } from './demo-data';
+import { megaMenuGuidelines } from './mega-menu.guidelines';
 
 const meta: Meta<typeof MegaMenu> = {
   title: 'Patterns: Navigation/MegaMenu',
   component: MegaMenu,
   tags: ['autodocs'],
   parameters: {
+    guidelines: megaMenuGuidelines,
     layout: 'fullscreen',
     // Same known false positive as ui/NavigationMenu: Radix's hidden focus
     // proxy (aria-hidden + tabIndex 0) that moves focus into the open panel.

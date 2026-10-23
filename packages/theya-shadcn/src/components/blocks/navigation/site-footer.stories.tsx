@@ -3,12 +3,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 import { SiteFooter } from './site-footer';
 import { DEMO_FOOTER_COLUMNS } from './demo-data';
+import { siteFooterGuidelines } from './site-footer.guidelines';
 
 const meta: Meta<typeof SiteFooter> = {
   title: 'Patterns: Navigation/SiteFooter',
   component: SiteFooter,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    guidelines: siteFooterGuidelines,
+    layout: 'fullscreen',
+  },
   args: {
     tagline: 'Hosting with a panel people enjoy using.',
     columns: DEMO_FOOTER_COLUMNS,

@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { PricedOptions } from './priced-options';
+import { pricedOptionsGuidelines } from './priced-options.guidelines';
 
 const meta: Meta<typeof PricedOptions> = {
   title: 'Patterns: Commerce/PricedOptions',
   component: PricedOptions,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: pricedOptionsGuidelines, layout: 'padded' },
   argTypes: {
     appearance: { control: 'inline-radio', options: ['cards', 'list'], description: '`cards`: OptionCards. `list`: radios on dividers, price on the right — for secondary choices on a page that already has cards.' },
     priceMode: { control: 'inline-radio', options: ['extra', 'total'], description: '`extra`: add-on prices ("+$4 / mo", 0 = "Included"). `total`: full price of each option.' },

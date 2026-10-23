@@ -3,6 +3,7 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 import { OrderReview } from './order-review';
 import { computeTotals } from './shared';
 import { DEMO_CART } from './demo-data';
+import { orderReviewGuidelines } from './order-review.guidelines';
 
 const totals = computeTotals(DEMO_CART, { taxRate: 0.2 });
 
@@ -10,7 +11,7 @@ const meta: Meta<typeof OrderReview> = {
   title: 'Patterns: Commerce/OrderReview',
   component: OrderReview,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: orderReviewGuidelines, layout: 'padded' },
   args: {
     lines: DEMO_CART,
     totals,

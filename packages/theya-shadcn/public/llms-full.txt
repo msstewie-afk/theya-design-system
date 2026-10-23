@@ -4107,6 +4107,7 @@ Docs: ./?path=/docs/actions-fab--docs
 - `label?`: `ReactNode` — Text for the extended FAB. Without it the FAB is round and icon-only (pass `aria-label`).
 - `position?`: `"none" | "bottom-end" | "bottom-start" | "bottom-center"`, default `bottom-end` — Where it's pinned. `none` renders it in normal flow.
 - `scrollContainer?`: `RefObject<HTMLElement | null>` — Scroll container to watch for `collapseOnScroll`. Defaults to the window.
+- `shape?`: `"round" | "square"`, default `round` — `round` (default): a circle, a pill when extended. `square`: rounded corners (12px sm, 16px md/lg).
 - `size?`: `"md" | "lg" | "sm"`, default `md` — sm 40px, md 56px (default), lg 64px.
 - `tone?`: `"neutral" | "primary" | "secondary"`, default `primary`
 
@@ -4118,6 +4119,7 @@ Docs: ./?path=/docs/actions-fab--docs
 - `icon?`: `ReactNode` — The closed FAB's icon; it turns 45° into a close. Default: a plus.
 - `openLabel?`: `string` — Accessible names of the trigger. Default "Open actions" / "Close actions".
 - `position?`: `"none" | "bottom-end" | "bottom-start" | "bottom-center"`, default `bottom-end`
+- `shape?`: `"round" | "square"`, default `round` — Shape of the trigger and the actions. Default `round`.
 - `size?`: `"md" | "lg" | "sm"`, default `md`
 - `tone?`: `"neutral" | "primary" | "secondary"`, default `primary`
 

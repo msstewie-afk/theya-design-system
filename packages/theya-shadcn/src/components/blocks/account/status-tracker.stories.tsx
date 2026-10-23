@@ -4,12 +4,13 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 import { Button } from '../../ui/button';
 import { StatusTracker } from './status-tracker';
 import { DEMO_EVENTS, DEMO_STEPS } from './demo-data';
+import { statusTrackerGuidelines } from './status-tracker.guidelines';
 
 const meta: Meta<typeof StatusTracker> = {
   title: 'Patterns: Account/StatusTracker',
   component: StatusTracker,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: statusTrackerGuidelines, layout: 'padded' },
   args: {
     title: 'Migrating seashell.shop',
     reference: 'TH-24817',

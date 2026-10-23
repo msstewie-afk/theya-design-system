@@ -1,60 +1,637 @@
 {
-  "$comment": "Accessibility notes for the 14 core patterns (Storybook Patterns/*), written with their use-guidelines on 2026-10-23. Hand-off for extending the matrix (build-a11y.mjs) to blocks: one entry per pattern, each a WCAG criterion with a finding. Source is code reading, not a test or a screen-reader pass, so treat result as 'expected' until a review confirms it. result: pass | fail. The reader-facing version of the same notes is in each <block>.guidelines.tsx (a11y).",
+  "$comment": "Accessibility notes for all 42 patterns (Storybook Patterns/*), written with their use-guidelines on 2026-10-23. Hand-off for extending the matrix (build-a11y.mjs) to blocks: one entry per pattern, each a WCAG criterion with a finding. Source is code reading, not a test or a screen-reader pass, so treat result as 'expected' until a review confirms it. result: pass | fail. The reader-facing version of the same notes is in each <block>.guidelines.tsx (a11y).",
   "AccessTokens": [
-    { "criterion": "3.3.4", "result": "pass", "finding": "Revoke opens a ConfirmDialog and the toast offers undo; a revoked key can be restored." },
-    { "criterion": "4.1.2", "result": "pass", "finding": "The new key is shown once in a dialog inside a SecretField with its own named Copy button." }
+    {
+      "criterion": "3.3.4",
+      "result": "pass",
+      "finding": "Revoke opens a ConfirmDialog and the toast offers undo; a revoked key can be restored."
+    },
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "The new key is shown once in a dialog inside a SecretField with its own named Copy button."
+    }
   ],
   "AuditLog": [
-    { "criterion": "1.4.1", "result": "pass", "finding": "Event category is a word in a Badge plus an icon chip, not color alone." },
-    { "criterion": "1.3.1", "result": "pass", "finding": "The empty state tells 'nothing matches the filters' from 'no events yet'." }
+    {
+      "criterion": "1.4.1",
+      "result": "pass",
+      "finding": "Event category is a word in a Badge plus an icon chip, not color alone."
+    },
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "The empty state tells 'nothing matches the filters' from 'no events yet'."
+    }
   ],
   "BillingUsage": [
-    { "criterion": "1.4.1", "result": "pass", "finding": "Invoice status is a StatusDot with a text label; quota fullness is given as numbers and percent, not only by the bar." },
-    { "criterion": "2.4.6", "result": "pass", "finding": "Plan, usage and invoices are headed sections." }
+    {
+      "criterion": "1.4.1",
+      "result": "pass",
+      "finding": "Invoice status is a StatusDot with a text label; quota fullness is given as numbers and percent, not only by the bar."
+    },
+    {
+      "criterion": "2.4.6",
+      "result": "pass",
+      "finding": "Plan, usage and invoices are headed sections."
+    }
   ],
   "DashboardOverview": [
-    { "criterion": "1.3.2", "result": "pass", "finding": "'Needs attention' is first in DOM order, not only placed first visually." },
-    { "criterion": "1.1.1", "result": "pass", "finding": "Usage is stated in numbers and percent; the chart and bars repeat the text." }
+    {
+      "criterion": "1.3.2",
+      "result": "pass",
+      "finding": "'Needs attention' is first in DOM order, not only placed first visually."
+    },
+    {
+      "criterion": "1.1.1",
+      "result": "pass",
+      "finding": "Usage is stated in numbers and percent; the chart and bars repeat the text."
+    }
   ],
   "Details": [
-    { "criterion": "1.4.1", "result": "pass", "finding": "Status is a dot with a word." },
-    { "criterion": "2.4.6", "result": "pass", "finding": "The resource title is the page heading; an id or domain in it is set in monospace." }
+    {
+      "criterion": "1.4.1",
+      "result": "pass",
+      "finding": "Status is a dot with a word."
+    },
+    {
+      "criterion": "2.4.6",
+      "result": "pass",
+      "finding": "The resource title is the page heading; an id or domain in it is set in monospace."
+    }
   ],
   "ListView": [
-    { "criterion": "3.3.4", "result": "pass", "finding": "Destructive row and bulk actions confirm first and offer undo in the toast." },
-    { "criterion": "1.4.10", "result": "pass", "finding": "The DataTable stacks rows into items below 640px instead of scrolling sideways." }
+    {
+      "criterion": "3.3.4",
+      "result": "pass",
+      "finding": "Destructive row and bulk actions confirm first and offer undo in the toast."
+    },
+    {
+      "criterion": "1.4.10",
+      "result": "pass",
+      "finding": "The DataTable stacks rows into items below 640px instead of scrolling sideways."
+    }
   ],
   "LoginForm": [
-    { "criterion": "3.3.1", "result": "pass", "finding": "Empty or malformed email and an empty password show errors on the fields, focus the first invalid field and block onSubmit." },
-    { "criterion": "1.3.5", "result": "pass", "finding": "autoComplete=\"email\" and \"current-password\" on the fields." }
+    {
+      "criterion": "3.3.1",
+      "result": "pass",
+      "finding": "Empty or malformed email and an empty password show errors on the fields, focus the first invalid field and block onSubmit."
+    },
+    {
+      "criterion": "1.3.5",
+      "result": "pass",
+      "finding": "autoComplete=\"email\" and \"current-password\" on the fields."
+    },
+    {
+      "criterion": "1.4.1",
+      "result": "fail",
+      "finding": "The 'Sign up' link in the footer line has no underline until hover; its color against the surrounding text is about 1.6:1 (light) and 1.5:1 (dark), under the 3:1 needed when color is the main cue. Same pattern as SignUpForm, NoResults and SearchResults — worth deciding once for the library (Link docs ask for underline in running text)."
+    }
   ],
   "LoginFormSplit": [
-    { "criterion": "2.2.2", "result": "fail", "finding": "The image carousel autoplays every 6s by default (autoplayInterval = 6000) and loops indefinitely, with no pause control and no prefers-reduced-motion check (login-form-split.tsx, the setInterval effect). Needs a pause/stop control or no autoplay by default, and should stop under reduced motion." },
-    { "criterion": "1.4.10", "result": "pass", "finding": "Below md the image panel is dropped and only the form remains." }
+    {
+      "criterion": "2.2.2",
+      "result": "fail",
+      "finding": "The image carousel autoplays every 6s by default (autoplayInterval = 6000) and loops indefinitely, with no pause control and no prefers-reduced-motion check (login-form-split.tsx, the setInterval effect). Needs a pause/stop control or no autoplay by default, and should stop under reduced motion."
+    },
+    {
+      "criterion": "1.4.10",
+      "result": "pass",
+      "finding": "Below md the image panel is dropped and only the form remains."
+    }
   ],
   "NotificationsInbox": [
-    { "criterion": "1.4.1", "result": "pass", "finding": "Unread rows differ visually and announce 'Unread'." },
-    { "criterion": "4.1.2", "result": "pass", "finding": "The whole row is one interactive control; its actions menu is a separate control in the trailing slot." }
+    {
+      "criterion": "1.4.1",
+      "result": "pass",
+      "finding": "Unread rows differ visually and announce 'Unread'."
+    },
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "The whole row is one interactive control; its actions menu is a separate control in the trailing slot."
+    }
   ],
   "OnboardingWizard": [
-    { "criterion": "1.3.1", "result": "pass", "finding": "Root is role=\"group\" labelled by the wizard heading; the Stepper marks the current step." },
-    { "criterion": "3.3.7", "result": "pass", "finding": "Inactive steps are hidden, not unmounted, so Back returns to what was entered." }
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "Root is role=\"group\" labelled by the wizard heading; the Stepper marks the current step."
+    },
+    {
+      "criterion": "3.3.7",
+      "result": "pass",
+      "finding": "Inactive steps are hidden, not unmounted, so Back returns to what was entered."
+    }
   ],
   "Preferences": [
-    { "criterion": "4.1.2", "result": "pass", "finding": "The section nav sets aria-current on the section in view." },
-    { "criterion": "3.3.4", "result": "pass", "finding": "Deleting the account requires typing the account email in a ConfirmDialog." }
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "The section nav sets aria-current on the section in view."
+    },
+    {
+      "criterion": "3.3.4",
+      "result": "pass",
+      "finding": "Deleting the account requires typing the account email in a ConfirmDialog."
+    }
   ],
   "ResourceForm": [
-    { "criterion": "3.3.1", "result": "pass", "finding": "One error moves focus to its field; several move focus to an error summary (Alert, live=assertive) that links to each field." },
-    { "criterion": "1.3.1", "result": "pass", "finding": "Errors are tied to their fields and set the field's own danger state (error prop), not only the text below." }
+    {
+      "criterion": "3.3.1",
+      "result": "pass",
+      "finding": "One error moves focus to its field; several move focus to an error summary (Alert, live=assertive) that links to each field."
+    },
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "Errors are tied to their fields and set the field's own danger state (error prop), not only the text below."
+    }
   ],
   "TeamMembers": [
-    { "criterion": "1.4.1", "result": "pass", "finding": "Roles are words in Badges and Selects." },
-    { "criterion": "3.3.4", "result": "pass", "finding": "Remove member and revoke invite confirm first and offer undo in the toast." }
+    {
+      "criterion": "1.4.1",
+      "result": "pass",
+      "finding": "Roles are words in Badges and Selects."
+    },
+    {
+      "criterion": "3.3.4",
+      "result": "pass",
+      "finding": "Remove member and revoke invite confirm first and offer undo in the toast."
+    }
   ],
   "WorkspaceLayout": [
-    { "criterion": "2.4.1", "result": "pass", "finding": "A skip link is the first Tab stop and jumps to the content." },
-    { "criterion": "1.3.1", "result": "pass", "finding": "Both navigation landmarks have names." },
-    { "criterion": "1.4.10", "result": "pass", "finding": "Below md the sidebar is a slide-over panel; a long identifier crumb doesn't make the page scroll at 360px." }
+    {
+      "criterion": "2.4.1",
+      "result": "pass",
+      "finding": "A skip link is the first Tab stop and jumps to the content."
+    },
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "Both navigation landmarks have names."
+    },
+    {
+      "criterion": "1.4.10",
+      "result": "pass",
+      "finding": "Below md the sidebar is a slide-over panel; a long identifier crumb doesn't make the page scroll at 360px."
+    }
+  ],
+  "AccountMenu": [
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "The trigger's accessible name is 'Account: <name>, <workspace>, N items need attention'; the attention dot on the avatar is aria-hidden."
+    },
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "Workspace and theme are DropdownMenuRadioGroups labelled by their DropdownMenuLabel (aria-labelledby); link counts carry sr-only 'item(s) need attention' text."
+    },
+    {
+      "criterion": "1.4.1",
+      "result": "pass",
+      "finding": "Attention is a count in a Badge with text, not only the red dot."
+    }
+  ],
+  "AccountOverview": [
+    {
+      "criterion": "1.4.1",
+      "result": "pass",
+      "finding": "Attention rows prefix the title with sr-only 'Urgent: ' / 'Warning: ' / 'Note: '; toned facts are words ('Off', 'On'), color only repeats them."
+    },
+    {
+      "criterion": "2.4.6",
+      "result": "pass",
+      "finding": "Page h1 is the user name; 'Needs your attention (N)' and 'Everything in your account' are h2 sections (aria-labelledby); each area title is an h3 wrapping its link."
+    },
+    {
+      "criterion": "2.4.4",
+      "result": "pass",
+      "finding": "Tasks are named links ('Change password', 'Download your data'), not a generic 'Manage'."
+    }
+  ],
+  "OrderHistory": [
+    {
+      "criterion": "1.4.1",
+      "result": "pass",
+      "finding": "Status is a Badge with a word label ('Payment failed', 'Refunded', 'In progress')."
+    },
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "Details is a disclosure button with aria-expanded and aria-controls, named 'Details for order <number>' via sr-only text."
+    },
+    {
+      "criterion": "4.1.3",
+      "result": "pass",
+      "finding": "The 'N orders' count is aria-live=polite and updates on search and status filter."
+    }
+  ],
+  "PasswordReset": [
+    {
+      "criterion": "2.4.3",
+      "result": "pass",
+      "finding": "Each step change focuses the step's h1 (tabIndex=-1) in an effect on step; the first render does not steal focus."
+    },
+    {
+      "criterion": "3.3.1",
+      "result": "pass",
+      "finding": "Empty or malformed email and a too-short password set the field's error (aria-invalid + describedby via TextField/Password), focus the field and block onRequest/onReset."
+    },
+    {
+      "criterion": "1.3.5",
+      "result": "pass",
+      "finding": "autoComplete='email' on the request field; 'new-password' on the new password, with a hidden username input carrying the email for password managers."
+    }
+  ],
+  "SavedItems": [
+    {
+      "criterion": "1.4.1",
+      "result": "pass",
+      "finding": "Changes since saving are Badges with text ('Price dropped from $89', 'No longer available'); the faded image only repeats them."
+    },
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "Row checkboxes are named 'Select <title>' and the icon-only remove button 'Remove <title>'; Select all is a labelled checkbox with an indeterminate state."
+    },
+    {
+      "criterion": "2.4.3",
+      "result": "fail",
+      "finding": "Removing an item with its row's Remove button unmounts the row together with the focused button, so focus falls back to the document body (saved-items.tsx, remove() called from the per-item icon Button). Should move focus to the next item, the previous one, or the heading."
+    }
+  ],
+  "SignUpForm": [
+    {
+      "criterion": "3.3.1",
+      "result": "pass",
+      "finding": "Empty or malformed email and a too-short password show errors on the fields, focus the first invalid field and block onSubmit."
+    },
+    {
+      "criterion": "3.3.2",
+      "result": "pass",
+      "finding": "The password rule is the Password description from the start ('At least 8 characters.') and counts down while typing."
+    },
+    {
+      "criterion": "1.4.1",
+      "result": "fail",
+      "finding": "Links inside running text (the 'Sign in' link in the header line, Terms of Service and Privacy Policy in the terms sentence) use Link without underline; link color vs the surrounding text-subtle is about 1.6:1 (light) / 1.5:1 (dark), below 3:1, and font-medium is the only other cue. Link's own docs say to set underline in running text (sign-up-form.tsx, the Link elements in AuthHeader children and the terms paragraph)."
+    }
+  ],
+  "StatusTracker": [
+    {
+      "criterion": "4.1.3",
+      "result": "pass",
+      "finding": "An sr-only role=status paragraph carries the headline ('<step> — step N of M', 'Stopped at …', 'Everything is done'), so step changes and the result are announced."
+    },
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "The current step has aria-current='step'; every step has sr-only state text (in progress / failed / done / not started); the step icons are aria-hidden."
+    },
+    {
+      "criterion": "2.2.2",
+      "result": "pass",
+      "finding": "The only looping animation is the current-step pulse, a progress indicator for the running step; it uses motion-reduce:animate-none, and the other transitions respect reduced motion too."
+    }
+  ],
+  "NoResults": [
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "'Did you mean' and the other-scope options are <button type=button> (they run a search), named with the term or 'help articles (3)'."
+    },
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "Popular pages are a section labelled by its h2; the type icons are aria-hidden."
+    },
+    {
+      "criterion": "1.4.1",
+      "result": "fail",
+      "finding": "The 'Did you mean' and 'matches in …' buttons sit inside sentences styled as links with no underline until hover; link color vs the text-subtle sentence is about 1.6:1 (light) / 1.5:1 (dark), below 3:1 (no-results.tsx, linkButton class)."
+    }
+  ],
+  "SearchBox": [
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "role=combobox input with aria-expanded, aria-controls, aria-autocomplete=list and aria-activedescendant; options are role=option with aria-selected in labelled role=group lists."
+    },
+    {
+      "criterion": "4.1.3",
+      "result": "pass",
+      "finding": "An sr-only role=status announces 'N options. Use up and down arrows to choose.' while the list is open."
+    },
+    {
+      "criterion": "2.1.4",
+      "result": "pass",
+      "finding": "The '/' shortcut is skipped while focus is in a typing target and can be turned off or remapped through the shortcut prop; a product still needs a user-facing setting to feed it for full conformance."
+    }
+  ],
+  "SearchResults": [
+    {
+      "criterion": "2.4.3",
+      "result": "fail",
+      "finding": "'View all N <type>' switches the scope to that type, which unmounts the 'All' view and the button with it, so focus falls back to the document body (search-results.tsx, the View all Button calling changeScope). Should move focus to the selected tab or the first result. The same happens when the last 'Show N more' page is shown and that button disappears."
+    },
+    {
+      "criterion": "2.4.3",
+      "result": "pass",
+      "finding": "After a new search (submit, Did you mean, Search only for …) focus moves to the results h1 (tabIndex=-1) with the count."
+    },
+    {
+      "criterion": "1.4.1",
+      "result": "fail",
+      "finding": "The 'Search only for “…”' button inside the typo-correction sentence is styled as a link with no underline until hover; link color vs the text-subtle sentence is about 1.6:1 (light) / 1.5:1 (dark), below 3:1 (search-results.tsx, the correction <p>). Matched words themselves pass: <mark> in semibold with a transparent background, not color."
+    }
+  ],
+  "ItemCard": [
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "The card is one stretched link named '<name> by <vendor>'; the Compare checkbox sits above it (relative z-[1]) as a separate control with aria-label 'Compare <name>'."
+    },
+    {
+      "criterion": "1.1.1",
+      "result": "pass",
+      "finding": "Stars are aria-hidden and an sr-only sentence gives 'Rated 4.7 out of 5 from 812 reviews.'; the icon tile is aria-hidden and image alt defaults to empty because the name is the link's name."
+    },
+    {
+      "criterion": "2.5.3",
+      "result": "pass",
+      "finding": "The visible 'Compare' label is contained in the checkbox's accessible name 'Compare <name>'."
+    }
+  ],
+  "CategoryLanding": [
+    {
+      "criterion": "2.4.4",
+      "result": "pass",
+      "finding": "Category tiles are links named '<label>, <n> extensions'; the shelf's 'View all N' adds the category and noun in sr-only text."
+    },
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "h1 page title; each shelf is a section labelled by its h2 (aria-labelledby)."
+    }
+  ],
+  "Comparison": [
+    {
+      "criterion": "2.4.3",
+      "result": "pass",
+      "finding": "Compare (n) moves focus to the 'Comparing N extensions' heading (tabIndex=-1); Back to results, or dropping below two items, returns focus to the Compare button."
+    },
+    {
+      "criterion": "2.4.3",
+      "result": "fail",
+      "finding": "Removing an item with its X button (tray or table header) unmounts the focused button, and Clear unmounts the whole tray (CompareBar returns null when empty), so focus falls to <body> (comparison.tsx: CompareBar onRemove/onClear, ComparisonTable onRemove). Exception: dropping below two in the table view refocuses Compare. Focus should move to the next pick, the tray's Compare button, or the card's checkbox."
+    },
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "The table has an sr-only caption, th scope=col per item and th scope=row per attribute; Yes/No are sr-only text behind the check and minus icons; the scroll region is role=region, named and focusable."
+    }
+  ],
+  "FacetedList": [
+    {
+      "criterion": "4.1.3",
+      "result": "pass",
+      "finding": "The result count is aria-live=polite aria-atomic, so each filter change is announced."
+    },
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "Facets are fieldsets with legends; each option's count is its aria-describedby ('6 results'); applied filters are role=group 'Applied filters' with 'Remove filter: <value>' buttons."
+    },
+    {
+      "criterion": "2.4.3",
+      "result": "fail",
+      "finding": "Activating a 'Remove filter' chip, Clear all, the empty state's Clear all filters, or the last 'Show N more' unmounts the focused button and focus falls to <body> (faceted-list.tsx: chips map, clearAll, EmptyState action, the visible < results.length branch). Focus should move to a neighbouring chip, the result count/heading, or the first newly shown item."
+    }
+  ],
+  "ItemPage": [
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "Gallery thumbnails are buttons named 'Screenshot n: <alt>' with aria-current on the shown one; an aria-live=polite line announces 'Screenshot n of N: <alt>' on change."
+    },
+    {
+      "criterion": "2.4.1",
+      "result": "pass",
+      "finding": "'On this page' is a nav landmark with in-page links to sections labelled by their h2."
+    },
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "'Read the full description' has aria-expanded and aria-controls pointing at the description body."
+    }
+  ],
+  "Reviews": [
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "Distribution bars are buttons with aria-pressed in role=group 'Filter by rating', named '<n> stars <count> reviews'; the bar graphic is aria-hidden."
+    },
+    {
+      "criterion": "1.1.1",
+      "result": "pass",
+      "finding": "Each review's stars are aria-hidden with sr-only '<n> out of 5 stars'; the developer reply carries a 'Developer' Badge in words."
+    },
+    {
+      "criterion": "2.4.3",
+      "result": "fail",
+      "finding": "'Show all' (shown while a star filter is on) and the last 'Show N more reviews' unmount themselves when activated, so focus falls to <body> (reviews.tsx: the star && Button inside the live <p>, the visible < list.length branch). Also, 'Show all' sits inside the aria-live paragraph, so its label is announced as part of the count, and the '★' in 'with 1 ★' is read as a symbol name."
+    }
+  ],
+  "SpecSheet": [
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "Specs are a dl/dt/dd DescriptionList in sections named by their group; units are rendered text after the value."
+    },
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "'Show all N specifications' has aria-expanded and aria-controls; help icons are buttons named 'About <label>'."
+    }
+  ],
+  "MegaMenu": [
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "Wide: NavigationMenu aria-label='Main'; each panel column has an h3 that labels its ul (aria-labelledby). Current section has sr-only '(current section)'; a current plain link has aria-current='page'."
+    },
+    {
+      "criterion": "1.4.1",
+      "result": "fail",
+      "finding": "On the bar, the current section's trigger differs from the others only by text color (text-link-on-tonal), with no non-color cue (mega-menu.tsx, NavigationMenuTrigger className). A current plain link gets a background and medium weight, so only section triggers are affected. Needs a second cue, e.g. an underline/indicator or the data-active background."
+    },
+    {
+      "criterion": "1.3.1",
+      "result": "fail",
+      "finding": "Drawer: column titles are <p> styled as group headings (the same titles are h3 in the bar) and their lists aren't labelled by them (mega-menu.tsx, Accordion content groupHeading <p>). A current plain link in the drawer has aria-current but no visual marking."
+    }
+  ],
+  "PageBreadcrumbs": [
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "The trail is a Breadcrumb nav landmark; the current page is BreadcrumbPage with aria-current='page'."
+    },
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "Folded levels are a BreadcrumbEllipsis button named 'Show N more levels' that opens a menu of menuitem links."
+    }
+  ],
+  "SiteFooter": [
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "Columns are inside nav aria-label='Footer'; each ul is aria-labelledby its h2; contact details are a dl."
+    },
+    {
+      "criterion": "1.4.1",
+      "result": "pass",
+      "finding": "Status is a StatusDot (role=presentation) with a text label inside the link."
+    },
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "The language Select is labelled by the visible 'Language' text, flags and the short code are aria-hidden with the full name in sr-only text; icon-only social links are named '<app> on <network>' and are 32px."
+    }
+  ],
+  "CancellationFlow": [
+    {
+      "criterion": "2.4.3",
+      "result": "pass",
+      "finding": "Each step change moves focus to the new step's heading (tabIndex=-1, focused in an effect that skips the first render)."
+    },
+    {
+      "criterion": "3.3.4",
+      "result": "pass",
+      "finding": "Cancelling takes its own confirm step with a warning that states the end date; Resume plan on the done screen reverts it."
+    },
+    {
+      "criterion": "2.4.3",
+      "result": "fail",
+      "finding": "Finishing (Cancel plan, Pause plan, Switch to …) swaps the flow for CompletionScreen without moving focus: the pressed button unmounts, focus drops to <body> and the outcome isn't announced. Resume plan does the same on the way back, since step is unchanged and the focus effect doesn't run (cancellation-flow.tsx, finish() and the `if (outcome)` branch)."
+    }
+  ],
+  "Cart": [
+    {
+      "criterion": "3.3.4",
+      "result": "pass",
+      "finding": "Remove, and a quantity stepped to 0, remove the line at once and offer undo in an undoToast that restores it at its index."
+    },
+    {
+      "criterion": "3.3.1",
+      "result": "pass",
+      "finding": "An empty or invalid promo code sets the TextField error (aria-invalid, message in aria-describedby); focus stays in the field."
+    },
+    {
+      "criterion": "2.4.3",
+      "result": "fail",
+      "finding": "Applying a valid promo code unmounts the field and the Apply button (setPromoOpen(false)), so focus drops to <body>, and 'Code … applied' appears without a live region (cart.tsx, applyPromo()). Removing a line also drops focus with the row; the toast announces it, but focus is not placed anywhere."
+    }
+  ],
+  "Checkout": [
+    {
+      "criterion": "2.4.3",
+      "result": "pass",
+      "finding": "goTo() moves focus to an sr-only h1 (tabIndex=-1) reading 'Step n of 3: <label>' on every step change, including Stepper links and Edit."
+    },
+    {
+      "criterion": "3.3.7",
+      "result": "pass",
+      "finding": "The options and payment steps are hidden, not unmounted, so Back and Edit return to what was entered, card details included."
+    },
+    {
+      "criterion": "4.1.3",
+      "result": "fail",
+      "finding": "After Pay, the done branch replaces the page with CompletionScreen without moving focus or announcing the result; focus is already lost during the charge because Button's loading sets native disabled (button.tsx, isDisabled = disabled || loading) on the focused Pay button (checkout.tsx, pay() and the `done` branch)."
+    }
+  ],
+  "CompletionScreen": [
+    {
+      "criterion": "1.1.1",
+      "result": "pass",
+      "finding": "The check icon is aria-hidden; the title states the outcome in text."
+    },
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "Root is a section labelled by its h2; details are a description list; 'send it again' is a button inside the sentence."
+    },
+    {
+      "criterion": "2.4.3",
+      "result": "fail",
+      "finding": "The title has no tabIndex=-1 and the component has no ref or autofocus option, so the flows that swap it in (Checkout, CancellationFlow) have no target to move focus to (completion-screen.tsx, the h2)."
+    }
+  ],
+  "OrderReview": [
+    {
+      "criterion": "2.4.4",
+      "result": "pass",
+      "finding": "Each Edit carries an sr-only group name ('Edit payment')."
+    },
+    {
+      "criterion": "3.3.4",
+      "result": "pass",
+      "finding": "Heading 'Review and pay', the note 'charged only when you press Pay', and the button names the amount ('Pay $420'); aria-busy while placing."
+    },
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "Groups are sections with h3 headings under the h2; rows are description lists; the summary is a labelled section with a dl."
+    }
+  ],
+  "PaymentMethod": [
+    {
+      "criterion": "3.3.1",
+      "result": "pass",
+      "finding": "Errors set the field's error (aria-invalid, message in aria-describedby); validate() reveals all and focuses the first invalid field."
+    },
+    {
+      "criterion": "3.3.3",
+      "result": "pass",
+      "finding": "Messages say how to fix the input: digits missing, a mistyped digit (Luhn), MM / YY format, an expired card."
+    },
+    {
+      "criterion": "1.3.5",
+      "result": "pass",
+      "finding": "autoComplete cc-name, cc-number, cc-exp and cc-csc on the card fields."
+    }
+  ],
+  "PlanComparison": [
+    {
+      "criterion": "1.1.1",
+      "result": "pass",
+      "finding": "Check and dash icons are aria-hidden with sr-only 'Included' / 'Not included'."
+    },
+    {
+      "criterion": "2.5.3",
+      "result": "pass",
+      "finding": "Choose buttons are named 'Choose <plan>, <price> per month, billed <period>', starting with the visible label; the current plan's is disabled and named '<plan>: current plan'."
+    },
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "The table has an sr-only caption with the period, scope=col plan headers and scope=row feature headers; the narrow view is a tab per plan with a dl."
+    }
+  ],
+  "PricedOptions": [
+    {
+      "criterion": "1.3.1",
+      "result": "pass",
+      "finding": "A fieldset with a legend; the radio group is aria-labelledby the legend and the fieldset aria-describedby the hint."
+    },
+    {
+      "criterion": "4.1.2",
+      "result": "pass",
+      "finding": "Each option's price joins its aria-describedby (OptionCard aside, or the price span on a list Radio), so it is read with the option."
+    }
   ]
 }

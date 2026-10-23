@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { SearchNoResults } from './no-results';
 import { DEMO_POPULAR } from './demo-data';
+import { noResultsGuidelines } from './no-results.guidelines';
 
 const meta: Meta<typeof SearchNoResults> = {
   title: 'Patterns: Search/NoResults',
   component: SearchNoResults,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: noResultsGuidelines, layout: 'padded' },
   args: { query: 'invoice', popular: DEMO_POPULAR, onSearch: fn(), onScopeChange: fn() },
 };
 export default meta;

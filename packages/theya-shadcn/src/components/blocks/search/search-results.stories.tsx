@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { SearchResults } from './search-results';
 import { DEMO_INDEX, DEMO_POPULAR } from './demo-data';
+import { searchResultsGuidelines } from './search-results.guidelines';
 
 const meta: Meta<typeof SearchResults> = {
   title: 'Patterns: Search/SearchResults',
   component: SearchResults,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: searchResultsGuidelines, layout: 'padded' },
   args: { index: DEMO_INDEX, popular: DEMO_POPULAR, onSearch: fn() },
   decorators: [(Story) => <div className="max-w-4xl">{Story()}</div>],
 };

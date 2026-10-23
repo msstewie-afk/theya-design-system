@@ -68,12 +68,14 @@ function SelectTrigger({ className, widthSize = 'md', error, children, ...props 
         WIDTH_CLASSES[widthSize],
         'rounded-[var(--theme-radius-field,var(--size-border-radius-border-radius-lg))] border border-solid',
         'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
-        'px-[var(--size-margin-margin-s)] text-[var(--color-text-text)]',
+        // Start inset matches every other field: 12px for sm/md, 16px for lg.
+        // The end inset keeps the chevron where it was (Мария, 2026-10-23).
+        'pe-[var(--size-margin-margin-s)] text-[var(--color-text-text)]',
         heightSize === 'sm'
-          ? 'h-[var(--size-size-control-size-control-lg)] text-body-s'
+          ? 'h-[var(--size-size-control-size-control-lg)] ps-[var(--size-padding-padding-md)] text-body-s'
           : heightSize === 'lg'
-            ? 'h-[var(--size-size-control-size-control-4xl)] text-body-m'
-            : 'h-[var(--size-size-control-size-control-2xl)] text-body-m',
+            ? 'h-[var(--size-size-control-size-control-4xl)] ps-[var(--size-padding-padding-lg)] text-body-m'
+            : 'h-[var(--size-size-control-size-control-2xl)] ps-[var(--size-padding-padding-md)] text-body-m',
         'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none outline-none',
         'data-[placeholder]:text-[var(--color-text-text-subtler)]',
         // data-[placeholder] and data-[error=true] are independent

@@ -2,12 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { CompareFlow, ComparisonTable } from './comparison';
 import { DEMO_ITEMS } from './demo-data';
+import { comparisonGuidelines } from './comparison.guidelines';
 
 const meta: Meta<typeof CompareFlow> = {
   title: 'Patterns: Catalog/Comparison',
   component: CompareFlow,
   tags: ['autodocs'],
   parameters: {
+    guidelines: comparisonGuidelines,
     layout: 'padded',
     // target-size off: the Compare checkbox box is 20px, but its hit area is
     // 24px (Checkbox's ::after) and the visible "Compare" label toggles it

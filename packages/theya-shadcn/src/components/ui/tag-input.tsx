@@ -220,7 +220,7 @@ export function TagInput({
           // With chips, the side gap equals the vertical one — a 24px chip centred in the
           // control height leaves (height − 24 − 2px border) / 2 above and below — so a chip
           // sits the same distance from every edge (3px sm, 7px md). Empty: TextField's inset.
-          tags.length > 0 ? (heightSize === 'sm' ? 'px-[calc((var(--size-size-control-size-control-lg)_-_1.5rem_-_2px)/2)]' : 'px-[calc((var(--size-size-control-size-control-2xl)_-_1.5rem_-_2px)/2)]') : 'pe-1 ps-2',
+          tags.length > 0 ? (heightSize === 'sm' ? 'px-[calc((var(--size-size-control-size-control-lg)_-_1.5rem_-_2px)/2)]' : 'px-[calc((var(--size-size-control-size-control-2xl)_-_1.5rem_-_2px)/2)]') : 'px-2', // + the input's own px-1 = TextField's 12px inset, both sides
           // sm: 2px vertical padding so a row of 24px chips (+ border) still fits the
           // 32px control height and lines up with TextField / Select sm (was 34px).
           heightSize === 'sm' ? 'py-0.5 min-h-[var(--size-size-control-size-control-lg)]' : 'py-1 min-h-[var(--size-size-control-size-control-2xl)]',

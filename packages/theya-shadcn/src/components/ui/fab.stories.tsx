@@ -33,6 +33,7 @@ const meta = {
     label: { control: 'text', description: 'Text of the extended FAB. Empty = round icon-only FAB.', table: { category: 'Content' } },
     icon: { control: false, description: 'The action icon, always shown.', table: { category: 'Content' } },
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'], description: 'sm 40px, md 56px, lg 64px.', table: { category: 'Appearance' } },
+    shape: { control: 'inline-radio', options: ['round', 'square'], description: 'round: circle / pill. square: rounded corners (12px sm, 16px md and lg).', table: { category: 'Appearance' } },
     tone: { control: 'inline-radio', options: ['primary', 'secondary', 'neutral'], table: { category: 'Appearance' } },
     appearance: { control: 'inline-radio', options: ['filled', 'tonal'], table: { category: 'Appearance' } },
     position: { control: 'inline-radio', options: ['bottom-end', 'bottom-start', 'bottom-center', 'none'], description: 'Where it is pinned; none keeps it in flow.', table: { category: 'Layout' } },
@@ -41,7 +42,7 @@ const meta = {
     disabled: { control: 'boolean', table: { category: 'State' } },
     scrollContainer: { control: false },
   },
-  args: { icon: <Plus />, label: 'New site', size: 'md', tone: 'primary', appearance: 'filled', position: 'none' },
+  args: { icon: <Plus />, label: 'New site', size: 'md', shape: 'round', tone: 'primary', appearance: 'filled', position: 'none' },
 } satisfies Meta<typeof Fab>;
 
 export default meta;
@@ -68,6 +69,25 @@ export const Sizes: Story = {
       <div className="flex flex-wrap items-center justify-center gap-4">
         {(['sm', 'md', 'lg'] as const).map((size) => (
           <Fab key={size} {...args} size={size} />
+        ))}
+      </div>
+    </div>
+  ),
+};
+
+/** `shape="square"`: rounded corners instead of a circle, 12px on sm, 16px on md and lg. The extended FAB keeps the same corners. */
+export const Square: Story = {
+  parameters: { controls: { exclude: ['size', 'shape'] } },
+  render: (args) => (
+    <div className="flex flex-col items-center gap-6">
+      <div className="flex flex-wrap items-center justify-center gap-4">
+        {(['sm', 'md', 'lg'] as const).map((size) => (
+          <Fab key={size} {...args} shape="square" size={size} label={undefined} aria-label={`New site (${size})`} />
+        ))}
+      </div>
+      <div className="flex flex-wrap items-center justify-center gap-4">
+        {(['sm', 'md', 'lg'] as const).map((size) => (
+          <Fab key={size} {...args} shape="square" size={size} />
         ))}
       </div>
     </div>

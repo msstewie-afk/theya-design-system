@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { PasswordReset } from './password-reset';
+import { passwordResetGuidelines } from './password-reset.guidelines';
 
 const meta: Meta<typeof PasswordReset> = {
   title: 'Patterns: Account/PasswordReset',
   component: PasswordReset,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: passwordResetGuidelines, layout: 'centered' },
   args: { onRequest: fn(), onReset: fn() },
 };
 export default meta;

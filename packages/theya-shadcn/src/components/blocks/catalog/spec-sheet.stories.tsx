@@ -2,12 +2,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { SpecSheet } from './spec-sheet';
 import { DEMO_SPECS } from './demo-data';
+import { specSheetGuidelines } from './spec-sheet.guidelines';
 
 const meta: Meta<typeof SpecSheet> = {
   title: 'Patterns: Catalog/SpecSheet',
   component: SpecSheet,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    guidelines: specSheetGuidelines,
+    layout: 'padded',
+  },
   args: { groups: DEMO_SPECS },
   decorators: [(Story) => <div className="max-w-3xl">{Story()}</div>],
 };

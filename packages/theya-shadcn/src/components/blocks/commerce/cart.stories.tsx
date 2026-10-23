@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Cart } from './cart';
 import { DEMO_CART, DEMO_SAVED } from './demo-data';
+import { cartGuidelines } from './cart.guidelines';
 
 const meta: Meta<typeof Cart> = {
   title: 'Patterns: Commerce/Cart',
   component: Cart,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: cartGuidelines, layout: 'padded' },
   args: { lines: DEMO_CART, saved: DEMO_SAVED, taxRate: 0.2, taxLabel: 'VAT (20%)', onCheckout: fn(), onBrowse: fn() },
 };
 export default meta;

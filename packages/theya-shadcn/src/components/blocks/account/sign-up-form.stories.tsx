@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { SignUpForm } from './sign-up-form';
+import { signUpFormGuidelines } from './sign-up-form.guidelines';
 
 const meta: Meta<typeof SignUpForm> = {
   title: 'Patterns: Account/SignUpForm',
   component: SignUpForm,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: { guidelines: signUpFormGuidelines, layout: 'centered' },
   args: { onSubmit: fn(), onSso: fn() },
 };
 export default meta;

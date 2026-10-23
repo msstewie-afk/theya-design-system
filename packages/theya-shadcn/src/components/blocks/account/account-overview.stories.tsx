@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 import { AccountOverview } from './account-overview';
 import { DEMO_AREAS, DEMO_ATTENTION, DEMO_USER } from './demo-data';
+import { accountOverviewGuidelines } from './account-overview.guidelines';
 
 const meta: Meta<typeof AccountOverview> = {
   title: 'Patterns: Account/AccountOverview',
   component: AccountOverview,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: accountOverviewGuidelines, layout: 'padded' },
   args: { user: DEMO_USER, attention: DEMO_ATTENTION, areas: DEMO_AREAS },
   decorators: [(Story) => <div className="max-w-6xl">{Story()}</div>],
 };

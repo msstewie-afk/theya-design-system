@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { Download, Globe, OpenNewWindow } from 'iconoir-react';
 import { CompletionScreen } from './completion-screen';
+import { completionScreenGuidelines } from './completion-screen.guidelines';
 
 const meta: Meta<typeof CompletionScreen> = {
   title: 'Patterns: Commerce/CompletionScreen',
   component: CompletionScreen,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: completionScreenGuidelines, layout: 'padded' },
   args: {
     description: 'Your Pro plan is active and seashell.shop is registered.',
     orderNumber: 'SH-20261003-4821',

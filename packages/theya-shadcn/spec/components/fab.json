@@ -117,6 +117,17 @@
           "description": "Scroll container to watch for `collapseOnScroll`. Defaults to the window."
         },
         {
+          "name": "shape",
+          "type": "FabShape",
+          "values": [
+            "round",
+            "square"
+          ],
+          "required": false,
+          "default": "round",
+          "description": "`round` (default): a circle, a pill when extended. `square`: rounded corners (12px sm, 16px md/lg)."
+        },
+        {
           "name": "size",
           "type": "FabSize",
           "values": [
@@ -186,6 +197,17 @@
           "default": "bottom-end"
         },
         {
+          "name": "shape",
+          "type": "FabShape",
+          "values": [
+            "round",
+            "square"
+          ],
+          "required": false,
+          "default": "round",
+          "description": "Shape of the trigger and the actions. Default `round`."
+        },
+        {
           "name": "size",
           "type": "FabSize",
           "values": [
@@ -229,6 +251,10 @@
       {
         "name": "Sizes",
         "id": "actions-fab--sizes"
+      },
+      {
+        "name": "Square",
+        "id": "actions-fab--square"
       },
       {
         "name": "Tones",

@@ -124,7 +124,9 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
       {leftIcon && (
         <span
           className={cn(
-            'absolute start-[var(--size-padding-padding-lg)] top-1/2 -translate-y-1/2 flex items-center justify-center size-4',
+            'absolute top-1/2 -translate-y-1/2 flex items-center justify-center size-4',
+            // Icon sits on the field's own side inset; text follows 8px after it.
+            heightSize === 'lg' ? 'start-[var(--size-padding-padding-lg)]' : 'start-[var(--size-padding-padding-md)]',
             // Stayed neutral icon-subtle regardless of error before.
             hasError ? 'text-[var(--color-icon-icon-danger)]' : 'text-[var(--color-icon-icon-subtle)]',
           )}
@@ -156,9 +158,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
         autoComplete={autoComplete}
         className={cn(
           textFieldVariants({ error: hasError, success: hasSuccess, heightSize: heightSize as 'md' | 'sm' | 'lg' }),
-          leftIcon && 'ps-9',
+          leftIcon && (heightSize === 'lg' ? 'ps-10' : 'ps-9'),
           (rightIcon || hasError || hasSuccess || hasValue) && !disabled && '!pe-9',
-          !((rightIcon || hasError || hasSuccess || hasValue) && !disabled) && '!pe-4',
           className,
         )}
         {...rest}

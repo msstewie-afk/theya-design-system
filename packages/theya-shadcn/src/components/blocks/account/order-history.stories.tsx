@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { OrderHistory } from './order-history';
 import { DEMO_ORDERS } from './demo-data';
+import { orderHistoryGuidelines } from './order-history.guidelines';
 
 const meta: Meta<typeof OrderHistory> = {
   title: 'Patterns: Account/OrderHistory',
   component: OrderHistory,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: orderHistoryGuidelines, layout: 'padded' },
   args: { orders: DEMO_ORDERS, onReorder: fn() },
   decorators: [(Story) => <div className="max-w-4xl">{Story()}</div>],
 };

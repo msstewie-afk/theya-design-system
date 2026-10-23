@@ -24,7 +24,9 @@ import type { InputHTMLAttributes, ReactNode } from 'react';
 export const textFieldVariants = cva(
   [
     'box-border w-full rounded-[var(--theme-radius-field,var(--field-radius,var(--size-border-radius-border-radius-lg)))]', // --theme-radius-field: product profile override
-    'ps-[var(--size-padding-padding-lg)] pe-[var(--size-padding-padding-xs)]',
+    // Side insets live on heightSize: 12px for sm/md, 16px for lg (Мария,
+    // 2026-10-23). The same inset applies to a leading icon and, when there
+    // is no trailing control, to the end side.
     'bg-[var(--color-bg-input-bg-input)] border border-solid',
     'border-[var(--color-border-border)]',
     'text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-subtler)]',
@@ -87,11 +89,11 @@ export const textFieldVariants = cva(
         // its own here, the value text silently took on whatever font-size
         // its wrapping container set instead of the fixed 14px this variant
         // is documented to be.
-        md: 'h-[var(--size-size-control-size-control-2xl)] font-body text-body-m', // 40px (Figma "Large") — body-m (14px) value text, shared default row height
+        md: 'h-[var(--size-size-control-size-control-2xl)] px-[var(--size-padding-padding-md)] font-body text-body-m', // 40px (Figma "Large") — body-m (14px) value text, shared default row height
         // sm steps the radius down to md (4px) so a same-height md Button (6px)
         // stays rounder than the field (Мария, 2026-10-02).
-        sm: 'h-[var(--size-size-control-size-control-lg)] font-body text-body-s [--field-radius:var(--size-border-radius-border-radius-md)]', // 32px (Figma "Medium") — body-s (12px) value text
-        lg: 'h-[var(--size-size-control-size-control-4xl)] font-body text-body-m', // 48px — body-m text, same as md (matches Select's lg convention)
+        sm: 'h-[var(--size-size-control-size-control-lg)] px-[var(--size-padding-padding-md)] font-body text-body-s [--field-radius:var(--size-border-radius-border-radius-md)]', // 32px (Figma "Medium") — body-s (12px) value text
+        lg: 'h-[var(--size-size-control-size-control-4xl)] px-[var(--size-padding-padding-lg)] font-body text-body-m', // 48px — body-m text, same as md (matches Select's lg convention)
       },
     },
     compoundVariants: [

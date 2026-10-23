@@ -2,12 +2,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, screen, userEvent, waitFor, within } from '@storybook/test';
 import { FacetedList } from './faceted-list';
 import { DEMO_ITEMS } from './demo-data';
+import { facetedListGuidelines } from './faceted-list.guidelines';
 
 const meta: Meta<typeof FacetedList> = {
   title: 'Patterns: Catalog/FacetedList',
   component: FacetedList,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    guidelines: facetedListGuidelines,
+    layout: 'padded',
+  },
   args: { items: DEMO_ITEMS, getHref: (i) => `#${i.id}` },
 };
 export default meta;

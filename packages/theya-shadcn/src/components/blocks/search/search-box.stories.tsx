@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { SearchBox } from './search-box';
 import { DEMO_INDEX, DEMO_RECENT } from './demo-data';
+import { searchBoxGuidelines } from './search-box.guidelines';
 
 const meta: Meta<typeof SearchBox> = {
   title: 'Patterns: Search/SearchBox',
   component: SearchBox,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: searchBoxGuidelines, layout: 'padded' },
   args: { index: DEMO_INDEX, defaultRecent: DEMO_RECENT, onSearch: fn(), onNavigate: fn() },
   // Room for the open list inside the story frame.
   decorators: [(Story) => <div className="min-h-[34rem] max-w-xl">{Story()}</div>],

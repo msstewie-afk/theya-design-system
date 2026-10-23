@@ -2,12 +2,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 import { CategoryLanding } from './category-landing';
 import { DEMO_CATEGORIES, DEMO_ITEMS, DEMO_PICKS, DEMO_POPULAR } from './demo-data';
+import { categoryLandingGuidelines } from './category-landing.guidelines';
 
 const meta: Meta<typeof CategoryLanding> = {
   title: 'Patterns: Catalog/CategoryLanding',
   component: CategoryLanding,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    guidelines: categoryLandingGuidelines,
+    layout: 'padded',
+  },
   args: {
     title: 'Extensions',
     description: 'Add security, backups, speed and developer tools to your panel. Most install in under a minute.',

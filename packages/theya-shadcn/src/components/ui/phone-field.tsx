@@ -282,7 +282,7 @@ export function PhoneField({
               disabled={disabled}
               aria-label={t.phoneField.countryCode(countryName(country), String(getCountryCallingCode(country)))}
               className={cn(
-                'flex shrink-0 cursor-pointer items-center gap-1.5 border-e border-solid border-[var(--color-border-border-subtler)] pe-2 ps-[var(--size-margin-margin-s)]',
+                'flex shrink-0 cursor-pointer items-center gap-2 border-e border-solid border-[var(--color-border-border-subtler)] pe-2 ps-[var(--size-padding-padding-md)]',
                 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] font-body text-[var(--color-text-text)] outline-none',
                 'hover:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)] focus-visible:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)]',
                 'disabled:cursor-not-allowed disabled:text-[var(--color-text-text-disabled)]',

@@ -6,10 +6,12 @@ export type FabSize = 'sm' | 'md' | 'lg';
 export type FabTone = 'primary' | 'secondary' | 'neutral';
 export type FabAppearance = 'filled' | 'tonal';
 export type FabPosition = 'bottom-end' | 'bottom-start' | 'bottom-center' | 'none';
+export type FabShape = 'round' | 'square';
 export interface FabProps extends Omit<React.ComponentProps<'button'>, 'children'> {
     icon: ReactNode;
     label?: ReactNode;
     size?: FabSize;
+    shape?: FabShape;
     tone?: FabTone;
     appearance?: FabAppearance;
     position?: FabPosition;
@@ -30,18 +32,21 @@ export interface FabSpeedDialProps {
     openLabel?: string;
     closeLabel?: string;
     size?: FabSize;
+    shape?: FabShape;
     tone?: FabTone;
     position?: FabPosition;
     className?: string;
 }
-export declare function FabSpeedDial({ actions, icon, openLabel, closeLabel, size, tone, position, className }: FabSpeedDialProps): import("react").JSX.Element;
+export declare function FabSpeedDial({ actions, icon, openLabel, closeLabel, size, shape, tone, position, className }: FabSpeedDialProps): import("react").JSX.Element;
 
 // Defaults
 // Fab.appearance = filled
 // Fab.collapseOnScroll = false
 // Fab.position = bottom-end
+// Fab.shape = round
 // Fab.size = md
 // Fab.tone = primary
 // FabSpeedDial.position = bottom-end
+// FabSpeedDial.shape = round
 // FabSpeedDial.size = md
 // FabSpeedDial.tone = primary

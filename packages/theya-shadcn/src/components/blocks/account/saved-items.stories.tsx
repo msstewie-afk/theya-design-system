@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { SavedItems } from './saved-items';
 import { DEMO_SAVED } from './demo-data';
+import { savedItemsGuidelines } from './saved-items.guidelines';
 
 const meta: Meta<typeof SavedItems> = {
   title: 'Patterns: Account/SavedItems',
   component: SavedItems,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: savedItemsGuidelines, layout: 'padded' },
   args: { items: DEMO_SAVED, primaryAction: { label: 'Add to cart', onAction: fn() }, onRemove: fn() },
   decorators: [(Story) => <div className="max-w-3xl">{Story()}</div>],
 };

@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { PlanComparison } from './plan-comparison';
 import { DEMO_FEATURES, DEMO_PLANS } from './demo-data';
+import { planComparisonGuidelines } from './plan-comparison.guidelines';
 
 const meta: Meta<typeof PlanComparison> = {
   title: 'Patterns: Commerce/PlanComparison',
   component: PlanComparison,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: planComparisonGuidelines, layout: 'padded' },
   args: { plans: DEMO_PLANS, features: DEMO_FEATURES, onSelect: fn() },
 };
 export default meta;

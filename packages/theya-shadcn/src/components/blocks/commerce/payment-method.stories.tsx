@@ -3,12 +3,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Button } from '../../ui/button';
 import { PaymentMethod, type PaymentMethodHandle } from './payment-method';
+import { paymentMethodGuidelines } from './payment-method.guidelines';
 
 const meta: Meta<typeof PaymentMethod> = {
   title: 'Patterns: Commerce/PaymentMethod',
   component: PaymentMethod,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: paymentMethodGuidelines, layout: 'padded' },
 };
 export default meta;
 type Story = StoryObj<typeof PaymentMethod>;

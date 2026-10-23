@@ -74,9 +74,15 @@ function InputGroupAddon({ className, position = 'start', divider = true, ...pro
   return (
     <div
       data-position={position}
+      data-flush={divider ? undefined : ''}
       aria-hidden="true"
       className={cn(
-        'flex shrink-0 items-center gap-1.5 px-[var(--size-margin-margin-s)]',
+        // Same 12px side inset as every 40px field. A flush addon (no
+        // divider) reads as the field's own leading/trailing icon, so its
+        // inner side drops to 0 and the input picks up the 8px gap instead.
+        'flex shrink-0 items-center gap-2 px-[var(--size-padding-padding-md)]',
+        !divider && position === 'start' && 'pe-0',
+        !divider && position === 'end' && 'ps-0',
         'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)] select-none',
         // Reacts to the sibling input's aria-invalid via the group set
         // on InputGroup — a plain sibling selector can't reach an addon
@@ -85,6 +91,9 @@ function InputGroupAddon({ className, position = 'start', divider = true, ...pro
         'group-has-[input[aria-invalid=true]]:text-[var(--color-icon-icon-danger)]',
         'group-has-[input:disabled]:text-[var(--color-icon-icon-subtle)]',
         '[&_svg]:size-4 [&_svg]:shrink-0',
+        // A flush addon is the field's own icon, so it sits on the field's
+        // background instead of a tinted segment.
+        !divider && '!bg-transparent',
         divider && position === 'start' && 'border-e border-solid border-[var(--color-border-border-subtler)]',
         divider && position === 'end' && 'border-s border-solid border-[var(--color-border-border-subtler)]',
         className,
@@ -103,7 +112,10 @@ const InputGroupInput = forwardRef<HTMLInputElement, React.ComponentPropsWithout
       ref={ref}
       type={type}
       className={cn(
-        'h-full w-full min-w-0 flex-1 bg-transparent px-[var(--size-margin-margin-s)]',
+        'h-full w-full min-w-0 flex-1 bg-transparent px-[var(--size-padding-padding-md)]',
+        // 8px from a flush icon addon on either side.
+        '[[data-flush][data-position=start]+&]:ps-[var(--size-padding-padding-xs)]',
+        '[&:has(+[data-flush][data-position=end])]:pe-[var(--size-padding-padding-xs)]',
         'text-body-m text-[var(--color-text-text)] outline-none',
         'placeholder:text-[var(--color-text-text-subtler)]',
         // Value AND placeholder both go danger when invalid, matching the

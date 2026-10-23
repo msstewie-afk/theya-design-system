@@ -190,7 +190,7 @@ export function Autocomplete({
             className={cn(
               'w-full rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
               'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
-              'ps-[var(--size-padding-padding-lg)] text-[var(--color-text-text)]',
+              'ps-[var(--size-padding-padding-md)] text-[var(--color-text-text)]', // 12px, same as TextField sm/md
               // Same two steps as TextField's own heightSize, so a field
               // set to "sm" next to it reads as the same control.
               heightSize === 'sm'
@@ -200,7 +200,7 @@ export function Autocomplete({
               // Value AND placeholder both go danger when invalid.
               'aria-[invalid=true]:text-[var(--color-text-text-danger)]',
               'aria-[invalid=true]:placeholder:text-[var(--color-text-text-danger)]',
-              showClear && current && !disabled ? 'pe-9' : 'pe-[var(--size-padding-padding-xs)]',
+              showClear && current && !disabled ? 'pe-9' : 'pe-[var(--size-padding-padding-md)]',
               'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
               'hover:not-disabled:not-read-only:not-aria-[invalid=true]:border-[var(--color-border-border-primary)]',
               'focus-visible:not-read-only:not-aria-[invalid=true]:border-[var(--color-border-border-primary)]',

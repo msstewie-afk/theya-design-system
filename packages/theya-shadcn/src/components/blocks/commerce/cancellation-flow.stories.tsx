@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { CancellationFlow } from './cancellation-flow';
+import { cancellationFlowGuidelines } from './cancellation-flow.guidelines';
 
 const meta: Meta<typeof CancellationFlow> = {
   title: 'Patterns: Commerce/CancellationFlow',
   component: CancellationFlow,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: { guidelines: cancellationFlowGuidelines, layout: 'padded' },
   args: { onFinish: fn(), onKeep: fn() },
 };
 export default meta;

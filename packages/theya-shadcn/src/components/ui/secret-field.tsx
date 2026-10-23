@@ -44,7 +44,8 @@ function SecretField({
       className={cn(
         'flex items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
         'border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
-        'h-[var(--size-size-control-size-control-2xl)] px-[var(--size-margin-margin-s)]',
+        // 12px start inset like every 40px field; the end keeps the buttons where they were.
+        'h-[var(--size-size-control-size-control-2xl)] ps-[var(--size-padding-padding-md)] pe-[var(--size-margin-margin-s)]',
         className,
       )}
     >

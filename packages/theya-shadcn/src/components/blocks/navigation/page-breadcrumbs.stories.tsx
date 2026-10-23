@@ -1,12 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, screen, userEvent, within } from '@storybook/test';
 import { PageBreadcrumbs } from './page-breadcrumbs';
+import { pageBreadcrumbsGuidelines } from './page-breadcrumbs.guidelines';
 
 const meta: Meta<typeof PageBreadcrumbs> = {
   title: 'Patterns: Navigation/PageBreadcrumbs',
   component: PageBreadcrumbs,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    guidelines: pageBreadcrumbsGuidelines,
+    layout: 'padded',
+  },
   args: {
     path: [
       { label: 'Home', href: '#home' },

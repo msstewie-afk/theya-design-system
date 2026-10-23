@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Checkout } from './checkout';
+import { checkoutGuidelines } from './checkout.guidelines';
 
 const meta: Meta<typeof Checkout> = {
   title: 'Patterns: Commerce/Checkout',
   component: Checkout,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  parameters: { guidelines: checkoutGuidelines, layout: 'fullscreen' },
   args: { onExit: fn(), onComplete: fn(), chargeDelay: 300 },
 };
 export default meta;
