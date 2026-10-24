@@ -361,7 +361,7 @@ function PromptArea({
                 'block max-h-[50svh] w-full cursor-text resize-none bg-transparent',
                 'px-[var(--size-padding-padding-lg)] py-[var(--size-margin-margin-s)]',
                 'font-body text-body-m text-[var(--color-text-text)] outline-none',
-                'placeholder:text-[var(--color-text-text-subtler)]',
+                'placeholder:text-[var(--color-text-text-placeholder)]',
                 'disabled:cursor-not-allowed disabled:text-[var(--color-text-text-disabled)] disabled:italic',
               )}
             />

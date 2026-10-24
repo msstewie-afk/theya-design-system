@@ -77,7 +77,7 @@ function SelectTrigger({ className, widthSize = 'md', error, children, ...props 
             ? 'h-[var(--size-size-control-size-control-4xl)] ps-[var(--size-padding-padding-lg)] text-body-m'
             : 'h-[var(--size-size-control-size-control-2xl)] ps-[var(--size-padding-padding-md)] text-body-m',
         'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none outline-none',
-        'data-[placeholder]:text-[var(--color-text-text-subtler)]',
+        'data-[placeholder]:text-[var(--color-text-text-placeholder)]',
         // data-[placeholder] and data-[error=true] are independent
         // attributes that can both be true at once (an invalid Select
         // with nothing chosen yet still shows its placeholder) — same
@@ -91,7 +91,7 @@ function SelectTrigger({ className, widthSize = 'md', error, children, ...props 
         'focus-visible:border-[var(--color-border-border-primary)]',
         'focus-visible:bg-[var(--color-bg-input-bg-input-active)]',
         'focus-visible:focus-ring',
-        'disabled:cursor-not-allowed disabled:border-[var(--color-border-border)] disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
+        'disabled:cursor-not-allowed disabled:border-[var(--color-border-border)] disabled:bg-[var(--color-bg-input-bg-input-disabled)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
         'data-[state=open]:border-[var(--color-border-border-primary)]',
         'data-[state=open]:bg-[var(--color-bg-input-bg-input-active)]',
         // Both border AND bg change together on error, matching TextField's

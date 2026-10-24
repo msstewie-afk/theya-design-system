@@ -112,7 +112,7 @@ export function Filter({
             'focus-visible:border-[var(--color-border-border-primary)]',
             'focus-visible:bg-[var(--color-bg-input-bg-input-active)]',
             'focus-visible:focus-ring',
-            'disabled:cursor-not-allowed disabled:border-[var(--color-border-border)] disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
+            'disabled:cursor-not-allowed disabled:border-[var(--color-border-border)] disabled:bg-[var(--color-bg-input-bg-input-disabled)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
             'data-[state=open]:border-[var(--color-border-border-primary)]',
             'data-[state=open]:bg-[var(--color-bg-input-bg-input-active)]',
             count > 0 && 'border-[var(--color-border-border-primary)]',

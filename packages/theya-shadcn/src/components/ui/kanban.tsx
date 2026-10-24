@@ -131,7 +131,7 @@ function Column({
   return (
     <section
       aria-labelledby={headingId}
-      className="flex max-h-full shrink-0 flex-col rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]"
+      className="flex max-h-full shrink-0 flex-col rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-surface-bg-surface-sunken)]"
       style={{ width }}
     >
       <header className="flex items-center gap-2 px-3 pb-2 pt-3">
@@ -140,7 +140,7 @@ function Column({
           {column.title}
         </h3>
         {/* Plain counter; a danger Badge only when over the limit. The neutral tonal Badge
-            (text-subtler) fails contrast on the column's neutral-subtler fill in dark. */}
+            (text-subtler) fails contrast on a tinted column fill in dark. */}
         {over ? (
           <Badge tone="danger" className="shrink-0 tabular-nums">
             {count}/{column.limit}

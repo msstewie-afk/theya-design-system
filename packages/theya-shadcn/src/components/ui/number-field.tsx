@@ -209,7 +209,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
         // Matches TextField's 5-point disabled spec exactly (border,
         // bg, text, italic — no opacity).
         'has-[input:disabled]:border-[var(--color-border-border)]',
-        'has-[input:disabled]:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
+        'has-[input:disabled]:bg-[var(--color-bg-input-bg-input-disabled)]',
         'has-[input[aria-invalid=true]]:border-[var(--color-border-border-danger)]',
         'has-[input[aria-invalid=true]]:bg-[var(--color-bg-input-bg-input-danger)]',
         // Invalid gets its own hover/focus shade (was a flat, unchanging
@@ -279,7 +279,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
           'h-full w-0 min-w-12 flex-1 bg-transparent px-2 text-center outline-none',
           heightSize === 'sm' ? 'text-body-s' : 'text-body-m',
           'tabular-nums text-[var(--color-text-text)]',
-          'placeholder:text-[var(--color-text-text-subtler)]',
+          'placeholder:text-[var(--color-text-text-placeholder)]',
           // Value AND placeholder both go danger when invalid — this input
           // never got either, so an invalid NumberField's number (or its
           // empty-state placeholder) stayed neutral gray even with a

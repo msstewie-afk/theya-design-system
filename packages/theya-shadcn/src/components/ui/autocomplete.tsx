@@ -196,7 +196,7 @@ export function Autocomplete({
               heightSize === 'sm'
                 ? 'h-[var(--size-size-control-size-control-lg)] text-body-s' // 32px
                 : 'h-[var(--size-size-control-size-control-2xl)] text-body-m', // 40px
-              'placeholder:text-[var(--color-text-text-subtler)] outline-none',
+              'placeholder:text-[var(--color-text-text-placeholder)] outline-none',
               // Value AND placeholder both go danger when invalid.
               'aria-[invalid=true]:text-[var(--color-text-text-danger)]',
               'aria-[invalid=true]:placeholder:text-[var(--color-text-text-danger)]',
@@ -222,8 +222,8 @@ export function Autocomplete({
               'aria-[invalid=true]:focus-visible:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
               'aria-[invalid=true]:focus-visible:focus-ring-error',
               'disabled:cursor-not-allowed disabled:border-[var(--color-border-border)]',
-              'disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
-              'read-only:cursor-default read-only:italic read-only:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
+              'disabled:bg-[var(--color-bg-input-bg-input-disabled)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
+              'read-only:cursor-default read-only:italic read-only:bg-[var(--color-bg-input-bg-input-disabled)]',
             )}
           />
           {showClear && current && !disabled && !readOnly && (

@@ -110,7 +110,7 @@ export function WheelPicker({ options, value, defaultValue, onValueChange, rows 
       }}
       onPointerCancel={() => (drag.current = null)}
       className={cn(
-        'relative w-40 shrink-0 cursor-ns-resize touch-none select-none overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
+        'relative w-40 shrink-0 cursor-ns-resize touch-none select-none overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-surface-bg-surface-sunken)]',
         '[mask-image:linear-gradient(transparent,black_30%,black_70%,transparent)] forced-colors:[mask-image:none] forced-colors:border forced-colors:border-solid forced-colors:border-[CanvasText]',
         'focus-visible:outline-none focus-visible:focus-ring',
         disabled && 'cursor-not-allowed opacity-50',

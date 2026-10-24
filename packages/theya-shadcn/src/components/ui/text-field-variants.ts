@@ -29,17 +29,17 @@ export const textFieldVariants = cva(
     // is no trailing control, to the end side.
     'bg-[var(--color-bg-input-bg-input)] border border-solid',
     'border-[var(--color-border-border)]',
-    'text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-subtler)]',
+    'text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-placeholder)]',
     'transition-[background-color,border-color,box-shadow] duration-150 ease-out motion-reduce:transition-none',
     'outline-none',
-    'disabled:cursor-not-allowed disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
+    'disabled:cursor-not-allowed disabled:bg-[var(--color-bg-input-bg-input-disabled)]',
     'disabled:border-[var(--color-border-border)] disabled:text-[var(--color-text-text-subtler)] disabled:italic',
     // Read-only: same bg as disabled but a different border, italic
     // text, and a normal (not not-allowed) cursor — the value is
     // still selectable/readable, just not editable. Also fully inert
     // on hover/focus (see not-read-only: guards on those rules below).
     'read-only:cursor-default read-only:italic',
-    'read-only:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
+    'read-only:bg-[var(--color-bg-input-bg-input-disabled)]',
     'read-only:border-[var(--color-border-border)]',
     'read-only:text-[var(--color-text-text-subtle)]',
   ],

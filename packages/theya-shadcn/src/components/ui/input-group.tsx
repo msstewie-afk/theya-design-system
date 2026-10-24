@@ -42,7 +42,7 @@ function InputGroup({ className, onMouseDown, ...props }: React.ComponentProps<'
         // bg on focus-within.
         'not-has-[input[aria-invalid=true]]:focus-within:bg-[var(--color-bg-input-bg-input-active)]',
         'focus-within:focus-ring',
-        'has-[input:disabled]:cursor-not-allowed has-[input:disabled]:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
+        'has-[input:disabled]:cursor-not-allowed has-[input:disabled]:bg-[var(--color-bg-input-bg-input-disabled)]',
         'has-[input:disabled]:border-[var(--color-border-border)]',
         // Both border AND background change on error, matching
         // TextField's own error variant — not border alone.
@@ -117,7 +117,7 @@ const InputGroupInput = forwardRef<HTMLInputElement, React.ComponentPropsWithout
         '[[data-flush][data-position=start]+&]:ps-[var(--size-padding-padding-xs)]',
         '[&:has(+[data-flush][data-position=end])]:pe-[var(--size-padding-padding-xs)]',
         'text-body-m text-[var(--color-text-text)] outline-none',
-        'placeholder:text-[var(--color-text-text-subtler)]',
+        'placeholder:text-[var(--color-text-text-placeholder)]',
         // Value AND placeholder both go danger when invalid, matching the
         // group wrapper's own border/bg — this input never got either.
         'aria-[invalid=true]:text-[var(--color-text-text-danger)]',

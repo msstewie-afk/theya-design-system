@@ -79,7 +79,7 @@ export function TabsList({ className, children, variant = 'underline', onPointer
         'relative flex overflow-x-auto overflow-y-hidden',
         '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
         chips
-          ? 'w-fit max-w-full rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)] p-1'
+          ? 'w-fit max-w-full rounded-full bg-[var(--color-bg-surface-bg-surface-sunken)] p-1'
           : 'gap-0.5 border-b border-solid border-[var(--color-border-border-subtler)]',
         className,
       )}

@@ -41,6 +41,21 @@ const SQUARE_RADIUS_CLASS: Record<FabSize, string> = {
   lg: '[--btn-radius:var(--size-border-radius-border-radius-4xl)] [--btn-radius-pressed:var(--size-border-radius-border-radius-4xl)]',
 };
 
+/**
+ * A tonal FAB floats over content. Its tonal fills are opaque in light but
+ * translucent in dark, so the page showed through it. Here the fill stays the
+ * opaque surface and the tint (rest / hover / pressed) is painted on top as an
+ * image, so it looks the same as a tonal Button but nothing shows through.
+ */
+const TONAL_ON_SURFACE: Record<FabTone, string> = {
+  primary:
+    'bg-[var(--color-bg-surface-bg-surface)]! [background-image:linear-gradient(var(--color-bg-primary-bg-primary-subtle),var(--color-bg-primary-bg-primary-subtle))] hover:not-disabled:not-aria-disabled:[background-image:linear-gradient(var(--color-bg-primary-bg-primary-subtle-hover),var(--color-bg-primary-bg-primary-subtle-hover))] active:not-disabled:not-aria-disabled:[background-image:linear-gradient(var(--color-bg-primary-bg-primary-subtle-pressed),var(--color-bg-primary-bg-primary-subtle-pressed))] forced-colors:[background-image:none]',
+  secondary:
+    'bg-[var(--color-bg-surface-bg-surface)]! [background-image:linear-gradient(var(--color-bg-secondary-bg-secondary-subtle),var(--color-bg-secondary-bg-secondary-subtle))] hover:not-disabled:not-aria-disabled:[background-image:linear-gradient(var(--color-bg-secondary-bg-secondary-subtle-hover),var(--color-bg-secondary-bg-secondary-subtle-hover))] active:not-disabled:not-aria-disabled:[background-image:linear-gradient(var(--color-bg-secondary-bg-secondary-subtle-pressed),var(--color-bg-secondary-bg-secondary-subtle-pressed))] forced-colors:[background-image:none]',
+  neutral:
+    'bg-[var(--color-bg-surface-bg-surface)]! [background-image:linear-gradient(var(--color-bg-neutral-bg-neutral-subtle),var(--color-bg-neutral-bg-neutral-subtle))] hover:not-disabled:not-aria-disabled:[background-image:linear-gradient(var(--color-bg-neutral-bg-neutral-subtle-hover),var(--color-bg-neutral-bg-neutral-subtle-hover))] active:not-disabled:not-aria-disabled:[background-image:linear-gradient(var(--color-bg-neutral-bg-neutral-subtle-pressed),var(--color-bg-neutral-bg-neutral-subtle-pressed))] forced-colors:[background-image:none]',
+};
+
 const SIZE_CLASS: Record<FabSize, string> = {
   // 40px, 24px icon -> 8px padding
   sm: 'h-[var(--size-size-control-size-control-2xl)] px-[calc((var(--size-size-control-size-control-2xl)_-_var(--size-icon-icon-md))_/_2)] [&_svg]:size-[var(--size-icon-icon-md)] [font-size:var(--typography-button-m-size)] [line-height:var(--typography-button-m-line-height)]',
@@ -179,6 +194,7 @@ export const Fab = forwardRef<HTMLButtonElement, FabProps>(function Fab(
       data-collapsed={label ? String(folded) : undefined}
       className={cn(
         buttonVariants({ appearance, tone, size: '2xl' }),
+        appearance === 'tonal' && TONAL_ON_SURFACE[tone],
         SIZE_CLASS[size],
         // round: circle when icon-only or folded, pill when extended.
         shape === 'square'

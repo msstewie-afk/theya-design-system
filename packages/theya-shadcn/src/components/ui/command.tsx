@@ -214,7 +214,7 @@ export function CommandInput({ className, value, onValueChange, ...props }: Comm
         }}
         className={cn(
           'flex h-10 w-full cursor-text bg-transparent font-body text-body-m text-[var(--color-text-text)] outline-none',
-          'placeholder:text-[var(--color-text-text-subtler)] disabled:cursor-not-allowed disabled:opacity-50',
+          'placeholder:text-[var(--color-text-text-placeholder)] disabled:cursor-not-allowed disabled:opacity-50',
           className,
         )}
         {...props}

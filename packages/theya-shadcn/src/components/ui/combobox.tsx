@@ -297,7 +297,7 @@ export function Combobox(props: ComboboxProps) {
             'has-[input[aria-invalid=true]]:focus-within:bg-[var(--color-bg-input-bg-input-danger-pressed)]',
             'has-[input[aria-invalid=true]]:focus-within:focus-ring-error',
             'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
-            disabled && 'border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] text-[var(--color-text-text-subtler)] italic',
+            disabled && 'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input-disabled)] text-[var(--color-text-text-subtler)] italic',
             (showClearControl || showChevronControl) && 'pe-9',
             className,
           )}
@@ -353,7 +353,7 @@ export function Combobox(props: ComboboxProps) {
             onKeyDown={handleKeyDown}
             className={cn(
               'min-w-[4rem] flex-1 bg-transparent outline-none',
-              'font-body text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-subtler)]',
+              'font-body text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-placeholder)]',
               // Value AND placeholder both go danger when invalid, matching
               // the wrapper's own border/bg.
               'aria-[invalid=true]:text-[var(--color-text-text-danger)]',

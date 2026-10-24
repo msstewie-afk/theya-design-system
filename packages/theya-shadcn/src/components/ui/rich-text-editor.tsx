@@ -471,7 +471,7 @@ export function RichTextEditor({
             'overflow-y-auto scrollbar-thin text-[var(--color-text-text)]',
             // Placeholder on the first empty paragraph (Tiptap sets data-placeholder + is-editor-empty).
             '[&_.is-editor-empty:first-child]:before:pointer-events-none [&_.is-editor-empty:first-child]:before:float-start [&_.is-editor-empty:first-child]:before:h-0',
-            '[&_.is-editor-empty:first-child]:before:text-[var(--color-text-text-subtler)] [&_.is-editor-empty:first-child]:before:content-[attr(data-placeholder)]',
+            '[&_.is-editor-empty:first-child]:before:text-[var(--color-text-text-placeholder)] [&_.is-editor-empty:first-child]:before:content-[attr(data-placeholder)]',
           )}
           style={{ minHeight: size(minHeight), maxHeight: size(maxHeight) }}
           onClick={(e) => {

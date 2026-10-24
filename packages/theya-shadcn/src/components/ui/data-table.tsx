@@ -228,10 +228,14 @@ function bodyCellAttrs<TData>(column: Column<TData, unknown>): { style: CSSPrope
       'p-0',
       meta?.align === 'right' && "text-end tabular-nums [&_[data-kind]]:justify-end [&_input]:text-end",
       pinned && 'transition-colors',
+      // A pinned cell covers what scrolls under it, so its fill stays the
+      // opaque surface and the row's hover / selected tint is painted on
+      // top as an image. In dark those tints are translucent; as the
+      // background color they let the scrolled cells show through.
       pinned === 'left' &&
-        'group-data-[overflow-left]/scroll:bg-[var(--color-bg-surface-bg-surface)] group-data-[overflow-left]/scroll:group-hover/row:bg-[var(--color-bg-neutral-bg-neutral-subtler)] group-data-[overflow-left]/scroll:group-data-[context-menu-open]/row:bg-[var(--color-bg-neutral-bg-neutral-subtler)] group-data-[overflow-left]/scroll:group-data-[state=selected]/row:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
+        'group-data-[overflow-left]/scroll:bg-[var(--color-bg-surface-bg-surface)] group-data-[overflow-left]/scroll:group-hover/row:[background-image:linear-gradient(var(--color-bg-neutral-bg-neutral-subtler),var(--color-bg-neutral-bg-neutral-subtler))] group-data-[overflow-left]/scroll:group-data-[context-menu-open]/row:[background-image:linear-gradient(var(--color-bg-neutral-bg-neutral-subtler),var(--color-bg-neutral-bg-neutral-subtler))] group-data-[overflow-left]/scroll:group-data-[state=selected]/row:[background-image:linear-gradient(var(--color-bg-neutral-bg-neutral-subtler),var(--color-bg-neutral-bg-neutral-subtler))]',
       pinned === 'right' &&
-        'group-data-[overflow-right]/scroll:bg-[var(--color-bg-surface-bg-surface)] group-data-[overflow-right]/scroll:group-hover/row:bg-[var(--color-bg-neutral-bg-neutral-subtler)] group-data-[overflow-right]/scroll:group-data-[context-menu-open]/row:bg-[var(--color-bg-neutral-bg-neutral-subtler)] group-data-[overflow-right]/scroll:group-data-[state=selected]/row:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
+        'group-data-[overflow-right]/scroll:bg-[var(--color-bg-surface-bg-surface)] group-data-[overflow-right]/scroll:group-hover/row:[background-image:linear-gradient(var(--color-bg-neutral-bg-neutral-subtler),var(--color-bg-neutral-bg-neutral-subtler))] group-data-[overflow-right]/scroll:group-data-[context-menu-open]/row:[background-image:linear-gradient(var(--color-bg-neutral-bg-neutral-subtler),var(--color-bg-neutral-bg-neutral-subtler))] group-data-[overflow-right]/scroll:group-data-[state=selected]/row:[background-image:linear-gradient(var(--color-bg-neutral-bg-neutral-subtler),var(--color-bg-neutral-bg-neutral-subtler))]',
       pinned === 'left' && column.getIsLastColumn('left') && 'group-data-[overflow-left]/scroll:shadow-[inset_-1px_0_0_0_var(--color-border-border-subtle)]',
       pinned === 'right' && column.getIsFirstColumn('right') && 'group-data-[overflow-right]/scroll:shadow-[inset_1px_0_0_0_var(--color-border-border-subtle)]',
       meta?.cellClassName,

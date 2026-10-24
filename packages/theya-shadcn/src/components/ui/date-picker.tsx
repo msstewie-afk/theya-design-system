@@ -28,7 +28,7 @@ export const dateFieldTriggerClassName = cn(
   // still win over the invalid trigger's danger bg on focus.
   'focus-visible:not-data-[error=true]:bg-[var(--color-bg-input-bg-input-active)]',
   'focus-visible:focus-ring',
-  'disabled:cursor-not-allowed disabled:border-[var(--color-border-border)] disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
+  'disabled:cursor-not-allowed disabled:border-[var(--color-border-border)] disabled:bg-[var(--color-bg-input-bg-input-disabled)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
   'data-[state=open]:not-data-[error=true]:border-[var(--color-border-border-primary)]',
   'data-[state=open]:bg-[var(--color-bg-input-bg-input-active)]',
   // Text color never had an error override at all — the
@@ -154,7 +154,7 @@ export function DatePicker({
                 // text-danger — same "placeholder ignores invalid" bug as
                 // Select/TextField, just with an explicit class instead of
                 // a `placeholder:` pseudo-class.
-                !selected && (isError ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-subtler)]'),
+                !selected && (isError ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-placeholder)]'),
               )}
             >
               {selected ? label : placeholder}

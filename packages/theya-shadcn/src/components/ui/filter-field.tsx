@@ -530,7 +530,7 @@ export function FilterField({
             aria-describedby={ariaDescribedby}
             className={cn(
               'h-6 w-auto min-w-10 flex-1 border-0 bg-transparent px-0 py-0 outline-none',
-              'font-body text-body-m text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-subtler)]',
+              'font-body text-body-m text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-placeholder)]',
               'disabled:bg-transparent disabled:opacity-100',
               inputClassName,
             )}

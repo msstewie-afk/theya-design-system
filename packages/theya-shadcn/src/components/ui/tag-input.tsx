@@ -226,9 +226,9 @@ export function TagInput({
           heightSize === 'sm' ? 'py-0.5 min-h-[var(--size-size-control-size-control-lg)]' : 'py-1 min-h-[var(--size-size-control-size-control-2xl)]',
           'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
           readOnly
-            ? 'cursor-default border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]'
+            ? 'cursor-default border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input-disabled)]'
             : disabled
-              ? 'cursor-not-allowed border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] text-[var(--color-text-text-subtler)]'
+              ? 'cursor-not-allowed border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input-disabled)] text-[var(--color-text-text-subtler)]'
               : hasError
                 ? [
                     'border-[var(--color-border-border-danger)] bg-[var(--color-bg-input-bg-input-danger)]',
@@ -285,7 +285,7 @@ export function TagInput({
             onBlur={onBlur}
             className={cn(
               'min-w-[6rem] flex-1 bg-transparent px-1 py-0.5 font-body outline-none',
-              'text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-subtler)] disabled:cursor-not-allowed',
+              'text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-placeholder)] disabled:cursor-not-allowed',
               heightSize === 'sm' ? 'text-body-s' : 'text-body-m',
             )}
           />

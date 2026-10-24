@@ -106,7 +106,7 @@ export function DateRangePicker({
               id={valueId}
               className={cn(
                 'min-w-0 flex-1 truncate text-start',
-                !selected?.from && (isError ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-subtler)]'),
+                !selected?.from && (isError ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-placeholder)]'),
               )}
             >
               {selected?.from ? label : placeholder}

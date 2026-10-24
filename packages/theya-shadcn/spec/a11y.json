@@ -5162,7 +5162,7 @@
         "playTests": 1
       },
       "reducedMotion": "respected",
-      "forcedColors": "global",
+      "forcedColors": "component",
       "screenReader": [],
       "deviations": [],
       "traits": [
@@ -11871,7 +11871,7 @@
         "playTests": 1
       },
       "reducedMotion": "none",
-      "forcedColors": "global",
+      "forcedColors": "component",
       "screenReader": [],
       "deviations": [
         {

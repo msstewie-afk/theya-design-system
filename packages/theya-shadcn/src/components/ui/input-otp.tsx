@@ -64,7 +64,7 @@ function InputOTPSlot({ index, className, ...props }: React.ComponentProps<'div'
         // Matches TextField's own disabled treatment (default border +
         // bg-neutral-subtler + disabled text, italic), not a blanket opacity.
         'group-has-[:disabled]:border-[var(--color-border-border)]',
-        'group-has-[:disabled]:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
+        'group-has-[:disabled]:bg-[var(--color-bg-input-bg-input-disabled)]',
         'group-has-[:disabled]:text-[var(--color-text-text-disabled)] group-has-[:disabled]:italic',
         'text-body-m text-[var(--color-text-text)] outline-none',
         'transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',

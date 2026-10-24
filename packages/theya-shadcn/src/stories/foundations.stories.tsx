@@ -329,7 +329,9 @@ const BG_TOKEN_ROWS: TokenRow[] = withValues([
   { name: '--color-bg-surface-bg-surface', description: 'Default page/card surface.' },
   { name: '--color-bg-surface-bg-surface-base', description: 'Base app background, beneath surfaces.' },
   { name: '--color-bg-surface-bg-surface-overlay', description: 'Modal/popover/overlay surface, above the base surface.' },
+  { name: '--color-bg-surface-bg-surface-sunken', description: 'Recessed track or well that holds raised items: Tabs chips track, WheelPicker, Kanban column. Darker than the surface in both themes.' },
   { name: '--color-bg-input-bg-input', description: 'Form control fill (input, select, textarea).' },
+  { name: '--color-bg-input-bg-input-disabled', description: 'Disabled and read-only field fill. Never more prominent than an enabled field.' },
   { name: '--color-bg-layout-bg-sidebar', description: 'Sidebar navigation background.' },
   { name: '--color-bg-layout-bg-sidebar-selected', description: 'Selected sidebar item background.' },
 ]);
@@ -337,6 +339,7 @@ const BG_TOKEN_ROWS: TokenRow[] = withValues([
 const TEXT_TOKEN_ROWS: TokenRow[] = withValues([
   { name: '--color-text-text', description: 'Default body/heading text color.' },
   { name: '--color-text-text-subtle', description: 'De-emphasized text — captions, helper text, metadata.' },
+  { name: '--color-text-text-placeholder', description: 'Placeholder text in fields; clearly dimmer than a typed value in both themes.' },
   { name: '--color-text-text-link', description: 'Hyperlink text color.' },
   { name: '--color-text-text-on-dark', description: 'Text for use on a dark/colored fill (e.g. inside a primary button). Same in both themes.' },
   { name: '--color-text-text-link-on-dark', description: 'Link text for use on a dark/colored fill.' },

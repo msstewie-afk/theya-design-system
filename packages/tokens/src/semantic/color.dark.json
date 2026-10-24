@@ -57,6 +57,10 @@
       "text-subtler": {
         "value": "{color.slate.slate-100}"
       },
+      "text-placeholder": {
+        "value": "{color.slate.slate-200}",
+        "comment": "Placeholder text in fields. Its own step so it stays clearly dimmer than typed values in dark, where text-subtle and text-subtler sit close to text."
+      },
       "text-link": {
         "value": "{color.blue.blue-200}"
       },
@@ -232,13 +236,13 @@
           "value": "{color.gray-a.gray-a200}"
         },
         "bg-secondary-pressed": {
-          "value": "{color.gray-a.gray-a300}"
+          "value": "{color.gray-a.gray-a400}"
         },
         "bg-secondary-subtler": {
           "value": "{color.gray-a.gray-a100}"
         },
         "bg-secondary-hover": {
-          "value": "{color.gray-a.gray-a200}"
+          "value": "{color.gray-a.gray-a300}"
         },
         "bg-secondary-strong": {
           "value": "{color.slate.slate-400}"
@@ -270,13 +274,13 @@
           "value": "{color.blue.blue-700}"
         },
         "bg-primary-subtle": {
-          "value": "{color.blue-a.blue-a500}"
+          "value": "{color.blue-a.blue-a300}"
         },
         "bg-primary-subtle-hover": {
-          "value": "{color.blue-a.blue-a600}"
+          "value": "{color.blue-a.blue-a400}"
         },
         "bg-primary-subtle-pressed": {
-          "value": "{color.blue-a.blue-a700}"
+          "value": "{color.blue-a.blue-a500}"
         },
         "bg-primary-subtler-hover": {
           "value": "{color.blue-a.blue-a200}"
@@ -473,6 +477,10 @@
         "bg-input": {
           "value": "{color.black}"
         },
+        "bg-input-disabled": {
+          "value": "{color.slate.slate-800}",
+          "comment": "Disabled and read-only field fill. In dark it sits between the black enabled field and the surface, so a disabled field never looks more prominent than an enabled one."
+        },
         "bg-input-active": {
           "value": "{color.blue-a.blue-a200}"
         },
@@ -492,6 +500,10 @@
         },
         "bg-surface": {
           "value": "{color.slate.slate-700}"
+        },
+        "bg-surface-sunken": {
+          "value": "{color.slate.slate-800}",
+          "comment": "Recessed track or well that holds raised items (Tabs chips track, WheelPicker, Kanban column). Darker than bg-surface in both themes, so a bg-surface item on it reads as raised."
         },
         "bg-surface-overlay-dark": {
           "value": "{color.slate.slate-900}"
