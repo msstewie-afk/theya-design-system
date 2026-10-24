@@ -192,6 +192,15 @@
       "red-005": {
         "value": "#fff1f7"
       },
+      "red-010": {
+        "value": "#ffdce8"
+      },
+      "red-050": {
+        "value": "#ffc2d6"
+      },
+      "red-100": {
+        "value": "#F78DAD"
+      },
       "red-200": {
         "value": "#f05a7e"
       },
@@ -202,36 +211,33 @@
         "value": "#b40d49"
       },
       "red-500": {
-        "value": "#82052f"
-      },
-      "red-600": {
-        "value": "#640728"
-      },
-      "red-700": {
         "value": "#A60C3B"
       },
-      "red-800": {
+      "red-600": {
         "value": "#8A0B32"
       },
-      "red-850": {
+      "red-700": {
         "value": "#730e2d"
       },
+      "red-800": {
+        "value": "#640728"
+      },
       "red-900": {
-        "value": "#5C0F27"
-      },
-      "red-100": {
-        "value": "#F78DAD"
-      },
-      "red-050": {
-        "value": "#ffc2d6"
-      },
-      "red-010": {
-        "value": "#ffdce8"
+        "value": "#400216"
       }
     },
     "orange": {
       "orange-005": {
         "value": "#fff3e5"
+      },
+      "orange-010": {
+        "value": "#ffe2c0"
+      },
+      "orange-050": {
+        "value": "#ffd4a2"
+      },
+      "orange-100": {
+        "value": "#ffc784"
       },
       "orange-200": {
         "value": "#ff9f2e"
@@ -243,31 +249,19 @@
         "value": "#d17119"
       },
       "orange-500": {
-        "value": "#b44b00"
-      },
-      "orange-600": {
-        "value": "#8e2f00"
-      },
-      "orange-700": {
         "value": "#A54A11"
       },
-      "orange-800": {
+      "orange-600": {
         "value": "#8A3E0F"
       },
-      "orange-850": {
+      "orange-700": {
         "value": "#733712"
       },
-      "orange-900": {
+      "orange-800": {
         "value": "#5D2F13"
       },
-      "orange-010": {
-        "value": "#ffe2c0"
-      },
-      "orange-050": {
-        "value": "#ffd4a2"
-      },
-      "orange-100": {
-        "value": "#ffc784"
+      "orange-900": {
+        "value": "#3e1c06"
       }
     },
     "blue-a": {

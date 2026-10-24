@@ -249,7 +249,7 @@ export const buttonVariants = cva(
         //
         // Can't just swap to the theme-flipping `text-text-warning` token
         // everywhere though: its DARK-theme value (#ff9f2e, bright orange) is
-        // too close in hue to warning's own dark-theme bg (orange-700,
+        // too close in hue to warning's own dark-theme bg (orange-500,
         // #A54A11) — only 2.86:1, a real regression from the white text's
         // working 5.85:1 there. So this is intentionally theme-split, unlike
         // every other filled/tonal compound variant in this file: light theme
