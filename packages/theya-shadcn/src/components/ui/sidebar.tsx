@@ -256,7 +256,7 @@ export function SidebarSection({
 // bg-surface) — same fix as Button's tonal variants (2026-09-27): the
 // palest ramp step, i.e. M3's "on-container" text.
 const BADGE_TONE_CLASS: Record<StatusTone, string> = {
-  neutral: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)]',
+  neutral: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtle)]',
   primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)] [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success-on-tonal)]',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning-on-tonal)]',

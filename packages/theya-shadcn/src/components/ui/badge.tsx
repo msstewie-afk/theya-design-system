@@ -27,7 +27,7 @@ export type BadgeAppearance = 'tonal' | 'filled';
 export type BadgeSize = 'sm' | 'md';
 
 const TONAL_CLASS: Record<BadgeTone, string> = {
-  neutral: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtler)] border-transparent',
+  neutral: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text-subtle)] border-transparent',
   primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)] border-transparent',
   success: 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success-on-tonal)] border-transparent',
   warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning-on-tonal)] border-transparent',

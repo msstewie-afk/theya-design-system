@@ -26,12 +26,15 @@ import type { AvatarProps } from './avatar';
  */
 export type CardTone = 'neutral' | 'info' | 'success' | 'warning' | 'danger';
 
+// On a tinted card (tone, or selected) the description's text-subtler sat
+// under 4.5:1 in dark, and lower still under a hovered child: there it is
+// remapped to text-subtle. Light keeps text-subtler (it passes there).
 const TONE_CLASS: Record<CardTone, string> = {
   neutral: '',
-  info: 'border-[var(--color-border-border-primary)] bg-[var(--color-bg-secondary-bg-secondary-subtle)]',
-  success: 'border-[var(--color-border-border-success)] bg-[var(--color-bg-success-bg-success-subtle)]',
-  warning: 'border-[var(--color-border-border-warning)] bg-[var(--color-bg-warning-bg-warning-subtle)]',
-  danger: 'border-[var(--color-border-border-danger)] bg-[var(--color-bg-danger-bg-danger-subtle)]',
+  info: 'border-[var(--color-border-border-primary)] bg-[var(--color-bg-secondary-bg-secondary-subtle)] [[data-theme=dark]_&]:[--color-text-text-subtler:var(--color-text-text-subtle)]',
+  success: 'border-[var(--color-border-border-success)] bg-[var(--color-bg-success-bg-success-subtle)] [[data-theme=dark]_&]:[--color-text-text-subtler:var(--color-text-text-subtle)]',
+  warning: 'border-[var(--color-border-border-warning)] bg-[var(--color-bg-warning-bg-warning-subtle)] [[data-theme=dark]_&]:[--color-text-text-subtler:var(--color-text-text-subtle)]',
+  danger: 'border-[var(--color-border-border-danger)] bg-[var(--color-bg-danger-bg-danger-subtle)] [[data-theme=dark]_&]:[--color-text-text-subtler:var(--color-text-text-subtle)]',
 };
 
 // A selected `action="filter"` card used to always switch to primary/blue
@@ -41,11 +44,11 @@ const TONE_CLASS: Record<CardTone, string> = {
 // no inherent tone of its own, so it still falls back to primary/blue;
 // every other tone keeps its own color when selected instead.
 const TONE_SELECTED_CLASS: Record<CardTone, string> = {
-  neutral: 'border-[var(--color-border-border-primary)] bg-[var(--color-bg-primary-bg-primary-subtle)]',
-  info: 'border-[var(--color-border-border-primary)] bg-[var(--color-bg-secondary-bg-secondary-subtle)]',
-  success: 'border-[var(--color-border-border-success)] bg-[var(--color-bg-success-bg-success-subtle)]',
-  warning: 'border-[var(--color-border-border-warning)] bg-[var(--color-bg-warning-bg-warning-subtle)]',
-  danger: 'border-[var(--color-border-border-danger)] bg-[var(--color-bg-danger-bg-danger-subtle)]',
+  neutral: 'border-[var(--color-border-border-primary)] bg-[var(--color-bg-primary-bg-primary-subtle)] [[data-theme=dark]_&]:[--color-text-text-subtler:var(--color-text-text-subtle)]',
+  info: 'border-[var(--color-border-border-primary)] bg-[var(--color-bg-secondary-bg-secondary-subtle)] [[data-theme=dark]_&]:[--color-text-text-subtler:var(--color-text-text-subtle)]',
+  success: 'border-[var(--color-border-border-success)] bg-[var(--color-bg-success-bg-success-subtle)] [[data-theme=dark]_&]:[--color-text-text-subtler:var(--color-text-text-subtle)]',
+  warning: 'border-[var(--color-border-border-warning)] bg-[var(--color-bg-warning-bg-warning-subtle)] [[data-theme=dark]_&]:[--color-text-text-subtler:var(--color-text-text-subtle)]',
+  danger: 'border-[var(--color-border-border-danger)] bg-[var(--color-bg-danger-bg-danger-subtle)] [[data-theme=dark]_&]:[--color-text-text-subtler:var(--color-text-text-subtle)]',
 };
 
 // Hover and focus are separate signals (2026-10-02): hover changes the
