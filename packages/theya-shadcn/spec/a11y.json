@@ -2259,7 +2259,7 @@
       "name": "Card",
       "title": "Layout/Card",
       "axe": {
-        "stories": 22,
+        "stories": 23,
         "themes": [
           "light",
           "dark"
