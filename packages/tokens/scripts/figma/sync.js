@@ -6,7 +6,8 @@ const log = {};
 const groupSpelling = (key) => { const m = new Map(); for (const v of C[key].live) { const parts = v.name.split('/'); for (let i = 1; i < parts.length; i++) m.set(slug(parts.slice(0, i).join('/')), parts.slice(0, i).join('/')); } return m; };
 for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
   const { col, bySlug } = C[key]; const groups = groupSpelling(key);
-  const l = { created: [], updated: 0, extra: [] };
+  const l = { created: [], updated: 0, extra: [], figmaOnly: [] };
+  const allowed = new Set((PAYLOAD.figmaOnly?.[key] ?? []).map(slug));
   for (const [name, val] of Object.entries(spec.vars)) {
     let v = bySlug.get(slug(name));
     const sample = want(val, spec.modes[0] === '*' ? '*' : spec.modes[0]);
@@ -35,7 +36,7 @@ for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
     v.setVariableCodeSyntax('WEB', `var(${cssName(key, name)})`);
   }
   const codeSlugs = new Set(Object.keys(spec.vars).map(slug));
-  for (const [s, v] of bySlug) if (!codeSlugs.has(s)) l.extra.push(v.name);
+  for (const [s, v] of bySlug) if (!codeSlugs.has(s)) (allowed.has(s) ? l.figmaOnly : l.extra).push(v.name);
   log[col.name] = l;
 }
 return log;

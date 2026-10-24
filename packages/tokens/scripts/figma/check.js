@@ -4,7 +4,8 @@ const { C, byId } = await loadState();
 const report = {};
 for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
   const { col, bySlug } = C[key];
-  const r = { missing: [], diff: [], extra: [] };
+  const r = { missing: [], diff: [], extra: [], figmaOnly: [] };
+  const allowed = new Set((PAYLOAD.figmaOnly?.[key] ?? []).map(slug));
   for (const [name, val] of Object.entries(spec.vars)) {
     const v = bySlug.get(slug(name));
     if (!v) { r.missing.push(name); continue; }
@@ -14,7 +15,7 @@ for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
     }
   }
   const codeSlugs = new Set(Object.keys(spec.vars).map(slug));
-  for (const [s, v] of bySlug) if (!codeSlugs.has(s)) r.extra.push(v.name);
-  report[col.name] = { missing: r.missing.length, diff: r.diff.length, extra: r.extra.length, details: { missing: r.missing.slice(0, 40), diff: r.diff.slice(0, 40), extra: r.extra.slice(0, 40) } };
+  for (const [s, v] of bySlug) if (!codeSlugs.has(s)) (allowed.has(s) ? r.figmaOnly : r.extra).push(v.name);
+  report[col.name] = { missing: r.missing.length, diff: r.diff.length, extra: r.extra.length, figmaOnly: r.figmaOnly, details: { missing: r.missing.slice(0, 40), diff: r.diff.slice(0, 40), extra: r.extra.slice(0, 40) } };
 }
 return report;

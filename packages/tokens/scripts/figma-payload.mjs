@@ -116,6 +116,13 @@ const payload = {
     '5.': { kind: 'MIXED', modes: ['*'], vars: typoPrim },
     '6.': { kind: 'MIXED', modes: ['*'], vars: typoSem },
   },
+  // Variables that exist only in Figma on purpose (Maria, 2026-10-05): negative
+  // spacing for overlaps (avatar stacks, 1-2px nudges). Code writes those with
+  // utilities (-space-x-1), not tokens. check / sync list them as figmaOnly,
+  // not as extra. Collection key -> Figma variable names.
+  figmaOnly: {
+    '4.': ['padding/padding--3xs', 'padding/padding--2xs', 'gap/gap--2xs'],
+  },
 };
 const out = join(ROOT, 'build/figma/payload.json');
 mkdirSync(dirname(out), { recursive: true });

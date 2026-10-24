@@ -24,6 +24,9 @@ run it in the Figma plugin console. The script returns a JSON report.
 - `check.js` is read-only.
 - `sync.js` changes values, creates missing variables (scopes copied from a
   sibling) and sets codeSyntax. It never deletes; extras are only reported.
+- Figma-only variables kept on purpose are listed in `figmaOnly` in
+  `../figma-payload.mjs` (negative spacing for overlaps). The reports show them
+  under `figmaOnly`, not `extra`, so a clean file reads 0 / 0 / 0.
 
 ## Conventions
 
