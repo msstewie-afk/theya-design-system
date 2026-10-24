@@ -43,7 +43,7 @@
  * per variant figma.png / code.png / diff.png.
  *
  * Usage (Storybook running on :6008):
- *   FIGMA_TOKEN=<personal access token> node scripts/figma-visual-diff.mjs [--only <set name substring>] [--file <figma file key>] [--url http://localhost:6008] [--theme dark]
+ *   FIGMA_TOKEN=<personal access token> node scripts/figma-visual-diff.mjs [--only Select,TextField] [--file <figma file key>] [--url http://localhost:6008] [--theme dark]
  * The token needs read access to the file (Figma → Settings → Security →
  * Personal access tokens, scope "File content: read"). It is only sent to
  * api.figma.com.
@@ -61,7 +61,8 @@ const arg = (name, fallback) => {
 };
 const FILE_KEY = arg('file', 'LPj5ZGhCmC2OEwXJPF7isw');
 const URL_BASE = arg('url', 'http://localhost:6008').replace(/\/$/, '');
-const ONLY = (arg('only', '') || '').toLowerCase();
+// --only: comma-separated, matched exactly against Figma set names (case-insensitive).
+const ONLY = (arg('only', '') || '').toLowerCase().split(',').map((x) => x.trim()).filter(Boolean);
 const THEME = arg('theme', 'light');
 const SCALE = 2;
 const OUT = path.join(ROOT, 'build/figma-visual');
@@ -90,7 +91,7 @@ const setList = fs
     const [name, id] = line.split('\t');
     return { name, id };
   })
-  .filter((s) => !ONLY || s.name.toLowerCase().includes(ONLY));
+  .filter((s) => !ONLY.length || ONLY.includes(s.name.toLowerCase()));
 
 // Resting states only: Storybook shows a story at rest, so hover / focus /
 // pressed / open variants have nothing to be compared with.
@@ -385,7 +386,20 @@ for (const { set, r } of plan) {
       // Sidebar layout), which have no box of their own to screenshot.
       const found = await page.evaluate((sel) => {
         document.querySelectorAll('[data-fv-target]').forEach((n) => n.removeAttribute('data-fv-target'));
-        let el = sel ? document.querySelector(sel) : document.querySelector('#storybook-root > *');
+        let el;
+        if (sel === '@field') {
+          // A form control without its label / hint: the bordered box around
+          // the first input-like element, widened to a same-size wrapper that
+          // also holds its absolutely placed buttons (clear, steppers).
+          const root = document.querySelector('#storybook-root');
+          el = root.querySelector('input:not([type=hidden]), textarea, [role=combobox], button[aria-haspopup], button');
+          while (el && el !== root && !(parseFloat(getComputedStyle(el).borderTopWidth) > 0)) el = el.parentElement;
+          if (el === root) el = null;
+          const same = (a, b) => Math.abs(a.width - b.width) < 1 && Math.abs(a.height - b.height) < 1;
+          while (el && el.parentElement && el.parentElement !== root && same(el.getBoundingClientRect(), el.parentElement.getBoundingClientRect())) el = el.parentElement;
+        } else {
+          el = sel ? document.querySelector(sel) : document.querySelector('#storybook-root > *');
+        }
         while (el && getComputedStyle(el).display === 'contents') el = el.firstElementChild;
         if (!el) return false;
         el.setAttribute('data-fv-target', '');

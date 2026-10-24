@@ -16,6 +16,9 @@
       }
     }
   },
+  "Autocomplete": {
+    "selector": "@field"
+  },
   "BadgeIndicator": {
     "values": {
       "content=dot": {
@@ -66,6 +69,9 @@
       }
     }
   },
+  "Combobox": {
+    "selector": "@field"
+  },
   "ComboboxContent": {
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
   },
@@ -82,7 +88,10 @@
     "skip": "a part drawn inside its parent's story; compared through the parent"
   },
   "DatePicker": {
-    "selector": "#storybook-root button"
+    "selector": "@field"
+  },
+  "DateRangePicker": {
+    "selector": "@field"
   },
   "Dialog": {
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
@@ -123,11 +132,17 @@
   "FAB": {
     "component": "Fab"
   },
+  "FilterField": {
+    "selector": "@field"
+  },
   "Form (example)": {
     "skip": "a composition example, not a component"
   },
   "HoverCardContent": {
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "InputGroup": {
+    "selector": "@field"
   },
   "KanbanCard": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
@@ -141,11 +156,20 @@
   "LightboxControl": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
   },
+  "MaskedInput": {
+    "selector": "@field"
+  },
   "MessagePopup": {
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
   },
+  "NumberField": {
+    "selector": "@field"
+  },
   "PasswordToggle": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "PhoneField": {
+    "selector": "@field"
   },
   "PopoverContent": {
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
@@ -167,6 +191,9 @@
   },
   "SchedulerEvent": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "Select": {
+    "selector": "@field"
   },
   "SelectContent": {
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
@@ -213,8 +240,32 @@
   "TabsTrigger": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
   },
+  "TagInput": {
+    "selector": "@field"
+  },
   "TerminalLine": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "TextArea": {
+    "selector": "@field"
+  },
+  "TextField": {
+    "selector": "@field",
+    "values": {
+      "validation=error": {
+        "error": "Error"
+      },
+      "validation=success": {
+        "success": true
+      },
+      "validation=none": {}
+    }
+  },
+  "TimeField": {
+    "selector": "@field"
+  },
+  "TimeRangePicker": {
+    "selector": "[role=group]"
   },
   "TimelineItem": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
