@@ -230,7 +230,7 @@ function resolve(set) {
     }
     return { ...v, args };
   });
-  return { story, selector: o.selector, width: o.width, useText: o.text !== false, variants, dropped: [...dropped] };
+  return { story, selector: o.selector, width: o.width, bleed: o.bleed === true, useText: o.text !== false, variants, dropped: [...dropped] };
 }
 
 // --- Figma images ----------------------------------------------------------------
@@ -450,10 +450,21 @@ for (const { set, r } of plan) {
       // centered story sits on half pixels (x = 584.5), which the element
       // screenshot rounds outwards into a 1px-larger image. At 2× a half
       // CSS pixel is a whole device pixel, so the clip stays exact.
-      const box = await el.evaluate((n) => {
+      // overrides.bleed: grow the box to the children that overflow it — a
+      // Slider's 16px thumb hangs off its 6px track, and Figma's frame holds both.
+      const box = await el.evaluate((n, bleed) => {
         const b = n.getBoundingClientRect();
-        return { x: b.x + window.scrollX, y: b.y + window.scrollY, width: b.width, height: b.height };
-      });
+        let [x0, y0, x1, y1] = [b.left, b.top, b.right, b.bottom];
+        if (bleed) {
+          for (const c of n.querySelectorAll('*')) {
+            const cb = c.getBoundingClientRect();
+            if (cb.width <= 1 || cb.height <= 1) continue; // sr-only inputs
+            x0 = Math.min(x0, cb.left); y0 = Math.min(y0, cb.top);
+            x1 = Math.max(x1, cb.right); y1 = Math.max(y1, cb.bottom);
+          }
+        }
+        return { x: x0 + window.scrollX, y: y0 + window.scrollY, width: x1 - x0, height: y1 - y0 };
+      }, r.bleed);
       if (!box.width || !box.height) throw new Error('the element has no size');
       const codeBuf = await page.screenshot({ clip: box, animations: 'disabled', fullPage: true });
       fs.writeFileSync(path.join(dir, 'code.png'), codeBuf);
