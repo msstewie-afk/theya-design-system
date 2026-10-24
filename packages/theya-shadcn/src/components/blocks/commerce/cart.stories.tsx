@@ -51,6 +51,12 @@ export const Default: Story = {
     // The field and Apply button are gone: focus moves to the control in their place.
     const removeCode = canvas.getByRole('button', { name: 'Remove code' });
     await waitFor(() => expect(removeCode).toHaveFocus());
+    // Enter still held from the field: its auto-repeat lands on "Remove code"
+    // and must not press it.
+    const held = new KeyboardEvent('keydown', { key: 'Enter', repeat: true, bubbles: true, cancelable: true });
+    removeCode.dispatchEvent(held);
+    await expect(held.defaultPrevented).toBe(true);
+    await expect(canvas.getByText('WELCOME10')).toBeVisible();
     await userEvent.click(removeCode);
     await waitFor(() => expect(status).toHaveTextContent('Code WELCOME10 removed'));
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Have a promo code?' })).toHaveFocus());
@@ -71,7 +77,12 @@ export const RemoveKeepsFocus: Story = {
     const canvas = within(canvasElement);
     // First row removed → the next row's Remove.
     await userEvent.click(canvas.getByRole('button', { name: 'Remove Pro plan' }));
-    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove seashell.shop' })).toHaveFocus());
+    const nextRemove = canvas.getByRole('button', { name: 'Remove seashell.shop' });
+    await waitFor(() => expect(nextRemove).toHaveFocus());
+    // A held Enter's auto-repeat must not remove this row too.
+    const held = new KeyboardEvent('keydown', { key: 'Enter', repeat: true, bubbles: true, cancelable: true });
+    nextRemove.dispatchEvent(held);
+    await expect(held.defaultPrevented).toBe(true);
     await expect(await within(document.body).findByText('Pro plan removed')).toBeVisible();
     // Last row removed → the previous row's Remove.
     await userEvent.click(canvas.getByRole('button', { name: 'Remove Dedicated IPv4 address' }));

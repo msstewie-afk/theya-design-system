@@ -156,9 +156,17 @@ export function FacetedList({ items, noun = { one: 'extension', many: 'extension
   );
 
   return (
-    <section aria-labelledby={headingId} className={cn('@container w-full', className)}>
-      {/* tabIndex -1: focus target when the chips or the empty state go away. */}
-      <h2 ref={headingRef} id={headingId} tabIndex={-1} className="sr-only outline-none">
+    <section aria-labelledby={headingId} className={cn('@container relative w-full', className)}>
+      {/* tabIndex -1: focus target when the chips or the empty state go away.
+          Hidden until it has focus; then it shows as a small label over the
+          top of the section (like a skip link), so a keyboard user can see
+          where focus went (WCAG 2.4.7) and nothing below shifts. */}
+      <h2
+        ref={headingRef}
+        id={headingId}
+        tabIndex={-1}
+        className="sr-only outline-none focus-visible:not-sr-only focus-visible:absolute focus-visible:start-0 focus-visible:top-0 focus-visible:z-10 focus-visible:rounded-[var(--size-border-radius-border-radius-md)] focus-visible:bg-[var(--color-bg-surface-bg-surface)] focus-visible:px-2 focus-visible:py-1 focus-visible:font-body focus-visible:text-body-m focus-visible:font-medium focus-visible:text-[var(--color-text-text)] focus-visible:focus-ring"
+      >
         {`${noun.many[0].toUpperCase()}${noun.many.slice(1)}`}
       </h2>
       <div className="flex gap-8">

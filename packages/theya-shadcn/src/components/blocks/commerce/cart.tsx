@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import { Bookmark, Cart as CartIcon, Trash } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
 import { Button } from '../../ui/button';
@@ -38,6 +38,17 @@ export interface CartProps {
 // that had it (a row leaving a list, the promo field closing).
 type RowControl = 'quantity' | 'save' | 'remove' | 'move';
 type PendingFocus = { kind: 'row'; list: 'lines' | 'saved'; index: number; control: RowControl } | { kind: 'remove-code' } | { kind: 'promo-link' };
+
+/**
+ * A held key auto-repeats. Several actions here move focus onto another
+ * control that does something (the next row's Remove, "Remove code" after
+ * Apply), so the repeats of one press would press that control too: holding
+ * Enter on Apply removed the code at once, holding it on Remove emptied the
+ * cart row by row. Repeats are ignored on those controls; a new press works.
+ */
+const ignoreHeldKey = (e: KeyboardEvent) => {
+  if (e.repeat && (e.key === 'Enter' || e.key === ' ')) e.preventDefault();
+};
 
 const ROW_CONTROL: Record<RowControl, string> = {
   quantity: '[data-cart-control="quantity"] input',
@@ -201,10 +212,10 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
                       />
                     </div>
                   )}
-                  <Button appearance="ghost" tone="secondary" size="sm" leftIcon={<Bookmark />} onClick={() => saveForLater(line, i)} data-cart-control="save" aria-label={`Save for later: ${line.name}`}>
+                  <Button appearance="ghost" tone="secondary" size="sm" leftIcon={<Bookmark />} onClick={() => saveForLater(line, i)} onKeyDown={ignoreHeldKey} data-cart-control="save" aria-label={`Save for later: ${line.name}`}>
                     Save for later
                   </Button>
-                  <Button appearance="ghost" tone="danger" size="sm" leftIcon={<Trash />} onClick={() => remove(line, i)} data-cart-control="remove" aria-label={`Remove ${line.name}`}>
+                  <Button appearance="ghost" tone="danger" size="sm" leftIcon={<Trash />} onClick={() => remove(line, i)} onKeyDown={ignoreHeldKey} data-cart-control="remove" aria-label={`Remove ${line.name}`}>
                     Remove
                   </Button>
                 </CartRow>
@@ -221,7 +232,7 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
             <ul data-cart-list="saved" className="flex flex-col">
               {saved.map((line, i) => (
                 <CartRow key={line.id} line={line} currency={currency} first={i === 0}>
-                  <Button appearance="outlined" tone="secondary" size="sm" onClick={() => moveToCart(line, i)} data-cart-control="move" aria-label={`Move to cart: ${line.name}`}>
+                  <Button appearance="outlined" tone="secondary" size="sm" onClick={() => moveToCart(line, i)} onKeyDown={ignoreHeldKey} data-cart-control="move" aria-label={`Move to cart: ${line.name}`}>
                     Move to cart
                   </Button>
                 </CartRow>
@@ -243,7 +254,7 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
               <span>
                 Code <span className="font-mono text-[var(--color-text-text)]">{promo.code}</span> applied
               </span>
-              <Button ref={removeCodeRef} appearance="ghost" tone="secondary" size="sm" onClick={removePromo}>
+              <Button ref={removeCodeRef} appearance="ghost" tone="secondary" size="sm" onClick={removePromo} onKeyDown={ignoreHeldKey}>
                 Remove code
               </Button>
             </p>
@@ -261,7 +272,7 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault();
-                      applyPromo();
+                      if (!e.repeat) applyPromo();
                     }
                   }}
                   autoComplete="off"
@@ -271,7 +282,7 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
                   widthSize="full"
                   className="font-mono"
                 />
-                <Button appearance="outlined" tone="secondary" onClick={applyPromo}>
+                <Button appearance="outlined" tone="secondary" onClick={applyPromo} onKeyDown={ignoreHeldKey}>
                   Apply
                 </Button>
               </div>
@@ -282,6 +293,7 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
             <button
               ref={promoLinkRef}
               type="button"
+              onKeyDown={ignoreHeldKey}
               onClick={() => {
                 setPromoOpen(true);
                 requestAnimationFrame(() => document.getElementById(promoId)?.focus());

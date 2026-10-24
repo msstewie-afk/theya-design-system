@@ -432,7 +432,7 @@
     {
       "criterion": "4.1.2",
       "result": "pass",
-      "finding": "Distribution bars are buttons with aria-pressed in role=group 'Filter by rating', named '<n> stars <count> reviews'; the bar graphic is aria-hidden."
+      "finding": "Distribution bars are buttons with aria-pressed in role=group 'Filter by rating', named '<n> stars <count> reviews' (singular for 1 since 2026-10-24); the bar graphic is aria-hidden."
     },
     {
       "criterion": "1.1.1",

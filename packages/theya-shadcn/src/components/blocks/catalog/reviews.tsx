@@ -107,7 +107,7 @@ export function Reviews({ reviews, summary, pageSize = 4, onWriteReview, heading
         <div className="flex flex-col gap-1">
           <p className="font-body text-heading-l font-semibold tabular-nums text-[var(--color-text-text)]">{average.toFixed(1)}</p>
           <Stars value={average} />
-          <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{`${count.toLocaleString('en-US')} reviews`}</p>
+          <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{`${count.toLocaleString('en-US')} ${count === 1 ? 'review' : 'reviews'}`}</p>
         </div>
         {/* Each bar is a filter button. */}
         <div role="group" aria-label="Filter by rating" className="flex flex-col gap-2">
@@ -131,14 +131,14 @@ export function Reviews({ reviews, summary, pageSize = 4, onWriteReview, heading
               >
                 <span className="font-body text-body-s tabular-nums text-[var(--color-text-text)]">
                   {s} <span aria-hidden="true">★</span>
-                  <span className="sr-only"> stars</span>
+                  <span className="sr-only">{s === 1 ? ' star' : ' stars'}</span>
                 </span>
                 <span aria-hidden="true" className="h-2 overflow-hidden rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]">
                   <span className="block h-full rounded-full bg-[var(--color-icon-icon-rating)]" style={{ width: `${(n / maxBar) * 100}%` }} />
                 </span>
                 <span className="text-end font-body text-body-s tabular-nums text-[var(--color-text-text-subtle)]">
                   {n.toLocaleString('en-US')}
-                  <span className="sr-only"> reviews</span>
+                  <span className="sr-only">{n === 1 ? ' review' : ' reviews'}</span>
                 </span>
               </button>
             );
@@ -159,7 +159,7 @@ export function Reviews({ reviews, summary, pageSize = 4, onWriteReview, heading
                 <span className="sr-only">{star === 1 ? 'star' : 'stars'}</span>
               </>
             ) : (
-              `${list.length} reviews`
+              `${list.length} ${list.length === 1 ? 'review' : 'reviews'}`
             )}
           </span>
           {star && (

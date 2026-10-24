@@ -22,7 +22,7 @@ type Story = StoryObj<typeof Reviews>;
 export const Default: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    const oneStar = canvas.getByRole('button', { name: /^1\s+stars/ });
+    const oneStar = canvas.getByRole('button', { name: /^1\s+star\b/ });
     await userEvent.click(oneStar);
     await expect(oneStar).toHaveAttribute('aria-pressed', 'true');
     await expect(canvas.getByText('First run filled my disk')).toBeVisible();
@@ -46,10 +46,11 @@ export const ShowAllFocus: Story = {
   name: 'Test: show all focus',
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: /^1\s+stars/ }));
+    await userEvent.click(canvas.getByRole('button', { name: /^1\s+star\b/ }));
 
     // The live count ("1 review with 1 star"); the global Toaster has its own aria-live, so find it by its text.
-    const live = canvas.getByText('star').closest<HTMLElement>('[aria-live]')!;
+    // "star" also labels the 1-star filter bar; the live one sits in an aria-live region.
+    const live = canvas.getAllByText('star').map((el) => el.closest<HTMLElement>('[aria-live]')).find(Boolean)!;
     await expect(live).toHaveTextContent(/^1 review with 1/);
     await expect(within(live).getByText('star')).toHaveClass('sr-only');
     await expect(within(live).getByText('★')).toHaveAttribute('aria-hidden', 'true');

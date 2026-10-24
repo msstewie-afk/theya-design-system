@@ -15653,7 +15653,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 2,
         "playTests": 3
       },
       "reducedMotion": "none",

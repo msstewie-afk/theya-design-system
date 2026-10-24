@@ -104,6 +104,9 @@ export const ChipFocus: Story = {
     await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(canvas.queryByRole('group', { name: 'Applied filters' })).not.toBeInTheDocument());
     await waitFor(() => expect(heading).toHaveFocus());
+    // Reached by keyboard, so the heading shows itself (WCAG 2.4.7): it is
+    // no longer clipped to 1px by sr-only.
+    await expect(heading.getBoundingClientRect().width).toBeGreaterThan(20);
 
     // "Clear all" removes the group too.
     await userEvent.click(canvas.getByRole('checkbox', { name: 'Security' }));
