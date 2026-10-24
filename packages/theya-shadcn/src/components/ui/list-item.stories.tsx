@@ -66,7 +66,7 @@ export const Default: Story = {
           title="web-01"
           description={<>4 vCPU<DotSeparator />8 GB</>}
           trailing={
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1">
               <StatusDot tone="success" />
               Healthy
             </span>

@@ -124,7 +124,7 @@ export const HourCycle24: Story = {
 export const TwentyFourHour: Story = {
   name: '24-hour, with label',
   render: (args) => (
-    <div className="flex flex-col gap-1.5 w-full max-w-[380px]">
+    <div className="flex flex-col gap-1 w-full max-w-[380px]">
       <Label id="maintenance-window">Maintenance window</Label>
       <TimeRangePicker {...args} aria-labelledby="maintenance-window" hourCycle={24} step={60} defaultValue={{ start: '01:00', end: '04:00' }} />
     </div>

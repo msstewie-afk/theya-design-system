@@ -40,8 +40,8 @@ const TONAL_CLASS: Record<BadgeTone, string> = {
 // (12px) — Мария's call, Badge's md reads the same height as Chip's lg
 // but with the larger of the two type steps.
 const SIZE_CLASS: Record<BadgeSize, string> = {
-  sm: 'h-[1.3125rem] gap-1.5 px-2 text-body-xs [&_svg]:size-3',
-  md: 'h-8 gap-1.5 px-2.5 text-body-m [&_svg]:size-4',
+  sm: 'h-[1.3125rem] gap-1 px-2 text-body-xs [&_svg]:size-3',
+  md: 'h-8 gap-2 px-3 text-body-m [&_svg]:size-4',
 };
 
 export interface BadgeProps extends React.ComponentProps<'span'> {

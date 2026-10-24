@@ -132,7 +132,7 @@ export const InteractiveCard: Story = {
         <CardHeader>
           {/* Icon aligns to the title line, not the middle of title + description:
               items-start, and a wrapper one title-line tall (same text size). */}
-          <div className="flex min-w-0 flex-1 items-start gap-2.5">
+          <div className="flex min-w-0 flex-1 items-start gap-3">
             <span aria-hidden="true" className="flex h-[1lh] shrink-0 items-center text-body-l">
               <Globe className="text-[var(--color-icon-icon-subtle)]" />
             </span>

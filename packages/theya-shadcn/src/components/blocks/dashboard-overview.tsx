@@ -252,13 +252,13 @@ export function DashboardOverview({
                 key={item.id}
                 className="relative flex flex-col gap-3 px-5 py-4 after:absolute after:inset-x-5 after:bottom-0 after:h-px after:bg-[var(--color-border-border-subtler)] last:after:hidden sm:flex-row sm:items-center sm:justify-between"
               >
-                <div className="min-w-0 space-y-1.5">
+                <div className="min-w-0 space-y-1">
                   <div className="flex items-center gap-2">
                     <StatusDot tone={item.tone} />
                     <span className="sr-only">{item.severity}: </span>
                     <span className="truncate font-mono text-body-m font-code-medium">{item.id}</span>
                   </div>
-                  <p className={cn('flex items-center gap-1.5 font-body text-body-s', item.tone === 'danger' ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-warning)]')}>
+                  <p className={cn('flex items-center gap-1 font-body text-body-s', item.tone === 'danger' ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-warning)]')}>
                     <WarningTriangle className="size-3.5 shrink-0" aria-hidden="true" />
                     <span className="min-w-0 break-words">
                       <span className="font-medium">{item.severity}</span>
@@ -360,7 +360,7 @@ export function DashboardOverview({
               const nearLimit = pct >= NEAR_FULL;
               const unit = q.unit ? ` ${q.unit}` : '';
               return (
-                <div key={q.label} className="flex flex-col gap-1.5">
+                <div key={q.label} className="flex flex-col gap-1">
                   <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 font-body text-body-s">
                     <span className="font-medium">{q.label}</span>
                     <span className="text-[var(--color-text-text-subtler)]">

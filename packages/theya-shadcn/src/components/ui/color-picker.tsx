@@ -678,9 +678,9 @@ export function ColorPicker({
   );
   const inputRow = (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-2.5">
+      <div className="flex items-center gap-2">
         {formatSelect}
-        <div className="grid min-w-0 flex-1 grid-cols-3 gap-x-2.5">{channelFields}</div>
+        <div className="grid min-w-0 flex-1 grid-cols-3 gap-x-2">{channelFields}</div>
       </div>
       {/* Opacity: no caption (it misaligned the row, Maria 2026-10-23); the "%"
           in the value says what it is, and the field keeps its accessible name.

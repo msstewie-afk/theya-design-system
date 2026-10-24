@@ -203,7 +203,7 @@ export function SearchBox({
           {groups.map((g) => (
             <li key={g.id} role="presentation">
               {g.label && (
-                <div id={`${uid}-${g.id}`} className="px-2.5 pb-1 pt-2 font-heading text-heading-3xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]">
+                <div id={`${uid}-${g.id}`} className="px-3 pb-1 pt-2 font-heading text-heading-3xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]">
                   {g.label}
                 </div>
               )}
@@ -220,7 +220,7 @@ export function SearchBox({
                       onMouseMove={() => setActive(i)}
                       onClick={() => choose(o)}
                       className={cn(
-                        'flex min-h-10 cursor-pointer items-center gap-3 rounded-[var(--size-border-radius-border-radius-md)] px-2.5 py-1.5 font-body text-body-m text-[var(--color-text-text)]',
+                        'flex min-h-10 cursor-pointer items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)] px-3 py-2 font-body text-body-m text-[var(--color-text-text)]',
                         i === active && 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
                       )}
                     >
@@ -284,7 +284,8 @@ function OptionBody({ option: o, typed }: { option: Option; typed: string }): Re
   if (o.kind === 'item')
     return (
       <>
-        <TypeIcon type={o.item.type} className="size-7" />
+        {/* A 28px tile reads like an avatar: 12px to the text, not the 8px of a bare icon. */}
+        <TypeIcon type={o.item.type} className="me-1 size-7" />
         <span className="min-w-0 flex-1">
           <span className="block truncate font-medium">{o.item.title}</span>
           {o.item.context && <span className="block truncate font-body text-body-s text-[var(--color-text-text-subtler)]">{o.item.context}</span>}

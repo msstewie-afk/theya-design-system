@@ -282,7 +282,7 @@ function DataTableColumnHeader<TData, TValue>({ column, title, className }: { co
       onClick={column.getToggleSortingHandler()}
       title={title}
       className={cn(
-        'group -mx-2 inline-flex h-7 max-w-full items-center gap-1.5 rounded-[var(--size-border-radius-border-radius-sm)] px-2',
+        'group -mx-2 inline-flex h-7 max-w-full items-center gap-1 rounded-[var(--size-border-radius-border-radius-sm)] px-2',
         'font-heading text-heading-2xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)] transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:text-[var(--color-text-text)]',
         'focus-visible:outline-none focus-visible:focus-ring',

@@ -60,12 +60,12 @@ export function PaginationLink({
       role={disabled ? 'link' : undefined}
       aria-disabled={disabled || undefined}
       className={cn(
-        'inline-flex items-center justify-center gap-1.5',
+        'inline-flex items-center justify-center gap-2',
         !disabled && 'cursor-pointer',
         'rounded-[var(--size-border-radius-border-radius-md)]',
         'font-body text-body-s tabular-nums',
         'transition-colors duration-standard ease-enter motion-reduce:transition-none',
-        wide ? 'h-8 px-2.5' : 'size-8',
+        wide ? 'h-8 px-2' : 'size-8',
         disabled && 'pointer-events-none opacity-50',
         isActive
           ? 'bg-[var(--color-bg-secondary-bg-secondary-subtle)] font-medium text-[var(--color-text-text)]'

@@ -56,7 +56,7 @@ export const buttonGuidelines: ComponentGuidelines = {
     {
       do: {
         example: (
-          <div className="flex flex-col items-start gap-1.5">
+          <div className="flex flex-col items-start gap-1">
             <Button appearance="filled" tone="primary" size="md" softDisabled aria-describedby="gl-btn-why">Publish</Button>
             <span id="gl-btn-why" className="font-body text-body-s text-[var(--color-text-text-subtle)]">Add a title to publish.</span>
           </div>

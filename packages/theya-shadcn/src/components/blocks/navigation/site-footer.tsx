@@ -144,7 +144,7 @@ export function SiteFooter({
                   <SelectTrigger aria-labelledby={`${uid}-lang`} className="w-auto gap-2">
                     <SelectValue>
                       {current && (
-                        <span className="inline-flex items-center gap-1.5">
+                        <span className="inline-flex items-center gap-1">
                           <span aria-hidden="true">{flag(current.country)}</span>
                           <span aria-hidden="true">{current.short ?? current.value.toUpperCase()}</span>
                           <span className="sr-only">{current.label}</span>

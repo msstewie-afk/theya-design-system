@@ -412,7 +412,7 @@ export function TeamMembers({
                           <span className="truncate font-medium">{invite.email}</span>
                           <Badge tone={role.tone}>{role.label}</Badge>
                         </div>
-                        <span className="flex items-center gap-1.5 font-body text-body-xs text-[var(--color-text-text-subtler)]">
+                        <span className="flex items-center gap-1 font-body text-body-xs text-[var(--color-text-text-subtler)]">
                           <StatusDot tone="warning" />
                           Invited {invite.invitedAgo ?? 'recently'}
                         </span>

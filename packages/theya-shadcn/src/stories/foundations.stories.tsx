@@ -890,7 +890,7 @@ export const Motion: Story = {
       <DocsSection title="Duration">
         <Preview className="flex flex-col gap-4">
           {DURATION_DEMO.map(({ name, ms }) => (
-            <div key={name} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1.5 sm:flex">
+            <div key={name} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1 sm:flex">
               <span className="font-mono text-body-s text-[var(--color-text-text-subtle)] sm:w-36 sm:shrink-0">duration-{name}</span>
               <div className="order-last col-span-2 h-2 overflow-hidden rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)] sm:order-none sm:flex-1">
                 <div className="h-full rounded-full bg-[var(--color-bg-primary-bg-primary)]" style={{ width: `${(ms / DURATION_MAX) * 100}%` }} />
@@ -905,7 +905,7 @@ export const Motion: Story = {
       <DocsSection title="Easing">
         <Preview className="flex flex-col gap-4">
           {EASING_DEMO.map(({ name, curve }) => (
-            <div key={name} className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-4">
+            <div key={name} className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
               <span className="font-mono text-body-s text-[var(--color-text-text-subtle)] sm:w-36 sm:shrink-0">ease-{name}</span>
               <div className="relative h-4 sm:flex-1">
                 <div className="absolute inset-x-0 top-1/2 h-px bg-[var(--color-border-border-subtler)]" />

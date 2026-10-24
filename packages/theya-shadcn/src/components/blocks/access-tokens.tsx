@@ -156,12 +156,12 @@ export function AccessTokens({ title = 'API keys', description = 'Keys used to a
                   <TableCell label="Created" className="whitespace-nowrap text-[var(--color-text-text-subtler)]">{key.createdAt}</TableCell>
                   <TableCell label="Last used" className="whitespace-nowrap sm:max-md:hidden">
                     {key.lastUsedAt ? (
-                      <span className="flex items-center gap-1.5 text-[var(--color-text-text-subtler)]">
+                      <span className="flex items-center gap-1 text-[var(--color-text-text-subtler)]">
                         <StatusDot tone="success" />
                         {key.lastUsedAt}
                       </span>
                     ) : (
-                      <span className="flex items-center gap-1.5 text-[var(--color-text-text-subtler)]">
+                      <span className="flex items-center gap-1 text-[var(--color-text-text-subtler)]">
                         <StatusDot tone="neutral" />
                         Never used
                       </span>

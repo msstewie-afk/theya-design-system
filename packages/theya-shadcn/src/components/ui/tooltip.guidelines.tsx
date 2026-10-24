@@ -30,7 +30,7 @@ export const tooltipGuidelines: ComponentGuidelines = {
       },
       dont: {
         example: (
-          <div className="flex items-center gap-1.5 font-body text-body-m text-[var(--color-text-text)]">
+          <div className="flex items-center gap-2 font-body text-body-m text-[var(--color-text-text)]">
             Password
             <Tooltip>
               <TooltipTrigger asChild>

@@ -326,7 +326,7 @@ function LiveListDemo() {
               <TableRow key={row.id}>
                 <TableCell label="Created" className="whitespace-nowrap">{row.created.toLocaleDateString(undefined, { dateStyle: 'medium' })}</TableCell>
                 <TableCell label="Severity">
-                  <span className="inline-flex items-center gap-1.5">
+                  <span className="inline-flex items-center gap-1">
                     <StatusDot tone={SEVERITY_TONE[row.severity]} aria-hidden="true" />
                     {row.severity}
                   </span>

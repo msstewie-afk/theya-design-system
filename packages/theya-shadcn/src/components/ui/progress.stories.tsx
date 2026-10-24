@@ -53,7 +53,7 @@ export const Values: Story = {
   render: () => (
     <div className="flex flex-col gap-5">
       {[0, 25, 62, 100].map((v) => (
-        <div key={v} className="flex flex-col gap-1.5">
+        <div key={v} className="flex flex-col gap-1">
           <div className="flex items-center justify-between font-body text-body-s">
             <span className="text-[var(--color-text-text-subtler)]">Restore</span>
             <span className="font-mono tabular-nums text-[var(--color-text-text)]">{v}%</span>
@@ -103,11 +103,11 @@ export const Clamped: Story = {
   parameters: { controls: { exclude: ['value'] } },
   render: () => (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1">
         <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">value={'{-20}'} → 0%</span>
         <Progress value={-20} aria-label="Clamped low" />
       </div>
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1">
         <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">value={'{140}'} → 100%</span>
         <Progress value={140} aria-label="Clamped high" />
       </div>

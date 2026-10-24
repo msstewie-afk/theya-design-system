@@ -225,7 +225,7 @@ export const toast: ToastApi = Object.assign(((message: Parameters<ToastApi>[0],
         // % label and the ghost action re-point to their on-dark values: the
         // `dark` Toaster sits on light-theme tokens, where a light gray track
         // on the dark toast read as a glitch.
-        <div className={cn('flex flex-col gap-1.5', ON_DARK)}>
+        <div className={cn('flex flex-col gap-1', ON_DARK)}>
           {description}
           <div className="flex items-center gap-2">
             <span className="shrink-0 font-body text-body-xs text-[var(--color-text-text-subtler)] tabular-nums">{Math.round(pct)}%</span>

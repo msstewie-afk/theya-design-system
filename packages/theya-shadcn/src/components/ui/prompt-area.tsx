@@ -269,7 +269,7 @@ function PromptArea({
   const nearLimit = maxLength != null && text.length >= maxLength * 0.8;
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <Popover open={menuOpen} onOpenChange={(open) => !open && setTrigger(null)}>
         <PopoverAnchor asChild>
           <div
@@ -414,7 +414,7 @@ function PromptArea({
                 onMouseEnter={() => setActiveIndex(index)}
                 onClick={() => selectMenuItem(item)}
                 className={cn(
-                  'flex flex-col gap-0.5 rounded-[var(--size-border-radius-border-radius-md)] px-2.5 py-1.5 cursor-default select-none',
+                  'flex flex-col gap-0.5 rounded-[var(--size-border-radius-border-radius-md)] px-3 py-2 cursor-default select-none',
                   index === activeIndex && 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
                 )}
               >
@@ -432,7 +432,7 @@ function PromptArea({
       </Popover>
 
       {overLimit && (
-        <p id={errorId} role="alert" className="flex items-center gap-1.5 font-body text-body-xs text-[var(--color-text-text-danger)]">
+        <p id={errorId} role="alert" className="flex items-center gap-1 font-body text-body-xs text-[var(--color-text-text-danger)]">
           <FieldErrorIcon className="shrink-0 text-[var(--color-icon-icon-danger)]" />
           <span>
             {t.promptArea.tooLong(maxLength!, text.length)}

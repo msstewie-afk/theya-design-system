@@ -85,7 +85,7 @@ export const Default: Story = {
       <PopoverContent align="start" className="w-72">
         <div className="flex flex-col gap-3">
           <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Filter sites</p>
-          <fieldset className="flex flex-col gap-2.5">
+          <fieldset className="flex flex-col gap-2">
             <legend className="sr-only">Status</legend>
             <Label className="items-center gap-2">
               <Checkbox defaultChecked />
@@ -134,11 +134,11 @@ export const InlineForm: Story = {
             <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Resource limits</p>
             <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">Applies to shop.seashell.dev in eu-west-1.</p>
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <Label htmlFor="popover-cpu">CPU cores</Label>
             <NumberField id="popover-cpu" defaultValue={2} min={1} max={8} />
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <Label htmlFor="popover-memory">Memory (GB)</Label>
             <NumberField id="popover-memory" defaultValue={4} min={1} max={32} />
           </div>

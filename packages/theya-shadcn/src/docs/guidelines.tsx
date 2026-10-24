@@ -143,7 +143,7 @@ function DoDontCard({ kind, example, caption }: { kind: 'do' | 'dont'; example: 
           isDo ? 'border-t-[var(--color-border-border-success)]' : 'border-t-[var(--color-border-border-danger)]',
         )}
       >
-        <span className={cn('inline-flex items-center gap-1.5 font-body text-body-m font-semibold', isDo ? 'text-[var(--color-text-text-success)]' : 'text-[var(--color-text-text-danger)]')}>
+        <span className={cn('inline-flex items-center gap-2 font-body text-body-m font-semibold', isDo ? 'text-[var(--color-text-text-success)]' : 'text-[var(--color-text-text-danger)]')}>
           {isDo ? <Check aria-hidden="true" className="size-4" /> : <Xmark aria-hidden="true" className="size-4" />}
           {isDo ? 'Do' : 'Don’t'}
         </span>

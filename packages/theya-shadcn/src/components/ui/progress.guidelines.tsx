@@ -24,7 +24,7 @@ export const progressGuidelines: ComponentGuidelines = {
     {
       do: {
         example: (
-          <div className="flex w-72 flex-col gap-1.5">
+          <div className="flex w-72 flex-col gap-1">
             <div className="flex justify-between text-body-s"><span id="gl-pr-label">Restoring backup</span><span className="tabular-nums">66%</span></div>
             <Progress value={66} aria-labelledby="gl-pr-label" />
           </div>

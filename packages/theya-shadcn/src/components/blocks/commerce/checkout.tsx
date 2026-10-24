@@ -97,7 +97,7 @@ export function Checkout({ email = 'dana@seashell.dev', taxRate = 0.2, taxLabel 
       {/* Enclosed: brand + reassurance + one way out, no site navigation. */}
       <header className="flex items-center justify-between gap-4 border-b border-solid border-[var(--color-border-border-subtle)] px-6 py-4">
         <span className="font-body text-body-l font-semibold text-[var(--color-text-text)]">Seashell</span>
-        <span className="flex items-center gap-1.5 font-body text-body-s text-[var(--color-text-text-subtle)]">
+        <span className="flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-subtle)]">
           <Lock className="size-4 text-[var(--color-icon-icon-success)]" aria-hidden="true" />
           Secure checkout
         </span>

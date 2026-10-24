@@ -1,7 +1,7 @@
 import { type ComponentGuidelines } from '../../docs/guidelines';
 import { DotSeparator } from './dot-separator';
 
-const META = 'flex items-center gap-1.5 font-body text-body-s text-[var(--color-text-text-subtler)]';
+const META = 'flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-subtler)]';
 
 export const dotSeparatorGuidelines: ComponentGuidelines = {
   status: 'stable',

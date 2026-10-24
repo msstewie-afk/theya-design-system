@@ -127,10 +127,10 @@ const tileVariants = cva(
   {
     variants: {
       size: {
-        sm: 'min-w-12 px-2 py-1.5 gap-0.5 [&_[data-value]]:text-heading-xs [&_[data-label]]:text-body-xs',
+        sm: 'min-w-12 px-2 py-2 gap-0.5 [&_[data-value]]:text-heading-xs [&_[data-label]]:text-body-xs',
         md: 'min-w-16 px-3 py-2 gap-0.5 [&_[data-value]]:text-heading-s [&_[data-label]]:text-body-xs',
         // Below sm four lg tiles (80px each + gaps) don't fit a 360px phone; step down a notch there.
-        lg: 'min-w-16 px-3 py-2.5 sm:min-w-20 sm:px-4 sm:py-3 gap-1 [&_[data-value]]:text-heading-m [&_[data-label]]:text-body-s',
+        lg: 'min-w-16 px-3 py-3 sm:min-w-20 sm:px-4 sm:py-3 gap-1 [&_[data-value]]:text-heading-m [&_[data-label]]:text-body-s',
       },
     },
     defaultVariants: { size: 'md' },

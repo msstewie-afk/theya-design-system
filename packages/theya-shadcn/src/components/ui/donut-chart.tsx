@@ -119,13 +119,13 @@ export function DonutChart({
           {legend && legendItems > 0 && (
             <ul
               className={cn(
-                'flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-1.5',
+                'flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-2',
                 layout === 'horizontal' && '@min-[22rem]/donut:w-auto @min-[22rem]/donut:min-w-0 @min-[22rem]/donut:flex-col @min-[22rem]/donut:flex-nowrap @min-[22rem]/donut:items-start @min-[22rem]/donut:justify-start @min-[22rem]/donut:gap-x-0',
               )}
               aria-hidden="true"
             >
               {Array.from({ length: legendItems }).map((_, i) => (
-                <li key={i} className="flex items-center gap-1.5">
+                <li key={i} className="flex items-center gap-1">
                   <Skeleton className="size-2.5 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)]" />
                   <Skeleton className="h-3 w-16" />
                 </li>
@@ -177,7 +177,7 @@ export function DonutChart({
                   const v = typeof p?.value === 'number' ? p.value : undefined;
                   if (!active || v == null) return null;
                   return (
-                    <div className="flex flex-col gap-px rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-elevation-lg">
+                    <div className="flex flex-col gap-px rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-3 py-2 shadow-elevation-lg">
                       <span className="text-body-xs text-[var(--color-text-text-subtler)]">{String(p?.name ?? '')}</span>
                       <span className="font-body text-body-s font-semibold tabular-nums text-[var(--color-text-text)]">
                         {fmt(v)} <span className="font-normal text-[var(--color-text-text-subtler)]">({pct(v)}%)</span>
@@ -200,13 +200,13 @@ export function DonutChart({
         {legend && data.length > 0 && (
           <ul
             className={cn(
-              'flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-1.5',
+              'flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-2',
               layout === 'horizontal' && '@min-[22rem]/donut:w-auto @min-[22rem]/donut:min-w-0 @min-[22rem]/donut:flex-col @min-[22rem]/donut:flex-nowrap @min-[22rem]/donut:items-start @min-[22rem]/donut:justify-start @min-[22rem]/donut:gap-x-0',
             )}
             aria-hidden="true"
           >
             {data.map((d, i) => (
-              <li key={d.label} className="flex items-center gap-1.5 font-body text-body-xs text-[var(--color-text-text-subtler)]">
+              <li key={d.label} className="flex items-center gap-1 font-body text-body-xs text-[var(--color-text-text-subtler)]">
                 {/* forced-color-adjust-none: in Windows High Contrast the swatch is a background and would be wiped, while the SVG series keep their colors — the key must survive to match them. */}
                 <span className="inline-block size-2.5 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)] forced-color-adjust-none" style={{ background: sliceColor(i) }} />
                 <span>{d.label}</span>

@@ -30,7 +30,7 @@ export interface MessageProps extends React.ComponentProps<'div'> {
 
 export function Message({ className, variant = 'received', appearance = 'filled', avatar, author, timestamp, children, ...props }: MessageProps) {
   return (
-    <div data-slot="message" data-variant={variant} className={cn('flex w-full gap-2.5', variant === 'sent' ? 'flex-row-reverse' : 'flex-row', className)} {...props}>
+    <div data-slot="message" data-variant={variant} className={cn('flex w-full gap-2', variant === 'sent' ? 'flex-row-reverse' : 'flex-row', className)} {...props}>
       {avatar != null && <div data-slot="message-avatar" className="shrink-0 pt-0.5">{avatar}</div>}
       {/* The width cap lives on this column, not the bubble: a % max-width on
           the bubble resolved against a shrink-to-fit parent, and with

@@ -41,7 +41,7 @@ type Story = StoryObj<typeof InputGroup>;
 /** A text suffix (".zone") with a hairline divider toward the field. */
 export const Default: Story = {
   render: () => (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <Label htmlFor="zone">Zone name</Label>
       <InputGroup>
         <InputGroupInput id="zone" className="font-mono" placeholder="shop.acme" defaultValue="shop.acme" />
@@ -55,7 +55,7 @@ export const Default: Story = {
 export const PrefixAndSuffix: Story = {
   name: 'Prefix and suffix',
   render: () => (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <Label htmlFor="endpoint">Site endpoint</Label>
       <InputGroup>
         <InputGroupAddon position="start">https://</InputGroupAddon>
@@ -70,7 +70,7 @@ export const PrefixAndSuffix: Story = {
 export const LeadingIcon: Story = {
   name: 'Leading icon',
   render: () => (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <Label htmlFor="site-search">Search sites</Label>
       <InputGroup>
         <InputGroupAddon position="start" divider={false}>
@@ -85,7 +85,7 @@ export const LeadingIcon: Story = {
 /** The group's border/ring goes danger when the inner field is `aria-invalid`; wire `aria-describedby` to the message so the error is announced. */
 export const Invalid: Story = {
   render: () => (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <Label htmlFor="region">Region</Label>
       <InputGroup>
         <InputGroupAddon position="start" divider={false}>
@@ -103,7 +103,7 @@ export const Invalid: Story = {
 /** Disabled groups go muted and block input; the whole container reads muted. */
 export const Disabled: Story = {
   render: () => (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <Label htmlFor="api-key">API key</Label>
       <InputGroup>
         <InputGroupAddon position="start" divider={false}>

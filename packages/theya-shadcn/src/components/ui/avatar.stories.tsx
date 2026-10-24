@@ -78,15 +78,15 @@ export const InitialsFallback: Story = {
 export const Types: Story = {
   render: () => (
     <div className="flex items-end gap-4">
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="flex flex-col items-center gap-1">
         <Avatar type="icon" icon={<Star width={16} height={16} aria-hidden="true" />} />
         <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">Icon</span>
       </div>
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="flex flex-col items-center gap-1">
         <Avatar type="image" src="/asset-examples/panda-avatar.png" alt="Panda bot" initials="AL" />
         <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">Image</span>
       </div>
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="flex flex-col items-center gap-1">
         <Avatar type="text" initials="AL" />
         <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">Text</span>
       </div>
@@ -100,19 +100,19 @@ export const Types: Story = {
 export const Outline: Story = {
   render: () => (
     <div className="flex items-end gap-6">
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="flex flex-col items-center gap-1">
         <Avatar outline="gradient">
           <AvatarFallback>AL</AvatarFallback>
         </Avatar>
         <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">Gradient</span>
       </div>
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="flex flex-col items-center gap-1">
         <Avatar outline="solid">
           <AvatarFallback>AL</AvatarFallback>
         </Avatar>
         <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">Solid</span>
       </div>
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="flex flex-col items-center gap-1">
         <Avatar outline="none">
           <AvatarFallback>AL</AvatarFallback>
         </Avatar>
@@ -130,13 +130,13 @@ export const FallbackTone: Story = {
   name: 'Fallback tone',
   render: () => (
     <div className="flex items-end gap-6">
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="flex flex-col items-center gap-1">
         <Avatar outline="none">
           <AvatarFallback appearance="tonal">AL</AvatarFallback>
         </Avatar>
         <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">Subtle</span>
       </div>
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="flex flex-col items-center gap-1">
         <Avatar outline="none">
           <AvatarFallback appearance="filled">AL</AvatarFallback>
         </Avatar>
@@ -150,13 +150,13 @@ export const FallbackTone: Story = {
 export const Shapes: Story = {
   render: () => (
     <div className="flex items-end gap-6">
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="flex flex-col items-center gap-1">
         <Avatar shape="circle">
           <AvatarFallback>AL</AvatarFallback>
         </Avatar>
         <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">Circle</span>
       </div>
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="flex flex-col items-center gap-1">
         <Avatar shape="square">
           <AvatarFallback>AL</AvatarFallback>
         </Avatar>
@@ -170,19 +170,19 @@ export const Shapes: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-wrap items-end gap-4">
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="flex flex-col items-center gap-1">
         <Avatar size="sm">
           <AvatarFallback>AL</AvatarFallback>
         </Avatar>
         <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">32px</span>
       </div>
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="flex flex-col items-center gap-1">
         <Avatar size="md">
           <AvatarFallback>AL</AvatarFallback>
         </Avatar>
         <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">48px</span>
       </div>
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="flex flex-col items-center gap-1">
         <Avatar size="lg">
           <AvatarFallback>AL</AvatarFallback>
         </Avatar>
@@ -245,7 +245,7 @@ export const MemberList: Story = {
             <p className="truncate font-body text-body-s font-medium text-[var(--color-text-text)]">{m.name}</p>
             <p className="truncate font-mono text-body-xs text-[var(--color-text-text-subtler)]">{m.email}</p>
           </div>
-          <span className="flex items-center gap-1.5 font-body text-body-xs text-[var(--color-text-text-subtler)]">
+          <span className="flex items-center gap-1 font-body text-body-xs text-[var(--color-text-text-subtler)]">
             <StatusDot tone={m.tone} />
             {m.status}
           </span>

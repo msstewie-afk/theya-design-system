@@ -352,7 +352,7 @@ function TreeItem({ node, depth, parentId, posInSet, setSize, expandedSet, selec
         data-slot="tree-row"
         style={{ paddingLeft: indent }}
         className={cn(
-          'flex h-8 items-center gap-1.5 rounded-[var(--size-border-radius-border-radius-md)] px-2',
+          'flex h-8 items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)] px-2',
           'group-focus-visible/treeitem:focus-ring-inset',
           disabled ? 'cursor-not-allowed text-[var(--color-text-text-subtler)] opacity-60' : 'cursor-pointer',
           isSelected ? 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]' : !disabled && 'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',

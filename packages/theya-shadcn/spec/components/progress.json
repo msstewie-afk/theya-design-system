@@ -47,7 +47,7 @@
     {
       "do": {
         "caption": "What’s running and how much is done.",
-        "example": "<div className=\"flex w-72 flex-col gap-1.5\">\n  <div className=\"flex justify-between text-body-s\"><span id=\"gl-pr-label\">Restoring backup</span><span className=\"tabular-nums\">66%</span></div>\n  <Progress value={66} aria-labelledby=\"gl-pr-label\" />\n</div>"
+        "example": "<div className=\"flex w-72 flex-col gap-1\">\n  <div className=\"flex justify-between text-body-s\"><span id=\"gl-pr-label\">Restoring backup</span><span className=\"tabular-nums\">66%</span></div>\n  <Progress value={66} aria-labelledby=\"gl-pr-label\" />\n</div>"
       },
       "dont": {
         "caption": "A bare bar: progress of what?",

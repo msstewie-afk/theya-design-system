@@ -267,7 +267,7 @@ function Dropzone({
           </div>
         )}
         {error ? (
-          <p id={errorId} role="alert" className="mt-2 flex items-center gap-1.5 font-body text-body-xs text-[var(--color-text-text-danger)]">
+          <p id={errorId} role="alert" className="mt-2 flex items-center gap-1 font-body text-body-xs text-[var(--color-text-text-danger)]">
             <FieldErrorIcon size={14} className="shrink-0 text-[var(--color-icon-icon-danger)]" />
             <span className="min-w-0">{error}</span>
           </p>
@@ -332,7 +332,7 @@ function Dropzone({
                   )}
                 </div>
                 {file.error && (
-                  <p role="alert" className="flex items-start gap-1.5 font-body text-body-xs text-[var(--color-text-text-danger)]">
+                  <p role="alert" className="flex items-start gap-1 font-body text-body-xs text-[var(--color-text-text-danger)]">
                     <FieldErrorIcon size={14} className="mt-px shrink-0 text-[var(--color-icon-icon-danger)]" />
                     <span className="min-w-0">{file.error}</span>
                   </p>

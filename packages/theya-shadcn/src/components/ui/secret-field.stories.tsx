@@ -121,15 +121,15 @@ export const NotRevealable: Story = {
 export const States: Story = {
   render: () => (
     <div className="flex w-full max-w-[420px] max-w-[92vw] flex-col gap-4">
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1">
         <p className="text-body-s font-medium text-[var(--color-text-text)]">Masked (default)</p>
         <SecretField value="sk_demo_51H8x9jK2L3mN4pQ7rS8tU9vW" label="API key" />
       </div>
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1">
         <p className="text-body-s font-medium text-[var(--color-text-text)]">Revealed</p>
         <SecretField value="sk_demo_51H8x9jK2L3mN4pQ7rS8tU9vW" label="API key" defaultRevealed />
       </div>
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1">
         <p className="text-body-s font-medium text-[var(--color-text-text)]">Copy-only</p>
         <SecretField value="whsec_3aF8kLp02qZx9rTnB7mWvE" label="Webhook secret" revealable={false} />
       </div>

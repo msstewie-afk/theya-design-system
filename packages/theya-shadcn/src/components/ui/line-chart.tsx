@@ -146,7 +146,7 @@ export function LineChart({ data, series, height = 260, yStep = 1, unit = '', la
       {legend && series.length > 0 && (
         <ul className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1" aria-hidden="true">
           {series.map((s, i) => (
-            <li key={s.key} className="flex items-center gap-1.5 text-body-xs text-[var(--color-text-text-subtler)]">
+            <li key={s.key} className="flex items-center gap-1 text-body-xs text-[var(--color-text-text-subtler)]">
               {/* forced-color-adjust-none: in Windows High Contrast the swatch is a background and would be wiped, while the SVG series keep their colors — the key must survive to match them. */}
               <span className="inline-block size-2.5 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)] forced-color-adjust-none" style={{ background: seriesColor(i) }} />
               {s.name}
@@ -167,7 +167,7 @@ function LineChartTooltip({ active, payload, label, fmt, labelPrefix, series }: 
   if (!active || !payload || !payload.length) return null;
   const indexFor = (key?: string | number) => series.findIndex((s) => s.key === key);
   return (
-    <div className="flex flex-col gap-1 rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-elevation-lg">
+    <div className="flex flex-col gap-1 rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-3 py-2 shadow-elevation-lg">
       <span className="text-body-xs text-[var(--color-text-text-subtler)]">
         {labelPrefix}
         {label}

@@ -48,7 +48,7 @@ export function Calendar({
         button_previous: cn(navButtonClass, defaultClassNames.button_previous),
         button_next: cn(navButtonClass, defaultClassNames.button_next),
         month_caption: cn('flex h-8 w-full items-center justify-center px-8', defaultClassNames.month_caption),
-        dropdowns: cn('flex h-8 w-full items-center justify-center gap-1.5 text-body-s font-medium', defaultClassNames.dropdowns),
+        dropdowns: cn('flex h-8 w-full items-center justify-center gap-2 text-body-s font-medium', defaultClassNames.dropdowns),
         dropdown_root: cn(
           'relative rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border)]',
           'has-focus:border-[var(--color-border-border-primary)] has-focus:focus-ring',

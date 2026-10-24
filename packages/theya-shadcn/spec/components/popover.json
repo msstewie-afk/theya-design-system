@@ -37,7 +37,7 @@
     {
       "do": {
         "caption": "One quick setting right next to what it affects.",
-        "example": "<Popover>\n  <PopoverTrigger asChild><Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Limits</Button></PopoverTrigger>\n  <PopoverContent align=\"start\" className=\"w-64\">\n    <div className=\"flex flex-col gap-1.5\">\n      <Label htmlFor=\"gl-po-cpu\">CPU cores</Label>\n      <NumberField id=\"gl-po-cpu\" defaultValue={2} min={1} max={8} />\n    </div>\n  </PopoverContent>\n</Popover>"
+        "example": "<Popover>\n  <PopoverTrigger asChild><Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Limits</Button></PopoverTrigger>\n  <PopoverContent align=\"start\" className=\"w-64\">\n    <div className=\"flex flex-col gap-1\">\n      <Label htmlFor=\"gl-po-cpu\">CPU cores</Label>\n      <NumberField id=\"gl-po-cpu\" defaultValue={2} min={1} max={8} />\n    </div>\n  </PopoverContent>\n</Popover>"
       },
       "dont": {
         "caption": "A required form in a popover: one click outside and it’s gone.",

@@ -121,7 +121,7 @@ export const HourCycle24: Story = {
 export const WithLabel: Story = {
   name: 'With label',
   render: () => (
-    <div className="flex flex-col gap-1.5 w-[200px]">
+    <div className="flex flex-col gap-1 w-[200px]">
       <Label htmlFor="mtg">Meeting time</Label>
       <TimeField id="mtg" step={15} aria-label={undefined} />
     </div>

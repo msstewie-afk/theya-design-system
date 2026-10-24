@@ -77,7 +77,7 @@
     {
       "do": {
         "caption": "`softDisabled` with the reason next to it — still focusable, and it says what’s missing.",
-        "example": "<div className=\"flex flex-col items-start gap-1.5\">\n  <Button appearance=\"filled\" tone=\"primary\" size=\"md\" softDisabled aria-describedby=\"gl-btn-why\">Publish</Button>\n  <span id=\"gl-btn-why\" className=\"font-body text-body-s text-[var(--color-text-text-subtle)]\">Add a title to publish.</span>\n</div>"
+        "example": "<div className=\"flex flex-col items-start gap-1\">\n  <Button appearance=\"filled\" tone=\"primary\" size=\"md\" softDisabled aria-describedby=\"gl-btn-why\">Publish</Button>\n  <span id=\"gl-btn-why\" className=\"font-body text-body-s text-[var(--color-text-text-subtle)]\">Add a title to publish.</span>\n</div>"
       },
       "dont": {
         "caption": "A disabled button with no reason leaves people guessing, and keyboard users can’t reach it at all.",

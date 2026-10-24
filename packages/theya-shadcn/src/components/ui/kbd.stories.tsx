@@ -55,7 +55,7 @@ export const Shortcut: Story = {
 export const Keys: Story = {
   parameters: { controls: { exclude: ['children'] } },
   render: () => (
-    <div className="flex flex-wrap items-center gap-1.5">
+    <div className="flex flex-wrap items-center gap-1">
       <Kbd>⌘</Kbd>
       <Kbd>⇧</Kbd>
       <Kbd>⌥</Kbd>

@@ -308,7 +308,7 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, actio
       {!collapsed && badge != null && (
         <span
           className={cn(
-            'ms-auto rounded-full px-1.5 py-px font-body text-body-xs font-semibold transition-opacity duration-standard',
+            'ms-auto rounded-full px-1 py-px font-body text-body-xs font-semibold transition-opacity duration-standard',
             BADGE_TONE_CLASS[badgeTone],
             // On the active row the pill's translucent tint stacked on the
             // row's own primary tint and sank to 2.92:1 in dark (axe

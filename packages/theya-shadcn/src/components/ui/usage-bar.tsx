@@ -66,7 +66,7 @@ export function UsageBar({ className, segments, total, showLegend = true, format
       </div>
 
       {showLegend && (
-        <ul data-slot="usage-bar-legend" className="flex flex-wrap gap-x-4 gap-y-1.5">
+        <ul data-slot="usage-bar-legend" className="flex flex-wrap gap-x-4 gap-y-2">
           {parts.map((p, i) => (
             <li key={`${p.label}-${i}`} className="flex min-w-0 items-center gap-2 font-body text-body-s">
               <span aria-hidden="true" className="size-2.5 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)]" style={{ background: p.color }} />

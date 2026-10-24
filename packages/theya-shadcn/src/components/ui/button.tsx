@@ -158,7 +158,7 @@ export const buttonVariants = cva(
         ],
         lg: [
           'h-[var(--size-size-control-size-control-xl)]', // 36px — now a real control-size token (was raw --size-size36)
-          'px-[var(--size-padding-padding-md)] gap-[var(--size-size6)]',
+          'px-[var(--size-padding-padding-md)] gap-[var(--size-size4)]',
           '[font-family:var(--typography-button-m-font)] [font-weight:var(--typography-button-m-weight)]',
           '[font-size:var(--typography-button-m-size)]',
           '[line-height:var(--typography-button-m-line-height)]',
@@ -167,7 +167,7 @@ export const buttonVariants = cva(
         ],
         xl: [
           'h-[var(--size-size-control-size-control-2xl)]', // 40px — matches TextField/Select/Filter's default row height
-          'px-[calc((var(--size-padding-padding-md)_+_var(--size-padding-padding-lg))_/_2)] gap-[var(--size-size6)]', // 14px — no token sits exactly between md(12)/lg(16)
+          'px-[var(--size-padding-padding-lg)] gap-[var(--size-size8)]',
           '[font-family:var(--typography-button-m-font)] [font-weight:var(--typography-button-m-weight)]',
           '[font-size:var(--typography-button-m-size)]',
           '[line-height:var(--typography-button-m-line-height)]',
@@ -176,7 +176,7 @@ export const buttonVariants = cva(
         ],
         '2xl': [
           'h-[var(--size-size-control-size-control-4xl)]', // 48px — now a real control-size token (was hardcoded 44px)
-          'px-[var(--size-padding-padding-lg)] gap-[var(--size-size6)]',
+          'px-[var(--size-padding-padding-lg)] gap-[var(--size-size8)]',
           '[font-family:var(--typography-button-l-font)] [font-weight:var(--typography-button-l-weight)]',
           '[font-size:var(--typography-button-l-size)]',
           '[line-height:var(--typography-button-l-line-height)]',

@@ -365,7 +365,7 @@ export function KanbanCard({ title, description, eyebrow, footer, className, ...
   return (
     <div
       className={cn(
-        'flex flex-col gap-1.5 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3 shadow-elevation-xs',
+        'flex flex-col gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3 shadow-elevation-xs',
         className,
       )}
       {...props}

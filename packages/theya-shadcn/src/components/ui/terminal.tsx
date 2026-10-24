@@ -170,7 +170,7 @@ export function TerminalHeader({ className, user, host, connection = 'connected'
       )}
       {...props}
     >
-      <div className="flex min-w-0 items-start gap-2.5">
+      <div className="flex min-w-0 items-start gap-2">
         {/* h-5 matches text-body-m's own line-height (20px, the
             user@host line below) so items-center here centers the dot
             against that first line specifically, not the shorter

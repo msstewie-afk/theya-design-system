@@ -41,7 +41,7 @@
       },
       "dont": {
         "caption": "Rules people need while typing, hidden in a tooltip — put them under the field.",
-        "example": "<div className=\"flex items-center gap-1.5 font-body text-body-m text-[var(--color-text-text)]\">\n  Password\n  <Tooltip>\n    <TooltipTrigger asChild>\n      <Button appearance=\"ghost\" tone=\"secondary\" size=\"sm\" iconOnly leftIcon={<InfoCircle />} aria-label=\"Password rules\" />\n    </TooltipTrigger>\n    <TooltipContent>At least 12 characters, one number, one symbol, no spaces, different from your last 5 passwords.</TooltipContent>\n  </Tooltip>\n</div>"
+        "example": "<div className=\"flex items-center gap-2 font-body text-body-m text-[var(--color-text-text)]\">\n  Password\n  <Tooltip>\n    <TooltipTrigger asChild>\n      <Button appearance=\"ghost\" tone=\"secondary\" size=\"sm\" iconOnly leftIcon={<InfoCircle />} aria-label=\"Password rules\" />\n    </TooltipTrigger>\n    <TooltipContent>At least 12 characters, one number, one symbol, no spaces, different from your last 5 passwords.</TooltipContent>\n  </Tooltip>\n</div>"
       }
     }
   ],

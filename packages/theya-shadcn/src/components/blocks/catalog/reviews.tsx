@@ -110,7 +110,7 @@ export function Reviews({ reviews, summary, pageSize = 4, onWriteReview, heading
           <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{`${count.toLocaleString('en-US')} reviews`}</p>
         </div>
         {/* Each bar is a filter button. */}
-        <div role="group" aria-label="Filter by rating" className="flex flex-col gap-1.5">
+        <div role="group" aria-label="Filter by rating" className="flex flex-col gap-2">
           {([5, 4, 3, 2, 1] as const).map((s) => {
             const n = distribution[s];
             const active = star === s;

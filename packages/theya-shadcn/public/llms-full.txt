@@ -1243,7 +1243,7 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes.
 - Do: `softDisabled` with the reason next to it — still focusable, and it says what’s missing.
 
   ```tsx
-  <div className="flex flex-col items-start gap-1.5">
+  <div className="flex flex-col items-start gap-1">
     <Button appearance="filled" tone="primary" size="md" softDisabled aria-describedby="gl-btn-why">Publish</Button>
     <span id="gl-btn-why" className="font-body text-body-s text-[var(--color-text-text-subtle)]">Add a title to publish.</span>
   </div>
@@ -6750,7 +6750,7 @@ Also accepts the props of: PopoverProps, ButtonHTMLAttributes, HTMLAttributes, P
   <Popover>
     <PopoverTrigger asChild><Button appearance="outlined" tone="secondary" size="md">Limits</Button></PopoverTrigger>
     <PopoverContent align="start" className="w-64">
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1">
         <Label htmlFor="gl-po-cpu">CPU cores</Label>
         <NumberField id="gl-po-cpu" defaultValue={2} min={1} max={8} />
       </div>
@@ -6935,7 +6935,7 @@ Also accepts the props of: HTMLAttributes, ProgressProps.
 - Do: What’s running and how much is done.
 
   ```tsx
-  <div className="flex w-72 flex-col gap-1.5">
+  <div className="flex w-72 flex-col gap-1">
     <div className="flex justify-between text-body-s"><span id="gl-pr-label">Restoring backup</span><span className="tabular-nums">66%</span></div>
     <Progress value={66} aria-labelledby="gl-pr-label" />
   </div>
@@ -10386,7 +10386,7 @@ Also accepts the props of: TooltipProps, TooltipProviderProps, TooltipContentPro
 - Don’t: Rules people need while typing, hidden in a tooltip — put them under the field.
 
   ```tsx
-  <div className="flex items-center gap-1.5 font-body text-body-m text-[var(--color-text-text)]">
+  <div className="flex items-center gap-2 font-body text-body-m text-[var(--color-text-text)]">
     Password
     <Tooltip>
       <TooltipTrigger asChild>

@@ -195,7 +195,7 @@ export function BillingUsage({
                 const nearLimit = pct >= NEAR_LIMIT;
                 const unit = q.unit ? ` ${q.unit}` : '';
                 return (
-                  <div key={q.label} className="flex flex-col gap-1.5">
+                  <div key={q.label} className="flex flex-col gap-1">
                     <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
                       <span className="font-body text-body-s font-medium">{q.label}</span>
                       <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">

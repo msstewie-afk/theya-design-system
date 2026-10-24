@@ -67,7 +67,7 @@ export function Meter({ value, min = 0, max = 100, label, format, getValueLabel,
       aria-valuemax={max}
       aria-valuetext={valueText}
       aria-labelledby={label != null ? `${id}-label` : undefined}
-      className={cn('flex w-full flex-col gap-1.5', className)}
+      className={cn('flex w-full flex-col gap-1', className)}
       {...props}
     >
       {hasHeader && (

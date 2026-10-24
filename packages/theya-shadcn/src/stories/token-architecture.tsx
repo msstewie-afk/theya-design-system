@@ -288,7 +288,11 @@ const CATEGORIES: { title: string; rules: ReactNode[] }[] = [
     rules: [
       <>Spacing follows a 4px grid. In components it's written with Tailwind's numeric scale (<Code>gap-3</Code> = 12px), which has the same values as the <Code>gap</Code> / <Code>padding</Code> tokens; the token form is used where a value must be shared by name across components.</>,
       <>Proximity shows grouping: space inside a group is smaller than between groups. A label sits 4px above its field (helper text 4px below). Forms: 12px between fields, 24px between groups. Control rows: 8px inside a group, 16px between groups. A divider gets equal space on both sides.</>,
-      <>In a control the side padding is larger than the gap between its icon and label.</>,
+      <>2px (<Code>0.5</Code>) is the one half step: a title and the description under it, neighbouring buttons in a toolbar or tab list, and optical shifts that line an icon up with the first line of text.</>,
+      <>Fields: text or a leading icon starts 12px from the border on 32px and 40px fields, 16px on 48px. With no trailing chevron or button, the end inset equals the start one.</>,
+      <>Menu and list items: 8px top and bottom, 12px at the sides, 8px between icon and label.</>,
+      <>In a control the side padding is larger than the gap between its icon and label. The gap is 4px next to a 12px icon or small text, 8px next to a 16px or larger icon.</>,
+      <>Stacks: 4px inside a label/value pair, 8px between list items.</>,
       <>Control heights come only from <Code>size-control</Code>. A field and a button that sit together share one size, so their heights match.</>,
       <>Buttons inside cards are <Code>md</Code>; page-level actions are <Code>xl</Code>.</>,
     ],

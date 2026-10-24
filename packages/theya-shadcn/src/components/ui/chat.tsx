@@ -66,7 +66,7 @@ export function ChatMessages({ className, tabIndex, 'aria-label': ariaLabel, ...
 export function ChatTyping({ label, avatar, className, ...props }: React.ComponentProps<'div'> & { label?: string; avatar?: React.ReactNode }) {
   const { t } = useTheyaI18n();
   return (
-    <div data-slot="chat-typing" className={cn('flex w-full gap-2.5', className)} {...props}>
+    <div data-slot="chat-typing" className={cn('flex w-full gap-2', className)} {...props}>
       {avatar}
       <span
         role="status"

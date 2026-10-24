@@ -112,7 +112,7 @@ export function PasswordStrengthMeter({ value, rules: rulesProp, className }: Pa
         {statusLabel && t.password.strengthIs(statusLabel)}
       </span>
 
-      <ul className="flex flex-col gap-1.5">
+      <ul className="flex flex-col gap-2">
         {checks.map((c, i) => (
           <li key={i} className="flex items-center gap-2">
             <span

@@ -231,7 +231,7 @@ export const RadioWithFooter: Story = {
             selectLabel={o.title}
           >
             <CardHeader divider={false}>
-              <div className="flex min-w-0 items-start gap-2.5">
+              <div className="flex min-w-0 items-start gap-3">
                 <span aria-hidden="true" className="flex h-[1lh] shrink-0 items-center text-body-l text-[var(--color-icon-icon-subtle)]">
                   <ClipboardCheck className="size-5" />
                 </span>

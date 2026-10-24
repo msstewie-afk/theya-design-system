@@ -62,7 +62,7 @@ export const Default: Story = {};
 function RenewalField(args: React.ComponentProps<typeof DatePicker>) {
   const [date, setDate] = useState<Date | undefined>(undefined);
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <Label htmlFor="renew-date">Renewal date</Label>
       <DatePicker {...args} id="renew-date" aria-label={undefined} value={date} onChange={setDate} placeholder="Pick a renewal date" />
     </div>

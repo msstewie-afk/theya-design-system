@@ -112,7 +112,7 @@ export function BarChart({ data, orientation = 'vertical', height = 240, valueSt
 function BarChartTooltip({ active, value, label, fmt, labelPrefix }: { active?: boolean; value?: number; label?: ReactNode; fmt: (v: number) => string; labelPrefix: string }) {
   if (!active || value == null) return null;
   return (
-    <div className="flex flex-col gap-px rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-2.5 py-1.5 shadow-elevation-lg">
+    <div className="flex flex-col gap-px rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-3 py-2 shadow-elevation-lg">
       <span className="text-body-xs text-[var(--color-text-text-subtler)]">
         {labelPrefix}
         {label}

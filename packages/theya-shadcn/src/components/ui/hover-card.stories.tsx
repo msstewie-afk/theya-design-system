@@ -52,7 +52,7 @@ export const Default: Story = {
       </HoverCardTrigger>
       <HoverCardContent>
         <p className="font-mono text-body-m font-medium text-[var(--color-text-text)]">shop.seashell.dev</p>
-        <p className="mt-2 flex items-center gap-1.5 font-body text-body-s text-[var(--color-text-text-subtler)]">
+        <p className="mt-2 flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-subtler)]">
           <StatusDot tone="success" />
           Running · eu-west-1 · TLS active
         </p>
@@ -113,7 +113,7 @@ export const SitePreview: Story = {
           </span>
           <div className="min-w-0">
             <p className="truncate font-mono text-body-m font-medium text-[var(--color-text-text)]">api.seashell.dev</p>
-            <p className="mt-1 flex items-center gap-1.5 font-body text-body-s text-[var(--color-text-text-subtler)]">
+            <p className="mt-1 flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-subtler)]">
               <StatusDot tone="danger" />
               Error · last deploy failed
             </p>
@@ -146,7 +146,7 @@ export const Open: Story = {
       </HoverCardTrigger>
       <HoverCardContent>
         <p className="font-mono text-body-m font-medium text-[var(--color-text-text)]">blog.seashell.dev</p>
-        <p className="mt-2 flex items-center gap-1.5 font-body text-body-s text-[var(--color-text-text-subtler)]">
+        <p className="mt-2 flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-subtler)]">
           <StatusDot tone="success" />
           Running · eu-west-1
         </p>

@@ -65,8 +65,8 @@ export function Details({ className, title, status, meta, actions, stats, childr
     <div className={cn('flex w-full flex-col gap-6', className)} {...props}>
       <header className="flex flex-col gap-3">
         <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
-          <div className="flex min-w-0 flex-col gap-1.5">
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+          <div className="flex min-w-0 flex-col gap-1">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
               <h1 className={cn('min-w-0 break-words font-body text-heading-s font-semibold text-[var(--color-text-text)]', mono && 'font-mono')}>{title}</h1>
               {status && (
                 <Badge tone={statusToneToBadgeTone(status.tone)}>
@@ -96,7 +96,7 @@ export function Details({ className, title, status, meta, actions, stats, childr
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {stats.map((stat, i) =>
             stat.hint ? (
-              <div key={i} className="flex flex-col gap-1.5">
+              <div key={i} className="flex flex-col gap-1">
                 <Stat label={stat.label} value={stat.value} tone={stat.tone} toneLabel={stat.toneLabel} />
                 <p className="px-1 font-body text-body-xs text-[var(--color-text-text-subtler)]">{stat.hint}</p>
               </div>

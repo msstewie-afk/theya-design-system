@@ -97,7 +97,7 @@ export const TwoFactorSetup: Story = {
         <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Scan the code with Google Authenticator, 1Password or any TOTP app.</p>
       </div>
       <QrCode {...args} value={OTPAUTH} label="Scan to add Seashell to your authenticator app" className="self-center" />
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1">
         <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">Can’t scan? Enter this key instead:</span>
         <SecretField value="JBSWY3DPEHPK3PXP" defaultRevealed label="Setup key" />
       </div>

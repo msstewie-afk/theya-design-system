@@ -252,7 +252,7 @@ export function Attachment({
         {...rest}
         className={cn(
           'relative inline-flex self-start max-w-[min(100%,20rem)] items-center gap-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid py-2 ps-3',
-          onRemove ? 'pe-1.5' : 'pe-5',
+          onRemove ? 'pe-1' : 'pe-5',
           borderToneClass,
           surfaceBgClass,
           interactiveClasses,

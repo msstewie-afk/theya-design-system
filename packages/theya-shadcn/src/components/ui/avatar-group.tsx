@@ -20,7 +20,7 @@ import { useTheyaI18n } from '../../lib/i18n';
  * its `alt`/initials.
  */
 const GAP: Record<AvatarSize, string> = {
-  sm: '-space-x-1.5',
+  sm: '-space-x-1',
   md: '-space-x-2',
   lg: '-space-x-2.5',
 };

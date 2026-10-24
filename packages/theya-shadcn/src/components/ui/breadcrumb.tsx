@@ -40,7 +40,7 @@ export function BreadcrumbLink({
   return (
     <Comp
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-[var(--size-border-radius-border-radius-sm)] outline-none transition-colors duration-standard ease-enter motion-reduce:transition-none hover:text-[var(--color-text-text)] focus-visible:focus-ring',
+        'inline-flex items-center gap-2 rounded-[var(--size-border-radius-border-radius-sm)] outline-none transition-colors duration-standard ease-enter motion-reduce:transition-none hover:text-[var(--color-text-text)] focus-visible:focus-ring',
         className,
       )}
       {...props}
@@ -66,7 +66,7 @@ export function BreadcrumbPage({
       role="link"
       aria-disabled="true"
       aria-current="page"
-      className={cn('inline-flex items-center gap-1.5 font-medium text-[var(--color-text-text)]', className)}
+      className={cn('inline-flex items-center gap-2 font-medium text-[var(--color-text-text)]', className)}
       {...props}
     >
       {icon && (

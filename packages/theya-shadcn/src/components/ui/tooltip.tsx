@@ -63,7 +63,7 @@ export function TooltipContent({
         className={cn(
           // Never wider than the screen (a long hint on a phone ran off the edge).
           'z-tooltip w-fit max-w-[min(600px,calc(100vw-1rem))] break-words rounded-[var(--size-border-radius-border-radius-md)]',
-          'px-2.5 py-1.5 font-body text-body-xs shadow-elevation-md',
+          'px-3 py-2 font-body text-body-xs shadow-elevation-md',
           toneClass.surface,
           'data-[state=delayed-open]:animate-in data-[state=closed]:animate-out motion-reduce:animate-none!',
           'data-[state=closed]:fade-out-0 data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95',

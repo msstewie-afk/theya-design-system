@@ -71,10 +71,10 @@ const SIZE_CLASS: Record<FabSize, string> = {
 // padding the label read as pushed against the right edge (Мария,
 // 2026-10-03). Rule (Мария): the gap between icon and label is always
 // SMALLER than the side padding — inner spacing never matches or exceeds
-// outer. Gaps follow Button's own 6px step; sm can't go higher, its leading
-// padding is only 8px. Animates to 0 together with the label when folded.
+// outer. Gaps are on the 4px grid: 4px on sm (its leading padding is only
+// 8px), 8px on md/lg. Animates to 0 together with the label when folded.
 const LABEL_SPACE_CLASS: Record<FabSize, string> = {
-  sm: 'ms-1.5 me-1', // gap 6 < padding 8, trailing 8 + 4 = 12px
+  sm: 'ms-1 me-1', // gap 4 < padding 8, trailing 8 + 4 = 12px
   md: 'ms-2 me-1', // gap 8 < padding 16, trailing 16 + 4 = 20px
   lg: 'ms-2 me-2', // gap 8 < padding 16, trailing 16 + 8 = 24px
 };

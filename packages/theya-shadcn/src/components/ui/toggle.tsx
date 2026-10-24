@@ -14,7 +14,7 @@ import { isIconOnlyContent } from '../../lib/icon-only';
  */
 const toggleVariants = cva(
   [
-    'inline-flex items-center justify-center gap-1.5 whitespace-nowrap',
+    'inline-flex items-center justify-center gap-2 whitespace-nowrap',
     'rounded-[var(--size-border-radius-border-radius-md)]',
     'font-normal text-[var(--color-text-text-subtle)]',
     'transition-[background-color,border-color,color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
@@ -52,7 +52,7 @@ const toggleVariants = cva(
         ],
       },
       size: {
-        sm: 'h-[var(--size-size-control-size-control-lg)] min-w-[var(--size-size-control-size-control-lg)] px-2.5 text-body-s', // 32px
+        sm: 'h-[var(--size-size-control-size-control-lg)] min-w-[var(--size-size-control-size-control-lg)] px-2 text-body-s', // 32px
         md: 'h-[var(--size-size-control-size-control-2xl)] min-w-[var(--size-size-control-size-control-2xl)] px-3 text-body-m', // 40px — shared default row height with TextField/Select/Filter/Button
         lg: 'h-[var(--size-size-control-size-control-4xl)] min-w-[var(--size-size-control-size-control-4xl)] px-4 text-body-m', // 48px
       },

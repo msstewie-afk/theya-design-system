@@ -99,7 +99,7 @@ export const Default: Story = {
 function ReportRange(args: React.ComponentProps<typeof DateRangePicker>) {
   const [range, setRange] = useState<DateRange | undefined>(undefined);
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <Label htmlFor="report-range">Report period</Label>
       <DateRangePicker {...args} id="report-range" aria-label={undefined} value={range} onChange={setRange} />
     </div>

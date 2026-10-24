@@ -58,7 +58,7 @@ function SearchResults({ query, onSelect }: { query: string; onSelect: () => voi
           aria-selected={false}
           onClick={onSelect}
           className={
-            'flex cursor-pointer select-none items-center gap-2.5 rounded-[var(--size-border-radius-border-radius-md)] px-2.5 py-2 ' +
+            'flex cursor-pointer select-none items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)] px-3 py-2 ' +
             'font-body text-body-m text-[var(--color-text-text)] outline-none hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] ' +
             '[&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-[var(--color-icon-icon-subtle)]'
           }

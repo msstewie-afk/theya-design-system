@@ -24,7 +24,7 @@ export const popoverGuidelines: ComponentGuidelines = {
           <Popover>
             <PopoverTrigger asChild><Button appearance="outlined" tone="secondary" size="md">Limits</Button></PopoverTrigger>
             <PopoverContent align="start" className="w-64">
-              <div className="flex flex-col gap-1.5">
+              <div className="flex flex-col gap-1">
                 <Label htmlFor="gl-po-cpu">CPU cores</Label>
                 <NumberField id="gl-po-cpu" defaultValue={2} min={1} max={8} />
               </div>

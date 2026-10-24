@@ -303,7 +303,7 @@ function UsageCell({ value, total, label, header }: Omit<UsageCellProps, 'kind'>
   const { t } = useTheyaI18n();
   if (total == null) {
     return (
-      <div className="flex w-full min-w-0 max-w-[10rem] items-baseline gap-1.5 font-body text-body-m">
+      <div className="flex w-full min-w-0 max-w-[10rem] items-baseline gap-1 font-body text-body-m">
         {label != null && <span className="truncate font-medium tabular-nums text-[var(--color-text-text)]">{label}</span>}
         <span className="shrink-0 text-[var(--color-text-text-subtler)]">{t.dataTableCell.unlimited}</span>
       </div>
@@ -458,7 +458,7 @@ function CellSkeleton({ kind, leading, secondary }: { kind: DataTableCellKind; l
       return <Skeleton className="h-5 w-[2.125rem] rounded-full" />;
     case 'slider':
       return (
-        <span className="flex w-full min-w-0 max-w-[12rem] items-center gap-2.5">
+        <span className="flex w-full min-w-0 max-w-[12rem] items-center gap-2">
           <Skeleton className="h-3 w-8 shrink-0" />
           <Skeleton className="h-1.5 w-full rounded-full" />
         </span>
@@ -486,7 +486,7 @@ function CellSkeleton({ kind, leading, secondary }: { kind: DataTableCellKind; l
       );
     case 'textarea':
       return (
-        <span className="flex w-full min-w-0 flex-col gap-1.5">
+        <span className="flex w-full min-w-0 flex-col gap-1">
           <Skeleton className="h-4 w-full" />
           <Skeleton className="h-4 w-full" />
           <Skeleton className="h-4 w-2/3" />
@@ -730,7 +730,7 @@ function CellContent(props: DataTableCellValueProps) {
     case 'slider': {
       const read = props.formatValue?.(props.value) ?? String(props.value);
       return (
-        <span className="flex w-full min-w-0 max-w-[12rem] items-center gap-2.5">
+        <span className="flex w-full min-w-0 max-w-[12rem] items-center gap-2">
           <span className="shrink-0 font-body text-body-m font-medium tabular-nums">{read}</span>
           <Slider
             value={[props.value]}

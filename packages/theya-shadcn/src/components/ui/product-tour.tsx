@@ -272,7 +272,7 @@ export function ProductTour({
   const card = (
     <>
       {current.media && <div className="shrink-0 [&_img]:block [&_img]:w-full">{current.media}</div>}
-      <div className="relative flex flex-col gap-1.5 p-[var(--size-margin-margin-lg)]">
+      <div className="relative flex flex-col gap-1 p-[var(--size-margin-margin-lg)]">
         <p className="text-body-s text-[var(--color-text-text-subtle)]">{labels.progress(index + 1, steps.length)}</p>
         <h2 id={titleId} className="pe-8 text-heading-xs text-[var(--color-text-text)]">
           {current.title}

@@ -49,7 +49,7 @@ export const Default: Story = {};
 export const TextLines: Story = {
   parameters: { controls: { exclude: ['className'] } },
   render: () => (
-    <div className="flex w-64 max-w-full flex-col gap-2.5" aria-busy="true">
+    <div className="flex w-64 max-w-full flex-col gap-2" aria-busy="true">
       <Skeleton className="h-4 w-full" />
       <Skeleton className="h-4 w-full" />
       <Skeleton className="h-4 w-3/4" />

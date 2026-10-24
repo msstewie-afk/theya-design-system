@@ -128,7 +128,7 @@ export const Preselected: Story = {
 /** With a wired label and 24-hour time. */
 export const WithLabel: Story = {
   render: (args) => (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <DateTimePicker {...args} label="Schedule deploy" description="Runs in your workspace's time zone." hourCycle={24} />
     </div>
   ),
@@ -165,7 +165,7 @@ export const Disabled: Story = {
 /** Invalid: the error covers the whole value, so both fields show it and both are described by the message. */
 export const Invalid: Story = {
   render: (args) => (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <DateTimePicker
         {...args}
         defaultValue={new Date(2026, 6, 18, 9, 30)}

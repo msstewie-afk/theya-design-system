@@ -378,7 +378,7 @@ function WeekList({
         const today = isSameDay(d, now);
         const heading = t.scheduler.dayLabel(fmt.dayLong.format(d), today);
         return (
-          <li key={d.toISOString()} className="flex flex-col gap-1.5 border-b border-solid border-[var(--color-border-border-subtler)] px-3 py-2.5 last:border-b-0">
+          <li key={d.toISOString()} className="flex flex-col gap-1 border-b border-solid border-[var(--color-border-border-subtler)] px-3 py-2.5 last:border-b-0">
             <h3 className="m-0 text-body-s font-semibold">
               {onDayClick ? (
                 <button
@@ -569,7 +569,7 @@ function TimeGrid({
           {days.map((d) => (
             <div key={d.toISOString()} className="flex flex-col gap-0.5 border-s border-solid border-[var(--color-border-border-subtler)] p-0.5">
               {allDay(d).map((e) => (
-                <EventChip key={e.id} event={e} label={t.scheduler.allDayEvent(String(e.title))} onClick={() => onEventClick?.(e)} className="px-1.5 py-0.5 text-body-xs font-medium">
+                <EventChip key={e.id} event={e} label={t.scheduler.allDayEvent(String(e.title))} onClick={() => onEventClick?.(e)} className="px-1 py-0.5 text-body-xs font-medium">
                   <span className="block truncate">{e.title}</span>
                 </EventChip>
               ))}
@@ -638,7 +638,7 @@ function TimeGrid({
                         onPointerUp={onPointerUp}
                         onPointerCancel={() => ((dragInfo.current = null), setDrag(null))}
                         className={cn(
-                          'absolute touch-none px-1.5 py-1 text-body-xs',
+                          'absolute touch-none px-1 py-1 text-body-xs',
                           draggable && 'cursor-grab',
                           isDragging && 'z-20 cursor-grabbing opacity-90 shadow-elevation-md',
                         )}
@@ -767,7 +767,7 @@ function MonthGrid({
                   event={e}
                   label={e.allDay ? t.scheduler.allDayEvent(String(e.title)) : t.scheduler.eventLabel(String(e.title), timeRange(e))}
                   onClick={() => onEventClick?.(e)}
-                  className="px-1.5 py-0.5 text-body-xs"
+                  className="px-1 py-0.5 text-body-xs"
                 >
                   <span className="block truncate">
                     {!e.allDay && <span className="tabular-nums">{fmt.time.format(e.start)} </span>}
@@ -779,7 +779,7 @@ function MonthGrid({
                 <button
                   type="button"
                   onClick={() => onMore(d)}
-                  className="cursor-pointer self-start rounded-[var(--size-border-radius-border-radius-sm)] px-1.5 text-body-xs font-medium text-[var(--color-text-text-link)] outline-none hover:underline focus-visible:focus-ring"
+                  className="cursor-pointer self-start rounded-[var(--size-border-radius-border-radius-sm)] px-1 text-body-xs font-medium text-[var(--color-text-text-link)] outline-none hover:underline focus-visible:focus-ring"
                 >
                   {t.scheduler.more(more)}
                   <span className="sr-only">{t.scheduler.moreOn(fmt.dayLong.format(d))}</span>

@@ -169,7 +169,7 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
     >
       <TabsTriggerDiv
         className={cn(
-          '-mb-px inline-flex shrink-0 items-center gap-1.5 cursor-pointer',
+          '-mb-px inline-flex shrink-0 items-center gap-2 cursor-pointer',
           'rounded-t-[var(--size-border-radius-border-radius-md)] border-b-2 border-solid border-transparent',
           'px-3 py-2.5 font-body text-body-m font-medium text-[var(--color-text-text-subtler)]',
           'transition-[background-color,color,border-color] duration-standard ease-enter motion-reduce:transition-none',

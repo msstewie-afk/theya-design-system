@@ -612,7 +612,7 @@ function TalkVariant() {
           if (e.key === ' ' || e.key === 'Enter') stop();
         }}
         className={cn(
-          'inline-flex h-10 cursor-pointer touch-none select-none items-center gap-2.5 rounded-full px-4 font-body text-body-m font-medium',
+          'inline-flex h-10 cursor-pointer touch-none select-none items-center gap-2 rounded-full px-4 font-body text-body-m font-medium',
           'transition-[background-color,color,scale] duration-moderate ease-spring focus-visible:outline-none focus-visible:focus-ring',
           live ? 'scale-105 bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)]' : 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text)]',
         )}
@@ -658,7 +658,7 @@ function ChoiceChips({ variant }: { variant?: boolean }) {
 
 function TogglePills({ variant }: { variant?: boolean }) {
   return (
-    <ToggleGroup type="single" defaultValue="month" appearance="tonal" aria-label={variant ? 'Billing period (variant)' : 'Billing period (now)'} className="gap-1.5">
+    <ToggleGroup type="single" defaultValue="month" appearance="tonal" aria-label={variant ? 'Billing period (variant)' : 'Billing period (now)'} className="gap-1">
       {[
         ['month', 'Monthly'],
         ['year', 'Yearly'],
@@ -1481,7 +1481,7 @@ function SegmentFill({ variant }: { variant?: boolean }) {
   return (
     <div className="flex w-full flex-col items-start gap-3">
       {variant ? (
-        <div role="progressbar" aria-label="Migration" aria-valuemin={0} aria-valuemax={5} aria-valuenow={filled} className="flex w-full gap-1.5">
+        <div role="progressbar" aria-label="Migration" aria-valuemin={0} aria-valuemax={5} aria-valuenow={filled} className="flex w-full gap-1">
           {[0, 1, 2, 3, 4].map((n) => (
             <span key={n} className="h-2 flex-1 overflow-hidden rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]">
               <span className={cn('block h-full origin-left rounded-full bg-[var(--color-bg-primary-bg-primary)] transition-transform duration-slow ease-glide rtl:origin-right', n < filled ? 'scale-x-100' : 'scale-x-0')} />
@@ -1512,7 +1512,7 @@ function StepProgress() {
           const done = n + 1 < step;
           const current = n + 1 === step;
           return (
-            <li key={label} aria-current={current ? 'step' : undefined} className="relative flex flex-col items-center gap-1.5">
+            <li key={label} aria-current={current ? 'step' : undefined} className="relative flex flex-col items-center gap-1">
               <span
                 className={cn(
                   'flex size-6 items-center justify-center rounded-full font-body text-body-xs font-medium transition-[background-color,color,scale] duration-slow ease-spring',
@@ -1610,7 +1610,7 @@ const TRACE = [
 ] as const;
 
 const TraceFlame = () => (
-  <span role="status" aria-label="Loading trace" className="mi-loader flex w-full flex-col gap-1.5">
+  <span role="status" aria-label="Loading trace" className="mi-loader flex w-full flex-col gap-1">
     {TRACE.map(([name, w], i) => (
       <span key={name} aria-hidden="true" className="relative flex h-5 items-center overflow-hidden rounded-[var(--size-border-radius-border-radius-sm)]" style={{ width: w }}>
         <i className="absolute inset-0 origin-left rounded-[inherit] bg-[var(--color-bg-primary-bg-primary-subtle)] animate-[mi-span_5.4s_var(--ease-glide)_infinite] rtl:origin-right" style={{ animationDelay: `${i * 280}ms` }} />

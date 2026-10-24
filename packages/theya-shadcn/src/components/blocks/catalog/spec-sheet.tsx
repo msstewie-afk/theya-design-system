@@ -52,7 +52,7 @@ export function SpecSheet({ groups, initialCount = 8, className }: SpecSheetProp
                 {shown.map((s) => (
                   <DescriptionItem key={s.label}>
                     <DescriptionTerm>
-                      <span className="inline-flex items-center gap-1.5">
+                      <span className="inline-flex items-center gap-1">
                         {s.label}
                         {s.hint && <HelpIcon label={`About ${s.label}`}>{s.hint}</HelpIcon>}
                       </span>

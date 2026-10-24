@@ -109,7 +109,7 @@ type Story = StoryObj<SelectStoryArgs>;
 export const Playground: Story = {
   args: { heightSize: 'md', widthSize: 'md', error: false },
   render: (args) => (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <Label htmlFor="region">Region</Label>
       <Select defaultValue="eu-west-1" heightSize={args.heightSize}>
         <SelectTrigger id="region" widthSize={args.widthSize} error={args.error}>
@@ -254,7 +254,7 @@ export const LongOptions: Story = {
 /** `error` pairs a danger border with a danger background, the same pairing TextField's own error variant uses. */
 export const Invalid: Story = {
   render: () => (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <Label htmlFor="plan-rest">Plan</Label>
       <Select>
         <SelectTrigger id="plan-rest" error widthSize="md">
@@ -296,7 +296,7 @@ export const InvalidOpen: Story = {
     },
   },
   render: () => (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1">
       <Label htmlFor="plan-invalid">Plan</Label>
       <Select defaultOpen>
         <SelectTrigger id="plan-invalid" error widthSize="md" aria-label="Plan">

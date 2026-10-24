@@ -181,7 +181,7 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
             return (
               <tr key={f.id}>
                 <th scope="row" className="border-t border-solid border-[var(--color-border-border-subtler)] py-3 pe-4 text-start align-top font-normal">
-                  <span className="inline-flex items-center gap-1.5 font-body text-body-m text-[var(--color-text-text)]">
+                  <span className="inline-flex items-center gap-1 font-body text-body-m text-[var(--color-text-text)]">
                     {f.label}
                     {f.hint && <HelpIcon label={`About ${f.label}`}>{f.hint}</HelpIcon>}
                   </span>

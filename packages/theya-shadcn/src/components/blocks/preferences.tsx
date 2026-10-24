@@ -283,7 +283,7 @@ function SectionNav({ sections, activeId, label }: { sections: ReadonlyArray<{ i
                 href={`#${s.id}`}
                 aria-current={active ? 'page' : undefined}
                 className={cn(
-                  'block rounded-[var(--size-border-radius-border-radius-md)] px-2.5 py-2',
+                  'block rounded-[var(--size-border-radius-border-radius-md)] px-3 py-2',
                   'font-body text-body-m font-medium text-[var(--color-text-text-subtler)]',
                   'transition-colors duration-standard ease-enter motion-reduce:transition-none',
                   'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-text-text)]',
@@ -502,7 +502,7 @@ function SecuritySection({
           <div className="min-w-0">
             <p className="font-body text-body-m font-medium">Two-factor authentication</p>
             {enabled ? (
-              <p className="mt-0.5 flex items-center gap-1.5 font-body text-body-s text-[var(--color-text-text-subtler)]">
+              <p className="mt-0.5 flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-subtler)]">
                 <StatusDot tone="success" />
                 On. Your recovery code was shown once when you turned it on.
               </p>

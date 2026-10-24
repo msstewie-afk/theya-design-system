@@ -2,7 +2,7 @@ import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { StatusDot } from './status-dot';
 import { ToneIcon } from './tone-icon';
 
-const ROW = 'flex items-center gap-2.5 font-body text-body-m text-[var(--color-text-text)]';
+const ROW = 'flex items-center gap-2 font-body text-body-m text-[var(--color-text-text)]';
 
 export const toneIconGuidelines: ComponentGuidelines = {
   status: 'stable',

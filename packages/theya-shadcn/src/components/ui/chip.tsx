@@ -215,7 +215,7 @@ export function Chip({
             // consumer (Checkbox, etc.) library-wide.
             'h-6 rounded-[3px] pe-2'
           : size === 'lg'
-            ? 'h-8 rounded-[var(--size-border-radius-border-radius-lg)] pe-2.5 text-body-s'
+            ? 'h-8 rounded-[var(--size-border-radius-border-radius-lg)] pe-2 text-body-s'
             : 'h-[26px] rounded-[var(--size-border-radius-border-radius-md)] pe-2',
         look === 'filled' ? SOLID_TONE_CLASS[tone] : TONE_CLASS[tone],
         bordered && BORDER_TONE_CLASS[tone],

@@ -257,7 +257,7 @@ export const MetaText: Story = {
 /** `variant="line"` is the densest shape — no thumbnail, size against the right edge, failure on its own row. This is the row Dropzone's staged list renders. */
 export const Line: Story = {
   render: () => (
-    <div className="flex max-w-lg flex-col gap-1.5">
+    <div className="flex max-w-lg flex-col gap-1">
       <RemovableAttachment variant="line" name="quarterly-report.pdf" size={248000} onRemove={() => {}} />
       <RemovableAttachment variant="line" name="cover.png" size={184000} onRemove={() => {}} />
       <RemovableAttachment variant="line" name="backup.tar.gz" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />

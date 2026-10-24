@@ -119,7 +119,7 @@ export function AccountOverview({ user, attention = [], areas, className }: Acco
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col gap-4 pt-0">
-                  <dl className="flex flex-col gap-1.5">
+                  <dl className="flex flex-col gap-2">
                     {area.facts.map((f) => (
                       <div key={f.label} className="flex items-baseline justify-between gap-3">
                         <dt className="font-body text-body-s text-[var(--color-text-text-subtle)]">{f.label}</dt>
@@ -127,7 +127,7 @@ export function AccountOverview({ user, attention = [], areas, className }: Acco
                       </div>
                     ))}
                   </dl>
-                  <ul className="flex flex-col gap-1.5 border-t border-solid border-[var(--color-border-border-subtler)] pt-3">
+                  <ul className="flex flex-col gap-2 border-t border-solid border-[var(--color-border-border-subtler)] pt-3">
                     {area.tasks.map((t) => (
                       <li key={t.href}>
                         <Link href={t.href} size="md" className={linkClass}>
