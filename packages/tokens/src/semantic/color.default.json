@@ -511,9 +511,6 @@
         "bg-surface-overlay": {
           "value": "{color.white}"
         },
-        "bg-surface-backdrop": {
-          "value": "{color.gray-a.gray-a900}"
-        },
         "surface-overhead-dark-subtle": {
           "value": "{color.gray-a.gray-a800}"
         },
