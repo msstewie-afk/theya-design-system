@@ -31,8 +31,8 @@ export const Default: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'More Dedicated IPv4 address' }));
     await waitFor(() => expect(total(canvasElement)).toHaveTextContent('$492'));
 
-    await userEvent.click(canvas.getByRole('button', { name: 'Save seashell.shop for later' }));
-    await expect(canvas.getByRole('button', { name: 'Move seashell.shop to cart' })).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Save for later: seashell.shop' }));
+    await expect(canvas.getByRole('button', { name: 'Move to cart: seashell.shop' })).toBeVisible();
 
     await userEvent.click(canvas.getByRole('button', { name: 'Have a promo code?' }));
     const code = canvas.getByRole('textbox', { name: 'Promo code' });
@@ -77,12 +77,12 @@ export const RemoveKeepsFocus: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Remove Dedicated IPv4 address' }));
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove seashell.shop' })).toHaveFocus());
     // Only row parked → the cart heading (focusable via tabIndex -1).
-    await userEvent.click(canvas.getByRole('button', { name: 'Save seashell.shop for later' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Save for later: seashell.shop' }));
     const heading = canvas.getByRole('heading', { name: 'Cart (0)' });
     await waitFor(() => expect(heading).toHaveFocus());
     await expect(heading).toHaveAttribute('tabindex', '-1');
     // Only saved row moved back → the cart heading again.
-    await userEvent.click(canvas.getByRole('button', { name: 'Move seashell.shop to cart' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Move to cart: seashell.shop' }));
     await waitFor(() => expect(canvas.getByRole('heading', { name: 'Cart (1)' })).toHaveFocus());
     // Last line removed, nothing saved → the empty state.
     await userEvent.click(canvas.getByRole('button', { name: 'Remove seashell.shop' }));

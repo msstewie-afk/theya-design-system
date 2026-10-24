@@ -17,6 +17,10 @@
  * - forcedColors: component-level forced-colors: rules, or the global
  *   stylesheet (src/styles/forced-colors.css) only.
  *
+ * Patterns (src/components/blocks, Storybook "Patterns…") get the same rows in
+ * a separate list, read the same way; their code-read notes from
+ * a11y/patterns-notes.json count as manual reviews.
+ *
  * Kept by hand in a11y/manual.json: screen-reader passes (VoiceOver, NVDA…),
  * component-specific accepted deviations, and the components where the
  * soft focus ring is the only visible focus change (WCAG 1.4.11, accepted).
@@ -52,6 +56,31 @@ const { criteria } = JSON.parse(fs.readFileSync(path.join(ROOT, 'a11y/criteria.j
 const AUTO_FILE = path.join(ROOT, 'a11y/auto.json');
 const AUTO_KEYS = ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
 const auto = fs.existsSync(AUTO_FILE) ? JSON.parse(fs.readFileSync(AUTO_FILE, 'utf8')) : { components: {} };
+
+// Patterns: every blocks/**/<name>.stories.tsx next to its <name>.tsx. Name and
+// title come from the story meta ("Patterns: Account/AccountMenu" -> AccountMenu).
+const BLOCKS_DIR = path.join(ROOT, 'src/components/blocks');
+const patterns = fs
+  .readdirSync(BLOCKS_DIR, { recursive: true })
+  .filter((f) => f.endsWith('.stories.tsx'))
+  .sort()
+  .map((f) => {
+    const base = path.join(BLOCKS_DIR, f.slice(0, -'.stories.tsx'.length));
+    const title = /\btitle:\s*'([^']+)'/.exec(fs.readFileSync(`${base}.stories.tsx`, 'utf8'))?.[1] ?? null;
+    return { name: title?.split('/').pop() ?? path.basename(base), base, title };
+  })
+  .filter((p) => fs.existsSync(`${p.base}.tsx`));
+// Code-read notes per pattern: [{ criterion, result: pass | fail, finding }]. Any fail wins.
+const PATTERN_NOTES_FILE = path.join(ROOT, 'a11y/patterns-notes.json');
+const patternNotes = fs.existsSync(PATTERN_NOTES_FILE) ? JSON.parse(fs.readFileSync(PATTERN_NOTES_FILE, 'utf8')) : {};
+const notesAsReviews = (name) => {
+  const out = {};
+  for (const n of Array.isArray(patternNotes[name]) ? patternNotes[name] : []) {
+    if (out[n.criterion]?.result === 'fail') continue;
+    out[n.criterion] = { result: n.result, note: n.finding };
+  }
+  return out;
+};
 
 // Criteria some enabled, non-experimental axe-core rule checks: tag wcag111 → 1.1.1.
 const RULE_CRITERIA = new Map();
@@ -198,9 +227,11 @@ function readAllTraits(files) {
   for (const [name, file] of files) {
     const text = code(file);
     own.set(name, new Set(Object.keys(TRAITS).filter((t) => TRAITS[t].test(text))));
-    uses.set(name, [...text.matchAll(/from\s+['"]\.\/([\w-]+)['"]/g)].map((m) => m[1]));
+    // Relative imports, resolved to files: ./sibling for components,
+    // ../ui/x or ../../ui/x for patterns.
+    uses.set(name, [...text.matchAll(/from\s+['"](\.{1,2}\/[\w./-]+)['"]/g)].map((m) => path.resolve(path.dirname(file), `${m[1]}.tsx`)));
   }
-  const byFile = new Map([...files].map(([name, file]) => [path.basename(file, '.tsx'), name]));
+  const byFile = new Map([...files].map(([name, file]) => [path.resolve(file), name]));
   for (let changed = true; changed; ) {
     changed = false;
     for (const [name, deps] of uses) {
@@ -234,28 +265,26 @@ function criterionStatus(c, row, traits, evidence) {
   return have.length ? 'partial' : 'untested';
 }
 
-const ALL_TRAITS = readAllTraits(
-  index.components
-    .map((c) => [c.name, path.join(ROOT, 'src/components', `${c.file}.tsx`)])
-    .filter(([, file]) => fs.existsSync(file)),
-);
+// Patterns are keyed "pattern:<Name>" here so a pattern never shadows a component of the same name.
+const ALL_TRAITS = readAllTraits([
+  ...index.components.map((c) => [c.name, path.join(ROOT, 'src/components', `${c.file}.tsx`)]).filter(([, file]) => fs.existsSync(file)),
+  ...patterns.map((p) => [`pattern:${p.name}`, `${p.base}.tsx`]),
+]);
 
-const rows = [];
-const problems = [];
-for (const c of index.components) {
-  const base = path.join(ROOT, 'src/components', c.file);
+/** One matrix row: a component, or a pattern (traitKey "pattern:<Name>", reviews from its notes). */
+function buildRow({ name, base, title, traitKey = name, reviews: ownReviews = {} }) {
   const storiesFile = `${base}.stories.tsx`;
   const sourceFile = `${base}.tsx`;
-  if (!fs.existsSync(sourceFile)) continue;
   const s = fs.existsSync(storiesFile) ? readStories(storiesFile) : { stories: 0, play: 0, keyboard: 0, exclusions: [] };
-  const deviations = [...(manual.deviations[c.name] ?? [])];
-  if (manual.focusRingOnly.includes(c.name)) {
+  const deviations = [...(manual.deviations[name] ?? [])];
+  if (manual.focusRingOnly.includes(name)) {
     deviations.push({ criterion: '1.4.11', note: 'The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27.' });
   }
   const source = readSource(sourceFile);
-  const traits = ALL_TRAITS.get(c.name);
-  const sr = manual.screenReader[c.name] ?? [];
-  const reviews = manual.reviews?.[c.name] ?? {};
+  const traits = ALL_TRAITS.get(traitKey);
+  const sr = manual.screenReader[name] ?? [];
+  // manual.json reviews win over a pattern's code-read notes for the same criterion.
+  const reviews = { ...ownReviews, ...(manual.reviews?.[name] ?? {}) };
   const evidence = (kind, id) =>
     // axe counts unless a rule for this criterion is off for the whole
     // component (meta level, or in every story).
@@ -272,12 +301,12 @@ for (const c of index.components) {
     : kind === 'screenReader' ? sr.some((p) => p.result === 'pass')
     : kind === 'review' ? reviews[id]?.result === 'pass'
     : false;
-  const autoRow = auto.components[c.name];
+  const autoRow = auto.components[name];
   const partialRow = { deviations, autoFindings: (id) => autoRow?.[id] ?? [], review: (id) => reviews[id] };
   const wcag = Object.fromEntries(criteria.map((cr) => [cr.id, criterionStatus(cr, partialRow, traits, evidence)]));
-  rows.push({
-    name: c.name,
-    title: JSON.parse(fs.readFileSync(path.join(ROOT, c.spec), 'utf8')).storybook?.title ?? null,
+  return {
+    name,
+    title,
     axe: { stories: s.stories, themes: ['light', 'dark'], exclusions: s.exclusions },
     keyboard: { tested: s.keyboard, playTests: s.play },
     ...source,
@@ -288,10 +317,22 @@ for (const c of index.components) {
     ...(autoRow && AUTO_KEYS.some((k) => autoRow[k]?.length)
       ? { autoFindings: Object.fromEntries(AUTO_KEYS.filter((k) => autoRow[k]?.length).map((k) => [k, autoRow[k]])) }
       : {}),
-  });
+  };
+}
+
+const rows = [];
+const problems = [];
+for (const c of index.components) {
+  const base = path.join(ROOT, 'src/components', c.file);
+  if (!fs.existsSync(`${base}.tsx`)) continue;
+  rows.push(buildRow({ name: c.name, base, title: JSON.parse(fs.readFileSync(path.join(ROOT, c.spec), 'utf8')).storybook?.title ?? null }));
+}
+const patternRows = patterns.map((p) => buildRow({ name: p.name, base: p.base, title: p.title, traitKey: `pattern:${p.name}`, reviews: notesAsReviews(p.name) }));
+for (const name of Object.keys(patternNotes)) {
+  if (!name.startsWith('$') && !patternRows.some((r) => r.name === name)) problems.push(`a11y/patterns-notes.json names "${name}", which is not a pattern in src/components/blocks`);
 }
 for (const name of [...Object.keys(manual.deviations), ...manual.focusRingOnly, ...Object.keys(manual.screenReader), ...Object.keys(manual.traits ?? {}), ...Object.keys(manual.reviews ?? {})]) {
-  if (!rows.some((r) => r.name === name)) problems.push(`a11y/manual.json names "${name}", which is not a component in spec/index.json`);
+  if (!rows.some((r) => r.name === name) && !patternRows.some((r) => r.name === name)) problems.push(`a11y/manual.json names "${name}", which is not a component in spec/index.json or a pattern`);
 }
 
 const out = JSON.stringify(
@@ -300,11 +341,15 @@ const out = JSON.stringify(
     target: 'WCAG 2.2 AA',
     autoChecked: auto.date ?? null,
     criteria: criteria.map((cr) => {
-      const counts = {};
-      for (const r of rows) counts[r.wcag[cr.id]] = (counts[r.wcag[cr.id]] ?? 0) + 1;
-      return { id: cr.id, level: cr.level, name: cr.name, scope: cr.scope, ...(cr.note ? { note: cr.note } : {}), ...(cr.evidence ? { evidence: cr.evidence.filter((e) => e !== 'axe' || AXE_CRITERIA.has(cr.id)) } : {}), counts };
+      const tally = (list) => {
+        const out = {};
+        for (const r of list) out[r.wcag[cr.id]] = (out[r.wcag[cr.id]] ?? 0) + 1;
+        return out;
+      };
+      return { id: cr.id, level: cr.level, name: cr.name, scope: cr.scope, ...(cr.note ? { note: cr.note } : {}), ...(cr.evidence ? { evidence: cr.evidence.filter((e) => e !== 'axe' || AXE_CRITERIA.has(cr.id)) } : {}), counts: tally(rows), patternCounts: tally(patternRows) };
     }),
     components: rows,
+    patterns: patternRows,
   },
   null,
   2,
@@ -314,15 +359,15 @@ if (problems.length) {
   console.error(problems.join('\n'));
   process.exit(1);
 }
-const unguarded = rows.filter((r) => r.reducedMotion === 'unguarded').map((r) => r.name);
+const unguarded = [...rows, ...patternRows].filter((r) => r.reducedMotion === 'unguarded').map((r) => r.name);
 if (CHECK) {
   const current = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';
   if (current !== out) {
     console.error('spec/a11y.json is stale — run `pnpm a11y`');
     process.exit(1);
   }
-  console.log(`a11y matrix: ${rows.length} components, up to date`);
+  console.log(`a11y matrix: ${rows.length} components, ${patternRows.length} patterns, up to date`);
 } else {
   fs.writeFileSync(OUT, out);
-  console.log(`a11y matrix: ${rows.length} components → spec/a11y.json${unguarded.length ? `\n  animates without motion-reduce: ${unguarded.join(', ')}` : ''}`);
+  console.log(`a11y matrix: ${rows.length} components, ${patternRows.length} patterns → spec/a11y.json${unguarded.length ? `\n  animates without motion-reduce: ${unguarded.join(', ')}` : ''}`);
 }

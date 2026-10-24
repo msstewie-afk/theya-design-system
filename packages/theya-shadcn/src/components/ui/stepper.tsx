@@ -144,6 +144,8 @@ function StepIndicator({
   return (
     <span
       onClick={onClick}
+      // Repeats the label's button for the mouse; a11y-auto doesn't count it as pointer-only.
+      data-pointer-shortcut={onClick ? '' : undefined}
       className={cn(
         onClick && 'cursor-pointer',
         'flex size-7 shrink-0 items-center justify-center rounded-full font-body text-body-s font-medium tabular-nums',

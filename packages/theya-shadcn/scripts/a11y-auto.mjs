@@ -67,6 +67,12 @@ for (const c of spec.components) {
   const s = JSON.parse(fs.readFileSync(path.join(ROOT, c.spec), 'utf8'));
   if (s.storybook?.title) componentOf.set(s.storybook.title, c.name);
 }
+// Patterns too: their story title's last segment is the name build-a11y.mjs uses.
+for (const f of fs.readdirSync(path.join(ROOT, 'src/components/blocks'), { recursive: true })) {
+  if (!f.endsWith('.stories.tsx')) continue;
+  const title = /\btitle:\s*'([^']+)'/.exec(fs.readFileSync(path.join(ROOT, 'src/components/blocks', f), 'utf8'))?.[1];
+  if (title) componentOf.set(title, title.split('/').pop());
+}
 
 const SPACING_CSS = `
   *, *::before, *::after { line-height: 1.5 !important; letter-spacing: 0.12em !important; word-spacing: 0.16em !important; }
@@ -250,6 +256,9 @@ async function checkStory(page, story) {
     for (const el of root.querySelectorAll('*')) {
       if (!(el instanceof HTMLElement) || !visible(el) || getComputedStyle(el).cursor !== 'pointer') continue;
       if (el.matches(FOCUSABLE) || el.closest(`${FOCUSABLE}, label`) || el.querySelector(FOCUSABLE)) continue;
+      // A mouse shortcut that repeats a keyboard-reachable control next to it
+      // (Stepper's step circle beside the step's label button).
+      if (el.closest('[data-pointer-shortcut]')) continue;
       // Its parent shows the pointer too: report the outermost one only.
       if (el.parentElement && getComputedStyle(el.parentElement).cursor === 'pointer') continue;
       mouseOnly.push(desc(el));
@@ -309,8 +318,13 @@ async function checkStory(page, story) {
     }
     // Unreached stops count only when Tab got all the way out: inside a trap
     // the trap is the finding.
+    // A control that disabled itself on the way (Scroll to bottom, once Tab
+    // has scrolled the page to the end) has nothing left to do: not a miss.
     if (escaped) {
-      for (let i = 0; i < plan.count; i++) if (!visited.has(i)) result['2.1.1'].push(`not reached by Tab: ${plan.descs[i]}`);
+      const nowDisabled = new Set(
+        await page.evaluate(() => [...document.querySelectorAll('[data-theya-tab]')].filter((el) => el.matches(':disabled')).map((el) => Number(el.getAttribute('data-theya-tab')))),
+      );
+      for (let i = 0; i < plan.count; i++) if (!visited.has(i) && !nowDisabled.has(i)) result['2.1.1'].push(`not reached by Tab: ${plan.descs[i]}`);
     }
   }
 

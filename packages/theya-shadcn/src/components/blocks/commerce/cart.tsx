@@ -201,7 +201,7 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
                       />
                     </div>
                   )}
-                  <Button appearance="ghost" tone="secondary" size="sm" leftIcon={<Bookmark />} onClick={() => saveForLater(line, i)} data-cart-control="save" aria-label={`Save ${line.name} for later`}>
+                  <Button appearance="ghost" tone="secondary" size="sm" leftIcon={<Bookmark />} onClick={() => saveForLater(line, i)} data-cart-control="save" aria-label={`Save for later: ${line.name}`}>
                     Save for later
                   </Button>
                   <Button appearance="ghost" tone="danger" size="sm" leftIcon={<Trash />} onClick={() => remove(line, i)} data-cart-control="remove" aria-label={`Remove ${line.name}`}>
@@ -221,7 +221,7 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
             <ul data-cart-list="saved" className="flex flex-col">
               {saved.map((line, i) => (
                 <CartRow key={line.id} line={line} currency={currency} first={i === 0}>
-                  <Button appearance="outlined" tone="secondary" size="sm" onClick={() => moveToCart(line, i)} data-cart-control="move" aria-label={`Move ${line.name} to cart`}>
+                  <Button appearance="outlined" tone="secondary" size="sm" onClick={() => moveToCart(line, i)} data-cart-control="move" aria-label={`Move to cart: ${line.name}`}>
                     Move to cart
                   </Button>
                 </CartRow>
