@@ -43,6 +43,9 @@ export const Default: Story = {
     const list = within(canvasElement).getByRole('listbox', { name: 'Backup interval' });
     const option = (name: string) => within(list).getByRole('option', { name });
     list.focus();
+    // The fade (mask-image) sits on an inner layer: on the focusable element
+    // it would also clip the focus ring away (WCAG 2.4.7).
+    await expect(getComputedStyle(list).maskImage).toBe('none');
     await userEvent.keyboard('{ArrowDown}');
     await waitFor(() => expect(option('2 hours')).toHaveAttribute('aria-selected', 'true'));
     await userEvent.keyboard('{End}');

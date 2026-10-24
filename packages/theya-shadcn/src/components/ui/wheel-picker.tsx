@@ -110,8 +110,11 @@ export function WheelPicker({ options, value, defaultValue, onValueChange, rows 
       }}
       onPointerCancel={() => (drag.current = null)}
       className={cn(
-        'relative w-40 shrink-0 cursor-ns-resize touch-none select-none overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-surface-bg-surface-sunken)]',
-        '[mask-image:linear-gradient(transparent,black_30%,black_70%,transparent)] forced-colors:[mask-image:none] forced-colors:border forced-colors:border-solid forced-colors:border-[CanvasText]',
+        // No mask here: mask-image also clips the box-shadow focus ring, so the
+        // focused wheel showed no focus at all (WCAG 2.4.7). The fade lives on
+        // the inner layer below; the ring stays on this element.
+        'relative w-40 shrink-0 cursor-ns-resize touch-none select-none rounded-[var(--size-border-radius-border-radius-xl)]',
+        'forced-colors:border forced-colors:border-solid forced-colors:border-[CanvasText]',
         'focus-visible:outline-none focus-visible:focus-ring',
         disabled && 'cursor-not-allowed opacity-50',
         className,
@@ -119,28 +122,31 @@ export function WheelPicker({ options, value, defaultValue, onValueChange, rows 
       style={{ height: rows * ROW }}
       {...props}
     >
-      <span
-        aria-hidden="true"
-        className="absolute inset-x-2 rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-sm forced-colors:border forced-colors:border-solid forced-colors:border-[Highlight]"
-        style={{ top: middle * ROW, height: ROW }}
-      />
-      <div className="relative transition-transform duration-[580ms] ease-spring motion-reduce:transition-none" style={{ transform: `translateY(${(middle - index) * ROW}px)` }}>
-        {options.map((option, n) => (
-          <div
-            key={option.value}
-            id={`${id}-${n}`}
-            role="option"
-            aria-selected={n === index}
-            onClick={() => select(n)}
-            className={cn(
-              'flex items-center justify-center px-3 font-body text-body-m tabular-nums transition-[opacity,scale] duration-slow ease-enter motion-reduce:transition-none',
-              n === index ? 'font-medium text-[var(--color-text-text)]' : 'scale-[.88] text-[var(--color-text-text-subtle)] opacity-60',
-            )}
-            style={{ height: ROW }}
-          >
-            {option.label}
-          </div>
-        ))}
+      {/* The track, the selection pill and the rows, faded at the top and bottom. */}
+      <div className="absolute inset-0 overflow-hidden rounded-[inherit] bg-[var(--color-bg-surface-bg-surface-sunken)] [mask-image:linear-gradient(transparent,black_30%,black_70%,transparent)] forced-colors:[mask-image:none]">
+        <span
+          aria-hidden="true"
+          className="absolute inset-x-2 rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-sm forced-colors:border forced-colors:border-solid forced-colors:border-[Highlight]"
+          style={{ top: middle * ROW, height: ROW }}
+        />
+        <div className="relative transition-transform duration-[580ms] ease-spring motion-reduce:transition-none" style={{ transform: `translateY(${(middle - index) * ROW}px)` }}>
+          {options.map((option, n) => (
+            <div
+              key={option.value}
+              id={`${id}-${n}`}
+              role="option"
+              aria-selected={n === index}
+              onClick={() => select(n)}
+              className={cn(
+                'flex items-center justify-center px-3 font-body text-body-m tabular-nums transition-[opacity,scale] duration-slow ease-enter motion-reduce:transition-none',
+                n === index ? 'font-medium text-[var(--color-text-text)]' : 'scale-[.88] text-[var(--color-text-text-subtle)] opacity-60',
+              )}
+              style={{ height: ROW }}
+            >
+              {option.label}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
