@@ -387,8 +387,10 @@ export function CardHeader({ className, divider, size, ...props }: React.Compone
           ),
         // Reserves room for Card's absolutely-positioned selection control:
         // --card-select-inset is set on the Card per size (padding + control
-        // + 12px gap).
-        'group-data-[selectable]/card:ps-[var(--card-select-inset)]',
+        // + 12px gap). `!`: the per-size `group-data-[size=*]/card:px-*`
+        // rules are emitted after this one and would reset the inset
+        // whenever `size` is set (same on CardContent / CardFooter).
+        'group-data-[selectable]/card:ps-[var(--card-select-inset)]!',
         // Divider — an inset line via an absolutely positioned ::after,
         // not a full-bleed border (Мария's call: dividers get padding,
         // never run edge-to-edge). `inset-x-*` mirrors this header's own
@@ -483,7 +485,7 @@ export function CardContent({ className, ...props }: React.ComponentProps<'div'>
         'p-5',
         'group-data-[size=sm]/card:p-3 group-data-[size=md]/card:p-4 group-data-[size=lg]/card:p-5',
         // See the matching comment in CardHeader.
-        'group-data-[selectable]/card:ps-[var(--card-select-inset)]',
+        'group-data-[selectable]/card:ps-[var(--card-select-inset)]!',
         className,
       )}
       {...props}
@@ -506,7 +508,7 @@ export function CardFooter({ className, ...props }: React.ComponentProps<'div'>)
         'group-data-[size=md]/card:px-4 group-data-[size=md]/card:py-2.5',
         'group-data-[size=lg]/card:px-5 group-data-[size=lg]/card:py-3',
         // See the matching comment in CardHeader.
-        'group-data-[selectable]/card:ps-[var(--card-select-inset)]',
+        'group-data-[selectable]/card:ps-[var(--card-select-inset)]!',
         // Divider — see the matching comment in CardHeader: an inset
         // ::after line, not a full-bleed border.
         "after:absolute after:top-0 after:h-px after:bg-[var(--color-border-border-subtler)] after:content-['']",

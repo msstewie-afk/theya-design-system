@@ -104,14 +104,14 @@ export const Playground: StoryObj<PlaygroundArgs> = {
         </div>
         {showAction && (
           <CardAction>
-            <Button appearance="ghost" size="sm" iconOnly leftIcon={<Star />} aria-label="Favourite" />
+            <Button appearance="ghost" tone="neutral" size="sm" iconOnly leftIcon={<Star />} aria-label="Favourite" />
           </CardAction>
         )}
       </CardHeader>
       {showContent && <CardContent className="text-body-m text-[var(--color-text-text)]">{content}</CardContent>}
       {showFooter && (
         <CardFooter>
-          <Button appearance="tonal" size="sm">Action</Button>
+          <Button appearance="tonal" tone="neutral" size="sm">Action</Button>
         </CardFooter>
       )}
     </Card>
@@ -710,7 +710,7 @@ export const Filled: Story = {
             <OpenBook />
           </span>
           <CardAction>
-            <Button appearance="ghost" size="sm" iconOnly aria-label="Open documentation in a new tab" leftIcon={<OpenNewWindow />} />
+            <Button appearance="ghost" tone="neutral" size="sm" iconOnly aria-label="Open documentation in a new tab" leftIcon={<OpenNewWindow />} />
           </CardAction>
         </CardHeader>
         <CardContent className="flex flex-col gap-1">
