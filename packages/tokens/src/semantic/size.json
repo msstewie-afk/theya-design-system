@@ -215,17 +215,14 @@
         "value": "{size.size32}",
         "type": "dimension"
       },
-      "margin-3xs": {
-        "value": "{size.size3}",
-        "type": "dimension"
-      },
       "margin-4xs": {
         "value": "{size.size2}",
         "type": "dimension"
       },
       "margin-s": {
         "value": "{size.size10}",
-        "type": "dimension"
+        "type": "dimension",
+        "comment": "10px, off the 4px grid on purpose: the end inset that places a field chevron, and the top/bottom padding of a multiline field (20px line + 2 x 10 = the 40px field height). Not for new layouts."
       }
     },
     "padding": {
@@ -249,7 +246,7 @@
         "value": "{size.size20}",
         "type": "dimension"
       },
-      "padding2xl": {
+      "padding-2xl": {
         "value": "{size.size24}",
         "type": "dimension"
       },
@@ -263,14 +260,6 @@
       },
       "padding-3xs": {
         "value": "{size.size2}",
-        "type": "dimension"
-      },
-      "padding-15xs": {
-        "value": "{size.size6}",
-        "type": "dimension"
-      },
-      "padding-s": {
-        "value": "{size.size10}",
         "type": "dimension"
       }
     },
@@ -355,20 +344,12 @@
         "value": "{size.size2}",
         "type": "dimension"
       },
-      "gap-3xs": {
-        "value": "{size.size3}",
-        "type": "dimension"
-      },
       "gap-2xs": {
         "value": "{size.size4}",
         "type": "dimension"
       },
       "gap-xs": {
         "value": "{size.size8}",
-        "type": "dimension"
-      },
-      "gap-s": {
-        "value": "{size.size10}",
         "type": "dimension"
       },
       "gap-md": {
