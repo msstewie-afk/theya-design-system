@@ -43,6 +43,28 @@
   "Button/on-primary": {
     "skip": "drawn on the primary fill (data-surface=primary); the Playground story renders on the page surface"
   },
+  "Card": {
+    "story": "layout-card--playground",
+    "selector": "[data-slot=card]",
+    "values": {
+      "severity=default": {
+        "tone": "neutral"
+      },
+      "severity=info": {
+        "tone": "info"
+      },
+      "severity=success": {
+        "tone": "success"
+      },
+      "severity=warning": {
+        "tone": "warning"
+      },
+      "severity=danger": {
+        "tone": "danger"
+      },
+      "selectable=none": {}
+    }
+  },
   "CardAvatar": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
   },

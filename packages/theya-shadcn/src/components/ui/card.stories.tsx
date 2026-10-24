@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect } from '@storybook/test';
@@ -59,6 +60,60 @@ export const Default: Story = {
           Cancel
         </Button>
       </CardFooter>
+    </Card>
+  ),
+};
+
+type PlaygroundArgs = React.ComponentProps<typeof Card> & {
+  title: string;
+  description: string;
+  content: string;
+  showDescription: boolean;
+  showAction: boolean;
+  showContent: boolean;
+  showFooter: boolean;
+  headerDivider: boolean;
+};
+
+/** Every slot driven by controls — mirrors the Figma Card component's
+ * properties (title, description, show* toggles, headerDivider) so the
+ * two can be compared variant by variant. */
+export const Playground: StoryObj<PlaygroundArgs> = {
+  args: {
+    title: 'Card title',
+    description: 'Short supporting description',
+    content: 'Card content goes here.',
+    showDescription: true,
+    showAction: true,
+    showContent: true,
+    showFooter: true,
+    headerDivider: true,
+    appearance: 'outlined',
+    tone: 'neutral',
+  },
+  argTypes: {
+    selectable: { control: 'inline-radio', options: [undefined, 'checkbox', 'radio'] },
+    appearance: { control: 'inline-radio', options: ['outlined', 'filled'] },
+  },
+  render: ({ title, description, content, showDescription, showAction, showContent, showFooter, headerDivider, ...cardProps }) => (
+    <Card className="w-[360px]" selectLabel={cardProps.selectable ? `Select ${title}` : undefined} {...cardProps}>
+      <CardHeader divider={headerDivider}>
+        <div>
+          <CardTitle>{title}</CardTitle>
+          {showDescription && <CardDescription>{description}</CardDescription>}
+        </div>
+        {showAction && (
+          <CardAction>
+            <Button appearance="ghost" size="sm" iconOnly leftIcon={<Star />} aria-label="Favourite" />
+          </CardAction>
+        )}
+      </CardHeader>
+      {showContent && <CardContent className="text-body-m text-[var(--color-text-text)]">{content}</CardContent>}
+      {showFooter && (
+        <CardFooter>
+          <Button appearance="tonal" size="sm">Action</Button>
+        </CardFooter>
+      )}
     </Card>
   ),
 };

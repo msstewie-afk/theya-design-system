@@ -348,6 +348,10 @@
         "id": "layout-card--default"
       },
       {
+        "name": "Playground",
+        "id": "layout-card--playground"
+      },
+      {
         "name": "ContentOnly",
         "id": "layout-card--content-only"
       },
