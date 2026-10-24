@@ -53,7 +53,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v5
         with:
           version: ${{ env.PNPM_VERSION }}
       - uses: actions/setup-node@v5
@@ -83,7 +83,7 @@ jobs:
         working-directory: packages/theya-shadcn
     steps:
       - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v5
         with:
           version: ${{ env.PNPM_VERSION }}
       - uses: actions/setup-node@v5
@@ -122,7 +122,7 @@ jobs:
       - name: Restore visual baselines
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         id: baselines
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: packages/theya-shadcn/__visual__
           key: vrt-${{ runner.os }}-${{ github.run_id }}
@@ -183,7 +183,7 @@ jobs:
 
       - name: Upload visual changes
         if: ${{ !cancelled() && steps.changes.outputs.count != '0' && steps.changes.outputs.count != '' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: visual-changes
           path: ${{ runner.temp }}/visual-changes/
@@ -192,7 +192,7 @@ jobs:
 
       - name: Upload visual diffs
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: visual-diffs
           path: packages/theya-shadcn/__visual__/*/__diff__/
@@ -203,7 +203,7 @@ jobs:
       # Pull requests compare but never save, so they can't move main's baseline.
       - name: Save visual baselines
         if: success() && github.event_name != 'pull_request'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: packages/theya-shadcn/__visual__
           key: vrt-${{ runner.os }}-${{ github.run_id }}
@@ -217,7 +217,7 @@ jobs:
         working-directory: packages/theya-shadcn
     steps:
       - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v5
         with:
           version: ${{ env.PNPM_VERSION }}
       - uses: actions/setup-node@v5
