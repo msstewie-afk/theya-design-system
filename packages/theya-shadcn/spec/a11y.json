@@ -2942,7 +2942,7 @@
       "name": "Chip",
       "title": "Labels/Chip",
       "axe": {
-        "stories": 16,
+        "stories": 17,
         "themes": [
           "light",
           "dark"
