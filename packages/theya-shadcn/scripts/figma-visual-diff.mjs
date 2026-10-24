@@ -253,11 +253,14 @@ async function figmaPng(id) {
   return buf;
 }
 
+// use_absolute_bounds: render exactly the node's box. Without it Figma grows
+// the image by the drop-shadow bleed (Card: +2px per side), while the code
+// capture is clipped to the element box — every pixel shifted, ~8% noise.
 async function figmaImages(ids) {
   const urls = {};
   for (let i = 0; i < ids.length; i += 15) {
     const batch = ids.slice(i, i + 15);
-    const json = await figmaGet(`https://api.figma.com/v1/images/${FILE_KEY}?ids=${encodeURIComponent(batch.join(','))}&format=png&scale=${SCALE}`);
+    const json = await figmaGet(`https://api.figma.com/v1/images/${FILE_KEY}?ids=${encodeURIComponent(batch.join(','))}&format=png&scale=${SCALE}&use_absolute_bounds=true`);
     Object.assign(urls, json.images);
     console.log(`  Figma images ${Math.min(i + 15, ids.length)}/${ids.length}`);
   }
