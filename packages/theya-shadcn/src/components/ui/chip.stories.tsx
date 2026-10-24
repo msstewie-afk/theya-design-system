@@ -1,7 +1,8 @@
+import * as React from 'react';
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { Check } from 'iconoir-react';
+import { Check, HelpCircle } from 'iconoir-react';
 import { Chip, ChipRemove } from './chip';
 import { StatusDot } from './status-dot';
 import { chipGuidelines } from './chip.guidelines';
@@ -62,6 +63,20 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+type PlaygroundArgs = React.ComponentProps<typeof Chip> & { showIcon: boolean; removable: boolean };
+
+/** Every slot driven by controls — mirrors the Figma Chip component
+ * (label, icon, removable) so the two can be compared variant by variant. */
+export const Playground: StoryObj<PlaygroundArgs> = {
+  args: { children: 'Chip', showIcon: true, removable: true },
+  render: ({ showIcon, removable, children, ...args }) => (
+    <Chip {...args} icon={showIcon ? <HelpCircle /> : undefined} aria-label={typeof children === 'string' ? children : undefined}>
+      {children}
+      {removable && <ChipRemove aria-label={`Remove ${typeof children === 'string' ? children : 'chip'}`} />}
+    </Chip>
+  ),
+};
 
 /** Interactive by default: click or press Enter/Space to toggle — no props needed. */
 export const Interactive: Story = {

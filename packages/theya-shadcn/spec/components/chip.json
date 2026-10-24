@@ -188,6 +188,10 @@
     "docs": "?path=/docs/labels-chip--docs",
     "stories": [
       {
+        "name": "Playground",
+        "id": "labels-chip--playground"
+      },
+      {
         "name": "Interactive",
         "id": "labels-chip--interactive"
       },
