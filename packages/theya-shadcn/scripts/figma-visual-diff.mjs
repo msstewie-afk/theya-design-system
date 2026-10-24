@@ -374,6 +374,10 @@ for (const { set, r } of plan) {
           root.style.width = w ? `${w}px` : '';
         }
       }, r.width === false ? 0 : figmaWidth);
+      // Play functions leave focus and hover behind (a focused swatch, a
+      // hovered trigger); the Figma variants are at rest.
+      await page.mouse.move(0, 0);
+      await page.evaluate(() => document.activeElement instanceof HTMLElement && document.activeElement.blur());
       await page.evaluate(() => document.fonts.ready);
       await page.waitForTimeout(150);
       // The capture target: `selector`, else the story's first element —
@@ -389,7 +393,16 @@ for (const { set, r } of plan) {
       }, r.selector ?? null);
       const el = found && (await page.$('[data-fv-target]'));
       if (!el) throw new Error(`nothing matches ${r.selector ?? '#storybook-root > *'}`);
-      const codeBuf = await el.screenshot({ animations: 'disabled' });
+      // Clip to the element's exact box instead of el.screenshot(): a
+      // centered story sits on half pixels (x = 584.5), which the element
+      // screenshot rounds outwards into a 1px-larger image. At 2× a half
+      // CSS pixel is a whole device pixel, so the clip stays exact.
+      const box = await el.evaluate((n) => {
+        const b = n.getBoundingClientRect();
+        return { x: b.x + window.scrollX, y: b.y + window.scrollY, width: b.width, height: b.height };
+      });
+      if (!box.width || !box.height) throw new Error('the element has no size');
+      const codeBuf = await page.screenshot({ clip: box, animations: 'disabled', fullPage: true });
       fs.writeFileSync(path.join(dir, 'code.png'), codeBuf);
       Object.assign(row, compare(figmaBuf, codeBuf, path.join(dir, 'diff.png')));
     } catch (e) {
