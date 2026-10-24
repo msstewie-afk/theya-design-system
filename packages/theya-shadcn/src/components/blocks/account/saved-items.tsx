@@ -7,6 +7,7 @@ import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
 import { Checkbox } from '../../ui/checkbox';
 import { EmptyState } from '../../ui/empty-state';
+import { Label } from '../../ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
 import { undoToast } from '../../ui/undo-toast';
 
@@ -132,16 +133,22 @@ export function SavedItems({ items: initial, primaryAction, onRemove, currency =
         <h2 id={`${uid}-h`} className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">
           {`Saved (${items.length})`}
         </h2>
-        <Select value={sort} onValueChange={(v) => setSort(v as Sort)}>
-          <SelectTrigger aria-label="Sort saved items" widthSize="md">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="recent">Recently saved</SelectItem>
-            <SelectItem value="price-asc">Price: low to high</SelectItem>
-            <SelectItem value="price-desc">Price: high to low</SelectItem>
-          </SelectContent>
-        </Select>
+        {/* A visible label beside the sort, not only its value (WCAG 3.3.2). */}
+        <div className="flex items-center gap-2">
+          <Label htmlFor={`${uid}-sort`} className="font-body text-body-m text-[var(--color-text-text-subtle)] whitespace-nowrap">
+            Sort by
+          </Label>
+          <Select value={sort} onValueChange={(v) => setSort(v as Sort)}>
+            <SelectTrigger id={`${uid}-sort`} widthSize="md">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="recent">Recently saved</SelectItem>
+              <SelectItem value="price-asc">Price: low to high</SelectItem>
+              <SelectItem value="price-desc">Price: high to low</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       {/* Bulk bar: always visible, so selecting has an obvious purpose. */}

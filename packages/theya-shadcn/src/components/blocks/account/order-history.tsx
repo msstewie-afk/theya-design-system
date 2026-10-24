@@ -6,6 +6,7 @@ import { cn } from '../../../lib/utils';
 import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
 import { EmptyState } from '../../ui/empty-state';
+import { Label } from '../../ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
 import { TextField } from '../../ui/text-field';
 import type { StatusTone } from '../../ui/status-dot';
@@ -99,25 +100,31 @@ export function OrderHistory({ orders, pageSize = 5, onReorder, currency = 'USD'
           widthSize="lg"
           className="[&::-webkit-search-cancel-button]:hidden"
         />
-        <Select
-          value={status}
-          onValueChange={(v) => {
-            setStatus(v as OrderStatus | 'all');
-            setVisible(pageSize);
-          }}
-        >
-          <SelectTrigger aria-label="Status" widthSize="md">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All statuses</SelectItem>
-            {(Object.keys(STATUS) as OrderStatus[]).map((s) => (
-              <SelectItem key={s} value={s}>
-                {STATUS[s].label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        {/* A visible label: the selected value alone ("All statuses") doesn't say what it filters (WCAG 3.3.2). */}
+        <div className="flex items-center gap-2">
+          <Label htmlFor={`${uid}-status`} className="font-body text-body-m text-[var(--color-text-text-subtle)] whitespace-nowrap">
+            Status
+          </Label>
+          <Select
+            value={status}
+            onValueChange={(v) => {
+              setStatus(v as OrderStatus | 'all');
+              setVisible(pageSize);
+            }}
+          >
+            <SelectTrigger id={`${uid}-status`} widthSize="md">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All statuses</SelectItem>
+              {(Object.keys(STATUS) as OrderStatus[]).map((s) => (
+                <SelectItem key={s} value={s}>
+                  {STATUS[s].label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
         <p aria-live="polite" className="ms-auto font-body text-body-s text-[var(--color-text-text-subtler)]">
           {`${filtered.length} ${filtered.length === 1 ? 'order' : 'orders'}`}
         </p>

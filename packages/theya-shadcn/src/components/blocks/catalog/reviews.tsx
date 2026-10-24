@@ -5,6 +5,7 @@ import { cn } from '../../../lib/utils';
 import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
 import { RatingStar } from '../../ui/rating';
+import { Label } from '../../ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
 import { Separator } from '../../ui/separator';
 import { DotSeparator } from '../../ui/dot-separator';
@@ -177,18 +178,24 @@ export function Reviews({ reviews, summary, pageSize = 4, onWriteReview, heading
             </Button>
           )}
         </p>
-        <Select value={sort} onValueChange={(v) => setSort(v as ReviewSort)}>
-          <SelectTrigger aria-label="Sort reviews" widthSize="md">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {(Object.keys(SORT_LABEL) as ReviewSort[]).map((k) => (
-              <SelectItem key={k} value={k}>
-                {SORT_LABEL[k]}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        {/* A visible label beside the sort, not only its value (WCAG 3.3.2). */}
+        <div className="flex items-center gap-2">
+          <Label htmlFor={`${headingId}-sort`} className="font-body text-body-m text-[var(--color-text-text-subtle)] whitespace-nowrap">
+            Sort by
+          </Label>
+          <Select value={sort} onValueChange={(v) => setSort(v as ReviewSort)}>
+            <SelectTrigger id={`${headingId}-sort`} widthSize="md">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {(Object.keys(SORT_LABEL) as ReviewSort[]).map((k) => (
+                <SelectItem key={k} value={k}>
+                  {SORT_LABEL[k]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       {/* tabIndex -1 on the list and its items: focus targets after "Show all" /

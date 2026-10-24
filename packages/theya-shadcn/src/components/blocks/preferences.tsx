@@ -283,12 +283,14 @@ function SectionNav({ sections, activeId, label }: { sections: ReadonlyArray<{ i
                 href={`#${s.id}`}
                 aria-current={active ? 'page' : undefined}
                 className={cn(
-                  'block rounded-[var(--size-border-radius-border-radius-md)] px-3 py-2',
+                  'relative block rounded-[var(--size-border-radius-border-radius-md)] px-3 py-2',
                   'font-body text-body-m font-medium text-[var(--color-text-text-subtler)]',
                   'transition-colors duration-standard ease-enter motion-reduce:transition-none',
                   'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-text-text)]',
                   'focus-visible:outline-none focus-visible:focus-ring',
                   active && 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
+                  // More than color marks the current section (WCAG 1.4.1), as in SidebarItem.
+                  active && "font-semibold before:absolute before:inset-y-2 before:start-0 before:w-0.5 before:rounded-full before:bg-current before:content-['']",
                 )}
               >
                 {s.label}

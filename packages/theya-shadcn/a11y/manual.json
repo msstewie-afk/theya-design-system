@@ -22,7 +22,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The key-name field has a visible Label \"Key name\" (access-tokens.tsx:116) plus the instruction \"Name it after what will use it\"; the placeholder is only an example."}
     },
     "AccountMenu": {
-      "1.4.11": {"result": "fail", "date": "2026-10-24", "by": "Claude (code review)", "note": "account-menu.tsx:120 draws its own attention dot (bg-danger-status #b40d49 inside a bg-surface ring), which is the only closed-state sign that something needs attention. It is 6.79:1 in light but 2.08:1 against the #282944 ring in dark, below 3:1."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Fixed 2026-10-24 (Maria's call): dark bg-danger-status is red-200, 4.3:1 on bg-surface (was red-400, 2.08:1); the attention dot uses it."},
       "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Every link is named by its destination (\"Account overview\", \"Billing\", \"Help and support\"); counts add \"items need attention\" in sr-only text."},
       "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The trigger is named \"Account: {name}, {workspace}, N items need attention\", the radio groups are labelled \"Workspace\" and \"Theme\", and the items say what they do (\"Same as system\", \"Sign out\")."},
       "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Adds no sticky or fixed element; the menu is the library's modal Radix DropdownMenu."}
@@ -59,7 +59,7 @@
       "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "No sticky or fixed elements are added; the table header is not made sticky here."},
       "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Search, category and date filters only refilter the table in place and update a polite count; focus moves only after the explicit \"Clear filters\" button."},
       "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input validation exists in the pattern (free search and pickers), so there are no errors to identify."},
-      "3.3.2": {"result": "fail", "date": "2026-10-24", "by": "Claude (code review)", "note": "audit-log.tsx:171 the category Combobox has no visible label, only aria-label and the placeholder \"All categories\", which disappears once a category is chosen or text is typed (placeholder-only labelling); the search box at :159-166 likewise has an sr-only label (its magnifier icon is an acceptable visual cue), so add a visible label such as \"Category\" to the facet."}
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Fixed 2026-10-24 (Maria's call): the category and date filters have visible inline labels (Category, Date); the placeholder no longer carries the purpose alone."}
     },
     "Autocomplete": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: new autoComplete prop (default \"off\") reaches the combobox <input>, so a country/organization/email typeahead can carry its purpose token."},
@@ -621,7 +621,7 @@
     },
     "Preferences": {
       "1.3.5": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Full name uses autoComplete=\"name\", email \"email\", and the password fields \"current-password\" / \"new-password\" (lines 342, 356, 463, 474)."},
-      "1.4.1": {"result": "fail", "date": "2026-10-24", "by": "Claude (code review)", "note": "In the SectionNav, color alone marks the current section: preferences.tsx:291 only switches to a bg-primary-subtle pill (#dfeeff on #fff, 1.13:1) and a hue shift (#5f6190 to #0057b9, similar luminance), with no weight, underline or marker. The same treatment is in library SidebarItem."},
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Fixed 2026-10-24 (Maria's call): the current section in the nav is semibold with a 2px bar at its start edge, not only a tinted fill and a hue change."},
       "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Notification-row dividers are decorative; Switch, InputOTP, Buttons and the shield tile come from the library or are aria-hidden; the nav links are text."},
       "2.2.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Account deletion uses library undoToast, which pauses on hover and focus with an adjustable duration; the 2 s \"Saved\" note and the success toasts need no action."},
       "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Section-nav anchor links are named after their section headings inside a nav named \"Settings sections\"."},
@@ -781,6 +781,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Composes with a visible Label via id."}
     },
     "Sidebar": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Fixed 2026-10-24 (Maria's call): the active SidebarItem is semibold with a 2px bar at its start edge (also when collapsed), not only a tinted fill."},
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: item actions say \"More actions for {item}\" (new actionsLabel prop to override)."},
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Sticky rail in its own column; phones: modal."}
     },
@@ -817,6 +818,9 @@
     },
     "Stat": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Named by its label; tone word overridable."}
+    },
+    "StatusDot": {
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Dark danger dot uses bg-danger-status, raised to red-200 on 2026-10-24: 4.3:1 on bg-surface (was 2.08:1); the other status tones were already about 4:1."}
     },
     "StatusTracker": {
       "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Step state is shown by shape (check / X / inner dot / empty ring) and sr-only text, and overall state by a Badge word (\"In progress\", \"Stopped\", \"Completed\")."},

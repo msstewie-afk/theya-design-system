@@ -103,7 +103,9 @@ const TONE_TOKENS: Record<BadgeIndicatorTone, ToneTokens> = {
   danger: {
     // Outlined — extrapolated, not fetched
     filledBg: 'bg-[var(--color-bg-danger-bg-danger-status)]',
-    filledText: 'text-[var(--color-text-text-on-dark)]',
+    // Dark: the status red is light enough to read as a dot on dark
+    // surfaces (4.3:1), so the count on it is dark ink (5.5:1), not white.
+    filledText: 'text-[var(--color-text-text-on-dark)] [[data-theme=dark]_&]:text-[var(--color-icon-icon-on-light)]',
     outlinedBg: 'bg-[var(--color-bg-danger-bg-danger-subtle)]',
     outlinedBorder: 'border-[var(--color-border-border-danger)]',
     outlinedText: 'text-[var(--color-text-text-danger)]',

@@ -60,7 +60,7 @@ export const Default: Story = {
     await expect(status(canvasElement)).toHaveTextContent('4 events match your filters');
 
     // + category facet: only Security.
-    const category = canvas.getByRole('combobox', { name: 'Filter by category' });
+    const category = canvas.getByRole('combobox', { name: 'Category' });
     await userEvent.click(category);
     await userEvent.type(category, 'secu');
     await userEvent.keyboard('{Enter}{Escape}');
@@ -84,7 +84,7 @@ export const Default: Story = {
     await expect(search).toHaveFocus();
 
     // Date range Jul 13–14 (events are stored and shown in UTC).
-    await userEvent.click(canvas.getByRole('button', { name: 'Filter by date range' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Date' }));
     await body().findAllByRole('grid');
     for (let i = 0; i < 36 && !body().queryByRole('grid', { name: 'July 2026' }); i++) {
       await userEvent.click(body().getByRole('button', { name: /previous month/i }));
@@ -123,7 +123,7 @@ export const Empty: Story = {
     await expect(canvas.getByRole('heading', { name: 'No activity yet' })).toBeInTheDocument();
     await expect(canvas.queryByRole('button', { name: 'Clear filters' })).toBeNull();
     // No categories present -> no category facet.
-    await expect(canvas.queryByRole('combobox', { name: 'Filter by category' })).toBeNull();
+    await expect(canvas.queryByRole('combobox', { name: 'Category' })).toBeNull();
     await expect(status(canvasElement)).toHaveTextContent('0 events');
   },
 };

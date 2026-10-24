@@ -443,7 +443,8 @@
           "value": "{color.red.red-500}"
         },
         "bg-danger-status": {
-          "value": "{color.red.red-400}"
+          "value": "{color.red.red-200}",
+          "comment": "Status dots and count badges on dark surfaces: 4.3:1 on bg-surface (was red-400, 2.1:1, under the 3:1 a lone dot needs). Text on it is icon-on-light (5.5:1)."
         },
         "bg-danger-hover": {
           "value": "{color.red.red-600}"

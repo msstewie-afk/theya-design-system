@@ -291,12 +291,15 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, actio
         onClick?.(e);
       }}
       className={cn(
-        'flex w-full items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)] px-3 py-2 text-start',
+        'relative flex w-full items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)] px-3 py-2 text-start',
         'font-body text-body-m font-medium text-[var(--color-text-text-subtler)] whitespace-nowrap cursor-pointer',
         'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-text-text)]',
         'focus-visible:outline-none focus-visible:focus-ring',
         active && 'bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)]',
+        // The current item is told apart by more than color (WCAG 1.4.1): a
+        // semibold label and a 2px bar at the start edge, in the text color.
+        active && "font-semibold before:absolute before:inset-y-2 before:start-0 before:w-0.5 before:rounded-full before:bg-current before:content-['']",
         '[&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:opacity-90',
         collapsed && 'mx-auto size-[1.875rem] justify-center p-0',
         className,

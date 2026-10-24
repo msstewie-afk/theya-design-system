@@ -111,6 +111,8 @@ export function AuditLog({
   const [selectedCats, setSelectedCats] = useState<string[]>([]);
   const [range, setRange] = useState<DateRange | undefined>(undefined);
   const searchId = useId();
+  const catId = useId();
+  const dateId = useId();
   const searchRef = useRef<HTMLInputElement>(null);
 
   const catMap = useMemo(() => {
@@ -167,12 +169,20 @@ export function AuditLog({
             </InputGroup>
           </div>
           {catOptions.length > 0 && (
-            <div className="w-full sm:w-56">
-              <Combobox multiple options={catOptions} value={selectedCats} onValueChange={(v) => setSelectedCats(v as string[])} placeholder="All categories" aria-label="Filter by category" />
+            // A visible label, not only the placeholder, which is gone once a
+            // category is picked (WCAG 3.3.2). Inline, so the toolbar keeps one row height.
+            <div className="flex w-full items-center gap-2 sm:w-auto">
+              <Label htmlFor={catId} className="font-body text-body-m text-[var(--color-text-text-subtle)] whitespace-nowrap">Category</Label>
+              <div className="min-w-0 flex-1 sm:w-56 sm:flex-none">
+                <Combobox id={catId} multiple options={catOptions} value={selectedCats} onValueChange={(v) => setSelectedCats(v as string[])} placeholder="All categories" />
+              </div>
             </div>
           )}
-          <div className="w-full sm:w-auto">
-            <DateRangePicker value={range} onChange={setRange} placeholder="Any date" aria-label="Filter by date range" />
+          <div className="flex w-full items-center gap-2 sm:w-auto">
+            <Label htmlFor={dateId} className="font-body text-body-m text-[var(--color-text-text-subtle)] whitespace-nowrap">Date</Label>
+            <div className="min-w-0 flex-1 sm:flex-none">
+              <DateRangePicker id={dateId} value={range} onChange={setRange} placeholder="Any date" />
+            </div>
           </div>
           {hasFilters && (
             <Button appearance="ghost" onClick={clearFilters} className="max-md:h-11">
