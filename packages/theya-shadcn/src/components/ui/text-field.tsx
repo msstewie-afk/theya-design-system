@@ -193,6 +193,9 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
         !rest.readOnly && (
           <Button
             appearance="ghost"
+            // Neutral like every other field's clear button (Select, Combobox,
+            // DatePicker): the default primary tone made it the only blue one.
+            tone="neutral"
             size="sm"
             iconOnly
             onClick={handleClear}
