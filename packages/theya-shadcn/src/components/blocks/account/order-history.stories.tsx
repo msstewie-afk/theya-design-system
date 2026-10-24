@@ -22,8 +22,8 @@ export const Default: Story = {
     const details = canvas.getByRole('button', { name: 'Details for order TH-23990' });
     await userEvent.click(details);
     await expect(details).toHaveAttribute('aria-expanded', 'true');
-    await expect(canvas.getByRole('link', { name: 'Invoice (PDF)' })).toHaveAttribute('href', '#invoice/TH-23990.pdf');
-    await userEvent.click(canvas.getByRole('button', { name: 'Buy again' }));
+    await expect(canvas.getByRole('link', { name: 'Invoice (PDF) for order TH-23990' })).toHaveAttribute('href', '#invoice/TH-23990.pdf');
+    await userEvent.click(canvas.getByRole('button', { name: 'Buy again order TH-23990' }));
     await expect(args.onReorder).toHaveBeenCalledWith(expect.objectContaining({ number: 'TH-23990' }));
 
     const search = canvas.getByRole('searchbox', { name: 'Search orders' });

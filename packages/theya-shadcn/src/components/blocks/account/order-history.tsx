@@ -199,7 +199,10 @@ export function OrderHistory({ orders, pageSize = 5, onReorder, currency = 'USD'
                     <div className="flex flex-wrap gap-2">
                       {o.trackHref && (
                         <Button asChild appearance="filled" tone="primary" size="md">
-                          <a href={o.trackHref}>Track progress</a>
+                          <a href={o.trackHref}>
+                            Track progress
+                            <span className="sr-only">{` of order ${o.number}`}</span>
+                          </a>
                         </Button>
                       )}
                       {o.invoiceHref && (
@@ -208,12 +211,14 @@ export function OrderHistory({ orders, pageSize = 5, onReorder, currency = 'USD'
                           <a href={o.invoiceHref} download>
                             <Download aria-hidden="true" />
                             Invoice (PDF)
+                            <span className="sr-only">{` for order ${o.number}`}</span>
                           </a>
                         </Button>
                       )}
                       {onReorder && o.status !== 'processing' && (
                         <Button appearance="outlined" tone="secondary" size="md" leftIcon={<Refresh />} onClick={() => onReorder(o)}>
                           Buy again
+                          <span className="sr-only">{` order ${o.number}`}</span>
                         </Button>
                       )}
                     </div>

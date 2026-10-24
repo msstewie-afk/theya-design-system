@@ -1,9 +1,10 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Check, Minus } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
+import { useScrollPadding } from '../../../lib/scroll-padding';
 import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
 import { HelpIcon } from '../../ui/help-icon';
@@ -57,6 +58,11 @@ export interface PlanComparisonProps {
 export function PlanComparison({ plans, features, defaultPeriod = 'yearly', currency = 'USD', onSelect, currentPlanId, className }: PlanComparisonProps) {
   const [period, setPeriod] = useState<BillingPeriod>(defaultPeriod);
   const [onlyDifferences, setOnlyDifferences] = useState(false);
+  // The plan cards stick to the top while the feature rows scroll under them:
+  // reserve their height so a Tab-focused row stops below them (WCAG 2.4.11).
+  // Every cell in the sticky row has the row's height, so the first one is measured.
+  const stickyRowRef = useRef<HTMLTableCellElement>(null);
+  useScrollPadding(stickyRowRef, 'top');
   const diffId = useId();
 
   const differs = (f: ComparedFeature) => new Set(plans.map((p) => String(f.values[p.id]))).size > 1;
@@ -130,7 +136,7 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
             </td>
           </tr>
           <tr>
-            <th scope="col" className="sticky top-0 z-[1] bg-[var(--color-bg-surface-bg-surface-base)] p-0 text-start align-bottom">
+            <th ref={stickyRowRef} scope="col" className="sticky top-0 z-[1] bg-[var(--color-bg-surface-bg-surface-base)] p-0 text-start align-bottom">
               <span className="sr-only">Feature</span>
             </th>
             {plans.map((p) => (
@@ -252,7 +258,8 @@ function FeatureValue({ value, strong }: { value: string | boolean | undefined; 
     );
   if (value === false || value === undefined)
     return (
-      <span className="inline-flex text-[var(--color-icon-icon-subtler)]">
+      // icon-subtle, not -subtler: the dash is the only visible "Not included" (3:1, WCAG 1.4.11).
+      <span className="inline-flex text-[var(--color-icon-icon-subtle)]">
         <Minus className="size-5" aria-hidden="true" />
         <span className="sr-only">Not included</span>
       </span>

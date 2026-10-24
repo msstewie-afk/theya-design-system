@@ -11,6 +11,28 @@
     "TextArea": { "add": ["graphics"], "note": "Renders the shared error icon (field-error-icon.tsx), an inline SVG the source scan no longer sees." }
   },
   "reviews": {
+    "AccessTokens": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only input is \"Key name\" (a label for an API key), not the user's own personal data, so no autocomplete purpose applies; TextField's default autoComplete=\"off\" is correct."},
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Last-used state pairs the StatusDot with text (\"2h ago\" / \"Never used\"), and Revoke is a named Trash button, so nothing is conveyed by color alone."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern adds no own controls or meaningful graphics; the empty-state frame border is a decorative card edge and all controls are library Buttons/TextField/Table."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Headings \"API keys\", \"Create a new key\", \"Your keys\", \"Copy your new key\" describe their sections, and each icon-only revoke button is named \"Revoke {key name}\"."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern adds no sticky or fixed elements; the create/secret dialogs are modal library Dialogs."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Typing in Key name only updates state; creation happens on explicit submit and the secret dialog opens as a result of that button press, not of input."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input error is detected: an empty name just keeps \"Create key\" disabled (access-tokens.tsx:75,119), so there is no error state to identify."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The key-name field has a visible Label \"Key name\" (access-tokens.tsx:116) plus the instruction \"Name it after what will use it\"; the placeholder is only an example."}
+    },
+    "AccountMenu": {
+      "1.4.11": {"result": "fail", "date": "2026-10-24", "by": "Claude (code review)", "note": "account-menu.tsx:120 draws its own attention dot (bg-danger-status #b40d49 inside a bg-surface ring), which is the only closed-state sign that something needs attention. It is 6.79:1 in light but 2.08:1 against the #282944 ring in dark, below 3:1."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Every link is named by its destination (\"Account overview\", \"Billing\", \"Help and support\"); counts add \"items need attention\" in sr-only text."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The trigger is named \"Account: {name}, {workspace}, N items need attention\", the radio groups are labelled \"Workspace\" and \"Theme\", and the items say what they do (\"Same as system\", \"Sign out\")."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Adds no sticky or fixed element; the menu is the library's modal Radix DropdownMenu."}
+    },
+    "AccountOverview": {
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Own non-text UI is the tinted attention panel and a decorative task divider (border-subtler); urgency is carried by ToneIcon glyphs (warning #8e4e00 / danger #b40d49 on their subtle tints, well over 3:1) plus an sr-only prefix, and area icon tiles are aria-hidden."},
+      "2.4.11": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern adds no sticky or fixed element."},
+      "3.2.2": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No form controls; only links and link-buttons."},
+      "3.3.2": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No inputs in the pattern."}
+    },
     "Alert": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: the dismiss button says \"Dismiss alert\" instead of a bare \"Dismiss\"."}
     },
@@ -29,6 +51,16 @@
     "Attachment": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Remove {file name}\"; the overlay is named by the file name."}
     },
+    "AuditLog": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only text input is an event search, not personal data about the user."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The category icon chip is aria-hidden and redundant with the Badge text; all controls (InputGroup, Combobox, DateRangePicker, Button) are library components, no own control boundaries are drawn."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern shows no hover/focus content of its own; the Combobox listbox and DateRangePicker popover are library components already reviewed."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Audit log\" heading, search label \"Search events by actor, action or target\", \"Filter by category\" / \"Filter by date range\" names and the two \"Clear filters\" buttons (same action) are descriptive."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "No sticky or fixed elements are added; the table header is not made sticky here."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Search, category and date filters only refilter the table in place and update a polite count; focus moves only after the explicit \"Clear filters\" button."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input validation exists in the pattern (free search and pickers), so there are no errors to identify."},
+      "3.3.2": {"result": "fail", "date": "2026-10-24", "by": "Claude (code review)", "note": "audit-log.tsx:171 the category Combobox has no visible label, only aria-label and the placeholder \"All categories\", which disappears once a category is chosen or text is typed (placeholder-only labelling); the search box at :159-166 likewise has an sr-only label (its magnifier icon is an acceptable visual cue), so add a visible label such as \"Category\" to the facet."}
+    },
     "Autocomplete": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: new autoComplete prop (default \"off\") reaches the combobox <input>, so a country/organization/email typeahead can carry its purpose token."},
       "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Suggestions open on focus; Escape closes, no timer."},
@@ -41,12 +73,26 @@
       "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Recharts hover tooltip: Escape closes, stays without a timer."},
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Default summary names the highest category and value; ariaLabel can name the quantity."}
     },
+    "BillingUsage": {
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Meaningful graphics come from the library (Progress, UsageBar, StatusDot); its own additions are a decorative icon tile and a subtler border-t divider (billing-usage.tsx:222) that marks no control."},
+      "3.2.2": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "It has no inputs, only the optional \"Upgrade plan\" button."},
+      "3.3.2": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "It has no inputs to label."}
+    },
     "Breadcrumb": {
       "2.4.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Text crumbs in a named nav; the overflow trigger says \"Show N more levels\"."},
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Overflow menu is a modal DropdownMenu."}
     },
     "Button": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "No text of its own; a dev warning flags an unnamed icon-only button."}
+    },
+    "CancellationFlow": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Step state is text (\"Step n of 3\" + heading), the destructive action is the labelled \"Cancel plan\" button, and the warning Alert has text and an icon; nothing relies on hue."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Composes OptionCard, Select, Alert, Button and DescriptionList; it draws no boundaries, state marks or meaningful graphics of its own."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Per-step headings (\"Cancel your Pro plan?\", \"Before you go\", \"Confirm cancellation\") and specific buttons (\"Keep my plan\", \"Continue to cancel\", \"Switch to Starter\", \"Pause plan\", \"Cancel plan\") describe purpose."},
+      "2.4.11": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No sticky or fixed elements."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Choosing an OptionCard only relabels the primary button in place and the reason Select just stores a value; steps change only on button press."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input is validated: the reason is optional and the option group has a default value."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Reason Select has a visible Label marked optional (line 133); the option group is introduced by a visible instruction paragraph and every card has a visible title and description."}
     },
     "Card": {
       "2.4.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: the whole-card link/filter overlay is named by CardTitle (aria-labelledby) unless it has its own label; the raw URL is only a last resort without a title."},
@@ -66,6 +112,24 @@
     "Carousel": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No autoplay: no Autoplay plugin is imported; `plugins` passes through to Embla."}
     },
+    "Cart": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "Fields are quantity and promo code, neither is the user's personal data; the promo field correctly sets autoComplete=\"off\"."},
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The discount row is labelled \"Discount\" with a minus sign (not only green), and \"Have a promo code?\" is a standalone control, not a link inside running text."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Row dividers and the summary panel fill are decorative; all controls (NumberField, TextField, Buttons) are library components."},
+      "2.2.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only timing is undoToast's grace window (library: pauses on hover/focus, adjustable duration); the pattern passes no shorter duration."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Headings \"Cart (n)\", \"Saved for later (n)\", \"Order summary\"; repeated row buttons are named per item (\"Remove {name}\", \"Save for later: {name}\", \"Move to cart: {name}\", \"Fewer/More {name}\")."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Changing quantity updates totals in place (0 removes the line with undo, committed on blur so focus is not stolen); promo applies only on Apply/Enter."},
+      "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "An empty or invalid promo code is described in text via TextField's error prop (aria-invalid + aria-describedby), e.g. \"Enter a promo code.\" (cart.tsx:128,270)."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Quantity fields have a visible \"Qty\" Label and the promo field a visible \"Promo code\" Label (cart.tsx:187,252)."}
+    },
+    "CategoryLanding": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Its only links are stand-alone \"View all\" links with an arrow and card links, none in running text; counts and ratings are written as text."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Clickable tiles are library Cards with a link action and their own border; ItemIcon is aria-hidden decoration and the rating star sits next to its number."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "Shows no content on hover or focus; the Card hover lift is only styling."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The h1 is the title, and the h2s \"Browse by category\", \"Popular in {category}\" and \"Editor's picks\" describe each shelf; card links are named \"{label}, N extensions\" and \"{name} by {vendor}\"."},
+      "3.2.2": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "It has no form controls (ItemCard's compare checkbox isn't used here)."},
+      "3.3.2": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "It has no inputs."}
+    },
     "ChartRangeSelection": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Select a range\", keyboard help and live \"Selected X to Y\"."}
     },
@@ -81,6 +145,17 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The label is a visible legend."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Checking only updates the set and calls onValueChange."},
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Visible legend."}
+    },
+    "Checkout": {
+      "1.3.5": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Checkout adds no personal-data inputs itself (email is displayed, not entered); the composed PaymentMethod sets cc-name/cc-number/cc-exp/cc-csc (payment-method.tsx:169-227)."},
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The green lock is paired with the text \"Secure checkout\"; step state comes from Stepper and the sr-only \"Step n of 3\" heading, not color."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Own non-text UI is only the header bottom border and a Separator, both decorative; all controls are library components or other patterns."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern shows no content on hover or focus of its own."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Heading \"Step n of 3: Options/Payment/Review\", fieldset legends (\"Billing period\", \"Server region\", \"Backups\") and buttons \"Continue to payment\" / \"Review order\" / \"Back to cart\" describe purpose."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only sticky element is OrderSummary (lg:sticky top-6, line 221) in its own grid column beside the form, so it cannot overlap focused form controls; the header is not sticky."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Changing billing, region or backups only recalculates the summary in place; steps change only via buttons or the Stepper click."},
+      "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Review order\" runs PaymentMethod.validate() (line 80) and stays on the step, leaving error identification to PaymentMethod's fields; Checkout adds no validation of its own."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Every PricedOptions group has a visible legend, region has a visible instruction (\"Pick the one closest...\"), and payment fields come labelled from PaymentMethod."}
     },
     "CodeBlock": {
       "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Copy tooltip is stock Tooltip; the Copied bubble follows a click (status message)."},
@@ -118,6 +193,22 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Typing filters the list and moves aria-activedescendant; focus stays in the input."},
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Search field with a visible search icon."}
     },
+    "Comparison": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Supported/unsupported uses different shapes (check vs dash) with sr-only Yes/No, and differing rows are marked by font weight as well as text color."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Fixed 2026-10-24: the \"No\" dash is icon-subtle (3:1 on white), was icon-subtler at 2.62:1."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern shows no hover or focus content of its own (no tooltips/popovers)."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Each column links with the item name as text (comparison.tsx:238-243); purpose is clear from the link text."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Comparing n extensions\" heading, \"Only differences\" label, and remove buttons named \"Remove {name} from comparison\" in both tray and table; hint text explains why Compare is unavailable."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Fixed 2026-10-24: the sticky compare tray reserves its height as scroll-padding (useScrollPadding), so a focused card stops above it."},
+      "2.5.8": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "axe target-size is off in the stories because it measures the 20px Compare checkbox box; Checkbox md has a 24px hit area (after:-inset-0.5) and the visible Compare label toggles it too."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The \"Only differences\" switch and the Compare checkboxes only filter rows/fill the tray in place; view changes happen only on button activation (Compare, Back to results)."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The Switch has a visible \"Only differences\" label and each card checkbox a visible \"Compare\" label (item-card.tsx:75)."}
+    },
+    "CompletionScreen": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The inline \"send it again\" button is underlined (completion-screen.tsx:104), and the success state is stated in the title, not only by the green icon."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only graphic of its own is the aria-hidden success check tile; the title \"You're all set\" carries the meaning, and the other controls are library Buttons."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The h2 says the outcome (\"You're all set\") and is described by the summary line; details are labelled dt/dd and the action labels say where they go (\"Open site dashboard\", \"Download invoice\")."}
+    },
     "ConfirmDialog": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "The type-to-confirm field echoes a resource name, not data about the user."},
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: a neutral confirm defaults to \"Confirm\"; \"Delete\" only for tone=\"danger\"."},
@@ -137,6 +228,15 @@
     },
     "Countdown": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Displays time left to the app's own deadline; the component imposes none."}
+    },
+    "DashboardOverview": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Every StatusDot comes with text (severity word line 264, \"Healthy\", \"Near limit\") and quota warnings add \", near limit\" as text (line 377), so tone is never color-only."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Own marks are the attention-list dividers and card borders (decorative); Progress, UsageBar and AreaChart are library components, and quota values are also given as text."},
+      "1.4.13": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only hover/focus content is the library AreaChart tooltip; the pattern adds none of its own."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only link, \"View all\" (line 298), sits directly under the \"Needs attention\" heading and list, which gives its purpose in context."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Headings \"Needs attention\", \"Account health at a glance\", \"Requests\", \"Usage\", \"Recent activity\" are descriptive, and the repeated row actions get aria-label \"{action}: {site id}\" (line 278)."},
+      "3.2.2": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No form controls; only buttons and a link."},
+      "3.3.2": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No inputs in the pattern."}
     },
     "DataTable": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Renders no inputs of its own; editable cells are DataTableCell."},
@@ -186,6 +286,9 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Changes row spacing only; content and meaning stay the same."},
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Options have visible text."}
     },
+    "Details": {
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern draws no own controls or meaningful graphics; the status is a Badge with StatusDot plus text and stats come from the library Stat."}
+    },
     "Dialog": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Single \"Close\" inside the titled dialog."},
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Modal: focus is trapped inside."}
@@ -219,6 +322,18 @@
     "Fab": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Open actions\"/\"Close actions\"; action names from labels."},
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: reserves its height as scroll-padding on its scroll container (lib/scroll-padding), so Tab-focused content stops clear of it (bottom, height plus offset; verified)."}
+    },
+    "FacetedList": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only text inputs are facet-option searches and RangeField price numbers, not data about the user."},
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Applied filters are chips with text, an option with no results is disabled and shows a count of 0, and the link-coloured \"Show N more\" is a stand-alone button, not a link in running text."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "It draws no UI boundaries or meaningful graphics of its own: Checkbox, Radio, RangeField, Select, ToggleGroup and the Button chips come from the library, and the separators between facets are decorative."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "Shows no hover or focus content of its own; Select and Drawer open on activation."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Result links are ItemCard links named \"{name} by {vendor}\"; there are no other links."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Facet legends (Category/Vendor/Works with/Price/Rating), \"Sort by\", \"Layout\" with \"Grid\"/\"List\", \"Remove filter: {value}\" chips, and the drawer title \"Filters\" all describe their purpose."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The sticky DrawerFooter (faceted-list.tsx:196) sits outside the overflow-y-auto DrawerBody, so it can't cover a focused filter; the drawer is modal."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Filters and sort update the results in place as announced (\"Results update as you choose\"); focus moves only after a chip, Clear all or Show more is activated, never on input."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "It doesn't detect any input errors; facet search only narrows options and shows \"No matches.\""},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Every checkbox and radio has a visible label inside a legend-titled fieldset, and RangeField has \"Price per month\". The facet search sits under its legend with a \"Search N vendors\" placeholder, as in the library Filter, and sort shows its value (\"Most relevant\") with the aria-label \"Sort by\"."}
     },
     "FeedbackWidget": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Free-text comment; no WCAG input purpose applies."},
@@ -284,6 +399,24 @@
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Stories use a visible Label; slots show the length."},
       "3.3.8": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "one-time-code autofill and paste fill every slot; fixed 2026-10-22: spaces and dashes in a pasted code are stripped instead of dropping the paste."}
     },
+    "ItemCard": {
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The single RatingStar is decorative (aria-hidden, rating given in text), and the card boundary, link and Checkbox come from library Card/Checkbox."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No hover or focus content."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The card link is named \"{name} by {vendor}\" and the Compare checkbox \"Compare {name}\" (line 74), so repeated cards stay distinguishable."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Toggling Compare only calls compare.onChange; it does not navigate or move focus."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The Compare checkbox has the visible text \"Compare\" next to it (line 75), and its accessible name includes that word."}
+    },
+    "ItemPage": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Links/link-styled buttons are standalone (in-page nav, \"Read the full description\", rating link), not inline in running text; the selected thumbnail is marked by a 2px border plus aria-current, not a hue change."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The selected thumbnail border uses border-primary (#0068de, 5.2:1 on white); highlight check icons are aria-hidden bullets next to text; gallery arrows are library Buttons."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern shows no hover or focus content of its own."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Breadcrumb links, in-page links (\"Overview\", \"Specifications\", \"Reviews (n)\") and the rating link \"4.8 · n reviews\" pointing to the reviews section all state their target."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "h1 item name, h2 \"Overview\"/\"Specifications\"/reviews, gallery buttons \"Previous/Next screenshot\" and thumbnails \"Screenshot n: {alt}\" are descriptive."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "No sticky or fixed elements are added; in-page sections use scroll-mt-6 for anchor targets."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern has no inputs of its own; thumbnails and arrows are buttons that change the image in place (the embedded Reviews sort only reorders in place)."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No inputs with validation in the pattern."},
+      "3.3.2": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern adds no inputs of its own (the only input, the Reviews sort Select, belongs to the separate Reviews pattern)."}
+    },
     "Kanban": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Only the drop animation is timed."},
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Board\", column headings, drag announcements name item and column."},
@@ -310,6 +443,38 @@
     "ListItem": {
       "2.4.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The row link wraps the title and description."}
     },
+    "ListView": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "Its only input is the list search (autoComplete=\"off\"), which isn't data about the user."},
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Status is a DataTableCell kind=\"status\" with a text label (Active/Suspended/Invited), and danger row actions are named in text."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "It draws no UI of its own: DataTable, DataTableToolbar, FilterField, InputGroup and Button supply every boundary and state."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "Shows no hover or focus content of its own; the toolbar tooltip belongs to the library DataTableToolbar."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Fixed 2026-10-24: the table and its search are named from the noun (\"Users\", \"Search users…\"); the seeded demo uses user/users."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Adds nothing sticky (DataTable's sticky header already corrects focus scroll); the row menus and ConfirmDialog are modal."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Typing in the search and applying facets filter the rows in place, and the result count is announced politely; nothing navigates or moves focus."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "It doesn't detect input errors; ConfirmDialog's type-to-confirm is the library's own."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The search has an sr-only Label plus a visible search icon and placeholder, the same as the library Topbar/Command search; FilterField labels its own facets."}
+    },
+    "LoginForm": {
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Own visuals are the aria-hidden brand tile and decorative Separators; fields, checkbox and buttons are library components."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Forgot password?\" sits under the password field and \"Create one\" follows \"Don't have an account?\", so both link purposes are clear."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Sign in to {appName}\" heading, Email/Password labels and buttons \"Sign in\" / \"Continue with GitHub\" are descriptive."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Blur and change only show or clear inline errors; focus moves only on submit."},
+      "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Empty or malformed email and empty password set text errors through the TextField/Password error prop and focus the first invalid field (lines 65-72); server errors show in a danger Alert."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Visible Labels for Email, Password and the remember checkbox (lines 88, 114, 133); the placeholder is only an example."},
+      "3.3.8": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "autoComplete email/current-password, Password allows paste and has a show toggle, no cognitive test; SSO is offered as an alternative."}
+    },
+    "LoginFormSplit": {
+      "1.3.5": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The composed LoginForm sets autoComplete=\"email\" and \"current-password\" (login-form.tsx:94,118)."},
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Links in sentences (\"Create one\") are font-semibold over regular text; \"Forgot password?\" and \"Back to website\" are standalone; errors are text."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Text/icon on the glass buttons identifies them (white on the darkened image); on-dark carousel dots (50% white over the black/70 gradient) stay at or above about 3.4:1 even over a white photo."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No hover/focus-triggered content; hover/focus only pauses autoplay."},
+      "2.2.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Auto-advance (default 6 s) has a Pause/Play button, holds while the panel is hovered or focused, and is off under prefers-reduced-motion (login-form-split.tsx:76-86,130-143)."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Back to website\", \"Forgot password?\" and \"Create one\" (after \"Don't have an account?\") all state their purpose."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Sign in to {app}\" heading, field labels Email/Password, slides labelled \"Slide i of n\", and Pause/Play names describe purpose."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Inputs and the remember checkbox have no side effects; submission happens only from the Sign in button."},
+      "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "LoginForm shows text errors (\"Enter your email.\", malformed email, \"Enter your password.\") via the fields' error prop and focuses the first invalid field."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Visible Labels \"Email\" and \"Password\" and \"Keep me signed in for 30 days\" on the checkbox."}
+    },
     "Marquee": {
       "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Pauses on hover and focus-within, with a Pause button on by default."}
     },
@@ -320,6 +485,12 @@
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Spreads props onto TextField, so tel / cc-number / cc-exp / postal-code pass through."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "onChange re-masks and emits; no focus or submit logic."},
       "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: label, description, required and optional are typed (they always reached TextField); stories use a visible label."}
+    },
+    "MegaMenu": {
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Its own borders are decorative row and footer dividers, and the featured link is identified by its text. The current-section fill is the same cue the library NavigationMenuLink uses, and current location is not an AA requirement (2.4.8 is AAA)."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Links carry their destination (\"Shared hosting\" plus a description, \"All products\", \"Start a migration\" inside a featured card that includes its title), grouped under column headings in a nav named \"Main\"."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Column headings (\"Hosting\", \"Domains\"), the nav label \"Main\", the drawer title \"Menu\", and \"(current section)\" sr-only text all describe their content."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "It is not sticky; the bar flyouts are the library NavigationMenu (closes when focus leaves), and on narrow screens it is a modal Drawer."}
     },
     "Menubar": {
       "2.4.6": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Ships no strings."},
@@ -335,6 +506,21 @@
     "NavigationMenu": {
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix closes the flyout when focus leaves the nav."}
     },
+    "NoResults": {
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "No own control boundaries or meaningful graphics; the search glyph tile is aria-hidden and link-styled buttons are identified by their text."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Popular-page links are named by page title plus context (lines 98-104), and the suggestion controls are buttons inside explanatory sentences."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Popular pages\" heading, \"No {scope} match “q”\", \"Try:\" tips and \"Search everything\" describe purpose."}
+    },
+    "NotificationsInbox": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No fields collecting personal data; only the Filter facets' option search."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The unread StatusDot uses primary (#0068de, 5.2:1 on white) and is backed by sr-only \"Unread\"; tone icons and controls are library components; list dividers are decorative."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "A notification with href becomes a ListItem link whose name is the notification title and description, so its target is clear."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Filter labels \"Status\"/\"Object\", \"Filter notifications\", \"Notification settings\", \"Mark all read\", and per-row \"Actions for {title}\" are descriptive (note: the title and group labels are <p>, a 1.3.1 concern, not 2.4.6)."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "No sticky or fixed elements are added; the row menus are modal library DropdownMenus."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Status/Object filters and the All/Unread toggle refilter the list in place without moving focus."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input validation in the pattern."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Filters carry visible labels (\"Status\", \"Object\") and the toggle group shows visible \"All\"/\"Unread\" text."}
+    },
     "NumberField": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Arbitrary quantities; no input purpose applies."},
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Only the step \"bump\" animation is timed."},
@@ -342,10 +528,40 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Typing and steppers change the value in place."},
       "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: `label`/`description`/`required`/`optional` props; the steppers take the label (\"Increase Replicas\")."}
     },
+    "OnboardingWizard": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only text input is the new site's domain (autoComplete=\"off\"), which isn't the user's personal data."},
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Errors are text from TextField's error prop and FormMessage; \"Edit domain\"/\"Edit plan\" are stand-alone buttons beside their values, not links in running text."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Its only own drawing is the review note panel border (border-subtle), which is decoration around text; the Stepper, OptionCard and TextField come from the library."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Create a new site\", the stepper label \"Create a new site progress\", the step heading \"Step n of N: {label}\", \"Domain\", \"Choose a plan\", and Edit buttons named \"Edit domain\"/\"Edit plan\"."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Choosing a plan only sets state; Enter in the domain field is an explicit submit that runs Next with validation; focus moves only after Next or Back is activated."},
+      "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "zod messages (\"Enter a valid domain, e.g. shop.seashell.dev.\") reach the field through the FormMessage/FormControl wiring and TextField error={fieldState.error?.message}, and validate on Next focuses the invalid field."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The domain has a visible \"Domain\" label and a description; the plan fieldset has the legend \"Choose a plan\" and OptionCards with titles and prices."}
+    },
     "OrbitCarousel": {
       "1.4.13": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Hover/focus only hold autoplay."},
       "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Autoplay is off by default; when on, it stops on hover/focus, has Pause/Play, and is off under reduced motion."},
       "2.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Autoplay off by default; when on, it pauses on hover/focus and has Pause/Play."}
+    },
+    "OrderHistory": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only text field searches orders; it doesn't collect personal data."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "List border and row dividers are decorative grouping; status is a text Badge and the chevron sits inside a labelled \"Details\" button."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Track progress\" and \"Invoice (PDF)\" links sit in the same list item as the order number and items, so their purpose is clear in context."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Fixed 2026-10-24: Track progress, Invoice (PDF) and Buy again name their order for screen readers, like Details, so open rows stay distinct."},
+      "2.4.11": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No sticky or fixed elements."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Typing in search and changing the status Select filter the list in place and announce the count; focus does not move."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input is validated; an empty filter result is shown as an EmptyState, not as an input error."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Search shows a magnifier icon and an \"Order number or item\" hint, and the status Select shows its value (\"All statuses\"); both have aria-labels (lines 91, 109)."}
+    },
+    "OrderReview": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Edit\" is a standalone control in each group header (not inline in running text) and the discount is labelled \"Discount\" with a minus sign, not color only."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern adds only decorative Separators between groups; the pay button is a library Button."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Review and pay\" heading, group h3s from section titles, Edit buttons named \"Edit {section}\" via sr-only text, and \"Pay $amount\"."}
+    },
+    "PageBreadcrumbs": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The back link carries an arrow and the words \"Back to…\" as well as link colour; the crumbs are the library Breadcrumb with separators and a non-link current page; nothing sits in running text."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Its only own graphic is a 1px border-border divider between the back link and the trail (page-breadcrumbs.tsx:53), which is decorative and aria-hidden; the arrow icons repeat their link text."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Crumbs are page names inside a named breadcrumb nav, the back link reads \"Back to results for “dns”\", and on phones the parent link is that parent's name with a back arrow."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Nothing sticky or fixed; the folded crumbs open in the library Breadcrumb's modal overflow menu."}
     },
     "PageHeader": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "App title as h1."}
@@ -359,8 +575,28 @@
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "TextField label, required and optional marks."},
       "3.3.8": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "current-password autofill, paste and copy allowed, show-password toggle."}
     },
+    "PasswordReset": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Colored Mail/Warning/Check icons are aria-hidden and always paired with text; errors come through the field error prop with text."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Own graphics are decorative status icons next to explanatory text; all controls are library components."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Back to sign in\" and \"Sign in\" links state their destination."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Step headings (\"Reset your password\", \"Check your email\", \"This link has expired\", \"Set a new password\", \"Password changed\") and buttons (\"Send reset link\", \"Resend link\", \"Save new password\") are descriptive."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Steps change and focus moves only after a button or submit, never on typing or blur."},
+      "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Email and new-password problems are set as text through the error prop and the field is focused (lines 64-68, 181-185)."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Visible Labels \"Email\" and \"New password\", plus the length rule shown up front as the field description (line 206)."},
+      "3.3.8": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "autoComplete email, new-password and a hidden username field for password managers (line 198); Password allows paste; no cognitive test."}
+    },
     "PasswordStrengthMeter": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Password strength\", met/not met rules."}
+    },
+    "PaymentMethod": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Required fields use the Label required mark, errors are text messages, and the card brand is a word (\"· Visa\"), not color."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The fieldset border groups fields (not a control boundary) and the lock icon is aria-hidden beside text; inputs and tabs are library components."},
+      "1.4.13": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only hover/focus content is the security-code HelpIcon, a library Tooltip (dismissible, hoverable, persistent)."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Labels \"Name on card\", \"Card number\", \"Expiry date\", \"Security code\", tablist \"Payment method\", and HelpIcon \"Where to find the security code\" are descriptive."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "No sticky or fixed elements are added."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Choosing PayPal only swaps the tab panel in place (it states the new window comes later); typing re-masks and shows the brand in place, errors appear on blur without moving focus."},
+      "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "checkCard errors are specific text (\"The card number is 16 digits — 3 missing.\", \"This card has expired…\") passed via the MaskedInput/TextField error prop (aria-invalid + aria-describedby); validate() focuses the first invalid field."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Fixed 2026-10-24: the expiry field shows \"Month and year, MM / YY\" as helper text, not only as a placeholder."}
     },
     "PhoneField": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "autoComplete defaults to \"tel\"; fixed 2026-10-22: overridable (\"work tel\", or \"off\" for someone else's number)."},
@@ -370,12 +606,40 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Choosing a country moves focus to the number input of the same labelled field (documented)."},
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Label, required, optional, description; formats as you type."}
     },
+    "PlanComparison": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Included vs not included is a check shape vs a minus with sr-only text, \"Recommended\" is a Badge, and differing rows are also given a heavier weight; nothing is shown by color alone."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Fixed 2026-10-24: the \"Not included\" dash is icon-subtle (3:1 on white), was icon-subtler at 2.62:1."},
+      "1.4.13": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Feature hints use the library HelpIcon, which already passes; there is no other hover or focus content."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Each plan button says which plan it is (\"Choose {plan}, $X per month, billed {period}\"). Other labels: \"Billing period\", \"Only differences\", \"About {feature}\", the caption \"Plan comparison, prices per month billed…\", and tabs labelled \"Plans\"."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Fixed 2026-10-24: the sticky plan-card row reserves its height as scroll-padding, so a focused feature row stops below it."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The period toggle and the \"Only differences\" switch update prices and rows in place, and focus stays on the control."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The switch has a visible \"Only differences\" label, and the period ToggleGroup has visible Monthly/Yearly items plus aria-label \"Billing period\"."}
+    },
     "Popover": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Named by the app label or the trigger."},
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Dismisses on focus outside (sheet mode is modal)."}
     },
+    "Preferences": {
+      "1.3.5": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Full name uses autoComplete=\"name\", email \"email\", and the password fields \"current-password\" / \"new-password\" (lines 342, 356, 463, 474)."},
+      "1.4.1": {"result": "fail", "date": "2026-10-24", "by": "Claude (code review)", "note": "In the SectionNav, color alone marks the current section: preferences.tsx:291 only switches to a bg-primary-subtle pill (#dfeeff on #fff, 1.13:1) and a hue shift (#5f6190 to #0057b9, similar luminance), with no weight, underline or marker. The same treatment is in library SidebarItem."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Notification-row dividers are decorative; Switch, InputOTP, Buttons and the shield tile come from the library or are aria-hidden; the nav links are text."},
+      "2.2.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Account deletion uses library undoToast, which pauses on hover and focus with an adjustable duration; the 2 s \"Saved\" note and the success toasts need no action."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Section-nav anchor links are named after their section headings inside a nav named \"Settings sections\"."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Section headings (Profile, Security, Notifications, Danger zone) and actions (\"Save changes\", \"Update password\", \"Verify code\", \"Generate new code\", \"Delete account\") are descriptive and unique."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The fixed ScrollButtons stack (line 166, 32 px wide, 24 px from the bottom/end, no scroll-padding) can only partly cover a right-aligned control: the 36 px Switch and the wider buttons always stay partly visible. The sticky SectionNav sits in its own column."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Notification switches save immediately, but the section says \"Changes apply immediately\" beforehand and nothing navigates or moves focus; OTP entry doesn't auto-submit."},
+      "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Name, email and password problems go into the error prop as text and the first invalid field is focused (lines 313-320, 420-427)."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Every field has a visible Label; the new-password rule is a description, and the OTP has a label plus a hint (lines 536-538)."},
+      "3.3.8": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Password fields use current-password/new-password autofill and allow paste (library Password), and InputOTP accepts paste; no cognitive test."}
+    },
     "Price": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Free\", \"From\", \"per month\", \", was …\", \", n% off\"."}
+    },
+    "PricedOptions": {
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "List-mode dividers are decorative; radio and OptionCard boundaries come from the library."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The fieldset legend (\"Backups\", \"Server region\") names the group and each option has a title, description and price text (\"Included\", \"+$4 / mo\")."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Selecting an option only updates the selection and calls onValueChange; no navigation or focus move."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "A visible legend plus visible option titles, descriptions and prices label every choice."}
     },
     "ProductTour": {
       "2.1.4": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No character-key shortcut: Escape and arrows while the tour is open."},
@@ -437,6 +701,28 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Resize panel\", overridable."},
       "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The separator resizes by drag or keyboard; guidelines (2026-10-22) require collapse/expand or preset-size buttons when resizing is a user feature."}
     },
+    "ResourceForm": {
+      "1.3.5": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "kind=email sets autoComplete=\"email\" and kind=password sets \"new-password\" (resource-form.tsx:447, :455); story fields are email, password and resource names. Note: ResourceFieldConfig has no autoComplete option, so a text field for a name or phone can't carry its token."},
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Errors show as FieldError text, required/optional are Label marks, and the error summary links are underlined; nothing is shown by color alone."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "It draws no UI of its own: fields, Alert and Buttons come from the library, and its section separators are decorative."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Each error summary link is the field's error message (\"Name is required.\") under the heading \"Fix N fields to continue\", and jumps to that field."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Labels and section headings come from the config (\"Engine\", \"Storage (GB)\", \"Account\", \"Access\"), the summary title states the count, and the buttons are Save/Cancel or a custom label."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Nothing sticky or fixed."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "No control has a side effect on input; checkbox is the recommended yes/no kind (switch is deprecated); submission happens only on Save."},
+      "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Each field gets aria-invalid, aria-describedby pointing at its FieldError text, and the library error prop. With 2+ errors a focused summary of links appears; with one error, focus goes to that field."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Every kind renders a visible Label with a required or optional mark; radios use aria-labelledby on the Label; descriptions are linked by aria-describedby."},
+      "3.3.8": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Not a sign-in step, but its password field uses the library Password with autoComplete=\"new-password\" and has no paste blocking, so password managers and paste work."}
+    },
+    "Reviews": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pressed rating filter is only tinted (line 129), but the active filter is also stated in text (\"N reviews with S ★\" plus a \"Show all\" button, lines 155-178) and exposed through aria-pressed."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Distribution bars are aria-hidden and every bar has its count as visible text, so the graphic isn't needed; filter buttons are identified by their text."},
+      "1.4.13": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No hover or focus content of its own."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Reviews\" heading, a \"Filter by rating\" group with \"{n} stars, {count} reviews\" buttons, \"Sort reviews\" and \"Show N more reviews\" are descriptive."},
+      "2.4.11": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No sticky or fixed elements."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The sort Select reorders the list in place and the filters are buttons; focus moves only after the user presses Show all or Show more."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input is validated."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The sort Select shows its current value (\"Most relevant\") and is named \"Sort reviews\" (line 181); the filter bars are labelled buttons."}
+    },
     "RichTextEditor": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Rich text content; no input purpose applies."},
       "2.1.4": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Every shortcut has ⌘/Ctrl and is scoped to the focused editor; markdown input rules are text formatting, not shortcuts."},
@@ -444,6 +730,15 @@
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Link popover dismisses on focus outside."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Edits emit through onUpdate; the link popover applies on its own submit."},
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Label, description, required mark."}
+    },
+    "SavedItems": {
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Checkboxes, Select and Buttons are library components; the bulk-bar fill and list dividers are not control boundaries."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Item links use the item title; the empty state's \"Browse the catalog\" is self-describing."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Saved (n)\" heading, \"Sort saved items\", per-row \"Select {title}\" / \"Remove {title}\", and bulk \"Remove (n)\" / \"Add to cart (n)\" are descriptive."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "No sticky or fixed elements; the bulk bar is in normal flow."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Sorting reorders the list in place and checkboxes only change selection; no focus move or navigation."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input validation; the only inputs are selection checkboxes and a sort select."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Checkboxes have visible \"Select all\"/\"n selected\" text or sit beside the item title; the sort Select has no visible label but its visible value (\"Recently saved\", \"Price: low to high\") states the order (consider adding visible \"Sort by\")."}
     },
     "Scheduler": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A 60 s interval moves the \"now\" line; nothing is limited."},
@@ -457,6 +752,23 @@
     },
     "ScrollArea": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Named by the app."}
+    },
+    "SearchBox": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "A site search query isn't data about the user (autoComplete=\"off\")."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The popup frame is border-border (3.0:1). The highlighted option is shown with the same neutral-subtle fill the library Command and DropdownMenu use (1.15:1 light) — a library-wide convention, not new to this pattern."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The field is named \"Search\" inside role=search; the listbox is \"Search suggestions\" with groups \"Recent searches\"/\"Suggestions\"/\"Go to\"; there are \"Search everything for “q”\" and \"Clear recent searches\"."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Typing or focusing only opens its own suggestion listbox (an allowed combobox popup), and focus stays in the input; searching or navigating needs Enter or a click."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "It detects no input errors; an empty query is simply not submitted."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "There is no visible text label, but a visible search icon, a descriptive placeholder (\"Search domains, mail, settings, help…\") and the / hint, matching the library Topbar search precedent."}
+    },
+    "SearchResults": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The search query isn't the user's personal data."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Own visuals are a row hover tint and a focus ring drawn on the row; result TypeIcons are paired with text and the sr-only type."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Each result link is the result title plus \", {type}\" (lines 233-236), with context and snippet in the same list item."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The h1 states the count and query, group headings name the types, and \"View all N {type}\" adds the type for screen readers (line 179)."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Typing only updates the draft; search runs on submit, and scope Tabs switch the view in place."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input error is detected; an empty submit is simply ignored and a no-result query gets SearchNoResults, not an error."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The search field has a magnifier icon, aria-label \"Search\" and an adjacent visible \"Search\" submit button (lines 105-116)."}
     },
     "SecretField": {
       "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "A revealed secret is never auto-hidden. Fixed 2026-10-22: when the value can't be revealed, the copy-failed toast is the only explanation, so it now stays until dismissed."},
@@ -472,8 +784,32 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: item actions say \"More actions for {item}\" (new actionsLabel prop to override)."},
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Sticky rail in its own column; phones: modal."}
     },
+    "SignUpForm": {
+      "1.3.5": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "autoComplete=\"email\" on the email field and \"new-password\" on the password (sign-up-form.tsx:88,103)."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "No own non-text UI beyond decorative \"or\" Separators and an aria-hidden logo mark; fields and checkbox are library components."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Sign in\", \"Terms of Service\" and \"Privacy Policy\" are self-describing links."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Create your {app} account\" heading and labels \"Work email\", \"Password\", \"Send me product news, about once a month\" describe purpose."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Typing and the news checkbox have no side effects; blur only shows inline errors without moving focus."},
+      "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Email/password problems appear as text via the fields' error prop, submit focuses the first invalid field, and server errors show in an assertive danger Alert."},
+      "3.3.8": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "No cognitive test or confirm-password step; Password allows paste and password managers with autoComplete=\"new-password\" and a show/hide toggle."}
+    },
+    "SiteFooter": {
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The social icon-only links use icon-subtle, 5.56:1 light and 8.5:1 dark on the footer fill; the status uses the library StatusDot with a text label; the border-t lines are decorative."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Column links name their pages under headings in a nav named \"Footer\"; social links are named \"Theya on GitHub\"; contact links show the address under a dt such as \"Support, 24/7\"."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Column headings (Products/Support/Developers/Company), the visible \"Language\" label on the select, and the nav label \"Footer\"."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The footer is not sticky or fixed, and the language Select is a modal Radix Select."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The language Select is a Radix listbox: the value changes only when an option is chosen with Enter or a click (arrow keys on the closed trigger open it), so switching is a deliberate action, not a side effect of browsing."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "It has no validated input."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The language Select is labelled by the visible \"Language\" text through aria-labelledby (site-footer.tsx:139-144)."}
+    },
     "Sparkline": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: the default name adds the range: \"Trend across N points: from X to Y, low L, high H\"."}
+    },
+    "SpecSheet": {
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern draws no control boundaries or meaningful graphics; \"Show all\" is a text button and HelpIcon is a library component."},
+      "1.4.13": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only hover/focus content is the library HelpIcon tooltip, which is dismissible and hoverable."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Group h3 headings name each spec group, HelpIcons are named \"About {label}\", and the toggle says \"Show all N specifications\" / \"Show fewer\"."},
+      "2.4.11": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No sticky or fixed elements."}
     },
     "SplitButton": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"More actions\" (menuLabel overridable; JSDoc asks for a specific one when several appear)."},
@@ -481,6 +817,12 @@
     },
     "Stat": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Named by its label; tone word overridable."}
+    },
+    "StatusTracker": {
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Step state is shown by shape (check / X / inner dot / empty ring) and sr-only text, and overall state by a Badge word (\"In progress\", \"Stopped\", \"Completed\")."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Step markers meet 3:1: upcoming ring border-border 3.0:1 in both themes, current ring border-primary 5.2:1 / 5.95:1, and done/failed white glyphs are 6.6:1+ on their fill (the dark-theme inner current dot is 2.7:1 but current is also given by the primary ring and the headline)."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The support link reads \"Contact support (quote {reference})\"."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "h1 title, h2 headline (\"{step} — step n of m\" / \"Stopped at …\"), h2 \"Activity\", and buttons \"Retry from '{step}'\" / \"Cancel\" describe purpose."}
     },
     "Stepper": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Progress\"; \"step n of N, completed/current/upcoming\"."}
@@ -518,6 +860,15 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Remove {tag}\", \"Added/Removed {value}\"."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Delimiters/blur add tags; Enter on an empty draft submits the form on purpose (documented)."},
       "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: `label`/`required`/`optional` props; the WithLabel story writes out \"Press Enter or comma to add\" in the description."}
+    },
+    "TeamMembers": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only text input is a teammate's invite email, not the user's own data (it does set autoComplete=\"email\")."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Its own decoration (the invite icon disc, the divide-y lines, the empty-state frame) marks no control; buttons, selects and StatusDot come from the library, and the invite status also has a text label."},
+      "2.4.6": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Repeated controls name their item: \"Role for {name}\", \"Remove {name}\", \"Resend invite to {email}\", \"Revoke invite for {email}\"; the headings are \"Team members\", \"Invite a teammate\", \"Members\" and \"Pending invites\"."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Nothing sticky or fixed; the confirms are modal ConfirmDialogs."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "A per-row role change updates that member in place and shows a toast; nothing navigates, submits or moves focus. Inviting needs the explicit \"Send invite\"."},
+      "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Email errors (\"Enter an email address.\", malformed, already a member/invited) appear as text with role=alert and are linked by aria-invalid plus aria-describedby (team-members.tsx:265-272), and submit focuses the field."},
+      "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The invite has visible \"Email address\" and \"Role\" labels; per-row role selects sit under the \"Role\" column header and are named \"Role for {name}\"."}
     },
     "Terminal": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Terminal output\", connection status."}
@@ -593,6 +944,15 @@
       "2.5.7": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: pointer capture swallowed the option click; a press without movement now picks the row under the pointer (verified with a real mouse)."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Selecting clamps the index, sets the value and calls onValueChange."},
       "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: `label` prop: a visible label names the list; a click on it focuses the wheel."}
+    },
+    "WorkspaceLayout": {
+      "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No personal-data inputs; TopbarSearch opens a palette and isn't a form field."},
+      "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The unread state is a dot that appears, not a color change, and \", unread\" is in the button name; the pattern adds no color-only meaning (the active nav item comes from library SidebarItem)."},
+      "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only own control styling is the skip link, which has a full border-border outline when focused; everything else is library Sidebar/Topbar."},
+      "2.4.4": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Skip to main content\", breadcrumb links and nav items are all named by their destination."},
+      "2.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The sticky Topbar reserves scroll-padding (library), the Sidebar sits in its own grid column, and the fixed skip link only appears while it is itself focused."},
+      "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input changes context; nav items act on click only and ThemeToggle changes the theme in place."},
+      "3.3.2": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern adds no inputs of its own."}
     }
   },
   "deviations": {

@@ -71,12 +71,12 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(visibleNames(canvasElement)).toEqual(ALL);
-    await expect(count(canvasElement)).toHaveTextContent('5 results');
+    await expect(count(canvasElement)).toHaveTextContent('5 users');
 
-    const input = canvas.getByRole('combobox', { name: 'Search…' });
+    const input = canvas.getByRole('combobox', { name: 'Search users…' });
     await userEvent.type(input, 'pri');
     await waitFor(() => expect(visibleNames(canvasElement)).toEqual(['Priya Nair']));
-    await expect(count(canvasElement)).toHaveTextContent('1 result');
+    await expect(count(canvasElement)).toHaveTextContent('1 user');
     await userEvent.clear(input);
     await waitFor(() => expect(visibleNames(canvasElement)).toEqual(ALL));
     await userEvent.keyboard('{Escape}');

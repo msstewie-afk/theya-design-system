@@ -288,9 +288,12 @@ function buildRow({ name, base, title, traitKey = name, reviews: ownReviews = {}
   const evidence = (kind, id) =>
     // axe counts unless a rule for this criterion is off for the whole
     // component (meta level, or in every story).
+    // A rule switched off with a reason in the stories counts again when a
+    // manual review of that criterion passed (CardFan, Comparison: 2.5.8).
     kind === 'axe'
       ? s.stories > 0 &&
-        !s.exclusions.some((e) => e.rules.some((r) => RULE_CRITERIA.get(r)?.includes(id)) && (e.story === '*' || s.exclusions.filter((x) => x.rules.some((r) => RULE_CRITERIA.get(r)?.includes(id))).length >= s.stories))
+        (!s.exclusions.some((e) => e.rules.some((r) => RULE_CRITERIA.get(r)?.includes(id)) && (e.story === '*' || s.exclusions.filter((x) => x.rules.some((r) => RULE_CRITERIA.get(r)?.includes(id))).length >= s.stories)) ||
+          reviews[id]?.result === 'pass')
     // A keyboard play test, or — for components without their own arrow-key
     // model — the Tab pass of a11y-auto with nothing found.
     : kind === 'keyboard'

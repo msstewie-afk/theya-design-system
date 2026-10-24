@@ -207,6 +207,8 @@ export const PaymentMethod = forwardRef<PaymentMethodHandle, PaymentMethodProps>
                 inputMode="numeric"
                 autoComplete="cc-exp"
                 placeholder="MM / YY"
+                // The placeholder goes once typing starts; the format stays visible here.
+                description="Month and year, MM / YY"
                 error={errorFor('expiry')}
                 className="font-mono"
               />

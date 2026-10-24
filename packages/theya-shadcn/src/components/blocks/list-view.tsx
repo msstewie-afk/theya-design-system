@@ -281,7 +281,10 @@ export function ListView<Row extends Record<string, unknown> = SeededUser>(props
   const columns = (useDefault ? SEEDED_COLUMNS : props.columns) as ColumnDef<Row, unknown>[];
   const data = (useDefault ? SEEDED_USERS : props.data) as Row[];
   const primaryKey = props.primaryKey ?? 'name';
-  const searchPlaceholder = props.searchPlaceholder ?? 'Search…';
+  // Names come from the noun, so the table and its search say what they hold
+  // ("Users", "Search users…") instead of a bare "List" / "Search…" (WCAG 2.4.6).
+  const noun = props.noun ?? (useDefault ? { one: 'user', many: 'users' } : { one: 'result', many: 'results' });
+  const searchPlaceholder = props.searchPlaceholder ?? (props.noun || useDefault ? `Search ${noun.many}…` : 'Search…');
   const facets: ListFacet[] = useDefault
     ? [
         {
@@ -296,7 +299,6 @@ export function ListView<Row extends Record<string, unknown> = SeededUser>(props
         },
       ]
     : (props.facets ?? []);
-  const noun = props.noun ?? { one: 'result', many: 'results' };
   const getRowLabel = props.getRowLabel ?? ((row: Row) => String((row as { name?: unknown }).name ?? 'row'));
 
   const rowMenuColumns: ColumnDef<Row, unknown>[] = props.rowActions
@@ -347,7 +349,7 @@ export function ListView<Row extends Record<string, unknown> = SeededUser>(props
               />
             )
       }
-      ariaLabel={props.ariaLabel ?? 'List'}
+      ariaLabel={props.ariaLabel ?? (props.noun || useDefault ? noun.many.charAt(0).toUpperCase() + noun.many.slice(1) : 'List')}
       enableSelection={Boolean(props.bulkActions?.length)}
       selectAll="toolbar"
       toolbar={(table) => <ListToolbar table={table} primaryKey={primaryKey} searchPlaceholder={searchPlaceholder} facets={facets} bulkActions={props.bulkActions} noun={noun} loading={props.loading} />}

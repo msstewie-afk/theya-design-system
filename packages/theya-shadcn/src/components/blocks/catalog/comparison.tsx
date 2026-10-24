@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Check, Minus, NavArrowLeft, Xmark } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
+import { useScrollPadding } from '../../../lib/scroll-padding';
 import { Button } from '../../ui/button';
 import { Switch } from '../../ui/switch';
 import { ItemCard, formatInstalls, formatItemPrice } from './item-card';
@@ -42,6 +43,9 @@ export interface CompareBarProps {
 export function CompareBar({ items, max = 4, onRemove, onClear, onCompare, className }: CompareBarProps) {
   const hintId = useId();
   const rootRef = useRef<HTMLElement>(null);
+  // The tray sticks to the bottom over the grid: reserve its height so a
+  // Tab-focused card stops above it (WCAG 2.4.11).
+  useScrollPadding(rootRef, 'bottom', items.length > 0);
   // Slot index of the pick just removed; focus lands there once the list re-renders.
   const removedAt = useRef<number | null>(null);
   useEffect(() => {
@@ -148,7 +152,8 @@ function Supported({ on }: { on: boolean }) {
       <span className="sr-only">Yes</span>
     </span>
   ) : (
-    <span className="inline-flex text-[var(--color-icon-icon-subtler)]">
+    // icon-subtle, not -subtler: the dash is the only visible "No" (3:1, WCAG 1.4.11).
+    <span className="inline-flex text-[var(--color-icon-icon-subtle)]">
       <Minus className="size-5" aria-hidden="true" />
       <span className="sr-only">No</span>
     </span>
