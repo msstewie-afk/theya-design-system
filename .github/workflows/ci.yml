@@ -15,9 +15,13 @@
 #
 # Visual baselines are rendered on this runner and kept in the Actions
 # cache (never in git: macOS and Linux render fonts differently, so local
-# baselines stay local). Each green run saves the current set; the next run
-# compares against it. When a visual change is intended, run this workflow
-# by hand (Actions → CI → Run workflow) with "accept visual changes" on.
+# baselines stay local).
+# - Pull requests compare against main's baselines and fail on a change.
+# - main (push, weekly run, manual run) records instead of comparing: what
+#   is on main is the accepted look. Stories whose snapshot changed are
+#   listed in the run summary and uploaded as "visual-changes" (before /
+#   after PNGs), so a change is visible but never turns main red and never
+#   needs a manual re-run.
 name: CI
 
 on:
@@ -30,16 +34,11 @@ on:
   schedule:
     - cron: '17 5 * * 1'
   workflow_dispatch:
-    inputs:
-      accept_visual:
-        description: Accept visual changes (re-record every baseline)
-        type: boolean
-        default: false
 
 # A newer push to the same branch cancels the run still in progress.
 # Runner image pinned: visual baselines are only comparable on the same
-# OS image (fonts, anti-aliasing). Moving to a newer one = re-record them
-# with "accept visual changes".
+# OS image (fonts, anti-aliasing). Moving to a newer one re-records them on
+# the next main run (every snapshot shows up as changed once).
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
@@ -129,20 +128,23 @@ jobs:
           key: vrt-${{ runner.os }}-${{ github.run_id }}
           restore-keys: vrt-${{ runner.os }}-
 
-      # No baselines yet (first run, or the cache expired) or changes were
-      # accepted by hand: record instead of compare.
+      # main records (see the header); a pull request compares. Also records
+      # when there are no baselines yet (first run, or the cache expired).
+      # The baselines as they were are kept aside to list what changed.
       - name: Decide visual mode
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         id: mode
         run: |
-          if [ -z "${{ steps.baselines.outputs.cache-matched-key }}" ] || [ "${{ inputs.accept_visual }}" = "true" ]; then
+          rm -rf __visual__/light/__diff__ __visual__/dark/__diff__
+          if [ "${{ github.event_name }}" != "pull_request" ] || [ -z "${{ steps.baselines.outputs.cache-matched-key }}" ]; then
             echo "flags=-u" >> "$GITHUB_OUTPUT"
             echo "Recording visual baselines"
           else
             echo "flags=" >> "$GITHUB_OUTPUT"
             echo "Comparing with ${{ steps.baselines.outputs.cache-matched-key }}"
           fi
-          rm -rf __visual__/light/__diff__ __visual__/dark/__diff__
+          rm -rf "$RUNNER_TEMP/visual-before"
+          if [ -d __visual__ ]; then cp -r __visual__ "$RUNNER_TEMP/visual-before"; fi
 
       # CI=false: a story added since the last baseline gets its first
       # snapshot recorded (as locally) instead of failing as "missing".
@@ -157,6 +159,36 @@ jobs:
         env:
           CI: 'false'
         run: pnpm test-visual:dark ${{ steps.mode.outputs.flags }}
+
+      # Recording mode: list the snapshots that differ from the previous
+      # baselines (new stories included) and keep before / after copies.
+      - name: List visual changes
+        if: ${{ !cancelled() && steps.mode.outputs.flags == '-u' }}
+        run: |
+          out="$RUNNER_TEMP/visual-changes"; rm -rf "$out"; n=0; list=""
+          while IFS= read -r f; do
+            rel="${f#__visual__/}"; old="$RUNNER_TEMP/visual-before/$rel"
+            if [ ! -f "$old" ] || ! cmp -s "$f" "$old"; then
+              n=$((n+1)); list="$list"$'\n'"- \`$rel\`$( [ -f "$old" ] || echo ' (new)')"
+              mkdir -p "$out/after/$(dirname "$rel")"; cp "$f" "$out/after/$rel"
+              if [ -f "$old" ]; then mkdir -p "$out/before/$(dirname "$rel")"; cp "$old" "$out/before/$rel"; fi
+            fi
+          done < <(find __visual__ -name '*.png' -not -path '*/__diff__/*' | sort)
+          {
+            echo "### Visual changes: $n"
+            if [ "$n" -gt 0 ]; then echo "Recorded as the new baselines. Before / after PNGs: artifact **visual-changes**."; echo "$list"; else echo "None."; fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "count=$n" >> "$GITHUB_OUTPUT"
+        id: changes
+
+      - name: Upload visual changes
+        if: ${{ !cancelled() && steps.changes.outputs.count != '0' && steps.changes.outputs.count != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-changes
+          path: ${{ runner.temp }}/visual-changes/
+          if-no-files-found: ignore
+          retention-days: 30
 
       - name: Upload visual diffs
         if: failure()

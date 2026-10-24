@@ -68,11 +68,11 @@ The `.github/workflows/ci.yml` workflow runs on every push to `main` and on ever
    - visual regression in both themes.
 3. **react-19** (after checks, in parallel with storybook): the same code, but React 19 is forced across the whole repository (the package supports 18 and 19; development and the other checks run on 18). It checks that no React 18 is left, then runs types, play tests and axe in the light theme. Visual regression is not needed here — the look does not depend on the React version.
 
-CI has its own visual regression baselines. A Linux runner takes them, they are stored in the Actions cache, and they are not in git. Each green run becomes the baseline for the next one. The first run, and a run after the cache has expired (7 days without runs), only take baselines and compare nothing. New stories get a baseline on their first run.
+CI has its own visual regression baselines. A Linux runner takes them, they are stored in the Actions cache, and they are not in git.
 
-**A visual test failed.** The run page in Actions has a `visual-diffs` archive: it contains "baseline | diff | new snapshot" images.
-
-**The change is intended.** Actions → CI → Run workflow → enable "Accept visual changes" → Run. The run rebuilds all baselines.
+- **On `main`** (push, the weekly run, a manual run) CI records instead of comparing: what is on `main` is the accepted look. A visual change never turns `main` red and needs no re-run. The run summary lists the stories whose snapshot changed ("Visual changes: N"), and the `visual-changes` archive has before / after images. Glance at it after a push that wasn't meant to change the look.
+- **On a pull request** CI compares with `main`'s baselines and fails on a change. The `visual-diffs` archive contains "baseline | diff | new snapshot" images. If the change is intended, merging it makes it the baseline.
+- The first run, and a run after the cache has expired (7 days without runs), only take baselines.
 
 **`api:check` failed.** The public API changed. Locally:
 
