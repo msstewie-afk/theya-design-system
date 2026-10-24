@@ -209,7 +209,11 @@ function resolve(set) {
   const [base, fixedTone] = set.name.split('/');
   const hit = byExport.get(o.component ?? base);
   if (!hit && !o.story) return { skip: `no code component named ${base}` };
-  const props = new Map((hit?.component.props ?? []).map((p) => [p.name, p]));
+  // Props of every part in the spec, not just the root: a story's args often
+  // feed a sub-part (Select's error / widthSize live on SelectTrigger).
+  const props = new Map();
+  for (const c of hit?.spec.components ?? []) for (const p of c.props ?? []) if (!props.has(p.name)) props.set(p.name, p);
+  for (const p of hit?.component.props ?? []) props.set(p.name, p);
   const story = o.story ?? pickStory(hit.spec);
   if (!story) return { skip: `${base} has no stories` };
   const dropped = new Set();
@@ -322,10 +326,25 @@ for (const { set, r } of plan) {
     continue;
   }
   const globals = THEME === 'dark' ? '&globals=theme:dark' : '';
-  await page.goto(`${URL_BASE}/iframe.html?id=${r.story}&viewMode=story${globals}`, { waitUntil: 'load' });
-  try {
-    await page.waitForSelector('#storybook-root > *', { timeout: 15000 });
-  } catch {
+  // Load the story and let its play function finish (a play that opens and
+  // closes a popover leaves the trigger focused and tinted otherwise). While
+  // another agent edits story files Storybook's index can fail for a few
+  // seconds (error display, empty root): retry the load a few times.
+  let rendered = false;
+  for (let attempt = 1; attempt <= 4 && !rendered; attempt++) {
+    await page.goto(`${URL_BASE}/iframe.html?id=${r.story}&viewMode=story${globals}`, { waitUntil: 'load' });
+    try {
+      await page.waitForSelector('#storybook-root > *', { timeout: 15000 });
+      await page
+        .waitForFunction(() => ['finished', 'completed', 'played', 'errored', 'aborted'].includes(window.__STORYBOOK_PREVIEW__?.currentRender?.phase), null, { timeout: 15000 })
+        .catch(() => {});
+      rendered = !(await page.evaluate(() => document.body.classList.contains('sb-show-errordisplay')));
+    } catch {
+      rendered = false;
+    }
+    if (!rendered) await page.waitForTimeout(3000 * attempt);
+  }
+  if (!rendered) {
     results.push({ set: set.name, skip: `story ${r.story} did not render` });
     continue;
   }
@@ -392,9 +411,26 @@ for (const { set, r } of plan) {
           // the first input-like element, widened to a same-size wrapper that
           // also holds its absolutely placed buttons (clear, steppers).
           const root = document.querySelector('#storybook-root');
-          el = root.querySelector('input:not([type=hidden]), textarea, [role=combobox], button[aria-haspopup], button');
-          while (el && el !== root && !(parseFloat(getComputedStyle(el).borderTopWidth) > 0)) el = el.parentElement;
-          if (el === root) el = null;
+          // Candidates in priority order (not document order: a chip's remove
+          // button or a visually hidden input can come first); the first one
+          // that is visible and sits in a bordered box wins.
+          const bordered = (n) => {
+            while (n && n !== root && !(parseFloat(getComputedStyle(n).borderTopWidth) > 0)) n = n.parentElement;
+            return n === root ? null : n;
+          };
+          el = null;
+          for (const q of ['textarea', 'input:not([type=hidden])', '[role=combobox]', 'button[aria-haspopup]', 'button']) {
+            for (const c of root.querySelectorAll(q)) {
+              const b = c.getBoundingClientRect();
+              if (!b.width || !b.height) continue;
+              const box = bordered(c);
+              if (box && box.getBoundingClientRect().height >= 24) {
+                el = box;
+                break;
+              }
+            }
+            if (el) break;
+          }
           const same = (a, b) => Math.abs(a.width - b.width) < 1 && Math.abs(a.height - b.height) < 1;
           while (el && el.parentElement && el.parentElement !== root && same(el.getBoundingClientRect(), el.parentElement.getBoundingClientRect())) el = el.parentElement;
         } else {

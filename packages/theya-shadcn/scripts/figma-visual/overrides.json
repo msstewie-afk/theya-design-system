@@ -88,10 +88,18 @@
     "skip": "a part drawn inside its parent's story; compared through the parent"
   },
   "DatePicker": {
-    "selector": "@field"
+    "selector": "@field",
+    "values": {
+      "value=empty": {},
+      "value=filled": {}
+    }
   },
   "DateRangePicker": {
-    "selector": "@field"
+    "selector": "@field",
+    "values": {
+      "value=empty": {},
+      "value=filled": {}
+    }
   },
   "Dialog": {
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
