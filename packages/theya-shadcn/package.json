@@ -37,7 +37,8 @@
     "a11y": "node scripts/build-spec.mjs && node scripts/build-a11y.mjs",
     "a11y:auto": "node scripts/a11y-auto.mjs --url http://localhost:6008 && node scripts/build-a11y.mjs",
     "api:check": "node scripts/build-spec.mjs --check && node scripts/build-api.mjs --check && node scripts/build-a11y.mjs --check && node scripts/check-client.mjs && node scripts/check-rtl.mjs",
-    "figma:docs": "node scripts/figma-docs.mjs"
+    "figma:docs": "node scripts/figma-docs.mjs",
+    "figma:visual": "node scripts/figma-visual-diff.mjs"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.3",

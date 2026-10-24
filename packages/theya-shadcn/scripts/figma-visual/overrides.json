@@ -1,0 +1,246 @@
+{
+  "AccordionItem": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "AlertDialog": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "AnnouncementBar": {
+    "args": {
+      "appearance": "tonal"
+    },
+    "values": {
+      "tone=filled": {
+        "tone": "primary",
+        "appearance": "filled"
+      }
+    }
+  },
+  "BadgeIndicator": {
+    "values": {
+      "content=dot": {
+        "dot": true
+      },
+      "content=value": {},
+      "content=icon": {}
+    }
+  },
+  "BreadcrumbEllipsis": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "BreadcrumbLink": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "BreadcrumbPage": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "BreadcrumbSeparator": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "Button/on-primary": {
+    "skip": "drawn on the primary fill (data-surface=primary); the Playground story renders on the page surface"
+  },
+  "CardAvatar": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "CardMedia": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "CarouselIndicators": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "ChartTooltip": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "Checkbox": {
+    "selector": "[role=checkbox]",
+    "values": {
+      "checked=true": {
+        "checked": true
+      },
+      "checked=false": {
+        "checked": false
+      },
+      "checked=indeterminate": {
+        "checked": "indeterminate"
+      }
+    }
+  },
+  "ComboboxContent": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "ConfirmDialog": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "ContextMenu": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "DataTableColumnHeader": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "DataTableSelectCell": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "DatePicker": {
+    "selector": "#storybook-root button"
+  },
+  "Dialog": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "DialogClose": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "DiffGapRow": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "DiffLine": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "Drawer": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "DropdownMenu": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "DropdownMenuCheckboxItem": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "DropdownMenuItem": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "DropdownMenuLabel": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "DropdownMenuRadioItem": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "DropdownMenuSeparator": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "DropdownMenuSubTrigger": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "FAB": {
+    "component": "Fab"
+  },
+  "Form (example)": {
+    "skip": "a composition example, not a component"
+  },
+  "HoverCardContent": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "KanbanCard": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "KeyboardShortcuts": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "Lightbox": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "LightboxControl": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "MessagePopup": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "PasswordToggle": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "PopoverContent": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "ProductTour": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "PromptSuggestion": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "PushSheet": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "Radio": {
+    "selector": "[role=radio]"
+  },
+  "RatingStar": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "SchedulerEvent": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "SelectContent": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "SelectItem": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "SelectLabel": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "SelectSeparator": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "Sidebar": {
+    "selector": "aside",
+    "width": false
+  },
+  "SidebarItem": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "SidebarSectionLabel": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "StatusDot": {
+    "selector": "[data-slot=status-dot]"
+  },
+  "Switch": {
+    "selector": "[role=switch]",
+    "values": {
+      "checked=true": {
+        "checked": true
+      },
+      "checked=false": {
+        "checked": false
+      }
+    }
+  },
+  "TableCell": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "TableHead": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "TabsTrigger": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "TerminalLine": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "TimelineItem": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "Toast": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "ToolbarLink": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "ToolbarSeparator": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "Tooltip": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "Topbar": {
+    "selector": "header"
+  },
+  "TopbarAction": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "TreeItem": {
+    "skip": "a part drawn inside its parent's story; compared through the parent"
+  },
+  "UndoToast": {
+    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  }
+}
