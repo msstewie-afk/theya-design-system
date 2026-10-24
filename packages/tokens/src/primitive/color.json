@@ -28,6 +28,9 @@
       "cyan-600": {
         "value": "#076676"
       },
+      "cyan-650": {
+        "value": "#045866"
+      },
       "cyan-700": {
         "value": "#024a56"
       },
@@ -50,6 +53,9 @@
       },
       "blue-600": {
         "value": "#0057b9"
+      },
+      "blue-650": {
+        "value": "#004ca2"
       },
       "blue-700": {
         "value": "#00428c"
@@ -83,11 +89,17 @@
       "slate-010": {
         "value": "#e7e7f8"
       },
+      "slate-030": {
+        "value": "#d8daf4"
+      },
       "slate-050": {
         "value": "#caccf0"
       },
       "slate-100": {
         "value": "#bec0e9"
+      },
+      "slate-150": {
+        "value": "#b4b6e4"
       },
       "slate-200": {
         "value": "#a9aade"
@@ -104,11 +116,17 @@
       "slate-450": {
         "value": "#5f6190"
       },
+      "slate-475": {
+        "value": "#555783"
+      },
       "slate-500": {
         "value": "#4b4d77"
       },
       "slate-600": {
         "value": "#393a5d"
+      },
+      "slate-650": {
+        "value": "#303150"
       },
       "slate-700": {
         "value": "#282944"
@@ -144,6 +162,12 @@
       },
       "green-600": {
         "value": "#156B39"
+      },
+      "green-650": {
+        "value": "#155630"
+      },
+      "green-675": {
+        "value": "#154c2b"
       },
       "green-700": {
         "value": "#144227"
@@ -189,6 +213,9 @@
       "red-800": {
         "value": "#8A0B32"
       },
+      "red-850": {
+        "value": "#730e2d"
+      },
       "red-900": {
         "value": "#5C0F27"
       },
@@ -226,6 +253,9 @@
       },
       "orange-800": {
         "value": "#8A3E0F"
+      },
+      "orange-850": {
+        "value": "#733712"
       },
       "orange-900": {
         "value": "#5D2F13"
@@ -458,6 +488,9 @@
       },
       "graphite-600": {
         "value": "#535358"
+      },
+      "graphite-650": {
+        "value": "#48484c"
       },
       "graphite-700": {
         "value": "#3d3d41"
