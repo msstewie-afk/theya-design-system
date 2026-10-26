@@ -18,6 +18,8 @@
 @import './forced-colors.css';
 /* Padding / margin / gap follow data-density (see the file). */
 @import './density-spacing.css';
+/* Landing pages: data-scale="display" makes big type fluid; section / container utilities (see the file). */
+@import './display-scale.css';
 
 /* Explicit layer order, so the @utility blocks at the end of this file
    (focus-ring etc.) always win over @layer base. Tailwind v4 infers `theme, base, components, utilities` implicitly from

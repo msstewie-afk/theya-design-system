@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Search } from 'iconoir-react';
 import { TextField } from '../components/ui/text-field';
+import { Button } from '../components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 import { tokenValue, type Theme } from './token-values';
 import { TokenArchitecturePage, UsagePrinciplesPage } from './token-architecture';
@@ -1102,6 +1103,124 @@ return isPhone ? <Drawer>…</Drawer> : <Dialog>…</Dialog>;`}
             <li key={rule}>{rule}</li>
           ))}
         </ul>
+      </DocsSection>
+    </DocsPage>
+  ),
+};
+
+
+const DISPLAY_ROWS: SpecRow[] = [
+  { token: 'text-display-xl', value: '56/60 → 128/136', use: 'The one headline of a hero. Landing pages only; works with or without data-scale.', usedBy: 'Hero' },
+  { token: 'text-heading-3xl', value: '48/56 → 100/112', use: 'Inside data-scale="display": a big section headline. Outside, the fixed product value (100/112).', usedBy: 'Section headlines, CTA band' },
+  { token: 'text-heading-2xl', value: '36/44 → 60/72', use: 'Inside data-scale="display": section titles.', usedBy: 'Feature grid, Pricing, FAQ titles' },
+  { token: 'text-heading-xl', value: '28/36 → 40/48', use: 'Inside data-scale="display": card and column titles in a section.', usedBy: 'Feature cards, Stats numbers' },
+  { token: 'text-body-l', value: '17/24 → 20/28', use: 'Inside data-scale="display": the lead paragraph under a headline.', usedBy: 'Hero and section intros' },
+  { token: 'section-display', value: 'padding 64 → 128', use: 'Vertical padding of a landing section.', usedBy: 'Every landing section' },
+  { token: 'container-display', value: 'max 1200 · gutter 16 → 40', use: 'The centred content column of a section. -narrow (720) for text, -wide (1440) for full-bleed grids.', usedBy: 'Every landing section' },
+];
+
+const DISPLAY_SAMPLES = ['text-display-xl', 'text-heading-3xl', 'text-heading-2xl', 'text-heading-xl', 'text-body-l'] as const;
+
+/** Reads the sizes the scale resolves to at the current window width. */
+function DisplayReadout() {
+  const [state, setState] = useState<{ width: number; sizes: string[] }>({ width: 0, sizes: [] });
+  useEffect(() => {
+    const probe = document.createElement('div');
+    probe.setAttribute('data-scale', 'display');
+    probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none';
+    document.body.appendChild(probe);
+    const read = () => {
+      const sizes = DISPLAY_SAMPLES.map((cls) => {
+        const el = document.createElement('span');
+        el.className = cls;
+        probe.appendChild(el);
+        const cs = getComputedStyle(el);
+        const out = `${parseFloat(cs.fontSize)}/${parseFloat(cs.lineHeight)}`;
+        el.remove();
+        return out;
+      });
+      setState({ width: window.innerWidth, sizes });
+    };
+    read();
+    window.addEventListener('resize', read);
+    return () => {
+      window.removeEventListener('resize', read);
+      probe.remove();
+    };
+  }, []);
+  if (!state.width) return null;
+  return (
+    <p className="m-0 text-body-s text-[var(--color-text-text-subtle)]">
+      At this window width ({state.width} px):{' '}
+      {DISPLAY_SAMPLES.map((cls, i) => (
+        <span key={cls}>
+          {i > 0 && ' · '}
+          <span className="font-mono">{cls.replace('text-', '')}</span> {state.sizes[i]}
+        </span>
+      ))}
+    </p>
+  );
+}
+
+/** Landing-page layer: fluid display type inside data-scale="display", section and container utilities. */
+export const DisplayScale: Story = {
+  name: 'Display scale',
+  render: () => (
+    <DocsPage
+      title="Display scale"
+      description='For landing pages. data-scale="display" on a section makes the big type fluid: it grows with the window from a phone (360 px) to a desktop (1440 px) and stops at both ends. Components stay the same — a Button or Card inside a display section is the product one.'
+    >
+      <DocsSection title="Example">
+        <div data-scale="display" className="overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]">
+          <section className="section-display container-display-narrow flex flex-col items-start gap-6">
+            <span className="text-body-s font-medium uppercase tracking-wide text-[var(--color-text-text-subtle)]">Bookmarks</span>
+            <h2 className="m-0 font-heading text-display-xl text-[var(--color-text-text)]">Every link, one place</h2>
+            <p className="m-0 text-body-l text-[var(--color-text-text-subtle)]">Import from any browser, sort into folders, find anything in a keystroke.</p>
+            <div className="flex flex-wrap gap-3">
+              <Button size="2xl">Get started</Button>
+              <Button size="2xl" appearance="outlined">See how it works</Button>
+            </div>
+          </section>
+          <section className="section-display container-display flex flex-col gap-10 border-t border-solid border-[var(--color-border-border-subtler)]">
+            <h2 className="m-0 font-heading text-heading-2xl text-[var(--color-text-text)]">Built for big collections</h2>
+            <div className="grid gap-8 sm:grid-cols-3">
+              {[
+                ['Folders', 'Drag links between folders, or let rules sort them.'],
+                ['Search', 'Titles, notes and page text, as you type.'],
+                ['Cleanup', 'Spot duplicates and broken links in one pass.'],
+              ].map(([title, body]) => (
+                <div key={title} className="flex flex-col gap-2">
+                  <h3 className="m-0 font-heading text-heading-xl text-[var(--color-text-text)]">{title}</h3>
+                  <p className="m-0 text-body-m text-[var(--color-text-text-subtle)]">{body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+        <DisplayReadout />
+      </DocsSection>
+
+      <DocsSection title="Scale">
+        <SpecTable label="Display scale" rows={DISPLAY_ROWS} valueLabel="360 → 1440 px" />
+        <Note>
+          Sizes round to 1 px and line-heights to 4 px, so line boxes stay on the 4 px grid. The scale follows the window width, not the container. Outside data-scale="display" headings keep their fixed product values.
+        </Note>
+      </DocsSection>
+
+      <DocsSection title="Usage">
+        <pre
+          tabIndex={0}
+          aria-label="Code example"
+          className="m-0 overflow-x-auto rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] p-4 font-mono text-body-s text-[var(--color-text-text)] outline-none focus-visible:focus-ring"
+        >
+          {`<section data-scale="display" className="section-display">
+  <div className="container-display-narrow">
+    <h1 className="text-display-xl">…</h1>
+    <p className="text-body-l">…</p>
+    <Button size="2xl">…</Button>
+  </div>
+</section>`}
+        </pre>
       </DocsSection>
     </DocsPage>
   ),
