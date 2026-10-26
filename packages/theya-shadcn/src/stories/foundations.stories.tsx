@@ -341,7 +341,7 @@ const TEXT_TOKEN_ROWS: TokenRow[] = withValues([
   { name: '--color-text-text-subtle', description: 'De-emphasized text — captions, helper text, metadata.' },
   { name: '--color-text-text-placeholder', description: 'Placeholder text in fields; clearly dimmer than a typed value in both themes.' },
   { name: '--color-text-text-link', description: 'Hyperlink text color.' },
-  { name: '--color-text-text-on-dark', description: 'Text for use on a dark/colored fill (e.g. inside a primary button). Same in both themes.' },
+  { name: '--color-text-text-on-dark', description: 'Text on a dark or colored fill, such as danger. Same in both themes. On the primary fill use text-on-primary: it follows the product theme.' },
   { name: '--color-text-text-link-on-dark', description: 'Link text for use on a dark/colored fill.' },
   { name: '--color-text-text-subtle-on-dark', description: 'De-emphasized text for use on a dark/colored fill.' },
 ]);
@@ -639,8 +639,8 @@ export const BorderRadius: Story = {
               </span>
             </div>
             <div className="flex h-10 items-center justify-between gap-3 bg-[var(--color-bg-primary-bg-primary)] px-4" style={{ borderRadius: radius('xl') }}>
-              <span className="text-body-m text-[var(--color-text-text-on-dark)]">Button</span>
-              <span className="font-mono text-body-s text-[var(--color-text-text-on-dark)]">xl · 8px</span>
+              <span className="text-body-m text-[var(--color-text-text-on-primary)]">Button</span>
+              <span className="font-mono text-body-s text-[var(--color-text-text-on-primary)]">xl · 8px</span>
             </div>
           </div>
         </div>
@@ -704,7 +704,7 @@ export const FocusRing: Story = {
               onPrimary ? 'bg-[var(--color-bg-primary-bg-primary)]' : 'border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]'
             }`}
           >
-            <span className={`text-body-m font-medium ${onPrimary ? 'text-[var(--color-text-text-on-dark)]' : 'text-[var(--color-text-text)]'}`}>{label}</span>
+            <span className={`text-body-m font-medium ${onPrimary ? 'text-[var(--color-text-text-on-primary)]' : 'text-[var(--color-text-text)]'}`}>{label}</span>
             {/* Static preview: the ring exactly as it renders on focus. */}
             <div
               className={`flex h-10 items-center rounded-[var(--size-border-radius-border-radius-lg)] border border-solid px-3 text-body-m ${

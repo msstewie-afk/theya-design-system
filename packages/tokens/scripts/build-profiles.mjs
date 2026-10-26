@@ -115,6 +115,9 @@ const contrast = (a, b) => {
   return (x + 0.05) / (y + 0.05);
 };
 const isHex = (v) => typeof v === 'string' && /^#[0-9a-f]{6}$/i.test(v);
+/** `fg` at `alpha` over `bg`, as an opaque hex (sRGB, like the browser composites). */
+const over = (fg, bg, alpha) =>
+  '#' + hexToRgb(fg).map((c, i) => Math.round((c * alpha + hexToRgb(bg)[i] * (1 - alpha)) * 255).toString(16).padStart(2, '0')).join('');
 
 /** Halfway between two colors in OKLab (straight line, so no hue swing). */
 function mixOklab(x, y) {
@@ -219,6 +222,7 @@ const PAIRS = [
   ['text-text-on-primary', 'bg-primary-bg-primary', 4.5],
   ['text-text-on-primary', 'bg-primary-bg-primary-hover', 4.5],
   ['text-text-on-primary', 'bg-primary-bg-primary-on-dark', 4.5],
+  ['text-text-subtle-on-primary', 'bg-primary-bg-primary', 4.5],
   ['bg-primary-bg-primary', 'bg-surface-bg-surface-base', 3],
 ];
 
@@ -270,6 +274,15 @@ for (const profile of profiles) {
       }
       out.set('--color-text-text-on-primary', on);
       out.set('--color-icon-icon-on-primary', on);
+      // Theya's on-primary helpers are white with alpha (subtle text,
+      // borders, focus ring on a filled card or bulk bar). With dark ink on
+      // a light fill (lime), white would vanish: derive them from the ink
+      // instead, at the same weights.
+      if (on !== '#ffffff') {
+        out.set('--color-text-text-subtle-on-primary', over(on, fill, 0.8));
+        out.set('--color-border-border-on-primary', over(on, fill, 0.6));
+        out.set('--color-focus-focus-ring-on-primary', over(on, fill, 0.3));
+      }
     }
     for (const [key, value] of Object.entries(profile[mode]?.tokens ?? {})) {
       const token = `--color-${key}`;
