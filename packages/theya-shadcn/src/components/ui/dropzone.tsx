@@ -233,7 +233,8 @@ function Dropzone({
                 text-text-success is the pairing every other success surface
                 in this codebase uses with that same background (see Alert,
                 Badge, Button's tonal-success variant). */}
-            <p className="font-body text-body-xs text-[var(--color-text-text-success)]">{t.dropzone.uploadedOn(String(successFile.uploadedAt))}</p>
+            {/* -on-tonal: text-success was 3.59:1 on the translucent dark tint. */}
+            <p className="font-body text-body-xs text-[var(--color-text-text-success-on-tonal)]">{t.dropzone.uploadedOn(String(successFile.uploadedAt))}</p>
           </div>
         ) : (
           /* Label/or/Browse read as one tight group — the outer gap-4 above
