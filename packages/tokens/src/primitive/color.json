@@ -48,6 +48,10 @@
       "blue-200": {
         "value": "#63acff"
       },
+      "blue-450": {
+        "value": "#4381d9",
+        "comment": "Dark chart series: same lightness as the other series (3.6:1 on the page, 3.2:1 on cards)."
+      },
       "blue-500": {
         "value": "#0068de"
       },
@@ -110,6 +114,10 @@
       "slate-350": {
         "value": "#8f91c2"
       },
+      "slate-375": {
+        "value": "#7a7eac",
+        "comment": "Dark chart series: same lightness as the other series (3.6:1 on the page, 3.2:1 on cards)."
+      },
       "slate-400": {
         "value": "#6e709f"
       },
@@ -157,6 +165,10 @@
       "green-400": {
         "value": "#379C61"
       },
+      "green-450": {
+        "value": "#10954d",
+        "comment": "Dark chart series: same lightness as the other series (3.6:1 on the page, 3.2:1 on cards)."
+      },
       "green-500": {
         "value": "#198446"
       },
@@ -203,6 +215,10 @@
       },
       "red-200": {
         "value": "#f05a7e"
+      },
+      "red-250": {
+        "value": "#d15a6e",
+        "comment": "Dark chart series: same lightness as the other series (3.6:1 on the page, 3.2:1 on cards)."
       },
       "red-300": {
         "value": "#e63f7b"
@@ -509,6 +525,10 @@
       "teal-300": {
         "value": "#02a8a3"
       },
+      "teal-350": {
+        "value": "#0c908c",
+        "comment": "Dark chart series: same lightness as the other series (3.6:1 on the page, 3.2:1 on cards)."
+      },
       "teal-400": {
         "value": "#10827d"
       },
@@ -546,6 +566,10 @@
       },
       "purple-300": {
         "value": "#c859ef"
+      },
+      "purple-350": {
+        "value": "#a967c2",
+        "comment": "Dark chart series: same lightness as the other series (3.6:1 on the page, 3.2:1 on cards)."
       },
       "purple-400": {
         "value": "#c04ae8"
@@ -585,6 +609,10 @@
       "magenta-300": {
         "value": "#e651bc"
       },
+      "magenta-350": {
+        "value": "#c25e9f",
+        "comment": "Dark chart series: same lightness as the other series (3.6:1 on the page, 3.2:1 on cards)."
+      },
       "magenta-400": {
         "value": "#d02ca2"
       },
@@ -602,44 +630,6 @@
       },
       "magenta-900": {
         "value": "#40022f"
-      }
-    },
-    "azure": {
-      "azure-005": {
-        "value": "#ecf7ff"
-      },
-      "azure-010": {
-        "value": "#dcf1ff"
-      },
-      "azure-050": {
-        "value": "#b4e1ff"
-      },
-      "azure-100": {
-        "value": "#7acaff"
-      },
-      "azure-200": {
-        "value": "#46b5ff"
-      },
-      "azure-300": {
-        "value": "#069cff"
-      },
-      "azure-400": {
-        "value": "#3292f1"
-      },
-      "azure-500": {
-        "value": "#0278ca"
-      },
-      "azure-600": {
-        "value": "#0068ae"
-      },
-      "azure-700": {
-        "value": "#004877"
-      },
-      "azure-800": {
-        "value": "#003354"
-      },
-      "azure-900": {
-        "value": "#001f33"
       }
     },
     "slate-a": {

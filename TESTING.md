@@ -13,7 +13,7 @@ pnpm test-storybook:dark   # dark theme
 
 Each story: render, play test (if any), axe check. A single file: `pnpm test-storybook src/components/ui/button.stories.tsx`.
 
-In a product theme: `THEYA_BRAND=iris pnpm test-storybook` (and `:dark`). Details and how to check your own theme: [PROFILES.md](PROFILES.md#checking-a-theme).
+At phone width: `THEYA_VIEWPORT=360 pnpm test-storybook` (and `:dark`; 375 for an iPhone). Besides play and axe, a story fails if the page scrolls sideways. Stories tagged `desktop-play` are skipped.
 
 In a product theme: `THEYA_BRAND=iris pnpm test-storybook` (and `:dark`). Details and how to check your own theme: [PROFILES.md](PROFILES.md#checking-a-theme).
 
@@ -72,6 +72,7 @@ The `.github/workflows/ci.yml` workflow runs on every push to `main` and on ever
    - visual regression in both themes.
 3. **react-19** (after checks, in parallel with storybook): the same code, but React 19 is forced across the whole repository (the package supports 18 and 19; development and the other checks run on 18). It checks that no React 18 is left, then runs types, play tests and axe in the light theme. Visual regression is not needed here — the look does not depend on the React version.
 4. **brands** (after checks, in parallel): one job per product theme, `iris` and `lime`. Play tests and axe in its light and dark variants, without visual regression.
+5. **phone (360)** (after checks, in parallel): play tests and axe at 360px wide in both themes, and no sideways scrolling.
 
 CI has its own visual regression baselines. A Linux runner takes them, and they are kept in git, in the `visual-baselines` branch (`light/`, `dark/`, one PNG per story id) — not on `main`, and never edited by hand.
 

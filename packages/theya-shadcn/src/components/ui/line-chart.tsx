@@ -6,6 +6,7 @@ import { CartesianGrid, Line, LineChart as RechartsLineChart, ResponsiveContaine
 import { cn } from '../../lib/utils';
 import { useTheyaI18n } from '../../lib/i18n';
 import { seriesRange } from '../../lib/chart-summary';
+import { seriesColor, seriesDash, SeriesKey } from '../../lib/chart-series';
 
 /**
  * A multi-series line chart for comparing a few trends at once (up
@@ -38,30 +39,23 @@ export interface LineChartProps {
   showXAxis?: boolean;
   showYAxis?: boolean;
   ariaLabel?: string;
+  /**
+   * Give each series its own dash (solid, dashed, dotted…) as well as its
+   * color, so series can be told apart without color (WCAG 1.4.1). The
+   * legend and tooltip keys show the same dash. Default true.
+   */
+  seriesPatterns?: boolean;
   className?: string;
 }
 
-// --color-bg-chart-01..07 (globals.css) — the same shared chart palette
-// AreaChart/DonutChart read, so a series' color never drifts between
-// chart types. Up to seven series map to it; an eighth would wrap.
-// chart-01 is blue, matching --color-bg-primary-bg-primary, so a
-// single-series chart still reads as the familiar brand blue.
-const CHART_COLORS = [
-  'var(--color-bg-chart-01)',
-  'var(--color-bg-chart-02)',
-  'var(--color-bg-chart-03)',
-  'var(--color-bg-chart-04)',
-  'var(--color-bg-chart-05)',
-  'var(--color-bg-chart-06)',
-  'var(--color-bg-chart-07)',
-];
-const seriesColor = (i: number) => CHART_COLORS[i % CHART_COLORS.length];
+// Colors (--color-bg-chart-01..07) and dashes are shared with the other
+// charts (lib/chart-series), so a series looks the same everywhere.
 
 function niceMax(v: number, step: number) {
   return Math.max(step, Math.ceil(v / step) * step);
 }
 
-export function LineChart({ data, series, height = 260, yStep = 1, unit = '', labelPrefix = '', format, legend = true, showXAxis = true, showYAxis = true, ariaLabel, className }: LineChartProps) {
+export function LineChart({ data, series, height = 260, yStep = 1, unit = '', labelPrefix = '', format, legend = true, showXAxis = true, showYAxis = true, ariaLabel, seriesPatterns = true, className }: LineChartProps) {
   const { t } = useTheyaI18n();
   const fmt = useMemo(() => format ?? ((v: number) => `${Math.round(v * 10) / 10}${unit}`), [format, unit]);
   // Recharts 3 keeps chart data in a Redux/immer store, and immer deep-
@@ -120,7 +114,7 @@ export function LineChart({ data, series, height = 260, yStep = 1, unit = '', la
           <Tooltip
             cursor={{ stroke: 'var(--color-border-border)', strokeWidth: 1, strokeDasharray: '3 3' }}
             content={({ active, payload, label }) => (
-              <LineChartTooltip active={active} payload={payload as unknown as TooltipEntry[] | undefined} label={label} fmt={fmt} labelPrefix={labelPrefix} series={series} />
+              <LineChartTooltip active={active} payload={payload as unknown as TooltipEntry[] | undefined} label={label} fmt={fmt} labelPrefix={labelPrefix} series={series} patterns={seriesPatterns} />
             )}
           />
           {series.map((s, i) => (
@@ -130,6 +124,7 @@ export function LineChart({ data, series, height = 260, yStep = 1, unit = '', la
               dataKey={s.key}
               name={s.name}
               stroke={seriesColor(i)}
+              strokeDasharray={seriesPatterns ? seriesDash(i) : undefined}
               strokeWidth={2}
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -147,8 +142,7 @@ export function LineChart({ data, series, height = 260, yStep = 1, unit = '', la
         <ul className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1" aria-hidden="true">
           {series.map((s, i) => (
             <li key={s.key} className="flex items-center gap-1 text-body-xs text-[var(--color-text-text-subtler)]">
-              {/* forced-color-adjust-none: in Windows High Contrast the swatch is a background and would be wiped, while the SVG series keep their colors — the key must survive to match them. */}
-              <span className="inline-block size-2.5 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)] forced-color-adjust-none" style={{ background: seriesColor(i) }} />
+              <SeriesKey index={i} kind={seriesPatterns ? 'line' : 'square'} />
               {s.name}
             </li>
           ))}
@@ -163,7 +157,7 @@ interface TooltipEntry {
   value?: string | number;
 }
 
-function LineChartTooltip({ active, payload, label, fmt, labelPrefix, series }: { active?: boolean; payload?: TooltipEntry[]; label?: ReactNode; fmt: (v: number) => string; labelPrefix: string; series: LineChartSeries[] }) {
+function LineChartTooltip({ active, payload, label, fmt, labelPrefix, series, patterns }: { active?: boolean; payload?: TooltipEntry[]; label?: ReactNode; fmt: (v: number) => string; labelPrefix: string; series: LineChartSeries[]; patterns: boolean }) {
   if (!active || !payload || !payload.length) return null;
   const indexFor = (key?: string | number) => series.findIndex((s) => s.key === key);
   return (
@@ -177,7 +171,7 @@ function LineChartTooltip({ active, payload, label, fmt, labelPrefix, series }: 
           const si = indexFor(entry.dataKey);
           return (
             <div key={i} className="flex items-center gap-2 font-body text-body-xs">
-              <span className="inline-block size-2 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)] forced-color-adjust-none" style={{ background: seriesColor(si < 0 ? i : si) }} />
+              <SeriesKey index={si < 0 ? i : si} kind={patterns ? 'line' : 'square'} size={8} />
               <span className="text-[var(--color-text-text-subtler)]">{si < 0 ? String(entry.dataKey ?? '') : series[si].name}</span>
               <span className="ms-auto font-semibold tabular-nums text-[var(--color-text-text)]">{typeof entry.value === 'number' ? fmt(entry.value) : entry.value}</span>
             </div>

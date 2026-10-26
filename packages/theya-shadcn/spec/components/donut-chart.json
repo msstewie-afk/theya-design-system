@@ -123,6 +123,13 @@
           "default": "true"
         },
         {
+          "name": "slicePatterns",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Fill each slice after the first with its own pattern (lines, dots…) as\nwell as its color, so slices can be told apart without color (WCAG\n1.4.1). The legend keys show the same pattern. Default false."
+        },
+        {
           "name": "thickness",
           "type": "\"default\" | \"thin\"",
           "values": [
@@ -150,6 +157,10 @@
       {
         "name": "Default",
         "id": "charts-donutchart--default"
+      },
+      {
+        "name": "SlicePatterns",
+        "id": "charts-donutchart--slice-patterns"
       },
       {
         "name": "Horizontal",

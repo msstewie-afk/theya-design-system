@@ -101,6 +101,13 @@
           "default": "true"
         },
         {
+          "name": "seriesPatterns",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Give each series its own dash (solid, dashed, dotted…) as well as its\ncolor, so series can be told apart without color (WCAG 1.4.1). The\nlegend and tooltip keys show the same dash. Default true."
+        },
+        {
           "name": "showXAxis",
           "type": "boolean",
           "required": false,

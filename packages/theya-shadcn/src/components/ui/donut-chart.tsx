@@ -5,6 +5,7 @@ import { Cell, Pie, PieChart as RechartsPieChart, ResponsiveContainer, Tooltip }
 import { cn } from '../../lib/utils';
 import { Skeleton } from './skeleton';
 import { useTheyaI18n } from '../../lib/i18n';
+import { ChartPatternDefs, patternFill, seriesColor, SeriesKey, usePatternId } from '../../lib/chart-series';
 
 /**
  * A proportional breakdown of a whole into a few parts (up to 7), on
@@ -35,6 +36,12 @@ export interface DonutChartProps {
   /** Ring band width: "default" (thicker) or "thin" (a slim indicator ring). */
   thickness?: 'default' | 'thin';
   layout?: 'vertical' | 'horizontal';
+  /**
+   * Fill each slice after the first with its own pattern (lines, dots…) as
+   * well as its color, so slices can be told apart without color (WCAG
+   * 1.4.1). The legend keys show the same pattern. Default false.
+   */
+  slicePatterns?: boolean;
   loading?: boolean;
   ariaLabel?: string;
   className?: string;
@@ -47,23 +54,9 @@ const RING_RADIUS = {
 
 const RING_INSET = { default: '19%', thin: '11%' } as const;
 
-// --color-bg-chart-01..07 (globals.css) are the single source of truth
-// for this palette — reading them here instead of re-declaring the
-// colors keeps DonutChart, and anything else that charts, from
-// drifting apart (this is also what fixed a real bug: the old
-// per-component array reused semantic bg-*-bg-* tokens directly, and
-// --color-bg-info-bg-info happened to be the exact same hex as
-// --color-bg-primary-bg-primary — two indistinguishable slices).
-const CHART_COLORS = [
-  'var(--color-bg-chart-01)',
-  'var(--color-bg-chart-02)',
-  'var(--color-bg-chart-03)',
-  'var(--color-bg-chart-04)',
-  'var(--color-bg-chart-05)',
-  'var(--color-bg-chart-06)',
-  'var(--color-bg-chart-07)',
-];
-const sliceColor = (i: number) => CHART_COLORS[i % CHART_COLORS.length];
+// Colors (--color-bg-chart-01..07) and fill patterns are shared with the
+// other charts (lib/chart-series), so a series looks the same everywhere.
+const sliceColor = seriesColor;
 
 export function DonutChart({
   data,
@@ -76,11 +69,13 @@ export function DonutChart({
   legend = true,
   thickness = 'default',
   layout = 'vertical',
+  slicePatterns = false,
   loading = false,
   ariaLabel,
   className,
 }: DonutChartProps) {
   const { t } = useTheyaI18n();
+  const patternId = usePatternId();
   if (centerLabel === undefined) centerLabel = t.chart.total;
   const fmt = useMemo(() => format ?? ((v: number) => `${Math.round(v * 10) / 10}${unit}`), [format, unit]);
   // Recharts 3 keeps chart data in a Redux/immer store, and immer deep-
@@ -152,6 +147,7 @@ export function DonutChart({
                `role="img" aria-label={summary}` element already gives
                assistive tech the full accessible description). */}
             <RechartsPieChart accessibilityLayer={false}>
+              {slicePatterns && <ChartPatternDefs prefix={patternId} count={data.length} />}
               <Pie
                 data={chartData}
                 dataKey="value"
@@ -167,7 +163,7 @@ export function DonutChart({
                 animationEasing="ease-out"
               >
                 {data.map((d, i) => (
-                  <Cell key={d.label} fill={sliceColor(i)} />
+                  <Cell key={d.label} fill={slicePatterns ? patternFill(patternId, i) : sliceColor(i)} />
                 ))}
               </Pie>
               <Tooltip
@@ -207,8 +203,7 @@ export function DonutChart({
           >
             {data.map((d, i) => (
               <li key={d.label} className="flex items-center gap-1 font-body text-body-xs text-[var(--color-text-text-subtler)]">
-                {/* forced-color-adjust-none: in Windows High Contrast the swatch is a background and would be wiped, while the SVG series keep their colors — the key must survive to match them. */}
-                <span className="inline-block size-2.5 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)] forced-color-adjust-none" style={{ background: sliceColor(i) }} />
+                <SeriesKey index={i} kind={slicePatterns ? 'pattern' : 'square'} />
                 <span>{d.label}</span>
                 <span className="font-medium tabular-nums text-[var(--color-text-text)]">{fmt(d.value)}</span>
                 <span className="tabular-nums">({pct(d.value)}%)</span>

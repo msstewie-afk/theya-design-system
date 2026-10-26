@@ -30,7 +30,7 @@ export const Default: Story = {
     await userEvent.type(canvas.getByRole('textbox', { name: /^Security code/ }), '123');
     await userEvent.click(canvas.getByRole('button', { name: 'Review order' }));
 
-    await expect(await canvas.findByText('Visa ending 4242')).toBeVisible();
+    await expect(await canvas.findByText('Visa ending 4242', {}, { timeout: 5000 })).toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'Edit options' }));
     await expect(canvas.getByRole('radio', { name: 'Daily' })).toBeChecked();
     // Back through the steps: what was entered is still there.

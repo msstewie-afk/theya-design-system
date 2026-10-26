@@ -59,6 +59,7 @@ const meta = {
     series: { control: false, description: '{ key, name } series to draw (up to 5); omit for the single-series `value` chart.' },
     stacked: { control: 'boolean', description: 'Stack series on top of each other; false overlays them (only with `series`).' },
     legend: { control: 'boolean', description: 'Show the series legend when `series` is set.' },
+    seriesPatterns: { control: 'boolean', description: 'With `series`: each line also gets its own dash (WCAG 1.4.1). Default true.' },
     height: { control: { type: 'number' }, description: 'Chart height in px (width is fluid).' },
     yStep: { control: { type: 'number' }, description: 'Gridline / y-tick interval in data units.' },
     unit: { control: 'text', description: 'Suffix on the default formatter (e.g. "M", "%").' },

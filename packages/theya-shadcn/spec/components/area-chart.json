@@ -119,6 +119,13 @@
           "description": "Render one area per series (stacked by default) instead of the single `value` field."
         },
         {
+          "name": "seriesPatterns",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "With `series`: give each series' line its own dash as well as its color,\nso series can be told apart without color (WCAG 1.4.1). The legend and\ntooltip keys show the same dash. Default true."
+        },
+        {
           "name": "showXAxis",
           "type": "boolean",
           "required": false,

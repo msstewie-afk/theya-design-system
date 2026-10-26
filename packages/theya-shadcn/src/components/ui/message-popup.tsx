@@ -50,6 +50,8 @@ export function MessagePopupContent({
   return (
     <PopoverContent
       aria-labelledby={!sheet && title != null ? titleId : undefined}
+      // Phone sheet: Popover would name it after the trigger; a text title names it here too.
+      aria-label={sheet && typeof title === 'string' ? title : undefined}
       aria-describedby={!sheet && description != null ? descriptionId : undefined}
       side={side}
       align={align}

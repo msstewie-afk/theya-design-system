@@ -70,27 +70,6 @@
       }
     },
     "bg": {
-      "chart-01": {
-        "value": "{color.blue.blue-500}"
-      },
-      "chart-02": {
-        "value": "{color.magenta.magenta-500}"
-      },
-      "chart-03": {
-        "value": "{color.teal.teal-500}"
-      },
-      "chart-04": {
-        "value": "{color.slate.slate-500}"
-      },
-      "chart-05": {
-        "value": "{color.red.red-600}"
-      },
-      "chart-06": {
-        "value": "{color.green.green-500}"
-      },
-      "chart-07": {
-        "value": "{color.azure.azure-500}"
-      },
       "primary-on-primary": {
         "value": "{color.white}"
       },

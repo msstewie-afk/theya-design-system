@@ -524,6 +524,7 @@ Docs: ./?path=/docs/charts-areachart--docs
 - `legend?`: `boolean`, default `true`
 - `loading?`: `boolean`, default `false`
 - `series?`: `AreaChartSeries[]` — Render one area per series (stacked by default) instead of the single `value` field.
+- `seriesPatterns?`: `boolean`, default `true` — With `series`: give each series' line its own dash as well as its color,
 - `showXAxis?`: `boolean`, default `true`
 - `showYAxis?`: `boolean`, default `true`
 - `stacked?`: `boolean`, default `true` — Stack series on top of each other; false overlays them (only applies with `series`).
@@ -3663,6 +3664,7 @@ Docs: ./?path=/docs/charts-donutchart--docs
 - `legend?`: `boolean`, default `true`
 - `loading?`: `boolean`, default `false`
 - `showCenter?`: `boolean`, default `true`
+- `slicePatterns?`: `boolean`, default `false` — Fill each slice after the first with its own pattern (lines, dots…) as
 - `thickness?`: `"default" | "thin"`, default `default` — Ring band width: "default" (thicker) or "thin" (a slim indicator ring).
 - `unit?`: `string`, default ``
 
@@ -5453,6 +5455,7 @@ Docs: ./?path=/docs/charts-linechart--docs
 - `height?`: `number`, default `260`
 - `labelPrefix?`: `string`, default ``
 - `legend?`: `boolean`, default `true`
+- `seriesPatterns?`: `boolean`, default `true` — Give each series its own dash (solid, dashed, dotted…) as well as its
 - `showXAxis?`: `boolean`, default `true`
 - `showYAxis?`: `boolean`, default `true`
 - `unit?`: `string`, default ``

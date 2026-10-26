@@ -20,14 +20,16 @@ export interface LineChartProps {
     showXAxis?: boolean;
     showYAxis?: boolean;
     ariaLabel?: string;
+    seriesPatterns?: boolean;
     className?: string;
 }
-export declare function LineChart({ data, series, height, yStep, unit, labelPrefix, format, legend, showXAxis, showYAxis, ariaLabel, className }: LineChartProps): import("react").JSX.Element;
+export declare function LineChart({ data, series, height, yStep, unit, labelPrefix, format, legend, showXAxis, showYAxis, ariaLabel, seriesPatterns, className }: LineChartProps): import("react").JSX.Element;
 
 // Defaults
 // LineChart.height = 260
 // LineChart.labelPrefix = 
 // LineChart.legend = true
+// LineChart.seriesPatterns = true
 // LineChart.showXAxis = true
 // LineChart.showYAxis = true
 // LineChart.unit = 

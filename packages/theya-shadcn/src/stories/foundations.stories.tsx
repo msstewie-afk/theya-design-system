@@ -154,7 +154,7 @@ const HEADING_CLASS = {
  * that isn't an exact primitive hex (e.g. the rgba() alpha overlays used
  * by several dark-theme values, which aren't a single scale step).
  */
-const PRIMITIVE_FAMILIES = ['azure', 'cyan', 'blue', 'gray', 'green', 'magenta', 'orange', 'purple', 'red', 'slate', 'teal', 'yellow'] as const;
+const PRIMITIVE_FAMILIES = ['cyan', 'blue', 'gray', 'green', 'magenta', 'orange', 'purple', 'red', 'slate', 'teal', 'yellow'] as const;
 // Built primitive ramps (--color-<family>-<family>-<step>), lower-cased hex.
 const PRIMITIVE_HEX: Record<string, string[]> = Object.fromEntries(
   PRIMITIVE_FAMILIES.map((f) => [f, RAMP_STEPS.map((step) => tokenValue(`--color-${f}-${f}-${step}`).toLowerCase())]),
@@ -355,13 +355,13 @@ const BORDER_TOKEN_ROWS: TokenRow[] = withValues([
 ]);
 
 const CHART_TOKEN_ROWS: TokenRow[] = withValues([
-  { name: '--color-bg-chart-01', description: 'Chart series 1 (blue) — deliberately matches --color-bg-primary-bg-primary. Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-02', description: 'Chart series 2 (magenta). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-03', description: 'Chart series 3 (teal). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-04', description: 'Chart series 4 (slate). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-05', description: 'Chart series 5 (red). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-06', description: 'Chart series 6 (green). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-07', description: 'Chart series 7 (azure). Primitive-derived, theme-invariant.' },
+  { name: '--color-bg-chart-01', description: 'Chart series 1 (blue); in light it matches --color-bg-primary-bg-primary. In dark all seven series share one lightness: 3.6:1 on the page, 3.2:1 on cards.' },
+  { name: '--color-bg-chart-02', description: 'Chart series 2 (magenta). Line charts also give it a dash, DonutChart a pattern with slicePatterns.' },
+  { name: '--color-bg-chart-03', description: 'Chart series 3 (teal).' },
+  { name: '--color-bg-chart-04', description: 'Chart series 4 (slate).' },
+  { name: '--color-bg-chart-05', description: 'Chart series 5 (red).' },
+  { name: '--color-bg-chart-06', description: 'Chart series 6 (green).' },
+  { name: '--color-bg-chart-07', description: 'Chart series 7 (purple).' },
 ]);
 
 /**
@@ -411,7 +411,6 @@ function RampSwatch({ prefix, step }: { prefix: string; step: string }) {
 const RAMP_FAMILIES = [
   { prefix: 'blue', label: 'Blue (Brand)' },
   { prefix: 'gray', label: 'Gray (Neutral)' },
-  { prefix: 'azure', label: 'Azure' },
   { prefix: 'cyan', label: 'Cyan' },
   { prefix: 'green', label: 'Green' },
   { prefix: 'magenta', label: 'Magenta' },

@@ -10,6 +10,10 @@
 # brands     — after checks, one job per product theme (iris, lime): play +
 #              axe in its light and dark variants. No visual baselines: the
 #              storybook job's are for Theya's own look.
+# mobile     — after checks: play + axe at 360px (the narrowest common phone)
+#              in light and dark; the test-runner also fails a story that
+#              scrolls the page sideways there. Stories tagged desktop-play
+#              (their play test drives a desktop-only layout) are skipped.
 #
 # The repo is public, so Actions minutes are free: every push to main and
 # every pull request runs all the jobs. The weekly run catches drift that
@@ -330,6 +334,52 @@ jobs:
         run: pnpm test-storybook
 
       - name: Play + axe, ${{ matrix.brand }} dark
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        run: pnpm test-storybook:dark
+
+  mobile:
+    needs: checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    name: phone (360)
+    env:
+      THEYA_VIEWPORT: 360
+    defaults:
+      run:
+        working-directory: packages/theya-shadcn
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v5
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+        working-directory: .
+      - run: pnpm build:tokens
+        working-directory: .
+
+      - name: Install Chromium for the test-runner
+        run: |
+          PW_DIR=$(node -e "const r=require.resolve('@storybook/test-runner');console.log(require('path').dirname(require.resolve('playwright/package.json',{paths:[r]})))")
+          node "$PW_DIR/cli.js" install --with-deps chromium
+
+      - name: Build Storybook
+        run: pnpm build-storybook --quiet
+
+      - name: Serve Storybook on :6008
+        id: serve
+        run: |
+          python3 -m http.server 6008 --directory storybook-static >/dev/null 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:6008/index.json >/dev/null && exit 0; sleep 1; done
+          echo "Storybook did not start" && exit 1
+
+      - name: Play + axe at 360px, light
+        run: pnpm test-storybook
+
+      - name: Play + axe at 360px, dark
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         run: pnpm test-storybook:dark
 
