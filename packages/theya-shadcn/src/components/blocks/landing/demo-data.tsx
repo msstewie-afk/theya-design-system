@@ -103,8 +103,10 @@ export function BookmarksPreview({ className, floating = true, folder = 'reading
         <div className="absolute -bottom-6 end-4 flex items-center gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] py-2 ps-3 pe-2 shadow-elevation-lg sm:-end-6">
           <WarningTriangle className="size-4 shrink-0 text-[var(--color-icon-icon-warning)]" />
           <span className="text-body-s text-[var(--color-text-text)]">3 duplicates found</span>
-          <Button size="sm" appearance="tonal" tabIndex={-1}>
-            Review
+          {/* Part of the picture: a span styled as a button, never a real control
+              inside role="img" (axe nested-interactive). */}
+          <Button asChild size="sm" appearance="tonal">
+            <span>Review</span>
           </Button>
         </div>
       )}
