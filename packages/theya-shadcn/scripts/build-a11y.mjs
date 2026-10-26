@@ -8,7 +8,7 @@
  *   (test-runner.ts; a violation fails the build). Listed: how many stories,
  *   and any rule a story or the meta switches off.
  * - keyboard: stories whose play test drives the keyboard
- *   (userEvent.keyboard / .tab — also via userEvent.setup() — a pressArrow helper, a dispatched
+ *   (userEvent.keyboard / .tab — also via userEvent.setup() — a pressArrow or tabTo (src/test/keyboard.ts) helper, a dispatched
  *   KeyboardEvent), out of the stories with a play test.
  * - reducedMotion: whether the component's source moves things (animations,
  *   transform / size transitions) and guards them with motion-safe: /
@@ -142,7 +142,7 @@ function readStories(file) {
       play += 1;
       // userEvent's keyboard / tab, a story helper that wraps it (pressArrow),
       // or a dispatched KeyboardEvent.
-      if (/\b(?:userEvent|user)\.(keyboard|tab)\(|\bpressArrow\(|new KeyboardEvent\(|fireEvent\.keyDown\(/.test(playProp.getText())) keyboard += 1;
+      if (/\b(?:userEvent|user)\.(keyboard|tab)\(|\b(?:pressArrow|tabTo)\(|new KeyboardEvent\(|fireEvent\.keyDown\(/.test(playProp.getText())) keyboard += 1;
     }
     const params = s.obj && unwrap(prop(s.obj, 'parameters')?.initializer);
     const rules = disabledRules(params && ts.isObjectLiteralExpression(params) ? prop(params, 'a11y') : null);
@@ -192,7 +192,10 @@ function readSource(file) {
  * to look at; a false "doesn't apply" would hide one.
  */
 const TRAITS = {
-  interactive: /<button\b|<input\b|<textarea\b|<select\b|<a\b|href=|onClick=|tabIndex=|role=['"](?:button|link|checkbox|radio|switch|tab|menuitem\w*|option|slider|combobox|textbox|gridcell|treeitem|spinbutton|scrollbar)['"]|Primitive\.(?:Trigger|Root|Item|Thumb)|\bOTPInput\b|\? Slot : ['"](?:a|button)['"]|<(?:Button|Toggle|Checkbox|Radio|Switch|Slider|Input|TextField|Select|Link)\b/,
+  // Radix roots that render nothing focusable (Avatar, Label, Progress,
+  // Separator, AspectRatio) don't make a component interactive; dnd-kit
+  // handles and sonner's close / action buttons do.
+  interactive: /<button\b|<input\b|<textarea\b|<select\b|<a\b|href=|onClick=|tabIndex=|role=['"](?:button|link|checkbox|radio|switch|tab|menuitem\w*|option|slider|combobox|textbox|gridcell|treeitem|spinbutton|scrollbar)['"]|(?<!Avatar|Label|Progress|Separator|AspectRatio)Primitive\.(?:Trigger|Root|Item|Thumb)|\bOTPInput\b|\? Slot : ['"](?:a|button)['"]|<(?:Button|Toggle|Checkbox|Radio|Switch|Slider|Input|TextField|Select|Link)\b|\buse(?:Sortable|Draggable)\(|\bcloseButton\b/,
   textInput: /<input\b(?![^>]*type=['"](?:checkbox|radio|range|file|hidden|button|submit)['"])|<textarea\b|contentEditable|<(?:Input|TextField|TextArea|OTPInput)\b/,
   choice: /type=['"](?:checkbox|radio)['"]|role=['"](?:checkbox|radio|switch|option|menuitemcheckbox|menuitemradio)['"]|(?:Checkbox|Radio|Switch|Select|ToggleGroup)Primitive|<(?:Checkbox|Radio|Switch|Select)\b/,
   validation: /aria-invalid|aria-errormessage/,
@@ -229,7 +232,14 @@ function readAllTraits(files) {
     own.set(name, new Set(Object.keys(TRAITS).filter((t) => TRAITS[t].test(text))));
     // Relative imports, resolved to files: ./sibling for components,
     // ../ui/x or ../../ui/x for patterns.
-    uses.set(name, [...text.matchAll(/from\s+['"](\.{1,2}\/[\w./-]+)['"]/g)].map((m) => path.resolve(path.dirname(file), `${m[1]}.tsx`)));
+    // Imports of components pass traits on; a shared constant (SOLID_TONE_CLASS
+    // from ./chip), a helper (cn) or a type doesn't make Badge interactive.
+    uses.set(
+      name,
+      [...text.matchAll(/import\s+(?!type\b)([^;]*?)\s+from\s+['"](\.{1,2}\/[\w./-]+)['"]/g)]
+        .filter(([, names]) => names.replace(/\btype\s+\w+/g, '').match(/\b[A-Z][a-z]\w*/g))
+        .map((m) => path.resolve(path.dirname(file), `${m[2]}.tsx`)),
+    );
   }
   const byFile = new Map([...files].map(([name, file]) => [path.resolve(file), name]));
   for (let changed = true; changed; ) {
@@ -278,7 +288,7 @@ function buildRow({ name, base, title, traitKey = name, reviews: ownReviews = {}
   const s = fs.existsSync(storiesFile) ? readStories(storiesFile) : { stories: 0, play: 0, keyboard: 0, exclusions: [] };
   const deviations = [...(manual.deviations[name] ?? [])];
   if (manual.focusRingOnly.includes(name)) {
-    deviations.push({ criterion: '1.4.11', note: 'The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27.' });
+    deviations.push({ criterion: '1.4.11', note: 'The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components.' });
   }
   const source = readSource(sourceFile);
   const traits = ALL_TRAITS.get(traitKey);

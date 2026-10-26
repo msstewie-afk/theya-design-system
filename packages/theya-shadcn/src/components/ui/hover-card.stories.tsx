@@ -5,6 +5,7 @@ import { HoverCard, HoverCardTrigger, HoverCardContent } from './hover-card';
 import { StatusDot } from './status-dot';
 import { hoverCardGuidelines } from './hover-card.guidelines';
 import { Link } from './link';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * HoverCard — a preview surface that opens when a real interactive trigger (a
@@ -67,9 +68,12 @@ export const Default: Story = {
     await expect(await within(document.body).findByText('184,320 requests today')).toBeVisible();
     await userEvent.unhover(link);
     await waitFor(() => expect(within(document.body).queryByText('184,320 requests today')).toBeNull(), { timeout: 3000 });
-    link.focus();
+    resetFocus();
+    await tabTo(link);
     await expect(await within(document.body).findByText('184,320 requests today')).toBeVisible();
-    link.blur();
+    // Tabbing on closes it: the card holds no tab stops of its own.
+    await userEvent.tab();
+    await expect(link).not.toHaveFocus();
     await waitFor(() => expect(within(document.body).queryByText('184,320 requests today')).toBeNull(), { timeout: 3000 });
   },
 };

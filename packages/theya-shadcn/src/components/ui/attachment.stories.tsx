@@ -6,6 +6,8 @@ import { Attachment } from './attachment';
 import { Button } from './button';
 import { Separator } from './separator';
 import { attachmentGuidelines } from './attachment.guidelines';
+import { expect, userEvent, within } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 
 /** Story helper: an Attachment whose remove button really removes it (reload the story to bring it back). */
@@ -95,6 +97,14 @@ export const Removable: Story = {
     const [gone, setGone] = useState(false);
     if (gone) return <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">Removed</p>;
     return <Attachment {...args} onRemove={() => setGone(true)} />;
+  },
+  // Keyboard: the remove control is reachable with Tab and works with Enter.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    resetFocus();
+    await tabTo(canvas.getByRole('button', { name: /^Remove / }));
+    await userEvent.keyboard('{Enter}');
+    await expect(await canvas.findByText('Removed')).toBeVisible();
   },
 };
 

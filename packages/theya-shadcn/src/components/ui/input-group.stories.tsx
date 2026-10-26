@@ -3,6 +3,8 @@ import { Search, Globe, Key } from 'iconoir-react';
 import { InputGroup, InputGroupAddon, InputGroupInput } from './input-group';
 import { Label } from './label';
 import { inputGroupGuidelines } from './input-group.guidelines';
+import { expect, userEvent, within } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -49,6 +51,17 @@ export const Default: Story = {
       </InputGroup>
     </div>
   ),
+  // Keyboard: the field is the only tab stop; the ".zone" addon is text, not a control.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('textbox', { name: 'Zone name' });
+    resetFocus();
+    await tabTo(input);
+    await userEvent.keyboard('{Control>}a{/Control}blog.acme');
+    await expect(input).toHaveValue('blog.acme');
+    await userEvent.tab();
+    await expect(canvasElement.contains(document.activeElement) && document.activeElement !== input).toBe(false);
+  },
 };
 
 /** A "https://" prefix plus a ".io" suffix bracket the editable hostname. */

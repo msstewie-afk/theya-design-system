@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { Marquee } from './marquee';
 import { marqueeGuidelines } from './marquee.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /** Marquee — an endless strip of logos or short quotes (landing pages). Pauses on hover, focus and its own button. */
 const meta = {
@@ -49,7 +50,9 @@ export const Default: Story = {
     await expect(canvas.getAllByText('Northwind', { ignore: '[aria-hidden="true"] *' })).toHaveLength(1);
     const button = canvas.queryByRole('button', { name: 'Pause animation' });
     if (!button) return; // hidden under prefers-reduced-motion: nothing moves
-    await userEvent.click(button);
+    resetFocus();
+    await tabTo(button);
+    await userEvent.keyboard('{Enter}');
     await expect(canvas.getByRole('button', { name: 'Play animation' })).toBeInTheDocument();
     await expect(canvasElement.querySelector('[data-slot="marquee"]')).toHaveAttribute('data-paused');
   },

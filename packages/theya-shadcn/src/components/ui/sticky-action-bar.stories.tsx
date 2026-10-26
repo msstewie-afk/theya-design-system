@@ -9,6 +9,7 @@ import { ScrollArea } from './scroll-area';
 import { StickyActionBar } from './sticky-action-bar';
 import { TextField } from './text-field';
 import { stickyActionBarGuidelines } from './sticky-action-bar.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * StickyActionBar — actions pinned to the bottom while content scrolls:
@@ -83,11 +84,14 @@ export const UnsavedChanges: Story = {
     await userEvent.type(name, ' v2');
     const bar = canvas.getByRole('region', { name: 'Actions' });
     await expect(within(bar).getByText('You have unsaved changes')).toBeInTheDocument();
-    // Discard closes the bar; focus goes back to the field it came from, not <body>.
-    await userEvent.click(within(bar).getByRole('button', { name: 'Discard' }));
+    // Discard closes the bar; focus goes back to the control it came from
+    // (here the last one Tab passed), not <body>.
+    // From the keyboard: Tab on past the fields to the bar, Enter on Discard.
+    await tabTo(within(bar).getByRole('button', { name: 'Discard' }));
+    await userEvent.keyboard('{Enter}');
     await expect(canvas.queryByRole('region', { name: 'Actions' })).not.toBeInTheDocument();
     await expect(name).toHaveValue('Seashell storefront');
-    await waitFor(() => expect(name).toHaveFocus());
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Clear Branch' })).toHaveFocus());
   },
 };
 

@@ -238,7 +238,7 @@ export function A11yMatrixPage() {
       <DocsSection title="Library-wide">
         <ul className={LIST}>
           <li>
-            <span className="font-medium">Focus ring (1.4.11), accepted deviation.</span> The soft ring is 1.53:1 on white and ~1.9:1 on dark surfaces (needs 3:1). Where it is the only visible focus change, the component lists 1.4.11. Fields, menus and outlined/ghost buttons also change border or background on focus and pass.
+            <span className="font-medium">Focus ring (1.4.11), accepted deviation.</span> The soft ring is 1.53:1 on white and ~1.9:1 on dark surfaces (needs 3:1). Where it is the only visible focus change, the component lists 1.4.11. Fields, menus and outlined/ghost buttons also change border or background on focus and pass. Reviewed again on 2026-10-26: a 2px primary ring inside the halo, and a 2px ring with a 2px gap, were compared on live components in both themes; both read far heavier than the rest of the system, so the soft ring stays.
           </li>
           <li>
             <span className="font-medium">Out of scope for a component library:</span> page language and titles, consistent navigation, session timing — they need a real product around the components.

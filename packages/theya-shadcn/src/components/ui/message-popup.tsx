@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react';
 import { Xmark } from 'iconoir-react';
 import { cn } from '../../lib/utils';
-import { useContext } from 'react';
+import { useContext, useId } from 'react';
 import { Popover, PopoverClose, PopoverContent, PopoverSheetContext, PopoverTrigger, type PopoverProps } from './popover';
 import { useTheyaI18n } from '../../lib/i18n';
 
@@ -43,8 +43,14 @@ export function MessagePopupContent({
   // In the phone sheet the Drawer header shows the title and its own close
   // button; only the description stays above the content.
   const sheet = useContext(PopoverSheetContext);
+  // The panel is a dialog: its visible title names it and the description
+  // describes it, so a screen reader announces "Assistant, dialog" on open.
+  const titleId = useId();
+  const descriptionId = useId();
   return (
     <PopoverContent
+      aria-labelledby={!sheet && title != null ? titleId : undefined}
+      aria-describedby={!sheet && description != null ? descriptionId : undefined}
       side={side}
       align={align}
       sideOffset={sideOffset}
@@ -57,8 +63,16 @@ export function MessagePopupContent({
       {!sheet && (title != null || description != null || showClose) && (
         <div className="flex items-start justify-between gap-2 border-b border-solid border-[var(--color-border-border-subtler)] px-4 py-3">
           <div className="min-w-0">
-            {title != null && <p className="truncate font-body text-body-m font-medium text-[var(--color-text-text)]">{title}</p>}
-            {description != null && <p className="truncate font-body text-body-xs text-[var(--color-text-text-subtler)]">{description}</p>}
+            {title != null && (
+              <p id={titleId} className="truncate font-body text-body-m font-medium text-[var(--color-text-text)]">
+                {title}
+              </p>
+            )}
+            {description != null && (
+              <p id={descriptionId} className="truncate font-body text-body-xs text-[var(--color-text-text-subtler)]">
+                {description}
+              </p>
+            )}
           </div>
           {showClose && (
             <PopoverClose

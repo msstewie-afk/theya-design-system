@@ -4,6 +4,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableCap
 import { DataTableCell } from './data-table-cell';
 import type { BadgeTone } from './badge';
 import { tableGuidelines } from './table.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * Table — semantic HTML table primitives (Table, TableHeader, TableBody,
@@ -290,6 +291,14 @@ export const KeyboardScroll: Story = {
       </TableBody>
     </Table>
   ),
+  // A table wider than its box is a named tab stop, so the arrow keys can
+  // scroll it (synthetic key events don't scroll, so that isn't asserted).
+  play: async ({ canvasElement }) => {
+    const region = within(canvasElement).getByRole('region', { name: 'Sites table' });
+    await expect(region.scrollWidth).toBeGreaterThan(region.clientWidth);
+    resetFocus();
+    await tabTo(region);
+  },
 };
 
 /** Header labels truncate when a fixed table layout gives the column a bounded width. Keep the complete label in `title` so pointer users can reveal it. */

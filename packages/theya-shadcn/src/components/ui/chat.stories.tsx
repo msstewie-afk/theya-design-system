@@ -5,6 +5,8 @@ import { Message } from './message';
 import { PromptArea } from './prompt-area';
 import { Avatar, AvatarFallback } from './avatar';
 import { chatGuidelines } from './chat.guidelines';
+import { expect, userEvent, within } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * Chat — the layout for a conversation: a scrolling `ChatMessages`
@@ -88,6 +90,20 @@ export const Default: Story = {
         </div>
       </Chat>
     );
+  },
+  // Keyboard: the message list is a tab stop (it scrolls on its own), the
+  // field comes next, and Enter sends.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const log = canvas.getByRole('log');
+    resetFocus();
+    // A tab stop, so the arrow keys can scroll it (synthetic key events don't
+    // scroll, so the scrolling itself isn't asserted here).
+    await tabTo(log);
+    await tabTo(canvas.getByRole('textbox'));
+    await userEvent.keyboard('Can I add a staging site?{Enter}');
+    await expect(await within(log).findByText('Can I add a staging site?')).toBeVisible();
+    await expect(canvas.getByRole('textbox')).toHaveValue('');
   },
 };
 

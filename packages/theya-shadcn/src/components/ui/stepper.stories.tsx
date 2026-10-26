@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, within } from '@storybook/test';
+import { useState } from 'react';
+import { expect, userEvent, within } from '@storybook/test';
 import { Stepper } from './stepper';
 import { stepperGuidelines } from './stepper.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 const meta: Meta<typeof Stepper> = {
   title: 'Navigation/Stepper',
@@ -166,6 +168,30 @@ export const HorizontalEvenGaps: Story = {
       const gaps = lefts.slice(1).map((x, i) => x - lefts[i]);
       for (const gap of gaps) await expect(Math.abs(gap - gaps[0])).toBeLessThanOrEqual(1);
     }
+  },
+};
+
+/** `onStepClick`: completed steps become buttons, so people can go back to one; upcoming steps stay plain text. */
+export const GoBackToAStep: Story = {
+  name: 'Go back to a step',
+  render: function GoBack() {
+    const [current, setCurrent] = useState(2);
+    return (
+      <div className="w-full max-w-[500px]">
+        <Stepper steps={STEPS} current={current} onStepClick={setCurrent} />
+      </div>
+    );
+  },
+  // Keyboard: each completed step is a tab stop; Enter goes back to it.
+  play: async ({ canvasElement }) => {
+    const list = within(canvasElement).getByRole('list', { name: 'Progress' });
+    const buttons = within(list).getAllByRole('button');
+    await expect(buttons).toHaveLength(2);
+    resetFocus();
+    await tabTo(buttons[0]);
+    await userEvent.keyboard('{Enter}');
+    await expectStatuses(list, ['current step', 'upcoming', 'upcoming']);
+    await expect(within(list).queryAllByRole('button')).toHaveLength(0);
   },
 };
 

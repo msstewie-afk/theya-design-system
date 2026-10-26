@@ -3,6 +3,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { CardStack } from './card-stack';
 import { Card, CardHeader, CardTitle, CardDescription } from './card';
 import { cardStackGuidelines } from './card-stack.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 const QUOTES = [
   { who: 'Ana, studio owner', text: 'We moved twelve client sites in an afternoon.' },
@@ -68,14 +69,17 @@ export const Default: Story = {
     // Only the front card is exposed.
     await expect(exposed(/Staging and rollbacks/)).toHaveLength(0);
 
-    await userEvent.click(canvas.getByRole('button', { name: 'Next card' }));
+    resetFocus();
+    await tabTo(canvas.getByRole('button', { name: 'Next card' }));
+    await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(exposed(/Staging and rollbacks/)).toHaveLength(1));
 
     // Under prefers-reduced-motion nothing moves, so there is no Pause.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       await expect(canvas.queryByRole('button', { name: 'Pause' })).toBeNull();
     } else {
-      await userEvent.click(canvas.getByRole('button', { name: 'Pause' }));
+      await tabTo(canvas.getByRole('button', { name: 'Pause' }), { shift: true });
+      await userEvent.keyboard(' ');
       await expect(canvas.getByRole('button', { name: 'Play' })).not.toHaveAttribute('aria-pressed');
     }
   },

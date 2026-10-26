@@ -142,6 +142,10 @@
         "id": "navigation-stepper--horizontal-even-gaps"
       },
       {
+        "name": "GoBackToAStep",
+        "id": "navigation-stepper--go-back-to-a-step"
+      },
+      {
         "name": "Orientations",
         "id": "navigation-stepper--orientations"
       }

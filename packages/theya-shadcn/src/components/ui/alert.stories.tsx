@@ -4,6 +4,8 @@ import { InfoCircle, CheckCircle, WarningTriangle, WarningCircle } from 'iconoir
 import { Alert, AlertTitle, AlertDescription, AlertActions } from './alert';
 import { Button } from './button';
 import { alertGuidelines } from './alert.guidelines';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * Alert — an inline feedback banner. Put an iconoir icon as the first child
@@ -207,6 +209,18 @@ export const Dismissible: Story = {
         )}
       </div>
     );
+  },
+  // Keyboard: the dismiss X is in the tab order, Enter removes the alert, and
+  // the control that brings it back is reachable next.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    resetFocus();
+    await tabTo(canvas.getByRole('button', { name: 'Dismiss alert' }));
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(canvas.queryByText('Backups moved to eu-west-1')).not.toBeInTheDocument());
+    await tabTo(canvas.getByRole('button', { name: 'Show alert again' }));
+    await userEvent.keyboard(' ');
+    await expect(await canvas.findByText('Backups moved to eu-west-1')).toBeVisible();
   },
 };
 

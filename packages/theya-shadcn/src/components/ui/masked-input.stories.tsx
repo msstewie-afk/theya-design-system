@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { MaskedInput } from './masked-input';
 import { maskedInputGuidelines } from './masked-input.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -76,7 +77,10 @@ export const Typing: Story = {
     const input = within(canvasElement).getByRole('textbox', { name: 'Phone number' });
     await expect(input).toHaveValue('');
 
-    await userEvent.type(input, '4');
+    // Reached with Tab and typed into from the keyboard.
+    resetFocus();
+    await tabTo(input);
+    await userEvent.keyboard('4');
     await expect(input).toHaveValue('+1 (4');
 
     // Letters can't fill a digit slot — ignored.

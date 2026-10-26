@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Dropzone, type StagedFile } from './dropzone';
 import { dropzoneGuidelines } from './dropzone.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 const meta: Meta<typeof Dropzone> = {
   title: 'Files/Dropzone',
@@ -99,12 +100,15 @@ export const Playground: Story = {
     await expect(await canvas.findByText('chain.crt')).toBeInTheDocument();
 
     // Removing a row moves focus to the row that took its place.
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove bad-file.exe' }));
+    resetFocus();
+    await tabTo(canvas.getByRole('button', { name: 'Remove bad-file.exe' }));
+    await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(canvas.queryByText('bad-file.exe')).toBeNull());
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove server.pem' })).toHaveFocus());
 
     // Removing the last row falls back to the previous one.
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove chain.crt' }));
+    await tabTo(canvas.getByRole('button', { name: 'Remove chain.crt' }));
+    await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove server.pem' })).toHaveFocus());
   },
 };

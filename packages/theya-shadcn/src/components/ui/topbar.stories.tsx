@@ -9,6 +9,8 @@ import { Button } from './button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
 import { Plus } from 'iconoir-react';
 import { topbarGuidelines } from './topbar.guidelines';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 const meta: Meta<typeof Topbar> = {
   title: 'Navigation/Topbar',
@@ -56,10 +58,18 @@ function SearchResults({ query, onSelect }: { query: string; onSelect: () => voi
           key={item.label}
           role="option"
           aria-selected={false}
+          // Focusable by the arrow keys (TopbarSearch moves focus here), not by Tab.
+          tabIndex={-1}
           onClick={onSelect}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              onSelect();
+            }
+          }}
           className={
             'flex cursor-pointer select-none items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)] px-3 py-2 ' +
-            'font-body text-body-m text-[var(--color-text-text)] outline-none hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] ' +
+            'font-body text-body-m text-[var(--color-text-text)] outline-none hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] focus-visible:bg-[var(--color-bg-neutral-bg-neutral-subtle)] ' +
             '[&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-[var(--color-icon-icon-subtle)]'
           }
         >
@@ -124,6 +134,26 @@ export const SearchTrigger: Story = {
         </Topbar>
       </SidebarProvider>
     );
+  },
+  // Keyboard: ArrowDown goes from the field into the results and between
+  // them, ArrowUp from the first one back to the field; Enter picks a result
+  // and returns focus to the field.
+  play: async ({ canvasElement }) => {
+    const field = within(canvasElement).getByRole('textbox', { name: 'Search domains…' });
+    resetFocus();
+    await tabTo(field);
+    const options = await within(document.body).findAllByRole('option');
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(options[0]).toHaveFocus());
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(options[1]).toHaveFocus();
+    await userEvent.keyboard('{ArrowUp}{ArrowUp}');
+    await expect(field).toHaveFocus();
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(options[0]).toHaveFocus());
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(within(document.body).queryByRole('option')).toBeNull());
+    await waitFor(() => expect(field).toHaveFocus());
   },
 };
 

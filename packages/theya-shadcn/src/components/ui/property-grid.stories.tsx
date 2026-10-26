@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PropertyGrid, type PropertyGridItem, type PropertyValue } from './property-grid';
 import { Slider } from './slider';
 import { propertyGridGuidelines } from './property-grid.guidelines';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 const meta: Meta<typeof PropertyGrid> = {
   title: 'Form Structure/PropertyGrid',
@@ -80,6 +82,27 @@ function EditingDemo() {
 /** Controlled with `values` and `onValuesChange`, starting empty, so every row is ready for input. */
 export const Editing: Story = {
   render: () => <EditingDemo />,
+  // Keyboard: Tab goes row by row, and each control works without a mouse.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    resetFocus();
+    await tabTo(canvas.getByRole('textbox', { name: 'Display name' }));
+    await userEvent.keyboard('Edge cache');
+    await expect(canvas.getByRole('textbox', { name: 'Display name' })).toHaveValue('Edge cache');
+
+    const region = canvas.getByRole('combobox', { name: 'Region' });
+    await tabTo(region);
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(within(document.body).getByRole('option', { name: 'us-east-1' })).toBeVisible());
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}{Enter}');
+    await waitFor(() => expect(region).toHaveTextContent('us-east-1'));
+    await waitFor(() => expect(region).toHaveFocus());
+
+    const https = canvas.getByRole('switch', { name: 'Force HTTPS' });
+    await tabTo(https);
+    await userEvent.keyboard(' ');
+    await expect(https).toBeChecked();
+  },
 };
 
 /** Every row `readOnly`: the grid shows values as plain text, for a details view with nothing to change. */

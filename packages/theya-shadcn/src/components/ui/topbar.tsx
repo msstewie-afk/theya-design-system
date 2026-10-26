@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef, createContext, useContext, useRef, useState } from 'react';
+import { forwardRef, createContext, useContext, useId, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Menu, Search } from 'iconoir-react';
 import { cn } from '../../lib/utils';
@@ -91,6 +91,12 @@ export const TopbarMenu = forwardRef<HTMLButtonElement, React.ComponentPropsWith
  * content works). The popover opens on focus or on the first keystroke and
  * closes on blur/Escape/outside click, matching a standard combobox.
  *
+ * Keyboard: ArrowDown in the field moves focus to the first result; ArrowUp /
+ * ArrowDown, Home / End move between results, ArrowUp from the first one goes
+ * back to the field; Escape closes and returns to the field, and so does
+ * picking a result. A result is any `role="option"` (give it tabIndex={-1}
+ * and handle Enter), `button` or `a[href]` in `children`.
+ *
  * Controlled via `value`/`onValueChange` (the query) and, if the consumer
  * wants to drive it, `open`/`onOpenChange`; otherwise both are internal state.
  */
@@ -123,6 +129,21 @@ export function TopbarSearch({
   const orientation = useContext(TopbarOrientationContext);
   const vertical = orientation === 'vertical';
   const inputRef = useRef<HTMLInputElement>(null);
+  // PopoverContent is a plain function component (no ref on React 18): find
+  // the results panel by id instead.
+  const contentId = useId();
+  const content = () => document.getElementById(contentId);
+  // Focus is in the results: closing (Escape, a pick) returns it to the field
+  // without the field's onFocus opening the results again.
+  const focusInResults = useRef(false);
+  const skipOpenOnFocus = useRef(false);
+  const results = () =>
+    [...(content()?.querySelectorAll<HTMLElement>('[role="option"]:not([aria-disabled="true"]), button:not(:disabled), a[href]') ?? [])];
+  const backToField = () => {
+    skipOpenOnFocus.current = true;
+    inputRef.current?.focus();
+    skipOpenOnFocus.current = false;
+  };
 
   const [internalValue, setInternalValue] = useState(defaultValue ?? '');
   const isValueControlled = value !== undefined;
@@ -185,16 +206,59 @@ export function TopbarSearch({
               onValueChange?.(next);
               if (!actualOpen) setOpen(true);
             }}
-            onFocus={() => setOpen(true)}
+            onFocus={() => {
+              if (!skipOpenOnFocus.current) setOpen(true);
+            }}
             placeholder={placeholder}
+            // A placeholder alone is not a reliable name (not every screen
+            // reader uses it); aria-label in props still wins.
+            aria-label={placeholder}
             aria-keyshortcuts="Meta+K Control+K"
-            className={cn(textFieldVariants({ heightSize: 'md' }), 'ps-9 pe-12 max-md:pe-3', className)}
+            className={cn(textFieldVariants({ heightSize: 'md' }), 'peer ps-9 pe-12 max-md:pe-3', className)}
             {...props}
+            onKeyDown={(event) => {
+              props.onKeyDown?.(event);
+              if (event.defaultPrevented || event.key !== 'ArrowDown') return;
+              event.preventDefault();
+              if (!actualOpen) setOpen(true);
+              // After the popover has rendered its content.
+              requestAnimationFrame(() => results()[0]?.focus());
+            }}
           />
-          <Kbd className="pointer-events-none absolute end-3 top-1/2 -translate-y-1/2 max-md:hidden">⌘K</Kbd>
+          {/* The shortcut hint is for reaching the field; once it has focus
+              the hint goes (it also sat at under 4.5:1 on the focused
+              field's primary tint in dark). aria-keyshortcuts keeps it. */}
+          <Kbd className="pointer-events-none absolute end-3 top-1/2 -translate-y-1/2 peer-focus:hidden max-md:hidden">⌘K</Kbd>
         </div>
       </PopoverAnchor>
       <PopoverContent
+        id={contentId}
+        onFocus={() => {
+          focusInResults.current = true;
+        }}
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) focusInResults.current = false;
+        }}
+        onKeyDown={(event) => {
+          const items = results();
+          const at = items.indexOf(document.activeElement as HTMLElement);
+          if (at < 0) return;
+          const go = (i: number) => {
+            event.preventDefault();
+            if (i < 0) backToField();
+            else items[Math.min(i, items.length - 1)]?.focus();
+          };
+          if (event.key === 'ArrowDown') go(at + 1);
+          else if (event.key === 'ArrowUp') go(at - 1);
+          else if (event.key === 'Home') go(0);
+          else if (event.key === 'End') go(items.length - 1);
+        }}
+        onCloseAutoFocus={(event) => {
+          if (!focusInResults.current && !content()?.contains(document.activeElement)) return;
+          event.preventDefault();
+          focusInResults.current = false;
+          backToField();
+        }}
         // Anchor-opened (no Radix Trigger), so PopoverContent can't label
         // itself by one; without this the panel was an unnamed "dialog".
         aria-label={(props as { 'aria-label'?: string })['aria-label'] ?? placeholder ?? t.topbar.search}

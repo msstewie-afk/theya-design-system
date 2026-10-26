@@ -3,6 +3,8 @@ import { Refresh } from 'iconoir-react';
 import { Terminal, TerminalLine, type TerminalLineData } from './terminal';
 import { Button } from './button';
 import { terminalGuidelines } from './terminal.guidelines';
+import { expect } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * Terminal — a read-only console scrollback viewer. Renders a mono
@@ -84,6 +86,13 @@ export const Default: Story = {
     status: 'Connected · ssh-ed25519 · 22ms',
     live: 'polite',
     lines: sshLines,
+  },
+  // Keyboard: the output scrolls on its own, so it is a tab stop with a name.
+  play: async ({ canvasElement }) => {
+    const output = canvasElement.querySelector<HTMLElement>('[tabindex="0"]')!;
+    await expect(output).toHaveAccessibleName();
+    resetFocus();
+    await tabTo(output);
   },
 };
 

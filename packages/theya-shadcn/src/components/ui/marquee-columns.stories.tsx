@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { MarqueeColumns } from './marquee-columns';
 import { marqueeColumnsGuidelines } from './marquee-columns.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 const PROMPTS = [
   'Hey Susanne, ready for today’s meditation?',
@@ -61,7 +62,9 @@ export const Default: Story = {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       await expect(canvas.queryByRole('button', { name: 'Pause' })).toBeNull();
     } else {
-      await userEvent.click(canvas.getByRole('button', { name: 'Pause' }));
+      resetFocus();
+      await tabTo(canvas.getByRole('button', { name: 'Pause' }));
+      await userEvent.keyboard(' ');
       await expect(canvas.getByRole('button', { name: 'Play' })).not.toHaveAttribute('aria-pressed');
     }
   },

@@ -256,12 +256,13 @@
         "review"
       ],
       "counts": {
-        "deviation": 37,
-        "untested": 99,
-        "n/a": 21
+        "deviation": 36,
+        "untested": 92,
+        "n/a": 29
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 41,
+        "n/a": 1
       }
     },
     {
@@ -308,12 +309,13 @@
         "keyboard"
       ],
       "counts": {
-        "verified": 120,
-        "n/a": 36,
+        "verified": 112,
+        "n/a": 44,
         "deviation": 1
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 41,
+        "n/a": 1
       }
     },
     {
@@ -325,11 +327,12 @@
         "keyboard"
       ],
       "counts": {
-        "verified": 121,
-        "n/a": 36
+        "verified": 113,
+        "n/a": 44
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 41,
+        "n/a": 1
       }
     },
     {
@@ -434,11 +437,12 @@
         "keyboard"
       ],
       "counts": {
-        "verified": 121,
-        "n/a": 36
+        "verified": 113,
+        "n/a": 44
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 41,
+        "n/a": 1
       }
     },
     {
@@ -499,11 +503,12 @@
         "auto"
       ],
       "counts": {
-        "verified": 121,
-        "n/a": 36
+        "verified": 113,
+        "n/a": 44
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 41,
+        "n/a": 1
       }
     },
     {
@@ -561,11 +566,12 @@
         "auto"
       ],
       "counts": {
-        "verified": 121,
-        "n/a": 36
+        "verified": 113,
+        "n/a": 44
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 41,
+        "n/a": 1
       }
     },
     {
@@ -607,11 +613,12 @@
         "axe"
       ],
       "counts": {
-        "verified": 121,
-        "n/a": 36
+        "verified": 113,
+        "n/a": 44
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 41,
+        "n/a": 1
       }
     },
     {
@@ -649,11 +656,12 @@
         "keyboard"
       ],
       "counts": {
-        "verified": 121,
-        "n/a": 36
+        "verified": 113,
+        "n/a": 44
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 41,
+        "n/a": 1
       }
     },
     {
@@ -814,12 +822,13 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 120,
-        "n/a": 36,
+        "partial": 112,
+        "n/a": 44,
         "untested": 1
       },
       "patternCounts": {
-        "partial": 41,
+        "partial": 40,
+        "n/a": 1,
         "untested": 1
       }
     },
@@ -863,7 +872,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -939,8 +948,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 0
+        "tested": 1,
+        "playTests": 1
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -1186,7 +1195,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 1
       },
       "reducedMotion": "none",
@@ -1430,8 +1439,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 0
+        "tested": 1,
+        "playTests": 1
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -1608,8 +1617,7 @@
       "screenReader": [],
       "deviations": [],
       "traits": [
-        "colorMeaning",
-        "interactive"
+        "colorMeaning"
       ],
       "wcag": {
         "1.1.1": "partial",
@@ -1629,32 +1637,32 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "untested",
+        "1.4.11": "n/a",
         "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "verified",
-        "2.1.2": "verified",
+        "2.1.1": "n/a",
+        "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "verified",
+        "2.4.3": "n/a",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "n/a",
-        "2.4.7": "verified",
+        "2.4.7": "n/a",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "verified",
+        "2.5.3": "n/a",
         "2.5.4": "library",
         "2.5.7": "n/a",
-        "2.5.8": "verified",
+        "2.5.8": "n/a",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "verified",
+        "3.2.1": "n/a",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -1665,7 +1673,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "n/a",
         "4.1.3": "n/a"
       }
     },
@@ -1688,9 +1696,7 @@
       "forcedColors": "global",
       "screenReader": [],
       "deviations": [],
-      "traits": [
-        "interactive"
-      ],
+      "traits": [],
       "wcag": {
         "1.1.1": "partial",
         "1.2.1": "product",
@@ -1709,32 +1715,32 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "untested",
+        "1.4.11": "n/a",
         "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "verified",
-        "2.1.2": "verified",
+        "2.1.1": "n/a",
+        "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "verified",
+        "2.4.3": "n/a",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "n/a",
-        "2.4.7": "verified",
+        "2.4.7": "n/a",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "verified",
+        "2.5.3": "n/a",
         "2.5.4": "library",
         "2.5.7": "n/a",
-        "2.5.8": "verified",
+        "2.5.8": "n/a",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "verified",
+        "3.2.1": "n/a",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -1745,7 +1751,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "n/a",
         "4.1.3": "n/a"
       }
     },
@@ -1770,12 +1776,11 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
-        "colorMeaning",
-        "interactive"
+        "colorMeaning"
       ],
       "wcag": {
         "1.1.1": "partial",
@@ -1795,32 +1800,32 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "deviation",
+        "1.4.11": "n/a",
         "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "verified",
-        "2.1.2": "verified",
+        "2.1.1": "n/a",
+        "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "verified",
+        "2.4.3": "n/a",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "n/a",
-        "2.4.7": "verified",
+        "2.4.7": "n/a",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "verified",
+        "2.5.3": "n/a",
         "2.5.4": "library",
         "2.5.7": "n/a",
-        "2.5.8": "verified",
+        "2.5.8": "n/a",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "verified",
+        "3.2.1": "n/a",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -1831,7 +1836,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "n/a",
         "4.1.3": "n/a"
       }
     },
@@ -2100,7 +2105,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -2269,7 +2274,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -2439,7 +2444,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 1
       },
       "reducedMotion": "respected",
@@ -2534,7 +2539,7 @@
         },
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -2696,8 +2701,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 0
+        "tested": 1,
+        "playTests": 1
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -2787,7 +2792,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -2957,7 +2962,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -3034,8 +3039,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 0
+        "tested": 1,
+        "playTests": 1
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -3043,7 +3048,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -3726,7 +3731,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 2
       },
       "reducedMotion": "none",
@@ -3981,7 +3986,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -4165,7 +4170,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -4504,7 +4509,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 2
       },
       "reducedMotion": "none",
@@ -4513,7 +4518,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -4677,7 +4682,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -4756,7 +4761,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 2,
         "playTests": 3
       },
       "reducedMotion": "none",
@@ -5008,7 +5013,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -5173,7 +5178,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 6
       },
       "reducedMotion": "none",
@@ -5339,8 +5344,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 1
+        "tested": 1,
+        "playTests": 2
       },
       "reducedMotion": "respected",
       "forcedColors": "component",
@@ -5423,7 +5428,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 2
       },
       "reducedMotion": "respected",
@@ -5678,7 +5683,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -5939,7 +5944,6 @@
       "deviations": [],
       "traits": [
         "colorMeaning",
-        "interactive",
         "labelled",
         "timed",
         "validation"
@@ -5962,32 +5966,32 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "untested",
+        "1.4.11": "n/a",
         "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "verified",
-        "2.1.2": "verified",
+        "2.1.1": "n/a",
+        "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "verified",
+        "2.4.3": "n/a",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "verified",
-        "2.4.7": "verified",
+        "2.4.7": "n/a",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "verified",
+        "2.5.3": "n/a",
         "2.5.4": "library",
         "2.5.7": "n/a",
-        "2.5.8": "verified",
+        "2.5.8": "n/a",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "verified",
+        "3.2.1": "n/a",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -5998,7 +6002,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "n/a",
         "4.1.3": "n/a"
       }
     },
@@ -6023,7 +6027,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -6101,8 +6105,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 0
+        "tested": 1,
+        "playTests": 1
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -6184,7 +6188,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 1
       },
       "reducedMotion": "respected",
@@ -6432,8 +6436,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 0
+        "tested": 1,
+        "playTests": 1
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -6934,7 +6938,6 @@
       "deviations": [],
       "traits": [
         "colorMeaning",
-        "interactive",
         "labelled"
       ],
       "wcag": {
@@ -6955,32 +6958,32 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "untested",
+        "1.4.11": "n/a",
         "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "verified",
-        "2.1.2": "verified",
+        "2.1.1": "n/a",
+        "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "verified",
+        "2.4.3": "n/a",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "verified",
-        "2.4.7": "verified",
+        "2.4.7": "n/a",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "verified",
+        "2.5.3": "n/a",
         "2.5.4": "library",
         "2.5.7": "n/a",
-        "2.5.8": "verified",
+        "2.5.8": "n/a",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "verified",
+        "3.2.1": "n/a",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -6991,7 +6994,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "n/a",
         "4.1.3": "n/a"
       }
     },
@@ -7255,7 +7258,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 2,
         "playTests": 3
       },
       "reducedMotion": "none",
@@ -7264,7 +7267,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -7341,7 +7344,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 1
       },
       "reducedMotion": "respected",
@@ -7423,7 +7426,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 1
       },
       "reducedMotion": "respected",
@@ -7505,7 +7508,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 4
       },
       "reducedMotion": "none",
@@ -7749,8 +7752,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 0
+        "tested": 1,
+        "playTests": 1
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -7758,7 +7761,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -8094,7 +8097,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -8185,7 +8188,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -8435,7 +8438,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -8512,7 +8515,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 5
       },
       "reducedMotion": "none",
@@ -8858,7 +8861,6 @@
       "deviations": [],
       "traits": [
         "colorMeaning",
-        "interactive",
         "labelled"
       ],
       "wcag": {
@@ -8879,32 +8881,32 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "untested",
+        "1.4.11": "n/a",
         "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "verified",
-        "2.1.2": "verified",
+        "2.1.1": "n/a",
+        "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "verified",
+        "2.4.3": "n/a",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "verified",
-        "2.4.7": "verified",
+        "2.4.7": "n/a",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "verified",
+        "2.5.3": "n/a",
         "2.5.4": "library",
         "2.5.7": "n/a",
-        "2.5.8": "verified",
+        "2.5.8": "n/a",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "verified",
+        "3.2.1": "n/a",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -8915,7 +8917,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "n/a",
         "4.1.3": "n/a"
       }
     },
@@ -9023,9 +9025,7 @@
       "forcedColors": "component",
       "screenReader": [],
       "deviations": [],
-      "traits": [
-        "interactive"
-      ],
+      "traits": [],
       "wcag": {
         "1.1.1": "partial",
         "1.2.1": "product",
@@ -9044,32 +9044,32 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "untested",
+        "1.4.11": "n/a",
         "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "verified",
-        "2.1.2": "verified",
+        "2.1.1": "n/a",
+        "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "verified",
+        "2.4.3": "n/a",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "n/a",
-        "2.4.7": "verified",
+        "2.4.7": "n/a",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "verified",
+        "2.5.3": "n/a",
         "2.5.4": "library",
         "2.5.7": "n/a",
-        "2.5.8": "verified",
+        "2.5.8": "n/a",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "verified",
+        "3.2.1": "n/a",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -9080,7 +9080,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "n/a",
         "4.1.3": "n/a"
       }
     },
@@ -9270,8 +9270,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 0
+        "tested": 1,
+        "playTests": 1
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -9279,7 +9279,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -9355,8 +9355,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 0
+        "tested": 1,
+        "playTests": 1
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -9780,7 +9780,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -10036,7 +10036,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -10377,7 +10377,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -10454,7 +10454,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 4
       },
       "reducedMotion": "none",
@@ -10638,9 +10638,7 @@
       "forcedColors": "global",
       "screenReader": [],
       "deviations": [],
-      "traits": [
-        "interactive"
-      ],
+      "traits": [],
       "wcag": {
         "1.1.1": "partial",
         "1.2.1": "product",
@@ -10659,32 +10657,32 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "untested",
+        "1.4.11": "n/a",
         "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "verified",
-        "2.1.2": "verified",
+        "2.1.1": "n/a",
+        "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "verified",
+        "2.4.3": "n/a",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "n/a",
-        "2.4.7": "verified",
+        "2.4.7": "n/a",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "verified",
+        "2.5.3": "n/a",
         "2.5.4": "library",
         "2.5.7": "n/a",
-        "2.5.8": "verified",
+        "2.5.8": "n/a",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "verified",
+        "3.2.1": "n/a",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -10695,7 +10693,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "n/a",
         "4.1.3": "n/a"
       }
     },
@@ -10720,7 +10718,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -10888,7 +10886,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -10968,7 +10966,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 5
       },
       "reducedMotion": "none",
@@ -10977,7 +10975,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -11454,7 +11452,7 @@
       "name": "Stepper",
       "title": "Navigation/Stepper",
       "axe": {
-        "stories": 8,
+        "stories": 9,
         "themes": [
           "light",
           "dark"
@@ -11462,8 +11460,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 6
+        "tested": 1,
+        "playTests": 7
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -11545,7 +11543,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 2
       },
       "reducedMotion": "respected",
@@ -11970,7 +11968,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -12049,8 +12047,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 1
+        "tested": 1,
+        "playTests": 2
       },
       "reducedMotion": "none",
       "forcedColors": "component",
@@ -12058,7 +12056,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -12136,8 +12134,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 0
+        "tested": 1,
+        "playTests": 1
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -12225,7 +12223,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -12389,8 +12387,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 0
+        "tested": 1,
+        "playTests": 1
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
@@ -12398,7 +12396,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -12562,7 +12560,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 5
       },
       "reducedMotion": "none",
@@ -12647,8 +12645,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 3
+        "tested": 1,
+        "playTests": 4
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -12732,7 +12730,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 1
       },
       "reducedMotion": "none",
@@ -12741,7 +12739,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -12817,7 +12815,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 1
       },
       "reducedMotion": "none",
@@ -13164,7 +13162,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -13249,7 +13247,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -13416,7 +13414,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -13577,8 +13575,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
-        "playTests": 0
+        "tested": 1,
+        "playTests": 1
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -13586,10 +13584,11 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
+        "choice",
         "colorMeaning",
         "interactive",
         "labelled",
@@ -13676,7 +13675,7 @@
       "deviations": [
         {
           "criterion": "1.4.11",
-          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27."
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],
       "traits": [
@@ -13837,7 +13836,7 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 0,
+        "tested": 1,
         "playTests": 1
       },
       "reducedMotion": "none",
@@ -14267,8 +14266,7 @@
         "colorMeaning",
         "interactive",
         "labelled",
-        "links",
-        "overlay"
+        "links"
       ],
       "wcag": {
         "1.1.1": "partial",
@@ -16331,7 +16329,6 @@
       "deviations": [],
       "traits": [
         "colorMeaning",
-        "interactive",
         "labelled"
       ],
       "wcag": {
@@ -16352,32 +16349,32 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "verified",
+        "1.4.11": "n/a",
         "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "verified",
-        "2.1.2": "verified",
+        "2.1.1": "n/a",
+        "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "verified",
+        "2.4.3": "n/a",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "verified",
-        "2.4.7": "verified",
+        "2.4.7": "n/a",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "verified",
+        "2.5.3": "n/a",
         "2.5.4": "library",
         "2.5.7": "n/a",
-        "2.5.8": "verified",
+        "2.5.8": "n/a",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "verified",
+        "3.2.1": "n/a",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -16388,7 +16385,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "n/a",
         "4.1.3": "n/a"
       }
     },
@@ -17630,6 +17627,7 @@
       "screenReader": [],
       "deviations": [],
       "traits": [
+        "choice",
         "interactive",
         "links",
         "overlay",

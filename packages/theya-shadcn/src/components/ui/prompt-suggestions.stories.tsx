@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Sparks } from 'iconoir-react';
 import { PromptSuggestions } from './prompt-suggestions';
 import { promptSuggestionsGuidelines } from './prompt-suggestions.guidelines';
+import { expect, fn, userEvent, within } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -38,6 +40,16 @@ export const Default: Story = {
       { id: '2', label: 'Draft a follow-up email', icon: <Sparks /> },
       { id: '3', label: 'Explain this error', icon: <Sparks /> },
     ],
-    onSelect: () => {},
+    onSelect: fn(),
+  },
+  // Keyboard: every card is a tab stop, in order; Enter picks one.
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    resetFocus();
+    await tabTo(canvas.getByRole('button', { name: 'Summarize this document' }));
+    await userEvent.tab();
+    await expect(canvas.getByRole('button', { name: 'Draft a follow-up email' })).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await expect(args.onSelect).toHaveBeenCalledWith(expect.objectContaining({ id: '2' }));
   },
 };

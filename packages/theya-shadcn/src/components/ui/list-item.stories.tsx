@@ -11,6 +11,7 @@ import { StatusDot } from './status-dot';
 import { Button } from './button';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from './dropdown-menu';
 import { listItemGuidelines } from './list-item.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * ListItem — a single row in a vertical list: leading visual, title +
@@ -90,8 +91,13 @@ export const LinkRows: Story = {
     </ul>
   ),
   play: async ({ canvasElement }) => {
-    const link = within(canvasElement).getByRole('link', { name: /shop\.seashell\.dev/ });
-    await expect(link).toHaveAttribute('href', '#shop.seashell.dev');
+    const links = within(canvasElement).getAllByRole('link');
+    await expect(links[0]).toHaveAttribute('href', '#shop.seashell.dev');
+    // Keyboard: each row is one tab stop, in order.
+    resetFocus();
+    await tabTo(links[0]);
+    await userEvent.tab();
+    await expect(links[1]).toHaveFocus();
   },
 };
 
@@ -115,7 +121,10 @@ export const Selectable: Story = {
     // Every row in a selectable list reads as a toggle, not just the selected one.
     await expect(canvas.getByRole('button', { name: 'Databases' })).toHaveAttribute('aria-pressed', 'true');
     await expect(canvas.getByRole('button', { name: 'Overview' })).toHaveAttribute('aria-pressed', 'false');
-    await userEvent.click(canvas.getByRole('button', { name: 'Backups' }));
+    // Keyboard: Tab to a row, Enter selects it.
+    resetFocus();
+    await tabTo(canvas.getByRole('button', { name: 'Backups' }));
+    await userEvent.keyboard('{Enter}');
     await expect(canvas.getByRole('button', { name: 'Backups' })).toHaveAttribute('aria-pressed', 'true');
     await expect(canvas.getByRole('button', { name: 'Databases' })).toHaveAttribute('aria-pressed', 'false');
   },
