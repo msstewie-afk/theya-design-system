@@ -86,19 +86,24 @@ const TONE_TOKENS: Record<BadgeIndicatorTone, ToneTokens> = {
   },
   success: {
     filledBg: 'bg-[var(--color-bg-success-bg-success-status)]',
-    filledText: 'text-[var(--color-text-text-on-dark)]',
+    // Dark ink: white on this green was 3.45:1, under 4.5 for the small count
+    // (WCAG 1.4.3); icon-on-light gives 5.2:1 in both themes.
+    filledText: 'text-[var(--color-icon-icon-on-light)]',
     // Outlined — extrapolated, not fetched
     outlinedBg: 'bg-[var(--color-bg-success-bg-success-subtle)]',
     outlinedBorder: 'border-[var(--color-border-border-success)]',
-    outlinedText: 'text-[var(--color-text-text-success)]',
+    // on-tonal: the plain success text was ~3.6:1 on the translucent tint in dark (needs 4.5).
+    outlinedText: 'text-[var(--color-text-text-success-on-tonal)]',
   },
   warning: {
     // Outlined — extrapolated, not fetched
     filledBg: 'bg-[var(--color-bg-warning-bg-warning-status)]',
-    filledText: 'text-[var(--color-text-text-warning)] [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
+    // Dark: the status orange takes dark ink too (5.2:1; white was 3.45:1).
+    filledText: 'text-[var(--color-text-text-warning)] [[data-theme=dark]_&]:text-[var(--color-icon-icon-on-light)]',
     outlinedBg: 'bg-[var(--color-bg-warning-bg-warning-subtle)]',
     outlinedBorder: 'border-[var(--color-border-border-warning)]',
-    outlinedText: 'text-[var(--color-text-text-warning)]',
+    // on-tonal: the plain warning text was ~3.6:1 on the translucent tint in dark (needs 4.5).
+    outlinedText: 'text-[var(--color-text-text-warning-on-tonal)]',
   },
   danger: {
     // Outlined — extrapolated, not fetched
