@@ -9925,6 +9925,7 @@ Docs: ./?path=/docs/date-time-timefield--docs
 - `max?`: `string`, default `23:59` — Latest time offered, "HH:MM". Defaults to "23:59".
 - `min?`: `string`, default `00:00` — Earliest time offered, "HH:MM". Defaults to "00:00".
 - `onChange?`: `((value: string) => void)` — Called with the selected "HH:MM" value (or "" when cleared).
+- `onInvalidInput?`: `((text: string, message: string) => void)` — Called when typed text isn't a time, or is outside min–max, with that
 - `placeholder?`: `string`, default `Select time (localized: timeField.placeholder)`
 - `step?`: `number`, default `30` — Minutes between options. Defaults to 30.
 - `value?`: `string` — Controlled value as a 24-hour "HH:MM" string.
@@ -9975,6 +9976,8 @@ Docs: ./?path=/docs/date-time-timerangepicker--docs
 
 **TimeRangePicker props**
 
+- `aria-describedby?`: `string` — Id of the message both fields are described by (an error or a hint).
+- `aria-invalid?`: `boolean` — Marks both fields invalid, e.g. when the window is required or too
 - `aria-label?`: `string` — Names the pair as a group (role="group"), e.g. "Maintenance window".
 - `aria-labelledby?`: `string` — Id of a visible label that names the pair as a group.
 - `className?`: `string`
@@ -9985,6 +9988,7 @@ Docs: ./?path=/docs/date-time-timerangepicker--docs
 - `max?`: `string`, default `23:59`
 - `min?`: `string`, default `00:00`
 - `onChange?`: `((value: TimeRange) => void)`
+- `onInvalidInput?`: `((text: string, message: string) => void)` — Called with the typed text when either field gets text that isn't a time.
 - `startLabel?`: `string`, default `Start time (localized: timeRangePicker.start)`
 - `step?`: `number`, default `30`
 - `value?`: `TimeRange`

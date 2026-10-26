@@ -19,8 +19,9 @@ export interface TimeFieldProps {
     'aria-labelledby'?: string;
     'aria-invalid'?: boolean | 'true' | 'false';
     'aria-describedby'?: string;
+    onInvalidInput?: (text: string, message: string) => void;
 }
-export declare function TimeField({ value, defaultValue, onChange, step, min, max, hourCycle, placeholder, disabled, id, className, contentClassName, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-invalid': ariaInvalid, 'aria-describedby': ariaDescribedby, }: TimeFieldProps): import("react").JSX.Element;
+export declare function TimeField({ value, defaultValue, onChange, step, min, max, hourCycle, placeholder, disabled, id, className, contentClassName, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-invalid': ariaInvalid, 'aria-describedby': ariaDescribedby, onInvalidInput, }: TimeFieldProps): import("react").JSX.Element;
 
 // Defaults
 // TimeField.hourCycle = 12

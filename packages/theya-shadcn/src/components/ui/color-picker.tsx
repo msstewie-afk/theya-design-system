@@ -4,6 +4,7 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { ColorPicker as EyedropperIcon } from 'iconoir-react';
 import { cn } from '../../lib/utils';
 import { Button } from './button';
+import { FieldError } from './field';
 import { Label } from './label';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
@@ -259,6 +260,7 @@ function DraftInput({
   className,
   inputClassName,
   inputMode = 'numeric',
+  describedBy,
 }: {
   value: string;
   onCommit: (draft: string) => boolean;
@@ -271,6 +273,8 @@ function DraftInput({
   /** Always on the input (font, case). */
   inputClassName?: string;
   inputMode?: 'numeric' | 'text';
+  /** Id of the picker's error message while one is shown. */
+  describedBy?: string;
 }) {
   const id = useId();
   const [draft, setDraft] = useState(value);
@@ -283,6 +287,7 @@ function DraftInput({
     <input
       id={id}
       aria-label={label}
+      aria-describedby={describedBy}
       inputMode={inputMode}
       spellCheck={false}
       autoComplete="off"
@@ -601,6 +606,18 @@ export function ColorPicker({
     }
   };
 
+  // A typed value that can't be read is still put back (the field shows the
+  // last good value), but no longer silently (WCAG 3.3.1): a message under
+  // the fields says what was expected, until the next value is accepted.
+  const [inputError, setInputError] = useState<string | null>(null);
+  const errorId = useId();
+  const checked = (message: string, commit: (draft: string) => boolean) => (draft: string) => {
+    const ok = commit(draft);
+    setInputError(ok ? null : message);
+    return ok;
+  };
+  const describedBy = inputError ? errorId : undefined;
+
   const intIn = (min: number, max: number) => (draft: string) => {
     const n = Number(draft.replace(/[^\d.-]/g, ''));
     return Number.isFinite(n) && draft.trim() !== '' ? clamp(Math.round(n), min, max) : null;
@@ -614,12 +631,13 @@ export function ColorPicker({
         className="col-span-3"
         inputClassName="font-code uppercase"
         value={isEmpty ? '' : opaque.toUpperCase()}
-        onCommit={(d) => {
+        describedBy={describedBy}
+        onCommit={checked(t.colorPicker.invalidHex, (d) => {
           const parsed = parseHex(d);
           if (!parsed) return false;
           setRgba({ ...parsed, a: alpha && d.replace('#', '').length > 6 ? parsed.a : hsvaRef.current.a });
           return true;
-        }}
+        })}
       />
     ) : format === 'rgb' ? (
       (['r', 'g', 'b'] as const).map((ch) => (
@@ -628,12 +646,13 @@ export function ColorPicker({
           label={t.colorPicker.channels[ch]}
           caption={t.colorPicker.captions[ch]}
           value={isEmpty ? '' : String(rgba[ch])}
-          onCommit={(d) => {
+          describedBy={describedBy}
+          onCommit={checked(t.colorPicker.invalidNumber(0, 255), (d) => {
             const n = intIn(0, 255)(d);
             if (n === null) return false;
             setRgba({ ...rgba, [ch]: n });
             return true;
-          }}
+          })}
         />
       ))
     ) : (
@@ -643,7 +662,8 @@ export function ColorPicker({
           label={t.colorPicker.channels[ch]}
           caption={t.colorPicker.captions[ch]}
           value={isEmpty ? '' : String(hsl[ch])}
-          onCommit={(d) => {
+          describedBy={describedBy}
+          onCommit={checked(t.colorPicker.invalidNumber(0, ch === 'h' ? 360 : 100), (d) => {
             const n = intIn(0, ch === 'h' ? 360 : 100)(d);
             if (n === null) return false;
             const next = { ...hsl, [ch]: n };
@@ -651,7 +671,7 @@ export function ColorPicker({
             // Keep the typed hue even for greys.
             set({ ...rgbToHsv(rgb, ch === 'h' ? n : hsvaRef.current.h) }, true);
             return true;
-          }}
+          })}
         />
       ))
     );
@@ -663,7 +683,14 @@ export function ColorPicker({
   // and it's hidden when there's one format. Hex needs none — the select
   // says HEX (Maria, 2026-10-23: letters inline, not captions underneath).
   const formatSelect = formats.length > 1 && (
-    <Select heightSize="sm" value={format} onValueChange={(f) => setFormat(f as ColorFormat)}>
+    <Select
+      heightSize="sm"
+      value={format}
+      onValueChange={(f) => {
+        setFormat(f as ColorFormat);
+        setInputError(null);
+      }}
+    >
       <SelectTrigger widthSize="sm" aria-label={t.colorPicker.format} className="w-[4.75rem] shrink-0">
         <SelectValue />
       </SelectTrigger>
@@ -690,16 +717,18 @@ export function ColorPicker({
           <DraftInput
             label={t.colorPicker.opacityPercent}
             value={isEmpty ? '' : `${Math.round(hsva.a * 100)}%`}
-            onCommit={(d) => {
+            describedBy={describedBy}
+            onCommit={checked(t.colorPicker.invalidNumber(0, 100), (d) => {
               const n = intIn(0, 100)(d);
               if (n === null) return false;
               set({ a: n / 100 }, true);
               return true;
-            }}
+            })}
             className="w-full"
           />
         </div>
       )}
+      <FieldError id={errorId}>{inputError}</FieldError>
     </div>
   );
 
@@ -841,16 +870,28 @@ export function ColorField({
     onValueChange?.(hex);
   };
   const [draft, setDraft] = useState<string | null>(null);
+  // Typed text that isn't a hex color used to be dropped silently (WCAG
+  // 3.3.1). It now stays in the field, marked invalid, with the reason
+  // under it; Esc or a valid color (typed or picked) clears it.
+  const [invalid, setInvalid] = useState(false);
+  const errorId = useId();
 
   const commitDraft = () => {
     if (draft === null) return;
     const parsed = parseHex(draft);
-    if (parsed) {
-      const hex = toHex(rgbToHsv(alpha ? parsed : { ...parsed, a: 1 }), alpha);
-      change(hex);
-      onValueCommit?.(hex);
+    if (!parsed) {
+      setInvalid(true);
+      return;
     }
+    const hex = toHex(rgbToHsv(alpha ? parsed : { ...parsed, a: 1 }), alpha);
+    change(hex);
+    onValueCommit?.(hex);
+    setInvalid(false);
     setDraft(null);
+  };
+  const reset = () => {
+    setDraft(null);
+    setInvalid(false);
   };
 
   const swatchSize = heightSize === 'sm' ? 'size-5' : 'size-6';
@@ -882,7 +923,16 @@ export function ColorField({
             </button>
           </PopoverTrigger>
           <PopoverContent align="start" className="w-auto" aria-label={typeof label === 'string' ? label : t.colorPicker.label} sheetTitle={label ?? t.colorPicker.label} sheetClassName="pt-0">
-            <ColorPicker value={current} onValueChange={change} onValueCommit={onValueCommit} alpha={alpha} {...pickerProps} />
+            <ColorPicker
+              value={current}
+              onValueChange={(hex) => {
+                reset();
+                change(hex);
+              }}
+              onValueCommit={onValueCommit}
+              alpha={alpha}
+              {...pickerProps}
+            />
           </PopoverContent>
         </Popover>
         <input
@@ -891,7 +941,8 @@ export function ColorField({
           disabled={disabled}
           spellCheck={false}
           autoComplete="off"
-          aria-describedby={description ? descId : undefined}
+          aria-invalid={invalid || undefined}
+          aria-describedby={[invalid && errorId, description && descId].filter(Boolean).join(' ') || undefined}
           value={draft ?? current.toUpperCase()}
           onChange={(e) => setDraft(e.target.value)}
           onBlur={commitDraft}
@@ -900,7 +951,7 @@ export function ColorField({
               e.preventDefault();
               commitDraft();
             }
-            if (e.key === 'Escape') setDraft(null);
+            if (e.key === 'Escape') reset();
           }}
           className={cn(textFieldVariants({ heightSize }), 'font-code', heightSize === 'sm' ? 'ps-9' : 'ps-11')}
         />
@@ -910,6 +961,7 @@ export function ColorField({
           {description}
         </p>
       )}
+      <FieldError id={errorId}>{invalid ? t.colorPicker.invalidHex : null}</FieldError>
     </div>
   );
 }

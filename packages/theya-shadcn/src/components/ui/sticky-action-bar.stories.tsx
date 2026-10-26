@@ -136,11 +136,11 @@ export const BulkSelection: Story = {
     const canvas = within(canvasElement);
     const bar = () => canvas.queryByRole('region', { name: 'Bulk actions' });
     await expect(within(bar()!).getByText('2 selected')).toBeInTheDocument();
-    // The count follows the selection (polite live region).
+    // The count follows the selection, and the change is announced politely (WCAG 4.1.3).
     const site7 = canvas.getByRole('checkbox', { name: 'site-07.seashell.dev' });
     await userEvent.click(site7);
     await expect(within(bar()!).getByText('3 selected')).toBeInTheDocument();
-    await expect(within(bar()!).getByText('3 selected')).toHaveAttribute('aria-live', 'polite');
+    await waitFor(() => expect(document.querySelector('[data-theya-announcer="polite"]')).toHaveTextContent('3 selected'));
     // Clear selection empties it and closes the bar; focus returns to the last checkbox used.
     await userEvent.click(within(bar()!).getByRole('button', { name: 'Clear selection' }));
     await expect(bar()).not.toBeInTheDocument();

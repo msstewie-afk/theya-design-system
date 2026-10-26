@@ -3,6 +3,7 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { FilterList, List, ViewGrid, Xmark } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
+import { announce } from '../../../lib/announce';
 import { Button } from '../../ui/button';
 import { Checkbox } from '../../ui/checkbox';
 import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger, DrawerBody } from '../../ui/drawer';
@@ -130,6 +131,14 @@ export function FacetedList({ items, noun = { one: 'extension', many: 'extension
     if (sort === 'newest') sorted.sort((a, b) => b.added.localeCompare(a.added));
     return sorted;
   }, [items, filters, sort]);
+  // The result count is announced on change. Its own line can't be a live
+  // region: while the Filters drawer is open, the drawer hides the rest of
+  // the page from assistive tech (WCAG 4.1.3); announce() speaks from inside it.
+  const lastResults = useRef(results.length);
+  useEffect(() => {
+    if (results.length !== lastResults.current) announce(`${results.length} ${results.length === 1 ? noun.one : noun.many}`);
+    lastResults.current = results.length;
+  }, [results.length, noun]);
 
   const update = (next: Partial<Filters>) => {
     setFilters((f) => ({ ...f, ...next }));
@@ -176,7 +185,7 @@ export function FacetedList({ items, noun = { one: 'extension', many: 'extension
 
         <div className="flex min-w-0 flex-1 flex-col gap-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="font-body text-body-m text-[var(--color-text-text-subtle)]" aria-live="polite" aria-atomic="true">
+            <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">
               <span className="font-semibold tabular-nums text-[var(--color-text-text)]">{results.length}</span> {results.length === 1 ? noun.one : noun.many}
             </p>
             <div className="flex flex-wrap items-center gap-2">
@@ -389,7 +398,10 @@ function ListFacetGroup({ facet, items, filters, toggle }: { facet: ListFacet; i
           }}
         />
       ))}
-      {query && !filtered.length && <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">No matches.</p>}
+      {/* Always mounted, so searching the options down to nothing is announced. */}
+      <p aria-live="polite" className="font-body text-body-s text-[var(--color-text-text-subtler)] empty:hidden">
+        {query && !filtered.length ? 'No matches.' : ''}
+      </p>
       {(hidden > 0 || (expanded && !query && options.length > TRUNCATE_AT)) && (
         <button
           type="button"

@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import { Bookmark, Cart as CartIcon, Trash } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
+import { announce } from '../../../lib/announce';
 import { Button } from '../../ui/button';
 import { EmptyState } from '../../ui/empty-state';
 import { Label } from '../../ui/label';
@@ -135,13 +136,17 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
     setLines((ls) => [...ls, line]);
   };
   const applyPromo = () => {
+    // The error shows under the field, but focus stays on Apply: announce it
+    // too, or a screen reader user hears nothing (WCAG 4.1.3).
     if (!promoCode.trim()) {
       setPromoError('Enter a promo code.');
+      announce('Enter a promo code.');
       return;
     }
     const result = validatePromo(promoCode, subtotal);
     if ('error' in result) {
       setPromoError(result.error);
+      announce(result.error);
       return;
     }
     const code = promoCode.trim().toUpperCase();

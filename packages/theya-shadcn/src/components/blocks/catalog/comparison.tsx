@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Check, Minus, NavArrowLeft, Xmark } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
+import { announce } from '../../../lib/announce';
 import { useScrollPadding } from '../../../lib/scroll-padding';
 import { Button } from '../../ui/button';
 import { Switch } from '../../ui/switch';
@@ -56,6 +57,13 @@ export function CompareBar({ items, max = 4, onRemove, onClear, onCompare, class
     // None left: the tray has unmounted and the parent places focus.
     if (buttons?.length) buttons[Math.min(i, buttons.length - 1)].focus();
   }, [items]);
+  // The count is announced on every change, the first item included: the
+  // tray mounts with it, and a region that mounts filled isn't read (4.1.3).
+  const lastCount = useRef(items.length);
+  useEffect(() => {
+    if (items.length && items.length !== lastCount.current) announce(`${items.length} of ${max} selected for comparison`);
+    lastCount.current = items.length;
+  }, [items.length, max]);
   const ready = items.length >= 2;
   const hint = !ready ? 'Pick at least 2 to compare.' : items.length >= max ? `That's the maximum of ${max}. Remove one to add another.` : `You can add up to ${max}.`;
   if (!items.length) return null;
@@ -110,7 +118,6 @@ export function CompareBar({ items, max = 4, onRemove, onClear, onCompare, class
           {`Compare (${items.length})`}
         </Button>
       </div>
-      <p role="status" className="sr-only">{`${items.length} of ${max} selected for comparison`}</p>
     </section>
   );
 }
@@ -283,7 +290,10 @@ export function ComparisonTable({ items, getHref, onRemove, className }: Compari
           </tbody>
         </table>
       </div>
-      {onlyDifferences && shown.length === 0 && <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">These items match on every attribute.</p>}
+      {/* Always mounted, so turning on "Only differences" with nothing left to show is announced. */}
+      <p aria-live="polite" className="font-body text-body-m text-[var(--color-text-text-subtle)] empty:hidden">
+        {onlyDifferences && shown.length === 0 ? 'These items match on every attribute.' : ''}
+      </p>
     </div>
   );
 }

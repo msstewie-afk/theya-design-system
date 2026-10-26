@@ -7,6 +7,7 @@ import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Check, Minus } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { FieldErrorIcon } from './field-error-icon';
 
 /**
  * Rebuilt on Radix Checkbox instead of a visually-hidden native `<input>`.
@@ -177,6 +178,8 @@ export const Checkbox = forwardRef<ElementRef<typeof CheckboxPrimitive.Root>, Ch
         // without this, a screen reader announces the label but never
         // reads the description span, since it's just a visual sibling.
         aria-describedby={descriptionId}
+        // The danger color alone doesn't say "invalid" (WCAG 1.4.1 / 3.3.1).
+        aria-invalid={error || undefined}
         className={cn(checkboxVariants({ size, error }), className)}
         {...rest}
       >
@@ -261,8 +264,12 @@ export const Checkbox = forwardRef<ElementRef<typeof CheckboxPrimitive.Root>, Ch
               'font-body font-normal text-body-s text-[var(--color-text-text-subtler)]',
               size === 'sm' ? 'ps-[24px]' : 'ps-[28px]',
               '[[data-surface=primary]_&]:text-[var(--color-text-text-subtle-on-primary)]',
+              // With `error` the description is the error message: danger text
+              // plus the error icon, like a field's message, not color alone.
+              error && !disabled && 'inline-flex items-start gap-1 text-[var(--color-text-text-danger)]',
             )}
           >
+            {error && !disabled && <FieldErrorIcon className="mt-0.5 shrink-0 text-[var(--color-icon-icon-danger)]" />}
             {description}
           </span>
         )}

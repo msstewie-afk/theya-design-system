@@ -199,7 +199,7 @@
       "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "An empty or invalid promo code is described in text via TextField's error prop (aria-invalid + aria-describedby), e.g. \"Enter a promo code.\" (cart.tsx:128,270)."},
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Quantity fields have a visible \"Qty\" Label and the promo field a visible \"Promo code\" Label (cart.tsx:187,252)."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Lines then summary in DOM and in the lg grid (cart.tsx:185, 245); `lg:sticky` keeps the summary in place without moving it in the order."},
-      "4.1.3": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Promo errors (cart.tsx:139, 144) render through TextField's error message, which is not live, and focus stays on Apply (285) or in the field, so an invalid or empty code is not announced; only success/removal go to the status region (249-251)."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: promo code errors are announced through announce() (cart.tsx), focus stays on Apply."}
     },
     "CategoryLanding": {
       "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Its only links are stand-alone \"View all\" links with an arrow and card links, none in running text; counts and ratings are written as text."},
@@ -283,7 +283,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: a visible letter before each channel field (R/G/B, H/S/L; Hex needs none, the select says HEX), a real <label>; Maria's call. Channel names localized."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Tabs, area, sliders, inputs and swatches are in DOM order (color-picker.tsx:715-776); the absolute swatch button and Change photo button sit at their DOM position (454, 873)."},
       "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Area and channel thumbs are a 2px white border with a 1px black-a300 outer ring (color-picker.tsx:118): over white or yellow regions only that ring separates the thumb, about 2.1:1; the palette SwatchPicker's selection ring is also 2.71:1 in dark (see SwatchPicker)."},
-      "3.3.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Invalid hex/channel entries are detected and then silently reverted (color-picker.tsx:278-281, 617-619; ColorField 845-853): no aria-invalid and no message tells the user why the typed value was dropped."}
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: unreadable hex/channel entries still revert, but a FieldError under the fields says what was expected and the fields are described by it; ColorField keeps the typed text, sets aria-invalid and shows the reason (Esc clears). Play tests in Field and HexOnly."}
     },
     "Combobox": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: new autoComplete prop (default \"off\") reaches the combobox <input>."},
@@ -307,7 +307,7 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Icon, breadcrumb, label, description, shortcut render in DOM order (command.tsx:363-376); CommandShortcut uses ms-auto, not reordering."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Tone glyphs come through ToneIcon (icon + shape, command.tsx:365); the active item is exposed by aria-selected/activedescendant, its fill contrast is covered under 1.4.11."},
       "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "In CommandItem the highlighted option uses bg-neutral-subtle, 1.15:1 light (#edeef8 on #ffffff) / 1.35:1 dark on the overlay, and it is the only visual cue for the keyboard-active option (command.tsx:356)."},
-      "4.1.3": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "CommandEmpty (command.tsx:252-265) has no role=\"status\"/aria-live, so \"No results\" after typing is not announced; only CommandLoading is live (272)."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: CommandEmpty text is portalled into an always-mounted role=status region on the menu, so \"No results\" is spoken; it stays hidden while loading. Play test in Inline."}
     },
     "Comparison": {
       "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Supported/unsupported uses different shapes (check vs dash) with sr-only Yes/No, and differing rows are marked by font weight as well as text color."},
@@ -320,7 +320,7 @@
       "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The \"Only differences\" switch and the Compare checkboxes only filter rows/fill the tray in place; view changes happen only on button activation (Compare, Back to results)."},
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The Switch has a visible \"Only differences\" label and each card checkbox a visible \"Compare\" label (item-card.tsx:75)."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The sticky tray comes after the results list in DOM (comparison.tsx:357, 367) and sits at the bottom visually; sticky table columns (220, 261) keep DOM order."},
-      "4.1.3": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "\"These items match on every attribute.\" appears after toggling Only differences without a live region (comparison.tsx:286); also the tray's role=\"status\" (113) mounts together with its first message because the tray returns null when empty (61), so the first pick is often not announced."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: count changes go through announce(); \"These items match on every attribute.\" is an always-mounted aria-live paragraph (empty:hidden)."}
     },
     "CompletionScreen": {
       "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The inline \"send it again\" button is underlined (completion-screen.tsx:104), and the success state is stated in the title, not only by the green icon."},
@@ -362,7 +362,7 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "countdown.tsx:203-286: the sr-only sentence comes first and the visible digits/tiles follow in order; the ring SVG is an aria-hidden absolute layer behind the centered number (221)."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The remaining time is always text. The urgent danger color (192-193, 235) just restates a value already visible as digits, and completion swaps in a SuccessCheck shape (240-241)."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Ring progress stroke icon-primary vs neutral-subtle track 4.51:1 / 4.40:1 (222, 235); urgent icon-danger 5.88 / 3.20:1; done icon-success 4.10 / 4.62:1; against the outer surface each is 4.34:1 or higher."},
-      "4.1.3": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "role=\"timer\" (213, 253, 283) is implicitly aria-live=off (fine for ticking), but reaching zero swaps in `completed` content in a plain span (195-201), and the ring's done check (240-241) is never announced. Fix: render the completed/done state inside role=\"status\" (or keep a polite live region that announces completion once)."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: reaching zero announces the `completed` text, or t.countdown.ended, once."}
     },
     "DashboardOverview": {
       "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Every StatusDot comes with text (severity word line 264, \"Healthy\", \"Near limit\") and quota warnings add \", near limit\" as text (line 377), so tone is never color-only."},
@@ -399,7 +399,7 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "data-table-cell.tsx:530-821: each kind renders its parts in reading order (value then secondary line, dot then label, % then label then bar). The badge measuring mirror is invisible and aria-hidden (402)."},
       "1.4.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "status/badge/usage pair color with text (313, 761-765). But for the number, select, combobox, autocomplete, tags, date-range, switch and slider kinds, `invalid` only adds aria-invalid, which shows visually as a red border/tint with no text or icon (586-746). errorMessage isn't rendered visibly for them, so the error state is color-only. Fix: render a visible FieldErrorIcon + message for every field kind."},
       "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The sparkline kind (785) renders Sparkline, whose tone strokes fall below 3:1 (brand 2.71:1 in dark, warning 1.89:1 light; see Sparkline). Field kinds inherit their components' borders. Fix: in Sparkline's TONE_STROKE."},
-      "3.3.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Only input/textarea pass errorMessage to a visible, aria-describedby'd message (558-559, 579-580). number/combobox/autocomplete/tags/date-range/switch/slider set aria-invalid but silently drop errorMessage (586-746), and select puts it only in an sr-only aria-errormessage span (522-529, 628, 640). The error isn't described in visible text. Fix: render errorMessage as a visible message tied by aria-describedby for every editable kind."}
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: errorMessage is shown under every editable kind and linked by aria-describedby (input/textarea through their own error); the sr-only aria-errormessage span is gone; the cell grows to fit. Play test in Editable."}
     },
     "DataTableToolbar": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No text inputs of its own; the search slot is the consumer's FilterField."},
@@ -411,7 +411,7 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "data-table-toolbar.tsx:527-667: select-all + count, then the actions toolbar (or the idle filter slot); the width-measuring mirrors are invisible, fixed and aria-hidden (549, 646)."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Selection mode is shown by the count text \"N selected\" (544-546) as well as the primary fill; danger-toned actions keep their labels."},
       "3.3.1": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "The toolbar has no validated input of its own; the filter slot is consumer content, and type-to-confirm validation belongs to ConfirmDialog."},
-      "4.1.3": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The \"N selected\" aria-live span (544) exists only in the selected-state tree (`count > 0 ? ...`, 527), so the first selection mounts it already filled and \"1 selected\" usually isn't announced; only later count changes are. Fix: keep a persistent sr-only role=\"status\" outside the idle/selected swap that mirrors the count. The undo toast (688) is fine."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: the selected count is announced through announce() when it changes and is above 0, including the first selection."}
     },
     "DatePicker": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Pick a date\", \"Clear date\"."},
@@ -438,7 +438,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: `label`/`description`/`required`/`optional` props: the visible label names the date field and, as \"{label} time\", the time field."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Date then time fields, flex-col to sm:flex-row, with no reordering (date-time-picker.tsx:136-168). Label and description wrap them in order (:172-186)."},
       "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The field borders pass, but the DatePicker's Calendar selected-day fill is 2.40:1 on surface-overlay in dark (calendar.tsx:130)."},
-      "3.3.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "aria-invalid and aria-describedby are forwarded to both fields (date-time-picker.tsx:145-146, :164-165). But a typed time that doesn't parse or is out of range is silently dropped by TimeField (time-field.tsx:144-145), with no marking and no message."}
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed through TimeField: unreadable or out-of-range time turns the field aria-invalid and the reason is announced or handed to onInvalidInput."}
     },
     "DensityToggle": {
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Changes row spacing only; content and meaning stay the same."},
@@ -496,7 +496,7 @@
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The error state changes the heading text and shows a message with an icon (dropzone.tsx:247, :271-274). Success shows a check icon and the file name (:214, :228). The drag-over hue (:165) is transient pointer feedback, not information."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The dashed border-strong is 9.39:1 light / 3.97:1 dark against the zone fill (dropzone.tsx:148). State icons are at least 3.14:1 on their tinted circles (:200-206)."},
       "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "On error the trigger gets aria-invalid (dropzone.tsx:184) and aria-describedby pointing to the visible error text (:93, :185, :271). Per-file errors render as text with an icon (:335-339)."},
-      "4.1.3": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Errors use role=alert (dropzone.tsx:271, :336). The 'Uploading…' and success confirmation (:222-238) swap in without a live region, and the trigger is disabled while loading (:179), so neither progress nor completion is announced."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: upload status changes (uploading, success with file name) are announced through announce(); errors keep role=alert."}
     },
     "EmptyState": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Title comes from the app (required)."},
@@ -521,7 +521,7 @@
       "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "It doesn't detect any input errors; facet search only narrows options and shows \"No matches.\""},
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Every checkbox and radio has a visible label inside a legend-titled fieldset, and RangeField has \"Price per month\". The facet search sits under its legend with a \"Search N vendors\" placeholder, as in the library Filter, and sort shows its value (\"Most relevant\") with the aria-label \"Sort by\"."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Filters precede results in DOM and on screen (faceted-list.tsx:172-177); the h2 is positioned only while focused (164-168)."},
-      "4.1.3": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The live result count (faceted-list.tsx:179) sits outside the modal filter Drawer (183-204), which aria-hides the page, so filtering inside the drawer is never announced (the footer \"Show N\" label, 199, is not live); \"No matches.\" (392) and \"Showing X of Y\" (273) are not live either."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: result count changes go through announce(), which speaks inside the open filter Drawer; \"No matches.\" is an always-mounted aria-live paragraph."}
     },
     "FeedbackWidget": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Free-text comment; no WCAG input purpose applies."},
@@ -569,7 +569,7 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Add button, chips and input are in DOM order (filter-field.tsx:426-537); Kbd hints use ms-auto."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Option tones are StatusDots next to text labels (filter-field.tsx:728, 741), applied options get a Check icon (730, 743), and the select-all state adds a 2px primary ring plus a status message (457, 539-545)."},
       "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "In the step-one and option listboxes the highlighted option uses bg-neutral-subtle, 1.15:1 light (#edeef8 on #ffffff) / 1.35:1 dark on the overlay, and it is the only visual cue for the keyboard-active option (filter-field.tsx:585, 610, 725); the field border itself is border-border 3.00:1 (410)."},
-      "3.3.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "In the number editor, Apply with neither Min nor Max is silently ignored (filter-field.tsx:784-787): the problem is detected but no field is marked aria-invalid and no message is shown."},
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: Apply on an empty number range marks Min and Max aria-invalid and shows \"Enter a minimum, a maximum or both.\" (FieldError) as their description. Play test in Empty."},
       "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "An always-mounted role=\"status\" reports applied/selected counts (filter-field.tsx:539-545) and another reports no matching attributes (592-594); the step-two empty text comes from CommandEmpty (see Command 4.1.3)."}
     },
     "Form": {
@@ -817,7 +817,7 @@
       "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input validation in the pattern."},
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Filters carry visible labels (\"Status\", \"Object\") and the toggle group shows visible \"All\"/\"Unread\" text."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Header, filters, then grouped lists in DOM and visual order (notifications-inbox.tsx:257-350); rows keep icon, title, time, menu order."},
-      "4.1.3": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Filter changes (Status/Object filters and All/Unread, notifications-inbox.tsx:280-298) re-render the list with no announcement, and \"No notifications match these filters\" (line 313) appears silently: EmptyState has no live region. Mark-all-read and dismiss do use toasts. Fix: an aria-live=\"polite\" result line like AuditLog (audit-log.tsx:232)."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: an always-mounted sr-only aria-live paragraph carries the result text after filter changes."}
     },
     "NumberField": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Arbitrary quantities; no input purpose applies."},
@@ -861,7 +861,7 @@
       "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input is validated; an empty filter result is shown as an EmptyState, not as an input error."},
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Search shows a magnifier icon and an \"Order number or item\" hint, and the status Select shows its value (\"All statuses\"); both have aria-labels (lines 91, 109)."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Row grid (order-history.tsx:159) places summary, total, badge, Details in DOM order; the `@2xl:order-none` on line 167 is a no-op (no base order class) and can be removed."},
-      "4.1.3": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The filter count is live (order-history.tsx:128), but after a non-final \"Show N more\" focus stays on the button and the updated \"Showing X of Y\" (line 242) is not in a live region, so the result is not announced (focus only moves on the last page, line 248)."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: \"Showing X of Y\" is aria-live=polite, so Show more is followed by the new count."}
     },
     "OrderReview": {
       "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Edit\" is a standalone control in each group header (not inline in running text) and the discount is labelled \"Discount\" with a minus sign, not color only."},
@@ -905,7 +905,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Visible Labels \"Email\" and \"New password\", plus the length rule shown up front as the field description (line 206)."},
       "3.3.8": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "autoComplete email, new-password and a hidden username field for password managers (line 198); Password allows paste; no cognitive test."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Single-column card; every step renders icon, text, actions in DOM order with no CSS reordering (password-reset.tsx:96-231)."},
-      "4.1.3": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "\"Resend link\" stays on the same step, so no heading focus happens (password-reset.tsx:49-55); the only feedback is the countdown in a paragraph marked aria-live=\"off\" (148), so a successful resend is never announced."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: Resend link on the sent step announces \"Link sent again to …\"."}
     },
     "PasswordStrengthMeter": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Password strength\", met/not met rules."},
@@ -1023,7 +1023,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Visible label per row."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Each row is a label cell followed by its control cell, in DOM and visual order (property-grid.tsx:114-133)."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Composes TextField, Select, NumberField, TextArea and Switch, whose boundaries use border-border (3.00:1 light / 3.01:1 dark). The grid itself adds only decorative Separators (property-grid.tsx:134-138)."},
-      "3.3.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "PropertyGridItem has no error/invalid field (property-grid.tsx:15-25), and controls get no aria-invalid or aria-describedby (:167-221). The description span has no id (:128-131), so a validation error can't be marked on or tied to its row."}
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: new per-row `error` shows under the control with the error icon, sets aria-invalid and is linked with the description (now with an id) by aria-describedby; custom renders receive invalid/describedBy. Story With Error."}
     },
     "Prose": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Typographic styles only (styles/prose.css). No order, float or reverse rules."}
@@ -1186,7 +1186,7 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The ItemIndicator is absolutely placed at the end (select.tsx:219) but is a decorative check; text, description and badge follow DOM order."},
       "1.4.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "`error` only recolors border, fill, text and chevron (select.tsx:99-114) and the documented Invalid story shows a danger trigger with no message (select.stories.tsx:255-273), so the error is shown by color alone."},
       "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "SelectItem the highlighted option uses bg-neutral-subtle, 1.15:1 light (#edeef8 on #ffffff) / 1.35:1 dark on the overlay, and it is the only visual cue for the keyboard-active option (select.tsx:213); trigger border border-border 3.00:1 (70) and the check icon-primary 5.2:1 are fine."},
-      "3.3.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "`error` sets aria-invalid (select.tsx:65) but Select has no way to show or link error text and the Invalid story has none (select.stories.tsx:255-273), so the error is not described in text."}
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed in the docs: the Invalid story shows the pattern, <Field invalid> + FieldError linked by aria-describedby, with a play test on aria-invalid and the description. FieldError now has the error icon."}
     },
     "Separator": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "A decorative Radix separator (separator.tsx:25-29). No content to reorder."}
@@ -1282,7 +1282,7 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "sticky-action-bar.tsx:113-130: message, then actions, then close, in DOM order. The narrow container query only stacks the message above the actions, keeping the same order."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Status is text in `message` (121-125), and actions are labeled Buttons; no color-coded state."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Controls are consumer Buttons plus a ghost close (icon-subtle 5.83:1 / 11.53:1, line 128). The top divider (107) and the floating border (117) are decorative."},
-      "4.1.3": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The aria-live region (122) only exists while the bar is open: `if (!open) return null` (87) mounts it with its first message already inside, so the first status (\"1 selected\", \"Unsaved changes\") is usually not announced; only later changes are. Fix: keep an always-mounted sr-only role=\"status\" outside the open gate that mirrors `message`."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: a changed message is announced through announce() while the bar is open (the bar mounts with it, so its own aria-live was dropped). Play test in BulkSelection."}
     },
     "SuccessCheck": {
       "1.3.2": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "A single aria-hidden SVG (success-check.tsx:16-33), so there is no sequence."},
@@ -1358,7 +1358,7 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Terminal output\", connection status."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "terminal.tsx:132-139, 173-192: header (status dot, user@host, status, tools), then the log body; lines in DOM order."},
       "1.4.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Line severity (err/warn/ok) shows visually only as text color (LEVEL_CLASS 55-66, 73-84); the \"Error:\"/\"Warning:\" prefix is sr-only (271), so sighted users who can't tell the colors apart get no cue. Fix: render a visible prefix or icon for err/warn lines (keep the sr-only text if the icon is aria-hidden)."},
-      "4.1.3": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The body is role=\"log\" aria-live (227-230), which is fine, but the header connection status text (\"Connecting...\" -> \"Connected\" / \"Disconnected\", 187-189) changes in place with no live region. Fix: give that status line role=\"status\"."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: the header connection status is role=status."}
     },
     "TextArea": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Spreads native textarea props, so autoComplete (e.g. street-address) passes through."},
@@ -1405,7 +1405,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Composes with Label via id; the list shows the format."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "A single Combobox input. Nothing is reordered (time-field.tsx:140-160)."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The Combobox field boundary is border-border on input bg (combobox.tsx:273): 3.00:1 light / 4.14:1 dark. The selected-option check icon is icon-primary, 5.20:1 / 5.28:1 on the popover."},
-      "3.3.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "parseTimeInput returns null for unparseable or out-of-range text (time-field.tsx:52-74), and onValueChange then just returns (:145). The Combobox reverts to the last value on close, so the error is detected but neither marked (aria-invalid) nor described in text."}
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: unreadable or out-of-range text sets aria-invalid until a valid time; the reason (t.timeField.invalid / outOfRange) goes to onInvalidInput(text, message) for a FieldError, or is announced. Play test in MinMax."}
     },
     "TimeRangePicker": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A time range; no input purpose applies."},
@@ -1416,7 +1416,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Group labelled by a visible Label; \"to\" between."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Start field, aria-hidden 'to', end field, in DOM and visual order (time-range-picker.tsx:74-108)."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Two Combobox fields with a border-border boundary: 3.00:1 light / 4.14:1 dark (combobox.tsx:273)."},
-      "3.3.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The props have no aria-invalid or aria-describedby (time-range-picker.tsx:15-31), so neither field can be marked invalid or tied to an error message. Invalid typed times are also dropped silently (time-field.tsx:145)."}
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: new aria-invalid, aria-describedby and onInvalidInput props, passed to both fields; each field also flags unreadable time itself."}
     },
     "Timeline": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Tone prefix per item."},

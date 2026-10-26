@@ -98,7 +98,7 @@ export const en = {
   },
   datePicker: { placeholder: 'Pick a date', clear: 'Clear date' },
   dateRangePicker: { placeholder: 'Pick a date range', clear: 'Clear date range' },
-  timeField: { placeholder: 'Select time', time: 'Time', timeOf: (label: string) => `${label} time`, noMatch: 'No matching time.' },
+  timeField: { placeholder: 'Select time', time: 'Time', timeOf: (label: string) => `${label} time`, noMatch: 'No matching time.', outOfRange: (from: string, to: string) => `Choose a time from ${from} to ${to}.`, invalid: 'Not a valid time. Type it like 9:30 or pick one from the list.' },
   diffViewer: {
     expand: (n: number) => `Show ${n} unchanged ${plural(n, 'line', 'lines')}`,
     empty: 'No changes',
@@ -134,6 +134,7 @@ export const en = {
   },
   file: { pick: 'Add file', replace: 'Replace file' },
   filterField: {
+    rangeEmpty: 'Enter a minimum, a maximum or both.',
     placeholder: 'Filter or search…',
     add: 'Add filter',
     attribute: 'Filter by…',
@@ -382,6 +383,7 @@ export const en = {
       ({ days: plural(n, 'day', 'days'), hours: plural(n, 'hour', 'hours'), minutes: plural(n, 'minute', 'minutes'), seconds: plural(n, 'second', 'seconds') })[unit],
     short: { days: 'd', hours: 'h', minutes: 'm', seconds: 's' },
     left: (time: string) => `${time} left`,
+    ended: 'Time is up',
   },
   rating: { value: (value: number, max: number) => `${value} of ${max}` },
   productTour: { next: 'Next', back: 'Back', done: 'Done', skip: 'Skip tour', close: 'Close tour', progress: (step: number, total: number) => `${step} of ${total}` },
@@ -400,6 +402,8 @@ export const en = {
     // Visible captions under the channel fields; letters in every language, like design tools.
     captions: { r: 'R', g: 'G', b: 'B', h: 'H', s: 'S', l: 'L' },
     openFor: (label: string) => `Choose color for ${label}`,
+    invalidHex: 'Enter a hex color: 3 or 6 characters, 0–9 and A–F.',
+    invalidNumber: (min: number, max: number) => `Enter a number from ${min} to ${max}.`,
     area: 'Saturation and brightness',
     areaValue: (s: number, v: number) => `Saturation ${s}%, brightness ${v}%`,
     changePhoto: 'Change photo',

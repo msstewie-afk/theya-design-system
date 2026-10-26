@@ -105,6 +105,38 @@ export const Editing: Story = {
   },
 };
 
+/** A row's `error` shows under its control, which is marked invalid and described by it. Clear it once the value is valid. */
+export const WithError: Story = {
+  name: 'With Error',
+  render: function Render() {
+    const [values, setValues] = useState<Record<string, PropertyValue>>({ ...DEFAULT_VALUES, replicas: 0, name: '' });
+    const items = ITEMS.map((i) =>
+      i.name === 'name'
+        ? { ...i, error: values.name === '' ? 'Enter a display name.' : undefined }
+        : i.name === 'replicas'
+          ? { ...i, description: 'From 1 to 20.', error: Number(values.replicas) < 1 ? 'Run at least 1 replica.' : undefined }
+          : i,
+    );
+    return (
+      <div className="w-full max-w-[600px]">
+        <PropertyGrid items={items} values={values} onValuesChange={setValues} />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const name = canvas.getByRole('textbox', { name: 'Display name' });
+    await expect(name).toHaveAttribute('aria-invalid', 'true');
+    await expect(name).toHaveAccessibleDescription('Enter a display name.');
+    const replicas = canvas.getByRole('spinbutton', { name: 'Replicas' });
+    await expect(replicas).toHaveAttribute('aria-invalid', 'true');
+    await expect(replicas).toHaveAccessibleDescription('Run at least 1 replica. From 1 to 20.');
+    await userEvent.type(name, 'shop');
+    await waitFor(() => expect(name).not.toHaveAttribute('aria-invalid', 'true'));
+    await expect(canvas.queryByText('Enter a display name.')).not.toBeInTheDocument();
+  },
+};
+
 /** Every row `readOnly`: the grid shows values as plain text, for a details view with nothing to change. */
 export const ReadOnlyStory: Story = {
   name: 'Read Only',

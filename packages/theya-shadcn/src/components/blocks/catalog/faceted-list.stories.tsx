@@ -17,7 +17,7 @@ const meta: Meta<typeof FacetedList> = {
 export default meta;
 type Story = StoryObj<typeof FacetedList>;
 
-const count = (el: HTMLElement) => within(el).getByText(/^\d+$/, { selector: 'p[aria-live] > span' }).closest('p')!;
+const count = (el: HTMLElement) => within(el).getByText(/^\d+$/, { selector: 'p > span.tabular-nums' }).closest('p')!;
 
 /** Filters in a sidebar; every value shows its count and applies at once; applied filters become chips. */
 export const Default: Story = {

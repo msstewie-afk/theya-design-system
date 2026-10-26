@@ -9,6 +9,7 @@ import { Autocomplete, type AutocompleteOption } from './autocomplete';
 import { Badge, type BadgeTone, type BadgeSize } from './badge';
 import { Button, type ButtonProps } from './button';
 import { Checkbox } from './checkbox';
+import { FieldErrorIcon } from './field-error-icon';
 import { Combobox, type ComboboxOption } from './combobox';
 import { TextField } from './text-field';
 import { NumberField } from './number-field';
@@ -518,12 +519,17 @@ export const DataTableCellMenuTrigger = forwardRef<HTMLButtonElement, ButtonProp
   );
 });
 
-/** aria-errormessage takes an ID reference, not the message — render it off-screen next to the field it belongs to. */
-function FieldError({ id, message }: { id: string; message?: string }) {
-  if (!message) return null;
+/**
+ * The visible error under a control cell, styled like TextField's own
+ * message. It used to be an off-screen span for Select and nothing at all
+ * for the other kinds, so only a screen reader (or nobody) learned what
+ * was wrong with the value (WCAG 3.3.1).
+ */
+function CellError({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <span id={id} className="sr-only">
-      {message}
+    <span id={id} className="flex items-start gap-1">
+      <FieldErrorIcon className="mt-px shrink-0 text-[var(--color-icon-icon-danger)]" />
+      <span className="font-body text-body-xs font-normal text-[var(--color-text-text-danger)]">{children}</span>
     </span>
   );
 }
@@ -531,6 +537,21 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 /** The rendered content of one kind, unsized — DataTableCell owns the box. */
 function CellContent(props: DataTableCellValueProps) {
   const errorId = useId();
+  const editable = props as Partial<EditableCellProps>;
+  // input and textarea show and link their message themselves (TextField / TextArea `error`).
+  const message = editable.invalid && props.kind !== 'input' && props.kind !== 'textarea' ? editable.errorMessage : undefined;
+  const describedBy = [editable.describedBy, message && errorId].filter(Boolean).join(' ') || undefined;
+  const control = cellControl(props, describedBy);
+  if (!message) return control;
+  return (
+    <span className="flex w-full min-w-0 flex-col gap-1 py-2">
+      {control}
+      <CellError id={errorId}>{message}</CellError>
+    </span>
+  );
+}
+
+function cellControl(props: DataTableCellValueProps, describedBy: string | undefined) {
   switch (props.kind) {
     case 'custom':
     case 'menu':
@@ -598,7 +619,7 @@ function CellContent(props: DataTableCellValueProps) {
           disabled={props.disabled || props.readOnly}
           aria-label={props.label}
           aria-labelledby={props.labelledBy}
-          aria-describedby={props.describedBy}
+          aria-describedby={describedBy}
           aria-invalid={props.invalid || undefined}
           // Fills the cell, capped so a stepper isn't stretched across a
           // wide column (same max-w-[10rem] convention as usage/slider).
@@ -623,9 +644,8 @@ function CellContent(props: DataTableCellValueProps) {
             aria-readonly={props.readOnly || undefined}
             aria-label={props.label}
             aria-labelledby={props.labelledBy}
-            aria-describedby={props.describedBy}
+            aria-describedby={describedBy}
             aria-invalid={props.invalid || undefined}
-            aria-errormessage={props.invalid && props.errorMessage ? errorId : undefined}
             className="w-full font-body text-body-m"
           >
             <SelectValue placeholder={props.placeholder} />
@@ -637,7 +657,6 @@ function CellContent(props: DataTableCellValueProps) {
               </SelectItem>
             ))}
           </SelectContent>
-          {props.invalid && <FieldError id={errorId} message={props.errorMessage} />}
         </Select>
       );
     case 'combobox':
@@ -653,7 +672,7 @@ function CellContent(props: DataTableCellValueProps) {
           readOnly={props.readOnly}
           aria-label={props.label}
           aria-labelledby={props.labelledBy}
-          aria-describedby={props.describedBy}
+          aria-describedby={describedBy}
           aria-invalid={props.invalid || undefined}
           className="w-full min-w-0 font-body text-body-m"
         />
@@ -670,7 +689,7 @@ function CellContent(props: DataTableCellValueProps) {
           readOnly={props.readOnly}
           aria-label={props.label}
           aria-labelledby={props.labelledBy}
-          aria-describedby={props.describedBy}
+          aria-describedby={describedBy}
           aria-invalid={props.invalid || undefined}
           className="w-full min-w-0 font-body text-body-m"
         />
@@ -690,7 +709,7 @@ function CellContent(props: DataTableCellValueProps) {
           readOnly={props.readOnly}
           aria-label={props.label}
           aria-labelledby={props.labelledBy}
-          aria-describedby={props.describedBy}
+          aria-describedby={describedBy}
           aria-invalid={props.invalid || undefined}
           className="w-full min-w-0 font-body text-body-m"
         />
@@ -709,7 +728,7 @@ function CellContent(props: DataTableCellValueProps) {
           calendarProps={props.calendarProps}
           aria-label={props.label}
           aria-labelledby={props.labelledBy}
-          aria-describedby={props.describedBy}
+          aria-describedby={describedBy}
           aria-invalid={props.invalid || undefined}
           className="w-full font-body text-body-m"
         />
@@ -723,7 +742,7 @@ function CellContent(props: DataTableCellValueProps) {
           disabled={props.disabled || props.readOnly}
           aria-label={props.label}
           aria-labelledby={props.labelledBy}
-          aria-describedby={props.describedBy}
+          aria-describedby={describedBy}
           aria-invalid={props.invalid || undefined}
         />
       );
@@ -742,7 +761,7 @@ function CellContent(props: DataTableCellValueProps) {
             formatValue={props.formatValue ? (value: number) => props.formatValue!(value) : undefined}
             aria-label={props.label}
             aria-labelledby={props.labelledBy}
-            aria-describedby={props.describedBy}
+            aria-describedby={describedBy}
             aria-invalid={props.invalid || undefined}
           />
         </span>
@@ -857,7 +876,9 @@ export function DataTableCell(props: DataTableCellProps) {
   const hasSecondLine = 'secondary' in props && props.secondary != null;
   const lines: 1 | 2 = props.lines ?? (hasSecondLine ? 2 : COMPACT_KINDS.includes(kind) ? 1 : 2);
   const readOnly = 'readOnly' in props ? props.readOnly : undefined;
-  const floorOnly = Boolean(props.grow) || ('below' in props && props.below != null) || growsPastTheRow(kind, readOnly);
+  // A shown error message makes the row grow to fit it rather than spill over the next row.
+  const showsError = 'invalid' in props && Boolean(props.invalid) && Boolean(props.errorMessage);
+  const floorOnly = Boolean(props.grow) || ('below' in props && props.below != null) || growsPastTheRow(kind, readOnly) || showsError;
   const box = floorOnly ? 'min-h-[var(--dt-cell-h,var(--dt-row-h))]' : 'h-[var(--dt-cell-h,var(--dt-row-h))]';
   // `lines` above always resolves to 1 or 2 now (kind-defaulted), so this
   // always sets its own --dt-cell-h rather than falling through to the

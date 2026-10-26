@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { TimeField } from './time-field';
 import { Label } from './label';
+import { FieldError } from './field';
 import { timeFieldGuidelines } from './time-field.guidelines';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
@@ -150,11 +151,23 @@ export const CustomStep: Story = {
 /** `min` and `max` limit the list to business hours; a typed time outside the range is rejected, one inside it is accepted even off the step grid. */
 export const MinMax: Story = {
   name: 'Min/max range',
-  render: () => (
-    <div className="w-[200px]">
-      <TimeField min="09:00" max="17:00" aria-label="Business hours" />
-    </div>
-  ),
+  render: function Render() {
+    // onInvalidInput hands over the reason; show it under the field.
+    const [error, setError] = useState('');
+    return (
+      <div className="flex w-[200px] flex-col gap-1">
+        <TimeField
+          min="09:00"
+          max="17:00"
+          aria-label="Business hours"
+          aria-describedby={error ? 'business-hours-error' : undefined}
+          onChange={() => setError('')}
+          onInvalidInput={(_, message) => setError(message)}
+        />
+        <FieldError id="business-hours-error">{error}</FieldError>
+      </div>
+    );
+  },
   play: async ({ canvasElement }) => {
     const input = within(canvasElement).getByRole('combobox', { name: 'Business hours' });
     await userEvent.click(input);
@@ -164,14 +177,19 @@ export const MinMax: Story = {
     await expect(names[names.length - 1]).toBe('5:00 PM');
     await expect(names).toHaveLength(17);
 
-    // Out of range typed time is rejected; the field stays empty.
+    // Out of range typed time is rejected; the field stays empty, is marked
+    // invalid and says why (WCAG 3.3.1).
     await userEvent.type(input, '8:00 am{Enter}');
     await waitFor(() => expect(input).toHaveValue(''));
+    await waitFor(() => expect(input).toHaveAttribute('aria-invalid', 'true'));
+    await expect(input).toHaveAccessibleDescription('Choose a time from 9:00 AM to 5:00 PM.');
 
     // In range but off the grid is accepted.
     await userEvent.click(input);
     await userEvent.type(input, '4:45 pm{Enter}');
     await waitFor(() => expect(input).toHaveValue('4:45 PM'));
+    await expect(input).not.toHaveAttribute('aria-invalid', 'true');
+    await expect(within(canvasElement).queryByRole('alert')).not.toBeInTheDocument();
   },
 };
 

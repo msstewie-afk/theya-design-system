@@ -3,6 +3,7 @@
 import { useRef, useState, useId, useEffect } from 'react';
 import { CloudUpload, Xmark, Page, Check, WarningCircle } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { announce } from '../../lib/announce';
 import { Spinner } from './spinner';
 import { matchesAccept } from '../../lib/accept';
 import { Button } from './button';
@@ -66,6 +67,15 @@ function Dropzone({
   'aria-label': ariaLabel,
 }: DropzoneProps) {
   const { t } = useTheyaI18n();
+  // "Uploading…" and the uploaded file swap in where the prompt was; that
+  // isn't read by itself, so both are announced (WCAG 4.1.3).
+  // Changes only: a dropzone that renders already uploaded says nothing.
+  const status = loading && !error ? t.dropzone.uploading : !error ? successFile?.name : undefined;
+  const lastStatus = useRef(status);
+  useEffect(() => {
+    if (status && status !== lastStatus.current) announce(status);
+    lastStatus.current = status;
+  }, [status]);
   const inputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const errorId = useId();

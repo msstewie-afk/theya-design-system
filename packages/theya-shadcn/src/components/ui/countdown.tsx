@@ -5,6 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
 import { useTheyaI18n } from '../../lib/i18n';
 import { SuccessCheck } from './success-check';
+import { announce } from '../../lib/announce';
 
 /**
  * Countdown — time left until a deadline: a sale ending, a maintenance
@@ -188,13 +189,22 @@ export function Countdown({
   // locale's own function handles languages with more plural forms.
   const word = (unit: CountdownUnit, n: number) => (labelsProp?.[unit] ? labelsProp[unit]![n === 1 ? 0 : 1] : t.countdown.unitWord(unit, n));
   const sayLeft = srText ?? t.countdown.left;
+  // Reaching zero swaps in `completed` (or the ring's check) where the timer
+  // was; a role="timer" is silent and new content mounting in place isn't
+  // read either, so announce the end once (WCAG 4.1.3).
+  const completedRef = useRef<HTMLSpanElement>(null);
+  const wasDone = useRef(parts.done);
+  useEffect(() => {
+    if (parts.done && !wasDone.current) announce(completedRef.current?.textContent || t.countdown.ended);
+    wasDone.current = parts.done;
+  }, [parts.done, t]);
   const units = visibleUnits(parts, precision, trimLeading);
   const urgent = urgentBelow !== undefined && !parts.done && parts.total <= urgentBelow * 1000;
   const toneClass = urgent && 'text-[var(--color-text-text-danger)]';
 
   if (parts.done && completed !== undefined) {
     return (
-      <span className={className} {...props}>
+      <span ref={completedRef} className={className} {...props}>
         {completed}
       </span>
     );

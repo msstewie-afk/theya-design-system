@@ -27,6 +27,15 @@ export interface TimeRangePickerProps {
   'aria-label'?: string;
   /** Id of a visible label that names the pair as a group. */
   'aria-labelledby'?: string;
+  /**
+   * Marks both fields invalid, e.g. when the window is required or too
+   * short. Pair it with `aria-describedby` pointing at the visible message.
+   */
+  'aria-invalid'?: boolean;
+  /** Id of the message both fields are described by (an error or a hint). */
+  'aria-describedby'?: string;
+  /** Called with the typed text when either field gets text that isn't a time. */
+  onInvalidInput?: (text: string, message: string) => void;
   className?: string;
 }
 
@@ -43,6 +52,9 @@ export function TimeRangePicker({
   endLabel,
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledby,
+  'aria-invalid': ariaInvalid,
+  'aria-describedby': ariaDescribedby,
+  onInvalidInput,
   className,
 }: TimeRangePickerProps) {
   const { t } = useTheyaI18n();
@@ -88,6 +100,9 @@ export function TimeRangePicker({
         min={min}
         max={max}
         disabled={disabled}
+        aria-invalid={ariaInvalid || undefined}
+        aria-describedby={ariaDescribedby}
+        onInvalidInput={onInvalidInput}
         // min-w-0: an <input> keeps a ~20ch minimum otherwise, and two of
         // them plus "to" overflow a phone-width row.
         className="min-w-0 flex-1"
@@ -104,6 +119,9 @@ export function TimeRangePicker({
         min={range.start ?? min}
         max={max}
         disabled={disabled}
+        aria-invalid={ariaInvalid || undefined}
+        aria-describedby={ariaDescribedby}
+        onInvalidInput={onInvalidInput}
         className="min-w-0 flex-1"
       />
     </div>

@@ -1,9 +1,10 @@
 'use client';
 
-import { useCallback, useLayoutEffect, useRef, type FocusEvent, type ReactNode } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, type FocusEvent, type ReactNode } from 'react';
 import { Xmark } from 'iconoir-react';
 import { cn } from '../../lib/utils';
 import { useScrollPadding } from '../../lib/scroll-padding';
+import { announce } from '../../lib/announce';
 import { Button } from './button';
 import { useTheyaI18n } from '../../lib/i18n';
 
@@ -79,6 +80,17 @@ export function StickyActionBar({
     const el = cameFrom.current;
     if (el?.isConnected) el.focus({ preventScroll: true });
   }, [open]);
+  // The message ("3 selected", "Unsaved changes") is announced on open and on
+  // every change. A live region inside the bar can't do it: the bar mounts
+  // with its first message already in it, and that is usually not read
+  // (WCAG 4.1.3).
+  const messageRef = useRef<HTMLDivElement>(null);
+  const lastSaid = useRef('');
+  useEffect(() => {
+    const text = open ? (messageRef.current?.textContent ?? '').trim() : '';
+    if (text && text !== lastSaid.current) announce(text);
+    lastSaid.current = text;
+  });
   const onFocusIn = (e: FocusEvent<HTMLDivElement>) => {
     const from = e.relatedTarget as HTMLElement | null;
     if (from && !e.currentTarget.contains(from)) cameFrom.current = from;
@@ -119,7 +131,7 @@ export function StickyActionBar({
         )}
       >
         {message !== undefined && (
-          <div aria-live="polite" className="min-w-0 flex-1 font-body text-body-m text-[var(--color-text-text)] @max-[28rem]/bar:basis-full">
+          <div ref={messageRef} className="min-w-0 flex-1 font-body text-body-m text-[var(--color-text-text)] @max-[28rem]/bar:basis-full">
             {message}
           </div>
         )}

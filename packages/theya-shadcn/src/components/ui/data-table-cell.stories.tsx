@@ -95,7 +95,7 @@ function InputCell({ label, initial = '', lines, ...rest }: { label: string; ini
   return <DataTableCell kind="input" value={value} onValueChange={setValue} label={label} lines={lines} {...rest} />;
 }
 
-function SelectCell({ label, initial = '', lines, ...rest }: { label: string; initial?: string; lines?: 1 | 2; placeholder?: string; disabled?: boolean; readOnly?: boolean; invalid?: boolean }) {
+function SelectCell({ label, initial = '', lines, ...rest }: { label: string; initial?: string; lines?: 1 | 2; placeholder?: string; disabled?: boolean; readOnly?: boolean; invalid?: boolean; errorMessage?: string }) {
   const [value, setValue] = useState(initial);
   return <DataTableCell kind="select" value={value} onValueChange={setValue} options={PLANS} label={label} lines={lines} {...rest} />;
 }
@@ -296,7 +296,7 @@ export const Editable: Story = {
           <SelectCell label="Plan for shop.seashell.dev" initial="Pro" />
         </Row>
         <Row label="invalid">
-          <SelectCell label="Plan for api.seashell.dev" invalid />
+          <SelectCell label="Plan for api.seashell.dev" invalid errorMessage="Choose a plan" />
         </Row>
         <Row label="disabled">
           <SelectCell label="Plan for docs.seashell.dev" initial="Scale" disabled />
@@ -325,6 +325,11 @@ export const Editable: Story = {
     await expect(bad).toHaveAttribute('aria-invalid', 'true');
     await expect(bad).toHaveAccessibleDescription('A domain cannot contain spaces');
     await expect(canvas.getByRole('textbox', { name: 'Domain for docs.seashell.dev' })).toBeDisabled();
+    // Every editable kind shows its message, not just input/textarea (WCAG 3.3.1).
+    const badPlan = canvas.getByRole('combobox', { name: 'Plan for api.seashell.dev' });
+    await expect(badPlan).toHaveAttribute('aria-invalid', 'true');
+    await expect(badPlan).toHaveAccessibleDescription('Choose a plan');
+    await expect(canvas.getByText('Choose a plan')).toBeVisible();
 
     // select: keyboard open, move, pick.
     const plan = canvas.getByRole('combobox', { name: 'Plan for shop.seashell.dev' });

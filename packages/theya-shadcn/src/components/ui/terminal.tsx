@@ -184,7 +184,8 @@ export function TerminalHeader({ className, user, host, connection = 'connected'
               {userHost}
             </div>
           )}
-          <div className={cn('truncate font-body text-body-s', inverse ? 'text-[var(--color-text-text-subtle-on-dark)]' : 'text-[var(--color-text-text-subtler)]')}>
+          {/* role="status": "Connecting…" → "Connected" / "Disconnected" changes in place and is announced (WCAG 4.1.3). */}
+          <div role="status" className={cn('truncate font-body text-body-s', inverse ? 'text-[var(--color-text-text-subtle-on-dark)]' : 'text-[var(--color-text-text-subtler)]')}>
             {connectionLabel(t, connection, status)}
           </div>
         </div>

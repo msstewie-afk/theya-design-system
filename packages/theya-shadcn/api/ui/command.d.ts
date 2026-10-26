@@ -23,7 +23,7 @@ export interface CommandInputProps extends Omit<React.ComponentProps<'input'>, '
 }
 export declare function CommandInput({ className, value, onValueChange, ...props }: CommandInputProps): import("react").JSX.Element;
 export declare function CommandList({ className, ...props }: React.ComponentProps<'div'>): import("react").JSX.Element;
-export declare function CommandEmpty({ className, ...props }: React.ComponentProps<'div'>): import("react").JSX.Element | null;
+export declare function CommandEmpty({ className, children, ...props }: React.ComponentProps<'div'>): import("react").JSX.Element | null;
 export declare function CommandLoading({ className, children, ...props }: React.ComponentProps<'div'>): import("react").JSX.Element | null;
 export interface CommandGroupProps extends Omit<React.ComponentProps<'div'>, 'children'> {
     heading?: ReactNode;

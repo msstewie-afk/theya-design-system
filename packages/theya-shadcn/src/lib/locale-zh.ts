@@ -78,7 +78,7 @@ export const zh: TheyaMessages = {
   },
   datePicker: { placeholder: '选择日期', clear: '清除日期' },
   dateRangePicker: { placeholder: '选择日期范围', clear: '清除日期范围' },
-  timeField: { placeholder: '选择时间', time: '时间', timeOf: (label) => `${label}时间`, noMatch: '没有匹配的时间。' },
+  timeField: { placeholder: '选择时间', time: '时间', timeOf: (label) => `${label}时间`, noMatch: '没有匹配的时间。', outOfRange: (from, to) => `请选择 ${from} 到 ${to} 之间的时间。`, invalid: '无效的时间。请输入例如 9:30，或从列表中选择。' },
   diffViewer: {
     expand: (n) => `显示 ${n} 行未更改内容`,
     empty: '没有更改',
@@ -114,6 +114,7 @@ export const zh: TheyaMessages = {
   },
   file: { pick: '添加文件', replace: '替换文件' },
   filterField: {
+    rangeEmpty: '请输入最小值、最大值或两者。',
     placeholder: '筛选或搜索…',
     add: '添加筛选条件',
     attribute: '筛选依据…',
@@ -340,6 +341,7 @@ export const zh: TheyaMessages = {
     unitWord: (unit) => ({ days: '天', hours: '小时', minutes: '分钟', seconds: '秒' })[unit],
     short: { days: '天', hours: '时', minutes: '分', seconds: '秒' },
     left: (time) => `剩余 ${time}`,
+    ended: '时间到',
   },
   rating: { value: (value, max) => `${value}/${max}` },
   productTour: { next: '下一步', back: '上一步', done: '完成', skip: '跳过导览', close: '关闭导览', progress: (step, total) => `${step}/${total}` },
@@ -358,6 +360,8 @@ export const zh: TheyaMessages = {
     // Visible captions under the channel fields; letters in every language, like design tools.
     captions: { r: 'R', g: 'G', b: 'B', h: 'H', s: 'S', l: 'L' },
     openFor: (label) => `为${label}选择颜色`,
+    invalidHex: '请输入十六进制颜色：3 或 6 位，0–9 和 A–F。',
+    invalidNumber: (min, max) => `请输入 ${min} 到 ${max} 之间的数字。`,
     area: '饱和度和亮度',
     areaValue: (s, v) => `饱和度 ${s}%，亮度 ${v}%`,
     changePhoto: '更换照片',

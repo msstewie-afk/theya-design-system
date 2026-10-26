@@ -49,6 +49,18 @@
       "name": "TimeRangePicker",
       "props": [
         {
+          "name": "aria-describedby",
+          "type": "string",
+          "required": false,
+          "description": "Id of the message both fields are described by (an error or a hint)."
+        },
+        {
+          "name": "aria-invalid",
+          "type": "boolean",
+          "required": false,
+          "description": "Marks both fields invalid, e.g. when the window is required or too\nshort. Pair it with `aria-describedby` pointing at the visible message."
+        },
+        {
           "name": "aria-label",
           "type": "string",
           "required": false,
@@ -107,6 +119,12 @@
           "name": "onChange",
           "type": "((value: TimeRange) => void)",
           "required": false
+        },
+        {
+          "name": "onInvalidInput",
+          "type": "((text: string, message: string) => void)",
+          "required": false,
+          "description": "Called with the typed text when either field gets text that isn't a time."
         },
         {
           "name": "startLabel",

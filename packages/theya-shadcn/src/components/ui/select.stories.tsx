@@ -5,6 +5,7 @@ import type { SelectTriggerProps, SelectItemProps } from './select';
 import type { StatusTone } from './status-dot';
 import type { BadgeTone } from './badge';
 import { Label } from './label';
+import { Field, FieldError } from './field';
 import { Bell, Cloud, Database, Globe, Lock, Server, StatsUpSquare } from 'iconoir-react';
 import { selectGuidelines } from './select.guidelines';
 
@@ -251,13 +252,13 @@ export const LongOptions: Story = {
   ),
 };
 
-/** `error` pairs a danger border with a danger background, the same pairing TextField's own error variant uses. */
+/** `error` pairs a danger border with a danger background, the same pairing TextField's own error variant uses, and sets `aria-invalid`. Say what's wrong in a FieldError under it and point `aria-describedby` at it: the color alone doesn't tell anyone what to fix. */
 export const Invalid: Story = {
   render: () => (
-    <div className="flex flex-col gap-1">
+    <Field invalid>
       <Label htmlFor="plan-rest">Plan</Label>
       <Select>
-        <SelectTrigger id="plan-rest" error widthSize="md">
+        <SelectTrigger id="plan-rest" error aria-describedby="plan-rest-error" widthSize="md">
           <SelectValue placeholder="Select a plan" />
         </SelectTrigger>
         <SelectContent>
@@ -269,8 +270,14 @@ export const Invalid: Story = {
           <SelectItem value="enterprise">Enterprise</SelectItem>
         </SelectContent>
       </Select>
-    </div>
+      <FieldError id="plan-rest-error">Choose a plan to continue.</FieldError>
+    </Field>
   ),
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('combobox', { name: 'Plan' });
+    await expect(trigger).toHaveAttribute('aria-invalid', 'true');
+    await expect(trigger).toHaveAccessibleDescription('Choose a plan to continue.');
+  },
 };
 
 /**

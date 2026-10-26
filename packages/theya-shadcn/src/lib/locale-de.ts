@@ -100,7 +100,7 @@ export const de: TheyaMessages = {
   },
   datePicker: { placeholder: 'Datum auswählen', clear: 'Datum löschen' },
   dateRangePicker: { placeholder: 'Zeitraum auswählen', clear: 'Zeitraum löschen' },
-  timeField: { placeholder: 'Uhrzeit auswählen', time: 'Uhrzeit', timeOf: (label) => `${label} – Uhrzeit`, noMatch: 'Keine passende Uhrzeit.' },
+  timeField: { placeholder: 'Uhrzeit auswählen', time: 'Uhrzeit', timeOf: (label) => `${label} – Uhrzeit`, noMatch: 'Keine passende Uhrzeit.', outOfRange: (from, to) => `Wählen Sie eine Uhrzeit von ${from} bis ${to}.`, invalid: 'Keine gültige Uhrzeit. Zum Beispiel 9:30 eingeben oder aus der Liste wählen.' },
   diffViewer: {
     expand: (n) => `${n} unveränderte ${plural(n, 'Zeile', 'Zeilen')} anzeigen`,
     empty: 'Keine Änderungen',
@@ -136,6 +136,7 @@ export const de: TheyaMessages = {
   },
   file: { pick: 'Datei hinzufügen', replace: 'Datei ersetzen' },
   filterField: {
+    rangeEmpty: 'Geben Sie ein Minimum, ein Maximum oder beides ein.',
     placeholder: 'Filtern oder suchen…',
     add: 'Filter hinzufügen',
     attribute: 'Filtern nach…',
@@ -388,6 +389,7 @@ export const de: TheyaMessages = {
       })[unit],
     short: { days: 'T', hours: 'Std', minutes: 'Min', seconds: 'Sek' },
     left: (time) => `Noch ${time}`,
+    ended: 'Die Zeit ist abgelaufen',
   },
   rating: { value: (value, max) => `${value} von ${max}` },
   productTour: { next: 'Weiter', back: 'Zurück', done: 'Fertig', skip: 'Tour überspringen', close: 'Tour schließen', progress: (step, total) => `${step} von ${total}` },
@@ -406,6 +408,8 @@ export const de: TheyaMessages = {
     // Visible captions under the channel fields; letters in every language, like design tools.
     captions: { r: 'R', g: 'G', b: 'B', h: 'H', s: 'S', l: 'L' },
     openFor: (label) => `Farbe wählen: ${label}`,
+    invalidHex: 'Geben Sie eine Hex-Farbe ein: 3 oder 6 Zeichen, 0–9 und A–F.',
+    invalidNumber: (min, max) => `Geben Sie eine Zahl von ${min} bis ${max} ein.`,
     area: 'Sättigung und Helligkeit',
     areaValue: (s, v) => `Sättigung ${s} %, Helligkeit ${v} %`,
     changePhoto: 'Foto ändern',
