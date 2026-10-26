@@ -749,7 +749,7 @@ export function ColorPicker({
         {alpha && (
           <span
             aria-hidden
-            className="size-11 shrink-0 rounded-[var(--size-border-radius-border-radius-md)] shadow-[inset_0_0_0_1px_var(--black-a200)]"
+            className="size-11 shrink-0 rounded-[var(--size-border-radius-border-radius-md)] shadow-[inset_0_0_0_1px_var(--color-border-border)]"
             style={{ background: isEmpty ? NO_COLOR_FILL : `linear-gradient(${hex}, ${hex}), ${CHECKER}` }}
           />
         )}
@@ -876,7 +876,7 @@ export function ColorField({
             >
               <span
                 aria-hidden
-                className={cn('relative rounded-[var(--size-border-radius-border-radius-md)] shadow-[inset_0_0_0_1px_var(--black-a200)]', swatchSize)}
+                className={cn('relative rounded-[var(--size-border-radius-border-radius-md)] shadow-[inset_0_0_0_1px_var(--color-border-border)]', swatchSize)}
                 style={{ background: current ? `linear-gradient(${current}, ${current}), ${CHECKER}` : NO_COLOR_FILL }}
               />
             </button>

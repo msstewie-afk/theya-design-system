@@ -185,7 +185,10 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
           '[[data-variant=chips]>&]:data-[state=inactive]:hover:bg-transparent [[data-variant=chips]>&]:data-[state=active]:text-[var(--color-text-text)]',
           // Until the pill is measured, the active chip carries its own.
           '[[data-variant=chips]:not([data-glide])>&]:data-[state=active]:bg-[var(--color-bg-surface-bg-surface)] [[data-variant=chips]:not([data-glide])>&]:data-[state=active]:shadow-elevation-sm',
-          'focus-visible:outline-none focus-visible:focus-ring',
+          // Inset ring on underline tabs: the list scrolls (overflow-x: auto), so an
+          // outer ring was clipped to a stray sliver at the tab's edge. Chips keep the
+          // outer ring, which the list's 4px padding leaves room for.
+          'focus-visible:outline-none focus-visible:focus-ring-inset [[data-variant=chips]>&]:focus-visible:focus-ring',
           // Disabled: no opacity-based dimming on the whole element — the
           // parent's opacity would multiply straight through the text
           // color, and axe flagged the resulting blend as under AA's

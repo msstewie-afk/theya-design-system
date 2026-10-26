@@ -85,10 +85,11 @@ const TONE_TOKENS: Record<BadgeIndicatorTone, ToneTokens> = {
     outlinedText: 'text-[var(--color-text-text-link-on-tonal)]',
   },
   success: {
-    filledBg: 'bg-[var(--color-bg-success-bg-success-status)]',
-    // Dark ink: white on this green was 3.45:1, under 4.5 for the small count
-    // (WCAG 1.4.3); icon-on-light gives 5.2:1 in both themes.
-    filledText: 'text-[var(--color-icon-icon-on-light)]',
+    // Light: the solid success green with white, like info and danger (4.74:1;
+    // dark ink on the lighter status green passed at 5.2:1 but read as the odd
+    // one out). Dark: the status green with dark ink, 5.2:1 (white was 3.45).
+    filledBg: 'bg-[var(--color-bg-success-bg-success)] [[data-theme=dark]_&]:bg-[var(--color-bg-success-bg-success-status)]',
+    filledText: 'text-[var(--color-text-text-on-dark)] [[data-theme=dark]_&]:text-[var(--color-icon-icon-on-light)]',
     // Outlined — extrapolated, not fetched
     outlinedBg: 'bg-[var(--color-bg-success-bg-success-subtle)]',
     outlinedBorder: 'border-[var(--color-border-border-success)]',

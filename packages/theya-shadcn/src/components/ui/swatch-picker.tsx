@@ -87,8 +87,10 @@ function SwatchFill({ option }: { option: SwatchOption }) {
       <span
         aria-hidden
         style={fillStyle(option)}
-        // Hairline inner edge keeps white/black swatches visible on a same-colored page.
-        className="absolute inset-0 rounded-[inherit] shadow-[inset_0_0_0_1px_var(--black-a200)] [[data-theme=dark]_&]:shadow-[inset_0_0_0_1px_var(--white-a300)]"
+        // Inner edge in the field-border color, 3:1 on the surface in both themes
+        // (WCAG 1.4.11): a pale swatch on white or a dark one on the dark surface
+        // still shows its shape. The translucent hairline it replaces was ~1.3:1.
+        className="absolute inset-0 rounded-[inherit] shadow-[inset_0_0_0_1px_var(--color-border-border)]"
       />
       {option.unavailable && (
         <span aria-hidden className="absolute inset-0 overflow-hidden rounded-[inherit]">

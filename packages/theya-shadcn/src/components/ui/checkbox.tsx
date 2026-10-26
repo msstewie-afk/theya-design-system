@@ -82,6 +82,11 @@ const checkboxVariants = cva(
           'hover:not-disabled:data-[state=unchecked]:border-[var(--color-border-border-primary)]',
           'data-[state=checked]:bg-[var(--color-bg-primary-bg-primary)] data-[state=checked]:border-transparent',
           'data-[state=indeterminate]:bg-[var(--color-bg-primary-bg-primary)] data-[state=indeterminate]:border-transparent',
+          // Dark: the blue fill is 2.71:1 on the surface, under the 3:1 a box's edge
+          // needs (WCAG 1.4.11), so the light primary edge (5.95:1) outlines it.
+          // Not on a primary surface, where the box is white.
+          '[[data-theme=dark]_&:not([data-surface=primary]_*)]:not-disabled:data-[state=checked]:border-[var(--color-border-border-primary)]',
+          '[[data-theme=dark]_&:not([data-surface=primary]_*)]:not-disabled:data-[state=indeterminate]:border-[var(--color-border-border-primary)]',
           'focus-visible:focus-ring',
           // --- on-primary surface overrides (not disabled, not error) ---
           // Unchecked: default border swaps for the on-primary outline.
@@ -104,6 +109,9 @@ const checkboxVariants = cva(
           'border-[var(--color-border-border-danger)]',
           'data-[state=checked]:bg-[var(--color-bg-danger-bg-danger)] data-[state=checked]:border-transparent',
           'data-[state=indeterminate]:bg-[var(--color-bg-danger-bg-danger)] data-[state=indeterminate]:border-transparent',
+          // Dark: the red fill is 1.84:1 on the surface; the danger edge is 3.6:1.
+          '[[data-theme=dark]_&]:not-disabled:data-[state=checked]:border-[var(--color-border-border-danger)]',
+          '[[data-theme=dark]_&]:not-disabled:data-[state=indeterminate]:border-[var(--color-border-border-danger)]',
           // Translucent like every other ring (accepted deviation 2026-09-27:
           // the ring's contrast is changed by the token, never per component).
           'focus-visible:focus-ring-error',
