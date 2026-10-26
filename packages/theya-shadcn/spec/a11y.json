@@ -258,10 +258,10 @@
         "review"
       ],
       "counts": {
-        "deviation": 36,
-        "verified": 61,
+        "deviation": 44,
+        "verified": 60,
         "n/a": 33,
-        "fails": 27
+        "fails": 20
       },
       "patternCounts": {
         "verified": 41,
@@ -1528,7 +1528,12 @@
       "reducedMotion": "none",
       "forcedColors": "global",
       "screenReader": [],
-      "deviations": [],
+      "deviations": [
+        {
+          "criterion": "1.4.11",
+          "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined."
+        }
+      ],
       "traits": [
         "choice",
         "colorMeaning",
@@ -1558,7 +1563,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "fails",
+        "1.4.11": "deviation",
         "1.4.12": "verified",
         "1.4.13": "verified",
         "2.1.1": "verified",
@@ -3392,7 +3397,12 @@
       "reducedMotion": "none",
       "forcedColors": "global",
       "screenReader": [],
-      "deviations": [],
+      "deviations": [
+        {
+          "criterion": "1.4.11",
+          "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined."
+        }
+      ],
       "traits": [
         "choice",
         "colorMeaning",
@@ -3422,7 +3432,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "fails",
+        "1.4.11": "deviation",
         "1.4.12": "verified",
         "1.4.13": "verified",
         "2.1.1": "verified",
@@ -3480,7 +3490,12 @@
       "reducedMotion": "none",
       "forcedColors": "global",
       "screenReader": [],
-      "deviations": [],
+      "deviations": [
+        {
+          "criterion": "1.4.11",
+          "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined."
+        }
+      ],
       "traits": [
         "choice",
         "colorMeaning",
@@ -3509,7 +3524,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "fails",
+        "1.4.11": "deviation",
         "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",
@@ -3656,6 +3671,10 @@
         {
           "criterion": "2.1.1",
           "note": "Met by rule: the trigger area is not a Tab stop, so every action must also be in a visible control (a “…” button, a toolbar)."
+        },
+        {
+          "criterion": "1.4.11",
+          "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined."
         }
       ],
       "traits": [
@@ -3683,7 +3702,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "verified",
+        "1.4.11": "deviation",
         "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "deviation",
@@ -5104,7 +5123,12 @@
       "reducedMotion": "respected",
       "forcedColors": "global",
       "screenReader": [],
-      "deviations": [],
+      "deviations": [
+        {
+          "criterion": "1.4.11",
+          "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined."
+        }
+      ],
       "traits": [
         "colorMeaning",
         "composite",
@@ -5130,7 +5154,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "verified",
+        "1.4.11": "deviation",
         "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",
@@ -5856,7 +5880,12 @@
       "reducedMotion": "none",
       "forcedColors": "global",
       "screenReader": [],
-      "deviations": [],
+      "deviations": [
+        {
+          "criterion": "1.4.11",
+          "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined."
+        }
+      ],
       "traits": [
         "choice",
         "colorMeaning",
@@ -5887,7 +5916,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "fails",
+        "1.4.11": "deviation",
         "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",
@@ -7600,7 +7629,12 @@
       "reducedMotion": "respected",
       "forcedColors": "global",
       "screenReader": [],
-      "deviations": [],
+      "deviations": [
+        {
+          "criterion": "1.4.11",
+          "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined."
+        }
+      ],
       "traits": [
         "colorMeaning",
         "composite",
@@ -7626,7 +7660,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "fails",
+        "1.4.11": "deviation",
         "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",
@@ -8040,7 +8074,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "fails",
+        "1.4.11": "verified",
         "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",
@@ -10556,7 +10590,12 @@
       "reducedMotion": "respected",
       "forcedColors": "global",
       "screenReader": [],
-      "deviations": [],
+      "deviations": [
+        {
+          "criterion": "1.4.11",
+          "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined."
+        }
+      ],
       "traits": [
         "choice",
         "colorMeaning",
@@ -10584,7 +10623,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "fails",
+        "1.4.11": "deviation",
         "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",

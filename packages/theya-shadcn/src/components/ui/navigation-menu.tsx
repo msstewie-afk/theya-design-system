@@ -141,7 +141,7 @@ export function NavigationMenuLink({ className, ...props }: React.ComponentProps
         'font-body text-body-m leading-tight text-[var(--color-text-text)] no-underline outline-none',
         'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
-        'focus-visible:bg-[var(--color-bg-neutral-bg-neutral-subtle)] focus-visible:outline-none',
+        'focus-visible:bg-[var(--color-bg-neutral-bg-neutral-subtle)] focus-visible:outline-none focus-visible:focus-ring',
         'data-[active]:bg-[var(--color-bg-neutral-bg-neutral-subtle)] data-[active]:font-medium',
         '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4 [&_svg]:text-[var(--color-icon-icon-subtle)]',
         className,

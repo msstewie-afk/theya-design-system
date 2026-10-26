@@ -104,7 +104,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Composes with a visible Label via id (guidelines model it)."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Input, clear button and popup list follow DOM order (autocomplete.tsx:160-325); notes use ms-auto."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Invalid styling is driven only by the consumer's aria-invalid and paired with their message via aria-describedby (autocomplete.tsx:172-173); options carry text labels and notes."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "In the suggestion list the highlighted option uses bg-neutral-subtle, 1.15:1 light (#edeef8 on #ffffff) / 1.35:1 dark on the overlay, and it is the only visual cue for the keyboard-active option (autocomplete.tsx:309); the input border is border-border 3.00:1 (192)."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Input border border-border 3.00:1 (autocomplete.tsx:192). The highlighted-option fill (309) is listed as an accepted deviation."},
       "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The field takes aria-invalid and aria-describedby and passes both to the combobox input (autocomplete.tsx:172-173), so a consumer's error text is tied to it; it detects no errors itself."}
     },
     "Avatar": {
@@ -294,7 +294,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Composes with a visible Label via id."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Chips, input, clear/chevron and the list follow DOM order (combobox.tsx:305-426)."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Selected options get a Check icon (combobox.tsx:502-504), chips carry text, and invalid styling follows the consumer's aria-invalid with their aria-describedby message (330-331)."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "In the listbox the highlighted option uses bg-neutral-subtle, 1.15:1 light (#edeef8 on #ffffff) / 1.35:1 dark on the overlay, and it is the only visual cue for the keyboard-active option (combobox.tsx:490); field border is border-border 3.00:1 (273) and the selected check is icon-primary 5.2:1."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Field border border-border 3.00:1 (combobox.tsx:273), selected check icon-primary 5.2:1. The highlighted-option fill (490) is listed as an accepted deviation."},
       "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "aria-invalid and aria-describedby pass through to the combobox input (combobox.tsx:330-331), so a consumer's error message is tied to it; the component detects no errors itself."}
     },
     "Command": {
@@ -306,7 +306,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Search field with a visible search icon."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Icon, breadcrumb, label, description, shortcut render in DOM order (command.tsx:363-376); CommandShortcut uses ms-auto, not reordering."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Tone glyphs come through ToneIcon (icon + shape, command.tsx:365); the active item is exposed by aria-selected/activedescendant, its fill contrast is covered under 1.4.11."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "In CommandItem the highlighted option uses bg-neutral-subtle, 1.15:1 light (#edeef8 on #ffffff) / 1.35:1 dark on the overlay, and it is the only visual cue for the keyboard-active option (command.tsx:356)."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Tone glyphs and icons carry their own contrast. The highlighted-item fill (command.tsx:356) is listed as an accepted deviation."},
       "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: CommandEmpty text is portalled into an always-mounted role=status region on the menu, so \"No results\" is spoken; it stays hidden while loading. Play test in Inline."}
     },
     "Comparison": {
@@ -344,7 +344,7 @@
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix ContextMenu, modal."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Check/radio indicators are absolutely placed at the start (context-menu.tsx:95, :118) and precede the label in DOM."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Checked items use check and dot glyphs (context-menu.tsx:97, :120). Danger items carry their label text (:70)."},
-      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The check/dot (icon-primary) is 5.20:1 light / 5.28:1 dark on the overlay and 4.51:1 / 3.91:1 on a highlighted row. The neutral-subtle highlight (:69) is the item focus indicator, covered by the accepted focus deviation and not judged."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The check/dot (icon-primary) is 5.20:1 light / 5.28:1 dark on the overlay and 4.51:1 / 3.91:1 on a highlighted row. The neutral-subtle highlight (:69) is the item focus indicator, listed as an accepted deviation (2026-10-26)."}
     },
     "CopyButton": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: new `subject` prop names it \"Copy {subject}\" for assistive tech."},
@@ -487,7 +487,7 @@
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix DropdownMenu, modal by default."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Check/radio indicators are absolutely placed at the start (dropdown-menu.tsx:116, :144) and precede the label in DOM."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Checked items use check and dot glyphs (dropdown-menu.tsx:118, :146). Danger items keep their label text (:84)."},
-      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The check/dot (icon-primary) is 5.20:1 light / 5.28:1 dark on the overlay and 4.51:1 / 3.91:1 on a highlighted row. The neutral-subtle highlight (:82) is the item focus indicator, covered by the accepted focus deviation and not judged."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The check/dot (icon-primary) is 5.20:1 light / 5.28:1 dark on the overlay and 4.51:1 / 3.91:1 on a highlighted row. The neutral-subtle highlight (:82) is the item focus indicator, listed as an accepted deviation (2026-10-26)."}
     },
     "Dropzone": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: the picker button is named \"Choose files\"; the status line (\"Drag files here\", the file, the error) is its description."},
@@ -568,7 +568,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: the number filter shows labelled Min and Max fields side by side (sm, like the text filter), Maria's call."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Add button, chips and input are in DOM order (filter-field.tsx:426-537); Kbd hints use ms-auto."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Option tones are StatusDots next to text labels (filter-field.tsx:728, 741), applied options get a Check icon (730, 743), and the select-all state adds a 2px primary ring plus a status message (457, 539-545)."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "In the step-one and option listboxes the highlighted option uses bg-neutral-subtle, 1.15:1 light (#edeef8 on #ffffff) / 1.35:1 dark on the overlay, and it is the only visual cue for the keyboard-active option (filter-field.tsx:585, 610, 725); the field border itself is border-border 3.00:1 (410)."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Field border border-border 3.00:1 (filter-field.tsx:410), applied-option checks icon-primary. The highlighted-option fill (585, 610, 725) is listed as an accepted deviation."},
       "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: Apply on an empty number range marks Min and Max aria-invalid and shows \"Enter a minimum, a maximum or both.\" (FieldError) as their description. Play test in Empty."},
       "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "An always-mounted role=\"status\" reports applied/selected counts (filter-field.tsx:539-545) and another reports no matching attributes (592-594); the step-two empty text comes from CommandEmpty (see Command 4.1.3)."}
     },
@@ -776,7 +776,7 @@
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix menus dismiss on focus outside."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Triggers, menus and items render in Radix DOM order; the checkbox/radio indicator is positioned at the inline start of its own item (menubar.tsx:123, 146) without moving text."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Checked state is a Check/Circle glyph (menubar.tsx:125, 148), the open menu is shown by the panel itself, and danger items are named in text."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Keyboard focus is shown by fill only: items use data-[highlighted]:bg-neutral-subtle (menubar.tsx:97, 117, 140, 179), 1.15:1 light / 1.35:1 dark on the overlay, and MenubarTrigger (lines 41-49) has outline-none with no focus or data-highlighted style at all. Fix: add focus-visible:focus-ring / data-[highlighted] styling to the trigger and an inset 2px border-primary (or the accepted ring) on highlighted items."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed 2026-10-26: MenubarTrigger had outline-none and no focus style; it now gets focus-visible:focus-ring like the other triggers (ring covered by the library focus deviation). Check/dot glyphs icon-primary. The highlighted-item fill (97, 117, 140, 179) is listed as an accepted deviation."}
     },
     "Message": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "message.tsx:33 uses flex-row-reverse for sent messages, but that only moves the avatar to the trailing side; author, timestamp and bubble keep DOM order inside their column (39-65), so the reading order means the same thing."}
@@ -798,7 +798,7 @@
     "NavigationMenu": {
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix closes the flyout when focus leaves the nav."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Panels render into the Viewport after the list (navigation-menu.tsx:73-85), which is also where they appear visually (under the bar); no CSS reordering."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "NavigationMenuLink shows keyboard focus with a fill only (focus-visible:bg-neutral-subtle + outline-none, navigation-menu.tsx:144): 1.15:1 light / 1.35:1 dark on the overlay, and no focus ring. Fix: add focus-visible:focus-ring like the trigger (line 106). Trigger chevron (icon-subtle) and active link (fill + font-medium) are fine."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed 2026-10-26: NavigationMenuLink showed keyboard focus by fill only (navigation-menu.tsx:144); it now gets focus-visible:focus-ring like the trigger (106), covered by the library focus deviation. Trigger chevron (icon-subtle) and active link (fill + font-medium) are fine."},
       "4.1.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Radix supplies the nav landmark, trigger buttons with aria-expanded/aria-controls and aria-current on active links; the chevron is aria-hidden (line 115) and the viewport stays inside the nav (lines 71-73)."}
     },
     "NoResults": {
@@ -1185,7 +1185,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Composes with a visible Label via id."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The ItemIndicator is absolutely placed at the end (select.tsx:219) but is a decorative check; text, description and badge follow DOM order."},
       "1.4.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "`error` only recolors border, fill, text and chevron (select.tsx:99-114) and the documented Invalid story shows a danger trigger with no message (select.stories.tsx:255-273), so the error is shown by color alone."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "SelectItem the highlighted option uses bg-neutral-subtle, 1.15:1 light (#edeef8 on #ffffff) / 1.35:1 dark on the overlay, and it is the only visual cue for the keyboard-active option (select.tsx:213); trigger border border-border 3.00:1 (70) and the check icon-primary 5.2:1 are fine."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Trigger border border-border 3.00:1 (select.tsx:70), check icon-primary 5.2:1. The highlighted-option fill (213) is listed as an accepted deviation."},
       "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed in the docs: the Invalid story shows the pattern, <Field invalid> + FieldError linked by aria-describedby, with a play test on aria-invalid and the description. FieldError now has the error icon."}
     },
     "Separator": {
@@ -1502,11 +1502,33 @@
     }
   },
   "deviations": {
+    "Autocomplete": [
+      { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." }
+    ],
+    "Combobox": [
+      { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." }
+    ],
+    "Command": [
+      { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." }
+    ],
+    "DropdownMenu": [
+      { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." }
+    ],
+    "FilterField": [
+      { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." }
+    ],
+    "Menubar": [
+      { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." }
+    ],
+    "Select": [
+      { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." }
+    ],
     "Carousel": [
       { "criterion": "1.4.11", "note": "Inactive indicator dots in the light theme are 2.62:1 on white (needs 3:1). The active slide stays identifiable — it is a wider pill. Decision 2026-10-01." }
     ],
     "ContextMenu": [
-      { "criterion": "2.1.1", "note": "Met by rule: the trigger area is not a Tab stop, so every action must also be in a visible control (a “…” button, a toolbar)." }
+      { "criterion": "2.1.1", "note": "Met by rule: the trigger area is not a Tab stop, so every action must also be in a visible control (a “…” button, a toolbar)." },
+      { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." }
     ],
     "TextEffect": [
       { "criterion": "2.2.2", "note": "The shimmer effect loops endlessly with no pause control. Accepted by Maria, 2026-10-22: decorative, the text stays readable throughout, and reduced motion stops it. The typewriter plays once." }
