@@ -72,13 +72,13 @@ The `.github/workflows/ci.yml` workflow runs on every push to `main` and on ever
    - visual regression in both themes.
 3. **react-19** (after checks, in parallel with storybook): the same code, but React 19 is forced across the whole repository (the package supports 18 and 19; development and the other checks run on 18). It checks that no React 18 is left, then runs types, play tests and axe in the light theme. Visual regression is not needed here — the look does not depend on the React version.
 4. **brands** (after checks, in parallel): one job per product theme, `iris` and `lime`. Play tests and axe in its light and dark variants, without visual regression.
-4. **brands** (after checks, in parallel): one job per product theme, `iris` and `lime`. Play tests and axe in its light and dark variants, without visual regression.
 
-CI has its own visual regression baselines. A Linux runner takes them, they are stored in the Actions cache, and they are not in git.
+CI has its own visual regression baselines. A Linux runner takes them, and they are kept in git, in the `visual-baselines` branch (`light/`, `dark/`, one PNG per story id) — not on `main`, and never edited by hand.
 
-- **On `main`** (push, the weekly run, a manual run) CI records instead of comparing: what is on `main` is the accepted look. A visual change never turns `main` red and needs no re-run. The run summary lists the stories whose snapshot changed ("Visual changes: N"), and the `visual-changes` archive has before / after images. Glance at it after a push that wasn't meant to change the look.
-- **On a pull request** CI compares with `main`'s baselines and fails on a change. The `visual-diffs` archive contains "baseline | diff | new snapshot" images. If the change is intended, merging it makes it the baseline.
-- The first run, and a run after the cache has expired (7 days without runs), only take baselines.
+- **On `main`** (push, the weekly run, a manual run) CI records instead of comparing: what is on `main` is the accepted look. A visual change never turns `main` red and needs no re-run. Changed, new and removed snapshots go into one commit in `visual-baselines`, named after the `main` commit that caused them (`visual: N change(s) from <sha>`). That commit is the review: GitHub shows each PNG before / after (side by side, swipe, onion skin). The run summary ("Visual changes: N") links to it and lists the stories; the `visual-changes` archive has the same before / after images. Look at it after any push that changed the look — and after one that wasn't meant to.
+- **To reject a change**, fix the code on `main`; the next run records the corrected look as a new commit. Every earlier look stays in the branch history.
+- **On a pull request** CI compares with `visual-baselines` and fails on a change. The `visual-diffs` archive contains "baseline | diff | new snapshot" images. If the change is intended, merging it makes it the baseline.
+- The first run (no `visual-baselines` branch yet) records all baselines and creates the branch.
 
 **`api:check` failed.** The public API changed. Locally:
 

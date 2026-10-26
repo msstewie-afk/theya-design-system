@@ -12,19 +12,20 @@
 #              storybook job's are for Theya's own look.
 #
 # The repo is public, so Actions minutes are free: every push to main and
-# every pull request runs all the jobs. The weekly run keeps the visual
-# baselines from expiring in the cache when nothing is pushed.
+# every pull request runs all the jobs. The weekly run catches drift that
+# comes from outside the repo (runner image, browser, fonts).
 # Docs-only changes (*.md, .claude/, .changeset/) start nothing.
 #
-# Visual baselines are rendered on this runner and kept in the Actions
-# cache (never in git: macOS and Linux render fonts differently, so local
-# baselines stay local).
-# - Pull requests compare against main's baselines and fail on a change.
+# Visual baselines are rendered on this runner and kept in git, in the
+# visual-baselines branch (not on main: macOS and Linux render fonts
+# differently, so local baselines stay local and git-ignored).
+# - Pull requests compare against that branch and fail on a change.
 # - main (push, weekly run, manual run) records instead of comparing: what
-#   is on main is the accepted look. Stories whose snapshot changed are
-#   listed in the run summary and uploaded as "visual-changes" (before /
-#   after PNGs), so a change is visible but never turns main red and never
-#   needs a manual re-run.
+#   is on main is the accepted look. Changed, new and removed snapshots are
+#   committed to visual-baselines (one commit per run: GitHub shows each
+#   PNG before / after), listed in the run summary and uploaded as
+#   "visual-changes", so a change is visible and reviewable but never turns
+#   main red and never needs a manual re-run.
 name: CI
 
 on:
@@ -33,7 +34,7 @@ on:
     paths-ignore: ['**/*.md', '.claude/**', '.changeset/**']
   pull_request:
     paths-ignore: ['**/*.md', '.claude/**', '.changeset/**']
-  # Weekly full run (Monday 05:17 UTC) keeps the visual baselines fresh.
+  # Weekly full run (Monday 05:17 UTC): drift from outside the repo.
   schedule:
     - cron: '17 5 * * 1'
   workflow_dispatch:
@@ -81,6 +82,10 @@ jobs:
     needs: checks
     runs-on: ubuntu-24.04
     timeout-minutes: 60
+    # Pushes the visual-baselines branch (main only; pull requests from forks
+    # get a read-only token and never reach that step).
+    permissions:
+      contents: write
     defaults:
       run:
         working-directory: packages/theya-shadcn
@@ -122,32 +127,48 @@ jobs:
         run: pnpm test-storybook:dark
 
       # ---- Visual regression -------------------------------------------
-      - name: Restore visual baselines
+      # Baselines live in git, in the visual-baselines branch (light/, dark/,
+      # one PNG per story id). Only this job on main writes it, so every
+      # accepted change is a commit there: GitHub shows each PNG before /
+      # after, and history keeps every look. No branch yet = first run.
+      - name: Fetch visual baselines
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         id: baselines
-        uses: actions/cache/restore@v5
-        with:
-          path: packages/theya-shadcn/__visual__
-          key: vrt-${{ runner.os }}-${{ github.run_id }}
-          restore-keys: vrt-${{ runner.os }}-
+        working-directory: .
+        run: |
+          dir="$RUNNER_TEMP/baselines"; rm -rf "$dir"
+          if git ls-remote --exit-code --heads origin visual-baselines >/dev/null; then
+            git fetch --quiet --depth 1 origin visual-baselines
+            git worktree add --quiet -B visual-baselines "$dir" FETCH_HEAD
+            echo "sha=$(git -C "$dir" rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+            echo "Baselines: visual-baselines @ $(git -C "$dir" rev-parse --short HEAD)"
+          else
+            git worktree add --quiet --detach "$dir"
+            git -C "$dir" checkout --quiet --orphan visual-baselines
+            git -C "$dir" rm -rfq --ignore-unmatch .
+            echo "No visual-baselines branch yet: this run records all of them"
+          fi
+          rm -rf packages/theya-shadcn/__visual__ && mkdir -p packages/theya-shadcn/__visual__
+          for t in light dark; do
+            if [ -d "$dir/$t" ]; then cp -r "$dir/$t" packages/theya-shadcn/__visual__/; fi
+          done
 
       # main records (see the header); a pull request compares. Also records
-      # when there are no baselines yet (first run, or the cache expired).
-      # The baselines as they were are kept aside to list what changed.
+      # when there are no baselines yet (first run). The baselines as they
+      # were are kept aside to list what changed.
       - name: Decide visual mode
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         id: mode
         run: |
-          rm -rf __visual__/light/__diff__ __visual__/dark/__diff__
-          if [ "${{ github.event_name }}" != "pull_request" ] || [ -z "${{ steps.baselines.outputs.cache-matched-key }}" ]; then
+          if [ "${{ github.event_name }}" != "pull_request" ] || [ -z "${{ steps.baselines.outputs.sha }}" ]; then
             echo "flags=-u" >> "$GITHUB_OUTPUT"
             echo "Recording visual baselines"
           else
             echo "flags=" >> "$GITHUB_OUTPUT"
-            echo "Comparing with ${{ steps.baselines.outputs.cache-matched-key }}"
+            echo "Comparing with visual-baselines @ ${{ steps.baselines.outputs.sha }}"
           fi
           rm -rf "$RUNNER_TEMP/visual-before"
-          if [ -d __visual__ ]; then cp -r __visual__ "$RUNNER_TEMP/visual-before"; fi
+          cp -r __visual__ "$RUNNER_TEMP/visual-before"
 
       # CI=false: a story added since the last baseline gets its first
       # snapshot recorded (as locally) instead of failing as "missing".
@@ -163,12 +184,18 @@ jobs:
           CI: 'false'
         run: pnpm test-visual:dark ${{ steps.mode.outputs.flags }}
 
-      # Recording mode: list the snapshots that differ from the previous
-      # baselines (new stories included) and keep before / after copies.
+      # Recording mode: drop the baselines of stories that no longer exist,
+      # list the snapshots that differ from the previous baselines (new and
+      # removed included) and keep before / after copies.
       - name: List visual changes
         if: ${{ !cancelled() && steps.mode.outputs.flags == '-u' }}
+        id: changes
         run: |
+          node -e "for (const e of Object.values(require('./storybook-static/index.json').entries)) if (e.type === 'story') console.log(e.id)" > "$RUNNER_TEMP/story-ids"
           out="$RUNNER_TEMP/visual-changes"; rm -rf "$out"; n=0; list=""
+          while IFS= read -r f; do
+            if ! grep -qxF "$(basename "$f" .png)" "$RUNNER_TEMP/story-ids"; then rm "$f"; fi
+          done < <(find __visual__ -name '*.png' -not -path '*/__diff__/*')
           while IFS= read -r f; do
             rel="${f#__visual__/}"; old="$RUNNER_TEMP/visual-before/$rel"
             if [ ! -f "$old" ] || ! cmp -s "$f" "$old"; then
@@ -177,12 +204,12 @@ jobs:
               if [ -f "$old" ]; then mkdir -p "$out/before/$(dirname "$rel")"; cp "$old" "$out/before/$rel"; fi
             fi
           done < <(find __visual__ -name '*.png' -not -path '*/__diff__/*' | sort)
-          {
-            echo "### Visual changes: $n"
-            if [ "$n" -gt 0 ]; then echo "Recorded as the new baselines. Before / after PNGs: artifact **visual-changes**."; echo "$list"; else echo "None."; fi
-          } >> "$GITHUB_STEP_SUMMARY"
+          while IFS= read -r f; do
+            rel="${f#$RUNNER_TEMP/visual-before/}"
+            if [ ! -f "__visual__/$rel" ]; then n=$((n+1)); list="$list"$'\n'"- \`$rel\` (removed)"; fi
+          done < <(find "$RUNNER_TEMP/visual-before" -name '*.png' -not -path '*/__diff__/*' | sort)
           echo "count=$n" >> "$GITHUB_OUTPUT"
-        id: changes
+          printf '%s\n' "$list" > "$RUNNER_TEMP/visual-list"
 
       - name: Upload visual changes
         if: ${{ !cancelled() && steps.changes.outputs.count != '0' && steps.changes.outputs.count != '' }}
@@ -202,14 +229,59 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-      # Only a green run (or accepted changes) becomes the next baseline.
-      # Pull requests compare but never save, so they can't move main's baseline.
-      - name: Save visual baselines
-        if: success() && github.event_name != 'pull_request'
-        uses: actions/cache/save@v5
-        with:
-          path: packages/theya-shadcn/__visual__
-          key: vrt-${{ runner.os }}-${{ github.run_id }}
+      # Only a green run becomes the next baseline, and pull requests never
+      # write. One commit per run in visual-baselines, named after the main
+      # commit that changed the look; its diff is the review.
+      - name: Commit visual baselines
+        if: success() && github.event_name != 'pull_request' && steps.changes.outputs.count != '0'
+        working-directory: .
+        run: |
+          dir="$RUNNER_TEMP/baselines"
+          for t in light dark; do
+            rm -rf "$dir/$t"
+            if [ -d "packages/theya-shadcn/__visual__/$t" ]; then
+              cp -r "packages/theya-shadcn/__visual__/$t" "$dir/$t"; rm -rf "$dir/$t/__diff__"
+            fi
+          done
+          cat > "$dir/README.md" <<'MD'
+          # Visual baselines
+
+          CI's screenshots of every Storybook story (light/, dark/), one PNG per
+          story id. Written only by the storybook job of the CI workflow on main:
+          each commit here is the look a main commit changed. Don't edit by hand.
+          To undo a change, fix the code on main; the next run records it again.
+          MD
+          cd "$dir"
+          git add -A
+          if git diff --cached --quiet; then echo "Nothing to commit"; exit 0; fi
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit --quiet -m "visual: ${{ steps.changes.outputs.count }} change(s) from ${GITHUB_SHA::7}" \
+            -m "$(git -C "$GITHUB_WORKSPACE" log -1 --format=%s "$GITHUB_SHA")" -m "Run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          # A run that started earlier may have pushed meanwhile: then this
+          # one only warns; the next main run records the same look again.
+          if git push --quiet origin HEAD:visual-baselines; then
+            echo "url=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::visual-baselines moved during this run; not recorded"
+          fi
+        id: commit
+
+      - name: Visual summary
+        if: ${{ !cancelled() && steps.changes.outputs.count != '' }}
+        run: |
+          {
+            echo "### Visual changes: ${{ steps.changes.outputs.count }}"
+            if [ "${{ steps.changes.outputs.count }}" != "0" ]; then
+              if [ -n "${{ steps.commit.outputs.url }}" ]; then
+                echo "Recorded as the new baselines: ${{ steps.commit.outputs.url }} (before / after per PNG). Also as the artifact **visual-changes**."
+              else
+                echo "Not recorded (the run failed). Before / after PNGs: artifact **visual-changes**."
+              fi
+              cat "$RUNNER_TEMP/visual-list"
+            else
+              echo "None."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
 
   brands:
     needs: checks
