@@ -139,7 +139,8 @@ export function WheelPicker({ options, value, defaultValue, onValueChange, rows 
               onClick={() => select(n)}
               className={cn(
                 'flex items-center justify-center px-3 font-body text-body-m tabular-nums transition-[opacity,scale] duration-slow ease-enter motion-reduce:transition-none',
-                n === index ? 'font-medium text-[var(--color-text-text)]' : 'scale-[.88] text-[var(--color-text-text-subtle)] opacity-60',
+                // Dimmed rows at 80%: still read as further away, at 5.4:1 (60% was 3.25:1).
+                n === index ? 'font-medium text-[var(--color-text-text)]' : 'scale-[.88] text-[var(--color-text-text-subtle)] opacity-80',
               )}
               style={{ height: ROW }}
             >

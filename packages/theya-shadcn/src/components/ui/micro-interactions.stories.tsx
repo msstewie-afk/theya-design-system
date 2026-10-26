@@ -885,7 +885,7 @@ function MomentumPicker() {
               onClick={() => setI(n)}
               className={cn(
                 'flex h-9 items-center justify-center font-body text-body-m tabular-nums transition-[opacity,scale] duration-slow ease-enter',
-                n === i ? 'font-medium text-[var(--color-text-text)]' : 'scale-[.88] text-[var(--color-text-text-subtle)] opacity-50',
+                n === i ? 'font-medium text-[var(--color-text-text)]' : 'scale-[.88] text-[var(--color-text-text-subtle)] opacity-80',
               )}
             >
               {label}

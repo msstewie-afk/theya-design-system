@@ -575,13 +575,15 @@
         "value": "#387a3b"
       },
       "number": {
-        "value": "#b66a1a"
+        "value": "#a25e17",
+        "comment": "Darkened in-hue from #b66a1a (3.83:1 on code-bg) to 4.68:1."
       },
       "selector": {
         "value": "#105b94"
       },
       "comment": {
-        "value": "#a0aab4"
+        "value": "#63717e",
+        "comment": "Darkened in-hue from #a0aab4 (2.18:1 on code-bg) to 4.63:1. Also the line-number gutter."
       },
       "invalid": {
         "value": "#a11d2a",
