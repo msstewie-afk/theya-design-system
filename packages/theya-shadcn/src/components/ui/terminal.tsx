@@ -270,6 +270,8 @@ export function TerminalLine({ className, level, inverse = false, children, ...p
   return (
     <div data-slot="terminal-line" className={cn('whitespace-pre-wrap break-all', levelClass, className)} {...props}>
       {label && <span className="sr-only">{label}: </span>}
+      {/* Severity isn't color alone (WCAG 1.4.1): a glyph sighted users can see. */}
+      {label && <span aria-hidden="true">{level === 'err' || level === 'error' ? '✕ ' : '! '}</span>}
       {children === '' ? ' ' : children}
     </div>
   );

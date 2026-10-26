@@ -70,7 +70,7 @@ export function ListItem({ className, size = 'md', leading, title, description, 
     <>
       {leading != null && <span data-slot="list-item-leading" className="flex min-h-[1lh] shrink-0 items-center text-[var(--color-icon-icon-subtle)] [&_svg:not([class*='size-'])]:size-4">{leading}</span>}
       <span data-slot="list-item-content" className="flex min-w-0 flex-1 flex-col gap-0.5 text-start">
-        {title != null && <span id={titleId} data-slot="list-item-title" className="truncate font-medium">{title}</span>}
+        {title != null && <span id={titleId} data-slot="list-item-title" className="truncate font-medium [[data-slot=list-item][data-selected]_&]:font-semibold">{title}</span>}
         {description != null && <span id={descriptionId} data-slot="list-item-description" className="truncate font-body text-body-s text-[var(--color-text-text-subtler)]">{description}</span>}
         {children}
       </span>
@@ -110,6 +110,9 @@ export function ListItem({ className, size = 'md', leading, title, description, 
         // (`bg-neutral-bg-neutral-subtle` for their active/highlighted item).
         (href != null || interactive) && 'cursor-pointer hover:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
         selected && 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
+        // The tint is 1.15:1, so selected rows also get the nav marker: a 2px bar at the
+        // start edge and a semibold title (WCAG 1.4.1), as SidebarItem does.
+        selected && "relative before:absolute before:inset-y-2 before:start-0 before:w-0.5 before:rounded-full before:bg-[var(--color-border-border-primary)] before:content-['']",
         disabled && 'pointer-events-none opacity-50',
         className,
       )}

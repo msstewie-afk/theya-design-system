@@ -232,7 +232,9 @@ function LineContent({ line, wrap }: { line: DiffLine; wrap: boolean }) {
         if (!part.changed) return <span key={i}>{part.value}</span>;
         const Tag = line.type === 'add' ? 'ins' : 'del';
         return (
-          <Tag key={i} className={cn('rounded-[2px] no-underline', WORD_BG[line.type as 'add' | 'del'])}>
+          // The stronger tint alone is 1.15–1.6:1 (WCAG 1.4.1): inserted words are underlined,
+          // deleted words struck through.
+          <Tag key={i} className={cn('rounded-[2px] decoration-1 underline-offset-2', line.type === 'add' ? 'underline' : 'line-through', WORD_BG[line.type as 'add' | 'del'])}>
             {part.value}
           </Tag>
         );
