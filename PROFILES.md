@@ -82,6 +82,40 @@ You can allow an exception with `accept`. `lime` has two, both inherent to the c
 - `primary hue vs success` — the primary color is green, 18° from success;
 - `light: bg-primary-bg-primary on bg-surface-bg-surface-base` — the lime fill on white is 1.47:1. The button is defined by the dark text on it (9.45:1), but an on Switch or a checked Checkbox differs from the off state mainly by color. This is the same kind of accepted exception as the focus ring in the WCAG audit.
 
+## Make your own theme
+
+1. **Copy a theme.** `cp packages/tokens/src/profiles/iris.json packages/tokens/src/profiles/<name>.json`. The name becomes the attribute value: lowercase letters, digits and hyphens. Don't name a theme after a real product.
+2. **Set the primary color.** `primary` — one hex. Pick a hue at least 20° from the status colors (success, warning, danger, info), or the primary button will read as a status. Leave `onPrimary` out first: the build picks white or the darkest step.
+3. **Tune the neutrals.** `neutral.hue` near the primary hue makes the grays feel related; `chroma` 0.1–0.2 is almost gray, 1 keeps Theya's tint.
+4. **Build:** `cd packages/tokens && npm run build`. The build checks contrast and hue (see “Build-time checks”), lists what fails and stops.
+5. **Fix what the build reports**, in this order:
+   - text or icons on the fill fail → set `onPrimary`;
+   - links or text on surfaces fail in one theme → give exact values in `light.tokens` / `dark.tokens` (`text-text-link`, `text-text-subtle`…);
+   - the fill is too light against the page (a pale or yellow primary) → darken `primary` or set `dark.primary`; accept the exception only if it is the point of the color, and say why in `description`.
+6. **Surfaces and text** (optional): the product's own page background, text color and links in `light.tokens` / `dark.tokens`. Keep the order of surfaces: in dark, raised layers (cards, menus, dialogs) are lighter than the page.
+7. **Typeface and radii** (optional): `font` (add the `@font-face` to `packages/tokens/fonts/fonts.css` if it isn’t there; the font must cover Cyrillic) and `radius`.
+8. **Add it to the Storybook toolbar:** a `{ value: '<name>', title: '<Name>' }` item under `brand` in `packages/theya-shadcn/.storybook/preview.ts`.
+9. **Check it** (next section), then add a changeset: `pnpm changeset`.
+
+Figma gets the theme by itself: the DTCG export adds `brand-<name>` sets and modes ([TOKENS-EXPORT.md](TOKENS-EXPORT.md)).
+
+## Checking a theme
+
+The build checks contrast of token pairs. What it can’t see — how components actually look — is checked in Storybook:
+
+1. **By eye.** Brand → your theme, then light and dark. Go through Foundations / Colors, Button, TextField, Select, Checkbox, Switch, Tabs, Card, Table, Dialog, Toast. Look for: the primary button vs a status badge, the selected state vs hover, raised surfaces in dark, focus rings.
+2. **Axe and play tests in the theme**, both themes (from `packages/theya-shadcn`, with Storybook running or a static build served on port 6008):
+
+   ```bash
+   THEYA_BRAND=<name> pnpm test-storybook
+   THEYA_BRAND=<name> pnpm test-storybook:dark
+   ```
+
+   A failure here that doesn’t happen without `THEYA_BRAND` belongs to the theme: usually a pair that needs an exact value in `light.tokens` / `dark.tokens`.
+3. **Visual baselines** (optional): add `THEYA_VISUAL=1`; the theme gets its own folder in `__visual__/<name>-light` and `<name>-dark`.
+
+CI runs step 2 for `iris` and `lime` in both themes on every pull request and on `main`. A new theme is added to the `brand` matrix in `.github/workflows/ci.yml`.
+
 ## Limitations
 
 - `data-brand` goes on `<html>`: shadcn variables (`--primary` and others) are computed at the root, so a profile on a nested element will not recolor them.

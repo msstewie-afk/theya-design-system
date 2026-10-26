@@ -20,7 +20,10 @@ const VIEWPORT = Number(process.env.THEYA_VIEWPORT) || 0;
 // THEYA_FORCED=1: Windows High Contrast (forced colors). Combine with
 // THEYA_VISUAL=1 to keep a separate set of baselines for it.
 const FORCED = process.env.THEYA_FORCED === '1';
-const VISUAL_DIR = path.join(process.cwd(), '__visual__', [THEME, VIEWPORT || null, FORCED ? 'forced' : null].filter(Boolean).join('-'));
+// THEYA_BRAND=iris|lime: run in a product theme (data-brand), with THEYA_THEME
+// for its dark variant. Visual baselines keep a separate folder per brand.
+const BRAND = /^[a-z][a-z0-9-]*$/.test(process.env.THEYA_BRAND ?? '') && process.env.THEYA_BRAND !== 'theya' ? process.env.THEYA_BRAND! : '';
+const VISUAL_DIR = path.join(process.cwd(), '__visual__', [BRAND || null, THEME, VIEWPORT || null, FORCED ? 'forced' : null].filter(Boolean).join('-'));
 
 /**
  * Wires axe-core's full violation output (rule id, impact, affected DOM node,
@@ -43,26 +46,31 @@ const config: TestRunnerConfig = {
     // resting state, which is what the a11y audit is about.
     await page.emulateMedia({ reducedMotion: 'reduce', forcedColors: FORCED ? 'active' : 'none' });
     if (VIEWPORT) await page.setViewportSize({ width: VIEWPORT, height: 800 });
-    // THEYA_THEME=dark runs the whole suite (play + axe) in the dark theme
-    // by setting the same `theme` global as the toolbar switch. Globals
-    // outlive story changes, so this happens once per page load; preview.ts
-    // then applies it before every story renders, portals included.
-    if (process.env.THEYA_THEME === 'dark') {
+    // THEYA_THEME=dark runs the whole suite (play + axe) in the dark theme,
+    // THEYA_BRAND=iris|lime in a product theme, by setting the same globals
+    // as the toolbar switches. Globals outlive story changes, so this happens
+    // once per page load; preview.ts then applies them before every story
+    // renders, portals included.
+    const globals: Record<string, string> = {};
+    if (process.env.THEYA_THEME === 'dark') globals.theme = 'dark';
+    if (BRAND) globals.brand = BRAND;
+    if (Object.keys(globals).length) {
       await page.evaluate(
-        () =>
+        (next) =>
           new Promise<void>((resolve) => {
             const w = window as typeof window & {
-              __theyaDarkGlobals?: boolean;
+              __theyaGlobalsSet?: boolean;
               __STORYBOOK_ADDONS_CHANNEL__: { once(event: string, fn: () => void): void; emit(event: string, payload: unknown): void };
             };
-            if (w.__theyaDarkGlobals) return resolve();
+            if (w.__theyaGlobalsSet) return resolve();
             const channel = w.__STORYBOOK_ADDONS_CHANNEL__;
             channel.once('globalsUpdated', () => {
-              w.__theyaDarkGlobals = true;
+              w.__theyaGlobalsSet = true;
               resolve();
             });
-            channel.emit('updateGlobals', { globals: { theme: 'dark' } });
+            channel.emit('updateGlobals', { globals: next });
           }),
+        globals,
       );
     }
     if (VISUAL) {

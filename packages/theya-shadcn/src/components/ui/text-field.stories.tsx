@@ -187,7 +187,7 @@ export const WithError: Story = {
     label: 'Email',
     autoComplete: 'email',
     required: true,
-    error: 'This required field contains an error. Please fix it',
+    error: 'This field is required. Enter a value.',
     defaultValue: 'not-an-email',
   },
   // The error is exposed, not just painted red: invalid + read as the description.
@@ -195,7 +195,7 @@ export const WithError: Story = {
     const input = within(canvasElement).getByRole('textbox', { name: 'Email' });
     await expect(input).toBeInvalid();
     await expect(input).toBeRequired();
-    await expect(input).toHaveAccessibleDescription('This required field contains an error. Please fix it');
+    await expect(input).toHaveAccessibleDescription('This field is required. Enter a value.');
   },
 };
 
@@ -240,7 +240,7 @@ export const States: Story = {
           scroll-into-view side effect. */}
       <TextField label="Active focus" placeholder="Text" ref={(el) => el?.focus({ preventScroll: true })} />
       <TextField label="Disable" placeholder="Text" disabled />
-      <TextField label="Error" error="This required field contains an error. Please fix it" defaultValue="Text" />
+      <TextField label="Error" error="This field is required. Enter a value." defaultValue="Text" />
     </div>
   ),
 };

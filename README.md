@@ -45,7 +45,7 @@ import { TextField } from '@theya/shadcn/ui/text-field';
 import { WorkspaceLayout } from '@theya/shadcn/blocks/workspace-layout';
 ```
 
-The packages are not on npm yet; apps in `apps/*` take them from source through the pnpm workspace.
+The packages are not on npm yet; apps in `apps/*` take them from source through the pnpm workspace. Step by step, with theme, language and a checklist: [GETTING-STARTED.md](GETTING-STARTED.md).
 
 ## Foundations
 
@@ -58,7 +58,7 @@ The packages are not on npm yet; apps in `apps/*` take them from source through 
 ```
 
 - `data-theme` — light or dark
-- `data-brand` — Theya (default), Iris or Lime: primary color, neutrals, surfaces, typeface and radii, separately tuned for light and dark ([PROFILES.md](PROFILES.md))
+- `data-brand` — Theya (default), Iris or Lime: primary color, neutrals, surfaces, typeface and radii, separately tuned for light and dark; or your own theme, step by step ([PROFILES.md](PROFILES.md))
 - `data-density` — compact, default or comfortable: controls, table rows, menu items and spacing ([DENSITY.md](DENSITY.md))
 
 **Components.** Actions, text input, selection, date and time, files, form structure, search and filter, navigation, menus, overlays, status and feedback, labels, data, charts, code, AI and chat, layout, motion. Each component ships with guidelines — when to use it, when to use something else instead, anatomy, accessibility notes and do/don't pairs — shown on its Docs page in Storybook.
@@ -86,15 +86,18 @@ More in [AI.md](AI.md).
 ## Quality
 
 - **Pre-commit gate** (`.githooks/pre-commit`): type check, no raw hex colors in components, generated spec up to date
-- **Tests** ([TESTING.md](TESTING.md)): play + axe in both themes, visual regression in both themes and at phone widths, React 18 and 19
+- **Tests** ([TESTING.md](TESTING.md)): play + axe in both themes and in each product theme, visual regression in both themes and at phone widths, React 18 and 19
 - **CI** (GitHub Actions): checks on every push; Storybook tests and visual regression on pull requests and weekly
 - **Public API report** (`packages/theya-shadcn/api/`): every exported type and default, so API changes show up in review
-- **Versioning** with Changesets, 0.x semver ([RELEASING.md](RELEASING.md))
+- **Versioning** with Changesets, 0.x semver ([RELEASING.md](RELEASING.md)); released and pending changes on Design System / Changelog in Storybook
 
 ## Docs
 
 | Guide | Topic | Русский |
 |---|---|---|
+| [GETTING-STARTED.md](GETTING-STARTED.md) | Using Theya in an app: styles, imports, theme, language | [GETTING-STARTED.ru.md](GETTING-STARTED.ru.md) |
+| [WRITING.md](WRITING.md) | Interface text: buttons, fields, errors, dialogs, empty states | [WRITING.ru.md](WRITING.ru.md) |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Changing Theya: component files, design rules, checks before a commit | [CONTRIBUTING.ru.md](CONTRIBUTING.ru.md) |
 | [TESTING.md](TESTING.md) | Running behaviour, accessibility and visual tests | [TESTING.ru.md](TESTING.ru.md) |
 | [PROFILES.md](PROFILES.md) | Brand themes and how to add one | [PROFILES.ru.md](PROFILES.ru.md) |
 | [DENSITY.md](DENSITY.md) | Density modes | [DENSITY.ru.md](DENSITY.ru.md) |

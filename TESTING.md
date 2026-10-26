@@ -13,6 +13,10 @@ pnpm test-storybook:dark   # dark theme
 
 Each story: render, play test (if any), axe check. A single file: `pnpm test-storybook src/components/ui/button.stories.tsx`.
 
+In a product theme: `THEYA_BRAND=iris pnpm test-storybook` (and `:dark`). Details and how to check your own theme: [PROFILES.md](PROFILES.md#checking-a-theme).
+
+In a product theme: `THEYA_BRAND=iris pnpm test-storybook` (and `:dark`). Details and how to check your own theme: [PROFILES.md](PROFILES.md#checking-a-theme).
+
 ## Visual regression
 
 A screenshot of each story, taken after its play test, is compared with a baseline.
@@ -67,6 +71,8 @@ The `.github/workflows/ci.yml` workflow runs on every push to `main` and on ever
    - play tests and axe in the light and dark theme;
    - visual regression in both themes.
 3. **react-19** (after checks, in parallel with storybook): the same code, but React 19 is forced across the whole repository (the package supports 18 and 19; development and the other checks run on 18). It checks that no React 18 is left, then runs types, play tests and axe in the light theme. Visual regression is not needed here — the look does not depend on the React version.
+4. **brands** (after checks, in parallel): one job per product theme, `iris` and `lime`. Play tests and axe in its light and dark variants, without visual regression.
+4. **brands** (after checks, in parallel): one job per product theme, `iris` and `lime`. Play tests and axe in its light and dark variants, without visual regression.
 
 CI has its own visual regression baselines. A Linux runner takes them, they are stored in the Actions cache, and they are not in git.
 

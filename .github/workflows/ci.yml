@@ -7,9 +7,12 @@
 # react-19   — after checks, alongside storybook: the same code with React 19
 #              forced across the workspace (the package supports 18 and 19,
 #              dev and the main jobs stay on 18): types, then play + axe.
+# brands     — after checks, one job per product theme (iris, lime): play +
+#              axe in its light and dark variants. No visual baselines: the
+#              storybook job's are for Theya's own look.
 #
 # The repo is public, so Actions minutes are free: every push to main and
-# every pull request runs all three jobs. The weekly run keeps the visual
+# every pull request runs all the jobs. The weekly run keeps the visual
 # baselines from expiring in the cache when nothing is pushed.
 # Docs-only changes (*.md, .claude/, .changeset/) start nothing.
 #
@@ -207,6 +210,56 @@ jobs:
         with:
           path: packages/theya-shadcn/__visual__
           key: vrt-${{ runner.os }}-${{ github.run_id }}
+
+  brands:
+    needs: checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        brand: [iris, lime]
+    name: brand (${{ matrix.brand }})
+    env:
+      THEYA_BRAND: ${{ matrix.brand }}
+    defaults:
+      run:
+        working-directory: packages/theya-shadcn
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v5
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+        working-directory: .
+      - run: pnpm build:tokens
+        working-directory: .
+
+      - name: Install Chromium for the test-runner
+        run: |
+          PW_DIR=$(node -e "const r=require.resolve('@storybook/test-runner');console.log(require('path').dirname(require.resolve('playwright/package.json',{paths:[r]})))")
+          node "$PW_DIR/cli.js" install --with-deps chromium
+
+      - name: Build Storybook
+        run: pnpm build-storybook --quiet
+
+      - name: Serve Storybook on :6008
+        id: serve
+        run: |
+          python3 -m http.server 6008 --directory storybook-static >/dev/null 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:6008/index.json >/dev/null && exit 0; sleep 1; done
+          echo "Storybook did not start" && exit 1
+
+      - name: Play + axe, ${{ matrix.brand }} light
+        run: pnpm test-storybook
+
+      - name: Play + axe, ${{ matrix.brand }} dark
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        run: pnpm test-storybook:dark
 
   react-19:
     needs: checks

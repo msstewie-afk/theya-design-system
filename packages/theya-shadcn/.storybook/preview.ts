@@ -169,7 +169,7 @@ export const globalTypes = {
     },
   },
   // Product profile (packages/tokens/src/profiles/*.json → profiles.css):
-  // recolors the primary ramp via <html data-brand>, see THEMING.md.
+  // recolors the primary ramp via <html data-brand>, see PROFILES.md.
   brand: {
     name: 'Brand',
     description: 'Theme: Theya, Iris or Lime',
