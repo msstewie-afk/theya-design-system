@@ -89,6 +89,24 @@ The pre-commit gate checks types, hex colors in components, and that `spec/` and
 
 Never use `--no-verify`. If the gate is wrong, fix the gate.
 
+## Several agents at once
+
+Each agent works in its own copy of the repository, never in the main checkout. Otherwise one agent’s uncommitted files end up in another’s commit.
+
+```bash
+node scripts/agents.mjs new kbd-tests    # ../theya-agents/kbd-tests on branch agent/kbd-tests
+cd ../theya-agents/kbd-tests             # work and commit here; the gate runs as usual
+node scripts/agents.mjs land kbd-tests   # rebase on main, regenerate spec/api/a11y, fast-forward main
+node scripts/agents.mjs list             # all copies, ahead / behind main
+node scripts/agents.mjs remove kbd-tests # when the branch is landed
+```
+
+- **The main checkout** (`theya-design-system`) stays on `main`, and nobody edits files in it. Branches land there, and the push to GitHub starts there.
+- **A copy is a clone**, not a `git worktree`: every agent session sees this folder at a different absolute path, and a worktree stores absolute paths. A copy knows the main checkout only by the relative path `../../theya-design-system`.
+- **`node_modules` is shared**: a copy links to the main checkout’s packages instead of installing them again; its own `packages/tokens` is what `@theya/tokens` resolves to. After `pnpm install` in the main checkout, run `node scripts/agents.mjs relink <name>`.
+- **Generated files** (`spec/`, `api/`, `llms*.txt`, the a11y matrix) are rebuilt by `land` after the rebase, so they never need a hand-merged conflict.
+- **A conflict in sources** stops `land`: resolve it in the copy (`git status`, `git rebase --continue`) and run `land` again.
+
 ## Pull requests
 
 CI runs types, `api:check`, the sandbox build, play + axe and visual regression in both themes, React 19 and the product themes ([TESTING.md](TESTING.md#ci-github-actions)). A pull request fails on a visual change: look at the `visual-diffs` archive, and if the change is intended, say so in the description.

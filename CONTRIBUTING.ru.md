@@ -89,6 +89,24 @@ Node 22, pnpm 11. После любого изменения в `packages/tokens
 
 Никогда не используйте `--no-verify`. Если проверка ошибается, исправьте проверку.
 
+## Несколько агентов сразу
+
+Каждый агент работает в своей копии репозитория, а не в основной. Иначе незакоммиченные файлы одного агента попадают в коммит другого.
+
+```bash
+node scripts/agents.mjs new kbd-tests    # ../theya-agents/kbd-tests на ветке agent/kbd-tests
+cd ../theya-agents/kbd-tests             # работать и коммитить здесь; проверка на коммит работает как обычно
+node scripts/agents.mjs land kbd-tests   # rebase на main, пересборка spec/api/a11y, fast-forward main
+node scripts/agents.mjs list             # все копии и насколько они впереди / позади main
+node scripts/agents.mjs remove kbd-tests # когда ветка влита
+```
+
+- **Основная копия** (`theya-design-system`) всегда на `main`, файлы в ней никто не правит. Туда вливаются ветки, и оттуда идёт пуш на GitHub.
+- **Копия — это clone**, а не `git worktree`: каждая сессия агента видит эту папку по другому абсолютному пути, а worktree хранит абсолютные пути. Копия знает основную только по относительному пути `../../theya-design-system`.
+- **`node_modules` общие**: копия ссылается на пакеты основной, а не ставит их заново; `@theya/tokens` указывает на её собственный `packages/tokens`. После `pnpm install` в основной копии выполните `node scripts/agents.mjs relink <name>`.
+- **Сгенерированные файлы** (`spec/`, `api/`, `llms*.txt`, матрица доступности) `land` пересобирает после rebase, поэтому конфликтов в них руками не бывает.
+- **Конфликт в исходниках** останавливает `land`: разрешите его в копии (`git status`, `git rebase --continue`) и запустите `land` ещё раз.
+
 ## Pull request
 
 CI проверяет типы, `api:check`, сборку песочницы, play + axe и визуальную регрессию в обеих темах, React 19 и продуктовые темы ([TESTING.ru.md](TESTING.ru.md#ci-github-actions)). Pull request падает на визуальном изменении: посмотрите архив `visual-diffs` и, если изменение задумано, напишите об этом в описании.
