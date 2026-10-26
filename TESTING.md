@@ -17,6 +17,8 @@ At phone width: `THEYA_VIEWPORT=360 pnpm test-storybook` (and `:dark`; 375 for a
 
 In a product theme: `THEYA_BRAND=iris pnpm test-storybook` (and `:dark`). Details and how to check your own theme: [PROFILES.md](PROFILES.md#checking-a-theme).
 
+With a real screen reader (manual, WCAG 1.3.2 and 4.1.3): [packages/theya-shadcn/a11y/screen-reader-checklist.md](packages/theya-shadcn/a11y/screen-reader-checklist.md).
+
 ## Visual regression
 
 A screenshot of each story, taken after its play test, is compared with a baseline.

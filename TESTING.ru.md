@@ -17,6 +17,8 @@ pnpm test-storybook:dark   # тёмная тема
 
 В продуктовой теме: `THEYA_BRAND=iris pnpm test-storybook` (и `:dark`). Подробнее и как проверить свою тему — в [PROFILES.ru.md](PROFILES.ru.md#проверка-темы).
 
+Настоящим скринридером (вручную, WCAG 1.3.2 и 4.1.3): [packages/theya-shadcn/a11y/screen-reader-checklist.ru.md](packages/theya-shadcn/a11y/screen-reader-checklist.ru.md).
+
 ## Визуальная регрессия
 
 Скриншот каждой сторис после её play-теста сравнивается с эталоном.
