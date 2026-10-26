@@ -512,14 +512,8 @@
         "bg-surface-overlay": {
           "value": "{color.slate.slate-650}"
         },
-        "surface-overhead-dark-subtle": {
-          "value": "{color.slate-a.slate-a800}"
-        },
         "bg-surface-overlay-dark-hover": {
           "value": "{color.slate.slate-800}"
-        },
-        "bg-surface-overlay-dark-pressed": {
-          "value": "{color.slate.slate-700}"
         },
         "bg-scrim": {
           "value": "{black-a400}"
