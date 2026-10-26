@@ -1110,10 +1110,10 @@ return isPhone ? <Drawer>…</Drawer> : <Dialog>…</Dialog>;`}
 
 
 const DISPLAY_ROWS: SpecRow[] = [
-  { token: 'text-display-xl', value: '56/60 → 128/136', use: 'The one headline of a hero. Landing pages only; works with or without data-scale.', usedBy: 'Hero' },
-  { token: 'text-heading-3xl', value: '48/56 → 100/112', use: 'Inside data-scale="display": a big section headline. Outside, the fixed product value (100/112).', usedBy: 'Section headlines, CTA band' },
-  { token: 'text-heading-2xl', value: '36/44 → 60/72', use: 'Inside data-scale="display": section titles.', usedBy: 'Feature grid, Pricing, FAQ titles' },
-  { token: 'text-heading-xl', value: '28/36 → 40/48', use: 'Inside data-scale="display": card and column titles in a section.', usedBy: 'Feature cards, Stats numbers' },
+  { token: 'text-display-xl', value: '56/60 → 128/128', use: 'A statement on its own: the closing call to action, a manifesto line. Medium, −0.035em. Landing pages only.', usedBy: 'CTA band' },
+  { token: 'text-heading-3xl', value: '44/48 → 96/100', use: 'Inside data-scale="display": the centred hero headline. Medium weight, −0.03em. Outside, the fixed product value.', usedBy: 'Hero (centered)' },
+  { token: 'text-heading-2xl', value: '36/40 → 64/68', use: 'Inside data-scale="display": a hero beside media, section titles. Medium, −0.025em.', usedBy: 'Hero (split, inset), section titles' },
+  { token: 'text-heading-xl', value: '26/32 → 36/44', use: 'Inside data-scale="display": card and column titles in a section.', usedBy: 'Feature cards, Stats numbers' },
   { token: 'text-body-l', value: '17/24 → 20/28', use: 'Inside data-scale="display": the lead paragraph under a headline.', usedBy: 'Hero and section intros' },
   { token: 'section-display', value: 'padding 64 → 128', use: 'Vertical padding of a landing section.', usedBy: 'Every landing section' },
   { token: 'container-display', value: 'max 1200 · gutter 16 → 40', use: 'The centred content column of a section. -narrow (720) for text, -wide (1440) for full-bleed grids.', usedBy: 'Every landing section' },

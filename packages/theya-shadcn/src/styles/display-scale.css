@@ -1,17 +1,27 @@
 /*
-  Display scale for landing pages (ld-01).
+  Display scale for landing pages (ld-01, retuned 2026-10-26 against the
+  references in the project doc landing-references.md).
 
   data-scale="display" on a section (or any wrapper) makes the big type fluid:
   it grows with the viewport from a phone (360 px) to a desktop (1440 px) and
   stops at both ends. Components stay the same — a Button, Accordion or Card
   inside a display section is the product one; only the large text steps up.
 
-                     360 px      1440 px     (size / line-height)
-    display-xl       56 / 60  →  128 / 136   new, landing only (text-display-xl)
-    heading-3xl      48 / 56  →  100 / 112   the product value is the desktop end
-    heading-2xl      36 / 44  →   60 / 72
-    heading-xl       28 / 36  →   40 / 48
-    body-l (lead)    17 / 24  →   20 / 28
+                     360 px      1440 px    weight   tracking
+    display-xl       56 / 60  →  128 / 128   medium   −0.035em   statements, closing CTA
+    heading-3xl      44 / 48  →   96 / 100   medium   −0.03em    centred hero
+    heading-2xl      36 / 40  →   64 / 68    medium   −0.025em   split hero, section titles
+    heading-xl       26 / 32  →   36 / 44    semibold −0.015em   card and column titles
+    body-l (lead)    17 / 24  →   20 / 28    regular             under a headline
+
+  Why: the product headings are extralight / bold with positive tracking,
+  which looks loose and thin at display sizes. Every reference (monday,
+  Linear, Granola, Wispr) sets display type at a regular-to-medium weight
+  with negative tracking and a line-height near 1.0; the title is 3–5 times
+  the lead (56/17, 64/17, 86/20, 96/20).
+
+  --font-display-serif: EB Garamond (self-hosted in @theya/tokens/fonts) for
+  a serif headline or a serif line inside a sans one (HeroAccent).
 
   Sizes round to 1 px and line-heights to 4 px, so every line box stays on
   the 4 px grid. Outside data-scale="display" nothing changes.
@@ -31,27 +41,43 @@
   --display-container-narrow: 720px;
   --display-container: 1200px;
   --display-container-wide: 1440px;
+  --font-display-serif: 'EB Garamond', ui-serif, Georgia, serif;
 }
 
-/* Tailwind utility: text-display-xl (size, line-height, tracking, weight of heading-3xl). */
+/* Tailwind utility: text-display-xl. */
 @theme {
   --text-display-xl: round(nearest, clamp(56px, 32px + 6.66667vw, 128px), 1px);
-  --text-display-xl--line-height: round(nearest, clamp(60px, 34.6667px + 7.03704vw, 136px), 4px);
-  --text-display-xl--letter-spacing: var(--typography-heading-heading-3xl-letter-spacing);
-  --text-display-xl--font-weight: var(--typography-heading-heading-3xl-weight);
+  --text-display-xl--line-height: round(nearest, clamp(60px, 37.3333px + 6.2963vw, 128px), 4px);
+  --text-display-xl--letter-spacing: -0.035em;
+  --text-display-xl--font-weight: var(--typography-weight-medium);
 }
 
 /* The utilities read --text-*, so the remap is on those (the --typography-*
    tokens resolve at :root and would not follow a nested attribute). */
 [data-scale='display'] {
-  --text-heading-3xl: round(nearest, clamp(48px, 30.6667px + 4.81481vw, 100px), 1px);
-  --text-heading-3xl--line-height: round(nearest, clamp(56px, 37.3333px + 5.18519vw, 112px), 4px);
-  --text-heading-2xl: round(nearest, clamp(36px, 28px + 2.22222vw, 60px), 1px);
-  --text-heading-2xl--line-height: round(nearest, clamp(44px, 34.6667px + 2.59259vw, 72px), 4px);
-  --text-heading-xl: round(nearest, clamp(28px, 24px + 1.11111vw, 40px), 1px);
-  --text-heading-xl--line-height: round(nearest, clamp(36px, 32px + 1.11111vw, 48px), 4px);
+  --text-heading-3xl: round(nearest, clamp(44px, 26.6667px + 4.81481vw, 96px), 1px);
+  --text-heading-3xl--line-height: round(nearest, clamp(48px, 30.6667px + 4.81481vw, 100px), 4px);
+  --text-heading-3xl--letter-spacing: -0.03em;
+  --text-heading-3xl--font-weight: var(--typography-weight-medium);
+  --text-heading-2xl: round(nearest, clamp(36px, 26.6667px + 2.59259vw, 64px), 1px);
+  --text-heading-2xl--line-height: round(nearest, clamp(40px, 30.6667px + 2.59259vw, 68px), 4px);
+  --text-heading-2xl--letter-spacing: -0.025em;
+  --text-heading-2xl--font-weight: var(--typography-weight-medium);
+  --text-heading-xl: round(nearest, clamp(26px, 22.6667px + 0.925926vw, 36px), 1px);
+  --text-heading-xl--line-height: round(nearest, clamp(32px, 28px + 1.11111vw, 44px), 4px);
+  --text-heading-xl--letter-spacing: -0.015em;
+  --text-heading-xl--font-weight: var(--typography-weight-semibold);
   --text-body-l: round(nearest, clamp(17px, 16px + 0.277778vw, 20px), 1px);
   --text-body-l--line-height: round(nearest, clamp(24px, 22.6667px + 0.37037vw, 28px), 4px);
+}
+
+/* Serif display face. A book face sits smaller on the line than Geologica at
+   the same size, so inside a sans headline (HeroAccent variant="serif") it
+   steps up by 1.12em to match the cap height; on its own it keeps the size. */
+@utility font-display-serif {
+  font-family: var(--font-display-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 @utility section-display {
