@@ -58,6 +58,10 @@
     "border": {
       "border-on-primary": {
         "value": "{white-a700}"
+      },
+      "border-subtler-on-primary": {
+        "value": "{white-a300}",
+        "comment": "Dividers inside a primary-filled surface (filled Card). Themes with a light fill raise the white instead of tinting it."
       }
     },
     "focus": {

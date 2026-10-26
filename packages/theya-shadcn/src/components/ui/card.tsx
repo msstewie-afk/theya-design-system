@@ -101,7 +101,7 @@ const FILLED_CLASS = cn(
   '[--color-icon-icon-subtler:var(--color-icon-icon-on-primary)]',
   '[--color-border-border:var(--color-border-border-on-primary)]',
   '[--color-border-border-subtle:var(--color-border-border-on-primary)]',
-  '[--color-border-border-subtler:var(--white-a300)]',
+  '[--color-border-border-subtler:var(--color-border-border-subtler-on-primary)]',
 );
 
 export interface CardProps extends React.ComponentProps<'div'> {

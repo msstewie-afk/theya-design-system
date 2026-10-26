@@ -282,6 +282,9 @@ for (const profile of profiles) {
         out.set('--color-text-text-subtle-on-primary', over(on, fill, 0.8));
         out.set('--color-border-border-on-primary', over(on, fill, 0.6));
         out.set('--color-focus-focus-ring-on-primary', over(on, fill, 0.3));
+        // Dividers stay a light line, not a darker tint of the fill: white
+        // at 30% vanishes on a light fill, 60% reads as a clean line.
+        out.set('--color-border-border-subtler-on-primary', 'rgba(255, 255, 255, 0.6)');
       }
     }
     for (const [key, value] of Object.entries(profile[mode]?.tokens ?? {})) {
