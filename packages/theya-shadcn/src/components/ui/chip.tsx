@@ -270,13 +270,17 @@ export const ChipRemove = forwardRef<HTMLButtonElement, React.ComponentPropsWith
     <Button
       ref={ref}
       appearance="ghost"
+      tone="neutral"
       size="sm"
       iconOnly
       onClick={(event) => {
         event.stopPropagation();
         onClick?.(event);
       }}
-      className={cn('relative z-10 -me-2 shrink-0 text-[var(--color-icon-icon-subtle)]', className)}
+      // The ✕ takes the chip's own ink (white on a filled chip, the tone's
+      // on-tonal text otherwise), like the label and the leading icon. The
+      // Button's default primary tone painted the icon blue on every chip.
+      className={cn('relative z-10 -me-2 shrink-0 text-current [&_svg]:text-current', className)}
       leftIcon={children ?? <Xmark width={14} height={14} />}
       {...props}
     />
