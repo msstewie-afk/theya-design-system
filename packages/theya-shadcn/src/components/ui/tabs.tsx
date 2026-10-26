@@ -183,6 +183,9 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
           // Chips variant: a pill-shaped tab above the list's gliding pill (drawn before the tabs).
           '[[data-variant=chips]>&]:relative [[data-variant=chips]>&]:mb-0 [[data-variant=chips]>&]:rounded-full [[data-variant=chips]>&]:border-b-0 [[data-variant=chips]>&]:px-3 [[data-variant=chips]>&]:py-1.5',
           '[[data-variant=chips]>&]:data-[state=inactive]:hover:bg-transparent [[data-variant=chips]>&]:data-[state=active]:text-[var(--color-text-text)]',
+          // The pill is 1.15:1 light / 1.27:1 dark on its track, so the active chip is also semibold,
+          // like the current nav item (WCAG 1.4.1 / 1.4.11).
+          '[[data-variant=chips]>&]:data-[state=active]:font-semibold',
           // Until the pill is measured, the active chip carries its own.
           '[[data-variant=chips]:not([data-glide])>&]:data-[state=active]:bg-[var(--color-bg-surface-bg-surface)] [[data-variant=chips]:not([data-glide])>&]:data-[state=active]:shadow-elevation-sm',
           // Inset ring on underline tabs: the list scrolls (overflow-x: auto), so an

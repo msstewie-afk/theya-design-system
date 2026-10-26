@@ -17,10 +17,12 @@ import { useTheyaI18n } from '../../lib/i18n';
 export type SparklineTone = 'brand' | 'success' | 'warning' | 'danger' | 'info' | 'muted';
 
 const TONE_STROKE: Record<SparklineTone, string> = {
-  brand: 'var(--color-bg-primary-bg-primary)',
-  success: 'var(--color-bg-success-bg-success)',
-  warning: 'var(--color-bg-warning-bg-warning)',
-  danger: 'var(--color-bg-danger-bg-danger)',
+  // icon-* like info: the line is the data, so it needs 3:1 on the surface (WCAG 1.4.11);
+  // bg-* was 1.84-2.71:1 in dark and 1.89:1 for warning in light.
+  brand: 'var(--color-icon-icon-primary)',
+  success: 'var(--color-icon-icon-success)',
+  warning: 'var(--color-icon-icon-warning)',
+  danger: 'var(--color-icon-icon-danger)',
   // Fixed: was wired to the generic --color-bg-secondary-bg-secondary
   // (grayish) instead of the dedicated blue info family — same systemic
   // bug already fixed in StatusDot/ToneIcon/Chip/Badge/Alert/Timeline/

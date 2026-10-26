@@ -71,7 +71,12 @@ export function Calendar({
           defaultClassNames.day,
         ),
         range_start: cn('rounded-s-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]', defaultClassNames.range_start),
-        range_middle: cn('rounded-none bg-[var(--color-bg-neutral-bg-neutral-subtle)]', defaultClassNames.range_middle),
+        // Mid-range days: the neutral fill is 1.15:1 light / 1.35:1 dark, so a primary line above and
+        // below (on the cell, so it runs unbroken) joins the two endpoints into one band (WCAG 1.4.11).
+        range_middle: cn(
+          'rounded-none bg-[var(--color-bg-neutral-bg-neutral-subtle)] shadow-[inset_0_1px_0_var(--color-border-border-primary),inset_0_-1px_0_var(--color-border-border-primary)]',
+          defaultClassNames.range_middle,
+        ),
         range_end: cn('rounded-e-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]', defaultClassNames.range_end),
         today: cn(
           'rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] data-[selected=true]:rounded-none',
@@ -122,6 +127,8 @@ function CalendarDayButton({ className, day, modifiers, ...props }: React.Compon
       data-range-middle={modifiers.range_middle}
       className={cn(
         'flex aspect-square size-auto w-full min-w-8 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)]',
+        // Transparent until a dark-theme selected fill needs its edge (WCAG 1.4.11 below); keeps every day the same size.
+        'border border-solid border-transparent',
         'text-body-s font-normal text-[var(--color-text-text)] cursor-pointer',
         'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
@@ -130,6 +137,11 @@ function CalendarDayButton({ className, day, modifiers, ...props }: React.Compon
         'data-[selected-single=true]:bg-[var(--color-bg-primary-bg-primary)] data-[selected-single=true]:text-[var(--color-text-text-on-primary)]',
         'data-[selected-single=true]:hover:bg-[var(--color-bg-primary-bg-primary-hover)]',
         'data-[range-middle=true]:rounded-none',
+        // Dark: the blue fill is 2.71:1 on the surface (2.40:1 on an overlay), so the light primary
+        // edge outlines selected days and range endpoints, as Checkbox does (WCAG 1.4.11).
+        '[[data-theme=dark]_&]:data-[selected-single=true]:border-[var(--color-border-border-primary)]',
+        '[[data-theme=dark]_&]:data-[range-start=true]:border-[var(--color-border-border-primary)]',
+        '[[data-theme=dark]_&]:data-[range-end=true]:border-[var(--color-border-border-primary)]',
         'data-[range-start=true]:rounded-s-[var(--size-border-radius-border-radius-md)] data-[range-start=true]:rounded-e-none',
         'data-[range-start=true]:bg-[var(--color-bg-primary-bg-primary)] data-[range-start=true]:text-[var(--color-text-text-on-primary)]',
         'data-[range-start=true]:hover:bg-[var(--color-bg-primary-bg-primary-subtle)] data-[range-start=true]:hover:text-[var(--color-text-text-link-on-tonal)]',

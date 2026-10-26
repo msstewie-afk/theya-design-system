@@ -28,6 +28,15 @@ import { textFieldVariants } from './text-field-variants';
 import { Toolbar, ToolbarButton, ToolbarSeparator } from './toolbar';
 import { useTheyaI18n } from '../../lib/i18n';
 
+// A pressed format button looks like an outlined Toggle that is on: tonal fill, primary icon and a
+// primary edge. The neutral fill alone was 1.15:1 light / 1.26:1 dark and the icon stayed gray
+// (WCAG 1.4.1 / 1.4.11). The edge is an outline so the focus ring (box-shadow) doesn't hide it.
+const PRESSED = cn(
+  'aria-pressed:bg-[var(--color-bg-primary-bg-primary-subtle)] aria-pressed:text-[var(--color-text-text-link-on-tonal)]',
+  'aria-pressed:[&_svg]:text-[var(--color-text-text-link-on-tonal)]',
+  'aria-pressed:outline aria-pressed:outline-1 aria-pressed:-outline-offset-1 aria-pressed:outline-[var(--color-border-border-primary)]',
+);
+
 /**
  * RichTextEditor — formatted text input: descriptions, notes, ticket
  * replies, announcements, email templates. On Tiptap (ProseMirror).
@@ -119,7 +128,7 @@ function Tool({
       // Keep the text selection: don't move focus out of the editor on mouse press.
       onMouseDown={(e) => e.preventDefault()}
       onClick={onClick}
-      className="aria-pressed:bg-[var(--color-bg-neutral-bg-neutral-subtle)] aria-pressed:text-[var(--color-text-text)]"
+      className={PRESSED}
     >
       {icon}
     </ToolbarButton>
@@ -172,7 +181,7 @@ function LinkTool({ editor, disabled }: { editor: Editor; disabled?: boolean }) 
           title={t.richTextEditor.linkShortcut}
           disabled={disabled}
           onMouseDown={(e) => e.preventDefault()}
-          className="aria-pressed:bg-[var(--color-bg-neutral-bg-neutral-subtle)] aria-pressed:text-[var(--color-text-text)]"
+          className={PRESSED}
         >
           <LinkIcon />
         </ToolbarButton>

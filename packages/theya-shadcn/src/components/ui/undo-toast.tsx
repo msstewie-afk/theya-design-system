@@ -28,13 +28,13 @@ export function undoToast({ title, description, duration = 10000, undoLabel = ge
   // left to undo is visible. The timer pauses while the toasts are hovered or hold
   // keyboard focus (both set data-expanded, see Toaster); the bar pauses with it. It keeps running with reduced motion: it is
   // the time left, not decoration. Rendered with the title so a description-less toast
-  // keeps its single-line layout.
+  // keeps its single-line layout. 60% of the text color: 4.7:1+ on every toast surface (30% was 1.97:1, WCAG 1.4.11).
   const timedTitle = (
     <>
       {title}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-4 bottom-1.5 h-0.5 origin-left rounded-full bg-current opacity-30 animate-[theya-drain_var(--undo-ms)_linear_forwards] rtl:origin-right [[data-expanded=true]_&]:[animation-play-state:paused]"
+        className="pointer-events-none absolute inset-x-4 bottom-1.5 h-0.5 origin-left rounded-full bg-current opacity-60 animate-[theya-drain_var(--undo-ms)_linear_forwards] rtl:origin-right [[data-expanded=true]_&]:[animation-play-state:paused]"
         style={{ '--undo-ms': `${duration}ms` } as CSSProperties}
       />
     </>

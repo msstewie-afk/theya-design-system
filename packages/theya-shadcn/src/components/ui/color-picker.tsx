@@ -116,7 +116,9 @@ const CHECKER = 'repeating-conic-gradient(#c8c8c8 0 25%, #ffffff 0 50%) 0 0 / 8p
 /* ------------------------------------------------------------------ */
 
 const THUMB =
-  'pointer-events-none absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-solid border-[var(--color-white)] shadow-[0_0_0_1px_var(--black-a300),0_1px_3px_var(--black-a300)]';
+  'pointer-events-none absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-solid border-[var(--color-white)] shadow-[0_0_0_1px_var(--color-gray-gray-400),0_1px_3px_var(--black-a200)]';
+// The outer ring was --black-a300, which doesn't exist, so the whole shadow dropped and the thumb
+// vanished on white. gray-400 is 5.3:1 on white and 4.9:1 on yellow; the white border covers dark areas (WCAG 1.4.11).
 
 /** Pointer drag helper: calls back with the pointer position relative to the element, 0–1 on each axis. */
 function useDrag(onMove: (x: number, y: number) => void, onEnd?: () => void) {

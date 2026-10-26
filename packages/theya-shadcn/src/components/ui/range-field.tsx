@@ -111,7 +111,9 @@ export function RangeField({
                 key={i}
                 className={cn(
                   'min-h-px flex-1 rounded-t-[var(--size-border-radius-border-radius-sm)] transition-colors duration-150 motion-reduce:transition-none',
-                  inRange ? 'bg-[var(--color-bg-primary-bg-primary-subtle-hover)]' : 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
+                  // The bars are the only view of the distribution: 3:1 on the surface (WCAG 1.4.11).
+                  // Out of range border-border (3.00:1), in range icon-primary (5.20 / 5.95:1).
+                  inRange ? 'bg-[var(--color-icon-icon-primary)]' : 'bg-[var(--color-border-border)]',
                 )}
                 style={{ height: `${(count / peak) * 100}%` }}
               />

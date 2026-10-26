@@ -19,12 +19,17 @@ import { useTheyaI18n } from '../../lib/i18n';
  */
 export type MeterTone = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
+// icon-* tones, not bg-*: the fill is the value itself (showValue={false} leaves nothing else), so it
+// needs 3:1 against the track. bg-* fell to 1.36-2.00:1 in dark and 1.64:1 for warning in light;
+// icon-* is 3.20-5.88:1 in both themes (WCAG 1.4.11). Same choice as Sparkline's info line. Warning is the exception, below.
 const TONE_INDICATOR: Record<MeterTone, string> = {
-  primary: 'bg-[var(--color-bg-primary-bg-primary)]',
-  success: 'bg-[var(--color-bg-success-bg-success)]',
-  warning: 'bg-[var(--color-bg-warning-bg-warning)]',
-  danger: 'bg-[var(--color-bg-danger-bg-danger)]',
-  info: 'bg-[var(--color-bg-info-bg-info-status)]',
+  primary: 'bg-[var(--color-icon-icon-primary)]',
+  success: 'bg-[var(--color-icon-icon-success)]',
+  // Light keeps the yellow fill (Мария, 2026-10-26): 1.64:1 against the track, so with showValue={false}
+  // light warning is an accepted 1.4.11 deviation. Dark uses icon-warning (5.08:1).
+  warning: 'bg-[var(--color-bg-warning-bg-warning)] [[data-theme=dark]_&]:bg-[var(--color-icon-icon-warning)]',
+  danger: 'bg-[var(--color-icon-icon-danger)]',
+  info: 'bg-[var(--color-icon-icon-info)]',
 };
 
 export interface MeterProps extends Omit<React.ComponentProps<'div'>, 'children'> {

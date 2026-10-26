@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
-import { ThumbsDown, ThumbsUp } from 'iconoir-react';
+import { Check, ThumbsDown, ThumbsUp } from 'iconoir-react';
 import { cn } from '../../lib/utils';
 import { Button } from './button';
 import { Chip } from './chip';
@@ -143,7 +143,8 @@ export function FeedbackWidget({
               <legend className={cn('mb-2 text-[var(--color-text-text-subtle)]', sm ? 'text-body-xs' : 'text-body-s')}>{vote === 'no' ? t.feedbackWidget.whatWentWrong : t.feedbackWidget.whatWorked}</legend>
               <div className="flex flex-wrap gap-2">
                 {chips.map((r) => (
-                  <Chip key={r} size={sm ? 'sm' : 'md'} pressed={picked.includes(r)} onPressedChange={(on) => setPicked((cur) => (on ? [...cur, r] : cur.filter((x) => x !== r)))}>
+                  // A picked reason shows a check, not only a darker fill (WCAG 1.4.1; the fill is 2.43:1 in dark, 1.4.11).
+                  <Chip key={r} size={sm ? 'sm' : 'md'} icon={picked.includes(r) ? <Check /> : undefined} pressed={picked.includes(r)} onPressedChange={(on) => setPicked((cur) => (on ? [...cur, r] : cur.filter((x) => x !== r)))}>
                     {r}
                   </Chip>
                 ))}

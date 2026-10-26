@@ -168,8 +168,8 @@ export function ChartRangeSelection({
         // brand blue as before.
         fill="var(--color-bg-chart-01)"
         fillOpacity={0.16}
-        stroke="var(--color-bg-chart-01)"
-        strokeOpacity={0.65}
+        // Full-opacity primary edge: chart-01 at 0.65 was 2.83:1 light / 1.87:1 dark (WCAG 1.4.11).
+        stroke="var(--color-border-border-primary)"
       />,
     );
   }

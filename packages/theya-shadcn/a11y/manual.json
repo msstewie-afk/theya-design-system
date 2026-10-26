@@ -150,7 +150,7 @@
     },
     "Calendar": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The nav sits absolutely over the caption row (calendar.tsx:47). react-day-picker renders it before the month grid, so the read order (prev/next, caption, grid) matches the visual order."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "In dark theme the selected and range-end fill bg-primary (calendar.tsx:130, :134, :137) is 2.40:1 on surface-overlay (2.71:1 on surface). The range-middle fill neutral-subtle (:74) is 1.15:1 light / 1.35:1 dark, so mid-range days have no 3:1 indicator in either theme."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Dark: selected days and range endpoints get a 1px border-primary edge (5.95:1 on surface, 5.28:1 on overlay), as Checkbox does; the bg-primary fill itself is 2.71 / 2.40:1. Mid-range cells carry inset top/bottom border-primary lines (4.51:1 light, 4.40:1 dark on the neutral fill) that join the endpoints (calendar.tsx range_middle, day button)."}
     },
     "CancellationFlow": {
       "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Step state is text (\"Step n of 3\" + heading), the destructive action is the labelled \"Cancel plan\" button, and the warning Alert has text and an icon; nothing relies on hue."},
@@ -214,7 +214,7 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Select a range\", keyboard help and live \"Selected X to Y\"."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "chart-range-selection.tsx:197-227: chart, then the sr-only help and live region; overlays are ReferenceAreas inside the SVG."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The selection shows as a shaded region spanning the chosen x-range (161-173) and the keyboard cursor as a dashed outline (178-188); both are position/shape, plus spoken announcements."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The selected-range indicator is chart-01 at strokeOpacity 0.65 (171-172) = 2.83:1 on white / 1.87:1 on dark surface, with a 0.16 fill (1.26 / 1.14:1); below 3:1 in both themes. The keyboard cursor (border-primary, 184) passes at 5.20:1 / 5.95:1. Fix: stroke the range with --color-border-border-primary at full opacity."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Selected range is stroked with border-primary at full opacity (5.20:1 light, 5.95:1 dark); the 0.16 fill is decoration. Keyboard cursor unchanged (dashed border-primary)."},
       "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Cursor moves, selections and clears are written to an always-mounted aria-live=\"polite\" aria-atomic span (102, 115, 118, 224-226)."}
     },
     "Chat": {
@@ -282,7 +282,7 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Dragging and onCommit only finalize the color value; focus stays in the picker."},
       "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: a visible letter before each channel field (R/G/B, H/S/L; Hex needs none, the select says HEX), a real <label>; Maria's call. Channel names localized."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Tabs, area, sliders, inputs and swatches are in DOM order (color-picker.tsx:715-776); the absolute swatch button and Change photo button sit at their DOM position (454, 873)."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Area and channel thumbs are a 2px white border with a 1px black-a300 outer ring (color-picker.tsx:118): over white or yellow regions only that ring separates the thumb, about 2.1:1; the palette SwatchPicker's selection ring is also 2.71:1 in dark (see SwatchPicker)."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Area/channel thumbs: 2px white border plus a 1px gray-400 outer ring (5.21:1 on white, 4.85:1 on yellow); the white border separates it from dark regions. The ring used --black-a300, which isn't a token, so the whole shadow was dropped and the thumb vanished on white."},
       "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: unreadable hex/channel entries still revert, but a FieldError under the fields says what was expected and the fields are described by it; ColorField keeps the typed text, sets aria-invalid and shows the reason (Esc clears). Play tests in Field and HexOnly."}
     },
     "Combobox": {
@@ -398,7 +398,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Editors labelled by the column header (labelledBy)."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "data-table-cell.tsx:530-821: each kind renders its parts in reading order (value then secondary line, dot then label, % then label then bar). The badge measuring mirror is invisible and aria-hidden (402)."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed in 5e5bd67: errorMessage is shown under every editable kind with its icon (CellError, data-table-cell.tsx:549; input/textarea through their own error) and linked by aria-describedby. Status, badge and usage kinds pair color with text."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The sparkline kind (785) renders Sparkline, whose tone strokes fall below 3:1 (brand 2.71:1 in dark, warning 1.89:1 light; see Sparkline). Field kinds inherit their components' borders. Fix: in Sparkline's TONE_STROKE."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "The sparkline kind renders Sparkline, whose strokes now use icon-* tones (4.34:1+ in both themes). Field kinds inherit their components' borders (3:1+)."},
       "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: errorMessage is shown under every editable kind and linked by aria-describedby (input/textarea through their own error); the sr-only aria-errormessage span is gone; the cell grows to fit. Play test in Editable."}
     },
     "DataTableToolbar": {
@@ -418,7 +418,7 @@
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Popover dismisses on focus outside."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The trailing clear/chevron overlay (date-picker.tsx:181) comes after the trigger in the DOM and sits at its end visually."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Error coloring (date-picker.tsx:37, :157) is backed by aria-invalid on the trigger (:139) and the caller's message via aria-describedby (:140). Selected days are also labelled ', selected' by react-day-picker."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The trigger border passes (border-border 3.00:1 light / 4.14:1 dark on input bg, date-picker.tsx:19). The popover Calendar's selected-day fill does not: bg-primary is 2.40:1 on surface-overlay in dark (calendar.tsx:130)."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Uses Calendar: the dark selected day now has a 1px border-primary edge (5.28:1 on surface-overlay). Trigger border 3.00 / 4.14:1."},
       "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "aria-invalid reaches the trigger with danger styling (date-picker.tsx:37, :139). aria-describedby is merged with the value id (:140), so a Field/Form error message is tied to the trigger. The component does no validation of its own."}
     },
     "DateRangePicker": {
@@ -426,7 +426,7 @@
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Popover dismisses on focus outside."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The clear/chevron overlay (date-range-picker.tsx:134) follows the trigger in the DOM and sits at its end visually."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The error state backs aria-invalid (date-range-picker.tsx:99) and a caller message via aria-describedby (:100). Range days carry aria-selected and ', selected' in their labels from react-day-picker, so the range isn't conveyed by color alone."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Range-middle days use neutral-subtle (calendar.tsx:74): 1.15:1 light / 1.35:1 dark against the popover. Range endpoints use bg-primary (:134, :137): 2.40:1 on surface-overlay in dark."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Uses Calendar: range endpoints have a dark border-primary edge; mid-range days a border-primary line above and below (4.4:1+ in both themes)."},
       "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "aria-invalid is forwarded with danger styling (date-range-picker.tsx:99, :109). aria-describedby is merged with the value id (:100), so an external error message is tied to the trigger."}
     },
     "DateTimePicker": {
@@ -437,7 +437,7 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Picking a date or time only updates the value; no jump to the time field."},
       "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: `label`/`description`/`required`/`optional` props: the visible label names the date field and, as \"{label} time\", the time field."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Date then time fields, flex-col to sm:flex-row, with no reordering (date-time-picker.tsx:136-168). Label and description wrap them in order (:172-186)."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The field borders pass, but the DatePicker's Calendar selected-day fill is 2.40:1 on surface-overlay in dark (calendar.tsx:130)."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "The DatePicker's Calendar selected day has a 1px border-primary edge in dark (5.28:1 on surface-overlay); field borders pass."},
       "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed through TimeField: unreadable or out-of-range time turns the field aria-invalid and the reason is announced or handed to onInvalidInput."}
     },
     "DensityToggle": {
@@ -529,8 +529,8 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Yes/No are buttons (activation, not a setting); the follow-up is sent only by Send."},
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Visible question and labelled comment field."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Question, vote buttons, follow-up form and thank-you are in DOM order in plain flex rows/columns (feedback-widget.tsx:113-167)."},
-      "1.4.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "A pressed reason chip is shown only by its background flipping from neutral-subtle to neutral-strong (chip.tsx:182, 220, SOLID_TONE_CLASS 71); no checkmark for tonal chips (186-187), no border or weight change (feedback-widget.tsx:146). The Yes/No buttons are fine (outlined to filled shape change, 126-127)."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Pressed reason chip fill (#65656b) is 2.43:1 against the dark surface and 1.80:1 against an unpressed chip (chip.tsx:71, feedback-widget.tsx:146); in light it is 5.79:1. The TextArea border is 3.00/3.01:1 and the vote buttons pass."},
+      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "A picked reason chip shows a check icon in addition to the darker fill (feedback-widget.tsx). Yes/No buttons change from outlined to filled."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "A picked reason chip shows a check icon (on-dark text color on the neutral-strong fill), so the state doesn't rest on the 2.43:1 fill in dark."},
       "3.3.1": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "No input is validated: the reasons and comment are optional (feedback-widget.tsx:141-153), so there is no error state to identify."},
       "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The thank-you goes into a persistent aria-live=\"polite\" paragraph that exists before it fills (feedback-widget.tsx:165-167)."}
     },
@@ -790,7 +790,7 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Named by its visible label."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The label/value header comes before the bar in DOM and visually (meter.tsx:73-108); no reordering."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The level is shown by bar length and by the value text; tone only reinforces it (meter.tsx:80, 102-106), and meter.guidelines.tsx:43 requires the value or label to say the level."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "With showValue={false} (supported, used in meter.stories.tsx:88, 94, 105) the bar is the only visual. Fill vs track is 2.00:1 primary, 1.58 success, 1.78 warning, 1.36 danger in dark, and 1.64:1 for warning in light (meter.tsx:22-28, 93, 102)."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Fills use icon-* tones against the neutral track: primary 4.51/4.40, success 4.10/4.62, danger 5.88/3.20, info 4.13/3.75 (light/dark); dark warning icon-warning 5.08:1. Light warning keeps the yellow fill (1.64:1), recorded as a deviation."}
     },
     "Metric": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "metric.tsx:28-58: icon, value, label, description, then actions, in DOM order; nothing reordered."}
@@ -986,7 +986,7 @@
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Non-modal, but Tab stays inside the card and each step focuses it."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The card reads step counter, title, content, then actions; the close button is absolute top-end but after the content in DOM (product-tour.tsx:274-311)."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Progress is text (\"Step n of N\", line 276) and the highlight is a luminance cut-out, not a hue; actions are text buttons."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The spotlight that marks the target is only the undimmed hole in a 50% black shadow (product-tour.tsx:337): 3.98:1 on a white page but 1.29:1 on dark bg-surface, so in dark the highlighted element is barely set apart. Fix: add a 2px border-primary ring on the spotlight box (5.95:1 vs the dark page)."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "The spotlight has a 2px border-primary outline (5.20:1 on white, 5.95:1 on the dark surface) on top of the dimmed surround."}
     },
     "Progress": {
       "1.3.2": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "No text content: just a track and a fill (progress.tsx:40-80); direction is mirrored for RTL with rtl:-scale-x-100, so there is no reading sequence to check."}
@@ -995,7 +995,7 @@
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A fill animation that shows a value."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Single progressbar element; the SVG and the centred number are aria-hidden (progress-ring.tsx:87, 103), so the reading order is just the label/value."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Tone is never the only signal: the value is shown by arc length and the default percentage text (line 72) and exposed as aria-valuenow; the guideline requires the number to stay."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The arc uses bg-* tokens (progress-ring.tsx:37-43) over a bg-neutral-subtle track (line 88): dark primary 2.00:1, success 1.58:1, danger 1.36:1 vs the track (2.71/2.14/1.84:1 vs bg-surface), light warning 1.64:1. With children={null} the arc is the only visual value. Fix: stroke with icon-icon-{tone} (4.10-5.88:1 light, 3.20-5.08:1 dark vs the track)."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Arc strokes use icon-* tones: 3.20-5.88:1 against the bg-neutral-subtle track in both themes (warning 5.61 light / 5.08 dark)."},
       "4.1.3": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "Not a status message: it renders the final value from the start (aria-valuenow={target}, line 82) and is documented as not for live values (Progress/Meter cover those)."}
     },
     "PromptArea": {
@@ -1064,7 +1064,7 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Slider and inputs only set the range."},
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Visible label, From/To and description."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Label/summary, histogram, slider, From/To fields, description in DOM order (range-field.tsx:94-181)."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Histogram bars are bg-neutral-subtle (1.15:1 light / 1.35:1 dark) and in-range bars bg-primary-subtle-hover (1.28:1 / 1.87:1), 1.11:1 from each other in light (range-field.tsx:114), yet they are the only place the distribution is shown."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Histogram bars: out of range border-border (3.00 / 3.01:1 on surface), in range icon-primary (5.20 / 5.95:1)."},
       "3.3.1": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "No error state: NumberField clamps typed bounds on commit and the bounds are capped against each other (range-field.tsx:148, 166; number-field.tsx:123), so nothing is reported as an error."}
     },
     "Rating": {
@@ -1118,8 +1118,8 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Edits emit through onUpdate; the link popover applies on its own submit."},
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Label, description, required mark."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Label, toolbar, content, then message/counter in DOM order (rich-text-editor.tsx:442-503)."},
-      "1.4.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "A pressed format button (bold/italic/list/link) differs only by a neutral-subtle fill (rich-text-editor.tsx:122, 175); its icon stays icon-subtle because ghost-neutral pins svg color (button.tsx:574). Links in content are underlined (prose.css:136-140)."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The pressed fill is 1.15:1 light / 1.26:1 dark against the editor background (rich-text-editor.tsx:122, 175), below 3:1 for a state indicator. The field border (3.00/3.01:1, 464) and danger border (463) pass."},
+      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Pressed format buttons change shape (outline) and icon color, not only the fill (rich-text-editor.tsx PRESSED). Links in content are underlined."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "A pressed format button has a 1px border-primary outline (4.41 / 3.75:1 against its tonal fill, 5.20 / 5.95:1 against the toolbar) plus the primary icon color."},
       "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "`error` sets aria-invalid on the ProseMirror element and aria-describedby to the visible error paragraph (rich-text-editor.tsx:377-390, 488-491)."}
     },
     "SavedItems": {
@@ -1143,8 +1143,8 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The view switch re-renders the calendar in place."},
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "View switch has visible text."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "DOM order follows the visual order in every view. Event chips are positioned absolutely but rendered in start-time order (scheduler.tsx:134). On phones the range heading moves under the buttons with max-sm:order-last (:261), so it is read before the view switch while shown after it. That doesn't change meaning."},
-      "1.4.1": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The phone week list marks the current day only with text-link color (scheduler.tsx:390, :396), which is 2.62:1 light / 2.22:1 dark against normal text. When the day view isn't offered (the span branch at :396), nothing names the day 'today'. Event tone (:90-97) also has no text equivalent in the chip names (:407, :628, :768)."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "In dark theme the 'now' line and dot (bg-danger, scheduler.tsx:671-672) are 1.84:1 and the today circle (bg-primary, :539, :759) is 2.71:1 against bg-surface. Both pass in light (6.79:1 and 5.20:1)."},
+      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "The phone week list shows a visible '· Today' after the current day (TodayMark), not only the link color. Event tone has a text equivalent by rule: scheduler.guidelines.tsx a11y says the kind goes in the title or details (Maria agreed, 2026-10-26)."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Dark: the today circle (week/day header and month) has a 1px border-primary edge (5.95:1); the now line and dot use icon-danger (4.34:1 dark, 6.79:1 light; same color as bg-danger in light)."},
       "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The range heading is aria-live=polite (scheduler.tsx:261), so Today, previous/next and view changes are announced without moving focus. The component emits no other result messages."}
     },
     "ScrollArea": {
@@ -1231,7 +1231,7 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: the default name adds the range: \"Trend across N points: from X to Y, low L, high H\"."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "sparkline.tsx:76-119: one role=\"img\" SVG; no sequence."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Trend direction comes from the line's shape, and the component expects the numbers in surrounding text (doc 8-15); tone is a supplementary hint."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "TONE_STROKE (19-30) uses bg-* fills as strokes: warning #efb300 is 1.89:1 on white; in dark, brand 2.71, success 2.14, warning 2.41, danger 1.84:1 against #282944. The line is the meaningful graphic. Fix: use icon-icon-primary/success/warning/danger as `info` already does (4.34-6.88:1 in both themes)."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Line strokes use icon-* tones (brand/success/warning/danger like info): 4.34-6.88:1 on the surface in both themes."}
     },
     "SpecSheet": {
       "1.4.11": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern draws no control boundaries or meaningful graphics; \"Show all\" is a text button and HelpIcon is a library component."},
@@ -1274,7 +1274,7 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Progress\"; \"step n of N, completed/current/upcoming\"."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "An <ol> in step order (stepper.tsx:67); labelAlign=\"center\" only translates the label (line 112), it does not reorder it."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Status is a Check glyph vs numeral, filled vs outlined disc, list position and an sr-only status word (stepper.tsx:160-161); the success segment fill is redundant with the check marks."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "In dark the current step is a bg-primary disc (stepper.tsx:153) at 2.71:1 on bg-surface (1.45:1 vs its own soft halo); its label differs from upcoming ones by only 1.83:1 (text vs text-subtler). Light is fine (5.20:1). Fix: a dark-theme fill with 3:1+ on bg-surface (e.g. #63acff, 5.95:1) or a 2px border-primary ring on the current disc."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Dark: the current-step disc gets a 1px border-primary edge (5.95:1 on bg-surface); light disc 5.20:1. Completed steps carry a check icon."},
       "2.1.4": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "No keyboard shortcuts: the only control is a native <button> on completed labels (stepper.tsx:189); \"data-pointer-shortcut\" (line 148) marks a mouse duplicate, not a key binding."}
     },
     "StickyActionBar": {
@@ -1302,7 +1302,7 @@
       "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: `required` shows the red asterisk after the legend."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Swatches then the \"+K\" counter, in DOM order (swatch-picker.tsx:206-207, 223-224)."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Each swatch is named (aria-label + tooltip), the legend shows the selected name, selection also scales the swatch, and unavailable ones are struck through (swatch-picker.tsx:51, 93-96, 240-243)."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The selection ring is bg-primary (#0068de, swatch-picker.tsx:45, 52): 5.2:1 on white but 2.71:1 on the dark surface; border-primary (#63acff, 5.95:1), as Radio uses, would pass."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Selection ring is border-primary (5.20:1 light, 5.95:1 dark); the 'none' slash has a gray-400 outline (5.21:1 on white). It used --black-a300, which isn't a token."}
     },
     "SwipeDeck": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Skip\"/\"Keep\" and \"{Keep|Skip}. n cards left\"."},
@@ -1470,17 +1470,17 @@
       "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The grace window (default 10 s, `duration` option) pauses while hovered or, fixed 2026-10-22, while keyboard focus is in the toasts, so Undo can always be reached; the drain bar pauses with it. Scale `duration` with a user \"more time\" setting."},
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Undo\" next to the toast title."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Content goes through the Toaster's DOM order; the drain bar is an aria-hidden absolute layer (undo-toast.tsx:35-39)."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "The drain bar is the only display of time left to undo ('the time left, not decoration', undo-toast.tsx:29-30), but at bg-current opacity-30 (37) it is 1.97:1 light, 2.47:1 dark theme and 2.64:1 on the dark Toaster."},
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "The drain bar is 60% of the toast text color: 4.71:1 on the light toast, 5.3:1 on the dark one (was 30%, 1.97 / 2.47:1)."},
       "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Delivered through the Toaster's polite live region (undo-toast.tsx:42; Sonner section aria-live=polite)."}
     },
     "UrlTabs": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Only wraps Tabs root with URL state (url-tabs.tsx:70-71); order comes from Tabs, which keeps DOM order."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Default underline indicator passes (border-primary 5.20/5.95:1 on bg-surface), but variant=\"chips\" marks the active tab with a bg-surface pill on a surface-sunken track (tabs.tsx:82, 95) at 1.15:1 light / 1.27:1 dark, plus text vs text-subtler at 3.07 / 1.83:1 and the same weight. Fix in Tabs: a 1px border-border on the pill and/or font-semibold on the active chip."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Underline variant passes (border-primary 5.20 / 5.95:1). Chips: the active chip is semibold as well as raised, so the state doesn't rest on the 1.15 / 1.27:1 pill (tabs.tsx)."}
     },
     "UsageBar": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Bar then legend, segments and legend items both in data order (usage-bar.tsx:62-78)."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Every segment's label and value are in the legend text in the same order as the bar (usage-bar.tsx:68-77), and role=img carries a text summary (62), so the data is not color-only."},
-      "1.4.11": {"result": "fail", "date": "2026-10-26", "by": "Claude (code review)", "note": "Neighboring segments are 1.05-1.11:1 against each other (chart-01/02/03/purple-500 share luminance, usage-bar.tsx:25-30) with no separator (64), and 1.8-2.0:1 against the dark track; with showLegend={false} (43) the bar is the only visual."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Segments and the empty remainder are separate pills with a 2px surface gap; each segment against the surface is 3.6:1+ in dark (chart palette; purple 500 -> 400, 3.61:1) and 3.9:1+ in light."}
     },
     "WheelPicker": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Named by the app."},
@@ -1533,6 +1533,9 @@
     ],
     "TextEffect": [
       { "criterion": "2.2.2", "note": "The shimmer effect loops endlessly with no pause control. Accepted by Maria, 2026-10-22: decorative, the text stays readable throughout, and reduced motion stops it. The typewriter plays once." }
+    ],
+    "Meter": [
+      { "criterion": "1.4.11", "note": "Light theme, warning tone: the yellow fill is 1.64:1 against the track. With the value or label shown the level is in text; with showValue={false} the bar alone falls short. Kept yellow by Maria, 2026-10-26; dark uses icon-warning (5.08:1)." }
     ]
   },
   "focusRingOnly": [

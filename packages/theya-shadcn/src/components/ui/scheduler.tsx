@@ -96,6 +96,11 @@ const TONE: Record<StatusTone, string> = {
   neutral: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] border-[var(--color-border-border-neutral)]',
 };
 
+/** Visible "Today" next to the current day in the phone week list: the link color alone is 2.62:1 against normal text (WCAG 1.4.1). */
+function TodayMark({ label }: { label: string }) {
+  return <span className="font-normal text-[var(--color-text-text-subtle)]"> · {label}</span>;
+}
+
 const STEP = 15; // minutes
 const snap = (min: number) => Math.round(min / STEP) * STEP;
 
@@ -391,10 +396,12 @@ function WeekList({
                   )}
                 >
                   {fmt.weekdayLong.format(d)}, {fmt.dayShort.format(d)}
+                  {today && <TodayMark label={t.scheduler.today} />}
                 </button>
               ) : (
                 <span className={today ? 'text-[var(--color-text-text-link)]' : 'text-[var(--color-text-text)]'}>
                   {fmt.weekdayLong.format(d)}, {fmt.dayShort.format(d)}
+                  {today && <TodayMark label={t.scheduler.today} />}
                 </span>
               )}
             </h3>
@@ -536,7 +543,7 @@ function TimeGrid({
               <span
                 className={cn(
                   'flex size-7 items-center justify-center rounded-full text-body-m font-medium',
-                  today ? 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)]' : 'text-[var(--color-text-text)]',
+                  today ? 'bg-[var(--color-bg-primary-bg-primary)] [[data-theme=dark]_&]:border [[data-theme=dark]_&]:border-solid [[data-theme=dark]_&]:border-[var(--color-border-border-primary)] text-[var(--color-text-text-on-primary)]' : 'text-[var(--color-text-text)]',
                 )}
               >
                 {fmt.dayNum.format(d)}
@@ -667,9 +674,10 @@ function TimeGrid({
                     );
                   })}
                   {today && nowTop >= 0 && nowTop <= 24 * hourHeight && (
+                    // icon-danger, not bg-danger: the dark fill is 1.84:1 on the surface, icon-danger 4.34:1 (WCAG 1.4.11). Same color in light.
                     <div aria-hidden className="pointer-events-none absolute inset-x-0 z-10" style={{ top: nowTop }}>
-                      <div className="absolute -start-1 -top-1 size-2 rounded-full bg-[var(--color-bg-danger-bg-danger)]" />
-                      <div className="h-0.5 -translate-y-1/2 bg-[var(--color-bg-danger-bg-danger)]" />
+                      <div className="absolute -start-1 -top-1 size-2 rounded-full bg-[var(--color-icon-icon-danger)]" />
+                      <div className="h-0.5 -translate-y-1/2 bg-[var(--color-icon-icon-danger)]" />
                     </div>
                   )}
                 </div>
@@ -756,7 +764,7 @@ function MonthGrid({
               <span
                 className={cn(
                   'flex size-6 items-center justify-center self-end rounded-full text-body-s',
-                  today ? 'bg-[var(--color-bg-primary-bg-primary)] font-medium text-[var(--color-text-text-on-primary)]' : inMonth ? 'text-[var(--color-text-text)]' : 'text-[var(--color-text-text-subtle)]',
+                  today ? 'bg-[var(--color-bg-primary-bg-primary)] [[data-theme=dark]_&]:border [[data-theme=dark]_&]:border-solid [[data-theme=dark]_&]:border-[var(--color-border-border-primary)] font-medium text-[var(--color-text-text-on-primary)]' : inMonth ? 'text-[var(--color-text-text)]' : 'text-[var(--color-text-text-subtle)]',
                 )}
               >
                 {fmt.dayNum.format(d)}
