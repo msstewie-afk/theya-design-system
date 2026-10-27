@@ -125,3 +125,20 @@ export const Disabled: Story = {
     for (const box of boxes) await expect(box).toBeDisabled();
   },
 };
+
+/** `error` on the group: the message sits under the items with the error icon, the fieldset is described by it, and every box is marked invalid. Use it for group rules such as "Choose at least one" (WCAG 3.3.1). */
+export const ErrorState: Story = {
+  name: 'Error',
+  render: () => (
+    <CheckboxGroup label="Notify me by" error="Choose at least one way to be notified.">
+      <CheckboxGroupItem name="email" label="Email" />
+      <CheckboxGroupItem name="sms" label="SMS" />
+      <CheckboxGroupItem name="push" label="Push notifications" />
+    </CheckboxGroup>
+  ),
+  play: async ({ canvasElement }) => {
+    const group = within(canvasElement).getByRole('group', { name: 'Notify me by' });
+    await expect(group).toHaveAccessibleDescription('Choose at least one way to be notified.');
+    for (const box of within(group).getAllByRole('checkbox')) await expect(box).toHaveAttribute('aria-invalid', 'true');
+  },
+};

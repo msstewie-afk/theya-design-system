@@ -170,7 +170,8 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "A selectable card's checkbox/radio only calls onSelectedChange; the card link is a separate click."},
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The selectable control is labelled by the visible CardTitle."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The selection control is positioned at the title's start (card.tsx:334-341) and precedes the content in DOM. Link/filter overlays are transparent inset-0 layers (:229)."},
-      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Tone tints are supplementary styling around text content (card.tsx:33-39). The selected filter state sets aria-pressed (:322) besides border/fill (:267). Selectable cards use Checkbox/Radio shapes (:349)."}
+      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Tone tints are supplementary styling around text content (card.tsx:33-39). The selected filter state sets aria-pressed (:322) besides border/fill (:267). Selectable cards use Checkbox/Radio shapes (:349)."},
+      "3.3.1": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "The selection control is a Checkbox/Radio for picking the card; Card takes no input that can be invalid. The validation trait comes from the composed Checkbox."}
     },
     "CardFan": {
       "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Hover/focus fans out its own cards inside its box, covering nothing else; no timer."},
@@ -228,14 +229,16 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix Checkbox; onCheckedChange passes through with no focus, submit or navigation."},
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Visible label and description props."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Box then label then description, in DOM and visual order (checkbox.tsx:230-260)."},
-      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed in 5e5bd67: `error` sets aria-invalid, and the description renders as the error message with FieldErrorIcon (checkbox.tsx:182, 260-273). The Error story now gives every error box a message (checkbox.stories.tsx:142-148)."}
+      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed in 5e5bd67: `error` sets aria-invalid, and the description renders as the error message with FieldErrorIcon (checkbox.tsx:182, 260-273). The Error story now gives every error box a message (checkbox.stories.tsx:142-148)."},
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "`error` sets aria-invalid (checkbox.tsx:182); the description becomes the error message with FieldErrorIcon and is tied by aria-describedby (180, 260-273). Group rules go on CheckboxGroup's `error`."}
     },
     "CheckboxGroup": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The label is a visible legend."},
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Checking only updates the set and calls onValueChange."},
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Visible legend."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Legend then items in a single column, DOM order (checkbox-group.tsx:67-73)."},
-      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed in b3faab6: in dark the checked and indeterminate box gets the light primary edge (5.95:1 on the surface; the blue fill alone was 2.71:1)."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed in b3faab6: in dark the checked and indeterminate box gets the light primary edge (5.95:1 on the surface; the blue fill alone was 2.71:1)."},
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed 2026-10-26: new `error` prop shows the group message with the error icon under the items (FieldError), describes the fieldset by it and marks every box aria-invalid; an item's own `error` still wins. Play test in the Error story."}
     },
     "Checkout": {
       "1.3.5": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Checkout adds no personal-data inputs itself (email is displayed, not entered); the composed PaymentMethod sets cc-name/cc-number/cc-exp/cc-csc (payment-method.tsx:169-227)."},

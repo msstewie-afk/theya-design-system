@@ -1873,6 +1873,7 @@ Docs: ./?path=/docs/selection-checkboxgroup--docs
 - `className?`: `string`
 - `defaultValue?`: `string[]` — Uncontrolled initial checked set.
 - `disabled?`: `boolean` — Disables every child Checkbox at once.
+- `error?`: `ReactNode` — Group-level validation message ("Choose at least one."). Shown under the
 - `label?`: `ReactNode` — Group label — rendered as a `<legend>` via the native fieldset.
 - `onValueChange?`: `((value: string[]) => void)`
 - `size?`: `"md" | "sm"`, default `md` — Checkbox size for every item, unless an item overrides its own. Defaults to "md".

@@ -728,13 +728,11 @@
         "screenReader"
       ],
       "counts": {
-        "n/a": 127,
-        "partial": 27,
-        "untested": 3
+        "n/a": 128,
+        "partial": 29
       },
       "patternCounts": {
-        "n/a": 25,
-        "untested": 6,
+        "n/a": 31,
         "partial": 11
       }
     },
@@ -2338,7 +2336,7 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "untested",
+        "3.3.1": "n/a",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
@@ -2854,7 +2852,7 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "untested",
+        "3.3.1": "partial",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
@@ -2868,7 +2866,7 @@
       "name": "CheckboxGroup",
       "title": "Selection/CheckboxGroup",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -2877,7 +2875,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 3
+        "playTests": 4
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -2937,7 +2935,7 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "untested",
+        "3.3.1": "partial",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
@@ -14364,7 +14362,7 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "untested",
+        "3.3.1": "n/a",
         "3.3.2": "n/a",
         "3.3.3": "product",
         "3.3.4": "product",
@@ -14970,7 +14968,7 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "untested",
+        "3.3.1": "n/a",
         "3.3.2": "n/a",
         "3.3.3": "product",
         "3.3.4": "product",
@@ -15055,7 +15053,7 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "untested",
+        "3.3.1": "n/a",
         "3.3.2": "n/a",
         "3.3.3": "product",
         "3.3.4": "product",
@@ -15150,7 +15148,7 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "untested",
+        "3.3.1": "n/a",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
@@ -15331,7 +15329,7 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "untested",
+        "3.3.1": "n/a",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
@@ -16351,7 +16349,7 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "untested",
+        "3.3.1": "n/a",
         "3.3.2": "n/a",
         "3.3.3": "product",
         "3.3.4": "product",

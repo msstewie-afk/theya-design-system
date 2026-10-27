@@ -76,6 +76,12 @@
           "description": "Disables every child Checkbox at once."
         },
         {
+          "name": "error",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Group-level validation message (\"Choose at least one.\"). Shown under the\nitems with the error icon; the fieldset is described by it and every box\nis marked invalid (WCAG 3.3.1). An item's own `error` still wins."
+        },
+        {
           "name": "label",
           "type": "ReactNode",
           "required": false,
@@ -164,6 +170,10 @@
       {
         "name": "Disabled",
         "id": "selection-checkboxgroup--disabled"
+      },
+      {
+        "name": "ErrorState",
+        "id": "selection-checkboxgroup--error-state"
       }
     ]
   }
