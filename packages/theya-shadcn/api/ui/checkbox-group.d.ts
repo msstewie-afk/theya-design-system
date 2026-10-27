@@ -10,14 +10,15 @@ export interface CheckboxGroupProps {
     disabled?: boolean;
     size?: 'sm' | 'md';
     label?: ReactNode;
+    error?: ReactNode;
     children: ReactNode;
     className?: string;
 }
-export declare function CheckboxGroup({ defaultValue, value, onValueChange, disabled, size, label, children, className, }: CheckboxGroupProps): import("react").JSX.Element;
+export declare function CheckboxGroup({ defaultValue, value, onValueChange, disabled, size, label, error, children, className, }: CheckboxGroupProps): import("react").JSX.Element;
 export interface CheckboxGroupItemProps extends Omit<CheckboxProps, 'checked' | 'onCheckedChange' | 'name'> {
     name: string;
 }
-export declare function CheckboxGroupItem({ name, disabled, size, ...props }: CheckboxGroupItemProps): import("react").JSX.Element;
+export declare function CheckboxGroupItem({ name, disabled, size, error, ...props }: CheckboxGroupItemProps): import("react").JSX.Element;
 
 // Defaults
 // CheckboxGroup.size = md
