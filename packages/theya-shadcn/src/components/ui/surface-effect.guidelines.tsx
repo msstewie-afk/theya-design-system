@@ -28,6 +28,7 @@ export const surfaceEffectGuidelines: ComponentGuidelines = {
   a11y: [
     'Decoration only: no role, no focus stop, nothing announced; Aurora is aria-hidden.',
     'Pointer effects (spotlight, tilt) do nothing on touch screens, so nothing depends on them.',
+    'Nothing moves on its own (WCAG 2.2.2): the beam light runs only while the card is hovered or holds focus, and Aurora drifts once and rests.',
     'prefers-reduced-motion: no movement; the beam becomes a plain border.',
     'Keep text over Aurora at full contrast: a solid surface under the copy, or the subtle intensity.',
   ],

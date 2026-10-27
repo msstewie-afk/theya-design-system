@@ -379,8 +379,8 @@
         "review"
       ],
       "counts": {
-        "n/a": 152,
-        "verified": 4,
+        "n/a": 142,
+        "verified": 14,
         "deviation": 1
       },
       "patternCounts": {
@@ -1119,6 +1119,7 @@
       "screenReader": [],
       "deviations": [],
       "traits": [
+        "autoMoving",
         "graphics"
       ],
       "wcag": {
@@ -1146,7 +1147,7 @@
         "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
-        "2.2.2": "n/a",
+        "2.2.2": "verified",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
@@ -1856,7 +1857,7 @@
         "tested": 0,
         "playTests": 0
       },
-      "reducedMotion": "none",
+      "reducedMotion": "respected",
       "forcedColors": "global",
       "screenReader": [],
       "deviations": [],
@@ -2454,6 +2455,7 @@
       "screenReader": [],
       "deviations": [],
       "traits": [
+        "autoMoving",
         "colorMeaning",
         "hoverContent",
         "interactive"
@@ -2483,7 +2485,7 @@
         "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
-        "2.2.2": "n/a",
+        "2.2.2": "verified",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
@@ -2706,11 +2708,12 @@
         "tested": 1,
         "playTests": 1
       },
-      "reducedMotion": "none",
+      "reducedMotion": "respected",
       "forcedColors": "global",
       "screenReader": [],
       "deviations": [],
       "traits": [
+        "autoMoving",
         "interactive",
         "labelled",
         "status"
@@ -2740,7 +2743,7 @@
         "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
-        "2.2.2": "n/a",
+        "2.2.2": "verified",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
@@ -2960,7 +2963,7 @@
         "tested": 1,
         "playTests": 2
       },
-      "reducedMotion": "none",
+      "reducedMotion": "respected",
       "forcedColors": "global",
       "screenReader": [],
       "deviations": [
@@ -6136,11 +6139,12 @@
         "tested": 1,
         "playTests": 1
       },
-      "reducedMotion": "none",
+      "reducedMotion": "respected",
       "forcedColors": "global",
       "screenReader": [],
       "deviations": [],
       "traits": [
+        "autoMoving",
         "drag",
         "gestures",
         "interactive",
@@ -6171,7 +6175,7 @@
         "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
-        "2.2.2": "n/a",
+        "2.2.2": "verified",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
@@ -7380,6 +7384,7 @@
       "screenReader": [],
       "deviations": [],
       "traits": [
+        "autoMoving",
         "colorMeaning",
         "interactive",
         "timed"
@@ -7409,7 +7414,7 @@
         "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "verified",
-        "2.2.2": "n/a",
+        "2.2.2": "verified",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
@@ -7462,6 +7467,7 @@
       "screenReader": [],
       "deviations": [],
       "traits": [
+        "autoMoving",
         "colorMeaning",
         "interactive",
         "timed"
@@ -7491,7 +7497,7 @@
         "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "verified",
-        "2.2.2": "n/a",
+        "2.2.2": "verified",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
@@ -9063,7 +9069,9 @@
       "forcedColors": "component",
       "screenReader": [],
       "deviations": [],
-      "traits": [],
+      "traits": [
+        "autoMoving"
+      ],
       "wcag": {
         "1.1.1": "partial",
         "1.2.1": "product",
@@ -9089,7 +9097,7 @@
         "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
-        "2.2.2": "n/a",
+        "2.2.2": "verified",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
@@ -10846,11 +10854,13 @@
         "tested": 0,
         "playTests": 0
       },
-      "reducedMotion": "none",
+      "reducedMotion": "respected",
       "forcedColors": "component",
       "screenReader": [],
       "deviations": [],
-      "traits": [],
+      "traits": [
+        "autoMoving"
+      ],
       "wcag": {
         "1.1.1": "partial",
         "1.2.1": "product",
@@ -10876,7 +10886,7 @@
         "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
-        "2.2.2": "n/a",
+        "2.2.2": "verified",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
@@ -11183,11 +11193,12 @@
         "tested": 0,
         "playTests": 0
       },
-      "reducedMotion": "none",
+      "reducedMotion": "respected",
       "forcedColors": "global",
       "screenReader": [],
       "deviations": [],
       "traits": [
+        "autoMoving",
         "graphics"
       ],
       "wcag": {
@@ -11215,7 +11226,7 @@
         "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
-        "2.2.2": "n/a",
+        "2.2.2": "verified",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
@@ -11507,7 +11518,7 @@
         "tested": 1,
         "playTests": 7
       },
-      "reducedMotion": "none",
+      "reducedMotion": "respected",
       "forcedColors": "global",
       "screenReader": [],
       "deviations": [],
@@ -11674,7 +11685,7 @@
         "tested": 0,
         "playTests": 0
       },
-      "reducedMotion": "none",
+      "reducedMotion": "respected",
       "forcedColors": "global",
       "screenReader": [],
       "deviations": [],
@@ -11760,6 +11771,7 @@
       "screenReader": [],
       "deviations": [],
       "traits": [
+        "autoMoving",
         "colorMeaning"
       ],
       "wcag": {
@@ -11787,7 +11799,7 @@
         "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
-        "2.2.2": "n/a",
+        "2.2.2": "verified",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
@@ -12348,7 +12360,7 @@
         "tested": 1,
         "playTests": 4
       },
-      "reducedMotion": "none",
+      "reducedMotion": "respected",
       "forcedColors": "global",
       "screenReader": [],
       "deviations": [],
@@ -12862,7 +12874,7 @@
         "tested": 1,
         "playTests": 1
       },
-      "reducedMotion": "none",
+      "reducedMotion": "respected",
       "forcedColors": "global",
       "screenReader": [],
       "deviations": [],
@@ -13801,7 +13813,7 @@
         "tested": 1,
         "playTests": 2
       },
-      "reducedMotion": "none",
+      "reducedMotion": "respected",
       "forcedColors": "global",
       "screenReader": [],
       "deviations": [],

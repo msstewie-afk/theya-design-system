@@ -157,7 +157,7 @@ function readStories(file) {
  * of transform / size / position. A class prefixed motion-safe: is guarded;
  * any motion-reduce: rule in the file counts as handling it.
  */
-const MOVING = /(?:^|\s)((?:[\w\-[\]=&>*.#()/,!@]+:)*)(animate-(?!none\b|spin\b)[a-z0-9-]+|transition(?:-(?:transform|all))?(?![-\w[])|transition-\[[^\]]*(?:width|height|transform|translate|inset|top|left)[^\]]*\])/g;
+const MOVING = /(?:^|\s)((?:[\w\-[\]=&>*.#()/,!@]+:)*)(animate-(?:\[(?!theya-spin_)[^\]\s]+\]|(?!none\b|spin\b)[a-z0-9-]+)|transition(?:-(?:transform|all))?(?![-\w[])|transition-\[[^\]]*(?:width|height|transform|translate|inset|top|left)[^\]]*\])/g;
 
 /** Text of every string literal / template part in a file (class names live there, not in comments or code). */
 function stringsOf(file) {
@@ -205,7 +205,9 @@ const TRAITS = {
   hoverContent: /TooltipPrimitive|HoverCardPrimitive|<Tooltip\b|<HoverCard\b|onMouseEnter=|onPointerEnter=/,
   sticky: /(?:^|[\s'"`])(?:sticky|fixed)(?=[\s'"`])/,
   timed: /\bduration\??\s*[:=]|autoPlay|autoplay|setInterval|\bcountdown\b|\bexpires\b/i,
-  autoMoving: /\binfinite\b|autoPlay|autoplay|setInterval/,
+  // `infinite` also inside Tailwind arbitrary classes (`animate-[name_2s_linear_infinite]`),
+  // where `_` sits next to it and \b doesn't match.
+  autoMoving: /(?:\b|_)infinite(?:\b|_)|autoPlay|autoplay|setInterval/,
   drag: /draggable|onDrag\w*=|@dnd-kit|onPointerMove=|setPointerCapture/,
   gestures: /swipe|pinch|onTouch\w*=|onPointerMove=|setPointerCapture/i,
   status: /aria-live|role=\{?[^}>]*['"](?:status|alert|log|progressbar|timer)['"]|toast|announce/i,

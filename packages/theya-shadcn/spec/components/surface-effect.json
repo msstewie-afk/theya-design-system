@@ -52,6 +52,7 @@
   "a11y": [
     "Decoration only: no role, no focus stop, nothing announced; Aurora is aria-hidden.",
     "Pointer effects (spotlight, tilt) do nothing on touch screens, so nothing depends on them.",
+    "Nothing moves on its own (WCAG 2.2.2): the beam light runs only while the card is hovered or holds focus, and Aurora drifts once and rests.",
     "prefers-reduced-motion: no movement; the beam becomes a plain border.",
     "Keep text over Aurora at full contrast: a solid surface under the copy, or the subtle intensity."
   ],
@@ -75,7 +76,7 @@
     },
     {
       "name": "Aurora",
-      "description": "Motion preset (landing pages): a slow drifting aurora of brand colors\nbehind a hero (Kinetics' Aurora Drift). Place it as the first child of\na `relative isolate` section; it fills it and stays behind the content.\nDecorative and hidden from assistive tech; still under\nprefers-reduced-motion. Keep text on top of it at full contrast — put\ncopy on a solid surface or keep `intensity` low.",
+      "description": "Motion preset (landing pages): a slow drifting aurora of brand colors\nbehind a hero (Kinetics' Aurora Drift). Place it as the first child of\na `relative isolate` section; it fills it and stays behind the content.\nDecorative and hidden from assistive tech. It drifts once, for under\n5 seconds, and then rests, so it needs no pause control (WCAG 2.2.2);\nprefers-reduced-motion keeps it still. Keep text on top of it at full contrast — put\ncopy on a solid surface or keep `intensity` low.",
       "props": [
         {
           "name": "intensity",

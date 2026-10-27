@@ -8,6 +8,8 @@
     "PhoneField": { "add": ["graphics"], "note": "Renders the shared error icon (field-error-icon.tsx), an inline SVG the source scan no longer sees." },
     "PromptArea": { "add": ["graphics"], "note": "Renders the shared error icon (field-error-icon.tsx), an inline SVG the source scan no longer sees." },
     "TagInput": { "add": ["graphics"], "note": "Renders the shared error icon (field-error-icon.tsx), an inline SVG the source scan no longer sees." },
+    "CardStack": { "add": ["autoMoving"], "note": "Advances on its own with a setTimeout(next, interval) loop, which the source scan doesn't read as a timer." },
+    "AnimatedIcon": { "add": ["autoMoving"], "note": "trigger=\"loop\" repeats the icon's keyframes forever (animation-iteration-count in styles/motion.css), outside the component file." },
     "TextArea": { "add": ["graphics"], "note": "Renders the shared error icon (field-error-icon.tsx), an inline SVG the source scan no longer sees." }
   },
   "reviews": {
@@ -57,7 +59,8 @@
     "AnimatedIcon": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "A single aria-hidden SVG (animated-icon.tsx). No content order involved."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Active states change shape, not color: Copy becomes a tick, Eye closes, Heart goes from outline to filled (styles/motion.css:469)."},
-      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Strokes and fills use currentColor (animated-icon.tsx:49, motion.css:469). The glyph takes the host control's text/icon color, with no fixed low-contrast color of its own."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Strokes and fills use currentColor (animated-icon.tsx:49, motion.css:469). The glyph takes the host control's text/icon color, with no fixed low-contrast color of its own."},
+      "2.2.2": {"result": "pass", "date": "2026-10-27", "by": "Claude (code review)", "note": "Hover and active play once. trigger=\"loop\" repeats only for a short-lived busy state (documented, animated-icon.tsx:19-20), a loading indicator; reduced motion drops the keyframes."}
     },
     "AnnouncementBar": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Region \"Announcement\" and \"Dismiss announcement\"."},
@@ -183,7 +186,8 @@
       "1.4.13": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Hover/focus only pause autoplay."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The DOM is reversed for painting (card-stack.tsx:122), but only the front card is exposed: the others get aria-hidden and inert (:109-110). The controls follow the deck."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Pause/Play swaps both the icon shape and the aria-label (card-stack.tsx:132-134). No information is carried by color."},
-      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The ghost neutral icon buttons use icon-subtle (button.tsx:574): 5.83:1 light / 11.53:1 dark on the surface."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The ghost neutral icon buttons use icon-subtle (button.tsx:574): 5.83:1 light / 11.53:1 dark on the surface."},
+      "2.2.2": {"result": "pass", "date": "2026-10-27", "by": "Claude (code review)", "note": "Advances on a timer but pauses on hover and focus and has its own Pause / Play button (card-stack.tsx:18-21, 46); hideControls only when the page has another way to stop it. Reduced motion: no timer."}
     },
     "Carousel": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No autoplay: no Autoplay plugin is imported; `plugins` passes through to Embla."},
@@ -222,7 +226,8 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Conversation\" log and \"Typing…\" status."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "chat.tsx:15-56: Chat is a plain flex-col (transcript then composer) and ChatMessages a flex-col log with newest message last in the DOM; no order-*/reverse/absolute reordering."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "ChatTyping's dots (chat.tsx:74-80) are the only visual sign of typing: icon-subtle on neutral-subtle bubble = 5.05:1 light / 8.51:1 dark. Chat has no other controls of its own."},
-      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "ChatMessages is role=\"log\" (chat.tsx:50, implicit polite live region) so appended messages are announced; ChatTyping is role=\"status\" with an aria-label (chat.tsx:72-73) and is inserted inside that pre-existing log."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "ChatMessages is role=\"log\" (chat.tsx:50, implicit polite live region) so appended messages are announced; ChatTyping is role=\"status\" with an aria-label (chat.tsx:72-73) and is inserted inside that pre-existing log."},
+      "2.2.2": {"result": "pass", "date": "2026-10-27", "by": "Claude (code review)", "note": "The only endless motion is ChatTyping's three dots, a status shown while a reply is being written; it goes away when the message arrives. Reduced motion swaps it for a slow fade."}
     },
     "Checkbox": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "No built-in text; a dev warning flags a missing name."},
@@ -592,7 +597,8 @@
       "2.5.7": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "No dragging: hold and release in place; guidelines point long recordings to a Record/Stop button."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "hold-to-talk.tsx:52-111: single button (icon, then waveform) followed by an sr-only status span; nothing is reordered with CSS."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Idle mic icon icon-subtle on surface 5.83:1 / 11.53:1 (hold-to-talk.tsx:90). Live state (89, 96-104) adds the waveform bars and widens to a pill; bars/icon are white on primary 5.20:1. The pill fill vs dark surface is 2.71:1, but the bars and shape change already show the state."},
-      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Persistent sr-only role=\"status\" span (hold-to-talk.tsx:108-110) is always mounted and gets the \"Release to send\" text when holding starts, so the hint is announced without moving focus."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Persistent sr-only role=\"status\" span (hold-to-talk.tsx:108-110) is always mounted and gets the \"Release to send\" text when holding starts, so the hint is announced without moving focus."},
+      "2.2.2": {"result": "pass", "date": "2026-10-27", "by": "Claude (code review)", "note": "The level bars move only while the user holds the button, so the motion is started and stopped by the user; reduced motion keeps them still."}
     },
     "HoverCard": {
       "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix HoverCard: Escape, hoverable, persistent."},
@@ -750,13 +756,15 @@
       "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Pauses on hover and focus-within, with a Pause button on by default."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Items render once in DOM order (marquee.tsx:67); the duplicate copy is aria-hidden and inert (line 68), and `reverse` only flips animation-direction (line 61), not the DOM."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Nothing is conveyed by color: the strip carries consumer content and the pause control changes icon and name (Pause/Play, marquee.tsx:79-80)."},
-      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Its only own control is the ghost neutral pause button; its icon is icon-subtle, 5.83:1 light / 11.53:1 dark on bg-surface. The edge fade mask is decorative."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Its only own control is the ghost neutral pause button; its icon is icon-subtle, 5.83:1 light / 11.53:1 dark on bg-surface. The edge fade mask is decorative."},
+      "2.2.2": {"result": "pass", "date": "2026-10-27", "by": "Claude (code review)", "note": "Pauses on hover and while focus is inside, and has a Pause / Play button (marquee.tsx:15-18); pauseButton={false} only for purely decorative strips, which still pause on hover and focus. Reduced motion: the items wrap into rows."}
     },
     "MarqueeColumns": {
       "2.2.1": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Pauses on hover and focus-within, with a Pause button on by default."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Columns render in DOM order, each column's cards once (marquee-columns.tsx:60); the copy is aria-hidden + inert (line 61) and odd columns only reverse the animation (line 54)."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "No information by color; the pause button changes icon and accessible name (marquee-columns.tsx:74-76)."},
-      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Only own control is the ghost neutral pause button, icon-subtle at 5.83:1 light / 11.53:1 dark; the top/bottom fade mask is decorative."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Only own control is the ghost neutral pause button, icon-subtle at 5.83:1 light / 11.53:1 dark; the top/bottom fade mask is decorative."},
+      "2.2.2": {"result": "pass", "date": "2026-10-27", "by": "Claude (code review)", "note": "Pauses on hover and focus inside and has a Pause / Play button (marquee-columns.tsx:15, pauseButton default true). Reduced motion: no movement."}
     },
     "MaskedInput": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Spreads props onto TextField, so tel / cc-number / cc-exp / postal-code pass through."},
@@ -992,7 +1000,8 @@
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "The spotlight has a 2px border-primary outline (5.20:1 on white, 5.95:1 on the dark surface) on top of the dimmed surround."}
     },
     "Progress": {
-      "1.3.2": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "No text content: just a track and a fill (progress.tsx:40-80); direction is mirrored for RTL with rtl:-scale-x-100, so there is no reading sequence to check."}
+      "1.3.2": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "No text content: just a track and a fill (progress.tsx:40-80); direction is mirrored for RTL with rtl:-scale-x-100, so there is no reading sequence to check."},
+      "2.2.2": {"result": "pass", "date": "2026-10-27", "by": "Claude (code review)", "note": "Only the indeterminate bar loops, as a loading indicator while the length is unknown; it ends when the value is known. Reduced motion swaps the slide for a slow fade."}
     },
     "ProgressRing": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A fill animation that shows a value."},
@@ -1222,7 +1231,8 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Brand column, link grid and bottom bar follow DOM order (site-footer.tsx:76, 107, 127)."}
     },
     "Skeleton": {
-      "1.3.2": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "Decorative, aria-hidden placeholder with no content (skeleton.tsx:16-27), so nothing to sequence."}
+      "1.3.2": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "Decorative, aria-hidden placeholder with no content (skeleton.tsx:16-27), so nothing to sequence."},
+      "2.2.2": {"result": "pass", "date": "2026-10-27", "by": "Claude (code review)", "note": "The sweep is a loading placeholder and disappears with the content it stands in for; reduced motion removes it."}
     },
     "Slider": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Track, range and thumbs in value order (slider.tsx:100-139); no reordering."},
@@ -1246,7 +1256,8 @@
     "Spinner": {
       "1.3.2": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "A single aria-hidden SVG (spinner.tsx:14-34), so there is no sequence."},
       "1.4.1": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "Busy is shown by shape and motion only; no information is encoded in color (spinner.tsx:24-33)."},
-      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The arc is a full-opacity currentColor stroke (spinner.tsx:25-33), so it inherits the surrounding text color (>=4.5:1); the 20% ring is a track, not the indicator."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The arc is a full-opacity currentColor stroke (spinner.tsx:25-33), so it inherits the surrounding text color (>=4.5:1); the 20% ring is a track, not the indicator."},
+      "2.2.2": {"result": "pass", "date": "2026-10-27", "by": "Claude (code review)", "note": "A loading indicator that lasts as long as the wait; reduced motion swaps the spin for a slow fade."}
     },
     "SplitButton": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"More actions\" (menuLabel overridable; JSDoc asks for a specific one when several appear)."},
@@ -1295,7 +1306,8 @@
     },
     "SurfaceEffect": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Renders its children in place; every effect is a ::before layer or transform (surface-effect.tsx:71, 91-97) and Aurora is aria-hidden (line 119), so nothing reorders content."},
-      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Purely decorative: the beam, spotlight, shine and aurora colors carry no information (surface-effect.tsx:18-21)."}
+      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Purely decorative: the beam, spotlight, shine and aurora colors carry no information (surface-effect.tsx:18-21)."},
+      "2.2.2": {"result": "pass", "date": "2026-10-27", "by": "Claude (code review)", "note": "Fixed 2026-10-27: the beam light rests on the border and runs only while the card is hovered or holds focus; Aurora drifts once in 4.5 s and then rests. Nothing moves on its own for more than 5 seconds. Reduced motion: no movement."}
     },
     "SwatchPicker": {
       "1.4.13": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Swatch name tooltips are stock Tooltip."},

@@ -933,7 +933,10 @@ export const Motion: Story = {
           <li>Motion answers an action or a change of state. Nothing animates on first render: a chip that starts selected or the starting step of a Stepper stays still.</li>
           <li>Short and once: feedback stays under half a second. Anything that repeats stops on its own within 5 seconds (BadgeIndicator pulse rings three times) or has a pause (Marquee) — WCAG 2.2.2.</li>
           <li>Reduced motion: transitions and one-off effects are dropped and the end state shows at once; loaders don’t freeze but fade slowly; a timer (undoToast’s bar) keeps running, because it is information.</li>
-          <li>Decorative, endless motion (Aurora, Border beam, Neon glow, Float bob) is a preset for landing pages and promos — one per screen, never in forms or settings.</li>
+          <li>Nothing decorative moves on its own for more than 5 seconds: Border beam runs only while its card is hovered or focused, Aurora drifts once and rests, and Marquee, MarqueeColumns, CardStack, TickerList and OrbitCarousel's autoplay stop on hover and focus and have a Pause button. The one accepted exception is TextEffect's shimmer.</li>
+          <li>In product UI: the motion built into components (the table above), AnimatedIcon, CountUp and ProgressRing for a headline number, SwipeDeck, and TickerList for a live feed.</li>
+          <li>Landing and promo pages only: Reveal and RevealGroup, TextEffect, Marquee, MarqueeColumns, SurfaceEffect, Aurora, CardStack, CardFan, OrbitCarousel, and Neon glow and Float bob from Micro-interactions (they loop in the library demo; adopted, they stop within 5 seconds or get a pause). One showpiece per screen; never in forms, settings or tables.</li>
+          <li>Landing performance: animate transform and opacity only, never width, height, top or margin, so nothing shifts the layout (CLS). The hero headline and main image show on first paint: no Reveal or TextEffect that starts hidden on the largest element above the fold (LCP). Heavier effects (OrbitCarousel, CardStack, a vivid Aurora) go below the fold.</li>
           <li>A new effect goes into Motion › Micro-interactions first, as a “Now / Variant” pair, and becomes a default only once it is chosen.</li>
         </ul>
         <Note>

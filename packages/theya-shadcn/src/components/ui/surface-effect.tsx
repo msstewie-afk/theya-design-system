@@ -9,7 +9,7 @@ import { cn } from '../../lib/utils';
  * onto Theya's tokens:
  *
  * - `spotlight` — a soft primary glow follows the pointer (Cursor Spotlight).
- * - `beam` — a light runs round the border (Border Beam).
+ * - `beam` — a light runs round the border while the card is hovered or holds focus (Border Beam).
  * - `tilt` — the card tilts toward the pointer, up to 8° (Parallax Tilt).
  * - `shine` — a light streak sweeps across on hover (Shine Sweep).
  * - `lift` — the card rises with a larger shadow on hover (Hover Lift),
@@ -69,6 +69,9 @@ export function SurfaceEffect({ effect, className, children, onPointerMove, onPo
           // 2.5× the card's width, so the light reaches the sides of a wide card too
           // (an inset of -50% kept the card's proportions and left the sides dark).
           "before:absolute before:top-1/2 before:left-1/2 before:-z-10 before:aspect-square before:w-[250%] before:-translate-x-1/2 before:-translate-y-1/2 before:animate-[theya-spin_4s_linear_infinite] before:bg-[conic-gradient(from_0deg,transparent_0_72%,var(--color-icon-icon-primary)_84%,var(--color-border-border-subtle)_90%,transparent_96%)] before:content-['']",
+          // At rest the light sits still on the border; it runs only while the card is
+          // hovered or holds focus, so nothing moves on its own (WCAG 2.2.2).
+          'before:[animation-play-state:paused] hover:before:[animation-play-state:running] focus-within:before:[animation-play-state:running]',
           // Reduced motion: just the border.
           'motion-reduce:before:hidden',
           className,
@@ -109,8 +112,9 @@ export function SurfaceEffect({ effect, className, children, onPointerMove, onPo
  * Motion preset (landing pages): a slow drifting aurora of brand colors
  * behind a hero (Kinetics' Aurora Drift). Place it as the first child of
  * a `relative isolate` section; it fills it and stays behind the content.
- * Decorative and hidden from assistive tech; still under
- * prefers-reduced-motion. Keep text on top of it at full contrast — put
+ * Decorative and hidden from assistive tech. It drifts once, for under
+ * 5 seconds, and then rests, so it needs no pause control (WCAG 2.2.2);
+ * prefers-reduced-motion keeps it still. Keep text on top of it at full contrast — put
  * copy on a solid surface or keep `intensity` low.
  */
 export function Aurora({ intensity = 'subtle', className, ...props }: React.HTMLAttributes<HTMLDivElement> & { intensity?: 'subtle' | 'vivid' }) {
@@ -118,7 +122,7 @@ export function Aurora({ intensity = 'subtle', className, ...props }: React.HTML
   return (
     <div aria-hidden="true" data-slot="aurora" className={cn('pointer-events-none absolute inset-0 -z-10 overflow-hidden', className)} {...props}>
       <div
-        className="absolute inset-[-40%] animate-[theya-aurora-drift_12s_ease-in-out_infinite_alternate] blur-2xl motion-reduce:animate-none"
+        className="absolute inset-[-40%] animate-[theya-aurora-drift_4.5s_ease-out_both] blur-2xl motion-reduce:animate-none"
         style={{
           background: [
             `radial-gradient(40% 50% at 30% 38%, color-mix(in oklab, var(--color-bg-primary-bg-primary) ${a}, transparent), transparent 60%)`,
