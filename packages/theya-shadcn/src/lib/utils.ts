@@ -13,7 +13,7 @@ import { extendTailwindMerge } from 'tailwind-merge';
  * classGroup so twMerge treats size and color as separate,
  * non-conflicting groups — matching how Tailwind itself compiles them.
  */
-const twMerge = extendTailwindMerge({
+const twMerge = extendTailwindMerge<'shadow-state'>({
   extend: {
     classGroups: {
       // Theya's @utility focus rings (globals.css) set box-shadow, so they
@@ -28,6 +28,11 @@ const twMerge = extendTailwindMerge({
         'focus-ring-on-primary',
         'focus-ring-inset',
       ],
+      // State shadows (globals.css): their own group, so a focus ring or a
+      // shadow-elevation-* on the same element doesn't drop them (they are
+      // drawn in a separate slot and stack). shadow-none does NOT clear them:
+      // leave the state class off instead (Card does when disabled).
+      'shadow-state': [{ shadow: ['control', 'control-hover', 'control-pressed', 'field', 'track', 'thumb', 'thumb-hover', 'raised', 'card', 'card-hover'] }],
       // font-code-medium (globals.css) is a weight, not a family: without
       // this, twMerge reads `font-*` as font-family and drops font-mono /
       // font-code on the same element.

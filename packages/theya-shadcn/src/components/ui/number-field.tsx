@@ -200,7 +200,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
         heightSize === 'sm' ? 'h-[var(--size-size-control-size-control-lg)] rounded-[var(--size-border-radius-border-radius-md)]' : 'h-[var(--size-size-control-size-control-2xl)] rounded-[var(--size-border-radius-border-radius-lg)]',
         labelled ? 'w-full' : WIDTH_CLASSES[widthSize],
         'border border-solid',
-        'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
+        'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
         'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
         'has-[input:hover]:not-has-[input:disabled]:not-has-[input[aria-invalid=true]]:border-[var(--color-border-border-primary)]',
         'has-[input:focus-visible]:not-has-[input[aria-invalid=true]]:border-[var(--color-border-border-primary)]',

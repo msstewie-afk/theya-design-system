@@ -466,7 +466,7 @@ export function RichTextEditor({
       <div
         data-disabled={disabled || undefined}
         className={cn(
-          'flex flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] border border-solid bg-[var(--color-bg-input-bg-input)]',
+          'flex flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] border border-solid bg-[var(--color-bg-input-bg-input)] shadow-field',
           'transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
           hasError
             ? 'border-[var(--color-border-border-danger)] has-[.ProseMirror:focus-visible]:focus-ring-error'

@@ -136,6 +136,7 @@ function typeOf(p) {
     if (p.at(-1) in TYPO_PROPS) return TYPO_PROPS[p.at(-1)];
   }
   if (a === 'elevation') return 'shadow';
+  if (a === 'shadow') return 'shadow';
   if (a === 'motion' && b === 'duration') return 'duration';
   if (a === 'motion' && b === 'easing') return 'cubicBezier';
   if (a === 'layer') return 'number';

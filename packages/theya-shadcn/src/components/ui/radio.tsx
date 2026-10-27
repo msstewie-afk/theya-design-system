@@ -52,7 +52,7 @@ export const Radio = forwardRef<ElementRef<typeof RadioGroupPrimitive.Item>, Rad
           // 20px circle, 24px invisible hit area (WCAG 2.5.8).
           "after:absolute after:-inset-0.5 after:content-['']",
           'items-center justify-center rounded-full',
-          'bg-[var(--color-bg-input-bg-input)] border border-solid border-[var(--color-border-border)]',
+          'bg-[var(--color-bg-input-bg-input)] shadow-track border border-solid border-[var(--color-border-border)]',
           'transition-[background-color,border-color,box-shadow,transform] duration-standard ease-enter motion-reduce:transition-none',
           'cursor-pointer disabled:cursor-not-allowed',
           'motion-safe:active:not-disabled:scale-[0.9]',

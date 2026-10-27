@@ -79,7 +79,7 @@ export function TabsList({ className, children, variant = 'underline', onPointer
         'relative flex overflow-x-auto overflow-y-hidden',
         '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
         chips
-          ? 'w-fit max-w-full rounded-full bg-[var(--color-bg-surface-bg-surface-sunken)] p-1'
+          ? 'w-fit max-w-full rounded-full bg-[var(--color-bg-surface-bg-surface-sunken)] shadow-track p-1'
           : 'gap-0.5 border-b border-solid border-[var(--color-border-border-subtler)]',
         className,
       )}
@@ -92,7 +92,7 @@ export function TabsList({ className, children, variant = 'underline', onPointer
           className={cn(
             'pointer-events-none absolute motion-reduce:transition-none',
             chips
-              ? 'top-1 bottom-1 rounded-full bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-sm transition-[left,width] duration-slower ease-spring forced-colors:border forced-colors:border-solid forced-colors:border-[Highlight]'
+              ? 'top-1 bottom-1 rounded-full bg-[var(--color-bg-surface-bg-surface)] shadow-raised transition-[left,width] duration-slower ease-spring forced-colors:border forced-colors:border-solid forced-colors:border-[Highlight]'
               : 'bottom-0 h-0.5 rounded-full bg-[var(--color-border-border-primary)] transition-[left,width] duration-slow ease-glide forced-colors:bg-[Highlight]',
           )}
           // offsetLeft is physical in both directions, so `left` (not `inset-inline-start`).
@@ -172,6 +172,8 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
           '-mb-px inline-flex shrink-0 items-center gap-2 cursor-pointer',
           'rounded-t-[var(--size-border-radius-border-radius-md)] border-b-2 border-solid border-transparent',
           'px-3 py-2.5 font-body text-body-m font-medium text-[var(--color-text-text-subtler)]',
+          // State shadows (nm-01): none in the default theme. The active chip pill is shadow-raised.
+          'shadow-control data-[state=inactive]:hover:shadow-control-hover',
           'transition-[background-color,color,border-color] duration-standard ease-enter motion-reduce:transition-none',
           'data-[state=inactive]:hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] data-[state=inactive]:hover:text-[var(--color-text-text)]',
           // text-link is now blue-200 (the same saturated primary used by
@@ -187,7 +189,7 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
           // like the current nav item (WCAG 1.4.1 / 1.4.11).
           '[[data-variant=chips]>&]:data-[state=active]:font-semibold',
           // Until the pill is measured, the active chip carries its own.
-          '[[data-variant=chips]:not([data-glide])>&]:data-[state=active]:bg-[var(--color-bg-surface-bg-surface)] [[data-variant=chips]:not([data-glide])>&]:data-[state=active]:shadow-elevation-sm',
+          '[[data-variant=chips]:not([data-glide])>&]:data-[state=active]:bg-[var(--color-bg-surface-bg-surface)] [[data-variant=chips]:not([data-glide])>&]:data-[state=active]:shadow-raised',
           // Inset ring on underline tabs: the list scrolls (overflow-x: auto), so an
           // outer ring was clipped to a stray sliver at the tab's edge. Chips keep the
           // outer ring, which the list's 4px padding leaves room for.

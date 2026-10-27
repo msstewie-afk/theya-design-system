@@ -20,6 +20,8 @@ const toggleVariants = cva(
     'transition-[background-color,border-color,color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
     'outline-none cursor-pointer',
     'focus-visible:focus-ring',
+    // State shadows (nm-01): none in the default theme; on = pressed.
+    'shadow-control hover:not-disabled:shadow-control-hover data-[state=on]:shadow-control-pressed',
     'disabled:pointer-events-none disabled:opacity-50',
     'data-[state=on]:text-[var(--color-text-text-link-on-tonal)]',
     '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4',

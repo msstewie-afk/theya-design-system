@@ -19,7 +19,7 @@ const switchVariants = cva(
     'forced-colors:forced-color-adjust-none forced-colors:bg-[Canvas]! forced-colors:border forced-colors:border-solid forced-colors:border-[ButtonText] forced-colors:data-[state=checked]:bg-[Highlight]! forced-colors:data-[state=checked]:border-[Highlight]',
     // Off track: secondary-strong, 4.69:1 on white and 3.01:1 on the dark surface
     // (WCAG 1.4.11); it was 2.62 / 1.87. The white thumb on it is 4.69:1.
-    'bg-[var(--color-bg-secondary-bg-secondary-strong)]',
+    'bg-[var(--color-bg-secondary-bg-secondary-strong)] shadow-track',
     // Off — big jump to a dark fill on hover per the Figma spec.
     'hover:not-disabled:data-[state=unchecked]:bg-[var(--color-bg-secondary-bg-secondary-hover)]',
     // Disabled off — combined with data-state so specificity always wins
@@ -121,7 +121,7 @@ export const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, Switch
         <SwitchPrimitive.Thumb
           className={cn(
             'group relative flex items-center justify-center',
-            'size-[14px] rounded-full bg-[var(--color-icon-icon-on-dark)] shadow-elevation-sm',
+            'size-[14px] rounded-full bg-[var(--color-icon-icon-on-dark)] shadow-thumb',
             'forced-colors:bg-[ButtonText] forced-colors:group-data-[state=checked]:bg-[HighlightText] forced-colors:data-[state=checked]:bg-[HighlightText]',
             // Mirrored in RTL: the thumb starts at the inline-start edge.
             'translate-x-[3px] data-[state=checked]:translate-x-[19px] rtl:-translate-x-[3px] rtl:data-[state=checked]:-translate-x-[19px]',

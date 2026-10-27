@@ -270,7 +270,7 @@ export function Combobox(props: ComboboxProps) {
             // disappear instead of reading as "here, but not editable".
             readOnly
               ? 'border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]'
-              : 'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
+              : 'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
             // hover:not-disabled: was a no-op here — this div is never
             // itself :disabled (only the nested input is), so the hover
             // rule fired even while disabled. Gate on the actual JS prop.

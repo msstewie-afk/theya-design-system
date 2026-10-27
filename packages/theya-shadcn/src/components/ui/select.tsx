@@ -67,7 +67,7 @@ function SelectTrigger({ className, widthSize = 'md', error, children, ...props 
         'flex items-center justify-between gap-2',
         WIDTH_CLASSES[widthSize],
         'rounded-[var(--theme-radius-field,var(--size-border-radius-border-radius-lg))] border border-solid',
-        'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
+        'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
         // Start inset matches every other field: 12px for sm/md, 16px for lg.
         // The end inset keeps the chevron where it was (Мария, 2026-10-23).
         'pe-[var(--size-margin-margin-s)] text-[var(--color-text-text)]',

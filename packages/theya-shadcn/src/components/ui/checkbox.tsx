@@ -41,7 +41,7 @@ const checkboxVariants = cva(
     // Invisible hit area, at least 24px (WCAG 2.5.8); the inset is per size below.
     "after:absolute after:content-['']",
     'rounded-[var(--size-border-radius-border-radius-md)]',
-    'bg-[var(--color-bg-input-bg-input)] border border-solid',
+    'bg-[var(--color-bg-input-bg-input)] shadow-track border border-solid',
     'transition-[background-color,border-color,box-shadow] duration-standard ease-enter',
     'motion-reduce:transition-none',
     'cursor-pointer disabled:cursor-not-allowed',

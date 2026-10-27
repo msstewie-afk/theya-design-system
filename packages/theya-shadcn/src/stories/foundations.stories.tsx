@@ -786,6 +786,27 @@ const ELEVATION_ROWS: SpecRow[] = [
   { token: 'shadow-elevation-edge-up', value: shadowSummary('--elevation-edge-up'), use: 'A panel pinned to the bottom edge: the shadow falls up onto the content it covers.', usedBy: 'Drawer (bottom)' },
 ];
 
+// "none" or "= elevation-sm" in the default theme; another theme may give any shadow.
+function stateShadowSummary(name: string): string {
+  const v = tokenValue(name);
+  for (const step of ['xs', 'sm', 'md', 'lg', 'xl']) if (v === tokenValue(`--elevation-${step}`)) return `= elevation-${step}`;
+  const alphas = [...v.matchAll(/rgba?\([^)]*,\s*([\d.]+)\)/g)].map((m) => Number(m[1]));
+  return alphas.length > 0 && alphas.every((a) => a === 0) ? 'none' : shadowSummary(name);
+}
+
+const STATE_SHADOW_ROWS: SpecRow[] = [
+  { token: 'shadow-control', value: stateShadowSummary('--shadow-control'), use: 'A pressable control at rest.', usedBy: 'Button, Toggle, ToggleGroup, pressable Chip, Tabs trigger' },
+  { token: 'shadow-control-hover', value: stateShadowSummary('--shadow-control-hover'), use: 'The same control under the pointer.', usedBy: 'Button, Toggle, ToggleGroup, pressable Chip, Tabs trigger' },
+  { token: 'shadow-control-pressed', value: stateShadowSummary('--shadow-control-pressed'), use: 'Pressed, or switched on.', usedBy: 'Button (active), Toggle and ToggleGroup (on), Chip (pressed)' },
+  { token: 'shadow-field', value: stateShadowSummary('--shadow-field'), use: 'A field you type into or pick from. Inset in a sunken style.', usedBy: 'TextField, TextArea, Select, NumberField, InputGroup, Autocomplete, Combobox, DatePicker, Filter, FilterField, InputOTP, PromptArea, RichTextEditor, TagInput' },
+  { token: 'shadow-track', value: stateShadowSummary('--shadow-track'), use: 'A track or box that holds a value. Inset in a sunken style.', usedBy: 'Switch and Slider tracks, Checkbox and Radio boxes, OptionCard control, Tabs chips list' },
+  { token: 'shadow-thumb', value: stateShadowSummary('--shadow-thumb'), use: 'The handle you drag or flip.', usedBy: 'Switch and Slider thumbs' },
+  { token: 'shadow-thumb-hover', value: stateShadowSummary('--shadow-thumb-hover'), use: 'The handle under the pointer.', usedBy: 'Slider thumb' },
+  { token: 'shadow-raised', value: stateShadowSummary('--shadow-raised'), use: 'An item raised out of its track.', usedBy: 'Active Tabs chip' },
+  { token: 'shadow-card', value: stateShadowSummary('--shadow-card'), use: 'A card at rest.', usedBy: 'Card' },
+  { token: 'shadow-card-hover', value: stateShadowSummary('--shadow-card-hover'), use: 'An interactive card under the pointer.', usedBy: 'Card (action, href, filter)' },
+];
+
 const ELEVATION_DEMO = [
   { s: 'xs', label: 'Stat', cls: 'shadow-elevation-xs' },
   { s: 'sm', label: 'Alert', cls: 'shadow-elevation-sm' },
@@ -818,6 +839,10 @@ export const Elevation: Story = {
       <SpecTable label="Elevation tokens" rows={ELEVATION_ROWS} valueLabel="Shadow" />
       <Note>
         Values live in <Code>@theya/tokens</Code> (<Code>--elevation-*</Code>). Focus rings are also drawn with box-shadow, but they are a separate scale: see Focus ring.
+      </Note>
+      <SpecTable label="State shadow tokens" rows={STATE_SHADOW_ROWS} valueLabel="Default theme" />
+      <Note>
+        State shadows say what a control's shadow is in each state, so a theme can change how controls are lifted or sunk (a Neumorphism theme draws shape with shadows) without touching the components. The default theme keeps today's look. They are drawn in a slot of their own, so they stack with the focus ring, a ring or a <Code>shadow-elevation-*</Code> on the same element instead of replacing it. Values: <Code>--shadow-*</Code> in <Code>@theya/tokens</Code>.
       </Note>
     </DocsPage>
   ),

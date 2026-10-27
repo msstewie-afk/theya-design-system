@@ -236,7 +236,7 @@ export function TagInput({
                     'focus-within:border-[var(--color-border-border-danger)] focus-within:bg-[var(--color-bg-input-bg-input-danger-pressed)] focus-within:focus-ring-error',
                   ]
                 : [
-                    'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
+                    'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
                     'hover:border-[var(--color-border-border-primary)]',
                     'focus-within:border-[var(--color-border-border-primary)] focus-within:bg-[var(--color-bg-input-bg-input-active)] focus-within:focus-ring',
                   ],

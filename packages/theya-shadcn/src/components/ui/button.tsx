@@ -74,6 +74,9 @@ export const buttonVariants = cva(
     // "fix" locally in one component — change the token if this is revisited.
     'focus-visible:outline-none',
     'focus-visible:focus-ring',
+    // State shadows (nm-01): none in the default theme; a theme such as
+    // Neumorphism sets --shadow-control*. They stack with the focus ring.
+    'shadow-control hover:not-disabled:not-aria-disabled:shadow-control-hover active:not-disabled:not-aria-disabled:shadow-control-pressed',
     // Color/border/shadow transitions use a plain ease-enter — no overshoot.
     // Transform (the press scale) uses Material's "standard" easing
     // (cubic-bezier(0.4,0,0.2,1)) on both press and release.

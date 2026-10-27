@@ -220,7 +220,7 @@ export function Chip({
         look === 'filled' ? SOLID_TONE_CLASS[tone] : TONE_CLASS[tone],
         bordered && BORDER_TONE_CLASS[tone],
         isPressable &&
-          cn('cursor-pointer', HOVER_CLASS[look][tone], 'data-[disabled]:pointer-events-none data-[disabled]:opacity-50'),
+          cn('cursor-pointer', HOVER_CLASS[look][tone], 'data-[disabled]:pointer-events-none data-[disabled]:opacity-50', 'shadow-control hover:shadow-control-hover data-[pressed]:shadow-control-pressed'),
         className,
       )}
       {...restProps}

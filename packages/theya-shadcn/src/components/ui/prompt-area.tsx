@@ -277,7 +277,7 @@ function PromptArea({
             data-disabled={disabled || undefined}
             className={cn(
               'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
-              'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
+              'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
               'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
               // The plain (non-error) focus-within rules below have a
               // pseudo-class in their selector, giving them higher CSS

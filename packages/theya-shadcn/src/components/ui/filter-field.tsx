@@ -413,7 +413,7 @@ export function FilterField({
           className={cn(
             'flex min-h-[var(--size-size-control-size-control-2xl)] w-[25rem] max-w-full shrink flex-wrap items-center gap-1',
             'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid p-1',
-            'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
+            'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
             'transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
             'hover:not-data-[disabled]:border-[var(--color-border-border-primary)]',
             'focus-within:border-[var(--color-border-border-primary)]',
