@@ -121,14 +121,7 @@ export const Open: Story = {
   parameters: {
     // Opened by `defaultOpen`, so Radix focuses the menu itself, not an item
     // (opening from the keyboard focuses the first item, which shows focus).
-    a11y: {
-      auto: { skip: ['2.4.7'], reason: 'Menu opened programmatically; the focused container is never reached from the keyboard path.' },
-      // Story-only, like Select's "Invalid, open": the open menu is modal and
-      // hides #storybook-root (with the trigger) from assistive tech, so axe
-      // reads aria-hidden-focus on the trigger. Button's old in-button aria-live
-      // span used to stop Radix from hiding the root and masked this.
-      config: { rules: [{ id: 'aria-hidden-focus', enabled: false }] },
-    },
+    a11y: { auto: { skip: ['2.4.7'], reason: 'Menu opened programmatically; the focused container is never reached from the keyboard path.' } },
   },
   render: (_args, context) => (
     <DropdownMenu defaultOpen={context.viewMode !== 'docs'}>

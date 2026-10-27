@@ -220,7 +220,13 @@ const config: TestRunnerConfig = {
       // target-size (WCAG 2.5.8, 24×24 px minimum) is off in axe by default;
       // on here so the criterion has automated evidence. A story can still
       // switch it off with a reason in parameters.a11y.config.rules.
-      rules: [{ id: 'target-size', enabled: true }, ...(storyContext.parameters?.a11y?.config?.rules ?? [])],
+      // aria-hidden-focus skips what an open Radix modal hides on purpose
+      // (data-aria-hidden from hideOthers, and its focus guards); see preview.ts.
+      rules: [
+        { id: 'target-size', enabled: true },
+        { id: 'aria-hidden-focus', selector: '[aria-hidden="true"]:not([data-aria-hidden]):not([data-radix-focus-guard])' },
+        ...(storyContext.parameters?.a11y?.config?.rules ?? []),
+      ],
     });
 
     // The a11y addon in the preview runs its own axe after a play function
