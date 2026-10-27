@@ -6,6 +6,7 @@ import { Button } from '../../ui/button';
 import { Kbd } from '../../ui/kbd';
 import { Progress } from '../../ui/progress';
 import type { MegaItem } from '../navigation/mega-menu';
+import type { FooterColumn } from '../navigation/site-footer';
 
 // Demo content for the landing blocks: a bookmarks manager (Мария's first
 // product, pr-01), so the landing stories and the product tell one story.
@@ -336,3 +337,11 @@ export function DemoFeatureVisual({ id }: { id: DemoFeatureId }) {
     </div>
   );
 }
+
+/** Footer columns of the bookmarks product's landing page (for SiteFooter). */
+export const DEMO_LANDING_FOOTER: FooterColumn[] = [
+  { title: 'Product', links: [{ label: 'Import', href: '#import' }, { label: 'Search', href: '#search' }, { label: 'Teams', href: '#teams' }, { label: 'Pricing', href: '#pricing' }] },
+  { title: 'Get the app', links: [{ label: 'Chrome', href: '#chrome' }, { label: 'Firefox', href: '#firefox' }, { label: 'Safari', href: '#safari' }, { label: 'Edge', href: '#edge' }] },
+  { title: 'Resources', links: [{ label: 'Help centre', href: '#help' }, { label: 'Changelog', href: '#changelog' }, { label: 'Blog', href: '#blog' }] },
+  { title: 'Company', links: [{ label: 'About', href: '#about' }, { label: 'Careers', href: '#careers' }, { label: 'Contact', href: '#contact' }] },
+];

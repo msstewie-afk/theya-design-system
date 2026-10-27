@@ -14,6 +14,8 @@ export interface FooterColumn {
 
 export interface SiteFooterProps {
   appName?: string;
+  /** The product mark; replaces the default initial-in-a-square next to `appName`. */
+  logo?: ReactNode;
   /** One line about the product under the logo. */
   tagline?: string;
   columns: FooterColumn[];
@@ -32,6 +34,12 @@ export interface SiteFooterProps {
   legal?: { label: string; href: string }[];
   year?: number;
   className?: string;
+  /**
+   * Classes for the inner column. Defaults to a 1280px column with 24px
+   * sides; on a landing page pass `container-display` so the footer lines up
+   * with the header and the sections above it.
+   */
+  contentClassName?: string;
 }
 
 const SOCIAL: Record<NonNullable<SiteFooterProps['social']>[number]['network'], { label: string; icon: ReactNode }> = {
@@ -56,6 +64,7 @@ const linkClass =
  */
 export function SiteFooter({
   appName = 'Theya',
+  logo,
   tagline,
   columns,
   contact = [],
@@ -67,20 +76,23 @@ export function SiteFooter({
   legal = [],
   year = new Date().getFullYear(),
   className,
+  contentClassName,
 }: SiteFooterProps) {
   const uid = useId();
   const current = languages.find((l) => l.value === language);
   return (
     <footer className={cn('@container w-full border-t border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]', className)}>
-      <div className="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-12">
+      <div className={cn('flex flex-col gap-10 py-12', contentClassName ?? 'mx-auto max-w-7xl px-6')}>
         <div className="grid gap-10 @4xl:grid-cols-[18rem_minmax(0,1fr)]">
           <div className="flex flex-col gap-5">
-            <div className="flex items-center gap-2">
-              <span aria-hidden="true" className="grid size-8 place-content-center rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-primary-bg-primary)] font-body text-body-m font-semibold text-[var(--color-text-text-on-primary)]">
-                {appName.charAt(0)}
-              </span>
-              <span className="font-body text-body-l font-semibold text-[var(--color-text-text)]">{appName}</span>
-            </div>
+            {logo ?? (
+              <div className="flex items-center gap-2">
+                <span aria-hidden="true" className="grid size-8 place-content-center rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-primary-bg-primary)] font-body text-body-m font-semibold text-[var(--color-text-text-on-primary)]">
+                  {appName.charAt(0)}
+                </span>
+                <span className="font-body text-body-l font-semibold text-[var(--color-text-text)]">{appName}</span>
+              </div>
+            )}
             {tagline && <p className="max-w-xs font-body text-body-m text-[var(--color-text-text-subtle)]">{tagline}</p>}
             {contact.length > 0 && (
               <dl className="flex flex-col gap-2">
