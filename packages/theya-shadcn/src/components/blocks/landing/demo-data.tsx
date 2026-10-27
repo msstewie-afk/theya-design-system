@@ -1,9 +1,10 @@
-import { Book, Compass, Flower, Hexagon, Infinite, Leaf, Planet, SunLight, Wind, Folder, Search, WarningTriangle } from 'iconoir-react';
+import { Bookmark, Book, Compass, Flower, Hexagon, Infinite, Leaf, Planet, SunLight, Wind, Folder, Search, WarningTriangle } from 'iconoir-react';
 import type { ComponentType, SVGProps } from 'react';
 import { cn } from '../../../lib/utils';
 import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
 import { Kbd } from '../../ui/kbd';
+import type { MegaItem } from '../navigation/mega-menu';
 
 // Demo content for the landing blocks: a bookmarks manager (Мария's first
 // product, pr-01), so the landing stories and the product tell one story.
@@ -145,3 +146,51 @@ export function DemoLogos({ count = DEMO_LOGOS.length }: { count?: number }) {
     </>
   );
 }
+
+/** The product mark for the landing stories: a link home. */
+export function DemoProductLogo({ href = '#top' }: { href?: string }) {
+  return (
+    <a
+      href={href}
+      className="inline-flex items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)] font-heading text-heading-xs font-semibold text-[var(--color-text-text)] no-underline outline-none focus-visible:focus-ring"
+    >
+      <span className="flex size-8 items-center justify-center rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)]">
+        <Bookmark aria-hidden className="size-5" />
+      </span>
+      Bookmarks
+    </a>
+  );
+}
+
+/** Site navigation of the bookmarks product's landing page (for SiteHeader + MegaMenu). */
+export const DEMO_LANDING_MENU: MegaItem[] = [
+  {
+    id: 'product',
+    label: 'Product',
+    overview: { label: 'Product tour', href: '#tour' },
+    columns: [
+      {
+        title: 'Features',
+        links: [
+          { label: 'Import', href: '#import', description: 'From any browser or a bookmarks file' },
+          { label: 'Folders and tags', href: '#folders', description: 'Sort by hand, or let rules do it' },
+          { label: 'Search', href: '#search', description: 'Titles, notes and the text of every page' },
+          { label: 'Duplicates', href: '#duplicates', badge: 'New' },
+        ],
+      },
+      {
+        title: 'Works with',
+        links: [
+          { label: 'Chrome', href: '#chrome' },
+          { label: 'Firefox', href: '#firefox' },
+          { label: 'Safari', href: '#safari' },
+          { label: 'Edge', href: '#edge' },
+        ],
+      },
+    ],
+    featured: { title: 'Shared folders for teams', description: 'One reading list for the whole team, with comments on links.', href: '#teams', cta: 'See team plans' },
+  },
+  { id: 'pricing', label: 'Pricing', href: '#pricing' },
+  { id: 'changelog', label: 'Changelog', href: '#changelog' },
+  { id: 'blog', label: 'Blog', href: '#blog' },
+];

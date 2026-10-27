@@ -44,6 +44,8 @@ export interface MegaMenuProps {
   currentId?: string;
   /** `auto` switches at the md breakpoint; force one when the app decides itself. */
   layout?: 'auto' | 'bar' | 'drawer';
+  /** The drawer button: `label` shows "Menu" next to the icon; `icon` only the icon (named "Menu"), for tight bars on phones. */
+  drawerTrigger?: 'label' | 'icon';
   className?: string;
 }
 
@@ -76,7 +78,7 @@ const currentFill = 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] font-medium'
  * expandable section at a time. The section of the current page is
  * marked in both.
  */
-export function MegaMenu({ items, currentId, layout = 'auto', className }: MegaMenuProps) {
+export function MegaMenu({ items, currentId, layout = 'auto', drawerTrigger = 'label', className }: MegaMenuProps) {
   const uid = useId();
   return (
     <div className={cn('flex items-center', className)}>
@@ -167,9 +169,13 @@ export function MegaMenu({ items, currentId, layout = 'auto', className }: MegaM
       {/* Narrow */}
       <Drawer direction="start">
         <DrawerTrigger asChild>
-          <Button appearance="ghost" tone="secondary" size="lg" leftIcon={<Menu />} className={cn(layout === 'auto' && 'md:hidden', layout === 'bar' && 'hidden')}>
-            Menu
-          </Button>
+          {drawerTrigger === 'icon' ? (
+            <Button appearance="ghost" tone="secondary" size="lg" iconOnly aria-label="Menu" leftIcon={<Menu />} className={cn(layout === 'auto' && 'md:hidden', layout === 'bar' && 'hidden')} />
+          ) : (
+            <Button appearance="ghost" tone="secondary" size="lg" leftIcon={<Menu />} className={cn(layout === 'auto' && 'md:hidden', layout === 'bar' && 'hidden')}>
+              Menu
+            </Button>
+          )}
         </DrawerTrigger>
         <DrawerContent>
           <DrawerHeader>

@@ -85,6 +85,7 @@ export const ru: TheyaMessages = {
   dataTableCell: { unlimited: 'Без ограничений', badges: (n) => `${n} ${plural(n, 'элемент', 'элемента', 'элементов')}` },
   table: { columnPages: 'Колонки таблицы', showColumns: (from, to, total) => (from === to ? `Показать колонку ${from} из ${total}` : `Показать колонки ${from}–${to} из ${total}`) },
   marquee: { pause: 'Остановить анимацию', play: 'Запустить анимацию' },
+  siteHeader: { skipToContent: 'Перейти к содержимому' },
   dataTable: {
     rowActionsFor: (label) => `Действия: ${label}`,
     selectAll: 'Выбрать все',

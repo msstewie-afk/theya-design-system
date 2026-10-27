@@ -71,6 +71,7 @@ export const ar: TheyaMessages = {
   dataTableCell: { unlimited: 'غير محدود', badges: (n) => `${n} عناصر` },
   table: { columnPages: 'أعمدة الجدول', showColumns: (from, to, total) => (from === to ? `عرض العمود ${from} من ${total}` : `عرض الأعمدة ${from}–${to} من ${total}`) },
   marquee: { pause: 'إيقاف الحركة مؤقتًا', play: 'تشغيل الحركة' },
+  siteHeader: { skipToContent: 'انتقل إلى المحتوى' },
   dataTable: {
     rowActionsFor: (label) => `إجراءات ${label}`,
     selectAll: 'تحديد الكل',

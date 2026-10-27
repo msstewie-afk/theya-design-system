@@ -57,6 +57,7 @@ export const zh: TheyaMessages = {
   dataTableCell: { unlimited: '无限制', badges: (n) => `${n} 项` },
   table: { columnPages: '表格列', showColumns: (from, to, total) => (from === to ? `显示第 ${from} 列，共 ${total} 列` : `显示第 ${from}–${to} 列，共 ${total} 列`) },
   marquee: { pause: '暂停动画', play: '播放动画' },
+  siteHeader: { skipToContent: '跳到主要内容' },
   dataTable: {
     rowActionsFor: (label) => `${label}的操作`,
     selectAll: '全选',

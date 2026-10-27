@@ -77,6 +77,7 @@ export const en = {
   dataTableCell: { unlimited: 'Unlimited', badges: (n: number) => `${n} ${plural(n, 'item', 'items')}` },
   table: { columnPages: 'Table columns', showColumns: (from: number, to: number, total: number) => (from === to ? `Show column ${from} of ${total}` : `Show columns ${from}–${to} of ${total}`) },
   marquee: { pause: 'Pause animation', play: 'Play animation' },
+  siteHeader: { skipToContent: 'Skip to content' },
   dataTable: {
     rowActionsFor: (label: string) => `Actions for ${label}`,
     selectAll: 'Select all',

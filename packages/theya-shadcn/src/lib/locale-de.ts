@@ -79,6 +79,7 @@ export const de: TheyaMessages = {
   dataTableCell: { unlimited: 'Unbegrenzt', badges: (n) => `${n} ${plural(n, 'Eintrag', 'Einträge')}` },
   table: { columnPages: 'Tabellenspalten', showColumns: (from, to, total) => (from === to ? `Spalte ${from} von ${total} anzeigen` : `Spalten ${from}–${to} von ${total} anzeigen`) },
   marquee: { pause: 'Animation anhalten', play: 'Animation abspielen' },
+  siteHeader: { skipToContent: 'Zum Inhalt springen' },
   dataTable: {
     rowActionsFor: (label) => `Aktionen für ${label}`,
     selectAll: 'Alle auswählen',
