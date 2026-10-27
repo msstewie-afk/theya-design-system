@@ -112,7 +112,10 @@ export const SplitWithChips: Story = {
   },
 };
 
-/** A serif title with an italic accent — the editorial look (Wispr, Granola). */
+/**
+ * A serif title with an italic line — the editorial look (Wispr, Granola).
+ * Short line over a long one, the reverse of Centered.
+ */
 export const SerifTitle: Story = {
   name: 'Serif title',
   args: {
@@ -120,7 +123,10 @@ export const SerifTitle: Story = {
     titleFont: 'serif',
     title: (
       <>
-        Don’t hoard tabs, <HeroAccent variant="italic">keep what matters</HeroAccent>
+        Fewer tabs,
+        <HeroAccent variant="italic" line>
+          more of what matters
+        </HeroAccent>
       </>
     ),
     media: undefined,

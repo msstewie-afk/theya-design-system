@@ -55,7 +55,8 @@ export function BookmarksPreview({ className, floating = true, folder = 'reading
       aria-label={`The Bookmarks app showing the ${current.name} folder: saved links with tags, and a notice that three duplicates were found.`}
       className={cn('relative', className)}
     >
-      <div className="overflow-hidden rounded-[var(--size-border-radius-border-radius-5xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-lg">
+      {/* Nested radius: the search field's 6px plus the 12px band padding ≈ 16px (4xl), so the corners stay concentric. */}
+      <div className="overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-lg">
         <div className="flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] px-4 py-3">
           <div className="flex h-8 flex-1 items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] px-3 text-body-s text-[var(--color-text-text-subtler)]">
             <Search className="size-4 shrink-0" />

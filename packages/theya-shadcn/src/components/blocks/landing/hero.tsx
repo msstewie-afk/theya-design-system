@@ -40,7 +40,9 @@ export interface HeroAccentProps extends ComponentProps<'em'> {
   /**
    * `weight` — a heavier weight of the title face (Geologica has no italic).
    * `serif` — the display serif in italic, for a word or a line inside a sans
-   * title (Era, Wispr); 1.12em so its cap height meets Geologica's.
+   * title (Era, Wispr); 1.12em so its cap height meets Geologica's, and a
+   * 0.82 line box so a serif line under a sans one sits as close as the sans
+   * lines do (the serif's small x-height leaves more white above it).
    * `italic` — italic of the same face, for a serif title.
    */
   variant?: 'weight' | 'serif' | 'italic';
@@ -50,13 +52,22 @@ export interface HeroAccentProps extends ComponentProps<'em'> {
 
 const ACCENT: Record<NonNullable<HeroAccentProps['variant']>, string> = {
   weight: 'not-italic font-bold',
-  serif: 'font-display-serif text-[1.12em] italic leading-[0.9]',
+  serif: 'font-display-serif text-[1.12em] italic leading-[0.82]',
   italic: 'italic',
 };
 
 /** Emphasis inside a hero title: a word, or with `line` a whole line in another face. */
 export function HeroAccent({ variant = 'weight', line = false, className, ...props }: HeroAccentProps) {
-  return <em data-slot="hero-accent" data-variant={variant} className={cn(ACCENT[variant], line && 'block', className)} {...props} />;
+  // A tight serif line lets its descenders hang below the title box; on its
+  // own line, give that space back so the description keeps its distance.
+  return (
+    <em
+      data-slot="hero-accent"
+      data-variant={variant}
+      className={cn(ACCENT[variant], line && 'block', line && variant === 'serif' && 'pb-[0.1em]', className)}
+      {...props}
+    />
+  );
 }
 
 /** The first section of a landing page: headline, one line of why, the main action. */
@@ -96,7 +107,9 @@ export function Hero({
         className={cn(
           'm-0 text-balance text-[var(--color-text-text)]',
           centered ? 'text-heading-3xl' : 'text-heading-2xl',
-          titleFont === 'serif' ? 'font-display-serif' : 'font-heading',
+          // EB Garamond's small x-height makes the sans line-height (~1.04) look
+          // loose; 0.92 sets its lines as close as the sans title sets its own.
+          titleFont === 'serif' ? 'font-display-serif leading-[0.92]' : 'font-heading',
         )}
       >
         {title}
