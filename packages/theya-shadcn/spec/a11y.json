@@ -3793,7 +3793,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-27",
+          "result": "fail",
+          "notes": "\"Copied\" is spoken, but the revert to \"Copy\" was announced too and cut it off; the VoiceOver cursor frame stayed at the old width. Fixed the same day: no announcement on the return to the resting label, and the button keeps the width of the longer label. Needs a re-check."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",

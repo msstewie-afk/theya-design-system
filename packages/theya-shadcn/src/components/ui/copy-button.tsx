@@ -9,7 +9,7 @@ import { useTheyaI18n } from '../../lib/i18n';
 
 /**
  * Copies a string to the clipboard and confirms it via icon swap + a
- * polite announcement (the "Copied" label via Button's own live label, or
+ * polite announcement (the "Copied" label, announced by Button, or
  * a dedicated live region when icon-only). Doesn't toast itself — wire `onCopied`/
  * `onCopyError` to `sonner`'s `toast` (see ./sonner) at the call site,
  * as SecretField does, so callers that don't want a toast aren't forced
@@ -80,7 +80,18 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(functio
     if (!event.defaultPrevented) void copy();
   };
 
-  const displayLabel = label == null ? undefined : copied ? copiedLabel : label;
+  // Both labels share one grid cell, so the button keeps the width of the longer
+  // one: no jump when "Copy" turns into "Copied", and VoiceOver's cursor frame
+  // still matches the button. The other label is invisible and aria-hidden.
+  const displayLabel =
+    label == null ? undefined : (
+      <span className="inline-grid justify-items-center">
+        <span className="[grid-area:1/1]">{copied ? copiedLabel : label}</span>
+        <span aria-hidden="true" className="invisible [grid-area:1/1]">
+          {copied ? label : copiedLabel}
+        </span>
+      </span>
+    );
   const iconOnly = label == null;
 
   return (

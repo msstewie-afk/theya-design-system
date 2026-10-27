@@ -8,6 +8,16 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
 import { Spinner } from './spinner';
 import { announce } from '../../lib/announce';
+
+/** Text a screen reader would read: textContent without aria-hidden subtrees. */
+function spokenText(root: Node): string {
+  let out = '';
+  root.childNodes.forEach((node) => {
+    if (node.nodeType === Node.TEXT_NODE) out += node.textContent ?? '';
+    else if (node instanceof HTMLElement && node.getAttribute('aria-hidden') !== 'true') out += spokenText(node);
+  });
+  return out.trim();
+}
 import { BadgeIndicator, type BadgeIndicatorTone } from './badge-indicator';
 
 /**
@@ -688,12 +698,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     // shared announcer (WCAG 4.1.3). An aria-live span inside the button was not
     // enough: VoiceOver with Safari stays silent when the region sits in the
     // focused button itself (found in the manual pass, 2026-10-27). The first
-    // render is never announced, only changes.
+    // render is never announced, and neither is a return to that resting label
+    // ("Copied" -> "Copy" after the reset): it cut off the message before it.
+    // Text inside aria-hidden (a width-reserving copy of another label) is skipped.
     const labelRef = useRef<HTMLSpanElement>(null);
     const lastLabel = useRef<string | null>(null);
+    const restLabel = useRef<string | null>(null);
     useEffect(() => {
-      const text = labelRef.current?.textContent?.trim() ?? '';
-      if (lastLabel.current !== null && text && text !== lastLabel.current) announce(text);
+      const text = labelRef.current ? spokenText(labelRef.current) : '';
+      if (restLabel.current === null && text) restLabel.current = text;
+      if (lastLabel.current !== null && text && text !== lastLabel.current && text !== restLabel.current) announce(text);
       lastLabel.current = text;
     });
     // Loading blocks the button the soft way: native `disabled` would drop
