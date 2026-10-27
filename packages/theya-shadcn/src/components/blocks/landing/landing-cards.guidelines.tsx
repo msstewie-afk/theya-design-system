@@ -1,0 +1,28 @@
+import type { ComponentGuidelines } from '../../../docs/guidelines';
+
+// Patterns are whole screens: no do / don't pairs (doDont stays empty and the section is skipped).
+export const landingCardsGuidelines: ComponentGuidelines = {
+  status: 'beta',
+  whenToUse: [
+    'Landing sections made of cards: features (FeatureCard), product slices (MediaCard), numbers (StatCard), customer stories (StoryCard), testimonials (QuoteCard), next steps (LinkCard).',
+    'BentoGrid for a mix of sizes: one wide or tall card carries the main point, the small ones support it.',
+    '`surface` and `hue` set the look (outlined, sunken, tonal pastel, inverse, primary); `hover` the pointer behaviour.',
+  ],
+  whenNotToUse: [
+    { text: 'Cards inside the product (lists, settings, dashboards)', instead: 'Card' },
+    { text: 'One feature with a big visual', instead: 'FeatureSplit' },
+  ],
+  anatomy: [
+    { part: 'Surface', description: '16px corners, 24 / 32px padding; media bleeds to the edge on its side.' },
+    { part: 'Title', description: 'h3; with `href` it is the link for the whole card.' },
+    { part: 'Body', description: 'description, number, quote — depending on the kind.', optional: true },
+    { part: 'Link label', description: '“Learn more →”, visible text only; the title names the link.', optional: true },
+  ],
+  doDont: [],
+  a11y: [
+    'A whole-card link is one real link on the title, stretched over the card: one Tab stop, named by the title, the focus ring round the whole card.',
+    'Hover effects are pointer-only and off under reduced motion; the beam runs only while the card is hovered or focused, so nothing moves on its own.',
+    '`expand` folds the description only where the device can hover; it opens on focus too, and on touch it is always open.',
+    'Tonal and primary cards re-point the subtle text and link colors so they keep 4.5:1 on the fill.',
+  ],
+};
