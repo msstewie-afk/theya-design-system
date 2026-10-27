@@ -13,7 +13,7 @@ export const heroGuidelines: ComponentGuidelines = {
   ],
   anatomy: [
     { part: 'Eyebrow', description: 'the product or category, one short line.', optional: true },
-    { part: 'Title', description: 'the headline, h1. HeroAccent marks one or two words.' },
+    { part: 'Title', description: 'the headline, h1. HeroAccent marks one or two words. No full stop after the last sentence; one between two sentences is fine.' },
     { part: 'Description', description: 'one or two sentences, body-l.', optional: true },
     { part: 'Actions', description: 'one primary button, at most one secondary — or an email field with a button.', optional: true },
     { part: 'Note', description: 'a quiet line under the actions: platforms, trial terms.', optional: true },

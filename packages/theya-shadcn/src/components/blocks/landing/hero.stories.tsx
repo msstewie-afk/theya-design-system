@@ -35,15 +35,19 @@ const meta: Meta<typeof Hero> = {
 export default meta;
 type Story = StoryObj<typeof Hero>;
 
-/** Two lines, two faces: a Geologica statement and a serif italic answer. The product below. */
+/**
+ * Two lines, two faces: a Geologica statement and a serif italic answer. The
+ * lines differ in length (about 860 / 490 px at 1440) so the title tapers
+ * instead of reading as two equal blocks. The product below.
+ */
 export const Centered: Story = {
   args: {
     layout: 'centered',
     title: (
       <>
-        Save what you read.
+        Save what you read,
         <HeroAccent variant="serif" line>
-          Find it in a keystroke.
+          find it again
         </HeroAccent>
       </>
     ),
@@ -51,7 +55,7 @@ export const Centered: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('heading', { level: 1, name: 'Save what you read. Find it in a keystroke.' })).toBeVisible();
+    await expect(canvas.getByRole('heading', { level: 1, name: 'Save what you read, find it again' })).toBeVisible();
     // The product visual is one image to assistive tech, with no controls inside.
     const visual = canvas.getByRole('img', { name: /The Bookmarks app/ });
     await expect(within(visual).queryAllByRole('button')).toHaveLength(0);
@@ -116,7 +120,7 @@ export const SerifTitle: Story = {
     titleFont: 'serif',
     title: (
       <>
-        Don’t hoard tabs, <HeroAccent variant="italic">keep what matters.</HeroAccent>
+        Don’t hoard tabs, <HeroAccent variant="italic">keep what matters</HeroAccent>
       </>
     ),
     media: undefined,
