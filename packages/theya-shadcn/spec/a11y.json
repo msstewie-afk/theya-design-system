@@ -841,8 +841,8 @@
         "screenReader"
       ],
       "counts": {
-        "n/a": 131,
-        "untested": 24,
+        "n/a": 130,
+        "untested": 25,
         "verified": 2
       },
       "patternCounts": {
@@ -6042,6 +6042,7 @@
       "traits": [
         "colorMeaning",
         "labelled",
+        "status",
         "timed",
         "validation"
       ],
@@ -6100,7 +6101,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "n/a",
-        "4.1.3": "n/a"
+        "4.1.3": "untested"
       }
     },
     {

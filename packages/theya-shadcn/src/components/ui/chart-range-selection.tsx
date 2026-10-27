@@ -21,6 +21,7 @@ interface SelectableChartProps {
   onMouseMove?: (state: RechartsPointerState) => void;
   onMouseUp?: () => void;
   onMouseLeave?: () => void;
+  accessibilityLayer?: boolean;
 }
 
 export interface ChartRangeSelectionProps {
@@ -188,9 +189,15 @@ export function ChartRangeSelection({
     );
   }
 
+  // accessibilityLayer off: this group is the one keyboard stop. Recharts' own
+  // layer made the inner svg a second, unnamed tab stop (role="application")
+  // with different arrow keys (found in the VoiceOver dry run, 2026-10-27).
   const chart = cloneElement(
     children,
-    disabled ? {} : { onMouseDown: startSelection, onMouseMove: extendSelection, onMouseUp: finishSelection, onMouseLeave: selectionStart ? finishSelection : children.props.onMouseLeave },
+    {
+      accessibilityLayer: false,
+      ...(disabled ? {} : { onMouseDown: startSelection, onMouseMove: extendSelection, onMouseUp: finishSelection, onMouseLeave: selectionStart ? finishSelection : children.props.onMouseLeave }),
+    },
     ...chartChildren,
   );
 

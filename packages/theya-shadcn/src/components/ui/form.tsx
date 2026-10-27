@@ -13,6 +13,7 @@ import {
 } from 'react-hook-form';
 import { cn } from '../../lib/utils';
 import { Label } from './label';
+import { FieldErrorIcon } from './field-error-icon';
 
 /**
  * react-hook-form binding layer. `Form` is RHF's FormProvider; wrap
@@ -145,13 +146,18 @@ function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message ?? '') : props.children;
   if (!body) return null;
+  // Like FieldError: an error that appears as you leave the field is spoken
+  // (role="alert", WCAG 4.1.3; found in the VoiceOver dry run) and carries the
+  // error icon, so it doesn't rest on the red alone (WCAG 1.4.1).
   return (
     <p
       id={formMessageId}
-      className={cn('font-body text-body-xs font-medium text-[var(--color-text-text-danger)]', className)}
+      role={error ? 'alert' : undefined}
+      className={cn('flex items-start gap-1 font-body text-body-xs font-medium text-[var(--color-text-text-danger)]', className)}
       {...props}
     >
-      {body}
+      {error && <FieldErrorIcon className="mt-px shrink-0 text-[var(--color-icon-icon-danger)]" />}
+      <span>{body}</span>
     </p>
   );
 }
