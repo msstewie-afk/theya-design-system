@@ -15,6 +15,7 @@ interface SelectableChartProps {
     onMouseMove?: (state: RechartsPointerState) => void;
     onMouseUp?: () => void;
     onMouseLeave?: () => void;
+    accessibilityLayer?: boolean;
 }
 export interface ChartRangeSelectionProps {
     children: ReactElement<SelectableChartProps>;
