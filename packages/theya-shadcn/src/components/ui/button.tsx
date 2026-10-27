@@ -1,12 +1,13 @@
 'use client';
 
-import { forwardRef, cloneElement, isValidElement } from 'react';
+import { forwardRef, cloneElement, isValidElement, useEffect, useRef } from 'react';
 import type { ButtonHTMLAttributes, MouseEvent, ReactElement, ReactNode } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { Check } from 'iconoir-react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
 import { Spinner } from './spinner';
+import { announce } from '../../lib/announce';
 import { BadgeIndicator, type BadgeIndicatorTone } from './badge-indicator';
 
 /**
@@ -683,6 +684,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) {
+    // Label changes ("Save changes" -> "Saving…" -> "Saved") are spoken through the
+    // shared announcer (WCAG 4.1.3). An aria-live span inside the button was not
+    // enough: VoiceOver with Safari stays silent when the region sits in the
+    // focused button itself (found in the manual pass, 2026-10-27). The first
+    // render is never announced, only changes.
+    const labelRef = useRef<HTMLSpanElement>(null);
+    const lastLabel = useRef<string | null>(null);
+    useEffect(() => {
+      const text = labelRef.current?.textContent?.trim() ?? '';
+      if (lastLabel.current !== null && text && text !== lastLabel.current) announce(text);
+      lastLabel.current = text;
+    });
     // Loading blocks the button the soft way: native `disabled` would drop
     // focus to the page while the action runs (WCAG 2.4.3).
     const blocked = softDisabled || loading;
@@ -802,13 +815,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           ) : (
             decorativeIcon(leftIcon)
           )}
-          {/* aria-live: announces label changes (e.g. "Save changes" →
-              "Saving…" → "Saved") to screen readers — without it those
-              transitions are silent to anyone not looking at the screen.
-              Harmless for buttons whose text never changes, since
-              aria-live only speaks up on actual changes. */}
+          {/* The label; its changes are announced by the effect above. */}
           {!iconOnly && (
-            <span aria-live="polite" aria-atomic="true">
+            <span ref={labelRef}>
               {children}
               {/* Same text node run as the label (no whitespace between the
                   spans), so the name reads "Drafts, 3 drafts" — a separate

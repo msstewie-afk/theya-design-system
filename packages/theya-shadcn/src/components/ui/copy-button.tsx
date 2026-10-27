@@ -104,8 +104,8 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(functio
       >
         {displayLabel}
       </Button>
-      {/* Icon-only only: with a visible label, Button's own aria-live label
-          span already announces "Copy" -> "Copied", and this region made it
+      {/* Icon-only only: with a visible label, Button already announces
+          "Copy" -> "Copied" (through announce()), and this region made it
           two announcements in a row. */}
       {iconOnly && (
         <span aria-live="polite" className="sr-only">

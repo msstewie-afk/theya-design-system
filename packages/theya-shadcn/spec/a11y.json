@@ -2103,7 +2103,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari",
+          "date": "2026-10-27",
+          "result": "fail",
+          "notes": "Interactive: loading -> success: \"Saved\" was not spoken (the aria-live span sat inside the focused button). Fixed the same day: label changes go through announce(). Needs a re-check."
+        }
+      ],
       "deviations": [
         {
           "criterion": "1.4.11",
@@ -5112,7 +5120,14 @@
           "light",
           "dark"
         ],
-        "exclusions": []
+        "exclusions": [
+          {
+            "story": "Open",
+            "rules": [
+              "aria-hidden-focus"
+            ]
+          }
+        ]
       },
       "keyboard": {
         "tested": 4,

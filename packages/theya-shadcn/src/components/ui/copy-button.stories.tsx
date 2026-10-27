@@ -69,9 +69,10 @@ export const Playground: Story = {
       await expect(args.onCopied).toHaveBeenCalledWith('npm install @theya/shadcn');
       await waitFor(() => expect(button).toHaveAccessibleName('Copied'));
       await expect(button).toHaveAttribute('data-tone', 'success');
-      // One announcement: Button's live label says "Copied"; CopyButton adds
-      // no second region when the label is visible.
-      await expect(regions(canvasElement)).toHaveLength(1);
+      // One announcement: Button says "Copied" through the shared announcer;
+      // CopyButton adds no region of its own when the label is visible.
+      await expect(regions(canvasElement)).toHaveLength(0);
+      await waitFor(() => expect(document.querySelector('[data-theya-announcer="polite"]')?.textContent).toBe('Copied'));
 
       // Reverts after resetDelay.
       await waitFor(() => expect(button).toHaveAccessibleName('Copy'), { timeout: 2000 });
