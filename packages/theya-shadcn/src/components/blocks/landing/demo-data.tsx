@@ -1,9 +1,10 @@
-import { Bookmark, Book, Compass, Flower, Hexagon, Infinite, Leaf, Planet, SunLight, Wind, Folder, Search, WarningTriangle } from 'iconoir-react';
+import { Bookmark, Book, Check, Compass, Copy, Flower, Hexagon, Infinite, Leaf, Planet, SunLight, Wind, Folder, Search, WarningTriangle } from 'iconoir-react';
 import type { ComponentType, SVGProps } from 'react';
 import { cn } from '../../../lib/utils';
 import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
 import { Kbd } from '../../ui/kbd';
+import { Progress } from '../../ui/progress';
 import type { MegaItem } from '../navigation/mega-menu';
 
 // Demo content for the landing blocks: a bookmarks manager (Мария's first
@@ -194,3 +195,144 @@ export const DEMO_LANDING_MENU: MegaItem[] = [
   { id: 'changelog', label: 'Changelog', href: '#changelog' },
   { id: 'blog', label: 'Blog', href: '#blog' },
 ];
+
+// ---------------------------------------------------------------------------
+// Feature visuals (FeatureSplit / FeatureShowcase): one slice of the product per
+// feature, built from Theya components. Each is a picture: role="img" with a
+// label, and no real controls inside.
+
+const card =
+  'w-full max-w-[32rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 shadow-elevation-md';
+const row = 'flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] py-3 last:border-b-0';
+
+function ImportVisual() {
+  const browsers = [
+    { name: 'Chrome', done: 412, total: 412 },
+    { name: 'Firefox', done: 168, total: 230 },
+    { name: 'Safari', done: 0, total: 96 },
+  ];
+  return (
+    <div className={card}>
+      <p className="m-0 mb-1 font-body text-body-m font-semibold text-[var(--color-text-text)]">Importing bookmarks</p>
+      <p className="m-0 mb-2 font-body text-body-s text-[var(--color-text-text-subtle)]">580 of 738 links</p>
+      {browsers.map((b) => (
+        <div key={b.name} className={row}>
+          <span className="w-16 shrink-0 font-body text-body-s text-[var(--color-text-text)]">{b.name}</span>
+          <Progress value={(b.done / b.total) * 100} aria-label={`${b.name} import`} className="flex-1" />
+          <span className="w-16 shrink-0 text-end font-body text-body-s tabular-nums text-[var(--color-text-text-subtle)]">
+            {b.done === b.total ? <Check aria-hidden className="ms-auto size-4 text-[var(--color-icon-icon-success)]" /> : `${b.done}/${b.total}`}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FoldersVisual() {
+  return (
+    <div className={card}>
+      {DEMO_FOLDERS.map((f, i) => (
+        <div key={f.id} className={row}>
+          <Folder aria-hidden className="size-4 shrink-0 text-[var(--color-icon-icon-subtle)]" />
+          <span className="flex-1 truncate font-body text-body-m text-[var(--color-text-text)]">{f.name}</span>
+          <Badge tone={i === 0 ? 'primary' : 'neutral'}>{['auto: longreads', 'tokens', 'summer', 'hiking'][i]}</Badge>
+          <span className="w-8 text-end font-body text-body-s tabular-nums text-[var(--color-text-text-subtle)]">{f.count}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function SearchVisual() {
+  return (
+    <div className={card}>
+      <div className="mb-2 flex h-10 items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] px-3 font-body text-body-m text-[var(--color-text-text)]">
+        <Search aria-hidden className="size-4 shrink-0 text-[var(--color-icon-icon-subtle)]" />
+        attention
+      </div>
+      {[
+        { t: 'Notes on attention', d: 'letters.example', q: '…what we give our attention to becomes…' },
+        { t: 'A year without notifications', d: 'journal.example', q: '…my attention came back slowly…' },
+        { t: 'How we read on screens', d: 'research.example', q: '…attention drops after the first…' },
+      ].map((r) => (
+        <div key={r.t} className="flex flex-col gap-0.5 border-b border-solid border-[var(--color-border-border-subtler)] py-3 last:border-b-0">
+          <span className="font-body text-body-m font-semibold text-[var(--color-text-text)]">{r.t}</span>
+          <span className="font-body text-body-s text-[var(--color-text-text-subtle)]">
+            {r.q.split('attention').map((part, i, all) => (
+              <span key={i}>
+                {part}
+                {i < all.length - 1 && <mark className="rounded-[var(--size-border-radius-border-radius-sm)] bg-[var(--color-bg-warning-bg-warning-subtle)] px-0.5 font-medium text-[var(--color-text-text)]">attention</mark>}
+              </span>
+            ))}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function DuplicatesVisual() {
+  return (
+    <div className={card}>
+      <div className="mb-3 flex items-center gap-2 font-body text-body-m font-semibold text-[var(--color-text-text)]">
+        <Copy aria-hidden className="size-4 text-[var(--color-icon-icon-warning)]" />3 duplicates found
+      </div>
+      {[
+        ['Notes on attention', 'Reading list', 'keep'],
+        ['Notes on attention', 'Design systems', 'merge'],
+        ['Cold cucumber soup', 'Recipes', 'keep'],
+      ].map(([t, folder, action], i) => (
+        <div key={i} className={row}>
+          <span className="flex min-w-0 flex-1 flex-col">
+            <span className="truncate font-body text-body-m text-[var(--color-text-text)]">{t}</span>
+            <span className="font-body text-body-s text-[var(--color-text-text-subtle)]">{folder}</span>
+          </span>
+          <Badge tone={action === 'keep' ? 'success' : 'warning'}>{action}</Badge>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export const DEMO_FEATURES = [
+  {
+    id: 'import',
+    title: 'Bring everything over',
+    description: 'Import from Chrome, Firefox, Safari and Edge at once, or from a bookmarks file. Folders come with it.',
+    label: 'Import in progress: Chrome done, Firefox 168 of 230 links, Safari waiting.',
+    Visual: ImportVisual,
+  },
+  {
+    id: 'folders',
+    title: 'Folders that sort themselves',
+    description: 'Set a rule once (by site, by tag, by length) and new links land in the right folder.',
+    label: 'Four folders with tags; Reading list sorts long reads in automatically.',
+    Visual: FoldersVisual,
+  },
+  {
+    id: 'search',
+    title: 'Search the words, not just the titles',
+    description: 'Every saved page is indexed, so a phrase you half remember finds it.',
+    label: 'Searching “attention” finds three pages, with the word highlighted inside each.',
+    Visual: SearchVisual,
+  },
+  {
+    id: 'duplicates',
+    title: 'One copy of everything',
+    description: 'The same link saved twice is spotted and merged, with its tags and notes.',
+    label: 'Three duplicates found: two to keep and one to merge.',
+    Visual: DuplicatesVisual,
+  },
+] as const;
+
+export type DemoFeatureId = (typeof DEMO_FEATURES)[number]['id'];
+
+/** A feature's visual as one labelled picture. */
+export function DemoFeatureVisual({ id }: { id: DemoFeatureId }) {
+  const f = DEMO_FEATURES.find((x) => x.id === id)!;
+  return (
+    <div role="img" aria-label={f.label} className="flex w-full justify-center">
+      <f.Visual />
+    </div>
+  );
+}
