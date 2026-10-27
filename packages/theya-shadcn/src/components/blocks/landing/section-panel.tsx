@@ -15,6 +15,11 @@ export interface SectionPanelProps extends ComponentProps<'section'> {
    * section needs that much bottom padding to spare (section-display has it).
    */
   overlap?: boolean;
+  /**
+   * `section` — the display section padding (64 → 128 px).
+   * `none` — when the content brings its own, e.g. a LogoStrip as a dark band.
+   */
+  padding?: 'section' | 'none';
 }
 
 const TONE: Record<SectionPanelTone, string> = {
@@ -43,7 +48,7 @@ const TONE: Record<SectionPanelTone, string> = {
  * Stack several and set `overlap` to lay each one over the previous section.
  * Content inside is in the display scale (data-scale="display").
  */
-export function SectionPanel({ tone = 'default', overlap = false, className, children, ...props }: SectionPanelProps) {
+export function SectionPanel({ tone = 'default', overlap = false, padding = 'section', className, children, ...props }: SectionPanelProps) {
   return (
     <section
       data-slot="section-panel"
@@ -51,7 +56,8 @@ export function SectionPanel({ tone = 'default', overlap = false, className, chi
       data-theme={tone === 'inverse' ? 'dark' : undefined}
       data-surface={tone === 'primary' ? 'primary' : undefined}
       className={cn(
-        'section-display relative rounded-t-[var(--size-border-radius-border-radius-5xl)]',
+        'relative rounded-t-[var(--size-border-radius-border-radius-5xl)]',
+        padding === 'section' && 'section-display',
         overlap && '-mt-[var(--size-border-radius-border-radius-5xl)]',
         TONE[tone],
         className,

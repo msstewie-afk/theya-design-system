@@ -14,6 +14,7 @@ export const sectionPanelGuidelines: ComponentGuidelines = {
   anatomy: [
     { part: 'Sheet', description: 'a full-width section with 32px rounded top corners, display scale inside.' },
     { part: 'Content', description: 'a container-display column with the section’s own blocks.' },
+    { part: 'Padding', description: '`section` (64 → 128 px) by default; `none` when the content brings its own, such as a LogoStrip band.', optional: true },
   ],
   doDont: [],
   a11y: [

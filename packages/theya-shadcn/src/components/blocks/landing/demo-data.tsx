@@ -1,4 +1,5 @@
-import { Folder, Search, WarningTriangle } from 'iconoir-react';
+import { Book, Compass, Flower, Hexagon, Infinite, Leaf, Planet, SunLight, Wind, Folder, Search, WarningTriangle } from 'iconoir-react';
+import type { ComponentType, SVGProps } from 'react';
 import { cn } from '../../../lib/utils';
 import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
@@ -112,5 +113,35 @@ export function BookmarksPreview({ className, floating = true, folder = 'reading
         </div>
       )}
     </div>
+  );
+}
+
+/**
+ * Made-up customer logos for LogoStrip: a mark and a wordmark, set in a few
+ * different styles the way real logo rows are. No real brands (Theya rule).
+ */
+const DEMO_LOGOS: { name: string; icon: ComponentType<SVGProps<SVGSVGElement>>; style: string }[] = [
+  { name: 'Northwind', icon: Wind, style: 'font-heading font-semibold' },
+  { name: 'Fieldnote', icon: Book, style: 'font-display-serif font-semibold italic text-[1.25em]' },
+  { name: 'Quartz', icon: Hexagon, style: 'font-heading font-bold uppercase tracking-[0.12em] text-[0.85em]' },
+  { name: 'Lumen', icon: SunLight, style: 'font-heading font-medium' },
+  { name: 'Kestrel', icon: Compass, style: 'font-heading font-bold' },
+  { name: 'Orbitly', icon: Planet, style: 'font-heading font-semibold lowercase' },
+  { name: 'Greenhouse', icon: Leaf, style: 'font-display-serif font-semibold text-[1.25em]' },
+  { name: 'Loop & Co', icon: Infinite, style: 'font-heading font-medium' },
+  { name: 'Bloom', icon: Flower, style: 'font-heading font-bold' },
+];
+
+/** The first `count` demo logos (all nine by default). */
+export function DemoLogos({ count = DEMO_LOGOS.length }: { count?: number }) {
+  return (
+    <>
+      {DEMO_LOGOS.slice(0, count).map(({ name, icon: Icon, style }) => (
+        <span key={name} data-slot="demo-logo" className={cn('inline-flex items-center gap-2 whitespace-nowrap text-heading-s', style)}>
+          <Icon aria-hidden className="size-7 shrink-0" />
+          {name}
+        </span>
+      ))}
+    </>
   );
 }
