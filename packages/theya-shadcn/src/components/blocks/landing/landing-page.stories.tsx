@@ -5,6 +5,7 @@ import { Button } from '../../ui/button';
 import { Link } from '../../ui/link';
 import { MegaMenu } from '../navigation/mega-menu';
 import { SiteFooter } from '../navigation/site-footer';
+import { BookmarksLiveDemo } from './bookmarks-live-demo';
 import { BookmarksPreview, DEMO_FEATURES, DEMO_LANDING_FOOTER, DEMO_LANDING_MENU, DemoFeatureVisual, DemoLogos, DemoProductLogo } from './demo-data';
 import { FeatureShowcase } from './feature-showcase';
 import { FeatureSplit } from './feature-split';
@@ -97,7 +98,7 @@ export const Bookmarks: Story = {
           title={DEMO_FEATURES[2].title}
           description={DEMO_FEATURES[2].description}
           link={learnMore('#search')}
-          media={<DemoFeatureVisual id="search" />}
+          media={<BookmarksLiveDemo />}
         />
         <SectionPanel tone="primary" aria-labelledby="cta-title">
           <div className="container-display flex flex-col items-center gap-8 text-center">

@@ -39,6 +39,9 @@ const LINKS = [
   { folder: 'trips', title: 'Packing light, really', domain: 'trails.example', tags: ['gear'], letter: 'T', hue: 'purple' },
 ] as const;
 
+/** The demo links, for the live demo. */
+export const DEMO_LINKS = LINKS;
+
 const HUE: Record<(typeof LINKS)[number]['hue'], string> = {
   blue: 'bg-[var(--color-blue-blue-100)] text-[var(--color-blue-blue-700)]',
   teal: 'bg-[var(--color-teal-teal-100)] text-[var(--color-teal-teal-700)]',
@@ -57,7 +60,8 @@ export function BookmarksPreview({ className, floating = true, folder = 'reading
     <div
       role="img"
       aria-label={`The Bookmarks app showing the ${current.name} folder: saved links with tags, and a notice that three duplicates were found.`}
-      className={cn('relative', className)}
+      // A picture of the product: no text cursor, no selection, so nothing in it looks half-working.
+      className={cn('relative cursor-default select-none', className)}
     >
       {/* Nested radius: the search field's 6px plus the 12px band padding ≈ 16px (4xl), so the corners stay concentric. */}
       <div className="overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-lg">
@@ -332,7 +336,7 @@ export type DemoFeatureId = (typeof DEMO_FEATURES)[number]['id'];
 export function DemoFeatureVisual({ id }: { id: DemoFeatureId }) {
   const f = DEMO_FEATURES.find((x) => x.id === id)!;
   return (
-    <div role="img" aria-label={f.label} className="flex w-full justify-center">
+    <div role="img" aria-label={f.label} className="flex w-full cursor-default select-none justify-center">
       <f.Visual />
     </div>
   );

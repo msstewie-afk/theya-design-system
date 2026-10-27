@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { ArrowRight } from 'iconoir-react';
 import { Link } from '../../ui/link';
+import { BookmarksLiveDemo } from './bookmarks-live-demo';
 import { BookmarksPreview, DEMO_FEATURES, DemoFeatureVisual } from './demo-data';
 import { FeatureSplit } from './feature-split';
 import { featureSplitGuidelines } from './feature-split.guidelines';
@@ -67,4 +68,28 @@ export const SideBySide: Story = {
       />
     </>
   ),
+};
+
+/**
+ * A working demo instead of a picture: the search filters, the folders switch.
+ * Visitors try the product right on the landing page (Linear, Wispr).
+ */
+export const LiveDemo: Story = {
+  name: 'Live demo',
+  args: {
+    layout: 'side',
+    eyebrow: 'Try it',
+    title: 'Search the words, not just the titles',
+    description: 'Type a word you remember from a page. The demo has sixteen links in four folders.',
+    media: <BookmarksLiveDemo />,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const search = canvas.getByRole('searchbox', { name: 'Search links' });
+    await userEvent.type(search, 'attention');
+    await expect(canvas.getByText('1 link')).toBeInTheDocument();
+    await userEvent.clear(search);
+    await userEvent.click(canvas.getByRole('radio', { name: 'Recipes' }));
+    await expect(canvas.getByText('4 links')).toBeInTheDocument();
+  },
 };

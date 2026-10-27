@@ -22,5 +22,6 @@ export const featureSplitGuidelines: ComponentGuidelines = {
   a11y: [
     'The visual is one image to assistive tech (role="img" with a label that says what it shows) and holds no real controls.',
     'Reading order is title, text, link, then the visual, whatever side the visual is on.',
+    'A visual is either a picture or a working demo, never something in between: a picture has no text cursor or selection; a live demo is a labelled region with real controls that work from the keyboard and announce their results.',
   ],
 };
