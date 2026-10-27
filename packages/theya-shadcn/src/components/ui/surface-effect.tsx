@@ -25,11 +25,11 @@ export type SurfaceEffectKind = 'spotlight' | 'beam' | 'tilt' | 'shine' | 'lift'
 
 export interface SurfaceEffectProps extends React.HTMLAttributes<HTMLDivElement> {
   effect: SurfaceEffectKind;
+  /** With `tilt`: the largest turn toward the pointer, in degrees (default 8). */
+  maxTilt?: number;
 }
 
-const MAX_TILT = 8;
-
-export function SurfaceEffect({ effect, className, children, onPointerMove, onPointerLeave, ...props }: SurfaceEffectProps) {
+export function SurfaceEffect({ effect, maxTilt = 8, className, children, onPointerMove, onPointerLeave, ...props }: SurfaceEffectProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   const track = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -45,8 +45,8 @@ export function SurfaceEffect({ effect, className, children, onPointerMove, onPo
       ref.current.style.setProperty('--spot-x', `${rtl ? r.width - x : x}px`);
       ref.current.style.setProperty('--spot-y', `${y}px`);
     } else if (effect === 'tilt') {
-      ref.current.style.setProperty('--tilt-x', `${(y / r.height - 0.5) * -MAX_TILT * 2}deg`);
-      ref.current.style.setProperty('--tilt-y', `${(x / r.width - 0.5) * MAX_TILT * 2}deg`);
+      ref.current.style.setProperty('--tilt-x', `${(y / r.height - 0.5) * -maxTilt * 2}deg`);
+      ref.current.style.setProperty('--tilt-y', `${(x / r.width - 0.5) * maxTilt * 2}deg`);
     }
   };
   const reset = (event: React.PointerEvent<HTMLDivElement>) => {

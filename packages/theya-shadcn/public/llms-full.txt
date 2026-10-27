@@ -9025,6 +9025,7 @@ Docs: ./?path=/docs/motion-surfaceeffect--docs
 **SurfaceEffect props**
 
 - `effect`: `"tilt" | "spotlight" | "lift" | "beam" | "shine"`
+- `maxTilt?`: `number`, default `8` — With `tilt`: the largest turn toward the pointer, in degrees (default 8).
 
 **Aurora props**
 

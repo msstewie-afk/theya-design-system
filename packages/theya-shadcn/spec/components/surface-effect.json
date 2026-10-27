@@ -70,6 +70,13 @@
             "shine"
           ],
           "required": true
+        },
+        {
+          "name": "maxTilt",
+          "type": "number",
+          "required": false,
+          "default": "8",
+          "description": "With `tilt`: the largest turn toward the pointer, in degrees (default 8)."
         }
       ]
     },

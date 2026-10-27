@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentProps, ReactNode } from 'react';
+import { useRef, type ComponentProps, type PointerEvent, type ReactNode } from 'react';
 import { ArrowRight, ArrowUpRight } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
 import { SurfaceEffect } from '../../ui/surface-effect';
@@ -54,6 +54,18 @@ const SURFACE: Record<Exclude<LandingCardSurface, 'tonal'>, string> = {
 
 const RADIUS = 'rounded-[var(--size-border-radius-border-radius-4xl)]';
 
+// The SurfaceEffect presets are tuned for dark panels; on a light page a
+// white streak or a 22% glow all but disappears. Landing cards push them so
+// they read in both themes.
+const HOVER_FX: Partial<Record<LandingCardHover, string>> = {
+  // A 2px ring for the light to run round; a shadow while it runs.
+  beam: 'p-0.5 transition-shadow duration-standard hover:shadow-elevation-lg focus-within:shadow-elevation-lg',
+  // A primary-tinted streak instead of white: visible on a white card too.
+  shine: 'before:w-2/5 before:bg-[linear-gradient(90deg,transparent,color-mix(in_oklab,var(--color-icon-icon-primary)_24%,transparent),transparent)]',
+  // A shorter perspective makes the same turn read as depth, plus a shadow.
+  tilt: '[transform:perspective(600px)_rotateX(var(--tilt-x,0deg))_rotateY(var(--tilt-y,0deg))] transition-[transform,box-shadow] hover:shadow-elevation-lg',
+};
+
 export interface LandingCardProps extends ComponentProps<'article'> {
   surface?: LandingCardSurface;
   /** With surface="tonal". */
@@ -62,9 +74,21 @@ export interface LandingCardProps extends ComponentProps<'article'> {
 }
 
 /** The base every landing card is built on. Use it directly for a custom card. */
-export function LandingCard({ surface = 'outlined', hue = 'primary', hover = 'none', className, children, ...props }: LandingCardProps) {
+export function LandingCard({ surface = 'outlined', hue = 'primary', hover = 'none', className, children, onPointerMove, ...props }: LandingCardProps) {
+  const ref = useRef<HTMLElement>(null);
+  // Spotlight is drawn inside the card, between its fill and its content
+  // (a glow under the card would be hidden by the card's own background).
+  const track = (event: PointerEvent<HTMLElement>) => {
+    onPointerMove?.(event as PointerEvent<HTMLElement> & PointerEvent<HTMLDivElement>);
+    if (hover !== 'spotlight' || event.pointerType !== 'mouse' || !ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    ref.current.style.setProperty('--spot-x', `${event.clientX - r.left}px`);
+    ref.current.style.setProperty('--spot-y', `${event.clientY - r.top}px`);
+  };
   const card = (
     <article
+      ref={ref}
+      onPointerMove={track}
       data-slot="landing-card"
       data-surface={surface === 'primary' ? 'primary' : undefined}
       data-theme={surface === 'inverse' ? 'dark' : undefined}
@@ -74,21 +98,34 @@ export function LandingCard({ surface = 'outlined', hue = 'primary', hover = 'no
         surface === 'tonal' ? [HUE[hue], ON_TONAL] : SURFACE[surface],
         // The stretched title link draws the focus ring round the whole card.
         'has-[[data-card-link]:focus-visible]:focus-ring',
+        // Spotlight, tilt and lift also turn an outlined card's border primary while hovered.
+        surface === 'outlined' && (hover === 'spotlight' || hover === 'tilt' || hover === 'lift') && 'transition-colors duration-standard hover:border-[var(--color-border-border-primary)] group-hover/fx:border-[var(--color-border-border-primary)]',
         hover === 'beam' && 'border-0',
         className,
       )}
       {...props}
     >
+      {hover === 'spotlight' && (
+        <span
+          aria-hidden
+          // Physical left/top: the pointer position is measured from the left edge in any direction.
+          className="pointer-events-none absolute -z-10 size-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--color-icon-icon-primary)_28%,transparent),transparent_70%)] opacity-0 transition-opacity duration-moderate [left:var(--spot-x,-999px)] [top:var(--spot-y,-999px)] group-hover/spot:opacity-100 motion-reduce:hidden"
+        />
+      )}
       {children}
     </article>
   );
   if (hover === 'none') return card;
+  // The spotlight needs no wrapper: it lives inside the card.
+  if (hover === 'spotlight') return <div className="group/spot h-full min-w-0">{card}</div>;
   return (
     <SurfaceEffect
       effect={hover}
+      maxTilt={14}
       className={cn(
-        'h-full min-w-0',
+        'group/fx h-full min-w-0',
         RADIUS,
+        HOVER_FX[hover],
         // The beam runs only while the card is hovered or focused: nothing moves on its own.
         hover === 'beam' && 'before:[animation-play-state:paused] hover:before:[animation-play-state:running] focus-within:before:[animation-play-state:running]',
       )}
