@@ -35,6 +35,7 @@ Node 22, pnpm 11. Run `pnpm build:tokens` again after any change in `packages/to
 1. **`<name>.tsx`** — the component.
    - `'use client'` at the top if it uses state, effects or event handlers (`pnpm api:check` checks it).
    - Colors, sizes, radii, shadows only from tokens: `bg-[var(--color-…)]`, `p-[var(--size-…)]` or the Tailwind spacing scale. No hex: the gate blocks it (a deliberate exception: `gate-allow-hex` on the same line, with a reason).
+   - Every `var(--…)` must name a token or variable that exists: a typo or a removed token drops the whole declaration without any error (`check-css-vars.mjs` fails on them). Optional variables get a fallback: `var(--x, 0px)`.
    - Logical sides: `ms/me`, `ps/pe`, `start/end`, `text-start` — not `ml/mr`, `left/right` (`check-rtl.mjs` fails on them; `--fix` converts them).
    - Built-in text (screen-reader labels, placeholders, announcements) from the dictionary, never hardcoded ([LOCALIZATION.md](LOCALIZATION.md#how-to-add-a-string)).
    - Prop names from the shared vocabulary: `appearance`, `tone`, `size`, `widthSize`… — look at a similar component first.

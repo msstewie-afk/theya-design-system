@@ -264,7 +264,7 @@ export function TopbarSearch({
         aria-label={(props as { 'aria-label'?: string })['aria-label'] ?? placeholder ?? t.topbar.search}
         align="start"
         sideOffset={6}
-        className="w-[var(--radix-popover-trigger-width)] max-h-[var(--available-height)] overflow-y-auto p-0"
+        className="w-[var(--radix-popover-trigger-width)] max-h-[var(--radix-popover-content-available-height)] overflow-y-auto p-0"
         onOpenAutoFocus={(event) => event.preventDefault()}
         // Same open-then-instantly-closed flicker Autocomplete/Combobox had
         // (Мария reported it here too, 2026-09-26): this Popover opens via
