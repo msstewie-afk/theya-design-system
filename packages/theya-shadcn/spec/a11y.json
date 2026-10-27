@@ -13,8 +13,8 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 153,
-        "verified": 4
+        "partial": 152,
+        "verified": 5
       },
       "patternCounts": {
         "partial": 42
@@ -95,8 +95,8 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 153,
-        "verified": 4
+        "partial": 152,
+        "verified": 5
       },
       "patternCounts": {
         "partial": 42
@@ -111,8 +111,8 @@
         "screenReader"
       ],
       "counts": {
-        "untested": 145,
-        "verified": 4,
+        "untested": 144,
+        "verified": 5,
         "n/a": 8
       },
       "patternCounts": {
@@ -823,8 +823,8 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 109,
-        "verified": 4,
+        "partial": 108,
+        "verified": 5,
         "n/a": 44
       },
       "patternCounts": {
@@ -842,8 +842,8 @@
       ],
       "counts": {
         "n/a": 131,
-        "untested": 25,
-        "verified": 1
+        "untested": 24,
+        "verified": 2
       },
       "patternCounts": {
         "untested": 17,
@@ -3799,7 +3799,14 @@
           "browser": "Safari 26.6",
           "date": "2026-10-27",
           "result": "fail",
-          "notes": "\"Copied\" is spoken, but the revert to \"Copy\" was announced too and cut it off; the VoiceOver cursor frame stayed at the old width. Fixed the same day: no announcement on the return to the resting label, and the button keeps the width of the longer label. Needs a re-check."
+          "notes": "\"Copied\" is spoken, but the revert to \"Copy\" was announced too and cut it off; the VoiceOver cursor frame stayed at the old width. Fixed the same day: no announcement on the return to the resting label, and the button keeps the width of the longer label."
+        },
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-27",
+          "result": "pass",
+          "notes": "Re-check after the fix: \"Copied\" spoken in full, the cursor frame matches the button."
         }
       ],
       "deviations": [],
@@ -3810,14 +3817,14 @@
         "status"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -3863,8 +3870,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
