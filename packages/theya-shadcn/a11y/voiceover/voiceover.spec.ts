@@ -163,28 +163,6 @@ async function waitForQuiet(page: Page, spoken: Spoken[], { quietMs = 700, maxMs
   }
 }
 
-/**
- * Writes VoiceOver settings related to hints and verbosity to
- * results/voiceover-settings.json (Guidepup's own preference set, not the
- * user's), to find the key that turns hints off for the run.
- */
-async function dumpSettings(browserName: string) {
-  try {
-    const flat: Record<string, unknown> = {};
-    const walk = (value: unknown, path: string) => {
-      if (value && typeof value === 'object' && !Array.isArray(value)) {
-        for (const [k, v] of Object.entries(value)) walk(v, path ? `${path}.${k}` : k);
-      } else if (/hint|verbos|delay|announc|speak/i.test(path)) flat[path] = value;
-    };
-    walk(await Promise.resolve(voiceOver.getSettings()), '');
-    const dir = join(__dirname, 'results');
-    mkdirSync(dir, { recursive: true });
-    writeFileSync(join(dir, 'voiceover-settings.json'), JSON.stringify({ browser: browserName, settings: flat }, null, 2) + '\n');
-  } catch (error) {
-    console.log(`Could not read VoiceOver settings: ${String(error)}`);
-  }
-}
-
 const STORYBOOK = process.env.STORYBOOK_URL ?? 'http://localhost:6008';
 
 const test = base.extend<object, { vo: { page: Page; spoken: Spoken[]; pollerErrors: string[] } }>({
@@ -193,7 +171,10 @@ const test = base.extend<object, { vo: { page: Page; spoken: Spoken[]; pollerErr
       const context = await browser.newContext({ baseURL: STORYBOOK, viewport: { width: 1200, height: 800 } });
       const page = await context.newPage();
       await page.goto('/iframe.html?id=actions-button--interactive-loading&viewMode=story', { waitUntil: 'networkidle' });
-      await voiceOver.start({ capture: false });
+      // Hints ("You are currently on…, to click press…") are spoken after this
+      // delay and talk over the announcements under test; push it out of the
+      // run. This is Guidepup's own VoiceOver preference set, not the user's.
+      await voiceOver.start({ capture: false, settings: { SCRContextualHelpDelayInSeconds: 3600 } });
       bringBrowserToFront(browserName);
       await page.bringToFront();
       const spoken: Spoken[] = [];
@@ -204,8 +185,14 @@ const test = base.extend<object, { vo: { page: Page; spoken: Spoken[]; pollerErr
       );
       await page.waitForTimeout(1000);
       await waitForQuiet(page, spoken, { maxMs: 15_000 });
-      pace.beforeKey = (p) => waitForQuiet(p, spoken, { quietMs: 400, maxMs: 6_000 });
-      await dumpSettings(browserName);
+      // Before each key: wait until VoiceOver has said something since the last
+      // key (the focus move), then until it is quiet — as a person would.
+      pace.beforeKey = async (p) => {
+        const from = Date.now();
+        while (spoken.length <= pace.mark && Date.now() - from < 3_000) await p.waitForTimeout(100);
+        await waitForQuiet(p, spoken, { quietMs: 400, maxMs: 6_000 });
+        pace.mark = spoken.length;
+      };
       try {
         await use({ page, spoken, pollerErrors });
       } finally {
@@ -228,6 +215,7 @@ for (const s of SCENARIOS) {
     await watchPage(page);
 
     const start = Date.now();
+    pace.mark = spoken.length;
     await s.act(page);
     await page.waitForTimeout(s.listen ?? 2500);
     await waitForQuiet(page, spoken, { maxMs: 8_000 });

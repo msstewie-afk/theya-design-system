@@ -33,7 +33,11 @@ async function stubClipboard(page: Page) {
  * being tested. The VoiceOver runner replaces `beforeKey` with "wait until
  * VoiceOver has gone quiet"; the dry run only pauses briefly.
  */
-export const pace = { beforeKey: async (page: Page) => { await page.waitForTimeout(50); } };
+export const pace = {
+  /** Number of phrases VoiceOver had spoken at the last key (runner bookkeeping). */
+  mark: 0,
+  beforeKey: async (page: Page) => { await page.waitForTimeout(50); },
+};
 
 const press = async (page: Page, key: string) => { await pace.beforeKey(page); await page.keyboard.press(key); };
 /** Types like a person (one key every 120 ms), after the focus move has been heard. */
