@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { expect } from '@playwright/test';
@@ -21,6 +22,28 @@ interface Result {
 }
 
 const results: Result[] = [];
+
+/**
+ * Brings the browser Playwright already launched to the front.
+ * Guidepup's navigateToWebContent() does this with `tell application id … to
+ * activate`, and on macOS 26 that tries to launch a second copy of Playwright's
+ * WebKit / Chrome for Testing instead (the AppleEvent times out). System Events
+ * only touches the running process. VoiceOver then follows keyboard focus, which
+ * the scenarios set with Playwright.
+ */
+const BROWSER_PROCESSES: Record<string, string[]> = {
+  webkit: ['Playwright', 'MiniBrowser'],
+  chromium: ['Google Chrome for Testing', 'Chromium'],
+};
+function bringBrowserToFront(browserName: string) {
+  for (const name of BROWSER_PROCESSES[browserName] ?? []) {
+    try {
+      execFileSync('osascript', ['-e', `tell application "System Events" to if exists process "${name}" then set frontmost of process "${name}" to true`], { timeout: 10_000 });
+    } catch {
+      // Not this process name; try the next one.
+    }
+  }
+}
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Our own listener reads the phrases, so Guidepup's per-command capture is off.
@@ -31,7 +54,9 @@ for (const s of SCENARIOS) {
     test.skip(Boolean(s.manual), s.manual);
     await page.goto(`/iframe.html?id=${s.story}&viewMode=story`, { waitUntil: 'networkidle' });
     await page.waitForTimeout(1500); // the story's own play test runs on load
-    await voiceOver.navigateToWebContent();
+    bringBrowserToFront(browserName);
+    await page.bringToFront();
+    await page.waitForTimeout(500);
 
     const heard: string[] = [];
     let listening = true;

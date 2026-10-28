@@ -8,10 +8,17 @@ Russian: [README.ru.md](./README.ru.md).
 
 1. VoiceOver Utility → General → tick **Allow VoiceOver to be controlled with AppleScript**.
 2. System Settings → Privacy & Security → Accessibility → turn on **Terminal** (or the terminal app you run commands from).
-3. From the repo root:
+3. System Settings → Privacy & Security → Full Disk Access → turn on **Terminal**, then quit and reopen Terminal. Guidepup links its VoiceOver preferences into `~/Library/Group Containers/group.com.apple.VoiceOver`, which macOS otherwise refuses (`EPERM`). Turn it off again between runs if you prefer.
+4. From the repo root, once per Mac:
 
 ```sh
 npx @guidepup/setup setup --macos-ignore-tcc-db
+```
+
+5. In `packages/theya-shadcn`, once per Guidepup version (otherwise "Failed to mount Guidepup preferences"):
+
+```sh
+npx @guidepup/setup install voiceover
 ```
 
 ```sh
