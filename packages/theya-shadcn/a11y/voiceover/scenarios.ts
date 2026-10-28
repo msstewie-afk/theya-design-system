@@ -26,7 +26,18 @@ async function stubClipboard(page: Page) {
   });
 }
 
-const press = async (page: Page, key: string) => page.keyboard.press(key);
+/**
+ * Pacing between moving focus and pressing a key. A person hears the focused
+ * control before acting on it; a script that focuses and presses within a few
+ * ms makes VoiceOver speak the focus move over (and drop) the announcement
+ * being tested. The VoiceOver runner replaces `beforeKey` with "wait until
+ * VoiceOver has gone quiet"; the dry run only pauses briefly.
+ */
+export const pace = { beforeKey: async (page: Page) => { await page.waitForTimeout(50); } };
+
+const press = async (page: Page, key: string) => { await pace.beforeKey(page); await page.keyboard.press(key); };
+/** Types like a person (one key every 120 ms), after the focus move has been heard. */
+const typeText = async (page: Page, target: ReturnType<Page['locator']>, text: string) => { await pace.beforeKey(page); await target.pressSequentially(text, { delay: 120 }); };
 
 export const SCENARIOS: Scenario[] = [
   {
@@ -67,7 +78,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: 'field', component: 'Field', story: 'form-structure-form--default', expect: ["Enter a valid domain"],
-    act: async (page) => { const f = page.getByRole('textbox').first(); await f.focus(); await f.fill(''); await f.type('x'); await press(page, 'Tab'); },
+    act: async (page) => { const f = page.getByRole('textbox').first(); await f.focus(); await f.fill(''); await typeText(page, f, 'x'); await press(page, 'Tab'); },
   },
   {
     id: 'timefield', component: 'TimeField', story: 'date-time-timefield--min-max', expect: ["Choose a time from 9:00 AM to 5:00 PM"],
@@ -75,7 +86,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: 'taginput', component: 'TagInput', story: 'text-input-taginput--default', expect: ["Added backups", "Removed backups"],
-    act: async (page) => { const f = page.getByRole('textbox', { name: 'Tags' }); await f.focus(); await f.type('backups'); await press(page, 'Enter'); await page.waitForTimeout(1200); await press(page, 'Backspace'); await press(page, 'Backspace'); },
+    act: async (page) => { const f = page.getByRole('textbox', { name: 'Tags' }); await f.focus(); await typeText(page, f, 'backups'); await press(page, 'Enter'); await page.waitForTimeout(1200); await press(page, 'Backspace'); await press(page, 'Backspace'); },
   },
   {
     id: 'secretfield', component: 'SecretField', story: 'text-input-secretfield--revealed-by-default', expect: ["Copied"],
@@ -91,7 +102,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: 'holdtotalk', component: 'HoldToTalk', story: 'ai-chat-holdtotalk--default', expect: ["Release to send"],
-    act: async (page) => { await page.getByRole('button', { name: 'Hold to talk' }).focus(); await page.keyboard.down('Space'); await page.waitForTimeout(1500); await page.keyboard.up('Space'); },
+    act: async (page) => { await page.getByRole('button', { name: 'Hold to talk' }).focus(); await pace.beforeKey(page); await page.keyboard.down('Space'); await page.waitForTimeout(1500); await page.keyboard.up('Space'); },
   },
   {
     id: 'chat', component: 'Chat', story: 'ai-chat-chat--typing', expect: [], act: async () => {},
@@ -99,11 +110,11 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: 'command', component: 'Command', story: 'search-filter-command--inline', expect: ["No results found"],
-    act: async (page) => { const f = page.getByRole('combobox', { name: 'Command menu' }); await f.focus(); await f.type('zzqx'); },
+    act: async (page) => { const f = page.getByRole('combobox', { name: 'Command menu' }); await f.focus(); await typeText(page, f, 'zzqx'); },
   },
   {
     id: 'filterfield', component: 'FilterField', story: 'search-filter-filterfield--default', expect: ["No attributes"],
-    act: async (page) => { const f = page.getByRole('combobox', { name: 'Filter servers' }); await f.click(); await f.type('zzqx'); },
+    act: async (page) => { const f = page.getByRole('combobox', { name: 'Filter servers' }); await f.click(); await typeText(page, f, 'zzqx'); },
   },
   {
     id: 'datatabletoolbar', component: 'DataTableToolbar', story: 'data-datatabletoolbar--default', expect: ["1 selected"],
@@ -152,7 +163,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: 'auditlog', component: 'AuditLog', story: 'patterns-auditlog--default', expect: ["0 events match your filters"],
-    act: async (page) => { const f = page.getByRole('searchbox', { name: /Search events/ }); await f.focus(); await f.type('zzqx'); },
+    act: async (page) => { const f = page.getByRole('searchbox', { name: /Search events/ }); await f.focus(); await typeText(page, f, 'zzqx'); },
   },
   {
     id: 'cart', component: 'Cart', story: 'patterns-commerce-cart--default', expect: ["Enter a promo code", "isn't a valid code"],
@@ -182,7 +193,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: 'listview', component: 'ListView', story: 'patterns-listview--with-bulk-and-row-actions', expect: ["1 user"],
-    act: async (page) => { const f = page.getByRole('combobox', { name: /Search users/ }); await f.focus(); await f.type('Alex'); },
+    act: async (page) => { const f = page.getByRole('combobox', { name: /Search users/ }); await f.focus(); await typeText(page, f, 'Alex'); },
   },
   {
     id: 'notificationsinbox', component: 'NotificationsInbox', story: 'patterns-notificationsinbox--default', expect: ["No notifications match"],
@@ -194,7 +205,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: 'orderhistory', component: 'OrderHistory', story: 'patterns-account-orderhistory--default', expect: ["1 order"],
-    act: async (page) => { const f = page.getByRole('searchbox', { name: 'Search orders' }); await f.focus(); await f.type('TH-24'); },
+    act: async (page) => { const f = page.getByRole('searchbox', { name: 'Search orders' }); await f.focus(); await typeText(page, f, 'TH-24'); },
   },
   {
     id: 'passwordreset', component: 'PasswordReset', story: 'patterns-account-passwordreset--request', expect: ["Link sent again to"], listen: 3500,
@@ -214,7 +225,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: 'searchbox', component: 'SearchBox', story: 'patterns-search-searchbox--default', expect: ["1 option"],
-    act: async (page) => { const f = page.getByRole('combobox', { name: 'Search' }); await f.focus(); await f.type('ce'); },
+    act: async (page) => { const f = page.getByRole('combobox', { name: 'Search' }); await f.focus(); await typeText(page, f, 'ce'); },
   },
   {
     id: 'statustracker', component: 'StatusTracker', story: 'patterns-account-statustracker--live', expect: ["of 5"], listen: 9000,
@@ -223,7 +234,7 @@ export const SCENARIOS: Scenario[] = [
   {
     id: 'teammembers', component: 'TeamMembers', story: 'patterns-teammembers--default', expect: ["needs an @", "Invite sent"], listen: 3500,
     act: async (page) => {
-      const f = page.getByRole('textbox').first(); await f.focus(); await f.type('nope');
+      const f = page.getByRole('textbox').first(); await f.focus(); await typeText(page, f, 'nope');
       await page.getByRole('button', { name: 'Send invite' }).first().focus(); await press(page, 'Enter');
       await page.waitForTimeout(1200);
       await f.fill('jamie@seashell.dev'); await page.getByRole('button', { name: 'Send invite' }).first().focus(); await press(page, 'Enter');

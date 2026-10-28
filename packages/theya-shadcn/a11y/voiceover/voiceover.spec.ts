@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { expect, test as base, type Page } from '@playwright/test';
 import { voiceOver } from '@guidepup/guidepup';
-import { SCENARIOS } from './scenarios';
+import { SCENARIOS, pace } from './scenarios';
 
 /**
  * For each scenario: open the story, move VoiceOver into the page, do the
@@ -163,6 +163,28 @@ async function waitForQuiet(page: Page, spoken: Spoken[], { quietMs = 700, maxMs
   }
 }
 
+/**
+ * Writes VoiceOver settings related to hints and verbosity to
+ * results/voiceover-settings.json (Guidepup's own preference set, not the
+ * user's), to find the key that turns hints off for the run.
+ */
+async function dumpSettings(browserName: string) {
+  try {
+    const flat: Record<string, unknown> = {};
+    const walk = (value: unknown, path: string) => {
+      if (value && typeof value === 'object' && !Array.isArray(value)) {
+        for (const [k, v] of Object.entries(value)) walk(v, path ? `${path}.${k}` : k);
+      } else if (/hint|verbos|delay|announc|speak/i.test(path)) flat[path] = value;
+    };
+    walk(await Promise.resolve(voiceOver.getSettings()), '');
+    const dir = join(__dirname, 'results');
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, 'voiceover-settings.json'), JSON.stringify({ browser: browserName, settings: flat }, null, 2) + '\n');
+  } catch (error) {
+    console.log(`Could not read VoiceOver settings: ${String(error)}`);
+  }
+}
+
 const STORYBOOK = process.env.STORYBOOK_URL ?? 'http://localhost:6008';
 
 const test = base.extend<object, { vo: { page: Page; spoken: Spoken[]; pollerErrors: string[] } }>({
@@ -182,6 +204,8 @@ const test = base.extend<object, { vo: { page: Page; spoken: Spoken[]; pollerErr
       );
       await page.waitForTimeout(1000);
       await waitForQuiet(page, spoken, { maxMs: 15_000 });
+      pace.beforeKey = (p) => waitForQuiet(p, spoken, { quietMs: 400, maxMs: 6_000 });
+      await dumpSettings(browserName);
       try {
         await use({ page, spoken, pollerErrors });
       } finally {
