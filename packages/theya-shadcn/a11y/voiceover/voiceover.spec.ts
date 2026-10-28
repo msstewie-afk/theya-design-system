@@ -1,8 +1,8 @@
 import { spawn, execFileSync, type ChildProcess } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { expect, type Page } from '@playwright/test';
-import { voiceOverTest as test } from '@guidepup/playwright';
+import { expect, test as base, type Page } from '@playwright/test';
+import { voiceOver } from '@guidepup/guidepup';
 import { SCENARIOS } from './scenarios';
 
 /**
@@ -14,6 +14,12 @@ import { SCENARIOS } from './scenarios';
  * `published` timeline tells whether the page never said it (component bug)
  * or said it and VoiceOver dropped it (timing / screen reader behaviour).
  * All tests of one run write into one file: results/<browser>-<run>.json.
+ *
+ * VoiceOver and the browser window live for the whole worker, not per test:
+ * Guidepup's voiceOverTest restarts VoiceOver for every test, and VoiceOver
+ * then spends the first seconds announcing the new window, dropping the
+ * announcements the scenario is about. Before and after each action the
+ * runner waits until VoiceOver has finished speaking.
  */
 interface Line {
   /** ms since the action started (negative = before it). */
@@ -141,42 +147,77 @@ function saveResult(result: Result) {
   console.log(`VoiceOver: ${passed}/${data.results.length} passed so far → ${file}`);
 }
 
-// Our own poller reads the phrases, so Guidepup's per-command capture is off.
-test.use({ voiceOverStartOptions: { capture: false } });
+type Spoken = { at: number; text: string };
+
+/** Rough speaking time of a phrase at VoiceOver's default rate (~15 characters per second). */
+const speakingTime = (text: string) => text.length * 65;
+
+/** Resolves once VoiceOver has been silent for `quietMs` after its last phrase, or after `maxMs`. */
+async function waitForQuiet(page: Page, spoken: Spoken[], { quietMs = 700, maxMs = 10_000 } = {}) {
+  const from = Date.now();
+  while (Date.now() - from < maxMs) {
+    const last = spoken[spoken.length - 1];
+    const doneAt = last ? last.at + speakingTime(last.text) : from;
+    if (Date.now() - doneAt > quietMs) return;
+    await page.waitForTimeout(100);
+  }
+}
+
+const STORYBOOK = process.env.STORYBOOK_URL ?? 'http://localhost:6008';
+
+const test = base.extend<object, { vo: { page: Page; spoken: Spoken[]; pollerErrors: string[] } }>({
+  vo: [
+    async ({ browser, browserName }, use) => {
+      const context = await browser.newContext({ baseURL: STORYBOOK, viewport: { width: 1200, height: 800 } });
+      const page = await context.newPage();
+      await page.goto('/iframe.html?id=actions-button--interactive-loading&viewMode=story', { waitUntil: 'networkidle' });
+      await voiceOver.start({ capture: false });
+      bringBrowserToFront(browserName);
+      await page.bringToFront();
+      const spoken: Spoken[] = [];
+      const pollerErrors: string[] = [];
+      const poller = startPoller(
+        (text) => spoken.push({ at: Date.now(), text }),
+        (text) => { if (!pollerErrors.includes(text)) pollerErrors.push(text); },
+      );
+      await page.waitForTimeout(1000);
+      await waitForQuiet(page, spoken, { maxMs: 15_000 });
+      try {
+        await use({ page, spoken, pollerErrors });
+      } finally {
+        poller.kill();
+        await voiceOver.stop().catch(() => {});
+        await context.close();
+      }
+    },
+    { scope: 'worker', timeout: 120_000 },
+  ],
+});
 
 for (const s of SCENARIOS) {
-  test(s.id, async ({ page, voiceOver: _voiceOverRunning, browserName }) => {
+  test(s.id, async ({ vo, browserName }) => {
     test.skip(Boolean(s.manual), s.manual);
+    const { page, spoken, pollerErrors } = vo;
     await page.goto(`/iframe.html?id=${s.story}&viewMode=story`, { waitUntil: 'networkidle' });
     await page.waitForTimeout(1500); // the story's own play test runs on load
-    bringBrowserToFront(browserName);
-    await page.bringToFront();
-    await page.waitForTimeout(500);
+    await waitForQuiet(page, spoken);
     await watchPage(page);
-
-    const spoken: { at: number; text: string }[] = [];
-    const pollerErrors: string[] = [];
-    const poller = startPoller(
-      (text) => spoken.push({ at: Date.now(), text }),
-      (text) => { if (!pollerErrors.includes(text)) pollerErrors.push(text); },
-    );
-    await page.waitForTimeout(300);
 
     const start = Date.now();
     await s.act(page);
     await page.waitForTimeout(s.listen ?? 2500);
-    poller.kill();
+    await waitForQuiet(page, spoken, { maxMs: 8_000 });
 
-    const published = await page.evaluate(() => (window as unknown as { __published: { at: number; text: string }[] }).__published ?? []);
-    const rel = (lines: { at: number; text: string }[]) => lines.map((l) => ({ t: l.at - start, text: l.text }));
-    const heard = rel(spoken);
+    const published = await page.evaluate(() => (window as unknown as { __published: Spoken[] }).__published ?? []);
+    const rel = (lines: Spoken[]) => lines.map((l) => ({ t: l.at - start, text: l.text }));
+    const heard = rel(spoken.filter((l) => l.at >= start));
     const text = heard.map((l) => l.text).join(' | ').toLowerCase();
     const missing = s.expect.filter((e) => !text.includes(e.toLowerCase()));
     const publishedText = published.map((l) => l.text).join(' | ').toLowerCase();
     const diagnosis = Object.fromEntries(
       missing.map((m) => [m, publishedText.includes(m.toLowerCase()) ? 'published, not spoken' : 'never published'] as const),
     );
-    saveResult({ id: s.id, component: s.component, story: s.story, browser: browserName, pass: missing.length === 0, missing, diagnosis, heard, published: rel(published), pollerErrors });
+    saveResult({ id: s.id, component: s.component, story: s.story, browser: browserName, pass: missing.length === 0, missing, diagnosis, heard, published: rel(published), pollerErrors: [...pollerErrors] });
     if (pollerErrors.length) console.log(`[${s.id}] VoiceOver poller: ${pollerErrors.join(' || ')}`);
     expect.soft(missing, `Not spoken (${JSON.stringify(diagnosis)}). Heard: ${heard.map((l) => l.text).join(' | ') || '(nothing)'}`).toEqual([]);
   });
