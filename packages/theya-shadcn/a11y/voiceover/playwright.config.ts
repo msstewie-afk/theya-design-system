@@ -9,6 +9,9 @@ import { withGuidepup } from '@guidepup/playwright';
  *   VO_BROWSER=chromium pnpm a11y:voiceover      # Chrome's engine
  *   pnpm a11y:voiceover -g kanban                # one scenario
  */
+// One results file per run, shared by all workers (Playwright restarts the worker after a failure).
+process.env.VO_RUN_ID ??= new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-');
+
 export default withGuidepup({
   testDir: '.',
   testMatch: 'voiceover.spec.ts',
