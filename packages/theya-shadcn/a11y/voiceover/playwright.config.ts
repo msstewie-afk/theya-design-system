@@ -12,6 +12,7 @@ import { withGuidepup } from '@guidepup/playwright';
 export default withGuidepup({
   testDir: '.',
   testMatch: 'voiceover.spec.ts',
+  outputDir: 'test-results',
   timeout: 120_000,
   retries: 0,
   reporter: [['list']],

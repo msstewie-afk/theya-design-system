@@ -1,4 +1,5 @@
-import { execFileSync } from 'node:child_process';
+import { execFile, execFileSync } from 'node:child_process';
+import { promisify } from 'node:util';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { expect } from '@playwright/test';
@@ -37,6 +38,23 @@ const BROWSER_PROCESSES: Record<string, string[]> = {
   webkit: ['Playwright', 'MiniBrowser'],
   chromium: ['Google Chrome for Testing', 'Chromium'],
 };
+const run = promisify(execFile);
+
+/**
+ * Read VoiceOver's last spoken phrase straight from AppleScript.
+ * Guidepup 0.36 `voiceOver.lastSpokenPhrase()` only returns its own capture log,
+ * which stays empty when actions go through Playwright instead of Guidepup.
+ */
+async function readLastPhrase(): Promise<string> {
+  const { stdout } = await run(
+    'osascript',
+    ['-e', 'tell application "VoiceOver" to return content of last phrase'],
+    { timeout: 5_000 },
+  );
+  const phrase = stdout.replace(/\s+/g, ' ').trim();
+  return phrase === 'missing value' ? '' : phrase;
+}
+
 function bringBrowserToFront(browserName: string) {
   for (const name of BROWSER_PROCESSES[browserName] ?? []) {
     try {
@@ -52,7 +70,7 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 test.use({ voiceOverStartOptions: { capture: false } });
 
 for (const s of SCENARIOS) {
-  test(s.id, async ({ page, voiceOver, browserName }) => {
+  test(s.id, async ({ page, voiceOver: _voiceOverRunning, browserName }) => {
     test.skip(Boolean(s.manual), s.manual);
     await page.goto(`/iframe.html?id=${s.story}&viewMode=story`, { waitUntil: 'networkidle' });
     await page.waitForTimeout(1500); // the story's own play test runs on load
@@ -67,7 +85,7 @@ for (const s of SCENARIOS) {
       while (listening) {
         let phrase = '';
         try {
-          phrase = (await voiceOver.lastSpokenPhrase()).replace(/\s+/g, ' ').trim();
+          phrase = await readLastPhrase();
         } catch (error) {
           const message = String(error instanceof Error && error.cause ? error.cause : error).slice(0, 300);
           if (!readErrors.includes(message)) readErrors.push(message);
