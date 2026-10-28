@@ -19,6 +19,8 @@ interface Result {
   pass: boolean;
   missing: string[];
   heard: string[];
+  /** Distinct errors from reading VoiceOver's last phrase, if any. */
+  readErrors: string[];
 }
 
 const results: Result[] = [];
@@ -59,10 +61,17 @@ for (const s of SCENARIOS) {
     await page.waitForTimeout(500);
 
     const heard: string[] = [];
+    const readErrors: string[] = [];
     let listening = true;
     const listener = (async () => {
       while (listening) {
-        const phrase = (await voiceOver.lastSpokenPhrase().catch(() => '')).replace(/\s+/g, ' ').trim();
+        let phrase = '';
+        try {
+          phrase = (await voiceOver.lastSpokenPhrase()).replace(/\s+/g, ' ').trim();
+        } catch (error) {
+          const message = String(error instanceof Error && error.cause ? error.cause : error).slice(0, 300);
+          if (!readErrors.includes(message)) readErrors.push(message);
+        }
         if (phrase && heard[heard.length - 1] !== phrase) heard.push(phrase);
         await sleep(150);
       }
@@ -75,8 +84,9 @@ for (const s of SCENARIOS) {
 
     const text = heard.join(' | ').toLowerCase();
     const missing = s.expect.filter((e) => !text.includes(e.toLowerCase()));
-    results.push({ id: s.id, component: s.component, story: s.story, browser: browserName, pass: missing.length === 0, missing, heard });
-    expect.soft(missing, `Not spoken. Heard: ${heard.join(' | ')}`).toEqual([]);
+    results.push({ id: s.id, component: s.component, story: s.story, browser: browserName, pass: missing.length === 0, missing, heard, readErrors });
+    if (readErrors.length) console.log(`[${s.id}] could not read VoiceOver: ${readErrors.join(' || ')}`);
+    expect.soft(missing, `Not spoken. Heard: ${heard.join(' | ') || '(nothing)'}`).toEqual([]);
   });
 }
 
