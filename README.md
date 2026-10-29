@@ -2,7 +2,7 @@
 
 A React design system built on [shadcn/ui](https://ui.shadcn.com) — Radix primitives and Tailwind CSS v4 — with its own tokens, guidelines and tests.
 
-- **156 components** in 18 categories, plus **48 page patterns** (layouts, lists, settings, commerce, catalog, search, account, navigation)
+- **157 components** in 18 categories, plus **48 page patterns** (layouts, lists, settings, commerce, catalog, search, account, navigation)
 - **Tokens** from a primitive → semantic pipeline, exported to CSS, JS, Tailwind and W3C Design Tokens
 - **Theming** with one attribute each: light/dark, three brand themes, three density modes
 - **Accessibility** checked on every story in both themes, with a WCAG 2.2 AA matrix per component

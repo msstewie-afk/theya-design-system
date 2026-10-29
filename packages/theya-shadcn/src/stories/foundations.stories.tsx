@@ -683,7 +683,7 @@ const FOCUS_DEMO = [
 
 const FOCUS_RULES = [
   <>The ring is a 4px box-shadow outside the element: <Code>focus-visible:focus-ring</Code>. It follows the element's border radius on its own.</>,
-  <>Use an inset ring (<Code>shadow-[inset_0_0_0_3px_...]</Code>) only where an outer ring would be clipped by overflow: table cells, tree rows, code blocks, the terminal.</>,
+  <>Use the inset ring (<Code>focus-ring-inset</Code>, 4px inside) only where an outer ring would be clipped by overflow: Tree rows and underline Tabs, whose list scrolls sideways. Tables, CodeBlock and Terminal use the outer ring.</>,
   <>Text fields show the ring on any focus, including a mouse click. Buttons and other controls show it on keyboard focus only (<Code>focus-visible</Code>).</>,
   <>Fields pair the soft ring with a solid border colour. The border is what meets the 3:1 contrast requirement; the ring alone does not.</>,
   <>The ring tone follows the state: error for invalid, success or warning for validated states, on-primary on primary-filled surfaces.</>,
@@ -739,7 +739,7 @@ export const FocusRing: Story = {
           <div className="flex flex-col gap-2">
             <div className="w-56 overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]">
               <div className="border-b border-solid border-[var(--color-border-border-subtler)] px-3 py-2 text-body-m text-[var(--color-text-text)]">Row</div>
-              <div className="px-3 py-2 text-body-m text-[var(--color-text-text)] shadow-[inset_0_0_0_3px_var(--color-focus-focus-ring)]">Focused row, inset 3px</div>
+              <div className="px-3 py-2 text-body-m text-[var(--color-text-text)] focus-ring-inset">Focused row, inset 4px</div>
               <div className="border-t border-solid border-[var(--color-border-border-subtler)] px-3 py-2 text-body-m text-[var(--color-text-text)]">Row</div>
             </div>
             <span className="text-body-s text-[var(--color-text-text-subtle)]">Inside containers that clip overflow.</span>
@@ -758,7 +758,7 @@ export const FocusRing: Story = {
           ))}
         </ul>
         <Note>
-          Known exceptions: Button, Card and Slider draw a 3px ring instead of 4px. The soft ring's contrast is an accepted deviation from WCAG 1.4.11, listed on the Accessibility page.
+          Every ring is 4px, Button, Card and Slider included. The soft ring's contrast is an accepted deviation from WCAG 1.4.11, listed on the Accessibility page.
         </Note>
       </DocsSection>
       {/* Demo-only: apply the per-card ring on keyboard focus. */}
@@ -778,8 +778,8 @@ function shadowSummary(name: string): string {
 }
 
 const ELEVATION_ROWS: SpecRow[] = [
-  { token: 'shadow-elevation-xs', value: shadowSummary('--elevation-xs'), use: 'A surface that sits in the page flow and only needs to lift off the background.', usedBy: 'Stat, CodeBlock, CodeEditor, Terminal, Card at rest' },
-  { token: 'shadow-elevation-sm', value: shadowSummary('--elevation-sm'), use: 'Small raised details inside a control or a layout.', usedBy: 'Alert, Switch and Slider thumbs, Sidebar, Menubar trigger' },
+  { token: 'shadow-elevation-xs', value: shadowSummary('--elevation-xs'), use: 'A surface that sits in the page flow and only needs to lift off the background.', usedBy: 'Stat, CodeBlock, CodeEditor, Terminal; Card at rest through shadow-card' },
+  { token: 'shadow-elevation-sm', value: shadowSummary('--elevation-sm'), use: 'Small raised details inside a control or a layout.', usedBy: 'Alert, Sidebar, Menubar trigger; through the state tokens: Switch and Slider thumbs, the active Tabs chip, Card on hover' },
   { token: 'shadow-elevation-md', value: shadowSummary('--elevation-md'), use: 'Floating controls and short hints that hover over content.', usedBy: 'Tooltip, floating scroll buttons, DataTableToolbar bulk bar' },
   { token: 'shadow-elevation-lg', value: shadowSummary('--elevation-lg'), use: 'Surfaces that drop out of a trigger: menus, popovers, listboxes.', usedBy: 'DropdownMenu, ContextMenu, Menubar, Popover, HoverCard, NavigationMenu, Select, chart tooltips' },
   { token: 'shadow-elevation-xl', value: shadowSummary('--elevation-xl'), use: 'Modal layers that take over the page.', usedBy: 'Dialog, AlertDialog, Drawer (side), PushSheet, Sonner' },
