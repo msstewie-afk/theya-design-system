@@ -191,6 +191,10 @@
       {
         "name": "WithActions",
         "id": "status-feedback-alert--with-actions"
+      },
+      {
+        "name": "LiveOnAction",
+        "id": "status-feedback-alert--live-on-action"
       }
     ]
   }

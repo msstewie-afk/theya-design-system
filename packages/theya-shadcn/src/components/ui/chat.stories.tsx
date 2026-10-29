@@ -5,6 +5,7 @@ import { Message } from './message';
 import { PromptArea } from './prompt-area';
 import { Avatar, AvatarFallback } from './avatar';
 import { chatGuidelines } from './chat.guidelines';
+import { Button } from './button';
 import { expect, userEvent, within } from '@storybook/test';
 import { resetFocus, tabTo } from '../../test/keyboard';
 
@@ -117,4 +118,38 @@ export const Typing: Story = {
       </ChatMessages>
     </Chat>
   ),
+};
+
+function TypingReplyDemo() {
+  const [state, setState] = useState<'idle' | 'typing' | 'replied'>('idle');
+  const ask = () => {
+    setState('typing');
+    window.setTimeout(() => setState('replied'), 2500);
+  };
+  return (
+    <div className="flex w-full max-w-md flex-col gap-3">
+      <Button className="self-start" onClick={ask} disabled={state === 'typing'}>
+        Simulate a reply
+      </Button>
+      <Chat className="h-64 rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)]">
+        <ChatMessages>
+          <Message variant="sent">Is the SSL renewal automatic?</Message>
+          {state === 'replied' && <Message>Yes. Theya renews it 30 days before it expires.</Message>}
+          {state === 'typing' && <ChatTyping />}
+        </ChatMessages>
+      </Chat>
+    </div>
+  );
+}
+
+/** ChatTyping mounts while the other side writes ("Typing…" is announced), then their message lands in the log. */
+export const TypingThenReply: Story = {
+  name: 'Typing, then reply',
+  render: () => <TypingReplyDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Simulate a reply' }));
+    await expect(await canvas.findByRole('status', { name: 'Typing…' })).toBeInTheDocument();
+    await expect(await canvas.findByText(/renews it 30 days/, {}, { timeout: 4000 })).toBeVisible();
+  },
 };

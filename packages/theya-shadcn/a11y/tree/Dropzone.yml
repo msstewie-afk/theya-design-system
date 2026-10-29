@@ -46,6 +46,14 @@
 - paragraph: Alex Smith-Product Designer.pdf
 - paragraph: Uploaded on 05/25/26
 
+# Upload flow (files-dropzone--upload-flow)
+- button "Upload TLS certificate Choose files"
+- text: Upload TLS certificate Choose files
+- paragraph: server.pem
+- paragraph: Uploaded on just now
+- paragraph: PEM or CRT up to 1 MB
+- status: server.pem
+
 # With error (files-dropzone--with-error)
 - button "Upload file Choose files"
 - text: Upload file Choose files

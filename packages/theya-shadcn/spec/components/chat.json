@@ -96,6 +96,10 @@
       {
         "name": "Typing",
         "id": "ai-chat-chat--typing"
+      },
+      {
+        "name": "TypingThenReply",
+        "id": "ai-chat-chat--typing-then-reply"
       }
     ]
   }

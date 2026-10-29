@@ -937,7 +937,7 @@
       "name": "Alert",
       "title": "Status & Feedback/Alert",
       "axe": {
-        "stories": 6,
+        "stories": 7,
         "themes": [
           "light",
           "dark"
@@ -946,7 +946,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 1
+        "playTests": 2
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -2743,7 +2743,7 @@
       "name": "Chat",
       "title": "AI & Chat/Chat",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -2752,7 +2752,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 1
+        "playTests": 2
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
@@ -5355,7 +5355,7 @@
       "name": "Dropzone",
       "title": "Files/Dropzone",
       "axe": {
-        "stories": 7,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -5364,7 +5364,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 6
+        "playTests": 7
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -8858,7 +8858,7 @@
       "name": "PasswordStrengthMeter",
       "title": "Text Input/PasswordStrengthMeter",
       "axe": {
-        "stories": 6,
+        "stories": 7,
         "themes": [
           "light",
           "dark"
@@ -8867,7 +8867,7 @@
       },
       "keyboard": {
         "tested": 0,
-        "playTests": 1
+        "playTests": 2
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
@@ -12759,7 +12759,7 @@
       "name": "Terminal",
       "title": "Code/Terminal",
       "axe": {
-        "stories": 7,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -12768,7 +12768,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 1
+        "playTests": 2
       },
       "reducedMotion": "respected",
       "forcedColors": "global",

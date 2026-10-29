@@ -29,6 +29,13 @@
 - status: Connected · tailing /var/log/access.log
 - log "Access log tail": "203.0.113.7 GET / 200 18ms 203.0.113.7 GET /assets/app.css 200 4ms 198.51.100.2 GET /api/sites 200 31ms 198.51.100.2 POST /api/sites 201 88ms Warning: 203.0.113.7 GET /favicon.ico 404 2ms"
 
+# Reconnect (code-terminal--reconnect)
+- text: acme@web-04
+- status: Connected
+- button "Reconnect"
+- log "web-04 session": acme@web-04:~$ uptime
+- button "Drop the connection"
+
 # Severity Levels (code-terminal--severity-levels)
 - text: deploy@edge-07
 - status: Connecting…

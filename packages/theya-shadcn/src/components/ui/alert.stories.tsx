@@ -355,3 +355,56 @@ export const WithActions: Story = {
     );
   },
 };
+
+function LiveAlertDemo() {
+  const [result, setResult] = useState<'started' | 'failed' | null>(null);
+  return (
+    <div className="flex w-full max-w-[480px] flex-col gap-3">
+      <div className="flex gap-2">
+        <Button appearance="outlined" tone="neutral" onClick={() => setResult(null)}>
+          Reset
+        </Button>
+        <Button onClick={() => setResult('started')}>Run backup</Button>
+        <Button appearance="outlined" tone="danger" onClick={() => setResult('failed')}>
+          Run backup (fails)
+        </Button>
+      </div>
+      {result === 'started' && (
+        <Alert tone="success" live="polite">
+          <CheckCircle />
+          <div>
+            <AlertTitle>Backup started</AlertTitle>
+            <AlertDescription>shop.seashell.dev is being copied to eu-west-1.</AlertDescription>
+          </div>
+        </Alert>
+      )}
+      {result === 'failed' && (
+        <Alert tone="danger" live="assertive">
+          <WarningCircle />
+          <div>
+            <AlertTitle>Backup failed</AlertTitle>
+            <AlertDescription>The storage quota is full. Free up space and try again.</AlertDescription>
+          </div>
+        </Alert>
+      )}
+    </div>
+  );
+}
+
+/**
+ * `live`: a banner mounted in response to an action is announced — "polite"
+ * for news (role=status), "assertive" for a failure (role=alert). Static
+ * banners leave `live` off.
+ */
+export const LiveOnAction: Story = {
+  name: 'Live, on action',
+  render: () => <LiveAlertDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Run backup' }));
+    await expect(await canvas.findByRole('status')).toHaveTextContent('Backup started');
+    await userEvent.click(canvas.getByRole('button', { name: 'Run backup (fails)' }));
+    await expect(await canvas.findByRole('alert')).toHaveTextContent('Backup failed');
+    await userEvent.click(canvas.getByRole('button', { name: 'Reset' }));
+  },
+};

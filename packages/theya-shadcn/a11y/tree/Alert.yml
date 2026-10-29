@@ -7,6 +7,11 @@
 - text: Backups moved to eu-west-1 Nightly snapshots now run at 03:00 UTC. Existing schedules are unchanged.
 - button "Dismiss alert"
 
+# Live, on action (status-feedback-alert--live-on-action)
+- button "Reset"
+- button "Run backup"
+- button "Run backup (fails)"
+
 # Shadow (status-feedback-alert--shadow)
 - text: New feature available Try out the new dashboard layout.
 

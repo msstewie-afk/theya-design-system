@@ -233,3 +233,37 @@ export const AcceptFilter: Story = {
     await expect(onRejected).toHaveBeenLastCalledWith(['photo.png']);
   },
 };
+
+function UploadDemo() {
+  const [loading, setLoading] = useState(false);
+  const [uploaded, setUploaded] = useState<{ name: string; uploadedAt: string } | undefined>();
+  return (
+    <div className="w-full max-w-[480px]">
+      <Dropzone
+        aria-label="Upload TLS certificate"
+        hint="PEM or CRT up to 1 MB"
+        loading={loading}
+        successFile={uploaded}
+        onFiles={(files) => {
+          setUploaded(undefined);
+          setLoading(true);
+          window.setTimeout(() => {
+            setLoading(false);
+            setUploaded({ name: files[0]?.name ?? 'certificate.pem', uploadedAt: 'just now' });
+          }, 1500);
+        }}
+      />
+    </div>
+  );
+}
+
+/** Pick a file: "Uploading…", then the file's name, are announced as the zone changes (WCAG 4.1.3). */
+export const UploadFlow: Story = {
+  name: 'Upload flow',
+  render: () => <UploadDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.upload(canvasElement.querySelector<HTMLInputElement>('input[type=file]')!, new File(['x'], 'server.pem'));
+    await expect(await canvas.findByText('server.pem', {}, { timeout: 4000 })).toBeInTheDocument();
+  },
+};
