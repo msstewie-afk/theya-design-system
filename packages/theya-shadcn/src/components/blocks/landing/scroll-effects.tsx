@@ -329,3 +329,96 @@ export function FanOut({ columns = 3, className, children, ...props }: FanOutPro
     </div>
   );
 }
+
+// ---------------------------------------------------------------------------
+
+export interface DepthTunnelProps extends ComponentProps<'section'> {
+  /** The decorative items that fly past (small cards, photos). Hidden from assistive tech. */
+  items: ReactNode[];
+  /** What the section says: stays in the middle, always readable. */
+  children: ReactNode;
+  /** Viewport heights of scrolling for the flight (default 2.5). */
+  length?: number;
+}
+
+// A fixed scatter (no Math.random: the same layout on the server and every render).
+const SCATTER = [
+  [-38, -26], [34, -30], [-12, 32], [42, 18], [-44, 10], [8, -36], [26, 34], [-28, -6],
+  [46, -12], [-6, 28], [18, -18], [-40, 30], [36, 4], [-20, -34], [4, 38], [-46, -18],
+];
+
+/**
+ * Cards scattered through a deep space fly toward the viewer as the page
+ * scrolls, sharp up close and soft far away, while the message stays still
+ * in the middle (a warp / tunnel shot). The flying items are decoration
+ * (aria-hidden); the message carries the meaning. Reduced motion: the items
+ * rest around the message, no flight.
+ */
+export function DepthTunnel({ items, children, length = 2.5, className, ...props }: DepthTunnelProps) {
+  const reduced = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const root = useRef<HTMLElement>(null);
+  const refs = useRef<(HTMLDivElement | null)[]>([]);
+  const DEPTH = 3200; // px of depth the items are spread over
+  const n = items.length;
+
+  useScrollFrame(
+    root,
+    (rect, vh) => {
+      const travel = Math.max(1, rect.height - vh);
+      const p = clamp(-rect.top / travel);
+      refs.current.forEach((el, i) => {
+        if (!el) return;
+        // Spread the items evenly in depth; the camera moves DEPTH + 800 px forward.
+        const base = -((i + 0.5) / n) * DEPTH;
+        const z = base + p * (DEPTH + 800);
+        const far = clamp(-z / DEPTH); // 0 near, 1 far
+        const [x, y] = SCATTER[i % SCATTER.length];
+        // Fade in from the far end, fade out once it has passed the viewer.
+        const opacity = z > 400 ? clamp(1 - (z - 400) / 400) : clamp(1.2 - far * 1.1);
+        el.style.transform = `translate(-50%, -50%) translate3d(${x}vw, ${y}vh, ${z}px)`;
+        el.style.opacity = String(opacity);
+        el.style.filter = far > 0.15 ? `blur(${(far - 0.15) * 6}px)` : 'none';
+      });
+    },
+    !reduced,
+  );
+
+  if (reduced) {
+    return (
+      <section data-slot="depth-tunnel" data-scale="display" className={cn('section-display', className)} {...props}>
+        <div className="container-display flex flex-col items-center gap-12">
+          <div className="flex max-w-[48rem] flex-col items-center text-center">{children}</div>
+          <div aria-hidden className="flex flex-wrap justify-center gap-4 opacity-80">
+            {items.slice(0, 8)}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section ref={root} data-slot="depth-tunnel" data-scale="display" className={cn('relative', className)} style={{ height: `${100 + length * 100}vh` }} {...props}>
+      <div className="sticky top-0 h-svh overflow-hidden">
+        <div aria-hidden className="absolute inset-0 [perspective:900px]">
+          {items.map((item, i) => (
+            <div
+              key={i}
+              ref={(el) => {
+                refs.current[i] = el;
+              }}
+              className="absolute left-1/2 top-1/2 will-change-transform"
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+        <div className="relative z-10 flex h-full items-center justify-center px-[var(--display-gutter)]">
+          {/* A soft pool of the page color behind the message, so it never sits on a busy card. */}
+          <div className="relative flex max-w-[48rem] flex-col items-center text-center before:absolute before:-inset-x-24 before:-inset-y-20 before:-z-10 before:bg-[radial-gradient(closest-side,var(--color-bg-surface-bg-surface)_55%,transparent)] before:content-['']">
+            {children}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

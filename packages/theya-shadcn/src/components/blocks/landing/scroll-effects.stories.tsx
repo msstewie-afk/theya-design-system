@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 import { Copy, Group, Import, Lock, Search, Sparks } from 'iconoir-react';
-import { BookmarksPreview, DEMO_FEATURES, DemoFeatureVisual } from './demo-data';
+import { BookmarksPreview, DEMO_FEATURES, DemoFeatureVisual, DemoMiniLink } from './demo-data';
 import { SectionHead } from './feature-shared';
 import { FeatureCard, LandingCard, type LandingCardHue } from './landing-cards';
-import { CardDeck, FanOut, ScrollHighlight, TiltIn } from './scroll-effects';
+import { CardDeck, DepthTunnel, FanOut, ScrollHighlight, TiltIn } from './scroll-effects';
 import { scrollEffectsGuidelines } from './scroll-effects.guidelines';
 
 const meta: Meta<typeof CardDeck> = {
@@ -124,4 +124,22 @@ export const Deal: Story = {
       <Spacer label="" />
     </div>
   ),
+};
+
+/** Saved links fly toward you out of the depth while the message stays put in the middle (a warp shot). Scroll. */
+export const Tunnel: Story = {
+  render: () => (
+    <div className="bg-[var(--color-bg-surface-bg-surface)]">
+      <Spacer label="Scroll down" />
+      <DepthTunnel items={Array.from({ length: 16 }, (_, i) => <DemoMiniLink key={i} index={i} />)}>
+        <h2 className="m-0 text-balance font-heading text-heading-3xl text-[var(--color-text-text)]">Every link you ever saved</h2>
+        <p className="m-0 mt-6 font-body text-body-l text-[var(--color-text-text-subtle)]">Twelve years of tabs, in one place you can search.</p>
+      </DepthTunnel>
+      <Spacer label="" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('heading', { level: 2, name: 'Every link you ever saved' })).toBeVisible();
+  },
 };

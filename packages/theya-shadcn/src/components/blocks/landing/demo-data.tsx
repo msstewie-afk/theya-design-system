@@ -349,3 +349,17 @@ export const DEMO_LANDING_FOOTER: FooterColumn[] = [
   { title: 'Resources', links: [{ label: 'Help centre', href: '#help' }, { label: 'Changelog', href: '#changelog' }, { label: 'Blog', href: '#blog' }] },
   { title: 'Company', links: [{ label: 'About', href: '#about' }, { label: 'Careers', href: '#careers' }, { label: 'Contact', href: '#contact' }] },
 ];
+
+/** A small saved-link card: decoration for DepthTunnel and other scenes. */
+export function DemoMiniLink({ index = 0 }: { index?: number }) {
+  const l = LINKS[index % LINKS.length];
+  return (
+    <div className="flex w-56 items-center gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3 shadow-elevation-lg">
+      <span className={cn('flex size-10 shrink-0 items-center justify-center rounded-[var(--size-border-radius-border-radius-lg)] text-body-m font-semibold', HUE[l.hue])}>{l.letter}</span>
+      <span className="flex min-w-0 flex-col">
+        <span className="truncate font-body text-body-s font-semibold text-[var(--color-text-text)]">{l.title}</span>
+        <span className="truncate font-body text-body-xs text-[var(--color-text-text-subtle)]">{l.domain}</span>
+      </span>
+    </div>
+  );
+}
