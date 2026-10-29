@@ -69,6 +69,8 @@ function bringBrowserToFront(browserName: string) {
  * (Guidepup 0.36 `voiceOver.lastSpokenPhrase()` only returns its own capture
  * log, which stays empty when Playwright drives the page.)
  */
+/** VO_POLL_MS: how often to ask VoiceOver for its last phrase (default 50). */
+const POLL_SECONDS = Math.max(20, Number(process.env.VO_POLL_MS ?? 50)) / 1000;
 const POLLER = [
   'set lastPhrase to ""',
   'repeat',
@@ -81,7 +83,7 @@ const POLLER = [
   'set lastPhrase to p',
   'log "§VO§" & p',
   'end if',
-  'delay 0.05',
+  `delay ${POLL_SECONDS}`,
   'end repeat',
 ];
 function startPoller(onPhrase: (text: string) => void, onError: (text: string) => void): ChildProcess {
@@ -204,10 +206,9 @@ const test = base.extend<object, { vo: { page: Page; spoken: Spoken[]; pollerErr
         if (!names.includes(front)) throw new Error(`"${front}" is in front, not the browser; not sending keys.`);
       };
       pace.key = async (_p, key) => { ensureFront(); await voiceOver.press(key); };
-      pace.type = async (p, _target, text) => {
-        ensureFront();
-        for (const ch of text) { await voiceOver.type(ch); await p.waitForTimeout(120); }
-      };
+      // Text stays with Playwright: OS keystrokes follow the active keyboard
+      // layout (a Russian layout types "ф" for "a"), and typing echo is not
+      // what the scenarios test.
       try {
         await use({ page, spoken, pollerErrors });
       } finally {
