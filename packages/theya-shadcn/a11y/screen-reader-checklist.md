@@ -95,9 +95,9 @@ Each item checks one message. Keep focus where it is; listen.
 
 These components position things with CSS, so the order you hear can differ from what you see. Read each story with VO + A, then step with VO + Right.
 
-- [ ] **Dialog** · `overlays-dialog--open` · Title, then body, then buttons. Close (top-end) is read last and is named "Close". →
-- [ ] **AlertDialog** · `overlays-alertdialog--open` · Title, description, then Cancel and the action. Also at phone width (the buttons swap visually). →
-- [ ] **ConfirmDialog** · `overlays-confirmdialog--with-consequences` · Title, consequences list, confirm field, buttons. →
+- [ ] **Dialog** · `overlays-dialog--default` (open it from its button: VoiceOver doesn't announce a dialog that is already open on load) · Title, then body, then buttons. If VO + arrows don't move from the first field, press Tab once (WebKit bug 311125). Close (top-end) is read last and is named "Close". →
+- [ ] **AlertDialog** · `overlays-alertdialog--default` (open it from its button) · Title, description, then Cancel and the action. Also at phone width (the buttons swap visually). →
+- [ ] **ConfirmDialog** · `overlays-confirmdialog--with-consequences` (open it from its button) · Title, consequences list, confirm field, buttons. →
 - [ ] **Drawer** · `overlays-drawer--default` (open it) · Content first, Close last; the drag handle is not read. →
 - [ ] **ProductTour** · `overlays-producttour--on-step` · Step counter, title, text, actions, then Close. →
 - [ ] **Message** · `ai-chat-chat--default` · In sent messages (avatar on the other side): author, time, text, in that order. →
