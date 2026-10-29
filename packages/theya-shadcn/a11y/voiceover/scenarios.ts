@@ -37,11 +37,20 @@ export const pace = {
   /** Number of phrases VoiceOver had spoken at the last key (runner bookkeeping). */
   mark: 0,
   beforeKey: async (page: Page) => { await page.waitForTimeout(50); },
+  /**
+   * Sends one key or chord ("Shift+ArrowRight"). The dry run uses Playwright's
+   * synthetic events; the VoiceOver runner sends real OS key presses, because
+   * VoiceOver reacts to synthetic ones differently (it drops announcements a
+   * person hears).
+   */
+  key: async (page: Page, key: string) => { await page.keyboard.press(key); },
+  /** Types text into the focused field, one key per 120 ms. */
+  type: async (_page: Page, target: ReturnType<Page['locator']>, text: string) => { await target.pressSequentially(text, { delay: 120 }); },
 };
 
-const press = async (page: Page, key: string) => { await pace.beforeKey(page); await page.keyboard.press(key); };
+const press = async (page: Page, key: string) => { await pace.beforeKey(page); await pace.key(page, key); };
 /** Types like a person (one key every 120 ms), after the focus move has been heard. */
-const typeText = async (page: Page, target: ReturnType<Page['locator']>, text: string) => { await pace.beforeKey(page); await target.pressSequentially(text, { delay: 120 }); };
+const typeText = async (page: Page, target: ReturnType<Page['locator']>, text: string) => { await pace.beforeKey(page); await target.focus(); await pace.type(page, target, text); };
 
 export const SCENARIOS: Scenario[] = [
   {

@@ -193,6 +193,21 @@ const test = base.extend<object, { vo: { page: Page; spoken: Spoken[]; pollerErr
         await waitForQuiet(p, spoken, { quietMs: 400, maxMs: 6_000 });
         pace.mark = spoken.length;
       };
+      // Real key presses go to the frontmost app: make sure it is the browser,
+      // so a stray window never receives the scenario's keys.
+      const names = BROWSER_PROCESSES[browserName] ?? [];
+      const frontmost = () => execFileSync('osascript', ['-e', 'tell application "System Events" to get name of first process whose frontmost is true'], { encoding: 'utf8', timeout: 10_000 }).trim();
+      const ensureFront = () => {
+        if (names.includes(frontmost())) return;
+        bringBrowserToFront(browserName);
+        const front = frontmost();
+        if (!names.includes(front)) throw new Error(`"${front}" is in front, not the browser; not sending keys.`);
+      };
+      pace.key = async (_p, key) => { ensureFront(); await voiceOver.press(key); };
+      pace.type = async (p, _target, text) => {
+        ensureFront();
+        for (const ch of text) { await voiceOver.type(ch); await p.waitForTimeout(120); }
+      };
       try {
         await use({ page, spoken, pollerErrors });
       } finally {
