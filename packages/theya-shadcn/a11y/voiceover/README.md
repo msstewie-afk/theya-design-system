@@ -38,7 +38,14 @@ pnpm --filter @theya/shadcn a11y:voiceover
 - `VO_BROWSER=chromium pnpm --filter @theya/shadcn a11y:voiceover` — Chrome's engine instead of WebKit.
 - `pnpm --filter @theya/shadcn a11y:voiceover -g kanban` — one scenario.
 
-Results: `a11y/voiceover/results/<browser>-<date>.json` (not committed). Each entry lists what VoiceOver said and which expected texts were missing. Passes and fails go into `a11y/manual.json` → `screenReader` with `"at": "VoiceOver (Guidepup)"`.
+Results: `a11y/voiceover/results/<browser>-<run>.json` (not committed), one file per run. Each entry has two timelines in ms from the action: `heard` (what VoiceOver said) and `published` (what the page put into live regions, and focus moves), plus a `diagnosis` for each missing text:
+
+- `never published` — the component didn't say it: a component bug, fix it.
+- `published, not spoken` — the page said it and VoiceOver didn't speak it. **Check by hand before calling it a bug.** In the 2026-10-28/29 runs every such miss was spoken when checked by hand in Safari: VoiceOver drops an announcement that arrives while it speaks the control's own change (a checkbox's "ticked", a switch's "off", a focus move) after scripted input, even with real OS key presses. Record the hand check, not the automated miss.
+
+Passes go into `a11y/manual.json` → `screenReader` with `"at": "VoiceOver (Guidepup)"`.
+
+How the runner works: VoiceOver and one browser window stay up for the whole run (Guidepup's own fixture restarts VoiceOver per test, and VoiceOver then talks over the first seconds); one long-running `osascript` reads VoiceOver's last phrase (`VO_POLL_MS`, default 50); hints are pushed out with `SCRContextualHelpDelayInSeconds` in Guidepup's own preference set (not the user's); each key waits until VoiceOver has spoken the focus move, and keys are real OS presses sent only when the test browser is frontmost. Text is typed by Playwright, because OS keystrokes follow the active keyboard layout.
 
 ## Without VoiceOver
 

@@ -13,11 +13,12 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 152,
-        "verified": 5
+        "partial": 139,
+        "verified": 18
       },
       "patternCounts": {
-        "partial": 42
+        "verified": 15,
+        "partial": 27
       }
     },
     {
@@ -95,11 +96,12 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 152,
-        "verified": 5
+        "partial": 139,
+        "verified": 18
       },
       "patternCounts": {
-        "partial": 42
+        "verified": 15,
+        "partial": 27
       }
     },
     {
@@ -111,12 +113,13 @@
         "screenReader"
       ],
       "counts": {
-        "untested": 144,
-        "verified": 5,
+        "untested": 131,
+        "verified": 18,
         "n/a": 8
       },
       "patternCounts": {
-        "untested": 42
+        "verified": 15,
+        "untested": 27
       }
     },
     {
@@ -732,11 +735,13 @@
       ],
       "counts": {
         "n/a": 128,
-        "partial": 29
+        "partial": 26,
+        "verified": 3
       },
       "patternCounts": {
         "n/a": 31,
-        "partial": 11
+        "partial": 7,
+        "verified": 4
       }
     },
     {
@@ -823,12 +828,13 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 108,
-        "verified": 5,
+        "partial": 97,
+        "verified": 16,
         "n/a": 44
       },
       "patternCounts": {
-        "partial": 41,
+        "verified": 15,
+        "partial": 26,
         "n/a": 1
       }
     },
@@ -842,12 +848,13 @@
       ],
       "counts": {
         "n/a": 130,
-        "untested": 25,
-        "verified": 2
+        "untested": 12,
+        "verified": 15
       },
       "patternCounts": {
-        "untested": 17,
-        "n/a": 25
+        "verified": 15,
+        "n/a": 25,
+        "untested": 2
       }
     }
   ],
@@ -3971,7 +3978,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-29",
+          "result": "pass",
+          "notes": "Resend-code story left alone: \"Resend code\" is spoken when the timer ends. The automated run did not hear it; checked by hand instead."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -3980,14 +3995,14 @@
         "timed"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -4034,7 +4049,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "n/a",
-        "4.1.3": "untested"
+        "4.1.3": "verified"
       }
     },
     {
@@ -5525,7 +5540,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"Thanks for your feedback\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -5536,14 +5559,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -5589,8 +5612,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -5610,21 +5633,29 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard error on blur: \"Enter a valid domain\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
         "status"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -5671,7 +5702,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "n/a",
-        "4.1.3": "untested"
+        "4.1.3": "verified"
       }
     },
     {
@@ -6208,7 +6239,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"Release to send\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "autoMoving",
@@ -6218,14 +6257,14 @@
         "status"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -6271,8 +6310,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -6707,7 +6746,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard keyboard drag: \"Picked up\", \"moved to\", \"Dropped\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -6718,14 +6765,14 @@
         "timed"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -6771,8 +6818,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -7114,7 +7161,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"Image 2 of 5\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "drag",
@@ -7126,14 +7181,14 @@
         "sticky"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -7179,8 +7234,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -9297,7 +9352,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard over the limit: \"exceeds the 120-character limit\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -9314,14 +9377,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -9361,14 +9424,14 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "partial",
+        "3.3.1": "verified",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -11092,7 +11155,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard success and error-with-retry toasts: \"Certificate issued\", \"Couldn't reissue certificate\"."
+        }
+      ],
       "deviations": [
         {
           "criterion": "1.4.11",
@@ -11106,14 +11177,14 @@
         "timed"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -11159,8 +11230,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -11670,7 +11741,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard bulk selection: \"1 selected\", \"2 selected\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -11680,14 +11759,14 @@
         "sticky"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -11733,8 +11812,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -12002,7 +12081,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"1 card left\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -12013,14 +12100,14 @@
         "status"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -12066,8 +12153,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -12429,7 +12516,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"Added backups\", \"Removed backups\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -12441,14 +12536,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -12488,14 +12583,14 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "partial",
+        "3.3.1": "verified",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -13028,7 +13123,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard out of range: \"Choose a time from 9:00 AM to 5:00 PM\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -13041,14 +13144,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -13088,14 +13191,14 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "partial",
+        "3.3.1": "verified",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -13882,7 +13985,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"Site deleted\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "interactive",
@@ -13891,14 +14002,14 @@
         "timed"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -13944,8 +14055,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -14212,7 +14323,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"Key revoked\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -14225,14 +14344,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -14278,8 +14397,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -14468,7 +14587,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"1 order\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -14482,14 +14609,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -14535,8 +14662,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -14644,7 +14771,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"Removed “Hardware security key”\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -14657,14 +14792,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -14710,8 +14845,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -14818,7 +14953,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard live progress: \"… of 5\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -14828,14 +14971,14 @@
         "status"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -14881,8 +15024,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -15166,7 +15309,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-29",
+          "result": "pass",
+          "notes": "Checkbox toggled with Space: \"… of 4 selected for comparison\" is spoken. The automated run loses this announcement (spoken over the control's own state change after scripted input); checked by hand instead."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -15180,14 +15331,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -15233,8 +15384,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -15254,7 +15405,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"6 extensions\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -15270,14 +15429,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -15323,8 +15482,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -15435,7 +15594,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard screenshot carousel: \"… of 4\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -15449,14 +15616,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -15502,8 +15669,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -15523,7 +15690,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"3 reviews with 5 stars\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -15536,14 +15711,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -15589,8 +15764,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -15778,7 +15953,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard promo code: \"Enter a promo code\", \"isn't a valid code\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -15790,14 +15973,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -15837,14 +16020,14 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "partial",
+        "3.3.1": "verified",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -16536,7 +16719,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard search: \"1 user\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -16550,14 +16741,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -16603,8 +16794,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -17059,7 +17250,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"No notifications match\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -17073,14 +17272,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -17126,8 +17325,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -17147,7 +17346,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"Step 1 of 3: Domain\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -17159,14 +17366,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -17206,14 +17413,14 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "partial",
+        "3.3.1": "verified",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -17233,7 +17440,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-29",
+          "result": "pass",
+          "notes": "Switch toggled with Space: \"Saved\" is spoken. The automated run loses this announcement (spoken over the control's own state change after scripted input); checked by hand instead."
+        }
+      ],
       "deviations": [],
       "traits": [
         "auth",
@@ -17250,14 +17465,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "verified",
@@ -17297,14 +17512,14 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "partial",
+        "3.3.1": "verified",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "verified",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -17495,7 +17710,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"1 option. Use up and down arrows to choose.\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -17508,14 +17731,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -17561,8 +17784,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -17667,7 +17890,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver (Guidepup)",
+          "browser": "Playwright WebKit",
+          "date": "2026-10-28",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover): heard \"needs an @\", \"Invite sent\"."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -17680,14 +17911,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -17727,14 +17958,14 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "partial",
+        "3.3.1": "verified",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {

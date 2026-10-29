@@ -18,6 +18,90 @@
     "Button": [
       { "at": "VoiceOver", "browser": "Safari", "date": "2026-10-27", "result": "fail", "notes": "Interactive: loading -> success: \"Saved\" was not spoken (the aria-live span sat inside the focused button). Fixed the same day: label changes go through announce()." },
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-27", "result": "pass", "notes": "Re-check after the fix: \"Saving…\" and then \"Saved\" are spoken, focus stays on the button." }
+    ],
+    "StickyActionBar": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard bulk selection: \"1 selected\", \"2 selected\"." }
+    ],
+    "Toaster": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard success and error-with-retry toasts: \"Certificate issued\", \"Couldn't reissue certificate\"." }
+    ],
+    "UndoToast": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"Site deleted\"." }
+    ],
+    "FeedbackWidget": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"Thanks for your feedback\"." }
+    ],
+    "Field": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard error on blur: \"Enter a valid domain\"." }
+    ],
+    "PromptArea": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard over the limit: \"exceeds the 120-character limit\"." }
+    ],
+    "Kanban": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard keyboard drag: \"Picked up\", \"moved to\", \"Dropped\"." }
+    ],
+    "Lightbox": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"Image 2 of 5\"." }
+    ],
+    "SwipeDeck": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"1 card left\"." }
+    ],
+    "TimeField": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard out of range: \"Choose a time from 9:00 AM to 5:00 PM\"." }
+    ],
+    "TagInput": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"Added backups\", \"Removed backups\"." }
+    ],
+    "HoldToTalk": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"Release to send\"." }
+    ],
+    "AccessTokens": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"Key revoked\"." }
+    ],
+    "Cart": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard promo code: \"Enter a promo code\", \"isn't a valid code\"." }
+    ],
+    "FacetedList": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"6 extensions\"." }
+    ],
+    "ItemPage": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard screenshot carousel: \"… of 4\"." }
+    ],
+    "Reviews": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"3 reviews with 5 stars\"." }
+    ],
+    "NotificationsInbox": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"No notifications match\"." }
+    ],
+    "OnboardingWizard": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"Step 1 of 3: Domain\"." }
+    ],
+    "OrderHistory": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"1 order\"." }
+    ],
+    "StatusTracker": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard live progress: \"… of 5\"." }
+    ],
+    "TeamMembers": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"needs an @\", \"Invite sent\"." }
+    ],
+    "SavedItems": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"Removed “Hardware security key”\"." }
+    ],
+    "SearchBox": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"1 option. Use up and down arrows to choose.\"." }
+    ],
+    "ListView": [
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard search: \"1 user\"." }
+    ],
+    "Preferences": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Switch toggled with Space: \"Saved\" is spoken. The automated run loses this announcement (spoken over the control's own state change after scripted input); checked by hand instead." }
+    ],
+    "Comparison": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Checkbox toggled with Space: \"… of 4 selected for comparison\" is spoken. The automated run loses this announcement (spoken over the control's own state change after scripted input); checked by hand instead." }
+    ],
+    "Countdown": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Resend-code story left alone: \"Resend code\" is spoken when the timer ends. The automated run did not hear it; checked by hand instead." }
     ]
   },
   "traits": {
