@@ -427,7 +427,9 @@ export function DataTableToolbar<TData>({
   // inside, and a live region that mounts filled is usually not read (4.1.3).
   const lastCount = useRef(count);
   useEffect(() => {
-    if (count !== lastCount.current && count > 0) announce(`${count} ${t.dataTable.selected}`);
+    // 700 ms: VoiceOver first speaks the row checkbox ("ticked") and the
+    // table around it; set earlier, the count was dropped (Safari 26.6, 2026-10-29).
+    if (count !== lastCount.current && count > 0) announce(`${count} ${t.dataTable.selected}`, 'polite', { delay: 700 });
     lastCount.current = count;
   }, [count, t]);
   const focusInsideRef = useRef(false);

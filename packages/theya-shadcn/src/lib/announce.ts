@@ -31,11 +31,17 @@ function region(politeness: 'polite' | 'assertive') {
   return el;
 }
 
-export function announce(message: string | null | undefined, politeness: 'polite' | 'assertive' = 'polite') {
+/**
+ * `delay` (ms, default 100) is how long the region stays empty before the
+ * text is set. Use a longer one when the same keypress also makes VoiceOver
+ * speak the control's own change (a checkbox's "ticked" plus its table
+ * context): a message set while that is still being prepared is dropped.
+ */
+export function announce(message: string | null | undefined, politeness: 'polite' | 'assertive' = 'polite', { delay = 100 }: { delay?: number } = {}) {
   if (typeof document === 'undefined' || !message?.trim()) return;
   const el = region(politeness);
   el.textContent = '';
   window.setTimeout(() => {
     el.textContent = message.trim();
-  }, 100);
+  }, delay);
 }

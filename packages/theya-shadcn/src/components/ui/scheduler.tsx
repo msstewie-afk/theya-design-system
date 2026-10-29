@@ -23,6 +23,7 @@ import type { StatusTone } from './status-dot';
 import { ToggleGroup, ToggleGroupItem } from './toggle-group';
 import { useTheyaI18n } from '../../lib/i18n';
 import { useMediaQuery } from './use-media-query';
+import { announce } from '../../lib/announce';
 
 /**
  * Scheduler — events on a calendar grid: maintenance windows, bookings,
@@ -241,6 +242,15 @@ export function Scheduler({
             return isSameMonth(s, e) ? `${fmt.dayShort.format(s)} – ${fmt.dayNum.format(e)}, ${e.getFullYear()}` : `${fmt.dayShort.format(s)} – ${fmt.dayShort.format(e)}, ${e.getFullYear()}`;
           })();
 
+  // The new range is announced through the shared announcer. As aria-live on
+  // the heading it wasn't spoken in Safari + VoiceOver (2026-10-29): the
+  // heading re-renders together with the whole grid.
+  const lastTitle = useRef(title);
+  useEffect(() => {
+    if (title !== lastTitle.current) announce(title);
+    lastTitle.current = title;
+  }, [title]);
+
   const step = (dir: 1 | -1) => setDate(view === 'month' ? addMonths(date, dir) : view === 'week' ? addWeeks(date, dir) : addDays(date, dir));
   const prevLabel = t.scheduler.previous[view];
   const nextLabel = t.scheduler.next[view];
@@ -263,7 +273,7 @@ export function Scheduler({
         </div>
         {/* Phones: the range gets its own row under the buttons — beside them
             it truncated to "Oct…". */}
-        <h2 className="min-w-0 flex-1 truncate text-heading-2xs text-[var(--color-text-text)] max-sm:order-last max-sm:basis-full" aria-live="polite">
+        <h2 className="min-w-0 flex-1 truncate text-heading-2xs text-[var(--color-text-text)] max-sm:order-last max-sm:basis-full">
           {title}
         </h2>
         {views.length > 1 && (

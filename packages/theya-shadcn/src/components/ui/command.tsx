@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useRef, useLayoutEffect, useCallback, useId } from 'react';
+import { createContext, useContext, useState, useRef, useEffect, useLayoutEffect, useCallback, useId } from 'react';
 import { createPortal } from 'react-dom';
 import type { ReactNode } from 'react';
 import { Search } from 'iconoir-react';
@@ -255,7 +255,17 @@ export function CommandList({ className, ...props }: React.ComponentProps<'div'>
 }
 
 export function CommandEmpty({ className, children, ...props }: React.ComponentProps<'div'>) {
-  const { loading, itemCount, statusNode } = useCommandContext('CommandEmpty');
+  const { loading, itemCount, statusNode, search } = useCommandContext('CommandEmpty');
+  // The status text is set once typing pauses. Set on the first keystroke,
+  // VoiceOver's typing echo spoke over it and it never changed again, so
+  // "No results" was never heard (Safari 26.6, 2026-10-29). Each new query
+  // clears it, so the message is repeated after the next pause.
+  const [settled, setSettled] = useState(false);
+  useEffect(() => {
+    setSettled(false);
+    const id = window.setTimeout(() => setSettled(true), 500);
+    return () => window.clearTimeout(id);
+  }, [search]);
   if (loading || itemCount > 0) return null;
   return (
     <>
@@ -264,7 +274,7 @@ export function CommandEmpty({ className, children, ...props }: React.ComponentP
       <div aria-hidden="true" className={cn('py-8 text-center font-body text-body-s text-[var(--color-text-text-subtler)]', className)} {...props}>
         {children}
       </div>
-      {statusNode && createPortal(children, statusNode)}
+      {statusNode && settled && createPortal(children, statusNode)}
     </>
   );
 }

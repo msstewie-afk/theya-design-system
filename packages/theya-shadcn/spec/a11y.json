@@ -13,12 +13,12 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 139,
-        "verified": 18
+        "partial": 137,
+        "verified": 20
       },
       "patternCounts": {
-        "verified": 15,
-        "partial": 27
+        "verified": 17,
+        "partial": 25
       }
     },
     {
@@ -96,12 +96,12 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 139,
-        "verified": 18
+        "partial": 137,
+        "verified": 20
       },
       "patternCounts": {
-        "verified": 15,
-        "partial": 27
+        "verified": 17,
+        "partial": 25
       }
     },
     {
@@ -113,13 +113,13 @@
         "screenReader"
       ],
       "counts": {
-        "untested": 131,
-        "verified": 18,
+        "untested": 129,
+        "verified": 20,
         "n/a": 8
       },
       "patternCounts": {
-        "verified": 15,
-        "untested": 27
+        "verified": 17,
+        "untested": 25
       }
     },
     {
@@ -740,8 +740,8 @@
       },
       "patternCounts": {
         "n/a": 31,
-        "partial": 7,
-        "verified": 4
+        "verified": 5,
+        "partial": 6
       }
     },
     {
@@ -828,13 +828,13 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 97,
-        "verified": 16,
+        "partial": 95,
+        "verified": 18,
         "n/a": 44
       },
       "patternCounts": {
-        "verified": 15,
-        "partial": 26,
+        "verified": 17,
+        "partial": 24,
         "n/a": 1
       }
     },
@@ -848,13 +848,12 @@
       ],
       "counts": {
         "n/a": 130,
-        "untested": 12,
-        "verified": 15
+        "untested": 10,
+        "verified": 17
       },
       "patternCounts": {
-        "verified": 15,
-        "n/a": 25,
-        "untested": 2
+        "verified": 17,
+        "n/a": 25
       }
     }
   ],
@@ -2662,7 +2661,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-29",
+          "result": "pass",
+          "notes": "Arrow, Shift + arrows, Esc: \"Aug 1\", \"Selected Aug 1 to Aug 3\", \"Selection cleared\" are spoken."
+        }
+      ],
       "deviations": [],
       "traits": [
         "graphics",
@@ -2671,14 +2678,14 @@
         "status"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -2724,8 +2731,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -3522,7 +3529,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-29",
+          "result": "fail",
+          "notes": "Typing a query with no matches: \"No results found\" is not spoken (typing echo talks over it; set on the first keystroke, it never changes again). Fixed the same day: the status is set once typing pauses. Re-check pending."
+        }
+      ],
       "deviations": [
         {
           "criterion": "1.4.11",
@@ -4253,7 +4268,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-29",
+          "result": "fail",
+          "notes": "Row checkbox with Space: only \"ticked/unticked\" is spoken, \"1 selected\" is dropped. Fixed the same day: announced 700 ms later. Re-check pending."
+        }
+      ],
       "deviations": [
         {
           "criterion": "1.4.11",
@@ -10461,7 +10484,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-29",
+          "result": "fail",
+          "notes": "Next week: the new range (\"Oct 12 – 18, 2026\", aria-live on the heading) is not spoken. Fixed the same day: announced through the shared announcer. Re-check pending."
+        }
+      ],
       "deviations": [],
       "traits": [
         "autoMoving",
@@ -10636,7 +10667,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-29",
+          "result": "pass",
+          "notes": "Copy with Enter: \"Copied\" is spoken."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -10646,14 +10685,14 @@
         "timed"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -10699,8 +10738,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -14683,7 +14722,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-29",
+          "result": "pass",
+          "notes": "Resend after 30 s: \"Link sent again to …\" is spoken."
+        }
+      ],
       "deviations": [],
       "traits": [
         "auth",
@@ -14697,14 +14744,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "verified",
@@ -14744,14 +14791,14 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "partial",
+        "3.3.1": "verified",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "verified",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
@@ -15045,7 +15092,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-29",
+          "result": "pass",
+          "notes": "Typing a query with no matches: \"0 events match your filters\" is spoken."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -15059,14 +15114,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -15112,8 +15167,8 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {
