@@ -101,7 +101,8 @@
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Checkbox toggled with Space: \"… of 4 selected for comparison\" is spoken. The automated run loses this announcement (spoken over the control's own state change after scripted input); checked by hand instead." }
     ],
     "Countdown": [
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Resend-code story left alone: \"Resend code\" is spoken when the timer ends. The automated run did not hear it; checked by hand instead." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Resend-code story left alone: \"Resend code\" is spoken when the timer ends. The automated run did not hear it; checked by hand instead." },
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Blocks: the timer sentence (\"2 days, 4 hours, 12 minutes left\") is read first, but VO + arrows then also step through each tile although the tiles are aria-hidden (not reproduced in the Chromium accessibility tree). Redundant, not wrong or out of order; kept as is (decided 2026-10-29)." }
     ],
     "SecretField": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Copy with Enter: \"Copied\" is spoken." }
@@ -126,6 +127,9 @@
     "Scheduler": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "fail", "notes": "Next week: the new range (\"Oct 12 – 18, 2026\", aria-live on the heading) is not spoken. Fixed the same day: announced through the shared announcer. Re-check pending." },
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Re-check after the fix: Next week speaks \"Oct 12 – 18, 2026\"." }
+    ],
+    "LoginFormSplit": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Reading order with VO + arrows: the image side does not break into the form." }
     ]
   },
   "traits": {
