@@ -444,7 +444,7 @@ export const Tone: Story = {
           <Card key={tone} tone={tone} action={{ type: 'link', href: `#${tone}` }}>
             <CardHeader>
               <div className="flex min-w-0 items-start gap-2">
-                {Icon && <Icon className={`mt-0.5 size-4 shrink-0 ${TONE_ICON_CLASS[tone]}`} />}
+                {Icon && <Icon aria-hidden className={`mt-0.5 size-4 shrink-0 ${TONE_ICON_CLASS[tone]}`} />}
                 <div className="min-w-0">
                   <CardTitle>{label}</CardTitle>
                   <CardDescription>{note}</CardDescription>

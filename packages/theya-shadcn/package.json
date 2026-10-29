@@ -36,6 +36,7 @@
     "api": "node scripts/build-spec.mjs && node scripts/build-api.mjs && node scripts/build-a11y.mjs",
     "a11y": "node scripts/build-spec.mjs && node scripts/build-a11y.mjs",
     "a11y:auto": "node scripts/a11y-auto.mjs --url http://localhost:6008 && node scripts/build-a11y.mjs",
+    "a11y:tree": "node scripts/a11y-tree.mjs --url http://localhost:6008 && node scripts/build-a11y.mjs",
     "a11y:contrast": "node scripts/contrast-scan.mjs --url http://localhost:6008",
     "a11y:voiceover": "playwright test -c a11y/voiceover/playwright.config.ts",
     "a11y:voiceover:dry": "node a11y/voiceover/dry-run.mjs",

@@ -5,6 +5,7 @@ import type { KeyboardEvent, ReactElement, ReactNode } from 'react';
 import { ReferenceArea, ResponsiveContainer } from 'recharts';
 import { cn } from '../../lib/utils';
 import { useTheyaI18n } from '../../lib/i18n';
+import { useDecorativeSvgs } from '../../lib/use-decorative-svgs';
 
 export interface ChartSelectionRange {
   from: string;
@@ -192,6 +193,11 @@ export function ChartRangeSelection({
   // accessibilityLayer off: this group is the one keyboard stop. Recharts' own
   // layer made the inner svg a second, unnamed tab stop (role="application")
   // with different arrow keys (found in the VoiceOver dry run, 2026-10-27).
+  // The plot is drawn for sight; the group's name, its help text and the
+  // live announcements carry the range for assistive tech. Unhidden, the
+  // Recharts surface was an unnamed image reading every axis tick (1.1.1).
+  // Give the chart's data its own text alternative (a table) where it matters.
+  const plotRef = useDecorativeSvgs<HTMLDivElement>('svg.recharts-surface');
   const chart = cloneElement(
     children,
     {
@@ -203,6 +209,7 @@ export function ChartRangeSelection({
 
   return (
     <div
+      ref={plotRef}
       role="group"
       aria-roledescription={t.chartRangeSelection.roleDescription}
       aria-label={ariaLabel}

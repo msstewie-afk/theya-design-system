@@ -249,3 +249,16 @@ export const HexOnly: Story = {
     await expect(canvas.queryByRole('alert')).not.toBeInTheDocument();
   },
 };
+
+/** A hex it can't read is put back, and a message under the fields says what was expected until a valid value is entered (WCAG 3.3.1). */
+export const InvalidHex: Story = {
+  name: 'Invalid hex',
+  args: { views: ['custom'], defaultValue: '#3b6fd6' },
+  play: async ({ canvasElement }) => {
+    const hex = within(canvasElement).getByRole('textbox', { name: 'Hex' });
+    await userEvent.clear(hex);
+    await userEvent.type(hex, 'zzz{Enter}');
+    await expect(hex).toHaveValue('#3B6FD6');
+    await waitFor(() => expect(hex).toHaveAccessibleDescription(/3 or 6 characters/));
+  },
+};

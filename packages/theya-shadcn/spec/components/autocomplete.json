@@ -224,6 +224,10 @@
       {
         "name": "Disabled",
         "id": "selection-autocomplete--disabled"
+      },
+      {
+        "name": "ErrorState",
+        "id": "selection-autocomplete--error-state"
       }
     ]
   }

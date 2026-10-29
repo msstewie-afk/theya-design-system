@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { TimeRangePicker, type TimeRange } from './time-range-picker';
 import { Label } from './label';
+import { FieldError } from './field';
 import { timeRangePickerGuidelines } from './time-range-picker.guidelines';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
@@ -151,5 +152,22 @@ export const Disabled: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('combobox', { name: 'Start time' })).toBeDisabled();
     await expect(canvas.getByRole('combobox', { name: 'End time' })).toBeDisabled();
+  },
+};
+
+/** Invalid: `aria-invalid` marks both fields; `aria-describedby` points them at the FieldError (WCAG 3.3.1). */
+export const ErrorState: Story = {
+  name: 'Error',
+  render: () => (
+    <div className="flex w-full max-w-[380px] flex-col gap-1">
+      <TimeRangePicker aria-invalid aria-describedby="window-error" />
+      <FieldError id="window-error">Pick a start and an end time.</FieldError>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    for (const field of within(canvasElement).getAllByRole('combobox')) {
+      await expect(field).toHaveAttribute('aria-invalid', 'true');
+      await expect(field).toHaveAccessibleDescription('Pick a start and an end time.');
+    }
   },
 };

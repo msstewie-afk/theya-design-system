@@ -10,6 +10,7 @@ import { Badge, type BadgeTone, type BadgeSize } from './badge';
 import { Button, type ButtonProps } from './button';
 import { Checkbox } from './checkbox';
 import { FieldErrorIcon } from './field-error-icon';
+import { useDecorativeSvgs } from '../../lib/use-decorative-svgs';
 import { Combobox, type ComboboxOption } from './combobox';
 import { TextField } from './text-field';
 import { NumberField } from './number-field';
@@ -71,6 +72,16 @@ export interface MonoCellProps extends CellBoxProps, SecondLineProps {
   kind: 'mono';
   value: ReactNode;
   muted?: boolean;
+}
+
+/** The primary cell's leading visual. A bare icon there is decorative: the value names the row. */
+function LeadingSlot({ children }: { children: ReactNode }) {
+  const ref = useDecorativeSvgs<HTMLSpanElement>();
+  return (
+    <span ref={ref} className="flex shrink-0 items-center">
+      {children}
+    </span>
+  );
 }
 
 export interface PrimaryCellProps extends CellBoxProps, SecondLineProps {
@@ -816,7 +827,7 @@ function cellControl(props: DataTableCellValueProps, describedBy: string | undef
       // icon against only the value line's own track height.
       return (
         <span className="flex min-w-0 items-center gap-3">
-          {props.leading && <span className="flex shrink-0 items-center">{props.leading}</span>}
+          {props.leading && <LeadingSlot>{props.leading}</LeadingSlot>}
           <span className="flex min-w-0 flex-col gap-y-0.5">
             <span className={cn('truncate font-body text-body-m', props.mono ? 'font-mono font-code-medium' : 'font-medium')}>{props.value}</span>
             {props.secondary != null && (

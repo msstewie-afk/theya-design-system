@@ -72,7 +72,7 @@ export function TooltipContent({
         {...props}
       >
         {children}
-        {showArrow && <TooltipPrimitive.Arrow className={toneClass.arrow} />}
+        {showArrow && <TooltipPrimitive.Arrow aria-hidden className={toneClass.arrow} />}
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   );

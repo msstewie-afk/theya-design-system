@@ -10,6 +10,7 @@ import { OptionalMark } from './label';
 import { textFieldVariants, type TextFieldProps as BaseTextFieldProps } from './text-field-variants';
 import { useTheyaI18n } from '../../lib/i18n';
 import { FieldErrorIcon } from './field-error-icon';
+import { useDecorativeSvgs } from '../../lib/use-decorative-svgs';
 
 // Wrapper width lives here (not on the input itself) so absolute-
 // positioned icons/buttons stay pinned to the actual field edges
@@ -100,6 +101,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
 
   const isControlled = value !== undefined;
   const [uncontrolledHasValue, setUncontrolledHasValue] = useState(Boolean(defaultValue));
+  // A bare icon in `rightIcon` is decorative; a control there (Password's toggle) keeps its own name.
+  const rightIconRef = useDecorativeSvgs<HTMLSpanElement>();
   const hasValue = isControlled ? Boolean(value) : uncontrolledHasValue;
 
   const handleClear = () => {
@@ -170,7 +173,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
         // show/hide toggle); a decorative icon should mark itself
         // aria-hidden individually rather than this wrapper hiding
         // everything, interactive or not, from assistive tech.
-        <span className="absolute end-[var(--size-padding-padding-xs)] top-1/2 -translate-y-1/2 flex items-center justify-center size-6 text-[var(--color-icon-icon-subtle)]">
+        <span ref={rightIconRef} className="absolute end-[var(--size-padding-padding-xs)] top-1/2 -translate-y-1/2 flex items-center justify-center size-6 text-[var(--color-icon-icon-subtle)]">
           {rightIcon}
         </span>
       ) : hasError ? (

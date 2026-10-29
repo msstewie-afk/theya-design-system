@@ -22,7 +22,7 @@ export interface UndoToastOptions {
   onCommit?: () => void;
 }
 
-export function undoToast({ title, description, duration = 10000, undoLabel = getTheyaMessages().undoToast.undo, icon = <Trash width={16} height={16} />, onUndo, onCommit }: UndoToastOptions) {
+export function undoToast({ title, description, duration = 10000, undoLabel = getTheyaMessages().undoToast.undo, icon = <Trash width={16} height={16} aria-hidden />, onUndo, onCommit }: UndoToastOptions) {
   let undone = false;
   // A thin bar drains over the grace window (Kinetics' Undo Snackbar, MIT), so the time
   // left to undo is visible. The timer pauses while the toasts are hovered or hold

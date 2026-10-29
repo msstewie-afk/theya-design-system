@@ -409,7 +409,10 @@ export const Loading: Story = {
 function Row({ label, children }: { label: string; children: ReactNode }) {
   return (
     <TableRow>
-      <TableCell className="w-40 font-body text-body-m text-[var(--color-text-text-subtler)]">{label}</TableCell>
+      {/* A row header, so each value is read with its kind (a table needs headers, WCAG 1.3.1). */}
+      <th scope="row" className="w-40 px-4 py-[calc((var(--size-density-density-row)_-_1.25rem)_/_2)] text-start align-middle font-body text-body-m font-normal text-[var(--color-text-text-subtler)]">
+        {label}
+      </th>
       <TableCell>{children}</TableCell>
     </TableRow>
   );

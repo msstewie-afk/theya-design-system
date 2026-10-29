@@ -2,6 +2,8 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { Autocomplete } from './autocomplete';
+import { FieldError } from './field';
+import { Label } from './label';
 import { autocompleteGuidelines } from './autocomplete.guidelines';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
@@ -167,4 +169,23 @@ export const Disabled: Story = {
       <Autocomplete options={RESOURCES} placeholder="Search resources" aria-label="Search resources" disabled />
     </div>
   ),
+};
+
+/** Invalid: `aria-invalid` plus `aria-describedby` pointing at a FieldError that says what to change (WCAG 3.3.1). */
+export const ErrorState: Story = {
+  name: 'Error',
+  render: () => (
+    <div className="flex w-[280px] flex-col gap-1">
+      <Label htmlFor="resource-error" data-error>
+        Resource
+      </Label>
+      <Autocomplete id="resource-error" options={RESOURCES} defaultValue="Bucketz" aria-invalid aria-describedby="resource-error-message" />
+      <FieldError id="resource-error-message">Pick a resource from the list.</FieldError>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole('combobox', { name: 'Resource' });
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await expect(input).toHaveAccessibleDescription('Pick a resource from the list.');
+  },
 };

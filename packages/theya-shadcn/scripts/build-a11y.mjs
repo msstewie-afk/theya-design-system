@@ -56,6 +56,16 @@ const { criteria } = JSON.parse(fs.readFileSync(path.join(ROOT, 'a11y/criteria.j
 const AUTO_FILE = path.join(ROOT, 'a11y/auto.json');
 const AUTO_KEYS = ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
 const auto = fs.existsSync(AUTO_FILE) ? JSON.parse(fs.readFileSync(AUTO_FILE, 'utf8')) : { components: {} };
+// Accessibility-tree checks from scripts/a11y-tree.mjs (names, images, headers,
+// error association) — "tree" evidence, an alternative to a screen-reader pass
+// for 1.1.1, 1.3.1, 1.3.2, 3.3.1 and 4.1.2 (decided 2026-10-29).
+const TREE_FILE = path.join(ROOT, 'a11y/tree.json');
+const TREE_KEYS = ['1.1.1', '1.3.1', '4.1.2', '3.3.1'];
+const tree = fs.existsSync(TREE_FILE) ? JSON.parse(fs.readFileSync(TREE_FILE, 'utf8')) : { components: {} };
+// CSS that shows things in a different order than the DOM (and so the tree)
+// reads them. A component with any needs a passing 1.3.2 review for the tree
+// to count as evidence of a meaningful sequence.
+const REORDER = /(?:^|\s)(?:[\w\-[\]=&>*.#()/,!@]+:)*(?:-?order-|flex-row-reverse|flex-col-reverse|col-start-|row-start-)/;
 
 // Patterns: every blocks/**/<name>.stories.tsx next to its <name>.tsx. Name and
 // title come from the story meta ("Patterns: Account/AccountMenu" -> AccountMenu).
@@ -272,7 +282,8 @@ function criterionStatus(c, row, traits, evidence) {
   if (row.deviations.some((d) => d.criterion === c.id)) return 'deviation';
   if (row.autoFindings(c.id).length || row.review(c.id)?.result === 'fail') return 'fails';
   const needed = c.evidence.filter((e) => e !== 'axe' || AXE_CRITERIA.has(c.id));
-  const have = needed.filter((e) => evidence(e, c.id));
+  // "a|b": either kind of evidence will do.
+  const have = needed.filter((e) => e.split('|').some((kind) => evidence(kind, c.id)));
   if (needed.length && have.length === needed.length) return 'verified';
   return have.length ? 'partial' : 'untested';
 }
@@ -314,10 +325,18 @@ function buildRow({ name, base, title, traitKey = name, reviews: ownReviews = {}
     : kind === 'reducedMotion' ? source.reducedMotion !== 'unguarded'
     : kind === 'auto' ? !!autoRow && autoRow.stories > autoRow.errors && !autoRow[id]?.length
     : kind === 'screenReader' ? sr.some((p) => p.result === 'pass')
+    : kind === 'tree'
+      ? !!treeRow && treeRow.stories > treeRow.errors &&
+        (id === '1.3.2'
+          ? !stringsOf(sourceFile).some((t) => REORDER.test(t)) || reviews['1.3.2']?.result === 'pass'
+          : id === '3.3.1'
+            ? treeRow.errorsShown > 0 && !treeRow['3.3.1'].length
+            : TREE_KEYS.includes(id) && !treeRow[id].length)
     : kind === 'review' ? reviews[id]?.result === 'pass'
     : false;
   const autoRow = auto.components[name];
-  const partialRow = { deviations, autoFindings: (id) => autoRow?.[id] ?? [], review: (id) => reviews[id] };
+  const treeRow = tree.components[name];
+  const partialRow = { deviations, autoFindings: (id) => [...(autoRow?.[id] ?? []), ...(TREE_KEYS.includes(id) ? (treeRow?.[id] ?? []) : [])], review: (id) => reviews[id] };
   const wcag = Object.fromEntries(criteria.map((cr) => [cr.id, criterionStatus(cr, partialRow, traits, evidence)]));
   return {
     name,

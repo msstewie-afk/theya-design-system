@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { DatePicker } from './date-picker';
 import { Label } from './label';
+import { FieldError } from './field';
 import { datePickerGuidelines } from './date-picker.guidelines';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
@@ -122,4 +123,24 @@ export const Disabled: Story = {
 export const FutureDatesOnly: Story = {
   name: 'Future dates only',
   args: { 'aria-label': 'Start date', placeholder: 'Pick a start date', calendarProps: { disabled: { before: new Date() } } },
+};
+
+/** Invalid: `aria-invalid` plus `aria-describedby` pointing at a FieldError that says what to change (WCAG 3.3.1). */
+export const ErrorState: Story = {
+  name: 'Error',
+  parameters: { controls: { exclude: ['aria-label'] } },
+  render: () => (
+    <div className="flex flex-col gap-1">
+      <Label htmlFor="renew-date-error" data-error>
+        Renewal date
+      </Label>
+      <DatePicker id="renew-date-error" aria-invalid aria-describedby="renew-date-error-message" placeholder="Pick a renewal date" />
+      <FieldError id="renew-date-error-message">Pick a renewal date.</FieldError>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: /Renewal date/ });
+    await expect(trigger).toHaveAttribute('aria-invalid', 'true');
+    await expect(trigger).toHaveAccessibleDescription(/Pick a renewal date\./);
+  },
 };

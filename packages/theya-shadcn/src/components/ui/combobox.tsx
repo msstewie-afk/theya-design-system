@@ -462,7 +462,7 @@ export function Combobox(props: ComboboxProps) {
           </div>
         ) : (
           <ScrollArea focusable={false} className="max-h-60">
-          <ul id={listId} role="listbox">
+          <ul id={listId} role="listbox" aria-labelledby={ariaLabelledby} aria-label={ariaLabelledby ? undefined : (ariaLabel ?? t.combobox.options)}>
             {items.map((option, index) => {
               const isCreateRow = showCreateRow && index === 0;
               const isSelected = multiple

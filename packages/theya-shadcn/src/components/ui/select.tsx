@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, cloneElement, isValidElement } from 'react';
+import { createContext, useContext, cloneElement, isValidElement, useCallback } from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, NavArrowDown, NavArrowUp } from 'iconoir-react';
 import { cn } from '../../lib/utils';
@@ -132,9 +132,20 @@ function SelectContent({
   sideOffset = 4,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
+  // Radix leaves the listbox unnamed (WCAG 4.1.2). Name it after its
+  // trigger — the trigger's aria-label, or the <label> pointing at it — unless
+  // the consumer labelled the content. Done on mount from the DOM, since the
+  // trigger's name can come from a Label outside the Select.
+  const nameAfterTrigger = useCallback((content: HTMLDivElement | null) => {
+    if (!content || content.hasAttribute('aria-label') || content.hasAttribute('aria-labelledby')) return;
+    const trigger = content.id ? document.querySelector<HTMLButtonElement>(`[aria-controls="${CSS.escape(content.id)}"]`) : null;
+    const name = trigger?.getAttribute('aria-label') || [...(trigger?.labels ?? [])].map((l) => l.textContent?.trim()).filter(Boolean).join(' ');
+    if (name) content.setAttribute('aria-label', name);
+  }, []);
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
+        ref={nameAfterTrigger}
         data-bloom=""
         position={position}
         sideOffset={sideOffset}

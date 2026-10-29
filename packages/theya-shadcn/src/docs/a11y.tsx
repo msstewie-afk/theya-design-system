@@ -64,6 +64,7 @@ const EVIDENCE_LABEL: Record<string, string> = {
   auto: 'browser check (a11y-auto, local run)',
   reducedMotion: 'reduced-motion guard',
   screenReader: 'screen-reader pass',
+  tree: 'accessibility-tree check (a11y-tree, local run)',
   review: 'manual review',
 };
 
@@ -395,7 +396,7 @@ function CriteriaTable() {
                   )}
                 </TableCell>
                 <TableCell className="align-top text-body-s text-[var(--color-text-text-subtle)]">
-                  {c.evidence?.length ? c.evidence.map((e) => EVIDENCE_LABEL[e] ?? e).join(' + ') : c.scope === 'component' ? 'Nothing automated yet' : '—'}
+                  {c.evidence?.length ? c.evidence.map((e) => e.split('|').map((k) => EVIDENCE_LABEL[k] ?? k).join(' or ')).join(' + ') : c.scope === 'component' ? 'Nothing automated yet' : '—'}
                 </TableCell>
               </TableRow>
             );

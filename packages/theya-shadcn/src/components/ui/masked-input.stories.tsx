@@ -145,7 +145,7 @@ export const Invalid: Story = {
   args: {
     mask: '+1 (___) ___-____',
     defaultValue: '+1 (415) 555',
-    error: true,
+    error: 'Enter all 10 digits.',
     'aria-label': 'Phone number',
     autoComplete: 'tel',
     inputMode: 'tel',

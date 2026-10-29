@@ -52,3 +52,19 @@ export const EmailTaken: Story = {
     ),
   },
 };
+
+/** Submitted with a short password: focus moves to it, and its description says what to change (WCAG 3.3.1). */
+export const ShortPassword: Story = {
+  name: 'Short password',
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const password = canvas.getByLabelText('Password');
+    await userEvent.type(canvas.getByRole('textbox', { name: 'Work email' }), 'dana@seashell.shop');
+    await userEvent.type(password, 'abc');
+    await userEvent.click(canvas.getByRole('button', { name: 'Create account' }));
+    await expect(password).toHaveFocus();
+    await expect(password).toHaveAttribute('aria-invalid', 'true');
+    await expect(password).toHaveAccessibleDescription(/Use at least 8 characters/);
+    await expect(args.onSubmit).not.toHaveBeenCalled();
+  },
+};

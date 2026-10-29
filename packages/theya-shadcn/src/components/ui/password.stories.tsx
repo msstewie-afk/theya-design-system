@@ -111,7 +111,7 @@ export const States: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <Password label="Default" placeholder="Enter password" widthSize="lg" />
-      <Password label="Error" error placeholder="Enter password" widthSize="lg" />
+      <Password label="Error" error="Password is too short." placeholder="Enter password" widthSize="lg" />
       <Password label="Disabled" disabled defaultValue="secret123" widthSize="lg" />
     </div>
   ),

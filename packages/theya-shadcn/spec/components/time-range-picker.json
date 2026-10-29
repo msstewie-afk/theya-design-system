@@ -170,6 +170,10 @@
       {
         "name": "Disabled",
         "id": "date-time-timerangepicker--disabled"
+      },
+      {
+        "name": "ErrorState",
+        "id": "date-time-timerangepicker--error-state"
       }
     ]
   }

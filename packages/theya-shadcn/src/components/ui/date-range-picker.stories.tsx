@@ -4,6 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import type { DateRange } from 'react-day-picker';
 import { DateRangePicker } from './date-range-picker';
 import { Label } from './label';
+import { FieldError } from './field';
 import { dateRangePickerGuidelines } from './date-range-picker.guidelines';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
@@ -168,5 +169,25 @@ export const Disabled: Story = {
     const trigger = within(canvasElement).getByRole('button', { name: 'Report period' });
     await expect(trigger).toBeDisabled();
     await expect(trigger).toHaveAccessibleDescription('Jun 2, 2026 – Jun 9, 2026');
+  },
+};
+
+/** Invalid: `aria-invalid` plus `aria-describedby` pointing at a FieldError that says what to change (WCAG 3.3.1). */
+export const ErrorState: Story = {
+  name: 'Error',
+  parameters: { controls: { exclude: ['aria-label'] } },
+  render: () => (
+    <div className="flex flex-col gap-1">
+      <Label htmlFor="report-range-error" data-error>
+        Report period
+      </Label>
+      <DateRangePicker id="report-range-error" aria-invalid aria-describedby="report-range-error-message" />
+      <FieldError id="report-range-error-message">Pick a start and an end date.</FieldError>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: /Report period/ });
+    await expect(trigger).toHaveAttribute('aria-invalid', 'true');
+    await expect(trigger).toHaveAccessibleDescription(/Pick a start and an end date\./);
   },
 };
