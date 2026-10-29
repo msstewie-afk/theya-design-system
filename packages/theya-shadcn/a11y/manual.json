@@ -116,13 +116,16 @@
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Resend after 30 s: \"Link sent again to …\" is spoken." }
     ],
     "Command": [
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "fail", "notes": "Typing a query with no matches: \"No results found\" is not spoken (typing echo talks over it; set on the first keystroke, it never changes again). Fixed the same day: the status is set once typing pauses. Re-check pending." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "fail", "notes": "Typing a query with no matches: \"No results found\" is not spoken (typing echo talks over it; set on the first keystroke, it never changes again). Fixed the same day: the status is set once typing pauses. Re-check pending." },
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Re-check after the fix: \"No results found\" is spoken once typing pauses." }
     ],
     "DataTableToolbar": [
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "fail", "notes": "Row checkbox with Space: only \"ticked/unticked\" is spoken, \"1 selected\" is dropped. Fixed the same day: announced 700 ms later. Re-check pending." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "fail", "notes": "Row checkbox with Space: only \"ticked/unticked\" is spoken, \"1 selected\" is dropped. Fixed the same day: announced 700 ms later. Re-check pending." },
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Re-check after the fix: \"ticked\", then \"1 selected\"." }
     ],
     "Scheduler": [
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "fail", "notes": "Next week: the new range (\"Oct 12 – 18, 2026\", aria-live on the heading) is not spoken. Fixed the same day: announced through the shared announcer. Re-check pending." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "fail", "notes": "Next week: the new range (\"Oct 12 – 18, 2026\", aria-live on the heading) is not spoken. Fixed the same day: announced through the shared announcer. Re-check pending." },
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Re-check after the fix: Next week speaks \"Oct 12 – 18, 2026\"." }
     ]
   },
   "traits": {
