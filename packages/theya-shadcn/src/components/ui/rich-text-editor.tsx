@@ -345,7 +345,7 @@ function EditorToolbar({ editor, tools, disabled }: { editor: Editor; tools: Ric
   const filled = groups.filter((g) => g.length);
 
   return (
-    <Toolbar aria-label={t.richTextEditor.formatting} className="flex-wrap gap-0.5 border-b border-solid border-[var(--color-border-border-subtler)] p-1.5">
+    <Toolbar aria-label={t.richTextEditor.formatting} className="flex-wrap gap-0.5 border-b border-solid border-[var(--color-border-border-subtler)] px-2 py-1.5">
       {filled.map((group, i) => (
         <div key={i} className="contents">
           {i > 0 && <ToolbarSeparator orientation="vertical" />}

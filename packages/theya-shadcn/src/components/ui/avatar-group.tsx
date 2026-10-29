@@ -22,7 +22,7 @@ import { useTheyaI18n } from '../../lib/i18n';
 const GAP: Record<AvatarSize, string> = {
   sm: '-space-x-1',
   md: '-space-x-2',
-  lg: '-space-x-2.5',
+  lg: '-space-x-3',
 };
 
 // The separating border, plus an opaque surface under each disc: tonal

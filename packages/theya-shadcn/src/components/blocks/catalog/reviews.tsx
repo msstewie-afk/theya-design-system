@@ -125,7 +125,7 @@ export function Reviews({ reviews, summary, pageSize = 4, onWriteReview, heading
                   setVisible(pageSize);
                 }}
                 className={cn(
-                  'grid cursor-pointer grid-cols-[2.5rem_minmax(0,1fr)_3rem] items-center gap-3 rounded-[var(--size-border-radius-border-radius-md)] px-1.5 py-0.5 text-start outline-none',
+                  'grid cursor-pointer grid-cols-[2.5rem_minmax(0,1fr)_3rem] items-center gap-3 rounded-[var(--size-border-radius-border-radius-md)] px-2 py-0.5 text-start outline-none',
                   'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] focus-visible:focus-ring',
                   active && 'bg-[var(--color-bg-primary-bg-primary-subtle)]',
                 )}

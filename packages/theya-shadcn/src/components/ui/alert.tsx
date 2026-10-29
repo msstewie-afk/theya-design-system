@@ -140,5 +140,5 @@ export function AlertDescription({ className, ...props }: React.ComponentProps<'
 
 /** The row of buttons/links under the body. */
 export function AlertActions({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('mt-2.5 flex flex-wrap items-center gap-2', className)} {...props} />;
+  return <div className={cn('mt-3 flex flex-wrap items-center gap-2', className)} {...props} />;
 }

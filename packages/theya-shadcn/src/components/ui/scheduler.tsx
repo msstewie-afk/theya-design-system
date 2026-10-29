@@ -423,7 +423,7 @@ function WeekList({
                       event={e}
                       label={e.allDay ? t.scheduler.allDayEvent(String(e.title)) : `${e.title}, ${fmt.dayLong.format(d)}, ${timeRange(e)}`}
                       onClick={() => onEventClick?.(e)}
-                      className="flex min-h-11 flex-col justify-center px-2.5 py-1.5"
+                      className="flex min-h-11 flex-col justify-center px-3 py-1.5"
                     >
                       <span className="truncate text-body-s font-medium">{e.title}</span>
                       <span className="text-body-xs font-semibold">{e.allDay ? t.scheduler.allDay : timeRange(e)}</span>

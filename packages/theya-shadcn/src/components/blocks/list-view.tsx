@@ -188,7 +188,7 @@ function ListToolbar<Row>({ table, primaryKey, searchPlaceholder, facets, bulkAc
 
   return (
     <DataTableToolbar table={table} actions={bulkActions ?? []} idleLeft={resultCountNode}>
-      <div className="flex min-w-0 max-w-full flex-wrap items-center gap-2.5">
+      <div className="flex min-w-0 max-w-full flex-wrap items-center gap-2">
         {hasFacets ? (
           <FilterField
             attributes={attributes}

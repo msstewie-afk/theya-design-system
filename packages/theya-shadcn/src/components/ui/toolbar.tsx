@@ -100,7 +100,7 @@ export function ToolbarLink({ className, ...props }: React.ComponentProps<typeof
   // Link supplies the color, hover underline and focus ring; Radix keeps the
   // roving tab stop. Toolbar height so it lines up with the buttons.
   return (
-    <Link asChild size="sm" className={cn('inline-flex h-[var(--size-size-control-size-control-lg)] items-center px-2.5 font-medium', className)}>
+    <Link asChild size="sm" className={cn('inline-flex h-[var(--size-size-control-size-control-lg)] items-center px-2 font-medium', className)}>
       <ToolbarPrimitive.Link {...props} />
     </Link>
   );

@@ -455,7 +455,7 @@ function resolveRowMenuLabel<TData>(menu: DataTableRowMenu<TData>, row: TData, f
 
 function DataTableRowMenuContent({ children }: { children: ReactNode }) {
   return (
-    <div role="presentation" className="flex min-h-9 items-center px-2.5 py-2 text-[var(--color-text-text-subtler)]/70 [&_svg]:size-4 [&_svg]:shrink-0">
+    <div role="presentation" className="flex min-h-9 items-center px-3 py-2 text-[var(--color-text-text-subtler)]/70 [&_svg]:size-4 [&_svg]:shrink-0">
       {children}
     </div>
   );

@@ -60,7 +60,7 @@ export function PageHeader({ title, icon, tags, description, breadcrumb, actions
             <Heading className="min-w-0 break-words font-body text-heading-s font-semibold text-[var(--color-text-text)]">{title}</Heading>
           </div>
           {tags && <div data-slot="page-header-tags" className="mt-4 flex flex-wrap items-center gap-1">{tags}</div>}
-          {description && <p data-slot="page-header-description" className={cn('max-w-[540px] font-body text-body-s text-[var(--color-text-text-subtler)]', tags ? 'mt-3' : 'mt-1.5')}>{description}</p>}
+          {description && <p data-slot="page-header-description" className={cn('max-w-[540px] font-body text-body-s text-[var(--color-text-text-subtler)]', tags ? 'mt-3' : 'mt-1')}>{description}</p>}
         </div>
         {!breadcrumb && actions && <div data-slot="page-header-actions" className="flex flex-wrap items-center gap-1 sm:shrink-0">{actions}</div>}
       </div>

@@ -98,7 +98,7 @@ export function Stat({ className, variant = 'card', label, value, icon, tone, to
       </div>
 
       {delta && DeltaIcon && (
-        <p data-slot="stat-delta" className={cn('mt-1.5 flex items-center gap-1 font-body text-body-s font-medium tabular-nums', DELTA_CLASS[delta.direction])}>
+        <p data-slot="stat-delta" className={cn('mt-1 flex items-center gap-1 font-body text-body-s font-medium tabular-nums', DELTA_CLASS[delta.direction])}>
           <DeltaIcon className="size-4 shrink-0" aria-hidden="true" />
           <span className="sr-only">{DELTA_SR[delta.direction]}: </span>
           <span className="min-w-0 break-words">{delta.value}</span>
