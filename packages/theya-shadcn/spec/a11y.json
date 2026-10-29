@@ -13,8 +13,8 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 127,
-        "verified": 30
+        "partial": 126,
+        "verified": 31
       },
       "patternCounts": {
         "verified": 20,
@@ -96,8 +96,8 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 127,
-        "verified": 30
+        "partial": 126,
+        "verified": 31
       },
       "patternCounts": {
         "verified": 20,
@@ -113,8 +113,8 @@
         "screenReader"
       ],
       "counts": {
-        "untested": 119,
-        "verified": 30,
+        "untested": 118,
+        "verified": 31,
         "n/a": 8
       },
       "patternCounts": {
@@ -735,8 +735,8 @@
       ],
       "counts": {
         "n/a": 128,
-        "partial": 22,
-        "verified": 7
+        "partial": 21,
+        "verified": 8
       },
       "patternCounts": {
         "n/a": 31,
@@ -828,8 +828,8 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 85,
-        "verified": 28,
+        "partial": 84,
+        "verified": 29,
         "n/a": 44
       },
       "patternCounts": {
@@ -848,8 +848,8 @@
       ],
       "counts": {
         "n/a": 130,
-        "untested": 7,
-        "verified": 20
+        "untested": 6,
+        "verified": 21
       },
       "patternCounts": {
         "verified": 17,
@@ -6069,7 +6069,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-29",
+          "result": "pass",
+          "notes": "Typing a query with no matching attribute: \"No attributes\" is spoken once typing pauses (status set by CommandEmpty). The automated run missed it because its click opened the attribute list and the text never reached the field."
+        }
+      ],
       "deviations": [
         {
           "criterion": "1.4.11",
@@ -6089,14 +6097,14 @@
         "validation"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -6136,14 +6144,14 @@
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
-        "3.3.1": "partial",
+        "3.3.1": "verified",
         "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.2": "verified",
+        "4.1.3": "verified"
       }
     },
     {

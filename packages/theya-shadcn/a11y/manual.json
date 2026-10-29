@@ -165,6 +165,9 @@
     ],
     "Tabs": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Tabs\" (navigation-tabs--default): \"tab, 1 of 3, selected\", arrows switch tabs, Tab moves into the panel." }
+    ],
+    "FilterField": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Typing a query with no matching attribute: \"No attributes\" is spoken once typing pauses (status set by CommandEmpty). The automated run missed it because its click opened the attribute list and the text never reached the field." }
     ]
   },
   "traits": {
