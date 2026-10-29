@@ -24,13 +24,17 @@ export type LandingCardHue = 'primary' | 'secondary' | 'success' | 'warning' | '
  */
 export type LandingCardHover = 'none' | 'lift' | 'spotlight' | 'beam' | 'shine' | 'tilt';
 
+// The tonal fills are translucent in the dark theme, so a tint alone lets
+// whatever is behind show through: cards stacked or flying over each other
+// turned to mush. The tint is laid over an opaque surface instead.
+// Literal class strings (Tailwind only sees classes written out in full).
 const HUE: Record<LandingCardHue, string> = {
-  primary: 'bg-[var(--color-bg-primary-bg-primary-subtle)]',
-  secondary: 'bg-[var(--color-bg-secondary-bg-secondary-subtle)]',
-  success: 'bg-[var(--color-bg-success-bg-success-subtle)]',
-  warning: 'bg-[var(--color-bg-warning-bg-warning-subtle)]',
-  info: 'bg-[var(--color-bg-info-bg-info-subtle)]',
-  neutral: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
+  primary: '[background:linear-gradient(var(--color-bg-primary-bg-primary-subtle),var(--color-bg-primary-bg-primary-subtle)),var(--color-bg-surface-bg-surface)]',
+  secondary: '[background:linear-gradient(var(--color-bg-secondary-bg-secondary-subtle),var(--color-bg-secondary-bg-secondary-subtle)),var(--color-bg-surface-bg-surface)]',
+  success: '[background:linear-gradient(var(--color-bg-success-bg-success-subtle),var(--color-bg-success-bg-success-subtle)),var(--color-bg-surface-bg-surface)]',
+  warning: '[background:linear-gradient(var(--color-bg-warning-bg-warning-subtle),var(--color-bg-warning-bg-warning-subtle)),var(--color-bg-surface-bg-surface)]',
+  info: '[background:linear-gradient(var(--color-bg-info-bg-info-subtle),var(--color-bg-info-bg-info-subtle)),var(--color-bg-surface-bg-surface)]',
+  neutral: '[background:linear-gradient(var(--color-bg-neutral-bg-neutral-subtle),var(--color-bg-neutral-bg-neutral-subtle)),var(--color-bg-surface-bg-surface)]',
 };
 
 // On a tinted fill the subtle ink drops under 4.5:1 on some hues, so body
