@@ -106,6 +106,9 @@ export declare const en: {
         pause: string;
         play: string;
     };
+    siteHeader: {
+        skipToContent: string;
+    };
     dataTable: {
         rowActionsFor: (label: string) => string;
         selectAll: string;
@@ -705,6 +708,9 @@ export declare const enLocale: {
         marquee: {
             pause: string;
             play: string;
+        };
+        siteHeader: {
+            skipToContent: string;
         };
         dataTable: {
             rowActionsFor: (label: string) => string;

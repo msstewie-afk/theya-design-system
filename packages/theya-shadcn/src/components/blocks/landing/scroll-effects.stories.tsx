@@ -4,7 +4,8 @@ import { Copy, Group, Import, Lock, Search, Sparks } from 'iconoir-react';
 import { BookmarksPreview, DEMO_FEATURES, DemoFeatureVisual, DemoMiniLink } from './demo-data';
 import { SectionHead } from './feature-shared';
 import { FeatureCard, LandingCard, type LandingCardHue } from './landing-cards';
-import { CardDeck, DepthTunnel, FanOut, ScrollHighlight, TiltIn } from './scroll-effects';
+import { Button } from '../../ui/button';
+import { CardDeck, DepthTunnel, FanOut, HorizontalScroll, ScrollHighlight, ScrollMaskReveal, TiltIn } from './scroll-effects';
 import { scrollEffectsGuidelines } from './scroll-effects.guidelines';
 
 const meta: Meta<typeof CardDeck> = {
@@ -141,5 +142,65 @@ export const Tunnel: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('heading', { level: 2, name: 'Every link you ever saved' })).toBeVisible();
+  },
+};
+
+/** The picture starts as a capsule and opens to fill the screen as you scroll; the text comes up over it (Nexacard). */
+export const MaskReveal: Story = {
+  name: 'Mask reveal',
+  render: () => (
+    <div className="bg-[var(--color-bg-surface-bg-surface)]">
+      <Spacer label="Scroll down" />
+      <ScrollMaskReveal aria-labelledby="reveal-title" media={<img src="/asset-examples/login-carousel-01.jpg" alt="" />}>
+        <div className="flex max-w-[34rem] flex-col items-start gap-6 rounded-[var(--size-border-radius-border-radius-4xl)] bg-[var(--color-bg-surface-bg-surface)] p-8 shadow-elevation-lg">
+          <h2 id="reveal-title" className="m-0 text-balance font-heading text-heading-2xl text-[var(--color-text-text)]">
+            Room for everything you read
+          </h2>
+          <Button>Start free</Button>
+        </div>
+      </ScrollMaskReveal>
+      <Spacer label="" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Reduced motion in the tests: a rounded panel with the text and button on it.
+    await expect(canvas.getByRole('heading', { level: 2, name: 'Room for everything you read' })).toBeVisible();
+    await expect(canvas.getByRole('button', { name: 'Start free' })).toBeVisible();
+  },
+};
+
+const CONTROL = [
+  { title: 'Alerts', description: 'A nudge when a saved page changes or a link breaks.' },
+  { title: 'Read later', description: 'A queue that empties itself as you read.' },
+  { title: 'Highlights', description: 'Mark a line, find it again by searching for it.' },
+  { title: 'Shared folders', description: 'One reading list for the whole team.' },
+  { title: 'Rules', description: 'New links land in the right folder on their own.' },
+  { title: 'Export', description: 'Everything as HTML, CSV or JSON, any time.' },
+];
+
+/** Scroll down and the row of cards slides sideways under the heading until the last one is in (Klarna). Below lg: a row you swipe. */
+export const Sideways: Story = {
+  render: () => (
+    <div className="bg-[var(--color-bg-surface-bg-surface)]">
+      <Spacer label="Scroll down" />
+      <HorizontalScroll aria-label="Features" header={<SectionHead eyebrow="Features" title="In control, all the time" />}>
+        {CONTROL.map((c, i) => (
+          <LandingCard key={c.title} surface="tonal" hue={HUES[i % HUES.length]} className="h-[26rem] w-[min(22rem,80vw)] justify-between gap-6 p-6">
+            <div className="flex flex-col gap-2">
+              <h3 className="m-0 font-heading text-heading-xs font-semibold">{c.title}</h3>
+              <p className="m-0 font-body text-body-s">{c.description}</p>
+            </div>
+            <DemoFeatureVisual id={DEMO_FEATURES[i % DEMO_FEATURES.length].id} />
+          </LandingCard>
+        ))}
+      </HorizontalScroll>
+      <Spacer label="" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const list = canvas.getByRole('list', { name: 'Features' });
+    await expect(within(list).getAllByRole('heading', { level: 3 })).toHaveLength(6);
   },
 };

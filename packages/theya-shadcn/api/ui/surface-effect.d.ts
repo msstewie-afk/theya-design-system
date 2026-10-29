@@ -4,11 +4,13 @@
 export type SurfaceEffectKind = 'spotlight' | 'beam' | 'tilt' | 'shine' | 'lift';
 export interface SurfaceEffectProps extends React.HTMLAttributes<HTMLDivElement> {
     effect: SurfaceEffectKind;
+    maxTilt?: number;
 }
-export declare function SurfaceEffect({ effect, className, children, onPointerMove, onPointerLeave, ...props }: SurfaceEffectProps): import("react").JSX.Element;
+export declare function SurfaceEffect({ effect, maxTilt, className, children, onPointerMove, onPointerLeave, ...props }: SurfaceEffectProps): import("react").JSX.Element;
 export declare function Aurora({ intensity, className, ...props }: React.HTMLAttributes<HTMLDivElement> & {
     intensity?: 'subtle' | 'vivid';
 }): import("react").JSX.Element;
 
 // Defaults
 // Aurora.intensity = subtle
+// SurfaceEffect.maxTilt = 8

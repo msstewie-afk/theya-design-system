@@ -132,31 +132,29 @@ export function CardDeck({ pace = 0.9, hold = 0.55, header, className, children,
   }
 
   return (
-    <section
-      ref={root}
-      data-slot="card-deck"
-      data-scale="display"
-      aria-label={label}
-      className={cn('relative', className)}
-      style={{ height: `${100 + (n - 1) * pace * 100}vh` }}
-      {...props}
-    >
+    <section ref={root} data-slot="card-deck" data-scale="display" aria-label={label} className={cn('relative', className)} style={{ height: `${100 + (n - 1) * pace * 100}vh` }} {...props}>
       <div className="sticky top-0 flex h-svh flex-col items-center justify-center gap-8 overflow-hidden py-16">
-        {header && <div className="container-display w-full">{header}</div>}
-        <div className="container-display relative mt-[8vh] w-full flex-1 [perspective:1200px] [perspective-origin:50%_0%]">
-          {cards.map((c, i) => (
-            <div
-              key={i}
-              ref={(el) => {
-                refs.current[i] = el;
-              }}
-              aria-hidden={i !== front || undefined}
-              {...inertProps(i !== front)}
-              className="absolute inset-x-[var(--display-gutter)] inset-y-0 flex items-stretch will-change-transform [transform-origin:50%_100%] [&>*]:w-full"
-            >
-              {c}
-            </div>
-          ))}
+        {header && (
+          <div className="w-full">
+            <div className="container-display">{header}</div>
+          </div>
+        )}
+        <div className="mt-[8vh] w-full flex-1">
+          <div className="container-display relative h-full [perspective:1200px] [perspective-origin:50%_0%]">
+            {cards.map((c, i) => (
+              <div
+                key={i}
+                ref={(el) => {
+                  refs.current[i] = el;
+                }}
+                aria-hidden={i !== front || undefined}
+                {...inertProps(i !== front)}
+                className="absolute inset-x-[var(--display-gutter)] inset-y-0 flex items-stretch will-change-transform [transform-origin:50%_100%] [&>*]:w-full"
+              >
+                {c}
+              </div>
+            ))}
+          </div>
         </div>
         {/* Where you are in the deck. */}
         <ol aria-label={`${label}: card ${front + 1} of ${n}`} className="m-0 flex list-none gap-2 p-0">
@@ -243,12 +241,7 @@ export function ScrollHighlight({ className, children, ...props }: ScrollHighlig
     !reduced,
   );
   return (
-    <p
-      ref={ref}
-      data-slot="scroll-highlight"
-      className={cn('m-0 text-balance font-heading text-heading-2xl text-[var(--color-text-text)]', className)}
-      {...props}
-    >
+    <p ref={ref} data-slot="scroll-highlight" className={cn('m-0 text-balance font-heading text-heading-2xl text-[var(--color-text-text)]', className)} {...props}>
       {words.map((w, i) =>
         /\s+/.test(w) ? (
           w
@@ -295,7 +288,12 @@ export function FanOut({ columns = 3, className, children, ...props }: FanOutPro
       cells.current.forEach((el, i) => {
         if (!el) return;
         // Distance from the cell's resting place to the middle of the grid.
-        const r = el.offsetParent ? { x: el.offsetLeft + el.offsetWidth / 2, y: el.offsetTop + el.offsetHeight / 2 } : { x: 0, y: 0 };
+        const r = el.offsetParent
+          ? {
+              x: el.offsetLeft + el.offsetWidth / 2,
+              y: el.offsetTop + el.offsetHeight / 2,
+            }
+          : { x: 0, y: 0 };
         const dx = cx - (g.left + r.x);
         const dy = cy - (g.top + r.y);
         const turn = (i - (items.length - 1) / 2) * 6;
@@ -312,7 +310,11 @@ export function FanOut({ columns = 3, className, children, ...props }: FanOutPro
     if (!active) cells.current.forEach((el) => el && (el.style.transform = ''));
   }, [active]);
 
-  const cols = { 2: 'lg:grid-cols-2', 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4' }[columns];
+  const cols = {
+    2: 'lg:grid-cols-2',
+    3: 'lg:grid-cols-3',
+    4: 'lg:grid-cols-4',
+  }[columns];
   return (
     <div ref={ref} data-slot="fan-out" className={cn('relative grid gap-4 sm:grid-cols-2 lg:gap-6', cols, className)} {...props}>
       {items.map((c, i) => (
@@ -343,8 +345,22 @@ export interface DepthTunnelProps extends ComponentProps<'section'> {
 
 // A fixed scatter (no Math.random: the same layout on the server and every render).
 const SCATTER = [
-  [-38, -26], [34, -30], [-12, 32], [42, 18], [-44, 10], [8, -36], [26, 34], [-28, -6],
-  [46, -12], [-6, 28], [18, -18], [-40, 30], [36, 4], [-20, -34], [4, 38], [-46, -18],
+  [-38, -26],
+  [34, -30],
+  [-12, 32],
+  [42, 18],
+  [-44, 10],
+  [8, -36],
+  [26, 34],
+  [-28, -6],
+  [46, -12],
+  [-6, 28],
+  [18, -18],
+  [-40, 30],
+  [36, 4],
+  [-20, -34],
+  [4, 38],
+  [-46, -18],
 ];
 
 /**
@@ -418,6 +434,191 @@ export function DepthTunnel({ items, children, length = 2.5, className, ...props
             {children}
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+// ---------------------------------------------------------------------------
+
+export interface ScrollMaskRevealProps extends Omit<ComponentProps<'section'>, 'title'> {
+  /** The picture: an image, a video poster, a product shot. It fills the frame (object-cover it). */
+  media: ReactNode;
+  /** What the section says: shown on the media once it has opened (a heading, a button). */
+  children?: ReactNode;
+  /** Viewport heights of scrolling for the opening (default 1.2). */
+  length?: number;
+}
+
+/**
+ * The picture starts as a small capsule in the middle of the screen and
+ * opens to fill it edge to edge as the page scrolls (Nexacard, Apple
+ * product pages). The section is pinned while it opens; the text fades in
+ * over the opened picture. Reduced motion: a rounded panel with the text on it.
+ */
+export function ScrollMaskReveal({ media, children, length = 1.2, className, ...props }: ScrollMaskRevealProps) {
+  const reduced = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const root = useRef<HTMLElement>(null);
+  const frame = useRef<HTMLDivElement>(null);
+  const pic = useRef<HTMLDivElement>(null);
+  const text = useRef<HTMLDivElement>(null);
+
+  useScrollFrame(
+    root,
+    (rect, vh) => {
+      const travel = Math.max(1, rect.height - vh);
+      // Opens over the first 75% of the pinned stretch, then holds open for the text.
+      const p = ease(clamp(-rect.top / travel / 0.75));
+      if (!frame.current || !pic.current) return;
+      // A capsule ~30% wide and 70% tall → the whole screen.
+      const side = (1 - p) * 35;
+      const top = (1 - p) * 15;
+      // A full capsule at the start, square corners when it fills the screen.
+      const w = window.innerWidth * (1 - side / 50);
+      const h = vh * (1 - top / 50);
+      const round = (Math.min(w, h) / 2) * (1 - p);
+      frame.current.style.clipPath = `inset(${top}% ${side}% ${top}% ${side}% round ${round}px)`;
+      // The picture zooms out a little as the frame opens, so it feels like moving through it.
+      pic.current.style.transform = `scale(${1.25 - p * 0.25})`;
+      if (text.current) {
+        const t = clamp((p - 0.7) / 0.3);
+        text.current.style.opacity = String(t);
+        text.current.style.transform = `translateY(${(1 - t) * 24}px)`;
+        // Not reachable until it shows.
+        text.current.toggleAttribute('inert', t < 0.5);
+      }
+    },
+    !reduced,
+  );
+
+  if (reduced) {
+    return (
+      <section data-slot="scroll-mask-reveal" data-scale="display" className={cn('section-display', className)} {...props}>
+        <div className="container-display">
+          <div className="relative isolate flex min-h-[36rem] items-end overflow-hidden rounded-[var(--size-border-radius-border-radius-5xl)]">
+            <div className="absolute inset-0 -z-10 [&>*]:size-full [&>*]:object-cover">{media}</div>
+            {children && <div className="relative w-full p-8 lg:p-16">{children}</div>}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section ref={root} data-slot="scroll-mask-reveal" data-scale="display" className={cn('relative', className)} style={{ height: `${100 + length * 100}vh` }} {...props}>
+      <div className="sticky top-0 h-svh overflow-hidden">
+        <div ref={frame} className="absolute inset-0 overflow-hidden will-change-[clip-path]" style={{ clipPath: 'inset(15% 35% 15% 35% round 999px)' }}>
+          <div ref={pic} className="absolute inset-0 will-change-transform [&>*]:size-full [&>*]:object-cover">
+            {media}
+          </div>
+        </div>
+        {children && (
+          <div ref={text} className="absolute inset-x-0 bottom-0 opacity-0" {...{ inert: '' }}>
+            <div className="container-display pb-16 lg:pb-24">{children}</div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// ---------------------------------------------------------------------------
+
+export interface HorizontalScrollProps extends Omit<ComponentProps<'section'>, 'title'> {
+  /** Stays on top while the cards pass (a SectionHead). */
+  header?: ReactNode;
+  /** Names the list of cards. */
+  'aria-label': string;
+  /** The cards; give them a fixed width (w-80, w-[26rem]). */
+  children: ReactNode;
+}
+
+/**
+ * Scrolling down moves a row of cards sideways: the section is pinned and
+ * the row slides past under its heading until the last card is in (Klarna
+ * “Get 24/7 control”). Tabbing to a card scrolls the page to where that card
+ * is in view. Below lg or with reduced motion: a plain row you swipe.
+ */
+export function HorizontalScroll({ header, className, children, 'aria-label': label, ...props }: HorizontalScrollProps) {
+  const reduced = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const wide = useMediaQuery('(min-width: 1024px)');
+  const active = !reduced && wide;
+  const root = useRef<HTMLElement>(null);
+  const track = useRef<HTMLOListElement>(null);
+  const [shift, setShift] = useState(0); // px the row has to travel
+  const items = Children.toArray(children);
+
+  // The row's overflow sets how tall the section is: 1px of scroll = 1px sideways.
+  useEffect(() => {
+    if (!active || !track.current) return;
+    const el = track.current;
+    const measure = () => setShift(Math.max(0, el.scrollWidth - el.clientWidth));
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [active, items.length]);
+
+  useScrollFrame(
+    root,
+    (rect, vh) => {
+      if (!track.current) return;
+      const travel = Math.max(1, rect.height - vh);
+      const p = clamp(-rect.top / travel);
+      const rtl = getComputedStyle(track.current).direction === 'rtl';
+      track.current.style.transform = `translate3d(${(rtl ? 1 : -1) * p * shift}px, 0, 0)`;
+    },
+    active,
+  );
+
+  // Keyboard: bring the focused card into view by scrolling the page, not the clipped row.
+  const onFocus = (e: React.FocusEvent<HTMLOListElement>) => {
+    if (!active || !root.current || !track.current) return;
+    const li = (e.target as HTMLElement).closest('li');
+    if (!li) return;
+    track.current.scrollLeft = 0;
+    const travel = root.current.offsetHeight - window.innerHeight;
+    const want = clamp((li.offsetLeft - (track.current.clientWidth - li.offsetWidth) / 2) / Math.max(1, shift));
+    const top = root.current.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({
+      top: top + want * travel,
+      behavior: 'instant' as ScrollBehavior,
+    });
+  };
+
+  return (
+    <section
+      ref={root}
+      data-slot="horizontal-scroll"
+      data-scale="display"
+      className={cn(active ? 'relative' : 'section-display', className)}
+      style={active ? { height: `calc(100vh + ${shift}px)` } : undefined}
+      {...props}
+    >
+      <div className={cn(active && 'sticky top-0 flex h-svh flex-col justify-center gap-10 overflow-hidden py-16', !active && 'flex flex-col gap-8')}>
+        {header && (
+          <div className="w-full">
+            <div className="container-display">{header}</div>
+          </div>
+        )}
+        <ol
+          ref={track}
+          aria-label={label}
+          onFocus={onFocus}
+          // As a swipe row it scrolls by itself: a Tab stop so keyboards can scroll it too.
+          tabIndex={active ? undefined : 0}
+          className={cn(
+            'outline-none focus-visible:focus-ring',
+            'm-0 flex list-none gap-4 p-0 px-[max(var(--display-gutter),calc((100%-var(--display-container))/2))] lg:gap-6 [&>li]:shrink-0',
+            active ? 'will-change-transform' : 'snap-x snap-mandatory overflow-x-auto pb-2 [&>li]:snap-start',
+          )}
+        >
+          {items.map((c, i) => (
+            <li key={i} className="flex [&>*]:w-full">
+              {c}
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

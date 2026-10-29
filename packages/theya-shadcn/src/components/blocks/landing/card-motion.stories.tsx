@@ -3,7 +3,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { DEMO_FEATURES, DEMO_FOLDERS, DemoFeatureVisual, DemoMiniLink } from './demo-data';
 import { SectionHead } from './feature-shared';
 import { CardMotionSection } from './card-motion.story-helpers';
-import { FanCarousel, FlipCard, FolderReveal, RingCarousel } from './card-motion';
+import { FanCarousel, FlipCard, FolderReveal, ParallaxLayer, ParallaxLayers, RingCarousel } from './card-motion';
 import { cardMotionGuidelines } from './card-motion.guidelines';
 import { LandingCard, StatCard, type LandingCardHue } from './landing-cards';
 
@@ -69,7 +69,31 @@ export const RingAroundAWord: Story = {
   ),
 };
 
-/** Cards on an arc, the middle one in focus. Drag, click a side card, or use the arrows (Fan Card Carousel). */
+/** The inside of the ring: a curved wall of cards, the edges swinging in toward you (coverflow, 3D card wall). Drag, arrows, Arrow keys. */
+export const Wall: Story = {
+  render: () => (
+    <CardMotionSection title="Start from a template">
+      <RingCarousel aria-label="Templates" shape="wall" cardWidth={240}>
+        {TEMPLATES.map((_, i) => (
+          <TemplateCard key={i} i={i} />
+        ))}
+      </RingCarousel>
+    </CardMotionSection>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const wall = canvas.getByRole('region', { name: 'Templates' });
+    await expect(within(wall).getAllByRole('heading', { level: 3 })).toHaveLength(1);
+    await userEvent.click(within(wall).getByRole('button', { name: /next/i }));
+    await expect(within(wall).getByRole('heading', { level: 3, name: TEMPLATES[1] })).toBeInTheDocument();
+    // The wall does not wrap: back past the first card stays on the first.
+    await userEvent.click(within(wall).getByRole('button', { name: /previous/i }));
+    await userEvent.click(within(wall).getByRole('button', { name: /previous/i }));
+    await expect(within(wall).getByRole('heading', { level: 3, name: TEMPLATES[0] })).toBeInTheDocument();
+  },
+};
+
+/** Cards on an arc, the middle one in focus. Drag, click a side card, or use the arrows (Fan Card Carousel). The first time it scrolls in, it deals itself out from the middle (PayCard). */
 export const Fan: Story = {
   render: () => (
     <CardMotionSection title="Four things it does for you">
@@ -146,3 +170,25 @@ export const Flip: Story = {
   },
 };
 
+
+/** Glass cards over a soft arch that drift with the mouse, each layer by its own depth (a hero visual). */
+export const Parallax: Story = {
+  render: () => (
+    <CardMotionSection title="Move the mouse over it">
+      <ParallaxLayers aria-hidden className="h-[28rem] w-full max-w-[44rem]">
+        <ParallaxLayer depth={-0.3} className="absolute inset-x-[22%] bottom-0 top-6 rounded-t-full bg-[var(--color-bg-primary-bg-primary-subtle)]" />
+        {[
+          { i: 2, depth: 0.35, pos: 'end-[8%] top-[14%] rotate-[-6deg]' },
+          { i: 5, depth: 0.6, pos: 'start-[30%] top-[34%] rotate-[-3deg]' },
+          { i: 0, depth: 1, pos: 'start-[10%] top-[52%]' },
+        ].map((c) => (
+          <ParallaxLayer key={c.i} depth={c.depth} className={`absolute ${c.pos}`}>
+            <div className="rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[color-mix(in_srgb,white_40%,transparent)] bg-[color-mix(in_srgb,var(--color-bg-surface-bg-surface)_60%,transparent)] p-2 shadow-elevation-lg backdrop-blur-xl">
+              <DemoMiniLink index={c.i} />
+            </div>
+          </ParallaxLayer>
+        ))}
+      </ParallaxLayers>
+    </CardMotionSection>
+  ),
+};

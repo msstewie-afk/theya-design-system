@@ -16,7 +16,7 @@
         "partial": 157
       },
       "patternCounts": {
-        "partial": 42
+        "partial": 52
       }
     },
     {
@@ -29,7 +29,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -42,7 +42,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -55,7 +55,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -68,7 +68,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -81,7 +81,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -97,7 +97,7 @@
         "partial": 157
       },
       "patternCounts": {
-        "partial": 42
+        "partial": 52
       }
     },
     {
@@ -112,7 +112,7 @@
         "untested": 157
       },
       "patternCounts": {
-        "untested": 42
+        "untested": 52
       }
     },
     {
@@ -125,7 +125,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -138,7 +138,7 @@
         "library": 157
       },
       "patternCounts": {
-        "library": 42
+        "library": 52
       }
     },
     {
@@ -154,7 +154,7 @@
         "verified": 13
       },
       "patternCounts": {
-        "n/a": 34,
+        "n/a": 44,
         "verified": 8
       }
     },
@@ -173,7 +173,8 @@
       },
       "patternCounts": {
         "verified": 38,
-        "n/a": 4
+        "n/a": 9,
+        "untested": 5
       }
     },
     {
@@ -186,7 +187,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -201,7 +202,7 @@
         "verified": 157
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 52
       }
     },
     {
@@ -216,7 +217,8 @@
         "verified": 157
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 42,
+        "untested": 10
       }
     },
     {
@@ -229,7 +231,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -244,7 +246,7 @@
         "verified": 157
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 52
       }
     },
     {
@@ -261,7 +263,9 @@
         "n/a": 21
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 42,
+        "untested": 7,
+        "n/a": 3
       }
     },
     {
@@ -277,7 +281,8 @@
         "verified": 157
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 42,
+        "partial": 10
       }
     },
     {
@@ -294,8 +299,9 @@
         "verified": 21
       },
       "patternCounts": {
-        "n/a": 38,
-        "verified": 4
+        "n/a": 47,
+        "verified": 4,
+        "untested": 1
       }
     },
     {
@@ -313,7 +319,9 @@
         "deviation": 1
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 44,
+        "partial": 5,
+        "n/a": 3
       }
     },
     {
@@ -329,7 +337,9 @@
         "n/a": 36
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 44,
+        "untested": 5,
+        "n/a": 3
       }
     },
     {
@@ -346,7 +356,7 @@
         "untested": 1
       },
       "patternCounts": {
-        "n/a": 41,
+        "n/a": 51,
         "verified": 1
       }
     },
@@ -363,8 +373,9 @@
         "verified": 7
       },
       "patternCounts": {
-        "n/a": 39,
-        "verified": 3
+        "n/a": 48,
+        "verified": 3,
+        "untested": 1
       }
     },
     {
@@ -382,7 +393,7 @@
         "deviation": 1
       },
       "patternCounts": {
-        "n/a": 41,
+        "n/a": 51,
         "verified": 1
       }
     },
@@ -396,7 +407,7 @@
         "library": 157
       },
       "patternCounts": {
-        "library": 42
+        "library": 52
       }
     },
     {
@@ -409,7 +420,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -422,7 +433,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -438,7 +449,9 @@
         "n/a": 36
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 44,
+        "untested": 5,
+        "n/a": 3
       }
     },
     {
@@ -455,8 +468,9 @@
         "verified": 6
       },
       "patternCounts": {
-        "n/a": 19,
-        "verified": 23
+        "n/a": 25,
+        "verified": 23,
+        "partial": 4
       }
     },
     {
@@ -469,7 +483,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -487,7 +501,8 @@
       },
       "patternCounts": {
         "verified": 40,
-        "n/a": 2
+        "untested": 6,
+        "n/a": 6
       }
     },
     {
@@ -503,7 +518,9 @@
         "n/a": 36
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 42,
+        "untested": 7,
+        "n/a": 3
       }
     },
     {
@@ -520,7 +537,8 @@
       },
       "patternCounts": {
         "verified": 19,
-        "n/a": 23
+        "n/a": 30,
+        "untested": 3
       }
     },
     {
@@ -536,7 +554,8 @@
         "verified": 5
       },
       "patternCounts": {
-        "n/a": 42
+        "n/a": 50,
+        "untested": 2
       }
     },
     {
@@ -549,7 +568,7 @@
         "library": 157
       },
       "patternCounts": {
-        "library": 42
+        "library": 52
       }
     },
     {
@@ -565,7 +584,9 @@
         "n/a": 36
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 42,
+        "untested": 7,
+        "n/a": 3
       }
     },
     {
@@ -578,7 +599,7 @@
         "library": 157
       },
       "patternCounts": {
-        "library": 42
+        "library": 52
       }
     },
     {
@@ -595,7 +616,9 @@
         "verified": 10
       },
       "patternCounts": {
-        "n/a": 42
+        "n/a": 50,
+        "untested": 1,
+        "partial": 1
       }
     },
     {
@@ -611,7 +634,8 @@
         "n/a": 36
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 49,
+        "n/a": 3
       }
     },
     {
@@ -624,7 +648,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -637,7 +661,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -653,7 +677,9 @@
         "n/a": 36
       },
       "patternCounts": {
-        "verified": 42
+        "verified": 44,
+        "untested": 5,
+        "n/a": 3
       }
     },
     {
@@ -670,7 +696,7 @@
       },
       "patternCounts": {
         "verified": 29,
-        "n/a": 13
+        "n/a": 23
       }
     },
     {
@@ -683,7 +709,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -696,7 +722,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -709,7 +735,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -726,7 +752,7 @@
         "untested": 35
       },
       "patternCounts": {
-        "n/a": 31,
+        "n/a": 41,
         "partial": 11
       }
     },
@@ -745,7 +771,7 @@
       },
       "patternCounts": {
         "verified": 27,
-        "n/a": 15
+        "n/a": 25
       }
     },
     {
@@ -758,7 +784,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -771,7 +797,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -784,7 +810,7 @@
         "product": 157
       },
       "patternCounts": {
-        "product": 42
+        "product": 52
       }
     },
     {
@@ -800,7 +826,7 @@
         "verified": 2
       },
       "patternCounts": {
-        "n/a": 37,
+        "n/a": 47,
         "verified": 5
       }
     },
@@ -819,8 +845,9 @@
         "untested": 1
       },
       "patternCounts": {
-        "partial": 41,
-        "untested": 1
+        "partial": 47,
+        "n/a": 3,
+        "untested": 2
       }
     },
     {
@@ -836,8 +863,8 @@
         "untested": 27
       },
       "patternCounts": {
-        "untested": 17,
-        "n/a": 25
+        "untested": 18,
+        "n/a": 34
       }
     }
   ],
@@ -16389,6 +16416,835 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "partial",
+        "4.1.3": "n/a"
+      }
+    },
+    {
+      "name": "Card motion",
+      "title": "Patterns: Landing/Card motion",
+      "axe": {
+        "stories": 7,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "exclusions": []
+      },
+      "keyboard": {
+        "tested": 0,
+        "playTests": 5
+      },
+      "reducedMotion": "respected",
+      "forcedColors": "global",
+      "screenReader": [],
+      "deviations": [],
+      "traits": [
+        "colorMeaning",
+        "drag",
+        "gestures",
+        "hoverContent",
+        "interactive",
+        "labelled",
+        "links",
+        "status"
+      ],
+      "wcag": {
+        "1.1.1": "partial",
+        "1.2.1": "product",
+        "1.2.2": "product",
+        "1.2.3": "product",
+        "1.2.4": "product",
+        "1.2.5": "product",
+        "1.3.1": "partial",
+        "1.3.2": "untested",
+        "1.3.3": "product",
+        "1.3.4": "library",
+        "1.3.5": "n/a",
+        "1.4.1": "untested",
+        "1.4.2": "product",
+        "1.4.3": "verified",
+        "1.4.4": "untested",
+        "1.4.5": "product",
+        "1.4.10": "verified",
+        "1.4.11": "untested",
+        "1.4.12": "partial",
+        "1.4.13": "untested",
+        "2.1.1": "partial",
+        "2.1.2": "untested",
+        "2.1.4": "n/a",
+        "2.2.1": "n/a",
+        "2.2.2": "n/a",
+        "2.3.1": "library",
+        "2.4.1": "product",
+        "2.4.2": "product",
+        "2.4.3": "untested",
+        "2.4.4": "partial",
+        "2.4.5": "product",
+        "2.4.6": "untested",
+        "2.4.7": "untested",
+        "2.4.11": "n/a",
+        "2.5.1": "untested",
+        "2.5.2": "library",
+        "2.5.3": "untested",
+        "2.5.4": "library",
+        "2.5.7": "untested",
+        "2.5.8": "verified",
+        "3.1.1": "product",
+        "3.1.2": "product",
+        "3.2.1": "untested",
+        "3.2.2": "n/a",
+        "3.2.3": "product",
+        "3.2.4": "product",
+        "3.2.6": "product",
+        "3.3.1": "n/a",
+        "3.3.2": "n/a",
+        "3.3.3": "product",
+        "3.3.4": "product",
+        "3.3.7": "product",
+        "3.3.8": "n/a",
+        "4.1.2": "partial",
+        "4.1.3": "untested"
+      }
+    },
+    {
+      "name": "FeatureShowcase",
+      "title": "Patterns: Landing/FeatureShowcase",
+      "axe": {
+        "stories": 2,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "exclusions": []
+      },
+      "keyboard": {
+        "tested": 0,
+        "playTests": 2
+      },
+      "reducedMotion": "none",
+      "forcedColors": "global",
+      "screenReader": [],
+      "deviations": [],
+      "traits": [
+        "interactive",
+        "labelled"
+      ],
+      "wcag": {
+        "1.1.1": "partial",
+        "1.2.1": "product",
+        "1.2.2": "product",
+        "1.2.3": "product",
+        "1.2.4": "product",
+        "1.2.5": "product",
+        "1.3.1": "partial",
+        "1.3.2": "untested",
+        "1.3.3": "product",
+        "1.3.4": "library",
+        "1.3.5": "n/a",
+        "1.4.1": "n/a",
+        "1.4.2": "product",
+        "1.4.3": "verified",
+        "1.4.4": "untested",
+        "1.4.5": "product",
+        "1.4.10": "verified",
+        "1.4.11": "untested",
+        "1.4.12": "partial",
+        "1.4.13": "n/a",
+        "2.1.1": "partial",
+        "2.1.2": "untested",
+        "2.1.4": "n/a",
+        "2.2.1": "n/a",
+        "2.2.2": "n/a",
+        "2.3.1": "library",
+        "2.4.1": "product",
+        "2.4.2": "product",
+        "2.4.3": "untested",
+        "2.4.4": "n/a",
+        "2.4.5": "product",
+        "2.4.6": "untested",
+        "2.4.7": "untested",
+        "2.4.11": "n/a",
+        "2.5.1": "n/a",
+        "2.5.2": "library",
+        "2.5.3": "untested",
+        "2.5.4": "library",
+        "2.5.7": "n/a",
+        "2.5.8": "verified",
+        "3.1.1": "product",
+        "3.1.2": "product",
+        "3.2.1": "untested",
+        "3.2.2": "n/a",
+        "3.2.3": "product",
+        "3.2.4": "product",
+        "3.2.6": "product",
+        "3.3.1": "n/a",
+        "3.3.2": "n/a",
+        "3.3.3": "product",
+        "3.3.4": "product",
+        "3.3.7": "product",
+        "3.3.8": "n/a",
+        "4.1.2": "partial",
+        "4.1.3": "n/a"
+      }
+    },
+    {
+      "name": "FeatureSplit",
+      "title": "Patterns: Landing/FeatureSplit",
+      "axe": {
+        "stories": 3,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "exclusions": []
+      },
+      "keyboard": {
+        "tested": 0,
+        "playTests": 2
+      },
+      "reducedMotion": "none",
+      "forcedColors": "global",
+      "screenReader": [],
+      "deviations": [],
+      "traits": [],
+      "wcag": {
+        "1.1.1": "partial",
+        "1.2.1": "product",
+        "1.2.2": "product",
+        "1.2.3": "product",
+        "1.2.4": "product",
+        "1.2.5": "product",
+        "1.3.1": "partial",
+        "1.3.2": "untested",
+        "1.3.3": "product",
+        "1.3.4": "library",
+        "1.3.5": "n/a",
+        "1.4.1": "n/a",
+        "1.4.2": "product",
+        "1.4.3": "verified",
+        "1.4.4": "untested",
+        "1.4.5": "product",
+        "1.4.10": "verified",
+        "1.4.11": "n/a",
+        "1.4.12": "partial",
+        "1.4.13": "n/a",
+        "2.1.1": "n/a",
+        "2.1.2": "n/a",
+        "2.1.4": "n/a",
+        "2.2.1": "n/a",
+        "2.2.2": "n/a",
+        "2.3.1": "library",
+        "2.4.1": "product",
+        "2.4.2": "product",
+        "2.4.3": "n/a",
+        "2.4.4": "n/a",
+        "2.4.5": "product",
+        "2.4.6": "n/a",
+        "2.4.7": "n/a",
+        "2.4.11": "n/a",
+        "2.5.1": "n/a",
+        "2.5.2": "library",
+        "2.5.3": "n/a",
+        "2.5.4": "library",
+        "2.5.7": "n/a",
+        "2.5.8": "n/a",
+        "3.1.1": "product",
+        "3.1.2": "product",
+        "3.2.1": "n/a",
+        "3.2.2": "n/a",
+        "3.2.3": "product",
+        "3.2.4": "product",
+        "3.2.6": "product",
+        "3.3.1": "n/a",
+        "3.3.2": "n/a",
+        "3.3.3": "product",
+        "3.3.4": "product",
+        "3.3.7": "product",
+        "3.3.8": "n/a",
+        "4.1.2": "n/a",
+        "4.1.3": "n/a"
+      }
+    },
+    {
+      "name": "Hero",
+      "title": "Patterns: Landing/Hero",
+      "axe": {
+        "stories": 5,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "exclusions": []
+      },
+      "keyboard": {
+        "tested": 0,
+        "playTests": 2
+      },
+      "reducedMotion": "none",
+      "forcedColors": "global",
+      "screenReader": [],
+      "deviations": [],
+      "traits": [
+        "labelled"
+      ],
+      "wcag": {
+        "1.1.1": "partial",
+        "1.2.1": "product",
+        "1.2.2": "product",
+        "1.2.3": "product",
+        "1.2.4": "product",
+        "1.2.5": "product",
+        "1.3.1": "partial",
+        "1.3.2": "untested",
+        "1.3.3": "product",
+        "1.3.4": "library",
+        "1.3.5": "n/a",
+        "1.4.1": "n/a",
+        "1.4.2": "product",
+        "1.4.3": "verified",
+        "1.4.4": "untested",
+        "1.4.5": "product",
+        "1.4.10": "verified",
+        "1.4.11": "n/a",
+        "1.4.12": "partial",
+        "1.4.13": "n/a",
+        "2.1.1": "n/a",
+        "2.1.2": "n/a",
+        "2.1.4": "n/a",
+        "2.2.1": "n/a",
+        "2.2.2": "n/a",
+        "2.3.1": "library",
+        "2.4.1": "product",
+        "2.4.2": "product",
+        "2.4.3": "n/a",
+        "2.4.4": "n/a",
+        "2.4.5": "product",
+        "2.4.6": "untested",
+        "2.4.7": "n/a",
+        "2.4.11": "n/a",
+        "2.5.1": "n/a",
+        "2.5.2": "library",
+        "2.5.3": "n/a",
+        "2.5.4": "library",
+        "2.5.7": "n/a",
+        "2.5.8": "n/a",
+        "3.1.1": "product",
+        "3.1.2": "product",
+        "3.2.1": "n/a",
+        "3.2.2": "n/a",
+        "3.2.3": "product",
+        "3.2.4": "product",
+        "3.2.6": "product",
+        "3.3.1": "n/a",
+        "3.3.2": "n/a",
+        "3.3.3": "product",
+        "3.3.4": "product",
+        "3.3.7": "product",
+        "3.3.8": "n/a",
+        "4.1.2": "n/a",
+        "4.1.3": "n/a"
+      }
+    },
+    {
+      "name": "Cards",
+      "title": "Patterns: Landing/Cards",
+      "axe": {
+        "stories": 10,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "exclusions": []
+      },
+      "keyboard": {
+        "tested": 1,
+        "playTests": 3
+      },
+      "reducedMotion": "respected",
+      "forcedColors": "global",
+      "screenReader": [],
+      "deviations": [],
+      "traits": [
+        "colorMeaning",
+        "drag",
+        "gestures",
+        "interactive",
+        "labelled",
+        "links"
+      ],
+      "wcag": {
+        "1.1.1": "partial",
+        "1.2.1": "product",
+        "1.2.2": "product",
+        "1.2.3": "product",
+        "1.2.4": "product",
+        "1.2.5": "product",
+        "1.3.1": "partial",
+        "1.3.2": "untested",
+        "1.3.3": "product",
+        "1.3.4": "library",
+        "1.3.5": "n/a",
+        "1.4.1": "untested",
+        "1.4.2": "product",
+        "1.4.3": "verified",
+        "1.4.4": "untested",
+        "1.4.5": "product",
+        "1.4.10": "verified",
+        "1.4.11": "untested",
+        "1.4.12": "partial",
+        "1.4.13": "n/a",
+        "2.1.1": "verified",
+        "2.1.2": "verified",
+        "2.1.4": "n/a",
+        "2.2.1": "n/a",
+        "2.2.2": "n/a",
+        "2.3.1": "library",
+        "2.4.1": "product",
+        "2.4.2": "product",
+        "2.4.3": "verified",
+        "2.4.4": "partial",
+        "2.4.5": "product",
+        "2.4.6": "untested",
+        "2.4.7": "untested",
+        "2.4.11": "n/a",
+        "2.5.1": "untested",
+        "2.5.2": "library",
+        "2.5.3": "untested",
+        "2.5.4": "library",
+        "2.5.7": "partial",
+        "2.5.8": "verified",
+        "3.1.1": "product",
+        "3.1.2": "product",
+        "3.2.1": "verified",
+        "3.2.2": "n/a",
+        "3.2.3": "product",
+        "3.2.4": "product",
+        "3.2.6": "product",
+        "3.3.1": "n/a",
+        "3.3.2": "n/a",
+        "3.3.3": "product",
+        "3.3.4": "product",
+        "3.3.7": "product",
+        "3.3.8": "n/a",
+        "4.1.2": "partial",
+        "4.1.3": "n/a"
+      }
+    },
+    {
+      "name": "Scroll",
+      "title": "Patterns: Landing/Scroll",
+      "axe": {
+        "stories": 4,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "exclusions": []
+      },
+      "keyboard": {
+        "tested": 0,
+        "playTests": 3
+      },
+      "reducedMotion": "respected",
+      "forcedColors": "global",
+      "screenReader": [],
+      "deviations": [],
+      "traits": [
+        "interactive",
+        "labelled",
+        "links",
+        "sticky"
+      ],
+      "wcag": {
+        "1.1.1": "partial",
+        "1.2.1": "product",
+        "1.2.2": "product",
+        "1.2.3": "product",
+        "1.2.4": "product",
+        "1.2.5": "product",
+        "1.3.1": "partial",
+        "1.3.2": "untested",
+        "1.3.3": "product",
+        "1.3.4": "library",
+        "1.3.5": "n/a",
+        "1.4.1": "untested",
+        "1.4.2": "product",
+        "1.4.3": "verified",
+        "1.4.4": "untested",
+        "1.4.5": "product",
+        "1.4.10": "verified",
+        "1.4.11": "untested",
+        "1.4.12": "partial",
+        "1.4.13": "n/a",
+        "2.1.1": "partial",
+        "2.1.2": "untested",
+        "2.1.4": "n/a",
+        "2.2.1": "n/a",
+        "2.2.2": "n/a",
+        "2.3.1": "library",
+        "2.4.1": "product",
+        "2.4.2": "product",
+        "2.4.3": "untested",
+        "2.4.4": "partial",
+        "2.4.5": "product",
+        "2.4.6": "untested",
+        "2.4.7": "untested",
+        "2.4.11": "untested",
+        "2.5.1": "n/a",
+        "2.5.2": "library",
+        "2.5.3": "untested",
+        "2.5.4": "library",
+        "2.5.7": "n/a",
+        "2.5.8": "verified",
+        "3.1.1": "product",
+        "3.1.2": "product",
+        "3.2.1": "untested",
+        "3.2.2": "n/a",
+        "3.2.3": "product",
+        "3.2.4": "product",
+        "3.2.6": "product",
+        "3.3.1": "n/a",
+        "3.3.2": "n/a",
+        "3.3.3": "product",
+        "3.3.4": "product",
+        "3.3.7": "product",
+        "3.3.8": "n/a",
+        "4.1.2": "partial",
+        "4.1.3": "n/a"
+      }
+    },
+    {
+      "name": "LogoStrip",
+      "title": "Patterns: Landing/LogoStrip",
+      "axe": {
+        "stories": 3,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "exclusions": []
+      },
+      "keyboard": {
+        "tested": 0,
+        "playTests": 3
+      },
+      "reducedMotion": "none",
+      "forcedColors": "global",
+      "screenReader": [],
+      "deviations": [],
+      "traits": [
+        "interactive",
+        "labelled",
+        "timed"
+      ],
+      "wcag": {
+        "1.1.1": "partial",
+        "1.2.1": "product",
+        "1.2.2": "product",
+        "1.2.3": "product",
+        "1.2.4": "product",
+        "1.2.5": "product",
+        "1.3.1": "partial",
+        "1.3.2": "untested",
+        "1.3.3": "product",
+        "1.3.4": "library",
+        "1.3.5": "n/a",
+        "1.4.1": "n/a",
+        "1.4.2": "product",
+        "1.4.3": "verified",
+        "1.4.4": "untested",
+        "1.4.5": "product",
+        "1.4.10": "verified",
+        "1.4.11": "untested",
+        "1.4.12": "partial",
+        "1.4.13": "n/a",
+        "2.1.1": "partial",
+        "2.1.2": "untested",
+        "2.1.4": "n/a",
+        "2.2.1": "untested",
+        "2.2.2": "n/a",
+        "2.3.1": "library",
+        "2.4.1": "product",
+        "2.4.2": "product",
+        "2.4.3": "untested",
+        "2.4.4": "n/a",
+        "2.4.5": "product",
+        "2.4.6": "untested",
+        "2.4.7": "untested",
+        "2.4.11": "n/a",
+        "2.5.1": "n/a",
+        "2.5.2": "library",
+        "2.5.3": "untested",
+        "2.5.4": "library",
+        "2.5.7": "n/a",
+        "2.5.8": "verified",
+        "3.1.1": "product",
+        "3.1.2": "product",
+        "3.2.1": "untested",
+        "3.2.2": "n/a",
+        "3.2.3": "product",
+        "3.2.4": "product",
+        "3.2.6": "product",
+        "3.3.1": "n/a",
+        "3.3.2": "n/a",
+        "3.3.3": "product",
+        "3.3.4": "product",
+        "3.3.7": "product",
+        "3.3.8": "n/a",
+        "4.1.2": "partial",
+        "4.1.3": "n/a"
+      }
+    },
+    {
+      "name": "Scroll effects",
+      "title": "Patterns: Landing/Scroll effects",
+      "axe": {
+        "stories": 7,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "exclusions": []
+      },
+      "keyboard": {
+        "tested": 0,
+        "playTests": 5
+      },
+      "reducedMotion": "unguarded",
+      "moving": [
+        "transition-[width,background-color]"
+      ],
+      "forcedColors": "global",
+      "screenReader": [],
+      "deviations": [],
+      "traits": [
+        "interactive",
+        "sticky"
+      ],
+      "wcag": {
+        "1.1.1": "partial",
+        "1.2.1": "product",
+        "1.2.2": "product",
+        "1.2.3": "product",
+        "1.2.4": "product",
+        "1.2.5": "product",
+        "1.3.1": "partial",
+        "1.3.2": "untested",
+        "1.3.3": "product",
+        "1.3.4": "library",
+        "1.3.5": "n/a",
+        "1.4.1": "n/a",
+        "1.4.2": "product",
+        "1.4.3": "verified",
+        "1.4.4": "untested",
+        "1.4.5": "product",
+        "1.4.10": "verified",
+        "1.4.11": "untested",
+        "1.4.12": "partial",
+        "1.4.13": "n/a",
+        "2.1.1": "partial",
+        "2.1.2": "untested",
+        "2.1.4": "n/a",
+        "2.2.1": "n/a",
+        "2.2.2": "n/a",
+        "2.3.1": "library",
+        "2.4.1": "product",
+        "2.4.2": "product",
+        "2.4.3": "untested",
+        "2.4.4": "n/a",
+        "2.4.5": "product",
+        "2.4.6": "n/a",
+        "2.4.7": "untested",
+        "2.4.11": "untested",
+        "2.5.1": "n/a",
+        "2.5.2": "library",
+        "2.5.3": "untested",
+        "2.5.4": "library",
+        "2.5.7": "n/a",
+        "2.5.8": "verified",
+        "3.1.1": "product",
+        "3.1.2": "product",
+        "3.2.1": "untested",
+        "3.2.2": "n/a",
+        "3.2.3": "product",
+        "3.2.4": "product",
+        "3.2.6": "product",
+        "3.3.1": "n/a",
+        "3.3.2": "n/a",
+        "3.3.3": "product",
+        "3.3.4": "product",
+        "3.3.7": "product",
+        "3.3.8": "n/a",
+        "4.1.2": "partial",
+        "4.1.3": "n/a"
+      }
+    },
+    {
+      "name": "SectionPanel",
+      "title": "Patterns: Landing/SectionPanel",
+      "axe": {
+        "stories": 2,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "exclusions": []
+      },
+      "keyboard": {
+        "tested": 0,
+        "playTests": 1
+      },
+      "reducedMotion": "none",
+      "forcedColors": "global",
+      "screenReader": [],
+      "deviations": [],
+      "traits": [
+        "colorMeaning"
+      ],
+      "wcag": {
+        "1.1.1": "partial",
+        "1.2.1": "product",
+        "1.2.2": "product",
+        "1.2.3": "product",
+        "1.2.4": "product",
+        "1.2.5": "product",
+        "1.3.1": "partial",
+        "1.3.2": "untested",
+        "1.3.3": "product",
+        "1.3.4": "library",
+        "1.3.5": "n/a",
+        "1.4.1": "untested",
+        "1.4.2": "product",
+        "1.4.3": "verified",
+        "1.4.4": "untested",
+        "1.4.5": "product",
+        "1.4.10": "verified",
+        "1.4.11": "n/a",
+        "1.4.12": "partial",
+        "1.4.13": "n/a",
+        "2.1.1": "n/a",
+        "2.1.2": "n/a",
+        "2.1.4": "n/a",
+        "2.2.1": "n/a",
+        "2.2.2": "n/a",
+        "2.3.1": "library",
+        "2.4.1": "product",
+        "2.4.2": "product",
+        "2.4.3": "n/a",
+        "2.4.4": "n/a",
+        "2.4.5": "product",
+        "2.4.6": "n/a",
+        "2.4.7": "n/a",
+        "2.4.11": "n/a",
+        "2.5.1": "n/a",
+        "2.5.2": "library",
+        "2.5.3": "n/a",
+        "2.5.4": "library",
+        "2.5.7": "n/a",
+        "2.5.8": "n/a",
+        "3.1.1": "product",
+        "3.1.2": "product",
+        "3.2.1": "n/a",
+        "3.2.2": "n/a",
+        "3.2.3": "product",
+        "3.2.4": "product",
+        "3.2.6": "product",
+        "3.3.1": "n/a",
+        "3.3.2": "n/a",
+        "3.3.3": "product",
+        "3.3.4": "product",
+        "3.3.7": "product",
+        "3.3.8": "n/a",
+        "4.1.2": "n/a",
+        "4.1.3": "n/a"
+      }
+    },
+    {
+      "name": "SiteHeader",
+      "title": "Patterns: Landing/SiteHeader",
+      "axe": {
+        "stories": 2,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "exclusions": [
+          {
+            "story": "*",
+            "rules": [
+              "aria-hidden-focus"
+            ]
+          }
+        ]
+      },
+      "keyboard": {
+        "tested": 1,
+        "playTests": 1
+      },
+      "reducedMotion": "respected",
+      "forcedColors": "global",
+      "screenReader": [],
+      "deviations": [],
+      "traits": [
+        "interactive",
+        "links",
+        "sticky"
+      ],
+      "wcag": {
+        "1.1.1": "partial",
+        "1.2.1": "product",
+        "1.2.2": "product",
+        "1.2.3": "product",
+        "1.2.4": "product",
+        "1.2.5": "product",
+        "1.3.1": "partial",
+        "1.3.2": "untested",
+        "1.3.3": "product",
+        "1.3.4": "library",
+        "1.3.5": "n/a",
+        "1.4.1": "untested",
+        "1.4.2": "product",
+        "1.4.3": "verified",
+        "1.4.4": "untested",
+        "1.4.5": "product",
+        "1.4.10": "verified",
+        "1.4.11": "untested",
+        "1.4.12": "partial",
+        "1.4.13": "n/a",
+        "2.1.1": "verified",
+        "2.1.2": "verified",
+        "2.1.4": "n/a",
+        "2.2.1": "n/a",
+        "2.2.2": "n/a",
+        "2.3.1": "library",
+        "2.4.1": "product",
+        "2.4.2": "product",
+        "2.4.3": "verified",
+        "2.4.4": "partial",
+        "2.4.5": "product",
+        "2.4.6": "n/a",
+        "2.4.7": "untested",
+        "2.4.11": "untested",
+        "2.5.1": "n/a",
+        "2.5.2": "library",
+        "2.5.3": "untested",
+        "2.5.4": "library",
+        "2.5.7": "n/a",
+        "2.5.8": "verified",
+        "3.1.1": "product",
+        "3.1.2": "product",
+        "3.2.1": "verified",
+        "3.2.2": "n/a",
+        "3.2.3": "product",
+        "3.2.4": "product",
+        "3.2.6": "product",
+        "3.3.1": "n/a",
+        "3.3.2": "n/a",
+        "3.3.3": "product",
+        "3.3.4": "product",
+        "3.3.7": "product",
+        "3.3.8": "n/a",
+        "4.1.2": "untested",
         "4.1.3": "n/a"
       }
     },
