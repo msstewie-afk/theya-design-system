@@ -6,10 +6,12 @@
       { "at": "VoiceOver", "browser": "Chrome", "date": "2026-10-27", "result": "pass", "notes": "Same as Safari: one Tab out of the first field, then everything reads." }
     ],
     "AlertDialog": [
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-27", "result": "pass", "notes": "Opened from its trigger; focus on Cancel, title, description and actions read with VO + arrows." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-27", "result": "pass", "notes": "Opened from its trigger; focus on Cancel, title, description and actions read with VO + arrows." },
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Dangerous action\" (overlays-confirmdialog--typed-confirm): typed confirm, then focus returns to the trigger." }
     ],
     "ConfirmDialog": [
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-27", "result": "pass", "notes": "Opened from its trigger; focus on Cancel, title, consequences, confirm field and actions read with VO + arrows." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-27", "result": "pass", "notes": "Opened from its trigger; focus on Cancel, title, consequences, confirm field and actions read with VO + arrows." },
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Dangerous action\" (overlays-confirmdialog--typed-confirm): typed confirm, then focus returns to the trigger." }
     ],
     "CopyButton": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-27", "result": "fail", "notes": "\"Copied\" is spoken, but the revert to \"Copy\" was announced too and cut it off; the VoiceOver cursor frame stayed at the old width. Fixed the same day: no announcement on the return to the resting label, and the button keeps the width of the longer label." },
@@ -17,13 +19,15 @@
     ],
     "Button": [
       { "at": "VoiceOver", "browser": "Safari", "date": "2026-10-27", "result": "fail", "notes": "Interactive: loading -> success: \"Saved\" was not spoken (the aria-live span sat inside the focused button). Fixed the same day: label changes go through announce()." },
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-27", "result": "pass", "notes": "Re-check after the fix: \"Saving…\" and then \"Saved\" are spoken, focus stays on the button." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-27", "result": "pass", "notes": "Re-check after the fix: \"Saving…\" and then \"Saved\" are spoken, focus stays on the button." },
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Sign in\" (patterns-loginform--sign-in-error): labels read with their fields, the error is spoken and read again with its field." }
     ],
     "StickyActionBar": [
       { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard bulk selection: \"1 selected\", \"2 selected\"." }
     ],
     "Toaster": [
-      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard success and error-with-retry toasts: \"Certificate issued\", \"Couldn't reissue certificate\"." }
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard success and error-with-retry toasts: \"Certificate issued\", \"Couldn't reissue certificate\"." },
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Table work\" (patterns-listview--with-bulk-and-row-actions): selection count, sort state and the row action toast are spoken." }
     ],
     "UndoToast": [
       { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"Site deleted\"." }
@@ -32,7 +36,8 @@
       { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"Thanks for your feedback\"." }
     ],
     "Field": [
-      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard error on blur: \"Enter a valid domain\"." }
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard error on blur: \"Enter a valid domain\"." },
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Sign in\" (patterns-loginform--sign-in-error): labels read with their fields, the error is spoken and read again with its field." }
     ],
     "PromptArea": [
       { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard over the limit: \"exceeds the 120-character limit\"." }
@@ -92,7 +97,8 @@
       { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard \"1 option. Use up and down arrows to choose.\"." }
     ],
     "ListView": [
-      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard search: \"1 user\"." }
+      { "at": "VoiceOver (Guidepup)", "browser": "Playwright WebKit", "date": "2026-10-28", "result": "pass", "notes": "Automated run (a11y/voiceover): heard search: \"1 user\"." },
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Table work\" (patterns-listview--with-bulk-and-row-actions): selection count, sort state and the row action toast are spoken." }
     ],
     "Preferences": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Switch toggled with Space: \"Saved\" is spoken. The automated run loses this announcement (spoken over the control's own state change after scripted input); checked by hand instead." }
@@ -122,7 +128,8 @@
     ],
     "DataTableToolbar": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "fail", "notes": "Row checkbox with Space: only \"ticked/unticked\" is spoken, \"1 selected\" is dropped. Fixed the same day: announced 700 ms later. Re-check pending." },
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Re-check after the fix: \"ticked\", then \"1 selected\"." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Re-check after the fix: \"ticked\", then \"1 selected\"." },
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Table work\" (patterns-listview--with-bulk-and-row-actions): selection count, sort state and the row action toast are spoken." }
     ],
     "Scheduler": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "fail", "notes": "Next week: the new range (\"Oct 12 – 18, 2026\", aria-live on the heading) is not spoken. Fixed the same day: announced through the shared announcer. Re-check pending." },
@@ -130,6 +137,34 @@
     ],
     "LoginFormSplit": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Reading order with VO + arrows: the image side does not break into the form." }
+    ],
+    "LoginForm": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Sign in\" (patterns-loginform--sign-in-error): labels read with their fields, the error is spoken and read again with its field." }
+    ],
+    "TextField": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Sign in\" (patterns-loginform--sign-in-error): labels read with their fields, the error is spoken and read again with its field." }
+    ],
+    "ResourceForm": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Create with errors\" (patterns-resourceform--create-database): submitting empty moves focus to the first error, every field reads its own error." }
+    ],
+    "Select": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Create with errors\" (patterns-resourceform--create-database): submitting empty moves focus to the first error, every field reads its own error." },
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Pick from a list\" (combobox keyboard navigation, select playground): the active option is spoken while arrowing, the closed control reads the chosen value." }
+    ],
+    "Switch": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Create with errors\" (patterns-resourceform--create-database): submitting empty moves focus to the first error, every field reads its own error." }
+    ],
+    "NumberField": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Create with errors\" (patterns-resourceform--create-database): submitting empty moves focus to the first error, every field reads its own error." }
+    ],
+    "Combobox": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Pick from a list\" (combobox keyboard navigation, select playground): the active option is spoken while arrowing, the closed control reads the chosen value." }
+    ],
+    "DataTable": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Table work\" (patterns-listview--with-bulk-and-row-actions): selection count, sort state and the row action toast are spoken." }
+    ],
+    "Tabs": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Tabs\" (navigation-tabs--default): \"tab, 1 of 3, selected\", arrows switch tabs, Tab moves into the panel." }
     ]
   },
   "traits": {
