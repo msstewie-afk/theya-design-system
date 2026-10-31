@@ -115,7 +115,8 @@ export function BookmarksPreview({ className, floating = true, folder = 'reading
           <span className="text-body-s text-[var(--color-text-text)]">3 duplicates found</span>
           {/* Part of the picture: a span styled as a button, never a real control
               inside role="img" (axe nested-interactive). */}
-          <Button asChild size="sm" appearance="tonal">
+          {/* No pointer cursor or hover either: it can't be operated, so it mustn't look like it can (2.1.1). */}
+          <Button asChild size="sm" appearance="tonal" className="pointer-events-none cursor-default">
             <span>Review</span>
           </Button>
         </div>

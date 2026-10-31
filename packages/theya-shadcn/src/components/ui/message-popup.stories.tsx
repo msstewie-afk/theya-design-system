@@ -7,6 +7,8 @@ import { Message } from './message';
 import { PromptArea } from './prompt-area';
 import { Avatar, AvatarFallback } from './avatar';
 import { messagePopupGuidelines } from './message-popup.guidelines';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * MessagePopup — a floating chat/assistant panel anchored to a launcher
@@ -79,4 +81,20 @@ export const Default: Story = {
 /** Opened via the trigger; the panel holds a transcript and a composer. */
 export const Open: Story = {
   render: () => <AssistantPopup />,
+  // Keyboard: Enter opens the panel and moves focus into it; Escape closes it
+  // and returns focus to the launcher. Ends open, as the story's name says.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('button', { name: 'Open assistant' });
+    resetFocus();
+    await tabTo(trigger);
+    await userEvent.keyboard('{Enter}');
+    const panel = await within(document.body).findByRole('dialog', { name: 'Assistant' });
+    await waitFor(() => expect(panel.contains(document.activeElement)).toBe(true));
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(within(document.body).queryByRole('dialog', { name: 'Assistant' })).toBeNull());
+    await waitFor(() => expect(trigger).toHaveFocus());
+    await userEvent.keyboard('{Enter}');
+    await expect(await within(document.body).findByRole('dialog', { name: 'Assistant' })).toBeVisible();
+  },
 };

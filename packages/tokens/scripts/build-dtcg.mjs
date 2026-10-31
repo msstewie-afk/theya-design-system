@@ -87,7 +87,7 @@ const SETS = [
   },
   {
     name: 'color-shared',
-    description: 'Theme-independent semantic colors: content on primary fills, chart series.',
+    description: 'Theme-independent semantic colors: content on primary fills.',
     sources: [pick(codeColor, ['color'])],
   },
   { name: 'color-light', description: 'Semantic colors and elevation, light theme.', sources: [read('src/semantic/color.default.json'), read('src/code/elevation.json')] },
@@ -136,6 +136,7 @@ function typeOf(p) {
     if (p.at(-1) in TYPO_PROPS) return TYPO_PROPS[p.at(-1)];
   }
   if (a === 'elevation') return 'shadow';
+  if (a === 'shadow') return 'shadow';
   if (a === 'motion' && b === 'duration') return 'duration';
   if (a === 'motion' && b === 'easing') return 'cubicBezier';
   if (a === 'layer') return 'number';

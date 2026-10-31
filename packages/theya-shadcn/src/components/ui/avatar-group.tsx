@@ -22,8 +22,13 @@ import { useTheyaI18n } from '../../lib/i18n';
 const GAP: Record<AvatarSize, string> = {
   sm: '-space-x-1',
   md: '-space-x-2',
-  lg: '-space-x-2.5',
+  lg: '-space-x-3',
 };
+
+// The separating border, plus an opaque surface under each disc: tonal
+// fallbacks are translucent, so without it the avatar underneath showed
+// through the overlap.
+const SEPARATOR = 'border-2 border-solid border-[var(--color-bg-surface-bg-surface)] bg-[var(--color-bg-surface-bg-surface)]';
 
 const CHIP_TEXT: Record<AvatarSize, string> = {
   sm: 'text-[0.625rem]',
@@ -54,7 +59,7 @@ export function AvatarGroup({ children, max, size = 'sm', className, ...props }:
           key: child.key ?? i,
           size,
           outline: 'none',
-          className: cn('border-2 border-solid border-[var(--color-bg-surface-bg-surface)]', child.props.className),
+          className: cn(SEPARATOR, child.props.className),
         }),
       )}
       {overflow > 0 && (
@@ -62,7 +67,7 @@ export function AvatarGroup({ children, max, size = 'sm', className, ...props }:
           aria-label={t.common.more(overflow)}
           size={size}
           outline="none"
-          className="border-2 border-solid border-[var(--color-bg-surface-bg-surface)]"
+          className={SEPARATOR}
         >
           <AvatarFallback className={cn('bg-[var(--color-bg-neutral-bg-neutral-subtle)] font-medium text-[var(--color-text-text-subtler)]', CHIP_TEXT[size])}>
             +{overflow}

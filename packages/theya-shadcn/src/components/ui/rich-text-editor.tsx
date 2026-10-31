@@ -28,6 +28,15 @@ import { textFieldVariants } from './text-field-variants';
 import { Toolbar, ToolbarButton, ToolbarSeparator } from './toolbar';
 import { useTheyaI18n } from '../../lib/i18n';
 
+// A pressed format button looks like an outlined Toggle that is on: tonal fill, primary icon and a
+// primary edge. The neutral fill alone was 1.15:1 light / 1.26:1 dark and the icon stayed gray
+// (WCAG 1.4.1 / 1.4.11). The edge is an outline so the focus ring (box-shadow) doesn't hide it.
+const PRESSED = cn(
+  'aria-pressed:bg-[var(--color-bg-primary-bg-primary-subtle)] aria-pressed:text-[var(--color-text-text-link-on-tonal)]',
+  'aria-pressed:[&_svg]:text-[var(--color-text-text-link-on-tonal)]',
+  'aria-pressed:outline aria-pressed:outline-1 aria-pressed:-outline-offset-1 aria-pressed:outline-[var(--color-border-border-primary)]',
+);
+
 /**
  * RichTextEditor — formatted text input: descriptions, notes, ticket
  * replies, announcements, email templates. On Tiptap (ProseMirror).
@@ -119,7 +128,7 @@ function Tool({
       // Keep the text selection: don't move focus out of the editor on mouse press.
       onMouseDown={(e) => e.preventDefault()}
       onClick={onClick}
-      className="aria-pressed:bg-[var(--color-bg-neutral-bg-neutral-subtle)] aria-pressed:text-[var(--color-text-text)]"
+      className={PRESSED}
     >
       {icon}
     </ToolbarButton>
@@ -172,7 +181,7 @@ function LinkTool({ editor, disabled }: { editor: Editor; disabled?: boolean }) 
           title={t.richTextEditor.linkShortcut}
           disabled={disabled}
           onMouseDown={(e) => e.preventDefault()}
-          className="aria-pressed:bg-[var(--color-bg-neutral-bg-neutral-subtle)] aria-pressed:text-[var(--color-text-text)]"
+          className={PRESSED}
         >
           <LinkIcon />
         </ToolbarButton>
@@ -336,7 +345,7 @@ function EditorToolbar({ editor, tools, disabled }: { editor: Editor; tools: Ric
   const filled = groups.filter((g) => g.length);
 
   return (
-    <Toolbar aria-label={t.richTextEditor.formatting} className="flex-wrap gap-0.5 border-b border-solid border-[var(--color-border-border-subtler)] p-1.5">
+    <Toolbar aria-label={t.richTextEditor.formatting} className="flex-wrap gap-0.5 border-b border-solid border-[var(--color-border-border-subtler)] px-2 py-1.5">
       {filled.map((group, i) => (
         <div key={i} className="contents">
           {i > 0 && <ToolbarSeparator orientation="vertical" />}
@@ -457,7 +466,7 @@ export function RichTextEditor({
       <div
         data-disabled={disabled || undefined}
         className={cn(
-          'flex flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] border border-solid bg-[var(--color-bg-input-bg-input)]',
+          'flex flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] border border-solid bg-[var(--color-bg-input-bg-input)] shadow-field',
           'transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
           hasError
             ? 'border-[var(--color-border-border-danger)] has-[.ProseMirror:focus-visible]:focus-ring-error'

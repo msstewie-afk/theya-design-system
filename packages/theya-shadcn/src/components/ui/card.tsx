@@ -54,16 +54,16 @@ const TONE_SELECTED_CLASS: Record<CardTone, string> = {
 
 // Hover and focus are separate signals (2026-10-02): hover changes the
 // border and lifts the card, the translucent ring appears only on
-// keyboard focus (focus-within), in the card's tone. Hover lift is gated
-// with not-focus-within: hover sorts after focus-within, and both set
-// box-shadow, so an unconditional hover lift would hide the ring while a
-// focused card is under the pointer.
+// keyboard focus (focus-within), in the card's tone. The hover lift is a
+// state shadow (shadow-card-hover, its own box-shadow slot), so it stacks
+// with the ring of a focused card under the pointer instead of hiding it;
+// the old not-focus-within guard is gone (nm-01, 2026-10-27).
 const TONE_HOVER_CLASS: Record<CardTone, string> = {
-  neutral: 'hover:border-[var(--color-border-border-primary)] hover:not-focus-within:shadow-elevation-sm focus-within:focus-ring',
-  info: 'hover:border-[var(--color-border-border-primary)] hover:not-focus-within:shadow-elevation-sm focus-within:focus-ring',
-  success: 'hover:border-[var(--color-border-border-success)] hover:not-focus-within:shadow-elevation-sm focus-within:focus-ring-success',
-  warning: 'hover:border-[var(--color-border-border-warning)] hover:not-focus-within:shadow-elevation-sm focus-within:focus-ring-warning',
-  danger: 'hover:border-[var(--color-border-border-danger)] hover:not-focus-within:shadow-elevation-sm focus-within:focus-ring-error',
+  neutral: 'hover:border-[var(--color-border-border-primary)] hover:shadow-card-hover focus-within:focus-ring',
+  info: 'hover:border-[var(--color-border-border-primary)] hover:shadow-card-hover focus-within:focus-ring',
+  success: 'hover:border-[var(--color-border-border-success)] hover:shadow-card-hover focus-within:focus-ring-success',
+  warning: 'hover:border-[var(--color-border-border-warning)] hover:shadow-card-hover focus-within:focus-ring-warning',
+  danger: 'hover:border-[var(--color-border-border-danger)] hover:shadow-card-hover focus-within:focus-ring-error',
 };
 
 export type CardSize = 'sm' | 'md' | 'lg';
@@ -258,7 +258,8 @@ export function Card({
       onPointerLeave={settle}
       className={cn(
         'group/card isolate relative min-w-0 max-w-full rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid',
-        'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-elevation-xs',
+        'border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)]',
+        !disabled && 'shadow-card',
         TONE_CLASS[tone],
         isFilled && FILLED_CLASS,
         isInteractive && cn('transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none', TONE_HOVER_CLASS[tone]),

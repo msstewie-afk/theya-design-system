@@ -1,4 +1,5 @@
 import { cn } from '../../lib/utils';
+import { FieldErrorIcon } from './field-error-icon';
 
 /**
  * Lightweight structural pieces for a labelled form field: Field
@@ -43,8 +44,10 @@ export function FieldDescription({ className, ...props }: React.ComponentProps<'
 export function FieldError({ className, children, ...props }: React.ComponentProps<'p'>) {
   if (!children) return null;
   return (
-    <p role="alert" className={cn('font-body text-body-s font-medium text-[var(--color-text-text-danger)]', className)} {...props}>
-      {children}
+    // The icon, like TextField's own message: the error doesn't rest on the red alone (WCAG 1.4.1).
+    <p role="alert" className={cn('flex items-start gap-1 font-body text-body-s font-medium text-[var(--color-text-text-danger)]', className)} {...props}>
+      <FieldErrorIcon className="mt-0.5 shrink-0 text-[var(--color-icon-icon-danger)]" />
+      <span>{children}</span>
     </p>
   );
 }

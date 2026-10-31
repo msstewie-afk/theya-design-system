@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, within } from '@storybook/test';
+import { expect, userEvent, within } from '@storybook/test';
 import { TextArea } from './textarea';
 import { textareaGuidelines } from './textarea.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -56,6 +57,16 @@ type Story = StoryObj<typeof TextArea>;
 /** Interactive example with a label and placeholder — change the label, helper text, error and width in the Controls below. */
 export const Playground: Story = {
   args: { label: 'Bio', placeholder: 'Tell us about yourself' },
+  // Keyboard: Tab in, Enter makes a new line (it doesn't submit), Tab leaves.
+  play: async ({ canvasElement }) => {
+    const field = within(canvasElement).getByRole('textbox', { name: 'Bio' });
+    resetFocus();
+    await tabTo(field);
+    await userEvent.keyboard('Line one{Enter}Line two');
+    await expect(field).toHaveValue('Line one\nLine two');
+    await userEvent.tab();
+    await expect(field).not.toHaveFocus();
+  },
 };
 
 /** No visible label: give the field an `aria-label` so it still has a name, and use this only where the context already says what to type. */

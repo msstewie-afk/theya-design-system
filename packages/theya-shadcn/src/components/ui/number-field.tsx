@@ -162,7 +162,8 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
   const pop = () => {
     const input = inputRef.current;
     if (!input?.animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    input.animate([{ scale: 1 }, { scale: 1.3, offset: 0.4 }, { scale: 1 }], { duration: 350, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)' });
+    // element.animate takes plain values, not var(): read the theme's spring token (--ease-spring).
+    input.animate([{ scale: 1 }, { scale: 1.3, offset: 0.4 }, { scale: 1 }], { duration: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--motion-duration-slow')) || 300, easing: getComputedStyle(document.documentElement).getPropertyValue('--motion-easing-spring').trim() || 'cubic-bezier(0.34, 1.56, 0.64, 1)' });
   };
 
   const isInvalid = ariaInvalid === true || ariaInvalid === 'true';
@@ -200,7 +201,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
         heightSize === 'sm' ? 'h-[var(--size-size-control-size-control-lg)] rounded-[var(--size-border-radius-border-radius-md)]' : 'h-[var(--size-size-control-size-control-2xl)] rounded-[var(--size-border-radius-border-radius-lg)]',
         labelled ? 'w-full' : WIDTH_CLASSES[widthSize],
         'border border-solid',
-        'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
+        'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
         'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
         'has-[input:hover]:not-has-[input:disabled]:not-has-[input[aria-invalid=true]]:border-[var(--color-border-border-primary)]',
         'has-[input:focus-visible]:not-has-[input[aria-invalid=true]]:border-[var(--color-border-border-primary)]',

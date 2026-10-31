@@ -300,6 +300,32 @@
       "spec": "spec/components/bar-chart.json"
     },
     {
+      "name": "BottomNav",
+      "file": "ui/bottom-nav",
+      "category": "Navigation",
+      "status": "beta",
+      "summary": "The top-level destinations of a phone app: 3–5 of them, each reachable from anywhere.",
+      "instead": [
+        {
+          "when": "Two destinations",
+          "use": "Tabs"
+        },
+        {
+          "when": "More than five destinations, or a desktop layout",
+          "use": "Sidebar"
+        },
+        {
+          "when": "Actions (Save, Add, Delete)",
+          "use": "StickyActionBar or Fab"
+        },
+        {
+          "when": "Views of one page",
+          "use": "Tabs"
+        }
+      ],
+      "spec": "spec/components/bottom-nav.json"
+    },
+    {
       "name": "Breadcrumb",
       "file": "ui/breadcrumb",
       "category": "Navigation",

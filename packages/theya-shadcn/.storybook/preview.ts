@@ -264,6 +264,19 @@ export const decorators = [
 
 const preview: Preview = {
   parameters: {
+    // axe: aria-hidden-focus skips what an open Radix modal hides on purpose.
+    // While a Dialog / AlertDialog / Drawer / menu is open, Radix's hideOthers
+    // marks the rest of the page aria-hidden (with data-aria-hidden) and keeps
+    // focus trapped inside, and its focus guards are tabbable aria-hidden
+    // spans by design. axe reads both as "focusable inside aria-hidden";
+    // nothing there can be reached. aria-hidden set by our own code is still
+    // checked. Same rule in test-runner.ts. A story that sets its own
+    // a11y.config.rules replaces this list, so it repeats the rule if needed.
+    a11y: {
+      config: {
+        rules: [{ id: 'aria-hidden-focus', selector: '[aria-hidden="true"]:not([data-aria-hidden]):not([data-radix-focus-guard])' }],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

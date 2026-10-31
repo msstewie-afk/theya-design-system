@@ -1,9 +1,10 @@
 import { useRef } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, waitFor, within } from '@storybook/test';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { ChatBubbleEmpty, EditPencil, Page, Plus, ShareAndroid, Upload } from 'iconoir-react';
 import { Fab, FabSpeedDial } from './fab';
 import { fabGuidelines } from './fab.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * Fab — floating action button for the single primary action of a screen.
@@ -197,4 +198,22 @@ export const SpeedDial: Story = {
       />
     </div>
   ),
+  // Keyboard: Enter opens, Tab walks the actions, Escape closes and returns
+  // focus to the trigger; closed actions are not tab stops.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('button', { name: 'Open actions' });
+    await expect(canvasElement.querySelector('[aria-label="Upload files"]')).toHaveAttribute('tabindex', '-1');
+    resetFocus();
+    await tabTo(trigger);
+    await userEvent.keyboard('{Enter}');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect(trigger).toHaveAccessibleName('Close actions');
+    await tabTo(canvas.getByRole('button', { name: 'Upload files' }));
+    await userEvent.tab();
+    await expect(canvas.getByRole('button', { name: 'New page' })).toHaveFocus();
+    await userEvent.keyboard('{Escape}');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await waitFor(() => expect(trigger).toHaveFocus());
+  },
 };

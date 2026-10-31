@@ -1,8 +1,9 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useId, useMemo, useState } from 'react';
 import { Combobox, type ComboboxOption } from './combobox';
 import { useTheyaI18n } from '../../lib/i18n';
+import { announce } from '../../lib/announce';
 
 /**
  * A time picker built on our Combobox: a typeahead field over a list
@@ -98,6 +99,14 @@ export interface TimeFieldProps {
   'aria-labelledby'?: string;
   'aria-invalid'?: boolean | 'true' | 'false';
   'aria-describedby'?: string;
+  /**
+   * Called when typed text isn't a time, or is outside min–max, with that
+   * text and the reason in the current locale. The field also marks itself
+   * invalid and announces the reason until a valid time is picked. Show
+   * `message` under the field (FieldError) and point `aria-describedby` at
+   * it so the reason stays on screen too (WCAG 3.3.1).
+   */
+  onInvalidInput?: (text: string, message: string) => void;
 }
 
 export function TimeField({
@@ -117,6 +126,7 @@ export function TimeField({
   'aria-labelledby': ariaLabelledby,
   'aria-invalid': ariaInvalid,
   'aria-describedby': ariaDescribedby,
+  onInvalidInput,
 }: TimeFieldProps) {
   const { t } = useTheyaI18n();
   if (placeholder === undefined) placeholder = t.timeField.placeholder;
@@ -126,6 +136,14 @@ export function TimeField({
   // field on its initial value and ignored every pick.
   const [internal, setInternal] = useState(defaultValue ?? '');
   const current = isControlled ? (value ?? '') : internal;
+  // Typed text that isn't a time used to be dropped without a word (WCAG
+  // 3.3.1): mark the field invalid and say why, until a valid time is picked.
+  const [rejected, setRejected] = useState(false);
+  // Without onInvalidInput nothing else shows the reason, so it stays
+  // attached to the field as its description while the field is invalid:
+  // the announcement alone was gone once read (WCAG 3.3.1).
+  const [ownMessage, setOwnMessage] = useState('');
+  const messageId = useId();
 
   const options = useMemo(() => {
     const base = buildTimeOptions(min, max, step, hourCycle);
@@ -136,13 +154,27 @@ export function TimeField({
     return [...base, custom].sort((a, b) => toMinutes(a.value) - toMinutes(b.value));
   }, [min, max, step, hourCycle, current]);
 
+  const describedBy = [ariaDescribedby, rejected && ownMessage ? messageId : null].filter(Boolean).join(' ') || undefined;
   return (
+    <>
     <Combobox
       options={options}
       value={current}
       onValueChange={(next) => {
         const parsed = parseTimeInput(next, min, max);
-        if (parsed === null) return;
+        if (parsed === null) {
+          // A real time outside min–max gets the range, anything else an example.
+          const message = parseTimeInput(next, '00:00', '23:59') ? t.timeField.outOfRange(formatTime(min, hourCycle), formatTime(max, hourCycle)) : t.timeField.invalid;
+          setRejected(true);
+          setOwnMessage(onInvalidInput ? '' : message);
+          // With onInvalidInput the consumer shows the message (FieldError,
+          // role="alert"), which is announced already; else say it here.
+          if (onInvalidInput) onInvalidInput(next, message);
+          else announce(message, 'assertive');
+          return;
+        }
+        setRejected(false);
+        setOwnMessage('');
         if (!isControlled) setInternal(parsed);
         onChange?.(parsed);
       }}
@@ -155,8 +187,14 @@ export function TimeField({
       contentClassName={contentClassName}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
-      aria-invalid={ariaInvalid}
-      aria-describedby={ariaDescribedby}
+      aria-invalid={rejected ? true : ariaInvalid}
+      aria-describedby={describedBy}
     />
+    {rejected && ownMessage && (
+      <span id={messageId} className="sr-only">
+        {ownMessage}
+      </span>
+    )}
+    </>
   );
 }

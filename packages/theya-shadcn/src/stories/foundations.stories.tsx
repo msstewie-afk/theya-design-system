@@ -154,7 +154,7 @@ const HEADING_CLASS = {
  * that isn't an exact primitive hex (e.g. the rgba() alpha overlays used
  * by several dark-theme values, which aren't a single scale step).
  */
-const PRIMITIVE_FAMILIES = ['azure', 'cyan', 'blue', 'gray', 'green', 'magenta', 'orange', 'purple', 'red', 'slate', 'teal', 'yellow'] as const;
+const PRIMITIVE_FAMILIES = ['cyan', 'blue', 'gray', 'green', 'magenta', 'orange', 'purple', 'red', 'slate', 'teal', 'yellow'] as const;
 // Built primitive ramps (--color-<family>-<family>-<step>), lower-cased hex.
 const PRIMITIVE_HEX: Record<string, string[]> = Object.fromEntries(
   PRIMITIVE_FAMILIES.map((f) => [f, RAMP_STEPS.map((step) => tokenValue(`--color-${f}-${f}-${step}`).toLowerCase())]),
@@ -355,13 +355,13 @@ const BORDER_TOKEN_ROWS: TokenRow[] = withValues([
 ]);
 
 const CHART_TOKEN_ROWS: TokenRow[] = withValues([
-  { name: '--color-bg-chart-01', description: 'Chart series 1 (blue) — deliberately matches --color-bg-primary-bg-primary. Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-02', description: 'Chart series 2 (magenta). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-03', description: 'Chart series 3 (teal). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-04', description: 'Chart series 4 (slate). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-05', description: 'Chart series 5 (red). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-06', description: 'Chart series 6 (green). Primitive-derived, theme-invariant.' },
-  { name: '--color-bg-chart-07', description: 'Chart series 7 (azure). Primitive-derived, theme-invariant.' },
+  { name: '--color-bg-chart-01', description: 'Chart series 1 (blue); in light it matches --color-bg-primary-bg-primary. In dark all seven series share one lightness: 3.6:1 on the page, 3.2:1 on cards.' },
+  { name: '--color-bg-chart-02', description: 'Chart series 2 (magenta). Line charts also give it a dash, DonutChart a pattern with slicePatterns.' },
+  { name: '--color-bg-chart-03', description: 'Chart series 3 (teal).' },
+  { name: '--color-bg-chart-04', description: 'Chart series 4 (slate).' },
+  { name: '--color-bg-chart-05', description: 'Chart series 5 (red).' },
+  { name: '--color-bg-chart-06', description: 'Chart series 6 (green).' },
+  { name: '--color-bg-chart-07', description: 'Chart series 7 (purple).' },
 ]);
 
 /**
@@ -411,7 +411,6 @@ function RampSwatch({ prefix, step }: { prefix: string; step: string }) {
 const RAMP_FAMILIES = [
   { prefix: 'blue', label: 'Blue (Brand)' },
   { prefix: 'gray', label: 'Gray (Neutral)' },
-  { prefix: 'azure', label: 'Azure' },
   { prefix: 'cyan', label: 'Cyan' },
   { prefix: 'green', label: 'Green' },
   { prefix: 'magenta', label: 'Magenta' },
@@ -684,7 +683,7 @@ const FOCUS_DEMO = [
 
 const FOCUS_RULES = [
   <>The ring is a 4px box-shadow outside the element: <Code>focus-visible:focus-ring</Code>. It follows the element's border radius on its own.</>,
-  <>Use an inset ring (<Code>shadow-[inset_0_0_0_3px_...]</Code>) only where an outer ring would be clipped by overflow: table cells, tree rows, code blocks, the terminal.</>,
+  <>Use the inset ring (<Code>focus-ring-inset</Code>, 4px inside) only where an outer ring would be clipped by overflow: Tree rows and underline Tabs, whose list scrolls sideways. Tables, CodeBlock and Terminal use the outer ring.</>,
   <>Text fields show the ring on any focus, including a mouse click. Buttons and other controls show it on keyboard focus only (<Code>focus-visible</Code>).</>,
   <>Fields pair the soft ring with a solid border colour. The border is what meets the 3:1 contrast requirement; the ring alone does not.</>,
   <>The ring tone follows the state: error for invalid, success or warning for validated states, on-primary on primary-filled surfaces.</>,
@@ -740,7 +739,7 @@ export const FocusRing: Story = {
           <div className="flex flex-col gap-2">
             <div className="w-56 overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]">
               <div className="border-b border-solid border-[var(--color-border-border-subtler)] px-3 py-2 text-body-m text-[var(--color-text-text)]">Row</div>
-              <div className="px-3 py-2 text-body-m text-[var(--color-text-text)] shadow-[inset_0_0_0_3px_var(--color-focus-focus-ring)]">Focused row, inset 3px</div>
+              <div className="px-3 py-2 text-body-m text-[var(--color-text-text)] focus-ring-inset">Focused row, inset 4px</div>
               <div className="border-t border-solid border-[var(--color-border-border-subtler)] px-3 py-2 text-body-m text-[var(--color-text-text)]">Row</div>
             </div>
             <span className="text-body-s text-[var(--color-text-text-subtle)]">Inside containers that clip overflow.</span>
@@ -759,7 +758,7 @@ export const FocusRing: Story = {
           ))}
         </ul>
         <Note>
-          Known exceptions: Button, Card and Slider draw a 3px ring instead of 4px. The soft ring's contrast is an accepted deviation from WCAG 1.4.11, listed on the Accessibility page.
+          Every ring is 4px, Button, Card and Slider included. The soft ring's contrast is an accepted deviation from WCAG 1.4.11, listed on the Accessibility page.
         </Note>
       </DocsSection>
       {/* Demo-only: apply the per-card ring on keyboard focus. */}
@@ -779,12 +778,33 @@ function shadowSummary(name: string): string {
 }
 
 const ELEVATION_ROWS: SpecRow[] = [
-  { token: 'shadow-elevation-xs', value: shadowSummary('--elevation-xs'), use: 'A surface that sits in the page flow and only needs to lift off the background.', usedBy: 'Stat, CodeBlock, CodeEditor, Terminal, Card at rest' },
-  { token: 'shadow-elevation-sm', value: shadowSummary('--elevation-sm'), use: 'Small raised details inside a control or a layout.', usedBy: 'Alert, Switch and Slider thumbs, Sidebar, Menubar trigger' },
+  { token: 'shadow-elevation-xs', value: shadowSummary('--elevation-xs'), use: 'A surface that sits in the page flow and only needs to lift off the background.', usedBy: 'Stat, CodeBlock, CodeEditor, Terminal; Card at rest through shadow-card' },
+  { token: 'shadow-elevation-sm', value: shadowSummary('--elevation-sm'), use: 'Small raised details inside a control or a layout.', usedBy: 'Alert, Sidebar, Menubar trigger; through the state tokens: Switch and Slider thumbs, the active Tabs chip, Card on hover' },
   { token: 'shadow-elevation-md', value: shadowSummary('--elevation-md'), use: 'Floating controls and short hints that hover over content.', usedBy: 'Tooltip, floating scroll buttons, DataTableToolbar bulk bar' },
   { token: 'shadow-elevation-lg', value: shadowSummary('--elevation-lg'), use: 'Surfaces that drop out of a trigger: menus, popovers, listboxes.', usedBy: 'DropdownMenu, ContextMenu, Menubar, Popover, HoverCard, NavigationMenu, Select, chart tooltips' },
   { token: 'shadow-elevation-xl', value: shadowSummary('--elevation-xl'), use: 'Modal layers that take over the page.', usedBy: 'Dialog, AlertDialog, Drawer (side), PushSheet, Sonner' },
   { token: 'shadow-elevation-edge-up', value: shadowSummary('--elevation-edge-up'), use: 'A panel pinned to the bottom edge: the shadow falls up onto the content it covers.', usedBy: 'Drawer (bottom)' },
+];
+
+// "none" or "= elevation-sm" in the default theme; another theme may give any shadow.
+function stateShadowSummary(name: string): string {
+  const v = tokenValue(name);
+  for (const step of ['xs', 'sm', 'md', 'lg', 'xl']) if (v === tokenValue(`--elevation-${step}`)) return `= elevation-${step}`;
+  const alphas = [...v.matchAll(/rgba?\([^)]*,\s*([\d.]+)\)/g)].map((m) => Number(m[1]));
+  return alphas.length > 0 && alphas.every((a) => a === 0) ? 'none' : shadowSummary(name);
+}
+
+const STATE_SHADOW_ROWS: SpecRow[] = [
+  { token: 'shadow-control', value: stateShadowSummary('--shadow-control'), use: 'A pressable control at rest.', usedBy: 'Button, Toggle, ToggleGroup, pressable Chip, Tabs trigger' },
+  { token: 'shadow-control-hover', value: stateShadowSummary('--shadow-control-hover'), use: 'The same control under the pointer.', usedBy: 'Button, Toggle, ToggleGroup, pressable Chip, Tabs trigger' },
+  { token: 'shadow-control-pressed', value: stateShadowSummary('--shadow-control-pressed'), use: 'Pressed, or switched on.', usedBy: 'Button (active), Toggle and ToggleGroup (on), Chip (pressed)' },
+  { token: 'shadow-field', value: stateShadowSummary('--shadow-field'), use: 'A field you type into or pick from. Inset in a sunken style.', usedBy: 'TextField, TextArea, Select, NumberField, InputGroup, Autocomplete, Combobox, DatePicker, Filter, FilterField, InputOTP, PromptArea, RichTextEditor, TagInput' },
+  { token: 'shadow-track', value: stateShadowSummary('--shadow-track'), use: 'A track or box that holds a value. Inset in a sunken style.', usedBy: 'Switch and Slider tracks, Checkbox and Radio boxes, OptionCard control, Tabs chips list' },
+  { token: 'shadow-thumb', value: stateShadowSummary('--shadow-thumb'), use: 'The handle you drag or flip.', usedBy: 'Switch and Slider thumbs' },
+  { token: 'shadow-thumb-hover', value: stateShadowSummary('--shadow-thumb-hover'), use: 'The handle under the pointer.', usedBy: 'Slider thumb' },
+  { token: 'shadow-raised', value: stateShadowSummary('--shadow-raised'), use: 'An item raised out of its track.', usedBy: 'Active Tabs chip' },
+  { token: 'shadow-card', value: stateShadowSummary('--shadow-card'), use: 'A card at rest.', usedBy: 'Card' },
+  { token: 'shadow-card-hover', value: stateShadowSummary('--shadow-card-hover'), use: 'An interactive card under the pointer.', usedBy: 'Card (action, href, filter)' },
 ];
 
 const ELEVATION_DEMO = [
@@ -819,6 +839,10 @@ export const Elevation: Story = {
       <SpecTable label="Elevation tokens" rows={ELEVATION_ROWS} valueLabel="Shadow" />
       <Note>
         Values live in <Code>@theya/tokens</Code> (<Code>--elevation-*</Code>). Focus rings are also drawn with box-shadow, but they are a separate scale: see Focus ring.
+      </Note>
+      <SpecTable label="State shadow tokens" rows={STATE_SHADOW_ROWS} valueLabel="Default theme" />
+      <Note>
+        State shadows say what a control's shadow is in each state, so a theme can change how controls are lifted or sunk (a Neumorphism theme draws shape with shadows) without touching the components. The default theme keeps today's look. They are drawn in a slot of their own, so they stack with the focus ring, a ring or a <Code>shadow-elevation-*</Code> on the same element instead of replacing it. Values: <Code>--shadow-*</Code> in <Code>@theya/tokens</Code>.
       </Note>
     </DocsPage>
   ),
@@ -934,7 +958,10 @@ export const Motion: Story = {
           <li>Motion answers an action or a change of state. Nothing animates on first render: a chip that starts selected or the starting step of a Stepper stays still.</li>
           <li>Short and once: feedback stays under half a second. Anything that repeats stops on its own within 5 seconds (BadgeIndicator pulse rings three times) or has a pause (Marquee) — WCAG 2.2.2.</li>
           <li>Reduced motion: transitions and one-off effects are dropped and the end state shows at once; loaders don’t freeze but fade slowly; a timer (undoToast’s bar) keeps running, because it is information.</li>
-          <li>Decorative, endless motion (Aurora, Border beam, Neon glow, Float bob) is a preset for landing pages and promos — one per screen, never in forms or settings.</li>
+          <li>Nothing decorative moves on its own for more than 5 seconds: Border beam runs only while its card is hovered or focused, Aurora drifts once and rests, and Marquee, MarqueeColumns, CardStack, TickerList and OrbitCarousel's autoplay stop on hover and focus and have a Pause button. The one accepted exception is TextEffect's shimmer.</li>
+          <li>In product UI: the motion built into components (the table above), AnimatedIcon, CountUp and ProgressRing for a headline number, SwipeDeck, and TickerList for a live feed.</li>
+          <li>Landing and promo pages only: Reveal and RevealGroup, TextEffect, Marquee, MarqueeColumns, SurfaceEffect, Aurora, CardStack, CardFan, OrbitCarousel, and Neon glow and Float bob from Micro-interactions (they loop in the library demo; adopted, they stop within 5 seconds or get a pause). One showpiece per screen; never in forms, settings or tables.</li>
+          <li>Landing performance: animate transform and opacity only, never width, height, top or margin, so nothing shifts the layout (CLS). The hero headline and main image show on first paint: no Reveal or TextEffect that starts hidden on the largest element above the fold (LCP). Heavier effects (OrbitCarousel, CardStack, a vivid Aurora) go below the fold.</li>
           <li>A new effect goes into Motion › Micro-interactions first, as a “Now / Variant” pair, and becomes a default only once it is chosen.</li>
         </ul>
         <Note>

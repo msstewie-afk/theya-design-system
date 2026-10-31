@@ -303,6 +303,13 @@ export function NotificationsInbox({
         </ToggleGroup>
       </div>
 
+      {/* Filter results are announced: the list re-renders in place and the
+          "no match" empty state mounts silently (WCAG 4.1.3). Always mounted,
+          so only changes are read. */}
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        {visible.length === 0 ? (items.length === 0 ? "You're all caught up" : 'No notifications match these filters') : `${visible.length} ${visible.length === 1 ? 'notification' : 'notifications'}`}
+      </p>
+
       <div className={cn('w-full', bordered && 'overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]')}>
         {visible.length === 0 ? (
           items.length === 0 ? (

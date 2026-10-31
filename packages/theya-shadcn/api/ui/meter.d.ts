@@ -13,8 +13,14 @@ export interface MeterProps extends Omit<React.ComponentProps<'div'>, 'children'
     tone?: MeterTone;
     showValue?: boolean;
     segments?: number;
+    thresholds?: MeterThreshold[];
 }
-export declare function Meter({ value, min, max, label, format, getValueLabel, tone, showValue, segments, className, ...props }: MeterProps): import("react").JSX.Element;
+export interface MeterThreshold {
+    value: number;
+    label?: ReactNode;
+    tone?: MeterTone;
+}
+export declare function Meter({ value, min, max, label, format, getValueLabel, tone, showValue, segments, thresholds, className, ...props }: MeterProps): import("react").JSX.Element;
 
 // Defaults
 // Meter.max = 100

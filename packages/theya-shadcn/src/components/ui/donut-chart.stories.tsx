@@ -47,6 +47,7 @@ const meta = {
       options: ['vertical', 'horizontal'],
       description: 'Legend below the ring (default) or beside it.',
     },
+    slicePatterns: { control: 'boolean', description: 'Fill slices after the first with patterns as well as colors (WCAG 1.4.1).' },
     loading: { control: 'boolean', description: 'Show the first-load skeleton instead of the chart.' },
     ariaLabel: { control: 'text', description: 'Accessible summary of the breakdown.' },
     className: { control: false, description: 'Class on the root element.' },
@@ -75,6 +76,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 /** Legend beside the ring instead of below it, once the container has room (`@min-[22rem]/donut`). */
+/** `slicePatterns`: slices after the first also get a fill pattern, so they can be told apart without color (print, color-blind readers). The legend keys show the same patterns. */
+export const SlicePatterns: Story = {
+  name: 'Slice patterns',
+  args: { slicePatterns: true, layout: 'horizontal' },
+};
+
 export const Horizontal: Story = {
   args: { layout: 'horizontal' },
 };

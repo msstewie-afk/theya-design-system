@@ -3,6 +3,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { UrlTabs } from './url-tabs';
 import { TabsList, TabsTrigger, TabsContent } from './tabs';
 import { urlTabsGuidelines } from './url-tabs.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -71,13 +72,18 @@ export const Default: Story = {
 
       // Switching writes ?tab= and keeps other params and the #fragment.
       visit(null, '#billing');
-      await userEvent.click(canvas.getByRole('tab', { name: 'DNS records' }));
+      // Keyboard: Tab lands on the selected tab, the arrow selects the next one.
+      resetFocus();
+      await tabTo(canvas.getByRole('tab', { name: 'Overview' }));
+      await userEvent.keyboard('{ArrowRight}');
+      await waitFor(() => expect(canvas.getByRole('tab', { name: 'DNS records' })).toHaveAttribute('aria-selected', 'true'));
       await expect(tabParam()).toBe('dns');
       await expect(new URLSearchParams(window.location.search).get('id')).not.toBeNull();
       await expect(window.location.hash).toBe('#billing');
 
       // The default tab keeps the URL clean.
-      await userEvent.click(canvas.getByRole('tab', { name: 'Overview' }));
+      await userEvent.keyboard('{ArrowLeft}');
+      await waitFor(() => expect(canvas.getByRole('tab', { name: 'Overview' })).toHaveAttribute('aria-selected', 'true'));
       await expect(tabParam()).toBeNull();
 
       // Back/forward (popstate) and deep links select the tab from the URL.

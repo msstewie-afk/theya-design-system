@@ -3,6 +3,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { toast } from './sonner';
 import { Button } from './button';
 import { toasterGuidelines } from './sonner.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * Toaster (sonner) — mounted once globally in `.storybook/preview.ts`
@@ -99,12 +100,16 @@ export const ErrorWithRetry: Story = {
     </Button>
   ),
   play: async ({ canvasElement }) => {
-    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Reissue (will fail)' }));
+    // Keyboard: Enter on the trigger, then Tab reaches the toast's Retry.
+    resetFocus();
+    await tabTo(within(canvasElement).getByRole('button', { name: 'Reissue (will fail)' }));
+    await userEvent.keyboard('{Enter}');
     const title = await page().findByText("Couldn't reissue certificate");
     const item = title.closest('[data-sonner-toast]') as HTMLElement;
     // Errors persist and always carry a close button.
     await expect(within(item).getByRole('button', { name: /close/i })).toBeInTheDocument();
-    await userEvent.click(within(item).getByRole('button', { name: 'Retry' }));
+    await tabTo(within(item).getByRole('button', { name: 'Retry' }));
+    await userEvent.keyboard('{Enter}');
     await expect(await page().findByText('Retrying…')).toBeInTheDocument();
     await clearToasts();
   },

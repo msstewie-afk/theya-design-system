@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { DiffViewer, type DiffView } from './diff-viewer';
 import { Button } from './button';
 import { diffViewerGuidelines } from './diff-viewer.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * DiffViewer — read-only comparison of two texts in the CodeBlock frame.
@@ -141,7 +142,10 @@ export const Default: Story = {
     const lines = () => region.querySelectorAll('.flex').length;
     const before = lines();
     const hidden = Number(gaps[0].textContent!.match(/\d+/)![0]);
-    await userEvent.click(gaps[0]);
+    // From the keyboard: Tab to the collapsed run, Enter expands it.
+    resetFocus();
+    await tabTo(gaps[0]);
+    await userEvent.keyboard('{Enter}');
     await expect(within(region).queryAllByRole('button', { name: /^Show \d+ unchanged/ })).toHaveLength(gaps.length - 1);
     await expect(lines()).toBe(before - 1 + hidden);
   },
@@ -161,7 +165,12 @@ export const WithViewToggle: Story = {
     const unified = canvas.getByRole('radio', { name: 'Unified' });
     const split = canvas.getByRole('radio', { name: 'Split' });
     await expect(unified).toBeChecked();
-    await userEvent.click(split);
+    // Keyboard: the switch is one tab stop; the arrow moves to Split, Space picks it.
+    resetFocus();
+    await tabTo(unified);
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(split).toHaveFocus();
+    await userEvent.keyboard(' ');
     await expect(split).toBeChecked();
     // Split rows have two halves separated by a border.
     await expect(canvasElement.querySelector('[data-diff-body] .border-s')).not.toBeNull();

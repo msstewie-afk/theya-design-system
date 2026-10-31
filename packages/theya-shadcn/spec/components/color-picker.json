@@ -331,6 +331,10 @@
       {
         "name": "HexOnly",
         "id": "selection-colorpicker--hex-only"
+      },
+      {
+        "name": "InvalidHex",
+        "id": "selection-colorpicker--invalid-hex"
       }
     ]
   }

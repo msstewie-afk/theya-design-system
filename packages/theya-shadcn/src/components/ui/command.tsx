@@ -1,6 +1,7 @@
 'use client';
 
-import { createContext, useContext, useState, useRef, useLayoutEffect, useCallback, useId } from 'react';
+import { createContext, useContext, useState, useRef, useEffect, useLayoutEffect, useCallback, useId } from 'react';
+import { createPortal } from 'react-dom';
 import type { ReactNode } from 'react';
 import { Search } from 'iconoir-react';
 import { cn } from '../../lib/utils';
@@ -33,6 +34,8 @@ interface CommandContextValue {
   listId: string;
   /** Visible (post-filter) option count — CommandList only takes `role="listbox"` once this is >0: an empty listbox has no valid children and trips `aria-required-children`. */
   itemCount: number;
+  /** Always-mounted status region (sr-only) that CommandEmpty writes "No results" into, so it is announced (WCAG 4.1.3). */
+  statusNode: HTMLDivElement | null;
 }
 
 const CommandContext = createContext<CommandContextValue | null>(null);
@@ -53,6 +56,7 @@ export function Command({ className, label, shouldFilter = true, loading = false
   const [search, setSearch] = useState('');
   const [activeValue, setActiveValue] = useState<string | null>(null);
   const [itemCount, setItemCount] = useState(0);
+  const [statusNode, setStatusNode] = useState<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const listId = useId();
 
@@ -82,9 +86,10 @@ export function Command({ className, label, shouldFilter = true, loading = false
   }, [search, children]);
 
   return (
-    <CommandContext.Provider value={{ search, setSearch, matches, loading, label, listRef, activeValue, setActiveValue, listId, itemCount }}>
+    <CommandContext.Provider value={{ search, setSearch, matches, loading, label, listRef, activeValue, setActiveValue, listId, itemCount, statusNode }}>
       <div className={cn('flex h-full w-full flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-surface-bg-surface-overlay)] text-[var(--color-text-text)]', className)} {...props}>
         {children}
+        <div ref={setStatusNode} role="status" aria-live="polite" className="sr-only" />
       </div>
     </CommandContext.Provider>
   );
@@ -249,18 +254,28 @@ export function CommandList({ className, ...props }: React.ComponentProps<'div'>
   );
 }
 
-export function CommandEmpty({ className, ...props }: React.ComponentProps<'div'>) {
-  const { loading } = useCommandContext('CommandEmpty');
-  if (loading) return null;
+export function CommandEmpty({ className, children, ...props }: React.ComponentProps<'div'>) {
+  const { loading, itemCount, statusNode, search } = useCommandContext('CommandEmpty');
+  // The status text is set once typing pauses. Set on the first keystroke,
+  // VoiceOver's typing echo spoke over it and it never changed again, so
+  // "No results" was never heard (Safari 26.6, 2026-10-29). Each new query
+  // clears it, so the message is repeated after the next pause.
+  const [settled, setSettled] = useState(false);
+  useEffect(() => {
+    setSettled(false);
+    const id = window.setTimeout(() => setSettled(true), 500);
+    return () => window.clearTimeout(id);
+  }, [search]);
+  if (loading || itemCount > 0) return null;
   return (
-    <div
-      className={cn(
-        'py-8 text-center font-body text-body-s text-[var(--color-text-text-subtler)]',
-        '[[role=listbox]:has([data-command-item])_&]:hidden',
-        className,
-      )}
-      {...props}
-    />
+    <>
+      {/* Visual only: the same text goes to Command's status region below,
+          outside the listbox (a status inside it would be an invalid child). */}
+      <div aria-hidden="true" className={cn('py-8 text-center font-body text-body-s text-[var(--color-text-text-subtler)]', className)} {...props}>
+        {children}
+      </div>
+      {statusNode && settled && createPortal(children, statusNode)}
+    </>
   );
 }
 

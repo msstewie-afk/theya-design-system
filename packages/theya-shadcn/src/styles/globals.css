@@ -589,6 +589,58 @@
   --tw-shadow: inset 0 0 0 4px var(--color-focus-focus-ring);
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
+/* State shadows (nm-01, 2026-10-27). Semantic tokens --shadow-control,
+   -field, -track, -thumb, -raised, -card (packages/tokens/src/code/
+   elevation*.json) say what a control's shadow is in each state; the
+   default theme keeps today's look (none, or the same elevation step), and
+   a theme such as Neumorphism gives them other values.
+   They are drawn in Tailwind's --tw-ring-offset-shadow slot, which nothing
+   in Theya uses (no ring-offset-* utilities). Every shadow utility writes
+   the whole stack, so a state shadow stacks with the focus ring, a ring,
+   an inset frame (ToggleGroup) or a shadow-elevation-* instead of being
+   replaced by them, or replacing them. Don't add ring-offset-* to an
+   element that has one of these. twMerge knows them as the `shadow-state`
+   group (src/lib/utils.ts). */
+@utility shadow-control {
+  --tw-ring-offset-shadow: var(--shadow-control);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility shadow-control-hover {
+  --tw-ring-offset-shadow: var(--shadow-control-hover);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility shadow-control-pressed {
+  --tw-ring-offset-shadow: var(--shadow-control-pressed);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility shadow-field {
+  --tw-ring-offset-shadow: var(--shadow-field);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility shadow-track {
+  --tw-ring-offset-shadow: var(--shadow-track);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility shadow-thumb {
+  --tw-ring-offset-shadow: var(--shadow-thumb);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility shadow-thumb-hover {
+  --tw-ring-offset-shadow: var(--shadow-thumb-hover);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility shadow-raised {
+  --tw-ring-offset-shadow: var(--shadow-raised);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility shadow-card {
+  --tw-ring-offset-shadow: var(--shadow-card);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility shadow-card-hover {
+  --tw-ring-offset-shadow: var(--shadow-card-hover);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
 /* Medium weight for Fira Code labels (CodeBlock / CodeEditor / DiffViewer
    filename, Terminal user@host, mono DataTable primary cell). Theya's
    font-medium is 375, below Fira Code's lightest loaded face (400), so the

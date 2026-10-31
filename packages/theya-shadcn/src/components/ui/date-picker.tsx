@@ -16,7 +16,7 @@ import { useTheyaI18n } from '../../lib/i18n';
 export const dateFieldTriggerClassName = cn(
   'flex w-full items-center gap-2',
   'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
-  'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
+  'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
   // 12px start inset like every 40px field; the end side is set by the caller.
   'ps-[var(--size-padding-padding-md)] text-[var(--color-text-text)]',
   'h-[var(--size-size-control-size-control-2xl)] text-body-m',

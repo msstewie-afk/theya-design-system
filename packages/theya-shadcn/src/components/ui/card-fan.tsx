@@ -77,6 +77,7 @@ export function CardFan({ spread = 8, offset = 88, className, children, onPointe
             onPointerEnter={() => setActive(i)}
             onFocus={() => setActive(i)}
             className="[grid-area:fan] origin-bottom transition-transform duration-slow ease-spring motion-reduce:transition-none"
+            // raw-ok: 30ms per card is a stagger step, not a duration.
             style={{ transform, zIndex: isActive ? n + 1 : i, transitionDelay: open ? `${Math.abs(d) * 30}ms` : '0ms' }}
           >
             {card}

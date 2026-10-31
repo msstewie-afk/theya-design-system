@@ -37,6 +37,7 @@
  *
  *   node scripts/a11y-auto.mjs --url http://localhost:6008 [--only <title-substring>] [--workers 4]
  *   (--only re-checks the matching stories and keeps the other components' results)
+ *   node scripts/a11y-auto.mjs --url … --ci   (CI: writes nothing, fails on any failure or a story that didn't load)
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -52,6 +53,7 @@ const arg = (name, fallback) => {
 const URL_BASE = arg('url', 'http://localhost:6008').replace(/\/$/, '');
 const ONLY = arg('only', '');
 const WORKERS = Number(arg('workers', 4));
+const CI = process.argv.includes('--ci');
 const OUT = path.join(ROOT, 'a11y/auto.json');
 
 // The Playwright that @storybook/test-runner ships with (same as CI).
@@ -182,30 +184,44 @@ async function checkStory(page, story) {
       if (around) nodes.push(...[...around.querySelectorAll('*')].slice(0, 60));
       return nodes.map((n) => [pick(getComputedStyle(n)), pick(getComputedStyle(n, '::before')), pick(getComputedStyle(n, '::after'))].join('#')).join('@');
     }, STYLE_PROPS);
-  const seen = new Set();
-  for (let i = 0; i < 40; i++) {
-    await page.keyboard.press('Tab');
-    const info = await page.evaluate(() => {
-      const el = document.activeElement;
-      if (!(el instanceof HTMLElement) || el === document.body || !el.closest('#storybook-root, [data-radix-popper-content-wrapper], [role=dialog]')) return null;
-      window.__theyaFocus = el;
-      return { key: el.outerHTML.slice(0, 120), desc: `${el.tagName.toLowerCase()}${el.getAttribute('aria-label') ? ` "${el.getAttribute('aria-label')}"` : ` "${(el.textContent ?? '').trim().slice(0, 30)}"`}` };
-    });
-    if (!info || seen.has(info.key)) break;
-    seen.add(info.key);
-    await page.waitForTimeout(60);
-    const focused = await look();
-    await page.evaluate(() => window.__theyaFocus.blur());
-    await page.waitForTimeout(60);
-    const blurred = await look();
-    // Back to visible focus so the next Tab continues from here.
-    await page.evaluate(() => window.__theyaFocus.focus({ focusVisible: true }));
-    if (focused === blurred) {
-      // Once more after a longer moment: a story still settling (a portal
-      // mounting, a late state update) can mask the first read.
-      await page.waitForTimeout(200);
-      if ((await look()) === blurred) result['2.4.7'].push(info.desc);
+  const focusPass = async () => {
+    const missing = [];
+    const seen = new Set();
+    for (let i = 0; i < 40; i++) {
+      await page.keyboard.press('Tab');
+      const info = await page.evaluate(() => {
+        const el = document.activeElement;
+        if (!(el instanceof HTMLElement) || el === document.body || !el.closest('#storybook-root, [data-radix-popper-content-wrapper], [role=dialog]')) return null;
+        window.__theyaFocus = el;
+        return { key: el.outerHTML.slice(0, 120), desc: `${el.tagName.toLowerCase()}${el.getAttribute('aria-label') ? ` "${el.getAttribute('aria-label')}"` : ` "${(el.textContent ?? '').trim().slice(0, 30)}"`}` };
+      });
+      if (!info || seen.has(info.key)) break;
+      seen.add(info.key);
+      await page.waitForTimeout(60);
+      const focused = await look();
+      await page.evaluate(() => window.__theyaFocus.blur());
+      await page.waitForTimeout(60);
+      const blurred = await look();
+      // Back to visible focus so the next Tab continues from here.
+      await page.evaluate(() => window.__theyaFocus.focus({ focusVisible: true }));
+      if (focused === blurred) {
+        // Once more after a longer moment: a story still settling (a portal
+        // mounting, a late state update) can mask the first read.
+        await page.waitForTimeout(200);
+        if ((await look()) === blurred) missing.push(info.desc);
+      }
     }
+    return missing;
+  };
+  // A story whose play test just closed an overlay can still be settling on a
+  // slow machine (Drawer's close on a CI runner): a miss counts only if a
+  // second pass, after a pause and from the top again, misses it too.
+  const first = await focusPass();
+  if (first.length) {
+    await page.waitForTimeout(1500);
+    await fromTop();
+    const second = await focusPass();
+    result['2.4.7'] = first.filter((d) => second.includes(d));
   }
 
   // 2.1.1 / 2.1.2 / 2.4.3 — fresh load, Tab through everything.
@@ -352,14 +368,31 @@ const results = [];
 let next = 0;
 await Promise.all(
   Array.from({ length: WORKERS }, async () => {
-    const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
-    await page.emulateMedia({ reducedMotion: 'reduce' });
+    const open = async () => {
+      const p = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+      await p.emulateMedia({ reducedMotion: 'reduce' });
+      return p;
+    };
+    let page = await open();
     while (next < stories.length) {
       const story = stories[next++];
       try {
         results.push(await checkStory(page, story));
       } catch (e) {
-        results.push({ id: story.id, title: story.title, name: story.name, error: String(e).slice(0, 200) });
+        // A crashed page would fail the rest of this worker's stories: retry
+        // this one once on a fresh page (CI runners have little memory).
+        let error = e;
+        if (/crash|closed/i.test(String(e))) {
+          await page.close().catch(() => {});
+          page = await open();
+          try {
+            results.push(await checkStory(page, story));
+            continue;
+          } catch (again) {
+            error = again;
+          }
+        }
+        results.push({ id: story.id, title: story.title, name: story.name, error: String(error).slice(0, 200) });
       }
     }
     await page.close();
@@ -382,11 +415,28 @@ for (const r of results.sort((a, b) => a.id.localeCompare(b.id))) {
 // --only re-checks some components and keeps the rest of the last full run.
 const previous = ONLY && fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')).components : {};
 const merged = Object.fromEntries(Object.entries({ ...previous, ...byComponent }).sort(([a], [b]) => a.localeCompare(b)));
-fs.writeFileSync(
-  OUT,
-  JSON.stringify({ $comment: 'Generated by scripts/a11y-auto.mjs against a built Storybook. Do not edit.', date: new Date().toISOString().slice(0, 10), components: merged }, null, 2) + '\n',
-);
+if (!CI) {
+  fs.writeFileSync(
+    OUT,
+    JSON.stringify({ $comment: 'Generated by scripts/a11y-auto.mjs against a built Storybook. Do not edit.', date: new Date().toISOString().slice(0, 10), components: merged }, null, 2) + '\n',
+  );
+}
 const fails = (k) => Object.values(byComponent).filter((c) => c[k].length).length;
-console.log(`a11y-auto: ${results.length} stories, ${Object.keys(byComponent).length} components → a11y/auto.json`);
+console.log(`a11y-auto: ${results.length} stories, ${Object.keys(byComponent).length} components${CI ? '' : ' → a11y/auto.json'}`);
 for (const k of ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3']) console.log(`  ${k}: ${fails(k)} component(s) with failures`);
 console.log(`  errors: ${results.filter((r) => r.error).length} stories`);
+if (CI) {
+  const KEYS = ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
+  const lines = Object.entries(byComponent).flatMap(([name, c]) => KEYS.flatMap((k) => c[k].map((f) => `- ${k} **${name}** — ${f}`)));
+  const errors = results.filter((r) => r.error);
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    fs.appendFileSync(
+      process.env.GITHUB_STEP_SUMMARY,
+      `### Browser a11y checks\n\n${results.length} stories, ${lines.length} failure(s), ${errors.length} story load error(s).\n\n${[...lines, ...errors.map((e) => `- error **${e.id}** — ${e.error}`)].join('\n')}\n`,
+    );
+  }
+  // As GitHub annotations too: they show on the run page and in the API.
+  for (const l of lines) console.log(`::error title=a11y-auto::${l.replace(/[\r\n]+/g, ' ')}`);
+  for (const e of errors) console.log(`::error title=a11y-auto (story didn't load)::${e.id}: ${e.error.replace(/[\r\n]+/g, ' ')}`);
+  if (lines.length || errors.length) process.exitCode = 1;
+}

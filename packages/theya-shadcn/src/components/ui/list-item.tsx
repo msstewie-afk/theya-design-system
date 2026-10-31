@@ -3,6 +3,7 @@
 import { useId } from 'react';
 import type { ReactNode, MouseEventHandler, KeyboardEventHandler } from 'react';
 import { cn } from '../../lib/utils';
+import { useDecorativeSvgs } from '../../lib/use-decorative-svgs';
 
 /**
  * A single row in a vertical list: an optional leading visual, a
@@ -49,6 +50,10 @@ export interface ListItemProps extends Omit<React.ComponentProps<'div'>, 'title'
 }
 
 export function ListItem({ className, size = 'md', leading, title, description, trailing, href, interactive = false, selected, disabled = false, onClick, onKeyDown, children, ...props }: ListItemProps) {
+  // A bare icon in `leading` is decorative: the title names the row.
+  const leadingRef = useDecorativeSvgs<HTMLSpanElement>();
+  // Same for a bare chevron in `trailing`; buttons there keep their names.
+  const trailingRef = useDecorativeSvgs<HTMLSpanElement>();
   const isPressable = interactive && href == null;
   // The stretched button is empty (the visible text sits in a sibling span
   // on top of it), so it takes its accessible name/description from the
@@ -68,9 +73,9 @@ export function ListItem({ className, size = 'md', leading, title, description, 
 
   const body = (
     <>
-      {leading != null && <span data-slot="list-item-leading" className="flex min-h-[1lh] shrink-0 items-center text-[var(--color-icon-icon-subtle)] [&_svg:not([class*='size-'])]:size-4">{leading}</span>}
+      {leading != null && <span ref={leadingRef} data-slot="list-item-leading" className="flex min-h-[1lh] shrink-0 items-center text-[var(--color-icon-icon-subtle)] [&_svg:not([class*='size-'])]:size-4">{leading}</span>}
       <span data-slot="list-item-content" className="flex min-w-0 flex-1 flex-col gap-0.5 text-start">
-        {title != null && <span id={titleId} data-slot="list-item-title" className="truncate font-medium">{title}</span>}
+        {title != null && <span id={titleId} data-slot="list-item-title" className="truncate font-medium [[data-slot=list-item][data-selected]_&]:font-semibold">{title}</span>}
         {description != null && <span id={descriptionId} data-slot="list-item-description" className="truncate font-body text-body-s text-[var(--color-text-text-subtler)]">{description}</span>}
         {children}
       </span>
@@ -110,6 +115,9 @@ export function ListItem({ className, size = 'md', leading, title, description, 
         // (`bg-neutral-bg-neutral-subtle` for their active/highlighted item).
         (href != null || interactive) && 'cursor-pointer hover:bg-[var(--color-bg-neutral-bg-neutral-subtler)]',
         selected && 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
+        // The tint is 1.15:1, so selected rows also get the nav marker: a 2px bar at the
+        // start edge and a semibold title (WCAG 1.4.1), as SidebarItem does.
+        selected && "relative before:absolute before:inset-y-2 before:start-0 before:w-0.5 before:rounded-full before:bg-[var(--color-border-border-primary)] before:content-['']",
         disabled && 'pointer-events-none opacity-50',
         className,
       )}
@@ -141,7 +149,7 @@ export function ListItem({ className, size = 'md', leading, title, description, 
       ) : (
         <div className={cn('flex min-w-0 flex-1 gap-3', rowAlign)}>{body}</div>
       )}
-      {trailing != null && <span data-slot="list-item-trailing" className="flex shrink-0 items-center gap-2 text-[var(--color-icon-icon-subtle)]">{trailing}</span>}
+      {trailing != null && <span ref={trailingRef} data-slot="list-item-trailing" className="flex shrink-0 items-center gap-2 text-[var(--color-icon-icon-subtle)]">{trailing}</span>}
     </div>
   );
 }

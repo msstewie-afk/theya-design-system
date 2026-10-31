@@ -184,7 +184,8 @@ export function TerminalHeader({ className, user, host, connection = 'connected'
               {userHost}
             </div>
           )}
-          <div className={cn('truncate font-body text-body-s', inverse ? 'text-[var(--color-text-text-subtle-on-dark)]' : 'text-[var(--color-text-text-subtler)]')}>
+          {/* role="status": "Connecting…" → "Connected" / "Disconnected" changes in place and is announced (WCAG 4.1.3). */}
+          <div role="status" className={cn('truncate font-body text-body-s', inverse ? 'text-[var(--color-text-text-subtle-on-dark)]' : 'text-[var(--color-text-text-subtler)]')}>
             {connectionLabel(t, connection, status)}
           </div>
         </div>
@@ -269,6 +270,8 @@ export function TerminalLine({ className, level, inverse = false, children, ...p
   return (
     <div data-slot="terminal-line" className={cn('whitespace-pre-wrap break-all', levelClass, className)} {...props}>
       {label && <span className="sr-only">{label}: </span>}
+      {/* Severity isn't color alone (WCAG 1.4.1): a glyph sighted users can see. */}
+      {label && <span aria-hidden="true">{level === 'err' || level === 'error' ? '✕ ' : '! '}</span>}
       {children === '' ? ' ' : children}
     </div>
   );

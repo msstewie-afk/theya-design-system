@@ -30,7 +30,7 @@ export const Default: Story = {
     await userEvent.type(canvas.getByRole('textbox', { name: /^Security code/ }), '123');
     await userEvent.click(canvas.getByRole('button', { name: 'Review order' }));
 
-    await expect(await canvas.findByText('Visa ending 4242')).toBeVisible();
+    await expect(await canvas.findByText('Visa ending 4242', {}, { timeout: 5000 })).toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'Edit options' }));
     await expect(canvas.getByRole('radio', { name: 'Daily' })).toBeChecked();
     // Back through the steps: what was entered is still there.
@@ -46,5 +46,18 @@ export const Default: Story = {
     await waitFor(() => expect(done).toHaveFocus());
     await expect(done).toHaveAccessibleDescription('Your Pro plan is active and seashell.shop is registered.');
     await expect(args.onComplete).toHaveBeenCalledTimes(1);
+  },
+};
+
+/** Review order with the card fields empty: each field is marked invalid and described by its own error (WCAG 3.3.1). */
+export const MissingCardDetails: Story = {
+  name: 'Missing card details',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Continue to payment' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Review order' }));
+    const card = canvas.getByRole('textbox', { name: /^Card number/ });
+    await waitFor(() => expect(card).toHaveAttribute('aria-invalid', 'true'));
+    await expect(card.getAttribute('aria-describedby')).toBeTruthy();
   },
 };

@@ -516,6 +516,10 @@
         },
         "bg-scrim": {
           "value": "{black-a400}"
+        },
+        "bg-scrim-strong": {
+          "value": "{black-a600}",
+          "comment": "A darker scrim where the dimmed part must read as cut away (ImageCropper)."
         }
       },
       "layout": {
@@ -528,6 +532,34 @@
         "bg-sidebar-section": {
           "value": "{color.slate.slate-450}"
         }
+      },
+      "chart-01": {
+        "value": "{color.blue.blue-500}",
+        "comment": "Chart series 1. Every series reaches 3:1 on the page and on cards; series also differ by dash or pattern (lib/chart-series)."
+      },
+      "chart-02": {
+        "value": "{color.magenta.magenta-500}",
+        "comment": "Chart series 2. Every series reaches 3:1 on the page and on cards; series also differ by dash or pattern (lib/chart-series)."
+      },
+      "chart-03": {
+        "value": "{color.teal.teal-500}",
+        "comment": "Chart series 3. Every series reaches 3:1 on the page and on cards; series also differ by dash or pattern (lib/chart-series)."
+      },
+      "chart-04": {
+        "value": "{color.slate.slate-500}",
+        "comment": "Chart series 4. Every series reaches 3:1 on the page and on cards; series also differ by dash or pattern (lib/chart-series)."
+      },
+      "chart-05": {
+        "value": "{color.red.red-600}",
+        "comment": "Chart series 5. Every series reaches 3:1 on the page and on cards; series also differ by dash or pattern (lib/chart-series)."
+      },
+      "chart-06": {
+        "value": "{color.green.green-500}",
+        "comment": "Chart series 6. Every series reaches 3:1 on the page and on cards; series also differ by dash or pattern (lib/chart-series)."
+      },
+      "chart-07": {
+        "value": "{color.purple.purple-500}",
+        "comment": "Chart series 7. Every series reaches 3:1 on the page and on cards; series also differ by dash or pattern (lib/chart-series)."
       }
     },
     "brand": {

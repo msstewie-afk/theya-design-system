@@ -181,6 +181,16 @@ function Column({
 
 /* ------------------------------------------------------------------ */
 
+// dnd-kit takes plain values, not var(): the drop settles with the moderate
+// duration and the enter curve from the motion tokens.
+function dropAnimation() {
+  const css = typeof window === 'undefined' ? null : getComputedStyle(document.documentElement);
+  return {
+    duration: parseFloat(css?.getPropertyValue('--motion-duration-moderate') ?? '') || 200,
+    easing: css?.getPropertyValue('--motion-easing-enter').trim() || 'cubic-bezier(0, 0, 0.2, 1)',
+  };
+}
+
 export function Kanban<T extends KanbanItem>({
   columns,
   items,
@@ -339,7 +349,7 @@ export function Kanban<T extends KanbanItem>({
             );
           })}
         </div>
-        <DragOverlay dropAnimation={{ duration: 180, easing: 'cubic-bezier(0.2, 0, 0, 1)' }}>
+        <DragOverlay dropAnimation={dropAnimation()}>
           {activeItem ? (
             <div className="cursor-grabbing rounded-[var(--size-border-radius-border-radius-lg)] shadow-elevation-lg motion-safe:rotate-2">{renderItem(activeItem, { overlay: true })}</div>
           ) : null}

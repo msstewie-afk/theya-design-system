@@ -135,6 +135,12 @@
           "description": "Called with the selected \"HH:MM\" value (or \"\" when cleared)."
         },
         {
+          "name": "onInvalidInput",
+          "type": "((text: string, message: string) => void)",
+          "required": false,
+          "description": "Called when typed text isn't a time, or is outside min–max, with that\ntext and the reason in the current locale. The field also marks itself\ninvalid and announces the reason until a valid time is picked. Show\n`message` under the field (FieldError) and point `aria-describedby` at\nit so the reason stays on screen too (WCAG 3.3.1)."
+        },
+        {
           "name": "placeholder",
           "type": "string",
           "required": false,

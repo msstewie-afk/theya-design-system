@@ -99,7 +99,7 @@ function Slider({
     >
       <SliderPrimitive.Track
         className={cn(
-          'relative grow rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
+          'relative grow rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)] shadow-track',
           'forced-colors:forced-color-adjust-none forced-colors:bg-[GrayText]',
           'data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:w-full',
           'data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5',
@@ -123,11 +123,11 @@ function Slider({
           aria-valuetext={formatValue ? formatValue(values[i] ?? min, i) : undefined}
           className={cn(
             'relative block size-4 shrink-0 rounded-full border border-solid',
-            'bg-[var(--color-bg-input-bg-input)] shadow-elevation-sm outline-none',
+            'bg-[var(--color-bg-input-bg-input)] shadow-thumb outline-none',
             'transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
             invalid ? 'border-[var(--color-border-border-danger)]' : 'border-[var(--color-border-border-primary)]',
             // Hover lifts the thumb; the ring is reserved for keyboard focus.
-            'hover:shadow-elevation-md',
+            'hover:shadow-thumb-hover',
             'focus-visible:focus-ring',
             invalid && 'focus-visible:focus-ring-error',
             'data-[disabled]:pointer-events-none',

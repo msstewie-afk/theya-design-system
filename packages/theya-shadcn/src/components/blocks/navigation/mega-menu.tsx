@@ -145,7 +145,7 @@ export function MegaMenu({ items, currentId, layout = 'auto', drawerTrigger = 'l
                   </div>
                   <div className="border-t border-solid border-[var(--color-border-border-subtler)] px-6 py-3">
                     <NavigationMenuLink asChild>
-                      <Link href={item.overview.href} className="inline-flex flex-row items-center gap-1 p-1.5 font-medium">
+                      <Link href={item.overview.href} className="inline-flex flex-row items-center gap-1 px-2 py-1.5 font-medium">
                         {item.overview.label}
                         <ArrowRight aria-hidden="true" className="size-4 text-current! rtl:-scale-x-100" />
                       </Link>

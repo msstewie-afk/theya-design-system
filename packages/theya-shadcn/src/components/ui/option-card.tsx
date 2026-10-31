@@ -93,7 +93,7 @@ function OptionCard({ className, value, title, description, icon, aside, ...prop
         className={cn(
           'mt-0.5 flex aspect-square size-4 shrink-0 items-center justify-center rounded-full',
           'border-[1.5px] border-solid border-[var(--color-border-border)]',
-          'bg-[var(--color-bg-input-bg-input)]',
+          'bg-[var(--color-bg-input-bg-input)] shadow-track',
           'transition-[background-color,border-color] duration-standard ease-enter motion-reduce:transition-none',
           'group-hover:border-[var(--color-border-border-primary)]',
           'group-data-[state=checked]:border-[var(--color-bg-primary-bg-primary)]',

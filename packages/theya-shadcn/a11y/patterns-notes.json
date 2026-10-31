@@ -34,6 +34,11 @@
       "criterion": "2.4.6",
       "result": "pass",
       "finding": "Plan, usage and invoices are headed sections."
+    },
+    {
+      "criterion": "3.3.1",
+      "result": "n/a",
+      "finding": "Usage and plan details with actions; no field that can be invalid."
     }
   ],
   "DashboardOverview": [
@@ -46,6 +51,11 @@
       "criterion": "1.1.1",
       "result": "pass",
       "finding": "Usage is stated in numbers and percent; the chart and bars repeat the text."
+    },
+    {
+      "criterion": "3.3.1",
+      "result": "n/a",
+      "finding": "'Error' rows describe site health, not user input; the pattern has no field to validate."
     }
   ],
   "Details": [
@@ -210,6 +220,11 @@
       "criterion": "2.4.4",
       "result": "pass",
       "finding": "Tasks are named links ('Change password', 'Download your data'), not a generic 'Manage'."
+    },
+    {
+      "criterion": "3.3.1",
+      "result": "n/a",
+      "finding": "No input the user can get wrong: links and buttons only. The validation trait comes from composed components."
     }
   ],
   "OrderHistory": [
@@ -363,6 +378,11 @@
       "criterion": "2.5.3",
       "result": "pass",
       "finding": "The visible 'Compare' label is contained in the checkbox's accessible name 'Compare <name>'."
+    },
+    {
+      "criterion": "3.3.1",
+      "result": "n/a",
+      "finding": "The only control is the Compare checkbox; reaching the limit disables it and says why, there is no invalid input."
     }
   ],
   "CategoryLanding": [
@@ -375,6 +395,11 @@
       "criterion": "1.3.1",
       "result": "pass",
       "finding": "h1 page title; each shelf is a section labelled by its h2 (aria-labelledby)."
+    },
+    {
+      "criterion": "3.3.1",
+      "result": "n/a",
+      "finding": "Navigation grid of categories and items; no input to validate."
     }
   ],
   "Comparison": [
@@ -392,6 +417,11 @@
       "criterion": "1.3.1",
       "result": "pass",
       "finding": "The table has an sr-only caption, th scope=col per item and th scope=row per attribute; Yes/No are sr-only text behind the check and minus icons; the scroll region is role=region, named and focusable."
+    },
+    {
+      "criterion": "3.3.1",
+      "result": "n/a",
+      "finding": "Compare checkboxes and the 'only differences' Switch are choices, not answers that can be wrong; the max-items limit is a status message (4.1.3), not an input error."
     }
   ],
   "FacetedList": [

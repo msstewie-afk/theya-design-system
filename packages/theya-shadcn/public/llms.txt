@@ -1,6 +1,6 @@
 # Theya
 
-> Theya is a React design system built on shadcn/ui (Radix + Tailwind v4). Package `@theya/shadcn` v0.1.0, 159 components, each with use-guidelines (when to use, when not and what instead, anatomy, do/don’t, accessibility) and typed props.
+> Theya is a React design system built on shadcn/ui (Radix + Tailwind v4). Package `@theya/shadcn` v0.1.0, 160 components, each with use-guidelines (when to use, when not and what instead, anatomy, do/don’t, accessibility) and typed props.
 
 Rules for building UI with Theya:
 
@@ -141,6 +141,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 
 ## Navigation
 
+- [BottomNav](./?path=/docs/navigation-bottomnav--docs) (beta): The top-level destinations of a phone app: 3–5 of them, each reachable from anywhere.
 - [Breadcrumb](./?path=/docs/navigation-breadcrumb--docs): Showing where a page sits in a hierarchy of three or more levels, and letting people go up.
 - [Link](./?path=/docs/navigation-link--docs): Going somewhere: another page, a section, a document, an external site.
 - [Menubar](./?path=/docs/navigation-menubar--docs): An application-style menu bar for editors and tools: File, Edit, View, each with many commands.

@@ -1,12 +1,23 @@
 'use client';
 
-import { forwardRef, cloneElement, isValidElement } from 'react';
+import { forwardRef, cloneElement, isValidElement, useEffect, useRef } from 'react';
 import type { ButtonHTMLAttributes, MouseEvent, ReactElement, ReactNode } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { Check } from 'iconoir-react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
 import { Spinner } from './spinner';
+import { announce } from '../../lib/announce';
+
+/** Text a screen reader would read: textContent without aria-hidden subtrees. */
+function spokenText(root: Node): string {
+  let out = '';
+  root.childNodes.forEach((node) => {
+    if (node.nodeType === Node.TEXT_NODE) out += node.textContent ?? '';
+    else if (node instanceof HTMLElement && node.getAttribute('aria-hidden') !== 'true') out += spokenText(node);
+  });
+  return out.trim();
+}
 import { BadgeIndicator, type BadgeIndicatorTone } from './badge-indicator';
 
 /**
@@ -63,9 +74,13 @@ export const buttonVariants = cva(
     // "fix" locally in one component — change the token if this is revisited.
     'focus-visible:outline-none',
     'focus-visible:focus-ring',
+    // State shadows (nm-01): none in the default theme; a theme such as
+    // Neumorphism sets --shadow-control*. They stack with the focus ring.
+    'shadow-control hover:not-disabled:not-aria-disabled:shadow-control-hover active:not-disabled:not-aria-disabled:shadow-control-pressed',
     // Color/border/shadow transitions use a plain ease-enter — no overshoot.
     // Transform (the press scale) uses Material's "standard" easing
     // (cubic-bezier(0.4,0,0.2,1)) on both press and release.
+    // raw-ok: the 220ms press spring is the one documented off-scale duration (globals.css, Motion).
     '[transition:background-color_var(--transition-duration-standard)_var(--ease-enter),border-color_var(--transition-duration-standard)_var(--ease-enter),box-shadow_var(--transition-duration-standard)_var(--ease-enter),transform_220ms_var(--ease-spring)]',
     'active:not-disabled:not-aria-disabled:[transition:background-color_var(--transition-duration-standard)_var(--ease-enter),border-color_var(--transition-duration-standard)_var(--ease-enter),box-shadow_var(--transition-duration-standard)_var(--ease-enter),transform_var(--transition-duration-standard)_var(--ease-press)]',
     // motion-safe: scale only applies if the user hasn't asked for
@@ -683,6 +698,22 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) {
+    // Label changes ("Save changes" -> "Saving…" -> "Saved") are spoken through the
+    // shared announcer (WCAG 4.1.3). An aria-live span inside the button was not
+    // enough: VoiceOver with Safari stays silent when the region sits in the
+    // focused button itself (found in the manual pass, 2026-10-27). The first
+    // render is never announced, and neither is a return to that resting label
+    // ("Copied" -> "Copy" after the reset): it cut off the message before it.
+    // Text inside aria-hidden (a width-reserving copy of another label) is skipped.
+    const labelRef = useRef<HTMLSpanElement>(null);
+    const lastLabel = useRef<string | null>(null);
+    const restLabel = useRef<string | null>(null);
+    useEffect(() => {
+      const text = labelRef.current ? spokenText(labelRef.current) : '';
+      if (restLabel.current === null && text) restLabel.current = text;
+      if (lastLabel.current !== null && text && text !== lastLabel.current && text !== restLabel.current) announce(text);
+      lastLabel.current = text;
+    });
     // Loading blocks the button the soft way: native `disabled` would drop
     // focus to the page while the action runs (WCAG 2.4.3).
     const blocked = softDisabled || loading;
@@ -802,13 +833,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           ) : (
             decorativeIcon(leftIcon)
           )}
-          {/* aria-live: announces label changes (e.g. "Save changes" →
-              "Saving…" → "Saved") to screen readers — without it those
-              transitions are silent to anyone not looking at the screen.
-              Harmless for buttons whose text never changes, since
-              aria-live only speaks up on actual changes. */}
+          {/* The label; its changes are announced by the effect above. */}
           {!iconOnly && (
-            <span aria-live="polite" aria-atomic="true">
+            <span ref={labelRef}>
               {children}
               {/* Same text node run as the label (no whitespace between the
                   spans), so the name reads "Drafts, 3 drafts" — a separate

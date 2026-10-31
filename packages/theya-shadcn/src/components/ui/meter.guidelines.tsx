@@ -14,6 +14,7 @@ export const meterGuidelines: ComponentGuidelines = {
     { part: 'Label', description: 'what is measured.' },
     { part: 'Value', description: <>formatted with <C>format</C> (percent, GB…); hide with <C>showValue={'{false}'}</C> only if the label says it.</>, optional: true },
     { part: 'Bar', description: <>fill by <C>value</C> between <C>min</C> and <C>max</C>; <C>tone</C> from how critical the level is.</> },
+    { part: 'Thresholds', description: <>a tick and a short label per limit (<C>thresholds</C>); reaching one switches the fill to its <C>tone</C>, warning by default.</>, optional: true },
   ],
   doDont: [
     {
@@ -41,6 +42,8 @@ export const meterGuidelines: ComponentGuidelines = {
     <>Native <C>role="meter"</C> with min / max / now. Use <C>getValueLabel</C> for words where they help (“Nearly full”).</>,
     <>Without a visible <C>label</C>, pass <C>aria-label</C>.</>,
     'The tone isn’t the only signal — the value or label must say the level.',
+    <>With <C>thresholds</C> the aria text names the range and the nearest limits (“1.1 g of 3 g, below the 2 g threshold”); a <C>getValueLabel</C> replaces it.</>,
+    'Keep threshold labels short (a value or two words): they sit on one line under the bar.',
     <>For percent pass a fraction with <C>max={'{1}'}</C>; the component warns about 0.38 of 100.</>,
   ],
 };

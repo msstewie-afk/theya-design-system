@@ -23,6 +23,7 @@ import type { StatusTone } from './status-dot';
 import { ToggleGroup, ToggleGroupItem } from './toggle-group';
 import { useTheyaI18n } from '../../lib/i18n';
 import { useMediaQuery } from './use-media-query';
+import { announce } from '../../lib/announce';
 
 /**
  * Scheduler — events on a calendar grid: maintenance windows, bookings,
@@ -95,6 +96,11 @@ const TONE: Record<StatusTone, string> = {
   danger: 'bg-[var(--color-bg-danger-bg-danger-subtle)] border-[var(--color-border-border-danger)]',
   neutral: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] border-[var(--color-border-border-neutral)]',
 };
+
+/** Visible "Today" next to the current day in the phone week list: the link color alone is 2.62:1 against normal text (WCAG 1.4.1). */
+function TodayMark({ label }: { label: string }) {
+  return <span className="font-normal text-[var(--color-text-text-subtle)]"> · {label}</span>;
+}
 
 const STEP = 15; // minutes
 const snap = (min: number) => Math.round(min / STEP) * STEP;
@@ -236,6 +242,15 @@ export function Scheduler({
             return isSameMonth(s, e) ? `${fmt.dayShort.format(s)} – ${fmt.dayNum.format(e)}, ${e.getFullYear()}` : `${fmt.dayShort.format(s)} – ${fmt.dayShort.format(e)}, ${e.getFullYear()}`;
           })();
 
+  // The new range is announced through the shared announcer. As aria-live on
+  // the heading it wasn't spoken in Safari + VoiceOver (2026-10-29): the
+  // heading re-renders together with the whole grid.
+  const lastTitle = useRef(title);
+  useEffect(() => {
+    if (title !== lastTitle.current) announce(title);
+    lastTitle.current = title;
+  }, [title]);
+
   const step = (dir: 1 | -1) => setDate(view === 'month' ? addMonths(date, dir) : view === 'week' ? addWeeks(date, dir) : addDays(date, dir));
   const prevLabel = t.scheduler.previous[view];
   const nextLabel = t.scheduler.next[view];
@@ -258,7 +273,7 @@ export function Scheduler({
         </div>
         {/* Phones: the range gets its own row under the buttons — beside them
             it truncated to "Oct…". */}
-        <h2 className="min-w-0 flex-1 truncate text-heading-2xs text-[var(--color-text-text)] max-sm:order-last max-sm:basis-full" aria-live="polite">
+        <h2 className="min-w-0 flex-1 truncate text-heading-2xs text-[var(--color-text-text)] max-sm:order-last max-sm:basis-full">
           {title}
         </h2>
         {views.length > 1 && (
@@ -391,10 +406,12 @@ function WeekList({
                   )}
                 >
                   {fmt.weekdayLong.format(d)}, {fmt.dayShort.format(d)}
+                  {today && <TodayMark label={t.scheduler.today} />}
                 </button>
               ) : (
                 <span className={today ? 'text-[var(--color-text-text-link)]' : 'text-[var(--color-text-text)]'}>
                   {fmt.weekdayLong.format(d)}, {fmt.dayShort.format(d)}
+                  {today && <TodayMark label={t.scheduler.today} />}
                 </span>
               )}
             </h3>
@@ -406,7 +423,7 @@ function WeekList({
                       event={e}
                       label={e.allDay ? t.scheduler.allDayEvent(String(e.title)) : `${e.title}, ${fmt.dayLong.format(d)}, ${timeRange(e)}`}
                       onClick={() => onEventClick?.(e)}
-                      className="flex min-h-11 flex-col justify-center px-2.5 py-1.5"
+                      className="flex min-h-11 flex-col justify-center px-3 py-1.5"
                     >
                       <span className="truncate text-body-s font-medium">{e.title}</span>
                       <span className="text-body-xs font-semibold">{e.allDay ? t.scheduler.allDay : timeRange(e)}</span>
@@ -536,7 +553,7 @@ function TimeGrid({
               <span
                 className={cn(
                   'flex size-7 items-center justify-center rounded-full text-body-m font-medium',
-                  today ? 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)]' : 'text-[var(--color-text-text)]',
+                  today ? 'bg-[var(--color-bg-primary-bg-primary)] [[data-theme=dark]_&]:border [[data-theme=dark]_&]:border-solid [[data-theme=dark]_&]:border-[var(--color-border-border-primary)] text-[var(--color-text-text-on-primary)]' : 'text-[var(--color-text-text)]',
                 )}
               >
                 {fmt.dayNum.format(d)}
@@ -667,9 +684,10 @@ function TimeGrid({
                     );
                   })}
                   {today && nowTop >= 0 && nowTop <= 24 * hourHeight && (
+                    // icon-danger, not bg-danger: the dark fill is 1.84:1 on the surface, icon-danger 4.34:1 (WCAG 1.4.11). Same color in light.
                     <div aria-hidden className="pointer-events-none absolute inset-x-0 z-10" style={{ top: nowTop }}>
-                      <div className="absolute -start-1 -top-1 size-2 rounded-full bg-[var(--color-bg-danger-bg-danger)]" />
-                      <div className="h-0.5 -translate-y-1/2 bg-[var(--color-bg-danger-bg-danger)]" />
+                      <div className="absolute -start-1 -top-1 size-2 rounded-full bg-[var(--color-icon-icon-danger)]" />
+                      <div className="h-0.5 -translate-y-1/2 bg-[var(--color-icon-icon-danger)]" />
                     </div>
                   )}
                 </div>
@@ -756,7 +774,7 @@ function MonthGrid({
               <span
                 className={cn(
                   'flex size-6 items-center justify-center self-end rounded-full text-body-s',
-                  today ? 'bg-[var(--color-bg-primary-bg-primary)] font-medium text-[var(--color-text-text-on-primary)]' : inMonth ? 'text-[var(--color-text-text)]' : 'text-[var(--color-text-text-subtle)]',
+                  today ? 'bg-[var(--color-bg-primary-bg-primary)] [[data-theme=dark]_&]:border [[data-theme=dark]_&]:border-solid [[data-theme=dark]_&]:border-[var(--color-border-border-primary)] font-medium text-[var(--color-text-text-on-primary)]' : inMonth ? 'text-[var(--color-text-text)]' : 'text-[var(--color-text-text-subtle)]',
                 )}
               >
                 {fmt.dayNum.format(d)}

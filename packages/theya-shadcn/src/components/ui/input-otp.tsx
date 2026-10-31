@@ -60,7 +60,7 @@ function InputOTPSlot({ index, className, ...props }: React.ComponentProps<'div'
         // and its own corners, instead of first/last owning the ends.
         'relative flex h-10 w-10 items-center justify-center border border-solid',
         'rounded-[var(--size-border-radius-border-radius-lg)]',
-        'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
+        'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
         // Matches TextField's own disabled treatment (default border +
         // bg-neutral-subtler + disabled text, italic), not a blanket opacity.
         'group-has-[:disabled]:border-[var(--color-border-border)]',

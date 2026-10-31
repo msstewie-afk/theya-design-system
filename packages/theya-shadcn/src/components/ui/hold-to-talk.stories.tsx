@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { HoldToTalk } from './hold-to-talk';
 import { holdToTalkGuidelines } from './hold-to-talk.guidelines';
 import { PromptArea } from './prompt-area';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * HoldToTalk — push-to-talk for a prompt: hold to speak, release to send, slide off
@@ -40,6 +42,32 @@ export const Default: Story = {
         <span className="font-body text-body-s text-[var(--color-text-text-subtle)]">{log}</span>
       </div>
     );
+  },
+  // Keyboard: hold Space to talk, release to send; Escape while holding cancels.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: 'Hold to talk' });
+    // user-event doesn't deliver the keyup of a held Space to a button whose
+    // keydown was prevented; a real keyboard does, so release it natively.
+    const releaseSpace = () => button.dispatchEvent(new KeyboardEvent('keyup', { key: ' ', code: 'Space', bubbles: true }));
+    resetFocus();
+    await tabTo(button);
+    await userEvent.keyboard('{ >}');
+    await waitFor(() => expect(button).toHaveAttribute('aria-pressed', 'true'));
+    await expect(canvas.getByText('Recording…')).toBeVisible();
+    releaseSpace();
+    await waitFor(() => expect(button).toHaveAttribute('aria-pressed', 'false'));
+    await expect(canvas.getByText('Sent')).toBeVisible();
+
+    await userEvent.keyboard('{ >}');
+    await waitFor(() => expect(button).toHaveAttribute('aria-pressed', 'true'));
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(button).toHaveAttribute('aria-pressed', 'false'));
+    await expect(canvas.getByText('Cancelled')).toBeVisible();
+    // Releasing Space after a cancel doesn't send.
+    releaseSpace();
+    await expect(canvas.getByText('Cancelled')).toBeVisible();
+    await userEvent.keyboard('{/ }'); // let user-event's own key state go, too
   },
 };
 

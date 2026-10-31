@@ -1,6 +1,6 @@
 'use client';
 
-import { Children, useEffect, useRef, useState, type ComponentProps, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
+import { Children, useEffect, useId, useRef, useState, type ComponentProps, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
 import { ArrowLeft, ArrowRight, RefreshDouble } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
 import { inertProps } from '../../../lib/inert';
@@ -58,6 +58,22 @@ function useDrag(onMove: (dx: number) => void, onEnd: (dx: number) => void) {
   };
 }
 
+/** The name of the slide in front, read from its heading, for the position announcement ("2 of 8: Research"). */
+function useSlideName(stage: React.RefObject<HTMLElement | null>, index: number) {
+  const [name, setName] = useState<string | undefined>(undefined);
+  useEffect(() => {
+    const h = stage.current?.querySelector(`[data-slide="${index}"] :is(h2, h3, h4)`);
+    setName(h?.textContent?.trim() || undefined);
+  }, [stage, index]);
+  return name;
+}
+
+/** Props that make a carousel's drag-and-keys stage a named group with a hint about the arrow keys. */
+function useStageProps(hintId: string) {
+  const { t } = useTheyaI18n();
+  return { role: 'group', 'aria-label': t.carousel.slides, 'aria-describedby': hintId } as const;
+}
+
 // ---------------------------------------------------------------------------
 
 export interface RingCarouselProps extends Omit<ComponentProps<'section'>, 'children'> {
@@ -100,6 +116,11 @@ export function RingCarousel({ cardWidth = 280, lean: leanProp, center, shape = 
   const [dragging, setDragging] = useState(false);
   const base = useRef(0);
   const front = mod(Math.round(-angle / step), n);
+  const { t } = useTheyaI18n();
+  const uid = useId();
+  const stageRef = useRef<HTMLDivElement>(null);
+  const stageProps = useStageProps(`${uid}-hint`);
+  const frontName = useSlideName(stageRef, front);
 
   const go = (dir: 1 | -1) => setAngle((a) => clampAngle(Math.round(a / step) * step - dir * step));
   const drag = useDrag(
@@ -131,7 +152,9 @@ export function RingCarousel({ cardWidth = 280, lean: leanProp, center, shape = 
       {...props}
     >
       <div
+        ref={stageRef}
         tabIndex={0}
+        {...stageProps}
         onKeyDown={onKey}
         {...drag}
         className="relative h-[26rem] w-full cursor-grab touch-pan-y select-none overflow-hidden rounded-[var(--size-border-radius-border-radius-5xl)] outline-none focus-visible:focus-ring active:cursor-grabbing"
@@ -160,6 +183,7 @@ export function RingCarousel({ cardWidth = 280, lean: leanProp, center, shape = 
                   <div
                     key={i}
                     role="group"
+                    data-slide={i}
                     aria-roledescription="slide"
                     aria-label={`${i + 1} of ${n}`}
                     aria-hidden={!isFront || undefined}
@@ -180,6 +204,7 @@ export function RingCarousel({ cardWidth = 280, lean: leanProp, center, shape = 
                 <div
                   key={i}
                   role="group"
+                  data-slide={i}
                   aria-roledescription="slide"
                   aria-label={`${i + 1} of ${n}`}
                   aria-hidden={!isFront || undefined}
@@ -199,7 +224,12 @@ export function RingCarousel({ cardWidth = 280, lean: leanProp, center, shape = 
         </div>
       </div>
       <Arrows onPrev={() => go(-1)} onNext={() => go(1)} />
-      <p className="sr-only" aria-live="polite">{`${front + 1} of ${n}`}</p>
+      <p id={`${uid}-hint`} className="sr-only">
+        {t.carousel.keysHint}
+      </p>
+      <p className="sr-only" aria-live="polite">
+        {t.carousel.position(front + 1, n, frontName)}
+      </p>
     </section>
   );
 }
@@ -222,11 +252,15 @@ export function FanCarousel({ defaultIndex, className, children, 'aria-label': l
   const cards = Children.toArray(children);
   const n = cards.length;
   const [active, setActive] = useState(defaultIndex ?? Math.floor(n / 2));
+  const { t } = useTheyaI18n();
+  const uid = useId();
   const [dx, setDx] = useState(0);
   // The first time it comes into view the fan deals itself out: the middle
   // card rises from below, then the others open out to its sides (PayCard).
   const stage = useRef<HTMLDivElement>(null);
   const seen = useInView(stage, { threshold: 0.35 });
+  const stageProps = useStageProps(`${uid}-hint`);
+  const activeName = useSlideName(stage, active);
   const [dealing, setDealing] = useState(true);
   useEffect(() => {
     if (!seen) return;
@@ -251,7 +285,7 @@ export function FanCarousel({ defaultIndex, className, children, 'aria-label': l
 
   return (
     <section data-slot="fan-carousel" aria-roledescription="carousel" aria-label={label} className={cn('flex w-full flex-col items-center gap-8', className)} {...props}>
-      <div ref={stage} tabIndex={0} onKeyDown={onKey} {...drag} className="relative h-[30rem] w-full cursor-grab touch-pan-y select-none overflow-hidden outline-none focus-visible:focus-ring active:cursor-grabbing">
+      <div ref={stage} tabIndex={0} {...stageProps} onKeyDown={onKey} {...drag} className="relative h-[30rem] w-full cursor-grab touch-pan-y select-none overflow-hidden outline-none focus-visible:focus-ring active:cursor-grabbing">
         {cards.map((c, i) => {
           // Distance from the middle, following the finger while dragging.
           const d = i - active + dx / -280;
@@ -261,6 +295,7 @@ export function FanCarousel({ defaultIndex, className, children, 'aria-label': l
             <div key={i} className="absolute left-1/2 top-6 w-[min(22rem,72vw)]" style={{ zIndex: 100 - Math.round(ad * 10) }}>
               <div
                 role="group"
+                data-slide={i}
                 aria-roledescription="slide"
                 aria-label={`${i + 1} of ${n}`}
                 aria-hidden={!isActive || undefined}
@@ -294,11 +329,16 @@ export function FanCarousel({ defaultIndex, className, children, 'aria-label': l
         <Arrows onPrev={() => go(-1)} onNext={() => go(1)} />
         <ol aria-hidden className="m-0 flex list-none gap-2 p-0">
           {cards.map((_, i) => (
-            <li key={i} className={cn('h-2 rounded-full transition-[width,background-color] duration-moderate', i === active ? 'w-6 bg-[var(--color-icon-icon-primary)]' : 'w-2 bg-[var(--color-border-border-strong)]')} />
+            <li key={i} className={cn('h-2 rounded-full motion-safe:transition-[width,background-color] motion-safe:duration-moderate', i === active ? 'w-6 bg-[var(--color-icon-icon-primary)]' : 'w-2 bg-[var(--color-border-border-strong)]')} />
           ))}
         </ol>
       </div>
-      <p className="sr-only" aria-live="polite">{`${active + 1} of ${n}`}</p>
+      <p id={`${uid}-hint`} className="sr-only">
+        {t.carousel.keysHint}
+      </p>
+      <p className="sr-only" aria-live="polite">
+        {t.carousel.position(active + 1, n, activeName)}
+      </p>
     </section>
   );
 }
@@ -337,15 +377,15 @@ export function FolderReveal({ href, label, meta, items, className, ...props }: 
       {...props}
     >
       {/* Back of the folder, with its tab. */}
-      <span aria-hidden className="absolute inset-x-0 bottom-0 top-6 rounded-[var(--size-border-radius-border-radius-4xl)] rounded-tl-none bg-[var(--color-bg-primary-bg-primary)] brightness-[0.85]" />
-      <span aria-hidden className="absolute left-0 top-0 h-8 w-28 rounded-t-[var(--size-border-radius-border-radius-2xl)] bg-[var(--color-bg-primary-bg-primary)] brightness-[0.85]" />
+      <span aria-hidden className="absolute inset-x-0 bottom-0 top-6 rounded-[var(--size-border-radius-border-radius-4xl)] rounded-ss-none bg-[var(--color-bg-primary-bg-primary)] brightness-[0.85]" />
+      <span aria-hidden className="absolute start-0 top-0 h-8 w-28 rounded-t-[var(--size-border-radius-border-radius-2xl)] bg-[var(--color-bg-primary-bg-primary)] brightness-[0.85]" />
       {/* The cards: dropped in once seen, fanned out on hover / focus. */}
       {three.map((item, i) => (
         <span
           key={i}
           aria-hidden
           className={cn(
-            'absolute left-1/2 top-10 -ml-28 transition-[translate,rotate,scale,opacity] duration-slower ease-spring motion-reduce:transition-none',
+            'absolute start-1/2 top-10 -ms-28 transition-[translate,rotate,scale,opacity] duration-slower ease-spring motion-reduce:transition-none',
             // A fanned card under the pointer comes to the front, straight and a little larger,
             // clear of the pocket, so it can be read. (Important: beats the fan and the inline z-index.)
             'hover:!z-20 hover:!-translate-y-[88%] hover:!rotate-0 hover:!scale-105',
@@ -523,7 +563,7 @@ export function ParallaxLayer({ depth = 0.5, className, style, ...props }: Paral
   return (
     <div
       data-slot="parallax-layer"
-      className={cn('transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform motion-reduce:!transform-none', className)}
+      className={cn('transition-transform duration-slower ease-glide will-change-transform motion-reduce:!transform-none', className)}
       style={
         {
           transform: `translate3d(calc(var(--px) * var(--parallax) * ${depth}), calc(var(--py) * var(--parallax) * ${depth}), 0) rotateY(calc(var(--px) * ${depth * 8}deg)) rotateX(calc(var(--py) * ${-depth * 8}deg))`,

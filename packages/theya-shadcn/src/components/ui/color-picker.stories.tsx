@@ -201,13 +201,20 @@ export const Field: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
     const input = canvas.getByLabelText('Primary color');
-    // A typed hex (with or without #) is normalized on Enter; garbage is discarded.
+    // A typed hex (with or without #) is normalized on Enter.
     await userEvent.clear(input);
     await userEvent.type(input, 'e8833a{Enter}');
     await expect(input).toHaveValue('#E8833A');
+    // Text that isn't a hex stays, marked invalid with the reason under it
+    // (WCAG 3.3.1); Esc puts the last color back.
     await userEvent.clear(input);
     await userEvent.type(input, 'nope{Enter}');
+    await expect(input).toHaveValue('nope');
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await expect(input).toHaveAccessibleDescription(expect.stringContaining('Enter a hex color: 3 or 6 characters, 0–9 and A–F.'));
+    await userEvent.keyboard('{Escape}');
     await expect(input).toHaveValue('#E8833A');
+    await expect(input).not.toHaveAttribute('aria-invalid');
     // The swatch opens the picker; Esc closes it and returns focus to the swatch.
     const trigger = canvas.getAllByRole('button', { name: 'Choose color for Primary color' })[0];
     await userEvent.click(trigger);
@@ -226,4 +233,32 @@ export const HexOnly: Story = {
   name: 'Hex only',
   args: { formats: ['hex'] },
   render: Default.render,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const hex = canvas.getByRole('textbox', { name: 'Hex' });
+    const before = (hex as HTMLInputElement).value;
+    // Unreadable text puts the last color back, and a message says what was expected.
+    await userEvent.clear(hex);
+    await userEvent.type(hex, 'zz{Enter}');
+    await expect(hex).toHaveValue(before);
+    await expect(canvas.getByRole('alert')).toHaveTextContent('Enter a hex color: 3 or 6 characters, 0–9 and A–F.');
+    await expect(hex).toHaveAccessibleDescription('Enter a hex color: 3 or 6 characters, 0–9 and A–F.');
+    // A valid color clears it.
+    await userEvent.clear(hex);
+    await userEvent.type(hex, '2f62d1{Enter}');
+    await expect(canvas.queryByRole('alert')).not.toBeInTheDocument();
+  },
+};
+
+/** A hex it can't read is put back, and a message under the fields says what was expected until a valid value is entered (WCAG 3.3.1). */
+export const InvalidHex: Story = {
+  name: 'Invalid hex',
+  args: { views: ['custom'], defaultValue: '#3b6fd6' },
+  play: async ({ canvasElement }) => {
+    const hex = within(canvasElement).getByRole('textbox', { name: 'Hex' });
+    await userEvent.clear(hex);
+    await userEvent.type(hex, 'zzz{Enter}');
+    await expect(hex).toHaveValue('#3B6FD6');
+    await waitFor(() => expect(hex).toHaveAccessibleDescription(/3 or 6 characters/));
+  },
 };

@@ -79,7 +79,8 @@ export function BookmarksLiveDemo({ className }: { className?: string }) {
             </ToggleGroupItem>
           ))}
         </ToggleGroup>
-        <div className="flex min-h-[16rem] flex-col p-2">
+        {/* A fixed height: the list scrolls inside instead of resizing the demo, so the text beside it never jumps while filtering. A Tab stop, so the keyboard can scroll it. */}
+        <div role="region" tabIndex={0} aria-label="Results" className="flex h-[22rem] flex-col overflow-y-auto p-2 outline-none focus-visible:focus-ring">
           <p id={`${uid}-count`} aria-live="polite" className="m-0 px-2 py-1 font-body text-body-s text-[var(--color-text-text-subtle)]">
             {results.length === 0 ? 'No links match' : `${results.length} ${results.length === 1 ? 'link' : 'links'}`}
           </p>

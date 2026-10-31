@@ -42,14 +42,14 @@ const itemVariants = cva(
   [
     'group/swatch relative shrink-0 cursor-pointer p-0 outline-none disabled:cursor-not-allowed disabled:opacity-40',
     // Selection ring — a pseudo border with a gap, so it reads on any swatch color.
-    'before:pointer-events-none before:absolute before:rounded-[inherit] before:border-2 before:border-solid before:border-[var(--color-bg-primary-bg-primary)] before:opacity-0 before:content-[""]',
+    'before:pointer-events-none before:absolute before:rounded-[inherit] before:border-2 before:border-solid before:border-[var(--color-border-border-primary)] before:opacity-0 before:content-[""]',
     // The selected state reads from ARIA, not data-state: with tooltips on, Radix's
     // TooltipTrigger (asChild) overwrites the item's data-state with its own
     // ("closed" / "delayed-open"), which hid the selection ring.
     'aria-checked:before:opacity-100 aria-pressed:before:opacity-100',
     // The picked swatch springs up a size (Kinetics' Swatch Picker, MIT).
     'transition-[scale] duration-slower ease-spring aria-checked:scale-110 aria-pressed:scale-110 motion-reduce:transition-none',
-    'not-disabled:hover:before:opacity-100 not-disabled:hover:before:border-[var(--color-border-border-neutral)] aria-checked:hover:before:border-[var(--color-bg-primary-bg-primary)] aria-pressed:hover:before:border-[var(--color-bg-primary-bg-primary)]',
+    'not-disabled:hover:before:opacity-100 not-disabled:hover:before:border-[var(--color-border-border-neutral)] aria-checked:hover:before:border-[var(--color-border-border-primary)] aria-pressed:hover:before:border-[var(--color-border-border-primary)]',
     // Focus as an outline outside the selection ring (box-shadow would sit under it).
     'focus-visible:outline-4 focus-visible:outline-solid focus-visible:outline-[var(--color-focus-focus-ring)]',
   ],
@@ -87,12 +87,14 @@ function SwatchFill({ option }: { option: SwatchOption }) {
       <span
         aria-hidden
         style={fillStyle(option)}
-        // Hairline inner edge keeps white/black swatches visible on a same-colored page.
-        className="absolute inset-0 rounded-[inherit] shadow-[inset_0_0_0_1px_var(--black-a200)] [[data-theme=dark]_&]:shadow-[inset_0_0_0_1px_var(--white-a300)]"
+        // Inner edge in the field-border color, 3:1 on the surface in both themes
+        // (WCAG 1.4.11): a pale swatch on white or a dark one on the dark surface
+        // still shows its shape. The translucent hairline it replaces was ~1.3:1.
+        className="absolute inset-0 rounded-[inherit] shadow-[inset_0_0_0_1px_var(--color-border-border)]"
       />
       {option.unavailable && (
         <span aria-hidden className="absolute inset-0 overflow-hidden rounded-[inherit]">
-          <span className="absolute left-1/2 top-1/2 h-[2px] w-[150%] -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-[var(--color-white)] shadow-[0_0_0_1px_var(--black-a300)]" />
+          <span className="absolute left-1/2 top-1/2 h-[2px] w-[150%] -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-[var(--color-white)] shadow-[0_0_0_1px_var(--color-gray-gray-400)]" />
         </span>
       )}
     </>

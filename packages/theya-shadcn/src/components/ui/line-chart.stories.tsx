@@ -43,6 +43,7 @@ const meta = {
     labelPrefix: { control: 'text', description: 'Prefix before the point label in the tooltip.' },
     format: { control: false, description: 'Custom value formatter; overrides `unit`.' },
     legend: { control: 'boolean', description: 'Show the series legend.' },
+    seriesPatterns: { control: 'boolean', description: 'Each series also gets its own dash (WCAG 1.4.1). Default true.' },
     showXAxis: { control: 'boolean', description: 'Show the x-axis labels.' },
     showYAxis: { control: 'boolean', description: 'Show the y-axis labels.' },
     ariaLabel: { control: 'text', description: 'Accessible summary of the comparison.' },

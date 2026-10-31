@@ -210,7 +210,9 @@ export function Attachment({
   const borderToneClass = hasError
     ? 'border-[var(--color-border-border-danger)]'
     : selected
-      ? 'border-[var(--color-border-border-primary)]'
+      ? // Selected is more than a hue change (WCAG 1.4.1): the edge doubles to 2px
+        // (an inset 1px line inside the 1px border, so the size doesn't shift).
+        'border-[var(--color-border-border-primary)] shadow-[inset_0_0_0_1px_var(--color-border-border-primary)]'
       : 'border-[var(--color-border-border-subtle)]';
   const surfaceBgClass = hasError
     ? 'bg-[var(--color-bg-danger-bg-danger-subtle)]'
@@ -269,6 +271,9 @@ export function Attachment({
       // the role-less outer <div> was invalid (axe aria-allowed-attr,
       // 2026-09-28 full test-runner pass).
       aria-pressed={ariaPressed}
+      // Without a toggle (File: a click replaces the file), `selected` still has to
+      // reach assistive tech, as it does on href rows.
+      aria-current={selected && ariaPressed === undefined ? 'true' : undefined}
       className="absolute inset-0 outline-none"
     />
   ) : null;
@@ -319,7 +324,7 @@ export function Attachment({
         )}
       >
         {clickOverlay}
-        <span className={cn('flex shrink-0 items-center justify-center size-4 [&>svg]:size-full', iconColorClass)}>
+        <span aria-hidden="true" className={cn('flex shrink-0 items-center justify-center size-4 [&>svg]:size-full', iconColorClass)}>
           {kindIcon(type, previewUrl)}
         </span>
         <span className="min-w-0 flex flex-col items-start">
@@ -418,7 +423,7 @@ export function Attachment({
           {previewUrl ? (
             <img src={previewUrl} alt="" className="size-full object-cover" />
           ) : (
-            <span className={cn('flex items-center justify-center size-4 [&>svg]:size-full', iconColorClass)}>
+            <span aria-hidden="true" className={cn('flex items-center justify-center size-4 [&>svg]:size-full', iconColorClass)}>
               {kindIcon(type, previewUrl)}
             </span>
           )}
@@ -480,7 +485,7 @@ export function Attachment({
         {previewUrl ? (
           <img src={previewUrl} alt="" className="size-full object-cover" />
         ) : (
-          <span className={cn('size-6 [&>svg]:size-full', iconColorClass)}>
+          <span aria-hidden="true" className={cn('size-6 [&>svg]:size-full', iconColorClass)}>
             {kindIcon(type, previewUrl)}
           </span>
         )}

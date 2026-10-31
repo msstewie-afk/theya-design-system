@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Dropzone, type StagedFile } from './dropzone';
 import { dropzoneGuidelines } from './dropzone.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 const meta: Meta<typeof Dropzone> = {
   title: 'Files/Dropzone',
@@ -99,12 +100,15 @@ export const Playground: Story = {
     await expect(await canvas.findByText('chain.crt')).toBeInTheDocument();
 
     // Removing a row moves focus to the row that took its place.
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove bad-file.exe' }));
+    resetFocus();
+    await tabTo(canvas.getByRole('button', { name: 'Remove bad-file.exe' }));
+    await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(canvas.queryByText('bad-file.exe')).toBeNull());
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove server.pem' })).toHaveFocus());
 
     // Removing the last row falls back to the previous one.
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove chain.crt' }));
+    await tabTo(canvas.getByRole('button', { name: 'Remove chain.crt' }));
+    await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove server.pem' })).toHaveFocus());
   },
 };
@@ -227,5 +231,39 @@ export const AcceptFilter: Story = {
     drop(canvasElement, [pem(), new File(['w'], 'photo.png', { type: 'image/png' })]);
     await expect(onAccepted).toHaveBeenLastCalledWith(['server.pem']);
     await expect(onRejected).toHaveBeenLastCalledWith(['photo.png']);
+  },
+};
+
+function UploadDemo() {
+  const [loading, setLoading] = useState(false);
+  const [uploaded, setUploaded] = useState<{ name: string; uploadedAt: string } | undefined>();
+  return (
+    <div className="w-full max-w-[480px]">
+      <Dropzone
+        aria-label="Upload TLS certificate"
+        hint="PEM or CRT up to 1 MB"
+        loading={loading}
+        successFile={uploaded}
+        onFiles={(files) => {
+          setUploaded(undefined);
+          setLoading(true);
+          window.setTimeout(() => {
+            setLoading(false);
+            setUploaded({ name: files[0]?.name ?? 'certificate.pem', uploadedAt: 'just now' });
+          }, 1500);
+        }}
+      />
+    </div>
+  );
+}
+
+/** Pick a file: "Uploading…", then the file's name, are announced as the zone changes (WCAG 4.1.3). */
+export const UploadFlow: Story = {
+  name: 'Upload flow',
+  render: () => <UploadDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.upload(canvasElement.querySelector<HTMLInputElement>('input[type=file]')!, new File(['x'], 'server.pem'));
+    await expect(await canvas.findByText('server.pem', {}, { timeout: 4000 })).toBeInTheDocument();
   },
 };

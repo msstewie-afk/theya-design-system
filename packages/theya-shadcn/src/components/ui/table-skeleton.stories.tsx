@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Table, TableHeader, TableBody, TableRow, TableHead } from './table';
 import { TableSkeletonRows } from './table-skeleton';
 import { tableSkeletonGuidelines } from './table-skeleton.guidelines';
+import { expect, userEvent } from '@storybook/test';
+import { resetFocus } from '../../test/keyboard';
 
 const meta: Meta<typeof TableSkeletonRows> = {
   title: 'Status & Feedback/TableSkeleton',
@@ -41,4 +43,13 @@ export const Default: Story = {
       </TableBody>
     </Table>
   ),
+  // Placeholders add no tab stops: the table's own scroll container is the
+  // only one (Table keeps it focusable), and the next Tab leaves the table.
+  play: async ({ canvasElement }) => {
+    resetFocus();
+    await userEvent.tab();
+    await expect(document.activeElement).toHaveAttribute('data-slot', 'table-container');
+    await userEvent.tab();
+    await expect(canvasElement.contains(document.activeElement)).toBe(false);
+  },
 };

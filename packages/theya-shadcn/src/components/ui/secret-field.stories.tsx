@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { SecretField } from './secret-field';
 import { secretFieldGuidelines } from './secret-field.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -58,11 +59,14 @@ export const Playground: Story = {
 
     const toggle = canvas.getByRole('button', { name: 'Show API key' });
     await expect(toggle).toHaveAttribute('aria-pressed', 'false');
-    await userEvent.click(toggle);
+    // Keyboard: Tab to Show, Enter reveals, Space hides again.
+    resetFocus();
+    await tabTo(toggle);
+    await userEvent.keyboard('{Enter}');
     await expect(canvas.getByText(KEY)).toBeInTheDocument();
     // Same name, state flips — not a renamed button.
     await expect(canvas.getByRole('button', { name: 'Show API key' })).toHaveAttribute('aria-pressed', 'true');
-    await userEvent.click(toggle);
+    await userEvent.keyboard(' ');
     await expect(canvasElement).not.toHaveTextContent(KEY);
 
     // Copy writes the full value even while masked, and confirms politely.

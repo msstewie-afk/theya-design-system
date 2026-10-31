@@ -176,7 +176,7 @@ export function WorkspaceLayout({
             ))}
           </SidebarNav>
           <SidebarFooter>
-            <div className="flex min-w-0 items-center gap-2.5">
+            <div className="flex min-w-0 items-center gap-2">
               <Avatar className="size-7">
                 <AvatarFallback className="text-body-xs">{userInitials}</AvatarFallback>
               </Avatar>

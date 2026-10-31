@@ -8,6 +8,7 @@ import { cn } from '../../lib/utils';
 import { Button } from './button';
 import { TextField } from './text-field';
 import { NumberField } from './number-field';
+import { FieldError } from './field';
 import { Calendar } from './calendar';
 import { Chip, ChipRemove } from './chip';
 import { Kbd } from './kbd';
@@ -194,6 +195,11 @@ export function FilterField({
   const textOperatorNeedsValue = textOperator !== 'is-present' && textOperator !== 'is-missing';
   const [dateDraft, setDateDraft] = useState<DateRange | undefined>(undefined);
   const [numberDraft, setNumberDraft] = useState<{ min: number | undefined; max: number | undefined }>({ min: undefined, max: undefined });
+  // Apply on an empty range used to do nothing at all (WCAG 3.3.1): now both
+  // fields turn invalid and a message says what's missing, until one changes.
+  const [rangeEmpty, setRangeEmpty] = useState(false);
+  const rangeErrorId = useId();
+  useEffect(() => setRangeEmpty(false), [numberDraft]);
   const inputRef = useRef<HTMLInputElement>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
   const listboxId = useId();
@@ -407,7 +413,7 @@ export function FilterField({
           className={cn(
             'flex min-h-[var(--size-size-control-size-control-2xl)] w-[25rem] max-w-full shrink flex-wrap items-center gap-1',
             'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid p-1',
-            'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
+            'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
             'transition-[border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
             'hover:not-data-[disabled]:border-[var(--color-border-border-primary)]',
             'focus-within:border-[var(--color-border-border-primary)]',
@@ -758,6 +764,8 @@ export function FilterField({
                     heightSize="sm"
                     widthSize="full"
                     aria-label={t.filterField.minimum(String(active.label))}
+                    aria-invalid={rangeEmpty || undefined}
+                    aria-describedby={rangeEmpty ? rangeErrorId : undefined}
                     decrementLabel={t.filterField.decreaseMin(String(active.label))}
                     incrementLabel={t.filterField.increaseMin(String(active.label))}
                   />
@@ -768,10 +776,13 @@ export function FilterField({
                     heightSize="sm"
                     widthSize="full"
                     aria-label={t.filterField.maximum(String(active.label))}
+                    aria-invalid={rangeEmpty || undefined}
+                    aria-describedby={rangeEmpty ? rangeErrorId : undefined}
                     decrementLabel={t.filterField.decreaseMax(String(active.label))}
                     incrementLabel={t.filterField.increaseMax(String(active.label))}
                   />
                 </div>
+                <FieldError id={rangeErrorId}>{rangeEmpty ? t.filterField.rangeEmpty : null}</FieldError>
                 <div className="flex justify-end">
                   <Button
                     appearance="filled"
@@ -780,9 +791,12 @@ export function FilterField({
                     // Not disabled on an empty draft: NumberField commits typed
                     // text on blur, so a typed "3" only lands here when this
                     // click blurs the field — a disabled Apply swallowed that
-                    // first click. An empty range is ignored instead.
+                    // first click. An empty range gets a message instead.
                     onClick={() => {
-                      if (numberDraft.min == null && numberDraft.max == null) return;
+                      if (numberDraft.min == null && numberDraft.max == null) {
+                        setRangeEmpty(true);
+                        return;
+                      }
                       applyFilter(active.key, encodeNumberRange(numberDraft.min, numberDraft.max));
                     }}
                   >

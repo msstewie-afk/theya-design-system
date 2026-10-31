@@ -3,6 +3,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { TickerList } from './ticker-list';
 import { Card, CardHeader, CardTitle, CardContent } from './card';
 import { tickerListGuidelines } from './ticker-list.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 const DEPLOYS = ['main → production', 'feature/checkout → staging', 'fix/rtl-icons → preview', 'main → staging', 'docs → preview', 'release/2.4 → production'];
 
@@ -58,7 +59,9 @@ export const Default: Story = {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       await expect(canvas.queryByRole('button', { name: 'Pause' })).toBeNull();
     } else {
-      await userEvent.click(canvas.getByRole('button', { name: 'Pause' }));
+      resetFocus();
+      await tabTo(canvas.getByRole('button', { name: 'Pause' }));
+      await userEvent.keyboard('{Enter}');
       await expect(canvas.getByRole('button', { name: 'Play' })).not.toHaveAttribute('aria-pressed');
     }
   },

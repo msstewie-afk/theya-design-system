@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, within } from '@storybook/test';
+import { useState } from 'react';
+import { expect, userEvent, within } from '@storybook/test';
 import { PasswordStrengthMeter } from './password-strength-meter';
+import { Password } from './password';
 import { passwordStrengthMeterGuidelines } from './password-strength-meter.guidelines';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
@@ -102,4 +104,25 @@ export const CustomRules: Story = {
       />
     </div>
   ),
+};
+
+function WithFieldDemo() {
+  const [value, setValue] = useState('');
+  return (
+    <div className="flex w-full max-w-[348px] flex-col gap-3">
+      <Password label="New password" autoComplete="new-password" value={value} onChange={(e) => setValue(e.target.value)} widthSize="full" />
+      <PasswordStrengthMeter value={value} />
+    </div>
+  );
+}
+
+/** Under a Password field: as you type, the strength ("Weak", "Good", "Strong") is announced when it changes. */
+export const WithPasswordField: Story = {
+  name: 'With a password field',
+  render: () => <WithFieldDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByLabelText('New password'), 'Seashell-2026');
+    await expect(canvasElement.querySelector('[aria-live="polite"]')).toHaveTextContent(/Strong/);
+  },
 };

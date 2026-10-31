@@ -8,6 +8,7 @@ import { Label } from '../../ui/label';
 import { Password } from '../../ui/password';
 import { TextField } from '../../ui/text-field';
 import { emailProblem } from '../../../lib/email';
+import { announce } from '../../../lib/announce';
 import { AuthFrame, AuthHeader, MIN_PASSWORD, passwordProblem } from './auth-shared';
 import { Link } from '../../ui/link';
 
@@ -69,6 +70,8 @@ export function PasswordReset({ appName = 'Theya', initialStep = 'request', defa
     }
     onRequest?.(email.trim());
     setWait(resendAfter);
+    // A resend stays on the same step, so no heading takes focus: say it (WCAG 4.1.3).
+    if (step === 'sent') announce(`Link sent again to ${email.trim()}.`);
     setStep('sent');
   };
 

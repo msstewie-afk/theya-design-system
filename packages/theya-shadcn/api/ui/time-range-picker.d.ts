@@ -18,9 +18,12 @@ export interface TimeRangePickerProps {
     endLabel?: string;
     'aria-label'?: string;
     'aria-labelledby'?: string;
+    'aria-invalid'?: boolean;
+    'aria-describedby'?: string;
+    onInvalidInput?: (text: string, message: string) => void;
     className?: string;
 }
-export declare function TimeRangePicker({ value, defaultValue, onChange, step, hourCycle, min, max, disabled, startLabel, endLabel, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, className, }: TimeRangePickerProps): import("react").JSX.Element;
+export declare function TimeRangePicker({ value, defaultValue, onChange, step, hourCycle, min, max, disabled, startLabel, endLabel, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-invalid': ariaInvalid, 'aria-describedby': ariaDescribedby, onInvalidInput, className, }: TimeRangePickerProps): import("react").JSX.Element;
 
 // Defaults
 // TimeRangePicker.endLabel = End time (localized: timeRangePicker.end)

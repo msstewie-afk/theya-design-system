@@ -1,3 +1,5 @@
+'use client';
+
 import { useId, type ComponentProps, type ReactNode } from 'react';
 import { cn } from '../../../lib/utils';
 import { Marquee } from '../../ui/marquee';

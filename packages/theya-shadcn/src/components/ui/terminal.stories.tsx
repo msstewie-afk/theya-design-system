@@ -1,8 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { Refresh } from 'iconoir-react';
 import { Terminal, TerminalLine, type TerminalLineData } from './terminal';
 import { Button } from './button';
 import { terminalGuidelines } from './terminal.guidelines';
+import { expect, userEvent, within } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * Terminal — a read-only console scrollback viewer. Renders a mono
@@ -84,6 +87,13 @@ export const Default: Story = {
     status: 'Connected · ssh-ed25519 · 22ms',
     live: 'polite',
     lines: sshLines,
+  },
+  // Keyboard: the output scrolls on its own, so it is a tab stop with a name.
+  play: async ({ canvasElement }) => {
+    const output = canvasElement.querySelector<HTMLElement>('[tabindex="0"]')!;
+    await expect(output).toHaveAccessibleName();
+    resetFocus();
+    await tabTo(output);
   },
 };
 
@@ -214,5 +224,43 @@ export const QuietStream: Story = {
       { id: 'q4', text: '198.51.100.2 POST /api/sites  201  88ms', level: 'dim' },
       { id: 'q5', text: '203.0.113.7 GET /favicon.ico  404  2ms', level: 'warn' },
     ],
+  },
+};
+
+function ReconnectDemo() {
+  const [connection, setConnection] = useState<'connected' | 'connecting' | 'down'>('down');
+  const reconnect = () => {
+    setConnection('connecting');
+    window.setTimeout(() => setConnection('connected'), 2000);
+  };
+  return (
+    <div className="flex w-full max-w-[480px] flex-col gap-3">
+      <Terminal
+        user="acme"
+        host="web-04"
+        ariaLabel="web-04 session"
+        connection={connection}
+        bodyClassName="h-28"
+        lines={[{ id: 'r1', text: connection === 'connected' ? 'acme@web-04:~$ uptime' : 'Error: connection refused on web-04', level: connection === 'connected' ? 'cmd' : 'err' }]}
+        tools={
+          <Button size="sm" appearance="outlined" tone="neutral" leftIcon={<Refresh />} onClick={reconnect} disabled={connection === 'connecting'}>
+            Reconnect
+          </Button>
+        }
+      />
+      <Button className="self-start" appearance="ghost" tone="neutral" onClick={() => setConnection('down')}>
+        Drop the connection
+      </Button>
+    </div>
+  );
+}
+
+/** The header's connection line is a status region: "Connecting…" and "Connected" are announced as they change (WCAG 4.1.3). */
+export const Reconnect: Story = {
+  render: () => <ReconnectDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Reconnect' }));
+    await expect(await canvas.findByText(/Connected/, {}, { timeout: 4000 })).toBeInTheDocument();
   },
 };

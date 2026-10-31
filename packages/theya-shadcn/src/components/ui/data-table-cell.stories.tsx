@@ -95,7 +95,7 @@ function InputCell({ label, initial = '', lines, ...rest }: { label: string; ini
   return <DataTableCell kind="input" value={value} onValueChange={setValue} label={label} lines={lines} {...rest} />;
 }
 
-function SelectCell({ label, initial = '', lines, ...rest }: { label: string; initial?: string; lines?: 1 | 2; placeholder?: string; disabled?: boolean; readOnly?: boolean; invalid?: boolean }) {
+function SelectCell({ label, initial = '', lines, ...rest }: { label: string; initial?: string; lines?: 1 | 2; placeholder?: string; disabled?: boolean; readOnly?: boolean; invalid?: boolean; errorMessage?: string }) {
   const [value, setValue] = useState(initial);
   return <DataTableCell kind="select" value={value} onValueChange={setValue} options={PLANS} label={label} lines={lines} {...rest} />;
 }
@@ -296,7 +296,7 @@ export const Editable: Story = {
           <SelectCell label="Plan for shop.seashell.dev" initial="Pro" />
         </Row>
         <Row label="invalid">
-          <SelectCell label="Plan for api.seashell.dev" invalid />
+          <SelectCell label="Plan for api.seashell.dev" invalid errorMessage="Choose a plan" />
         </Row>
         <Row label="disabled">
           <SelectCell label="Plan for docs.seashell.dev" initial="Scale" disabled />
@@ -325,6 +325,11 @@ export const Editable: Story = {
     await expect(bad).toHaveAttribute('aria-invalid', 'true');
     await expect(bad).toHaveAccessibleDescription('A domain cannot contain spaces');
     await expect(canvas.getByRole('textbox', { name: 'Domain for docs.seashell.dev' })).toBeDisabled();
+    // Every editable kind shows its message, not just input/textarea (WCAG 3.3.1).
+    const badPlan = canvas.getByRole('combobox', { name: 'Plan for api.seashell.dev' });
+    await expect(badPlan).toHaveAttribute('aria-invalid', 'true');
+    await expect(badPlan).toHaveAccessibleDescription('Choose a plan');
+    await expect(canvas.getByText('Choose a plan')).toBeVisible();
 
     // select: keyboard open, move, pick.
     const plan = canvas.getByRole('combobox', { name: 'Plan for shop.seashell.dev' });
@@ -404,7 +409,10 @@ export const Loading: Story = {
 function Row({ label, children }: { label: string; children: ReactNode }) {
   return (
     <TableRow>
-      <TableCell className="w-40 font-body text-body-m text-[var(--color-text-text-subtler)]">{label}</TableCell>
+      {/* A row header, so each value is read with its kind (a table needs headers, WCAG 1.3.1). */}
+      <th scope="row" className="w-40 px-4 py-[calc((var(--size-density-density-row)_-_1.25rem)_/_2)] text-start align-middle font-body text-body-m font-normal text-[var(--color-text-text-subtler)]">
+        {label}
+      </th>
       <TableCell>{children}</TableCell>
     </TableRow>
   );

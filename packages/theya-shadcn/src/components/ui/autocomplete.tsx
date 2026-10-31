@@ -189,7 +189,7 @@ export function Autocomplete({
             onKeyDown={handleKeyDown}
             className={cn(
               'w-full rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
-              'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
+              'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
               'ps-[var(--size-padding-padding-md)] text-[var(--color-text-text)]', // 12px, same as TextField sm/md
               // Same two steps as TextField's own heightSize, so a field
               // set to "sm" next to it reads as the same control.

@@ -64,6 +64,7 @@ const EVIDENCE_LABEL: Record<string, string> = {
   auto: 'browser check (a11y-auto, local run)',
   reducedMotion: 'reduced-motion guard',
   screenReader: 'screen-reader pass',
+  tree: 'accessibility-tree check (a11y-tree, local run)',
   review: 'manual review',
 };
 
@@ -238,7 +239,7 @@ export function A11yMatrixPage() {
       <DocsSection title="Library-wide">
         <ul className={LIST}>
           <li>
-            <span className="font-medium">Focus ring (1.4.11), accepted deviation.</span> The soft ring is 1.53:1 on white and ~1.9:1 on dark surfaces (needs 3:1). Where it is the only visible focus change, the component lists 1.4.11. Fields, menus and outlined/ghost buttons also change border or background on focus and pass.
+            <span className="font-medium">Focus ring (1.4.11), accepted deviation.</span> The soft ring is 1.53:1 on white and ~1.9:1 on dark surfaces (needs 3:1). Where it is the only visible focus change, the component lists 1.4.11. Fields and outlined/ghost buttons also change border or background on focus and pass. The highlighted option in menus and listboxes (Select, Combobox, Autocomplete, Command, FilterField, Menubar, DropdownMenu, ContextMenu) is a neutral fill at 1.15:1 light / 1.35:1 dark; it is accepted under the same deviation (2026-10-26) and listed on each component. Reviewed again on 2026-10-26: a 2px primary ring inside the halo, and a 2px ring with a 2px gap, were compared on live components in both themes; both read far heavier than the rest of the system, so the soft ring stays.
           </li>
           <li>
             <span className="font-medium">Out of scope for a component library:</span> page language and titles, consistent navigation, session timing — they need a real product around the components.
@@ -395,7 +396,7 @@ function CriteriaTable() {
                   )}
                 </TableCell>
                 <TableCell className="align-top text-body-s text-[var(--color-text-text-subtle)]">
-                  {c.evidence?.length ? c.evidence.map((e) => EVIDENCE_LABEL[e] ?? e).join(' + ') : c.scope === 'component' ? 'Nothing automated yet' : '—'}
+                  {c.evidence?.length ? c.evidence.map((e) => e.split('|').map((k) => EVIDENCE_LABEL[k] ?? k).join(' or ')).join(' + ') : c.scope === 'component' ? 'Nothing automated yet' : '—'}
                 </TableCell>
               </TableRow>
             );

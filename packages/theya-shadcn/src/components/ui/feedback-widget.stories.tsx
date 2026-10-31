@@ -4,6 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { FeedbackWidget, type FeedbackDetails, type FeedbackVote } from './feedback-widget';
 import { Prose } from './prose';
 import { feedbackWidgetGuidelines } from './feedback-widget.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * FeedbackWidget — "Was this helpful?" with Yes/No. A "No" opens an
@@ -59,8 +60,11 @@ export const Default: Story = {
     const yes = canvas.getByRole('button', { name: 'Yes' });
     const no = canvas.getByRole('button', { name: 'No' });
 
-    // The vote is reported at once; No opens the follow-up with focus on its first control.
-    await userEvent.click(no);
+    // The vote is reported at once; No opens the follow-up with focus on its
+    // first control. All from the keyboard.
+    resetFocus();
+    await tabTo(no);
+    await userEvent.keyboard('{Enter}');
     await expect(no).toHaveAttribute('aria-pressed', 'true');
     await expect(yes).toHaveAttribute('aria-pressed', 'false');
     await expect(log()).toBe('onVote: no');
@@ -69,10 +73,11 @@ export const Default: Story = {
     await waitFor(() => expect(firstChip).toHaveFocus());
 
     // Reasons toggle; the comment is trimmed; Send reports everything once.
-    await userEvent.click(firstChip);
+    await userEvent.keyboard(' ');
     await expect(firstChip).toHaveAttribute('aria-pressed', 'true');
     await userEvent.type(canvas.getByLabelText(/Anything else\?/), '  Missing a CLI example  ');
-    await userEvent.click(canvas.getByRole('button', { name: 'Send feedback' }));
+    await tabTo(canvas.getByRole('button', { name: 'Send feedback' }));
+    await userEvent.keyboard('{Enter}');
     await expect(log()).toContain(`onSubmit: {"vote":"no","reasons":["Inaccurate"],"comment":"Missing a CLI example"}`);
     await expect(canvas.getByText('Thanks for your feedback.')).toBeVisible();
     // The form is gone; focus lands on the chosen answer instead of <body>.

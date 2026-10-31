@@ -163,6 +163,10 @@
       {
         "name": "FutureDatesOnly",
         "id": "date-time-datepicker--future-dates-only"
+      },
+      {
+        "name": "ErrorState",
+        "id": "date-time-datepicker--error-state"
       }
     ]
   }

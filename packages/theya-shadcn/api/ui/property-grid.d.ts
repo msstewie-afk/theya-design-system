@@ -14,10 +14,13 @@ export interface PropertyGridItem {
     placeholder?: string;
     description?: ReactNode;
     readOnly?: boolean;
+    error?: ReactNode;
     render?: (props: {
         value: PropertyValue;
         onChange: (v: PropertyValue) => void;
         disabled?: boolean;
+        invalid?: boolean;
+        describedBy?: string;
     }) => ReactNode;
 }
 export interface PropertyGridProps {

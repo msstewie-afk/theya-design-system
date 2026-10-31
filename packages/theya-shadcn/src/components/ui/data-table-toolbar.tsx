@@ -6,6 +6,7 @@ import { Xmark } from 'iconoir-react';
 import { KebabIconVertical } from './kebab-icon';
 import type { ColumnFiltersState, Table as TanstackTable } from '@tanstack/react-table';
 import { cn } from '../../lib/utils';
+import { announce } from '../../lib/announce';
 import { Button, type ButtonProps } from './button';
 import { Checkbox } from './checkbox';
 import { ConfirmDialog } from './confirm-dialog';
@@ -421,6 +422,16 @@ export function DataTableToolbar<TData>({
   // after a flip, put it on the select-all checkbox, which sits in the
   // same spot in both states.
   const hasSelection = count > 0;
+  // "N selected" is announced on every change, the first selection included:
+  // the count lives in the selected-state bar, which mounts with it already
+  // inside, and a live region that mounts filled is usually not read (4.1.3).
+  const lastCount = useRef(count);
+  useEffect(() => {
+    // 700 ms: VoiceOver first speaks the row checkbox ("ticked") and the
+    // table around it; set earlier, the count was dropped (Safari 26.6, 2026-10-29).
+    if (count !== lastCount.current && count > 0) announce(`${count} ${t.dataTable.selected}`, 'polite', { delay: 700 });
+    lastCount.current = count;
+  }, [count, t]);
   const focusInsideRef = useRef(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -541,7 +552,7 @@ export function DataTableToolbar<TData>({
       >
         <Label className="flex w-fit cursor-pointer items-center gap-2 font-body text-body-m text-[var(--color-text-text-on-primary)]">
           {selectAllCheckboxWithTooltip}
-          <span className="inline-block min-w-[10ch] whitespace-nowrap" aria-live="polite">
+          <span className="inline-block min-w-[10ch] whitespace-nowrap">
             <span className="tabular-nums">{count}</span> {t.dataTable.selected}
           </span>
         </Label>

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { DEMO_FEATURES, DEMO_FOLDERS, DemoFeatureVisual, DemoMiniLink } from './demo-data';
 import { SectionHead } from './feature-shared';
 import { CardMotionSection } from './card-motion.story-helpers';
@@ -53,6 +53,9 @@ export const Ring: Story = {
     await expect(within(ring).getAllByRole('heading', { level: 3 })).toHaveLength(1);
     await userEvent.click(within(ring).getByRole('button', { name: /next/i }));
     await expect(within(ring).getByRole('heading', { level: 3, name: TEMPLATES[1] })).toBeInTheDocument();
+    // The stage is a named group with a hint about the arrow keys; the position names the slide.
+    await expect(within(ring).getByRole('group', { name: 'Slides' })).toHaveAccessibleDescription(/arrow keys/);
+    await waitFor(() => expect(within(ring).getByText(`2 of ${TEMPLATES.length}: ${TEMPLATES[1]}`)).toBeInTheDocument());
   },
 };
 
@@ -157,7 +160,7 @@ export const Flip: Story = {
           <FlipCard
             key={s.v}
             flipLabel={`Where “${s.v}” comes from`}
-            front={<StatCard surface={i === 0 ? 'primary' : 'tonal'} hue={HUES[i]} value={s.v} label={s.l} source="Hover or press ⟳ for the source" />}
+            front={<StatCard surface={i === 0 ? 'primary' : 'tonal'} hue={HUES[i]} value={s.v} label={s.l} source="The source is on the back of the card" />}
             back={
               <div className="flex h-full flex-col justify-end gap-2">
                 <p className="m-0 font-heading text-heading-xl font-semibold text-[var(--color-text-text)]">{s.v}</p>
@@ -185,7 +188,7 @@ export const Flip: Story = {
 /** Glass cards over a soft arch that drift with the mouse, each layer by its own depth (a hero visual). */
 export const Parallax: Story = {
   render: () => (
-    <CardMotionSection title="Move the mouse over it">
+    <CardMotionSection title="Depth for a hero visual">
       <ParallaxLayers aria-hidden className="h-[28rem] w-full max-w-[44rem]">
         <ParallaxLayer depth={-0.3} className="absolute inset-x-[22%] bottom-0 top-6 rounded-t-full bg-[var(--color-bg-primary-bg-primary-subtle)]" />
         {[

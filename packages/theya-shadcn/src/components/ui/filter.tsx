@@ -98,7 +98,7 @@ export function Filter({
           className={cn(
             'flex w-fit items-center gap-2 whitespace-nowrap',
             'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
-            'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
+            'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
             // Start inset as on every field (12px sm/md, 16px lg); the end
             // keeps the chevron where it was (Мария, 2026-10-23).
             'pe-[var(--size-margin-margin-s)] text-[var(--color-text-text)]',

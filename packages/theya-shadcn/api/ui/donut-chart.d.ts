@@ -16,11 +16,12 @@ export interface DonutChartProps {
     legend?: boolean;
     thickness?: 'default' | 'thin';
     layout?: 'vertical' | 'horizontal';
+    slicePatterns?: boolean;
     loading?: boolean;
     ariaLabel?: string;
     className?: string;
 }
-export declare function DonutChart({ data, height, unit, format, centerLabel, centerValue, showCenter, legend, thickness, layout, loading, ariaLabel, className, }: DonutChartProps): import("react").JSX.Element;
+export declare function DonutChart({ data, height, unit, format, centerLabel, centerValue, showCenter, legend, thickness, layout, slicePatterns, loading, ariaLabel, className, }: DonutChartProps): import("react").JSX.Element;
 
 // Defaults
 // DonutChart.centerLabel = Total (localized: chart.total)
@@ -29,5 +30,6 @@ export declare function DonutChart({ data, height, unit, format, centerLabel, ce
 // DonutChart.legend = true
 // DonutChart.loading = false
 // DonutChart.showCenter = true
+// DonutChart.slicePatterns = false
 // DonutChart.thickness = default
 // DonutChart.unit = 

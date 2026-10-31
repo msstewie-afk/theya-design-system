@@ -4,6 +4,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { Password } from './password';
 import { PasswordStrengthMeter } from './password-strength-meter';
 import { passwordGuidelines } from './password.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -62,13 +63,15 @@ export const Playground: Story = {
     await expect(input).toHaveAttribute('type', 'password');
     await expect(toggle).toHaveAttribute('aria-pressed', 'false');
 
-    await userEvent.click(toggle);
+    // Keyboard: the eye button is the next tab stop after the field; Enter toggles.
+    await tabTo(toggle);
+    await userEvent.keyboard('{Enter}');
     await expect(input).toHaveAttribute('type', 'text');
     await expect(input).toHaveValue('hunter2');
     // Same name, state flips — not a renamed button.
     await expect(canvas.getByRole('button', { name: 'Show password' })).toHaveAttribute('aria-pressed', 'true');
 
-    await userEvent.click(toggle);
+    await userEvent.keyboard(' ');
     await expect(input).toHaveAttribute('type', 'password');
     await expect(input).toHaveValue('hunter2');
   },
@@ -108,7 +111,7 @@ export const States: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <Password label="Default" placeholder="Enter password" widthSize="lg" />
-      <Password label="Error" error placeholder="Enter password" widthSize="lg" />
+      <Password label="Error" error="Password is too short." placeholder="Enter password" widthSize="lg" />
       <Password label="Disabled" disabled defaultValue="secret123" widthSize="lg" />
     </div>
   ),

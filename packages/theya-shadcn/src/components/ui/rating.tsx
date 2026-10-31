@@ -151,7 +151,8 @@ export const Rating = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, Ra
           { transform: 'scale(1.25) rotate(6deg)', opacity: 1, offset: 0.6 },
           { transform: 'none', opacity: 1 },
         ],
-        { duration: 420, delay: i * 70, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'backwards' },
+        // element.animate takes plain values, not var(): read the theme's spring token (--ease-spring).
+        { duration: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--motion-duration-slower')) || 450, delay: i * 70, easing: getComputedStyle(document.documentElement).getPropertyValue('--motion-easing-spring').trim() || 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'backwards' },
       );
     });
     const picked = items[next - 1];
@@ -230,6 +231,7 @@ export const Rating = forwardRef<ElementRef<typeof RadioGroupPrimitive.Root>, Ra
             return (
               <i
                 key={i}
+                // raw-ok: the 700ms spark burst is a one-off effect, longer than any motion step.
                 className="absolute -ms-[3px] -mt-[3px] size-1.5 rounded-full bg-[var(--color-icon-icon-rating)] opacity-0 animate-[theya-spark_700ms_ease-out_var(--spark-delay)_both] motion-reduce:hidden"
                 style={{ '--spark-x': `${Math.cos(a) * 22}px`, '--spark-y': `${Math.sin(a) * 22}px` } as CSSProperties}
               />

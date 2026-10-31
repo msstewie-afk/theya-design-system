@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { NumberField } from './number-field';
+import { FieldError } from './field';
 import { numberFieldGuidelines } from './number-field.guidelines';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
@@ -136,8 +137,13 @@ export const TypingCommitsOnBlur: Story = {
 
 /** `aria-invalid`: the field turns danger-colored — pair it with an error message that says what to change. */
 export const Invalid: Story = {
-  args: { defaultValue: 0, 'aria-label': 'Quantity', 'aria-invalid': true },
-  render: (args) => <NumberField {...args} />,
+  args: { defaultValue: 0, 'aria-label': 'Quantity', 'aria-invalid': true, 'aria-describedby': 'quantity-error' },
+  render: (args) => (
+    <div className="flex flex-col gap-1">
+      <NumberField {...args} />
+      <FieldError id="quantity-error">Order at least 1.</FieldError>
+    </div>
+  ),
 };
 
 /** `disabled`: the value stays readable, but the field and both stepper buttons are inactive. */

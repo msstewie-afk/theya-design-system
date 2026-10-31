@@ -17,7 +17,9 @@ const switchVariants = cva(
     "after:absolute after:inset-x-0 after:-inset-y-0.5 after:content-['']",
     // Forced colors drop the fills: draw the track and its on state with system colors.
     'forced-colors:forced-color-adjust-none forced-colors:bg-[Canvas]! forced-colors:border forced-colors:border-solid forced-colors:border-[ButtonText] forced-colors:data-[state=checked]:bg-[Highlight]! forced-colors:data-[state=checked]:border-[Highlight]',
-    'bg-[var(--color-bg-secondary-bg-secondary)]',
+    // Off track: secondary-strong, 4.69:1 on white and 3.01:1 on the dark surface
+    // (WCAG 1.4.11); it was 2.62 / 1.87. The white thumb on it is 4.69:1.
+    'bg-[var(--color-bg-secondary-bg-secondary-strong)] shadow-track',
     // Off — big jump to a dark fill on hover per the Figma spec.
     'hover:not-disabled:data-[state=unchecked]:bg-[var(--color-bg-secondary-bg-secondary-hover)]',
     // Disabled off — combined with data-state so specificity always wins
@@ -45,6 +47,8 @@ const switchVariants = cva(
           'hover:not-disabled:data-[state=checked]:bg-[var(--color-bg-primary-bg-primary-hover)]',
           'disabled:data-[state=checked]:bg-[var(--color-bg-primary-bg-primary-subtle)] disabled:data-[state=checked]:border-transparent',
           'focus-visible:data-[state=checked]:focus-ring',
+          // Dark: blue on the surface is 2.71:1; a 1px light-primary edge (5.95:1) outlines the track.
+          '[[data-theme=dark]_&]:not-disabled:data-[state=checked]:inset-ring [[data-theme=dark]_&]:not-disabled:data-[state=checked]:inset-ring-[var(--color-border-border-primary)]',
         ],
       },
       {
@@ -54,6 +58,8 @@ const switchVariants = cva(
           'hover:not-disabled:data-[state=checked]:bg-[var(--color-bg-warning-bg-warning-hover)]',
           'disabled:data-[state=checked]:bg-[var(--color-bg-warning-bg-warning-subtle)] disabled:data-[state=checked]:border-transparent',
           'focus-visible:data-[state=checked]:focus-ring-warning',
+          // The amber track is 1.89:1 on white and 2.41:1 on the dark surface: the warning edge is 6.5:1+.
+          'not-disabled:data-[state=checked]:inset-ring not-disabled:data-[state=checked]:inset-ring-[var(--color-border-border-warning)]',
         ],
       },
       {
@@ -63,6 +69,8 @@ const switchVariants = cva(
           'hover:not-disabled:data-[state=checked]:bg-[var(--color-bg-danger-bg-danger-hover)]',
           'disabled:data-[state=checked]:bg-[var(--color-bg-danger-bg-danger-subtle)] disabled:data-[state=checked]:border-transparent',
           'focus-visible:data-[state=checked]:focus-ring-error',
+          // Dark: the red track is 1.84:1; the danger edge is 3.6:1.
+          '[[data-theme=dark]_&]:not-disabled:data-[state=checked]:inset-ring [[data-theme=dark]_&]:not-disabled:data-[state=checked]:inset-ring-[var(--color-border-border-danger)]',
         ],
       },
     ],
@@ -113,7 +121,7 @@ export const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, Switch
         <SwitchPrimitive.Thumb
           className={cn(
             'group relative flex items-center justify-center',
-            'size-[14px] rounded-full bg-[var(--color-icon-icon-on-dark)] shadow-elevation-sm',
+            'size-[14px] rounded-full bg-[var(--color-icon-icon-on-dark)] shadow-thumb',
             'forced-colors:bg-[ButtonText] forced-colors:group-data-[state=checked]:bg-[HighlightText] forced-colors:data-[state=checked]:bg-[HighlightText]',
             // Mirrored in RTL: the thumb starts at the inline-start edge.
             'translate-x-[3px] data-[state=checked]:translate-x-[19px] rtl:-translate-x-[3px] rtl:data-[state=checked]:-translate-x-[19px]',

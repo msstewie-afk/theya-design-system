@@ -166,6 +166,10 @@
       {
         "name": "AcceptFilter",
         "id": "files-dropzone--accept-filter"
+      },
+      {
+        "name": "UploadFlow",
+        "id": "files-dropzone--upload-flow"
       }
     ]
   }

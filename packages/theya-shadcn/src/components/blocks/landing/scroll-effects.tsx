@@ -163,7 +163,7 @@ export function CardDeck({ pace = 0.9, hold = 0.55, header, className, children,
               key={i}
               aria-hidden
               className={cn(
-                'h-2 rounded-full transition-[width,background-color] duration-moderate',
+                'h-2 rounded-full motion-safe:transition-[width,background-color] motion-safe:duration-moderate',
                 i === front ? 'w-6 bg-[var(--color-icon-icon-primary)]' : 'w-2 bg-[var(--color-border-border-strong)]',
               )}
             />

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, within } from '@storybook/test';
 import { Meter } from './meter';
 import { meterGuidelines } from './meter.guidelines';
 
@@ -46,6 +47,10 @@ const meta = {
     segments: {
       control: false,
       description: 'Render as N discrete lit-or-not cells instead of a smooth fill, for a fixed count of physical/logical units. Typically set max equal to segments.',
+    },
+    thresholds: {
+      control: false,
+      description: 'Marks on the bar: `{ value, label?, tone? }[]`. Each draws a tick (and a label under it); once `value` reaches one, the fill takes its `tone` (default warning). The aria text names the nearest thresholds.',
     },
     className: { control: false, description: 'Class on the root element.' },
   },
@@ -103,4 +108,82 @@ export const Bare: Story = {
 export const Segmented: Story = {
   parameters: { controls: { exclude: ['value', 'tone', 'label'] } },
   render: () => <Meter value={7} max={10} segments={10} label="GPUs" showValue={false} />,
+};
+
+const grams = { style: 'unit', unit: 'gram', maximumFractionDigits: 1 } as const;
+
+/**
+ * Thresholds — a tick and a label for each limit. Below every threshold the
+ * fill keeps the Meter's own `tone`; once the value reaches one, the fill takes
+ * that threshold's `tone` (warning by default). Screen readers hear the value,
+ * the range and the nearest thresholds: "1.1 g of 3 g, below the 2 g threshold".
+ */
+export const WithThresholds: Story = {
+  parameters: { controls: { exclude: ['value', 'min', 'max', 'format', 'label', 'tone', 'thresholds'] } },
+  render: () => (
+    <div className="flex w-[340px] max-w-[calc(100vw-2rem)] flex-col gap-6">
+      <Meter
+        value={1.1}
+        max={3}
+        label="Salt today"
+        tone="success"
+        format={grams}
+        thresholds={[{ value: 2, label: '2 g limit' }]}
+      />
+      <Meter
+        value={2.4}
+        max={3}
+        label="Salt this week"
+        tone="success"
+        format={grams}
+        thresholds={[{ value: 2, label: '2 g limit' }]}
+      />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const [under, over] = within(canvasElement).getAllByRole('meter');
+    await expect(under).toHaveAttribute('aria-valuetext', '1.1 g of 3 g, below the 2 g threshold');
+    await expect(under).toHaveAttribute('data-tone', 'success');
+    await expect(over).toHaveAttribute('aria-valuetext', '2.4 g of 3 g, above the 2 g threshold');
+    await expect(over).toHaveAttribute('data-tone', 'warning');
+  },
+};
+
+/**
+ * A minimum to reach (protein, steps, savings): start in `warning` and give the
+ * threshold `tone: 'success'`, so the fill turns green once the goal is met.
+ * Several thresholds work the same way: the highest one reached sets the tone.
+ */
+export const MinimumAndSteps: Story = {
+  parameters: { controls: { exclude: ['value', 'min', 'max', 'format', 'label', 'tone', 'thresholds'] } },
+  render: () => (
+    <div className="flex w-[340px] max-w-[calc(100vw-2rem)] flex-col gap-6">
+      <Meter
+        value={42}
+        max={80}
+        label="Protein"
+        tone="warning"
+        format={grams}
+        thresholds={[{ value: 50, label: 'Goal 50 g', tone: 'success' }]}
+      />
+      <Meter
+        value={0.68}
+        max={1}
+        label="Disk"
+        tone="success"
+        format={{ style: 'percent' }}
+        thresholds={[
+          { value: 0.6, label: 'Warning' },
+          { value: 0.9, label: 'Critical', tone: 'danger' },
+        ]}
+      />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const [protein, disk] = within(canvasElement).getAllByRole('meter');
+    await expect(protein).toHaveAttribute('aria-valuetext', '42 g of 80 g, below the 50 g threshold');
+    await expect(protein).toHaveAttribute('data-tone', 'warning');
+    await expect(disk).toHaveAttribute('aria-valuetext', '68% of 100%, above the 60% threshold, below the 90% threshold');
+    await expect(disk).toHaveAttribute('data-tone', 'warning');
+  },
 };

@@ -44,6 +44,8 @@ export function MenubarTrigger({ className, ...props }: React.ComponentProps<typ
         'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         'data-[state=open]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
+        // Keyboard focus needs a visible change beyond the hover fill (WCAG 2.4.7)
+        'focus-visible:focus-ring',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className,
       )}

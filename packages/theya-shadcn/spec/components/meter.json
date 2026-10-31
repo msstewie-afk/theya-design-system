@@ -36,6 +36,11 @@
     {
       "part": "Bar",
       "description": "fill by `value` between `min` and `max`; `tone` from how critical the level is."
+    },
+    {
+      "part": "Thresholds",
+      "description": "a tick and a short label per limit (`thresholds`); reaching one switches the fill to its `tone`, warning by default.",
+      "optional": true
     }
   ],
   "doDont": [
@@ -54,6 +59,8 @@
     "Native `role=\"meter\"` with min / max / now. Use `getValueLabel` for words where they help (“Nearly full”).",
     "Without a visible `label`, pass `aria-label`.",
     "The tone isn’t the only signal — the value or label must say the level.",
+    "With `thresholds` the aria text names the range and the nearest limits (“1.1 g of 3 g, below the 2 g threshold”); a `getValueLabel` replaces it.",
+    "Keep threshold labels short (a value or two words): they sit on one line under the bar.",
     "For percent pass a fraction with `max={1}`; the component warns about 0.38 of 100."
   ],
   "components": [
@@ -106,6 +113,12 @@
           "default": "true"
         },
         {
+          "name": "thresholds",
+          "type": "MeterThreshold[]",
+          "required": false,
+          "description": "Limits marked on the bar, e.g. [{ value: 2, label: '2 g per serving' }]. Each draws a thin tick\nwith its label under the bar. Once `value` reaches a threshold, the fill takes that threshold's\n`tone` (warning by default); below every threshold it keeps `tone`. For a minimum that is good to\npass, give the Meter `tone=\"warning\"` and the threshold `tone: 'success'`. Screen readers hear the\nvalue against max and the nearest thresholds (\"1.1 g of 3 g, below the 2 g threshold\") unless\n`getValueLabel` is set."
+        },
+        {
           "name": "tone",
           "type": "MeterTone",
           "values": [
@@ -151,6 +164,14 @@
       {
         "name": "Segmented",
         "id": "status-feedback-meter--segmented"
+      },
+      {
+        "name": "WithThresholds",
+        "id": "status-feedback-meter--with-thresholds"
+      },
+      {
+        "name": "MinimumAndSteps",
+        "id": "status-feedback-meter--minimum-and-steps"
       }
     ]
   }

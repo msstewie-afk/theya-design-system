@@ -93,6 +93,7 @@ function SecretField({
           // when it can't be revealed the toast is the only explanation, so
           // it stays (WCAG 2.2.1).
           toast.error(t.secretField.copyFailed, {
+            // raw-ok: 6s is how long the toast stays, not motion (WCAG 2.2.1).
             ...(revealable ? { duration: 6000 } : {}),
             description: revealable ? t.secretField.copyManually : t.secretField.insecure,
           });

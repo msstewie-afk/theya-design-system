@@ -106,6 +106,10 @@ export const Inline: Story = {
     await waitFor(() => expect(canvas.getAllByRole('option')).toHaveLength(1));
     await expect(highlighted()).toHaveTextContent('Tools');
 
+    // No matches: the empty text is announced through the menu's status region (WCAG 4.1.3).
+    await userEvent.type(input, 'zzz');
+    await waitFor(() => expect(canvas.getAllByRole('status').some((s) => s.textContent === 'No results found.')).toBe(true));
+
     await userEvent.keyboard('{Escape}');
     await expect(input).toHaveValue('');
     await expect(canvas.getAllByRole('option')).toHaveLength(4);

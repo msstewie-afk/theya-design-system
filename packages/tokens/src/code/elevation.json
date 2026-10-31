@@ -6,5 +6,17 @@
     "lg": { "value": "0 0 1px 0 rgba(12, 12, 24, 0.1), 0 8px 16px -6px rgba(12, 12, 24, 0.14), 0 12px 28px -8px rgba(12, 12, 24, 0.14)" },
     "xl": { "value": "0 0 1px 0 rgba(12, 12, 24, 0.12), 0 16px 32px -10px rgba(12, 12, 24, 0.18), 0 24px 56px -12px rgba(12, 12, 24, 0.18)" },
     "edge-up": { "value": "0 -16px 32px -10px rgba(12, 12, 24, 0.18), 0 -24px 56px -12px rgba(12, 12, 24, 0.18)" }
+  },
+  "shadow": {
+    "control": { "value": "0 0 0 0 rgba(0, 0, 0, 0)", "comment": "Rest shadow of a pressable control (Button, Toggle, ToggleGroup item, Chip, Tabs trigger). None in the default theme." },
+    "control-hover": { "value": "0 0 0 0 rgba(0, 0, 0, 0)", "comment": "Hovered pressable control." },
+    "control-pressed": { "value": "0 0 0 0 rgba(0, 0, 0, 0)", "comment": "Pressed / on pressable control." },
+    "field": { "value": "0 0 0 0 rgba(0, 0, 0, 0)", "comment": "Text field, textarea, select trigger, number field. Inset in a sunken style (Neumorphism)." },
+    "track": { "value": "0 0 0 0 rgba(0, 0, 0, 0)", "comment": "Switch and Slider track, Checkbox and Radio box, Tabs chips list. Inset in a sunken style." },
+    "thumb": { "value": "{elevation.sm}", "comment": "Switch and Slider thumb at rest." },
+    "thumb-hover": { "value": "{elevation.md}", "comment": "Slider thumb on hover." },
+    "raised": { "value": "{elevation.sm}", "comment": "A raised item on a track: the active Tabs chip pill." },
+    "card": { "value": "{elevation.xs}", "comment": "Card at rest." },
+    "card-hover": { "value": "{elevation.sm}", "comment": "Interactive Card on hover." }
   }
 }

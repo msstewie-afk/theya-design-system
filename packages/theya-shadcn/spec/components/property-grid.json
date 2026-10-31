@@ -120,6 +120,10 @@
         "id": "form-structure-propertygrid--editing"
       },
       {
+        "name": "WithError",
+        "id": "form-structure-propertygrid--with-error"
+      },
+      {
         "name": "ReadOnlyStory",
         "id": "form-structure-propertygrid--read-only-story"
       },

@@ -26,7 +26,8 @@ const CHART_COLORS = [
   'var(--color-bg-chart-01)', // blue
   'var(--color-bg-chart-02)', // magenta
   'var(--color-bg-chart-03)', // teal
-  'var(--color-purple-purple-500)', // purple
+  // purple-400, not 500: 500 is 2.46:1 on the dark surface (WCAG 1.4.11).
+  'var(--color-purple-purple-400)', // purple
 ] as const;
 
 export interface UsageSegment {
@@ -55,14 +56,19 @@ export function UsageBar({ className, segments, total, showLegend = true, format
     pct: denominator > 0 ? (Math.max(0, segment.value) / denominator) * 100 : 0,
   }));
 
+  const rest = Math.max(0, 100 - parts.reduce((acc, p) => acc + p.pct, 0));
+
   const summary = parts.map((p) => `${p.label} ${formatValue(p.value)}`).join(', ');
 
   return (
     <div data-slot="usage-bar" className={cn('flex flex-col gap-3', className)} {...props}>
-      <div role="img" aria-label={t.usageBar.label(summary)} className="flex h-1.5 w-full overflow-hidden rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]">
-        {parts.map((p, i) => (
-          <div key={`${p.label}-${i}`} aria-hidden="true" className="h-full first:rounded-s-full last:rounded-e-full" style={{ width: `${p.pct}%`, background: p.color }} />
+      {/* Neighboring chart colors are 1.05-1.11:1 against each other, so a 2px gap of the surface
+          separates every segment and the empty remainder (WCAG 1.4.11). */}
+      <div role="img" aria-label={t.usageBar.label(summary)} className="flex h-1.5 w-full gap-0.5">
+        {parts.filter((p) => p.pct > 0).map((p, i) => (
+          <div key={`${p.label}-${i}`} aria-hidden="true" className="h-full min-w-1 rounded-full" style={{ width: `${p.pct}%`, background: p.color }} />
         ))}
+        {rest > 0 && <div aria-hidden="true" className="h-full min-w-1 flex-1 rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]" />}
       </div>
 
       {showLegend && (

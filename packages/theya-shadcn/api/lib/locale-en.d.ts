@@ -35,6 +35,8 @@ export declare const en: {
         next: string;
         slides: string;
         goTo: (n: number) => string;
+        keysHint: string;
+        position: (i: number, n: number, name?: string) => string;
     };
     chart: {
         trend: (points: number) => string;
@@ -166,6 +168,8 @@ export declare const en: {
         time: string;
         timeOf: (label: string) => string;
         noMatch: string;
+        outOfRange: (from: string, to: string) => string;
+        invalid: string;
     };
     diffViewer: {
         expand: (n: number) => string;
@@ -205,6 +209,7 @@ export declare const en: {
         replace: string;
     };
     filterField: {
+        rangeEmpty: string;
         placeholder: string;
         add: string;
         attribute: string;
@@ -565,6 +570,7 @@ export declare const en: {
             seconds: string;
         };
         left: (time: string) => string;
+        ended: string;
     };
     rating: {
         value: (value: number, max: number) => string;
@@ -584,6 +590,16 @@ export declare const en: {
     };
     usageBar: {
         label: (summary: string) => string;
+    };
+    meter: {
+        of: (value: string, max: string) => string;
+        above: (threshold: string) => string;
+        below: (threshold: string) => string;
+    };
+    bottomNav: {
+        label: string;
+        count: (n: number) => string;
+        dot: string;
     };
     cardDeck: {
         skip: string;
@@ -611,6 +627,8 @@ export declare const en: {
             l: string;
         };
         openFor: (label: string) => string;
+        invalidHex: string;
+        invalidNumber: (min: number, max: number) => string;
         area: string;
         areaValue: (s: number, v: number) => string;
         changePhoto: string;
@@ -663,6 +681,8 @@ export declare const enLocale: {
             next: string;
             slides: string;
             goTo: (n: number) => string;
+            keysHint: string;
+            position: (i: number, n: number, name?: string) => string;
         };
         chart: {
             trend: (points: number) => string;
@@ -794,6 +814,8 @@ export declare const enLocale: {
             time: string;
             timeOf: (label: string) => string;
             noMatch: string;
+            outOfRange: (from: string, to: string) => string;
+            invalid: string;
         };
         diffViewer: {
             expand: (n: number) => string;
@@ -833,6 +855,7 @@ export declare const enLocale: {
             replace: string;
         };
         filterField: {
+            rangeEmpty: string;
             placeholder: string;
             add: string;
             attribute: string;
@@ -1193,6 +1216,7 @@ export declare const enLocale: {
                 seconds: string;
             };
             left: (time: string) => string;
+            ended: string;
         };
         rating: {
             value: (value: number, max: number) => string;
@@ -1212,6 +1236,16 @@ export declare const enLocale: {
         };
         usageBar: {
             label: (summary: string) => string;
+        };
+        meter: {
+            of: (value: string, max: string) => string;
+            above: (threshold: string) => string;
+            below: (threshold: string) => string;
+        };
+        bottomNav: {
+            label: string;
+            count: (n: number) => string;
+            dot: string;
         };
         cardDeck: {
             skip: string;
@@ -1239,6 +1273,8 @@ export declare const enLocale: {
                 l: string;
             };
             openFor: (label: string) => string;
+            invalidHex: string;
+            invalidNumber: (min: number, max: number) => string;
             area: string;
             areaValue: (s: number, v: number) => string;
             changePhoto: string;

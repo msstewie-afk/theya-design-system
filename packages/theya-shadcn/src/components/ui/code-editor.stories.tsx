@@ -110,7 +110,7 @@ export const Languages: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex flex-col gap-4 w-full max-w-[480px]">
-      <CodeEditor aria-label="CSS example" filename="styles.css" language="css" defaultValue={'.callout {\n  color: var(--color-text-danger);\n  border: 1px solid #e5484d;\n}'} minHeight="6rem" />
+      <CodeEditor aria-label="CSS example" filename="styles.css" language="css" defaultValue={'.callout {\n  color: var(--color-text-text-danger);\n  border: 1px solid #e5484d;\n}'} minHeight="6rem" />
       {/* Reads as a terminal/shell session rather than a source file, so it
           forces the same dark surface as the "Inverse (forced dark)" story
           (Мария's call) — `inverse` alone gets both the bg AND the syntax

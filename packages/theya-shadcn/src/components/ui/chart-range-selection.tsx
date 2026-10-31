@@ -5,6 +5,7 @@ import type { KeyboardEvent, ReactElement, ReactNode } from 'react';
 import { ReferenceArea, ResponsiveContainer } from 'recharts';
 import { cn } from '../../lib/utils';
 import { useTheyaI18n } from '../../lib/i18n';
+import { useDecorativeSvgs } from '../../lib/use-decorative-svgs';
 
 export interface ChartSelectionRange {
   from: string;
@@ -21,6 +22,7 @@ interface SelectableChartProps {
   onMouseMove?: (state: RechartsPointerState) => void;
   onMouseUp?: () => void;
   onMouseLeave?: () => void;
+  accessibilityLayer?: boolean;
 }
 
 export interface ChartRangeSelectionProps {
@@ -168,8 +170,8 @@ export function ChartRangeSelection({
         // brand blue as before.
         fill="var(--color-bg-chart-01)"
         fillOpacity={0.16}
-        stroke="var(--color-bg-chart-01)"
-        strokeOpacity={0.65}
+        // Full-opacity primary edge: chart-01 at 0.65 was 2.83:1 light / 1.87:1 dark (WCAG 1.4.11).
+        stroke="var(--color-border-border-primary)"
       />,
     );
   }
@@ -188,14 +190,26 @@ export function ChartRangeSelection({
     );
   }
 
+  // accessibilityLayer off: this group is the one keyboard stop. Recharts' own
+  // layer made the inner svg a second, unnamed tab stop (role="application")
+  // with different arrow keys (found in the VoiceOver dry run, 2026-10-27).
+  // The plot is drawn for sight; the group's name, its help text and the
+  // live announcements carry the range for assistive tech. Unhidden, the
+  // Recharts surface was an unnamed image reading every axis tick (1.1.1).
+  // Give the chart's data its own text alternative (a table) where it matters.
+  const plotRef = useDecorativeSvgs<HTMLDivElement>('svg.recharts-surface');
   const chart = cloneElement(
     children,
-    disabled ? {} : { onMouseDown: startSelection, onMouseMove: extendSelection, onMouseUp: finishSelection, onMouseLeave: selectionStart ? finishSelection : children.props.onMouseLeave },
+    {
+      accessibilityLayer: false,
+      ...(disabled ? {} : { onMouseDown: startSelection, onMouseMove: extendSelection, onMouseUp: finishSelection, onMouseLeave: selectionStart ? finishSelection : children.props.onMouseLeave }),
+    },
     ...chartChildren,
   );
 
   return (
     <div
+      ref={plotRef}
       role="group"
       aria-roledescription={t.chartRangeSelection.roleDescription}
       aria-label={ariaLabel}

@@ -9,6 +9,7 @@ import { TextArea } from './textarea';
 import { TextField } from './text-field';
 import { NumberField } from './number-field';
 import { Separator } from './separator';
+import { FieldErrorIcon } from './field-error-icon';
 
 export type PropertyValue = string | number | boolean;
 
@@ -20,8 +21,17 @@ export interface PropertyGridItem {
   placeholder?: string;
   description?: ReactNode;
   readOnly?: boolean;
-  /** Required for type="custom" — renders full control over the value cell. */
-  render?: (props: { value: PropertyValue; onChange: (v: PropertyValue) => void; disabled?: boolean }) => ReactNode;
+  /**
+   * Validation message for this row. Shown under the control, which is
+   * marked aria-invalid and described by it (WCAG 3.3.1).
+   */
+  error?: ReactNode;
+  /**
+   * Required for type="custom" — renders full control over the value cell.
+   * Put `invalid` and `describedBy` on your control as aria-invalid and
+   * aria-describedby so it is tied to the row's error and description.
+   */
+  render?: (props: { value: PropertyValue; onChange: (v: PropertyValue) => void; disabled?: boolean; invalid?: boolean; describedBy?: string }) => ReactNode;
 }
 
 export interface PropertyGridProps {
@@ -108,6 +118,10 @@ function PropertyRow({
   maxLabelWidth: string;
 }) {
   const fieldId = useId();
+  const descriptionId = `${fieldId}-description`;
+  const errorId = `${fieldId}-error`;
+  const invalid = Boolean(item.error) && !item.readOnly;
+  const describedBy = [invalid && errorId, item.description && descriptionId].filter(Boolean).join(' ') || undefined;
 
   return (
     <>
@@ -124,9 +138,15 @@ function PropertyRow({
         with dead space before the separator's actual end.
       */}
       <div className="flex min-w-0 flex-col items-end justify-center py-3">
-        <PropertyControl fieldId={fieldId} item={item} value={value} onChange={onChange} />
+        <PropertyControl fieldId={fieldId} item={item} value={value} onChange={onChange} invalid={invalid} describedBy={describedBy} />
+        {invalid && (
+          <span id={errorId} className="mt-1 flex items-start gap-1">
+            <FieldErrorIcon className="mt-px shrink-0 text-[var(--color-icon-icon-danger)]" />
+            <span className="font-body text-body-xs font-normal text-[var(--color-text-text-danger)]">{item.error}</span>
+          </span>
+        )}
         {item.description && (
-          <span className="font-body text-body-xs text-[var(--color-text-text-subtler)] mt-0.5">
+          <span id={descriptionId} className="font-body text-body-xs text-[var(--color-text-text-subtler)] mt-0.5">
             {item.description}
           </span>
         )}
@@ -145,12 +165,17 @@ function PropertyControl({
   item,
   value,
   onChange,
+  invalid,
+  describedBy,
 }: {
   fieldId: string;
   item: PropertyGridItem;
   value: PropertyValue | undefined;
   onChange: (v: PropertyValue) => void;
+  invalid: boolean;
+  describedBy: string | undefined;
 }) {
+  const aria = { 'aria-invalid': invalid || undefined, 'aria-describedby': describedBy };
   const { type = 'text', readOnly, options, placeholder } = item;
 
   if (readOnly) {
@@ -166,11 +191,11 @@ function PropertyControl({
 
   switch (type) {
     case 'switch':
-      return <Switch id={fieldId} checked={Boolean(value)} onCheckedChange={onChange} aria-label={String(item.label)} />;
+      return <Switch id={fieldId} checked={Boolean(value)} onCheckedChange={onChange} aria-label={String(item.label)} {...aria} />;
     case 'select':
       return (
         <Select value={value !== undefined ? String(value) : undefined} onValueChange={onChange}>
-          <SelectTrigger id={fieldId} className="w-fit max-w-full">
+          <SelectTrigger id={fieldId} className="w-fit max-w-full" {...aria}>
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
@@ -191,6 +216,9 @@ function PropertyControl({
           placeholder={placeholder}
           widthSize="full"
           className="min-h-[60px]"
+          // `error` for the danger border only: the message is the row's, under the control.
+          error={invalid || undefined}
+          aria-describedby={describedBy}
         />
       );
     case 'number':
@@ -202,11 +230,12 @@ function PropertyControl({
             onValueChange={onChange}
             placeholder={placeholder}
             widthSize="full"
+            {...aria}
           />
         </div>
       );
     case 'custom':
-      return <>{item.render?.({ value: value as PropertyValue, onChange })}</>;
+      return <>{item.render?.({ value: value as PropertyValue, onChange, invalid, describedBy })}</>;
     default:
       return (
         <TextField
@@ -217,6 +246,8 @@ function PropertyControl({
           placeholder={placeholder}
           widthSize="md"
           className="max-w-full"
+          error={invalid || undefined}
+          aria-describedby={describedBy}
         />
       );
   }

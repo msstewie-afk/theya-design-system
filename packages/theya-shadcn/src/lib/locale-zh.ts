@@ -24,7 +24,7 @@ export const zh: TheyaMessages = {
   announcementBar: { dismiss: '关闭公告', label: '公告' },
   autocomplete: { suggestions: '建议' },
   breadcrumb: { label: '面包屑导航', more: '更多', showMore: (n) => `显示其余 ${n} 级` },
-  carousel: { label: '轮播', previous: '上一张', next: '下一张', slides: '幻灯片', goTo: (n) => `转到第 ${n} 张` },
+  carousel: { label: '轮播', previous: '上一张', next: '下一张', slides: '幻灯片', goTo: (n) => `转到第 ${n} 张`, keysHint: '使用左右方向键切换幻灯片', position: (i, n, name) => (name ? `第 ${i} 张，共 ${n} 张：${name}` : `第 ${i} 张，共 ${n} 张`) },
   chart: {
     trend: (points) => `${points} 个数据点的趋势`,
     seriesTrend: (names, points) => `${names}，共 ${points} 个数据点`,
@@ -104,7 +104,7 @@ export const zh: TheyaMessages = {
   },
   datePicker: { placeholder: '选择日期', clear: '清除日期' },
   dateRangePicker: { placeholder: '选择日期范围', clear: '清除日期范围' },
-  timeField: { placeholder: '选择时间', time: '时间', timeOf: (label) => `${label}时间`, noMatch: '没有匹配的时间。' },
+  timeField: { placeholder: '选择时间', time: '时间', timeOf: (label) => `${label}时间`, noMatch: '没有匹配的时间。', outOfRange: (from, to) => `请选择 ${from} 到 ${to} 之间的时间。`, invalid: '无效的时间。请输入例如 9:30，或从列表中选择。' },
   diffViewer: {
     expand: (n) => `显示 ${n} 行未更改内容`,
     empty: '没有更改',
@@ -140,6 +140,7 @@ export const zh: TheyaMessages = {
   },
   file: { pick: '添加文件', replace: '替换文件' },
   filterField: {
+    rangeEmpty: '请输入最小值、最大值或两者。',
     placeholder: '筛选或搜索…',
     add: '添加筛选条件',
     attribute: '筛选依据…',
@@ -366,11 +367,18 @@ export const zh: TheyaMessages = {
     unitWord: (unit) => ({ days: '天', hours: '小时', minutes: '分钟', seconds: '秒' })[unit],
     short: { days: '天', hours: '时', minutes: '分', seconds: '秒' },
     left: (time) => `剩余 ${time}`,
+    ended: '时间到',
   },
   rating: { value: (value, max) => `${value}/${max}` },
   productTour: { next: '下一步', back: '上一步', done: '完成', skip: '跳过导览', close: '关闭导览', progress: (step, total) => `${step}/${total}` },
   slider: { minimum: (label) => `${label}最小值`, maximum: (label) => `${label}最大值`, value: (label, n) => `${label}第 ${n} 个值` },
   usageBar: { label: (summary) => `按部分划分的用量：${summary}` },
+  meter: {
+    of: (value, max) => `${value}，共 ${max}`,
+    above: (threshold) => `高于阈值 ${threshold}`,
+    below: (threshold) => `低于阈值 ${threshold}`,
+  },
+  bottomNav: { label: '主要', count: (n) => `${n} 条新内容`, dot: '有新内容' },
   cardDeck: {
     skip: '跳过',
     keep: '保留',
@@ -384,6 +392,8 @@ export const zh: TheyaMessages = {
     // Visible captions under the channel fields; letters in every language, like design tools.
     captions: { r: 'R', g: 'G', b: 'B', h: 'H', s: 'S', l: 'L' },
     openFor: (label) => `为${label}选择颜色`,
+    invalidHex: '请输入十六进制颜色：3 或 6 位，0–9 和 A–F。',
+    invalidNumber: (min, max) => `请输入 ${min} 到 ${max} 之间的数字。`,
     area: '饱和度和亮度',
     areaValue: (s, v) => `饱和度 ${s}%，亮度 ${v}%`,
     changePhoto: '更换照片',

@@ -204,6 +204,7 @@ export const Fab = forwardRef<HTMLButtonElement, FabProps>(function Fab(
         // Hover lift (Kinetics' Hover Lift, MIT): the FAB rises 4px as its shadow grows, on the
         // spring. Button's own transition list has no `translate`, so it's restated here.
         'hover:not-disabled:-translate-y-1 motion-reduce:hover:not-disabled:translate-y-0',
+        // raw-ok: the same 220ms press spring as Button.
         '[transition:background-color_var(--transition-duration-standard)_var(--ease-enter),border-color_var(--transition-duration-standard)_var(--ease-enter),box-shadow_var(--transition-duration-slower)_var(--ease-spring),transform_220ms_var(--ease-spring),translate_var(--transition-duration-slower)_var(--ease-spring)]',
         position !== 'none' && POSITION_CLASS[position],
         position !== 'none' && BOTTOM_OFFSET,
@@ -329,6 +330,7 @@ export function FabSpeedDial({ actions, icon, openLabel, closeLabel, size = 'md'
                 open ? 'visible opacity-100' : 'invisible scale-[.4] opacity-0',
               )}
               // Closed: no offset, so the actions shrink back into the trigger.
+              // raw-ok: 50ms per action is a stagger step, not a duration.
               style={{ '--dial-x': `${open ? x : 0}px`, '--dial-y': `${open ? y : 0}px`, transitionDelay: open ? `${i * 50}ms` : '0ms' } as CSSProperties}
             >
               <Fab

@@ -517,6 +517,10 @@
         },
         "bg-scrim": {
           "value": "{black-a400}"
+        },
+        "bg-scrim-strong": {
+          "value": "{black-a600}",
+          "comment": "A darker scrim where the dimmed part must read as cut away (ImageCropper)."
         }
       },
       "layout": {
@@ -529,6 +533,34 @@
         "bg-sidebar-section": {
           "value": "{color.slate.slate-800}"
         }
+      },
+      "chart-01": {
+        "value": "{color.blue.blue-450}",
+        "comment": "Chart series 1, dark: all seven at the same lightness, 3.6:1 on the page and 3.2:1 on cards."
+      },
+      "chart-02": {
+        "value": "{color.magenta.magenta-350}",
+        "comment": "Chart series 2, dark: all seven at the same lightness, 3.6:1 on the page and 3.2:1 on cards."
+      },
+      "chart-03": {
+        "value": "{color.teal.teal-350}",
+        "comment": "Chart series 3, dark: all seven at the same lightness, 3.6:1 on the page and 3.2:1 on cards."
+      },
+      "chart-04": {
+        "value": "{color.slate.slate-375}",
+        "comment": "Chart series 4, dark: all seven at the same lightness, 3.6:1 on the page and 3.2:1 on cards."
+      },
+      "chart-05": {
+        "value": "{color.red.red-250}",
+        "comment": "Chart series 5, dark: all seven at the same lightness, 3.6:1 on the page and 3.2:1 on cards."
+      },
+      "chart-06": {
+        "value": "{color.green.green-450}",
+        "comment": "Chart series 6, dark: all seven at the same lightness, 3.6:1 on the page and 3.2:1 on cards."
+      },
+      "chart-07": {
+        "value": "{color.purple.purple-350}",
+        "comment": "Chart series 7, dark: all seven at the same lightness, 3.6:1 on the page and 3.2:1 on cards."
       }
     },
     "brand": {

@@ -50,6 +50,8 @@ export const ru: TheyaMessages = {
     next: 'Следующий слайд',
     slides: 'Слайды',
     goTo: (n) => `Перейти к слайду ${n}`,
+    keysHint: 'Листайте слайды стрелками влево и вправо',
+    position: (i, n, name) => (name ? `${i} из ${n}: ${name}` : `${i} из ${n}`),
   },
   chart: {
     trend: (points) => `Динамика по ${points} ${plural(points, 'точке', 'точкам', 'точкам')}`,
@@ -141,7 +143,7 @@ export const ru: TheyaMessages = {
   },
   datePicker: { placeholder: 'Выберите дату', clear: 'Очистить дату' },
   dateRangePicker: { placeholder: 'Выберите период', clear: 'Очистить период' },
-  timeField: { placeholder: 'Выберите время', time: 'Время', timeOf: (label) => `${label}: время`, noMatch: 'Нет подходящего времени.' },
+  timeField: { placeholder: 'Выберите время', time: 'Время', timeOf: (label) => `${label}: время`, noMatch: 'Нет подходящего времени.', outOfRange: (from, to) => `Выберите время с ${from} до ${to}.`, invalid: 'Время не распознано. Введите, например, 9:30 или выберите из списка.' },
   diffViewer: {
     expand: (n) => `Показать ${n} ${plural(n, 'неизменённую строку', 'неизменённые строки', 'неизменённых строк')}`,
     empty: 'Изменений нет',
@@ -177,6 +179,7 @@ export const ru: TheyaMessages = {
   },
   file: { pick: 'Добавить файл', replace: 'Заменить файл' },
   filterField: {
+    rangeEmpty: 'Введите минимум, максимум или оба значения.',
     placeholder: 'Фильтр или поиск…',
     add: 'Добавить фильтр',
     attribute: 'Фильтровать по…',
@@ -429,11 +432,18 @@ export const ru: TheyaMessages = {
       })[unit],
     short: { days: 'д', hours: 'ч', minutes: 'м', seconds: 'с' },
     left: (time) => `Осталось ${time}`,
+    ended: 'Время вышло',
   },
   rating: { value: (value, max) => `${value} из ${max}` },
   productTour: { next: 'Далее', back: 'Назад', done: 'Готово', skip: 'Пропустить тур', close: 'Закрыть тур', progress: (step, total) => `${step} из ${total}` },
   slider: { minimum: (label) => `${label}: минимум`, maximum: (label) => `${label}: максимум`, value: (label, n) => `${label}: значение ${n}` },
   usageBar: { label: (summary) => `Использование по частям: ${summary}` },
+  meter: {
+    of: (value, max) => `${value} из ${max}`,
+    above: (threshold) => `выше порога ${threshold}`,
+    below: (threshold) => `ниже порога ${threshold}`,
+  },
+  bottomNav: { label: 'Основная', count: (n) => `${n} ${plural(n, 'новое', 'новых', 'новых')}`, dot: 'есть новое' },
   cardDeck: {
     skip: 'Пропустить',
     keep: 'Оставить',
@@ -447,6 +457,8 @@ export const ru: TheyaMessages = {
     // Visible captions under the channel fields; letters in every language, like design tools.
     captions: { r: 'R', g: 'G', b: 'B', h: 'H', s: 'S', l: 'L' },
     openFor: (label) => `Выбрать цвет: ${label}`,
+    invalidHex: 'Введите цвет в HEX: 3 или 6 знаков, 0–9 и A–F.',
+    invalidNumber: (min, max) => `Введите число от ${min} до ${max}.`,
     area: 'Насыщенность и яркость',
     areaValue: (s, v) => `Насыщенность ${s}%, яркость ${v}%`,
     changePhoto: 'Сменить фото',

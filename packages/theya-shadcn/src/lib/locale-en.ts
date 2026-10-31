@@ -33,6 +33,8 @@ export const en = {
     next: 'Next slide',
     slides: 'Slides',
     goTo: (n: number) => `Go to slide ${n}`,
+    keysHint: 'Use the left and right arrow keys to move between slides',
+    position: (i: number, n: number, name?: string) => (name ? `${i} of ${n}: ${name}` : `${i} of ${n}`),
   },
   chart: {
     trend: (points: number) => `Trend across ${points} points`,
@@ -124,7 +126,7 @@ export const en = {
   },
   datePicker: { placeholder: 'Pick a date', clear: 'Clear date' },
   dateRangePicker: { placeholder: 'Pick a date range', clear: 'Clear date range' },
-  timeField: { placeholder: 'Select time', time: 'Time', timeOf: (label: string) => `${label} time`, noMatch: 'No matching time.' },
+  timeField: { placeholder: 'Select time', time: 'Time', timeOf: (label: string) => `${label} time`, noMatch: 'No matching time.', outOfRange: (from: string, to: string) => `Choose a time from ${from} to ${to}.`, invalid: 'Not a valid time. Type it like 9:30 or pick one from the list.' },
   diffViewer: {
     expand: (n: number) => `Show ${n} unchanged ${plural(n, 'line', 'lines')}`,
     empty: 'No changes',
@@ -160,6 +162,7 @@ export const en = {
   },
   file: { pick: 'Add file', replace: 'Replace file' },
   filterField: {
+    rangeEmpty: 'Enter a minimum, a maximum or both.',
     placeholder: 'Filter or search…',
     add: 'Add filter',
     attribute: 'Filter by…',
@@ -408,11 +411,18 @@ export const en = {
       ({ days: plural(n, 'day', 'days'), hours: plural(n, 'hour', 'hours'), minutes: plural(n, 'minute', 'minutes'), seconds: plural(n, 'second', 'seconds') })[unit],
     short: { days: 'd', hours: 'h', minutes: 'm', seconds: 's' },
     left: (time: string) => `${time} left`,
+    ended: 'Time is up',
   },
   rating: { value: (value: number, max: number) => `${value} of ${max}` },
   productTour: { next: 'Next', back: 'Back', done: 'Done', skip: 'Skip tour', close: 'Close tour', progress: (step: number, total: number) => `${step} of ${total}` },
   slider: { minimum: (label: string) => `${label} minimum`, maximum: (label: string) => `${label} maximum`, value: (label: string, n: number) => `${label} value ${n}` },
   usageBar: { label: (summary: string) => `Usage by segment: ${summary}` },
+  meter: {
+    of: (value: string, max: string) => `${value} of ${max}`,
+    above: (threshold: string) => `above the ${threshold} threshold`,
+    below: (threshold: string) => `below the ${threshold} threshold`,
+  },
+  bottomNav: { label: 'Main', count: (n: number) => `${n} new`, dot: 'new' },
   cardDeck: {
     skip: 'Skip',
     keep: 'Keep',
@@ -426,6 +436,8 @@ export const en = {
     // Visible captions under the channel fields; letters in every language, like design tools.
     captions: { r: 'R', g: 'G', b: 'B', h: 'H', s: 'S', l: 'L' },
     openFor: (label: string) => `Choose color for ${label}`,
+    invalidHex: 'Enter a hex color: 3 or 6 characters, 0–9 and A–F.',
+    invalidNumber: (min: number, max: number) => `Enter a number from ${min} to ${max}.`,
     area: 'Saturation and brightness',
     areaValue: (s: number, v: number) => `Saturation ${s}%, brightness ${v}%`,
     changePhoto: 'Change photo',

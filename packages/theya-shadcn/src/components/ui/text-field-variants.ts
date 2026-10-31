@@ -27,7 +27,7 @@ export const textFieldVariants = cva(
     // Side insets live on heightSize: 12px for sm/md, 16px for lg (Мария,
     // 2026-10-23). The same inset applies to a leading icon and, when there
     // is no trailing control, to the end side.
-    'bg-[var(--color-bg-input-bg-input)] border border-solid',
+    'bg-[var(--color-bg-input-bg-input)] shadow-field border border-solid',
     'border-[var(--color-border-border)]',
     'text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-placeholder)]',
     'transition-[background-color,border-color,box-shadow] duration-150 ease-out motion-reduce:transition-none',

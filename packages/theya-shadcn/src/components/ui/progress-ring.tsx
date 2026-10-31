@@ -34,12 +34,13 @@ export interface ProgressRingProps extends Omit<React.HTMLAttributes<HTMLDivElem
   children?: ReactNode | ((shown: number) => ReactNode);
 }
 
+// icon-* tones: the arc must reach 3:1 against its track (WCAG 1.4.11); see Meter.
 const TONE: Record<ProgressRingTone, string> = {
-  primary: 'var(--color-bg-primary-bg-primary)',
-  success: 'var(--color-bg-success-bg-success)',
-  warning: 'var(--color-bg-warning-bg-warning-status)',
-  danger: 'var(--color-bg-danger-bg-danger)',
-  info: 'var(--color-bg-info-bg-info-status)',
+  primary: 'var(--color-icon-icon-primary)',
+  success: 'var(--color-icon-icon-success)',
+  warning: 'var(--color-icon-icon-warning)',
+  danger: 'var(--color-icon-icon-danger)',
+  info: 'var(--color-icon-icon-info)',
 };
 
 const easeOutCubic = (p: number) => 1 - Math.pow(1 - p, 3);

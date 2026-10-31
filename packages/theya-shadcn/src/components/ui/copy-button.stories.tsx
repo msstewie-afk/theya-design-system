@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { CopyButton } from './copy-button';
 import { copyButtonGuidelines } from './copy-button.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -60,14 +61,18 @@ export const Playground: Story = {
     const button = canvas.getByRole('button', { name: 'Copy' });
     const writeText = fn(async (_text: string) => {});
     await withClipboard(writeText, async () => {
-      await userEvent.click(button);
+      // From the keyboard: Tab to it, Enter copies.
+      resetFocus();
+      await tabTo(button);
+      await userEvent.keyboard('{Enter}');
       await waitFor(() => expect(writeText).toHaveBeenCalledWith('npm install @theya/shadcn'));
       await expect(args.onCopied).toHaveBeenCalledWith('npm install @theya/shadcn');
       await waitFor(() => expect(button).toHaveAccessibleName('Copied'));
       await expect(button).toHaveAttribute('data-tone', 'success');
-      // One announcement: Button's live label says "Copied"; CopyButton adds
-      // no second region when the label is visible.
-      await expect(regions(canvasElement)).toHaveLength(1);
+      // One announcement: Button says "Copied" through the shared announcer;
+      // CopyButton adds no region of its own when the label is visible.
+      await expect(regions(canvasElement)).toHaveLength(0);
+      await waitFor(() => expect(document.querySelector('[data-theya-announcer="polite"]')?.textContent).toBe('Copied'));
 
       // Reverts after resetDelay.
       await waitFor(() => expect(button).toHaveAccessibleName('Copy'), { timeout: 2000 });

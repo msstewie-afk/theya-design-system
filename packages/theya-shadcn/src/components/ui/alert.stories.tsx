@@ -4,6 +4,8 @@ import { InfoCircle, CheckCircle, WarningTriangle, WarningCircle } from 'iconoir
 import { Alert, AlertTitle, AlertDescription, AlertActions } from './alert';
 import { Button } from './button';
 import { alertGuidelines } from './alert.guidelines';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * Alert — an inline feedback banner. Put an iconoir icon as the first child
@@ -208,6 +210,18 @@ export const Dismissible: Story = {
       </div>
     );
   },
+  // Keyboard: the dismiss X is in the tab order, Enter removes the alert, and
+  // the control that brings it back is reachable next.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    resetFocus();
+    await tabTo(canvas.getByRole('button', { name: 'Dismiss alert' }));
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(canvas.queryByText('Backups moved to eu-west-1')).not.toBeInTheDocument());
+    await tabTo(canvas.getByRole('button', { name: 'Show alert again' }));
+    await userEvent.keyboard(' ');
+    await expect(await canvas.findByText('Backups moved to eu-west-1')).toBeVisible();
+  },
 };
 
 const ACTION_CASES = [
@@ -339,5 +353,59 @@ export const WithActions: Story = {
         ) : null}
       </div>
     );
+  },
+};
+
+function LiveAlertDemo() {
+  const [result, setResult] = useState<'started' | 'failed' | null>(null);
+  return (
+    <div className="flex w-full max-w-[480px] flex-col gap-3">
+      {/* Wraps on a phone: three buttons don't fit in 360px. */}
+      <div className="flex flex-wrap gap-2">
+        <Button appearance="outlined" tone="neutral" onClick={() => setResult(null)}>
+          Reset
+        </Button>
+        <Button onClick={() => setResult('started')}>Run backup</Button>
+        <Button appearance="outlined" tone="danger" onClick={() => setResult('failed')}>
+          Run backup (fails)
+        </Button>
+      </div>
+      {result === 'started' && (
+        <Alert tone="success" live="polite">
+          <CheckCircle />
+          <div>
+            <AlertTitle>Backup started</AlertTitle>
+            <AlertDescription>shop.seashell.dev is being copied to eu-west-1.</AlertDescription>
+          </div>
+        </Alert>
+      )}
+      {result === 'failed' && (
+        <Alert tone="danger" live="assertive">
+          <WarningCircle />
+          <div>
+            <AlertTitle>Backup failed</AlertTitle>
+            <AlertDescription>The storage quota is full. Free up space and try again.</AlertDescription>
+          </div>
+        </Alert>
+      )}
+    </div>
+  );
+}
+
+/**
+ * `live`: a banner mounted in response to an action is announced — "polite"
+ * for news (role=status), "assertive" for a failure (role=alert). Static
+ * banners leave `live` off.
+ */
+export const LiveOnAction: Story = {
+  name: 'Live, on action',
+  render: () => <LiveAlertDemo />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Run backup' }));
+    await expect(await canvas.findByRole('status')).toHaveTextContent('Backup started');
+    await userEvent.click(canvas.getByRole('button', { name: 'Run backup (fails)' }));
+    await expect(await canvas.findByRole('alert')).toHaveTextContent('Backup failed');
+    await userEvent.click(canvas.getByRole('button', { name: 'Reset' }));
   },
 };

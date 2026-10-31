@@ -4,6 +4,7 @@ import { Xmark } from 'iconoir-react';
 import { cn } from '../../lib/utils';
 import { Button, type ButtonProps } from './button';
 import { useTheyaI18n } from '../../lib/i18n';
+import { useDecorativeSvgs } from '../../lib/use-decorative-svgs';
 
 /**
  * No library dependency — an inline feedback banner. Put an icon as
@@ -93,9 +94,12 @@ export function Alert({
   const { t } = useTheyaI18n();
   if (dismissLabel === undefined) dismissLabel = t.alert.dismiss;
   const stripeClass = indicator === 'stripe' ? STRIPE_CLASS[tone] : undefined;
+  // The icon is the consumer's first child; it is decorative (the title says it).
+  const iconsRef = useDecorativeSvgs<HTMLDivElement>();
 
   return (
     <div
+      ref={iconsRef}
       role={live === 'assertive' ? 'alert' : live === 'polite' ? 'status' : undefined}
       className={cn(
         'relative flex gap-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid px-4 py-3',
@@ -140,5 +144,5 @@ export function AlertDescription({ className, ...props }: React.ComponentProps<'
 
 /** The row of buttons/links under the body. */
 export function AlertActions({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('mt-2.5 flex flex-wrap items-center gap-2', className)} {...props} />;
+  return <div className={cn('mt-3 flex flex-wrap items-center gap-2', className)} {...props} />;
 }

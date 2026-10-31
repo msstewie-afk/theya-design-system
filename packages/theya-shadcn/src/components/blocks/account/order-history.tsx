@@ -239,7 +239,8 @@ export function OrderHistory({ orders, pageSize = 5, onReorder, currency = 'USD'
 
       {visible < filtered.length && (
         <div className="flex flex-col items-center gap-2">
-          <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">{`Showing ${visible} of ${filtered.length}`}</p>
+          {/* Live: after a "Show more" that isn't the last, focus stays on the button and this count is how the result is heard. */}
+          <p aria-live="polite" className="font-body text-body-s text-[var(--color-text-text-subtler)]">{`Showing ${visible} of ${filtered.length}`}</p>
           <Button
             appearance="outlined"
             tone="secondary"

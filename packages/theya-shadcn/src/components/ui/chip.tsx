@@ -202,7 +202,7 @@ export function Chip({
         'font-body text-body-xs font-medium whitespace-nowrap outline-none',
         'transition-[background-color,border-color,color] duration-standard ease-enter motion-reduce:transition-none',
         // A filter chip pops as the user switches it on (Kinetics' Choice Chips, MIT).
-        'data-[toggled]:data-[pressed]:animate-[theya-pop-soft_320ms_var(--ease-spring)] motion-reduce:animate-none',
+        'data-[toggled]:data-[pressed]:animate-[theya-pop-soft_var(--transition-duration-slow)_var(--ease-spring)] motion-reduce:animate-none',
         '[&_svg]:pointer-events-none [&_svg]:shrink-0',
         // Guarded selector (matches Button's own pattern): only sizes a
         // *bare* icon (no existing `size-*` class, e.g. ChipRemove's inner
@@ -220,7 +220,7 @@ export function Chip({
         look === 'filled' ? SOLID_TONE_CLASS[tone] : TONE_CLASS[tone],
         bordered && BORDER_TONE_CLASS[tone],
         isPressable &&
-          cn('cursor-pointer', HOVER_CLASS[look][tone], 'data-[disabled]:pointer-events-none data-[disabled]:opacity-50'),
+          cn('cursor-pointer', HOVER_CLASS[look][tone], 'data-[disabled]:pointer-events-none data-[disabled]:opacity-50', 'shadow-control hover:shadow-control-hover data-[pressed]:shadow-control-pressed'),
         className,
       )}
       {...restProps}

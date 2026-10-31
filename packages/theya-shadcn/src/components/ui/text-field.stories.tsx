@@ -7,6 +7,7 @@ const iconMap = { Star, Search, User, Mail, Lock, Heart, Home, Settings, Xmark, 
 type IconName = keyof typeof iconMap;
 import { TextField } from './text-field';
 import { textFieldGuidelines } from './text-field.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -72,8 +73,12 @@ export const Playground: Story = {
     const input = canvas.getByRole('textbox', { name: 'Email' });
     await expect(canvas.queryByRole('button', { name: 'Clear Email' })).toBeNull();
 
-    await userEvent.type(input, 'maria@theya.dev');
-    await userEvent.click(canvas.getByRole('button', { name: 'Clear Email' }));
+    // All from the keyboard: Tab in, type, Tab to the clear button, Enter.
+    resetFocus();
+    await tabTo(input);
+    await userEvent.keyboard('maria@theya.dev');
+    await tabTo(canvas.getByRole('button', { name: 'Clear Email' }));
+    await userEvent.keyboard('{Enter}');
     await expect(input).toHaveValue('');
     await expect(input).toHaveFocus();
     await expect(canvas.queryByRole('button', { name: 'Clear Email' })).toBeNull();

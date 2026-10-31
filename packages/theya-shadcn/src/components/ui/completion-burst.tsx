@@ -67,12 +67,12 @@ export function CompletionBurst({ status, busyLabel, doneLabel, description, ico
             <span key={r.angle} className="pointer-events-none absolute left-1/2 top-1/2 h-0 w-0 motion-reduce:hidden" style={{ rotate: `${r.angle}deg` }}>
               <span
                 className={cn(
-                  'absolute -translate-x-1/2 rounded-full opacity-0 animate-[theya-spark_var(--motion-duration-slower,700ms)_var(--ease-glide)_forwards]',
+                  'absolute -translate-x-1/2 rounded-full opacity-0 animate-[theya-spark_var(--motion-duration-slower)_var(--ease-glide)_forwards]',
                   r.long ? 'h-3 w-0.5' : 'h-2 w-0.5',
                   tone === 'success' ? 'bg-[var(--color-icon-icon-success)]' : 'bg-[var(--color-icon-icon-primary)]',
                 )}
                 // Start at the circle's edge and fly outward along the ray (the parent is rotated, so -y is outward).
-                style={{ top: '-2.25rem', '--spark-x': '0px', '--spark-y': r.long ? '-1.25rem' : '-0.875rem', animationDelay: '120ms' } as CSSProperties}
+                style={{ top: '-2.25rem', '--spark-x': '0px', '--spark-y': r.long ? '-1.25rem' : '-0.875rem', animationDelay: 'var(--motion-duration-standard)' } as CSSProperties}
               />
             </span>
           ))}

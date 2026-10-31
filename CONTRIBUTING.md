@@ -35,6 +35,8 @@ Node 22, pnpm 11. Run `pnpm build:tokens` again after any change in `packages/to
 1. **`<name>.tsx`** — the component.
    - `'use client'` at the top if it uses state, effects or event handlers (`pnpm api:check` checks it).
    - Colors, sizes, radii, shadows only from tokens: `bg-[var(--color-…)]`, `p-[var(--size-…)]` or the Tailwind spacing scale. No hex: the gate blocks it (a deliberate exception: `gate-allow-hex` on the same line, with a reason).
+   - Every `var(--…)` must name a token or variable that exists: a typo or a removed token drops the whole declaration without any error (`check-css-vars.mjs` fails on them). Optional variables get a fallback: `var(--x, 0px)`.
+   - Motion and color from tokens, not numbers: `duration-slow` or `var(--transition-duration-slow)`, not `320ms`; `ease-spring`, not `cubic-bezier(…)`; `var(--color-…)`, not `rgba(…)`. In JS (`element.animate`) read the token with `getComputedStyle`. A deliberate exception (a stagger step, a one-off effect, a timer) gets `raw-ok: <reason>` on the line or the line above (`check-raw-values.mjs` fails otherwise).
    - Logical sides: `ms/me`, `ps/pe`, `start/end`, `text-start` — not `ml/mr`, `left/right` (`check-rtl.mjs` fails on them; `--fix` converts them).
    - Built-in text (screen-reader labels, placeholders, announcements) from the dictionary, never hardcoded ([LOCALIZATION.md](LOCALIZATION.md#how-to-add-a-string)).
    - Prop names from the shared vocabulary: `appearance`, `tone`, `size`, `widthSize`… — look at a similar component first.
@@ -65,7 +67,7 @@ Target: WCAG 2.2 AA, in light and dark.
 
 - Every story runs axe in both themes in CI; a violation fails the build. Check locally: `pnpm test-storybook <file>` and `pnpm test-storybook:dark <file>`.
 - A rule switched off for a story needs a reason in a comment next to it; it shows up in the matrix.
-- Contrast: 4.5:1 for text, 3:1 for icons, borders of controls, focus rings and status dots — in dark too.
+- Contrast: 4.5:1 for text, 3:1 for icons, borders of controls and status dots — in dark too. The soft focus ring is under 3:1 on purpose (an accepted exception, see Design System / Accessibility): give a control another visible focus change, such as its border or background, where you can.
 - Targets at least 24×24px; motion behind `motion-safe:` / `motion-reduce:`; `forced-colors` styles where a state is shown only by color or background.
 - Screen-reader passes go into `a11y/manual.json` by hand.
 

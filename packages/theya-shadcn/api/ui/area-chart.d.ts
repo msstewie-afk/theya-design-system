@@ -17,6 +17,7 @@ export interface AreaChartProps {
     series?: AreaChartSeries[];
     stacked?: boolean;
     legend?: boolean;
+    seriesPatterns?: boolean;
     height?: number;
     yStep?: number;
     unit?: string;
@@ -29,7 +30,7 @@ export interface AreaChartProps {
     ariaLabel?: string;
     className?: string;
 }
-export declare function AreaChart({ data, series, stacked, legend, height, yStep, unit, labelPrefix, format, showXAxis, showYAxis, floatingAxis, loading, ariaLabel, className, }: AreaChartProps): import("react").JSX.Element;
+export declare function AreaChart({ data, series, stacked, legend, seriesPatterns, height, yStep, unit, labelPrefix, format, showXAxis, showYAxis, floatingAxis, loading, ariaLabel, className, }: AreaChartProps): import("react").JSX.Element;
 
 // Defaults
 // AreaChart.floatingAxis = false
@@ -37,6 +38,7 @@ export declare function AreaChart({ data, series, stacked, legend, height, yStep
 // AreaChart.labelPrefix = 
 // AreaChart.legend = true
 // AreaChart.loading = false
+// AreaChart.seriesPatterns = true
 // AreaChart.showXAxis = true
 // AreaChart.showYAxis = true
 // AreaChart.stacked = true

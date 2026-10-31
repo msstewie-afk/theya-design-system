@@ -4,6 +4,7 @@ import { InfoCircle, Sparks, Tools, WarningTriangle } from 'iconoir-react';
 import { AnnouncementBar } from './announcement-bar';
 import { Button } from './button';
 import { announcementBarGuidelines } from './announcement-bar.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * AnnouncementBar — a full-width strip above the header for something that
@@ -144,7 +145,9 @@ export const RememberedDismissal: Story = {
     try {
       // Dismiss: the bar goes, the choice is remembered, and focus moves on to the
       // next control instead of falling to <body>.
-      await userEvent.click(canvas.getByRole('button', { name: 'Dismiss announcement' }));
+      resetFocus();
+      await tabTo(canvas.getByRole('button', { name: 'Dismiss announcement' }));
+      await userEvent.keyboard('{Enter}');
       await expect(bar()).not.toBeInTheDocument();
       await expect(window.localStorage.getItem(KEY)).toBe('dismissed');
       await waitFor(() => expect(canvas.getByRole('button', { name: 'Show again' })).toHaveFocus());

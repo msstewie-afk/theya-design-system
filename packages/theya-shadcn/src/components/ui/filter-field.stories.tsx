@@ -164,10 +164,15 @@ export const Empty: Story = {
     await waitClosed();
     await expect(canvas.getByRole('button', { name: 'Name: Contains web' })).toBeInTheDocument();
 
-    // Number range: only a minimum -> "3+".
+    // Number range: Apply with neither bound says what's missing (WCAG 3.3.1).
     await userEvent.click(input);
     await userEvent.click(body().getByRole('option', { name: 'Replicas' }));
-    await userEvent.type(await body().findByRole('spinbutton', { name: 'Replicas minimum' }), '3');
+    const min = await body().findByRole('spinbutton', { name: 'Replicas minimum' });
+    await userEvent.click(body().getByRole('button', { name: 'Apply' }));
+    await expect(min).toHaveAttribute('aria-invalid', 'true');
+    await expect(min).toHaveAccessibleDescription('Enter a minimum, a maximum or both.');
+    // Only a minimum -> "3+"; typing clears the message.
+    await userEvent.type(min, '3');
     await userEvent.click(body().getByRole('button', { name: 'Apply' }));
     await waitClosed();
     await expect(canvas.getByRole('button', { name: 'Replicas: 3+' })).toBeInTheDocument();

@@ -70,8 +70,8 @@ export const Invalid: Story = {
       <Label htmlFor="field-invalid" data-error>
         Domain
       </Label>
-      <TextField id="field-invalid" defaultValue="not a domain" error widthSize="full" />
-      <FieldError>Enter a valid domain, like shop.seashell.dev.</FieldError>
+      <TextField id="field-invalid" defaultValue="not a domain" error widthSize="full" aria-describedby="field-invalid-error" />
+      <FieldError id="field-invalid-error">Enter a valid domain, like shop.seashell.dev.</FieldError>
     </Field>
   ),
 };

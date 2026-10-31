@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PropertyGrid, type PropertyGridItem, type PropertyValue } from './property-grid';
 import { Slider } from './slider';
 import { propertyGridGuidelines } from './property-grid.guidelines';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 const meta: Meta<typeof PropertyGrid> = {
   title: 'Form Structure/PropertyGrid',
@@ -80,6 +82,59 @@ function EditingDemo() {
 /** Controlled with `values` and `onValuesChange`, starting empty, so every row is ready for input. */
 export const Editing: Story = {
   render: () => <EditingDemo />,
+  // Keyboard: Tab goes row by row, and each control works without a mouse.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    resetFocus();
+    await tabTo(canvas.getByRole('textbox', { name: 'Display name' }));
+    await userEvent.keyboard('Edge cache');
+    await expect(canvas.getByRole('textbox', { name: 'Display name' })).toHaveValue('Edge cache');
+
+    const region = canvas.getByRole('combobox', { name: 'Region' });
+    await tabTo(region);
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(within(document.body).getByRole('option', { name: 'us-east-1' })).toBeVisible());
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}{Enter}');
+    await waitFor(() => expect(region).toHaveTextContent('us-east-1'));
+    await waitFor(() => expect(region).toHaveFocus());
+
+    const https = canvas.getByRole('switch', { name: 'Force HTTPS' });
+    await tabTo(https);
+    await userEvent.keyboard(' ');
+    await expect(https).toBeChecked();
+  },
+};
+
+/** A row's `error` shows under its control, which is marked invalid and described by it. Clear it once the value is valid. */
+export const WithError: Story = {
+  name: 'With Error',
+  render: function Render() {
+    const [values, setValues] = useState<Record<string, PropertyValue>>({ ...DEFAULT_VALUES, replicas: 0, name: '' });
+    const items = ITEMS.map((i) =>
+      i.name === 'name'
+        ? { ...i, error: values.name === '' ? 'Enter a display name.' : undefined }
+        : i.name === 'replicas'
+          ? { ...i, description: 'From 1 to 20.', error: Number(values.replicas) < 1 ? 'Run at least 1 replica.' : undefined }
+          : i,
+    );
+    return (
+      <div className="w-full max-w-[600px]">
+        <PropertyGrid items={items} values={values} onValuesChange={setValues} />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const name = canvas.getByRole('textbox', { name: 'Display name' });
+    await expect(name).toHaveAttribute('aria-invalid', 'true');
+    await expect(name).toHaveAccessibleDescription('Enter a display name.');
+    const replicas = canvas.getByRole('spinbutton', { name: 'Replicas' });
+    await expect(replicas).toHaveAttribute('aria-invalid', 'true');
+    await expect(replicas).toHaveAccessibleDescription('Run at least 1 replica. From 1 to 20.');
+    await userEvent.type(name, 'shop');
+    await waitFor(() => expect(name).not.toHaveAttribute('aria-invalid', 'true'));
+    await expect(canvas.queryByText('Enter a display name.')).not.toBeInTheDocument();
+  },
 };
 
 /** Every row `readOnly`: the grid shows values as plain text, for a details view with nothing to change. */

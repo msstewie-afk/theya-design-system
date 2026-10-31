@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { CodeBlock } from './code-block';
 import { codeBlockGuidelines } from './code-block.guidelines';
+import { expect, within } from '@storybook/test';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 /**
  * CodeBlock — a static, read-only snippet in a mono surface box with a copy
@@ -71,6 +73,17 @@ export const LongLines: Story = {
     filename: 'deploy.sh',
     language: 'bash',
     code: 'curl -fsSL https://get.example.com/install.sh | sh -s -- --channel stable --region eu-west-1 --token $WP_TOKEN',
+  },
+  // Keyboard: Copy, then the code itself.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const pre = canvasElement.querySelector('pre')!;
+    resetFocus();
+    await tabTo(canvas.getByRole('button', { name: 'Copy code' }));
+    // The code is a tab stop when it overflows, so the arrow keys can scroll
+    // it (synthetic key events don't scroll, so that part isn't asserted).
+    await expect(pre.scrollWidth).toBeGreaterThan(pre.clientWidth);
+    await tabTo(pre);
   },
 };
 

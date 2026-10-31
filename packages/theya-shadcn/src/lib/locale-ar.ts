@@ -38,7 +38,7 @@ export const ar: TheyaMessages = {
     more: 'المزيد',
     showMore: (n) => `عرض ${plural(n, { one: 'مستوى واحد آخر', two: 'مستويين آخرين', few: 'مستويات أخرى', many: 'مستوى آخر' })}`,
   },
-  carousel: { label: 'عرض شرائح', previous: 'الشريحة السابقة', next: 'الشريحة التالية', slides: 'الشرائح', goTo: (n) => `الانتقال إلى الشريحة ${n}` },
+  carousel: { label: 'عرض شرائح', previous: 'الشريحة السابقة', next: 'الشريحة التالية', slides: 'الشرائح', goTo: (n) => `الانتقال إلى الشريحة ${n}`, keysHint: 'استخدم مفتاحي السهم الأيمن والأيسر للتنقل بين الشرائح', position: (i, n, name) => (name ? `${i} من ${n}: ${name}` : `${i} من ${n}`) },
   chart: {
     trend: (points) => `الاتجاه عبر ${points} نقطة`,
     seriesTrend: (names, points) => `${names} عبر ${points} نقطة`,
@@ -118,7 +118,7 @@ export const ar: TheyaMessages = {
   },
   datePicker: { placeholder: 'اختر تاريخًا', clear: 'مسح التاريخ' },
   dateRangePicker: { placeholder: 'اختر نطاقًا زمنيًا', clear: 'مسح النطاق الزمني' },
-  timeField: { placeholder: 'اختر الوقت', time: 'الوقت', timeOf: (label) => `وقت ${label}`, noMatch: 'لا يوجد وقت مطابق.' },
+  timeField: { placeholder: 'اختر الوقت', time: 'الوقت', timeOf: (label) => `وقت ${label}`, noMatch: 'لا يوجد وقت مطابق.', outOfRange: (from, to) => `اختر وقتًا من ${from} إلى ${to}.`, invalid: 'وقت غير صالح. اكتب مثلًا 9:30 أو اختر من القائمة.' },
   diffViewer: {
     expand: (n) => `عرض ${n} أسطر دون تغيير`,
     empty: 'لا توجد تغييرات',
@@ -154,6 +154,7 @@ export const ar: TheyaMessages = {
   },
   file: { pick: 'إضافة ملف', replace: 'استبدال الملف' },
   filterField: {
+    rangeEmpty: 'أدخل حدًا أدنى أو حدًا أقصى أو كليهما.',
     placeholder: 'تصفية أو بحث…',
     add: 'إضافة عامل تصفية',
     attribute: 'التصفية حسب…',
@@ -386,11 +387,18 @@ export const ar: TheyaMessages = {
       })[unit],
     short: { days: 'ي', hours: 'س', minutes: 'د', seconds: 'ث' },
     left: (time) => `متبقٍّ ${time}`,
+    ended: 'انتهى الوقت',
   },
   rating: { value: (value, max) => `${value} من ${max}` },
   productTour: { next: 'التالي', back: 'السابق', done: 'تم', skip: 'تخطي الجولة', close: 'إغلاق الجولة', progress: (step, total) => `${step} من ${total}` },
   slider: { minimum: (label) => `الحد الأدنى لـ ${label}`, maximum: (label) => `الحد الأقصى لـ ${label}`, value: (label, n) => `${label}، القيمة ${n}` },
   usageBar: { label: (summary) => `الاستخدام حسب الجزء: ${summary}` },
+  meter: {
+    of: (value, max) => `${value} من ${max}`,
+    above: (threshold) => `فوق الحد ${threshold}`,
+    below: (threshold) => `تحت الحد ${threshold}`,
+  },
+  bottomNav: { label: 'الرئيسية', count: (n) => `${n} جديد`, dot: 'جديد' },
   cardDeck: {
     skip: 'تخطي',
     keep: 'احتفاظ',
@@ -404,6 +412,8 @@ export const ar: TheyaMessages = {
     // Visible captions under the channel fields; letters in every language, like design tools.
     captions: { r: 'R', g: 'G', b: 'B', h: 'H', s: 'S', l: 'L' },
     openFor: (label) => `اختيار لون لـ ${label}`,
+    invalidHex: 'أدخل لونًا بصيغة hex: ‏3 أو 6 خانات، 0–9 وA–F.',
+    invalidNumber: (min, max) => `أدخل رقمًا من ${min} إلى ${max}.`,
     area: 'التشبع والسطوع',
     areaValue: (s, v) => `التشبع ${s}%، السطوع ${v}%`,
     changePhoto: 'تغيير الصورة',

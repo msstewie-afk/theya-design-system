@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { DensityToggle } from './density-toggle';
 import type { Density } from './use-density';
 import { densityToggleGuidelines } from './density-toggle.guidelines';
+import { resetFocus, tabTo } from '../../test/keyboard';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -88,6 +89,16 @@ export const Playground: Story = {
     await userEvent.click(canvas.getByRole('radio', { name: 'Comfortable' }));
     await waitFor(() => expect(html.getAttribute('data-density')).toBe('comfortable'));
     await userEvent.click(canvas.getByRole('radio', { name: 'Default' }));
+    await waitFor(() => expect(html.hasAttribute('data-density')).toBe(false));
+
+    // Keyboard: one tab stop on the selected option; arrows move, Space picks.
+    resetFocus();
+    await tabTo(canvas.getByRole('radio', { name: 'Default' }));
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(canvas.getByRole('radio', { name: 'Comfortable' })).toHaveFocus();
+    await userEvent.keyboard(' ');
+    await waitFor(() => expect(html.getAttribute('data-density')).toBe('comfortable'));
+    await userEvent.keyboard('{ArrowLeft} ');
     await waitFor(() => expect(html.hasAttribute('data-density')).toBe(false));
   },
 };

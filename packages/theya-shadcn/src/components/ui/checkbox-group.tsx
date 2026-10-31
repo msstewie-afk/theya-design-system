@@ -3,6 +3,7 @@
 import { createContext, useContext, useId, useState, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import { Checkbox, type CheckboxProps } from './checkbox';
+import { FieldError } from './field';
 
 /**
  * A native `<fieldset>` of related Checkboxes that share one value: the
@@ -19,6 +20,7 @@ interface GroupState {
   setChecked: (name: string, checked: boolean) => void;
   disabled?: boolean;
   size?: 'sm' | 'md';
+  invalid?: boolean;
 }
 
 const GroupStateContext = createContext<GroupState | null>(null);
@@ -35,6 +37,12 @@ export interface CheckboxGroupProps {
   size?: 'sm' | 'md';
   /** Group label — rendered as a `<legend>` via the native fieldset. */
   label?: ReactNode;
+  /**
+   * Group-level validation message ("Choose at least one."). Shown under the
+   * items with the error icon; the fieldset is described by it and every box
+   * is marked invalid (WCAG 3.3.1). An item's own `error` still wins.
+   */
+  error?: ReactNode;
   children: ReactNode;
   className?: string;
 }
@@ -46,6 +54,7 @@ export function CheckboxGroup({
   disabled,
   size = 'md',
   label,
+  error,
   children,
   className,
 }: CheckboxGroupProps) {
@@ -53,6 +62,8 @@ export function CheckboxGroup({
   const [internal, setInternal] = useState<string[]>(defaultValue ?? []);
   const current = isControlled ? value : internal;
   const legendId = useId();
+  const errorId = useId();
+  const invalid = Boolean(error) && !disabled;
 
   const setChecked = useCallback(
     (name: string, checked: boolean) => {
@@ -64,14 +75,25 @@ export function CheckboxGroup({
   );
 
   return (
-    <GroupStateContext.Provider value={{ checkedNames: current, setChecked, disabled, size }}>
-      <fieldset disabled={disabled} className={className} aria-labelledby={label ? legendId : undefined}>
+    <GroupStateContext.Provider value={{ checkedNames: current, setChecked, disabled, size, invalid }}>
+      <fieldset
+        disabled={disabled}
+        className={className}
+        aria-labelledby={label ? legendId : undefined}
+        aria-describedby={invalid ? errorId : undefined}
+      >
         {label && (
           <legend id={legendId} className="font-body text-body-m font-medium text-[var(--color-text-text)] mb-2">
             {label}
           </legend>
         )}
         <div className={size === 'sm' ? 'flex flex-col gap-2' : 'flex flex-col gap-3'}>{children}</div>
+        {/* 4px under the last item, as a field's message sits under its field. */}
+        {invalid && (
+          <FieldError id={errorId} className="mt-1">
+            {error}
+          </FieldError>
+        )}
       </fieldset>
     </GroupStateContext.Provider>
   );
@@ -81,7 +103,7 @@ export interface CheckboxGroupItemProps extends Omit<CheckboxProps, 'checked' | 
   name: string;
 }
 
-export function CheckboxGroupItem({ name, disabled, size, ...props }: CheckboxGroupItemProps) {
+export function CheckboxGroupItem({ name, disabled, size, error, ...props }: CheckboxGroupItemProps) {
   const group = useContext(GroupStateContext);
   if (!group) throw new Error('CheckboxGroupItem must be used within a CheckboxGroup');
 
@@ -91,6 +113,7 @@ export function CheckboxGroupItem({ name, disabled, size, ...props }: CheckboxGr
       onCheckedChange={(checked) => group.setChecked(name, checked === true)}
       disabled={disabled ?? group.disabled}
       size={size ?? group.size}
+      error={error ?? group.invalid}
       {...props}
     />
   );

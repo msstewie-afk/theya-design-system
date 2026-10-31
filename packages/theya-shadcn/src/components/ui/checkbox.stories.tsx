@@ -134,14 +134,14 @@ export const Sizes: Story = {
   ),
 };
 
-/** `error`: the box and its focus ring turn danger-colored, for a required box that hasn't been ticked. */
+/** `error`: the box and its focus ring turn danger-colored, for a required box that hasn't been ticked. Always pass the message as `description`: it renders with an error icon and is tied to the box, so the error isn't color alone (WCAG 1.4.1). */
 export const ErrorState: Story = {
   name: 'Error',
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <Checkbox error label="Unchecked" />
-      <Checkbox error label="Checked" defaultChecked />
-      <Checkbox error label="Indeterminate" indeterminate />
+      <Checkbox error label="Unchecked" description="Required." />
+      <Checkbox error label="Checked" defaultChecked description="Required." />
+      <Checkbox error label="Indeterminate" indeterminate description="Select all or none." />
       <Checkbox
         error
         label="You must accept the terms"

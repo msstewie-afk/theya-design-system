@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, cloneElement, isValidElement } from 'react';
+import { createContext, useContext, cloneElement, isValidElement, useCallback } from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, NavArrowDown, NavArrowUp } from 'iconoir-react';
 import { cn } from '../../lib/utils';
@@ -67,7 +67,7 @@ function SelectTrigger({ className, widthSize = 'md', error, children, ...props 
         'flex items-center justify-between gap-2',
         WIDTH_CLASSES[widthSize],
         'rounded-[var(--theme-radius-field,var(--size-border-radius-border-radius-lg))] border border-solid',
-        'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)]',
+        'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
         // Start inset matches every other field: 12px for sm/md, 16px for lg.
         // The end inset keeps the chevron where it was (Мария, 2026-10-23).
         'pe-[var(--size-margin-margin-s)] text-[var(--color-text-text)]',
@@ -132,9 +132,20 @@ function SelectContent({
   sideOffset = 4,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
+  // Radix leaves the listbox unnamed (WCAG 4.1.2). Name it after its
+  // trigger — the trigger's aria-label, or the <label> pointing at it — unless
+  // the consumer labelled the content. Done on mount from the DOM, since the
+  // trigger's name can come from a Label outside the Select.
+  const nameAfterTrigger = useCallback((content: HTMLDivElement | null) => {
+    if (!content || content.hasAttribute('aria-label') || content.hasAttribute('aria-labelledby')) return;
+    const trigger = content.id ? document.querySelector<HTMLButtonElement>(`[aria-controls="${CSS.escape(content.id)}"]`) : null;
+    const name = trigger?.getAttribute('aria-label') || [...(trigger?.labels ?? [])].map((l) => l.textContent?.trim()).filter(Boolean).join(' ');
+    if (name) content.setAttribute('aria-label', name);
+  }, []);
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
+        ref={nameAfterTrigger}
         data-bloom=""
         position={position}
         sideOffset={sideOffset}

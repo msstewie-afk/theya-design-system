@@ -200,7 +200,7 @@ export function SavedItems({ items: initial, primaryAction, onRemove, currency =
               />
               {item.image && (
                 <span className="size-14 shrink-0 overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] in-data-[theme=dark]:bg-[var(--color-white)]">
-                  <img src={item.image} alt="" className={cn('size-full object-contain p-1.5', gone && 'opacity-60')} />
+                  <img src={item.image} alt="" className={cn('size-full object-contain p-2', gone && 'opacity-60')} />
                 </span>
               )}
               <div className="flex min-w-0 flex-1 flex-col gap-1">

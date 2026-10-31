@@ -6,6 +6,7 @@ import { Area, AreaChart as RechartsAreaChart, CartesianGrid, ResponsiveContaine
 import { cn } from '../../lib/utils';
 import { Skeleton } from './skeleton';
 import { useTheyaI18n } from '../../lib/i18n';
+import { seriesColor, seriesDash, SeriesKey } from '../../lib/chart-series';
 import { seriesRange } from '../../lib/chart-summary';
 
 /**
@@ -44,6 +45,12 @@ export interface AreaChartProps {
   /** Stack series on top of each other; false overlays them (only applies with `series`). */
   stacked?: boolean;
   legend?: boolean;
+  /**
+   * With `series`: give each series' line its own dash as well as its color,
+   * so series can be told apart without color (WCAG 1.4.1). The legend and
+   * tooltip keys show the same dash. Default true.
+   */
+  seriesPatterns?: boolean;
   height?: number;
   /** Gridline interval in data units. */
   yStep?: number;
@@ -59,20 +66,9 @@ export interface AreaChartProps {
   className?: string;
 }
 
-// --color-bg-chart-01..07 (globals.css) — the same shared chart palette
-// DonutChart reads, so a series' color never drifts between chart types.
-// chart-01 is blue, matching --color-bg-primary-bg-primary, so a
-// single-series chart still reads as the familiar brand blue.
-const CHART_COLORS = [
-  'var(--color-bg-chart-01)',
-  'var(--color-bg-chart-02)',
-  'var(--color-bg-chart-03)',
-  'var(--color-bg-chart-04)',
-  'var(--color-bg-chart-05)',
-  'var(--color-bg-chart-06)',
-  'var(--color-bg-chart-07)',
-];
-const seriesColor = (i: number) => CHART_COLORS[i % CHART_COLORS.length];
+// Colors (--color-bg-chart-01..07) and dashes are shared with the other
+// charts (lib/chart-series), so a series looks the same everywhere.
+const CHART_COLORS = [seriesColor(0)];
 
 // Loading-state curve silhouettes in objectBoundingBox units (0..1), drawn
 // back-to-front (fullest/lowest first) so overlapping opacities read as
@@ -116,6 +112,7 @@ export function AreaChart({
   series,
   stacked = true,
   legend = true,
+  seriesPatterns = true,
   height = 240,
   yStep = 1,
   unit = '',
@@ -274,7 +271,7 @@ export function AreaChart({
             cursor={{ stroke: CHART_COLORS[0], strokeWidth: 1, strokeDasharray: '3 3', strokeOpacity: 0.5 }}
             content={({ active, payload, label }) =>
               multi ? (
-                <AreaChartMultiTooltip active={active} payload={payload as unknown as TooltipEntry[] | undefined} label={label} fmt={fmt} labelPrefix={labelPrefix} series={activeSeries} />
+                <AreaChartMultiTooltip active={active} payload={payload as unknown as TooltipEntry[] | undefined} label={label} fmt={fmt} labelPrefix={labelPrefix} series={activeSeries} patterns={seriesPatterns} />
               ) : (
                 <AreaChartTooltip active={active} value={payload && payload.length && typeof payload[0]?.value === 'number' ? payload[0].value : undefined} label={label} fmt={fmt} labelPrefix={labelPrefix} />
               )
@@ -289,6 +286,7 @@ export function AreaChart({
                 name={s.name}
                 stackId={stacked ? 'stack' : undefined}
                 stroke={seriesColor(i)}
+                strokeDasharray={seriesPatterns ? seriesDash(i) : undefined}
                 strokeWidth={2}
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -348,8 +346,7 @@ export function AreaChart({
         <ul className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1" aria-hidden="true">
           {activeSeries.map((s, i) => (
             <li key={s.key} className="flex items-center gap-1 text-body-xs text-[var(--color-text-text-subtler)]">
-              {/* forced-color-adjust-none: in Windows High Contrast the swatch is a background and would be wiped, while the SVG series keep their colors — the key must survive to match them. */}
-              <span className="inline-block size-2.5 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)] forced-color-adjust-none" style={{ background: seriesColor(i) }} />
+              <SeriesKey index={i} kind={seriesPatterns ? 'line' : 'square'} />
               {s.name}
             </li>
           ))}
@@ -447,7 +444,7 @@ interface TooltipEntry {
   value?: string | number;
 }
 
-function AreaChartMultiTooltip({ active, payload, label, fmt, labelPrefix, series }: { active?: boolean; payload?: TooltipEntry[]; label?: ReactNode; fmt: (v: number) => string; labelPrefix: string; series: AreaChartSeries[] }) {
+function AreaChartMultiTooltip({ active, payload, label, fmt, labelPrefix, series, patterns }: { active?: boolean; payload?: TooltipEntry[]; label?: ReactNode; fmt: (v: number) => string; labelPrefix: string; series: AreaChartSeries[]; patterns: boolean }) {
   if (!active || !payload || !payload.length) return null;
   const indexFor = (key?: string | number) => series.findIndex((s) => s.key === key);
   return (
@@ -461,7 +458,7 @@ function AreaChartMultiTooltip({ active, payload, label, fmt, labelPrefix, serie
           const si = indexFor(entry.dataKey);
           return (
             <div key={i} className="flex items-center gap-2 font-body text-body-xs">
-              <span className="inline-block size-2 shrink-0 rounded-[var(--size-border-radius-border-radius-sm)] forced-color-adjust-none" style={{ background: seriesColor(si < 0 ? i : si) }} />
+              <SeriesKey index={si < 0 ? i : si} kind={patterns ? 'line' : 'square'} size={8} />
               <span className="text-[var(--color-text-text-subtler)]">{si < 0 ? String(entry.dataKey ?? '') : series[si].name}</span>
               <span className="ms-auto font-semibold tabular-nums text-[var(--color-text-text)]">{typeof entry.value === 'number' ? fmt(entry.value) : entry.value}</span>
             </div>
