@@ -345,7 +345,10 @@ export function FolderReveal({ href, label, meta, items, className, ...props }: 
           key={i}
           aria-hidden
           className={cn(
-            'absolute left-1/2 top-10 -ml-28 transition-[translate,rotate,opacity] duration-slower ease-spring motion-reduce:transition-none',
+            'absolute left-1/2 top-10 -ml-28 transition-[translate,rotate,scale,opacity] duration-slower ease-spring motion-reduce:transition-none',
+            // A fanned card under the pointer comes to the front, straight and a little larger,
+            // clear of the pocket, so it can be read. (Important: beats the fan and the inline z-index.)
+            'hover:!z-20 hover:!-translate-y-[88%] hover:!rotate-0 hover:!scale-105',
             seen ? 'translate-y-0 opacity-100' : '-translate-y-[140%] opacity-0',
             fan[i],
           )}

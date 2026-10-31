@@ -175,6 +175,9 @@ export const Flip: Story = {
     await userEvent.click(button);
     await expect(button).toHaveAttribute('aria-pressed', 'true');
     await expect(canvas.getByText(/From a survey of 1,240 readers/)).toBeInTheDocument();
+    // Unpin it again, so the story is left as it opens (a pinned card ignores hover).
+    await userEvent.click(button);
+    await expect(button).toHaveAttribute('aria-pressed', 'false');
   },
 };
 

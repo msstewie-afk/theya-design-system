@@ -16749,7 +16749,7 @@
       "name": "Cards",
       "title": "Patterns: Landing/Cards",
       "axe": {
-        "stories": 10,
+        "stories": 11,
         "themes": [
           "light",
           "dark"
@@ -16758,7 +16758,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 3
+        "playTests": 4
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
@@ -16999,7 +16999,7 @@
       "name": "Scroll effects",
       "title": "Patterns: Landing/Scroll effects",
       "axe": {
-        "stories": 7,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -17008,7 +17008,7 @@
       },
       "keyboard": {
         "tested": 0,
-        "playTests": 5
+        "playTests": 6
       },
       "reducedMotion": "unguarded",
       "moving": [

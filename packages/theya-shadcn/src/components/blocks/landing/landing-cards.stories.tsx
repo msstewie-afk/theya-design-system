@@ -7,6 +7,7 @@ import { CountUp } from '../../ui/count-up';
 import { BookmarksPreview, DemoFeatureVisual } from './demo-data';
 import { BentoGrid, BentoItem, FeatureCard, LandingCard, LinkCard, MediaCard, QuoteCard, StatCard, StoryCard, type LandingCardHover, type LandingCardSurface } from './landing-cards';
 import { landingCardsGuidelines } from './landing-cards.guidelines';
+import { GrowBars, ProgressRing, TrendChart } from './landing-viz';
 
 const meta: Meta<typeof FeatureCard> = {
   title: 'Patterns: Landing/Cards',
@@ -208,6 +209,67 @@ export const Bento: Story = {
       </BentoGrid>
     </Section>
   ),
+};
+
+const WEEKS = [180, 196, 188, 214, 230, 221, 247, 262, 255, 281, 298, 290, 318, 334, 327, 352, 371, 365, 398, 412, 433, 451, 470, 528, 602, 587];
+
+/** A bento that comes alive as it scrolls in: numbers count up, bars grow, the ring fills; scrub the trend with the mouse (User Growth, KPI bentos). */
+export const LiveBento: Story = {
+  name: 'Live bento',
+  render: () => (
+    <Section title="A week in your library">
+      <BentoGrid columns={3}>
+        <BentoItem colSpan={2}>
+          <LandingCard surface="tonal" hue="secondary" className="h-full justify-between gap-6 p-6 lg:p-8">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex flex-col gap-1">
+                <h3 className="m-0 font-heading text-heading-xs font-semibold">Links saved per week</h3>
+                <p className="m-0 font-body text-body-s">Move the mouse across the chart</p>
+              </div>
+              <p className="m-0 font-heading text-heading-xl font-semibold tabular-nums">
+                <CountUp to={587} />
+              </p>
+            </div>
+            <TrendChart
+              values={WEEKS}
+              periods={WEEKS.map((_, i) => `Week ${i + 1}`)}
+              label="Links saved per week over 26 weeks: from 180 to 587, with a peak of 602 in week 25."
+            />
+          </LandingCard>
+        </BentoItem>
+        <BentoItem>
+          <LandingCard surface="outlined" className="h-full items-center justify-center gap-4 p-6 text-center">
+            <ProgressRing value={75} label="Links sorted automatically" />
+            <p className="m-0 font-body text-body-m">of new links sorted by your rules</p>
+          </LandingCard>
+        </BentoItem>
+        {[
+          { hue: 'success' as const, to: 15, label: 'Faster to find', bars: [3, 4, 4, 6, 7, 9, 11, 15] },
+          { hue: 'primary' as const, to: 41, label: 'More links read', bars: [8, 12, 15, 21, 26, 30, 36, 41] },
+          { hue: 'info' as const, to: 32, label: 'Fewer duplicates', bars: [30, 26, 24, 20, 14, 12, 8, 5] },
+        ].map((t) => (
+          <BentoItem key={t.label}>
+            <LandingCard surface="tonal" hue={t.hue} className="h-full justify-between gap-6 p-6">
+              <div className="flex flex-col gap-1">
+                <p className="m-0 font-heading text-heading-xl font-semibold tabular-nums">
+                  <CountUp to={t.to} prefix={t.label === 'Fewer duplicates' ? '−' : '+'} suffix="%" />
+                </p>
+                <h3 className="m-0 font-body text-body-m font-semibold">{t.label}</h3>
+              </div>
+              <GrowBars values={t.bars} label={`${t.label}, eight weeks: ${t.bars[0]} to ${t.bars[t.bars.length - 1]}`} />
+            </LandingCard>
+          </BentoItem>
+        ))}
+      </BentoGrid>
+    </Section>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Each chart is one picture with the whole story in its name.
+    await expect(canvas.getByRole('img', { name: /Links saved per week over 26 weeks/ })).toBeInTheDocument();
+    await expect(canvas.getByRole('img', { name: /Links sorted automatically: 75/ })).toBeInTheDocument();
+    await expect(canvas.getAllByRole('heading', { level: 3 })).toHaveLength(4);
+  },
 };
 
 const HOVERS: { hover: LandingCardHover; note: string }[] = [

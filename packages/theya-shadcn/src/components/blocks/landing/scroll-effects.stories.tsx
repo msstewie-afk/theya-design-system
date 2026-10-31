@@ -3,9 +3,9 @@ import { expect, within } from '@storybook/test';
 import { Copy, Group, Import, Lock, Search, Sparks } from 'iconoir-react';
 import { BookmarksPreview, DEMO_FEATURES, DemoFeatureVisual, DemoMiniLink } from './demo-data';
 import { SectionHead } from './feature-shared';
-import { FeatureCard, LandingCard, type LandingCardHue } from './landing-cards';
+import { FeatureCard, LandingCard, QuoteCard, StatCard, type LandingCardHue } from './landing-cards';
 import { Button } from '../../ui/button';
-import { CardDeck, DepthTunnel, FanOut, HorizontalScroll, ScrollHighlight, ScrollMaskReveal, TiltIn } from './scroll-effects';
+import { CardDeck, DepthTunnel, FanOut, HorizontalScroll, MasonryDrift, ScrollHighlight, ScrollMaskReveal, TiltIn } from './scroll-effects';
 import { scrollEffectsGuidelines } from './scroll-effects.guidelines';
 
 const meta: Meta<typeof CardDeck> = {
@@ -202,5 +202,53 @@ export const Sideways: Story = {
     const canvas = within(canvasElement);
     const list = canvas.getByRole('list', { name: 'Features' });
     await expect(within(list).getAllByRole('heading', { level: 3 })).toHaveLength(6);
+  },
+};
+
+const PHOTOS = ['login-carousel-01', 'nova-web', 'login-carousel-02', 'product-router', 'login-carousel-03', 'product-ssd'];
+const RATIOS = ['aspect-[3/4]', 'aspect-square', 'aspect-[4/5]', 'aspect-[3/2]', 'aspect-[2/3]', 'aspect-[5/4]'];
+
+/** A Pinterest-like wall: columns of saved things drift past each other as you scroll (odd up, even down). Tab into it and it stops and opens. */
+export const Masonry: Story = {
+  render: () => {
+    const items = [
+      ...PHOTOS.map((p, i) => (
+        <LandingCard key={p} surface="sunken" className="overflow-hidden">
+          <img src={`/asset-examples/${p}.jpg`} alt="" className={`${RATIOS[i]} w-full object-cover`} />
+          <p className="m-0 p-4 font-body text-body-s font-semibold">{['Blue hour', 'Studio site', 'Stairs study', 'Home network', 'Tall blocks', 'Storage'][i]}</p>
+        </LandingCard>
+      )),
+      <QuoteCard key="q1" serif surface="tonal" hue="secondary" quote="My whole moodboard, finally in one place." name="Lea Brandt" title="Illustrator" />,
+      <StatCard key="s1" surface="primary" value="12M" label="things saved this year" />,
+      <div key="m1" className="flex flex-col gap-3">
+        {[0, 1, 2].map((i) => (
+          <DemoMiniLink key={i} index={i + 4} />
+        ))}
+      </div>,
+      <QuoteCard key="q2" surface="outlined" quote="I save a recipe on the phone and it is on the laptop by dinner." name="Tom Ide" title="Home cook" />,
+      <StatCard key="s2" surface="tonal" hue="success" value="4.8" label="average rating" />,
+      <QuoteCard key="q3" serif surface="tonal" hue="warning" quote="Search by a word inside the page. Magic." name="Ana Costa" title="Researcher" />,
+    ];
+    // Interleave photos and the rest so each column gets a mix.
+    const mixed = items.slice(0, 6).flatMap((p, i) => [p, items[6 + i]]).filter(Boolean);
+    return (
+      <div className="bg-[var(--color-bg-surface-bg-surface)]">
+        <Spacer label="Scroll down" />
+        <section data-scale="display" className="section-display">
+          <div className="container-display flex flex-col gap-10">
+            <SectionHead align="center" title="Everything you keep" description="Photos, quotes, recipes, links: one wall." />
+            <MasonryDrift aria-label="Everything you keep" items={mixed} />
+          </div>
+        </section>
+        <Spacer label="" />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Reduced motion in the tests: a plain masonry, every card in it.
+    const wall = canvasElement.querySelector('[data-slot="masonry-drift"]') as HTMLElement;
+    await expect(within(wall).getAllByRole('listitem')).toHaveLength(12);
+    await expect(canvas.getByText('My whole moodboard, finally in one place.')).toBeVisible();
   },
 };

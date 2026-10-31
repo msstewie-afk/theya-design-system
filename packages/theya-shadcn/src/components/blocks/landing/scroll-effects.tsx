@@ -623,3 +623,95 @@ export function HorizontalScroll({ header, className, children, 'aria-label': la
     </section>
   );
 }
+
+// ---------------------------------------------------------------------------
+
+export interface MasonryDriftProps extends ComponentProps<'section'> {
+  /** The cards, in reading order; they are dealt into the columns in turn. */
+  items: ReactNode[];
+  /** Columns from lg up (default 3; 2 from sm, 1 on phones). */
+  columns?: 2 | 3 | 4;
+  /** Height of the window the columns slide in (default 'min(52rem, 100svh)'). */
+  height?: string;
+}
+
+/**
+ * A Pinterest-like wall: cards of different heights in columns, and as the
+ * page scrolls the columns slide past each other — odd ones up, even ones
+ * down — inside a window that fades out at the top and bottom. Nothing is
+ * pinned. Keyboard focus inside the wall stops the drift and lets the wall
+ * open to its full height, so a focused card is never clipped. Reduced
+ * motion, or one column (phones): a plain masonry.
+ */
+export function MasonryDrift({ items, columns = 3, height = 'min(52rem, 100svh)', className, ...props }: MasonryDriftProps) {
+  const reduced = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const lg = useMediaQuery('(min-width: 1024px)');
+  const sm = useMediaQuery('(min-width: 640px)');
+  const n = lg ? columns : sm ? 2 : 1;
+  const active = !reduced && n > 1;
+  const root = useRef<HTMLElement>(null);
+  const win = useRef<HTMLDivElement>(null);
+  const cols = useRef<(HTMLUListElement | null)[]>([]);
+  const [focused, setFocused] = useState(false);
+
+  // Deal the items into n columns in turn (1, 2, 3, 1, 2, 3 …).
+  const dealt = Array.from({ length: n }, (_, c) => items.filter((_, i) => i % n === c));
+
+  useScrollFrame(
+    root,
+    (rect, vh) => {
+      if (!win.current) return;
+      // 0 as the section's top enters the bottom of the screen, 1 as its bottom leaves the top.
+      const p = clamp((vh - rect.top) / (vh + rect.height));
+      const box = win.current.clientHeight;
+      cols.current.forEach((el, c) => {
+        if (!el) return;
+        const over = Math.max(0, el.scrollHeight - box);
+        // Odd columns travel up through their overflow, even ones down; a little offset each so the rows never line up.
+        const y = c % 2 === 0 ? -p * over : -(1 - p) * over;
+        el.style.transform = focused ? '' : `translate3d(0, ${y}px, 0)`;
+      });
+    },
+    active,
+  );
+
+  // Back to rest when focus opens the wall or the drift switches off.
+  useEffect(() => {
+    if (focused || !active) cols.current.forEach((el) => el && (el.style.transform = ''));
+  }, [focused, active]);
+
+  const open = !active || focused;
+  return (
+    <section ref={root} data-slot="masonry-drift" className={cn('relative', className)} {...props}>
+      <div
+        ref={win}
+        onFocus={() => active && setFocused(true)}
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget as Node)) setFocused(false);
+        }}
+        className={cn(
+          'grid gap-4 lg:gap-6',
+          { 1: 'grid-cols-1', 2: 'grid-cols-2', 3: 'grid-cols-3', 4: 'grid-cols-4' }[n],
+          !open && 'overflow-hidden [mask-image:linear-gradient(transparent,black_12%,black_88%,transparent)]',
+        )}
+        style={open ? undefined : { height }}
+      >
+        {dealt.map((list, c) => (
+          <ul
+            key={c}
+            ref={(el) => {
+              cols.current[c] = el;
+            }}
+            className={cn('m-0 flex list-none flex-col gap-4 p-0 lg:gap-6', active && !focused && 'will-change-transform')}
+          >
+            {list.map((item, i) => (
+              <li key={i} className="min-w-0">
+                {item}
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </section>
+  );
+}
