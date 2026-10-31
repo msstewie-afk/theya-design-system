@@ -113,14 +113,15 @@ export function BottomNavItem({ icon, label, active = false, badge, asChild = fa
         >
           {icon}
           {(count !== undefined || dot) && (
-            // Cut out of whatever is behind it by a ring in the surface color.
+            // Cut out of whatever is behind it by a ring in the surface color. The badge stays on
+            // the right of the icon in RTL too (Мария, 2026-10-31): it is not mirrored.
             <BadgeIndicator
               tone="danger"
               dot={dot}
               value={count !== undefined ? (count > 99 ? '99+' : String(count)) : undefined}
               className={cn(
                 'absolute ring-2 ring-[var(--color-bg-surface-bg-surface)]',
-                dot ? 'top-1 start-[calc(50%+6px)]' : 'top-0 start-[calc(50%+4px)]',
+                dot ? 'top-1 start-[calc(50%+6px)] rtl:start-auto rtl:end-[calc(50%+6px)]' : 'top-0 start-[calc(50%+4px)] rtl:start-auto rtl:end-[calc(50%+4px)]',
               )}
             />
           )}

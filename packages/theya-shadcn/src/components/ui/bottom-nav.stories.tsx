@@ -154,7 +154,7 @@ export const FiveItems: Story = {
   },
 };
 
-/** Right-to-left: the order, the badge and the pill mirror. */
+/** Right-to-left: the order of the items mirrors; the badge stays on the right of the icon. */
 export const RightToLeft: Story = {
   render: () => <Demo dir="rtl" />,
 };

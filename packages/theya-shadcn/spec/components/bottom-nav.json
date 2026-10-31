@@ -41,7 +41,7 @@
     },
     {
       "part": "Badge",
-      "description": "`badge`: a count (over 99 reads “99+”) or `true` for a dot.",
+      "description": "`badge`: a count (over 99 reads “99+”) or `true` for a dot; on the right of the icon, in RTL too.",
       "optional": true
     }
   ],

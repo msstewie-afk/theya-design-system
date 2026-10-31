@@ -1109,7 +1109,7 @@ Docs: ./?path=/docs/navigation-bottomnav--docs
 - Bar: a `nav` landmark at the bottom edge, padded for the home indicator; `fixed` or `sticky`.
 - Item: icon (24px) and a label; `href` makes it a link, `asChild` takes a router link.
 - Current item: `active`: tonal pill behind the icon and a semibold label.
-- Badge (optional): `badge`: a count (over 99 reads “99+”) or `true` for a dot.
+- Badge (optional): `badge`: a count (over 99 reads “99+”) or `true` for a dot; on the right of the icon, in RTL too.
 
 **BottomNav props**
 

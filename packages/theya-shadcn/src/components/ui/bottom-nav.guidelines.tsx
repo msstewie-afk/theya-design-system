@@ -15,7 +15,7 @@ export const bottomNavGuidelines: ComponentGuidelines = {
     { part: 'Bar', description: <>a <C>nav</C> landmark at the bottom edge, padded for the home indicator; <C>fixed</C> or <C>sticky</C>.</> },
     { part: 'Item', description: <>icon (24px) and a label; <C>href</C> makes it a link, <C>asChild</C> takes a router link.</> },
     { part: 'Current item', description: <><C>active</C>: tonal pill behind the icon and a semibold label.</> },
-    { part: 'Badge', optional: true, description: <><C>badge</C>: a count (over 99 reads “99+”) or <C>true</C> for a dot.</> },
+    { part: 'Badge', optional: true, description: <><C>badge</C>: a count (over 99 reads “99+”) or <C>true</C> for a dot; on the right of the icon, in RTL too.</> },
   ],
   doDont: [
     {
