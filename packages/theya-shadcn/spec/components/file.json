@@ -7,7 +7,8 @@
   "category": "Files",
   "whenToUse": [
     "One file in a form: a logo, a certificate, a document to attach.",
-    "Showing the current file and letting people replace it."
+    "Showing the current file and letting people replace it.",
+    "Uploading it: `upload` and `progress`, as on Attachment; while it uploads, clicking it does not open the picker."
   ],
   "whenNotToUse": [
     {
@@ -143,6 +144,12 @@
           "required": false
         },
         {
+          "name": "progress",
+          "type": "number",
+          "required": false,
+          "description": "0–100, with `upload`."
+        },
+        {
           "name": "readOnly",
           "type": "boolean",
           "required": false,
@@ -182,6 +189,17 @@
           "name": "type",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "upload",
+          "type": "\"done\" | \"uploading\" | \"paused\"",
+          "values": [
+            "done",
+            "uploading",
+            "paused"
+          ],
+          "required": false,
+          "description": "The file is on its way: `uploading` shows a progress bar and \"3.4 MB of\n12.8 MB · 26%\", `paused` the same bar with \"Paused\", `done` \"Completed\"\nwith a check. A failed upload is `error`. Pause / retry / cancel buttons\ngo in `actions`. Screen readers hear the changes of state only (started,\npaused, uploaded, failed), not every percent."
         },
         {
           "name": "variant",

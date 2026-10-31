@@ -71,6 +71,15 @@ export const ar: TheyaMessages = {
   dataTableCell: { unlimited: 'غير محدود', badges: (n) => `${n} عناصر` },
   table: { columnPages: 'أعمدة الجدول', showColumns: (from, to, total) => (from === to ? `عرض العمود ${from} من ${total}` : `عرض الأعمدة ${from}–${to} من ${total}`) },
   marquee: { pause: 'إيقاف الحركة مؤقتًا', play: 'تشغيل الحركة' },
+  upload: {
+    of: (done, total) => `${done} من ${total}`,
+    paused: 'متوقف مؤقتًا',
+    done: 'اكتمل',
+    started: (name) => `جارٍ رفع ${name}`,
+    pausedNotice: (name) => `${name}: الرفع متوقف مؤقتًا`,
+    finished: (name) => `تم رفع ${name}`,
+    failed: (name, reason) => `تعذّر رفع ${name}: ${reason}`,
+  },
   siteHeader: { skipToContent: 'انتقل إلى المحتوى' },
   dataTable: {
     rowActionsFor: (label) => `إجراءات ${label}`,

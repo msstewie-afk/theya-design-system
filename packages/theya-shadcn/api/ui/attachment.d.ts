@@ -21,10 +21,12 @@ export interface AttachmentProps extends Omit<React.HTMLAttributes<HTMLDivElemen
     removeLabel?: string;
     clickHint?: string;
     actions?: ReactNode;
+    upload?: 'uploading' | 'paused' | 'done';
+    progress?: number;
     className?: string;
 }
 declare function humanSize(bytes: number): string;
-export declare function Attachment({ name, size, metaText, variant, type, error, showKind, showMeta, selected, previewUrl, href, mimeLabels, onRemove, removeLabel, clickHint, actions, className, onClick, 'aria-pressed': ariaPressed, ...rest }: AttachmentProps): import("react").JSX.Element;
+export declare function Attachment({ name, size, metaText, variant, type, error, showKind, showMeta, selected, previewUrl, href, mimeLabels, onRemove, removeLabel, clickHint, actions, upload, progress, className, onClick, 'aria-pressed': ariaPressed, ...rest }: AttachmentProps): import("react").JSX.Element;
 export { humanSize };
 
 // Defaults
@@ -36,6 +38,7 @@ export { humanSize };
   'text/plain': 'Text file',
   'video/mp4': 'MP4 video',
 }
+// Attachment.progress = 0
 // Attachment.selected = false
 // Attachment.showKind = false
 // Attachment.showMeta = true

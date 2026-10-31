@@ -617,6 +617,7 @@ Docs: ./?path=/docs/files-attachment--docs
 
 - Showing a file that’s already attached: in a message, a ticket, a list of uploads.
 - Staged files before sending, with `onRemove`; failed ones with `error`.
+- A file on its way: `upload` and `progress` (pause / retry / cancel buttons in `actions`).
 
 **When not to use**
 
@@ -651,12 +652,14 @@ Docs: ./?path=/docs/files-attachment--docs
 - `onClick?`: `(() => void)`
 - `onRemove?`: `(() => void)`
 - `previewUrl?`: `string`
+- `progress?`: `number`, default `0` — 0–100, with `upload`.
 - `removeLabel?`: `string` — Accessible name for the remove button. Default "Remove {name}".
 - `selected?`: `boolean`, default `false` — Marks the file as picked — a ring on top of the hover fill, plus `aria-current` on a link.
 - `showKind?`: `boolean`, default `false`
 - `showMeta?`: `boolean`, default `true`
 - `size?`: `number`
 - `type?`: `string`
+- `upload?`: `"done" | "uploading" | "paused"` — The file is on its way: `uploading` shows a progress bar and "3.4 MB of
 - `variant?`: `"line" | "row" | "pill" | "card"`, default `pill`
 
 Also accepts the props of: HTMLAttributes.
@@ -684,6 +687,7 @@ Also accepts the props of: HTMLAttributes.
 
 **Accessibility**
 
+- Upload: the bar is a progressbar named by the file, its value read as “3.2 MB of 12 MB · 26%”; a polite live region says only when the upload starts, pauses, finishes or fails, never each percent.
 - The name is the accessible name; size and kind are read as its description.
 - Remove buttons are named per file (“Remove quarterly-report.pdf”); localize with `removeLabel`.
 - An error is part of the description, not only red text.
@@ -4355,6 +4359,7 @@ Docs: ./?path=/docs/files-file--docs
 
 - One file in a form: a logo, a certificate, a document to attach.
 - Showing the current file and letting people replace it.
+- Uploading it: `upload` and `progress`, as on Attachment; while it uploads, clicking it does not open the picker.
 
 **When not to use**
 
@@ -4385,6 +4390,7 @@ Docs: ./?path=/docs/files-file--docs
 - `pickHint?`: `ReactNode` — Optional secondary line under pickLabel in the empty tile, e.g. "PNG or JPG, up to 25 MB".
 - `pickLabel?`: `string`, default `Add file (localized: file.pick)` — Label shown in the empty (dashed) tile. Default "Add file".
 - `previewUrl?`: `string`
+- `progress?`: `number` — 0–100, with `upload`.
 - `readOnly?`: `boolean`, default `false` — Presentation-only: the input remains mounted but cannot be activated.
 - `replaceLabel?`: `string`, default `Replace file (localized: file.replace)` — Shown on hover/keyboard focus of a filled, clickable slot, and read as its description — says that a click picks a new file in place of this one. Default "Replace file".
 - `selected?`: `boolean` — Marks the file as picked — a ring on top of the hover fill, plus `aria-current` on a link.
@@ -4392,6 +4398,7 @@ Docs: ./?path=/docs/files-file--docs
 - `showMeta?`: `boolean`
 - `size?`: `number` — Initial byte size inherited from Attachment.
 - `type?`: `string`
+- `upload?`: `"done" | "uploading" | "paused"` — The file is on its way: `uploading` shows a progress bar and "3.4 MB of
 - `variant?`: `"line" | "row" | "pill" | "card"`, default `card`
 
 **Do / Don’t**

@@ -7,7 +7,8 @@
   "category": "Files",
   "whenToUse": [
     "Showing a file that’s already attached: in a message, a ticket, a list of uploads.",
-    "Staged files before sending, with `onRemove`; failed ones with `error`."
+    "Staged files before sending, with `onRemove`; failed ones with `error`.",
+    "A file on its way: `upload` and `progress` (pause / retry / cancel buttons in `actions`)."
   ],
   "whenNotToUse": [
     {
@@ -56,6 +57,7 @@
     }
   ],
   "a11y": [
+    "Upload: the bar is a progressbar named by the file, its value read as “3.2 MB of 12 MB · 26%”; a polite live region says only when the upload starts, pauses, finishes or fails, never each percent.",
     "The name is the accessible name; size and kind are read as its description.",
     "Remove buttons are named per file (“Remove quarterly-report.pdf”); localize with `removeLabel`.",
     "An error is part of the description, not only red text."
@@ -124,6 +126,13 @@
           "required": false
         },
         {
+          "name": "progress",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "0–100, with `upload`."
+        },
+        {
           "name": "removeLabel",
           "type": "string",
           "required": false,
@@ -157,6 +166,17 @@
           "name": "type",
           "type": "string",
           "required": false
+        },
+        {
+          "name": "upload",
+          "type": "\"done\" | \"uploading\" | \"paused\"",
+          "values": [
+            "done",
+            "uploading",
+            "paused"
+          ],
+          "required": false,
+          "description": "The file is on its way: `uploading` shows a progress bar and \"3.4 MB of\n12.8 MB · 26%\", `paused` the same bar with \"Paused\", `done` \"Completed\"\nwith a check. A failed upload is `error`. Pause / retry / cancel buttons\ngo in `actions`. Screen readers hear the changes of state only (started,\npaused, uploaded, failed), not every percent."
         },
         {
           "name": "variant",
@@ -256,6 +276,14 @@
       {
         "name": "InteractiveStates",
         "id": "files-attachment--interactive-states"
+      },
+      {
+        "name": "UploadStates",
+        "id": "files-attachment--upload-states"
+      },
+      {
+        "name": "UploadFlow",
+        "id": "files-attachment--upload-flow"
       }
     ]
   }

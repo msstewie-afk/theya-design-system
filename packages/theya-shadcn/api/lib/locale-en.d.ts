@@ -106,6 +106,15 @@ export declare const en: {
         pause: string;
         play: string;
     };
+    upload: {
+        of: (done: string, total: string) => string;
+        paused: string;
+        done: string;
+        started: (name: string) => string;
+        pausedNotice: (name: string) => string;
+        finished: (name: string) => string;
+        failed: (name: string, reason: string) => string;
+    };
     siteHeader: {
         skipToContent: string;
     };
@@ -708,6 +717,15 @@ export declare const enLocale: {
         marquee: {
             pause: string;
             play: string;
+        };
+        upload: {
+            of: (done: string, total: string) => string;
+            paused: string;
+            done: string;
+            started: (name: string) => string;
+            pausedNotice: (name: string) => string;
+            finished: (name: string) => string;
+            failed: (name: string, reason: string) => string;
         };
         siteHeader: {
             skipToContent: string;

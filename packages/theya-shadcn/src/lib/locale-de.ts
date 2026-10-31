@@ -79,6 +79,15 @@ export const de: TheyaMessages = {
   dataTableCell: { unlimited: 'Unbegrenzt', badges: (n) => `${n} ${plural(n, 'Eintrag', 'Einträge')}` },
   table: { columnPages: 'Tabellenspalten', showColumns: (from, to, total) => (from === to ? `Spalte ${from} von ${total} anzeigen` : `Spalten ${from}–${to} von ${total} anzeigen`) },
   marquee: { pause: 'Animation anhalten', play: 'Animation abspielen' },
+  upload: {
+    of: (done, total) => `${done} von ${total}`,
+    paused: 'Pausiert',
+    done: 'Fertig',
+    started: (name) => `${name} wird hochgeladen`,
+    pausedNotice: (name) => `${name}: Upload pausiert`,
+    finished: (name) => `${name} hochgeladen`,
+    failed: (name, reason) => `${name} nicht hochgeladen: ${reason}`,
+  },
   siteHeader: { skipToContent: 'Zum Inhalt springen' },
   dataTable: {
     rowActionsFor: (label) => `Aktionen für ${label}`,

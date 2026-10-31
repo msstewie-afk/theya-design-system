@@ -3,7 +3,7 @@
 
 import type { ReactNode } from 'react';
 import { type AttachmentProps } from './attachment';
-export interface FileProps extends Pick<AttachmentProps, 'variant' | 'type' | 'error' | 'showKind' | 'showMeta' | 'selected' | 'previewUrl' | 'href' | 'mimeLabels' | 'actions'> {
+export interface FileProps extends Pick<AttachmentProps, 'variant' | 'type' | 'error' | 'showKind' | 'showMeta' | 'selected' | 'previewUrl' | 'href' | 'mimeLabels' | 'actions' | 'upload' | 'progress'> {
     name?: string;
     size?: number;
     meta?: ReactNode;
@@ -18,7 +18,7 @@ export interface FileProps extends Pick<AttachmentProps, 'variant' | 'type' | 'e
     inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
     className?: string;
 }
-export declare function File({ name: initialName, size: initialSize, meta: initialMeta, empty, pickLabel, pickHint, replaceLabel, readOnly, disabled, accept, onFileChange, inputProps, variant, type: initialType, error, showKind, showMeta, selected, previewUrl: initialPreviewUrl, href, mimeLabels, actions, className, }: FileProps): import("react").JSX.Element | null;
+export declare function File({ name: initialName, size: initialSize, meta: initialMeta, empty, pickLabel, pickHint, replaceLabel, readOnly, disabled, accept, onFileChange, inputProps, variant, type: initialType, error, showKind, showMeta, selected, previewUrl: initialPreviewUrl, href, mimeLabels, actions, upload, progress, className, }: FileProps): import("react").JSX.Element | null;
 
 // Defaults
 // File.disabled = false

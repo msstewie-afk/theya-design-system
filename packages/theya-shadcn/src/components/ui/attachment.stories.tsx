@@ -1,6 +1,7 @@
-import { useState, type ComponentProps } from 'react';
+import { useEffect, useState, type ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Download } from 'iconoir-react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { Download, Pause, Play, Refresh } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
 import { Attachment } from './attachment';
 import { Button } from './button';
@@ -67,6 +68,13 @@ const meta: Meta<typeof Attachment> = {
     previewUrl: { control: 'text', description: 'Thumbnail image URL, replaces the kind icon when set.', table: { category: 'Content' } },
     href: { control: 'text', description: "Turns the name into a real link, its ::after stretched over the whole surface as the hit target.", table: { category: 'Behavior' } },
     mimeLabels: { control: false, description: 'Overrides for the MIME-type-to-label mapping used by showKind.', table: { category: 'Advanced' } },
+    upload: {
+      control: 'inline-radio',
+      options: [undefined, 'uploading', 'paused', 'done'],
+      description: 'Upload state: a progress bar and "3.4 MB of 12.8 MB · 26%" while uploading or paused, "Completed" with a check when done. A failed upload is `error`.',
+      table: { category: 'State' },
+    },
+    progress: { control: { type: 'range', min: 0, max: 100 }, description: '0–100, with `upload`.', table: { category: 'State' } },
     className: { control: false, description: 'Class on the root element.', table: { category: 'Advanced' } },
   },
 };
@@ -380,4 +388,84 @@ export const InteractiveStates: Story = {
       </div>
     </div>
   ),
+};
+
+/** The four upload states in the row shape: uploading, paused, completed, failed (with Retry). Pause / retry / cancel are yours, in `actions` and `onRemove`. */
+export const UploadStates: Story = {
+  name: 'Upload states',
+  render: () => (
+    <div className="flex max-w-md flex-col gap-2">
+      <Attachment variant="row" type="application/pdf" name="2024-my-portfolio.pdf" size={12_800_000} upload="uploading" progress={26}
+        actions={<Button appearance="ghost" tone="neutral" size="sm" iconOnly aria-label="Pause 2024-my-portfolio.pdf" leftIcon={<Pause />} />} onRemove={() => {}} removeLabel="Cancel 2024-my-portfolio.pdf" />
+      <Attachment variant="row" type="video/mp4" name="intro-movie.mp4" size={48_000_000} upload="paused" progress={62}
+        actions={<Button appearance="ghost" tone="neutral" size="sm" iconOnly aria-label="Resume intro-movie.mp4" leftIcon={<Play />} />} onRemove={() => {}} removeLabel="Cancel intro-movie.mp4" />
+      <Attachment variant="row" type="image/png" name="cover.png" size={2_400_000} upload="done" progress={100} onRemove={() => {}} />
+      <Attachment variant="row" type="application/zip" name="assets.zip" size={86_000_000} upload="uploading" progress={40} error="Connection lost"
+        actions={<Button appearance="ghost" tone="danger" size="sm" iconOnly aria-label="Retry assets.zip" leftIcon={<Refresh />} />} onRemove={() => {}} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const bar = canvas.getByRole('progressbar', { name: '2024-my-portfolio.pdf' });
+    await expect(bar).toHaveAttribute('aria-valuenow', '26');
+    await expect(bar).toHaveAttribute('aria-valuetext', '3.2 MB of 12 MB · 26%');
+    await expect(canvas.getByText('Paused · 28 MB of 46 MB · 62%')).toBeInTheDocument();
+    await expect(canvas.getByText(/Completed/)).toBeInTheDocument();
+    // A failed upload says why and drops the bar.
+    await expect(canvas.getByText('Connection lost')).toBeInTheDocument();
+    await expect(canvas.queryByRole('progressbar', { name: 'assets.zip' })).toBeNull();
+  },
+};
+
+/** A simulated upload: start it, pause and resume it, let it finish. The screen reader hears "Uploading…", "paused", "uploaded" — never the percent. */
+export const UploadFlow: Story = {
+  name: 'Upload flow',
+  render: function UploadFlowStory() {
+    const [upload, setUpload] = useState<'uploading' | 'paused' | 'done' | undefined>(undefined);
+    const [progress, setProgress] = useState(0);
+    useEffect(() => {
+      if (upload !== 'uploading') return;
+      const id = setInterval(() => {
+        setProgress((p) => {
+          const next = Math.min(100, p + 4);
+          if (next === 100) setUpload('done');
+          return next;
+        });
+      }, 120);
+      return () => clearInterval(id);
+    }, [upload]);
+    return (
+      <div className="flex max-w-md flex-col gap-4">
+        <Attachment
+          variant="row"
+          type="application/pdf"
+          name="2024-my-portfolio.pdf"
+          size={12_800_000}
+          upload={upload}
+          progress={progress}
+          actions={
+            upload === 'uploading' ? (
+              <Button appearance="ghost" tone="neutral" size="sm" iconOnly aria-label="Pause upload" leftIcon={<Pause />} onClick={() => setUpload('paused')} />
+            ) : upload === 'paused' ? (
+              <Button appearance="ghost" tone="neutral" size="sm" iconOnly aria-label="Resume upload" leftIcon={<Play />} onClick={() => setUpload('uploading')} />
+            ) : undefined
+          }
+        />
+        <Button className="self-start" onClick={() => { setProgress(0); setUpload('uploading'); }}>
+          {upload ? 'Upload again' : 'Upload'}
+        </Button>
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Upload' }));
+    await waitFor(() => expect(canvas.getByRole('progressbar', { name: '2024-my-portfolio.pdf' })).toBeInTheDocument());
+    await waitFor(() => expect(canvas.getByText('Uploading 2024-my-portfolio.pdf')).toBeInTheDocument());
+    await userEvent.click(canvas.getByRole('button', { name: 'Pause upload' }));
+    await waitFor(() => expect(canvas.getByText('2024-my-portfolio.pdf: upload paused')).toBeInTheDocument());
+    await userEvent.click(canvas.getByRole('button', { name: 'Resume upload' }));
+    await waitFor(() => expect(canvas.getByText('2024-my-portfolio.pdf uploaded')).toBeInTheDocument(), { timeout: 6000 });
+    await expect(canvas.queryByRole('progressbar')).toBeNull();
+  },
 };

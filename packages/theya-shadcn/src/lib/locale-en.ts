@@ -77,6 +77,15 @@ export const en = {
   dataTableCell: { unlimited: 'Unlimited', badges: (n: number) => `${n} ${plural(n, 'item', 'items')}` },
   table: { columnPages: 'Table columns', showColumns: (from: number, to: number, total: number) => (from === to ? `Show column ${from} of ${total}` : `Show columns ${from}–${to} of ${total}`) },
   marquee: { pause: 'Pause animation', play: 'Play animation' },
+  upload: {
+    of: (done: string, total: string) => `${done} of ${total}`,
+    paused: 'Paused',
+    done: 'Completed',
+    started: (name: string) => `Uploading ${name}`,
+    pausedNotice: (name: string) => `${name}: upload paused`,
+    finished: (name: string) => `${name} uploaded`,
+    failed: (name: string, reason: string) => `${name} failed to upload: ${reason}`,
+  },
   siteHeader: { skipToContent: 'Skip to content' },
   dataTable: {
     rowActionsFor: (label: string) => `Actions for ${label}`,

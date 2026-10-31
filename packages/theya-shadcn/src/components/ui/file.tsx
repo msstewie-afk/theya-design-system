@@ -18,7 +18,7 @@ import { useTheyaI18n } from '../../lib/i18n';
 export interface FileProps
   extends Pick<
     AttachmentProps,
-    'variant' | 'type' | 'error' | 'showKind' | 'showMeta' | 'selected' | 'previewUrl' | 'href' | 'mimeLabels' | 'actions'
+    'variant' | 'type' | 'error' | 'showKind' | 'showMeta' | 'selected' | 'previewUrl' | 'href' | 'mimeLabels' | 'actions' | 'upload' | 'progress'
   > {
   /** Initial file name inherited from Attachment. */
   name?: string;
@@ -66,6 +66,8 @@ export function File({
   href,
   mimeLabels,
   actions,
+  upload,
+  progress,
   className,
 }: FileProps) {
   const { t } = useTheyaI18n();
@@ -107,7 +109,9 @@ export function File({
   }, [blobUrl]);
 
   const isLink = Boolean(href);
-  const isInteractive = !isLink && !readOnly && !disabled;
+  // A file still on its way can't be swapped by clicking it (cancel it from `actions`).
+  const inFlight = !error && (upload === 'uploading' || upload === 'paused');
+  const isInteractive = !isLink && !readOnly && !disabled && !inFlight;
 
   const openPicker = () => {
     if (isInteractive) inputRef.current?.click();
@@ -153,6 +157,8 @@ export function File({
       href={href}
       mimeLabels={mimeLabels}
       actions={actions}
+      upload={upload}
+      progress={progress}
       onRemove={isLink || readOnly || disabled ? undefined : handleRemove}
       onClick={isInteractive && !href ? openPicker : undefined}
       clickHint={isInteractive && !href ? replaceLabel : undefined}

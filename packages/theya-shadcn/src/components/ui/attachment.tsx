@@ -1,8 +1,9 @@
 'use client';
 
-import { createElement, useId, type ReactNode } from 'react';
-import { Page, MediaImage, MediaVideo, Code, Archive, Xmark, WarningTriangle, Refresh } from 'iconoir-react';
+import { createElement, useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { Page, MediaImage, MediaVideo, Code, Archive, Xmark, WarningTriangle, Refresh, Check } from 'iconoir-react';
 import { Button } from './button';
+import { Progress } from './progress';
 import { cn } from '../../lib/utils';
 import { useTheyaI18n } from '../../lib/i18n';
 
@@ -53,6 +54,16 @@ export interface AttachmentProps extends Omit<React.HTMLAttributes<HTMLDivElemen
    */
   clickHint?: string;
   actions?: ReactNode;
+  /**
+   * The file is on its way: `uploading` shows a progress bar and "3.4 MB of
+   * 12.8 MB · 26%", `paused` the same bar with "Paused", `done` "Completed"
+   * with a check. A failed upload is `error`. Pause / retry / cancel buttons
+   * go in `actions`. Screen readers hear the changes of state only (started,
+   * paused, uploaded, failed), not every percent.
+   */
+  upload?: 'uploading' | 'paused' | 'done';
+  /** 0–100, with `upload`. */
+  progress?: number;
   className?: string;
 }
 
@@ -87,6 +98,8 @@ export function Attachment({
   removeLabel,
   clickHint,
   actions,
+  upload,
+  progress = 0,
   className,
   onClick,
   'aria-pressed': ariaPressed,
@@ -95,6 +108,50 @@ export function Attachment({
   const { t } = useTheyaI18n();
   const hasError = Boolean(error);
   const kindLabel = type ? (mimeLabels[type] ?? type) : undefined;
+
+  // Upload: a bar while it runs or is paused; the meta line says how far.
+  const pct = Math.round(Math.min(100, Math.max(0, progress)));
+  const inFlight = !hasError && (upload === 'uploading' || upload === 'paused');
+  const uploadDone = !hasError && upload === 'done';
+  const sizeOf = size !== undefined ? t.upload.of(humanSize((size * pct) / 100), humanSize(size)) : undefined;
+  const uploadMeta = inFlight
+    ? [upload === 'paused' ? t.upload.paused : null, sizeOf, `${pct}%`].filter(Boolean).join(' · ')
+    : uploadDone
+      ? [size !== undefined ? humanSize(size) : null, t.upload.done].filter(Boolean).join(' · ')
+      : null;
+  // Announce changes of state only, never the running percentage.
+  const [announce, setAnnounce] = useState('');
+  const lastState = useRef<string | undefined>(undefined);
+  useEffect(() => {
+    const state = hasError && upload ? 'error' : upload;
+    if (state === lastState.current) return;
+    const first = lastState.current === undefined;
+    lastState.current = state;
+    // Nothing to say about a list rendered already finished.
+    if (first && (state === 'done' || state === undefined)) return;
+    if (state === 'uploading') setAnnounce(t.upload.started(name));
+    else if (state === 'paused') setAnnounce(t.upload.pausedNotice(name));
+    else if (state === 'done') setAnnounce(t.upload.finished(name));
+    else if (state === 'error') setAnnounce(t.upload.failed(name, String(error)));
+  }, [upload, hasError, error, name, t]);
+  const liveEl = upload !== undefined ? (
+    <span aria-live="polite" className="sr-only">
+      {announce}
+    </span>
+  ) : null;
+  const barEl = inFlight ? (
+    <Progress
+      value={pct}
+      aria-label={name}
+      aria-valuetext={uploadMeta ?? undefined}
+      data-slot="attachment-progress"
+      className={cn('mt-1.5 h-1', upload === 'paused' && '[&>*]:bg-[var(--color-bg-neutral-bg-neutral-strong)]')}
+    />
+  ) : upload !== undefined ? (
+    // The bar's room is kept once it goes (done, failed), so the row doesn't shrink under the pointer.
+    <span aria-hidden className="mt-1.5 block h-1" />
+  ) : null;
+  const doneIcon = uploadDone ? <Check width={12} height={12} className="inline me-1 -mt-0.5 text-[var(--color-icon-icon-success)]" aria-hidden="true" /> : null;
 
   // Hover/press fills and the focus ring only apply when the row is
   // actually interactive (a real href, or the consumer's own onClick) —
@@ -113,7 +170,7 @@ export function Attachment({
   // focusing the Remove button (its own z-10 layer) doesn't announce
   // "Replace file".
   const hintId = useId();
-  const hint = isClickOnly && clickHint && !hasError ? clickHint : undefined;
+  const hint = isClickOnly && clickHint && !hasError && !inFlight ? clickHint : undefined;
   const ON_ACTION_SHOW =
     'hidden group-has-[[data-slot=attachment-click]:hover]:inline-flex group-has-[[data-slot=attachment-click]:focus-visible]:inline-flex';
   const ON_ACTION_HIDE =
@@ -218,7 +275,9 @@ export function Attachment({
 
   const metaLine = hasError
     ? error
-    : showMeta
+    : uploadMeta
+      ? uploadMeta
+      : showMeta
       ? [size !== undefined ? humanSize(size) : null, showKind ? kindLabel : null, !showKind ? metaText : metaText]
           .filter(Boolean)
           .join(', ')
@@ -275,11 +334,19 @@ export function Attachment({
             </span>
           ) : (
             <>
-              {size !== undefined && <span className={cn('font-body text-body-xs text-[var(--color-text-text-subtler)]', metaHideClass)}>{humanSize(size)}</span>}
+              {uploadMeta ? (
+                <span className="font-body text-body-xs text-[var(--color-text-text-subtler)]">
+                  {doneIcon}
+                  {inFlight ? `${upload === 'paused' ? `${t.upload.paused} · ` : ''}${pct}%` : uploadMeta}
+                </span>
+              ) : (
+                size !== undefined && <span className={cn('font-body text-body-xs text-[var(--color-text-text-subtler)]', metaHideClass)}>{humanSize(size)}</span>
+              )}
               {hintEl}
             </>
           )}
         </span>
+        {liveEl}
         {(actions || removeButton) && (
           <span className="relative z-10 flex shrink-0 items-center gap-1">
             {actions}
@@ -312,10 +379,18 @@ export function Attachment({
           </span>
         ) : (
           <>
-            {size !== undefined && <span className={cn('font-body text-body-xs text-[var(--color-text-text-subtler)] shrink-0', metaHideClass)}>{humanSize(size)}</span>}
+            {uploadMeta ? (
+              <span className="font-body text-body-xs text-[var(--color-text-text-subtler)] shrink-0">
+                {doneIcon}
+                {inFlight ? `${upload === 'paused' ? `${t.upload.paused} · ` : ''}${pct}%` : t.upload.done}
+              </span>
+            ) : (
+              size !== undefined && <span className={cn('font-body text-body-xs text-[var(--color-text-text-subtler)] shrink-0', metaHideClass)}>{humanSize(size)}</span>
+            )}
             {hintEl && <span className="shrink-0">{hintEl}</span>}
           </>
         )}
+        {liveEl}
         {removeButton && <span className="relative z-10">{removeButton}</span>}
       </div>
     );
@@ -366,11 +441,14 @@ export function Attachment({
               )}
             >
               {hasError && <WarningTriangle width={11} height={11} className="inline me-1 -mt-0.5" aria-hidden="true" />}
+              {doneIcon}
               {metaLine}
             </span>
           )}
           {hintEl}
+          {barEl}
         </span>
+        {liveEl}
         {(actions || removeButton) && (
           <span className="relative z-10 flex shrink-0 items-center gap-1">
             {actions}
@@ -425,11 +503,14 @@ export function Attachment({
                 metaHideClass,
               )}
             >
+              {doneIcon}
               {metaLine}
             </span>
           )}
           {hintEl}
+          {barEl && <span className="w-full">{barEl}</span>}
         </span>
+        {liveEl}
         {actions}
         {removeButton}
       </div>

@@ -57,6 +57,15 @@ export const zh: TheyaMessages = {
   dataTableCell: { unlimited: '无限制', badges: (n) => `${n} 项` },
   table: { columnPages: '表格列', showColumns: (from, to, total) => (from === to ? `显示第 ${from} 列，共 ${total} 列` : `显示第 ${from}–${to} 列，共 ${total} 列`) },
   marquee: { pause: '暂停动画', play: '播放动画' },
+  upload: {
+    of: (done, total) => `${done} / ${total}`,
+    paused: '已暂停',
+    done: '已完成',
+    started: (name) => `正在上传 ${name}`,
+    pausedNotice: (name) => `${name}：上传已暂停`,
+    finished: (name) => `${name} 已上传`,
+    failed: (name, reason) => `${name} 上传失败：${reason}`,
+  },
   siteHeader: { skipToContent: '跳到主要内容' },
   dataTable: {
     rowActionsFor: (label) => `${label}的操作`,

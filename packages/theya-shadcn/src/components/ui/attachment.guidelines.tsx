@@ -4,7 +4,7 @@ import { Link } from './link';
 
 export const attachmentGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['Showing a file that’s already attached: in a message, a ticket, a list of uploads.', <>Staged files before sending, with <C>onRemove</C>; failed ones with <C>error</C>.</>],
+  whenToUse: ['Showing a file that’s already attached: in a message, a ticket, a list of uploads.', <>Staged files before sending, with <C>onRemove</C>; failed ones with <C>error</C>.</>, <>A file on its way: <C>upload</C> and <C>progress</C> (pause / retry / cancel buttons in <C>actions</C>).</>],
   whenNotToUse: [
     { text: 'Picking or replacing a file', instead: 'File' },
     { text: 'Uploading several files by drag and drop', instead: 'Dropzone' },
@@ -39,6 +39,7 @@ export const attachmentGuidelines: ComponentGuidelines = {
     },
   ],
   a11y: [
+    'Upload: the bar is a progressbar named by the file, its value read as “3.2 MB of 12 MB · 26%”; a polite live region says only when the upload starts, pauses, finishes or fails, never each percent.',
     'The name is the accessible name; size and kind are read as its description.',
     <>Remove buttons are named per file (“Remove quarterly-report.pdf”); localize with <C>removeLabel</C>.</>,
     'An error is part of the description, not only red text.',

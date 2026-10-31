@@ -4,7 +4,7 @@ import { File } from './file';
 
 export const fileGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['One file in a form: a logo, a certificate, a document to attach.', 'Showing the current file and letting people replace it.'],
+  whenToUse: ['One file in a form: a logo, a certificate, a document to attach.', 'Showing the current file and letting people replace it.', 'Uploading it: `upload` and `progress`, as on Attachment; while it uploads, clicking it does not open the picker.'],
   whenNotToUse: [
     { text: 'Several files at once, or drag and drop is the main way in', instead: 'Dropzone' },
     { text: 'Just displaying an attached file', instead: 'Attachment' },
