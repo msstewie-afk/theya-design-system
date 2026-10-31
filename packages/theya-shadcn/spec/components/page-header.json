@@ -43,11 +43,11 @@
     {
       "do": {
         "caption": "One primary action that matches the page.",
-        "example": "<div className={FRAME}>\n  <PageHeader as=\"h2\" title=\"Sites\" description=\"Websites hosted in this workspace.\" actions={<Button leftIcon={<Plus />} size=\"md\">New site</Button>} />\n</div>"
+        "example": "<div className={FRAME}>\n  <PageHeader as=\"h2\" title=\"Galleries\" description=\"Client galleries in this studio.\" actions={<Button leftIcon={<Plus />} size=\"md\">New gallery</Button>} />\n</div>"
       },
       "dont": {
         "caption": "Three primary buttons: nothing stands out — keep one primary, move the rest to a menu.",
-        "example": "<div className={FRAME}>\n  <PageHeader\n    as=\"h2\"\n    title=\"Sites\"\n    actions={\n      <div className=\"flex gap-2\">\n        <Button appearance=\"filled\" tone=\"primary\" size=\"md\">New site</Button>\n        <Button appearance=\"filled\" tone=\"primary\" size=\"md\">Import</Button>\n        <Button appearance=\"filled\" tone=\"primary\" size=\"md\">Export</Button>\n      </div>\n    }\n  />\n</div>"
+        "example": "<div className={FRAME}>\n  <PageHeader\n    as=\"h2\"\n    title=\"Galleries\"\n    actions={\n      <div className=\"flex gap-2\">\n        <Button appearance=\"filled\" tone=\"primary\" size=\"md\">New gallery</Button>\n        <Button appearance=\"filled\" tone=\"primary\" size=\"md\">Import</Button>\n        <Button appearance=\"filled\" tone=\"primary\" size=\"md\">Export</Button>\n      </div>\n    }\n  />\n</div>"
       }
     }
   ],

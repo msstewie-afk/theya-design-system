@@ -36,7 +36,7 @@
     - img
 
 # With tone (layout-toolbar--with-intent)
-- toolbar "Backup actions":
+- toolbar "Gallery actions":
   - button "Export":
     - img
     - text: Export

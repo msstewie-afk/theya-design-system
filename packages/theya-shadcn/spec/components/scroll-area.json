@@ -37,11 +37,11 @@
     {
       "do": {
         "caption": "A capped list that scrolls in place; the rest of the panel stays put.",
-        "example": "<ScrollArea className={`${BOX} h-48`} aria-label=\"Backups\">\n  {ITEMS.map((t) => <div key={t} className={ROW}>{t}</div>)}\n</ScrollArea>"
+        "example": "<ScrollArea className={`${BOX} h-48`} aria-label=\"Uploads\">\n  {ITEMS.map((t) => <div key={t} className={ROW}>{t}</div>)}\n</ScrollArea>"
       },
       "dont": {
         "caption": "A one-row window: people scroll more than they read — show more or paginate.",
-        "example": "<ScrollArea className={`${BOX} h-12`} aria-label=\"Backups, tiny\">\n  {ITEMS.map((t) => <div key={t} className={ROW}>{t}</div>)}\n</ScrollArea>"
+        "example": "<ScrollArea className={`${BOX} h-12`} aria-label=\"Uploads, tiny\">\n  {ITEMS.map((t) => <div key={t} className={ROW}>{t}</div>)}\n</ScrollArea>"
       }
     }
   ],

@@ -23,7 +23,7 @@ export const pageHeaderGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className={FRAME}>
-            <PageHeader as="h2" title="Sites" description="Websites hosted in this workspace." actions={<Button leftIcon={<Plus />} size="md">New site</Button>} />
+            <PageHeader as="h2" title="Galleries" description="Client galleries in this studio." actions={<Button leftIcon={<Plus />} size="md">New gallery</Button>} />
           </div>
         ),
         caption: 'One primary action that matches the page.',
@@ -33,10 +33,10 @@ export const pageHeaderGuidelines: ComponentGuidelines = {
           <div className={FRAME}>
             <PageHeader
               as="h2"
-              title="Sites"
+              title="Galleries"
               actions={
                 <div className="flex gap-2">
-                  <Button appearance="filled" tone="primary" size="md">New site</Button>
+                  <Button appearance="filled" tone="primary" size="md">New gallery</Button>
                   <Button appearance="filled" tone="primary" size="md">Import</Button>
                   <Button appearance="filled" tone="primary" size="md">Export</Button>
                 </div>

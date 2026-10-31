@@ -1,7 +1,7 @@
 import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { ScrollArea } from './scroll-area';
 
-const ITEMS = Array.from({ length: 14 }, (_, i) => `Backup ${String(14 - i).padStart(2, '0')} Sep, 02:00`);
+const ITEMS = Array.from({ length: 14 }, (_, i) => `Upload ${String(14 - i).padStart(2, '0')} Sep, 18:40`);
 const ROW = 'px-3 py-2 font-body text-body-m text-[var(--color-text-text)]';
 const BOX = 'w-64 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)]';
 
@@ -21,7 +21,7 @@ export const scrollAreaGuidelines: ComponentGuidelines = {
     {
       do: {
         example: (
-          <ScrollArea className={`${BOX} h-48`} aria-label="Backups">
+          <ScrollArea className={`${BOX} h-48`} aria-label="Uploads">
             {ITEMS.map((t) => <div key={t} className={ROW}>{t}</div>)}
           </ScrollArea>
         ),
@@ -29,7 +29,7 @@ export const scrollAreaGuidelines: ComponentGuidelines = {
       },
       dont: {
         example: (
-          <ScrollArea className={`${BOX} h-12`} aria-label="Backups, tiny">
+          <ScrollArea className={`${BOX} h-12`} aria-label="Uploads, tiny">
             {ITEMS.map((t) => <div key={t} className={ROW}>{t}</div>)}
           </ScrollArea>
         ),

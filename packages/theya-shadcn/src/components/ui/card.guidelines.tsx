@@ -21,10 +21,10 @@ export const cardGuidelines: ComponentGuidelines = {
     {
       do: {
         example: (
-          <Card action={{ type: 'link', href: '#seashell', ariaLabel: 'seashell.shop' }} className="w-64">
+          <Card action={{ type: 'link', href: '#golden-hour', ariaLabel: 'Golden hour' }} className="w-64">
             <CardHeader divider={false}>
-              <CardTitle>seashell.shop</CardTitle>
-              <CardDescription>Active · 3 mailboxes</CardDescription>
+              <CardTitle>Golden hour</CardTitle>
+              <CardDescription>Shared · 48 photos</CardDescription>
             </CardHeader>
           </Card>
         ),
@@ -34,8 +34,8 @@ export const cardGuidelines: ComponentGuidelines = {
         example: (
           <Card className="w-64">
             <CardHeader divider={false}>
-              <CardTitle>seashell.shop</CardTitle>
-              <CardDescription>Active · 3 mailboxes</CardDescription>
+              <CardTitle>Golden hour</CardTitle>
+              <CardDescription>Shared · 48 photos</CardDescription>
             </CardHeader>
             <CardContent className="pt-0">
               <Button appearance="outlined" tone="secondary" size="md">View</Button>
@@ -50,7 +50,7 @@ export const cardGuidelines: ComponentGuidelines = {
         example: (
           <Card className="w-64">
             <CardHeader divider={false}>
-              <CardTitle>Backups</CardTitle>
+              <CardTitle>Archive</CardTitle>
               <CardDescription>Last run 2 hours ago</CardDescription>
             </CardHeader>
             <CardContent className="flex gap-2 pt-0">
@@ -64,7 +64,7 @@ export const cardGuidelines: ComponentGuidelines = {
         example: (
           <Card className="w-64">
             <CardHeader divider={false}>
-              <CardTitle>Backups</CardTitle>
+              <CardTitle>Archive</CardTitle>
               <CardDescription>Last run 2 hours ago</CardDescription>
             </CardHeader>
             <CardContent className="flex gap-2 pt-0">

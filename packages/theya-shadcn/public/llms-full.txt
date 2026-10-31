@@ -587,7 +587,7 @@ Also accepts the props of: HTMLAttributes.
   <div className="grid w-full grid-cols-2 gap-2">
     {[0, 1].map((i) => (
       <AspectRatio key={i} ratio={16 / 9} className="overflow-hidden rounded-[var(--size-border-radius-border-radius-md)]">
-        <img src={IMG} alt={`Site preview ${i + 1}`} className="absolute inset-0 size-full object-cover" />
+        <img src={IMG} alt={`Gallery cover ${i + 1}`} className="absolute inset-0 size-full object-cover" />
       </AspectRatio>
     ))}
   </div>
@@ -597,8 +597,8 @@ Also accepts the props of: HTMLAttributes.
 
   ```tsx
   <div className="grid w-full grid-cols-2 items-start gap-2">
-    <img src={IMG} alt="Site preview 1" className="w-full rounded-[var(--size-border-radius-border-radius-md)]" />
-    <img src="/asset-examples/panda-avatar.png" alt="Site preview 2" className="w-full rounded-[var(--size-border-radius-border-radius-md)]" />
+    <img src={IMG} alt="Gallery cover 1" className="w-full rounded-[var(--size-border-radius-border-radius-md)]" />
+    <img src="/asset-examples/panda-avatar.png" alt="Gallery cover 2" className="w-full rounded-[var(--size-border-radius-border-radius-md)]" />
   </div>
   ```
 
@@ -1470,10 +1470,10 @@ Also accepts the props of: HTMLAttributes, AnchorHTMLAttributes, SVGAttributes, 
 - Do: The whole card is the link (`action`) — one target, the biggest one.
 
   ```tsx
-  <Card action={{ type: 'link', href: '#seashell', ariaLabel: 'seashell.shop' }} className="w-64">
+  <Card action={{ type: 'link', href: '#golden-hour', ariaLabel: 'Golden hour' }} className="w-64">
     <CardHeader divider={false}>
-      <CardTitle>seashell.shop</CardTitle>
-      <CardDescription>Active · 3 mailboxes</CardDescription>
+      <CardTitle>Golden hour</CardTitle>
+      <CardDescription>Shared · 48 photos</CardDescription>
     </CardHeader>
   </Card>
   ```
@@ -1483,8 +1483,8 @@ Also accepts the props of: HTMLAttributes, AnchorHTMLAttributes, SVGAttributes, 
   ```tsx
   <Card className="w-64">
     <CardHeader divider={false}>
-      <CardTitle>seashell.shop</CardTitle>
-      <CardDescription>Active · 3 mailboxes</CardDescription>
+      <CardTitle>Golden hour</CardTitle>
+      <CardDescription>Shared · 48 photos</CardDescription>
     </CardHeader>
     <CardContent className="pt-0">
       <Button appearance="outlined" tone="secondary" size="md">View</Button>
@@ -1497,7 +1497,7 @@ Also accepts the props of: HTMLAttributes, AnchorHTMLAttributes, SVGAttributes, 
   ```tsx
   <Card className="w-64">
     <CardHeader divider={false}>
-      <CardTitle>Backups</CardTitle>
+      <CardTitle>Archive</CardTitle>
       <CardDescription>Last run 2 hours ago</CardDescription>
     </CardHeader>
     <CardContent className="flex gap-2 pt-0">
@@ -1511,7 +1511,7 @@ Also accepts the props of: HTMLAttributes, AnchorHTMLAttributes, SVGAttributes, 
   ```tsx
   <Card className="w-64">
     <CardHeader divider={false}>
-      <CardTitle>Backups</CardTitle>
+      <CardTitle>Archive</CardTitle>
       <CardDescription>Last run 2 hours ago</CardDescription>
     </CardHeader>
     <CardContent className="flex gap-2 pt-0">
@@ -1704,13 +1704,13 @@ Also accepts the props of: HTMLAttributes, ButtonHTMLAttributes.
 - Do: Templates to browse — optional, alike, and many.
 
   ```tsx
-  <Slides label="Site templates" items={['Blog', 'Shop', 'Portfolio', 'Docs', 'Landing', 'Wiki']} />
+  <Slides label="Gallery templates" items={['Classic', 'Mosaic', 'Story', 'Portfolio', 'Grid', 'Film strip']} />
   ```
 
 - Don’t: Important notices in slides: most people never see slide 2 or 3.
 
   ```tsx
-  <Slides label="Announcements" items={['Price change on May 1', 'Planned downtime Sat', 'New region: Mumbai']} />
+  <Slides label="Announcements" items={['Price change on May 1', 'Planned downtime Sat', 'New studio: Lisbon']} />
   ```
 
 
@@ -6496,7 +6496,7 @@ Also accepts the props of: HTMLAttributes.
 
   ```tsx
   <div className={FRAME}>
-    <PageHeader as="h2" title="Sites" description="Websites hosted in this workspace." actions={<Button leftIcon={<Plus />} size="md">New site</Button>} />
+    <PageHeader as="h2" title="Galleries" description="Client galleries in this studio." actions={<Button leftIcon={<Plus />} size="md">New gallery</Button>} />
   </div>
   ```
 
@@ -6506,10 +6506,10 @@ Also accepts the props of: HTMLAttributes.
   <div className={FRAME}>
     <PageHeader
       as="h2"
-      title="Sites"
+      title="Galleries"
       actions={
         <div className="flex gap-2">
-          <Button appearance="filled" tone="primary" size="md">New site</Button>
+          <Button appearance="filled" tone="primary" size="md">New gallery</Button>
           <Button appearance="filled" tone="primary" size="md">Import</Button>
           <Button appearance="filled" tone="primary" size="md">Export</Button>
         </div>
@@ -7347,10 +7347,10 @@ Also accepts the props of: HTMLAttributes.
 
   ```tsx
   <Prose size="sm" className="w-full">
-    <h3>Restore a backup</h3>
-    <p>Backups run every night and are kept for <strong>14 days</strong>.</p>
+    <h3>Restore a photo from the archive</h3>
+    <p>The archive runs every night and keeps photos for <strong>90 days</strong>.</p>
     <ol>
-      <li>Open <em>Backups</em>.</li>
+      <li>Open <em>Mnemosyne</em>.</li>
       <li>Pick a date and choose <kbd>Restore</kbd>.</li>
     </ol>
   </Prose>
@@ -7361,8 +7361,8 @@ Also accepts the props of: HTMLAttributes.
   ```tsx
   <Prose size="sm" className="w-full">
     <div className="flex items-center justify-between rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] p-3">
-      <p>shop.seashell.dev</p>
-      <p>Running</p>
+      <p>Golden hour</p>
+      <p>Shared</p>
     </div>
   </Prose>
   ```
@@ -8062,7 +8062,7 @@ Also accepts the props of: ScrollAreaProps, HTMLAttributes, ScrollAreaScrollbarP
 - Do: A capped list that scrolls in place; the rest of the panel stays put.
 
   ```tsx
-  <ScrollArea className={`${BOX} h-48`} aria-label="Backups">
+  <ScrollArea className={`${BOX} h-48`} aria-label="Uploads">
     {ITEMS.map((t) => <div key={t} className={ROW}>{t}</div>)}
   </ScrollArea>
   ```
@@ -8070,7 +8070,7 @@ Also accepts the props of: ScrollAreaProps, HTMLAttributes, ScrollAreaScrollbarP
 - Don’t: A one-row window: people scroll more than they read — show more or paginate.
 
   ```tsx
-  <ScrollArea className={`${BOX} h-12`} aria-label="Backups, tiny">
+  <ScrollArea className={`${BOX} h-12`} aria-label="Uploads, tiny">
     {ITEMS.map((t) => <div key={t} className={ROW}>{t}</div>)}
   </ScrollArea>
   ```

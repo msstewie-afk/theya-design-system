@@ -6,11 +6,11 @@
 # Embed (layout-aspectratio--embed)
 - iframe
 
+# Label Tile (layout-aspectratio--label-tile)
+- text: DAWN_0412.jpg
+
 # Ratios (layout-aspectratio--ratios)
 - text: "16 : 9 4 : 3 1 : 1"
 
-# Region Tile (layout-aspectratio--region-tile)
-- text: eu-west-1
-
 # Thumbnail (layout-aspectratio--thumbnail)
-- img "Preview of shop.seashell.dev": shop.seashell.dev Site preview
+- img "Cover of the Golden hour gallery": Golden hour Gallery cover

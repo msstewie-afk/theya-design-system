@@ -33,11 +33,11 @@
     {
       "do": {
         "caption": "Every preview the same shape; the grid doesn’t jump while images load.",
-        "example": "<div className=\"grid w-full grid-cols-2 gap-2\">\n  {[0, 1].map((i) => (\n    <AspectRatio key={i} ratio={16 / 9} className=\"overflow-hidden rounded-[var(--size-border-radius-border-radius-md)]\">\n      <img src={IMG} alt={`Site preview ${i + 1}`} className=\"absolute inset-0 size-full object-cover\" />\n    </AspectRatio>\n  ))}\n</div>"
+        "example": "<div className=\"grid w-full grid-cols-2 gap-2\">\n  {[0, 1].map((i) => (\n    <AspectRatio key={i} ratio={16 / 9} className=\"overflow-hidden rounded-[var(--size-border-radius-border-radius-md)]\">\n      <img src={IMG} alt={`Gallery cover ${i + 1}`} className=\"absolute inset-0 size-full object-cover\" />\n    </AspectRatio>\n  ))}\n</div>"
       },
       "dont": {
         "caption": "Natural ratios side by side: ragged rows and layout shift on load.",
-        "example": "<div className=\"grid w-full grid-cols-2 items-start gap-2\">\n  <img src={IMG} alt=\"Site preview 1\" className=\"w-full rounded-[var(--size-border-radius-border-radius-md)]\" />\n  <img src=\"/asset-examples/panda-avatar.png\" alt=\"Site preview 2\" className=\"w-full rounded-[var(--size-border-radius-border-radius-md)]\" />\n</div>"
+        "example": "<div className=\"grid w-full grid-cols-2 items-start gap-2\">\n  <img src={IMG} alt=\"Gallery cover 1\" className=\"w-full rounded-[var(--size-border-radius-border-radius-md)]\" />\n  <img src=\"/asset-examples/panda-avatar.png\" alt=\"Gallery cover 2\" className=\"w-full rounded-[var(--size-border-radius-border-radius-md)]\" />\n</div>"
       }
     }
   ],
@@ -77,8 +77,8 @@
         "id": "layout-aspectratio--thumbnail"
       },
       {
-        "name": "RegionTile",
-        "id": "layout-aspectratio--region-tile"
+        "name": "LabelTile",
+        "id": "layout-aspectratio--label-tile"
       },
       {
         "name": "Embed",

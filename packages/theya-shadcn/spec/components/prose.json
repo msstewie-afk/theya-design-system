@@ -28,11 +28,11 @@
     {
       "do": {
         "caption": "A help article: plain HTML, readable without a single class.",
-        "example": "<Prose size=\"sm\" className=\"w-full\">\n  <h3>Restore a backup</h3>\n  <p>Backups run every night and are kept for <strong>14 days</strong>.</p>\n  <ol>\n    <li>Open <em>Backups</em>.</li>\n    <li>Pick a date and choose <kbd>Restore</kbd>.</li>\n  </ol>\n</Prose>"
+        "example": "<Prose size=\"sm\" className=\"w-full\">\n  <h3>Restore a photo from the archive</h3>\n  <p>The archive runs every night and keeps photos for <strong>90 days</strong>.</p>\n  <ol>\n    <li>Open <em>Mnemosyne</em>.</li>\n    <li>Pick a date and choose <kbd>Restore</kbd>.</li>\n  </ol>\n</Prose>"
       },
       "dont": {
         "caption": "App UI inside Prose: article margins and text styles leak into the component.",
-        "example": "<Prose size=\"sm\" className=\"w-full\">\n  <div className=\"flex items-center justify-between rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] p-3\">\n    <p>shop.seashell.dev</p>\n    <p>Running</p>\n  </div>\n</Prose>"
+        "example": "<Prose size=\"sm\" className=\"w-full\">\n  <div className=\"flex items-center justify-between rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] p-3\">\n    <p>Golden hour</p>\n    <p>Shared</p>\n  </div>\n</Prose>"
       }
     }
   ],

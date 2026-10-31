@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ArrowRight, BadgeCheck, ClipboardCheck, Community, Download, Globe, Group, Headset, Medal, Sparks, StarSolid } from 'iconoir-react';
+import { ArrowRight, BadgeCheck, ClipboardCheck, Community, Download, Group, Headset, MediaImage, Medal, Sparks, StarSolid } from 'iconoir-react';
 import { Card, CardAction, CardAvatar, CardContent, CardDescription, CardFooter, CardHeader, CardMedia, CardTitle } from './card';
 import { Avatar } from './avatar';
 import { AvatarGroup } from './avatar-group';
@@ -14,7 +14,7 @@ import { Sparkline } from './sparkline';
  * Card compositions — ready-made layouts assembled from the regular Card
  * parts (and Rating, Sparkline, AvatarGroup, Badge…). Nothing here is a new
  * component: copy the story source and adapt. Product names are fictional
- * (SolarLoom, Seashell). Leading icons align to the title line, not the
+ * (Lumen, Aether). Leading icons align to the title line, not the
  * middle of the text block.
  */
 const meta: Meta<typeof Card> = {
@@ -60,7 +60,7 @@ export const Metric: Story = {
         <CardContent className="flex flex-col gap-3">
           <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">Net revenue</span>
           <span className="font-body text-body-xl font-semibold tabular-nums">+$34.58M</span>
-          <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtler)]">With SolarLoom, every customer idea becomes a site or app in seconds.</p>
+          <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtler)]">With Lumen Retouch, every portrait is client-ready in minutes.</p>
           <Sparkline data={revenue} area height={96} ariaLabel="Net revenue trend, rising sharply at the end" />
         </CardContent>
         <CardFooter>
@@ -74,10 +74,10 @@ export const Metric: Story = {
 /** Marketplace listing: icon tile, status markers, meta row, clamped description, vendor + price. */
 export const Marketplace: Story = {
   render: () => (
-    <Card className="w-full sm:w-[300px]" action={{ type: 'link', href: '#solarloom', ariaLabel: 'SolarLoom and SolarLoom for Teams' }}>
+    <Card className="w-full sm:w-[300px]" action={{ type: 'link', href: '#lumen', ariaLabel: 'Lumen Retouch and Lumen for Studios' }}>
       <CardHeader divider={false} className="flex-col gap-3">
         <div className="flex w-full items-start justify-between">
-          <LogoTile letter="S" />
+          <LogoTile letter="L" />
           <div className="flex items-center gap-1">
             <span role="img" aria-label="Featured" className="grid size-6 place-items-center rounded-full bg-[var(--color-bg-warning-bg-warning)] text-[var(--color-text-text-warning)] [&_svg]:size-3 [[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]">
               <StarSolid />
@@ -88,21 +88,21 @@ export const Marketplace: Story = {
           </div>
         </div>
         <div className="min-w-0">
-          <CardTitle>SolarLoom and SolarLoom for Teams</CardTitle>
+          <CardTitle>Lumen Retouch and Lumen for Studios</CardTitle>
           <CardDescription className="flex items-center gap-1 [&_svg]:size-3.5">
-            <Group aria-hidden="true" /> Agents
+            <Group aria-hidden="true" /> Studios
             <DotSeparator />
-            <Sparks aria-hidden="true" /> 9 skills
+            <Sparks aria-hidden="true" /> 9 presets
           </CardDescription>
         </div>
       </CardHeader>
       <CardContent className="pt-0">
         <p className="m-0 line-clamp-3 font-body text-body-s text-[var(--color-text-text-subtle)]">
-          With SolarLoom, every customer idea becomes a site or app in seconds, creating new revenue streams you didn’t have before — from landing pages to full stores.
+          With Lumen Retouch, every portrait is client-ready in minutes, so a studio can deliver the same day — from a single headshot to a full wedding.
         </p>
       </CardContent>
       <CardFooter className="justify-between">
-        <span className="font-body text-body-s text-[var(--color-text-text-subtle)]">Seashell</span>
+        <span className="font-body text-body-s text-[var(--color-text-text-subtle)]">Aether</span>
         <Badge tone="success">Free</Badge>
       </CardFooter>
     </Card>
@@ -116,9 +116,9 @@ export const WithRating: Story = {
     <Card className="w-full sm:w-[320px]">
       <CardHeader divider={false}>
         <div className="flex min-w-0 items-start gap-3">
-          <LogoTile letter="W" />
+          <LogoTile letter="D" />
           <div className="min-w-0">
-            <CardTitle>Weekly deploy digest</CardTitle>
+            <CardTitle>Daily delivery digest</CardTitle>
             <div className="mt-1 flex items-center gap-2 font-body text-body-xs text-[var(--color-text-text-subtler)]">
               <Rating readOnly value={5} size="sm" aria-label="Rating" />
               <span className="tabular-nums">5.0 (294)</span>
@@ -130,7 +130,7 @@ export const WithRating: Story = {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="pt-0 font-body text-body-s text-[var(--color-text-text-subtle)]">Send an email with your Seashell account.</CardContent>
+      <CardContent className="pt-0 font-body text-body-s text-[var(--color-text-text-subtle)]">Send an email with your Aether account.</CardContent>
     </Card>
   ),
 };
@@ -140,18 +140,18 @@ export const Profile: Story = {
   render: function ProfileExample() {
     const [active, setActive] = useState(true);
     return (
-      <Card className="w-full sm:w-[300px]" action={{ type: 'filter', active, onChange: setActive, ariaLabel: 'Becca Williams' }}>
+      <Card className="w-full sm:w-[300px]" action={{ type: 'filter', active, onChange: setActive, ariaLabel: 'Dawn Ellery' }}>
         <CardMedia src="/asset-examples/nova-web.jpg" alt="" height={140} />
-        <CardAvatar type="text" initials="BW" />
+        <CardAvatar type="text" initials="DE" />
         <CardHeader divider={false}>
           <div className="min-w-0">
             <CardTitle className="gap-2">
-              Becca Williams
+              Dawn Ellery
               <Badge tone="primary" className="[&_svg]:size-3">
-                <Medal aria-hidden="true" /> Top builder
+                <Medal aria-hidden="true" /> Top retoucher
               </Badge>
             </CardTitle>
-            <CardDescription>I build agents and workforces at SolarLoom in the AI Ops team. Two main focuses: marketing and AI bots.</CardDescription>
+            <CardDescription>I retouch portraits at Eos Portraits. Two main focuses: skin tones and morning light.</CardDescription>
           </div>
         </CardHeader>
       </Card>
@@ -166,18 +166,18 @@ export const StatsAndPeople: Story = {
     <Card className="w-full sm:w-[320px]">
       <CardHeader divider={false}>
         <div className="flex min-w-0 items-start gap-3">
-          <LogoTile letter="S" />
+          <LogoTile letter="A" />
           <div className="min-w-0">
-            <CardTitle>Seashell</CardTitle>
+            <CardTitle>Aether</CardTitle>
             <CardDescription className="flex flex-wrap items-center gap-x-3 gap-y-1 [&_svg]:size-3.5">
               <span className="flex items-center gap-1 tabular-nums"><Community aria-hidden="true" /><b className="font-semibold">27M</b> users</span>
-              <span className="flex items-center gap-1 tabular-nums"><Globe aria-hidden="true" /><b className="font-semibold">60M</b> domains</span>
+              <span className="flex items-center gap-1 tabular-nums"><MediaImage aria-hidden="true" /><b className="font-semibold">60M</b> photos</span>
             </CardDescription>
           </div>
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-3 pt-0">
-        <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtle)]">The global standard in web enablement.</p>
+        <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtle)]">Galleries, prints and archive for photographers.</p>
         <AvatarGroup max={3} aria-label="Team: 12 people">
           {['AL', 'MK', 'JS', 'RT', 'EV', 'NP', 'OD', 'CB', 'HW', 'LM', 'SG', 'TF'].map((i) => (
             <Avatar key={i} type="text" initials={i} />
@@ -196,14 +196,14 @@ export const MediaWithTags: Story = {
       <CardMedia src="/asset-examples/nova-web.jpg" alt="" height={140} />
       <CardHeader divider={false}>
         <div className="min-w-0">
-          <CardTitle>Seashell Sites</CardTitle>
-          <CardDescription>Website builder</CardDescription>
+          <CardTitle>Aether Galleries</CardTitle>
+          <CardDescription>Client galleries</CardDescription>
         </div>
         <Badge tone="primary">$19/mo</Badge>
       </CardHeader>
       <CardContent className="flex flex-wrap gap-2 pt-0">
-        <Badge tone="neutral">App builders</Badge>
-        <Badge tone="neutral">AI websites</Badge>
+        <Badge tone="neutral">Galleries</Badge>
+        <Badge tone="neutral">Client proofing</Badge>
       </CardContent>
     </Card>
   ),
@@ -213,10 +213,10 @@ export const MediaWithTags: Story = {
 export const RadioWithFooter: Story = {
   name: 'Radio with footer',
   render: function RadioWithFooterExample() {
-    const [picked, setPicked] = useState<string>('success');
+    const [picked, setPicked] = useState<string>('followup');
     const options = [
-      { id: 'success', title: 'Customer success', desc: 'Score customer health, plan onboarding, prepare renewals, and build quarterly business reviews.', skills: 9 },
-      { id: 'sales', title: 'Sales assistant', desc: 'Qualify leads, draft follow-ups and keep the pipeline current.', skills: 6 },
+      { id: 'followup', title: 'Client follow-up', desc: 'Remind clients to pick their photos, collect print orders, and send the final gallery with a thank-you note.', skills: 9 },
+      { id: 'booking', title: 'Booking assistant', desc: 'Answer enquiries, offer free dates and keep the shoot calendar current.', skills: 6 },
     ];
     return (
       // Each selectable Card owns its control; single choice is the caller's state.
@@ -243,9 +243,9 @@ export const RadioWithFooter: Story = {
             </CardHeader>
             <CardFooter className="gap-3 font-body text-body-xs text-[var(--color-text-text-subtle)]">
               <span className="flex items-center gap-1 [&_svg]:size-3.5">
-                by Seashell <BadgeCheck aria-label="Verified" role="img" className="text-[var(--color-icon-icon-success)]" />
+                by Aether <BadgeCheck aria-label="Verified" role="img" className="text-[var(--color-icon-icon-success)]" />
               </span>
-              <span className="tabular-nums">{o.skills} skills</span>
+              <span className="tabular-nums">{o.skills} presets</span>
             </CardFooter>
           </Card>
         ))}
@@ -258,12 +258,12 @@ export const RadioWithFooter: Story = {
 export const LinkWithArrow: Story = {
   name: 'Link with arrow',
   render: () => (
-    <Card className="w-full sm:w-[280px]" action={{ type: 'link', href: '#seashell', ariaLabel: 'Seashell — the global standard in web enablement' }}>
+    <Card className="w-full sm:w-[280px]" action={{ type: 'link', href: '#aether', ariaLabel: 'Aether — galleries, prints and archive for photographers' }}>
       <CardHeader divider={false} className="flex-col gap-3">
-        <LogoTile letter="S" className="size-8" />
+        <LogoTile letter="A" className="size-8" />
         <div className="min-w-0">
-          <CardTitle>Seashell</CardTitle>
-          <CardDescription>The global standard in web enablement.</CardDescription>
+          <CardTitle>Aether</CardTitle>
+          <CardDescription>Galleries, prints and archive for photographers.</CardDescription>
         </div>
       </CardHeader>
       <CardContent className="flex justify-end pt-0 text-[var(--color-icon-icon-subtle)] [&_svg]:size-5">

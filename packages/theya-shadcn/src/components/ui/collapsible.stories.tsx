@@ -76,7 +76,7 @@ function ShowAdvancedSettingsDemo() {
   const [open, setOpen] = useState(false);
   return (
     <Collapsible open={open} onOpenChange={setOpen} className="w-[320px] max-w-full">
-      <TextField label="Domain" placeholder="shop.seashell.dev" />
+      <TextField label="Gallery name" placeholder="Golden hour" />
       <CollapsibleTrigger asChild>
         <Button appearance="outlined" size="md" className="mt-4" rightIcon={<NavArrowDown className={open ? 'rotate-180' : undefined} />}>
           Show advanced settings
@@ -84,8 +84,8 @@ function ShowAdvancedSettingsDemo() {
       </CollapsibleTrigger>
       <CollapsibleContent>
         <div className="flex flex-col gap-3 pt-3">
-          <TextField label="Custom hostname" placeholder="www.shop.seashell.dev" />
-          <TextField label="Region" placeholder="eu-west-1" />
+          <TextField label="Client portal address" placeholder="selene-weddings.aether.photo" />
+          <TextField label="Download limit" placeholder="50 per client" />
         </div>
       </CollapsibleContent>
     </Collapsible>
@@ -100,7 +100,7 @@ export const ShowAdvancedSettings: Story = {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Show advanced settings' }));
     // Revealed fields are real, reachable form fields.
-    const host = await canvas.findByRole('textbox', { name: 'Custom hostname' });
+    const host = await canvas.findByRole('textbox', { name: 'Client portal address' });
     await userEvent.tab();
     await expect(host).toHaveFocus();
   },

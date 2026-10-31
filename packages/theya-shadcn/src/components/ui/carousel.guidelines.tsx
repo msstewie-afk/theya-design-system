@@ -31,8 +31,8 @@ export const carouselGuidelines: ComponentGuidelines = {
   ],
   doDont: [
     {
-      do: { example: <Slides label="Site templates" items={['Blog', 'Shop', 'Portfolio', 'Docs', 'Landing', 'Wiki']} />, caption: 'Templates to browse — optional, alike, and many.' },
-      dont: { example: <Slides label="Announcements" items={['Price change on May 1', 'Planned downtime Sat', 'New region: Mumbai']} />, caption: 'Important notices in slides: most people never see slide 2 or 3.' },
+      do: { example: <Slides label="Gallery templates" items={['Classic', 'Mosaic', 'Story', 'Portfolio', 'Grid', 'Film strip']} />, caption: 'Templates to browse — optional, alike, and many.' },
+      dont: { example: <Slides label="Announcements" items={['Price change on May 1', 'Planned downtime Sat', 'New studio: Lisbon']} />, caption: 'Important notices in slides: most people never see slide 2 or 3.' },
     },
   ],
   a11y: [

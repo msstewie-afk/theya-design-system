@@ -59,28 +59,28 @@ export const Single: Story = {
   render: () => (
     <Accordion type="single" className="w-full max-w-[400px]">
       <AccordionItem value="item-1">
-        <AccordionTrigger>What is a CNAME record?</AccordionTrigger>
-        <AccordionContent>A CNAME record maps one domain name to another, used for aliasing.</AccordionContent>
+        <AccordionTrigger>What is a client portal?</AccordionTrigger>
+        <AccordionContent>A private page where a client views, picks and downloads the photos from their shoot.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
-        <AccordionTrigger>How long does propagation take?</AccordionTrigger>
-        <AccordionContent>DNS changes typically propagate within a few minutes to 48 hours.</AccordionContent>
+        <AccordionTrigger>How long are galleries kept?</AccordionTrigger>
+        <AccordionContent>Galleries stay online for 90 days after delivery, then move to the archive.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
-        <AccordionTrigger>Can I use a wildcard certificate?</AccordionTrigger>
-        <AccordionContent>Yes, a wildcard certificate covers all subdomains of a domain.</AccordionContent>
+        <AccordionTrigger>Can clients print the photos?</AccordionTrigger>
+        <AccordionContent>Yes, with a print license: it covers every photo in the gallery.</AccordionContent>
       </AccordionItem>
     </Accordion>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const one = canvas.getByRole('button', { name: 'What is a CNAME record?' });
-    const two = canvas.getByRole('button', { name: 'How long does propagation take?' });
+    const one = canvas.getByRole('button', { name: 'What is a client portal?' });
+    const two = canvas.getByRole('button', { name: 'How long are galleries kept?' });
     await expect(one).toHaveAttribute('aria-expanded', 'false');
 
     await userEvent.click(one);
     await expect(one).toHaveAttribute('aria-expanded', 'true');
-    await expect(canvas.getByRole('region', { name: 'What is a CNAME record?' })).toBeVisible();
+    await expect(canvas.getByRole('region', { name: 'What is a client portal?' })).toBeVisible();
 
     // Single: opening another closes the first.
     await userEvent.click(two);
@@ -96,7 +96,7 @@ export const Single: Story = {
     await userEvent.keyboard('{ArrowDown}');
     await expect(two).toHaveFocus();
     await userEvent.keyboard('{End}');
-    await expect(canvas.getByRole('button', { name: 'Can I use a wildcard certificate?' })).toHaveFocus();
+    await expect(canvas.getByRole('button', { name: 'Can clients print the photos?' })).toHaveFocus();
     await userEvent.keyboard('{Home}');
     await expect(one).toHaveFocus();
   },
@@ -133,16 +133,16 @@ export const AllClosed: Story = {
   render: () => (
     <Accordion type="single" collapsible className="w-full max-w-[400px]">
       <AccordionItem value="item-1">
-        <AccordionTrigger>What is a CNAME record?</AccordionTrigger>
-        <AccordionContent>A CNAME record maps one domain name to another, used for aliasing.</AccordionContent>
+        <AccordionTrigger>What is a client portal?</AccordionTrigger>
+        <AccordionContent>A private page where a client views, picks and downloads the photos from their shoot.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
-        <AccordionTrigger>How long does propagation take?</AccordionTrigger>
-        <AccordionContent>DNS changes typically propagate within a few minutes to 48 hours.</AccordionContent>
+        <AccordionTrigger>How long are galleries kept?</AccordionTrigger>
+        <AccordionContent>Galleries stay online for 90 days after delivery, then move to the archive.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
-        <AccordionTrigger>Can I use a wildcard certificate?</AccordionTrigger>
-        <AccordionContent>Yes, a wildcard certificate covers all subdomains of a domain.</AccordionContent>
+        <AccordionTrigger>Can clients print the photos?</AccordionTrigger>
+        <AccordionContent>Yes, with a print license: it covers every photo in the gallery.</AccordionContent>
       </AccordionItem>
     </Accordion>
   ),
@@ -154,7 +154,7 @@ export const DisabledItem: Story = {
     <Accordion type="single" collapsible defaultValue="item-1" className="w-full max-w-[400px]">
       <AccordionItem value="item-1">
         <AccordionTrigger>Active plan</AccordionTrigger>
-        <AccordionContent>You're on the Pro plan — 184,320 requests today.</AccordionContent>
+        <AccordionContent>You're on the Pro plan — 1,284 photos delivered this month.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2" disabled>
         <AccordionTrigger>Enterprise add-ons (contact sales)</AccordionTrigger>

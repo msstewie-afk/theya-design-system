@@ -2,7 +2,7 @@
 
 # Default (layout-carousel--default)
 - region "Featured templates":
-  - group "3 of 4": Agency
+  - group "3 of 4": Story
   - button "Previous slide"
   - button "Next slide"
 
@@ -13,16 +13,16 @@
   - button "Next slide"
 
 # Multi Item (layout-carousel--multi-item)
-- region "Regions":
+- region "Studios":
   - group:
-    - paragraph: Region
-    - paragraph: eu-west-1
+    - paragraph: Studio
+    - paragraph: Helios Studio
   - group:
-    - paragraph: Region
-    - paragraph: us-east-1
+    - paragraph: Studio
+    - paragraph: Selene Weddings
   - group:
-    - paragraph: Region
-    - paragraph: ap-south-1
+    - paragraph: Studio
+    - paragraph: Eos Portraits
   - button "Previous slide" [disabled]
   - button "Next slide"
 
@@ -36,9 +36,9 @@
     - button "Go to slide 4"
 
 # Vertical (layout-carousel--vertical)
-- region "Recent deploys":
-  - group: v2.3.1
-  - group: v2.3.0
+- region "Recent albums":
+  - group: Blue hour
+  - group: First light
   - button "Previous slide"
   - button "Next slide"
 
@@ -51,7 +51,7 @@
 
 # With Indicators (layout-carousel--with-indicators)
 - region "Featured templates":
-  - group "2 of 4": Business
+  - group "2 of 4": Mosaic
   - button "Previous slide"
   - button "Next slide"
   - group "Slides":

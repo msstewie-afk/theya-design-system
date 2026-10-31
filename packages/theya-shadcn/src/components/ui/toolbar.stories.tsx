@@ -110,7 +110,7 @@ export const Vertical: Story = {
 export const WithIntent: Story = {
   name: 'With tone',
   render: () => (
-    <Toolbar aria-label="Backup actions" className={CARD}>
+    <Toolbar aria-label="Gallery actions" className={CARD}>
       <ToolbarButton>
         <Download /> Export
       </ToolbarButton>
