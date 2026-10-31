@@ -6,7 +6,7 @@ export const landingCardsGuidelines: ComponentGuidelines = {
   whenToUse: [
     'Landing sections made of cards: features (FeatureCard), product slices (MediaCard), numbers (StatCard), customer stories (StoryCard), testimonials (QuoteCard), next steps (LinkCard).',
     'BentoGrid for a mix of sizes: one wide or tall card carries the main point, the small ones support it.',
-    'Live charts for cards and bento tiles (landing-viz): GrowBars (bars grow in), ProgressRing (fills with its value), TrendChart (thin bars, scrub with the mouse for a value).',
+    'Live charts for cards and bento tiles (landing-viz, plus ProgressRing from ui): GrowBars (bars grow in), TrendChart (thin bars, scrub with the mouse for a value).',
     '`surface` and `hue` set the look (outlined, sunken, tonal pastel, inverse, primary); `hover` the pointer behaviour.',
   ],
   whenNotToUse: [

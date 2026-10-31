@@ -6,8 +6,8 @@ import { useTheyaI18n } from '../../../lib/i18n';
 import { useInView } from '../../ui/use-in-view';
 
 /*
- * Small live charts for landing cards and bento tiles: bars that grow, a
- * ring that fills, a trend you can scrub. They play once, the first time
+ * Small live charts for landing cards and bento tiles: bars that grow and a
+ * trend you can scrub (for a ring that fills, use ProgressRing from ui). They play once, the first time
  * they scroll into view (with reduced motion they are simply drawn), and
  * each is one picture to assistive tech: role="img" with a label that says
  * what the chart shows, so nothing depends on seeing it move.
@@ -41,49 +41,6 @@ export function GrowBars({ values, label, highlightLast = true, className, ...pr
           style={{ height: `${(v / max) * 100}%`, transform: seen ? 'scaleY(1)' : 'scaleY(0)', transitionDelay: `${i * 60}ms` }}
         />
       ))}
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-
-export interface ProgressRingProps extends Omit<ComponentProps<'div'>, 'children'> {
-  /** 0–100. */
-  value: number;
-  /** What it measures ("Links sorted automatically"); the value is added to the read-out. */
-  label: string;
-  /** Diameter, px (default 128). */
-  size?: number;
-}
-
-/** A ring that fills to its value while the number counts up beside it (the 0 → 75% bento tile). */
-export function ProgressRing({ value, label, size = 128, className, ...props }: ProgressRingProps) {
-  const { locale } = useTheyaI18n();
-  const ref = useRef<HTMLDivElement>(null);
-  const seen = useInView(ref, { threshold: 0.4 });
-  const stroke = 10;
-  const r = (size - stroke) / 2;
-  const c = 2 * Math.PI * r;
-  const pct = new Intl.NumberFormat(locale, { style: 'percent' }).format(value / 100);
-  return (
-    <div ref={ref} role="img" aria-label={`${label}: ${pct}`} data-slot="progress-ring" className={cn('relative inline-grid place-items-center', className)} style={{ width: size, height: size }} {...props}>
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90" aria-hidden>
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" strokeWidth={stroke} className="stroke-[color-mix(in_oklab,var(--color-icon-icon-primary)_18%,transparent)]" />
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={r}
-          fill="none"
-          strokeWidth={stroke}
-          strokeLinecap="round"
-          strokeDasharray={c}
-          strokeDashoffset={seen ? c * (1 - value / 100) : c}
-          className="stroke-[var(--color-icon-icon-primary)] motion-safe:transition-[stroke-dashoffset] motion-safe:duration-[1400ms] motion-safe:ease-out"
-        />
-      </svg>
-      <span aria-hidden className="absolute font-heading text-heading-xs font-semibold tabular-nums text-[var(--color-text-text)]">
-        {pct}
-      </span>
     </div>
   );
 }

@@ -7,7 +7,8 @@ import { CountUp } from '../../ui/count-up';
 import { BookmarksPreview, DemoFeatureVisual } from './demo-data';
 import { BentoGrid, BentoItem, FeatureCard, LandingCard, LinkCard, MediaCard, QuoteCard, StatCard, StoryCard, type LandingCardHover, type LandingCardSurface } from './landing-cards';
 import { landingCardsGuidelines } from './landing-cards.guidelines';
-import { GrowBars, ProgressRing, TrendChart } from './landing-viz';
+import { ProgressRing } from '../../ui/progress-ring';
+import { GrowBars, TrendChart } from './landing-viz';
 
 const meta: Meta<typeof FeatureCard> = {
   title: 'Patterns: Landing/Cards',
@@ -267,7 +268,7 @@ export const LiveBento: Story = {
     const canvas = within(canvasElement);
     // Each chart is one picture with the whole story in its name.
     await expect(canvas.getByRole('img', { name: /Links saved per week over 26 weeks/ })).toBeInTheDocument();
-    await expect(canvas.getByRole('img', { name: /Links sorted automatically: 75/ })).toBeInTheDocument();
+    await expect(canvas.getByRole('progressbar', { name: 'Links sorted automatically' })).toHaveAttribute('aria-valuenow', '75');
     await expect(canvas.getAllByRole('heading', { level: 3 })).toHaveLength(4);
   },
 };
