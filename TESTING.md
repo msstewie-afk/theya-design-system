@@ -67,7 +67,7 @@ The `.github/workflows/ci.yml` workflow runs on every push to `main` and on ever
 
 1. **checks** (a few minutes):
    - types;
-   - `pnpm api:check`: the API spec, the API report and the accessibility matrix are up to date; client modules have `'use client'`; components use logical sides only (RTL); every `var(--…)` points at something declared;
+   - `pnpm api:check`: the API spec, the API report and the accessibility matrix are up to date; client modules have `'use client'`; components use logical sides only (RTL); every `var(--…)` points at something declared; motion and color come from tokens, not raw ms / cubic-bezier / rgba;
    - a build of the `apps/sandbox` sandbox against the package.
 2. **storybook** (runs after checks): a static Storybook, and on it
    - play tests and axe in the light and dark theme;

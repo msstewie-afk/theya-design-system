@@ -235,7 +235,7 @@ export function BadgeIndicator({
       className={cn(
         'inline-flex shrink-0 items-center justify-center whitespace-nowrap',
         pulse && 'relative isolate',
-        pops > 0 && 'animate-[theya-pop_320ms_var(--ease-spring)] motion-reduce:animate-none',
+        pops > 0 && 'animate-[theya-pop_var(--transition-duration-slow)_var(--ease-spring)] motion-reduce:animate-none',
         'font-body font-bold leading-none',
         TEXT_SIZE[size],
         colorClass,

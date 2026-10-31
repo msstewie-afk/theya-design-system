@@ -163,7 +163,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
     const input = inputRef.current;
     if (!input?.animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     // element.animate takes plain values, not var(): read the theme's spring token (--ease-spring).
-    input.animate([{ scale: 1 }, { scale: 1.3, offset: 0.4 }, { scale: 1 }], { duration: 350, easing: getComputedStyle(document.documentElement).getPropertyValue('--motion-easing-spring').trim() || 'cubic-bezier(0.34, 1.56, 0.64, 1)' });
+    input.animate([{ scale: 1 }, { scale: 1.3, offset: 0.4 }, { scale: 1 }], { duration: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--motion-duration-slow')) || 300, easing: getComputedStyle(document.documentElement).getPropertyValue('--motion-easing-spring').trim() || 'cubic-bezier(0.34, 1.56, 0.64, 1)' });
   };
 
   const isInvalid = ariaInvalid === true || ariaInvalid === 'true';

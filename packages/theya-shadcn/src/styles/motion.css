@@ -214,7 +214,7 @@
   --bloom-item-y: -6px;
 }
 [data-bloom][data-state='open'] :is([role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio'], [role='option']) {
-  animation: theya-bloom-item 360ms var(--ease-glide) both;
+  animation: theya-bloom-item var(--transition-duration-slow) var(--ease-glide) both;
 }
 [data-bloom][data-state='open'] :is([role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio'], [role='option']):nth-child(2) {
   animation-delay: 30ms;

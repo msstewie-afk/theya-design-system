@@ -129,6 +129,7 @@ export function WheelPicker({ options, value, defaultValue, onValueChange, rows 
           className="absolute inset-x-2 rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-sm forced-colors:border forced-colors:border-solid forced-colors:border-[Highlight]"
           style={{ top: middle * ROW, height: ROW }}
         />
+        {/* raw-ok: 580ms lets the wheel overshoot and settle like a physical drum; no motion step is that long. */}
         <div className="relative transition-transform duration-[580ms] ease-spring motion-reduce:transition-none" style={{ transform: `translateY(${(middle - index) * ROW}px)` }}>
           {options.map((option, n) => (
             <div

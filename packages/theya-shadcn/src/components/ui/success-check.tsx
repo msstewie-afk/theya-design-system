@@ -29,7 +29,7 @@ export function SuccessCheck({ className, ...props }: React.ComponentProps<'svg'
     >
       {/* Starts at 12 o'clock and runs clockwise (mirrored in RTL it still reads as a ring). */}
       <circle cx="12" cy="12" r="10" pathLength={1} transform="rotate(-90 12 12)" className={draw} />
-      <path d="M7.5 12.5l3 3 6-6.5" pathLength={1} className={cn(draw, '[animation-delay:300ms]')} />
+      <path d="M7.5 12.5l3 3 6-6.5" pathLength={1} className={cn(draw, '[animation-delay:var(--transition-duration-slow)]')} />
     </svg>
   );
 }

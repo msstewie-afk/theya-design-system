@@ -98,7 +98,8 @@ function ShakeOnFailedSubmit({ name, target }: { name: string; target: RefObject
     if (!el?.animate || !getFieldState(name).invalid || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     el.animate(
       [0, -1, 2, -4, 4, -4, 4, -4, 2, -1, 0].map((x) => ({ translate: `${x}px 0` })),
-      { duration: 450, easing: 'cubic-bezier(.36,.07,.19,.97)' },
+      // The duration is the --motion-duration-slower token; the shake curve has no token on purpose (raw-ok).
+      { duration: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--motion-duration-slower')) || 450, easing: 'cubic-bezier(.36,.07,.19,.97)' },
     );
     // Once per submit: after validation has run (isSubmitting back to false).
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -516,6 +516,10 @@
         },
         "bg-scrim": {
           "value": "{black-a400}"
+        },
+        "bg-scrim-strong": {
+          "value": "{black-a600}",
+          "comment": "A darker scrim where the dimmed part must read as cut away (ImageCropper)."
         }
       },
       "layout": {

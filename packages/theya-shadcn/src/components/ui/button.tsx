@@ -80,6 +80,7 @@ export const buttonVariants = cva(
     // Color/border/shadow transitions use a plain ease-enter — no overshoot.
     // Transform (the press scale) uses Material's "standard" easing
     // (cubic-bezier(0.4,0,0.2,1)) on both press and release.
+    // raw-ok: the 220ms press spring is the one documented off-scale duration (globals.css, Motion).
     '[transition:background-color_var(--transition-duration-standard)_var(--ease-enter),border-color_var(--transition-duration-standard)_var(--ease-enter),box-shadow_var(--transition-duration-standard)_var(--ease-enter),transform_220ms_var(--ease-spring)]',
     'active:not-disabled:not-aria-disabled:[transition:background-color_var(--transition-duration-standard)_var(--ease-enter),border-color_var(--transition-duration-standard)_var(--ease-enter),box-shadow_var(--transition-duration-standard)_var(--ease-enter),transform_var(--transition-duration-standard)_var(--ease-press)]',
     // motion-safe: scale only applies if the user hasn't asked for

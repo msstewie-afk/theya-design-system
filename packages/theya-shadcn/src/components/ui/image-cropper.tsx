@@ -290,7 +290,7 @@ export function ImageCropper({
             className={cn(
               'pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border border-solid border-[var(--white-a700)]',
               // The huge spread shadow dims everything outside the frame.
-              'shadow-[0_0_0_9999px_rgba(0,0,0,0.55)]',
+              'shadow-[0_0_0_9999px_var(--color-bg-surface-bg-scrim-strong)]',
               round ? 'rounded-full' : 'rounded-[2px]',
             )}
             style={{ width: frameW, height: frameH }}

@@ -35,6 +35,9 @@
   "black-a400": {
     "value": "rgb(0 0 0 / 0.4)"
   },
+  "black-a600": {
+    "value": "rgb(0 0 0 / 0.6)"
+  },
   "color": {
     "text": {
       "text-on-primary": {

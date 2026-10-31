@@ -254,8 +254,8 @@ export function TagInput({
               interactive={false}
               className={cn(
                 'max-w-full',
-                fresh.current.has(tag) && 'animate-[theya-pop-in_400ms_var(--ease-spring)]',
-                leaving.includes(tag) && 'pointer-events-none animate-[theya-pop-out_180ms_var(--ease-exit)_forwards]',
+                fresh.current.has(tag) && 'animate-[theya-pop-in_var(--transition-duration-slower)_var(--ease-spring)]',
+                leaving.includes(tag) && 'pointer-events-none animate-[theya-pop-out_var(--transition-duration-moderate)_var(--ease-exit)_forwards]',
                 'motion-reduce:animate-none',
               )}
             >

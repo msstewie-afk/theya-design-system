@@ -36,6 +36,7 @@ Node 22, pnpm 11. Run `pnpm build:tokens` again after any change in `packages/to
    - `'use client'` at the top if it uses state, effects or event handlers (`pnpm api:check` checks it).
    - Colors, sizes, radii, shadows only from tokens: `bg-[var(--color-…)]`, `p-[var(--size-…)]` or the Tailwind spacing scale. No hex: the gate blocks it (a deliberate exception: `gate-allow-hex` on the same line, with a reason).
    - Every `var(--…)` must name a token or variable that exists: a typo or a removed token drops the whole declaration without any error (`check-css-vars.mjs` fails on them). Optional variables get a fallback: `var(--x, 0px)`.
+   - Motion and color from tokens, not numbers: `duration-slow` or `var(--transition-duration-slow)`, not `320ms`; `ease-spring`, not `cubic-bezier(…)`; `var(--color-…)`, not `rgba(…)`. In JS (`element.animate`) read the token with `getComputedStyle`. A deliberate exception (a stagger step, a one-off effect, a timer) gets `raw-ok: <reason>` on the line or the line above (`check-raw-values.mjs` fails otherwise).
    - Logical sides: `ms/me`, `ps/pe`, `start/end`, `text-start` — not `ml/mr`, `left/right` (`check-rtl.mjs` fails on them; `--fix` converts them).
    - Built-in text (screen-reader labels, placeholders, announcements) from the dictionary, never hardcoded ([LOCALIZATION.md](LOCALIZATION.md#how-to-add-a-string)).
    - Prop names from the shared vocabulary: `appearance`, `tone`, `size`, `widthSize`… — look at a similar component first.

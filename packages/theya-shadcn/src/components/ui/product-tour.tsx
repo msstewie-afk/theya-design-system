@@ -335,7 +335,7 @@ export function ProductTour({
           <div
             aria-hidden
             // The undimmed hole alone is 1.29:1 on a dark page; a primary outline marks the target in both themes (WCAG 1.4.11).
-            className={cn('pointer-events-none fixed z-overlay rounded-[var(--size-border-radius-border-radius-lg)] shadow-[0_0_0_9999px_rgba(0,0,0,0.5)] outline-2 outline-solid outline-[var(--color-border-border-primary)]', transition)}
+            className={cn('pointer-events-none fixed z-overlay rounded-[var(--size-border-radius-border-radius-lg)] shadow-[0_0_0_9999px_var(--color-bg-surface-bg-scrim)] outline-2 outline-solid outline-[var(--color-border-border-primary)]', transition)}
             style={{ top: rect.top, left: rect.left, width: rect.width, height: rect.height }}
           />
           <PopoverPrimitive.Root open modal={false}>
@@ -364,7 +364,7 @@ export function ProductTour({
           </PopoverPrimitive.Root>
         </>
       ) : (
-        <div className="fixed inset-0 z-overlay flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-4">
+        <div className="fixed inset-0 z-overlay flex items-center justify-center bg-[var(--color-bg-surface-bg-scrim)] p-4">
           <div {...dialogProps} className={cn(CARD, 'w-96')}>
             {card}
           </div>

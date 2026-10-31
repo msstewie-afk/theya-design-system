@@ -154,7 +154,7 @@ function StepIndicator({
         // Dark: the blue disc is 2.71:1 on the surface; the light primary edge (5.95:1) outlines it, as in Checkbox (WCAG 1.4.11).
         isCurrent && '[[data-theme=dark]_&]:border [[data-theme=dark]_&]:border-solid [[data-theme=dark]_&]:border-[var(--color-border-border-primary)]',
         // After the segment before it has filled.
-        isCurrent && animate && 'animate-[theya-pop-soft_400ms_var(--ease-spring)_250ms] motion-reduce:animate-none',
+        isCurrent && animate && 'animate-[theya-pop-soft_var(--transition-duration-slower)_var(--ease-spring)_var(--transition-duration-slow)] motion-reduce:animate-none',
         'transition-[background-color,color] duration-slow ease-enter motion-reduce:transition-none',
         !isComplete && !isCurrent && 'border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text-subtler)]',
       )}
