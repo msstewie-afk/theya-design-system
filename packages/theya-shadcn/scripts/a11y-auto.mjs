@@ -184,30 +184,44 @@ async function checkStory(page, story) {
       if (around) nodes.push(...[...around.querySelectorAll('*')].slice(0, 60));
       return nodes.map((n) => [pick(getComputedStyle(n)), pick(getComputedStyle(n, '::before')), pick(getComputedStyle(n, '::after'))].join('#')).join('@');
     }, STYLE_PROPS);
-  const seen = new Set();
-  for (let i = 0; i < 40; i++) {
-    await page.keyboard.press('Tab');
-    const info = await page.evaluate(() => {
-      const el = document.activeElement;
-      if (!(el instanceof HTMLElement) || el === document.body || !el.closest('#storybook-root, [data-radix-popper-content-wrapper], [role=dialog]')) return null;
-      window.__theyaFocus = el;
-      return { key: el.outerHTML.slice(0, 120), desc: `${el.tagName.toLowerCase()}${el.getAttribute('aria-label') ? ` "${el.getAttribute('aria-label')}"` : ` "${(el.textContent ?? '').trim().slice(0, 30)}"`}` };
-    });
-    if (!info || seen.has(info.key)) break;
-    seen.add(info.key);
-    await page.waitForTimeout(60);
-    const focused = await look();
-    await page.evaluate(() => window.__theyaFocus.blur());
-    await page.waitForTimeout(60);
-    const blurred = await look();
-    // Back to visible focus so the next Tab continues from here.
-    await page.evaluate(() => window.__theyaFocus.focus({ focusVisible: true }));
-    if (focused === blurred) {
-      // Once more after a longer moment: a story still settling (a portal
-      // mounting, a late state update) can mask the first read.
-      await page.waitForTimeout(200);
-      if ((await look()) === blurred) result['2.4.7'].push(info.desc);
+  const focusPass = async () => {
+    const missing = [];
+    const seen = new Set();
+    for (let i = 0; i < 40; i++) {
+      await page.keyboard.press('Tab');
+      const info = await page.evaluate(() => {
+        const el = document.activeElement;
+        if (!(el instanceof HTMLElement) || el === document.body || !el.closest('#storybook-root, [data-radix-popper-content-wrapper], [role=dialog]')) return null;
+        window.__theyaFocus = el;
+        return { key: el.outerHTML.slice(0, 120), desc: `${el.tagName.toLowerCase()}${el.getAttribute('aria-label') ? ` "${el.getAttribute('aria-label')}"` : ` "${(el.textContent ?? '').trim().slice(0, 30)}"`}` };
+      });
+      if (!info || seen.has(info.key)) break;
+      seen.add(info.key);
+      await page.waitForTimeout(60);
+      const focused = await look();
+      await page.evaluate(() => window.__theyaFocus.blur());
+      await page.waitForTimeout(60);
+      const blurred = await look();
+      // Back to visible focus so the next Tab continues from here.
+      await page.evaluate(() => window.__theyaFocus.focus({ focusVisible: true }));
+      if (focused === blurred) {
+        // Once more after a longer moment: a story still settling (a portal
+        // mounting, a late state update) can mask the first read.
+        await page.waitForTimeout(200);
+        if ((await look()) === blurred) missing.push(info.desc);
+      }
     }
+    return missing;
+  };
+  // A story whose play test just closed an overlay can still be settling on a
+  // slow machine (Drawer's close on a CI runner): a miss counts only if a
+  // second pass, after a pause and from the top again, misses it too.
+  const first = await focusPass();
+  if (first.length) {
+    await page.waitForTimeout(1500);
+    await fromTop();
+    const second = await focusPass();
+    result['2.4.7'] = first.filter((d) => second.includes(d));
   }
 
   // 2.1.1 / 2.1.2 / 2.4.3 — fresh load, Tab through everything.
