@@ -36,15 +36,15 @@ export const Default: Story = {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="#">Servers</BreadcrumbLink>
+          <BreadcrumbLink href="#">Studios</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="#">shop.seashell.dev</BreadcrumbLink>
+          <BreadcrumbLink href="#">Golden hour</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>DNS records</BreadcrumbPage>
+          <BreadcrumbPage>Client picks</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
@@ -58,21 +58,21 @@ export const DeepTrail: Story = {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/sites">Sites</BreadcrumbLink>
+          <BreadcrumbLink href="/galleries">Galleries</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/sites/shop.seashell.dev" className="font-mono">
-            shop.seashell.dev
+          <BreadcrumbLink href="/galleries/golden-hour">
+            Golden hour
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/sites/shop.seashell.dev/settings">Settings</BreadcrumbLink>
+          <BreadcrumbLink href="/galleries/golden-hour/settings">Settings</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>Certificates</BreadcrumbPage>
+          <BreadcrumbPage>Licenses</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
@@ -85,28 +85,28 @@ export const WithEllipsis: Story = {
   play: async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Show 3 more levels' }));
     const menu = await screen.findByRole('menu');
-    await expect(within(menu).getByRole('menuitem', { name: 'Seashell' })).toHaveAttribute('href', '#seashell');
+    await expect(within(menu).getByRole('menuitem', { name: 'Helios Studio' })).toHaveAttribute('href', '#helios');
     await userEvent.keyboard('{Escape}');
   },
   render: () => (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="#">Servers</BreadcrumbLink>
+          <BreadcrumbLink href="#">Studios</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbEllipsis
             items={[
-              { label: 'Subscriptions', href: '#subscriptions' },
-              { label: 'Seashell', href: '#seashell' },
-              { label: 'Domains', href: '#domains' },
+              { label: 'Clients', href: '#clients' },
+              { label: 'Helios Studio', href: '#helios' },
+              { label: 'Galleries', href: '#galleries' },
             ]}
           />
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>DNS records</BreadcrumbPage>
+          <BreadcrumbPage>Client picks</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
@@ -120,11 +120,11 @@ export const CustomSeparator: Story = {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/sites">Sites</BreadcrumbLink>
+          <BreadcrumbLink href="/galleries">Galleries</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator>/</BreadcrumbSeparator>
         <BreadcrumbItem>
-          <BreadcrumbPage className="font-mono">shop.seashell.dev</BreadcrumbPage>
+          <BreadcrumbPage>Golden hour</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
@@ -138,7 +138,7 @@ export const CurrentPageOnly: Story = {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbPage>Sites</BreadcrumbPage>
+          <BreadcrumbPage>Galleries</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
@@ -152,25 +152,25 @@ export const Wrapping: Story = {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/sites">Sites</BreadcrumbLink>
+            <BreadcrumbLink href="/galleries">Galleries</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/sites/shop.seashell.dev" className="font-mono">
-              shop.seashell.dev
+            <BreadcrumbLink href="/galleries/golden-hour">
+              Golden hour
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/sites/shop.seashell.dev/settings">Settings</BreadcrumbLink>
+            <BreadcrumbLink href="/galleries/golden-hour/settings">Settings</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/sites/shop.seashell.dev/settings/domains">Domains</BreadcrumbLink>
+            <BreadcrumbLink href="/galleries/golden-hour/settings/portal">Client portal</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage className="font-mono">www.shop.seashell.dev</BreadcrumbPage>
+            <BreadcrumbPage className="font-mono">golden-hour.aether.photo</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -185,19 +185,19 @@ export const WithIcons: Story = {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/sites" icon={<Home />}>
-            Sites
+          <BreadcrumbLink href="/galleries" icon={<Home />}>
+            Galleries
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/sites/shop.seashell.dev" className="font-mono">
-            shop.seashell.dev
+          <BreadcrumbLink href="/galleries/golden-hour">
+            Golden hour
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>DNS records</BreadcrumbPage>
+          <BreadcrumbPage>Client picks</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
@@ -211,17 +211,17 @@ export const IconOnlyFirst: Story = {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/sites" icon={<Home />} aria-label="Home" />
+          <BreadcrumbLink href="/galleries" icon={<Home />} aria-label="Home" />
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/sites/shop.seashell.dev" className="font-mono">
-            shop.seashell.dev
+          <BreadcrumbLink href="/galleries/golden-hour">
+            Golden hour
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>DNS records</BreadcrumbPage>
+          <BreadcrumbPage>Client picks</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

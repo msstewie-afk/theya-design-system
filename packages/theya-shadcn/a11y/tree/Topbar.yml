@@ -11,7 +11,7 @@
 
 # Default (navigation-topbar--default)
 - banner:
-  - textbox "Search sites, servers, users…"
+  - textbox "Search…"
   - text: ⌘K
   - button "Notifications, unread":
     - img
@@ -23,14 +23,14 @@
 
 # Mobile (navigation-topbar--mobile)
 - banner:
-  - textbox "Search sites, servers, users…"
+  - textbox "Search…"
   - text: ⌘K
   - button "Notifications, unread":
     - img
 
 # Search (navigation-topbar--search-trigger)
 - banner:
-  - textbox "Search domains…": site
+  - textbox "Search galleries…": gal
 
 # Vertical (navigation-topbar--vertical)
 - banner "Application toolbar":

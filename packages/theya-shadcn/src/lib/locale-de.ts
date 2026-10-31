@@ -377,7 +377,7 @@ export const de: TheyaMessages = {
   themeToggle: { toLight: 'Zum hellen Design wechseln', toDark: 'Zum dunklen Design wechseln' },
   densityToggle: { label: 'Dichte', compact: 'Kompakt', default: 'Standard', comfortable: 'Großzügig' },
   timeRangePicker: { start: 'Startzeit', end: 'Endzeit', to: 'bis' },
-  topbar: { openMenu: 'Menü öffnen', searchPlaceholder: 'Websites, Server, Benutzer durchsuchen…', search: 'Suche', unread: (label) => `${label}, ungelesen` },
+  topbar: { openMenu: 'Menü öffnen', searchPlaceholder: 'Suchen…', search: 'Suche', unread: (label) => `${label}, ungelesen` },
   undoToast: { undo: 'Rückgängig' },
   countdown: {
     unitWord: (unit, n) =>

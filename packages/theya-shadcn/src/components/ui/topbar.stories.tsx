@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Bell, Lifebelt, HomeSimple, Globe, Settings } from 'iconoir-react';
+import { Bell, Lifebelt, HomeSimple, MediaImage, Settings } from 'iconoir-react';
 import { Topbar, TopbarMenu, TopbarSearch, TopbarSpacer, TopbarAction } from './topbar';
 import { SidebarProvider } from './sidebar';
 import { ThemeToggle } from './theme-toggle';
@@ -35,9 +35,9 @@ type Story = StoryObj<typeof Topbar>;
 
 const SEARCH_ITEMS = [
   { label: 'Dashboard', icon: <HomeSimple /> },
-  { label: 'Sites', icon: <Globe /> },
-  { label: 'Site: shop.seashell.dev', icon: <Globe /> },
-  { label: 'Site: staging.seashell.dev', icon: <Globe /> },
+  { label: 'Galleries', icon: <MediaImage /> },
+  { label: 'Gallery: Golden hour', icon: <MediaImage /> },
+  { label: 'Gallery: Blue hour', icon: <MediaImage /> },
   { label: 'Settings', icon: <Settings /> },
 ];
 
@@ -122,12 +122,12 @@ export const Default: Story = {
 export const SearchTrigger: Story = {
   name: 'Search',
   render: function SearchOnly() {
-    const [query, setQuery] = useState('site');
+    const [query, setQuery] = useState('gal');
     const [open, setOpen] = useState(true);
     return (
       <SidebarProvider>
         <Topbar>
-          <TopbarSearch placeholder="Search domains…" value={query} onValueChange={setQuery} open={open} onOpenChange={setOpen}>
+          <TopbarSearch placeholder="Search galleries…" value={query} onValueChange={setQuery} open={open} onOpenChange={setOpen}>
             <SearchResults query={query} onSelect={() => setOpen(false)} />
           </TopbarSearch>
           <TopbarSpacer />
@@ -139,7 +139,7 @@ export const SearchTrigger: Story = {
   // them, ArrowUp from the first one back to the field; Enter picks a result
   // and returns focus to the field.
   play: async ({ canvasElement }) => {
-    const field = within(canvasElement).getByRole('textbox', { name: 'Search domains…' });
+    const field = within(canvasElement).getByRole('textbox', { name: 'Search galleries…' });
     resetFocus();
     await tabTo(field);
     const options = await within(document.body).findAllByRole('option');

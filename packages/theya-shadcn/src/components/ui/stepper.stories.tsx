@@ -59,10 +59,10 @@ const PLAIN_STEPS = [
 ];
 
 const VERTICAL_STEPS = [
-  { label: 'Connect domain', description: 'Point DNS at the platform' },
-  { label: 'Choose region', description: 'Where the workload runs' },
-  { label: 'Configure runtime', description: 'Versions and environment' },
-  { label: 'Review and deploy' },
+  { label: 'Upload photos', description: 'Originals from the shoot' },
+  { label: 'Pick a cover', description: 'What the client sees first' },
+  { label: 'Set access', description: 'Downloads and print license' },
+  { label: 'Review and share' },
 ];
 
 /** Horizontal (default) with the second step in progress: the first shows as complete, the last as upcoming. */

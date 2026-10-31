@@ -376,7 +376,7 @@ export const en = {
   themeToggle: { toLight: 'Switch to light theme', toDark: 'Switch to dark theme' },
   densityToggle: { label: 'Density', compact: 'Compact', default: 'Default', comfortable: 'Comfortable' },
   timeRangePicker: { start: 'Start time', end: 'End time', to: 'to' },
-  topbar: { openMenu: 'Open menu', searchPlaceholder: 'Search sites, servers, users…', search: 'Search', unread: (label: string) => `${label}, unread` },
+  topbar: { openMenu: 'Open menu', searchPlaceholder: 'Search…', search: 'Search', unread: (label: string) => `${label}, unread` },
   undoToast: { undo: 'Undo' },
   countdown: {
     unitWord: (unit: 'days' | 'hours' | 'minutes' | 'seconds', n: number) =>

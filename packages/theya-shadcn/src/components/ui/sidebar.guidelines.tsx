@@ -1,5 +1,5 @@
 import { C, type ComponentGuidelines } from '../../docs/guidelines';
-import { Archive, Database, Globe, HomeSimple, Key, Mail, Settings, ShieldCheck, User } from 'iconoir-react';
+import { Archive, HomeSimple, Key, MediaImage, Printer, Settings, ShieldCheck, User } from 'iconoir-react';
 import { SidebarItem, SidebarNav, SidebarProvider, SidebarSection } from './sidebar';
 
 const BOX = 'w-60 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)] p-2';
@@ -26,8 +26,8 @@ export const sidebarGuidelines: ComponentGuidelines = {
               <SidebarNav aria-label="Grouped navigation example">
                 <SidebarSection label="Manage">
                   <SidebarItem href="#gl-sb" icon={<HomeSimple />}>Dashboard</SidebarItem>
-                  <SidebarItem href="#gl-sb" icon={<Globe />} active badge="128">Sites</SidebarItem>
-                  <SidebarItem href="#gl-sb" icon={<Database />}>Databases</SidebarItem>
+                  <SidebarItem href="#gl-sb" icon={<MediaImage />} active badge="128">Galleries</SidebarItem>
+                  <SidebarItem href="#gl-sb" icon={<Archive />}>Archive</SidebarItem>
                 </SidebarSection>
                 <SidebarSection label="Account">
                   <SidebarItem href="#gl-sb" icon={<User />}>Team</SidebarItem>
@@ -45,12 +45,12 @@ export const sidebarGuidelines: ComponentGuidelines = {
             <div className={BOX}>
               <SidebarNav aria-label="Flat navigation example">
                 <SidebarItem href="#gl-sb" icon={<HomeSimple />}>Dashboard</SidebarItem>
-                <SidebarItem href="#gl-sb" icon={<Globe />}>Sites</SidebarItem>
-                <SidebarItem href="#gl-sb" icon={<Database />}>Databases</SidebarItem>
-                <SidebarItem href="#gl-sb" icon={<Mail />}>Email</SidebarItem>
-                <SidebarItem href="#gl-sb" icon={<ShieldCheck />}>Certificates</SidebarItem>
+                <SidebarItem href="#gl-sb" icon={<MediaImage />}>Galleries</SidebarItem>
+                <SidebarItem href="#gl-sb" icon={<User />}>Clients</SidebarItem>
+                <SidebarItem href="#gl-sb" icon={<Printer />}>Prints</SidebarItem>
+                <SidebarItem href="#gl-sb" icon={<ShieldCheck />}>Licenses</SidebarItem>
                 <SidebarItem href="#gl-sb" icon={<Key />}>Credentials</SidebarItem>
-                <SidebarItem href="#gl-sb" icon={<Archive />}>Backups</SidebarItem>
+                <SidebarItem href="#gl-sb" icon={<Archive />}>Archive</SidebarItem>
                 <SidebarItem href="#gl-sb" icon={<User />}>Team</SidebarItem>
                 <SidebarItem href="#gl-sb" icon={<Settings />}>Settings</SidebarItem>
               </SidebarNav>

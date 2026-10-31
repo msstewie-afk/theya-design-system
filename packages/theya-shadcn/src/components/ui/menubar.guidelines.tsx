@@ -29,7 +29,7 @@ export const menubarGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <Menubar aria-label="Site menu">
-            <MenubarMenu><MenubarTrigger>Products</MenubarTrigger><MenubarContent><MenubarItem>Hosting</MenubarItem></MenubarContent></MenubarMenu>
+            <MenubarMenu><MenubarTrigger>Products</MenubarTrigger><MenubarContent><MenubarItem>Galleries</MenubarItem></MenubarContent></MenubarMenu>
             <MenubarMenu><MenubarTrigger>Pricing</MenubarTrigger><MenubarContent><MenubarItem>Plans</MenubarItem></MenubarContent></MenubarMenu>
             <MenubarMenu><MenubarTrigger>Docs</MenubarTrigger><MenubarContent><MenubarItem>Guides</MenubarItem></MenubarContent></MenubarMenu>
           </Menubar>

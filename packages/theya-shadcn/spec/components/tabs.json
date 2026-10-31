@@ -45,8 +45,8 @@
   "doDont": [
     {
       "do": {
-        "caption": "Parallel views of one site, visited in any order.",
-        "example": "<Tabs defaultValue=\"overview\">\n  <TabsList aria-label=\"Site sections\">\n    <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n    <TabsTrigger value=\"domains\">Domains</TabsTrigger>\n    <TabsTrigger value=\"backups\">Backups</TabsTrigger>\n    <TabsTrigger value=\"logs\">Logs</TabsTrigger>\n  </TabsList>\n  {['overview', 'domains', 'backups', 'logs'].map((v) => (\n    <TabsContent key={v} value={v} className={panel}>The site’s {v}.</TabsContent>\n  ))}\n</Tabs>"
+        "caption": "Parallel views of one gallery, visited in any order.",
+        "example": "<Tabs defaultValue=\"overview\">\n  <TabsList aria-label=\"Gallery sections\">\n    <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n    <TabsTrigger value=\"photos\">Photos</TabsTrigger>\n    <TabsTrigger value=\"picks\">Picks</TabsTrigger>\n    <TabsTrigger value=\"activity\">Activity</TabsTrigger>\n  </TabsList>\n  {['overview', 'photos', 'picks', 'activity'].map((v) => (\n    <TabsContent key={v} value={v} className={panel}>The gallery’s {v}.</TabsContent>\n  ))}\n</Tabs>"
       },
       "dont": {
         "caption": "Numbered steps as tabs: people can skip to Payment with nothing filled in — use Stepper.",

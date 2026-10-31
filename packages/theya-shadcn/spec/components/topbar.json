@@ -47,7 +47,7 @@
     {
       "do": {
         "caption": "Where you are on the left, two global actions on the right.",
-        "example": "<Frame label=\"Topbar example\">\n  <Topbar className=\"!static\">\n    <Breadcrumb aria-label=\"Topbar breadcrumb\">\n      <BreadcrumbList>\n        <BreadcrumbItem><BreadcrumbLink href=\"#gl-tb\">Sites</BreadcrumbLink></BreadcrumbItem>\n        <BreadcrumbSeparator />\n        <BreadcrumbItem><BreadcrumbPage>Backups</BreadcrumbPage></BreadcrumbItem>\n      </BreadcrumbList>\n    </Breadcrumb>\n    <TopbarSpacer />\n    <TopbarAction aria-label=\"Notifications\" badge><Bell /></TopbarAction>\n    <TopbarAction aria-label=\"Account\"><User /></TopbarAction>\n  </Topbar>\n</Frame>"
+        "example": "<Frame label=\"Topbar example\">\n  <Topbar className=\"!static\">\n    <Breadcrumb aria-label=\"Topbar breadcrumb\">\n      <BreadcrumbList>\n        <BreadcrumbItem><BreadcrumbLink href=\"#gl-tb\">Galleries</BreadcrumbLink></BreadcrumbItem>\n        <BreadcrumbSeparator />\n        <BreadcrumbItem><BreadcrumbPage>Golden hour</BreadcrumbPage></BreadcrumbItem>\n      </BreadcrumbList>\n    </Breadcrumb>\n    <TopbarSpacer />\n    <TopbarAction aria-label=\"Notifications\" badge><Bell /></TopbarAction>\n    <TopbarAction aria-label=\"Account\"><User /></TopbarAction>\n  </Topbar>\n</Frame>"
       },
       "dont": {
         "caption": "A row of unlabeled icons and no context: people guess which is which and where they are.",
@@ -114,7 +114,7 @@
           "name": "placeholder",
           "type": "string",
           "required": false,
-          "default": "Search sites, servers, users… (localized: topbar.searchPlaceholder)"
+          "default": "Search… (localized: topbar.searchPlaceholder)"
         },
         {
           "name": "value",

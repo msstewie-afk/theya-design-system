@@ -70,10 +70,10 @@
   - listitem: "step 3 of 3, upcoming: Review"
 - paragraph: Vertical
 - list "Progress":
-  - listitem: "step 1 of 4, completed: Connect domain Point DNS at the platform"
-  - listitem: "step 2 of 4, completed: Choose region Where the workload runs"
-  - listitem: "step 3 of 4, current step: Configure runtime Versions and environment"
-  - listitem: "step 4 of 4, upcoming: Review and deploy"
+  - listitem: "step 1 of 4, completed: Upload photos Originals from the shoot"
+  - listitem: "step 2 of 4, completed: Pick a cover What the client sees first"
+  - listitem: "step 3 of 4, current step: Set access Downloads and print license"
+  - listitem: "step 4 of 4, upcoming: Review and share"
 
 # Vertical (navigation-stepper--vertical)
 - list "Progress":

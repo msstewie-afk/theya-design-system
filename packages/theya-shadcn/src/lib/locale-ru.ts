@@ -383,7 +383,7 @@ export const ru: TheyaMessages = {
   themeToggle: { toLight: 'Включить светлую тему', toDark: 'Включить тёмную тему' },
   densityToggle: { label: 'Плотность', compact: 'Компактно', default: 'Обычно', comfortable: 'Просторно' },
   timeRangePicker: { start: 'Время начала', end: 'Время окончания', to: '—' },
-  topbar: { openMenu: 'Открыть меню', searchPlaceholder: 'Поиск по сайтам, серверам, пользователям…', search: 'Поиск', unread: (label) => `${label}, есть непрочитанные` },
+  topbar: { openMenu: 'Открыть меню', searchPlaceholder: 'Поиск…', search: 'Поиск', unread: (label) => `${label}, есть непрочитанные` },
   undoToast: { undo: 'Отменить' },
   countdown: {
     unitWord: (unit, n) =>

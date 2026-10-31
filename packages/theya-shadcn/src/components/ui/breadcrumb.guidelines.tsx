@@ -6,7 +6,7 @@ export const breadcrumbGuidelines: ComponentGuidelines = {
   whenToUse: ['Showing where a page sits in a hierarchy of three or more levels, and letting people go up.', <>Long trails: collapse the middle with <C>BreadcrumbEllipsis</C> (a menu of the hidden levels).</>],
   whenNotToUse: [
     { text: 'Steps of a process', instead: 'Stepper' },
-    { text: 'Flat sites with one or two levels', instead: 'the page title alone' },
+    { text: 'Flat apps with one or two levels', instead: 'the page title alone' },
     { text: 'Browsing history (“back”)', instead: 'a Back link' },
   ],
   anatomy: [
@@ -21,11 +21,11 @@ export const breadcrumbGuidelines: ComponentGuidelines = {
         example: (
           <Breadcrumb aria-label="Breadcrumb example">
             <BreadcrumbList>
-              <BreadcrumbItem><BreadcrumbLink href="#gl-bc">Sites</BreadcrumbLink></BreadcrumbItem>
+              <BreadcrumbItem><BreadcrumbLink href="#gl-bc">Galleries</BreadcrumbLink></BreadcrumbItem>
               <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbLink href="#gl-bc">shop.seashell.dev</BreadcrumbLink></BreadcrumbItem>
+              <BreadcrumbItem><BreadcrumbLink href="#gl-bc">Golden hour</BreadcrumbLink></BreadcrumbItem>
               <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbPage>Backups</BreadcrumbPage></BreadcrumbItem>
+              <BreadcrumbItem><BreadcrumbPage>Archive</BreadcrumbPage></BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         ),

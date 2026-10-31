@@ -349,7 +349,7 @@ export const ar: TheyaMessages = {
   themeToggle: { toLight: 'التبديل إلى السمة الفاتحة', toDark: 'التبديل إلى السمة الداكنة' },
   densityToggle: { label: 'الكثافة', compact: 'مضغوط', default: 'افتراضي', comfortable: 'مريح' },
   timeRangePicker: { start: 'وقت البدء', end: 'وقت الانتهاء', to: 'إلى' },
-  topbar: { openMenu: 'فتح القائمة', searchPlaceholder: 'ابحث في المواقع والخوادم والمستخدمين…', search: 'بحث', unread: (label) => `${label}، غير مقروء` },
+  topbar: { openMenu: 'فتح القائمة', searchPlaceholder: 'بحث…', search: 'بحث', unread: (label) => `${label}، غير مقروء` },
   undoToast: { undo: 'تراجع' },
   countdown: {
     unitWord: (unit, n) =>

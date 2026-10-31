@@ -335,7 +335,7 @@ export const zh: TheyaMessages = {
   themeToggle: { toLight: '切换到浅色主题', toDark: '切换到深色主题' },
   densityToggle: { label: '密度', compact: '紧凑', default: '默认', comfortable: '宽松' },
   timeRangePicker: { start: '开始时间', end: '结束时间', to: '至' },
-  topbar: { openMenu: '打开菜单', searchPlaceholder: '搜索站点、服务器、用户…', search: '搜索', unread: (label) => `${label}，有未读` },
+  topbar: { openMenu: '打开菜单', searchPlaceholder: '搜索…', search: '搜索', unread: (label) => `${label}，有未读` },
   undoToast: { undo: '撤销' },
   countdown: {
     unitWord: (unit) => ({ days: '天', hours: '小时', minutes: '分钟', seconds: '秒' })[unit],

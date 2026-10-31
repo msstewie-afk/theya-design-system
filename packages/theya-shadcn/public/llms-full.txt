@@ -1176,7 +1176,7 @@ Docs: ./?path=/docs/navigation-breadcrumb--docs
 **When not to use**
 
 - Steps of a process → use Stepper
-- Flat sites with one or two levels → use the page title alone
+- Flat apps with one or two levels → use the page title alone
 - Browsing history (“back”) → use a Back link
 
 **Anatomy**
@@ -1208,11 +1208,11 @@ Also accepts the props of: HTMLAttributes, OlHTMLAttributes, ButtonHTMLAttribute
   ```tsx
   <Breadcrumb aria-label="Breadcrumb example">
     <BreadcrumbList>
-      <BreadcrumbItem><BreadcrumbLink href="#gl-bc">Sites</BreadcrumbLink></BreadcrumbItem>
+      <BreadcrumbItem><BreadcrumbLink href="#gl-bc">Galleries</BreadcrumbLink></BreadcrumbItem>
       <BreadcrumbSeparator />
-      <BreadcrumbItem><BreadcrumbLink href="#gl-bc">shop.seashell.dev</BreadcrumbLink></BreadcrumbItem>
+      <BreadcrumbItem><BreadcrumbLink href="#gl-bc">Golden hour</BreadcrumbLink></BreadcrumbItem>
       <BreadcrumbSeparator />
-      <BreadcrumbItem><BreadcrumbPage>Backups</BreadcrumbPage></BreadcrumbItem>
+      <BreadcrumbItem><BreadcrumbPage>Archive</BreadcrumbPage></BreadcrumbItem>
     </BreadcrumbList>
   </Breadcrumb>
   ```
@@ -5934,7 +5934,7 @@ Also accepts the props of: MenubarProps, HTMLAttributes, ButtonHTMLAttributes, M
 
   ```tsx
   <Menubar aria-label="Site menu">
-    <MenubarMenu><MenubarTrigger>Products</MenubarTrigger><MenubarContent><MenubarItem>Hosting</MenubarItem></MenubarContent></MenubarMenu>
+    <MenubarMenu><MenubarTrigger>Products</MenubarTrigger><MenubarContent><MenubarItem>Galleries</MenubarItem></MenubarContent></MenubarMenu>
     <MenubarMenu><MenubarTrigger>Pricing</MenubarTrigger><MenubarContent><MenubarItem>Plans</MenubarItem></MenubarContent></MenubarMenu>
     <MenubarMenu><MenubarTrigger>Docs</MenubarTrigger><MenubarContent><MenubarItem>Guides</MenubarItem></MenubarContent></MenubarMenu>
   </Menubar>
@@ -6254,7 +6254,7 @@ Also accepts the props of: NavigationMenuProps, HTMLAttributes, ButtonHTMLAttrib
   <div className="w-80 overflow-hidden">
     <NavigationMenu aria-label="All sections">
       <NavigationMenuList className="flex-wrap">
-        {['Dashboard', 'Sites', 'Domains', 'Databases', 'Email', 'Backups', 'Logs', 'Team', 'Billing', 'Settings'].map(link)}
+        {['Dashboard', 'Galleries', 'Clients', 'Portals', 'Prints', 'Archive', 'Activity', 'Team', 'Billing', 'Settings'].map(link)}
       </NavigationMenuList>
     </NavigationMenu>
   </div>
@@ -8365,8 +8365,8 @@ Also accepts the props of: HTMLAttributes, AnchorHTMLAttributes, SVGAttributes, 
       <SidebarNav aria-label="Grouped navigation example">
         <SidebarSection label="Manage">
           <SidebarItem href="#gl-sb" icon={<HomeSimple />}>Dashboard</SidebarItem>
-          <SidebarItem href="#gl-sb" icon={<Globe />} active badge="128">Sites</SidebarItem>
-          <SidebarItem href="#gl-sb" icon={<Database />}>Databases</SidebarItem>
+          <SidebarItem href="#gl-sb" icon={<MediaImage />} active badge="128">Galleries</SidebarItem>
+          <SidebarItem href="#gl-sb" icon={<Archive />}>Archive</SidebarItem>
         </SidebarSection>
         <SidebarSection label="Account">
           <SidebarItem href="#gl-sb" icon={<User />}>Team</SidebarItem>
@@ -8384,12 +8384,12 @@ Also accepts the props of: HTMLAttributes, AnchorHTMLAttributes, SVGAttributes, 
     <div className={BOX}>
       <SidebarNav aria-label="Flat navigation example">
         <SidebarItem href="#gl-sb" icon={<HomeSimple />}>Dashboard</SidebarItem>
-        <SidebarItem href="#gl-sb" icon={<Globe />}>Sites</SidebarItem>
-        <SidebarItem href="#gl-sb" icon={<Database />}>Databases</SidebarItem>
-        <SidebarItem href="#gl-sb" icon={<Mail />}>Email</SidebarItem>
-        <SidebarItem href="#gl-sb" icon={<ShieldCheck />}>Certificates</SidebarItem>
+        <SidebarItem href="#gl-sb" icon={<MediaImage />}>Galleries</SidebarItem>
+        <SidebarItem href="#gl-sb" icon={<User />}>Clients</SidebarItem>
+        <SidebarItem href="#gl-sb" icon={<Printer />}>Prints</SidebarItem>
+        <SidebarItem href="#gl-sb" icon={<ShieldCheck />}>Licenses</SidebarItem>
         <SidebarItem href="#gl-sb" icon={<Key />}>Credentials</SidebarItem>
-        <SidebarItem href="#gl-sb" icon={<Archive />}>Backups</SidebarItem>
+        <SidebarItem href="#gl-sb" icon={<Archive />}>Archive</SidebarItem>
         <SidebarItem href="#gl-sb" icon={<User />}>Team</SidebarItem>
         <SidebarItem href="#gl-sb" icon={<Settings />}>Settings</SidebarItem>
       </SidebarNav>
@@ -9481,18 +9481,18 @@ Also accepts the props of: TabsTriggerProps, TabsProps, HTMLAttributes, TabsList
 
 **Do / Don’t**
 
-- Do: Parallel views of one site, visited in any order.
+- Do: Parallel views of one gallery, visited in any order.
 
   ```tsx
   <Tabs defaultValue="overview">
-    <TabsList aria-label="Site sections">
+    <TabsList aria-label="Gallery sections">
       <TabsTrigger value="overview">Overview</TabsTrigger>
-      <TabsTrigger value="domains">Domains</TabsTrigger>
-      <TabsTrigger value="backups">Backups</TabsTrigger>
-      <TabsTrigger value="logs">Logs</TabsTrigger>
+      <TabsTrigger value="photos">Photos</TabsTrigger>
+      <TabsTrigger value="picks">Picks</TabsTrigger>
+      <TabsTrigger value="activity">Activity</TabsTrigger>
     </TabsList>
-    {['overview', 'domains', 'backups', 'logs'].map((v) => (
-      <TabsContent key={v} value={v} className={panel}>The site’s {v}.</TabsContent>
+    {['overview', 'photos', 'picks', 'activity'].map((v) => (
+      <TabsContent key={v} value={v} className={panel}>The gallery’s {v}.</TabsContent>
     ))}
   </Tabs>
   ```
@@ -10528,7 +10528,7 @@ Docs: ./?path=/docs/navigation-topbar--docs
 - `onOpenChange?`: `((open: boolean) => void)`
 - `onValueChange?`: `((value: string) => void)`
 - `open?`: `boolean`
-- `placeholder?`: `string`, default `Search sites, servers, users… (localized: topbar.searchPlaceholder)`
+- `placeholder?`: `string`, default `Search… (localized: topbar.searchPlaceholder)`
 - `value?`: `string`
 
 **TopbarAction props**
@@ -10546,9 +10546,9 @@ Also accepts the props of: HTMLAttributes, ButtonHTMLAttributes, InputHTMLAttrib
     <Topbar className="!static">
       <Breadcrumb aria-label="Topbar breadcrumb">
         <BreadcrumbList>
-          <BreadcrumbItem><BreadcrumbLink href="#gl-tb">Sites</BreadcrumbLink></BreadcrumbItem>
+          <BreadcrumbItem><BreadcrumbLink href="#gl-tb">Galleries</BreadcrumbLink></BreadcrumbItem>
           <BreadcrumbSeparator />
-          <BreadcrumbItem><BreadcrumbPage>Backups</BreadcrumbPage></BreadcrumbItem>
+          <BreadcrumbItem><BreadcrumbPage>Golden hour</BreadcrumbPage></BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
       <TopbarSpacer />

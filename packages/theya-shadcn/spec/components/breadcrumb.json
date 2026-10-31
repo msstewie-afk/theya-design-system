@@ -16,7 +16,7 @@
       "instead": "Stepper"
     },
     {
-      "text": "Flat sites with one or two levels",
+      "text": "Flat apps with one or two levels",
       "instead": "the page title alone"
     },
     {
@@ -47,7 +47,7 @@
     {
       "do": {
         "caption": "Ancestors are links; the current page is plain text at the end.",
-        "example": "<Breadcrumb aria-label=\"Breadcrumb example\">\n  <BreadcrumbList>\n    <BreadcrumbItem><BreadcrumbLink href=\"#gl-bc\">Sites</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbLink href=\"#gl-bc\">shop.seashell.dev</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbPage>Backups</BreadcrumbPage></BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>"
+        "example": "<Breadcrumb aria-label=\"Breadcrumb example\">\n  <BreadcrumbList>\n    <BreadcrumbItem><BreadcrumbLink href=\"#gl-bc\">Galleries</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbLink href=\"#gl-bc\">Golden hour</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><BreadcrumbPage>Archive</BreadcrumbPage></BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>"
       },
       "dont": {
         "caption": "Wizard steps as a breadcrumb: they’re a sequence, not a hierarchy — use Stepper.",

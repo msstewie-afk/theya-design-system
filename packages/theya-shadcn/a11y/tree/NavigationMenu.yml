@@ -18,16 +18,16 @@
       - button "Products" [expanded]
       - list:
         - listitem:
-          - link "Hosting Shared, VPS and dedicated servers.":
+          - link "Galleries Client galleries with picks and downloads.":
             - /url: "#"
         - listitem:
-          - link "Domains Search, register and manage.":
+          - link "Client portals Your own address for every client.":
             - /url: "#"
         - listitem:
-          - link "SSL certificates Automatic renewal, wildcard support.":
+          - link "Licenses Print and web rights, renewed automatically.":
             - /url: "#"
         - listitem:
-          - link "Email Business email and calendars.":
+          - link "Prints Lab orders, delivered to the client.":
             - /url: "#"
     - listitem:
       - button "Resources"
