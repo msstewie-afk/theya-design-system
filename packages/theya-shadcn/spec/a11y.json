@@ -838,8 +838,7 @@
       ],
       "counts": {
         "n/a": 130,
-        "untested": 6,
-        "verified": 21
+        "verified": 27
       },
       "patternCounts": {
         "verified": 17,
@@ -950,7 +949,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-30",
+          "result": "pass",
+          "notes": "Live, on action: \"Backup started…\" (live=\"polite\") and \"Backup failed…\" (live=\"assertive\") are spoken when the banner mounts."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -1013,7 +1020,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "verified",
-        "4.1.3": "untested"
+        "4.1.3": "verified"
       }
     },
     {
@@ -2756,7 +2763,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-30",
+          "result": "pass",
+          "notes": "Typing, then reply: \"Typing…\" is spoken when ChatTyping mounts, then the reply in the log."
+        }
+      ],
       "deviations": [],
       "traits": [
         "autoMoving",
@@ -2819,7 +2834,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "verified",
-        "4.1.3": "untested"
+        "4.1.3": "verified"
       }
     },
     {
@@ -5368,7 +5383,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-30",
+          "result": "pass",
+          "notes": "Upload flow: \"Uploading…\", then the file name, are spoken."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -5434,7 +5457,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "verified",
-        "4.1.3": "untested"
+        "4.1.3": "verified"
       }
     },
     {
@@ -6161,7 +6184,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-30",
+          "result": "pass",
+          "notes": "Default: an invalid domain and Tab: the FormMessage error (role=alert) is spoken."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -6225,7 +6256,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "n/a",
-        "4.1.3": "untested"
+        "4.1.3": "verified"
       }
     },
     {
@@ -8871,7 +8902,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-30",
+          "result": "pass",
+          "notes": "With a password field: the strength (\"Weak\", \"Good\", \"Strong\") is spoken when it changes while typing."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -8934,7 +8973,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "n/a",
-        "4.1.3": "untested"
+        "4.1.3": "verified"
       }
     },
     {
@@ -12772,7 +12811,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-10-30",
+          "result": "pass",
+          "notes": "Reconnect: \"Connecting…\", then \"Connected\", are spoken from the header status line."
+        }
+      ],
       "deviations": [
         {
           "criterion": "1.4.11",
@@ -12840,7 +12887,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "verified",
-        "4.1.3": "untested"
+        "4.1.3": "verified"
       }
     },
     {

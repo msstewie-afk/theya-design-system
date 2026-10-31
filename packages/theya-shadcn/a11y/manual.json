@@ -168,6 +168,24 @@
     ],
     "FilterField": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Typing a query with no matching attribute: \"No attributes\" is spoken once typing pauses (status set by CommandEmpty). The automated run missed it because its click opened the attribute list and the text never reached the field." }
+    ],
+    "Alert": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-30", "result": "pass", "notes": "Live, on action: \"Backup started…\" (live=\"polite\") and \"Backup failed…\" (live=\"assertive\") are spoken when the banner mounts." }
+    ],
+    "Chat": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-30", "result": "pass", "notes": "Typing, then reply: \"Typing…\" is spoken when ChatTyping mounts, then the reply in the log." }
+    ],
+    "Dropzone": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-30", "result": "pass", "notes": "Upload flow: \"Uploading…\", then the file name, are spoken." }
+    ],
+    "Terminal": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-30", "result": "pass", "notes": "Reconnect: \"Connecting…\", then \"Connected\", are spoken from the header status line." }
+    ],
+    "PasswordStrengthMeter": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-30", "result": "pass", "notes": "With a password field: the strength (\"Weak\", \"Good\", \"Strong\") is spoken when it changes while typing." }
+    ],
+    "Form": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-30", "result": "pass", "notes": "Default: an invalid domain and Tab: the FormMessage error (role=alert) is spoken." }
     ]
   },
   "traits": {
