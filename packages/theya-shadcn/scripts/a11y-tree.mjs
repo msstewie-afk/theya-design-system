@@ -232,5 +232,7 @@ if (CI) {
       `### Accessibility tree\n\n${stories.length} stories, ${failing.length} component(s) with findings, ${errors} story load error(s).\n\n${lines.join('\n')}\n`,
     );
   }
+  // As GitHub annotations too: they show on the run page and in the API.
+  for (const l of lines) console.log(`::error title=a11y-tree::${l.replace(/[\r\n]+/g, ' ')}`);
   if (failing.length || errors) process.exitCode = 1;
 }
