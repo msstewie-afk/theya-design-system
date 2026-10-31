@@ -360,7 +360,8 @@ function LiveAlertDemo() {
   const [result, setResult] = useState<'started' | 'failed' | null>(null);
   return (
     <div className="flex w-full max-w-[480px] flex-col gap-3">
-      <div className="flex gap-2">
+      {/* Wraps on a phone: three buttons don't fit in 360px. */}
+      <div className="flex flex-wrap gap-2">
         <Button appearance="outlined" tone="neutral" onClick={() => setResult(null)}>
           Reset
         </Button>
