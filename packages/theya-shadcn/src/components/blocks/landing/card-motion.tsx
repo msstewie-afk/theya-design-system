@@ -402,7 +402,7 @@ export function FlipCard({ front, back, flipLabel, className, ...props }: FlipCa
   return (
     <div
       data-slot="flip-card"
-      className={cn('relative h-80 [perspective:1200px]', className)}
+      className={cn('relative h-80 min-w-56 [perspective:1200px]', className)}
       onPointerEnter={hoverable ? enter : undefined}
       onPointerLeave={hoverable ? () => setHovered(false) : undefined}
       {...props}
@@ -423,8 +423,10 @@ export function FlipCard({ front, back, flipLabel, className, ...props }: FlipCa
           {...inertProps(!flipped)}
           className={cn(
             'absolute inset-0 overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] [backface-visibility:hidden]',
-            // Glass: the card color through frosted, tinted glass, a light rim and a sweep of light.
-            'border border-solid border-[color-mix(in_srgb,white_35%,transparent)] bg-[color-mix(in_srgb,var(--color-bg-surface-bg-surface)_55%,transparent)] shadow-elevation-lg backdrop-blur-xl',
+            // The reverse side: a tinted pane (nothing shows through a card's own back, so the
+            // tint carries the glass look), a light rim and a sweep of light.
+            'border border-solid border-[var(--color-border-border-subtle)] shadow-elevation-lg',
+            '[background:radial-gradient(120%_90%_at_100%_0%,color-mix(in_srgb,var(--color-bg-primary-bg-primary)_22%,transparent),transparent_60%),var(--color-bg-primary-bg-primary-subtle)]',
             "before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(120deg,transparent_30%,color-mix(in_srgb,white_28%,transparent)_45%,transparent_60%)] before:content-['']",
             reduced && 'transition-opacity duration-standard',
             reduced && !flipped && 'opacity-0',

@@ -140,7 +140,7 @@ export const Folders: Story = {
 export const Flip: Story = {
   render: () => (
     <CardMotionSection title="Numbers, and where they come from">
-      <div className="grid gap-6 sm:grid-cols-3">
+      <div className="grid w-full gap-6 sm:grid-cols-3">
         {[
           { v: '41%', l: 'less time looking for a page', b: 'From a survey of 1,240 readers in September 2026, comparing the week before and the month after switching.' },
           { v: '12M', l: 'links saved and searchable', b: 'Every link across all accounts, with the text of the page indexed for search.' },
