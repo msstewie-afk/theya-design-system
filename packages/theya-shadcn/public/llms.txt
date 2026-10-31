@@ -1,6 +1,6 @@
 # Theya
 
-> Theya is a React design system built on shadcn/ui (Radix + Tailwind v4). Package `@theya/shadcn` v0.1.0, 158 components, each with use-guidelines (when to use, when not and what instead, anatomy, do/don’t, accessibility) and typed props.
+> Theya is a React design system built on shadcn/ui (Radix + Tailwind v4). Package `@theya/shadcn` v0.1.0, 159 components, each with use-guidelines (when to use, when not and what instead, anatomy, do/don’t, accessibility) and typed props.
 
 Rules for building UI with Theya:
 
@@ -127,6 +127,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [AnimatedIcon](./?path=/docs/motion-animatedicon--docs) (beta): A small cue that answers an action: Copy turns into a tick, a menu button folds into ×, a refresh arrow turns.
 - [CardFan](./?path=/docs/motion-cardfan--docs) (beta): A playful group of 3–5 cards in a hero or an about page: team members, plans, product shots.
 - [CardStack](./?path=/docs/motion-cardstack--docs) (beta): A landing or empty-state showcase that cycles a few cards: testimonials, highlights, recent invoices.
+- [CompletionBurst](./?path=/docs/motion-completionburst--docs) (beta): A moment worth marking at the end of a wait: a plan generated, an account set up, an import finished, onboarding complete.
 - [CountUp](./?path=/docs/motion-countup--docs) (beta): A headline figure on a landing page: “12,400 sites”, “99.98% uptime”, “3× faster”.
 - [Marquee](./?path=/docs/motion-marquee--docs) (beta): A strip of customer logos, short quotes or partner names on a landing page — “trusted by”.
 - [MarqueeColumns](./?path=/docs/motion-marqueecolumns--docs) (beta): A decorative wall of cards behind or beside a hero: testimonials, templates, integrations.

@@ -672,6 +672,28 @@
       "spec": "spec/components/command.json"
     },
     {
+      "name": "CompletionBurst",
+      "file": "ui/completion-burst",
+      "category": "Motion",
+      "status": "beta",
+      "summary": "A moment worth marking at the end of a wait: a plan generated, an account set up, an import finished, onboarding complete.",
+      "instead": [
+        {
+          "when": "Everyday saves and small actions",
+          "use": "SuccessCheck in a toast or an Alert"
+        },
+        {
+          "when": "A wait with a known length or several steps",
+          "use": "Progress or ProgressRing"
+        },
+        {
+          "when": "A failure",
+          "use": "Alert with the reason and a way to retry"
+        }
+      ],
+      "spec": "spec/components/completion-burst.json"
+    },
+    {
       "name": "ConfirmDialog",
       "file": "ui/confirm-dialog",
       "category": "Overlays",

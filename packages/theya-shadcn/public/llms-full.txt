@@ -2482,6 +2482,49 @@ Also accepts the props of: HTMLAttributes, DialogProps, ButtonHTMLAttributes, In
 - Name it with `label` (“Command menu”); the dialog version also needs `title`.
 - Shortcuts shown in items are hints only — the real shortcut must work outside the palette too.
 
+## CompletionBurst
+
+`import { CompletionBurst } from '@theya/shadcn/ui/completion-burst';`
+
+Status: beta · Category: Motion
+Docs: ./?path=/docs/motion-completionburst--docs
+
+**When to use**
+
+- A moment worth marking at the end of a wait: a plan generated, an account set up, an import finished, onboarding complete.
+- A full screen or a large panel given over to the wait (onboarding, a wizard’s last step).
+
+**When not to use**
+
+- Everyday saves and small actions → use SuccessCheck in a toast or an Alert
+- A wait with a known length or several steps → use Progress or ProgressRing
+- A failure → use Alert with the reason and a way to retry
+
+**Anatomy**
+
+- Circle: an icon of what is being prepared (`icon`); the Spinner arc runs round it while busy.
+- Burst: twelve short strokes thrown out once, as the tick draws itself.
+- Label: `busyLabel`, then `doneLabel`; a role="status" line, so the change is read out.
+- Description (optional): one line of detail under the label.
+
+**CompletionBurst props**
+
+- `busyLabel`: `ReactNode` — "Preparing your plan".
+- `doneLabel`: `ReactNode` — "Your plan is ready".
+- `status`: `"done" | "busy"`
+- `description?`: `ReactNode` — A line under the label, e.g. "Setting up your nutrition plan…".
+- `icon?`: `ReactNode` — Shown in the circle while busy (an Iconoir icon).
+- `tone?`: `"success" | "primary"`, default `success`
+
+Also accepts the props of: HTMLAttributes.
+
+**Accessibility**
+
+- Switch `status` to `done` when the work is really done — never on a timer that guesses.
+- The label is a polite live region: “Preparing your plan” is read when it appears and “Your plan is ready” when it is done. The circle and the burst are decorative.
+- Reduced motion: no burst and no drawing; the tick simply appears and the arc fades in and out instead of turning.
+- Move focus to what comes next (a Continue button) yourself once it is done, if the flow continues on this screen.
+
 ## ConfirmDialog
 
 `import { ConfirmDialog } from '@theya/shadcn/ui/confirm-dialog';`
