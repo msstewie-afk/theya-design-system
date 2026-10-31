@@ -3167,6 +3167,28 @@
       "spec": "spec/components/undo-toast.json"
     },
     {
+      "name": "UploadPanel",
+      "file": "ui/upload-panel",
+      "category": "Files",
+      "status": "beta",
+      "summary": "Several files uploading in the background while people keep working: a media library, a drive, a bulk import.",
+      "instead": [
+        {
+          "when": "One file in a form",
+          "use": "File with upload and progress"
+        },
+        {
+          "when": "Short feedback that goes away by itself",
+          "use": "Toaster"
+        },
+        {
+          "when": "Choosing files to upload",
+          "use": "Dropzone"
+        }
+      ],
+      "spec": "spec/components/upload-panel.json"
+    },
+    {
       "name": "UrlTabs",
       "file": "ui/url-tabs",
       "category": "Navigation",

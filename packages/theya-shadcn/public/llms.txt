@@ -1,6 +1,6 @@
 # Theya
 
-> Theya is a React design system built on shadcn/ui (Radix + Tailwind v4). Package `@theya/shadcn` v0.1.0, 157 components, each with use-guidelines (when to use, when not and what instead, anatomy, do/don’t, accessibility) and typed props.
+> Theya is a React design system built on shadcn/ui (Radix + Tailwind v4). Package `@theya/shadcn` v0.1.0, 158 components, each with use-guidelines (when to use, when not and what instead, anatomy, do/don’t, accessibility) and typed props.
 
 Rules for building UI with Theya:
 
@@ -82,6 +82,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [Dropzone](./?path=/docs/files-dropzone--docs): Uploading one or several files where dragging from the desktop is common: documents, media, imports.
 - [File](./?path=/docs/files-file--docs): One file in a form: a logo, a certificate, a document to attach.
 - [ImageCropper](./?path=/docs/files-imagecropper--docs) (beta): Framing an uploaded image before saving: avatar, logo, cover, product photo.
+- [UploadPanel](./?path=/docs/files-uploadpanel--docs) (beta): Several files uploading in the background while people keep working: a media library, a drive, a bulk import.
 
 ## Form Structure
 

@@ -145,11 +145,11 @@ export function Attachment({
       aria-label={name}
       aria-valuetext={uploadMeta ?? undefined}
       data-slot="attachment-progress"
-      className={cn('mt-1.5 h-1', upload === 'paused' && '[&>*]:bg-[var(--color-bg-neutral-bg-neutral-strong)]')}
+      className={cn('mt-2 h-1', upload === 'paused' && '[&>*]:bg-[var(--color-bg-neutral-bg-neutral-strong)]')}
     />
   ) : upload !== undefined ? (
     // The bar's room is kept once it goes (done, failed), so the row doesn't shrink under the pointer.
-    <span aria-hidden className="mt-1.5 block h-1" />
+    <span aria-hidden className="mt-2 block h-1" />
   ) : null;
   const doneIcon = uploadDone ? <Check width={12} height={12} className="inline me-1 -mt-0.5 text-[var(--color-icon-icon-success)]" aria-hidden="true" /> : null;
 

@@ -13,7 +13,7 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 157
+        "partial": 158
       },
       "patternCounts": {
         "partial": 52
@@ -26,7 +26,7 @@
       "scope": "product",
       "note": "Media content. Theya has no media player.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -39,7 +39,7 @@
       "scope": "product",
       "note": "Media content.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -52,7 +52,7 @@
       "scope": "product",
       "note": "Media content.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -65,7 +65,7 @@
       "scope": "product",
       "note": "Media content.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -78,7 +78,7 @@
       "scope": "product",
       "note": "Media content.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -94,7 +94,7 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 157
+        "partial": 158
       },
       "patternCounts": {
         "partial": 52
@@ -109,7 +109,7 @@
         "screenReader"
       ],
       "counts": {
-        "untested": 157
+        "untested": 158
       },
       "patternCounts": {
         "untested": 52
@@ -122,7 +122,7 @@
       "scope": "product",
       "note": "Instructions written by the app (\"the button on the right\"). Theya's own strings were written without shape/position cues.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -135,7 +135,7 @@
       "scope": "library",
       "note": "No component locks orientation: no orientation media queries hide content, and every story passes at 360px.",
       "counts": {
-        "library": 157
+        "library": 158
       },
       "patternCounts": {
         "library": 52
@@ -150,7 +150,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 144,
+        "n/a": 145,
         "verified": 13
       },
       "patternCounts": {
@@ -168,7 +168,7 @@
       ],
       "counts": {
         "n/a": 60,
-        "untested": 96,
+        "untested": 97,
         "verified": 1
       },
       "patternCounts": {
@@ -184,7 +184,7 @@
       "scope": "product",
       "note": "Theya plays no audio.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -199,7 +199,7 @@
         "axe"
       ],
       "counts": {
-        "verified": 157
+        "verified": 158
       },
       "patternCounts": {
         "verified": 52
@@ -214,7 +214,8 @@
         "auto"
       ],
       "counts": {
-        "verified": 157
+        "verified": 157,
+        "untested": 1
       },
       "patternCounts": {
         "verified": 42,
@@ -228,7 +229,7 @@
       "scope": "product",
       "note": "Images are the app's content. Theya renders text as text.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -243,7 +244,7 @@
         "reflow360"
       ],
       "counts": {
-        "verified": 157
+        "verified": 158
       },
       "patternCounts": {
         "verified": 52
@@ -259,7 +260,7 @@
       ],
       "counts": {
         "deviation": 37,
-        "untested": 99,
+        "untested": 100,
         "n/a": 21
       },
       "patternCounts": {
@@ -278,7 +279,8 @@
         "auto"
       ],
       "counts": {
-        "verified": 157
+        "verified": 157,
+        "partial": 1
       },
       "patternCounts": {
         "verified": 42,
@@ -295,7 +297,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 136,
+        "n/a": 137,
         "verified": 21
       },
       "patternCounts": {
@@ -314,7 +316,7 @@
         "keyboard"
       ],
       "counts": {
-        "verified": 120,
+        "verified": 121,
         "n/a": 36,
         "deviation": 1
       },
@@ -333,7 +335,7 @@
         "keyboard"
       ],
       "counts": {
-        "verified": 121,
+        "verified": 122,
         "n/a": 36
       },
       "patternCounts": {
@@ -351,7 +353,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 155,
+        "n/a": 156,
         "verified": 1,
         "untested": 1
       },
@@ -370,7 +372,8 @@
       ],
       "counts": {
         "n/a": 150,
-        "verified": 7
+        "verified": 7,
+        "untested": 1
       },
       "patternCounts": {
         "n/a": 48,
@@ -388,7 +391,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 152,
+        "n/a": 153,
         "verified": 4,
         "deviation": 1
       },
@@ -404,7 +407,7 @@
       "scope": "library",
       "note": "No component flashes: the fastest loop is the 700 ms spinner, and nothing alternates bright/dark.",
       "counts": {
-        "library": 157
+        "library": 158
       },
       "patternCounts": {
         "library": 52
@@ -417,7 +420,7 @@
       "scope": "product",
       "note": "A page property. The WorkspaceLayout block ships a skip link the app can reuse.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -430,7 +433,7 @@
       "scope": "product",
       "note": "The app sets document titles.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -445,7 +448,7 @@
         "keyboard"
       ],
       "counts": {
-        "verified": 121,
+        "verified": 122,
         "n/a": 36
       },
       "patternCounts": {
@@ -464,7 +467,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 151,
+        "n/a": 152,
         "verified": 6
       },
       "patternCounts": {
@@ -480,7 +483,7 @@
       "scope": "product",
       "note": "Site navigation and search — the app's information architecture.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -497,7 +500,7 @@
       "counts": {
         "n/a": 67,
         "verified": 89,
-        "untested": 1
+        "untested": 2
       },
       "patternCounts": {
         "verified": 40,
@@ -515,7 +518,8 @@
       ],
       "counts": {
         "verified": 121,
-        "n/a": 36
+        "n/a": 36,
+        "untested": 1
       },
       "patternCounts": {
         "verified": 42,
@@ -533,7 +537,8 @@
       ],
       "counts": {
         "n/a": 110,
-        "verified": 47
+        "verified": 47,
+        "untested": 1
       },
       "patternCounts": {
         "verified": 19,
@@ -550,7 +555,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 152,
+        "n/a": 153,
         "verified": 5
       },
       "patternCounts": {
@@ -565,7 +570,7 @@
       "scope": "library",
       "note": "Actions fire on click (pointer up), not pointer down; press-and-hold controls cancel when the pointer leaves.",
       "counts": {
-        "library": 157
+        "library": 158
       },
       "patternCounts": {
         "library": 52
@@ -581,7 +586,8 @@
       ],
       "counts": {
         "verified": 121,
-        "n/a": 36
+        "n/a": 36,
+        "untested": 1
       },
       "patternCounts": {
         "verified": 42,
@@ -596,7 +602,7 @@
       "scope": "library",
       "note": "No component reacts to device motion.",
       "counts": {
-        "library": 157
+        "library": 158
       },
       "patternCounts": {
         "library": 52
@@ -612,7 +618,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 147,
+        "n/a": 148,
         "verified": 10
       },
       "patternCounts": {
@@ -630,7 +636,7 @@
         "axe"
       ],
       "counts": {
-        "verified": 121,
+        "verified": 122,
         "n/a": 36
       },
       "patternCounts": {
@@ -645,7 +651,7 @@
       "scope": "product",
       "note": "The app sets <html lang>.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -658,7 +664,7 @@
       "scope": "product",
       "note": "Content language. Theya's built-in strings follow the active locale.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -673,7 +679,7 @@
         "keyboard"
       ],
       "counts": {
-        "verified": 121,
+        "verified": 122,
         "n/a": 36
       },
       "patternCounts": {
@@ -691,7 +697,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 115,
+        "n/a": 116,
         "verified": 42
       },
       "patternCounts": {
@@ -706,7 +712,7 @@
       "scope": "product",
       "note": "Across pages.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -719,7 +725,7 @@
       "scope": "product",
       "note": "Across pages. Shared components and locale strings make it the default.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -732,7 +738,7 @@
       "scope": "product",
       "note": "Across pages.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -748,7 +754,7 @@
         "screenReader"
       ],
       "counts": {
-        "n/a": 122,
+        "n/a": 123,
         "untested": 35
       },
       "patternCounts": {
@@ -766,7 +772,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 115,
+        "n/a": 116,
         "verified": 42
       },
       "patternCounts": {
@@ -781,7 +787,7 @@
       "scope": "product",
       "note": "The message text is the app's. Theya provides the slot (error / helper text) and announces it.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -794,7 +800,7 @@
       "scope": "product",
       "note": "A flow property. ConfirmDialog and UndoToast are the tools.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -807,7 +813,7 @@
       "scope": "product",
       "note": "A flow property.",
       "counts": {
-        "product": 157
+        "product": 158
       },
       "patternCounts": {
         "product": 52
@@ -822,7 +828,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 155,
+        "n/a": 156,
         "verified": 2
       },
       "patternCounts": {
@@ -840,7 +846,7 @@
         "screenReader"
       ],
       "counts": {
-        "partial": 120,
+        "partial": 121,
         "n/a": 36,
         "untested": 1
       },
@@ -860,7 +866,7 @@
       ],
       "counts": {
         "n/a": 129,
-        "untested": 28
+        "untested": 29
       },
       "patternCounts": {
         "untested": 18,
@@ -13833,6 +13839,91 @@
         "2.5.1": "n/a",
         "2.5.2": "library",
         "2.5.3": "verified",
+        "2.5.4": "library",
+        "2.5.7": "n/a",
+        "2.5.8": "verified",
+        "3.1.1": "product",
+        "3.1.2": "product",
+        "3.2.1": "verified",
+        "3.2.2": "n/a",
+        "3.2.3": "product",
+        "3.2.4": "product",
+        "3.2.6": "product",
+        "3.3.1": "n/a",
+        "3.3.2": "n/a",
+        "3.3.3": "product",
+        "3.3.4": "product",
+        "3.3.7": "product",
+        "3.3.8": "n/a",
+        "4.1.2": "partial",
+        "4.1.3": "untested"
+      }
+    },
+    {
+      "name": "UploadPanel",
+      "title": "Files/UploadPanel",
+      "axe": {
+        "stories": 4,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "exclusions": []
+      },
+      "keyboard": {
+        "tested": 1,
+        "playTests": 2
+      },
+      "reducedMotion": "none",
+      "forcedColors": "global",
+      "screenReader": [],
+      "deviations": [],
+      "traits": [
+        "colorMeaning",
+        "interactive",
+        "labelled",
+        "status",
+        "sticky",
+        "timed"
+      ],
+      "wcag": {
+        "1.1.1": "partial",
+        "1.2.1": "product",
+        "1.2.2": "product",
+        "1.2.3": "product",
+        "1.2.4": "product",
+        "1.2.5": "product",
+        "1.3.1": "partial",
+        "1.3.2": "untested",
+        "1.3.3": "product",
+        "1.3.4": "library",
+        "1.3.5": "n/a",
+        "1.4.1": "untested",
+        "1.4.2": "product",
+        "1.4.3": "verified",
+        "1.4.4": "untested",
+        "1.4.5": "product",
+        "1.4.10": "verified",
+        "1.4.11": "untested",
+        "1.4.12": "partial",
+        "1.4.13": "n/a",
+        "2.1.1": "verified",
+        "2.1.2": "verified",
+        "2.1.4": "n/a",
+        "2.2.1": "untested",
+        "2.2.2": "n/a",
+        "2.3.1": "library",
+        "2.4.1": "product",
+        "2.4.2": "product",
+        "2.4.3": "verified",
+        "2.4.4": "n/a",
+        "2.4.5": "product",
+        "2.4.6": "untested",
+        "2.4.7": "untested",
+        "2.4.11": "untested",
+        "2.5.1": "n/a",
+        "2.5.2": "library",
+        "2.5.3": "untested",
         "2.5.4": "library",
         "2.5.7": "n/a",
         "2.5.8": "verified",

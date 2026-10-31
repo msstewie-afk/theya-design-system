@@ -115,6 +115,22 @@ export declare const en: {
         finished: (name: string) => string;
         failed: (name: string, reason: string) => string;
     };
+    uploadPanel: {
+        label: string;
+        uploading: (n: number) => string;
+        uploaded: (n: number) => string;
+        failed: (n: number) => string;
+        left: (time: string) => string;
+        pauseAll: string;
+        resumeAll: string;
+        cancelAll: string;
+        showFiles: string;
+        hideFiles: string;
+        pause: (name: string) => string;
+        resume: (name: string) => string;
+        cancel: (name: string) => string;
+        retry: (name: string) => string;
+    };
     siteHeader: {
         skipToContent: string;
     };
@@ -726,6 +742,22 @@ export declare const enLocale: {
             pausedNotice: (name: string) => string;
             finished: (name: string) => string;
             failed: (name: string, reason: string) => string;
+        };
+        uploadPanel: {
+            label: string;
+            uploading: (n: number) => string;
+            uploaded: (n: number) => string;
+            failed: (n: number) => string;
+            left: (time: string) => string;
+            pauseAll: string;
+            resumeAll: string;
+            cancelAll: string;
+            showFiles: string;
+            hideFiles: string;
+            pause: (name: string) => string;
+            resume: (name: string) => string;
+            cancel: (name: string) => string;
+            retry: (name: string) => string;
         };
         siteHeader: {
             skipToContent: string;

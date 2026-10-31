@@ -8,6 +8,15 @@ import { ru as dateLocale } from 'date-fns/locale';
 import type { TheyaLocaleBundle } from './i18n';
 import type { TheyaMessages } from './locale-en';
 
+// файл / файла / файлов
+const ruFiles = (n: number) => {
+  const m10 = n % 10;
+  const m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return 'файл';
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return 'файла';
+  return 'файлов';
+};
+
 const rules = new Intl.PluralRules('ru-RU');
 /** Russian has three plural forms: 1 файл, 2 файла, 5 файлов. */
 const plural = (n: number, one: string, few: string, many: string) => {
@@ -93,6 +102,22 @@ export const ru: TheyaMessages = {
     pausedNotice: (name) => `${name}: загрузка на паузе`,
     finished: (name) => `${name} загружен`,
     failed: (name, reason) => `${name} не загрузился: ${reason}`,
+  },
+  uploadPanel: {
+    label: 'Загрузки',
+    uploading: (n) => `Загружаем ${n} ${ruFiles(n)}`,
+    uploaded: (n) => `Загружено ${n} ${ruFiles(n)}`,
+    failed: (n) => `ошибок: ${n}`,
+    left: (time) => `осталось ${time}`,
+    pauseAll: 'Приостановить все',
+    resumeAll: 'Продолжить все',
+    cancelAll: 'Отменить все',
+    showFiles: 'Показать файлы',
+    hideFiles: 'Скрыть файлы',
+    pause: (name) => `Приостановить ${name}`,
+    resume: (name) => `Продолжить ${name}`,
+    cancel: (name) => `Отменить ${name}`,
+    retry: (name) => `Повторить ${name}`,
   },
   siteHeader: { skipToContent: 'Перейти к содержимому' },
   dataTable: {

@@ -10618,6 +10618,58 @@ Docs: ./?path=/docs/status-feedback-undotoast--docs
 - Commit happens on close, so people who navigate away still get the action done.
 - After Undo, the item returns to its place; restore focus there if it was focused.
 
+## UploadPanel
+
+`import { UploadPanel } from '@theya/shadcn/ui/upload-panel';`
+
+Status: beta · Category: Files
+Docs: ./?path=/docs/files-uploadpanel--docs
+
+**When to use**
+
+- Several files uploading in the background while people keep working: a media library, a drive, a bulk import.
+- Uploads that take long enough to pause, cancel or retry one by one.
+
+**When not to use**
+
+- One file in a form → use File with upload and progress
+- Short feedback that goes away by itself → use Toaster
+- Choosing files to upload → use Dropzone
+
+**Anatomy**
+
+- Summary: “Uploading 3 files”, then “62% · 4 seconds left”; pause all / resume all, cancel all, show or hide the files.
+- Batch bar: along the bottom edge while collapsed; grey when everything is paused.
+- Files (optional): name, “66% · 4 seconds left” or the error, its own bar; pause / resume, retry, cancel.
+- Done: “Uploaded 3 files” with a check (or how many failed) and a close button.
+
+**UploadPanel props**
+
+- `files`: `UploadPanelFile[]`
+- `defaultExpanded?`: `boolean`, default `false` — Expanded at first (default false).
+- `expanded?`: `boolean` — Controlled expansion.
+- `floating?`: `boolean`, default `true` — Fixed to the bottom end corner of the viewport (default true); false renders it in place.
+- `onCancel?`: `((id: string) => void)`
+- `onCancelAll?`: `(() => void)`
+- `onClose?`: `(() => void)` — Shows a close button once nothing is uploading.
+- `onExpandedChange?`: `((expanded: boolean) => void)`
+- `onPause?`: `((id: string) => void)`
+- `onPauseAll?`: `(() => void)`
+- `onResume?`: `((id: string) => void)`
+- `onResumeAll?`: `(() => void)`
+- `onRetry?`: `((id: string) => void)`
+- `timeLeft?`: `number` — Seconds left for everything, if known.
+
+Also accepts the props of: HTMLAttributes.
+
+**Accessibility**
+
+- A named region (“Uploads”), not a toast: it never takes focus and stays until it is closed.
+- A polite live region says when the batch starts, pauses, finishes and when a file fails — never each percent or second.
+- Every bar is a progressbar named by its file (or the batch) with the same text as a value (`aria-valuetext`).
+- The show / hide button carries `aria-expanded`; Escape inside the panel collapses it and leaves focus on that button.
+- Every icon button is named with the file: “Pause Nature.mp4”, “Retry assets.zip”.
+
 ## UrlTabs
 
 `import { UrlTabs } from '@theya/shadcn/ui/url-tabs';`
