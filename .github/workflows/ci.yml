@@ -10,6 +10,12 @@
 # brands     — after checks, one job per product theme (iris, lime): play +
 #              axe in its light and dark variants. No visual baselines: the
 #              storybook job's are for Theya's own look.
+# a11y       — after checks: scripts/a11y-tree.mjs (accessibility tree:
+#              names, unnamed images, table headers, error association) and
+#              scripts/a11y-auto.mjs (label in name, focus visible, text
+#              spacing, 200% text, Tab order), both in --ci mode: nothing is
+#              written, any finding fails the job and is listed in the run
+#              summary. The committed a11y/*.json stay the local runs' record.
 # mobile     — after checks: play + axe at 360px (the narrowest common phone)
 #              in light and dark; the test-runner also fails a story that
 #              scrolls the page sideways there. Stories tagged desktop-play
@@ -382,6 +388,50 @@ jobs:
       - name: Play + axe at 360px, dark
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         run: pnpm test-storybook:dark
+
+  a11y:
+    needs: checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    name: accessibility checks
+    defaults:
+      run:
+        working-directory: packages/theya-shadcn
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v5
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+        working-directory: .
+      - run: pnpm build:tokens
+        working-directory: .
+
+      - name: Install Chromium for the test-runner
+        run: |
+          PW_DIR=$(node -e "const r=require.resolve('@storybook/test-runner');console.log(require('path').dirname(require.resolve('playwright/package.json',{paths:[r]})))")
+          node "$PW_DIR/cli.js" install --with-deps chromium
+
+      - name: Build Storybook
+        run: pnpm build-storybook --quiet
+
+      - name: Serve Storybook on :6008
+        id: serve
+        run: |
+          python3 -m http.server 6008 --directory storybook-static >/dev/null 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:6008/index.json >/dev/null && exit 0; sleep 1; done
+          echo "Storybook did not start" && exit 1
+
+      - name: Accessibility tree (names, images, headers, error association)
+        run: node scripts/a11y-tree.mjs --url http://localhost:6008 --workers 2 --ci
+
+      - name: Browser checks (label in name, focus visible, text spacing, 200% text, Tab)
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        run: node scripts/a11y-auto.mjs --url http://localhost:6008 --workers 2 --ci
 
   react-19:
     needs: checks

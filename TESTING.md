@@ -17,7 +17,16 @@ At phone width: `THEYA_VIEWPORT=360 pnpm test-storybook` (and `:dark`; 375 for a
 
 In a product theme: `THEYA_BRAND=iris pnpm test-storybook` (and `:dark`). Details and how to check your own theme: [PROFILES.md](PROFILES.md#checking-a-theme).
 
-With a real screen reader (manual, WCAG 1.3.2 and 4.1.3): [packages/theya-shadcn/a11y/screen-reader-checklist.md](packages/theya-shadcn/a11y/screen-reader-checklist.md).
+Accessibility checks axe doesn't cover, both against the running Storybook; they write the files the accessibility matrix reads (`a11y/tree.json` with `a11y/tree/*.yml`, `a11y/auto.json`), so run them after changing what a component exposes and commit the result:
+
+```
+pnpm a11y:tree   # accessibility tree of every story: names (4.1.2), unnamed images (1.1.1), table headers, radio groups and field labels (1.3.1), errors tied to their fields (3.3.1)
+pnpm a11y:auto   # label in name (2.5.3), focus visible (2.4.7), text spacing (1.4.12), 200% text (1.4.4), Tab order (2.1.1, 2.1.2, 2.4.3)
+```
+
+A change in `a11y/tree/*.yml` in a diff is a change in what a screen reader gets.
+
+With a real screen reader (manual, WCAG 4.1.3, and spot checks of the rest): [packages/theya-shadcn/a11y/screen-reader-checklist.md](packages/theya-shadcn/a11y/screen-reader-checklist.md); the automated VoiceOver run is in [packages/theya-shadcn/a11y/voiceover](packages/theya-shadcn/a11y/voiceover/README.md).
 
 ## Visual regression
 
@@ -75,6 +84,7 @@ The `.github/workflows/ci.yml` workflow runs on every push to `main` and on ever
 3. **react-19** (after checks, in parallel with storybook): the same code, but React 19 is forced across the whole repository (the package supports 18 and 19; development and the other checks run on 18). It checks that no React 18 is left, then runs types, play tests and axe in the light theme. Visual regression is not needed here — the look does not depend on the React version.
 4. **brands** (after checks, in parallel): one job per product theme, `iris` and `lime`. Play tests and axe in its light and dark variants, without visual regression.
 5. **phone (360)** (after checks, in parallel): play tests and axe at 360px wide in both themes, and no sideways scrolling.
+6. **accessibility checks** (after checks, in parallel): `a11y-tree` and `a11y-auto` on every story in CI mode — nothing is written, any finding fails the job and is listed in the run summary.
 
 CI has its own visual regression baselines. A Linux runner takes them, and they are kept in git, in the `visual-baselines` branch (`light/`, `dark/`, one PNG per story id) — not on `main`, and never edited by hand.
 
