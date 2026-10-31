@@ -73,8 +73,8 @@ export function CardRail({ eyebrow, title, description, className, children, ...
               <CarouselNext className="static my-0" />
             </div>
           </div>
-          {/* ps-1 / pb-2: room for the cards' focus ring and shadow inside the clipped track. */}
-          <CarouselContent className="pb-2 ps-1">
+          {/* pt-3 / ps-1 / pb-2: room for a lifted card, its focus ring and shadow inside the clipped track. */}
+          <CarouselContent className="pb-2 ps-1 pt-3">
             {items.map((child, i) => (
               <CarouselItem key={i} aria-label={`${i + 1} of ${items.length}`} className="basis-[85%] sm:basis-[46%] lg:basis-[31%]">
                 {child}

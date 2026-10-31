@@ -66,7 +66,8 @@ export function BookmarksPreview({ className, floating = true, folder = 'reading
       {/* Nested radius: the search field's 6px plus the 12px band padding ≈ 16px (4xl), so the corners stay concentric. */}
       <div className="overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-lg">
         <div className="flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] px-4 py-3">
-          <div className="flex h-8 flex-1 items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] px-3 text-body-s text-[var(--color-text-text-subtler)]">
+          {/* End inset 5px + 1px border = the 6px above and below the 20px key, so the key sits evenly. */}
+          <div className="flex h-8 flex-1 items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] ps-3 pe-1.25 text-body-s text-[var(--color-text-text-subtler)]">
             <Search className="size-4 shrink-0" />
             <span className="flex-1 truncate">Search 250 links</span>
             <Kbd>⌘K</Kbd>
@@ -207,7 +208,8 @@ export const DEMO_LANDING_MENU: MegaItem[] = [
 // label, and no real controls inside.
 
 const card =
-  'w-full max-w-[32rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 shadow-elevation-md';
+  // 10px: well inside the 16px card that usually holds it (24px padding), so the corners nest.
+  'w-full max-w-[32rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 shadow-elevation-md';
 const row = 'flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] py-3 last:border-b-0';
 
 function ImportVisual() {

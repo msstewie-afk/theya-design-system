@@ -19,15 +19,21 @@ type Story = StoryObj<typeof RingCarousel>;
 const HUES: LandingCardHue[] = ['primary', 'secondary', 'success', 'warning', 'info', 'neutral', 'primary', 'success'];
 const TEMPLATES = ['Reading list', 'Research', 'Recipes', 'Trips', 'Design inspiration', 'Courses', 'Gift ideas', 'Job search'];
 
-const TemplateCard = ({ i }: { i: number }) => (
-  <LandingCard surface="tonal" hue={HUES[i]} className="h-72 justify-between gap-4 p-6">
-    <p className="m-0 font-body text-body-s font-medium tabular-nums">Template {String(i + 1).padStart(2, '0')}</p>
-    <div className="flex flex-col gap-2">
-      <h3 className="m-0 font-heading text-heading-xs font-semibold">{TEMPLATES[i]}</h3>
-      <p className="m-0 font-body text-body-s">Folders, tags and rules, ready to fill.</p>
-    </div>
-  </LandingCard>
-);
+const TemplateCard = ({ i, compact = false }: { i: number; compact?: boolean }) =>
+  compact ? (
+    <LandingCard surface="tonal" hue={HUES[i]} className="h-36 justify-between gap-2 p-4">
+      <p className="m-0 font-body text-body-xs font-medium tabular-nums">{String(i + 1).padStart(2, '0')}</p>
+      <h3 className="m-0 font-heading text-body-m font-semibold">{TEMPLATES[i]}</h3>
+    </LandingCard>
+  ) : (
+    <LandingCard surface="tonal" hue={HUES[i]} className="h-72 justify-between gap-4 p-6">
+      <p className="m-0 font-body text-body-s font-medium tabular-nums">Template {String(i + 1).padStart(2, '0')}</p>
+      <div className="flex flex-col gap-2">
+        <h3 className="m-0 font-heading text-heading-xs font-semibold">{TEMPLATES[i]}</h3>
+        <p className="m-0 font-body text-body-s">Folders, tags and rules, ready to fill.</p>
+      </div>
+    </LandingCard>
+  );
 
 /** Eight template cards standing in a ring. Drag it, use the arrows or the Arrow keys; it settles with a card facing you. */
 export const Ring: Story = {
@@ -57,12 +63,14 @@ export const RingAroundAWord: Story = {
     <CardMotionSection title="">
       <RingCarousel
         aria-label="Templates"
-        cardWidth={200}
-        lean={14}
-        center={<p className="m-0 font-display-serif text-heading-2xl italic text-[var(--color-text-text)]">your library</p>}
+        // A steep lean and small cards: the near side of the ring passes under the word and
+        // the far side over it, so the word stays readable as the cards go round.
+        cardWidth={150}
+        lean={30}
+        center={<p className="m-0 whitespace-nowrap font-display-serif text-heading-3xl italic text-[var(--color-text-text)]">your library</p>}
       >
         {TEMPLATES.map((_, i) => (
-          <TemplateCard key={i} i={i} />
+          <TemplateCard key={i} i={i} compact />
         ))}
       </RingCarousel>
     </CardMotionSection>

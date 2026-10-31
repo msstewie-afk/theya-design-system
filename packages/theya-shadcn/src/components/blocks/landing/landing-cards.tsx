@@ -37,9 +37,22 @@ const HUE: Record<LandingCardHue, string> = {
   neutral: '[background:linear-gradient(var(--color-bg-neutral-bg-neutral-subtle),var(--color-bg-neutral-bg-neutral-subtle)),var(--color-bg-surface-bg-surface)]',
 };
 
+// On a tinted fill the icons and links take the card's own hue (a blue icon
+// on a green card reads as a mistake). The on-tonal text tokens are AA on
+// their fills, so they serve links and icons alike.
+const HUE_ACCENT: Record<LandingCardHue, string> = {
+  primary: '[--color-icon-icon-primary:var(--color-text-text-link-on-tonal)] [--color-text-text-link:var(--color-text-text-link-on-tonal)]',
+  // No on-tonal secondary ink: the lavender mixed toward the theme's text color (dark in light, light in dark).
+  secondary: '[--color-icon-icon-primary:color-mix(in_oklab,var(--color-bg-secondary-bg-secondary-strong)_45%,var(--color-text-text))] [--color-text-text-link:color-mix(in_oklab,var(--color-bg-secondary-bg-secondary-strong)_45%,var(--color-text-text))]',
+  success: '[--color-icon-icon-primary:var(--color-text-text-success-on-tonal)] [--color-text-text-link:var(--color-text-text-success-on-tonal)]',
+  warning: '[--color-icon-icon-primary:var(--color-text-text-warning-on-tonal)] [--color-text-text-link:var(--color-text-text-warning-on-tonal)]',
+  info: '[--color-icon-icon-primary:var(--color-text-text-info-on-tonal)] [--color-text-text-link:var(--color-text-text-info-on-tonal)]',
+  neutral: '[--color-icon-icon-primary:var(--color-text-text)] [--color-text-text-link:var(--color-text-text)]',
+};
+
 // On a tinted fill the subtle ink drops under 4.5:1 on some hues, so body
 // text uses the full ink and links the on-tonal link color.
-const ON_TONAL = '[--color-text-text-subtle:var(--color-text-text)] [--color-text-text-link:var(--color-text-text-link-on-tonal)]';
+const ON_TONAL = '[--color-text-text-subtle:var(--color-text-text)]';
 
 const SURFACE: Record<Exclude<LandingCardSurface, 'tonal'>, string> = {
   outlined: 'border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]',
@@ -99,7 +112,7 @@ export function LandingCard({ surface = 'outlined', hue = 'primary', hover = 'no
       className={cn(
         'relative isolate flex h-full min-w-0 flex-col overflow-hidden text-[var(--color-text-text)]',
         RADIUS,
-        surface === 'tonal' ? [HUE[hue], ON_TONAL] : SURFACE[surface],
+        surface === 'tonal' ? [HUE[hue], ON_TONAL, HUE_ACCENT[hue]] : SURFACE[surface],
         // The stretched title link draws the focus ring round the whole card.
         'has-[[data-card-link]:focus-visible]:focus-ring',
         // Spotlight, tilt and lift also turn an outlined card's border primary while hovered.
@@ -179,8 +192,9 @@ export interface FeatureCardProps extends Omit<LandingCardProps, 'title'> {
   /** The visible link text at the bottom ("Learn more"); the title stays the link's name. */
   linkLabel?: ReactNode;
   /**
-   * monday: the description is folded away until the card is hovered or
-   * holds focus. Only on devices that can hover; on touch it is always open.
+   * monday: the description is hidden until the card is hovered or holds
+   * focus. It keeps its room, so the card's height never changes. Only on
+   * devices that can hover; on touch it is always shown.
    */
   expand?: boolean;
 }
@@ -201,15 +215,17 @@ export function FeatureCard({ icon, title, description, href, linkLabel: label, 
         {title}
       </CardTitleLink>
       {description && (
-        <div
+        <p
           className={cn(
-            'grid',
+            'm-0 font-body text-body-m text-[var(--color-text-text-subtle)]',
+            // The description keeps its room while hidden: the card's height never changes,
+            // so a row of cards does not jump when one of them opens. It fades and rises in.
             expand &&
-              '[@media(hover:hover)]:grid-rows-[0fr] [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/fc:grid-rows-[1fr] [@media(hover:hover)]:group-hover/fc:opacity-100 [@media(hover:hover)]:group-focus-within/fc:grid-rows-[1fr] [@media(hover:hover)]:group-focus-within/fc:opacity-100 motion-safe:transition-[grid-template-rows,opacity] motion-safe:duration-moderate motion-safe:ease-enter',
+              '[@media(hover:hover)]:translate-y-2 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/fc:translate-y-0 [@media(hover:hover)]:group-hover/fc:opacity-100 [@media(hover:hover)]:group-focus-within/fc:translate-y-0 [@media(hover:hover)]:group-focus-within/fc:opacity-100 motion-safe:transition-[translate,opacity] motion-safe:duration-moderate motion-safe:ease-enter',
           )}
         >
-          <p className="m-0 min-h-0 overflow-hidden font-body text-body-m text-[var(--color-text-text-subtle)]">{description}</p>
-        </div>
+          {description}
+        </p>
       )}
       {href && label && (
         <span aria-hidden className={linkLabel}>
