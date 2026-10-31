@@ -561,6 +561,16 @@ export declare const en: {
     usageBar: {
         label: (summary: string) => string;
     };
+    meter: {
+        of: (value: string, max: string) => string;
+        above: (threshold: string) => string;
+        below: (threshold: string) => string;
+    };
+    bottomNav: {
+        label: string;
+        count: (n: number) => string;
+        dot: string;
+    };
     cardDeck: {
         skip: string;
         keep: string;
@@ -1166,6 +1176,16 @@ export declare const enLocale: {
         };
         usageBar: {
             label: (summary: string) => string;
+        };
+        meter: {
+            of: (value: string, max: string) => string;
+            above: (threshold: string) => string;
+            below: (threshold: string) => string;
+        };
+        bottomNav: {
+            label: string;
+            count: (n: number) => string;
+            dot: string;
         };
         cardDeck: {
             skip: string;

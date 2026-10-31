@@ -389,6 +389,12 @@ export const en = {
   productTour: { next: 'Next', back: 'Back', done: 'Done', skip: 'Skip tour', close: 'Close tour', progress: (step: number, total: number) => `${step} of ${total}` },
   slider: { minimum: (label: string) => `${label} minimum`, maximum: (label: string) => `${label} maximum`, value: (label: string, n: number) => `${label} value ${n}` },
   usageBar: { label: (summary: string) => `Usage by segment: ${summary}` },
+  meter: {
+    of: (value: string, max: string) => `${value} of ${max}`,
+    above: (threshold: string) => `above the ${threshold} threshold`,
+    below: (threshold: string) => `below the ${threshold} threshold`,
+  },
+  bottomNav: { label: 'Main', count: (n: number) => `${n} new`, dot: 'new' },
   cardDeck: {
     skip: 'Skip',
     keep: 'Keep',

@@ -395,6 +395,12 @@ export const de: TheyaMessages = {
   productTour: { next: 'Weiter', back: 'Zurück', done: 'Fertig', skip: 'Tour überspringen', close: 'Tour schließen', progress: (step, total) => `${step} von ${total}` },
   slider: { minimum: (label) => `${label} – Minimum`, maximum: (label) => `${label} – Maximum`, value: (label, n) => `${label} – Wert ${n}` },
   usageBar: { label: (summary) => `Nutzung nach Bereichen: ${summary}` },
+  meter: {
+    of: (value, max) => `${value} von ${max}`,
+    above: (threshold) => `über dem Grenzwert ${threshold}`,
+    below: (threshold) => `unter dem Grenzwert ${threshold}`,
+  },
+  bottomNav: { label: 'Hauptmenü', count: (n) => `${n} ${plural(n, 'neuer Eintrag', 'neue Einträge')}`, dot: 'neu' },
   cardDeck: {
     skip: 'Überspringen',
     keep: 'Behalten',

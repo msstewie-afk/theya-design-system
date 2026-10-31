@@ -367,6 +367,12 @@ export const ar: TheyaMessages = {
   productTour: { next: 'التالي', back: 'السابق', done: 'تم', skip: 'تخطي الجولة', close: 'إغلاق الجولة', progress: (step, total) => `${step} من ${total}` },
   slider: { minimum: (label) => `الحد الأدنى لـ ${label}`, maximum: (label) => `الحد الأقصى لـ ${label}`, value: (label, n) => `${label}، القيمة ${n}` },
   usageBar: { label: (summary) => `الاستخدام حسب الجزء: ${summary}` },
+  meter: {
+    of: (value, max) => `${value} من ${max}`,
+    above: (threshold) => `فوق الحد ${threshold}`,
+    below: (threshold) => `تحت الحد ${threshold}`,
+  },
+  bottomNav: { label: 'الرئيسية', count: (n) => `${n} جديد`, dot: 'جديد' },
   cardDeck: {
     skip: 'تخطي',
     keep: 'احتفاظ',

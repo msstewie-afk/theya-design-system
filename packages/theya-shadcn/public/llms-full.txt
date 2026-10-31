@@ -1086,6 +1086,81 @@ Docs: ./?path=/docs/charts-barchart--docs
 - `ariaLabel` states the takeaway (“led by eu-west-1 at 42%”).
 - One color for one series — color carries no meaning here, so it doesn’t need a legend.
 
+## BottomNav
+
+`import { BottomNav, BottomNavItem } from '@theya/shadcn/ui/bottom-nav';`
+
+Status: beta · Category: Navigation
+Docs: ./?path=/docs/navigation-bottomnav--docs
+
+**When to use**
+
+- The top-level destinations of a phone app: 3–5 of them, each reachable from anywhere.
+
+**When not to use**
+
+- Two destinations → use Tabs
+- More than five destinations, or a desktop layout → use Sidebar
+- Actions (Save, Add, Delete) → use StickyActionBar or Fab
+- Views of one page → use Tabs
+
+**Anatomy**
+
+- Bar: a `nav` landmark at the bottom edge, padded for the home indicator; `fixed` or `sticky`.
+- Item: icon (24px) and a label; `href` makes it a link, `asChild` takes a router link.
+- Current item: `active`: tonal pill behind the icon and a semibold label.
+- Badge (optional): `badge`: a count (over 99 reads “99+”) or `true` for a dot.
+
+**BottomNav props**
+
+- `aria-label?`: `string` — Landmark name. Default "Main".
+- `position?`: `"fixed" | "sticky"`, default `fixed` — `fixed` (default) pins it to the viewport; `sticky` to the bottom of its scroll container.
+
+**BottomNavItem props**
+
+- `icon`: `ReactNode` — The icon (24px). Decorative: the label names the item.
+- `label`: `ReactNode` — Visible label, one or two short words. Required: there is no icon-only item.
+- `active?`: `boolean`, default `false` — The current destination: `aria-current="page"`, semibold label, tonal pill.
+- `asChild?`: `boolean`, default `false` — Render your router's link instead of an `<a>`: pass it as the only child
+- `badge?`: `number | boolean` — A count on the icon (over 99 shows "99+"), or `true` for a dot.
+
+Also accepts the props of: HTMLAttributes, ButtonHTMLAttributes, SVGAttributes, AnchorHTMLAttributes, ImgHTMLAttributes.
+
+**Do / Don’t**
+
+- Do: Every item has a short label under its icon.
+
+  ```tsx
+  <div className="w-80">
+    <BottomNav position="sticky" aria-label="Example">
+      <BottomNavItem icon={<HomeSimple />} label="Home" active />
+      <BottomNavItem icon={<Search />} label="Search" />
+      <BottomNavItem icon={<ChatBubble />} label="Inbox" badge={3} />
+      <BottomNavItem icon={<User />} label="Profile" />
+    </BottomNav>
+  </div>
+  ```
+
+- Don’t: Icons alone make people guess, and there is no icon-only variant.
+
+  ```tsx
+  <div aria-hidden="true" className="flex w-80 justify-around border-t border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-surface-bg-surface)] py-4 text-[var(--color-icon-icon-subtle)] [&_svg]:size-6">
+    <HomeSimple />
+    <Search />
+    <ChatBubble />
+    <User />
+  </div>
+  ```
+
+
+**Accessibility**
+
+- A `nav` landmark named “Main” by default; give a second bar its own `aria-label`.
+- The current item has `aria-current="page"` and is marked by more than color: the pill and a semibold label.
+- The badge count is part of the item’s name: “Inbox, 3 new”.
+- Items are 68px tall and share the width, so targets stay large at 360px.
+- Its height is reserved as scroll padding, so a focused field never hides under it.
+
 ## Breadcrumb
 
 `import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis } from '@theya/shadcn/ui/breadcrumb';`
@@ -6027,6 +6102,7 @@ Docs: ./?path=/docs/status-feedback-meter--docs
 - Label: what is measured.
 - Value (optional): formatted with `format` (percent, GB…); hide with `showValue={false}` only if the label says it.
 - Bar: fill by `value` between `min` and `max`; `tone` from how critical the level is.
+- Thresholds (optional): a tick and a short label per limit (`thresholds`); reaching one switches the fill to its `tone`, warning by default.
 
 **Meter props**
 
@@ -6038,6 +6114,7 @@ Docs: ./?path=/docs/status-feedback-meter--docs
 - `min?`: `number`, default `0`
 - `segments?`: `number` — Render as `segments` discrete lit-or-not cells instead of a smooth
 - `showValue?`: `boolean`, default `true`
+- `thresholds?`: `MeterThreshold[]` — Limits marked on the bar, e.g. [{ value: 2, label: '2 g per serving' }]. Each draws a thin tick
 - `tone?`: `"info" | "success" | "warning" | "danger" | "primary"`, default `primary`
 
 Also accepts the props of: HTMLAttributes.
@@ -6068,6 +6145,8 @@ Also accepts the props of: HTMLAttributes.
 - Native `role="meter"` with min / max / now. Use `getValueLabel` for words where they help (“Nearly full”).
 - Without a visible `label`, pass `aria-label`.
 - The tone isn’t the only signal — the value or label must say the level.
+- With `thresholds` the aria text names the range and the nearest limits (“1.1 g of 3 g, below the 2 g threshold”); a `getValueLabel` replaces it.
+- Keep threshold labels short (a value or two words): they sit on one line under the bar.
 - For percent pass a fraction with `max={1}`; the component warns about 0.38 of 100.
 
 ## Metric

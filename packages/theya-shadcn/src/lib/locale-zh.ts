@@ -347,6 +347,12 @@ export const zh: TheyaMessages = {
   productTour: { next: '下一步', back: '上一步', done: '完成', skip: '跳过导览', close: '关闭导览', progress: (step, total) => `${step}/${total}` },
   slider: { minimum: (label) => `${label}最小值`, maximum: (label) => `${label}最大值`, value: (label, n) => `${label}第 ${n} 个值` },
   usageBar: { label: (summary) => `按部分划分的用量：${summary}` },
+  meter: {
+    of: (value, max) => `${value}，共 ${max}`,
+    above: (threshold) => `高于阈值 ${threshold}`,
+    below: (threshold) => `低于阈值 ${threshold}`,
+  },
+  bottomNav: { label: '主要', count: (n) => `${n} 条新内容`, dot: '有新内容' },
   cardDeck: {
     skip: '跳过',
     keep: '保留',

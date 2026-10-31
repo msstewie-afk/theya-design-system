@@ -401,6 +401,12 @@ export const ru: TheyaMessages = {
   productTour: { next: 'Далее', back: 'Назад', done: 'Готово', skip: 'Пропустить тур', close: 'Закрыть тур', progress: (step, total) => `${step} из ${total}` },
   slider: { minimum: (label) => `${label}: минимум`, maximum: (label) => `${label}: максимум`, value: (label, n) => `${label}: значение ${n}` },
   usageBar: { label: (summary) => `Использование по частям: ${summary}` },
+  meter: {
+    of: (value, max) => `${value} из ${max}`,
+    above: (threshold) => `выше порога ${threshold}`,
+    below: (threshold) => `ниже порога ${threshold}`,
+  },
+  bottomNav: { label: 'Основная', count: (n) => `${n} ${plural(n, 'новое', 'новых', 'новых')}`, dot: 'есть новое' },
   cardDeck: {
     skip: 'Пропустить',
     keep: 'Оставить',
