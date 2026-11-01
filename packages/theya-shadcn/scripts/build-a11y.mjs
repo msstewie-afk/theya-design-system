@@ -323,7 +323,12 @@ function buildRow({ name, base, title, traitKey = name, reviews: ownReviews = {}
       ? s.keyboard > 0 || (!traits.includes('composite') && !!autoRow && autoRow.stories > autoRow.errors && ['2.1.1', '2.1.2', '2.4.3'].every((k) => Array.isArray(autoRow[k]) && !autoRow[k].length))
     : kind === 'reflow360' ? s.stories > 0
     : kind === 'reducedMotion' ? source.reducedMotion !== 'unguarded'
-    : kind === 'auto' ? !!autoRow && autoRow.stories > autoRow.errors && !autoRow[id]?.length
+    // Text cut by a deliberate ellipsis under 200% text or WCAG spacing is
+    // lost content too, unless a review says the full text is reachable
+    // (a tooltip, an expanded view) or the truncation was fixed.
+    : kind === 'auto'
+      ? !!autoRow && autoRow.stories > autoRow.errors && !autoRow[id]?.length &&
+        (!autoRow.truncated?.some((t) => t.includes(`: ${id}: `)) || reviews[id]?.result === 'pass')
     : kind === 'screenReader' ? sr.some((p) => p.result === 'pass')
     : kind === 'tree'
       ? !!treeRow && treeRow.stories > treeRow.errors &&
