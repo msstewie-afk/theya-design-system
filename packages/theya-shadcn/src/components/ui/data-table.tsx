@@ -269,7 +269,7 @@ const FOCUS_RING = 4;
 function DataTableColumnHeader<TData, TValue>({ column, title, className }: { column: Column<TData, TValue>; title: string; className?: string }) {
   if (!column.getCanSort()) {
     return (
-      <span className={cn('block truncate text-[var(--color-text-text-subtler)]', className)} title={title}>
+      <span className={cn('block break-words text-[var(--color-text-text-subtler)]', className)}>
         {title}
       </span>
     );
@@ -280,9 +280,8 @@ function DataTableColumnHeader<TData, TValue>({ column, title, className }: { co
     <button
       type="button"
       onClick={column.getToggleSortingHandler()}
-      title={title}
       className={cn(
-        'group -mx-2 inline-flex h-7 max-w-full items-center gap-1 rounded-[var(--size-border-radius-border-radius-sm)] px-2',
+        'group -mx-2 inline-flex min-h-7 max-w-full items-center gap-1 text-start rounded-[var(--size-border-radius-border-radius-sm)] px-2',
         'font-heading text-heading-2xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)] transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:text-[var(--color-text-text)]',
         'focus-visible:outline-none focus-visible:focus-ring',
@@ -290,7 +289,7 @@ function DataTableColumnHeader<TData, TValue>({ column, title, className }: { co
         className,
       )}
     >
-      <span className="min-w-0 truncate">{title}</span>
+      <span className="min-w-0 break-words">{title}</span>
       {sorted === 'asc' ? (
         <ArrowDown className="size-4 shrink-0 text-[var(--color-icon-icon)]" />
       ) : sorted === 'desc' ? (

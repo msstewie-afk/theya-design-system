@@ -183,7 +183,7 @@ export function SidebarBrand({ className, children, ...props }: React.ComponentP
   return (
     <div className={cn('flex min-w-0 items-center gap-2', className)} {...props}>
       {mark}
-      <span className="truncate font-body text-body-m font-semibold text-[var(--color-text-text)]">{children}</span>
+      <span className="min-w-0 break-words font-body text-body-m font-semibold text-[var(--color-text-text)]">{children}</span>
     </div>
   );
 }
@@ -237,7 +237,7 @@ export function SidebarSection({
     <div className={className} {...props}>
       {label && !collapsed && (
         <div className="flex items-center gap-1 px-2 pb-1.5 pt-4">
-          <span className="flex-1 truncate font-body text-body-s font-semibold uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]">
+          <span className="min-w-0 flex-1 break-words font-body text-body-s font-semibold uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]">
             {label}
           </span>
           {action}

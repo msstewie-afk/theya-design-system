@@ -51,7 +51,7 @@
       "truncated": []
     },
     "Alert": {
-      "stories": 6,
+      "stories": 7,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -123,7 +123,7 @@
       "truncated": []
     },
     "Attachment": {
-      "stories": 18,
+      "stories": 20,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -137,8 +137,7 @@
         "Custom action: 1.4.12: span \"quarterly-report.pdf\"",
         "Default: 1.4.12: span \"quarterly-report.pdf\"",
         "Kind label: 1.4.4: span \"801 KB, PNG image\"",
-        "Localized labels: 1.4.12: span \"quartalsbericht.pdf\"",
-        "Removable: 1.4.12: span \"quarterly-report.pdf\""
+        "Localized labels: 1.4.12: span \"quartalsbericht.pdf\""
       ]
     },
     "AuditLog": {
@@ -154,7 +153,7 @@
       "truncated": []
     },
     "Autocomplete": {
-      "stories": 7,
+      "stories": 8,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -267,7 +266,7 @@
       "truncated": []
     },
     "Button": {
-      "stories": 18,
+      "stories": 19,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -303,7 +302,7 @@
       "truncated": []
     },
     "Card": {
-      "stories": 22,
+      "stories": 23,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -313,6 +312,25 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": []
+    },
+    "Card motion": {
+      "stories": 7,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
+      "truncated": [
+        "Fan: 1.4.12: span \"Design systems\"",
+        "Fan: 1.4.4: span \"Notes on attention\"",
+        "Fan: 1.4.4: span \"Notes on attention\"",
+        "Fan: 1.4.4: span \"Cold cucumber soup\"",
+        "Folders: 1.4.12: span \"Banitsa, step by step\"",
+        "Folders: 1.4.12: span \"Cold cucumber soup\""
+      ]
     },
     "CardFan": {
       "stories": 1,
@@ -325,6 +343,29 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": []
+    },
+    "Cards": {
+      "stories": 11,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
+      "truncated": [
+        "Bento: 1.4.4: span \"Reading list\"",
+        "Bento: 1.4.4: span \"Design systems\"",
+        "Customer stories: 1.4.12: span \"Reading list\"",
+        "Customer stories: 1.4.4: span \"Notes on attention\"",
+        "Customer stories: 1.4.4: span \"Notes on attention\"",
+        "Customer stories: 1.4.4: span \"Cold cucumber soup\"",
+        "Media: 1.4.12: span \"Reading list\"",
+        "Media: 1.4.4: span \"Notes on attention\"",
+        "Media: 1.4.4: span \"Notes on attention\"",
+        "Media: 1.4.4: span \"Cold cucumber soup\""
+      ]
     },
     "CardStack": {
       "stories": 2,
@@ -387,7 +428,7 @@
       "truncated": []
     },
     "Chat": {
-      "stories": 2,
+      "stories": 3,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -411,7 +452,7 @@
       "truncated": []
     },
     "CheckboxGroup": {
-      "stories": 3,
+      "stories": 4,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -423,7 +464,7 @@
       "truncated": []
     },
     "Checkout": {
-      "stories": 1,
+      "stories": 2,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -435,7 +476,7 @@
       "truncated": []
     },
     "Chip": {
-      "stories": 16,
+      "stories": 17,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -483,7 +524,7 @@
       "truncated": []
     },
     "ColorPicker": {
-      "stories": 8,
+      "stories": 9,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -493,12 +534,13 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "Controlled: 1.4.12: span \"HEX\"",
-        "Custom only: 1.4.12: span \"HEX\"",
-        "Default: 1.4.12: span \"RGB\"",
-        "From photo: 1.4.12: span \"HEX\"",
-        "With opacity: 1.4.12: span \"RGB\"",
-        "With presets: 1.4.12: span \"HEX\""
+        "Controlled: 1.4.12: span[data-slot=truncated-text] \"HEX\"",
+        "Custom only: 1.4.12: span[data-slot=truncated-text] \"HEX\"",
+        "Default: 1.4.12: span[data-slot=truncated-text] \"RGB\"",
+        "From photo: 1.4.12: span[data-slot=truncated-text] \"HEX\"",
+        "Invalid hex: 1.4.12: span[data-slot=truncated-text] \"HEX\"",
+        "With opacity: 1.4.12: span[data-slot=truncated-text] \"RGB\"",
+        "With presets: 1.4.12: span[data-slot=truncated-text] \"HEX\""
       ]
     },
     "Combobox": {
@@ -535,12 +577,19 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": [
-        "Default: 1.4.12: span \"Login Guard\"",
-        "Full: 1.4.12: span \"Secret Scanner\"",
-        "Full: 1.4.12: span \"Login Guard\"",
-        "Test: table remove keeps focus: 1.4.12: span \"Secret Scanner\""
-      ]
+      "truncated": []
+    },
+    "CompletionBurst": {
+      "stories": 3,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
+      "truncated": []
     },
     "CompletionScreen": {
       "stories": 2,
@@ -637,37 +686,26 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "Basic: 1.4.4: span \"Status\"",
-        "Basic: 1.4.4: span \"Region\"",
-        "Basic: 1.4.4: span \"Replicas\"",
-        "Basic: 1.4.4: span \"Suspended\"",
-        "Basic: 1.4.4: span \"ap-south-1\"",
-        "Clickable rows: 1.4.4: span \"Status\"",
-        "Clickable rows: 1.4.4: span \"Region\"",
-        "Clickable rows: 1.4.4: span \"Replicas\"",
-        "Clickable rows: 1.4.4: span \"Suspended\"",
-        "Clickable rows: 1.4.4: span \"ap-south-1\"",
-        "Empty state: 1.4.4: span \"Status\"",
-        "Empty state: 1.4.4: span \"Region\"",
-        "Empty state: 1.4.4: span \"Replicas\"",
-        "Loading: 1.4.4: span \"Status\"",
-        "Loading: 1.4.4: span \"Region\"",
-        "Loading: 1.4.4: span \"Replicas\"",
-        "Paged columns on a phone: 1.4.4: span \"Status\"",
-        "Paged columns on a phone: 1.4.4: span \"Region\"",
-        "Paged columns on a phone: 1.4.4: span \"Replicas\"",
-        "Paged columns on a phone: 1.4.4: span \"Suspended\"",
-        "Paged columns on a phone: 1.4.4: span \"ap-south-1\"",
-        "Two-line rows (lines=2): 1.4.4: span \"Status\"",
-        "Two-line rows (lines=2): 1.4.4: span \"Region\"",
-        "Two-line rows (lines=2): 1.4.4: span \"Replicas\"",
-        "Two-line rows (lines=2): 1.4.4: span \"Suspended\"",
-        "Two-line rows (lines=2): 1.4.4: span \"ap-south-1\"",
-        "With selection and row menu: 1.4.4: span \"Status\"",
-        "With selection and row menu: 1.4.4: span \"Region\"",
-        "With selection and row menu: 1.4.4: span \"Replicas\"",
-        "With selection and row menu: 1.4.4: span \"Suspended\"",
-        "With selection and row menu: 1.4.4: span \"ap-south-1\""
+        "Basic: 1.4.12: span[data-slot=truncated-text] \"Othrys Lodge\"",
+        "Basic: 1.4.4: span[data-slot=truncated-text] \"Othrys Lodge\"",
+        "Basic: 1.4.4: span[data-slot=truncated-text] \"Helios Studio\"",
+        "Basic: 1.4.4: span[data-slot=truncated-text] \"Eos Portraits\"",
+        "Clickable rows: 1.4.12: span[data-slot=truncated-text] \"Othrys Lodge\"",
+        "Clickable rows: 1.4.4: span[data-slot=truncated-text] \"Helios Studio\"",
+        "Clickable rows: 1.4.4: span[data-slot=truncated-text] \"Eos Portraits\"",
+        "Clickable rows: 1.4.4: span[data-slot=truncated-text] \"Othrys Lodge\"",
+        "Paged columns on a phone: 1.4.12: span[data-slot=truncated-text] \"Othrys Lodge\"",
+        "Paged columns on a phone: 1.4.4: span[data-slot=truncated-text] \"Helios Studio\"",
+        "Paged columns on a phone: 1.4.4: span[data-slot=truncated-text] \"Eos Portraits\"",
+        "Paged columns on a phone: 1.4.4: span[data-slot=truncated-text] \"Othrys Lodge\"",
+        "Two-line rows (lines=2): 1.4.12: span[data-slot=truncated-text] \"Othrys Lodge\"",
+        "Two-line rows (lines=2): 1.4.4: span[data-slot=truncated-text] \"Helios Studio\"",
+        "Two-line rows (lines=2): 1.4.4: span[data-slot=truncated-text] \"Eos Portraits\"",
+        "Two-line rows (lines=2): 1.4.4: span[data-slot=truncated-text] \"Othrys Lodge\"",
+        "With selection and row menu: 1.4.12: span[data-slot=truncated-text] \"Othrys Lodge\"",
+        "With selection and row menu: 1.4.4: span[data-slot=truncated-text] \"Helios Studio\"",
+        "With selection and row menu: 1.4.4: span[data-slot=truncated-text] \"Eos Portraits\"",
+        "With selection and row menu: 1.4.4: span[data-slot=truncated-text] \"Othrys Lodge\""
       ]
     },
     "DataTableCell": {
@@ -680,11 +718,7 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": [
-        "All kinds: 1.4.12: span \"7.2 GB of 10 GB\"",
-        "Kinds: 1.4.12: span \"7.2 GB of 10 GB\"",
-        "Kinds: 1.4.12: span \"7.2 GB of 10 GB\""
-      ]
+      "truncated": []
     },
     "DataTableToolbar": {
       "stories": 4,
@@ -697,39 +731,18 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "Default: 1.4.4: span \"Status\"",
-        "Default: 1.4.4: span \"Plan\"",
-        "Default: 1.4.4: span \"Running\"",
-        "Narrow Overflow: 1.4.12: span \"shop.seashell.dev\"",
-        "Narrow Overflow: 1.4.12: span \"blog.seashell.dev\"",
-        "Narrow Overflow: 1.4.12: span \"api.seashell.dev\"",
-        "Narrow Overflow: 1.4.12: span \"docs.seashell.dev\"",
-        "Narrow Overflow: 1.4.4: span \"Status\"",
-        "Narrow Overflow: 1.4.4: span \"Plan\"",
-        "Narrow Overflow: 1.4.4: span \"shop.seashell.dev\"",
-        "Narrow Overflow: 1.4.4: span \"Running\"",
-        "Narrow Overflow: 1.4.4: span \"blog.seashell.dev\"",
-        "Narrow Overflow: 1.4.4: span \"Running\"",
-        "Narrow Overflow: 1.4.4: span \"api.seashell.dev\"",
-        "Narrow Overflow: 1.4.4: span \"Suspended\"",
-        "Narrow Overflow: 1.4.4: span \"docs.seashell.dev\"",
-        "Narrow Overflow: 1.4.4: span \"Running\"",
-        "Overflow: 1.4.4: span \"Status\"",
-        "Overflow: 1.4.4: span \"Plan\"",
-        "Overflow: 1.4.4: span \"Running\"",
-        "Overflow: 1.4.4: span \"Running\"",
-        "Overflow: 1.4.4: span \"Suspended\"",
-        "Overflow: 1.4.4: span \"Running\"",
-        "Selected: 1.4.4: span \"Status\"",
-        "Selected: 1.4.4: span \"Plan\"",
-        "Selected: 1.4.4: span \"Running\"",
-        "Selected: 1.4.4: span \"Running\"",
-        "Selected: 1.4.4: span \"Suspended\"",
-        "Selected: 1.4.4: span \"Running\""
+        "Narrow Overflow: 1.4.12: span[data-slot=truncated-text] \"shop.seashell.dev\"",
+        "Narrow Overflow: 1.4.12: span[data-slot=truncated-text] \"blog.seashell.dev\"",
+        "Narrow Overflow: 1.4.12: span[data-slot=truncated-text] \"api.seashell.dev\"",
+        "Narrow Overflow: 1.4.12: span[data-slot=truncated-text] \"docs.seashell.dev\"",
+        "Narrow Overflow: 1.4.4: span[data-slot=truncated-text] \"shop.seashell.dev\"",
+        "Narrow Overflow: 1.4.4: span[data-slot=truncated-text] \"blog.seashell.dev\"",
+        "Narrow Overflow: 1.4.4: span[data-slot=truncated-text] \"api.seashell.dev\"",
+        "Narrow Overflow: 1.4.4: span[data-slot=truncated-text] \"docs.seashell.dev\""
       ]
     },
     "DatePicker": {
-      "stories": 6,
+      "stories": 7,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -739,13 +752,15 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "Future dates only: 1.4.4: span \"Pick a start date\"",
-        "With Label: 1.4.12: span \"Pick a renewal date\"",
-        "With Label: 1.4.4: span \"Pick a renewal date\""
+        "Error: 1.4.12: span[data-slot=truncated-text] \"Pick a renewal date\"",
+        "Error: 1.4.4: span[data-slot=truncated-text] \"Pick a renewal date\"",
+        "Future dates only: 1.4.4: span[data-slot=truncated-text] \"Pick a start date\"",
+        "With Label: 1.4.12: span[data-slot=truncated-text] \"Pick a renewal date\"",
+        "With Label: 1.4.4: span[data-slot=truncated-text] \"Pick a renewal date\""
       ]
     },
     "DateRangePicker": {
-      "stories": 6,
+      "stories": 7,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -754,10 +769,7 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": [
-        "Default: 1.4.12: span \"Oct 8, 2026 – Oct 10, 2026\"",
-        "Default: 1.4.4: span \"Oct 8, 2026 – Oct 10, 2026\""
-      ]
+      "truncated": []
     },
     "DateTimePicker": {
       "stories": 8,
@@ -832,7 +844,7 @@
       "truncated": []
     },
     "DonutChart": {
-      "stories": 6,
+      "stories": 7,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -880,7 +892,7 @@
       "truncated": []
     },
     "Dropzone": {
-      "stories": 7,
+      "stories": 8,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -904,7 +916,7 @@
       "truncated": []
     },
     "Fab": {
-      "stories": 8,
+      "stories": 9,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -926,6 +938,32 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": []
+    },
+    "FeatureShowcase": {
+      "stories": 2,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
+      "truncated": []
+    },
+    "FeatureSplit": {
+      "stories": 3,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
+      "truncated": [
+        "Live demo: 1.4.12: span \"Design systems\""
+      ]
     },
     "FeedbackWidget": {
       "stories": 3,
@@ -974,8 +1012,6 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "Card Grid: 1.4.12: span \"782 KB, Modified today\"",
-        "Card Grid: 1.4.4: span \"782 KB, Modified today\"",
         "Read-only: 1.4.12: span \"242 KB, Modified 2 days ago\""
       ]
     },
@@ -1027,6 +1063,25 @@
       "2.4.3": [],
       "truncated": []
     },
+    "Hero": {
+      "stories": 5,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
+      "truncated": [
+        "Split with chips: 1.4.12: span \"Reading list\"",
+        "Split with chips: 1.4.4: span \"Reading list\"",
+        "Split with chips: 1.4.4: span \"Recipes\"",
+        "Split with chips: 1.4.4: span \"Trips\"",
+        "Split with chips: 1.4.4: span \"Slow-roasted tomatoes\"",
+        "Split with chips: 1.4.4: span \"Cold cucumber soup\""
+      ]
+    },
     "HoldToTalk": {
       "stories": 2,
       "errors": 0,
@@ -1074,7 +1129,7 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "Page Title: 1.4.12: span \"Seashell storefront\""
+        "Page Title: 1.4.12: span[data-slot=truncated-text] \"Seashell storefront\""
       ]
     },
     "InputGroup": {
@@ -1135,9 +1190,7 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": [
-        "Compact: 1.4.4: h3 \"In progress\""
-      ]
+      "truncated": []
     },
     "Kbd": {
       "stories": 4,
@@ -1187,6 +1240,20 @@
       "2.4.3": [],
       "truncated": []
     },
+    "Landing page": {
+      "stories": 1,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
+      "truncated": [
+        "Bookmarks: 1.4.12: span \"Design systems\""
+      ]
+    },
     "Lightbox": {
       "stories": 2,
       "errors": 0,
@@ -1234,9 +1301,7 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "Notification: 1.4.12: span[data-slot=list-item-description] \"The nightly backup for acme_prod did not\"",
-        "Notification: 1.4.12: span[data-slot=list-item-description] \"shop.seashell.dev deployed to production\"",
-        "Notification: 1.4.12: span[data-slot=list-item-description] \"The certificate for api.seashell.dev ren\""
+        "Interactive with action: 1.4.4: span[data-slot=list-item-description] \"Selene Weddings·248 photos\""
       ]
     },
     "ListView": {
@@ -1249,16 +1314,7 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": [
-        "Default: 1.4.4: span \"Role\"",
-        "Default: 1.4.4: span \"Status\"",
-        "Default: 1.4.4: span \"Suspended\"",
-        "Loading: 1.4.4: span \"Role\"",
-        "Loading: 1.4.4: span \"Status\"",
-        "With bulk and row actions: 1.4.4: span \"Role\"",
-        "With bulk and row actions: 1.4.4: span \"Status\"",
-        "With bulk and row actions: 1.4.4: span \"Suspended\""
-      ]
+      "truncated": []
     },
     "LoginForm": {
       "stories": 3,
@@ -1284,6 +1340,18 @@
       "2.4.3": [],
       "truncated": []
     },
+    "LogoStrip": {
+      "stories": 3,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
+      "truncated": []
+    },
     "Marquee": {
       "stories": 2,
       "errors": 0,
@@ -1297,7 +1365,7 @@
       "truncated": []
     },
     "MarqueeColumns": {
-      "stories": 1,
+      "stories": 2,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -1369,7 +1437,7 @@
       "truncated": []
     },
     "Meter": {
-      "stories": 6,
+      "stories": 8,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -1391,8 +1459,7 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "Default: 1.4.12: span[data-slot=metric-description] \"Alternate addresses for existing mailbox\"",
-        "Default: 1.4.4: span[data-slot=metric-description] \"Alternate addresses for existing mailbox\""
+        "Default: 1.4.12: span[data-slot=metric-description] \"Galleries open to clients on their porta\""
       ]
     },
     "NavigationMenu": {
@@ -1470,7 +1537,7 @@
       "truncated": []
     },
     "OrbitCarousel": {
-      "stories": 3,
+      "stories": 6,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -1566,7 +1633,7 @@
       "truncated": []
     },
     "PasswordStrengthMeter": {
-      "stories": 6,
+      "stories": 7,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -1722,7 +1789,7 @@
       "truncated": []
     },
     "PropertyGrid": {
-      "stories": 7,
+      "stories": 8,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -1756,8 +1823,7 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "Notifications: 1.4.12: span[data-slot=list-item-description] \"shop.seashell.dev deployed to production\"",
-        "Notifications: 1.4.12: span[data-slot=list-item-description] \"The certificate for api.seashell.dev ren\""
+        "Notifications: 1.4.12: span[data-slot=list-item-description] \"shop.seashell.dev deployed to production\""
       ]
     },
     "QrCode": {
@@ -1902,9 +1968,50 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
+      "truncated": []
+    },
+    "Scroll": {
+      "stories": 4,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
       "truncated": [
-        "Read-only: 1.4.12: span \"9:00 AM – 10:00 AM\"",
-        "Week: 1.4.12: span \"9:00 AM – 10:00 AM\""
+        "Rail: 1.4.12: span \"Reading list\"",
+        "Rail: 1.4.12: span \"Design systems\"",
+        "Rail: 1.4.12: span \"Reading list\"",
+        "Rail: 1.4.12: span \"Design systems\"",
+        "Rail: 1.4.4: span \"Notes on attention\"",
+        "Rail: 1.4.4: span \"Notes on attention\"",
+        "Rail: 1.4.4: span \"Cold cucumber soup\""
+      ]
+    },
+    "Scroll effects": {
+      "stories": 8,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
+      "truncated": [
+        "Deck: 1.4.12: span \"The case for slow software\"",
+        "Deck: 1.4.12: span \"A year without notifications\"",
+        "Deck: 1.4.4: span \"The case for slow software\"",
+        "Deck: 1.4.4: span \"essays.example\"",
+        "Deck: 1.4.4: span \"How we read on screens\"",
+        "Deck: 1.4.4: span \"research.example\"",
+        "Deck: 1.4.4: span \"A year without notifications\"",
+        "Deck: 1.4.4: span \"journal.example\"",
+        "Deck: 1.4.4: span \"Notes on attention\"",
+        "Deck: 1.4.4: span \"letters.example\"",
+        "Tunnel: 1.4.12: span \"Notes on attention\""
       ]
     },
     "ScrollArea": {
@@ -1955,6 +2062,18 @@
       "2.4.3": [],
       "truncated": []
     },
+    "SectionPanel": {
+      "stories": 2,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
+      "truncated": []
+    },
     "Select": {
       "stories": 12,
       "errors": 0,
@@ -1966,11 +2085,11 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "With badge: 1.4.12: span \"Backend team\"",
-        "With badge: 1.4.4: span \"Backend team\"",
-        "With media icons: 1.4.12: span \"Standard launch\"",
-        "With media icons: 1.4.4: span \"Standard launch\"",
-        "With status: 1.4.4: span \"web-01 — running\""
+        "With badge: 1.4.12: span[data-slot=truncated-text] \"Backend team\"",
+        "With badge: 1.4.4: span[data-slot=truncated-text] \"Backend team\"",
+        "With media icons: 1.4.12: span[data-slot=truncated-text] \"Standard launch\"",
+        "With media icons: 1.4.4: span[data-slot=truncated-text] \"Standard launch\"",
+        "With status: 1.4.4: span[data-slot=truncated-text] \"web-01 — running\""
       ]
     },
     "Separator": {
@@ -1996,14 +2115,11 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "Default: 1.4.4: span \"Theya\"",
-        "Inverse: 1.4.4: span \"Theya\"",
-        "With account: 1.4.4: span \"Theya\"",
         "With account: 1.4.4: span \"Maria Smith\""
       ]
     },
     "SignUpForm": {
-      "stories": 2,
+      "stories": 3,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -2015,6 +2131,18 @@
       "truncated": []
     },
     "SiteFooter": {
+      "stories": 2,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
+      "truncated": []
+    },
+    "SiteHeader": {
       "stories": 2,
       "errors": 0,
       "2.5.3": [],
@@ -2135,7 +2263,7 @@
       "truncated": []
     },
     "Stepper": {
-      "stories": 8,
+      "stories": 9,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -2279,7 +2407,7 @@
       "truncated": []
     },
     "Terminal": {
-      "stories": 7,
+      "stories": 8,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -2375,7 +2503,7 @@
       "truncated": []
     },
     "TimeRangePicker": {
-      "stories": 5,
+      "stories": 6,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -2469,7 +2597,7 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "With buttons: 1.4.12: span \"Last modified\""
+        "With buttons: 1.4.12: span[data-slot=truncated-text] \"Last modified\""
       ]
     },
     "Tree": {
@@ -2484,8 +2612,32 @@
       "2.4.3": [],
       "truncated": []
     },
+    "TruncatedText": {
+      "stories": 3,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
+      "truncated": []
+    },
     "UndoToast": {
       "stories": 6,
+      "errors": 0,
+      "2.5.3": [],
+      "2.4.7": [],
+      "1.4.12": [],
+      "1.4.4": [],
+      "2.1.1": [],
+      "2.1.2": [],
+      "2.4.3": [],
+      "truncated": []
+    },
+    "UploadPanel": {
+      "stories": 4,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -2542,10 +2694,7 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": [
-        "Default: 1.4.4: span \"Theya\"",
-        "Minimal Topbar: 1.4.4: span \"Theya\""
-      ]
+      "truncated": []
     }
   }
 }

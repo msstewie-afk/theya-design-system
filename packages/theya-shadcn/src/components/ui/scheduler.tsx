@@ -18,6 +18,7 @@ import {
 } from 'date-fns';
 import { NavArrowLeft, NavArrowRight } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { TruncatedText } from './truncated-text';
 import { Button } from './button';
 import type { StatusTone } from './status-dot';
 import { ToggleGroup, ToggleGroupItem } from './toggle-group';
@@ -425,7 +426,7 @@ function WeekList({
                       onClick={() => onEventClick?.(e)}
                       className="flex min-h-11 flex-col justify-center px-3 py-1.5"
                     >
-                      <span className="truncate text-body-s font-medium">{e.title}</span>
+                      <TruncatedText className="text-body-s font-medium">{e.title}</TruncatedText>
                       <span className="text-body-xs font-semibold">{e.allDay ? t.scheduler.allDay : timeRange(e)}</span>
                     </EventChip>
                   </li>
@@ -587,7 +588,7 @@ function TimeGrid({
             <div key={d.toISOString()} className="flex flex-col gap-0.5 border-s border-solid border-[var(--color-border-border-subtler)] p-0.5">
               {allDay(d).map((e) => (
                 <EventChip key={e.id} event={e} label={t.scheduler.allDayEvent(String(e.title))} onClick={() => onEventClick?.(e)} className="px-1 py-0.5 text-body-xs font-medium">
-                  <span className="block truncate">{e.title}</span>
+                  <TruncatedText>{e.title}</TruncatedText>
                 </EventChip>
               ))}
             </div>
@@ -670,7 +671,7 @@ function TimeGrid({
                           {event.title}
                           {short && <span className="font-normal"> {fmt.time.format(event.start)}</span>}
                         </span>
-                        {!short && <span className="block truncate">{timeRange(event)}</span>}
+                        {!short && <TruncatedText>{timeRange(event)}</TruncatedText>}
                         {draggable && (
                           <span
                             aria-hidden
@@ -787,10 +788,10 @@ function MonthGrid({
                   onClick={() => onEventClick?.(e)}
                   className="px-1 py-0.5 text-body-xs"
                 >
-                  <span className="block truncate">
+                  <TruncatedText>
                     {!e.allDay && <span className="tabular-nums">{fmt.time.format(e.start)} </span>}
                     <span className="font-medium">{e.title}</span>
-                  </span>
+                  </TruncatedText>
                 </EventChip>
               ))}
               {more > 0 && (

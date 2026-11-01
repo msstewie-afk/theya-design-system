@@ -253,4 +253,48 @@ export const SCENARIOS: Scenario[] = [
       await f.fill('jamie@seashell.dev'); await page.getByRole('button', { name: 'Send invite' }).first().focus(); await press(page, 'Enter');
     },
   },
+  // Landing merge (agent1, 2026-11-01): OrbitCarousel replaced Ring/Fan; uploads and CompletionBurst are new.
+  {
+    id: 'orbit-wall', component: 'OrbitCarousel', story: 'motion-orbitcarousel--wall', expect: ["3 of 6: Design"],
+    act: async (page) => { await page.getByRole('button', { name: 'Next slide' }).focus(); await press(page, 'Enter'); },
+  },
+  {
+    id: 'orbit-fan', component: 'OrbitCarousel', story: 'motion-orbitcarousel--fan', expect: ["2 of 6: Direction"],
+    act: async (page) => { await page.getByRole('button', { name: 'Previous slide' }).focus(); await press(page, 'Enter'); },
+  },
+  {
+    id: 'landing-ring', component: 'Card motion', story: 'patterns-landing-card-motion--ring', expect: ["3 of 8: Recipes"],
+    act: async (page) => { await page.getByRole('button', { name: 'Next slide' }).focus(); await press(page, 'Enter'); },
+  },
+  {
+    id: 'landing-fan', component: 'Card motion', story: 'patterns-landing-card-motion--fan', expect: ["1 of 4: Bring everything over"],
+    act: async (page) => { await page.getByRole('button', { name: 'Previous slide' }).focus(); await press(page, 'Enter'); },
+  },
+  {
+    id: 'attachment-upload', component: 'Attachment', story: 'files-attachment--upload-flow', expect: ["Uploading 2024-my-portfolio.pdf", "upload paused", "2024-my-portfolio.pdf uploaded"], listen: 6000,
+    act: async (page) => {
+      // The story's play test already ran one upload: wait for it to finish, then start again.
+      await page.getByRole('button', { name: 'Pause upload' }).waitFor({ state: 'detached', timeout: 15000 });
+      await page.getByRole('button', { name: 'Upload again' }).focus(); await press(page, 'Enter');
+      await page.waitForTimeout(1500);
+      await page.getByRole('button', { name: 'Pause upload' }).focus(); await press(page, 'Enter');
+      await page.waitForTimeout(1500);
+      await page.getByRole('button', { name: 'Resume upload' }).focus(); await press(page, 'Enter');
+    },
+  },
+  {
+    id: 'uploadpanel-live', component: 'UploadPanel', story: 'files-uploadpanel--live', expect: ["Uploading 3 files", "Paused", "Uploaded"], listen: 8000,
+    act: async (page) => {
+      await page.getByRole('button', { name: 'Upload 3 files' }).focus(); await press(page, 'Enter');
+      await page.waitForTimeout(1500);
+      await page.getByRole('button', { name: 'Pause all' }).focus(); await press(page, 'Enter');
+      await page.waitForTimeout(1500);
+      await page.getByRole('button', { name: 'Resume all' }).focus(); await press(page, 'Enter');
+    },
+  },
+  {
+    id: 'completionburst', component: 'CompletionBurst', story: 'motion-completionburst--flow', expect: ["Preparing your plan", "Your plan is ready"], listen: 4000,
+    // The story's play test already pressed Start; run it again once that burst has finished.
+    act: async (page) => { const again = page.getByRole('button', { name: 'Start again' }); await again.waitFor({ timeout: 15000 }); await page.waitForTimeout(3000); await again.focus(); await press(page, 'Enter'); },
+  },
 ];

@@ -136,7 +136,7 @@ function Column({
     >
       <header className="flex items-center gap-2 px-3 pb-2 pt-3">
         {column.tone && <StatusDot tone={column.tone} />}
-        <h3 id={headingId} className="min-w-0 truncate text-body-m font-medium text-[var(--color-text-text)]">
+        <h3 id={headingId} className="min-w-0 break-words text-body-m font-medium text-[var(--color-text-text)]">
           {column.title}
         </h3>
         {/* Plain counter; a danger Badge only when over the limit. The neutral tonal Badge

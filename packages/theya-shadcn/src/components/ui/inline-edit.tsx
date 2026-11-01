@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState, type FocusEvent, type FormEvent, type KeyboardEvent } from 'react';
 import { Check, EditPencil, Xmark } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { TruncatedText } from './truncated-text';
 import { Button } from './button';
 import { TextField } from './text-field';
 import { TextArea } from './textarea';
@@ -265,7 +266,9 @@ export function InlineEdit({
     singleLine && !inherit && cn(DISPLAY_SIZE_CLASS[size], 'font-body'),
     inherit && 'py-1',
   );
-  const textClass = multiline ? 'min-w-0 flex-1 whitespace-pre-wrap break-words' : 'min-w-0 flex-1 truncate';
+  const textClass = multiline ? 'min-w-0 flex-1 whitespace-pre-wrap break-words' : 'flex-1';
+  // One line: cut text shows in full in a tooltip (WCAG 1.4.4 / 1.4.12).
+  const Text = multiline ? 'span' : TruncatedText;
 
   return (
     <div ref={rootRef} data-slot="inline-edit" data-state="idle" className={cn('w-full', className)}>
@@ -283,7 +286,7 @@ export function InlineEdit({
           )}
         >
           <span className="sr-only">{t.inlineEdit.edit(String(label))}</span>
-          <span className={cn(textClass, empty ? 'text-[var(--color-text-text-subtler)]' : 'text-[var(--color-text-text)]')}>{empty ? placeholder : committed}</span>
+          <Text className={cn(textClass, empty ? 'text-[var(--color-text-text-subtler)]' : 'text-[var(--color-text-text)]')}>{empty ? placeholder : committed}</Text>
           <EditPencil
             aria-hidden="true"
             className={cn(
@@ -295,7 +298,7 @@ export function InlineEdit({
         </button>
       ) : (
         <div aria-disabled={disabled || undefined} className={cn(boxClass, disabled ? 'text-[var(--color-text-text-disabled)]' : 'text-[var(--color-text-text)]')}>
-          <span className={textClass}>{empty ? '—' : committed}</span>
+          <Text className={textClass}>{empty ? '—' : committed}</Text>
         </div>
       )}
     </div>

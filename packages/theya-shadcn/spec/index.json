@@ -3197,6 +3197,24 @@
       "spec": "spec/components/tree.json"
     },
     {
+      "name": "TruncatedText",
+      "file": "ui/truncated-text",
+      "category": "Labels",
+      "status": "beta",
+      "summary": "Long user data on one line where wrapping would break the layout: file names, domains, list-row descriptions, a chosen value in a trigger.",
+      "instead": [
+        {
+          "when": "Short interface labels: column headers, nav and tab labels, buttons, field labels",
+          "use": "let them wrap"
+        },
+        {
+          "when": "Running text and descriptions the reader needs in full",
+          "use": "plain wrapping text"
+        }
+      ],
+      "spec": "spec/components/truncated-text.json"
+    },
+    {
       "name": "UndoToast",
       "file": "ui/undo-toast",
       "category": "Status & Feedback",

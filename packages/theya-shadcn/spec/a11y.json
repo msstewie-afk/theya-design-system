@@ -13,7 +13,7 @@
         "screenReader|tree"
       ],
       "counts": {
-        "verified": 160
+        "verified": 161
       },
       "patternCounts": {
         "verified": 52
@@ -26,7 +26,7 @@
       "scope": "product",
       "note": "Media content. Theya has no media player.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -39,7 +39,7 @@
       "scope": "product",
       "note": "Media content.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -52,7 +52,7 @@
       "scope": "product",
       "note": "Media content.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -65,7 +65,7 @@
       "scope": "product",
       "note": "Media content.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -78,7 +78,7 @@
       "scope": "product",
       "note": "Media content.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -94,7 +94,7 @@
         "screenReader|tree"
       ],
       "counts": {
-        "verified": 160
+        "verified": 161
       },
       "patternCounts": {
         "verified": 52
@@ -109,7 +109,7 @@
         "screenReader|tree"
       ],
       "counts": {
-        "verified": 152,
+        "verified": 153,
         "n/a": 8
       },
       "patternCounts": {
@@ -124,7 +124,7 @@
       "scope": "product",
       "note": "Instructions written by the app (\"the button on the right\"). Theya's own strings were written without shape/position cues.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -137,7 +137,7 @@
       "scope": "library",
       "note": "No component locks orientation: no orientation media queries hide content, and every story passes at 360px.",
       "counts": {
-        "library": 160
+        "library": 161
       },
       "patternCounts": {
         "library": 52
@@ -152,7 +152,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 147,
+        "n/a": 148,
         "verified": 13
       },
       "patternCounts": {
@@ -169,7 +169,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 62,
+        "n/a": 63,
         "verified": 96,
         "untested": 2
       },
@@ -186,7 +186,7 @@
       "scope": "product",
       "note": "Theya plays no audio.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -201,7 +201,7 @@
         "axe"
       ],
       "counts": {
-        "verified": 160
+        "verified": 161
       },
       "patternCounts": {
         "verified": 52
@@ -216,12 +216,11 @@
         "auto"
       ],
       "counts": {
-        "verified": 147,
-        "untested": 13
+        "verified": 159,
+        "untested": 2
       },
       "patternCounts": {
-        "verified": 40,
-        "untested": 12
+        "verified": 52
       }
     },
     {
@@ -231,7 +230,7 @@
       "scope": "product",
       "note": "Images are the app's content. Theya renders text as text.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -246,7 +245,7 @@
         "reflow360"
       ],
       "counts": {
-        "verified": 160
+        "verified": 161
       },
       "patternCounts": {
         "verified": 52
@@ -261,9 +260,9 @@
         "review"
       ],
       "counts": {
-        "deviation": 45,
+        "deviation": 47,
         "verified": 79,
-        "n/a": 35,
+        "n/a": 34,
         "untested": 1
       },
       "patternCounts": {
@@ -282,12 +281,11 @@
         "auto"
       ],
       "counts": {
-        "verified": 143,
-        "partial": 17
+        "verified": 158,
+        "partial": 3
       },
       "patternCounts": {
-        "verified": 40,
-        "partial": 12
+        "verified": 52
       }
     },
     {
@@ -300,13 +298,13 @@
         "review"
       ],
       "counts": {
-        "n/a": 139,
-        "verified": 21
+        "n/a": 131,
+        "verified": 30
       },
       "patternCounts": {
-        "n/a": 47,
-        "verified": 4,
-        "untested": 1
+        "n/a": 40,
+        "verified": 11,
+        "partial": 1
       }
     },
     {
@@ -319,14 +317,13 @@
         "keyboard"
       ],
       "counts": {
-        "verified": 113,
-        "n/a": 46,
+        "verified": 115,
+        "n/a": 45,
         "deviation": 1
       },
       "patternCounts": {
-        "verified": 43,
-        "n/a": 4,
-        "partial": 5
+        "verified": 48,
+        "n/a": 4
       }
     },
     {
@@ -338,13 +335,12 @@
         "keyboard"
       ],
       "counts": {
-        "verified": 114,
-        "n/a": 46
+        "verified": 116,
+        "n/a": 45
       },
       "patternCounts": {
-        "verified": 43,
-        "n/a": 4,
-        "untested": 5
+        "verified": 48,
+        "n/a": 4
       }
     },
     {
@@ -356,7 +352,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 159,
+        "n/a": 160,
         "verified": 1
       },
       "patternCounts": {
@@ -373,7 +369,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 152,
+        "n/a": 153,
         "verified": 7,
         "untested": 1
       },
@@ -393,7 +389,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 145,
+        "n/a": 146,
         "verified": 14,
         "deviation": 1
       },
@@ -409,7 +405,7 @@
       "scope": "library",
       "note": "No component flashes: the fastest loop is the 700 ms spinner, and nothing alternates bright/dark.",
       "counts": {
-        "library": 160
+        "library": 161
       },
       "patternCounts": {
         "library": 52
@@ -422,7 +418,7 @@
       "scope": "product",
       "note": "A page property. The WorkspaceLayout block ships a skip link the app can reuse.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -435,7 +431,7 @@
       "scope": "product",
       "note": "The app sets document titles.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -450,13 +446,12 @@
         "keyboard"
       ],
       "counts": {
-        "verified": 114,
-        "n/a": 46
+        "verified": 116,
+        "n/a": 45
       },
       "patternCounts": {
-        "verified": 43,
-        "n/a": 4,
-        "untested": 5
+        "verified": 48,
+        "n/a": 4
       }
     },
     {
@@ -469,7 +464,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 154,
+        "n/a": 155,
         "verified": 6
       },
       "patternCounts": {
@@ -485,7 +480,7 @@
       "scope": "product",
       "note": "Site navigation and search — the app's information architecture.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -500,7 +495,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 67,
+        "n/a": 68,
         "verified": 91,
         "untested": 2
       },
@@ -519,14 +514,12 @@
         "auto"
       ],
       "counts": {
-        "verified": 113,
-        "n/a": 46,
-        "untested": 1
+        "verified": 116,
+        "n/a": 45
       },
       "patternCounts": {
-        "verified": 41,
-        "n/a": 4,
-        "untested": 7
+        "verified": 48,
+        "n/a": 4
       }
     },
     {
@@ -538,8 +531,8 @@
         "review"
       ],
       "counts": {
-        "n/a": 111,
-        "verified": 48,
+        "n/a": 108,
+        "verified": 52,
         "untested": 1
       },
       "patternCounts": {
@@ -557,7 +550,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 154,
+        "n/a": 155,
         "verified": 5,
         "untested": 1
       },
@@ -573,7 +566,7 @@
       "scope": "library",
       "note": "Actions fire on click (pointer up), not pointer down; press-and-hold controls cancel when the pointer leaves.",
       "counts": {
-        "library": 160
+        "library": 161
       },
       "patternCounts": {
         "library": 52
@@ -588,14 +581,12 @@
         "auto"
       ],
       "counts": {
-        "verified": 113,
-        "n/a": 46,
-        "untested": 1
+        "verified": 116,
+        "n/a": 45
       },
       "patternCounts": {
-        "verified": 41,
-        "n/a": 4,
-        "untested": 7
+        "verified": 48,
+        "n/a": 4
       }
     },
     {
@@ -605,7 +596,7 @@
       "scope": "library",
       "note": "No component reacts to device motion.",
       "counts": {
-        "library": 160
+        "library": 161
       },
       "patternCounts": {
         "library": 52
@@ -621,14 +612,13 @@
         "review"
       ],
       "counts": {
-        "n/a": 149,
+        "n/a": 150,
         "verified": 10,
         "partial": 1
       },
       "patternCounts": {
         "n/a": 50,
-        "untested": 1,
-        "partial": 1
+        "partial": 2
       }
     },
     {
@@ -640,8 +630,8 @@
         "axe"
       ],
       "counts": {
-        "verified": 114,
-        "n/a": 46
+        "verified": 116,
+        "n/a": 45
       },
       "patternCounts": {
         "verified": 48,
@@ -655,7 +645,7 @@
       "scope": "product",
       "note": "The app sets <html lang>.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -668,7 +658,7 @@
       "scope": "product",
       "note": "Content language. Theya's built-in strings follow the active locale.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -683,13 +673,12 @@
         "keyboard"
       ],
       "counts": {
-        "verified": 114,
-        "n/a": 46
+        "verified": 116,
+        "n/a": 45
       },
       "patternCounts": {
-        "verified": 43,
-        "n/a": 4,
-        "untested": 5
+        "verified": 48,
+        "n/a": 4
       }
     },
     {
@@ -701,7 +690,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 118,
+        "n/a": 119,
         "verified": 42
       },
       "patternCounts": {
@@ -716,7 +705,7 @@
       "scope": "product",
       "note": "Across pages.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -729,7 +718,7 @@
       "scope": "product",
       "note": "Across pages. Shared components and locale strings make it the default.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -742,7 +731,7 @@
       "scope": "product",
       "note": "Across pages.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -758,7 +747,7 @@
         "screenReader|tree"
       ],
       "counts": {
-        "n/a": 131,
+        "n/a": 132,
         "verified": 29
       },
       "patternCounts": {
@@ -776,7 +765,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 118,
+        "n/a": 119,
         "verified": 42
       },
       "patternCounts": {
@@ -791,7 +780,7 @@
       "scope": "product",
       "note": "The message text is the app's. Theya provides the slot (error / helper text) and announces it.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -804,7 +793,7 @@
       "scope": "product",
       "note": "A flow property. ConfirmDialog and UndoToast are the tools.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -817,7 +806,7 @@
       "scope": "product",
       "note": "A flow property.",
       "counts": {
-        "product": 160
+        "product": 161
       },
       "patternCounts": {
         "product": 52
@@ -832,7 +821,7 @@
         "review"
       ],
       "counts": {
-        "n/a": 158,
+        "n/a": 159,
         "verified": 2
       },
       "patternCounts": {
@@ -850,8 +839,8 @@
         "screenReader|tree"
       ],
       "counts": {
-        "verified": 114,
-        "n/a": 46
+        "verified": 116,
+        "n/a": 45
       },
       "patternCounts": {
         "verified": 47,
@@ -868,7 +857,7 @@
         "screenReader"
       ],
       "counts": {
-        "n/a": 129,
+        "n/a": 130,
         "verified": 27,
         "untested": 4
       },
@@ -3514,7 +3503,7 @@
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
@@ -3800,11 +3789,11 @@
         "1.4.1": "untested",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "n/a",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "n/a",
         "2.1.2": "n/a",
@@ -4374,7 +4363,7 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "deviation",
@@ -4465,7 +4454,7 @@
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
@@ -4577,11 +4566,11 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "deviation",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
@@ -4641,6 +4630,7 @@
       "deviations": [],
       "traits": [
         "colorMeaning",
+        "hoverContent",
         "interactive",
         "labelled",
         "overlay",
@@ -4661,12 +4651,12 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",
-        "1.4.12": "partial",
-        "1.4.13": "n/a",
+        "1.4.12": "verified",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -4725,6 +4715,7 @@
       "deviations": [],
       "traits": [
         "colorMeaning",
+        "hoverContent",
         "interactive",
         "labelled",
         "overlay",
@@ -4745,12 +4736,12 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",
-        "1.4.12": "partial",
-        "1.4.13": "n/a",
+        "1.4.12": "verified",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -6134,7 +6125,7 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "deviation",
@@ -6821,7 +6812,9 @@
       "deviations": [],
       "traits": [
         "colorMeaning",
+        "hoverContent",
         "interactive",
+        "overlay",
         "textInput",
         "validation"
       ],
@@ -6844,8 +6837,8 @@
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",
-        "1.4.12": "partial",
-        "1.4.13": "n/a",
+        "1.4.12": "verified",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -6859,7 +6852,7 @@
         "2.4.5": "product",
         "2.4.6": "n/a",
         "2.4.7": "verified",
-        "2.4.11": "n/a",
+        "2.4.11": "verified",
         "2.5.1": "n/a",
         "2.5.2": "library",
         "2.5.3": "verified",
@@ -7100,7 +7093,7 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",
@@ -7746,8 +7739,10 @@
         }
       ],
       "traits": [
+        "hoverContent",
         "interactive",
-        "links"
+        "links",
+        "overlay"
       ],
       "wcag": {
         "1.1.1": "verified",
@@ -7768,8 +7763,8 @@
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "deviation",
-        "1.4.12": "partial",
-        "1.4.13": "n/a",
+        "1.4.12": "verified",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -7783,7 +7778,7 @@
         "2.4.5": "product",
         "2.4.6": "n/a",
         "2.4.7": "verified",
-        "2.4.11": "n/a",
+        "2.4.11": "verified",
         "2.5.1": "n/a",
         "2.5.2": "library",
         "2.5.3": "verified",
@@ -8414,8 +8409,17 @@
       "reducedMotion": "none",
       "forcedColors": "global",
       "screenReader": [],
-      "deviations": [],
-      "traits": [],
+      "deviations": [
+        {
+          "criterion": "1.4.11",
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
+        }
+      ],
+      "traits": [
+        "hoverContent",
+        "interactive",
+        "overlay"
+      ],
       "wcag": {
         "1.1.1": "verified",
         "1.2.1": "product",
@@ -8431,35 +8435,35 @@
         "1.4.1": "n/a",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "n/a",
-        "1.4.12": "partial",
-        "1.4.13": "n/a",
-        "2.1.1": "n/a",
-        "2.1.2": "n/a",
+        "1.4.11": "deviation",
+        "1.4.12": "verified",
+        "1.4.13": "verified",
+        "2.1.1": "verified",
+        "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "n/a",
+        "2.4.3": "verified",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "n/a",
-        "2.4.7": "n/a",
-        "2.4.11": "n/a",
+        "2.4.7": "verified",
+        "2.4.11": "verified",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "n/a",
+        "2.5.3": "verified",
         "2.5.4": "library",
         "2.5.7": "n/a",
-        "2.5.8": "n/a",
+        "2.5.8": "verified",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "n/a",
+        "3.2.1": "verified",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -8470,7 +8474,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "n/a",
+        "4.1.2": "verified",
         "4.1.3": "n/a"
       }
     },
@@ -9881,6 +9885,7 @@
       "traits": [
         "choice",
         "colorMeaning",
+        "hoverContent",
         "interactive",
         "labelled",
         "overlay",
@@ -9907,7 +9912,7 @@
         "1.4.10": "verified",
         "1.4.11": "verified",
         "1.4.12": "verified",
-        "1.4.13": "n/a",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -10069,7 +10074,7 @@
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",
         "2.1.2": "verified",
@@ -10824,8 +10829,10 @@
         "colorMeaning",
         "drag",
         "gestures",
+        "hoverContent",
         "interactive",
         "labelled",
+        "overlay",
         "status",
         "sticky",
         "timed"
@@ -10849,8 +10856,8 @@
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",
-        "1.4.12": "partial",
-        "1.4.13": "n/a",
+        "1.4.12": "verified",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -11116,6 +11123,7 @@
         "choice",
         "colorMeaning",
         "composite",
+        "hoverContent",
         "interactive",
         "labelled",
         "overlay",
@@ -11136,12 +11144,12 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "deviation",
-        "1.4.12": "partial",
-        "1.4.13": "n/a",
+        "1.4.12": "verified",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -11304,7 +11312,7 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "deviation",
@@ -14259,7 +14267,7 @@
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "deviation",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",
         "2.1.2": "verified",
@@ -14362,6 +14370,93 @@
         "2.4.6": "verified",
         "2.4.7": "verified",
         "2.4.11": "n/a",
+        "2.5.1": "n/a",
+        "2.5.2": "library",
+        "2.5.3": "verified",
+        "2.5.4": "library",
+        "2.5.7": "n/a",
+        "2.5.8": "verified",
+        "3.1.1": "product",
+        "3.1.2": "product",
+        "3.2.1": "verified",
+        "3.2.2": "n/a",
+        "3.2.3": "product",
+        "3.2.4": "product",
+        "3.2.6": "product",
+        "3.3.1": "n/a",
+        "3.3.2": "n/a",
+        "3.3.3": "product",
+        "3.3.4": "product",
+        "3.3.7": "product",
+        "3.3.8": "n/a",
+        "4.1.2": "verified",
+        "4.1.3": "n/a"
+      }
+    },
+    {
+      "name": "TruncatedText",
+      "title": "Labels/TruncatedText",
+      "axe": {
+        "stories": 3,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "exclusions": []
+      },
+      "keyboard": {
+        "tested": 2,
+        "playTests": 3
+      },
+      "reducedMotion": "none",
+      "forcedColors": "global",
+      "screenReader": [],
+      "deviations": [
+        {
+          "criterion": "1.4.11",
+          "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
+        }
+      ],
+      "traits": [
+        "hoverContent",
+        "interactive",
+        "overlay"
+      ],
+      "wcag": {
+        "1.1.1": "verified",
+        "1.2.1": "product",
+        "1.2.2": "product",
+        "1.2.3": "product",
+        "1.2.4": "product",
+        "1.2.5": "product",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
+        "1.3.3": "product",
+        "1.3.4": "library",
+        "1.3.5": "n/a",
+        "1.4.1": "n/a",
+        "1.4.2": "product",
+        "1.4.3": "verified",
+        "1.4.4": "verified",
+        "1.4.5": "product",
+        "1.4.10": "verified",
+        "1.4.11": "deviation",
+        "1.4.12": "verified",
+        "1.4.13": "verified",
+        "2.1.1": "verified",
+        "2.1.2": "verified",
+        "2.1.4": "n/a",
+        "2.2.1": "n/a",
+        "2.2.2": "n/a",
+        "2.3.1": "library",
+        "2.4.1": "product",
+        "2.4.2": "product",
+        "2.4.3": "verified",
+        "2.4.4": "n/a",
+        "2.4.5": "product",
+        "2.4.6": "n/a",
+        "2.4.7": "verified",
+        "2.4.11": "verified",
         "2.5.1": "n/a",
         "2.5.2": "library",
         "2.5.3": "verified",
@@ -14518,11 +14613,11 @@
         "1.4.1": "untested",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "untested",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",
         "2.1.2": "verified",
@@ -14536,11 +14631,11 @@
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "untested",
-        "2.4.7": "untested",
+        "2.4.7": "verified",
         "2.4.11": "untested",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "untested",
+        "2.5.3": "verified",
         "2.5.4": "library",
         "2.5.7": "n/a",
         "2.5.8": "verified",
@@ -15102,6 +15197,7 @@
       "traits": [
         "choice",
         "colorMeaning",
+        "hoverContent",
         "interactive",
         "labelled",
         "links",
@@ -15130,7 +15226,7 @@
         "1.4.10": "verified",
         "1.4.11": "verified",
         "1.4.12": "verified",
-        "1.4.13": "n/a",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -15294,6 +15390,7 @@
       "traits": [
         "choice",
         "colorMeaning",
+        "hoverContent",
         "interactive",
         "labelled",
         "links",
@@ -15321,7 +15418,7 @@
         "1.4.10": "verified",
         "1.4.11": "verified",
         "1.4.12": "verified",
-        "1.4.13": "n/a",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -15867,7 +15964,7 @@
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",
         "2.1.2": "verified",
@@ -16391,6 +16488,7 @@
       "traits": [
         "choice",
         "colorMeaning",
+        "hoverContent",
         "interactive",
         "labelled",
         "overlay",
@@ -16416,7 +16514,7 @@
         "1.4.10": "verified",
         "1.4.11": "verified",
         "1.4.12": "verified",
-        "1.4.13": "n/a",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -17264,35 +17362,35 @@
         "1.4.1": "untested",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "untested",
-        "1.4.12": "partial",
-        "1.4.13": "untested",
-        "2.1.1": "partial",
-        "2.1.2": "untested",
+        "1.4.12": "verified",
+        "1.4.13": "partial",
+        "2.1.1": "verified",
+        "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "untested",
+        "2.4.3": "verified",
         "2.4.4": "partial",
         "2.4.5": "product",
         "2.4.6": "untested",
-        "2.4.7": "untested",
+        "2.4.7": "verified",
         "2.4.11": "n/a",
         "2.5.1": "untested",
         "2.5.2": "library",
-        "2.5.3": "untested",
+        "2.5.3": "verified",
         "2.5.4": "library",
-        "2.5.7": "untested",
+        "2.5.7": "partial",
         "2.5.8": "verified",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "untested",
+        "3.2.1": "verified",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -17345,35 +17443,35 @@
         "1.4.1": "n/a",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "untested",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "partial",
-        "2.1.2": "untested",
+        "2.1.1": "verified",
+        "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "untested",
+        "2.4.3": "verified",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "untested",
-        "2.4.7": "untested",
+        "2.4.7": "verified",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "untested",
+        "2.5.3": "verified",
         "2.5.4": "library",
         "2.5.7": "n/a",
         "2.5.8": "verified",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "untested",
+        "3.2.1": "verified",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -17423,11 +17521,11 @@
         "1.4.1": "n/a",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "n/a",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "n/a",
         "2.1.2": "n/a",
@@ -17503,11 +17601,11 @@
         "1.4.1": "n/a",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "n/a",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "n/a",
         "2.1.2": "n/a",
@@ -17588,11 +17686,11 @@
         "1.4.1": "untested",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "untested",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",
         "2.1.2": "verified",
@@ -17606,11 +17704,11 @@
         "2.4.4": "partial",
         "2.4.5": "product",
         "2.4.6": "untested",
-        "2.4.7": "untested",
+        "2.4.7": "verified",
         "2.4.11": "n/a",
         "2.5.1": "untested",
         "2.5.2": "library",
-        "2.5.3": "untested",
+        "2.5.3": "verified",
         "2.5.4": "library",
         "2.5.7": "partial",
         "2.5.8": "verified",
@@ -17671,35 +17769,35 @@
         "1.4.1": "untested",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "untested",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "partial",
-        "2.1.2": "untested",
+        "2.1.1": "verified",
+        "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "untested",
+        "2.4.3": "verified",
         "2.4.4": "partial",
         "2.4.5": "product",
         "2.4.6": "untested",
-        "2.4.7": "untested",
+        "2.4.7": "verified",
         "2.4.11": "untested",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "untested",
+        "2.5.3": "verified",
         "2.5.4": "library",
         "2.5.7": "n/a",
         "2.5.8": "verified",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "untested",
+        "3.2.1": "verified",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -17753,35 +17851,35 @@
         "1.4.1": "n/a",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "untested",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "partial",
-        "2.1.2": "untested",
+        "2.1.1": "verified",
+        "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "untested",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "untested",
+        "2.4.3": "verified",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "untested",
-        "2.4.7": "untested",
+        "2.4.7": "verified",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "untested",
+        "2.5.3": "verified",
         "2.5.4": "library",
         "2.5.7": "n/a",
         "2.5.8": "verified",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "untested",
+        "3.2.1": "verified",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -17834,35 +17932,35 @@
         "1.4.1": "n/a",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "untested",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "partial",
-        "2.1.2": "untested",
+        "2.1.1": "verified",
+        "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "untested",
+        "2.4.3": "verified",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "n/a",
-        "2.4.7": "untested",
+        "2.4.7": "verified",
         "2.4.11": "untested",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "untested",
+        "2.5.3": "verified",
         "2.5.4": "library",
         "2.5.7": "n/a",
         "2.5.8": "verified",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "untested",
+        "3.2.1": "verified",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -17914,11 +18012,11 @@
         "1.4.1": "untested",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "n/a",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "n/a",
         "2.1.2": "n/a",
@@ -18003,11 +18101,11 @@
         "1.4.1": "untested",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "untested",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",
         "2.1.2": "verified",
@@ -18021,11 +18119,11 @@
         "2.4.4": "partial",
         "2.4.5": "product",
         "2.4.6": "n/a",
-        "2.4.7": "untested",
+        "2.4.7": "verified",
         "2.4.11": "untested",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "untested",
+        "2.5.3": "verified",
         "2.5.4": "library",
         "2.5.7": "n/a",
         "2.5.8": "verified",
@@ -18106,7 +18204,7 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",
@@ -18536,6 +18634,7 @@
       "traits": [
         "choice",
         "colorMeaning",
+        "hoverContent",
         "interactive",
         "labelled",
         "links",
@@ -18562,7 +18661,7 @@
         "1.4.10": "verified",
         "1.4.11": "verified",
         "1.4.12": "verified",
-        "1.4.13": "n/a",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -18630,6 +18729,7 @@
       "traits": [
         "choice",
         "colorMeaning",
+        "hoverContent",
         "interactive",
         "labelled",
         "links",
@@ -18657,8 +18757,8 @@
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",
-        "1.4.12": "partial",
-        "1.4.13": "n/a",
+        "1.4.12": "verified",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -18920,6 +19020,7 @@
         "auth",
         "choice",
         "colorMeaning",
+        "hoverContent",
         "interactive",
         "labelled",
         "links",
@@ -18947,7 +19048,7 @@
         "1.4.10": "verified",
         "1.4.11": "verified",
         "1.4.12": "verified",
-        "1.4.13": "n/a",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -19278,6 +19379,7 @@
       "traits": [
         "choice",
         "colorMeaning",
+        "hoverContent",
         "interactive",
         "labelled",
         "overlay",
@@ -19305,7 +19407,7 @@
         "1.4.10": "verified",
         "1.4.11": "verified",
         "1.4.12": "verified",
-        "1.4.13": "n/a",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -19384,7 +19486,7 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",

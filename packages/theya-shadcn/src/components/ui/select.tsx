@@ -4,6 +4,7 @@ import { createContext, useContext, cloneElement, isValidElement, useCallback } 
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, NavArrowDown, NavArrowUp } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { TruncatedText } from './truncated-text';
 import { StatusDot, type StatusTone } from './status-dot';
 import { Badge, type BadgeTone } from './badge';
 
@@ -248,11 +249,11 @@ function SelectItem({ className, children, icon, iconSize = 'sm', tone, badge, d
             </span>
           )}
           <span className="flex min-w-0 flex-1 flex-col overflow-hidden">
-            <span className="min-w-0 truncate">{children}</span>
+            <TruncatedText>{children}</TruncatedText>
             {description && (
-              <span className="min-w-0 truncate text-body-xs font-normal text-[var(--color-text-text-subtler)]">
+              <TruncatedText className="text-body-xs font-normal text-[var(--color-text-text-subtler)]">
                 {description}
-              </span>
+              </TruncatedText>
             )}
           </span>
           {badge && (

@@ -355,7 +355,8 @@
       "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Choosing an OptionCard only relabels the primary button in place and the reason Select just stores a value; steps change only on button press."},
       "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input is validated: the reason is optional and the option group has a default value."},
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Reason Select has a visible Label marked optional (line 133); the option group is introduced by a visible instruction paragraph and every card has a visible title and description."},
-      "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "No order-*, *-reverse or grid placement utilities; OptionCards are forced to one column (cancellation-flow.tsx:126) and the action row wraps in DOM order (175)."}
+      "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "No order-*, *-reverse or grid placement utilities; OptionCards are forced to one column (cancellation-flow.tsx:126) and the action row wraps in DOM order (175)."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."}
     },
     "Card": {
       "2.4.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: the whole-card link/filter overlay is named by CardTitle (aria-labelledby) unless it has its own label; the raw URL is only a last resort without a title."},
@@ -483,7 +484,8 @@
       "3.3.2": {"result": "pass", "date": "2026-10-23", "by": "Claude (code review)", "note": "Fixed 2026-10-23: a visible letter before each channel field (R/G/B, H/S/L; Hex needs none, the select says HEX), a real <label>; Maria's call. Channel names localized."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Tabs, area, sliders, inputs and swatches are in DOM order (color-picker.tsx:715-776); the absolute swatch button and Change photo button sit at their DOM position (454, 873)."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Area/channel thumbs: 2px white border plus a 1px gray-400 outer ring (5.21:1 on white, 4.85:1 on yellow); the white border separates it from dark regions. The ring used --black-a300, which isn't a token, so the whole shadow was dropped and the thumb vanished on white."},
-      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: unreadable hex/channel entries still revert, but a FieldError under the fields says what was expected and the fields are described by it; ColorField keeps the typed text, sets aria-invalid and shows the reason (Esc clears). Play tests in Field and HexOnly."}
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: unreadable hex/channel entries still revert, but a FieldError under the fields says what was expected and the fields are described by it; ColorField keeps the typed text, sets aria-invalid and shows the reason (Esc clears). Play tests in Field and HexOnly."},
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: the HEX/RGB format Select trigger. Short interface labels (headers, nav, section labels) wrap instead."}
     },
     "Combobox": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: new autoComplete prop (default \"off\") reaches the combobox <input>."},
@@ -587,7 +589,9 @@
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Selection checkboxes under a select-all header."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "data-table.tsx:289: flex-row-reverse on right-aligned sort headers only moves the sort icon before the title; sticky/pinned columns (196-201) keep DOM column order."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Sort direction uses arrow shapes plus aria-sort (293-305, 1252); a selected row's tint always comes with a checked checkbox, since selection is disabled below md where the checkbox column drops (741, 996, 1083)."},
-      "3.3.1": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "DataTable doesn't validate input itself; editable fields render through DataTableCell kinds (see DataTableCell 3.3.1)."}
+      "3.3.1": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "DataTable doesn't validate input itself; editable fields render through DataTableCell kinds (see DataTableCell 3.3.1)."},
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: primary cells (\"Othrys Lodge\"); headers and status labels now wrap. Short interface labels (headers, nav, section labels) wrap instead."},
+      "1.4.4": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: primary cells (\"Othrys Lodge\"); headers and status labels now wrap. Short interface labels (headers, nav, section labels) wrap instead."}
     },
     "DataTableCell": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Edits row records (domains, owners), not the user's own data; kind=\"custom\" is the escape hatch."},
@@ -611,7 +615,9 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "data-table-toolbar.tsx:527-667: select-all + count, then the actions toolbar (or the idle filter slot); the width-measuring mirrors are invisible, fixed and aria-hidden (549, 646)."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Selection mode is shown by the count text \"N selected\" (544-546) as well as the primary fill; danger-toned actions keep their labels."},
       "3.3.1": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "The toolbar has no validated input of its own; the filter slot is consumer content, and type-to-confirm validation belongs to ConfirmDialog."},
-      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: the selected count is announced through announce() when it changes and is above 0, including the first selection."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: the selected count is announced through announce() when it changes and is above 0, including the first selection."},
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: domain cells in Narrow Overflow; headers now wrap. Short interface labels (headers, nav, section labels) wrap instead."},
+      "1.4.4": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: domain cells in Narrow Overflow; headers now wrap. Short interface labels (headers, nav, section labels) wrap instead."}
     },
     "DatePicker": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Pick a date\", \"Clear date\"."},
@@ -619,7 +625,10 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The trailing clear/chevron overlay (date-picker.tsx:181) comes after the trigger in the DOM and sits at its end visually."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Error coloring (date-picker.tsx:37, :157) is backed by aria-invalid on the trigger (:139) and the caller's message via aria-describedby (:140). Selected days are also labelled ', selected' by react-day-picker."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Uses Calendar: the dark selected day now has a 1px border-primary edge (5.28:1 on surface-overlay). Trigger border 3.00 / 4.14:1."},
-      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "aria-invalid reaches the trigger with danger styling (date-picker.tsx:37, :139). aria-describedby is merged with the value id (:140), so a Field/Form error message is tied to the trigger. The component does no validation of its own."}
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "aria-invalid reaches the trigger with danger styling (date-picker.tsx:37, :139). aria-describedby is merged with the value id (:140), so a Field/Form error message is tied to the trigger. The component does no validation of its own."},
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: the trigger value/placeholder (\"Pick a renewal date\"). Short interface labels (headers, nav, section labels) wrap instead."},
+      "1.4.4": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: the trigger value/placeholder (\"Pick a renewal date\"). Short interface labels (headers, nav, section labels) wrap instead."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."}
     },
     "DateRangePicker": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Pick a date range\", \"Clear date range\"."},
@@ -627,7 +636,8 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The clear/chevron overlay (date-range-picker.tsx:134) follows the trigger in the DOM and sits at its end visually."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The error state backs aria-invalid (date-range-picker.tsx:99) and a caller message via aria-describedby (:100). Range days carry aria-selected and ', selected' in their labels from react-day-picker, so the range isn't conveyed by color alone."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Uses Calendar: range endpoints have a dark border-primary edge; mid-range days a border-primary line above and below (4.4:1+ in both themes)."},
-      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "aria-invalid is forwarded with danger styling (date-range-picker.tsx:99, :109). aria-describedby is merged with the value id (:100), so an external error message is tied to the trigger."}
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "aria-invalid is forwarded with danger styling (date-range-picker.tsx:99, :109). aria-describedby is merged with the value id (:100), so an external error message is tied to the trigger."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."}
     },
     "DateTimePicker": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Arbitrary dates and times, not a birthday field."},
@@ -812,7 +822,10 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Display text, pencil, then field, Save and Cancel are all in DOM order (inline-edit.tsx:220-255, 273-294)."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Errors render through TextField/TextArea's message with an icon (inline-edit.tsx:229, 244); empty is shown by placeholder text (286), not color alone."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Edit mode uses TextField/TextArea borders (3.00/3.01:1) and filled/outlined buttons; the idle text button is identified by its text, so it needs no boundary (inline-edit.tsx:263, 282)."},
-      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "A validate/onSave failure sets `error`, passed to TextField/TextArea (inline-edit.tsx:166-181, 229, 244), which set aria-invalid and aria-describedby to the visible message (text-field.tsx:156-157, 233-237)."}
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "A validate/onSave failure sets `error`, passed to TextField/TextArea (inline-edit.tsx:166-181, 229, 244), which set aria-invalid and aria-describedby to the visible message (text-field.tsx:156-157, 233-237)."},
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: the one-line display text; the edit button owns the focus. Short interface labels (headers, nav, section labels) wrap instead."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."},
+      "2.4.11": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "TruncatedText's tooltip opens beside the cut text (6px offset) and never covers the focused control."}
     },
     "InputGroup": {
       "1.3.5": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "InputGroupInput spreads native input props, so autoComplete passes through."},
@@ -906,7 +919,10 @@
     "ListItem": {
       "2.4.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The row link wraps the title and description."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "list-item.tsx:69-144: leading, title, description, children, then trailing, in DOM order. The stretched button (124-138) is an invisible hit layer."},
-      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed 2026-10-26: selected rows get the nav marker, a 2px border-primary bar at the start edge (list-item.tsx:115) and a semibold title (:73), on top of the tint; aria-pressed/aria-current carry it for AT."}
+      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed 2026-10-26: selected rows get the nav marker, a 2px border-primary bar at the start edge (list-item.tsx:115) and a semibold title (:73), on top of the tint; aria-pressed/aria-current carry it for AT."},
+      "1.4.4": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: title and description. Short interface labels (headers, nav, section labels) wrap instead."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."},
+      "2.4.11": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "TruncatedText's tooltip opens beside the cut text (6px offset) and never covers the focused control."}
     },
     "ListView": {
       "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "Its only input is the list search (autoComplete=\"off\"), which isn't data about the user."},
@@ -996,7 +1012,10 @@
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Fills use icon-* tones against the neutral track: primary 4.51/4.40, success 4.10/4.62, danger 5.88/3.20, info 4.13/3.75 (light/dark); dark warning icon-warning 5.08:1. Light warning keeps the yellow fill (1.64:1), recorded as a deviation."}
     },
     "Metric": {
-      "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "metric.tsx:28-58: icon, value, label, description, then actions, in DOM order; nothing reordered."}
+      "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "metric.tsx:28-58: icon, value, label, description, then actions, in DOM order; nothing reordered."},
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: the description; the label wraps. Short interface labels (headers, nav, section labels) wrap instead."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."},
+      "2.4.11": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "TruncatedText's tooltip opens beside the cut text (6px offset) and never covers the focused control."}
     },
     "NavigationMenu": {
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Radix closes the flyout when focus leaves the nav."},
@@ -1020,7 +1039,9 @@
       "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input validation in the pattern."},
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Filters carry visible labels (\"Status\", \"Object\") and the toggle group shows visible \"All\"/\"Unread\" text."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Header, filters, then grouped lists in DOM and visual order (notifications-inbox.tsx:257-350); rows keep icon, title, time, menu order."},
-      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: an always-mounted sr-only aria-live paragraph carries the result text after filter changes."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: an always-mounted sr-only aria-live paragraph carries the result text after filter changes."},
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: notification descriptions (ListItem). Short interface labels (headers, nav, section labels) wrap instead."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."}
     },
     "NumberField": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Arbitrary quantities; no input purpose applies."},
@@ -1064,7 +1085,8 @@
       "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input is validated; an empty filter result is shown as an EmptyState, not as an input error."},
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Search shows a magnifier icon and an \"Order number or item\" hint, and the status Select shows its value (\"All statuses\"); both have aria-labels (lines 91, 109)."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Row grid (order-history.tsx:159) places summary, total, badge, Details in DOM order; the `@2xl:order-none` on line 167 is a no-op (no base order class) and can be removed."},
-      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: \"Showing X of Y\" is aria-live=polite, so Show more is followed by the new count."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: \"Showing X of Y\" is aria-live=polite, so Show more is followed by the new count."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."}
     },
     "OrderReview": {
       "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "\"Edit\" is a standalone control in each group header (not inline in running text) and the discount is labelled \"Discount\" with a minus sign, not color only."},
@@ -1228,7 +1250,8 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Each row is a label cell followed by its control cell, in DOM and visual order (property-grid.tsx:114-133)."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Composes TextField, Select, NumberField, TextArea and Switch, whose boundaries use border-border (3.00:1 light / 3.01:1 dark). The grid itself adds only decorative Separators (property-grid.tsx:134-138)."},
       "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed: new per-row `error` shows under the control with the error icon, sets aria-invalid and is linked with the description (now with an id) by aria-describedby; custom renders receive invalid/describedBy. Story With Error."},
-      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Row errors show text with FieldErrorIcon under the control (property-grid.tsx:142-147); switches show on/off by thumb position and icon (Switch); read-only values are text. No state is carried by color alone."}
+      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Row errors show text with FieldErrorIcon under the control (property-grid.tsx:142-147); switches show on/off by thumb position and icon (Switch); read-only values are text. No state is carried by color alone."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."}
     },
     "Prose": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Typographic styles only (styles/prose.css). No order, float or reverse rules."}
@@ -1238,7 +1261,8 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Named by its title."},
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Desktop: in-flow panel; phones: modal Dialog."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "An in-flow flex sibling with its children in order (push-sheet.tsx:126-145); nothing is reordered, its position is where the consumer mounts it."},
-      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Draws no controls (PushSheetClose is unstyled, consumer-supplied); the panel edge and header/footer rules are region dividers."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Draws no controls (PushSheetClose is unstyled, consumer-supplied); the panel edge and header/footer rules are region dividers."},
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: notification descriptions (ListItem). Short interface labels (headers, nav, section labels) wrap instead."}
     },
     "QrCode": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"QR code\", loading and error states."},
@@ -1297,7 +1321,8 @@
       "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Each field gets aria-invalid, aria-describedby pointing at its FieldError text, and the library error prop. With 2+ errors a focused summary of links appears; with one error, focus goes to that field."},
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Every kind renders a visible Label with a required or optional mark; radios use aria-labelledby on the Label; descriptions are linked by aria-describedby."},
       "3.3.8": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Not a sign-in step, but its password field uses the library Password with autoComplete=\"new-password\" and has no paste blocking, so password managers and paste work."},
-      "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "No order-*, *-reverse or grid placement utilities in resource-form.tsx; switch rows put label/description/error before the Switch in DOM and on screen (line 299-306)."}
+      "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "No order-*, *-reverse or grid placement utilities in resource-form.tsx; switch rows put label/description/error before the Switch in DOM and on screen (line 299-306)."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."}
     },
     "Reveal": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Reveal/RevealGroup keep children in DOM order and only animate opacity, a 14px translate, scale or blur (reveal.tsx:24-29); the stagger follows DOM order (line 82)."}
@@ -1335,7 +1360,8 @@
       "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input validation; the only inputs are selection checkboxes and a sort select."},
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Checkboxes have visible \"Select all\"/\"n selected\" text or sit beside the item title; the sort Select has no visible label but its visible value (\"Recently saved\", \"Price: low to high\") states the order (consider adding visible \"Sort by\")."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Checkbox, image, text column, Remove follow DOM order (saved-items.tsx:193-239); no reordering utilities."},
-      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Removals are confirmed through undoToast (saved-items.tsx:85), which renders in sonner's aria-live region; sort and selection changes move no content that needs a message."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Removals are confirmed through undoToast (saved-items.tsx:85), which renders in sonner's aria-live region; sort and selection changes move no content that needs a message."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."}
     },
     "Scheduler": {
       "2.2.1": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "A 60 s interval moves the \"now\" line; nothing is limited."},
@@ -1349,7 +1375,8 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "DOM order follows the visual order in every view. Event chips are positioned absolutely but rendered in start-time order (scheduler.tsx:134). On phones the range heading moves under the buttons with max-sm:order-last (:261), so it is read before the view switch while shown after it. That doesn't change meaning."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "The phone week list shows a visible '· Today' after the current day (TodayMark), not only the link color. Event tone has a text equivalent by rule: scheduler.guidelines.tsx a11y says the kind goes in the title or details (Maria agreed, 2026-10-26)."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Dark: the today circle (week/day header and month) has a 1px border-primary edge (5.95:1); the now line and dot use icon-danger (4.34:1 dark, 6.79:1 light; same color as bg-danger in light)."},
-      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The range heading is aria-live=polite (scheduler.tsx:261), so Today, previous/next and view changes are announced without moving focus. The component emits no other result messages."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The range heading is aria-live=polite (scheduler.tsx:261), so Today, previous/next and view changes are announced without moving focus. The component emits no other result messages."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."}
     },
     "ScrollArea": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Named by the app."},
@@ -1391,7 +1418,10 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The ItemIndicator is absolutely placed at the end (select.tsx:219) but is a decorative check; text, description and badge follow DOM order."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed in 5e5bd67: the Invalid story pairs the danger trigger with a visible FieldError tied by aria-describedby (select.stories.tsx:256-273) and its play test checks the description. The highlighted option is a 1.4.11 deviation, not a 1.4.1 cue."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Trigger border border-border 3.00:1 (select.tsx:70), check icon-primary 5.2:1. The highlighted-option fill (213) is listed as an accepted deviation."},
-      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed in the docs: the Invalid story shows the pattern, <Field invalid> + FieldError linked by aria-describedby, with a play test on aria-invalid and the description. FieldError now has the error icon."}
+      "3.3.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed in the docs: the Invalid story shows the pattern, <Field invalid> + FieldError linked by aria-describedby, with a play test on aria-invalid and the description. FieldError now has the error icon."},
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: the chosen value in the trigger and option text. Short interface labels (headers, nav, section labels) wrap instead."},
+      "1.4.4": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: the chosen value in the trigger and option text. Short interface labels (headers, nav, section labels) wrap instead."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."}
     },
     "Separator": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "A decorative Radix separator (separator.tsx:25-29). No content to reorder."}
@@ -1400,7 +1430,8 @@
       "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Fixed 2026-10-24 (Maria's call): the active SidebarItem is semibold with a 2px bar at its start edge (also when collapsed), not only a tinted fill."},
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Fixed 2026-10-22: item actions say \"More actions for {item}\" (new actionsLabel prop to override)."},
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Sticky rail in its own column; phones: modal."},
-      "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Brand, nav sections and items render in visual order; the hover actions button is absolutely positioned at the item end and also follows the item in DOM (sidebar.tsx:341-361)."}
+      "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Brand, nav sections and items render in visual order; the hover actions button is absolutely positioned at the item end and also follows the item in DOM (sidebar.tsx:341-361)."},
+      "1.4.4": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: the account name in the With account story; the brand and section labels wrap. Short interface labels (headers, nav, section labels) wrap instead."}
     },
     "SignUpForm": {
       "1.3.5": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "autoComplete=\"email\" on the email field and \"new-password\" on the password (sign-up-form.tsx:88,103)."},
@@ -1420,7 +1451,8 @@
       "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The language Select is a Radix listbox: the value changes only when an option is chosen with Enter or a click (arrow keys on the closed trigger open it), so switching is a deliberate action, not a side effect of browsing."},
       "3.3.1": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "It has no validated input."},
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The language Select is labelled by the visible \"Language\" text through aria-labelledby (site-footer.tsx:139-144)."},
-      "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Brand column, link grid and bottom bar follow DOM order (site-footer.tsx:76, 107, 127)."}
+      "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Brand column, link grid and bottom bar follow DOM order (site-footer.tsx:76, 107, 127)."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."}
     },
     "Skeleton": {
       "1.3.2": {"result": "n/a", "date": "2026-10-26", "by": "Claude (code review)", "note": "Decorative, aria-hidden placeholder with no content (skeleton.tsx:16-27), so nothing to sequence."},
@@ -1560,7 +1592,8 @@
       "3.3.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Email errors (\"Enter an email address.\", malformed, already a member/invited) appear as text with role=alert and are linked by aria-invalid plus aria-describedby (team-members.tsx:265-272), and submit focuses the field."},
       "3.3.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "The invite has visible \"Email address\" and \"Role\" labels; per-row role selects sit under the \"Role\" column header and are named \"Role for {name}\"."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "No order-*, *-reverse or grid placement utilities; invite form, members table and invite rows (team-members.tsx:253, 405) stack and lay out in DOM order."},
-      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Invite/role/resend results go through sonner toasts (team-members.tsx:184, 194, 234) and removals through undoToast (201, 218), all in sonner's aria-live polite region; the email error is role=\"alert\" (270)."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Invite/role/resend results go through sonner toasts (team-members.tsx:184, 194, 234) and removals through undoToast (201, 218), all in sonner's aria-live polite region; the email error is role=\"alert\" (270)."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on cut text (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."}
     },
     "Terminal": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Terminal output\", connection status."},
@@ -1667,7 +1700,8 @@
       "3.2.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Typing opens the results popover (an allowed combobox popup)."},
       "3.3.2": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Search icon and ⌘K hint."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Children render in authored order; the search icon and the ⌘K hint are absolute decorations inside the field wrapper, in DOM order (topbar.tsx:187-231)."},
-      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The unread badge is a shape (a dot that appears) and is folded into the name as \", unread\" (topbar.tsx:308, 319); no other color-only state."}
+      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The unread badge is a shape (a dot that appears) and is folded into the name as \", unread\" (topbar.tsx:308, 319); no other color-only state."},
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (decision 2026-11-01: long user data truncates with the whole text in a tooltip on hover and on keyboard focus of its control; cut text with no focusable control becomes a tab stop). a11y-auto at 200% / WCAG spacing: a Select trigger in the With buttons story. Short interface labels (headers, nav, section labels) wrap instead."}
     },
     "Tree": {
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Items labelled by their own text."},
@@ -1707,6 +1741,34 @@
       "3.2.2": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "No input changes context; nav items act on click only and ThemeToggle changes the theme in place."},
       "3.3.2": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The pattern adds no inputs of its own."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Skip link is first in DOM and only fixed-positioned while focused (workspace-layout.tsx:137); the grid places Sidebar then main in DOM order (141)."}
+    },
+    "Cards": {
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "The cut text is inside a product picture (role=img; its alt carries the meaning, the picture scales as a whole), not page content: folder and item names in the Bookmarks screenshots."},
+      "1.4.4": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "The cut text is inside a product picture (role=img; its alt carries the meaning, the picture scales as a whole), not page content: folder and item names in the Bookmarks screenshots."}
+    },
+    "Hero": {
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "The cut text is inside a product picture (role=img; its alt carries the meaning, the picture scales as a whole), not page content: folder and recipe names in the product screenshot."},
+      "1.4.4": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "The cut text is inside a product picture (role=img; its alt carries the meaning, the picture scales as a whole), not page content: folder and recipe names in the product screenshot."}
+    },
+    "Scroll": {
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "The cut text is inside a product picture (role=img; its alt carries the meaning, the picture scales as a whole), not page content: folder names in the Rail screenshots."},
+      "1.4.4": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "The cut text is inside a product picture (role=img; its alt carries the meaning, the picture scales as a whole), not page content: folder names in the Rail screenshots."}
+    },
+    "Scroll effects": {
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "The cut text is inside a product picture (role=img; its alt carries the meaning, the picture scales as a whole), not page content: article titles and domains in the Deck/Tunnel screenshots."},
+      "1.4.4": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "The cut text is inside a product picture (role=img; its alt carries the meaning, the picture scales as a whole), not page content: article titles and domains in the Deck/Tunnel screenshots."}
+    },
+    "Card motion": {
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "The cut text is inside a product picture (role=img; its alt carries the meaning, the picture scales as a whole), not page content: folder names in the Fan/Folders slides (off-screen slides are also inert)."},
+      "1.4.4": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "The cut text is inside a product picture (role=img; its alt carries the meaning, the picture scales as a whole), not page content: folder names in the Fan/Folders slides (off-screen slides are also inert)."}
+    },
+    "FeatureSplit": {
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "The cut text is inside a product picture (role=img; its alt carries the meaning, the picture scales as a whole), not page content: a folder name in the live-demo screenshot."}
+    },
+    "TruncatedText": {
+      "1.3.2": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "One span; the tooltip is portalled and aria-hidden, so it adds nothing to the reading order."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Probe on Default and Inside a link: hover opens the bubble, moving the pointer onto it keeps it open, Escape closes it, keyboard focus (own tab stop or the owning link) opens it; it opens only while the text is cut."},
+      "2.4.11": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "The bubble sits above the text with a 6px offset; the probe measured no overlap with the focused text or link."}
     }
   },
   "deviations": {
@@ -1750,5 +1812,5 @@
     "File", "HelpIcon", "ListItem", "MessagePopup", "OptionCard", "Pagination", "PromptSuggestions", "Radio", "ScrollArea", "Slider",
     "Toaster", "Switch", "Table", "Tabs", "Terminal", "ThemeToggle", "Toggle", "ToggleGroup", "Toolbar", "Topbar", "Tree", "Sidebar",
     "Resizable", "NumberField", "Button", "DensityToggle"
-  ]
+  , "TruncatedText", "Metric"]
 }

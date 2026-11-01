@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import {  } from 'iconoir-react';
 import { KebabIconVertical } from './kebab-icon';
 import { cn } from '../../lib/utils';
+import { TruncatedText } from './truncated-text';
 import { Autocomplete, type AutocompleteOption } from './autocomplete';
 import { Badge, type BadgeTone, type BadgeSize } from './badge';
 import { Button, type ButtonProps } from './button';
@@ -316,7 +317,7 @@ function UsageCell({ value, total, label, header }: Omit<UsageCellProps, 'kind'>
   if (total == null) {
     return (
       <div className="flex w-full min-w-0 max-w-[10rem] items-baseline gap-1 font-body text-body-m">
-        {label != null && <span className="truncate font-medium tabular-nums text-[var(--color-text-text)]">{label}</span>}
+        {label != null && <span className="min-w-0 break-words font-medium tabular-nums text-[var(--color-text-text)]">{label}</span>}
         <span className="shrink-0 text-[var(--color-text-text-subtler)]">{t.dataTableCell.unlimited}</span>
       </div>
     );
@@ -328,7 +329,7 @@ function UsageCell({ value, total, label, header }: Omit<UsageCellProps, 'kind'>
     <div className="flex w-full min-w-0 max-w-[10rem] flex-col gap-1">
       <div className="flex items-center justify-between gap-2 font-body text-body-m">
         <span className={cn('font-medium tabular-nums', tone)}>{pct}%</span>
-        {label != null && <span className="truncate text-[var(--color-text-text-subtler)]">{label}</span>}
+        {label != null && <span className="min-w-0 break-words text-end text-[var(--color-text-text-subtler)]">{label}</span>}
       </div>
       <Progress value={pct} aria-label={ariaLabel} />
     </div>
@@ -438,14 +439,14 @@ function BadgesCell({ badges, collapsedLabel, size }: { badges: BadgeCellBadge[]
   );
 }
 
-/** The text stack shared by `text`, `mono` and `primary`: value plus an optional second line. Both truncate rather than wrap. */
+/** The text stack shared by `text`, `mono` and `primary`: value plus an optional second line. Both truncate rather than wrap; a cut line shows the whole text in a tooltip. */
 function TextStack({ value, secondary, secondaryMono, below, valueClassName }: SecondLineProps & { value: ReactNode; below?: ReactNode; valueClassName?: string }) {
-  const line = <span className={cn('truncate font-body text-body-m', valueClassName)}>{value}</span>;
+  const line = <TruncatedText className={cn('font-body text-body-m', valueClassName)}>{value}</TruncatedText>;
   if (secondary == null && below == null) return line;
   return (
     <span className="flex min-w-0 flex-col gap-0.5">
       {line}
-      {secondary != null && <span className={cn('truncate font-body text-body-s font-normal text-[var(--color-text-text-subtler)]', secondaryMono && 'font-mono')}>{secondary}</span>}
+      {secondary != null && <TruncatedText className={cn('font-body text-body-s font-normal text-[var(--color-text-text-subtler)]', secondaryMono && 'font-mono')}>{secondary}</TruncatedText>}
       {below}
     </span>
   );
@@ -792,7 +793,7 @@ function cellControl(props: DataTableCellValueProps, describedBy: string | undef
       return (
         <span className="flex min-w-0 items-center gap-2 font-body text-body-m">
           <StatusDot tone={props.tone} />
-          <span className="truncate">{props.label}</span>
+          <span className="min-w-0 break-words">{props.label}</span>
         </span>
       );
     case 'badge':
@@ -829,9 +830,9 @@ function cellControl(props: DataTableCellValueProps, describedBy: string | undef
         <span className="flex min-w-0 items-center gap-3">
           {props.leading && <LeadingSlot>{props.leading}</LeadingSlot>}
           <span className="flex min-w-0 flex-col gap-y-0.5">
-            <span className={cn('truncate font-body text-body-m', props.mono ? 'font-mono font-code-medium' : 'font-medium')}>{props.value}</span>
+            <TruncatedText className={cn('font-body text-body-m', props.mono ? 'font-mono font-code-medium' : 'font-medium')}>{props.value}</TruncatedText>
             {props.secondary != null && (
-              <span className={cn('truncate font-body text-body-s font-normal text-[var(--color-text-text-subtler)]', props.secondaryMono && 'font-mono')}>{props.secondary}</span>
+              <TruncatedText className={cn('font-body text-body-s font-normal text-[var(--color-text-text-subtler)]', props.secondaryMono && 'font-mono')}>{props.secondary}</TruncatedText>
             )}
             {props.below != null && <span>{props.below}</span>}
           </span>

@@ -3,6 +3,7 @@
 import { useState, useId, useRef } from 'react';
 import { Calendar as CalendarIcon, NavArrowDown, Xmark } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { TruncatedText } from './truncated-text';
 import { Calendar } from './calendar';
 import { Popover, PopoverTrigger, PopoverContent } from './popover';
 import { useTheyaI18n } from '../../lib/i18n';
@@ -145,10 +146,10 @@ export function DatePicker({
             )}
           >
             <CalendarIcon />
-            <span
+            <TruncatedText
               id={valueId}
               className={cn(
-                'min-w-0 flex-1 truncate text-start',
+                'flex-1 text-start',
                 // The placeholder branch set its own explicit color, which
                 // otherwise always wins over the trigger's inherited
                 // text-danger — same "placeholder ignores invalid" bug as
@@ -158,7 +159,7 @@ export function DatePicker({
               )}
             >
               {selected ? label : placeholder}
-            </span>
+            </TruncatedText>
           </button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start" sheetTitle={ariaLabel ?? placeholder} sheetClassName="items-center pt-0">

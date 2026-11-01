@@ -14,6 +14,7 @@ import {
   SidebarItem,
   SidebarFooter,
 } from './sidebar';
+import { TruncatedText } from './truncated-text';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from './dropdown-menu';
 import { Avatar, AvatarFallback } from './avatar';
 import { sidebarGuidelines } from './sidebar.guidelines';
@@ -196,7 +197,7 @@ function AccountLayout() {
                     <AvatarFallback>MS</AvatarFallback>
                   </Avatar>
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate font-body text-body-m font-medium text-[var(--color-text-text)]">Maria Smith</span>
+                    <TruncatedText className="font-body text-body-m font-medium text-[var(--color-text-text)]">Maria Smith</TruncatedText>
                     <span className="block truncate font-body text-body-xs text-[var(--color-text-text-subtler)]">Design system specialist</span>
                   </span>
                   <KebabIconHorizontal className="shrink-0 text-[var(--color-text-text)]" />

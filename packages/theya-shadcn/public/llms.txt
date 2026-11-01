@@ -1,6 +1,6 @@
 # Theya
 
-> Theya is a React design system built on shadcn/ui (Radix + Tailwind v4). Package `@theya/shadcn` v0.1.0, 160 components, each with use-guidelines (when to use, when not and what instead, anatomy, do/don’t, accessibility) and typed props.
+> Theya is a React design system built on shadcn/ui (Radix + Tailwind v4). Package `@theya/shadcn` v0.1.0, 161 components, each with use-guidelines (when to use, when not and what instead, anatomy, do/don’t, accessibility) and typed props.
 
 Rules for building UI with Theya:
 
@@ -102,6 +102,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [HelpIcon](./?path=/docs/labels-helpicon--docs): One line of optional background next to a label, a column header or a stat: what a term means, why a setting exists.
 - [Kbd](./?path=/docs/labels-kbd--docs): Showing a keyboard key or shortcut in text, menus, tooltips and help: ⌘ K, Esc, ?.
 - [ToneIcon](./?path=/docs/labels-toneicon--docs): Leading a row or card whose meaning is a tone: a warning in a list, a success step, an info note.
+- [TruncatedText](./?path=/docs/labels-truncatedtext--docs) (beta): Long user data on one line where wrapping would break the layout: file names, domains, list-row descriptions, a chosen value in a trigger.
 
 ## Layout
 

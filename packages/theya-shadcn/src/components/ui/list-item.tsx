@@ -3,6 +3,7 @@
 import { useId } from 'react';
 import type { ReactNode, MouseEventHandler, KeyboardEventHandler } from 'react';
 import { cn } from '../../lib/utils';
+import { TruncatedText } from './truncated-text';
 import { useDecorativeSvgs } from '../../lib/use-decorative-svgs';
 
 /**
@@ -75,8 +76,8 @@ export function ListItem({ className, size = 'md', leading, title, description, 
     <>
       {leading != null && <span ref={leadingRef} data-slot="list-item-leading" className="flex min-h-[1lh] shrink-0 items-center text-[var(--color-icon-icon-subtle)] [&_svg:not([class*='size-'])]:size-4">{leading}</span>}
       <span data-slot="list-item-content" className="flex min-w-0 flex-1 flex-col gap-0.5 text-start">
-        {title != null && <span id={titleId} data-slot="list-item-title" className="truncate font-medium [[data-slot=list-item][data-selected]_&]:font-semibold">{title}</span>}
-        {description != null && <span id={descriptionId} data-slot="list-item-description" className="truncate font-body text-body-s text-[var(--color-text-text-subtler)]">{description}</span>}
+        {title != null && <TruncatedText id={titleId} data-slot="list-item-title" className="font-medium [[data-slot=list-item][data-selected]_&]:font-semibold">{title}</TruncatedText>}
+        {description != null && <TruncatedText id={descriptionId} data-slot="list-item-description" className="font-body text-body-s text-[var(--color-text-text-subtler)]">{description}</TruncatedText>}
         {children}
       </span>
     </>

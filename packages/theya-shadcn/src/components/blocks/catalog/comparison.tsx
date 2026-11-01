@@ -88,7 +88,7 @@ export function CompareBar({ items, max = 4, onRemove, onClear, onCompare, class
           return (
             <li key={item.id} className="flex h-10 min-w-0 items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] ps-1 pe-0.5">
               <ItemIcon icon={item.icon} size="sm" />
-              <span className="min-w-0 flex-1 truncate font-body text-body-s font-medium text-[var(--color-text-text)]">{item.name}</span>
+              <span className="min-w-0 flex-1 break-words font-body text-body-s font-medium text-[var(--color-text-text)]">{item.name}</span>
               <Button
                 data-compare-remove=""
                 appearance="ghost"

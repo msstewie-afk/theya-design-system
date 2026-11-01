@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { cn } from '../../lib/utils';
+import { TruncatedText } from './truncated-text';
 
 /**
  * A compact single-line "value + label" row with an optional leading
@@ -48,10 +49,10 @@ export function Metric({ className, icon, value, label, description, actions, ..
               of " galleries") renders glued to the value ("8galleries"). */}
           <span className="flex min-w-0 items-baseline gap-0">
             <span data-slot="metric-value" className="shrink-0 font-body text-heading-xs font-semibold leading-none tabular-nums text-[var(--color-text-text)]">{value}</span>
-            <span data-slot="metric-label" className="min-w-0 truncate font-body text-body-m text-[var(--color-text-text-subtler)]">{label}</span>
+            <span data-slot="metric-label" className="min-w-0 break-words font-body text-body-m text-[var(--color-text-text-subtler)]">{label}</span>
           </span>
         </div>
-        {description && <span data-slot="metric-description" className="truncate font-body text-body-xs text-[var(--color-text-text-subtler)]">{description}</span>}
+        {description && <TruncatedText data-slot="metric-description" className="font-body text-body-xs text-[var(--color-text-text-subtler)]">{description}</TruncatedText>}
       </div>
       {actions && <div data-slot="metric-actions" className="relative z-10 flex shrink-0 items-center gap-2 text-[var(--color-text-text-subtler)]">{actions}</div>}
     </div>

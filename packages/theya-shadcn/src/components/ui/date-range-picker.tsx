@@ -4,6 +4,7 @@ import { useState, useId, useRef } from 'react';
 import { Calendar as CalendarIcon, NavArrowDown, Xmark } from 'iconoir-react';
 import type { DateRange } from 'react-day-picker';
 import { cn } from '../../lib/utils';
+import { TruncatedText } from './truncated-text';
 import { Calendar } from './calendar';
 import { dateFieldTriggerClassName } from './date-picker';
 import { Popover, PopoverTrigger, PopoverContent } from './popover';
@@ -102,15 +103,15 @@ export function DateRangePicker({
             className={cn(dateFieldTriggerClassName, showClearControl ? 'pe-16' : 'pe-9')}
           >
             <CalendarIcon />
-            <span
+            <TruncatedText
               id={valueId}
               className={cn(
-                'min-w-0 flex-1 truncate text-start',
+                'flex-1 text-start',
                 !selected?.from && (isError ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-placeholder)]'),
               )}
             >
               {selected?.from ? label : placeholder}
-            </span>
+            </TruncatedText>
           </button>
         </PopoverTrigger>
         <PopoverContent
