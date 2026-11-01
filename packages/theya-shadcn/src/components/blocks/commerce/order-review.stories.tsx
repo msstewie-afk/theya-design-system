@@ -19,15 +19,15 @@ const meta: Meta<typeof OrderReview> = {
     onPlaceOrder: fn(),
     legal: 'By paying you agree to the Terms of Service. Your plan renews yearly until you cancel; we email you 14 days before.',
     sections: [
-      { id: 'account', title: 'Account', onEdit: fn(), rows: [{ term: 'Email', value: 'dana@seashell.dev' }] },
+      { id: 'account', title: 'Account', onEdit: fn(), rows: [{ term: 'Email', value: 'thea@aether.photo' }] },
       {
         id: 'options',
         title: 'Plan options',
         onEdit: fn(),
         rows: [
           { term: 'Billing', value: 'Yearly' },
-          { term: 'Region', value: 'Frankfurt' },
-          { term: 'Backups', value: 'Daily, kept 30 days' },
+          { term: 'Studio', value: 'Selene Weddings' },
+          { term: 'Archive', value: 'Originals kept 1 year' },
         ],
       },
       { id: 'payment', title: 'Payment', onEdit: fn(), rows: [{ term: 'Card', value: 'Visa ending 4242, expires 08 / 29' }] },

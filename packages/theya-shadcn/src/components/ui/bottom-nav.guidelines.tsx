@@ -50,6 +50,7 @@ export const bottomNavGuidelines: ComponentGuidelines = {
     <>The current item has <C>aria-current="page"</C> and is marked by more than color: the pill and a semibold label.</>,
     'The badge count is part of the item’s name: “Inbox, 3 new”.',
     'Items are 68px tall and share the width, so targets stay large at 360px.',
+    'With 200% text or wider spacing a label wraps to a second line (breaking inside a long word) instead of being cut off; the bar grows to fit.',
     'Its height is reserved as scroll padding, so a focused field never hides under it.',
   ],
 };

@@ -13,7 +13,7 @@ export const dashboardOverviewGuidelines: ComponentGuidelines = {
   anatomy: [
     { part: 'Needs attention', description: 'the few things to act on now, each with its action.', optional: true },
     { part: 'Key numbers', description: 'four Stat cards.' },
-    { part: 'Traffic', description: 'an area chart of requests.' },
+    { part: 'Views', description: 'an area chart of gallery views.' },
     { part: 'Usage', description: 'a bar per metered resource, with an optional breakdown.' },
     { part: 'Recent activity', description: 'a Timeline of the latest events.' },
   ],

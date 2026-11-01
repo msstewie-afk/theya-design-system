@@ -4,7 +4,7 @@ import type { ComponentGuidelines } from '../../../docs/guidelines';
 export const searchResultsGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
-    'A full results page across types — domains, databases, settings, help — with the query kept in the field to refine it.',
+    'A full results page across types — galleries, clients, settings, help — with the query kept in the field to refine it.',
     'Narrowing results to one type, with a count on every scope.',
   ],
   whenNotToUse: [

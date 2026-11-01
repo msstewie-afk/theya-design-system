@@ -4,7 +4,7 @@ import type { ComponentGuidelines } from '../../../docs/guidelines';
 export const pricedOptionsGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
-    'One choice where every option has its own cost: billing period, region, backup retention, support level.',
+    'One choice where every option has its own cost: billing period, shoot location, archive retention, support level.',
     'Add-ons in a checkout, priced as extras (“+$4 / mo”) or as full prices.',
   ],
   whenNotToUse: [

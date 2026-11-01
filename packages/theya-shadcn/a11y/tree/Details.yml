@@ -2,19 +2,19 @@
 
 # Default (patterns-details--default)
 - banner:
-  - heading "shop.seashell.dev" [level=1]
-  - text: Running
-  - paragraph: eu-west-1 Created Mar 2026 v2.4.0
-  - button "Restart"
-  - button "Deploy"
-- group "Visits": Visits 128k
-- group "Uptime": "Uptime healthy: 99.98%"
-- group "Replicas": Replicas 3
+  - heading "Golden hour" [level=1]
+  - text: Published
+  - paragraph: Helios Studio Shot Mar 2026 helios.aether.photo
+  - button "Share"
+  - button "Export"
+- group "Photos": Photos 248
+- group "Views": Views 12.8k
+- group "Downloads": Downloads 342
 - group "Storage": Storage 4.2 GB
-- paragraph: of 10 GB
+- paragraph: of 384 GB
 - tablist:
   - tab "Overview"
-  - tab "Logs" [selected]
+  - tab "Photos" [selected]
   - tab "Settings"
-- tabpanel "Logs":
-  - paragraph: Logs content goes here.
+- tabpanel "Photos":
+  - paragraph: Photos content goes here.

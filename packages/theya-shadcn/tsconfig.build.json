@@ -1,0 +1,17 @@
+{
+  // Package build (scripts/build-package.mjs): compiles the library sources
+  // file by file into dist/, so every module keeps its own 'use client'
+  // directive (a bundled single file would lose the per-module boundaries).
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    "declarationMap": false,
+    "sourceMap": false,
+    "jsx": "react-jsx"
+  },
+  "include": ["src/components", "src/lib"],
+  "exclude": ["src/**/*.stories.tsx", "src/**/*.guidelines.tsx", "src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.mdx"]
+}

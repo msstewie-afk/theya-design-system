@@ -37,51 +37,51 @@ type Story = StoryObj<typeof ResourceForm>;
  * including a Select, which react-hook-form alone couldn't focus.
  */
 export const CreateDatabase: Story = {
-  name: 'Create database',
+  name: 'Create gallery',
   args: { onSubmit: fn(), onCancel: fn() },
   render: (args) => (
     <div className="p-6">
       <ResourceForm
-        title="Create database"
-        description="Provision a new managed database for this project."
+        title="Create gallery"
+        description="Set up a new gallery to share with a client."
         sections={[
           {
             fields: [
-              { name: 'name', label: 'Name', required: true, placeholder: 'acme_prod', mono: true },
+              { name: 'name', label: 'Name', required: true, placeholder: 'Golden hour' },
               {
-                name: 'engine',
-                label: 'Engine',
+                name: 'studio',
+                label: 'Studio',
                 kind: 'select',
                 required: true,
-                placeholder: 'Select an engine',
+                placeholder: 'Select a studio',
                 options: [
-                  { value: 'postgres', label: 'PostgreSQL 16' },
-                  { value: 'mysql', label: 'MySQL 8' },
-                  { value: 'redis', label: 'Redis 7' },
+                  { value: 'helios', label: 'Helios Studio' },
+                  { value: 'selene', label: 'Selene Weddings' },
+                  { value: 'eos', label: 'Eos Portraits' },
                 ],
               },
-              { name: 'storage', label: 'Storage (GB)', kind: 'number', required: true, min: 1, max: 500, defaultValue: 10 },
-              { name: 'description', label: 'Description', kind: 'textarea', placeholder: 'What is this database for?', description: 'Shown to teammates on the databases list.' },
-              { name: 'publicAccess', label: 'Public access', kind: 'checkbox', description: 'Allow connections from outside the private network.' },
+              { name: 'storage', label: 'Storage (GB)', kind: 'number', required: true, min: 1, max: 384, defaultValue: 10 },
+              { name: 'description', label: 'Description', kind: 'textarea', placeholder: 'What is this gallery for?', description: 'Shown to teammates on the galleries list.' },
+              { name: 'allowDownloads', label: 'Allow downloads', kind: 'checkbox', description: 'Clients can download full-resolution files from the portal.' },
             ],
           },
         ]}
         onSubmit={args.onSubmit}
         onCancel={args.onCancel}
-        submitLabel="Create database"
+        submitLabel="Create gallery"
       />
     </div>
   ),
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    const submit = canvas.getByRole('button', { name: 'Create database' });
+    const submit = canvas.getByRole('button', { name: 'Create gallery' });
     const name = canvas.getByRole('textbox', { name: /^Name/ });
-    // Three engines: radios, not a Select (up to 5 options show them all).
-    const engine = canvas.getByRole('radiogroup', { name: /^Engine/ });
+    // Three studios: radios, not a Select (up to 5 options show them all).
+    const studio = canvas.getByRole('radiogroup', { name: /^Studio/ });
 
     await userEvent.click(submit);
     await waitFor(() => expect(name).toHaveAccessibleDescription('Name is required.'));
-    await expect(engine).toHaveAccessibleDescription('Select an engine.');
+    await expect(studio).toHaveAccessibleDescription('Select a studio.');
     await expect(name).toHaveAttribute('aria-invalid', 'true');
     await expect(args.onSubmit).not.toHaveBeenCalled();
 
@@ -93,19 +93,19 @@ export const CreateDatabase: Story = {
     await userEvent.click(within(summary).getByRole('link', { name: 'Name is required.' }));
     await expect(name).toHaveFocus();
 
-    // Name fixed -> one error left: no summary, focus goes to the Engine radios.
-    await userEvent.type(name, 'acme_prod');
+    // Name fixed -> one error left: no summary, focus goes to the Studio radios.
+    await userEvent.type(name, 'Golden hour');
     await userEvent.click(submit);
-    await waitFor(() => expect(canvas.getByRole('radio', { name: 'PostgreSQL 16' })).toHaveFocus());
+    await waitFor(() => expect(canvas.getByRole('radio', { name: 'Helios Studio' })).toHaveFocus());
     await expect(canvas.queryByText(/Fix \d+ fields/)).toBeNull();
     await expect(name).not.toHaveAttribute('aria-invalid', 'true');
 
-    await userEvent.click(canvas.getByRole('radio', { name: 'PostgreSQL 16' }));
-    await waitFor(() => expect(engine).not.toHaveAccessibleDescription('Select an engine.'));
-    await userEvent.click(canvas.getByRole('checkbox', { name: /^Public access/ }));
+    await userEvent.click(canvas.getByRole('radio', { name: 'Helios Studio' }));
+    await waitFor(() => expect(studio).not.toHaveAccessibleDescription('Select a studio.'));
+    await userEvent.click(canvas.getByRole('checkbox', { name: /^Allow downloads/ }));
     await userEvent.click(submit);
     await waitFor(() =>
-      expect(args.onSubmit).toHaveBeenCalledWith({ name: 'acme_prod', engine: 'postgres', storage: 10, description: '', publicAccess: true }),
+      expect(args.onSubmit).toHaveBeenCalledWith({ name: 'Golden hour', studio: 'helios', storage: 10, description: '', allowDownloads: true }),
     );
 
     await userEvent.click(canvas.getByRole('button', { name: 'Cancel' }));
@@ -124,9 +124,9 @@ export const Sectioned: Story = {
           {
             title: 'Account',
             fields: [
-              { name: 'email', label: 'Email', kind: 'email', required: true, placeholder: 'you@seashell.dev' },
+              { name: 'email', label: 'Email', kind: 'email', required: true, placeholder: 'you@aether.photo' },
               { name: 'password', label: 'Password', kind: 'password', required: true },
-              { name: 'recoveryEmail', label: 'Recovery email', kind: 'email', placeholder: 'backup@example.com' },
+              { name: 'recoveryEmail', label: 'Recovery email', kind: 'email', placeholder: 'personal@example.com' },
             ],
           },
           {
@@ -153,7 +153,7 @@ export const Sectioned: Story = {
   ),
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    await userEvent.type(canvas.getByRole('textbox', { name: /^Email/ }), 'new@seashell.dev');
+    await userEvent.type(canvas.getByRole('textbox', { name: /^Email/ }), 'elio@aether.photo');
     await userEvent.type(canvas.getByLabelText(/^Password/), 'hunter2-hunter2');
     await userEvent.click(canvas.getByRole('radio', { name: 'Viewer' }));
 
@@ -168,7 +168,7 @@ export const Sectioned: Story = {
     await userEvent.clear(recovery);
     await userEvent.click(canvas.getByRole('button', { name: 'Save' }));
     await waitFor(() =>
-      expect(args.onSubmit).toHaveBeenCalledWith({ email: 'new@seashell.dev', password: 'hunter2-hunter2', recoveryEmail: '', role: 'viewer' }),
+      expect(args.onSubmit).toHaveBeenCalledWith({ email: 'elio@aether.photo', password: 'hunter2-hunter2', recoveryEmail: '', role: 'viewer' }),
     );
   },
 };

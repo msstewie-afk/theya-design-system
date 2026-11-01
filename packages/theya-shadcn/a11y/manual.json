@@ -325,6 +325,11 @@
       "3.3.2": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "It has no inputs to label."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Plain flex/grid flow (billing-usage.tsx:170 grid-cols-1/2/3) with no order-*, reverse or absolute text; reading order matches the visual order."}
     },
+    "BottomNav": {
+      "1.4.1": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The current item is marked by a semibold label and a tonal pill behind the icon as well as color, plus aria-current=\"page\" (bottom-nav.tsx:97,109-110); the badge is a count or dot shape, and its meaning is in the name (\", 3 new\")."},
+      "2.4.6": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "Every item has a required visible label (no icon-only variant, bottom-nav.tsx:64-65); the nav landmark is named \"Main\" by default and can be renamed."},
+      "2.4.11": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "useScrollPadding reserves the bar height + 8px as scroll-padding-bottom (bottom-nav.tsx:36). Probe: 40 links prepended to the Default story, Tab through all at 360x640 and 1024x700: no focused link overlaps the bar (0px)."}
+    },
     "Breadcrumb": {
       "2.4.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Text crumbs in a named nav; the overflow trigger says \"Show N more levels\"."},
       "2.4.11": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "Overflow menu is a modal DropdownMenu."},

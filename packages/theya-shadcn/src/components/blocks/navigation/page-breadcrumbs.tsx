@@ -29,7 +29,7 @@ const linkClass =
 
 /**
  * Two kinds of "where am I" in one row. The breadcrumb is always the
- * hierarchy (Home › Domains › seashell.shop › DNS) — never the click
+ * hierarchy (Home › Galleries › Selene Weddings › Golden hour) — never the click
  * history — so it reads the same however you arrived. When you arrived
  * from a search or a filtered list, a separate "Back to results" link
  * keeps that route. Long paths fold the middle into a menu, keeping the

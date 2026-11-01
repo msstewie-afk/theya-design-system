@@ -84,7 +84,7 @@ export function SearchResults({ index, defaultQuery = '', defaultScope = 'all', 
     target?.focus();
   });
   // The new view's tab panel: Radix makes it focusable and names it after
-  // its tab ("Domains 3"), so it says which view this is and how many.
+  // its tab ("Settings 6"), so it says which view this is and how many.
   const panel = () => rootRef.current?.querySelector<HTMLElement>('[role="tabpanel"]');
   // The link of the nth result in the one-type list.
   const resultLink = (n: number) => panel()?.querySelectorAll<HTMLElement>(':scope ul > li')[n]?.querySelector<HTMLElement>('a');

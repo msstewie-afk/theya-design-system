@@ -10,18 +10,18 @@ const meta: Meta<typeof CompletionScreen> = {
   tags: ['autodocs'],
   parameters: { guidelines: completionScreenGuidelines, layout: 'padded' },
   args: {
-    description: 'Your Pro plan is active and seashell.shop is registered.',
-    orderNumber: 'SH-20261003-4821',
-    email: 'dana@seashell.dev',
+    description: 'Your Pro plan is active and selene-weddings.aether.photo is live.',
+    orderNumber: 'AE-20261003-4821',
+    email: 'thea@aether.photo',
     onResendEmail: fn(),
     details: [
       { term: 'Plan', value: 'Pro, billed yearly · renews Oct 3, 2027' },
-      { term: 'Domain', value: 'seashell.shop · 1 year' },
+      { term: 'Client portal', value: 'selene-weddings.aether.photo · 1 year' },
       { term: 'Paid', value: '$448.80 with Visa ending 4242' },
     ],
-    primaryAction: { label: 'Open site dashboard', icon: <OpenNewWindow />, onClick: fn() },
+    primaryAction: { label: 'Open your galleries', icon: <OpenNewWindow />, onClick: fn() },
     secondaryActions: [
-      { label: 'Set up DNS', icon: <Globe /> },
+      { label: 'Set up client portal', icon: <Globe /> },
       { label: 'Download invoice', icon: <Download /> },
     ],
   },
@@ -37,7 +37,7 @@ export const Default: Story = {
     await expect(title).toBeVisible();
     // focusOnMount is off by default: an initial page doesn't steal focus.
     await expect(title).not.toHaveFocus();
-    await expect(canvas.getByText('dana@seashell.dev')).toBeVisible();
+    await expect(canvas.getByText('thea@aether.photo')).toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'send it again' }));
     await expect(args.onResendEmail).toHaveBeenCalledTimes(1);
   },
@@ -58,7 +58,7 @@ export const FocusOnMount: Story = {
     const title = canvas.getByRole('heading', { name: "You're all set" });
     await waitFor(() => expect(title).toHaveFocus());
     await expect(title).toHaveAttribute('tabindex', '-1');
-    await expect(title).toHaveAccessibleDescription('Your Pro plan is active and seashell.shop is registered.');
+    await expect(title).toHaveAccessibleDescription('Your Pro plan is active and selene-weddings.aether.photo is live.');
     // Re-renders don't pull focus back to the title.
     const resend = canvas.getByRole('button', { name: 'send it again' });
     await userEvent.click(resend);

@@ -7,6 +7,11 @@
   "sideEffects": [
     "**/*.css"
   ],
+  "files": [
+    "dist",
+    "CHANGELOG.md",
+    "THIRD-PARTY-NOTICES.md"
+  ],
   "exports": {
     "./ui/*": "./src/components/ui/*.tsx",
     "./ui/text-field-variants": "./src/components/ui/text-field-variants.ts",
@@ -23,9 +28,29 @@
     "./styles/*": "./src/styles/*",
     "./package.json": "./package.json"
   },
+  "publishConfig": {
+    "exports": {
+      "./ui/*": {
+        "types": "./dist/components/ui/*.d.ts",
+        "default": "./dist/components/ui/*.js"
+      },
+      "./blocks/*": {
+        "types": "./dist/components/blocks/*.d.ts",
+        "default": "./dist/components/blocks/*.js"
+      },
+      "./lib/*": {
+        "types": "./dist/lib/*.d.ts",
+        "default": "./dist/lib/*.js"
+      },
+      "./styles/*": "./dist/styles/*",
+      "./package.json": "./package.json"
+    }
+  },
   "scripts": {
     "storybook": "pnpm --filter @theya/tokens build && storybook dev -p 6008",
     "build-storybook": "pnpm --filter @theya/tokens build && storybook build",
+    "build": "pnpm --filter @theya/tokens build && node scripts/build-package.mjs",
+    "prepack": "node scripts/build-package.mjs",
     "test-storybook": "test-storybook --url http://localhost:6008 --testTimeout=30000",
     "test-storybook:dark": "THEYA_THEME=dark test-storybook --url http://localhost:6008 --testTimeout=30000",
     "test-visual": "THEYA_VISUAL=1 test-storybook --url http://localhost:6008 --testTimeout=30000",
@@ -145,6 +170,7 @@
   },
   "peerDependencies": {
     "react": "^18.3.0 || ^19.0.0",
-    "react-dom": "^18.3.0 || ^19.0.0"
+    "react-dom": "^18.3.0 || ^19.0.0",
+    "tailwindcss": "^4.0.0"
   }
 }

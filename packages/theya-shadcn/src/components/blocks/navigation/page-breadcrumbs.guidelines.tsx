@@ -4,7 +4,7 @@ import type { ComponentGuidelines } from '../../../docs/guidelines';
 export const pageBreadcrumbsGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
-    'Showing where a page sits in the hierarchy, the same however people arrived (Home › Domains › example.com › DNS).',
+    'Showing where a page sits in the hierarchy, the same however people arrived (Home › Galleries › Selene Weddings › Golden hour).',
     'When people arrive from a search or a filtered list and need a way back that keeps the query and filters.',
   ],
   whenNotToUse: [

@@ -27,7 +27,7 @@ export interface CancellationFlowProps {
   className?: string;
 }
 
-const REASONS = ['Too expensive', 'Missing a feature I need', 'Moving to another provider', 'Only needed it for a project', 'Something else'];
+const REASONS = ['Too expensive', 'Missing a feature I need', 'Moving to another platform', 'Only needed it for one project', 'Something else'];
 
 /**
  * Cancelling stays a clear three-step path: what happens and when, the
@@ -70,8 +70,8 @@ export function CancellationFlow({ planName = 'Pro', accessUntil = 'Nov 3, 2026'
   if (outcome) {
     const copy = {
       cancelled: { title: `${planName} plan cancelled`, description: `Everything keeps working until ${accessUntil}. You won't be charged again.` },
-      downgraded: { title: `Switched to ${downgradeTo?.name}`, description: `From your next bill you pay ${downgradeTo?.price}. Your sites keep running.` },
-      paused: { title: `${planName} plan paused`, description: `Billing stops for ${pauseMonths} months from ${accessUntil}; your sites and data are kept.` },
+      downgraded: { title: `Switched to ${downgradeTo?.name}`, description: `From your next bill you pay ${downgradeTo?.price}. Your galleries stay online.` },
+      paused: { title: `${planName} plan paused`, description: `Billing stops for ${pauseMonths} months from ${accessUntil}; your galleries and photos are kept.` },
     }[outcome];
     return (
       // Replaces the step whose button was just pressed: focus the result
@@ -102,15 +102,15 @@ export function CancellationFlow({ planName = 'Pro', accessUntil = 'Nov 3, 2026'
           <DescriptionList>
             <DescriptionItem>
               <DescriptionTerm>Until {accessUntil}</DescriptionTerm>
-              <DescriptionDetails>Nothing changes. Sites stay online and you keep every feature you paid for.</DescriptionDetails>
+              <DescriptionDetails>Nothing changes. Galleries stay online and you keep every feature you paid for.</DescriptionDetails>
             </DescriptionItem>
             <DescriptionItem>
               <DescriptionTerm>After that</DescriptionTerm>
-              <DescriptionDetails>Sites go offline. Files, databases and backups are kept for 30 days, then deleted.</DescriptionDetails>
+              <DescriptionDetails>Galleries go offline. Photos and the Mnemosyne archive are kept for 30 days, then deleted.</DescriptionDetails>
             </DescriptionItem>
             <DescriptionItem>
-              <DescriptionTerm>Domains</DescriptionTerm>
-              <DescriptionDetails>Stay yours. They renew separately, on their own dates.</DescriptionDetails>
+              <DescriptionTerm>Print licenses</DescriptionTerm>
+              <DescriptionDetails>Stay valid. Licenses your clients already bought don't expire.</DescriptionDetails>
             </DescriptionItem>
             <DescriptionItem>
               <DescriptionTerm>Charges</DescriptionTerm>
@@ -124,9 +124,9 @@ export function CancellationFlow({ planName = 'Pro', accessUntil = 'Nov 3, 2026'
         <>
           <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">If cost or timing is the issue, one of these may suit you better. Otherwise, carry on.</p>
           <OptionCardGroup aria-label="What would you like to do?" value={choice} onValueChange={(v) => setChoice(v as typeof choice)} className="sm:grid-cols-1">
-            {downgradeTo && <OptionCard value="downgrade" icon={<ArrowDown />} title={`Switch to ${downgradeTo.name}`} description={`Keep one site online for ${downgradeTo.price}.`} />}
+            {downgradeTo && <OptionCard value="downgrade" icon={<ArrowDown />} title={`Switch to ${downgradeTo.name}`} description={`Keep up to 3 galleries online for ${downgradeTo.price}.`} />}
             {/* Ternary, not &&: pauseMonths={0} would render a literal "0". */}
-            {pauseMonths ? <OptionCard value="pause" icon={<Pause />} title={`Pause for up to ${pauseMonths} months`} description="No charges while paused; sites go offline, data is kept." /> : null}
+            {pauseMonths ? <OptionCard value="pause" icon={<Pause />} title={`Pause for up to ${pauseMonths} months`} description="No charges while paused; galleries go offline, photos are kept." /> : null}
             <OptionCard value="cancel" icon={<Xmark />} title="Cancel the plan" description={`Access ends on ${accessUntil}.`} />
           </OptionCardGroup>
           <div className="flex flex-col gap-2">
@@ -153,7 +153,7 @@ export function CancellationFlow({ planName = 'Pro', accessUntil = 'Nov 3, 2026'
         <>
           <Alert tone="warning">
             <WarningTriangle />
-            <AlertDescription>{`Your sites go offline after ${accessUntil}. Files and backups are deleted 30 days later.`}</AlertDescription>
+            <AlertDescription>{`Your galleries go offline after ${accessUntil}. Photos and archive copies are deleted 30 days later.`}</AlertDescription>
           </Alert>
           <DescriptionList>
             <DescriptionItem>

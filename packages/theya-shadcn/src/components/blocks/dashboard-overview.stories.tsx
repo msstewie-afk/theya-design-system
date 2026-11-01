@@ -12,7 +12,7 @@ const meta: Meta<typeof DashboardOverview> = {
     docs: {
       description: {
         component:
-          "The first screen of an account: what needs attention first, then the key numbers, request traffic, usage and recent activity.",
+          "The first screen of an account: what needs attention first, then the key numbers, gallery views, usage and recent activity.",
       },
     },
     layout: 'fullscreen',
@@ -21,10 +21,10 @@ const meta: Meta<typeof DashboardOverview> = {
     title: { control: 'text', description: 'Page heading.', table: { category: 'Content' } },
     summary: { control: false, description: 'Subtitle line below the title.', table: { category: 'Content' } },
     attention: { control: false, description: 'Worst-first items needing action; the lede. Empty = healthy state.', table: { category: 'Content' } },
-    attentionTotal: { control: { type: 'number' }, description: 'Total count the attention badge is "n of" (e.g. all sites).', table: { category: 'Content' } },
+    attentionTotal: { control: { type: 'number' }, description: 'Total count the attention badge is "n of" (e.g. all galleries).', table: { category: 'Content' } },
     stats: { control: false, description: 'KPI cards (renders a 2-up / lg:4-up grid).', table: { category: 'Content' } },
-    requests: { control: false, description: 'AreaChart data points for the requests-over-time chart.', table: { category: 'Content' } },
-    requestsAriaLabel: { control: 'text', description: 'Accessible label for the requests chart.', table: { category: 'Content' } },
+    requests: { control: false, description: 'AreaChart data points for the gallery-views chart.', table: { category: 'Content' } },
+    requestsAriaLabel: { control: 'text', description: 'Accessible label for the gallery-views chart.', table: { category: 'Content' } },
     quotas: { control: false, description: 'Metered resource bars: one Progress bar each.', table: { category: 'Content' } },
     capacity: { control: false, description: 'Breakdown of one pool, shown as a segmented UsageBar below the quota bars.', table: { category: 'Content' } },
     capacityTotal: { control: { type: 'number' }, description: 'Denominator for the capacity UsageBar segments.', table: { category: 'Content' } },
@@ -46,10 +46,10 @@ export const Default: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('heading', { level: 1, name: 'Dashboard' })).toBeInTheDocument();
-    await userEvent.click(canvas.getByRole('button', { name: 'Investigate: legacy.seashell.dev' }));
-    await expect(args.onAttentionAction).toHaveBeenCalledWith(expect.objectContaining({ id: 'legacy.seashell.dev' }));
-    await userEvent.click(canvas.getByRole('button', { name: 'Resume site: staging.seashell.dev' }));
-    await expect(args.onAttentionAction).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'staging.seashell.dev' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Investigate: othrys.aether.photo' }));
+    await expect(args.onAttentionAction).toHaveBeenCalledWith(expect.objectContaining({ id: 'othrys.aether.photo' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Resume portal: selene-weddings.aether.photo' }));
+    await expect(args.onAttentionAction).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'selene-weddings.aether.photo' }));
     await userEvent.click(canvas.getByRole('button', { name: 'View all' }));
     await expect(args.onViewAll).toHaveBeenCalledTimes(1);
     // Every quota bar carries its numbers in its name.

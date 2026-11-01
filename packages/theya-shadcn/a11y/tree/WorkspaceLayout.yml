@@ -4,27 +4,24 @@
 - link "Skip to main content":
   - /url: "#main-content"
 - complementary:
-  - text: Theya
-  - button "Collapse sidebar" [expanded]
+  - button "Expand sidebar"
   - navigation "Main":
-    - text: Manage
     - link "Dashboard":
       - /url: "#"
       - img
       - text: Dashboard
-    - link "Sites 12 sites":
+    - link "Galleries":
       - /url: "#"
       - img
-      - text: Sites 12 sites
-    - link "Databases":
+      - text: Galleries
+    - link "Archive":
       - /url: "#"
       - img
-      - text: Databases
-    - link "Certificates":
+      - text: Archive
+    - link "Licenses":
       - /url: "#"
       - img
-      - text: Certificates
-    - text: Account
+      - text: Licenses
     - link "Billing":
       - /url: "#"
       - img
@@ -37,7 +34,7 @@
       - /url: "#"
       - img
       - text: Settings
-  - text: AM Alex Morgan Theya Seashell
+  - text: TM Thea Marlow Helios Studio
 - banner:
   - textbox "Search..."
   - text: ⌘K
@@ -51,7 +48,7 @@
 - link "Skip to main content":
   - /url: "#main-content"
 - complementary:
-  - text: Theya
+  - text: Aether
   - button "Collapse sidebar" [expanded]
   - navigation "Main":
     - text: Manage
@@ -59,18 +56,18 @@
       - /url: "#"
       - img
       - text: Dashboard
-    - link "Sites 12 sites":
+    - link "Galleries 12 galleries":
       - /url: "#"
       - img
-      - text: Sites 12 sites
-    - link "Databases":
+      - text: Galleries 12 galleries
+    - link "Archive":
       - /url: "#"
       - img
-      - text: Databases
-    - link "Certificates":
+      - text: Archive
+    - link "Licenses":
       - /url: "#"
       - img
-      - text: Certificates
+      - text: Licenses
     - text: Account
     - link "Billing":
       - /url: "#"
@@ -84,7 +81,7 @@
       - /url: "#"
       - img
       - text: Settings
-  - text: AM Alex Morgan Theya Seashell
+  - text: TM Thea Marlow Helios Studio
 - banner:
   - textbox "Search..."
   - text: ⌘K
@@ -102,7 +99,7 @@
 - link "Skip to main content":
   - /url: "#main-content"
 - complementary:
-  - text: Theya
+  - text: Aether
   - button "Collapse sidebar" [expanded]
   - navigation "Main":
     - text: Manage
@@ -110,18 +107,18 @@
       - /url: "#"
       - img
       - text: Dashboard
-    - link "Sites 12 sites":
+    - link "Galleries 12 galleries":
       - /url: "#"
       - img
-      - text: Sites 12 sites
-    - link "Databases":
+      - text: Galleries 12 galleries
+    - link "Archive":
       - /url: "#"
       - img
-      - text: Databases
-    - link "Certificates":
+      - text: Archive
+    - link "Licenses":
       - /url: "#"
       - img
-      - text: Certificates
+      - text: Licenses
     - text: Account
     - link "Billing":
       - /url: "#"
@@ -135,7 +132,7 @@
       - /url: "#"
       - img
       - text: Settings
-  - text: AM Alex Morgan Theya Seashell
+  - text: TM Thea Marlow Helios Studio
 - banner:
   - textbox "Search..."
   - text: ⌘K

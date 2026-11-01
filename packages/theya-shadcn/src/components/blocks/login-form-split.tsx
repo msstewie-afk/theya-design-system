@@ -59,7 +59,7 @@ export function LoginFormSplit({
   backHref,
   backLabel = 'Back to website',
   autoplayInterval = 6000,
-  appName = 'Theya',
+  appName = 'Aether',
   className,
   ...loginFormProps
 }: LoginFormSplitProps) {

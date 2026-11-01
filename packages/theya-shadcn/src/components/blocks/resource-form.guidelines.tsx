@@ -4,7 +4,7 @@ import type { ComponentGuidelines } from '../../docs/guidelines';
 export const resourceFormGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
-    'Creating or editing one object from a list of fields in sections: a database, a mailbox, a site.',
+    'Creating or editing one object from a list of fields in sections: a gallery, a client portal, a license.',
   ],
   whenNotToUse: [
     { text: 'A setup in several steps', instead: 'OnboardingWizard' },
