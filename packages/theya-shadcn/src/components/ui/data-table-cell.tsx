@@ -150,7 +150,7 @@ export interface SparklineCellProps extends CellBoxProps {
   height?: number;
 }
 
-/** An editable cell must be named after the ROW as well as the field — "Plan for shop.seashell.dev". */
+/** An editable cell must be named after the ROW as well as the field — "License for Golden hour". */
 export type EditableNameProps = { label: string; labelledBy?: undefined } | { label?: undefined; labelledBy: string };
 
 export type EditableCellProps = EditableNameProps & {
@@ -259,7 +259,7 @@ export interface SelectorCellProps extends CellBoxProps {
   checked: boolean | 'indeterminate';
   onCheckedChange?: (checked: boolean) => void;
   disabled?: boolean;
-  /** Required: name the ROW, not the action — "Select shop.seashell.dev". */
+  /** Required: name the ROW, not the action — "Select Golden hour". */
   label: string;
 }
 

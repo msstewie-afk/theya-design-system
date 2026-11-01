@@ -4,7 +4,7 @@ import { Timeline, TimelineDescription, TimelineItem, TimelineTitle } from './ti
 
 export const timelineGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['A sequence of events in time: activity on a site, an incident’s history, an order’s progress.'],
+  whenToUse: ['A sequence of events in time: activity in a gallery, an export’s history, a print order’s progress.'],
   whenNotToUse: [
     { text: 'A searchable, filterable log', instead: 'DataTable (audit log)' },
     { text: 'Steps people go through', instead: 'Stepper' },
@@ -22,13 +22,13 @@ export const timelineGuidelines: ComponentGuidelines = {
         example: (
           <Timeline className="w-80">
             <TimelineItem tone="success" time="14:02" icon={<CheckCircle />}>
-              <TimelineTitle>Certificate issued</TimelineTitle>
-              <TimelineDescription>shop.seashell.dev · valid 90 days</TimelineDescription>
+              <TimelineTitle>License issued</TimelineTitle>
+              <TimelineDescription>GOLDEN_0907.tif · print rights, 1 year</TimelineDescription>
             </TimelineItem>
             <TimelineItem tone="warning" time="13:40" icon={<WarningTriangle />}>
-              <TimelineTitle>DNS check retried</TimelineTitle>
+              <TimelineTitle>Client signature pending</TimelineTitle>
             </TimelineItem>
-            <TimelineItem time="13:38"><TimelineTitle>Renewal started</TimelineTitle></TimelineItem>
+            <TimelineItem time="13:38"><TimelineTitle>License requested</TimelineTitle></TimelineItem>
           </Timeline>
         ),
         caption: 'Newest first, each event with a time; color only where it matters.',
@@ -36,9 +36,9 @@ export const timelineGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <Timeline className="w-80">
-            <TimelineItem tone="success" icon={<CheckCircle />}><TimelineTitle>Certificate issued</TimelineTitle></TimelineItem>
-            <TimelineItem tone="success" icon={<CheckCircle />}><TimelineTitle>DNS check retried</TimelineTitle></TimelineItem>
-            <TimelineItem tone="success" icon={<CheckCircle />}><TimelineTitle>Renewal started</TimelineTitle></TimelineItem>
+            <TimelineItem tone="success" icon={<CheckCircle />}><TimelineTitle>License issued</TimelineTitle></TimelineItem>
+            <TimelineItem tone="success" icon={<CheckCircle />}><TimelineTitle>Client signature pending</TimelineTitle></TimelineItem>
+            <TimelineItem tone="success" icon={<CheckCircle />}><TimelineTitle>License requested</TimelineTitle></TimelineItem>
           </Timeline>
         ),
         caption: 'No times, every event green — order and meaning are lost.',

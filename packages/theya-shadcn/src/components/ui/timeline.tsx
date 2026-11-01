@@ -9,8 +9,8 @@ import { cn } from '../../lib/utils';
  *
  *   <Timeline>
  *     <TimelineItem tone="success" time="14:02" icon={<CheckCircle />}>
- *       <TimelineTitle>Certificate issued</TimelineTitle>
- *       <TimelineDescription>shop.seashell.dev · valid 90 days</TimelineDescription>
+ *       <TimelineTitle>License issued</TimelineTitle>
+ *       <TimelineDescription>GOLDEN_0907.tif · print rights, 1 year</TimelineDescription>
  *     </TimelineItem>
  *   </Timeline>
  *

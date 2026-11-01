@@ -826,7 +826,7 @@
       "file": "ui/data-table",
       "category": "Data",
       "status": "stable",
-      "summary": "Lists of records people scan, sort, filter, select and act on: sites, domains, invoices, users.",
+      "summary": "Lists of records people scan, sort, filter, select and act on: galleries, client portals, invoices, users.",
       "instead": [
         {
           "when": "A handful of static rows",
@@ -972,7 +972,7 @@
       "file": "ui/description-list",
       "category": "Data",
       "status": "stable",
-      "summary": "Properties of one object: site details, an invoice header, a certificate.",
+      "summary": "Properties of one object: gallery details, an invoice header, a license.",
       "instead": [
         {
           "when": "Several objects with the same fields",
@@ -1788,7 +1788,7 @@
       "file": "ui/metric",
       "category": "Data",
       "status": "stable",
-      "summary": "Quick-glance counts repeated as rows inside a card: mailboxes used, aliases, records pending.",
+      "summary": "Quick-glance counts repeated as rows inside a card: photos selected, galleries shared, licenses pending.",
       "instead": [
         {
           "when": "A headline KPI that stands alone",
@@ -2587,7 +2587,7 @@
       "file": "ui/stat",
       "category": "Data",
       "status": "stable",
-      "summary": "Headline numbers on a dashboard or overview: active sites, uptime, revenue — 2 to 4 in a row.",
+      "summary": "Headline numbers on a dashboard or overview: active galleries, delivery rate, revenue — 2 to 4 in a row.",
       "instead": [
         {
           "when": "Counts repeated as rows in a card",
@@ -2765,7 +2765,7 @@
       "file": "ui/table",
       "category": "Data",
       "status": "stable",
-      "summary": "Static tabular data with a few rows and no sorting, paging or selection: a price breakdown, DNS records, a spec sheet.",
+      "summary": "Static tabular data with a few rows and no sorting, paging or selection: a price breakdown, print sizes, a spec sheet.",
       "instead": [
         {
           "when": "Sorting, paging, selection, row menus",
@@ -3025,7 +3025,7 @@
       "file": "ui/timeline",
       "category": "Data",
       "status": "stable",
-      "summary": "A sequence of events in time: activity on a site, an incident’s history, an order’s progress.",
+      "summary": "A sequence of events in time: activity in a gallery, an export’s history, a print order’s progress.",
       "instead": [
         {
           "when": "A searchable, filterable log",
@@ -3175,7 +3175,7 @@
       "file": "ui/tree",
       "category": "Data",
       "status": "beta",
-      "summary": "Real hierarchy people expand and pick from: files and folders, DNS zones, nested categories.",
+      "summary": "Real hierarchy people expand and pick from: folders of photos, studios and their albums, nested categories.",
       "instead": [
         {
           "when": "A flat list",

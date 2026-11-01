@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Data",
   "whenToUse": [
-    "Quick-glance counts repeated as rows inside a card: mailboxes used, aliases, records pending."
+    "Quick-glance counts repeated as rows inside a card: photos selected, galleries shared, licenses pending."
   ],
   "whenNotToUse": [
     {
@@ -34,7 +34,7 @@
     },
     {
       "part": "Label",
-      "description": "follows the value in the same line (“121`/150 mailboxes`”)."
+      "description": "follows the value in the same line (“121`/150 selects`”)."
     },
     {
       "part": "Actions",
@@ -46,11 +46,11 @@
     {
       "do": {
         "caption": "Rows of counts in a card, scanned top to bottom.",
-        "example": "<div className=\"flex w-72 flex-col gap-2\">\n  <Metric icon={<Mail />} value={121} label=\"/150 mailboxes\" />\n  <Metric icon={<WarningCircle />} value={2} label=\" DNS records not propagated\" />\n</div>"
+        "example": "<div className=\"flex w-72 flex-col gap-2\">\n  <Metric icon={<MediaImage />} value={121} label=\"/150 selects\" />\n  <Metric icon={<WarningCircle />} value={2} label=\" licenses awaiting signature\" />\n</div>"
       },
       "dont": {
         "caption": "KPI tiles stacked as a list: heavy, and every row competes for attention.",
-        "example": "<div className=\"flex w-72 flex-col gap-2\">\n  <Stat label=\"Mailboxes\" value=\"121/150\" />\n  <Stat label=\"DNS records not propagated\" value={2} />\n</div>"
+        "example": "<div className=\"flex w-72 flex-col gap-2\">\n  <Stat label=\"Selects\" value=\"121/150\" />\n  <Stat label=\"Licenses awaiting signature\" value={2} />\n</div>"
       }
     }
   ],

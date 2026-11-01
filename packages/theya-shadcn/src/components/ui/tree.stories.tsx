@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { Cloud, Database, Globe } from 'iconoir-react';
+import { Archive, Building, Globe } from 'iconoir-react';
 import { Tree, type TreeNode } from './tree';
 import { treeGuidelines } from './tree.guidelines';
 
@@ -18,30 +18,40 @@ import { treeGuidelines } from './tree.guidelines';
  */
 const FILES: TreeNode[] = [
   {
-    id: 'app',
-    label: 'app',
+    id: 'clients',
+    label: 'Clients',
     children: [
-      { id: 'layout', label: 'layout.tsx' },
-      { id: 'page', label: 'page.tsx' },
       {
-        id: 'sites',
-        label: 'sites',
+        id: 'rhea-theo',
+        label: 'Rhea & Theo',
         children: [
-          { id: 'sites-page', label: 'page.tsx' },
-          { id: 'sites-data', label: 'data.ts' },
+          {
+            id: 'selects',
+            label: 'Selects',
+            children: [
+              { id: 'dawn-0412', label: 'DAWN_0412.jpg' },
+              { id: 'dawn-0418', label: 'DAWN_0418.jpg' },
+            ],
+          },
+          { id: 'contract', label: 'Contract.pdf' },
         ],
+      },
+      {
+        id: 'layla',
+        label: 'Layla Haddad',
+        children: [{ id: 'golden-0907', label: 'GOLDEN_0907.tif' }],
       },
     ],
   },
   {
-    id: 'components',
-    label: 'components',
+    id: 'portfolio',
+    label: 'Portfolio',
     children: [
-      { id: 'tree', label: 'tree.tsx' },
-      { id: 'button', label: 'button.tsx' },
+      { id: 'moonrise', label: 'L4_moonrise.raw' },
+      { id: 'blue-0215', label: 'BLUE_0215.jpg' },
     ],
   },
-  { id: 'readme', label: 'readme.md' },
+  { id: 'releases', label: 'Model releases.pdf' },
 ];
 
 const meta: Meta<typeof Tree> = {
@@ -73,8 +83,8 @@ const meta: Meta<typeof Tree> = {
   },
   args: {
     items: FILES,
-    'aria-label': 'Project files',
-    defaultExpandedIds: ['app', 'components'],
+    'aria-label': 'Photo library',
+    defaultExpandedIds: ['clients', 'portfolio'],
   },
   decorators: [
     (Story) => (
@@ -88,7 +98,7 @@ const meta: Meta<typeof Tree> = {
 export default meta;
 type Story = StoryObj<typeof Tree>;
 
-/** A file tree. Click a chevron to expand, click a row to select; or focus a row and use Up/Down, Left/Right, Home/End, Enter/Space, and type-ahead. */
+/** A folder of photos. Click a chevron to expand, click a row to select; or focus a row and use Up/Down, Left/Right, Home/End, Enter/Space, and type-ahead. */
 export const Default: Story = {
   // WAI-ARIA tree keyboard model: one Tab stop, Up/Down, Home/End,
   // Left collapses / Right expands then steps in, type-ahead, Enter selects.
@@ -96,30 +106,31 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     const item = (name: string) => canvas.getByRole('treeitem', { name });
     const focused = (name: string) => waitFor(() => expect(item(name)).toHaveFocus());
-    await expect(canvas.getByRole('tree', { name: 'Project files' })).toBeInTheDocument();
+    await expect(canvas.getByRole('tree', { name: 'Photo library' })).toBeInTheDocument();
 
     await userEvent.tab();
-    await focused('app');
+    await focused('Clients');
     await userEvent.keyboard('{ArrowDown}');
-    await focused('layout.tsx');
+    await focused('Rhea & Theo');
     await userEvent.keyboard('{End}');
-    await focused('readme.md');
+    await focused('Model releases.pdf');
     await userEvent.keyboard('{Home}');
-    await focused('app');
+    await focused('Clients');
 
     await userEvent.keyboard('{ArrowLeft}');
-    await expect(item('app')).toHaveAttribute('aria-expanded', 'false');
-    await expect(canvas.queryByRole('treeitem', { name: 'layout.tsx' })).toBeNull();
+    await expect(item('Clients')).toHaveAttribute('aria-expanded', 'false');
+    await expect(canvas.queryByRole('treeitem', { name: 'Rhea & Theo' })).toBeNull();
     await userEvent.keyboard('{ArrowRight}');
-    await expect(item('app')).toHaveAttribute('aria-expanded', 'true');
+    await expect(item('Clients')).toHaveAttribute('aria-expanded', 'true');
     await userEvent.keyboard('{ArrowRight}');
-    await focused('layout.tsx');
-    await expect(item('layout.tsx')).toHaveAttribute('aria-level', '2');
+    await focused('Rhea & Theo');
+    await expect(item('Rhea & Theo')).toHaveAttribute('aria-level', '2');
 
-    await userEvent.keyboard('r');
-    await focused('readme.md');
+    // Type-ahead: "m" matches only "Model releases.pdf" among the visible rows.
+    await userEvent.keyboard('m');
+    await focused('Model releases.pdf');
     await userEvent.keyboard('{Enter}');
-    await expect(item('readme.md')).toHaveAttribute('aria-selected', 'true');
+    await expect(item('Model releases.pdf')).toHaveAttribute('aria-selected', 'true');
   },
 };
 
@@ -131,30 +142,30 @@ export const Collapsed: Story = {
 
 /** Uncontrolled selection: `defaultSelectedId` pre-selects a row (filled with the subtle primary token). Selection is independent of expansion. */
 export const Selected: Story = {
-  args: { defaultSelectedId: 'tree' },
+  args: { defaultSelectedId: 'moonrise' },
 };
 
 /** A disabled node is greyed and skipped by every navigation path — Up/Down, Home/End, type-ahead, and arrow step-in/step-out — so the roving Tab stop never lands on a dead row. */
 export const DisabledNode: Story = {
   parameters: { controls: { exclude: ['items', 'defaultExpandedIds'] } },
   args: {
-    'aria-label': 'Environments',
-    defaultExpandedIds: ['prod'],
+    'aria-label': 'Studios',
+    defaultExpandedIds: ['selene'],
     items: [
       {
-        id: 'prod',
-        label: 'production',
-        textValue: 'production',
+        id: 'selene',
+        label: 'Selene Weddings',
+        textValue: 'Selene Weddings',
         children: [
-          { id: 'app-acme', label: 'app.seashell.dev' },
-          { id: 'billing', label: 'billing.seashell.dev', disabled: true },
+          { id: 'golden-hour', label: 'Golden hour' },
+          { id: 'blue-hour', label: 'Blue hour', disabled: true },
         ],
       },
       {
-        id: 'staging',
-        label: 'staging',
+        id: 'l4',
+        label: 'Studio L4',
         disabled: true,
-        children: [{ id: 'staging-app', label: 'app.staging.seashell.dev' }],
+        children: [{ id: 'first-light', label: 'First light' }],
       },
     ],
   },
@@ -162,16 +173,16 @@ export const DisabledNode: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const item = (name: string) => canvas.getByRole('treeitem', { name });
-    await expect(item('billing.seashell.dev')).toHaveAttribute('aria-disabled', 'true');
+    await expect(item('Blue hour')).toHaveAttribute('aria-disabled', 'true');
 
     await userEvent.tab();
-    await waitFor(() => expect(item('production')).toHaveFocus());
+    await waitFor(() => expect(item('Selene Weddings')).toHaveFocus());
     await userEvent.keyboard('{ArrowDown}');
-    await waitFor(() => expect(item('app.seashell.dev')).toHaveFocus());
+    await waitFor(() => expect(item('Golden hour')).toHaveFocus());
     await userEvent.keyboard('{ArrowDown}');
-    await expect(item('app.seashell.dev')).toHaveFocus();
+    await expect(item('Golden hour')).toHaveFocus();
     await userEvent.keyboard('{End}');
-    await expect(item('app.seashell.dev')).toHaveFocus();
+    await expect(item('Golden hour')).toHaveFocus();
   },
 };
 
@@ -180,25 +191,24 @@ export const CustomIcons: Story = {
   parameters: { controls: { exclude: ['items', 'defaultExpandedIds'] } },
   args: {
     'aria-label': 'Resources',
-    defaultExpandedIds: ['eu-west-1'],
+    defaultExpandedIds: ['othrys'],
     items: [
       {
-        id: 'eu-west-1',
-        label: <span className="font-mono">eu-west-1</span>,
-        textValue: 'eu-west-1',
-        icon: <Cloud />,
+        id: 'othrys',
+        label: 'Othrys Lodge',
+        icon: <Building />,
         children: [
           {
-            id: 'web',
-            label: <span className="font-mono">shop.seashell.dev</span>,
-            textValue: 'shop.seashell.dev',
+            id: 'portal',
+            // Portal addresses are real identifiers, so they stay mono.
+            label: <span className="font-mono">othrys.aether.photo</span>,
+            textValue: 'othrys.aether.photo',
             icon: <Globe />,
           },
           {
-            id: 'db',
-            label: <span className="font-mono">primary-db</span>,
-            textValue: 'primary-db',
-            icon: <Database />,
+            id: 'archive',
+            label: 'Mnemosyne',
+            icon: <Archive />,
           },
         ],
       },
@@ -206,7 +216,7 @@ export const CustomIcons: Story = {
   },
 };
 
-/** Controlled expansion and selection: the parent owns both as state. Here both a region and a node inside it start open and selected. */
+/** Controlled expansion and selection: the parent owns both as state. Here a studio starts open and an album inside it starts selected. */
 // Module scope, not inline inside the render function — plain
 // strings too, not JSX labels. A JSX element created fresh on every
 // re-render (inside a live component's render pass) carries a dev-
@@ -217,33 +227,33 @@ export const CustomIcons: Story = {
 // with "Maximum call stack size exceeded" (Sep 2026). Hoisting the
 // data out (same fix already used for every other story's `items`)
 // sidesteps it entirely.
-const CONTROLLED_REGIONS: TreeNode[] = [
+const CONTROLLED_STUDIOS: TreeNode[] = [
   {
-    id: 'eu-west-1',
-    label: 'eu-west-1',
+    id: 'helios',
+    label: 'Helios Studio',
     children: [
-      { id: 'web', label: 'shop.seashell.dev' },
-      { id: 'api', label: 'api.seashell.dev' },
+      { id: 'golden', label: 'Golden hour' },
+      { id: 'wide-shining', label: 'Wide-shining' },
     ],
   },
   {
-    id: 'us-east-1',
-    label: 'us-east-1',
-    children: [{ id: 'blog', label: 'blog.seashell.dev' }],
+    id: 'selene',
+    label: 'Selene Weddings',
+    children: [{ id: 'blue', label: 'Blue hour' }],
   },
 ];
 
 export const Controlled: Story = {
   parameters: { controls: { exclude: ['items'] } },
   render: function ControlledTree(args) {
-    const [expanded, setExpanded] = useState<string[]>(['eu-west-1']);
-    const [selected, setSelected] = useState<string | undefined>('web');
+    const [expanded, setExpanded] = useState<string[]>(['helios']);
+    const [selected, setSelected] = useState<string | undefined>('golden');
     return (
       <div className="flex flex-col gap-3">
         <Tree
           {...args}
-          aria-label="Regions"
-          items={CONTROLLED_REGIONS}
+          aria-label="Studios"
+          items={CONTROLLED_STUDIOS}
           expandedIds={expanded}
           onExpandedChange={setExpanded}
           selectedId={selected}

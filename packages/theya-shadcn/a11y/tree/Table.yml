@@ -3,169 +3,169 @@
 # Default (data-table--default)
 - table:
   - rowgroup:
-    - row "Domain Status Plan Requests / day":
-      - columnheader "Domain"
+    - row "Gallery Status Studio Views / day":
+      - columnheader "Gallery"
       - columnheader "Status"
-      - columnheader "Plan"
-      - columnheader "Requests / day"
+      - columnheader "Studio"
+      - columnheader "Views / day"
   - rowgroup:
-    - row "shop.seashell.dev Running Pro 184,320":
-      - cell "shop.seashell.dev"
-      - cell "Running"
-      - cell "Pro"
-      - cell "184,320"
-    - row "blog.seashell.dev Running Starter 42,180":
-      - cell "blog.seashell.dev"
-      - cell "Running"
-      - cell "Starter"
-      - cell "42,180"
-    - row "api.seashell.dev Error Scale 902,540":
-      - cell "api.seashell.dev"
-      - cell "Error"
-      - cell "Scale"
-      - cell "902,540"
-    - row "staging.seashell.dev Suspended Pro 3,210":
-      - cell "staging.seashell.dev"
-      - cell "Suspended"
-      - cell "Pro"
-      - cell "3,210"
-    - row "docs.seashell.dev Running Starter 28,990":
-      - cell "docs.seashell.dev"
-      - cell "Running"
-      - cell "Starter"
-      - cell "28,990"
+    - row "Golden hour Active Helios Studio 1,842":
+      - cell "Golden hour"
+      - cell "Active"
+      - cell "Helios Studio"
+      - cell "1,842"
+    - row "Blue hour Active Selene Weddings 964":
+      - cell "Blue hour"
+      - cell "Active"
+      - cell "Selene Weddings"
+      - cell "964"
+    - row "First light Upload failed Eos Portraits 3,120":
+      - cell "First light"
+      - cell "Upload failed"
+      - cell "Eos Portraits"
+      - cell "3,120"
+    - row "Moonrise over Othrys Paused Othrys Lodge 58":
+      - cell "Moonrise over Othrys"
+      - cell "Paused"
+      - cell "Othrys Lodge"
+      - cell "58"
+    - row "Wide-shining Active Phoebe Light Lab 412":
+      - cell "Wide-shining"
+      - cell "Active"
+      - cell "Phoebe Light Lab"
+      - cell "412"
 
 # Empty (data-table--empty)
 - table:
   - rowgroup:
-    - row "Domain Status Requests / day":
-      - columnheader "Domain"
+    - row "Gallery Status Views / day":
+      - columnheader "Gallery"
       - columnheader "Status"
-      - columnheader "Requests / day"
+      - columnheader "Views / day"
   - rowgroup:
-    - row "No sites yet. Create your first site to get started.":
-      - cell "No sites yet. Create your first site to get started."
+    - row "No galleries yet. Create your first gallery to get started.":
+      - cell "No galleries yet. Create your first gallery to get started."
 
 # Horizontal scroll (data-table--horizontal-scroll)
 - table:
   - rowgroup:
-    - row "Domain Region Version Status Requests / day":
-      - columnheader "Domain"
-      - columnheader "Region"
-      - columnheader "Version"
+    - row "Gallery Studio Photos Status Views / day":
+      - columnheader "Gallery"
+      - columnheader "Studio"
+      - columnheader "Photos"
       - columnheader "Status"
-      - columnheader "Requests / day"
+      - columnheader "Views / day"
   - rowgroup:
-    - row "shop.seashell.dev eu-west-1 v2.4.0 Running 184,320":
-      - cell "shop.seashell.dev"
-      - cell "eu-west-1"
-      - cell "v2.4.0"
-      - cell "Running"
-      - cell "184,320"
-    - row "blog.seashell.dev eu-west-1 v2.4.0 Running 42,180":
-      - cell "blog.seashell.dev"
-      - cell "eu-west-1"
-      - cell "v2.4.0"
-      - cell "Running"
-      - cell "42,180"
-    - row "api.seashell.dev eu-west-1 v2.4.0 Error 902,540":
-      - cell "api.seashell.dev"
-      - cell "eu-west-1"
-      - cell "v2.4.0"
-      - cell "Error"
-      - cell "902,540"
-    - row "staging.seashell.dev eu-west-1 v2.4.0 Suspended 3,210":
-      - cell "staging.seashell.dev"
-      - cell "eu-west-1"
-      - cell "v2.4.0"
-      - cell "Suspended"
-      - cell "3,210"
-    - row "docs.seashell.dev eu-west-1 v2.4.0 Running 28,990":
-      - cell "docs.seashell.dev"
-      - cell "eu-west-1"
-      - cell "v2.4.0"
-      - cell "Running"
-      - cell "28,990"
+    - row "Golden hour Helios Studio 248 Active 1,842":
+      - cell "Golden hour"
+      - cell "Helios Studio"
+      - cell "248"
+      - cell "Active"
+      - cell "1,842"
+    - row "Blue hour Selene Weddings 186 Active 964":
+      - cell "Blue hour"
+      - cell "Selene Weddings"
+      - cell "186"
+      - cell "Active"
+      - cell "964"
+    - row "First light Eos Portraits 132 Upload failed 3,120":
+      - cell "First light"
+      - cell "Eos Portraits"
+      - cell "132"
+      - cell "Upload failed"
+      - cell "3,120"
+    - row "Moonrise over Othrys Othrys Lodge 74 Paused 58":
+      - cell "Moonrise over Othrys"
+      - cell "Othrys Lodge"
+      - cell "74"
+      - cell "Paused"
+      - cell "58"
+    - row "Wide-shining Phoebe Light Lab 96 Active 412":
+      - cell "Wide-shining"
+      - cell "Phoebe Light Lab"
+      - cell "96"
+      - cell "Active"
+      - cell "412"
 
 # Keyboard scroll (data-table--keyboard-scroll)
-- region "Sites table":
+- region "Galleries table":
   - table:
     - rowgroup:
-      - row "Domain Region Version Status Requests / day Owner":
-        - columnheader "Domain"
-        - columnheader "Region"
-        - columnheader "Version"
+      - row "Gallery Studio Photos Status Views / day Photographer":
+        - columnheader "Gallery"
+        - columnheader "Studio"
+        - columnheader "Photos"
         - columnheader "Status"
-        - columnheader "Requests / day"
-        - columnheader "Owner"
+        - columnheader "Views / day"
+        - columnheader "Photographer"
     - rowgroup:
-      - row "shop.seashell.dev eu-west-1 v2.4.0 Running 184,320 ada@seashell.dev":
-        - cell "shop.seashell.dev"
-        - cell "eu-west-1"
-        - cell "v2.4.0"
-        - cell "Running"
-        - cell "184,320"
-        - cell "ada@seashell.dev"
-      - row "blog.seashell.dev eu-west-1 v2.4.0 Running 42,180 ada@seashell.dev":
-        - cell "blog.seashell.dev"
-        - cell "eu-west-1"
-        - cell "v2.4.0"
-        - cell "Running"
-        - cell "42,180"
-        - cell "ada@seashell.dev"
-      - row "api.seashell.dev eu-west-1 v2.4.0 Error 902,540 ada@seashell.dev":
-        - cell "api.seashell.dev"
-        - cell "eu-west-1"
-        - cell "v2.4.0"
-        - cell "Error"
-        - cell "902,540"
-        - cell "ada@seashell.dev"
-      - row "staging.seashell.dev eu-west-1 v2.4.0 Suspended 3,210 ada@seashell.dev":
-        - cell "staging.seashell.dev"
-        - cell "eu-west-1"
-        - cell "v2.4.0"
-        - cell "Suspended"
-        - cell "3,210"
-        - cell "ada@seashell.dev"
-      - row "docs.seashell.dev eu-west-1 v2.4.0 Running 28,990 ada@seashell.dev":
-        - cell "docs.seashell.dev"
-        - cell "eu-west-1"
-        - cell "v2.4.0"
-        - cell "Running"
-        - cell "28,990"
-        - cell "ada@seashell.dev"
+      - row "Golden hour Helios Studio 248 Active 1,842 thea@aether.photo":
+        - cell "Golden hour"
+        - cell "Helios Studio"
+        - cell "248"
+        - cell "Active"
+        - cell "1,842"
+        - cell "thea@aether.photo"
+      - row "Blue hour Selene Weddings 186 Active 964 selin@aether.photo":
+        - cell "Blue hour"
+        - cell "Selene Weddings"
+        - cell "186"
+        - cell "Active"
+        - cell "964"
+        - cell "selin@aether.photo"
+      - row "First light Eos Portraits 132 Upload failed 3,120 elio@aether.photo":
+        - cell "First light"
+        - cell "Eos Portraits"
+        - cell "132"
+        - cell "Upload failed"
+        - cell "3,120"
+        - cell "elio@aether.photo"
+      - row "Moonrise over Othrys Othrys Lodge 74 Paused 58 mina@aether.photo":
+        - cell "Moonrise over Othrys"
+        - cell "Othrys Lodge"
+        - cell "74"
+        - cell "Paused"
+        - cell "58"
+        - cell "mina@aether.photo"
+      - row "Wide-shining Phoebe Light Lab 96 Active 412 phoebe@aether.photo":
+        - cell "Wide-shining"
+        - cell "Phoebe Light Lab"
+        - cell "96"
+        - cell "Active"
+        - cell "412"
+        - cell "phoebe@aether.photo"
 
 # Paged columns (comparison) (data-table--paged-columns)
 - region "Plan comparison":
   - table:
     - rowgroup:
-      - row "Feature Starter Pro Scale Enterprise":
+      - row "Feature Free Pro Business Enterprise":
         - columnheader "Feature"
-        - columnheader "Starter"
+        - columnheader "Free"
         - columnheader "Pro"
-        - columnheader "Scale"
+        - columnheader "Business"
         - columnheader "Enterprise"
     - rowgroup:
-      - row "Sites 1 5 25 Unlimited":
-        - cell "Sites"
-        - cell "1"
-        - cell "5"
+      - row "Galleries 3 25 100 Unlimited":
+        - cell "Galleries"
+        - cell "3"
         - cell "25"
+        - cell "100"
         - cell "Unlimited"
-      - row "Storage 10 GB 50 GB 250 GB 1 TB":
+      - row "Storage 10 GB 100 GB 384 GB 2 TB":
         - cell "Storage"
         - cell "10 GB"
-        - cell "50 GB"
-        - cell "250 GB"
-        - cell "1 TB"
-      - row "Backups Weekly Daily Hourly Hourly":
-        - cell "Backups"
-        - cell "Weekly"
-        - cell "Daily"
-        - cell "Hourly"
-        - cell "Hourly"
-      - row "Staging — 1 5 Unlimited":
-        - cell "Staging"
+        - cell "100 GB"
+        - cell "384 GB"
+        - cell "2 TB"
+      - row "Archive — 30 days 1 year Unlimited":
+        - cell "Archive"
+        - cell "—"
+        - cell "30 days"
+        - cell "1 year"
+        - cell "Unlimited"
+      - row "Client portals — 1 5 Unlimited":
+        - cell "Client portals"
         - cell "—"
         - cell "1"
         - cell "5"
@@ -180,111 +180,111 @@
 # Selected row (data-table--selected-row)
 - table:
   - rowgroup:
-    - row "Domain Plan Requests / day":
-      - columnheader "Domain"
-      - columnheader "Plan"
-      - columnheader "Requests / day"
+    - row "Gallery Studio Views / day":
+      - columnheader "Gallery"
+      - columnheader "Studio"
+      - columnheader "Views / day"
   - rowgroup:
-    - row "shop.seashell.dev Pro 184,320" [selected]:
-      - cell "shop.seashell.dev"
-      - cell "Pro"
-      - cell "184,320"
-    - row "blog.seashell.dev Starter 42,180":
-      - cell "blog.seashell.dev"
-      - cell "Starter"
-      - cell "42,180"
-    - row "api.seashell.dev Scale 902,540":
-      - cell "api.seashell.dev"
-      - cell "Scale"
-      - cell "902,540"
-    - row "staging.seashell.dev Pro 3,210":
-      - cell "staging.seashell.dev"
-      - cell "Pro"
-      - cell "3,210"
-    - row "docs.seashell.dev Starter 28,990":
-      - cell "docs.seashell.dev"
-      - cell "Starter"
-      - cell "28,990"
+    - row "Golden hour Helios Studio 1,842" [selected]:
+      - cell "Golden hour"
+      - cell "Helios Studio"
+      - cell "1,842"
+    - row "Blue hour Selene Weddings 964":
+      - cell "Blue hour"
+      - cell "Selene Weddings"
+      - cell "964"
+    - row "First light Eos Portraits 3,120":
+      - cell "First light"
+      - cell "Eos Portraits"
+      - cell "3,120"
+    - row "Moonrise over Othrys Othrys Lodge 58":
+      - cell "Moonrise over Othrys"
+      - cell "Othrys Lodge"
+      - cell "58"
+    - row "Wide-shining Phoebe Light Lab 412":
+      - cell "Wide-shining"
+      - cell "Phoebe Light Lab"
+      - cell "412"
 
 # Sticky first column (data-table--sticky-first-column)
-- region "Sites table, first column frozen":
+- region "Galleries table, first column frozen":
   - table:
     - rowgroup:
-      - row "Domain Region Version Status Requests / day":
-        - columnheader "Domain"
-        - columnheader "Region"
-        - columnheader "Version"
+      - row "Gallery Studio Photos Status Views / day":
+        - columnheader "Gallery"
+        - columnheader "Studio"
+        - columnheader "Photos"
         - columnheader "Status"
-        - columnheader "Requests / day"
+        - columnheader "Views / day"
     - rowgroup:
-      - row "shop.seashell.dev eu-west-1 v2.4.0 Running 184,320":
-        - cell "shop.seashell.dev"
-        - cell "eu-west-1"
-        - cell "v2.4.0"
-        - cell "Running"
-        - cell "184,320"
-      - row "blog.seashell.dev eu-west-1 v2.4.0 Running 42,180":
-        - cell "blog.seashell.dev"
-        - cell "eu-west-1"
-        - cell "v2.4.0"
-        - cell "Running"
-        - cell "42,180"
-      - row "api.seashell.dev eu-west-1 v2.4.0 Error 902,540":
-        - cell "api.seashell.dev"
-        - cell "eu-west-1"
-        - cell "v2.4.0"
-        - cell "Error"
-        - cell "902,540"
-      - row "staging.seashell.dev eu-west-1 v2.4.0 Suspended 3,210":
-        - cell "staging.seashell.dev"
-        - cell "eu-west-1"
-        - cell "v2.4.0"
-        - cell "Suspended"
-        - cell "3,210"
-      - row "docs.seashell.dev eu-west-1 v2.4.0 Running 28,990":
-        - cell "docs.seashell.dev"
-        - cell "eu-west-1"
-        - cell "v2.4.0"
-        - cell "Running"
-        - cell "28,990"
+      - row "Golden hour Helios Studio 248 Active 1,842":
+        - cell "Golden hour"
+        - cell "Helios Studio"
+        - cell "248"
+        - cell "Active"
+        - cell "1,842"
+      - row "Blue hour Selene Weddings 186 Active 964":
+        - cell "Blue hour"
+        - cell "Selene Weddings"
+        - cell "186"
+        - cell "Active"
+        - cell "964"
+      - row "First light Eos Portraits 132 Upload failed 3,120":
+        - cell "First light"
+        - cell "Eos Portraits"
+        - cell "132"
+        - cell "Upload failed"
+        - cell "3,120"
+      - row "Moonrise over Othrys Othrys Lodge 74 Paused 58":
+        - cell "Moonrise over Othrys"
+        - cell "Othrys Lodge"
+        - cell "74"
+        - cell "Paused"
+        - cell "58"
+      - row "Wide-shining Phoebe Light Lab 96 Active 412":
+        - cell "Wide-shining"
+        - cell "Phoebe Light Lab"
+        - cell "96"
+        - cell "Active"
+        - cell "412"
 
 # Truncated header (data-table--truncated-header)
 - table:
   - rowgroup:
-    - row "Primary production domain and deployment destination Status":
-      - columnheader "Primary production domain and deployment destination"
+    - row "Client portal address and default download license Status":
+      - columnheader "Client portal address and default download license"
       - columnheader "Status"
   - rowgroup:
-    - row "shop.seashell.dev Running":
-      - cell "shop.seashell.dev"
-      - cell "Running"
+    - row "selene-weddings.aether.photo Active":
+      - cell "selene-weddings.aether.photo"
+      - cell "Active"
 
 # With Caption (data-table--with-caption)
-- table "Sites in the eu-west-1 region, refreshed every 60s.":
-  - caption: Sites in the eu-west-1 region, refreshed every 60s.
+- table "Client galleries across all studios, refreshed every 60s.":
+  - caption: Client galleries across all studios, refreshed every 60s.
   - rowgroup:
-    - row "Domain Plan Requests / day":
-      - columnheader "Domain"
-      - columnheader "Plan"
-      - columnheader "Requests / day"
+    - row "Gallery Studio Views / day":
+      - columnheader "Gallery"
+      - columnheader "Studio"
+      - columnheader "Views / day"
   - rowgroup:
-    - row "shop.seashell.dev Pro 184,320":
-      - cell "shop.seashell.dev"
-      - cell "Pro"
-      - cell "184,320"
-    - row "blog.seashell.dev Starter 42,180":
-      - cell "blog.seashell.dev"
-      - cell "Starter"
-      - cell "42,180"
-    - row "api.seashell.dev Scale 902,540":
-      - cell "api.seashell.dev"
-      - cell "Scale"
-      - cell "902,540"
-    - row "staging.seashell.dev Pro 3,210":
-      - cell "staging.seashell.dev"
-      - cell "Pro"
-      - cell "3,210"
-    - row "docs.seashell.dev Starter 28,990":
-      - cell "docs.seashell.dev"
-      - cell "Starter"
-      - cell "28,990"
+    - row "Golden hour Helios Studio 1,842":
+      - cell "Golden hour"
+      - cell "Helios Studio"
+      - cell "1,842"
+    - row "Blue hour Selene Weddings 964":
+      - cell "Blue hour"
+      - cell "Selene Weddings"
+      - cell "964"
+    - row "First light Eos Portraits 3,120":
+      - cell "First light"
+      - cell "Eos Portraits"
+      - cell "3,120"
+    - row "Moonrise over Othrys Othrys Lodge 58":
+      - cell "Moonrise over Othrys"
+      - cell "Othrys Lodge"
+      - cell "58"
+    - row "Wide-shining Phoebe Light Lab 412":
+      - cell "Wide-shining"
+      - cell "Phoebe Light Lab"
+      - cell "412"

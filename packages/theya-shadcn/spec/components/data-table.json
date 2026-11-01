@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Data",
   "whenToUse": [
-    "Lists of records people scan, sort, filter, select and act on: sites, domains, invoices, users.",
+    "Lists of records people scan, sort, filter, select and act on: galleries, client portals, invoices, users.",
     "Rows that open a detail page (whole-row link) or carry per-row actions."
   ],
   "whenNotToUse": [
@@ -63,12 +63,12 @@
   "doDont": [
     {
       "do": {
-        "caption": "Each column uses its kind: mono for domains, status with a dot, numbers on the right.",
-        "example": "<div className=\"w-[26rem]\"><DataTable columns={good} data={SITES} hideFooter ariaLabel=\"Sites\" /></div>"
+        "caption": "Each column uses its kind: mono for portal addresses, status with a dot, numbers on the right.",
+        "example": "<div className=\"w-[26rem]\"><DataTable columns={good} data={PORTALS} hideFooter ariaLabel=\"Client portals\" /></div>"
       },
       "dont": {
         "caption": "Everything as plain text: raw status values, numbers that don’t line up.",
-        "example": "<div className=\"w-[26rem]\"><DataTable columns={bad} data={SITES} hideFooter ariaLabel=\"Sites, plain\" /></div>"
+        "example": "<div className=\"w-[26rem]\"><DataTable columns={bad} data={PORTALS} hideFooter ariaLabel=\"Client portals, plain\" /></div>"
       }
     }
   ],

@@ -41,11 +41,11 @@ export function Metric({ className, icon, value, label, description, actions, ..
           )}
           {/* gap-0 is deliberate, not a missed spacing token: it lets a
               caller glue `value` straight to a suffix label ("121" +
-              "/150 mailboxes") with no gap at all. A word-separated label
-              ("aliases") needs its OWN leading space in the string
-              (label=" aliases") — that's the caller's job, not this
-              component's; a label passed without it (e.g. "aliases" instead
-              of " aliases") renders glued to the value ("8aliases"). */}
+              "/150 selects") with no gap at all. A word-separated label
+              ("shared galleries") needs its OWN leading space in the string
+              (label=" shared galleries") — that's the caller's job, not this
+              component's; a label passed without it (e.g. "galleries" instead
+              of " galleries") renders glued to the value ("8galleries"). */}
           <span className="flex min-w-0 items-baseline gap-0">
             <span data-slot="metric-value" className="shrink-0 font-body text-heading-xs font-semibold leading-none tabular-nums text-[var(--color-text-text)]">{value}</span>
             <span data-slot="metric-label" className="min-w-0 truncate font-body text-body-m text-[var(--color-text-text-subtler)]">{label}</span>

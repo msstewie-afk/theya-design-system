@@ -142,7 +142,7 @@ export const Profile: Story = {
     return (
       <Card className="w-full sm:w-[300px]" action={{ type: 'filter', active, onChange: setActive, ariaLabel: 'Dawn Ellery' }}>
         <CardMedia src="/asset-examples/nova-web.jpg" alt="" height={140} />
-        <CardAvatar type="text" initials="DE" />
+        <CardAvatar type="image" src="/asset-examples/panda-avatar.png" alt="Dawn Ellery" />
         <CardHeader divider={false}>
           <div className="min-w-0">
             <CardTitle className="gap-2">

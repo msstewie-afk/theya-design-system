@@ -52,20 +52,20 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 ## Data
 
 - [Countdown](./?path=/docs/data-countdown--docs) (beta): Time left until a deadline that matters to the user: a trial ending, a maintenance window starting, “resend code in 0:42”.
-- [DataTable](./?path=/docs/data-datatable--docs): Lists of records people scan, sort, filter, select and act on: sites, domains, invoices, users.
+- [DataTable](./?path=/docs/data-datatable--docs): Lists of records people scan, sort, filter, select and act on: galleries, client portals, invoices, users.
 - [DataTableCell](./?path=/docs/data-datatablecell--docs): Every cell of a DataTable: pick the kind by content — text, mono, primary, status, badge, usage, sparkline.
 - [DataTableToolbar](./?path=/docs/data-datatabletoolbar--docs): Above a selectable DataTable: filter / search when idle, bulk actions when rows are selected — in the same strip.
-- [DescriptionList](./?path=/docs/data-descriptionlist--docs): Properties of one object: site details, an invoice header, a certificate.
+- [DescriptionList](./?path=/docs/data-descriptionlist--docs): Properties of one object: gallery details, an invoice header, a license.
 - [Kanban](./?path=/docs/data-kanban--docs) (beta): Work moving through stages: tickets, a deploy pipeline, content review.
 - [ListItem](./?path=/docs/data-listitem--docs): Lists lighter than a table: settings sections, notifications, a resource picker.
-- [Metric](./?path=/docs/data-metric--docs): Quick-glance counts repeated as rows inside a card: mailboxes used, aliases, records pending.
+- [Metric](./?path=/docs/data-metric--docs): Quick-glance counts repeated as rows inside a card: photos selected, galleries shared, licenses pending.
 - [Price](./?path=/docs/data-price--docs) (beta): Any amount of money in the UI: plan cards, checkout, invoices, add-ons.
 - [QrCode](./?path=/docs/data-qrcode--docs) (beta): Moving something from screen to phone: 2FA setup, a Wi-Fi or app link, a payment or ticket.
 - [Scheduler](./?path=/docs/data-scheduler--docs) (beta): Events placed in time: maintenance windows, bookings, shifts, release plans.
-- [Stat](./?path=/docs/data-stat--docs): Headline numbers on a dashboard or overview: active sites, uptime, revenue — 2 to 4 in a row.
-- [Table](./?path=/docs/data-table--docs): Static tabular data with a few rows and no sorting, paging or selection: a price breakdown, DNS records, a spec sheet.
-- [Timeline](./?path=/docs/data-timeline--docs): A sequence of events in time: activity on a site, an incident’s history, an order’s progress.
-- [Tree](./?path=/docs/data-tree--docs) (beta): Real hierarchy people expand and pick from: files and folders, DNS zones, nested categories.
+- [Stat](./?path=/docs/data-stat--docs): Headline numbers on a dashboard or overview: active galleries, delivery rate, revenue — 2 to 4 in a row.
+- [Table](./?path=/docs/data-table--docs): Static tabular data with a few rows and no sorting, paging or selection: a price breakdown, print sizes, a spec sheet.
+- [Timeline](./?path=/docs/data-timeline--docs): A sequence of events in time: activity in a gallery, an export’s history, a print order’s progress.
+- [Tree](./?path=/docs/data-tree--docs) (beta): Real hierarchy people expand and pick from: folders of photos, studios and their albums, nested categories.
 
 ## Date & Time
 

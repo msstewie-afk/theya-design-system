@@ -5,9 +5,9 @@
   "import": "import { DescriptionList } from '@theya/shadcn/ui/description-list';",
   "status": "stable",
   "category": "Data",
-  "description": "No library dependency — semantic key/value detail pairs (valid\nHTML5 dl > div > (dt, dd)). Each row stacks on mobile and goes\ntwo-column on sm+; both tracks wrap so long prose values and\nunbreakable identifiers never force horizontal scroll at 360px.\n\nUsage: wrap each pair in DescriptionItem and add font-mono on\nDescriptionDetails for identifiers (shop.seashell.dev, eu-west-1).",
+  "description": "No library dependency — semantic key/value detail pairs (valid\nHTML5 dl > div > (dt, dd)). Each row stacks on mobile and goes\ntwo-column on sm+; both tracks wrap so long prose values and\nunbreakable identifiers never force horizontal scroll at 360px.\n\nUsage: wrap each pair in DescriptionItem and add font-mono on\nDescriptionDetails for identifiers (helios.aether.photo, DAWN_0412.jpg).",
   "whenToUse": [
-    "Properties of one object: site details, an invoice header, a certificate.",
+    "Properties of one object: gallery details, an invoice header, a license.",
     "A read-only summary before confirming (review step)."
   ],
   "whenNotToUse": [
@@ -46,7 +46,7 @@
     {
       "do": {
         "caption": "Label and value, read top to bottom.",
-        "example": "<DescriptionList className=\"w-80\">\n  {PAIRS.map(([t, d]) => (\n    <DescriptionItem key={t}><DescriptionTerm>{t}</DescriptionTerm><DescriptionDetails className={t === 'Plan' ? undefined : 'font-code'}>{d}</DescriptionDetails></DescriptionItem>\n  ))}\n</DescriptionList>"
+        "example": "<DescriptionList className=\"w-80\">\n  {PAIRS.map(([t, d]) => (\n    <DescriptionItem key={t}><DescriptionTerm>{t}</DescriptionTerm><DescriptionDetails className={t === 'Client portal' ? 'font-code' : undefined}>{d}</DescriptionDetails></DescriptionItem>\n  ))}\n</DescriptionList>"
       },
       "dont": {
         "caption": "A “Field / Value” table for one object adds headers that say nothing.",
@@ -61,7 +61,7 @@
   "components": [
     {
       "name": "DescriptionList",
-      "description": "No library dependency — semantic key/value detail pairs (valid\nHTML5 dl > div > (dt, dd)). Each row stacks on mobile and goes\ntwo-column on sm+; both tracks wrap so long prose values and\nunbreakable identifiers never force horizontal scroll at 360px.\n\nUsage: wrap each pair in DescriptionItem and add font-mono on\nDescriptionDetails for identifiers (shop.seashell.dev, eu-west-1).",
+      "description": "No library dependency — semantic key/value detail pairs (valid\nHTML5 dl > div > (dt, dd)). Each row stacks on mobile and goes\ntwo-column on sm+; both tracks wrap so long prose values and\nunbreakable identifiers never force horizontal scroll at 360px.\n\nUsage: wrap each pair in DescriptionItem and add font-mono on\nDescriptionDetails for identifiers (helios.aether.photo, DAWN_0412.jpg).",
       "props": []
     },
     {

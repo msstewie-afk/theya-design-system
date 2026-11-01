@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { Server } from 'iconoir-react';
+import { MediaImage } from 'iconoir-react';
 import { DataTableCell } from './data-table-cell';
 import { Table, TableBody, TableRow, TableCell } from './table';
 import { dataTableCellGuidelines } from './data-table-cell.guidelines';
@@ -43,8 +43,8 @@ const meta: Meta<typeof DataTableCell> = {
 export default meta;
 type Story = StoryObj<typeof DataTableCell>;
 
-/** A fortnight of requests, for the sparkline cells. */
-const TRAFFIC = [8, 9, 7, 11, 10, 13, 12, 15, 14, 17, 16, 19, 21, 24];
+/** A fortnight of downloads, for the sparkline cells. */
+const DOWNLOADS = [8, 9, 7, 11, 10, 13, 12, 15, 14, 17, 16, 19, 21, 24];
 
 const KIND_GRID = 'grid grid-cols-1 gap-1 border-b border-[var(--color-border-border)] py-3 sm:grid-cols-[9rem_1fr_1fr] sm:gap-4';
 
@@ -68,26 +68,35 @@ function KindRow({ label, oneLine, twoLines }: { label: string; oneLine?: ReactN
   );
 }
 
-const PLANS = [
-  { value: 'Starter', label: 'Starter' },
-  { value: 'Pro', label: 'Pro' },
-  { value: 'Scale', label: 'Scale' },
+/** Usage rights for a gallery. Order matters: the Editable play test moves Web -> Print. */
+const LICENSES = [
+  { value: 'Personal', label: 'Personal' },
+  { value: 'Web', label: 'Web' },
+  { value: 'Print', label: 'Print' },
 ];
 
-const REGIONS = [
-  { value: 'eu-west-1', label: 'eu-west-1', keywords: ['Ireland'] },
-  { value: 'eu-central-1', label: 'eu-central-1', keywords: ['Frankfurt'] },
-  { value: 'us-east-1', label: 'us-east-1', keywords: ['Virginia'] },
-  { value: 'ap-south-1', label: 'ap-south-1', keywords: ['Mumbai'] },
+const STUDIOS = [
+  { value: 'Helios Studio', label: 'Helios Studio', keywords: ['Commercial', 'Product'] },
+  { value: 'Selene Weddings', label: 'Selene Weddings', keywords: ['Weddings', 'Night'] },
+  { value: 'Eos Portraits', label: 'Eos Portraits', keywords: ['Portraits', 'Morning'] },
+  { value: 'Othrys Lodge', label: 'Othrys Lodge', keywords: ['Location'] },
 ];
 
-const OWNERS = [
-  { value: 'mira@seashell.dev', label: 'mira@seashell.dev' },
-  { value: 'jules@seashell.dev', label: 'jules@seashell.dev' },
-  { value: 'lucia@seashell.dev', label: 'lucia@seashell.dev' },
+const PHOTOGRAPHERS = [
+  { value: 'thea@aether.photo', label: 'thea@aether.photo' },
+  { value: 'elio@aether.photo', label: 'elio@aether.photo' },
+  { value: 'selin@aether.photo', label: 'selin@aether.photo' },
 ];
 
-const TAGS = ['prod', 'staging', 'eu', 'us', 'internal'];
+/** License badges for the multi-badge examples: rights, renewal and expiry. */
+const LICENSE_BADGES = [
+  { label: 'Expiring soon', tone: 'warning' as const },
+  { label: 'Auto-renew', tone: 'neutral' as const },
+  { label: 'Print', tone: 'info' as const },
+  { label: 'Editorial', tone: 'neutral' as const },
+];
+
+const TAGS = ['portrait', 'wedding', 'print', 'web', 'client pick'];
 
 /** The editable kinds are controlled — the edited value lives in the story's state. */
 function InputCell({ label, initial = '', lines, ...rest }: { label: string; initial?: string; lines?: 1 | 2; placeholder?: string; disabled?: boolean; invalid?: boolean; errorMessage?: string; mono?: boolean }) {
@@ -97,7 +106,7 @@ function InputCell({ label, initial = '', lines, ...rest }: { label: string; ini
 
 function SelectCell({ label, initial = '', lines, ...rest }: { label: string; initial?: string; lines?: 1 | 2; placeholder?: string; disabled?: boolean; readOnly?: boolean; invalid?: boolean; errorMessage?: string }) {
   const [value, setValue] = useState(initial);
-  return <DataTableCell kind="select" value={value} onValueChange={setValue} options={PLANS} label={label} lines={lines} {...rest} />;
+  return <DataTableCell kind="select" value={value} onValueChange={setValue} options={LICENSES} label={label} lines={lines} {...rest} />;
 }
 
 function NumberCell({ label, initial = null, lines, ...rest }: { label: string; initial?: number | null; lines?: 1 | 2; disabled?: boolean; invalid?: boolean; min?: number; max?: number }) {
@@ -107,12 +116,12 @@ function NumberCell({ label, initial = null, lines, ...rest }: { label: string; 
 
 function ComboboxCell({ label, initial = '', lines, ...rest }: { label: string; initial?: string; lines?: 1 | 2; placeholder?: string; disabled?: boolean; invalid?: boolean }) {
   const [value, setValue] = useState(initial);
-  return <DataTableCell kind="combobox" value={value} onValueChange={setValue} options={REGIONS} label={label} lines={lines} {...rest} />;
+  return <DataTableCell kind="combobox" value={value} onValueChange={setValue} options={STUDIOS} label={label} lines={lines} {...rest} />;
 }
 
 function AutocompleteCell({ label, initial = '', lines, ...rest }: { label: string; initial?: string; lines?: 1 | 2; placeholder?: string; disabled?: boolean; invalid?: boolean }) {
   const [value, setValue] = useState(initial);
-  return <DataTableCell kind="autocomplete" value={value} onValueChange={setValue} options={OWNERS} label={label} lines={lines} {...rest} />;
+  return <DataTableCell kind="autocomplete" value={value} onValueChange={setValue} options={PHOTOGRAPHERS} label={label} lines={lines} {...rest} />;
 }
 
 function TagsCell({ label, initial = [], lines, ...rest }: { label: string; initial?: string[]; lines?: 1 | 2; placeholder?: string; disabled?: boolean; invalid?: boolean }) {
@@ -153,43 +162,22 @@ export const Kinds: Story = {
   render: () => (
     <div className="max-w-3xl">
       <KindHeader />
-      <KindRow label='kind="text"' oneLine={<DataTableCell value="Frankfurt" />} twoLines={<DataTableCell value="Frankfurt" secondary="eu-central-1" secondaryMono />} />
-      <KindRow label="text + mono" oneLine={<DataTableCell value="shop.seashell.dev" mono />} twoLines={<DataTableCell value="shop.seashell.dev" mono secondary="Theya Seashell storefront" />} />
-      <KindRow label="text + muted" oneLine={<DataTableCell value="Updated 2 hours ago" muted />} twoLines={<DataTableCell value="Updated 2 hours ago" muted secondary="by mira@seashell.dev" />} />
-      <KindRow label='kind="mono"' oneLine={<DataTableCell kind="mono" value="eu-west-1" />} twoLines={<DataTableCell kind="mono" value="eu-west-1" secondary="Frankfurt" />} />
-      <KindRow label="mono + muted" oneLine={<DataTableCell kind="mono" value="v2.4.0" muted />} twoLines={<DataTableCell kind="mono" value="v2.4.0" muted secondary="Released 3 days ago" />} />
+      <KindRow label='kind="text"' oneLine={<DataTableCell value="Helios Studio" />} twoLines={<DataTableCell value="Helios Studio" secondary="helios.aether.photo" secondaryMono />} />
+      <KindRow label="text + mono" oneLine={<DataTableCell value="DAWN_0412.jpg" mono />} twoLines={<DataTableCell value="DAWN_0412.jpg" mono secondary="First light · 24 MB" />} />
+      <KindRow label="text + muted" oneLine={<DataTableCell value="Updated 2 hours ago" muted />} twoLines={<DataTableCell value="Updated 2 hours ago" muted secondary="by thea@aether.photo" />} />
+      <KindRow label='kind="mono"' oneLine={<DataTableCell kind="mono" value="GOLDEN_0907.tif" />} twoLines={<DataTableCell kind="mono" value="GOLDEN_0907.tif" secondary="Golden hour" />} />
+      <KindRow label="mono + muted" oneLine={<DataTableCell kind="mono" value="L4_moonrise.raw" muted />} twoLines={<DataTableCell kind="mono" value="L4_moonrise.raw" muted secondary="Uploaded 3 days ago" />} />
       <KindRow
         label='kind="primary"'
-        oneLine={<DataTableCell kind="primary" leading={<Server width={16} height={16} />} value="shop.seashell.dev" mono />}
-        twoLines={<DataTableCell kind="primary" leading={<Server width={16} height={16} />} value="shop.seashell.dev" mono secondary="Theya Seashell storefront" />}
+        oneLine={<DataTableCell kind="primary" leading={<MediaImage width={16} height={16} />} value="Golden hour" />}
+        twoLines={<DataTableCell kind="primary" leading={<MediaImage width={16} height={16} />} value="Golden hour" secondary="Helios Studio" />}
       />
-      <KindRow label='kind="status"' oneLine={<DataTableCell kind="status" tone="success" label="Running" />} twoLines={<DataTableCell kind="status" tone="success" label="Running" lines={2} />} />
+      <KindRow label='kind="status"' oneLine={<DataTableCell kind="status" tone="success" label="Active" />} twoLines={<DataTableCell kind="status" tone="success" label="Active" lines={2} />} />
       <KindRow label='kind="badge"' oneLine={<DataTableCell kind="badge" tone="primary" label="Pro" />} twoLines={<DataTableCell kind="badge" tone="primary" label="Pro" lines={2} />} />
       <KindRow
         label="badge + badges"
-        oneLine={
-          <DataTableCell
-            kind="badge"
-            badges={[
-              { label: 'Expiring soon', tone: 'warning' },
-              { label: 'Auto-renew', tone: 'neutral' },
-              { label: 'DV', tone: 'info' },
-              { label: 'Wildcard', tone: 'neutral' },
-            ]}
-          />
-        }
-        twoLines={
-          <DataTableCell
-            kind="badge"
-            lines={2}
-            badges={[
-              { label: 'Expiring soon', tone: 'warning' },
-              { label: 'Auto-renew', tone: 'neutral' },
-              { label: 'DV', tone: 'info' },
-              { label: 'Wildcard', tone: 'neutral' },
-            ]}
-          />
-        }
+        oneLine={<DataTableCell kind="badge" badges={LICENSE_BADGES} />}
+        twoLines={<DataTableCell kind="badge" lines={2} badges={LICENSE_BADGES} />}
       />
       <KindRow
         label='kind="usage"'
@@ -198,23 +186,23 @@ export const Kinds: Story = {
       />
       <KindRow
         label='kind="sparkline"'
-        oneLine={<DataTableCell kind="sparkline" data={TRAFFIC} label="1.2k" tone="success" area ariaLabel="Requests trending up over the last 14 days" />}
-        twoLines={<DataTableCell kind="sparkline" data={TRAFFIC} label="1.2k" tone="success" area ariaLabel="Requests trending up over the last 14 days" lines={2} />}
+        oneLine={<DataTableCell kind="sparkline" data={DOWNLOADS} label="1.2k" tone="success" area ariaLabel="Downloads trending up over the last 14 days" />}
+        twoLines={<DataTableCell kind="sparkline" data={DOWNLOADS} label="1.2k" tone="success" area ariaLabel="Downloads trending up over the last 14 days" lines={2} />}
       />
-      <KindRow label='kind="input"' oneLine={<InputCell label="Display name for shop.seashell.dev" initial="Theya Seashell storefront" />} twoLines={<InputCell label="Display name for blog.seashell.dev" initial="Engineering blog" lines={2} />} />
-      <KindRow label='kind="select"' oneLine={<SelectCell label="Plan for shop.seashell.dev" initial="Pro" />} twoLines={<SelectCell label="Plan for blog.seashell.dev" initial="Starter" lines={2} />} />
-      <KindRow label='kind="number"' oneLine={<NumberCell label="Sites for shop.seashell.dev" initial={12} />} twoLines={<NumberCell label="Sites for blog.seashell.dev" initial={4} lines={2} />} />
-      <KindRow label='kind="combobox"' oneLine={<ComboboxCell label="Region for shop.seashell.dev" initial="eu-west-1" />} twoLines={<ComboboxCell label="Region for blog.seashell.dev" initial="us-east-1" lines={2} />} />
-      <KindRow label='kind="autocomplete"' oneLine={<AutocompleteCell label="Owner of shop.seashell.dev" initial="mira@seashell.dev" />} twoLines={<AutocompleteCell label="Owner of blog.seashell.dev" initial="" lines={2} />} />
-      <KindRow label='kind="tags"' oneLine={<TagsCell label="Tags for shop.seashell.dev" initial={['prod', 'eu']} />} twoLines={<TagsCell label="Tags for blog.seashell.dev" initial={['staging']} lines={2} />} />
+      <KindRow label='kind="input"' oneLine={<InputCell label="Title for Golden hour" initial="Golden hour at the lake" />} twoLines={<InputCell label="Title for Blue hour" initial="Blue hour, Selene and Rhea" lines={2} />} />
+      <KindRow label='kind="select"' oneLine={<SelectCell label="License for Golden hour" initial="Web" />} twoLines={<SelectCell label="License for Blue hour" initial="Personal" lines={2} />} />
+      <KindRow label='kind="number"' oneLine={<NumberCell label="Photos in Golden hour" initial={248} />} twoLines={<NumberCell label="Photos in Blue hour" initial={186} lines={2} />} />
+      <KindRow label='kind="combobox"' oneLine={<ComboboxCell label="Studio for Golden hour" initial="Helios Studio" />} twoLines={<ComboboxCell label="Studio for Blue hour" initial="Selene Weddings" lines={2} />} />
+      <KindRow label='kind="autocomplete"' oneLine={<AutocompleteCell label="Photographer for Golden hour" initial="thea@aether.photo" />} twoLines={<AutocompleteCell label="Photographer for Blue hour" initial="" lines={2} />} />
+      <KindRow label='kind="tags"' oneLine={<TagsCell label="Tags for Golden hour" initial={['portrait', 'client pick']} />} twoLines={<TagsCell label="Tags for Blue hour" initial={['wedding']} lines={2} />} />
       <KindRow
         label='kind="date-range"'
-        oneLine={<DateRangeCell label="Billing period for shop.seashell.dev" initial={{ from: new Date(2026, 8, 1), to: new Date(2026, 8, 30) }} />}
-        twoLines={<DateRangeCell label="Billing period for blog.seashell.dev" initial={undefined} lines={2} />}
+        oneLine={<DateRangeCell label="Proofing period for Golden hour" initial={{ from: new Date(2026, 8, 1), to: new Date(2026, 8, 30) }} />}
+        twoLines={<DateRangeCell label="Proofing period for Blue hour" initial={undefined} lines={2} />}
       />
-      <KindRow label='kind="switch"' oneLine={<SwitchCell label="Backups for shop.seashell.dev" initial />} twoLines={<SwitchCell label="Backups for blog.seashell.dev" lines={2} />} />
-      <KindRow label='kind="slider"' oneLine={<SliderCell label="Traffic weight for shop.seashell.dev" initial={40} />} twoLines={<SliderCell label="Traffic weight for blog.seashell.dev" initial={70} lines={2} />} />
-      <KindRow label='kind="selector"' oneLine={<SelectorCell label="Select shop.seashell.dev" />} twoLines={<SelectorCell label="Select blog.seashell.dev" lines={2} />} />
+      <KindRow label='kind="switch"' oneLine={<SwitchCell label="Downloads for Golden hour" initial />} twoLines={<SwitchCell label="Downloads for Blue hour" lines={2} />} />
+      <KindRow label='kind="slider"' oneLine={<SliderCell label="Watermark opacity for Golden hour" initial={40} />} twoLines={<SliderCell label="Watermark opacity for Blue hour" initial={70} lines={2} />} />
+      <KindRow label='kind="selector"' oneLine={<SelectorCell label="Select Golden hour" />} twoLines={<SelectorCell label="Select Blue hour" lines={2} />} />
       <KindRow
         label='kind="custom"'
         oneLine={
@@ -238,12 +226,6 @@ export const Kinds: Story = {
   ),
 };
 
-const CERTIFICATE_BADGES = [
-  { label: 'Expiring soon', tone: 'warning' as const },
-  { label: 'Auto-renew', tone: 'neutral' as const },
-  { label: 'DV', tone: 'info' as const },
-  { label: 'Wildcard', tone: 'neutral' as const },
-];
 
 /**
  * `badges` sorts worst severity first and never wraps. As the column
@@ -261,7 +243,7 @@ export const MultipleBadges: Story = {
         <div key={width} className="flex items-center gap-3">
           <span className="w-16 shrink-0 font-mono text-body-s text-[var(--color-text-text-subtler)]">{width}px</span>
           <div className="shrink-0 rounded-[var(--size-border-radius-border-radius-md)] border border-dashed border-[var(--color-border-border)] p-2" style={{ width }}>
-            <DataTableCell kind="badge" badges={CERTIFICATE_BADGES} />
+            <DataTableCell kind="badge" badges={LICENSE_BADGES} />
           </div>
         </div>
       ))}
@@ -281,31 +263,31 @@ export const Editable: Story = {
     <Table className="max-w-xl">
       <TableBody>
         <Row label='kind="input"'>
-          <InputCell label="Display name for shop.seashell.dev" initial="Theya Seashell storefront" />
+          <InputCell label="Title for Golden hour" initial="Golden hour at the lake" />
         </Row>
         <Row label="mono">
-          <InputCell label="Domain for shop.seashell.dev" initial="shop.seashell.dev" mono />
+          <InputCell label="Client portal for Golden hour" initial="helios.aether.photo" mono />
         </Row>
         <Row label="invalid">
-          <InputCell label="Domain for api.seashell.dev" initial="api acme io" invalid errorMessage="A domain cannot contain spaces" />
+          <InputCell label="Client portal for Blue hour" initial="selene weddings" invalid errorMessage="A portal address cannot contain spaces" />
         </Row>
         <Row label="disabled">
-          <InputCell label="Domain for docs.seashell.dev" initial="docs.seashell.dev" mono disabled />
+          <InputCell label="Client portal for First light" initial="eos-portraits.aether.photo" mono disabled />
         </Row>
         <Row label='kind="select"'>
-          <SelectCell label="Plan for shop.seashell.dev" initial="Pro" />
+          <SelectCell label="License for Golden hour" initial="Web" />
         </Row>
         <Row label="invalid">
-          <SelectCell label="Plan for api.seashell.dev" invalid errorMessage="Choose a plan" />
+          <SelectCell label="License for Blue hour" invalid errorMessage="Choose a license" />
         </Row>
         <Row label="disabled">
-          <SelectCell label="Plan for docs.seashell.dev" initial="Scale" disabled />
+          <SelectCell label="License for First light" initial="Print" disabled />
         </Row>
         <Row label='kind="date-range"'>
-          <DateRangeCell label="Billing period for shop.seashell.dev" initial={{ from: new Date(2026, 8, 1), to: new Date(2026, 8, 30) }} />
+          <DateRangeCell label="Proofing period for Golden hour" initial={{ from: new Date(2026, 8, 1), to: new Date(2026, 8, 30) }} />
         </Row>
         <Row label="disabled">
-          <DateRangeCell label="Billing period for docs.seashell.dev" initial={{ from: new Date(2026, 8, 1), to: new Date(2026, 8, 30) }} disabled />
+          <DateRangeCell label="Proofing period for First light" initial={{ from: new Date(2026, 8, 1), to: new Date(2026, 8, 30) }} disabled />
         </Row>
       </TableBody>
     </Table>
@@ -315,35 +297,35 @@ export const Editable: Story = {
     const page = within(document.body);
 
     // input: controlled value round-trips.
-    const name = canvas.getByRole('textbox', { name: 'Display name for shop.seashell.dev' });
+    const name = canvas.getByRole('textbox', { name: 'Title for Golden hour' });
     await userEvent.clear(name);
-    await userEvent.type(name, 'Storefront');
-    await expect(name).toHaveValue('Storefront');
+    await userEvent.type(name, 'Lakeside');
+    await expect(name).toHaveValue('Lakeside');
 
     // invalid: flagged and described by its message.
-    const bad = canvas.getByRole('textbox', { name: 'Domain for api.seashell.dev' });
+    const bad = canvas.getByRole('textbox', { name: 'Client portal for Blue hour' });
     await expect(bad).toHaveAttribute('aria-invalid', 'true');
-    await expect(bad).toHaveAccessibleDescription('A domain cannot contain spaces');
-    await expect(canvas.getByRole('textbox', { name: 'Domain for docs.seashell.dev' })).toBeDisabled();
+    await expect(bad).toHaveAccessibleDescription('A portal address cannot contain spaces');
+    await expect(canvas.getByRole('textbox', { name: 'Client portal for First light' })).toBeDisabled();
     // Every editable kind shows its message, not just input/textarea (WCAG 3.3.1).
-    const badPlan = canvas.getByRole('combobox', { name: 'Plan for api.seashell.dev' });
-    await expect(badPlan).toHaveAttribute('aria-invalid', 'true');
-    await expect(badPlan).toHaveAccessibleDescription('Choose a plan');
-    await expect(canvas.getByText('Choose a plan')).toBeVisible();
+    const badLicense = canvas.getByRole('combobox', { name: 'License for Blue hour' });
+    await expect(badLicense).toHaveAttribute('aria-invalid', 'true');
+    await expect(badLicense).toHaveAccessibleDescription('Choose a license');
+    await expect(canvas.getByText('Choose a license')).toBeVisible();
 
     // select: keyboard open, move, pick.
-    const plan = canvas.getByRole('combobox', { name: 'Plan for shop.seashell.dev' });
-    await expect(plan).toHaveTextContent('Pro');
-    plan.focus();
+    const license = canvas.getByRole('combobox', { name: 'License for Golden hour' });
+    await expect(license).toHaveTextContent('Web');
+    license.focus();
     await userEvent.keyboard('{Enter}');
     await page.findByRole('listbox');
     await userEvent.keyboard('{ArrowDown}{Enter}');
     await waitFor(() => expect(page.queryByRole('listbox')).toBeNull());
-    await expect(plan).toHaveTextContent('Scale');
+    await expect(license).toHaveTextContent('Print');
 
     // date-range: the range rides on the description (aria-label replaces the text).
-    await expect(canvas.getByRole('button', { name: 'Billing period for shop.seashell.dev' })).toHaveAccessibleDescription('Sep 1, 2026 – Sep 30, 2026');
-    await expect(canvas.getByRole('button', { name: 'Billing period for docs.seashell.dev' })).toBeDisabled();
+    await expect(canvas.getByRole('button', { name: 'Proofing period for Golden hour' })).toHaveAccessibleDescription('Sep 1, 2026 – Sep 30, 2026');
+    await expect(canvas.getByRole('button', { name: 'Proofing period for First light' })).toBeDisabled();
   },
 };
 
@@ -359,22 +341,22 @@ export const ReadOnly: Story = {
     <Table className="max-w-xl">
       <TableBody>
         <Row label='kind="select"'>
-          <SelectCell label="Plan for shop.seashell.dev" initial="Pro" readOnly />
+          <SelectCell label="License for Golden hour" initial="Web" readOnly />
         </Row>
       </TableBody>
     </Table>
   ),
   play: async ({ canvasElement }) => {
-    const plan = within(canvasElement).getByRole('combobox', { name: 'Plan for shop.seashell.dev' });
-    await expect(plan).toHaveAttribute('aria-readonly', 'true');
-    await expect(plan).not.toHaveAttribute('tabindex', '-1');
-    plan.focus();
-    await expect(plan).toHaveFocus();
+    const license = within(canvasElement).getByRole('combobox', { name: 'License for Golden hour' });
+    await expect(license).toHaveAttribute('aria-readonly', 'true');
+    await expect(license).not.toHaveAttribute('tabindex', '-1');
+    license.focus();
+    await expect(license).toHaveFocus();
     await userEvent.keyboard('{Enter}');
-    await userEvent.click(plan);
+    await userEvent.click(license);
     await new Promise((r) => setTimeout(r, 150));
     await expect(within(document.body).queryByRole('listbox')).toBeNull();
-    await expect(plan).toHaveTextContent('Pro');
+    await expect(license).toHaveTextContent('Web');
   },
 };
 
@@ -419,7 +401,7 @@ function Row({ label, children }: { label: string; children: ReactNode }) {
 }
 
 function Demo() {
-  const [text, setText] = useState('shop.seashell.dev');
+  const [text, setText] = useState('Golden hour');
   const [selectValue, setSelectValue] = useState('active');
   const [switchOn, setSwitchOn] = useState(true);
   const [sliderVal, setSliderVal] = useState(40);
@@ -428,16 +410,16 @@ function Demo() {
     <Table className="w-full max-w-[420px]">
       <TableBody>
         <Row label="text">
-          <DataTableCell value="shop.seashell.dev" />
+          <DataTableCell value="Golden hour" />
         </Row>
         <Row label="mono">
           <DataTableCell kind="mono" value="a1b2c3d4" />
         </Row>
         <Row label="primary">
-          <DataTableCell kind="primary" leading={<Server width={16} height={16} />} value="shop.seashell.dev" secondary="Production" />
+          <DataTableCell kind="primary" leading={<MediaImage width={16} height={16} />} value="Golden hour" secondary="Helios Studio" />
         </Row>
         <Row label="status">
-          <DataTableCell kind="status" tone="success" label="Running" />
+          <DataTableCell kind="status" tone="success" label="Active" />
         </Row>
         <Row label="badge">
           <DataTableCell kind="badge" tone="success" label="Active" />
@@ -446,7 +428,7 @@ function Demo() {
           <DataTableCell kind="usage" value={7.2} total={10} label="7.2 GB of 10 GB" />
         </Row>
         <Row label="input">
-          <DataTableCell kind="input" value={text} onValueChange={setText} label="Domain" />
+          <DataTableCell kind="input" value={text} onValueChange={setText} label="Gallery" />
         </Row>
         <Row label="select">
           <DataTableCell
@@ -455,16 +437,16 @@ function Demo() {
             onValueChange={setSelectValue}
             options={[
               { value: 'active', label: 'Active' },
-              { value: 'suspended', label: 'Suspended' },
+              { value: 'paused', label: 'Paused' },
             ]}
             label="Status"
           />
         </Row>
         <Row label="switch">
-          <DataTableCell kind="switch" checked={switchOn} onCheckedChange={setSwitchOn} label="Enabled" />
+          <DataTableCell kind="switch" checked={switchOn} onCheckedChange={setSwitchOn} label="Downloads" />
         </Row>
         <Row label="slider">
-          <DataTableCell kind="slider" value={sliderVal} onValueChange={setSliderVal} formatValue={(v) => `${v}%`} label="CPU limit" />
+          <DataTableCell kind="slider" value={sliderVal} onValueChange={setSliderVal} formatValue={(v) => `${v}%`} label="Watermark opacity" />
         </Row>
         <Row label="loading">
           <DataTableCell kind="primary" leading secondary loading />

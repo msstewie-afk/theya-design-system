@@ -3,14 +3,14 @@ import { DescriptionDetails, DescriptionItem, DescriptionList, DescriptionTerm }
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table';
 
 const PAIRS = [
-  ['Domain', 'shop.seashell.dev'],
-  ['Region', 'eu-west-1'],
+  ['Client portal', 'helios.aether.photo'],
+  ['Studio', 'Helios Studio'],
   ['Plan', 'Pro'],
 ];
 
 export const descriptionListGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['Properties of one object: site details, an invoice header, a certificate.', 'A read-only summary before confirming (review step).'],
+  whenToUse: ['Properties of one object: gallery details, an invoice header, a license.', 'A read-only summary before confirming (review step).'],
   whenNotToUse: [
     { text: 'Several objects with the same fields', instead: 'Table or DataTable' },
     { text: 'Editable properties', instead: 'a form, or InlineEdit / PropertyGrid' },
@@ -28,7 +28,7 @@ export const descriptionListGuidelines: ComponentGuidelines = {
         example: (
           <DescriptionList className="w-80">
             {PAIRS.map(([t, d]) => (
-              <DescriptionItem key={t}><DescriptionTerm>{t}</DescriptionTerm><DescriptionDetails className={t === 'Plan' ? undefined : 'font-code'}>{d}</DescriptionDetails></DescriptionItem>
+              <DescriptionItem key={t}><DescriptionTerm>{t}</DescriptionTerm><DescriptionDetails className={t === 'Client portal' ? 'font-code' : undefined}>{d}</DescriptionDetails></DescriptionItem>
             ))}
           </DescriptionList>
         ),

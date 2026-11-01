@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Data",
   "whenToUse": [
-    "A sequence of events in time: activity on a site, an incident’s history, an order’s progress."
+    "A sequence of events in time: activity in a gallery, an export’s history, a print order’s progress."
   ],
   "whenNotToUse": [
     {
@@ -45,11 +45,11 @@
     {
       "do": {
         "caption": "Newest first, each event with a time; color only where it matters.",
-        "example": "<Timeline className=\"w-80\">\n  <TimelineItem tone=\"success\" time=\"14:02\" icon={<CheckCircle />}>\n    <TimelineTitle>Certificate issued</TimelineTitle>\n    <TimelineDescription>shop.seashell.dev · valid 90 days</TimelineDescription>\n  </TimelineItem>\n  <TimelineItem tone=\"warning\" time=\"13:40\" icon={<WarningTriangle />}>\n    <TimelineTitle>DNS check retried</TimelineTitle>\n  </TimelineItem>\n  <TimelineItem time=\"13:38\"><TimelineTitle>Renewal started</TimelineTitle></TimelineItem>\n</Timeline>"
+        "example": "<Timeline className=\"w-80\">\n  <TimelineItem tone=\"success\" time=\"14:02\" icon={<CheckCircle />}>\n    <TimelineTitle>License issued</TimelineTitle>\n    <TimelineDescription>GOLDEN_0907.tif · print rights, 1 year</TimelineDescription>\n  </TimelineItem>\n  <TimelineItem tone=\"warning\" time=\"13:40\" icon={<WarningTriangle />}>\n    <TimelineTitle>Client signature pending</TimelineTitle>\n  </TimelineItem>\n  <TimelineItem time=\"13:38\"><TimelineTitle>License requested</TimelineTitle></TimelineItem>\n</Timeline>"
       },
       "dont": {
         "caption": "No times, every event green — order and meaning are lost.",
-        "example": "<Timeline className=\"w-80\">\n  <TimelineItem tone=\"success\" icon={<CheckCircle />}><TimelineTitle>Certificate issued</TimelineTitle></TimelineItem>\n  <TimelineItem tone=\"success\" icon={<CheckCircle />}><TimelineTitle>DNS check retried</TimelineTitle></TimelineItem>\n  <TimelineItem tone=\"success\" icon={<CheckCircle />}><TimelineTitle>Renewal started</TimelineTitle></TimelineItem>\n</Timeline>"
+        "example": "<Timeline className=\"w-80\">\n  <TimelineItem tone=\"success\" icon={<CheckCircle />}><TimelineTitle>License issued</TimelineTitle></TimelineItem>\n  <TimelineItem tone=\"success\" icon={<CheckCircle />}><TimelineTitle>Client signature pending</TimelineTitle></TimelineItem>\n  <TimelineItem tone=\"success\" icon={<CheckCircle />}><TimelineTitle>License requested</TimelineTitle></TimelineItem>\n</Timeline>"
       }
     }
   ],

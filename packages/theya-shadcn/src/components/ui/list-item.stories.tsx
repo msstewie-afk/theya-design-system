@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { Check, NavArrowRight, Database, WarningCircle, CheckCircle, Globe, InfoCircle, Server, WarningTriangle, Undo, Xmark } from 'iconoir-react';
+import { Archive, Building, Check, NavArrowRight, WarningCircle, CheckCircle, Globe, InfoCircle, MediaImageFolder, WarningTriangle, Undo, Xmark } from 'iconoir-react';
 import { KebabIconVertical } from './kebab-icon';
 import { cn } from '../../lib/utils';
 import { ListItem } from './list-item';
@@ -55,21 +55,21 @@ export const Default: Story = {
     // the true top/bottom edge reads as rounded.
     <ul className="max-w-md divide-y divide-[var(--color-border-border-subtler)] overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
       <li>
-        <ListItem className="rounded-none" leading={<Globe />} title="shop.seashell.dev" description="Primary domain" trailing={<Badge tone="success">Live</Badge>} />
+        <ListItem className="rounded-none" leading={<Globe />} title="selene-weddings.aether.photo" description="Client portal" trailing={<Badge tone="success">Live</Badge>} />
       </li>
       <li>
-        <ListItem className="rounded-none" leading={<Database />} title="acme_production" description={<>MySQL 8.0<DotSeparator />eu-west-1</>} trailing={<span className="font-mono text-body-m">2.4 GB</span>} />
+        <ListItem className="rounded-none" leading={<Archive />} title="Mnemosyne" description={<>Archive<DotSeparator />4,512 photos</>} trailing={<span className="font-mono text-body-m">212 GB</span>} />
       </li>
       <li>
         <ListItem
           className="rounded-none"
-          leading={<Server />}
-          title="web-01"
-          description={<>4 vCPU<DotSeparator />8 GB</>}
+          leading={<Building />}
+          title="Helios Studio"
+          description={<>3 photographers<DotSeparator />12 galleries</>}
           trailing={
             <span className="inline-flex items-center gap-1">
               <StatusDot tone="success" />
-              Healthy
+              Active
             </span>
           }
         />
@@ -83,7 +83,7 @@ export const LinkRows: Story = {
   name: 'Link rows',
   render: () => (
     <ul className="max-w-md divide-y divide-[var(--color-border-border-subtler)] overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
-      {['shop.seashell.dev', 'blog.seashell.dev', 'docs.seashell.dev'].map((d) => (
+      {['helios.aether.photo', 'selene-weddings.aether.photo', 'eos-portraits.aether.photo'].map((d) => (
         <li key={d}>
           <ListItem className="rounded-none" leading={<Globe />} title={d} description="Updated 2 days ago" href={`#${d}`} trailing={<NavArrowRight className="size-4" />} />
         </li>
@@ -92,7 +92,7 @@ export const LinkRows: Story = {
   ),
   play: async ({ canvasElement }) => {
     const links = within(canvasElement).getAllByRole('link');
-    await expect(links[0]).toHaveAttribute('href', '#shop.seashell.dev');
+    await expect(links[0]).toHaveAttribute('href', '#helios.aether.photo');
     // Keyboard: each row is one tab stop, in order.
     resetFocus();
     await tabTo(links[0]);
@@ -104,8 +104,8 @@ export const LinkRows: Story = {
 /** Selectable button rows (no href); the middle row is selected. */
 export const Selectable: Story = {
   render: function SelectableExample() {
-    const items = ['Overview', 'Databases', 'Backups'];
-    const [active, setActive] = useState('Databases');
+    const items = ['Overview', 'Galleries', 'Archive'];
+    const [active, setActive] = useState('Galleries');
     return (
       <ul className="max-w-xs rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] p-1">
         {items.map((label) => (
@@ -119,14 +119,14 @@ export const Selectable: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Every row in a selectable list reads as a toggle, not just the selected one.
-    await expect(canvas.getByRole('button', { name: 'Databases' })).toHaveAttribute('aria-pressed', 'true');
+    await expect(canvas.getByRole('button', { name: 'Galleries' })).toHaveAttribute('aria-pressed', 'true');
     await expect(canvas.getByRole('button', { name: 'Overview' })).toHaveAttribute('aria-pressed', 'false');
     // Keyboard: Tab to a row, Enter selects it.
     resetFocus();
-    await tabTo(canvas.getByRole('button', { name: 'Backups' }));
+    await tabTo(canvas.getByRole('button', { name: 'Archive' }));
     await userEvent.keyboard('{Enter}');
-    await expect(canvas.getByRole('button', { name: 'Backups' })).toHaveAttribute('aria-pressed', 'true');
-    await expect(canvas.getByRole('button', { name: 'Databases' })).toHaveAttribute('aria-pressed', 'false');
+    await expect(canvas.getByRole('button', { name: 'Archive' })).toHaveAttribute('aria-pressed', 'true');
+    await expect(canvas.getByRole('button', { name: 'Galleries' })).toHaveAttribute('aria-pressed', 'false');
   },
 };
 
@@ -135,7 +135,7 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex max-w-md flex-col gap-4">
       {(['sm', 'md', 'lg'] as const).map((size) => (
-        <ListItem key={size} size={size} leading={<Server />} title={`Size ${size}`} description="web-01" trailing={<Badge>{size}</Badge>} className="rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]" />
+        <ListItem key={size} size={size} leading={<Building />} title={`Size ${size}`} description="Helios Studio" trailing={<Badge>{size}</Badge>} className="rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]" />
       ))}
     </div>
   ),
@@ -210,7 +210,7 @@ function NotificationActions({ label, read, onToggleRead, onDismiss }: { label: 
  */
 export const Notification: Story = {
   render: function NotificationExample() {
-    const [read, setRead] = useState<Record<string, boolean>>({ backup: false, cert: false, deploy: true });
+    const [read, setRead] = useState<Record<string, boolean>>({ sync: false, license: false, export: true });
 
     const toggleRead = (id: string) => setRead((prev) => ({ ...prev, [id]: !prev[id] }));
 
@@ -272,14 +272,14 @@ export const Notification: Story = {
         <div>
           <p className="mb-2 font-body text-body-xs font-medium uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]">Interactive — row opens on click</p>
           <ul className="divide-y divide-[var(--color-border-border-subtler)] overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
-            <Row id="backup" tone="danger" title="Backup failed" description="The nightly backup for acme_prod did not complete." action="Retry backup" interactive />
-            <Row id="deploy" tone="success" title="Deploy succeeded" description="shop.seashell.dev deployed to production in 42s." interactive />
+            <Row id="sync" tone="danger" title="Archive sync failed" description="The nightly sync of Golden hour to Mnemosyne did not complete." action="Retry sync" interactive />
+            <Row id="export" tone="success" title="Export ready" description="Moonrise over Othrys: 248 photos are ready for Selin Arda to deliver." interactive />
           </ul>
         </div>
         <div>
           <p className="mb-2 font-body text-body-xs font-medium uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]">Static — no row-level click</p>
           <ul className="divide-y divide-[var(--color-border-border-subtler)] overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
-            <Row id="cert" tone="warning" title="Certificate renews soon" description="The certificate for api.seashell.dev renews in 7 days." action="Renew now" />
+            <Row id="license" tone="warning" title="License expires soon" description="The print license for GOLDEN_0907.tif expires in 7 days." action="Renew license" />
           </ul>
         </div>
       </div>
@@ -294,9 +294,9 @@ export const InteractiveWithAction: Story = {
     <div className="w-full max-w-[360px]">
       <ListItem
         interactive
-        leading={<Server />}
-        title="shop.seashell.dev"
-        description={<>Production<DotSeparator />eu-west-1</>}
+        leading={<MediaImageFolder />}
+        title="Golden hour"
+        description={<>Selene Weddings<DotSeparator />248 photos</>}
         trailing={<Button appearance="ghost" iconOnly size="md" aria-label="More actions" onClick={(e) => e.stopPropagation()} leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-icon-icon)]" />}
       />
     </div>
@@ -304,9 +304,9 @@ export const InteractiveWithAction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // An action row (no `selected`) is a plain button, described by its second line.
-    const row = canvas.getByRole('button', { name: 'shop.seashell.dev' });
+    const row = canvas.getByRole('button', { name: 'Golden hour' });
     await expect(row).not.toHaveAttribute('aria-pressed');
-    await expect(row).toHaveAccessibleDescription(/Production/);
+    await expect(row).toHaveAccessibleDescription(/Selene Weddings/);
     // The trailing action is its own control.
     await expect(canvas.getByRole('button', { name: 'More actions' })).toBeInTheDocument();
   },

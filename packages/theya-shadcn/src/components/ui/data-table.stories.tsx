@@ -24,7 +24,7 @@ const meta: Meta<typeof DataTable> = {
     docs: {
       description: {
         component:
-          "Records people scan, sort, filter, select and act on: sites, domains, invoices, users. Rows can open a detail page or carry their own actions.",
+          "Records people scan, sort, filter, select and act on: galleries, client portals, invoices, users. Rows can open a detail page or carry their own actions.",
       },
     },
   },
@@ -81,33 +81,34 @@ const meta: Meta<typeof DataTable> = {
 export default meta;
 type Story = StoryObj<typeof DataTable>;
 
-interface Site {
+interface Gallery {
   id: string;
-  domain: string;
-  owner: string;
-  status: 'active' | 'suspended';
-  region: string;
-  replicas: number;
+  name: string;
+  photographer: string;
+  status: 'active' | 'paused';
+  studio: string;
+  photos: number;
 }
 
-const STATUS: Record<Site['status'], { label: string; tone: StatusTone }> = {
+const STATUS: Record<Gallery['status'], { label: string; tone: StatusTone }> = {
   active: { label: 'Active', tone: 'success' },
-  suspended: { label: 'Suspended', tone: 'warning' },
+  paused: { label: 'Paused', tone: 'warning' },
 };
 
-const DATA: Site[] = [
-  { id: '1', domain: 'shop.seashell.dev', owner: 'maria@seashell.dev', status: 'active', region: 'eu-west-1', replicas: 3 },
-  { id: '2', domain: 'docs.seashell.dev', owner: 'devrel@seashell.dev', status: 'active', region: 'us-east-1', replicas: 1 },
-  { id: '3', domain: 'staging.seashell.dev', owner: 'ci-bot@seashell.dev', status: 'suspended', region: 'eu-west-1', replicas: 0 },
-  { id: '4', domain: 'blog.seashell.dev', owner: 'content@seashell.dev', status: 'active', region: 'ap-south-1', replicas: 2 },
+// Sorted by name: Blue hour, First light, Golden hour, Moonrise over Othrys.
+const DATA: Gallery[] = [
+  { id: '1', name: 'Golden hour', photographer: 'thea@aether.photo', status: 'active', studio: 'Helios Studio', photos: 248 },
+  { id: '2', name: 'First light', photographer: 'elio@aether.photo', status: 'active', studio: 'Eos Portraits', photos: 132 },
+  { id: '3', name: 'Moonrise over Othrys', photographer: 'mina@aether.photo', status: 'paused', studio: 'Othrys Lodge', photos: 74 },
+  { id: '4', name: 'Blue hour', photographer: 'selin@aether.photo', status: 'active', studio: 'Selene Weddings', photos: 186 },
 ];
 
 /** kind="status" (not a raw Badge) — same convention as DataTableToolbar's demo table: color is never the only signal, the label always renders. */
-const columns: ColumnDef<Site, unknown>[] = [
+const columns: ColumnDef<Gallery, unknown>[] = [
   {
-    accessorKey: 'domain',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Domain" />,
-    cell: ({ row }) => <DataTableCell kind="primary" value={row.original.domain} mono />,
+    accessorKey: 'name',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Gallery" />,
+    cell: ({ row }) => <DataTableCell kind="primary" value={row.original.name} />,
     meta: { primary: true, kind: 'primary' },
   },
   {
@@ -120,33 +121,33 @@ const columns: ColumnDef<Site, unknown>[] = [
     meta: { kind: 'status' },
   },
   {
-    accessorKey: 'region',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Region" />,
-    cell: ({ row }) => <DataTableCell kind="mono" value={row.original.region} />,
-    meta: { kind: 'mono' },
+    accessorKey: 'studio',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Studio" />,
+    cell: ({ row }) => <DataTableCell kind="text" value={row.original.studio} />,
+    meta: { kind: 'text' },
   },
   {
-    accessorKey: 'replicas',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Replicas" />,
-    cell: ({ row }) => <DataTableCell kind="text" value={row.original.replicas} />,
+    accessorKey: 'photos',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Photos" />,
+    cell: ({ row }) => <DataTableCell kind="text" value={row.original.photos} />,
     meta: { align: 'right', kind: 'text' },
   },
 ];
 
 /**
  * Same columns as `columns`, but the primary cell also carries `secondary`
- * (the owner, under the domain) — DataTableCell's own `lines` auto-detects
+ * (the photographer, under the gallery name) — DataTableCell's own `lines` auto-detects
  * to 2 whenever `secondary` is set (see growsPastTheRow/`lines` fallback
  * in data-table-cell.tsx), so this needs `lines={2}` on the table to match:
  * the cell already wants two lines of height, and `--dt-row-h-2` (56px) is
  * what actually gives it the room, vs `--dt-row-h` (44px) for the rest of
  * this story set.
  */
-const columnsTwoLine: ColumnDef<Site, unknown>[] = [
+const columnsTwoLine: ColumnDef<Gallery, unknown>[] = [
   {
-    accessorKey: 'domain',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Domain" />,
-    cell: ({ row }) => <DataTableCell kind="primary" value={row.original.domain} secondary={row.original.owner} mono />,
+    accessorKey: 'name',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Gallery" />,
+    cell: ({ row }) => <DataTableCell kind="primary" value={row.original.name} secondary={row.original.photographer} secondaryMono />,
     meta: { primary: true, kind: 'primary' },
   },
   {
@@ -159,53 +160,53 @@ const columnsTwoLine: ColumnDef<Site, unknown>[] = [
     meta: { kind: 'status' },
   },
   {
-    accessorKey: 'region',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Region" />,
-    cell: ({ row }) => <DataTableCell kind="mono" value={row.original.region} />,
-    meta: { kind: 'mono' },
+    accessorKey: 'studio',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Studio" />,
+    cell: ({ row }) => <DataTableCell kind="text" value={row.original.studio} />,
+    meta: { kind: 'text' },
   },
   {
-    accessorKey: 'replicas',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Replicas" />,
-    cell: ({ row }) => <DataTableCell kind="text" value={row.original.replicas} />,
+    accessorKey: 'photos',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Photos" />,
+    cell: ({ row }) => <DataTableCell kind="text" value={row.original.photos} />,
     meta: { align: 'right', kind: 'text' },
   },
 ];
 
 /** Sortable columns: click a header, or focus it and press Enter, to sort. On a phone the rows stack into items with label/value pairs. */
 export const Basic: Story = {
-  render: () => <DataTable columns={columns} data={DATA} ariaLabel="Sites" />,
+  render: () => <DataTable columns={columns} data={DATA} ariaLabel="Galleries" />,
 
   play: async ({ canvasElement }) => {
     // Phone (below 640px): rows stack into list items with label/value pairs; there is
     // no header row, so nothing to sort from.
     const phone = window.matchMedia('(max-width: 639.98px)').matches;
     if (phone) {
-      const list = within(canvasElement).getByRole('list', { name: 'Sites' });
+      const list = within(canvasElement).getByRole('list', { name: 'Galleries' });
       const items = within(list).getAllByRole('listitem');
       await expect(items).toHaveLength(4);
-      await expect(items[0]).toHaveTextContent('shop.seashell.dev');
+      await expect(items[0]).toHaveTextContent('Golden hour');
       // Each field keeps its column name as a label.
-      await expect(within(items[0]).getByText('Region')).toBeInTheDocument();
-      await expect(items[0]).toHaveTextContent('eu-west-1');
+      await expect(within(items[0]).getByText('Studio')).toBeInTheDocument();
+      await expect(items[0]).toHaveTextContent('Helios Studio');
       await expect(within(canvasElement).queryByRole('columnheader')).toBeNull();
       return;
     }
 
-    const table = within(canvasElement).getByRole('table', { name: 'Sites' });
+    const table = within(canvasElement).getByRole('table', { name: 'Galleries' });
     const t = within(table);
-    const header = t.getByRole('columnheader', { name: /Domain/ });
-    const firstDomain = () => within(t.getAllByRole('row')[1]).getAllByRole('cell')[0].textContent;
+    const header = t.getByRole('columnheader', { name: /Gallery/ });
+    const firstName = () => within(t.getAllByRole('row')[1]).getAllByRole('cell')[0].textContent;
     await expect(header).toHaveAttribute('aria-sort', 'none');
 
-    await userEvent.click(t.getByRole('button', { name: 'Domain' }));
+    await userEvent.click(t.getByRole('button', { name: 'Gallery' }));
     await expect(header).toHaveAttribute('aria-sort', 'ascending');
-    await expect(firstDomain()).toContain('blog.seashell.dev');
+    await expect(firstName()).toContain('Blue hour');
 
-    t.getByRole('button', { name: 'Domain' }).focus();
+    t.getByRole('button', { name: 'Gallery' }).focus();
     await userEvent.keyboard('{Enter}');
     await expect(header).toHaveAttribute('aria-sort', 'descending');
-    await expect(firstDomain()).toContain('staging.seashell.dev');
+    await expect(firstName()).toContain('Moonrise over Othrys');
   },
 };
 
@@ -219,7 +220,7 @@ export const ClickableRows: Story = {
     const [opened, setOpened] = useState('');
     return (
       <div className="flex flex-col gap-3">
-        <DataTable columns={columns} data={DATA} ariaLabel="Sites" onRowClick={(site) => setOpened(site.domain)} getRowLabel={(site) => site.domain} />
+        <DataTable columns={columns} data={DATA} ariaLabel="Galleries" onRowClick={(gallery) => setOpened(gallery.name)} getRowLabel={(gallery) => gallery.name} />
         {opened && <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtle)]">Opened {opened}</p>}
       </div>
     );
@@ -227,27 +228,27 @@ export const ClickableRows: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const phone = window.matchMedia('(max-width: 639.98px)').matches;
-    const row = canvas.getByRole(phone ? 'listitem' : 'row', { name: 'View details for docs.seashell.dev' });
+    const row = canvas.getByRole(phone ? 'listitem' : 'row', { name: 'View details for First light' });
     await userEvent.click(row);
-    await expect(canvas.getByText('Opened docs.seashell.dev')).toBeInTheDocument();
+    await expect(canvas.getByText('Opened First light')).toBeInTheDocument();
     // Keyboard: the row is a Tab stop and Enter opens it.
-    const next = canvas.getByRole(phone ? 'listitem' : 'row', { name: 'View details for staging.seashell.dev' });
+    const next = canvas.getByRole(phone ? 'listitem' : 'row', { name: 'View details for Moonrise over Othrys' });
     next.focus();
     await expect(next).toHaveFocus();
     await userEvent.keyboard('{Enter}');
-    await expect(canvas.getByText('Opened staging.seashell.dev')).toBeInTheDocument();
+    await expect(canvas.getByText('Opened Moonrise over Othrys')).toBeInTheDocument();
   },
 };
 
 /**
  * lines={2}: every row sized off --dt-row-h-2 (56px) instead of
- * --dt-row-h (44px) — the Domain column's secondary line (owner) is what
+ * --dt-row-h (44px) — the Gallery column's secondary line (photographer) is what
  * actually needs the extra room. Compare against Basic directly above:
  * same data, same columns otherwise, only the row-height budget differs.
  */
 export const TwoLineRows: Story = {
   name: 'Two-line rows (lines=2)',
-  render: () => <DataTable columns={columnsTwoLine} data={DATA} lines={2} ariaLabel="Sites" />,
+  render: () => <DataTable columns={columnsTwoLine} data={DATA} lines={2} ariaLabel="Galleries" />,
 };
 
 /** `enableSelection` with `selectAll="toolbar"`: selecting rows swaps in a bulk-action bar with a live count, and `rowMenu` gives every row an actions menu, also on right-click. */
@@ -259,23 +260,23 @@ export const WithSelectionAndRowMenu: Story = {
       columns={columns}
       data={DATA}
       getRowId={(row) => row.id}
-      getRowLabel={(row) => row.domain}
+      getRowLabel={(row) => row.name}
       enableSelection
       selectAll="toolbar"
       toolbar={(table) => (
         <DataTableToolbar
           table={table}
           actions={[
-            { label: 'Send email', icon: <Mail />, onSelect: (rows) => console.log(`Emailing ${rows.length} site(s)`) },
-            { label: 'Archive', icon: <Archive />, onSelect: (rows) => console.log(`Archiving ${rows.length} site(s)`) },
+            { label: 'Email clients', icon: <Mail />, onSelect: (rows) => console.log(`Emailing clients of ${rows.length} selected`) },
+            { label: 'Archive', icon: <Archive />, onSelect: (rows) => console.log(`Archiving ${rows.length} selected`) },
             {
               label: 'Delete',
               icon: <Trash />,
               tone: 'danger',
               confirm: {
-                title: (count) => `Delete ${count} site(s)?`,
+                title: (count) => `Delete ${count} ${count === 1 ? 'gallery' : 'galleries'}?`,
                 description: () => 'This action cannot be undone.',
-                onConfirm: (rows) => console.log(`Deleted ${rows.length} site(s)`),
+                onConfirm: (rows) => console.log(`Deleted ${rows.length} selected`),
               },
             },
           ]}
@@ -284,12 +285,12 @@ export const WithSelectionAndRowMenu: Story = {
       rowMenu={{
         contextual: true,
         items: [
-          { id: 'view', label: 'View details', onSelect: (row: Site) => console.log(row.domain) },
+          { id: 'view', label: 'View details', onSelect: (row: Gallery) => console.log(row.name) },
           { type: 'separator' },
-          { id: 'delete', label: 'Delete', tone: 'danger', onSelect: (row: Site) => console.log(`Delete ${row.domain}`) },
+          { id: 'delete', label: 'Delete', tone: 'danger', onSelect: (row: Gallery) => console.log(`Delete ${row.name}`) },
         ],
       }}
-      ariaLabel="Sites"
+      ariaLabel="Galleries"
     />
   ),
   // Selecting a row swaps in the bulk-action bar with a live count; select
@@ -313,7 +314,7 @@ export const WithSelectionAndRowMenu: Story = {
     const body = within(document.body);
     const rowBoxes = () => canvas.getAllByRole('checkbox').filter((el) => el.getAttribute('aria-label') !== 'Select all');
     // getRowLabel gives each row control its own name.
-    await expect(canvas.getByRole('checkbox', { name: 'Select shop.seashell.dev' })).toBeInTheDocument();
+    await expect(canvas.getByRole('checkbox', { name: 'Select Golden hour' })).toBeInTheDocument();
 
     await userEvent.click(rowBoxes()[0]);
     await expect(rowBoxes()[0]).toHaveAttribute('aria-checked', 'true');
@@ -343,27 +344,27 @@ export const WithSelectionAndRowMenu: Story = {
  */
 export const PagedColumns: Story = {
   name: 'Paged columns on a phone',
-  render: () => <DataTable columns={columns} data={DATA} ariaLabel="Sites" mobileLayout="paged" />,
+  render: () => <DataTable columns={columns} data={DATA} ariaLabel="Galleries" mobileLayout="paged" />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     if (window.innerWidth >= 640) {
       await expect(canvas.queryByRole('group', { name: 'Table columns' })).toBeNull();
       return;
     }
-    await expect(canvas.queryByRole('columnheader', { name: /Replicas/ })).toBeNull();
+    await expect(canvas.queryByRole('columnheader', { name: /Photos/ })).toBeNull();
     await userEvent.click(canvas.getByRole('button', { name: 'Show column 4 of 4' }));
-    await expect(canvas.getByRole('columnheader', { name: /Replicas/ })).toBeInTheDocument();
-    await expect(canvas.getByRole('columnheader', { name: /Domain/ })).toBeInTheDocument();
+    await expect(canvas.getByRole('columnheader', { name: /Photos/ })).toBeInTheDocument();
+    await expect(canvas.getByRole('columnheader', { name: /Gallery/ })).toBeInTheDocument();
   },
 };
 
 /** `loading` shows `skeletonRows` placeholder rows under the real headers while the data loads. */
 export const Loading: Story = {
-  render: () => <DataTable columns={columns} data={[]} loading skeletonRows={4} ariaLabel="Sites" />,
+  render: () => <DataTable columns={columns} data={[]} loading skeletonRows={4} ariaLabel="Galleries" />,
 };
 
 /** No rows: the `emptyMessage` takes their place. */
 export const EmptyState: Story = {
   name: 'Empty state',
-  render: () => <DataTable columns={columns} data={[]} emptyMessage="No sites yet." ariaLabel="Sites" />,
+  render: () => <DataTable columns={columns} data={[]} emptyMessage="No galleries yet." ariaLabel="Galleries" />,
 };

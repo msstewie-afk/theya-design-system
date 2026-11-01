@@ -3,7 +3,7 @@ import { Tree } from './tree';
 
 export const treeGuidelines: ComponentGuidelines = {
   status: 'beta',
-  whenToUse: ['Real hierarchy people expand and pick from: files and folders, DNS zones, nested categories.'],
+  whenToUse: ['Real hierarchy people expand and pick from: folders of photos, studios and their albums, nested categories.'],
   whenNotToUse: [
     { text: 'A flat list', instead: 'ListItem or a menu' },
     { text: 'Site navigation', instead: 'Sidebar' },
@@ -19,12 +19,12 @@ export const treeGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <Tree
-            aria-label="Site files"
+            aria-label="Client folders"
             className="w-64"
-            defaultExpandedIds={['public']}
+            defaultExpandedIds={['selects']}
             items={[
-              { id: 'public', label: 'public', children: [{ id: 'index', label: 'index.html' }, { id: 'robots', label: 'robots.txt' }] },
-              { id: 'logs', label: 'logs', children: [{ id: 'access', label: 'access.log' }] },
+              { id: 'selects', label: 'Selects', children: [{ id: 'dawn-0412', label: 'DAWN_0412.jpg' }, { id: 'dawn-0418', label: 'DAWN_0418.jpg' }] },
+              { id: 'proofs', label: 'Proofs', children: [{ id: 'golden-0907', label: 'GOLDEN_0907.tif' }] },
             ]}
           />
         ),

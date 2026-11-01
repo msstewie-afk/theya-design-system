@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Data",
   "whenToUse": [
-    "Static tabular data with a few rows and no sorting, paging or selection: a price breakdown, DNS records, a spec sheet.",
+    "Static tabular data with a few rows and no sorting, paging or selection: a price breakdown, print sizes, a spec sheet.",
     "Building something custom where DataTable doesn’t fit."
   ],
   "whenNotToUse": [
@@ -54,11 +54,11 @@
     {
       "do": {
         "caption": "Numbers right-aligned, the table has a caption.",
-        "example": "<Table className=\"w-72\">\n  <TableCaption className=\"sr-only\">Disk usage by site</TableCaption>\n  <TableHeader><TableRow><TableHead>Site</TableHead><TableHead className=\"text-right\">Disk</TableHead></TableRow></TableHeader>\n  <TableBody>{ROWS.map(([s, d]) => <TableRow key={s}><TableCell>{s}</TableCell><TableCell className=\"text-right tabular-nums\">{d}</TableCell></TableRow>)}</TableBody>\n</Table>"
+        "example": "<Table className=\"w-72\">\n  <TableCaption className=\"sr-only\">Storage by gallery</TableCaption>\n  <TableHeader><TableRow><TableHead>Gallery</TableHead><TableHead className=\"text-right\">Storage</TableHead></TableRow></TableHeader>\n  <TableBody>{ROWS.map(([s, d]) => <TableRow key={s}><TableCell>{s}</TableCell><TableCell className=\"text-right tabular-nums\">{d}</TableCell></TableRow>)}</TableBody>\n</Table>"
       },
       "dont": {
         "caption": "Left-aligned numbers are hard to compare by magnitude.",
-        "example": "<Table className=\"w-72\">\n  <TableHeader><TableRow><TableHead>Site</TableHead><TableHead>Disk</TableHead></TableRow></TableHeader>\n  <TableBody>{ROWS.map(([s, d]) => <TableRow key={s}><TableCell>{s}</TableCell><TableCell>{d}</TableCell></TableRow>)}</TableBody>\n</Table>"
+        "example": "<Table className=\"w-72\">\n  <TableHeader><TableRow><TableHead>Gallery</TableHead><TableHead>Storage</TableHead></TableRow></TableHeader>\n  <TableBody>{ROWS.map(([s, d]) => <TableRow key={s}><TableCell>{s}</TableCell><TableCell>{d}</TableCell></TableRow>)}</TableBody>\n</Table>"
       }
     }
   ],

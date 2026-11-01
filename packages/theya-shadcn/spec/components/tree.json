@@ -6,7 +6,7 @@
   "status": "beta",
   "category": "Data",
   "whenToUse": [
-    "Real hierarchy people expand and pick from: files and folders, DNS zones, nested categories."
+    "Real hierarchy people expand and pick from: folders of photos, studios and their albums, nested categories."
   ],
   "whenNotToUse": [
     {
@@ -40,7 +40,7 @@
     {
       "do": {
         "caption": "Folders that really nest.",
-        "example": "<Tree\n  aria-label=\"Site files\"\n  className=\"w-64\"\n  defaultExpandedIds={['public']}\n  items={[\n    { id: 'public', label: 'public', children: [{ id: 'index', label: 'index.html' }, { id: 'robots', label: 'robots.txt' }] },\n    { id: 'logs', label: 'logs', children: [{ id: 'access', label: 'access.log' }] },\n  ]}\n/>"
+        "example": "<Tree\n  aria-label=\"Client folders\"\n  className=\"w-64\"\n  defaultExpandedIds={['selects']}\n  items={[\n    { id: 'selects', label: 'Selects', children: [{ id: 'dawn-0412', label: 'DAWN_0412.jpg' }, { id: 'dawn-0418', label: 'DAWN_0418.jpg' }] },\n    { id: 'proofs', label: 'Proofs', children: [{ id: 'golden-0907', label: 'GOLDEN_0907.tif' }] },\n  ]}\n/>"
       },
       "dont": {
         "caption": "One level is just a list — a tree adds keyboard rules for nothing.",
