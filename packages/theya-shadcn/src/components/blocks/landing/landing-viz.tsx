@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useRef, useState, type ComponentProps, type PointerEvent } from 'react';
+import { useId, useRef, useState, type ComponentProps, type PointerEvent, type ReactNode } from 'react';
 import { cn } from '../../../lib/utils';
 import { useTheyaI18n } from '../../../lib/i18n';
 import { useInView } from '../../ui/use-in-view';
@@ -11,6 +11,11 @@ import { useInView } from '../../ui/use-in-view';
  * they scroll into view (with reduced motion they are simply drawn), and
  * each is one picture to assistive tech: role="img" with a label that says
  * what the chart shows, so nothing depends on seeing it move.
+ *
+ * The muted bars are light on purpose, below 3:1, so the numbers must be in
+ * text: pass `caption` ("12 → 48 in 8 weeks") and it is shown under the bars
+ * (WCAG 1.4.11 — the information is not carried by the bars alone). The
+ * caption is aria-hidden: the label already says it.
  */
 
 // ---------------------------------------------------------------------------
@@ -22,26 +27,43 @@ export interface GrowBarsProps extends Omit<ComponentProps<'div'>, 'children'> {
   label: string;
   /** The last bar in the accent color, the others muted (default true). */
   highlightLast?: boolean;
+  /** The numbers in visible text under the bars ("12 → 48 in 8 weeks"). Needed: the muted bars are below 3:1. */
+  caption?: ReactNode;
+}
+
+/** A chart with its numbers written under it (aria-hidden: the chart's label already says them). */
+function WithCaption({ caption, children }: { caption?: ReactNode; children: ReactNode }) {
+  if (caption == null) return <>{children}</>;
+  return (
+    <div className="flex flex-col gap-2">
+      {children}
+      <p aria-hidden className="m-0 font-body text-body-xs tabular-nums text-[var(--color-text-text-subtle)]">
+        {caption}
+      </p>
+    </div>
+  );
 }
 
 /** A row of bars that grow up from the baseline one after another as they scroll in (User Growth tiles). */
-export function GrowBars({ values, label, highlightLast = true, className, ...props }: GrowBarsProps) {
+export function GrowBars({ values, label, highlightLast = true, caption, className, ...props }: GrowBarsProps) {
   const ref = useRef<HTMLDivElement>(null);
   const seen = useInView(ref, { threshold: 0.4 });
   const max = Math.max(...values, 1);
   return (
-    <div ref={ref} role="img" aria-label={label} data-slot="grow-bars" className={cn('flex h-24 items-end gap-1.5', className)} {...props}>
-      {values.map((v, i) => (
-        <span
-          key={i}
-          className={cn(
-            'flex-1 origin-bottom rounded-t-[var(--size-border-radius-border-radius-sm)] motion-safe:transition-transform motion-safe:duration-slower motion-safe:ease-spring',
-            highlightLast && i === values.length - 1 ? 'bg-[var(--color-icon-icon-primary)]' : 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_30%,transparent)]',
-          )}
-          style={{ height: `${(v / max) * 100}%`, transform: seen ? 'scaleY(1)' : 'scaleY(0)', transitionDelay: `${i * 60}ms` }}
-        />
-      ))}
-    </div>
+    <WithCaption caption={caption}>
+      <div ref={ref} role="img" aria-label={label} data-slot="grow-bars" className={cn('flex h-24 items-end gap-1.5', className)} {...props}>
+        {values.map((v, i) => (
+          <span
+            key={i}
+            className={cn(
+              'flex-1 origin-bottom rounded-t-[var(--size-border-radius-border-radius-sm)] motion-safe:transition-transform motion-safe:duration-slower motion-safe:ease-spring',
+              highlightLast && i === values.length - 1 ? 'bg-[var(--color-icon-icon-primary)]' : 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_30%,transparent)]',
+            )}
+            style={{ height: `${(v / max) * 100}%`, transform: seen ? 'scaleY(1)' : 'scaleY(0)', transitionDelay: `${i * 60}ms` }}
+          />
+        ))}
+      </div>
+    </WithCaption>
   );
 }
 
@@ -54,6 +76,8 @@ export interface TrendChartProps extends Omit<ComponentProps<'div'>, 'children'>
   periods?: string[];
   /** What the chart shows, read out as a whole ("Followers per week, 12 weeks: from 210 to 587, peak 602 in week 11"). */
   label: string;
+  /** The numbers in visible text under the bars ("210 → 587 in 12 weeks · peak 602"). Needed: the muted bars are below 3:1. */
+  caption?: ReactNode;
 }
 
 /**
@@ -61,7 +85,7 @@ export interface TrendChartProps extends Omit<ComponentProps<'div'>, 'children'>
  * value follows (Followers Trend). Mouse only — the label says the whole
  * story for everyone else, so the scrubber adds detail, never meaning.
  */
-export function TrendChart({ values, periods, label, className, ...props }: TrendChartProps) {
+export function TrendChart({ values, periods, label, caption, className, ...props }: TrendChartProps) {
   const { locale } = useTheyaI18n();
   const uid = useId();
   const ref = useRef<HTMLDivElement>(null);
@@ -77,39 +101,41 @@ export function TrendChart({ values, periods, label, className, ...props }: Tren
     setAt(Math.min(values.length - 1, Math.max(0, i)));
   };
   return (
-    <div
-      ref={ref}
-      role="img"
-      aria-label={label}
-      data-slot="trend-chart"
-      dir="ltr"
-      onPointerMove={move}
-      onPointerLeave={() => setAt(null)}
-      // Thin bars spread across the width; the top quarter is left free for the value bubble.
-      className={cn('relative flex h-36 cursor-crosshair items-end justify-between', className)}
-      {...props}
-    >
-      {values.map((v, i) => (
-        <span
-          key={i}
-          className={cn(
-            'w-1.5 origin-bottom rounded-full motion-safe:transition-[transform,background-color] motion-safe:duration-slower motion-safe:ease-spring',
-            at === null ? (i === values.length - 1 ? 'bg-[var(--color-icon-icon-primary)]' : 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_28%,transparent)]') : i === at ? 'bg-[var(--color-icon-icon-primary)]' : i < at ? 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_45%,transparent)]' : 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_18%,transparent)]',
-          )}
-          style={{ height: `${Math.max(6, (v / max) * 75)}%`, transform: seen ? 'scaleY(1)' : 'scaleY(0)', transitionDelay: seen && at === null ? `${i * 25}ms` : undefined }}
-        />
-      ))}
-      {at !== null && (
-        <span
-          aria-hidden
-          id={`${uid}-tip`}
-          className="pointer-events-none absolute -translate-x-1/2 -translate-y-full whitespace-nowrap rounded-full bg-[var(--color-bg-surface-bg-surface-inverse,var(--color-text-text))] px-2.5 py-1 font-body text-body-xs font-semibold tabular-nums text-[var(--color-bg-surface-bg-surface)] shadow-elevation-md"
-          style={{ left: `calc(${at / Math.max(1, values.length - 1)} * (100% - 6px) + 3px)`, bottom: `calc(${Math.max(6, (values[at] / max) * 75)}% + 8px)` }}
-        >
-          {periods?.[at] ? `${periods[at]} · ` : ''}
-          {fmt.format(values[at])}
-        </span>
-      )}
-    </div>
+    <WithCaption caption={caption}>
+      <div
+        ref={ref}
+        role="img"
+        aria-label={label}
+        data-slot="trend-chart"
+        dir="ltr"
+        onPointerMove={move}
+        onPointerLeave={() => setAt(null)}
+        // Thin bars spread across the width; the top quarter is left free for the value bubble.
+        className={cn('relative flex h-36 cursor-crosshair items-end justify-between', className)}
+        {...props}
+      >
+        {values.map((v, i) => (
+          <span
+            key={i}
+            className={cn(
+              'w-1.5 origin-bottom rounded-full motion-safe:transition-[transform,background-color] motion-safe:duration-slower motion-safe:ease-spring',
+              at === null ? (i === values.length - 1 ? 'bg-[var(--color-icon-icon-primary)]' : 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_28%,transparent)]') : i === at ? 'bg-[var(--color-icon-icon-primary)]' : i < at ? 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_45%,transparent)]' : 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_18%,transparent)]',
+            )}
+            style={{ height: `${Math.max(6, (v / max) * 75)}%`, transform: seen ? 'scaleY(1)' : 'scaleY(0)', transitionDelay: seen && at === null ? `${i * 25}ms` : undefined }}
+          />
+        ))}
+        {at !== null && (
+          <span
+            aria-hidden
+            id={`${uid}-tip`}
+            className="pointer-events-none absolute -translate-x-1/2 -translate-y-full whitespace-nowrap rounded-full bg-[var(--color-bg-surface-bg-surface-inverse,var(--color-text-text))] px-2.5 py-1 font-body text-body-xs font-semibold tabular-nums text-[var(--color-bg-surface-bg-surface)] shadow-elevation-md"
+            style={{ left: `calc(${at / Math.max(1, values.length - 1)} * (100% - 6px) + 3px)`, bottom: `calc(${Math.max(6, (values[at] / max) * 75)}% + 8px)` }}
+          >
+            {periods?.[at] ? `${periods[at]} · ` : ''}
+            {fmt.format(values[at])}
+          </span>
+        )}
+      </div>
+    </WithCaption>
   );
 }

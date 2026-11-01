@@ -28,8 +28,26 @@ export interface StickyStackProps extends ComponentProps<'ol'> {
  */
 export function StickyStack({ top = 96, offset = 24, className, children, ...props }: StickyStackProps) {
   const items = Children.toArray(children);
+  // Keyboard: once the pile has formed, an earlier card shows only its top
+  // strip. When focus moves into a card, scroll the page back to where that
+  // card first sticks, so it is the one on top (WCAG 2.4.11).
+  const onFocus = (e: React.FocusEvent<HTMLOListElement>) => {
+    props.onFocus?.(e);
+    const target = e.target as HTMLElement;
+    if (!target.matches(':focus-visible')) return;
+    const list = e.currentTarget;
+    const li = target.closest<HTMLLIElement>('[data-slot=sticky-stack] > li');
+    if (!li || li.parentElement !== list) return;
+    const lis = [...list.children] as HTMLElement[];
+    const i = lis.indexOf(li);
+    const gap = parseFloat(getComputedStyle(list).rowGap) || 0;
+    // Where the card sits in the flow (sticky offsets ignored): the list's top plus the cards and gaps before it.
+    const flowTop = list.getBoundingClientRect().top + window.scrollY + lis.slice(0, i).reduce((h, el) => h + el.offsetHeight + gap, 0);
+    const stickAt = flowTop - (top + i * offset);
+    if (window.scrollY > stickAt) window.scrollTo({ top: stickAt, behavior: 'instant' as ScrollBehavior });
+  };
   return (
-    <ol data-slot="sticky-stack" className={cn('m-0 flex list-none flex-col gap-8 p-0 pb-16', className)} {...props}>
+    <ol data-slot="sticky-stack" className={cn('m-0 flex list-none flex-col gap-8 p-0 pb-16', className)} {...props} onFocus={onFocus}>
       {items.map((child, i) => (
         <li
           key={i}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ComponentProps, type ReactNode } from 'react';
 import { cn } from '../../../lib/utils';
+import { useScrollPadding } from '../../../lib/scroll-padding';
 import { useTheyaI18n } from '../../../lib/i18n';
 
 export interface SiteHeaderProps extends ComponentProps<'header'> {
@@ -45,10 +46,16 @@ export function SiteHeader({ logo, nav, actions, sticky = true, skipToId, classN
     return () => io.disconnect();
   }, [sticky]);
 
+  // A sticky header covers the top of the page: reserve its height so a
+  // Tab-focused element scrolls in below it (WCAG 2.4.11), as Topbar does.
+  const headerRef = useRef<HTMLElement>(null);
+  useScrollPadding(headerRef, 'top', sticky);
+
   return (
     <>
       <div ref={sentinel} aria-hidden className="h-px" />
       <header
+        ref={headerRef}
         data-slot="site-header"
         data-scrolled={scrolled || undefined}
         className={cn(

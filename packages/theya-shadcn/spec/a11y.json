@@ -350,7 +350,8 @@
         "verified": 1
       },
       "patternCounts": {
-        "n/a": 51,
+        "n/a": 50,
+        "untested": 1,
         "verified": 1
       }
     },
@@ -17375,7 +17376,8 @@
         "hoverContent",
         "interactive",
         "labelled",
-        "links"
+        "links",
+        "shortcuts"
       ],
       "wcag": {
         "1.1.1": "verified",
@@ -17400,7 +17402,7 @@
         "1.4.13": "fails",
         "2.1.1": "verified",
         "2.1.2": "verified",
-        "2.1.4": "n/a",
+        "2.1.4": "untested",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",

@@ -225,7 +225,7 @@ export const LiveBento: Story = {
             <div className="flex items-start justify-between gap-4">
               <div className="flex flex-col gap-1">
                 <h3 className="m-0 font-heading text-heading-xs font-semibold">Links saved per week</h3>
-                <p className="m-0 font-body text-body-s">Move the mouse across the chart</p>
+                <p className="m-0 font-body text-body-s">The last 26 weeks</p>
               </div>
               <p className="m-0 font-heading text-heading-xl font-semibold tabular-nums">
                 <CountUp to={587} />
@@ -235,6 +235,7 @@ export const LiveBento: Story = {
               values={WEEKS}
               periods={WEEKS.map((_, i) => `Week ${i + 1}`)}
               label="Links saved per week over 26 weeks: from 180 to 587, with a peak of 602 in week 25."
+              caption="180 → 587 in 26 weeks · peak 602"
             />
           </LandingCard>
         </BentoItem>
@@ -257,7 +258,7 @@ export const LiveBento: Story = {
                 </p>
                 <h3 className="m-0 font-body text-body-m font-semibold">{t.label}</h3>
               </div>
-              <GrowBars values={t.bars} label={`${t.label}, eight weeks: ${t.bars[0]} to ${t.bars[t.bars.length - 1]}`} />
+              <GrowBars values={t.bars} label={`${t.label}, eight weeks: ${t.bars[0]} to ${t.bars[t.bars.length - 1]}`} caption={`${t.bars[0]} → ${t.bars[t.bars.length - 1]} in 8 weeks`} />
             </LandingCard>
           </BentoItem>
         ))}

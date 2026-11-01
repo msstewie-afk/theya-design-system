@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import { Check, NavArrowDown, NavArrowUp, Pause, Play, Refresh, WarningTriangle, Xmark } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { useScrollPadding } from '../../lib/scroll-padding';
 import { useTheyaI18n } from '../../lib/i18n';
 import { Button } from './button';
 import { Progress } from './progress';
@@ -160,9 +161,15 @@ export function UploadPanel({
     }
   };
 
+  // A floating panel covers the bottom of the page: reserve its height so a
+  // Tab-focused element scrolls in clear of it (WCAG 2.4.11), as Fab does.
+  const panelRef = useRef<HTMLElement>(null);
+  useScrollPadding(panelRef, 'bottom', floating);
+
   const iconBtn = 'shrink-0';
   return (
     <section
+      ref={panelRef}
       data-slot="upload-panel"
       aria-label={ariaLabel ?? t.uploadPanel.label}
       onKeyDown={onKeyDown}
