@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Globe, ShieldCheck, Server } from 'iconoir-react';
+import { Archive, Download, MediaImageFolder, ShieldCheck } from 'iconoir-react';
 import { Stat } from './stat';
 import { Card, CardHeader, CardTitle, CardContent } from './card';
 import { statGuidelines } from './stat.guidelines';
@@ -22,7 +22,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A headline number on a dashboard — active sites, uptime, revenue — with an optional status and its change against the previous period.",
+          "A headline number on a dashboard — active galleries, delivery rate, revenue — with an optional status and its change against the previous period.",
       },
     },
     layout: 'padded', guidelines: statGuidelines,
@@ -46,7 +46,7 @@ const meta = {
     icon: { control: false, description: 'Optional decorative iconoir node, top-right.' },
     delta: { control: false, description: 'Trend indicator { value, direction }.' },
   },
-  args: { label: 'Active sites', value: 119 },
+  args: { label: 'Active galleries', value: 119 },
 } satisfies Meta<typeof Stat>;
 
 export default meta;
@@ -57,7 +57,7 @@ export const Default: Story = {};
 
 /** A status tone renders a bare StatusDot by default, its word kept `sr-only`. */
 export const WithTone: Story = {
-  args: { label: 'Sites needing attention', value: 9, tone: 'warning' },
+  args: { label: 'Galleries awaiting review', value: 9, tone: 'warning' },
 };
 
 /**
@@ -67,16 +67,16 @@ export const WithTone: Story = {
  */
 export const WithToneIcon: Story = {
   name: 'With tone icon',
-  args: { label: 'Sites needing attention', value: 9, tone: 'warning', toneIcon: true },
+  args: { label: 'Galleries awaiting review', value: 9, tone: 'warning', toneIcon: true },
 };
 
 /** A trend delta sits below the value with a directional icon and an sr-only "increased / decreased / no change" prefix. */
 export const WithDelta: Story = {
   name: 'With delta',
   args: {
-    label: 'Requests / day',
-    value: '4.2M',
-    icon: <Globe />,
+    label: 'Downloads / week',
+    value: '2,140',
+    icon: <Download />,
     delta: { value: '+12% vs last week', direction: 'up' },
   },
 };
@@ -84,7 +84,7 @@ export const WithDelta: Story = {
 /** `toneLabel` overrides the tone's word when a generic tone term would mislead on a given KPI. */
 export const ContextualToneLabel: Story = {
   args: {
-    label: 'Certificates expiring',
+    label: 'Licenses expiring',
     value: 3,
     tone: 'warning',
     toneLabel: 'renew within 14 days',
@@ -97,12 +97,12 @@ export const Tones: Story = {
   parameters: { fullWidth: true, controls: { exclude: ['tone', 'label', 'value'] } },
   render: () => (
     <div className="grid w-full max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <Stat label="Healthy sites" value={119} tone="success" />
+      <Stat label="Delivered galleries" value={119} tone="success" />
       <Stat label="Needs attention" value={9} tone="warning" />
-      <Stat label="Failing sites" value={2} tone="danger" />
-      <Stat label="Suspended" value={4} tone="neutral" />
-      <Stat label="Provisioning" value={1} tone="primary" />
-      <Stat label="Sync status" value={12} tone="info" />
+      <Stat label="Failed exports" value={2} tone="danger" />
+      <Stat label="Archived" value={4} tone="neutral" />
+      <Stat label="Exporting" value={1} tone="primary" />
+      <Stat label="Syncing to archive" value={12} tone="info" />
     </div>
   ),
 };
@@ -111,7 +111,7 @@ export const Tones: Story = {
 export const CompositeValue: Story = {
   name: 'Composite value',
   args: {
-    label: 'Primary domain',
+    label: 'Client portal',
     // font-mono only — no font-size override: the outer stat-value span
     // already sets text-heading-m, and a nested span with its OWN smaller
     // text-heading-s line-height created a half-leading mismatch against
@@ -119,9 +119,9 @@ export const CompositeValue: Story = {
     // centering off (items-center centers against the flex item's full
     // line-box height, and the two nested line-heights didn't agree on
     // what that was). Letting it inherit the wrapper's own size fixes it.
-    value: <span className="font-mono">shop.seashell.dev</span>,
+    value: <span className="font-mono">l4.aether.photo</span>,
     tone: 'success',
-    toneLabel: 'verified',
+    toneLabel: 'published',
   },
 };
 
@@ -130,9 +130,9 @@ export const Deltas: Story = {
   parameters: { fullWidth: true, controls: { exclude: ['delta', 'label', 'value'] } },
   render: () => (
     <div className="grid w-full max-w-4xl gap-4 sm:grid-cols-3">
-      <Stat label="Requests / day" value="4.2M" delta={{ value: '+12%', direction: 'up' }} />
-      <Stat label="Error rate" value="0.4%" delta={{ value: '-0.2 pts', direction: 'down' }} />
-      <Stat label="Active regions" value={6} delta={{ value: 'no change', direction: 'flat' }} />
+      <Stat label="Downloads / week" value="2,140" delta={{ value: '+12%', direction: 'up' }} />
+      <Stat label="Failed deliveries" value="0.4%" delta={{ value: '-0.2 pts', direction: 'down' }} />
+      <Stat label="Active studios" value={6} delta={{ value: 'no change', direction: 'flat' }} />
     </div>
   ),
 };
@@ -143,10 +143,10 @@ export const KpiRow: Story = {
   parameters: { fullWidth: true, controls: { exclude: ['label', 'value', 'tone', 'toneLabel', 'icon', 'delta'] } },
   render: () => (
     <div className="grid w-full max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <Stat label="Total sites" value={128} icon={<Globe />} delta={{ value: '+4 this week', direction: 'up' }} />
+      <Stat label="Total galleries" value={128} icon={<MediaImageFolder />} delta={{ value: '+4 this week', direction: 'up' }} />
       <Stat label="Active" value={119} tone="success" delta={{ value: '+3', direction: 'up' }} />
       <Stat label="Needs attention" value={9} tone="warning" delta={{ value: '2 more', direction: 'up' }} />
-      <Stat label="Certificates" value={142} icon={<ShieldCheck />} delta={{ value: 'no change', direction: 'flat' }} />
+      <Stat label="Licenses" value={142} icon={<ShieldCheck />} delta={{ value: 'no change', direction: 'flat' }} />
     </div>
   ),
 };
@@ -154,7 +154,7 @@ export const KpiRow: Story = {
 /** Very large values wrap (`break-words`) rather than truncating, so digits are never silently dropped — pre-abbreviate the magnitude for tighter layout. */
 export const LongValue: Story = {
   name: 'Long value',
-  args: { label: 'Total requests this month', value: '1,284,902,310', icon: <Server /> },
+  args: { label: 'Archive size, bytes', value: '212,316,860,416', icon: <Archive /> },
 };
 
 /**
@@ -174,7 +174,7 @@ export const PlainInsideCard: Story = {
           <CardTitle>Nested, default variant</CardTitle>
         </CardHeader>
         <CardContent>
-          <Stat label="Block events" value="1,284" tone="warning" />
+          <Stat label="Photos awaiting selects" value="1,284" tone="warning" />
         </CardContent>
       </Card>
       <Card size="md">
@@ -182,7 +182,7 @@ export const PlainInsideCard: Story = {
           <CardTitle>Nested, plain variant</CardTitle>
         </CardHeader>
         <CardContent>
-          <Stat label="Block events" value="1,284" tone="warning" variant="plain" />
+          <Stat label="Photos awaiting selects" value="1,284" tone="warning" variant="plain" />
         </CardContent>
       </Card>
     </div>

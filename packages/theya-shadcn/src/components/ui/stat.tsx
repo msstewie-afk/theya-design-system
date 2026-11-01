@@ -10,7 +10,7 @@ import { ToneIcon } from './tone-icon';
  * renders a ToneIcon instead of a bare StatusDot — its stacked
  * fill/shape/color signals still distinguish tones in grayscale.
  *
- *   <Stat label="Active sites" value={128} tone="success" delta={{ value: "+12%", direction: "up" }} />
+ *   <Stat label="Active galleries" value={128} tone="success" delta={{ value: "+12%", direction: "up" }} />
  *
  * Nesting: inside a Card or Widget, pass variant="plain" so Stat
  * doesn't paint a second border/surface inside one that already has them.

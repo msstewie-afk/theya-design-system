@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Data",
   "whenToUse": [
-    "Headline numbers on a dashboard or overview: active sites, uptime, revenue — 2 to 4 in a row.",
+    "Headline numbers on a dashboard or overview: active galleries, delivery rate, revenue — 2 to 4 in a row.",
     "A number with its trend against a previous period."
   ],
   "whenNotToUse": [
@@ -52,17 +52,17 @@
     {
       "do": {
         "caption": "A number, and how it changed against what.",
-        "example": "<div className=\"w-56\"><Stat label=\"Active sites\" value={128} icon={<Globe />} delta={{ value: '+12% vs last month', direction: 'up' }} /></div>"
+        "example": "<div className=\"w-56\"><Stat label=\"Active galleries\" value={128} icon={<MediaImageFolder />} delta={{ value: '+12% vs last month', direction: 'up' }} /></div>"
       },
       "dont": {
         "caption": "A sentence in the value slot: nothing to read at a glance.",
-        "example": "<div className=\"w-56\"><Stat label=\"Sites\" value=\"128 active, 4 suspended, 2 with errors\" /></div>"
+        "example": "<div className=\"w-56\"><Stat label=\"Galleries\" value=\"128 active, 4 archived, 2 with failed exports\" /></div>"
       }
     },
     {
       "do": {
         "caption": "Tone when the value itself is good or bad.",
-        "example": "<div className=\"w-56\"><Stat label=\"Uptime, 30 days\" value=\"99.98%\" tone=\"success\" /></div>"
+        "example": "<div className=\"w-56\"><Stat label=\"Delivery rate, 30 days\" value=\"99.8%\" tone=\"success\" /></div>"
       },
       "dont": {
         "caption": "Danger on a neutral count makes people look for a problem.",

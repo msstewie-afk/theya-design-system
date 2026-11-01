@@ -2918,7 +2918,7 @@ Docs: ./?path=/docs/data-datatable--docs
 
 **When to use**
 
-- Lists of records people scan, sort, filter, select and act on: sites, domains, invoices, users.
+- Lists of records people scan, sort, filter, select and act on: galleries, client portals, invoices, users.
 - Rows that open a detail page (whole-row link) or carry per-row actions.
 
 **When not to use**
@@ -2998,16 +2998,16 @@ Docs: ./?path=/docs/data-datatable--docs
 
 **Do / Don’t**
 
-- Do: Each column uses its kind: mono for domains, status with a dot, numbers on the right.
+- Do: Each column uses its kind: mono for portal addresses, status with a dot, numbers on the right.
 
   ```tsx
-  <div className="w-[26rem]"><DataTable columns={good} data={SITES} hideFooter ariaLabel="Sites" /></div>
+  <div className="w-[26rem]"><DataTable columns={good} data={PORTALS} hideFooter ariaLabel="Client portals" /></div>
   ```
 
 - Don’t: Everything as plain text: raw status values, numbers that don’t line up.
 
   ```tsx
-  <div className="w-[26rem]"><DataTable columns={bad} data={SITES} hideFooter ariaLabel="Sites, plain" /></div>
+  <div className="w-[26rem]"><DataTable columns={bad} data={PORTALS} hideFooter ariaLabel="Client portals, plain" /></div>
   ```
 
 
@@ -3114,13 +3114,13 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes.
 - Do: The main value on top, details on the second line.
 
   ```tsx
-  <div className="w-64"><DataTableCell kind="text" value="shop.seashell.dev" mono secondary="eu-west-1 · Pro" lines={2} /></div>
+  <div className="w-64"><DataTableCell kind="text" value="Golden hour" secondary="Helios Studio · 248 photos" lines={2} /></div>
   ```
 
 - Don’t: Four facts in one line truncate, and none of them can be sorted.
 
   ```tsx
-  <div className="w-64"><DataTableCell value="shop.seashell.dev · eu-west-1 · Pro · 12.4 GB" /></div>
+  <div className="w-64"><DataTableCell value="Golden hour · Helios Studio · 248 photos · 12.4 GB" /></div>
   ```
 
 - Do: Status: a dot plus a word.
@@ -3138,7 +3138,7 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes.
 
 **Accessibility**
 
-- Editable kinds need a `label` — usually “column, row” (“Plan, shop.seashell.dev”); it isn’t visible in the cell.
+- Editable kinds need a `label` — usually “column, row” (“License, Golden hour”); it isn’t visible in the cell.
 - Invalid edits show a real message linked to the field, not only a red border.
 - Status and badge kinds always carry a word; color is never the only signal.
 
@@ -3500,7 +3500,7 @@ Docs: ./?path=/docs/data-descriptionlist--docs
 
 **When to use**
 
-- Properties of one object: site details, an invoice header, a certificate.
+- Properties of one object: gallery details, an invoice header, a license.
 - A read-only summary before confirming (review step).
 
 **When not to use**
@@ -3525,7 +3525,7 @@ Also accepts the props of: HTMLAttributes.
   ```tsx
   <DescriptionList className="w-80">
     {PAIRS.map(([t, d]) => (
-      <DescriptionItem key={t}><DescriptionTerm>{t}</DescriptionTerm><DescriptionDetails className={t === 'Plan' ? undefined : 'font-code'}>{d}</DescriptionDetails></DescriptionItem>
+      <DescriptionItem key={t}><DescriptionTerm>{t}</DescriptionTerm><DescriptionDetails className={t === 'Client portal' ? 'font-code' : undefined}>{d}</DescriptionDetails></DescriptionItem>
     ))}
   </DescriptionList>
   ```
@@ -6158,7 +6158,7 @@ Docs: ./?path=/docs/data-metric--docs
 
 **When to use**
 
-- Quick-glance counts repeated as rows inside a card: mailboxes used, aliases, records pending.
+- Quick-glance counts repeated as rows inside a card: photos selected, galleries shared, licenses pending.
 
 **When not to use**
 
@@ -6170,7 +6170,7 @@ Docs: ./?path=/docs/data-metric--docs
 
 - Icon (optional): muted and decorative.
 - Value: the number, read first.
-- Label: follows the value in the same line (“121`/150 mailboxes`”).
+- Label: follows the value in the same line (“121`/150 selects`”).
 - Actions (optional): a link or small button on the right.
 
 **Metric props**
@@ -6189,8 +6189,8 @@ Also accepts the props of: HTMLAttributes.
 
   ```tsx
   <div className="flex w-72 flex-col gap-2">
-    <Metric icon={<Mail />} value={121} label="/150 mailboxes" />
-    <Metric icon={<WarningCircle />} value={2} label=" DNS records not propagated" />
+    <Metric icon={<MediaImage />} value={121} label="/150 selects" />
+    <Metric icon={<WarningCircle />} value={2} label=" licenses awaiting signature" />
   </div>
   ```
 
@@ -6198,8 +6198,8 @@ Also accepts the props of: HTMLAttributes.
 
   ```tsx
   <div className="flex w-72 flex-col gap-2">
-    <Stat label="Mailboxes" value="121/150" />
-    <Stat label="DNS records not propagated" value={2} />
+    <Stat label="Selects" value="121/150" />
+    <Stat label="Licenses awaiting signature" value={2} />
   </div>
   ```
 
@@ -8783,7 +8783,7 @@ Docs: ./?path=/docs/data-stat--docs
 
 **When to use**
 
-- Headline numbers on a dashboard or overview: active sites, uptime, revenue — 2 to 4 in a row.
+- Headline numbers on a dashboard or overview: active galleries, delivery rate, revenue — 2 to 4 in a row.
 - A number with its trend against a previous period.
 
 **When not to use**
@@ -8818,19 +8818,19 @@ Also accepts the props of: HTMLAttributes.
 - Do: A number, and how it changed against what.
 
   ```tsx
-  <div className="w-56"><Stat label="Active sites" value={128} icon={<Globe />} delta={{ value: '+12% vs last month', direction: 'up' }} /></div>
+  <div className="w-56"><Stat label="Active galleries" value={128} icon={<MediaImageFolder />} delta={{ value: '+12% vs last month', direction: 'up' }} /></div>
   ```
 
 - Don’t: A sentence in the value slot: nothing to read at a glance.
 
   ```tsx
-  <div className="w-56"><Stat label="Sites" value="128 active, 4 suspended, 2 with errors" /></div>
+  <div className="w-56"><Stat label="Galleries" value="128 active, 4 archived, 2 with failed exports" /></div>
   ```
 
 - Do: Tone when the value itself is good or bad.
 
   ```tsx
-  <div className="w-56"><Stat label="Uptime, 30 days" value="99.98%" tone="success" /></div>
+  <div className="w-56"><Stat label="Delivery rate, 30 days" value="99.8%" tone="success" /></div>
   ```
 
 - Don’t: Danger on a neutral count makes people look for a problem.
@@ -9330,7 +9330,7 @@ Docs: ./?path=/docs/data-table--docs
 
 **When to use**
 
-- Static tabular data with a few rows and no sorting, paging or selection: a price breakdown, DNS records, a spec sheet.
+- Static tabular data with a few rows and no sorting, paging or selection: a price breakdown, print sizes, a spec sheet.
 - Building something custom where DataTable doesn’t fit.
 
 **When not to use**
@@ -9368,8 +9368,8 @@ Also accepts the props of: TableHTMLAttributes, SVGAttributes, HTMLAttributes, T
 
   ```tsx
   <Table className="w-72">
-    <TableCaption className="sr-only">Disk usage by site</TableCaption>
-    <TableHeader><TableRow><TableHead>Site</TableHead><TableHead className="text-right">Disk</TableHead></TableRow></TableHeader>
+    <TableCaption className="sr-only">Storage by gallery</TableCaption>
+    <TableHeader><TableRow><TableHead>Gallery</TableHead><TableHead className="text-right">Storage</TableHead></TableRow></TableHeader>
     <TableBody>{ROWS.map(([s, d]) => <TableRow key={s}><TableCell>{s}</TableCell><TableCell className="text-right tabular-nums">{d}</TableCell></TableRow>)}</TableBody>
   </Table>
   ```
@@ -9378,7 +9378,7 @@ Also accepts the props of: TableHTMLAttributes, SVGAttributes, HTMLAttributes, T
 
   ```tsx
   <Table className="w-72">
-    <TableHeader><TableRow><TableHead>Site</TableHead><TableHead>Disk</TableHead></TableRow></TableHeader>
+    <TableHeader><TableRow><TableHead>Gallery</TableHead><TableHead>Storage</TableHead></TableRow></TableHeader>
     <TableBody>{ROWS.map(([s, d]) => <TableRow key={s}><TableCell>{s}</TableCell><TableCell>{d}</TableCell></TableRow>)}</TableBody>
   </Table>
   ```
@@ -10117,7 +10117,7 @@ Docs: ./?path=/docs/data-timeline--docs
 
 **When to use**
 
-- A sequence of events in time: activity on a site, an incident’s history, an order’s progress.
+- A sequence of events in time: activity in a gallery, an export’s history, a print order’s progress.
 
 **When not to use**
 
@@ -10148,13 +10148,13 @@ Also accepts the props of: OlHTMLAttributes, ButtonHTMLAttributes, HTMLAttribute
   ```tsx
   <Timeline className="w-80">
     <TimelineItem tone="success" time="14:02" icon={<CheckCircle />}>
-      <TimelineTitle>Certificate issued</TimelineTitle>
-      <TimelineDescription>shop.seashell.dev · valid 90 days</TimelineDescription>
+      <TimelineTitle>License issued</TimelineTitle>
+      <TimelineDescription>GOLDEN_0907.tif · print rights, 1 year</TimelineDescription>
     </TimelineItem>
     <TimelineItem tone="warning" time="13:40" icon={<WarningTriangle />}>
-      <TimelineTitle>DNS check retried</TimelineTitle>
+      <TimelineTitle>Client signature pending</TimelineTitle>
     </TimelineItem>
-    <TimelineItem time="13:38"><TimelineTitle>Renewal started</TimelineTitle></TimelineItem>
+    <TimelineItem time="13:38"><TimelineTitle>License requested</TimelineTitle></TimelineItem>
   </Timeline>
   ```
 
@@ -10162,9 +10162,9 @@ Also accepts the props of: OlHTMLAttributes, ButtonHTMLAttributes, HTMLAttribute
 
   ```tsx
   <Timeline className="w-80">
-    <TimelineItem tone="success" icon={<CheckCircle />}><TimelineTitle>Certificate issued</TimelineTitle></TimelineItem>
-    <TimelineItem tone="success" icon={<CheckCircle />}><TimelineTitle>DNS check retried</TimelineTitle></TimelineItem>
-    <TimelineItem tone="success" icon={<CheckCircle />}><TimelineTitle>Renewal started</TimelineTitle></TimelineItem>
+    <TimelineItem tone="success" icon={<CheckCircle />}><TimelineTitle>License issued</TimelineTitle></TimelineItem>
+    <TimelineItem tone="success" icon={<CheckCircle />}><TimelineTitle>Client signature pending</TimelineTitle></TimelineItem>
+    <TimelineItem tone="success" icon={<CheckCircle />}><TimelineTitle>License requested</TimelineTitle></TimelineItem>
   </Timeline>
   ```
 
@@ -10589,7 +10589,7 @@ Docs: ./?path=/docs/data-tree--docs
 
 **When to use**
 
-- Real hierarchy people expand and pick from: files and folders, DNS zones, nested categories.
+- Real hierarchy people expand and pick from: folders of photos, studios and their albums, nested categories.
 
 **When not to use**
 
@@ -10621,12 +10621,12 @@ Also accepts the props of: HTMLAttributes.
 
   ```tsx
   <Tree
-    aria-label="Site files"
+    aria-label="Client folders"
     className="w-64"
-    defaultExpandedIds={['public']}
+    defaultExpandedIds={['selects']}
     items={[
-      { id: 'public', label: 'public', children: [{ id: 'index', label: 'index.html' }, { id: 'robots', label: 'robots.txt' }] },
-      { id: 'logs', label: 'logs', children: [{ id: 'access', label: 'access.log' }] },
+      { id: 'selects', label: 'Selects', children: [{ id: 'dawn-0412', label: 'DAWN_0412.jpg' }, { id: 'dawn-0418', label: 'DAWN_0418.jpg' }] },
+      { id: 'proofs', label: 'Proofs', children: [{ id: 'golden-0907', label: 'GOLDEN_0907.tif' }] },
     ]}
   />
   ```

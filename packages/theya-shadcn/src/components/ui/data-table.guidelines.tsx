@@ -3,33 +3,33 @@ import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { DataTable } from './data-table';
 import { DataTableCell } from './data-table-cell';
 
-interface Site { domain: string; status: 'running' | 'error'; disk: string }
-const SITES: Site[] = [
-  { domain: 'shop.seashell.dev', status: 'running', disk: '12.4 GB' },
-  { domain: 'api.seashell.dev', status: 'error', disk: '860 MB' },
+interface Portal { address: string; status: 'active' | 'error'; downloads: string }
+const PORTALS: Portal[] = [
+  { address: 'helios.aether.photo', status: 'active', downloads: '1,284' },
+  { address: 'selene-weddings.aether.photo', status: 'error', downloads: '312' },
 ];
 
-const good: ColumnDef<Site, unknown>[] = [
-  { accessorKey: 'domain', header: 'Domain', cell: ({ row }) => <DataTableCell kind="mono" value={row.original.domain} />, meta: { kind: 'mono' } },
+const good: ColumnDef<Portal, unknown>[] = [
+  { accessorKey: 'address', header: 'Client portal', cell: ({ row }) => <DataTableCell kind="mono" value={row.original.address} />, meta: { kind: 'mono' } },
   {
     accessorKey: 'status',
     header: 'Status',
-    cell: ({ row }) => <DataTableCell kind="status" tone={row.original.status === 'running' ? 'success' : 'danger'} label={row.original.status === 'running' ? 'Running' : 'Error'} />,
+    cell: ({ row }) => <DataTableCell kind="status" tone={row.original.status === 'active' ? 'success' : 'danger'} label={row.original.status === 'active' ? 'Active' : 'Error'} />,
     meta: { kind: 'status' },
   },
-  { accessorKey: 'disk', header: 'Disk', cell: ({ row }) => <DataTableCell value={row.original.disk} />, meta: { align: 'right' } },
+  { accessorKey: 'downloads', header: 'Downloads', cell: ({ row }) => <DataTableCell value={row.original.downloads} />, meta: { align: 'right' } },
 ];
 
-const bad: ColumnDef<Site, unknown>[] = [
-  { accessorKey: 'domain', header: 'Domain', cell: ({ row }) => <DataTableCell value={row.original.domain} /> },
+const bad: ColumnDef<Portal, unknown>[] = [
+  { accessorKey: 'address', header: 'Client portal', cell: ({ row }) => <DataTableCell value={row.original.address} /> },
   { accessorKey: 'status', header: 'Status', cell: ({ row }) => <DataTableCell value={row.original.status} /> },
-  { accessorKey: 'disk', header: 'Disk', cell: ({ row }) => <DataTableCell value={row.original.disk} /> },
+  { accessorKey: 'downloads', header: 'Downloads', cell: ({ row }) => <DataTableCell value={row.original.downloads} /> },
 ];
 
 export const dataTableGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
-    'Lists of records people scan, sort, filter, select and act on: sites, domains, invoices, users.',
+    'Lists of records people scan, sort, filter, select and act on: galleries, client portals, invoices, users.',
     'Rows that open a detail page (whole-row link) or carry per-row actions.',
   ],
   whenNotToUse: [
@@ -49,8 +49,8 @@ export const dataTableGuidelines: ComponentGuidelines = {
   ],
   doDont: [
     {
-      do: { example: <div className="w-[26rem]"><DataTable columns={good} data={SITES} hideFooter ariaLabel="Sites" /></div>, caption: 'Each column uses its kind: mono for domains, status with a dot, numbers on the right.' },
-      dont: { example: <div className="w-[26rem]"><DataTable columns={bad} data={SITES} hideFooter ariaLabel="Sites, plain" /></div>, caption: 'Everything as plain text: raw status values, numbers that don’t line up.' },
+      do: { example: <div className="w-[26rem]"><DataTable columns={good} data={PORTALS} hideFooter ariaLabel="Client portals" /></div>, caption: 'Each column uses its kind: mono for portal addresses, status with a dot, numbers on the right.' },
+      dont: { example: <div className="w-[26rem]"><DataTable columns={bad} data={PORTALS} hideFooter ariaLabel="Client portals, plain" /></div>, caption: 'Everything as plain text: raw status values, numbers that don’t line up.' },
     },
   ],
   a11y: [

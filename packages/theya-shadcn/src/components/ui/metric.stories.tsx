@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Mail, WarningCircle, NavArrowRight } from 'iconoir-react';
+import { MediaImage, MediaImageFolder, WarningCircle, NavArrowRight } from 'iconoir-react';
 import { Metric } from './metric';
 import { Button } from './button';
 import { metricGuidelines } from './metric.guidelines';
@@ -10,7 +10,7 @@ const meta: Meta<typeof Metric> = {
     docs: {
       description: {
         component:
-          "A small count with its label, repeated as rows inside a card: mailboxes used, aliases, records pending.",
+          "A small count with its label, repeated as rows inside a card: photos selected, galleries shared, licenses pending.",
       },
     },
     guidelines: metricGuidelines,
@@ -33,14 +33,14 @@ export const Default: Story = {
   render: () => (
     <div className="w-full max-w-[360px] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
       <Metric
-        icon={<Mail />}
+        icon={<MediaImageFolder />}
         value={8}
-        // The leading space is what puts the gap between "8" and "aliases" —
+        // The leading space is what puts the gap between "8" and "shared galleries" —
         // Metric's own value/label gap is deliberately 0 (see metric.tsx),
         // so a word-separated label needs its own leading space.
-        label=" aliases"
-        description="Alternate addresses for existing mailboxes"
-        actions={<Button appearance="ghost" iconOnly size="md" aria-label="View aliases" leftIcon={<NavArrowRight />} />}
+        label=" shared galleries"
+        description="Galleries open to clients on their portals"
+        actions={<Button appearance="ghost" iconOnly size="md" aria-label="View shared galleries" leftIcon={<NavArrowRight />} />}
       />
     </div>
   ),
@@ -48,7 +48,7 @@ export const Default: Story = {
 
 /**
  * The other side of the same gap-0 rule: a numeric value can glue straight
- * to a suffix with no space at all ("121" + "/150 mailboxes" reads as one
+ * to a suffix with no space at all ("121" + "/150 selects" reads as one
  * run, not two words) — same component, no prop for it, just how the label
  * string is written.
  */
@@ -56,7 +56,7 @@ export const TightSuffix: Story = {
   name: 'Tight suffix',
   render: () => (
     <div className="w-full max-w-[360px] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
-      <Metric value={121} label="/150 mailboxes" icon={<Mail />} />
+      <Metric value={121} label="/150 selects" icon={<MediaImage />} />
     </div>
   ),
 };
@@ -65,9 +65,9 @@ export const TightSuffix: Story = {
 export const Stack: Story = {
   render: () => (
     <div className="w-full max-w-[360px] divide-y divide-[var(--color-border-border-subtler)] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
-      <Metric icon={<Mail />} value={8} label=" aliases" />
-      <Metric icon={<Mail />} value={121} label="/150 mailboxes" />
-      <Metric icon={<WarningCircle />} value={2} label=" DNS records not propagated" />
+      <Metric icon={<MediaImageFolder />} value={8} label=" shared galleries" />
+      <Metric icon={<MediaImage />} value={121} label="/150 selects" />
+      <Metric icon={<WarningCircle />} value={2} label=" licenses awaiting signature" />
     </div>
   ),
 };

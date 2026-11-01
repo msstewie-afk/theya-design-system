@@ -17,7 +17,7 @@ const meta: Meta<typeof DescriptionList> = {
     guidelines: descriptionListGuidelines,
     docs: {
       description: {
-        component: "Label and value pairs about one object: site details, an invoice header, a review step before confirming.",
+        component: "Label and value pairs about one object: gallery details, an invoice header, a review step before confirming.",
       },
     },
   },
@@ -26,21 +26,21 @@ const meta: Meta<typeof DescriptionList> = {
 export default meta;
 type Story = StoryObj<typeof DescriptionList>;
 
-/** The read-only attributes of a single site. Identifiers use `font-mono`. */
+/** The read-only attributes of a single gallery. Identifiers use `font-mono`. */
 export const Default: Story = {
   render: () => (
     <DescriptionList className="w-full max-w-[420px]">
       <DescriptionItem>
-        <DescriptionTerm>Domain</DescriptionTerm>
-        <DescriptionDetails className="font-mono">shop.seashell.dev</DescriptionDetails>
+        <DescriptionTerm>Client portal</DescriptionTerm>
+        <DescriptionDetails className="font-mono">selene-weddings.aether.photo</DescriptionDetails>
       </DescriptionItem>
       <DescriptionItem>
-        <DescriptionTerm>Region</DescriptionTerm>
-        <DescriptionDetails className="font-mono">eu-west-1</DescriptionDetails>
+        <DescriptionTerm>Studio</DescriptionTerm>
+        <DescriptionDetails>Selene Weddings</DescriptionDetails>
       </DescriptionItem>
       <DescriptionItem>
         <DescriptionTerm>Description</DescriptionTerm>
-        <DescriptionDetails>Primary storefront serving production traffic across three availability zones.</DescriptionDetails>
+        <DescriptionDetails>Wedding of Rhea Okafor and Theo Amari, 412 edited photos delivered in two sets.</DescriptionDetails>
       </DescriptionItem>
     </DescriptionList>
   ),
@@ -57,28 +57,28 @@ export const WithStatus: Story = {
   render: () => (
     <DescriptionList className="w-full max-w-[420px]">
       <DescriptionItem>
-        <DescriptionTerm>Domain</DescriptionTerm>
-        <DescriptionDetails className="font-mono">api.seashell.dev</DescriptionDetails>
+        <DescriptionTerm>Client portal</DescriptionTerm>
+        <DescriptionDetails className="font-mono">eos-portraits.aether.photo</DescriptionDetails>
       </DescriptionItem>
       <DescriptionItem className="sm:items-start">
         <DescriptionTerm>Status</DescriptionTerm>
         <DescriptionDetails>
           <Badge tone="danger">
             <StatusDot tone="danger" />
-            Error
+            Export failed
           </Badge>
         </DescriptionDetails>
       </DescriptionItem>
       <DescriptionItem>
         <DescriptionTerm>Plan</DescriptionTerm>
-        <DescriptionDetails>Scale</DescriptionDetails>
+        <DescriptionDetails>Business</DescriptionDetails>
       </DescriptionItem>
     </DescriptionList>
   ),
 };
 
 /**
- * A long unbreakable identifier (a deploy hash, a full URL) wraps inside
+ * A long unbreakable identifier (an export ID, a full URL) wraps inside
  * the value track instead of forcing horizontal page scroll at 360px —
  * both tracks are `min-w-0` and the value carries `break-words`.
  */
@@ -87,12 +87,12 @@ export const LongIdentifier: Story = {
   render: () => (
     <DescriptionList className="w-full max-w-[420px]">
       <DescriptionItem>
-        <DescriptionTerm>Deploy hash</DescriptionTerm>
+        <DescriptionTerm>Export ID</DescriptionTerm>
         <DescriptionDetails className="font-mono">9f3c1a7e8b4d2f0c6a59e3d71b8c4f02a1d6e9b3</DescriptionDetails>
       </DescriptionItem>
       <DescriptionItem>
-        <DescriptionTerm>Endpoint</DescriptionTerm>
-        <DescriptionDetails className="font-mono">https://eu-west-1.api.seashell.dev/v2/deployments/9f3c1a7e</DescriptionDetails>
+        <DescriptionTerm>Download link</DescriptionTerm>
+        <DescriptionDetails className="font-mono">https://selene-weddings.aether.photo/galleries/golden-hour/download/9f3c1a7e</DescriptionDetails>
       </DescriptionItem>
     </DescriptionList>
   ),
@@ -110,19 +110,19 @@ export const TwoUpGrid: Story = {
     <DescriptionList className="grid w-full max-w-[560px] grid-cols-1 sm:grid-cols-2 sm:gap-x-8">
       <DescriptionItem className="sm:grid-cols-1 sm:gap-1">
         <DescriptionTerm>Created</DescriptionTerm>
-        <DescriptionDetails>12 Mar 2026</DescriptionDetails>
+        <DescriptionDetails>Mar 12, 2026</DescriptionDetails>
       </DescriptionItem>
       <DescriptionItem className="sm:grid-cols-1 sm:gap-1">
-        <DescriptionTerm>Region</DescriptionTerm>
-        <DescriptionDetails className="font-mono">eu-west-1</DescriptionDetails>
+        <DescriptionTerm>Studio</DescriptionTerm>
+        <DescriptionDetails>Helios Studio</DescriptionDetails>
       </DescriptionItem>
       <DescriptionItem className="sm:grid-cols-1 sm:gap-1">
-        <DescriptionTerm>Runtime</DescriptionTerm>
-        <DescriptionDetails className="font-mono">node 20.11.1</DescriptionDetails>
+        <DescriptionTerm>Storage used</DescriptionTerm>
+        <DescriptionDetails>212 GB of 384 GB</DescriptionDetails>
       </DescriptionItem>
       <DescriptionItem className="sm:grid-cols-1 sm:gap-1">
-        <DescriptionTerm>Requests / day</DescriptionTerm>
-        <DescriptionDetails>902,540</DescriptionDetails>
+        <DescriptionTerm>Downloads / month</DescriptionTerm>
+        <DescriptionDetails>9,254</DescriptionDetails>
       </DescriptionItem>
     </DescriptionList>
   ),

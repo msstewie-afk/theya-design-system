@@ -27,7 +27,7 @@ const meta: Meta<typeof Table> = {
     docs: {
       description: {
         component:
-          "A plain table for a few rows of data: a price breakdown, DNS records, a spec sheet. For sorting, paging or selection, use DataTable.",
+          "A plain table for a few rows of data: a price breakdown, print sizes, a spec sheet. For sorting, paging or selection, use DataTable.",
       },
     },
     layout: 'padded', guidelines: tableGuidelines,
@@ -51,37 +51,39 @@ const meta: Meta<typeof Table> = {
 export default meta;
 type Story = StoryObj<typeof Table>;
 
-type SiteStatus = 'running' | 'suspended' | 'error';
-interface Site {
-  domain: string;
-  status: SiteStatus;
-  plan: string;
-  requests: number;
+type GalleryStatus = 'active' | 'paused' | 'error';
+interface Gallery {
+  name: string;
+  studio: string;
+  status: GalleryStatus;
+  photos: number;
+  views: number;
+  photographer: string;
 }
 
-const SITES: Site[] = [
-  { domain: 'shop.seashell.dev', status: 'running', plan: 'Pro', requests: 184_320 },
-  { domain: 'blog.seashell.dev', status: 'running', plan: 'Starter', requests: 42_180 },
-  { domain: 'api.seashell.dev', status: 'error', plan: 'Scale', requests: 902_540 },
-  { domain: 'staging.seashell.dev', status: 'suspended', plan: 'Pro', requests: 3_210 },
-  { domain: 'docs.seashell.dev', status: 'running', plan: 'Starter', requests: 28_990 },
+const GALLERIES: Gallery[] = [
+  { name: 'Golden hour', studio: 'Helios Studio', status: 'active', photos: 248, views: 1_842, photographer: 'thea@aether.photo' },
+  { name: 'Blue hour', studio: 'Selene Weddings', status: 'active', photos: 186, views: 964, photographer: 'selin@aether.photo' },
+  { name: 'First light', studio: 'Eos Portraits', status: 'error', photos: 132, views: 3_120, photographer: 'elio@aether.photo' },
+  { name: 'Moonrise over Othrys', studio: 'Othrys Lodge', status: 'paused', photos: 74, views: 58, photographer: 'mina@aether.photo' },
+  { name: 'Wide-shining', studio: 'Phoebe Light Lab', status: 'active', photos: 96, views: 412, photographer: 'phoebe@aether.photo' },
 ];
 
-const STATUS_LABEL: Record<SiteStatus, string> = {
-  running: 'Running',
-  suspended: 'Suspended',
-  error: 'Error',
+const STATUS_LABEL: Record<GalleryStatus, string> = {
+  active: 'Active',
+  paused: 'Paused',
+  error: 'Upload failed',
 };
 
-const STATUS_TONE: Record<SiteStatus, BadgeTone> = {
-  running: 'success',
-  suspended: 'warning',
+const STATUS_TONE: Record<GalleryStatus, BadgeTone> = {
+  active: 'success',
+  paused: 'warning',
   error: 'danger',
 };
 
 /**
  * A basic table: `scope="col"` header cells so assistive tech associates
- * each column with its data, identifiers in `font-mono`, and a numeric
+ * each column with its data, plain text for names, and a numeric
  * column right-aligned with `tabular-nums`. Status is a real Badge (via
  * DataTableCell's `kind="badge"`, Badge's own default `sm` size) rather
  * than plain text, reusing the same component DataTable itself renders
@@ -96,27 +98,27 @@ export const Default: Story = {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead scope="col">Domain</TableHead>
+          <TableHead scope="col">Gallery</TableHead>
           <TableHead scope="col">Status</TableHead>
-          <TableHead scope="col">Plan</TableHead>
+          <TableHead scope="col">Studio</TableHead>
           <TableHead scope="col" className="text-right tabular-nums">
-            Requests / day
+            Views / day
           </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {SITES.map((site) => (
-          <TableRow key={site.domain}>
-            <TableCell className="font-mono">{site.domain}</TableCell>
+        {GALLERIES.map((gallery) => (
+          <TableRow key={gallery.name}>
+            <TableCell>{gallery.name}</TableCell>
             {/* p-0: DataTableCell supplies its own px-4 padding (and a fixed
             height off --dt-row-h/--dt-cell-h), same reason DataTable's own
             body cells zero TableCell's padding in bodyCellAttrs() — left in,
             the two paddings stack into a doubled 32px inset. */}
             <TableCell className="p-0">
-              <DataTableCell kind="badge" tone={STATUS_TONE[site.status]} label={STATUS_LABEL[site.status]} />
+              <DataTableCell kind="badge" tone={STATUS_TONE[gallery.status]} label={STATUS_LABEL[gallery.status]} />
             </TableCell>
-            <TableCell>{site.plan}</TableCell>
-            <TableCell className="text-right tabular-nums">{site.requests.toLocaleString('en-US')}</TableCell>
+            <TableCell>{gallery.studio}</TableCell>
+            <TableCell className="text-right tabular-nums">{gallery.views.toLocaleString('en-US')}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -128,22 +130,22 @@ export const Default: Story = {
 export const WithCaption: Story = {
   render: () => (
     <Table>
-      <TableCaption>Sites in the eu-west-1 region, refreshed every 60s.</TableCaption>
+      <TableCaption>Client galleries across all studios, refreshed every 60s.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead scope="col">Domain</TableHead>
-          <TableHead scope="col">Plan</TableHead>
+          <TableHead scope="col">Gallery</TableHead>
+          <TableHead scope="col">Studio</TableHead>
           <TableHead scope="col" className="text-right tabular-nums">
-            Requests / day
+            Views / day
           </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {SITES.map((site) => (
-          <TableRow key={site.domain}>
-            <TableCell className="font-mono">{site.domain}</TableCell>
-            <TableCell>{site.plan}</TableCell>
-            <TableCell className="text-right tabular-nums">{site.requests.toLocaleString('en-US')}</TableCell>
+        {GALLERIES.map((gallery) => (
+          <TableRow key={gallery.name}>
+            <TableCell>{gallery.name}</TableCell>
+            <TableCell>{gallery.studio}</TableCell>
+            <TableCell className="text-right tabular-nums">{gallery.views.toLocaleString('en-US')}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -163,19 +165,19 @@ export const SelectedRow: Story = {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead scope="col">Domain</TableHead>
-          <TableHead scope="col">Plan</TableHead>
+          <TableHead scope="col">Gallery</TableHead>
+          <TableHead scope="col">Studio</TableHead>
           <TableHead scope="col" className="text-right tabular-nums">
-            Requests / day
+            Views / day
           </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {SITES.map((site, i) => (
-          <TableRow key={site.domain} data-state={i === 0 ? 'selected' : undefined} aria-selected={i === 0}>
-            <TableCell className="font-mono">{site.domain}</TableCell>
-            <TableCell>{site.plan}</TableCell>
-            <TableCell className="text-right tabular-nums">{site.requests.toLocaleString('en-US')}</TableCell>
+        {GALLERIES.map((gallery, i) => (
+          <TableRow key={gallery.name} data-state={i === 0 ? 'selected' : undefined} aria-selected={i === 0}>
+            <TableCell>{gallery.name}</TableCell>
+            <TableCell>{gallery.studio}</TableCell>
+            <TableCell className="text-right tabular-nums">{gallery.views.toLocaleString('en-US')}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -189,17 +191,17 @@ export const Empty: Story = {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead scope="col">Domain</TableHead>
+          <TableHead scope="col">Gallery</TableHead>
           <TableHead scope="col">Status</TableHead>
           <TableHead scope="col" className="text-right tabular-nums">
-            Requests / day
+            Views / day
           </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         <TableRow>
           <TableCell colSpan={3} className="py-10 text-center text-[var(--color-text-text-subtler)]">
-            No sites yet. Create your first site to get started.
+            No galleries yet. Create your first gallery to get started.
           </TableCell>
         </TableRow>
       </TableBody>
@@ -221,23 +223,25 @@ export const HorizontalScroll: Story = {
     <Table mobileLayout="scroll">
       <TableHeader>
         <TableRow>
-          <TableHead scope="col">Domain</TableHead>
-          <TableHead scope="col">Region</TableHead>
-          <TableHead scope="col">Version</TableHead>
+          <TableHead scope="col">Gallery</TableHead>
+          <TableHead scope="col">Studio</TableHead>
+          <TableHead scope="col" className="text-right tabular-nums">
+            Photos
+          </TableHead>
           <TableHead scope="col">Status</TableHead>
           <TableHead scope="col" className="text-right tabular-nums">
-            Requests / day
+            Views / day
           </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {SITES.map((site) => (
-          <TableRow key={site.domain}>
-            <TableCell className="font-mono">{site.domain}</TableCell>
-            <TableCell className="font-mono">eu-west-1</TableCell>
-            <TableCell className="font-mono">v2.4.0</TableCell>
-            <TableCell>{STATUS_LABEL[site.status]}</TableCell>
-            <TableCell className="text-right tabular-nums">{site.requests.toLocaleString('en-US')}</TableCell>
+        {GALLERIES.map((gallery) => (
+          <TableRow key={gallery.name}>
+            <TableCell>{gallery.name}</TableCell>
+            <TableCell>{gallery.studio}</TableCell>
+            <TableCell className="text-right tabular-nums">{gallery.photos}</TableCell>
+            <TableCell>{STATUS_LABEL[gallery.status]}</TableCell>
+            <TableCell className="text-right tabular-nums">{gallery.views.toLocaleString('en-US')}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -264,28 +268,30 @@ export const KeyboardScroll: Story = {
     ),
   ],
   render: () => (
-    <Table containerLabel="Sites table" mobileLayout="scroll">
+    <Table containerLabel="Galleries table" mobileLayout="scroll">
       <TableHeader>
         <TableRow>
-          <TableHead scope="col">Domain</TableHead>
-          <TableHead scope="col">Region</TableHead>
-          <TableHead scope="col">Version</TableHead>
+          <TableHead scope="col">Gallery</TableHead>
+          <TableHead scope="col">Studio</TableHead>
+          <TableHead scope="col" className="text-right tabular-nums">
+            Photos
+          </TableHead>
           <TableHead scope="col">Status</TableHead>
           <TableHead scope="col" className="text-right tabular-nums">
-            Requests / day
+            Views / day
           </TableHead>
-          <TableHead scope="col">Owner</TableHead>
+          <TableHead scope="col">Photographer</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {SITES.map((site) => (
-          <TableRow key={site.domain}>
-            <TableCell className="font-mono">{site.domain}</TableCell>
-            <TableCell className="font-mono">eu-west-1</TableCell>
-            <TableCell className="font-mono">v2.4.0</TableCell>
-            <TableCell>{STATUS_LABEL[site.status]}</TableCell>
-            <TableCell className="text-right tabular-nums">{site.requests.toLocaleString('en-US')}</TableCell>
-            <TableCell className="font-mono">ada@seashell.dev</TableCell>
+        {GALLERIES.map((gallery) => (
+          <TableRow key={gallery.name}>
+            <TableCell>{gallery.name}</TableCell>
+            <TableCell>{gallery.studio}</TableCell>
+            <TableCell className="text-right tabular-nums">{gallery.photos}</TableCell>
+            <TableCell>{STATUS_LABEL[gallery.status]}</TableCell>
+            <TableCell className="text-right tabular-nums">{gallery.views.toLocaleString('en-US')}</TableCell>
+            <TableCell className="font-mono">{gallery.photographer}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -294,7 +300,7 @@ export const KeyboardScroll: Story = {
   // A table wider than its box is a named tab stop, so the arrow keys can
   // scroll it (synthetic key events don't scroll, so that isn't asserted).
   play: async ({ canvasElement }) => {
-    const region = within(canvasElement).getByRole('region', { name: 'Sites table' });
+    const region = within(canvasElement).getByRole('region', { name: 'Galleries table' });
     await expect(region.scrollWidth).toBeGreaterThan(region.clientWidth);
     resetFocus();
     await tabTo(region);
@@ -308,28 +314,28 @@ export const TruncatedHeader: Story = {
     <Table className="table-fixed">
       <TableHeader>
         <TableRow>
-          <TableHead scope="col" className="w-40" title="Primary production domain and deployment destination">
-            Primary production domain and deployment destination
+          <TableHead scope="col" className="w-40" title="Client portal address and default download license">
+            Client portal address and default download license
           </TableHead>
           <TableHead scope="col">Status</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         <TableRow>
-          <TableCell className="truncate font-mono">shop.seashell.dev</TableCell>
-          <TableCell>Running</TableCell>
+          <TableCell className="truncate font-mono">selene-weddings.aether.photo</TableCell>
+          <TableCell>Active</TableCell>
         </TableRow>
       </TableBody>
     </Table>
   ),
 };
 
-const PLANS = ['Starter', 'Pro', 'Scale', 'Enterprise'] as const;
+const PLANS = ['Free', 'Pro', 'Business', 'Enterprise'] as const;
 const PLAN_ROWS: { feature: string; values: [string, string, string, string] }[] = [
-  { feature: 'Sites', values: ['1', '5', '25', 'Unlimited'] },
-  { feature: 'Storage', values: ['10 GB', '50 GB', '250 GB', '1 TB'] },
-  { feature: 'Backups', values: ['Weekly', 'Daily', 'Hourly', 'Hourly'] },
-  { feature: 'Staging', values: ['—', '1', '5', 'Unlimited'] },
+  { feature: 'Galleries', values: ['3', '25', '100', 'Unlimited'] },
+  { feature: 'Storage', values: ['10 GB', '100 GB', '384 GB', '2 TB'] },
+  { feature: 'Archive', values: ['—', '30 days', '1 year', 'Unlimited'] },
+  { feature: 'Client portals', values: ['—', '1', '5', 'Unlimited'] },
   { feature: 'Support', values: ['Email', 'Email', 'Chat', 'Phone'] },
 ];
 
@@ -375,11 +381,11 @@ export const PagedColumns: Story = {
       return;
     }
     // Off-page columns are display:none, so out of the accessibility tree too.
-    const scale = canvas.getByText('Scale', { selector: 'th' });
-    await expect(scale).not.toBeVisible();
+    const business = canvas.getByText('Business', { selector: 'th' });
+    await expect(business).not.toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'Show columns 4–5 of 5' }));
-    await expect(scale).toBeVisible();
-    await expect(canvas.getByText('Starter', { selector: 'th' })).not.toBeVisible();
+    await expect(business).toBeVisible();
+    await expect(canvas.getByText('Free', { selector: 'th' })).not.toBeVisible();
   },
 };
 
@@ -399,26 +405,28 @@ export const StickyFirstColumn: Story = {
     ),
   ],
   render: () => (
-    <Table mobileLayout="scroll" stickyFirstColumn containerLabel="Sites table, first column frozen" className="whitespace-nowrap">
+    <Table mobileLayout="scroll" stickyFirstColumn containerLabel="Galleries table, first column frozen" className="whitespace-nowrap">
       <TableHeader>
         <TableRow>
-          <TableHead scope="col">Domain</TableHead>
-          <TableHead scope="col">Region</TableHead>
-          <TableHead scope="col">Version</TableHead>
+          <TableHead scope="col">Gallery</TableHead>
+          <TableHead scope="col">Studio</TableHead>
+          <TableHead scope="col" className="text-right tabular-nums">
+            Photos
+          </TableHead>
           <TableHead scope="col">Status</TableHead>
           <TableHead scope="col" className="text-right tabular-nums">
-            Requests / day
+            Views / day
           </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {SITES.map((site, i) => (
-          <TableRow key={site.domain} data-state={i === 1 ? 'selected' : undefined}>
-            <TableCell className="font-mono whitespace-nowrap">{site.domain}</TableCell>
-            <TableCell className="font-mono">eu-west-1</TableCell>
-            <TableCell className="font-mono">v2.4.0</TableCell>
-            <TableCell>{STATUS_LABEL[site.status]}</TableCell>
-            <TableCell className="text-right tabular-nums">{site.requests.toLocaleString('en-US')}</TableCell>
+        {GALLERIES.map((gallery, i) => (
+          <TableRow key={gallery.name} data-state={i === 1 ? 'selected' : undefined}>
+            <TableCell className="whitespace-nowrap">{gallery.name}</TableCell>
+            <TableCell>{gallery.studio}</TableCell>
+            <TableCell className="text-right tabular-nums">{gallery.photos}</TableCell>
+            <TableCell>{STATUS_LABEL[gallery.status]}</TableCell>
+            <TableCell className="text-right tabular-nums">{gallery.views.toLocaleString('en-US')}</TableCell>
           </TableRow>
         ))}
       </TableBody>

@@ -14,9 +14,9 @@ import { cn } from '../../lib/utils';
  * Expanded and collapsed folders share iconoir's Folder icon (it has
  * no open-folder glyph); the rotating chevron carries the state.
  *
- *   <Tree aria-label="Project files"
- *     items={[{ id: "src", label: "src", children: [{ id: "index", label: "index.ts" }] }, { id: "readme", label: "readme.md" }]}
- *     defaultExpandedIds={["src"]} onSelect={(id) => console.log(id)} />
+ *   <Tree aria-label="Photo library"
+ *     items={[{ id: "selects", label: "Selects", children: [{ id: "dawn", label: "DAWN_0412.jpg" }] }, { id: "releases", label: "Model releases.pdf" }]}
+ *     defaultExpandedIds={["selects"]} onSelect={(id) => console.log(id)} />
  *
  * Keyboard: Up/Down move between visible items; Right expands/steps
  * in; Left collapses/steps out; Home/End jump to first/last visible;
@@ -312,7 +312,7 @@ function TreeItem({ node, depth, parentId, posInSet, setSize, expandedSet, selec
   const isTabbable = activeId === node.id;
   const disabled = !!node.disabled;
   // The treeitem <li> also wraps its expanded children, so a name computed
-  // from content was "app layout.tsx page.tsx sites …" — screen readers read
+  // from content was "Clients Rhea & Theo Selects …" — screen readers read
   // a whole folder's contents on every step. Point the name at the row's
   // own label instead.
   const labelId = useId();

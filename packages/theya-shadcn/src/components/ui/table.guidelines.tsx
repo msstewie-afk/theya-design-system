@@ -2,14 +2,14 @@ import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from './table';
 
 const ROWS = [
-  ['shop.seashell.dev', '12.4 GB'],
-  ['blog.seashell.dev', '860 MB'],
+  ['Golden hour', '12.4 GB'],
+  ['Blue hour', '860 MB'],
 ];
 
 export const tableGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
-    'Static tabular data with a few rows and no sorting, paging or selection: a price breakdown, DNS records, a spec sheet.',
+    'Static tabular data with a few rows and no sorting, paging or selection: a price breakdown, print sizes, a spec sheet.',
     'Building something custom where DataTable doesn’t fit.',
   ],
   whenNotToUse: [
@@ -30,8 +30,8 @@ export const tableGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <Table className="w-72">
-            <TableCaption className="sr-only">Disk usage by site</TableCaption>
-            <TableHeader><TableRow><TableHead>Site</TableHead><TableHead className="text-right">Disk</TableHead></TableRow></TableHeader>
+            <TableCaption className="sr-only">Storage by gallery</TableCaption>
+            <TableHeader><TableRow><TableHead>Gallery</TableHead><TableHead className="text-right">Storage</TableHead></TableRow></TableHeader>
             <TableBody>{ROWS.map(([s, d]) => <TableRow key={s}><TableCell>{s}</TableCell><TableCell className="text-right tabular-nums">{d}</TableCell></TableRow>)}</TableBody>
           </Table>
         ),
@@ -40,7 +40,7 @@ export const tableGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <Table className="w-72">
-            <TableHeader><TableRow><TableHead>Site</TableHead><TableHead>Disk</TableHead></TableRow></TableHeader>
+            <TableHeader><TableRow><TableHead>Gallery</TableHead><TableHead>Storage</TableHead></TableRow></TableHeader>
             <TableBody>{ROWS.map(([s, d]) => <TableRow key={s}><TableCell>{s}</TableCell><TableCell>{d}</TableCell></TableRow>)}</TableBody>
           </Table>
         ),

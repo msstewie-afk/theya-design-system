@@ -137,7 +137,6 @@
       - cell "docs.seashell.dev"
       - cell "Running"
       - cell "Starter"
-- tooltip "Select All"
 
 # Selected (data-datatabletoolbar--selected)
 - checkbox "Select all"

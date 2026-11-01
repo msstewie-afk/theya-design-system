@@ -3,18 +3,18 @@
 # All kinds (data-datatablecell--all-kinds)
 - table:
   - rowgroup:
-    - row "text shop.seashell.dev":
+    - row "text Golden hour":
       - rowheader "text"
-      - cell "shop.seashell.dev"
+      - cell "Golden hour"
     - row "mono a1b2c3d4":
       - rowheader "mono"
       - cell "a1b2c3d4"
-    - row "primary shop.seashell.dev Production":
+    - row "primary Golden hour Helios Studio":
       - rowheader "primary"
-      - cell "shop.seashell.dev Production"
-    - row "status Running":
+      - cell "Golden hour Helios Studio"
+    - row "status Active":
       - rowheader "status"
-      - cell "Running"
+      - cell "Active"
     - row "badge Active":
       - rowheader "badge"
       - cell "Active"
@@ -23,24 +23,24 @@
       - cell "72% 7.2 GB of 10 GB 72%":
         - text: 72% 7.2 GB of 10 GB
         - progressbar "72%, 7.2 GB of 10 GB"
-    - row "input shop.seashell.dev Clear Domain":
+    - row "input Golden hour Clear Gallery":
       - rowheader "input"
-      - cell "shop.seashell.dev Clear Domain":
-        - textbox "Domain": shop.seashell.dev
-        - button "Clear Domain"
+      - cell "Golden hour Clear Gallery":
+        - textbox "Gallery": Golden hour
+        - button "Clear Gallery"
     - row "select":
       - rowheader "select"
       - cell:
         - combobox "Status": Active
-    - row "switch Enabled":
+    - row "switch Downloads":
       - rowheader "switch"
-      - cell "Enabled":
-        - switch "Enabled" [checked]
+      - cell "Downloads":
+        - switch "Downloads" [checked]
     - row "slider 40% 40%":
       - rowheader "slider"
       - cell "40% 40%":
         - text: 40%
-        - slider "CPU limit"
+        - slider "Watermark opacity"
     - row "loading":
       - rowheader "loading"
       - cell
@@ -48,124 +48,124 @@
 # Editable (data-datatablecell--editable)
 - table:
   - rowgroup:
-    - row "kind=\"input\" Storefront Clear Display name for shop.seashell.dev":
+    - row "kind=\"input\" Lakeside Clear Title for Golden hour":
       - rowheader "kind=\"input\""
-      - cell "Storefront Clear Display name for shop.seashell.dev":
-        - textbox "Display name for shop.seashell.dev": Storefront
-        - button "Clear Display name for shop.seashell.dev"
-    - row "mono shop.seashell.dev Clear Domain for shop.seashell.dev":
+      - cell "Lakeside Clear Title for Golden hour":
+        - textbox "Title for Golden hour": Lakeside
+        - button "Clear Title for Golden hour"
+    - row "mono helios.aether.photo Clear Client portal for Golden hour":
       - rowheader "mono"
-      - cell "shop.seashell.dev Clear Domain for shop.seashell.dev":
-        - textbox "Domain for shop.seashell.dev": shop.seashell.dev
-        - button "Clear Domain for shop.seashell.dev"
-    - row "invalid api acme io A domain cannot contain spaces":
+      - cell "helios.aether.photo Clear Client portal for Golden hour":
+        - textbox "Client portal for Golden hour": helios.aether.photo
+        - button "Clear Client portal for Golden hour"
+    - row "invalid selene weddings A portal address cannot contain spaces":
       - rowheader "invalid"
-      - cell "api acme io A domain cannot contain spaces":
-        - textbox "Domain for api.seashell.dev" [invalid]: api acme io
-        - text: A domain cannot contain spaces
-    - row "disabled docs.seashell.dev":
+      - cell "selene weddings A portal address cannot contain spaces":
+        - textbox "Client portal for Blue hour" [invalid]: selene weddings
+        - text: A portal address cannot contain spaces
+    - row "disabled eos-portraits.aether.photo":
       - rowheader "disabled"
-      - cell "docs.seashell.dev":
-        - textbox "Domain for docs.seashell.dev" [disabled]: docs.seashell.dev
+      - cell "eos-portraits.aether.photo":
+        - textbox "Client portal for First light" [disabled]: eos-portraits.aether.photo
     - row "kind=\"select\"":
       - rowheader "kind=\"select\""
       - cell:
-        - combobox "Plan for shop.seashell.dev": Scale
-    - row "invalid Choose a plan":
+        - combobox "License for Golden hour": Print
+    - row "invalid Choose a license":
       - rowheader "invalid"
-      - cell "Choose a plan":
-        - combobox "Plan for api.seashell.dev" [invalid]
-        - text: Choose a plan
+      - cell "Choose a license":
+        - combobox "License for Blue hour" [invalid]
+        - text: Choose a license
     - row "disabled":
       - rowheader "disabled"
       - cell:
-        - combobox "Plan for docs.seashell.dev" [disabled]: Scale
-    - row "kind=\"date-range\" Billing period for shop.seashell.dev":
+        - combobox "License for First light" [disabled]: Print
+    - row "kind=\"date-range\" Proofing period for Golden hour":
       - rowheader "kind=\"date-range\""
-      - cell "Billing period for shop.seashell.dev":
-        - button "Billing period for shop.seashell.dev":
+      - cell "Proofing period for Golden hour":
+        - button "Proofing period for Golden hour":
           - img
           - text: Sep 1, 2026 – Sep 30, 2026
-    - row "disabled Billing period for docs.seashell.dev":
+    - row "disabled Proofing period for First light":
       - rowheader "disabled"
-      - cell "Billing period for docs.seashell.dev":
-        - button "Billing period for docs.seashell.dev" [disabled]:
+      - cell "Proofing period for First light":
+        - button "Proofing period for First light" [disabled]:
           - img
           - text: Sep 1, 2026 – Sep 30, 2026
 
 # Kinds (data-datatablecell--kinds)
-- text: kind one line two lines kind="text" Frankfurt Frankfurt eu-central-1 text + mono shop.seashell.dev shop.seashell.dev Theya Seashell storefront text + muted Updated 2 hours ago Updated 2 hours ago by mira@seashell.dev kind="mono" eu-west-1 eu-west-1 Frankfurt mono + muted v2.4.0 v2.4.0 Released 3 days ago kind="primary" shop.seashell.dev shop.seashell.dev Theya Seashell storefront kind="status" Running Running kind="badge" Pro Pro badge + badges Expiring soon DV 2 more Expiring soon DV 2 more kind="usage" 72% 7.2 GB of 10 GB
+- text: kind one line two lines kind="text" Helios Studio Helios Studio helios.aether.photo text + mono DAWN_0412.jpg DAWN_0412.jpg First light · 24 MB text + muted Updated 2 hours ago Updated 2 hours ago by thea@aether.photo kind="mono" GOLDEN_0907.tif GOLDEN_0907.tif Golden hour mono + muted L4_moonrise.raw L4_moonrise.raw Uploaded 3 days ago kind="primary" Golden hour Golden hour Helios Studio kind="status" Active Active kind="badge" Pro Pro badge + badges Expiring soon Print 2 more Expiring soon Print 2 more kind="usage" 72% 7.2 GB of 10 GB
 - 'progressbar "Storage: 72%, 7.2 GB of 10 GB"'
 - text: 72% 7.2 GB of 10 GB
 - 'progressbar "Storage: 72%, 7.2 GB of 10 GB"'
 - text: kind="sparkline" 1.2k
-- img "Requests trending up over the last 14 days":
+- img "Downloads trending up over the last 14 days":
   - img
 - text: 1.2k
-- img "Requests trending up over the last 14 days":
+- img "Downloads trending up over the last 14 days":
   - img
 - text: kind="input"
-- textbox "Display name for shop.seashell.dev": Theya Seashell storefront
-- button "Clear Display name for shop.seashell.dev"
-- textbox "Display name for blog.seashell.dev": Engineering blog
-- button "Clear Display name for blog.seashell.dev"
+- textbox "Title for Golden hour": Golden hour at the lake
+- button "Clear Title for Golden hour"
+- textbox "Title for Blue hour": Blue hour, Selene and Rhea
+- button "Clear Title for Blue hour"
 - text: kind="select"
-- combobox "Plan for shop.seashell.dev": Pro
-- combobox "Plan for blog.seashell.dev": Starter
+- combobox "License for Golden hour": Web
+- combobox "License for Blue hour": Personal
 - text: kind="number"
-- button "Decrease Sites for shop.seashell.dev":
+- button "Decrease Photos in Golden hour":
   - img
-- spinbutton "Sites for shop.seashell.dev": "12"
-- button "Increase Sites for shop.seashell.dev":
+- spinbutton "Photos in Golden hour": "248"
+- button "Increase Photos in Golden hour":
   - img
-- button "Decrease Sites for blog.seashell.dev":
+- button "Decrease Photos in Blue hour":
   - img
-- spinbutton "Sites for blog.seashell.dev": "4"
-- button "Increase Sites for blog.seashell.dev":
+- spinbutton "Photos in Blue hour": "186"
+- button "Increase Photos in Blue hour":
   - img
 - text: kind="combobox"
-- combobox "Region for shop.seashell.dev": eu-west-1
+- combobox "Studio for Golden hour": Helios Studio
 - button "Open options"
-- combobox "Region for blog.seashell.dev": us-east-1
+- combobox "Studio for Blue hour": Selene Weddings
 - button "Open options"
 - text: kind="autocomplete"
-- combobox "Owner of shop.seashell.dev": mira@seashell.dev
-- button "Clear Owner of shop.seashell.dev"
-- combobox "Owner of blog.seashell.dev"
-- text: kind="tags" prod
-- button "Remove prod"
-- text: eu
-- button "Remove eu"
-- combobox "Tags for shop.seashell.dev"
+- combobox "Photographer for Golden hour": thea@aether.photo
+- button "Clear Photographer for Golden hour"
+- combobox "Photographer for Blue hour"
+- text: kind="tags" portrait
+- button "Remove portrait"
+- text: client pick
+- button "Remove client pick"
+- combobox "Tags for Golden hour"
 - button "Open options"
-- text: staging
-- button "Remove staging"
-- combobox "Tags for blog.seashell.dev"
+- text: wedding
+- button "Remove wedding"
+- combobox "Tags for Blue hour"
 - button "Open options"
 - text: kind="date-range"
-- button "Billing period for shop.seashell.dev":
+- button "Proofing period for Golden hour":
   - img
   - text: Sep 1, 2026 – Sep 30, 2026
-- button "Billing period for blog.seashell.dev":
+- button "Proofing period for Blue hour":
   - img
   - text: Pick a date range
 - text: kind="switch"
-- switch "Backups for shop.seashell.dev" [checked]
-- switch "Backups for blog.seashell.dev"
+- switch "Downloads for Golden hour" [checked]
+- switch "Downloads for Blue hour"
 - text: kind="slider" 40%
-- slider "Traffic weight for shop.seashell.dev"
+- slider "Watermark opacity for Golden hour"
 - text: 70%
-- slider "Traffic weight for blog.seashell.dev"
+- slider "Watermark opacity for Blue hour"
 - text: kind="selector"
-- checkbox "Select shop.seashell.dev"
-- checkbox "Select blog.seashell.dev"
+- checkbox "Select Golden hour"
+- checkbox "Select Blue hour"
 - text: kind="custom" Anything you render yourself Anything you render yourself
 
 # Loading (data-datatablecell--loading)
 - text: kind one line two lines kind="text" kind="mono" kind="primary" kind="status" kind="badge" kind="usage" kind="sparkline" kind="input" kind="select" kind="slider" kind="selector" kind="custom"
 
 # Multiple Badges (data-datatablecell--multiple-badges)
-- text: 420px Expiring soon DV Auto-renew Wildcard 260px Expiring soon DV 2 more 220px Expiring soon 3 more 170px 4 items 90px 4 items
+- text: 420px Expiring soon Print Auto-renew Editorial 260px Expiring soon Print 2 more 220px Expiring soon 3 more 170px 4 items 90px 4 items
 
 # Read-only (data-datatablecell--read-only)
 - table:
@@ -173,4 +173,4 @@
     - row "kind=\"select\"":
       - rowheader "kind=\"select\""
       - cell:
-        - combobox "Plan for shop.seashell.dev": Pro
+        - combobox "License for Golden hour": Web

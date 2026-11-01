@@ -7,7 +7,7 @@ import { cn } from '../../lib/utils';
  * unbreakable identifiers never force horizontal scroll at 360px.
  *
  * Usage: wrap each pair in DescriptionItem and add font-mono on
- * DescriptionDetails for identifiers (shop.seashell.dev, eu-west-1).
+ * DescriptionDetails for identifiers (helios.aether.photo, DAWN_0412.jpg).
  */
 export function DescriptionList({ className, ...props }: React.ComponentProps<'dl'>) {
   return <dl data-slot="description-list" className={cn('m-0', className)} {...props} />;

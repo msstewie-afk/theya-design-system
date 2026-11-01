@@ -19,11 +19,11 @@ export const dataTableCellGuidelines: ComponentGuidelines = {
   doDont: [
     {
       do: {
-        example: <div className="w-64"><DataTableCell kind="text" value="shop.seashell.dev" mono secondary="eu-west-1 · Pro" lines={2} /></div>,
+        example: <div className="w-64"><DataTableCell kind="text" value="Golden hour" secondary="Helios Studio · 248 photos" lines={2} /></div>,
         caption: 'The main value on top, details on the second line.',
       },
       dont: {
-        example: <div className="w-64"><DataTableCell value="shop.seashell.dev · eu-west-1 · Pro · 12.4 GB" /></div>,
+        example: <div className="w-64"><DataTableCell value="Golden hour · Helios Studio · 248 photos · 12.4 GB" /></div>,
         caption: 'Four facts in one line truncate, and none of them can be sorted.',
       },
     },
@@ -33,7 +33,7 @@ export const dataTableCellGuidelines: ComponentGuidelines = {
     },
   ],
   a11y: [
-    <>Editable kinds need a <C>label</C> — usually “column, row” (“Plan, shop.seashell.dev”); it isn’t visible in the cell.</>,
+    <>Editable kinds need a <C>label</C> — usually “column, row” (“License, Golden hour”); it isn’t visible in the cell.</>,
     'Invalid edits show a real message linked to the field, not only a red border.',
     'Status and badge kinds always carry a word; color is never the only signal.',
   ],

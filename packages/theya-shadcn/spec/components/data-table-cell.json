@@ -39,11 +39,11 @@
     {
       "do": {
         "caption": "The main value on top, details on the second line.",
-        "example": "<div className=\"w-64\"><DataTableCell kind=\"text\" value=\"shop.seashell.dev\" mono secondary=\"eu-west-1 · Pro\" lines={2} /></div>"
+        "example": "<div className=\"w-64\"><DataTableCell kind=\"text\" value=\"Golden hour\" secondary=\"Helios Studio · 248 photos\" lines={2} /></div>"
       },
       "dont": {
         "caption": "Four facts in one line truncate, and none of them can be sorted.",
-        "example": "<div className=\"w-64\"><DataTableCell value=\"shop.seashell.dev · eu-west-1 · Pro · 12.4 GB\" /></div>"
+        "example": "<div className=\"w-64\"><DataTableCell value=\"Golden hour · Helios Studio · 248 photos · 12.4 GB\" /></div>"
       }
     },
     {
@@ -58,7 +58,7 @@
     }
   ],
   "a11y": [
-    "Editable kinds need a `label` — usually “column, row” (“Plan, shop.seashell.dev”); it isn’t visible in the cell.",
+    "Editable kinds need a `label` — usually “column, row” (“License, Golden hour”); it isn’t visible in the cell.",
     "Invalid edits show a real message linked to the field, not only a red border.",
     "Status and badge kinds always carry a word; color is never the only signal."
   ],
@@ -205,7 +205,7 @@
           "name": "label",
           "type": "ReactNode",
           "required": false,
-          "description": "Required: status is never color alone.\nThe number the trend belongs to — carries the meaning; the line only shows the shape.\nRequired: name the ROW, not the action — \"Select shop.seashell.dev\"."
+          "description": "Required: status is never color alone.\nThe number the trend belongs to — carries the meaning; the line only shows the shape.\nRequired: name the ROW, not the action — \"Select Golden hour\"."
         },
         {
           "name": "labelledBy",

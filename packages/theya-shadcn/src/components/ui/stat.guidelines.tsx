@@ -1,10 +1,10 @@
-import { Globe } from 'iconoir-react';
+import { MediaImageFolder } from 'iconoir-react';
 import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { Stat } from './stat';
 
 export const statGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['Headline numbers on a dashboard or overview: active sites, uptime, revenue — 2 to 4 in a row.', 'A number with its trend against a previous period.'],
+  whenToUse: ['Headline numbers on a dashboard or overview: active galleries, delivery rate, revenue — 2 to 4 in a row.', 'A number with its trend against a previous period.'],
   whenNotToUse: [
     { text: 'Counts repeated as rows in a card', instead: 'Metric' },
     { text: 'A trend people need to read', instead: 'Sparkline or LineChart' },
@@ -20,13 +20,13 @@ export const statGuidelines: ComponentGuidelines = {
   doDont: [
     {
       do: {
-        example: <div className="w-56"><Stat label="Active sites" value={128} icon={<Globe />} delta={{ value: '+12% vs last month', direction: 'up' }} /></div>,
+        example: <div className="w-56"><Stat label="Active galleries" value={128} icon={<MediaImageFolder />} delta={{ value: '+12% vs last month', direction: 'up' }} /></div>,
         caption: 'A number, and how it changed against what.',
       },
-      dont: { example: <div className="w-56"><Stat label="Sites" value="128 active, 4 suspended, 2 with errors" /></div>, caption: 'A sentence in the value slot: nothing to read at a glance.' },
+      dont: { example: <div className="w-56"><Stat label="Galleries" value="128 active, 4 archived, 2 with failed exports" /></div>, caption: 'A sentence in the value slot: nothing to read at a glance.' },
     },
     {
-      do: { example: <div className="w-56"><Stat label="Uptime, 30 days" value="99.98%" tone="success" /></div>, caption: 'Tone when the value itself is good or bad.' },
+      do: { example: <div className="w-56"><Stat label="Delivery rate, 30 days" value="99.8%" tone="success" /></div>, caption: 'Tone when the value itself is good or bad.' },
       dont: { example: <div className="w-56"><Stat label="Team members" value={14} tone="danger" /></div>, caption: 'Danger on a neutral count makes people look for a problem.' },
     },
   ],
