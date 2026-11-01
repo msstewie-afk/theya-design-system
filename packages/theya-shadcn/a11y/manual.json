@@ -1,6 +1,12 @@
 {
   "$comment": "Hand-kept part of the accessibility matrix (scripts/build-a11y.mjs merges it with what it reads from the code). screenReader: one entry per real assistive-technology pass, e.g. { \"Button\": [{ \"at\": \"VoiceOver\", \"browser\": \"Safari 19\", \"date\": \"2026-10-05\", \"result\": \"pass\", \"notes\": \"\" }] }. deviations: accepted deviations specific to one component. focusRingOnly: components where the soft focus ring is the only visible focus change (WCAG 1.4.11 accepted deviation, see the WCAG audit, 2026-09-27). traits: per-component corrections to the traits build-a11y.mjs reads from the code ({ add, remove, note }). reviews: one recorded manual review per criterion (result: pass | fail | n/a — n/a confirms the code trait was a false positive for that criterion), e.g. { \"Button\": { \"2.5.3\": { \"result\": \"pass\", \"date\": \"2026-10-08\", \"by\": \"Maria\", \"note\": \"\" } } }.",
   "screenReader": {
+    "Attachment": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-11-01", "result": "pass", "notes": "files-attachment--upload-flow by hand (Мария): \"Uploading 2024-my-portfolio.pdf\" and \"2024-my-portfolio.pdf uploaded\" spoken. The automated run heard the start and published the end but VoiceOver dropped it while reading the relabelled story button; the hand check confirmed it." }
+    ],
+    "UploadPanel": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-11-01", "result": "pass", "notes": "files-uploadpanel--live by hand (Мария): \"Uploaded 3 files\" spoken. The start isn't announced (the panel mounts with its text already in the live region), reported to agent1." }
+    ],
     "OrbitCarousel": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-11-01", "result": "pass", "notes": "Automated run (a11y/voiceover, Мария's Mac): orbit-wall and orbit-fan, Next/Previous slide: \"{{i}} of 6: {{heading}}\" spoken, one update per step (fixed by agent1 the same day); the arrow-key hint is read with the carousel." }
     ],
@@ -282,7 +288,9 @@
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed 2026-10-26: selected is more than a hue change, the edge doubles to 2px (an inset 1px line inside the border, attachment.tsx:158). It reaches AT as aria-current on href rows and on the click-only button when there's no toggle (:219), or aria-pressed when the caller passes it. Error: text plus icon."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The selected border-primary (attachment.tsx:156) is 4.87:1 light / 4.41:1 dark against its fill and 5.20:1 / 5.95:1 against the surface. The resting border-subtle (:157) is a card outline; the name text identifies the control."},
       "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on a cut name or meta line (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."},
-      "2.4.11": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "TruncatedText's tooltips open beside the cut line (name above, meta below via side, agent1 2026-11-01) and never cover the focused link or button."}
+      "2.4.11": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "TruncatedText's tooltips open beside the cut line (name above, meta below via side, agent1 2026-11-01) and never cover the focused link or button."},
+      "1.4.4": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (whole text in a tooltip on hover and on keyboard focus of its control; a cut line with no control is its own tab stop). a11y-auto at 200% / WCAG spacing: the meta line (\"801 KB, PNG image\"); agent1 2026-11-01, the link or overlay button owns the tooltip (data-truncate-scope)."},
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (whole text in a tooltip on hover and on keyboard focus of its control; a cut line with no control is its own tab stop). a11y-auto at 200% / WCAG spacing: file names (\"quarterly-report.pdf\")."}
     },
     "AuditLog": {
       "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only text input is an event search, not personal data about the user."},
@@ -770,7 +778,8 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The hidden input, then the Attachment or dashed picker, with no reordering (file.tsx:169-211)."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed 2026-10-26 in Attachment: selected doubles the edge to 2px (attachment.tsx:158) and the click-only button now carries aria-current (:219), since File's click replaces the file rather than toggling. Errors: text plus icon."},
       "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on a cut name or meta line (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."},
-      "2.4.11": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "TruncatedText's tooltips open beside the cut line (name above, meta below via side, agent1 2026-11-01) and never cover the focused link or button."}
+      "2.4.11": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "TruncatedText's tooltips open beside the cut line (name above, meta below via side, agent1 2026-11-01) and never cover the focused link or button."},
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (whole text in a tooltip on hover and on keyboard focus of its control; a cut line with no control is its own tab stop). a11y-auto at 200% / WCAG spacing: the meta line in Read-only (renders through Attachment)."}
     },
     "Filter": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Option-list search, not data about the user."},
@@ -887,7 +896,10 @@
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "kanban.tsx:316-341: columns, and cards within them, render in DOM order; the DragOverlay (342-346) is a transient visual clone during a drag."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Column tone StatusDot sits next to the visible title (138-141); over-limit shows \"count/limit\" text in a danger Badge plus an sr-only explanation (144-148); the drop position is the dashed placeholder shape (99-100)."},
       "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Drag placeholder border-primary dashed on the sunken column 4.51:1 / 7.58:1 (100); empty-column drop zone turns border-primary on drag-over (169). Cards are identified by their text, and their border-subtle edge is decorative."},
-      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "dnd-kit's live region announces pick up / move / drop / cancel with column and position (288-297, 309-314) without moving focus."}
+      "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "dnd-kit's live region announces pick up / move / drop / cancel with column and position (288-297, 309-314) without moving focus."},
+      "1.4.12": {"result": "pass", "date": "2026-11-01", "by": "Claude (browser check)", "note": "Cut text is TruncatedText (whole text in a tooltip on hover and on keyboard focus of its control; a cut line with no control is its own tab stop). a11y-auto at 200% / WCAG spacing: card descriptions, two lines (lines={2}) then ellipsis."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on a cut card description (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."},
+      "2.4.11": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "TruncatedText's tooltip opens above the cut description (6px offset) and doesn't cover the focused card control."}
     },
     "Kbd": {
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "A single kbd element. dir=ltr (kbd.tsx:9) keeps shortcut glyphs in their intended order inside RTL pages."}
@@ -1835,7 +1847,8 @@
       "1.4.1": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The scrolled state is a background, hairline and blur change (57) that carries no information. The skip link is a stand-alone link, not in running text (68). The nav's current item comes from the library MegaMenu."},
       "1.4.11": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "Its only own control is the skip link: text (link color, 6.85 / 5.95:1) on a bg-surface chip with a shadow when focused (68). Text links need no boundary; the scrolled hairline (57) is decorative. Logo, nav and actions are consumer or library parts."},
       "2.4.4": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "\"Skip to content\" names its target (70). The logo link is named by the product (\"Bookmarks\") and, by convention in a header, leads home. Nav and action links come from MegaMenu / Buttons with their own text."},
-      "2.4.11": {"result": "fail", "date": "2026-11-01", "by": "Claude (code review)", "note": "The header is sticky top-0 at 64px with z-30 by default (site-header.tsx:55-56, 73) but does not reserve scroll-padding, so a Tab-focused element scrolled up to the top of the page can end up entirely under the bar. Fix: give the header a ref and call useScrollPadding(ref, 'top', sticky), as Topbar does (topbar.tsx:37)."}
+      "2.4.11": {"result": "fail", "date": "2026-11-01", "by": "Claude (code review)", "note": "The header is sticky top-0 at 64px with z-30 by default (site-header.tsx:55-56, 73) but does not reserve scroll-padding, so a Tab-focused element scrolled up to the top of the page can end up entirely under the bar. Fix: give the header a ref and call useScrollPadding(ref, 'top', sticky), as Topbar does (topbar.tsx:37)."},
+      "4.1.2": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "Its own markup is a header landmark, a native skip link and a decorative div; logo, nav and actions are the consumer's or library MegaMenu/Buttons (MegaMenu 4.1.2 reviewed). axe's aria-hidden-focus is off for the stories: Radix NavigationMenu's hidden focus proxy, the same known false positive as MegaMenu; the tree run has no 4.1.2 findings."}
     }
   },
   "deviations": {

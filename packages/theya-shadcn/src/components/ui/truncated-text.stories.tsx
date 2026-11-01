@@ -81,3 +81,18 @@ export const InsideALink: Story = {
     await waitFor(() => expect(text.getAttribute('data-state') ?? '').toMatch(/open/));
   },
 };
+
+/** Two lines before the ellipsis, for a description under a title (Kanban cards). */
+export const TwoLines: Story = {
+  name: 'Two lines',
+  args: { lines: 2, children: 'Redirect old gallery links to the new client portal, then email clients the new address with a short note from the studio' },
+  render: (args) => (
+    <div className="w-56 font-body text-body-s">
+      <TruncatedText {...args} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const text = within(canvasElement).getByText(/Redirect old gallery links/);
+    await waitFor(() => expect(text).toHaveAttribute('data-truncated'));
+  },
+};

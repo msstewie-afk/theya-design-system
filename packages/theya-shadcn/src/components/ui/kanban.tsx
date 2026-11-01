@@ -19,6 +19,7 @@ import {
 import { SortableContext, arrayMove, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { cn } from '../../lib/utils';
+import { TruncatedText } from './truncated-text';
 import { Badge } from './badge';
 import { StatusDot, type StatusTone } from './status-dot';
 import { useTheyaI18n } from '../../lib/i18n';
@@ -382,7 +383,7 @@ export function KanbanCard({ title, description, eyebrow, footer, className, ...
     >
       {eyebrow && <div className="flex items-center gap-2 text-body-s text-[var(--color-text-text-subtle)]">{eyebrow}</div>}
       <div className="text-body-m font-medium text-[var(--color-text-text)]">{title}</div>
-      {description && <div className="line-clamp-2 text-body-s text-[var(--color-text-text-subtle)]">{description}</div>}
+      {description && <TruncatedText lines={2} className="text-body-s text-[var(--color-text-text-subtle)]">{description}</TruncatedText>}
       {footer && <div className="mt-1 flex items-center gap-2 text-body-s text-[var(--color-text-text-subtle)]">{footer}</div>}
     </div>
   );

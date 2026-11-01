@@ -133,11 +133,11 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "Card: 1.4.12: span \"quarterly-report.pdf\"",
-        "Custom action: 1.4.12: span \"quarterly-report.pdf\"",
-        "Default: 1.4.12: span \"quarterly-report.pdf\"",
-        "Kind label: 1.4.4: span \"801 KB, PNG image\"",
-        "Localized labels: 1.4.12: span \"quartalsbericht.pdf\""
+        "Card: 1.4.12: span[data-slot=truncated-text] \"quarterly-report.pdf\"",
+        "Custom action: 1.4.12: span[data-slot=truncated-text] \"quarterly-report.pdf\"",
+        "Default: 1.4.12: span[data-slot=truncated-text] \"quarterly-report.pdf\"",
+        "Kind label: 1.4.4: span[data-slot=truncated-text] \"801 KB, PNG image\"",
+        "Localized labels: 1.4.12: span[data-slot=truncated-text] \"quartalsbericht.pdf\""
       ]
     },
     "AuditLog": {
@@ -246,12 +246,7 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": [
-        "Five Items: 1.4.12: span \"Meal plan\"",
-        "Five Items: 1.4.12: span \"Messages, 128 new\"",
-        "Five Items: 1.4.4: span \"Meal plan\"",
-        "Five Items: 1.4.4: span \"Messages, 128 new\""
-      ]
+      "truncated": []
     },
     "Breadcrumb": {
       "stories": 8,
@@ -1012,7 +1007,7 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "Read-only: 1.4.12: span \"242 KB, Modified 2 days ago\""
+        "Read-only: 1.4.12: span[data-slot=truncated-text] \"242 KB, Modified 2 days ago\""
       ]
     },
     "Filter": {
@@ -1128,9 +1123,7 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": [
-        "Page Title: 1.4.12: span[data-slot=truncated-text] \"Seashell storefront\""
-      ]
+      "truncated": []
     },
     "InputGroup": {
       "stories": 5,
@@ -1190,7 +1183,11 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [
+        "Default: 1.4.12: span[data-slot=truncated-text] \"Redirect old gallery links, then email c\"",
+        "Empty columns: 1.4.12: span[data-slot=truncated-text] \"Redirect old gallery links, then email c\"",
+        "With actions: 1.4.12: span[data-slot=truncated-text] \"Redirect old gallery links, then email c\""
+      ]
     },
     "Kbd": {
       "stories": 4,
@@ -2085,11 +2082,11 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "With badge: 1.4.12: span[data-slot=truncated-text] \"Backend team\"",
-        "With badge: 1.4.4: span[data-slot=truncated-text] \"Backend team\"",
-        "With media icons: 1.4.12: span[data-slot=truncated-text] \"Standard launch\"",
-        "With media icons: 1.4.4: span[data-slot=truncated-text] \"Standard launch\"",
-        "With status: 1.4.4: span[data-slot=truncated-text] \"web-01 — running\""
+        "With badge: 1.4.12: span[data-slot=truncated-text] \"Photographers\"",
+        "With badge: 1.4.4: span[data-slot=truncated-text] \"Photographers\"",
+        "With media icons: 1.4.4: span[data-slot=truncated-text] \"Web JPEG\"",
+        "With status: 1.4.12: span[data-slot=truncated-text] \"Golden hour — ready\"",
+        "With status: 1.4.4: span[data-slot=truncated-text] \"Golden hour — ready\""
       ]
     },
     "Separator": {
@@ -2115,7 +2112,7 @@
       "2.1.2": [],
       "2.4.3": [],
       "truncated": [
-        "With account: 1.4.4: span \"Maria Smith\""
+        "With account: 1.4.4: span[data-slot=truncated-text] \"Maria Smith\""
       ]
     },
     "SignUpForm": {
@@ -2613,7 +2610,7 @@
       "truncated": []
     },
     "TruncatedText": {
-      "stories": 3,
+      "stories": 4,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],

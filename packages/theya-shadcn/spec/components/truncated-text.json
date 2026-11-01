@@ -58,6 +58,17 @@
           "description": "Render onto your own element (e.g. a heading) instead of a `<span>`."
         },
         {
+          "name": "lines",
+          "type": "1 | 2",
+          "values": [
+            "1",
+            "2"
+          ],
+          "required": false,
+          "default": "1",
+          "description": "Lines before the ellipsis (default 1). 2 for a description under a title."
+        },
+        {
           "name": "side",
           "type": "\"top\" | \"bottom\"",
           "values": [
@@ -89,6 +100,10 @@
       {
         "name": "InsideALink",
         "id": "labels-truncatedtext--inside-a-link"
+      },
+      {
+        "name": "TwoLines",
+        "id": "labels-truncatedtext--two-lines"
       }
     ]
   }

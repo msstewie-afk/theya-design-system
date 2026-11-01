@@ -9,3 +9,6 @@
 # Inside a link (labels-truncatedtext--inside-a-link)
 - link "selene-weddings.aether.photo/galleries/moonrise-over-othrys":
   - /url: "#gallery"
+
+# Two lines (labels-truncatedtext--two-lines)
+- text: Redirect old gallery links to the new client portal, then email clients the new address with a short note from the studio
