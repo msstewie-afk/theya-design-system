@@ -21,7 +21,7 @@ export const aspectRatioGuidelines: ComponentGuidelines = {
           <div className="grid w-full grid-cols-2 gap-2">
             {[0, 1].map((i) => (
               <AspectRatio key={i} ratio={16 / 9} className="overflow-hidden rounded-[var(--size-border-radius-border-radius-md)]">
-                <img src={IMG} alt={`Site preview ${i + 1}`} className="absolute inset-0 size-full object-cover" />
+                <img src={IMG} alt={`Gallery cover ${i + 1}`} className="absolute inset-0 size-full object-cover" />
               </AspectRatio>
             ))}
           </div>
@@ -31,8 +31,8 @@ export const aspectRatioGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <div className="grid w-full grid-cols-2 items-start gap-2">
-            <img src={IMG} alt="Site preview 1" className="w-full rounded-[var(--size-border-radius-border-radius-md)]" />
-            <img src="/asset-examples/panda-avatar.png" alt="Site preview 2" className="w-full rounded-[var(--size-border-radius-border-radius-md)]" />
+            <img src={IMG} alt="Gallery cover 1" className="w-full rounded-[var(--size-border-radius-border-radius-md)]" />
+            <img src="/asset-examples/panda-avatar.png" alt="Gallery cover 2" className="w-full rounded-[var(--size-border-radius-border-radius-md)]" />
           </div>
         ),
         caption: 'Natural ratios side by side: ragged rows and layout shift on load.',

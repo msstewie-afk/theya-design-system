@@ -55,26 +55,26 @@ function ProductNav({ defaultValue }: { defaultValue?: string }) {
             <ul className="grid gap-2 sm:grid-cols-2">
               <li>
                 <NavigationMenuLink href="#">
-                  <span className="font-medium">Hosting</span>
-                  <span className="text-[var(--color-text-text-subtler)]">Shared, VPS and dedicated servers.</span>
+                  <span className="font-medium">Galleries</span>
+                  <span className="text-[var(--color-text-text-subtler)]">Client galleries with picks and downloads.</span>
                 </NavigationMenuLink>
               </li>
               <li>
                 <NavigationMenuLink href="#">
-                  <span className="font-medium">Domains</span>
-                  <span className="text-[var(--color-text-text-subtler)]">Search, register and manage.</span>
+                  <span className="font-medium">Client portals</span>
+                  <span className="text-[var(--color-text-text-subtler)]">Your own address for every client.</span>
                 </NavigationMenuLink>
               </li>
               <li>
                 <NavigationMenuLink href="#">
-                  <span className="font-medium">SSL certificates</span>
-                  <span className="text-[var(--color-text-text-subtler)]">Automatic renewal, wildcard support.</span>
+                  <span className="font-medium">Licenses</span>
+                  <span className="text-[var(--color-text-text-subtler)]">Print and web rights, renewed automatically.</span>
                 </NavigationMenuLink>
               </li>
               <li>
                 <NavigationMenuLink href="#">
-                  <span className="font-medium">Email</span>
-                  <span className="text-[var(--color-text-text-subtler)]">Business email and calendars.</span>
+                  <span className="font-medium">Prints</span>
+                  <span className="text-[var(--color-text-text-subtler)]">Lab orders, delivered to the client.</span>
                 </NavigationMenuLink>
               </li>
             </ul>
@@ -118,7 +118,7 @@ export const Default: Story = {
     await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(products).toHaveAttribute('aria-expanded', 'true'));
     // The open panel's links are real links in the nav landmark.
-    await expect(await within(nav).findByRole('link', { name: /Hosting/ })).toBeInTheDocument();
+    await expect(await within(nav).findByRole('link', { name: /Galleries/ })).toBeInTheDocument();
     // Escape closes and keeps focus on the trigger.
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(products).toHaveAttribute('aria-expanded', 'false'));

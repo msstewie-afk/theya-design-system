@@ -31,9 +31,9 @@ export const topbarGuidelines: ComponentGuidelines = {
             <Topbar className="!static">
               <Breadcrumb aria-label="Topbar breadcrumb">
                 <BreadcrumbList>
-                  <BreadcrumbItem><BreadcrumbLink href="#gl-tb">Sites</BreadcrumbLink></BreadcrumbItem>
+                  <BreadcrumbItem><BreadcrumbLink href="#gl-tb">Galleries</BreadcrumbLink></BreadcrumbItem>
                   <BreadcrumbSeparator />
-                  <BreadcrumbItem><BreadcrumbPage>Backups</BreadcrumbPage></BreadcrumbItem>
+                  <BreadcrumbItem><BreadcrumbPage>Golden hour</BreadcrumbPage></BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
               <TopbarSpacer />

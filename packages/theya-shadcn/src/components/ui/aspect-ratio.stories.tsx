@@ -72,7 +72,7 @@ export const Ratios: Story = {
   ),
 };
 
-/** Site preview thumbnail. A fill child carries a meaningful `alt`; the
+/** Gallery cover thumbnail. A fill child carries a meaningful `alt`; the
  * `overflow-hidden` box crops it to the ratio so oversized media never bleeds
  * out. (Uses a token-styled placeholder here in place of a real screenshot.) */
 export const Thumbnail: Story = {
@@ -81,20 +81,20 @@ export const Thumbnail: Story = {
     <AspectRatio
       ratio={16 / 9}
       role="img"
-      aria-label="Preview of shop.seashell.dev"
+      aria-label="Cover of the Golden hour gallery"
       className="rounded-[var(--size-border-radius-border-radius-2xl)] border border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]"
     >
       <div className="absolute inset-0 flex flex-col justify-end p-3">
-        <span className="font-mono text-body-s text-[var(--color-text-text)]">shop.seashell.dev</span>
-        <span className="text-body-xs text-[var(--color-text-text-subtler)]">Site preview</span>
+        <span className="font-body text-body-s font-medium text-[var(--color-text-text)]">Golden hour</span>
+        <span className="text-body-xs text-[var(--color-text-text-subtler)]">Gallery cover</span>
       </div>
     </AspectRatio>
   ),
 };
 
-/** Square region tile with an overlay label. Status and identity are carried by
+/** Square photo tile with an overlay label. Status and identity are carried by
  * the readable label, never color alone. */
-export const RegionTile: Story = {
+export const LabelTile: Story = {
   parameters: { controls: { exclude: ['ratio'] } },
   decorators: [
     (Story) => (
@@ -105,8 +105,8 @@ export const RegionTile: Story = {
   ],
   render: () => (
     <AspectRatio ratio={1} className={BOX}>
-      <span className="absolute bottom-2 left-2 rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-surface-bg-surface-overlay-dark)] px-2 py-0.5 font-mono text-body-xs text-[var(--color-text-text-on-dark)]">
-        eu-west-1
+      <span className="absolute bottom-2 left-2 rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-surface-bg-surface-overlay-dark)] px-2 py-0.5 font-body text-body-xs text-[var(--color-text-text-on-dark)]">
+        DAWN_0412.jpg
       </span>
     </AspectRatio>
   ),
@@ -124,7 +124,7 @@ export const Embed: Story = {
     const [focused, setFocused] = useState(false);
     return (
       <AspectRatio ratio={16 / 9} className={cn(BOX, focused && 'focus-ring')}>
-        <iframe title="Uptime dashboard for shop.seashell.dev" src="about:blank" onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} className="absolute inset-0 size-full rounded-[inherit] outline-none" />
+        <iframe title="Slideshow of the Blue hour gallery" src="about:blank" onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} className="absolute inset-0 size-full rounded-[inherit] outline-none" />
       </AspectRatio>
     );
   },

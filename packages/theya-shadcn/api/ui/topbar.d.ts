@@ -27,4 +27,4 @@ export declare function TopbarAction({ className, badge, 'aria-label': ariaLabel
 
 // Defaults
 // Topbar.orientation = horizontal
-// TopbarSearch.placeholder = Search sites, servers, users… (localized: topbar.searchPlaceholder)
+// TopbarSearch.placeholder = Search… (localized: topbar.searchPlaceholder)

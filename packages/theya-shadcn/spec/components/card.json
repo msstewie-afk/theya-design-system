@@ -45,21 +45,21 @@
     {
       "do": {
         "caption": "The whole card is the link (`action`) — one target, the biggest one.",
-        "example": "<Card action={{ type: 'link', href: '#seashell', ariaLabel: 'seashell.shop' }} className=\"w-64\">\n  <CardHeader divider={false}>\n    <CardTitle>seashell.shop</CardTitle>\n    <CardDescription>Active · 3 mailboxes</CardDescription>\n  </CardHeader>\n</Card>"
+        "example": "<Card action={{ type: 'link', href: '#golden-hour', ariaLabel: 'Golden hour' }} className=\"w-64\">\n  <CardHeader divider={false}>\n    <CardTitle>Golden hour</CardTitle>\n    <CardDescription>Shared · 48 photos</CardDescription>\n  </CardHeader>\n</Card>"
       },
       "dont": {
         "caption": "A “View” button as the only way in makes people aim for a small target inside a big one.",
-        "example": "<Card className=\"w-64\">\n  <CardHeader divider={false}>\n    <CardTitle>seashell.shop</CardTitle>\n    <CardDescription>Active · 3 mailboxes</CardDescription>\n  </CardHeader>\n  <CardContent className=\"pt-0\">\n    <Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">View</Button>\n  </CardContent>\n</Card>"
+        "example": "<Card className=\"w-64\">\n  <CardHeader divider={false}>\n    <CardTitle>Golden hour</CardTitle>\n    <CardDescription>Shared · 48 photos</CardDescription>\n  </CardHeader>\n  <CardContent className=\"pt-0\">\n    <Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">View</Button>\n  </CardContent>\n</Card>"
       }
     },
     {
       "do": {
         "caption": "Buttons inside cards are `md`.",
-        "example": "<Card className=\"w-64\">\n  <CardHeader divider={false}>\n    <CardTitle>Backups</CardTitle>\n    <CardDescription>Last run 2 hours ago</CardDescription>\n  </CardHeader>\n  <CardContent className=\"flex gap-2 pt-0\">\n    <Button size=\"md\">Run now</Button>\n  </CardContent>\n</Card>"
+        "example": "<Card className=\"w-64\">\n  <CardHeader divider={false}>\n    <CardTitle>Archive</CardTitle>\n    <CardDescription>Last run 2 hours ago</CardDescription>\n  </CardHeader>\n  <CardContent className=\"flex gap-2 pt-0\">\n    <Button size=\"md\">Run now</Button>\n  </CardContent>\n</Card>"
       },
       "dont": {
         "caption": "Page-size buttons overpower the card they sit in.",
-        "example": "<Card className=\"w-64\">\n  <CardHeader divider={false}>\n    <CardTitle>Backups</CardTitle>\n    <CardDescription>Last run 2 hours ago</CardDescription>\n  </CardHeader>\n  <CardContent className=\"flex gap-2 pt-0\">\n    <Button>Run now</Button>\n    <Badge tone=\"success\">OK</Badge>\n  </CardContent>\n</Card>"
+        "example": "<Card className=\"w-64\">\n  <CardHeader divider={false}>\n    <CardTitle>Archive</CardTitle>\n    <CardDescription>Last run 2 hours ago</CardDescription>\n  </CardHeader>\n  <CardContent className=\"flex gap-2 pt-0\">\n    <Button>Run now</Button>\n    <Badge tone=\"success\">OK</Badge>\n  </CardContent>\n</Card>"
       }
     }
   ],

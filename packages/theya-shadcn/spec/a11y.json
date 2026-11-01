@@ -13,8 +13,8 @@
         "screenReader|tree"
       ],
       "counts": {
-        "verified": 157,
-        "partial": 3
+        "verified": 158,
+        "partial": 2
       },
       "patternCounts": {
         "verified": 42,
@@ -96,8 +96,8 @@
         "screenReader|tree"
       ],
       "counts": {
-        "verified": 157,
-        "partial": 3
+        "verified": 158,
+        "partial": 2
       },
       "patternCounts": {
         "verified": 42,
@@ -113,8 +113,8 @@
         "screenReader|tree"
       ],
       "counts": {
-        "verified": 149,
-        "untested": 3,
+        "verified": 150,
+        "untested": 2,
         "n/a": 8
       },
       "patternCounts": {
@@ -2092,14 +2092,14 @@
         "sticky"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",

@@ -4,93 +4,93 @@
 - navigation "Breadcrumb":
   - list:
     - listitem:
-      - link "Sites" [disabled]
+      - link "Galleries" [disabled]
 
 # Custom separator (navigation-breadcrumb--custom-separator)
 - navigation "Breadcrumb":
   - list:
     - listitem:
-      - link "Sites":
-        - /url: /sites
+      - link "Galleries":
+        - /url: /galleries
     - listitem:
-      - link "shop.seashell.dev" [disabled]
+      - link "Golden hour" [disabled]
 
 # Deep trail (navigation-breadcrumb--deep-trail)
 - navigation "Breadcrumb":
   - list:
     - listitem:
-      - link "Sites":
-        - /url: /sites
+      - link "Galleries":
+        - /url: /galleries
     - listitem:
-      - link "shop.seashell.dev":
-        - /url: /sites/shop.seashell.dev
+      - link "Golden hour":
+        - /url: /galleries/golden-hour
     - listitem:
       - link "Settings":
-        - /url: /sites/shop.seashell.dev/settings
+        - /url: /galleries/golden-hour/settings
     - listitem:
-      - link "Certificates" [disabled]
+      - link "Licenses" [disabled]
 
 # Default (navigation-breadcrumb--default)
 - navigation "Breadcrumb":
   - list:
     - listitem:
-      - link "Servers":
+      - link "Studios":
         - /url: "#"
     - listitem:
-      - link "shop.seashell.dev":
+      - link "Golden hour":
         - /url: "#"
     - listitem:
-      - link "DNS records" [disabled]
+      - link "Client picks" [disabled]
 
 # Icon-only first crumb (navigation-breadcrumb--icon-only-first)
 - navigation "Breadcrumb":
   - list:
     - listitem:
       - link "Home":
-        - /url: /sites
+        - /url: /galleries
     - listitem:
-      - link "shop.seashell.dev":
-        - /url: /sites/shop.seashell.dev
+      - link "Golden hour":
+        - /url: /galleries/golden-hour
     - listitem:
-      - link "DNS records" [disabled]
+      - link "Client picks" [disabled]
 
 # With ellipsis (navigation-breadcrumb--with-ellipsis)
 - navigation "Breadcrumb":
   - list:
     - listitem:
-      - link "Servers":
+      - link "Studios":
         - /url: "#"
     - listitem:
       - button "Show 3 more levels"
     - listitem:
-      - link "DNS records" [disabled]
+      - link "Client picks" [disabled]
 
 # With icons (navigation-breadcrumb--with-icons)
 - navigation "Breadcrumb":
   - list:
     - listitem:
-      - link "Sites":
-        - /url: /sites
+      - link "Galleries":
+        - /url: /galleries
     - listitem:
-      - link "shop.seashell.dev":
-        - /url: /sites/shop.seashell.dev
+      - link "Golden hour":
+        - /url: /galleries/golden-hour
     - listitem:
-      - link "DNS records" [disabled]
+      - link "Client picks" [disabled]
 
 # Wrapping (navigation-breadcrumb--wrapping)
 - navigation "Breadcrumb":
   - list:
     - listitem:
-      - link "Sites":
-        - /url: /sites
+      - link "Galleries":
+        - /url: /galleries
     - listitem:
-      - link "shop.seashell.dev":
-        - /url: /sites/shop.seashell.dev
+      - link "Golden hour":
+        - /url: /galleries/golden-hour
     - listitem:
       - link "Settings":
-        - /url: /sites/shop.seashell.dev/settings
+        - /url: /galleries/golden-hour/settings
     - listitem:
-      - link "Domains":
-        - /url: /sites/shop.seashell.dev/settings/domains
+      - link "Client portal":
+        - /url: /galleries/golden-hour/settings/portal
     - listitem:
-      - link "www.shop.seashell.dev" [disabled]
+      - link "golden-hour.aether.photo" [disabled]

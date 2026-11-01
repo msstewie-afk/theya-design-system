@@ -2,29 +2,29 @@
 
 # Default (navigation-sidebar--default)
 - complementary:
-  - text: Theya
+  - text: Aether
   - button "Collapse sidebar" [expanded]
   - navigation "Main":
     - text: Manage
     - button "Dashboard":
       - img
       - text: Dashboard
-    - button "Sites 128":
+    - button "Galleries 128":
       - img
-      - text: Sites 128
-    - button "Certificates 3":
+      - text: Galleries 128
+    - button "Licenses 3":
       - img
-      - text: Certificates 3
+      - text: Licenses 3
     - button "Credentials !":
       - img
       - text: Credentials !
     - button "More actions for Credentials"
-    - text: Projects
-    - button "Add project"
-    - button "acme-corp":
+    - text: Clients
+    - button "Add client"
+    - button "Rhea Okafor":
       - img
-      - text: acme-corp
-    - button "More actions for acme-corp"
+      - text: Rhea Okafor
+    - button "More actions for Rhea Okafor"
   - button "Settings":
     - img
     - text: Settings
@@ -35,29 +35,29 @@
 
 # Inverse (navigation-sidebar--inverse)
 - complementary:
-  - text: Theya
+  - text: Aether
   - button "Collapse sidebar" [expanded]
   - navigation "Main":
     - text: Manage
     - button "Dashboard":
       - img
       - text: Dashboard
-    - button "Sites 128":
+    - button "Galleries 128":
       - img
-      - text: Sites 128
-    - button "Certificates 3":
+      - text: Galleries 128
+    - button "Licenses 3":
       - img
-      - text: Certificates 3
+      - text: Licenses 3
     - button "Credentials !":
       - img
       - text: Credentials !
     - button "More actions for Credentials"
-    - text: Projects
-    - button "Add project"
-    - button "acme-corp":
+    - text: Clients
+    - button "Add client"
+    - button "Rhea Okafor":
       - img
-      - text: acme-corp
-    - button "More actions for acme-corp"
+      - text: Rhea Okafor
+    - button "More actions for Rhea Okafor"
   - button "Settings":
     - img
     - text: Settings
@@ -68,16 +68,16 @@
 
 # With account (navigation-sidebar--with-account)
 - complementary:
-  - text: Theya
+  - text: Aether
   - button "Collapse sidebar" [expanded]
   - navigation "Main":
     - text: Manage
     - button "Dashboard":
       - img
       - text: Dashboard
-    - button "Sites 128":
+    - button "Galleries 128":
       - img
-      - text: Sites 128
+      - text: Galleries 128
   - button "Settings":
     - img
     - text: Settings

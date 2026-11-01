@@ -16,10 +16,10 @@ export const proseGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <Prose size="sm" className="w-full">
-            <h3>Restore a backup</h3>
-            <p>Backups run every night and are kept for <strong>14 days</strong>.</p>
+            <h3>Restore a photo from the archive</h3>
+            <p>The archive runs every night and keeps photos for <strong>90 days</strong>.</p>
             <ol>
-              <li>Open <em>Backups</em>.</li>
+              <li>Open <em>Mnemosyne</em>.</li>
               <li>Pick a date and choose <kbd>Restore</kbd>.</li>
             </ol>
           </Prose>
@@ -30,8 +30,8 @@ export const proseGuidelines: ComponentGuidelines = {
         example: (
           <Prose size="sm" className="w-full">
             <div className="flex items-center justify-between rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] p-3">
-              <p>shop.seashell.dev</p>
-              <p>Running</p>
+              <p>Golden hour</p>
+              <p>Shared</p>
             </div>
           </Prose>
         ),

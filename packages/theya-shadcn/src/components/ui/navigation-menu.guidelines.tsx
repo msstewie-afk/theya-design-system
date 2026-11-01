@@ -35,7 +35,7 @@ export const navigationMenuGuidelines: ComponentGuidelines = {
           <div className="w-80 overflow-hidden">
             <NavigationMenu aria-label="All sections">
               <NavigationMenuList className="flex-wrap">
-                {['Dashboard', 'Sites', 'Domains', 'Databases', 'Email', 'Backups', 'Logs', 'Team', 'Billing', 'Settings'].map(link)}
+                {['Dashboard', 'Galleries', 'Clients', 'Portals', 'Prints', 'Archive', 'Activity', 'Team', 'Billing', 'Settings'].map(link)}
               </NavigationMenuList>
             </NavigationMenu>
           </div>

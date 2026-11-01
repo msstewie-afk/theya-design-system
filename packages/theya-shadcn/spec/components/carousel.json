@@ -36,11 +36,11 @@
     {
       "do": {
         "caption": "Templates to browse — optional, alike, and many.",
-        "example": "<Slides label=\"Site templates\" items={['Blog', 'Shop', 'Portfolio', 'Docs', 'Landing', 'Wiki']} />"
+        "example": "<Slides label=\"Gallery templates\" items={['Classic', 'Mosaic', 'Story', 'Portfolio', 'Grid', 'Film strip']} />"
       },
       "dont": {
         "caption": "Important notices in slides: most people never see slide 2 or 3.",
-        "example": "<Slides label=\"Announcements\" items={['Price change on May 1', 'Planned downtime Sat', 'New region: Mumbai']} />"
+        "example": "<Slides label=\"Announcements\" items={['Price change on May 1', 'Planned downtime Sat', 'New studio: Lisbon']} />"
       }
     }
   ],

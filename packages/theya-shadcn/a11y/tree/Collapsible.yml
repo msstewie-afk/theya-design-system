@@ -11,13 +11,13 @@
 - text: Advanced settings content goes here.
 
 # Show advanced settings (layout-collapsible--show-advanced-settings)
-- text: Domain
-- textbox "Domain":
-  - /placeholder: shop.seashell.dev
+- text: Gallery name
+- textbox "Gallery name":
+  - /placeholder: Golden hour
 - button "Show advanced settings" [expanded]
-- text: Custom hostname
-- textbox "Custom hostname":
-  - /placeholder: www.shop.seashell.dev
-- text: Region
-- textbox "Region":
-  - /placeholder: eu-west-1
+- text: Client portal address
+- textbox "Client portal address":
+  - /placeholder: selene-weddings.aether.photo
+- text: Download limit
+- textbox "Download limit":
+  - /placeholder: 50 per client

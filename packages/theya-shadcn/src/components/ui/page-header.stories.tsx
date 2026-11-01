@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ArrowLeft, Globe, Plus, Server } from 'iconoir-react';
+import { ArrowLeft, MediaImage, Plus } from 'iconoir-react';
 import { KebabIconVertical } from './kebab-icon';
 import { PageHeader } from './page-header';
 import { Button } from './button';
@@ -40,8 +40,8 @@ const meta: Meta<typeof PageHeader> = {
     className: { control: false, description: 'Class on the root element.' },
   },
   args: {
-    title: 'Sites',
-    description: 'Every site across your servers.',
+    title: 'Galleries',
+    description: 'Every gallery across your studios.',
     as: 'h1',
   },
   decorators: [
@@ -68,7 +68,7 @@ export const WithActions: Story = {
       <>
         <Button appearance="outlined">Import</Button>
         <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
-          Create site
+          Create gallery
         </Button>
       </>
     ),
@@ -80,29 +80,29 @@ export const WithActions: Story = {
  * a breadcrumb is present. */
 export const WithBreadcrumbAndMeta: Story = {
   args: {
-    title: 'shop.seashell.dev',
+    title: 'Golden hour',
     description: undefined,
     breadcrumb: (
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/sites">Sites</BreadcrumbLink>
+            <BreadcrumbLink href="/galleries">Galleries</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>shop.seashell.dev</BreadcrumbPage>
+            <BreadcrumbPage>Golden hour</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
     ),
-    actions: <Button appearance="outlined">Visit site</Button>,
+    actions: <Button appearance="outlined">Open gallery</Button>,
     children: (
       <>
         <Badge tone="success">
           <StatusDot tone="success" />
           Active
         </Badge>
-        <span>Production · eu-west-1 · Node 20</span>
+        <span>Selene Weddings · 48 photos · Pro</span>
       </>
     ),
   },
@@ -131,15 +131,15 @@ export const SectionHeader: Story = {
  */
 export const WithBackNavigation: Story = {
   args: {
-    title: 'shop.seashell.dev',
+    title: 'Golden hour',
     description: undefined,
     breadcrumb: (
       <div className="flex items-center gap-1">
-        <Button appearance="ghost" iconOnly size="md" aria-label="Back to sites" leftIcon={<ArrowLeft />} />
+        <Button appearance="ghost" iconOnly size="md" aria-label="Back to galleries" leftIcon={<ArrowLeft />} />
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/sites">Sites</BreadcrumbLink>
+              <BreadcrumbLink href="/galleries">Galleries</BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -163,7 +163,7 @@ export const WithKebabMenu: Story = {
           Import
         </Button>
         <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
-          Create site
+          Create gallery
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -172,7 +172,7 @@ export const WithKebabMenu: Story = {
           <DropdownMenuContent align="end">
             <DropdownMenuItem className="sm:hidden">Import</DropdownMenuItem>
             <DropdownMenuSeparator className="sm:hidden" />
-            <DropdownMenuItem>Export sites</DropdownMenuItem>
+            <DropdownMenuItem>Export galleries</DropdownMenuItem>
             <DropdownMenuItem>Bulk edit</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem tone="danger">Delete all</DropdownMenuItem>
@@ -187,8 +187,8 @@ export const WithKebabMenu: Story = {
  * background. */
 export const WithIcon: Story = {
   args: {
-    title: 'shop.seashell.dev',
-    icon: <Globe />,
+    title: 'Golden hour',
+    icon: <MediaImage />,
     description: undefined,
   },
 };
@@ -197,15 +197,15 @@ export const WithIcon: Story = {
  * (non-removable) Chips plus a small "add tag" affordance. */
 export const WithTags: Story = {
   args: {
-    title: 'shop.seashell.dev',
-    description: 'Every site across your servers.',
+    title: 'Golden hour',
+    description: 'Every gallery across your studios.',
     tags: (
       <>
         <Chip interactive={false}>
-          Production
+          Wedding
         </Chip>
         <Chip interactive={false}>
-          Node 20
+          Print-ready
         </Chip>
         <Button appearance="ghost" iconOnly size="md" aria-label="Add tag" leftIcon={<Plus />} />
       </>
@@ -221,12 +221,12 @@ export const WithTags: Story = {
  */
 export const WithContentActions: Story = {
   args: {
-    title: 'shop.seashell.dev',
-    description: 'This site was suspended for exceeding its bandwidth quota.',
-    actions: <Button appearance="outlined">Visit site</Button>,
+    title: 'Golden hour',
+    description: 'This gallery was paused for exceeding its download limit.',
+    actions: <Button appearance="outlined">Open gallery</Button>,
     contentActions: (
       <Button appearance="outlined" size="md">
-        Reinstate site
+        Resume gallery
       </Button>
     ),
   },
@@ -244,14 +244,14 @@ export const WithTabs: Story = {
       <Tabs defaultValue="overview">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="deployments">Deployments</TabsTrigger>
+          <TabsTrigger value="exports">Exports</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
         <TabsContent value="overview" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
           Overview content.
         </TabsContent>
-        <TabsContent value="deployments" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
-          Deployments content.
+        <TabsContent value="exports" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
+          Exports content.
         </TabsContent>
         <TabsContent value="settings" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
           Settings content.
@@ -260,7 +260,7 @@ export const WithTabs: Story = {
     </div>
   ),
   args: {
-    title: 'shop.seashell.dev',
+    title: 'Golden hour',
     description: undefined,
   },
 };
@@ -273,21 +273,21 @@ export const WithTabs: Story = {
  */
 export const AllElements: Story = {
   args: {
-    title: 'shop.seashell.dev',
-    icon: <Globe />,
+    title: 'Golden hour',
+    icon: <MediaImage />,
     description:
-      'Every site across your servers, grouped by environment. Production sites are backed up nightly and monitored for uptime; staging and development sites are excluded from paging.',
+      'Every gallery across your studios, grouped by client. Delivered galleries are archived nightly and kept for 90 days; drafts and proofs stay hidden from clients.',
     breadcrumb: (
       <div className="flex items-center gap-1">
-        <Button appearance="ghost" iconOnly size="md" aria-label="Back to sites" leftIcon={<ArrowLeft />} />
+        <Button appearance="ghost" iconOnly size="md" aria-label="Back to galleries" leftIcon={<ArrowLeft />} />
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/sites">Sites</BreadcrumbLink>
+              <BreadcrumbLink href="/galleries">Galleries</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>shop.seashell.dev</BreadcrumbPage>
+              <BreadcrumbPage>Golden hour</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -296,10 +296,10 @@ export const AllElements: Story = {
     tags: (
       <>
         <Chip interactive={false}>
-          Production
+          Wedding
         </Chip>
         <Chip interactive={false}>
-          Node 20
+          Print-ready
         </Chip>
         <Button appearance="ghost" iconOnly size="md" aria-label="Add tag" leftIcon={<Plus />} />
       </>
@@ -310,7 +310,7 @@ export const AllElements: Story = {
           Import
         </Button>
         <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
-          Create site
+          Create gallery
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -319,7 +319,7 @@ export const AllElements: Story = {
           <DropdownMenuContent align="end">
             <DropdownMenuItem className="sm:hidden">Import</DropdownMenuItem>
             <DropdownMenuSeparator className="sm:hidden" />
-            <DropdownMenuItem>Export sites</DropdownMenuItem>
+            <DropdownMenuItem>Export galleries</DropdownMenuItem>
             <DropdownMenuItem>Bulk edit</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem tone="danger">Delete all</DropdownMenuItem>
@@ -329,7 +329,7 @@ export const AllElements: Story = {
     ),
     contentActions: (
       <Button appearance="outlined" size="md">
-        Reinstate site
+        Resume gallery
       </Button>
     ),
   },
@@ -339,18 +339,18 @@ export const AllElements: Story = {
  * full single-shot composition (icon + breadcrumb + tags + description + actions). */
 export const Full: Story = {
   args: {
-    title: 'shop.seashell.dev',
-    icon: <Server />,
-    description: 'Primary storefront, served from eu-west-1 with 3 replicas.',
+    title: 'Golden hour',
+    icon: <MediaImage />,
+    description: 'The wedding of Rhea and Theo, shot at Othrys Lodge.',
     breadcrumb: (
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="#">Sites</BreadcrumbLink>
+            <BreadcrumbLink href="#">Galleries</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>shop.seashell.dev</BreadcrumbPage>
+            <BreadcrumbPage>Golden hour</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -361,14 +361,14 @@ export const Full: Story = {
           Active
         </Chip>
         <Chip interactive={false}>
-          Production
+          Wedding
         </Chip>
       </>
     ),
     actions: (
       <>
         <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
-          New deployment
+          New export
         </Button>
         <Button appearance="ghost" iconOnly aria-label="More actions" leftIcon={<KebabIconVertical />} className="[&_svg]:text-[var(--color-icon-icon)]" />
       </>

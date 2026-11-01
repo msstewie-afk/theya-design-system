@@ -2,9 +2,9 @@ import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion';
 
 const FAQ = [
-  ['How long are backups kept?', 'Nightly backups are kept for 14 days.'],
-  ['Can I restore a single file?', 'Yes — open the backup and pick the files.'],
-  ['Do backups count toward storage?', 'No, they’re stored separately.'],
+  ['How long are galleries kept?', '90 days after delivery, then they move to the archive.'],
+  ['Can I restore a single photo?', 'Yes — open the archive and pick the photos.'],
+  ['Does the archive count toward storage?', 'No, it’s stored separately.'],
 ];
 
 export const accordionGuidelines: ComponentGuidelines = {

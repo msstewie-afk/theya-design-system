@@ -337,7 +337,7 @@
           "use": "Stepper"
         },
         {
-          "when": "Flat sites with one or two levels",
+          "when": "Flat apps with one or two levels",
           "use": "the page title alone"
         },
         {

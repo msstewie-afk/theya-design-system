@@ -46,17 +46,17 @@ function visit(tab: string | null, hash = '') {
 /** Switching tabs writes `?tab=` to the address, and the default tab leaves it out; Back, Forward and shared links open the right tab. */
 export const Default: Story = {
   render: () => (
-    <UrlTabs defaultValue="overview" values={['overview', 'dns', 'security']} className="w-full max-w-[400px]">
+    <UrlTabs defaultValue="overview" values={['overview', 'picks', 'security']} className="w-full max-w-[400px]">
       <TabsList>
         <TabsTrigger value="overview">Overview</TabsTrigger>
-        <TabsTrigger value="dns">DNS records</TabsTrigger>
+        <TabsTrigger value="picks">Client picks</TabsTrigger>
         <TabsTrigger value="security">Security</TabsTrigger>
       </TabsList>
       <TabsContent value="overview" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
         Overview content — switching tabs updates the URL's ?tab= param.
       </TabsContent>
-      <TabsContent value="dns" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
-        DNS records content.
+      <TabsContent value="picks" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
+        Client picks content.
       </TabsContent>
       <TabsContent value="security" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
         Security content.
@@ -76,8 +76,8 @@ export const Default: Story = {
       resetFocus();
       await tabTo(canvas.getByRole('tab', { name: 'Overview' }));
       await userEvent.keyboard('{ArrowRight}');
-      await waitFor(() => expect(canvas.getByRole('tab', { name: 'DNS records' })).toHaveAttribute('aria-selected', 'true'));
-      await expect(tabParam()).toBe('dns');
+      await waitFor(() => expect(canvas.getByRole('tab', { name: 'Client picks' })).toHaveAttribute('aria-selected', 'true'));
+      await expect(tabParam()).toBe('picks');
       await expect(new URLSearchParams(window.location.search).get('id')).not.toBeNull();
       await expect(window.location.hash).toBe('#billing');
 

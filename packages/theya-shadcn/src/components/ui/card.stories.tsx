@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect } from '@storybook/test';
-import { Globe, InfoCircle, CheckCircle, WarningTriangle, WarningCircle, Plus, OpenBook, OpenNewWindow, ArrowRight, Bookmark, BookmarkSolid, Trash, Refresh, MediaImage, Star, Calendar, Lock, StatsUpSquare, Link as LinkIcon, ClipboardCheck } from 'iconoir-react';
+import { InfoCircle, CheckCircle, WarningTriangle, WarningCircle, Plus, OpenBook, OpenNewWindow, ArrowRight, Bookmark, BookmarkSolid, Trash, Refresh, MediaImage, Star, Calendar, Lock, StatsUpSquare, Link as LinkIcon, ClipboardCheck } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardAction, CardFooter, CardLink, CardMedia, CardAvatar, type CardTone } from './card';
 import { DotSeparator } from './dot-separator';
@@ -44,13 +44,13 @@ export const Default: Story = {
     <Card className="w-full max-w-[360px]">
       <CardHeader>
         <div>
-          <CardTitle>Site details</CardTitle>
-          <CardDescription>Primary domain and region for this site.</CardDescription>
+          <CardTitle>Gallery details</CardTitle>
+          <CardDescription>Client portal and studio for this gallery.</CardDescription>
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-1">
-        <p className="font-mono text-body-m text-[var(--color-text-text)]">shop.seashell.dev</p>
-        <p className="flex items-center text-body-s text-[var(--color-text-text-subtler)]">eu-west-1<DotSeparator />Node 20</p>
+        <p className="font-mono text-body-m text-[var(--color-text-text)]">selene-weddings.aether.photo</p>
+        <p className="flex items-center text-body-s text-[var(--color-text-text-subtler)]">Selene Weddings<DotSeparator />48 photos</p>
       </CardContent>
       <CardFooter>
         <Button appearance="filled" tone="primary" size="md">
@@ -123,7 +123,7 @@ export const ContentOnly: Story = {
   render: () => (
     <Card className="w-full max-w-[360px]">
       <CardContent>
-        <CardTitle>Active sites</CardTitle>
+        <CardTitle>Active galleries</CardTitle>
         <p className="mt-1 font-body text-heading-m font-semibold tabular-nums text-[var(--color-text-text)]">24</p>
       </CardContent>
     </Card>
@@ -136,17 +136,17 @@ export const WithHeaderAction: Story = {
     <Card className="w-full max-w-[360px]">
       <CardHeader>
         <div>
-          <CardTitle>Certificates</CardTitle>
-          <CardDescription>TLS coverage across your domains.</CardDescription>
+          <CardTitle>Licenses</CardTitle>
+          <CardDescription>Print and web rights for delivered photos.</CardDescription>
         </div>
         <CardAction>
           <Button appearance="outlined" size="md">
-            Issue certificate
+            Issue license
           </Button>
         </CardAction>
       </CardHeader>
       <CardContent className="flex flex-wrap items-center justify-between gap-2">
-        <span className="font-mono text-body-m text-[var(--color-text-text)]">shop.seashell.dev</span>
+        <span className="font-body text-body-m text-[var(--color-text-text)]">Golden hour · print</span>
         <Badge tone="success">
           <StatusDot tone="success" />
           Valid<DotSeparator className="mx-1" />87 days
@@ -164,53 +164,53 @@ export const WithHeaderAction: Story = {
 export const InteractiveCard: Story = {
   render: () => (
     <div className="flex flex-col items-start gap-4">
-      <Card action={{ type: 'link', href: '/sites/settings.seashell.dev' }} className="w-full sm:w-fit">
+      <Card action={{ type: 'link', href: '/galleries/blue-hour' }} className="w-full sm:w-fit">
         <CardHeader>
           <div className="min-w-0 flex-1">
-            <CardTitle className="truncate font-mono">settings.seashell.dev</CardTitle>
-            <CardDescription className="flex items-center">Pro<DotSeparator />eu-west-1</CardDescription>
+            <CardTitle className="truncate">Blue hour</CardTitle>
+            <CardDescription className="flex items-center">Pro<DotSeparator />Helios Studio</CardDescription>
           </div>
           <CardAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button appearance="ghost" iconOnly size="md" aria-label="Actions for settings.seashell.dev" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />
+                <Button appearance="ghost" iconOnly size="md" aria-label="Actions for Blue hour" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>Restart</DropdownMenuItem>
+                <DropdownMenuItem>Share</DropdownMenuItem>
                 <DropdownMenuItem tone="danger">Delete</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </CardAction>
         </CardHeader>
       </Card>
-      <Card action={{ type: 'link', href: '/sites/shop.seashell.dev' }} className="w-full sm:w-fit">
+      <Card action={{ type: 'link', href: '/galleries/golden-hour' }} className="w-full sm:w-fit">
         <CardHeader>
           {/* Icon aligns to the title line, not the middle of title + description:
               items-start, and a wrapper one title-line tall (same text size). */}
           <div className="flex min-w-0 flex-1 items-start gap-3">
             <span aria-hidden="true" className="flex h-[1lh] shrink-0 items-center text-body-l">
-              <Globe className="text-[var(--color-icon-icon-subtle)]" />
+              <MediaImage className="text-[var(--color-icon-icon-subtle)]" />
             </span>
             <div className="min-w-0">
-              <CardTitle className="truncate font-mono">shop.seashell.dev</CardTitle>
-              <CardDescription className="flex items-center">Pro<DotSeparator />eu-west-1</CardDescription>
+              <CardTitle className="truncate">Golden hour</CardTitle>
+              <CardDescription className="flex items-center">Pro<DotSeparator />Selene Weddings</CardDescription>
             </div>
           </div>
           <Badge tone="success">
             <StatusDot tone="success" />
-            Running
+            Shared
           </Badge>
         </CardHeader>
-        <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">184,320 requests today.</CardContent>
+        <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">312 downloads today.</CardContent>
       </Card>
-      <Card action={{ type: 'link', href: '/sites/docs.seashell.dev' }} className="w-full sm:w-fit">
+      <Card action={{ type: 'link', href: '/galleries/first-light' }} className="w-full sm:w-fit">
         <CardHeader>
           <div className="min-w-0 flex-1">
-            <CardTitle className="truncate font-mono">docs.seashell.dev</CardTitle>
-            <CardDescription className="flex items-center">Free<DotSeparator />eu-west-1</CardDescription>
+            <CardTitle className="truncate">First light</CardTitle>
+            <CardDescription className="flex items-center">Free<DotSeparator />Eos Portraits</CardDescription>
           </div>
         </CardHeader>
-        <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">Suspended, payment failed.</CardContent>
+        <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">Paused, payment failed.</CardContent>
         <CardFooter>
           <Button appearance="filled" tone="primary" size="md">
             Resolve billing
@@ -223,7 +223,7 @@ export const InteractiveCard: Story = {
   // or while its menu is open (the press scale on :active is intended and
   // not measured here).
   play: async ({ canvasElement }) => {
-    const kebab = canvasElement.querySelector<HTMLButtonElement>('[aria-label="Actions for settings.seashell.dev"]')!;
+    const kebab = canvasElement.querySelector<HTMLButtonElement>('[aria-label="Actions for Blue hour"]')!;
     const rect = () => kebab.getBoundingClientRect();
     // The card is `sm:w-fit` around a mono title: measure only after the
     // web fonts settle, or the font swap itself reads as a shift.
@@ -255,32 +255,32 @@ function ActionKindsExample() {
   const [filterActive, setFilterActive] = useState(false);
   return (
     <div className="grid w-full max-w-2xl gap-4 sm:grid-cols-2">
-      <Card action={{ type: 'link', href: '/sites/shop.seashell.dev/deployments' }}>
+      <Card action={{ type: 'link', href: '/galleries/golden-hour/exports' }}>
         <CardHeader size="md">
           <div className="min-w-0 flex-1">
-            <CardTitle className="truncate">Deployments</CardTitle>
-            <CardDescription>for shop.seashell.dev</CardDescription>
+            <CardTitle className="truncate">Exports</CardTitle>
+            <CardDescription>for Golden hour</CardDescription>
           </div>
           <CardAction>
-            <Button appearance="ghost" iconOnly size="md" aria-label="New deployment" leftIcon={<Plus />} />
+            <Button appearance="ghost" iconOnly size="md" aria-label="New export" leftIcon={<Plus />} />
           </CardAction>
         </CardHeader>
-        <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">Ship, roll back and compare releases.</CardContent>
+        <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">Resize, watermark and compare exports.</CardContent>
       </Card>
-      <Card action={{ type: 'filter', active: filterActive, onChange: setFilterActive, ariaLabel: 'Show only sites with failing checks' }} tone="warning">
+      <Card action={{ type: 'filter', active: filterActive, onChange: setFilterActive, ariaLabel: 'Show only galleries waiting for the client' }} tone="warning">
         <CardHeader size="md">
           <div className="min-w-0 flex-1">
-            <CardTitle className="truncate">Failing checks</CardTitle>
-            <CardDescription>{filterActive ? 'Filter selected.' : '4 sites need attention.'}</CardDescription>
+            <CardTitle className="truncate">Waiting for the client</CardTitle>
+            <CardDescription>{filterActive ? 'Filter selected.' : '4 galleries need a pick.'}</CardDescription>
           </div>
         </CardHeader>
-        <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">Narrow the list to sites with a failing health check.</CardContent>
+        <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">Narrow the list to galleries the client hasn’t picked from yet.</CardContent>
       </Card>
-      <Card action={{ type: 'external-link', href: 'https://seashell.dev', ariaLabel: 'Open Theya Seashell' }}>
+      <Card action={{ type: 'external-link', href: 'https://aether.photo', ariaLabel: 'Open Aether' }}>
         <CardHeader size="md">
           <div className="min-w-0 flex-1">
-            <CardTitle className="truncate">Theya Seashell</CardTitle>
-            <CardDescription>Opens the public site in a new tab.</CardDescription>
+            <CardTitle className="truncate">Aether</CardTitle>
+            <CardDescription>Opens the public portfolio in a new tab.</CardDescription>
           </div>
         </CardHeader>
       </Card>
@@ -304,8 +304,8 @@ function ProgrammaticCardLinkExample() {
           <div className="min-w-0 flex-1">
             <CardTitle>
               <CardLink asChild>
-                <button type="button" className="block truncate text-left font-mono" onClick={() => setOpenedSite('shield.seashell.dev')}>
-                  shield.seashell.dev
+                <button type="button" className="block truncate text-left" onClick={() => setOpenedSite('Moonrise over Othrys')}>
+                  Moonrise over Othrys
                 </button>
               </CardLink>
             </CardTitle>
@@ -314,18 +314,18 @@ function ProgrammaticCardLinkExample() {
           <CardAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button appearance="ghost" iconOnly size="md" aria-label="Actions for shield.seashell.dev" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />
+                <Button appearance="ghost" iconOnly size="md" aria-label="Actions for Moonrise over Othrys" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>Restart</DropdownMenuItem>
+                <DropdownMenuItem>Share</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </CardAction>
         </CardHeader>
-        <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">The stretched CardLink makes the entire widget clickable without a URL.</CardContent>
+        <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">The stretched CardLink makes the entire card clickable without a URL.</CardContent>
       </Card>
       <p className="text-body-s text-[var(--color-text-text-subtler)]" aria-live="polite">
-        {openedSite ? `Opened ${openedSite}` : 'Activate the card to open the widget.'}
+        {openedSite ? `Opened ${openedSite}` : 'Activate the card to open the gallery.'}
       </p>
     </div>
   );
@@ -344,12 +344,12 @@ export const FormSection: Story = {
     <Card className="w-full max-w-[360px]">
       <CardHeader>
         <div>
-          <CardTitle>Primary domain</CardTitle>
-          <CardDescription>The domain visitors use to reach this site.</CardDescription>
+          <CardTitle>Client portal</CardTitle>
+          <CardDescription>The address clients use to see their photos.</CardDescription>
         </div>
       </CardHeader>
       <CardContent>
-        <TextField label="Domain" placeholder="shop.seashell.dev" widthSize="md" />
+        <TextField label="Portal address" placeholder="selene-weddings.aether.photo" widthSize="md" />
       </CardContent>
       <CardFooter>
         <Button appearance="filled" tone="primary" size="md">
@@ -366,14 +366,14 @@ export const Grid: Story = {
     <div className="grid w-full max-w-2xl grid-cols-1 gap-4 sm:grid-cols-2">
       <Card>
         <CardContent>
-          <CardTitle>Active sites</CardTitle>
+          <CardTitle>Active galleries</CardTitle>
           <p className="mt-1 font-body text-heading-m font-semibold tabular-nums text-[var(--color-text-text)]">24</p>
         </CardContent>
       </Card>
       <Card>
         <CardContent>
-          <CardTitle>Requests today</CardTitle>
-          <p className="mt-1 font-body text-heading-m font-semibold tabular-nums text-[var(--color-text-text)]">1,925,460</p>
+          <CardTitle>Photos delivered</CardTitle>
+          <p className="mt-1 font-body text-heading-m font-semibold tabular-nums text-[var(--color-text-text)]">4,500</p>
         </CardContent>
       </Card>
       <Card>
@@ -384,7 +384,7 @@ export const Grid: Story = {
       </Card>
       <Card>
         <CardContent>
-          <CardTitle>Certificates expiring</CardTitle>
+          <CardTitle>Licenses expiring</CardTitle>
           <p className="mt-1 font-body text-heading-m font-semibold tabular-nums text-[var(--color-text-text)]">1</p>
         </CardContent>
       </Card>
@@ -409,11 +409,11 @@ export const Sizes: Story = {
 };
 
 const TONE_COPY: Record<CardTone, { icon: typeof InfoCircle | null; label: string; note: string }> = {
-  neutral: { icon: null, label: 'Bandwidth', note: 'Nominal' },
+  neutral: { icon: null, label: 'Downloads', note: 'Nominal' },
   info: { icon: InfoCircle, label: 'Maintenance scheduled', note: 'Sat 02:00 UTC' },
-  success: { icon: CheckCircle, label: 'Backup completed', note: 'All sites' },
+  success: { icon: CheckCircle, label: 'Archive completed', note: 'All galleries' },
   warning: { icon: WarningTriangle, label: 'Quota nearing limit', note: '92% used' },
-  danger: { icon: WarningCircle, label: 'DNS records not propagated', note: 'seashell.dev' },
+  danger: { icon: WarningCircle, label: 'Client portal offline', note: 'selene-weddings.aether.photo' },
 };
 
 const TONE_ICON_CLASS: Record<CardTone, string> = {
@@ -516,18 +516,18 @@ export const DividerEdgeCases: Story = {
 export const HeaderDividerOverride: Story = {
   render: () => (
     <div className="flex flex-wrap items-start gap-4">
-      <Card action={{ type: 'link', href: '/infrastructure' }} className="w-64">
+      <Card action={{ type: 'link', href: '/studio' }} className="w-64">
         <CardHeader divider>
-          <CardTitle>Infrastructure</CardTitle>
+          <CardTitle>Studio</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-1 text-body-s">
           <div className="flex items-baseline justify-between">
-            <span className="text-[var(--color-text-text-subtler)]">GPUs</span>
+            <span className="text-[var(--color-text-text-subtler)]">Cameras</span>
             <span className="tabular-nums text-[var(--color-text-text)]">8 / 12</span>
           </div>
           <div className="flex items-baseline justify-between">
-            <span className="text-[var(--color-text-text-subtler)]">RAM</span>
-            <span className="tabular-nums text-[var(--color-text-text)]">210 / 256 GB</span>
+            <span className="text-[var(--color-text-text-subtler)]">Storage</span>
+            <span className="tabular-nums text-[var(--color-text-text)]">210 / 384 GB</span>
           </div>
         </CardContent>
       </Card>
@@ -555,15 +555,15 @@ export const TitleOnlyWithAction: Story = {
     <div className="flex w-full max-w-[360px] flex-col gap-4">
       <Card>
         <CardHeader className="items-center">
-          <CardTitle>Deploy keys</CardTitle>
+          <CardTitle>Watermarks</CardTitle>
           <CardAction>
-            <Button appearance="ghost" iconOnly size="md" aria-label="Actions for Deploy keys" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />
+            <Button appearance="ghost" iconOnly size="md" aria-label="Actions for Watermarks" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />
           </CardAction>
         </CardHeader>
       </Card>
       <Card>
         <CardHeader className="items-center">
-          <CardTitle>Environment variables</CardTitle>
+          <CardTitle>Export presets</CardTitle>
           <CardAction>
             <Button appearance="outlined" size="md">
               Manage
@@ -573,10 +573,10 @@ export const TitleOnlyWithAction: Story = {
       </Card>
       <Card>
         <CardHeader className="items-center">
-          <CardTitle>Custom domains and redirects</CardTitle>
+          <CardTitle>Client portals and custom addresses</CardTitle>
           <CardAction>
             <Button appearance="outlined" size="lg">
-              Add domain
+              Add portal
             </Button>
           </CardAction>
         </CardHeader>
@@ -605,7 +605,7 @@ function SelectableCardsExample() {
               <CardHeader>
                 <CardTitle className="capitalize">{plan}</CardTitle>
               </CardHeader>
-              <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">Up to 5 sites, daily backups.</CardContent>
+              <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">Up to 5 galleries, nightly archive.</CardContent>
             </Card>
           ))}
         </div>
@@ -618,7 +618,7 @@ function SelectableCardsExample() {
               <CardHeader>
                 <CardTitle className="capitalize">{plan}</CardTitle>
               </CardHeader>
-              <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">Up to 5 sites, daily backups.</CardContent>
+              <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">Up to 5 galleries, nightly archive.</CardContent>
             </Card>
           ))}
         </div>
@@ -643,7 +643,7 @@ export const Disabled: Story = {
         <CardHeader>
           <CardTitle>Legacy plan</CardTitle>
         </CardHeader>
-        <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">No longer available for new sites.</CardContent>
+        <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">No longer available for new galleries.</CardContent>
       </Card>
       <Card className="w-full sm:w-[220px]" disabled selectable="checkbox" selected selectLabel="Select legacy plan">
         <CardHeader>
@@ -664,8 +664,8 @@ export const WithMedia: Story = {
     <Card className="w-full sm:w-[280px]">
       <CardMedia src="/asset-examples/nova-web.jpg" alt="" />
       <CardHeader>
-        <CardTitle>SolarLoom</CardTitle>
-        <CardDescription>Agentic AI builder for websites & apps.</CardDescription>
+        <CardTitle>Lumen Retouch</CardTitle>
+        <CardDescription>AI retouching for portraits and products.</CardDescription>
       </CardHeader>
       <CardContent className="text-body-s text-[var(--color-text-text-subtler)]">$54.99 per month</CardContent>
     </Card>
@@ -682,10 +682,10 @@ export const WithAvatar: Story = {
       <CardMedia src="/asset-examples/nova-web.jpg" alt="" height={96} />
       {/* Direct child of Card, not nested inside CardHeader — see the doc
        * comment on CardAvatar for why nesting it fights the overlap. */}
-      <CardAvatar size="md" type="image" src="/asset-examples/panda-avatar.png" alt="Becca Williams" />
+      <CardAvatar size="md" type="image" src="/asset-examples/panda-avatar.png" alt="Dawn Ellery" />
       <CardContent className="flex flex-col gap-1">
-        <p className="text-body-m font-semibold text-[var(--color-text-text)]">Becca Williams</p>
-        <p className="text-body-s text-[var(--color-text-text-subtler)]">Builds the automation that keeps Seashell sites deployed and healthy.</p>
+        <p className="text-body-m font-semibold text-[var(--color-text-text)]">Dawn Ellery</p>
+        <p className="text-body-s text-[var(--color-text-text-subtler)]">Retouches every portrait before it reaches the client gallery.</p>
       </CardContent>
     </Card>
   ),
@@ -715,7 +715,7 @@ export const Filled: Story = {
         </CardHeader>
         <CardContent className="flex flex-col gap-1">
           <CardTitle>Documentation</CardTitle>
-          <CardDescription>Explore comprehensive guides, tutorials, FAQs, and best practices for building with SolarLoom.</CardDescription>
+          <CardDescription>Explore comprehensive guides, tutorials, FAQs, and best practices for working with Aether.</CardDescription>
         </CardContent>
         <CardFooter>
           <Button appearance="tonal" size="md" rightIcon={<ArrowRight />}>Get started</Button>
@@ -725,7 +725,7 @@ export const Filled: Story = {
         <CardHeader>
           <div>
             <CardTitle>Upgrade to Pro</CardTitle>
-            <CardDescription>Unlimited sites, staging and daily backups.</CardDescription>
+            <CardDescription>Unlimited galleries, client portals and a nightly archive.</CardDescription>
           </div>
         </CardHeader>
         <CardFooter className="flex flex-wrap gap-2">
@@ -750,7 +750,7 @@ export const ResourceRow: Story = {
     const [saved, setSaved] = useState(false);
     const [enabled, setEnabled] = useState(true);
     const actions = [
-      { icon: <Refresh />, label: 'Redeploy' },
+      { icon: <Refresh />, label: 'Re-export' },
       { icon: <MediaImage />, label: 'Media library' },
       { icon: <Star />, label: 'Reviews' },
       { icon: <Calendar />, label: 'Schedule' },
@@ -765,16 +765,16 @@ export const ResourceRow: Story = {
               aria-hidden="true"
               className="grid size-10 place-items-center rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-primary-bg-primary-subtle)] font-body text-body-m font-semibold text-[var(--color-text-text-link-on-tonal)]"
             >
-              S
+              L
             </span>
             <div className="min-w-0">
-              <CardTitle>SolarLoom</CardTitle>
+              <CardTitle>Lumen Retouch</CardTitle>
               <a
-                href="https://solarloom.example/products/builder"
+                href="https://lumen.example/retouch"
                 className="mt-0.5 flex min-w-0 items-center gap-1 font-body text-body-xs text-[var(--color-text-text-subtler)] hover:text-[var(--color-text-text-link)] [&_svg]:size-3 [&_svg]:shrink-0"
               >
                 <LinkIcon aria-hidden="true" />
-                <span className="truncate">https://solarloom.example/products/builder</span>
+                <span className="truncate">https://lumen.example/retouch</span>
               </a>
             </div>
           </div>
@@ -783,12 +783,12 @@ export const ResourceRow: Story = {
               appearance="ghost"
               size="sm"
               iconOnly
-              aria-label="Bookmark SolarLoom"
+              aria-label="Bookmark Lumen Retouch"
               aria-pressed={saved}
               onClick={() => setSaved((v) => !v)}
               leftIcon={saved ? <BookmarkSolid /> : <Bookmark />}
             />
-            <Switch aria-label="SolarLoom enabled" checked={enabled} onCheckedChange={setEnabled} />
+            <Switch aria-label="Lumen Retouch enabled" checked={enabled} onCheckedChange={setEnabled} />
           </CardAction>
         </CardHeader>
         <CardContent className="flex items-center justify-between gap-3 pt-0">
@@ -800,7 +800,7 @@ export const ResourceRow: Story = {
               <span aria-hidden="true">▲ </span>+27<span className="sr-only"> new reviews this week</span>
             </span>
           </div>
-          <Button appearance="ghost" tone="danger" size="sm" iconOnly aria-label="Delete SolarLoom" leftIcon={<Trash />} />
+          <Button appearance="ghost" tone="danger" size="sm" iconOnly aria-label="Delete Lumen Retouch" leftIcon={<Trash />} />
         </CardContent>
       </Card>
     );
@@ -845,14 +845,14 @@ export const Compact: Story = {
 export const SelectableWithMedia: Story = {
   name: 'Selectable with media',
   render: function SelectableWithMediaExample() {
-    const [picked, setPicked] = useState<string[]>(['sites']);
+    const [picked, setPicked] = useState<string[]>(['galleries']);
     const toggle = (id: string) => (next: boolean) =>
       setPicked((p) => (next ? [...p, id] : p.filter((x) => x !== id)));
     return (
       <div className="flex flex-wrap items-start gap-4">
         {[
-          { id: 'sites', title: 'Seashell Sites', sub: 'Website builder', price: '$19/mo' },
-          { id: 'mail', title: 'Seashell Mail', sub: 'Business email', price: '$4/mo' },
+          { id: 'galleries', title: 'Aether Galleries', sub: 'Client galleries', price: '$19/mo' },
+          { id: 'prints', title: 'Aether Prints', sub: 'Print lab orders', price: '$4/mo' },
         ].map((p) => (
           <Card
             key={p.id}

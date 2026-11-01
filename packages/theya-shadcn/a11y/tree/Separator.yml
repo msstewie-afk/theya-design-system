@@ -11,14 +11,14 @@
 - paragraph: strong
 
 # In Card (layout-separator--in-card)
-- text: shop.seashell.dev eu-west-1 api.seashell.dev us-east-1 docs.seashell.dev eu-west-1
+- text: Golden hour 48 photos Blue hour 31 photos First light 62 photos
 
 # Semantic (layout-separator--semantic)
 - heading "General" [level=3]
-- paragraph: Region, runtime, scaling
+- paragraph: Name, cover, client access
 - separator
 - heading "Danger zone" [level=3]
-- paragraph: Delete or suspend this site
+- paragraph: Delete or archive this gallery
 
 # Vertical (layout-separator--vertical)
 - text: Draft v2.4.0 Edited 2m ago

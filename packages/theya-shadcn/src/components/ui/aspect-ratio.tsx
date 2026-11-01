@@ -6,7 +6,7 @@ import { cn } from '../../lib/utils';
  * box clips overflow, so a fill child is cropped to the ratio.
  * Children are absolutely positioned to fill the box, so pass a
  * single fill element and give it a text alternative:
- * <AspectRatio ratio={16/9}>`<img alt="Site preview" className="absolute inset-0 size-full object-cover" />`</AspectRatio>
+ * <AspectRatio ratio={16/9}>`<img alt="Gallery cover" className="absolute inset-0 size-full object-cover" />`</AspectRatio>
  * (decorative media should use alt="").
  */
 export interface AspectRatioProps extends React.ComponentProps<'div'> {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { HomeSimple, Globe, Settings, ShieldCheck, Key, Lifebelt, Plus, Trash, EditPencil } from 'iconoir-react';
+import { HomeSimple, MediaImage, Settings, ShieldCheck, Key, Lifebelt, Plus, Trash, EditPencil, User } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
 import {
   SidebarProvider,
@@ -42,13 +42,13 @@ export default meta;
 type Story = StoryObj<typeof Sidebar>;
 
 function DemoLayout({ inverse }: { inverse?: boolean }) {
-  const [active, setActive] = useState('sites');
+  const [active, setActive] = useState('galleries');
   return (
     <SidebarProvider>
       <div className="flex h-[560px] border border-solid border-[var(--color-border-border-subtle)] rounded-[var(--size-border-radius-border-radius-lg)] overflow-hidden" style={{ width: '100%', maxWidth: 760 }}>
         <Sidebar inverse={inverse} className="!h-full">
           <SidebarHeader>
-            <SidebarBrand>Theya</SidebarBrand>
+            <SidebarBrand>Aether</SidebarBrand>
             <SidebarCollapse />
           </SidebarHeader>
           <SidebarNav>
@@ -56,11 +56,11 @@ function DemoLayout({ inverse }: { inverse?: boolean }) {
               <SidebarItem icon={<HomeSimple />} active={active === 'dashboard'} onClick={() => setActive('dashboard')}>
                 Dashboard
               </SidebarItem>
-              <SidebarItem icon={<Globe />} badge="128" active={active === 'sites'} onClick={() => setActive('sites')}>
-                Sites
+              <SidebarItem icon={<MediaImage />} badge="128" active={active === 'galleries'} onClick={() => setActive('galleries')}>
+                Galleries
               </SidebarItem>
-              <SidebarItem icon={<ShieldCheck />} badge="3" badgeTone="warning" active={active === 'certificates'} onClick={() => setActive('certificates')}>
-                Certificates
+              <SidebarItem icon={<ShieldCheck />} badge="3" badgeTone="warning" active={active === 'licenses'} onClick={() => setActive('licenses')}>
+                Licenses
               </SidebarItem>
               <SidebarItem
                 icon={<Key />}
@@ -78,11 +78,11 @@ function DemoLayout({ inverse }: { inverse?: boolean }) {
               </SidebarItem>
             </SidebarSection>
             <SidebarSection
-              label="Projects"
+              label="Clients"
               action={
                 <button
                   type="button"
-                  aria-label="Add project"
+                  aria-label="Add client"
                   className="grid size-5 shrink-0 place-content-center rounded-[var(--size-border-radius-border-radius-sm)] text-[var(--color-icon-icon-subtle)] hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)] focus-visible:outline-none focus-visible:focus-ring"
                 >
                   <Plus width={14} height={14} aria-hidden="true" />
@@ -90,9 +90,9 @@ function DemoLayout({ inverse }: { inverse?: boolean }) {
               }
             >
               <SidebarItem
-                icon={<Globe />}
-                active={active === 'acme'}
-                onClick={() => setActive('acme')}
+                icon={<User />}
+                active={active === 'rhea'}
+                onClick={() => setActive('rhea')}
                 actions={
                   <>
                     <DropdownMenuItem><EditPencil /> Rename</DropdownMenuItem>
@@ -100,7 +100,7 @@ function DemoLayout({ inverse }: { inverse?: boolean }) {
                   </>
                 }
               >
-                acme-corp
+                Rhea Okafor
               </SidebarItem>
             </SidebarSection>
           </SidebarNav>
@@ -143,13 +143,13 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     const nav = within(canvas.getByRole('navigation', { name: 'Main' }));
     // onClick-only items are real, focusable buttons with aria-current.
-    const sites = nav.getByRole('button', { name: /Sites/ });
-    await expect(sites).toHaveAttribute('aria-current', 'page');
+    const galleries = nav.getByRole('button', { name: /Galleries/ });
+    await expect(galleries).toHaveAttribute('aria-current', 'page');
     const dashboard = nav.getByRole('button', { name: 'Dashboard' });
     dashboard.focus();
     await userEvent.keyboard('{Enter}');
     await expect(dashboard).toHaveAttribute('aria-current', 'page');
-    await expect(sites).not.toHaveAttribute('aria-current');
+    await expect(galleries).not.toHaveAttribute('aria-current');
 
     // Collapse <-> expand swaps buttons; focus follows instead of dropping.
     await userEvent.click(canvas.getByRole('button', { name: 'Collapse sidebar' }));
@@ -170,7 +170,7 @@ function AccountLayout() {
       <div className="flex h-[420px] border border-solid border-[var(--color-border-border-subtle)] rounded-[var(--size-border-radius-border-radius-lg)] overflow-hidden" style={{ width: '100%', maxWidth: 760 }}>
         <Sidebar className="!h-full">
           <SidebarHeader>
-            <SidebarBrand>Theya</SidebarBrand>
+            <SidebarBrand>Aether</SidebarBrand>
             <SidebarCollapse />
           </SidebarHeader>
           <SidebarNav>
@@ -178,8 +178,8 @@ function AccountLayout() {
               <SidebarItem icon={<HomeSimple />} active>
                 Dashboard
               </SidebarItem>
-              <SidebarItem icon={<Globe />} badge="128">
-                Sites
+              <SidebarItem icon={<MediaImage />} badge="128">
+                Galleries
               </SidebarItem>
             </SidebarSection>
           </SidebarNav>

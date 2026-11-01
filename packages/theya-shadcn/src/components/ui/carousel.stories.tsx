@@ -46,7 +46,7 @@ const visibleSlides = (root: HTMLElement) =>
     .filter((el) => !el.hasAttribute('aria-hidden'))
     .map((el) => el.getAttribute('aria-label') ?? el.textContent?.trim());
 
-const TEMPLATES = ['Starter', 'Business', 'Agency', 'Enterprise'];
+const TEMPLATES = ['Classic', 'Mosaic', 'Story', 'Portfolio'];
 
 const TILE = 'flex h-44 items-center justify-center rounded-[var(--size-border-radius-border-radius-2xl)] border border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)] px-12';
 
@@ -101,15 +101,15 @@ export const Default: Story = {
  * on mobile and three from `lg` up. `opts={{ align: 'start' }}` keeps slides
  * left-aligned as they page. */
 export const MultiItem: Story = {
-  args: { 'aria-label': 'Regions' },
+  args: { 'aria-label': 'Studios' },
   render: (args) => (
     <Carousel {...args} opts={{ align: 'start' }} className="w-full">
       <CarouselContent>
-        {['eu-west-1', 'us-east-1', 'ap-south-1', 'eu-central-1', 'sa-east-1'].map((region) => (
-          <CarouselItem key={region} className="basis-1/2 lg:basis-1/3">
+        {['Helios Studio', 'Selene Weddings', 'Eos Portraits', 'Phoebe Light Lab', 'Studio L4'].map((studio) => (
+          <CarouselItem key={studio} className="basis-1/2 lg:basis-1/3">
             <div className="rounded-[var(--size-border-radius-border-radius-2xl)] border border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)] px-12 py-4">
-              <p className="font-body text-body-s font-medium text-[var(--color-text-text)]">Region</p>
-              <p className="mt-1 font-mono text-body-xs text-[var(--color-text-text-subtler)]">{region}</p>
+              <p className="font-body text-body-s font-medium text-[var(--color-text-text)]">Studio</p>
+              <p className="mt-1 font-body text-body-xs text-[var(--color-text-text-subtler)]">{studio}</p>
             </div>
           </CarouselItem>
         ))}
@@ -123,15 +123,15 @@ export const MultiItem: Story = {
 /** Vertical orientation: the track flows top-to-bottom, arrows page Up/Down, and
  * the Arrow keys follow suit. A fixed-height viewport bounds the visible slides. */
 export const Vertical: Story = {
-  args: { orientation: 'vertical', 'aria-label': 'Recent deploys' },
+  args: { orientation: 'vertical', 'aria-label': 'Recent albums' },
   parameters: { controls: { exclude: ['orientation'] } },
   render: (args) => (
     <Carousel {...args} opts={{ align: 'start' }} className="mx-auto w-full max-w-sm">
       <CarouselContent className="h-64">
-        {['v2.4.0', 'v2.3.1', 'v2.3.0', 'v2.2.4', 'v2.2.3'].map((version) => (
-          <CarouselItem key={version} className="basis-1/2">
+        {['Golden hour', 'Blue hour', 'First light', 'Moonrise over Othrys', 'Wide-shining'].map((album) => (
+          <CarouselItem key={album} className="basis-1/2">
             <div className="flex h-full items-center justify-center rounded-[var(--size-border-radius-border-radius-2xl)] border border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)] px-4">
-              <span className="font-mono text-body-s text-[var(--color-text-text)]">{version}</span>
+              <span className="font-body text-body-s text-[var(--color-text-text)]">{album}</span>
             </div>
           </CarouselItem>
         ))}
@@ -141,14 +141,14 @@ export const Vertical: Story = {
     </Carousel>
   ),
   play: async ({ canvasElement }) => {
-    const region = within(canvasElement).getByRole('region', { name: 'Recent deploys' });
-    await waitFor(() => expect(visibleSlides(canvasElement)).toEqual(['v2.4.0', 'v2.3.1']));
+    const region = within(canvasElement).getByRole('region', { name: 'Recent albums' });
+    await waitFor(() => expect(visibleSlides(canvasElement)).toEqual(['Golden hour', 'Blue hour']));
     region.focus();
     // Vertical: Up/Down page, Left/Right do nothing.
     await userEvent.keyboard('{ArrowRight}');
-    await expect(visibleSlides(canvasElement)).toEqual(['v2.4.0', 'v2.3.1']);
+    await expect(visibleSlides(canvasElement)).toEqual(['Golden hour', 'Blue hour']);
     await userEvent.keyboard('{ArrowDown}');
-    await waitFor(() => expect(visibleSlides(canvasElement)).toContain('v2.3.0'));
+    await waitFor(() => expect(visibleSlides(canvasElement)).toContain('First light'));
   },
 };
 

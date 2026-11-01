@@ -37,9 +37,9 @@ const meta: Meta<typeof ScrollArea> = {
 export default meta;
 type Story = StoryObj<typeof ScrollArea>;
 
-const REGIONS = ['eu-west-1', 'eu-central-1', 'eu-north-1', 'us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'ap-south-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'sa-east-1', 'ca-central-1', 'af-south-1'];
+const LOCATIONS = ['Othrys Lodge', 'Helios Studio', 'Studio L4', 'Lisbon riverside', 'Kyoto gardens', 'Sofia old town', 'Reykjavik harbour', 'Cape Town beach', 'Marrakesh medina', 'Lake Bled', 'Santorini cliffs', 'Patagonia ridge', 'Oslo fjord', 'Hoi An lanterns'];
 
-const TAGS = ['v2.4.0', 'production', 'eu-west-1', 'python-3.12', 'node-20', 'edge-cache', 'auto-renew', 'wildcard-cert', 'staging', 'canary'];
+const TAGS = ['golden-hour', 'portrait', 'wedding', '35mm', 'film', 'raw', 'print-ready', 'edited', 'client-picked', 'archived'];
 
 const BOX = 'rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]';
 
@@ -49,10 +49,10 @@ export const Default: Story = {
   render: (args) => (
     <ScrollArea {...args} className={`h-72 w-full max-w-sm ${BOX}`}>
       <div className="p-4">
-        <p className="pb-2 font-body text-body-m font-medium text-[var(--color-text-text)]">Regions</p>
-        {REGIONS.map((region) => (
-          <div key={region}>
-            <div className="py-1.5 font-mono text-body-m text-[var(--color-text-text-subtler)]">{region}</div>
+        <p className="pb-2 font-body text-body-m font-medium text-[var(--color-text-text)]">Shoot locations</p>
+        {LOCATIONS.map((place) => (
+          <div key={place}>
+            <div className="py-1.5 font-body text-body-m text-[var(--color-text-text-subtler)]">{place}</div>
             <Separator />
           </div>
         ))}
@@ -88,10 +88,10 @@ export const AlwaysVisible: Story = {
   render: (args) => (
     <ScrollArea {...args} className={`h-64 w-full max-w-sm ${BOX}`}>
       <div className="p-4">
-        <p className="pb-2 font-body text-body-m font-medium text-[var(--color-text-text)]">Recent deploys</p>
+        <p className="pb-2 font-body text-body-m font-medium text-[var(--color-text-text)]">Recent uploads</p>
         {Array.from({ length: 18 }, (_, i) => (
           <div key={i} className="flex items-center justify-between gap-3 py-1.5 font-body text-body-m">
-            <span className="font-mono text-[var(--color-text-text-subtler)]">v2.{18 - i}.0</span>
+            <span className="text-[var(--color-text-text-subtler)]">Batch {18 - i}</span>
             <span className="text-[var(--color-text-text-subtler)]">{i + 1}h ago</span>
           </div>
         ))}
@@ -107,9 +107,9 @@ export const LongContent: Story = {
   render: (args) => (
     <ScrollArea {...args} className={`max-h-72 w-full max-w-md ${BOX}`}>
       <div className="space-y-3 p-4 font-body text-body-s text-[var(--color-text-text-subtler)]">
-        <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Deploy log</p>
+        <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Export log</p>
         {Array.from({ length: 12 }, (_, i) => (
-          <p key={i}>Step {i + 1} — resolved dependencies, built the bundle and pushed it to eu-west-1. Cache warmed, health checks green, certificate valid for 90 days. No regressions detected against the previous release.</p>
+          <p key={i}>Step {i + 1} — resized 240 photos, applied the Golden hour preset and uploaded them to the Selene Weddings gallery. Previews generated, color profile embedded, print license valid for 90 days. No missing files compared with the previous export.</p>
         ))}
       </div>
     </ScrollArea>
@@ -127,6 +127,6 @@ export const LongContent: Story = {
     // Scrolling moves the content, not the page.
     viewport.scrollTop = 200;
     await expect(viewport.scrollTop).toBeGreaterThan(0);
-    await expect(within(viewport).getByText('Deploy log')).toBeInTheDocument();
+    await expect(within(viewport).getByText('Export log')).toBeInTheDocument();
   },
 };

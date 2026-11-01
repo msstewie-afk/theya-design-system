@@ -38,14 +38,14 @@ export const Default: Story = {
     <Tabs defaultValue="overview" className="w-full max-w-[400px]">
       <TabsList>
         <TabsTrigger value="overview">Overview</TabsTrigger>
-        <TabsTrigger value="dns">DNS records</TabsTrigger>
+        <TabsTrigger value="picks">Client picks</TabsTrigger>
         <TabsTrigger value="security">Security</TabsTrigger>
       </TabsList>
       <TabsContent value="overview" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
         Overview content.
       </TabsContent>
-      <TabsContent value="dns" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
-        DNS records content.
+      <TabsContent value="picks" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
+        Client picks content.
       </TabsContent>
       <TabsContent value="security" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
         Security content.
@@ -55,7 +55,7 @@ export const Default: Story = {
   // Roving focus: one Tab stop, arrows/Home/End move and activate (automatic mode), wraps.
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const [overview, dns, security] = ['Overview', 'DNS records', 'Security'].map((name) =>
+    const [overview, picks, security] = ['Overview', 'Client picks', 'Security'].map((name) =>
       canvas.getByRole('tab', { name }),
     );
 
@@ -64,9 +64,9 @@ export const Default: Story = {
     await expect(overview).toHaveAttribute('aria-selected', 'true');
 
     await userEvent.keyboard('{ArrowRight}');
-    await expect(dns).toHaveFocus();
-    await expect(dns).toHaveAttribute('aria-selected', 'true');
-    await expect(canvas.getByRole('tabpanel')).toHaveTextContent('DNS records content.');
+    await expect(picks).toHaveFocus();
+    await expect(picks).toHaveAttribute('aria-selected', 'true');
+    await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Client picks content.');
 
     await userEvent.keyboard('{End}');
     await expect(security).toHaveFocus();
@@ -89,8 +89,8 @@ export const Disabled: Story = {
     <Tabs defaultValue="overview" className="w-full max-w-[400px]">
       <TabsList>
         <TabsTrigger value="overview">Overview</TabsTrigger>
-        <TabsTrigger value="dns" disabled>
-          DNS records
+        <TabsTrigger value="picks" disabled>
+          Client picks
         </TabsTrigger>
       </TabsList>
       <TabsContent value="overview" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
@@ -102,18 +102,18 @@ export const Disabled: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const overview = canvas.getByRole('tab', { name: 'Overview' });
-    const dns = canvas.getByRole('tab', { name: 'DNS records' });
+    const picks = canvas.getByRole('tab', { name: 'Client picks' });
 
-    await expect(dns).toHaveAttribute('aria-disabled', 'true');
+    await expect(picks).toHaveAttribute('aria-disabled', 'true');
     // Radix's button-only attributes must not leak onto the div (nested-interactive fix).
-    await expect(dns).not.toHaveAttribute('type');
-    await expect(dns).not.toHaveAttribute('disabled');
+    await expect(picks).not.toHaveAttribute('type');
+    await expect(picks).not.toHaveAttribute('disabled');
 
     await userEvent.tab();
     await expect(overview).toHaveFocus();
     await userEvent.keyboard('{ArrowRight}');
     await expect(overview).toHaveFocus();
-    await expect(dns).toHaveAttribute('aria-selected', 'false');
+    await expect(picks).toHaveAttribute('aria-selected', 'false');
   },
 };
 
@@ -126,21 +126,21 @@ export const WithIcons: Story = {
         <TabsTrigger value="overview" icon={<Globe />}>
           Overview
         </TabsTrigger>
-        <TabsTrigger value="ssl" icon={<ShieldCheck />}>
-          SSL
+        <TabsTrigger value="licenses" icon={<ShieldCheck />}>
+          Licenses
         </TabsTrigger>
-        <TabsTrigger value="dns" icon={<Settings />}>
-          DNS
+        <TabsTrigger value="picks" icon={<Settings />}>
+          Access
         </TabsTrigger>
       </TabsList>
       <TabsContent value="overview" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
-        Region eu-west-1 · Node 20.
+        Selene Weddings · 48 photos.
       </TabsContent>
-      <TabsContent value="ssl" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
-        Certificate valid for 74 days.
+      <TabsContent value="licenses" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
+        Print license valid for 74 days.
       </TabsContent>
-      <TabsContent value="dns" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
-        4 records.
+      <TabsContent value="picks" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
+        4 clients have access.
       </TabsContent>
     </Tabs>
   ),
@@ -236,25 +236,25 @@ export const IconOnly: Story = {
   name: 'Icon only',
   render: () => (
     <Tabs defaultValue="overview" className="w-[200px]">
-      <TabsList aria-label="Site sections">
+      <TabsList aria-label="Gallery sections">
         <TabsTrigger value="overview" aria-label="Overview">
           <Globe />
         </TabsTrigger>
-        <TabsTrigger value="ssl" aria-label="SSL">
+        <TabsTrigger value="licenses" aria-label="Licenses">
           <ShieldCheck />
         </TabsTrigger>
-        <TabsTrigger value="dns" aria-label="DNS">
+        <TabsTrigger value="picks" aria-label="Access">
           <Settings />
         </TabsTrigger>
       </TabsList>
       <TabsContent value="overview" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
-        Region eu-west-1 · Node 20.
+        Selene Weddings · 48 photos.
       </TabsContent>
-      <TabsContent value="ssl" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
-        Certificate valid for 74 days.
+      <TabsContent value="licenses" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
+        Print license valid for 74 days.
       </TabsContent>
-      <TabsContent value="dns" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
-        4 records.
+      <TabsContent value="picks" className="p-3 font-body text-body-s text-[var(--color-text-text)]">
+        4 clients have access.
       </TabsContent>
     </Tabs>
   ),
@@ -267,14 +267,14 @@ export const IconOnly: Story = {
 export const Chips: Story = {
   render: () => (
     <Tabs defaultValue="overview" className="w-full max-w-[400px]">
-      <TabsList variant="chips" aria-label="Site sections">
+      <TabsList variant="chips" aria-label="Gallery sections">
         <TabsTrigger value="overview">Overview</TabsTrigger>
-        <TabsTrigger value="dns">DNS records</TabsTrigger>
+        <TabsTrigger value="picks">Client picks</TabsTrigger>
         <TabsTrigger value="security">Security</TabsTrigger>
       </TabsList>
-      <TabsContent value="overview" className="pt-4 font-body text-body-m text-[var(--color-text-text-subtle)]">Traffic and uptime for the last 30 days.</TabsContent>
-      <TabsContent value="dns" className="pt-4 font-body text-body-m text-[var(--color-text-text-subtle)]">A, CNAME and MX records.</TabsContent>
-      <TabsContent value="security" className="pt-4 font-body text-body-m text-[var(--color-text-text-subtle)]">SSL and access rules.</TabsContent>
+      <TabsContent value="overview" className="pt-4 font-body text-body-m text-[var(--color-text-text-subtle)]">Views and downloads for the last 30 days.</TabsContent>
+      <TabsContent value="picks" className="pt-4 font-body text-body-m text-[var(--color-text-text-subtle)]">Photos the client marked for print.</TabsContent>
+      <TabsContent value="security" className="pt-4 font-body text-body-m text-[var(--color-text-text-subtle)]">Licenses and access rules.</TabsContent>
     </Tabs>
   ),
 };

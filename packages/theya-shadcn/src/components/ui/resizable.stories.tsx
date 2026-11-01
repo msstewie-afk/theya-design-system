@@ -56,25 +56,25 @@ export const Default: Story = {
       <ResizablePanel defaultSize="30%" minSize="20%">
         <ScrollArea className="size-full">
           <div className="p-4">
-            <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Sites</p>
-            <p className="mt-1 font-mono text-body-s text-[var(--color-text-text-subtler)]">shop.seashell.dev</p>
-            <p className="mt-1 font-mono text-body-s text-[var(--color-text-text-subtler)]">api.seashell.dev</p>
+            <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Galleries</p>
+            <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Golden hour</p>
+            <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Blue hour</p>
           </div>
         </ScrollArea>
       </ResizablePanel>
-      <ResizableHandle withHandle aria-label="Resize sites list" />
+      <ResizableHandle withHandle aria-label="Resize galleries list" />
       <ResizablePanel>
         <ScrollArea className="size-full">
           <div className="p-4">
             <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Overview</p>
-            <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Region eu-west-1 · v2.4.0</p>
+            <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Helios Studio · 1,284 photos</p>
           </div>
         </ScrollArea>
       </ResizablePanel>
     </ResizablePanelGroup>
   ),
   play: async ({ canvasElement }) => {
-    const handle = within(canvasElement).getByRole('separator', { name: 'Resize sites list' });
+    const handle = within(canvasElement).getByRole('separator', { name: 'Resize galleries list' });
     // defaultSize="30%" means 30% (a bare number would be 30px).
     await waitFor(() => expect(near(panelShares(canvasElement)[0], 0.3)).toBe(true));
 
@@ -98,7 +98,7 @@ export const Horizontal: Story = {
         <ScrollArea className="size-full">
           <div className="p-4">
             <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Navigation</p>
-            <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Browse the file tree for shop.seashell.dev.</p>
+            <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Browse the albums of Selene Weddings.</p>
           </div>
         </ScrollArea>
       </ResizablePanel>
@@ -106,8 +106,8 @@ export const Horizontal: Story = {
       <ResizablePanel>
         <ScrollArea className="size-full">
           <div className="p-4">
-            <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Editor</p>
-            <p className="mt-1 font-mono text-body-s text-[var(--color-text-text-subtler)]">app/(app)/sites/page.tsx</p>
+            <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Preview</p>
+            <p className="mt-1 font-mono text-body-s text-[var(--color-text-text-subtler)]">GOLDEN_0907.tif</p>
           </div>
         </ScrollArea>
       </ResizablePanel>
@@ -127,8 +127,8 @@ export const Vertical: Story = {
       <ResizablePanel defaultSize="70%">
         <ScrollArea className="size-full">
           <div className="p-4">
-            <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Deployment</p>
-            <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">build #482 succeeded 6 minutes ago.</p>
+            <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Export</p>
+            <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Export #482 finished 6 minutes ago.</p>
           </div>
         </ScrollArea>
       </ResizablePanel>
@@ -136,8 +136,8 @@ export const Vertical: Story = {
       <ResizablePanel defaultSize="30%" minSize="15%" collapsible collapsedSize="6%">
         <ScrollArea className="size-full">
           <div className="p-4">
-            <p className="font-mono text-body-s text-[var(--color-text-text-subtler)]">build #482 · eu-west-1</p>
-            <p className="mt-1 font-mono text-body-s text-[var(--color-text-text-subtler)]">fetching sources…</p>
+            <p className="font-mono text-body-s text-[var(--color-text-text-subtler)]">export #482 · Selene Weddings</p>
+            <p className="mt-1 font-mono text-body-s text-[var(--color-text-text-subtler)]">generating previews…</p>
           </div>
         </ScrollArea>
       </ResizablePanel>

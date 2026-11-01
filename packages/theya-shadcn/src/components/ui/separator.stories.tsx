@@ -76,18 +76,18 @@ export const InCard: Story = {
   render: (args) => (
     <div className="w-full max-w-sm rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-xs">
       <div className="flex items-center justify-between px-4 py-3">
-        <span className="font-mono text-body-m text-[var(--color-text-text)]">shop.seashell.dev</span>
-        <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">eu-west-1</span>
+        <span className="font-body text-body-m text-[var(--color-text-text)]">Golden hour</span>
+        <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">48 photos</span>
       </div>
       <Separator {...args} />
       <div className="flex items-center justify-between px-4 py-3">
-        <span className="font-mono text-body-m text-[var(--color-text-text)]">api.seashell.dev</span>
-        <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">us-east-1</span>
+        <span className="font-body text-body-m text-[var(--color-text-text)]">Blue hour</span>
+        <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">31 photos</span>
       </div>
       <Separator {...args} />
       <div className="flex items-center justify-between px-4 py-3">
-        <span className="font-mono text-body-m text-[var(--color-text-text)]">docs.seashell.dev</span>
-        <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">eu-west-1</span>
+        <span className="font-body text-body-m text-[var(--color-text-text)]">First light</span>
+        <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">62 photos</span>
       </div>
     </div>
   ),
@@ -104,12 +104,12 @@ export const Semantic: Story = {
     <div className="w-full max-w-sm">
       <section>
         <h3 className="font-body text-body-m font-medium text-[var(--color-text-text)]">General</h3>
-        <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">Region, runtime, scaling</p>
+        <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">Name, cover, client access</p>
       </section>
       <Separator {...args} className="my-4" />
       <section>
         <h3 className="font-body text-body-m font-medium text-[var(--color-text-text)]">Danger zone</h3>
-        <p className="font-body text-body-s text-[var(--color-text-text-danger)]">Delete or suspend this site</p>
+        <p className="font-body text-body-s text-[var(--color-text-text-danger)]">Delete or archive this gallery</p>
       </section>
     </div>
   ),

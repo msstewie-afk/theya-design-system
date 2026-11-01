@@ -44,7 +44,7 @@
       },
       "dont": {
         "caption": "Site navigation as a menubar: links become menu commands — use NavigationMenu.",
-        "example": "<Menubar aria-label=\"Site menu\">\n  <MenubarMenu><MenubarTrigger>Products</MenubarTrigger><MenubarContent><MenubarItem>Hosting</MenubarItem></MenubarContent></MenubarMenu>\n  <MenubarMenu><MenubarTrigger>Pricing</MenubarTrigger><MenubarContent><MenubarItem>Plans</MenubarItem></MenubarContent></MenubarMenu>\n  <MenubarMenu><MenubarTrigger>Docs</MenubarTrigger><MenubarContent><MenubarItem>Guides</MenubarItem></MenubarContent></MenubarMenu>\n</Menubar>"
+        "example": "<Menubar aria-label=\"Site menu\">\n  <MenubarMenu><MenubarTrigger>Products</MenubarTrigger><MenubarContent><MenubarItem>Galleries</MenubarItem></MenubarContent></MenubarMenu>\n  <MenubarMenu><MenubarTrigger>Pricing</MenubarTrigger><MenubarContent><MenubarItem>Plans</MenubarItem></MenubarContent></MenubarMenu>\n  <MenubarMenu><MenubarTrigger>Docs</MenubarTrigger><MenubarContent><MenubarItem>Guides</MenubarItem></MenubarContent></MenubarMenu>\n</Menubar>"
       }
     }
   ],

@@ -45,7 +45,7 @@
       },
       "dont": {
         "caption": "Ten app sections in a header bar: they wrap and get lost — use a Sidebar.",
-        "example": "<div className=\"w-80 overflow-hidden\">\n  <NavigationMenu aria-label=\"All sections\">\n    <NavigationMenuList className=\"flex-wrap\">\n      {['Dashboard', 'Sites', 'Domains', 'Databases', 'Email', 'Backups', 'Logs', 'Team', 'Billing', 'Settings'].map(link)}\n    </NavigationMenuList>\n  </NavigationMenu>\n</div>"
+        "example": "<div className=\"w-80 overflow-hidden\">\n  <NavigationMenu aria-label=\"All sections\">\n    <NavigationMenuList className=\"flex-wrap\">\n      {['Dashboard', 'Galleries', 'Clients', 'Portals', 'Prints', 'Archive', 'Activity', 'Team', 'Billing', 'Settings'].map(link)}\n    </NavigationMenuList>\n  </NavigationMenu>\n</div>"
       }
     }
   ],

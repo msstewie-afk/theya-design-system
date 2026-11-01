@@ -22,18 +22,18 @@ export const tabsGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <Tabs defaultValue="overview">
-            <TabsList aria-label="Site sections">
+            <TabsList aria-label="Gallery sections">
               <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="domains">Domains</TabsTrigger>
-              <TabsTrigger value="backups">Backups</TabsTrigger>
-              <TabsTrigger value="logs">Logs</TabsTrigger>
+              <TabsTrigger value="photos">Photos</TabsTrigger>
+              <TabsTrigger value="picks">Picks</TabsTrigger>
+              <TabsTrigger value="activity">Activity</TabsTrigger>
             </TabsList>
-            {['overview', 'domains', 'backups', 'logs'].map((v) => (
-              <TabsContent key={v} value={v} className={panel}>The site’s {v}.</TabsContent>
+            {['overview', 'photos', 'picks', 'activity'].map((v) => (
+              <TabsContent key={v} value={v} className={panel}>The gallery’s {v}.</TabsContent>
             ))}
           </Tabs>
         ),
-        caption: 'Parallel views of one site, visited in any order.',
+        caption: 'Parallel views of one gallery, visited in any order.',
       },
       dont: {
         example: (
