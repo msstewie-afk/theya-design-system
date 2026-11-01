@@ -120,10 +120,26 @@ export function UploadPanel({
   const state = finished ? 'done' : allPaused ? 'paused' : 'uploading';
   useEffect(() => {
     if (state === lastState.current) return;
-    lastState.current = state;
-    if (state === 'done') setAnnounce([t.uploadPanel.uploaded(files.length - failed.length), failed.length ? t.uploadPanel.failed(failed.length) : ''].filter(Boolean).join(', '));
-    else if (state === 'paused') setAnnounce(`${t.uploadPanel.uploading(files.length)}: ${t.upload.paused}`);
-    else setAnnounce(t.uploadPanel.uploading(files.length));
+    const first = lastState.current === '';
+    const text =
+      state === 'done'
+        ? [t.uploadPanel.uploaded(files.length - failed.length), failed.length ? t.uploadPanel.failed(failed.length) : ''].filter(Boolean).join(', ')
+        : state === 'paused'
+          ? `${t.uploadPanel.uploading(files.length)}: ${t.upload.paused}`
+          : t.uploadPanel.uploading(files.length);
+    if (!first) {
+      lastState.current = state;
+      return setAnnounce(text);
+    }
+    // The panel has just appeared with its live region: screen readers ignore
+    // text a region is born with, so it starts empty and the first message is
+    // written a moment after it is in the accessibility tree.
+    // (lastState is set only when it is written, so a re-run of the effect — Strict Mode — schedules it again.)
+    const id = window.setTimeout(() => {
+      lastState.current = state;
+      setAnnounce(text);
+    }, 150);
+    return () => window.clearTimeout(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
   const seenFailures = useRef(new Set<string>());

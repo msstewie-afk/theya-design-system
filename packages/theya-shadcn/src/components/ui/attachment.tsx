@@ -123,17 +123,29 @@ export function Attachment({
   // Announce changes of state only, never the running percentage.
   const [announce, setAnnounce] = useState('');
   const lastState = useRef<string | undefined>(undefined);
+  const mounted = useRef(false);
   useEffect(() => {
     const state = hasError && upload ? 'error' : upload;
+    const onMount = !mounted.current;
+    mounted.current = true;
+    // Nothing to say about the state a row is rendered with (a list loaded mid-upload or finished): only changes are news.
+    if (onMount) return void (lastState.current = state);
     if (state === lastState.current) return;
     const first = lastState.current === undefined;
-    lastState.current = state;
-    // Nothing to say about a list rendered already finished.
-    if (first && (state === 'done' || state === undefined)) return;
-    if (state === 'uploading') setAnnounce(t.upload.started(name));
-    else if (state === 'paused') setAnnounce(t.upload.pausedNotice(name));
-    else if (state === 'done') setAnnounce(t.upload.finished(name));
-    else if (state === 'error') setAnnounce(t.upload.failed(name, String(error)));
+    const text =
+      state === 'uploading' ? t.upload.started(name) : state === 'paused' ? t.upload.pausedNotice(name) : state === 'done' ? t.upload.finished(name) : state === 'error' ? t.upload.failed(name, String(error)) : '';
+    // The live region appears together with the upload: screen readers ignore
+    // text a region is born with, so the first message is written a moment
+    // after the region is in the accessibility tree.
+    if (!first) {
+      lastState.current = state;
+      return setAnnounce(text);
+    }
+    const id = window.setTimeout(() => {
+      lastState.current = state;
+      setAnnounce(text);
+    }, 150);
+    return () => window.clearTimeout(id);
   }, [upload, hasError, error, name, t]);
   const liveEl = upload !== undefined ? (
     <span aria-live="polite" className="sr-only">
