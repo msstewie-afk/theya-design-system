@@ -122,7 +122,7 @@ To check at phone width: VoiceOver → Safari → Develop → Responsive Design 
 The same checks in real sequences. Record each flow and add the components it covers.
 
 - [ ] **Sign in** · `patterns-loginform--sign-in-error` · Tab through: labels with fields, error is spoken, the error is tied to its field (VO reads it when you return to the field). Covers LoginForm, TextField, Field, Button. →
-- [ ] **Create resource with errors** · `patterns-resourceform--create-database` · Submit empty: focus goes to the first error, each field reads its error. Covers ResourceForm, Select, Switch, NumberField. →
+- [ ] **Create resource with errors** · `patterns-resourceform--create-gallery` · Submit empty: focus goes to the first error, each field reads its error. Covers ResourceForm, Select, Switch, NumberField. →
 - [ ] **Confirm a destructive action** · `overlays-confirmdialog--typed-confirm` · Open, type the name, confirm; focus returns to the trigger. Covers ConfirmDialog, AlertDialog. →
 - [ ] **Pick from a list** · `selection-combobox--keyboard-navigation` and `selection-select--playground` · The active option is spoken while you arrow through; the chosen value is read on the closed control. Covers Combobox, Select. →
 - [ ] **Table work** · `patterns-listview--with-bulk-and-row-actions` · Select rows (count spoken), sort a column (state spoken), run a row action (toast). Covers ListView, DataTable, DataTableToolbar, Toaster. →

@@ -122,7 +122,7 @@ English version: [screen-reader-checklist.md](./screen-reader-checklist.md).
 Те же проверки в реальных последовательностях. Записывай каждый сценарий и компоненты, которые он покрывает.
 
 - [ ] **Вход** · `patterns-loginform--sign-in-error` · Пройди Tab'ом: подписи вместе с полями, ошибка произносится и связана со своим полем (VO читает её, когда возвращаешься в поле). Покрывает LoginForm, TextField, Field, Button. →
-- [ ] **Создание ресурса с ошибками** · `patterns-resourceform--create-database` · Отправь пустую форму: фокус на первой ошибке, каждое поле читает свою ошибку. Покрывает ResourceForm, Select, Switch, NumberField. →
+- [ ] **Создание ресурса с ошибками** · `patterns-resourceform--create-gallery` · Отправь пустую форму: фокус на первой ошибке, каждое поле читает свою ошибку. Покрывает ResourceForm, Select, Switch, NumberField. →
 - [ ] **Подтверждение опасного действия** · `overlays-confirmdialog--typed-confirm` · Открой, введи имя, подтверди; фокус возвращается на кнопку, которая открыла диалог. Покрывает ConfirmDialog, AlertDialog. →
 - [ ] **Выбор из списка** · `selection-combobox--keyboard-navigation` и `selection-select--playground` · Активная опция произносится, пока ходишь стрелками; на закрытом контроле читается выбранное значение. Покрывает Combobox, Select. →
 - [ ] **Работа с таблицей** · `patterns-listview--with-bulk-and-row-actions` · Выбери строки (число произносится), отсортируй колонку (состояние произносится), действие над строкой (тост). Покрывает ListView, DataTable, DataTableToolbar, Toaster. →

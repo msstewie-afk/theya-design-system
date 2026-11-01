@@ -28,7 +28,13 @@ export interface CatalogItem {
   /** 0–5, one decimal. */
   rating: number;
   reviewCount: number;
+  /** How many people use it: installs, subscribers, renters… */
   installs: number;
+  /**
+   * What `installs` counts, plural, shown after the number ("38k subscribers").
+   * Default "installs".
+   */
+  usageNoun?: string;
   /** Per month; 0 = free. */
   price: number;
   /** What it works with: editing apps, camera mounts or plans. */

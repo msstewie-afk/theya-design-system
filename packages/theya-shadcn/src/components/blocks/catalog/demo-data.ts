@@ -3,6 +3,17 @@ import type { Review } from './reviews';
 import type { SpecGroup } from './spec-sheet';
 import type { CategoryTile, CuratedPick } from './category-landing';
 
+/** What the usage count means in each category. */
+const USAGE_NOUN: Record<string, string> = {
+  Presets: 'installs',
+  'Plan add-ons': 'installs',
+  'Photo books': 'subscribers',
+  'Fine-art prints': 'subscribers',
+  'Studio sessions': 'members',
+  'Lens rentals': 'renters',
+  'Studio gear': 'renters',
+};
+
 /** Demo catalog for the Catalog pattern stories: the Aether shop of photo products, billed monthly. */
 const RAW: [string, string, string, CatalogIconKey, string, number, number, number, number, string[], string][] = [
   // name, vendor, category, icon, summary, rating, reviews, installs, price, compatibility, added
@@ -42,6 +53,7 @@ export const DEMO_ITEMS: CatalogItem[] = RAW.map(([name, vendor, category, icon,
   rating,
   reviewCount,
   installs,
+  usageNoun: USAGE_NOUN[category],
   price,
   compatibility,
   added,
@@ -134,10 +146,10 @@ export const DEMO_PICKS: CuratedPick[] = [
 
 /** Studio gear with product shots on white — for ItemCard's `image` with `imageFit="contain"`. */
 export const DEMO_HARDWARE: (CatalogItem & { image: string })[] = [
-  { id: 'on-site-archive', name: 'On-site archive', vendor: 'Arbor', category: 'Studio gear', icon: 'cloud', summary: 'A rack unit that keeps a local copy of the Mnemosyne archive in your studio.', rating: 4.8, reviewCount: 312, installs: 2100, price: 89, compatibility: ['Mac', 'Windows'], added: '2026-08-01', image: '/asset-examples/product-rack-server.jpg' },
-  { id: 'portable-ssd', name: 'Portable SSD rental', vendor: 'Fjord', category: 'Studio gear', icon: 'backup', summary: '2 TB of fast storage for offloading cards on location.', rating: 4.6, reviewCount: 148, installs: 5400, price: 15, compatibility: ['USB-C', 'Thunderbolt'], added: '2026-06-12', image: '/asset-examples/product-ssd.jpg' },
-  { id: 'tethering-hub', name: 'Tethering hub rental', vendor: 'Kestrel', category: 'Studio gear', icon: 'cloud', summary: 'Wireless tethering from camera to laptop on set, set up for you.', rating: 4.4, reviewCount: 87, installs: 940, price: 29, compatibility: ['Sony', 'Canon', 'Nikon'], added: '2026-04-18', image: '/asset-examples/product-router.jpg' },
-  { id: 'security-key', name: 'Hardware security key', vendor: 'Aether', category: 'Studio gear', icon: 'shield', summary: 'Phishing-proof sign-in for your account. Shipped to your door.', rating: 4.9, reviewCount: 523, installs: 8800, price: 3, compatibility: ['USB-C', 'NFC'], added: '2026-09-10', image: '/asset-examples/product-security-key.jpg' },
+  { id: 'on-site-archive', name: 'On-site archive', vendor: 'Arbor', category: 'Studio gear', usageNoun: 'renters', icon: 'cloud', summary: 'A rack unit that keeps a local copy of the Mnemosyne archive in your studio.', rating: 4.8, reviewCount: 312, installs: 2100, price: 89, compatibility: ['Mac', 'Windows'], added: '2026-08-01', image: '/asset-examples/product-rack-server.jpg' },
+  { id: 'portable-ssd', name: 'Portable SSD rental', vendor: 'Fjord', category: 'Studio gear', usageNoun: 'renters', icon: 'backup', summary: '2 TB of fast storage for offloading cards on location.', rating: 4.6, reviewCount: 148, installs: 5400, price: 15, compatibility: ['USB-C', 'Thunderbolt'], added: '2026-06-12', image: '/asset-examples/product-ssd.jpg' },
+  { id: 'tethering-hub', name: 'Tethering hub rental', vendor: 'Kestrel', category: 'Studio gear', usageNoun: 'renters', icon: 'cloud', summary: 'Wireless tethering from camera to laptop on set, set up for you.', rating: 4.4, reviewCount: 87, installs: 940, price: 29, compatibility: ['Sony', 'Canon', 'Nikon'], added: '2026-04-18', image: '/asset-examples/product-router.jpg' },
+  { id: 'security-key', name: 'Hardware security key', vendor: 'Aether', category: 'Studio gear', usageNoun: 'renters', icon: 'shield', summary: 'Phishing-proof sign-in for your account. Shipped to your door.', rating: 4.9, reviewCount: 523, installs: 8800, price: 3, compatibility: ['USB-C', 'NFC'], added: '2026-09-10', image: '/asset-examples/product-security-key.jpg' },
 ];
 
 /** Cover pictures for products — `imageFit="cover"`. */

@@ -133,12 +133,18 @@ interface CompareRow {
 
 const dateFmt = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
+function usageLabel(items: CatalogItem[]): string {
+  const noun = items[0]?.usageNoun ?? 'installs';
+  return noun.charAt(0).toUpperCase() + noun.slice(1);
+}
+
 function buildRows(items: CatalogItem[]): CompareRow[] {
   const platforms = [...new Set(items.flatMap((i) => i.compatibility))].sort();
   return [
     { id: 'price', label: 'Price', key: (i) => String(i.price), render: (i) => formatItemPrice(i.price) },
     { id: 'rating', label: 'Rating', key: (i) => String(i.rating), render: (i) => `${i.rating.toFixed(1)} of 5 (${i.reviewCount.toLocaleString('en-US')} reviews)` },
-    { id: 'installs', label: 'Installs', key: (i) => String(i.installs), render: (i) => formatInstalls(i.installs) },
+    // The row is named after what the items count ("Subscribers"), from the first item.
+    { id: 'installs', label: usageLabel(items), key: (i) => String(i.installs), render: (i) => formatInstalls(i.installs) },
     { id: 'category', label: 'Category', key: (i) => i.category, render: (i) => i.category },
     { id: 'vendor', label: 'Developer', key: (i) => i.vendor, render: (i) => i.vendor },
     { id: 'added', label: 'Added', key: (i) => i.added, render: (i) => dateFmt.format(new Date(i.added)) },

@@ -36,7 +36,7 @@ type Story = StoryObj<typeof ResourceForm>;
  * each control's description, focus goes to the first invalid field —
  * including a Select, which react-hook-form alone couldn't focus.
  */
-export const CreateDatabase: Story = {
+export const CreateGallery: Story = {
   name: 'Create gallery',
   args: { onSubmit: fn(), onCancel: fn() },
   render: (args) => (

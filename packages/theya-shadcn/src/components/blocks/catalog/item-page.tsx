@@ -10,7 +10,7 @@ import { DotSeparator } from '../../ui/dot-separator';
 import { RatingStar } from '../../ui/rating';
 import { Separator } from '../../ui/separator';
 import { ItemIcon } from './item-icon';
-import { formatInstalls, formatItemPrice } from './item-card';
+import { formatItemPrice, formatUsage } from './item-card';
 import { Reviews, type Review, type ReviewsProps } from './reviews';
 import { SpecSheet, type SpecGroup } from './spec-sheet';
 import type { CatalogItem } from './types';
@@ -115,7 +115,7 @@ export function ItemPage({ item, breadcrumbs = [], images = [], highlights = [],
             </ul>
           )}
           <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">
-            {`${formatInstalls(item.installs)} installs`}
+            {formatUsage(item)}
             <DotSeparator />
             {item.category}
           </p>

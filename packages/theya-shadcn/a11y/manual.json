@@ -160,17 +160,17 @@
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Sign in\" (patterns-loginform--sign-in-error): labels read with their fields, the error is spoken and read again with its field." }
     ],
     "ResourceForm": [
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Create with errors\" (patterns-resourceform--create-database): submitting empty moves focus to the first error, every field reads its own error." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Create with errors\" (patterns-resourceform--create-gallery): submitting empty moves focus to the first error, every field reads its own error." }
     ],
     "Select": [
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Create with errors\" (patterns-resourceform--create-database): submitting empty moves focus to the first error, every field reads its own error." },
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Create with errors\" (patterns-resourceform--create-gallery): submitting empty moves focus to the first error, every field reads its own error." },
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Pick from a list\" (combobox keyboard navigation, select playground): the active option is spoken while arrowing, the closed control reads the chosen value." }
     ],
     "Switch": [
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Create with errors\" (patterns-resourceform--create-database): submitting empty moves focus to the first error, every field reads its own error." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Create with errors\" (patterns-resourceform--create-gallery): submitting empty moves focus to the first error, every field reads its own error." }
     ],
     "NumberField": [
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Create with errors\" (patterns-resourceform--create-database): submitting empty moves focus to the first error, every field reads its own error." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Create with errors\" (patterns-resourceform--create-gallery): submitting empty moves focus to the first error, every field reads its own error." }
     ],
     "Combobox": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Pick from a list\" (combobox keyboard navigation, select playground): the active option is spoken while arrowing, the closed control reads the chosen value." }

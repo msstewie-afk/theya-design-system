@@ -23,7 +23,7 @@ type SortKey = 'relevance' | 'rating' | 'installs' | 'price-asc' | 'newest';
 const SORT_LABEL: Record<SortKey, string> = {
   relevance: 'Most relevant',
   rating: 'Highest rated',
-  installs: 'Most installed',
+  installs: 'Most popular',
   'price-asc': 'Price: low to high',
   newest: 'Newest',
 };
