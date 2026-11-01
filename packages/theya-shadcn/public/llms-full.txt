@@ -6479,6 +6479,9 @@ Docs: ./?path=/docs/motion-orbitcarousel--docs
 - Wheel: `shape="wheel"`: cards on the rim of a large wheel to the start side, rolling past vertically; up to three on each side, fading out.
 - Wall: `shape="wall"`: the viewer stands inside the drum — a curved wall, the edges swinging in (coverflow). Stops at the ends.
 - Fan: `shape="fan"`: cards on an arc, the middle one upright and in focus; a click on a side card brings it to the middle. Deals itself out the first time it scrolls in. Stops at the ends.
+- Rolodex: `shape="rolodex"`: cards turning round a horizontal axis behind them, like a card file; the next one comes up from below. Up to two on each side.
+- Stack: `shape="stack"`: a compact pile; the cards behind step to the top start and the bottom end, smaller and dimmer.
+- Cascade: `shape="cascade"`: a tilted staircase of cards in perspective, stepping down to the end.
 - Controls: Previous / Next; Pause when `autoplay` is set; dots on the wall and the fan.
 
 **OrbitCarousel props**
@@ -6490,7 +6493,7 @@ Docs: ./?path=/docs/motion-orbitcarousel--docs
 - `itemWidth?`: `number` — Card width in px. Default 240 (fan: 352, never wider than 72vw).
 - `lean?`: `number`, default `0` — Drum and wall: tip toward the viewer, degrees (default 0).
 - `onIndexChange?`: `((index: number) => void)` — Called with the index of the card that comes to the front.
-- `shape?`: `"fan" | "drum" | "wheel" | "wall"`, default `drum`
+- `shape?`: `"stack" | "fan" | "drum" | "wheel" | "wall" | "rolodex" | "cascade"`, default `drum`
 
 Also accepts the props of: HTMLAttributes.
 
@@ -6511,7 +6514,7 @@ Also accepts the props of: HTMLAttributes.
 
 **Accessibility**
 
-- One tab stop, described by a hint about the arrow keys; ← / → (↑ / ↓ for the wheel) turn it; drag or swipe does the same, the cards following the finger.
+- One tab stop, described by a hint about the arrow keys; ← / → (↑ / ↓ for the wheel and the rolodex) turn it; drag or swipe does the same, the cards following the finger.
 - Only the front card is in the accessibility tree; the others are aria-hidden and inert. Its position and name are announced (“2 of 8: Research”) — silent while autoplay runs.
 - autoplay pauses on hover and focus and has a Pause button (WCAG 2.2.2).
 - prefers-reduced-motion: no turning animation and no autoplay.

@@ -22,8 +22,16 @@ import { useMediaQuery } from './use-media-query';
  *   the middle one in front and the edges swinging in (coverflow).
  * - `fan` — the cards fanned on an arc below the stage, the middle one
  *   upright and in focus; deals itself out the first time it scrolls in.
+ * - `rolodex` — the cards turn round a horizontal axis behind them, like a
+ *   card file: the next one comes up from below, tilted back, and the
+ *   previous one leaves over the top. ↑ / ↓.
+ * - `stack` — a compact pile: the cards behind step away to the top start
+ *   and the bottom end, smaller and dimmer (Compact Stack).
+ * - `cascade` — a tilted staircase: the cards step down to the end in
+ *   perspective, the front one largest (Tilted Cascade).
  *
- * Drum and wheel wrap round; wall and fan stop at the ends and show dots.
+ * Drum, wheel, rolodex, stack and cascade wrap round; wall and fan stop at
+ * the ends and show dots.
  * Previous / Next, the arrow keys while it has focus, and a drag or swipe
  * (the cards follow the finger) move it; on a fan a click on a side card
  * brings it to the middle. `autoplay` moves it on a timer, pauses on hover
@@ -32,7 +40,7 @@ import { useMediaQuery } from './use-media-query';
  * ("2 of 8: Research"). prefers-reduced-motion: no travelling and no
  * autoplay — the same states switch in place.
  */
-export type OrbitCarouselShape = 'drum' | 'wheel' | 'wall' | 'fan';
+export type OrbitCarouselShape = 'drum' | 'wheel' | 'wall' | 'fan' | 'rolodex' | 'stack' | 'cascade';
 
 export interface OrbitCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   shape?: OrbitCarouselShape;
@@ -74,8 +82,8 @@ export function OrbitCarousel({
   const reduced = useMediaQuery('(prefers-reduced-motion: reduce)');
   const items = Children.toArray(children);
   const n = items.length;
-  const wraps = shape === 'drum' || shape === 'wheel';
-  const vertical = shape === 'wheel';
+  const wraps = shape !== 'wall' && shape !== 'fan';
+  const vertical = shape === 'wheel' || shape === 'rolodex';
   const width = itemWidth ?? (shape === 'fan' ? 352 : 240);
   const clampTurn = (v: number) => (wraps ? v : Math.min(n - 1, Math.max(0, v)));
 
@@ -175,7 +183,7 @@ export function OrbitCarousel({
   if (!n) return null;
 
   const motion = !dragging && !reduced;
-  const stageHeight = height ?? { drum: center || lean ? '26rem' : '20rem', wheel: '28rem', wall: '26rem', fan: '30rem' }[shape];
+  const stageHeight = height ?? { drum: center || lean ? '26rem' : '20rem', wheel: '28rem', wall: '26rem', fan: '30rem', rolodex: '30rem', stack: '24rem', cascade: '28rem' }[shape];
   const slide = (i: number) => {
     const front = i === index;
     return {
@@ -217,13 +225,15 @@ export function OrbitCarousel({
       <div
         ref={stage}
         className={cn('relative w-full select-none overflow-hidden', vertical ? 'touch-pan-x' : 'touch-pan-y', dragging ? 'cursor-grabbing' : 'cursor-grab')}
-        style={{ height: stageHeight, perspective: shape === 'drum' ? (center ? '1400px' : '1100px') : shape === 'wall' ? '900px' : undefined } as CSSProperties}
+        style={{ height: stageHeight, perspective: shape === 'drum' ? (center ? '1400px' : '1100px') : shape === 'wall' ? '900px' : shape === 'rolodex' || shape === 'cascade' ? '1200px' : undefined } as CSSProperties}
         {...dragHandlers}
       >
         {shape === 'drum' && <Drum {...shapeProps} center={center} />}
         {shape === 'wheel' && <Wheel {...shapeProps} />}
         {shape === 'wall' && <Wall {...shapeProps} />}
         {shape === 'fan' && <Fan {...shapeProps} seen={seen} dealing={dealing} onPick={(i) => setTurn(i)} />}
+        {shape === 'rolodex' && <Rolodex {...shapeProps} />}
+        {(shape === 'stack' || shape === 'cascade') && <Pile {...shapeProps} cascade={shape === 'cascade'} />}
       </div>
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-2">
@@ -420,5 +430,95 @@ function Fan({ items, pos, index, width, motion, slide, seen, dealing, onPick }:
         );
       })}
     </>
+  );
+}
+
+/** Shortest signed distance from the front card, so the shape wraps round. */
+const offset = (i: number, pos: number, n: number) => {
+  let k = mod(i - pos, n);
+  if (k > n / 2) k -= n;
+  return k;
+};
+
+function Rolodex({ items, pos, width, motion, slide }: ShapeProps) {
+  const n = items.length;
+  const step = 38; // degrees between neighbouring cards round the axis
+  // The axis sits behind the cards, at the distance that makes neighbours
+  // just meet: half a card's height over tan(half a step), plus a gap.
+  const first = useRef<HTMLDivElement>(null);
+  const [h, setH] = useState(Math.round(width * 0.62));
+  useEffect(() => {
+    const el = first.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(() => el.offsetHeight && setH(el.offsetHeight));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  const radius = Math.round((h / 2 + 8) / Math.tan(((step / 2) * Math.PI) / 180));
+  const transition = motion ? 'transition-[transform,filter,opacity] duration-slower ease-glide motion-reduce:transition-none' : '';
+  return (
+    <div className="absolute inset-0 [transform-style:preserve-3d]">
+      {items.map((item, i) => {
+        const k = offset(i, pos, n);
+        // Past ~80° a card would turn edge-on: hide it (two on each side stay).
+        const out = Math.abs(k * step) > 80;
+        return (
+          <div
+            key={i}
+            ref={i === 0 ? first : undefined}
+            {...slide(i)}
+            className={cn('absolute left-1/2 top-1/2 [backface-visibility:hidden] [&>*]:h-full', transition, out && 'pointer-events-none')}
+            style={{
+              width,
+              // Turn round an axis `radius` behind the card: the next one (k = 1) comes up from below.
+              transformOrigin: `50% 50% ${-radius}px`,
+              transform: `translate(-50%, -50%) rotateX(${-k * step}deg)`,
+              filter: `brightness(${1 - Math.min(Math.abs(k), 2) * 0.18})`,
+              opacity: out ? 0 : 1,
+              zIndex: 10 - Math.round(Math.abs(k)),
+            }}
+          >
+            {item}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function Pile({ items, pos, width, motion, slide, cascade }: ShapeProps & { cascade: boolean }) {
+  const n = items.length;
+  const transition = motion ? 'transition-[transform,filter,opacity] duration-slower ease-spring motion-reduce:transition-none' : '';
+  return (
+    // Flat (no preserve-3d): each card has its own perspective, so z-index — not 3D depth — decides which is on top.
+    <div className="absolute inset-0">
+      {items.map((item, i) => {
+        const k = offset(i, pos, n);
+        const ak = Math.abs(k);
+        const visible = ak <= 3;
+        // Stack: a tight pile stepping to the top start / bottom end. Cascade: a wider
+        // staircase down to the end, turned a little in perspective.
+        const x = k * width * (cascade ? 0.3 : 0.16);
+        const y = k * (cascade ? 44 : 22);
+        const tilt = cascade ? ' perspective(1200px) rotateY(-16deg) rotateX(6deg)' : '';
+        return (
+          <div
+            key={i}
+            {...slide(i)}
+            className={cn('absolute left-1/2 top-1/2 [&>*]:h-full', transition, !visible && 'pointer-events-none')}
+            style={{
+              width,
+              transform: `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${1 - Math.min(ak, 3) * (cascade ? 0.1 : 0.08)})${tilt}`,
+              filter: `brightness(${1 - Math.min(ak, 3) * 0.12})`,
+              opacity: visible ? 1 : 0,
+              // The front card on top; behind it, the nearer ones over the farther.
+              zIndex: 10 - Math.round(ak),
+            }}
+          >
+            {item}
+          </div>
+        );
+      })}
+    </div>
   );
 }

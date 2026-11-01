@@ -8770,7 +8770,7 @@
       "name": "OrbitCarousel",
       "title": "Motion/OrbitCarousel",
       "axe": {
-        "stories": 6,
+        "stories": 9,
         "themes": [
           "light",
           "dark"
@@ -8778,8 +8778,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 1,
-        "playTests": 4
+        "tested": 2,
+        "playTests": 6
       },
       "reducedMotion": "respected",
       "forcedColors": "global",

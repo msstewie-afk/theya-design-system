@@ -40,6 +40,18 @@
       "description": "`shape=\"fan\"`: cards on an arc, the middle one upright and in focus; a click on a side card brings it to the middle. Deals itself out the first time it scrolls in. Stops at the ends."
     },
     {
+      "part": "Rolodex",
+      "description": "`shape=\"rolodex\"`: cards turning round a horizontal axis behind them, like a card file; the next one comes up from below. Up to two on each side."
+    },
+    {
+      "part": "Stack",
+      "description": "`shape=\"stack\"`: a compact pile; the cards behind step to the top start and the bottom end, smaller and dimmer."
+    },
+    {
+      "part": "Cascade",
+      "description": "`shape=\"cascade\"`: a tilted staircase of cards in perspective, stepping down to the end."
+    },
+    {
       "part": "Controls",
       "description": "Previous / Next; Pause when `autoplay` is set; dots on the wall and the fan."
     }
@@ -57,7 +69,7 @@
     }
   ],
   "a11y": [
-    "One tab stop, described by a hint about the arrow keys; ← / → (↑ / ↓ for the wheel) turn it; drag or swipe does the same, the cards following the finger.",
+    "One tab stop, described by a hint about the arrow keys; ← / → (↑ / ↓ for the wheel and the rolodex) turn it; drag or swipe does the same, the cards following the finger.",
     "Only the front card is in the accessibility tree; the others are aria-hidden and inert. Its position and name are announced (“2 of 8: Research”) — silent while autoplay runs.",
     "autoplay pauses on hover and focus and has a Pause button (WCAG 2.2.2).",
     "prefers-reduced-motion: no turning animation and no autoplay."
@@ -113,10 +125,13 @@
           "name": "shape",
           "type": "OrbitCarouselShape",
           "values": [
+            "stack",
             "fan",
             "drum",
             "wheel",
-            "wall"
+            "wall",
+            "rolodex",
+            "cascade"
           ],
           "required": false,
           "default": "drum"
@@ -154,6 +169,18 @@
       {
         "name": "Fan",
         "id": "motion-orbitcarousel--fan"
+      },
+      {
+        "name": "Rolodex",
+        "id": "motion-orbitcarousel--rolodex"
+      },
+      {
+        "name": "Stack",
+        "id": "motion-orbitcarousel--stack"
+      },
+      {
+        "name": "Cascade",
+        "id": "motion-orbitcarousel--cascade"
       }
     ]
   }

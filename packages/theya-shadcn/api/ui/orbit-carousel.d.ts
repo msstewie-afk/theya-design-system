@@ -2,7 +2,7 @@
 // import from "@theya/shadcn/ui/orbit-carousel"
 
 import { type ReactNode } from 'react';
-export type OrbitCarouselShape = 'drum' | 'wheel' | 'wall' | 'fan';
+export type OrbitCarouselShape = 'drum' | 'wheel' | 'wall' | 'fan' | 'rolodex' | 'stack' | 'cascade';
 export interface OrbitCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
     shape?: OrbitCarouselShape;
     itemWidth?: number;

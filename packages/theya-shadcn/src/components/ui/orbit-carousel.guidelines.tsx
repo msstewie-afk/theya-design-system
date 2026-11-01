@@ -17,6 +17,9 @@ export const orbitCarouselGuidelines: ComponentGuidelines = {
     { part: 'Wheel', description: <><C>shape="wheel"</C>: cards on the rim of a large wheel to the start side, rolling past vertically; up to three on each side, fading out.</> },
     { part: 'Wall', description: <><C>shape="wall"</C>: the viewer stands inside the drum — a curved wall, the edges swinging in (coverflow). Stops at the ends.</> },
     { part: 'Fan', description: <><C>shape="fan"</C>: cards on an arc, the middle one upright and in focus; a click on a side card brings it to the middle. Deals itself out the first time it scrolls in. Stops at the ends.</> },
+    { part: 'Rolodex', description: <><C>shape="rolodex"</C>: cards turning round a horizontal axis behind them, like a card file; the next one comes up from below. Up to two on each side.</> },
+    { part: 'Stack', description: <><C>shape="stack"</C>: a compact pile; the cards behind step to the top start and the bottom end, smaller and dimmer.</> },
+    { part: 'Cascade', description: <><C>shape="cascade"</C>: a tilted staircase of cards in perspective, stepping down to the end.</> },
     { part: 'Controls', description: <>Previous / Next; Pause when <C>autoplay</C> is set; dots on the wall and the fan.</> },
   ],
   doDont: [
@@ -26,7 +29,7 @@ export const orbitCarouselGuidelines: ComponentGuidelines = {
     },
   ],
   a11y: [
-    'One tab stop, described by a hint about the arrow keys; ← / → (↑ / ↓ for the wheel) turn it; drag or swipe does the same, the cards following the finger.',
+    'One tab stop, described by a hint about the arrow keys; ← / → (↑ / ↓ for the wheel and the rolodex) turn it; drag or swipe does the same, the cards following the finger.',
     'Only the front card is in the accessibility tree; the others are aria-hidden and inert. Its position and name are announced (“2 of 8: Research”) — silent while autoplay runs.',
     'autoplay pauses on hover and focus and has a Pause button (WCAG 2.2.2).',
     'prefers-reduced-motion: no turning animation and no autoplay.',

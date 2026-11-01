@@ -37,7 +37,7 @@ const meta = {
     layout: 'padded', guidelines: orbitCarouselGuidelines,
   },
   argTypes: {
-    shape: { control: 'inline-radio', options: ['drum', 'wheel', 'wall', 'fan'], description: '`drum`: a cylinder turning on its vertical axis. `wheel`: the rim of a large wheel to the start side, rolling vertically. `wall`: inside the cylinder, a curved wall (coverflow). `fan`: cards on an arc, the middle one in focus.' },
+    shape: { control: 'inline-radio', options: ['drum', 'wheel', 'wall', 'fan', 'rolodex', 'stack', 'cascade'], description: '`drum`: a cylinder turning on its vertical axis. `wheel`: the rim of a large wheel to the start side, rolling vertically. `wall`: inside the cylinder, a curved wall (coverflow). `fan`: cards on an arc, the middle one in focus. `rolodex`: cards turning round a horizontal axis, a card file. `stack`: a compact pile stepping diagonally. `cascade`: a tilted staircase.' },
     lean: { control: { type: 'number', min: 0, max: 40 }, description: 'Drum and wall: tip toward the viewer, degrees.' },
     center: { control: false, description: 'Drum: a word or a logo in the middle that the cards orbit.' },
     height: { control: 'text', description: 'Stage height (CSS length); the default depends on the shape.' },
@@ -147,4 +147,38 @@ export const Fan: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Previous slide' }));
     await expect(canvas.getByRole('heading', { name: 'Design' })).toBeInTheDocument();
   },
+};
+
+/** A rolodex: the cards turn round a horizontal axis behind them; the next one comes up from below. ↑ / ↓ or drag. */
+export const Rolodex: Story = {
+  args: { shape: 'rolodex', itemWidth: 320 },
+  render,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const root = canvas.getByRole('group', { name: 'Case study' });
+    await expect(root).toHaveAccessibleDescription(/up and down arrow keys/);
+    root.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(canvas.getByRole('heading', { name: 'Direction' })).toBeInTheDocument());
+    await userEvent.keyboard('{ArrowUp}{ArrowUp}');
+    // It wraps: up from the first card is the last.
+    await waitFor(() => expect(canvas.getByRole('heading', { name: 'Launch' })).toBeInTheDocument());
+  },
+};
+
+/** A compact stack: the cards behind step away diagonally, smaller and dimmer. */
+export const Stack: Story = {
+  args: { shape: 'stack', itemWidth: 300 },
+  render,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Next slide' }));
+    await waitFor(() => expect(canvas.getByRole('heading', { name: 'Direction' })).toBeInTheDocument());
+  },
+};
+
+/** A tilted cascade: a staircase of cards in perspective, the front one largest. */
+export const Cascade: Story = {
+  args: { shape: 'cascade', itemWidth: 280 },
+  render,
 };
