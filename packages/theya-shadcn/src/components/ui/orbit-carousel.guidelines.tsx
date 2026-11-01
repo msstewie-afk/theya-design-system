@@ -13,8 +13,11 @@ export const orbitCarouselGuidelines: ComponentGuidelines = {
   ],
   anatomy: [
     { part: 'Drum', description: <><C>shape="drum"</C>: cards round a cylinder that turns on its vertical axis.</> },
+    { part: 'Drum options', description: <><C>lean</C> tips the drum toward the viewer; <C>center</C> puts a word or a logo in the middle, and the cards orbit it, passing behind and in front.</> },
     { part: 'Wheel', description: <><C>shape="wheel"</C>: cards on the rim of a large wheel to the start side, rolling past vertically; up to three on each side, fading out.</> },
-    { part: 'Controls', description: <>Previous / Next; Pause when <C>autoplay</C> is set.</> },
+    { part: 'Wall', description: <><C>shape="wall"</C>: the viewer stands inside the drum — a curved wall, the edges swinging in (coverflow). Stops at the ends.</> },
+    { part: 'Fan', description: <><C>shape="fan"</C>: cards on an arc, the middle one upright and in focus; a click on a side card brings it to the middle. Deals itself out the first time it scrolls in. Stops at the ends.</> },
+    { part: 'Controls', description: <>Previous / Next; Pause when <C>autoplay</C> is set; dots on the wall and the fan.</> },
   ],
   doDont: [
     {
@@ -23,8 +26,8 @@ export const orbitCarouselGuidelines: ComponentGuidelines = {
     },
   ],
   a11y: [
-    'One tab stop; ← / → (↑ / ↓ for the wheel) turn it; drag or swipe does the same.',
-    'Only the front card is in the accessibility tree; the others are aria-hidden and inert.',
+    'One tab stop, described by a hint about the arrow keys; ← / → (↑ / ↓ for the wheel) turn it; drag or swipe does the same, the cards following the finger.',
+    'Only the front card is in the accessibility tree; the others are aria-hidden and inert. Its position and name are announced (“2 of 8: Research”) — silent while autoplay runs.',
     'autoplay pauses on hover and focus and has a Pause button (WCAG 2.2.2).',
     'prefers-reduced-motion: no turning animation and no autoplay.',
   ],

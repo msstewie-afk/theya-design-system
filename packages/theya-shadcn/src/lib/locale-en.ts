@@ -34,6 +34,7 @@ export const en = {
     slides: 'Slides',
     goTo: (n: number) => `Go to slide ${n}`,
     keysHint: 'Use the left and right arrow keys to move between slides',
+    keysHintVertical: 'Use the up and down arrow keys to move between slides',
     position: (i: number, n: number, name?: string) => (name ? `${i} of ${n}: ${name}` : `${i} of ${n}`),
   },
   chart: {

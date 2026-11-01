@@ -51,6 +51,7 @@ export const ru: TheyaMessages = {
     slides: 'Слайды',
     goTo: (n) => `Перейти к слайду ${n}`,
     keysHint: 'Листайте слайды стрелками влево и вправо',
+    keysHintVertical: 'Листайте слайды стрелками вверх и вниз',
     position: (i, n, name) => (name ? `${i} из ${n}: ${name}` : `${i} из ${n}`),
   },
   chart: {

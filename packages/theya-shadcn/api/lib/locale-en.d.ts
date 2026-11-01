@@ -36,6 +36,7 @@ export declare const en: {
         slides: string;
         goTo: (n: number) => string;
         keysHint: string;
+        keysHintVertical: string;
         position: (i: number, n: number, name?: string) => string;
     };
     chart: {
@@ -682,6 +683,7 @@ export declare const enLocale: {
             slides: string;
             goTo: (n: number) => string;
             keysHint: string;
+            keysHintVertical: string;
             position: (i: number, n: number, name?: string) => string;
         };
         chart: {

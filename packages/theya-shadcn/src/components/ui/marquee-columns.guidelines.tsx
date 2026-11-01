@@ -6,7 +6,10 @@ const Tile = ({ children }: { children: React.ReactNode }) => (
 
 export const marqueeColumnsGuidelines: ComponentGuidelines = {
   status: 'beta',
-  whenToUse: ['A decorative wall of cards behind or beside a hero: testimonials, templates, integrations.'],
+  whenToUse: [
+    'A decorative wall of cards behind or beside a hero: testimonials, templates, integrations.',
+    <>A Pinterest-like board in a landing section, moving with the page: <C>drive="scroll"</C>.</>,
+  ],
   whenNotToUse: [
     { text: 'A single row of logos or short items', instead: 'Marquee' },
     { text: 'Cards people need to read or click in order', instead: 'Card grid' },
@@ -14,7 +17,8 @@ export const marqueeColumnsGuidelines: ComponentGuidelines = {
   anatomy: [
     { part: 'Columns', description: <>one per array in <C>columns</C>; neighbours drift in opposite directions at slightly different speeds.</> },
     { part: 'Fade', description: 'the top and bottom edges fade out.' },
-    { part: 'Pause', description: <>a Pause / Play button (<C>pauseButton</C>).</> },
+    { part: 'Pause', description: <>a Pause / Play button (<C>pauseButton</C>), time-driven only.</> },
+    { part: 'Scroll drive', description: <><C>drive="scroll"</C>: the columns slide through their length as the page scrolls past, even ones up and odd ones down; no timer, no Pause. Below 640px one column at full height.</> },
   ],
   doDont: [
     {
@@ -25,6 +29,7 @@ export const marqueeColumnsGuidelines: ComponentGuidelines = {
   a11y: [
     'Pauses on hover and while anything inside has focus; Pause stops it for good (WCAG 2.2.2).',
     'Each column renders its items twice; the copy is aria-hidden and inert, so each card is met once.',
-    'prefers-reduced-motion: the columns stand still.',
+    'drive="scroll": no copies; Tab into the wall and it stops and opens to full height, so a focused card is never clipped.',
+    'prefers-reduced-motion: the columns stand still (the scroll-driven wall shows at full height).',
   ],
 };

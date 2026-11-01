@@ -562,8 +562,9 @@
         "review"
       ],
       "counts": {
-        "n/a": 155,
-        "verified": 5
+        "n/a": 154,
+        "verified": 5,
+        "untested": 1
       },
       "patternCounts": {
         "n/a": 50,
@@ -625,8 +626,9 @@
         "review"
       ],
       "counts": {
-        "n/a": 150,
-        "verified": 10
+        "n/a": 149,
+        "verified": 10,
+        "partial": 1
       },
       "patternCounts": {
         "n/a": 50,
@@ -873,14 +875,13 @@
         "screenReader"
       ],
       "counts": {
-        "n/a": 130,
+        "n/a": 129,
         "verified": 27,
-        "untested": 3
+        "untested": 4
       },
       "patternCounts": {
         "verified": 17,
-        "n/a": 34,
-        "untested": 1
+        "n/a": 35
       }
     }
   ],
@@ -7900,7 +7901,7 @@
       "name": "MarqueeColumns",
       "title": "Motion/MarqueeColumns",
       "axe": {
-        "stories": 1,
+        "stories": 2,
         "themes": [
           "light",
           "dark"
@@ -7909,7 +7910,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 1
+        "playTests": 2
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
@@ -8758,7 +8759,7 @@
       "name": "OrbitCarousel",
       "title": "Motion/OrbitCarousel",
       "axe": {
-        "stories": 3,
+        "stories": 6,
         "themes": [
           "light",
           "dark"
@@ -8767,7 +8768,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 2
+        "playTests": 4
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
@@ -8776,8 +8777,11 @@
       "traits": [
         "autoMoving",
         "colorMeaning",
+        "drag",
+        "gestures",
         "hoverContent",
         "interactive",
+        "status",
         "timed"
       ],
       "wcag": {
@@ -8815,11 +8819,11 @@
         "2.4.6": "n/a",
         "2.4.7": "verified",
         "2.4.11": "n/a",
-        "2.5.1": "n/a",
+        "2.5.1": "untested",
         "2.5.2": "library",
         "2.5.3": "verified",
         "2.5.4": "library",
-        "2.5.7": "n/a",
+        "2.5.7": "partial",
         "2.5.8": "verified",
         "3.1.1": "product",
         "3.1.2": "product",
@@ -8835,7 +8839,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "verified",
-        "4.1.3": "n/a"
+        "4.1.3": "untested"
       }
     },
     {
@@ -17249,8 +17253,7 @@
         "hoverContent",
         "interactive",
         "labelled",
-        "links",
-        "status"
+        "links"
       ],
       "wcag": {
         "1.1.1": "partial",
@@ -17307,7 +17310,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "partial",
-        "4.1.3": "untested"
+        "4.1.3": "n/a"
       }
     },
     {

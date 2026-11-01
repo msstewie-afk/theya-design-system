@@ -24,7 +24,7 @@ export const zh: TheyaMessages = {
   announcementBar: { dismiss: '关闭公告', label: '公告' },
   autocomplete: { suggestions: '建议' },
   breadcrumb: { label: '面包屑导航', more: '更多', showMore: (n) => `显示其余 ${n} 级` },
-  carousel: { label: '轮播', previous: '上一张', next: '下一张', slides: '幻灯片', goTo: (n) => `转到第 ${n} 张`, keysHint: '使用左右方向键切换幻灯片', position: (i, n, name) => (name ? `第 ${i} 张，共 ${n} 张：${name}` : `第 ${i} 张，共 ${n} 张`) },
+  carousel: { label: '轮播', previous: '上一张', next: '下一张', slides: '幻灯片', goTo: (n) => `转到第 ${n} 张`, keysHint: '使用左右方向键切换幻灯片', keysHintVertical: '使用上下方向键切换幻灯片', position: (i, n, name) => (name ? `第 ${i} 张，共 ${n} 张：${name}` : `第 ${i} 张，共 ${n} 张`) },
   chart: {
     trend: (points) => `${points} 个数据点的趋势`,
     seriesTrend: (names, points) => `${names}，共 ${points} 个数据点`,

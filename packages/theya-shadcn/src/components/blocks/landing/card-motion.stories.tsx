@@ -3,18 +3,19 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { DEMO_FEATURES, DEMO_FOLDERS, DemoFeatureVisual, DemoMiniLink } from './demo-data';
 import { SectionHead } from './feature-shared';
 import { CardMotionSection } from './card-motion.story-helpers';
-import { FanCarousel, FlipCard, FolderReveal, ParallaxLayer, ParallaxLayers, RingCarousel } from './card-motion';
+import { FlipCard, FolderReveal, ParallaxLayer, ParallaxLayers } from './card-motion';
+import { OrbitCarousel } from '../../ui/orbit-carousel';
 import { cardMotionGuidelines } from './card-motion.guidelines';
 import { LandingCard, StatCard, type LandingCardHue } from './landing-cards';
 
-const meta: Meta<typeof RingCarousel> = {
+const meta: Meta<typeof FolderReveal> = {
   title: 'Patterns: Landing/Card motion',
-  component: RingCarousel,
+  component: FolderReveal,
   tags: ['autodocs'],
   parameters: { guidelines: cardMotionGuidelines, layout: 'fullscreen' },
 };
 export default meta;
-type Story = StoryObj<typeof RingCarousel>;
+type Story = StoryObj<typeof FolderReveal>;
 
 const HUES: LandingCardHue[] = ['primary', 'secondary', 'success', 'warning', 'info', 'neutral', 'primary', 'success'];
 const TEMPLATES = ['Reading list', 'Research', 'Recipes', 'Trips', 'Design inspiration', 'Courses', 'Gift ideas', 'Job search'];
@@ -35,26 +36,26 @@ const TemplateCard = ({ i, compact = false }: { i: number; compact?: boolean }) 
     </LandingCard>
   );
 
-/** Eight template cards standing in a ring. Drag it, use the arrows or the Arrow keys; it settles with a card facing you. */
+/** Eight template cards standing in a ring (OrbitCarousel, `drum`, leaning toward you). Drag it, use the arrows or the Arrow keys; it settles with a card facing you. */
 export const Ring: Story = {
   render: () => (
     <CardMotionSection title="Start from a template">
-      <RingCarousel aria-label="Templates">
+      <OrbitCarousel aria-label="Templates" itemWidth={280} lean={10}>
         {TEMPLATES.map((_, i) => (
           <TemplateCard key={i} i={i} />
         ))}
-      </RingCarousel>
+      </OrbitCarousel>
     </CardMotionSection>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const ring = canvas.getByRole('region', { name: 'Templates' });
+    const ring = canvas.getByRole('group', { name: 'Templates' });
     // Only the front card is exposed.
     await expect(within(ring).getAllByRole('heading', { level: 3 })).toHaveLength(1);
     await userEvent.click(within(ring).getByRole('button', { name: /next/i }));
     await expect(within(ring).getByRole('heading', { level: 3, name: TEMPLATES[1] })).toBeInTheDocument();
-    // The stage is a named group with a hint about the arrow keys; the position names the slide.
-    await expect(within(ring).getByRole('group', { name: 'Slides' })).toHaveAccessibleDescription(/arrow keys/);
+    // The carousel carries a hint about the arrow keys; the position names the slide.
+    await expect(ring).toHaveAccessibleDescription(/arrow keys/);
     await waitFor(() => expect(within(ring).getByText(`2 of ${TEMPLATES.length}: ${TEMPLATES[1]}`)).toBeInTheDocument());
   },
 };
@@ -64,18 +65,18 @@ export const RingAroundAWord: Story = {
   name: 'Ring around a word',
   render: () => (
     <CardMotionSection title="">
-      <RingCarousel
+      <OrbitCarousel
         aria-label="Templates"
         // A steep lean and small cards: the near side of the ring passes under the word and
         // the far side over it, so the word stays readable as the cards go round.
-        cardWidth={150}
+        itemWidth={150}
         lean={30}
         center={<p className="m-0 whitespace-nowrap font-display-serif text-heading-3xl italic text-[var(--color-text-text)]">your library</p>}
       >
         {TEMPLATES.map((_, i) => (
           <TemplateCard key={i} i={i} compact />
         ))}
-      </RingCarousel>
+      </OrbitCarousel>
     </CardMotionSection>
   ),
 };
@@ -84,16 +85,16 @@ export const RingAroundAWord: Story = {
 export const Wall: Story = {
   render: () => (
     <CardMotionSection title="Start from a template">
-      <RingCarousel aria-label="Templates" shape="wall" cardWidth={240}>
+      <OrbitCarousel aria-label="Templates" shape="wall">
         {TEMPLATES.map((_, i) => (
           <TemplateCard key={i} i={i} />
         ))}
-      </RingCarousel>
+      </OrbitCarousel>
     </CardMotionSection>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const wall = canvas.getByRole('region', { name: 'Templates' });
+    const wall = canvas.getByRole('group', { name: 'Templates' });
     await expect(within(wall).getAllByRole('heading', { level: 3 })).toHaveLength(1);
     await userEvent.click(within(wall).getByRole('button', { name: /next/i }));
     await expect(within(wall).getByRole('heading', { level: 3, name: TEMPLATES[1] })).toBeInTheDocument();
@@ -108,7 +109,7 @@ export const Wall: Story = {
 export const Fan: Story = {
   render: () => (
     <CardMotionSection title="Four things it does for you">
-      <FanCarousel aria-label="Features">
+      <OrbitCarousel aria-label="Features" shape="fan">
         {DEMO_FEATURES.map((f, i) => (
           <LandingCard key={f.id} surface="tonal" hue={HUES[i]} className="h-[26rem] gap-6 p-6">
             <DemoFeatureVisual id={f.id} />
@@ -118,12 +119,12 @@ export const Fan: Story = {
             </div>
           </LandingCard>
         ))}
-      </FanCarousel>
+      </OrbitCarousel>
     </CardMotionSection>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const fan = canvas.getByRole('region', { name: 'Features' });
+    const fan = canvas.getByRole('group', { name: 'Features' });
     await expect(within(fan).getAllByRole('heading', { level: 3 })).toHaveLength(1);
     await userEvent.click(within(fan).getByRole('button', { name: /previous/i }));
     await expect(within(fan).getByRole('heading', { level: 3, name: DEMO_FEATURES[1].title })).toBeInTheDocument();

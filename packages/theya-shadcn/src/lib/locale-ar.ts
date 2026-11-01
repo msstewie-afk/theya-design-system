@@ -38,7 +38,7 @@ export const ar: TheyaMessages = {
     more: 'المزيد',
     showMore: (n) => `عرض ${plural(n, { one: 'مستوى واحد آخر', two: 'مستويين آخرين', few: 'مستويات أخرى', many: 'مستوى آخر' })}`,
   },
-  carousel: { label: 'عرض شرائح', previous: 'الشريحة السابقة', next: 'الشريحة التالية', slides: 'الشرائح', goTo: (n) => `الانتقال إلى الشريحة ${n}`, keysHint: 'استخدم مفتاحي السهم الأيمن والأيسر للتنقل بين الشرائح', position: (i, n, name) => (name ? `${i} من ${n}: ${name}` : `${i} من ${n}`) },
+  carousel: { label: 'عرض شرائح', previous: 'الشريحة السابقة', next: 'الشريحة التالية', slides: 'الشرائح', goTo: (n) => `الانتقال إلى الشريحة ${n}`, keysHint: 'استخدم مفتاحي السهم الأيمن والأيسر للتنقل بين الشرائح', keysHintVertical: 'استخدم مفتاحي السهم لأعلى ولأسفل للتنقل بين الشرائح', position: (i, n, name) => (name ? `${i} من ${n}: ${name}` : `${i} من ${n}`) },
   chart: {
     trend: (points) => `الاتجاه عبر ${points} نقطة`,
     seriesTrend: (names, points) => `${names} عبر ${points} نقطة`,

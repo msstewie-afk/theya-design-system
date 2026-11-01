@@ -4,13 +4,15 @@
 import type { ReactNode } from 'react';
 export interface MarqueeColumnsProps extends React.HTMLAttributes<HTMLDivElement> {
     columns: ReactNode[][];
+    drive?: 'time' | 'scroll';
     duration?: number;
     gap?: string;
     pauseButton?: boolean;
 }
-export declare function MarqueeColumns({ columns, duration, gap, pauseButton, className, style, ...props }: MarqueeColumnsProps): import("react").JSX.Element;
+export declare function MarqueeColumns({ columns, drive, duration, gap, pauseButton, className, style, ...props }: MarqueeColumnsProps): import("react").JSX.Element;
 
 // Defaults
+// MarqueeColumns.drive = time
 // MarqueeColumns.duration = 40
 // MarqueeColumns.gap = 1rem
 // MarqueeColumns.pauseButton = true

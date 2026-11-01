@@ -6,7 +6,8 @@
   "status": "beta",
   "category": "Motion",
   "whenToUse": [
-    "A decorative wall of cards behind or beside a hero: testimonials, templates, integrations."
+    "A decorative wall of cards behind or beside a hero: testimonials, templates, integrations.",
+    "A Pinterest-like board in a landing section, moving with the page: `drive=\"scroll\"`."
   ],
   "whenNotToUse": [
     {
@@ -29,7 +30,11 @@
     },
     {
       "part": "Pause",
-      "description": "a Pause / Play button (`pauseButton`)."
+      "description": "a Pause / Play button (`pauseButton`), time-driven only."
+    },
+    {
+      "part": "Scroll drive",
+      "description": "`drive=\"scroll\"`: the columns slide through their length as the page scrolls past, even ones up and odd ones down; no timer, no Pause. Below 640px one column at full height."
     }
   ],
   "doDont": [
@@ -47,7 +52,8 @@
   "a11y": [
     "Pauses on hover and while anything inside has focus; Pause stops it for good (WCAG 2.2.2).",
     "Each column renders its items twice; the copy is aria-hidden and inert, so each card is met once.",
-    "prefers-reduced-motion: the columns stand still."
+    "drive=\"scroll\": no copies; Tab into the wall and it stops and opens to full height, so a focused card is never clipped.",
+    "prefers-reduced-motion: the columns stand still (the scroll-driven wall shows at full height)."
   ],
   "components": [
     {
@@ -60,11 +66,22 @@
           "description": "One array of cards per column."
         },
         {
+          "name": "drive",
+          "type": "\"time\" | \"scroll\"",
+          "values": [
+            "time",
+            "scroll"
+          ],
+          "required": false,
+          "default": "time",
+          "description": "What moves the columns: a timer (default) or the page scroll."
+        },
+        {
           "name": "duration",
           "type": "number",
           "required": false,
           "default": "40",
-          "description": "Seconds for one full loop of the first column (default 40); the others run a little faster or slower."
+          "description": "drive=\"time\": seconds for one full loop of the first column (default 40); the others run a little faster or slower."
         },
         {
           "name": "gap",
@@ -78,7 +95,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "description": "Show the Pause / Play button (default true)."
+          "description": "drive=\"time\": show the Pause / Play button (default true)."
         }
       ]
     }
@@ -93,6 +110,10 @@
       {
         "name": "Default",
         "id": "motion-marqueecolumns--default"
+      },
+      {
+        "name": "ScrollDriven",
+        "id": "motion-marqueecolumns--scroll-driven"
       }
     ]
   }

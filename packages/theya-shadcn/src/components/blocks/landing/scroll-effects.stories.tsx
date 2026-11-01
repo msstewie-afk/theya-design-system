@@ -5,7 +5,8 @@ import { BookmarksPreview, DEMO_FEATURES, DemoFeatureVisual, DemoMiniLink } from
 import { SectionHead } from './feature-shared';
 import { FeatureCard, LandingCard, QuoteCard, StatCard, type LandingCardHue } from './landing-cards';
 import { Button } from '../../ui/button';
-import { CardDeck, DepthTunnel, FanOut, HorizontalScroll, MasonryDrift, ScrollHighlight, ScrollMaskReveal, TiltIn } from './scroll-effects';
+import { MarqueeColumns } from '../../ui/marquee-columns';
+import { CardDeck, DepthTunnel, FanOut, HorizontalScroll, ScrollHighlight, ScrollMaskReveal, TiltIn } from './scroll-effects';
 import { scrollEffectsGuidelines } from './scroll-effects.guidelines';
 
 const meta: Meta<typeof CardDeck> = {
@@ -208,7 +209,7 @@ export const Sideways: Story = {
 const PHOTOS = ['login-carousel-01', 'nova-web', 'login-carousel-02', 'product-router', 'login-carousel-03', 'product-ssd'];
 const RATIOS = ['aspect-[3/4]', 'aspect-square', 'aspect-[4/5]', 'aspect-[3/2]', 'aspect-[2/3]', 'aspect-[5/4]'];
 
-/** A Pinterest-like wall: columns of saved things drift past each other as you scroll (odd up, even down). Tab into it and it stops and opens. */
+/** A Pinterest-like wall (MarqueeColumns, `drive="scroll"`): columns of saved things drift past each other as you scroll (odd up, even down). Tab into it and it stops and opens. */
 export const Masonry: Story = {
   render: () => {
     const items = [
@@ -237,7 +238,8 @@ export const Masonry: Story = {
         <section data-scale="display" className="section-display">
           <div className="container-display flex flex-col gap-10">
             <SectionHead align="center" title="Everything you keep" description="Photos, quotes, recipes, links: one wall." />
-            <MasonryDrift aria-label="Everything you keep" items={mixed} />
+            {/* MarqueeColumns driven by the scroll; the cards dealt into three columns in turn. */}
+            <MarqueeColumns drive="scroll" aria-label="Everything you keep" gap="1.5rem" className="h-[min(52rem,100svh)]" columns={[0, 1, 2].map((c) => mixed.filter((_, i) => i % 3 === c))} />
           </div>
         </section>
         <Spacer label="" />
@@ -247,8 +249,11 @@ export const Masonry: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Reduced motion in the tests: a plain masonry, every card in it.
-    const wall = canvasElement.querySelector('[data-slot="masonry-drift"]') as HTMLElement;
-    await expect(within(wall).getAllByRole('listitem')).toHaveLength(12);
+    const wall = canvas.getByRole('group', { name: 'Everything you keep' });
+    await expect(wall).toHaveAttribute('data-drive', 'scroll');
+    // Every card is there once (no looping copy in the scroll-driven wall).
+    await expect(within(wall).getAllByText('Search by a word inside the page. Magic.')).toHaveLength(1);
+    await expect(within(wall).getByText('Blue hour')).toBeVisible();
     await expect(canvas.getByText('My whole moodboard, finally in one place.')).toBeVisible();
   },
 };

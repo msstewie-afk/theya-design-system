@@ -5817,6 +5817,7 @@ Docs: ./?path=/docs/motion-marqueecolumns--docs
 **When to use**
 
 - A decorative wall of cards behind or beside a hero: testimonials, templates, integrations.
+- A Pinterest-like board in a landing section, moving with the page: `drive="scroll"`.
 
 **When not to use**
 
@@ -5827,14 +5828,16 @@ Docs: ./?path=/docs/motion-marqueecolumns--docs
 
 - Columns: one per array in `columns`; neighbours drift in opposite directions at slightly different speeds.
 - Fade: the top and bottom edges fade out.
-- Pause: a Pause / Play button (`pauseButton`).
+- Pause: a Pause / Play button (`pauseButton`), time-driven only.
+- Scroll drive: `drive="scroll"`: the columns slide through their length as the page scrolls past, even ones up and odd ones down; no timer, no Pause. Below 640px one column at full height.
 
 **MarqueeColumns props**
 
 - `columns`: `ReactNode[][]` — One array of cards per column.
-- `duration?`: `number`, default `40` — Seconds for one full loop of the first column (default 40); the others run a little faster or slower.
+- `drive?`: `"time" | "scroll"`, default `time` — What moves the columns: a timer (default) or the page scroll.
+- `duration?`: `number`, default `40` — drive="time": seconds for one full loop of the first column (default 40); the others run a little faster or slower.
 - `gap?`: `string`, default `1rem` — Space between cards and between columns (CSS length, default 1rem).
-- `pauseButton?`: `boolean`, default `true` — Show the Pause / Play button (default true).
+- `pauseButton?`: `boolean`, default `true` — drive="time": show the Pause / Play button (default true).
 
 Also accepts the props of: HTMLAttributes.
 
@@ -5857,7 +5860,8 @@ Also accepts the props of: HTMLAttributes.
 
 - Pauses on hover and while anything inside has focus; Pause stops it for good (WCAG 2.2.2).
 - Each column renders its items twice; the copy is aria-hidden and inert, so each card is met once.
-- prefers-reduced-motion: the columns stand still.
+- drive="scroll": no copies; Tab into the wall and it stops and opens to full height, so a focused card is never clipped.
+- prefers-reduced-motion: the columns stand still (the scroll-driven wall shows at full height).
 
 ## MaskedInput
 
@@ -6470,15 +6474,22 @@ Docs: ./?path=/docs/motion-orbitcarousel--docs
 **Anatomy**
 
 - Drum: `shape="drum"`: cards round a cylinder that turns on its vertical axis.
+- Drum options: `lean` tips the drum toward the viewer; `center` puts a word or a logo in the middle, and the cards orbit it, passing behind and in front.
 - Wheel: `shape="wheel"`: cards on the rim of a large wheel to the start side, rolling past vertically; up to three on each side, fading out.
-- Controls: Previous / Next; Pause when `autoplay` is set.
+- Wall: `shape="wall"`: the viewer stands inside the drum — a curved wall, the edges swinging in (coverflow). Stops at the ends.
+- Fan: `shape="fan"`: cards on an arc, the middle one upright and in focus; a click on a side card brings it to the middle. Deals itself out the first time it scrolls in. Stops at the ends.
+- Controls: Previous / Next; Pause when `autoplay` is set; dots on the wall and the fan.
 
 **OrbitCarousel props**
 
-- `autoplay?`: `number` — Turn on its own every `autoplay` ms. Off by default.
-- `itemWidth?`: `number`, default `240` — Card width in px (drum) or the card box width (wheel). Default 240.
+- `autoplay?`: `number` — Move on its own every `autoplay` ms. Off by default.
+- `center?`: `ReactNode` — Drum only: something in the middle of the drum — a word, a logo — that the cards orbit.
+- `defaultIndex?`: `number` — The card in front at first (default: the first; fan: the middle one).
+- `height?`: `string` — Stage height, any CSS length. Default depends on the shape.
+- `itemWidth?`: `number` — Card width in px. Default 240 (fan: 352, never wider than 72vw).
+- `lean?`: `number`, default `0` — Drum and wall: tip toward the viewer, degrees (default 0).
 - `onIndexChange?`: `((index: number) => void)` — Called with the index of the card that comes to the front.
-- `shape?`: `"drum" | "wheel"`, default `drum`
+- `shape?`: `"fan" | "drum" | "wheel" | "wall"`, default `drum`
 
 Also accepts the props of: HTMLAttributes.
 
@@ -6499,8 +6510,8 @@ Also accepts the props of: HTMLAttributes.
 
 **Accessibility**
 
-- One tab stop; ← / → (↑ / ↓ for the wheel) turn it; drag or swipe does the same.
-- Only the front card is in the accessibility tree; the others are aria-hidden and inert.
+- One tab stop, described by a hint about the arrow keys; ← / → (↑ / ↓ for the wheel) turn it; drag or swipe does the same, the cards following the finger.
+- Only the front card is in the accessibility tree; the others are aria-hidden and inert. Its position and name are announced (“2 of 8: Research”) — silent while autoplay runs.
 - autoplay pauses on hover and focus and has a Pause button (WCAG 2.2.2).
 - prefers-reduced-motion: no turning animation and no autoplay.
 

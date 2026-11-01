@@ -31,14 +31,18 @@ const meta = {
     docs: {
       description: {
         component:
-          "Cards on a turning drum or along the rim of a wheel, for a showcase on a landing page.",
+          "Cards on a turning drum, along the rim of a wheel, on a curved wall or fanned on an arc, for a showcase on a landing page.",
       },
     },
     layout: 'padded', guidelines: orbitCarouselGuidelines,
   },
   argTypes: {
-    shape: { control: 'inline-radio', options: ['drum', 'wheel'], description: '`drum`: a cylinder turning on its vertical axis. `wheel`: the rim of a large wheel to the start side, rolling vertically.' },
-    itemWidth: { control: { type: 'number', min: 160, max: 360, step: 10 }, description: 'Card width, px.' },
+    shape: { control: 'inline-radio', options: ['drum', 'wheel', 'wall', 'fan'], description: '`drum`: a cylinder turning on its vertical axis. `wheel`: the rim of a large wheel to the start side, rolling vertically. `wall`: inside the cylinder, a curved wall (coverflow). `fan`: cards on an arc, the middle one in focus.' },
+    lean: { control: { type: 'number', min: 0, max: 40 }, description: 'Drum and wall: tip toward the viewer, degrees.' },
+    center: { control: false, description: 'Drum: a word or a logo in the middle that the cards orbit.' },
+    height: { control: 'text', description: 'Stage height (CSS length); the default depends on the shape.' },
+    defaultIndex: { control: 'number', description: 'The card in front at first (fan: the middle one).' },
+    itemWidth: { control: { type: 'number', min: 120, max: 400, step: 10 }, description: 'Card width, px (default 240; fan 352).' },
     autoplay: { control: { type: 'number', min: 0, step: 500 }, description: 'Turn on its own every N ms (pauses on hover / focus, adds Pause).' },
     onIndexChange: { control: false, description: 'Called with the index of the card that comes to the front.' },
     children: { control: false, description: 'The cards.' },
@@ -95,5 +99,52 @@ export const Autoplay: Story = {
       await userEvent.click(canvas.getByRole('button', { name: 'Pause' }));
       await expect(canvas.getByRole('button', { name: 'Play' })).not.toHaveAttribute('aria-pressed');
     }
+  },
+};
+
+/** A drum round a word: the cards pass behind it and in front of it (lean + center). */
+export const AroundAWord: Story = {
+  name: 'Drum around a word',
+  args: { itemWidth: 150, lean: 30 },
+  render: (args) => (
+    <OrbitCarousel
+      {...args}
+      aria-label="Case study"
+      className="mx-auto max-w-3xl"
+      center={<p className="m-0 whitespace-nowrap font-display-serif text-heading-3xl italic text-[var(--color-text-text)]">our work</p>}
+    >
+      {CASES.map((c, i) => (
+        <Slide key={c.title} c={c} i={i} />
+      ))}
+    </OrbitCarousel>
+  ),
+};
+
+/** A wall: inside the drum, the edges swinging in. It stops at the ends. */
+export const Wall: Story = {
+  args: { shape: 'wall' },
+  render,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const root = canvas.getByRole('group', { name: 'Case study' });
+    await expect(root).toHaveAccessibleDescription(/arrow keys/);
+    // Back from the first card stays on the first (no wrap).
+    await userEvent.click(canvas.getByRole('button', { name: 'Previous slide' }));
+    await expect(canvas.getByRole('heading', { name: 'Discover' })).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Next slide' }));
+    await waitFor(() => expect(canvas.getByText('2 of 6: Direction')).toBeInTheDocument());
+  },
+};
+
+/** A fan: the middle card upright and in focus; click a side card to bring it in. */
+export const Fan: Story = {
+  args: { shape: 'fan', itemWidth: 300 },
+  render,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Six cards: the fan opens on the fourth (the middle, rounded down from index 3).
+    await expect(canvas.getByRole('heading', { name: 'Delivery' })).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Previous slide' }));
+    await expect(canvas.getByRole('heading', { name: 'Design' })).toBeInTheDocument();
   },
 };

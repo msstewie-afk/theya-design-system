@@ -36,6 +36,7 @@ export const de: TheyaMessages = {
     slides: 'Folien',
     goTo: (n) => `Zu Folie ${n} wechseln`,
     keysHint: 'Mit den Pfeiltasten links und rechts zwischen den Folien wechseln',
+    keysHintVertical: 'Mit den Pfeiltasten nach oben und unten zwischen den Folien wechseln',
     position: (i, n, name) => (name ? `${i} von ${n}: ${name}` : `${i} von ${n}`),
   },
   chart: {

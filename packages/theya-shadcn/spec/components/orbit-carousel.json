@@ -24,12 +24,24 @@
       "description": "`shape=\"drum\"`: cards round a cylinder that turns on its vertical axis."
     },
     {
+      "part": "Drum options",
+      "description": "`lean` tips the drum toward the viewer; `center` puts a word or a logo in the middle, and the cards orbit it, passing behind and in front."
+    },
+    {
       "part": "Wheel",
       "description": "`shape=\"wheel\"`: cards on the rim of a large wheel to the start side, rolling past vertically; up to three on each side, fading out."
     },
     {
+      "part": "Wall",
+      "description": "`shape=\"wall\"`: the viewer stands inside the drum — a curved wall, the edges swinging in (coverflow). Stops at the ends."
+    },
+    {
+      "part": "Fan",
+      "description": "`shape=\"fan\"`: cards on an arc, the middle one upright and in focus; a click on a side card brings it to the middle. Deals itself out the first time it scrolls in. Stops at the ends."
+    },
+    {
       "part": "Controls",
-      "description": "Previous / Next; Pause when `autoplay` is set."
+      "description": "Previous / Next; Pause when `autoplay` is set; dots on the wall and the fan."
     }
   ],
   "doDont": [
@@ -45,8 +57,8 @@
     }
   ],
   "a11y": [
-    "One tab stop; ← / → (↑ / ↓ for the wheel) turn it; drag or swipe does the same.",
-    "Only the front card is in the accessibility tree; the others are aria-hidden and inert.",
+    "One tab stop, described by a hint about the arrow keys; ← / → (↑ / ↓ for the wheel) turn it; drag or swipe does the same, the cards following the finger.",
+    "Only the front card is in the accessibility tree; the others are aria-hidden and inert. Its position and name are announced (“2 of 8: Research”) — silent while autoplay runs.",
     "autoplay pauses on hover and focus and has a Pause button (WCAG 2.2.2).",
     "prefers-reduced-motion: no turning animation and no autoplay."
   ],
@@ -58,14 +70,38 @@
           "name": "autoplay",
           "type": "number",
           "required": false,
-          "description": "Turn on its own every `autoplay` ms. Off by default."
+          "description": "Move on its own every `autoplay` ms. Off by default."
+        },
+        {
+          "name": "center",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Drum only: something in the middle of the drum — a word, a logo — that the cards orbit."
+        },
+        {
+          "name": "defaultIndex",
+          "type": "number",
+          "required": false,
+          "description": "The card in front at first (default: the first; fan: the middle one)."
+        },
+        {
+          "name": "height",
+          "type": "string",
+          "required": false,
+          "description": "Stage height, any CSS length. Default depends on the shape."
         },
         {
           "name": "itemWidth",
           "type": "number",
           "required": false,
-          "default": "240",
-          "description": "Card width in px (drum) or the card box width (wheel). Default 240."
+          "description": "Card width in px. Default 240 (fan: 352, never wider than 72vw)."
+        },
+        {
+          "name": "lean",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Drum and wall: tip toward the viewer, degrees (default 0)."
         },
         {
           "name": "onIndexChange",
@@ -75,10 +111,12 @@
         },
         {
           "name": "shape",
-          "type": "\"drum\" | \"wheel\"",
+          "type": "OrbitCarouselShape",
           "values": [
+            "fan",
             "drum",
-            "wheel"
+            "wheel",
+            "wall"
           ],
           "required": false,
           "default": "drum"
@@ -104,6 +142,18 @@
       {
         "name": "Autoplay",
         "id": "motion-orbitcarousel--autoplay"
+      },
+      {
+        "name": "AroundAWord",
+        "id": "motion-orbitcarousel--around-a-word"
+      },
+      {
+        "name": "Wall",
+        "id": "motion-orbitcarousel--wall"
+      },
+      {
+        "name": "Fan",
+        "id": "motion-orbitcarousel--fan"
       }
     ]
   }

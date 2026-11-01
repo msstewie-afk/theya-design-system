@@ -40,7 +40,8 @@ const meta = {
     columns: { control: false, description: 'One array of cards per column.' },
     duration: { control: { type: 'number', min: 10, max: 120 }, description: 'Seconds for one loop of the first column.' },
     gap: { control: 'text', description: 'Space between cards and columns (CSS length).' },
-    pauseButton: { control: 'boolean', description: 'Show the Pause / Play button.' },
+    drive: { control: 'inline-radio', options: ['time', 'scroll'], description: 'What moves the columns: a timer or the page scroll.' },
+    pauseButton: { control: 'boolean', description: 'Show the Pause / Play button (time-driven only).' },
   },
   args: {
     duration: 40,
@@ -67,5 +68,39 @@ export const Default: Story = {
       await userEvent.keyboard(' ');
       await expect(canvas.getByRole('button', { name: 'Play' })).not.toHaveAttribute('aria-pressed');
     }
+  },
+};
+
+const TALL = ['h-32', 'h-48', 'h-40', 'h-56', 'h-36', 'h-44'];
+
+/** Driven by the scroll: the columns slide past each other as the page moves (a Pinterest-like board). Scroll the canvas. */
+export const ScrollDriven: Story = {
+  name: 'Scroll-driven',
+  args: {
+    drive: 'scroll',
+    columns: [0, 1, 2].map((c) =>
+      PROMPTS.concat(PROMPTS)
+        .filter((_, i) => i % 3 === c)
+        .map((text, i) => (
+          <div key={i} className={`flex items-end rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 font-body text-body-m text-[var(--color-text-text)] shadow-elevation-xs ${TALL[(i + c) % TALL.length]}`}>
+            {text}
+          </div>
+        )),
+    ),
+  },
+  render: (args) => (
+    <div className="flex flex-col gap-10">
+      <p className="m-0 grid h-[60vh] place-items-center font-body text-body-m text-[var(--color-text-text-subtle)]">Scroll down</p>
+      <MarqueeColumns {...args} aria-label="Things people ask" className="mx-auto h-[32rem] max-w-3xl" />
+      <div className="h-[60vh]" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const wall = canvas.getByRole('group', { name: 'Things people ask' });
+    // No looping copy and no Pause: the reader drives it.
+    await expect(canvas.queryByRole('button', { name: 'Pause' })).toBeNull();
+    await expect(within(wall).getAllByText('Book a table for two on Friday.')).toHaveLength(2);
+    await expect(wall.querySelector('[aria-hidden="true"]')).toBeNull();
   },
 };
