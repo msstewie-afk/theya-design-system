@@ -211,7 +211,8 @@ const TRAITS = {
   validation: /aria-invalid|aria-errormessage/,
   labelled: /<label\b|<h[1-6]\b|<legend\b|Label\b|Title\b|Heading\b/,
   links: /<a\b|href=/,
-  overlay: /Portal\b|DialogPrimitive|PopoverPrimitive|DropdownMenuPrimitive|ContextMenuPrimitive|MenubarPrimitive|TooltipPrimitive|HoverCardPrimitive|Drawer|vaul/,
+  // A JSX portal or Primitive.Portal, not the word (Aether demo data has "Client portals").
+  overlay: /\.Portal\b|<\w*Portal[\s/>]|DialogPrimitive|PopoverPrimitive|DropdownMenuPrimitive|ContextMenuPrimitive|MenubarPrimitive|TooltipPrimitive|HoverCardPrimitive|Drawer|vaul/,
   hoverContent: /TooltipPrimitive|HoverCardPrimitive|<Tooltip\b|<HoverCard\b|onMouseEnter=|onPointerEnter=/,
   sticky: /(?:^|[\s'"`])(?:sticky|fixed)(?=[\s'"`])/,
   timed: /\bduration\??\s*[:=]|autoPlay|autoplay|setInterval|\bcountdown\b|\bexpires\b/i,
