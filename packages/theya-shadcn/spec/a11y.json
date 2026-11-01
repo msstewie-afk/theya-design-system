@@ -295,8 +295,7 @@
       ],
       "counts": {
         "n/a": 129,
-        "verified": 30,
-        "partial": 2
+        "verified": 32
       },
       "patternCounts": {
         "n/a": 40,
@@ -524,8 +523,7 @@
       ],
       "counts": {
         "n/a": 106,
-        "verified": 52,
-        "untested": 2,
+        "verified": 54,
         "fails": 1
       },
       "patternCounts": {
@@ -849,8 +847,8 @@
       ],
       "counts": {
         "n/a": 130,
-        "verified": 27,
-        "untested": 4
+        "verified": 29,
+        "untested": 2
       },
       "patternCounts": {
         "verified": 17,
@@ -1506,7 +1504,7 @@
         "1.4.10": "verified",
         "1.4.11": "verified",
         "1.4.12": "partial",
-        "1.4.13": "partial",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -1520,7 +1518,7 @@
         "2.4.5": "product",
         "2.4.6": "verified",
         "2.4.7": "verified",
-        "2.4.11": "untested",
+        "2.4.11": "verified",
         "2.5.1": "n/a",
         "2.5.2": "library",
         "2.5.3": "verified",
@@ -3760,7 +3758,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-11-01",
+          "result": "pass",
+          "notes": "Automated run: completionburst, Start: \"Preparing your plan. Setting up your reading goals\" then \"Your plan is ready. Twelve weeks, three sessions a week\" spoken (role=status)."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -3822,7 +3828,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "n/a",
-        "4.1.3": "untested"
+        "4.1.3": "verified"
       }
     },
     {
@@ -6125,7 +6131,7 @@
         "1.4.10": "verified",
         "1.4.11": "deviation",
         "1.4.12": "partial",
-        "1.4.13": "partial",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -6139,7 +6145,7 @@
         "2.4.5": "product",
         "2.4.6": "verified",
         "2.4.7": "verified",
-        "2.4.11": "untested",
+        "2.4.11": "verified",
         "2.5.1": "n/a",
         "2.5.2": "library",
         "2.5.3": "verified",
@@ -8764,7 +8770,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-11-01",
+          "result": "pass",
+          "notes": "Automated run (a11y/voiceover, Мария's Mac): orbit-wall and orbit-fan, Next/Previous slide: \"{{i}} of 6: {{heading}}\" spoken, one update per step (fixed by agent1 the same day); the arrow-key hint is read with the carousel."
+        }
+      ],
       "deviations": [],
       "traits": [
         "autoMoving",
@@ -8831,7 +8845,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "verified",
-        "4.1.3": "untested"
+        "4.1.3": "verified"
       }
     },
     {
@@ -17330,7 +17344,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-11-01",
+          "result": "pass",
+          "notes": "Automated run: landing-ring and landing-fan (OrbitCarousel inside), \"{{i}} of {{n}}: {{heading}}\" spoken after Next/Previous."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
