@@ -1366,7 +1366,7 @@
       "file": "ui/hover-card",
       "category": "Overlays",
       "status": "stable",
-      "summary": "A quick preview of what a link points to — a user, a site, a ticket — that people could also get by clicking.",
+      "summary": "A quick preview of what a link points to — a user, a gallery, a client portal — that people could also get by clicking.",
       "instead": [
         {
           "when": "Anything people must reach on touch",

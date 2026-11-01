@@ -5,10 +5,10 @@
 
 # Long Content (overlays-tooltip--long-content)
 - button "Renewal details"
-- tooltip "Certificate renewal runs 30 days before expiry for shop.seashell.dev.eu-west-1.internal-load-balancer-01; no action needed."
+- tooltip "The print license renews 30 days before it expires for l4.aether.photo/mnemosyne/moonrise-over-othrys/L4_moonrise.raw; no action needed."
 
 # On Text Button (overlays-tooltip--on-text-button)
-- button "Reissue certificate"
+- button "Re-export previews"
 
 # Open (overlays-tooltip--open)
 - button "Hover or focus me"
@@ -27,4 +27,4 @@
 - button "Left"
 
 # With Identifier (overlays-tooltip--with-identifier)
-- button "Region details"
+- button "File details"

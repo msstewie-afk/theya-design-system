@@ -159,7 +159,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [ConfirmDialog](./?path=/docs/overlays-confirmdialog--docs): High-stakes, irreversible deletes where a click isn’t enough: `confirmValue` makes people type the name.
 - [Dialog](./?path=/docs/overlays-dialog--docs): A short, focused task that needs an answer before going on: rename, invite, a form of a few fields.
 - [Drawer](./?path=/docs/overlays-drawer--docs): Short, touch-first tasks from the bottom of a phone screen: sort, filters, share, a few actions.
-- [HoverCard](./?path=/docs/overlays-hovercard--docs): A quick preview of what a link points to — a user, a site, a ticket — that people could also get by clicking.
+- [HoverCard](./?path=/docs/overlays-hovercard--docs): A quick preview of what a link points to — a user, a gallery, a client portal — that people could also get by clicking.
 - [KeyboardShortcuts](./?path=/docs/overlays-keyboardshortcuts--docs): A help dialog listing an app’s shortcuts, opened from a menu or with “?”.
 - [Lightbox](./?path=/docs/overlays-lightbox--docs) (beta): Looking closely at images — screenshots, product photos, attachments — and moving through a set.
 - [MessagePopup](./?path=/docs/overlays-messagepopup--docs) (beta): A help or AI assistant that lives in a corner while the page stays usable beside it.

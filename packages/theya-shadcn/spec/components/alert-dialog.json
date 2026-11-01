@@ -26,7 +26,7 @@
   "anatomy": [
     {
       "part": "Title",
-      "description": "the question with the object: “Delete shop.seashell.dev?”."
+      "description": "the question with the object: “Delete Golden hour?”."
     },
     {
       "part": "Description",
@@ -34,18 +34,18 @@
     },
     {
       "part": "Actions",
-      "description": "`AlertDialogCancel` and `AlertDialogAction` labelled with the verb (“Delete site”), danger tone for destructive."
+      "description": "`AlertDialogCancel` and `AlertDialogAction` labelled with the verb (“Delete gallery”), danger tone for destructive."
     }
   ],
   "doDont": [
     {
       "do": {
         "caption": "Open it: the title names the object, the button names the action.",
-        "example": "<AlertDialog>\n  <AlertDialogTrigger asChild>\n    <Button appearance=\"outlined\" tone=\"danger\" size=\"md\">Delete site</Button>\n  </AlertDialogTrigger>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>Delete shop.seashell.dev?</AlertDialogTitle>\n      <AlertDialogDescription>Its files, databases and 14 backups are removed. This can’t be undone.</AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter>\n      <AlertDialogCancel>Cancel</AlertDialogCancel>\n      <AlertDialogAction>Delete site</AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>"
+        "example": "<AlertDialog>\n  <AlertDialogTrigger asChild>\n    <Button appearance=\"outlined\" tone=\"danger\" size=\"md\">Delete gallery</Button>\n  </AlertDialogTrigger>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>Delete Golden hour?</AlertDialogTitle>\n      <AlertDialogDescription>Its 412 photos, client favorites and 3 print licenses are removed. This can’t be undone.</AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter>\n      <AlertDialogCancel>Cancel</AlertDialogCancel>\n      <AlertDialogAction>Delete gallery</AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>"
       },
       "dont": {
         "caption": "“Are you sure? Yes / No” — sure about what, and what does Yes do?",
-        "example": "<AlertDialog>\n  <AlertDialogTrigger asChild>\n    <Button appearance=\"outlined\" tone=\"danger\" size=\"md\">Delete site</Button>\n  </AlertDialogTrigger>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>Are you sure?</AlertDialogTitle>\n      <AlertDialogDescription>Please confirm.</AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter>\n      <AlertDialogCancel>No</AlertDialogCancel>\n      <AlertDialogAction>Yes</AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>"
+        "example": "<AlertDialog>\n  <AlertDialogTrigger asChild>\n    <Button appearance=\"outlined\" tone=\"danger\" size=\"md\">Delete gallery</Button>\n  </AlertDialogTrigger>\n  <AlertDialogContent>\n    <AlertDialogHeader>\n      <AlertDialogTitle>Are you sure?</AlertDialogTitle>\n      <AlertDialogDescription>Please confirm.</AlertDialogDescription>\n    </AlertDialogHeader>\n    <AlertDialogFooter>\n      <AlertDialogCancel>No</AlertDialogCancel>\n      <AlertDialogAction>Yes</AlertDialogAction>\n    </AlertDialogFooter>\n  </AlertDialogContent>\n</AlertDialog>"
       }
     }
   ],

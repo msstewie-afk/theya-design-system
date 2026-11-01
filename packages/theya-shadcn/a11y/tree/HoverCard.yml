@@ -4,18 +4,18 @@
 - button "Owner"
 
 # Default (overlays-hovercard--default)
-- link "shop.seashell.dev":
+- link "selene-weddings.aether.photo":
   - /url: "#"
-- paragraph: shop.seashell.dev
-- paragraph: Running · eu-west-1 · TLS active
-- paragraph: 184,320 requests today
+- paragraph: selene-weddings.aether.photo
+- paragraph: Online · Selene Weddings · Print license active
+- paragraph: 1,284 views today
 
 # Open (overlays-hovercard--open)
-- link "blog.seashell.dev":
+- link "helios.aether.photo":
   - /url: "#"
-- paragraph: blog.seashell.dev
-- paragraph: Running · eu-west-1
+- paragraph: helios.aether.photo
+- paragraph: Online · Helios Studio
 
-# Site Preview (overlays-hovercard--site-preview)
-- link "api.seashell.dev":
+# Portal Preview (overlays-hovercard--portal-preview)
+- link "eos-portraits.aether.photo":
   - /url: "#"

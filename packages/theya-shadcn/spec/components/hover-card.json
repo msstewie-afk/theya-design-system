@@ -7,7 +7,7 @@
   "category": "Overlays",
   "description": "A preview card shown when a trigger is hovered or focused, on",
   "whenToUse": [
-    "A quick preview of what a link points to — a user, a site, a ticket — that people could also get by clicking."
+    "A quick preview of what a link points to — a user, a gallery, a client portal — that people could also get by clicking."
   ],
   "whenNotToUse": [
     {
@@ -36,12 +36,12 @@
   "doDont": [
     {
       "do": {
-        "caption": "Hover or focus the link for a preview; clicking still opens the site.",
-        "example": "<HoverCard>\n  <HoverCardTrigger asChild><Link href=\"#gl-hc\" size=\"md\" className=\"font-mono\">shop.seashell.dev</Link></HoverCardTrigger>\n  <HoverCardContent>\n    <p className=\"font-mono text-body-m font-medium text-[var(--color-text-text)]\">shop.seashell.dev</p>\n    <p className=\"mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]\">Running · eu-west-1 · 184,320 requests today</p>\n  </HoverCardContent>\n</HoverCard>"
+        "caption": "Hover or focus the link for a preview; clicking still opens the portal.",
+        "example": "<HoverCard>\n  <HoverCardTrigger asChild><Link href=\"#gl-hc\" size=\"md\" className=\"font-mono\">selene-weddings.aether.photo</Link></HoverCardTrigger>\n  <HoverCardContent>\n    <p className=\"font-mono text-body-m font-medium text-[var(--color-text-text)]\">selene-weddings.aether.photo</p>\n    <p className=\"mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]\">Online · Selene Weddings · 1,284 views today</p>\n  </HoverCardContent>\n</HoverCard>"
       },
       "dont": {
         "caption": "Actions that appear only on hover: unreachable on touch, and gone as the pointer moves.",
-        "example": "<HoverCard>\n  <HoverCardTrigger asChild><Link href=\"#gl-hc\" size=\"md\" className=\"font-mono\">api.seashell.dev</Link></HoverCardTrigger>\n  <HoverCardContent>\n    <div className=\"flex gap-2\">\n      <Button appearance=\"outlined\" tone=\"secondary\" size=\"sm\">Restart</Button>\n      <Button appearance=\"outlined\" tone=\"danger\" size=\"sm\">Stop</Button>\n    </div>\n  </HoverCardContent>\n</HoverCard>"
+        "example": "<HoverCard>\n  <HoverCardTrigger asChild><Link href=\"#gl-hc\" size=\"md\" className=\"font-mono\">eos-portraits.aether.photo</Link></HoverCardTrigger>\n  <HoverCardContent>\n    <div className=\"flex gap-2\">\n      <Button appearance=\"outlined\" tone=\"secondary\" size=\"sm\">Re-sync</Button>\n      <Button appearance=\"outlined\" tone=\"danger\" size=\"sm\">Unpublish</Button>\n    </div>\n  </HoverCardContent>\n</HoverCard>"
       }
     }
   ],
@@ -88,8 +88,8 @@
         "id": "overlays-hovercard--aligned"
       },
       {
-        "name": "SitePreview",
-        "id": "overlays-hovercard--site-preview"
+        "name": "PortalPreview",
+        "id": "overlays-hovercard--portal-preview"
       },
       {
         "name": "Open",

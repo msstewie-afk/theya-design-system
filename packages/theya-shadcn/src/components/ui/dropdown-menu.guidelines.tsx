@@ -25,12 +25,12 @@ export const dropdownMenuGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className={ROW}>
-            <span>shop.seashell.dev</span>
+            <span>Golden hour</span>
             <div className="flex items-center gap-1">
               <Button appearance="outlined" tone="secondary" size="sm">Open</Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button appearance="ghost" tone="secondary" size="sm" iconOnly leftIcon={<KebabIconVertical />} aria-label="More actions for shop.seashell.dev" />
+                  <Button appearance="ghost" tone="secondary" size="sm" iconOnly leftIcon={<KebabIconVertical />} aria-label="More actions for Golden hour" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem>Rename</DropdownMenuItem>
@@ -45,7 +45,7 @@ export const dropdownMenuGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <div className={ROW}>
-            <span>shop.seashell.dev</span>
+            <span>Golden hour</span>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button appearance="outlined" tone="secondary" size="sm" rightIcon={<NavArrowDown />}>Actions</Button>

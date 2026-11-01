@@ -56,12 +56,12 @@ export const Default: Story = {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button appearance="filled" tone="danger">
-          Delete server
+          Delete gallery
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete this server?</AlertDialogTitle>
+          <AlertDialogTitle>Delete this gallery?</AlertDialogTitle>
           <AlertDialogDescription>This action cannot be undone. All data will be permanently removed.</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -73,9 +73,9 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const page = within(document.body);
-    const trigger = within(canvasElement).getByRole('button', { name: 'Delete server' });
+    const trigger = within(canvasElement).getByRole('button', { name: 'Delete gallery' });
     await userEvent.click(trigger);
-    const dialog = await page.findByRole('alertdialog', { name: 'Delete this server?' });
+    const dialog = await page.findByRole('alertdialog', { name: 'Delete this gallery?' });
     await expect(dialog).toHaveAccessibleDescription('This action cannot be undone. All data will be permanently removed.');
     // A destructive confirm opens on the safe choice.
     await waitFor(() => expect(within(dialog).getByRole('button', { name: 'Cancel' })).toHaveFocus());
@@ -96,19 +96,19 @@ export const NonDestructive: Story = {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button appearance="outlined" tone="secondary">
-          Reissue certificate
+          Renew license
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Reissue certificate?</AlertDialogTitle>
+          <AlertDialogTitle>Renew print license?</AlertDialogTitle>
           <AlertDialogDescription>
-            shop.seashell.dev gets a fresh 90-day certificate. The current one keeps working until the new one is installed.
+            Rhea Okafor keeps print rights to Golden hour for another 12 months. The current license stays valid until the new term starts.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction appearance="filled" tone="primary">Reissue certificate</AlertDialogAction>
+          <AlertDialogAction appearance="filled" tone="primary">Renew license</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

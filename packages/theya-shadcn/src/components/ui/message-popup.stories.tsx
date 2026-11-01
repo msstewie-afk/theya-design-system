@@ -61,7 +61,7 @@ function AssistantPopup() {
         <Chat className="min-h-0 flex-1">
           <ChatMessages>
             <Message avatar={botAvatar} author="Assistant" timestamp="Now">
-              Hi! How can I help with your sites today?
+              Hi! How can I help with your galleries today?
             </Message>
           </ChatMessages>
           <div className="border-t border-solid border-[var(--color-border-border)] p-2">

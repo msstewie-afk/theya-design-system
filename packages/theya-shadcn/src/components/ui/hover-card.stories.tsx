@@ -24,7 +24,7 @@ const meta: Meta<typeof HoverCard> = {
     docs: {
       description: {
         component:
-          "A quick preview of what a link points to — a user, a site, a ticket — on hover or focus. People can always get the same by clicking.",
+          "A quick preview of what a link points to — a user, a gallery, a client portal — on hover or focus. People can always get the same by clicking.",
       },
     },
     guidelines: hoverCardGuidelines, layout: 'centered',
@@ -40,41 +40,41 @@ const meta: Meta<typeof HoverCard> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** The canonical pattern: hover or focus the domain link to glance at its
- * status, region, and certificate. The link still navigates on its own —
+/** The canonical pattern: hover or focus the portal link to glance at its
+ * status, studio, and license. The link still navigates on its own —
  * the card is a preview, not the only path. */
 export const Default: Story = {
   render: (args) => (
     <HoverCard {...args}>
       <HoverCardTrigger asChild>
         <Link href="#" size="md" className="font-mono">
-          shop.seashell.dev
+          selene-weddings.aether.photo
         </Link>
       </HoverCardTrigger>
       <HoverCardContent>
-        <p className="font-mono text-body-m font-medium text-[var(--color-text-text)]">shop.seashell.dev</p>
+        <p className="font-mono text-body-m font-medium text-[var(--color-text-text)]">selene-weddings.aether.photo</p>
         <p className="mt-2 flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-subtler)]">
           <StatusDot tone="success" />
-          Running · eu-west-1 · TLS active
+          Online · Selene Weddings · Print license active
         </p>
-        <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">184,320 requests today</p>
+        <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">1,284 views today</p>
       </HoverCardContent>
     </HoverCard>
   ),
   play: async ({ canvasElement }) => {
-    const link = within(canvasElement).getByRole('link', { name: 'shop.seashell.dev' });
+    const link = within(canvasElement).getByRole('link', { name: 'selene-weddings.aether.photo' });
     // Opens on hover (after the delay) and on keyboard focus too.
     await userEvent.hover(link);
-    await expect(await within(document.body).findByText('184,320 requests today')).toBeVisible();
+    await expect(await within(document.body).findByText('1,284 views today')).toBeVisible();
     await userEvent.unhover(link);
-    await waitFor(() => expect(within(document.body).queryByText('184,320 requests today')).toBeNull(), { timeout: 3000 });
+    await waitFor(() => expect(within(document.body).queryByText('1,284 views today')).toBeNull(), { timeout: 3000 });
     resetFocus();
     await tabTo(link);
-    await expect(await within(document.body).findByText('184,320 requests today')).toBeVisible();
+    await expect(await within(document.body).findByText('1,284 views today')).toBeVisible();
     // Tabbing on closes it: the card holds no tab stops of its own.
     await userEvent.tab();
     await expect(link).not.toHaveFocus();
-    await waitFor(() => expect(within(document.body).queryByText('184,320 requests today')).toBeNull(), { timeout: 3000 });
+    await waitFor(() => expect(within(document.body).queryByText('1,284 views today')).toBeNull(), { timeout: 3000 });
   },
 };
 
@@ -90,24 +90,24 @@ export const Aligned: Story = {
         </button>
       </HoverCardTrigger>
       <HoverCardContent align="start" sideOffset={12}>
-        <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Jordan Kim</p>
-        <p className="mt-1 font-mono text-body-s text-[var(--color-text-text-subtler)]">jordan@seashell.dev</p>
-        <p className="mt-2 font-body text-body-s text-[var(--color-text-text-subtler)]">Owner since v2.4.0 · 3 sites</p>
+        <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Thea Marlow</p>
+        <p className="mt-1 font-mono text-body-s text-[var(--color-text-text-subtler)]">thea@aether.photo</p>
+        <p className="mt-2 font-body text-body-s text-[var(--color-text-text-subtler)]">Owner since March 2024 · 6 studios</p>
       </HoverCardContent>
     </HoverCard>
   ),
 };
 
-/** A richer preview: an icon, a domain, a status row (never color-alone —
+/** A richer preview: an icon, a portal address, a status row (never color-alone —
  * `StatusDot` is paired with a text label), and a short metadata list. The
  * card caps its width and wraps long text so it stays inside a 360px
  * viewport. */
-export const SitePreview: Story = {
+export const PortalPreview: Story = {
   render: (args) => (
     <HoverCard {...args}>
       <HoverCardTrigger asChild>
         <Link href="#" size="md" className="font-mono">
-          api.seashell.dev
+          eos-portraits.aether.photo
         </Link>
       </HoverCardTrigger>
       <HoverCardContent className="w-96">
@@ -116,18 +116,18 @@ export const SitePreview: Story = {
             <Globe />
           </span>
           <div className="min-w-0">
-            <p className="truncate font-mono text-body-m font-medium text-[var(--color-text-text)]">api.seashell.dev</p>
+            <p className="truncate font-mono text-body-m font-medium text-[var(--color-text-text)]">eos-portraits.aether.photo</p>
             <p className="mt-1 flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-subtler)]">
               <StatusDot tone="danger" />
-              Error · last deploy failed
+              Error · last export failed
             </p>
             <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 font-body text-body-s">
-              <dt className="text-[var(--color-text-text-subtler)]">Region</dt>
-              <dd className="font-mono text-[var(--color-text-text)]">eu-west-1</dd>
+              <dt className="text-[var(--color-text-text-subtler)]">Studio</dt>
+              <dd className="text-[var(--color-text-text)]">Eos Portraits</dd>
               <dt className="text-[var(--color-text-text-subtler)]">Plan</dt>
-              <dd className="text-[var(--color-text-text)]">Scale</dd>
-              <dt className="text-[var(--color-text-text-subtler)]">Requests</dt>
-              <dd className="text-[var(--color-text-text)]">902,540 / day</dd>
+              <dd className="text-[var(--color-text-text)]">Business</dd>
+              <dt className="text-[var(--color-text-text-subtler)]">Downloads</dt>
+              <dd className="text-[var(--color-text-text)]">1,920 / day</dd>
             </dl>
           </div>
         </div>
@@ -145,14 +145,14 @@ export const Open: Story = {
     <HoverCard {...args}>
       <HoverCardTrigger asChild>
         <Link href="#" size="md" className="font-mono">
-          blog.seashell.dev
+          helios.aether.photo
         </Link>
       </HoverCardTrigger>
       <HoverCardContent>
-        <p className="font-mono text-body-m font-medium text-[var(--color-text-text)]">blog.seashell.dev</p>
+        <p className="font-mono text-body-m font-medium text-[var(--color-text-text)]">helios.aether.photo</p>
         <p className="mt-2 flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-subtler)]">
           <StatusDot tone="success" />
-          Running · eu-west-1
+          Online · Helios Studio
         </p>
       </HoverCardContent>
     </HoverCard>

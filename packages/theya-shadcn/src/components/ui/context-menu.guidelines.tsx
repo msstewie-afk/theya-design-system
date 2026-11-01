@@ -24,10 +24,10 @@ export const contextMenuGuidelines: ComponentGuidelines = {
           <ContextMenu>
             <ContextMenuTrigger asChild>
               <div className={TILE}>
-                <span>report.pdf</span>
+                <span>DAWN_0412.jpg</span>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button appearance="ghost" tone="secondary" size="sm" iconOnly leftIcon={<KebabIconVertical />} aria-label="More actions for report.pdf" />
+                    <Button appearance="ghost" tone="secondary" size="sm" iconOnly leftIcon={<KebabIconVertical />} aria-label="More actions for DAWN_0412.jpg" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem>Rename</DropdownMenuItem>
@@ -49,7 +49,7 @@ export const contextMenuGuidelines: ComponentGuidelines = {
           <ContextMenu>
             <ContextMenuTrigger asChild>
               <div className={TILE}>
-                <span>report.pdf</span>
+                <span>DAWN_0412.jpg</span>
               </div>
             </ContextMenuTrigger>
             <ContextMenuContent>

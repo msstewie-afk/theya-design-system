@@ -34,11 +34,11 @@
     {
       "do": {
         "caption": "Right-click is a shortcut; the same actions are behind the visible kebab.",
-        "example": "<ContextMenu>\n  <ContextMenuTrigger asChild>\n    <div className={TILE}>\n      <span>report.pdf</span>\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <Button appearance=\"ghost\" tone=\"secondary\" size=\"sm\" iconOnly leftIcon={<KebabIconVertical />} aria-label=\"More actions for report.pdf\" />\n        </DropdownMenuTrigger>\n        <DropdownMenuContent align=\"end\">\n          <DropdownMenuItem>Rename</DropdownMenuItem>\n          <DropdownMenuItem tone=\"danger\">Delete</DropdownMenuItem>\n        </DropdownMenuContent>\n      </DropdownMenu>\n    </div>\n  </ContextMenuTrigger>\n  <ContextMenuContent>\n    <ContextMenuItem>Rename</ContextMenuItem>\n    <ContextMenuItem tone=\"danger\">Delete</ContextMenuItem>\n  </ContextMenuContent>\n</ContextMenu>"
+        "example": "<ContextMenu>\n  <ContextMenuTrigger asChild>\n    <div className={TILE}>\n      <span>DAWN_0412.jpg</span>\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <Button appearance=\"ghost\" tone=\"secondary\" size=\"sm\" iconOnly leftIcon={<KebabIconVertical />} aria-label=\"More actions for DAWN_0412.jpg\" />\n        </DropdownMenuTrigger>\n        <DropdownMenuContent align=\"end\">\n          <DropdownMenuItem>Rename</DropdownMenuItem>\n          <DropdownMenuItem tone=\"danger\">Delete</DropdownMenuItem>\n        </DropdownMenuContent>\n      </DropdownMenu>\n    </div>\n  </ContextMenuTrigger>\n  <ContextMenuContent>\n    <ContextMenuItem>Rename</ContextMenuItem>\n    <ContextMenuItem tone=\"danger\">Delete</ContextMenuItem>\n  </ContextMenuContent>\n</ContextMenu>"
       },
       "dont": {
         "caption": "Actions only on right-click: invisible, and out of reach on touch and for many keyboard users.",
-        "example": "<ContextMenu>\n  <ContextMenuTrigger asChild>\n    <div className={TILE}>\n      <span>report.pdf</span>\n    </div>\n  </ContextMenuTrigger>\n  <ContextMenuContent>\n    <ContextMenuItem>Rename</ContextMenuItem>\n    <ContextMenuItem tone=\"danger\">Delete</ContextMenuItem>\n  </ContextMenuContent>\n</ContextMenu>"
+        "example": "<ContextMenu>\n  <ContextMenuTrigger asChild>\n    <div className={TILE}>\n      <span>DAWN_0412.jpg</span>\n    </div>\n  </ContextMenuTrigger>\n  <ContextMenuContent>\n    <ContextMenuItem>Rename</ContextMenuItem>\n    <ContextMenuItem tone=\"danger\">Delete</ContextMenuItem>\n  </ContextMenuContent>\n</ContextMenu>"
       }
     }
   ],

@@ -54,18 +54,18 @@ export const Default: Story = {
     <Dialog>
       <DialogTrigger asChild>
         <Button appearance="filled" tone="primary">
-          Create site
+          Create gallery
         </Button>
       </DialogTrigger>
       <DialogContent gap="none">
         <DialogHeader showDivider={false}>
-          <DialogTitle>Create site</DialogTitle>
-          <DialogDescription>Point a domain at a new site. You can change the region later.</DialogDescription>
+          <DialogTitle>Create gallery</DialogTitle>
+          <DialogDescription>Add a gallery for a client shoot. You can move it to another studio later.</DialogDescription>
         </DialogHeader>
         <DialogBody showDivider className="flex-none pt-0 pb-5">
           <div className="flex flex-col gap-2">
-            <Label htmlFor="new-domain">Domain</Label>
-            <TextField id="new-domain" className="font-mono" placeholder="shop.seashell.dev" widthSize="full" />
+            <Label htmlFor="new-gallery">Gallery name</Label>
+            <TextField id="new-gallery" placeholder="Golden hour" widthSize="full" />
           </div>
         </DialogBody>
         <DialogFooter showDivider={false}>
@@ -76,7 +76,7 @@ export const Default: Story = {
           </DialogClose>
           <DialogClose asChild>
             <Button appearance="filled" tone="primary">
-              Create site
+              Create gallery
             </Button>
           </DialogClose>
         </DialogFooter>
@@ -88,11 +88,11 @@ export const Default: Story = {
   // trigger. Ends closed (an open modal aria-hides #storybook-root).
   play: async ({ canvasElement }) => {
     const body = within(document.body);
-    const trigger = within(canvasElement).getByRole('button', { name: 'Create site' });
+    const trigger = within(canvasElement).getByRole('button', { name: 'Create gallery' });
 
     await userEvent.click(trigger);
-    const dialog = await body.findByRole('dialog', { name: 'Create site' });
-    await expect(dialog).toHaveAccessibleDescription('Point a domain at a new site. You can change the region later.');
+    const dialog = await body.findByRole('dialog', { name: 'Create gallery' });
+    await expect(dialog).toHaveAccessibleDescription('Add a gallery for a client shoot. You can move it to another studio later.');
     await waitFor(() => expect(dialog.contains(document.activeElement)).toBe(true));
 
     for (let i = 0; i < 6; i++) {
@@ -105,7 +105,7 @@ export const Default: Story = {
     await waitFor(() => expect(trigger).toHaveFocus());
 
     await userEvent.keyboard('{Enter}');
-    await body.findByRole('dialog', { name: 'Create site' });
+    await body.findByRole('dialog', { name: 'Create gallery' });
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(body.queryByRole('dialog')).toBeNull());
     await waitFor(() => expect(trigger).toHaveFocus());
@@ -128,8 +128,8 @@ export const Open: Story = {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader showDivider={false}>
-          <DialogTitle>Reissue certificate</DialogTitle>
-          <DialogDescription>shop.seashell.dev will get a fresh 90-day certificate. This is non-destructive.</DialogDescription>
+          <DialogTitle>Renew license</DialogTitle>
+          <DialogDescription>Rhea Okafor’s print license for Golden hour is renewed for 12 months. This is non-destructive.</DialogDescription>
         </DialogHeader>
         <DialogFooter showDivider={false}>
           <DialogClose asChild>
@@ -139,7 +139,7 @@ export const Open: Story = {
           </DialogClose>
           <DialogClose asChild>
             <Button appearance="filled" tone="primary">
-              Reissue certificate
+              Renew license
             </Button>
           </DialogClose>
         </DialogFooter>
@@ -165,9 +165,9 @@ export const OverflowRepro: Story = {
       </DialogTrigger>
       <DialogContent gap="none">
         <DialogHeader showDivider={false}>
-          <DialogTitle>Test mode</DialogTitle>
+          <DialogTitle>Preview link</DialogTitle>
           <DialogDescription>
-            Applies a new ruleset, then automatically reverts to the previous configuration if you don't confirm within a timeout.
+            Sends the client a preview of the gallery, then automatically turns the link off if it isn't opened within this time.
           </DialogDescription>
         </DialogHeader>
         <DialogBody showDivider className="flex-none pt-0 pb-5">
@@ -214,11 +214,11 @@ function MoveStep({ step }: { step: number }) {
     return (
       <>
         <div className="flex flex-col gap-2">
-          <Label htmlFor="wizard-target">Target region</Label>
-          <TextField id="wizard-target" className="font-mono" defaultValue="us-east-1" widthSize="full" />
+          <Label htmlFor="wizard-target">Target studio</Label>
+          <TextField id="wizard-target" defaultValue="Studio L4" widthSize="full" />
         </div>
         <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">
-          We only read the project's data at this point. Nothing changes for visitors until you approve the plan on the next step.
+          We only read the gallery's files at this point. Nothing changes for clients until you approve the plan on the next step.
         </p>
       </>
     );
@@ -227,10 +227,10 @@ function MoveStep({ step }: { step: number }) {
     return (
       <>
         <p className="font-body text-body-s text-[var(--color-text-text)]">
-          3 databases (4.2 GB), 18 environment variables and 6 scheduled jobs will be moved. 1 custom domain needs its DNS record updated afterwards.
+          412 photos (38.6 GB), 24 client favorites and 3 print licenses will be moved. 1 client portal needs its link updated afterwards.
         </p>
-        <div className="rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] p-4 font-mono text-body-s text-[var(--color-text-text-subtler)]">
-          seashell-shop · eu-west-1 → us-east-1
+        <div className="rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] p-4 font-body text-body-s text-[var(--color-text-text-subtler)]">
+          Moonrise over Othrys · Othrys Lodge → Studio L4
         </div>
       </>
     );
@@ -238,13 +238,13 @@ function MoveStep({ step }: { step: number }) {
   if (step === 2) {
     return (
       <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">
-        Copying data and switching traffic. This takes a few minutes; the current region keeps serving until the switch-over completes.
+        Copying photos and switching client access. This takes a few minutes; the current studio keeps serving the gallery until the switch-over completes.
       </p>
     );
   }
   return (
     <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">
-      seashell-shop now runs in <span className="font-mono">us-east-1</span>. The copy in eu-west-1 is kept for 30 days.
+      Moonrise over Othrys now lives in Studio L4. The copy in Othrys Lodge is kept for 30 days.
     </p>
   );
 }
@@ -255,8 +255,8 @@ function MoveStep({ step }: { step: number }) {
  * semantics (overlay, focus trap, Esc). The header carries the title and a
  * "Step n of 4" line; DialogBody takes the rest of the height and scrolls on
  * its own. No DialogFooter here: this flow moves forward on each step's own
- * action (there is no Back - the steps are not reversible once traffic
- * has switched), and the X in the header is the single exit.
+ * action (there is no Back - the steps are not reversible once client
+ * access has switched), and the X in the header is the single exit.
  */
 function MoveWizard() {
   const [step, setStep] = useState(0);
@@ -266,9 +266,9 @@ function MoveWizard() {
     <DialogContent size="full">
       <DialogHeader className="gap-2">
         <div className="flex flex-col gap-1 pr-10">
-          <DialogTitle>Move project to another region</DialogTitle>
+          <DialogTitle>Move gallery to another studio</DialogTitle>
           <DialogDescription>
-            Move <span className="font-mono">seashell-shop</span> from eu-west-1 with its data and settings.
+            Move Moonrise over Othrys from Othrys Lodge with its photos and settings.
           </DialogDescription>
         </div>
         <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">
@@ -308,7 +308,7 @@ export const Fullscreen: Story = {
     <Dialog>
       <DialogTrigger asChild>
         <Button appearance="filled" tone="primary">
-          Move project
+          Move gallery
         </Button>
       </DialogTrigger>
       <MoveWizard />

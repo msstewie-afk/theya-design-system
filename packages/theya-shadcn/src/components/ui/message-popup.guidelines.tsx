@@ -23,7 +23,7 @@ export const messagePopupGuidelines: ComponentGuidelines = {
             <MessagePopupTrigger>
               <Button appearance="filled" tone="primary" size="lg" iconOnly leftIcon={<ChatBubble />} aria-label="Open assistant" />
             </MessagePopupTrigger>
-            <MessagePopupContent title="Assistant" description="Ask about your sites and billing.">
+            <MessagePopupContent title="Assistant" description="Ask about your galleries and billing.">
               <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">Hi! How can I help?</p>
             </MessagePopupContent>
           </MessagePopup>
@@ -39,7 +39,7 @@ export const messagePopupGuidelines: ComponentGuidelines = {
             <MessagePopupContent title="New support ticket">
               <div className="flex flex-col gap-3">
                 <TextField label="Subject" widthSize="full" />
-                <TextField label="Site" widthSize="full" />
+                <TextField label="Gallery" widthSize="full" />
                 <TextField label="Contact email" widthSize="full" />
               </div>
             </MessagePopupContent>

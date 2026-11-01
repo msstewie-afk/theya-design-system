@@ -41,11 +41,11 @@
     {
       "do": {
         "caption": "A few big tap targets; one tap and it’s gone.",
-        "example": "<Drawer>\n  <DrawerTrigger asChild><Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Sort</Button></DrawerTrigger>\n  <DrawerContent>\n    <DrawerHeader>\n      <DrawerTitle>Sort sites</DrawerTitle>\n      <DrawerDescription>Choose an order for the list.</DrawerDescription>\n    </DrawerHeader>\n    <DrawerBody>\n      <div className=\"flex flex-col gap-2\">\n        {['Newest first', 'Name A–Z', 'Most traffic'].map((o) => (\n          <DrawerClose key={o} asChild>\n            <Button appearance=\"ghost\" tone=\"secondary\" size=\"lg\" className=\"justify-start\">{o}</Button>\n          </DrawerClose>\n        ))}\n      </div>\n    </DrawerBody>\n  </DrawerContent>\n</Drawer>"
+        "example": "<Drawer>\n  <DrawerTrigger asChild><Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Sort</Button></DrawerTrigger>\n  <DrawerContent>\n    <DrawerHeader>\n      <DrawerTitle>Sort galleries</DrawerTitle>\n      <DrawerDescription>Choose an order for the list.</DrawerDescription>\n    </DrawerHeader>\n    <DrawerBody>\n      <div className=\"flex flex-col gap-2\">\n        {['Newest first', 'Name A–Z', 'Most viewed'].map((o) => (\n          <DrawerClose key={o} asChild>\n            <Button appearance=\"ghost\" tone=\"secondary\" size=\"lg\" className=\"justify-start\">{o}</Button>\n          </DrawerClose>\n        ))}\n      </div>\n    </DrawerBody>\n  </DrawerContent>\n</Drawer>"
       },
       "dont": {
         "caption": "A four-step wizard in a sheet one swipe can throw away.",
-        "example": "<Drawer>\n  <DrawerTrigger asChild><Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Create site</Button></DrawerTrigger>\n  <DrawerContent>\n    <DrawerHeader>\n      <DrawerTitle>Create site — step 1 of 4</DrawerTitle>\n      <DrawerDescription>Domain, plan, region, database, admin account…</DrawerDescription>\n    </DrawerHeader>\n    <DrawerFooter>\n      <Button appearance=\"filled\" tone=\"primary\" size=\"lg\">Next</Button>\n    </DrawerFooter>\n  </DrawerContent>\n</Drawer>"
+        "example": "<Drawer>\n  <DrawerTrigger asChild><Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Create gallery</Button></DrawerTrigger>\n  <DrawerContent>\n    <DrawerHeader>\n      <DrawerTitle>Create gallery — step 1 of 4</DrawerTitle>\n      <DrawerDescription>Client, studio, portal, licenses, archive…</DrawerDescription>\n    </DrawerHeader>\n    <DrawerFooter>\n      <Button appearance=\"filled\" tone=\"primary\" size=\"lg\">Next</Button>\n    </DrawerFooter>\n  </DrawerContent>\n</Drawer>"
       }
     }
   ],

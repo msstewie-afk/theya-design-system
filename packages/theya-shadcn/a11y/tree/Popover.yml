@@ -17,7 +17,7 @@
 # Open (overlays-popover--open)
 - button "Filters" [expanded]
 - dialog "Filters":
-  - paragraph: Filter sites by status and region.
+  - paragraph: Filter galleries by status and studio.
 
 # Playground (overlays-popover--playground)
 - button "Open popover"

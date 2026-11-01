@@ -20,8 +20,8 @@ export const keyboardShortcutsGuidelines: ComponentGuidelines = {
           <KeyboardShortcuts
             trigger={<Button appearance="outlined" tone="secondary" size="md">Grouped shortcuts</Button>}
             groups={[
-              { heading: 'Navigation', shortcuts: [{ keys: ['G', 'then', 'S'], description: 'Go to Sites' }, { keys: ['/'], description: 'Search' }] },
-              { heading: 'Actions', shortcuts: [{ keys: ['N'], description: 'New site' }, { keys: ['?'], description: 'Show shortcuts' }] },
+              { heading: 'Navigation', shortcuts: [{ keys: ['G', 'then', 'G'], description: 'Go to galleries' }, { keys: ['/'], description: 'Search' }] },
+              { heading: 'Actions', shortcuts: [{ keys: ['N'], description: 'New gallery' }, { keys: ['?'], description: 'Show shortcuts' }] },
             ]}
           />
         ),
@@ -34,9 +34,9 @@ export const keyboardShortcutsGuidelines: ComponentGuidelines = {
             groups={[
               {
                 shortcuts: [
-                  { keys: ['N'], description: 'New site' },
+                  { keys: ['N'], description: 'New gallery' },
                   { keys: ['/'], description: 'Search' },
-                  { keys: ['G', 'then', 'S'], description: 'Go to Sites' },
+                  { keys: ['G', 'then', 'G'], description: 'Go to galleries' },
                   { keys: ['E'], description: 'Edit' },
                   { keys: ['?'], description: 'Show shortcuts' },
                   { keys: ['G', 'then', 'B'], description: 'Go to Billing' },
@@ -52,6 +52,6 @@ export const keyboardShortcutsGuidelines: ComponentGuidelines = {
   a11y: [
     'A single-character hotkey must be scoped or switchable (WCAG 2.1.4) — pass scopeRef.',
     'The hotkey is ignored while typing in a field.',
-    'Keys are read as text, in order (“G then S”).',
+    'Keys are read as text, in order (“G then G”).',
   ],
 };

@@ -7,7 +7,7 @@
   "category": "Overlays",
   "whenToUse": [
     "High-stakes, irreversible deletes where a click isn’t enough: `confirmValue` makes people type the name.",
-    "Deleting a domain, a database, an organisation."
+    "Deleting a client portal, an archive, an organization."
   ],
   "whenNotToUse": [
     {
@@ -37,8 +37,8 @@
   "doDont": [
     {
       "do": {
-        "caption": "Typing the domain makes deleting the wrong one unlikely.",
-        "example": "<ConfirmDialog\n  title=\"Delete seashell.dev?\"\n  description=\"All DNS records, mailboxes and certificates for this domain are removed.\"\n  confirmValue=\"seashell.dev\"\n  confirmLabel=\"Delete domain\"\n  tone=\"danger\"\n  trigger={<Button appearance=\"outlined\" tone=\"danger\" size=\"md\">Delete domain</Button>}\n/>"
+        "caption": "Typing the portal address makes deleting the wrong one unlikely.",
+        "example": "<ConfirmDialog\n  title=\"Delete eos-portraits.aether.photo?\"\n  description=\"The portal, its 9 client galleries and their download links are removed.\"\n  confirmValue=\"eos-portraits.aether.photo\"\n  confirmLabel=\"Delete portal\"\n  tone=\"danger\"\n  trigger={<Button appearance=\"outlined\" tone=\"danger\" size=\"md\">Delete portal</Button>}\n/>"
       },
       "dont": {
         "caption": "Typing a title to archive a draft that can be restored: friction with no protection.",
@@ -86,7 +86,7 @@
           "type": "boolean",
           "required": false,
           "default": "true",
-          "description": "Monospace the typed value (a domain, slug, id, etc). Set false for a non-identifier value like an email. Defaults to true."
+          "description": "Monospace the typed value (a portal address, slug, id, etc). Set false for a non-identifier value like an email. Defaults to true."
         },
         {
           "name": "contentGap",

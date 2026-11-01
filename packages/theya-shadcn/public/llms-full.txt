@@ -167,9 +167,9 @@ Docs: ./?path=/docs/overlays-alertdialog--docs
 
 **Anatomy**
 
-- Title: the question with the object: “Delete shop.seashell.dev?”.
+- Title: the question with the object: “Delete Golden hour?”.
 - Description: what will happen and what can’t be undone.
-- Actions: `AlertDialogCancel` and `AlertDialogAction` labelled with the verb (“Delete site”), danger tone for destructive.
+- Actions: `AlertDialogCancel` and `AlertDialogAction` labelled with the verb (“Delete gallery”), danger tone for destructive.
 
 **AlertDialog props**
 
@@ -237,16 +237,16 @@ Also accepts the props of: DialogProps, HTMLAttributes, DialogContentProps, Dism
   ```tsx
   <AlertDialog>
     <AlertDialogTrigger asChild>
-      <Button appearance="outlined" tone="danger" size="md">Delete site</Button>
+      <Button appearance="outlined" tone="danger" size="md">Delete gallery</Button>
     </AlertDialogTrigger>
     <AlertDialogContent>
       <AlertDialogHeader>
-        <AlertDialogTitle>Delete shop.seashell.dev?</AlertDialogTitle>
-        <AlertDialogDescription>Its files, databases and 14 backups are removed. This can’t be undone.</AlertDialogDescription>
+        <AlertDialogTitle>Delete Golden hour?</AlertDialogTitle>
+        <AlertDialogDescription>Its 412 photos, client favorites and 3 print licenses are removed. This can’t be undone.</AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
         <AlertDialogCancel>Cancel</AlertDialogCancel>
-        <AlertDialogAction>Delete site</AlertDialogAction>
+        <AlertDialogAction>Delete gallery</AlertDialogAction>
       </AlertDialogFooter>
     </AlertDialogContent>
   </AlertDialog>
@@ -257,7 +257,7 @@ Also accepts the props of: DialogProps, HTMLAttributes, DialogContentProps, Dism
   ```tsx
   <AlertDialog>
     <AlertDialogTrigger asChild>
-      <Button appearance="outlined" tone="danger" size="md">Delete site</Button>
+      <Button appearance="outlined" tone="danger" size="md">Delete gallery</Button>
     </AlertDialogTrigger>
     <AlertDialogContent>
       <AlertDialogHeader>
@@ -2612,7 +2612,7 @@ Docs: ./?path=/docs/overlays-confirmdialog--docs
 **When to use**
 
 - High-stakes, irreversible deletes where a click isn’t enough: `confirmValue` makes people type the name.
-- Deleting a domain, a database, an organisation.
+- Deleting a client portal, an archive, an organization.
 
 **When not to use**
 
@@ -2632,7 +2632,7 @@ Docs: ./?path=/docs/overlays-confirmdialog--docs
 - `confirmIcon?`: `ReactNode`
 - `confirmLabel?`: `string`
 - `confirmValue?`: `string` — Require the user to type this string exactly to enable the action.
-- `confirmValueMono?`: `boolean`, default `true` — Monospace the typed value (a domain, slug, id, etc). Set false for a non-identifier value like an email. Defaults to true.
+- `confirmValueMono?`: `boolean`, default `true` — Monospace the typed value (a portal address, slug, id, etc). Set false for a non-identifier value like an email. Defaults to true.
 - `contentGap?`: `"none" | "md" | "sm"`, default `md`
 - `description?`: `ReactNode`
 - `onConfirm?`: `(() => void)`
@@ -2646,16 +2646,16 @@ Docs: ./?path=/docs/overlays-confirmdialog--docs
 
 **Do / Don’t**
 
-- Do: Typing the domain makes deleting the wrong one unlikely.
+- Do: Typing the portal address makes deleting the wrong one unlikely.
 
   ```tsx
   <ConfirmDialog
-    title="Delete seashell.dev?"
-    description="All DNS records, mailboxes and certificates for this domain are removed."
-    confirmValue="seashell.dev"
-    confirmLabel="Delete domain"
+    title="Delete eos-portraits.aether.photo?"
+    description="The portal, its 9 client galleries and their download links are removed."
+    confirmValue="eos-portraits.aether.photo"
+    confirmLabel="Delete portal"
     tone="danger"
-    trigger={<Button appearance="outlined" tone="danger" size="md">Delete domain</Button>}
+    trigger={<Button appearance="outlined" tone="danger" size="md">Delete portal</Button>}
   />
   ```
 
@@ -2723,10 +2723,10 @@ Also accepts the props of: ContextMenuProps, HTMLAttributes, MenuContentProps, M
   <ContextMenu>
     <ContextMenuTrigger asChild>
       <div className={TILE}>
-        <span>report.pdf</span>
+        <span>DAWN_0412.jpg</span>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button appearance="ghost" tone="secondary" size="sm" iconOnly leftIcon={<KebabIconVertical />} aria-label="More actions for report.pdf" />
+            <Button appearance="ghost" tone="secondary" size="sm" iconOnly leftIcon={<KebabIconVertical />} aria-label="More actions for DAWN_0412.jpg" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem>Rename</DropdownMenuItem>
@@ -2748,7 +2748,7 @@ Also accepts the props of: ContextMenuProps, HTMLAttributes, MenuContentProps, M
   <ContextMenu>
     <ContextMenuTrigger asChild>
       <div className={TILE}>
-        <span>report.pdf</span>
+        <span>DAWN_0412.jpg</span>
       </div>
     </ContextMenuTrigger>
     <ContextMenuContent>
@@ -3660,13 +3660,13 @@ Also accepts the props of: DialogProps, DialogContentProps, HTMLAttributes, Dism
 - Do: Small and finishable in one go.
 
   ```tsx
-  <DialogMock title="Rename database" actions={<><Button appearance="outlined" tone="secondary" size="md">Cancel</Button><Button size="md">Rename</Button></>}>One field, one decision.</DialogMock>
+  <DialogMock title="Rename gallery" actions={<><Button appearance="outlined" tone="secondary" size="md">Cancel</Button><Button size="md">Rename</Button></>}>One field, one decision.</DialogMock>
   ```
 
 - Don’t: A wizard in a dialog: no room, no URL, easy to lose with one Escape.
 
   ```tsx
-  <DialogMock title="Edit site settings" actions={<Button size="md">Next</Button>}>Step 1 of 6 — General, Domains, Environment, Build, SSL, Backups…</DialogMock>
+  <DialogMock title="Edit gallery settings" actions={<Button size="md">Next</Button>}>Step 1 of 6 — General, Client portal, Licenses, Downloads, Exports, Archive…</DialogMock>
   ```
 
 
@@ -3912,12 +3912,12 @@ Also accepts the props of: WithFadeFromProps, WithoutFadeFromProps, HTMLAttribut
     <DrawerTrigger asChild><Button appearance="outlined" tone="secondary" size="md">Sort</Button></DrawerTrigger>
     <DrawerContent>
       <DrawerHeader>
-        <DrawerTitle>Sort sites</DrawerTitle>
+        <DrawerTitle>Sort galleries</DrawerTitle>
         <DrawerDescription>Choose an order for the list.</DrawerDescription>
       </DrawerHeader>
       <DrawerBody>
         <div className="flex flex-col gap-2">
-          {['Newest first', 'Name A–Z', 'Most traffic'].map((o) => (
+          {['Newest first', 'Name A–Z', 'Most viewed'].map((o) => (
             <DrawerClose key={o} asChild>
               <Button appearance="ghost" tone="secondary" size="lg" className="justify-start">{o}</Button>
             </DrawerClose>
@@ -3932,11 +3932,11 @@ Also accepts the props of: WithFadeFromProps, WithoutFadeFromProps, HTMLAttribut
 
   ```tsx
   <Drawer>
-    <DrawerTrigger asChild><Button appearance="outlined" tone="secondary" size="md">Create site</Button></DrawerTrigger>
+    <DrawerTrigger asChild><Button appearance="outlined" tone="secondary" size="md">Create gallery</Button></DrawerTrigger>
     <DrawerContent>
       <DrawerHeader>
-        <DrawerTitle>Create site — step 1 of 4</DrawerTitle>
-        <DrawerDescription>Domain, plan, region, database, admin account…</DrawerDescription>
+        <DrawerTitle>Create gallery — step 1 of 4</DrawerTitle>
+        <DrawerDescription>Client, studio, portal, licenses, archive…</DrawerDescription>
       </DrawerHeader>
       <DrawerFooter>
         <Button appearance="filled" tone="primary" size="lg">Next</Button>
@@ -4001,12 +4001,12 @@ Also accepts the props of: DropdownMenuProps, ButtonHTMLAttributes, HTMLAttribut
 
   ```tsx
   <div className={ROW}>
-    <span>shop.seashell.dev</span>
+    <span>Golden hour</span>
     <div className="flex items-center gap-1">
       <Button appearance="outlined" tone="secondary" size="sm">Open</Button>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button appearance="ghost" tone="secondary" size="sm" iconOnly leftIcon={<KebabIconVertical />} aria-label="More actions for shop.seashell.dev" />
+          <Button appearance="ghost" tone="secondary" size="sm" iconOnly leftIcon={<KebabIconVertical />} aria-label="More actions for Golden hour" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem>Rename</DropdownMenuItem>
@@ -4021,7 +4021,7 @@ Also accepts the props of: DropdownMenuProps, ButtonHTMLAttributes, HTMLAttribut
 
   ```tsx
   <div className={ROW}>
-    <span>shop.seashell.dev</span>
+    <span>Golden hour</span>
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button appearance="outlined" tone="secondary" size="sm" rightIcon={<NavArrowDown />}>Actions</Button>
@@ -4888,7 +4888,7 @@ Docs: ./?path=/docs/overlays-hovercard--docs
 
 **When to use**
 
-- A quick preview of what a link points to — a user, a site, a ticket — that people could also get by clicking.
+- A quick preview of what a link points to — a user, a gallery, a client portal — that people could also get by clicking.
 
 **When not to use**
 
@@ -4905,14 +4905,14 @@ Also accepts the props of: HoverCardProps, HoverCardContentProps, HoverCardConte
 
 **Do / Don’t**
 
-- Do: Hover or focus the link for a preview; clicking still opens the site.
+- Do: Hover or focus the link for a preview; clicking still opens the portal.
 
   ```tsx
   <HoverCard>
-    <HoverCardTrigger asChild><Link href="#gl-hc" size="md" className="font-mono">shop.seashell.dev</Link></HoverCardTrigger>
+    <HoverCardTrigger asChild><Link href="#gl-hc" size="md" className="font-mono">selene-weddings.aether.photo</Link></HoverCardTrigger>
     <HoverCardContent>
-      <p className="font-mono text-body-m font-medium text-[var(--color-text-text)]">shop.seashell.dev</p>
-      <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Running · eu-west-1 · 184,320 requests today</p>
+      <p className="font-mono text-body-m font-medium text-[var(--color-text-text)]">selene-weddings.aether.photo</p>
+      <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Online · Selene Weddings · 1,284 views today</p>
     </HoverCardContent>
   </HoverCard>
   ```
@@ -4921,11 +4921,11 @@ Also accepts the props of: HoverCardProps, HoverCardContentProps, HoverCardConte
 
   ```tsx
   <HoverCard>
-    <HoverCardTrigger asChild><Link href="#gl-hc" size="md" className="font-mono">api.seashell.dev</Link></HoverCardTrigger>
+    <HoverCardTrigger asChild><Link href="#gl-hc" size="md" className="font-mono">eos-portraits.aether.photo</Link></HoverCardTrigger>
     <HoverCardContent>
       <div className="flex gap-2">
-        <Button appearance="outlined" tone="secondary" size="sm">Restart</Button>
-        <Button appearance="outlined" tone="danger" size="sm">Stop</Button>
+        <Button appearance="outlined" tone="secondary" size="sm">Re-sync</Button>
+        <Button appearance="outlined" tone="danger" size="sm">Unpublish</Button>
       </div>
     </HoverCardContent>
   </HoverCard>
@@ -5401,8 +5401,8 @@ Also accepts the props of: HTMLAttributes, DialogContentProps, DismissableLayerP
   <KeyboardShortcuts
     trigger={<Button appearance="outlined" tone="secondary" size="md">Grouped shortcuts</Button>}
     groups={[
-      { heading: 'Navigation', shortcuts: [{ keys: ['G', 'then', 'S'], description: 'Go to Sites' }, { keys: ['/'], description: 'Search' }] },
-      { heading: 'Actions', shortcuts: [{ keys: ['N'], description: 'New site' }, { keys: ['?'], description: 'Show shortcuts' }] },
+      { heading: 'Navigation', shortcuts: [{ keys: ['G', 'then', 'G'], description: 'Go to galleries' }, { keys: ['/'], description: 'Search' }] },
+      { heading: 'Actions', shortcuts: [{ keys: ['N'], description: 'New gallery' }, { keys: ['?'], description: 'Show shortcuts' }] },
     ]}
   />
   ```
@@ -5415,9 +5415,9 @@ Also accepts the props of: HTMLAttributes, DialogContentProps, DismissableLayerP
     groups={[
       {
         shortcuts: [
-          { keys: ['N'], description: 'New site' },
+          { keys: ['N'], description: 'New gallery' },
           { keys: ['/'], description: 'Search' },
-          { keys: ['G', 'then', 'S'], description: 'Go to Sites' },
+          { keys: ['G', 'then', 'G'], description: 'Go to galleries' },
           { keys: ['E'], description: 'Edit' },
           { keys: ['?'], description: 'Show shortcuts' },
           { keys: ['G', 'then', 'B'], description: 'Go to Billing' },
@@ -5432,7 +5432,7 @@ Also accepts the props of: HTMLAttributes, DialogContentProps, DismissableLayerP
 
 - A single-character hotkey must be scoped or switchable (WCAG 2.1.4) — pass scopeRef.
 - The hotkey is ignored while typing in a field.
-- Keys are read as text, in order (“G then S”).
+- Keys are read as text, in order (“G then G”).
 
 ## Label
 
@@ -6104,7 +6104,7 @@ Also accepts the props of: PopoverProps, ButtonHTMLAttributes, HTMLAttributes, P
     <MessagePopupTrigger>
       <Button appearance="filled" tone="primary" size="lg" iconOnly leftIcon={<ChatBubble />} aria-label="Open assistant" />
     </MessagePopupTrigger>
-    <MessagePopupContent title="Assistant" description="Ask about your sites and billing.">
+    <MessagePopupContent title="Assistant" description="Ask about your galleries and billing.">
       <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">Hi! How can I help?</p>
     </MessagePopupContent>
   </MessagePopup>
@@ -6120,7 +6120,7 @@ Also accepts the props of: PopoverProps, ButtonHTMLAttributes, HTMLAttributes, P
     <MessagePopupContent title="New support ticket">
       <div className="flex flex-col gap-3">
         <TextField label="Subject" widthSize="full" />
-        <TextField label="Site" widthSize="full" />
+        <TextField label="Gallery" widthSize="full" />
         <TextField label="Contact email" widthSize="full" />
       </div>
     </MessagePopupContent>
@@ -6892,11 +6892,11 @@ Also accepts the props of: PopoverProps, ButtonHTMLAttributes, HTMLAttributes, P
 
   ```tsx
   <Popover>
-    <PopoverTrigger asChild><Button appearance="outlined" tone="secondary" size="md">Limits</Button></PopoverTrigger>
+    <PopoverTrigger asChild><Button appearance="outlined" tone="secondary" size="md">Download limit</Button></PopoverTrigger>
     <PopoverContent align="start" className="w-64">
       <div className="flex flex-col gap-1">
-        <Label htmlFor="gl-po-cpu">CPU cores</Label>
-        <NumberField id="gl-po-cpu" defaultValue={2} min={1} max={8} />
+        <Label htmlFor="gl-po-downloads">Downloads per client</Label>
+        <NumberField id="gl-po-downloads" defaultValue={50} min={1} max={500} />
       </div>
     </PopoverContent>
   </Popover>
@@ -7470,16 +7470,16 @@ Also accepts the props of: HTMLAttributes, ButtonHTMLAttributes.
 
 **Do / Don’t**
 
-- Do: Click a site: details open beside the list, which stays clickable.
+- Do: Click a gallery: details open beside the list, which stays clickable.
 
   ```tsx
-  <Example title="shop.seashell.dev" body={<p className="font-body text-body-s text-[var(--color-text-text-subtle)]">Running · eu-west-1. Click another site to switch.</p>} />
+  <Example title="Golden hour" body={<p className="font-body text-body-s text-[var(--color-text-text-subtle)]">Selene Weddings · 412 photos. Click another gallery to switch.</p>} />
   ```
 
 - Don’t: A destructive confirmation in a non-modal panel: easy to ignore, easy to hit by accident.
 
   ```tsx
-  <Example title="Delete site?" body={<Button appearance="filled" tone="danger" size="sm">Delete</Button>} />
+  <Example title="Delete gallery?" body={<Button appearance="filled" tone="danger" size="sm">Delete</Button>} />
   ```
 
 
