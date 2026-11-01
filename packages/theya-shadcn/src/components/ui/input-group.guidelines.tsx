@@ -5,7 +5,7 @@ import { TextField } from './text-field';
 
 export const inputGroupGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['A fixed prefix or suffix that is part of the value’s format: https://, .theya.app, /mo, GB.', 'A button that belongs to the field, inside its border.'],
+  whenToUse: ['A fixed prefix or suffix that is part of the value’s format: https://, .aether.photo, /mo, GB.', 'A button that belongs to the field, inside its border.'],
   whenNotToUse: [
     { text: 'Just an icon', instead: 'TextField leftIcon / rightIcon' },
     { text: 'A unit people can change', instead: 'TextField + Select next to it' },
@@ -21,16 +21,16 @@ export const inputGroupGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className="flex w-64 flex-col gap-2">
-            <Label htmlFor="gl-ig-sub">Subdomain</Label>
+            <Label htmlFor="gl-ig-portal">Portal address</Label>
             <InputGroup>
-              <InputGroupInput id="gl-ig-sub" defaultValue="shop" />
-              <InputGroupAddon position="end">.theya.app</InputGroupAddon>
+              <InputGroupInput id="gl-ig-portal" defaultValue="selene-weddings" />
+              <InputGroupAddon position="end">.aether.photo</InputGroupAddon>
             </InputGroup>
           </div>
         ),
         caption: 'The fixed part is shown, not typed.',
       },
-      dont: { example: <TextField label="Subdomain" defaultValue="shop.theya.app" widthSize="md" description="Must end with .theya.app" />, caption: 'Asking people to type the fixed part invites typos.' },
+      dont: { example: <TextField label="Portal address" defaultValue="selene-weddings.aether.photo" widthSize="md" description="Must end with .aether.photo" />, caption: 'Asking people to type the fixed part invites typos.' },
     },
   ],
   a11y: [

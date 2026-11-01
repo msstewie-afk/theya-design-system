@@ -2,7 +2,7 @@
 
 # Custom Icon (labels-helpicon--custom-icon)
 - paragraph:
-  - text: Included bandwidth is 10 GB
+  - text: Includes 10,000 downloads a month
   - button "About this quota":
     - img
 
@@ -13,40 +13,40 @@
 # In Table Header (labels-helpicon--in-table-header)
 - table:
   - rowgroup:
-    - row "Site Region Where the site is served from. Changing it re-deploys. Bandwidth Outbound traffic in the current billing period.":
-      - columnheader "Site"
-      - columnheader "Region Where the site is served from. Changing it re-deploys.":
-        - text: Region
-        - button "Where the site is served from. Changing it re-deploys.":
+    - row "Gallery Studio The studio that owns the gallery. Changing it moves its files. Downloads Full-size downloads in the current billing period.":
+      - columnheader "Gallery"
+      - columnheader "Studio The studio that owns the gallery. Changing it moves its files.":
+        - text: Studio
+        - button "The studio that owns the gallery. Changing it moves its files.":
           - img
-      - columnheader "Bandwidth Outbound traffic in the current billing period.":
-        - text: Bandwidth
-        - button "Outbound traffic in the current billing period.":
+      - columnheader "Downloads Full-size downloads in the current billing period.":
+        - text: Downloads
+        - button "Full-size downloads in the current billing period.":
           - img
   - rowgroup:
-    - row "shop.seashell.dev eu-west-1 7.2 GB":
-      - cell "shop.seashell.dev"
-      - cell "eu-west-1"
-      - cell "7.2 GB"
-    - row "docs.seashell.dev us-east-1 1.4 GB":
-      - cell "docs.seashell.dev"
-      - cell "us-east-1"
-      - cell "1.4 GB"
+    - row "Golden hour Helios Studio 1,284":
+      - cell "Golden hour"
+      - cell "Helios Studio"
+      - cell "1,284"
+    - row "Blue hour Selene Weddings 312":
+      - cell "Blue hour"
+      - cell "Selene Weddings"
+      - cell "312"
 
 # Long Hint (labels-helpicon--long-hint)
-- text: Backup retention
-- button "Backups are kept for 14 days on the Pro plan and 30 days on Scale; the retention change applies to snapshots taken from the next run onward.":
+- text: Archive retention
+- button "Archive copies are kept for 14 days on the Pro plan and 30 days on Business; the retention change applies to copies made from the next run onward.":
   - img
 
 # On Field Label (labels-helpicon--on-field-label)
-- text: Hostname
-- button "Used as the mail HELO name and in TLS certificates.":
+- text: Portal address
+- button "Clients open their galleries at this address.":
   - img
-- textbox "Hostname Used as the mail HELO name and in TLS certificates.":
-  - /placeholder: shop.seashell.dev
+- textbox "Portal address Clients open their galleries at this address.":
+  - /placeholder: selene-weddings.aether.photo
 
 # On Switch Row (labels-helpicon--on-switch-row)
-- text: Force HTTPS
-- button "Redirects every http:// request to https:// with a 301.":
+- text: Watermark previews
+- button "Adds your logo to every preview; full-size downloads stay clean.":
   - img
-- switch "Force HTTPS Redirects every http:// request to https:// with a 301." [checked]
+- switch "Watermark previews Adds your logo to every preview; full-size downloads stay clean." [checked]

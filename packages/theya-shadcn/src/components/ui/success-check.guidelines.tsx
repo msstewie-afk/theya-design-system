@@ -24,7 +24,7 @@ export const successCheckGuidelines: ComponentGuidelines = {
         example: (
           <p className={ROW}>
             <SuccessCheck />
-            Backup restored
+            Album restored
           </p>
         ),
         caption: 'Shown when the success happens, with text that names it.',

@@ -42,7 +42,7 @@
     {
       "do": {
         "caption": "An object’s properties, scanned and tweaked in place.",
-        "example": "<div className=\"w-96 max-w-full\">\n  <PropertyGrid\n    id=\"gl-pg\"\n    items={[\n      { name: 'name', label: 'Display name', type: 'text' },\n      { name: 'replicas', label: 'Replicas', type: 'number' },\n      { name: 'public', label: 'Public URL', type: 'switch' },\n      { name: 'id', label: 'Resource ID', type: 'text', readOnly: true },\n    ]}\n    defaultValues={{ name: 'shop-api', replicas: 3, public: true, id: 'res_8f2k1' }}\n  />\n</div>"
+        "example": "<div className=\"w-96 max-w-full\">\n  <PropertyGrid\n    id=\"gl-pg\"\n    items={[\n      { name: 'name', label: 'Display name', type: 'text' },\n      { name: 'copies', label: 'Print copies', type: 'number' },\n      { name: 'public', label: 'Public link', type: 'switch' },\n      { name: 'id', label: 'Gallery ID', type: 'text', readOnly: true },\n    ]}\n    defaultValues={{ name: 'Golden hour', copies: 3, public: true, id: 'gal_8f2k1' }}\n  />\n</div>"
       },
       "dont": {
         "caption": "A sign-up form as a grid: labels squeezed left, no room for help or errors — stack it instead.",

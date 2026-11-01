@@ -6,10 +6,10 @@ import { cardStackGuidelines } from './card-stack.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
 
 const QUOTES = [
-  { who: 'Ana, studio owner', text: 'We moved twelve client sites in an afternoon.' },
-  { who: 'Ivo, developer', text: 'Staging and rollbacks without asking ops.' },
-  { who: 'Lena, shop owner', text: 'Checkout got faster and support got quieter.' },
-  { who: 'Marco, agency', text: 'One dashboard for every client, finally.' },
+  { who: 'Thea, studio owner', text: 'We moved twelve client galleries in an afternoon.' },
+  { who: 'Selin, wedding photographer', text: 'Proofing and downloads without chasing clients.' },
+  { who: 'Phoebe, print lab', text: 'Print orders arrive sized and ready to print.' },
+  { who: 'Ian, client manager', text: 'One dashboard for every client, finally.' },
 ];
 
 /** CardStack — a deck that cycles its cards on a timer, with Pause and Next. */
@@ -60,19 +60,19 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     // CardTitle is a div; count only text outside the aria-hidden back cards.
     const exposed = (re: RegExp) => canvas.queryAllByText(re).filter((el) => !el.closest('[aria-hidden="true"]'));
-    await expect(exposed(/twelve client sites/)).toHaveLength(1);
+    await expect(exposed(/twelve client galleries/)).toHaveLength(1);
     // Every aria-hidden card is also inert, on React 18 and 19 alike (React 19
     // used to drop inert="" as falsy, leaving the back cards focusable).
     const backCards = [...canvasElement.querySelectorAll('[aria-hidden="true"]')].filter((el) => el.tagName !== 'svg' && el.textContent?.trim());
     await expect(backCards.length).toBeGreaterThan(0);
     for (const el of backCards) await expect(el).toHaveAttribute('inert');
     // Only the front card is exposed.
-    await expect(exposed(/Staging and rollbacks/)).toHaveLength(0);
+    await expect(exposed(/Proofing and downloads/)).toHaveLength(0);
 
     resetFocus();
     await tabTo(canvas.getByRole('button', { name: 'Next card' }));
     await userEvent.keyboard('{Enter}');
-    await waitFor(() => expect(exposed(/Staging and rollbacks/)).toHaveLength(1));
+    await waitFor(() => expect(exposed(/Proofing and downloads/)).toHaveLength(1));
 
     // Under prefers-reduced-motion nothing moves, so there is no Pause.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

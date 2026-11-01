@@ -20,9 +20,9 @@ export const optionCardGuidelines: ComponentGuidelines = {
     {
       do: {
         example: (
-          <OptionCardGroup defaultValue="http" aria-label="Verification method" className="w-full">
-            <OptionCard value="http" title="HTTP-01" description="Serve a token file from the site." />
-            <OptionCard value="dns" title="DNS-01" description="Add a TXT record. Works for wildcards." />
+          <OptionCardGroup defaultValue="online" aria-label="Delivery method" className="w-full">
+            <OptionCard value="online" title="Online gallery" description="Clients view and download photos in their portal." />
+            <OptionCard value="prints" title="Prints by mail" description="Phoebe Light Lab prints and ships the order." />
           </OptionCardGroup>
         ),
         caption: 'Each choice needs a sentence — cards give it room.',

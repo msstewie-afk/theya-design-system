@@ -14,8 +14,8 @@ function Tour({ label, steps }: { label: string; steps: TourStep[] }) {
 }
 
 const SHORT: TourStep[] = [
-  { title: 'Welcome to the new Sites page', content: 'Two things changed — this takes 20 seconds.' },
-  { title: 'Search everything', content: 'Sites, domains and databases from one field.' },
+  { title: 'Welcome to the new Galleries page', content: 'Two things changed — this takes 20 seconds.' },
+  { title: 'Search everything', content: 'Galleries, clients and archived albums from one field.' },
   { title: 'That’s it', content: 'Replay this tour from Help anytime.' },
 ];
 const LONG: TourStep[] = ['Welcome', 'Search', 'Filters', 'Sort', 'Cards', 'Badges', 'Menu', 'Billing', 'Team', 'Settings', 'Help', 'Done'].map((t) => ({

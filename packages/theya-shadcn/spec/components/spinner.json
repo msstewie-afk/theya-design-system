@@ -37,7 +37,7 @@
     {
       "do": {
         "caption": "Next to text that says what is loading.",
-        "example": "<p className=\"flex items-center gap-2 font-body text-body-m text-[var(--color-text-text-subtle)]\">\n  <Spinner className=\"size-4 text-[var(--color-icon-icon-primary)]\" />\n  Loading domains…\n</p>"
+        "example": "<p className=\"flex items-center gap-2 font-body text-body-m text-[var(--color-text-text-subtle)]\">\n  <Spinner className=\"size-4 text-[var(--color-icon-icon-primary)]\" />\n  Loading galleries…\n</p>"
       },
       "dont": {
         "caption": "Several spinners at once — show one for the area that is waiting.",
@@ -46,7 +46,7 @@
     }
   ],
   "a11y": [
-    "Decorative (aria-hidden). Mark the waiting region aria-busy, or add a role=\"status\" text such as “Loading domains”.",
+    "Decorative (aria-hidden). Mark the waiting region aria-busy, or add a role=\"status\" text such as “Loading galleries”.",
     "With reduced motion the arc stops and the spinner slowly fades in and out."
   ],
   "components": [

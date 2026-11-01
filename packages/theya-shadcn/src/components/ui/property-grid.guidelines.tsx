@@ -23,11 +23,11 @@ export const propertyGridGuidelines: ComponentGuidelines = {
               id="gl-pg"
               items={[
                 { name: 'name', label: 'Display name', type: 'text' },
-                { name: 'replicas', label: 'Replicas', type: 'number' },
-                { name: 'public', label: 'Public URL', type: 'switch' },
-                { name: 'id', label: 'Resource ID', type: 'text', readOnly: true },
+                { name: 'copies', label: 'Print copies', type: 'number' },
+                { name: 'public', label: 'Public link', type: 'switch' },
+                { name: 'id', label: 'Gallery ID', type: 'text', readOnly: true },
               ]}
-              defaultValues={{ name: 'shop-api', replicas: 3, public: true, id: 'res_8f2k1' }}
+              defaultValues={{ name: 'Golden hour', copies: 3, public: true, id: 'gal_8f2k1' }}
             />
           </div>
         ),

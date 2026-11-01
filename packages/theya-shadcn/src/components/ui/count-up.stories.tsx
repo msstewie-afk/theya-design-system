@@ -12,7 +12,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A headline number that counts up when it scrolls into view: “12,400 sites”, “99.98% uptime”. For landing pages.",
+          "A headline number that counts up when it scrolls into view: “12,400 galleries”, “99.98% portal availability”. For landing pages.",
       },
     },
     layout: 'padded', guidelines: countUpGuidelines,
@@ -34,7 +34,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => (
     <p className="font-body text-heading-l font-semibold text-[var(--color-text-text)]">
-      <CountUp {...args} /> <span className="text-body-l font-normal text-[var(--color-text-text-subtle)]">sites hosted</span>
+      <CountUp {...args} /> <span className="text-body-l font-normal text-[var(--color-text-text-subtle)]">galleries delivered</span>
     </p>
   ),
   play: async ({ canvasElement }) => {
@@ -48,9 +48,9 @@ export const StatsRow: Story = {
   render: () => (
     <dl className="grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-3">
       {[
-        { label: 'Uptime', value: <CountUp to={99.98} suffix="%" format={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }} /> },
-        { label: 'Requests a day', value: <CountUp to={2400000} format={{ notation: 'compact' }} /> },
-        { label: 'Saved on hosting', value: <CountUp to={340} prefix="$" suffix="/mo" /> },
+        { label: 'Portal availability', value: <CountUp to={99.98} suffix="%" format={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }} /> },
+        { label: 'Photos delivered a day', value: <CountUp to={240000} format={{ notation: 'compact' }} /> },
+        { label: 'Saved per studio', value: <CountUp to={340} prefix="$" suffix="/mo" /> },
       ].map((s) => (
         <div key={s.label} className="flex flex-col gap-1">
           <dt className="text-body-s text-[var(--color-text-text-subtler)]">{s.label}</dt>

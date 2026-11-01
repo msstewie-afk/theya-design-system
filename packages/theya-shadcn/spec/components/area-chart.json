@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Charts",
   "whenToUse": [
-    "One quantity over time where the volume matters: traffic, requests, storage used.",
+    "One quantity over time where the volume matters: gallery views, downloads, storage used.",
     "A few stacked series that add up to a total (`series` + `stacked`)."
   ],
   "whenNotToUse": [
@@ -44,17 +44,17 @@
   "doDont": [
     {
       "do": {
-        "caption": "Requests over a week — the shape of the volume is the point.",
-        "example": "<div className=\"w-full\"><AreaChart data={WEEK} unit=\"k\" height={180} ariaLabel=\"Requests this week, peak 4.8k on Friday.\" /></div>"
+        "caption": "Gallery views over a week — the shape of the volume is the point.",
+        "example": "<div className=\"w-full\"><AreaChart data={WEEK} unit=\"k\" height={180} ariaLabel=\"Gallery views this week, peak 4.8k on Friday.\" /></div>"
       },
       "dont": {
-        "caption": "Regions joined by a filled line imply a trend between them that doesn’t exist — use a bar chart.",
-        "example": "<div className=\"w-full\"><AreaChart data={REGIONS} unit=\"%\" height={180} ariaLabel=\"Load by region.\" /></div>"
+        "caption": "Studios joined by a filled line imply a trend between them that doesn’t exist — use a bar chart.",
+        "example": "<div className=\"w-full\"><AreaChart data={STUDIOS} unit=\"%\" height={180} ariaLabel=\"Storage by studio.\" /></div>"
       }
     }
   ],
   "a11y": [
-    "Always pass `ariaLabel` with the takeaway (“Requests this week, peak 4.8k on Friday”), not “Area chart”.",
+    "Always pass `ariaLabel` with the takeaway (“Gallery views this week, peak 4.8k on Friday”), not “Area chart”.",
     "Give the key number in text near the chart too; the tooltip is pointer-only."
   ],
   "components": [

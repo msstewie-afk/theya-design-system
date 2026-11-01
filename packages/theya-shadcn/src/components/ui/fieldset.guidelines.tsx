@@ -20,7 +20,7 @@ export const fieldsetGuidelines: ComponentGuidelines = {
     {
       do: {
         example: (
-          <Fieldset legend="Email notifications" description="Sent to dana@seashell.dev." className="w-72">
+          <Fieldset legend="Email notifications" description="Sent to thea@aether.photo." className="w-72">
             <Switch label="Weekly report" defaultChecked />
             <Switch label="Billing alerts" defaultChecked />
             <Switch label="Product news" />

@@ -6,8 +6,8 @@ import { cn } from '../../lib/utils';
 
 /**
  * Centered no-data / zero-state placeholder. Compose the all-in-one
- * API (`<EmptyState icon={...} title="No sites yet" description="…"
- * action={<Button>Create site</Button>} />`) or the parts directly.
+ * API (`<EmptyState icon={...} title="No galleries yet" description="…"
+ * action={<Button>Create gallery</Button>} />`) or the parts directly.
  *
  * a11y: the icon chip is decorative — the title carries the meaning.
  * Title renders a styled `<p>` by default; pass `titleAs="h2"` when the

@@ -47,7 +47,7 @@ export const Default: Story = {
   render: () => (
     <div className="max-w-xl">
       <Message avatar={botAvatar} author="Assistant" timestamp="9:32 AM">
-        I can help you spin up a new site. Which region should it live in?
+        I can help you set up a new client portal. Which studio should it belong to?
       </Message>
     </div>
   ),
@@ -58,12 +58,12 @@ export const Exchange: Story = {
   render: () => (
     <div className="flex max-w-xl flex-col gap-4">
       <Message avatar={botAvatar} author="Assistant" timestamp="9:32 AM">
-        I can help you spin up a new site. Which region should it live in?
+        I can help you set up a new client portal. Which studio should it belong to?
       </Message>
       <Message variant="sent" timestamp="9:33 AM">
-        eu-west-1, closest to our users.
+        Selene Weddings, it’s for the Okafor wedding.
       </Message>
-      <Message avatar={botAvatar}>Great choice. I will provision it in eu-west-1 now.</Message>
+      <Message avatar={botAvatar}>Got it. I will create it under Selene Weddings now.</Message>
     </div>
   ),
 };
@@ -81,8 +81,8 @@ export const WithAttachment: Story = {
     <div className="max-w-xl">
       <Message variant="sent" appearance="tonal" timestamp="10:04 AM">
         <div className="flex flex-col gap-2">
-          <Attachment name="error-log.txt" size={18400} />
-          <span>Here is the log from the failed deploy.</span>
+          <Attachment name="export-log.txt" size={18400} />
+          <span>Here is the log from the failed export.</span>
         </div>
       </Message>
     </div>

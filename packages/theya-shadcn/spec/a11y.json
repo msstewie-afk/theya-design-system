@@ -13,12 +13,10 @@
         "screenReader|tree"
       ],
       "counts": {
-        "verified": 158,
-        "partial": 2
+        "verified": 160
       },
       "patternCounts": {
-        "verified": 42,
-        "partial": 10
+        "verified": 52
       }
     },
     {
@@ -96,12 +94,10 @@
         "screenReader|tree"
       ],
       "counts": {
-        "verified": 158,
-        "partial": 2
+        "verified": 160
       },
       "patternCounts": {
-        "verified": 42,
-        "partial": 10
+        "verified": 52
       }
     },
     {
@@ -113,13 +109,12 @@
         "screenReader|tree"
       ],
       "counts": {
-        "verified": 150,
-        "untested": 2,
+        "verified": 152,
         "n/a": 8
       },
       "patternCounts": {
-        "verified": 42,
-        "untested": 10
+        "verified": 50,
+        "untested": 2
       }
     },
     {
@@ -855,15 +850,13 @@
         "screenReader|tree"
       ],
       "counts": {
-        "verified": 113,
-        "n/a": 46,
-        "partial": 1
+        "verified": 114,
+        "n/a": 46
       },
       "patternCounts": {
-        "verified": 41,
+        "verified": 47,
         "n/a": 4,
-        "partial": 6,
-        "untested": 1
+        "partial": 1
       }
     },
     {
@@ -3793,14 +3786,14 @@
         "status"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -14511,14 +14504,14 @@
         "timed"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -14564,7 +14557,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "verified",
         "4.1.3": "untested"
       }
     },
@@ -17257,14 +17250,14 @@
         "links"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -17310,7 +17303,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "verified",
         "4.1.3": "n/a"
       }
     },
@@ -17338,14 +17331,14 @@
         "labelled"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -17391,7 +17384,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "verified",
         "4.1.3": "n/a"
       }
     },
@@ -17416,13 +17409,13 @@
       "deviations": [],
       "traits": [],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
+        "1.3.1": "verified",
         "1.3.2": "untested",
         "1.3.3": "product",
         "1.3.4": "library",
@@ -17496,14 +17489,14 @@
         "labelled"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -17581,14 +17574,14 @@
         "links"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -17634,7 +17627,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "verified",
         "4.1.3": "n/a"
       }
     },
@@ -17664,14 +17657,14 @@
         "sticky"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -17717,7 +17710,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "verified",
         "4.1.3": "n/a"
       }
     },
@@ -17746,14 +17739,14 @@
         "timed"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -17799,7 +17792,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "verified",
         "4.1.3": "n/a"
       }
     },
@@ -17827,14 +17820,14 @@
         "sticky"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -17880,7 +17873,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "verified",
         "4.1.3": "n/a"
       }
     },
@@ -17907,14 +17900,14 @@
         "colorMeaning"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
-        "1.3.2": "untested",
+        "1.3.1": "verified",
+        "1.3.2": "verified",
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
@@ -17996,13 +17989,13 @@
         "sticky"
       ],
       "wcag": {
-        "1.1.1": "partial",
+        "1.1.1": "verified",
         "1.2.1": "product",
         "1.2.2": "product",
         "1.2.3": "product",
         "1.2.4": "product",
         "1.2.5": "product",
-        "1.3.1": "partial",
+        "1.3.1": "verified",
         "1.3.2": "untested",
         "1.3.3": "product",
         "1.3.4": "library",
@@ -18049,7 +18042,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "untested",
+        "4.1.2": "partial",
         "4.1.3": "n/a"
       }
     },

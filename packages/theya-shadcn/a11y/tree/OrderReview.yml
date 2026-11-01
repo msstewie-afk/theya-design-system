@@ -8,16 +8,16 @@
     - heading "Account" [level=3]
     - button "Edit account"
     - term: Email
-    - definition: dana@seashell.dev
+    - definition: thea@aether.photo
   - region "Plan options":
     - heading "Plan options" [level=3]
     - button "Edit plan options"
     - term: Billing
     - definition: Yearly
-    - term: Region
-    - definition: Frankfurt
-    - term: Backups
-    - definition: Daily, kept 30 days
+    - term: Studio
+    - definition: Selene Weddings
+    - term: Archive
+    - definition: Originals kept 1 year
   - region "Payment":
     - heading "Payment" [level=3]
     - button "Edit payment"
@@ -55,16 +55,16 @@
     - heading "Account" [level=3]
     - button "Edit account"
     - term: Email
-    - definition: dana@seashell.dev
+    - definition: thea@aether.photo
   - region "Plan options":
     - heading "Plan options" [level=3]
     - button "Edit plan options"
     - term: Billing
     - definition: Yearly
-    - term: Region
-    - definition: Frankfurt
-    - term: Backups
-    - definition: Daily, kept 30 days
+    - term: Studio
+    - definition: Selene Weddings
+    - term: Archive
+    - definition: Originals kept 1 year
   - region "Payment":
     - heading "Payment" [level=3]
     - button "Edit payment"

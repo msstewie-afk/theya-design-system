@@ -4,7 +4,7 @@
 - region "Confirm cancellation":
   - paragraph: Step 3 of 3
   - heading "Confirm cancellation" [level=2]
-  - text: Your sites go offline after Nov 3, 2026. Files and backups are deleted 30 days later.
+  - text: Your galleries go offline after Nov 3, 2026. Photos and archive copies are deleted 30 days later.
   - term: Plan
   - definition: Pro
   - term: Access until
@@ -17,7 +17,7 @@
 # Downgrade (patterns-commerce-cancellationflow--downgrade)
 - region "Switched to Starter":
   - heading "Switched to Starter" [level=2]
-  - paragraph: From your next bill you pay $8 / mo. Your sites keep running.
+  - paragraph: From your next bill you pay $8 / mo. Your galleries stay online.
 - status: Switch to Starter
 
 # No Pause (patterns-commerce-cancellationflow--no-pause)
@@ -26,7 +26,7 @@
   - heading "Before you go" [level=2]
   - paragraph: If cost or timing is the issue, one of these may suit you better. Otherwise, carry on.
   - radiogroup "What would you like to do?":
-    - radio "Switch to Starter": Switch to Starter Keep one site online for $8 / mo.
+    - radio "Switch to Starter": Switch to Starter Keep up to 3 galleries online for $8 / mo.
     - radio "Cancel the plan" [checked]: Cancel the plan Access ends on Nov 3, 2026.
   - text: Why are you cancelling? (optional)
   - combobox "Why are you cancelling? (optional)": Choose a reason
@@ -36,5 +36,5 @@
 # Pause (patterns-commerce-cancellationflow--pause)
 - region "Pro plan paused":
   - heading "Pro plan paused" [level=2]
-  - paragraph: Billing stops for 3 months from Nov 3, 2026; your sites and data are kept.
+  - paragraph: Billing stops for 3 months from Nov 3, 2026; your galleries and photos are kept.
 - status: Pause plan

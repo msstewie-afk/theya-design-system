@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Charts",
   "whenToUse": [
-    "Comparing a few trends over the same time: CPU vs memory, this week vs last.",
+    "Comparing a few trends over the same time: downloads vs views, this week vs last.",
     "Up to 5 series; each gets a palette color and a legend entry with its name."
   ],
   "whenNotToUse": [
@@ -41,11 +41,11 @@
     {
       "do": {
         "caption": "Two trends that are easy to tell apart and compare.",
-        "example": "<div className=\"w-full\"><LineChart data={two} series={[{ key: 'cpu', name: 'CPU' }, { key: 'mem', name: 'Memory' }]} unit=\"%\" height={200} ariaLabel=\"CPU and memory this week, both peaking on Friday.\" /></div>"
+        "example": "<div className=\"w-full\"><LineChart data={two} series={[{ key: 'downloaded', name: 'Downloaded' }, { key: 'opened', name: 'Opened' }]} unit=\"%\" height={200} ariaLabel=\"Galleries downloaded and opened this week, both peaking on Friday.\" /></div>"
       },
       "dont": {
-        "caption": "Five crossing lines: a tangle where no single server can be followed.",
-        "example": "<div className=\"w-full\">\n  <LineChart\n    data={many}\n    series={['a', 'b', 'c', 'd', 'e'].map((k) => ({ key: k, name: `web-0${'abcde'.indexOf(k) + 1}` }))}\n    unit=\"%\"\n    height={200}\n    ariaLabel=\"CPU per server this week.\"\n  />\n</div>"
+        "caption": "Five crossing lines: a tangle where no single studio can be followed.",
+        "example": "<div className=\"w-full\">\n  <LineChart\n    data={many}\n    series={['a', 'b', 'c', 'd', 'e'].map((k) => ({ key: k, name: STUDIO_NAMES['abcde'.indexOf(k)] }))}\n    unit=\"%\"\n    height={200}\n    ariaLabel=\"Download rate per studio this week.\"\n  />\n</div>"
       }
     }
   ],

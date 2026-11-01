@@ -10,7 +10,7 @@ const meta: Meta<typeof UsageBar> = {
     docs: {
       description: {
         component:
-          "A total split into up to four parts against a limit: storage by type, bandwidth by site, seats by role.",
+          "A total split into up to four parts against a limit: storage by type, downloads by gallery, seats by role.",
       },
     },
     layout: 'padded', guidelines: usageBarGuidelines,
@@ -45,32 +45,32 @@ type Story = StoryObj<typeof UsageBar>;
 
 const gb = (n: number) => `${n} GB`;
 
-/** Disk usage for a site, split by category against a 50 GB quota. The unused
- * headroom shows because `total` (50) exceeds the segment sum. */
+/** Storage for a studio, split by file type against a 384 GB quota. The unused
+ * headroom shows because `total` (384) exceeds the segment sum. */
 export const Default: Story = {
   args: {
-    total: 50,
+    total: 384,
     formatValue: gb,
     segments: [
-      { label: 'Uploads', value: 18.2 },
-      { label: 'Database', value: 9.4 },
-      { label: 'Application', value: 6.1 },
-      { label: 'Logs', value: 2.3 },
+      { label: 'RAW originals', value: 142.6 },
+      { label: 'Edited exports', value: 61.3 },
+      { label: 'Video', value: 38.4 },
+      { label: 'Previews', value: 12.8 },
     ],
   },
 };
 
-/** No `total`, so the segments fill the whole track — here outbound bandwidth
- * split across regions for the billing period. Values format as terabytes. */
-export const Bandwidth: Story = {
+/** No `total`, so the segments fill the whole track — here client downloads
+ * split across studios for the billing period. Values format as gigabytes. */
+export const Downloads: Story = {
   parameters: { controls: { exclude: ['total'] } },
   args: {
-    formatValue: (n) => `${n} TB`,
+    formatValue: gb,
     segments: [
-      { label: 'eu-west-1', value: 4.2 },
-      { label: 'us-east-1', value: 3.1 },
-      { label: 'ap-south-1', value: 1.6 },
-      { label: 'sa-east-1', value: 0.7 },
+      { label: 'Selene Weddings', value: 212 },
+      { label: 'Helios Studio', value: 148 },
+      { label: 'Eos Portraits', value: 86 },
+      { label: 'Othrys Lodge', value: 31 },
     ],
   },
 };
@@ -82,11 +82,11 @@ export const NoLegend: Story = {
   args: {
     showLegend: false,
     total: 1000,
-    formatValue: (n) => `${n} certs`,
+    formatValue: (n) => `${n} licenses`,
     segments: [
-      { label: "Let's Encrypt", value: 612 },
-      { label: 'Sectigo', value: 248 },
-      { label: 'DigiCert', value: 96 },
+      { label: 'Editorial', value: 612 },
+      { label: 'Commercial', value: 248 },
+      { label: 'Print', value: 96 },
     ],
   },
 };

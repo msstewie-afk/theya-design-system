@@ -5,25 +5,25 @@
   - region "Backlog":
     - heading "Backlog" [level=3]
     - text: "3"
-    - button "SITE-142 Move DNS to the new provider"
-    - 'button "SITE-151 Backups: keep 30 days instead of 7"'
-    - button "SITE-157 Staging copy for the shop"
+    - button "AE-142 Move the Selene portal to its new address"
+    - 'button "AE-151 Archive: keep originals 30 days instead of 7"'
+    - button "AE-157 Proofing copy of Golden hour"
   - region "In progress":
     - heading "In progress" [level=3]
     - text: 4/3 — over the limit of 3
-    - button "SITE-133 Upgrade Node 18 → 20"
-    - button "SITE-139 Renew wildcard certificate"
-    - button "SITE-146 Rate-limit the login endpoint"
-    - button "SITE-148 Image CDN for the blog"
+    - button "AE-133 Retouch Moonrise over Othrys"
+    - button "AE-139 Renew the commercial license for Helios"
+    - button "AE-146 Limit downloads on the Isthmian Five gallery"
+    - button "AE-148 Print proofs for Eos Portraits"
   - region "Review":
     - heading "Review" [level=3]
     - text: 1/2
-    - button "SITE-128 Nightly database dump to object storage"
+    - button "AE-128 Nightly copy of RAW files to Mnemosyne"
   - region "Done":
     - heading "Done" [level=3]
     - text: "2"
-    - button "SITE-120 HTTP/2 on all sites"
-    - button "SITE-124 Error page in the brand style"
+    - button "AE-120 Watermark on all client previews"
+    - button "AE-124 Portal welcome page in the studio style"
   - status
 
 # Default (data-kanban--default)
@@ -31,26 +31,26 @@
   - region "Backlog":
     - heading "Backlog" [level=3]
     - text: "3"
-    - 'button "SITE-151 Low Backups: keep 30 days instead of 7 MS"'
-    - button "SITE-142 Medium Move DNS to the new provider Export the zone, lower TTLs a day before, switch NS records. 2 comments AK"
-    - button "SITE-157 Medium Staging copy for the shop Clone production with anonymized customer data. Oct 10"
+    - 'button "AE-151 Low Archive: keep originals 30 days instead of 7 MO"'
+    - button "AE-142 Medium Move the Selene portal to its new address Redirect old gallery links, then email clients the new portal link. 2 comments IH"
+    - button "AE-157 Medium Proofing copy of Golden hour Duplicate the gallery with watermarked previews only. Oct 10"
   - region "In progress":
     - heading "In progress" [level=3]
     - text: 4/3 — over the limit of 3
-    - button "SITE-133 High Upgrade Node 18 → 20 Check dependency compatibility on staging first. Oct 6 5 comments MS"
-    - button "SITE-139 High Renew wildcard certificate Oct 4 AK"
-    - button "SITE-146 Rate-limit the login endpoint 1 comments JT"
-    - button "SITE-148 Low Image CDN for the blog JT"
+    - button "AE-133 High Retouch Moonrise over Othrys Match white balance across the 48 selects first. Oct 6 5 comments DE"
+    - button "AE-139 High Renew the commercial license for Helios Oct 4 IH"
+    - button "AE-146 Limit downloads on the Isthmian Five gallery 1 comments ES"
+    - button "AE-148 Low Print proofs for Eos Portraits PL"
   - region "Review":
     - heading "Review" [level=3]
     - text: 1/2
-    - button "SITE-128 Nightly database dump to object storage 3 comments AK"
+    - button "AE-128 Nightly copy of RAW files to Mnemosyne 3 comments MO"
   - region "Done":
     - heading "Done" [level=3]
     - text: "2"
-    - button "SITE-120 HTTP/2 on all sites MS"
-    - button "SITE-124 Error page in the brand style JT"
-  - status: Dropped SITE-142 Move DNS to the new provider in Backlog, position 1 of 3.
+    - button "AE-120 Watermark on all client previews ES"
+    - button "AE-124 Portal welcome page in the studio style TM"
+  - status: Dropped AE-142 Move the Selene portal to its new address in Backlog, position 1 of 3.
 - paragraph: "Last move: t1 → Backlog, position 2"
 
 # Empty columns (data-kanban--empty-columns)
@@ -58,9 +58,9 @@
   - region "Backlog":
     - heading "Backlog" [level=3]
     - text: "3"
-    - button "SITE-142 Medium Move DNS to the new provider Export the zone, lower TTLs a day before, switch NS records. 2 comments AK"
-    - 'button "SITE-151 Low Backups: keep 30 days instead of 7 MS"'
-    - button "SITE-157 Medium Staging copy for the shop Clone production with anonymized customer data. Oct 10"
+    - button "AE-142 Medium Move the Selene portal to its new address Redirect old gallery links, then email clients the new portal link. 2 comments IH"
+    - 'button "AE-151 Low Archive: keep originals 30 days instead of 7 MO"'
+    - button "AE-157 Medium Proofing copy of Golden hour Duplicate the gallery with watermarked previews only. Oct 10"
   - region "In progress":
     - heading "In progress" [level=3]
     - text: 0/3 Drop a card here
@@ -78,17 +78,17 @@
     - heading "Backlog" [level=3]
     - text: "3"
     - button "Add to Backlog"
-    - button "SITE-142 Medium Move DNS to the new provider Export the zone, lower TTLs a day before, switch NS records. 2 comments AK"
-    - 'button "SITE-151 Low Backups: keep 30 days instead of 7 MS"'
-    - button "SITE-157 Medium Staging copy for the shop Clone production with anonymized customer data. Oct 10"
+    - button "AE-142 Medium Move the Selene portal to its new address Redirect old gallery links, then email clients the new portal link. 2 comments IH"
+    - 'button "AE-151 Low Archive: keep originals 30 days instead of 7 MO"'
+    - button "AE-157 Medium Proofing copy of Golden hour Duplicate the gallery with watermarked previews only. Oct 10"
     - button "Add card to Backlog": Add card
   - region "In progress":
     - heading "In progress" [level=3]
     - text: 3/3
     - button "Add to In progress"
-    - button "SITE-133 High Upgrade Node 18 → 20 Check dependency compatibility on staging first. Oct 6 5 comments MS"
-    - button "SITE-139 High Renew wildcard certificate Oct 4 AK"
-    - button "SITE-146 Rate-limit the login endpoint 1 comments JT"
+    - button "AE-133 High Retouch Moonrise over Othrys Match white balance across the 48 selects first. Oct 6 5 comments DE"
+    - button "AE-139 High Renew the commercial license for Helios Oct 4 IH"
+    - button "AE-146 Limit downloads on the Isthmian Five gallery 1 comments ES"
     - button "Add card to In progress": Add card
   - region "Review":
     - heading "Review" [level=3]

@@ -343,7 +343,7 @@ function DrawCheckbox({ id, defaultChecked }: { id: string; defaultChecked?: boo
 
 function CheckList({ variant }: { variant?: boolean }) {
   const p = variant ? 'v' : 'n';
-  const items = ['Daily backups', 'Staging site'];
+  const items = ['Daily archive', 'Client proofing'];
   return (
     <div className="flex flex-col gap-3">
       {items.map((item, i) => (
@@ -458,8 +458,8 @@ function StarBurstRating() {
 
 const TABS = [
   ['overview', 'Overview'],
-  ['dns', 'DNS records'],
-  ['security', 'Security'],
+  ['photos', 'Photos'],
+  ['sharing', 'Sharing'],
 ] as const;
 
 function LikeButton({ variant }: { variant?: boolean }) {
@@ -522,10 +522,10 @@ function BookmarkButton({ variant }: { variant?: boolean }) {
   );
 }
 
-const DEPLOY_LABEL = { idle: 'Deploy', busy: 'Deploying', done: 'Deployed' } as const;
+const EXPORT_LABEL = { idle: 'Export', busy: 'Exporting', done: 'Exported' } as const;
 
 function StatusPillNow() {
-  const [state, setState] = useState<keyof typeof DEPLOY_LABEL>('idle');
+  const [state, setState] = useState<keyof typeof EXPORT_LABEL>('idle');
   const later = useTimers();
   return (
     <Button
@@ -539,13 +539,13 @@ function StatusPillNow() {
         later(() => setState('done'), 1500);
       }}
     >
-      {DEPLOY_LABEL[state]}
+      {EXPORT_LABEL[state]}
     </Button>
   );
 }
 
 function StatusPillVariant() {
-  const [state, setState] = useState<keyof typeof DEPLOY_LABEL>('idle');
+  const [state, setState] = useState<keyof typeof EXPORT_LABEL>('idle');
   const later = useTimers();
   return (
     <>
@@ -571,10 +571,10 @@ function StatusPillVariant() {
           <span className={cn('size-3.5 rounded-full border-2 border-solid border-t-current animate-[theya-spin_700ms_linear_infinite] transition-opacity', state !== 'busy' && 'opacity-0')} style={{ borderRightColor: TRACK, borderBottomColor: TRACK, borderLeftColor: TRACK }} />
           <Check className={cn('size-3.5 transition-[opacity,scale] duration-moderate ease-spring', state !== 'done' && 'scale-50 opacity-0')} />
         </span>
-        {DEPLOY_LABEL[state]}
+        {EXPORT_LABEL[state]}
       </button>
       <span role="status" className="sr-only">
-        {state === 'busy' ? 'Deploying' : state === 'done' ? 'Deployed' : ''}
+        {state === 'busy' ? 'Exporting' : state === 'done' ? 'Exported' : ''}
       </span>
     </>
   );
@@ -638,11 +638,11 @@ function TalkVariant() {
 
 /* ───── Selection additions ───── */
 
-const FILTERS = ['Next.js', 'Node.js', 'Static', 'Docker'];
+const FILTERS = ['Weddings', 'Portraits', 'Commercial', 'Film'];
 
 function ChoiceChips({ variant }: { variant?: boolean }) {
   return (
-    <div role="group" aria-label={variant ? 'Stack filters (variant)' : 'Stack filters (now)'} className="flex flex-wrap gap-2">
+    <div role="group" aria-label={variant ? 'Gallery filters (variant)' : 'Gallery filters (now)'} className="flex flex-wrap gap-2">
       {FILTERS.map((f, i) => (
         <Chip
           key={f}
@@ -827,9 +827,9 @@ function QuantityStepper({ variant }: { variant?: boolean }) {
 function Tags({ variant }: { variant?: boolean }) {
   return (
     <TagInput
-      defaultValue={['staging', 'eu-west']}
+      defaultValue={['wedding', 'golden hour']}
       placeholder="Add a tag, press Enter"
-      aria-label={variant ? 'Site tags (variant)' : 'Site tags (now)'}
+      aria-label={variant ? 'Gallery tags (variant)' : 'Gallery tags (now)'}
       // The chips are the TagInput's only `max-w-full` children; a pop-out on remove needs the component itself.
       className={cn(variant && '[&_.max-w-full]:animate-[mi-pop-in_400ms_var(--ease-spring)]')}
     />
@@ -862,7 +862,7 @@ function MomentumPicker() {
         ref={box}
         role="listbox"
         tabIndex={0}
-        aria-label="Backup interval"
+        aria-label="Archive interval"
         aria-activedescendant={`mi-int-${i}`}
         onKeyDown={(e) => {
           if (e.key === 'ArrowDown') move(1);
@@ -1010,7 +1010,7 @@ function OrbitalMenu() {
 }
 
 function CommandMenu({ variant }: { variant?: boolean }) {
-  const items = ['New site', 'Add domain', 'Invite member', 'Open billing'];
+  const items = ['New gallery', 'Add client portal', 'Invite member', 'Open billing'];
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -1053,7 +1053,7 @@ export const Inputs: Story = {
         adopted
         note="A wheel for a short ordered list: scrolling rolls it to the next detent with a spring; the rest fade back. A listbox for assistive tech."
         source="Kinetics · Momentum Picker"
-        now={<WheelPicker aria-label="Backup interval (built in)" options={INTERVALS.map((label) => ({ value: label, label }))} defaultValue="1 hour" />}
+        now={<WheelPicker aria-label="Archive interval (built in)" options={INTERVALS.map((label) => ({ value: label, label }))} defaultValue="1 hour" />}
         variant={<MomentumPicker />}
       />
     </Gallery>
@@ -1094,8 +1094,8 @@ export const Menus: Story = {
         title="FAB lift" adopted
         note="On hover the FAB rises and its shadow grows, on the spring curve."
         source="Kinetics · Hover Lift"
-        now={<Fab position="none" icon={<Plus />} label="New site" />}
-        variant={<Fab position="none" icon={<Plus />} label="New site" className="transition-[translate,box-shadow,background-color] duration-slower ease-spring hover:-translate-y-1 hover:shadow-elevation-lg" />}
+        now={<Fab position="none" icon={<Plus />} label="New gallery" />}
+        variant={<Fab position="none" icon={<Plus />} label="New gallery" className="transition-[translate,box-shadow,background-color] duration-slower ease-spring hover:-translate-y-1 hover:shadow-elevation-lg" />}
       />
     </Gallery>
   ),
@@ -1124,7 +1124,7 @@ function SuccessRow({ variant }: { variant?: boolean }) {
     <div className="flex w-full flex-col items-start gap-3">
       <div key={variant ? undefined : run} className="flex items-center gap-3">
         {variant ? <DrawnSuccess run={run} /> : <SuccessCheck className="size-6 text-[var(--color-icon-icon-success)]" />}
-        <span className="text-body-m text-[var(--color-text-text)]">Backup restored</span>
+        <span className="text-body-m text-[var(--color-text-text)]">Album restored</span>
       </div>
       <Button size="sm" appearance="ghost" tone="neutral" onClick={() => setRun((r) => r + 1)}>
         Replay
@@ -1133,7 +1133,7 @@ function SuccessRow({ variant }: { variant?: boolean }) {
   );
 }
 
-function DomainForm({ variant }: { variant?: boolean }) {
+function PortalForm({ variant }: { variant?: boolean }) {
   const [error, setError] = useState<string | undefined>();
   const shake = useRef<HTMLDivElement>(null);
   return (
@@ -1142,9 +1142,9 @@ function DomainForm({ variant }: { variant?: boolean }) {
       className="flex w-full flex-col items-start gap-3"
       onSubmit={(event) => {
         event.preventDefault();
-        const value = new FormData(event.currentTarget).get('domain');
+        const value = new FormData(event.currentTarget).get('email');
         if (value) return setError(undefined);
-        setError('Enter a domain, e.g. shop.example.com');
+        setError('Enter an email, e.g. rhea.okafor@example.com');
         if (variant && shake.current && !isReduced(shake.current)) {
           shake.current.animate(
             [
@@ -1166,10 +1166,10 @@ function DomainForm({ variant }: { variant?: boolean }) {
       }}
     >
       <div ref={shake} className="w-full">
-        <TextField name="domain" label="Domain" error={error} />
+        <TextField name="email" label="Client email" error={error} />
       </div>
       <Button type="submit" size="sm">
-        Add domain
+        Invite client
       </Button>
     </form>
   );
@@ -1236,8 +1236,8 @@ export const Feedback: Story = {
         title="Error shake"
         note="Submit the empty field: the field shakes once (450ms, decaying). The message is the real signal; the shake only draws the eye, and is skipped with reduced motion. Built into Form: on a failed submit each invalid FormItem shakes."
         source="Kinetics · Error Shake"
-        now={<DomainForm />}
-        variant={<DomainForm variant />}
+        now={<PortalForm />}
+        variant={<PortalForm variant />}
       />
       <Pair title="Counter pop" adopted note="The count springs each time it changes." source="Kinetics · Badge Counter" now={<CartCounter />} variant={<CartCounter variant />} />
       <Pair
@@ -1334,7 +1334,7 @@ const Typing = () => (
 );
 
 const Indeterminate = () => (
-  <span role="progressbar" aria-label="Deploying" className="mi-loader relative block h-1.5 w-full overflow-hidden rounded-full" style={{ background: 'var(--color-bg-neutral-bg-neutral-subtle)' }}>
+  <span role="progressbar" aria-label="Exporting" className="mi-loader relative block h-1.5 w-full overflow-hidden rounded-full" style={{ background: 'var(--color-bg-neutral-bg-neutral-subtle)' }}>
     <span className="absolute inset-y-0 start-0 w-2/5 rounded-full bg-[var(--color-bg-primary-bg-primary)] animate-[mi-indeterminate_1.4s_var(--ease-glide)_infinite] rtl:[animation-direction:reverse]" />
   </span>
 );
@@ -1392,8 +1392,8 @@ function SkeletonSwap({ variant }: { variant?: boolean }) {
           {lines.map((l) => (variant ? <div key={l} className={cn(sweep, l)} /> : <Skeleton key={l} className={l} />))}
         </div>
         <div className={cn('flex flex-col gap-1', variant && 'transition-[opacity,translate] duration-slow ease-enter', !loaded && 'pointer-events-none translate-y-1 opacity-0', !loaded && !variant && 'hidden')}>
-          <p className="text-body-m font-semibold text-[var(--color-text-text)]">shop.example.com</p>
-          <p className="text-body-s text-[var(--color-text-text-subtle)]">SSL active · renews on 14 Nov</p>
+          <p className="text-body-m font-semibold text-[var(--color-text-text)]">Moonrise over Othrys</p>
+          <p className="text-body-s text-[var(--color-text-text-subtle)]">License active · renews on 14 Nov</p>
         </div>
       </div>
       <Button size="sm" appearance="ghost" tone="neutral" onClick={() => setLoaded((l) => !l)}>
@@ -1409,9 +1409,9 @@ function UndoNow() {
       appearance="tonal"
       tone="danger"
       leftIcon={<Trash />}
-      onClick={() => undoToast({ title: 'Backup deleted', onUndo: () => {}, onCommit: () => {} })}
+      onClick={() => undoToast({ title: 'Album deleted', onUndo: () => {}, onCommit: () => {} })}
     >
-      Delete backup
+      Delete album
     </Button>
   );
 }
@@ -1432,10 +1432,10 @@ function UndoVariant() {
           setRun((r) => r + 1);
         }}
       >
-        Delete backup
+        Delete album
       </Button>
       <span role="status" className="sr-only">
-        {open ? 'Backup deleted. Undo is available.' : note}
+        {open ? 'Album deleted. Undo is available.' : note}
       </span>
       <div
         aria-hidden={!open}
@@ -1445,7 +1445,7 @@ function UndoVariant() {
           open ? 'visible translate-y-0 opacity-100' : 'invisible translate-y-[120%] opacity-0',
         )}
       >
-        <span className="flex-1">Backup deleted</span>
+        <span className="flex-1">Album deleted</span>
         <Button
           size="sm"
           appearance="ghost"
@@ -1481,7 +1481,7 @@ function SegmentFill({ variant }: { variant?: boolean }) {
   return (
     <div className="flex w-full flex-col items-start gap-3">
       {variant ? (
-        <div role="progressbar" aria-label="Migration" aria-valuemin={0} aria-valuemax={5} aria-valuenow={filled} className="flex w-full gap-1">
+        <div role="progressbar" aria-label="Import" aria-valuemin={0} aria-valuemax={5} aria-valuenow={filled} className="flex w-full gap-1">
           {[0, 1, 2, 3, 4].map((n) => (
             <span key={n} className="h-2 flex-1 overflow-hidden rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]">
               <span className={cn('block h-full origin-left rounded-full bg-[var(--color-bg-primary-bg-primary)] transition-transform duration-slow ease-glide rtl:origin-right', n < filled ? 'scale-x-100' : 'scale-x-0')} />
@@ -1489,7 +1489,7 @@ function SegmentFill({ variant }: { variant?: boolean }) {
           ))}
         </div>
       ) : (
-        <Progress segments={5} value={filled * 20} aria-label="Migration" className="w-full" />
+        <Progress segments={5} value={filled * 20} aria-label="Import" className="w-full" />
       )}
       <Button size="sm" appearance="ghost" tone="neutral" onClick={run}>
         Run
@@ -1498,7 +1498,7 @@ function SegmentFill({ variant }: { variant?: boolean }) {
   );
 }
 
-const STEPS = ['Plan', 'Domain', 'Payment', 'Done'];
+const STEPS = ['Plan', 'Client portal', 'Payment', 'Done'];
 
 function StepProgress() {
   const [step, setStep] = useState(1);
@@ -1673,7 +1673,7 @@ const BreathingOrb = () => (
 
 const FloatCard = () => (
   <div className="w-full max-w-60 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] animate-[mi-bob_4s_ease-in-out_infinite]">
-    <PanelText title="Try staging" text="Copy your site in one click." />
+    <PanelText title="Try proofing" text="Let clients pick favorites in one click." />
   </div>
 );
 
@@ -1685,14 +1685,14 @@ const RadarDot = () => (
       ))}
       <span className="size-2.5 rounded-full bg-[var(--color-icon-icon-success)]" />
     </span>
-    <span className="text-body-m text-[var(--color-text-text)]">Monitoring 12 sites</span>
+    <span className="text-body-m text-[var(--color-text-text)]">Syncing 12 galleries</span>
   </span>
 );
 
 const LiveNow = () => (
   <span className="flex items-center gap-2 text-body-m text-[var(--color-text-text)]">
     <StatusDot tone="success" aria-hidden="true" />
-    Monitoring 12 sites
+    Syncing 12 galleries
   </span>
 );
 
@@ -1744,7 +1744,7 @@ export const Loaders: Story = {
         adopted
         note="Built into Progress: indeterminate (left) and segments. The ring that eases to each new value stays in the library."
         source="Kinetics · Indeterminate Bar, Progress Ring; CSS Loaders · 28 Segmenta"
-        now={<Progress indeterminate aria-label="Deploy" className="w-full" />}
+        now={<Progress indeterminate aria-label="Export" className="w-full" />}
         variant={
           <div className="flex w-full flex-col gap-4">
             <Indeterminate />
@@ -1764,7 +1764,7 @@ export const Loaders: Story = {
       />
       <Pair
         title="Trace"
-        note="For a request trace or a timeline: the spans fill left to right, hold, and clear."
+        note="For an export trace or a timeline: the spans fill left to right, hold, and clear."
         source="Kinetics · Trace Flame"
         now={<span className="text-body-s text-[var(--color-text-text-subtler)]">—</span>}
         variant={<TraceFlame />}
@@ -1793,12 +1793,12 @@ export const Ambient: Story = {
         source="Kinetics · Border Beam"
         now={
           <SurfaceEffect effect="beam" className="w-full rounded-[var(--size-border-radius-border-radius-2xl)]">
-            <PanelText title="Pro — recommended" text="Five sites, hourly backups." />
+            <PanelText title="Pro — recommended" text="Unlimited galleries, 384 GB of storage." />
           </SurfaceEffect>
         }
         variant={
           <StrongBeam>
-            <PanelText title="Pro — recommended" text="Five sites, hourly backups." />
+            <PanelText title="Pro — recommended" text="Unlimited galleries, 384 GB of storage." />
           </StrongBeam>
         }
       />
@@ -1808,12 +1808,12 @@ export const Ambient: Story = {
         source="Kinetics · Gradient Border Morph"
         now={
           <div className="w-full rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-primary)]">
-            <PanelText title="New: AI site builder" text="Describe a site, get a draft." />
+            <PanelText title="New: AI culling" text="Pick the best shots from a shoot, get a draft." />
           </div>
         }
         variant={
           <GradientBorder>
-            <PanelText title="New: AI site builder" text="Describe a site, get a draft." />
+            <PanelText title="New: AI culling" text="Pick the best shots from a shoot, get a draft." />
           </GradientBorder>
         }
       />
@@ -1825,7 +1825,7 @@ export const Ambient: Story = {
         source="Kinetics · Float Bob"
         now={
           <div className="w-full max-w-60 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-sm">
-            <PanelText title="Try staging" text="Copy your site in one click." />
+            <PanelText title="Try proofing" text="Let clients pick favorites in one click." />
           </div>
         }
         variant={<FloatCard />}

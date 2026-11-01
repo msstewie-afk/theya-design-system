@@ -3,7 +3,7 @@ import { CountUp } from './count-up';
 
 export const countUpGuidelines: ComponentGuidelines = {
   status: 'beta',
-  whenToUse: ['A headline figure on a landing page: “12,400 sites”, “99.98% uptime”, “3× faster”.'],
+  whenToUse: ['A headline figure on a landing page: “12,400 galleries”, “99.98% portal availability”, “3× faster”.'],
   whenNotToUse: [
     { text: 'A live value in product UI (it must read correctly the moment it’s seen)', instead: 'Stat' },
     { text: 'Numbers people compare in a table', instead: 'Table / DataTable' },
@@ -15,8 +15,8 @@ export const countUpGuidelines: ComponentGuidelines = {
   ],
   doDont: [
     {
-      do: { example: <span className="text-heading-m"><CountUp to={12400} /> sites</span>, caption: 'One figure, counted once when it comes into view.' },
-      dont: { example: <span className="text-body-m">Disk: <CountUp to={78} suffix="%" /></span>, caption: 'Counting a live product value: for a second it shows a wrong number.' },
+      do: { example: <span className="text-heading-m"><CountUp to={12400} /> galleries</span>, caption: 'One figure, counted once when it comes into view.' },
+      dont: { example: <span className="text-body-m">Storage: <CountUp to={78} suffix="%" /></span>, caption: 'Counting a live product value: for a second it shows a wrong number.' },
     },
   ],
   a11y: [

@@ -2,12 +2,12 @@
 
 # Default (motion-cardstack--default)
 - group "What customers say":
-  - text: “Staging and rollbacks without asking ops.” Ivo, developer
+  - text: “Proofing and downloads without chasing clients.” Selin, wedding photographer
   - button "Play"
   - button "Next card"
 
 # Fan (motion-cardstack--fan)
 - group "Highlights":
-  - text: “We moved twelve client sites in an afternoon.” Ana, studio owner
+  - text: “We moved twelve client galleries in an afternoon.” Thea, studio owner
   - button "Pause"
   - button "Next card"

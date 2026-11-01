@@ -6,7 +6,7 @@ import type { StatusTone } from './status-dot';
 import type { BadgeTone } from './badge';
 import { Label } from './label';
 import { Field, FieldError } from './field';
-import { Bell, Cloud, Database, Globe, Lock, Server, StatsUpSquare } from 'iconoir-react';
+import { Archive, Bell, Camera, Globe, Lock, MediaImage, MediaImageList, Printer, StatsUpSquare } from 'iconoir-react';
 import { selectGuidelines } from './select.guidelines';
 
 function RocketIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -56,7 +56,7 @@ const meta: Meta<SelectStoryArgs> = {
     docs: {
       description: {
         component:
-          "One choice from about 6–15 known options people recognise rather than type: a region, a plan, a sort order.",
+          "One choice from about 6–15 known options people recognise rather than type: a studio, a plan, a sort order.",
       },
     },
   },
@@ -106,34 +106,33 @@ const meta: Meta<SelectStoryArgs> = {
 export default meta;
 type Story = StoryObj<SelectStoryArgs>;
 
-/** A labelled region picker with grouped options. */
+/** A labelled studio picker with grouped options. */
 export const Playground: Story = {
   args: { heightSize: 'md', widthSize: 'md', error: false },
   render: (args) => (
     <div className="flex flex-col gap-1">
-      <Label htmlFor="region">Region</Label>
-      <Select defaultValue="eu-west-1" heightSize={args.heightSize}>
-        <SelectTrigger id="region" widthSize={args.widthSize} error={args.error}>
-          <SelectValue placeholder="Select a region" />
+      <Label htmlFor="studio">Studio</Label>
+      <Select defaultValue="helios" heightSize={args.heightSize}>
+        <SelectTrigger id="studio" widthSize={args.widthSize} error={args.error}>
+          <SelectValue placeholder="Select a studio" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Europe</SelectLabel>
-            <SelectItem value="eu-west-1">eu-west-1, Ireland</SelectItem>
-            <SelectItem value="eu-central-1">eu-central-1, Frankfurt</SelectItem>
-            <SelectItem value="eu-north-1">eu-north-1, Stockholm</SelectItem>
+            <SelectLabel>Studios</SelectLabel>
+            <SelectItem value="helios">Helios Studio</SelectItem>
+            <SelectItem value="selene">Selene Weddings</SelectItem>
+            <SelectItem value="eos">Eos Portraits</SelectItem>
           </SelectGroup>
           <SelectSeparator />
           <SelectGroup>
-            <SelectLabel>Americas</SelectLabel>
-            <SelectItem value="us-east-1">us-east-1, Virginia</SelectItem>
-            <SelectItem value="us-west-2">us-west-2, Oregon</SelectItem>
+            <SelectLabel>Print lab</SelectLabel>
+            <SelectItem value="phoebe">Phoebe Light Lab</SelectItem>
           </SelectGroup>
           <SelectSeparator />
           <SelectGroup>
-            <SelectLabel>Asia Pacific</SelectLabel>
-            <SelectItem value="ap-south-1">ap-south-1, Mumbai</SelectItem>
-            <SelectItem value="ap-southeast-1">ap-southeast-1, Singapore</SelectItem>
+            <SelectLabel>On location</SelectLabel>
+            <SelectItem value="othrys">Othrys Lodge</SelectItem>
+            <SelectItem value="l4">Studio L4</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
@@ -141,8 +140,8 @@ export const Playground: Story = {
   ),
   // The visible <Label> names the trigger, and the trigger shows the value.
   play: async ({ canvasElement }) => {
-    const trigger = within(canvasElement).getByRole('combobox', { name: 'Region' });
-    await expect(trigger).toHaveTextContent('eu-west-1, Ireland');
+    const trigger = within(canvasElement).getByRole('combobox', { name: 'Studio' });
+    await expect(trigger).toHaveTextContent('Helios Studio');
   },
 };
 
@@ -237,16 +236,16 @@ export const LongOptions: Story = {
   name: 'Long options',
   render: () => (
     <Select>
-      <SelectTrigger widthSize="lg" aria-label="Endpoint">
-        <SelectValue placeholder="Choose an endpoint" />
+      <SelectTrigger widthSize="lg" aria-label="Export folder">
+        <SelectValue placeholder="Choose an export folder" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="a">shop.seashell.dev.eu-west-1.internal-lb-01.prod</SelectItem>
-        <SelectItem value="b">api.seashell.dev.us-east-1.internal-lb-02.prod</SelectItem>
-        <SelectItem value="c">docs.seashell.dev.ap-southeast-2.edge-03.staging</SelectItem>
-        <SelectItem value="d">cdn.seashell.dev.eu-central-1.edge-04.prod</SelectItem>
-        <SelectItem value="e">auth.seashell.dev.us-west-2.internal-lb-05.prod</SelectItem>
-        <SelectItem value="f">status.seashell.dev.ap-south-1.edge-06.staging</SelectItem>
+        <SelectItem value="a">helios/golden-hour/exports/GOLDEN_0907_full-res_adobe-rgb.tif</SelectItem>
+        <SelectItem value="b">selene-weddings/blue-hour/exports/web_2048px_srgb_watermarked</SelectItem>
+        <SelectItem value="c">eos-portraits/first-light/exports/DAWN_0412_print-ready_8x10.jpg</SelectItem>
+        <SelectItem value="d">othrys/moonrise-over-othrys/exports/originals_raw_unprocessed</SelectItem>
+        <SelectItem value="e">l4/wide-shining/exports/L4_moonrise_full-res_prophoto-rgb.tif</SelectItem>
+        <SelectItem value="f">phoebe-lab/isthmian-five/exports/contact-sheets_proofing_low-res</SelectItem>
       </SelectContent>
     </Select>
   ),
@@ -346,16 +345,16 @@ export const WithIcons: Story = {
   name: 'With icons',
   render: () => (
     <Select defaultValue="a">
-      <SelectTrigger widthSize="md" aria-label="Service">
+      <SelectTrigger widthSize="md" aria-label="Section">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="a" icon={<Server />}>Compute</SelectItem>
-        <SelectItem value="b" icon={<Cloud />}>Storage</SelectItem>
-        <SelectItem value="c" icon={<Globe />}>Networking</SelectItem>
-        <SelectItem value="d" icon={<Database />}>Databases</SelectItem>
-        <SelectItem value="e" icon={<StatsUpSquare />}>Monitoring</SelectItem>
-        <SelectItem value="f" icon={<Lock />}>Security</SelectItem>
+        <SelectItem value="a" icon={<MediaImageList />}>Galleries</SelectItem>
+        <SelectItem value="b" icon={<Printer />}>Prints</SelectItem>
+        <SelectItem value="c" icon={<Globe />}>Client portals</SelectItem>
+        <SelectItem value="d" icon={<Archive />}>Archive</SelectItem>
+        <SelectItem value="e" icon={<StatsUpSquare />}>Insights</SelectItem>
+        <SelectItem value="f" icon={<Lock />}>Licenses</SelectItem>
       </SelectContent>
     </Select>
   ),
@@ -366,16 +365,16 @@ export const WithMediaIcons: Story = {
   name: 'With media icons',
   render: () => (
     <Select defaultValue="a" heightSize="lg">
-      <SelectTrigger widthSize="md" aria-label="Launch template">
+      <SelectTrigger widthSize="md" aria-label="Export preset">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="a" icon={<RocketIcon />} iconSize="lg">Standard launch</SelectItem>
-        <SelectItem value="b" icon={<RocketIcon />} iconSize="lg">Fast-track deploy</SelectItem>
-        <SelectItem value="c" icon={<RocketIcon />} iconSize="lg">Canary release</SelectItem>
-        <SelectItem value="d" icon={<RocketIcon />} iconSize="lg">Blue-green deploy</SelectItem>
-        <SelectItem value="e" icon={<RocketIcon />} iconSize="lg">Scheduled launch</SelectItem>
-        <SelectItem value="f" icon={<RocketIcon />} iconSize="lg">Rollback</SelectItem>
+        <SelectItem value="a" icon={<RocketIcon />} iconSize="lg">Web JPEG</SelectItem>
+        <SelectItem value="b" icon={<RocketIcon />} iconSize="lg">Full-size TIFF</SelectItem>
+        <SelectItem value="c" icon={<RocketIcon />} iconSize="lg">Print-ready TIFF</SelectItem>
+        <SelectItem value="d" icon={<RocketIcon />} iconSize="lg">Social square</SelectItem>
+        <SelectItem value="e" icon={<RocketIcon />} iconSize="lg">Watermarked proofs</SelectItem>
+        <SelectItem value="f" icon={<RocketIcon />} iconSize="lg">Original RAW</SelectItem>
       </SelectContent>
     </Select>
   ),
@@ -386,16 +385,16 @@ export const WithStatus: Story = {
   name: 'With status',
   render: () => (
     <Select defaultValue="a">
-      <SelectTrigger widthSize="md" aria-label="Instance">
+      <SelectTrigger widthSize="md" aria-label="Export">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="a" tone="success">web-01 — running</SelectItem>
-        <SelectItem value="b" tone="warning">web-02 — degraded</SelectItem>
-        <SelectItem value="c" tone="danger">web-03 — stopped</SelectItem>
-        <SelectItem value="d" tone="success">web-04 — running</SelectItem>
-        <SelectItem value="e" tone="success">db-01 — running</SelectItem>
-        <SelectItem value="f" tone="warning">cache-01 — degraded</SelectItem>
+        <SelectItem value="a" tone="success">Golden hour — ready</SelectItem>
+        <SelectItem value="b" tone="warning">Blue hour — processing</SelectItem>
+        <SelectItem value="c" tone="danger">First light — failed</SelectItem>
+        <SelectItem value="d" tone="success">Wide-shining — ready</SelectItem>
+        <SelectItem value="e" tone="success">Isthmian Five — ready</SelectItem>
+        <SelectItem value="f" tone="warning">Moonrise over Othrys — processing</SelectItem>
       </SelectContent>
     </Select>
   ),
@@ -410,12 +409,12 @@ export const WithBadge: Story = {
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="a" icon={<Server />} badge={{ label: 12 }}>Backend team</SelectItem>
-        <SelectItem value="b" icon={<Cloud />} badge={{ label: 3, tone: 'warning' }}>Infra team</SelectItem>
-        <SelectItem value="c" icon={<Globe />} badge={{ label: 'New', tone: 'success' }}>Growth team</SelectItem>
-        <SelectItem value="d" icon={<Database />} badge={{ label: 7 }}>Data team</SelectItem>
-        <SelectItem value="e" icon={<Lock />} badge={{ label: 2, tone: 'warning' }}>Security team</SelectItem>
-        <SelectItem value="f" icon={<Bell />} badge={{ label: 5 }}>Support team</SelectItem>
+        <SelectItem value="a" icon={<Camera />} badge={{ label: 12 }}>Photographers</SelectItem>
+        <SelectItem value="b" icon={<MediaImage />} badge={{ label: 3, tone: 'warning' }}>Retouchers</SelectItem>
+        <SelectItem value="c" icon={<Globe />} badge={{ label: 'New', tone: 'success' }}>Client managers</SelectItem>
+        <SelectItem value="d" icon={<Printer />} badge={{ label: 7 }}>Print lab</SelectItem>
+        <SelectItem value="e" icon={<Archive />} badge={{ label: 2, tone: 'warning' }}>Archivists</SelectItem>
+        <SelectItem value="f" icon={<Bell />} badge={{ label: 5 }}>Support</SelectItem>
       </SelectContent>
     </Select>
   ),
@@ -430,23 +429,17 @@ export const WithDescription: Story = {
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="a" icon={<Server />} description="For solo projects and testing">
-          Starter
+        <SelectItem value="a" icon={<Camera />} description="One photographer, 3 client galleries">
+          Free
         </SelectItem>
-        <SelectItem value="b" icon={<Cloud />} description="For growing teams, up to 20 seats">
+        <SelectItem value="b" icon={<MediaImageList />} description="Unlimited galleries and client portals">
           Pro
         </SelectItem>
-        <SelectItem value="c" icon={<Database />} description="Extra storage and daily backups">
+        <SelectItem value="c" icon={<Archive />} description="384 GB of storage and a nightly archive">
           Business
         </SelectItem>
-        <SelectItem value="d" icon={<StatsUpSquare />} description="Usage-based, pay for what you run">
-          Scale
-        </SelectItem>
-        <SelectItem value="e" icon={<Globe />} description="Custom limits, SSO, dedicated support">
+        <SelectItem value="d" icon={<Globe />} description="Custom limits, SSO, dedicated support">
           Enterprise
-        </SelectItem>
-        <SelectItem value="f" icon={<Lock />} description="Isolated hardware, compliance reports">
-          Dedicated
         </SelectItem>
       </SelectContent>
     </Select>

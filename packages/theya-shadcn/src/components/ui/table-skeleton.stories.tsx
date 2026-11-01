@@ -33,9 +33,9 @@ export const Default: Story = {
     <Table className="w-full max-w-[500px]">
       <TableHeader>
         <TableRow>
-          <TableHead>Domain</TableHead>
+          <TableHead>Gallery</TableHead>
           <TableHead>Status</TableHead>
-          <TableHead className="text-right">Replicas</TableHead>
+          <TableHead className="text-right">Photos</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody aria-busy="true">

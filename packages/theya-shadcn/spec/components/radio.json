@@ -46,7 +46,7 @@
     {
       "do": {
         "caption": "A sensible default is selected, and “Off” is an option rather than an empty group.",
-        "example": "<RadioGroup defaultValue=\"daily\" aria-label=\"Backup frequency\">\n  <Radio value=\"daily\" label=\"Daily\" description=\"Kept for 7 days\" />\n  <Radio value=\"weekly\" label=\"Weekly\" description=\"Kept for 4 weeks\" />\n  <Radio value=\"off\" label=\"Off\" />\n</RadioGroup>"
+        "example": "<RadioGroup defaultValue=\"daily\" aria-label=\"Archive frequency\">\n  <Radio value=\"daily\" label=\"Daily\" description=\"Kept for 7 days\" />\n  <Radio value=\"weekly\" label=\"Weekly\" description=\"Kept for 4 weeks\" />\n  <Radio value=\"off\" label=\"Off\" />\n</RadioGroup>"
       },
       "dont": {
         "caption": "Checkboxes for a one-of choice let people pick both or none.",

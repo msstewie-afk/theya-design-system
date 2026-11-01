@@ -5,7 +5,7 @@ const gb = (n: number) => `${n} GB`;
 
 export const usageBarGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['A total split into up to four parts: storage by type, bandwidth by site, seats by role.', 'Showing parts against a limit (total) — used vs. free.'],
+  whenToUse: ['A total split into up to four parts: storage by type, downloads by gallery, seats by role.', 'Showing parts against a limit (total) — used vs. free.'],
   whenNotToUse: [
     { text: 'One value in a range', instead: 'Meter' },
     { text: 'Task progress', instead: 'Progress' },
@@ -18,13 +18,13 @@ export const usageBarGuidelines: ComponentGuidelines = {
   doDont: [
     {
       do: {
-        example: <div className="w-80"><UsageBar total={50} formatValue={gb} segments={[{ label: 'Files', value: 18 }, { label: 'Databases', value: 9 }, { label: 'Email', value: 4 }]} /></div>,
+        example: <div className="w-80"><UsageBar total={50} formatValue={gb} segments={[{ label: 'Originals', value: 18 }, { label: 'Exports', value: 9 }, { label: 'Previews', value: 4 }]} /></div>,
         caption: 'A few parts with a legend — easy to compare.',
       },
       dont: {
         example: (
           <div className="w-80">
-            <UsageBar total={50} formatValue={gb} segments={['Files', 'DB', 'Email', 'Logs', 'Backups', 'Cache', 'Tmp', 'Other'].map((label, i) => ({ label, value: 6 - (i % 3) }))} />
+            <UsageBar total={50} formatValue={gb} segments={['Originals', 'RAW', 'Exports', 'Previews', 'Archive', 'Video', 'Proofs', 'Other'].map((label, i) => ({ label, value: 6 - (i % 3) }))} />
           </div>
         ),
         caption: 'Eight parts on a four-color palette: colors repeat and the legend can’t be matched. Keep to four, group the rest into “Other”.',

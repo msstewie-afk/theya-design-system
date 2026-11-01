@@ -20,7 +20,7 @@ export const tableSkeletonGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <Table className="w-80">
-            <TableHeader><TableRow><TableHead>Domain</TableHead><TableHead className="text-right">Replicas</TableHead></TableRow></TableHeader>
+            <TableHeader><TableRow><TableHead>Gallery</TableHead><TableHead className="text-right">Photos</TableHead></TableRow></TableHeader>
             <TableBody aria-busy="true"><TableSkeletonRows rows={3} columns={[{}, { align: 'right', width: '2rem' }]} /></TableBody>
           </Table>
         ),

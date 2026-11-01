@@ -6,7 +6,7 @@
   "status": "beta",
   "category": "Motion",
   "whenToUse": [
-    "A headline figure on a landing page: “12,400 sites”, “99.98% uptime”, “3× faster”."
+    "A headline figure on a landing page: “12,400 galleries”, “99.98% portal availability”, “3× faster”."
   ],
   "whenNotToUse": [
     {
@@ -37,11 +37,11 @@
     {
       "do": {
         "caption": "One figure, counted once when it comes into view.",
-        "example": "<span className=\"text-heading-m\"><CountUp to={12400} /> sites</span>"
+        "example": "<span className=\"text-heading-m\"><CountUp to={12400} /> galleries</span>"
       },
       "dont": {
         "caption": "Counting a live product value: for a second it shows a wrong number.",
-        "example": "<span className=\"text-body-m\">Disk: <CountUp to={78} suffix=\"%\" /></span>"
+        "example": "<span className=\"text-body-m\">Storage: <CountUp to={78} suffix=\"%\" /></span>"
       }
     }
   ],

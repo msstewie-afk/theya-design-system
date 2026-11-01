@@ -7,7 +7,7 @@
   "category": "Text Input",
   "description": "Plain div composition on Theya tokens, no library dependency. A\nborderless InputGroupInput sits with InputGroupAddon segments inside\none bordered container that shares one focus-within ring — following\nTextField's conventions (height, focus-ring token, and the border+bg\npairing on error) so this input-shaped component doesn't drift from it.",
   "whenToUse": [
-    "A fixed prefix or suffix that is part of the value’s format: https://, .theya.app, /mo, GB.",
+    "A fixed prefix or suffix that is part of the value’s format: https://, .aether.photo, /mo, GB.",
     "A button that belongs to the field, inside its border."
   ],
   "whenNotToUse": [
@@ -42,11 +42,11 @@
     {
       "do": {
         "caption": "The fixed part is shown, not typed.",
-        "example": "<div className=\"flex w-64 flex-col gap-2\">\n  <Label htmlFor=\"gl-ig-sub\">Subdomain</Label>\n  <InputGroup>\n    <InputGroupInput id=\"gl-ig-sub\" defaultValue=\"shop\" />\n    <InputGroupAddon position=\"end\">.theya.app</InputGroupAddon>\n  </InputGroup>\n</div>"
+        "example": "<div className=\"flex w-64 flex-col gap-2\">\n  <Label htmlFor=\"gl-ig-portal\">Portal address</Label>\n  <InputGroup>\n    <InputGroupInput id=\"gl-ig-portal\" defaultValue=\"selene-weddings\" />\n    <InputGroupAddon position=\"end\">.aether.photo</InputGroupAddon>\n  </InputGroup>\n</div>"
       },
       "dont": {
         "caption": "Asking people to type the fixed part invites typos.",
-        "example": "<TextField label=\"Subdomain\" defaultValue=\"shop.theya.app\" widthSize=\"md\" description=\"Must end with .theya.app\" />"
+        "example": "<TextField label=\"Portal address\" defaultValue=\"selene-weddings.aether.photo\" widthSize=\"md\" description=\"Must end with .aether.photo\" />"
       }
     }
   ],

@@ -41,7 +41,7 @@
       },
       "dont": {
         "caption": "Status colors as decoration teach people that red doesn’t mean anything.",
-        "example": "<div className=\"flex gap-2\">\n  <Badge tone=\"info\">Next.js</Badge>\n  <Badge tone=\"danger\">Astro</Badge>\n  <Badge tone=\"success\">Node.js</Badge>\n</div>"
+        "example": "<div className=\"flex gap-2\">\n  <Badge tone=\"info\">JPEG</Badge>\n  <Badge tone=\"danger\">TIFF</Badge>\n  <Badge tone=\"success\">RAW</Badge>\n</div>"
       }
     },
     {

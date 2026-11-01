@@ -2,16 +2,16 @@ import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { Combobox } from './combobox';
 import { Label } from './label';
 
-const REGIONS = [
-  { value: 'eu-west-1', label: 'EU (Ireland)' },
-  { value: 'eu-central-1', label: 'EU (Frankfurt)' },
-  { value: 'us-east-1', label: 'US East (Virginia)' },
-  { value: 'ap-south-1', label: 'Asia Pacific (Mumbai)' },
+const STUDIOS = [
+  { value: 'helios', label: 'Helios Studio' },
+  { value: 'selene', label: 'Selene Weddings' },
+  { value: 'eos', label: 'Eos Portraits' },
+  { value: 'phoebe', label: 'Phoebe Light Lab' },
 ];
 
 export const comboboxGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['Picking from a long list people search rather than scroll: regions, users, domains.', <><C>multiple</C>: several values shown as chips — tags, recipients, labels.</>, <><C>allowCreate</C>: a list people can add to (new tag).</>],
+  whenToUse: ['Picking from a long list people search rather than scroll: studios, people, client portals.', <><C>multiple</C>: several values shown as chips — tags, recipients, labels.</>, <><C>allowCreate</C>: a list people can add to (new tag).</>],
   whenNotToUse: [
     { text: 'Up to 15 known options', instead: 'Select (6–15) or RadioGroup (up to 5)' },
     { text: 'Free text where suggestions only help', instead: 'Autocomplete' },
@@ -28,11 +28,11 @@ export const comboboxGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className="flex w-64 flex-col gap-2">
-            <Label htmlFor="gl-cbx-region">Region</Label>
-            <Combobox id="gl-cbx-region" options={REGIONS} placeholder="Search regions" />
+            <Label htmlFor="gl-cbx-studio">Studio</Label>
+            <Combobox id="gl-cbx-studio" options={STUDIOS} placeholder="Search studios" />
           </div>
         ),
-        caption: 'Many options with long names — people type “frank” instead of scanning.',
+        caption: 'Many options with long names — people type “selene” instead of scanning.',
       },
       dont: {
         example: (

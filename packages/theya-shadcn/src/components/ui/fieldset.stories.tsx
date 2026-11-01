@@ -66,15 +66,15 @@ export const LegendOnly: Story = {
 export const WithFieldComponents: Story = {
   name: 'With Field components',
   render: () => (
-    <Fieldset legend="DNS records" description="Point your domain at this server." className="w-[320px] max-w-full">
+    <Fieldset legend="Client portal" description="Where clients open their galleries." className="w-[320px] max-w-full">
       <Field>
-        <Label htmlFor="fieldset-host">Host</Label>
-        <TextField id="fieldset-host" placeholder="@" widthSize="full" />
-        <FieldDescription>Use @ for the root domain.</FieldDescription>
+        <Label htmlFor="fieldset-portal">Portal address</Label>
+        <TextField id="fieldset-portal" placeholder="selene-weddings" widthSize="full" />
+        <FieldDescription>Clients open it at selene-weddings.aether.photo.</FieldDescription>
       </Field>
       <Field>
-        <Label htmlFor="fieldset-value">Value</Label>
-        <TextField id="fieldset-value" placeholder="203.0.113.10" widthSize="full" className="font-mono" />
+        <Label htmlFor="fieldset-code">Access code</Label>
+        <TextField id="fieldset-code" placeholder="GOLD-2026" widthSize="full" className="font-mono" />
       </Field>
     </Fieldset>
   ),

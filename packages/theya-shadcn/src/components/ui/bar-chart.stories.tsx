@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { BarChart } from './bar-chart';
 import { barChartGuidelines } from './bar-chart.guidelines';
 
-const DEPLOYS = [
+const EXPORTS = [
   { label: 'Mon', value: 4 },
   { label: 'Tue', value: 7 },
   { label: 'Wed', value: 3 },
@@ -12,11 +12,11 @@ const DEPLOYS = [
   { label: 'Sun', value: 1 },
 ];
 
-const REGIONS = [
-  { label: 'eu-west-1', value: 42 },
-  { label: 'us-east-1', value: 31 },
-  { label: 'ap-south-1', value: 18 },
-  { label: 'sa-east-1', value: 9 },
+const STUDIOS = [
+  { label: 'Selene Weddings', value: 42 },
+  { label: 'Helios Studio', value: 31 },
+  { label: 'Eos Portraits', value: 18 },
+  { label: 'Othrys Lodge', value: 9 },
 ];
 
 /**
@@ -34,7 +34,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Compares one value across categories: load by region, deploys per day, tickets per team. Horizontal for a ranked list with long labels.",
+          "Compares one value across categories: storage by studio, exports per day, photos per album. Horizontal for a ranked list with long labels.",
       },
     },
     guidelines: barChartGuidelines, layout: 'padded',
@@ -61,7 +61,7 @@ const meta = {
     orientation: 'vertical',
     height: 240,
     valueStep: 4,
-    ariaLabel: 'Deploys per day this week, peaking Friday at 11.',
+    ariaLabel: 'Exports per day this week, peaking Friday at 11.',
   },
   decorators: [
     (Story) => (
@@ -77,25 +77,25 @@ export default meta;
 // lost the component props (TS2322, required `data`).
 type Story = StoryObj<typeof BarChart>;
 
-/** Vertical columns: deploys per day. Hover for the crosshair tooltip. */
+/** Vertical columns: exports per day. Hover for the crosshair tooltip. */
 export const Vertical: Story = {
-  render: (args) => <BarChart {...args} data={DEPLOYS} />,
+  render: (args) => <BarChart {...args} data={EXPORTS} />,
 };
 
-/** A ranked, horizontal breakdown: load by region, longest bar first. Good when
+/** A ranked, horizontal breakdown: storage by studio, longest bar first. Good when
  * category labels are long. */
 export const Horizontal: Story = {
   args: {
     orientation: 'horizontal',
     unit: '%',
     valueStep: 10,
-    ariaLabel: 'Request load by region, led by eu-west-1 at 42%.',
+    ariaLabel: 'Storage by studio, led by Selene Weddings at 42%.',
   },
-  render: (args) => <BarChart {...args} data={REGIONS} />,
+  render: (args) => <BarChart {...args} data={STUDIOS} />,
 };
 
 /** Empty data: the gridded frame still renders, ready for incoming data. */
 export const Empty: Story = {
-  args: { ariaLabel: 'No deploy data yet.' },
+  args: { ariaLabel: 'No exports yet.' },
   render: (args) => <BarChart {...args} data={[]} />,
 };

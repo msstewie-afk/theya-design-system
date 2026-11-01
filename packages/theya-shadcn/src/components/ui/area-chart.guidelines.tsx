@@ -5,13 +5,13 @@ const WEEK = [
   { label: 'Mon', value: 3.0 }, { label: 'Tue', value: 3.4 }, { label: 'Wed', value: 2.9 }, { label: 'Thu', value: 4.1 },
   { label: 'Fri', value: 4.8 }, { label: 'Sat', value: 3.6 }, { label: 'Sun', value: 3.2 },
 ];
-const REGIONS = [
-  { label: 'eu-west-1', value: 42 }, { label: 'us-east-1', value: 31 }, { label: 'ap-south-1', value: 15 }, { label: 'sa-east-1', value: 12 },
+const STUDIOS = [
+  { label: 'Selene Weddings', value: 42 }, { label: 'Helios Studio', value: 31 }, { label: 'Eos Portraits', value: 15 }, { label: 'Othrys Lodge', value: 12 },
 ];
 
 export const areaChartGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['One quantity over time where the volume matters: traffic, requests, storage used.', <>A few stacked series that add up to a total (<C>series</C> + <C>stacked</C>).</>],
+  whenToUse: ['One quantity over time where the volume matters: gallery views, downloads, storage used.', <>A few stacked series that add up to a total (<C>series</C> + <C>stacked</C>).</>],
   whenNotToUse: [
     { text: 'Comparing several trends that don’t add up', instead: 'LineChart' },
     { text: 'Categories with no order', instead: 'BarChart' },
@@ -26,17 +26,17 @@ export const areaChartGuidelines: ComponentGuidelines = {
   doDont: [
     {
       do: {
-        example: <div className="w-full"><AreaChart data={WEEK} unit="k" height={180} ariaLabel="Requests this week, peak 4.8k on Friday." /></div>,
-        caption: 'Requests over a week — the shape of the volume is the point.',
+        example: <div className="w-full"><AreaChart data={WEEK} unit="k" height={180} ariaLabel="Gallery views this week, peak 4.8k on Friday." /></div>,
+        caption: 'Gallery views over a week — the shape of the volume is the point.',
       },
       dont: {
-        example: <div className="w-full"><AreaChart data={REGIONS} unit="%" height={180} ariaLabel="Load by region." /></div>,
-        caption: 'Regions joined by a filled line imply a trend between them that doesn’t exist — use a bar chart.',
+        example: <div className="w-full"><AreaChart data={STUDIOS} unit="%" height={180} ariaLabel="Storage by studio." /></div>,
+        caption: 'Studios joined by a filled line imply a trend between them that doesn’t exist — use a bar chart.',
       },
     },
   ],
   a11y: [
-    <>Always pass <C>ariaLabel</C> with the takeaway (“Requests this week, peak 4.8k on Friday”), not “Area chart”.</>,
+    <>Always pass <C>ariaLabel</C> with the takeaway (“Gallery views this week, peak 4.8k on Friday”), not “Area chart”.</>,
     'Give the key number in text near the chart too; the tooltip is pointer-only.',
   ],
 };

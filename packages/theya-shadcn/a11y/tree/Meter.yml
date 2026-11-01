@@ -12,6 +12,10 @@
 # Label Only (status-feedback-meter--label-only)
 - meter "Health score"
 
+# Minimum And Steps (status-feedback-meter--minimum-and-steps)
+- meter "Protein": Protein 42 g
+- meter "Disk": Disk 68%
+
 # Segmented (status-feedback-meter--segmented)
 - meter "GPUs"
 
@@ -19,3 +23,7 @@
 - meter "CPU": CPU 38%
 - meter "Memory": Memory 82%
 - meter "Disk": Disk 96%
+
+# With Thresholds (status-feedback-meter--with-thresholds)
+- meter "Salt today": Salt today 1.1 g
+- meter "Salt this week": Salt this week 2.4 g

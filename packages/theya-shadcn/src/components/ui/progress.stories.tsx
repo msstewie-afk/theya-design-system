@@ -72,12 +72,12 @@ export const Labelled: Story = {
   render: () => (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between font-body text-body-s">
-        <span id="backup-label" className="text-[var(--color-text-text-subtler)]">
-          Uploading backup
+        <span id="upload-label" className="text-[var(--color-text-text-subtler)]">
+          Uploading Golden hour
         </span>
-        <span className="font-mono tabular-nums text-[var(--color-text-text-subtler)]">8.2 / 12.4 GB</span>
+        <span className="tabular-nums text-[var(--color-text-text-subtler)]">8.2 / 12.4 GB</span>
       </div>
-      <Progress value={66} aria-labelledby="backup-label" />
+      <Progress value={66} aria-labelledby="upload-label" />
     </div>
   ),
 };
@@ -88,12 +88,12 @@ export const Usage: Story = {
   render: () => (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between font-body text-body-s">
-        <span id="disk-label" className="text-[var(--color-text-text-subtler)]">
-          Disk used
+        <span id="storage-label" className="text-[var(--color-text-text-subtler)]">
+          Storage used
         </span>
-        <span className="font-mono tabular-nums text-[var(--color-text-text-subtler)]">37.4 / 50 GB</span>
+        <span className="tabular-nums text-[var(--color-text-text-subtler)]">288 / 384 GB</span>
       </div>
-      <Progress value={75} className="h-2" aria-labelledby="disk-label" />
+      <Progress value={75} className="h-2" aria-labelledby="storage-label" />
     </div>
   ),
 };
@@ -137,12 +137,12 @@ export const Live: Story = {
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between font-body text-body-s">
-            <span id="deploy-label" className="text-[var(--color-text-text-subtler)]">
-              Deploying
+            <span id="export-label" className="text-[var(--color-text-text-subtler)]">
+              Exporting
             </span>
-            <span className="font-mono tabular-nums text-[var(--color-text-text-subtler)]">{value}%</span>
+            <span className="tabular-nums text-[var(--color-text-text-subtler)]">{value}%</span>
           </div>
-          <Progress value={value} aria-labelledby="deploy-label" />
+          <Progress value={value} aria-labelledby="export-label" />
         </div>
         <Button
           appearance="outlined"
@@ -153,7 +153,7 @@ export const Live: Story = {
             setRunning(true);
           }}
         >
-          Start deploy
+          Start export
         </Button>
       </div>
     );
@@ -164,8 +164,8 @@ export const Live: Story = {
 export const Indeterminate: Story = {
   render: () => (
     <div className="flex w-full max-w-sm flex-col gap-2">
-      <span id="deploying-label" className="font-body text-body-s text-[var(--color-text-text-subtle)]">Deploying shop.example.com…</span>
-      <Progress indeterminate aria-labelledby="deploying-label" />
+      <span id="exporting-label" className="font-body text-body-s text-[var(--color-text-text-subtle)]">Exporting Moonrise over Othrys…</span>
+      <Progress indeterminate aria-labelledby="exporting-label" />
     </div>
   ),
 };
@@ -176,8 +176,8 @@ export const Segments: Story = {
     const [step, setStep] = useState(1);
     return (
       <div className="flex w-full max-w-sm flex-col gap-3">
-        <span id="migration-label" className="font-body text-body-s text-[var(--color-text-text-subtle)]">Migration: stage {step} of 5</span>
-        <Progress segments={5} value={step * 20} aria-labelledby="migration-label" />
+        <span id="import-label" className="font-body text-body-s text-[var(--color-text-text-subtle)]">Import: stage {step} of 5</span>
+        <Progress segments={5} value={step * 20} aria-labelledby="import-label" />
         <Button size="sm" appearance="ghost" tone="neutral" className="self-start" onClick={() => setStep((s) => (s % 5) + 1)}>
           Next stage
         </Button>

@@ -19,7 +19,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Changes one value where it’s shown — a site name, a page title — without opening a form. Enter saves, Escape cancels.",
+          "Changes one value where it’s shown — a gallery name, a page title — without opening a form. Enter saves, Escape cancels.",
       },
     },
     guidelines: inlineEditGuidelines, layout: 'padded',
@@ -36,7 +36,7 @@ const meta = {
     onSave: { control: false },
     validate: { control: false },
   },
-  args: { label: 'Site name', defaultValue: 'Seashell storefront', size: 'md', saveOnBlur: true },
+  args: { label: 'Gallery name', defaultValue: 'Golden hour', size: 'md', saveOnBlur: true },
   decorators: [(Story) => <div className="w-full max-w-[360px]">{Story()}</div>],
 } satisfies Meta<typeof InlineEdit>;
 
@@ -47,34 +47,34 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const display = () => canvas.getByRole('button', { name: /^Edit Site name:/ });
+    const display = () => canvas.getByRole('button', { name: /^Edit Gallery name:/ });
 
     // Click → field with the text selected; Enter saves and focus returns to the value.
     await userEvent.click(display());
-    const field = canvas.getByRole('textbox', { name: 'Site name' });
+    const field = canvas.getByRole('textbox', { name: 'Gallery name' });
     await expect(field).toHaveFocus();
-    await expect((field as HTMLInputElement).selectionEnd! - (field as HTMLInputElement).selectionStart!).toBe('Seashell storefront'.length);
-    await userEvent.keyboard('Main shop{Enter}');
-    await expect(display()).toHaveAccessibleName('Edit Site name: Main shop');
+    await expect((field as HTMLInputElement).selectionEnd! - (field as HTMLInputElement).selectionStart!).toBe('Golden hour'.length);
+    await userEvent.keyboard('Blue hour{Enter}');
+    await expect(display()).toHaveAccessibleName('Edit Gallery name: Blue hour');
     await expect(display()).toHaveFocus();
 
     // Escape cancels and keeps the saved value.
     await userEvent.keyboard('{Enter}');
     await userEvent.keyboard('Something else{Escape}');
-    await expect(display()).toHaveAccessibleName('Edit Site name: Main shop');
+    await expect(display()).toHaveAccessibleName('Edit Gallery name: Blue hour');
     await expect(display()).toHaveFocus();
 
     // Leaving the field saves (saveOnBlur); surrounding spaces are trimmed.
     await userEvent.click(display());
-    await userEvent.keyboard('  Outlet  ');
+    await userEvent.keyboard('  First light  ');
     await userEvent.click(canvasElement);
-    await expect(display()).toHaveAccessibleName('Edit Site name: Outlet');
+    await expect(display()).toHaveAccessibleName('Edit Gallery name: First light');
 
     // Moving focus to the component's own Cancel doesn't count as leaving.
     await userEvent.click(display());
     await userEvent.keyboard('Draft');
     await userEvent.click(canvas.getByRole('button', { name: 'Cancel' }));
-    await expect(display()).toHaveAccessibleName('Edit Site name: Outlet');
+    await expect(display()).toHaveAccessibleName('Edit Gallery name: First light');
   },
 };
 
@@ -86,23 +86,23 @@ export const Empty: Story = {
 /** `validate` blocks the save and keeps the field open with the message. Try clearing it or typing more than 32 characters. */
 export const Validation: Story = {
   args: {
-    validate: (v: string) => (!v ? 'Enter a site name.' : v.length > 32 ? 'Use 32 characters or fewer.' : undefined),
+    validate: (v: string) => (!v ? 'Enter a gallery name.' : v.length > 32 ? 'Use 32 characters or fewer.' : undefined),
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: /^Edit Site name:/ }));
-    const field = canvas.getByRole('textbox', { name: 'Site name' });
+    await userEvent.click(canvas.getByRole('button', { name: /^Edit Gallery name:/ }));
+    const field = canvas.getByRole('textbox', { name: 'Gallery name' });
     await userEvent.clear(field);
     await userEvent.keyboard('{Enter}');
     // Stays open with the message tied to the field.
     await expect(field).toHaveAttribute('aria-invalid', 'true');
-    await expect(canvas.getByText('Enter a site name.')).toBeInTheDocument();
+    await expect(canvas.getByText('Enter a gallery name.')).toBeInTheDocument();
     await expect(field).toHaveFocus();
     // Typing clears the message; a valid value saves.
-    await userEvent.keyboard('Docs');
-    await expect(canvas.queryByText('Enter a site name.')).not.toBeInTheDocument();
+    await userEvent.keyboard('Wide-shining');
+    await expect(canvas.queryByText('Enter a gallery name.')).not.toBeInTheDocument();
     await userEvent.keyboard('{Enter}');
-    await expect(canvas.getByRole('button', { name: 'Edit Site name: Docs' })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Edit Gallery name: Wide-shining' })).toBeInTheDocument();
   },
 };
 
@@ -111,14 +111,14 @@ export const AsyncSave: Story = {
   args: { onSave: () => new Promise<void>((resolve) => setTimeout(resolve, 900)) },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: /^Edit Site name:/ }));
+    await userEvent.click(canvas.getByRole('button', { name: /^Edit Gallery name:/ }));
     await userEvent.keyboard('Pending name{Enter}');
     // While saving: field and both buttons are locked.
-    await expect(canvas.getByRole('textbox', { name: 'Site name' })).toBeDisabled();
+    await expect(canvas.getByRole('textbox', { name: 'Gallery name' })).toBeDisabled();
     // Save is loading: blocked with aria-disabled, so it keeps focus if it had it.
-    await expect(canvas.getByRole('button', { name: 'Save Site name' })).toHaveAttribute('aria-disabled', 'true');
+    await expect(canvas.getByRole('button', { name: 'Save Gallery name' })).toHaveAttribute('aria-disabled', 'true');
     await expect(canvas.getByRole('button', { name: 'Cancel' })).toBeDisabled();
-    const display = await canvas.findByRole('button', { name: 'Edit Site name: Pending name' }, { timeout: 3000 });
+    const display = await canvas.findByRole('button', { name: 'Edit Gallery name: Pending name' }, { timeout: 3000 });
     await waitFor(() => expect(display).toHaveFocus());
   },
 };
@@ -126,16 +126,16 @@ export const AsyncSave: Story = {
 /** A rejected save keeps the field open with the error, so nothing typed is lost. */
 export const SaveFails: Story = {
   args: {
-    onSave: () => new Promise<void>((_, reject) => setTimeout(() => reject(new Error('Site names must be unique — shop already exists.')), 700)),
+    onSave: () => new Promise<void>((_, reject) => setTimeout(() => reject(new Error('Gallery names must be unique — Moonrise already exists.')), 700)),
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: /^Edit Site name:/ }));
-    await userEvent.keyboard('shop{Enter}');
+    await userEvent.click(canvas.getByRole('button', { name: /^Edit Gallery name:/ }));
+    await userEvent.keyboard('Moonrise{Enter}');
     // The error shows, the typed text is kept, and focus is back in the field to fix it.
-    await expect(await canvas.findByText(/Site names must be unique/, undefined, { timeout: 3000 })).toBeInTheDocument();
-    const field = canvas.getByRole('textbox', { name: 'Site name' });
-    await expect(field).toHaveValue('shop');
+    await expect(await canvas.findByText(/Gallery names must be unique/, undefined, { timeout: 3000 })).toBeInTheDocument();
+    const field = canvas.getByRole('textbox', { name: 'Gallery name' });
+    await expect(field).toHaveValue('Moonrise');
     await expect(field).toBeEnabled();
     await waitFor(() => expect(field).toHaveFocus());
   },
@@ -157,7 +157,7 @@ export const Multiline: Story = {
   args: {
     label: 'Release notes',
     multiline: true,
-    defaultValue: 'Region moves without downtime.\nThe CLI prints a plan with --dry-run.',
+    defaultValue: 'Exports keep the original color profile.\nRAW files now open in the client portal.',
   },
 };
 
@@ -166,7 +166,7 @@ export const PageTitle: Story = {
   parameters: { controls: { exclude: ['size', 'multiline'] } },
   render: (args) => (
     <h1 className="font-heading text-heading-l text-[var(--color-text-text)]">
-      <InlineEdit {...args} inheritFont label="Page title" defaultValue="Seashell storefront" />
+      <InlineEdit {...args} inheritFont label="Page title" defaultValue="Golden hour" />
     </h1>
   ),
 };
@@ -185,10 +185,10 @@ export const ReadOnlyAndDisabled: Story = {
 export const InSettings: Story = {
   parameters: { controls: { disable: true } },
   render: function Render() {
-    const [site, setSite] = useState({ name: 'Seashell storefront', domain: 'shop.seashell.dev', owner: '' });
-    const rows: { key: keyof typeof site; label: string; placeholder?: string }[] = [
-      { key: 'name', label: 'Site name' },
-      { key: 'domain', label: 'Primary domain' },
+    const [gallery, setGallery] = useState({ name: 'Golden hour', portal: 'helios.aether.photo', owner: '' });
+    const rows: { key: keyof typeof gallery; label: string; placeholder?: string }[] = [
+      { key: 'name', label: 'Gallery name' },
+      { key: 'portal', label: 'Client portal' },
       { key: 'owner', label: 'Owner', placeholder: 'Assign an owner' },
     ];
     return (
@@ -199,10 +199,10 @@ export const InSettings: Story = {
             <dd>
               <InlineEdit
                 label={row.label}
-                value={site[row.key]}
+                value={gallery[row.key]}
                 placeholder={row.placeholder}
                 size="sm"
-                onSave={(v) => setSite((s) => ({ ...s, [row.key]: v }))}
+                onSave={(v) => setGallery((g) => ({ ...g, [row.key]: v }))}
               />
             </dd>
           </div>

@@ -6,7 +6,7 @@
   "status": "beta",
   "category": "Text Input",
   "whenToUse": [
-    "Renaming one value where it’s shown: a site name, a page title, a note.",
+    "Renaming one value where it’s shown: a gallery name, a page title, a note.",
     "Values people change now and then, not every time they visit."
   ],
   "whenNotToUse": [
@@ -15,7 +15,7 @@
       "instead": "a form with Save"
     },
     {
-      "text": "Values that need confirmation or have consequences (a domain, an email)",
+      "text": "Values that need confirmation or have consequences (a client portal address, an email)",
       "instead": "a dialog or a form"
     },
     {
@@ -46,11 +46,11 @@
     {
       "do": {
         "caption": "One value, edited where it’s read.",
-        "example": "<InlineEdit label=\"Site name\" defaultValue=\"Seashell shop\" />"
+        "example": "<InlineEdit label=\"Gallery name\" defaultValue=\"Golden hour\" />"
       },
       "dont": {
         "caption": "A set of fields each saving on its own is a form in disguise — people won’t know what’s saved.",
-        "example": "<div className=\"flex w-64 flex-col gap-2\">\n  <TextField label=\"Site name\" defaultValue=\"Seashell shop\" widthSize=\"full\" />\n  <TextField label=\"Domain\" defaultValue=\"seashell.shop\" widthSize=\"full\" />\n</div>"
+        "example": "<div className=\"flex w-64 flex-col gap-2\">\n  <TextField label=\"Gallery name\" defaultValue=\"Golden hour\" widthSize=\"full\" />\n  <TextField label=\"Portal address\" defaultValue=\"helios.aether.photo\" widthSize=\"full\" />\n</div>"
       }
     }
   ],
@@ -67,7 +67,7 @@
           "name": "label",
           "type": "string",
           "required": true,
-          "description": "Accessible name of the value, e.g. \"Site name\". Used for the field and the \"Edit …\" hint."
+          "description": "Accessible name of the value, e.g. \"Gallery name\". Used for the field and the \"Edit …\" hint."
         },
         {
           "name": "autoComplete",

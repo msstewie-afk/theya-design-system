@@ -4,7 +4,7 @@ import { Fab } from './fab';
 
 export const fabGuidelines: ComponentGuidelines = {
   status: 'beta',
-  whenToUse: ['The one main action of a screen that must stay reachable while scrolling, mostly on mobile: “New message”, “Add site”.', <>Extended (with <C>label</C>) when the icon alone isn’t obvious.</>],
+  whenToUse: ['The one main action of a screen that must stay reachable while scrolling, mostly on mobile: “New message”, “Add gallery”.', <>Extended (with <C>label</C>) when the icon alone isn’t obvious.</>],
   whenNotToUse: [
     { text: 'Secondary or destructive actions' },
     { text: 'Screens with more than one equally important action', instead: 'Button in the page header or StickyActionBar' },
@@ -18,7 +18,7 @@ export const fabGuidelines: ComponentGuidelines = {
   ],
   doDont: [
     {
-      do: { example: <Fab position="none" icon={<Plus />} label="New site" />, caption: 'One FAB, the screen’s main action, with a label.' },
+      do: { example: <Fab position="none" icon={<Plus />} label="New gallery" />, caption: 'One FAB, the screen’s main action, with a label.' },
       dont: {
         example: (
           <div className="flex gap-3">

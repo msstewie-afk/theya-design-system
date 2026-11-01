@@ -5,8 +5,8 @@
 - paragraph: "Try:"
 - list:
   - listitem: Checking the spelling
-  - listitem: Fewer or more general words — “backup” instead of “nightly backup job”
-  - listitem: A name, domain or email address as it appears in the panel
+  - listitem: Fewer or more general words — “wedding” instead of “June wedding at the lodge”
+  - listitem: A name, album title or email address exactly as it appears
 - region "Popular pages":
   - heading "Popular pages" [level=2]
   - list:
@@ -24,16 +24,16 @@
         - /url: "#a4"
 
 # Did You Mean (patterns-search-noresults--did-you-mean)
-- paragraph: Nothing matches “certificat”
+- paragraph: Nothing matches “portriats”
 - paragraph:
   - text: Did you mean
-  - button "certificates"
+  - button "portraits"
   - text: "?"
 - paragraph: "Try:"
 - list:
   - listitem: Checking the spelling
-  - listitem: Fewer or more general words — “backup” instead of “nightly backup job”
-  - listitem: A name, domain or email address as it appears in the panel
+  - listitem: Fewer or more general words — “wedding” instead of “June wedding at the lodge”
+  - listitem: A name, album title or email address exactly as it appears
 - region "Popular pages":
   - heading "Popular pages" [level=2]
   - list:
@@ -51,7 +51,7 @@
         - /url: "#a4"
 
 # Empty Scope (patterns-search-noresults--empty-scope)
-- paragraph: No domains match “backup”
+- paragraph: No projects match “moonrise”
 - paragraph:
   - text: But there are matches in
   - button "settings (2)"
@@ -61,8 +61,8 @@
 - paragraph: "Try:"
 - list:
   - listitem: Checking the spelling
-  - listitem: Fewer or more general words — “backup” instead of “nightly backup job”
-  - listitem: A name, domain or email address as it appears in the panel
+  - listitem: Fewer or more general words — “wedding” instead of “June wedding at the lodge”
+  - listitem: A name, album title or email address exactly as it appears
 - button "Search everything"
 - region "Popular pages":
   - heading "Popular pages" [level=2]

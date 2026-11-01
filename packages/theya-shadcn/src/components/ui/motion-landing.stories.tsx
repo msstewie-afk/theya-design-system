@@ -26,16 +26,16 @@ export const Landing: Story = {
       <section className="relative isolate flex flex-col items-center gap-4 overflow-hidden rounded-[var(--size-border-radius-border-radius-3xl)] px-6 py-20 text-center">
         <Aurora />
         <TextEffect effect="split" as="h1" trigger="mount" className="font-body text-heading-xl font-semibold text-[var(--color-text-text)]">
-          Hosting that gets out of the way
+          Galleries that get out of the way
         </TextEffect>
         <p className="text-body-l text-[var(--color-text-text-subtle)]">
-          Built for <TextEffect effect="typewriter" phrases={['your shop.', 'your blog.', 'your docs.']} />
+          Built for <TextEffect effect="typewriter" phrases={['your weddings.', 'your portraits.', 'your prints.']} />
         </p>
         <Button size="xl">Start free</Button>
       </section>
 
       <section className="flex flex-col items-center gap-4">
-        <p className="text-body-s text-[var(--color-text-text-subtler)]">Trusted by teams at</p>
+        <p className="text-body-s text-[var(--color-text-text-subtler)]">Trusted by studios at</p>
         <Marquee className="w-full max-w-4xl">
           {['Northwind', 'Kestrel', 'Quartz', 'Lumen', 'Babel', 'Harbor', 'Fieldnote'].map((n) => (
             <span key={n} className="font-body text-heading-xs font-semibold whitespace-nowrap text-[var(--color-text-text-subtle)]">
@@ -48,8 +48,8 @@ export const Landing: Story = {
       <Reveal>
         <dl className="mx-auto grid max-w-3xl grid-cols-1 gap-6 text-center sm:grid-cols-3">
           {[
-            { label: 'Sites hosted', value: <CountUp to={12400} /> },
-            { label: 'Uptime', value: <CountUp to={99.98} suffix="%" format={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }} /> },
+            { label: 'Galleries delivered', value: <CountUp to={12400} /> },
+            { label: 'Portal availability', value: <CountUp to={99.98} suffix="%" format={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }} /> },
             { label: 'Average support reply', value: <CountUp to={4} suffix=" min" /> },
           ].map((s) => (
             <div key={s.label} className="flex flex-col gap-1">
@@ -62,18 +62,18 @@ export const Landing: Story = {
 
       <RevealGroup className="mx-auto grid w-full max-w-4xl grid-cols-1 gap-4 md:grid-cols-3">
         <div className={CARD}>
-          <p className="text-body-l font-semibold">Starter</p>
-          <p className="text-body-m text-[var(--color-text-text-subtle)]">One site, daily backups.</p>
+          <p className="text-body-l font-semibold">Free</p>
+          <p className="text-body-m text-[var(--color-text-text-subtle)]">One gallery, 15 GB of storage.</p>
         </div>
         <SurfaceEffect effect="beam" className="rounded-[var(--size-border-radius-border-radius-2xl)]">
           <div className="p-5">
             <p className="text-body-l font-semibold">Pro — recommended</p>
-            <p className="text-body-m text-[var(--color-text-text-subtle)]">Five sites, hourly backups, staging.</p>
+            <p className="text-body-m text-[var(--color-text-text-subtle)]">Unlimited galleries, 384 GB, client proofing.</p>
           </div>
         </SurfaceEffect>
         <div className={CARD}>
-          <p className="text-body-l font-semibold">Scale</p>
-          <p className="text-body-m text-[var(--color-text-text-subtle)]">Unlimited sites, priority support.</p>
+          <p className="text-body-l font-semibold">Business</p>
+          <p className="text-body-m text-[var(--color-text-text-subtle)]">Every studio, 2 TB, priority support.</p>
         </div>
       </RevealGroup>
     </div>

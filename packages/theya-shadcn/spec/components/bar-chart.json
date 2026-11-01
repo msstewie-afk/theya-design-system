@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Charts",
   "whenToUse": [
-    "Comparing a value across categories: load by region, deploys per day, tickets per team.",
+    "Comparing a value across categories: storage by studio, exports per day, photos per album.",
     "`orientation=\"horizontal\"` for a ranked breakdown with long labels."
   ],
   "whenNotToUse": [
@@ -40,17 +40,17 @@
   "doDont": [
     {
       "do": {
-        "caption": "Sorted largest first, horizontal so the region names fit.",
-        "example": "<div className=\"w-full\"><BarChart data={REGIONS} orientation=\"horizontal\" unit=\"%\" valueStep={10} height={180} ariaLabel=\"Load by region, led by eu-west-1 at 42%.\" /></div>"
+        "caption": "Sorted largest first, horizontal so the studio names fit.",
+        "example": "<div className=\"w-full\"><BarChart data={STUDIOS} orientation=\"horizontal\" unit=\"%\" valueStep={10} height={180} ariaLabel=\"Storage by studio, led by Selene Weddings at 42%.\" /></div>"
       },
       "dont": {
         "caption": "Unsorted columns: people have to compare heights to find the leader.",
-        "example": "<div className=\"w-full\"><BarChart data={SHUFFLED} unit=\"%\" valueStep={10} height={180} ariaLabel=\"Load by region.\" /></div>"
+        "example": "<div className=\"w-full\"><BarChart data={SHUFFLED} unit=\"%\" valueStep={10} height={180} ariaLabel=\"Storage by studio.\" /></div>"
       }
     }
   ],
   "a11y": [
-    "`ariaLabel` states the takeaway (“led by eu-west-1 at 42%”).",
+    "`ariaLabel` states the takeaway (“led by Selene Weddings at 42%”).",
     "One color for one series — color carries no meaning here, so it doesn’t need a legend."
   ],
   "components": [

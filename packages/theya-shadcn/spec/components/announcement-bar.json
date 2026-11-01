@@ -57,7 +57,7 @@
     {
       "do": {
         "caption": "News can be dismissed; change dismissKey when the message changes.",
-        "example": "<div className=\"w-96\">\n  <AnnouncementBar tone=\"primary\" icon={<Sparks />} aria-label=\"Announcement, feature\">\n    Certificates now renew 30 days early. <a href=\"#\">Learn more</a>\n  </AnnouncementBar>\n</div>"
+        "example": "<div className=\"w-96\">\n  <AnnouncementBar tone=\"primary\" icon={<Sparks />} aria-label=\"Announcement, feature\">\n    Licenses now renew 30 days early. <a href=\"#\">Learn more</a>\n  </AnnouncementBar>\n</div>"
       },
       "dont": {
         "caption": "Stacked bars push the app down and none of them gets read.",

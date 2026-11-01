@@ -86,57 +86,15 @@
       - cell "Starter"
 
 # Overflow (data-datatabletoolbar--overflow)
-- checkbox "Select all"
-- text: Select all
-- textbox "Filter domains":
-  - /placeholder: Filter domains…
-- table "Sites":
-  - rowgroup:
-    - row "Select Domain Status Plan":
-      - columnheader "Select"
-      - columnheader "Domain":
-        - button "Domain":
-          - text: Domain
-          - img
-      - columnheader "Status":
-        - button "Status":
-          - text: Status
-          - img
-      - columnheader "Plan":
-        - button "Plan":
-          - text: Plan
-          - img
-  - rowgroup:
-    - row "Select row shop.seashell.dev Running Pro":
-      - cell "Select row":
-        - checkbox "Select row"
-      - cell "shop.seashell.dev"
-      - cell "Running"
-      - cell "Pro"
-    - row "Select row blog.seashell.dev Running Starter":
-      - cell "Select row":
-        - checkbox "Select row"
-      - cell "blog.seashell.dev"
-      - cell "Running"
-      - cell "Starter"
-    - row "Select row api.seashell.dev Error Scale":
-      - cell "Select row":
-        - checkbox "Select row"
-      - cell "api.seashell.dev"
-      - cell "Error"
-      - cell "Scale"
-    - row "Select row staging.seashell.dev Suspended Pro":
-      - cell "Select row":
-        - checkbox "Select row"
-      - cell "staging.seashell.dev"
-      - cell "Suspended"
-      - cell "Pro"
-    - row "Select row docs.seashell.dev Running Starter":
-      - cell "Select row":
-        - checkbox "Select row"
-      - cell "docs.seashell.dev"
-      - cell "Running"
-      - cell "Starter"
+- alertdialog "Delete 3 sites?":
+  - heading "Delete 3 sites?" [level=2]
+  - text: Type delete to confirm
+  - textbox "Type delete to confirm":
+    - /placeholder: delete
+    - text: te
+  - button "Clear input"
+  - button "Cancel"
+  - button "Delete sites" [disabled]
 
 # Selected (data-datatabletoolbar--selected)
 - checkbox "Select all"

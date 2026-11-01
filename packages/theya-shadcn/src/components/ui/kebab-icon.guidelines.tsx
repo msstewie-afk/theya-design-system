@@ -15,12 +15,12 @@ export const kebabIconGuidelines: ComponentGuidelines = {
   ],
   doDont: [
     {
-      do: { example: <Button appearance="ghost" tone="secondary" size="md" iconOnly leftIcon={<KebabIconVertical />} aria-label="More actions for seashell.shop" />, caption: 'Inside a real button, named for what it’s about.' },
+      do: { example: <Button appearance="ghost" tone="secondary" size="md" iconOnly leftIcon={<KebabIconVertical />} aria-label="More actions for Golden hour" />, caption: 'Inside a real button, named for what it’s about.' },
       dont: { example: <span className="text-[var(--color-icon-icon-subtle)]"><KebabIconHorizontal /></span>, caption: 'A bare icon isn’t a control — no focus, no name, no keyboard.' },
     },
   ],
   a11y: [
-    'The icon is decorative; the button carries the name: “More actions for seashell.shop”.',
+    'The icon is decorative; the button carries the name: “More actions for Golden hour”.',
     'The menu it opens is a DropdownMenu, so arrow keys and Escape work.',
   ],
 };

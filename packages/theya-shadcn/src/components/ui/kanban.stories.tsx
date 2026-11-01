@@ -34,16 +34,16 @@ const COLUMNS: KanbanColumn[] = [
 ];
 
 const TASKS: Task[] = [
-  { id: 't1', columnId: 'backlog', key: 'SITE-142', title: 'Move DNS to the new provider', description: 'Export the zone, lower TTLs a day before, switch NS records.', priority: 'med', assignee: 'AK', comments: 2 },
-  { id: 't2', columnId: 'backlog', key: 'SITE-151', title: 'Backups: keep 30 days instead of 7', priority: 'low', assignee: 'MS' },
-  { id: 't3', columnId: 'backlog', key: 'SITE-157', title: 'Staging copy for the shop', description: 'Clone production with anonymized customer data.', priority: 'med', due: 'Oct 10' },
-  { id: 't4', columnId: 'progress', key: 'SITE-133', title: 'Upgrade Node 18 → 20', description: 'Check dependency compatibility on staging first.', priority: 'high', assignee: 'MS', due: 'Oct 6', comments: 5 },
-  { id: 't5', columnId: 'progress', key: 'SITE-139', title: 'Renew wildcard certificate', priority: 'high', assignee: 'AK', due: 'Oct 4' },
-  { id: 't6', columnId: 'progress', key: 'SITE-146', title: 'Rate-limit the login endpoint', assignee: 'JT', comments: 1 },
-  { id: 't7', columnId: 'progress', key: 'SITE-148', title: 'Image CDN for the blog', priority: 'low', assignee: 'JT' },
-  { id: 't8', columnId: 'review', key: 'SITE-128', title: 'Nightly database dump to object storage', assignee: 'AK', comments: 3 },
-  { id: 't9', columnId: 'done', key: 'SITE-120', title: 'HTTP/2 on all sites', assignee: 'MS' },
-  { id: 't10', columnId: 'done', key: 'SITE-124', title: 'Error page in the brand style', assignee: 'JT' },
+  { id: 't1', columnId: 'backlog', key: 'AE-142', title: 'Move the Selene portal to its new address', description: 'Redirect old gallery links, then email clients the new portal link.', priority: 'med', assignee: 'IH', comments: 2 },
+  { id: 't2', columnId: 'backlog', key: 'AE-151', title: 'Archive: keep originals 30 days instead of 7', priority: 'low', assignee: 'MO' },
+  { id: 't3', columnId: 'backlog', key: 'AE-157', title: 'Proofing copy of Golden hour', description: 'Duplicate the gallery with watermarked previews only.', priority: 'med', due: 'Oct 10' },
+  { id: 't4', columnId: 'progress', key: 'AE-133', title: 'Retouch Moonrise over Othrys', description: 'Match white balance across the 48 selects first.', priority: 'high', assignee: 'DE', due: 'Oct 6', comments: 5 },
+  { id: 't5', columnId: 'progress', key: 'AE-139', title: 'Renew the commercial license for Helios', priority: 'high', assignee: 'IH', due: 'Oct 4' },
+  { id: 't6', columnId: 'progress', key: 'AE-146', title: 'Limit downloads on the Isthmian Five gallery', assignee: 'ES', comments: 1 },
+  { id: 't7', columnId: 'progress', key: 'AE-148', title: 'Print proofs for Eos Portraits', priority: 'low', assignee: 'PL' },
+  { id: 't8', columnId: 'review', key: 'AE-128', title: 'Nightly copy of RAW files to Mnemosyne', assignee: 'MO', comments: 3 },
+  { id: 't9', columnId: 'done', key: 'AE-120', title: 'Watermark on all client previews', assignee: 'ES' },
+  { id: 't10', columnId: 'done', key: 'AE-124', title: 'Portal welcome page in the studio style', assignee: 'TM' },
 ];
 
 const PRIORITY: Record<NonNullable<Task['priority']>, { label: string; tone: 'danger' | 'warning' | 'neutral' }> = {
@@ -106,7 +106,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Work moving through stages — tickets, a deploy pipeline, content review — with cards people drag between columns and optional limits per column.",
+          "Work moving through stages — shoots, an editing pipeline, client review — with cards people drag between columns and optional limits per column.",
       },
     },
     layout: 'padded', guidelines: kanbanGuidelines,
@@ -172,30 +172,30 @@ export const Default: Story = {
     // Keyboard move: Space picks up, → moves to the next column, Space drops.
     // Let dnd-kit finish measuring the board before the first key.
     await settle();
-    card('SITE-142').focus();
-    await expect(card('SITE-142')).toHaveFocus();
+    card('AE-142').focus();
+    await expect(card('AE-142')).toHaveFocus();
     await userEvent.keyboard(' ');
-    await waitFor(() => expect(card('SITE-142')).toHaveAttribute('aria-pressed', 'true'), { timeout: 2000 });
+    await waitFor(() => expect(card('AE-142')).toHaveAttribute('aria-pressed', 'true'), { timeout: 2000 });
     const liveRegion = () => Array.from(document.querySelectorAll('[aria-live]')).map((n) => n.textContent).join(' ');
-    await waitFor(() => expect(liveRegion()).toMatch(/Picked up SITE-142 Move DNS to the new provider/));
+    await waitFor(() => expect(liveRegion()).toMatch(/Picked up AE-142 Move the Selene portal to its new address/));
     await userEvent.keyboard('{ArrowRight}');
     await settle();
     await userEvent.keyboard(' ');
     await settle();
     await waitFor(() => expect(canvas.getByText(/^Last move:/)).toHaveTextContent('t1 → In progress'));
-    await expect(inColumn('In progress', 'SITE-142')).toBeInTheDocument();
-    await expect(inColumn('Backlog', 'SITE-142')).not.toBeInTheDocument();
+    await expect(inColumn('In progress', 'AE-142')).toBeInTheDocument();
+    await expect(inColumn('Backlog', 'AE-142')).not.toBeInTheDocument();
 
     // Escape cancels: the card stays where it was and no move is reported.
     const before = canvas.getByText(/^Last move:/).textContent;
-    card('SITE-151').focus();
+    card('AE-151').focus();
     await userEvent.keyboard(' ');
     await settle();
     await userEvent.keyboard('{ArrowRight}');
     await settle();
     await userEvent.keyboard('{Escape}');
     await settle();
-    await expect(inColumn('Backlog', 'SITE-151')).toBeInTheDocument();
+    await expect(inColumn('Backlog', 'AE-151')).toBeInTheDocument();
     await expect(canvas.getByText(/^Last move:/).textContent).toBe(before);
 
     // Nothing is left mid-drag.
@@ -212,7 +212,7 @@ export const WithActions: Story = {
   render: (args) => {
     const [items, setItems] = useState(TASKS.slice(0, 6));
     const add = (columnId: string) =>
-      setItems((prev) => [...prev, { id: `n${prev.length + 1}`, columnId, key: `SITE-${200 + prev.length}`, title: 'New task' }]);
+      setItems((prev) => [...prev, { id: `n${prev.length + 1}`, columnId, key: `AE-${200 + prev.length}`, title: 'New task' }]);
     return (
       <Kanban<Task>
         {...args}

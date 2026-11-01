@@ -7,7 +7,7 @@ import { useInView, useReducedMotion } from './use-in-view';
 
 /**
  * Motion preset (landing pages): a number counts up to its value the
- * first time it scrolls into view — "12,400 sites", "99.98% uptime".
+ * first time it scrolls into view — "12,400 galleries", "99.98% portal availability".
  * Ported from Kinetics' Odometer Count-up (MIT, kinetics.colorion.co):
  * requestAnimationFrame with an ease-out-cubic curve, tabular digits so
  * the width doesn't jitter while it runs.

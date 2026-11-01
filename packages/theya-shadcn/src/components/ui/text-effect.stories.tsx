@@ -24,7 +24,7 @@ const meta = {
     phrases: { control: 'object', description: 'Typewriter phrases.' },
     as: { control: false },
   },
-  args: { effect: 'split', trigger: 'view', children: 'Hosting that gets out of the way' },
+  args: { effect: 'split', trigger: 'view', children: 'Galleries that get out of the way' },
 } satisfies Meta<typeof TextEffect>;
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -35,32 +35,32 @@ const H = 'font-body text-heading-l font-semibold text-[var(--color-text-text)]'
 export const Split: Story = {
   render: (args) => <TextEffect {...args} as="h2" className={H} />,
   play: async ({ canvasElement }) => {
-    await expect(within(canvasElement).getByRole('heading', { name: 'Hosting that gets out of the way' })).toBeInTheDocument();
+    await expect(within(canvasElement).getByRole('heading', { name: 'Galleries that get out of the way' })).toBeInTheDocument();
   },
 };
 
 /** Hover to replay. */
 export const Scramble: Story = {
-  args: { effect: 'scramble', trigger: 'hover', children: 'deploy --prod' },
+  args: { effect: 'scramble', trigger: 'hover', children: 'aether export' },
   render: (args) => <TextEffect {...args} as="p" className="font-mono text-heading-m text-[var(--color-text-text)]" />,
 };
 
 /** `effect="shimmer"`: a band of light runs through the text on a loop — keep it to one short line. */
 export const Shimmer: Story = {
-  args: { effect: 'shimmer', children: 'Now with hourly backups' },
+  args: { effect: 'shimmer', children: 'Now with hourly archiving' },
   render: (args) => <TextEffect {...args} as="p" className="text-heading-s font-semibold" />,
 };
 
 /** `effect="typewriter"`: types and deletes each of the `phrases` in turn, while screen readers get all of them at once. */
 export const Typewriter: Story = {
-  args: { effect: 'typewriter', children: undefined, phrases: ['your shop.', 'your blog.', 'your docs.'] },
+  args: { effect: 'typewriter', children: undefined, phrases: ['your weddings.', 'your portraits.', 'your prints.'] },
   render: (args) => (
     <p className={H}>
-      Hosting for <TextEffect {...args} />
+      Galleries for <TextEffect {...args} />
     </p>
   ),
   play: async ({ canvasElement }) => {
     // Screen readers get every phrase at once instead of a moving target.
-    await expect(within(canvasElement).getByText('your shop., your blog., your docs.')).toHaveClass('sr-only');
+    await expect(within(canvasElement).getByText('your weddings., your portraits., your prints.')).toHaveClass('sr-only');
   },
 };

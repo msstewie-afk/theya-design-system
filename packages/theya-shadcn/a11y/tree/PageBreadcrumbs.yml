@@ -9,13 +9,13 @@
     - listitem:
       - button "Show 3 more levels"
     - listitem:
-      - link "seashell.shop":
-        - /url: "#seashell"
+      - link "Golden hour":
+        - /url: "#golden-hour"
     - listitem:
-      - link "Mail":
-        - /url: "#mail"
+      - link "Client portal":
+        - /url: "#portal"
     - listitem:
-      - link "Spam filter" [disabled]
+      - link "Download settings" [disabled]
 
 # Default (patterns-navigation-pagebreadcrumbs--default)
 - navigation "Breadcrumb":
@@ -24,27 +24,27 @@
       - link "Home":
         - /url: "#home"
     - listitem:
-      - link "Domains":
-        - /url: "#domains"
+      - link "Galleries":
+        - /url: "#galleries"
     - listitem:
-      - link "seashell.shop":
-        - /url: "#seashell"
+      - link "Selene Weddings":
+        - /url: "#selene"
     - listitem:
-      - link "DNS records" [disabled]
+      - link "Golden hour" [disabled]
 
 # From Search (patterns-navigation-pagebreadcrumbs--from-search)
-- link "Back to results for “dns”":
-  - /url: "#search?q=dns"
+- link "Back to results for “golden”":
+  - /url: "#search?q=golden"
 - navigation "Breadcrumb":
   - list:
     - listitem:
       - link "Home":
         - /url: "#home"
     - listitem:
-      - link "Domains":
-        - /url: "#domains"
+      - link "Galleries":
+        - /url: "#galleries"
     - listitem:
-      - link "seashell.shop":
-        - /url: "#seashell"
+      - link "Selene Weddings":
+        - /url: "#selene"
     - listitem:
-      - link "DNS records" [disabled]
+      - link "Golden hour" [disabled]

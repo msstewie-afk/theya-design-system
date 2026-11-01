@@ -20,7 +20,7 @@ export const radioGuidelines: ComponentGuidelines = {
     {
       do: {
         example: (
-          <RadioGroup defaultValue="daily" aria-label="Backup frequency">
+          <RadioGroup defaultValue="daily" aria-label="Archive frequency">
             <Radio value="daily" label="Daily" description="Kept for 7 days" />
             <Radio value="weekly" label="Weekly" description="Kept for 4 weeks" />
             <Radio value="off" label="Off" />

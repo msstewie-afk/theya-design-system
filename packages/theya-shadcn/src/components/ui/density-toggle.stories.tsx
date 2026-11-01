@@ -39,30 +39,30 @@ export default meta;
 type Story = StoryObj<typeof DensityToggle>;
 
 const ROWS = [
-  { domain: 'studio-north.com', owner: 'Ana Petrova', plan: 'Business' },
-  { domain: 'bakery-lune.eu', owner: 'Tomás Ruiz', plan: 'Starter' },
-  { domain: 'atlas-maps.io', owner: 'Lin Wei', plan: 'Pro' },
+  { portal: 'helios.aether.photo', owner: 'Thea Marlow', plan: 'Business' },
+  { portal: 'selene-weddings.aether.photo', owner: 'Selin Arda', plan: 'Pro' },
+  { portal: 'eos-portraits.aether.photo', owner: 'Dawn Ellery', plan: 'Free' },
 ];
 
-function Sample({ label = 'Domains' }: { label?: string }) {
+function Sample({ label = 'Client portals' }: { label?: string }) {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-wrap items-end gap-2">
-        <TextField label="Domain" placeholder="example.com" className="w-48" />
-        <Button>Add domain</Button>
+        <TextField label="Portal address" placeholder="studio.aether.photo" className="w-48" />
+        <Button>Add portal</Button>
       </div>
       <Table containerLabel={label}>
         <TableHeader>
           <TableRow>
-            <TableHead>Domain</TableHead>
+            <TableHead>Portal</TableHead>
             <TableHead>Owner</TableHead>
             <TableHead>Plan</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {ROWS.map((row) => (
-            <TableRow key={row.domain}>
-              <TableCell>{row.domain}</TableCell>
+            <TableRow key={row.portal}>
+              <TableCell>{row.portal}</TableCell>
               <TableCell>{row.owner}</TableCell>
               <TableCell>{row.plan}</TableCell>
             </TableRow>
@@ -111,7 +111,7 @@ export const AllDensities: Story = {
       {(['compact', 'default', 'comfortable'] as const).map((density) => (
         <section key={density} data-density={density} aria-labelledby={`density-${density}`} className="flex min-w-0 flex-col gap-2">
           <h2 id={`density-${density}`} className="font-heading text-heading-2xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]">{density}</h2>
-          <Sample label={`Domains, ${density}`} />
+          <Sample label={`Client portals, ${density}`} />
         </section>
       ))}
     </div>

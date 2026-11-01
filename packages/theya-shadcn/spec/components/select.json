@@ -7,7 +7,7 @@
   "category": "Selection",
   "whenToUse": [
     "One choice from 6–15 known options (up to 5 → RadioGroup, over 15 → Combobox).",
-    "Values people recognise rather than type: a region, a plan, a sort order."
+    "Values people recognise rather than type: a print size, a plan, a sort order."
   ],
   "whenNotToUse": [
     {
@@ -58,12 +58,12 @@
     },
     {
       "do": {
-        "caption": "8 regions — in the 6–15 range a Select fits. No answer yet, so the placeholder says what to pick.",
-        "example": "<div className=\"flex flex-col gap-2\">\n  <Label htmlFor=\"gl-sel-region\">Data region</Label>\n  <Select>\n    <SelectTrigger id=\"gl-sel-region\" widthSize=\"md\">\n      <SelectValue placeholder=\"Choose a region\" />\n    </SelectTrigger>\n    <SelectContent>\n      {regionItems}\n    </SelectContent>\n  </Select>\n</div>"
+        "caption": "8 sizes — in the 6–15 range a Select fits. No answer yet, so the placeholder says what to pick.",
+        "example": "<div className=\"flex flex-col gap-2\">\n  <Label htmlFor=\"gl-sel-size\">Print size</Label>\n  <Select>\n    <SelectTrigger id=\"gl-sel-size\" widthSize=\"md\">\n      <SelectValue placeholder=\"Choose a size\" />\n    </SelectTrigger>\n    <SelectContent>\n      {sizeItems}\n    </SelectContent>\n  </Select>\n</div>"
       },
       "dont": {
         "caption": "A preselected answer to a question that matters gets accepted without being read.",
-        "example": "<div className=\"flex flex-col gap-2\">\n  <Label htmlFor=\"gl-sel-region2\">Data region</Label>\n  <Select defaultValue=\"eu-central\">\n    <SelectTrigger id=\"gl-sel-region2\" widthSize=\"md\">\n      <SelectValue />\n    </SelectTrigger>\n    <SelectContent>\n      {regionItems}\n    </SelectContent>\n  </Select>\n</div>"
+        "example": "<div className=\"flex flex-col gap-2\">\n  <Label htmlFor=\"gl-sel-size2\">Print size</Label>\n  <Select defaultValue=\"8x10\">\n    <SelectTrigger id=\"gl-sel-size2\" widthSize=\"md\">\n      <SelectValue />\n    </SelectTrigger>\n    <SelectContent>\n      {sizeItems}\n    </SelectContent>\n  </Select>\n</div>"
       }
     }
   ],

@@ -1,14 +1,14 @@
 import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { BarChart } from './bar-chart';
 
-const REGIONS = [
-  { label: 'eu-west-1', value: 42 }, { label: 'us-east-1', value: 31 }, { label: 'ap-south-1', value: 15 }, { label: 'sa-east-1', value: 12 },
+const STUDIOS = [
+  { label: 'Selene Weddings', value: 42 }, { label: 'Helios Studio', value: 31 }, { label: 'Eos Portraits', value: 15 }, { label: 'Othrys Lodge', value: 12 },
 ];
-const SHUFFLED = [REGIONS[2], REGIONS[0], REGIONS[3], REGIONS[1]];
+const SHUFFLED = [STUDIOS[2], STUDIOS[0], STUDIOS[3], STUDIOS[1]];
 
 export const barChartGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['Comparing a value across categories: load by region, deploys per day, tickets per team.', <><C>orientation="horizontal"</C> for a ranked breakdown with long labels.</>],
+  whenToUse: ['Comparing a value across categories: storage by studio, exports per day, photos per album.', <><C>orientation="horizontal"</C> for a ranked breakdown with long labels.</>],
   whenNotToUse: [
     { text: 'Parts of a whole', instead: 'DonutChart (up to 7 parts)' },
     { text: 'Continuous time with many points', instead: 'AreaChart or LineChart' },
@@ -22,17 +22,17 @@ export const barChartGuidelines: ComponentGuidelines = {
   doDont: [
     {
       do: {
-        example: <div className="w-full"><BarChart data={REGIONS} orientation="horizontal" unit="%" valueStep={10} height={180} ariaLabel="Load by region, led by eu-west-1 at 42%." /></div>,
-        caption: 'Sorted largest first, horizontal so the region names fit.',
+        example: <div className="w-full"><BarChart data={STUDIOS} orientation="horizontal" unit="%" valueStep={10} height={180} ariaLabel="Storage by studio, led by Selene Weddings at 42%." /></div>,
+        caption: 'Sorted largest first, horizontal so the studio names fit.',
       },
       dont: {
-        example: <div className="w-full"><BarChart data={SHUFFLED} unit="%" valueStep={10} height={180} ariaLabel="Load by region." /></div>,
+        example: <div className="w-full"><BarChart data={SHUFFLED} unit="%" valueStep={10} height={180} ariaLabel="Storage by studio." /></div>,
         caption: 'Unsorted columns: people have to compare heights to find the leader.',
       },
     },
   ],
   a11y: [
-    <><C>ariaLabel</C> states the takeaway (“led by eu-west-1 at 42%”).</>,
+    <><C>ariaLabel</C> states the takeaway (“led by Selene Weddings at 42%”).</>,
     'One color for one series — color carries no meaning here, so it doesn’t need a legend.',
   ],
 };

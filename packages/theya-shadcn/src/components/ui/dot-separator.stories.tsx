@@ -4,7 +4,7 @@ import { dotSeparatorGuidelines } from './dot-separator.guidelines';
 
 /**
  * DotSeparator — a small inline middot (·) for joining short metadata
- * segments on one line, like a domain, an age, and a region. Purely
+ * segments on one line, like a file name, a size, and a studio. Purely
  * decorative and always `aria-hidden`, so screen readers announce the
  * segments as plain text without the glyph — reach for it instead of
  * typing a literal middot so the spacing and the aria handling stay
@@ -18,7 +18,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A small dot between short facts on one line: “eu-west-1 · Created Mar 2026 · v2.4.0”.",
+          "A small dot between short facts on one line: “Helios Studio · Created Mar 2026 · v2.4.0”.",
       },
     },
     guidelines: dotSeparatorGuidelines, layout: 'centered',
@@ -39,35 +39,34 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => (
     <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">
-      <span className="font-mono">shop.seashell.dev</span>
+      <span className="font-mono">DAWN_0412.jpg</span>
       <DotSeparator {...args} />
-      90 days
+      24.6 MB
       <DotSeparator {...args} />
-      <span className="font-mono">eu-west-1</span>
+      Eos Portraits
     </p>
   ),
 };
 
 /**
- * In a list — one summary line per site, the same dot-joined metadata
- * pattern repeated. Long identifiers truncate per row rather than
- * wrapping the line.
+ * In a list — one summary line per studio, the same dot-joined metadata
+ * pattern repeated.
  */
-export const SiteList: Story = {
-  name: 'Site list',
+export const StudioList: Story = {
+  name: 'Studio list',
   render: (args) => (
     <ul className="w-full max-w-sm space-y-2 font-body text-body-m">
       {[
-        { domain: 'shop.seashell.dev', region: 'eu-west-1', status: 'Active' },
-        { domain: 'api.seashell.dev', region: 'us-east-1', status: 'Active' },
-        { domain: 'docs.seashell.dev', region: 'eu-west-1', status: 'Suspended' },
-      ].map((site) => (
-        <li key={site.domain} className="text-[var(--color-text-text-subtler)]">
-          <span className="font-mono text-[var(--color-text-text)]">{site.domain}</span>
+        { studio: 'Helios Studio', status: 'Active', galleries: '48 galleries' },
+        { studio: 'Selene Weddings', status: 'Active', galleries: '31 galleries' },
+        { studio: 'Othrys Lodge', status: 'Suspended', galleries: '6 galleries' },
+      ].map((item) => (
+        <li key={item.studio} className="text-[var(--color-text-text-subtler)]">
+          <span className="text-[var(--color-text-text)]">{item.studio}</span>
           <DotSeparator {...args} />
-          {site.status}
+          {item.status}
           <DotSeparator {...args} />
-          <span className="font-mono">{site.region}</span>
+          {item.galleries}
         </li>
       ))}
     </ul>
@@ -75,20 +74,20 @@ export const SiteList: Story = {
 };
 
 /**
- * Certificate metadata — mixes plain text and mono identifiers across
+ * License metadata — mixes plain text and mono identifiers across
  * several segments on a single line.
  */
-export const CertMeta: Story = {
-  name: 'Cert meta',
+export const LicenseMeta: Story = {
+  name: 'License meta',
   render: (args) => (
     <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">
-      Let&rsquo;s Encrypt
+      Commercial license
       <DotSeparator {...args} />
-      <span className="font-mono">RSA 2048</span>
+      <span className="font-mono">LIC-2048</span>
       <DotSeparator {...args} />
       Renews in 28 days
       <DotSeparator {...args} />
-      <span className="font-mono">*.seashell.dev</span>
+      <span className="font-mono">GOLDEN_0907.tif</span>
     </p>
   ),
 };

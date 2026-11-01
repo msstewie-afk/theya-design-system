@@ -4,10 +4,10 @@ import { TextField } from './text-field';
 
 export const inlineEditGuidelines: ComponentGuidelines = {
   status: 'beta',
-  whenToUse: ['Renaming one value where it’s shown: a site name, a page title, a note.', 'Values people change now and then, not every time they visit.'],
+  whenToUse: ['Renaming one value where it’s shown: a gallery name, a page title, a note.', 'Values people change now and then, not every time they visit.'],
   whenNotToUse: [
     { text: 'Several related fields saved together', instead: 'a form with Save' },
-    { text: 'Values that need confirmation or have consequences (a domain, an email)', instead: 'a dialog or a form' },
+    { text: 'Values that need confirmation or have consequences (a client portal address, an email)', instead: 'a dialog or a form' },
     { text: 'Something people edit all the time', instead: 'an always-visible TextField' },
   ],
   anatomy: [
@@ -18,12 +18,12 @@ export const inlineEditGuidelines: ComponentGuidelines = {
   ],
   doDont: [
     {
-      do: { example: <InlineEdit label="Site name" defaultValue="Seashell shop" />, caption: 'One value, edited where it’s read.' },
+      do: { example: <InlineEdit label="Gallery name" defaultValue="Golden hour" />, caption: 'One value, edited where it’s read.' },
       dont: {
         example: (
           <div className="flex w-64 flex-col gap-2">
-            <TextField label="Site name" defaultValue="Seashell shop" widthSize="full" />
-            <TextField label="Domain" defaultValue="seashell.shop" widthSize="full" />
+            <TextField label="Gallery name" defaultValue="Golden hour" widthSize="full" />
+            <TextField label="Portal address" defaultValue="helios.aether.photo" widthSize="full" />
           </div>
         ),
         caption: 'A set of fields each saving on its own is a form in disguise — people won’t know what’s saved.',

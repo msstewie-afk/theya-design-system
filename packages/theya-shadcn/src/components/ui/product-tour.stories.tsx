@@ -17,22 +17,22 @@ function MockApp({ onStart }: { onStart?: () => void }) {
   return (
     <div className="flex flex-col gap-4">
       <Card className="flex items-center gap-3 p-3">
-        <span className="text-heading-2xs font-medium">Sites</span>
+        <span className="text-heading-2xs font-medium">Galleries</span>
         <div
           data-tour="search"
           className="ms-4 flex h-9 min-w-0 flex-1 items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] px-3 text-body-m text-[var(--color-text-text-subtle)]"
         >
           <Search width={16} height={16} aria-hidden className="shrink-0" />
-          <span className="truncate">Search sites, domains and databases</span>
+          <span className="truncate">Search galleries, clients and the archive</span>
         </div>
         <Button data-tour="notifications" appearance="ghost" tone="neutral" size="md" iconOnly leftIcon={<Bell />} aria-label="Notifications" />
-        <Button data-tour="new-site" size="md" leftIcon={<Plus />}>
-          New site
+        <Button data-tour="new-gallery" size="md" leftIcon={<Plus />}>
+          New gallery
         </Button>
       </Card>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {['example.com', 'shop.example.com', 'blog.example.com'].map((name, i) => (
-          <Card key={name} data-tour={i === 0 ? 'site-card' : undefined} className="flex min-w-0 flex-col gap-1 p-4">
+        {['Golden hour', 'Blue hour', 'First light'].map((name, i) => (
+          <Card key={name} data-tour={i === 0 ? 'gallery-card' : undefined} className="flex min-w-0 flex-col gap-1 p-4">
             <span className="truncate text-body-m font-medium">{name}</span>
             <span className="text-body-s text-[var(--color-text-text-subtle)]">Updated 2 days ago</span>
           </Card>
@@ -49,19 +49,19 @@ function MockApp({ onStart }: { onStart?: () => void }) {
 
 const STEPS: TourStep[] = [
   {
-    title: 'Welcome to the new Sites page',
+    title: 'Welcome to the new Galleries page',
     content: 'A quick look at what changed — it takes under a minute.',
     media: <img src="/asset-examples/login-carousel-01.jpg" alt="" className="h-36 object-cover" />,
   },
-  { target: '[data-tour="search"]', title: 'Search everything', content: 'Find sites, domains and databases from one field.' },
-  { target: '[data-tour="new-site"]', title: 'Create a site', content: 'Start from a template or an empty site.', side: 'bottom', align: 'end' },
+  { target: '[data-tour="search"]', title: 'Search everything', content: 'Find galleries, clients and archived albums from one field.' },
+  { target: '[data-tour="new-gallery"]', title: 'Create a gallery', content: 'Start from a template or an empty gallery.', side: 'bottom', align: 'end' },
   {
     target: '[data-tour="notifications"]',
     title: 'Notifications',
-    content: 'Deploys, renewals and alerts land here. Go ahead, click it.',
+    content: 'Downloads, favorites and license renewals land here. Go ahead, click it.',
     interactive: true,
   },
-  { target: '[data-tour="site-card"]', title: 'Your sites', content: 'Open a card to manage domains, backups and logs.', side: 'right' },
+  { target: '[data-tour="gallery-card"]', title: 'Your galleries', content: 'Open a card to manage the client portal, downloads and archive.', side: 'right' },
 ];
 
 const meta = {
@@ -129,7 +129,7 @@ export const Default: Story = {
 
     // Opens on the centered welcome step with focus inside the card.
     await userEvent.click(start);
-    await waitFor(() => expect(dialog()).toHaveAccessibleName('Welcome to the new Sites page'));
+    await waitFor(() => expect(dialog()).toHaveAccessibleName('Welcome to the new Galleries page'));
     await waitFor(() => expect(dialog()).toHaveFocus());
     await expect(within(dialog()).getByText('1 of 5')).toBeInTheDocument();
     await expect(within(dialog()).queryByRole('button', { name: 'Back' })).not.toBeInTheDocument();
@@ -138,7 +138,7 @@ export const Default: Story = {
     await userEvent.click(within(dialog()).getByRole('button', { name: 'Next' }));
     await waitFor(() => expect(dialog()).toHaveAccessibleName('Search everything'));
     await userEvent.keyboard('{ArrowRight}');
-    await waitFor(() => expect(dialog()).toHaveAccessibleName('Create a site'));
+    await waitFor(() => expect(dialog()).toHaveAccessibleName('Create a gallery'));
     await userEvent.keyboard('{ArrowLeft}');
     await waitFor(() => expect(dialog()).toHaveAccessibleName('Search everything'));
 
@@ -161,7 +161,7 @@ export const Default: Story = {
       await waitFor(() => expect(dialog()).toHaveFocus());
       await userEvent.keyboard('{ArrowRight}');
     }
-    await waitFor(() => expect(dialog()).toHaveAccessibleName('Your sites'));
+    await waitFor(() => expect(dialog()).toHaveAccessibleName('Your galleries'));
     await userEvent.click(within(dialog()).getByRole('button', { name: 'Done' }));
     await expect(canvas.getByText('Completed')).toBeInTheDocument();
   },

@@ -21,7 +21,7 @@ export const spinnerGuidelines: ComponentGuidelines = {
         example: (
           <p className="flex items-center gap-2 font-body text-body-m text-[var(--color-text-text-subtle)]">
             <Spinner className="size-4 text-[var(--color-icon-icon-primary)]" />
-            Loading domains…
+            Loading galleries…
           </p>
         ),
         caption: 'Next to text that says what is loading.',
@@ -39,7 +39,7 @@ export const spinnerGuidelines: ComponentGuidelines = {
     },
   ],
   a11y: [
-    'Decorative (aria-hidden). Mark the waiting region aria-busy, or add a role="status" text such as “Loading domains”.',
+    'Decorative (aria-hidden). Mark the waiting region aria-busy, or add a role="status" text such as “Loading galleries”.',
     'With reduced motion the arc stops and the spinner slowly fades in and out.',
   ],
 };

@@ -53,7 +53,7 @@ export const PlainText: Story = {
   name: 'Plain text',
   render: () => (
     <div className="w-full max-w-[480px]">
-      <CodeEditor aria-label="Notes" defaultValue={'# Deployment notes\n\nRemember to flush the cache after each release.'} minHeight="8rem" />
+      <CodeEditor aria-label="Notes" defaultValue={'# Export notes\n\nRename files to the client’s order before each export.'} minHeight="8rem" />
     </div>
   ),
   // Keyboard (WCAG 2.1.2): Tab indents inside the editor, so Escape first
@@ -81,7 +81,7 @@ export const WithHeader: Story = {
   name: 'With header',
   render: () => (
     <div className="w-full max-w-[480px]">
-      <CodeEditor aria-label="Config editor" filename="config.json" language="json" copy clearable defaultValue={'{\n  "region": "eu-west-1",\n  "replicas": 3\n}'} minHeight="10rem" />
+      <CodeEditor aria-label="Config editor" filename="config.json" language="json" copy clearable defaultValue={'{\n  "preset": "web-2048",\n  "quality": 88\n}'} minHeight="10rem" />
     </div>
   ),
 };
@@ -97,7 +97,7 @@ export const ReadOnly: Story = {
         filename="block.html"
         language="html"
         copy
-        defaultValue={'<div class="callout">\n  <p>Your account is on hold.</p>\n</div>'}
+        defaultValue={'<div class="callout">\n  <p>Your gallery is ready to view.</p>\n</div>'}
         minHeight="8rem"
       />
     </div>
@@ -117,7 +117,7 @@ export const Languages: Story = {
           tokens right, since editorTheme()/highlightStyle() both already
           branch on it (see code-editor.tsx), no separate token wiring
           needed here. */}
-      <CodeEditor aria-label="Bash example" filename="deploy.sh" language="bash" inverse defaultValue={'#!/usr/bin/env bash\nset -euo pipefail\n\necho "Deploying..."\nnpm run build'} minHeight="6rem" />
+      <CodeEditor aria-label="Bash example" filename="export.sh" language="bash" inverse defaultValue={'#!/usr/bin/env bash\nset -euo pipefail\n\necho "Exporting Golden hour..."\naether export --gallery golden-hour'} minHeight="6rem" />
     </div>
   ),
 };
@@ -137,7 +137,7 @@ export const Inverse: Story = {
         language="json"
         copy
         inverse
-        defaultValue={'{\n  "region": "eu-west-1",\n  "replicas": 3\n}'}
+        defaultValue={'{\n  "preset": "web-2048",\n  "quality": 88\n}'}
         minHeight="10rem"
       />
     </div>

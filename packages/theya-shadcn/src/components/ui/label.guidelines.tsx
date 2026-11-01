@@ -10,7 +10,7 @@ export const labelGuidelines: ComponentGuidelines = {
     { text: 'Plain text that names nothing', instead: 'a heading or text' },
   ],
   anatomy: [
-    { part: 'Text', description: 'short, a noun (“Domain”), not an instruction (“Enter your domain”).' },
+    { part: 'Text', description: 'short, a noun (“Studio”), not an instruction (“Enter your studio name”).' },
     { part: 'Required mark', optional: true, description: 'red *, hidden from screen readers — the control carries required itself.' },
     { part: 'Optional mark', optional: true, description: '“(optional)” in subtler text.' },
   ],

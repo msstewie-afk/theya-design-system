@@ -3,14 +3,15 @@ import { expect } from '@storybook/test';
 import { LineChart } from './line-chart';
 import { lineChartGuidelines } from './line-chart.guidelines';
 
-const USAGE = [
-  { label: 'Mon', cpu: 32, mem: 51 },
-  { label: 'Tue', cpu: 41, mem: 55 },
-  { label: 'Wed', cpu: 38, mem: 60 },
-  { label: 'Thu', cpu: 52, mem: 64 },
-  { label: 'Fri', cpu: 61, mem: 72 },
-  { label: 'Sat', cpu: 44, mem: 58 },
-  { label: 'Sun', cpu: 36, mem: 54 },
+// Share of delivered galleries that clients downloaded from / opened, per day.
+const DELIVERY = [
+  { label: 'Mon', downloaded: 32, opened: 51 },
+  { label: 'Tue', downloaded: 41, opened: 55 },
+  { label: 'Wed', downloaded: 38, opened: 60 },
+  { label: 'Thu', downloaded: 52, opened: 64 },
+  { label: 'Fri', downloaded: 61, opened: 72 },
+  { label: 'Sat', downloaded: 44, opened: 58 },
+  { label: 'Sun', downloaded: 36, opened: 54 },
 ];
 
 /**
@@ -29,7 +30,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Compares a few trends over the same period: CPU against memory, this week against last. Every series is named in the legend and the tooltip.",
+          "Compares a few trends over the same period: downloads against views, this week against last. Every series is named in the legend and the tooltip.",
       },
     },
     guidelines: lineChartGuidelines, layout: 'padded',
@@ -50,16 +51,16 @@ const meta = {
     className: { control: false, description: 'Class on the root element.' },
   },
   args: {
-    data: USAGE,
+    data: DELIVERY,
     series: [
-      { key: 'cpu', name: 'CPU' },
-      { key: 'mem', name: 'Memory' },
+      { key: 'downloaded', name: 'Downloaded' },
+      { key: 'opened', name: 'Opened' },
     ],
     height: 260,
     yStep: 25,
     unit: '%',
     legend: true,
-    ariaLabel: 'CPU vs memory usage across the week; memory runs higher.',
+    ariaLabel: 'Galleries downloaded vs opened across the week; opened runs higher.',
   },
   decorators: [
     (Story) => (
@@ -73,19 +74,19 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Two series, CPU vs memory. Hover for a per-series crosshair tooltip. */
+/** Two series, downloaded vs opened. Hover for a per-series crosshair tooltip. */
 export const TwoSeries: Story = {};
 
 /** Three series pull chart-01..03 in order; the legend keeps them named. */
 export const ThreeSeries: Story = {
   args: {
-    data: USAGE.map((d) => ({ ...d, net: Math.round(d.cpu * 0.6) })),
+    data: DELIVERY.map((d) => ({ ...d, favorited: Math.round(d.downloaded * 0.6) })),
     series: [
-      { key: 'cpu', name: 'CPU' },
-      { key: 'mem', name: 'Memory' },
-      { key: 'net', name: 'Network' },
+      { key: 'downloaded', name: 'Downloaded' },
+      { key: 'opened', name: 'Opened' },
+      { key: 'favorited', name: 'Favorited' },
     ],
-    ariaLabel: 'CPU, memory and network across the week.',
+    ariaLabel: 'Galleries downloaded, opened and favorited across the week.',
   },
 };
 
@@ -99,7 +100,7 @@ export const DefaultSummary: Story = {
   play: async ({ canvasElement }) => {
     const img = canvasElement.querySelector('[data-slot="line-chart"]')!;
     expect(img).toHaveAttribute('role', 'img');
-    expect(img.getAttribute('aria-label')).toBe('CPU, Memory across 7 points. CPU: from 32% to 36%, peak 61% (Fri). Memory: from 51% to 54%, peak 72% (Fri)');
+    expect(img.getAttribute('aria-label')).toBe('Downloaded, Opened across 7 points. Downloaded: from 32% to 36%, peak 61% (Fri). Opened: from 51% to 54%, peak 72% (Fri)');
     // The recharts keyboard layer stays off: no tab stop inside role="img".
     expect([...img.querySelectorAll<HTMLElement>('*')].filter((el) => el.tabIndex >= 0)).toHaveLength(0);
   },
@@ -108,8 +109,8 @@ export const DefaultSummary: Story = {
 /** A single series still works (legend collapses to one entry). */
 export const SingleSeries: Story = {
   args: {
-    series: [{ key: 'cpu', name: 'CPU' }],
-    ariaLabel: 'CPU usage across the week, peaking Friday.',
+    series: [{ key: 'downloaded', name: 'Downloaded' }],
+    ariaLabel: 'Galleries downloaded across the week, peaking Friday.',
   },
 };
 

@@ -28,9 +28,9 @@ export const badgeGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <div className="flex gap-2">
-            <Badge tone="info">Next.js</Badge>
-            <Badge tone="danger">Astro</Badge>
-            <Badge tone="success">Node.js</Badge>
+            <Badge tone="info">JPEG</Badge>
+            <Badge tone="danger">TIFF</Badge>
+            <Badge tone="success">RAW</Badge>
           </div>
         ),
         caption: 'Status colors as decoration teach people that red doesn’t mean anything.',

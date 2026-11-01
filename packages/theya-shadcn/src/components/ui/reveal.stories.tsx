@@ -43,13 +43,13 @@ export const Default: Story = {
     <div className="max-w-md">
       <Spacer />
       <Reveal {...args} className={BOX}>
-        <p className="text-body-l font-semibold">Backups every hour</p>
-        <p className="mt-1 text-body-m text-[var(--color-text-text-subtle)]">Restore any site to a point in the last 30 days.</p>
+        <p className="text-body-l font-semibold">Archived every hour</p>
+        <p className="mt-1 text-body-m text-[var(--color-text-text-subtle)]">Restore any album to a point in the last 30 days.</p>
       </Reveal>
     </div>
   ),
   play: async ({ canvasElement }) => {
-    await expect(within(canvasElement).getByText('Backups every hour')).toBeVisible();
+    await expect(within(canvasElement).getByText('Archived every hour')).toBeVisible();
   },
 };
 
@@ -75,7 +75,7 @@ export const Staggered: Story = {
     <div className="max-w-md">
       <Spacer />
       <RevealGroup className="flex flex-col gap-3" stagger={90}>
-        {['Free SSL on every domain', 'Daily backups, kept 30 days', 'Staging copy in one click', 'Support that answers in minutes'].map((t) => (
+        {['A license with every download', 'Daily archive, kept 30 days', 'Client portal in one click', 'Support that answers in minutes'].map((t) => (
           <div key={t} className={BOX}>
             <p className="text-body-m">{t}</p>
           </div>

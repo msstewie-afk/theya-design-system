@@ -12,7 +12,7 @@
 # Language coloring (code-codeeditor--languages)
 - text: styles.css css
 - textbox "CSS example"
-- text: deploy.sh bash
+- text: export.sh bash
 - textbox "Bash example"
 
 # Plain text (code-codeeditor--plain-text)

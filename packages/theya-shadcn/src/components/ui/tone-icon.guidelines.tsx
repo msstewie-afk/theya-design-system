@@ -21,8 +21,8 @@ export const toneIconGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className="flex flex-col gap-3">
-            <div className={ROW}><ToneIcon tone="warning" />Certificate expires in 5 days</div>
-            <div className={ROW}><ToneIcon tone="success" />Backup completed</div>
+            <div className={ROW}><ToneIcon tone="warning" />License expires in 5 days</div>
+            <div className={ROW}><ToneIcon tone="success" />Export completed</div>
           </div>
         ),
         caption: 'Shape and text carry the meaning; color adds to it.',
@@ -30,11 +30,11 @@ export const toneIconGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <div className="flex flex-col gap-3">
-            <div className={ROW}><StatusDot tone="warning" />Certificate</div>
-            <div className={ROW}><StatusDot tone="success" />Backup</div>
+            <div className={ROW}><StatusDot tone="warning" />License</div>
+            <div className={ROW}><StatusDot tone="success" />Export</div>
           </div>
         ),
-        caption: 'Colored dots with nouns: what about the certificate? Color alone says it.',
+        caption: 'Colored dots with nouns: what about the license? Color alone says it.',
       },
     },
   ],

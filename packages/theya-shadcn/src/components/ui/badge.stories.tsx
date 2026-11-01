@@ -152,7 +152,7 @@ export const AsLink: Story = {
   args: { tone: 'neutral' },
   render: (args) => (
     <Badge {...args} asChild>
-      <a href="/sites/shop.seashell.dev">
+      <a href="/changelog/v2.4.0">
         <GitBranch aria-hidden="true" />
         <span className="font-mono">v2.4.0</span>
       </a>

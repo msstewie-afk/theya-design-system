@@ -6,7 +6,7 @@
   "status": "beta",
   "category": "Actions",
   "whenToUse": [
-    "The one main action of a screen that must stay reachable while scrolling, mostly on mobile: “New message”, “Add site”.",
+    "The one main action of a screen that must stay reachable while scrolling, mostly on mobile: “New message”, “Add gallery”.",
     "Extended (with `label`) when the icon alone isn’t obvious."
   ],
   "whenNotToUse": [
@@ -45,7 +45,7 @@
     {
       "do": {
         "caption": "One FAB, the screen’s main action, with a label.",
-        "example": "<Fab position=\"none\" icon={<Plus />} label=\"New site\" />"
+        "example": "<Fab position=\"none\" icon={<Plus />} label=\"New gallery\" />"
       },
       "dont": {
         "caption": "Two FABs compete, and two plus icons say nothing.",

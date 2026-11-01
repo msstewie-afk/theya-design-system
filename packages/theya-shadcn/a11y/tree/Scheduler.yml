@@ -11,10 +11,10 @@
   - radio "Month"
 - text: Mon 5 1 AM 2 AM 3 AM 4 AM 5 AM 6 AM 7 AM 8 AM 9 AM 10 AM 11 AM 12 PM 1 PM 2 PM 3 PM 4 PM 5 PM 6 PM 7 PM 8 PM 9 PM 10 PM 11 PM
 - group "Monday, October 5, 2026":
-  - button "Deploy 4.12 to staging, Monday, October 5, 2026, 9:30 AM – 10:30 AM": Deploy 4.12 to staging 9:30 AM – 10:30 AM
-  - button "Incident review, Monday, October 5, 2026, 10:00 AM – 11:00 AM": Incident review 10:00 AM – 11:00 AM
-  - button "Customer call — Acme, Monday, October 5, 2026, 10:15 AM – 10:45 AM": Customer call — Acme 10:15 AM
-  - button "Certificate renewal window, Monday, October 5, 2026, 1:00 PM – 2:00 PM": Certificate renewal window 1:00 PM – 2:00 PM
+  - button "Export Golden hour proofs, Monday, October 5, 2026, 9:30 AM – 10:30 AM": Export Golden hour proofs 9:30 AM – 10:30 AM
+  - button "Missed delivery review, Monday, October 5, 2026, 10:00 AM – 11:00 AM": Missed delivery review 10:00 AM – 11:00 AM
+  - button "Client call — Rhea Okafor, Monday, October 5, 2026, 10:15 AM – 10:45 AM": Client call — Rhea Okafor 10:15 AM
+  - button "License renewal window, Monday, October 5, 2026, 1:00 PM – 2:00 PM": License renewal window 1:00 PM – 2:00 PM
 
 # Localized (data-scheduler--localized)
 - button "Today"
@@ -33,23 +33,23 @@
 - button "Samstag, 10. Oktober 2026": Sa 10
 - button "Sonntag, 11. Oktober 2026": So 11
 - text: All day
-- button "Release 4.12 freeze, all day": Release 4.12 freeze
-- 'button "On-call: Alex, all day"': "On-call: Alex"
-- 'button "On-call: Alex, all day"': "On-call: Alex"
-- 'button "On-call: Alex, all day"': "On-call: Alex"
+- button "Othrys Lodge location shoot, all day": Othrys Lodge location shoot
+- 'button "On location: Elio, all day"': "On location: Elio"
+- 'button "On location: Elio, all day"': "On location: Elio"
+- 'button "On location: Elio, all day"': "On location: Elio"
 - text: 01 Uhr 02 Uhr 03 Uhr 04 Uhr 05 Uhr 06 Uhr 07 Uhr 08 Uhr 09 Uhr 10 Uhr 11 Uhr 12 Uhr 13 Uhr 14 Uhr 15 Uhr 16 Uhr 17 Uhr 18 Uhr 19 Uhr 20 Uhr 21 Uhr 22 Uhr 23 Uhr
 - group "Montag, 5. Oktober 2026":
-  - button "Deploy 4.12 to staging, Montag, 5. Oktober 2026, 9:30 – 10:30": Deploy 4.12 to staging 9:30 – 10:30
-  - button "Incident review, Montag, 5. Oktober 2026, 10:00 – 11:00": Incident review 10:00 – 11:00
-  - button "Customer call — Acme, Montag, 5. Oktober 2026, 10:15 – 10:45": Customer call — Acme 10:15
-  - button "Certificate renewal window, Montag, 5. Oktober 2026, 13:00 – 14:00": Certificate renewal window 13:00 – 14:00
+  - button "Export Golden hour proofs, Montag, 5. Oktober 2026, 9:30 – 10:30": Export Golden hour proofs 9:30 – 10:30
+  - button "Missed delivery review, Montag, 5. Oktober 2026, 10:00 – 11:00": Missed delivery review 10:00 – 11:00
+  - button "Client call — Rhea Okafor, Montag, 5. Oktober 2026, 10:15 – 10:45": Client call — Rhea Okafor 10:15
+  - button "License renewal window, Montag, 5. Oktober 2026, 13:00 – 14:00": License renewal window 13:00 – 14:00
 - group "Dienstag, 6. Oktober 2026":
-  - 'button "Design review: checkout, Dienstag, 6. Oktober 2026, 14:00 – 15:30"': "Design review: checkout 14:00 – 15:30"
+  - 'button "Album review: Golden hour, Dienstag, 6. Oktober 2026, 14:00 – 15:30"': "Album review: Golden hour 14:00 – 15:30"
 - group "Mittwoch, 7. Oktober 2026":
-  - button "Database migration — eu-central, Mittwoch, 7. Oktober 2026, 2:00 – 4:00": Database migration — eu-central 2:00 – 4:00
+  - button "Archive sync to Mnemosyne, Mittwoch, 7. Oktober 2026, 2:00 – 4:00": Archive sync to Mnemosyne 2:00 – 4:00
   - button "Weekly planning, Mittwoch, 7. Oktober 2026, 10:00 – 11:00": Weekly planning 10:00 – 11:00
 - group "Donnerstag, 8. Oktober 2026":
-  - button "Deploy 4.12 to production, Donnerstag, 8. Oktober 2026, 9:00 – 10:00": Deploy 4.12 to production 9:00 – 10:00
+  - button "Deliver Moonrise over Othrys, Donnerstag, 8. Oktober 2026, 9:00 – 10:00": Deliver Moonrise over Othrys 9:00 – 10:00
 - group "Freitag, 9. Oktober 2026":
   - button "Retro, Freitag, 9. Oktober 2026, 16:00 – 17:00": Retro 16:00 – 17:00
 - group "Samstag, 10. Oktober 2026"
@@ -68,7 +68,7 @@
 - group "Tuesday, October 20, 2026":
   - button "Quarterly planning, Tuesday, October 20, 2026, 10:00 AM – 12:00 PM": Quarterly planning 10:00 AM – 12:00 PM
   - button "Team lunch, Tuesday, October 20, 2026, 12:30 PM – 1:30 PM": Team lunch 12:30 PM – 1:30 PM
-  - button "Security audit, Tuesday, October 20, 2026, 2:00 PM – 4:00 PM": Security audit 2:00 PM – 4:00 PM
+  - button "License audit, Tuesday, October 20, 2026, 2:00 PM – 4:00 PM": License audit 2:00 PM – 4:00 PM
   - button "Docs sprint, Tuesday, October 20, 2026, 4:00 PM – 5:00 PM": Docs sprint 4:00 PM – 5:00 PM
 - status: Tuesday, October 20, 2026
 
@@ -81,23 +81,23 @@
   - radio "Week" [checked]
   - radio "Month"
 - text: Mon 5 Tue 6 Wed 7 Thu 8 Fri 9 Sat 10 Sun 11 All day
-- button "Release 4.12 freeze, all day": Release 4.12 freeze
-- 'button "On-call: Alex, all day"': "On-call: Alex"
-- 'button "On-call: Alex, all day"': "On-call: Alex"
-- 'button "On-call: Alex, all day"': "On-call: Alex"
+- button "Othrys Lodge location shoot, all day": Othrys Lodge location shoot
+- 'button "On location: Elio, all day"': "On location: Elio"
+- 'button "On location: Elio, all day"': "On location: Elio"
+- 'button "On location: Elio, all day"': "On location: Elio"
 - text: 1 AM 2 AM 3 AM 4 AM 5 AM 6 AM 7 AM 8 AM 9 AM 10 AM 11 AM 12 PM 1 PM 2 PM 3 PM 4 PM 5 PM 6 PM 7 PM 8 PM 9 PM 10 PM 11 PM
 - group "Monday, October 5, 2026":
-  - button "Deploy 4.12 to staging, Monday, October 5, 2026, 9:30 AM – 10:30 AM": Deploy 4.12 to staging 9:30 AM – 10:30 AM
-  - button "Incident review, Monday, October 5, 2026, 10:00 AM – 11:00 AM": Incident review 10:00 AM – 11:00 AM
-  - button "Customer call — Acme, Monday, October 5, 2026, 10:15 AM – 10:45 AM": Customer call — Acme 10:15 AM
-  - button "Certificate renewal window, Monday, October 5, 2026, 1:00 PM – 2:00 PM": Certificate renewal window 1:00 PM – 2:00 PM
+  - button "Export Golden hour proofs, Monday, October 5, 2026, 9:30 AM – 10:30 AM": Export Golden hour proofs 9:30 AM – 10:30 AM
+  - button "Missed delivery review, Monday, October 5, 2026, 10:00 AM – 11:00 AM": Missed delivery review 10:00 AM – 11:00 AM
+  - button "Client call — Rhea Okafor, Monday, October 5, 2026, 10:15 AM – 10:45 AM": Client call — Rhea Okafor 10:15 AM
+  - button "License renewal window, Monday, October 5, 2026, 1:00 PM – 2:00 PM": License renewal window 1:00 PM – 2:00 PM
 - group "Tuesday, October 6, 2026":
-  - 'button "Design review: checkout, Tuesday, October 6, 2026, 2:00 PM – 3:30 PM"': "Design review: checkout 2:00 PM – 3:30 PM"
+  - 'button "Album review: Golden hour, Tuesday, October 6, 2026, 2:00 PM – 3:30 PM"': "Album review: Golden hour 2:00 PM – 3:30 PM"
 - group "Wednesday, October 7, 2026":
-  - button "Database migration — eu-central, Wednesday, October 7, 2026, 2:00 AM – 4:00 AM": Database migration — eu-central 2:00 AM – 4:00 AM
+  - button "Archive sync to Mnemosyne, Wednesday, October 7, 2026, 2:00 AM – 4:00 AM": Archive sync to Mnemosyne 2:00 AM – 4:00 AM
   - button "Weekly planning, Wednesday, October 7, 2026, 10:00 AM – 11:00 AM": Weekly planning 10:00 AM – 11:00 AM
 - group "Thursday, October 8, 2026":
-  - button "Deploy 4.12 to production, Thursday, October 8, 2026, 9:00 AM – 10:00 AM": Deploy 4.12 to production 9:00 AM – 10:00 AM
+  - button "Deliver Moonrise over Othrys, Thursday, October 8, 2026, 9:00 AM – 10:00 AM": Deliver Moonrise over Othrys 9:00 AM – 10:00 AM
 - group "Friday, October 9, 2026":
   - button "Retro, Friday, October 9, 2026, 4:00 PM – 5:00 PM": Retro 4:00 PM – 5:00 PM
 - group "Saturday, October 10, 2026"
@@ -120,24 +120,24 @@
 - button "Saturday, October 10, 2026": Sat 10
 - button "Sunday, October 11, 2026": Sun 11
 - text: All day
-- button "Release 4.12 freeze, all day": Release 4.12 freeze
-- 'button "On-call: Alex, all day"': "On-call: Alex"
-- 'button "On-call: Alex, all day"': "On-call: Alex"
-- 'button "On-call: Alex, all day"': "On-call: Alex"
+- button "Othrys Lodge location shoot, all day": Othrys Lodge location shoot
+- 'button "On location: Elio, all day"': "On location: Elio"
+- 'button "On location: Elio, all day"': "On location: Elio"
+- 'button "On location: Elio, all day"': "On location: Elio"
 - text: 1 AM 2 AM 3 AM 4 AM 5 AM 6 AM 7 AM 8 AM 9 AM 10 AM 11 AM 12 PM 1 PM 2 PM 3 PM 4 PM 5 PM 6 PM 7 PM 8 PM 9 PM 10 PM 11 PM
 - group "Monday, October 5, 2026":
-  - button "Incident review, Monday, October 5, 2026, 10:00 AM – 11:00 AM": Incident review 10:00 AM – 11:00 AM
-  - button "Customer call — Acme, Monday, October 5, 2026, 10:15 AM – 10:45 AM": Customer call — Acme 10:15 AM
-  - button "Deploy 4.12 to staging, Monday, October 5, 2026, 10:30 AM – 11:30 AM": Deploy 4.12 to staging 10:30 AM – 11:30 AM
-  - button "Certificate renewal window, Monday, October 5, 2026, 1:00 PM – 2:00 PM": Certificate renewal window 1:00 PM – 2:00 PM
+  - button "Missed delivery review, Monday, October 5, 2026, 10:00 AM – 11:00 AM": Missed delivery review 10:00 AM – 11:00 AM
+  - button "Client call — Rhea Okafor, Monday, October 5, 2026, 10:15 AM – 10:45 AM": Client call — Rhea Okafor 10:15 AM
+  - button "Export Golden hour proofs, Monday, October 5, 2026, 10:30 AM – 11:30 AM": Export Golden hour proofs 10:30 AM – 11:30 AM
+  - button "License renewal window, Monday, October 5, 2026, 1:00 PM – 2:00 PM": License renewal window 1:00 PM – 2:00 PM
 - group "Tuesday, October 6, 2026":
-  - 'button "Design review: checkout, Tuesday, October 6, 2026, 2:00 PM – 3:30 PM"': "Design review: checkout 2:00 PM – 3:30 PM"
+  - 'button "Album review: Golden hour, Tuesday, October 6, 2026, 2:00 PM – 3:30 PM"': "Album review: Golden hour 2:00 PM – 3:30 PM"
   - button "New event, Tuesday, October 6, 2026, 5:00 PM – 6:00 PM": New event 5:00 PM – 6:00 PM
 - group "Wednesday, October 7, 2026":
-  - button "Database migration — eu-central, Wednesday, October 7, 2026, 2:00 AM – 4:00 AM": Database migration — eu-central 2:00 AM – 4:00 AM
+  - button "Archive sync to Mnemosyne, Wednesday, October 7, 2026, 2:00 AM – 4:00 AM": Archive sync to Mnemosyne 2:00 AM – 4:00 AM
   - button "Weekly planning, Wednesday, October 7, 2026, 10:00 AM – 11:00 AM": Weekly planning 10:00 AM – 11:00 AM
 - group "Thursday, October 8, 2026":
-  - button "Deploy 4.12 to production, Thursday, October 8, 2026, 9:00 AM – 10:00 AM": Deploy 4.12 to production 9:00 AM – 10:00 AM
+  - button "Deliver Moonrise over Othrys, Thursday, October 8, 2026, 9:00 AM – 10:00 AM": Deliver Moonrise over Othrys 9:00 AM – 10:00 AM
 - group "Friday, October 9, 2026":
   - button "Retro, Friday, October 9, 2026, 4:00 PM – 5:00 PM": Retro 4:00 PM – 5:00 PM
 - group "Saturday, October 10, 2026"

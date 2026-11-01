@@ -113,8 +113,8 @@
 - paragraph: "Try:"
 - list:
   - listitem: Checking the spelling
-  - listitem: Fewer or more general words — “backup” instead of “nightly backup job”
-  - listitem: A name, domain or email address as it appears in the panel
+  - listitem: Fewer or more general words — “wedding” instead of “June wedding at the lodge”
+  - listitem: A name, album title or email address exactly as it appears
 - region "Popular pages":
   - heading "Popular pages" [level=2]
   - list:

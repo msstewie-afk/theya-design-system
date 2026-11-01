@@ -22,14 +22,14 @@ const STORAGE = Array.from({ length: 12 }, (_, i) => ({
   value: Math.round(40 + i * 6.5 + Math.sin(i) * 4),
 }));
 
-const TRAFFIC = [
-  { label: 'Mon', direct: 1.2, organic: 2.1, referral: 0.6 },
-  { label: 'Tue', direct: 1.4, organic: 2.3, referral: 0.7 },
-  { label: 'Wed', direct: 1.3, organic: 2.6, referral: 0.5 },
-  { label: 'Thu', direct: 1.6, organic: 2.8, referral: 0.9 },
-  { label: 'Fri', direct: 2.0, organic: 3.2, referral: 1.1 },
-  { label: 'Sat', direct: 1.5, organic: 2.4, referral: 0.8 },
-  { label: 'Sun', direct: 1.1, organic: 2.0, referral: 0.6 },
+const VIEWS_BY_SOURCE = [
+  { label: 'Mon', portal: 1.2, link: 2.1, embed: 0.6 },
+  { label: 'Tue', portal: 1.4, link: 2.3, embed: 0.7 },
+  { label: 'Wed', portal: 1.3, link: 2.6, embed: 0.5 },
+  { label: 'Thu', portal: 1.6, link: 2.8, embed: 0.9 },
+  { label: 'Fri', portal: 2.0, link: 3.2, embed: 1.1 },
+  { label: 'Sat', portal: 1.5, link: 2.4, embed: 0.8 },
+  { label: 'Sun', portal: 1.1, link: 2.0, embed: 0.6 },
 ];
 
 /**
@@ -49,7 +49,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "One quantity over time where the volume matters — traffic, requests, storage used — or a few stacked series that add up to a total.",
+          "One quantity over time where the volume matters — gallery views, downloads, storage used — or a few stacked series that add up to a total.",
       },
     },
     guidelines: areaChartGuidelines, layout: 'padded',
@@ -79,9 +79,9 @@ const meta = {
     data: WEEK,
     height: 240,
     yStep: 1,
-    unit: 'M',
+    unit: 'k',
     labelPrefix: '',
-    ariaLabel: 'Requests over the work week, peaking Friday.',
+    ariaLabel: 'Gallery views over the work week, peaking Friday.',
   },
   decorators: [
     (Story) => (
@@ -95,7 +95,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** A week of request volume. The peak (Fri) and the latest point (Sun) keep
+/** A week of gallery views. The peak (Fri) and the latest point (Sun) keep
  * resting dots; hover for the crosshair tooltip. */
 export const Default: Story = {};
 
@@ -105,7 +105,7 @@ export const ManyPoints: Story = {
   args: {
     data: FORTNIGHT,
     labelPrefix: 'Day ',
-    ariaLabel: 'Requests across the last 14 days, trending up.',
+    ariaLabel: 'Gallery views across the last 14 days, trending up.',
   },
 };
 
@@ -125,20 +125,20 @@ export const CustomFormat: Story = {
 
 /** Multiple series stacked (the default when `series` is set): each area sits on
  * top of the last, so the top edge reads as the combined total while the bands
- * show each channel's share. The legend and tooltip repeat the series name
+ * show each source's share. The legend and tooltip repeat the series name
  * beside its swatch, so the split never rides on color alone. */
 export const StackedArea: Story = {
   name: 'Stacked area',
   args: {
-    data: TRAFFIC,
+    data: VIEWS_BY_SOURCE,
     series: [
-      { key: 'direct', name: 'Direct' },
-      { key: 'organic', name: 'Organic' },
-      { key: 'referral', name: 'Referral' },
+      { key: 'portal', name: 'Client portal' },
+      { key: 'link', name: 'Shared link' },
+      { key: 'embed', name: 'Website embed' },
     ],
     yStep: 1,
-    unit: 'M',
-    ariaLabel: 'Direct, organic and referral traffic across the week, stacked to show the total.',
+    unit: 'k',
+    ariaLabel: 'Gallery views from client portals, shared links and website embeds across the week, stacked to show the total.',
   },
 };
 
@@ -150,7 +150,7 @@ export const OverlaidArea: Story = {
   args: {
     ...StackedArea.args,
     stacked: false,
-    ariaLabel: 'Direct, organic and referral traffic across the week, overlaid for comparison.',
+    ariaLabel: 'Gallery views from client portals, shared links and website embeds across the week, overlaid for comparison.',
   },
 };
 
@@ -165,8 +165,8 @@ export const InCard: Story = {
     <div className="rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5 shadow-elevation-xs">
       <div className="flex items-baseline justify-between gap-4">
         <div className="flex flex-col gap-0.5">
-          <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">Requests / day</span>
-          <span className="font-body text-heading-xl font-semibold tabular-nums text-[var(--color-text-text)]">6.4M</span>
+          <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">Gallery views / day</span>
+          <span className="font-body text-heading-xl font-semibold tabular-nums text-[var(--color-text-text)]">6.4k</span>
         </div>
         <span className="font-body text-body-s text-[var(--color-text-text-success)]">+12% vs last week</span>
       </div>
@@ -183,7 +183,7 @@ export const SinglePoint: Story = {
   name: 'Single point',
   args: {
     data: [{ label: 'Mon', value: 4.2 }],
-    ariaLabel: 'Requests for a single day.',
+    ariaLabel: 'Gallery views for a single day.',
   },
 };
 
@@ -191,7 +191,7 @@ export const SinglePoint: Story = {
 export const Empty: Story = {
   args: {
     data: [],
-    ariaLabel: 'No request data yet.',
+    ariaLabel: 'No gallery views yet.',
   },
 };
 
@@ -204,7 +204,7 @@ export const NoAxes: Story = {
     height: 120,
     showXAxis: false,
     showYAxis: false,
-    ariaLabel: 'Requests over the work week, peaking Friday.',
+    ariaLabel: 'Gallery views over the work week, peaking Friday.',
   },
 };
 
@@ -216,7 +216,7 @@ export const FloatingAxis: Story = {
   args: {
     floatingAxis: true,
     height: 260,
-    ariaLabel: 'Requests over the work week, peaking Friday.',
+    ariaLabel: 'Gallery views over the work week, peaking Friday.',
   },
 };
 
@@ -235,7 +235,7 @@ export const NarrowResponsiveAxis: Story = {
   args: {
     data: FORTNIGHT,
     labelPrefix: 'Day ',
-    ariaLabel: 'Requests across 14 days in a narrow chart.',
+    ariaLabel: 'Gallery views across 14 days in a narrow chart.',
   },
 };
 
@@ -253,7 +253,7 @@ export const ShortResponsiveAxis: Story = {
   args: {
     height: 112,
     yStep: 1,
-    ariaLabel: 'Requests across the week in a short chart.',
+    ariaLabel: 'Gallery views across the week in a short chart.',
   },
 };
 

@@ -2,112 +2,112 @@
 
 # Custom Control (form-structure-propertygrid--custom-control)
 - text: Display name
-- textbox "Display name": shop.seashell.dev
+- textbox "Display name": Golden hour
 - button "Clear input"
-- text: Traffic weight 40%
-- slider "Traffic weight"
+- text: Watermark opacity 40%
+- slider "Watermark opacity"
 
 # Default (form-structure-propertygrid--default)
 - text: Display name
-- textbox "Display name": shop.seashell.dev
+- textbox "Display name": Golden hour
 - button "Clear input"
-- text: Region
-- combobox "Region": eu-west-1
-- text: Replicas
+- text: Studio
+- combobox "Studio": Helios Studio
+- text: Print copies
 - button "Decrease":
   - img
-- spinbutton "Replicas": "3"
+- spinbutton "Print copies": "3"
 - button "Increase":
   - img
-- text: Force HTTPS
-- switch "Force HTTPS" [checked]
+- text: Watermark previews
+- switch "Watermark previews" [checked]
 - text: Notes
 - textbox "Notes":
   - /placeholder: Optional notes
-  - text: Primary storefront
+  - text: Main client gallery
 
 # Editing (form-structure-propertygrid--editing)
 - text: Display name
-- textbox "Display name": Edge cache
+- textbox "Display name": Blue hour
 - button "Clear input"
-- text: Region
-- combobox "Region": us-east-1
-- text: Replicas
+- text: Studio
+- combobox "Studio": Selene Weddings
+- text: Print copies
 - button "Decrease":
   - img
-- spinbutton "Replicas": "0"
+- spinbutton "Print copies": "0"
 - button "Increase":
   - img
-- text: Force HTTPS
-- switch "Force HTTPS" [checked]
+- text: Watermark previews
+- switch "Watermark previews" [checked]
 - text: Notes
 - textbox "Notes":
   - /placeholder: Optional notes
 
 # Mixed Read Only (form-structure-propertygrid--mixed-read-only)
-- text: Display name shop.seashell.dev Region
-- combobox "Region": eu-west-1
-- text: Replicas
+- text: Display name Golden hour Studio
+- combobox "Studio": Helios Studio
+- text: Print copies
 - button "Decrease":
   - img
-- spinbutton "Replicas": "3"
+- spinbutton "Print copies": "3"
 - button "Increase":
   - img
-- text: Force HTTPS
-- switch "Force HTTPS" [checked]
+- text: Watermark previews
+- switch "Watermark previews" [checked]
 - text: Notes
 - textbox "Notes":
   - /placeholder: Optional notes
-  - text: Primary storefront
+  - text: Main client gallery
 
 # Narrow Label Column (form-structure-propertygrid--narrow-label-column)
-- text: OS
-- textbox "OS": AlmaLinux 9
+- text: ISO
+- textbox "ISO": "400"
 - button "Clear input"
-- text: IPv4
-- textbox "IPv4": 203.0.113.42
+- text: Lens
+- textbox "Lens": 50 mm f/1.4
 - button "Clear input"
-- text: Certificate renewal policy for this hostname
-- textbox "Certificate renewal policy for this hostname": Automatic
+- text: License renewal policy for this gallery
+- textbox "License renewal policy for this gallery": Automatic
 - button "Clear input"
 
 # Read Only (form-structure-propertygrid--read-only-story)
-- text: Display name shop.seashell.dev Region eu-west-1 Replicas 3 Force HTTPS
-- switch "Force HTTPS" [checked] [disabled]
-- text: Notes Primary storefront
+- text: Display name Golden hour Studio helios Print copies 3 Watermark previews
+- switch "Watermark previews" [checked] [disabled]
+- text: Notes Main client gallery
 
 # Sized To Longest Label (form-structure-propertygrid--sized-to-longest-label)
-- text: OS
-- textbox "OS": AlmaLinux 9
+- text: ISO
+- textbox "ISO": "400"
 - button "Clear input"
-- text: IPv4
-- textbox "IPv4": 203.0.113.42
+- text: Lens
+- textbox "Lens": 50 mm f/1.4
 - button "Clear input"
-- text: OS
-- textbox "OS": AlmaLinux 9
+- text: ISO
+- textbox "ISO": "400"
 - button "Clear input"
-- text: IPv4
-- textbox "IPv4": 203.0.113.42
+- text: Lens
+- textbox "Lens": 50 mm f/1.4
 - button "Clear input"
-- text: Certificate renewal policy for this hostname
-- textbox "Certificate renewal policy for this hostname": Automatic
+- text: License renewal policy for this gallery
+- textbox "License renewal policy for this gallery": Automatic
 - button "Clear input"
 
 # With Error (form-structure-propertygrid--with-error)
 - text: Display name
-- textbox "Display name": shop
+- textbox "Display name": Golden hour
 - button "Clear input"
-- text: Region
-- combobox "Region": eu-west-1
-- text: Replicas
+- text: Studio
+- combobox "Studio": Helios Studio
+- text: Print copies
 - button "Decrease":
   - img
-- spinbutton "Replicas" [invalid]: "0"
+- spinbutton "Print copies" [invalid]: "0"
 - button "Increase":
   - img
-- text: Run at least 1 replica. From 1 to 20. Force HTTPS
-- switch "Force HTTPS" [checked]
+- text: Order at least 1 copy. From 1 to 20. Watermark previews
+- switch "Watermark previews" [checked]
 - text: Notes
 - textbox "Notes":
   - /placeholder: Optional notes
-  - text: Primary storefront
+  - text: Main client gallery

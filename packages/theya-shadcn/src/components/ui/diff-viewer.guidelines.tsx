@@ -2,14 +2,14 @@ import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { DiffViewer } from './diff-viewer';
 import { CodeBlock } from './code-block';
 
-const OLD = 'max_upload: 64M\ntimeout: 30\ncache: on';
-const NEW = 'max_upload: 128M\ntimeout: 30\ncache: on';
+const OLD = 'long_edge: 2048\nquality: 82\nwatermark: on';
+const NEW = 'long_edge: 4096\nquality: 82\nwatermark: on';
 
 export const diffViewerGuidelines: ComponentGuidelines = {
   status: 'beta',
   whenToUse: [
-    'Reviewing a change before applying it: config, a template, a policy, a file restored from backup.',
-    'Showing what an automated change did (an update, a migration) so people can trust it.',
+    'Reviewing a change before applying it: config, a template, a policy, a file restored from the archive.',
+    'Showing what an automated change did (a bulk rename, an import) so people can trust it.',
   ],
   whenNotToUse: [
     { text: 'Only one version matters', instead: 'CodeBlock' },
@@ -25,7 +25,7 @@ export const diffViewerGuidelines: ComponentGuidelines = {
   doDont: [
     {
       do: {
-        example: <div className="w-80"><DiffViewer oldValue={OLD} newValue={NEW} filename="config.yml" /></div>,
+        example: <div className="w-80"><DiffViewer oldValue={OLD} newValue={NEW} filename="export.yml" /></div>,
         caption: 'The change is visible at a glance, with the exact word highlighted.',
       },
       dont: {

@@ -3,112 +3,112 @@
 # All Densities (actions-densitytoggle--all-densities)
 - region "compact":
   - heading "compact" [level=2]
-  - text: Domain
-  - textbox "Domain":
-    - /placeholder: example.com
-  - button "Add domain"
-  - region "Domains, compact":
+  - text: Portal address
+  - textbox "Portal address":
+    - /placeholder: studio.aether.photo
+  - button "Add portal"
+  - region "Client portals, compact":
     - table:
       - rowgroup:
-        - row "Domain Owner Plan":
-          - columnheader "Domain"
+        - row "Portal Owner Plan":
+          - columnheader "Portal"
           - columnheader "Owner"
           - columnheader "Plan"
       - rowgroup:
-        - row "studio-north.com Ana Petrova Business":
-          - cell "studio-north.com"
-          - cell "Ana Petrova"
+        - row "helios.aether.photo Thea Marlow Business":
+          - cell "helios.aether.photo"
+          - cell "Thea Marlow"
           - cell "Business"
-        - row "bakery-lune.eu Tomás Ruiz Starter":
-          - cell "bakery-lune.eu"
-          - cell "Tomás Ruiz"
-          - cell "Starter"
-        - row "atlas-maps.io Lin Wei Pro":
-          - cell "atlas-maps.io"
-          - cell "Lin Wei"
+        - row "selene-weddings.aether.photo Selin Arda Pro":
+          - cell "selene-weddings.aether.photo"
+          - cell "Selin Arda"
           - cell "Pro"
+        - row "eos-portraits.aether.photo Dawn Ellery Free":
+          - cell "eos-portraits.aether.photo"
+          - cell "Dawn Ellery"
+          - cell "Free"
 - region "default":
   - heading "default" [level=2]
-  - text: Domain
-  - textbox "Domain":
-    - /placeholder: example.com
-  - button "Add domain"
-  - region "Domains, default":
+  - text: Portal address
+  - textbox "Portal address":
+    - /placeholder: studio.aether.photo
+  - button "Add portal"
+  - region "Client portals, default":
     - table:
       - rowgroup:
-        - row "Domain Owner Plan":
-          - columnheader "Domain"
+        - row "Portal Owner Plan":
+          - columnheader "Portal"
           - columnheader "Owner"
           - columnheader "Plan"
       - rowgroup:
-        - row "studio-north.com Ana Petrova Business":
-          - cell "studio-north.com"
-          - cell "Ana Petrova"
+        - row "helios.aether.photo Thea Marlow Business":
+          - cell "helios.aether.photo"
+          - cell "Thea Marlow"
           - cell "Business"
-        - row "bakery-lune.eu Tomás Ruiz Starter":
-          - cell "bakery-lune.eu"
-          - cell "Tomás Ruiz"
-          - cell "Starter"
-        - row "atlas-maps.io Lin Wei Pro":
-          - cell "atlas-maps.io"
-          - cell "Lin Wei"
+        - row "selene-weddings.aether.photo Selin Arda Pro":
+          - cell "selene-weddings.aether.photo"
+          - cell "Selin Arda"
           - cell "Pro"
+        - row "eos-portraits.aether.photo Dawn Ellery Free":
+          - cell "eos-portraits.aether.photo"
+          - cell "Dawn Ellery"
+          - cell "Free"
 - region "comfortable":
   - heading "comfortable" [level=2]
-  - text: Domain
-  - textbox "Domain":
-    - /placeholder: example.com
-  - button "Add domain"
-  - region "Domains, comfortable":
+  - text: Portal address
+  - textbox "Portal address":
+    - /placeholder: studio.aether.photo
+  - button "Add portal"
+  - region "Client portals, comfortable":
     - table:
       - rowgroup:
-        - row "Domain Owner Plan":
-          - columnheader "Domain"
+        - row "Portal Owner Plan":
+          - columnheader "Portal"
           - columnheader "Owner"
           - columnheader "Plan"
       - rowgroup:
-        - row "studio-north.com Ana Petrova Business":
-          - cell "studio-north.com"
-          - cell "Ana Petrova"
+        - row "helios.aether.photo Thea Marlow Business":
+          - cell "helios.aether.photo"
+          - cell "Thea Marlow"
           - cell "Business"
-        - row "bakery-lune.eu Tomás Ruiz Starter":
-          - cell "bakery-lune.eu"
-          - cell "Tomás Ruiz"
-          - cell "Starter"
-        - row "atlas-maps.io Lin Wei Pro":
-          - cell "atlas-maps.io"
-          - cell "Lin Wei"
+        - row "selene-weddings.aether.photo Selin Arda Pro":
+          - cell "selene-weddings.aether.photo"
+          - cell "Selin Arda"
           - cell "Pro"
+        - row "eos-portraits.aether.photo Dawn Ellery Free":
+          - cell "eos-portraits.aether.photo"
+          - cell "Dawn Ellery"
+          - cell "Free"
 
 # Controlled Region (actions-densitytoggle--controlled-region)
 - radiogroup "Density":
   - radio "Compact"
   - radio "Default"
   - radio "Comfortable" [checked]
-- text: Domain
-- textbox "Domain":
-  - /placeholder: example.com
-- button "Add domain"
-- region "Domains":
+- text: Portal address
+- textbox "Portal address":
+  - /placeholder: studio.aether.photo
+- button "Add portal"
+- region "Client portals":
   - table:
     - rowgroup:
-      - row "Domain Owner Plan":
-        - columnheader "Domain"
+      - row "Portal Owner Plan":
+        - columnheader "Portal"
         - columnheader "Owner"
         - columnheader "Plan"
     - rowgroup:
-      - row "studio-north.com Ana Petrova Business":
-        - cell "studio-north.com"
-        - cell "Ana Petrova"
+      - row "helios.aether.photo Thea Marlow Business":
+        - cell "helios.aether.photo"
+        - cell "Thea Marlow"
         - cell "Business"
-      - row "bakery-lune.eu Tomás Ruiz Starter":
-        - cell "bakery-lune.eu"
-        - cell "Tomás Ruiz"
-        - cell "Starter"
-      - row "atlas-maps.io Lin Wei Pro":
-        - cell "atlas-maps.io"
-        - cell "Lin Wei"
+      - row "selene-weddings.aether.photo Selin Arda Pro":
+        - cell "selene-weddings.aether.photo"
+        - cell "Selin Arda"
         - cell "Pro"
+      - row "eos-portraits.aether.photo Dawn Ellery Free":
+        - cell "eos-portraits.aether.photo"
+        - cell "Dawn Ellery"
+        - cell "Free"
 
 # Playground (actions-densitytoggle--playground)
 - radiogroup "Density":

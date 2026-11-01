@@ -29,7 +29,7 @@
     {
       "do": {
         "caption": "Concrete questions about the user’s own data — they show what’s possible.",
-        "example": "<PromptSuggestions\n  aria-label=\"Suggestions\"\n  onSelect={() => {}}\n  items={[\n    { id: '1', label: 'Why is shop.seashell.dev slow today?' },\n    { id: '2', label: 'Which certificates expire this month?' },\n    { id: '3', label: 'Summarize last night’s backup' },\n  ]}\n/>"
+        "example": "<PromptSuggestions\n  aria-label=\"Suggestions\"\n  onSelect={() => {}}\n  items={[\n    { id: '1', label: 'Why are downloads from Selene Weddings slow today?' },\n    { id: '2', label: 'Which licenses expire this month?' },\n    { id: '3', label: 'Summarize last night’s archive run' },\n  ]}\n/>"
       },
       "dont": {
         "caption": "“Help”, “Ask a question”: nothing to learn, nothing to tap for.",

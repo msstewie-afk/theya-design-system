@@ -7,7 +7,7 @@
   "category": "Status & Feedback",
   "whenToUse": [
     "A task with a known percent done: upload, restore, export, install.",
-    "A running task of unknown length (a deploy, a scan): `indeterminate`.",
+    "A running task of unknown length (an export, an import): `indeterminate`.",
     "A known number of stages (“stage 3 of 5”): `segments`."
   ],
   "whenNotToUse": [
@@ -39,7 +39,7 @@
     },
     {
       "part": "Value / status text",
-      "description": "percent, or “3 of 12 sites”, or time left.",
+      "description": "percent, or “3 of 12 galleries”, or time left.",
       "optional": true
     }
   ],
@@ -47,7 +47,7 @@
     {
       "do": {
         "caption": "What’s running and how much is done.",
-        "example": "<div className=\"flex w-72 flex-col gap-1\">\n  <div className=\"flex justify-between text-body-s\"><span id=\"gl-pr-label\">Restoring backup</span><span className=\"tabular-nums\">66%</span></div>\n  <Progress value={66} aria-labelledby=\"gl-pr-label\" />\n</div>"
+        "example": "<div className=\"flex w-72 flex-col gap-1\">\n  <div className=\"flex justify-between text-body-s\"><span id=\"gl-pr-label\">Restoring from archive</span><span className=\"tabular-nums\">66%</span></div>\n  <Progress value={66} aria-labelledby=\"gl-pr-label\" />\n</div>"
       },
       "dont": {
         "caption": "A bare bar: progress of what?",
@@ -56,7 +56,7 @@
     },
     {
       "do": {
-        "caption": "Content loading for the first time → a skeleton of it. (A task of unknown length that people watch, like a deploy, is Progress indeterminate.)",
+        "caption": "Content loading for the first time → a skeleton of it. (A task of unknown length that people watch, like an export, is Progress indeterminate.)",
         "example": "<div className=\"flex w-72 flex-col gap-2\">\n  <Skeleton className=\"h-4 w-40\" />\n  <Skeleton className=\"h-4 w-56\" />\n</div>"
       },
       "dont": {

@@ -18,11 +18,11 @@
   - option "Enterprise"
 
 # Long options (selection-select--long-options)
-- combobox "Endpoint": Choose an endpoint
+- combobox "Export folder": Choose an export folder
 
 # Playground (selection-select--playground)
-- text: Region
-- combobox "Region": eu-west-1, Ireland
+- text: Studio
+- combobox "Studio": Helios Studio
 
 # Sizes (selection-select--sizes)
 - combobox "Medium select": Medium (40px)
@@ -31,25 +31,25 @@
 # With badge (selection-select--with-badge)
 - combobox "Assignee":
   - img
-  - text: Backend team 12
+  - text: Photographers 12
 
 # With description (selection-select--with-description)
 - combobox "Plan":
   - img
-  - text: Starter For solo projects and testing
+  - text: Free One photographer, 3 client galleries
 
 # With groups (selection-select--with-groups)
 - combobox "Fruit": Carrot
 
 # With icons (selection-select--with-icons)
-- combobox "Service":
+- combobox "Section":
   - img
-  - text: Compute
+  - text: Galleries
 
 # With media icons (selection-select--with-media-icons)
-- combobox "Launch template":
+- combobox "Export preset":
   - img
-  - text: Standard launch
+  - text: Web JPEG
 
 # With status (selection-select--with-status)
-- combobox "Instance": web-01 — running
+- combobox "Export": Golden hour — ready

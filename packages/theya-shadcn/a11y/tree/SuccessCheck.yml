@@ -4,7 +4,7 @@
 - button "Replay"
 
 # In an Alert (status-feedback-successcheck--in-alert)
-- button "Restore backup"
+- button "Restore album"
 
 # In a Toast (status-feedback-successcheck--in-toast)
 - button "Save settings"

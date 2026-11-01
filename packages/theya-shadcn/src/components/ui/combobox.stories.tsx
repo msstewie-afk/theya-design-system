@@ -17,7 +17,7 @@ const meta: Meta<typeof Combobox> = {
     docs: {
       description: {
         component:
-          "Picks from a long list people search rather than scroll — regions, users, domains. One value, or several shown as chips.",
+          "Picks from a long list people search rather than scroll — studios, people, client portals. One value, or several shown as chips.",
       },
     },
   },

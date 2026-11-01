@@ -24,5 +24,5 @@
 # Verification flow (text-input-inputotp--verification-flow)
 - text: One-time code
 - textbox "One-time code": "654321"
-- paragraph: Signing in to shop.seashell.dev.
+- paragraph: Signing in to aether.photo.
 - button "Verify code"

@@ -19,7 +19,7 @@ export const wheelPickerGuidelines: ComponentGuidelines = {
   ],
   doDont: [
     {
-      do: { example: <WheelPicker aria-label="Backup interval" options={INTERVALS} defaultValue="1 hour" />, caption: 'An ordered scale, labelled.' },
+      do: { example: <WheelPicker aria-label="Archive interval" options={INTERVALS} defaultValue="1 hour" />, caption: 'An ordered scale, labelled.' },
       dont: {
         example: <WheelPicker aria-label="Country" options={['Bulgaria', 'Germany', 'Spain'].map((label) => ({ value: label, label }))} />,
         caption: 'An unordered list — there is no “next” to roll to; use Select.',

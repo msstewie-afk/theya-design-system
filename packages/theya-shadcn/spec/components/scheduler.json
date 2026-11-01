@@ -6,7 +6,7 @@
   "status": "beta",
   "category": "Data",
   "whenToUse": [
-    "Events placed in time: maintenance windows, bookings, shifts, release plans.",
+    "Events placed in time: shoots, client bookings, studio shifts, delivery plans.",
     "Rescheduling by drag (`onEventChange`) and creating from an empty slot (`onSlotClick`)."
   ],
   "whenNotToUse": [
@@ -44,7 +44,7 @@
   "doDont": [
     {
       "do": {
-        "caption": "Tone marks the kind of event: risky work warning, a release success.",
+        "caption": "Tone marks the kind of event: risky work warning, a delivery success.",
         "example": "<Scheduler {...mini} events={GOOD} />"
       },
       "dont": {

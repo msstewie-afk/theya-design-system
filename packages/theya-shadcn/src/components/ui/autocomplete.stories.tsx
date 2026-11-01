@@ -19,7 +19,7 @@ const meta: Meta<typeof Autocomplete> = {
     docs: {
       description: {
         component:
-          "Free text with suggestions: a hostname, a city, a recent search. Any typed value is valid; the suggestions only save typing.",
+          "Free text with suggestions: a shoot location, a city, a recent search. Any typed value is valid; the suggestions only save typing.",
       },
     },
   },
@@ -36,46 +36,46 @@ const meta: Meta<typeof Autocomplete> = {
 export default meta;
 type Story = StoryObj<typeof Autocomplete>;
 
-const RESOURCES = [
-  { value: 'databases', label: 'Databases' },
-  { value: 'dns-records', label: 'DNS records', note: 'Beta' },
-  { value: 'domains', label: 'Domains' },
-  { value: 'backups', label: 'Backups' },
+const SECTIONS = [
+  { value: 'prints', label: 'Prints' },
+  { value: 'presets', label: 'Presets', note: 'Beta' },
+  { value: 'portals', label: 'Portals' },
+  { value: 'archive', label: 'Archive' },
 ];
 
 // Trailing-note demo: each suggestion says where that name is already
 // used, so the user can tell a reuse from a typo before committing.
-const ENVIRONMENTS = [
-  { value: 'production', label: 'production', note: 'In use by 4 services' },
-  { value: 'preview', label: 'preview', note: 'Auto-deleted after 7 days' },
-  { value: 'staging', label: 'staging', note: 'In use by 2 services' },
+const PRESETS = [
+  { value: 'web', label: 'Web', note: 'In use by 4 galleries' },
+  { value: 'proofing', label: 'Proofing', note: 'Watermarked, removed after 7 days' },
+  { value: 'print', label: 'Print', note: 'In use by 2 galleries' },
 ];
 
 /** Type to see matching suggestions; the arrow keys move through them and Enter fills the input with the highlighted one. */
 export const Default: Story = {
   render: () => (
     <div className="w-[280px]">
-      <Autocomplete options={RESOURCES} placeholder="Search resources" aria-label="Search resources" />
+      <Autocomplete options={SECTIONS} placeholder="Search sections" aria-label="Search sections" />
     </div>
   ),
   // Keyboard-only selection (WCAG 2.1.1): arrows move a highlight that is
   // exposed via aria-activedescendant, Enter picks it.
   play: async ({ canvasElement }) => {
-    const input = within(canvasElement).getByRole('combobox', { name: 'Search resources' });
+    const input = within(canvasElement).getByRole('combobox', { name: 'Search sections' });
 
     await userEvent.click(input);
-    await userEvent.type(input, 'd');
+    await userEvent.type(input, 'p');
     const listbox = await within(document.body).findByRole('listbox');
     const options = within(listbox).getAllByRole('option');
-    await expect(options).toHaveLength(3); // prefix match: Databases, DNS records, Domains
-    await expect(options[1]).toHaveTextContent('DNS records');
+    await expect(options).toHaveLength(3); // prefix match: Prints, Presets, Portals
+    await expect(options[1]).toHaveTextContent('Presets');
     await expect(input).not.toHaveAttribute('aria-activedescendant');
 
     await userEvent.keyboard('{ArrowDown}{ArrowDown}');
     await expect(input).toHaveAttribute('aria-activedescendant', options[1].id);
 
     await userEvent.keyboard('{Enter}');
-    await expect(input).toHaveValue('DNS records');
+    await expect(input).toHaveValue('Presets');
     await expect(input).toHaveAttribute('aria-expanded', 'false');
   },
 };
@@ -85,8 +85,8 @@ export const HeightSizes: Story = {
   name: 'Height sizes (m / s)',
   render: () => (
     <div className="flex flex-col gap-4 w-[280px]">
-      <Autocomplete options={RESOURCES} placeholder="Search resources (m, default)" aria-label="Search resources" heightSize="md" />
-      <Autocomplete options={RESOURCES} placeholder="Search resources (s)" aria-label="Search resources" heightSize="sm" />
+      <Autocomplete options={SECTIONS} placeholder="Search sections (m, default)" aria-label="Search sections" heightSize="md" />
+      <Autocomplete options={SECTIONS} placeholder="Search sections (s)" aria-label="Search sections" heightSize="sm" />
     </div>
   ),
 };
@@ -96,9 +96,9 @@ function ControlledDemo() {
   return (
     <div className="w-[280px]">
       <Autocomplete
-        options={RESOURCES}
-        placeholder="Search resources"
-        aria-label="Search resources"
+        options={SECTIONS}
+        placeholder="Search sections"
+        aria-label="Search sections"
         value={value}
         onValueChange={setValue}
       />
@@ -112,12 +112,12 @@ export const FreeText: Story = {
   render: () => <ControlledDemo />,
   // Enter without a highlight keeps the typed text; no match keeps it too.
   play: async ({ canvasElement }) => {
-    const input = within(canvasElement).getByRole('combobox', { name: 'Search resources' });
+    const input = within(canvasElement).getByRole('combobox', { name: 'Search sections' });
 
     await userEvent.click(input);
-    await userEvent.type(input, 'Datab');
+    await userEvent.type(input, 'Pres');
     await userEvent.keyboard('{Enter}');
-    await expect(input).toHaveValue('Datab');
+    await expect(input).toHaveValue('Pres');
 
     await userEvent.clear(input);
     await userEvent.type(input, 'zzz');
@@ -132,7 +132,7 @@ export const FreeText: Story = {
 export const Loading: Story = {
   render: () => (
     <div className="w-[280px]">
-      <Autocomplete options={RESOURCES} placeholder="Search resources" aria-label="Search resources" loading />
+      <Autocomplete options={SECTIONS} placeholder="Search sections" aria-label="Search sections" loading />
     </div>
   ),
 };
@@ -142,7 +142,7 @@ export const WithTrailingNote: Story = {
   name: 'With trailing note',
   render: () => (
     <div className="w-[280px]">
-      <Autocomplete options={ENVIRONMENTS} placeholder="Environment name" aria-label="Environment name" />
+      <Autocomplete options={PRESETS} placeholder="Preset name" aria-label="Preset name" />
     </div>
   ),
 };
@@ -153,10 +153,10 @@ export const ReadOnly: Story = {
   render: () => (
     <div className="w-[280px]">
       <Autocomplete
-        options={RESOURCES}
-        defaultValue="Databases"
+        options={SECTIONS}
+        defaultValue="Prints"
         readOnly
-        aria-label="Search resources"
+        aria-label="Search sections"
       />
     </div>
   ),
@@ -166,7 +166,7 @@ export const ReadOnly: Story = {
 export const Disabled: Story = {
   render: () => (
     <div className="w-[280px]">
-      <Autocomplete options={RESOURCES} placeholder="Search resources" aria-label="Search resources" disabled />
+      <Autocomplete options={SECTIONS} placeholder="Search sections" aria-label="Search sections" disabled />
     </div>
   ),
 };
@@ -176,16 +176,16 @@ export const ErrorState: Story = {
   name: 'Error',
   render: () => (
     <div className="flex w-[280px] flex-col gap-1">
-      <Label htmlFor="resource-error" data-error>
-        Resource
+      <Label htmlFor="section-error" data-error>
+        Section
       </Label>
-      <Autocomplete id="resource-error" options={RESOURCES} defaultValue="Bucketz" aria-invalid aria-describedby="resource-error-message" />
-      <FieldError id="resource-error-message">Pick a resource from the list.</FieldError>
+      <Autocomplete id="section-error" options={SECTIONS} defaultValue="Printz" aria-invalid aria-describedby="section-error-message" />
+      <FieldError id="section-error-message">Pick a section from the list.</FieldError>
     </div>
   ),
   play: async ({ canvasElement }) => {
-    const input = within(canvasElement).getByRole('combobox', { name: 'Resource' });
+    const input = within(canvasElement).getByRole('combobox', { name: 'Section' });
     await expect(input).toHaveAttribute('aria-invalid', 'true');
-    await expect(input).toHaveAccessibleDescription('Pick a resource from the list.');
+    await expect(input).toHaveAccessibleDescription('Pick a section from the list.');
   },
 };

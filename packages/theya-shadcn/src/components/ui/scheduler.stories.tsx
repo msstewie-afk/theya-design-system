@@ -14,21 +14,21 @@ const NOW = new Date(2026, 9, 5, 11, 20);
 const at = (day: number, h: number, m = 0) => new Date(2026, 9, day, h, m);
 
 const EVENTS: SchedulerEvent[] = [
-  { id: 'e1', title: 'Database migration — eu-central', start: at(7, 2), end: at(7, 4), tone: 'warning' },
+  { id: 'e1', title: 'Archive sync to Mnemosyne', start: at(7, 2), end: at(7, 4), tone: 'warning' },
   { id: 'e2', title: 'Weekly planning', start: at(7, 10), end: at(7, 11) },
-  { id: 'e3', title: 'Release 4.12 freeze', start: at(6, 0), end: at(7, 0), allDay: true, tone: 'info' },
-  { id: 'e4', title: 'Design review: checkout', start: at(6, 14), end: at(6, 15, 30), tone: 'neutral' },
-  { id: 'e5', title: 'Deploy 4.12 to staging', start: at(5, 9, 30), end: at(5, 10, 30), tone: 'primary' },
-  { id: 'e6', title: 'Incident review', start: at(5, 10), end: at(5, 11), tone: 'danger' },
-  { id: 'e7', title: 'Customer call — Acme', start: at(5, 10, 15), end: at(5, 10, 45), tone: 'neutral' },
-  { id: 'e8', title: 'Certificate renewal window', start: at(5, 13), end: at(5, 14), tone: 'warning', locked: true },
-  { id: 'e9', title: 'Deploy 4.12 to production', start: at(8, 9), end: at(8, 10), tone: 'success' },
-  { id: 'e10', title: 'On-call: Alex', start: at(8, 0), end: at(11, 0), allDay: true, tone: 'neutral' },
+  { id: 'e3', title: 'Othrys Lodge location shoot', start: at(6, 0), end: at(7, 0), allDay: true, tone: 'info' },
+  { id: 'e4', title: 'Album review: Golden hour', start: at(6, 14), end: at(6, 15, 30), tone: 'neutral' },
+  { id: 'e5', title: 'Export Golden hour proofs', start: at(5, 9, 30), end: at(5, 10, 30), tone: 'primary' },
+  { id: 'e6', title: 'Missed delivery review', start: at(5, 10), end: at(5, 11), tone: 'danger' },
+  { id: 'e7', title: 'Client call — Rhea Okafor', start: at(5, 10, 15), end: at(5, 10, 45), tone: 'neutral' },
+  { id: 'e8', title: 'License renewal window', start: at(5, 13), end: at(5, 14), tone: 'warning', locked: true },
+  { id: 'e9', title: 'Deliver Moonrise over Othrys', start: at(8, 9), end: at(8, 10), tone: 'success' },
+  { id: 'e10', title: 'On location: Elio', start: at(8, 0), end: at(11, 0), allDay: true, tone: 'neutral' },
   { id: 'e11', title: 'Retro', start: at(9, 16), end: at(9, 17) },
-  { id: 'e12', title: 'Backup restore drill', start: at(14, 3), end: at(14, 5), tone: 'warning' },
+  { id: 'e12', title: 'Archive restore check', start: at(14, 3), end: at(14, 5), tone: 'warning' },
   { id: 'e13', title: 'Quarterly planning', start: at(20, 10), end: at(20, 12) },
   { id: 'e14', title: 'Team lunch', start: at(20, 12, 30), end: at(20, 13, 30), tone: 'success' },
-  { id: 'e15', title: 'Security audit', start: at(20, 14), end: at(20, 16), tone: 'danger' },
+  { id: 'e15', title: 'License audit', start: at(20, 14), end: at(20, 16), tone: 'danger' },
   { id: 'e16', title: 'Docs sprint', start: at(20, 16), end: at(20, 17), tone: 'info' },
 ];
 
@@ -40,7 +40,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Events placed in time — maintenance windows, bookings, shifts — by day, week or month. Events can be moved by drag, and new ones created from an empty slot.",
+          "Events placed in time — shoots, client bookings, studio shifts — by day, week or month. Events can be moved by drag, and new ones created from an empty slot.",
       },
     },
     layout: 'padded', guidelines: schedulerGuidelines,
@@ -108,10 +108,10 @@ export const Week: Story = {
     if (window.matchMedia('(max-width: 639.98px)').matches) {
       await expect(canvasElement.querySelector('[data-slot="scheduler-week-list"]')).not.toBeNull();
       await expect(title()).toHaveTextContent('Oct 5 – 11, 2026');
-      const deploy = canvas.getByRole('button', { name: /^Deploy 4\.12 to staging, Monday, October 5, 2026, 9:30/ });
-      await expect(deploy.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
-      await userEvent.click(deploy);
-      await expect(log()).toHaveTextContent('Opened “Deploy 4.12 to staging”');
+      const proofs = canvas.getByRole('button', { name: /^Export Golden hour proofs, Monday, October 5, 2026, 9:30/ });
+      await expect(proofs.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
+      await userEvent.click(proofs);
+      await expect(log()).toHaveTextContent('Opened “Export Golden hour proofs”');
       // Sunday has nothing on it.
       await expect(canvas.getByText('No events')).toBeInTheDocument();
       // A day heading opens that day.
@@ -128,31 +128,31 @@ export const Week: Story = {
     await expect(title()).toHaveTextContent('Oct 5 – 11, 2026');
 
     // Events are buttons named with title, day and time; click and Enter open them.
-    const deploy = canvas.getByRole('button', { name: /^Deploy 4\.12 to staging, Monday, October 5, 2026, 9:30/ });
-    await userEvent.click(deploy);
-    await expect(log()).toHaveTextContent('Opened “Deploy 4.12 to staging”');
-    deploy.focus();
+    const proofs = canvas.getByRole('button', { name: /^Export Golden hour proofs, Monday, October 5, 2026, 9:30/ });
+    await userEvent.click(proofs);
+    await expect(log()).toHaveTextContent('Opened “Export Golden hour proofs”');
+    proofs.focus();
     await userEvent.keyboard('{Enter}');
-    await expect(log()).toHaveTextContent('Opened “Deploy 4.12 to staging”');
+    await expect(log()).toHaveTextContent('Opened “Export Golden hour proofs”');
 
     // Drag down by one hour (48px per hour): the event moves in 15-minute steps.
-    const box = deploy.getBoundingClientRect();
+    const box = proofs.getBoundingClientRect();
     const x = box.left + box.width / 2;
     const y = box.top + 8;
     // Native pointer events (user-event's pointer moves didn't reliably reach the handler).
     const fire = (type: string, clientY: number) =>
-      deploy.dispatchEvent(new PointerEvent(type, { bubbles: true, cancelable: true, composed: true, pointerId: 1, pointerType: 'mouse', isPrimary: true, button: 0, buttons: type === 'pointerup' ? 0 : 1, clientX: x, clientY }));
+      proofs.dispatchEvent(new PointerEvent(type, { bubbles: true, cancelable: true, composed: true, pointerId: 1, pointerType: 'mouse', isPrimary: true, button: 0, buttons: type === 'pointerup' ? 0 : 1, clientX: x, clientY }));
     fire('pointerdown', y);
     fire('pointermove', y + 24);
     fire('pointermove', y + 48);
     fire('pointerup', y + 48);
-    await waitFor(() => expect(log()).toHaveTextContent(/^Moved “Deploy 4\.12 to staging”/));
-    await expect(canvas.getByRole('button', { name: /^Deploy 4\.12 to staging, .*10:30/ })).toBeInTheDocument();
+    await waitFor(() => expect(log()).toHaveTextContent(/^Moved “Export Golden hour proofs”/));
+    await expect(canvas.getByRole('button', { name: /^Export Golden hour proofs, .*10:30/ })).toBeInTheDocument();
 
     // The locked event doesn't drag: a press-and-move just opens it.
-    const locked = canvas.getByRole('button', { name: /^Certificate renewal window/ });
+    const locked = canvas.getByRole('button', { name: /^License renewal window/ });
     await userEvent.click(locked);
-    await expect(log()).toHaveTextContent('Opened “Certificate renewal window”');
+    await expect(log()).toHaveTextContent('Opened “License renewal window”');
 
     // Clicking an empty slot creates an event there.
     const tuesday = canvas.getByRole('group', { name: 'Tuesday, October 6, 2026' });

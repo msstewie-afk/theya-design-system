@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Text Input",
   "whenToUse": [
-    "Short free text on one line: a name, an email, a domain, a URL, a code.",
+    "Short free text on one line: a name, an email, a portal address, a URL, a code.",
     "With a visible label above it, every time."
   ],
   "whenNotToUse": [
@@ -59,21 +59,21 @@
     {
       "do": {
         "caption": "Label above; the placeholder only shows an example.",
-        "example": "<TextField label=\"Domain\" placeholder=\"example.com\" widthSize=\"md\" />"
+        "example": "<TextField label=\"Portal address\" placeholder=\"selene-weddings.aether.photo\" widthSize=\"md\" />"
       },
       "dont": {
         "caption": "Placeholder as the label disappears as soon as people type.",
-        "example": "<TextField aria-label=\"Domain\" placeholder=\"Domain\" widthSize=\"md\" />"
+        "example": "<TextField aria-label=\"Portal address\" placeholder=\"Portal address\" widthSize=\"md\" />"
       }
     },
     {
       "do": {
         "caption": "The error says what’s wrong and how to fix it.",
-        "example": "<TextField label=\"Email\" defaultValue=\"dana@seashell\" error=\"Add the domain ending, like .com.\" widthSize=\"md\" />"
+        "example": "<TextField label=\"Email\" defaultValue=\"selin@aether\" error=\"Add the ending, like .photo or .com.\" widthSize=\"md\" />"
       },
       "dont": {
         "caption": "“Invalid input” makes people guess.",
-        "example": "<TextField label=\"Email\" defaultValue=\"dana@seashell\" error=\"Invalid input.\" widthSize=\"md\" />"
+        "example": "<TextField label=\"Email\" defaultValue=\"selin@aether\" error=\"Invalid input.\" widthSize=\"md\" />"
       }
     },
     {

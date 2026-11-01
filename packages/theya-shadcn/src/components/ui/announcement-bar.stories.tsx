@@ -47,7 +47,7 @@ export const NewFeature: Story = {
     icon: <Sparks />,
     children: (
       <>
-        Region moves are now zero-downtime for every plan. <a href="#">See how it works</a>
+        Client portals now show a print shop on every plan. <a href="#">See how it works</a>
       </>
     ),
   },
@@ -61,7 +61,7 @@ export const Maintenance: Story = {
     icon: <Tools />,
     children: (
       <>
-        Scheduled maintenance on <strong>Sunday 5 Oct, 02:00–03:00 UTC</strong>. Deploys are paused during the window. <a href="#">Status page</a>
+        Scheduled maintenance on <strong>Sunday 5 Oct, 02:00–03:00 UTC</strong>. Exports are paused during the window. <a href="#">Status page</a>
       </>
     ),
   },
@@ -75,7 +75,7 @@ export const Incident: Story = {
     icon: <WarningTriangle />,
     children: (
       <>
-        Some deploys in eu-west-1 are failing. We’re working on a fix. <a href="#">Follow updates</a>
+        Some exports from Selene Weddings are failing. We’re working on a fix. <a href="#">Follow updates</a>
       </>
     ),
   },
@@ -89,7 +89,7 @@ export const Tones: Story = {
       {(['filled', 'tonal'] as const).map((appearance) =>
         (['primary', 'neutral', 'info', 'success', 'warning', 'danger'] as const).map((tone) => (
           <AnnouncementBar key={`${appearance}-${tone}`} {...args} tone={tone} appearance={appearance} icon={<InfoCircle />} aria-label={`Announcement, ${appearance} ${tone}`}>
-            {appearance} · {tone} — Certificates now renew 30 days early. <a href="#">Details</a>
+            {appearance} · {tone} — Licenses now renew 30 days early. <a href="#">Details</a>
           </AnnouncementBar>
         )),
       )}
@@ -106,7 +106,7 @@ export const LongTextOnMobile: Story = {
     icon: <InfoCircle />,
     children: (
       <>
-        From 1 November, free plans keep backups for 7 days instead of 30. Upgrade to keep a longer history. <a href="#">Compare plans</a>
+        From 1 November, free plans keep archived originals for 7 days instead of 30. Upgrade to keep a longer history. <a href="#">Compare plans</a>
       </>
     ),
   },

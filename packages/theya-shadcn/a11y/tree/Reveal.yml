@@ -2,8 +2,8 @@
 
 # Default (motion-reveal--default)
 - paragraph: Scroll down ↓
-- paragraph: Backups every hour
-- paragraph: Restore any site to a point in the last 30 days.
+- paragraph: Archived every hour
+- paragraph: Restore any album to a point in the last 30 days.
 
 # Effects (motion-reveal--effects)
 - paragraph: Scroll down ↓
@@ -14,7 +14,7 @@
 
 # Staggered (motion-reveal--staggered)
 - paragraph: Scroll down ↓
-- paragraph: Free SSL on every domain
-- paragraph: Daily backups, kept 30 days
-- paragraph: Staging copy in one click
+- paragraph: A license with every download
+- paragraph: Daily archive, kept 30 days
+- paragraph: Client portal in one click
 - paragraph: Support that answers in minutes

@@ -57,13 +57,13 @@
     - /placeholder: jane@example.com
 
 # With Field components (form-structure-fieldset--with-field-components)
-- group "DNS records":
-  - text: DNS records
-  - paragraph: Point your domain at this server.
-  - text: Host
-  - textbox "Host":
-    - /placeholder: "@"
-  - paragraph: Use @ for the root domain.
-  - text: Value
-  - textbox "Value":
-    - /placeholder: 203.0.113.10
+- group "Client portal":
+  - text: Client portal
+  - paragraph: Where clients open their galleries.
+  - text: Portal address
+  - textbox "Portal address":
+    - /placeholder: selene-weddings
+  - paragraph: Clients open it at selene-weddings.aether.photo.
+  - text: Access code
+  - textbox "Access code":
+    - /placeholder: GOLD-2026

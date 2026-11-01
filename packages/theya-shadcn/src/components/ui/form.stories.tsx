@@ -37,26 +37,30 @@ const meta: Meta<Args> = {
 export default meta;
 type Story = StoryObj<Args>;
 
-const siteSchema = z.object({
-  domain: z
+// Portal address: the subdomain part of <address>.aether.photo.
+const PORTAL_PATTERN = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/;
+const PORTAL_MESSAGE = 'Use lowercase letters, numbers and hyphens, e.g. selene-weddings.';
+
+const portalSchema = z.object({
+  portal: z
     .string()
     .trim()
-    .min(1, 'Enter a domain.')
-    .regex(/^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}$/, 'Enter a valid domain, e.g. shop.seashell.dev.'),
+    .min(1, 'Enter a portal address.')
+    .regex(PORTAL_PATTERN, PORTAL_MESSAGE),
   plan: z.string().min(1, 'Choose a plan.'),
 });
-type SiteValues = z.infer<typeof siteSchema>;
+type PortalValues = z.infer<typeof portalSchema>;
 
-/** The canonical pattern: useForm + zodResolver, one FormField per schema key. Type an invalid domain (or submit empty) to see the inline FormMessage errors and the label turn danger. Submit stays disabled until the form is valid. */
-function CreateSiteForm() {
-  const form = useForm<SiteValues>({
-    resolver: zodResolver(siteSchema),
+/** The canonical pattern: useForm + zodResolver, one FormField per schema key. Type an invalid portal address (or submit empty) to see the inline FormMessage errors and the label turn danger. Submit stays disabled until the form is valid. */
+function CreatePortalForm() {
+  const form = useForm<PortalValues>({
+    resolver: zodResolver(portalSchema),
     mode: 'onChange',
-    defaultValues: { domain: '', plan: '' },
+    defaultValues: { portal: '', plan: '' },
   });
 
-  const onSubmit = (values: SiteValues) => {
-    alert(`Validated: ${values.domain} · ${values.plan}`);
+  const onSubmit = (values: PortalValues) => {
+    alert(`Validated: ${values.portal} · ${values.plan}`);
     form.reset();
   };
 
@@ -65,12 +69,12 @@ function CreateSiteForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full max-w-[360px] flex-col gap-5">
         <FormField
           control={form.control}
-          name="domain"
+          name="portal"
           render={({ field, fieldState }) => (
             <FormItem>
-              <FormLabel>Domain</FormLabel>
+              <FormLabel>Portal address</FormLabel>
               <FormControl>
-                <TextField className="font-mono" placeholder="shop.seashell.dev" widthSize="full" autoComplete="off" autoCapitalize="none" autoCorrect="off" spellCheck={false} error={fieldState.error?.message} {...field} />
+                <TextField className="font-mono" placeholder="selene-weddings" widthSize="full" autoComplete="off" autoCapitalize="none" autoCorrect="off" spellCheck={false} error={fieldState.error?.message} {...field} />
               </FormControl>
               <FormDescription>Lowercase identifiers use the mono face.</FormDescription>
               <FormMessage />
@@ -90,9 +94,9 @@ function CreateSiteForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="Starter">Starter</SelectItem>
+                  <SelectItem value="Free">Free</SelectItem>
                   <SelectItem value="Pro">Pro</SelectItem>
-                  <SelectItem value="Scale">Scale</SelectItem>
+                  <SelectItem value="Business">Business</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -101,7 +105,7 @@ function CreateSiteForm() {
         />
         <div className="flex justify-end">
           <Button appearance="filled" tone="primary" disabled={!form.formState.isValid} leftIcon={<Plus />}>
-            Create site
+            Create portal
           </Button>
         </div>
       </form>
@@ -109,13 +113,13 @@ function CreateSiteForm() {
   );
 }
 
-/** A create-site form validated with a zod schema as people type: errors appear under each field, and Create site stays disabled until everything is valid. */
+/** A create-portal form validated with a zod schema as people type: errors appear under each field, and Create portal stays disabled until everything is valid. */
 export const Default: Story = {
-  render: () => <CreateSiteForm />,
+  render: () => <CreatePortalForm />,
 };
 
 const invalidSchema = z.object({
-  domain: z.string().min(1, 'Enter a domain.').regex(/\\./, 'Enter a valid domain, e.g. shop.seashell.dev.'),
+  portal: z.string().min(1, 'Enter a portal address.').regex(PORTAL_PATTERN, PORTAL_MESSAGE),
 });
 type InvalidValues = z.infer<typeof invalidSchema>;
 
@@ -124,7 +128,7 @@ function InvalidForm() {
   const form = useForm<InvalidValues>({
     resolver: zodResolver(invalidSchema),
     mode: 'onChange',
-    defaultValues: { domain: 'not a domain' },
+    defaultValues: { portal: 'Selene Weddings' },
   });
 
   useEffect(() => {
@@ -136,14 +140,14 @@ function InvalidForm() {
       <form className="flex w-full max-w-[360px] flex-col gap-5">
         <FormField
           control={form.control}
-          name="domain"
+          name="portal"
           render={({ field, fieldState }) => (
             <FormItem>
-              <FormLabel>Domain</FormLabel>
+              <FormLabel>Portal address</FormLabel>
               <FormControl>
-                <TextField className="font-mono" placeholder="shop.seashell.dev" widthSize="full" error={fieldState.error?.message} {...field} />
+                <TextField className="font-mono" placeholder="selene-weddings" widthSize="full" error={fieldState.error?.message} {...field} />
               </FormControl>
-              <FormDescription>The hostname this site responds to.</FormDescription>
+              <FormDescription>Clients open their galleries at this address on aether.photo.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -177,11 +181,11 @@ function SwitchForm() {
           render={({ field }) => (
             <FormItem className="flex flex-row items-center justify-between gap-4">
               <div className="grid gap-1">
-                <FormLabel>Auto-renew certificate</FormLabel>
-                <FormDescription>Reissue 30 days before the certificate expires.</FormDescription>
+                <FormLabel>Auto-renew license</FormLabel>
+                <FormDescription>Renew 30 days before the license expires.</FormDescription>
               </div>
               <FormControl>
-                <Switch aria-label="Auto-renew certificate" checked={field.value} onCheckedChange={field.onChange} />
+                <Switch aria-label="Auto-renew license" checked={field.value} onCheckedChange={field.onChange} />
               </FormControl>
             </FormItem>
           )}

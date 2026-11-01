@@ -38,26 +38,26 @@ type Story = StoryObj<typeof PropertyGrid>;
 const ITEMS: PropertyGridItem[] = [
   { name: 'name', label: 'Display name', type: 'text' },
   {
-    name: 'region',
-    label: 'Region',
+    name: 'studio',
+    label: 'Studio',
     type: 'select',
-    placeholder: 'Select a region',
+    placeholder: 'Select a studio',
     options: [
-      { value: 'eu-west-1', label: 'eu-west-1' },
-      { value: 'us-east-1', label: 'us-east-1' },
+      { value: 'helios', label: 'Helios Studio' },
+      { value: 'selene', label: 'Selene Weddings' },
     ],
   },
-  { name: 'replicas', label: 'Replicas', type: 'number' },
-  { name: 'https', label: 'Force HTTPS', type: 'switch' },
+  { name: 'copies', label: 'Print copies', type: 'number' },
+  { name: 'watermark', label: 'Watermark previews', type: 'switch' },
   { name: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Optional notes' },
 ];
 
 const DEFAULT_VALUES: Record<string, PropertyValue> = {
-  name: 'shop.seashell.dev',
-  region: 'eu-west-1',
-  replicas: 3,
-  https: true,
-  notes: 'Primary storefront',
+  name: 'Golden hour',
+  studio: 'helios',
+  copies: 3,
+  watermark: true,
+  notes: 'Main client gallery',
 };
 
 /** Each row picks its control from `type` — text, select, number, switch, textarea — with starting values from `defaultValues`. */
@@ -87,21 +87,21 @@ export const Editing: Story = {
     const canvas = within(canvasElement);
     resetFocus();
     await tabTo(canvas.getByRole('textbox', { name: 'Display name' }));
-    await userEvent.keyboard('Edge cache');
-    await expect(canvas.getByRole('textbox', { name: 'Display name' })).toHaveValue('Edge cache');
+    await userEvent.keyboard('Blue hour');
+    await expect(canvas.getByRole('textbox', { name: 'Display name' })).toHaveValue('Blue hour');
 
-    const region = canvas.getByRole('combobox', { name: 'Region' });
-    await tabTo(region);
+    const studio = canvas.getByRole('combobox', { name: 'Studio' });
+    await tabTo(studio);
     await userEvent.keyboard('{Enter}');
-    await waitFor(() => expect(within(document.body).getByRole('option', { name: 'us-east-1' })).toBeVisible());
+    await waitFor(() => expect(within(document.body).getByRole('option', { name: 'Selene Weddings' })).toBeVisible());
     await userEvent.keyboard('{ArrowDown}{ArrowDown}{Enter}');
-    await waitFor(() => expect(region).toHaveTextContent('us-east-1'));
-    await waitFor(() => expect(region).toHaveFocus());
+    await waitFor(() => expect(studio).toHaveTextContent('Selene Weddings'));
+    await waitFor(() => expect(studio).toHaveFocus());
 
-    const https = canvas.getByRole('switch', { name: 'Force HTTPS' });
-    await tabTo(https);
+    const watermark = canvas.getByRole('switch', { name: 'Watermark previews' });
+    await tabTo(watermark);
     await userEvent.keyboard(' ');
-    await expect(https).toBeChecked();
+    await expect(watermark).toBeChecked();
   },
 };
 
@@ -109,12 +109,12 @@ export const Editing: Story = {
 export const WithError: Story = {
   name: 'With Error',
   render: function Render() {
-    const [values, setValues] = useState<Record<string, PropertyValue>>({ ...DEFAULT_VALUES, replicas: 0, name: '' });
+    const [values, setValues] = useState<Record<string, PropertyValue>>({ ...DEFAULT_VALUES, copies: 0, name: '' });
     const items = ITEMS.map((i) =>
       i.name === 'name'
         ? { ...i, error: values.name === '' ? 'Enter a display name.' : undefined }
-        : i.name === 'replicas'
-          ? { ...i, description: 'From 1 to 20.', error: Number(values.replicas) < 1 ? 'Run at least 1 replica.' : undefined }
+        : i.name === 'copies'
+          ? { ...i, description: 'From 1 to 20.', error: Number(values.copies) < 1 ? 'Order at least 1 copy.' : undefined }
           : i,
     );
     return (
@@ -128,10 +128,10 @@ export const WithError: Story = {
     const name = canvas.getByRole('textbox', { name: 'Display name' });
     await expect(name).toHaveAttribute('aria-invalid', 'true');
     await expect(name).toHaveAccessibleDescription('Enter a display name.');
-    const replicas = canvas.getByRole('spinbutton', { name: 'Replicas' });
-    await expect(replicas).toHaveAttribute('aria-invalid', 'true');
-    await expect(replicas).toHaveAccessibleDescription('Run at least 1 replica. From 1 to 20.');
-    await userEvent.type(name, 'shop');
+    const copies = canvas.getByRole('spinbutton', { name: 'Print copies' });
+    await expect(copies).toHaveAttribute('aria-invalid', 'true');
+    await expect(copies).toHaveAccessibleDescription('Order at least 1 copy. From 1 to 20.');
+    await userEvent.type(name, 'Golden hour');
     await waitFor(() => expect(name).not.toHaveAttribute('aria-invalid', 'true'));
     await expect(canvas.queryByText('Enter a display name.')).not.toBeInTheDocument();
   },
@@ -170,18 +170,18 @@ export const SizedToLongestLabel: Story = {
     <div className="w-full max-w-[400px] flex flex-col gap-8">
       <PropertyGrid
         items={[
-          { name: 'os', label: 'OS', type: 'text' },
-          { name: 'ipv4', label: 'IPv4', type: 'text' },
+          { name: 'iso', label: 'ISO', type: 'text' },
+          { name: 'lens', label: 'Lens', type: 'text' },
         ]}
-        defaultValues={{ os: 'AlmaLinux 9', ipv4: '203.0.113.42' }}
+        defaultValues={{ iso: '400', lens: '50 mm f/1.4' }}
       />
       <PropertyGrid
         items={[
-          { name: 'os', label: 'OS', type: 'text' },
-          { name: 'ipv4', label: 'IPv4', type: 'text' },
-          { name: 'renewal', label: 'Certificate renewal policy for this hostname', type: 'text' },
+          { name: 'iso', label: 'ISO', type: 'text' },
+          { name: 'lens', label: 'Lens', type: 'text' },
+          { name: 'renewal', label: 'License renewal policy for this gallery', type: 'text' },
         ]}
-        defaultValues={{ os: 'AlmaLinux 9', ipv4: '203.0.113.42', renewal: 'Automatic' }}
+        defaultValues={{ iso: '400', lens: '50 mm f/1.4', renewal: 'Automatic' }}
       />
     </div>
   ),
@@ -194,11 +194,11 @@ export const NarrowLabelColumn: Story = {
     <div className="w-full max-w-[400px]">
       <PropertyGrid
         items={[
-          { name: 'os', label: 'OS', type: 'text' },
-          { name: 'ipv4', label: 'IPv4', type: 'text' },
-          { name: 'renewal', label: 'Certificate renewal policy for this hostname', type: 'text' },
+          { name: 'iso', label: 'ISO', type: 'text' },
+          { name: 'lens', label: 'Lens', type: 'text' },
+          { name: 'renewal', label: 'License renewal policy for this gallery', type: 'text' },
         ]}
-        defaultValues={{ os: 'AlmaLinux 9', ipv4: '203.0.113.42', renewal: 'Automatic' }}
+        defaultValues={{ iso: '400', lens: '50 mm f/1.4', renewal: 'Automatic' }}
         maxLabelWidth="10ch"
       />
     </div>
@@ -215,7 +215,7 @@ export const CustomControl: Story = {
           { name: 'name', label: 'Display name', type: 'text' },
           {
             name: 'weight',
-            label: 'Traffic weight',
+            label: 'Watermark opacity',
             type: 'custom',
             render: ({ value, onChange }) => (
               <div className="flex items-center gap-3 w-full">
@@ -225,13 +225,13 @@ export const CustomControl: Story = {
                 <Slider
                   value={[Number(value ?? 0)]}
                   onValueChange={([v]) => onChange(v)}
-                  aria-label="Traffic weight"
+                  aria-label="Watermark opacity"
                 />
               </div>
             ),
           },
         ]}
-        defaultValues={{ name: 'shop.seashell.dev', weight: 40 }}
+        defaultValues={{ name: 'Golden hour', weight: 40 }}
       />
     </div>
   ),

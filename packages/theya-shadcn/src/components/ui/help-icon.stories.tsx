@@ -76,14 +76,14 @@ export const Default: Story = {
  * drops in as a sibling with no extra layout — the label's own text stays
  * the accessible label of the control. */
 export const OnFieldLabel: Story = {
-  args: { children: 'Used as the mail HELO name and in TLS certificates.' },
+  args: { children: 'Clients open their galleries at this address.' },
   render: (args) => (
     <Field className="w-80">
-      <Label htmlFor="hostname">
-        Hostname
+      <Label htmlFor="portal-address">
+        Portal address
         <HelpIcon {...args} />
       </Label>
-      <TextField id="hostname" placeholder="shop.seashell.dev" />
+      <TextField id="portal-address" placeholder="selene-weddings.aether.photo" />
     </Field>
   ),
 };
@@ -91,16 +91,16 @@ export const OnFieldLabel: Story = {
 /** On a switch row, where the label is short and the reason for the setting is not. */
 export const OnSwitchRow: Story = {
   args: {
-    children: 'Redirects every http:// request to https:// with a 301.',
+    children: 'Adds your logo to every preview; full-size downloads stay clean.',
     side: 'right',
   },
   render: (args) => (
     <div className="flex w-80 items-center justify-between gap-4 py-2">
-      <Label htmlFor="force-https">
-        Force HTTPS
+      <Label htmlFor="watermark-previews">
+        Watermark previews
         <HelpIcon {...args} />
       </Label>
-      <Switch id="force-https" defaultChecked />
+      <Switch id="watermark-previews" defaultChecked />
     </div>
   ),
 };
@@ -112,20 +112,20 @@ export const InTableHeader: Story = {
     <Table className="max-w-xl">
       <TableHeader>
         <TableRow>
-          <TableHead>Site</TableHead>
+          <TableHead>Gallery</TableHead>
           <TableHead>
             <span className="inline-flex items-center gap-1">
-              Region
+              Studio
               <HelpIcon {...args} side="bottom">
-                Where the site is served from. Changing it re-deploys.
+                The studio that owns the gallery. Changing it moves its files.
               </HelpIcon>
             </span>
           </TableHead>
           <TableHead className="text-right">
             <span className="inline-flex items-center gap-1">
-              Bandwidth
+              Downloads
               <HelpIcon {...args} side="bottom" align="end">
-                Outbound traffic in the current billing period.
+                Full-size downloads in the current billing period.
               </HelpIcon>
             </span>
           </TableHead>
@@ -133,14 +133,14 @@ export const InTableHeader: Story = {
       </TableHeader>
       <TableBody>
         <TableRow>
-          <TableCell className="font-mono">shop.seashell.dev</TableCell>
-          <TableCell className="whitespace-nowrap font-mono">eu-west-1</TableCell>
-          <TableCell className="text-right">7.2 GB</TableCell>
+          <TableCell>Golden hour</TableCell>
+          <TableCell className="whitespace-nowrap">Helios Studio</TableCell>
+          <TableCell className="text-right">1,284</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell className="font-mono">docs.seashell.dev</TableCell>
-          <TableCell className="whitespace-nowrap font-mono">us-east-1</TableCell>
-          <TableCell className="text-right">1.4 GB</TableCell>
+          <TableCell>Blue hour</TableCell>
+          <TableCell className="whitespace-nowrap">Selene Weddings</TableCell>
+          <TableCell className="text-right">312</TableCell>
         </TableRow>
       </TableBody>
     </Table>
@@ -155,13 +155,13 @@ export const CustomIcon: Story = {
     label: 'About this quota',
     children: (
       <>
-        Counted per calendar month for <span className="font-mono">eu-west-1</span>.
+        Counted per calendar month across <em>all</em> galleries.
       </>
     ),
   },
   render: (args) => (
     <p className="inline-flex max-w-xs items-center gap-1 font-body text-body-m text-[var(--color-text-text-subtler)]">
-      Included bandwidth is 10 GB
+      Includes 10,000 downloads a month
       <HelpIcon {...args} />
     </p>
   ),
@@ -171,11 +171,11 @@ export const CustomIcon: Story = {
 export const LongHint: Story = {
   args: {
     children:
-      'Backups are kept for 14 days on the Pro plan and 30 days on Scale; the retention change applies to snapshots taken from the next run onward.',
+      'Archive copies are kept for 14 days on the Pro plan and 30 days on Business; the retention change applies to copies made from the next run onward.',
   },
   render: (args) => (
     <div className="flex items-center gap-1 font-body text-body-m text-[var(--color-text-text)]">
-      Backup retention
+      Archive retention
       <HelpIcon {...args} />
     </div>
   ),

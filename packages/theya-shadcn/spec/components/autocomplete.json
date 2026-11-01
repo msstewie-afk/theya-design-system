@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Selection",
   "whenToUse": [
-    "Free text where common values are worth suggesting: a hostname, a city, a recent search.",
+    "Free text where common values are worth suggesting: a shoot location, a city, a recent search.",
     "Any typed value is valid — the suggestions only save typing."
   ],
   "whenNotToUse": [
@@ -41,12 +41,12 @@
   "doDont": [
     {
       "do": {
-        "caption": "Suggests common hosts, accepts any other.",
-        "example": "<div className=\"flex w-64 flex-col gap-2\">\n  <Label htmlFor=\"gl-ac-host\">SMTP host</Label>\n  <Autocomplete id=\"gl-ac-host\" options={HOSTS} placeholder=\"smtp.example.com\" />\n</div>"
+        "caption": "Suggests your studios, accepts any other place.",
+        "example": "<div className=\"flex w-64 flex-col gap-2\">\n  <Label htmlFor=\"gl-ac-location\">Shoot location</Label>\n  <Autocomplete id=\"gl-ac-location\" options={LOCATIONS} placeholder=\"Venue, city or address\" />\n</div>"
       },
       "dont": {
         "caption": "A fixed set of values in a free-text field: a typo like “Prro” instead of “Pro” is saved as the plan.",
-        "example": "<div className=\"flex w-64 flex-col gap-2\">\n  <Label htmlFor=\"gl-ac-plan\">Plan</Label>\n  <Autocomplete id=\"gl-ac-plan\" options={[{ value: 'starter', label: 'Starter' }, { value: 'pro', label: 'Pro' }]} placeholder=\"Type a plan\" />\n</div>"
+        "example": "<div className=\"flex w-64 flex-col gap-2\">\n  <Label htmlFor=\"gl-ac-plan\">Plan</Label>\n  <Autocomplete id=\"gl-ac-plan\" options={[{ value: 'free', label: 'Free' }, { value: 'pro', label: 'Pro' }]} placeholder=\"Type a plan\" />\n</div>"
       }
     }
   ],

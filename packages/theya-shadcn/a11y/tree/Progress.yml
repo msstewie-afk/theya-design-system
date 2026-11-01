@@ -10,26 +10,26 @@
 - progressbar "Upload progress"
 
 # Indeterminate (status-feedback-progress--indeterminate)
-- text: Deploying shop.example.com…
-- progressbar "Deploying shop.example.com…"
+- text: Exporting Moonrise over Othrys…
+- progressbar "Exporting Moonrise over Othrys…"
 
 # Labelled (status-feedback-progress--labelled)
-- text: Uploading backup 8.2 / 12.4 GB
-- progressbar "Uploading backup"
+- text: Uploading Golden hour 8.2 / 12.4 GB
+- progressbar "Uploading Golden hour"
 
 # Live (status-feedback-progress--live)
-- text: Deploying 0%
-- progressbar "Deploying"
-- button "Start deploy"
+- text: Exporting 0%
+- progressbar "Exporting"
+- button "Start export"
 
 # Segments (status-feedback-progress--segments)
-- text: "Migration: stage 1 of 5"
-- 'progressbar "Migration: stage 1 of 5"'
+- text: "Import: stage 1 of 5"
+- 'progressbar "Import: stage 1 of 5"'
 - button "Next stage"
 
 # Usage (status-feedback-progress--usage)
-- text: Disk used 37.4 / 50 GB
-- progressbar "Disk used"
+- text: Storage used 288 / 384 GB
+- progressbar "Storage used"
 
 # Values (status-feedback-progress--values)
 - text: Restore 0%

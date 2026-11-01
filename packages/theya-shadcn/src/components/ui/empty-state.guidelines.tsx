@@ -1,4 +1,4 @@
-import { Globe, Search } from 'iconoir-react';
+import { MediaImageList, Search } from 'iconoir-react';
 import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { EmptyState } from './empty-state';
 import { Button } from './button';
@@ -16,7 +16,7 @@ export const emptyStateGuidelines: ComponentGuidelines = {
   ],
   anatomy: [
     { part: 'Icon', description: 'decorative, hints at the object type.', optional: true },
-    { part: 'Title', description: <>what’s empty: “No sites yet”. Use <C>titleAs="h2"</C> when it’s the main content of the region.</> },
+    { part: 'Title', description: <>what’s empty: “No galleries yet”. Use <C>titleAs="h2"</C> when it’s the main content of the region.</> },
     { part: 'Description', description: 'why it matters or what will show up here.', optional: true },
     { part: 'Action', description: 'the one next step: create, import, clear filters.', optional: true },
   ],
@@ -26,10 +26,10 @@ export const emptyStateGuidelines: ComponentGuidelines = {
         example: (
           <EmptyState
             className="w-80"
-            icon={<Globe />}
-            title="No sites yet"
-            description="Create a site to get a domain, SSL and backups."
-            action={<Button>Create site</Button>}
+            icon={<MediaImageList />}
+            title="No galleries yet"
+            description="Create a gallery to get a client portal, proofing and downloads."
+            action={<Button>Create gallery</Button>}
           />
         ),
         caption: 'Says what will be here and gives the first step.',
@@ -50,7 +50,7 @@ export const emptyStateGuidelines: ComponentGuidelines = {
         caption: 'For a search, show the query and a way out.',
       },
       dont: {
-        example: <EmptyState className="w-80" icon={<Globe />} title="No sites yet" action={<Button>Create site</Button>} />,
+        example: <EmptyState className="w-80" icon={<MediaImageList />} title="No galleries yet" action={<Button>Create gallery</Button>} />,
         caption: 'The “first time” state shown for a filter with no matches.',
       },
     },

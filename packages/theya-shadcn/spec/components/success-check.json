@@ -34,7 +34,7 @@
     {
       "do": {
         "caption": "Shown when the success happens, with text that names it.",
-        "example": "<p className={ROW}>\n  <SuccessCheck />\n  Backup restored\n</p>"
+        "example": "<p className={ROW}>\n  <SuccessCheck />\n  Album restored\n</p>"
       },
       "dont": {
         "caption": "Several drawings at once, or next to a static check — the motion stops meaning “just now”.",

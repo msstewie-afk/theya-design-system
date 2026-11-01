@@ -5,8 +5,8 @@ const NOW = new Date(2026, 9, 5, 11, 20);
 const at = (h: number, m = 0) => new Date(2026, 9, 5, h, m);
 
 const GOOD: SchedulerEvent[] = [
-  { id: '1', title: 'Database migration — eu-central', start: at(9), end: at(10, 30), tone: 'warning' },
-  { id: '2', title: 'Deploy 4.12 to production', start: at(12), end: at(13), tone: 'success' },
+  { id: '1', title: 'Archive sync to Mnemosyne', start: at(9), end: at(10, 30), tone: 'warning' },
+  { id: '2', title: 'Deliver Moonrise over Othrys', start: at(12), end: at(13), tone: 'success' },
 ];
 const BAD: SchedulerEvent[] = [
   { id: '1', title: 'Weekly planning', start: at(9), end: at(10, 30), tone: 'danger' },
@@ -17,7 +17,7 @@ const mini = { now: NOW, defaultDate: NOW, defaultView: 'day' as const, views: [
 
 export const schedulerGuidelines: ComponentGuidelines = {
   status: 'beta',
-  whenToUse: ['Events placed in time: maintenance windows, bookings, shifts, release plans.', <>Rescheduling by drag (<C>onEventChange</C>) and creating from an empty slot (<C>onSlotClick</C>).</>],
+  whenToUse: ['Events placed in time: shoots, client bookings, studio shifts, delivery plans.', <>Rescheduling by drag (<C>onEventChange</C>) and creating from an empty slot (<C>onSlotClick</C>).</>],
   whenNotToUse: [
     { text: 'Picking a date or a range', instead: 'DatePicker or DateRangePicker' },
     { text: 'Past events as a log', instead: 'Timeline' },
@@ -31,7 +31,7 @@ export const schedulerGuidelines: ComponentGuidelines = {
   ],
   doDont: [
     {
-      do: { example: <Scheduler {...mini} events={GOOD} />, caption: 'Tone marks the kind of event: risky work warning, a release success.' },
+      do: { example: <Scheduler {...mini} events={GOOD} />, caption: 'Tone marks the kind of event: risky work warning, a delivery success.' },
       dont: { example: <Scheduler {...mini} events={BAD} />, caption: 'Danger for a planning meeting: color stops meaning anything.' },
     },
   ],

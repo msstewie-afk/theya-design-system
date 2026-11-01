@@ -50,7 +50,7 @@
 - switch "Certificate expiry" [checked]
 - text: Weekly summary
 - paragraph: A Monday digest of traffic, errors and resource usage.
-- status
+- status: Saved
 - switch "Weekly summary" [checked]
 - heading "Danger zone" [level=2]
 - paragraph: Deleting your account removes every site, database and backup. This cannot be undone after the recovery window.

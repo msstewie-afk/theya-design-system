@@ -47,7 +47,7 @@
     {
       "do": {
         "caption": "Each choice needs a sentence — cards give it room.",
-        "example": "<OptionCardGroup defaultValue=\"http\" aria-label=\"Verification method\" className=\"w-full\">\n  <OptionCard value=\"http\" title=\"HTTP-01\" description=\"Serve a token file from the site.\" />\n  <OptionCard value=\"dns\" title=\"DNS-01\" description=\"Add a TXT record. Works for wildcards.\" />\n</OptionCardGroup>"
+        "example": "<OptionCardGroup defaultValue=\"online\" aria-label=\"Delivery method\" className=\"w-full\">\n  <OptionCard value=\"online\" title=\"Online gallery\" description=\"Clients view and download photos in their portal.\" />\n  <OptionCard value=\"prints\" title=\"Prints by mail\" description=\"Phoebe Light Lab prints and ships the order.\" />\n</OptionCardGroup>"
       },
       "dont": {
         "caption": "Cards for a plain yes/no — a radio pair or switch says it in a line.",
@@ -112,8 +112,8 @@
         "id": "selection-optioncard--with-group-label"
       },
       {
-        "name": "RegionPicker",
-        "id": "selection-optioncard--region-picker"
+        "name": "StudioPicker",
+        "id": "selection-optioncard--studio-picker"
       },
       {
         "name": "Controlled",

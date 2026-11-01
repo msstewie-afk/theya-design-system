@@ -6,8 +6,8 @@
   "status": "beta",
   "category": "Code",
   "whenToUse": [
-    "Reviewing a change before applying it: config, a template, a policy, a file restored from backup.",
-    "Showing what an automated change did (an update, a migration) so people can trust it."
+    "Reviewing a change before applying it: config, a template, a policy, a file restored from the archive.",
+    "Showing what an automated change did (a bulk rename, an import) so people can trust it."
   ],
   "whenNotToUse": [
     {
@@ -47,7 +47,7 @@
     {
       "do": {
         "caption": "The change is visible at a glance, with the exact word highlighted.",
-        "example": "<div className=\"w-80\"><DiffViewer oldValue={OLD} newValue={NEW} filename=\"config.yml\" /></div>"
+        "example": "<div className=\"w-80\"><DiffViewer oldValue={OLD} newValue={NEW} filename=\"export.yml\" /></div>"
       },
       "dont": {
         "caption": "Two blocks side by side make people hunt for the difference.",

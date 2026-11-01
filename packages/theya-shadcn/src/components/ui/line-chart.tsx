@@ -15,9 +15,9 @@ import { seriesColor, seriesDash, SeriesKey } from '../../lib/chart-series';
  * swatch. 2px smooth lines, a light stepped y-grid, adaptive
  * x-labels, a crosshair tooltip, motion-safe draw-in.
  *
- *   <LineChart data={[{ label: "Mon", cpu: 32, mem: 51 }, …]}
- *     series={[{ key: "cpu", name: "CPU" }, { key: "mem", name: "Memory" }]}
- *     unit="%" ariaLabel="CPU vs memory across the week." />
+ *   <LineChart data={[{ label: "Mon", downloaded: 32, opened: 51 }, …]}
+ *     series={[{ key: "downloaded", name: "Downloaded" }, { key: "opened", name: "Opened" }]}
+ *     unit="%" ariaLabel="Downloaded vs opened across the week." />
  */
 export interface LineChartSeries {
   key: string;

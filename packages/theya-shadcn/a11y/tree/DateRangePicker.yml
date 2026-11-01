@@ -3,7 +3,7 @@
 # Default (date-time-daterangepicker--default)
 - button "Pick a date range":
   - img
-  - text: Oct 29, 2026 – Oct 31, 2026
+  - text: Nov 1, 2026 – Nov 3, 2026
 
 # Disabled (date-time-daterangepicker--disabled)
 - button "Report period" [disabled]:

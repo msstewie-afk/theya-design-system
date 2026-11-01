@@ -31,7 +31,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const NAMES = ['Northwind', 'Kestrel', 'Quartz', 'Lumen', 'Babel', 'Seashell', 'Harbor', 'Fieldnote'];
+const NAMES = ['Northwind', 'Kestrel', 'Quartz', 'Lumen', 'Babel', 'Meridian', 'Harbor', 'Fieldnote'];
 
 /** A strip of names that loops with faded edges and a pause button (default); it also pauses on hover or focus, and screen readers hear each name once. */
 export const Default: Story = {
@@ -64,7 +64,7 @@ export const Testimonials: Story = {
     <div className="flex max-w-3xl flex-col gap-3">
       {[false, true].map((reverse) => (
         <Marquee key={String(reverse)} reverse={reverse} duration={40} gap="1rem">
-          {['“Moved 40 sites in an afternoon.”', '“Backups saved our launch.”', '“Support replied in four minutes.”', '“Staging is one click now.”'].map((q) => (
+          {['“Moved 40 galleries in an afternoon.”', '“The archive saved our wedding season.”', '“Support replied in four minutes.”', '“Proofing is one click now.”'].map((q) => (
             <span key={q} className="rounded-full border border-solid border-[var(--color-border-border-subtle)] px-4 py-2 text-body-m whitespace-nowrap">
               {q}
             </span>

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Globe, Search, Box, Plus } from 'iconoir-react';
+import { MediaImageList, Search, Box, Plus } from 'iconoir-react';
 import { EmptyState, EmptyStateIcon, EmptyStateTitle, EmptyStateDescription, EmptyStateActions } from './empty-state';
 import { Button } from './button';
 import { emptyStateGuidelines } from './empty-state.guidelines';
@@ -40,13 +40,13 @@ const meta = {
     children: { control: false, description: 'Extra content below the action.' },
   },
   args: {
-    icon: <Globe />,
-    title: 'No sites yet',
+    icon: <MediaImageList />,
+    title: 'No galleries yet',
     titleAs: 'h2',
-    description: 'Connect a domain to start serving traffic from this account.',
+    description: 'Create a gallery to share photos with a client through their portal.',
     action: (
       <Button appearance="filled" tone="primary" leftIcon={<Plus />}>
-        Create site
+        Create gallery
       </Button>
     ),
   },
@@ -83,8 +83,8 @@ export const NoResults: Story = {
   name: 'No results',
   args: {
     icon: undefined,
-    title: 'No certificates match eu-west-1',
-    description: 'Try a different region or clear the filter to see all 12 certificates.',
+    title: 'No licenses match Othrys Lodge',
+    description: 'Try a different studio or clear the filter to see all 12 licenses.',
     action: (
       <Button appearance="outlined" tone="secondary">
         Clear filters
@@ -98,7 +98,7 @@ export const TitleOnly: Story = {
   name: 'Title only',
   args: {
     icon: <Box />,
-    title: 'No deploy logs',
+    title: 'No exports yet',
     description: undefined,
     action: undefined,
   },
@@ -134,13 +134,13 @@ export const ComposedFromParts: Story = {
       <EmptyStateIcon>
         <Box />
       </EmptyStateIcon>
-      <EmptyStateTitle as="h2">No deploy logs</EmptyStateTitle>
+      <EmptyStateTitle as="h2">No exports yet</EmptyStateTitle>
       <EmptyStateDescription>
-        Logs for <span className="font-mono">shop.seashell.dev</span> will appear here after the first deploy.
+        Exports for <span className="font-mono">selene-weddings.aether.photo</span> will appear here after the first export.
       </EmptyStateDescription>
       <EmptyStateActions>
         <Button appearance="filled" tone="primary">
-          Trigger deploy
+          Start export
         </Button>
         <Button appearance="outlined" tone="secondary">
           View docs
@@ -156,8 +156,8 @@ export const LongContent: Story = {
   parameters: { controls: { exclude: ['icon', 'action'] } },
   args: {
     icon: <Search />,
-    title: 'No matching results for staging.eu-west-1.shop.seashell.dev',
-    description: 'Nothing matches this very specific filter. Broaden the query or clear it to see every record in the region.',
+    title: 'No matching photos for selene-weddings.aether.photo/moonrise-over-othrys',
+    description: 'Nothing matches this very specific filter. Broaden the query or clear it to see every photo in the album.',
     action: (
       <Button appearance="outlined" tone="secondary">
         Clear filters

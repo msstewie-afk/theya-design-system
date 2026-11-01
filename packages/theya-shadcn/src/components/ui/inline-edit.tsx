@@ -58,7 +58,7 @@ const BUTTON_SIZE: Record<InlineEditSize, 'md' | 'xl'> = { sm: 'md', md: 'xl' };
 const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
 
 export interface InlineEditProps {
-  /** Accessible name of the value, e.g. "Site name". Used for the field and the "Edit …" hint. */
+  /** Accessible name of the value, e.g. "Gallery name". Used for the field and the "Edit …" hint. */
   label: string;
   /** Controlled value. Update it from `onSave`. */
   value?: string;

@@ -122,7 +122,7 @@
       "file": "ui/area-chart",
       "category": "Charts",
       "status": "stable",
-      "summary": "One quantity over time where the volume matters: traffic, requests, storage used.",
+      "summary": "One quantity over time where the volume matters: gallery views, downloads, storage used.",
       "instead": [
         {
           "when": "Comparing several trends that don’t add up",
@@ -180,7 +180,7 @@
       "file": "ui/autocomplete",
       "category": "Selection",
       "status": "stable",
-      "summary": "Free text where common values are worth suggesting: a hostname, a city, a recent search.",
+      "summary": "Free text where common values are worth suggesting: a shoot location, a city, a recent search.",
       "instead": [
         {
           "when": "The value must be one of the options",
@@ -282,7 +282,7 @@
       "file": "ui/bar-chart",
       "category": "Charts",
       "status": "stable",
-      "summary": "Comparing a value across categories: load by region, deploys per day, tickets per team.",
+      "summary": "Comparing a value across categories: storage by studio, exports per day, photos per album.",
       "instead": [
         {
           "when": "Parts of a whole",
@@ -566,7 +566,7 @@
       "file": "ui/code-block",
       "category": "Code",
       "status": "stable",
-      "summary": "A command, snippet or config the user reads and copies: install steps, a DNS record, an API example.",
+      "summary": "A command, snippet or config the user reads and copies: install steps, an export preset, an API example.",
       "instead": [
         {
           "when": "The user edits the code",
@@ -658,7 +658,7 @@
       "file": "ui/combobox",
       "category": "Selection",
       "status": "stable",
-      "summary": "Picking from a long list people search rather than scroll: regions, users, domains.",
+      "summary": "Picking from a long list people search rather than scroll: studios, people, client portals.",
       "instead": [
         {
           "when": "Up to 15 known options",
@@ -782,7 +782,7 @@
       "file": "ui/count-up",
       "category": "Motion",
       "status": "beta",
-      "summary": "A headline figure on a landing page: “12,400 sites”, “99.98% uptime”, “3× faster”.",
+      "summary": "A headline figure on a landing page: “12,400 galleries”, “99.98% portal availability”, “3× faster”.",
       "instead": [
         {
           "when": "A live value in product UI (it must read correctly the moment it’s seen)",
@@ -1020,7 +1020,7 @@
       "file": "ui/diff-viewer",
       "category": "Code",
       "status": "beta",
-      "summary": "Reviewing a change before applying it: config, a template, a policy, a file restored from backup.",
+      "summary": "Reviewing a change before applying it: config, a template, a policy, a file restored from the archive.",
       "instead": [
         {
           "when": "Only one version matters",
@@ -1064,7 +1064,7 @@
       "file": "ui/dot-separator",
       "category": "Labels",
       "status": "stable",
-      "summary": "Separating short inline facts on one line: “eu-west-1 · Created Mar 2026 · v2.4.0”.",
+      "summary": "Separating short inline facts on one line: “Helios Studio · Created Mar 2026 · v2.4.0”.",
       "instead": [
         {
           "when": "Between sentences or long items",
@@ -1166,7 +1166,7 @@
       "file": "ui/fab",
       "category": "Actions",
       "status": "beta",
-      "summary": "The one main action of a screen that must stay reachable while scrolling, mostly on mobile: “New message”, “Add site”.",
+      "summary": "The one main action of a screen that must stay reachable while scrolling, mostly on mobile: “New message”, “Add gallery”.",
       "instead": [
         {
           "when": "Screens with more than one equally important action",
@@ -1406,14 +1406,14 @@
       "file": "ui/inline-edit",
       "category": "Text Input",
       "status": "beta",
-      "summary": "Renaming one value where it’s shown: a site name, a page title, a note.",
+      "summary": "Renaming one value where it’s shown: a gallery name, a page title, a note.",
       "instead": [
         {
           "when": "Several related fields saved together",
           "use": "a form with Save"
         },
         {
-          "when": "Values that need confirmation or have consequences (a domain, an email)",
+          "when": "Values that need confirmation or have consequences (a client portal address, an email)",
           "use": "a dialog or a form"
         },
         {
@@ -1428,7 +1428,7 @@
       "file": "ui/input-group",
       "category": "Text Input",
       "status": "stable",
-      "summary": "A fixed prefix or suffix that is part of the value’s format: https://, .theya.app, /mo, GB.",
+      "summary": "A fixed prefix or suffix that is part of the value’s format: https://, .aether.photo, /mo, GB.",
       "instead": [
         {
           "when": "Just an icon",
@@ -1580,7 +1580,7 @@
       "file": "ui/line-chart",
       "category": "Charts",
       "status": "stable",
-      "summary": "Comparing a few trends over the same time: CPU vs memory, this week vs last.",
+      "summary": "Comparing a few trends over the same time: downloads vs views, this week vs last.",
       "instead": [
         {
           "when": "One series where volume matters",
@@ -2331,7 +2331,7 @@
       "file": "ui/scheduler",
       "category": "Data",
       "status": "beta",
-      "summary": "Events placed in time: maintenance windows, bookings, shifts, release plans.",
+      "summary": "Events placed in time: shoots, client bookings, studio shifts, delivery plans.",
       "instead": [
         {
           "when": "Picking a date or a range",
@@ -2897,7 +2897,7 @@
       "file": "ui/text-field",
       "category": "Text Input",
       "status": "stable",
-      "summary": "Short free text on one line: a name, an email, a domain, a URL, a code.",
+      "summary": "Short free text on one line: a name, an email, a portal address, a URL, a code.",
       "instead": [
         {
           "when": "More than a line of text",
@@ -3259,7 +3259,7 @@
       "file": "ui/usage-bar",
       "category": "Status & Feedback",
       "status": "stable",
-      "summary": "A total split into up to four parts: storage by type, bandwidth by site, seats by role.",
+      "summary": "A total split into up to four parts: storage by type, downloads by gallery, seats by role.",
       "instead": [
         {
           "when": "One value in a range",

@@ -49,15 +49,11 @@
   - button "Redo" [disabled]:
     - img
 - textbox "Template":
-  - paragraph:
-    - strong: Release notes
-  - list:
-    - listitem:
-      - paragraph: F
-  - paragraph: irst item
+  - paragraph: Write the announcement…
 - text: html
 - button "Copy code"
-- code: <p><strong>Release notes</strong></p><ul><li><p>F</p></li></ul><p>irst item</p>
+- code: (empty)
+- status: Update
 
 # Default (text-input-richtexteditor--default)
 - text: Announcement
@@ -95,14 +91,14 @@
   - paragraph:
     - text: "On"
     - strong: October 12, 02:00–04:00 UTC
-    - text: we're moving databases in the
-    - emphasis: eu-central
-    - text: region to new storage.
+    - text: we're moving the
+    - emphasis: Mnemosyne
+    - text: archive to new storage.
   - list:
     - listitem:
-      - paragraph: Sites stay online; database writes may pause for up to 30 seconds.
+      - paragraph: Galleries stay online; uploads may pause for up to 30 seconds.
     - listitem:
-      - paragraph: Backups made during the window are kept as usual.
+      - paragraph: Exports started during the window finish as usual.
   - paragraph:
     - text: Questions? See the
     - link "status page":
@@ -145,14 +141,14 @@
   - paragraph:
     - text: "On"
     - strong: October 12, 02:00–04:00 UTC
-    - text: we're moving databases in the
-    - emphasis: eu-central
-    - text: region to new storage.
+    - text: we're moving the
+    - emphasis: Mnemosyne
+    - text: archive to new storage.
   - list:
     - listitem:
-      - paragraph: Sites stay online; database writes may pause for up to 30 seconds.
+      - paragraph: Galleries stay online; uploads may pause for up to 30 seconds.
     - listitem:
-      - paragraph: Backups made during the window are kept as usual.
+      - paragraph: Exports started during the window finish as usual.
   - paragraph:
     - text: Questions? See the
     - link "status page" [disabled]:
@@ -265,14 +261,14 @@
   - paragraph:
     - text: "On"
     - strong: October 12, 02:00–04:00 UTC
-    - text: we're moving databases in the
-    - emphasis: eu-central
-    - text: region to new storage.
+    - text: we're moving the
+    - emphasis: Mnemosyne
+    - text: archive to new storage.
   - list:
     - listitem:
-      - paragraph: Sites stay online; database writes may pause for up to 30 seconds.
+      - paragraph: Galleries stay online; uploads may pause for up to 30 seconds.
     - listitem:
-      - paragraph: Backups made during the window are kept as usual.
+      - paragraph: Exports started during the window finish as usual.
   - paragraph:
     - text: Questions? See the
     - link "status page":
@@ -282,14 +278,14 @@
   - paragraph:
     - text: "On"
     - strong: October 12, 02:00–04:00 UTC
-    - text: we're moving databases in the
-    - emphasis: eu-central
-    - text: region to new storage.
+    - text: we're moving the
+    - emphasis: Mnemosyne
+    - text: archive to new storage.
   - list:
     - listitem:
-      - paragraph: Sites stay online; database writes may pause for up to 30 seconds.
+      - paragraph: Galleries stay online; uploads may pause for up to 30 seconds.
     - listitem:
-      - paragraph: Backups made during the window are kept as usual.
+      - paragraph: Exports started during the window finish as usual.
   - paragraph:
     - text: Questions? See the
     - link "status page":
@@ -306,5 +302,5 @@
   - button "Link":
     - img
 - textbox "Status update":
-  - paragraph: Deploys are back to normal after the 14:10 incident. Thanks!
+  - paragraph: Exports are back to normal after the 14:10 incident. Thanks!
 - paragraph: 60/280 characters

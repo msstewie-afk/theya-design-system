@@ -36,7 +36,7 @@
     {
       "do": {
         "caption": "An ordered scale, labelled.",
-        "example": "<WheelPicker aria-label=\"Backup interval\" options={INTERVALS} defaultValue=\"1 hour\" />"
+        "example": "<WheelPicker aria-label=\"Archive interval\" options={INTERVALS} defaultValue=\"1 hour\" />"
       },
       "dont": {
         "caption": "An unordered list — there is no “next” to roll to; use Select.",

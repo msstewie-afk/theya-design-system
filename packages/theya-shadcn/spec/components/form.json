@@ -41,11 +41,11 @@
     {
       "do": {
         "caption": "The error sits under the field it’s about and says how to fix it.",
-        "example": "<div className=\"flex w-72 flex-col gap-4\">\n  <TextField label=\"Domain\" defaultValue=\"seashell\" error=\"Add the ending, like .dev or .com.\" widthSize=\"full\" />\n  <TextField label=\"Admin email\" defaultValue=\"dana@seashell.dev\" widthSize=\"full\" />\n</div>"
+        "example": "<div className=\"flex w-72 flex-col gap-4\">\n  <TextField label=\"Portal address\" defaultValue=\"Selene Weddings\" error=\"Use lowercase letters and hyphens, like selene-weddings.\" widthSize=\"full\" />\n  <TextField label=\"Owner email\" defaultValue=\"selin@aether.photo\" widthSize=\"full\" />\n</div>"
       },
       "dont": {
         "caption": "Only a banner on top: which field, and what’s wrong with it?",
-        "example": "<div className=\"flex w-72 flex-col gap-4\">\n  <Alert tone=\"danger\">\n    <WarningCircle />\n    <div className=\"flex flex-col gap-1\">\n      <AlertTitle>Form has errors</AlertTitle>\n      <AlertDescription>Please check the fields below.</AlertDescription>\n    </div>\n  </Alert>\n  <TextField label=\"Domain\" defaultValue=\"seashell\" widthSize=\"full\" />\n  <TextField label=\"Admin email\" defaultValue=\"dana@seashell.dev\" widthSize=\"full\" />\n</div>"
+        "example": "<div className=\"flex w-72 flex-col gap-4\">\n  <Alert tone=\"danger\">\n    <WarningCircle />\n    <div className=\"flex flex-col gap-1\">\n      <AlertTitle>Form has errors</AlertTitle>\n      <AlertDescription>Please check the fields below.</AlertDescription>\n    </div>\n  </Alert>\n  <TextField label=\"Portal address\" defaultValue=\"Selene Weddings\" widthSize=\"full\" />\n  <TextField label=\"Owner email\" defaultValue=\"selin@aether.photo\" widthSize=\"full\" />\n</div>"
       }
     }
   ],

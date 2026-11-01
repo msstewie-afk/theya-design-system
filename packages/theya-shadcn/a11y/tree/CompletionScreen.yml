@@ -3,39 +3,39 @@
 # Default (patterns-commerce-completionscreen--default)
 - region "You're all set":
   - heading "You're all set" [level=2]
-  - paragraph: Your Pro plan is active and seashell.shop is registered.
-  - paragraph: Order SH-20261003-4821
-  - paragraph: We sent the receipt to dana@seashell.dev.
+  - paragraph: Your Pro plan is active and selene-weddings.aether.photo is live.
+  - paragraph: Order AE-20261003-4821
+  - paragraph: We sent the receipt to thea@aether.photo.
   - paragraph:
     - text: Not there in a few minutes? Check the spam folder or
     - button "send it again"
     - text: .
   - term: Plan
   - definition: Pro, billed yearlyrenews Oct 3, 2027
-  - term: Domain
-  - definition: seashell.shop1 year
+  - term: Client portal
+  - definition: selene-weddings.aether.photo1 year
   - term: Paid
   - definition: $448.80 with Visa ending 4242
-  - button "Open site dashboard"
-  - button "Set up DNS"
+  - button "Open your galleries"
+  - button "Set up client portal"
   - button "Download invoice"
 
 # Focus On Mount (patterns-commerce-completionscreen--focus-on-mount)
 - region "You're all set":
   - heading "You're all set" [level=2]
-  - paragraph: Your Pro plan is active and seashell.shop is registered.
-  - paragraph: Order SH-20261003-4821
-  - paragraph: We sent the receipt to dana@seashell.dev.
+  - paragraph: Your Pro plan is active and selene-weddings.aether.photo is live.
+  - paragraph: Order AE-20261003-4821
+  - paragraph: We sent the receipt to thea@aether.photo.
   - paragraph:
     - text: Not there in a few minutes? Check the spam folder or
     - button "send it again"
     - text: .
   - term: Plan
   - definition: Pro, billed yearlyrenews Oct 3, 2027
-  - term: Domain
-  - definition: seashell.shop1 year
+  - term: Client portal
+  - definition: selene-weddings.aether.photo1 year
   - term: Paid
   - definition: $448.80 with Visa ending 4242
-  - button "Open site dashboard"
-  - button "Set up DNS"
+  - button "Open your galleries"
+  - button "Set up client portal"
   - button "Download invoice"

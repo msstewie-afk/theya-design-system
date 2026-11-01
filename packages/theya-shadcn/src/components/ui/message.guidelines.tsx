@@ -18,7 +18,7 @@ export const messageGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className="flex w-full flex-col gap-2">
-            <Message author="Assistant" timestamp="09:41">Backup finished — 2.4 GB, 14 files.</Message>
+            <Message author="Assistant" timestamp="09:41">Export finished — 2.4 GB, 14 files.</Message>
             <Message variant="sent" author="You" timestamp="09:42">Thanks!</Message>
           </div>
         ),
@@ -27,7 +27,7 @@ export const messageGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <div className="flex w-full flex-col gap-2">
-            <Message variant="sent">Backup finished — 2.4 GB, 14 files.</Message>
+            <Message variant="sent">Export finished — 2.4 GB, 14 files.</Message>
             <Message variant="sent">Thanks!</Message>
           </div>
         ),

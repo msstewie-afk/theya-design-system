@@ -39,11 +39,11 @@
     {
       "do": {
         "caption": "Side and color say who; the author line says it in words too.",
-        "example": "<div className=\"flex w-full flex-col gap-2\">\n  <Message author=\"Assistant\" timestamp=\"09:41\">Backup finished — 2.4 GB, 14 files.</Message>\n  <Message variant=\"sent\" author=\"You\" timestamp=\"09:42\">Thanks!</Message>\n</div>"
+        "example": "<div className=\"flex w-full flex-col gap-2\">\n  <Message author=\"Assistant\" timestamp=\"09:41\">Export finished — 2.4 GB, 14 files.</Message>\n  <Message variant=\"sent\" author=\"You\" timestamp=\"09:42\">Thanks!</Message>\n</div>"
       },
       "dont": {
         "caption": "Both sides styled as “sent” and unnamed: whose message is whose?",
-        "example": "<div className=\"flex w-full flex-col gap-2\">\n  <Message variant=\"sent\">Backup finished — 2.4 GB, 14 files.</Message>\n  <Message variant=\"sent\">Thanks!</Message>\n</div>"
+        "example": "<div className=\"flex w-full flex-col gap-2\">\n  <Message variant=\"sent\">Export finished — 2.4 GB, 14 files.</Message>\n  <Message variant=\"sent\">Thanks!</Message>\n</div>"
       }
     }
   ],

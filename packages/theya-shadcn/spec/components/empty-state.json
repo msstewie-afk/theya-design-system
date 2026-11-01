@@ -31,7 +31,7 @@
     },
     {
       "part": "Title",
-      "description": "what’s empty: “No sites yet”. Use `titleAs=\"h2\"` when it’s the main content of the region."
+      "description": "what’s empty: “No galleries yet”. Use `titleAs=\"h2\"` when it’s the main content of the region."
     },
     {
       "part": "Description",
@@ -48,7 +48,7 @@
     {
       "do": {
         "caption": "Says what will be here and gives the first step.",
-        "example": "<EmptyState\n  className=\"w-80\"\n  icon={<Globe />}\n  title=\"No sites yet\"\n  description=\"Create a site to get a domain, SSL and backups.\"\n  action={<Button>Create site</Button>}\n/>"
+        "example": "<EmptyState\n  className=\"w-80\"\n  icon={<MediaImageList />}\n  title=\"No galleries yet\"\n  description=\"Create a gallery to get a client portal, proofing and downloads.\"\n  action={<Button>Create gallery</Button>}\n/>"
       },
       "dont": {
         "caption": "“No data” — is it broken, loading, or just empty?",
@@ -62,7 +62,7 @@
       },
       "dont": {
         "caption": "The “first time” state shown for a filter with no matches.",
-        "example": "<EmptyState className=\"w-80\" icon={<Globe />} title=\"No sites yet\" action={<Button>Create site</Button>} />"
+        "example": "<EmptyState className=\"w-80\" icon={<MediaImageList />} title=\"No galleries yet\" action={<Button>Create gallery</Button>} />"
       }
     }
   ],

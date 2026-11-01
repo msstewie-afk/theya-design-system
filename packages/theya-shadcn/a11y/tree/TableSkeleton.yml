@@ -3,8 +3,8 @@
 # Default (status-feedback-tableskeleton--default)
 - table:
   - rowgroup:
-    - row "Domain Status Replicas":
-      - columnheader "Domain"
+    - row "Gallery Status Photos":
+      - columnheader "Gallery"
       - columnheader "Status"
-      - columnheader "Replicas"
+      - columnheader "Photos"
   - rowgroup

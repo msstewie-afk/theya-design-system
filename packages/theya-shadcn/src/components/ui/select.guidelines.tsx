@@ -4,18 +4,18 @@ import { Radio, RadioGroup } from './radio';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
 
 // 8 options: inside the 6–15 range a Select is meant for.
-const REGIONS = [
-  ['eu-central', 'EU (Frankfurt)'],
-  ['eu-west', 'EU (Ireland)'],
-  ['eu-north', 'EU (Stockholm)'],
-  ['us-east', 'US (Virginia)'],
-  ['us-west', 'US (Oregon)'],
-  ['ca', 'Canada (Montreal)'],
-  ['ap-south', 'Asia Pacific (Mumbai)'],
-  ['ap-se', 'Asia Pacific (Singapore)'],
+const PRINT_SIZES = [
+  ['4x6', '4 × 6 in'],
+  ['5x7', '5 × 7 in'],
+  ['8x10', '8 × 10 in'],
+  ['11x14', '11 × 14 in'],
+  ['12x18', '12 × 18 in'],
+  ['16x20', '16 × 20 in'],
+  ['20x30', '20 × 30 in'],
+  ['24x36', '24 × 36 in'],
 ] as const;
 
-const regionItems = REGIONS.map(([value, label]) => (
+const sizeItems = PRINT_SIZES.map(([value, label]) => (
   <SelectItem key={value} value={value}>
     {label}
   </SelectItem>
@@ -23,7 +23,7 @@ const regionItems = REGIONS.map(([value, label]) => (
 
 export const selectGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['One choice from 6–15 known options (up to 5 → RadioGroup, over 15 → Combobox).', 'Values people recognise rather than type: a region, a plan, a sort order.'],
+  whenToUse: ['One choice from 6–15 known options (up to 5 → RadioGroup, over 15 → Combobox).', 'Values people recognise rather than type: a print size, a plan, a sort order.'],
   whenNotToUse: [
     { text: 'Up to 5 options — show them all', instead: 'RadioGroup or ToggleGroup' },
     { text: 'Long lists people search in', instead: 'Combobox' },
@@ -76,29 +76,29 @@ export const selectGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className="flex flex-col gap-2">
-            <Label htmlFor="gl-sel-region">Data region</Label>
+            <Label htmlFor="gl-sel-size">Print size</Label>
             <Select>
-              <SelectTrigger id="gl-sel-region" widthSize="md">
-                <SelectValue placeholder="Choose a region" />
+              <SelectTrigger id="gl-sel-size" widthSize="md">
+                <SelectValue placeholder="Choose a size" />
               </SelectTrigger>
               <SelectContent>
-                {regionItems}
+                {sizeItems}
               </SelectContent>
             </Select>
           </div>
         ),
-        caption: '8 regions — in the 6–15 range a Select fits. No answer yet, so the placeholder says what to pick.',
+        caption: '8 sizes — in the 6–15 range a Select fits. No answer yet, so the placeholder says what to pick.',
       },
       dont: {
         example: (
           <div className="flex flex-col gap-2">
-            <Label htmlFor="gl-sel-region2">Data region</Label>
-            <Select defaultValue="eu-central">
-              <SelectTrigger id="gl-sel-region2" widthSize="md">
+            <Label htmlFor="gl-sel-size2">Print size</Label>
+            <Select defaultValue="8x10">
+              <SelectTrigger id="gl-sel-size2" widthSize="md">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {regionItems}
+                {sizeItems}
               </SelectContent>
             </Select>
           </div>

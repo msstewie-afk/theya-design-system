@@ -6,7 +6,7 @@ export const progressGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
     'A task with a known percent done: upload, restore, export, install.',
-    <>A running task of unknown length (a deploy, a scan): <C>indeterminate</C>.</>,
+    <>A running task of unknown length (an export, an import): <C>indeterminate</C>.</>,
     <>A known number of stages (“stage 3 of 5”): <C>segments</C>.</>,
   ],
   whenNotToUse: [
@@ -18,14 +18,14 @@ export const progressGuidelines: ComponentGuidelines = {
   anatomy: [
     { part: 'Label', description: <>what is running — next to the bar and linked with <C>aria-labelledby</C>.</> },
     { part: 'Track and indicator', description: <><C>value</C> 0–100, clamped; or a sweeping bar with <C>indeterminate</C>; or <C>segments</C> equal steps that fill one after another.</> },
-    { part: 'Value / status text', description: 'percent, or “3 of 12 sites”, or time left.', optional: true },
+    { part: 'Value / status text', description: 'percent, or “3 of 12 galleries”, or time left.', optional: true },
   ],
   doDont: [
     {
       do: {
         example: (
           <div className="flex w-72 flex-col gap-1">
-            <div className="flex justify-between text-body-s"><span id="gl-pr-label">Restoring backup</span><span className="tabular-nums">66%</span></div>
+            <div className="flex justify-between text-body-s"><span id="gl-pr-label">Restoring from archive</span><span className="tabular-nums">66%</span></div>
             <Progress value={66} aria-labelledby="gl-pr-label" />
           </div>
         ),
@@ -44,7 +44,7 @@ export const progressGuidelines: ComponentGuidelines = {
             <Skeleton className="h-4 w-56" />
           </div>
         ),
-        caption: 'Content loading for the first time → a skeleton of it. (A task of unknown length that people watch, like a deploy, is Progress indeterminate.)',
+        caption: 'Content loading for the first time → a skeleton of it. (A task of unknown length that people watch, like an export, is Progress indeterminate.)',
       },
       dont: {
         example: <div className="w-72"><Progress value={30} aria-label="Loading" /></div>,

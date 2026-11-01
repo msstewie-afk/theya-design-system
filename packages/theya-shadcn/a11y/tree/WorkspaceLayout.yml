@@ -4,16 +4,18 @@
 - link "Skip to main content":
   - /url: "#main-content"
 - complementary:
-  - button "Expand sidebar"
+  - text: Aether
+  - button "Collapse sidebar" [expanded]
   - navigation "Main":
+    - text: Manage
     - link "Dashboard":
       - /url: "#"
       - img
       - text: Dashboard
-    - link "Galleries":
+    - link "Galleries 12 galleries":
       - /url: "#"
       - img
-      - text: Galleries
+      - text: Galleries 12 galleries
     - link "Archive":
       - /url: "#"
       - img
@@ -22,6 +24,7 @@
       - /url: "#"
       - img
       - text: Licenses
+    - text: Account
     - link "Billing":
       - /url: "#"
       - img

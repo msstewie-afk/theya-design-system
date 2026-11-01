@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Status & Feedback",
   "whenToUse": [
-    "A total split into up to four parts: storage by type, bandwidth by site, seats by role.",
+    "A total split into up to four parts: storage by type, downloads by gallery, seats by role.",
     "Showing parts against a limit (total) — used vs. free."
   ],
   "whenNotToUse": [
@@ -37,11 +37,11 @@
     {
       "do": {
         "caption": "A few parts with a legend — easy to compare.",
-        "example": "<div className=\"w-80\"><UsageBar total={50} formatValue={gb} segments={[{ label: 'Files', value: 18 }, { label: 'Databases', value: 9 }, { label: 'Email', value: 4 }]} /></div>"
+        "example": "<div className=\"w-80\"><UsageBar total={50} formatValue={gb} segments={[{ label: 'Originals', value: 18 }, { label: 'Exports', value: 9 }, { label: 'Previews', value: 4 }]} /></div>"
       },
       "dont": {
         "caption": "Eight parts on a four-color palette: colors repeat and the legend can’t be matched. Keep to four, group the rest into “Other”.",
-        "example": "<div className=\"w-80\">\n  <UsageBar total={50} formatValue={gb} segments={['Files', 'DB', 'Email', 'Logs', 'Backups', 'Cache', 'Tmp', 'Other'].map((label, i) => ({ label, value: 6 - (i % 3) }))} />\n</div>"
+        "example": "<div className=\"w-80\">\n  <UsageBar total={50} formatValue={gb} segments={['Originals', 'RAW', 'Exports', 'Previews', 'Archive', 'Video', 'Proofs', 'Other'].map((label, i) => ({ label, value: 6 - (i % 3) }))} />\n</div>"
       }
     }
   ],
@@ -91,8 +91,8 @@
         "id": "status-feedback-usagebar--default"
       },
       {
-        "name": "Bandwidth",
-        "id": "status-feedback-usagebar--bandwidth"
+        "name": "Downloads",
+        "id": "status-feedback-usagebar--downloads"
       },
       {
         "name": "NoLegend",

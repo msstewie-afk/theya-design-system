@@ -17,7 +17,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [Button](./?path=/docs/actions-button--docs): To do something: save, submit, create, delete, start a flow, open a dialog.
 - [CopyButton](./?path=/docs/actions-copybutton--docs): Next to a value people paste somewhere else: an API key, a DNS record, a command, a link.
 - [DensityToggle](./?path=/docs/actions-densitytoggle--docs) (beta): Products with data-heavy screens (tables, admin forms), where some people want more rows on screen and others want larger targets.
-- [Fab](./?path=/docs/actions-fab--docs) (beta): The one main action of a screen that must stay reachable while scrolling, mostly on mobile: “New message”, “Add site”.
+- [Fab](./?path=/docs/actions-fab--docs) (beta): The one main action of a screen that must stay reachable while scrolling, mostly on mobile: “New message”, “Add gallery”.
 - [KebabIcon](./?path=/docs/actions-kebabicon--docs): The trigger of an overflow menu: “more actions” for a row, a card or a toolbar.
 - [SplitButton](./?path=/docs/actions-splitbutton--docs): One main action with a few variations of it: “Deploy” / Deploy to staging / Deploy without cache.
 - [StickyActionBar](./?path=/docs/actions-stickyactionbar--docs) (beta): Save / Discard at the end of a long form, kept in view while scrolling.
@@ -35,18 +35,18 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 
 ## Charts
 
-- [AreaChart](./?path=/docs/charts-areachart--docs): One quantity over time where the volume matters: traffic, requests, storage used.
-- [BarChart](./?path=/docs/charts-barchart--docs): Comparing a value across categories: load by region, deploys per day, tickets per team.
+- [AreaChart](./?path=/docs/charts-areachart--docs): One quantity over time where the volume matters: gallery views, downloads, storage used.
+- [BarChart](./?path=/docs/charts-barchart--docs): Comparing a value across categories: storage by studio, exports per day, photos per album.
 - [ChartRangeSelection](./?path=/docs/charts-chartrangeselection--docs) (beta): Selecting a span on an ordered x-axis to zoom in or filter: “show errors from Aug 3 to Aug 6”.
 - [DonutChart](./?path=/docs/charts-donutchart--docs): Parts of one whole, up to 7: storage by environment, plan mix, traffic by source.
-- [LineChart](./?path=/docs/charts-linechart--docs): Comparing a few trends over the same time: CPU vs memory, this week vs last.
+- [LineChart](./?path=/docs/charts-linechart--docs): Comparing a few trends over the same time: downloads vs views, this week vs last.
 - [Sparkline](./?path=/docs/charts-sparkline--docs): The shape of a trend next to its number: a stat card, a table cell, a list row.
 
 ## Code
 
-- [CodeBlock](./?path=/docs/code-codeblock--docs): A command, snippet or config the user reads and copies: install steps, a DNS record, an API example.
+- [CodeBlock](./?path=/docs/code-codeblock--docs): A command, snippet or config the user reads and copies: install steps, an export preset, an API example.
 - [CodeEditor](./?path=/docs/code-codeeditor--docs) (beta): Editing config, templates, rules or scripts in the product: JSON, HTML, CSS, JS/TS, shell.
-- [DiffViewer](./?path=/docs/code-diffviewer--docs) (beta): Reviewing a change before applying it: config, a template, a policy, a file restored from backup.
+- [DiffViewer](./?path=/docs/code-diffviewer--docs) (beta): Reviewing a change before applying it: config, a template, a policy, a file restored from the archive.
 - [Terminal](./?path=/docs/code-terminal--docs) (beta): Live or past console output: a web SSH session, a deploy or build log, a tail of access logs.
 
 ## Data
@@ -61,7 +61,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [Metric](./?path=/docs/data-metric--docs): Quick-glance counts repeated as rows inside a card: photos selected, galleries shared, licenses pending.
 - [Price](./?path=/docs/data-price--docs) (beta): Any amount of money in the UI: plan cards, checkout, invoices, add-ons.
 - [QrCode](./?path=/docs/data-qrcode--docs) (beta): Moving something from screen to phone: 2FA setup, a Wi-Fi or app link, a payment or ticket.
-- [Scheduler](./?path=/docs/data-scheduler--docs) (beta): Events placed in time: maintenance windows, bookings, shifts, release plans.
+- [Scheduler](./?path=/docs/data-scheduler--docs) (beta): Events placed in time: shoots, client bookings, studio shifts, delivery plans.
 - [Stat](./?path=/docs/data-stat--docs): Headline numbers on a dashboard or overview: active galleries, delivery rate, revenue — 2 to 4 in a row.
 - [Table](./?path=/docs/data-table--docs): Static tabular data with a few rows and no sorting, paging or selection: a price breakdown, print sizes, a spec sheet.
 - [Timeline](./?path=/docs/data-timeline--docs): A sequence of events in time: activity in a gallery, an export’s history, a print order’s progress.
@@ -98,7 +98,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [AvatarGroup](./?path=/docs/labels-avatargroup--docs): Showing that several people are involved — collaborators, assignees, viewers — when the exact list is secondary.
 - [Badge](./?path=/docs/labels-badge--docs): A short status or label attached to something: “Active”, “Beta”, “Expired”.
 - [Chip](./?path=/docs/labels-chip--docs): Selectable or removable values: quick filters (“Critical”, “Mine”), selected tags, suggestions.
-- [DotSeparator](./?path=/docs/labels-dotseparator--docs): Separating short inline facts on one line: “eu-west-1 · Created Mar 2026 · v2.4.0”.
+- [DotSeparator](./?path=/docs/labels-dotseparator--docs): Separating short inline facts on one line: “Helios Studio · Created Mar 2026 · v2.4.0”.
 - [HelpIcon](./?path=/docs/labels-helpicon--docs): One line of optional background next to a label, a column header or a stat: what a term means, why a setting exists.
 - [Kbd](./?path=/docs/labels-kbd--docs): Showing a keyboard key or shortcut in text, menus, tooltips and help: ⌘ K, Esc, ?.
 - [ToneIcon](./?path=/docs/labels-toneicon--docs): Leading a row or card whose meaning is a tone: a warning in a list, a success step, an info note.
@@ -128,7 +128,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [CardFan](./?path=/docs/motion-cardfan--docs) (beta): A playful group of 3–5 cards in a hero or an about page: team members, plans, product shots.
 - [CardStack](./?path=/docs/motion-cardstack--docs) (beta): A landing or empty-state showcase that cycles a few cards: testimonials, highlights, recent invoices.
 - [CompletionBurst](./?path=/docs/motion-completionburst--docs) (beta): A moment worth marking at the end of a wait: a plan generated, an account set up, an import finished, onboarding complete.
-- [CountUp](./?path=/docs/motion-countup--docs) (beta): A headline figure on a landing page: “12,400 sites”, “99.98% uptime”, “3× faster”.
+- [CountUp](./?path=/docs/motion-countup--docs) (beta): A headline figure on a landing page: “12,400 galleries”, “99.98% portal availability”, “3× faster”.
 - [Marquee](./?path=/docs/motion-marquee--docs) (beta): A strip of customer logos, short quotes or partner names on a landing page — “trusted by”.
 - [MarqueeColumns](./?path=/docs/motion-marqueecolumns--docs) (beta): A decorative wall of cards behind or beside a hero: testimonials, templates, integrations.
 - [OrbitCarousel](./?path=/docs/motion-orbitcarousel--docs) (beta): A showcase on a landing page: case studies, product shots, a few campaign cards.
@@ -177,11 +177,11 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 
 ## Selection
 
-- [Autocomplete](./?path=/docs/selection-autocomplete--docs): Free text where common values are worth suggesting: a hostname, a city, a recent search.
+- [Autocomplete](./?path=/docs/selection-autocomplete--docs): Free text where common values are worth suggesting: a shoot location, a city, a recent search.
 - [Checkbox](./?path=/docs/selection-checkbox--docs): Independent yes/no choices that apply when the form is saved.
 - [CheckboxGroup](./?path=/docs/selection-checkboxgroup--docs): Several related yes/no choices that form one value (“Notify me by: Email, SMS”).
 - [ColorPicker](./?path=/docs/selection-colorpicker--docs) (beta): Any color, including custom: brand and theme colors, chart series, white-label setup.
-- [Combobox](./?path=/docs/selection-combobox--docs): Picking from a long list people search rather than scroll: regions, users, domains.
+- [Combobox](./?path=/docs/selection-combobox--docs): Picking from a long list people search rather than scroll: studios, people, client portals.
 - [OptionCard](./?path=/docs/selection-optioncard--docs): A one-of choice where each option needs a title, a line of explanation and often a price: plans, verification methods, delivery.
 - [Radio](./?path=/docs/selection-radio--docs): Exactly one of 2–5 options, all visible so people can compare them.
 - [RangeField](./?path=/docs/selection-rangefield--docs): A numeric range people set roughly and sometimes exactly: price filter, size, response time.
@@ -208,12 +208,12 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [SuccessCheck](./?path=/docs/status-feedback-successcheck--docs) (beta): The moment something succeeds: a success Alert or Toast, a finished step, a "Saved" confirmation.
 - [TableSkeleton](./?path=/docs/status-feedback-tableskeleton--docs): First load of a hand-built Table: real headers, skeleton rows.
 - [UndoToast](./?path=/docs/status-feedback-undotoast--docs): A destructive action that can be held back for a few seconds: delete a file, archive a site, remove a member.
-- [UsageBar](./?path=/docs/status-feedback-usagebar--docs): A total split into up to four parts: storage by type, bandwidth by site, seats by role.
+- [UsageBar](./?path=/docs/status-feedback-usagebar--docs): A total split into up to four parts: storage by type, downloads by gallery, seats by role.
 
 ## Text Input
 
-- [InlineEdit](./?path=/docs/text-input-inlineedit--docs) (beta): Renaming one value where it’s shown: a site name, a page title, a note.
-- [InputGroup](./?path=/docs/text-input-inputgroup--docs): A fixed prefix or suffix that is part of the value’s format: https://, .theya.app, /mo, GB.
+- [InlineEdit](./?path=/docs/text-input-inlineedit--docs) (beta): Renaming one value where it’s shown: a gallery name, a page title, a note.
+- [InputGroup](./?path=/docs/text-input-inputgroup--docs): A fixed prefix or suffix that is part of the value’s format: https://, .aether.photo, /mo, GB.
 - [InputOTP](./?path=/docs/text-input-inputotp--docs): A one-time code of known length from an SMS, email or authenticator app.
 - [MaskedInput](./?path=/docs/text-input-maskedinput--docs) (beta): A value with one fixed format people type character by character: a card number, an IPv4 address, a date in a fixed form.
 - [NumberField](./?path=/docs/text-input-numberfield--docs): A count or amount people adjust in small steps: quantity, seats, retention days, CPU cores.
@@ -223,5 +223,5 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [RichTextEditor](./?path=/docs/text-input-richtexteditor--docs) (beta): Text that is published or sent with formatting: announcements, product descriptions, email templates, ticket replies.
 - [SecretField](./?path=/docs/text-input-secretfield--docs): Showing a secret the person needs to copy: API key, token, webhook secret, recovery code.
 - [TagInput](./?path=/docs/text-input-taginput--docs) (beta): Several free-form values of one kind: email recipients, domains, IP ranges, tags.
-- [TextField](./?path=/docs/text-input-textfield--docs): Short free text on one line: a name, an email, a domain, a URL, a code.
+- [TextField](./?path=/docs/text-input-textfield--docs): Short free text on one line: a name, an email, a portal address, a URL, a code.
 - [TextArea](./?path=/docs/text-input-textarea--docs): Text that can run to several lines: a description, a message, notes, a list one per line.

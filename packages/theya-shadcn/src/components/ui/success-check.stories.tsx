@@ -59,14 +59,14 @@ export const InAlert: Story = {
             setTimeout(() => setShown(true), 0);
           }}
         >
-          Restore backup
+          Restore album
         </Button>
         {shown && (
           <Alert tone="success" live="polite" className="w-full">
             <SuccessCheck />
             <div>
-              <AlertTitle>Backup restored</AlertTitle>
-              <AlertDescription>shop.example.com is back to its 03:00 state.</AlertDescription>
+              <AlertTitle>Album restored</AlertTitle>
+              <AlertDescription>Moonrise over Othrys is back to its 03:00 state.</AlertDescription>
             </div>
           </Alert>
         )}

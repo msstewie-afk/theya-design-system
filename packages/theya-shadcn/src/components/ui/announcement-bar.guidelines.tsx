@@ -47,7 +47,7 @@ export const announcementBarGuidelines: ComponentGuidelines = {
         example: (
           <div className="w-96">
             <AnnouncementBar tone="primary" icon={<Sparks />} aria-label="Announcement, feature">
-              Certificates now renew 30 days early. <a href="#">Learn more</a>
+              Licenses now renew 30 days early. <a href="#">Learn more</a>
             </AnnouncementBar>
           </div>
         ),

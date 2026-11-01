@@ -20,7 +20,7 @@ const meta: Meta<typeof InputGroup> = {
     docs: {
       description: {
         component:
-          "A field with a fixed prefix or suffix that is part of the value’s format — https://, .theya.app, /mo — or a button inside its border.",
+          "A field with a fixed prefix or suffix that is part of the value’s format — https://, .aether.photo, /mo — or a button inside its border.",
       },
     },
   },
@@ -40,40 +40,40 @@ const meta: Meta<typeof InputGroup> = {
 export default meta;
 type Story = StoryObj<typeof InputGroup>;
 
-/** A text suffix (".zone") with a hairline divider toward the field. */
+/** A text suffix (".aether.photo") with a hairline divider toward the field. */
 export const Default: Story = {
   render: () => (
     <div className="flex flex-col gap-1">
-      <Label htmlFor="zone">Zone name</Label>
+      <Label htmlFor="portal">Portal address</Label>
       <InputGroup>
-        <InputGroupInput id="zone" className="font-mono" placeholder="shop.acme" defaultValue="shop.acme" />
-        <InputGroupAddon position="end">.zone</InputGroupAddon>
+        <InputGroupInput id="portal" className="font-mono" placeholder="selene-weddings" defaultValue="selene-weddings" />
+        <InputGroupAddon position="end">.aether.photo</InputGroupAddon>
       </InputGroup>
     </div>
   ),
-  // Keyboard: the field is the only tab stop; the ".zone" addon is text, not a control.
+  // Keyboard: the field is the only tab stop; the ".aether.photo" addon is text, not a control.
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByRole('textbox', { name: 'Zone name' });
+    const input = canvas.getByRole('textbox', { name: 'Portal address' });
     resetFocus();
     await tabTo(input);
-    await userEvent.keyboard('{Control>}a{/Control}blog.acme');
-    await expect(input).toHaveValue('blog.acme');
+    await userEvent.keyboard('{Control>}a{/Control}eos-portraits');
+    await expect(input).toHaveValue('eos-portraits');
     await userEvent.tab();
     await expect(canvasElement.contains(document.activeElement) && document.activeElement !== input).toBe(false);
   },
 };
 
-/** A "https://" prefix plus a ".io" suffix bracket the editable hostname. */
+/** A "$" prefix plus a "per print" suffix bracket the editable price. */
 export const PrefixAndSuffix: Story = {
   name: 'Prefix and suffix',
   render: () => (
     <div className="flex flex-col gap-1">
-      <Label htmlFor="endpoint">Site endpoint</Label>
+      <Label htmlFor="print-price">Print price</Label>
       <InputGroup>
-        <InputGroupAddon position="start">https://</InputGroupAddon>
-        <InputGroupInput id="endpoint" className="font-mono" placeholder="api.acme" defaultValue="api.acme" />
-        <InputGroupAddon position="end">.io</InputGroupAddon>
+        <InputGroupAddon position="start">$</InputGroupAddon>
+        <InputGroupInput id="print-price" inputMode="decimal" placeholder="0.00" defaultValue="45.00" />
+        <InputGroupAddon position="end">per print</InputGroupAddon>
       </InputGroup>
     </div>
   ),
@@ -84,12 +84,12 @@ export const LeadingIcon: Story = {
   name: 'Leading icon',
   render: () => (
     <div className="flex flex-col gap-1">
-      <Label htmlFor="site-search">Search sites</Label>
+      <Label htmlFor="gallery-search">Search galleries</Label>
       <InputGroup>
         <InputGroupAddon position="start" divider={false}>
           <Search aria-hidden="true" />
         </InputGroupAddon>
-        <InputGroupInput id="site-search" type="search" placeholder="Filter by domain or region" />
+        <InputGroupInput id="gallery-search" type="search" placeholder="Filter by name or studio" />
       </InputGroup>
     </div>
   ),
@@ -99,15 +99,15 @@ export const LeadingIcon: Story = {
 export const Invalid: Story = {
   render: () => (
     <div className="flex flex-col gap-1">
-      <Label htmlFor="region">Region</Label>
+      <Label htmlFor="studio">Studio</Label>
       <InputGroup>
         <InputGroupAddon position="start" divider={false}>
           <Globe aria-hidden="true" />
         </InputGroupAddon>
-        <InputGroupInput id="region" className="font-mono" defaultValue="eu-west-9" aria-invalid="true" aria-describedby="region-error" />
+        <InputGroupInput id="studio" defaultValue="Othrys Lodgee" aria-invalid="true" aria-describedby="studio-error" />
       </InputGroup>
-      <p id="region-error" className="font-body text-body-xs text-[var(--color-text-text-danger)]">
-        Unknown region. Try eu-west-1 or us-east-2.
+      <p id="studio-error" className="font-body text-body-xs text-[var(--color-text-text-danger)]">
+        Unknown studio. Try Othrys Lodge or Studio L4.
       </p>
     </div>
   ),
@@ -122,7 +122,7 @@ export const Disabled: Story = {
         <InputGroupAddon position="start" divider={false}>
           <Key aria-hidden="true" />
         </InputGroupAddon>
-        <InputGroupInput id="api-key" className="font-mono" defaultValue="wp_live_8f3c1a7e" disabled />
+        <InputGroupInput id="api-key" className="font-mono" defaultValue="ae_live_8f3c1a7e" disabled />
       </InputGroup>
     </div>
   ),

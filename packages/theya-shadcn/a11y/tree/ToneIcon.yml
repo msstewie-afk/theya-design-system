@@ -4,7 +4,7 @@
 - text: Launch scheduled
 
 # Default (labels-toneicon--default)
-- text: Deployment succeeded
+- text: Export succeeded
 
 # Shapes (labels-toneicon--shapes)
 
@@ -15,8 +15,8 @@
 # Tones (labels-toneicon--tones)
 - list:
   - listitem: Update available
-  - listitem: Deployment succeeded
-  - listitem: Disk usage high
-  - listitem: Backup failed
+  - listitem: Export succeeded
+  - listitem: Storage almost full
+  - listitem: Upload failed
   - listitem: New notification
   - listitem: Upgraded to Pro

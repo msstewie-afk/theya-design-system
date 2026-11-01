@@ -19,9 +19,9 @@ export const promptSuggestionsGuidelines: ComponentGuidelines = {
             aria-label="Suggestions"
             onSelect={() => {}}
             items={[
-              { id: '1', label: 'Why is shop.seashell.dev slow today?' },
-              { id: '2', label: 'Which certificates expire this month?' },
-              { id: '3', label: 'Summarize last night’s backup' },
+              { id: '1', label: 'Why are downloads from Selene Weddings slow today?' },
+              { id: '2', label: 'Which licenses expire this month?' },
+              { id: '3', label: 'Summarize last night’s archive run' },
             ]}
           />
         ),

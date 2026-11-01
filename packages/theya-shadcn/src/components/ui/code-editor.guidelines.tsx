@@ -22,11 +22,11 @@ export const codeEditorGuidelines: ComponentGuidelines = {
   doDont: [
     {
       do: {
-        example: <div className="w-80"><CodeEditor aria-label="Redirect rules" filename="redirects.json" language="json" defaultValue={'{\n  "/old": "/new"\n}'} minHeight="5rem" /></div>,
+        example: <div className="w-80"><CodeEditor aria-label="Portal redirects" filename="redirects.json" language="json" defaultValue={'{\n  "/golden-hour-draft": "/golden-hour"\n}'} minHeight="5rem" /></div>,
         caption: 'Language set — brackets, indentation and color help avoid syntax errors.',
       },
       dont: {
-        example: <div className="w-80"><TextArea aria-label="Redirect rules" defaultValue={'{\n  "/old": "/new"\n}'} rows={3} /></div>,
+        example: <div className="w-80"><TextArea aria-label="Portal redirects" defaultValue={'{\n  "/golden-hour-draft": "/golden-hour"\n}'} rows={3} /></div>,
         caption: 'A plain textarea for JSON: no line numbers, Tab leaves the field.',
       },
     },

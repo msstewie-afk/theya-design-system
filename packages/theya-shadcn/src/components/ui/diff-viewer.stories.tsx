@@ -12,66 +12,66 @@ import { resetFocus, tabTo } from '../../test/keyboard';
  * lines, and long unchanged runs collapsed to an expander row.
  */
 
-const OLD_CONFIG = `server {
-  listen 80;
-  server_name example.com www.example.com;
+const OLD_CONFIG = `preset:
+  quality: 82
+  name: web-2048
 
-  root /var/www/example/public;
-  index index.html;
+  format: jpg
+  long_edge: 2048
 
-  location / {
-    try_files $uri $uri/ @app;
-  }
+  color:
+    profile: sRGB
+    embed_profile: true
 
-  location @app {
-    proxy_pass http://127.0.0.1:3000;
-    proxy_set_header Host $host;
-  }
+  metadata:
+    keep_copyright: true
+    keep_location: false
+    keep_camera: true
 
-  location ~ /\\.ht {
-    deny all;
-  }
+  watermark:
+    image: selene-mark.png
+    opacity: 0.4
 
-  access_log /var/log/nginx/example.access.log;
-  error_log /var/log/nginx/example.error.log;
-}
+  naming: "{album}_{sequence}"
+  notify_client: false
+  folder: exports/web
 `;
 
-const NEW_CONFIG = `server {
-  listen 443 ssl http2;
-  server_name example.com www.example.com;
+const NEW_CONFIG = `preset:
+  quality: 90
+  name: web-2048
 
-  ssl_certificate /etc/ssl/example/fullchain.pem;
-  ssl_certificate_key /etc/ssl/example/privkey.pem;
+  max_file_size: 4MB
+  progressive: true
 
-  root /var/www/example/public;
-  index index.html;
+  format: jpg
+  long_edge: 2048
 
-  location / {
-    try_files $uri $uri/ @app;
-  }
+  color:
+    profile: sRGB
+    embed_profile: true
 
-  location @app {
-    proxy_pass http://127.0.0.1:3000;
-    proxy_set_header Host $host;
-    proxy_set_header X-Forwarded-Proto $scheme;
-  }
+  metadata:
+    keep_copyright: true
+    keep_location: false
+    keep_camera: true
+    keep_keywords: true
 
-  location ~ /\\.ht {
-    deny all;
-  }
+  watermark:
+    image: selene-mark.png
+    opacity: 0.4
 
-  access_log /var/log/nginx/example.access.log;
-  error_log /var/log/nginx/example.error.log warn;
-}
+  naming: "{album}_{sequence}"
+  notify_client: true
+  folder: exports/web
 `;
 
-const OLD_POLICY = `Backups run every night at 02:00.
-Each backup is kept for 7 days.
+const OLD_POLICY = `Originals are archived to Mnemosyne every night at 02:00.
+Each archive snapshot is kept for 7 days.
 Restores can be requested through support.`;
 
-const NEW_POLICY = `Backups run every night at 03:00 server time.
-Each backup is kept for 30 days.
+const NEW_POLICY = `Originals are archived to Mnemosyne every night at 03:00 studio time.
+Each archive snapshot is kept for 30 days.
 Restores can be started from the dashboard.`;
 
 const meta = {
@@ -82,7 +82,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Shows what changed between two versions before people apply it: a config, a template, a file restored from backup.",
+          "Shows what changed between two versions before people apply it: an export preset, a template, a file restored from the archive.",
       },
     },
     layout: 'padded', guidelines: diffViewerGuidelines,
@@ -111,8 +111,8 @@ const meta = {
   args: {
     oldValue: OLD_CONFIG,
     newValue: NEW_CONFIG,
-    filename: 'nginx/example.conf',
-    language: 'nginx',
+    filename: 'presets/web-2048.yml',
+    language: 'yaml',
   },
   decorators: [
     (Story) => (
@@ -130,7 +130,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const region = canvas.getByRole('region', { name: 'Changes in nginx/example.conf' });
+    const region = canvas.getByRole('region', { name: 'Changes in presets/web-2048.yml' });
     // Stats are spoken in words, not only "+N −M".
     await expect(canvasElement).toHaveTextContent(/\(\d+ lines added, \d+ removed\)/);
     // Changed lines carry a spoken prefix; word-level changes are <ins>/<del>.
@@ -194,13 +194,13 @@ export const PlainText: Story = {
     language: undefined,
     lineNumbers: false,
     wrap: true,
-    label: 'Backup policy changes',
+    label: 'Archive policy changes',
   },
 };
 
 /** Renamed file: the header shows old → new. */
 export const Renamed: Story = {
-  args: { oldFilename: 'nginx/default.conf', filename: 'nginx/example.conf' },
+  args: { oldFilename: 'presets/default.yml', filename: 'presets/web-2048.yml' },
 };
 
 /** `context={Infinity}` shows every line, nothing collapses. */
@@ -228,8 +228,8 @@ export const LongLinesAndHeight: Story = {
     className: 'max-h-80',
     filename: '.env',
     language: undefined,
-    oldValue: `APP_URL=https://example.com\nDATABASE_URL=postgres://app:secret@db.internal:5432/app?sslmode=disable&application_name=web&connect_timeout=10\nCACHE_TTL=300\n`,
-    newValue: `APP_URL=https://example.com\nDATABASE_URL=postgres://app:secret@db.internal:5432/app?sslmode=require&application_name=web&connect_timeout=5\nCACHE_TTL=600\nQUEUE=redis\n`,
+    oldValue: `AETHER_PORTAL=https://selene-weddings.aether.photo\nAETHER_WEBHOOK_URL=https://hooks.example.com/aether?events=gallery.published,gallery.downloaded&studio=selene-weddings&timeout=10\nPREVIEW_TTL=300\n`,
+    newValue: `AETHER_PORTAL=https://selene-weddings.aether.photo\nAETHER_WEBHOOK_URL=https://hooks.example.com/aether?events=gallery.published,gallery.downloaded,order.paid&studio=selene-weddings&timeout=5\nPREVIEW_TTL=600\nEXPORT_QUEUE=priority\n`,
   },
 };
 

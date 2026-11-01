@@ -5,7 +5,7 @@ import { TextField } from './text-field';
 export const codeBlockGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
-    'A command, snippet or config the user reads and copies: install steps, a DNS record, an API example.',
+    'A command, snippet or config the user reads and copies: install steps, an export preset, an API example.',
     'Generated output shown as-is, where exact characters matter.',
   ],
   whenNotToUse: [
@@ -23,21 +23,21 @@ export const codeBlockGuidelines: ComponentGuidelines = {
   doDont: [
     {
       do: {
-        example: <div className="w-80"><CodeBlock language="bash" code="npm run cache:clear" /></div>,
+        example: <div className="w-80"><CodeBlock language="bash" code="aether sync --studio helios" /></div>,
         caption: 'Only the command — Copy gives exactly what to paste.',
       },
       dont: {
-        example: <div className="w-80"><CodeBlock language="bash" code={'$ npm run cache:clear\nCache cleared.'} /></div>,
+        example: <div className="w-80"><CodeBlock language="bash" code={'$ aether sync --studio helios\nSynced 412 photos.'} /></div>,
         caption: 'A prompt sign and sample output get copied along and break the paste.',
       },
     },
     {
       do: {
-        example: <div className="w-80"><CodeBlock filename="nginx.conf" code={'location /static/ {\n  expires 30d;\n}'} /></div>,
+        example: <div className="w-80"><CodeBlock filename="export.yml" code={'web-2048:\n  long_edge: 2048\n  quality: 88'} /></div>,
         caption: 'Multi-line config in a block with its filename.',
       },
       dont: {
-        example: <TextField label="nginx.conf" defaultValue="location /static/ { expires 30d; }" widthSize="lg" />,
+        example: <TextField label="export.yml" defaultValue="web-2048: long_edge: 2048 quality: 88" widthSize="lg" />,
         caption: 'Code squeezed into a text field loses line breaks and indentation.',
       },
     },

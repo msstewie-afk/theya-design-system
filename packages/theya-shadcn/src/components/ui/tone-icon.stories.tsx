@@ -46,7 +46,7 @@ export const Default: Story = {
   render: (args) => (
     <span className="inline-flex items-center gap-2 font-body text-body-m text-[var(--color-text-text)]">
       <ToneIcon {...args} />
-      Deployment succeeded
+      Export succeeded
     </span>
   ),
 };
@@ -59,9 +59,9 @@ export const Tones: Story = {
       {(
         [
           ['info', 'Update available'],
-          ['success', 'Deployment succeeded'],
-          ['warning', 'Disk usage high'],
-          ['danger', 'Backup failed'],
+          ['success', 'Export succeeded'],
+          ['warning', 'Storage almost full'],
+          ['danger', 'Upload failed'],
           ['neutral', 'New notification'],
           ['primary', 'Upgraded to Pro'],
         ] as const

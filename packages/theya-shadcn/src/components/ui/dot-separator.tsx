@@ -1,7 +1,7 @@
 import { cn } from '../../lib/utils';
 
 /**
- * A small bullet separator between inline meta facts ("eu-west-1 · Created Mar 2026 · v2.4.0").
+ * A small bullet separator between inline meta facts ("Helios Studio · Created Mar 2026 · v2.4.0").
  * Purely decorative — hidden from assistive tech.
  */
 export function DotSeparator({ className, ...props }: React.ComponentProps<'span'>) {

@@ -5,49 +5,49 @@
   - img: 1 3 4 6 7 9 10 12 0 20GB 40GB 60GB 80GB 100GB 120GB
 
 # Default (charts-areachart--default)
-- img "Requests over the work week, peaking Friday.":
-  - img: Mon Tue Wed Thu Fri Sat Sun 0 1M 2M 4M 5M 6M 7M
+- img "Gallery views over the work week, peaking Friday.":
+  - img: Mon Tue Wed Thu Fri Sat Sun 0 1k 2k 4k 5k 6k 7k
 
 # Empty (charts-areachart--empty)
-- img "No request data yet.":
+- img "No gallery views yet.":
   - img
 
 # Floating axis (charts-areachart--floating-axis)
-- img "Requests over the work week, peaking Friday.":
-  - img: Mon Tue Wed Thu Fri Sat Sun 1M 2M 3M 4M 5M 6M 7M
+- img "Gallery views over the work week, peaking Friday.":
+  - img: Mon Tue Wed Thu Fri Sat Sun 1k 2k 3k 4k 5k 6k 7k
 
 # In card (charts-areachart--in-card)
-- text: Requests / day 6.4M +12% vs last week
-- img "Requests over the work week, peaking Friday.":
-  - img: Mon Tue Wed Thu Fri Sat Sun 1M 4M 7M
+- text: Gallery views / day 6.4k +12% vs last week
+- img "Gallery views over the work week, peaking Friday.":
+  - img: Mon Tue Wed Thu Fri Sat Sun 1k 4k 7k
 
 # Loading (charts-areachart--loading)
 
 
 # Many points (charts-areachart--many-points)
-- img "Requests across the last 14 days, trending up.":
-  - img: 1 3 5 7 8 10 12 14 0 1M 2M 4M 5M 6M 7M
+- img "Gallery views across the last 14 days, trending up.":
+  - img: 1 3 5 7 8 10 12 14 0 1k 2k 4k 5k 6k 7k
 
 # Narrow responsive axis (charts-areachart--narrow-responsive-axis)
-- img "Requests across 14 days in a narrow chart.":
-  - img: 1 5 10 14 0 1M 2M 4M 5M 6M 7M
+- img "Gallery views across 14 days in a narrow chart.":
+  - img: 1 5 10 14 0 1k 2k 4k 5k 6k 7k
 
 # No axes (charts-areachart--no-axes)
-- img "Requests over the work week, peaking Friday.":
+- img "Gallery views over the work week, peaking Friday.":
   - img
 
 # Overlaid area (charts-areachart--overlaid-area)
-- img "Direct, organic and referral traffic across the week, overlaid for comparison.":
-  - img: Mon Tue Wed Thu Fri Sat Sun 0 1M 2M 3M 4M
+- img "Gallery views from client portals, shared links and website embeds across the week, overlaid for comparison.":
+  - img: Mon Tue Wed Thu Fri Sat Sun 0 1k 2k 3k 4k
 
 # Short responsive axis (charts-areachart--short-responsive-axis)
-- img "Requests across the week in a short chart.":
-  - img: Mon Tue Wed Thu Fri Sat Sun 0 4M 7M
+- img "Gallery views across the week in a short chart.":
+  - img: Mon Tue Wed Thu Fri Sat Sun 0 4k 7k
 
 # Single point (charts-areachart--single-point)
-- img "Requests for a single day.":
-  - img: Mon 0 1M 2M 3M 4M 5M
+- img "Gallery views for a single day.":
+  - img: Mon 0 1k 2k 3k 4k 5k
 
 # Stacked area (charts-areachart--stacked-area)
-- img "Direct, organic and referral traffic across the week, stacked to show the total.":
-  - img: Mon Tue Wed Thu Fri Sat Sun 0 1M 2M 4M 5M 6M 7M
+- img "Gallery views from client portals, shared links and website embeds across the week, stacked to show the total.":
+  - img: Mon Tue Wed Thu Fri Sat Sun 0 1k 2k 4k 5k 6k 7k

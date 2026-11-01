@@ -118,6 +118,28 @@
 - text: main.ts 4 KB
 - button "Remove main.ts"
 
+# Upload flow (files-attachment--upload-flow)
+- text: 2024-my-portfolio.pdf 12 MB · Completed 2024-my-portfolio.pdf uploaded
+- button "Upload again"
+- status: Upload again
+
+# Upload states (files-attachment--upload-states)
+- text: 2024-my-portfolio.pdf 3.2 MB of 12 MB · 26%
+- progressbar "2024-my-portfolio.pdf"
+- text: Uploading 2024-my-portfolio.pdf
+- button "Pause 2024-my-portfolio.pdf"
+- button "Cancel 2024-my-portfolio.pdf"
+- text: intro-movie.mp4 Paused · 28 MB of 46 MB · 62%
+- progressbar "intro-movie.mp4"
+- text: "intro-movie.mp4: upload paused"
+- button "Resume intro-movie.mp4"
+- button "Cancel intro-movie.mp4"
+- text: cover.png 2.3 MB · Completed
+- button "Remove cover.png"
+- text: "assets.zip Connection lost assets.zip failed to upload: Connection lost"
+- button "Retry assets.zip"
+- button "Remove assets.zip"
+
 # Variants (files-attachment--variants)
 - text: report.pdf 236 KB
 - button "Remove report.pdf"

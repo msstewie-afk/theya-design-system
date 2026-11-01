@@ -43,7 +43,7 @@ const meta = {
     disabled: { control: 'boolean', table: { category: 'State' } },
     scrollContainer: { control: false },
   },
-  args: { icon: <Plus />, label: 'New site', size: 'md', shape: 'round', tone: 'primary', appearance: 'filled', position: 'none' },
+  args: { icon: <Plus />, label: 'New gallery', size: 'md', shape: 'round', tone: 'primary', appearance: 'filled', position: 'none' },
 } satisfies Meta<typeof Fab>;
 
 export default meta;
@@ -54,7 +54,7 @@ export const Extended: Story = {};
 
 /** Round icon-only FAB — needs an aria-label. */
 export const IconOnly: Story = {
-  args: { label: undefined, 'aria-label': 'New site' },
+  args: { label: undefined, 'aria-label': 'New gallery' },
 };
 
 /** sm 40px, md 56px, lg 64px — round and extended. */
@@ -64,7 +64,7 @@ export const Sizes: Story = {
     <div className="flex flex-col items-center gap-6">
       <div className="flex flex-wrap items-center justify-center gap-4">
         {(['sm', 'md', 'lg'] as const).map((size) => (
-          <Fab key={size} {...args} size={size} label={undefined} aria-label={`New site (${size})`} />
+          <Fab key={size} {...args} size={size} label={undefined} aria-label={`New gallery (${size})`} />
         ))}
       </div>
       <div className="flex flex-wrap items-center justify-center gap-4">
@@ -83,7 +83,7 @@ export const Square: Story = {
     <div className="flex flex-col items-center gap-6">
       <div className="flex flex-wrap items-center justify-center gap-4">
         {(['sm', 'md', 'lg'] as const).map((size) => (
-          <Fab key={size} {...args} shape="square" size={size} label={undefined} aria-label={`New site (${size})`} />
+          <Fab key={size} {...args} shape="square" size={size} label={undefined} aria-label={`New gallery (${size})`} />
         ))}
       </div>
       <div className="flex flex-wrap items-center justify-center gap-4">
@@ -124,7 +124,7 @@ export const Positions: Story = {
     <Frame>
       <Fab {...args} position="bottom-start" label={undefined} aria-label="Help" icon={<ChatBubbleEmpty />} tone="neutral" appearance="tonal" />
       <Fab {...args} position="bottom-center" label="Compose" icon={<EditPencil />} />
-      <Fab {...args} position="bottom-end" label={undefined} aria-label="New site" />
+      <Fab {...args} position="bottom-end" label={undefined} aria-label="New gallery" />
     </Frame>
   ),
 };
@@ -136,8 +136,8 @@ export const AboveBottomBar: Story = {
     <Frame className="[--fab-offset-bottom:56px]">
       <Fab {...args} position="bottom-end" />
       <nav aria-label="Main" className="absolute inset-x-0 bottom-0 flex h-14 items-center justify-around border-t border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-surface-bg-surface)] font-body text-body-s text-[var(--color-text-text-subtler)]">
-        <span>Sites</span>
-        <span>Deploys</span>
+        <span>Galleries</span>
+        <span>Exports</span>
         <span>Settings</span>
       </nav>
     </Frame>
@@ -152,11 +152,11 @@ export const CollapseOnScroll: Story = {
     return (
       <Frame>
         {/* Keyboard users must be able to scroll the demo too (axe scrollable-region-focusable): focusable, named region, same pattern as Terminal. */}
-        <div ref={scroller} tabIndex={0} role="region" aria-label="Sites" className="h-full overflow-y-auto p-4 outline-none focus-visible:focus-ring">
+        <div ref={scroller} tabIndex={0} role="region" aria-label="Galleries" className="h-full overflow-y-auto p-4 outline-none focus-visible:focus-ring">
           <ul className="flex flex-col gap-2">
             {Array.from({ length: 30 }, (_, i) => (
               <li key={i} className="rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] px-3 py-2.5 font-body text-body-m text-[var(--color-text-text)]">
-                site-{String(i + 1).padStart(2, '0')}.seashell.dev
+                Gallery {String(i + 1).padStart(2, '0')}
               </li>
             ))}
           </ul>
@@ -167,13 +167,13 @@ export const CollapseOnScroll: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const fab = canvas.getByRole('button', { name: 'New site' });
-    const list = canvas.getByRole('region', { name: 'Sites' });
+    const fab = canvas.getByRole('button', { name: 'New gallery' });
+    const list = canvas.getByRole('region', { name: 'Galleries' });
     await expect(fab).toHaveAttribute('data-collapsed', 'false');
     // Scrolling down folds it; the label stays the accessible name.
     list.scrollTop = 400;
     await waitFor(() => expect(fab).toHaveAttribute('data-collapsed', 'true'));
-    await expect(fab).toHaveAccessibleName('New site');
+    await expect(fab).toHaveAccessibleName('New gallery');
     // Back to the top unfolds it.
     list.scrollTop = 0;
     await waitFor(() => expect(fab).toHaveAttribute('data-collapsed', 'false'));

@@ -27,7 +27,7 @@
   "anatomy": [
     {
       "part": "Text",
-      "description": "short, a noun (“Domain”), not an instruction (“Enter your domain”)."
+      "description": "short, a noun (“Studio”), not an instruction (“Enter your studio name”)."
     },
     {
       "part": "Required mark",

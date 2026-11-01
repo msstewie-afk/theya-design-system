@@ -21,8 +21,8 @@ export const formGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className="flex w-72 flex-col gap-4">
-            <TextField label="Domain" defaultValue="seashell" error="Add the ending, like .dev or .com." widthSize="full" />
-            <TextField label="Admin email" defaultValue="dana@seashell.dev" widthSize="full" />
+            <TextField label="Portal address" defaultValue="Selene Weddings" error="Use lowercase letters and hyphens, like selene-weddings." widthSize="full" />
+            <TextField label="Owner email" defaultValue="selin@aether.photo" widthSize="full" />
           </div>
         ),
         caption: 'The error sits under the field it’s about and says how to fix it.',
@@ -37,8 +37,8 @@ export const formGuidelines: ComponentGuidelines = {
                 <AlertDescription>Please check the fields below.</AlertDescription>
               </div>
             </Alert>
-            <TextField label="Domain" defaultValue="seashell" widthSize="full" />
-            <TextField label="Admin email" defaultValue="dana@seashell.dev" widthSize="full" />
+            <TextField label="Portal address" defaultValue="Selene Weddings" widthSize="full" />
+            <TextField label="Owner email" defaultValue="selin@aether.photo" widthSize="full" />
           </div>
         ),
         caption: 'Only a banner on top: which field, and what’s wrong with it?',

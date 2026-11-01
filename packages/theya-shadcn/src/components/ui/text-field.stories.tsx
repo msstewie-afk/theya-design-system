@@ -25,7 +25,7 @@ const meta: Meta<typeof TextField> = {
     docs: {
       description: {
         component:
-          "Short free text on one line — a name, an email, a domain, a code — always with a visible label, plus help text and an error or success message.",
+          "Short free text on one line — a name, an email, a portal address, a code — always with a visible label, plus help text and an error or success message.",
       },
     },
   },
@@ -76,7 +76,7 @@ export const Playground: Story = {
     // All from the keyboard: Tab in, type, Tab to the clear button, Enter.
     resetFocus();
     await tabTo(input);
-    await userEvent.keyboard('maria@theya.dev');
+    await userEvent.keyboard('thea@aether.photo');
     await tabTo(canvas.getByRole('button', { name: 'Clear Email' }));
     await userEvent.keyboard('{Enter}');
     await expect(input).toHaveValue('');

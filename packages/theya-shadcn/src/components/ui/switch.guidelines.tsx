@@ -32,7 +32,7 @@ export const switchGuidelines: ComponentGuidelines = {
   ],
   a11y: [
     <>It’s a <C>role="switch"</C>: announced as “on/off”, toggled with Space.</>,
-    <>Without a visible label pass <C>aria-label</C> — in a table row, name the row (“Auto-renew for seashell.shop”).</>,
+    <>Without a visible label pass <C>aria-label</C> — in a table row, name the row (“Auto-renew for Golden hour”).</>,
     'If flipping it fails, set it back and say why next to it — don’t leave a switch showing a state the server didn’t accept.',
   ],
 };

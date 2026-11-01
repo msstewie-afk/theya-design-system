@@ -42,7 +42,7 @@
     {
       "do": {
         "caption": "One legend for related settings — read with each switch.",
-        "example": "<Fieldset legend=\"Email notifications\" description=\"Sent to dana@seashell.dev.\" className=\"w-72\">\n  <Switch label=\"Weekly report\" defaultChecked />\n  <Switch label=\"Billing alerts\" defaultChecked />\n  <Switch label=\"Product news\" />\n</Fieldset>"
+        "example": "<Fieldset legend=\"Email notifications\" description=\"Sent to thea@aether.photo.\" className=\"w-72\">\n  <Switch label=\"Weekly report\" defaultChecked />\n  <Switch label=\"Billing alerts\" defaultChecked />\n  <Switch label=\"Product news\" />\n</Fieldset>"
       },
       "dont": {
         "caption": "A fieldset around one field: the name is said twice.",

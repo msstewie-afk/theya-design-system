@@ -5,9 +5,9 @@
   "import": "import { DotSeparator } from '@theya/shadcn/ui/dot-separator';",
   "status": "stable",
   "category": "Labels",
-  "description": "A small bullet separator between inline meta facts (\"eu-west-1 · Created Mar 2026 · v2.4.0\").\nPurely decorative — hidden from assistive tech.",
+  "description": "A small bullet separator between inline meta facts (\"Helios Studio · Created Mar 2026 · v2.4.0\").\nPurely decorative — hidden from assistive tech.",
   "whenToUse": [
-    "Separating short inline facts on one line: “eu-west-1 · Created Mar 2026 · v2.4.0”."
+    "Separating short inline facts on one line: “Helios Studio · Created Mar 2026 · v2.4.0”."
   ],
   "whenNotToUse": [
     {
@@ -29,11 +29,11 @@
     {
       "do": {
         "caption": "Three short facts on one line.",
-        "example": "<p className={META}>eu-west-1<DotSeparator />Created Mar 2026<DotSeparator />v2.4.0</p>"
+        "example": "<p className={META}>Helios Studio<DotSeparator />Created Mar 2026<DotSeparator />v2.4.0</p>"
       },
       "dont": {
         "caption": "Sentences joined by dots: they wrap and the dots land at line starts.",
-        "example": "<p className={`${META} w-72 flex-wrap`}>\n  Backups run nightly and are kept for 14 days<DotSeparator />Restores take up to an hour<DotSeparator />Contact support for older copies\n</p>"
+        "example": "<p className={`${META} w-72 flex-wrap`}>\n  Photos are archived nightly and kept for 14 days<DotSeparator />Restores take up to an hour<DotSeparator />Contact support for older copies\n</p>"
       }
     }
   ],
@@ -43,7 +43,7 @@
   "components": [
     {
       "name": "DotSeparator",
-      "description": "A small bullet separator between inline meta facts (\"eu-west-1 · Created Mar 2026 · v2.4.0\").\nPurely decorative — hidden from assistive tech.",
+      "description": "A small bullet separator between inline meta facts (\"Helios Studio · Created Mar 2026 · v2.4.0\").\nPurely decorative — hidden from assistive tech.",
       "props": []
     }
   ],
@@ -59,12 +59,12 @@
         "id": "labels-dotseparator--default"
       },
       {
-        "name": "SiteList",
-        "id": "labels-dotseparator--site-list"
+        "name": "StudioList",
+        "id": "labels-dotseparator--studio-list"
       },
       {
-        "name": "CertMeta",
-        "id": "labels-dotseparator--cert-meta"
+        "name": "LicenseMeta",
+        "id": "labels-dotseparator--license-meta"
       }
     ]
   }

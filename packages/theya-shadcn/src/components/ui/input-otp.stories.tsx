@@ -217,7 +217,7 @@ export const VerificationFlow: Story = {
           </InputOTPGroup>
         </InputOTP>
         <p id="otp-verify-help" className="font-body text-body-xs text-[var(--color-text-text-subtler)]">
-          Signing in to <span className="font-mono">shop.seashell.dev</span>.
+          Signing in to <span className="font-mono">aether.photo</span>.
         </p>
         <Button appearance="filled" tone="primary" size="2xl" disabled={!complete} leftIcon={<ShieldCheck />} className="w-full">
           Verify code

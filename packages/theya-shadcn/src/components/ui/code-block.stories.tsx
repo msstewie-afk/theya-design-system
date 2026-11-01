@@ -28,7 +28,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Code people read and copy: install steps, a DNS record, an API example. Monospaced, with a copy button.",
+          "Code people read and copy: install steps, an export preset, an API example. Monospaced, with a copy button.",
       },
     },
     layout: 'padded', guidelines: codeBlockGuidelines,
@@ -70,9 +70,9 @@ export const WithHeader: Story = {
 export const LongLines: Story = {
   name: 'Long lines',
   args: {
-    filename: 'deploy.sh',
+    filename: 'export.sh',
     language: 'bash',
-    code: 'curl -fsSL https://get.example.com/install.sh | sh -s -- --channel stable --region eu-west-1 --token $WP_TOKEN',
+    code: 'aether export --gallery moonrise-over-othrys --preset web-2048 --format jpg --quality 88 --watermark selene --token $AETHER_TOKEN',
   },
   // Keyboard: Copy, then the code itself.
   play: async ({ canvasElement }) => {
@@ -90,5 +90,5 @@ export const LongLines: Story = {
 /** Read-only, copy disabled. */
 export const NoCopy: Story = {
   name: 'No copy',
-  args: { code: 'GET /v2/sites/shop.seashell.dev', copy: false },
+  args: { code: 'GET /v2/galleries/golden-hour/photos', copy: false },
 };

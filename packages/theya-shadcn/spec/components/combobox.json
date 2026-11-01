@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Selection",
   "whenToUse": [
-    "Picking from a long list people search rather than scroll: regions, users, domains.",
+    "Picking from a long list people search rather than scroll: studios, people, client portals.",
     "`multiple`: several values shown as chips — tags, recipients, labels.",
     "`allowCreate`: a list people can add to (new tag)."
   ],
@@ -47,8 +47,8 @@
   "doDont": [
     {
       "do": {
-        "caption": "Many options with long names — people type “frank” instead of scanning.",
-        "example": "<div className=\"flex w-64 flex-col gap-2\">\n  <Label htmlFor=\"gl-cbx-region\">Region</Label>\n  <Combobox id=\"gl-cbx-region\" options={REGIONS} placeholder=\"Search regions\" />\n</div>"
+        "caption": "Many options with long names — people type “selene” instead of scanning.",
+        "example": "<div className=\"flex w-64 flex-col gap-2\">\n  <Label htmlFor=\"gl-cbx-studio\">Studio</Label>\n  <Combobox id=\"gl-cbx-studio\" options={STUDIOS} placeholder=\"Search studios\" />\n</div>"
       },
       "dont": {
         "caption": "Two options behind a search field — a Select or segmented control is faster.",

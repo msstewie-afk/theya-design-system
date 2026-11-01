@@ -5,7 +5,7 @@ const META = 'flex items-center gap-1 font-body text-body-s text-[var(--color-te
 
 export const dotSeparatorGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['Separating short inline facts on one line: “eu-west-1 · Created Mar 2026 · v2.4.0”.'],
+  whenToUse: ['Separating short inline facts on one line: “Helios Studio · Created Mar 2026 · v2.4.0”.'],
   whenNotToUse: [
     { text: 'Between sentences or long items', instead: 'separate lines' },
     { text: 'Between sections', instead: 'Separator' },
@@ -14,13 +14,13 @@ export const dotSeparatorGuidelines: ComponentGuidelines = {
   doDont: [
     {
       do: {
-        example: <p className={META}>eu-west-1<DotSeparator />Created Mar 2026<DotSeparator />v2.4.0</p>,
+        example: <p className={META}>Helios Studio<DotSeparator />Created Mar 2026<DotSeparator />v2.4.0</p>,
         caption: 'Three short facts on one line.',
       },
       dont: {
         example: (
           <p className={`${META} w-72 flex-wrap`}>
-            Backups run nightly and are kept for 14 days<DotSeparator />Restores take up to an hour<DotSeparator />Contact support for older copies
+            Photos are archived nightly and kept for 14 days<DotSeparator />Restores take up to an hour<DotSeparator />Contact support for older copies
           </p>
         ),
         caption: 'Sentences joined by dots: they wrap and the dots land at line starts.',

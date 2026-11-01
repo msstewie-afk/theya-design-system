@@ -12,10 +12,10 @@ import { richTextEditorGuidelines } from './rich-text-editor.guidelines';
  */
 
 const RELEASE_NOTE = `<h2>Scheduled maintenance</h2>
-<p>On <strong>October 12, 02:00–04:00 UTC</strong> we're moving databases in the <em>eu-central</em> region to new storage.</p>
+<p>On <strong>October 12, 02:00–04:00 UTC</strong> we're moving the <em>Mnemosyne</em> archive to new storage.</p>
 <ul>
-  <li>Sites stay online; database writes may pause for up to 30 seconds.</li>
-  <li>Backups made during the window are kept as usual.</li>
+  <li>Galleries stay online; uploads may pause for up to 30 seconds.</li>
+  <li>Exports started during the window finish as usual.</li>
 </ul>
 <p>Questions? See the <a href="https://example.com/status">status page</a>.</p>`;
 
@@ -95,7 +95,7 @@ export const Basic: Story = {
 /** Character limit with a counter; typing past it is blocked. */
 export const WithLimit: Story = {
   name: 'With limit',
-  args: { maxLength: 280, label: 'Status update', defaultValue: '<p>Deploys are back to normal after the 14:10 incident.</p>', tools: ['bold', 'italic', 'link'] },
+  args: { maxLength: 280, label: 'Status update', defaultValue: '<p>Exports are back to normal after the 14:10 incident.</p>', tools: ['bold', 'italic', 'link'] },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Tiptap creates the editor after the first render, so wait for it.

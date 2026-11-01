@@ -37,7 +37,7 @@
     {
       "do": {
         "caption": "Headers are real, rows match the columns.",
-        "example": "<Table className=\"w-80\">\n  <TableHeader><TableRow><TableHead>Domain</TableHead><TableHead className=\"text-right\">Replicas</TableHead></TableRow></TableHeader>\n  <TableBody aria-busy=\"true\"><TableSkeletonRows rows={3} columns={[{}, { align: 'right', width: '2rem' }]} /></TableBody>\n</Table>"
+        "example": "<Table className=\"w-80\">\n  <TableHeader><TableRow><TableHead>Gallery</TableHead><TableHead className=\"text-right\">Photos</TableHead></TableRow></TableHeader>\n  <TableBody aria-busy=\"true\"><TableSkeletonRows rows={3} columns={[{}, { align: 'right', width: '2rem' }]} /></TableBody>\n</Table>"
       },
       "dont": {
         "caption": "One block instead of a table: no idea what is loading.",

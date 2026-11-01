@@ -19,12 +19,12 @@ import { seriesRange } from '../../lib/chart-summary';
  * skeleton state.
  *
  *   <AreaChart data={[{ label: "Mon", value: 3.0 }, …]}
- *     yStep={1} unit="M" labelPrefix="Day "
- *     ariaLabel="Traffic across the last 14 days, peaking Friday." />
+ *     yStep={1} unit="k" labelPrefix="Day "
+ *     ariaLabel="Gallery views across the last 14 days, peaking Friday." />
  *
- *   <AreaChart data={[{ label: "Mon", direct: 2.0, organic: 1.0 }, …]}
- *     series={[{ key: "direct", name: "Direct" }, { key: "organic", name: "Organic" }]}
- *     unit="M" ariaLabel="Direct vs organic traffic across the last 14 days." />
+ *   <AreaChart data={[{ label: "Mon", portal: 2.0, link: 1.0 }, …]}
+ *     series={[{ key: "portal", name: "Client portal" }, { key: "link", name: "Shared link" }]}
+ *     unit="k" ariaLabel="Portal vs shared-link views across the last 14 days." />
  */
 export interface AreaChartPoint {
   label: string;

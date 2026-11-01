@@ -27,7 +27,7 @@ const meta = {
     disabled: { control: 'boolean' },
   },
   args: {
-    'aria-label': 'Backup interval',
+    'aria-label': 'Archive interval',
     options: ['15 minutes', '30 minutes', '1 hour', '2 hours', '6 hours', '12 hours', 'Daily'].map((label) => ({ value: label, label })),
     defaultValue: '1 hour',
   },
@@ -40,7 +40,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   // Keyboard: ↑ ↓ step, Home / End jump; the chosen option is aria-selected.
   play: async ({ canvasElement }) => {
-    const list = within(canvasElement).getByRole('listbox', { name: 'Backup interval' });
+    const list = within(canvasElement).getByRole('listbox', { name: 'Archive interval' });
     const option = (name: string) => within(list).getByRole('option', { name });
     list.focus();
     // The fade (mask-image) sits on an inner layer: on the focusable element
@@ -73,11 +73,11 @@ export const Controlled: Story = {
 
 /** With a visible label; a click on it focuses the wheel, like a label on a field. */
 export const WithLabel: Story = {
-  args: { label: 'Backup interval', 'aria-label': undefined },
+  args: { label: 'Archive interval', 'aria-label': undefined },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const list = canvas.getByRole('listbox', { name: 'Backup interval' });
-    await userEvent.click(canvas.getByText('Backup interval'));
+    const list = canvas.getByRole('listbox', { name: 'Archive interval' });
+    await userEvent.click(canvas.getByText('Archive interval'));
     await expect(list).toHaveFocus();
   },
 };

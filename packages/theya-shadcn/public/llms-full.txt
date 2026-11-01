@@ -465,7 +465,7 @@ Also accepts the props of: HTMLAttributes.
   ```tsx
   <div className="w-96">
     <AnnouncementBar tone="primary" icon={<Sparks />} aria-label="Announcement, feature">
-      Certificates now renew 30 days early. <a href="#">Learn more</a>
+      Licenses now renew 30 days early. <a href="#">Learn more</a>
     </AnnouncementBar>
   </div>
   ```
@@ -496,7 +496,7 @@ Docs: ./?path=/docs/charts-areachart--docs
 
 **When to use**
 
-- One quantity over time where the volume matters: traffic, requests, storage used.
+- One quantity over time where the volume matters: gallery views, downloads, storage used.
 - A few stacked series that add up to a total (`series` + `stacked`).
 
 **When not to use**
@@ -533,22 +533,22 @@ Docs: ./?path=/docs/charts-areachart--docs
 
 **Do / Don’t**
 
-- Do: Requests over a week — the shape of the volume is the point.
+- Do: Gallery views over a week — the shape of the volume is the point.
 
   ```tsx
-  <div className="w-full"><AreaChart data={WEEK} unit="k" height={180} ariaLabel="Requests this week, peak 4.8k on Friday." /></div>
+  <div className="w-full"><AreaChart data={WEEK} unit="k" height={180} ariaLabel="Gallery views this week, peak 4.8k on Friday." /></div>
   ```
 
-- Don’t: Regions joined by a filled line imply a trend between them that doesn’t exist — use a bar chart.
+- Don’t: Studios joined by a filled line imply a trend between them that doesn’t exist — use a bar chart.
 
   ```tsx
-  <div className="w-full"><AreaChart data={REGIONS} unit="%" height={180} ariaLabel="Load by region." /></div>
+  <div className="w-full"><AreaChart data={STUDIOS} unit="%" height={180} ariaLabel="Storage by studio." /></div>
   ```
 
 
 **Accessibility**
 
-- Always pass `ariaLabel` with the takeaway (“Requests this week, peak 4.8k on Friday”), not “Area chart”.
+- Always pass `ariaLabel` with the takeaway (“Gallery views this week, peak 4.8k on Friday”), not “Area chart”.
 - Give the key number in text near the chart too; the tooltip is pointer-only.
 
 ## AspectRatio
@@ -702,7 +702,7 @@ Docs: ./?path=/docs/selection-autocomplete--docs
 
 **When to use**
 
-- Free text where common values are worth suggesting: a hostname, a city, a recent search.
+- Free text where common values are worth suggesting: a shoot location, a city, a recent search.
 - Any typed value is valid — the suggestions only save typing.
 
 **When not to use**
@@ -745,12 +745,12 @@ Docs: ./?path=/docs/selection-autocomplete--docs
 
 **Do / Don’t**
 
-- Do: Suggests common hosts, accepts any other.
+- Do: Suggests your studios, accepts any other place.
 
   ```tsx
   <div className="flex w-64 flex-col gap-2">
-    <Label htmlFor="gl-ac-host">SMTP host</Label>
-    <Autocomplete id="gl-ac-host" options={HOSTS} placeholder="smtp.example.com" />
+    <Label htmlFor="gl-ac-location">Shoot location</Label>
+    <Autocomplete id="gl-ac-location" options={LOCATIONS} placeholder="Venue, city or address" />
   </div>
   ```
 
@@ -759,7 +759,7 @@ Docs: ./?path=/docs/selection-autocomplete--docs
   ```tsx
   <div className="flex w-64 flex-col gap-2">
     <Label htmlFor="gl-ac-plan">Plan</Label>
-    <Autocomplete id="gl-ac-plan" options={[{ value: 'starter', label: 'Starter' }, { value: 'pro', label: 'Pro' }]} placeholder="Type a plan" />
+    <Autocomplete id="gl-ac-plan" options={[{ value: 'free', label: 'Free' }, { value: 'pro', label: 'Pro' }]} placeholder="Type a plan" />
   </div>
   ```
 
@@ -950,9 +950,9 @@ Also accepts the props of: HTMLAttributes.
 
   ```tsx
   <div className="flex gap-2">
-    <Badge tone="info">Next.js</Badge>
-    <Badge tone="danger">Astro</Badge>
-    <Badge tone="success">Node.js</Badge>
+    <Badge tone="info">JPEG</Badge>
+    <Badge tone="danger">TIFF</Badge>
+    <Badge tone="success">RAW</Badge>
   </div>
   ```
 
@@ -1043,7 +1043,7 @@ Docs: ./?path=/docs/charts-barchart--docs
 
 **When to use**
 
-- Comparing a value across categories: load by region, deploys per day, tickets per team.
+- Comparing a value across categories: storage by studio, exports per day, photos per album.
 - `orientation="horizontal"` for a ranked breakdown with long labels.
 
 **When not to use**
@@ -1072,22 +1072,22 @@ Docs: ./?path=/docs/charts-barchart--docs
 
 **Do / Don’t**
 
-- Do: Sorted largest first, horizontal so the region names fit.
+- Do: Sorted largest first, horizontal so the studio names fit.
 
   ```tsx
-  <div className="w-full"><BarChart data={REGIONS} orientation="horizontal" unit="%" valueStep={10} height={180} ariaLabel="Load by region, led by eu-west-1 at 42%." /></div>
+  <div className="w-full"><BarChart data={STUDIOS} orientation="horizontal" unit="%" valueStep={10} height={180} ariaLabel="Storage by studio, led by Selene Weddings at 42%." /></div>
   ```
 
 - Don’t: Unsorted columns: people have to compare heights to find the leader.
 
   ```tsx
-  <div className="w-full"><BarChart data={SHUFFLED} unit="%" valueStep={10} height={180} ariaLabel="Load by region." /></div>
+  <div className="w-full"><BarChart data={SHUFFLED} unit="%" valueStep={10} height={180} ariaLabel="Storage by studio." /></div>
   ```
 
 
 **Accessibility**
 
-- `ariaLabel` states the takeaway (“led by eu-west-1 at 42%”).
+- `ariaLabel` states the takeaway (“led by Selene Weddings at 42%”).
 - One color for one series — color carries no meaning here, so it doesn’t need a legend.
 
 ## BottomNav
@@ -2097,7 +2097,7 @@ Docs: ./?path=/docs/code-codeblock--docs
 
 **When to use**
 
-- A command, snippet or config the user reads and copies: install steps, a DNS record, an API example.
+- A command, snippet or config the user reads and copies: install steps, an export preset, an API example.
 - Generated output shown as-is, where exact characters matter.
 
 **When not to use**
@@ -2129,25 +2129,25 @@ Also accepts the props of: HTMLAttributes.
 - Do: Only the command — Copy gives exactly what to paste.
 
   ```tsx
-  <div className="w-80"><CodeBlock language="bash" code="npm run cache:clear" /></div>
+  <div className="w-80"><CodeBlock language="bash" code="aether sync --studio helios" /></div>
   ```
 
 - Don’t: A prompt sign and sample output get copied along and break the paste.
 
   ```tsx
-  <div className="w-80"><CodeBlock language="bash" code={'$ npm run cache:clear\nCache cleared.'} /></div>
+  <div className="w-80"><CodeBlock language="bash" code={'$ aether sync --studio helios\nSynced 412 photos.'} /></div>
   ```
 
 - Do: Multi-line config in a block with its filename.
 
   ```tsx
-  <div className="w-80"><CodeBlock filename="nginx.conf" code={'location /static/ {\n  expires 30d;\n}'} /></div>
+  <div className="w-80"><CodeBlock filename="export.yml" code={'web-2048:\n  long_edge: 2048\n  quality: 88'} /></div>
   ```
 
 - Don’t: Code squeezed into a text field loses line breaks and indentation.
 
   ```tsx
-  <TextField label="nginx.conf" defaultValue="location /static/ { expires 30d; }" widthSize="lg" />
+  <TextField label="export.yml" defaultValue="web-2048: long_edge: 2048 quality: 88" widthSize="lg" />
   ```
 
 
@@ -2208,13 +2208,13 @@ Also accepts the props of: HTMLAttributes.
 - Do: Language set — brackets, indentation and color help avoid syntax errors.
 
   ```tsx
-  <div className="w-80"><CodeEditor aria-label="Redirect rules" filename="redirects.json" language="json" defaultValue={'{\n  "/old": "/new"\n}'} minHeight="5rem" /></div>
+  <div className="w-80"><CodeEditor aria-label="Portal redirects" filename="redirects.json" language="json" defaultValue={'{\n  "/golden-hour-draft": "/golden-hour"\n}'} minHeight="5rem" /></div>
   ```
 
 - Don’t: A plain textarea for JSON: no line numbers, Tab leaves the field.
 
   ```tsx
-  <div className="w-80"><TextArea aria-label="Redirect rules" defaultValue={'{\n  "/old": "/new"\n}'} rows={3} /></div>
+  <div className="w-80"><TextArea aria-label="Portal redirects" defaultValue={'{\n  "/golden-hour-draft": "/golden-hour"\n}'} rows={3} /></div>
   ```
 
 
@@ -2383,7 +2383,7 @@ Docs: ./?path=/docs/selection-combobox--docs
 
 **When to use**
 
-- Picking from a long list people search rather than scroll: regions, users, domains.
+- Picking from a long list people search rather than scroll: studios, people, client portals.
 - `multiple`: several values shown as chips — tags, recipients, labels.
 - `allowCreate`: a list people can add to (new tag).
 
@@ -2436,12 +2436,12 @@ Docs: ./?path=/docs/selection-combobox--docs
 
 **Do / Don’t**
 
-- Do: Many options with long names — people type “frank” instead of scanning.
+- Do: Many options with long names — people type “selene” instead of scanning.
 
   ```tsx
   <div className="flex w-64 flex-col gap-2">
-    <Label htmlFor="gl-cbx-region">Region</Label>
-    <Combobox id="gl-cbx-region" options={REGIONS} placeholder="Search regions" />
+    <Label htmlFor="gl-cbx-studio">Studio</Label>
+    <Combobox id="gl-cbx-studio" options={STUDIOS} placeholder="Search studios" />
   </div>
   ```
 
@@ -2849,7 +2849,7 @@ Docs: ./?path=/docs/motion-countup--docs
 
 **When to use**
 
-- A headline figure on a landing page: “12,400 sites”, “99.98% uptime”, “3× faster”.
+- A headline figure on a landing page: “12,400 galleries”, “99.98% portal availability”, “3× faster”.
 
 **When not to use**
 
@@ -2878,13 +2878,13 @@ Also accepts the props of: HTMLAttributes.
 - Do: One figure, counted once when it comes into view.
 
   ```tsx
-  <span className="text-heading-m"><CountUp to={12400} /> sites</span>
+  <span className="text-heading-m"><CountUp to={12400} /> galleries</span>
   ```
 
 - Don’t: Counting a live product value: for a second it shows a wrong number.
 
   ```tsx
-  <span className="text-body-m">Disk: <CountUp to={78} suffix="%" /></span>
+  <span className="text-body-m">Storage: <CountUp to={78} suffix="%" /></span>
   ```
 
 
@@ -3687,8 +3687,8 @@ Docs: ./?path=/docs/code-diffviewer--docs
 
 **When to use**
 
-- Reviewing a change before applying it: config, a template, a policy, a file restored from backup.
-- Showing what an automated change did (an update, a migration) so people can trust it.
+- Reviewing a change before applying it: config, a template, a policy, a file restored from the archive.
+- Showing what an automated change did (a bulk rename, an import) so people can trust it.
 
 **When not to use**
 
@@ -3731,7 +3731,7 @@ Also accepts the props of: HTMLAttributes.
 - Do: The change is visible at a glance, with the exact word highlighted.
 
   ```tsx
-  <div className="w-80"><DiffViewer oldValue={OLD} newValue={NEW} filename="config.yml" /></div>
+  <div className="w-80"><DiffViewer oldValue={OLD} newValue={NEW} filename="export.yml" /></div>
   ```
 
 - Don’t: Two blocks side by side make people hunt for the difference.
@@ -3836,7 +3836,7 @@ Docs: ./?path=/docs/labels-dotseparator--docs
 
 **When to use**
 
-- Separating short inline facts on one line: “eu-west-1 · Created Mar 2026 · v2.4.0”.
+- Separating short inline facts on one line: “Helios Studio · Created Mar 2026 · v2.4.0”.
 
 **When not to use**
 
@@ -3854,14 +3854,14 @@ Also accepts the props of: HTMLAttributes.
 - Do: Three short facts on one line.
 
   ```tsx
-  <p className={META}>eu-west-1<DotSeparator />Created Mar 2026<DotSeparator />v2.4.0</p>
+  <p className={META}>Helios Studio<DotSeparator />Created Mar 2026<DotSeparator />v2.4.0</p>
   ```
 
 - Don’t: Sentences joined by dots: they wrap and the dots land at line starts.
 
   ```tsx
   <p className={`${META} w-72 flex-wrap`}>
-    Backups run nightly and are kept for 14 days<DotSeparator />Restores take up to an hour<DotSeparator />Contact support for older copies
+    Photos are archived nightly and kept for 14 days<DotSeparator />Restores take up to an hour<DotSeparator />Contact support for older copies
   </p>
   ```
 
@@ -4129,7 +4129,7 @@ Docs: ./?path=/docs/status-feedback-emptystate--docs
 **Anatomy**
 
 - Icon (optional): decorative, hints at the object type.
-- Title: what’s empty: “No sites yet”. Use `titleAs="h2"` when it’s the main content of the region.
+- Title: what’s empty: “No galleries yet”. Use `titleAs="h2"` when it’s the main content of the region.
 - Description (optional): why it matters or what will show up here.
 - Action (optional): the one next step: create, import, clear filters.
 
@@ -4161,10 +4161,10 @@ Also accepts the props of: HTMLAttributes.
   ```tsx
   <EmptyState
     className="w-80"
-    icon={<Globe />}
-    title="No sites yet"
-    description="Create a site to get a domain, SSL and backups."
-    action={<Button>Create site</Button>}
+    icon={<MediaImageList />}
+    title="No galleries yet"
+    description="Create a gallery to get a client portal, proofing and downloads."
+    action={<Button>Create gallery</Button>}
   />
   ```
 
@@ -4189,7 +4189,7 @@ Also accepts the props of: HTMLAttributes.
 - Don’t: The “first time” state shown for a filter with no matches.
 
   ```tsx
-  <EmptyState className="w-80" icon={<Globe />} title="No sites yet" action={<Button>Create site</Button>} />
+  <EmptyState className="w-80" icon={<MediaImageList />} title="No galleries yet" action={<Button>Create gallery</Button>} />
   ```
 
 
@@ -4208,7 +4208,7 @@ Docs: ./?path=/docs/actions-fab--docs
 
 **When to use**
 
-- The one main action of a screen that must stay reachable while scrolling, mostly on mobile: “New message”, “Add site”.
+- The one main action of a screen that must stay reachable while scrolling, mostly on mobile: “New message”, “Add gallery”.
 - Extended (with `label`) when the icon alone isn’t obvious.
 
 **When not to use**
@@ -4256,7 +4256,7 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes.
 - Do: One FAB, the screen’s main action, with a label.
 
   ```tsx
-  <Fab position="none" icon={<Plus />} label="New site" />
+  <Fab position="none" icon={<Plus />} label="New gallery" />
   ```
 
 - Don’t: Two FABs compete, and two plus icons say nothing.
@@ -4448,7 +4448,7 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes.
 - Do: One legend for related settings — read with each switch.
 
   ```tsx
-  <Fieldset legend="Email notifications" description="Sent to dana@seashell.dev." className="w-72">
+  <Fieldset legend="Email notifications" description="Sent to thea@aether.photo." className="w-72">
     <Switch label="Weekly report" defaultChecked />
     <Switch label="Billing alerts" defaultChecked />
     <Switch label="Product news" />
@@ -4733,8 +4733,8 @@ Also accepts the props of: HTMLAttributes, ButtonHTMLAttributes, LabelHTMLAttrib
 
   ```tsx
   <div className="flex w-72 flex-col gap-4">
-    <TextField label="Domain" defaultValue="seashell" error="Add the ending, like .dev or .com." widthSize="full" />
-    <TextField label="Admin email" defaultValue="dana@seashell.dev" widthSize="full" />
+    <TextField label="Portal address" defaultValue="Selene Weddings" error="Use lowercase letters and hyphens, like selene-weddings." widthSize="full" />
+    <TextField label="Owner email" defaultValue="selin@aether.photo" widthSize="full" />
   </div>
   ```
 
@@ -4749,8 +4749,8 @@ Also accepts the props of: HTMLAttributes, ButtonHTMLAttributes, LabelHTMLAttrib
         <AlertDescription>Please check the fields below.</AlertDescription>
       </div>
     </Alert>
-    <TextField label="Domain" defaultValue="seashell" widthSize="full" />
-    <TextField label="Admin email" defaultValue="dana@seashell.dev" widthSize="full" />
+    <TextField label="Portal address" defaultValue="Selene Weddings" widthSize="full" />
+    <TextField label="Owner email" defaultValue="selin@aether.photo" widthSize="full" />
   </div>
   ```
 
@@ -5016,13 +5016,13 @@ Docs: ./?path=/docs/text-input-inlineedit--docs
 
 **When to use**
 
-- Renaming one value where it’s shown: a site name, a page title, a note.
+- Renaming one value where it’s shown: a gallery name, a page title, a note.
 - Values people change now and then, not every time they visit.
 
 **When not to use**
 
 - Several related fields saved together → use a form with Save
-- Values that need confirmation or have consequences (a domain, an email) → use a dialog or a form
+- Values that need confirmation or have consequences (a client portal address, an email) → use a dialog or a form
 - Something people edit all the time → use an always-visible TextField
 
 **Anatomy**
@@ -5034,7 +5034,7 @@ Docs: ./?path=/docs/text-input-inlineedit--docs
 
 **InlineEdit props**
 
-- `label`: `string` — Accessible name of the value, e.g. "Site name". Used for the field and the "Edit …" hint.
+- `label`: `string` — Accessible name of the value, e.g. "Gallery name". Used for the field and the "Edit …" hint.
 - `autoComplete?`: `string` — Passed to the input while editing (e.g. "off", "email").
 - `className?`: `string`
 - `defaultValue?`: `string`, default `` — Uncontrolled starting value.
@@ -5054,15 +5054,15 @@ Docs: ./?path=/docs/text-input-inlineedit--docs
 - Do: One value, edited where it’s read.
 
   ```tsx
-  <InlineEdit label="Site name" defaultValue="Seashell shop" />
+  <InlineEdit label="Gallery name" defaultValue="Golden hour" />
   ```
 
 - Don’t: A set of fields each saving on its own is a form in disguise — people won’t know what’s saved.
 
   ```tsx
   <div className="flex w-64 flex-col gap-2">
-    <TextField label="Site name" defaultValue="Seashell shop" widthSize="full" />
-    <TextField label="Domain" defaultValue="seashell.shop" widthSize="full" />
+    <TextField label="Gallery name" defaultValue="Golden hour" widthSize="full" />
+    <TextField label="Portal address" defaultValue="helios.aether.photo" widthSize="full" />
   </div>
   ```
 
@@ -5082,7 +5082,7 @@ Docs: ./?path=/docs/text-input-inputgroup--docs
 
 **When to use**
 
-- A fixed prefix or suffix that is part of the value’s format: https://, .theya.app, /mo, GB.
+- A fixed prefix or suffix that is part of the value’s format: https://, .aether.photo, /mo, GB.
 - A button that belongs to the field, inside its border.
 
 **When not to use**
@@ -5110,10 +5110,10 @@ Also accepts the props of: HTMLAttributes, ButtonHTMLAttributes, InputHTMLAttrib
 
   ```tsx
   <div className="flex w-64 flex-col gap-2">
-    <Label htmlFor="gl-ig-sub">Subdomain</Label>
+    <Label htmlFor="gl-ig-portal">Portal address</Label>
     <InputGroup>
-      <InputGroupInput id="gl-ig-sub" defaultValue="shop" />
-      <InputGroupAddon position="end">.theya.app</InputGroupAddon>
+      <InputGroupInput id="gl-ig-portal" defaultValue="selene-weddings" />
+      <InputGroupAddon position="end">.aether.photo</InputGroupAddon>
     </InputGroup>
   </div>
   ```
@@ -5121,7 +5121,7 @@ Also accepts the props of: HTMLAttributes, ButtonHTMLAttributes, InputHTMLAttrib
 - Don’t: Asking people to type the fixed part invites typos.
 
   ```tsx
-  <TextField label="Subdomain" defaultValue="shop.theya.app" widthSize="md" description="Must end with .theya.app" />
+  <TextField label="Portal address" defaultValue="selene-weddings.aether.photo" widthSize="md" description="Must end with .aether.photo" />
   ```
 
 
@@ -5341,7 +5341,7 @@ Docs: ./?path=/docs/actions-kebabicon--docs
 - Do: Inside a real button, named for what it’s about.
 
   ```tsx
-  <Button appearance="ghost" tone="secondary" size="md" iconOnly leftIcon={<KebabIconVertical />} aria-label="More actions for seashell.shop" />
+  <Button appearance="ghost" tone="secondary" size="md" iconOnly leftIcon={<KebabIconVertical />} aria-label="More actions for Golden hour" />
   ```
 
 - Don’t: A bare icon isn’t a control — no focus, no name, no keyboard.
@@ -5353,7 +5353,7 @@ Docs: ./?path=/docs/actions-kebabicon--docs
 
 **Accessibility**
 
-- The icon is decorative; the button carries the name: “More actions for seashell.shop”.
+- The icon is decorative; the button carries the name: “More actions for Golden hour”.
 - The menu it opens is a DropdownMenu, so arrow keys and Escape work.
 
 ## KeyboardShortcuts
@@ -5455,7 +5455,7 @@ Docs: ./?path=/docs/form-structure-label--docs
 
 **Anatomy**
 
-- Text: short, a noun (“Domain”), not an instruction (“Enter your domain”).
+- Text: short, a noun (“Studio”), not an instruction (“Enter your studio name”).
 - Required mark (optional): red *, hidden from screen readers — the control carries required itself.
 - Optional mark (optional): “(optional)” in subtler text.
 
@@ -5557,7 +5557,7 @@ Docs: ./?path=/docs/charts-linechart--docs
 
 **When to use**
 
-- Comparing a few trends over the same time: CPU vs memory, this week vs last.
+- Comparing a few trends over the same time: downloads vs views, this week vs last.
 - Up to 5 series; each gets a palette color and a legend entry with its name.
 
 **When not to use**
@@ -5593,19 +5593,19 @@ Docs: ./?path=/docs/charts-linechart--docs
 - Do: Two trends that are easy to tell apart and compare.
 
   ```tsx
-  <div className="w-full"><LineChart data={two} series={[{ key: 'cpu', name: 'CPU' }, { key: 'mem', name: 'Memory' }]} unit="%" height={200} ariaLabel="CPU and memory this week, both peaking on Friday." /></div>
+  <div className="w-full"><LineChart data={two} series={[{ key: 'downloaded', name: 'Downloaded' }, { key: 'opened', name: 'Opened' }]} unit="%" height={200} ariaLabel="Galleries downloaded and opened this week, both peaking on Friday." /></div>
   ```
 
-- Don’t: Five crossing lines: a tangle where no single server can be followed.
+- Don’t: Five crossing lines: a tangle where no single studio can be followed.
 
   ```tsx
   <div className="w-full">
     <LineChart
       data={many}
-      series={['a', 'b', 'c', 'd', 'e'].map((k) => ({ key: k, name: `web-0${'abcde'.indexOf(k) + 1}` }))}
+      series={['a', 'b', 'c', 'd', 'e'].map((k) => ({ key: k, name: STUDIO_NAMES['abcde'.indexOf(k)] }))}
       unit="%"
       height={200}
-      ariaLabel="CPU per server this week."
+      ariaLabel="Download rate per studio this week."
     />
   </div>
   ```
@@ -6041,7 +6041,7 @@ Also accepts the props of: HTMLAttributes.
 
   ```tsx
   <div className="flex w-full flex-col gap-2">
-    <Message author="Assistant" timestamp="09:41">Backup finished — 2.4 GB, 14 files.</Message>
+    <Message author="Assistant" timestamp="09:41">Export finished — 2.4 GB, 14 files.</Message>
     <Message variant="sent" author="You" timestamp="09:42">Thanks!</Message>
   </div>
   ```
@@ -6050,7 +6050,7 @@ Also accepts the props of: HTMLAttributes.
 
   ```tsx
   <div className="flex w-full flex-col gap-2">
-    <Message variant="sent">Backup finished — 2.4 GB, 14 files.</Message>
+    <Message variant="sent">Export finished — 2.4 GB, 14 files.</Message>
     <Message variant="sent">Thanks!</Message>
   </div>
   ```
@@ -6434,9 +6434,9 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes, RadioGroupProps
 - Do: Each choice needs a sentence — cards give it room.
 
   ```tsx
-  <OptionCardGroup defaultValue="http" aria-label="Verification method" className="w-full">
-    <OptionCard value="http" title="HTTP-01" description="Serve a token file from the site." />
-    <OptionCard value="dns" title="DNS-01" description="Add a TXT record. Works for wildcards." />
+  <OptionCardGroup defaultValue="online" aria-label="Delivery method" className="w-full">
+    <OptionCard value="online" title="Online gallery" description="Clients view and download photos in their portal." />
+    <OptionCard value="prints" title="Prints by mail" description="Phoebe Light Lab prints and ships the order." />
   </OptionCardGroup>
   ```
 
@@ -7051,7 +7051,7 @@ Docs: ./?path=/docs/status-feedback-progress--docs
 **When to use**
 
 - A task with a known percent done: upload, restore, export, install.
-- A running task of unknown length (a deploy, a scan): `indeterminate`.
+- A running task of unknown length (an export, an import): `indeterminate`.
 - A known number of stages (“stage 3 of 5”): `segments`.
 
 **When not to use**
@@ -7065,7 +7065,7 @@ Docs: ./?path=/docs/status-feedback-progress--docs
 
 - Label: what is running — next to the bar and linked with `aria-labelledby`.
 - Track and indicator: `value` 0–100, clamped; or a sweeping bar with `indeterminate`; or `segments` equal steps that fill one after another.
-- Value / status text (optional): percent, or “3 of 12 sites”, or time left.
+- Value / status text (optional): percent, or “3 of 12 galleries”, or time left.
 
 **Progress props**
 
@@ -7081,7 +7081,7 @@ Also accepts the props of: HTMLAttributes, ProgressProps.
 
   ```tsx
   <div className="flex w-72 flex-col gap-1">
-    <div className="flex justify-between text-body-s"><span id="gl-pr-label">Restoring backup</span><span className="tabular-nums">66%</span></div>
+    <div className="flex justify-between text-body-s"><span id="gl-pr-label">Restoring from archive</span><span className="tabular-nums">66%</span></div>
     <Progress value={66} aria-labelledby="gl-pr-label" />
   </div>
   ```
@@ -7092,7 +7092,7 @@ Also accepts the props of: HTMLAttributes, ProgressProps.
   <div className="w-72"><Progress value={66} aria-label="Progress" /></div>
   ```
 
-- Do: Content loading for the first time → a skeleton of it. (A task of unknown length that people watch, like a deploy, is Progress indeterminate.)
+- Do: Content loading for the first time → a skeleton of it. (A task of unknown length that people watch, like an export, is Progress indeterminate.)
 
   ```tsx
   <div className="flex w-72 flex-col gap-2">
@@ -7279,9 +7279,9 @@ Also accepts the props of: HTMLAttributes.
     aria-label="Suggestions"
     onSelect={() => {}}
     items={[
-      { id: '1', label: 'Why is shop.seashell.dev slow today?' },
-      { id: '2', label: 'Which certificates expire this month?' },
-      { id: '3', label: 'Summarize last night’s backup' },
+      { id: '1', label: 'Why are downloads from Selene Weddings slow today?' },
+      { id: '2', label: 'Which licenses expire this month?' },
+      { id: '3', label: 'Summarize last night’s archive run' },
     ]}
   />
   ```
@@ -7346,11 +7346,11 @@ Docs: ./?path=/docs/form-structure-propertygrid--docs
       id="gl-pg"
       items={[
         { name: 'name', label: 'Display name', type: 'text' },
-        { name: 'replicas', label: 'Replicas', type: 'number' },
-        { name: 'public', label: 'Public URL', type: 'switch' },
-        { name: 'id', label: 'Resource ID', type: 'text', readOnly: true },
+        { name: 'copies', label: 'Print copies', type: 'number' },
+        { name: 'public', label: 'Public link', type: 'switch' },
+        { name: 'id', label: 'Gallery ID', type: 'text', readOnly: true },
       ]}
-      defaultValues={{ name: 'shop-api', replicas: 3, public: true, id: 'res_8f2k1' }}
+      defaultValues={{ name: 'Golden hour', copies: 3, public: true, id: 'gal_8f2k1' }}
     />
   </div>
   ```
@@ -7657,7 +7657,7 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes, RadioGroupProps
 - Do: A sensible default is selected, and “Off” is an option rather than an empty group.
 
   ```tsx
-  <RadioGroup defaultValue="daily" aria-label="Backup frequency">
+  <RadioGroup defaultValue="daily" aria-label="Archive frequency">
     <Radio value="daily" label="Daily" description="Kept for 7 days" />
     <Radio value="weekly" label="Weekly" description="Kept for 4 weeks" />
     <Radio value="off" label="Off" />
@@ -8027,7 +8027,7 @@ Docs: ./?path=/docs/data-scheduler--docs
 
 **When to use**
 
-- Events placed in time: maintenance windows, bookings, shifts, release plans.
+- Events placed in time: shoots, client bookings, studio shifts, delivery plans.
 - Rescheduling by drag (`onEventChange`) and creating from an empty slot (`onSlotClick`).
 
 **When not to use**
@@ -8067,7 +8067,7 @@ Also accepts the props of: HTMLAttributes.
 
 **Do / Don’t**
 
-- Do: Tone marks the kind of event: risky work warning, a release success.
+- Do: Tone marks the kind of event: risky work warning, a delivery success.
 
   ```tsx
   <Scheduler {...mini} events={GOOD} />
@@ -8204,7 +8204,7 @@ Docs: ./?path=/docs/selection-select--docs
 **When to use**
 
 - One choice from 6–15 known options (up to 5 → RadioGroup, over 15 → Combobox).
-- Values people recognise rather than type: a region, a plan, a sort order.
+- Values people recognise rather than type: a print size, a plan, a sort order.
 
 **When not to use**
 
@@ -8274,17 +8274,17 @@ Also accepts the props of: SelectSharedProps, HTMLAttributes, SelectValueProps, 
   </div>
   ```
 
-- Do: 8 regions — in the 6–15 range a Select fits. No answer yet, so the placeholder says what to pick.
+- Do: 8 sizes — in the 6–15 range a Select fits. No answer yet, so the placeholder says what to pick.
 
   ```tsx
   <div className="flex flex-col gap-2">
-    <Label htmlFor="gl-sel-region">Data region</Label>
+    <Label htmlFor="gl-sel-size">Print size</Label>
     <Select>
-      <SelectTrigger id="gl-sel-region" widthSize="md">
-        <SelectValue placeholder="Choose a region" />
+      <SelectTrigger id="gl-sel-size" widthSize="md">
+        <SelectValue placeholder="Choose a size" />
       </SelectTrigger>
       <SelectContent>
-        {regionItems}
+        {sizeItems}
       </SelectContent>
     </Select>
   </div>
@@ -8294,13 +8294,13 @@ Also accepts the props of: SelectSharedProps, HTMLAttributes, SelectValueProps, 
 
   ```tsx
   <div className="flex flex-col gap-2">
-    <Label htmlFor="gl-sel-region2">Data region</Label>
-    <Select defaultValue="eu-central">
-      <SelectTrigger id="gl-sel-region2" widthSize="md">
+    <Label htmlFor="gl-sel-size2">Print size</Label>
+    <Select defaultValue="8x10">
+      <SelectTrigger id="gl-sel-size2" widthSize="md">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {regionItems}
+        {sizeItems}
       </SelectContent>
     </Select>
   </div>
@@ -8737,7 +8737,7 @@ Also accepts the props of: HTMLAttributes, SVGAttributes, ButtonHTMLAttributes.
   ```tsx
   <p className="flex items-center gap-2 font-body text-body-m text-[var(--color-text-text-subtle)]">
     <Spinner className="size-4 text-[var(--color-icon-icon-primary)]" />
-    Loading domains…
+    Loading galleries…
   </p>
   ```
 
@@ -8754,7 +8754,7 @@ Also accepts the props of: HTMLAttributes, SVGAttributes, ButtonHTMLAttributes.
 
 **Accessibility**
 
-- Decorative (aria-hidden). Mark the waiting region aria-busy, or add a role="status" text such as “Loading domains”.
+- Decorative (aria-hidden). Mark the waiting region aria-busy, or add a role="status" text such as “Loading galleries”.
 - With reduced motion the arc stops and the spinner slowly fades in and out.
 
 ## SplitButton
@@ -9123,7 +9123,7 @@ Also accepts the props of: HTMLAttributes, SVGAttributes, ButtonHTMLAttributes.
   ```tsx
   <p className={ROW}>
     <SuccessCheck />
-    Backup restored
+    Album restored
   </p>
   ```
 
@@ -9381,7 +9381,7 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes, SwitchProps.
 **Accessibility**
 
 - It’s a `role="switch"`: announced as “on/off”, toggled with Space.
-- Without a visible label pass `aria-label` — in a table row, name the row (“Auto-renew for seashell.shop”).
+- Without a visible label pass `aria-label` — in a table row, name the row (“Auto-renew for Golden hour”).
 - If flipping it fails, set it back and say why next to it — don’t leave a switch showing a state the server didn’t accept.
 
 ## Table
@@ -9488,7 +9488,7 @@ Docs: ./?path=/docs/status-feedback-tableskeleton--docs
 
   ```tsx
   <Table className="w-80">
-    <TableHeader><TableRow><TableHead>Domain</TableHead><TableHead className="text-right">Replicas</TableHead></TableRow></TableHeader>
+    <TableHeader><TableRow><TableHead>Gallery</TableHead><TableHead className="text-right">Photos</TableHead></TableRow></TableHeader>
     <TableBody aria-busy="true"><TableSkeletonRows rows={3} columns={[{}, { align: 'right', width: '2rem' }]} /></TableBody>
   </Table>
   ```
@@ -9801,7 +9801,7 @@ Docs: ./?path=/docs/text-input-textfield--docs
 
 **When to use**
 
-- Short free text on one line: a name, an email, a domain, a URL, a code.
+- Short free text on one line: a name, an email, a portal address, a URL, a code.
 - With a visible label above it, every time.
 
 **When not to use**
@@ -9841,25 +9841,25 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttrib
 - Do: Label above; the placeholder only shows an example.
 
   ```tsx
-  <TextField label="Domain" placeholder="example.com" widthSize="md" />
+  <TextField label="Portal address" placeholder="selene-weddings.aether.photo" widthSize="md" />
   ```
 
 - Don’t: Placeholder as the label disappears as soon as people type.
 
   ```tsx
-  <TextField aria-label="Domain" placeholder="Domain" widthSize="md" />
+  <TextField aria-label="Portal address" placeholder="Portal address" widthSize="md" />
   ```
 
 - Do: The error says what’s wrong and how to fix it.
 
   ```tsx
-  <TextField label="Email" defaultValue="dana@seashell" error="Add the domain ending, like .com." widthSize="md" />
+  <TextField label="Email" defaultValue="selin@aether" error="Add the ending, like .photo or .com." widthSize="md" />
   ```
 
 - Don’t: “Invalid input” makes people guess.
 
   ```tsx
-  <TextField label="Email" defaultValue="dana@seashell" error="Invalid input." widthSize="md" />
+  <TextField label="Email" defaultValue="selin@aether" error="Invalid input." widthSize="md" />
   ```
 
 - Do: Width hints at the expected length (`widthSize`).
@@ -10406,17 +10406,17 @@ Also accepts the props of: HTMLAttributes.
 
   ```tsx
   <div className="flex flex-col gap-3">
-    <div className={ROW}><ToneIcon tone="warning" />Certificate expires in 5 days</div>
-    <div className={ROW}><ToneIcon tone="success" />Backup completed</div>
+    <div className={ROW}><ToneIcon tone="warning" />License expires in 5 days</div>
+    <div className={ROW}><ToneIcon tone="success" />Export completed</div>
   </div>
   ```
 
-- Don’t: Colored dots with nouns: what about the certificate? Color alone says it.
+- Don’t: Colored dots with nouns: what about the license? Color alone says it.
 
   ```tsx
   <div className="flex flex-col gap-3">
-    <div className={ROW}><StatusDot tone="warning" />Certificate</div>
-    <div className={ROW}><StatusDot tone="success" />Backup</div>
+    <div className={ROW}><StatusDot tone="warning" />License</div>
+    <div className={ROW}><StatusDot tone="success" />Export</div>
   </div>
   ```
 
@@ -10892,7 +10892,7 @@ Docs: ./?path=/docs/status-feedback-usagebar--docs
 
 **When to use**
 
-- A total split into up to four parts: storage by type, bandwidth by site, seats by role.
+- A total split into up to four parts: storage by type, downloads by gallery, seats by role.
 - Showing parts against a limit (total) — used vs. free.
 
 **When not to use**
@@ -10920,14 +10920,14 @@ Also accepts the props of: HTMLAttributes.
 - Do: A few parts with a legend — easy to compare.
 
   ```tsx
-  <div className="w-80"><UsageBar total={50} formatValue={gb} segments={[{ label: 'Files', value: 18 }, { label: 'Databases', value: 9 }, { label: 'Email', value: 4 }]} /></div>
+  <div className="w-80"><UsageBar total={50} formatValue={gb} segments={[{ label: 'Originals', value: 18 }, { label: 'Exports', value: 9 }, { label: 'Previews', value: 4 }]} /></div>
   ```
 
 - Don’t: Eight parts on a four-color palette: colors repeat and the legend can’t be matched. Keep to four, group the rest into “Other”.
 
   ```tsx
   <div className="w-80">
-    <UsageBar total={50} formatValue={gb} segments={['Files', 'DB', 'Email', 'Logs', 'Backups', 'Cache', 'Tmp', 'Other'].map((label, i) => ({ label, value: 6 - (i % 3) }))} />
+    <UsageBar total={50} formatValue={gb} segments={['Originals', 'RAW', 'Exports', 'Previews', 'Archive', 'Video', 'Proofs', 'Other'].map((label, i) => ({ label, value: 6 - (i % 3) }))} />
   </div>
   ```
 
@@ -10976,7 +10976,7 @@ Also accepts the props of: HTMLAttributes.
 - Do: An ordered scale, labelled.
 
   ```tsx
-  <WheelPicker aria-label="Backup interval" options={INTERVALS} defaultValue="1 hour" />
+  <WheelPicker aria-label="Archive interval" options={INTERVALS} defaultValue="1 hour" />
   ```
 
 - Don’t: An unordered list — there is no “next” to roll to; use Select.

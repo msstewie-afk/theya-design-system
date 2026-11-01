@@ -12,8 +12,8 @@ import { useTheyaI18n } from '../../lib/i18n';
  * labels, a crosshair tooltip. Use orientation="horizontal" for a
  * ranked breakdown.
  *
- *   <BarChart data={[{ label: "eu-west-1", value: 42 }, …]}
- *     orientation="horizontal" unit="%" ariaLabel="Storage by region, led by eu-west-1 at 42%." />
+ *   <BarChart data={[{ label: "Selene Weddings", value: 42 }, …]}
+ *     orientation="horizontal" unit="%" ariaLabel="Storage by studio, led by Selene Weddings at 42%." />
  */
 export interface BarChartPoint {
   label: string;

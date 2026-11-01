@@ -117,7 +117,7 @@ export const CardPlaceholder: Story = {
       role="status"
       className="flex w-80 max-w-full flex-col gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5"
       aria-busy="true"
-      aria-label="Loading site"
+      aria-label="Loading gallery"
     >
       <div className="flex min-w-0 items-center gap-3">
         <Skeleton className="size-9 shrink-0 rounded-full" />
