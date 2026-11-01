@@ -70,16 +70,16 @@ export const SCENARIOS: Scenario[] = [
     act: async (page) => { const boxes = page.getByRole('checkbox'); await boxes.nth(1).focus(); await press(page, 'Space'); await page.waitForTimeout(1200); await boxes.nth(2).focus(); await press(page, 'Space'); },
   },
   {
-    id: 'toaster-success', component: 'Toaster', story: 'status-feedback-toaster--success', expect: ["Certificate issued"],
-    act: async (page) => { await page.getByRole('button', { name: 'Issue certificate' }).focus(); await press(page, 'Enter'); },
+    id: 'toaster-success', component: 'Toaster', story: 'status-feedback-toaster--success', expect: ["License issued"],
+    act: async (page) => { await page.getByRole('button', { name: 'Issue license' }).focus(); await press(page, 'Enter'); },
   },
   {
-    id: 'toaster-error', component: 'Toaster', story: 'status-feedback-toaster--error-with-retry', expect: ["Couldn't reissue certificate"], listen: 3500,
+    id: 'toaster-error', component: 'Toaster', story: 'status-feedback-toaster--error-with-retry', expect: ["Couldn't reissue license"], listen: 3500,
     act: async (page) => { await page.getByRole('button', { name: /Reissue/ }).focus(); await press(page, 'Enter'); },
   },
   {
-    id: 'undotoast', component: 'UndoToast', story: 'status-feedback-undotoast--default', expect: ["Site deleted"],
-    act: async (page) => { await page.getByRole('button', { name: 'Delete site' }).focus(); await press(page, 'Enter'); },
+    id: 'undotoast', component: 'UndoToast', story: 'status-feedback-undotoast--default', expect: ["Gallery deleted"],
+    act: async (page) => { await page.getByRole('button', { name: 'Delete gallery' }).focus(); await press(page, 'Enter'); },
   },
   {
     id: 'feedbackwidget', component: 'FeedbackWidget', story: 'status-feedback-feedbackwidget--default', expect: ["Thanks for your feedback"],
@@ -90,8 +90,8 @@ export const SCENARIOS: Scenario[] = [
     },
   },
   {
-    id: 'field', component: 'Field', story: 'form-structure-form--default', expect: ["Enter a valid domain"],
-    act: async (page) => { const f = page.getByRole('textbox').first(); await f.focus(); await f.fill(''); await typeText(page, f, 'x'); await press(page, 'Tab'); },
+    id: 'field', component: 'Field', story: 'form-structure-form--default', expect: ["Use lowercase letters, numbers and hyphens"],
+    act: async (page) => { const f = page.getByRole('textbox').first(); await f.focus(); await f.fill(''); await typeText(page, f, 'Bad name'); await press(page, 'Tab'); },
   },
   {
     id: 'timefield', component: 'TimeField', story: 'date-time-timefield--min-max', expect: ["Choose a time from 9:00 AM to 5:00 PM"],
@@ -127,7 +127,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: 'filterfield', component: 'FilterField', story: 'search-filter-filterfield--default', expect: ["No attributes"],
-    act: async (page) => { const f = page.getByRole('combobox', { name: 'Filter servers' }); await f.click(); await typeText(page, f, 'zzqx'); },
+    act: async (page) => { const f = page.getByRole('combobox', { name: 'Filter galleries' }); await f.click(); await typeText(page, f, 'zzqx'); },
   },
   {
     id: 'datatabletoolbar', component: 'DataTableToolbar', story: 'data-datatabletoolbar--default', expect: ["1 selected"],
@@ -172,7 +172,7 @@ export const SCENARIOS: Scenario[] = [
   // Patterns
   {
     id: 'accesstokens', component: 'AccessTokens', story: 'patterns-accesstokens--default', expect: ["Key revoked"],
-    act: async (page) => { await page.getByRole('button', { name: 'Revoke Staging' }).focus(); await press(page, 'Enter'); await page.getByRole('alertdialog').getByRole('button', { name: 'Revoke' }).focus(); await press(page, 'Enter'); },
+    act: async (page) => { await page.getByRole('button', { name: 'Revoke Portfolio website' }).focus(); await press(page, 'Enter'); await page.getByRole('alertdialog').getByRole('button', { name: 'Revoke' }).focus(); await press(page, 'Enter'); },
   },
   {
     id: 'auditlog', component: 'AuditLog', story: 'patterns-auditlog--default', expect: ["0 events match your filters"],
@@ -190,10 +190,10 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: 'comparison', component: 'Comparison', story: 'patterns-catalog-comparison--default', expect: ["1 of 4 selected for comparison", "2 of 4 selected for comparison"],
-    act: async (page) => { await page.getByRole('checkbox', { name: 'Compare Shieldwall' }).focus(); await press(page, 'Space'); await page.waitForTimeout(1200); await page.getByRole('checkbox', { name: 'Compare Secret Scanner' }).focus(); await press(page, 'Space'); },
+    act: async (page) => { await page.getByRole('checkbox', { name: 'Compare Golden hour presets' }).focus(); await press(page, 'Space'); await page.waitForTimeout(1200); await page.getByRole('checkbox', { name: 'Compare Blue hour presets' }).focus(); await press(page, 'Space'); },
   },
   {
-    id: 'facetedlist', component: 'FacetedList', story: 'patterns-catalog-facetedlist--default', expect: ["6 extensions"],
+    id: 'facetedlist', component: 'FacetedList', story: 'patterns-catalog-facetedlist--default', expect: ["6 products"],
     act: async (page) => { await page.getByRole('checkbox').first().focus(); await press(page, 'Space'); },
   },
   {
@@ -206,14 +206,14 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: 'listview', component: 'ListView', story: 'patterns-listview--with-bulk-and-row-actions', expect: ["1 user"],
-    act: async (page) => { const f = page.getByRole('combobox', { name: /Search users/ }); await f.focus(); await typeText(page, f, 'Alex'); },
+    act: async (page) => { const f = page.getByRole('combobox', { name: /Search users/ }); await f.focus(); await typeText(page, f, 'Elio'); },
   },
   {
     id: 'notificationsinbox', component: 'NotificationsInbox', story: 'patterns-notificationsinbox--default', expect: ["No notifications match"],
     act: async (page) => { await page.getByRole('radio', { name: 'Unread' }).focus(); await press(page, 'Space'); },
   },
   {
-    id: 'onboardingwizard', component: 'OnboardingWizard', story: 'patterns-onboardingwizard--default', expect: ["Step 1 of 3: Domain"],
+    id: 'onboardingwizard', component: 'OnboardingWizard', story: 'patterns-onboardingwizard--default', expect: ["Step 1 of 3: Portal"],
     act: async (page) => { await page.getByRole('button', { name: 'Back' }).first().focus(); await press(page, 'Enter'); },
   },
   {
@@ -233,8 +233,8 @@ export const SCENARIOS: Scenario[] = [
     act: async (page) => { await page.getByRole('switch').first().focus(); await press(page, 'Space'); },
   },
   {
-    id: 'saveditems', component: 'SavedItems', story: 'patterns-account-saveditems--default', expect: ["Removed", "Hardware security key"],
-    act: async (page) => { await page.getByRole('button', { name: 'Remove Hardware security key' }).focus(); await press(page, 'Enter'); },
+    id: 'saveditems', component: 'SavedItems', story: 'patterns-account-saveditems--default', expect: ["Removed", "Watermark presets"],
+    act: async (page) => { await page.getByRole('button', { name: 'Remove Watermark presets' }).focus(); await press(page, 'Enter'); },
   },
   {
     id: 'searchbox', component: 'SearchBox', story: 'patterns-search-searchbox--default', expect: ["1 option"],
