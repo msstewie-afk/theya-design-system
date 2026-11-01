@@ -148,7 +148,7 @@ export const InListRow: Story = {
   name: 'In list row',
   parameters: { controls: { exclude: ['tone'] } },
   render: () => (
-    <ul className="flex w-full max-w-sm flex-col divide-y divide-[var(--color-border-border-subtler)] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] font-body text-body-m">
+    <ul className="flex w-[min(24rem,calc(100vw-2rem))] flex-col divide-y divide-[var(--color-border-border-subtler)] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] font-body text-body-m">
       <li className="flex items-center justify-between gap-3 px-3 py-2">
         <span className="min-w-0 truncate font-mono">selene-weddings.aether.photo</span>
         <span className="inline-flex shrink-0 items-center gap-2 text-[var(--color-text-text-subtler)]">
