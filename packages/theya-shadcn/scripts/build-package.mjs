@@ -15,7 +15,7 @@
  *
  *   node scripts/build-package.mjs
  *
- * Steps: tsc (tsconfig.build.json) → add explicit .js extensions to relative
+ * Steps: tsc (tsconfig.build.json; JS without comments, .d.ts with them) → add explicit .js extensions to relative
  * imports (Node ESM and strict bundlers resolve nothing without them) →
  * copy the styles and inline the @theya/tokens CSS and fonts, so the tarball
  * doesn't depend on the unpublished tokens package.
@@ -35,7 +35,12 @@ fs.rmSync(DIST, { recursive: true, force: true });
 
 // 1. Compile.
 const tsc = require.resolve('typescript/bin/tsc');
-execFileSync(process.execPath, [tsc, '-p', path.join(ROOT, 'tsconfig.build.json')], { stdio: 'inherit' });
+// Two passes: JS without comments (the app's Tailwind scans dist/, and a
+// class-like example in a comment, e.g. `text-[var(--color-...)]`, would turn
+// into an invalid rule), declarations with them (they carry the JSDoc).
+const project = path.join(ROOT, 'tsconfig.build.json');
+execFileSync(process.execPath, [tsc, '-p', project, '--declaration', 'false', '--removeComments'], { stdio: 'inherit' });
+execFileSync(process.execPath, [tsc, '-p', project, '--emitDeclarationOnly'], { stdio: 'inherit' });
 
 // 2. Explicit extensions on relative specifiers, in .js and .d.ts alike.
 const SPEC = /(\bfrom\s*|\bimport\s*\(\s*|\bimport\s+)(['"])(\.{1,2}\/[^'"]*)\2/g;

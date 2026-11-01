@@ -1,0 +1,29 @@
+{
+  "name": "theya-pilot",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Pilot consumer: a Next.js app that installs @theya/shadcn from a packed tarball, as an app outside the monorepo would.",
+  "license": "UNLICENSED",
+  "scripts": {
+    "theya": "node scripts/install-theya.mjs",
+    "dev": "next dev --port 5190",
+    "build": "next build",
+    "start": "next start --port 5190",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@theya/shadcn": "file:vendor/theya-shadcn.tgz",
+    "iconoir-react": "7.12.1",
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "22.18.8",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,6 +1,9 @@
 packages:
   - 'packages/*'
   - 'apps/*'
+  # The pilot app installs @theya/shadcn from a packed tarball, like an app
+  # outside the monorepo would (apps/pilot/README.md), so it stays out.
+  - '!apps/pilot'
 allowBuilds:
   '@bundled-es-modules/glob': true
   '@swc/core': true
