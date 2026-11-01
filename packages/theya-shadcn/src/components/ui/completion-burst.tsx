@@ -78,7 +78,11 @@ export function CompletionBurst({ status, busyLabel, doneLabel, description, ico
           ))}
       </div>
       <div role="status" className="flex flex-col gap-1">
-        <p className="m-0 font-heading text-heading-xs font-semibold text-[var(--color-text-text)]">{done ? doneLabel : busyLabel}</p>
+        <p className="m-0 font-heading text-heading-xs font-semibold text-[var(--color-text-text)]">
+          {done ? doneLabel : busyLabel}
+          {/* A pause between the label and the description when read out as one status ("…ready. Twelve weeks…"). */}
+          {description && <span className="sr-only">. </span>}
+        </p>
         {description && <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtle)]">{description}</p>}
       </div>
     </div>

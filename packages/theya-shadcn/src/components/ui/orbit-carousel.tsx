@@ -90,14 +90,22 @@ export function OrbitCarousel({
   const dragging = pull !== 0;
 
   const stage = useRef<HTMLDivElement>(null);
-  const [frontName, setFrontName] = useState<string>();
+  // The announcement is built from one state — number and heading together —
+  // so the live region changes in a single render and never reads a new
+  // number with the old heading in between.
+  const [spoken, setSpoken] = useState('');
+  const shown = useRef(index);
   useEffect(() => {
-    if (n) onIndexChange?.(index);
-    // The name of the card in front, from its heading, for the announcement.
+    if (!n) return;
+    onIndexChange?.(index);
+    // Nothing to say on load: the region fills only once the reader moves it.
+    if (index === shown.current && !spoken) return;
+    shown.current = index;
+    // The name of the card in front, from its heading.
     const h = stage.current?.querySelector(`[data-slide="${index}"] :is(h2, h3, h4)`);
-    setFrontName(h?.textContent?.trim() || undefined);
+    setSpoken(t.carousel.position(index + 1, n, h?.textContent?.trim() || undefined));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index, n]);
+  }, [index, n, t]);
 
   const go = (step: number) => setTurn((v) => clampTurn(v + step));
   const advance = () => setTurn((v) => (wraps ? v + 1 : v >= n - 1 ? 0 : v + 1));
@@ -248,7 +256,7 @@ export function OrbitCarousel({
       </p>
       {/* Silent while autoplay runs, so it doesn't talk over the reader every few seconds. */}
       <p className="sr-only" aria-live={running ? 'off' : 'polite'}>
-        {t.carousel.position(index + 1, n, frontName)}
+        {spoken}
       </p>
     </div>
   );
