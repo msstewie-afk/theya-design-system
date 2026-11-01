@@ -24,11 +24,13 @@ import { TooltipContent, TooltipProvider } from './tooltip';
 export interface TruncatedTextProps extends React.ComponentProps<'span'> {
   /** Render onto your own element (e.g. a heading) instead of a `<span>`. */
   asChild?: boolean;
+  /** Where the tooltip opens (default top). Two cut lines in one row: the first on top, the second at the bottom, so they don't cover each other. */
+  side?: 'top' | 'bottom';
 }
 
 const FOCUSABLE = 'a[href],button,input,select,textarea,summary,[tabindex]:not([tabindex="-1"]),[role=option],[role=row],[role=gridcell],[role=menuitem],[role=tab],[role=treeitem]';
 
-export function TruncatedText({ className, asChild = false, children, ...props }: TruncatedTextProps) {
+export function TruncatedText({ className, asChild = false, side = 'top', children, ...props }: TruncatedTextProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const [cut, setCut] = useState(false);
   const [open, setOpen] = useState(false);
@@ -49,7 +51,14 @@ export function TruncatedText({ className, asChild = false, children, ...props }
     const text = new MutationObserver(measure);
     text.observe(el, { childList: true, characterData: true, subtree: true });
     document.fonts?.ready.then(measure).catch(() => {});
-    const owner = el.parentElement?.closest<HTMLElement>(FOCUSABLE) ?? null;
+    // The control that takes focus for this text: an ancestor, or — when the
+    // control sits beside the text (a stretched link or an overlay button in
+    // a card) — the one marked data-truncate-owner in the nearest
+    // data-truncate-scope.
+    const owner =
+      el.parentElement?.closest<HTMLElement>(FOCUSABLE) ??
+      el.closest('[data-truncate-scope]')?.querySelector<HTMLElement>('[data-truncate-owner]') ??
+      null;
     setOwnFocus(!owner);
     if (!owner) return () => { resize.disconnect(); text.disconnect(); };
     // The control around the text has the keyboard focus, so it opens the tooltip.
@@ -83,7 +92,7 @@ export function TruncatedText({ className, asChild = false, children, ...props }
           </Comp>
         </TooltipPrimitive.Trigger>
         {/* The full text is already in the DOM for screen readers; the bubble is visual only. */}
-        <TooltipContent aria-hidden className="break-all">
+        <TooltipContent aria-hidden side={side} className="break-all">
           {children}
         </TooltipContent>
       </TooltipPrimitive.Root>

@@ -10732,6 +10732,7 @@ Docs: ./?path=/docs/labels-truncatedtext--docs
 **TruncatedText props**
 
 - `asChild?`: `boolean`, default `false` — Render onto your own element (e.g. a heading) instead of a `<span>`.
+- `side?`: `"top" | "bottom"`, default `top` — Where the tooltip opens (default top). Two cut lines in one row: the first on top, the second at the bottom, so they don't cover each other.
 
 Also accepts the props of: HTMLAttributes.
 

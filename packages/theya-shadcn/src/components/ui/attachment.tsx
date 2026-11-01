@@ -4,6 +4,7 @@ import { createElement, useEffect, useId, useRef, useState, type ReactNode } fro
 import { Page, MediaImage, MediaVideo, Code, Archive, Xmark, WarningTriangle, Refresh, Check } from 'iconoir-react';
 import { Button } from './button';
 import { Progress } from './progress';
+import { TruncatedText } from './truncated-text';
 import { cn } from '../../lib/utils';
 import { useTheyaI18n } from '../../lib/i18n';
 
@@ -248,6 +249,8 @@ export function Attachment({
           href,
           'aria-current': selected ? 'true' : undefined,
           className: 'outline-none after:absolute after:inset-0 focus-visible:underline',
+          // Its focus opens the tooltip of a cut name / meta line (TruncatedText).
+          'data-truncate-owner': '',
         },
         name,
       )
@@ -264,6 +267,7 @@ export function Attachment({
     <button
       type="button"
       data-slot="attachment-click"
+      data-truncate-owner=""
       onClick={onClick}
       aria-label={name}
       aria-describedby={hint ? hintId : undefined}
@@ -310,6 +314,7 @@ export function Attachment({
     return (
       <div
         data-slot="attachment"
+        data-truncate-scope=""
         data-interactive={isInteractive || undefined}
         data-selected={selected || undefined}
         onClick={isClickOnly ? undefined : onClick}
@@ -328,7 +333,7 @@ export function Attachment({
           {kindIcon(type, previewUrl)}
         </span>
         <span className="min-w-0 flex flex-col items-start">
-          <span className="font-body text-body-m font-medium text-[var(--color-text-text)] truncate max-w-[10rem]">{nameEl}</span>
+          <TruncatedText className="max-w-[10rem] font-body text-body-m font-medium text-[var(--color-text-text)]">{nameEl}</TruncatedText>
           {/* The error text itself, not only the danger border/bg: 'pill'
               and 'line' used to drop it, so a rejected file was flagged
               by color alone with no reason given (WCAG 1.4.1). */}
@@ -367,6 +372,7 @@ export function Attachment({
       <div
         {...rest}
         data-slot="attachment"
+        data-truncate-scope=""
         data-interactive={isInteractive || undefined}
         className={cn('flex self-start w-full items-center gap-2 py-1', isInteractive && 'group relative cursor-pointer rounded-[var(--size-border-radius-border-radius-md)] focus-within:focus-ring', className)}
       >
@@ -376,7 +382,7 @@ export function Attachment({
         {clickOverlay}
         {/* nameEl, not name: with `href` it is the real <a>. 'line' and
             'card' rendered the plain name, silently dropping href. */}
-        <span className="font-body text-body-m font-medium text-[var(--color-text-text)] truncate flex-1">{nameEl}</span>
+        <TruncatedText className="flex-1 font-body text-body-m font-medium text-[var(--color-text-text)]">{nameEl}</TruncatedText>
         {hasError ? (
           <span className="font-body text-body-xs text-[var(--color-text-text-danger)] shrink-0">
             <WarningTriangle width={11} height={11} className="inline me-1 -mt-0.5" aria-hidden="true" />
@@ -405,6 +411,7 @@ export function Attachment({
     return (
       <div
         data-slot="attachment"
+        data-truncate-scope=""
         data-interactive={isInteractive || undefined}
         data-selected={selected || undefined}
         onClick={isClickOnly ? undefined : onClick}
@@ -429,18 +436,19 @@ export function Attachment({
           )}
         </span>
         <span className="flex-1 min-w-0 flex flex-col">
-          <span
+          <TruncatedText
             className={cn(
-              'font-body text-body-m font-medium truncate',
+              'font-body text-body-m font-medium',
               hasError ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text)]',
             )}
           >
             {nameEl}
-          </span>
+          </TruncatedText>
           {metaLine && (
-            <span
+            <TruncatedText
+              side="bottom"
               className={cn(
-                'font-body text-body-xs truncate',
+                'font-body text-body-xs',
                 hasError ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-subtler)]',
                 metaHideClass,
               )}
@@ -448,7 +456,7 @@ export function Attachment({
               {hasError && <WarningTriangle width={11} height={11} className="inline me-1 -mt-0.5" aria-hidden="true" />}
               {doneIcon}
               {metaLine}
-            </span>
+            </TruncatedText>
           )}
           {hintEl}
           {barEl}
@@ -468,6 +476,7 @@ export function Attachment({
   return (
     <div
       data-slot="attachment"
+      data-truncate-scope=""
       data-interactive={isInteractive || undefined}
       data-selected={selected || undefined}
       onClick={isClickOnly ? undefined : onClick}
@@ -492,25 +501,26 @@ export function Attachment({
       </span>
       <div className="flex w-full items-center gap-2">
         <span className="min-w-0 flex-1 flex flex-col items-start">
-          <span
+          <TruncatedText
             className={cn(
-              'font-body text-body-m font-medium truncate w-full',
+              'font-body text-body-m font-medium w-full',
               hasError ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text)]',
             )}
           >
             {nameEl}
-          </span>
+          </TruncatedText>
           {metaLine && (
-            <span
+            <TruncatedText
+              side="bottom"
               className={cn(
-                'font-body text-body-xs truncate w-full',
+                'font-body text-body-xs w-full',
                 hasError ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-subtler)]',
                 metaHideClass,
               )}
             >
               {doneIcon}
               {metaLine}
-            </span>
+            </TruncatedText>
           )}
           {hintEl}
           {barEl && <span className="w-full">{barEl}</span>}

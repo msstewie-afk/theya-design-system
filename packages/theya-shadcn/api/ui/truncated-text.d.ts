@@ -3,8 +3,10 @@
 
 export interface TruncatedTextProps extends React.ComponentProps<'span'> {
     asChild?: boolean;
+    side?: 'top' | 'bottom';
 }
-export declare function TruncatedText({ className, asChild, children, ...props }: TruncatedTextProps): import("react").JSX.Element;
+export declare function TruncatedText({ className, asChild, side, children, ...props }: TruncatedTextProps): import("react").JSX.Element;
 
 // Defaults
 // TruncatedText.asChild = false
+// TruncatedText.side = top
