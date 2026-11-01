@@ -489,7 +489,7 @@ export function ScrollMaskReveal({ media, children, length = 1.2, className, ...
           </div>
         </div>
         {children && (
-          <div ref={text} className="absolute inset-x-0 bottom-0 opacity-0" {...{ inert: '' }}>
+          <div ref={text} className="absolute inset-x-0 bottom-0 opacity-0" {...inertProps(true)}>
             <div className="container-display pb-16 lg:pb-24">{children}</div>
           </div>
         )}
