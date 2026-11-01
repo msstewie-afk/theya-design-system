@@ -1,7 +1,8 @@
 # CI for the Theya monorepo.
 #
 # checks     — every run: types, generated spec and public API report are
-#              up to date, the sandbox app builds against the package.
+#              up to date, the publishable dist/ build imports in Node
+#              (scripts/check-package.mjs), the sandbox app builds.
 # storybook  — after checks: static Storybook, then the test-runner on it:
 #              play + axe in light and dark, visual regression in both.
 # react-19   — after checks, alongside storybook: the same code with React 19
@@ -84,6 +85,10 @@ jobs:
       - name: Spec and public API are up to date
         working-directory: packages/theya-shadcn
         run: pnpm api:check
+
+      - name: Package builds for outside apps (dist imports in Node, 'use client' kept)
+        working-directory: packages/theya-shadcn
+        run: node scripts/check-package.mjs
 
       - name: Sandbox app builds against the package
         run: pnpm --filter @theya/sandbox build

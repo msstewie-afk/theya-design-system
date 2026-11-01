@@ -65,7 +65,7 @@ for (const file of walk(DIST)) {
   const src = fs.readFileSync(file, 'utf8');
   const next = src.replace(SPEC, (_, lead, q, spec) => `${lead}${q}${resolveSpec(file, spec)}${q}`);
   if (next !== src) fs.writeFileSync(file, next);
-  files++;
+  if (file.endsWith('.js')) files++;
 }
 
 // 3. Styles, with the token CSS and fonts copied next to them.
