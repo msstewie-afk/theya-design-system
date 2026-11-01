@@ -23,12 +23,12 @@
   - heading "Navigation" [level=3]
   - term: Go to dashboard
   - definition: g then d
-  - term: Go to sites
-  - definition: g then s
+  - term: Go to galleries
+  - definition: g then g
   - term: Search everything
   - definition: ⌘ ⇧ F
   - heading "Actions" [level=3]
-  - term: Create a site
+  - term: Create a gallery
   - definition: c
   - term: Save and close
   - definition: ⌘ ⏎

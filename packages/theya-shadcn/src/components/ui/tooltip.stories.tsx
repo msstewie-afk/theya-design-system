@@ -113,24 +113,24 @@ export const Sides: Story = {
 
 /** A tooltip works on any focusable trigger, not just icon buttons. */
 export const OnTextButton: Story = {
-  args: { side: 'bottom', children: 'Fetches a fresh 90-day certificate' },
+  args: { side: 'bottom', children: 'Regenerates web-size previews from the originals' },
   render: (args) => (
     <Tooltip>
       <TooltipTrigger asChild>
         <Button appearance="outlined" tone="secondary" leftIcon={<Refresh />}>
-          Reissue certificate
+          Re-export previews
         </Button>
       </TooltipTrigger>
       <TooltipContent {...args} />
     </Tooltip>
   ),
   play: async ({ canvasElement }) => {
-    const trigger = within(canvasElement).getByRole('button', { name: 'Reissue certificate' });
+    const trigger = within(canvasElement).getByRole('button', { name: 'Re-export previews' });
     // Keyboard focus shows it too (not hover-only), and it describes the trigger.
     trigger.focus();
     const tip = await within(document.body).findByRole('tooltip');
-    await expect(tip).toHaveTextContent('Fetches a fresh 90-day certificate');
-    await expect(trigger).toHaveAccessibleDescription('Fetches a fresh 90-day certificate');
+    await expect(tip).toHaveTextContent('Regenerates web-size previews from the originals');
+    await expect(trigger).toHaveAccessibleDescription('Regenerates web-size previews from the originals');
     // Escape dismisses without moving focus.
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(within(document.body).queryByRole('tooltip')).toBeNull());
@@ -140,11 +140,11 @@ export const OnTextButton: Story = {
 
 /** Hints scale to short identifiers too. */
 export const WithIdentifier: Story = {
-  args: { children: <span className="font-mono">eu-west-1</span> },
+  args: { children: <span className="font-mono">GOLDEN_0907.tif</span> },
   render: (args) => (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button appearance="ghost" tone="secondary" iconOnly leftIcon={<InfoCircle />} aria-label="Region details" />
+        <Button appearance="ghost" tone="secondary" iconOnly leftIcon={<InfoCircle />} aria-label="File details" />
       </TooltipTrigger>
       <TooltipContent {...args} />
     </Tooltip>
@@ -168,7 +168,7 @@ export const Open: Story = {
 export const LongContent: Story = {
   args: {
     children:
-      'Certificate renewal runs 30 days before expiry for shop.seashell.dev.eu-west-1.internal-load-balancer-01; no action needed.',
+      'The print license renews 30 days before it expires for l4.aether.photo/mnemosyne/moonrise-over-othrys/L4_moonrise.raw; no action needed.',
   },
   render: (args) => (
     <Tooltip defaultOpen>

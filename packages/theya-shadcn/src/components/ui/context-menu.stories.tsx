@@ -71,18 +71,18 @@ function Target({ children }: { children: React.ReactNode }) {
 export const Default: Story = {
   render: () => (
     <ContextMenu>
-      <Target>Right-click shop.seashell.dev</Target>
+      <Target>Right-click DAWN_0412.jpg</Target>
       <ContextMenuContent>
-        <ContextMenuLabel className="font-mono">shop.seashell.dev</ContextMenuLabel>
+        <ContextMenuLabel className="font-mono">DAWN_0412.jpg</ContextMenuLabel>
         <ContextMenuSeparator />
         <ContextMenuGroup>
           <ContextMenuItem>
-            Open site
+            Open photo
             <ContextMenuShortcut>⌘O</ContextMenuShortcut>
           </ContextMenuItem>
           <ContextMenuItem>
-            Clear cache
-            <ContextMenuShortcut>⌘⌫</ContextMenuShortcut>
+            Download original
+            <ContextMenuShortcut>⌘D</ContextMenuShortcut>
           </ContextMenuItem>
         </ContextMenuGroup>
         <ContextMenuSeparator />
@@ -90,26 +90,26 @@ export const Default: Story = {
           <ContextMenuSubTrigger>Copy</ContextMenuSubTrigger>
           <ContextMenuSubContent>
             <ContextMenuItem>Copy URL</ContextMenuItem>
-            <ContextMenuItem>Copy deploy ID</ContextMenuItem>
+            <ContextMenuItem>Copy file name</ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>
         <ContextMenuSeparator />
         <ContextMenuItem tone="danger">
           <Trash />
-          Delete site
+          Delete photo
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
   ),
   play: async ({ canvasElement }) => {
     const page = within(document.body);
-    const target = within(canvasElement).getByText('Right-click shop.seashell.dev');
+    const target = within(canvasElement).getByText('Right-click DAWN_0412.jpg');
     await userEvent.pointer({ keys: '[MouseRight]', target });
     const menu = await page.findByRole('menu');
     // Keyboard inside the menu: arrows move, ArrowRight opens the sub-menu.
     await waitFor(() => expect(menu.contains(document.activeElement)).toBe(true));
     await userEvent.keyboard('{ArrowDown}');
-    await expect(page.getByRole('menuitem', { name: /Open site/ })).toHaveFocus();
+    await expect(page.getByRole('menuitem', { name: /Open photo/ })).toHaveFocus();
     page.getByRole('menuitem', { name: 'Copy' }).focus();
     await userEvent.keyboard('{ArrowRight}');
     await expect(await page.findByRole('menuitem', { name: 'Copy URL' })).toBeInTheDocument();
@@ -126,13 +126,13 @@ export const Destructive: Story = {
     <ContextMenu>
       <Target>Right-click for destructive actions</Target>
       <ContextMenuContent>
-        <ContextMenuItem>Open site</ContextMenuItem>
-        <ContextMenuItem>Reissue certificate</ContextMenuItem>
+        <ContextMenuItem>Open gallery</ContextMenuItem>
+        <ContextMenuItem>Edit license</ContextMenuItem>
         <ContextMenuSeparator />
-        <ContextMenuItem tone="danger">Suspend site</ContextMenuItem>
+        <ContextMenuItem tone="danger">Unpublish gallery</ContextMenuItem>
         <ContextMenuItem tone="danger">
           <Trash />
-          Delete site
+          Delete gallery
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
@@ -142,27 +142,27 @@ export const Destructive: Story = {
 /** Checkbox and radio items hold toggles and a single-choice picker; `inset` aligns label/plain rows with the leading indicator column. */
 export const CheckboxAndRadio: Story = {
   render: function CheckboxAndRadioStory() {
-    const [autoRenew, setAutoRenew] = useState(true);
-    const [includeStaging, setIncludeStaging] = useState(false);
-    const [region, setRegion] = useState('eu-west-1');
+    const [watermark, setWatermark] = useState(true);
+    const [includeRaw, setIncludeRaw] = useState(false);
+    const [studio, setStudio] = useState('helios');
     return (
       <ContextMenu>
-        <Target>Right-click for deploy options</Target>
+        <Target>Right-click for export options</Target>
         <ContextMenuContent>
-          <ContextMenuCheckboxItem checked={autoRenew} onCheckedChange={setAutoRenew}>
-            Auto-renew certificate
+          <ContextMenuCheckboxItem checked={watermark} onCheckedChange={setWatermark}>
+            Add watermark
           </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem checked={includeStaging} onCheckedChange={setIncludeStaging}>
-            Include staging
+          <ContextMenuCheckboxItem checked={includeRaw} onCheckedChange={setIncludeRaw}>
+            Include RAW files
           </ContextMenuCheckboxItem>
           <ContextMenuSeparator />
-          <ContextMenuLabel inset>Region</ContextMenuLabel>
-          <ContextMenuRadioGroup value={region} onValueChange={setRegion}>
-            <ContextMenuRadioItem value="eu-west-1" className="font-mono">
-              eu-west-1
+          <ContextMenuLabel inset>Export for</ContextMenuLabel>
+          <ContextMenuRadioGroup value={studio} onValueChange={setStudio}>
+            <ContextMenuRadioItem value="helios">
+              Helios Studio
             </ContextMenuRadioItem>
-            <ContextMenuRadioItem value="us-east-2" className="font-mono">
-              us-east-2
+            <ContextMenuRadioItem value="selene">
+              Selene Weddings
             </ContextMenuRadioItem>
           </ContextMenuRadioGroup>
         </ContextMenuContent>
@@ -174,10 +174,10 @@ export const CheckboxAndRadio: Story = {
 /** `ContextMenuTrailing` pins arbitrary content - a count, a shortcut, an inline control - to an item's right edge. */
 export const WithTrailing: Story = {
   render: function WithTrailingStory() {
-    const [hasDeployHook, setHasDeployHook] = useState(true);
+    const [hasWatermark, setHasWatermark] = useState(true);
     return (
       <ContextMenu>
-        <Target>Right-click seashell-shop</Target>
+        <Target>Right-click Helios Studio</Target>
         <ContextMenuContent>
           <ContextMenuItem>
             Open dashboard
@@ -190,29 +190,29 @@ export const WithTrailing: Story = {
             </ContextMenuTrailing>
           </ContextMenuItem>
           <ContextMenuSeparator />
-          {hasDeployHook ? (
+          {hasWatermark ? (
             <ContextMenuItem>
-              <span className="flex-1 truncate">Deploy hook</span>
+              <span className="flex-1 truncate">Watermark</span>
               <ContextMenuTrailing>
                 <Button
                   appearance="ghost"
                   tone="danger"
                   size="sm"
                   iconOnly
-                  aria-label="Remove deploy hook"
+                  aria-label="Remove watermark"
                   tabIndex={-1}
                   onPointerDown={(event) => event.stopPropagation()}
                   onClick={(event) => {
                     event.stopPropagation();
-                    setHasDeployHook(false);
+                    setHasWatermark(false);
                   }}
                   leftIcon={<Xmark />}
                 />
               </ContextMenuTrailing>
             </ContextMenuItem>
           ) : (
-            <ContextMenuItem onClick={() => setHasDeployHook(true)}>
-              Add deploy hook
+            <ContextMenuItem onClick={() => setHasWatermark(true)}>
+              Add watermark
             </ContextMenuItem>
           )}
         </ContextMenuContent>
@@ -225,21 +225,21 @@ export const WithTrailing: Story = {
 export const WithDisabledItem: Story = {
   render: () => (
     <ContextMenu>
-      <Target>Right-click staging.seashell.dev</Target>
+      <Target>Right-click Blue hour</Target>
       <ContextMenuContent>
-        <ContextMenuItem>Open site</ContextMenuItem>
-        <ContextMenuItem disabled>Reissue certificate</ContextMenuItem>
+        <ContextMenuItem>Open gallery</ContextMenuItem>
+        <ContextMenuItem disabled>Edit license</ContextMenuItem>
         <ContextMenuSeparator />
-        <ContextMenuItem tone="danger">Delete site</ContextMenuItem>
+        <ContextMenuItem tone="danger">Delete gallery</ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
   ),
 };
 
-const SITE_ACTIONS = [
-  { label: 'Open site' },
-  { label: 'Clear cache' },
-  { label: 'Delete site', danger: true },
+const GALLERY_ACTIONS = [
+  { label: 'Open gallery' },
+  { label: 'Share with client' },
+  { label: 'Delete gallery', danger: true },
 ] as const;
 
 /**
@@ -250,13 +250,13 @@ export const WithVisibleAlternative: Story = {
   render: () => (
     <ContextMenu>
       <ContextMenuTrigger className="flex w-full max-w-sm items-center justify-between gap-3 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)] p-4">
-        <span className="font-mono text-body-m text-[var(--color-text-text)]">shop.seashell.dev</span>
+        <span className="font-body text-body-m text-[var(--color-text-text)]">Golden hour</span>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button appearance="ghost" tone="secondary" size="md" iconOnly leftIcon={<KebabIconHorizontal />} aria-label="Actions for shop.seashell.dev" />
+            <Button appearance="ghost" tone="secondary" size="md" iconOnly leftIcon={<KebabIconHorizontal />} aria-label="Actions for Golden hour" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            {SITE_ACTIONS.map((a) => (
+            {GALLERY_ACTIONS.map((a) => (
               <DropdownMenuItem key={a.label} tone={'danger' in a ? 'danger' : undefined}>
                 {'danger' in a && <Trash />}
                 {a.label}
@@ -266,7 +266,7 @@ export const WithVisibleAlternative: Story = {
         </DropdownMenu>
       </ContextMenuTrigger>
       <ContextMenuContent>
-        {SITE_ACTIONS.map((a, i) => (
+        {GALLERY_ACTIONS.map((a, i) => (
           <Fragment key={a.label}>
             {'danger' in a && i > 0 && <ContextMenuSeparator />}
             <ContextMenuItem tone={'danger' in a ? 'danger' : 'neutral'}>
@@ -281,11 +281,11 @@ export const WithVisibleAlternative: Story = {
   play: async ({ canvasElement }) => {
     const page = within(document.body);
     const canvas = within(canvasElement);
-    const names = SITE_ACTIONS.map((a) => a.label);
+    const names = GALLERY_ACTIONS.map((a) => a.label);
 
     // Keyboard only: Tab reaches the "…" button, Enter opens the same actions.
     await userEvent.tab();
-    const more = canvas.getByRole('button', { name: 'Actions for shop.seashell.dev' });
+    const more = canvas.getByRole('button', { name: 'Actions for Golden hour' });
     await expect(more).toHaveFocus();
     await userEvent.keyboard('{Enter}');
     const dropdown = await page.findByRole('menu');
@@ -295,7 +295,7 @@ export const WithVisibleAlternative: Story = {
     await waitFor(() => expect(more).toHaveFocus());
 
     // Right-click on the card offers exactly the same set.
-    await userEvent.pointer({ keys: '[MouseRight]', target: canvas.getByText('shop.seashell.dev') });
+    await userEvent.pointer({ keys: '[MouseRight]', target: canvas.getByText('Golden hour') });
     const context = await page.findByRole('menu');
     await expect(within(context).getAllByRole('menuitem').map((el) => el.textContent?.trim())).toEqual(names);
     await userEvent.keyboard('{Escape}');

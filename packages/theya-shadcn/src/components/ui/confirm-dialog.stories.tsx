@@ -15,7 +15,7 @@ const meta: Meta<typeof ConfirmDialog> = {
     docs: {
       description: {
         component:
-          "Confirms a high-stakes delete by asking people to type the name of what they delete: a domain, a database, an organisation.",
+          "Confirms a high-stakes delete by asking people to type the name of what they delete: a gallery, a client portal, an organization.",
       },
     },
     guidelines: confirmDialogGuidelines,
@@ -30,7 +30,7 @@ const meta: Meta<typeof ConfirmDialog> = {
     confirmValue: { control: 'text', description: 'Require the user to type this string exactly to enable the action.', table: { category: 'Behavior' } },
     confirmValueMono: {
       control: 'boolean',
-      description: 'Monospace the typed value (a domain, slug, id, etc). Set false for a non-identifier value like an email. Defaults to true.',
+      description: 'Monospace the typed value (a portal address, slug, id, etc). Set false for a non-identifier value like an email. Defaults to true.',
       table: { category: 'Appearance' },
     },
     confirmLabel: { control: 'text', description: 'Label for the confirm button.', table: { category: 'Content' } },
@@ -53,11 +53,11 @@ export const Default: Story = {
   args: { onConfirm: fn() },
   render: (args) => (
     <ConfirmDialog
-      title="Delete this server?"
+      title="Delete this gallery?"
       description="This action cannot be undone."
       trigger={
         <Button appearance="filled" tone="danger">
-          Delete server
+          Delete gallery
         </Button>
       }
       onConfirm={args.onConfirm}
@@ -68,10 +68,10 @@ export const Default: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const body = within(document.body);
-    const trigger = canvas.getByRole('button', { name: 'Delete server' });
+    const trigger = canvas.getByRole('button', { name: 'Delete gallery' });
 
     await userEvent.click(trigger);
-    const dialog = await body.findByRole('alertdialog', { name: 'Delete this server?' });
+    const dialog = await body.findByRole('alertdialog', { name: 'Delete this gallery?' });
     await expect(dialog).toHaveAccessibleDescription('This action cannot be undone.');
     await waitFor(() => expect(dialog.contains(document.activeElement)).toBe(true));
 
@@ -94,15 +94,15 @@ export const TypedConfirm: Story = {
   args: { onConfirm: fn() },
   render: (args) => (
     <ConfirmDialog
-      title="Delete shop.seashell.dev?"
-      description="This will permanently remove the site and all its data."
-      confirmValue="shop.seashell.dev"
+      title="Delete selene-weddings.aether.photo?"
+      description="This will permanently remove the client portal and all its galleries."
+      confirmValue="selene-weddings.aether.photo"
       showHeaderDivider={false}
       showFooterDivider={false}
       contentGap="none"
       trigger={
         <Button appearance="filled" tone="danger">
-          Delete site
+          Delete portal
         </Button>
       }
       onConfirm={args.onConfirm}
@@ -114,22 +114,22 @@ export const TypedConfirm: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
 
-    await userEvent.click(canvas.getByRole('button', { name: 'Delete site' }));
-    const dialog = await body.findByRole('alertdialog', { name: 'Delete shop.seashell.dev?' });
+    await userEvent.click(canvas.getByRole('button', { name: 'Delete portal' }));
+    const dialog = await body.findByRole('alertdialog', { name: 'Delete selene-weddings.aether.photo?' });
     const field = within(dialog).getByRole('textbox', { name: /to confirm/ });
     const action = within(dialog).getByRole('button', { name: 'Delete' });
     await expect(action).toBeDisabled();
 
-    await userEvent.type(field, 'shop.seashell');
+    await userEvent.type(field, 'selene-weddings.aether');
     await expect(action).toBeDisabled();
-    await userEvent.type(field, '.dev');
+    await userEvent.type(field, '.photo');
     await expect(action).toBeEnabled();
 
     await userEvent.click(within(dialog).getByRole('button', { name: 'Cancel' }));
     await waitFor(() => expect(body.queryByRole('alertdialog')).toBeNull());
     await expect(args.onConfirm).not.toHaveBeenCalled();
 
-    await userEvent.click(canvas.getByRole('button', { name: 'Delete site' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Delete portal' }));
     const reopened = await body.findByRole('alertdialog');
     await expect(within(reopened).getByRole('textbox', { name: /to confirm/ })).toHaveValue('');
     // Leave it closed: an open modal aria-hides #storybook-root, which the
@@ -140,19 +140,19 @@ export const TypedConfirm: Story = {
 
 };
 
-/** Without `confirmValue` and no `children`, it's a plain confirmation — no body at all, action enables immediately. A `neutral` tone suits a non-destructive decision like a restart. */
+/** Without `confirmValue` and no `children`, it's a plain confirmation — no body at all, action enables immediately. A `neutral` tone suits a non-destructive decision like a re-sync. */
 export const NonDestructive: Story = {
   name: 'Non-destructive',
   render: () => (
     <ConfirmDialog
-      title="Restart server"
-      description="Active connections will be dropped during the restart."
+      title="Re-sync Helios Studio?"
+      description="Uploads in progress pause until the re-sync finishes."
       tone="neutral"
-      confirmLabel="Restart"
+      confirmLabel="Re-sync"
       confirmIcon={<Refresh />}
       trigger={
         <Button appearance="outlined" tone="secondary">
-          Restart server
+          Re-sync studio
         </Button>
       }
       onConfirm={() => console.log('Confirmed')}
@@ -165,14 +165,14 @@ export const WithConsequences: Story = {
   name: 'With consequences',
   render: () => (
     <ConfirmDialog
-      title="Delete api.seashell.dev?"
-      confirmValue="api.seashell.dev"
+      title="Delete helios.aether.photo?"
+      confirmValue="helios.aether.photo"
       showHeaderDivider={false}
       showFooterDivider={false}
       contentGap="none"
       trigger={
         <Button appearance="filled" tone="danger">
-          Delete api.seashell.dev
+          Delete helios.aether.photo
         </Button>
       }
       onConfirm={() => console.log('Confirmed')}
@@ -180,8 +180,8 @@ export const WithConsequences: Story = {
       <Alert tone="danger">
         <WarningCircle />
         <AlertDescription>
-          Deleting <span className="font-mono text-[var(--color-text-text)]">api.seashell.dev</span> removes 902,540 requests/day of routing,
-          its TLS certificate, and 12 deploy snapshots. This cannot be undone.
+          Deleting <span className="font-mono text-[var(--color-text-text)]">helios.aether.photo</span> removes client access to 14 galleries
+          (about 3,800 views a day), 6 print licenses and 12 saved exports. This cannot be undone.
         </AlertDescription>
       </Alert>
     </ConfirmDialog>
@@ -204,15 +204,16 @@ export const Open: Story = {
           Reopen
         </Button>
         <ConfirmDialog
-          title="Delete site"
-          confirmValue="shop.seashell.dev"
-          confirmLabel="Delete site"
+          title="Delete gallery"
+          confirmValue="Golden hour"
+          confirmValueMono={false}
+          confirmLabel="Delete gallery"
           open={open}
           onOpenChange={setOpen}
           onConfirm={() => console.log('Confirmed')}
         >
           <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">
-            This permanently removes <span className="font-mono text-[var(--color-text-text)]">shop.seashell.dev</span> and its backups. This cannot be undone.
+            This permanently removes <span className="text-[var(--color-text-text)]">Golden hour</span>, its 412 photos and its copies in Mnemosyne. This cannot be undone.
           </p>
         </ConfirmDialog>
       </div>

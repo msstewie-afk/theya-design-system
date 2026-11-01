@@ -41,11 +41,11 @@ export const dialogGuidelines: ComponentGuidelines = {
     },
     {
       do: {
-        example: <DialogMock title="Rename database" actions={<><Button appearance="outlined" tone="secondary" size="md">Cancel</Button><Button size="md">Rename</Button></>}>One field, one decision.</DialogMock>,
+        example: <DialogMock title="Rename gallery" actions={<><Button appearance="outlined" tone="secondary" size="md">Cancel</Button><Button size="md">Rename</Button></>}>One field, one decision.</DialogMock>,
         caption: 'Small and finishable in one go.',
       },
       dont: {
-        example: <DialogMock title="Edit site settings" actions={<Button size="md">Next</Button>}>Step 1 of 6 — General, Domains, Environment, Build, SSL, Backups…</DialogMock>,
+        example: <DialogMock title="Edit gallery settings" actions={<Button size="md">Next</Button>}>Step 1 of 6 — General, Client portal, Licenses, Downloads, Exports, Archive…</DialogMock>,
         caption: 'A wizard in a dialog: no room, no URL, easy to lose with one Escape.',
       },
     },

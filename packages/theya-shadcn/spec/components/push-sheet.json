@@ -35,12 +35,12 @@
   "doDont": [
     {
       "do": {
-        "caption": "Click a site: details open beside the list, which stays clickable.",
-        "example": "<Example title=\"shop.seashell.dev\" body={<p className=\"font-body text-body-s text-[var(--color-text-text-subtle)]\">Running · eu-west-1. Click another site to switch.</p>} />"
+        "caption": "Click a gallery: details open beside the list, which stays clickable.",
+        "example": "<Example title=\"Golden hour\" body={<p className=\"font-body text-body-s text-[var(--color-text-text-subtle)]\">Selene Weddings · 412 photos. Click another gallery to switch.</p>} />"
       },
       "dont": {
         "caption": "A destructive confirmation in a non-modal panel: easy to ignore, easy to hit by accident.",
-        "example": "<Example title=\"Delete site?\" body={<Button appearance=\"filled\" tone=\"danger\" size=\"sm\">Delete</Button>} />"
+        "example": "<Example title=\"Delete gallery?\" body={<Button appearance=\"filled\" tone=\"danger\" size=\"sm\">Delete</Button>} />"
       }
     }
   ],

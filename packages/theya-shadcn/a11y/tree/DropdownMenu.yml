@@ -4,36 +4,36 @@
 - button "View"
 
 # Default (menus-dropdownmenu--default)
-- button "Open actions for shop.seashell.dev"
+- button "Open actions for Golden hour"
 
 # Destructive (menus-dropdownmenu--destructive)
-- button "Manage site"
+- button "Manage gallery"
 
 # Groups With Labels (menus-dropdownmenu--groups-with-labels)
 - button "Grouped actions"
 
 # Open (menus-dropdownmenu--open)
 - menu "Actions":
-  - text: shop.seashell.dev
+  - text: Golden hour
   - separator
-  - menuitem "Open site"
-  - menuitem "Reissue certificate"
+  - menuitem "Open gallery"
+  - menuitem "Edit license"
   - separator
-  - menuitem "Delete site":
+  - menuitem "Delete gallery":
     - img
-    - text: Delete site
+    - text: Delete gallery
 
 # With Disabled Item (menus-dropdownmenu--with-disabled-item)
-- button "Manage staging.seashell.dev"
+- button "Manage Blue hour"
 
 # With Sub Menu (menus-dropdownmenu--with-sub-menu)
 - menu "Add":
-  - menuitem "Create site"
-  - menuitem "Import from git"
+  - menuitem "Create gallery"
+  - menuitem "Import from folder"
   - separator
   - menuitem "Copy":
     - text: Copy
     - img
 
 # With Trailing (menus-dropdownmenu--with-trailing)
-- button "Manage seashell-shop"
+- button "Manage Helios Studio"

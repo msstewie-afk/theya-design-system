@@ -14,9 +14,9 @@ export const alertDialogGuidelines: ComponentGuidelines = {
     { text: 'Forms or anything to read at length', instead: 'Dialog' },
   ],
   anatomy: [
-    { part: 'Title', description: 'the question with the object: “Delete shop.seashell.dev?”.' },
+    { part: 'Title', description: 'the question with the object: “Delete Golden hour?”.' },
     { part: 'Description', description: 'what will happen and what can’t be undone.' },
-    { part: 'Actions', description: <><C>AlertDialogCancel</C> and <C>AlertDialogAction</C> labelled with the verb (“Delete site”), danger tone for destructive.</> },
+    { part: 'Actions', description: <><C>AlertDialogCancel</C> and <C>AlertDialogAction</C> labelled with the verb (“Delete gallery”), danger tone for destructive.</> },
   ],
   doDont: [
     {
@@ -24,16 +24,16 @@ export const alertDialogGuidelines: ComponentGuidelines = {
         example: (
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button appearance="outlined" tone="danger" size="md">Delete site</Button>
+              <Button appearance="outlined" tone="danger" size="md">Delete gallery</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Delete shop.seashell.dev?</AlertDialogTitle>
-                <AlertDialogDescription>Its files, databases and 14 backups are removed. This can’t be undone.</AlertDialogDescription>
+                <AlertDialogTitle>Delete Golden hour?</AlertDialogTitle>
+                <AlertDialogDescription>Its 412 photos, client favorites and 3 print licenses are removed. This can’t be undone.</AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Delete site</AlertDialogAction>
+                <AlertDialogAction>Delete gallery</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -44,7 +44,7 @@ export const alertDialogGuidelines: ComponentGuidelines = {
         example: (
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button appearance="outlined" tone="danger" size="md">Delete site</Button>
+              <Button appearance="outlined" tone="danger" size="md">Delete gallery</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>

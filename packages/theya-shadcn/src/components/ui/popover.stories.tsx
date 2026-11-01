@@ -84,20 +84,20 @@ export const Default: Story = {
       </PopoverTrigger>
       <PopoverContent align="start" className="w-72">
         <div className="flex flex-col gap-3">
-          <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Filter sites</p>
+          <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Filter galleries</p>
           <fieldset className="flex flex-col gap-2">
             <legend className="sr-only">Status</legend>
             <Label className="items-center gap-2">
               <Checkbox defaultChecked />
-              Running
+              Published
             </Label>
             <Label className="items-center gap-2">
               <Checkbox />
-              Suspended
+              Draft
             </Label>
             <Label className="items-center gap-2">
               <Checkbox />
-              Error
+              Archived
             </Label>
           </fieldset>
         </div>
@@ -131,16 +131,16 @@ export const InlineForm: Story = {
       <PopoverContent align="start" className="w-80">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Resource limits</p>
-            <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">Applies to shop.seashell.dev in eu-west-1.</p>
+            <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Download limits</p>
+            <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">Applies to Golden hour on selene-weddings.aether.photo.</p>
           </div>
           <div className="flex flex-col gap-1">
-            <Label htmlFor="popover-cpu">CPU cores</Label>
-            <NumberField id="popover-cpu" defaultValue={2} min={1} max={8} />
+            <Label htmlFor="popover-downloads">Downloads per client</Label>
+            <NumberField id="popover-downloads" defaultValue={50} min={1} max={500} />
           </div>
           <div className="flex flex-col gap-1">
-            <Label htmlFor="popover-memory">Memory (GB)</Label>
-            <NumberField id="popover-memory" defaultValue={4} min={1} max={32} />
+            <Label htmlFor="popover-expiry">Link expiry (days)</Label>
+            <NumberField id="popover-expiry" defaultValue={30} min={1} max={365} />
           </div>
           <Separator />
           <div className="flex justify-end gap-2">
@@ -174,11 +174,11 @@ export const IconTrigger: Story = {
             View details
           </Button>
           <Button appearance="ghost" tone="secondary" className="justify-start">
-            Reissue certificate
+            Edit license
           </Button>
           <PopoverClose asChild>
             <Button appearance="ghost" tone="danger" className="justify-start">
-              Suspend site
+              Unpublish gallery
             </Button>
           </PopoverClose>
         </div>
@@ -237,7 +237,7 @@ export const Open: Story = {
         </Button>
       </PopoverTrigger>
       <PopoverContent align="start" className="w-72">
-        <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">Filter sites by status and region.</p>
+        <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">Filter galleries by status and studio.</p>
       </PopoverContent>
     </Popover>
   ),

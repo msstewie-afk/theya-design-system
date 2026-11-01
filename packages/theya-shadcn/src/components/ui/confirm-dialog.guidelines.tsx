@@ -4,7 +4,7 @@ import { ConfirmDialog } from './confirm-dialog';
 
 export const confirmDialogGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: [<>High-stakes, irreversible deletes where a click isn’t enough: <C>confirmValue</C> makes people type the name.</>, 'Deleting a domain, a database, an organisation.'],
+  whenToUse: [<>High-stakes, irreversible deletes where a click isn’t enough: <C>confirmValue</C> makes people type the name.</>, 'Deleting a client portal, an archive, an organization.'],
   whenNotToUse: [
     { text: 'Ordinary confirmations', instead: 'AlertDialog' },
     { text: 'Reversible actions', instead: 'UndoToast' },
@@ -19,15 +19,15 @@ export const confirmDialogGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <ConfirmDialog
-            title="Delete seashell.dev?"
-            description="All DNS records, mailboxes and certificates for this domain are removed."
-            confirmValue="seashell.dev"
-            confirmLabel="Delete domain"
+            title="Delete eos-portraits.aether.photo?"
+            description="The portal, its 9 client galleries and their download links are removed."
+            confirmValue="eos-portraits.aether.photo"
+            confirmLabel="Delete portal"
             tone="danger"
-            trigger={<Button appearance="outlined" tone="danger" size="md">Delete domain</Button>}
+            trigger={<Button appearance="outlined" tone="danger" size="md">Delete portal</Button>}
           />
         ),
-        caption: 'Typing the domain makes deleting the wrong one unlikely.',
+        caption: 'Typing the portal address makes deleting the wrong one unlikely.',
       },
       dont: {
         example: (

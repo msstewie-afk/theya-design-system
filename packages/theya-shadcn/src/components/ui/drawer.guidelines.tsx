@@ -23,12 +23,12 @@ export const drawerGuidelines: ComponentGuidelines = {
             <DrawerTrigger asChild><Button appearance="outlined" tone="secondary" size="md">Sort</Button></DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
-                <DrawerTitle>Sort sites</DrawerTitle>
+                <DrawerTitle>Sort galleries</DrawerTitle>
                 <DrawerDescription>Choose an order for the list.</DrawerDescription>
               </DrawerHeader>
               <DrawerBody>
                 <div className="flex flex-col gap-2">
-                  {['Newest first', 'Name A–Z', 'Most traffic'].map((o) => (
+                  {['Newest first', 'Name A–Z', 'Most viewed'].map((o) => (
                     <DrawerClose key={o} asChild>
                       <Button appearance="ghost" tone="secondary" size="lg" className="justify-start">{o}</Button>
                     </DrawerClose>
@@ -43,11 +43,11 @@ export const drawerGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <Drawer>
-            <DrawerTrigger asChild><Button appearance="outlined" tone="secondary" size="md">Create site</Button></DrawerTrigger>
+            <DrawerTrigger asChild><Button appearance="outlined" tone="secondary" size="md">Create gallery</Button></DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
-                <DrawerTitle>Create site — step 1 of 4</DrawerTitle>
-                <DrawerDescription>Domain, plan, region, database, admin account…</DrawerDescription>
+                <DrawerTitle>Create gallery — step 1 of 4</DrawerTitle>
+                <DrawerDescription>Client, studio, portal, licenses, archive…</DrawerDescription>
               </DrawerHeader>
               <DrawerFooter>
                 <Button appearance="filled" tone="primary" size="lg">Next</Button>

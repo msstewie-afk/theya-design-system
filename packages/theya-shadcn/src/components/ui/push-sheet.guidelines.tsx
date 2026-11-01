@@ -10,7 +10,7 @@ function Example({ title, body }: { title: string; body: ReactNode }) {
   return (
     <div className="flex h-56 w-[30rem] max-w-full overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)]">
       <div className="flex min-w-0 flex-1 flex-col gap-2 p-3 font-body text-body-m">
-        {['shop.seashell.dev', 'api.seashell.dev', 'docs.seashell.dev'].map((s) => (
+        {['Golden hour', 'Blue hour', 'First light'].map((s) => (
           <button key={s} type="button" className={ROW} onClick={() => setOpen(true)}>{s}</button>
         ))}
       </div>
@@ -40,11 +40,11 @@ export const pushSheetGuidelines: ComponentGuidelines = {
   doDont: [
     {
       do: {
-        example: <Example title="shop.seashell.dev" body={<p className="font-body text-body-s text-[var(--color-text-text-subtle)]">Running · eu-west-1. Click another site to switch.</p>} />,
-        caption: 'Click a site: details open beside the list, which stays clickable.',
+        example: <Example title="Golden hour" body={<p className="font-body text-body-s text-[var(--color-text-text-subtle)]">Selene Weddings · 412 photos. Click another gallery to switch.</p>} />,
+        caption: 'Click a gallery: details open beside the list, which stays clickable.',
       },
       dont: {
-        example: <Example title="Delete site?" body={<Button appearance="filled" tone="danger" size="sm">Delete</Button>} />,
+        example: <Example title="Delete gallery?" body={<Button appearance="filled" tone="danger" size="sm">Delete</Button>} />,
         caption: 'A destructive confirmation in a non-modal panel: easy to ignore, easy to hit by accident.',
       },
     },

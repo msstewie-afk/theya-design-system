@@ -6,7 +6,7 @@ import { Link } from './link';
 
 export const hoverCardGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['A quick preview of what a link points to — a user, a site, a ticket — that people could also get by clicking.'],
+  whenToUse: ['A quick preview of what a link points to — a user, a gallery, a client portal — that people could also get by clicking.'],
   whenNotToUse: [
     { text: 'Anything people must reach on touch', instead: 'Popover' },
     { text: 'A short label for an icon', instead: 'Tooltip' },
@@ -21,23 +21,23 @@ export const hoverCardGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <HoverCard>
-            <HoverCardTrigger asChild><Link href="#gl-hc" size="md" className="font-mono">shop.seashell.dev</Link></HoverCardTrigger>
+            <HoverCardTrigger asChild><Link href="#gl-hc" size="md" className="font-mono">selene-weddings.aether.photo</Link></HoverCardTrigger>
             <HoverCardContent>
-              <p className="font-mono text-body-m font-medium text-[var(--color-text-text)]">shop.seashell.dev</p>
-              <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Running · eu-west-1 · 184,320 requests today</p>
+              <p className="font-mono text-body-m font-medium text-[var(--color-text-text)]">selene-weddings.aether.photo</p>
+              <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Online · Selene Weddings · 1,284 views today</p>
             </HoverCardContent>
           </HoverCard>
         ),
-        caption: 'Hover or focus the link for a preview; clicking still opens the site.',
+        caption: 'Hover or focus the link for a preview; clicking still opens the portal.',
       },
       dont: {
         example: (
           <HoverCard>
-            <HoverCardTrigger asChild><Link href="#gl-hc" size="md" className="font-mono">api.seashell.dev</Link></HoverCardTrigger>
+            <HoverCardTrigger asChild><Link href="#gl-hc" size="md" className="font-mono">eos-portraits.aether.photo</Link></HoverCardTrigger>
             <HoverCardContent>
               <div className="flex gap-2">
-                <Button appearance="outlined" tone="secondary" size="sm">Restart</Button>
-                <Button appearance="outlined" tone="danger" size="sm">Stop</Button>
+                <Button appearance="outlined" tone="secondary" size="sm">Re-sync</Button>
+                <Button appearance="outlined" tone="danger" size="sm">Unpublish</Button>
               </div>
             </HoverCardContent>
           </HoverCard>

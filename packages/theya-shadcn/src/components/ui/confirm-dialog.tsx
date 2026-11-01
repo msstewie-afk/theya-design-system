@@ -25,7 +25,7 @@ import { useTheyaI18n } from '../../lib/i18n';
  * Button (AlertDialog already implements the titleSize/showHeaderDivider/
  * showFooterDivider/contentGap layout context this needs, so this
  * builds on it rather than the plain Dialog). For irreversible
- * actions, pass `confirmValue` (e.g. the domain) to require the user
+ * actions, pass `confirmValue` (e.g. the portal address) to require the user
  * to type it exactly before the action button enables.
  *
  * Post-delete focus (WCAG 2.4.3): when the confirmed action removes
@@ -44,7 +44,7 @@ export interface ConfirmDialogProps {
   contentGap?: 'md' | 'sm' | 'none';
   /** Require the user to type this string exactly to enable the action. */
   confirmValue?: string;
-  /** Monospace the typed value (a domain, slug, id, etc). Set false for a non-identifier value like an email. Defaults to true. */
+  /** Monospace the typed value (a portal address, slug, id, etc). Set false for a non-identifier value like an email. Defaults to true. */
   confirmValueMono?: boolean;
   confirmLabel?: string;
   cancelLabel?: string;

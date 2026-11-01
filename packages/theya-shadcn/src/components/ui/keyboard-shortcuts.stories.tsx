@@ -50,14 +50,14 @@ const groups: ShortcutGroup[] = [
     heading: 'Navigation',
     shortcuts: [
       { keys: ['g', 'then', 'd'], description: 'Go to dashboard' },
-      { keys: ['g', 'then', 's'], description: 'Go to sites' },
+      { keys: ['g', 'then', 'g'], description: 'Go to galleries' },
       { keys: ['⌘', '⇧', 'F'], description: 'Search everything' },
     ],
   },
   {
     heading: 'Actions',
     shortcuts: [
-      { keys: ['c'], description: 'Create a site' },
+      { keys: ['c'], description: 'Create a gallery' },
       { keys: ['⌘', '⏎'], description: 'Save and close' },
       { keys: ['esc'], description: 'Dismiss the current dialog' },
     ],

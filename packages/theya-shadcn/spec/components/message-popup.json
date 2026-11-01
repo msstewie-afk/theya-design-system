@@ -33,11 +33,11 @@
     {
       "do": {
         "caption": "A conversation on the side; the page stays usable.",
-        "example": "<MessagePopup>\n  <MessagePopupTrigger>\n    <Button appearance=\"filled\" tone=\"primary\" size=\"lg\" iconOnly leftIcon={<ChatBubble />} aria-label=\"Open assistant\" />\n  </MessagePopupTrigger>\n  <MessagePopupContent title=\"Assistant\" description=\"Ask about your sites and billing.\">\n    <p className=\"font-body text-body-m text-[var(--color-text-text-subtle)]\">Hi! How can I help?</p>\n  </MessagePopupContent>\n</MessagePopup>"
+        "example": "<MessagePopup>\n  <MessagePopupTrigger>\n    <Button appearance=\"filled\" tone=\"primary\" size=\"lg\" iconOnly leftIcon={<ChatBubble />} aria-label=\"Open assistant\" />\n  </MessagePopupTrigger>\n  <MessagePopupContent title=\"Assistant\" description=\"Ask about your galleries and billing.\">\n    <p className=\"font-body text-body-m text-[var(--color-text-text-subtle)]\">Hi! How can I help?</p>\n  </MessagePopupContent>\n</MessagePopup>"
       },
       "dont": {
         "caption": "A form in a chat bubble — lost with one click outside.",
-        "example": "<MessagePopup>\n  <MessagePopupTrigger>\n    <Button appearance=\"filled\" tone=\"primary\" size=\"lg\" iconOnly leftIcon={<ChatBubble />} aria-label=\"Open support form\" />\n  </MessagePopupTrigger>\n  <MessagePopupContent title=\"New support ticket\">\n    <div className=\"flex flex-col gap-3\">\n      <TextField label=\"Subject\" widthSize=\"full\" />\n      <TextField label=\"Site\" widthSize=\"full\" />\n      <TextField label=\"Contact email\" widthSize=\"full\" />\n    </div>\n  </MessagePopupContent>\n</MessagePopup>"
+        "example": "<MessagePopup>\n  <MessagePopupTrigger>\n    <Button appearance=\"filled\" tone=\"primary\" size=\"lg\" iconOnly leftIcon={<ChatBubble />} aria-label=\"Open support form\" />\n  </MessagePopupTrigger>\n  <MessagePopupContent title=\"New support ticket\">\n    <div className=\"flex flex-col gap-3\">\n      <TextField label=\"Subject\" widthSize=\"full\" />\n      <TextField label=\"Gallery\" widthSize=\"full\" />\n      <TextField label=\"Contact email\" widthSize=\"full\" />\n    </div>\n  </MessagePopupContent>\n</MessagePopup>"
       }
     }
   ],

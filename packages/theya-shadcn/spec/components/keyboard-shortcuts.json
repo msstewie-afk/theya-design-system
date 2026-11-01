@@ -33,18 +33,18 @@
     {
       "do": {
         "caption": "Grouped by task, so people scan to the part they need.",
-        "example": "<KeyboardShortcuts\n  trigger={<Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Grouped shortcuts</Button>}\n  groups={[\n    { heading: 'Navigation', shortcuts: [{ keys: ['G', 'then', 'S'], description: 'Go to Sites' }, { keys: ['/'], description: 'Search' }] },\n    { heading: 'Actions', shortcuts: [{ keys: ['N'], description: 'New site' }, { keys: ['?'], description: 'Show shortcuts' }] },\n  ]}\n/>"
+        "example": "<KeyboardShortcuts\n  trigger={<Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Grouped shortcuts</Button>}\n  groups={[\n    { heading: 'Navigation', shortcuts: [{ keys: ['G', 'then', 'G'], description: 'Go to galleries' }, { keys: ['/'], description: 'Search' }] },\n    { heading: 'Actions', shortcuts: [{ keys: ['N'], description: 'New gallery' }, { keys: ['?'], description: 'Show shortcuts' }] },\n  ]}\n/>"
       },
       "dont": {
         "caption": "One ungrouped list in no order — fine for 3 shortcuts, not for 30.",
-        "example": "<KeyboardShortcuts\n  trigger={<Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">One long list</Button>}\n  groups={[\n    {\n      shortcuts: [\n        { keys: ['N'], description: 'New site' },\n        { keys: ['/'], description: 'Search' },\n        { keys: ['G', 'then', 'S'], description: 'Go to Sites' },\n        { keys: ['E'], description: 'Edit' },\n        { keys: ['?'], description: 'Show shortcuts' },\n        { keys: ['G', 'then', 'B'], description: 'Go to Billing' },\n      ],\n    },\n  ]}\n/>"
+        "example": "<KeyboardShortcuts\n  trigger={<Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">One long list</Button>}\n  groups={[\n    {\n      shortcuts: [\n        { keys: ['N'], description: 'New gallery' },\n        { keys: ['/'], description: 'Search' },\n        { keys: ['G', 'then', 'G'], description: 'Go to galleries' },\n        { keys: ['E'], description: 'Edit' },\n        { keys: ['?'], description: 'Show shortcuts' },\n        { keys: ['G', 'then', 'B'], description: 'Go to Billing' },\n      ],\n    },\n  ]}\n/>"
       }
     }
   ],
   "a11y": [
     "A single-character hotkey must be scoped or switchable (WCAG 2.1.4) — pass scopeRef.",
     "The hotkey is ignored while typing in a field.",
-    "Keys are read as text, in order (“G then S”)."
+    "Keys are read as text, in order (“G then G”)."
   ],
   "components": [
     {

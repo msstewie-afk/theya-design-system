@@ -65,24 +65,24 @@ export const Default: Story = {
   render: () => (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button appearance="ghost" tone="secondary" size="md" iconOnly leftIcon={<KebabIconHorizontal />} aria-label="Open actions for shop.seashell.dev" className="[&_svg]:text-[var(--color-icon-icon)]" />
+        <Button appearance="ghost" tone="secondary" size="md" iconOnly leftIcon={<KebabIconHorizontal />} aria-label="Open actions for Golden hour" className="[&_svg]:text-[var(--color-icon-icon)]" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel className="font-mono text-heading-2xs normal-case tracking-normal">shop.seashell.dev</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-heading-2xs normal-case tracking-normal">Golden hour</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            Open site
+            Open gallery
             <DropdownMenuShortcut>⌘O</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            Copy domain
+            Copy portal link
             <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem tone="danger">
-          <Trash /> Delete site
+          <Trash /> Delete gallery
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -90,7 +90,7 @@ export const Default: Story = {
   // Keyboard only: Enter opens with the first item focused, arrows/End move,
   // Escape closes and returns focus to the trigger.
   play: async ({ canvasElement }) => {
-    const trigger = within(canvasElement).getByRole('button', { name: 'Open actions for shop.seashell.dev' });
+    const trigger = within(canvasElement).getByRole('button', { name: 'Open actions for Golden hour' });
     await expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
 
     await userEvent.tab();
@@ -98,12 +98,12 @@ export const Default: Story = {
     await userEvent.keyboard('{Enter}');
     await page().findByRole('menu');
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    await focusedItem(/^Open site/);
+    await focusedItem(/^Open gallery/);
 
     await userEvent.keyboard('{ArrowDown}');
-    await focusedItem(/^Copy domain/);
+    await focusedItem(/^Copy portal link/);
     await userEvent.keyboard('{End}');
-    await focusedItem('Delete site');
+    await focusedItem('Delete gallery');
 
     await userEvent.keyboard('{Escape}');
     await menuClosed();
@@ -131,13 +131,13 @@ export const Open: Story = {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
-        <DropdownMenuLabel className="font-mono text-heading-2xs normal-case tracking-normal">shop.seashell.dev</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-heading-2xs normal-case tracking-normal">Golden hour</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Open site</DropdownMenuItem>
-        <DropdownMenuItem>Reissue certificate</DropdownMenuItem>
+        <DropdownMenuItem>Open gallery</DropdownMenuItem>
+        <DropdownMenuItem>Edit license</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem tone="danger">
-          <Trash /> Delete site
+          <Trash /> Delete gallery
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -155,15 +155,15 @@ export const GroupsWithLabels: Story = {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="min-w-52">
         <DropdownMenuGroup>
-          <DropdownMenuLabel>Site</DropdownMenuLabel>
-          <DropdownMenuItem>Open site</DropdownMenuItem>
-          <DropdownMenuItem>Reissue certificate</DropdownMenuItem>
+          <DropdownMenuLabel>Gallery</DropdownMenuLabel>
+          <DropdownMenuItem>Open gallery</DropdownMenuItem>
+          <DropdownMenuItem>Edit license</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuLabel>Danger zone</DropdownMenuLabel>
           <DropdownMenuItem tone="danger">
-            <Trash /> Delete site
+            <Trash /> Delete gallery
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
@@ -177,16 +177,16 @@ export const Destructive: Story = {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button appearance="outlined" tone="secondary">
-          Manage site
+          Manage gallery
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
-        <DropdownMenuItem>Open site</DropdownMenuItem>
-        <DropdownMenuItem>Reissue certificate</DropdownMenuItem>
+        <DropdownMenuItem>Open gallery</DropdownMenuItem>
+        <DropdownMenuItem>Edit license</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem tone="danger">Suspend site</DropdownMenuItem>
+        <DropdownMenuItem tone="danger">Unpublish gallery</DropdownMenuItem>
         <DropdownMenuItem tone="danger">
-          <Trash /> Delete site
+          <Trash /> Delete gallery
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -197,7 +197,7 @@ export const Destructive: Story = {
 export const CheckboxAndRadio: Story = {
   render: function CheckboxAndRadioStory() {
     const [showStatus, setShowStatus] = React.useState(true);
-    const [showPlan, setShowPlan] = React.useState(false);
+    const [showClient, setShowClient] = React.useState(false);
     const [sort, setSort] = React.useState('name');
     return (
       <DropdownMenu>
@@ -211,15 +211,15 @@ export const CheckboxAndRadio: Story = {
           <DropdownMenuCheckboxItem checked={showStatus} onCheckedChange={setShowStatus}>
             Status
           </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem checked={showPlan} onCheckedChange={setShowPlan}>
-            Plan
+          <DropdownMenuCheckboxItem checked={showClient} onCheckedChange={setShowClient}>
+            Client
           </DropdownMenuCheckboxItem>
           <DropdownMenuSeparator />
           <DropdownMenuLabel inset>Sort by</DropdownMenuLabel>
           <DropdownMenuRadioGroup value={sort} onValueChange={setSort}>
             <DropdownMenuRadioItem value="name">Name</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="created">Created</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="requests">Requests / day</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="downloads">Downloads / day</DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -231,11 +231,11 @@ export const CheckboxAndRadio: Story = {
 
     await userEvent.click(trigger);
     await expect(await page().findByRole('menuitemcheckbox', { name: 'Status' })).toHaveAttribute('aria-checked', 'true');
-    await userEvent.click(page().getByRole('menuitemcheckbox', { name: 'Plan' }));
+    await userEvent.click(page().getByRole('menuitemcheckbox', { name: 'Client' }));
     await menuClosed();
 
     await userEvent.click(trigger);
-    await expect(await page().findByRole('menuitemcheckbox', { name: 'Plan' })).toHaveAttribute('aria-checked', 'true');
+    await expect(await page().findByRole('menuitemcheckbox', { name: 'Client' })).toHaveAttribute('aria-checked', 'true');
     await userEvent.click(page().getByRole('menuitemradio', { name: 'Created' }));
     await menuClosed();
 
@@ -257,14 +257,14 @@ export const WithSubMenu: Story = {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
-        <DropdownMenuItem>Create site</DropdownMenuItem>
-        <DropdownMenuItem>Import from git</DropdownMenuItem>
+        <DropdownMenuItem>Create gallery</DropdownMenuItem>
+        <DropdownMenuItem>Import from folder</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Copy</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
             <DropdownMenuItem>Copy URL</DropdownMenuItem>
-            <DropdownMenuItem>Copy deploy ID</DropdownMenuItem>
+            <DropdownMenuItem>Copy gallery ID</DropdownMenuItem>
           </DropdownMenuSubContent>
         </DropdownMenuSub>
       </DropdownMenuContent>
@@ -275,7 +275,7 @@ export const WithSubMenu: Story = {
     const trigger = within(canvasElement).getByRole('button', { name: 'Add' });
     trigger.focus();
     await userEvent.keyboard('{Enter}');
-    await focusedItem('Create site');
+    await focusedItem('Create gallery');
 
     await userEvent.keyboard('{End}');
     const sub = page().getByRole('menuitem', { name: 'Copy' });
@@ -300,12 +300,12 @@ export const WithSubMenu: Story = {
  */
 export const WithTrailing: Story = {
   render: function WithTrailingStory() {
-    const [hasDeployHook, setHasDeployHook] = React.useState(true);
+    const [hasWatermark, setHasWatermark] = React.useState(true);
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button appearance="outlined" tone="secondary">
-            Manage seashell-shop
+            Manage Helios Studio
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="min-w-56">
@@ -320,9 +320,9 @@ export const WithTrailing: Story = {
             </DropdownMenuTrailing>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          {hasDeployHook ? (
+          {hasWatermark ? (
             <DropdownMenuItem>
-              <span className="flex-1 truncate">Deploy hook</span>
+              <span className="flex-1 truncate">Watermark</span>
               <DropdownMenuTrailing>
                 <Button
                   appearance="ghost"
@@ -330,18 +330,18 @@ export const WithTrailing: Story = {
                   size="sm"
                   iconOnly
                   leftIcon={<Xmark />}
-                  aria-label="Remove deploy hook"
+                  aria-label="Remove watermark"
                   tabIndex={-1}
                   onPointerDown={(event) => event.stopPropagation()}
                   onClick={(event) => {
                     event.stopPropagation();
-                    setHasDeployHook(false);
+                    setHasWatermark(false);
                   }}
                 />
               </DropdownMenuTrailing>
             </DropdownMenuItem>
           ) : (
-            <DropdownMenuItem onClick={() => setHasDeployHook(true)}>Add deploy hook</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setHasWatermark(true)}>Add watermark</DropdownMenuItem>
           )}
         </DropdownMenuContent>
       </DropdownMenu>
@@ -355,28 +355,28 @@ export const WithDisabledItem: Story = {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button appearance="outlined" tone="secondary">
-          Manage staging.seashell.dev
+          Manage Blue hour
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
-        <DropdownMenuItem>Open site</DropdownMenuItem>
-        <DropdownMenuItem disabled>Reissue certificate</DropdownMenuItem>
+        <DropdownMenuItem>Open gallery</DropdownMenuItem>
+        <DropdownMenuItem disabled>Edit license</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem tone="danger">
-          <Trash /> Delete site
+          <Trash /> Delete gallery
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   ),
   // Disabled rows are announced as disabled and skipped by the arrow keys.
   play: async ({ canvasElement }) => {
-    within(canvasElement).getByRole('button', { name: 'Manage staging.seashell.dev' }).focus();
+    within(canvasElement).getByRole('button', { name: 'Manage Blue hour' }).focus();
     await userEvent.keyboard('{Enter}');
-    await focusedItem('Open site');
-    await expect(page().getByRole('menuitem', { name: 'Reissue certificate' })).toHaveAttribute('aria-disabled', 'true');
+    await focusedItem('Open gallery');
+    await expect(page().getByRole('menuitem', { name: 'Edit license' })).toHaveAttribute('aria-disabled', 'true');
 
     await userEvent.keyboard('{ArrowDown}');
-    await focusedItem('Delete site');
+    await focusedItem('Delete gallery');
 
     await userEvent.keyboard('{Escape}');
     await menuClosed();

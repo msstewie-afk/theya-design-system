@@ -33,23 +33,23 @@ const meta: Meta<typeof Drawer> = {
 export default meta;
 type Story = StoryObj<typeof Drawer>;
 
-function RenameSiteDrawer() {
+function RenameGalleryDrawer() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
         <Button appearance="outlined" tone="secondary">
-          Rename site
+          Rename gallery
         </Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>Rename site</DrawerTitle>
-          <DrawerDescription>The new name is shown in the dashboard and in logs.</DrawerDescription>
+          <DrawerTitle>Rename gallery</DrawerTitle>
+          <DrawerDescription>Clients see the new name in their portal.</DrawerDescription>
         </DrawerHeader>
         <DrawerBody>
           <div className="flex flex-col gap-2">
-            <Label htmlFor="drawer-site">Site name</Label>
-            <TextField id="drawer-site" defaultValue="acme-production" className="font-mono" widthSize="full" />
+            <Label htmlFor="drawer-gallery">Gallery name</Label>
+            <TextField id="drawer-gallery" defaultValue="Golden hour" widthSize="full" />
           </div>
         </DrawerBody>
         <DrawerFooter>
@@ -71,12 +71,12 @@ function RenameSiteDrawer() {
 
 /** Trigger opens a bottom sheet; Esc, the scrim, the X, or a swipe-down close it. */
 export const Default: Story = {
-  render: () => <RenameSiteDrawer />,
+  render: () => <RenameGalleryDrawer />,
   play: async ({ canvasElement }) => {
     const page = within(document.body);
-    const trigger = within(canvasElement).getByRole('button', { name: 'Rename site' });
+    const trigger = within(canvasElement).getByRole('button', { name: 'Rename gallery' });
     await userEvent.click(trigger);
-    const drawer = await page.findByRole('dialog', { name: 'Rename site' });
+    const drawer = await page.findByRole('dialog', { name: 'Rename gallery' });
     await waitFor(() => expect(drawer.contains(document.activeElement)).toBe(true));
     // The built-in close button closes it and hands focus back.
     await userEvent.click(within(drawer).getByRole('button', { name: 'Close' }));
@@ -84,7 +84,7 @@ export const Default: Story = {
     await waitFor(() => expect(trigger).toHaveFocus());
     // Escape too.
     await userEvent.click(trigger);
-    await page.findByRole('dialog', { name: 'Rename site' });
+    await page.findByRole('dialog', { name: 'Rename gallery' });
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(page.queryByRole('dialog')).toBeNull());
   },
@@ -97,18 +97,18 @@ export const FixedWidth: Story = {
     <Drawer>
       <DrawerTrigger asChild>
         <Button appearance="outlined" tone="secondary">
-          Rename site
+          Rename gallery
         </Button>
       </DrawerTrigger>
       <DrawerContent width="fixed">
         <DrawerHeader>
-          <DrawerTitle>Rename site</DrawerTitle>
-          <DrawerDescription>The new name is shown in the dashboard and in logs.</DrawerDescription>
+          <DrawerTitle>Rename gallery</DrawerTitle>
+          <DrawerDescription>Clients see the new name in their portal.</DrawerDescription>
         </DrawerHeader>
         <DrawerBody>
           <div className="flex flex-col gap-2">
-            <Label htmlFor="drawer-site-fixed">Site name</Label>
-            <TextField id="drawer-site-fixed" defaultValue="acme-production" className="font-mono" widthSize="full" />
+            <Label htmlFor="drawer-gallery-fixed">Gallery name</Label>
+            <TextField id="drawer-gallery-fixed" defaultValue="Golden hour" widthSize="full" />
           </div>
         </DrawerBody>
         <DrawerFooter>
@@ -144,13 +144,13 @@ export const Open: Story = {
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>Rename site</DrawerTitle>
-          <DrawerDescription>The new name is shown in the dashboard and in logs.</DrawerDescription>
+          <DrawerTitle>Rename gallery</DrawerTitle>
+          <DrawerDescription>Clients see the new name in their portal.</DrawerDescription>
         </DrawerHeader>
         <DrawerBody>
           <div className="flex flex-col gap-2">
-            <Label htmlFor="drawer-site-open">Site name</Label>
-            <TextField id="drawer-site-open" defaultValue="acme-production" className="font-mono" widthSize="full" />
+            <Label htmlFor="drawer-gallery-open">Gallery name</Label>
+            <TextField id="drawer-gallery-open" defaultValue="Golden hour" widthSize="full" />
           </div>
         </DrawerBody>
         <DrawerFooter>
@@ -171,42 +171,42 @@ export const Open: Story = {
 };
 
 
-function AddSiteDrawer({ direction }: { direction: 'left' | 'right' }) {
+function AddGalleryDrawer({ direction }: { direction: 'left' | 'right' }) {
   return (
     <Drawer direction={direction}>
       <DrawerTrigger asChild>
         <Button appearance="filled" tone="primary">
-          Add site
+          Add gallery
         </Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="pt-7 pb-0">
-          <DrawerTitle>Add site</DrawerTitle>
-          <DrawerDescription>Connect a site and choose who owns its deploys.</DrawerDescription>
+          <DrawerTitle>Add gallery</DrawerTitle>
+          <DrawerDescription>Create a gallery and choose who manages its exports.</DrawerDescription>
         </DrawerHeader>
-        {/* Outer gap (between Site/Ownership groups) is deliberately
+        {/* Outer gap (between Gallery/Ownership groups) is deliberately
             larger than each group's own internal gap, and matches the
-            divider-to-"Site" distance (pt-6) - so the proximity rule reads
+            divider-to-"Gallery" distance (pt-6) - so the proximity rule reads
             correctly: content within a group sits closer together than the
             groups sit to each other. */}
         <DrawerBody className="gap-6 pt-6 pb-2">
           <div className="flex flex-col gap-3">
-            <h3 className="font-body text-heading-xs font-semibold text-[var(--color-text-text)]">Site</h3>
+            <h3 className="font-body text-heading-xs font-semibold text-[var(--color-text-text)]">Gallery</h3>
             <div className="flex flex-col gap-2">
-              <Label htmlFor={`site-name-${direction}`}>Site name</Label>
-              <TextField id={`site-name-${direction}`} placeholder="docs.seashell.dev" widthSize="lg" />
+              <Label htmlFor={`gallery-name-${direction}`}>Gallery name</Label>
+              <TextField id={`gallery-name-${direction}`} placeholder="Moonrise over Othrys" widthSize="lg" />
             </div>
           </div>
           <div className="flex flex-col gap-3">
             <h3 className="font-body text-heading-xs font-semibold text-[var(--color-text-text)]">Ownership</h3>
             <div className="flex flex-col gap-2">
               <Label htmlFor={`owner-${direction}`}>Owner</Label>
-              <TextField id={`owner-${direction}`} defaultValue="dana@seashell.dev" widthSize="lg" />
+              <TextField id={`owner-${direction}`} defaultValue="selin@aether.photo" widthSize="lg" />
             </div>
             <div className="flex flex-col gap-2">
-              <Label htmlFor={`deploy-hook-${direction}`}>Deploy hook</Label>
+              <Label htmlFor={`client-link-${direction}`}>Client link</Label>
               <div className="flex items-center gap-2">
-                <TextField id={`deploy-hook-${direction}`} defaultValue="https://hooks.seashell.dev/d/4f9a2c" readOnly className="font-mono" widthSize="lg" />
+                <TextField id={`client-link-${direction}`} defaultValue="https://selene-weddings.aether.photo/g/4f9a2c" readOnly className="font-mono" widthSize="lg" />
                 <Button appearance="outlined" tone="secondary">
                   Copy
                 </Button>
@@ -222,7 +222,7 @@ function AddSiteDrawer({ direction }: { direction: 'left' | 'right' }) {
           </DrawerClose>
           <DrawerClose asChild>
             <Button appearance="filled" tone="primary">
-              Add site
+              Add gallery
             </Button>
           </DrawerClose>
         </DrawerFooter>
@@ -234,11 +234,11 @@ function AddSiteDrawer({ direction }: { direction: 'left' | 'right' }) {
 /** A side drawer (up to 560px wide) for a form with a couple of sections. */
 export const SideLeft: Story = {
   name: 'Side (left)',
-  render: () => <AddSiteDrawer direction="left" />,
+  render: () => <AddGalleryDrawer direction="left" />,
 };
 
 /** Same side drawer, opening from the right edge instead. */
 export const SideRight: Story = {
   name: 'Side (right)',
-  render: () => <AddSiteDrawer direction="right" />,
+  render: () => <AddGalleryDrawer direction="right" />,
 };
