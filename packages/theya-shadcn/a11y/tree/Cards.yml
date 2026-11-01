@@ -174,7 +174,7 @@
   - heading "A week in your library" [level=2]
   - article:
     - heading "Links saved per week" [level=3]
-    - paragraph: Move the mouse across the chart
+    - paragraph: The last 26 weeks
     - paragraph: "587"
     - 'img "Links saved per week over 26 weeks: from 180 to 587, with a peak of 602 in week 25."'
   - article:
