@@ -1,6 +1,15 @@
 {
   "$comment": "Hand-kept part of the accessibility matrix (scripts/build-a11y.mjs merges it with what it reads from the code). screenReader: one entry per real assistive-technology pass, e.g. { \"Button\": [{ \"at\": \"VoiceOver\", \"browser\": \"Safari 19\", \"date\": \"2026-10-05\", \"result\": \"pass\", \"notes\": \"\" }] }. deviations: accepted deviations specific to one component. focusRingOnly: components where the soft focus ring is the only visible focus change (WCAG 1.4.11 accepted deviation, see the WCAG audit, 2026-09-27). traits: per-component corrections to the traits build-a11y.mjs reads from the code ({ add, remove, note }). reviews: one recorded manual review per criterion (result: pass | fail | n/a — n/a confirms the code trait was a false positive for that criterion), e.g. { \"Button\": { \"2.5.3\": { \"result\": \"pass\", \"date\": \"2026-10-08\", \"by\": \"Maria\", \"note\": \"\" } } }.",
   "screenReader": {
+    "OrbitCarousel": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-11-01", "result": "pass", "notes": "Automated run (a11y/voiceover, Мария's Mac): orbit-wall and orbit-fan, Next/Previous slide: \"{{i}} of 6: {{heading}}\" spoken, one update per step (fixed by agent1 the same day); the arrow-key hint is read with the carousel." }
+    ],
+    "Card motion": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-11-01", "result": "pass", "notes": "Automated run: landing-ring and landing-fan (OrbitCarousel inside), \"{{i}} of {{n}}: {{heading}}\" spoken after Next/Previous." }
+    ],
+    "CompletionBurst": [
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-11-01", "result": "pass", "notes": "Automated run: completionburst, Start: \"Preparing your plan. Setting up your reading goals\" then \"Your plan is ready. Twelve weeks, three sessions a week\" spoken (role=status)." }
+    ],
     "Dialog": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-27", "result": "pass", "notes": "Opened from its trigger; focus lands in the first field (Radix and ARIA APG default). From inside the text field VO + arrows don't move until one Tab (WebKit bug 311125, VoiceOver cursor doesn't follow focus into a modal); after that title, description and controls read in order. Kept as is (decided 2026-10-27)." },
       { "at": "VoiceOver", "browser": "Chrome", "date": "2026-10-27", "result": "pass", "notes": "Same as Safari: one Tab out of the first field, then everything reads." }
@@ -271,7 +280,9 @@
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Remove {file name}\"; the overlay is named by the file name."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The stretched link/button overlays are invisible inset-0 layers (attachment.tsx:191, :215). Icon, name, meta and actions read in visual order."},
       "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed 2026-10-26: selected is more than a hue change, the edge doubles to 2px (an inset 1px line inside the border, attachment.tsx:158). It reaches AT as aria-current on href rows and on the click-only button when there's no toggle (:219), or aria-pressed when the caller passes it. Error: text plus icon."},
-      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The selected border-primary (attachment.tsx:156) is 4.87:1 light / 4.41:1 dark against its fill and 5.20:1 / 5.95:1 against the surface. The resting border-subtle (:157) is a card outline; the name text identifies the control."}
+      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The selected border-primary (attachment.tsx:156) is 4.87:1 light / 4.41:1 dark against its fill and 5.20:1 / 5.95:1 against the surface. The resting border-subtle (:157) is a card outline; the name text identifies the control."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on a cut name or meta line (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."},
+      "2.4.11": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "TruncatedText's tooltips open beside the cut line (name above, meta below via side, agent1 2026-11-01) and never cover the focused link or button."}
     },
     "AuditLog": {
       "1.3.5": {"result": "n/a", "date": "2026-10-24", "by": "Claude (code review)", "note": "The only text input is an event search, not personal data about the user."},
@@ -757,7 +768,9 @@
       "2.4.4": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "The link text is the file name."},
       "2.4.6": {"result": "pass", "date": "2026-10-22", "by": "Claude (code review)", "note": "\"Add file\"/\"Replace file\"; \"Remove {name}\"."},
       "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The hidden input, then the Attachment or dashed picker, with no reordering (file.tsx:169-211)."},
-      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed 2026-10-26 in Attachment: selected doubles the edge to 2px (attachment.tsx:158) and the click-only button now carries aria-current (:219), since File's click replaces the file rather than toggling. Errors: text plus icon."}
+      "1.4.1": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed 2026-10-26 in Attachment: selected doubles the edge to 2px (attachment.tsx:158) and the click-only button now carries aria-current (:219), since File's click replaces the file rather than toggling. Errors: text plus icon."},
+      "1.4.13": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "The only hover/focus content it adds is TruncatedText's tooltip on a cut name or meta line (reviewed under TruncatedText: dismissed by Escape, hoverable, stays until pointer/focus leaves)."},
+      "2.4.11": {"result": "pass", "date": "2026-11-01", "by": "Claude (code review)", "note": "TruncatedText's tooltips open beside the cut line (name above, meta below via side, agent1 2026-11-01) and never cover the focused link or button."}
     },
     "Filter": {
       "1.3.5": {"result": "n/a", "date": "2026-10-22", "by": "Claude (code review)", "note": "Option-list search, not data about the user."},
