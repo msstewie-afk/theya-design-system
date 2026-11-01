@@ -273,9 +273,9 @@ export const SCENARIOS: Scenario[] = [
   {
     id: 'attachment-upload', component: 'Attachment', story: 'files-attachment--upload-flow', expect: ["Uploading 2024-my-portfolio.pdf", "upload paused", "2024-my-portfolio.pdf uploaded"], listen: 6000,
     act: async (page) => {
-      // The story's play test already ran one upload: wait for it to finish, then start again.
+      // The story's play test may already have run one upload: let it finish, then upload (again).
       await page.getByRole('button', { name: 'Pause upload' }).waitFor({ state: 'detached', timeout: 15000 });
-      await page.getByRole('button', { name: 'Upload again' }).focus(); await press(page, 'Enter');
+      await page.getByRole('button', { name: /^Upload( again)?$/ }).focus(); await press(page, 'Enter');
       await page.waitForTimeout(1500);
       await page.getByRole('button', { name: 'Pause upload' }).focus(); await press(page, 'Enter');
       await page.waitForTimeout(1500);
@@ -294,7 +294,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     id: 'completionburst', component: 'CompletionBurst', story: 'motion-completionburst--flow', expect: ["Preparing your plan", "Your plan is ready"], listen: 4000,
-    // The story's play test already pressed Start; run it again once that burst has finished.
-    act: async (page) => { const again = page.getByRole('button', { name: 'Start again' }); await again.waitFor({ timeout: 15000 }); await page.waitForTimeout(3000); await again.focus(); await press(page, 'Enter'); },
+    // The story's play test may already have pressed Start ("Start again" then); either way, let any burst finish and press it.
+    act: async (page) => { const start = page.getByRole('button', { name: /^Start( again)?$/ }); await start.waitFor({ timeout: 15000 }); await page.waitForTimeout(3000); await start.focus(); await press(page, 'Enter'); },
   },
 ];
