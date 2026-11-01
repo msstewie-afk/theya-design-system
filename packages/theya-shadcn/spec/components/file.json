@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Files",
   "whenToUse": [
-    "One file in a form: a logo, a certificate, a document to attach.",
+    "One file in a form: a logo, a model release, a document to attach.",
     "Showing the current file and letting people replace it.",
     "Uploading it: `upload` and `progress`, as on Attachment; while it uploads, clicking it does not open the picker."
   ],

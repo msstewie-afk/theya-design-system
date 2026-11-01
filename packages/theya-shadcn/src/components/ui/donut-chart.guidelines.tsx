@@ -3,7 +3,7 @@ import { DonutChart } from './donut-chart';
 
 export const donutChartGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['Parts of one whole, up to 7: storage by environment, plan mix, traffic by source.', 'When the total matters too — it sits in the center.'],
+  whenToUse: ['Parts of one whole, up to 7: storage by file type, plan mix, downloads by source.', 'When the total matters too — it sits in the center.'],
   whenNotToUse: [
     { text: 'Comparing values that aren’t parts of a whole', instead: 'BarChart' },
     { text: 'More than 7 parts, or many tiny slices', instead: 'BarChart, or group into “Other”' },
@@ -19,11 +19,11 @@ export const donutChartGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <DonutChart
-            data={[{ label: 'Production', value: 62 }, { label: 'Staging', value: 24 }, { label: 'Dev', value: 14 }]}
+            data={[{ label: 'RAW files', value: 62 }, { label: 'JPEGs', value: 24 }, { label: 'Exports', value: 14 }]}
             unit=" GB"
             layout="horizontal"
             height={160}
-            ariaLabel="Storage by environment: production 62 GB of 100 GB."
+            ariaLabel="Storage by file type: RAW files 62 GB of 100 GB."
           />
         ),
         caption: 'Three parts of one total, named in the legend.',
@@ -32,13 +32,13 @@ export const donutChartGuidelines: ComponentGuidelines = {
         example: (
           <DonutChart
             data={[
-              { label: 'eu-west-1', value: 22 }, { label: 'eu-central-1', value: 18 }, { label: 'us-east-1', value: 16 },
-              { label: 'us-west-2', value: 14 }, { label: 'ap-south-1', value: 11 }, { label: 'ap-southeast-1', value: 10 }, { label: 'sa-east-1', value: 9 },
+              { label: 'Golden hour', value: 22 }, { label: 'Blue hour', value: 18 }, { label: 'First light', value: 16 },
+              { label: 'Moonrise over Othrys', value: 14 }, { label: 'Wide-shining', value: 11 }, { label: 'Isthmian Five', value: 10 }, { label: 'Portfolio', value: 9 },
             ]}
             unit="%"
             layout="horizontal"
             height={160}
-            ariaLabel="Traffic by region."
+            ariaLabel="Downloads by gallery."
           />
         ),
         caption: 'Seven similar slices: angles this close can’t be compared — a sorted bar chart can.',

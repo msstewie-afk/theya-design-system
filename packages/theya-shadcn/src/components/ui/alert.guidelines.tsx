@@ -30,7 +30,7 @@ export const alertGuidelines: ComponentGuidelines = {
             <WarningCircle />
             <div className="flex flex-col gap-1">
               <AlertTitle>Payment failed</AlertTitle>
-              <AlertDescription>Your card was declined. Update it to keep the site online after 12 November.</AlertDescription>
+              <AlertDescription>Your card was declined. Update it to keep your client portals online after 12 November.</AlertDescription>
             </div>
           </Alert>
         ),
@@ -51,7 +51,7 @@ export const alertGuidelines: ComponentGuidelines = {
         example: (
           <Alert tone="warning" className="w-80">
             <WarningTriangle />
-            <AlertTitle>Disk is 92% full</AlertTitle>
+            <AlertTitle>Storage is 92% full</AlertTitle>
           </Alert>
         ),
         caption: 'Tone matches how serious it is.',

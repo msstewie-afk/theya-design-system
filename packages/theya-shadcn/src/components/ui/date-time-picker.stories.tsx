@@ -129,14 +129,14 @@ export const Preselected: Story = {
 export const WithLabel: Story = {
   render: (args) => (
     <div className="flex flex-col gap-1">
-      <DateTimePicker {...args} label="Schedule deploy" description="Runs in your workspace's time zone." hourCycle={24} />
+      <DateTimePicker {...args} label="Schedule delivery" description="Runs in your workspace's time zone." hourCycle={24} />
     </div>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('button', { name: 'Schedule deploy' })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Schedule delivery' })).toBeInTheDocument();
     // The visible label names both halves.
-    const time = canvas.getByRole('combobox', { name: /^Schedule deploy time$/i });
+    const time = canvas.getByRole('combobox', { name: /^Schedule delivery time$/i });
     await expect(time).toHaveAccessibleDescription("Runs in your workspace's time zone.");
     await expect(time).toHaveValue('');
     await userEvent.click(time);

@@ -229,11 +229,11 @@ interface SeededUser {
 }
 
 const SEEDED_USERS: SeededUser[] = [
-  { id: 'u-1', name: 'Alex Morgan', email: 'alex@seashell.dev', role: 'Owner', status: 'active' },
-  { id: 'u-2', name: 'Jordan Kim', email: 'jordan@seashell.dev', role: 'Admin', status: 'active' },
-  { id: 'u-3', name: 'Priya Nair', email: 'priya@seashell.dev', role: 'Member', status: 'active' },
-  { id: 'u-4', name: 'Sam Okoro', email: 'sam@seashell.dev', role: 'Billing', status: 'suspended' },
-  { id: 'u-5', name: 'Dana Okafor', email: 'dana@contractor.dev', role: 'Member', status: 'invited' },
+  { id: 'u-1', name: 'Thea Marlow', email: 'thea@aether.photo', role: 'Owner', status: 'active' },
+  { id: 'u-2', name: 'Ian Hyde', email: 'ian@aether.photo', role: 'Admin', status: 'active' },
+  { id: 'u-3', name: 'Elio Sanz', email: 'elio@aether.photo', role: 'Member', status: 'active' },
+  { id: 'u-4', name: 'Phoebe Lark', email: 'phoebe@aether.photo', role: 'Billing', status: 'suspended' },
+  { id: 'u-5', name: 'Selin Arda', email: 'selin@aether.photo', role: 'Member', status: 'invited' },
 ];
 
 function initials(name: string): string {

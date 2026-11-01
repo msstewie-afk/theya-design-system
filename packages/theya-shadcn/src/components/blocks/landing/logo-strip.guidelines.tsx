@@ -9,7 +9,7 @@ export const logoStripGuidelines: ComponentGuidelines = {
     'In a dark band: put it inside SectionPanel tone="inverse"; the logos follow the text color.',
   ],
   whenNotToUse: [
-    { text: 'Numbers as proof (users, uptime, speed)', instead: 'a stats row (CountUp + Stat)' },
+    { text: 'Numbers as proof (users, ratings, speed)', instead: 'a stats row (CountUp + Stat)' },
     { text: 'Quotes from customers', instead: 'a testimonial' },
   ],
   anatomy: [

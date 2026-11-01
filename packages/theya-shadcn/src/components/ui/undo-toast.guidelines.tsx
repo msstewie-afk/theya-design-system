@@ -5,7 +5,7 @@ import { undoToast } from './undo-toast';
 export const undoToastGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
-    'A destructive action that can be held back for a few seconds: delete a file, archive a site, remove a member.',
+    'A destructive action that can be held back for a few seconds: delete a file, archive a gallery, remove a member.',
     'Replacing a confirm dialog for frequent, low-risk removals.',
   ],
   whenNotToUse: [
@@ -13,7 +13,7 @@ export const undoToastGuidelines: ComponentGuidelines = {
     { text: 'Plain success feedback', instead: 'Toaster (toast.success)' },
   ],
   anatomy: [
-    { part: 'Title', description: 'what was done: “Site archived”.' },
+    { part: 'Title', description: 'what was done: “Gallery archived”.' },
     { part: 'Description', description: 'the object, if the title doesn’t name it.', optional: true },
     { part: 'Undo', description: <>rolls back via <C>onUndo</C>; otherwise <C>onCommit</C> runs when the toast closes.</> },
   ],
@@ -24,7 +24,7 @@ export const undoToastGuidelines: ComponentGuidelines = {
         caption: 'The file is still recoverable — Undo is real.',
       },
       dont: {
-        example: <Button appearance="outlined" tone="secondary" onClick={() => undoToast({ title: 'Database deleted', description: 'shop_prod' })}>Delete database</Button>,
+        example: <Button appearance="outlined" tone="secondary" onClick={() => undoToast({ title: 'Gallery deleted', description: 'Blue hour' })}>Delete gallery</Button>,
         caption: 'Undo on something already gone for good is a broken promise — confirm first.',
       },
     },

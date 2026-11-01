@@ -5,7 +5,7 @@ import { TimeField } from './time-field';
 
 export const timeFieldGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['A time of day: a daily backup time, a meeting start, a reminder.', <>Times on a grid (<C>step</C>) with limits (<C>min</C>/<C>max</C>) — any typed time is still accepted.</>],
+  whenToUse: ['A time of day: a daily archive time, a meeting start, a reminder.', <>Times on a grid (<C>step</C>) with limits (<C>min</C>/<C>max</C>) — any typed time is still accepted.</>],
   whenNotToUse: [
     { text: 'Start and end', instead: 'TimeRangePicker' },
     { text: 'A date and a time', instead: 'DateTimePicker' },
@@ -21,14 +21,14 @@ export const timeFieldGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className="flex w-48 flex-col gap-2">
-            <Label htmlFor="gl-tf-backup">Daily backup at</Label>
-            <TimeField id="gl-tf-backup" step={30} placeholder="Choose a time" />
+            <Label htmlFor="gl-tf-archive">Daily archive at</Label>
+            <TimeField id="gl-tf-archive" step={30} placeholder="Choose a time" />
           </div>
         ),
         caption: 'A list on a 30-minute grid, with typing for anything in between.',
       },
       dont: {
-        example: <TextField label="Daily backup at" placeholder="e.g. 9:30" widthSize="md" />,
+        example: <TextField label="Daily archive at" placeholder="e.g. 9:30" widthSize="md" />,
         caption: 'Free text: “9.30”, “930” and “9:30pm” all need guessing.',
       },
     },

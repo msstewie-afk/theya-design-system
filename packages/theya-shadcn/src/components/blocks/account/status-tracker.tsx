@@ -57,7 +57,7 @@ const STATE_BADGE = {
 } as const;
 
 /**
- * The page for one long operation — a migration, a deploy, an order being
+ * The page for one long operation — an archive import, an export, an order being
  * set up. It answers the questions people come with, in order: is it
  * still going, where is it, how long left, can I leave, and — if it
  * stopped — why and what now. Steps are named, the current one is marked

@@ -6,7 +6,7 @@ const Tile = ({ children }: { children: React.ReactNode }) => (
 
 export const tickerListGuidelines: ComponentGuidelines = {
   status: 'beta',
-  whenToUse: ['A few rows of recent activity inside a showcase card: transactions, signups, deploys.'],
+  whenToUse: ['A few rows of recent activity inside a showcase card: transactions, signups, client downloads.'],
   whenNotToUse: [
     { text: 'A real activity feed people scroll and act on', instead: 'List / DataTable' },
     { text: 'Notifications', instead: 'Toast' },

@@ -22,7 +22,7 @@ export const attachmentGuidelines: ComponentGuidelines = {
         example: (
           <div className="flex w-80 flex-col gap-2">
             <Attachment variant="row" name="quarterly-report.pdf" type="application/pdf" size={248000} onRemove={() => {}} />
-            <Attachment variant="row" name="backup.tar.gz" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
+            <Attachment variant="row" name="wedding-raws.zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
           </div>
         ),
         caption: 'Name, kind and size for each file; the failed one says why, in place.',

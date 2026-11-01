@@ -14,10 +14,11 @@ const meta: Meta<typeof SiteFooter> = {
     layout: 'fullscreen',
   },
   args: {
-    tagline: 'Hosting with a panel people enjoy using.',
+    appName: 'Aether',
+    tagline: 'Galleries, prints and an archive for working photographers.',
     columns: DEMO_FOOTER_COLUMNS,
     contact: [
-      { label: 'Support, 24/7', value: 'support@theya.dev', href: 'mailto:support@theya.dev' },
+      { label: 'Support, 24/7', value: 'support@aether.photo', href: 'mailto:support@aether.photo' },
       { label: 'Sales', value: '+359 2 400 1234', href: 'tel:+35924001234' },
     ],
     status: { label: 'All systems operational', href: '#status', tone: 'success' },
@@ -60,7 +61,7 @@ export const Default: Story = {
     await expect(within(nav).getByRole('list', { name: 'Support' })).toBeVisible();
     await expect(canvas.getByRole('link', { name: 'All systems operational' })).toHaveAttribute('href', '#status');
     await expect(canvas.getByRole('combobox', { name: 'Language' })).toHaveTextContent('EN');
-    await expect(canvas.getByRole('link', { name: 'Theya on GitHub' })).toBeVisible();
+    await expect(canvas.getByRole('link', { name: 'Aether on GitHub' })).toBeVisible();
   },
 };
 

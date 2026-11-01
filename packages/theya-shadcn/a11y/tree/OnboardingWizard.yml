@@ -10,21 +10,21 @@
   - 'group "Step 1 of 2: Notes"':
     - 'heading "Step 1 of 2: Notes" [level=3]'
     - text: Notes
-    - textbox "Notes": Need staging access
+    - textbox "Notes": Need archive access
     - button "Clear input"
   - button "Back" [disabled]
   - button "Next"
 - status: Send request
 
 # Default (patterns-onboardingwizard--default)
-- group "Create a new site":
+- group "Create a client portal":
   - paragraph: "Step 3 of 3: Review"
-  - heading "Create a new site" [level=2]
-  - list "Create a new site progress":
+  - heading "Create a client portal" [level=2]
+  - list "Create a client portal progress":
     - listitem:
       - text: "step 1 of 3, completed:"
-      - button "Domain (go back to this step)"
-      - text: Name your site
+      - button "Portal (go back to this step)"
+      - text: Name your portal
     - listitem:
       - text: "step 2 of 3, completed:"
       - button "Plan (go back to this step)"
@@ -32,34 +32,34 @@
     - listitem: "step 3 of 3, current step: Review Confirm and create"
   - 'group "Step 3 of 3: Review"':
     - 'heading "Step 3 of 3: Review" [level=3]'
-    - paragraph: Review the details below, then create your site. You can change any of this later from the site settings.
-    - term: Domain
+    - paragraph: Review the details below, then create your portal. You can change any of this later from the portal settings.
+    - term: Portal address
     - definition:
-      - text: blog.example.dev
-      - button "Edit domain"
+      - text: rhea-okafor.aether.photo
+      - button "Edit portal address"
     - term: Plan
     - definition:
       - text: Business, $60 / mo
       - button "Edit plan"
-    - term: Region
-    - definition: eu-west-1
+    - term: Studio
+    - definition: Helios Studio
   - button "Back"
-  - button "Create site"
-- status: Create site
+  - button "Create portal"
+- status: Create portal
 
 # Vertical (patterns-onboardingwizard--vertical)
-- group "Create a new site":
-  - paragraph: "Step 1 of 3: Domain"
-  - heading "Create a new site" [level=2]
-  - list "Create a new site progress":
-    - listitem: "step 1 of 3, current step: Domain Name your site"
+- group "Create a client portal":
+  - paragraph: "Step 1 of 3: Portal"
+  - heading "Create a client portal" [level=2]
+  - list "Create a client portal progress":
+    - listitem: "step 1 of 3, current step: Portal Name your portal"
     - listitem: "step 2 of 3, upcoming: Plan Pick a tier"
     - listitem: "step 3 of 3, upcoming: Review Confirm and create"
-  - 'group "Step 1 of 3: Domain"':
-    - 'heading "Step 1 of 3: Domain" [level=3]'
-    - text: Domain
-    - textbox "Domain":
-      - /placeholder: shop.seashell.dev
-    - paragraph: The address visitors will use. You can connect more domains after the site is created.
+  - 'group "Step 1 of 3: Portal"':
+    - 'heading "Step 1 of 3: Portal" [level=3]'
+    - text: Portal address
+    - textbox "Portal address":
+      - /placeholder: selene-weddings.aether.photo
+    - paragraph: The address clients will use to see their photos. You can add more portals later.
   - button "Back" [disabled]
   - button "Next"

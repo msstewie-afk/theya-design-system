@@ -28,11 +28,11 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     // 288 + 14 + 2 × 36 = 374, +20% = 448.80
     await expect(total(canvasElement)).toHaveTextContent('$448.80');
-    await userEvent.click(canvas.getByRole('button', { name: 'More Dedicated IPv4 address' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'More Fine-art print' }));
     await waitFor(() => expect(total(canvasElement)).toHaveTextContent('$492'));
 
-    await userEvent.click(canvas.getByRole('button', { name: 'Save for later: seashell.shop' }));
-    await expect(canvas.getByRole('button', { name: 'Move to cart: seashell.shop' })).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Save for later: Proof book' }));
+    await expect(canvas.getByRole('button', { name: 'Move to cart: Proof book' })).toBeVisible();
 
     await userEvent.click(canvas.getByRole('button', { name: 'Have a promo code?' }));
     const code = canvas.getByRole('textbox', { name: 'Promo code' });
@@ -77,7 +77,7 @@ export const RemoveKeepsFocus: Story = {
     const canvas = within(canvasElement);
     // First row removed → the next row's Remove.
     await userEvent.click(canvas.getByRole('button', { name: 'Remove Pro plan' }));
-    const nextRemove = canvas.getByRole('button', { name: 'Remove seashell.shop' });
+    const nextRemove = canvas.getByRole('button', { name: 'Remove Proof book' });
     await waitFor(() => expect(nextRemove).toHaveFocus());
     // A held Enter's auto-repeat must not remove this row too.
     const held = new KeyboardEvent('keydown', { key: 'Enter', repeat: true, bubbles: true, cancelable: true });
@@ -85,30 +85,30 @@ export const RemoveKeepsFocus: Story = {
     await expect(held.defaultPrevented).toBe(true);
     await expect(await within(document.body).findByText('Pro plan removed')).toBeVisible();
     // Last row removed → the previous row's Remove.
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove Dedicated IPv4 address' }));
-    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove seashell.shop' })).toHaveFocus());
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Fine-art print' }));
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove Proof book' })).toHaveFocus());
     // Only row parked → the cart heading (focusable via tabIndex -1).
-    await userEvent.click(canvas.getByRole('button', { name: 'Save for later: seashell.shop' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Save for later: Proof book' }));
     const heading = canvas.getByRole('heading', { name: 'Cart (0)' });
     await waitFor(() => expect(heading).toHaveFocus());
     await expect(heading).toHaveAttribute('tabindex', '-1');
     // Only saved row moved back → the cart heading again.
-    await userEvent.click(canvas.getByRole('button', { name: 'Move to cart: seashell.shop' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Move to cart: Proof book' }));
     await waitFor(() => expect(canvas.getByRole('heading', { name: 'Cart (1)' })).toHaveFocus());
     // Last line removed, nothing saved → the empty state.
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove seashell.shop' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Proof book' }));
     await waitFor(() => expect(canvas.getByText('Your cart is empty').closest('[data-slot="empty-state"]')).toHaveFocus());
   },
 };
 
 /** Quantity stepped down to 0 removes the line; focus moves to the next row's matching control. */
 export const QuantityZeroKeepsFocus: Story = {
-  args: { lines: [DEMO_CART[2], { ...DEMO_CART[2], id: 'ipv4-b', name: 'Second IPv4 address', quantity: 1 }], saved: [] },
+  args: { lines: [DEMO_CART[2], { ...DEMO_CART[2], id: 'fine-art-print-b', name: 'Large fine-art print', quantity: 1 }], saved: [] },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Fewer Dedicated IPv4 address' }));
-    await userEvent.click(canvas.getByRole('button', { name: 'Fewer Dedicated IPv4 address' }));
-    await waitFor(() => expect(canvas.queryByText('Dedicated IPv4 address')).toBeNull());
+    await userEvent.click(canvas.getByRole('button', { name: 'Fewer Fine-art print' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Fewer Fine-art print' }));
+    await waitFor(() => expect(canvas.queryByText('Fine-art print')).toBeNull());
     await waitFor(() => expect(canvas.getByRole('spinbutton', { name: 'Qty' })).toHaveFocus());
   },
 };

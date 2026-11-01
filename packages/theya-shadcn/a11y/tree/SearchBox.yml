@@ -7,7 +7,7 @@
 
 # Default (patterns-search-searchbox--default)
 - search:
-  - combobox "Search": dkim
+  - combobox "Search": lens rental
   - button "Clear Search"
   - status
 

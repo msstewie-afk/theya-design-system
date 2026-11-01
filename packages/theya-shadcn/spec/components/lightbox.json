@@ -97,7 +97,7 @@
           "name": "title",
           "type": "string",
           "required": false,
-          "description": "Name of the dialog, e.g. \"Seashell Sites screenshots\".",
+          "description": "Name of the dialog, e.g. \"Aether gallery preview\".",
           "default": "Image viewer (localized: lightbox.title)"
         }
       ]

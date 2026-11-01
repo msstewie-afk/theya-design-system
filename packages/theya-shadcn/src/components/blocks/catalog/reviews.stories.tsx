@@ -25,8 +25,8 @@ export const Default: Story = {
     const oneStar = canvas.getByRole('button', { name: /^1\s+star\b/ });
     await userEvent.click(oneStar);
     await expect(oneStar).toHaveAttribute('aria-pressed', 'true');
-    await expect(canvas.getByText('First run filled my disk')).toBeVisible();
-    await expect(canvas.queryByText('Saved a client site in five minutes')).not.toBeInTheDocument();
+    await expect(canvas.getByText('The selection limit stopped my client')).toBeVisible();
+    await expect(canvas.queryByText('Cut a week out of every wedding')).not.toBeInTheDocument();
 
     await userEvent.click(canvas.getByRole('button', { name: 'Show all' }));
     await userEvent.click(canvas.getByRole('button', { name: 'Show 4 more reviews' }));
@@ -60,7 +60,7 @@ export const ShowAllFocus: Story = {
     showAll.focus();
     await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(showAll).not.toBeInTheDocument());
-    await waitFor(() => expect(canvas.getByText('Saved a client site in five minutes').closest('ul')).toHaveFocus());
+    await waitFor(() => expect(canvas.getByText('Cut a week out of every wedding').closest('ul')).toHaveFocus());
     await expect(live).toHaveTextContent('8 reviews');
   },
 };
@@ -73,6 +73,6 @@ export const ShowMoreFocus: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Show 4 more reviews' }));
     await expect(canvas.queryByRole('button', { name: /^Show \d+ more reviews$/ })).not.toBeInTheDocument();
     // Most relevant order: the fifth review is Tom W.'s.
-    await waitFor(() => expect(canvas.getByText('Database restore is all or nothing').closest('li')).toHaveFocus());
+    await waitFor(() => expect(canvas.getByText('Picks are all or nothing').closest('li')).toHaveFocus());
   },
 };

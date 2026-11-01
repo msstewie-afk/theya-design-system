@@ -6,7 +6,7 @@ import { TagInput } from './tag-input';
 import { tagInputGuidelines } from './tag-input.guidelines';
 
 /**
- * TagInput — several free-form values as chips: tags, emails, domains.
+ * TagInput — several free-form values as chips: tags, emails, keywords.
  * Enter, comma or semicolon commits; leaving the field commits too.
  * Pasting a list splits it. `validate` keeps bad values as danger chips
  * and lists them under the field, so nothing is silently dropped. For
@@ -20,7 +20,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Several free-form values of one kind as chips: email recipients, domains, IP ranges, tags. Invalid values stay visible, marked, instead of being dropped.",
+          "Several free-form values of one kind as chips: email recipients, photo keywords, tags. Invalid values stay visible, marked, instead of being dropped.",
       },
     },
     guidelines: tagInputGuidelines, layout: 'padded',
@@ -40,7 +40,7 @@ const meta = {
     transform: { control: false },
     delimiters: { control: false },
   },
-  args: { 'aria-label': 'Tags', defaultValue: ['production', 'eu-west'], heightSize: 'md' },
+  args: { 'aria-label': 'Tags', defaultValue: ['wedding', 'outdoor'], heightSize: 'md' },
   decorators: [(Story) => <div className="w-full max-w-[420px]">{Story()}</div>],
 } satisfies Meta<typeof TagInput>;
 
@@ -56,25 +56,25 @@ export const Default: Story = {
     await expect(removeButtons()).toHaveLength(2);
 
     // Enter and comma commit; surrounding spaces are trimmed.
-    await userEvent.type(input, '  staging {Enter}');
-    await userEvent.type(input, 'canary,');
-    await expect(canvas.getByRole('button', { name: 'Remove staging' })).toBeInTheDocument();
-    await expect(canvas.getByRole('button', { name: 'Remove canary' })).toBeInTheDocument();
+    await userEvent.type(input, '  portrait {Enter}');
+    await userEvent.type(input, 'film,');
+    await expect(canvas.getByRole('button', { name: 'Remove portrait' })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Remove film' })).toBeInTheDocument();
     await expect(input).toHaveValue('');
-    await waitFor(() => expect(canvasElement.querySelector('[aria-live="polite"]')).toHaveTextContent('Added canary'));
+    await waitFor(() => expect(canvasElement.querySelector('[aria-live="polite"]')).toHaveTextContent('Added film'));
 
     // Duplicates (case-insensitive) are ignored.
-    await userEvent.type(input, 'Production{Enter}');
+    await userEvent.type(input, 'Wedding{Enter}');
     await expect(removeButtons()).toHaveLength(4);
 
     // Backspace in the empty input removes the last tag.
     await userEvent.keyboard('{Backspace}');
-    await expect(canvas.queryByRole('button', { name: 'Remove canary' })).not.toBeInTheDocument();
+    await expect(canvas.queryByRole('button', { name: 'Remove film' })).not.toBeInTheDocument();
     await expect(input).toHaveFocus();
 
     // The chip's remove button removes that tag and returns focus to the input.
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove eu-west' }));
-    await expect(removeButtons().map((b) => b.getAttribute('aria-label'))).toEqual(['Remove production', 'Remove staging']);
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove outdoor' }));
+    await expect(removeButtons().map((b) => b.getAttribute('aria-label'))).toEqual(['Remove wedding', 'Remove portrait']);
     await expect(input).toHaveFocus();
 
     // Enter with nothing typed is left alone (a form can submit); leaving the field commits a draft.
@@ -86,7 +86,7 @@ export const Default: Story = {
   },
 };
 
-const EMAIL_LIST = 'maria@seashell.dev, ops@seashell.dev; not-an-email, Billing@Seashell.dev';
+const EMAIL_LIST = 'thea@aether.photo, ian@aether.photo; not-an-email, Mina@Aether.photo';
 
 /**
  * Email recipients: lower-cased on the way in, checked one by one. Paste the
@@ -114,7 +114,7 @@ export const Emails: Story = {
     await userEvent.paste(EMAIL_LIST);
     // The pasted list splits into four chips; the mixed-case address is lower-cased.
     const names = canvas.getAllByRole('button', { name: /^Remove / }).map((b) => b.getAttribute('aria-label'));
-    await expect(names).toEqual(['Remove maria@seashell.dev', 'Remove ops@seashell.dev', 'Remove not-an-email', 'Remove billing@seashell.dev']);
+    await expect(names).toEqual(['Remove thea@aether.photo', 'Remove ian@aether.photo', 'Remove not-an-email', 'Remove mina@aether.photo']);
     // The bad value stays, marked invalid, and is listed under the field.
     await expect(canvas.getByText('(invalid)')).toBeInTheDocument();
     await expect(input).toHaveAttribute('aria-invalid', 'true');
@@ -129,21 +129,21 @@ export const Emails: Story = {
 
 /** `max` caps the count; the input disappears at the limit and the counter shows how many are left. */
 export const Max: Story = {
-  args: { 'aria-label': 'Domains', defaultValue: ['shop.seashell.dev', 'docs.seashell.dev'], max: 3, description: 'Domains for this certificate' },
+  args: { 'aria-label': 'Keywords', defaultValue: ['golden hour', 'coast'], max: 3, description: 'Keywords for this photo' },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByRole('textbox', { name: 'Domains' });
+    const input = canvas.getByRole('textbox', { name: 'Keywords' });
     await expect(canvas.getByText(/2 of 3/)).toBeInTheDocument();
     // Pasting more than fits keeps only what the limit allows.
     await userEvent.click(input);
-    await userEvent.paste('api.seashell.dev, mail.seashell.dev');
+    await userEvent.paste('sunset, beach');
     await expect(canvas.getAllByRole('button', { name: /^Remove / })).toHaveLength(3);
     await expect(canvas.getByText(/3 of 3/)).toBeInTheDocument();
     // At the limit the input goes away; removing a value brings it back.
     await expect(canvas.queryByRole('textbox')).not.toBeInTheDocument();
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove api.seashell.dev' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove sunset' }));
     // Focus lands in the re-mounted input, not on <body> (the clicked button is gone).
-    await waitFor(() => expect(canvas.getByRole('textbox', { name: 'Domains' })).toHaveFocus());
+    await waitFor(() => expect(canvas.getByRole('textbox', { name: 'Keywords' })).toHaveFocus());
   },
 };
 
@@ -182,21 +182,21 @@ export const ReadOnlyAndDisabled: Story = {
 export const WithLabel: Story = {
   parameters: { controls: { disable: true } },
   render: function Render() {
-    const [value, setValue] = useState<string[]>(['10.0.0.0/8']);
+    const [value, setValue] = useState<string[]>(['golden hour']);
     return (
       <TagInput
-        label="IP allowlist"
+        label="Photo keywords"
         required
-        description="Press Enter or comma to add a range."
+        description="Press Enter or comma to add a keyword."
         value={value}
         onValueChange={setValue}
-        placeholder="CIDR range, e.g. 192.168.0.0/16"
+        placeholder="A keyword, e.g. sunset"
       />
     );
   },
   play: async ({ canvasElement }) => {
-    const input = within(canvasElement).getByRole('textbox', { name: 'IP allowlist' });
-    await expect(input).toHaveAccessibleDescription('Press Enter or comma to add a range.');
+    const input = within(canvasElement).getByRole('textbox', { name: 'Photo keywords' });
+    await expect(input).toHaveAccessibleDescription('Press Enter or comma to add a keyword.');
     await expect(input).toHaveAttribute('aria-required', 'true');
   },
 };

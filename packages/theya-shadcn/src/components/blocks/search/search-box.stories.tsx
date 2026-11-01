@@ -23,26 +23,26 @@ export const Default: Story = {
     const input = canvas.getByRole('combobox', { name: 'Search' });
     await userEvent.click(input);
     await expect(input).toHaveAttribute('aria-expanded', 'true');
-    await expect(canvas.getByRole('option', { name: 'backup schedule' })).toBeVisible();
+    await expect(canvas.getByRole('option', { name: 'archive retention' })).toBeVisible();
 
-    await userEvent.type(input, 'back');
+    await userEvent.type(input, 'arch');
     await expect(canvas.getByRole('group', { name: 'Suggestions' })).toBeVisible();
     await expect(canvas.getByRole('group', { name: 'Go to' })).toBeVisible();
     await userEvent.keyboard('{ArrowDown}');
     const first = canvas.getAllByRole('option')[0];
     await expect(input).toHaveAttribute('aria-activedescendant', first.id);
     await userEvent.keyboard('{Enter}');
-    await expect(args.onSearch).toHaveBeenCalledWith('backup schedule');
+    await expect(args.onSearch).toHaveBeenCalledWith('archive retention');
     await expect(input).toHaveAttribute('aria-expanded', 'false');
 
     await userEvent.clear(input);
-    await userEvent.type(input, 'northwind_app');
-    await userEvent.click(canvas.getByRole('option', { name: /^northwind_app/ }));
-    await expect(args.onNavigate).toHaveBeenCalledWith(expect.objectContaining({ id: 'db4' }));
+    await userEvent.type(input, 'DAWN_0412.jpg');
+    await userEvent.click(canvas.getByRole('option', { name: /^DAWN_0412\.jpg/ }));
+    await expect(args.onNavigate).toHaveBeenCalledWith(expect.objectContaining({ id: 'ph1' }));
 
     await userEvent.clear(input);
-    await userEvent.type(input, 'dkim{Enter}');
-    await expect(args.onSearch).toHaveBeenLastCalledWith('dkim');
+    await userEvent.type(input, 'lens rental{Enter}');
+    await expect(args.onSearch).toHaveBeenLastCalledWith('lens rental');
   },
 };
 
@@ -56,10 +56,10 @@ export const Keyboard: Story = {
       if (document.activeElement !== input) await userEvent.keyboard('/');
       await expect(input).toHaveFocus();
     });
-    await userEvent.type(input, 'mail');
+    await userEvent.type(input, 'print');
     await userEvent.keyboard('{Escape}');
     await expect(input).toHaveAttribute('aria-expanded', 'false');
-    await expect(input).toHaveValue('mail');
+    await expect(input).toHaveValue('print');
     await userEvent.keyboard('{Escape}');
     await expect(input).toHaveValue('');
   },

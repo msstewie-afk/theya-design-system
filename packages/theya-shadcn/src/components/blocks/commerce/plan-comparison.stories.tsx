@@ -44,9 +44,9 @@ export const Default: Story = {
     await userEvent.click(canvas.getByRole('radio', { name: 'Monthly' }));
     await expect(within(table).getByText('$30')).toBeVisible();
 
-    await expect(within(table).getByRole('rowheader', { name: 'Bandwidth' })).toBeVisible();
+    await expect(within(table).getByRole('rowheader', { name: 'Client downloads' })).toBeVisible();
     await userEvent.click(canvas.getByRole('switch', { name: 'Only differences' }));
-    await expect(within(table).queryByRole('rowheader', { name: 'Bandwidth' })).toBeNull();
+    await expect(within(table).queryByRole('rowheader', { name: 'Client downloads' })).toBeNull();
 
     await userEvent.click(within(table).getByRole('button', { name: /^Choose Pro/ }));
     await expect(args.onSelect).toHaveBeenCalledWith('pro', 'monthly');

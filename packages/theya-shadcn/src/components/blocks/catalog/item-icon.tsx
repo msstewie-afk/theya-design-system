@@ -1,4 +1,4 @@
-import { Bug, Cloud, CloudSync, Code, Flash, Language, Mail, Search, Shield, StatsUpSquare } from 'iconoir-react';
+import { Book, Bug, Cloud, CloudSync, Code, ColorFilter, Flash, Frame, Language, Lens, LightBulb, Mail, Search, Shield, Sparks, StatsUpSquare } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
 import type { CatalogIconKey } from './types';
 
@@ -13,9 +13,15 @@ const ICONS: Record<CatalogIconKey, React.ComponentType<React.SVGProps<SVGSVGEle
   language: Language,
   bug: Bug,
   cloud: Cloud,
+  preset: ColorFilter,
+  addon: Sparks,
+  book: Book,
+  print: Frame,
+  studio: LightBulb,
+  lens: Lens,
 };
 
-/** The extension's tile: a tinted square with its glyph. Decorative — the name carries the meaning. */
+/** The item's tile: a tinted square with its glyph. Decorative — the name carries the meaning. */
 export function ItemIcon({ icon, size = 'md', className }: { icon: CatalogIconKey; size?: 'sm' | 'md' | 'lg'; className?: string }) {
   const Glyph = ICONS[icon];
   return (

@@ -27,7 +27,7 @@ export const Default: Story = {
     await expect(args.onReorder).toHaveBeenCalledWith(expect.objectContaining({ number: 'TH-23990' }));
 
     const search = canvas.getByRole('searchbox', { name: 'Search orders' });
-    await userEvent.type(search, 'security key');
+    await userEvent.type(search, 'fine-art');
     await expect(canvas.getByText('1 order')).toBeVisible();
     await userEvent.clear(search);
     await userEvent.type(search, 'zzz');

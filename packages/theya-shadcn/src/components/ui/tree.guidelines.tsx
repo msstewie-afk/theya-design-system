@@ -32,7 +32,7 @@ export const treeGuidelines: ComponentGuidelines = {
       },
       dont: {
         example: (
-          <Tree aria-label="Plans" className="w-64" items={[{ id: 's', label: 'Starter' }, { id: 'p', label: 'Pro' }, { id: 'x', label: 'Scale' }]} />
+          <Tree aria-label="Plans" className="w-64" items={[{ id: 'f', label: 'Free' }, { id: 'p', label: 'Pro' }, { id: 'b', label: 'Business' }]} />
         ),
         caption: 'One level is just a list — a tree adds keyboard rules for nothing.',
       },

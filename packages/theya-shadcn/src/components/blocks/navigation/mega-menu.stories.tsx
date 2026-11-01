@@ -20,7 +20,7 @@ const meta: Meta<typeof MegaMenu> = {
     (Story) => (
       <div className="min-h-[34rem]">
         <header className="flex h-16 items-center gap-6 border-b border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)] px-6">
-          <span className="font-body text-body-l font-semibold text-[var(--color-text-text)]">Theya</span>
+          <span className="font-body text-body-l font-semibold text-[var(--color-text-text)]">Aether</span>
           {Story()}
         </header>
       </div>
@@ -43,7 +43,7 @@ export const Default: Story = {
       await userEvent.click(menu);
       const drawer = await within(document.body).findByRole('dialog', { name: 'Menu' });
       await expect(within(drawer).getByRole('link', { name: 'All products' })).toHaveAttribute('href', '#products');
-      await expect(within(drawer).getByRole('link', { name: 'VPS' })).toBeVisible();
+      await expect(within(drawer).getByRole('link', { name: 'Client portals' })).toBeVisible();
       await userEvent.keyboard('{Escape}');
       await waitFor(() => expect(menu).toHaveAttribute('aria-expanded', 'false'), { timeout: 2500 });
       return;
@@ -64,9 +64,9 @@ export const Default: Story = {
     trigger.focus();
     await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
-    await expect(canvas.getByRole('heading', { name: 'Hosting' })).toBeVisible();
+    await expect(canvas.getByRole('heading', { name: 'Galleries' })).toBeVisible();
     await expect(canvas.getByRole('link', { name: /All products/ })).toHaveAttribute('href', '#products');
-    await expect(canvas.getByRole('link', { name: /Move your site for free/ })).toBeVisible();
+    await expect(canvas.getByRole('link', { name: /Move your galleries for free/ })).toBeVisible();
     await userEvent.keyboard('{Escape}');
     // The panel closes with a short animation; give it time under a loaded test run.
     await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'), { timeout: 2500 });
@@ -83,10 +83,10 @@ export const Narrow: Story = {
     // The current section starts open, with its "All …" link first.
     await expect(within(drawer).getByRole('link', { name: /All products/ })).toBeVisible();
     // Column titles are h4 headings (under the h2 title and h3 section headers) that name their lists.
-    await expect(within(drawer).getByRole('heading', { level: 4, name: 'Hosting' })).toBeVisible();
-    await expect(within(drawer).getByRole('list', { name: 'Hosting' })).toBeVisible();
+    await expect(within(drawer).getByRole('heading', { level: 4, name: 'Galleries' })).toBeVisible();
+    await expect(within(drawer).getByRole('list', { name: 'Galleries' })).toBeVisible();
     await userEvent.click(within(drawer).getByRole('button', { name: 'Solutions' }));
-    await expect(within(drawer).getByRole('link', { name: 'Online stores' })).toBeVisible();
+    await expect(within(drawer).getByRole('link', { name: 'Wedding photographers' })).toBeVisible();
   },
 };
 

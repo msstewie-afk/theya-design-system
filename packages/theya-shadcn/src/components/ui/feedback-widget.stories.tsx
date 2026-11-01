@@ -96,8 +96,8 @@ export const EndOfArticle: Story = {
   render: (args) => (
     <div className="flex max-w-[70ch] flex-col gap-6">
       <Prose>
-        <h2>Moving a site to a new region</h2>
-        <p>A region move copies your site, its databases and certificates, then switches traffic over once everything checks out.</p>
+        <h2>Moving a gallery to another studio</h2>
+        <p>A move copies the gallery, its originals and print licenses, then switches the client portal over once every file checks out.</p>
       </Prose>
       <div className="border-t border-solid border-[var(--color-border-border-subtler)] pt-5">
         <FeedbackWidget {...args} />

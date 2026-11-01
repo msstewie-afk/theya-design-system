@@ -36,19 +36,19 @@
   "doDont": [
     {
       "do": {
-        "caption": "A rule people build once and keep: “active and fewer than 2 replicas”.",
-        "example": "<div className=\"w-[34rem] max-w-full\">\n  <QueryBuilder\n    fields={FIELDS}\n    ariaLabel=\"Alert rule\"\n    defaultValue={{\n      match: 'all',\n      conditions: [\n        { id: 'c1', field: 'status', operator: 'is', value: 'active' },\n        { id: 'c2', field: 'replicas', operator: 'lt', value: 2 },\n      ],\n    }}\n  />\n</div>"
+        "caption": "A rule people build once and keep: “published and fewer than 20 photos”.",
+        "example": "<div className=\"w-[34rem] max-w-full\">\n  <QueryBuilder\n    fields={FIELDS}\n    ariaLabel=\"Alert rule\"\n    defaultValue={{\n      match: 'all',\n      conditions: [\n        { id: 'c1', field: 'status', operator: 'is', value: 'published' },\n        { id: 'c2', field: 'photos', operator: 'lt', value: 20 },\n      ],\n    }}\n  />\n</div>"
       },
       "dont": {
-        "caption": "A whole builder to show active servers — a Filter does it in one click.",
-        "example": "<div className=\"w-[34rem] max-w-full\">\n  <QueryBuilder\n    fields={FIELDS}\n    ariaLabel=\"Filter servers\"\n    defaultValue={{ match: 'all', conditions: [{ id: 'd1', field: 'status', operator: 'is', value: 'active' }] }}\n  />\n</div>"
+        "caption": "A whole builder to show published galleries — a Filter does it in one click.",
+        "example": "<div className=\"w-[34rem] max-w-full\">\n  <QueryBuilder\n    fields={FIELDS}\n    ariaLabel=\"Filter galleries\"\n    defaultValue={{ match: 'all', conditions: [{ id: 'd1', field: 'status', operator: 'is', value: 'published' }] }}\n  />\n</div>"
       }
     }
   ],
   "a11y": [
     "It’s a named group (`ariaLabel`); each row’s controls are named after its field (“Status condition”, “Remove Status condition”).",
     "Adding or removing a row keeps focus in the builder — on the new row’s field, a neighbouring remove button, or Add.",
-    "Say the result in words near it when you can (“Matches 4 servers”)."
+    "Say the result in words near it when you can (“Matches 4 galleries”)."
   ],
   "components": [
     {

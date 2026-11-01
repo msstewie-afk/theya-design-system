@@ -5,22 +5,22 @@ import { FilterField, type FilterAttribute } from './filter-field';
 const ATTRS: FilterAttribute[] = [
   { key: 'name', label: 'Name', type: 'text' },
   { key: 'status', label: 'Status', type: 'select', multiple: true, options: [
-    { value: 'active', label: 'Active', tone: 'success' },
-    { value: 'suspended', label: 'Suspended', tone: 'danger' },
+    { value: 'published', label: 'Published', tone: 'success' },
+    { value: 'expired', label: 'Expired', tone: 'danger' },
   ] },
-  { key: 'region', label: 'Region', type: 'select', options: [
-    { value: 'eu', label: 'Europe' },
-    { value: 'us', label: 'Americas' },
+  { key: 'studio', label: 'Studio', type: 'select', options: [
+    { value: 'helios', label: 'Helios Studio' },
+    { value: 'selene', label: 'Selene Weddings' },
   ] },
   { key: 'created', label: 'Created', type: 'date', range: true },
-  { key: 'cpu', label: 'CPU cores', type: 'number' },
+  { key: 'photos', label: 'Photos', type: 'number' },
 ];
 
 const opts = (labels: string[]) => labels.map((l) => ({ value: l.toLowerCase(), label: l }));
 
 export const filterFieldGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['Keyword search and filtering by many attributes in one field: servers, logs, users.', 'Applied filters should stay visible and editable as chips.'],
+  whenToUse: ['Keyword search and filtering by many attributes in one field: galleries, logs, clients.', 'Applied filters should stay visible and editable as chips.'],
   whenNotToUse: [
     { text: 'Two or three facets', instead: 'Filter' },
     { text: 'Nested any/all logic', instead: 'QueryBuilder' },
@@ -35,7 +35,7 @@ export const filterFieldGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className="w-96 max-w-full">
-            <FilterField attributes={ATTRS} defaultValue={[{ key: 'status', value: 'active' }]} aria-label="Filter servers" />
+            <FilterField attributes={ATTRS} defaultValue={[{ key: 'status', value: 'published' }]} aria-label="Filter galleries" />
           </div>
         ),
         caption: 'Five attributes and search in one field; what’s applied is visible as chips.',
@@ -43,11 +43,11 @@ export const filterFieldGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <div className="flex w-96 max-w-full flex-wrap gap-2">
-            <Filter label="Name" options={opts(['web-01', 'web-02'])} />
-            <Filter label="Status" options={opts(['Active', 'Suspended'])} />
-            <Filter label="Region" options={opts(['Europe', 'Americas'])} />
+            <Filter label="Name" options={opts(['Golden hour', 'Blue hour'])} />
+            <Filter label="Status" options={opts(['Published', 'Expired'])} />
+            <Filter label="Studio" options={opts(['Helios Studio', 'Selene Weddings'])} />
             <Filter label="Created" options={opts(['Today', 'This week'])} />
-            <Filter label="CPU cores" options={opts(['2', '4'])} />
+            <Filter label="Photos" options={opts(['Under 100', '100+'])} />
           </div>
         ),
         caption: 'A trigger per attribute: the bar wraps, and names and dates get squeezed into checkboxes.',

@@ -18,11 +18,11 @@ export const promptAreaGuidelines: ComponentGuidelines = {
   doDont: [
     {
       do: {
-        example: <div className="w-full"><PromptArea aria-label="Message the assistant" placeholder="Ask about your sites…" /></div>,
+        example: <div className="w-full"><PromptArea aria-label="Message the assistant" placeholder="Ask about your galleries…" /></div>,
         caption: 'Grows with the message; Enter sends, Stop appears while answering.',
       },
       dont: {
-        example: <TextField label="Message" placeholder="Ask about your sites…" widthSize="full" />,
+        example: <TextField label="Message" placeholder="Ask about your galleries…" widthSize="full" />,
         caption: 'A one-line field for prompts: long questions scroll out of sight, no stop, no attachments.',
       },
     },

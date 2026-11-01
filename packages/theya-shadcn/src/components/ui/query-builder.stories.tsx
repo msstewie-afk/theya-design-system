@@ -37,16 +37,16 @@ type Story = StoryObj<typeof QueryBuilder>;
 
 const FIELDS: QueryField[] = [
   { name: 'name', label: 'Name', type: 'text' },
-  { name: 'replicas', label: 'Replicas', type: 'number' },
+  { name: 'photos', label: 'Photos', type: 'number' },
   { name: 'created', label: 'Created', type: 'date' },
   {
     name: 'status',
     label: 'Status',
     type: 'select',
     options: [
-      { value: 'active', label: 'Active' },
-      { value: 'suspended', label: 'Suspended' },
-      { value: 'pending', label: 'Pending' },
+      { value: 'published', label: 'Published' },
+      { value: 'expired', label: 'Expired' },
+      { value: 'draft', label: 'Draft' },
     ],
   },
 ];
@@ -54,7 +54,7 @@ const FIELDS: QueryField[] = [
 function Demo() {
   const [value, setValue] = useState<QueryValue>({
     match: 'all',
-    conditions: [{ id: '1', field: 'status', operator: 'is_any_of', value: ['active'] }],
+    conditions: [{ id: '1', field: 'status', operator: 'is_any_of', value: ['published'] }],
   });
   return (
     <div className="w-full max-w-[640px]">
@@ -63,7 +63,7 @@ function Demo() {
   );
 }
 
-/** A query with one condition, Status is any of Active; Add condition appends more rows. */
+/** A query with one condition, Status is any of Published; Add condition appends more rows. */
 export const Default: Story = {
   render: () => <Demo />,
 };
@@ -79,7 +79,7 @@ export const Empty: Story = {
 
 const TYPED_FIELDS: QueryField[] = [
   ...FIELDS,
-  { name: 'ssl', label: 'SSL enabled', type: 'boolean' },
+  { name: 'watermarked', label: 'Watermarked', type: 'boolean' },
 ];
 
 /** Range and typed editors: a number `between` (two NumberFields), a date, and a boolean (no value editor). */
@@ -89,13 +89,13 @@ export const RangesAndTypes: Story = {
     <div className="w-full max-w-[700px]">
       <QueryBuilder
         fields={TYPED_FIELDS}
-        ariaLabel="Site filters"
+        ariaLabel="Gallery filters"
         defaultValue={{
           match: 'any',
           conditions: [
-            { id: 'c1', field: 'replicas', operator: 'between', value: [2, 8] },
+            { id: 'c1', field: 'photos', operator: 'between', value: [50, 300] },
             { id: 'c2', field: 'created', operator: 'after', value: new Date(2026, 0, 1) },
-            { id: 'c3', field: 'ssl', operator: 'is_true', value: undefined },
+            { id: 'c3', field: 'watermarked', operator: 'is_true', value: undefined },
           ],
         }}
       />
@@ -106,11 +106,11 @@ export const RangesAndTypes: Story = {
 function ControlledDemo() {
   const [query, setQuery] = useState<QueryValue>({
     match: 'all',
-    conditions: [{ id: 'c1', field: 'name', operator: 'contains', value: 'shop' }],
+    conditions: [{ id: 'c1', field: 'name', operator: 'contains', value: 'gold' }],
   });
   return (
     <div className="flex w-full max-w-[640px] flex-col gap-4">
-      <QueryBuilder fields={FIELDS} value={query} onChange={setQuery} ariaLabel="Site filters" />
+      <QueryBuilder fields={FIELDS} value={query} onChange={setQuery} ariaLabel="Gallery filters" />
       <pre className="overflow-x-auto rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] p-3 font-mono text-body-xs text-[var(--color-text-text-subtler)]">
         {JSON.stringify(query, null, 2)}
       </pre>
@@ -134,8 +134,8 @@ export const Controlled: Story = {
     await waitFor(() => expect(canvas.getAllByRole('combobox', { name: 'Field' })[1]).toHaveFocus());
     await expect(json().conditions).toHaveLength(2);
 
-    await userEvent.type(canvas.getAllByRole('textbox', { name: 'Name value' })[1], 'docs');
-    await expect(json().conditions[1]).toMatchObject({ field: 'name', operator: 'contains', value: 'docs' });
+    await userEvent.type(canvas.getAllByRole('textbox', { name: 'Name value' })[1], 'wedding');
+    await expect(json().conditions[1]).toMatchObject({ field: 'name', operator: 'contains', value: 'wedding' });
 
     await userEvent.click(canvas.getByRole('combobox', { name: 'Match type' }));
     await userEvent.click(await body.findByRole('option', { name: 'any' }));
@@ -143,7 +143,7 @@ export const Controlled: Story = {
 
     await userEvent.click(canvas.getAllByRole('button', { name: 'Remove Name condition' })[0]);
     await expect(json().conditions).toHaveLength(1);
-    await expect(json().conditions[0].value).toBe('docs');
+    await expect(json().conditions[0].value).toBe('wedding');
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove Name condition' })).toHaveFocus());
 
     await userEvent.keyboard('{Enter}');

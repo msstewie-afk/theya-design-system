@@ -3,163 +3,163 @@
 # Cover Images (patterns-catalog-itemcard--cover-images)
 - list:
   - listitem:
-    - link "Shieldwall by Seashell Labs":
-      - /url: "#shieldwall"
-    - paragraph: Shieldwall
-    - paragraph: Seashell Labs
-    - paragraph: Web application firewall with managed rules.
-    - paragraph: Works with Node.js, Python
+    - link "Golden hour presets by Helios Studio":
+      - /url: "#golden-hour-presets"
+    - paragraph: Golden hour presets
+    - paragraph: Helios Studio
+    - paragraph: Twelve warm looks for late-afternoon light.
+    - paragraph: Works with Lightroom, Capture One
     - paragraph: Rated 4.7 out of 5 from 812 reviews. 48k installs
     - text: Free
   - listitem:
-    - link "Secret Scanner by Northwind":
-      - /url: "#secret-scanner"
-    - paragraph: Secret Scanner
-    - paragraph: Northwind
-    - paragraph: Finds leaked keys and tokens in every deploy.
-    - paragraph: Works with Node.js, Python, Next.js
+    - link "Blue hour presets by Selene Weddings":
+      - /url: "#blue-hour-presets"
+    - paragraph: Blue hour presets
+    - paragraph: Selene Weddings
+    - paragraph: Cool, low-contrast looks for dusk and night shoots.
+    - paragraph: Works with Lightroom, Capture One, Photoshop
     - paragraph: Rated 4.4 out of 5 from 356 reviews. 22k installs
     - text: $6 / mo
   - listitem:
-    - link "Login Guard by Kestrel":
-      - /url: "#login-guard"
-    - paragraph: Login Guard
-    - paragraph: Kestrel
-    - paragraph: Two-factor and brute-force protection for sign-in.
-    - paragraph: Works with Next.js, Astro
+    - link "Skin tone essentials by Eos Portraits":
+      - /url: "#skin-tone-essentials"
+    - paragraph: Skin tone essentials
+    - paragraph: Eos Portraits
+    - paragraph: Even, natural skin tones in window and mixed light.
+    - paragraph: Works with Lightroom, Photoshop
     - paragraph: Rated 4.8 out of 5 from 1204 reviews. 64k installs
     - text: Free
 
 # Grid (patterns-catalog-itemcard--grid)
 - list:
   - listitem:
-    - link "Shieldwall by Seashell Labs":
-      - /url: "#shieldwall"
-    - paragraph: Shieldwall
-    - paragraph: Seashell Labs
-    - paragraph: Web application firewall with managed rules.
-    - paragraph: Works with Node.js, Python
+    - link "Golden hour presets by Helios Studio":
+      - /url: "#golden-hour-presets"
+    - paragraph: Golden hour presets
+    - paragraph: Helios Studio
+    - paragraph: Twelve warm looks for late-afternoon light.
+    - paragraph: Works with Lightroom, Capture One
     - paragraph: Rated 4.7 out of 5 from 812 reviews. 48k installs
     - text: Free
   - listitem:
-    - link "Secret Scanner by Northwind":
-      - /url: "#secret-scanner"
-    - paragraph: Secret Scanner
-    - paragraph: Northwind
-    - paragraph: Finds leaked keys and tokens in every deploy.
-    - paragraph: Works with Node.js, Python, Next.js
+    - link "Blue hour presets by Selene Weddings":
+      - /url: "#blue-hour-presets"
+    - paragraph: Blue hour presets
+    - paragraph: Selene Weddings
+    - paragraph: Cool, low-contrast looks for dusk and night shoots.
+    - paragraph: Works with Lightroom, Capture One, Photoshop
     - paragraph: Rated 4.4 out of 5 from 356 reviews. 22k installs
     - text: $6 / mo
   - listitem:
-    - link "Login Guard by Kestrel":
-      - /url: "#login-guard"
-    - paragraph: Login Guard
-    - paragraph: Kestrel
-    - paragraph: Two-factor and brute-force protection for sign-in.
-    - paragraph: Works with Next.js, Astro
+    - link "Skin tone essentials by Eos Portraits":
+      - /url: "#skin-tone-essentials"
+    - paragraph: Skin tone essentials
+    - paragraph: Eos Portraits
+    - paragraph: Even, natural skin tones in window and mixed light.
+    - paragraph: Works with Lightroom, Photoshop
     - paragraph: Rated 4.8 out of 5 from 1204 reviews. 64k installs
     - text: Free
   - listitem:
-    - link "CertPilot by Seashell Labs":
-      - /url: "#certpilot"
-    - paragraph: CertPilot
-    - paragraph: Seashell Labs
-    - paragraph: Issues and renews SSL certificates automatically.
-    - paragraph: Works with Node.js, Python
+    - link "Aether basics by Aether":
+      - /url: "#aether-basics"
+    - paragraph: Aether basics
+    - paragraph: Aether
+    - paragraph: Clean color and contrast for any shoot, applied on import.
+    - paragraph: Works with Lightroom, Capture One
     - paragraph: Rated 4.9 out of 5 from 2210 reviews. 91k installs
     - text: Free
   - listitem:
-    - link "Vault Backup by Arbor":
-      - /url: "#vault-backup"
-    - paragraph: Vault Backup
-    - paragraph: Arbor
-    - paragraph: Incremental backups to any S3-compatible storage.
-    - paragraph: Works with Node.js, Python
+    - link "Client proofing by Aether":
+      - /url: "#client-proofing"
+    - paragraph: Client proofing
+    - paragraph: Aether
+    - paragraph: Clients pick favorites and leave notes on any gallery.
+    - paragraph: Works with Pro plan, Business plan
     - paragraph: Rated 4.6 out of 5 from 640 reviews. 30k installs
     - text: $8 / mo
   - listitem:
-    - link "Snapshot Pro by Northwind":
-      - /url: "#snapshot-pro"
-    - paragraph: Snapshot Pro
-    - paragraph: Northwind
-    - paragraph: Hourly snapshots with point-in-time restore.
-    - paragraph: Works with Node.js
+    - link "Extra storage by Aether":
+      - /url: "#extra-storage"
+    - paragraph: Extra storage
+    - paragraph: Aether
+    - paragraph: Another 1 TB in the Mnemosyne archive for raw files.
+    - paragraph: Works with Pro plan, Business plan
     - paragraph: Rated 4.3 out of 5 from 211 reviews. 9.8k installs
     - text: $12 / mo
 
 # List (patterns-catalog-itemcard--list)
 - list:
   - listitem:
-    - link "Shieldwall by Seashell Labs":
-      - /url: "#shieldwall"
-    - paragraph: Shieldwall
-    - paragraph: Seashell Labs
-    - paragraph: Web application firewall with managed rules.
-    - paragraph: Works with Node.js, Python
+    - link "Golden hour presets by Helios Studio":
+      - /url: "#golden-hour-presets"
+    - paragraph: Golden hour presets
+    - paragraph: Helios Studio
+    - paragraph: Twelve warm looks for late-afternoon light.
+    - paragraph: Works with Lightroom, Capture One
     - paragraph: Rated 4.7 out of 5 from 812 reviews. 48k installs
     - text: Free
   - listitem:
-    - link "Secret Scanner by Northwind":
-      - /url: "#secret-scanner"
-    - paragraph: Secret Scanner
-    - paragraph: Northwind
-    - paragraph: Finds leaked keys and tokens in every deploy.
-    - paragraph: Works with Node.js, Python, Next.js
+    - link "Blue hour presets by Selene Weddings":
+      - /url: "#blue-hour-presets"
+    - paragraph: Blue hour presets
+    - paragraph: Selene Weddings
+    - paragraph: Cool, low-contrast looks for dusk and night shoots.
+    - paragraph: Works with Lightroom, Capture One, Photoshop
     - paragraph: Rated 4.4 out of 5 from 356 reviews. 22k installs
     - text: $6 / mo
   - listitem:
-    - link "Login Guard by Kestrel":
-      - /url: "#login-guard"
-    - paragraph: Login Guard
-    - paragraph: Kestrel
-    - paragraph: Two-factor and brute-force protection for sign-in.
-    - paragraph: Works with Next.js, Astro
+    - link "Skin tone essentials by Eos Portraits":
+      - /url: "#skin-tone-essentials"
+    - paragraph: Skin tone essentials
+    - paragraph: Eos Portraits
+    - paragraph: Even, natural skin tones in window and mixed light.
+    - paragraph: Works with Lightroom, Photoshop
     - paragraph: Rated 4.8 out of 5 from 1204 reviews. 64k installs
     - text: Free
   - listitem:
-    - link "CertPilot by Seashell Labs":
-      - /url: "#certpilot"
-    - paragraph: CertPilot
-    - paragraph: Seashell Labs
-    - paragraph: Issues and renews SSL certificates automatically.
-    - paragraph: Works with Node.js, Python
+    - link "Aether basics by Aether":
+      - /url: "#aether-basics"
+    - paragraph: Aether basics
+    - paragraph: Aether
+    - paragraph: Clean color and contrast for any shoot, applied on import.
+    - paragraph: Works with Lightroom, Capture One
     - paragraph: Rated 4.9 out of 5 from 2210 reviews. 91k installs
     - text: Free
 
 # List With Images (patterns-catalog-itemcard--list-with-images)
 - list:
   - listitem:
-    - link "Dedicated server by Arbor":
-      - /url: "#dedicated-server"
-    - paragraph: Dedicated server
+    - link "On-site archive by Arbor":
+      - /url: "#on-site-archive"
+    - paragraph: On-site archive
     - paragraph: Arbor
-    - paragraph: 8 cores, 64 GB RAM, two NVMe drives in RAID 1.
-    - paragraph: Works with Linux, Windows
+    - paragraph: A rack unit that keeps a local copy of the Mnemosyne archive in your studio.
+    - paragraph: Works with Mac, Windows
     - paragraph: Rated 4.8 out of 5 from 312 reviews. 2.1k installs
     - text: $89 / mo
   - listitem:
-    - link "NVMe storage add-on by Fjord":
-      - /url: "#nvme-storage"
-    - paragraph: NVMe storage add-on
+    - link "Portable SSD rental by Fjord":
+      - /url: "#portable-ssd"
+    - paragraph: Portable SSD rental
     - paragraph: Fjord
-    - paragraph: 1 TB of fast block storage you can attach to any server.
-    - paragraph: Works with Linux, Windows
+    - paragraph: 2 TB of fast storage for offloading cards on location.
+    - paragraph: Works with USB-C, Thunderbolt
     - paragraph: Rated 4.6 out of 5 from 148 reviews. 5.4k installs
     - text: $15 / mo
   - listitem:
-    - link "Firewall appliance by Kestrel":
-      - /url: "#firewall-appliance"
-    - paragraph: Firewall appliance
+    - link "Tethering hub rental by Kestrel":
+      - /url: "#tethering-hub"
+    - paragraph: Tethering hub rental
     - paragraph: Kestrel
-    - paragraph: Hardware firewall in front of your servers, managed for you.
-    - paragraph: Works with Any server
+    - paragraph: Wireless tethering from camera to laptop on set, set up for you.
+    - paragraph: Works with Sony, Canon, Nikon
     - paragraph: Rated 4.4 out of 5 from 87 reviews. 940 installs
     - text: $29 / mo
   - listitem:
-    - link "Hardware security key by Seashell Labs":
+    - link "Hardware security key by Aether":
       - /url: "#security-key"
     - paragraph: Hardware security key
-    - paragraph: Seashell Labs
+    - paragraph: Aether
     - paragraph: Phishing-proof sign-in for your account. Shipped to your door.
     - paragraph: Works with USB-C, NFC
     - paragraph: Rated 4.9 out of 5 from 523 reviews. 8.8k installs
@@ -168,49 +168,49 @@
 # Product Images (patterns-catalog-itemcard--product-images)
 - list:
   - listitem:
-    - link "Dedicated server by Arbor":
-      - /url: "#dedicated-server"
-    - paragraph: Dedicated server
+    - link "On-site archive by Arbor":
+      - /url: "#on-site-archive"
+    - paragraph: On-site archive
     - paragraph: Arbor
-    - paragraph: 8 cores, 64 GB RAM, two NVMe drives in RAID 1.
-    - paragraph: Works with Linux, Windows
+    - paragraph: A rack unit that keeps a local copy of the Mnemosyne archive in your studio.
+    - paragraph: Works with Mac, Windows
     - paragraph: Rated 4.8 out of 5 from 312 reviews. 2.1k installs
     - text: $89 / mo
   - listitem:
-    - link "NVMe storage add-on by Fjord":
-      - /url: "#nvme-storage"
-    - paragraph: NVMe storage add-on
+    - link "Portable SSD rental by Fjord":
+      - /url: "#portable-ssd"
+    - paragraph: Portable SSD rental
     - paragraph: Fjord
-    - paragraph: 1 TB of fast block storage you can attach to any server.
-    - paragraph: Works with Linux, Windows
+    - paragraph: 2 TB of fast storage for offloading cards on location.
+    - paragraph: Works with USB-C, Thunderbolt
     - paragraph: Rated 4.6 out of 5 from 148 reviews. 5.4k installs
     - text: $15 / mo
   - listitem:
-    - link "Firewall appliance by Kestrel":
-      - /url: "#firewall-appliance"
-    - paragraph: Firewall appliance
+    - link "Tethering hub rental by Kestrel":
+      - /url: "#tethering-hub"
+    - paragraph: Tethering hub rental
     - paragraph: Kestrel
-    - paragraph: Hardware firewall in front of your servers, managed for you.
-    - paragraph: Works with Any server
+    - paragraph: Wireless tethering from camera to laptop on set, set up for you.
+    - paragraph: Works with Sony, Canon, Nikon
     - paragraph: Rated 4.4 out of 5 from 87 reviews. 940 installs
     - text: $29 / mo
   - listitem:
-    - link "Hardware security key by Seashell Labs":
+    - link "Hardware security key by Aether":
       - /url: "#security-key"
     - paragraph: Hardware security key
-    - paragraph: Seashell Labs
+    - paragraph: Aether
     - paragraph: Phishing-proof sign-in for your account. Shipped to your door.
     - paragraph: Works with USB-C, NFC
     - paragraph: Rated 4.9 out of 5 from 523 reviews. 8.8k installs
     - text: $3 / mo
 
 # With Compare (patterns-catalog-itemcard--with-compare)
-- link "Shieldwall by Seashell Labs":
+- link "Golden hour presets by Helios Studio":
   - /url: "#"
-- paragraph: Shieldwall
-- paragraph: Seashell Labs
-- paragraph: Web application firewall with managed rules.
-- paragraph: Works with Node.js, Python
+- paragraph: Golden hour presets
+- paragraph: Helios Studio
+- paragraph: Twelve warm looks for late-afternoon light.
+- paragraph: Works with Lightroom, Capture One
 - paragraph: Rated 4.7 out of 5 from 812 reviews. 48k installs
 - text: Free
-- checkbox "Compare Shieldwall" [checked]
+- checkbox "Compare Golden hour presets" [checked]

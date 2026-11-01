@@ -43,11 +43,11 @@ const botAvatar = (
 type DemoMessage = { id: number; variant: 'sent' | 'received'; text: string; time: string; author?: string };
 
 const SEED: DemoMessage[] = [
-  { id: 1, variant: 'received', author: 'Assistant', time: '9:32 AM', text: 'Hi! I can help you manage your sites and databases. What would you like to do?' },
-  { id: 2, variant: 'sent', time: '9:33 AM', text: 'Create a new MySQL database in eu-west-1.' },
-  { id: 3, variant: 'received', time: '9:33 AM', text: 'Done. I created acme_production (MySQL 8.0) in eu-west-1. Want me to add a user and grant access?' },
-  { id: 4, variant: 'sent', time: '9:34 AM', text: 'Yes, add a user called app with read/write.' },
-  { id: 5, variant: 'received', time: '9:34 AM', text: 'Created the app user with read/write on acme_production. The connection string is in your dashboard.' },
+  { id: 1, variant: 'received', author: 'Assistant', time: '9:32 AM', text: 'Hi! I can help you manage your galleries and client portals. What would you like to do?' },
+  { id: 2, variant: 'sent', time: '9:33 AM', text: 'Create a gallery for Saturday’s shoot at Othrys Lodge.' },
+  { id: 3, variant: 'received', time: '9:33 AM', text: 'Done. I created Moonrise over Othrys in Selene Weddings. Want me to share it with the client?' },
+  { id: 4, variant: 'sent', time: '9:34 AM', text: 'Yes, share it with Rhea Okafor and allow downloads.' },
+  { id: 5, variant: 'received', time: '9:34 AM', text: 'Shared Moonrise over Othrys with Rhea Okafor, downloads on. The portal link is in your dashboard.' },
 ];
 
 const nowLabel = () => new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
@@ -102,8 +102,8 @@ export const Default: Story = {
     // scroll, so the scrolling itself isn't asserted here).
     await tabTo(log);
     await tabTo(canvas.getByRole('textbox'));
-    await userEvent.keyboard('Can I add a staging site?{Enter}');
-    await expect(await within(log).findByText('Can I add a staging site?')).toBeVisible();
+    await userEvent.keyboard('Can I add a second photographer?{Enter}');
+    await expect(await within(log).findByText('Can I add a second photographer?')).toBeVisible();
     await expect(canvas.getByRole('textbox')).toHaveValue('');
   },
 };
@@ -113,7 +113,7 @@ export const Typing: Story = {
   render: () => (
     <Chat className="h-64 w-full max-w-md rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)]">
       <ChatMessages>
-        <Message variant="sent">Is the SSL renewal automatic?</Message>
+        <Message variant="sent">Is the license renewal automatic?</Message>
         <ChatTyping />
       </ChatMessages>
     </Chat>
@@ -133,8 +133,8 @@ function TypingReplyDemo() {
       </Button>
       <Chat className="h-64 rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)]">
         <ChatMessages>
-          <Message variant="sent">Is the SSL renewal automatic?</Message>
-          {state === 'replied' && <Message>Yes. Theya renews it 30 days before it expires.</Message>}
+          <Message variant="sent">Is the license renewal automatic?</Message>
+          {state === 'replied' && <Message>Yes. Aether renews it 30 days before it expires.</Message>}
           {state === 'typing' && <ChatTyping />}
         </ChatMessages>
       </Chat>

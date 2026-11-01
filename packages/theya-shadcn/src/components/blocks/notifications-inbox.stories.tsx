@@ -9,7 +9,7 @@ import { notificationsInboxGuidelines } from './notifications-inbox.guidelines';
  * NotificationsInbox - a notifications center / inbox block composed from
  * shipped primitives (ListItem, ToggleGroup, Filter, Tooltip-free icon
  * buttons, StatusDot, DropdownMenu, EmptyState, undoToast). An All/Unread
- * toggle plus Status (tone) and Object (server, searchable) Filters lead a
+ * toggle plus Status (tone) and Object (studio, searchable) Filters lead a
  * grouped list of ListItem rows; unread items are visually distinct and
  * announce "Unread" (never color-alone). Per-item menu marks read/unread or
  * dismisses (with undo); header icon actions (Settings, Mark all as read)
@@ -50,7 +50,7 @@ const meta: Meta<typeof NotificationsInbox> = {
     },
     showStatusFilter: { control: 'boolean', description: 'Whether the Status (tone) facet renders at all. Default true.', table: { category: 'Appearance' } },
     objectFilterLabel: { control: 'text', description: 'Label for the second facet. Default "Object".', table: { category: 'Content' } },
-    objectOptions: { control: false, description: 'Options for the second facet. Default a generic server list.', table: { category: 'Content' } },
+    objectOptions: { control: false, description: 'Options for the second facet. Default a list of studios.', table: { category: 'Content' } },
     defaultObjectFilter: { control: false, description: "Initial selection for the second facet's filter. Default none (all).", table: { category: 'State' } },
   },
   decorators: [
@@ -99,7 +99,7 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     await expect(titles(canvasElement)).toEqual(['n-1', 'n-2', 'n-3', 'n-4', 'n-5', 'n-6']);
     await expect(unreadToggle(canvasElement)).toHaveAccessibleName('Unread 3');
-    await expect(rowButton(canvasElement, 'Deploy succeeded')).toHaveAccessibleName(/Unread/);
+    await expect(rowButton(canvasElement, 'Export finished')).toHaveAccessibleName(/Unread/);
 
     // Opening an unread row marks it read.
     await userEvent.click(rowButton(canvasElement, 'New sign-in from a new device'));
@@ -110,7 +110,7 @@ export const Default: Story = {
     // The menu reports read/unread to the host too.
     await menuAction(canvasElement, 'Invoice paid', 'Mark as unread');
     await expect(args.onNotificationUnread).toHaveBeenCalledWith(expect.objectContaining({ id: 'n-3' }));
-    await menuAction(canvasElement, 'Deploy succeeded', 'Mark as read');
+    await menuAction(canvasElement, 'Export finished', 'Mark as read');
     await expect(args.onNotificationRead).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'n-1' }));
     await expect(unreadToggle(canvasElement)).toHaveAccessibleName('Unread 2');
 
@@ -126,13 +126,13 @@ export const Default: Story = {
     await expect(await canvas.findByRole('heading', { name: 'No notifications match these filters' })).toBeInTheDocument();
     await userEvent.click(canvas.getByRole('button', { name: 'Clear filters' }));
     await waitFor(() => expect(titles(canvasElement)).toHaveLength(6));
-    await waitFor(() => expect(rowButton(canvasElement, 'Deploy succeeded')).toHaveFocus());
+    await waitFor(() => expect(rowButton(canvasElement, 'Export finished')).toHaveFocus());
 
     // Dismiss: focus moves to the row that takes its place; undo restores it in place.
     await menuAction(canvasElement, 'Invoice paid', 'Dismiss');
     await waitFor(() => expect(titles(canvasElement)).toEqual(['n-1', 'n-2', 'n-4', 'n-5', 'n-6']));
     await expect(args.onDismiss).toHaveBeenCalledWith(expect.objectContaining({ id: 'n-3' }));
-    await waitFor(() => expect(rowButton(canvasElement, 'Certificate renews soon')).toHaveFocus());
+    await waitFor(() => expect(rowButton(canvasElement, 'License renews soon')).toHaveFocus());
     const dismissed = (await body().findByText('Notification dismissed', { selector: '[data-title]' })).closest('[data-sonner-toast]') as HTMLElement;
     await userEvent.click(within(dismissed).getByRole('button', { name: 'Undo' }));
     await waitFor(() => expect(titles(canvasElement)).toEqual(['n-1', 'n-2', 'n-3', 'n-4', 'n-5', 'n-6']));
@@ -159,7 +159,7 @@ export const Default: Story = {
 /** All read: the "Mark all as read" action is disabled; Unread filter is empty. */
 const ALL_READ: InboxNotification[] = [
   { id: 'r1', title: 'Invoice paid', description: 'July invoice of $79.00 was paid.', time: '3h ago', group: 'Today', tone: 'info', read: true },
-  { id: 'r2', title: 'Teammate joined', description: 'Priya Nair accepted your invitation.', time: '2d ago', group: 'Earlier', tone: 'neutral', read: true },
+  { id: 'r2', title: 'Teammate joined', description: 'Elio Sanz accepted your invitation.', time: '2d ago', group: 'Earlier', tone: 'neutral', read: true },
 ];
 
 /** Everything already read: the "Mark all read" action is hidden and the Unread view is empty. */
@@ -181,18 +181,18 @@ export const Empty: Story = {
  * Security-alerts-only panel: every notification shares one tone, so the
  * Status facet is hidden entirely, and the second facet is relabeled
  * "Event type" with a page-appropriate, non-overlapping option set instead
- * of the generic server list.
+ * of the default studio list.
  */
 const EVENT_TYPE_OPTIONS: FilterOption[] = [
   { value: 'brute-force', label: 'Brute-force attempt' },
   { value: 'secret-leak', label: 'Secret exposed' },
   { value: 'new-device', label: 'New device sign-in' },
-  { value: 'cert-expiry', label: 'Certificate expiring' },
+  { value: 'license-expiry', label: 'License expiring' },
 ];
 
 const SECURITY_ALERTS: InboxNotification[] = [
   { id: 's1', title: 'Brute-force attempt blocked', description: '14 failed logins from 198.51.100.7 in 2 minutes.', time: '5m ago', group: 'Today', tone: 'danger', read: false, object: 'brute-force' },
-  { id: 's2', title: 'API key exposed in a commit', description: 'Found in seashell-shop@4f2a91c and revoked automatically.', time: '1h ago', group: 'Today', tone: 'danger', read: false, object: 'secret-leak' },
+  { id: 's2', title: 'API key exposed in a commit', description: 'Found in portfolio-site@4f2a91c and revoked automatically.', time: '1h ago', group: 'Today', tone: 'danger', read: false, object: 'secret-leak' },
   { id: 's3', title: 'Sign-in from a new device', description: 'Firefox on Linux, from 203.0.113.9. Not you? Revoke the session.', time: 'Yesterday', group: 'Earlier', tone: 'danger', read: true, object: 'new-device' },
 ];
 

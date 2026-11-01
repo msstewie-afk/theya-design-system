@@ -3,31 +3,31 @@
 # Default (data-datatabletoolbar--default)
 - checkbox "Select all"
 - text: Select all
-- textbox "Filter domains":
-  - /placeholder: Filter domains…
-- table "Sites":
+- textbox "Filter galleries":
+  - /placeholder: Filter galleries…
+- table "Galleries":
   - rowgroup:
-    - row "Select Domain Status Plan":
+    - row "Select Gallery Status Studio":
       - columnheader "Select"
-      - columnheader "Domain":
-        - button "Domain":
-          - text: Domain
+      - columnheader "Gallery":
+        - button "Gallery":
+          - text: Gallery
           - img
       - columnheader "Status":
         - button "Status":
           - text: Status
           - img
-      - columnheader "Plan":
-        - button "Plan":
-          - text: Plan
+      - columnheader "Studio":
+        - button "Studio":
+          - text: Studio
           - img
   - rowgroup:
-    - row "Select row shop.seashell.dev Running Pro":
+    - row "Select row Golden hour Published Helios Studio":
       - cell "Select row":
         - checkbox "Select row"
-      - cell "shop.seashell.dev"
-      - cell "Running"
-      - cell "Pro"
+      - cell "Golden hour"
+      - cell "Published"
+      - cell "Helios Studio"
 - status: 1 selected
 - tooltip "Select All"
 
@@ -37,115 +37,158 @@
 - toolbar "Bulk actions":
   - button "More bulk actions"
   - button "Clear selection"
-- table "Sites":
+- table "Galleries":
   - rowgroup:
-    - row "Select Domain Status Plan":
+    - row "Select Gallery Status Studio":
       - columnheader "Select"
-      - columnheader "Domain":
-        - button "Domain":
-          - text: Domain
+      - columnheader "Gallery":
+        - button "Gallery":
+          - text: Gallery
           - img
       - columnheader "Status":
         - button "Status":
           - text: Status
           - img
-      - columnheader "Plan":
-        - button "Plan":
-          - text: Plan
+      - columnheader "Studio":
+        - button "Studio":
+          - text: Studio
           - img
   - rowgroup:
-    - row "Select row shop.seashell.dev Running Pro":
+    - row "Select row Golden hour Published Helios Studio":
       - cell "Select row":
         - checkbox "Select row" [checked]
-      - cell "shop.seashell.dev"
-      - cell "Running"
-      - cell "Pro"
-    - row "Select row blog.seashell.dev Running Starter":
+      - cell "Golden hour"
+      - cell "Published"
+      - cell "Helios Studio"
+    - row "Select row Blue hour Published Selene Weddings":
       - cell "Select row":
         - checkbox "Select row"
-      - cell "blog.seashell.dev"
-      - cell "Running"
-      - cell "Starter"
-    - row "Select row api.seashell.dev Error Scale":
+      - cell "Blue hour"
+      - cell "Published"
+      - cell "Selene Weddings"
+    - row "Select row First light Expired Eos Portraits":
       - cell "Select row":
         - checkbox "Select row"
-      - cell "api.seashell.dev"
-      - cell "Error"
-      - cell "Scale"
-    - row "Select row staging.seashell.dev Suspended Pro":
+      - cell "First light"
+      - cell "Expired"
+      - cell "Eos Portraits"
+    - row "Select row Moonrise over Othrys Draft Othrys Lodge":
       - cell "Select row":
         - checkbox "Select row"
-      - cell "staging.seashell.dev"
-      - cell "Suspended"
-      - cell "Pro"
-    - row "Select row docs.seashell.dev Running Starter":
+      - cell "Moonrise over Othrys"
+      - cell "Draft"
+      - cell "Othrys Lodge"
+    - row "Select row Wide-shining Published Studio L4":
       - cell "Select row":
         - checkbox "Select row"
-      - cell "docs.seashell.dev"
-      - cell "Running"
-      - cell "Starter"
+      - cell "Wide-shining"
+      - cell "Published"
+      - cell "Studio L4"
 
 # Overflow (data-datatabletoolbar--overflow)
-- alertdialog "Delete 3 sites?":
-  - heading "Delete 3 sites?" [level=2]
-  - text: Type delete to confirm
-  - textbox "Type delete to confirm":
-    - /placeholder: delete
-    - text: e
-  - button "Clear input"
-  - button "Cancel"
-  - button "Delete sites" [disabled]
+- checkbox "Select all"
+- text: Select all
+- textbox "Filter galleries":
+  - /placeholder: Filter galleries…
+- table "Galleries":
+  - rowgroup:
+    - row "Select Gallery Status Studio":
+      - columnheader "Select"
+      - columnheader "Gallery":
+        - button "Gallery":
+          - text: Gallery
+          - img
+      - columnheader "Status":
+        - button "Status":
+          - text: Status
+          - img
+      - columnheader "Studio":
+        - button "Studio":
+          - text: Studio
+          - img
+  - rowgroup:
+    - row "Select row Golden hour Published Helios Studio":
+      - cell "Select row":
+        - checkbox "Select row"
+      - cell "Golden hour"
+      - cell "Published"
+      - cell "Helios Studio"
+    - row "Select row Blue hour Published Selene Weddings":
+      - cell "Select row":
+        - checkbox "Select row"
+      - cell "Blue hour"
+      - cell "Published"
+      - cell "Selene Weddings"
+    - row "Select row First light Expired Eos Portraits":
+      - cell "Select row":
+        - checkbox "Select row"
+      - cell "First light"
+      - cell "Expired"
+      - cell "Eos Portraits"
+    - row "Select row Moonrise over Othrys Draft Othrys Lodge":
+      - cell "Select row":
+        - checkbox "Select row"
+      - cell "Moonrise over Othrys"
+      - cell "Draft"
+      - cell "Othrys Lodge"
+    - row "Select row Wide-shining Published Studio L4":
+      - cell "Select row":
+        - checkbox "Select row"
+      - cell "Wide-shining"
+      - cell "Published"
+      - cell "Studio L4"
+- tooltip "Select All"
 
 # Selected (data-datatabletoolbar--selected)
 - checkbox "Select all"
 - text: Select all
-- textbox "Filter domains":
-  - /placeholder: Filter domains…
-- table "Sites":
+- textbox "Filter galleries":
+  - /placeholder: Filter galleries…
+- table "Galleries":
   - rowgroup:
-    - row "Select Domain Status Plan":
+    - row "Select Gallery Status Studio":
       - columnheader "Select"
-      - columnheader "Domain":
-        - button "Domain":
-          - text: Domain
+      - columnheader "Gallery":
+        - button "Gallery":
+          - text: Gallery
           - img
       - columnheader "Status":
         - button "Status":
           - text: Status
           - img
-      - columnheader "Plan":
-        - button "Plan":
-          - text: Plan
+      - columnheader "Studio":
+        - button "Studio":
+          - text: Studio
           - img
   - rowgroup:
-    - row "Select row shop.seashell.dev Running Pro":
+    - row "Select row Golden hour Published Helios Studio":
       - cell "Select row":
         - checkbox "Select row"
-      - cell "shop.seashell.dev"
-      - cell "Running"
-      - cell "Pro"
-    - row "Select row blog.seashell.dev Running Starter":
+      - cell "Golden hour"
+      - cell "Published"
+      - cell "Helios Studio"
+    - row "Select row Blue hour Published Selene Weddings":
       - cell "Select row":
         - checkbox "Select row"
-      - cell "blog.seashell.dev"
-      - cell "Running"
-      - cell "Starter"
-    - row "Select row api.seashell.dev Error Scale":
+      - cell "Blue hour"
+      - cell "Published"
+      - cell "Selene Weddings"
+    - row "Select row First light Expired Eos Portraits":
       - cell "Select row":
         - checkbox "Select row"
-      - cell "api.seashell.dev"
-      - cell "Error"
-      - cell "Scale"
-    - row "Select row staging.seashell.dev Suspended Pro":
+      - cell "First light"
+      - cell "Expired"
+      - cell "Eos Portraits"
+    - row "Select row Moonrise over Othrys Draft Othrys Lodge":
       - cell "Select row":
         - checkbox "Select row"
-      - cell "staging.seashell.dev"
-      - cell "Suspended"
-      - cell "Pro"
-    - row "Select row docs.seashell.dev Running Starter":
+      - cell "Moonrise over Othrys"
+      - cell "Draft"
+      - cell "Othrys Lodge"
+    - row "Select row Wide-shining Published Studio L4":
       - cell "Select row":
         - checkbox "Select row"
-      - cell "docs.seashell.dev"
-      - cell "Running"
-      - cell "Starter"
+      - cell "Wide-shining"
+      - cell "Published"
+      - cell "Studio L4"
 - tooltip "Select All"

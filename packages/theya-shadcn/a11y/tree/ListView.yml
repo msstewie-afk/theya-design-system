@@ -25,8 +25,8 @@
           - text: Status
           - img
   - rowgroup:
-    - row "SO Sam Okoro sam@seashell.dev Billing Suspended":
-      - cell "SO Sam Okoro sam@seashell.dev"
+    - row "PL Phoebe Lark phoebe@aether.photo Billing Suspended":
+      - cell "PL Phoebe Lark phoebe@aether.photo"
       - cell "Billing"
       - cell "Suspended"
 
@@ -79,43 +79,43 @@
           - img
       - columnheader "Actions"
   - rowgroup:
-    - row "Select Alex Morgan AM Alex Morgan alex@seashell.dev Owner Active Actions for Alex Morgan":
-      - cell "Select Alex Morgan":
-        - checkbox "Select Alex Morgan"
-      - cell "AM Alex Morgan alex@seashell.dev"
+    - row "Select Thea Marlow TM Thea Marlow thea@aether.photo Owner Active Actions for Thea Marlow":
+      - cell "Select Thea Marlow":
+        - checkbox "Select Thea Marlow"
+      - cell "TM Thea Marlow thea@aether.photo"
       - cell "Owner"
       - cell "Active"
-      - cell "Actions for Alex Morgan":
-        - button "Actions for Alex Morgan"
-    - row "Select Jordan Kim JK Jordan Kim jordan@seashell.dev Admin Active Actions for Jordan Kim":
-      - cell "Select Jordan Kim":
-        - checkbox "Select Jordan Kim"
-      - cell "JK Jordan Kim jordan@seashell.dev"
+      - cell "Actions for Thea Marlow":
+        - button "Actions for Thea Marlow"
+    - row "Select Ian Hyde IH Ian Hyde ian@aether.photo Admin Active Actions for Ian Hyde":
+      - cell "Select Ian Hyde":
+        - checkbox "Select Ian Hyde"
+      - cell "IH Ian Hyde ian@aether.photo"
       - cell "Admin"
       - cell "Active"
-      - cell "Actions for Jordan Kim":
-        - button "Actions for Jordan Kim"
-    - row "Select Priya Nair PN Priya Nair priya@seashell.dev Member Active Actions for Priya Nair":
-      - cell "Select Priya Nair":
-        - checkbox "Select Priya Nair"
-      - cell "PN Priya Nair priya@seashell.dev"
+      - cell "Actions for Ian Hyde":
+        - button "Actions for Ian Hyde"
+    - row "Select Elio Sanz ES Elio Sanz elio@aether.photo Member Active Actions for Elio Sanz":
+      - cell "Select Elio Sanz":
+        - checkbox "Select Elio Sanz"
+      - cell "ES Elio Sanz elio@aether.photo"
       - cell "Member"
       - cell "Active"
-      - cell "Actions for Priya Nair":
-        - button "Actions for Priya Nair"
-    - row "Select Sam Okoro SO Sam Okoro sam@seashell.dev Billing Suspended Actions for Sam Okoro":
-      - cell "Select Sam Okoro":
-        - checkbox "Select Sam Okoro"
-      - cell "SO Sam Okoro sam@seashell.dev"
+      - cell "Actions for Elio Sanz":
+        - button "Actions for Elio Sanz"
+    - row "Select Phoebe Lark PL Phoebe Lark phoebe@aether.photo Billing Suspended Actions for Phoebe Lark":
+      - cell "Select Phoebe Lark":
+        - checkbox "Select Phoebe Lark"
+      - cell "PL Phoebe Lark phoebe@aether.photo"
       - cell "Billing"
       - cell "Suspended"
-      - cell "Actions for Sam Okoro":
-        - button "Actions for Sam Okoro"
-    - row "Select Dana Okafor DO Dana Okafor dana@contractor.dev Member Invited Actions for Dana Okafor":
-      - cell "Select Dana Okafor":
-        - checkbox "Select Dana Okafor"
-      - cell "DO Dana Okafor dana@contractor.dev"
+      - cell "Actions for Phoebe Lark":
+        - button "Actions for Phoebe Lark"
+    - row "Select Selin Arda SA Selin Arda selin@aether.photo Member Invited Actions for Selin Arda":
+      - cell "Select Selin Arda":
+        - checkbox "Select Selin Arda"
+      - cell "SA Selin Arda selin@aether.photo"
       - cell "Member"
       - cell "Invited"
-      - cell "Actions for Dana Okafor":
-        - button "Actions for Dana Okafor"
+      - cell "Actions for Selin Arda":
+        - button "Actions for Selin Arda"

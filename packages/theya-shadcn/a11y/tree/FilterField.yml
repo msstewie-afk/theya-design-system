@@ -3,28 +3,28 @@
 # Default (search-filter-filterfield--default)
 - button "Add filter":
   - img
-- 'button "Status: Active"'
-- text: "Status: Active"
-- 'button "Remove filter Status: Active"'
-- 'button "Status: Suspended"'
-- text: "Status: Suspended"
-- 'button "Remove filter Status: Suspended"'
-- combobox "Filter servers"
+- 'button "Status: Published"'
+- text: "Status: Published"
+- 'button "Remove filter Status: Published"'
+- 'button "Status: Expired"'
+- text: "Status: Expired"
+- 'button "Remove filter Status: Expired"'
+- combobox "Filter galleries"
 - status: 2 filters applied
 
 # Disabled (search-filter-filterfield--disabled)
 - button "Add filter" [disabled]:
   - img
-- 'button "Status: Active" [disabled]'
-- text: "Status: Active"
-- 'button "Remove filter Status: Active" [disabled]'
-- combobox "Filter servers" [disabled]
+- 'button "Status: Published" [disabled]'
+- text: "Status: Published"
+- 'button "Remove filter Status: Published" [disabled]'
+- combobox "Filter galleries" [disabled]
 - status: 1 filter applied
 
 # Empty (search-filter-filterfield--empty)
 - button "Add filter":
   - img
-- combobox "Filter servers"
+- combobox "Filter galleries"
 - status: No filters applied
 
 # Live List (search-filter-filterfield--live-list)
@@ -41,12 +41,12 @@
       - columnheader "Attempts"
       - columnheader "Note"
   - rowgroup:
-    - row "Jul 2, 2026 critical alice.chen 7 Multiple failed SSH logins":
+    - row "Jul 2, 2026 critical alice.chen 7 Multiple failed sign-ins":
       - cell "Jul 2, 2026"
       - cell "critical"
       - cell "alice.chen"
       - cell "7"
-      - cell "Multiple failed SSH logins"
+      - cell "Multiple failed sign-ins"
     - row "Jul 3, 2026 warning bob.martinez 2 Password reset requested":
       - cell "Jul 3, 2026"
       - cell "warning"
@@ -118,8 +118,8 @@
 # Mobile (search-filter-filterfield--mobile)
 - button "Add filter":
   - img
-- 'button "Status: Active"'
-- text: "Status: Active"
-- 'button "Remove filter Status: Active"'
-- combobox "Filter servers"
+- 'button "Status: Published"'
+- text: "Status: Published"
+- 'button "Remove filter Status: Published"'
+- combobox "Filter galleries"
 - status: 1 filter applied

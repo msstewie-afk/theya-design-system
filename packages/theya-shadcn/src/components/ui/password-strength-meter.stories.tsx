@@ -122,7 +122,7 @@ export const WithPasswordField: Story = {
   render: () => <WithFieldDemo />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.type(canvas.getByLabelText('New password'), 'Seashell-2026');
+    await userEvent.type(canvas.getByLabelText('New password'), 'Moonrise-2026');
     await expect(canvasElement.querySelector('[aria-live="polite"]')).toHaveTextContent(/Strong/);
   },
 };

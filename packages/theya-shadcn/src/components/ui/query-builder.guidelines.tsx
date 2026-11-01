@@ -3,10 +3,10 @@ import { QueryBuilder, type QueryField } from './query-builder';
 
 const FIELDS: QueryField[] = [
   { name: 'name', label: 'Name', type: 'text' },
-  { name: 'replicas', label: 'Replicas', type: 'number' },
+  { name: 'photos', label: 'Photos', type: 'number' },
   { name: 'status', label: 'Status', type: 'select', options: [
-    { value: 'active', label: 'Active' },
-    { value: 'suspended', label: 'Suspended' },
+    { value: 'published', label: 'Published' },
+    { value: 'expired', label: 'Expired' },
   ] },
 ];
 
@@ -33,32 +33,32 @@ export const queryBuilderGuidelines: ComponentGuidelines = {
               defaultValue={{
                 match: 'all',
                 conditions: [
-                  { id: 'c1', field: 'status', operator: 'is', value: 'active' },
-                  { id: 'c2', field: 'replicas', operator: 'lt', value: 2 },
+                  { id: 'c1', field: 'status', operator: 'is', value: 'published' },
+                  { id: 'c2', field: 'photos', operator: 'lt', value: 20 },
                 ],
               }}
             />
           </div>
         ),
-        caption: 'A rule people build once and keep: “active and fewer than 2 replicas”.',
+        caption: 'A rule people build once and keep: “published and fewer than 20 photos”.',
       },
       dont: {
         example: (
           <div className="w-[34rem] max-w-full">
             <QueryBuilder
               fields={FIELDS}
-              ariaLabel="Filter servers"
-              defaultValue={{ match: 'all', conditions: [{ id: 'd1', field: 'status', operator: 'is', value: 'active' }] }}
+              ariaLabel="Filter galleries"
+              defaultValue={{ match: 'all', conditions: [{ id: 'd1', field: 'status', operator: 'is', value: 'published' }] }}
             />
           </div>
         ),
-        caption: 'A whole builder to show active servers — a Filter does it in one click.',
+        caption: 'A whole builder to show published galleries — a Filter does it in one click.',
       },
     },
   ],
   a11y: [
     <>It’s a named group (<C>ariaLabel</C>); each row’s controls are named after its field (“Status condition”, “Remove Status condition”).</>,
     'Adding or removing a row keeps focus in the builder — on the new row’s field, a neighbouring remove button, or Add.',
-    'Say the result in words near it when you can (“Matches 4 servers”).',
+    'Say the result in words near it when you can (“Matches 4 galleries”).',
   ],
 };

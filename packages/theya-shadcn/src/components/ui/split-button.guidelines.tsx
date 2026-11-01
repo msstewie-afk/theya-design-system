@@ -5,7 +5,7 @@ import { SplitButton } from './split-button';
 
 export const splitButtonGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['One main action with a few variations of it: “Deploy” / Deploy to staging / Deploy without cache.', 'The main action is what people want most of the time; the rest are occasional.'],
+  whenToUse: ['One main action with a few variations of it: “Export” / Export as JPEG / Export without watermark.', 'The main action is what people want most of the time; the rest are occasional.'],
   whenNotToUse: [
     { text: 'Unrelated actions', instead: 'separate Buttons or a DropdownMenu' },
     { text: 'When none of the options is clearly the default', instead: 'DropdownMenu button' },
@@ -22,15 +22,15 @@ export const splitButtonGuidelines: ComponentGuidelines = {
         example: (
           <SplitButton
             size="md"
-            menuLabel="More deploy options"
+            menuLabel="More export options"
             menuContent={
               <>
-                <DropdownMenuItem>Deploy to staging</DropdownMenuItem>
-                <DropdownMenuItem>Deploy without cache</DropdownMenuItem>
+                <DropdownMenuItem>Export as JPEG</DropdownMenuItem>
+                <DropdownMenuItem>Export without watermark</DropdownMenuItem>
               </>
             }
           >
-            Deploy
+            Export
           </SplitButton>
         ),
         caption: 'The menu holds variants of the same action.',
@@ -38,9 +38,9 @@ export const splitButtonGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <div className="flex gap-2">
-            <Button size="md">Deploy</Button>
-            <Button appearance="outlined" tone="secondary" size="md">Deploy to staging</Button>
-            <Button appearance="outlined" tone="secondary" size="md">Without cache</Button>
+            <Button size="md">Export</Button>
+            <Button appearance="outlined" tone="secondary" size="md">Export as JPEG</Button>
+            <Button appearance="outlined" tone="secondary" size="md">Without watermark</Button>
           </div>
         ),
         caption: 'Three buttons for one action crowd the bar; the rare variants belong in the menu.',

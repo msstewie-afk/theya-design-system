@@ -635,7 +635,7 @@ export interface ButtonProps
   loading?: boolean;
   /**
    * The action just succeeded: a tick draws itself in place of leftIcon (Kinetics'
-   * Status Pill, MIT). Pair it with a label that says so ("Deployed") and, usually,
+   * Status Pill, MIT). Pair it with a label that says so ("Exported") and, usually,
    * `tone="success"`; turn it off again after a moment. Not supported with asChild.
    */
   success?: boolean;

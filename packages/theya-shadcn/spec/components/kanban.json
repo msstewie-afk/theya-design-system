@@ -6,7 +6,7 @@
   "status": "beta",
   "category": "Data",
   "whenToUse": [
-    "Work moving through stages: tickets, a deploy pipeline, content review.",
+    "Work moving through stages: tickets, a photo delivery pipeline, content review.",
     "Watching load per stage with WIP limits (`limit`)."
   ],
   "whenNotToUse": [

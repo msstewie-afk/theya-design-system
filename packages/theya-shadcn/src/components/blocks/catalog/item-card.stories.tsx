@@ -13,7 +13,7 @@ const meta: Meta<typeof ItemCard> = {
     guidelines: itemCardGuidelines,
     layout: 'padded',
   },
-  args: { item: DEMO_ITEMS[0], href: '#shieldwall' },
+  args: { item: DEMO_ITEMS[0], href: '#golden-hour-presets' },
 };
 export default meta;
 type Story = StoryObj<typeof ItemCard>;
@@ -31,7 +31,7 @@ export const Grid: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('link', { name: 'Shieldwall by Seashell Labs' })).toHaveAttribute('href', '#shieldwall');
+    await expect(canvas.getByRole('link', { name: 'Golden hour presets by Helios Studio' })).toHaveAttribute('href', '#golden-hour-presets');
   },
 };
 
@@ -66,7 +66,7 @@ export const WithCompare: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const box = canvas.getByRole('checkbox', { name: 'Compare Shieldwall' });
+    const box = canvas.getByRole('checkbox', { name: 'Compare Golden hour presets' });
     await userEvent.click(box);
     await expect(box).toBeChecked();
   },
@@ -86,14 +86,14 @@ export const ProductImages: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // The picture is decorative by default: the name is the link's name already.
-    await expect(canvas.getByRole('link', { name: 'Dedicated server by Arbor' })).toBeVisible();
+    await expect(canvas.getByRole('link', { name: 'On-site archive by Arbor' })).toBeVisible();
     await expect(canvas.queryAllByRole('img')).toHaveLength(0);
     const tops = [...canvasElement.querySelectorAll('img')].map((i) => Math.round(i.getBoundingClientRect().height));
     await expect(new Set(tops).size).toBe(1);
   },
 };
 
-/** Screenshots or covers: `cover` fills the frame. */
+/** Covers or screenshots: `cover` fills the frame. */
 export const CoverImages: Story = {
   render: () => (
     <ul className="grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-3">

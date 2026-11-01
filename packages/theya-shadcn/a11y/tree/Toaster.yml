@@ -27,7 +27,7 @@
 - button "Reissue (will fail)"
 
 # Focus pauses the timer (status-feedback-toaster--focus-pauses-timer)
-- button "Run backup"
+- button "Archive gallery"
 
 # Playground (status-feedback-toaster--playground)
 - button "Show toast"
@@ -38,16 +38,16 @@
 - button "Show accented"
 
 # Progress (status-feedback-toaster--progress)
-- button "Export sites (progress)"
+- button "Export photos (progress)"
 
 # Progress with confirm (status-feedback-toaster--progress-with-confirm)
 - button "Apply config (test mode)"
 
 # Promise (status-feedback-toaster--promise-toast)
-- button "Deploy site"
+- button "Export gallery"
 
 # Success (status-feedback-toaster--success)
-- button "Issue certificate"
+- button "Issue license"
 
 # Undo (status-feedback-toaster--undo)
-- button "Delete site"
+- button "Delete gallery"

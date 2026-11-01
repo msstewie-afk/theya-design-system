@@ -58,9 +58,9 @@ export const Default: Story = {
     // Profile: the submit button submits (it didn't before 94c520f).
     const name = canvas.getByLabelText('Full name');
     await userEvent.clear(name);
-    await userEvent.type(name, 'Dana O.');
+    await userEvent.type(name, 'Thea M.');
     await userEvent.click(canvas.getByRole('button', { name: 'Save changes' }));
-    await waitFor(() => expect(onSave).toHaveBeenCalledWith({ fullName: 'Dana O.', email: 'dana.okafor@seashell.dev' }));
+    await waitFor(() => expect(onSave).toHaveBeenCalledWith({ fullName: 'Thea M.', email: 'thea@aether.photo' }));
 
     // Password: required, 8+ characters, must differ; first invalid field takes focus.
     const current = canvas.getByLabelText('Current password');
@@ -138,7 +138,7 @@ export const Default: Story = {
     const dialog = await body().findByRole('alertdialog', { name: 'Delete your account?' });
     const confirm = within(dialog).getByRole('button', { name: 'Delete account' });
     await expect(confirm).toBeDisabled();
-    await userEvent.type(within(dialog).getByRole('textbox'), 'dana.okafor@seashell.dev');
+    await userEvent.type(within(dialog).getByRole('textbox'), 'thea@aether.photo');
     await expect(confirm).toBeEnabled();
     await userEvent.click(confirm);
     await expect(args.onDeleteAccount).toHaveBeenCalledTimes(1);
@@ -172,7 +172,7 @@ export const TwoOnOnePage: Story = {
   render: () => (
     <div className="flex flex-col gap-16 p-6">
       <Preferences />
-      <Preferences idPrefix="team-" navLabel="Team settings sections" account={{ fullName: 'Seashell team', email: 'team@seashell.dev' }} />
+      <Preferences idPrefix="team-" navLabel="Team settings sections" account={{ fullName: 'Helios Studio team', email: 'team@aether.photo' }} />
     </div>
   ),
   play: async ({ canvasElement }) => {

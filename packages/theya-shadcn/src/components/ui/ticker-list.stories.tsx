@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from './card';
 import { tickerListGuidelines } from './ticker-list.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
 
-const DEPLOYS = ['main → production', 'feature/checkout → staging', 'fix/rtl-icons → preview', 'main → staging', 'docs → preview', 'release/2.4 → production'];
+const ACTIVITY = ['Rhea Okafor downloaded 24 photos', 'Theo Amari ordered 2 prints', 'Layla Haddad favorited 8 photos', 'Chen Yue opened Blue hour', 'Rhea Okafor shared First light', 'Theo Amari downloaded Wide-shining'];
 
 /** TickerList — rows inside a card take turns (live activity on a showcase card). */
 const meta = {
@@ -16,7 +16,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A few rows of recent activity taking turns inside a showcase card: transactions, signups, deploys.",
+          "A few rows of recent activity taking turns inside a showcase card: transactions, signups, client downloads.",
       },
     },
     layout: 'padded', guidelines: tickerListGuidelines,
@@ -32,19 +32,19 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Three deploys on screen, moving on every `interval`; Pause stops it, and nothing moves under reduced motion. */
+/** Three activity rows on screen, moving on every `interval`; Pause stops it, and nothing moves under reduced motion. */
 export const Default: Story = {
   render: (args) => (
     <Card className="w-[22rem] max-w-full">
       <CardHeader>
         <div>
-          <CardTitle>Deploys</CardTitle>
+          <CardTitle>Client activity</CardTitle>
         </div>
       </CardHeader>
       <CardContent>
-        <TickerList {...args} aria-label="Recent deploys">
-          {DEPLOYS.map((d) => (
-            <div key={d} className="py-1 font-mono text-body-s text-[var(--color-text-text)]">
+        <TickerList {...args} aria-label="Recent client activity">
+          {ACTIVITY.map((d) => (
+            <div key={d} className="py-1 font-body text-body-s text-[var(--color-text-text)]">
               {d}
             </div>
           ))}

@@ -8,7 +8,7 @@ import { useTheyaI18n } from '../../lib/i18n';
 /**
  * No Radix meter primitive exists — built from scratch on native
  * role="meter" semantics (aria-valuenow/min/max/valuetext). A labelled
- * bar for a measured value inside a known range (disk usage, a quota,
+ * bar for a measured value inside a known range (storage usage, a quota,
  * capacity) — use this, not Progress, when the number is "how full"
  * rather than "how far along".
  *

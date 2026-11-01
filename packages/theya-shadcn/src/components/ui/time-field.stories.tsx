@@ -18,7 +18,7 @@ const meta: Meta<typeof TimeField> = {
     guidelines: timeFieldGuidelines,
     docs: {
       description: {
-        component: "A time of day — a daily backup, a meeting start, a reminder — picked from a list or typed.",
+        component: "A time of day — a daily archive run, a shoot start, a reminder — picked from a list or typed.",
       },
     },
   },

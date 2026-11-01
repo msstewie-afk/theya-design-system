@@ -64,7 +64,7 @@ export function SearchBox({
   onRecentChange,
   onSearch,
   onNavigate,
-  placeholder = 'Search domains, mail, settings, help…',
+  placeholder = 'Search galleries, clients, settings, help…',
   shortcut = true,
   maxSuggestions = 3,
   maxItems = 4,

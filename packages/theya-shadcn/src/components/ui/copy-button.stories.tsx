@@ -18,7 +18,7 @@ const meta: Meta<typeof CopyButton> = {
     docs: {
       description: {
         component:
-          "Copies a value people will paste somewhere else — an API key, a DNS record, a command — and confirms it with a tick.",
+          "Copies a value people will paste somewhere else — an API key, a client portal address, a command — and confirms it with a tick.",
       },
     },
   },

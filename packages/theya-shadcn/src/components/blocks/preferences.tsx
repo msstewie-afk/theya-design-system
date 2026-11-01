@@ -58,15 +58,15 @@ export interface SettingsNotification {
   defaultChecked: boolean;
 }
 
-const DEFAULT_ACCOUNT: SettingsAccount = { fullName: 'Dana Okafor', email: 'dana.okafor@seashell.dev' };
+const DEFAULT_ACCOUNT: SettingsAccount = { fullName: 'Thea Marlow', email: 'thea@aether.photo' };
 
 /** Recovery code shown once, in a dialog, right after two-factor is enabled. */
 const DEFAULT_RECOVERY_CODE = 'K7Q2-9MTX-4BWP-1ZHL';
 
 const DEFAULT_NOTIFICATIONS: SettingsNotification[] = [
-  { id: 'deploy-failures', label: 'Deploy failures', helper: 'Email me when a deploy fails or is rolled back.', defaultChecked: true },
-  { id: 'certificate-expiry', label: 'Certificate expiry', helper: 'Warn me 14 days before a TLS certificate expires.', defaultChecked: true },
-  { id: 'weekly-summary', label: 'Weekly summary', helper: 'A Monday digest of traffic, errors and resource usage.', defaultChecked: false },
+  { id: 'export-failures', label: 'Export failures', helper: 'Email me when an export fails or is cancelled.', defaultChecked: true },
+  { id: 'license-expiry', label: 'License expiry', helper: 'Warn me 14 days before a print or web license expires.', defaultChecked: true },
+  { id: 'weekly-summary', label: 'Weekly summary', helper: 'A Monday digest of gallery views, downloads and storage use.', defaultChecked: false },
 ];
 
 export interface PreferencesProps extends Omit<React.ComponentProps<'div'>, 'title'> {
@@ -584,7 +584,7 @@ function SecuritySection({
 }
 
 function NotificationsSection({ id, notifications, onChange }: { id: string; notifications: SettingsNotification[]; onChange?: (id: string, checked: boolean) => void }) {
-  // Switch ids from useId: the raw row ids ("deploy-failures") were global
+  // Switch ids from useId: the raw row ids ("export-failures") were global
   // and collided with a second Preferences or any same-named element.
   const uid = useId();
   // Changes apply on toggle, so confirm each one where it happened: a short
@@ -653,7 +653,7 @@ function DangerSection({ id, email, onDeleteAccount }: { id: string; email: stri
     <div id={id} className="scroll-mt-6 flex flex-col gap-6">
       <div className="min-w-0">
         <h2 className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">Danger zone</h2>
-        <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Deleting your account removes every site, database and backup. This cannot be undone after the recovery window.</p>
+        <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Deleting your account removes every gallery, client portal and archive copy. This cannot be undone after the recovery window.</p>
       </div>
       <Alert tone="danger">
         <WarningTriangle />
@@ -685,8 +685,8 @@ function DangerSection({ id, email, onDeleteAccount }: { id: string; email: stri
             onConfirm={handleDelete}
           >
             <p className="font-body text-body-s leading-[var(--size-size20)] text-[var(--color-text-text-subtler)]">
-              This schedules <span className="text-[var(--color-text-text)]">{email}</span> for deletion - with all of its <b className="font-medium text-[var(--color-text-text)]">sites</b>,{' '}
-              <b className="font-medium text-[var(--color-text-text)]">databases</b> and <b className="font-medium text-[var(--color-text-text)]">backups</b>. It is recoverable for 30 days, then permanently deleted.
+              This schedules <span className="text-[var(--color-text-text)]">{email}</span> for deletion - with all of its <b className="font-medium text-[var(--color-text-text)]">galleries</b>,{' '}
+              <b className="font-medium text-[var(--color-text-text)]">client portals</b> and <b className="font-medium text-[var(--color-text-text)]">archive copies</b>. It is recoverable for 30 days, then permanently deleted.
             </p>
           </ConfirmDialog>
         </div>

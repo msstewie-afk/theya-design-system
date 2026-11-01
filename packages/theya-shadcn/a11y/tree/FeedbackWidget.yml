@@ -9,8 +9,8 @@
 - text: "onVote: no onSubmit: {\"vote\":\"no\",\"reasons\":[\"Inaccurate\"],\"comment\":\"Missing a CLI example\"} onVote: yes"
 
 # End Of Article (status-feedback-feedbackwidget--end-of-article)
-- heading "Moving a site to a new region" [level=2]
-- paragraph: A region move copies your site, its databases and certificates, then switches traffic over once everything checks out.
+- heading "Moving a gallery to another studio" [level=2]
+- paragraph: A move copies the gallery, its originals and print licenses, then switches the client portal over once every file checks out.
 - region "Was this page helpful?":
   - paragraph: Was this page helpful?
   - button "Yes"

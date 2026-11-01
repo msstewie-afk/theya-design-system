@@ -4,7 +4,7 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 
 // Spy for the "Disabled item" story's play function.
 const onSelectAction = fn();
-import { Globe, Settings, HomeSimple, Wrench, ArrowUpRight, RefreshDouble, ShieldCheck, Trash } from 'iconoir-react';
+import { Globe, Settings, HomeSimple, Wrench, ArrowUpRight, RefreshDouble, EyeClosed, Trash, MediaImageList } from 'iconoir-react';
 import {
   Command,
   CommandDialog,
@@ -68,8 +68,8 @@ export const Inline: Story = {
             <CommandItem value="dashboard">
               <HomeSimple /> Dashboard
             </CommandItem>
-            <CommandItem value="sites">
-              <Globe /> Sites
+            <CommandItem value="galleries">
+              <MediaImageList /> Galleries
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
@@ -99,7 +99,7 @@ export const Inline: Story = {
     await expect(input).toHaveAttribute('aria-activedescendant', highlighted().id);
 
     await userEvent.keyboard('{ArrowDown}');
-    await expect(highlighted()).toHaveTextContent('Sites');
+    await expect(highlighted()).toHaveTextContent('Galleries');
     await expect(input).toHaveAttribute('aria-activedescendant', highlighted().id);
 
     await userEvent.type(input, 'tool');
@@ -122,18 +122,18 @@ export const WithDescriptions: Story = {
   render: () => (
     <div className="w-full max-w-[420px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
       <Command label="Command menu">
-        <CommandInput placeholder="Search sites, pages and actions…" />
+        <CommandInput placeholder="Search galleries, pages and actions…" />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Sites">
-            <CommandItem value="shop.seashell.dev" toneIcon={{ tone: 'primary' }} description="EU-West-1 · Pro plan">
-              shop.seashell.dev
+          <CommandGroup heading="Galleries">
+            <CommandItem value="golden-hour" toneIcon={{ tone: 'primary' }} description="Helios Studio · 248 photos">
+              Golden hour
             </CommandItem>
-            <CommandItem value="api.seashell.dev" toneIcon={{ tone: 'success' }} description="Deployed 2 minutes ago">
-              api.seashell.dev
+            <CommandItem value="blue-hour" toneIcon={{ tone: 'success' }} description="Exported 2 minutes ago">
+              Blue hour
             </CommandItem>
-            <CommandItem value="blog.seashell.dev" toneIcon={{ tone: 'warning' }} description="SSL certificate expires in 3 days">
-              blog.seashell.dev
+            <CommandItem value="moonrise-over-othrys" toneIcon={{ tone: 'warning' }} description="Print license expires in 3 days">
+              Moonrise over Othrys
             </CommandItem>
           </CommandGroup>
         </CommandList>
@@ -149,18 +149,18 @@ export const WithBreadcrumb: Story = {
   render: () => (
     <div className="w-full max-w-[420px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
       <Command label="Command menu">
-        <CommandInput placeholder="Search settings…" value="review" readOnly />
+        <CommandInput placeholder="Search settings…" value="watermark" readOnly />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Results">
-            <CommandItem value="review" breadcrumb="Settings">
-              Review
+            <CommandItem value="watermark" breadcrumb="Settings">
+              Watermark
             </CommandItem>
-            <CommandItem value="pr-link" breadcrumb="Settings > Review" description="Add a Devin Review link in the PR description">
-              Add &quot;Devin Review&quot; link in PR description
+            <CommandItem value="watermark-previews" breadcrumb="Settings > Watermark" description="Applies to every gallery shared in a client portal">
+              Add watermark to client previews
             </CommandItem>
-            <CommandItem value="spend-limit" breadcrumb="Settings > Review">
-              Per-PR spend limit
+            <CommandItem value="watermark-opacity" breadcrumb="Settings > Watermark">
+              Watermark opacity
             </CommandItem>
           </CommandGroup>
         </CommandList>
@@ -170,26 +170,26 @@ export const WithBreadcrumb: Story = {
   ),
 };
 
-/** Entity results — searchable site list with font-mono identifiers and a trailing "open" affordance. */
+/** Entity results — searchable client portal list with font-mono identifiers and a trailing "open" affordance. */
 export const EntityResults: Story = {
   name: 'Entity results',
   render: () => (
     <div className="w-full max-w-[380px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
       <Command label="Command menu">
-        <CommandInput placeholder="Search sites…" />
+        <CommandInput placeholder="Search client portals…" />
         <CommandList>
-          <CommandEmpty>No sites match.</CommandEmpty>
-          <CommandGroup heading="Sites">
-            <CommandItem value="shop.seashell.dev" icon={<Globe />} keywords={['pro', 'eu-west-1']}>
-              <span className="font-mono">shop.seashell.dev</span>
+          <CommandEmpty>No portals match.</CommandEmpty>
+          <CommandGroup heading="Client portals">
+            <CommandItem value="selene-weddings.aether.photo" icon={<Globe />} keywords={['selene', 'weddings']}>
+              <span className="font-mono">selene-weddings.aether.photo</span>
               <ArrowUpRight className="ml-auto" />
             </CommandItem>
-            <CommandItem value="api.seashell.dev" icon={<Globe />} keywords={['scale', 'us-east-1']}>
-              <span className="font-mono">api.seashell.dev</span>
+            <CommandItem value="helios.aether.photo" icon={<Globe />} keywords={['helios', 'commercial']}>
+              <span className="font-mono">helios.aether.photo</span>
               <ArrowUpRight className="ml-auto" />
             </CommandItem>
-            <CommandItem value="blog.seashell.dev" icon={<Globe />} keywords={['starter', 'eu-west-1']}>
-              <span className="font-mono">blog.seashell.dev</span>
+            <CommandItem value="eos-portraits.aether.photo" icon={<Globe />} keywords={['eos', 'portraits']}>
+              <span className="font-mono">eos-portraits.aether.photo</span>
               <ArrowUpRight className="ml-auto" />
             </CommandItem>
           </CommandGroup>
@@ -200,7 +200,7 @@ export const EntityResults: Story = {
   ),
 };
 
-/** Disabled items are skipped by filtering/keyboard nav and render dimmed (never color-alone). Here "Delete site" is unavailable until the running site is suspended. */
+/** Disabled items are skipped by filtering/keyboard nav and render dimmed (never color-alone). Here "Delete gallery" is unavailable until the published gallery is unpublished. */
 export const DisabledItem: Story = {
   name: 'Disabled item',
   render: () => (
@@ -211,14 +211,14 @@ export const DisabledItem: Story = {
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Actions">
             <CommandItem value="reissue" onSelect={onSelectAction}>
-              <RefreshDouble /> Reissue certificate
+              <RefreshDouble /> Reissue license
             </CommandItem>
-            <CommandItem value="suspend" onSelect={onSelectAction}>
-              <ShieldCheck /> Suspend site
+            <CommandItem value="unpublish" onSelect={onSelectAction}>
+              <EyeClosed /> Unpublish gallery
             </CommandItem>
             <CommandItem value="delete" disabled onSelect={onSelectAction}>
-              <Trash /> Delete site
-              <CommandShortcut>suspend first</CommandShortcut>
+              <Trash /> Delete gallery
+              <CommandShortcut>unpublish first</CommandShortcut>
             </CommandItem>
           </CommandGroup>
         </CommandList>
@@ -232,15 +232,15 @@ export const DisabledItem: Story = {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('combobox', { name: 'Command menu' });
     const highlighted = () => canvas.getByRole('option', { selected: true });
-    await expect(canvas.getByRole('option', { name: /Delete site/ })).toHaveAttribute('aria-disabled', 'true');
+    await expect(canvas.getByRole('option', { name: /Delete gallery/ })).toHaveAttribute('aria-disabled', 'true');
 
     await userEvent.click(input);
     await userEvent.keyboard('{ArrowDown}{ArrowDown}{ArrowDown}');
-    await expect(highlighted()).toHaveTextContent('Suspend site');
+    await expect(highlighted()).toHaveTextContent('Unpublish gallery');
 
     await userEvent.keyboard('{Enter}');
     await expect(onSelectAction).toHaveBeenCalledTimes(1);
-    await expect(onSelectAction).toHaveBeenLastCalledWith('suspend');
+    await expect(onSelectAction).toHaveBeenLastCalledWith('unpublish');
 
     await userEvent.type(input, 'delete');
     await expect(canvas.queryByRole('option', { selected: true })).toBeNull();
@@ -261,8 +261,8 @@ export const Empty: Story = {
             <CommandItem value="dashboard">
               <HomeSimple /> Dashboard
             </CommandItem>
-            <CommandItem value="sites">
-              <Globe /> Sites
+            <CommandItem value="galleries">
+              <MediaImageList /> Galleries
             </CommandItem>
           </CommandGroup>
         </CommandList>
@@ -277,10 +277,10 @@ export const Loading: Story = {
   render: () => (
     <div className="w-full max-w-[380px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
       <Command label="Command menu" loading>
-        <CommandInput placeholder="Search sites…" />
+        <CommandInput placeholder="Search galleries…" />
         <CommandLoading />
         <CommandList>
-          <CommandEmpty>No sites match.</CommandEmpty>
+          <CommandEmpty>No galleries match.</CommandEmpty>
         </CommandList>
       </Command>
     </div>
@@ -296,16 +296,16 @@ function AsyncFetchDemo() {
   return (
     <div className="w-full max-w-[380px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
       <Command label="Command menu" loading={loading}>
-        <CommandInput placeholder="Search sites…" />
+        <CommandInput placeholder="Search galleries…" />
         <CommandLoading />
         <CommandList>
-          <CommandEmpty>No sites match.</CommandEmpty>
-          <CommandGroup heading="Sites">
-            <CommandItem value="shop.seashell.dev">
-              <span className="font-mono">shop.seashell.dev</span>
+          <CommandEmpty>No galleries match.</CommandEmpty>
+          <CommandGroup heading="Galleries">
+            <CommandItem value="golden-hour">
+              Golden hour
             </CommandItem>
-            <CommandItem value="api.seashell.dev">
-              <span className="font-mono">api.seashell.dev</span>
+            <CommandItem value="first-light">
+              First light
             </CommandItem>
           </CommandGroup>
         </CommandList>
@@ -335,8 +335,8 @@ function DialogDemo() {
             <CommandItem value="dashboard" onSelect={() => setOpen(false)}>
               <HomeSimple /> Dashboard
             </CommandItem>
-            <CommandItem value="sites" onSelect={() => setOpen(false)}>
-              <Globe /> Sites
+            <CommandItem value="galleries" onSelect={() => setOpen(false)}>
+              <MediaImageList /> Galleries
             </CommandItem>
           </CommandGroup>
         </CommandList>
@@ -365,14 +365,14 @@ export const OpenInDialog: Story = {
           <CommandItem value="dashboard">
             <HomeSimple /> Dashboard
           </CommandItem>
-          <CommandItem value="sites">
-            <Globe /> Sites
+          <CommandItem value="galleries">
+            <MediaImageList /> Galleries
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Quick actions">
-          <CommandItem value="new-site">
-            Create site
+          <CommandItem value="new-gallery">
+            Create gallery
             <CommandShortcut>⌘N</CommandShortcut>
           </CommandItem>
         </CommandGroup>

@@ -464,10 +464,10 @@
       "file": "ui/chart-range-selection",
       "category": "Charts",
       "status": "beta",
-      "summary": "Selecting a span on an ordered x-axis to zoom in or filter: “show errors from Aug 3 to Aug 6”.",
+      "summary": "Selecting a span on an ordered x-axis to zoom in or filter: “show views from Aug 3 to Aug 6”.",
       "instead": [
         {
-          "when": "Unordered categories (regions, teams)",
+          "when": "Unordered categories (studios, teams)",
           "use": "Filter or a legend toggle"
         },
         {
@@ -760,7 +760,7 @@
       "file": "ui/copy-button",
       "category": "Actions",
       "status": "stable",
-      "summary": "Next to a value people paste somewhere else: an API key, a DNS record, a command, a link.",
+      "summary": "Next to a value people paste somewhere else: an API key, a client portal address, a command, a link.",
       "instead": [
         {
           "when": "A secret that should stay masked until asked",
@@ -1042,7 +1042,7 @@
       "file": "ui/donut-chart",
       "category": "Charts",
       "status": "stable",
-      "summary": "Parts of one whole, up to 7: storage by environment, plan mix, traffic by source.",
+      "summary": "Parts of one whole, up to 7: storage by file type, plan mix, downloads by source.",
       "instead": [
         {
           "when": "Comparing values that aren’t parts of a whole",
@@ -1250,7 +1250,7 @@
       "file": "ui/file",
       "category": "Files",
       "status": "stable",
-      "summary": "One file in a form: a logo, a certificate, a document to attach.",
+      "summary": "One file in a form: a logo, a model release, a document to attach.",
       "instead": [
         {
           "when": "Several files at once, or drag and drop is the main way in",
@@ -1294,7 +1294,7 @@
       "file": "ui/filter-field",
       "category": "Search & Filter",
       "status": "stable",
-      "summary": "Keyword search and filtering by many attributes in one field: servers, logs, users.",
+      "summary": "Keyword search and filtering by many attributes in one field: galleries, logs, clients.",
       "instead": [
         {
           "when": "Two or three facets",
@@ -1468,7 +1468,7 @@
       "file": "ui/kanban",
       "category": "Data",
       "status": "beta",
-      "summary": "Work moving through stages: tickets, a deploy pipeline, content review.",
+      "summary": "Work moving through stages: tickets, a photo delivery pipeline, content review.",
       "instead": [
         {
           "when": "An on / off state",
@@ -2569,7 +2569,7 @@
       "file": "ui/split-button",
       "category": "Actions",
       "status": "stable",
-      "summary": "One main action with a few variations of it: “Deploy” / Deploy to staging / Deploy without cache.",
+      "summary": "One main action with a few variations of it: “Export” / Export as JPEG / Export without watermark.",
       "instead": [
         {
           "when": "Unrelated actions",
@@ -2721,7 +2721,7 @@
       "file": "ui/swipe-deck",
       "category": "Motion",
       "status": "beta",
-      "summary": "A quick keep-or-skip pass over a short set: templates to try, suggested domains, onboarding interests.",
+      "summary": "A quick keep-or-skip pass over a short set: templates to try, photos to shortlist, onboarding interests.",
       "instead": [
         {
           "when": "Choosing several items the user needs to compare side by side",
@@ -2839,7 +2839,7 @@
       "file": "ui/tag-input",
       "category": "Text Input",
       "status": "beta",
-      "summary": "Several free-form values of one kind: email recipients, domains, IP ranges, tags.",
+      "summary": "Several free-form values of one kind: email recipients, photo keywords, tags.",
       "instead": [
         {
           "when": "Picking several from a known list",
@@ -2857,7 +2857,7 @@
       "file": "ui/terminal",
       "category": "Code",
       "status": "beta",
-      "summary": "Live or past console output: a web SSH session, a deploy or build log, a tail of access logs.",
+      "summary": "Live or past console output: a remote session on a studio workstation, an export log, a tail of access logs.",
       "instead": [
         {
           "when": "A command for the user to copy",
@@ -2967,7 +2967,7 @@
       "file": "ui/ticker-list",
       "category": "Motion",
       "status": "beta",
-      "summary": "A few rows of recent activity inside a showcase card: transactions, signups, deploys.",
+      "summary": "A few rows of recent activity inside a showcase card: transactions, signups, client downloads.",
       "instead": [
         {
           "when": "A real activity feed people scroll and act on",
@@ -2985,7 +2985,7 @@
       "file": "ui/time-field",
       "category": "Date & Time",
       "status": "stable",
-      "summary": "A time of day: a daily backup time, a meeting start, a reminder.",
+      "summary": "A time of day: a daily archive time, a meeting start, a reminder.",
       "instead": [
         {
           "when": "Start and end",
@@ -3201,7 +3201,7 @@
       "file": "ui/truncated-text",
       "category": "Labels",
       "status": "beta",
-      "summary": "Long user data on one line where wrapping would break the layout: file names, domains, list-row descriptions, a chosen value in a trigger.",
+      "summary": "Long user data on one line where wrapping would break the layout: file names, portal addresses, list-row descriptions, a chosen value in a trigger.",
       "instead": [
         {
           "when": "Short interface labels: column headers, nav and tab labels, buttons, field labels",
@@ -3219,7 +3219,7 @@
       "file": "ui/undo-toast",
       "category": "Status & Feedback",
       "status": "stable",
-      "summary": "A destructive action that can be held back for a few seconds: delete a file, archive a site, remove a member.",
+      "summary": "A destructive action that can be held back for a few seconds: delete a file, archive a gallery, remove a member.",
       "instead": [
         {
           "when": "The action can’t be rolled back (data wiped, email sent, payment)",

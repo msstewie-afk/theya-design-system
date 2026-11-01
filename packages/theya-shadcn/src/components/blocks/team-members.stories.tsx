@@ -74,10 +74,10 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     const emailInput = canvas.getByLabelText('Email address');
     const send = canvas.getByRole('button', { name: 'Send invite' });
-    await expect(memberNames(canvasElement)).toEqual(['Alex Morgan', 'Jordan Kim', 'Priya Nair', 'Sam Okoro']);
+    await expect(memberNames(canvasElement)).toEqual(['Thea Marlow', 'Ian Hyde', 'Elio Sanz', 'Phoebe Lark']);
     // The signed-in owner can't be removed or re-roled.
-    await expect(canvas.queryByRole('button', { name: 'Remove Alex Morgan' })).toBeNull();
-    await expect(canvas.queryByRole('combobox', { name: 'Role for Alex Morgan' })).toBeNull();
+    await expect(canvas.queryByRole('button', { name: 'Remove Thea Marlow' })).toBeNull();
+    await expect(canvas.queryByRole('combobox', { name: 'Role for Thea Marlow' })).toBeNull();
 
     // Empty submit now says why, and puts focus back on the field.
     await userEvent.click(send);
@@ -89,59 +89,59 @@ export const Default: Story = {
     await userEvent.type(emailInput, 'nope');
     await expect(canvas.getByRole('alert')).toHaveTextContent('An email address needs an @, e.g. name@example.com.');
     await userEvent.clear(emailInput);
-    await userEvent.type(emailInput, 'Priya@seashell.dev');
+    await userEvent.type(emailInput, 'Elio@aether.photo');
     await expect(canvas.getByRole('alert')).toHaveTextContent('This person is already a member.');
     await userEvent.clear(emailInput);
-    await userEvent.type(emailInput, 'dana@contractor.dev');
+    await userEvent.type(emailInput, 'dawn@aether.photo');
     await expect(canvas.getByRole('alert')).toHaveTextContent('This email already has a pending invite.');
     await userEvent.click(send);
     await expect(args.onInvite).not.toHaveBeenCalled();
 
     // A valid invite, with a non-default role.
     await userEvent.clear(emailInput);
-    await userEvent.type(emailInput, 'new@seashell.dev');
+    await userEvent.type(emailInput, 'selin@aether.photo');
     await expect(canvas.queryByRole('alert')).toBeNull();
     await userEvent.click(canvas.getByRole('radio', { name: 'Billing' }));
     await userEvent.click(send);
-    await expect(args.onInvite).toHaveBeenCalledWith('new@seashell.dev', 'billing');
-    await expect(inviteEmails(canvasElement)[0]).toBe('new@seashell.dev');
+    await expect(args.onInvite).toHaveBeenCalledWith('selin@aether.photo', 'billing');
+    await expect(inviteEmails(canvasElement)[0]).toBe('selin@aether.photo');
     await expect(await toastByTitle('Invite sent')).toBeInTheDocument();
     await expect(emailInput).toHaveValue('');
     await expect(canvas.queryByRole('alert')).toBeNull();
     await clearToasts();
 
     // Role change.
-    await pickByKeyboard(canvas.getByRole('combobox', { name: 'Role for Priya Nair' }), 'a', 'Admin');
-    await expect(args.onChangeRole).toHaveBeenCalledWith(expect.objectContaining({ name: 'Priya Nair', role: 'admin' }), 'admin');
-    await expect(canvas.getByRole('combobox', { name: 'Role for Priya Nair' })).toHaveTextContent('Admin');
+    await pickByKeyboard(canvas.getByRole('combobox', { name: 'Role for Elio Sanz' }), 'a', 'Admin');
+    await expect(args.onChangeRole).toHaveBeenCalledWith(expect.objectContaining({ name: 'Elio Sanz', role: 'admin' }), 'admin');
+    await expect(canvas.getByRole('combobox', { name: 'Role for Elio Sanz' })).toHaveTextContent('Admin');
     await clearToasts();
 
     // Remove behind a confirm, undo puts the member back in place.
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove Sam Okoro' }));
-    const removeDialog = await body().findByRole('alertdialog', { name: 'Remove Sam Okoro?' });
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Phoebe Lark' }));
+    const removeDialog = await body().findByRole('alertdialog', { name: 'Remove Phoebe Lark?' });
     await userEvent.click(within(removeDialog).getByRole('button', { name: 'Remove' }));
-    await waitFor(() => expect(memberNames(canvasElement)).toEqual(['Alex Morgan', 'Jordan Kim', 'Priya Nair']));
+    await waitFor(() => expect(memberNames(canvasElement)).toEqual(['Thea Marlow', 'Ian Hyde', 'Elio Sanz']));
     await expect(canvas.getByText(/people have access/)).toHaveTextContent('3 people have access');
-    await expect(args.onRemoveMember).toHaveBeenCalledWith(expect.objectContaining({ name: 'Sam Okoro' }));
+    await expect(args.onRemoveMember).toHaveBeenCalledWith(expect.objectContaining({ name: 'Phoebe Lark' }));
     const removed = (await toastByTitle('Member removed')).closest('[data-sonner-toast]') as HTMLElement;
     await userEvent.click(within(removed).getByRole('button', { name: 'Undo' }));
-    await waitFor(() => expect(memberNames(canvasElement)).toEqual(['Alex Morgan', 'Jordan Kim', 'Priya Nair', 'Sam Okoro']));
+    await waitFor(() => expect(memberNames(canvasElement)).toEqual(['Thea Marlow', 'Ian Hyde', 'Elio Sanz', 'Phoebe Lark']));
     await clearToasts();
 
     // Invite buttons are named per invite.
-    await userEvent.click(canvas.getByRole('button', { name: 'Resend invite to lee@seashell.dev' }));
-    await expect(args.onResendInvite).toHaveBeenCalledWith(expect.objectContaining({ email: 'lee@seashell.dev' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Resend invite to mina@aether.photo' }));
+    await expect(args.onResendInvite).toHaveBeenCalledWith(expect.objectContaining({ email: 'mina@aether.photo' }));
     await expect(await toastByTitle('Invite resent')).toBeInTheDocument();
     await clearToasts();
 
-    await userEvent.click(canvas.getByRole('button', { name: 'Revoke invite for dana@contractor.dev' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Revoke invite for dawn@aether.photo' }));
     const revokeDialog = await body().findByRole('alertdialog', { name: 'Revoke this invite?' });
     await userEvent.click(within(revokeDialog).getByRole('button', { name: 'Revoke' }));
-    await waitFor(() => expect(inviteEmails(canvasElement)).toEqual(['new@seashell.dev', 'lee@seashell.dev']));
-    await expect(args.onRevokeInvite).toHaveBeenCalledWith(expect.objectContaining({ email: 'dana@contractor.dev' }));
+    await waitFor(() => expect(inviteEmails(canvasElement)).toEqual(['selin@aether.photo', 'mina@aether.photo']));
+    await expect(args.onRevokeInvite).toHaveBeenCalledWith(expect.objectContaining({ email: 'dawn@aether.photo' }));
     const revoked = (await toastByTitle('Invite revoked')).closest('[data-sonner-toast]') as HTMLElement;
     await userEvent.click(within(revoked).getByRole('button', { name: 'Undo' }));
-    await waitFor(() => expect(inviteEmails(canvasElement)).toEqual(['new@seashell.dev', 'dana@contractor.dev', 'lee@seashell.dev']));
+    await waitFor(() => expect(inviteEmails(canvasElement)).toEqual(['selin@aether.photo', 'dawn@aether.photo', 'mina@aether.photo']));
     await clearToasts();
   },
 };
@@ -157,8 +157,8 @@ export const NoPendingInvites: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('heading', { name: 'No pending invites' })).toBeInTheDocument();
-    await userEvent.type(canvas.getByLabelText('Email address'), 'first@seashell.dev{Enter}');
-    await waitFor(() => expect(inviteEmails(canvasElement)).toEqual(['first@seashell.dev']));
+    await userEvent.type(canvas.getByLabelText('Email address'), 'selin@aether.photo{Enter}');
+    await waitFor(() => expect(inviteEmails(canvasElement)).toEqual(['selin@aether.photo']));
     await expect(canvas.queryByRole('heading', { name: 'No pending invites' })).toBeNull();
     await clearToasts();
   },

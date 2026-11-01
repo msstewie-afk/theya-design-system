@@ -108,7 +108,7 @@ Also accepts the props of: HTMLAttributes.
     <WarningCircle />
     <div className="flex flex-col gap-1">
       <AlertTitle>Payment failed</AlertTitle>
-      <AlertDescription>Your card was declined. Update it to keep the site online after 12 November.</AlertDescription>
+      <AlertDescription>Your card was declined. Update it to keep your client portals online after 12 November.</AlertDescription>
     </div>
   </Alert>
   ```
@@ -127,7 +127,7 @@ Also accepts the props of: HTMLAttributes.
   ```tsx
   <Alert tone="warning" className="w-80">
     <WarningTriangle />
-    <AlertTitle>Disk is 92% full</AlertTitle>
+    <AlertTitle>Storage is 92% full</AlertTitle>
   </Alert>
   ```
 
@@ -672,7 +672,7 @@ Also accepts the props of: HTMLAttributes.
   ```tsx
   <div className="flex w-80 flex-col gap-2">
     <Attachment variant="row" name="quarterly-report.pdf" type="application/pdf" size={248000} onRemove={() => {}} />
-    <Attachment variant="row" name="backup.tar.gz" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
+    <Attachment variant="row" name="wedding-raws.zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
   </div>
   ```
 
@@ -1266,7 +1266,7 @@ Docs: ./?path=/docs/actions-button--docs
 **Anatomy**
 
 - Container: appearance (`filled`, `tonal`, `outlined`, `ghost`) × tone × size.
-- Label: a verb, sentence case: “Save changes”, “Delete domain”.
+- Label: a verb, sentence case: “Save changes”, “Delete gallery”.
 - Left icon (optional): via `leftIcon`; replaced by the Spinner while `loading`, and by a tick that draws itself while `success`.
 - Right icon (optional): via `rightIcon` — for direction (→) or a menu (⌄).
 - Badge (optional): via `badge` — a count (`{5}`, `"9+"`) or `{ dot: true }` pinned to the top-right corner; danger by default.
@@ -1312,7 +1312,7 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes.
 - Do: The label says what happens.
 
   ```tsx
-  <Button appearance="filled" tone="danger" size="md" leftIcon={<Trash />}>Delete domain</Button>
+  <Button appearance="filled" tone="danger" size="md" leftIcon={<Trash />}>Delete gallery</Button>
   ```
 
 - Don’t: “OK”, “Yes”, “Submit” make people re-read the question to know what they’re agreeing to.
@@ -1733,11 +1733,11 @@ Docs: ./?path=/docs/charts-chartrangeselection--docs
 
 **When to use**
 
-- Selecting a span on an ordered x-axis to zoom in or filter: “show errors from Aug 3 to Aug 6”.
+- Selecting a span on an ordered x-axis to zoom in or filter: “show views from Aug 3 to Aug 6”.
 
 **When not to use**
 
-- Unordered categories (regions, teams) → use Filter or a legend toggle
+- Unordered categories (studios, teams) → use Filter or a legend toggle
 - Picking dates precisely → use DateRangePicker
 
 **Anatomy**
@@ -1765,7 +1765,7 @@ Docs: ./?path=/docs/charts-chartrangeselection--docs
   <TimeRange />
   ```
 
-- Don’t: A “range” of regions means nothing — there’s no order between them.
+- Don’t: A “range” of studios means nothing — there’s no order between them.
 
   ```tsx
   <CategoryRange />
@@ -1816,7 +1816,7 @@ Also accepts the props of: HTMLAttributes.
   <div className={BOX}>
     <Chat className="h-full">
       <ChatMessages aria-label="Conversation example">
-        <Message author="Assistant">Your SSL certificate renews in 5 days.</Message>
+        <Message author="Assistant">Your print license renews in 5 days.</Message>
         <Message variant="sent" author="You">Renew it now.</Message>
       </ChatMessages>
       <PromptArea aria-label="Message the assistant" placeholder="Ask anything…" />
@@ -1831,7 +1831,7 @@ Also accepts the props of: HTMLAttributes.
     <div className="flex h-full flex-col gap-2 overflow-auto p-3">
       <PromptArea aria-label="Message, composer on top" placeholder="Ask anything…" />
       <Message variant="sent" author="You">Renew it now.</Message>
-      <Message author="Assistant">Your SSL certificate renews in 5 days.</Message>
+      <Message author="Assistant">Your print license renews in 5 days.</Message>
     </div>
   </div>
   ```
@@ -1919,7 +1919,7 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes, CheckboxProps.
 
 **Accessibility**
 
-- Every box needs a label — a `Label` with `htmlFor`, or `aria-label` in a table row (“Select seashell.shop”).
+- Every box needs a label — a `Label` with `htmlFor`, or `aria-label` in a table row (“Select Golden hour”).
 - Indeterminate is announced as “mixed”; use it only for a parent of partly selected children.
 - Group related boxes in `CheckboxGroup` so the legend is read with each option.
 - Space toggles; the whole label is a click target.
@@ -2058,8 +2058,8 @@ Also accepts the props of: HTMLAttributes, ButtonHTMLAttributes.
 
   ```tsx
   <div className="flex items-center gap-2 font-body text-body-m text-[var(--color-text-text)]">
-    shop.seashell.dev
-    <Chip tone="success" interactive={false}>Running</Chip>
+    Golden hour
+    <Chip tone="success" interactive={false}>Published</Chip>
   </div>
   ```
 
@@ -2067,8 +2067,8 @@ Also accepts the props of: HTMLAttributes, ButtonHTMLAttributes.
 
   ```tsx
   <div className="flex items-center gap-2 font-body text-body-m text-[var(--color-text-text)]">
-    shop.seashell.dev
-    <Badge tone="success">Running</Badge>
+    Golden hour
+    <Badge tone="success">Published</Badge>
   </div>
   ```
 
@@ -2532,7 +2532,7 @@ Also accepts the props of: HTMLAttributes, DialogProps, ButtonHTMLAttributes, In
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Go to">
           <CommandItem value="dashboard"><HomeSimple /> Dashboard</CommandItem>
-          <CommandItem value="sites"><Globe /> Sites</CommandItem>
+          <CommandItem value="galleries"><MediaImageList /> Galleries</CommandItem>
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Settings">
@@ -2775,7 +2775,7 @@ Docs: ./?path=/docs/actions-copybutton--docs
 
 **When to use**
 
-- Next to a value people paste somewhere else: an API key, a DNS record, a command, a link.
+- Next to a value people paste somewhere else: an API key, a client portal address, a command, a link.
 - When selecting the text by hand would be fiddly (long, monospaced, partly hidden).
 
 **When not to use**
@@ -2818,8 +2818,8 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes.
 
   ```tsx
   <div className="flex items-center gap-2">
-    <code className="rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-2 py-1 font-mono text-body-s text-[var(--color-text-text)]">ns1.theya.dev</code>
-    <CopyButton value="ns1.theya.dev" label={null} aria-label="Copy ns1.theya.dev" appearance="ghost" tone="secondary" size="sm" />
+    <code className="rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-2 py-1 font-mono text-body-s text-[var(--color-text-text)]">selene-weddings.aether.photo</code>
+    <CopyButton value="selene-weddings.aether.photo" label={null} aria-label="Copy selene-weddings.aether.photo" appearance="ghost" tone="secondary" size="sm" />
   </div>
   ```
 
@@ -2827,8 +2827,8 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes.
 
   ```tsx
   <div className="flex flex-col items-start gap-2">
-    <code className="font-mono text-body-s text-[var(--color-text-text)]">ns1.theya.dev</code>
-    <code className="font-mono text-body-s text-[var(--color-text-text)]">ns2.theya.dev</code>
+    <code className="font-mono text-body-s text-[var(--color-text-text)]">selene-weddings.aether.photo</code>
+    <code className="font-mono text-body-s text-[var(--color-text-text)]">helios.aether.photo</code>
     <Button appearance="outlined" tone="secondary" size="md">Copy</Button>
   </div>
   ```
@@ -3760,7 +3760,7 @@ Docs: ./?path=/docs/charts-donutchart--docs
 
 **When to use**
 
-- Parts of one whole, up to 7: storage by environment, plan mix, traffic by source.
+- Parts of one whole, up to 7: storage by file type, plan mix, downloads by source.
 - When the total matters too — it sits in the center.
 
 **When not to use**
@@ -3798,11 +3798,11 @@ Docs: ./?path=/docs/charts-donutchart--docs
 
   ```tsx
   <DonutChart
-    data={[{ label: 'Production', value: 62 }, { label: 'Staging', value: 24 }, { label: 'Dev', value: 14 }]}
+    data={[{ label: 'RAW files', value: 62 }, { label: 'JPEGs', value: 24 }, { label: 'Exports', value: 14 }]}
     unit=" GB"
     layout="horizontal"
     height={160}
-    ariaLabel="Storage by environment: production 62 GB of 100 GB."
+    ariaLabel="Storage by file type: RAW files 62 GB of 100 GB."
   />
   ```
 
@@ -3811,13 +3811,13 @@ Docs: ./?path=/docs/charts-donutchart--docs
   ```tsx
   <DonutChart
     data={[
-      { label: 'eu-west-1', value: 22 }, { label: 'eu-central-1', value: 18 }, { label: 'us-east-1', value: 16 },
-      { label: 'us-west-2', value: 14 }, { label: 'ap-south-1', value: 11 }, { label: 'ap-southeast-1', value: 10 }, { label: 'sa-east-1', value: 9 },
+      { label: 'Golden hour', value: 22 }, { label: 'Blue hour', value: 18 }, { label: 'First light', value: 16 },
+      { label: 'Moonrise over Othrys', value: 14 }, { label: 'Wide-shining', value: 11 }, { label: 'Isthmian Five', value: 10 }, { label: 'Portfolio', value: 9 },
     ]}
     unit="%"
     layout="horizontal"
     height={160}
-    ariaLabel="Traffic by region."
+    ariaLabel="Downloads by gallery."
   />
   ```
 
@@ -4325,7 +4325,7 @@ Docs: ./?path=/docs/status-feedback-feedbackwidget--docs
 - Don’t: A product-wide question under one article gives answers nobody can act on.
 
   ```tsx
-  <FeedbackWidget question="How satisfied are you with our hosting overall?" />
+  <FeedbackWidget question="How satisfied are you with Aether overall?" />
   ```
 
 
@@ -4479,7 +4479,7 @@ Docs: ./?path=/docs/files-file--docs
 
 **When to use**
 
-- One file in a form: a logo, a certificate, a document to attach.
+- One file in a form: a logo, a model release, a document to attach.
 - Showing the current file and letting people replace it.
 - Uploading it: `upload` and `progress`, as on Attachment; while it uploads, clicking it does not open the picker.
 
@@ -4628,7 +4628,7 @@ Docs: ./?path=/docs/search-filter-filterfield--docs
 
 **When to use**
 
-- Keyword search and filtering by many attributes in one field: servers, logs, users.
+- Keyword search and filtering by many attributes in one field: galleries, logs, clients.
 - Applied filters should stay visible and editable as chips.
 
 **When not to use**
@@ -4672,7 +4672,7 @@ Docs: ./?path=/docs/search-filter-filterfield--docs
 
   ```tsx
   <div className="w-96 max-w-full">
-    <FilterField attributes={ATTRS} defaultValue={[{ key: 'status', value: 'active' }]} aria-label="Filter servers" />
+    <FilterField attributes={ATTRS} defaultValue={[{ key: 'status', value: 'published' }]} aria-label="Filter galleries" />
   </div>
   ```
 
@@ -4680,11 +4680,11 @@ Docs: ./?path=/docs/search-filter-filterfield--docs
 
   ```tsx
   <div className="flex w-96 max-w-full flex-wrap gap-2">
-    <Filter label="Name" options={opts(['web-01', 'web-02'])} />
-    <Filter label="Status" options={opts(['Active', 'Suspended'])} />
-    <Filter label="Region" options={opts(['Europe', 'Americas'])} />
+    <Filter label="Name" options={opts(['Golden hour', 'Blue hour'])} />
+    <Filter label="Status" options={opts(['Published', 'Expired'])} />
+    <Filter label="Studio" options={opts(['Helios Studio', 'Selene Weddings'])} />
     <Filter label="Created" options={opts(['Today', 'This week'])} />
-    <Filter label="CPU cores" options={opts(['2', '4'])} />
+    <Filter label="Photos" options={opts(['Under 100', '100+'])} />
   </div>
   ```
 
@@ -5201,7 +5201,7 @@ Docs: ./?path=/docs/data-kanban--docs
 
 **When to use**
 
-- Work moving through stages: tickets, a deploy pipeline, content review.
+- Work moving through stages: tickets, a photo delivery pipeline, content review.
 - Watching load per stage with WIP limits (`limit`).
 
 **When not to use**
@@ -5525,7 +5525,7 @@ Docs: ./?path=/docs/overlays-lightbox--docs
 - `index?`: `number` — Controlled current image.
 - `onIndexChange?`: `((index: number) => void)`
 - `thumbnails?`: `boolean` — Thumbnail strip under the image. Default: shown when there's more than one image.
-- `title?`: `string`, default `Image viewer (localized: lightbox.title)` — Name of the dialog, e.g. "Seashell Sites screenshots".
+- `title?`: `string`, default `Image viewer (localized: lightbox.title)` — Name of the dialog, e.g. "Aether gallery preview".
 
 **Do / Don’t**
 
@@ -6180,8 +6180,8 @@ Also accepts the props of: HTMLAttributes.
 
   ```tsx
   <div className="flex w-72 flex-col gap-3">
-    <Meter value={0.38} min={0} max={1} label="CPU" tone="success" format={{ style: 'percent' }} />
-    <Meter value={0.96} min={0} max={1} label="Disk" tone="danger" format={{ style: 'percent' }} />
+    <Meter value={0.38} min={0} max={1} label="Storage" tone="success" format={{ style: 'percent' }} />
+    <Meter value={0.96} min={0} max={1} label="Archive" tone="danger" format={{ style: 'percent' }} />
   </div>
   ```
 
@@ -6189,8 +6189,8 @@ Also accepts the props of: HTMLAttributes.
 
   ```tsx
   <div className="flex w-72 flex-col gap-1">
-    <span className="text-body-s">Disk</span>
-    <Progress value={96} aria-label="Disk" />
+    <span className="text-body-s">Archive</span>
+    <Progress value={96} aria-label="Archive" />
   </div>
   ```
 
@@ -7227,13 +7227,13 @@ Also accepts the props of: HTMLAttributes.
 - Do: Grows with the message; Enter sends, Stop appears while answering.
 
   ```tsx
-  <div className="w-full"><PromptArea aria-label="Message the assistant" placeholder="Ask about your sites…" /></div>
+  <div className="w-full"><PromptArea aria-label="Message the assistant" placeholder="Ask about your galleries…" /></div>
   ```
 
 - Don’t: A one-line field for prompts: long questions scroll out of sight, no stop, no attachments.
 
   ```tsx
-  <TextField label="Message" placeholder="Ask about your sites…" widthSize="full" />
+  <TextField label="Message" placeholder="Ask about your galleries…" widthSize="full" />
   ```
 
 
@@ -7514,7 +7514,7 @@ Docs: ./?path=/docs/data-qrcode--docs
 **QrCode props**
 
 - `icon?`: `ReactNode` — Optional mark in the center (a logo or icon, ~20% of the code). Raises `level` to H.
-- `label?`: `string`, default `QR code (localized: qrCode.label)` — Accessible name. Describe what scanning does, not what it is: "Scan to add Seashell to your authenticator app".
+- `label?`: `string`, default `QR code (localized: qrCode.label)` — Accessible name. Describe what scanning does, not what it is: "Scan to add Aether to your authenticator app".
 - `level?`: `"H" | "L" | "M" | "Q"`, default `M` — Error correction: how much of the code can be damaged or covered and
 - `loading?`: `boolean`, default `false` — Shows a placeholder of the same size while the value is being fetched.
 - `size?`: `"md" | "lg" | "sm"`, default `md` — Rendered edge length including the quiet zone: sm 128px, md 160px (default), lg 200px.
@@ -7528,7 +7528,7 @@ Also accepts the props of: HTMLAttributes.
 
   ```tsx
   <div className="flex w-72 flex-col items-center gap-3">
-    <QrCode value={OTPAUTH} size="sm" label="Scan to add Seashell to your authenticator app" />
+    <QrCode value={OTPAUTH} size="sm" label="Scan to add Aether to your authenticator app" />
     <SecretField label="Or enter this key" value={SECRET} />
   </div>
   ```
@@ -7583,7 +7583,7 @@ Docs: ./?path=/docs/search-filter-querybuilder--docs
 
 **Do / Don’t**
 
-- Do: A rule people build once and keep: “active and fewer than 2 replicas”.
+- Do: A rule people build once and keep: “published and fewer than 20 photos”.
 
   ```tsx
   <div className="w-[34rem] max-w-full">
@@ -7593,22 +7593,22 @@ Docs: ./?path=/docs/search-filter-querybuilder--docs
       defaultValue={{
         match: 'all',
         conditions: [
-          { id: 'c1', field: 'status', operator: 'is', value: 'active' },
-          { id: 'c2', field: 'replicas', operator: 'lt', value: 2 },
+          { id: 'c1', field: 'status', operator: 'is', value: 'published' },
+          { id: 'c2', field: 'photos', operator: 'lt', value: 20 },
         ],
       }}
     />
   </div>
   ```
 
-- Don’t: A whole builder to show active servers — a Filter does it in one click.
+- Don’t: A whole builder to show published galleries — a Filter does it in one click.
 
   ```tsx
   <div className="w-[34rem] max-w-full">
     <QueryBuilder
       fields={FIELDS}
-      ariaLabel="Filter servers"
-      defaultValue={{ match: 'all', conditions: [{ id: 'd1', field: 'status', operator: 'is', value: 'active' }] }}
+      ariaLabel="Filter galleries"
+      defaultValue={{ match: 'all', conditions: [{ id: 'd1', field: 'status', operator: 'is', value: 'published' }] }}
     />
   </div>
   ```
@@ -7618,7 +7618,7 @@ Docs: ./?path=/docs/search-filter-querybuilder--docs
 
 - It’s a named group (`ariaLabel`); each row’s controls are named after its field (“Status condition”, “Remove Status condition”).
 - Adding or removing a row keeps focus in the builder — on the new row’s field, a neighbouring remove button, or Add.
-- Say the result in words near it when you can (“Matches 4 servers”).
+- Say the result in words near it when you can (“Matches 4 galleries”).
 
 ## Radio
 
@@ -8617,7 +8617,7 @@ Also accepts the props of: ToasterProps.
 - Do: What happened, to what.
 
   ```tsx
-  <Fire label="Show good toast" run={() => toast.success('Certificate issued', { description: 'shop.seashell.dev · valid 90 days' })} />
+  <Fire label="Show good toast" run={() => toast.success('License issued', { description: 'GOLDEN_0907.tif · web use, 12 months' })} />
   ```
 
 - Don’t: “Success!” — of what?
@@ -8629,7 +8629,7 @@ Also accepts the props of: ToasterProps.
 - Do: Errors stay until closed and offer a retry.
 
   ```tsx
-  <Fire label="Show error toast" run={() => toast.error('Couldn’t reissue certificate', { description: 'DNS check failed for shop.seashell.dev', action: { label: 'Retry', onClick: () => {} } })} />
+  <Fire label="Show error toast" run={() => toast.error('Couldn’t reissue license', { description: 'The client’s card was declined for GOLDEN_0907.tif', action: { label: 'Retry', onClick: () => {} } })} />
   ```
 
 - Don’t: A field error in a toast: it’s far from the field and the user has to find it.
@@ -8766,7 +8766,7 @@ Docs: ./?path=/docs/actions-splitbutton--docs
 
 **When to use**
 
-- One main action with a few variations of it: “Deploy” / Deploy to staging / Deploy without cache.
+- One main action with a few variations of it: “Export” / Export as JPEG / Export without watermark.
 - The main action is what people want most of the time; the rest are occasional.
 
 **When not to use**
@@ -8808,15 +8808,15 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes.
   ```tsx
   <SplitButton
     size="md"
-    menuLabel="More deploy options"
+    menuLabel="More export options"
     menuContent={
       <>
-        <DropdownMenuItem>Deploy to staging</DropdownMenuItem>
-        <DropdownMenuItem>Deploy without cache</DropdownMenuItem>
+        <DropdownMenuItem>Export as JPEG</DropdownMenuItem>
+        <DropdownMenuItem>Export without watermark</DropdownMenuItem>
       </>
     }
   >
-    Deploy
+    Export
   </SplitButton>
   ```
 
@@ -8824,9 +8824,9 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes.
 
   ```tsx
   <div className="flex gap-2">
-    <Button size="md">Deploy</Button>
-    <Button appearance="outlined" tone="secondary" size="md">Deploy to staging</Button>
-    <Button appearance="outlined" tone="secondary" size="md">Without cache</Button>
+    <Button size="md">Export</Button>
+    <Button appearance="outlined" tone="secondary" size="md">Export as JPEG</Button>
+    <Button appearance="outlined" tone="secondary" size="md">Without watermark</Button>
   </div>
   ```
 
@@ -9275,7 +9275,7 @@ Docs: ./?path=/docs/motion-swipedeck--docs
 
 **When to use**
 
-- A quick keep-or-skip pass over a short set: templates to try, suggested domains, onboarding interests.
+- A quick keep-or-skip pass over a short set: templates to try, photos to shortlist, onboarding interests.
 
 **When not to use**
 
@@ -9591,7 +9591,7 @@ Docs: ./?path=/docs/text-input-taginput--docs
 
 **When to use**
 
-- Several free-form values of one kind: email recipients, domains, IP ranges, tags.
+- Several free-form values of one kind: email recipients, photo keywords, tags.
 
 **When not to use**
 
@@ -9624,7 +9624,7 @@ Docs: ./?path=/docs/text-input-taginput--docs
 - `placeholder?`: `string`, default `Type and press Enter (localized: tagInput.placeholder)`
 - `readOnly?`: `boolean`, default `false`
 - `required?`: `boolean` — Red asterisk after the label.
-- `transform?`: `((tag: string) => string)` — Normalize each value before it's added, e.g. `(v) => v.toLowerCase()` for emails and domains. Trimmed first.
+- `transform?`: `((tag: string) => string)` — Normalize each value before it's added, e.g. `(v) => v.toLowerCase()` for emails and portal addresses. Trimmed first.
 - `validate?`: `((tag: string) => string)` — Return a message for a bad value (it's still added, as a danger chip), undefined when it's fine.
 - `value?`: `string[]` — Controlled list of values.
 
@@ -9633,13 +9633,13 @@ Docs: ./?path=/docs/text-input-taginput--docs
 - Do: Each value is a chip — easy to check and remove.
 
   ```tsx
-  <div className="w-80"><TagInput aria-label="Recipients" defaultValue={['dana@seashell.shop', 'ops@seashell.shop']} /></div>
+  <div className="w-80"><TagInput aria-label="Recipients" defaultValue={['thea@aether.photo', 'ian@aether.photo']} /></div>
   ```
 
 - Don’t: A comma list in one field hides which value is wrong.
 
   ```tsx
-  <TextField label="Recipients" defaultValue="dana@seashell.shop, ops@seashell.shop" description="Separate with commas" widthSize="lg" />
+  <TextField label="Recipients" defaultValue="thea@aether.photo, ian@aether.photo" description="Separate with commas" widthSize="lg" />
   ```
 
 
@@ -9659,7 +9659,7 @@ Docs: ./?path=/docs/code-terminal--docs
 
 **When to use**
 
-- Live or past console output: a web SSH session, a deploy or build log, a tail of access logs.
+- Live or past console output: a remote session on a studio workstation, an export log, a tail of access logs.
 - Output where the order and severity of lines matter.
 
 **When not to use**
@@ -9717,9 +9717,9 @@ Also accepts the props of: HTMLAttributes.
   ```tsx
   <div className="w-80">
     <Terminal hideHeader lines={[
-      { id: '1', text: '$ npm run build', level: 'cmd' },
-      { id: '2', text: 'warning: 2 unused exports', level: 'warning' },
-      { id: '3', text: 'error: build failed (exit 1)', level: 'error' },
+      { id: '1', text: '$ aether export "Blue hour"', level: 'cmd' },
+      { id: '2', text: 'warning: 2 photos have no color profile', level: 'warning' },
+      { id: '3', text: 'error: export failed (exit 1)', level: 'error' },
     ]} />
   </div>
   ```
@@ -9727,7 +9727,7 @@ Also accepts the props of: HTMLAttributes.
 - Don’t: A static code block for a log: no severity, no following new output.
 
   ```tsx
-  <div className="w-80"><CodeBlock language="bash" code={'$ npm run build\nwarning: 2 unused exports\nerror: build failed (exit 1)'} /></div>
+  <div className="w-80"><CodeBlock language="bash" code={'$ aether export "Blue hour"\nwarning: 2 photos have no color profile\nerror: export failed (exit 1)'} /></div>
   ```
 
 
@@ -9735,7 +9735,7 @@ Also accepts the props of: HTMLAttributes.
 
 - The body is `role="log"` and a tab stop; new lines are announced politely. For chatty streams set `live="off"` and announce only the result.
 - Connection state is a dot plus a text label, never color alone.
-- Give each terminal on a page its own `ariaLabel` (“Deploy log”, “SSH: web-04”).
+- Give each terminal on a page its own `ariaLabel` (“Export log”, “SSH: studio-l4”).
 - Line colors come from tokens that pass contrast on the dark surface — don’t override them with raw ANSI colors.
 
 ## TextEffect
@@ -9988,7 +9988,7 @@ Docs: ./?path=/docs/motion-tickerlist--docs
 
 **When to use**
 
-- A few rows of recent activity inside a showcase card: transactions, signups, deploys.
+- A few rows of recent activity inside a showcase card: transactions, signups, client downloads.
 
 **When not to use**
 
@@ -10039,7 +10039,7 @@ Docs: ./?path=/docs/date-time-timefield--docs
 
 **When to use**
 
-- A time of day: a daily backup time, a meeting start, a reminder.
+- A time of day: a daily archive time, a meeting start, a reminder.
 - Times on a grid (`step`) with limits (`min`/`max`) — any typed time is still accepted.
 
 **When not to use**
@@ -10080,15 +10080,15 @@ Docs: ./?path=/docs/date-time-timefield--docs
 
   ```tsx
   <div className="flex w-48 flex-col gap-2">
-    <Label htmlFor="gl-tf-backup">Daily backup at</Label>
-    <TimeField id="gl-tf-backup" step={30} placeholder="Choose a time" />
+    <Label htmlFor="gl-tf-archive">Daily archive at</Label>
+    <TimeField id="gl-tf-archive" step={30} placeholder="Choose a time" />
   </div>
   ```
 
 - Don’t: Free text: “9.30”, “930” and “9:30pm” all need guessing.
 
   ```tsx
-  <TextField label="Daily backup at" placeholder="e.g. 9:30" widthSize="md" />
+  <TextField label="Daily archive at" placeholder="e.g. 9:30" widthSize="md" />
   ```
 
 
@@ -10697,7 +10697,7 @@ Also accepts the props of: HTMLAttributes.
 - Don’t: One level is just a list — a tree adds keyboard rules for nothing.
 
   ```tsx
-  <Tree aria-label="Plans" className="w-64" items={[{ id: 's', label: 'Starter' }, { id: 'p', label: 'Pro' }, { id: 'x', label: 'Scale' }]} />
+  <Tree aria-label="Plans" className="w-64" items={[{ id: 'f', label: 'Free' }, { id: 'p', label: 'Pro' }, { id: 'b', label: 'Business' }]} />
   ```
 
 
@@ -10716,7 +10716,7 @@ Docs: ./?path=/docs/labels-truncatedtext--docs
 
 **When to use**
 
-- Long user data on one line where wrapping would break the layout: file names, domains, list-row descriptions, a chosen value in a trigger.
+- Long user data on one line where wrapping would break the layout: file names, portal addresses, list-row descriptions, a chosen value in a trigger.
 - Your own cells and rows in a table or list that truncate.
 
 **When not to use**
@@ -10771,7 +10771,7 @@ Docs: ./?path=/docs/status-feedback-undotoast--docs
 
 **When to use**
 
-- A destructive action that can be held back for a few seconds: delete a file, archive a site, remove a member.
+- A destructive action that can be held back for a few seconds: delete a file, archive a gallery, remove a member.
 - Replacing a confirm dialog for frequent, low-risk removals.
 
 **When not to use**
@@ -10781,7 +10781,7 @@ Docs: ./?path=/docs/status-feedback-undotoast--docs
 
 **Anatomy**
 
-- Title: what was done: “Site archived”.
+- Title: what was done: “Gallery archived”.
 - Description (optional): the object, if the title doesn’t name it.
 - Undo: rolls back via `onUndo`; otherwise `onCommit` runs when the toast closes.
 
@@ -10806,7 +10806,7 @@ Docs: ./?path=/docs/status-feedback-undotoast--docs
 - Don’t: Undo on something already gone for good is a broken promise — confirm first.
 
   ```tsx
-  <Button appearance="outlined" tone="secondary" onClick={() => undoToast({ title: 'Database deleted', description: 'shop_prod' })}>Delete database</Button>
+  <Button appearance="outlined" tone="secondary" onClick={() => undoToast({ title: 'Gallery deleted', description: 'Blue hour' })}>Delete gallery</Button>
   ```
 
 

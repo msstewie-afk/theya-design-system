@@ -48,7 +48,7 @@
     {
       "do": {
         "caption": "Name, kind and size for each file; the failed one says why, in place.",
-        "example": "<div className=\"flex w-80 flex-col gap-2\">\n  <Attachment variant=\"row\" name=\"quarterly-report.pdf\" type=\"application/pdf\" size={248000} onRemove={() => {}} />\n  <Attachment variant=\"row\" name=\"backup.tar.gz\" size={5300000000} error=\"Exceeds the 2 GB upload limit\" onRemove={() => {}} />\n</div>"
+        "example": "<div className=\"flex w-80 flex-col gap-2\">\n  <Attachment variant=\"row\" name=\"quarterly-report.pdf\" type=\"application/pdf\" size={248000} onRemove={() => {}} />\n  <Attachment variant=\"row\" name=\"wedding-raws.zip\" size={5300000000} error=\"Exceeds the 2 GB upload limit\" onRemove={() => {}} />\n</div>"
       },
       "dont": {
         "caption": "A bare link and a generic error: which file, how big, and what went wrong?",

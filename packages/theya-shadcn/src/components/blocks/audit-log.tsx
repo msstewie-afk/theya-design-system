@@ -37,7 +37,7 @@ export interface AuditEvent {
   /** Matches a `categories` option (drives the icon + badge). */
   category: string;
   actor: string;
-  /** The affected resource (domain, email, resource name, etc). */
+  /** The affected resource (gallery, email, key name, etc). */
   target?: string;
   ip?: string;
 }
@@ -52,7 +52,7 @@ export interface AuditCategoryMeta {
 
 const DEFAULT_CATEGORIES: AuditCategoryMeta[] = [
   { value: 'auth', label: 'Authentication', tone: 'neutral', icon: <LogIn /> },
-  { value: 'deploy', label: 'Deploys', tone: 'primary', icon: <CloudUpload /> },
+  { value: 'export', label: 'Exports', tone: 'primary', icon: <CloudUpload /> },
   { value: 'billing', label: 'Billing', tone: 'info', icon: <CreditCard /> },
   { value: 'security', label: 'Security', tone: 'warning', icon: <ShieldCheck /> },
   { value: 'member', label: 'Members', tone: 'neutral', icon: <UserPlus /> },
@@ -61,14 +61,14 @@ const DEFAULT_CATEGORIES: AuditCategoryMeta[] = [
 ];
 
 const SEEDED_EVENTS: AuditEvent[] = [
-  { id: 'ev-1', at: '2026-07-14T14:32:00Z', action: 'Signed in', category: 'auth', actor: 'Alex Morgan', ip: '203.0.113.9' },
-  { id: 'ev-2', at: '2026-07-14T13:58:00Z', action: 'Deployed site', category: 'deploy', actor: 'Automation', target: 'shop.seashell.dev', ip: '198.51.100.7' },
-  { id: 'ev-3', at: '2026-07-14T11:10:00Z', action: 'Changed member role', category: 'member', actor: 'Jordan Kim', target: 'priya@seashell.dev', ip: '203.0.113.24' },
-  { id: 'ev-4', at: '2026-07-13T18:04:00Z', action: 'Updated payment method', category: 'billing', actor: 'Alex Morgan', ip: '203.0.113.24' },
-  { id: 'ev-5', at: '2026-07-13T09:41:00Z', action: 'Revoked API key', category: 'security', actor: 'Alex Morgan', target: 'legacy-script', ip: '203.0.113.24' },
-  { id: 'ev-6', at: '2026-07-12T22:15:00Z', action: 'Created database', category: 'data', actor: 'Priya Nair', target: 'acme_prod', ip: '198.51.100.20' },
-  { id: 'ev-7', at: '2026-07-12T16:47:00Z', action: 'Invited teammate', category: 'member', actor: 'Jordan Kim', target: 'dana@contractor.dev', ip: '203.0.113.24' },
-  { id: 'ev-8', at: '2026-07-11T08:03:00Z', action: 'Updated account settings', category: 'settings', actor: 'Alex Morgan', ip: '203.0.113.9' },
+  { id: 'ev-1', at: '2026-07-14T14:32:00Z', action: 'Signed in', category: 'auth', actor: 'Thea Marlow', ip: '203.0.113.9' },
+  { id: 'ev-2', at: '2026-07-14T13:58:00Z', action: 'Exported gallery', category: 'export', actor: 'Automation', target: 'Golden hour', ip: '198.51.100.7' },
+  { id: 'ev-3', at: '2026-07-14T11:10:00Z', action: 'Changed member role', category: 'member', actor: 'Ian Hyde', target: 'elio@aether.photo', ip: '203.0.113.24' },
+  { id: 'ev-4', at: '2026-07-13T18:04:00Z', action: 'Updated payment method', category: 'billing', actor: 'Thea Marlow', ip: '203.0.113.24' },
+  { id: 'ev-5', at: '2026-07-13T09:41:00Z', action: 'Revoked API key', category: 'security', actor: 'Thea Marlow', target: 'legacy-script', ip: '203.0.113.24' },
+  { id: 'ev-6', at: '2026-07-12T22:15:00Z', action: 'Archived album', category: 'data', actor: 'Mina Ostrova', target: 'Blue hour', ip: '198.51.100.20' },
+  { id: 'ev-7', at: '2026-07-12T16:47:00Z', action: 'Invited teammate', category: 'member', actor: 'Ian Hyde', target: 'dawn@aether.photo', ip: '203.0.113.24' },
+  { id: 'ev-8', at: '2026-07-11T08:03:00Z', action: 'Updated account settings', category: 'settings', actor: 'Thea Marlow', ip: '203.0.113.9' },
 ];
 
 function formatAt(iso: string): string {

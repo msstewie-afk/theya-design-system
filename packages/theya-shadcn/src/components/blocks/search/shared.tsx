@@ -1,18 +1,18 @@
-import { Database, Folder, Globe, HelpCircle, Settings, User } from 'iconoir-react';
+import { Copyright, HelpCircle, MediaImage, MediaImageList, Settings, User } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
 import type { SearchItem, SearchType } from './types';
 
 export const TYPE_META: Record<SearchType, { one: string; many: string; icon: React.ComponentType<React.SVGProps<SVGSVGElement>> }> = {
-  domain: { one: 'domain', many: 'Domains', icon: Globe },
-  database: { one: 'database', many: 'Databases', icon: Database },
-  project: { one: 'project', many: 'Projects', icon: Folder },
-  user: { one: 'user', many: 'Users', icon: User },
+  gallery: { one: 'gallery', many: 'Galleries', icon: MediaImageList },
+  photo: { one: 'photo', many: 'Photos', icon: MediaImage },
+  client: { one: 'client', many: 'Clients', icon: User },
+  license: { one: 'license', many: 'Licenses', icon: Copyright },
   setting: { one: 'setting', many: 'Settings', icon: Settings },
   article: { one: 'help article', many: 'Help articles', icon: HelpCircle },
 };
 
 /** Fixed order for groups and scopes: things you own first, then settings, then help. */
-export const TYPE_ORDER: SearchType[] = ['domain', 'database', 'project', 'user', 'setting', 'article'];
+export const TYPE_ORDER: SearchType[] = ['gallery', 'photo', 'client', 'license', 'setting', 'article'];
 
 export function terms(query: string): string[] {
   return query.toLowerCase().split(/\s+/).filter(Boolean);

@@ -216,7 +216,7 @@ export const Masonry: Story = {
       ...PHOTOS.map((p, i) => (
         <LandingCard key={p} surface="sunken" className="overflow-hidden">
           <img src={`/asset-examples/${p}.jpg`} alt="" className={`${RATIOS[i]} w-full object-cover`} />
-          <p className="m-0 p-4 font-body text-body-s font-semibold">{['Blue hour', 'Studio site', 'Stairs study', 'Home network', 'Tall blocks', 'Storage'][i]}</p>
+          <p className="m-0 p-4 font-body text-body-s font-semibold">{['Blue hour', 'Studio portrait', 'Stairs study', 'Home office', 'Tall blocks', 'Desk setup'][i]}</p>
         </LandingCard>
       )),
       <QuoteCard key="q1" serif surface="tonal" hue="secondary" quote="My whole moodboard, finally in one place." name="Lea Brandt" title="Illustrator" />,

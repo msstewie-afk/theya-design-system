@@ -50,7 +50,7 @@
       },
       "dont": {
         "caption": "A product-wide question under one article gives answers nobody can act on.",
-        "example": "<FeedbackWidget question=\"How satisfied are you with our hosting overall?\" />"
+        "example": "<FeedbackWidget question=\"How satisfied are you with Aether overall?\" />"
       }
     }
   ],

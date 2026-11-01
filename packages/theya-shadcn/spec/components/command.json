@@ -46,7 +46,7 @@
     {
       "do": {
         "caption": "Many destinations and actions, grouped, reached by typing.",
-        "example": "<div className={BOX}>\n  <Command label=\"Go to or run\">\n    <CommandInput placeholder=\"Type a command or search…\" />\n    <CommandList>\n      <CommandEmpty>No results found.</CommandEmpty>\n      <CommandGroup heading=\"Go to\">\n        <CommandItem value=\"dashboard\"><HomeSimple /> Dashboard</CommandItem>\n        <CommandItem value=\"sites\"><Globe /> Sites</CommandItem>\n      </CommandGroup>\n      <CommandSeparator />\n      <CommandGroup heading=\"Settings\">\n        <CommandItem value=\"settings\"><Settings /> General settings<CommandShortcut>⌘,</CommandShortcut></CommandItem>\n        <CommandItem value=\"tools\"><Wrench /> Tools</CommandItem>\n      </CommandGroup>\n    </CommandList>\n  </Command>\n</div>"
+        "example": "<div className={BOX}>\n  <Command label=\"Go to or run\">\n    <CommandInput placeholder=\"Type a command or search…\" />\n    <CommandList>\n      <CommandEmpty>No results found.</CommandEmpty>\n      <CommandGroup heading=\"Go to\">\n        <CommandItem value=\"dashboard\"><HomeSimple /> Dashboard</CommandItem>\n        <CommandItem value=\"galleries\"><MediaImageList /> Galleries</CommandItem>\n      </CommandGroup>\n      <CommandSeparator />\n      <CommandGroup heading=\"Settings\">\n        <CommandItem value=\"settings\"><Settings /> General settings<CommandShortcut>⌘,</CommandShortcut></CommandItem>\n        <CommandItem value=\"tools\"><Wrench /> Tools</CommandItem>\n      </CommandGroup>\n    </CommandList>\n  </Command>\n</div>"
       },
       "dont": {
         "caption": "Don’t hide two actions like these behind a palette — show them as buttons.",

@@ -11,7 +11,7 @@ import { TooltipContent, TooltipProvider } from './tooltip';
  * the whole text in a tooltip — only while it is actually cut.
  *
  * For long user data that can't wrap without breaking a layout: file names,
- * domains, descriptions in list rows, a chosen value in a trigger. Short
+ * portal addresses, descriptions in list rows, a chosen value in a trigger. Short
  * interface labels (column headers, nav labels, buttons) wrap instead, so
  * they never need this (WCAG 1.4.4 / 1.4.12: text enlarged to 200% or with
  * wider spacing must not lose content).

@@ -3,7 +3,7 @@ import { QrCode } from './qr-code';
 import { SecretField } from './secret-field';
 
 const SECRET = 'JBSWY3DPEHPK3PXP';
-const OTPAUTH = `otpauth://totp/Seashell:maria?secret=${SECRET}&issuer=Seashell`;
+const OTPAUTH = `otpauth://totp/Aether:thea?secret=${SECRET}&issuer=Aether`;
 
 export const qrCodeGuidelines: ComponentGuidelines = {
   status: 'beta',
@@ -22,7 +22,7 @@ export const qrCodeGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className="flex w-72 flex-col items-center gap-3">
-            <QrCode value={OTPAUTH} size="sm" label="Scan to add Seashell to your authenticator app" />
+            <QrCode value={OTPAUTH} size="sm" label="Scan to add Aether to your authenticator app" />
             <SecretField label="Or enter this key" value={SECRET} />
           </div>
         ),

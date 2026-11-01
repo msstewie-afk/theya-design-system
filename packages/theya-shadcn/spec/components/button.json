@@ -35,7 +35,7 @@
     },
     {
       "part": "Label",
-      "description": "a verb, sentence case: “Save changes”, “Delete domain”."
+      "description": "a verb, sentence case: “Save changes”, “Delete gallery”."
     },
     {
       "part": "Left icon",
@@ -67,7 +67,7 @@
     {
       "do": {
         "caption": "The label says what happens.",
-        "example": "<Button appearance=\"filled\" tone=\"danger\" size=\"md\" leftIcon={<Trash />}>Delete domain</Button>"
+        "example": "<Button appearance=\"filled\" tone=\"danger\" size=\"md\" leftIcon={<Trash />}>Delete gallery</Button>"
       },
       "dont": {
         "caption": "“OK”, “Yes”, “Submit” make people re-read the question to know what they’re agreeing to.",
@@ -172,7 +172,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "The action just succeeded: a tick draws itself in place of leftIcon (Kinetics'\nStatus Pill, MIT). Pair it with a label that says so (\"Deployed\") and, usually,\n`tone=\"success\"`; turn it off again after a moment. Not supported with asChild."
+          "description": "The action just succeeded: a tick draws itself in place of leftIcon (Kinetics'\nStatus Pill, MIT). Pair it with a label that says so (\"Exported\") and, usually,\n`tone=\"success\"`; turn it off again after a moment. Not supported with asChild."
         },
         {
           "name": "tone",

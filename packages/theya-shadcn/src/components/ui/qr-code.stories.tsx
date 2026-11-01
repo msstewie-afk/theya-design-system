@@ -4,7 +4,7 @@ import { QrCode } from './qr-code';
 import { SecretField } from './secret-field';
 import { qrCodeGuidelines } from './qr-code.guidelines';
 
-const OTPAUTH = 'otpauth://totp/Seashell:maria%40seashell.dev?secret=JBSWY3DPEHPK3PXP&issuer=Seashell';
+const OTPAUTH = 'otpauth://totp/Aether:thea%40aether.photo?secret=JBSWY3DPEHPK3PXP&issuer=Aether';
 
 /**
  * QrCode — a crisp SVG QR code. Dark modules on a white plate in both
@@ -33,7 +33,7 @@ const meta = {
     loading: { control: 'boolean', description: 'Same-size placeholder while the value loads.', table: { category: 'State' } },
     icon: { control: false, description: 'Optional center mark; raises the level to H.', table: { category: 'Content' } },
   },
-  args: { value: 'https://seashell.dev/download', label: 'Scan to download the Seashell app', size: 'md', level: 'M' },
+  args: { value: 'https://aether.photo/download', label: 'Scan to download the Aether app', size: 'md', level: 'M' },
 } satisfies Meta<typeof QrCode>;
 
 export default meta;
@@ -96,7 +96,7 @@ export const TwoFactorSetup: Story = {
         <h3 className="font-heading text-heading-xs text-[var(--color-text-text)]">Set up your authenticator app</h3>
         <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">Scan the code with Google Authenticator, 1Password or any TOTP app.</p>
       </div>
-      <QrCode {...args} value={OTPAUTH} label="Scan to add Seashell to your authenticator app" className="self-center" />
+      <QrCode {...args} value={OTPAUTH} label="Scan to add Aether to your authenticator app" className="self-center" />
       <div className="flex flex-col gap-1">
         <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">Can’t scan? Enter this key instead:</span>
         <SecretField value="JBSWY3DPEHPK3PXP" defaultRevealed label="Setup key" />

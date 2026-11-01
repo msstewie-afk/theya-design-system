@@ -37,7 +37,7 @@
     {
       "do": {
         "caption": "The same value as text, for people who can’t scan.",
-        "example": "<div className=\"flex w-72 flex-col items-center gap-3\">\n  <QrCode value={OTPAUTH} size=\"sm\" label=\"Scan to add Seashell to your authenticator app\" />\n  <SecretField label=\"Or enter this key\" value={SECRET} />\n</div>"
+        "example": "<div className=\"flex w-72 flex-col items-center gap-3\">\n  <QrCode value={OTPAUTH} size=\"sm\" label=\"Scan to add Aether to your authenticator app\" />\n  <SecretField label=\"Or enter this key\" value={SECRET} />\n</div>"
       },
       "dont": {
         "caption": "A code alone locks out screen-reader users and anyone without a phone at hand.",
@@ -64,7 +64,7 @@
           "name": "label",
           "type": "string",
           "required": false,
-          "description": "Accessible name. Describe what scanning does, not what it is: \"Scan to add Seashell to your authenticator app\".",
+          "description": "Accessible name. Describe what scanning does, not what it is: \"Scan to add Aether to your authenticator app\".",
           "default": "QR code (localized: qrCode.label)"
         },
         {

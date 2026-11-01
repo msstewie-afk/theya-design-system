@@ -7,10 +7,10 @@
 - combobox "Command menu" [expanded]
 - status: Loading…
 - listbox "Command menu":
-  - group "Sites":
-    - text: Sites
-    - option "shop.seashell.dev" [selected]
-    - option "api.seashell.dev"
+  - group "Galleries":
+    - text: Galleries
+    - option "Golden hour" [selected]
+    - option "First light"
 - status
 
 # Disabled item (search-filter-command--disabled-item)
@@ -18,9 +18,9 @@
 - listbox "Command menu":
   - group "Actions":
     - text: Actions
-    - option "Delete site suspend first" [disabled]:
+    - option "Delete gallery unpublish first" [disabled]:
       - img
-      - text: Delete site suspend first
+      - text: Delete gallery unpublish first
 - text: ↑↓ Navigate ↵ Select Esc Close
 - status
 
@@ -32,19 +32,19 @@
 # Entity results (search-filter-command--entity-results)
 - combobox "Command menu" [expanded]
 - listbox "Command menu":
-  - group "Sites":
-    - text: Sites
-    - option "shop.seashell.dev" [selected]:
+  - group "Client portals":
+    - text: Client portals
+    - option "selene-weddings.aether.photo" [selected]:
       - img
-      - text: shop.seashell.dev
+      - text: selene-weddings.aether.photo
       - img
-    - option "api.seashell.dev":
+    - option "helios.aether.photo":
       - img
-      - text: api.seashell.dev
+      - text: helios.aether.photo
       - img
-    - option "blog.seashell.dev":
+    - option "eos-portraits.aether.photo":
       - img
-      - text: blog.seashell.dev
+      - text: eos-portraits.aether.photo
       - img
 - text: ↑↓ Navigate ↵ Select Esc Close
 - status
@@ -57,9 +57,9 @@
     - option "Dashboard" [selected]:
       - img
       - text: Dashboard
-    - option "Sites":
+    - option "Galleries":
       - img
-      - text: Sites
+      - text: Galleries
   - group "Settings":
     - text: Settings
     - option "General settings ⌘,":
@@ -87,31 +87,33 @@
       - option "Dashboard" [selected]:
         - img
         - text: Dashboard
-      - option "Sites":
+      - option "Galleries":
         - img
-        - text: Sites
+        - text: Galleries
     - group "Quick actions":
       - text: Quick actions
-      - option "Create site ⌘N"
+      - option "Create gallery ⌘N"
   - text: ↑↓ Navigate ↵ Select Esc Close
   - status
 
 # With breadcrumb (search-filter-command--with-breadcrumb)
-- combobox "Command menu" [expanded]: review
+- combobox "Command menu" [expanded]: watermark
 - listbox "Command menu":
   - group "Results":
     - text: Results
-    - option "Settings Review" [selected]
+    - option "Settings Watermark" [selected]
+    - option "Settings > Watermark Add watermark to client previews Applies to every gallery shared in a client portal"
+    - option "Settings > Watermark Watermark opacity"
 - text: ↑↓ Navigate ↵ Select Esc Close
 - status
 
 # With icons and descriptions (search-filter-command--with-descriptions)
 - combobox "Command menu" [expanded]
 - listbox "Command menu":
-  - group "Sites":
-    - text: Sites
-    - option "shop.seashell.dev EU-West-1 · Pro plan" [selected]
-    - option "api.seashell.dev Deployed 2 minutes ago"
-    - option "blog.seashell.dev SSL certificate expires in 3 days"
+  - group "Galleries":
+    - text: Galleries
+    - option "Golden hour Helios Studio · 248 photos" [selected]
+    - option "Blue hour Exported 2 minutes ago"
+    - option "Moonrise over Othrys Print license expires in 3 days"
 - text: ↑↓ Navigate ↵ Select Esc Close
 - status

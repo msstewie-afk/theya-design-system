@@ -49,7 +49,7 @@ const linkClass =
  * everything at once. Shelves are short and end in a "View all" — the full
  * list lives on the list page with filters.
  */
-export function CategoryLanding({ title, description, total, allHref, categories, popular, picks = [], getHref, noun = { one: 'extension', many: 'extensions' }, className }: CategoryLandingProps) {
+export function CategoryLanding({ title, description, total, allHref, categories, popular, picks = [], getHref, noun = { one: 'product', many: 'products' }, className }: CategoryLandingProps) {
   const uid = useId();
   const count = (n: number) => `${n.toLocaleString('en-US')} ${n === 1 ? noun.one : noun.many}`;
 

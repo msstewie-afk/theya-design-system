@@ -39,8 +39,8 @@ export interface AccessToken {
 }
 
 const SEEDED_KEYS: AccessToken[] = [
-  { id: 'key-1', name: 'Production deploy', maskedValue: '••••••••••3f9a', createdAt: 'Jan 12, 2026', lastUsedAt: '2h ago' },
-  { id: 'key-2', name: 'CI pipeline', maskedValue: '••••••••••7d21', createdAt: 'Feb 3, 2026', lastUsedAt: 'yesterday' },
+  { id: 'key-1', name: 'Portfolio website', maskedValue: '••••••••••3f9a', createdAt: 'Jan 12, 2026', lastUsedAt: '2h ago' },
+  { id: 'key-2', name: 'Print lab sync', maskedValue: '••••••••••7d21', createdAt: 'Feb 3, 2026', lastUsedAt: 'yesterday' },
   { id: 'key-3', name: 'Legacy script', maskedValue: '••••••••••0c88', createdAt: 'Nov 8, 2025', lastUsedAt: null },
 ];
 
@@ -114,7 +114,7 @@ export function AccessTokens({ title = 'API keys', description = 'Keys used to a
         <form onSubmit={handleCreate} className="flex flex-col gap-3 sm:flex-row sm:items-end">
           <div className="flex min-w-0 flex-1 flex-col gap-2">
             <Label htmlFor={nameId}>Key name</Label>
-            <TextField id={nameId} placeholder="Production deploy" value={name} onChange={(e) => setName(e.target.value)} widthSize="full" />
+            <TextField id={nameId} placeholder="Portfolio website" value={name} onChange={(e) => setName(e.target.value)} widthSize="full" />
           </div>
           <Button type="submit" appearance="filled" tone="primary" disabled={!name.trim()} className="max-sm:w-full" leftIcon={<Plus />}>
             Create key

@@ -4,7 +4,7 @@ import { TextField } from './text-field';
 
 export const tagInputGuidelines: ComponentGuidelines = {
   status: 'beta',
-  whenToUse: ['Several free-form values of one kind: email recipients, domains, IP ranges, tags.'],
+  whenToUse: ['Several free-form values of one kind: email recipients, photo keywords, tags.'],
   whenNotToUse: [
     { text: 'Picking several from a known list', instead: 'Combobox multiple or CheckboxGroup' },
     { text: 'One value', instead: 'TextField' },
@@ -16,8 +16,8 @@ export const tagInputGuidelines: ComponentGuidelines = {
   ],
   doDont: [
     {
-      do: { example: <div className="w-80"><TagInput aria-label="Recipients" defaultValue={['dana@seashell.shop', 'ops@seashell.shop']} /></div>, caption: 'Each value is a chip — easy to check and remove.' },
-      dont: { example: <TextField label="Recipients" defaultValue="dana@seashell.shop, ops@seashell.shop" description="Separate with commas" widthSize="lg" />, caption: 'A comma list in one field hides which value is wrong.' },
+      do: { example: <div className="w-80"><TagInput aria-label="Recipients" defaultValue={['thea@aether.photo', 'ian@aether.photo']} /></div>, caption: 'Each value is a chip — easy to check and remove.' },
+      dont: { example: <TextField label="Recipients" defaultValue="thea@aether.photo, ian@aether.photo" description="Separate with commas" widthSize="lg" />, caption: 'A comma list in one field hides which value is wrong.' },
     },
   ],
   a11y: [<>Give it a visible <C>label</C>, and say how to add (“Press Enter or comma”) in <C>description</C>: the placeholder disappears once there are tags.</>, 'Additions and removals are announced.', 'Backspace in the empty input removes the last chip; each chip’s remove button is named.', <>Invalid values stay visible with their reason — never dropped silently.</>],

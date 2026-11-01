@@ -27,7 +27,7 @@
 - textbox "Message":
   - /placeholder: Send a message…
 - button "Send" [disabled]
-- paragraph: "Last sent: Create a staging environment for the shop.seashell.dev site now — press Up in the empty field above to edit it again."
+- paragraph: "Last sent: Create a client gallery for the Selene Weddings shoot now — press Up in the empty field above to edit it again."
 
 # With attachments (ai-chat-promptarea--with-attachments)
 - status

@@ -1,5 +1,5 @@
 import { C, type ComponentGuidelines } from '../../docs/guidelines';
-import { Globe, HomeSimple, Settings, Wrench } from 'iconoir-react';
+import { MediaImageList, HomeSimple, Settings, Wrench } from 'iconoir-react';
 import { Button } from './button';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut } from './command';
 
@@ -30,7 +30,7 @@ export const commandGuidelines: ComponentGuidelines = {
                 <CommandEmpty>No results found.</CommandEmpty>
                 <CommandGroup heading="Go to">
                   <CommandItem value="dashboard"><HomeSimple /> Dashboard</CommandItem>
-                  <CommandItem value="sites"><Globe /> Sites</CommandItem>
+                  <CommandItem value="galleries"><MediaImageList /> Galleries</CommandItem>
                 </CommandGroup>
                 <CommandSeparator />
                 <CommandGroup heading="Settings">

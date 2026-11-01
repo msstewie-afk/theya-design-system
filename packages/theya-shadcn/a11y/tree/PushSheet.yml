@@ -42,9 +42,9 @@
   - paragraph: Today
   - list "Today notifications":
     - listitem:
-      - button "Deploy succeeded Unread"
-      - text: Deploy succeeded Unread shop.seashell.dev deployed to production in 42s. 8m ago
-      - button "Actions for Deploy succeeded"
+      - button "Export finished Unread"
+      - text: "Export finished Unread Golden hour: 240 photos exported for print. 8m ago"
+      - button "Actions for Export finished"
     - listitem:
       - button "New sign-in from a new device Unread"
       - text: New sign-in from a new device Unread Chrome on macOS · 203.0.113.24. If this wasn't you, review your sessions. 1h ago
@@ -56,14 +56,14 @@
   - paragraph: Earlier
   - list "Earlier notifications":
     - listitem:
-      - button "Certificate renews soon Unread"
-      - text: Certificate renews soon Unread The certificate for api.seashell.dev renews in 7 days. Yesterday
-      - button "Actions for Certificate renews soon"
+      - button "License renews soon Unread"
+      - text: License renews soon Unread The web license for Moonrise over Othrys renews in 7 days. Yesterday
+      - button "Actions for License renews soon"
     - listitem:
-      - button "Backup failed"
-      - text: Backup failed The nightly backup for acme_prod did not complete. 2d ago
-      - button "Actions for Backup failed"
+      - button "Archive copy failed"
+      - text: Archive copy failed The nightly copy of Blue hour to Mnemosyne did not complete. 2d ago
+      - button "Actions for Archive copy failed"
     - listitem:
       - button "Teammate joined"
-      - text: Teammate joined Priya Nair accepted your invitation. 3d ago
+      - text: Teammate joined Elio Sanz accepted your invitation. 3d ago
       - button "Actions for Teammate joined"

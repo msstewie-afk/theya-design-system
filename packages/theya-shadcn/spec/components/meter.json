@@ -47,11 +47,11 @@
     {
       "do": {
         "caption": "Tone follows the level, and the number says it too.",
-        "example": "<div className=\"flex w-72 flex-col gap-3\">\n  <Meter value={0.38} min={0} max={1} label=\"CPU\" tone=\"success\" format={{ style: 'percent' }} />\n  <Meter value={0.96} min={0} max={1} label=\"Disk\" tone=\"danger\" format={{ style: 'percent' }} />\n</div>"
+        "example": "<div className=\"flex w-72 flex-col gap-3\">\n  <Meter value={0.38} min={0} max={1} label=\"Storage\" tone=\"success\" format={{ style: 'percent' }} />\n  <Meter value={0.96} min={0} max={1} label=\"Archive\" tone=\"danger\" format={{ style: 'percent' }} />\n</div>"
       },
       "dont": {
         "caption": "Progress for a fill level reads as “almost done”, not “almost full”.",
-        "example": "<div className=\"flex w-72 flex-col gap-1\">\n  <span className=\"text-body-s\">Disk</span>\n  <Progress value={96} aria-label=\"Disk\" />\n</div>"
+        "example": "<div className=\"flex w-72 flex-col gap-1\">\n  <span className=\"text-body-s\">Archive</span>\n  <Progress value={96} aria-label=\"Archive\" />\n</div>"
       }
     }
   ],

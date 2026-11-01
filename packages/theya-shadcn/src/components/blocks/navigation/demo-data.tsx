@@ -1,6 +1,7 @@
 import type { MegaItem } from './mega-menu';
 import type { FooterColumn } from './site-footer';
 
+/** Demo navigation for the Navigation pattern stories: the marketing site of Aether, a platform for photographers. */
 export const DEMO_MENU: MegaItem[] = [
   {
     id: 'products',
@@ -8,32 +9,32 @@ export const DEMO_MENU: MegaItem[] = [
     overview: { label: 'All products', href: '#products' },
     columns: [
       {
-        title: 'Hosting',
+        title: 'Galleries',
         links: [
-          { label: 'Shared hosting', href: '#shared', description: 'Sites and stores up to ~50k visits a month' },
-          { label: 'VPS', href: '#vps', description: 'Your own server, managed for you' },
-          { label: 'Dedicated servers', href: '#dedicated', description: 'Whole machines for heavy workloads' },
+          { label: 'Client galleries', href: '#galleries', description: 'Share, proof and deliver a shoot in one link' },
+          { label: 'Client portals', href: '#portals', description: 'A branded space for each client, on your own address' },
+          { label: 'Archive', href: '#archive', description: 'Every original kept safe in Mnemosyne' },
         ],
       },
       {
-        title: 'Domains',
+        title: 'Sell',
         links: [
-          { label: 'Register a domain', href: '#register' },
-          { label: 'Transfer a domain', href: '#transfer' },
-          { label: 'DNS hosting', href: '#dns' },
+          { label: 'Print store', href: '#prints' },
+          { label: 'Photo books', href: '#books' },
+          { label: 'Licensing', href: '#licensing' },
         ],
       },
       {
         title: 'Add-ons',
         links: [
-          { label: 'Backups', href: '#backups' },
-          { label: 'Email', href: '#email' },
-          { label: 'CDN', href: '#cdn', badge: 'New' },
-          { label: 'Extensions catalog', href: '#extensions' },
+          { label: 'Presets', href: '#presets' },
+          { label: 'Lens rentals', href: '#lenses' },
+          { label: 'Studio sessions', href: '#sessions', badge: 'New' },
+          { label: 'Shop', href: '#shop' },
         ],
       },
     ],
-    featured: { title: 'Move your site for free', description: 'We copy files, databases and email from your old host, and switch DNS when it’s ready.', href: '#migration', cta: 'Start a migration' },
+    featured: { title: 'Move your galleries for free', description: 'We copy your galleries, client lists and print orders from your old platform, and switch your portals over when they’re ready.', href: '#migration', cta: 'Start a move' },
   },
   {
     id: 'solutions',
@@ -43,17 +44,17 @@ export const DEMO_MENU: MegaItem[] = [
       {
         title: 'By need',
         links: [
-          { label: 'Online stores', href: '#stores', description: 'Fast checkout, PCI-ready' },
-          { label: 'Agencies', href: '#agencies', description: 'Many clients, one panel' },
-          { label: 'Developers', href: '#developers', description: 'Git deploys, SSH, staging' },
+          { label: 'Wedding photographers', href: '#weddings', description: 'Proofing, albums and delivery on time' },
+          { label: 'Portrait studios', href: '#portraits', description: 'Sessions, sales and prints in one place' },
+          { label: 'Agencies', href: '#agencies', description: 'Many photographers, one account' },
         ],
       },
       {
-        title: 'By platform',
+        title: 'Works with',
         links: [
-          { label: 'Next.js', href: '#nextjs' },
-          { label: 'Astro', href: '#astro' },
-          { label: 'Node.js', href: '#node' },
+          { label: 'Lightroom', href: '#lightroom' },
+          { label: 'Capture One', href: '#capture-one' },
+          { label: 'Photoshop', href: '#photoshop' },
         ],
       },
     ],
@@ -86,7 +87,7 @@ export const DEMO_MENU: MegaItem[] = [
 ];
 
 export const DEMO_FOOTER_COLUMNS: FooterColumn[] = [
-  { title: 'Products', links: [{ label: 'Shared hosting', href: '#shared' }, { label: 'VPS', href: '#vps' }, { label: 'Dedicated servers', href: '#dedicated' }, { label: 'Domains', href: '#domains' }, { label: 'Extensions', href: '#extensions' }] },
+  { title: 'Products', links: [{ label: 'Client galleries', href: '#galleries' }, { label: 'Client portals', href: '#portals' }, { label: 'Print store', href: '#prints' }, { label: 'Archive', href: '#archive' }, { label: 'Shop', href: '#shop' }] },
   { title: 'Support', links: [{ label: 'Help center', href: '#help' }, { label: 'Contact support', href: '#support' }, { label: 'Status', href: '#status' }, { label: 'Report abuse', href: '#abuse' }] },
   { title: 'Developers', links: [{ label: 'API reference', href: '#api' }, { label: 'Guides', href: '#guides' }, { label: 'Changelog', href: '#changelog' }] },
   { title: 'Company', links: [{ label: 'About', href: '#about' }, { label: 'Careers', href: '#careers' }, { label: 'Blog', href: '#blog' }, { label: 'Partners', href: '#partners' }] },

@@ -21,7 +21,7 @@ export const feedbackWidgetGuidelines: ComponentGuidelines = {
   doDont: [
     {
       do: { example: <FeedbackWidget question="Did this article solve your problem?" />, caption: 'One question about this page, answered in one click.' },
-      dont: { example: <FeedbackWidget question="How satisfied are you with our hosting overall?" />, caption: 'A product-wide question under one article gives answers nobody can act on.' },
+      dont: { example: <FeedbackWidget question="How satisfied are you with Aether overall?" />, caption: 'A product-wide question under one article gives answers nobody can act on.' },
     },
   ],
   a11y: [

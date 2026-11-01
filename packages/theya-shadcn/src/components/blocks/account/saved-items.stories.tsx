@@ -38,15 +38,15 @@ export const Default: Story = {
 
     // A row's Remove goes with its row: focus moves to the Remove button
     // of the row that takes its place (WCAG 2.4.3)...
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove NVMe storage add-on' }));
-    await expect(canvas.queryByRole('link', { name: 'NVMe storage add-on' })).not.toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Extra storage add-on' }));
+    await expect(canvas.queryByRole('link', { name: 'Extra storage add-on' })).not.toBeInTheDocument();
     await expect(canvas.getByRole('heading', { name: 'Saved (3)' })).toBeVisible();
-    await waitFor(() => expect(document.activeElement).toBe(canvas.getByRole('button', { name: 'Remove Dedicated server' })));
+    await waitFor(() => expect(document.activeElement).toBe(canvas.getByRole('button', { name: 'Remove Lens rental: 85 mm f/1.4' })));
 
     // ...or of the row above, when the last row goes.
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove Firewall appliance (2025)' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Film scanning (2025)' }));
     await expect(canvas.getByRole('heading', { name: 'Saved (2)' })).toBeVisible();
-    await waitFor(() => expect(document.activeElement).toBe(canvas.getByRole('button', { name: 'Remove Dedicated server' })));
+    await waitFor(() => expect(document.activeElement).toBe(canvas.getByRole('button', { name: 'Remove Lens rental: 85 mm f/1.4' })));
     await clearToasts();
   },
 };
@@ -56,13 +56,13 @@ export const LastItem: Story = {
   args: { items: DEMO_SAVED.slice(0, 1) },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove Dedicated server' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Lens rental: 85 mm f/1.4' }));
     await expect(canvas.getByText('Nothing saved yet')).toBeVisible();
     await waitFor(() => expect(document.activeElement).toBe(canvasElement.querySelector('[data-slot="empty-state"]')));
 
-    const removed = (await body().findByText('Removed “Dedicated server”', { selector: '[data-title]' })).closest('[data-sonner-toast]') as HTMLElement;
+    const removed = (await body().findByText('Removed “Lens rental: 85 mm f/1.4”', { selector: '[data-title]' })).closest('[data-sonner-toast]') as HTMLElement;
     await userEvent.click(within(removed).getByRole('button', { name: 'Undo' }));
-    await waitFor(() => expect(document.activeElement).toBe(canvas.getByRole('button', { name: 'Remove Dedicated server' })));
+    await waitFor(() => expect(document.activeElement).toBe(canvas.getByRole('button', { name: 'Remove Lens rental: 85 mm f/1.4' })));
 
     // Bulk Remove of everything: same landing.
     await userEvent.click(canvas.getByRole('checkbox', { name: 'Select all' }));

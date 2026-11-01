@@ -2,9 +2,9 @@
 
 # Default (patterns-account-accountoverview--default)
 - banner:
-  - text: DK
-  - heading "Dana Kovač" [level=1]
-  - paragraph: dana@seashell.shop · Seashell
+  - text: TM
+  - heading "Thea Marlow" [level=1]
+  - paragraph: thea@aether.photo · Helios Studio
   - paragraph: Member since March 2023
 - region "Needs your attention (2)":
   - heading "Needs your attention (2)" [level=2]
@@ -27,9 +27,9 @@
         - link "Profile":
           - /url: "#profile"
       - term: Name
-      - definition: Dana Kovač
+      - definition: Thea Marlow
       - term: Email
-      - definition: dana@seashell.shop
+      - definition: thea@aether.photo
       - term: Language
       - definition: English
       - list:
@@ -99,7 +99,7 @@
         - link "Notifications":
           - /url: "#notifications"
       - term: Email
-      - definition: Billing, security, outages
+      - definition: Billing, security, client activity
       - term: Weekly report
       - definition: "On"
       - list:
@@ -124,9 +124,9 @@
 
 # Nothing To Do (patterns-account-accountoverview--nothing-to-do)
 - banner:
-  - text: DK
-  - heading "Dana Kovač" [level=1]
-  - paragraph: dana@seashell.shop · Seashell
+  - text: TM
+  - heading "Thea Marlow" [level=1]
+  - paragraph: thea@aether.photo · Helios Studio
   - paragraph: Member since March 2023
 - region "Everything in your account":
   - heading "Everything in your account" [level=2]
@@ -136,9 +136,9 @@
         - link "Profile":
           - /url: "#profile"
       - term: Name
-      - definition: Dana Kovač
+      - definition: Thea Marlow
       - term: Email
-      - definition: dana@seashell.shop
+      - definition: thea@aether.photo
       - term: Language
       - definition: English
       - list:
@@ -208,7 +208,7 @@
         - link "Notifications":
           - /url: "#notifications"
       - term: Email
-      - definition: Billing, security, outages
+      - definition: Billing, security, client activity
       - term: Weekly report
       - definition: "On"
       - list:

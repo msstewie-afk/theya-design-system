@@ -54,13 +54,13 @@ const FRAME = 'h-[420px] w-full max-w-[640px] rounded-[var(--size-border-radius-
 export const UnsavedChanges: Story = {
   parameters: { controls: { disable: true } },
   render: function Render() {
-    const initial = { name: 'Seashell storefront', domain: 'shop.seashell.dev', email: 'ops@seashell.dev', region: 'eu-west-1', repo: 'seashell/storefront', branch: 'main' };
+    const initial = { name: 'Golden hour', portal: 'helios.aether.photo', email: 'thea@aether.photo', studio: 'Helios Studio', client: 'Rhea Okafor', watermark: 'Aether' };
     const [values, setValues] = useState(initial);
     const dirty = JSON.stringify(values) !== JSON.stringify(initial);
     return (
-      <ScrollArea className={FRAME} aria-label="Site settings">
+      <ScrollArea className={FRAME} aria-label="Gallery settings">
         <form className="flex flex-col gap-5 p-6" onSubmit={(e) => e.preventDefault()}>
-          <h2 className="font-heading text-heading-xs text-[var(--color-text-text)]">Site settings</h2>
+          <h2 className="font-heading text-heading-xs text-[var(--color-text-text)]">Gallery settings</h2>
           {(Object.keys(initial) as (keyof typeof initial)[]).map((key) => (
             <TextField key={key} label={key[0].toUpperCase() + key.slice(1)} widthSize="full" value={values[key]} onChange={(e) => setValues((v) => ({ ...v, [key]: e.target.value }))} />
           ))}
@@ -90,8 +90,8 @@ export const UnsavedChanges: Story = {
     await tabTo(within(bar).getByRole('button', { name: 'Discard' }));
     await userEvent.keyboard('{Enter}');
     await expect(canvas.queryByRole('region', { name: 'Actions' })).not.toBeInTheDocument();
-    await expect(name).toHaveValue('Seashell storefront');
-    await waitFor(() => expect(canvas.getByRole('button', { name: 'Clear Branch' })).toHaveFocus());
+    await expect(name).toHaveValue('Golden hour');
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Clear Watermark' })).toHaveFocus());
   },
 };
 
@@ -99,17 +99,17 @@ export const UnsavedChanges: Story = {
 export const BulkSelection: Story = {
   parameters: { controls: { disable: true } },
   render: function Render() {
-    const sites = Array.from({ length: 14 }, (_, i) => `site-${String(i + 1).padStart(2, '0')}.seashell.dev`);
-    const [selected, setSelected] = useState<string[]>(['site-02.seashell.dev', 'site-05.seashell.dev']);
+    const photos = Array.from({ length: 14 }, (_, i) => `DAWN_${String(410 + i).padStart(4, '0')}.jpg`);
+    const [selected, setSelected] = useState<string[]>(['DAWN_0411.jpg', 'DAWN_0414.jpg']);
     const toggle = (s: string) => setSelected((cur) => (cur.includes(s) ? cur.filter((x) => x !== s) : [...cur, s]));
     return (
-      <ScrollArea className={FRAME} aria-label="Sites">
+      <ScrollArea className={FRAME} aria-label="Photos">
         <ul className="flex flex-col p-2">
-          {sites.map((s) => (
+          {photos.map((s) => (
             <li key={s}>
               <label className="flex cursor-pointer items-center gap-3 rounded-[var(--size-border-radius-border-radius-lg)] px-3 py-2.5 font-body text-body-m text-[var(--color-text-text)] hover:bg-[var(--color-bg-neutral-bg-neutral-subtler)]">
                 <Checkbox checked={selected.includes(s)} onCheckedChange={() => toggle(s)} />
-                {s}
+                <span className="font-mono">{s}</span>
               </label>
             </li>
           ))}
@@ -137,15 +137,15 @@ export const BulkSelection: Story = {
     const bar = () => canvas.queryByRole('region', { name: 'Bulk actions' });
     await expect(within(bar()!).getByText('2 selected')).toBeInTheDocument();
     // The count follows the selection, and the change is announced politely (WCAG 4.1.3).
-    const site7 = canvas.getByRole('checkbox', { name: 'site-07.seashell.dev' });
-    await userEvent.click(site7);
+    const photo7 = canvas.getByRole('checkbox', { name: 'DAWN_0416.jpg' });
+    await userEvent.click(photo7);
     await expect(within(bar()!).getByText('3 selected')).toBeInTheDocument();
     await waitFor(() => expect(document.querySelector('[data-theya-announcer="polite"]')).toHaveTextContent('3 selected'));
     // Clear selection empties it and closes the bar; focus returns to the last checkbox used.
     await userEvent.click(within(bar()!).getByRole('button', { name: 'Clear selection' }));
     await expect(bar()).not.toBeInTheDocument();
     await expect(canvas.queryAllByRole('checkbox', { checked: true })).toHaveLength(0);
-    await waitFor(() => expect(site7).toHaveFocus());
+    await waitFor(() => expect(photo7).toHaveFocus());
   },
 };
 
@@ -158,7 +158,7 @@ export const MobilePrimary: Story = {
         <h2 className="font-heading text-heading-xs">Business plan</h2>
         {Array.from({ length: 10 }, (_, i) => (
           <p key={i} className="text-[var(--color-text-text-subtle)]">
-            Feature {i + 1}: daily backups, staging sites and priority support included.
+            Feature {i + 1}: unlimited galleries, client portals and priority support included.
           </p>
         ))}
       </div>

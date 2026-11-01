@@ -51,10 +51,10 @@
 - button "Open options"
 
 # With Label (date-time-datetimepicker--with-label)
-- text: Schedule deploy
-- button "Schedule deploy":
+- text: Schedule delivery
+- button "Schedule delivery":
   - img
   - text: Pick a date
-- combobox "Schedule deploy Time"
+- combobox "Schedule delivery Time"
 - button "Open options"
 - text: Runs in your workspace's time zone.

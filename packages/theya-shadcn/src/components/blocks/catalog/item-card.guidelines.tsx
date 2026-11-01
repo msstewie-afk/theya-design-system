@@ -4,7 +4,7 @@ import { C, type ComponentGuidelines } from '../../../docs/guidelines';
 export const itemCardGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
-    'One entry in a catalog people browse and compare: extensions, plugins, servers, templates.',
+    'One entry in a catalog people browse and compare: presets, prints, photo books, lens rentals, plan add-ons.',
     'Grid for browsing by eye, list for scanning many items; the facts appear in the same order in both.',
   ],
   whenNotToUse: [

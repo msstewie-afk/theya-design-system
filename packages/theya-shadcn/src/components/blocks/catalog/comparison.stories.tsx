@@ -26,37 +26,37 @@ type Story = StoryObj<typeof CompareFlow>;
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('checkbox', { name: 'Compare Shieldwall' }));
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Compare Golden hour presets' }));
     const bar = canvas.getByRole('region', { name: 'Comparison' });
     const go = within(bar).getByRole('button', { name: 'Compare (1)' });
     await expect(go).toHaveAccessibleDescription('Pick at least 2 to compare.');
     await userEvent.click(go);
     await expect(canvas.queryByRole('heading', { name: /Comparing/ })).not.toBeInTheDocument();
 
-    await userEvent.click(canvas.getByRole('checkbox', { name: 'Compare Login Guard' }));
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Compare Skin tone essentials' }));
     await userEvent.click(within(bar).getByRole('button', { name: 'Compare (2)' }));
-    await waitFor(() => expect(canvas.getByRole('heading', { name: 'Comparing 2 extensions' })).toHaveFocus());
+    await waitFor(() => expect(canvas.getByRole('heading', { name: 'Comparing 2 products' })).toHaveFocus());
 
-    // Both are Security: the row goes away with "Only differences".
+    // Both are Presets: the row goes away with "Only differences".
     await expect(canvas.getByRole('rowheader', { name: 'Category' })).toBeVisible();
     await userEvent.click(canvas.getByRole('switch', { name: 'Only differences' }));
     await expect(canvas.queryByRole('rowheader', { name: 'Category' })).not.toBeInTheDocument();
 
     await userEvent.click(canvas.getByRole('button', { name: 'Back to results' }));
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Compare (2)' })).toHaveFocus());
-    await expect(canvas.getByRole('checkbox', { name: 'Compare Login Guard' })).toBeChecked();
+    await expect(canvas.getByRole('checkbox', { name: 'Compare Skin tone essentials' })).toBeChecked();
   },
 };
 
 /** At the limit, the other cards can't be added and the tray says why. */
 export const Full: Story = {
-  args: { initialSelection: ['shieldwall', 'secret-scanner', 'login-guard', 'certpilot'] },
+  args: { initialSelection: ['golden-hour-presets', 'blue-hour-presets', 'skin-tone-essentials', 'aether-basics'] },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('checkbox', { name: 'Compare Vault Backup' })).toBeDisabled();
+    await expect(canvas.getByRole('checkbox', { name: 'Compare Client proofing' })).toBeDisabled();
     await expect(canvas.getByText("That's the maximum of 4. Remove one to add another.")).toBeVisible();
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove CertPilot from comparison' }));
-    await expect(canvas.getByRole('checkbox', { name: 'Compare Vault Backup' })).toBeEnabled();
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Aether basics from comparison' }));
+    await expect(canvas.getByRole('checkbox', { name: 'Compare Client proofing' })).toBeEnabled();
   },
 };
 
@@ -67,37 +67,37 @@ export const Full: Story = {
  */
 export const TrayRemoveFocus: Story = {
   name: 'Test: tray remove keeps focus',
-  args: { initialSelection: ['shieldwall', 'secret-scanner', 'login-guard'] },
+  args: { initialSelection: ['golden-hour-presets', 'blue-hour-presets', 'skin-tone-essentials'] },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const bar = canvas.getByRole('region', { name: 'Comparison' });
 
     // Middle one: focus moves to the next pick.
-    await userEvent.click(within(bar).getByRole('button', { name: 'Remove Secret Scanner from comparison' }));
-    await waitFor(() => expect(within(bar).getByRole('button', { name: 'Remove Login Guard from comparison' })).toHaveFocus());
+    await userEvent.click(within(bar).getByRole('button', { name: 'Remove Blue hour presets from comparison' }));
+    await waitFor(() => expect(within(bar).getByRole('button', { name: 'Remove Skin tone essentials from comparison' })).toHaveFocus());
 
     // Last one, by keyboard: focus moves to the previous pick.
     await userEvent.keyboard('{Enter}');
-    await waitFor(() => expect(within(bar).getByRole('button', { name: 'Remove Shieldwall from comparison' })).toHaveFocus());
+    await waitFor(() => expect(within(bar).getByRole('button', { name: 'Remove Golden hour presets from comparison' })).toHaveFocus());
 
     // Only one: the tray goes away, focus lands on the results list.
     await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(canvas.queryByRole('region', { name: 'Comparison' })).not.toBeInTheDocument());
-    await waitFor(() => expect(canvas.getByRole('checkbox', { name: 'Compare Shieldwall' }).closest('ul')).toHaveFocus());
+    await waitFor(() => expect(canvas.getByRole('checkbox', { name: 'Compare Golden hour presets' }).closest('ul')).toHaveFocus());
   },
 };
 
 /** "Clear" empties the tray; focus goes to the results list instead of <body>. */
 export const ClearFocus: Story = {
   name: 'Test: clear keeps focus',
-  args: { initialSelection: ['shieldwall', 'login-guard'] },
+  args: { initialSelection: ['golden-hour-presets', 'skin-tone-essentials'] },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const bar = canvas.getByRole('region', { name: 'Comparison' });
     await userEvent.click(within(bar).getByRole('button', { name: 'Clear' }));
     await waitFor(() => expect(canvas.queryByRole('region', { name: 'Comparison' })).not.toBeInTheDocument());
-    await waitFor(() => expect(canvas.getByRole('checkbox', { name: 'Compare Shieldwall' }).closest('ul')).toHaveFocus());
-    await expect(canvas.getByRole('checkbox', { name: 'Compare Shieldwall' })).not.toBeChecked();
+    await waitFor(() => expect(canvas.getByRole('checkbox', { name: 'Compare Golden hour presets' }).closest('ul')).toHaveFocus());
+    await expect(canvas.getByRole('checkbox', { name: 'Compare Golden hour presets' })).not.toBeChecked();
   },
 };
 
@@ -108,20 +108,20 @@ export const ClearFocus: Story = {
  */
 export const TableRemoveFocus: Story = {
   name: 'Test: table remove keeps focus',
-  args: { initialSelection: ['shieldwall', 'secret-scanner', 'login-guard', 'certpilot'] },
+  args: { initialSelection: ['golden-hour-presets', 'blue-hour-presets', 'skin-tone-essentials', 'aether-basics'] },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Compare (4)' }));
-    await waitFor(() => expect(canvas.getByRole('heading', { name: 'Comparing 4 extensions' })).toHaveFocus());
+    await waitFor(() => expect(canvas.getByRole('heading', { name: 'Comparing 4 products' })).toHaveFocus());
 
     // First column: focus moves to the next column's remove button.
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove Shieldwall from comparison' }));
-    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove Secret Scanner from comparison' })).toHaveFocus());
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Golden hour presets from comparison' }));
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove Blue hour presets from comparison' })).toHaveFocus());
 
     // Last column, by keyboard: focus moves to the previous column's.
-    canvas.getByRole('button', { name: 'Remove CertPilot from comparison' }).focus();
+    canvas.getByRole('button', { name: 'Remove Aether basics from comparison' }).focus();
     await userEvent.keyboard('{Enter}');
-    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove Login Guard from comparison' })).toHaveFocus());
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove Skin tone essentials from comparison' })).toHaveFocus());
 
     // Below two: back to the results, focus on "Compare".
     await userEvent.keyboard('{Enter}');
@@ -131,5 +131,5 @@ export const TableRemoveFocus: Story = {
 
 /** The table on its own: attribute column pinned, columns scroll sideways when narrow. */
 export const Table: StoryObj<typeof ComparisonTable> = {
-  render: () => <ComparisonTable items={DEMO_ITEMS.filter((i) => ['vault-backup', 'snapshot-pro', 'restore-point'].includes(i.id))} />,
+  render: () => <ComparisonTable items={DEMO_ITEMS.filter((i) => ['client-proofing', 'extra-storage', 'watermark-studio'].includes(i.id))} />,
 };

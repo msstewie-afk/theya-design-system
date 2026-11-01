@@ -19,7 +19,7 @@ const meta: Meta<typeof File> = {
     docs: {
       description: {
         component:
-          "One file in a form — a logo, a certificate, a document — showing the current file and letting people replace it.",
+          "One file in a form — a logo, a model release, a document — showing the current file and letting people replace it.",
       },
     },
   },
@@ -125,7 +125,7 @@ export const CardGrid: Story = {
       <File name="cover.png" size={801000} type="image/png" meta="Modified today" />
       <File name="report.pdf" size={242000} type="application/pdf" meta="Modified 2 days ago" />
       <File name="notes.md" size={4100} meta="Modified 1 week ago" />
-      <File name="build.zip" size={1280000} meta="Modified 1 month ago" />
+      <File name="presets.zip" size={1280000} meta="Modified 1 month ago" />
       <File name="main.ts" size={9200} meta="Modified 3 days ago" />
       <File empty />
     </div>
@@ -175,11 +175,11 @@ export const WithError: Story = {
   render: () => (
     <div className="flex max-w-2xl flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <File variant="row" name="backup.tar.gz" type="application/gzip" size={5300000000} error="Exceeds the 2 GB upload limit" />
+        <File variant="row" name="wedding-raws.zip" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" />
         <File variant="row" name="notes.pages" type="application/octet-stream" error="File type is not supported" />
       </div>
       <div className="grid grid-cols-3 gap-3">
-        <File name="backup.tar.gz" type="application/gzip" size={5300000000} error="Exceeds the 2 GB upload limit" />
+        <File name="wedding-raws.zip" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" />
         <File name="cover.png" type="image/png" size={820000} error="Upload failed" />
         <File name="data.csv" type="text/csv" size={9200} meta="Modified today" />
       </div>

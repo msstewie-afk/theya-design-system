@@ -6,7 +6,7 @@
 - link "Sign in":
   - /url: "#sign-in"
 - text: Work email
-- textbox "Work email": dana@seashell.shop
+- textbox "Work email": elio@aether.photo
 - button "Clear input"
 - text: Password
 - textbox "Password": abcdefgh
@@ -65,7 +65,7 @@
 - link "Sign in":
   - /url: "#sign-in"
 - text: Work email
-- textbox "Work email": dana@seashell.shop
+- textbox "Work email": elio@aether.photo
 - button "Clear input"
 - text: Password
 - textbox "Password" [invalid]: abc

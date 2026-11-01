@@ -3,9 +3,9 @@ import { DonutChart } from './donut-chart';
 import { donutChartGuidelines } from './donut-chart.guidelines';
 
 const STORAGE = [
-  { label: 'Production', value: 62 },
-  { label: 'Staging', value: 32 },
-  { label: 'Development', value: 18 },
+  { label: 'RAW files', value: 62 },
+  { label: 'JPEGs', value: 32 },
+  { label: 'Exports', value: 18 },
 ];
 
 /**
@@ -58,7 +58,7 @@ const meta = {
     unit: ' GB',
     centerLabel: 'Storage',
     legend: true,
-    ariaLabel: 'Storage by environment: production 62 GB, staging 32 GB, dev 18 GB.',
+    ariaLabel: 'Storage by file type: RAW files 62 GB, JPEGs 32 GB, exports 18 GB.',
   },
   decorators: [
     (Story) => (
@@ -97,7 +97,7 @@ export const AsPercent: Story = {
     unit: '%',
     centerLabel: 'Used',
     centerValue: '68%',
-    ariaLabel: 'Disk usage: 68% used, 32% free.',
+    ariaLabel: 'Storage usage: 68% used, 32% free.',
   },
 };
 

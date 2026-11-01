@@ -14,4 +14,4 @@
 
 # Line (charts-chartrangeselection--line)
 - paragraph: Drag across the chart, or focus it and use Shift + arrow keys, to select a range. Click once or press Esc to clear it.
-- group "Select a date range": Aug 5 Requests 59 Errors 9 Use left and right arrow keys to move, Shift plus arrow keys to select a range, Escape to clear.
+- group "Select a date range": Aug 5 Views 590 Downloads 90 Use left and right arrow keys to move, Shift plus arrow keys to select a range, Escape to clear.

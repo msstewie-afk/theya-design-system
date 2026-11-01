@@ -7,10 +7,10 @@ import { Badge } from './badge';
 import { swipeDeckGuidelines } from './swipe-deck.guidelines';
 
 const TEMPLATES = [
-  { id: 'portfolio', name: 'Portfolio', text: 'A one-page site for your work, with a contact form.', tag: 'Personal' },
-  { id: 'shop', name: 'Small shop', text: 'Catalog, cart and checkout for up to 50 products.', tag: 'Commerce' },
-  { id: 'docs', name: 'Docs', text: 'Searchable docs with a sidebar and versioning.', tag: 'Product' },
-  { id: 'blog', name: 'Blog', text: 'Posts, tags and an RSS feed out of the box.', tag: 'Content' },
+  { id: 'portfolio', name: 'Portfolio', text: 'A one-page gallery of your best work, with a contact form.', tag: 'Personal' },
+  { id: 'print-shop', name: 'Print shop', text: 'Prints and photo books clients order straight from a gallery.', tag: 'Commerce' },
+  { id: 'wedding', name: 'Wedding album', text: 'A chapter for each part of the day, with client favorites.', tag: 'Weddings' },
+  { id: 'proofing', name: 'Proofing', text: 'Clients mark their selects; you get the picks in one list.', tag: 'Client' },
 ];
 type Template = (typeof TEMPLATES)[number];
 
@@ -103,7 +103,7 @@ export const Default: Story = {
 
     // Only the top card is exposed.
     const exposed = (text: string) => canvas.queryAllByText(text).filter((el) => !el.closest('[aria-hidden="true"]'));
-    await expect(exposed('Docs')).toHaveLength(1);
-    await expect(exposed('Blog')).toHaveLength(0);
+    await expect(exposed('Wedding album')).toHaveLength(1);
+    await expect(exposed('Proofing')).toHaveLength(0);
   },
 };

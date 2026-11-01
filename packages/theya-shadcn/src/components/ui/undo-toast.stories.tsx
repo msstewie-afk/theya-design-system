@@ -16,7 +16,7 @@ import { undoToastGuidelines } from './undo-toast.guidelines';
  * `<Toaster/>` (mounted in `.storybook/preview.ts`) renders the toast, so
  * these stories don't mount their own (see Status & Feedback/Toaster's own comment
  * for why a second instance would just eat the calls). Use for reversible
- * deletes (sites, DNS records, files); for high-stakes/irreversible actions
+ * deletes (galleries, client access, files); for high-stakes/irreversible actions
  * use a typed-confirm Dialog instead.
  */
 const meta = {
@@ -52,11 +52,11 @@ export const Default: Story = {
       tone="secondary"
       onClick={() =>
         undoToast({
-          title: 'Site deleted',
-          description: 'legacy.seashell.dev · recoverable for 30 days',
+          title: 'Gallery deleted',
+          description: 'Blue hour · recoverable for 30 days',
           onUndo: () => {
             undoSpy();
-            toast.success('Site restored');
+            toast.success('Gallery restored');
           },
           onCommit: () => {
             commitSpy();
@@ -65,28 +65,28 @@ export const Default: Story = {
         })
       }
     >
-      Delete site
+      Delete gallery
     </Button>
   ),
   play: async ({ canvasElement }) => {
-    const trigger = within(canvasElement).getByRole('button', { name: 'Delete site' });
+    const trigger = within(canvasElement).getByRole('button', { name: 'Delete gallery' });
     undoSpy.mockClear();
     commitSpy.mockClear();
 
     // Undo rolls back and never commits.
     await userEvent.click(trigger);
-    const first = (await toastByTitle('Site deleted')).closest('[data-sonner-toast]') as HTMLElement;
+    const first = (await toastByTitle('Gallery deleted')).closest('[data-sonner-toast]') as HTMLElement;
     // No close "X": dismissing would quietly commit a destructive action.
     await expect(first.querySelector('[data-close-button]')).toBeNull();
     await userEvent.click(within(first).getByRole('button', { name: 'Undo' }));
     await expect(undoSpy).toHaveBeenCalledTimes(1);
-    await expect(await toastByTitle('Site restored')).toBeInTheDocument();
+    await expect(await toastByTitle('Gallery restored')).toBeInTheDocument();
     await clearToasts();
     await expect(commitSpy).not.toHaveBeenCalled();
 
     // Keyboard route inside the grace window: Alt+T jumps to the toasts.
     await userEvent.click(trigger);
-    await toastByTitle('Site deleted');
+    await toastByTitle('Gallery deleted');
     await userEvent.keyboard('{Alt>}t{/Alt}');
     await waitFor(() => expect(document.activeElement?.closest('[data-sonner-toaster]')).not.toBeNull());
     const undo = body().getByRole('button', { name: 'Undo' });
@@ -98,7 +98,7 @@ export const Default: Story = {
 
     // Letting it go (dismissed) commits exactly once.
     await userEvent.click(trigger);
-    await toastByTitle('Site deleted');
+    await toastByTitle('Gallery deleted');
     toast.dismiss();
     await waitFor(() => expect(commitSpy).toHaveBeenCalledTimes(1));
     await clearToasts();
@@ -120,19 +120,19 @@ export const TitleOnly: Story = {
       tone="secondary"
       onClick={() =>
         undoToast({
-          title: 'Backup deleted',
-          onCommit: () => toast('Backup removed'),
+          title: 'Archive copy deleted',
+          onCommit: () => toast('Archive copy removed'),
         })
       }
     >
-      Delete backup
+      Delete archive copy
     </Button>
   ),
 };
 
 /**
- * Override `undoLabel`, `icon`, and shorten the grace window. Here a DNS
- * record is removed with a 6s window, a restore label, and a non-trash
+ * Override `undoLabel`, `icon`, and shorten the grace window. Here a client
+ * loses access to a gallery with a 6s window, a restore label, and a non-trash
  * glyph.
  */
 export const CustomLabelAndIcon: Story = {
@@ -143,25 +143,25 @@ export const CustomLabelAndIcon: Story = {
       tone="secondary"
       onClick={() =>
         undoToast({
-          title: 'Record removed',
-          description: 'MX · mail.seashell.dev',
+          title: 'Client removed',
+          description: 'Rhea Okafor · Golden hour',
           duration: 6000,
           undoLabel: 'Restore',
           icon: <Undo width={16} height={16} />,
-          onUndo: () => toast.success('Record restored'),
-          onCommit: () => toast('Record removed'),
+          onUndo: () => toast.success('Client restored'),
+          onCommit: () => toast('Client removed'),
         })
       }
     >
-      Remove DNS record
+      Remove client
     </Button>
   ),
   play: async ({ canvasElement }) => {
-    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Remove DNS record' }));
-    const item = (await toastByTitle('Record removed')).closest('[data-sonner-toast]') as HTMLElement;
-    await expect(within(item).getByText('MX · mail.seashell.dev')).toBeInTheDocument();
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Remove client' }));
+    const item = (await toastByTitle('Client removed')).closest('[data-sonner-toast]') as HTMLElement;
+    await expect(within(item).getByText('Rhea Okafor · Golden hour')).toBeInTheDocument();
     await userEvent.click(within(item).getByRole('button', { name: 'Restore' }));
-    await expect(await toastByTitle('Record restored')).toBeInTheDocument();
+    await expect(await toastByTitle('Client restored')).toBeInTheDocument();
     await clearToasts();
   },
 };
@@ -179,7 +179,7 @@ export const WithoutIcon: Story = {
       onClick={() =>
         undoToast({
           title: 'File moved to trash',
-          description: 'public/old-index.html',
+          description: 'GOLDEN_0907.tif',
           icon: null,
           onUndo: () => toast.success('File restored'),
           onCommit: () => toast('File deleted'),
@@ -204,15 +204,15 @@ export const LongerGraceWindow: Story = {
       tone="danger"
       onClick={() =>
         undoToast({
-          title: 'Database dropped',
-          description: 'acme_prod · keep 30s to undo',
+          title: 'Archive emptied',
+          description: 'Mnemosyne · 30 seconds to undo',
           duration: 30000,
-          onUndo: () => toast.success('Database restored'),
-          onCommit: () => toast('Database drop committed'),
+          onUndo: () => toast.success('Archive restored'),
+          onCommit: () => toast('Archive deletion committed'),
         })
       }
     >
-      Drop database
+      Empty archive
     </Button>
   ),
 };
@@ -226,27 +226,27 @@ export const Playground: Story = {
         tone="secondary"
         onClick={() =>
           undoToast({
-            title: 'Site deleted',
-            description: 'legacy.seashell.dev · recoverable for 30 days',
-            onUndo: () => toast.success('Site restored'),
+            title: 'Gallery deleted',
+            description: 'Blue hour · recoverable for 30 days',
+            onUndo: () => toast.success('Gallery restored'),
           })
         }
       >
-        Delete site
+        Delete gallery
       </Button>
       <Button
         appearance="outlined"
         tone="secondary"
         onClick={() =>
           undoToast({
-            title: 'Record removed',
+            title: 'Client removed',
             undoLabel: 'Restore',
             icon: <Undo width={16} height={16} />,
             duration: 6000,
           })
         }
       >
-        Remove DNS record
+        Remove client
       </Button>
       <Button appearance="outlined" tone="secondary" onClick={() => undoToast({ title: 'File moved to trash', icon: null })}>
         Move to trash

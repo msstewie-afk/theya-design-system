@@ -11,30 +11,30 @@
       - 'button "Save for later: Pro plan"': Save for later
       - button "Remove Pro plan": Remove
     - listitem:
-      - paragraph: Dedicated IPv4 address
-      - paragraph: 1 year
+      - paragraph: Fine-art print
+      - paragraph: Cotton rag12 × 16 in
       - paragraph: $36 each$108
       - text: Qty
-      - button "Fewer Dedicated IPv4 address":
+      - button "Fewer Fine-art print":
         - img
       - spinbutton "Qty": "3"
-      - button "More Dedicated IPv4 address":
+      - button "More Fine-art print":
         - img
-      - 'button "Save for later: Dedicated IPv4 address"': Save for later
-      - button "Remove Dedicated IPv4 address": Remove
+      - 'button "Save for later: Fine-art print"': Save for later
+      - button "Remove Fine-art print": Remove
 - region "Saved for later":
   - heading "Saved for later (2)" [level=2]
   - list:
     - listitem:
-      - paragraph: seashell.shop
-      - paragraph: Domain registration1 year
+      - paragraph: Proof book
+      - paragraph: Softcover40 pages
       - paragraph: $14
-      - 'button "Move to cart: seashell.shop"': Move to cart
+      - 'button "Move to cart: Proof book"': Move to cart
     - listitem:
-      - paragraph: Backups Plus
-      - paragraph: 90-day retention1 year
+      - paragraph: License manager
+      - paragraph: Plan add-on1 year
       - paragraph: $48
-      - 'button "Move to cart: Backups Plus"': Move to cart
+      - 'button "Move to cart: License manager"': Move to cart
 - region "Order summary":
   - heading "Order summary" [level=2]
   - term: Subtotal
@@ -51,7 +51,7 @@
 
 # Empty (patterns-commerce-cart--empty)
 - paragraph: Your cart is empty
-- paragraph: Plans, domains and add-ons you pick show up here.
+- paragraph: Plans, prints and add-ons you pick show up here.
 - button "Browse plans"
 
 # Quantity Zero Keeps Focus (patterns-commerce-cart--quantity-zero-keeps-focus)
@@ -59,17 +59,17 @@
   - heading "Cart (1)" [level=2]
   - list:
     - listitem:
-      - paragraph: Second IPv4 address
-      - paragraph: 1 year
+      - paragraph: Large fine-art print
+      - paragraph: Cotton rag12 × 16 in
       - paragraph: $36
       - text: Qty
-      - button "Fewer Second IPv4 address":
+      - button "Fewer Large fine-art print":
         - img
       - spinbutton "Qty": "1"
-      - button "More Second IPv4 address":
+      - button "More Large fine-art print":
         - img
-      - 'button "Save for later: Second IPv4 address"': Save for later
-      - button "Remove Second IPv4 address": Remove
+      - 'button "Save for later: Large fine-art print"': Save for later
+      - button "Remove Large fine-art print": Remove
 - region "Order summary":
   - heading "Order summary" [level=2]
   - term: Subtotal
@@ -85,7 +85,7 @@
 - region "Notifications alt+T":
   - list:
     - listitem:
-      - text: Dedicated IPv4 address removed
+      - text: Fine-art print removed
       - button "Undo"
 
 # Remove Keeps Focus (patterns-commerce-cart--remove-keeps-focus)
@@ -93,23 +93,23 @@
   - heading "Cart (2)" [level=2]
   - list:
     - listitem:
-      - paragraph: seashell.shop
-      - paragraph: Domain registration1 year
+      - paragraph: Proof book
+      - paragraph: Softcover40 pages
       - paragraph: $14
-      - 'button "Save for later: seashell.shop"': Save for later
-      - button "Remove seashell.shop": Remove
+      - 'button "Save for later: Proof book"': Save for later
+      - button "Remove Proof book": Remove
     - listitem:
-      - paragraph: Dedicated IPv4 address
-      - paragraph: 1 year
+      - paragraph: Fine-art print
+      - paragraph: Cotton rag12 × 16 in
       - paragraph: $36 each$72
       - text: Qty
-      - button "Fewer Dedicated IPv4 address":
+      - button "Fewer Fine-art print":
         - img
       - spinbutton "Qty": "2"
-      - button "More Dedicated IPv4 address":
+      - button "More Fine-art print":
         - img
-      - 'button "Save for later: Dedicated IPv4 address"': Save for later
-      - button "Remove Dedicated IPv4 address": Remove
+      - 'button "Save for later: Fine-art print"': Save for later
+      - button "Remove Fine-art print": Remove
 - region "Order summary":
   - heading "Order summary" [level=2]
   - term: Subtotal

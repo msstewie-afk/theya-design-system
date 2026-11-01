@@ -21,30 +21,30 @@
       - columnheader "Actor"
       - columnheader "Source IP"
   - rowgroup:
-    - row "Jul 14, 2026, 14:32 Signed in Authentication Alex Morgan 203.0.113.9":
+    - row "Jul 14, 2026, 14:32 Signed in Authentication Thea Marlow 203.0.113.9":
       - cell "Jul 14, 2026, 14:32"
       - cell "Signed in Authentication"
-      - cell "Alex Morgan"
+      - cell "Thea Marlow"
       - cell "203.0.113.9"
-    - row "Jul 14, 2026, 13:58 Deployed site Deploys shop.seashell.dev Automation 198.51.100.7":
+    - row "Jul 14, 2026, 13:58 Exported gallery Exports Golden hour Automation 198.51.100.7":
       - cell "Jul 14, 2026, 13:58"
-      - cell "Deployed site Deploys shop.seashell.dev"
+      - cell "Exported gallery Exports Golden hour"
       - cell "Automation"
       - cell "198.51.100.7"
-    - row "Jul 14, 2026, 11:10 Changed member role Members priya@seashell.dev Jordan Kim 203.0.113.24":
+    - row "Jul 14, 2026, 11:10 Changed member role Members elio@aether.photo Ian Hyde 203.0.113.24":
       - cell "Jul 14, 2026, 11:10"
-      - cell "Changed member role Members priya@seashell.dev"
-      - cell "Jordan Kim"
+      - cell "Changed member role Members elio@aether.photo"
+      - cell "Ian Hyde"
       - cell "203.0.113.24"
-    - row "Jul 13, 2026, 18:04 Updated payment method Billing Alex Morgan 203.0.113.24":
+    - row "Jul 13, 2026, 18:04 Updated payment method Billing Thea Marlow 203.0.113.24":
       - cell "Jul 13, 2026, 18:04"
       - cell "Updated payment method Billing"
-      - cell "Alex Morgan"
+      - cell "Thea Marlow"
       - cell "203.0.113.24"
-    - row "Jul 13, 2026, 09:41 Revoked API key Security legacy-script Alex Morgan 203.0.113.24":
+    - row "Jul 13, 2026, 09:41 Revoked API key Security legacy-script Thea Marlow 203.0.113.24":
       - cell "Jul 13, 2026, 09:41"
       - cell "Revoked API key Security legacy-script"
-      - cell "Alex Morgan"
+      - cell "Thea Marlow"
       - cell "203.0.113.24"
 - paragraph: 5 events match your filters
 

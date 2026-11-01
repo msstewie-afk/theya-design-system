@@ -7,30 +7,30 @@ import { DataTableCell } from './data-table-cell';
 import { DataTableToolbar, type DataTableBulkAction } from './data-table-toolbar';
 import { Button } from './button';
 
-interface Site { domain: string }
-const SITES: Site[] = [{ domain: 'shop.seashell.dev' }, { domain: 'blog.seashell.dev' }, { domain: 'api.seashell.dev' }];
-const columns: ColumnDef<Site, unknown>[] = [
-  { accessorKey: 'domain', header: 'Domain', cell: ({ row }) => <DataTableCell kind="mono" value={row.original.domain} />, meta: { kind: 'mono' } },
+interface Photo { file: string }
+const PHOTOS: Photo[] = [{ file: 'DAWN_0412.jpg' }, { file: 'GOLDEN_0907.tif' }, { file: 'L4_moonrise.raw' }];
+const columns: ColumnDef<Photo, unknown>[] = [
+  { accessorKey: 'file', header: 'File', cell: ({ row }) => <DataTableCell kind="mono" value={row.original.file} />, meta: { kind: 'mono' } },
 ];
-const ACTIONS: DataTableBulkAction<Site>[] = [
+const ACTIONS: DataTableBulkAction<Photo>[] = [
   { label: 'Archive', icon: <Archive />, onSelect: () => {} },
-  { label: 'Delete', icon: <Trash />, tone: 'danger', confirm: { title: (n) => `Delete ${n} sites?`, confirmLabel: 'Delete sites', onConfirm: () => {} } },
+  { label: 'Delete', icon: <Trash />, tone: 'danger', confirm: { title: (n) => `Delete ${n} photos?`, confirmLabel: 'Delete photos', onConfirm: () => {} } },
 ];
 
 function Demo() {
-  const [sel, setSel] = useState<RowSelectionState>({ 'shop.seashell.dev': true, 'api.seashell.dev': true });
+  const [sel, setSel] = useState<RowSelectionState>({ 'DAWN_0412.jpg': true, 'L4_moonrise.raw': true });
   return (
     <div className="w-[26rem]">
       <DataTable
         columns={columns}
-        data={SITES}
-        getRowId={(s) => s.domain}
+        data={PHOTOS}
+        getRowId={(p) => p.file}
         enableSelection
         selectAll="toolbar"
         rowSelection={sel}
         onRowSelectionChange={setSel}
         hideFooter
-        ariaLabel="Sites"
+        ariaLabel="Photos"
         toolbar={(table) => <DataTableToolbar table={table} actions={ACTIONS} />}
       />
     </div>

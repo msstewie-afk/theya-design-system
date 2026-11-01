@@ -185,7 +185,7 @@ export const EditLastMessage: Story = {
   name: 'Edit last message (Up arrow)',
   render: function EditLastExample() {
     const [value, setValue] = useState('');
-    const [lastSent, setLastSent] = useState('Create a staging environment for the shop.seashell.dev site');
+    const [lastSent, setLastSent] = useState('Create a client gallery for the Selene Weddings shoot');
     return (
       <div className="flex max-w-xl flex-col gap-2">
         <PromptArea
@@ -207,12 +207,12 @@ export const EditLastMessage: Story = {
     const input = field(canvasElement);
     input.focus();
     await userEvent.keyboard('{ArrowUp}');
-    await expect(input).toHaveValue('Create a staging environment for the shop.seashell.dev site');
+    await expect(input).toHaveValue('Create a client gallery for the Selene Weddings shoot');
     // In a non-empty field Up is a normal caret move, not "edit last".
     await userEvent.type(input, ' now');
     await userEvent.keyboard('{Enter}');
     await expect(input).toHaveValue('');
-    await expect(within(canvasElement).getByText('Create a staging environment for the shop.seashell.dev site now')).toBeInTheDocument();
+    await expect(within(canvasElement).getByText('Create a client gallery for the Selene Weddings shoot now')).toBeInTheDocument();
   },
 };
 
@@ -534,9 +534,9 @@ export const WithRecentPrompts: Story = {
   render: function RecentPromptsExample() {
     const [value, setValue] = useState('');
     const recent = [
-      'Create a staging environment for shop.seashell.dev',
-      'Summarize last week\'s incidents',
-      'Draft a postmortem for the outage on Tuesday',
+      'Create a client gallery for the Selene Weddings shoot',
+      'Summarize last week\'s client feedback',
+      'Draft a delivery email for Rhea Okafor',
     ];
     return (
       <div className="max-w-xl">

@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Charts",
   "whenToUse": [
-    "Parts of one whole, up to 7: storage by environment, plan mix, traffic by source.",
+    "Parts of one whole, up to 7: storage by file type, plan mix, downloads by source.",
     "When the total matters too — it sits in the center."
   ],
   "whenNotToUse": [
@@ -41,11 +41,11 @@
     {
       "do": {
         "caption": "Three parts of one total, named in the legend.",
-        "example": "<DonutChart\n  data={[{ label: 'Production', value: 62 }, { label: 'Staging', value: 24 }, { label: 'Dev', value: 14 }]}\n  unit=\" GB\"\n  layout=\"horizontal\"\n  height={160}\n  ariaLabel=\"Storage by environment: production 62 GB of 100 GB.\"\n/>"
+        "example": "<DonutChart\n  data={[{ label: 'RAW files', value: 62 }, { label: 'JPEGs', value: 24 }, { label: 'Exports', value: 14 }]}\n  unit=\" GB\"\n  layout=\"horizontal\"\n  height={160}\n  ariaLabel=\"Storage by file type: RAW files 62 GB of 100 GB.\"\n/>"
       },
       "dont": {
         "caption": "Seven similar slices: angles this close can’t be compared — a sorted bar chart can.",
-        "example": "<DonutChart\n  data={[\n    { label: 'eu-west-1', value: 22 }, { label: 'eu-central-1', value: 18 }, { label: 'us-east-1', value: 16 },\n    { label: 'us-west-2', value: 14 }, { label: 'ap-south-1', value: 11 }, { label: 'ap-southeast-1', value: 10 }, { label: 'sa-east-1', value: 9 },\n  ]}\n  unit=\"%\"\n  layout=\"horizontal\"\n  height={160}\n  ariaLabel=\"Traffic by region.\"\n/>"
+        "example": "<DonutChart\n  data={[\n    { label: 'Golden hour', value: 22 }, { label: 'Blue hour', value: 18 }, { label: 'First light', value: 16 },\n    { label: 'Moonrise over Othrys', value: 14 }, { label: 'Wide-shining', value: 11 }, { label: 'Isthmian Five', value: 10 }, { label: 'Portfolio', value: 9 },\n  ]}\n  unit=\"%\"\n  layout=\"horizontal\"\n  height={160}\n  ariaLabel=\"Downloads by gallery.\"\n/>"
       }
     }
   ],

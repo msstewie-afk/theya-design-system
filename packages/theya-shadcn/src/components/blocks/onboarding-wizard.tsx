@@ -71,13 +71,13 @@ export interface OnboardingWizardProps {
  * itself needs a boundary — composition provides that, not this block.
  */
 export function OnboardingWizard({
-  title = 'Create a new site',
+  title = 'Create a client portal',
   description,
   steps: stepsProp,
   current: controlledCurrent,
   onStepChange,
   onComplete,
-  completeLabel = 'Create site',
+  completeLabel = 'Create portal',
   backLabel = 'Back',
   nextLabel = 'Next',
   orientation = 'horizontal',
@@ -191,17 +191,17 @@ export function OnboardingWizard({
   );
 }
 
-const domainSchema = z.object({
-  domain: z
+const portalSchema = z.object({
+  portal: z
     .string()
     .trim()
-    .min(1, 'Enter a domain.')
-    .regex(/^(?!-)[a-z0-9-]+(\.[a-z0-9-]+)+$/i, 'Enter a valid domain, e.g. shop.seashell.dev.'),
+    .min(1, 'Enter a portal address.')
+    .regex(/^(?!-)[a-z0-9-]+(\.[a-z0-9-]+)+$/i, 'Enter a valid address, e.g. selene-weddings.aether.photo.'),
 });
 
-type DomainValues = z.infer<typeof domainSchema>;
+type PortalValues = z.infer<typeof portalSchema>;
 
-function DomainStep({ form }: { form: UseFormReturn<DomainValues> }) {
+function PortalStep({ form }: { form: UseFormReturn<PortalValues> }) {
   const { next } = useWizard();
   return (
     <Form {...form}>
@@ -217,10 +217,10 @@ function DomainStep({ form }: { form: UseFormReturn<DomainValues> }) {
       >
         <FormField
           control={form.control}
-          name="domain"
+          name="portal"
           render={({ field, fieldState }) => (
             <FormItem>
-              <FormLabel>Domain</FormLabel>
+              <FormLabel>Portal address</FormLabel>
               <FormControl>
                 {/* FormLabel/FormMessage read validation state through
                     useFormField()'s context automatically, but TextField
@@ -231,9 +231,9 @@ function DomainStep({ form }: { form: UseFormReturn<DomainValues> }) {
                     stayed neutral (Мария: "лейбл и нотификация под полем
                     danger, но само поле нет" — a recurring miss, so wiring
                     `fieldState.error` through explicitly here). */}
-                <TextField {...field} error={fieldState.error?.message} type="text" inputMode="url" autoComplete="off" autoCapitalize="none" autoCorrect="off" spellCheck={false} placeholder="shop.seashell.dev" className="font-mono" widthSize="full" />
+                <TextField {...field} error={fieldState.error?.message} type="text" inputMode="url" autoComplete="off" autoCapitalize="none" autoCorrect="off" spellCheck={false} placeholder="selene-weddings.aether.photo" className="font-mono" widthSize="full" />
               </FormControl>
-              <FormDescription>The address visitors will use. You can connect more domains after the site is created.</FormDescription>
+              <FormDescription>The address clients will use to see their photos. You can add more portals later.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -243,12 +243,12 @@ function DomainStep({ form }: { form: UseFormReturn<DomainValues> }) {
   );
 }
 
-type PlanId = 'starter' | 'pro' | 'business';
+type PlanId = 'free' | 'pro' | 'business';
 
 const PLANS: { id: PlanId; title: string; price: string; description: string }[] = [
-  { id: 'starter', title: 'Starter', price: '$8 / mo', description: '1 site, 10 GB disk, shared resources.' },
-  { id: 'pro', title: 'Pro', price: '$24 / mo', description: '5 sites, 25 GB disk, daily backups.' },
-  { id: 'business', title: 'Business', price: '$60 / mo', description: 'Unlimited sites, 100 GB disk, priority support.' },
+  { id: 'free', title: 'Free', price: '$0 / mo', description: '1 client portal, 10 GB storage.' },
+  { id: 'pro', title: 'Pro', price: '$24 / mo', description: '5 client portals, 384 GB storage, nightly archive copies.' },
+  { id: 'business', title: 'Business', price: '$60 / mo', description: 'Unlimited client portals, 2 TB storage, priority support.' },
 ];
 
 function PlanStep({ plan, setPlan }: { plan: PlanId; setPlan: (plan: PlanId) => void }) {
@@ -265,24 +265,24 @@ function PlanStep({ plan, setPlan }: { plan: PlanId; setPlan: (plan: PlanId) => 
   );
 }
 
-function ReviewStep({ domain, plan }: { domain: string; plan: PlanId }) {
+function ReviewStep({ portal, plan }: { portal: string; plan: PlanId }) {
   const { goTo } = useWizard();
-  // Was hardcoded to shop.seashell.dev + Pro whatever the user entered.
+  // Was hardcoded to one address + Pro whatever the user entered.
   const selected = PLANS.find((p) => p.id === plan) ?? PLANS[0];
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-start gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] p-4">
         <Globe className="mt-0.5 size-5 shrink-0 text-[var(--color-icon-icon-subtle)]" aria-hidden="true" />
-        <p className="min-w-0 break-words font-body text-body-s text-[var(--color-text-text)]">Review the details below, then create your site. You can change any of this later from the site settings.</p>
+        <p className="min-w-0 break-words font-body text-body-s text-[var(--color-text-text)]">Review the details below, then create your portal. You can change any of this later from the portal settings.</p>
       </div>
       <DescriptionList>
         {/* Each group links straight back to the step that set it. */}
         <DescriptionItem>
-          <DescriptionTerm>Domain</DescriptionTerm>
+          <DescriptionTerm>Portal address</DescriptionTerm>
           <DescriptionDetails className="flex items-baseline justify-between gap-3">
-            <span className="min-w-0 break-all font-mono">{domain.trim() || '—'}</span>
-            <EditLink label="domain" onClick={() => goTo('domain')} />
+            <span className="min-w-0 break-all font-mono">{portal.trim() || '—'}</span>
+            <EditLink label="portal address" onClick={() => goTo('portal')} />
           </DescriptionDetails>
         </DescriptionItem>
         <DescriptionItem>
@@ -293,8 +293,8 @@ function ReviewStep({ domain, plan }: { domain: string; plan: PlanId }) {
           </DescriptionDetails>
         </DescriptionItem>
         <DescriptionItem>
-          <DescriptionTerm>Region</DescriptionTerm>
-          <DescriptionDetails className="font-mono">eu-west-1</DescriptionDetails>
+          <DescriptionTerm>Studio</DescriptionTerm>
+          <DescriptionDetails>Helios Studio</DescriptionDetails>
         </DescriptionItem>
       </DescriptionList>
     </div>
@@ -315,20 +315,20 @@ function EditLink({ label, onClick }: { label: string; onClick: () => void }) {
 
 /**
  * The seeded demo flow, with its state lifted here so the steps share it:
- * Review shows what was actually entered, and Domain validates on Next.
+ * Review shows what was actually entered, and Portal validates on Next.
  * Always called (hook rules) — used only when no `steps` prop is passed.
  */
 function useDefaultSteps(): WizardStep[] {
-  const form = useForm<DomainValues>({
-    resolver: zodResolver(domainSchema),
-    defaultValues: { domain: '' },
+  const form = useForm<PortalValues>({
+    resolver: zodResolver(portalSchema),
+    defaultValues: { portal: '' },
     mode: 'onTouched',
   });
   const [plan, setPlan] = useState<PlanId>('pro');
-  const domain = form.watch('domain');
+  const portal = form.watch('portal');
   return [
-    { id: 'domain', label: 'Domain', description: 'Name your site', content: <DomainStep form={form} />, validate: () => form.trigger('domain', { shouldFocus: true }) },
+    { id: 'portal', label: 'Portal', description: 'Name your portal', content: <PortalStep form={form} />, validate: () => form.trigger('portal', { shouldFocus: true }) },
     { id: 'plan', label: 'Plan', description: 'Pick a tier', content: <PlanStep plan={plan} setPlan={setPlan} /> },
-    { id: 'review', label: 'Review', description: 'Confirm and create', content: <ReviewStep domain={domain} plan={plan} /> },
+    { id: 'review', label: 'Review', description: 'Confirm and create', content: <ReviewStep portal={portal} plan={plan} /> },
   ];
 }

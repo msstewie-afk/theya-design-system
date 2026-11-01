@@ -17,16 +17,16 @@ import { ChartRangeSelection, type ChartSelectionRange } from './chart-range-sel
 import { chartRangeSelectionGuidelines } from './chart-range-selection.guidelines';
 
 const DATA = [
-  { label: 'Aug 1', requests: 38, errors: 8 },
-  { label: 'Aug 2', requests: 52, errors: 10 },
-  { label: 'Aug 3', requests: 46, errors: 7 },
-  { label: 'Aug 4', requests: 64, errors: 12 },
-  { label: 'Aug 5', requests: 59, errors: 9 },
-  { label: 'Aug 6', requests: 78, errors: 15 },
-  { label: 'Aug 7', requests: 71, errors: 11 },
-  { label: 'Aug 8', requests: 86, errors: 16 },
-  { label: 'Aug 9', requests: 76, errors: 13 },
-  { label: 'Aug 10', requests: 92, errors: 18 },
+  { label: 'Aug 1', views: 380, downloads: 80 },
+  { label: 'Aug 2', views: 520, downloads: 100 },
+  { label: 'Aug 3', views: 460, downloads: 70 },
+  { label: 'Aug 4', views: 640, downloads: 120 },
+  { label: 'Aug 5', views: 590, downloads: 90 },
+  { label: 'Aug 6', views: 780, downloads: 150 },
+  { label: 'Aug 7', views: 710, downloads: 110 },
+  { label: 'Aug 8', views: 860, downloads: 160 },
+  { label: 'Aug 9', views: 760, downloads: 130 },
+  { label: 'Aug 10', views: 920, downloads: 180 },
 ];
 
 const labels = DATA.map((point) => point.label);
@@ -118,8 +118,8 @@ function InteractiveExample({
         <XAxis dataKey="label" {...axisProps} />
         <YAxis width={36} {...axisProps} />
         <Tooltip content={<RangeChartTooltip />} />
-        <RechartsLine name="Requests" type="monotone" dataKey="requests" stroke="var(--color-bg-primary-bg-primary)" strokeWidth={2} dot={false} />
-        <RechartsLine name="Errors" type="monotone" dataKey="errors" stroke="var(--color-bg-danger-bg-danger)" strokeWidth={2} dot={false} />
+        <RechartsLine name="Views" type="monotone" dataKey="views" stroke="var(--color-bg-primary-bg-primary)" strokeWidth={2} dot={false} />
+        <RechartsLine name="Downloads" type="monotone" dataKey="downloads" stroke="var(--color-bg-chart-02)" strokeWidth={2} dot={false} />
       </LineChart>
     ) : kind === 'bar' ? (
       <BarChart {...common}>
@@ -127,7 +127,7 @@ function InteractiveExample({
         <XAxis dataKey="label" {...axisProps} />
         <YAxis width={36} {...axisProps} />
         <Tooltip content={<RangeChartTooltip />} cursor={{ fill: 'var(--color-bg-neutral-bg-neutral-subtle)' }} />
-        <RechartsBar name="Requests" dataKey="requests" fill="var(--color-bg-primary-bg-primary)" radius={[4, 4, 0, 0]} />
+        <RechartsBar name="Views" dataKey="views" fill="var(--color-bg-primary-bg-primary)" radius={[4, 4, 0, 0]} />
       </BarChart>
     ) : (
       <AreaChart {...common}>
@@ -141,7 +141,7 @@ function InteractiveExample({
         <XAxis dataKey="label" {...axisProps} />
         <YAxis width={36} {...axisProps} />
         <Tooltip content={<RangeChartTooltip />} />
-        <RechartsArea name="Requests" type="monotone" dataKey="requests" stroke="var(--color-bg-primary-bg-primary)" strokeWidth={2} fill="url(#range-story-fill)" />
+        <RechartsArea name="Views" type="monotone" dataKey="views" stroke="var(--color-bg-primary-bg-primary)" strokeWidth={2} fill="url(#range-story-fill)" />
       </AreaChart>
     );
 

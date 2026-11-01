@@ -34,14 +34,14 @@ export const Default: Story = {
     const phone = window.matchMedia('(max-width: 767.98px)').matches;
     if (phone) {
       const c = within(canvasElement);
-      await expect(count(canvasElement)).toHaveTextContent('24 extensions');
+      await expect(count(canvasElement)).toHaveTextContent('24 products');
       const open = c.getByRole('button', { name: 'Filters' });
       await userEvent.click(open);
       const drawer = await screen.findByRole('dialog', { name: 'Filters' });
-      await userEvent.click(within(drawer).getByRole('checkbox', { name: 'Security' }));
-      await waitFor(() => expect(count(canvasElement)).toHaveTextContent('6 extensions'));
-      await userEvent.click(within(drawer).getByRole('checkbox', { name: 'Security' }));
-      await waitFor(() => expect(count(canvasElement)).toHaveTextContent('24 extensions'));
+      await userEvent.click(within(drawer).getByRole('checkbox', { name: 'Presets' }));
+      await waitFor(() => expect(count(canvasElement)).toHaveTextContent('6 products'));
+      await userEvent.click(within(drawer).getByRole('checkbox', { name: 'Presets' }));
+      await waitFor(() => expect(count(canvasElement)).toHaveTextContent('24 products'));
       await userEvent.keyboard('{Escape}');
       // vaul keeps the drawer mounted through its exit animation (~500ms).
       await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull(), { timeout: 2500 });
@@ -52,18 +52,18 @@ export const Default: Story = {
     }
 
     const canvas = within(canvasElement);
-    await expect(count(canvasElement)).toHaveTextContent('24 extensions');
+    await expect(count(canvasElement)).toHaveTextContent('24 products');
 
-    await userEvent.click(canvas.getByRole('checkbox', { name: 'Security' }));
-    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('6 extensions'));
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Presets' }));
+    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('6 products'));
     await userEvent.click(canvas.getByRole('checkbox', { name: 'Free' }));
-    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('4 extensions'));
+    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('4 products'));
 
     const applied = canvas.getByRole('group', { name: 'Applied filters' });
     await userEvent.click(within(applied).getByRole('button', { name: 'Remove filter: Free' }));
-    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('6 extensions'));
+    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('6 products'));
     await userEvent.click(within(applied).getByRole('button', { name: 'Clear all' }));
-    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('24 extensions'));
+    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('24 products'));
 
     await userEvent.click(canvas.getByRole('button', { name: 'Show 9 more' }));
     await expect(canvas.getByText('Showing 18 of 24')).toBeVisible();
@@ -86,19 +86,19 @@ export const ChipFocus: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const heading = canvas.getByRole('heading', { name: 'Extensions' });
-    await userEvent.click(canvas.getByRole('checkbox', { name: 'Security' }));
-    await userEvent.click(canvas.getByRole('checkbox', { name: 'Backups' }));
+    const heading = canvas.getByRole('heading', { name: 'Products' });
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Presets' }));
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Plan add-ons' }));
     await userEvent.click(canvas.getByRole('checkbox', { name: 'Free' }));
     const applied = canvas.getByRole('group', { name: 'Applied filters' });
 
     // Middle chip: focus moves to the next chip.
-    await userEvent.click(within(applied).getByRole('button', { name: 'Remove filter: Backups' }));
+    await userEvent.click(within(applied).getByRole('button', { name: 'Remove filter: Plan add-ons' }));
     await waitFor(() => expect(within(applied).getByRole('button', { name: 'Remove filter: Free' })).toHaveFocus());
 
     // Last chip, by keyboard: focus moves to the previous chip.
     await userEvent.keyboard('{Enter}');
-    await waitFor(() => expect(within(applied).getByRole('button', { name: 'Remove filter: Security' })).toHaveFocus());
+    await waitFor(() => expect(within(applied).getByRole('button', { name: 'Remove filter: Presets' })).toHaveFocus());
 
     // Only chip: the group goes away, focus lands on the heading.
     await userEvent.keyboard('{Enter}');
@@ -109,9 +109,9 @@ export const ChipFocus: Story = {
     await expect(heading.getBoundingClientRect().width).toBeGreaterThan(20);
 
     // "Clear all" removes the group too.
-    await userEvent.click(canvas.getByRole('checkbox', { name: 'Security' }));
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Presets' }));
     await userEvent.click(within(canvas.getByRole('group', { name: 'Applied filters' })).getByRole('button', { name: 'Clear all' }));
-    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('24 extensions'));
+    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('24 products'));
     await waitFor(() => expect(heading).toHaveFocus());
   },
 };
@@ -166,10 +166,10 @@ export const EmptyStateClearFocus: Story = {
     // Both Fjord items are rated under 4.5: nothing matches.
     await userEvent.click(canvas.getByRole('checkbox', { name: 'Fjord' }));
     await userEvent.click(canvas.getByRole('radio', { name: '4.5 ★ & up' }));
-    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('0 extensions'));
+    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('0 products'));
     await userEvent.click(canvas.getByRole('button', { name: 'Clear all filters' }));
-    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('24 extensions'));
-    await waitFor(() => expect(canvas.getByRole('heading', { name: 'Extensions' })).toHaveFocus());
+    await waitFor(() => expect(count(canvasElement)).toHaveTextContent('24 products'));
+    await waitFor(() => expect(canvas.getByRole('heading', { name: 'Products' })).toHaveFocus());
   },
 };
 
@@ -188,11 +188,11 @@ export const ShowMoreFocus: Story = {
     await userEvent.click(more);
     await expect(canvas.getByText('Showing 18 of 24')).toBeVisible();
     await expect(canvas.getByRole('button', { name: 'Show 6 more' })).toHaveFocus();
-    // …and disappears after the second: focus goes to result 19 (Node Toolkit, in relevance order).
+    // …and disappears after the second: focus goes to result 19 (Wide zoom rental, in relevance order).
     await userEvent.keyboard('{Enter}');
     await expect(canvas.getByText('Showing 24 of 24')).toBeVisible();
     await expect(canvas.queryByRole('button', { name: 'Show 6 more' })).not.toBeInTheDocument();
-    await waitFor(() => expect(canvas.getByRole('link', { name: 'Node Toolkit by Forge' })).toHaveFocus());
+    await waitFor(() => expect(canvas.getByRole('link', { name: 'Wide zoom rental by Glassworks' })).toHaveFocus());
   },
 };
 
@@ -207,8 +207,8 @@ export const Narrow: Story = {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Filters' }));
     const drawer = await screen.findByRole('dialog', { name: 'Filters' });
-    await userEvent.click(within(drawer).getByRole('checkbox', { name: 'Backups' }));
-    await userEvent.click(within(drawer).getByRole('button', { name: 'Show 4 extensions' }));
+    await userEvent.click(within(drawer).getByRole('checkbox', { name: 'Plan add-ons' }));
+    await userEvent.click(within(drawer).getByRole('button', { name: 'Show 4 products' }));
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
     await expect(canvas.getByRole('button', { name: 'Filters (1)' })).toBeVisible();
   },

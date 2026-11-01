@@ -4,7 +4,7 @@ import type { ComponentGuidelines } from '../../docs/guidelines';
 export const listViewGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
-    'A screen of many records people search, filter, select and act on: users, sites, domains.',
+    'A screen of many records people search, filter, select and act on: users, galleries, client portals.',
   ],
   whenNotToUse: [
     { text: 'A few static rows', instead: 'Table' },

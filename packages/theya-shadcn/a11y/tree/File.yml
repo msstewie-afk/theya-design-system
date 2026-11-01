@@ -15,9 +15,9 @@
 - button "notes.md"
 - text: notes.md 4 KB, Modified 1 week ago
 - button "Remove notes.md"
-- button "build.zip"
-- text: build.zip 1.2 MB, Modified 1 month ago
-- button "Remove build.zip"
+- button "presets.zip"
+- text: presets.zip 1.2 MB, Modified 1 month ago
+- button "Remove presets.zip"
 - button "main.ts"
 - text: main.ts 9 KB, Modified 3 days ago
 - button "Remove main.ts"
@@ -89,15 +89,15 @@
 - button "Remove report.pdf"
 
 # With error (files-file--with-error)
-- button "backup.tar.gz"
-- text: backup.tar.gz Exceeds the 2 GB upload limit
-- button "Remove backup.tar.gz"
+- button "wedding-raws.zip"
+- text: wedding-raws.zip Exceeds the 2 GB upload limit
+- button "Remove wedding-raws.zip"
 - button "notes.pages"
 - text: notes.pages File type is not supported
 - button "Remove notes.pages"
-- button "backup.tar.gz"
-- text: backup.tar.gz Exceeds the 2 GB upload limit
-- button "Remove backup.tar.gz"
+- button "wedding-raws.zip"
+- text: wedding-raws.zip Exceeds the 2 GB upload limit
+- button "Remove wedding-raws.zip"
 - button "cover.png"
 - text: cover.png Upload failed
 - button "Remove cover.png"

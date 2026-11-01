@@ -6,7 +6,7 @@ const Tile = ({ children }: { children: React.ReactNode }) => (
 
 export const swipeDeckGuidelines: ComponentGuidelines = {
   status: 'beta',
-  whenToUse: ['A quick keep-or-skip pass over a short set: templates to try, suggested domains, onboarding interests.'],
+  whenToUse: ['A quick keep-or-skip pass over a short set: templates to try, photos to shortlist, onboarding interests.'],
   whenNotToUse: [
     { text: 'Choosing several items the user needs to compare side by side', instead: 'CheckboxGroup / OptionCard' },
     { text: 'Browsing content without a decision', instead: 'Carousel' },

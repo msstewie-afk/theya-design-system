@@ -2,7 +2,7 @@
 
 # Default (motion-swipedeck--default)
 - group "Templates":
-  - text: Docs Searchable docs with a sidebar and versioning. Product
+  - text: Wedding album A chapter for each part of the day, with client favorites. Weddings
   - button "Skip"
   - button "Keep"
   - status: Skip. 2 cards left

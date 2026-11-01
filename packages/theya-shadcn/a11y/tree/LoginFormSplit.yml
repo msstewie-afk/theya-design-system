@@ -4,6 +4,8 @@
 - region "Galleries your clients will keep":
   - group "Slide 1 of 3":
     - img "Abstract city of tall blue blocks"
+  - group "Slide 2 of 3":
+    - img "Abstract stack of blocks with stairs"
   - paragraph: Galleries your clients will keep
   - group "Slides":
     - button "Go to slide 1"

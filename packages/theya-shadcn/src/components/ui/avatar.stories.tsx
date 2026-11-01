@@ -233,9 +233,9 @@ export const MemberList: Story = {
   render: () => (
     <ul className="flex w-full max-w-sm flex-col gap-3">
       {[
-        { initials: 'AL', name: 'Ada Lovelace', email: 'ada@seashell.dev', tone: 'success' as const, status: 'Active' },
-        { initials: 'GH', name: 'Grace Hopper', email: 'grace@seashell.dev', tone: 'warning' as const, status: 'Invited' },
-        { initials: 'AT', name: 'Alan Turing', email: 'alan@seashell.dev', tone: 'neutral' as const, status: 'Offline' },
+        { initials: 'TM', name: 'Thea Marlow', email: 'thea@aether.photo', tone: 'success' as const, status: 'Active' },
+        { initials: 'DE', name: 'Dawn Ellery', email: 'dawn@aether.photo', tone: 'warning' as const, status: 'Invited' },
+        { initials: 'MO', name: 'Mina Ostrova', email: 'mina@aether.photo', tone: 'neutral' as const, status: 'Offline' },
       ].map((m) => (
         <li key={m.email} className="flex items-center gap-3">
           <Avatar>
@@ -261,7 +261,7 @@ export const MemberList: Story = {
 export const Group: Story = {
   render: () => (
     <div className="flex -space-x-2">
-      {['AL', 'GH', 'AT', 'MH'].map((initials) => (
+      {['TM', 'DE', 'MO', 'IH'].map((initials) => (
         <Avatar key={initials} outline="none" className="border-2 border-solid border-[var(--color-bg-surface-bg-surface)]">
           <AvatarFallback appearance="filled">{initials}</AvatarFallback>
         </Avatar>

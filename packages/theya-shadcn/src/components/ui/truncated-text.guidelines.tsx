@@ -6,7 +6,7 @@ const ROW = 'flex w-56 flex-col gap-0.5 rounded-[var(--size-border-radius-border
 export const truncatedTextGuidelines: ComponentGuidelines = {
   status: 'beta',
   whenToUse: [
-    'Long user data on one line where wrapping would break the layout: file names, domains, list-row descriptions, a chosen value in a trigger.',
+    'Long user data on one line where wrapping would break the layout: file names, portal addresses, list-row descriptions, a chosen value in a trigger.',
     'Your own cells and rows in a table or list that truncate.',
   ],
   whenNotToUse: [

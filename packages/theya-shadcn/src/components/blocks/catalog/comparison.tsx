@@ -392,7 +392,7 @@ export function CompareFlow({ items, max = 4, initialSelection, getHref, classNa
               Back to results
             </Button>
             <h2 ref={headingRef} tabIndex={-1} className="rounded-[var(--size-border-radius-border-radius-sm)] font-body text-heading-s font-semibold text-[var(--color-text-text)] outline-none">
-              {`Comparing ${selected.length} extensions`}
+              {`Comparing ${selected.length} products`}
             </h2>
           </div>
           <ComparisonTable items={selected} getHref={getHref} onRemove={sel.remove} />

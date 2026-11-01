@@ -60,7 +60,7 @@
     {
       "do": {
         "caption": "What happened, then what to do.",
-        "example": "<Alert tone=\"danger\" className=\"w-80\">\n  <WarningCircle />\n  <div className=\"flex flex-col gap-1\">\n    <AlertTitle>Payment failed</AlertTitle>\n    <AlertDescription>Your card was declined. Update it to keep the site online after 12 November.</AlertDescription>\n  </div>\n</Alert>"
+        "example": "<Alert tone=\"danger\" className=\"w-80\">\n  <WarningCircle />\n  <div className=\"flex flex-col gap-1\">\n    <AlertTitle>Payment failed</AlertTitle>\n    <AlertDescription>Your card was declined. Update it to keep your client portals online after 12 November.</AlertDescription>\n  </div>\n</Alert>"
       },
       "dont": {
         "caption": "“Error” alone gives nothing to act on.",
@@ -70,7 +70,7 @@
     {
       "do": {
         "caption": "Tone matches how serious it is.",
-        "example": "<Alert tone=\"warning\" className=\"w-80\">\n  <WarningTriangle />\n  <AlertTitle>Disk is 92% full</AlertTitle>\n</Alert>"
+        "example": "<Alert tone=\"warning\" className=\"w-80\">\n  <WarningTriangle />\n  <AlertTitle>Storage is 92% full</AlertTitle>\n</Alert>"
       },
       "dont": {
         "caption": "Danger for news wears out the color for real problems.",

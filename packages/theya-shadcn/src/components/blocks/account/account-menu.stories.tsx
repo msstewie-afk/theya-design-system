@@ -19,7 +19,7 @@ type Story = StoryObj<typeof AccountMenu>;
 /** Who is signed in and where; the menu lists every account area, sign-out last. */
 export const Default: Story = {
   render: function Render(args) {
-    const [ws, setWs] = useState('seashell');
+    const [ws, setWs] = useState('helios');
     const [theme, setTheme] = useState<ThemePreference>('system');
     return (
       <AccountMenu
@@ -38,15 +38,15 @@ export const Default: Story = {
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', { name: 'Account: Dana Kovač, Seashell, 1 item needs attention' });
+    const trigger = canvas.getByRole('button', { name: 'Account: Thea Marlow, Helios Studio, 1 item needs attention' });
     await userEvent.click(trigger);
     const menu = await screen.findByRole('menu');
-    await expect(within(menu).getByText('dana@seashell.shop')).toBeVisible();
+    await expect(within(menu).getByText('thea@aether.photo')).toBeVisible();
     await expect(within(menu).getByRole('menuitem', { name: /Billing 1 item needs attention/ })).toHaveAttribute('href', '#billing');
 
-    await userEvent.click(within(menu).getByRole('menuitemradio', { name: /Northwind Studio/ }));
-    await expect(args.onWorkspaceChange).toHaveBeenCalledWith('northwind');
-    await expect(canvas.getByRole('button', { name: /Account: Dana Kovač, Northwind Studio/ })).toBeVisible();
+    await userEvent.click(within(menu).getByRole('menuitemradio', { name: /Selene Weddings/ }));
+    await expect(args.onWorkspaceChange).toHaveBeenCalledWith('selene');
+    await expect(canvas.getByRole('button', { name: /Account: Thea Marlow, Selene Weddings/ })).toBeVisible();
 
     await userEvent.click(canvas.getByRole('button', { name: /Account:/ }));
     const items = within(await screen.findByRole('menu')).getAllByRole('menuitem');

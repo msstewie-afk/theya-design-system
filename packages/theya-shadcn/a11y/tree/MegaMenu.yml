@@ -2,7 +2,7 @@
 
 # Default (patterns-navigation-megamenu--default)
 - banner:
-  - text: Theya
+  - text: Aether
   - navigation "Main":
     - list:
       - listitem:
@@ -36,25 +36,25 @@
       - heading "By need" [level=4]
       - list "By need":
         - listitem:
-          - link "Online stores":
-            - /url: "#stores"
+          - link "Wedding photographers":
+            - /url: "#weddings"
+        - listitem:
+          - link "Portrait studios":
+            - /url: "#portraits"
         - listitem:
           - link "Agencies":
             - /url: "#agencies"
+      - heading "Works with" [level=4]
+      - list "Works with":
         - listitem:
-          - link "Developers":
-            - /url: "#developers"
-      - heading "By platform" [level=4]
-      - list "By platform":
+          - link "Lightroom":
+            - /url: "#lightroom"
         - listitem:
-          - link "Next.js":
-            - /url: "#nextjs"
+          - link "Capture One":
+            - /url: "#capture-one"
         - listitem:
-          - link "Astro":
-            - /url: "#astro"
-        - listitem:
-          - link "Node.js":
-            - /url: "#node"
+          - link "Photoshop":
+            - /url: "#photoshop"
     - heading "Resources" [level=3]:
       - button "Resources":
         - text: Resources

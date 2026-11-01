@@ -53,53 +53,53 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     const next = canvas.getByRole('button', { name: 'Next' });
     const back = canvas.getByRole('button', { name: 'Back' });
-    const domain = canvas.getByRole('textbox', { name: 'Domain' });
-    await expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 3: Domain');
+    const portal = canvas.getByRole('textbox', { name: 'Portal address' });
+    await expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 3: Portal');
     await expect(back).toBeDisabled();
 
     // Next validates: empty, then malformed, both keep you on step 1.
     await userEvent.click(next);
-    await waitFor(() => expect(domain).toHaveAccessibleDescription(/Enter a domain\./));
-    await expect(domain).toHaveFocus();
+    await waitFor(() => expect(portal).toHaveAccessibleDescription(/Enter a portal address\./));
+    await expect(portal).toHaveFocus();
     await expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 3');
-    await userEvent.type(domain, 'not a domain');
+    await userEvent.type(portal, 'not an address');
     await userEvent.click(next);
-    await waitFor(() => expect(domain).toHaveAccessibleDescription(/Enter a valid domain/));
+    await waitFor(() => expect(portal).toHaveAccessibleDescription(/Enter a valid address/));
     await expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 3');
 
     // Enter in the field works like Next (validates, then advances) — and
     // doesn't reload the page.
-    await userEvent.clear(domain);
-    await userEvent.type(domain, 'blog.example.dev{Enter}');
+    await userEvent.clear(portal);
+    await userEvent.type(portal, 'rhea-okafor.aether.photo{Enter}');
     await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 2 of 3: Plan'));
-    await expect(canvas.queryByRole('textbox', { name: 'Domain' })).toBeNull();
+    await expect(canvas.queryByRole('textbox', { name: 'Portal address' })).toBeNull();
     await userEvent.click(canvas.getByRole('radio', { name: /^Business/ }));
 
-    // Back to step 1: the typed domain is still there, and with Back now
+    // Back to step 1: the typed address is still there, and with Back now
     // disabled, focus lands on the step's field instead of <body>.
     await userEvent.click(back);
     await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 3'));
-    await expect(canvas.getByRole('textbox', { name: 'Domain' })).toHaveValue('blog.example.dev');
-    await waitFor(() => expect(canvas.getByRole('textbox', { name: 'Domain' })).toHaveFocus());
+    await expect(canvas.getByRole('textbox', { name: 'Portal address' })).toHaveValue('rhea-okafor.aether.photo');
+    await waitFor(() => expect(canvas.getByRole('textbox', { name: 'Portal address' })).toHaveFocus());
 
     await userEvent.click(next);
     await waitFor(() => expect(canvas.getByRole('radio', { name: /^Business/ })).toBeChecked());
     await userEvent.click(next);
     await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 3 of 3: Review'));
     // Review reflects the real choices (was hardcoded).
-    await expect(canvas.getByText('blog.example.dev')).toBeVisible();
+    await expect(canvas.getByText('rhea-okafor.aether.photo')).toBeVisible();
     await expect(canvas.getByText('Business, $60 / mo')).toBeVisible();
 
     // Review's Edit links and the Stepper's completed steps jump back.
     await userEvent.click(canvas.getByRole('button', { name: 'Edit plan' }));
     await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 2 of 3: Plan'));
-    await userEvent.click(canvas.getByRole('button', { name: /^Domain \(go back to this step\)/ }));
-    await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 3: Domain'));
+    await userEvent.click(canvas.getByRole('button', { name: /^Portal \(go back to this step\)/ }));
+    await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 3: Portal'));
     await userEvent.click(next);
     await userEvent.click(next);
     await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 3 of 3: Review'));
 
-    await userEvent.click(canvas.getByRole('button', { name: 'Create site' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Create portal' }));
     await expect(args.onComplete).toHaveBeenCalledTimes(1);
   },
 };
@@ -142,11 +142,11 @@ export const CustomSteps: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.type(canvas.getByRole('textbox', { name: 'Notes' }), 'Need staging access');
+    await userEvent.type(canvas.getByRole('textbox', { name: 'Notes' }), 'Need archive access');
     await userEvent.click(canvas.getByRole('button', { name: 'Next' }));
     await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 2 of 2: Confirm'));
     await userEvent.click(canvas.getByRole('button', { name: 'Back' }));
     await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 2: Notes'));
-    await expect(canvas.getByRole('textbox', { name: 'Notes' })).toHaveValue('Need staging access');
+    await expect(canvas.getByRole('textbox', { name: 'Notes' })).toHaveValue('Need archive access');
   },
 };

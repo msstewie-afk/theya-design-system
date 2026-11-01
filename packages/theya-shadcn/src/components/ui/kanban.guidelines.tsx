@@ -26,22 +26,22 @@ const FLOW: KanbanColumn[] = [
   { id: 'done', title: 'Done', tone: 'success' },
 ];
 const TASKS: Task[] = [
-  { id: 'a', columnId: 'todo', title: 'Move DNS' },
-  { id: 'b', columnId: 'doing', title: 'Upgrade Node 20' },
-  { id: 'c', columnId: 'done', title: 'HTTP/2 on all sites' },
+  { id: 'a', columnId: 'todo', title: 'Cull Golden hour selects' },
+  { id: 'b', columnId: 'doing', title: 'Retouch Blue hour' },
+  { id: 'c', columnId: 'done', title: 'Deliver First light' },
 ];
 const TOGGLE: KanbanColumn[] = [
   { id: 'on', title: 'Enabled' },
   { id: 'off', title: 'Disabled' },
 ];
 const FEATURES: Task[] = [
-  { id: 'x', columnId: 'on', title: 'Gzip' },
-  { id: 'y', columnId: 'off', title: 'Brotli' },
+  { id: 'x', columnId: 'on', title: 'Watermark' },
+  { id: 'y', columnId: 'off', title: 'Client downloads' },
 ];
 
 export const kanbanGuidelines: ComponentGuidelines = {
   status: 'beta',
-  whenToUse: ['Work moving through stages: tickets, a deploy pipeline, content review.', <>Watching load per stage with WIP limits (<C>limit</C>).</>],
+  whenToUse: ['Work moving through stages: tickets, a photo delivery pipeline, content review.', <>Watching load per stage with WIP limits (<C>limit</C>).</>],
   whenNotToUse: [
     { text: 'An on / off state', instead: 'Switch in a list' },
     { text: 'Ordering one list', instead: 'a sortable list' },

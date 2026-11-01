@@ -18,10 +18,10 @@
 - heading "Profile" [level=2]
 - paragraph: Your name and contact email. The email is used for sign-in and account notices.
 - text: Full name
-- textbox "Full name": Dana O.
+- textbox "Full name": Thea M.
 - button "Clear input"
 - text: Email
-- textbox "Email": dana.okafor@seashell.dev
+- textbox "Email": thea@aether.photo
 - button "Clear input"
 - button "Save changes"
 - heading "Security" [level=2]
@@ -40,21 +40,21 @@
 - button "Generate new code"
 - heading "Notifications" [level=2]
 - paragraph: Choose which account events email you. Changes apply immediately.
-- text: Deploy failures
-- paragraph: Email me when a deploy fails or is rolled back.
+- text: Export failures
+- paragraph: Email me when an export fails or is cancelled.
 - status
-- switch "Deploy failures" [checked]
-- text: Certificate expiry
-- paragraph: Warn me 14 days before a TLS certificate expires.
+- switch "Export failures" [checked]
+- text: License expiry
+- paragraph: Warn me 14 days before a print or web license expires.
 - status
-- switch "Certificate expiry" [checked]
+- switch "License expiry" [checked]
 - text: Weekly summary
-- paragraph: A Monday digest of traffic, errors and resource usage.
-- status
+- paragraph: A Monday digest of gallery views, downloads and storage use.
+- status: Saved
 - switch "Weekly summary" [checked]
 - heading "Danger zone" [level=2]
-- paragraph: Deleting your account removes every site, database and backup. This cannot be undone after the recovery window.
-- text: Delete account Permanently delete dana.okafor@seashell.dev and all of its data.
+- paragraph: Deleting your account removes every gallery, client portal and archive copy. This cannot be undone after the recovery window.
+- text: Delete account Permanently delete thea@aether.photo and all of its data.
 - button "Delete account"
 - button "Scroll to top"
 - button "Scroll to bottom" [disabled]
@@ -74,10 +74,10 @@
 - heading "Profile" [level=2]
 - paragraph: Your name and contact email. The email is used for sign-in and account notices.
 - text: Full name
-- textbox "Full name": Dana Okafor
+- textbox "Full name": Thea Marlow
 - button "Clear input"
 - text: Email
-- textbox "Email": dana.okafor@seashell.dev
+- textbox "Email": thea@aether.photo
 - button "Clear input"
 - button "Save changes"
 - heading "Security" [level=2]
@@ -96,8 +96,8 @@
 - textbox "Enter the 6-digit code"
 - button "Verify code" [disabled]
 - heading "Danger zone" [level=2]
-- paragraph: Deleting your account removes every site, database and backup. This cannot be undone after the recovery window.
-- text: Delete account Permanently delete dana.okafor@seashell.dev and all of its data.
+- paragraph: Deleting your account removes every gallery, client portal and archive copy. This cannot be undone after the recovery window.
+- text: Delete account Permanently delete thea@aether.photo and all of its data.
 - button "Delete account"
 - button "Scroll to top" [disabled]
 - button "Scroll to bottom"
@@ -120,10 +120,10 @@
 - heading "Profile" [level=2]
 - paragraph: Your name and contact email. The email is used for sign-in and account notices.
 - text: Full name
-- textbox "Full name": Dana Okafor
+- textbox "Full name": Thea Marlow
 - button "Clear input"
 - text: Email
-- textbox "Email": dana.okafor@seashell.dev
+- textbox "Email": thea@aether.photo
 - button "Clear input"
 - button "Save changes"
 - heading "Security" [level=2]
@@ -143,21 +143,21 @@
 - button "Verify code" [disabled]
 - heading "Notifications" [level=2]
 - paragraph: Choose which account events email you. Changes apply immediately.
-- text: Deploy failures
-- paragraph: Email me when a deploy fails or is rolled back.
+- text: Export failures
+- paragraph: Email me when an export fails or is cancelled.
 - status
-- switch "Deploy failures" [checked]
-- text: Certificate expiry
-- paragraph: Warn me 14 days before a TLS certificate expires.
+- switch "Export failures" [checked]
+- text: License expiry
+- paragraph: Warn me 14 days before a print or web license expires.
 - status
-- switch "Certificate expiry" [checked]
+- switch "License expiry" [checked]
 - text: Weekly summary
-- paragraph: A Monday digest of traffic, errors and resource usage.
+- paragraph: A Monday digest of gallery views, downloads and storage use.
 - status
 - switch "Weekly summary"
 - heading "Danger zone" [level=2]
-- paragraph: Deleting your account removes every site, database and backup. This cannot be undone after the recovery window.
-- text: Delete account Permanently delete dana.okafor@seashell.dev and all of its data.
+- paragraph: Deleting your account removes every gallery, client portal and archive copy. This cannot be undone after the recovery window.
+- text: Delete account Permanently delete thea@aether.photo and all of its data.
 - button "Delete account"
 - button "Scroll to top" [disabled]
 - button "Scroll to bottom"
@@ -178,10 +178,10 @@
 - heading "Profile" [level=2]
 - paragraph: Your name and contact email. The email is used for sign-in and account notices.
 - text: Full name
-- textbox "Full name": Seashell team
+- textbox "Full name": Helios Studio team
 - button "Clear input"
 - text: Email
-- textbox "Email": team@seashell.dev
+- textbox "Email": team@aether.photo
 - button "Clear input"
 - button "Save changes"
 - heading "Security" [level=2]
@@ -201,21 +201,21 @@
 - button "Verify code" [disabled]
 - heading "Notifications" [level=2]
 - paragraph: Choose which account events email you. Changes apply immediately.
-- text: Deploy failures
-- paragraph: Email me when a deploy fails or is rolled back.
+- text: Export failures
+- paragraph: Email me when an export fails or is cancelled.
 - status
-- switch "Deploy failures" [checked]
-- text: Certificate expiry
-- paragraph: Warn me 14 days before a TLS certificate expires.
+- switch "Export failures" [checked]
+- text: License expiry
+- paragraph: Warn me 14 days before a print or web license expires.
 - status
-- switch "Certificate expiry" [checked]
+- switch "License expiry" [checked]
 - text: Weekly summary
-- paragraph: A Monday digest of traffic, errors and resource usage.
+- paragraph: A Monday digest of gallery views, downloads and storage use.
 - status
 - switch "Weekly summary"
 - heading "Danger zone" [level=2]
-- paragraph: Deleting your account removes every site, database and backup. This cannot be undone after the recovery window.
-- text: Delete account Permanently delete team@seashell.dev and all of its data.
+- paragraph: Deleting your account removes every gallery, client portal and archive copy. This cannot be undone after the recovery window.
+- text: Delete account Permanently delete team@aether.photo and all of its data.
 - button "Delete account"
 - button "Scroll to top" [disabled]
 - button "Scroll to bottom"

@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Date & Time",
   "whenToUse": [
-    "A time of day: a daily backup time, a meeting start, a reminder.",
+    "A time of day: a daily archive time, a meeting start, a reminder.",
     "Times on a grid (`step`) with limits (`min`/`max`) — any typed time is still accepted."
   ],
   "whenNotToUse": [
@@ -41,11 +41,11 @@
     {
       "do": {
         "caption": "A list on a 30-minute grid, with typing for anything in between.",
-        "example": "<div className=\"flex w-48 flex-col gap-2\">\n  <Label htmlFor=\"gl-tf-backup\">Daily backup at</Label>\n  <TimeField id=\"gl-tf-backup\" step={30} placeholder=\"Choose a time\" />\n</div>"
+        "example": "<div className=\"flex w-48 flex-col gap-2\">\n  <Label htmlFor=\"gl-tf-archive\">Daily archive at</Label>\n  <TimeField id=\"gl-tf-archive\" step={30} placeholder=\"Choose a time\" />\n</div>"
       },
       "dont": {
         "caption": "Free text: “9.30”, “930” and “9:30pm” all need guessing.",
-        "example": "<TextField label=\"Daily backup at\" placeholder=\"e.g. 9:30\" widthSize=\"md\" />"
+        "example": "<TextField label=\"Daily archive at\" placeholder=\"e.g. 9:30\" widthSize=\"md\" />"
       }
     }
   ],

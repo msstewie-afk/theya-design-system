@@ -71,7 +71,7 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    await expect(keyNames(canvasElement)).toEqual(['Production deploy', 'CI pipeline', 'Legacy script']);
+    await expect(keyNames(canvasElement)).toEqual(['Portfolio website', 'Print lab sync', 'Legacy script']);
     await expect(canvas.getByText('active keys', { exact: false })).toHaveTextContent('3 active keys');
 
     // Whitespace-only names can't be submitted.
@@ -82,9 +82,9 @@ export const Default: Story = {
     await userEvent.clear(canvas.getByLabelText('Key name'));
 
     // Create: the full secret only in the dialog, the masked tail in the table.
-    const secret = await createKey(canvasElement, 'Staging');
+    const secret = await createKey(canvasElement, 'Studio L4 uploads');
     await expect(await toastByTitle('Key created')).toBeInTheDocument();
-    await expect(keyNames(canvasElement)[0]).toBe('Staging');
+    await expect(keyNames(canvasElement)[0]).toBe('Studio L4 uploads');
     const newRow = canvas.getAllByRole('row')[1];
     await expect(within(newRow).getAllByRole('cell')[1]).toHaveTextContent(`••••••••••${secret.slice(-4)}`);
     await expect(canvasElement).not.toHaveTextContent(secret);
@@ -93,25 +93,25 @@ export const Default: Story = {
     await clearToasts();
 
     // Revoke sits behind a confirm; cancelling changes nothing.
-    await userEvent.click(canvas.getByRole('button', { name: 'Revoke CI pipeline' }));
-    let confirm = await body().findByRole('alertdialog', { name: 'Revoke "CI pipeline"?' });
+    await userEvent.click(canvas.getByRole('button', { name: 'Revoke Print lab sync' }));
+    let confirm = await body().findByRole('alertdialog', { name: 'Revoke "Print lab sync"?' });
     await userEvent.click(within(confirm).getByRole('button', { name: 'Cancel' }));
     await waitFor(() => expect(body().queryByRole('alertdialog')).toBeNull());
-    await expect(keyNames(canvasElement)).toContain('CI pipeline');
+    await expect(keyNames(canvasElement)).toContain('Print lab sync');
     await expect(args.onRevoke).not.toHaveBeenCalled();
 
-    await userEvent.click(canvas.getByRole('button', { name: 'Revoke CI pipeline' }));
-    confirm = await body().findByRole('alertdialog', { name: 'Revoke "CI pipeline"?' });
+    await userEvent.click(canvas.getByRole('button', { name: 'Revoke Print lab sync' }));
+    confirm = await body().findByRole('alertdialog', { name: 'Revoke "Print lab sync"?' });
     await userEvent.click(within(confirm).getByRole('button', { name: 'Revoke' }));
-    await waitFor(() => expect(keyNames(canvasElement)).toEqual(['Staging', 'Production deploy', 'Legacy script']));
-    await expect(args.onRevoke).toHaveBeenCalledWith(expect.objectContaining({ name: 'CI pipeline' }));
+    await waitFor(() => expect(keyNames(canvasElement)).toEqual(['Studio L4 uploads', 'Portfolio website', 'Legacy script']));
+    await expect(args.onRevoke).toHaveBeenCalledWith(expect.objectContaining({ name: 'Print lab sync' }));
     // The row that held the trigger is gone — focus lands on the section, not <body>.
     await waitFor(() => expect(document.activeElement).toBe(canvasElement.querySelector('section')));
 
     // Undo restores it at its old position.
     const revoked = (await toastByTitle('Key revoked')).closest('[data-sonner-toast]') as HTMLElement;
     await userEvent.click(within(revoked).getByRole('button', { name: 'Undo' }));
-    await waitFor(() => expect(keyNames(canvasElement)).toEqual(['Staging', 'Production deploy', 'CI pipeline', 'Legacy script']));
+    await waitFor(() => expect(keyNames(canvasElement)).toEqual(['Studio L4 uploads', 'Portfolio website', 'Print lab sync', 'Legacy script']));
     await clearToasts();
   },
 };

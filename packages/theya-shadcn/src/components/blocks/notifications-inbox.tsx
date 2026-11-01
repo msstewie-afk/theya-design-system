@@ -29,7 +29,7 @@ import {
  * unread `StatusDot` beside the title, the actions kebab in `trailing`, the
  * whole row interactive so it opens on click - see `list-item.tsx`),
  * `ToggleGroup` for All/Unread, `Filter` for Status (tone) and Object (which
- * server, searchable) side by side with it, per-row `DropdownMenu` (mark
+ * studio, searchable) side by side with it, per-row `DropdownMenu` (mark
  * read/unread, dismiss with `undoToast`), and an optional Settings action.
  * Unread items are visually distinct AND announce "Unread" (never
  * colour-alone). Both facets are configurable: hide Status entirely with
@@ -78,7 +78,7 @@ export type InboxNotification = {
   read?: boolean;
   /** Optional link target: the row becomes a real link and marks read on open. */
   href?: string;
-  /** The server/resource this notification concerns, if any - filterable via the Object facet. */
+  /** The studio this notification concerns, if any - filterable via the Object facet. */
   object?: string;
 };
 
@@ -91,23 +91,21 @@ const STATUS_OPTIONS: FilterOption[] = [
 ];
 
 const OBJECT_OPTIONS: FilterOption[] = [
-  { value: 'web-01', label: 'web-01' },
-  { value: 'web-02', label: 'web-02' },
-  { value: 'db-prod-01', label: 'db-prod-01' },
-  { value: 'db-prod-02', label: 'db-prod-02' },
-  { value: 'cache-eu-1', label: 'cache-eu-1' },
-  { value: 'worker-03', label: 'worker-03' },
-  { value: 'api-gateway', label: 'api-gateway' },
-  { value: 'edge-04', label: 'edge-04' },
+  { value: 'helios', label: 'Helios Studio' },
+  { value: 'selene', label: 'Selene Weddings' },
+  { value: 'eos', label: 'Eos Portraits' },
+  { value: 'phoebe', label: 'Phoebe Light Lab' },
+  { value: 'othrys', label: 'Othrys Lodge' },
+  { value: 'l4', label: 'Studio L4' },
 ];
 
 const SEEDED: InboxNotification[] = [
-  { id: 'n-1', title: 'Deploy succeeded', description: 'shop.seashell.dev deployed to production in 42s.', time: '8m ago', group: 'Today', tone: 'success', read: false, object: 'web-01' },
+  { id: 'n-1', title: 'Export finished', description: 'Golden hour: 240 photos exported for print.', time: '8m ago', group: 'Today', tone: 'success', read: false, object: 'helios' },
   { id: 'n-2', title: 'New sign-in from a new device', description: "Chrome on macOS · 203.0.113.24. If this wasn't you, review your sessions.", time: '1h ago', group: 'Today', tone: 'warning', read: false },
   { id: 'n-3', title: 'Invoice paid', description: 'Your July invoice of $79.00 was paid.', time: '3h ago', group: 'Today', tone: 'info', read: true },
-  { id: 'n-4', title: 'Certificate renews soon', description: 'The certificate for api.seashell.dev renews in 7 days.', time: 'Yesterday', group: 'Earlier', tone: 'neutral', read: false, object: 'api-gateway' },
-  { id: 'n-5', title: 'Backup failed', description: 'The nightly backup for acme_prod did not complete.', time: '2d ago', group: 'Earlier', tone: 'danger', read: true, object: 'db-prod-01' },
-  { id: 'n-6', title: 'Teammate joined', description: 'Priya Nair accepted your invitation.', time: '3d ago', group: 'Earlier', tone: 'neutral', read: true },
+  { id: 'n-4', title: 'License renews soon', description: 'The web license for Moonrise over Othrys renews in 7 days.', time: 'Yesterday', group: 'Earlier', tone: 'neutral', read: false, object: 'othrys' },
+  { id: 'n-5', title: 'Archive copy failed', description: 'The nightly copy of Blue hour to Mnemosyne did not complete.', time: '2d ago', group: 'Earlier', tone: 'danger', read: true, object: 'selene' },
+  { id: 'n-6', title: 'Teammate joined', description: 'Elio Sanz accepted your invitation.', time: '3d ago', group: 'Earlier', tone: 'neutral', read: true },
 ];
 
 export type NotificationsInboxProps = {
@@ -140,7 +138,7 @@ export type NotificationsInboxProps = {
   showStatusFilter?: boolean;
   /** Label for the second facet. Default `"Object"`. */
   objectFilterLabel?: string;
-  /** Options for the second facet. Default `OBJECT_OPTIONS` (a generic server list). */
+  /** Options for the second facet. Default `OBJECT_OPTIONS` (a list of studios). */
   objectOptions?: FilterOption[];
   /** Initial selection for the second facet's filter. Default none (all). */
   defaultObjectFilter?: string[];

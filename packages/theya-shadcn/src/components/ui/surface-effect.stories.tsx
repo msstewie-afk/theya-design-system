@@ -28,7 +28,7 @@ const CARD = 'rounded-[var(--size-border-radius-border-radius-2xl)] border borde
 const Content = ({ title }: { title: string }) => (
   <div className="flex flex-col gap-1 p-5">
     <p className="text-body-l font-semibold text-[var(--color-text-text)]">{title}</p>
-    <p className="text-body-m text-[var(--color-text-text-subtle)]">Daily backups, free SSL and a staging copy for every site.</p>
+    <p className="text-body-m text-[var(--color-text-text-subtle)]">Client galleries, print licenses and an archive for every shoot.</p>
   </div>
 );
 
@@ -63,8 +63,8 @@ export const AuroraHero: Story = {
   render: () => (
     <section className="relative isolate flex min-h-80 max-w-3xl flex-col items-center justify-center gap-3 overflow-hidden rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border-subtle)] px-6 py-16 text-center">
       <Aurora />
-      <h2 className="font-body text-heading-l font-semibold text-[var(--color-text-text)]">Hosting that gets out of the way</h2>
-      <p className="max-w-md text-body-l text-[var(--color-text-text-subtle)]">Sites, mail and backups in one place — set up in minutes.</p>
+      <h2 className="font-body text-heading-l font-semibold text-[var(--color-text-text)]">Galleries that get out of the way</h2>
+      <p className="max-w-md text-body-l text-[var(--color-text-text-subtle)]">Galleries, clients and the archive in one place — set up in minutes.</p>
     </section>
   ),
 };

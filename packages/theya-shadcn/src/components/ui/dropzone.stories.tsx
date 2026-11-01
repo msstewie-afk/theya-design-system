@@ -60,18 +60,18 @@ function drop(root: HTMLElement, files: File[]) {
   }
 }
 
-const pem = () => new File(['x'], 'server.pem', { type: 'application/x-pem-file' });
+const photo = () => new File(['x'], 'DAWN_0412.jpg', { type: 'image/jpeg' });
 
 function StagedDemo() {
   const [files, setFiles] = useState<StagedFile[]>([
-    { name: 'certificate.pem', size: 2400 },
+    { name: 'GOLDEN_0907.tif', size: 48200000 },
     { name: 'bad-file.exe', size: 1200000, error: 'File type not allowed' },
   ]);
   return (
     <div className="w-full max-w-[480px]">
       <Dropzone
-        aria-label="Upload TLS certificate"
-        hint="JPG, PNG, GIF, WEBP up to 125 MB"
+        aria-label="Upload photos"
+        hint="JPG, TIFF, RAW up to 125 MB"
         files={files}
         onFiles={(newFiles) =>
           setFiles((prev) => [...prev, ...newFiles.map((f) => ({ name: f.name, size: f.size }))])
@@ -88,28 +88,28 @@ export const Playground: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = zone(canvasElement);
-    await expect(trigger).toHaveAccessibleName('Upload TLS certificate Choose files');
-    await expect(trigger).toHaveAccessibleDescription('Drag files here JPG, PNG, GIF, WEBP up to 125 MB');
+    await expect(trigger).toHaveAccessibleName('Upload photos Choose files');
+    await expect(trigger).toHaveAccessibleDescription('Drag files here JPG, TIFF, RAW up to 125 MB');
     // One tab stop for the zone: "Browse" is a pointer target only.
     await expect(canvas.getByText('Browse').closest('button')).toHaveAttribute('tabindex', '-1');
 
     // Picker and drop both stage files.
-    await userEvent.upload(picker(canvasElement), pem());
-    await expect(await canvas.findByText('server.pem')).toBeInTheDocument();
-    drop(canvasElement, [new File(['y'], 'chain.crt')]);
-    await expect(await canvas.findByText('chain.crt')).toBeInTheDocument();
+    await userEvent.upload(picker(canvasElement), photo());
+    await expect(await canvas.findByText('DAWN_0412.jpg')).toBeInTheDocument();
+    drop(canvasElement, [new File(['y'], 'L4_moonrise.raw')]);
+    await expect(await canvas.findByText('L4_moonrise.raw')).toBeInTheDocument();
 
     // Removing a row moves focus to the row that took its place.
     resetFocus();
     await tabTo(canvas.getByRole('button', { name: 'Remove bad-file.exe' }));
     await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(canvas.queryByText('bad-file.exe')).toBeNull());
-    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove server.pem' })).toHaveFocus());
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove DAWN_0412.jpg' })).toHaveFocus());
 
     // Removing the last row falls back to the previous one.
-    await tabTo(canvas.getByRole('button', { name: 'Remove chain.crt' }));
+    await tabTo(canvas.getByRole('button', { name: 'Remove L4_moonrise.raw' }));
     await userEvent.keyboard('{Enter}');
-    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove server.pem' })).toHaveFocus());
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove DAWN_0412.jpg' })).toHaveFocus());
   },
 };
 
@@ -198,9 +198,9 @@ function AcceptDemo() {
   return (
     <div className="w-full max-w-[480px]">
       <Dropzone
-        aria-label="Upload TLS certificate"
-        accept=".pem,.crt"
-        hint="PEM or CRT only"
+        aria-label="Upload photos"
+        accept=".jpg,.tif"
+        hint="JPG or TIFF only"
         error={message || undefined}
         onFiles={(files) => {
           onAccepted(files.map((f) => f.name));
@@ -208,7 +208,7 @@ function AcceptDemo() {
         }}
         onReject={(files) => {
           onRejected(files.map((f) => f.name));
-          setMessage(`${files.map((f) => f.name).join(', ')}: only .pem and .crt are allowed`);
+          setMessage(`${files.map((f) => f.name).join(', ')}: only .jpg and .tif are allowed`);
         }}
       />
     </div>
@@ -225,11 +225,11 @@ export const AcceptFilter: Story = {
     drop(canvasElement, [new File(['z'], 'setup.exe', { type: 'application/x-msdownload' })]);
     await expect(onRejected).toHaveBeenLastCalledWith(['setup.exe']);
     await expect(onAccepted).not.toHaveBeenCalled();
-    await expect(canvas.getByRole('alert')).toHaveTextContent('setup.exe: only .pem and .crt are allowed');
+    await expect(canvas.getByRole('alert')).toHaveTextContent('setup.exe: only .jpg and .tif are allowed');
 
     // A mixed drop splits: the matching file is accepted, the other rejected.
-    drop(canvasElement, [pem(), new File(['w'], 'photo.png', { type: 'image/png' })]);
-    await expect(onAccepted).toHaveBeenLastCalledWith(['server.pem']);
+    drop(canvasElement, [photo(), new File(['w'], 'photo.png', { type: 'image/png' })]);
+    await expect(onAccepted).toHaveBeenLastCalledWith(['DAWN_0412.jpg']);
     await expect(onRejected).toHaveBeenLastCalledWith(['photo.png']);
   },
 };
@@ -240,8 +240,8 @@ function UploadDemo() {
   return (
     <div className="w-full max-w-[480px]">
       <Dropzone
-        aria-label="Upload TLS certificate"
-        hint="PEM or CRT up to 1 MB"
+        aria-label="Upload photos"
+        hint="JPG or TIFF up to 125 MB"
         loading={loading}
         successFile={uploaded}
         onFiles={(files) => {
@@ -249,7 +249,7 @@ function UploadDemo() {
           setLoading(true);
           window.setTimeout(() => {
             setLoading(false);
-            setUploaded({ name: files[0]?.name ?? 'certificate.pem', uploadedAt: 'just now' });
+            setUploaded({ name: files[0]?.name ?? 'DAWN_0412.jpg', uploadedAt: 'just now' });
           }, 1500);
         }}
       />
@@ -263,7 +263,7 @@ export const UploadFlow: Story = {
   render: () => <UploadDemo />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.upload(canvasElement.querySelector<HTMLInputElement>('input[type=file]')!, new File(['x'], 'server.pem'));
-    await expect(await canvas.findByText('server.pem', {}, { timeout: 4000 })).toBeInTheDocument();
+    await userEvent.upload(canvasElement.querySelector<HTMLInputElement>('input[type=file]')!, new File(['x'], 'DAWN_0412.jpg'));
+    await expect(await canvas.findByText('DAWN_0412.jpg', {}, { timeout: 4000 })).toBeInTheDocument();
   },
 };

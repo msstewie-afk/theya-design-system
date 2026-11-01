@@ -60,7 +60,7 @@ export const checkboxGuidelines: ComponentGuidelines = {
     },
   ],
   a11y: [
-    <>Every box needs a label — a <C>Label</C> with <C>htmlFor</C>, or <C>aria-label</C> in a table row (“Select seashell.shop”).</>,
+    <>Every box needs a label — a <C>Label</C> with <C>htmlFor</C>, or <C>aria-label</C> in a table row (“Select Golden hour”).</>,
     <>Indeterminate is announced as “mixed”; use it only for a parent of partly selected children.</>,
     <>Group related boxes in <C>CheckboxGroup</C> so the legend is read with each option.</>,
     'Space toggles; the whole label is a click target.',

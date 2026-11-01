@@ -33,7 +33,7 @@
       - button "Retry Intro asset video.mp4"
       - button "Cancel Intro asset video.mp4"
     - listitem: Poster.png 2.3 MB · Completed
-  - paragraph: "Intro asset video.mp4 failed to upload: Connection lost"
+  - paragraph: Uploading 4 files
 
 # Finished (files-uploadpanel--finished)
 - region "Uploads":

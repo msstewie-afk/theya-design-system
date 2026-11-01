@@ -16,7 +16,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'One line of long user data (a file name, a domain, a description) that ends in an ellipsis when it doesn’t fit and shows the whole text in a tooltip on hover and keyboard focus. Short interface labels wrap instead.',
+          'One line of long user data (a file name, a portal address, a description) that ends in an ellipsis when it doesn’t fit and shows the whole text in a tooltip on hover and keyboard focus. Short interface labels wrap instead.',
       },
     },
     guidelines: truncatedTextGuidelines,

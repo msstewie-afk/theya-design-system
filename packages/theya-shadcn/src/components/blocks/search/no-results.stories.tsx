@@ -30,17 +30,18 @@ export const DidYouMean: Story = {
 export const EmptyScope: Story = {
   args: {
     query: 'moonrise',
-    scope: 'project',
+    scope: 'client',
     elsewhere: [
-      { type: 'setting', count: 2 },
-      { type: 'article', count: 3 },
+      { type: 'gallery', count: 1 },
+      { type: 'photo', count: 1 },
+      { type: 'license', count: 1 },
     ],
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('No projects match “moonrise”')).toBeVisible();
-    await userEvent.click(canvas.getByRole('button', { name: 'help articles (3)' }));
-    await expect(args.onScopeChange).toHaveBeenCalledWith('article');
+    await expect(canvas.getByText('No clients match “moonrise”')).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'photos (1)' }));
+    await expect(args.onScopeChange).toHaveBeenCalledWith('photo');
     await userEvent.click(canvas.getByRole('button', { name: 'Search everything' }));
     await expect(args.onScopeChange).toHaveBeenLastCalledWith('all');
   },

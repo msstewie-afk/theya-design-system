@@ -2,12 +2,12 @@
 
 # Default (patterns-navigation-sitefooter--default)
 - contentinfo:
-  - text: Theya
-  - paragraph: Hosting with a panel people enjoy using.
+  - text: Aether
+  - paragraph: Galleries, prints and an archive for working photographers.
   - term: Support, 24/7
   - definition:
-    - link "support@theya.dev":
-      - /url: mailto:support@theya.dev
+    - link "support@aether.photo":
+      - /url: mailto:support@aether.photo
   - term: Sales
   - definition:
     - link "+359 2 400 1234":
@@ -18,20 +18,20 @@
     - heading "Products" [level=2]
     - list "Products":
       - listitem:
-        - link "Shared hosting":
-          - /url: "#shared"
+        - link "Client galleries":
+          - /url: "#galleries"
       - listitem:
-        - link "VPS":
-          - /url: "#vps"
+        - link "Client portals":
+          - /url: "#portals"
       - listitem:
-        - link "Dedicated servers":
-          - /url: "#dedicated"
+        - link "Print store":
+          - /url: "#prints"
       - listitem:
-        - link "Domains":
-          - /url: "#domains"
+        - link "Archive":
+          - /url: "#archive"
       - listitem:
-        - link "Extensions":
-          - /url: "#extensions"
+        - link "Shop":
+          - /url: "#shop"
     - heading "Support" [level=2]
     - list "Support":
       - listitem:
@@ -71,7 +71,7 @@
       - listitem:
         - link "Partners":
           - /url: "#partners"
-  - paragraph: © 2026 Theya
+  - paragraph: © 2026 Aether
   - link "Terms":
     - /url: "#terms"
   - link "Privacy":
@@ -82,39 +82,39 @@
   - combobox "Language": English
   - list:
     - listitem:
-      - link "Theya on GitHub":
+      - link "Aether on GitHub":
         - /url: "#github"
         - img
     - listitem:
-      - link "Theya on X":
+      - link "Aether on X":
         - /url: "#x"
         - img
     - listitem:
-      - link "Theya on LinkedIn":
+      - link "Aether on LinkedIn":
         - /url: "#linkedin"
         - img
 
 # Minimal (patterns-navigation-sitefooter--minimal)
 - contentinfo:
-  - text: Theya
+  - text: Aether
   - navigation "Footer":
     - heading "Products" [level=2]
     - list "Products":
       - listitem:
-        - link "Shared hosting":
-          - /url: "#shared"
+        - link "Client galleries":
+          - /url: "#galleries"
       - listitem:
-        - link "VPS":
-          - /url: "#vps"
+        - link "Client portals":
+          - /url: "#portals"
       - listitem:
-        - link "Dedicated servers":
-          - /url: "#dedicated"
+        - link "Print store":
+          - /url: "#prints"
       - listitem:
-        - link "Domains":
-          - /url: "#domains"
+        - link "Archive":
+          - /url: "#archive"
       - listitem:
-        - link "Extensions":
-          - /url: "#extensions"
+        - link "Shop":
+          - /url: "#shop"
     - heading "Support" [level=2]
     - list "Support":
       - listitem:
@@ -154,7 +154,7 @@
       - listitem:
         - link "Partners":
           - /url: "#partners"
-  - paragraph: © 2026 Theya
+  - paragraph: © 2026 Aether
   - link "Terms":
     - /url: "#terms"
   - link "Privacy":

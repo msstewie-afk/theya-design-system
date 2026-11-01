@@ -11,16 +11,16 @@
   - heading "Popular pages" [level=2]
   - list:
     - listitem:
-      - link "Backup schedule Settings › Backups":
+      - link "Archive retention Settings › Archive":
         - /url: "#s1"
     - listitem:
-      - link "SSL/TLS certificates Settings › Security":
+      - link "Default usage rights Settings › Rights":
         - /url: "#s3"
     - listitem:
-      - link "Restore a site from a backup Help › Backups":
+      - link "Restore a gallery from the archive Help › Archive":
         - /url: "#a1"
     - listitem:
-      - link "Connect a domain you bought elsewhere Help › Domains":
+      - link "Use your own portal address Help › Client portals":
         - /url: "#a4"
 
 # Did You Mean (patterns-search-noresults--did-you-mean)
@@ -38,25 +38,27 @@
   - heading "Popular pages" [level=2]
   - list:
     - listitem:
-      - link "Backup schedule Settings › Backups":
+      - link "Archive retention Settings › Archive":
         - /url: "#s1"
     - listitem:
-      - link "SSL/TLS certificates Settings › Security":
+      - link "Default usage rights Settings › Rights":
         - /url: "#s3"
     - listitem:
-      - link "Restore a site from a backup Help › Backups":
+      - link "Restore a gallery from the archive Help › Archive":
         - /url: "#a1"
     - listitem:
-      - link "Connect a domain you bought elsewhere Help › Domains":
+      - link "Use your own portal address Help › Client portals":
         - /url: "#a4"
 
 # Empty Scope (patterns-search-noresults--empty-scope)
-- paragraph: No projects match “moonrise”
+- paragraph: No clients match “moonrise”
 - paragraph:
   - text: But there are matches in
-  - button "settings (2)"
+  - button "galleries (1)"
+  - text: ","
+  - button "photos (1)"
   - text: and
-  - button "help articles (3)"
+  - button "licenses (1)"
   - text: .
 - paragraph: "Try:"
 - list:
@@ -68,14 +70,14 @@
   - heading "Popular pages" [level=2]
   - list:
     - listitem:
-      - link "Backup schedule Settings › Backups":
+      - link "Archive retention Settings › Archive":
         - /url: "#s1"
     - listitem:
-      - link "SSL/TLS certificates Settings › Security":
+      - link "Default usage rights Settings › Rights":
         - /url: "#s3"
     - listitem:
-      - link "Restore a site from a backup Help › Backups":
+      - link "Restore a gallery from the archive Help › Archive":
         - /url: "#a1"
     - listitem:
-      - link "Connect a domain you bought elsewhere Help › Domains":
+      - link "Use your own portal address Help › Client portals":
         - /url: "#a4"

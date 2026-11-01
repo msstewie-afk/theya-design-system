@@ -4,7 +4,7 @@ import { CopyButton } from './copy-button';
 
 export const copyButtonGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['Next to a value people paste somewhere else: an API key, a DNS record, a command, a link.', 'When selecting the text by hand would be fiddly (long, monospaced, partly hidden).'],
+  whenToUse: ['Next to a value people paste somewhere else: an API key, a client portal address, a command, a link.', 'When selecting the text by hand would be fiddly (long, monospaced, partly hidden).'],
   whenNotToUse: [
     { text: 'A secret that should stay masked until asked', instead: 'SecretField (copy built in)' },
     { text: 'A block of code', instead: 'CodeBlock (copy built in)' },
@@ -20,8 +20,8 @@ export const copyButtonGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className="flex items-center gap-2">
-            <code className="rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-2 py-1 font-mono text-body-s text-[var(--color-text-text)]">ns1.theya.dev</code>
-            <CopyButton value="ns1.theya.dev" label={null} aria-label="Copy ns1.theya.dev" appearance="ghost" tone="secondary" size="sm" />
+            <code className="rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-2 py-1 font-mono text-body-s text-[var(--color-text-text)]">selene-weddings.aether.photo</code>
+            <CopyButton value="selene-weddings.aether.photo" label={null} aria-label="Copy selene-weddings.aether.photo" appearance="ghost" tone="secondary" size="sm" />
           </div>
         ),
         caption: 'Right next to the value it copies, and the name says which value.',
@@ -29,8 +29,8 @@ export const copyButtonGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <div className="flex flex-col items-start gap-2">
-            <code className="font-mono text-body-s text-[var(--color-text-text)]">ns1.theya.dev</code>
-            <code className="font-mono text-body-s text-[var(--color-text-text)]">ns2.theya.dev</code>
+            <code className="font-mono text-body-s text-[var(--color-text-text)]">selene-weddings.aether.photo</code>
+            <code className="font-mono text-body-s text-[var(--color-text-text)]">helios.aether.photo</code>
             <Button appearance="outlined" tone="secondary" size="md">Copy</Button>
           </div>
         ),

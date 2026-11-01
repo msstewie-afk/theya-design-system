@@ -45,7 +45,7 @@ export default meta;
 type Story = StoryObj<typeof ListView>;
 
 const body = () => within(document.body);
-const ALL = ['Alex Morgan', 'Jordan Kim', 'Priya Nair', 'Sam Okoro', 'Dana Okafor'];
+const ALL = ['Thea Marlow', 'Ian Hyde', 'Elio Sanz', 'Phoebe Lark', 'Selin Arda'];
 
 /** Seeded names currently rendered as rows, in order. */
 const visibleNames = (canvasElement: HTMLElement) =>
@@ -74,8 +74,8 @@ export const Default: Story = {
     await expect(count(canvasElement)).toHaveTextContent('5 users');
 
     const input = canvas.getByRole('combobox', { name: 'Search users…' });
-    await userEvent.type(input, 'pri');
-    await waitFor(() => expect(visibleNames(canvasElement)).toEqual(['Priya Nair']));
+    await userEvent.type(input, 'elio');
+    await waitFor(() => expect(visibleNames(canvasElement)).toEqual(['Elio Sanz']));
     await expect(count(canvasElement)).toHaveTextContent('1 user');
     await userEvent.clear(input);
     await waitFor(() => expect(visibleNames(canvasElement)).toEqual(ALL));
@@ -87,7 +87,7 @@ export const Default: Story = {
     // Searchable facet: its values replace the attribute list in the same popup.
     await userEvent.click(await body().findByRole('option', { name: /Suspended/ }));
     await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(visibleNames(canvasElement)).toEqual(['Sam Okoro']));
+    await waitFor(() => expect(visibleNames(canvasElement)).toEqual(['Phoebe Lark']));
     await expect(canvas.getByRole('button', { name: 'Status: Suspended' })).toBeInTheDocument();
   },
 };
@@ -144,9 +144,9 @@ export const WithBulkAndRowActions: Story = {
       for (const spy of [onEmail, onBulkRemove, onView, onRemove, onUndoRemove]) spy.mockClear();
       await expect(count(canvasElement)).toHaveTextContent('5 users');
       await expect(c.queryAllByRole('checkbox')).toHaveLength(0);
-      await userEvent.click(c.getByRole('button', { name: 'Actions for Priya Nair' }));
+      await userEvent.click(c.getByRole('button', { name: 'Actions for Elio Sanz' }));
       await userEvent.click(await body().findByRole('menuitem', { name: 'View profile' }));
-      await expect(onView).toHaveBeenCalledWith('Priya Nair');
+      await expect(onView).toHaveBeenCalledWith('Elio Sanz');
       return;
     }
 
@@ -155,29 +155,29 @@ export const WithBulkAndRowActions: Story = {
     await expect(count(canvasElement)).toHaveTextContent('5 users');
 
     // Row menu: a plain action, then a confirmed one with undo.
-    await userEvent.click(canvas.getByRole('button', { name: 'Actions for Priya Nair' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Actions for Elio Sanz' }));
     await userEvent.click(await body().findByRole('menuitem', { name: 'View profile' }));
-    await expect(onView).toHaveBeenCalledWith('Priya Nair');
+    await expect(onView).toHaveBeenCalledWith('Elio Sanz');
 
-    await userEvent.click(canvas.getByRole('button', { name: 'Actions for Sam Okoro' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Actions for Phoebe Lark' }));
     await userEvent.click(await body().findByRole('menuitem', { name: 'Remove' }));
-    const confirm = await body().findByRole('alertdialog', { name: 'Remove Sam Okoro?' });
+    const confirm = await body().findByRole('alertdialog', { name: 'Remove Phoebe Lark?' });
     await userEvent.click(within(confirm).getByRole('button', { name: 'Remove' }));
-    await expect(onRemove).toHaveBeenCalledWith('Sam Okoro');
-    const undoToastEl = (await body().findByText('Sam Okoro removed', { selector: '[data-title]' })).closest('[data-sonner-toast]') as HTMLElement;
+    await expect(onRemove).toHaveBeenCalledWith('Phoebe Lark');
+    const undoToastEl = (await body().findByText('Phoebe Lark removed', { selector: '[data-title]' })).closest('[data-sonner-toast]') as HTMLElement;
     await userEvent.click(within(undoToastEl).getByRole('button', { name: 'Undo' }));
-    await expect(onUndoRemove).toHaveBeenCalledWith('Sam Okoro');
+    await expect(onUndoRemove).toHaveBeenCalledWith('Phoebe Lark');
     await clearToasts();
 
     // Bulk: select two rows, the bar re-skins, the action gets exactly those rows.
-    await userEvent.click(canvas.getByRole('checkbox', { name: 'Select Jordan Kim' }));
-    await userEvent.click(canvas.getByRole('checkbox', { name: 'Select Dana Okafor' }));
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Select Ian Hyde' }));
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Select Selin Arda' }));
     const bar = canvasElement.querySelector('[data-slot="data-table-toolbar"]') as HTMLElement;
     await waitFor(() => expect(bar).toHaveAttribute('data-state', 'selected'));
     await expect(bar).toHaveTextContent('2 selected');
     const bulk = canvas.getByRole('toolbar', { name: 'Bulk actions' });
     await userEvent.click(within(bulk).getByRole('button', { name: 'Email' }));
-    await expect(onEmail).toHaveBeenCalledWith(['Jordan Kim', 'Dana Okafor']);
+    await expect(onEmail).toHaveBeenCalledWith(['Ian Hyde', 'Selin Arda']);
   },
 };
 

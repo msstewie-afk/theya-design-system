@@ -39,8 +39,8 @@ import { useTheyaI18n, type TheyaMessages } from '../../lib/i18n';
  * the bottom — scroll up to read history and appends won't yank you
  * back down.
  *
- *   <Terminal user="acme" host="web-04" connection="connected"
- *     lines={[{ id: "1", text: "acme@web-04:~$ npm run cache:clear", level: "cmd" }]} />
+ *   <Terminal user="thea" host="studio-l4" connection="connected"
+ *     lines={[{ id: "1", text: "thea@studio-l4:~$ aether sync ./Golden-hour", level: "cmd" }]} />
  */
 export type TerminalLevel = 'cmd' | 'ok' | 'success' | 'warn' | 'warning' | 'err' | 'error' | 'info' | 'dim' | 'muted';
 

@@ -28,7 +28,7 @@ const meta: Meta<typeof Terminal> = {
     docs: {
       description: {
         component:
-          "Console output, live or past: a web SSH session, a build log, a tail of access logs. Follows the newest line and can show the connection state.",
+          "Console output, live or past: a remote session on a studio workstation, an export log, a tail of access logs. Follows the newest line and can show the connection state.",
       },
     },
     layout: 'padded', guidelines: terminalGuidelines,
@@ -64,16 +64,16 @@ export default meta;
 type Story = StoryObj<typeof Terminal>;
 
 const sshLines: TerminalLineData[] = [
-  { id: '1', text: 'acme@web-04:~$ npm run cache:clear', level: 'cmd' },
-  { id: '2', text: 'Cache cleared.', level: 'ok' },
-  { id: '3', text: 'acme@web-04:~$ npm ls --depth=0', level: 'cmd' },
-  { id: '4', text: 'next@15.1.2' },
-  { id: '5', text: 'sharp@0.33.5 (optional)', level: 'dim' },
-  { id: '6', text: 'acme@web-04:~$ du -sh .next', level: 'cmd' },
-  { id: '7', text: '248M    .next', level: 'info' },
+  { id: '1', text: 'thea@studio-l4:~$ aether sync ./Golden-hour', level: 'cmd' },
+  { id: '2', text: 'Synced 248 photos to Helios Studio.', level: 'ok' },
+  { id: '3', text: 'thea@studio-l4:~$ ls ./Golden-hour | head -3', level: 'cmd' },
+  { id: '4', text: 'GOLDEN_0901.tif' },
+  { id: '5', text: 'GOLDEN_0902.tif' },
+  { id: '6', text: 'thea@studio-l4:~$ du -sh ./Golden-hour', level: 'cmd' },
+  { id: '7', text: '12G     ./Golden-hour', level: 'info' },
 ];
 
-/** A web SSH session — dark by default. */
+/** A remote session on a studio workstation — dark by default. */
 export const Default: Story = {
   render: (args) => (
     <div className="w-full max-w-[480px]">
@@ -81,8 +81,8 @@ export const Default: Story = {
     </div>
   ),
   args: {
-    user: 'acme',
-    host: 'web-04',
+    user: 'thea',
+    host: 'studio-l4',
     connection: 'connected',
     status: 'Connected · ssh-ed25519 · 22ms',
     live: 'polite',
@@ -110,7 +110,7 @@ export const LightSurface: Story = {
   },
 };
 
-/** A deploy log mixing severity levels — info, warning, and error. Each
+/** An export log mixing severity levels — info, warning, and error. Each
  * line carries its severity in the visible text, and err/warn also
  * prepend a visually-hidden severity word so status is never color-alone. */
 export const SeverityLevels: Story = {
@@ -121,17 +121,17 @@ export const SeverityLevels: Story = {
   ),
   parameters: { controls: { exclude: ['connection', 'lines'] } },
   args: {
-    user: 'deploy',
-    host: 'edge-07',
+    user: 'export',
+    host: 'helios',
     connection: 'connecting',
-    ariaLabel: 'Deploy log',
+    ariaLabel: 'Export log',
     lines: [
-      { id: 'a', text: '$ deploy shop.seashell.dev --region eu-west-1', level: 'cmd' },
-      { id: 'b', text: 'Building image sha256:9f2c… (this can take a minute)', level: 'info' },
-      { id: 'c', text: 'Pushing layers to eu-west-1', level: 'info' },
-      { id: 'd', text: 'Warning: 1 cached layer is stale, rebuilding', level: 'warn' },
-      { id: 'e', text: 'Error: health check failed on web-04 - unreachable', level: 'err' },
-      { id: 'f', text: 'Rolled back to v2.4.0', level: 'dim' },
+      { id: 'a', text: '$ aether export "Golden hour" --format jpeg --long-edge 2048', level: 'cmd' },
+      { id: 'b', text: 'Rendering 248 photos (this can take a minute)', level: 'info' },
+      { id: 'c', text: 'Uploading to helios.aether.photo', level: 'info' },
+      { id: 'd', text: 'Warning: 3 photos have no color profile, using sRGB', level: 'warn' },
+      { id: 'e', text: 'Error: GOLDEN_0907.tif could not be read - the file is damaged', level: 'err' },
+      { id: 'f', text: 'Exported 247 of 248 photos', level: 'dim' },
     ],
   },
 };
@@ -142,14 +142,14 @@ export const ConnectionStates: Story = {
   parameters: { controls: { exclude: ['connection', 'lines'] } },
   render: (args) => (
     <div className="flex w-full max-w-[480px] flex-col gap-4">
-      <Terminal {...args} connection="connected" status="Connected · ssh-ed25519 · 22ms" bodyClassName="h-28" lines={[{ id: 'c1', text: 'acme@web-04:~$ uptime', level: 'cmd' }]} />
+      <Terminal {...args} connection="connected" status="Connected · ssh-ed25519 · 22ms" bodyClassName="h-28" lines={[{ id: 'c1', text: 'thea@studio-l4:~$ aether status', level: 'cmd' }]} />
       <Terminal {...args} connection="connecting" bodyClassName="h-28" lines={[{ id: 'g1', text: 'Negotiating key exchange…', level: 'info' }]} />
-      <Terminal {...args} connection="down" bodyClassName="h-28" lines={[{ id: 'd1', text: 'Error: connection refused on web-04', level: 'err' }]} />
+      <Terminal {...args} connection="down" bodyClassName="h-28" lines={[{ id: 'd1', text: 'Error: connection refused on studio-l4', level: 'err' }]} />
     </div>
   ),
   args: {
-    user: 'acme',
-    host: 'web-04',
+    user: 'thea',
+    host: 'studio-l4',
     ariaLabel: 'Connection demo',
   },
 };
@@ -165,20 +165,20 @@ export const WithTools: Story = {
     </div>
   ),
   args: {
-    user: 'deploy',
-    host: 'edge-07',
+    user: 'export',
+    host: 'helios',
     connection: 'connected',
     status: 'Connected · 12ms',
-    ariaLabel: 'Build output',
+    ariaLabel: 'Export output',
     tools: (
       <Button appearance="outlined" tone="secondary" size="md" leftIcon={<Refresh />}>
-        Rerun build
+        Rerun export
       </Button>
     ),
     lines: [
-      { id: 'b1', text: '$ npm run build', level: 'cmd' },
-      { id: 'b2', text: 'Compiled in 4.2s' },
-      { id: 'b3', text: 'Success: Build complete.', level: 'ok' },
+      { id: 'b1', text: '$ aether export "Blue hour"', level: 'cmd' },
+      { id: 'b2', text: 'Rendered 96 photos in 42s' },
+      { id: 'b3', text: 'Success: Export complete.', level: 'ok' },
     ],
   },
 };
@@ -189,11 +189,11 @@ export const Headless: Story = {
   parameters: { controls: { exclude: ['user', 'host', 'connection', 'status', 'lines'] } },
   render: (args) => (
     <div className="w-full max-w-[480px]">
-      <Terminal {...args} hideHeader ariaLabel="Build output" bodyClassName="h-48">
-        <TerminalLine level="cmd" inverse={args.inverse}>$ npm run build</TerminalLine>
-        <TerminalLine inverse={args.inverse}>Compiled in 4.2s</TerminalLine>
-        <TerminalLine level="warn" inverse={args.inverse}>Warning: 2 unused exports</TerminalLine>
-        <TerminalLine level="ok" inverse={args.inverse}>Success: Build complete.</TerminalLine>
+      <Terminal {...args} hideHeader ariaLabel="Export output" bodyClassName="h-48">
+        <TerminalLine level="cmd" inverse={args.inverse}>$ aether export "Blue hour"</TerminalLine>
+        <TerminalLine inverse={args.inverse}>Rendered 96 photos in 42s</TerminalLine>
+        <TerminalLine level="warn" inverse={args.inverse}>Warning: 2 photos have no color profile</TerminalLine>
+        <TerminalLine level="ok" inverse={args.inverse}>Success: Export complete.</TerminalLine>
       </Terminal>
     </div>
   ),
@@ -210,18 +210,18 @@ export const QuietStream: Story = {
     </div>
   ),
   args: {
-    user: 'acme',
-    host: 'web-01',
+    user: 'thea',
+    host: 'helios',
     connection: 'connected',
     status: 'Connected · tailing /var/log/access.log',
     live: 'off',
     ariaLabel: 'Access log tail',
     bodyClassName: 'h-48',
     lines: [
-      { id: 'q1', text: '203.0.113.7 GET /  200  18ms', level: 'dim' },
-      { id: 'q2', text: '203.0.113.7 GET /assets/app.css  200  4ms', level: 'dim' },
-      { id: 'q3', text: '198.51.100.2 GET /api/sites  200  31ms', level: 'dim' },
-      { id: 'q4', text: '198.51.100.2 POST /api/sites  201  88ms', level: 'dim' },
+      { id: 'q1', text: '203.0.113.7 GET /galleries/golden-hour  200  18ms', level: 'dim' },
+      { id: 'q2', text: '203.0.113.7 GET /photos/DAWN_0412.jpg  200  42ms', level: 'dim' },
+      { id: 'q3', text: '198.51.100.2 GET /api/galleries  200  31ms', level: 'dim' },
+      { id: 'q4', text: '198.51.100.2 POST /api/favorites  201  88ms', level: 'dim' },
       { id: 'q5', text: '203.0.113.7 GET /favicon.ico  404  2ms', level: 'warn' },
     ],
   },
@@ -236,12 +236,12 @@ function ReconnectDemo() {
   return (
     <div className="flex w-full max-w-[480px] flex-col gap-3">
       <Terminal
-        user="acme"
-        host="web-04"
-        ariaLabel="web-04 session"
+        user="thea"
+        host="studio-l4"
+        ariaLabel="studio-l4 session"
         connection={connection}
         bodyClassName="h-28"
-        lines={[{ id: 'r1', text: connection === 'connected' ? 'acme@web-04:~$ uptime' : 'Error: connection refused on web-04', level: connection === 'connected' ? 'cmd' : 'err' }]}
+        lines={[{ id: 'r1', text: connection === 'connected' ? 'thea@studio-l4:~$ aether status' : 'Error: connection refused on studio-l4', level: connection === 'connected' ? 'cmd' : 'err' }]}
         tools={
           <Button size="sm" appearance="outlined" tone="neutral" leftIcon={<Refresh />} onClick={reconnect} disabled={connection === 'connecting'}>
             Reconnect

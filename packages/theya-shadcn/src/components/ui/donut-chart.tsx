@@ -16,8 +16,8 @@ import { ChartPatternDefs, patternFill, seriesColor, SeriesKey, usePatternId } f
  * its swatch. The center shows the total by default. Pass `loading`
  * for the first-load state.
  *
- *   <DonutChart data={[{ label: "Prod", value: 62 }, { label: "Staging", value: 24 }, …]}
- *     unit=" GB" centerLabel="Storage" ariaLabel="Storage by environment: production leads at 62 GB." />
+ *   <DonutChart data={[{ label: "RAW", value: 62 }, { label: "JPEG", value: 24 }, …]}
+ *     unit=" GB" centerLabel="Storage" ariaLabel="Storage by file type: RAW leads at 62 GB." />
  */
 export interface DonutChartSlice {
   label: string;

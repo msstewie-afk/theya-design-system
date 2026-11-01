@@ -15,11 +15,11 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 ## Actions
 
 - [Button](./?path=/docs/actions-button--docs): To do something: save, submit, create, delete, start a flow, open a dialog.
-- [CopyButton](./?path=/docs/actions-copybutton--docs): Next to a value people paste somewhere else: an API key, a DNS record, a command, a link.
+- [CopyButton](./?path=/docs/actions-copybutton--docs): Next to a value people paste somewhere else: an API key, a client portal address, a command, a link.
 - [DensityToggle](./?path=/docs/actions-densitytoggle--docs) (beta): Products with data-heavy screens (tables, admin forms), where some people want more rows on screen and others want larger targets.
 - [Fab](./?path=/docs/actions-fab--docs) (beta): The one main action of a screen that must stay reachable while scrolling, mostly on mobile: “New message”, “Add gallery”.
 - [KebabIcon](./?path=/docs/actions-kebabicon--docs): The trigger of an overflow menu: “more actions” for a row, a card or a toolbar.
-- [SplitButton](./?path=/docs/actions-splitbutton--docs): One main action with a few variations of it: “Deploy” / Deploy to staging / Deploy without cache.
+- [SplitButton](./?path=/docs/actions-splitbutton--docs): One main action with a few variations of it: “Export” / Export as JPEG / Export without watermark.
 - [StickyActionBar](./?path=/docs/actions-stickyactionbar--docs) (beta): Save / Discard at the end of a long form, kept in view while scrolling.
 - [ThemeToggle](./?path=/docs/actions-themetoggle--docs): A quick light/dark switch in the top bar.
 - [Toggle](./?path=/docs/actions-toggle--docs): A button that stays pressed: bold in an editor, “Show archived”, pin.
@@ -37,8 +37,8 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 
 - [AreaChart](./?path=/docs/charts-areachart--docs): One quantity over time where the volume matters: gallery views, downloads, storage used.
 - [BarChart](./?path=/docs/charts-barchart--docs): Comparing a value across categories: storage by studio, exports per day, photos per album.
-- [ChartRangeSelection](./?path=/docs/charts-chartrangeselection--docs) (beta): Selecting a span on an ordered x-axis to zoom in or filter: “show errors from Aug 3 to Aug 6”.
-- [DonutChart](./?path=/docs/charts-donutchart--docs): Parts of one whole, up to 7: storage by environment, plan mix, traffic by source.
+- [ChartRangeSelection](./?path=/docs/charts-chartrangeselection--docs) (beta): Selecting a span on an ordered x-axis to zoom in or filter: “show views from Aug 3 to Aug 6”.
+- [DonutChart](./?path=/docs/charts-donutchart--docs): Parts of one whole, up to 7: storage by file type, plan mix, downloads by source.
 - [LineChart](./?path=/docs/charts-linechart--docs): Comparing a few trends over the same time: downloads vs views, this week vs last.
 - [Sparkline](./?path=/docs/charts-sparkline--docs): The shape of a trend next to its number: a stat card, a table cell, a list row.
 
@@ -47,7 +47,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [CodeBlock](./?path=/docs/code-codeblock--docs): A command, snippet or config the user reads and copies: install steps, an export preset, an API example.
 - [CodeEditor](./?path=/docs/code-codeeditor--docs) (beta): Editing config, templates, rules or scripts in the product: JSON, HTML, CSS, JS/TS, shell.
 - [DiffViewer](./?path=/docs/code-diffviewer--docs) (beta): Reviewing a change before applying it: config, a template, a policy, a file restored from the archive.
-- [Terminal](./?path=/docs/code-terminal--docs) (beta): Live or past console output: a web SSH session, a deploy or build log, a tail of access logs.
+- [Terminal](./?path=/docs/code-terminal--docs) (beta): Live or past console output: a remote session on a studio workstation, an export log, a tail of access logs.
 
 ## Data
 
@@ -56,7 +56,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [DataTableCell](./?path=/docs/data-datatablecell--docs): Every cell of a DataTable: pick the kind by content — text, mono, primary, status, badge, usage, sparkline.
 - [DataTableToolbar](./?path=/docs/data-datatabletoolbar--docs): Above a selectable DataTable: filter / search when idle, bulk actions when rows are selected — in the same strip.
 - [DescriptionList](./?path=/docs/data-descriptionlist--docs): Properties of one object: gallery details, an invoice header, a license.
-- [Kanban](./?path=/docs/data-kanban--docs) (beta): Work moving through stages: tickets, a deploy pipeline, content review.
+- [Kanban](./?path=/docs/data-kanban--docs) (beta): Work moving through stages: tickets, a photo delivery pipeline, content review.
 - [ListItem](./?path=/docs/data-listitem--docs): Lists lighter than a table: settings sections, notifications, a resource picker.
 - [Metric](./?path=/docs/data-metric--docs): Quick-glance counts repeated as rows inside a card: photos selected, galleries shared, licenses pending.
 - [Price](./?path=/docs/data-price--docs) (beta): Any amount of money in the UI: plan cards, checkout, invoices, add-ons.
@@ -73,14 +73,14 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [DatePicker](./?path=/docs/date-time-datepicker--docs): One date near today that people pick by looking at a month: a start date, a due date, a delivery day.
 - [DateRangePicker](./?path=/docs/date-time-daterangepicker--docs): A start and end date picked together: a report period, a booking, a filter.
 - [DateTimePicker](./?path=/docs/date-time-datetimepicker--docs): A moment that needs both date and time: a scheduled send, a maintenance window, a reminder.
-- [TimeField](./?path=/docs/date-time-timefield--docs): A time of day: a daily backup time, a meeting start, a reminder.
+- [TimeField](./?path=/docs/date-time-timefield--docs): A time of day: a daily archive time, a meeting start, a reminder.
 - [TimeRangePicker](./?path=/docs/date-time-timerangepicker--docs): A start and end time within one day: opening hours, a maintenance window, quiet hours.
 
 ## Files
 
 - [Attachment](./?path=/docs/files-attachment--docs): Showing a file that’s already attached: in a message, a ticket, a list of uploads.
 - [Dropzone](./?path=/docs/files-dropzone--docs): Uploading one or several files where dragging from the desktop is common: documents, media, imports.
-- [File](./?path=/docs/files-file--docs): One file in a form: a logo, a certificate, a document to attach.
+- [File](./?path=/docs/files-file--docs): One file in a form: a logo, a model release, a document to attach.
 - [ImageCropper](./?path=/docs/files-imagecropper--docs) (beta): Framing an uploaded image before saving: avatar, logo, cover, product photo.
 - [UploadPanel](./?path=/docs/files-uploadpanel--docs) (beta): Several files uploading in the background while people keep working: a media library, a drive, a bulk import.
 
@@ -102,7 +102,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [HelpIcon](./?path=/docs/labels-helpicon--docs): One line of optional background next to a label, a column header or a stat: what a term means, why a setting exists.
 - [Kbd](./?path=/docs/labels-kbd--docs): Showing a keyboard key or shortcut in text, menus, tooltips and help: ⌘ K, Esc, ?.
 - [ToneIcon](./?path=/docs/labels-toneicon--docs): Leading a row or card whose meaning is a tone: a warning in a list, a success step, an info note.
-- [TruncatedText](./?path=/docs/labels-truncatedtext--docs) (beta): Long user data on one line where wrapping would break the layout: file names, domains, list-row descriptions, a chosen value in a trigger.
+- [TruncatedText](./?path=/docs/labels-truncatedtext--docs) (beta): Long user data on one line where wrapping would break the layout: file names, portal addresses, list-row descriptions, a chosen value in a trigger.
 
 ## Layout
 
@@ -136,9 +136,9 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [ProgressRing](./?path=/docs/motion-progressring--docs) (beta): A single completion figure on a card or a landing bento: setup 75% done, 3 of 4 steps.
 - [Reveal](./?path=/docs/motion-reveal--docs) (beta): Landing and marketing pages: feature blocks, cards, a pricing row easing in as the reader scrolls down.
 - [SurfaceEffect](./?path=/docs/motion-surfaceeffect--docs) (beta): Feature and pricing cards on a landing page: a glow under the pointer (`spotlight`), a light running round the border of the plan you recommend (`beam`), a gentle `tilt`, `shine` or `lift` on hover.
-- [SwipeDeck](./?path=/docs/motion-swipedeck--docs) (beta): A quick keep-or-skip pass over a short set: templates to try, suggested domains, onboarding interests.
+- [SwipeDeck](./?path=/docs/motion-swipedeck--docs) (beta): A quick keep-or-skip pass over a short set: templates to try, photos to shortlist, onboarding interests.
 - [TextEffect](./?path=/docs/motion-texteffect--docs) (beta): A hero headline or one key word on a landing page: letters rising in (`split`), a code-like reveal (`scramble`), a soft highlight (`shimmer`), rotating phrases (`typewriter`).
-- [TickerList](./?path=/docs/motion-tickerlist--docs) (beta): A few rows of recent activity inside a showcase card: transactions, signups, deploys.
+- [TickerList](./?path=/docs/motion-tickerlist--docs) (beta): A few rows of recent activity inside a showcase card: transactions, signups, client downloads.
 
 ## Navigation
 
@@ -173,7 +173,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 
 - [Command](./?path=/docs/search-filter-command--docs): A ⌘K palette (`CommandDialog`): jump to any page or run any action by typing.
 - [Filter](./?path=/docs/search-filter-filter--docs): Narrowing a list or table by a few facets: status, region, owner.
-- [FilterField](./?path=/docs/search-filter-filterfield--docs): Keyword search and filtering by many attributes in one field: servers, logs, users.
+- [FilterField](./?path=/docs/search-filter-filterfield--docs): Keyword search and filtering by many attributes in one field: galleries, logs, clients.
 - [QueryBuilder](./?path=/docs/search-filter-querybuilder--docs): Saved segments, alert rules, automation triggers — conditions people compose and come back to.
 
 ## Selection
@@ -208,7 +208,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [StatusDot](./?path=/docs/status-feedback-statusdot--docs): Live state next to its text label: Running, Stopped, Degraded, Online.
 - [SuccessCheck](./?path=/docs/status-feedback-successcheck--docs) (beta): The moment something succeeds: a success Alert or Toast, a finished step, a "Saved" confirmation.
 - [TableSkeleton](./?path=/docs/status-feedback-tableskeleton--docs): First load of a hand-built Table: real headers, skeleton rows.
-- [UndoToast](./?path=/docs/status-feedback-undotoast--docs): A destructive action that can be held back for a few seconds: delete a file, archive a site, remove a member.
+- [UndoToast](./?path=/docs/status-feedback-undotoast--docs): A destructive action that can be held back for a few seconds: delete a file, archive a gallery, remove a member.
 - [UsageBar](./?path=/docs/status-feedback-usagebar--docs): A total split into up to four parts: storage by type, downloads by gallery, seats by role.
 
 ## Text Input
@@ -223,6 +223,6 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [PhoneField](./?path=/docs/text-input-phonefield--docs) (beta): Any phone number: account, 2FA by SMS, contact details.
 - [RichTextEditor](./?path=/docs/text-input-richtexteditor--docs) (beta): Text that is published or sent with formatting: announcements, product descriptions, email templates, ticket replies.
 - [SecretField](./?path=/docs/text-input-secretfield--docs): Showing a secret the person needs to copy: API key, token, webhook secret, recovery code.
-- [TagInput](./?path=/docs/text-input-taginput--docs) (beta): Several free-form values of one kind: email recipients, domains, IP ranges, tags.
+- [TagInput](./?path=/docs/text-input-taginput--docs) (beta): Several free-form values of one kind: email recipients, photo keywords, tags.
 - [TextField](./?path=/docs/text-input-textfield--docs): Short free text on one line: a name, an email, a portal address, a URL, a code.
 - [TextArea](./?path=/docs/text-input-textarea--docs): Text that can run to several lines: a description, a message, notes, a list one per line.

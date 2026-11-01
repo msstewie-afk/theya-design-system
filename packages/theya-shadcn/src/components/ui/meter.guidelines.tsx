@@ -21,8 +21,8 @@ export const meterGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className="flex w-72 flex-col gap-3">
-            <Meter value={0.38} min={0} max={1} label="CPU" tone="success" format={{ style: 'percent' }} />
-            <Meter value={0.96} min={0} max={1} label="Disk" tone="danger" format={{ style: 'percent' }} />
+            <Meter value={0.38} min={0} max={1} label="Storage" tone="success" format={{ style: 'percent' }} />
+            <Meter value={0.96} min={0} max={1} label="Archive" tone="danger" format={{ style: 'percent' }} />
           </div>
         ),
         caption: 'Tone follows the level, and the number says it too.',
@@ -30,8 +30,8 @@ export const meterGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <div className="flex w-72 flex-col gap-1">
-            <span className="text-body-s">Disk</span>
-            <Progress value={96} aria-label="Disk" />
+            <span className="text-body-s">Archive</span>
+            <Progress value={96} aria-label="Archive" />
           </div>
         ),
         caption: 'Progress for a fill level reads as “almost done”, not “almost full”.',

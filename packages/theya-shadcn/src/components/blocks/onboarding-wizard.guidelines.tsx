@@ -4,7 +4,7 @@ import type { ComponentGuidelines } from '../../docs/guidelines';
 export const onboardingWizardGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
-    'A setup done in a few steps, in order: creating a site, connecting a domain, first-run configuration.',
+    'A setup done in a few steps, in order: creating a client portal, connecting a print lab, first-run configuration.',
   ],
   whenNotToUse: [
     { text: 'One form of a few fields', instead: 'ResourceForm' },

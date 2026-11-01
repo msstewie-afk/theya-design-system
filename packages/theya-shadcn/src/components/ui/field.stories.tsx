@@ -43,9 +43,9 @@ type Story = StoryObj<typeof Field>;
 export const Default: Story = {
   render: () => (
     <Field>
-      <Label htmlFor="field-default">Site name</Label>
-      <TextField id="field-default" placeholder="acme-production" widthSize="full" />
-      <FieldDescription>Shown in the dashboard and in logs.</FieldDescription>
+      <Label htmlFor="field-default">Gallery name</Label>
+      <TextField id="field-default" placeholder="Golden hour" widthSize="full" />
+      <FieldDescription>Shown to clients in the portal and in download emails.</FieldDescription>
     </Field>
   ),
 };
@@ -55,10 +55,10 @@ export const Required: Story = {
   render: () => (
     <Field required>
       <Label htmlFor="field-required" required>
-        Domain
+        Client portal address
       </Label>
-      <TextField id="field-required" placeholder="shop.seashell.dev" required widthSize="full" className="font-mono" />
-      <FieldDescription>Point it at this server before you add it.</FieldDescription>
+      <TextField id="field-required" placeholder="selene-weddings.aether.photo" required widthSize="full" className="font-mono" />
+      <FieldDescription>Clients open their galleries at this address.</FieldDescription>
     </Field>
   ),
 };
@@ -68,10 +68,10 @@ export const Invalid: Story = {
   render: () => (
     <Field invalid>
       <Label htmlFor="field-invalid" data-error>
-        Domain
+        Client portal address
       </Label>
-      <TextField id="field-invalid" defaultValue="not a domain" error widthSize="full" aria-describedby="field-invalid-error" />
-      <FieldError id="field-invalid-error">Enter a valid domain, like shop.seashell.dev.</FieldError>
+      <TextField id="field-invalid" defaultValue="selene weddings" error widthSize="full" className="font-mono" aria-describedby="field-invalid-error" />
+      <FieldError id="field-invalid-error">Use lowercase letters, numbers and hyphens, like selene-weddings.aether.photo.</FieldError>
     </Field>
   ),
 };
@@ -81,10 +81,10 @@ export const Disabled: Story = {
   render: () => (
     <Field disabled>
       <Label htmlFor="field-disabled" className="opacity-50">
-        Region
+        Studio
       </Label>
-      <TextField id="field-disabled" defaultValue="eu-west-1" disabled widthSize="full" className="font-mono" />
-      <FieldDescription>Contact support to move regions.</FieldDescription>
+      <TextField id="field-disabled" defaultValue="Helios Studio" disabled widthSize="full" />
+      <FieldDescription>Contact support to move a gallery to another studio.</FieldDescription>
     </Field>
   ),
 };
@@ -95,27 +95,27 @@ export const NonNativeControls: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
       <Field>
-        <Label htmlFor="field-record-type">Record type</Label>
-        <Select defaultValue="cname">
-          <SelectTrigger id="field-record-type">
+        <Label htmlFor="field-print-size">Print size</Label>
+        <Select defaultValue="11x14">
+          <SelectTrigger id="field-print-size">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="a">A</SelectItem>
-            <SelectItem value="cname">CNAME</SelectItem>
-            <SelectItem value="mx">MX</SelectItem>
+            <SelectItem value="8x10">8 × 10 in</SelectItem>
+            <SelectItem value="11x14">11 × 14 in</SelectItem>
+            <SelectItem value="16x20">16 × 20 in</SelectItem>
           </SelectContent>
         </Select>
-        <FieldDescription>The DNS record class to create.</FieldDescription>
+        <FieldDescription>Paper size for every print in this order.</FieldDescription>
       </Field>
       <Field>
-        <Label htmlFor="field-ttl">TTL</Label>
-        <NumberField id="field-ttl" defaultValue={3600} min={60} step={60} className="w-36" />
-        <FieldDescription>Seconds before resolvers refetch.</FieldDescription>
+        <Label htmlFor="field-copies">Copies</Label>
+        <NumberField id="field-copies" defaultValue={2} min={1} max={50} step={1} className="w-36" />
+        <FieldDescription>Prints of each selected photo.</FieldDescription>
       </Field>
       <Field className="flex-row items-center justify-between">
-        <Label htmlFor="field-proxy">Proxy through CDN</Label>
-        <Switch id="field-proxy" />
+        <Label htmlFor="field-watermark">Watermark client previews</Label>
+        <Switch id="field-watermark" />
       </Field>
     </div>
   ),

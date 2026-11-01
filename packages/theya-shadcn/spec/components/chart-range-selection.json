@@ -7,11 +7,11 @@
   "category": "Charts",
   "description": "Adds drag-to-select range behavior to a categorical Recharts chart.\n\nKeyboard (the drag was mouse-only, failing WCAG 2.1.1): the wrapper is\nfocusable; ←/→ move a cursor over the x-axis values, Shift+←/→ extend a\nselection from where Shift was first pressed, Home/End jump to the ends,\nEsc clears. Cursor moves and selections are announced in a live region.\n\n  <ChartRangeSelection labels={data.map((p) => p.label)} onRangeChange={setRange}>\n    <AreaChart data={data}><Area dataKey=\"value\" /></AreaChart>\n  </ChartRangeSelection>",
   "whenToUse": [
-    "Selecting a span on an ordered x-axis to zoom in or filter: “show errors from Aug 3 to Aug 6”."
+    "Selecting a span on an ordered x-axis to zoom in or filter: “show views from Aug 3 to Aug 6”."
   ],
   "whenNotToUse": [
     {
-      "text": "Unordered categories (regions, teams)",
+      "text": "Unordered categories (studios, teams)",
       "instead": "Filter or a legend toggle"
     },
     {
@@ -40,7 +40,7 @@
         "example": "<TimeRange />"
       },
       "dont": {
-        "caption": "A “range” of regions means nothing — there’s no order between them.",
+        "caption": "A “range” of studios means nothing — there’s no order between them.",
         "example": "<CategoryRange />"
       }
     }

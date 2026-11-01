@@ -232,7 +232,7 @@ export const LocalizedLabels: Story = {
 /** `error` replaces the meta line with the reason the file failed, announced as an alert and styled destructive. */
 export const WithError: Story = {
   name: 'With error',
-  args: { name: 'backup.tar.gz', size: 5300000000, error: 'Exceeds the 2 GB upload limit', onRemove: () => {} },
+  args: { name: 'wedding-raws.zip', size: 5300000000, error: 'Exceeds the 2 GB upload limit', onRemove: () => {} },
 };
 
 /** The error treatment across shapes, with and without a control. */
@@ -241,14 +241,14 @@ export const ErrorStates: Story = {
   render: () => (
     <div className="flex max-w-2xl flex-col gap-4">
       <div className="flex flex-wrap items-start gap-2">
-        <RemovableAttachment name="backup.tar.gz" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
+        <RemovableAttachment name="wedding-raws.zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
         <RemovableAttachment name="notes.pages" error="File type is not supported" />
       </div>
       <div className="flex flex-col gap-2">
-        <RemovableAttachment variant="row" name="backup.tar.gz" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
+        <RemovableAttachment variant="row" name="wedding-raws.zip" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
       </div>
       <div className="grid grid-cols-3 gap-3">
-        <RemovableAttachment variant="card" name="backup.tar.gz" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
+        <RemovableAttachment variant="card" name="wedding-raws.zip" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
       </div>
     </div>
   ),
@@ -277,7 +277,7 @@ export const Line: Story = {
     <div className="flex max-w-lg flex-col gap-1">
       <RemovableAttachment variant="line" name="quarterly-report.pdf" size={248000} onRemove={() => {}} />
       <RemovableAttachment variant="line" name="cover.png" size={184000} onRemove={() => {}} />
-      <RemovableAttachment variant="line" name="backup.tar.gz" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
+      <RemovableAttachment variant="line" name="wedding-raws.zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
       <RemovableAttachment variant="line" name="notes.md" size={4100} />
     </div>
   ),
@@ -287,7 +287,7 @@ export const Line: Story = {
 export const LongNames: Story = {
   name: 'Long names',
   render: () => {
-    const long = 'eu-west-1-production-database-backup-2026-08-04-full-with-binlogs-and-a-very-long-tail.tar.gz';
+    const long = 'selene-weddings-moonrise-over-othrys-2026-08-04-full-raw-set-with-sidecars.zip';
     return (
       <div className="flex max-w-2xl flex-col gap-4">
         <div className="flex flex-wrap items-start gap-2">

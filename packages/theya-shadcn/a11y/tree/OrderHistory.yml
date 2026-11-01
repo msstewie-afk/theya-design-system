@@ -9,7 +9,7 @@
   - paragraph: 7 orders
   - list:
     - listitem:
-      - paragraph: Site migration + 1 more
+      - paragraph: Archive import + 1 more
       - paragraph: TH-24817 · 1 Oct 2026
       - paragraph: $15.00
       - text: In progress
@@ -30,31 +30,31 @@
         - /url: "#invoice/TH-23990.pdf"
       - button "Buy again order TH-23990"
     - listitem:
-      - paragraph: Hardware security key + 1 more
+      - paragraph: Fine-art print, 40 × 60 cm + 1 more
       - paragraph: TH-23412 · 20 Aug 2026
-      - paragraph: $10.00
+      - paragraph: $104.00
       - text: Completed
       - button "Details for order TH-23412"
     - listitem:
-      - paragraph: Edge CDN
+      - paragraph: Client proofing add-on
       - paragraph: TH-23001 · 30 Jul 2026
       - paragraph: $10.00
       - text: Payment failed
       - button "Details for order TH-23001"
     - listitem:
-      - paragraph: Dedicated server + 2 more
+      - paragraph: "Lens rental: 85 mm f/1.4 + 2 more"
       - paragraph: TH-22768 · 2 Jul 2026
       - paragraph: $93.00
       - text: Refunded
       - button "Details for order TH-22768"
     - listitem:
-      - paragraph: "Domain: seashell-blog.com"
+      - paragraph: Photo book, 30 × 30 cm
       - paragraph: TH-22011 · 14 May 2026
-      - paragraph: $14.00
+      - paragraph: $64.00
       - text: Completed
       - button "Details for order TH-22011"
     - listitem:
-      - paragraph: Mail Relay
+      - paragraph: "Preset pack: Golden hour"
       - paragraph: TH-21540 · 3 Apr 2026
       - paragraph: $5.00
       - text: Cancelled

@@ -49,10 +49,11 @@
   - button "Redo" [disabled]:
     - img
 - textbox "Template":
-  - paragraph: Release ntes
+  - paragraph: Write the announcement…
 - text: html
 - button "Copy code"
-- code: <p>Release ntes</p>
+- code: (empty)
+- status: Update
 
 # Default (text-input-richtexteditor--default)
 - text: Announcement

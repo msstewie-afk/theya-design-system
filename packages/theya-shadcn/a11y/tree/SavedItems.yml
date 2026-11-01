@@ -11,21 +11,21 @@
   - button "Remove (2)"
   - list:
     - listitem:
-      - checkbox "Select Hardware security key" [checked]
-      - link "Hardware security key":
-        - /url: "#security-key"
-      - paragraph: USB-C and NFC
+      - checkbox "Select Watermark presets" [checked]
+      - link "Watermark presets":
+        - /url: "#watermark-presets"
+      - paragraph: Six layouts for web previews
       - paragraph: $3 / mo
       - text: Saved 2 days ago
-      - button "Remove Hardware security key"
+      - button "Remove Watermark presets"
     - listitem:
-      - checkbox "Select Dedicated server" [checked]
-      - link "Dedicated server":
-        - /url: "#dedicated-server"
-      - paragraph: 8 cores, 64 GB RAM, NVMe RAID 1
+      - 'checkbox "Select Lens rental: 85 mm f/1.4" [checked]'
+      - 'link "Lens rental: 85 mm f/1.4"':
+        - /url: "#lens-85mm"
+      - paragraph: Portrait prime, shipped to your studio
       - paragraph: $79 / mo
       - text: Price dropped from $89 Saved 5 days ago
-      - button "Remove Dedicated server"
+      - 'button "Remove Lens rental: 85 mm f/1.4"'
 - status: Remove (2)
 
 # Empty (patterns-account-saveditems--empty)

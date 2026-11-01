@@ -87,7 +87,7 @@
 - button "Publish" [disabled]
 
 # Success (actions-button--success)
-- button "Deploy"
+- button "Export"
 
 # With Badge (actions-button--with-badge)
 - button "Button , 5 new"

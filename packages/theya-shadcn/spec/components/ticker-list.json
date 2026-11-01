@@ -6,7 +6,7 @@
   "status": "beta",
   "category": "Motion",
   "whenToUse": [
-    "A few rows of recent activity inside a showcase card: transactions, signups, deploys."
+    "A few rows of recent activity inside a showcase card: transactions, signups, client downloads."
   ],
   "whenNotToUse": [
     {

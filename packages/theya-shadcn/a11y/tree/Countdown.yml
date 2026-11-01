@@ -22,12 +22,12 @@
 # Resend code (data-countdown--resend-code)
 - button "Resend code in" [disabled]:
   - text: Resend code in
-  - timer: available in 16 seconds
+  - timer: available in 29 seconds
 
 # Ring (data-countdown--ring)
-- timer: 13 seconds left
-- timer: 13 seconds left
-- timer: 13 seconds left
+- timer: 14 seconds left
+- timer: 14 seconds left
+- timer: 14 seconds left
 - button "Restart"
 
 # Sizes (data-countdown--sizes)

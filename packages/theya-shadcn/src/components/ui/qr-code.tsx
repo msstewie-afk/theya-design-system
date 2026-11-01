@@ -41,7 +41,7 @@ export interface QrCodeProps extends Omit<React.ComponentProps<'div'>, 'children
   level?: QrCodeLevel;
   /** Optional mark in the center (a logo or icon, ~20% of the code). Raises `level` to H. */
   icon?: ReactNode;
-  /** Accessible name. Describe what scanning does, not what it is: "Scan to add Seashell to your authenticator app". */
+  /** Accessible name. Describe what scanning does, not what it is: "Scan to add Aether to your authenticator app". */
   label?: string;
   /** Shows a placeholder of the same size while the value is being fetched. */
   loading?: boolean;

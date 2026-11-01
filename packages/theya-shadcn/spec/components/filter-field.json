@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Search & Filter",
   "whenToUse": [
-    "Keyword search and filtering by many attributes in one field: servers, logs, users.",
+    "Keyword search and filtering by many attributes in one field: galleries, logs, clients.",
     "Applied filters should stay visible and editable as chips."
   ],
   "whenNotToUse": [
@@ -37,11 +37,11 @@
     {
       "do": {
         "caption": "Five attributes and search in one field; what’s applied is visible as chips.",
-        "example": "<div className=\"w-96 max-w-full\">\n  <FilterField attributes={ATTRS} defaultValue={[{ key: 'status', value: 'active' }]} aria-label=\"Filter servers\" />\n</div>"
+        "example": "<div className=\"w-96 max-w-full\">\n  <FilterField attributes={ATTRS} defaultValue={[{ key: 'status', value: 'published' }]} aria-label=\"Filter galleries\" />\n</div>"
       },
       "dont": {
         "caption": "A trigger per attribute: the bar wraps, and names and dates get squeezed into checkboxes.",
-        "example": "<div className=\"flex w-96 max-w-full flex-wrap gap-2\">\n  <Filter label=\"Name\" options={opts(['web-01', 'web-02'])} />\n  <Filter label=\"Status\" options={opts(['Active', 'Suspended'])} />\n  <Filter label=\"Region\" options={opts(['Europe', 'Americas'])} />\n  <Filter label=\"Created\" options={opts(['Today', 'This week'])} />\n  <Filter label=\"CPU cores\" options={opts(['2', '4'])} />\n</div>"
+        "example": "<div className=\"flex w-96 max-w-full flex-wrap gap-2\">\n  <Filter label=\"Name\" options={opts(['Golden hour', 'Blue hour'])} />\n  <Filter label=\"Status\" options={opts(['Published', 'Expired'])} />\n  <Filter label=\"Studio\" options={opts(['Helios Studio', 'Selene Weddings'])} />\n  <Filter label=\"Created\" options={opts(['Today', 'This week'])} />\n  <Filter label=\"Photos\" options={opts(['Under 100', '100+'])} />\n</div>"
       }
     }
   ],

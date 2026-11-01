@@ -60,7 +60,7 @@
     - paragraph: 12M
     - paragraph: things saved this year
   - article:
-    - paragraph: Home network
+    - paragraph: Home office
   - article:
     - paragraph: "4.8"
     - paragraph: average rating
@@ -75,9 +75,9 @@
       - blockquote: I save a recipe on the phone and it is on the laptop by dinner.
       - text: Tom Ide Home cook
   - article:
-    - paragraph: Storage
+    - paragraph: Desk setup
   - article:
-    - paragraph: Studio site
+    - paragraph: Studio portrait
   - text: S Spacing in design systems designnotes.dev C Colour contrast, explained a11y-basics.org S Naming tokens that last designnotes.dev
   - article:
     - paragraph: Tall blocks

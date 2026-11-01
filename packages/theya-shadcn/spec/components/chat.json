@@ -43,11 +43,11 @@
     {
       "do": {
         "caption": "A fixed height: the transcript scrolls, the composer stays in reach.",
-        "example": "<div className={BOX}>\n  <Chat className=\"h-full\">\n    <ChatMessages aria-label=\"Conversation example\">\n      <Message author=\"Assistant\">Your SSL certificate renews in 5 days.</Message>\n      <Message variant=\"sent\" author=\"You\">Renew it now.</Message>\n    </ChatMessages>\n    <PromptArea aria-label=\"Message the assistant\" placeholder=\"Ask anything…\" />\n  </Chat>\n</div>"
+        "example": "<div className={BOX}>\n  <Chat className=\"h-full\">\n    <ChatMessages aria-label=\"Conversation example\">\n      <Message author=\"Assistant\">Your print license renews in 5 days.</Message>\n      <Message variant=\"sent\" author=\"You\">Renew it now.</Message>\n    </ChatMessages>\n    <PromptArea aria-label=\"Message the assistant\" placeholder=\"Ask anything…\" />\n  </Chat>\n</div>"
       },
       "dont": {
         "caption": "Composer on top, newest message first: it reads backwards and isn’t announced as a log.",
-        "example": "<div className={BOX}>\n  <div className=\"flex h-full flex-col gap-2 overflow-auto p-3\">\n    <PromptArea aria-label=\"Message, composer on top\" placeholder=\"Ask anything…\" />\n    <Message variant=\"sent\" author=\"You\">Renew it now.</Message>\n    <Message author=\"Assistant\">Your SSL certificate renews in 5 days.</Message>\n  </div>\n</div>"
+        "example": "<div className={BOX}>\n  <div className=\"flex h-full flex-col gap-2 overflow-auto p-3\">\n    <PromptArea aria-label=\"Message, composer on top\" placeholder=\"Ask anything…\" />\n    <Message variant=\"sent\" author=\"You\">Renew it now.</Message>\n    <Message author=\"Assistant\">Your print license renews in 5 days.</Message>\n  </div>\n</div>"
       }
     }
   ],

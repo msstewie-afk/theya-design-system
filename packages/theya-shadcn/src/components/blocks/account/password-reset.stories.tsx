@@ -17,19 +17,19 @@ type Story = StoryObj<typeof PasswordReset>;
 export const Request: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    await userEvent.type(canvas.getByRole('textbox', { name: 'Email' }), 'dana@seashell.shop{Enter}');
-    await expect(args.onRequest).toHaveBeenCalledWith('dana@seashell.shop');
+    await userEvent.type(canvas.getByRole('textbox', { name: 'Email' }), 'thea@aether.photo{Enter}');
+    await expect(args.onRequest).toHaveBeenCalledWith('thea@aether.photo');
     await waitFor(() => expect(canvas.getByRole('heading', { name: 'Check your email' })).toHaveFocus());
     await expect(canvas.getByText(/If an account exists for/)).toBeVisible();
     await expect(canvas.getByRole('button', { name: 'Resend link' })).toHaveAttribute('aria-disabled', 'true');
     await userEvent.click(canvas.getByRole('button', { name: 'Use a different email' }));
-    await expect(canvas.getByRole('textbox', { name: 'Email' })).toHaveValue('dana@seashell.shop');
+    await expect(canvas.getByRole('textbox', { name: 'Email' })).toHaveValue('thea@aether.photo');
   },
 };
 
 /** Opened from the emailed link. */
 export const NewPassword: Story = {
-  args: { initialStep: 'reset', defaultEmail: 'dana@seashell.shop' },
+  args: { initialStep: 'reset', defaultEmail: 'thea@aether.photo' },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const field = canvas.getByLabelText('New password');
@@ -42,5 +42,5 @@ export const NewPassword: Story = {
 
 /** An old link: one button for a new one, to the same address. */
 export const Expired: Story = {
-  args: { initialStep: 'expired', defaultEmail: 'dana@seashell.shop' },
+  args: { initialStep: 'expired', defaultEmail: 'thea@aether.photo' },
 };

@@ -9,7 +9,7 @@ import { Label } from './label';
 
 /**
  * Several free-form values as chips in one field: tags, email addresses,
- * domains, IP ranges. Unlike Combobox `multiple`, there's no option list —
+ * keywords, portal addresses. Unlike Combobox `multiple`, there's no option list —
  * whatever is typed becomes a chip.
  *
  * - Enter, comma or semicolon commits the typed text (`delimiters`);
@@ -31,7 +31,7 @@ export interface TagInputProps {
   onValueChange?: (value: string[]) => void;
   /** Return a message for a bad value (it's still added, as a danger chip), undefined when it's fine. */
   validate?: (tag: string) => string | undefined;
-  /** Normalize each value before it's added, e.g. `(v) => v.toLowerCase()` for emails and domains. Trimmed first. */
+  /** Normalize each value before it's added, e.g. `(v) => v.toLowerCase()` for emails and portal addresses. Trimmed first. */
   transform?: (tag: string) => string;
   /** Keys that commit the typed text. Default Enter, comma, semicolon. Add ' ' for space-separated tags. */
   delimiters?: string[];

@@ -13,7 +13,7 @@ import { undoToast } from '../../ui/undo-toast';
 import { OrderSummary, computeTotals, formatMoney, withDots, type OrderLine, type OrderTotals } from './shared';
 
 export interface CartLine extends OrderLine {
-  /** Lines bought one at a time (a plan, a domain term) hide the quantity field. */
+  /** Lines bought one at a time (a plan, a photo book) hide the quantity field. */
   quantityEditable?: boolean;
   maxQuantity?: number;
 }
@@ -174,7 +174,7 @@ export function Cart({ lines: initialLines, saved: initialSaved = [], taxRate = 
         className={cn('outline-none', className)}
         icon={<CartIcon />}
         title="Your cart is empty"
-        description="Plans, domains and add-ons you pick show up here."
+        description="Plans, prints and add-ons you pick show up here."
         action={
           onBrowse && (
             <Button appearance="filled" tone="primary" onClick={onBrowse}>

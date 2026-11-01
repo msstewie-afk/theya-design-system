@@ -75,7 +75,7 @@ export const Default: Story = {
       <InfoCircle />
       <div>
         <AlertTitle>Scheduled maintenance</AlertTitle>
-        <AlertDescription>eu-west-1 will restart at 02:00 UTC. No action needed.</AlertDescription>
+        <AlertDescription>Client portals will be read-only from 02:00 to 02:30 UTC. No action needed.</AlertDescription>
       </div>
     </Alert>
   ),
@@ -98,14 +98,14 @@ export const Tones: Story = {
         <InfoCircle />
         <div>
           <AlertTitle>Maintenance scheduled</AlertTitle>
-          <AlertDescription>Downtime expected Sunday 2am–4am UTC.</AlertDescription>
+          <AlertDescription>Client portals may be unavailable Sunday 2am–4am UTC.</AlertDescription>
         </div>
       </Alert>
       <Alert tone="success">
         <CheckCircle />
         <div>
-          <AlertTitle>Deployment successful</AlertTitle>
-          <AlertDescription>Your changes are now live.</AlertDescription>
+          <AlertTitle>Gallery published</AlertTitle>
+          <AlertDescription>Your client can now view and download the photos.</AlertDescription>
         </div>
       </Alert>
       <Alert tone="warning">
@@ -118,8 +118,8 @@ export const Tones: Story = {
       <Alert tone="danger">
         <WarningCircle />
         <div>
-          <AlertTitle>Deployment failed</AlertTitle>
-          <AlertDescription>Check the logs for details.</AlertDescription>
+          <AlertTitle>Export failed</AlertTitle>
+          <AlertDescription>3 files couldn&apos;t be processed. Check the export log for details.</AlertDescription>
         </div>
       </Alert>
     </div>
@@ -140,14 +140,14 @@ export const Stripe: Story = {
         <InfoCircle />
         <div>
           <AlertTitle>Maintenance scheduled</AlertTitle>
-          <AlertDescription>Downtime expected Sunday 2am–4am UTC.</AlertDescription>
+          <AlertDescription>Client portals may be unavailable Sunday 2am–4am UTC.</AlertDescription>
         </div>
       </Alert>
       <Alert tone="success" indicator="stripe">
         <CheckCircle />
         <div>
-          <AlertTitle>Deployment successful</AlertTitle>
-          <AlertDescription>Your changes are now live.</AlertDescription>
+          <AlertTitle>Gallery published</AlertTitle>
+          <AlertDescription>Your client can now view and download the photos.</AlertDescription>
         </div>
       </Alert>
       <Alert tone="warning" indicator="stripe">
@@ -160,8 +160,8 @@ export const Stripe: Story = {
       <Alert tone="danger" indicator="stripe">
         <WarningCircle />
         <div>
-          <AlertTitle>Deployment failed</AlertTitle>
-          <AlertDescription>Check the logs for details.</AlertDescription>
+          <AlertTitle>Export failed</AlertTitle>
+          <AlertDescription>3 files couldn&apos;t be processed. Check the export log for details.</AlertDescription>
         </div>
       </Alert>
     </div>
@@ -198,8 +198,8 @@ export const Dismissible: Story = {
           <Alert {...args} onDismiss={() => setOpen(false)}>
             <InfoCircle />
             <div>
-              <AlertTitle>Backups moved to eu-west-1</AlertTitle>
-              <AlertDescription>Nightly snapshots now run at 03:00 UTC. Existing schedules are unchanged.</AlertDescription>
+              <AlertTitle>Archive moved to Mnemosyne</AlertTitle>
+              <AlertDescription>Nightly archiving now runs at 03:00 UTC. Existing schedules are unchanged.</AlertDescription>
             </div>
           </Alert>
         ) : (
@@ -217,10 +217,10 @@ export const Dismissible: Story = {
     resetFocus();
     await tabTo(canvas.getByRole('button', { name: 'Dismiss alert' }));
     await userEvent.keyboard('{Enter}');
-    await waitFor(() => expect(canvas.queryByText('Backups moved to eu-west-1')).not.toBeInTheDocument());
+    await waitFor(() => expect(canvas.queryByText('Archive moved to Mnemosyne')).not.toBeInTheDocument());
     await tabTo(canvas.getByRole('button', { name: 'Show alert again' }));
     await userEvent.keyboard(' ');
-    await expect(await canvas.findByText('Backups moved to eu-west-1')).toBeVisible();
+    await expect(await canvas.findByText('Archive moved to Mnemosyne')).toBeVisible();
   },
 };
 
@@ -235,7 +235,7 @@ const ACTION_CASES = [
     title: 'Scheduled maintenance',
     body: (
       <>
-        <span className="font-mono">eu-west-1</span> restarts at 02:00 UTC. Sites stay online behind the edge cache.
+        Client portals go read-only at 02:00 UTC for 30 minutes. Galleries stay viewable.
       </>
     ),
     primary: 'Review window',
@@ -246,38 +246,38 @@ const ACTION_CASES = [
     tone: 'info',
     primaryTone: 'info',
     icon: <InfoCircle />,
-    title: 'New region available',
+    title: 'New studio available',
     body: (
       <>
-        <span className="font-mono">ap-south-1</span> is now open for new sites and databases.
+        Studio L4 is now open for bookings and new galleries.
       </>
     ),
-    primary: 'Create site',
-    secondary: 'Compare regions',
+    primary: 'Create gallery',
+    secondary: 'Compare studios',
     tertiary: 'Remind me later',
   },
   {
     tone: 'success',
     primaryTone: 'success',
     icon: <CheckCircle />,
-    title: 'Certificate issued',
+    title: 'License issued',
     body: (
       <>
-        <span className="font-mono">shop.seashell.dev</span> is secured for 90 days and renews automatically.
+        <span className="font-mono">GOLDEN_0907.tif</span> is licensed for web use for 12 months and renews automatically.
       </>
     ),
-    primary: 'View certificate',
-    secondary: 'Copy chain',
+    primary: 'View license',
+    secondary: 'Copy license ID',
     tertiary: 'Manage renewals',
   },
   {
     tone: 'warning',
     primaryTone: 'warning',
     icon: <WarningTriangle />,
-    title: 'Disk almost full',
+    title: 'Storage almost full',
     body: (
       <>
-        <span className="font-mono">web-04</span> is at 92% of its 40 GB quota. Uploads fail once it is full.
+        Helios Studio is at 92% of its 384 GB quota. Uploads fail once it is full.
       </>
     ),
     primary: 'Add storage',
@@ -288,14 +288,14 @@ const ACTION_CASES = [
     tone: 'danger',
     primaryTone: 'danger',
     icon: <WarningCircle />,
-    title: 'Deploy failed',
+    title: 'Export failed',
     body: (
       <>
-        Build <span className="font-mono">v2.4.0</span> exited with code 1 at the install step.
+        <span className="font-mono">L4_moonrise.raw</span> couldn&apos;t be converted. The file may be damaged.
       </>
     ),
-    primary: 'Retry deploy',
-    secondary: 'Open logs',
+    primary: 'Retry export',
+    secondary: 'Open export log',
     tertiary: 'Contact support',
   },
 ] as const;
@@ -365,17 +365,17 @@ function LiveAlertDemo() {
         <Button appearance="outlined" tone="neutral" onClick={() => setResult(null)}>
           Reset
         </Button>
-        <Button onClick={() => setResult('started')}>Run backup</Button>
+        <Button onClick={() => setResult('started')}>Archive gallery</Button>
         <Button appearance="outlined" tone="danger" onClick={() => setResult('failed')}>
-          Run backup (fails)
+          Archive gallery (fails)
         </Button>
       </div>
       {result === 'started' && (
         <Alert tone="success" live="polite">
           <CheckCircle />
           <div>
-            <AlertTitle>Backup started</AlertTitle>
-            <AlertDescription>shop.seashell.dev is being copied to eu-west-1.</AlertDescription>
+            <AlertTitle>Archiving started</AlertTitle>
+            <AlertDescription>Golden hour is being copied to Mnemosyne.</AlertDescription>
           </div>
         </Alert>
       )}
@@ -383,7 +383,7 @@ function LiveAlertDemo() {
         <Alert tone="danger" live="assertive">
           <WarningCircle />
           <div>
-            <AlertTitle>Backup failed</AlertTitle>
+            <AlertTitle>Archiving failed</AlertTitle>
             <AlertDescription>The storage quota is full. Free up space and try again.</AlertDescription>
           </div>
         </Alert>
@@ -402,10 +402,10 @@ export const LiveOnAction: Story = {
   render: () => <LiveAlertDemo />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Run backup' }));
-    await expect(await canvas.findByRole('status')).toHaveTextContent('Backup started');
-    await userEvent.click(canvas.getByRole('button', { name: 'Run backup (fails)' }));
-    await expect(await canvas.findByRole('alert')).toHaveTextContent('Backup failed');
+    await userEvent.click(canvas.getByRole('button', { name: 'Archive gallery' }));
+    await expect(await canvas.findByRole('status')).toHaveTextContent('Archiving started');
+    await userEvent.click(canvas.getByRole('button', { name: 'Archive gallery (fails)' }));
+    await expect(await canvas.findByRole('alert')).toHaveTextContent('Archiving failed');
     await userEvent.click(canvas.getByRole('button', { name: 'Reset' }));
   },
 };

@@ -6,7 +6,7 @@
   "status": "beta",
   "category": "Text Input",
   "whenToUse": [
-    "Several free-form values of one kind: email recipients, domains, IP ranges, tags."
+    "Several free-form values of one kind: email recipients, photo keywords, tags."
   ],
   "whenNotToUse": [
     {
@@ -36,11 +36,11 @@
     {
       "do": {
         "caption": "Each value is a chip — easy to check and remove.",
-        "example": "<div className=\"w-80\"><TagInput aria-label=\"Recipients\" defaultValue={['dana@seashell.shop', 'ops@seashell.shop']} /></div>"
+        "example": "<div className=\"w-80\"><TagInput aria-label=\"Recipients\" defaultValue={['thea@aether.photo', 'ian@aether.photo']} /></div>"
       },
       "dont": {
         "caption": "A comma list in one field hides which value is wrong.",
-        "example": "<TextField label=\"Recipients\" defaultValue=\"dana@seashell.shop, ops@seashell.shop\" description=\"Separate with commas\" widthSize=\"lg\" />"
+        "example": "<TextField label=\"Recipients\" defaultValue=\"thea@aether.photo, ian@aether.photo\" description=\"Separate with commas\" widthSize=\"lg\" />"
       }
     }
   ],
@@ -166,7 +166,7 @@
           "name": "transform",
           "type": "((tag: string) => string)",
           "required": false,
-          "description": "Normalize each value before it's added, e.g. `(v) => v.toLowerCase()` for emails and domains. Trimmed first."
+          "description": "Normalize each value before it's added, e.g. `(v) => v.toLowerCase()` for emails and portal addresses. Trimmed first."
         },
         {
           "name": "validate",

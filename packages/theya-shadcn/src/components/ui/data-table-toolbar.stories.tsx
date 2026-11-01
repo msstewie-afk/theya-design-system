@@ -11,32 +11,32 @@ import type { StatusTone } from './status-dot';
 import { toast } from './sonner';
 import { dataTableToolbarGuidelines } from './data-table-toolbar.guidelines';
 
-interface Site {
-  domain: string;
-  status: 'running' | 'suspended' | 'error';
-  plan: string;
+interface Gallery {
+  name: string;
+  status: 'published' | 'draft' | 'expired';
+  studio: string;
 }
 
-const STATUS: Record<Site['status'], { label: string; tone: StatusTone }> = {
-  running: { label: 'Running', tone: 'success' },
-  suspended: { label: 'Suspended', tone: 'warning' },
-  error: { label: 'Error', tone: 'danger' },
+const STATUS: Record<Gallery['status'], { label: string; tone: StatusTone }> = {
+  published: { label: 'Published', tone: 'success' },
+  draft: { label: 'Draft', tone: 'warning' },
+  expired: { label: 'Expired', tone: 'danger' },
 };
 
-const SITES: Site[] = [
-  { domain: 'shop.seashell.dev', status: 'running', plan: 'Pro' },
-  { domain: 'blog.seashell.dev', status: 'running', plan: 'Starter' },
-  { domain: 'api.seashell.dev', status: 'error', plan: 'Scale' },
-  { domain: 'staging.seashell.dev', status: 'suspended', plan: 'Pro' },
-  { domain: 'docs.seashell.dev', status: 'running', plan: 'Starter' },
+const GALLERIES: Gallery[] = [
+  { name: 'Golden hour', status: 'published', studio: 'Helios Studio' },
+  { name: 'Blue hour', status: 'published', studio: 'Selene Weddings' },
+  { name: 'First light', status: 'expired', studio: 'Eos Portraits' },
+  { name: 'Moonrise over Othrys', status: 'draft', studio: 'Othrys Lodge' },
+  { name: 'Wide-shining', status: 'published', studio: 'Studio L4' },
 ];
 
-const columns: ColumnDef<Site, unknown>[] = [
+const columns: ColumnDef<Gallery, unknown>[] = [
   {
-    accessorKey: 'domain',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Domain" />,
-    cell: ({ row }) => <DataTableCell kind="mono" value={row.original.domain} />,
-    meta: { primary: true, kind: 'mono' },
+    accessorKey: 'name',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Gallery" />,
+    cell: ({ row }) => <DataTableCell kind="text" value={row.original.name} />,
+    meta: { primary: true, kind: 'text' },
   },
   {
     accessorKey: 'status',
@@ -48,33 +48,33 @@ const columns: ColumnDef<Site, unknown>[] = [
     meta: { kind: 'status' },
   },
   {
-    accessorKey: 'plan',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Plan" />,
-    cell: ({ row }) => <DataTableCell kind="text" value={row.original.plan} />,
+    accessorKey: 'studio',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Studio" />,
+    cell: ({ row }) => <DataTableCell kind="text" value={row.original.studio} />,
     meta: { kind: 'text' },
   },
 ];
 
 // Spies, not alert(): a native dialog blocks the page (and the tests).
-const onReissue = fn();
+const onRepublish = fn();
 const onArchive = fn();
 const onDelete = fn();
 
-const ACTIONS: DataTableBulkAction<Site>[] = [
-  { label: 'Reissue', icon: <Refresh />, onSelect: (rows) => onReissue(rows.map((r) => r.domain)) },
-  { label: 'Archive', icon: <Archive />, onSelect: (rows) => onArchive(rows.map((r) => r.domain)) },
+const ACTIONS: DataTableBulkAction<Gallery>[] = [
+  { label: 'Republish', icon: <Refresh />, onSelect: (rows) => onRepublish(rows.map((r) => r.name)) },
+  { label: 'Archive', icon: <Archive />, onSelect: (rows) => onArchive(rows.map((r) => r.name)) },
   {
     label: 'Delete',
     icon: <Trash />,
     tone: 'danger',
     confirm: {
-      title: (count) => `Delete ${count} sites?`,
+      title: (count) => `Delete ${count} galleries?`,
       typeToConfirm: 'delete',
-      confirmLabel: 'Delete sites',
+      confirmLabel: 'Delete galleries',
       confirmIcon: <Trash />,
-      onConfirm: (rows) => onDelete(rows.map((r) => r.domain)),
+      onConfirm: (rows) => onDelete(rows.map((r) => r.name)),
       undo: {
-        title: (count) => `${count} sites moved to trash`,
+        title: (count) => `${count} galleries moved to trash`,
         description: () => 'Recoverable for 30 days',
       },
     },
@@ -82,8 +82,8 @@ const ACTIONS: DataTableBulkAction<Site>[] = [
 ];
 
 /** Filter control for the toolbar's idle state (its `children`). */
-function DomainFilter({ onFilter }: { onFilter: (value: string) => void }) {
-  return <TextField aria-label="Filter domains" placeholder="Filter domains…" leftIcon={<Search />} className="sm:max-w-xs" widthSize="full" onChange={(e) => onFilter(e.target.value)} />;
+function GalleryFilter({ onFilter }: { onFilter: (value: string) => void }) {
+  return <TextField aria-label="Filter galleries" placeholder="Filter galleries…" leftIcon={<Search />} className="sm:max-w-xs" widthSize="full" onChange={(e) => onFilter(e.target.value)} />;
 }
 
 /**
@@ -92,14 +92,14 @@ function DomainFilter({ onFilter }: { onFilter: (value: string) => void }) {
  * decides how many actions stay inline; the rest collapse into the
  * overflow menu, where the destructive action gets its red.
  */
-function ToolbarDemo({ actions = ACTIONS, maxVisible, initialSelection = {} }: { actions?: DataTableBulkAction<Site>[]; maxVisible?: number; initialSelection?: RowSelectionState }) {
+function ToolbarDemo({ actions = ACTIONS, maxVisible, initialSelection = {} }: { actions?: DataTableBulkAction<Gallery>[]; maxVisible?: number; initialSelection?: RowSelectionState }) {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>(initialSelection);
 
   return (
     <DataTable
       columns={columns}
-      data={SITES}
-      getRowId={(s) => s.domain}
+      data={GALLERIES}
+      getRowId={(g) => g.name}
       enableSelection
       selectAll="toolbar"
       rowSelection={rowSelection}
@@ -107,10 +107,10 @@ function ToolbarDemo({ actions = ACTIONS, maxVisible, initialSelection = {} }: {
       hideFooter
       toolbar={(table) => (
         <DataTableToolbar table={table} actions={actions} {...(maxVisible != null ? { maxVisible } : {})}>
-          <DomainFilter onFilter={(value) => table.getColumn('domain')?.setFilterValue(value)} />
+          <GalleryFilter onFilter={(value) => table.getColumn('name')?.setFilterValue(value)} />
         </DataTableToolbar>
       )}
-      ariaLabel="Sites"
+      ariaLabel="Galleries"
     />
   );
 }
@@ -175,9 +175,9 @@ export const Default: Story = {
       const c = within(canvasElement);
       await expect(bar(canvasElement)).toHaveAttribute('data-state', 'default');
       await expect(c.queryByRole('checkbox', { name: 'Select all' })).toBeNull();
-      await userEvent.type(c.getByRole('textbox', { name: 'Filter domains' }), 'shop');
+      await userEvent.type(c.getByRole('textbox', { name: 'Filter galleries' }), 'Golden');
       await waitFor(() => expect(c.getAllByRole('listitem')).toHaveLength(1));
-      await expect(c.getByRole('listitem')).toHaveTextContent('shop.seashell.dev');
+      await expect(c.getByRole('listitem')).toHaveTextContent('Golden hour');
       return;
     }
 
@@ -197,7 +197,7 @@ export const Default: Story = {
     await waitFor(() => expect(selectAll(canvasElement)).toHaveFocus());
 
     // Select all respects the filter.
-    await userEvent.type(canvas.getByRole('textbox', { name: 'Filter domains' }), 'shop');
+    await userEvent.type(canvas.getByRole('textbox', { name: 'Filter galleries' }), 'Golden');
     await userEvent.click(selectAll(canvasElement));
     await waitFor(() => expect(bar(canvasElement)).toHaveTextContent('1 selected'));
     await userEvent.click(canvas.getByRole('button', { name: 'Clear selection' }));
@@ -211,7 +211,7 @@ export const Default: Story = {
  */
 export const Selected: Story = {
 
-  render: () => <ToolbarDemo initialSelection={{ 'shop.seashell.dev': true, 'api.seashell.dev': true }} />,
+  render: () => <ToolbarDemo initialSelection={{ 'Golden hour': true, 'First light': true }} />,
   play: async ({ canvasElement }) => {
     // Phone (below md): selection is off, so a preselection is dropped — no bulk bar.
     const phone = window.matchMedia('(max-width: 767.98px)').matches;
@@ -231,7 +231,7 @@ export const Selected: Story = {
 
     onArchive.mockClear();
     await userEvent.click(within(actions).getByRole('button', { name: 'Archive' }));
-    await expect(onArchive).toHaveBeenCalledWith(['shop.seashell.dev', 'api.seashell.dev']);
+    await expect(onArchive).toHaveBeenCalledWith(['Golden hour', 'First light']);
     // The action clears the selection; focus lands on select-all, not <body>.
     await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'default'));
     await waitFor(() => expect(selectAll(canvasElement)).toHaveFocus());
@@ -246,7 +246,7 @@ export const Selected: Story = {
  */
 export const Overflow: Story = {
 
-  render: () => <ToolbarDemo maxVisible={2} initialSelection={{ 'shop.seashell.dev': true, 'api.seashell.dev': true, 'docs.seashell.dev': true }} />,
+  render: () => <ToolbarDemo maxVisible={2} initialSelection={{ 'Golden hour': true, 'First light': true, 'Wide-shining': true }} />,
   play: async ({ canvasElement }) => {
     // Phone (below md): selection is off, so a preselection is dropped — no bulk bar.
     const phone = window.matchMedia('(max-width: 767.98px)').matches;
@@ -267,14 +267,14 @@ export const Overflow: Story = {
 
     // Type-to-confirm, then an undo toast; the selection clears.
     const dialog = await page.findByRole('alertdialog');
-    await expect(dialog).toHaveTextContent('Delete 3 sites?');
-    const confirm = within(dialog).getByRole('button', { name: 'Delete sites' });
+    await expect(dialog).toHaveTextContent('Delete 3 galleries?');
+    const confirm = within(dialog).getByRole('button', { name: 'Delete galleries' });
     await expect(confirm).toBeDisabled();
     await userEvent.type(within(dialog).getByRole('textbox'), 'delete');
     onDelete.mockClear();
     await userEvent.click(confirm);
-    await expect(onDelete).toHaveBeenCalledWith(['shop.seashell.dev', 'api.seashell.dev', 'docs.seashell.dev']);
-    await expect(await page.findByText('3 sites moved to trash')).toBeInTheDocument();
+    await expect(onDelete).toHaveBeenCalledWith(['Golden hour', 'First light', 'Wide-shining']);
+    await expect(await page.findByText('3 galleries moved to trash')).toBeInTheDocument();
     await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'default'));
     toast.dismiss();
     await waitFor(() => expect(document.querySelectorAll('[data-sonner-toast]')).toHaveLength(0), { timeout: 3000 });
@@ -290,7 +290,7 @@ export const NarrowOverflow: Story = {
 
   render: () => (
     <div style={{ width: '100%', maxWidth: 360 }}>
-      <ToolbarDemo initialSelection={{ 'shop.seashell.dev': true }} />
+      <ToolbarDemo initialSelection={{ 'Golden hour': true }} />
     </div>
   ),
   play: async ({ canvasElement }) => {

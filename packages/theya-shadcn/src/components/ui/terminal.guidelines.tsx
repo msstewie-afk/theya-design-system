@@ -5,7 +5,7 @@ import { CodeBlock } from './code-block';
 export const terminalGuidelines: ComponentGuidelines = {
   status: 'beta',
   whenToUse: [
-    'Live or past console output: a web SSH session, a deploy or build log, a tail of access logs.',
+    'Live or past console output: a remote session on a studio workstation, an export log, a tail of access logs.',
     'Output where the order and severity of lines matter.',
   ],
   whenNotToUse: [
@@ -24,16 +24,16 @@ export const terminalGuidelines: ComponentGuidelines = {
         example: (
           <div className="w-80">
             <Terminal hideHeader lines={[
-              { id: '1', text: '$ npm run build', level: 'cmd' },
-              { id: '2', text: 'warning: 2 unused exports', level: 'warning' },
-              { id: '3', text: 'error: build failed (exit 1)', level: 'error' },
+              { id: '1', text: '$ aether export "Blue hour"', level: 'cmd' },
+              { id: '2', text: 'warning: 2 photos have no color profile', level: 'warning' },
+              { id: '3', text: 'error: export failed (exit 1)', level: 'error' },
             ]} />
           </div>
         ),
         caption: 'Levels color the lines, and the text itself says “warning” / “error”.',
       },
       dont: {
-        example: <div className="w-80"><CodeBlock language="bash" code={'$ npm run build\nwarning: 2 unused exports\nerror: build failed (exit 1)'} /></div>,
+        example: <div className="w-80"><CodeBlock language="bash" code={'$ aether export "Blue hour"\nwarning: 2 photos have no color profile\nerror: export failed (exit 1)'} /></div>,
         caption: 'A static code block for a log: no severity, no following new output.',
       },
     },
@@ -41,7 +41,7 @@ export const terminalGuidelines: ComponentGuidelines = {
   a11y: [
     <>The body is <C>role="log"</C> and a tab stop; new lines are announced politely. For chatty streams set <C>live="off"</C> and announce only the result.</>,
     'Connection state is a dot plus a text label, never color alone.',
-    <>Give each terminal on a page its own <C>ariaLabel</C> (“Deploy log”, “SSH: web-04”).</>,
+    <>Give each terminal on a page its own <C>ariaLabel</C> (“Export log”, “SSH: studio-l4”).</>,
     'Line colors come from tokens that pass contrast on the dark surface — don’t override them with raw ANSI colors.',
   ],
 };

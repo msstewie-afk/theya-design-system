@@ -530,7 +530,7 @@ export const Success: Story = {
           setTimeout(() => setState('done'), 1200);
         }}
       >
-        {state === 'done' ? 'Deployed' : 'Deploy'}
+        {state === 'done' ? 'Exported' : 'Export'}
       </Button>
     );
   },

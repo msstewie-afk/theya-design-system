@@ -13,8 +13,8 @@ const meta: Meta<typeof CategoryLanding> = {
     layout: 'padded',
   },
   args: {
-    title: 'Extensions',
-    description: 'Add security, backups, speed and developer tools to your panel. Most install in under a minute.',
+    title: 'Shop',
+    description: 'Presets, prints, photo books, lens rentals and studio time for your Aether plan. Billed monthly, cancel anytime.',
     total: DEMO_ITEMS.length,
     allHref: '#all',
     categories: DEMO_CATEGORIES,
@@ -31,10 +31,10 @@ type Story = StoryObj<typeof CategoryLanding>;
 export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('link', { name: 'Security, 6 extensions' })).toHaveAttribute('href', '#category-security');
-    await expect(canvas.getByRole('link', { name: 'View all 6 Security extensions' })).toHaveAttribute('href', '#category-security');
-    await expect(canvas.getByRole('link', { name: 'View all 24 extensions' })).toHaveAttribute('href', '#all');
-    await expect(canvas.getByRole('link', { name: 'Git Deploy by Forge' })).toBeVisible();
+    await expect(canvas.getByRole('link', { name: 'Presets, 6 products' })).toHaveAttribute('href', '#category-presets');
+    await expect(canvas.getByRole('link', { name: 'View all 6 Presets products' })).toHaveAttribute('href', '#category-presets');
+    await expect(canvas.getByRole('link', { name: 'View all 24 products' })).toHaveAttribute('href', '#all');
+    await expect(canvas.getByRole('link', { name: 'Portrait prime rental by Glassworks' })).toBeVisible();
   },
 };
 

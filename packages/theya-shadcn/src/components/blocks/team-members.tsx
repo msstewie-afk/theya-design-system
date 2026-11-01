@@ -60,7 +60,7 @@ export interface TeamInvite {
 
 const DEFAULT_ROLES: TeamRoleOption[] = [
   { value: 'admin', label: 'Admin', description: 'Full access to settings and billing', tone: 'primary' },
-  { value: 'member', label: 'Member', description: 'Manage sites and deployments', tone: 'neutral' },
+  { value: 'member', label: 'Member', description: 'Manage galleries and exports', tone: 'neutral' },
   { value: 'billing', label: 'Billing', description: 'View invoices and usage only', tone: 'info' },
 ];
 
@@ -68,15 +68,15 @@ const DEFAULT_ROLES: TeamRoleOption[] = [
 const OWNER_ROLE: TeamRoleOption = { value: 'owner', label: 'Owner', tone: 'primary' };
 
 const SEEDED_MEMBERS: TeamMember[] = [
-  { id: 'u-1', name: 'Alex Morgan', email: 'alex@seashell.dev', role: 'owner', lastActiveMins: 4 },
-  { id: 'u-2', name: 'Jordan Kim', email: 'jordan@seashell.dev', role: 'admin', lastActiveMins: 90 },
-  { id: 'u-3', name: 'Priya Nair', email: 'priya@seashell.dev', role: 'member', lastActiveMins: 60 * 26 },
-  { id: 'u-4', name: 'Sam Okoro', email: 'sam@seashell.dev', role: 'billing', lastActiveMins: 60 * 24 * 5 },
+  { id: 'u-1', name: 'Thea Marlow', email: 'thea@aether.photo', role: 'owner', lastActiveMins: 4 },
+  { id: 'u-2', name: 'Ian Hyde', email: 'ian@aether.photo', role: 'admin', lastActiveMins: 90 },
+  { id: 'u-3', name: 'Elio Sanz', email: 'elio@aether.photo', role: 'member', lastActiveMins: 60 * 26 },
+  { id: 'u-4', name: 'Phoebe Lark', email: 'phoebe@aether.photo', role: 'billing', lastActiveMins: 60 * 24 * 5 },
 ];
 
 const SEEDED_INVITES: TeamInvite[] = [
-  { id: 'inv-1', email: 'dana@contractor.dev', role: 'member', invitedAgo: '2d ago' },
-  { id: 'inv-2', email: 'lee@seashell.dev', role: 'admin', invitedAgo: '5h ago' },
+  { id: 'inv-1', email: 'dawn@aether.photo', role: 'member', invitedAgo: '2d ago' },
+  { id: 'inv-2', email: 'mina@aether.photo', role: 'admin', invitedAgo: '5h ago' },
 ];
 
 
@@ -258,7 +258,7 @@ export function TeamMembers({
                 type="email"
                 inputMode="email"
                 autoComplete="email"
-                placeholder="teammate@seashell.dev"
+                placeholder="teammate@aether.photo"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={() => setTouched(true)}

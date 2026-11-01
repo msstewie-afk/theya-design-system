@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Actions",
   "whenToUse": [
-    "Next to a value people paste somewhere else: an API key, a DNS record, a command, a link.",
+    "Next to a value people paste somewhere else: an API key, a client portal address, a command, a link.",
     "When selecting the text by hand would be fiddly (long, monospaced, partly hidden)."
   ],
   "whenNotToUse": [
@@ -42,11 +42,11 @@
     {
       "do": {
         "caption": "Right next to the value it copies, and the name says which value.",
-        "example": "<div className=\"flex items-center gap-2\">\n  <code className=\"rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-2 py-1 font-mono text-body-s text-[var(--color-text-text)]\">ns1.theya.dev</code>\n  <CopyButton value=\"ns1.theya.dev\" label={null} aria-label=\"Copy ns1.theya.dev\" appearance=\"ghost\" tone=\"secondary\" size=\"sm\" />\n</div>"
+        "example": "<div className=\"flex items-center gap-2\">\n  <code className=\"rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] px-2 py-1 font-mono text-body-s text-[var(--color-text-text)]\">selene-weddings.aether.photo</code>\n  <CopyButton value=\"selene-weddings.aether.photo\" label={null} aria-label=\"Copy selene-weddings.aether.photo\" appearance=\"ghost\" tone=\"secondary\" size=\"sm\" />\n</div>"
       },
       "dont": {
         "caption": "One “Copy” for two values — which one did it take?",
-        "example": "<div className=\"flex flex-col items-start gap-2\">\n  <code className=\"font-mono text-body-s text-[var(--color-text-text)]\">ns1.theya.dev</code>\n  <code className=\"font-mono text-body-s text-[var(--color-text-text)]\">ns2.theya.dev</code>\n  <Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Copy</Button>\n</div>"
+        "example": "<div className=\"flex flex-col items-start gap-2\">\n  <code className=\"font-mono text-body-s text-[var(--color-text-text)]\">selene-weddings.aether.photo</code>\n  <code className=\"font-mono text-body-s text-[var(--color-text-text)]\">helios.aether.photo</code>\n  <Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Copy</Button>\n</div>"
       }
     }
   ],
@@ -153,7 +153,7 @@
           "name": "success",
           "type": "boolean",
           "required": false,
-          "description": "The action just succeeded: a tick draws itself in place of leftIcon (Kinetics'\nStatus Pill, MIT). Pair it with a label that says so (\"Deployed\") and, usually,\n`tone=\"success\"`; turn it off again after a moment. Not supported with asChild."
+          "description": "The action just succeeded: a tick draws itself in place of leftIcon (Kinetics'\nStatus Pill, MIT). Pair it with a label that says so (\"Exported\") and, usually,\n`tone=\"success\"`; turn it off again after a moment. Not supported with asChild."
         },
         {
           "name": "tone",

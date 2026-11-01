@@ -6,7 +6,7 @@
   "status": "stable",
   "category": "Actions",
   "whenToUse": [
-    "One main action with a few variations of it: “Deploy” / Deploy to staging / Deploy without cache.",
+    "One main action with a few variations of it: “Export” / Export as JPEG / Export without watermark.",
     "The main action is what people want most of the time; the rest are occasional."
   ],
   "whenNotToUse": [
@@ -40,11 +40,11 @@
     {
       "do": {
         "caption": "The menu holds variants of the same action.",
-        "example": "<SplitButton\n  size=\"md\"\n  menuLabel=\"More deploy options\"\n  menuContent={\n    <>\n      <DropdownMenuItem>Deploy to staging</DropdownMenuItem>\n      <DropdownMenuItem>Deploy without cache</DropdownMenuItem>\n    </>\n  }\n>\n  Deploy\n</SplitButton>"
+        "example": "<SplitButton\n  size=\"md\"\n  menuLabel=\"More export options\"\n  menuContent={\n    <>\n      <DropdownMenuItem>Export as JPEG</DropdownMenuItem>\n      <DropdownMenuItem>Export without watermark</DropdownMenuItem>\n    </>\n  }\n>\n  Export\n</SplitButton>"
       },
       "dont": {
         "caption": "Three buttons for one action crowd the bar; the rare variants belong in the menu.",
-        "example": "<div className=\"flex gap-2\">\n  <Button size=\"md\">Deploy</Button>\n  <Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Deploy to staging</Button>\n  <Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Without cache</Button>\n</div>"
+        "example": "<div className=\"flex gap-2\">\n  <Button size=\"md\">Export</Button>\n  <Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Export as JPEG</Button>\n  <Button appearance=\"outlined\" tone=\"secondary\" size=\"md\">Without watermark</Button>\n</div>"
       }
     }
   ],
@@ -138,7 +138,7 @@
           "name": "success",
           "type": "boolean",
           "required": false,
-          "description": "The action just succeeded: a tick draws itself in place of leftIcon (Kinetics'\nStatus Pill, MIT). Pair it with a label that says so (\"Deployed\") and, usually,\n`tone=\"success\"`; turn it off again after a moment. Not supported with asChild."
+          "description": "The action just succeeded: a tick draws itself in place of leftIcon (Kinetics'\nStatus Pill, MIT). Pair it with a label that says so (\"Exported\") and, usually,\n`tone=\"success\"`; turn it off again after a moment. Not supported with asChild."
         },
         {
           "name": "tone",

@@ -55,7 +55,7 @@ export const Default: Story = {
     await expect(status(canvasElement)).toHaveTextContent('8 events');
 
     // Search matches actor, action, target and category label.
-    await userEvent.type(search, 'alex');
+    await userEvent.type(search, 'thea');
     await waitFor(() => expect(actions(canvasElement)).toEqual(['Signed in', 'Updated payment method', 'Revoked API key', 'Updated account settings']));
     await expect(status(canvasElement)).toHaveTextContent('4 events match your filters');
 
@@ -93,7 +93,7 @@ export const Default: Story = {
     await userEvent.click(within(july).getByRole('button', { name: /July 13th/ }));
     await userEvent.click(within(july).getByRole('button', { name: /July 14th/ }));
     await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(actions(canvasElement)).toEqual(['Signed in', 'Deployed site', 'Changed member role', 'Updated payment method', 'Revoked API key']));
+    await waitFor(() => expect(actions(canvasElement)).toEqual(['Signed in', 'Exported gallery', 'Changed member role', 'Updated payment method', 'Revoked API key']));
     await expect(status(canvasElement)).toHaveTextContent('5 events match your filters');
   },
 };

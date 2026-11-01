@@ -25,7 +25,7 @@ export const chatGuidelines: ComponentGuidelines = {
           <div className={BOX}>
             <Chat className="h-full">
               <ChatMessages aria-label="Conversation example">
-                <Message author="Assistant">Your SSL certificate renews in 5 days.</Message>
+                <Message author="Assistant">Your print license renews in 5 days.</Message>
                 <Message variant="sent" author="You">Renew it now.</Message>
               </ChatMessages>
               <PromptArea aria-label="Message the assistant" placeholder="Ask anything…" />
@@ -40,7 +40,7 @@ export const chatGuidelines: ComponentGuidelines = {
             <div className="flex h-full flex-col gap-2 overflow-auto p-3">
               <PromptArea aria-label="Message, composer on top" placeholder="Ask anything…" />
               <Message variant="sent" author="You">Renew it now.</Message>
-              <Message author="Assistant">Your SSL certificate renews in 5 days.</Message>
+              <Message author="Assistant">Your print license renews in 5 days.</Message>
             </div>
           </div>
         ),

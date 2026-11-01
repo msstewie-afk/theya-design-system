@@ -53,7 +53,7 @@ type PendingFocus = { from: HTMLElement; to: { chip: number } | { heading: true 
 
 export interface FacetedListProps {
   items: CatalogItem[];
-  /** Noun for the count: { one: 'extension', many: 'extensions' }. */
+  /** Noun for the count; defaults to { one: 'product', many: 'products' }. */
   noun?: { one: string; many: string };
   /** Items per "Show more". */
   pageSize?: number;
@@ -91,7 +91,7 @@ function matches(item: CatalogItem, f: Filters, skip?: keyof Filters): boolean {
  * the last chip) it goes to the section heading. When the last "Show N
  * more" disappears, focus moves to the first newly shown result.
  */
-export function FacetedList({ items, noun = { one: 'extension', many: 'extensions' }, pageSize = 9, getHref, className }: FacetedListProps) {
+export function FacetedList({ items, noun = { one: 'product', many: 'products' }, pageSize = 9, getHref, className }: FacetedListProps) {
   const [filters, setFilters] = useState<Filters>(EMPTY);
   const [sort, setSort] = useState<SortKey>('relevance');
   const [layout, setLayout] = useState<'grid' | 'list'>('grid');

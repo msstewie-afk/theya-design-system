@@ -28,14 +28,14 @@ export const toasterGuidelines: ComponentGuidelines = {
   doDont: [
     {
       do: {
-        example: <Fire label="Show good toast" run={() => toast.success('Certificate issued', { description: 'shop.seashell.dev · valid 90 days' })} />,
+        example: <Fire label="Show good toast" run={() => toast.success('License issued', { description: 'GOLDEN_0907.tif · web use, 12 months' })} />,
         caption: 'What happened, to what.',
       },
       dont: { example: <Fire label="Show vague toast" run={() => toast.success('Success!')} />, caption: '“Success!” — of what?' },
     },
     {
       do: {
-        example: <Fire label="Show error toast" run={() => toast.error('Couldn’t reissue certificate', { description: 'DNS check failed for shop.seashell.dev', action: { label: 'Retry', onClick: () => {} } })} />,
+        example: <Fire label="Show error toast" run={() => toast.error('Couldn’t reissue license', { description: 'The client’s card was declined for GOLDEN_0907.tif', action: { label: 'Retry', onClick: () => {} } })} />,
         caption: 'Errors stay until closed and offer a retry.',
       },
       dont: {

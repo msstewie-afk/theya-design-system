@@ -15,8 +15,8 @@ const meta: Meta<typeof ItemPage> = {
   args: {
     item: DEMO_ITEM,
     breadcrumbs: [
-      { label: 'Extensions', href: '#extensions' },
-      { label: 'Backups', href: '#backups' },
+      { label: 'Shop', href: '#shop' },
+      { label: 'Plan add-ons', href: '#plan-add-ons' },
     ],
     images: DEMO_IMAGES,
     highlights: DEMO_HIGHLIGHTS,
@@ -41,9 +41,9 @@ export const Default: Story = {
     await userEvent.click(thumb);
     await expect(thumb).toHaveAttribute('aria-current', 'true');
 
-    await expect(canvas.queryByRole('heading', { name: 'Security' })).not.toBeInTheDocument();
+    await expect(canvas.queryByRole('heading', { name: 'Privacy' })).not.toBeInTheDocument();
     await userEvent.click(canvas.getByRole('button', { name: 'Read the full description' }));
-    await expect(canvas.getByRole('heading', { name: 'Security' })).toBeVisible();
+    await expect(canvas.getByRole('heading', { name: 'Privacy' })).toBeVisible();
 
     await expect(canvas.getByText('Free for 14 days, then billed monthly. Cancel anytime.')).toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'Start free trial' }));
@@ -53,5 +53,5 @@ export const Default: Story = {
 
 /** A free item: "Install", no trial line. */
 export const Free: Story = {
-  args: { item: DEMO_ITEMS.find((i) => i.id === 'certpilot')!, trialDays: undefined, images: DEMO_IMAGES.slice(0, 1) },
+  args: { item: DEMO_ITEMS.find((i) => i.id === 'aether-basics')!, trialDays: undefined, images: DEMO_IMAGES.slice(0, 1) },
 };

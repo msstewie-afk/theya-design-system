@@ -31,8 +31,8 @@ export const chipGuidelines: ComponentGuidelines = {
       dont: {
         example: (
           <div className="flex items-center gap-2 font-body text-body-m text-[var(--color-text-text)]">
-            shop.seashell.dev
-            <Chip tone="success" interactive={false}>Running</Chip>
+            Golden hour
+            <Chip tone="success" interactive={false}>Published</Chip>
           </div>
         ),
         caption: 'A status that can’t be clicked styled as a chip — use a Badge.',
@@ -42,8 +42,8 @@ export const chipGuidelines: ComponentGuidelines = {
       do: {
         example: (
           <div className="flex items-center gap-2 font-body text-body-m text-[var(--color-text-text)]">
-            shop.seashell.dev
-            <Badge tone="success">Running</Badge>
+            Golden hour
+            <Badge tone="success">Published</Badge>
           </div>
         ),
         caption: 'Read-only state is a Badge.',

@@ -50,13 +50,13 @@
       },
       "dont": {
         "caption": "A status that can’t be clicked styled as a chip — use a Badge.",
-        "example": "<div className=\"flex items-center gap-2 font-body text-body-m text-[var(--color-text-text)]\">\n  shop.seashell.dev\n  <Chip tone=\"success\" interactive={false}>Running</Chip>\n</div>"
+        "example": "<div className=\"flex items-center gap-2 font-body text-body-m text-[var(--color-text-text)]\">\n  Golden hour\n  <Chip tone=\"success\" interactive={false}>Published</Chip>\n</div>"
       }
     },
     {
       "do": {
         "caption": "Read-only state is a Badge.",
-        "example": "<div className=\"flex items-center gap-2 font-body text-body-m text-[var(--color-text-text)]\">\n  shop.seashell.dev\n  <Badge tone=\"success\">Running</Badge>\n</div>"
+        "example": "<div className=\"flex items-center gap-2 font-body text-body-m text-[var(--color-text-text)]\">\n  Golden hour\n  <Badge tone=\"success\">Published</Badge>\n</div>"
       },
       "dont": {
         "caption": "Chips for an either-or view: both end up selected — use ToggleGroup.",

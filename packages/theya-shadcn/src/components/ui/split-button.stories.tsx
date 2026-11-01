@@ -16,7 +16,7 @@ const meta: Meta<typeof SplitButton> = {
     guidelines: splitButtonGuidelines,
     docs: {
       description: {
-        component: "One main action with a few variations of it in a menu: “Deploy”, then Deploy to staging, Deploy without cache.",
+        component: "One main action with a few variations of it in a menu: “Export”, then Export as JPEG, Export without watermark.",
       },
     },
   },

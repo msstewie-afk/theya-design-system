@@ -4,7 +4,7 @@ import type { ComponentGuidelines } from '../../../docs/guidelines';
 export const statusTrackerGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
-    'The page for one long operation — a migration, a deploy, an order being set up — that people check on, leave and come back to.',
+    'The page for one long operation — an archive import, an export, an order being set up — that people check on, leave and come back to.',
     'An operation that can stop partway, where people need to know why and what to do next.',
   ],
   whenNotToUse: [

@@ -8,9 +8,9 @@
 
 # In list row (status-feedback-statusdot--in-list-row)
 - list:
-  - listitem: shop.seashell.dev Running
-  - listitem: api.seashell.dev Error
-  - listitem: legacy.seashell.dev Suspended
+  - listitem: selene-weddings.aether.photo Online
+  - listitem: helios.aether.photo Error
+  - listitem: eos-portraits.aether.photo Paused
 
 # Inverse (status-feedback-statusdot--inverse)
 - list:
@@ -24,6 +24,6 @@
   - listitem: Running
   - listitem: Degraded
   - listitem: Error
-  - listitem: Deploying
+  - listitem: Exporting
   - listitem: Pending
   - listitem: Suspended

@@ -17,7 +17,7 @@ export const buttonGuidelines: ComponentGuidelines = {
   ],
   anatomy: [
     { part: 'Container', description: <>appearance (<C>filled</C>, <C>tonal</C>, <C>outlined</C>, <C>ghost</C>) × tone × size.</> },
-    { part: 'Label', description: 'a verb, sentence case: “Save changes”, “Delete domain”.' },
+    { part: 'Label', description: 'a verb, sentence case: “Save changes”, “Delete gallery”.' },
     { part: 'Left icon', optional: true, description: <>via <C>leftIcon</C>; replaced by the Spinner while <C>loading</C>, and by a tick that draws itself while <C>success</C>.</> },
     { part: 'Right icon', optional: true, description: <>via <C>rightIcon</C> — for direction (→) or a menu (⌄).</> },
     { part: 'Badge', optional: true, description: <>via <C>badge</C> — a count (<C>{'{5}'}</C>, <C>"9+"</C>) or <C>{'{ dot: true }'}</C> pinned to the top-right corner; danger by default.</> },
@@ -45,7 +45,7 @@ export const buttonGuidelines: ComponentGuidelines = {
     },
     {
       do: {
-        example: <Button appearance="filled" tone="danger" size="md" leftIcon={<Trash />}>Delete domain</Button>,
+        example: <Button appearance="filled" tone="danger" size="md" leftIcon={<Trash />}>Delete gallery</Button>,
         caption: 'The label says what happens.',
       },
       dont: {

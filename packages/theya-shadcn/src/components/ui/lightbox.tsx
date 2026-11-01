@@ -39,7 +39,7 @@ export interface LightboxProps {
   defaultIndex?: number;
   /** Thumbnail strip under the image. Default: shown when there's more than one image. */
   thumbnails?: boolean;
-  /** Name of the dialog, e.g. "Seashell Sites screenshots". */
+  /** Name of the dialog, e.g. "Aether gallery preview". */
   title?: string;
 }
 

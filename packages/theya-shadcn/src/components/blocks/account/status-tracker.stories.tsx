@@ -12,7 +12,7 @@ const meta: Meta<typeof StatusTracker> = {
   tags: ['autodocs'],
   parameters: { guidelines: statusTrackerGuidelines, layout: 'padded' },
   args: {
-    title: 'Migrating seashell.shop',
+    title: 'Importing into Mnemosyne',
     reference: 'TH-24817',
     startedLabel: 'today at 14:18',
     steps: DEMO_STEPS,
@@ -34,9 +34,9 @@ type Story = StoryObj<typeof StatusTracker>;
 export const Running: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('heading', { level: 2, name: 'Copying files — step 2 of 5' })).toBeVisible();
+    await expect(canvas.getByRole('heading', { level: 2, name: 'Copying photos — step 2 of 5' })).toBeVisible();
     const current = canvasElement.querySelector('[aria-current="step"]');
-    await expect(current).toHaveTextContent('Copying files');
+    await expect(current).toHaveTextContent('Copying photos');
   },
 };
 
@@ -45,11 +45,11 @@ export const Failed: Story = {
   args: {
     current: 2,
     state: 'failed',
-    failure: { title: 'The old host refused the database connection', description: 'Files are copied and kept. Check that remote access is allowed for 203.0.113.24 on the old host, then retry — we’ll continue from the databases.' },
+    failure: { title: 'The old service refused the album export', description: 'Photos are copied and kept. Check that album export is turned on in your account on the old service, then retry — we’ll continue from the albums.' },
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Retry from “Copying databases”' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Retry from “Copying albums”' }));
     await expect(args.onRetry).toHaveBeenCalledTimes(1);
     await expect(canvas.getByRole('link', { name: 'Contact support (quote TH-24817)' })).toHaveAttribute('href', '#support');
   },
@@ -63,10 +63,10 @@ export const Completed: Story = {
     doneActions: (
       <>
         <Button asChild appearance="filled" tone="primary">
-          <a href="#site">Open seashell.shop</a>
+          <a href="#archive">Open Mnemosyne</a>
         </Button>
         <Button asChild appearance="outlined" tone="secondary">
-          <a href="#dns">Check DNS records</a>
+          <a href="#portal">View helios.aether.photo</a>
         </Button>
       </>
     ),

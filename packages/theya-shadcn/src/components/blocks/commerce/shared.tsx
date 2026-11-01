@@ -16,7 +16,7 @@ export function formatMoney(amount: number, currency = 'USD', locale = 'en-US'):
 }
 
 /**
- * Meta facts written as "Domain · 1 year" render with the system
+ * Meta facts written as "Softcover · 40 pages" render with the system
  * DotSeparator (8px either side) instead of a bare "·" squeezed between
  * spaces. Non-strings pass through.
  */
@@ -33,7 +33,7 @@ export function withDots(value: ReactNode): ReactNode {
 export interface OrderLine {
   id: string;
   name: string;
-  /** Secondary line: term, domain, region… */
+  /** Secondary line: term, format, size… */
   detail?: string;
   /** Price for one unit, for the whole term. */
   unitPrice: number;

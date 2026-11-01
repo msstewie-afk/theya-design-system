@@ -3,7 +3,7 @@ import { Field, FieldDescription, FieldError } from './field';
 import { Label } from './label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
 
-const PLANS = ['Starter', 'Pro', 'Business', 'Scale', 'Enterprise', 'Dedicated'];
+const PLANS = ['Free', 'Pro', 'Business', 'Enterprise'];
 
 export const fieldGuidelines: ComponentGuidelines = {
   status: 'stable',

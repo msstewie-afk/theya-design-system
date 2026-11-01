@@ -25,7 +25,7 @@ import { useTheyaI18n } from '../../lib/i18n';
 
 /**
  * Kanban — columns of cards that move by drag and drop (pointer or
- * keyboard): deploy pipelines, tickets, tasks, content workflows.
+ * keyboard): photo delivery pipelines, tickets, tasks, content workflows.
  *
  * Data-driven: `columns` + a flat `items` array (each item has `columnId`;
  * order inside a column is the order in the array). Cards render through

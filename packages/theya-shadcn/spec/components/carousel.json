@@ -165,7 +165,7 @@
           "name": "success",
           "type": "boolean",
           "required": false,
-          "description": "The action just succeeded: a tick draws itself in place of leftIcon (Kinetics'\nStatus Pill, MIT). Pair it with a label that says so (\"Deployed\") and, usually,\n`tone=\"success\"`; turn it off again after a moment. Not supported with asChild."
+          "description": "The action just succeeded: a tick draws itself in place of leftIcon (Kinetics'\nStatus Pill, MIT). Pair it with a label that says so (\"Exported\") and, usually,\n`tone=\"success\"`; turn it off again after a moment. Not supported with asChild."
         },
         {
           "name": "tone",
@@ -261,7 +261,7 @@
           "name": "success",
           "type": "boolean",
           "required": false,
-          "description": "The action just succeeded: a tick draws itself in place of leftIcon (Kinetics'\nStatus Pill, MIT). Pair it with a label that says so (\"Deployed\") and, usually,\n`tone=\"success\"`; turn it off again after a moment. Not supported with asChild."
+          "description": "The action just succeeded: a tick draws itself in place of leftIcon (Kinetics'\nStatus Pill, MIT). Pair it with a label that says so (\"Exported\") and, usually,\n`tone=\"success\"`; turn it off again after a moment. Not supported with asChild."
         },
         {
           "name": "tone",

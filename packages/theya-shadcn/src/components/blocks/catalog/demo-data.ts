@@ -3,33 +3,33 @@ import type { Review } from './reviews';
 import type { SpecGroup } from './spec-sheet';
 import type { CategoryTile, CuratedPick } from './category-landing';
 
-/** Demo catalog for the Catalog pattern stories: integrations for a cloud platform. */
+/** Demo catalog for the Catalog pattern stories: the Aether shop of photo products, billed monthly. */
 const RAW: [string, string, string, CatalogIconKey, string, number, number, number, number, string[], string][] = [
   // name, vendor, category, icon, summary, rating, reviews, installs, price, compatibility, added
-  ['Shieldwall', 'Seashell Labs', 'Security', 'shield', 'Web application firewall with managed rules.', 4.7, 812, 48200, 0, ['Node.js', 'Python'], '2026-08-12'],
-  ['Secret Scanner', 'Northwind', 'Security', 'bug', 'Finds leaked keys and tokens in every deploy.', 4.4, 356, 21900, 6, ['Node.js', 'Python', 'Next.js'], '2026-05-03'],
-  ['Login Guard', 'Kestrel', 'Security', 'shield', 'Two-factor and brute-force protection for sign-in.', 4.8, 1204, 63500, 0, ['Next.js', 'Astro'], '2026-02-20'],
-  ['CertPilot', 'Seashell Labs', 'Security', 'shield', 'Issues and renews SSL certificates automatically.', 4.9, 2210, 91000, 0, ['Node.js', 'Python'], '2025-11-08'],
-  ['Vault Backup', 'Arbor', 'Backups', 'backup', 'Incremental backups to any S3-compatible storage.', 4.6, 640, 30100, 8, ['Node.js', 'Python'], '2026-07-01'],
-  ['Snapshot Pro', 'Northwind', 'Backups', 'backup', 'Hourly snapshots with point-in-time restore.', 4.3, 211, 9800, 12, ['Node.js'], '2026-09-14'],
-  ['Restore Point', 'Quartz', 'Backups', 'backup', 'Site and database backups with a staging restore.', 4.1, 98, 4200, 5, ['Next.js'], '2026-03-30'],
-  ['Offsite Copy', 'Fjord', 'Backups', 'cloud', 'Second copy of every backup in another region.', 3.9, 57, 2300, 4, ['Node.js', 'Python'], '2026-06-18'],
-  ['Rank Booster', 'Lumen', 'SEO', 'search', 'Meta tags, sitemaps and redirects in one place.', 4.5, 930, 52000, 0, ['Next.js', 'Astro'], '2025-12-11'],
-  ['Site Audit', 'Quartz', 'SEO', 'stats', 'Finds broken links, slow pages and missing tags.', 4.2, 188, 7600, 9, ['Node.js', 'Next.js'], '2026-08-29'],
-  ['Translate Kit', 'Babel', 'SEO', 'language', 'Multilingual sites with hreflang done right.', 4.0, 143, 6100, 7, ['Next.js', 'Astro'], '2026-04-22'],
-  ['Turbo Cache', 'Kestrel', 'Performance', 'speed', 'Page and data caching tuned for the platform.', 4.7, 1530, 70400, 0, ['Node.js', 'Python', 'Next.js'], '2026-01-15'],
-  ['Image Slim', 'Lumen', 'Performance', 'speed', 'Converts images to WebP and AVIF on upload.', 4.6, 702, 38800, 3, ['Next.js', 'Astro'], '2026-09-02'],
-  ['Edge CDN', 'Fjord', 'Performance', 'cloud', 'Global CDN with one switch, no DNS changes.', 4.4, 455, 25500, 10, ['Node.js', 'Python'], '2026-07-19'],
-  ['Uptime Watch', 'Arbor', 'Performance', 'stats', 'Checks every minute and alerts by email or chat.', 4.3, 260, 12800, 0, ['Node.js', 'Python'], '2026-05-27'],
-  ['Mail Relay', 'Postbox', 'Email', 'mail', 'Reliable sending with SPF, DKIM and DMARC set up.', 4.5, 377, 19400, 5, ['Node.js', 'Python'], '2026-02-02'],
-  ['Spam Filter', 'Postbox', 'Email', 'mail', 'Learns your mail and quarantines junk.', 4.1, 164, 8800, 2, ['Node.js', 'Python'], '2025-10-21'],
-  ['Git Deploy', 'Forge', 'Developer tools', 'code', 'Push to deploy from GitHub, GitLab or Bitbucket.', 4.8, 990, 41700, 0, ['Node.js', 'Python'], '2026-06-05'],
-  ['Node Toolkit', 'Forge', 'Developer tools', 'code', 'Node.js versions, process manager and logs.', 4.4, 310, 15200, 0, ['Node.js'], '2026-08-08'],
-  ['Log Viewer', 'Orbit', 'Developer tools', 'stats', 'Search and tail server logs in the browser.', 4.0, 120, 5600, 4, ['Node.js', 'Python'], '2026-03-12'],
-  ['Cron Studio', 'Orbit', 'Developer tools', 'code', 'Schedule, test and monitor cron jobs.', 3.8, 66, 2900, 0, ['Node.js', 'Python'], '2026-09-20'],
-  ['DB Studio', 'Tern', 'Developer tools', 'code', 'Browse and query databases with history.', 4.6, 540, 22600, 6, ['Node.js', 'Python'], '2026-04-01'],
-  ['Bot Blocker', 'Kestrel', 'Security', 'bug', 'Blocks scrapers and bad bots at the edge.', 4.2, 233, 11100, 4, ['Node.js', 'Next.js'], '2026-09-25'],
-  ['Form Shield', 'Willow', 'Security', 'shield', 'Invisible spam protection for every form.', 4.5, 405, 17300, 0, ['Next.js', 'Astro'], '2026-01-29'],
+  ['Golden hour presets', 'Helios Studio', 'Presets', 'preset', 'Twelve warm looks for late-afternoon light.', 4.7, 812, 48200, 0, ['Lightroom', 'Capture One'], '2026-08-12'],
+  ['Blue hour presets', 'Selene Weddings', 'Presets', 'preset', 'Cool, low-contrast looks for dusk and night shoots.', 4.4, 356, 21900, 6, ['Lightroom', 'Capture One', 'Photoshop'], '2026-05-03'],
+  ['Skin tone essentials', 'Eos Portraits', 'Presets', 'preset', 'Even, natural skin tones in window and mixed light.', 4.8, 1204, 63500, 0, ['Lightroom', 'Photoshop'], '2026-02-20'],
+  ['Aether basics', 'Aether', 'Presets', 'preset', 'Clean color and contrast for any shoot, applied on import.', 4.9, 2210, 91000, 0, ['Lightroom', 'Capture One'], '2025-11-08'],
+  ['Client proofing', 'Aether', 'Plan add-ons', 'addon', 'Clients pick favorites and leave notes on any gallery.', 4.6, 640, 30100, 8, ['Pro plan', 'Business plan'], '2026-07-01'],
+  ['Extra storage', 'Aether', 'Plan add-ons', 'addon', 'Another 1 TB in the Mnemosyne archive for raw files.', 4.3, 211, 9800, 12, ['Pro plan', 'Business plan'], '2026-09-14'],
+  ['Watermark studio', 'Quartz', 'Plan add-ons', 'addon', 'Your own watermark on previews and client downloads.', 4.1, 98, 4200, 5, ['Pro plan'], '2026-03-30'],
+  ['License manager', 'Fjord', 'Plan add-ons', 'addon', 'A print or web license attached to every client download.', 3.9, 57, 2300, 4, ['Pro plan', 'Business plan'], '2026-06-18'],
+  ['Layflat album', 'Phoebe Light Lab', 'Photo books', 'book', 'One 30-page layflat album a month, printed and bound.', 4.5, 930, 52000, 29, ['Pro plan', 'Business plan'], '2025-12-11'],
+  ['Wedding album', 'Folio', 'Photo books', 'book', 'Two linen-covered albums a month for wedding clients.', 4.2, 188, 7600, 49, ['Business plan'], '2026-08-29'],
+  ['Proof book', 'Folio', 'Photo books', 'book', 'A softcover contact book of a whole shoot, for review.', 4.0, 143, 6100, 12, ['Pro plan', 'Business plan'], '2026-04-22'],
+  ['Fine-art print club', 'Phoebe Light Lab', 'Fine-art prints', 'print', 'Two giclée prints a month on cotton rag paper.', 4.7, 1530, 70400, 35, ['Pro plan', 'Business plan'], '2026-01-15'],
+  ['Metal prints', 'Lumen', 'Fine-art prints', 'print', 'One 12 × 16 in print on aluminum a month.', 4.6, 702, 38800, 24, ['Pro plan', 'Business plan'], '2026-09-02'],
+  ['Canvas prints', 'Fjord', 'Fine-art prints', 'print', 'One stretched 16 × 20 in canvas a month, ready to hang.', 4.4, 455, 25500, 28, ['Pro plan'], '2026-07-19'],
+  ['Print proofs', 'Phoebe Light Lab', 'Fine-art prints', 'print', 'Five small test prints a month to check color first.', 4.3, 260, 12800, 0, ['Pro plan', 'Business plan'], '2026-05-27'],
+  ['Studio L4 hours', 'Studio L4', 'Studio sessions', 'studio', 'Eight hours a month in Studio L4, lights and backdrops included.', 4.5, 377, 19400, 120, ['Pro plan', 'Business plan'], '2026-02-02'],
+  ['Location days', 'Othrys Lodge', 'Studio sessions', 'studio', 'One day a month at Othrys Lodge, rooms and grounds included.', 4.1, 164, 8800, 90, ['Business plan'], '2025-10-21'],
+  ['Portrait prime rental', 'Glassworks', 'Lens rentals', 'lens', 'An 85mm f/1.4 prime, swapped for another lens any month.', 4.8, 990, 41700, 45, ['Sony E', 'Canon RF'], '2026-06-05'],
+  ['Wide zoom rental', 'Glassworks', 'Lens rentals', 'lens', 'A 16–35mm f/2.8 zoom for interiors and landscapes.', 4.4, 310, 15200, 55, ['Sony E', 'Canon RF', 'Nikon Z'], '2026-08-08'],
+  ['Telephoto rental', 'Orbit', 'Lens rentals', 'lens', 'A 70–200mm f/2.8 zoom for ceremonies and events.', 4.0, 120, 5600, 79, ['Sony E', 'Nikon Z'], '2026-03-12'],
+  ['Macro lens rental', 'Orbit', 'Lens rentals', 'lens', 'A 100mm f/2.8 macro for rings, details and products.', 3.8, 66, 2900, 39, ['Canon RF'], '2026-09-20'],
+  ['Tilt-shift rental', 'Tern', 'Lens rentals', 'lens', 'A 24mm tilt-shift for architecture without converging lines.', 4.6, 540, 22600, 65, ['Sony E', 'Canon RF'], '2026-04-01'],
+  ['Film emulation pack', 'Phoebe Light Lab', 'Presets', 'preset', 'Grain and color from six classic film stocks.', 4.2, 233, 11100, 4, ['Lightroom', 'Capture One'], '2026-09-25'],
+  ['Black and white set', 'Willow', 'Presets', 'preset', 'Ten monochrome looks, from soft matte to deep contrast.', 4.5, 405, 17300, 0, ['Lightroom', 'Photoshop'], '2026-01-29'],
 ];
 
 export const DEMO_ITEMS: CatalogItem[] = RAW.map(([name, vendor, category, icon, summary, rating, reviewCount, installs, price, compatibility, added]) => ({
@@ -50,8 +50,9 @@ export const DEMO_ITEMS: CatalogItem[] = RAW.map(([name, vendor, category, icon,
 const byId = (id: string) => DEMO_ITEMS.find((i) => i.id === id)!;
 
 /** The item the ItemPage demo is about. */
-export const DEMO_ITEM = byId('vault-backup');
+export const DEMO_ITEM = byId('client-proofing');
 
+/** Gallery pictures; the alt text describes the bundled placeholder images. */
 export const DEMO_IMAGES = [
   { src: '/asset-examples/nova-web.jpg', alt: 'Abstract floating cubes' },
   { src: '/asset-examples/login-carousel-01.jpg', alt: 'Abstract city of tall blue blocks' },
@@ -59,33 +60,33 @@ export const DEMO_IMAGES = [
   { src: '/asset-examples/login-carousel-03.jpg', alt: 'Abstract archway made of blocks' },
 ];
 
-export const DEMO_HIGHLIGHTS = ['Incremental: only changed files after the first run', 'Any S3-compatible storage, including your own', 'Restore one file, one database or the whole site', 'Encrypted before it leaves the server'];
+export const DEMO_HIGHLIGHTS = ['Clients pick favorites and send them back in one step', 'Notes on a single frame or the whole gallery', 'Watermarked previews until you approve the picks', 'Works with every gallery you already have'];
 
 export const DEMO_DESCRIPTION = [
-  { body: 'Vault Backup copies your projects, databases and files to the storage you choose, on the schedule you choose. After the first full run it only sends what changed, so backups finish in minutes and storage costs stay low.' },
-  { title: 'Restore what you need', body: 'Pick a point in time and restore a single file, one database or everything. Restores can go to a staging copy first, so you can check before you overwrite.' },
-  { title: 'Storage', body: 'Works with Amazon S3, Backblaze B2, Wasabi, MinIO and any other S3-compatible service. Keep a second copy in another region with one switch.' },
-  { title: 'Security', body: 'Archives are encrypted with AES-256 before upload. The key stays on your server; we never see it.' },
+  { body: 'Client proofing turns any gallery into a shortlist. Clients mark the photos they want, leave notes on single frames and send their picks back in one step, so nobody has to email lists of file names.' },
+  { title: 'Notes on every frame', body: 'Clients can comment on one photo or on the whole gallery. The notes show beside each frame while you edit, and you mark them done as you retouch.' },
+  { title: 'Downloads and licenses', body: 'Approved picks download as JPEG or TIFF, each with a web or print license attached. Previews stay watermarked until you approve the selection.' },
+  { title: 'Privacy', body: 'Proofing galleries are private by default. Each client opens theirs from a link sent to their email, and you choose when the link expires.' },
 ];
 
 export const DEMO_SPECS: SpecGroup[] = [
   {
-    title: 'Backups',
+    title: 'Proofing',
     specs: [
-      { label: 'Smallest interval', value: '1', unit: 'hour' },
-      { label: 'Retention', value: 'Up to 365', unit: 'days' },
-      { label: 'Backup type', value: 'Full, then incremental' },
-      { label: 'Encryption', value: 'AES-256, client-side' },
-      { label: 'Compression', value: 'zstd' },
+      { label: 'Galleries in proofing', value: 'Unlimited' },
+      { label: 'Clients per gallery', value: 'Up to 20' },
+      { label: 'Default selection limit', value: '50', unit: 'photos', hint: 'You can raise it for each gallery, up to 500 photos.' },
+      { label: 'Download formats', value: 'JPEG, TIFF' },
+      { label: 'Link expiry', value: 'Up to 90', unit: 'days' },
     ],
   },
   {
     title: 'Requirements',
     specs: [
-      { label: 'Runtime', value: 'Node.js 20+ or Python 3.11+' },
-      { label: 'Free disk space', value: '2', unit: 'GB', hint: 'For the local staging area during a run.' },
-      { label: 'Memory', value: '512', unit: 'MB' },
-      { label: 'Operating system', value: 'Linux (64-bit)' },
+      { label: 'Plan', value: 'Pro or Business' },
+      { label: 'Largest photo', value: '200', unit: 'MB' },
+      { label: 'Preview size', value: '2,048', unit: 'px', hint: 'The long edge of the watermarked previews clients see.' },
+      { label: 'Client browsers', value: 'Current Chrome, Safari, Firefox, Edge' },
     ],
   },
   {
@@ -100,19 +101,19 @@ export const DEMO_SPECS: SpecGroup[] = [
 ];
 
 export const DEMO_REVIEWS: Review[] = [
-  { id: 'r1', author: 'Dana K.', rating: 5, date: 'Sep 20, 2026', isoDate: '2026-09-20', title: 'Saved a client site in five minutes', body: 'A dependency update broke the store. Restored last night’s database to staging, checked it, pushed it live. Exactly what a backup tool should be.', helpful: 41 },
-  { id: 'r2', author: 'Marco P.', rating: 4, date: 'Sep 2, 2026', isoDate: '2026-09-02', title: 'Solid, setup could be clearer', body: 'Works well with Wasabi. It took me a while to find where to paste the endpoint — the first screen only mentions Amazon.', helpful: 18, reply: { author: 'Arbor', body: 'Thanks, Marco — the next version shows every provider on the first screen.', date: 'Sep 4, 2026' } },
-  { id: 'r3', author: 'Lina S.', rating: 5, date: 'Aug 28, 2026', isoDate: '2026-08-28', body: 'Incremental runs take under two minutes for 40 sites. Storage bill went down by half.', helpful: 25 },
-  { id: 'r4', author: 'Tom W.', rating: 2, date: 'Aug 15, 2026', isoDate: '2026-08-15', title: 'Database restore is all or nothing', body: 'I can restore a single file but not a single table. For projects with big databases that matters.', helpful: 12, reply: { author: 'Arbor', body: 'Per-table restore is in beta now — write to support and we’ll turn it on.', date: 'Aug 16, 2026' } },
-  { id: 'r5', author: 'Priya R.', rating: 5, date: 'Jul 30, 2026', isoDate: '2026-07-30', body: 'Set it up once two years ago and it just runs. Alerts when a run fails are useful.', helpful: 9 },
-  { id: 'r6', author: 'Jonas B.', rating: 3, date: 'Jul 12, 2026', isoDate: '2026-07-12', title: 'Fine, a bit pricey for one site', body: 'Great for agencies; for a single small site the price is hard to justify.', helpful: 7 },
-  { id: 'r7', author: 'Elif A.', rating: 4, date: 'Jun 21, 2026', isoDate: '2026-06-21', body: 'Restores are reliable. Would love a dark mode for the dashboard.', helpful: 3 },
-  { id: 'r8', author: 'Sam O.', rating: 1, date: 'Jun 3, 2026', isoDate: '2026-06-03', title: 'First run filled my disk', body: 'The first full backup used the local staging area and ran out of space. Check the disk requirement before installing.', helpful: 15 },
+  { id: 'r1', author: 'Dana K.', rating: 5, date: 'Sep 20, 2026', isoDate: '2026-09-20', title: 'Cut a week out of every wedding', body: 'Couples used to email me lists of file names. Now they mark the frames they want and I get one clean shortlist. Exactly what proofing should be.', helpful: 41 },
+  { id: 'r2', author: 'Marco P.', rating: 4, date: 'Sep 2, 2026', isoDate: '2026-09-02', title: 'Solid, setup could be clearer', body: 'Works well on our Business plan. It took me a while to find where to set the selection limit — the first screen only shows the gallery picker.', helpful: 18, reply: { author: 'Aether', body: 'Thanks, Marco — the next version puts the limit on the first screen.', date: 'Sep 4, 2026' } },
+  { id: 'r3', author: 'Lina S.', rating: 5, date: 'Aug 28, 2026', isoDate: '2026-08-28', body: 'Forty galleries in proofing at once and nothing gets lost. Clients find their way without instructions.', helpful: 25 },
+  { id: 'r4', author: 'Tom W.', rating: 2, date: 'Aug 15, 2026', isoDate: '2026-08-15', title: 'Picks are all or nothing', body: 'A client can send their picks but can’t save a draft and come back later. For albums with 300 photos that matters.', helpful: 12, reply: { author: 'Aether', body: 'Saved drafts are in beta now — write to support and we’ll turn them on.', date: 'Aug 16, 2026' } },
+  { id: 'r5', author: 'Priya R.', rating: 5, date: 'Jul 30, 2026', isoDate: '2026-07-30', body: 'Set it up once two years ago and it just works. The email when a client sends their picks is useful.', helpful: 9 },
+  { id: 'r6', author: 'Jonas B.', rating: 3, date: 'Jul 12, 2026', isoDate: '2026-07-12', title: 'Fine, a bit pricey for a small studio', body: 'Great for wedding studios; for a few portrait clients a month the price is hard to justify.', helpful: 7 },
+  { id: 'r7', author: 'Elif A.', rating: 4, date: 'Jun 21, 2026', isoDate: '2026-06-21', body: 'Reliable. Would love a dark mode for the client view.', helpful: 3 },
+  { id: 'r8', author: 'Sam O.', rating: 1, date: 'Jun 3, 2026', isoDate: '2026-06-03', title: 'The selection limit stopped my client', body: 'The default limit is 50 photos and my client hit it halfway through the gallery. Check the limit before you send the link.', helpful: 15 },
 ];
 
 export const DEMO_REVIEW_SUMMARY = { average: 4.6, count: 640, distribution: { 5: 452, 4: 118, 3: 38, 2: 17, 1: 15 } } as const;
 
-const CATEGORY_ICON: Record<string, CatalogIconKey> = { Security: 'shield', Backups: 'backup', SEO: 'search', Performance: 'speed', Email: 'mail', 'Developer tools': 'code' };
+const CATEGORY_ICON: Record<string, CatalogIconKey> = { Presets: 'preset', 'Plan add-ons': 'addon', 'Photo books': 'book', 'Fine-art prints': 'print', 'Studio sessions': 'studio', 'Lens rentals': 'lens' };
 
 export const DEMO_CATEGORIES: CategoryTile[] = Object.entries(CATEGORY_ICON).map(([label, icon]) => ({
   id: label.toLowerCase().replace(/\s+/g, '-'),
@@ -122,22 +123,22 @@ export const DEMO_CATEGORIES: CategoryTile[] = Object.entries(CATEGORY_ICON).map
   href: `#category-${label.toLowerCase().replace(/\s+/g, '-')}`,
 }));
 
-const security = DEMO_ITEMS.filter((i) => i.category === 'Security');
-export const DEMO_POPULAR = { category: 'Security', items: [...security].sort((a, b) => b.installs - a.installs).slice(0, 4), total: security.length, href: '#category-security' };
+const presets = DEMO_ITEMS.filter((i) => i.category === 'Presets');
+export const DEMO_POPULAR = { category: 'Presets', items: [...presets].sort((a, b) => b.installs - a.installs).slice(0, 4), total: presets.length, href: '#category-presets' };
 
 export const DEMO_PICKS: CuratedPick[] = [
-  { item: byId('git-deploy'), note: 'The fastest way from a repository to a live site. Push to a branch and it deploys — with rollbacks one click away.' },
-  { item: byId('image-slim'), note: 'Halves page weight on most image-heavy sites without anyone changing how they upload.' },
-  { item: byId('uptime-watch'), note: 'Free, quiet and accurate. You hear from it only when something is actually down.' },
+  { item: byId('portrait-prime-rental'), note: 'The lens most portrait sessions are shot on, without buying one. Swap it for another focal length any month.' },
+  { item: byId('metal-prints'), note: 'Deep blacks and bright highlights that paper can’t match. Clients hang them without a frame.' },
+  { item: byId('print-proofs'), note: 'Free on every paid plan. Check the color on a small print before you order the big one.' },
 ];
 
-/** Hardware add-ons with product shots on white — for ItemCard's `image` with `imageFit="contain"`. */
+/** Studio gear with product shots on white — for ItemCard's `image` with `imageFit="contain"`. */
 export const DEMO_HARDWARE: (CatalogItem & { image: string })[] = [
-  { id: 'dedicated-server', name: 'Dedicated server', vendor: 'Arbor', category: 'Hardware', icon: 'cloud', summary: '8 cores, 64 GB RAM, two NVMe drives in RAID 1.', rating: 4.8, reviewCount: 312, installs: 2100, price: 89, compatibility: ['Linux', 'Windows'], added: '2026-08-01', image: '/asset-examples/product-rack-server.jpg' },
-  { id: 'nvme-storage', name: 'NVMe storage add-on', vendor: 'Fjord', category: 'Hardware', icon: 'backup', summary: '1 TB of fast block storage you can attach to any server.', rating: 4.6, reviewCount: 148, installs: 5400, price: 15, compatibility: ['Linux', 'Windows'], added: '2026-06-12', image: '/asset-examples/product-ssd.jpg' },
-  { id: 'firewall-appliance', name: 'Firewall appliance', vendor: 'Kestrel', category: 'Hardware', icon: 'shield', summary: 'Hardware firewall in front of your servers, managed for you.', rating: 4.4, reviewCount: 87, installs: 940, price: 29, compatibility: ['Any server'], added: '2026-04-18', image: '/asset-examples/product-router.jpg' },
-  { id: 'security-key', name: 'Hardware security key', vendor: 'Seashell Labs', category: 'Hardware', icon: 'shield', summary: 'Phishing-proof sign-in for your account. Shipped to your door.', rating: 4.9, reviewCount: 523, installs: 8800, price: 3, compatibility: ['USB-C', 'NFC'], added: '2026-09-10', image: '/asset-examples/product-security-key.jpg' },
+  { id: 'on-site-archive', name: 'On-site archive', vendor: 'Arbor', category: 'Studio gear', icon: 'cloud', summary: 'A rack unit that keeps a local copy of the Mnemosyne archive in your studio.', rating: 4.8, reviewCount: 312, installs: 2100, price: 89, compatibility: ['Mac', 'Windows'], added: '2026-08-01', image: '/asset-examples/product-rack-server.jpg' },
+  { id: 'portable-ssd', name: 'Portable SSD rental', vendor: 'Fjord', category: 'Studio gear', icon: 'backup', summary: '2 TB of fast storage for offloading cards on location.', rating: 4.6, reviewCount: 148, installs: 5400, price: 15, compatibility: ['USB-C', 'Thunderbolt'], added: '2026-06-12', image: '/asset-examples/product-ssd.jpg' },
+  { id: 'tethering-hub', name: 'Tethering hub rental', vendor: 'Kestrel', category: 'Studio gear', icon: 'cloud', summary: 'Wireless tethering from camera to laptop on set, set up for you.', rating: 4.4, reviewCount: 87, installs: 940, price: 29, compatibility: ['Sony', 'Canon', 'Nikon'], added: '2026-04-18', image: '/asset-examples/product-router.jpg' },
+  { id: 'security-key', name: 'Hardware security key', vendor: 'Aether', category: 'Studio gear', icon: 'shield', summary: 'Phishing-proof sign-in for your account. Shipped to your door.', rating: 4.9, reviewCount: 523, installs: 8800, price: 3, compatibility: ['USB-C', 'NFC'], added: '2026-09-10', image: '/asset-examples/product-security-key.jpg' },
 ];
 
-/** Screenshots for extensions — `imageFit="cover"`. */
+/** Cover pictures for products — `imageFit="cover"`. */
 export const DEMO_SCREENSHOTS = ['/asset-examples/nova-web.jpg', '/asset-examples/login-carousel-01.jpg', '/asset-examples/login-carousel-02.jpg', '/asset-examples/login-carousel-03.jpg'];

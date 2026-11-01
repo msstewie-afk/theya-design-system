@@ -66,7 +66,7 @@
     }
   ],
   "a11y": [
-    "Every box needs a label — a `Label` with `htmlFor`, or `aria-label` in a table row (“Select seashell.shop”).",
+    "Every box needs a label — a `Label` with `htmlFor`, or `aria-label` in a table row (“Select Golden hour”).",
     "Indeterminate is announced as “mixed”; use it only for a parent of partly selected children.",
     "Group related boxes in `CheckboxGroup` so the legend is read with each option.",
     "Space toggles; the whole label is a click target."

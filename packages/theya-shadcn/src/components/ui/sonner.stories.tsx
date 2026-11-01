@@ -68,16 +68,16 @@ async function clearToasts() {
 /** `toast.success()` with a `description`: a short confirmation of what just happened, plus a line of detail. */
 export const Success: Story = {
   render: () => (
-    <Button appearance="outlined" tone="secondary" onClick={() => toast.success('Certificate issued', { description: 'shop.seashell.dev · valid 90 days' })}>
-      Issue certificate
+    <Button appearance="outlined" tone="secondary" onClick={() => toast.success('License issued', { description: 'GOLDEN_0907.tif · web use, 12 months' })}>
+      Issue license
     </Button>
   ),
   play: async ({ canvasElement }) => {
-    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Issue certificate' }));
-    await expect(await page().findByText('Certificate issued')).toBeInTheDocument();
-    await expect(page().getByText('shop.seashell.dev · valid 90 days')).toBeInTheDocument();
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Issue license' }));
+    await expect(await page().findByText('License issued')).toBeInTheDocument();
+    await expect(page().getByText('GOLDEN_0907.tif · web use, 12 months')).toBeInTheDocument();
     // Toasts land in a polite live region.
-    await expect(page().getByText('Certificate issued').closest('[aria-live]')).toHaveAttribute('aria-live', 'polite');
+    await expect(page().getByText('License issued').closest('[aria-live]')).toHaveAttribute('aria-live', 'polite');
     await clearToasts();
   },
 };
@@ -90,8 +90,8 @@ export const ErrorWithRetry: Story = {
       appearance="outlined"
       tone="danger"
       onClick={() =>
-        toast.error("Couldn't reissue certificate", {
-          description: 'api.seashell.dev · DNS lookup failed',
+        toast.error("Couldn't reissue license", {
+          description: 'GOLDEN_0907.tif · the client’s card was declined',
           action: { label: 'Retry', onClick: () => toast.message('Retrying…') },
         })
       }
@@ -104,7 +104,7 @@ export const ErrorWithRetry: Story = {
     resetFocus();
     await tabTo(within(canvasElement).getByRole('button', { name: 'Reissue (will fail)' }));
     await userEvent.keyboard('{Enter}');
-    const title = await page().findByText("Couldn't reissue certificate");
+    const title = await page().findByText("Couldn't reissue license");
     const item = title.closest('[data-sonner-toast]') as HTMLElement;
     // Errors persist and always carry a close button.
     await expect(within(item).getByRole('button', { name: /close/i })).toBeInTheDocument();
@@ -122,25 +122,25 @@ export const Undo: Story = {
       appearance="outlined"
       tone="secondary"
       onClick={() =>
-        toast('Site deleted', {
-          description: 'legacy.seashell.dev · recoverable for 30 days',
+        toast('Gallery deleted', {
+          description: 'Blue hour · recoverable for 30 days',
           action: { label: 'Undo', onClick: () => toast.success('Restored') },
         })
       }
     >
-      Delete site
+      Delete gallery
     </Button>
   ),
   // A toast with a button stays until dismissed (WCAG 2.2.1): Sonner's
   // default 4 s is too short to reach Undo by keyboard.
   play: async ({ canvasElement }) => {
-    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Delete site' }));
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Delete gallery' }));
     const body = within(document.body);
-    await body.findByText('Site deleted');
+    await body.findByText('Gallery deleted');
     await new Promise((r) => setTimeout(r, 4600));
     await expect(body.getByRole('button', { name: 'Undo' })).toBeVisible();
     await userEvent.click(body.getByRole('button', { name: /close/i }));
-    await waitFor(() => expect(body.queryByText('Site deleted')).toBeNull());
+    await waitFor(() => expect(body.queryByText('Gallery deleted')).toBeNull());
   },
 };
 
@@ -151,24 +151,24 @@ export const Undo: Story = {
 export const FocusPausesTimer: Story = {
   name: 'Focus pauses the timer',
   render: () => (
-    <Button appearance="outlined" tone="secondary" onClick={() => toast.success('Backup finished', { description: 'shop.seashell.dev · 2.4 GB' })}>
-      Run backup
+    <Button appearance="outlined" tone="secondary" onClick={() => toast.success('Archive finished', { description: 'Golden hour · 2.4 GB in Mnemosyne' })}>
+      Archive gallery
     </Button>
   ),
   play: async ({ canvasElement }) => {
-    const trigger = within(canvasElement).getByRole('button', { name: 'Run backup' });
+    const trigger = within(canvasElement).getByRole('button', { name: 'Archive gallery' });
     await userEvent.click(trigger);
     const body = within(document.body);
-    const title = await body.findByText('Backup finished');
+    const title = await body.findByText('Archive finished');
     // Focus the toast itself (a Tab stop), as a keyboard user reaching it would.
     const item = title.closest<HTMLElement>('[data-sonner-toast]')!;
     item.focus();
     await waitFor(() => expect(item.closest('[data-sonner-toaster]')?.querySelector('[data-expanded="true"]')).not.toBeNull());
     await new Promise((r) => setTimeout(r, 4600));
-    await expect(body.getByText('Backup finished')).toBeVisible();
+    await expect(body.getByText('Archive finished')).toBeVisible();
     // Focus leaves: the timer runs again and the toast closes on its own.
     trigger.focus();
-    await waitFor(() => expect(body.queryByText('Backup finished')).toBeNull(), { timeout: 6000 });
+    await waitFor(() => expect(body.queryByText('Archive finished')).toBeNull(), { timeout: 6000 });
   },
 };
 
@@ -181,13 +181,13 @@ export const PromiseToast: Story = {
       tone="secondary"
       onClick={() =>
         toast.promise(new Promise((resolve) => setTimeout(resolve, 1500)), {
-          loading: 'Deploying…',
-          success: 'Deploy complete',
-          error: 'Deploy failed',
+          loading: 'Exporting…',
+          success: 'Export complete',
+          error: 'Export failed',
         })
       }
     >
-      Deploy site
+      Export gallery
     </Button>
   ),
 };
@@ -203,27 +203,27 @@ export const Progress: Story = {
       appearance="outlined"
       tone="secondary"
       onClick={() => {
-        const id = toast.progress('Exporting sites…', { value: 0, description: 'shop.seashell.dev · 12 sites' });
+        const id = toast.progress('Exporting photos…', { value: 0, description: 'Golden hour · 248 photos' });
         let pct = 0;
         const tick = () => {
           pct += 20;
           if (pct >= 100) {
-            toast.success('Export complete', { id, description: '12 sites · shop.seashell.dev' });
+            toast.success('Export complete', { id, description: '248 photos · Golden hour' });
             return;
           }
-          toast.progress('Exporting sites…', { id, value: pct, description: 'shop.seashell.dev · 12 sites' });
+          toast.progress('Exporting photos…', { id, value: pct, description: 'Golden hour · 248 photos' });
           setTimeout(tick, 600);
         };
         setTimeout(tick, 600);
       }}
     >
-      Export sites (progress)
+      Export photos (progress)
     </Button>
   ),
   play: async ({ canvasElement }) => {
-    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Export sites (progress)' }));
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Export photos (progress)' }));
     // The bar is named after the toast, not an anonymous progressbar.
-    const bar = await page().findByRole('progressbar', { name: 'Exporting sites…' });
+    const bar = await page().findByRole('progressbar', { name: 'Exporting photos…' });
     await expect(bar).toBeInTheDocument();
     await expect(await page().findByText('Export complete', {}, { timeout: 6000 })).toBeInTheDocument();
     await clearToasts();
@@ -313,16 +313,16 @@ export const Dark: Story = {
   parameters: { toastTheme: 'dark' },
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Button appearance="tonal" tone="success" onClick={() => toast.success('Certificate issued', { description: 'shop.seashell.dev · 90 days' })}>
+      <Button appearance="tonal" tone="success" onClick={() => toast.success('License issued', { description: 'GOLDEN_0907.tif · 12 months' })}>
         Success
       </Button>
-      <Button appearance="tonal" tone="danger" onClick={() => toast.error("Couldn't reissue certificate")}>
+      <Button appearance="tonal" tone="danger" onClick={() => toast.error("Couldn't reissue license")}>
         Error
       </Button>
       <Button appearance="tonal" tone="warning" onClick={() => toast.warning('Approaching quota')}>
         Warning
       </Button>
-      <Button appearance="tonal" tone="secondary" onClick={() => toast('Site deleted', { description: 'legacy.seashell.dev · recoverable for 30 days', action: { label: 'Undo', onClick: () => toast.success('Restored') } })}>
+      <Button appearance="tonal" tone="secondary" onClick={() => toast('Gallery deleted', { description: 'Blue hour · recoverable for 30 days', action: { label: 'Undo', onClick: () => toast.success('Restored') } })}>
         Undo
       </Button>
     </div>
@@ -336,16 +336,16 @@ export const Playground: Story = {
       <Button appearance="tonal" tone="secondary" onClick={() => toast('Saved')}>
         Show toast
       </Button>
-      <Button appearance="tonal" tone="success" onClick={() => toast.success('Certificate issued')}>
+      <Button appearance="tonal" tone="success" onClick={() => toast.success('License issued')}>
         Show success
       </Button>
-      <Button appearance="tonal" tone="warning" onClick={() => toast.warning('Disk almost full')}>
+      <Button appearance="tonal" tone="warning" onClick={() => toast.warning('Storage almost full')}>
         Show warning
       </Button>
-      <Button appearance="tonal" tone="danger" onClick={() => toast.error('Deploy failed')}>
+      <Button appearance="tonal" tone="danger" onClick={() => toast.error('Export failed')}>
         Show error
       </Button>
-      <Button appearance="tonal" tone="info" onClick={() => toast.info('New region available')}>
+      <Button appearance="tonal" tone="info" onClick={() => toast.info('New studio available')}>
         Show info
       </Button>
       <Button appearance="tonal" tone="primary" onClick={() => toast.accent('Accented message subject')}>
@@ -367,13 +367,13 @@ export const ErrorPersistsUntilDismissed: Story = {
   name: 'Error persists until dismissed',
   render: () => (
     <div className="flex min-h-[260px] flex-wrap items-center gap-3">
-      <Button appearance="tonal" tone="danger" onClick={() => toast.error('Couldn’t reissue certificate', { description: 'shop.seashell.dev — the CA rejected the request.' })}>
+      <Button appearance="tonal" tone="danger" onClick={() => toast.error('Couldn’t reissue license', { description: 'GOLDEN_0907.tif — the client’s card was declined.' })}>
         Show persistent error
       </Button>
       <Button appearance="tonal" tone="danger" onClick={() => toast.error('Retrying…', { duration: 3000, description: 'Expires on its own.' })}>
         Show transient error
       </Button>
-      <Button appearance="tonal" tone="warning" onClick={() => toast.warning('Disk almost full')}>
+      <Button appearance="tonal" tone="warning" onClick={() => toast.warning('Storage almost full')}>
         Show closeable warning
       </Button>
       <Button appearance="tonal" tone="success" onClick={() => toast.success('Saved')}>

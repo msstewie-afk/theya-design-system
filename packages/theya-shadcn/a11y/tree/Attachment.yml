@@ -26,12 +26,12 @@
 - text: quarterly-report.pdf 242 KB
 
 # Error states (files-attachment--error-states)
-- text: backup.tar.gz Exceeds the 2 GB upload limit
-- button "Remove backup.tar.gz"
-- text: notes.pages File type is not supported backup.tar.gz Exceeds the 2 GB upload limit
-- button "Remove backup.tar.gz"
-- text: backup.tar.gz Exceeds the 2 GB upload limit
-- button "Remove backup.tar.gz"
+- text: wedding-raws.zip Exceeds the 2 GB upload limit
+- button "Remove wedding-raws.zip"
+- text: notes.pages File type is not supported wedding-raws.zip Exceeds the 2 GB upload limit
+- button "Remove wedding-raws.zip"
+- text: wedding-raws.zip Exceeds the 2 GB upload limit
+- button "Remove wedding-raws.zip"
 
 # Interactive states (files-attachment--interactive-states)
 - link "quarterly-report.pdf":
@@ -57,8 +57,8 @@
 - button "Remove quarterly-report.pdf"
 - text: cover.png 180 KB
 - button "Remove cover.png"
-- text: backup.tar.gz Exceeds the 2 GB upload limit
-- button "Remove backup.tar.gz"
+- text: wedding-raws.zip Exceeds the 2 GB upload limit
+- button "Remove wedding-raws.zip"
 - text: notes.md 4 KB
 
 # Localized labels (files-attachment--localized-labels)
@@ -70,14 +70,14 @@
 - button "export.csv entfernen"
 
 # Long names (files-attachment--long-names)
-- text: eu-west-1-production-database-backup-2026-08-04-full-with-binlogs-and-a-very-long-tail.tar.gz 4.9 GB
-- button "Remove eu-west-1-production-database-backup-2026-08-04-full-with-binlogs-and-a-very-long-tail.tar.gz"
-- text: eu-west-1-production-database-backup-2026-08-04-full-with-binlogs-and-a-very-long-tail.tar.gz 4.9 GB
-- button "Remove eu-west-1-production-database-backup-2026-08-04-full-with-binlogs-and-a-very-long-tail.tar.gz"
-- text: eu-west-1-production-database-backup-2026-08-04-full-with-binlogs-and-a-very-long-tail.tar.gz 4.9 GB
-- button "Remove eu-west-1-production-database-backup-2026-08-04-full-with-binlogs-and-a-very-long-tail.tar.gz"
-- text: eu-west-1-production-database-backup-2026-08-04-full-with-binlogs-and-a-very-long-tail.tar.gz 4.9 GB
-- button "Remove eu-west-1-production-database-backup-2026-08-04-full-with-binlogs-and-a-very-long-tail.tar.gz"
+- text: selene-weddings-moonrise-over-othrys-2026-08-04-full-raw-set-with-sidecars.zip 4.9 GB
+- button "Remove selene-weddings-moonrise-over-othrys-2026-08-04-full-raw-set-with-sidecars.zip"
+- text: selene-weddings-moonrise-over-othrys-2026-08-04-full-raw-set-with-sidecars.zip 4.9 GB
+- button "Remove selene-weddings-moonrise-over-othrys-2026-08-04-full-raw-set-with-sidecars.zip"
+- text: selene-weddings-moonrise-over-othrys-2026-08-04-full-raw-set-with-sidecars.zip 4.9 GB
+- button "Remove selene-weddings-moonrise-over-othrys-2026-08-04-full-raw-set-with-sidecars.zip"
+- text: selene-weddings-moonrise-over-othrys-2026-08-04-full-raw-set-with-sidecars.zip 4.9 GB
+- button "Remove selene-weddings-moonrise-over-othrys-2026-08-04-full-raw-set-with-sidecars.zip"
 
 # Meta text (files-attachment--meta-text)
 - text: logo.svg 13 KB main.ts 4 KB
@@ -126,17 +126,15 @@
 # Upload states (files-attachment--upload-states)
 - text: 2024-my-portfolio.pdf 3.2 MB of 12 MB · 26%
 - progressbar "2024-my-portfolio.pdf"
-- text: Uploading 2024-my-portfolio.pdf
 - button "Pause 2024-my-portfolio.pdf"
 - button "Cancel 2024-my-portfolio.pdf"
 - text: intro-movie.mp4 Paused · 28 MB of 46 MB · 62%
 - progressbar "intro-movie.mp4"
-- text: "intro-movie.mp4: upload paused"
 - button "Resume intro-movie.mp4"
 - button "Cancel intro-movie.mp4"
 - text: cover.png 2.3 MB · Completed
 - button "Remove cover.png"
-- text: "assets.zip Connection lost assets.zip failed to upload: Connection lost"
+- text: assets.zip Connection lost
 - button "Retry assets.zip"
 - button "Remove assets.zip"
 
@@ -151,5 +149,5 @@
 - button "Remove report.pdf"
 
 # With error (files-attachment--with-error)
-- text: backup.tar.gz Exceeds the 2 GB upload limit
-- button "Remove backup.tar.gz"
+- text: wedding-raws.zip Exceeds the 2 GB upload limit
+- button "Remove wedding-raws.zip"

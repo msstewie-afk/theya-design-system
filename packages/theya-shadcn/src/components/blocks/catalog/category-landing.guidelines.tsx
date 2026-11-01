@@ -19,7 +19,7 @@ export const categoryLandingGuidelines: ComponentGuidelines = {
   ],
   doDont: [],
   a11y: [
-    'Each category tile is one link named with its count, like “Security, 6 extensions”.',
+    'Each category tile is one link named with its count, like “Presets, 6 products”.',
     'Every shelf is a section named by its heading, and each “View all” link says which list it opens.',
   ],
 };

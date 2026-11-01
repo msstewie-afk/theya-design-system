@@ -12,7 +12,7 @@
 - text: AL Subtle AL Solid
 
 # Group (labels-avatar--group)
-- text: AL GH AT MH +5
+- text: TM DE MO IH +5
 
 # Initials fallback (labels-avatar--initials-fallback)
 - text: AL
@@ -20,19 +20,19 @@
 # Member list (labels-avatar--member-list)
 - list:
   - listitem:
-    - text: AL
-    - paragraph: Ada Lovelace
-    - paragraph: ada@seashell.dev
+    - text: TM
+    - paragraph: Thea Marlow
+    - paragraph: thea@aether.photo
     - text: Active
   - listitem:
-    - text: GH
-    - paragraph: Grace Hopper
-    - paragraph: grace@seashell.dev
+    - text: DE
+    - paragraph: Dawn Ellery
+    - paragraph: dawn@aether.photo
     - text: Invited
   - listitem:
-    - text: AT
-    - paragraph: Alan Turing
-    - paragraph: alan@seashell.dev
+    - text: MO
+    - paragraph: Mina Ostrova
+    - paragraph: mina@aether.photo
     - text: Offline
 
 # Outline (labels-avatar--outline)

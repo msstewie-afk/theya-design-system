@@ -6,7 +6,7 @@
 - heading "Create a new key" [level=3]
 - text: Name it after what will use it, so you can identify it later. Key name
 - textbox "Key name":
-  - /placeholder: Production deploy
+  - /placeholder: Portfolio website
 - button "Create key" [disabled]
 - heading "Your keys" [level=3]
 - text: 4 active keys
@@ -19,27 +19,27 @@
       - columnheader "Last used"
       - columnheader "Revoke"
   - rowgroup:
-    - row "Staging ••••••••••192b Just now Never used Revoke Staging":
-      - cell "Staging"
-      - cell "••••••••••192b"
+    - row "Studio L4 uploads ••••••••••42d1 Just now Never used Revoke Studio L4 uploads":
+      - cell "Studio L4 uploads"
+      - cell "••••••••••42d1"
       - cell "Just now"
       - cell "Never used"
-      - cell "Revoke Staging":
-        - button "Revoke Staging"
-    - row "Production deploy ••••••••••3f9a Jan 12, 2026 2h ago Revoke Production deploy":
-      - cell "Production deploy"
+      - cell "Revoke Studio L4 uploads":
+        - button "Revoke Studio L4 uploads"
+    - row "Portfolio website ••••••••••3f9a Jan 12, 2026 2h ago Revoke Portfolio website":
+      - cell "Portfolio website"
       - cell "••••••••••3f9a"
       - cell "Jan 12, 2026"
       - cell "2h ago"
-      - cell "Revoke Production deploy":
-        - button "Revoke Production deploy"
-    - row "CI pipeline ••••••••••7d21 Feb 3, 2026 yesterday Revoke CI pipeline":
-      - cell "CI pipeline"
+      - cell "Revoke Portfolio website":
+        - button "Revoke Portfolio website"
+    - row "Print lab sync ••••••••••7d21 Feb 3, 2026 yesterday Revoke Print lab sync":
+      - cell "Print lab sync"
       - cell "••••••••••7d21"
       - cell "Feb 3, 2026"
       - cell "yesterday"
-      - cell "Revoke CI pipeline":
-        - button "Revoke CI pipeline"
+      - cell "Revoke Print lab sync":
+        - button "Revoke Print lab sync"
     - row "Legacy script ••••••••••0c88 Nov 8, 2025 Never used Revoke Legacy script":
       - cell "Legacy script"
       - cell "••••••••••0c88"
@@ -54,7 +54,7 @@
 - heading "Create a new key" [level=3]
 - text: Name it after what will use it, so you can identify it later. Key name
 - textbox "Key name":
-  - /placeholder: Production deploy
+  - /placeholder: Portfolio website
 - button "Create key" [disabled]
 - heading "Your keys" [level=3]
 - text: 1 active key
@@ -67,9 +67,9 @@
       - columnheader "Last used"
       - columnheader "Revoke"
   - rowgroup:
-    - row "First key ••••••••••413b Just now Never used Revoke First key":
+    - row "First key ••••••••••f1be Just now Never used Revoke First key":
       - cell "First key"
-      - cell "••••••••••413b"
+      - cell "••••••••••f1be"
       - cell "Just now"
       - cell "Never used"
       - cell "Revoke First key":

@@ -19,7 +19,7 @@ const meta: Meta<typeof FilterField> = {
     docs: {
       description: {
         component:
-          "Keyword search and filtering by many attributes in one field — servers, logs, users — with the applied filters shown as chips people can edit.",
+          "Keyword search and filtering by many attributes in one field — galleries, logs, clients — with the applied filters shown as chips people can edit.",
       },
     },
   },
@@ -58,33 +58,33 @@ const ATTRIBUTES: FilterAttribute[] = [
     type: 'select',
     multiple: true,
     options: [
-      { value: 'active', label: 'Active', tone: 'success' },
-      { value: 'suspended', label: 'Suspended', tone: 'danger' },
-      { value: 'pending', label: 'Pending', tone: 'warning' },
+      { value: 'published', label: 'Published', tone: 'success' },
+      { value: 'expired', label: 'Expired', tone: 'danger' },
+      { value: 'draft', label: 'Draft', tone: 'warning' },
     ],
   },
   {
-    key: 'region',
-    label: 'Region',
+    key: 'studio',
+    label: 'Studio',
     type: 'select',
     searchable: false,
     options: [
-      { value: 'eu-west-1', label: 'eu-west-1' },
-      { value: 'us-east-1', label: 'us-east-1' },
-      { value: 'ap-south-1', label: 'ap-south-1' },
+      { value: 'helios', label: 'Helios Studio' },
+      { value: 'selene', label: 'Selene Weddings' },
+      { value: 'eos', label: 'Eos Portraits' },
     ],
   },
   { key: 'created', label: 'Created', type: 'date' },
   { key: 'expires', label: 'Expires', type: 'date', range: true },
-  { key: 'replicas', label: 'Replicas', type: 'number' },
+  { key: 'photos', label: 'Photos', type: 'number' },
 ];
 
 function Demo() {
-  const [value, setValue] = useState<AppliedFilter[]>([{ key: 'status', value: 'active' }]);
+  const [value, setValue] = useState<AppliedFilter[]>([{ key: 'status', value: 'published' }]);
   const [query, setQuery] = useState('');
   return (
     <div className="w-full max-w-[600px]">
-      <FilterField attributes={ATTRIBUTES} value={value} onValueChange={setValue} query={query} onQueryChange={setQuery} aria-label="Filter servers" />
+      <FilterField attributes={ATTRIBUTES} value={value} onValueChange={setValue} query={query} onQueryChange={setQuery} aria-label="Filter galleries" />
     </div>
   );
 }
@@ -94,11 +94,11 @@ export const Default: Story = {
   render: () => <Demo />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByRole('combobox', { name: 'Filter servers' });
+    const input = canvas.getByRole('combobox', { name: 'Filter galleries' });
     await expect(input).toHaveAttribute('aria-expanded', 'false');
 
     // An applied chip opens its editor — it is a button, not a toggle.
-    const chip = canvas.getByRole('button', { name: 'Status: Active' });
+    const chip = canvas.getByRole('button', { name: 'Status: Published' });
     await expect(chip).not.toHaveAttribute('aria-pressed');
 
     // Step one: the input drives the attribute list via activedescendant.
@@ -114,22 +114,22 @@ export const Default: Story = {
 
     // Step two for a multi-select: picking keeps the editor open.
     await userEvent.keyboard('{Enter}');
-    await userEvent.click(await body().findByRole('option', { name: /Suspended/ }));
-    await expect(canvas.getByRole('button', { name: 'Status: Suspended' })).toBeInTheDocument();
+    await userEvent.click(await body().findByRole('option', { name: /Expired/ }));
+    await expect(canvas.getByRole('button', { name: 'Status: Expired' })).toBeInTheDocument();
     await userEvent.keyboard('{Escape}');
     await waitClosed();
 
     // Typed text becomes a search chip from the highlighted "Search for" row.
     await userEvent.click(input);
-    await userEvent.type(input, 'nginx');
-    await expect(activeRowText(input)).toContain('Search for "nginx"');
+    await userEvent.type(input, 'wedding');
+    await expect(activeRowText(input)).toContain('Search for "wedding"');
     await userEvent.keyboard('{Enter}');
-    await expect(canvas.getByRole('button', { name: 'Remove search "nginx"' })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Remove search "wedding"' })).toBeInTheDocument();
     await expect(input).toHaveValue('');
 
     // Backspace in the empty input removes the last chip.
     await userEvent.keyboard('{Backspace}');
-    await expect(canvas.queryByRole('button', { name: 'Remove search "nginx"' })).toBeNull();
+    await expect(canvas.queryByRole('button', { name: 'Remove search "wedding"' })).toBeNull();
     await expect(canvas.getByText('2 filters applied')).toBeInTheDocument();
     await userEvent.keyboard('{Escape}');
     await waitClosed();
@@ -140,46 +140,46 @@ export const Default: Story = {
 export const Empty: Story = {
   render: () => (
     <div className="w-full max-w-[600px]">
-      <FilterField attributes={ATTRIBUTES} aria-label="Filter servers" />
+      <FilterField attributes={ATTRIBUTES} aria-label="Filter galleries" />
     </div>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByRole('combobox', { name: 'Filter servers' });
+    const input = canvas.getByRole('combobox', { name: 'Filter galleries' });
     await expect(canvas.getByText('No filters applied')).toBeInTheDocument();
 
     // Non-searchable select: its own listbox takes focus; arrows + Enter apply.
     await userEvent.click(input);
-    await userEvent.click(body().getByRole('option', { name: 'Region' }));
-    const regions = await body().findByRole('listbox', { name: 'Region' });
-    await waitFor(() => expect(regions).toHaveFocus());
+    await userEvent.click(body().getByRole('option', { name: 'Studio' }));
+    const studios = await body().findByRole('listbox', { name: 'Studio' });
+    await waitFor(() => expect(studios).toHaveFocus());
     await userEvent.keyboard('{ArrowDown}{Enter}');
     await waitClosed();
-    await expect(canvas.getByRole('button', { name: 'Region: us-east-1' })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Studio: Selene Weddings' })).toBeInTheDocument();
 
     // Text attribute with operators: Enter applies "contains".
     await userEvent.click(input);
     await userEvent.click(body().getByRole('option', { name: 'Name' }));
-    await userEvent.type(await body().findByRole('textbox', { name: 'Name contains' }), 'web{Enter}');
+    await userEvent.type(await body().findByRole('textbox', { name: 'Name contains' }), 'gold{Enter}');
     await waitClosed();
-    await expect(canvas.getByRole('button', { name: 'Name: Contains web' })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Name: Contains gold' })).toBeInTheDocument();
 
     // Number range: Apply with neither bound says what's missing (WCAG 3.3.1).
     await userEvent.click(input);
-    await userEvent.click(body().getByRole('option', { name: 'Replicas' }));
-    const min = await body().findByRole('spinbutton', { name: 'Replicas minimum' });
+    await userEvent.click(body().getByRole('option', { name: 'Photos' }));
+    const min = await body().findByRole('spinbutton', { name: 'Photos minimum' });
     await userEvent.click(body().getByRole('button', { name: 'Apply' }));
     await expect(min).toHaveAttribute('aria-invalid', 'true');
     await expect(min).toHaveAccessibleDescription('Enter a minimum, a maximum or both.');
-    // Only a minimum -> "3+"; typing clears the message.
-    await userEvent.type(min, '3');
+    // Only a minimum -> "100+"; typing clears the message.
+    await userEvent.type(min, '100');
     await userEvent.click(body().getByRole('button', { name: 'Apply' }));
     await waitClosed();
-    await expect(canvas.getByRole('button', { name: 'Replicas: 3+' })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Photos: 100+' })).toBeInTheDocument();
     await expect(canvas.getByText('3 filters applied')).toBeInTheDocument();
 
     // Removing a chip keeps focus in the field.
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove filter Name: Contains web' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove filter Name: Contains gold' }));
     await expect(input).toHaveFocus();
     await userEvent.keyboard('{Escape}');
 
@@ -198,15 +198,15 @@ export const Empty: Story = {
 export const Disabled: Story = {
   render: () => (
     <div className="w-full max-w-[600px]">
-      <FilterField attributes={ATTRIBUTES} defaultValue={[{ key: 'status', value: 'active' }]} disabled aria-label="Filter servers" />
+      <FilterField attributes={ATTRIBUTES} defaultValue={[{ key: 'status', value: 'published' }]} disabled aria-label="Filter galleries" />
     </div>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('combobox', { name: 'Filter servers' })).toBeDisabled();
+    await expect(canvas.getByRole('combobox', { name: 'Filter galleries' })).toBeDisabled();
     await expect(canvas.getByRole('button', { name: 'Add filter' })).toBeDisabled();
-    await expect(canvas.getByRole('button', { name: 'Status: Active' })).toBeDisabled();
-    await expect(canvas.getByRole('button', { name: 'Remove filter Status: Active' })).toBeDisabled();
+    await expect(canvas.getByRole('button', { name: 'Status: Published' })).toBeDisabled();
+    await expect(canvas.getByRole('button', { name: 'Remove filter Status: Published' })).toBeDisabled();
   },
 };
 
@@ -214,7 +214,7 @@ export const Disabled: Story = {
 export const Mobile: Story = {
   render: () => (
     <div className="w-full max-w-[360px]">
-      <FilterField attributes={ATTRIBUTES} defaultValue={[{ key: 'status', value: 'active' }]} aria-label="Filter servers" />
+      <FilterField attributes={ATTRIBUTES} defaultValue={[{ key: 'status', value: 'published' }]} aria-label="Filter galleries" />
     </div>
   ),
 };
@@ -236,7 +236,7 @@ const SEVERITY_TONE: Record<AuditRow['severity'], StatusTone> = {
 };
 
 const AUDIT_ROWS: AuditRow[] = [
-  { id: '1', created: new Date(2026, 6, 2), severity: 'critical', actor: 'alice.chen', attempts: 7, note: 'Multiple failed SSH logins' },
+  { id: '1', created: new Date(2026, 6, 2), severity: 'critical', actor: 'alice.chen', attempts: 7, note: 'Multiple failed sign-ins' },
   { id: '2', created: new Date(2026, 6, 3), severity: 'warning', actor: 'bob.martinez', attempts: 2, note: 'Password reset requested' },
   { id: '3', created: new Date(2026, 6, 5), severity: 'info', actor: 'carla.diaz', attempts: 0, note: 'New API key issued' },
   { id: '4', created: new Date(2026, 6, 6), severity: 'critical', actor: 'daniel.oyelaran', attempts: 12, note: 'Brute force detected' },

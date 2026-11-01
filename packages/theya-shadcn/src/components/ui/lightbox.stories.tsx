@@ -36,10 +36,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const IMAGES: LightboxImage[] = [
-  { src: '/asset-examples/login-carousel-01.jpg', alt: 'Abstract city of tall blue blocks', caption: 'Overview — traffic, uptime and recent deploys at a glance.' },
-  { src: '/asset-examples/login-carousel-02.jpg', alt: 'Abstract stack of blocks with stairs', caption: 'Deploys stream their logs live; failures link straight to the line.' },
-  { src: '/asset-examples/login-carousel-03.jpg', alt: 'Abstract archway made of blocks', caption: 'Move a site between regions without downtime.' },
-  { src: '/asset-examples/nova-web.jpg', alt: 'Abstract floating cubes', caption: 'A storefront running on Seashell Sites.' },
+  { src: '/asset-examples/login-carousel-01.jpg', alt: 'Abstract city of tall blue blocks', caption: 'Golden hour · Helios Studio, 248 photos.' },
+  { src: '/asset-examples/login-carousel-02.jpg', alt: 'Abstract stack of blocks with stairs', caption: 'Blue hour · Selene Weddings, shared with Rhea Okafor.' },
+  { src: '/asset-examples/login-carousel-03.jpg', alt: 'Abstract archway made of blocks', caption: 'First light · Eos Portraits, ready for print.' },
+  { src: '/asset-examples/nova-web.jpg', alt: 'Abstract floating cubes', caption: 'Wide-shining · the cover of a client portfolio.' },
   { src: '/asset-examples/product-rack-server.jpg', alt: 'Abstract cluster of glass blocks' },
 ];
 
@@ -67,7 +67,7 @@ export const Gallery: Story = {
             </button>
           ))}
         </div>
-        <Lightbox {...args} images={IMAGES} open={open} onOpenChange={setOpen} index={index} onIndexChange={setIndex} title="Seashell Sites screenshots" />
+        <Lightbox {...args} images={IMAGES} open={open} onOpenChange={setOpen} index={index} onIndexChange={setIndex} title="Aether gallery preview" />
       </>
     );
   },
@@ -79,7 +79,7 @@ export const Gallery: Story = {
 
     // Opens at the clicked image; the position is announced and the thumbnail marked.
     await userEvent.click(opener);
-    const dialog = await body.findByRole('dialog', { name: 'Seashell Sites screenshots' });
+    const dialog = await body.findByRole('dialog', { name: 'Aether gallery preview' });
     await expect(live()).toHaveTextContent('Image 2 of 5: Abstract stack of blocks with stairs');
     await expect(within(dialog).getByRole('button', { name: /^Show image 2:/ })).toHaveAttribute('aria-current', 'true');
 
@@ -116,18 +116,18 @@ export const SingleImage: Story = {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <button type="button" onClick={() => setOpen(true)} aria-label="Open storefront screenshot" className="w-[320px] max-w-full overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] outline-none focus-visible:focus-ring">
+        <button type="button" onClick={() => setOpen(true)} aria-label="Open portfolio cover" className="w-[320px] max-w-full overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] outline-none focus-visible:focus-ring">
           <img src={IMAGES[3].src} alt="" className="w-full" />
         </button>
-        <Lightbox {...args} open={open} onOpenChange={setOpen} title="Storefront screenshot" />
+        <Lightbox {...args} open={open} onOpenChange={setOpen} title="Portfolio cover" />
       </>
     );
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(document.body);
-    await userEvent.click(canvas.getByRole('button', { name: 'Open storefront screenshot' }));
-    const dialog = await body.findByRole('dialog', { name: 'Storefront screenshot' });
+    await userEvent.click(canvas.getByRole('button', { name: 'Open portfolio cover' }));
+    const dialog = await body.findByRole('dialog', { name: 'Portfolio cover' });
     // One image: no paging controls or thumbnails, arrows do nothing.
     await expect(within(dialog).queryByRole('button', { name: 'Next image' })).not.toBeInTheDocument();
     await expect(within(dialog).queryByRole('group', { name: 'Thumbnails' })).not.toBeInTheDocument();

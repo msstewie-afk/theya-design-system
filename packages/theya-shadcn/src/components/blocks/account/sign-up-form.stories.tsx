@@ -19,7 +19,7 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     const password = canvas.getByLabelText('Password');
     await expect(password).toHaveAccessibleDescription('At least 8 characters.');
-    await userEvent.type(canvas.getByRole('textbox', { name: 'Work email' }), 'dana@seashell.shop');
+    await userEvent.type(canvas.getByRole('textbox', { name: 'Work email' }), 'elio@aether.photo');
     await userEvent.type(password, 'abc');
     await expect(password).toHaveAccessibleDescription('5 more characters');
     await userEvent.click(canvas.getByRole('button', { name: 'Create account' }));
@@ -30,7 +30,7 @@ export const Default: Story = {
     await userEvent.type(password, 'defgh');
     await expect(canvas.getByRole('checkbox', { name: /product news/ })).not.toBeChecked();
     await userEvent.click(canvas.getByRole('button', { name: 'Create account' }));
-    await expect(args.onSubmit).toHaveBeenCalledWith({ email: 'dana@seashell.shop', password: 'abcdefgh', news: false });
+    await expect(args.onSubmit).toHaveBeenCalledWith({ email: 'elio@aether.photo', password: 'abcdefgh', news: false });
   },
 };
 
@@ -59,7 +59,7 @@ export const ShortPassword: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const password = canvas.getByLabelText('Password');
-    await userEvent.type(canvas.getByRole('textbox', { name: 'Work email' }), 'dana@seashell.shop');
+    await userEvent.type(canvas.getByRole('textbox', { name: 'Work email' }), 'elio@aether.photo');
     await userEvent.type(password, 'abc');
     await userEvent.click(canvas.getByRole('button', { name: 'Create account' }));
     await expect(password).toHaveFocus();
