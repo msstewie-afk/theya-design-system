@@ -13,6 +13,11 @@ export function formatInstalls(n: number): string {
   return n >= 1000 ? `${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}k` : String(n);
 }
 
+/** "38.8k installs", or the item's own noun ("38.8k subscribers"). */
+export function formatUsage(item: Pick<CatalogItem, 'installs' | 'usageNoun'>): string {
+  return `${formatInstalls(item.installs)} ${item.usageNoun ?? 'installs'}`;
+}
+
 export function formatItemPrice(price: number): string {
   return price === 0 ? 'Free' : `$${price} / mo`;
 }
@@ -61,7 +66,7 @@ export function ItemCard({ item, layout = 'grid', href = '#', compare, image, im
         {rating}
       </span>
       <DotSeparator />
-      {`${formatInstalls(item.installs)} installs`}
+      {formatUsage(item)}
     </p>
   );
   // Own line: appended to the line above it wrapped mid-list and left a

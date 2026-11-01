@@ -19,9 +19,9 @@
       - columnheader "Last used"
       - columnheader "Revoke"
   - rowgroup:
-    - row "Studio L4 uploads ••••••••••42d1 Just now Never used Revoke Studio L4 uploads":
+    - row "Studio L4 uploads ••••••••••852e Just now Never used Revoke Studio L4 uploads":
       - cell "Studio L4 uploads"
-      - cell "••••••••••42d1"
+      - cell "••••••••••852e"
       - cell "Just now"
       - cell "Never used"
       - cell "Revoke Studio L4 uploads":
@@ -67,9 +67,9 @@
       - columnheader "Last used"
       - columnheader "Revoke"
   - rowgroup:
-    - row "First key ••••••••••f1be Just now Never used Revoke First key":
+    - row "First key ••••••••••e428 Just now Never used Revoke First key":
       - cell "First key"
-      - cell "••••••••••f1be"
+      - cell "••••••••••e428"
       - cell "Just now"
       - cell "Never used"
       - cell "Revoke First key":

@@ -8604,7 +8604,7 @@
           "browser": "Safari 26.6",
           "date": "2026-10-29",
           "result": "pass",
-          "notes": "Flow \"Create with errors\" (patterns-resourceform--create-database): submitting empty moves focus to the first error, every field reads its own error."
+          "notes": "Flow \"Create with errors\" (patterns-resourceform--create-gallery): submitting empty moves focus to the first error, every field reads its own error."
         }
       ],
       "deviations": [
@@ -11125,7 +11125,7 @@
           "browser": "Safari 26.6",
           "date": "2026-10-29",
           "result": "pass",
-          "notes": "Flow \"Create with errors\" (patterns-resourceform--create-database): submitting empty moves focus to the first error, every field reads its own error."
+          "notes": "Flow \"Create with errors\" (patterns-resourceform--create-gallery): submitting empty moves focus to the first error, every field reads its own error."
         },
         {
           "at": "VoiceOver",
@@ -12595,7 +12595,7 @@
           "browser": "Safari 26.6",
           "date": "2026-10-29",
           "result": "pass",
-          "notes": "Flow \"Create with errors\" (patterns-resourceform--create-database): submitting empty moves focus to the first error, every field reads its own error."
+          "notes": "Flow \"Create with errors\" (patterns-resourceform--create-gallery): submitting empty moves focus to the first error, every field reads its own error."
         }
       ],
       "deviations": [
@@ -19130,7 +19130,7 @@
           "browser": "Safari 26.6",
           "date": "2026-10-29",
           "result": "pass",
-          "notes": "Flow \"Create with errors\" (patterns-resourceform--create-database): submitting empty moves focus to the first error, every field reads its own error."
+          "notes": "Flow \"Create with errors\" (patterns-resourceform--create-gallery): submitting empty moves focus to the first error, every field reads its own error."
         }
       ],
       "deviations": [],

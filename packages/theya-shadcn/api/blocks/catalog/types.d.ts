@@ -12,6 +12,7 @@ export interface CatalogItem {
     rating: number;
     reviewCount: number;
     installs: number;
+    usageNoun?: string;
     price: number;
     compatibility: string[];
     added: string;
