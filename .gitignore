@@ -1,6 +1,7 @@
 node_modules
 build
 packages/theya-shadcn/storybook-static/
+packages/theya-shadcn/dist/
 .DS_Store
 .fuse_hidden*
 
