@@ -106,6 +106,14 @@ export function FlipCard({ front, back, flipLabel, className, ...props }: FlipCa
   const [edge, setEdge] = useState<Edge>('left');
   const hoverable = useMediaQuery('(hover: hover)');
 
+  // Escape undoes a hover flip (WCAG 1.4.13): it stays down until the pointer leaves and comes back.
+  useEffect(() => {
+    if (!hovered) return;
+    const onKey = (e: globalThis.KeyboardEvent) => e.key === 'Escape' && setHovered(false);
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [hovered]);
+
   const enter = (e: PointerEvent<HTMLDivElement>) => {
     if (e.pointerType !== 'mouse') return;
     const r = e.currentTarget.getBoundingClientRect();

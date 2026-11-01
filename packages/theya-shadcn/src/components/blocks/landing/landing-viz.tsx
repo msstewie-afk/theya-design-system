@@ -36,7 +36,8 @@ export function GrowBars({ values, label, highlightLast = true, className, ...pr
           key={i}
           className={cn(
             'flex-1 origin-bottom rounded-t-[var(--size-border-radius-border-radius-sm)] motion-safe:transition-transform motion-safe:duration-slower motion-safe:ease-spring',
-            highlightLast && i === values.length - 1 ? 'bg-[var(--color-icon-icon-primary)]' : 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_30%,transparent)]',
+            // Muted bars at 75% still reach 3:1 on the card (WCAG 1.4.11: the bars are the data); the last one is full strength.
+            highlightLast && i === values.length - 1 ? 'bg-[var(--color-icon-icon-primary)]' : 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_75%,transparent)]',
           )}
           style={{ height: `${(v / max) * 100}%`, transform: seen ? 'scaleY(1)' : 'scaleY(0)', transitionDelay: `${i * 60}ms` }}
         />
@@ -94,7 +95,8 @@ export function TrendChart({ values, periods, label, className, ...props }: Tren
           key={i}
           className={cn(
             'w-1.5 origin-bottom rounded-full motion-safe:transition-[transform,background-color] motion-safe:duration-slower motion-safe:ease-spring',
-            at === null ? (i === values.length - 1 ? 'bg-[var(--color-icon-icon-primary)]' : 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_28%,transparent)]') : i === at ? 'bg-[var(--color-icon-icon-primary)]' : i < at ? 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_45%,transparent)]' : 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_18%,transparent)]',
+            // Every bar at 3:1 or more on the card (WCAG 1.4.11): muted bars at 75%, the last one — or the one under the pointer — full strength.
+            i === (at ?? values.length - 1) ? 'bg-[var(--color-icon-icon-primary)]' : 'bg-[color-mix(in_oklab,var(--color-icon-icon-primary)_75%,transparent)]',
           )}
           style={{ height: `${Math.max(6, (v / max) * 75)}%`, transform: seen ? 'scaleY(1)' : 'scaleY(0)', transitionDelay: seen && at === null ? `${i * 25}ms` : undefined }}
         />
