@@ -64,19 +64,19 @@ export const Default: Story = {
     await expect(email).toHaveFocus();
     await expect(onSignIn).not.toHaveBeenCalled();
 
-    await userEvent.type(email, 'dana@');
+    await userEvent.type(email, 'thea@');
     await userEvent.click(signIn);
     await waitFor(() => expect(email).toHaveAccessibleDescription('Add the domain after the @, e.g. example.com.'));
 
     // Email fixed: the password is now the first invalid field.
-    await userEvent.type(email, 'seashell.dev');
+    await userEvent.type(email, 'aether.photo');
     await userEvent.click(signIn);
     await waitFor(() => expect(password).toHaveFocus());
     await expect(email).not.toHaveAttribute('aria-invalid', 'true');
 
     // Enter submits; the values reach onSubmit.
     await userEvent.type(password, 'correct-horse{Enter}');
-    await waitFor(() => expect(onSignIn).toHaveBeenCalledWith({ email: 'dana@seashell.dev', password: 'correct-horse', remember: 'on' }));
+    await waitFor(() => expect(onSignIn).toHaveBeenCalledWith({ email: 'thea@aether.photo', password: 'correct-horse', remember: 'on' }));
 
     await userEvent.click(canvas.getByRole('button', { name: 'Continue with GitHub' }));
     await expect(args.onSso).toHaveBeenCalledTimes(1);

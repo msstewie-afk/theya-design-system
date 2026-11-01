@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Fragment } from 'react';
 import type { ReactNode, MouseEvent } from 'react';
-import { Bell, Lifebelt, Dashboard, Globe, Database, ShieldCheck, CreditCard, Group, Settings } from 'iconoir-react';
+import { Bell, Lifebelt, Dashboard, MediaImageList, Archive, Copyright, CreditCard, Group, Settings } from 'iconoir-react';
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarBrand, SidebarCollapse, SidebarNav, SidebarSection, SidebarItem, SidebarFooter } from '../ui/sidebar';
 import { Topbar, TopbarMenu, TopbarSearch, TopbarSpacer, TopbarAction } from '../ui/topbar';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '../ui/breadcrumb';
@@ -20,7 +20,7 @@ import { ThemeToggle } from '../ui/theme-toggle';
  * landmarks, and keeps a long identifier crumb from scrolling the
  * page at 360px. Renders standalone with a seeded product nav.
  *
- *   <WorkspaceLayout brand="Theya Seashell" nav={nav} breadcrumbs={crumbs} onSearch={openPalette}>
+ *   <WorkspaceLayout brand="Aether" nav={nav} breadcrumbs={crumbs} onSearch={openPalette}>
  *     <YourPage />
  *   </WorkspaceLayout>
  */
@@ -72,17 +72,17 @@ const DEFAULT_NAV: WorkspaceLayoutNavGroup[] = [
     items: [
       { label: 'Dashboard', href: '#', icon: <Dashboard />, active: true },
       {
-        label: 'Sites',
+        label: 'Galleries',
         href: '#',
-        icon: <Globe />,
+        icon: <MediaImageList />,
         badge: (
           <>
-            12<span className="sr-only"> sites</span>
+            12<span className="sr-only"> galleries</span>
           </>
         ),
       },
-      { label: 'Databases', href: '#', icon: <Database /> },
-      { label: 'Certificates', href: '#', icon: <ShieldCheck /> },
+      { label: 'Archive', href: '#', icon: <Archive /> },
+      { label: 'Licenses', href: '#', icon: <Copyright /> },
     ],
   },
   {
@@ -97,7 +97,7 @@ const DEFAULT_NAV: WorkspaceLayoutNavGroup[] = [
 
 const DEFAULT_BREADCRUMBS: WorkspaceLayoutCrumb[] = [{ label: 'Dashboard' }];
 
-const DEFAULT_USER = { name: 'Alex Morgan', org: 'Theya Seashell', initials: 'AM' };
+const DEFAULT_USER = { name: 'Thea Marlow', org: 'Helios Studio', initials: 'TM' };
 
 function initialsFor(name: string): string {
   return name
@@ -109,7 +109,7 @@ function initialsFor(name: string): string {
 }
 
 export function WorkspaceLayout({
-  brand = 'Theya',
+  brand = 'Aether',
   nav = DEFAULT_NAV,
   breadcrumbs = DEFAULT_BREADCRUMBS,
   showBreadcrumbs = true,

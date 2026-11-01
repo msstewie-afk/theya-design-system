@@ -32,12 +32,12 @@ import { Radio, RadioGroup } from '../ui/radio';
  * `register` directly through our TextField/TextArea.
  *
  *   <ResourceForm
- *     title="Create database"
+ *     title="Create gallery"
  *     sections={[{ fields: [
  *       { name: "name", label: "Name", required: true },
- *       { name: "engine", label: "Engine", kind: "select", options: [...] },
+ *       { name: "studio", label: "Studio", kind: "select", options: [...] },
  *     ] }]}
- *     onSubmit={(values) => createDatabase(values)}
+ *     onSubmit={(values) => createGallery(values)}
  *   />
  */
 /**
@@ -107,7 +107,7 @@ function fieldSchema(field: ResourceFieldConfig): ZodTypeAny {
   }
 
   if (kind === 'select') {
-    // "Select a engine" -> "Select an engine".
+    // "Select a album" -> "Select an album".
     const article = /^[aeiou]/i.test(field.label) ? 'an' : 'a';
     return required ? z.string().min(1, `Select ${article} ${field.label.toLowerCase()}.`) : z.string().optional();
   }

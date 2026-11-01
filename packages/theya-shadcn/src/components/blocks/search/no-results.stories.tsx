@@ -19,18 +19,18 @@ export const Default: Story = {};
 
 /** A close spelling exists: offered first. */
 export const DidYouMean: Story = {
-  args: { query: 'certificat', didYouMean: 'certificates' },
+  args: { query: 'portriats', didYouMean: 'portraits' },
   play: async ({ canvasElement, args }) => {
-    await userEvent.click(within(canvasElement).getByRole('button', { name: 'certificates' }));
-    await expect(args.onSearch).toHaveBeenCalledWith('certificates');
+    await userEvent.click(within(canvasElement).getByRole('button', { name: 'portraits' }));
+    await expect(args.onSearch).toHaveBeenCalledWith('portraits');
   },
 };
 
 /** Empty in one scope, hits elsewhere: the way out is the other scopes. */
 export const EmptyScope: Story = {
   args: {
-    query: 'backup',
-    scope: 'domain',
+    query: 'moonrise',
+    scope: 'project',
     elsewhere: [
       { type: 'setting', count: 2 },
       { type: 'article', count: 3 },
@@ -38,7 +38,7 @@ export const EmptyScope: Story = {
   },
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('No domains match “backup”')).toBeVisible();
+    await expect(canvas.getByText('No projects match “moonrise”')).toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'help articles (3)' }));
     await expect(args.onScopeChange).toHaveBeenCalledWith('article');
     await userEvent.click(canvas.getByRole('button', { name: 'Search everything' }));

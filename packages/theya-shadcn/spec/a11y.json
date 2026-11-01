@@ -549,8 +549,8 @@
       },
       "patternCounts": {
         "verified": 19,
-        "n/a": 30,
-        "untested": 3
+        "n/a": 29,
+        "untested": 4
       }
     },
     {
@@ -17086,6 +17086,7 @@
         "interactive",
         "labelled",
         "links",
+        "overlay",
         "validation"
       ],
       "wcag": {
@@ -17122,7 +17123,7 @@
         "2.4.5": "product",
         "2.4.6": "verified",
         "2.4.7": "verified",
-        "2.4.11": "n/a",
+        "2.4.11": "untested",
         "2.5.1": "n/a",
         "2.5.2": "library",
         "2.5.3": "verified",

@@ -65,8 +65,8 @@ export const Default: Story = {
       const drawer = await within(document.body).findByRole('dialog', { name: 'Navigation' });
       const nav = within(within(drawer).getByRole('navigation', { name: 'Main' }));
       await expect(nav.getByRole('link', { name: 'Dashboard' })).toHaveAttribute('aria-current', 'page');
-      await userEvent.click(nav.getByRole('link', { name: 'Databases' }));
-      await expect(nav.getByRole('link', { name: 'Databases' })).toHaveAttribute('aria-current', 'page');
+      await userEvent.click(nav.getByRole('link', { name: 'Archive' }));
+      await expect(nav.getByRole('link', { name: 'Archive' })).toHaveAttribute('aria-current', 'page');
       await userEvent.keyboard('{Escape}');
       // vaul keeps the drawer mounted through its exit animation (~500ms).
       await waitFor(() => expect(within(document.body).queryByRole('dialog')).toBeNull(), { timeout: 2500 });
@@ -91,8 +91,8 @@ export const Default: Story = {
     // Nav: one current page at a time.
     const nav = within(canvas.getByRole('navigation', { name: /./ }));
     await expect(nav.getByRole('link', { name: 'Dashboard' })).toHaveAttribute('aria-current', 'page');
-    await userEvent.click(nav.getByRole('link', { name: 'Databases' }));
-    await expect(nav.getByRole('link', { name: 'Databases' })).toHaveAttribute('aria-current', 'page');
+    await userEvent.click(nav.getByRole('link', { name: 'Archive' }));
+    await expect(nav.getByRole('link', { name: 'Archive' })).toHaveAttribute('aria-current', 'page');
     await expect(nav.getByRole('link', { name: 'Dashboard' })).not.toHaveAttribute('aria-current');
 
     // Collapse and expand; focus stays on the toggle.

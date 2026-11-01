@@ -49,7 +49,7 @@ export interface LoginFormProps extends Omit<ComponentProps<'div'>, 'onSubmit'> 
   error?: ReactNode;
 }
 
-export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref = '#', signupHref = '#', showSso = true, onSso, card = true, loading = false, error, ...props }: LoginFormProps) {
+export function LoginForm({ className, onSubmit, appName = 'Aether', forgotHref = '#', signupHref = '#', showSso = true, onSso, card = true, loading = false, error, ...props }: LoginFormProps) {
   // Per-instance ids: the fixed "login-email"/"login-password" collided
   // when two forms shared a page (e.g. LoginForm + LoginFormSplit in Docs).
   const uid = useId();
@@ -92,7 +92,7 @@ export function LoginForm({ className, onSubmit, appName = 'Theya', forgotHref =
           type="email"
           inputMode="email"
           autoComplete="email"
-          placeholder="you@seashell.dev"
+          placeholder="you@aether.photo"
           required
           widthSize="full"
           error={errors.email}

@@ -26,30 +26,31 @@ export interface CheckoutProps {
 }
 
 const STEPS = [
-  { id: 'options', label: 'Options', description: 'Billing, region, backups' },
+  { id: 'options', label: 'Options', description: 'Billing, studio, archive' },
   { id: 'payment', label: 'Payment', description: 'Card or PayPal' },
   { id: 'review', label: 'Review', description: 'Check and pay' },
 ];
 
-const REGIONS: Record<string, string> = { 'eu-west': 'Frankfurt', 'us-east': 'Virginia', 'ap-south': 'Singapore' };
-const BACKUPS: Record<string, { label: string; monthly: number }> = {
-  weekly: { label: 'Weekly, kept 4 weeks', monthly: 0 },
-  daily: { label: 'Daily, kept 30 days', monthly: 4 },
-  hourly: { label: 'Hourly, kept 90 days', monthly: 12 },
+const STUDIOS: Record<string, string> = { helios: 'Helios Studio', selene: 'Selene Weddings', l4: 'Studio L4' };
+// Retention for original files in the Mnemosyne archive.
+const ARCHIVE: Record<string, { title: string; label: string; monthly: number }> = {
+  standard: { title: 'Standard', label: 'Originals kept 30 days', monthly: 0 },
+  extended: { title: 'Extended', label: 'Originals kept 1 year', monthly: 4 },
+  permanent: { title: 'Permanent', label: 'Originals kept until you delete them', monthly: 12 },
 };
 
 /**
- * An enclosed checkout: no site navigation to wander off into, just the
+ * An enclosed checkout: no app navigation to wander off into, just the
  * brand, a "secure checkout" note and a way back to the cart. A Stepper
  * shows where you are (completed steps link back), forms stay one column,
  * and the order summary with the full cost rides along on every step. The
  * review step charges; the completion screen ends with a next step.
  */
-export function Checkout({ email = 'dana@seashell.dev', taxRate = 0.2, taxLabel = 'VAT (20%)', onExit, onComplete, chargeDelay = 1200, className }: CheckoutProps) {
+export function Checkout({ email = 'thea@aether.photo', taxRate = 0.2, taxLabel = 'VAT (20%)', onExit, onComplete, chargeDelay = 1200, className }: CheckoutProps) {
   const [step, setStep] = useState(0);
   const [period, setPeriod] = useState('yearly');
-  const [region, setRegion] = useState('eu-west');
-  const [backups, setBackups] = useState('weekly');
+  const [studio, setStudio] = useState('selene');
+  const [archive, setArchive] = useState('standard');
   const [payment, setPayment] = useState<PaymentState | null>(null);
   const [placing, setPlacing] = useState(false);
   const [done, setDone] = useState(false);
@@ -62,13 +63,13 @@ export function Checkout({ email = 'dana@seashell.dev', taxRate = 0.2, taxLabel 
     const months = yearly ? 12 : 1;
     const out: OrderLine[] = [
       { id: 'plan', name: 'Pro plan', detail: yearly ? 'Billed yearly' : 'Billed monthly', unitPrice: yearly ? 288 : 30, quantity: 1 },
-      { id: 'domain', name: 'seashell.shop', detail: 'Domain · 1 year', unitPrice: 14, quantity: 1 },
+      { id: 'portal', name: 'selene-weddings.aether.photo', detail: 'Client portal · 1 year', unitPrice: 14, quantity: 1 },
     ];
-    const b = BACKUPS[backups];
-    if (b.monthly) out.push({ id: 'backups', name: 'Backups', detail: b.label, unitPrice: b.monthly * months, quantity: 1 });
-    if (region === 'ap-south') out.push({ id: 'region', name: 'Singapore region', detail: 'Regional surcharge', unitPrice: 3 * months, quantity: 1 });
+    const a = ARCHIVE[archive];
+    if (a.monthly) out.push({ id: 'archive', name: 'Mnemosyne archive', detail: a.label, unitPrice: a.monthly * months, quantity: 1 });
+    if (studio === 'l4') out.push({ id: 'studio', name: 'Studio L4 seat', detail: 'Satellite studio', unitPrice: 3 * months, quantity: 1 });
     return out;
-  }, [yearly, backups, region]);
+  }, [yearly, archive, studio]);
   const totals = computeTotals(lines, { taxRate });
 
   const goTo = (i: number) => {
@@ -94,9 +95,9 @@ export function Checkout({ email = 'dana@seashell.dev', taxRate = 0.2, taxLabel 
 
   return (
     <div className={cn('flex min-h-full w-full flex-col bg-[var(--color-bg-surface-bg-surface-base)]', className)}>
-      {/* Enclosed: brand + reassurance + one way out, no site navigation. */}
+      {/* Enclosed: brand + reassurance + one way out, no app navigation. */}
       <header className="flex items-center justify-between gap-4 border-b border-solid border-[var(--color-border-border-subtle)] px-6 py-4">
-        <span className="font-body text-body-l font-semibold text-[var(--color-text-text)]">Seashell</span>
+        <span className="font-body text-body-l font-semibold text-[var(--color-text-text)]">Aether</span>
         <span className="flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-subtle)]">
           <Lock className="size-4 text-[var(--color-icon-icon-success)]" aria-hidden="true" />
           Secure checkout
@@ -118,19 +119,19 @@ export function Checkout({ email = 'dana@seashell.dev', taxRate = 0.2, taxLabel 
           // also announces the outcome.
           <CompletionScreen
             focusOnMount
-            description="Your Pro plan is active and seashell.shop is registered."
-            orderNumber="SH-20261003-4821"
+            description="Your Pro plan is active and selene-weddings.aether.photo is live."
+            orderNumber="AE-20261003-4821"
             email={email}
             onResendEmail={() => undefined}
             details={[
               { term: 'Plan', value: `Pro, billed ${period}` },
-              { term: 'Region', value: REGIONS[region] },
-              { term: 'Backups', value: BACKUPS[backups].label },
+              { term: 'Studio', value: STUDIOS[studio] },
+              { term: 'Archive', value: ARCHIVE[archive].label },
               { term: 'Paid with', value: cardSummary.current },
             ]}
-            primaryAction={{ label: 'Open site dashboard', icon: <OpenNewWindow /> }}
+            primaryAction={{ label: 'Open your galleries', icon: <OpenNewWindow /> }}
             secondaryActions={[
-              { label: 'Set up DNS', icon: <Globe /> },
+              { label: 'Set up client portal', icon: <Globe /> },
               { label: 'Download invoice', icon: <Download /> },
             ]}
           />
@@ -159,8 +160,8 @@ export function Checkout({ email = 'dana@seashell.dev', taxRate = 0.2, taxLabel 
                     onEdit: () => goTo(0),
                     rows: [
                       { term: 'Billing', value: yearly ? 'Yearly' : 'Monthly' },
-                      { term: 'Region', value: REGIONS[region] },
-                      { term: 'Backups', value: BACKUPS[backups].label },
+                      { term: 'Studio', value: STUDIOS[studio] },
+                      { term: 'Archive', value: ARCHIVE[archive].label },
                     ],
                   },
                   { id: 'payment', title: 'Payment', onEdit: () => goTo(1), rows: [{ term: 'Method', value: cardSummary.current }] },
@@ -183,23 +184,24 @@ export function Checkout({ email = 'dana@seashell.dev', taxRate = 0.2, taxLabel 
                     ]}
                   />
                   <PricedOptions
-                    legend="Server region"
+                    legend="Studio"
                     appearance="list"
-                    description="Pick the one closest to most of your visitors."
-                    value={region}
-                    onValueChange={setRegion}
+                    description="Galleries and client portals on this plan belong to this studio."
+                    value={studio}
+                    onValueChange={setStudio}
                     options={[
-                      { value: 'eu-west', title: 'Frankfurt', description: 'Europe', price: 0 },
-                      { value: 'us-east', title: 'Virginia', description: 'Americas', price: 0 },
-                      { value: 'ap-south', title: 'Singapore', description: 'Asia', price: 3, priceUnit: '/ mo' },
+                      { value: 'helios', title: 'Helios Studio', description: 'Commercial and product', price: 0 },
+                      { value: 'selene', title: 'Selene Weddings', description: 'Weddings and night shoots', price: 0 },
+                      { value: 'l4', title: 'Studio L4', description: 'Satellite studio, one extra seat', price: 3, priceUnit: '/ mo' },
                     ]}
                   />
                   <PricedOptions
-                    legend="Backups"
+                    legend="Archive"
                     appearance="list"
-                    value={backups}
-                    onValueChange={setBackups}
-                    options={Object.entries(BACKUPS).map(([value, b]) => ({ value, title: value[0].toUpperCase() + value.slice(1), description: b.label.split(', ')[1], price: b.monthly, priceUnit: '/ mo' }))}
+                    description="How long Mnemosyne keeps your original files."
+                    value={archive}
+                    onValueChange={setArchive}
+                    options={Object.entries(ARCHIVE).map(([value, a]) => ({ value, title: a.title, description: a.label, price: a.monthly, priceUnit: '/ mo' }))}
                   />
                 </div>
                 <div hidden={step !== 1} className="flex flex-col gap-4">

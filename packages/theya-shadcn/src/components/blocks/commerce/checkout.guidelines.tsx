@@ -5,7 +5,7 @@ export const checkoutGuidelines: ComponentGuidelines = {
   status: 'stable',
   whenToUse: [
     'Buying a plan or service in a few steps: options, payment, review, then a done screen.',
-    'A checkout that keeps people on task: no site navigation, only a way back to the cart.',
+    'A checkout that keeps people on task: no app navigation, only a way back to the cart.',
   ],
   whenNotToUse: [
     { text: 'Editing what is in the cart', instead: 'Cart' },

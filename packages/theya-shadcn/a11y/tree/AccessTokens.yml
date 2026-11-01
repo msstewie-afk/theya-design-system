@@ -19,9 +19,9 @@
       - columnheader "Last used"
       - columnheader "Revoke"
   - rowgroup:
-    - row "Staging ••••••••••f5a8 Just now Never used Revoke Staging":
+    - row "Staging ••••••••••1a36 Just now Never used Revoke Staging":
       - cell "Staging"
-      - cell "••••••••••f5a8"
+      - cell "••••••••••1a36"
       - cell "Just now"
       - cell "Never used"
       - cell "Revoke Staging":
@@ -67,9 +67,9 @@
       - columnheader "Last used"
       - columnheader "Revoke"
   - rowgroup:
-    - row "First key ••••••••••dd4c Just now Never used Revoke First key":
+    - row "First key ••••••••••f3e4 Just now Never used Revoke First key":
       - cell "First key"
-      - cell "••••••••••dd4c"
+      - cell "••••••••••f3e4"
       - cell "Just now"
       - cell "Never used"
       - cell "Revoke First key":

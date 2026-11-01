@@ -20,7 +20,7 @@ const meta: Meta<typeof Details> = {
     layout: 'fullscreen',
   },
   argTypes: {
-    title: { control: 'text', description: 'The resource identifier; rendered mono when it looks like a domain/id.', table: { category: 'Content' } },
+    title: { control: 'text', description: 'The resource name or identifier; rendered mono when it looks like a portal address/id.', table: { category: 'Content' } },
     status: { control: false, description: 'Status indicator shown beside the title, e.g. a StatusDot or Badge.', table: { category: 'Content' } },
     meta: { control: false, description: 'A row of small muted facts, joined by DotSeparator between items.', table: { category: 'Content' } },
     actions: { control: false, description: 'Right-aligned action row; wraps below the title on mobile.', table: { category: 'Content' } },
@@ -32,42 +32,42 @@ const meta: Meta<typeof Details> = {
 export default meta;
 type Story = StoryObj<typeof Details>;
 
-/** A site's page: the title with its status and Restart / Deploy actions, a line of facts, four key numbers, then tabs for the content below. */
+/** A gallery's page: the title with its status and Share / Export actions, a line of facts, four key numbers, then tabs for the content below. */
 export const Default: Story = {
   render: () => (
     <div className="px-4 py-6 md:px-6">
     <Details
-      title="shop.seashell.dev"
-      status={{ tone: 'success', label: 'Running' }}
-      meta={['eu-west-1', 'Created Mar 2026', 'v2.4.0']}
+      title="Golden hour"
+      status={{ tone: 'success', label: 'Published' }}
+      meta={['Helios Studio', 'Shot Mar 2026', <span key="portal" className="font-mono">helios.aether.photo</span>]}
       actions={
         <>
           <Button appearance="outlined" tone="secondary">
-            Restart
+            Share
           </Button>
           <Button appearance="filled" tone="primary">
-            Deploy
+            Export
           </Button>
         </>
       }
       stats={[
-        { label: 'Visits', value: '128k' },
-        { label: 'Uptime', value: '99.98%', tone: 'success' },
-        { label: 'Replicas', value: 3 },
-        { label: 'Storage', value: '4.2 GB', hint: 'of 10 GB' },
+        { label: 'Photos', value: 248 },
+        { label: 'Views', value: '12.8k' },
+        { label: 'Downloads', value: 342 },
+        { label: 'Storage', value: '4.2 GB', hint: 'of 384 GB' },
       ]}
     >
       <Tabs defaultValue="overview">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="logs">Logs</TabsTrigger>
+          <TabsTrigger value="photos">Photos</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
         <TabsContent value="overview">
           <p className="py-4 font-body text-body-s text-[var(--color-text-text-subtler)]">Overview content goes here.</p>
         </TabsContent>
-        <TabsContent value="logs">
-          <p className="py-4 font-body text-body-s text-[var(--color-text-text-subtler)]">Logs content goes here.</p>
+        <TabsContent value="photos">
+          <p className="py-4 font-body text-body-s text-[var(--color-text-text-subtler)]">Photos content goes here.</p>
         </TabsContent>
         <TabsContent value="settings">
           <p className="py-4 font-body text-body-s text-[var(--color-text-text-subtler)]">Settings content goes here.</p>
@@ -79,15 +79,15 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Page heading, status as text (not color alone), actions, facts.
-    await expect(canvas.getByRole('heading', { level: 1, name: 'shop.seashell.dev' })).toBeInTheDocument();
-    await expect(canvas.getByText('Running')).toBeInTheDocument();
-    await expect(canvas.getByRole('button', { name: 'Deploy' })).toBeInTheDocument();
-    await expect(canvas.getByText('of 10 GB')).toBeInTheDocument();
+    await expect(canvas.getByRole('heading', { level: 1, name: 'Golden hour' })).toBeInTheDocument();
+    await expect(canvas.getByText('Published')).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Export' })).toBeInTheDocument();
+    await expect(canvas.getByText('of 384 GB')).toBeInTheDocument();
     // The body's Tabs work by keyboard inside the screen.
     const overview = canvas.getByRole('tab', { name: 'Overview' });
     overview.focus();
     await userEvent.keyboard('{ArrowRight}');
-    await waitFor(() => expect(canvas.getByRole('tab', { name: 'Logs' })).toHaveAttribute('aria-selected', 'true'));
-    await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Logs content goes here.');
+    await waitFor(() => expect(canvas.getByRole('tab', { name: 'Photos' })).toHaveAttribute('aria-selected', 'true'));
+    await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Photos content goes here.');
   },
 };

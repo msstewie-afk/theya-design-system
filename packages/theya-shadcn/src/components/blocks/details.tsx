@@ -13,13 +13,13 @@ import { cn } from '../../lib/utils';
  * an optional responsive KPI factbar built from Stat (2-up at base,
  * 4-up from sm), then the body (typically Tabs) as children.
  *
- * The title renders in mono when it looks like a domain/id (contains
- * a dot or has no spaces) so identifiers stay monospaced.
+ * The title renders in mono when it looks like a portal address/id
+ * (contains a dot or has no spaces) so identifiers stay monospaced.
  *
- *   <Details title="shop.seashell.dev" status={{ tone: "success", label: "Running" }}
- *     meta={["eu-west-1", "Created Mar 2026", "v2.4.0"]}
- *     actions={<Button>Deploy</Button>}
- *     stats={[{ label: "Visits", value: "128k" }]}>
+ *   <Details title="Golden hour" status={{ tone: "success", label: "Published" }}
+ *     meta={["Helios Studio", "Shot Mar 2026", "248 photos"]}
+ *     actions={<Button>Export</Button>}
+ *     stats={[{ label: "Views", value: "12.8k" }]}>
  *     <Tabs>…</Tabs>
  *   </Details>
  */
@@ -32,7 +32,7 @@ export interface DetailStatus {
 
 export interface DetailStat {
   label: string;
-  /** The fact value — "128k", "4.2 GB", "99.98%", or a composite node. */
+  /** The fact value — "12.8k", "4.2 GB", "99.98%", or a composite node. */
   value: ReactNode;
   hint?: string;
   /** Renders a StatusDot beside the value (never color-alone). */
@@ -45,7 +45,7 @@ function looksLikeIdentifier(value: string) {
 }
 
 export interface DetailsProps extends Omit<React.ComponentProps<'div'>, 'title'> {
-  /** The resource identifier; rendered mono when it looks like a domain/id. */
+  /** The resource name or identifier; rendered mono when it looks like a portal address/id. */
   title: string;
   status?: DetailStatus;
   /** A row of small muted facts, joined by DotSeparator between items. */

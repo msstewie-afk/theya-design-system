@@ -46,7 +46,7 @@ export interface PricedOptionsProps {
 
 /**
  * A choice where every option carries its cost (and what it gets you) on
- * the card itself — period, region, backup retention, support level. No
+ * the card itself — period, shoot location, archive retention, support level. No
  * option hides its price behind a click, and the cheapest is selected by
  * default so nobody pays more by not looking.
  */

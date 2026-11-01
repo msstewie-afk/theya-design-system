@@ -30,7 +30,7 @@ export interface ComparedPlan {
 export interface ComparedFeature {
   id: string;
   label: string;
-  /** Explains a term people may not know ("Staging", "SSH"). */
+  /** Explains a term people may not know ("Print licenses", "Client portal"). */
   hint?: ReactNode;
   /** Per plan id: true/false for included or not, or a value in the same unit across plans ("10 GB", "25 GB"). */
   values: Record<string, string | boolean>;

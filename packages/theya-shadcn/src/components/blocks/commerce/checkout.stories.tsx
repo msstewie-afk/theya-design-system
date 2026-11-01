@@ -18,13 +18,13 @@ export const Default: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const total = () => within(canvasElement).getByText('Total').closest('div')!;
-    // Pro yearly 288 + domain 14 = 302, +20% = 362.40
+    // Pro yearly 288 + client portal 14 = 302, +20% = 362.40
     await expect(total()).toHaveTextContent('$362.40');
-    await userEvent.click(canvas.getByRole('radio', { name: 'Daily' }));
-    await waitFor(() => expect(total()).toHaveTextContent('$420')); // + 48 backups
+    await userEvent.click(canvas.getByRole('radio', { name: 'Extended' }));
+    await waitFor(() => expect(total()).toHaveTextContent('$420')); // + 48 archive (4 / mo x 12)
 
     await userEvent.click(canvas.getByRole('button', { name: 'Continue to payment' }));
-    await userEvent.type(canvas.getByRole('textbox', { name: /^Name on card/ }), 'Dana Ivanova');
+    await userEvent.type(canvas.getByRole('textbox', { name: /^Name on card/ }), 'Thea Marlow');
     await userEvent.type(canvas.getByRole('textbox', { name: /^Card number/ }), '4242424242424242');
     await userEvent.type(canvas.getByRole('textbox', { name: /^Expiry date/ }), '0829');
     await userEvent.type(canvas.getByRole('textbox', { name: /^Security code/ }), '123');
@@ -32,7 +32,7 @@ export const Default: Story = {
 
     await expect(await canvas.findByText('Visa ending 4242', {}, { timeout: 5000 })).toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'Edit options' }));
-    await expect(canvas.getByRole('radio', { name: 'Daily' })).toBeChecked();
+    await expect(canvas.getByRole('radio', { name: 'Extended' })).toBeChecked();
     // Back through the steps: what was entered is still there.
     await userEvent.click(canvas.getByRole('button', { name: 'Continue to payment' }));
     await expect(canvas.getByRole('textbox', { name: /^Card number/ })).toHaveValue('4242 4242 4242 4242');
@@ -44,7 +44,7 @@ export const Default: Story = {
     // The review (and the Pay button) is gone: focus lands on the result
     // title, not <body>, and the title carries the outcome line.
     await waitFor(() => expect(done).toHaveFocus());
-    await expect(done).toHaveAccessibleDescription('Your Pro plan is active and seashell.shop is registered.');
+    await expect(done).toHaveAccessibleDescription('Your Pro plan is active and selene-weddings.aether.photo is live.');
     await expect(args.onComplete).toHaveBeenCalledTimes(1);
   },
 };

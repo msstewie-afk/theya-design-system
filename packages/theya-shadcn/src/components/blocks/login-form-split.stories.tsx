@@ -9,6 +9,8 @@ const SLIDES = [
   { src: '/asset-examples/login-carousel-03.jpg', alt: 'Abstract archway made of blocks' },
 ];
 
+const TAGLINE = 'Galleries your clients will keep';
+
 const meta: Meta<typeof LoginFormSplit> = {
   title: 'Patterns/LoginFormSplit',
   component: LoginFormSplit,
@@ -50,7 +52,7 @@ type Story = StoryObj<typeof LoginFormSplit>;
 export const Default: Story = {
   render: () => (
     <div className="flex min-h-[640px] items-center justify-center p-6">
-      <LoginFormSplit slides={SLIDES} tagline="Where Data Becomes Intelligence" onSubmit={(e) => e.preventDefault()} />
+      <LoginFormSplit slides={SLIDES} tagline={TAGLINE} onSubmit={(e) => e.preventDefault()} />
     </div>
   ),
 };
@@ -60,7 +62,7 @@ export const SingleImageNoAutoplay: Story = {
   name: 'Single image (no carousel chrome)',
   render: () => (
     <div className="flex min-h-[640px] items-center justify-center p-6">
-      <LoginFormSplit slides={[SLIDES[0]]} tagline="Where Data Becomes Intelligence" autoplayInterval={false} onSubmit={(e) => e.preventDefault()} />
+      <LoginFormSplit slides={[SLIDES[0]]} tagline={TAGLINE} autoplayInterval={false} onSubmit={(e) => e.preventDefault()} />
     </div>
   ),
 };
@@ -72,8 +74,8 @@ export const WithLogoAndBackLink: Story = {
     <div className="flex min-h-[640px] items-center justify-center p-6">
       <LoginFormSplit
         slides={SLIDES}
-        tagline="Where Data Becomes Intelligence"
-        logo={<span className="font-body text-body-l font-semibold text-[var(--color-text-text-on-dark)]">Theya Seashell</span>}
+        tagline={TAGLINE}
+        logo={<span className="font-body text-body-l font-semibold text-[var(--color-text-text-on-dark)]">Aether</span>}
         backHref="#"
         onSubmit={(e) => e.preventDefault()}
       />
@@ -88,7 +90,7 @@ export const AutoplayPause: Story = {
   name: 'Autoplay with Pause / Play',
   render: () => (
     <div className="flex min-h-[640px] items-center justify-center p-6">
-      <LoginFormSplit slides={SLIDES} tagline="Where Data Becomes Intelligence" autoplayInterval={700} onSubmit={(e) => e.preventDefault()} />
+      <LoginFormSplit slides={SLIDES} tagline={TAGLINE} autoplayInterval={700} onSubmit={(e) => e.preventDefault()} />
     </div>
   ),
   play: async ({ canvasElement }) => {
@@ -102,7 +104,7 @@ export const AutoplayPause: Story = {
     }
     const dots = within(canvas.getByRole('group', { name: 'Slides' }));
     const current = () => dots.getAllByRole('button').findIndex((b) => b.getAttribute('aria-current') === 'true');
-    const panel = canvas.getByRole('region', { name: 'Where Data Becomes Intelligence' }).parentElement as HTMLElement;
+    const panel = canvas.getByRole('region', { name: TAGLINE }).parentElement as HTMLElement;
     // Leave the panel: no hover and no focus inside it, so only the toggle decides.
     const leave = async (el: HTMLElement) => {
       el.blur();

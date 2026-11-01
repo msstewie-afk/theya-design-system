@@ -127,7 +127,9 @@ export function BottomNavItem({ icon, label, active = false, badge, asChild = fa
           )}
         </span>
         {/* The badge text sits inside the label span, so the name reads "Inbox, 3 new" (Chrome puts a space before the comma; screen readers don't voice it). */}
-        <span className="block max-w-full truncate">
+        {/* Two lines at most, breaking inside a word if it has to: with 200% text or wider
+            spacing (WCAG 1.4.4, 1.4.12) a label wraps instead of being cut with an ellipsis. */}
+        <span className="line-clamp-2 max-w-full text-center wrap-anywhere">
           {label}
           {(count !== undefined || dot) && <span className="sr-only">, {count !== undefined ? t.bottomNav.count(count) : t.bottomNav.dot}</span>}
         </span>

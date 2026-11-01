@@ -77,8 +77,8 @@ export function SearchNoResults({ query, scope, elsewhere = [], didYouMean, popu
         <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Try:</p>
         <ul className="flex list-disc flex-col gap-1 ps-5 font-body text-body-m text-[var(--color-text-text-subtle)]">
           <li>Checking the spelling</li>
-          <li>Fewer or more general words — “backup” instead of “nightly backup job”</li>
-          <li>A name, domain or email address as it appears in the panel</li>
+          <li>Fewer or more general words — “wedding” instead of “June wedding at the lodge”</li>
+          <li>A name, album title or email address exactly as it appears</li>
         </ul>
         {scope && (
           <Button appearance="outlined" tone="secondary" className="mt-2 self-start" onClick={() => onScopeChange?.('all')}>

@@ -7,7 +7,7 @@ export const planComparisonGuidelines: ComponentGuidelines = {
     'Choosing or changing a plan: plans side by side with their prices, a billing-period toggle and what each one includes.',
   ],
   whenNotToUse: [
-    { text: 'One priced choice inside a flow, such as region or backups', instead: 'PricedOptions' },
+    { text: 'One priced choice inside a flow, such as shoot location or archive retention', instead: 'PricedOptions' },
     { text: 'Comparing catalog items people pick themselves', instead: 'CompareFlow' },
     { text: 'The current plan and its usage', instead: 'BillingUsage' },
   ],

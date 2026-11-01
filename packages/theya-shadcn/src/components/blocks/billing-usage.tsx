@@ -87,22 +87,22 @@ const DEFAULT_PLAN: BillingPlan = { name: 'Pro', price: '$79 / mo', renewal: 'Re
 const DEFAULT_STATS: BillingStat[] = [
   { label: 'Current spend', value: '$79.00', hint: 'This billing period' },
   { label: 'Next invoice', value: '$112.40', hint: 'Due Jul 1, 2026', tone: 'warning', toneLabel: 'includes overage' },
-  { label: 'Sites', value: '9 of 12', hint: 'Included in plan', tone: 'primary', toneLabel: 'within plan' },
+  { label: 'Galleries', value: '9 of 12', hint: 'Included in plan', tone: 'primary', toneLabel: 'within plan' },
 ];
 
 const DEFAULT_QUOTAS: BillingQuota[] = [
-  { label: 'Bandwidth', used: 812, total: 1000, unit: 'GB' },
-  { label: 'Storage', used: 188, total: 250, unit: 'GB' },
+  { label: 'Downloads', used: 812, total: 1000, unit: 'GB' },
+  { label: 'Storage', used: 288, total: 384, unit: 'GB' },
 ];
 
 const DEFAULT_STORAGE_BREAKDOWN: UsageSegment[] = [
-  { label: 'Sites', value: 96 },
-  { label: 'Databases', value: 52 },
-  { label: 'Backups', value: 30 },
-  { label: 'Logs', value: 10 },
+  { label: 'Originals', value: 148 },
+  { label: 'Edits', value: 76 },
+  { label: 'Archive', value: 48 },
+  { label: 'Exports', value: 16 },
 ];
 
-const DEFAULT_STORAGE_TOTAL = 250;
+const DEFAULT_STORAGE_TOTAL = 384;
 
 const DEFAULT_INVOICES: BillingInvoice[] = [
   { id: 'inv-2026-006', date: 'Jun 1, 2026', amount: '$79.00', status: 'due' },

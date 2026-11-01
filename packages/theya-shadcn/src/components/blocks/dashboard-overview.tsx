@@ -2,7 +2,7 @@
 
 import { useId } from 'react';
 import type { ReactNode } from 'react';
-import { WarningTriangle, ArrowRight, CheckCircle, Globe, Pause, Refresh, ShieldCheck, Activity } from 'iconoir-react';
+import { WarningTriangle, ArrowRight, CheckCircle, MediaImageList, Pause, Refresh, Copyright, Eye } from 'iconoir-react';
 import { cn } from '../../lib/utils';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
@@ -18,7 +18,7 @@ import { Timeline, TimelineItem, TimelineTitle, TimelineDescription } from '../u
 /**
  * A reusable, triage-first account overview block. Leads with the
  * few things that need action ("Needs attention"), then a 4-up KPI
- * Stat grid, a requests AreaChart beside a multi-metric usage widget
+ * Stat grid, a gallery-views AreaChart beside a multi-metric usage widget
  * (a Progress bar per metered resource plus an optional segmented
  * breakdown UsageBar), and a recent-activity Timeline. Status never
  * color-alone (numbers + percent carry usage).
@@ -30,7 +30,7 @@ import { Timeline, TimelineItem, TimelineTitle, TimelineDescription } from '../u
 export type AttentionTone = 'warning' | 'danger';
 
 export interface AttentionItem {
-  /** Mono identifier for the affected resource (e.g. a domain). */
+  /** Mono identifier for the affected resource (e.g. a portal address or file name). */
   id: string;
   tone: AttentionTone;
   /** Short status word beside the dot (status is never color-alone). */
@@ -70,7 +70,7 @@ export interface DashboardOverviewProps extends Omit<React.ComponentProps<'div'>
   summary?: ReactNode;
   /** Worst-first items needing action; the lede. Empty = healthy state. */
   attention?: AttentionItem[];
-  /** Total count the attention badge is "n of" (e.g. all sites). */
+  /** Total count the attention badge is "n of" (e.g. all galleries). */
   attentionTotal?: number;
   /** KPI cards (renders a 2-up / lg:4-up grid). */
   stats?: DashboardStat[];
@@ -89,20 +89,20 @@ export interface DashboardOverviewProps extends Omit<React.ComponentProps<'div'>
   viewAllHref?: string;
 }
 
-/** Disk/usage at or above this reads as a "needs attention" signal. */
+/** Storage/usage at or above this reads as a "needs attention" signal. */
 const NEAR_FULL = 85;
 
 const DEFAULT_ATTENTION: AttentionItem[] = [
-  { id: 'legacy.seashell.dev', tone: 'danger', severity: 'Error', reason: 'Disk 91% full · backups paused', actionLabel: 'Investigate' },
-  { id: 'old.seashell.dev', tone: 'danger', severity: 'Error', reason: 'Certificate renewal failed', actionLabel: 'Reissue certificate' },
-  { id: 'staging.seashell.dev', tone: 'warning', severity: 'Suspended', reason: 'Over plan quota · suspended yesterday', actionLabel: 'Resume site' },
+  { id: 'othrys.aether.photo', tone: 'danger', severity: 'Error', reason: 'Client portal unreachable · 14 downloads failed', actionLabel: 'Investigate' },
+  { id: 'GOLDEN_0907.tif', tone: 'danger', severity: 'Error', reason: 'Print license expired · 3 orders on hold', actionLabel: 'Renew license' },
+  { id: 'selene-weddings.aether.photo', tone: 'warning', severity: 'Paused', reason: 'Over download limit · paused yesterday', actionLabel: 'Resume portal' },
 ];
 
 const DEFAULT_STATS: DashboardStat[] = [
-  { label: 'Active sites', value: 9, icon: <Globe />, delta: { value: '+4 this month', direction: 'up' } },
-  { label: 'Open incidents', value: 2, icon: <WarningTriangle />, tone: 'warning', toneLabel: 'needs attention', delta: { value: '+1 today', direction: 'down' } },
-  { label: 'Certificates expiring', value: 3, icon: <ShieldCheck />, tone: 'warning', toneLabel: 'due soon', delta: { value: 'within 30 days', direction: 'flat' } },
-  { label: 'Requests / day', value: '7.1M', icon: <Activity />, tone: 'primary', toneLabel: 'latest day', delta: { value: '+9% vs last week', direction: 'up' } },
+  { label: 'Active galleries', value: 9, icon: <MediaImageList />, delta: { value: '+4 this month', direction: 'up' } },
+  { label: 'Open issues', value: 2, icon: <WarningTriangle />, tone: 'warning', toneLabel: 'needs attention', delta: { value: '+1 today', direction: 'down' } },
+  { label: 'Licenses expiring', value: 3, icon: <Copyright />, tone: 'warning', toneLabel: 'due soon', delta: { value: 'within 30 days', direction: 'flat' } },
+  { label: 'Views / day', value: '7.1K', icon: <Eye />, tone: 'primary', toneLabel: 'latest day', delta: { value: '+9% vs last week', direction: 'up' } },
 ];
 
 const DEFAULT_REQUESTS: AreaChartPoint[] = [
@@ -122,20 +122,20 @@ const DEFAULT_REQUESTS: AreaChartPoint[] = [
   { label: 'Jun 14', value: 7.1 },
 ];
 
-const DEFAULT_REQUESTS_ARIA = 'Requests across all sites over the last 14 days in millions per day, rising from 5.1M on Jun 1 to a peak of 8.1M on Jun 12 and 7.1M on Jun 14 - a healthy trend.';
+const DEFAULT_REQUESTS_ARIA = 'Gallery views across all galleries over the last 14 days in thousands per day, rising from 5.1K on Jun 1 to a peak of 8.1K on Jun 12 and 7.1K on Jun 14 - a healthy trend.';
 
 const DEFAULT_CAPACITY: UsageSegment[] = [
-  { label: 'Uploads', value: 96 },
-  { label: 'Databases', value: 64 },
-  { label: 'Backups', value: 48 },
-  { label: 'Logs', value: 20 },
+  { label: 'Originals', value: 168 },
+  { label: 'Edits', value: 92 },
+  { label: 'Archive', value: 64 },
+  { label: 'Exports', value: 22 },
 ];
 
-const DEFAULT_CAPACITY_TOTAL = 250;
+const DEFAULT_CAPACITY_TOTAL = 384;
 
 const DEFAULT_QUOTAS: DashboardQuota[] = [
-  { label: 'Storage', used: 228, total: 250, unit: 'GB' },
-  { label: 'Bandwidth', used: 812, total: 1000, unit: 'GB' },
+  { label: 'Storage', used: 346, total: 384, unit: 'GB' },
+  { label: 'Downloads', used: 812, total: 1000, unit: 'GB' },
 ];
 
 function pctOf(used: number, total: number): number {
@@ -149,10 +149,10 @@ const DEFAULT_ACTIVITY: ActivityItem[] = [
     tone: 'success',
     icon: <CheckCircle />,
     time: '2h ago',
-    title: 'Certificate renewed',
+    title: 'License renewed',
     description: (
       <>
-        <span className="font-mono">shop.seashell.dev</span> · valid 90 days
+        <span className="font-mono">DAWN_0412.jpg</span> · print rights, 1 year
       </>
     ),
   },
@@ -160,21 +160,17 @@ const DEFAULT_ACTIVITY: ActivityItem[] = [
     tone: 'primary',
     icon: <Refresh />,
     time: '5h ago',
-    title: 'Deploy succeeded',
-    description: (
-      <>
-        <span className="font-mono">api.seashell.dev</span> · <span className="font-mono">v2.4.0</span>
-      </>
-    ),
+    title: 'Export finished',
+    description: <>Golden hour · 248 photos, 3.2 GB</>,
   },
   {
     tone: 'warning',
     icon: <Pause />,
     time: 'yesterday',
-    title: 'Site suspended',
+    title: 'Portal paused',
     description: (
       <>
-        <span className="font-mono">staging.seashell.dev</span> · over plan quota
+        <span className="font-mono">selene-weddings.aether.photo</span> · over download limit
       </>
     ),
   },
@@ -182,12 +178,8 @@ const DEFAULT_ACTIVITY: ActivityItem[] = [
     tone: 'danger',
     icon: <WarningTriangle />,
     time: '2d ago',
-    title: 'Disk almost full',
-    description: (
-      <>
-        <span className="font-mono">legacy.seashell.dev</span> · 91% of 50 GB
-      </>
-    ),
+    title: 'Storage almost full',
+    description: <>Helios Studio · 346 GB of 384 GB used</>,
   },
 ];
 
@@ -268,8 +260,8 @@ export function DashboardOverview({
                   </p>
                 </div>
                 {/* Only with a handler (it rendered dead without one). Named
-                    with its target: a list of "Investigate"/"Resume site"
-                    buttons didn't say which site; visible word stays first. */}
+                    with its target: a list of "Investigate"/"Resume portal"
+                    buttons didn't say which item; visible word stays first. */}
                 {onAttentionAction && (
                   <Button
                     appearance="outlined"
@@ -328,8 +320,8 @@ export function DashboardOverview({
         <Card className="lg:col-span-2">
           <CardHeader className="flex-wrap">
             <div className="min-w-0">
-              <CardTitle>Requests</CardTitle>
-              <CardDescription>Across all sites · last 14 days · millions / day</CardDescription>
+              <CardTitle>Gallery views</CardTitle>
+              <CardDescription>Across all galleries · last 14 days · thousands / day</CardDescription>
             </div>
             <Badge tone="success">
               <StatusDot tone="success" />
@@ -337,7 +329,7 @@ export function DashboardOverview({
             </Badge>
           </CardHeader>
           <CardContent>
-            <AreaChart data={requests} height={240} yStep={2} unit="M" ariaLabel={requestsAriaLabel} />
+            <AreaChart data={requests} height={240} yStep={2} unit="K" ariaLabel={requestsAriaLabel} />
           </CardContent>
         </Card>
 

@@ -18,15 +18,15 @@ export default meta;
 type Story = StoryObj<typeof PricedOptions>;
 
 /** Every option shows its cost; the cheapest starts selected. */
-export const Backups: Story = {
+export const Archive: Story = {
   args: {
-    legend: 'Backups',
-    description: 'How long copies of your site are kept.',
+    legend: 'Archive',
+    description: 'How long Mnemosyne keeps your original files.',
     onValueChange: fn(),
     options: [
-      { value: 'weekly', title: 'Weekly', description: 'Kept 4 weeks', price: 0 },
-      { value: 'daily', title: 'Daily', description: 'Kept 30 days', price: 4, priceUnit: '/ mo' },
-      { value: 'hourly', title: 'Hourly', description: 'Kept 90 days, restore to any hour', price: 12, priceUnit: '/ mo' },
+      { value: 'standard', title: 'Standard', description: 'Kept 30 days', price: 0 },
+      { value: 'extended', title: 'Extended', description: 'Kept 1 year', price: 4, priceUnit: '/ mo' },
+      { value: 'permanent', title: 'Permanent', description: 'Kept until you delete them, with full-resolution restore', price: 12, priceUnit: '/ mo' },
     ],
   },
   render: (args) => (
@@ -36,23 +36,23 @@ export const Backups: Story = {
   ),
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('radio', { name: 'Weekly' })).toBeChecked();
-    const daily = canvas.getByRole('radio', { name: 'Daily' });
-    await expect(daily).toHaveAccessibleDescription('Kept 30 days +$4 / mo');
-    await userEvent.click(daily);
-    await expect(args.onValueChange).toHaveBeenCalledWith('daily');
+    await expect(canvas.getByRole('radio', { name: 'Standard' })).toBeChecked();
+    const extended = canvas.getByRole('radio', { name: 'Extended' });
+    await expect(extended).toHaveAccessibleDescription('Kept 1 year +$4 / mo');
+    await userEvent.click(extended);
+    await expect(args.onValueChange).toHaveBeenCalledWith('extended');
   },
 };
 
-/** Three across: region with a price per region. */
-export const Region: Story = {
+/** Three across: a shoot location with a price per location. */
+export const Location: Story = {
   args: {
-    legend: 'Server region',
+    legend: 'Shoot location',
     columns: 3,
     options: [
-      { value: 'eu-west', title: 'Frankfurt', description: 'Best for Europe', price: 0 },
-      { value: 'us-east', title: 'Virginia', description: 'Best for the Americas', price: 0 },
-      { value: 'ap-south', title: 'Singapore', description: 'Best for Asia', price: 3, priceUnit: '/ mo' },
+      { value: 'helios', title: 'Helios Studio', description: 'Our studio, lighting included', price: 0 },
+      { value: 'venue', title: 'Your venue', description: 'Within 30 km of the studio', price: 40, priceUnit: 'once' },
+      { value: 'othrys', title: 'Othrys Lodge', description: 'Mountain location, half day', price: 120, priceUnit: 'once' },
     ],
   },
   render: (args) => (
@@ -64,7 +64,7 @@ export const Region: Story = {
 
 /** The same choice without cards: radios on dividers, price on the right. Lighter next to other cards. */
 export const List: Story = {
-  args: { ...Backups.args, appearance: 'list' },
+  args: { ...Archive.args, appearance: 'list' },
   render: (args) => (
     <div className="max-w-lg">
       <PricedOptions {...args} />
@@ -72,7 +72,7 @@ export const List: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('radio', { name: 'Weekly' })).toBeChecked();
-    await expect(canvas.getByRole('radio', { name: 'Daily' })).toHaveAccessibleDescription('Kept 30 days +$4 / mo');
+    await expect(canvas.getByRole('radio', { name: 'Standard' })).toBeChecked();
+    await expect(canvas.getByRole('radio', { name: 'Extended' })).toHaveAccessibleDescription('Kept 1 year +$4 / mo');
   },
 };
