@@ -9,7 +9,7 @@
   - button "Previous slide"
   - button "Next slide"
   - paragraph: Use the left and right arrow keys to move between slides
-  - paragraph: "1 of 6: Discover"
+  - paragraph
 
 # Autoplay (motion-orbitcarousel--autoplay)
 - group "Case study":
@@ -20,7 +20,7 @@
   - button "Play"
   - button "Next slide"
   - paragraph: Use the left and right arrow keys to move between slides
-  - paragraph: "1 of 6: Discover"
+  - paragraph
 
 # Drum (motion-orbitcarousel--drum)
 - group "Case study":
@@ -60,4 +60,4 @@
   - button "Previous slide"
   - button "Next slide"
   - paragraph: Use the up and down arrow keys to move between slides
-  - paragraph: "1 of 6: Discover"
+  - paragraph

@@ -91,7 +91,7 @@
   - text: Type delete to confirm
   - textbox "Type delete to confirm":
     - /placeholder: delete
-    - text: te
+    - text: e
   - button "Clear input"
   - button "Cancel"
   - button "Delete sites" [disabled]

@@ -2,17 +2,17 @@
 
 # Busy (motion-completionburst--busy)
 - status:
-  - paragraph: Preparing your plan
+  - paragraph: Preparing your plan .
   - paragraph: Setting up your reading goals
 
 # Done (motion-completionburst--done)
 - status:
-  - paragraph: Your plan is ready
+  - paragraph: Your plan is ready .
   - paragraph: Twelve weeks, three sessions a week
 
 # Flow (motion-completionburst--flow)
 - status:
-  - paragraph: Your plan is ready
+  - paragraph: Your plan is ready .
   - paragraph: Twelve weeks, three sessions a week
 - button "Start again"
 - status: Start again
