@@ -7,7 +7,7 @@ import { cn } from '../../lib/utils';
 import { TooltipContent, TooltipProvider } from './tooltip';
 
 /**
- * One line of text that ends in an ellipsis when it doesn't fit, and shows
+ * One line (or two, `lines={2}`) of text that ends in an ellipsis when it doesn't fit, and shows
  * the whole text in a tooltip — only while it is actually cut.
  *
  * For long user data that can't wrap without breaking a layout: file names,
@@ -26,11 +26,13 @@ export interface TruncatedTextProps extends React.ComponentProps<'span'> {
   asChild?: boolean;
   /** Where the tooltip opens (default top). Two cut lines in one row: the first on top, the second at the bottom, so they don't cover each other. */
   side?: 'top' | 'bottom';
+  /** Lines before the ellipsis (default 1). 2 for a description under a title. */
+  lines?: 1 | 2;
 }
 
 const FOCUSABLE = 'a[href],button,input,select,textarea,summary,[tabindex]:not([tabindex="-1"]),[role=option],[role=row],[role=gridcell],[role=menuitem],[role=tab],[role=treeitem]';
 
-export function TruncatedText({ className, asChild = false, side = 'top', children, ...props }: TruncatedTextProps) {
+export function TruncatedText({ className, asChild = false, side = 'top', lines = 1, children, ...props }: TruncatedTextProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const [cut, setCut] = useState(false);
   const [open, setOpen] = useState(false);
@@ -38,7 +40,7 @@ export function TruncatedText({ className, asChild = false, side = 'top', childr
 
   const measure = useCallback(() => {
     const el = ref.current;
-    if (el) setCut(el.scrollWidth > el.clientWidth + 1);
+    if (el) setCut(el.scrollWidth > el.clientWidth + 1 || el.scrollHeight > el.clientHeight + 1);
   }, []);
 
   useEffect(() => {
@@ -85,7 +87,7 @@ export function TruncatedText({ className, asChild = false, side = 'top', childr
             data-truncated={cut || undefined}
             // A tab stop only when cut and nothing around it can take focus.
             tabIndex={cut && ownFocus ? 0 : undefined}
-            className={cn('block min-w-0 truncate', cut && ownFocus && 'rounded-[var(--size-border-radius-border-radius-sm)] outline-none focus-visible:focus-ring', className)}
+            className={cn('block min-w-0', lines === 2 ? 'line-clamp-2 break-words' : 'truncate', cut && ownFocus && 'rounded-[var(--size-border-radius-border-radius-sm)] outline-none focus-visible:focus-ring', className)}
             {...props}
           >
             {children}

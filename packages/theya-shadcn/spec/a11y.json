@@ -213,8 +213,7 @@
         "auto"
       ],
       "counts": {
-        "verified": 159,
-        "untested": 2
+        "verified": 161
       },
       "patternCounts": {
         "verified": 52
@@ -277,8 +276,7 @@
         "auto"
       ],
       "counts": {
-        "verified": 158,
-        "partial": 3
+        "verified": 161
       },
       "patternCounts": {
         "verified": 52
@@ -294,8 +292,8 @@
         "review"
       ],
       "counts": {
-        "n/a": 129,
-        "verified": 32
+        "n/a": 128,
+        "verified": 33
       },
       "patternCounts": {
         "n/a": 40,
@@ -522,8 +520,8 @@
         "review"
       ],
       "counts": {
-        "n/a": 106,
-        "verified": 54,
+        "n/a": 105,
+        "verified": 55,
         "fails": 1
       },
       "patternCounts": {
@@ -832,9 +830,8 @@
         "n/a": 45
       },
       "patternCounts": {
-        "verified": 47,
-        "n/a": 4,
-        "partial": 1
+        "verified": 48,
+        "n/a": 4
       }
     },
     {
@@ -847,8 +844,7 @@
       ],
       "counts": {
         "n/a": 130,
-        "verified": 29,
-        "untested": 2
+        "verified": 31
       },
       "patternCounts": {
         "verified": 17,
@@ -1474,7 +1470,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-11-01",
+          "result": "pass",
+          "notes": "files-attachment--upload-flow by hand (Мария): \"Uploading 2024-my-portfolio.pdf\" and \"2024-my-portfolio.pdf uploaded\" spoken. The automated run heard the start and published the end but VoiceOver dropped it while reading the relabelled story button; the hand check confirmed it."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -1499,11 +1503,11 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
@@ -1539,7 +1543,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "verified",
-        "4.1.3": "untested"
+        "4.1.3": "verified"
       }
     },
     {
@@ -2079,11 +2083,11 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "n/a",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "n/a",
         "2.1.2": "n/a",
@@ -6130,7 +6134,7 @@
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "deviation",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
@@ -7074,8 +7078,10 @@
       "traits": [
         "colorMeaning",
         "drag",
+        "hoverContent",
         "interactive",
         "labelled",
+        "overlay",
         "status",
         "timed"
       ],
@@ -7099,7 +7105,7 @@
         "1.4.10": "verified",
         "1.4.11": "verified",
         "1.4.12": "verified",
-        "1.4.13": "n/a",
+        "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
         "2.1.4": "n/a",
@@ -7113,7 +7119,7 @@
         "2.4.5": "product",
         "2.4.6": "verified",
         "2.4.7": "verified",
-        "2.4.11": "n/a",
+        "2.4.11": "verified",
         "2.5.1": "n/a",
         "2.5.2": "library",
         "2.5.3": "verified",
@@ -14406,7 +14412,7 @@
       "name": "TruncatedText",
       "title": "Labels/TruncatedText",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -14415,7 +14421,7 @@
       },
       "keyboard": {
         "tested": 2,
-        "playTests": 3
+        "playTests": 4
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -14597,7 +14603,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-11-01",
+          "result": "pass",
+          "notes": "files-uploadpanel--live by hand (Мария): \"Uploaded 3 files\" spoken. The start isn't announced (the panel mounts with its text already in the live region), reported to agent1."
+        }
+      ],
       "deviations": [],
       "traits": [
         "colorMeaning",
@@ -14662,7 +14676,7 @@
         "3.3.7": "product",
         "3.3.8": "n/a",
         "4.1.2": "verified",
-        "4.1.3": "untested"
+        "4.1.3": "verified"
       }
     },
     {
@@ -18156,7 +18170,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "partial",
+        "4.1.2": "verified",
         "4.1.3": "n/a"
       }
     },
