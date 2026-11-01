@@ -13,6 +13,10 @@ import { Hero, HeroAccent } from './hero';
 import { LogoStrip } from './logo-strip';
 import { SectionPanel } from './section-panel';
 import { SiteHeader } from './site-header';
+import { CountUp } from '../../ui/count-up';
+import { Avatar, AvatarFallback } from '../../ui/avatar';
+import { StatsRow } from './landing-stats';
+import { CtaBand, FaqSection, TestimonialCase } from './landing-sections';
 
 /**
  * The landing blocks put together as one page: a template to start a
@@ -100,15 +104,58 @@ export const Bookmarks: Story = {
           link={learnMore('#search')}
           media={<BookmarksLiveDemo />}
         />
-        <SectionPanel tone="primary" aria-labelledby="cta-title">
-          <div className="container-display flex flex-col items-center gap-8 text-center">
-            <h2 id="cta-title" className="m-0 max-w-[60rem] text-balance font-heading text-heading-3xl">
-              Your reading list, finally in one place
-            </h2>
-            <Button size="2xl" rightIcon={<ArrowRight />}>
-              Get started free
-            </Button>
+        <section data-scale="display" className="section-display" aria-label="In numbers">
+          <div className="container-display">
+            <StatsRow
+              items={[
+                { value: <CountUp to={12} suffix="M" />, label: 'links saved this year' },
+                { value: <CountUp to={2000} suffix="+" />, label: 'teams keep their links here' },
+                { value: '4.8', label: 'average rating in the stores' },
+                { value: '6 s', label: 'to find any saved page' },
+              ]}
+            />
           </div>
+        </section>
+        <section data-scale="display" className="section-display !pt-0" aria-label="Customer story">
+          <div className="container-display">
+            <TestimonialCase
+              surface="tonal"
+              hue="secondary"
+              quote="I used to lose an afternoon a week hunting for sources. Now I type a word I remember from the page and it is there."
+              name="Lea Brandt"
+              role="Head of research, Northwind"
+              avatar={
+                <Avatar>
+                  <AvatarFallback>LB</AvatarFallback>
+                </Avatar>
+              }
+              media={<img src="/asset-examples/login-carousel-02.jpg" alt="" />}
+              results={[
+                { value: '90%', label: 'less time finding a source' },
+                { value: '3,400', label: 'links moved over in a day' },
+              ]}
+            />
+          </div>
+        </section>
+        <FaqSection
+          title="Questions, answered"
+          items={[
+            { question: 'Can I bring my bookmarks from Chrome?', answer: 'Yes. Import from Chrome, Safari, Firefox, Pocket or a CSV; folders become folders and tags stay tags.' },
+            { question: 'What happens to a page that disappears?', answer: 'Bookmarks keeps a readable copy of every page you save, so a dead link still opens.' },
+            { question: 'Who can see my library?', answer: 'Only you. Shared folders are visible to the people you invite.' },
+            { question: 'Is there a free plan?', answer: 'Free for one person, with unlimited links. Teams pay per member.' },
+          ]}
+        />
+        <SectionPanel tone="primary" padding="none">
+          <CtaBand
+            title="Your reading list, finally in one place"
+            actions={
+              <Button size="2xl" rightIcon={<ArrowRight />}>
+                Get started free
+              </Button>
+            }
+            note="Free for one person. Mac, Windows, iPhone and Android."
+          />
         </SectionPanel>
       </main>
       <SiteFooter

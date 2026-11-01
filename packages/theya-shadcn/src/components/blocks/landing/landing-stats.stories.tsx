@@ -62,7 +62,7 @@ export const Bars: Story = {
           items={[
             { label: 'Scrolling through browser bookmarks', amount: 94, value: '94 s' },
             { label: 'Searching your history', amount: 41, value: '41 s' },
-            { label: 'Search in Theya', amount: 6, value: '6 s', highlight: true },
+            { label: 'Search in Bookmarks', amount: 6, value: '6 s', highlight: true },
           ]}
         />
       </div>
@@ -73,7 +73,7 @@ export const Bars: Story = {
     const list = canvas.getByRole('list');
     await expect(within(list).getAllByRole('listitem')).toHaveLength(3);
     // The figures are text, read with their labels.
-    await expect(within(list).getAllByRole('listitem')[2]).toHaveTextContent('Search in Theya6 s');
+    await expect(within(list).getAllByRole('listitem')[2]).toHaveTextContent('Search in Bookmarks6 s');
   },
 };
 
@@ -88,7 +88,7 @@ export const BeforeAndAfter: Story = {
           aria-labelledby="ba-title"
           taskLabel="Task"
           beforeLabel="Before"
-          afterLabel="With Theya"
+          afterLabel="With Bookmarks"
           rows={[
             { task: 'Finding a link you saved', before: '2 min, if at all', after: '6 s' },
             { task: 'Sorting new links', before: 'Every Friday, by hand', after: 'Done by your rules' },
@@ -104,6 +104,6 @@ export const BeforeAndAfter: Story = {
     const table = canvas.getByRole('table', { name: 'What changes in a week' });
     await expect(within(table).getAllByRole('row')).toHaveLength(5);
     await expect(within(table).getByRole('rowheader', { name: 'Sorting new links' })).toBeInTheDocument();
-    await expect(within(table).getByRole('columnheader', { name: 'With Theya' })).toBeInTheDocument();
+    await expect(within(table).getByRole('columnheader', { name: 'With Bookmarks' })).toBeInTheDocument();
   },
 };
