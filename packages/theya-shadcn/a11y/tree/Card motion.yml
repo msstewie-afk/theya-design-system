@@ -64,7 +64,7 @@
   - button "Previous slide"
   - button "Next slide"
   - paragraph: Use the left and right arrow keys to move between slides
-  - paragraph: "1 of 8: Reading list"
+  - paragraph
 
 # Wall (patterns-landing-card-motion--wall)
 - heading "Start from a template" [level=2]
