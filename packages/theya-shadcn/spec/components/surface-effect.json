@@ -7,6 +7,7 @@
   "category": "Motion",
   "whenToUse": [
     "Feature and pricing cards on a landing page: a glow under the pointer (`spotlight`), a light running round the border of the plan you recommend (`beam`), a gentle `tilt`, `shine` or `lift` on hover.",
+    "A picture with a second one under it, shown through a circle at the pointer (`reveal`): the color under black and white, the sketch under the render.",
     "`Aurora`: a slow color field behind a hero."
   ],
   "whenNotToUse": [
@@ -51,7 +52,8 @@
   ],
   "a11y": [
     "Decoration only: no role, no focus stop, nothing announced; Aurora is aria-hidden.",
-    "Pointer effects (spotlight, tilt) do nothing on touch screens, so nothing depends on them.",
+    "Pointer effects (spotlight, tilt, reveal) do nothing on touch screens, so nothing depends on them.",
+    "reveal: the revealed layer is aria-hidden decoration; never put text or anything the card needs in it.",
     "Nothing moves on its own (WCAG 2.2.2): the beam light runs only while the card is hovered or holds focus, and Aurora drifts once and rests.",
     "prefers-reduced-motion: no movement; the beam becomes a plain border.",
     "Keep text over Aurora at full contrast: a solid surface under the copy, or the subtle intensity."
@@ -68,7 +70,8 @@
             "spotlight",
             "lift",
             "beam",
-            "shine"
+            "shine",
+            "reveal"
           ],
           "required": true
         },
@@ -78,6 +81,19 @@
           "required": false,
           "default": "8",
           "description": "With `tilt`: the largest turn toward the pointer, in degrees (default 8)."
+        },
+        {
+          "name": "reveal",
+          "type": "ReactNode",
+          "required": false,
+          "description": "With `reveal`: what shows through the circle (same size as the children, e.g. an <img alt=\"\">)."
+        },
+        {
+          "name": "revealSize",
+          "type": "string",
+          "required": false,
+          "default": "8rem",
+          "description": "With `reveal`: the circle's radius (CSS length, default 8rem)."
         }
       ]
     },
@@ -112,6 +128,10 @@
       {
         "name": "AllEffects",
         "id": "motion-surfaceeffect--all-effects"
+      },
+      {
+        "name": "Reveal",
+        "id": "motion-surfaceeffect--reveal"
       },
       {
         "name": "AuroraHero",

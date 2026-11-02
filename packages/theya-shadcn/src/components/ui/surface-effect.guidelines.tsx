@@ -7,6 +7,7 @@ export const surfaceEffectGuidelines: ComponentGuidelines = {
   status: 'beta',
   whenToUse: [
     <>Feature and pricing cards on a landing page: a glow under the pointer (<C>spotlight</C>), a light running round the border of the plan you recommend (<C>beam</C>), a gentle <C>tilt</C>, <C>shine</C> or <C>lift</C> on hover.</>,
+    <>A picture with a second one under it, shown through a circle at the pointer (<C>reveal</C>): the color under black and white, the sketch under the render.</>,
     <><C>Aurora</C>: a slow color field behind a hero.</>,
   ],
   whenNotToUse: [
@@ -27,7 +28,8 @@ export const surfaceEffectGuidelines: ComponentGuidelines = {
   ],
   a11y: [
     'Decoration only: no role, no focus stop, nothing announced; Aurora is aria-hidden.',
-    'Pointer effects (spotlight, tilt) do nothing on touch screens, so nothing depends on them.',
+    'Pointer effects (spotlight, tilt, reveal) do nothing on touch screens, so nothing depends on them.',
+    'reveal: the revealed layer is aria-hidden decoration; never put text or anything the card needs in it.',
     'Nothing moves on its own (WCAG 2.2.2): the beam light runs only while the card is hovered or holds focus, and Aurora drifts once and rests.',
     'prefers-reduced-motion: no movement; the beam becomes a plain border.',
     'Keep text over Aurora at full contrast: a solid surface under the copy, or the subtle intensity.',

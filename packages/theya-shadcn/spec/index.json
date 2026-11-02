@@ -1162,6 +1162,28 @@
       "spec": "spec/components/empty-state.json"
     },
     {
+      "name": "ExpandingPanels",
+      "file": "ui/expanding-panels",
+      "category": "Motion",
+      "status": "beta",
+      "summary": "A landing section that shows three to five things with a strong picture each: collections, use cases, places, products.",
+      "instead": [
+        {
+          "when": "Text people need to read side by side or compare",
+          "use": "Card grid"
+        },
+        {
+          "when": "Questions and answers, settings, long content",
+          "use": "Accordion"
+        },
+        {
+          "when": "More than about five panels — the strips get too narrow to read",
+          "use": "OrbitCarousel or a card rail"
+        }
+      ],
+      "spec": "spec/components/expanding-panels.json"
+    },
+    {
       "name": "Fab",
       "file": "ui/fab",
       "category": "Actions",

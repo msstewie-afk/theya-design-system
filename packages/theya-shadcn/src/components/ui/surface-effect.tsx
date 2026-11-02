@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, type ReactNode } from 'react';
 import { cn } from '../../lib/utils';
 
 /**
@@ -14,6 +14,10 @@ import { cn } from '../../lib/utils';
  * - `shine` — a light streak sweeps across on hover (Shine Sweep).
  * - `lift` — the card rises with a larger shadow on hover (Hover Lift),
  *   `ease-spring`.
+ * - `reveal` — a second picture (`reveal`) shows through a circle that
+ *   follows the pointer (Hover Mask): a sketch under the photo, the dark
+ *   theme under the light one. Decorative only: the revealed layer is
+ *   aria-hidden and must not carry anything the card doesn't already say.
  *
  * Purely visual: no role, no focus, nothing announced. Pointer effects
  * (spotlight, tilt) do nothing on touch; everything is still under
@@ -21,15 +25,19 @@ import { cn } from '../../lib/utils';
  * Pass the card's own radius through `className` (rounded-*) so the
  * effect is clipped to it.
  */
-export type SurfaceEffectKind = 'spotlight' | 'beam' | 'tilt' | 'shine' | 'lift';
+export type SurfaceEffectKind = 'spotlight' | 'beam' | 'tilt' | 'shine' | 'lift' | 'reveal';
 
 export interface SurfaceEffectProps extends React.HTMLAttributes<HTMLDivElement> {
   effect: SurfaceEffectKind;
   /** With `tilt`: the largest turn toward the pointer, in degrees (default 8). */
   maxTilt?: number;
+  /** With `reveal`: what shows through the circle (same size as the children, e.g. an <img alt="">). */
+  reveal?: ReactNode;
+  /** With `reveal`: the circle's radius (CSS length, default 8rem). */
+  revealSize?: string;
 }
 
-export function SurfaceEffect({ effect, maxTilt = 8, className, children, onPointerMove, onPointerLeave, ...props }: SurfaceEffectProps) {
+export function SurfaceEffect({ effect, maxTilt = 8, reveal, revealSize = '8rem', className, children, onPointerMove, onPointerLeave, ...props }: SurfaceEffectProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   const track = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -44,6 +52,10 @@ export function SurfaceEffect({ effect, maxTilt = 8, className, children, onPoin
       const rtl = getComputedStyle(ref.current).direction === 'rtl';
       ref.current.style.setProperty('--spot-x', `${rtl ? r.width - x : x}px`);
       ref.current.style.setProperty('--spot-y', `${y}px`);
+    } else if (effect === 'reveal') {
+      // clip-path circle() is placed from the physical left, in every direction.
+      ref.current.style.setProperty('--mask-x', `${x}px`);
+      ref.current.style.setProperty('--mask-y', `${y}px`);
     } else if (effect === 'tilt') {
       ref.current.style.setProperty('--tilt-x', `${(y / r.height - 0.5) * -maxTilt * 2}deg`);
       ref.current.style.setProperty('--tilt-y', `${(x / r.width - 0.5) * maxTilt * 2}deg`);
@@ -54,7 +66,7 @@ export function SurfaceEffect({ effect, maxTilt = 8, className, children, onPoin
     ref.current?.style.setProperty('--tilt-x', '0deg');
     ref.current?.style.setProperty('--tilt-y', '0deg');
   };
-  const pointer = effect === 'spotlight' || effect === 'tilt' ? { onPointerMove: track, onPointerLeave: reset } : { onPointerMove, onPointerLeave };
+  const pointer = effect === 'spotlight' || effect === 'tilt' || effect === 'reveal' ? { onPointerMove: track, onPointerLeave: reset } : { onPointerMove, onPointerLeave };
 
   if (effect === 'beam') {
     return (
@@ -98,12 +110,28 @@ export function SurfaceEffect({ effect, maxTilt = 8, className, children, onPoin
           "isolate overflow-hidden before:pointer-events-none before:absolute before:inset-y-0 before:-start-[120%] before:z-10 before:w-3/5 before:-skew-x-[20deg] before:bg-[linear-gradient(90deg,transparent,color-mix(in_oklab,white_35%,transparent),transparent)] before:content-[''] hover:before:start-[120%] hover:before:transition-[inset-inline-start] hover:before:duration-[calc(var(--motion-duration-slower)*2)] hover:before:ease-press motion-reduce:before:hidden",
         effect === 'lift' &&
           'transition-[translate,box-shadow] duration-slower ease-spring hover:-translate-y-1.5 hover:shadow-elevation-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0',
+        effect === 'reveal' && 'group/reveal isolate overflow-hidden',
         className,
       )}
       {...pointer}
       {...props}
     >
       {children}
+      {effect === 'reveal' && reveal != null && (
+        <div
+          aria-hidden="true"
+          data-slot="surface-effect-reveal"
+          className={cn(
+            'pointer-events-none absolute inset-0 z-10 [&>img]:size-full [&>img]:object-cover',
+            // A circle of 0 at rest; it opens to revealSize under the pointer and trails it a little.
+            '[clip-path:circle(0_at_var(--mask-x,50%)_var(--mask-y,50%))] group-hover/reveal:[clip-path:circle(var(--reveal-r)_at_var(--mask-x,50%)_var(--mask-y,50%))]',
+            'transition-[clip-path] duration-moderate ease-glide motion-reduce:transition-none',
+          )}
+          style={{ '--reveal-r': revealSize } as React.CSSProperties}
+        >
+          {reveal}
+        </div>
+      )}
     </div>
   );
 }

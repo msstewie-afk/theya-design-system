@@ -4199,6 +4199,62 @@ Also accepts the props of: HTMLAttributes.
 - When results drop to zero after typing or filtering, announce the count in a live region — the empty state itself isn’t one.
 - One primary action at most; a second option goes in as a link or tonal button.
 
+## ExpandingPanels
+
+`import { ExpandingPanels } from '@theya/shadcn/ui/expanding-panels';`
+
+Status: beta · Category: Motion
+Docs: ./?path=/docs/motion-expandingpanels--docs
+
+**When to use**
+
+- A landing section that shows three to five things with a strong picture each: collections, use cases, places, products.
+
+**When not to use**
+
+- Text people need to read side by side or compare → use Card grid
+- Questions and answers, settings, long content → use Accordion
+- More than about five panels — the strips get too narrow to read → use OrbitCarousel or a card rail
+
+**Anatomy**
+
+- Panel: a dark picture panel; open, it takes about five times a strip’s width.
+- Title: a button in a heading (`titleAs`); runs up the strip when closed, sits above the text when open.
+- Content: a line or two and at most one link, shown only in the open panel.
+
+**ExpandingPanels props**
+
+- `items`: `ExpandingPanelsItem[]`
+- `defaultIndex?`: `number`, default `0` — The panel open at first (default 0).
+- `height?`: `string`, default `28rem` — Row height on wide screens (CSS length, default 28rem).
+- `onChange?`: `((index: number) => void)` — Called with the index of the panel that opens.
+- `titleAs?`: `"h2" | "h3" | "h4"`, default `h3` — Heading level of the titles (default h3).
+
+Also accepts the props of: HTMLAttributes.
+
+**Do / Don’t**
+
+- Do: Titles fit the strip; the open text reads at a glance.
+
+  ```tsx
+  <Tile>4 panels, short titles, one line each</Tile>
+  ```
+
+- Don’t: Strips too thin to read and text cut off — use a grid.
+
+  ```tsx
+  <Tile>8 panels with paragraphs</Tile>
+  ```
+
+
+**Accessibility**
+
+- An accordion: each title is a button with aria-expanded in a heading; the open text is a region named by it. One open at a time.
+- Hover (mouse) and keyboard focus open a panel; leaving does not close it, so nothing flickers. Closed text is inert.
+- The row keeps its height — only widths change, nothing below the row moves.
+- Below 768px the panels stack and open downwards, titles horizontal.
+- prefers-reduced-motion: the panels switch without sliding.
+
 ## Fab
 
 `import { Fab, FabSpeedDial } from '@theya/shadcn/ui/fab';`
@@ -9156,6 +9212,7 @@ Docs: ./?path=/docs/motion-surfaceeffect--docs
 **When to use**
 
 - Feature and pricing cards on a landing page: a glow under the pointer (`spotlight`), a light running round the border of the plan you recommend (`beam`), a gentle `tilt`, `shine` or `lift` on hover.
+- A picture with a second one under it, shown through a circle at the pointer (`reveal`): the color under black and white, the sketch under the render.
 - `Aurora`: a slow color field behind a hero.
 
 **When not to use**
@@ -9172,8 +9229,10 @@ Docs: ./?path=/docs/motion-surfaceeffect--docs
 
 **SurfaceEffect props**
 
-- `effect`: `"tilt" | "spotlight" | "lift" | "beam" | "shine"`
+- `effect`: `"tilt" | "spotlight" | "lift" | "beam" | "shine" | "reveal"`
 - `maxTilt?`: `number`, default `8` — With `tilt`: the largest turn toward the pointer, in degrees (default 8).
+- `reveal?`: `ReactNode` — With `reveal`: what shows through the circle (same size as the children, e.g. an <img alt="">).
+- `revealSize?`: `string`, default `8rem` — With `reveal`: the circle's radius (CSS length, default 8rem).
 
 **Aurora props**
 
@@ -9199,7 +9258,8 @@ Also accepts the props of: HTMLAttributes.
 **Accessibility**
 
 - Decoration only: no role, no focus stop, nothing announced; Aurora is aria-hidden.
-- Pointer effects (spotlight, tilt) do nothing on touch screens, so nothing depends on them.
+- Pointer effects (spotlight, tilt, reveal) do nothing on touch screens, so nothing depends on them.
+- reveal: the revealed layer is aria-hidden decoration; never put text or anything the card needs in it.
 - Nothing moves on its own (WCAG 2.2.2): the beam light runs only while the card is hovered or holds focus, and Aurora drifts once and rests.
 - prefers-reduced-motion: no movement; the beam becomes a plain border.
 - Keep text over Aurora at full contrast: a solid surface under the copy, or the subtle intensity.

@@ -17,7 +17,7 @@ const meta = {
     },
     layout: 'padded', guidelines: surfaceEffectGuidelines,
   },
-  argTypes: { effect: { control: 'inline-radio', options: ['spotlight', 'beam', 'tilt', 'shine', 'lift'] }, children: { control: false } },
+  argTypes: { effect: { control: 'inline-radio', options: ['spotlight', 'beam', 'tilt', 'shine', 'lift', 'reveal'] }, children: { control: false } },
   args: { effect: 'spotlight' },
 } satisfies Meta<typeof SurfaceEffect>;
 export default meta;
@@ -44,7 +44,7 @@ export const Default: Story = {
   },
 };
 
-/** All five on one screen for comparison — on a real page, pick one. */
+/** The five card effects on one screen for comparison — on a real page, pick one. (`reveal` needs a second picture: see Reveal.) */
 export const AllEffects: Story = {
   render: () => (
     <div className="grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
@@ -55,6 +55,25 @@ export const AllEffects: Story = {
       ))}
     </div>
   ),
+};
+
+/** `effect="reveal"`: a second picture shows through a circle that follows the pointer — here the color photo under a black-and-white one (Hover Mask). */
+export const Reveal: Story = {
+  render: () => (
+    <SurfaceEffect
+      effect="reveal"
+      className="aspect-[4/3] max-w-xl rounded-[var(--size-border-radius-border-radius-4xl)]"
+      reveal={<img src="/asset-examples/login-carousel-02.jpg" alt="" />}
+    >
+      <img src="/asset-examples/login-carousel-02.jpg" alt="Blue glass blocks in soft light" className="size-full object-cover grayscale" />
+    </SurfaceEffect>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // The picture keeps its name; the revealed copy is decoration.
+    await expect(canvas.getByRole('img', { name: 'Blue glass blocks in soft light' })).toBeInTheDocument();
+    await expect(canvasElement.querySelector('[data-slot=surface-effect-reveal]')).toHaveAttribute('aria-hidden', 'true');
+  },
 };
 
 /** `Aurora` placed behind a hero section: a slow-drifting color field, with the heading and text kept on top at full contrast. */
