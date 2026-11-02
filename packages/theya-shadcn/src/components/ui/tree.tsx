@@ -318,8 +318,11 @@ function TreeItem({ node, depth, parentId, posInSet, setSize, expandedSet, selec
   const labelId = useId();
 
   const entry: FlatNode = { node, depth, parentId, posInSet, setSize, hasChildren };
-  // One rem of indent per level below the root.
-  const indent = `${depth - 1}rem`;
+  // The row keeps its own start padding (0.5rem, as px-2) and adds one rem per
+  // level below the root. The inline value used to replace px-2 altogether, so
+  // first-level rows had no start padding and the selection fill began at the
+  // chevron (Maria, 2026-11-02: a bug). Logical side, so RTL indents from the right.
+  const indent = `${0.5 + (depth - 1)}rem`;
   const DefaultIcon = hasChildren ? Folder : Page;
 
   const handleRowClick = () => {
@@ -350,7 +353,7 @@ function TreeItem({ node, depth, parentId, posInSet, setSize, expandedSet, selec
     >
       <div
         data-slot="tree-row"
-        style={{ paddingLeft: indent }}
+        style={{ paddingInlineStart: indent }}
         className={cn(
           'flex h-8 items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)] px-2',
           'group-focus-visible/treeitem:focus-ring-inset',
