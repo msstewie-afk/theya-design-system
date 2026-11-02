@@ -203,7 +203,7 @@ Docs: ./?path=/docs/overlays-alertdialog--docs
 - `badge?`: `ReactNode | ButtonBadge` — Count or status pinned to the top-right corner (a BadgeIndicator, sm,
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `fullWidth?`: `boolean | null`
-- `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon.
+- `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too).
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
 - `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
@@ -219,7 +219,7 @@ Docs: ./?path=/docs/overlays-alertdialog--docs
 - `badge?`: `ReactNode | ButtonBadge` — Count or status pinned to the top-right corner (a BadgeIndicator, sm,
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `fullWidth?`: `boolean | null`
-- `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon.
+- `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too).
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
 - `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
@@ -1278,7 +1278,7 @@ Docs: ./?path=/docs/actions-button--docs
 - `badge?`: `ReactNode | ButtonBadge` — Count or status pinned to the top-right corner (a BadgeIndicator, sm,
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `fullWidth?`: `boolean | null`, default `false`
-- `iconOnly?`: `boolean`, default `false` — Renders as a square icon-only button (no label). Provide the icon via leftIcon.
+- `iconOnly?`: `boolean`, default `false` — Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too).
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
 - `loading?`: `boolean`, default `false` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
@@ -1673,7 +1673,7 @@ Docs: ./?path=/docs/layout-carousel--docs
 - `badge?`: `ReactNode | ButtonBadge` — Count or status pinned to the top-right corner (a BadgeIndicator, sm,
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `fullWidth?`: `boolean | null`
-- `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon.
+- `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too).
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
 - `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
@@ -1693,7 +1693,7 @@ Docs: ./?path=/docs/layout-carousel--docs
 - `badge?`: `ReactNode | ButtonBadge` — Count or status pinned to the top-right corner (a BadgeIndicator, sm,
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `fullWidth?`: `boolean | null`
-- `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon.
+- `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too).
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
 - `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
@@ -2799,7 +2799,7 @@ Docs: ./?path=/docs/actions-copybutton--docs
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `copiedLabel?`: `ReactNode`, default `Copied (localized: copyButton.copied)` — Label shown for `resetDelay`ms after a successful copy. Default "Copied".
 - `fullWidth?`: `boolean | null`
-- `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon.
+- `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too).
 - `label?`: `ReactNode`, default `Copy (localized: copyButton.copy)` — Visible label beside the icon. Pass null for icon-only (then set aria-label). Default "Copy".
 - `onCopied?`: `((value: string) => void)`
 - `onCopyError?`: `((error: unknown) => void)`
@@ -3146,7 +3146,7 @@ Docs: ./?path=/docs/data-datatablecell--docs
 - `badge?`: `ReactNode | ButtonBadge` — Count or status pinned to the top-right corner (a BadgeIndicator, sm,
 - `badgeLabel?`: `string` — What the badge means, read after the button's name ("5 unread",
 - `fullWidth?`: `boolean | null`
-- `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon.
+- `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too).
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
 - `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.

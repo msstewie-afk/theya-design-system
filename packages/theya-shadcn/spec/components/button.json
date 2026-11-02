@@ -133,7 +133,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Renders as a square icon-only button (no label). Provide the icon via leftIcon."
+          "description": "Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too)."
         },
         {
           "name": "leftIcon",

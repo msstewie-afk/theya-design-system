@@ -86,7 +86,8 @@ export interface AvatarProps extends React.ComponentProps<typeof AvatarPrimitive
    * (`icon`/`src`+`alt`/`initials` below) without composing
    * `AvatarImage`/`AvatarFallback` by hand. Omit `type` and pass
    * `AvatarImage`/`AvatarFallback`/`AvatarBadge` as `children` directly for
-   * full control (e.g. a custom fallback delay, or a badge).
+   * full control (e.g. a custom fallback delay, or a badge). Without `type`
+   * and children it is inferred: `src` → image, `initials` → text, `icon` → icon.
    */
   type?: AvatarContentType;
   /** `type="text"`: the initials/short text to show. */
@@ -134,12 +135,16 @@ export function Avatar({
   // it's set, build `children` from it instead of requiring the caller to
   // compose AvatarImage/AvatarFallback by hand. Explicit `children` (no
   // `type`) still works exactly as before.
+  // Without `type` or children, the shorthand props pick it: src → image,
+  // initials → text, icon → icon. `initials` alone used to render an empty
+  // circle (found in the pilot app, 2026-11-01).
+  const kind = type ?? (children != null ? undefined : src ? 'image' : initials ? 'text' : icon ? 'icon' : undefined);
   const resolvedChildren =
-    type === 'text' ? (
+    kind === 'text' ? (
       <AvatarFallback appearance={appearance}>{initials}</AvatarFallback>
-    ) : type === 'icon' ? (
+    ) : kind === 'icon' ? (
       <AvatarFallback appearance={appearance}>{icon}</AvatarFallback>
-    ) : type === 'image' ? (
+    ) : kind === 'image' ? (
       <>
         <AvatarImage src={src} alt={alt ?? ''} />
         <AvatarFallback appearance={appearance}>{fallback ?? initials ?? icon}</AvatarFallback>

@@ -11,7 +11,7 @@ How to use Theya in a React app. The smallest working example is [`apps/sandbox`
 - A bundler that understands package `exports`: Vite, Next.js, or anything modern. Components carry `'use client'`, so they work in the Next.js App Router as client components.
 - Node 22 and pnpm for the repository itself.
 
-The packages are not on npm yet. An app inside this repository (`apps/*`) depends on them through the workspace:
+The packages are not on npm yet. An app outside the repository installs the packed tarball (`pnpm --dir packages/theya-shadcn pack`; see [`apps/pilot`](apps/pilot)). An app inside this repository (`apps/*`) depends on them through the workspace:
 
 ```json
 { "dependencies": { "@theya/shadcn": "workspace:*" } }
@@ -94,7 +94,14 @@ The theme is an attribute on `<html>`:
 
 - `ThemeToggle` (`ui/theme-toggle`) is a ready-made switch.
 - `useTheme()` (`ui/use-theme`) reads and sets it from your own code: `const { resolvedTheme, setTheme } = useTheme()`.
-- Theya does not remember the choice. Store it in your product (user setting, cookie) and set the attribute again on load, before the first paint, so the page doesn't flash light.
+- `setTheme` (and `ThemeToggle`) remember the choice in localStorage. Render `<ThemeScript />` (`ui/theme-script`) in the document head so it is applied before the first paint and the page doesn't flash light; put `suppressHydrationWarning` on `<html>`:
+
+```tsx
+<html lang="en" suppressHydrationWarning>
+  <head><ThemeScript defaultTheme="system" /></head>
+```
+
+  `defaultTheme` is used until the reader picks one: `light` (default), `dark`, or `system`. The same script restores density chosen with `DensityToggle`. If your product keeps the choice elsewhere (a user setting), set the attribute yourself instead.
 
 ## 5. Product theme and density
 
@@ -132,7 +139,7 @@ The app type-checks Theya's sources too. Add `@types/node` and `"types": ["node"
 - [ ] Tailwind v4 plugin in the bundler; one copy of React
 - [ ] page background and text from tokens
 - [ ] `<Toaster />` once, near the root (if you use toasts)
-- [ ] `data-theme` set from the stored choice before the first paint
+- [ ] `<ThemeScript />` in the head (or `data-theme` set from your stored choice before the first paint)
 - [ ] `TheyaLocaleProvider` with `syncDocument` for a language other than English
 - [ ] texts follow [WRITING.md](WRITING.md)
 

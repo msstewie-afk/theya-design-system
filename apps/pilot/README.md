@@ -36,7 +36,7 @@ and open http://localhost:5190.
   own `'use client'`.
 - One stylesheet: `@import '@theya/shadcn/styles/globals.css'` brings
   Tailwind, the tokens, the fonts and the `@source` for the package.
-- Theme and density survive a reload (`app/preferences.tsx`, the inline
-  script in `layout.tsx`): Theya itself doesn't persist them yet.
+- Theme and density survive a reload: `<ThemeScript defaultTheme="system" />`
+  in `layout.tsx` applies them before the first paint.
 
 The findings are in the project doc `claude/pilot-2026-11-01.md`.

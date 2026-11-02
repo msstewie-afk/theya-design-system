@@ -146,7 +146,7 @@
             "icon"
           ],
           "required": false,
-          "description": "Shorthand for Figma's Type variant — renders the matching content\n(`icon`/`src`+`alt`/`initials` below) without composing\n`AvatarImage`/`AvatarFallback` by hand. Omit `type` and pass\n`AvatarImage`/`AvatarFallback`/`AvatarBadge` as `children` directly for\nfull control (e.g. a custom fallback delay, or a badge)."
+          "description": "Shorthand for Figma's Type variant — renders the matching content\n(`icon`/`src`+`alt`/`initials` below) without composing\n`AvatarImage`/`AvatarFallback` by hand. Omit `type` and pass\n`AvatarImage`/`AvatarFallback`/`AvatarBadge` as `children` directly for\nfull control (e.g. a custom fallback delay, or a badge). Without `type`\nand children it is inferred: `src` → image, `initials` → text, `icon` → icon."
         }
       ]
     },

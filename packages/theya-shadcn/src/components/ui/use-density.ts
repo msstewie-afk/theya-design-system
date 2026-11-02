@@ -1,6 +1,8 @@
 'use client';
 
 import { useCallback, useSyncExternalStore } from 'react';
+import { DENSITY_STORAGE_KEY } from '../../lib/preferences';
+import { remember } from '../../lib/remember';
 
 export type Density = 'compact' | 'default' | 'comfortable';
 
@@ -34,6 +36,7 @@ export function useDensity() {
   const setDensity = useCallback((next: Density) => {
     if (next === 'default') document.documentElement.removeAttribute('data-density');
     else document.documentElement.setAttribute('data-density', next);
+    remember(DENSITY_STORAGE_KEY, next === 'default' ? null : next);
   }, []);
 
   return { density, setDensity };

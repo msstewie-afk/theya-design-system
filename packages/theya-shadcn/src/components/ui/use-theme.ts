@@ -1,6 +1,8 @@
 'use client';
 
 import { useCallback, useSyncExternalStore } from 'react';
+import { THEME_STORAGE_KEY } from '../../lib/preferences';
+import { remember } from '../../lib/remember';
 
 export type Theme = 'light' | 'dark';
 
@@ -14,10 +16,11 @@ function subscribeTheme(onChange: () => void) {
 
 /**
  * Minimal theme hook matching Theya's existing convention — reads/writes
- * `data-theme="dark"` on <html> (see globals.css). No persistence
- * (localStorage/cookies) in this draft; add later if needed. No
- * ThemeProvider dependency — this reads the DOM directly, so it works
- * standalone or alongside one.
+ * `data-theme="dark"` on <html> (see globals.css). `setTheme` also
+ * remembers the choice in localStorage; render `<ThemeScript>` in the
+ * document head to apply it before the first paint. No ThemeProvider
+ * dependency — this reads the DOM directly, so it works standalone or
+ * alongside one.
  */
 export function useTheme() {
   // Read straight from <html data-theme> and follow its changes: right on
@@ -32,6 +35,7 @@ export function useTheme() {
     } else {
       document.documentElement.removeAttribute('data-theme');
     }
+    remember(THEME_STORAGE_KEY, theme);
   }, []);
 
   return { resolvedTheme, setTheme };

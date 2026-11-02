@@ -619,7 +619,7 @@ function decorativeIcon(node: ReactNode): ReactNode {
 export interface ButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'>,
     VariantProps<typeof buttonVariants> {
-  /** Renders as a square icon-only button (no label). Provide the icon via leftIcon. */
+  /** Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too). */
   iconOnly?: boolean;
   /** Icon rendered before the label (or the sole icon when iconOnly is set). */
   leftIcon?: ReactNode;
@@ -831,7 +831,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               className="[&_path]:[stroke-dasharray:20] [&_path]:[stroke-dashoffset:20] [&_path]:animate-[theya-draw_var(--motion-duration-slow)_var(--ease-glide)_forwards] motion-reduce:[&_path]:animate-none motion-reduce:[&_path]:[stroke-dashoffset:0]"
             />
           ) : (
-            decorativeIcon(leftIcon)
+            // iconOnly with the icon passed as children instead of leftIcon:
+            // render it rather than an empty button (found in the pilot app).
+            decorativeIcon(leftIcon ?? (iconOnly ? children : undefined))
           )}
           {/* The label; its changes are announced by the effect above. */}
           {!iconOnly && (

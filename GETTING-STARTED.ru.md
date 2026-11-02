@@ -11,7 +11,7 @@
 - Сборщик, который понимает `exports` пакета: Vite, Next.js или любой современный. У компонентов есть `'use client'`, поэтому в Next.js App Router они работают как клиентские.
 - Для самого репозитория — Node 22 и pnpm.
 
-В npm пакетов пока нет. Приложение внутри репозитория (`apps/*`) подключает их через workspace:
+В npm пакетов пока нет. Приложение вне репозитория ставит упакованный tarball (`pnpm --dir packages/theya-shadcn pack`, пример — [`apps/pilot`](apps/pilot)). Приложение внутри репозитория (`apps/*`) подключает их через workspace:
 
 ```json
 { "dependencies": { "@theya/shadcn": "workspace:*" } }
@@ -94,7 +94,14 @@ export function AddSite() {
 
 - `ThemeToggle` (`ui/theme-toggle`) — готовый переключатель.
 - `useTheme()` (`ui/use-theme`) читает и меняет тему из вашего кода: `const { resolvedTheme, setTheme } = useTheme()`.
-- Theya выбор не запоминает. Храните его в продукте (настройка пользователя, cookie) и ставьте атрибут снова при загрузке, до первой отрисовки, чтобы страница не мигала светлой.
+- `setTheme` (и `ThemeToggle`) запоминают выбор в localStorage. Поставьте `<ThemeScript />` (`ui/theme-script`) в head документа: он применит выбор до первой отрисовки, и страница не мигнёт светлой. На `<html>` нужен `suppressHydrationWarning`:
+
+```tsx
+<html lang="en" suppressHydrationWarning>
+  <head><ThemeScript defaultTheme="system" /></head>
+```
+
+  `defaultTheme` действует, пока читатель ничего не выбрал: `light` (по умолчанию), `dark` или `system`. Тот же скрипт восстанавливает плотность, выбранную в `DensityToggle`. Если продукт хранит выбор у себя (настройка пользователя), ставьте атрибут сами.
 
 ## 5. Продуктовая тема и плотность
 
@@ -132,7 +139,7 @@ import { ruLocale } from '@theya/shadcn/lib/locale-ru';
 - [ ] плагин Tailwind v4 в сборщике; одна копия React
 - [ ] фон страницы и текст из токенов
 - [ ] `<Toaster />` один раз, ближе к корню (если нужны тосты)
-- [ ] `data-theme` ставится из сохранённого выбора до первой отрисовки
+- [ ] `<ThemeScript />` в head (или `data-theme` из сохранённого выбора до первой отрисовки)
 - [ ] `TheyaLocaleProvider` с `syncDocument` для языка, отличного от английского
 - [ ] тексты по [WRITING.ru.md](WRITING.ru.md)
 
