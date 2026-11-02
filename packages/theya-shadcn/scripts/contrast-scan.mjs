@@ -129,7 +129,8 @@ function scan(nontext) {
       if (!track) continue;
       // Every track inside (one bar, or one per segment) is a box with a fill of its own whose child has another fill.
       for (const t of [track, ...track.querySelectorAll('*')]) {
-        if (!visible(t) || !fillOf(t)) continue;
+        // A gradient track (ColorPicker hue / alpha channels) shows the scale itself, not an amount.
+        if (!visible(t) || !fillOf(t) || getComputedStyle(t).backgroundImage !== 'none') continue;
         const fill = [...t.children].find((n) => visible(n) && fillOf(n) && hex(fillOf(n)) !== hex(fillOf(t)));
         if (fill) report(el, 'fill against its track', fillOf(fill), fillOf(t));
       }
@@ -147,6 +148,9 @@ function scan(nontext) {
       // Card-like options (a whole row is the radio) are judged by review, not here.
       const b = el.getBoundingClientRect();
       if (b.width > 32 || b.height > 32) continue;
+      // A box with a fill that already stands out (the white box on a primary bulk bar) needs no border.
+      const box = fillOf(el);
+      if (box && ratio(box, surfaceOf(el)) >= 3) continue;
       const border = borderOf(el);
       if (border) report(el, 'unchecked border against the surface', border, surfaceOf(el));
     }

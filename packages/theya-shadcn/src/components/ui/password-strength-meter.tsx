@@ -37,10 +37,12 @@ function strengthBand(met: number, total: number): PasswordStrengthBand {
   return 'good';
 }
 
+// Icon tokens, as in Meter: the bg fills are under 3:1 against the track in dark (WCAG 1.4.11).
+// Warning keeps the yellow fill in light (Мария, 2026-10-26, the Meter decision); dark uses icon-warning.
 const BAR_COLOR: Record<PasswordStrengthBand, string> = {
-  weak: 'var(--color-bg-danger-bg-danger)',
-  good: 'var(--color-bg-warning-bg-warning)',
-  strong: 'var(--color-bg-success-bg-success)',
+  weak: 'bg-[var(--color-icon-icon-danger)]',
+  good: 'bg-[var(--color-bg-warning-bg-warning)] [[data-theme=dark]_&]:bg-[var(--color-icon-icon-warning)]',
+  strong: 'bg-[var(--color-icon-icon-success)]',
 };
 
 const PERCENT_COLOR: Record<PasswordStrengthBand, string> = {
@@ -93,8 +95,8 @@ export function PasswordStrengthMeter({ value, rules: rulesProp, className }: Pa
           className="flex-1 h-1.5 rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)] overflow-hidden"
         >
           <div
-            className="h-full rounded-full transition-[width,background-color] duration-moderate ease-enter motion-reduce:transition-none"
-            style={{ width: `${percent}%`, backgroundColor: barColor }}
+            className={cn('h-full rounded-full transition-[width,background-color] duration-moderate ease-enter motion-reduce:transition-none', barColor)}
+            style={{ width: `${percent}%` }}
           />
         </div>
         <span

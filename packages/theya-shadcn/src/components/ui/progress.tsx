@@ -25,7 +25,9 @@ export interface ProgressProps extends Omit<React.ComponentProps<typeof Progress
 }
 
 const TRACK = 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]';
-const FILL = 'bg-[var(--color-bg-primary-bg-primary)] forced-colors:forced-color-adjust-none forced-colors:bg-[Highlight]';
+// icon-primary, not bg-primary: in dark the brand fill is 2.0:1 against the track (WCAG 1.4.11);
+// icon-primary is the same blue in light and the lighter primary in dark (4.4:1).
+const FILL = 'bg-[var(--color-icon-icon-primary)] forced-colors:forced-color-adjust-none forced-colors:bg-[Highlight]';
 
 export function Progress({ className, value = 0, indeterminate = false, segments, ...props }: ProgressProps) {
   const pct = Math.min(100, Math.max(0, value));
