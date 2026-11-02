@@ -1335,7 +1335,7 @@ const Typing = () => (
 
 const Indeterminate = () => (
   <span role="progressbar" aria-label="Exporting" className="mi-loader relative block h-1.5 w-full overflow-hidden rounded-full" style={{ background: 'var(--color-bg-neutral-bg-neutral-subtle)' }}>
-    <span className="absolute inset-y-0 start-0 w-2/5 rounded-full bg-[var(--color-bg-primary-bg-primary)] animate-[mi-indeterminate_1.4s_var(--ease-glide)_infinite] rtl:[animation-direction:reverse]" />
+    <span className="absolute inset-y-0 start-0 w-2/5 rounded-full bg-[var(--color-icon-icon-primary)] animate-[mi-indeterminate_1.4s_var(--ease-glide)_infinite] rtl:[animation-direction:reverse]" />
   </span>
 );
 
@@ -1484,7 +1484,7 @@ function SegmentFill({ variant }: { variant?: boolean }) {
         <div role="progressbar" aria-label="Import" aria-valuemin={0} aria-valuemax={5} aria-valuenow={filled} className="flex w-full gap-1">
           {[0, 1, 2, 3, 4].map((n) => (
             <span key={n} className="h-2 flex-1 overflow-hidden rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)]">
-              <span className={cn('block h-full origin-left rounded-full bg-[var(--color-bg-primary-bg-primary)] transition-transform duration-slow ease-glide rtl:origin-right', n < filled ? 'scale-x-100' : 'scale-x-0')} />
+              <span className={cn('block h-full origin-left rounded-full bg-[var(--color-icon-icon-primary)] transition-transform duration-slow ease-glide rtl:origin-right', n < filled ? 'scale-x-100' : 'scale-x-0')} />
             </span>
           ))}
         </div>

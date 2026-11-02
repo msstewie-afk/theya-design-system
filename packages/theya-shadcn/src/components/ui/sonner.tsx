@@ -148,8 +148,11 @@ export function Toaster({ closeButton = true, dark = false, position = 'bottom-r
 
 // Token re-points for parts of toast.progress on the dark toast surface
 // (sonner marks it with data-sonner-theme="dark" on the toaster list).
+// The track is white at 10% and the fill the dark-theme primary (blue-200), so
+// the fill is 3:1 or more against the track (WCAG 1.4.11; at 20% white it was 2.8:1).
 const ON_DARK =
-  '[[data-sonner-theme=dark]_&]:[--color-bg-neutral-bg-neutral-subtle:var(--white-a200)] ' +
+  '[[data-sonner-theme=dark]_&]:[--color-bg-neutral-bg-neutral-subtle:var(--white-a100)] ' +
+  '[[data-sonner-theme=dark]_&]:[--color-icon-icon-primary:var(--color-blue-blue-200)] ' +
   '[[data-sonner-theme=dark]_&]:[--color-text-text-subtler:var(--color-text-text-subtle-on-dark)] ' +
   '[[data-sonner-theme=dark]_&]:[--color-text-text:var(--color-text-text-on-dark)]';
 
