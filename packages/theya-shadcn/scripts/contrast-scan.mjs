@@ -18,6 +18,14 @@
  * measured once their animations have finished.
  *
  *   node scripts/contrast-scan.mjs --url http://localhost:6008 [--only <title-substring>] [--workers 6] [--themes light,dark] [--out report.json]
+ *
+ * --nontext: WCAG 1.4.11 instead — the parts of controls and indicators that
+ * carry their state, each against what is next to it (3:1):
+ * - progressbar / meter / slider: the filled part against its track;
+ * - switch: the track against the surface (unless it has a 3:1 border), the thumb against the track;
+ * - checkbox / radio (unchecked): the border against the surface;
+ * - text fields, textareas, select / combobox triggers: the border against the surface.
+ * The focus ring is not measured: its contrast is a library-wide accepted deviation.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -36,12 +44,13 @@ const ONLY = arg('only', '');
 const WORKERS = Number(arg('workers', '4'));
 const THEMES = arg('themes', 'light,dark').split(',');
 const OUT = arg('out', '');
+const NONTEXT = process.argv.includes('--nontext');
 
 const index = await (await fetch(`${URL_BASE}/index.json`)).json();
 const stories = Object.values(index.entries).filter((e) => e.type === 'story' && (!ONLY || e.title.includes(ONLY)));
 
-/** Runs in the page: every low-contrast text run in #storybook-root. */
-function scan() {
+/** Runs in the page: every low-contrast text run (or, with nontext, control part) in #storybook-root. */
+function scan(nontext) {
   const parse = (c) => {
     const m = c.match(/rgba?\(([^)]+)\)/);
     if (!m) return null;
@@ -101,6 +110,61 @@ function scan() {
   const out = [];
   const root = document.getElementById('storybook-root');
   if (!root) return out;
+  if (nontext) {
+    const visible = (el) => { const b = el.getBoundingClientRect(); return b.width > 1 && b.height > 1 && !hiddenSr(el); };
+    const inactive = (el) => !!el.closest(':disabled, [aria-disabled="true"], fieldset:disabled, [data-disabled], [inert]');
+    const colorOf = (c, el) => { const p = parse(c); if (!p || p.a === 0) return null; return over({ ...p, a: p.a * opacityOf(el) }, backgroundOf(el.parentElement) ?? base); };
+    const fillOf = (el) => { const p = parse(getComputedStyle(el).backgroundColor); if (!p || p.a === 0) return null; return over({ ...p, a: p.a * opacityOf(el) }, backgroundOf(el.parentElement) ?? base); };
+    const borderOf = (el) => { const cs = getComputedStyle(el); return parseFloat(cs.borderTopWidth) >= 1 && cs.borderTopStyle !== 'none' ? colorOf(cs.borderTopColor, el) : null; };
+    const report = (el, what, a, b) => {
+      const r = ratio(a, b);
+      if (r + 0.005 < 3) out.push({ text: what, ratio: Math.round(r * 100) / 100, need: 3, fg: hex(a), bg: hex(b), hidden: false, path: [el.getAttribute('role') ?? el.tagName.toLowerCase(), el.getAttribute('data-slot') ?? el.closest('[data-slot]')?.getAttribute('data-slot') ?? ''].filter(Boolean).join(' in ') });
+    };
+    const surfaceOf = (el) => backgroundOf(el.parentElement) ?? base;
+    for (const el of root.querySelectorAll('[role=progressbar], [role=meter], [role=slider]')) {
+      if (!visible(el) || inactive(el)) continue;
+      // The track is the element (or, for a slider thumb, its track's parent); the fill is a descendant with a different color.
+      // Radix Slider: the thumb sits in a wrapper inside the root, next to the track.
+      const track = el.getAttribute('role') === 'slider' ? el.parentElement?.parentElement ?? null : el;
+      if (!track) continue;
+      // Every track inside (one bar, or one per segment) is a box with a fill of its own whose child has another fill.
+      for (const t of [track, ...track.querySelectorAll('*')]) {
+        if (!visible(t) || !fillOf(t)) continue;
+        const fill = [...t.children].find((n) => visible(n) && fillOf(n) && hex(fillOf(n)) !== hex(fillOf(t)));
+        if (fill) report(el, 'fill against its track', fillOf(fill), fillOf(t));
+      }
+    }
+    for (const el of root.querySelectorAll('[role=switch]')) {
+      if (!visible(el) || inactive(el)) continue;
+      const trackColor = fillOf(el) ?? surfaceOf(el);
+      const border = borderOf(el);
+      if (!(border && ratio(border, surfaceOf(el)) >= 3)) report(el, 'track against the surface', trackColor, surfaceOf(el));
+      const thumb = [...el.querySelectorAll('*')].find((n) => visible(n) && fillOf(n));
+      if (thumb) report(el, 'thumb against the track', fillOf(thumb), trackColor);
+    }
+    for (const el of root.querySelectorAll('[role=checkbox], [role=radio], input[type=checkbox], input[type=radio]')) {
+      if (!visible(el) || inactive(el) || el.getAttribute('aria-checked') === 'true' || el.getAttribute('data-state') === 'checked' || el.checked) continue;
+      // Card-like options (a whole row is the radio) are judged by review, not here.
+      const b = el.getBoundingClientRect();
+      if (b.width > 32 || b.height > 32) continue;
+      const border = borderOf(el);
+      if (border) report(el, 'unchecked border against the surface', border, surfaceOf(el));
+    }
+    for (const el of root.querySelectorAll('input:not([type=checkbox]):not([type=radio]):not([type=hidden]):not([type=range]), textarea, button[role=combobox], [data-slot=select-trigger]')) {
+      if (!visible(el) || inactive(el)) continue;
+      // The visible box can be a wrapper (InputGroup, a field with icons): measure the nearest bordered box.
+      let box = el;
+      for (let i = 0; i < 3 && box && !borderOf(box); i++) box = box.parentElement;
+      if (!box || box === root) continue;
+      const border = borderOf(box);
+      const surface = surfaceOf(box);
+      const field = fillOf(box);
+      // A filled field whose fill already stands out at 3:1 doesn't need the border.
+      if (field && ratio(field, surface) >= 3) continue;
+      if (border) report(el, 'field border against the surface', border, surface);
+    }
+    return out;
+  }
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
   const seen = new Set();
   for (let t = walker.nextNode(); t; t = walker.nextNode()) {
@@ -168,9 +232,11 @@ const results = [];
 const queue = THEMES.flatMap((theme) => stories.map((s) => ({ s, theme })));
 await Promise.all(
   Array.from({ length: WORKERS }, async () => {
-    const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+    let page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
     for (let job = queue.shift(); job; job = queue.shift()) {
       const { s, theme } = job;
+      // A crashed page stays dead: open a fresh one and give the story one more try.
+      if (page.isClosed()) page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
       try {
         await page.goto(`${URL_BASE}/iframe.html?id=${s.id}&viewMode=story&globals=theme:${theme}`, { waitUntil: 'load', timeout: 20000 });
         await page.waitForSelector('#storybook-root > *', { timeout: 8000 }).catch(() => {});
@@ -192,9 +258,15 @@ await Promise.all(
         await settle();
         // A toast still sliding in after its mount (Sonner sets data-mounted first).
         await page.waitForTimeout(400);
-        const found = await page.evaluate(scan);
+        const found = await page.evaluate(scan, NONTEXT);
         for (const f of found) results.push({ story: s.id, title: s.title, theme, ...f });
       } catch (e) {
+        if (/crashed|closed/i.test(String(e)) && !job.retried) {
+          await page.close().catch(() => {});
+          page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+          queue.push({ ...job, retried: true });
+          continue;
+        }
         results.push({ story: s.id, title: s.title, theme, error: String(e).slice(0, 160) });
       }
     }
@@ -218,6 +290,6 @@ for (const g of lines) {
   console.log(`${g.ratio.toFixed(2)} < ${g.need}  ${g.theme.padEnd(5)}  ${g.title}  ${g.fg} on ${g.bg}${g.hidden ? '  (aria-hidden)' : ''}  "${[...g.samples].slice(0, 3).join('", "')}"  [${g.path}]`);
 }
 const errors = results.filter((r) => r.error).length;
-console.log(`\ncontrast-scan: ${stories.length} stories × ${THEMES.length} themes, ${lines.length} finding(s), ${errors} load error(s)`);
+console.log(`\ncontrast-scan${NONTEXT ? ' (non-text, 1.4.11)' : ''}: ${stories.length} stories × ${THEMES.length} themes, ${lines.length} finding(s), ${errors} load error(s)`);
 if (OUT) fs.writeFileSync(OUT, JSON.stringify({ findings: lines.map((g) => ({ ...g, samples: [...g.samples] })), errors: results.filter((r) => r.error) }, null, 2) + '\n');
 process.exitCode = lines.length ? 1 : 0;
