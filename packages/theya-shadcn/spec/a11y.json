@@ -12701,6 +12701,10 @@
       "deviations": [
         {
           "criterion": "1.4.11",
+          "note": "Warning tone, light theme: the white thumb on the amber track is 1.89:1. The on state is also shown by the dark check in the thumb (17:1; checkIcon is on by default), so the state stays visible; with checkIcon={false} a checked warning switch in light shows its state only by thumb position against 1.89:1. Kept by Мария, 2026-11-02, after trying a dark thumb and a brown track."
+        },
+        {
+          "criterion": "1.4.11",
           "note": "The focus ring is the only visible focus change, and it is under 3:1 (1.53:1 light, ~1.9:1 dark). Library-wide accepted deviation, 2026-09-27; confirmed 2026-10-26 after comparing a solid 2px ring on live components."
         }
       ],

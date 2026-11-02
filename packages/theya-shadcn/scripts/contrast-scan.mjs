@@ -147,7 +147,10 @@ function scan(nontext) {
       const border = borderOf(el);
       if (!(border && ratio(border, surfaceOf(el)) >= 3)) report(el, 'track against the surface', trackColor, surfaceOf(el));
       const thumb = [...el.querySelectorAll('*')].find((n) => visible(n) && fillOf(n));
-      if (thumb) report(el, 'thumb against the track', fillOf(thumb), trackColor);
+      // A glyph in the thumb (Switch's check) that stands out from the thumb carries the state by itself.
+      const glyph = thumb && [...thumb.querySelectorAll('svg')].find((g) => visible(g) && Number(getComputedStyle(g).opacity) > 0.5);
+      const marked = glyph && ratio(colorOf(getComputedStyle(glyph).color, glyph) ?? fillOf(thumb), fillOf(thumb)) >= 3;
+      if (thumb && !marked) report(el, 'thumb against the track', fillOf(thumb), trackColor);
     }
     for (const el of root.querySelectorAll('[role=checkbox], [role=radio], input[type=checkbox], input[type=radio]')) {
       if (!visible(el) || inactive(el) || el.getAttribute('aria-checked') === 'true' || el.getAttribute('data-state') === 'checked' || el.checked) continue;

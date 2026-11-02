@@ -1857,6 +1857,7 @@
     }
   },
   "deviations": {
+    "Switch": [{"criterion": "1.4.11", "note": "Warning tone, light theme: the white thumb on the amber track is 1.89:1. The on state is also shown by the dark check in the thumb (17:1; checkIcon is on by default), so the state stays visible; with checkIcon={false} a checked warning switch in light shows its state only by thumb position against 1.89:1. Kept by Мария, 2026-11-02, after trying a dark thumb and a brown track."}],
     "Autocomplete": [
       { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." }
     ],
