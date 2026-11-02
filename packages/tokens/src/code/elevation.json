@@ -1,41 +1,41 @@
 {
   "elevation": {
     "xs": {
-      "value": "0 1px 1px 0 rgba(16, 18, 40, 0.07), 0 1px 3px 0 rgba(16, 18, 40, 0.04)"
+      "value": "0 1px 1px 0 rgba(61, 72, 143, 0.06), 0 1px 3px 0 rgba(61, 72, 143, 0.035)"
     },
     "sm": {
-      "value": "0 1px 1px 0 rgba(16, 18, 40, 0.06), 0 2px 4px 0 rgba(16, 18, 40, 0.05), 0 4px 8px 0 rgba(16, 18, 40, 0.03)"
+      "value": "0 1px 1px 0 rgba(61, 72, 143, 0.07), 0 2px 4px 0 rgba(61, 72, 143, 0.045), 0 4px 8px 0 rgba(61, 72, 143, 0.025)"
     },
     "md": {
-      "value": "0 1px 1px 0 rgba(16, 18, 40, 0.06), 0 3px 6px 0 rgba(16, 18, 40, 0.05), 0 8px 16px 0 rgba(16, 18, 40, 0.04)"
+      "value": "0 1px 1px 0 rgba(61, 72, 143, 0.07), 0 3px 6px 0 rgba(61, 72, 143, 0.05), 0 8px 16px 0 rgba(61, 72, 143, 0.04), 0 16px 32px 0 rgba(61, 72, 143, 0.025)"
     },
     "lg": {
-      "value": "0 0 0 1px rgba(16, 18, 40, 0.05), 0 1px 2px 0 rgba(16, 18, 40, 0.06), 0 6px 12px 0 rgba(16, 18, 40, 0.05), 0 16px 32px 0 rgba(16, 18, 40, 0.045), 0 28px 56px 0 rgba(16, 18, 40, 0.03)"
+      "value": "0 0 0 1px rgba(61, 72, 143, 0.05), 0 1px 2px 0 rgba(61, 72, 143, 0.06), 0 6px 12px 0 rgba(61, 72, 143, 0.045), 0 16px 32px 0 rgba(61, 72, 143, 0.04), 0 28px 56px 0 rgba(61, 72, 143, 0.025)"
     },
     "xl": {
-      "value": "0 0 0 1px rgba(16, 18, 40, 0.06), 0 2px 4px 0 rgba(16, 18, 40, 0.06), 0 10px 20px 0 rgba(16, 18, 40, 0.05), 0 24px 48px 0 rgba(16, 18, 40, 0.045), 0 44px 80px 0 rgba(16, 18, 40, 0.035)"
+      "value": "0 0 0 1px rgba(61, 72, 143, 0.06), 0 2px 4px 0 rgba(61, 72, 143, 0.06), 0 10px 20px 0 rgba(61, 72, 143, 0.045), 0 24px 48px 0 rgba(61, 72, 143, 0.04), 0 44px 80px 0 rgba(61, 72, 143, 0.03)"
     },
     "edge-up": {
-      "value": "0 -16px 32px -10px rgba(12, 12, 24, 0.18), 0 -24px 56px -12px rgba(12, 12, 24, 0.18)"
+      "value": "0 -16px 32px -10px rgba(61, 72, 143, 0.12), 0 -24px 56px -12px rgba(61, 72, 143, 0.12)"
     },
     "smooth-xs": {
-      "value": "0 1px 1px 0 rgba(16, 18, 40, 0.05), 0 2px 2px 0 rgba(16, 18, 40, 0.05)",
+      "value": "0 1px 1px 0 rgba(61, 72, 143, 0.045), 0 2px 2px 0 rgba(61, 72, 143, 0.045)",
       "comment": "Alternative scale (smooth): layers doubling 1→32px, the same low alpha on each. Not used by components yet."
     },
     "smooth-sm": {
-      "value": "0 1px 1px 0 rgba(16, 18, 40, 0.05), 0 2px 2px 0 rgba(16, 18, 40, 0.05), 0 4px 4px 0 rgba(16, 18, 40, 0.05)",
+      "value": "0 1px 1px 0 rgba(61, 72, 143, 0.045), 0 2px 2px 0 rgba(61, 72, 143, 0.045), 0 4px 4px 0 rgba(61, 72, 143, 0.045)",
       "comment": "Alternative scale (smooth): layers doubling 1→32px, the same low alpha on each. Not used by components yet."
     },
     "smooth-md": {
-      "value": "0 1px 1px 0 rgba(16, 18, 40, 0.05), 0 2px 2px 0 rgba(16, 18, 40, 0.05), 0 4px 4px 0 rgba(16, 18, 40, 0.05), 0 8px 8px 0 rgba(16, 18, 40, 0.05)",
+      "value": "0 1px 1px 0 rgba(61, 72, 143, 0.045), 0 2px 2px 0 rgba(61, 72, 143, 0.045), 0 4px 4px 0 rgba(61, 72, 143, 0.045), 0 8px 8px 0 rgba(61, 72, 143, 0.045)",
       "comment": "Alternative scale (smooth): layers doubling 1→32px, the same low alpha on each. Not used by components yet."
     },
     "smooth-lg": {
-      "value": "0 0 0 1px rgba(16, 18, 40, 0.05), 0 1px 1px 0 rgba(16, 18, 40, 0.05), 0 2px 2px 0 rgba(16, 18, 40, 0.05), 0 4px 4px 0 rgba(16, 18, 40, 0.05), 0 8px 8px 0 rgba(16, 18, 40, 0.05), 0 16px 16px 0 rgba(16, 18, 40, 0.05)",
+      "value": "0 0 0 1px rgba(61, 72, 143, 0.05), 0 1px 1px 0 rgba(61, 72, 143, 0.045), 0 2px 2px 0 rgba(61, 72, 143, 0.045), 0 4px 4px 0 rgba(61, 72, 143, 0.045), 0 8px 8px 0 rgba(61, 72, 143, 0.045), 0 16px 16px 0 rgba(61, 72, 143, 0.045)",
       "comment": "Alternative scale (smooth): layers doubling 1→32px, the same low alpha on each. Not used by components yet."
     },
     "smooth-xl": {
-      "value": "0 0 0 1px rgba(16, 18, 40, 0.06), 0 1px 1px 0 rgba(16, 18, 40, 0.05), 0 2px 2px 0 rgba(16, 18, 40, 0.05), 0 4px 4px 0 rgba(16, 18, 40, 0.05), 0 8px 8px 0 rgba(16, 18, 40, 0.05), 0 16px 16px 0 rgba(16, 18, 40, 0.05), 0 32px 32px 0 rgba(16, 18, 40, 0.05)",
+      "value": "0 0 0 1px rgba(61, 72, 143, 0.06), 0 1px 1px 0 rgba(61, 72, 143, 0.045), 0 2px 2px 0 rgba(61, 72, 143, 0.045), 0 4px 4px 0 rgba(61, 72, 143, 0.045), 0 8px 8px 0 rgba(61, 72, 143, 0.045), 0 16px 16px 0 rgba(61, 72, 143, 0.045), 0 32px 32px 0 rgba(61, 72, 143, 0.045)",
       "comment": "Alternative scale (smooth): layers doubling 1→32px, the same low alpha on each. Not used by components yet."
     }
   },

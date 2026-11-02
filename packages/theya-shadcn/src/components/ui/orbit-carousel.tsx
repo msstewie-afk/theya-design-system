@@ -313,7 +313,7 @@ function Drum({ items, pos, width, lean, motion, slide, center }: ShapeProps & {
   // Distance from the axis so neighbouring cards just touch, plus a gap.
   // With a word in the middle, the drum widens so the cards clear it.
   const radius = Math.round((width / 2 + 12) / Math.tan(Math.PI / n)) + (center ? 72 : 0);
-  const transition = motion ? 'transition-[transform,filter,opacity] duration-slower ease-glide motion-reduce:transition-none' : '';
+  const transition = motion ? 'transition-[transform,opacity] duration-slower ease-glide motion-reduce:transition-none' : '';
   return (
     <div className="absolute inset-0 [transform-style:preserve-3d]">
       {center && <div className="absolute inset-0 flex items-center justify-center [transform:translateZ(0)]">{center}</div>}
@@ -332,9 +332,9 @@ function Drum({ items, pos, width, lean, motion, slide, center }: ShapeProps & {
               className={cn('absolute inset-x-0 top-1/2', !center && '[backface-visibility:hidden]', transition)}
               style={{
                 transform: `translateY(-50%) rotateY(${i * step}deg) translateZ(${radius}px)`,
-                filter: `brightness(${0.55 + 0.45 * Math.max(0, facing)})`,
-                // Round a word, the cards at the back stay faintly visible behind it.
-                opacity: center && facing < -0.2 ? 0.5 : 1,
+                // Cards turning away fade into the page rather than darken: a darkened photo reads
+                // as dirt on a light page. Round a word, the cards at the back stay faintly visible.
+                opacity: center ? (facing < -0.2 ? 0.45 : 0.55 + 0.45 * Math.max(0, facing)) : 0.35 + 0.65 * Math.max(0, facing),
               }}
             >
               {item}
@@ -384,7 +384,7 @@ function Wall({ items, pos, index, width, lean, motion, slide }: ShapeProps) {
   // A wide cylinder (radius 2.6 cards) seen from inside, the cards side by side with a small gap.
   const radius = Math.round(width * 2.6);
   const step = (2 * Math.asin((width / 2 + 10) / radius) * 180) / Math.PI;
-  const transition = motion ? 'transition-[transform,filter,opacity] duration-slower ease-spring motion-reduce:transition-none' : '';
+  const transition = motion ? 'transition-[transform,opacity] duration-slower ease-spring motion-reduce:transition-none' : '';
   return (
     <div className="absolute inset-0 [transform-style:preserve-3d]">
       <div
@@ -404,8 +404,7 @@ function Wall({ items, pos, index, width, lean, motion, slide }: ShapeProps) {
               style={{
                 width,
                 transform: `rotateY(${-i * step}deg) translateZ(${-radius}px)`,
-                filter: `brightness(${i === index ? 1 : 0.92 - 0.12 * (Math.min(Math.abs(rel), 60) / 60)})`,
-                opacity: out ? 0 : 1,
+                opacity: out ? 0 : i === index ? 1 : 0.85 - 0.3 * (Math.min(Math.abs(rel), 60) / 60),
                 visibility: out ? 'hidden' : undefined,
               }}
             >
@@ -430,7 +429,7 @@ function Fan({ items, pos, index, width, motion, slide, seen, dealing, onPick }:
             <div className="pointer-events-auto relative" style={{ width: `min(${width}px, 72vw)` }}>
               <div
                 {...slide(i)}
-                className={cn('[transform-origin:50%_140%] [&>*]:h-full', motion && 'transition-[rotate,scale,translate,filter,opacity] duration-slower ease-spring motion-reduce:transition-none')}
+                className={cn('[transform-origin:50%_140%] [&>*]:h-full', motion && 'transition-[rotate,scale,translate,opacity] duration-slower ease-spring motion-reduce:transition-none')}
                 style={
                   !seen
                     ? // Before the deal: all in a pile below the stage.
@@ -438,7 +437,6 @@ function Fan({ items, pos, index, width, motion, slide, seen, dealing, onPick }:
                     : {
                         rotate: `${d * 9}deg`,
                         scale: `${1 - Math.min(ad, 3) * 0.06}`,
-                        filter: `brightness(${1 - Math.min(ad, 3) * 0.12})`,
                         opacity: ad > 3.2 ? 0 : 1,
                         // The middle card first, then outward, pair by pair. raw-ok: a stagger step, not a duration.
                         transitionDelay: dealing ? `${Math.round(ad) * 110}ms` : undefined,
@@ -479,7 +477,7 @@ function Rolodex({ items, pos, width, motion, slide }: ShapeProps) {
     return () => ro.disconnect();
   }, []);
   const radius = Math.round((h / 2 + 8) / Math.tan(((step / 2) * Math.PI) / 180));
-  const transition = motion ? 'transition-[transform,filter,opacity] duration-slower ease-glide motion-reduce:transition-none' : '';
+  const transition = motion ? 'transition-[transform,opacity] duration-slower ease-glide motion-reduce:transition-none' : '';
   return (
     <div className="absolute inset-0 [transform-style:preserve-3d]">
       {items.map((item, i) => {
@@ -497,8 +495,7 @@ function Rolodex({ items, pos, width, motion, slide }: ShapeProps) {
               // Turn round an axis `radius` behind the card: the next one (k = 1) comes up from below.
               transformOrigin: `50% 50% ${-radius}px`,
               transform: `translate(-50%, -50%) rotateX(${-k * step}deg)`,
-              filter: `brightness(${1 - Math.min(Math.abs(k), 2) * 0.18})`,
-              opacity: out ? 0 : 1,
+              opacity: out ? 0 : 1 - Math.min(Math.abs(k), 2) * 0.25,
               zIndex: 10 - Math.round(Math.abs(k)),
             }}
           >
@@ -512,7 +509,7 @@ function Rolodex({ items, pos, width, motion, slide }: ShapeProps) {
 
 function Pile({ items, pos, width, motion, slide, cascade }: ShapeProps & { cascade: boolean }) {
   const n = items.length;
-  const transition = motion ? 'transition-[transform,filter,opacity] duration-slower ease-spring motion-reduce:transition-none' : '';
+  const transition = motion ? 'transition-[transform,opacity] duration-slower ease-spring motion-reduce:transition-none' : '';
   return (
     // Flat (no preserve-3d): each card has its own perspective, so z-index — not 3D depth — decides which is on top.
     <div className="absolute inset-0">
@@ -533,7 +530,6 @@ function Pile({ items, pos, width, motion, slide, cascade }: ShapeProps & { casc
             style={{
               width,
               transform: `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${1 - Math.min(ak, 3) * (cascade ? 0.1 : 0.08)})${tilt}`,
-              filter: `brightness(${1 - Math.min(ak, 3) * 0.12})`,
               opacity: visible ? 1 : 0,
               // The front card on top; behind it, the nearer ones over the farther.
               zIndex: 10 - Math.round(ak),
