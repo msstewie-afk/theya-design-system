@@ -109,7 +109,8 @@ function Slider({
           className={cn(
             'absolute rounded-full',
             'data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full',
-            invalid ? 'bg-[var(--color-bg-danger-bg-danger)]' : 'bg-[var(--color-bg-primary-bg-primary)]',
+            // Icon tokens: the bg fills are under 3:1 against the track in dark (WCAG 1.4.11); same color in light.
+            invalid ? 'bg-[var(--color-icon-icon-danger)]' : 'bg-[var(--color-icon-icon-primary)]',
             'forced-colors:bg-[Highlight]',
           )}
         />
