@@ -2,6 +2,7 @@
 
 import { Children, useEffect, useRef, useState, type ComponentProps, type ReactNode } from 'react';
 import { cn } from '../../../lib/utils';
+import { useTheyaI18n } from '../../../lib/i18n';
 import { inertProps } from '../../../lib/inert';
 import { useMediaQuery } from '../../ui/use-media-query';
 import { useScrollFrame } from '../../ui/use-scroll-frame';
@@ -44,6 +45,7 @@ export interface CardDeckProps extends ComponentProps<'section'> {
  * dots say where you are. Reduced motion: the cards are a plain list.
  */
 export function CardDeck({ pace = 0.9, hold = 0.55, header, className, children, 'aria-label': label, ...props }: CardDeckProps) {
+  const { t } = useTheyaI18n();
   const reduced = useMediaQuery('(prefers-reduced-motion: reduce)');
   const cards = Children.toArray(children);
   const n = cards.length;
@@ -133,7 +135,7 @@ export function CardDeck({ pace = 0.9, hold = 0.55, header, className, children,
           </div>
         </div>
         {/* Where you are in the deck. */}
-        <ol aria-label={`${label}: card ${front + 1} of ${n}`} className="m-0 flex list-none gap-2 p-0">
+        <ol aria-label={t.landing.cardOf(label, front + 1, n)} className="m-0 flex list-none gap-2 p-0">
           {cards.map((_, i) => (
             <li
               key={i}
@@ -211,7 +213,9 @@ export function ScrollHighlight({ className, children, ...props }: ScrollHighlig
       if (!spans) return;
       const lit = p * spans.length;
       spans.forEach((s, i) => {
-        s.style.opacity = String(0.28 + 0.72 * clamp(lit - i));
+        // Unlit words are the subtle text color (a text token, 4.5:1 or more), lit ones the full one:
+        // the effect never drops a word below readable contrast (WCAG 1.4.3).
+        s.style.setProperty('--lit', `${Math.round(clamp(lit - i) * 100)}%`);
       });
     },
     !reduced,
@@ -222,7 +226,7 @@ export function ScrollHighlight({ className, children, ...props }: ScrollHighlig
         /\s+/.test(w) ? (
           w
         ) : (
-          <span key={i} data-word className="transition-opacity duration-standard">
+          <span key={i} data-word className="[color:color-mix(in_oklab,var(--color-text-text)_var(--lit,100%),var(--color-text-text-subtle))] transition-colors duration-standard">
             {w}
           </span>
         ),

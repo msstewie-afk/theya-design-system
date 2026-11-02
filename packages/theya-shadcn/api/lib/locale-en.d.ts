@@ -137,6 +137,12 @@ export declare const en: {
     siteHeader: {
         skipToContent: string;
     };
+    landing: {
+        steps: string;
+        features: string;
+        readStory: string;
+        cardOf: (label: string, i: number, n: number) => string;
+    };
     dataTable: {
         rowActionsFor: (label: string) => string;
         selectAll: string;
@@ -783,6 +789,12 @@ export declare const enLocale: {
         };
         siteHeader: {
             skipToContent: string;
+        };
+        landing: {
+            steps: string;
+            features: string;
+            readStory: string;
+            cardOf: (label: string, i: number, n: number) => string;
         };
         dataTable: {
             rowActionsFor: (label: string) => string;

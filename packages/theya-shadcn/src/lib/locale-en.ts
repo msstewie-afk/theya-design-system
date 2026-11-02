@@ -106,6 +106,7 @@ export const en = {
     retry: (name: string) => `Retry ${name}`,
   },
   siteHeader: { skipToContent: 'Skip to content' },
+  landing: { steps: 'Steps', features: 'Features', readStory: 'Read the story', cardOf: (label: string, i: number, n: number) => `${label}: card ${i} of ${n}` },
   dataTable: {
     rowActionsFor: (label: string) => `Actions for ${label}`,
     selectAll: 'Select all',

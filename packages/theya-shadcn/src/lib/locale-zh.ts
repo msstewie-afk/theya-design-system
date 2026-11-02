@@ -83,6 +83,7 @@ export const zh: TheyaMessages = {
     retry: (name) => `重试 ${name}`,
   },
   siteHeader: { skipToContent: '跳到主要内容' },
+  landing: { steps: '步骤', features: '功能', readStory: '阅读案例', cardOf: (label, i, n) => `${label}：第 ${i} 张卡片，共 ${n} 张` },
   dataTable: {
     rowActionsFor: (label) => `${label}的操作`,
     selectAll: '全选',

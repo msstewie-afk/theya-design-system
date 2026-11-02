@@ -123,6 +123,7 @@ export const ru: TheyaMessages = {
     retry: (name) => `Повторить ${name}`,
   },
   siteHeader: { skipToContent: 'Перейти к содержимому' },
+  landing: { steps: 'Шаги', features: 'Возможности', readStory: 'Читать историю', cardOf: (label, i, n) => `${label}: карточка ${i} из ${n}` },
   dataTable: {
     rowActionsFor: (label) => `Действия: ${label}`,
     selectAll: 'Выбрать все',

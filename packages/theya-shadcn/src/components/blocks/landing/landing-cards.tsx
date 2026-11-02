@@ -3,6 +3,7 @@
 import { useRef, type ComponentProps, type PointerEvent, type ReactNode } from 'react';
 import { ArrowRight, ArrowUpRight } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
+import { useTheyaI18n } from '../../../lib/i18n';
 import { SurfaceEffect } from '../../ui/surface-effect';
 
 /*
@@ -321,14 +322,16 @@ export interface StoryCardProps extends Omit<LandingCardProps, 'title'> {
 }
 
 /** A customer story: who, the result as a number, a line in their words (monday). */
-export function StoryCard({ media, company, label, stat, quote, cite, href, linkLabel: link = 'Read the story', className, ...props }: StoryCardProps) {
+export function StoryCard({ media, company, label, stat, quote, cite, href, linkLabel: linkProp, className, ...props }: StoryCardProps) {
+  const { t } = useTheyaI18n();
+  const link = linkProp ?? t.landing.readStory;
   return (
     <LandingCard className={className} {...props}>
       {media && <div className="flex min-h-[20rem] items-center justify-center overflow-hidden bg-[var(--color-bg-surface-bg-surface-sunken)] p-6 [&>img]:size-full [&>img]:object-cover">{media}</div>}
       <div className="flex flex-1 flex-col gap-4 p-6">
         <div className="flex flex-col gap-1">
           {label && <p className="m-0 font-body text-body-s font-semibold uppercase tracking-[0.08em] text-[var(--color-text-text-subtle)]">{label}</p>}
-          <CardTitleLink href={href} aria-label={`${company}: ${typeof link === 'string' ? link.toLowerCase() : 'read the story'}`} className="text-heading-xs font-semibold">
+          <CardTitleLink href={href} aria-label={`${company}: ${typeof link === 'string' ? link : t.landing.readStory}`} className="text-heading-xs font-semibold">
             {company}
           </CardTitleLink>
         </div>

@@ -97,6 +97,7 @@ export const ar: TheyaMessages = {
     retry: (name) => `إعادة محاولة ${name}`,
   },
   siteHeader: { skipToContent: 'انتقل إلى المحتوى' },
+  landing: { steps: 'الخطوات', features: 'الميزات', readStory: 'اقرأ القصة', cardOf: (label, i, n) => `${label}: البطاقة ${i} من ${n}` },
   dataTable: {
     rowActionsFor: (label) => `إجراءات ${label}`,
     selectAll: 'تحديد الكل',

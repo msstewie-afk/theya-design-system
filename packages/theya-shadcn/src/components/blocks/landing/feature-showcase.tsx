@@ -2,6 +2,7 @@
 
 import { useState, type ComponentProps, type ReactNode } from 'react';
 import { cn } from '../../../lib/utils';
+import { useTheyaI18n } from '../../../lib/i18n';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../ui/accordion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs';
 import { mediaPanel, SectionHead } from './feature-shared';
@@ -36,6 +37,7 @@ export interface FeatureShowcaseProps extends Omit<ComponentProps<'section'>, 't
  * reachable without the visuals, and nothing moves on its own.
  */
 export function FeatureShowcase({ variant = 'accordion', eyebrow, title, description, items, defaultValue, className, ...props }: FeatureShowcaseProps) {
+  const { t } = useTheyaI18n();
   const [value, setValue] = useState(defaultValue ?? items[0]?.id ?? '');
   const current = items.find((i) => i.id === value) ?? items[0];
 
@@ -67,7 +69,7 @@ export function FeatureShowcase({ variant = 'accordion', eyebrow, title, descrip
         <div className="container-display flex flex-col items-center gap-8 lg:gap-12">
           <SectionHead eyebrow={eyebrow} title={title} description={description} align="center" />
           <Tabs value={value} onValueChange={setValue} className="flex w-full flex-col items-center gap-8">
-            <TabsList variant="chips" aria-label={typeof title === 'string' ? title : 'Features'} className="max-w-full flex-wrap justify-center">
+            <TabsList variant="chips" aria-label={typeof title === 'string' ? title : t.landing.features} className="max-w-full flex-wrap justify-center">
               {items.map((item) => (
                 <TabsTrigger key={item.id} value={item.id}>
                   {item.title}

@@ -150,7 +150,7 @@ export const CustomerStories: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // The link is named by the company, with the action for screen readers.
-    await expect(canvas.getByRole('link', { name: 'Fieldnote: read the story' })).toHaveAttribute('href', '#fieldnote');
+    await expect(canvas.getByRole('link', { name: 'Fieldnote: Read the story' })).toHaveAttribute('href', '#fieldnote');
   },
 };
 

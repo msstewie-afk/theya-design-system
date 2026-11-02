@@ -108,6 +108,7 @@ export const de: TheyaMessages = {
     retry: (name) => `${name} erneut versuchen`,
   },
   siteHeader: { skipToContent: 'Zum Inhalt springen' },
+  landing: { steps: 'Schritte', features: 'Funktionen', readStory: 'Geschichte lesen', cardOf: (label, i, n) => `${label}: Karte ${i} von ${n}` },
   dataTable: {
     rowActionsFor: (label) => `Aktionen für ${label}`,
     selectAll: 'Alle auswählen',

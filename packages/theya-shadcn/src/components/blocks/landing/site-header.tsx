@@ -81,10 +81,11 @@ export function SiteHeader({ logo, nav, actions, sticky = true, skipToId, classN
           <div data-slot="site-header-logo" className="flex shrink-0 items-center">
             {logo}
           </div>
-          {/* Wide: the bar sits after the logo. Phone: only the drawer button is
-              left, and it goes to the very end, after the actions. */}
-          {nav && <div className="flex min-w-0 flex-1 items-center max-md:order-last max-md:flex-none">{nav}</div>}
-          {actions && <div className="flex shrink-0 items-center gap-2 max-md:ms-auto">{actions}</div>}
+          {/* Wide: the bar sits after the logo. Phone: only the drawer button is left; it
+              moves to the end side but stays before the actions, so the visual order
+              matches the Tab order (WCAG 2.4.3, 1.3.2). */}
+          {nav && <div className="flex min-w-0 flex-1 items-center max-md:ms-auto max-md:flex-none">{nav}</div>}
+          {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}
         </div>
       </header>
     </>

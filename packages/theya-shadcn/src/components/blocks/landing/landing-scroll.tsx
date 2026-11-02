@@ -2,6 +2,7 @@
 
 import { Children, useEffect, useId, useRef, useState, type ComponentProps, type CSSProperties, type ReactNode } from 'react';
 import { cn } from '../../../lib/utils';
+import { useTheyaI18n } from '../../../lib/i18n';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../ui/carousel';
 import { SectionHead } from './feature-shared';
 
@@ -79,6 +80,7 @@ export interface CardRailProps extends Omit<ComponentProps<'section'>, 'title'> 
  * (monday customer stories, template galleries). Built on Carousel.
  */
 export function CardRail({ eyebrow, title, description, className, children, ...props }: CardRailProps) {
+  const { t } = useTheyaI18n();
   const items = Children.toArray(children);
   return (
     <section data-slot="card-rail" data-scale="display" className={cn('section-display', className)} {...props}>
@@ -94,7 +96,7 @@ export function CardRail({ eyebrow, title, description, className, children, ...
           {/* pt-3 / ps-1 / pb-2: room for a lifted card, its focus ring and shadow inside the clipped track. */}
           <CarouselContent className="pb-2 ps-1 pt-3">
             {items.map((child, i) => (
-              <CarouselItem key={i} aria-label={`${i + 1} of ${items.length}`} className="basis-[85%] sm:basis-[46%] lg:basis-[31%]">
+              <CarouselItem key={i} aria-label={t.carousel.position(i + 1, items.length)} className="basis-[85%] sm:basis-[46%] lg:basis-[31%]">
                 {child}
               </CarouselItem>
             ))}
@@ -128,6 +130,7 @@ export interface StickyStepsProps extends Omit<ComponentProps<'section'>, 'title
  * the heading.
  */
 export function StickySteps({ eyebrow, title, description, steps, className, ...props }: StickyStepsProps) {
+  const { t } = useTheyaI18n();
   const uid = useId();
   const [active, setActive] = useState<string | undefined>(steps[0]?.id);
   const refs = useRef(new Map<string, HTMLElement>());
@@ -151,7 +154,7 @@ export function StickySteps({ eyebrow, title, description, steps, className, ...
       <div className="container-display grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
         <div className="flex flex-col gap-8 lg:sticky lg:top-24 lg:self-start">
           <SectionHead eyebrow={eyebrow} title={title} description={description} />
-          <nav aria-label="Steps" className="max-lg:hidden">
+          <nav aria-label={t.landing.steps} className="max-lg:hidden">
             <ol className="m-0 flex list-none flex-col p-0">
               {steps.map((s, i) => {
                 const current = s.id === active;
