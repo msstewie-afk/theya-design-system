@@ -118,7 +118,7 @@ export function Terminal({ className, lines, user, host, connection = 'connected
       // buttons, chips) renders its dark-theme look with no overrides.
       data-theme={inverse ? 'dark' : undefined}
       className={cn(
-        'flex max-w-full min-w-0 flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid shadow-elevation-xs',
+        'flex max-w-full min-w-0 flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid shadow-elevation-sm',
         // Focus ring on the frame, outside, when the scrollable log has
         // keyboard focus: it sits on the page surface, so it reads the same
         // as everywhere else instead of vanishing into the dark code bg,

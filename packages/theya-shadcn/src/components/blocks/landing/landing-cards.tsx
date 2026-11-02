@@ -77,11 +77,11 @@ const RADIUS = 'rounded-[var(--size-border-radius-border-radius-4xl)]';
 // they read in both themes.
 const HOVER_FX: Partial<Record<LandingCardHover, string>> = {
   // A 2px ring for the light to run round; a shadow while it runs.
-  beam: 'p-0.5 transition-shadow duration-standard hover:shadow-elevation-lg focus-within:shadow-elevation-lg',
+  beam: 'p-0.5 transition-shadow duration-standard hover:shadow-elevation-md focus-within:shadow-elevation-md',
   // A primary-tinted streak instead of white: visible on a white card too.
   shine: 'before:w-2/5 before:bg-[linear-gradient(90deg,transparent,color-mix(in_oklab,var(--color-icon-icon-primary)_24%,transparent),transparent)]',
   // A shorter perspective makes the same turn read as depth, plus a shadow.
-  tilt: '[transform:perspective(600px)_rotateX(var(--tilt-x,0deg))_rotateY(var(--tilt-y,0deg))] transition-[transform,box-shadow] hover:shadow-elevation-lg',
+  tilt: '[transform:perspective(600px)_rotateX(var(--tilt-x,0deg))_rotateY(var(--tilt-y,0deg))] transition-[transform,box-shadow] hover:shadow-elevation-md',
 };
 
 export interface LandingCardProps extends ComponentProps<'article'> {

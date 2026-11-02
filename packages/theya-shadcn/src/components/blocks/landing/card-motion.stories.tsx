@@ -24,23 +24,20 @@ const TEMPLATES = ['Reading list', 'Research', 'Recipes', 'Trips', 'Design inspi
 const PHOTOS = ['login-carousel-01', 'login-carousel-02', 'login-carousel-03', 'nova-web'];
 const POS = ['20% 50%', '60% 40%', '50% 50%', '30% 60%', '85% 30%', '75% 70%', '40% 20%', '10% 80%'];
 
-// A template card on a photo: dark theme inside, so its text reads on any picture.
+// A template card on a photo. The photo stays clean; a short gradient sits only under the text at
+// the bottom (dark theme inside, so the text reads on any picture).
 const TemplateCard = ({ i, compact = false }: { i: number; compact?: boolean }) => (
   <article
     data-theme="dark"
-    className={`relative isolate flex flex-col justify-between overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] text-[var(--color-text-text)] shadow-elevation-lg ${compact ? 'h-36 gap-2 p-4' : 'h-72 gap-4 p-6'}`}
+    className={`relative isolate flex flex-col justify-end overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] text-[var(--color-text-text)] shadow-elevation-md ${compact ? 'h-36 p-4' : 'h-72 p-6'}`}
   >
     <img src={`/asset-examples/${PHOTOS[i % PHOTOS.length]}.jpg`} alt="" className="absolute inset-0 -z-10 size-full object-cover" style={{ objectPosition: POS[i] }} />
-    <span aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_88%,transparent)] via-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_30%,transparent)] to-transparent" />
-    <p className={`m-0 font-body font-medium tabular-nums ${compact ? 'text-body-xs' : 'text-body-s'}`}>{compact ? String(i + 1).padStart(2, '0') : `Template ${String(i + 1).padStart(2, '0')}`}</p>
-    {compact ? (
-      <h3 className="m-0 font-heading text-body-m font-semibold">{TEMPLATES[i]}</h3>
-    ) : (
-      <div className="flex flex-col gap-2">
-        <h3 className="m-0 font-heading text-heading-xs font-semibold">{TEMPLATES[i]}</h3>
-        <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtle)]">Folders, tags and rules, ready to fill.</p>
-      </div>
-    )}
+    <span aria-hidden className={`absolute inset-x-0 bottom-0 -z-10 bg-gradient-to-t from-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_80%,transparent)] to-transparent ${compact ? 'h-3/5' : 'h-1/2'}`} />
+    <div className="flex flex-col gap-1">
+      <p className={`m-0 font-body font-medium tabular-nums text-[var(--color-text-text-subtle)] ${compact ? 'text-body-xs' : 'text-body-s'}`}>{compact ? String(i + 1).padStart(2, '0') : `Template ${String(i + 1).padStart(2, '0')}`}</p>
+      <h3 className={`m-0 font-heading font-semibold ${compact ? 'text-body-m' : 'text-heading-xs'}`}>{TEMPLATES[i]}</h3>
+      {!compact && <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtle)]">Folders, tags and rules, ready to fill.</p>}
+    </div>
   </article>
 );
 
@@ -216,7 +213,7 @@ export const Parallax: Story = {
           { i: 0, depth: 1, pos: 'start-[10%] top-[52%]' },
         ].map((c) => (
           <ParallaxLayer key={c.i} depth={c.depth} className={`absolute ${c.pos}`}>
-            <div className="rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[color-mix(in_srgb,white_40%,transparent)] bg-[color-mix(in_srgb,var(--color-bg-surface-bg-surface)_60%,transparent)] p-2 shadow-elevation-lg backdrop-blur-xl">
+            <div className="rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[color-mix(in_srgb,white_40%,transparent)] bg-[color-mix(in_srgb,var(--color-bg-surface-bg-surface)_60%,transparent)] p-2 shadow-elevation-md backdrop-blur-xl">
               <DemoMiniLink index={c.i} />
             </div>
           </ParallaxLayer>

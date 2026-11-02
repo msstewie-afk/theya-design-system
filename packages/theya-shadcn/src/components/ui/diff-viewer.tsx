@@ -369,7 +369,7 @@ export function DiffViewer({
   return (
     <div
       className={cn(
-        'relative flex min-w-0 max-w-full flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-xs',
+        'relative flex min-w-0 max-w-full flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-sm',
         'has-[>[data-diff-body]:focus-visible]:focus-ring',
         className,
       )}

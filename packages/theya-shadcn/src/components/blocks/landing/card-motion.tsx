@@ -70,7 +70,7 @@ export function FolderReveal({ href, label, meta, items, className, ...props }: 
         </span>
       ))}
       {/* The front pocket, over the cards. */}
-      <span className="absolute inset-x-0 bottom-0 z-10 flex h-[62%] flex-col justify-end gap-1 rounded-[var(--size-border-radius-border-radius-4xl)] bg-[var(--color-bg-primary-bg-primary)] p-6 text-[var(--color-text-text-on-primary)] shadow-elevation-lg transition-transform duration-slower ease-spring group-hover/folder:translate-y-2 motion-reduce:transition-none">
+      <span className="absolute inset-x-0 bottom-0 z-10 flex h-[62%] flex-col justify-end gap-1 rounded-[var(--size-border-radius-border-radius-4xl)] bg-[var(--color-bg-primary-bg-primary)] p-6 text-[var(--color-text-text-on-primary)] shadow-elevation-md transition-transform duration-slower ease-spring group-hover/folder:translate-y-2 motion-reduce:transition-none">
         <span className="font-heading text-heading-xs font-semibold">{label}</span>
         {meta && <span className="font-body text-body-s text-[var(--color-text-text-subtle-on-primary)]">{meta}</span>}
       </span>
@@ -148,7 +148,7 @@ export function FlipCard({ front, back, flipLabel, className, ...props }: FlipCa
             'absolute inset-0 overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] [backface-visibility:hidden]',
             // The reverse side: a tinted pane (nothing shows through a card's own back, so the
             // tint carries the glass look), a light rim and a sweep of light.
-            'border border-solid border-[var(--color-border-border-subtle)] shadow-elevation-lg',
+            'border border-solid border-[var(--color-border-border-subtle)] shadow-elevation-md',
             '[background:radial-gradient(120%_90%_at_100%_0%,color-mix(in_srgb,var(--color-bg-primary-bg-primary)_22%,transparent),transparent_60%),var(--color-bg-primary-bg-primary-subtle)]',
             "before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(120deg,transparent_30%,color-mix(in_srgb,white_28%,transparent)_45%,transparent_60%)] before:content-['']",
             reduced && 'transition-opacity duration-standard',

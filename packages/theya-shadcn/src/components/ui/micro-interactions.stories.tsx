@@ -1095,7 +1095,7 @@ export const Menus: Story = {
         note="On hover the FAB rises and its shadow grows, on the spring curve."
         source="Kinetics · Hover Lift"
         now={<Fab position="none" icon={<Plus />} label="New gallery" />}
-        variant={<Fab position="none" icon={<Plus />} label="New gallery" className="transition-[translate,box-shadow,background-color] duration-slower ease-spring hover:-translate-y-1 hover:shadow-elevation-lg" />}
+        variant={<Fab position="none" icon={<Plus />} label="New gallery" className="transition-[translate,box-shadow,background-color] duration-slower ease-spring hover:-translate-y-1 hover:shadow-elevation-md" />}
       />
     </Gallery>
   ),
@@ -1440,7 +1440,7 @@ function UndoVariant() {
       <div
         aria-hidden={!open}
         className={cn(
-          'group/snack absolute inset-x-0 bottom-0 flex items-center gap-3 overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface-overlay-dark)] py-2 ps-4 pe-2 text-body-m text-[var(--color-text-text-on-dark)] shadow-elevation-lg',
+          'group/snack absolute inset-x-0 bottom-0 flex items-center gap-3 overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] bg-[var(--color-bg-surface-bg-surface-overlay-dark)] py-2 ps-4 pe-2 text-body-m text-[var(--color-text-text-on-dark)] shadow-elevation-md',
           'transition-[translate,opacity,visibility] duration-slow ease-spring',
           open ? 'visible translate-y-0 opacity-100' : 'invisible translate-y-[120%] opacity-0',
         )}

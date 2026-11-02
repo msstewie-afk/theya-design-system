@@ -144,7 +144,7 @@ function PopoverContent({
           'z-popover w-72 max-w-[calc(100vw-1rem)] outline-none',
           'rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
           'border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)]',
-          'p-[var(--size-margin-margin-lg)] shadow-elevation-lg text-[var(--color-text-text)]',
+          'p-[var(--size-margin-margin-lg)] shadow-elevation-md text-[var(--color-text-text)]',
           // Opening is the shared Bloom (data-bloom, motion.css); closing stays a quick fade.
           'data-[state=closed]:animate-out motion-reduce:animate-none!',
           'data-[state=closed]:fade-out-0',

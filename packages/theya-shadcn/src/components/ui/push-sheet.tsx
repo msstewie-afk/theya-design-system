@@ -104,7 +104,7 @@ export function PushSheet({ open, onOpenChange, side = 'right', width = '22.5rem
               aria-labelledby={hasTitle ? titleId : undefined}
               style={{ width, ...style }}
               className={cn(
-                'fixed inset-y-0 z-drawer flex h-full max-w-[92vw] flex-col bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-elevation-xl outline-none',
+                'fixed inset-y-0 z-drawer flex h-full max-w-[92vw] flex-col bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-elevation-md outline-none',
                 'transition ease-enter motion-reduce:transition-none',
                 'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-moderate data-[state=open]:duration-slow motion-reduce:animate-none!',
                 side === 'right'

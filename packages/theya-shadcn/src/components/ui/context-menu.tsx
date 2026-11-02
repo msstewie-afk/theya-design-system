@@ -40,7 +40,7 @@ export function ContextMenuContent({ className, ...props }: React.ComponentProps
         data-bloom=""
         className={cn(
           'z-popover min-w-[12rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
-          'border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-elevation-lg',
+          'border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-elevation-md',
           'text-[var(--color-text-text)]',
           // Opening is the shared Bloom (data-bloom, motion.css); closing stays a quick fade.
           'data-[state=closed]:animate-out motion-reduce:animate-none!',
@@ -167,7 +167,7 @@ export function ContextMenuSubContent({ className, ...props }: React.ComponentPr
         data-bloom=""
         className={cn(
           'z-popover min-w-[10rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
-          'border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-elevation-lg',
+          'border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-elevation-md',
           'text-[var(--color-text-text)]',
           // Opening is the shared Bloom (data-bloom, motion.css); closing stays a quick fade.
           'data-[state=closed]:animate-out motion-reduce:animate-none!',

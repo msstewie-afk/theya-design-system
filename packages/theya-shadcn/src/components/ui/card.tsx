@@ -151,7 +151,7 @@ const MAX_TILT = 10;
 // with CSS variables the pointer handler writes (no React re-render).
 const EFFECT_CLASS: Record<CardEffect, string> = {
   tilt: cn(
-    'transition-[border-color,box-shadow,transform] duration-standard ease-enter hover:shadow-elevation-lg',
+    'transition-[border-color,box-shadow,transform] duration-standard ease-enter hover:shadow-elevation-md',
     // Only while hovered: a resting 3D transform makes the text render soft.
     'hover:[transform:perspective(700px)_rotateX(var(--card-tilt-x,0deg))_rotateY(var(--card-tilt-y,0deg))]',
     // A faint primary light where the cursor is, under the content.
@@ -168,7 +168,7 @@ const EFFECT_CLASS: Record<CardEffect, string> = {
   ),
   lift: cn(
     'transition-[border-color,box-shadow,translate] duration-slower ease-spring',
-    'hover:-translate-y-1.5 hover:shadow-elevation-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0',
+    'hover:-translate-y-1.5 hover:shadow-elevation-md motion-reduce:transition-none motion-reduce:hover:translate-y-0',
   ),
 };
 

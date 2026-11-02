@@ -778,11 +778,11 @@ function shadowSummary(name: string): string {
 }
 
 const ELEVATION_ROWS: SpecRow[] = [
-  { token: 'shadow-elevation-xs', value: shadowSummary('--elevation-xs'), use: 'A surface that sits in the page flow and only needs to lift off the background.', usedBy: 'Stat, CodeBlock, CodeEditor, Terminal; Card at rest through shadow-card' },
-  { token: 'shadow-elevation-sm', value: shadowSummary('--elevation-sm'), use: 'Small raised details inside a control or a layout.', usedBy: 'Alert, Sidebar, Menubar trigger; through the state tokens: Switch and Slider thumbs, the active Tabs chip, Card on hover' },
-  { token: 'shadow-elevation-md', value: shadowSummary('--elevation-md'), use: 'Floating controls and short hints that hover over content.', usedBy: 'Tooltip, floating scroll buttons, DataTableToolbar bulk bar' },
-  { token: 'shadow-elevation-lg', value: shadowSummary('--elevation-lg'), use: 'Surfaces that drop out of a trigger: menus, popovers, listboxes.', usedBy: 'DropdownMenu, ContextMenu, Menubar, Popover, HoverCard, NavigationMenu, Select, chart tooltips' },
-  { token: 'shadow-elevation-xl', value: shadowSummary('--elevation-xl'), use: 'Modal layers that take over the page.', usedBy: 'Dialog, AlertDialog, Drawer (side), PushSheet, Sonner' },
+  { token: 'shadow-elevation-xs', value: shadowSummary('--elevation-xs'), use: 'Option, not used by components: the lightest lift.', usedBy: '—' },
+  { token: 'shadow-elevation-sm', value: shadowSummary('--elevation-sm'), use: 'Anything in the page flow that lifts off it: cards, raised details inside a control or a layout.', usedBy: 'Card (through shadow-card), Stat, CodeBlock, Terminal, Alert, Sidebar, landing cards; Switch and Slider thumbs and the active Tabs chip through the state tokens' },
+  { token: 'shadow-elevation-md', value: shadowSummary('--elevation-md'), use: 'Anything that floats over content: hints, menus, popovers, dialogs, sheets, cards in motion.', usedBy: 'Tooltip, DropdownMenu, ContextMenu, Popover, HoverCard, Select, Dialog, AlertDialog, Drawer (side), PushSheet, Sonner, Card on hover, OrbitCarousel and scroll-effect cards' },
+  { token: 'shadow-elevation-lg', value: shadowSummary('--elevation-lg'), use: 'Option, not used by components: a higher float with a 1px contour.', usedBy: '—' },
+  { token: 'shadow-elevation-xl', value: shadowSummary('--elevation-xl'), use: 'Option, not used by components: the highest float.', usedBy: '—' },
   { token: 'shadow-elevation-edge-up', value: shadowSummary('--elevation-edge-up'), use: 'A panel pinned to the bottom edge: the shadow falls up onto the content it covers.', usedBy: 'Drawer (bottom)' },
 ];
 
@@ -821,7 +821,7 @@ export const Elevation: Story = {
       title="Elevation"
       description={
         <>
-          Five shadow steps, tinted toward slate-900 in light and black with a faint light rim on floating layers in dark. The higher the step, the further the surface is from the page; lg and xl add a 1px ambient layer because they float. Use as <Code>shadow-elevation-{'{xs|sm|md|lg|xl}'}</Code>; <Code>shadow-elevation-edge-up</Code> for a panel pinned to the bottom edge.
+          Five layered shadow steps: a tight contact shadow at the edge, then soft wide layers, each lighter as it spreads (light from above, tinted toward slate in light, black with a faint light rim on floating layers in dark). Components use two: <Code>shadow-elevation-sm</Code> for what sits in the page and <Code>shadow-elevation-md</Code> for what floats; xs, lg and xl are kept as options. <Code>shadow-elevation-smooth-{'{xs…xl}'}</Code> is an alternative scale (layers doubling 1→32px at one low alpha). <Code>shadow-elevation-edge-up</Code> for a panel pinned to the bottom edge.
         </>
       }
     >

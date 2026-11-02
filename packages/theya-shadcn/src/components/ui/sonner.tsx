@@ -106,7 +106,7 @@ export function Toaster({ closeButton = true, dark = false, position = 'bottom-r
         classNames: {
           toast:
             'group toast has-[[data-description]]:items-start! has-[[data-description]]:[&_[data-icon]]:mt-1 ' +
-            (dark ? 'border-0! shadow-elevation-xl!' : 'border! border-solid! shadow-elevation-lg!') +
+            (dark ? 'border-0! shadow-elevation-md!' : 'border! border-solid! shadow-elevation-md!') +
             ' has-[[data-close-button]]:pe-12!' +
             // A toast is a Tab stop (Sonner, alt+T): Theya's focus ring
             // instead of Sonner's faint 2px rgba(0,0,0,.2) one.
@@ -251,7 +251,7 @@ export const toast: ToastApi = Object.assign(((message: Parameters<ToastApi>[0],
         // bg-info-subtle in the Figma file) — `!` because this overrides
         // the Toaster's own --normal-bg/-text/-border, on top of dark mode.
         toast: cn(
-          'bg-[var(--color-bg-primary-bg-primary-subtle)]! border-transparent! text-[var(--color-text-text)]! shadow-elevation-lg!',
+          'bg-[var(--color-bg-primary-bg-primary-subtle)]! border-transparent! text-[var(--color-text-text)]! shadow-elevation-md!',
           classNames?.toast,
         ),
         title: cn('font-body! text-body-m! font-semibold!', classNames?.title),

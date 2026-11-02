@@ -17,7 +17,7 @@ const PROMPTS = [
 ];
 
 const card = (text: string) => (
-  <div key={text} className="rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 font-body text-body-m text-[var(--color-text-text)] shadow-elevation-xs">
+  <div key={text} className="rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 font-body text-body-m text-[var(--color-text-text)] shadow-elevation-sm">
     {text}
   </div>
 );
@@ -82,7 +82,7 @@ export const ScrollDriven: Story = {
       PROMPTS.concat(PROMPTS)
         .filter((_, i) => i % 3 === c)
         .map((text, i) => (
-          <div key={i} className={`flex items-end rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 font-body text-body-m text-[var(--color-text-text)] shadow-elevation-xs ${TALL[(i + c) % TALL.length]}`}>
+          <div key={i} className={`flex items-end rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 font-body text-body-m text-[var(--color-text-text)] shadow-elevation-sm ${TALL[(i + c) % TALL.length]}`}>
             {text}
           </div>
         )),

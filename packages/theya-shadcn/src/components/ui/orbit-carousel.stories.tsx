@@ -18,10 +18,11 @@ const CASES = [
 const Slide = ({ c, i }: { c: (typeof CASES)[number]; i: number }) => (
   <div
     data-theme="dark"
-    className="relative isolate flex aspect-[4/3] flex-col justify-between overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] p-5 text-[var(--color-text-text)] shadow-elevation-md"
+    className="relative isolate flex aspect-[4/3] flex-col justify-end gap-1 overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] p-5 text-[var(--color-text-text)] shadow-elevation-md"
   >
     <img src={`/asset-examples/${PHOTOS[i]}.jpg`} alt="" className="absolute inset-0 -z-10 size-full object-cover" style={{ objectPosition: c.pos }} />
-    <span aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_85%,transparent)] to-transparent" />
+    {/* Only under the text, so the photo stays clean above it. */}
+    <span aria-hidden className="absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-gradient-to-t from-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_80%,transparent)] to-transparent" />
     <span className="font-mono text-body-xs">0{i + 1} / 0{CASES.length}</span>
     <h3 className="m-0 font-body text-heading-s font-semibold">{c.title}</h3>
   </div>

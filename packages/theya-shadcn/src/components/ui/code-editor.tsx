@@ -290,7 +290,7 @@ export function CodeEditor({
         'hover:not-focus-within:border-[var(--color-border-border-primary-hover)]',
         'focus-within:border-[var(--color-border-border-primary)]',
         inverse ? 'bg-[var(--color-code-bg-inverse)]' : 'bg-[var(--color-code-bg)]',
-        'font-body text-body-s shadow-elevation-xs transition-[border-color,box-shadow]',
+        'font-body text-body-s shadow-elevation-sm transition-[border-color,box-shadow]',
         'focus-within:focus-ring',
         disabled && 'pointer-events-none opacity-60',
         className,

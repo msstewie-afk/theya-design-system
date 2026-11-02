@@ -72,7 +72,7 @@ export function AlertDialogContent({ className, ...props }: React.ComponentProps
         className={cn(
           'fixed left-1/2 top-1/2 z-modal grid w-[calc(100%-2rem)] max-w-md max-h-[calc(100svh-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-y-auto',
           'rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border)]',
-          'bg-[var(--color-bg-surface-bg-surface)] p-0 text-[var(--color-text-text)] shadow-elevation-xl',
+          'bg-[var(--color-bg-surface-bg-surface)] p-0 text-[var(--color-text-text)] shadow-elevation-md',
           layout.contentGap === 'md' && 'gap-4',
           layout.contentGap === 'sm' && 'gap-2',
           layout.contentGap === 'none' && 'gap-0',

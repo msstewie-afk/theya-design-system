@@ -52,7 +52,7 @@ export function StickyStack({ top = 96, offset = 24, className, children, ...pro
       {items.map((child, i) => (
         <li
           key={i}
-          className="sticky [&>*]:shadow-elevation-lg"
+          className="sticky [&>*]:shadow-elevation-md"
           // Each card sticks one step lower than the previous one.
           style={{ top: `${top + i * offset}px` } as CSSProperties}
         >

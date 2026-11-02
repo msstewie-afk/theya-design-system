@@ -126,7 +126,7 @@ export function StickyActionBar({
         className={cn(
           '@container/bar flex flex-wrap items-center gap-x-4 gap-y-3',
           floating
-            ? 'pointer-events-auto w-full max-w-[40rem] rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] py-2 pe-2 ps-4 shadow-elevation-lg'
+            ? 'pointer-events-auto w-full max-w-[40rem] rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] py-2 pe-2 ps-4 shadow-elevation-md'
             : 'px-4 py-3 sm:px-6',
         )}
       >

@@ -74,7 +74,7 @@ export const InCard: Story = {
   parameters: { controls: { exclude: ['orientation'] } },
   args: { orientation: 'horizontal' },
   render: (args) => (
-    <div className="w-full max-w-sm rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-xs">
+    <div className="w-full max-w-sm rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-sm">
       <div className="flex items-center justify-between px-4 py-3">
         <span className="font-body text-body-m text-[var(--color-text-text)]">Golden hour</span>
         <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">48 photos</span>

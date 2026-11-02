@@ -173,7 +173,7 @@ export function DonutChart({
                   const v = typeof p?.value === 'number' ? p.value : undefined;
                   if (!active || v == null) return null;
                   return (
-                    <div className="flex flex-col gap-px rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-3 py-2 shadow-elevation-lg">
+                    <div className="flex flex-col gap-px rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] px-3 py-2 shadow-elevation-md">
                       <span className="text-body-xs text-[var(--color-text-text-subtler)]">{String(p?.name ?? '')}</span>
                       <span className="font-body text-body-s font-semibold tabular-nums text-[var(--color-text-text)]">
                         {fmt(v)} <span className="font-normal text-[var(--color-text-text-subtler)]">({pct(v)}%)</span>

@@ -200,7 +200,7 @@ export const Fab = forwardRef<HTMLButtonElement, FabProps>(function Fab(
         shape === 'square'
           ? SQUARE_RADIUS_CLASS[size]
           : '[--btn-radius:var(--size-border-radius-border-radius-max)] [--btn-radius-pressed:var(--size-border-radius-border-radius-max)]',
-        'gap-0 shadow-elevation-lg hover:not-disabled:shadow-elevation-xl',
+        'gap-0 shadow-elevation-md hover:not-disabled:shadow-elevation-md',
         // Hover lift (Kinetics' Hover Lift, MIT): the FAB rises 4px as its shadow grows, on the
         // spring. Button's own transition list has no `translate`, so it's restated here.
         'hover:not-disabled:-translate-y-1 motion-reduce:hover:not-disabled:translate-y-0',

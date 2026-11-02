@@ -194,7 +194,7 @@ export function SearchBox({
 
       <div
         className={cn(
-          'absolute inset-x-0 top-full z-20 mt-1 flex max-h-[min(70svh,28rem)] flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-lg',
+          'absolute inset-x-0 top-full z-20 mt-1 flex max-h-[min(70svh,28rem)] flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-md',
           !expanded && 'hidden',
         )}
       >

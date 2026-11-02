@@ -4,7 +4,7 @@ import { Button } from './button';
 /** Static stand-in for the bar, for the do/don't examples. */
 function BarMock({ message, children }: { message: string; children: React.ReactNode }) {
   return (
-    <div className="flex w-80 items-center justify-between gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)] px-4 py-3 shadow-elevation-lg">
+    <div className="flex w-80 items-center justify-between gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface)] px-4 py-3 shadow-elevation-md">
       <span className="font-body text-body-m text-[var(--color-text-text)]">{message}</span>
       <div className="flex gap-2">{children}</div>
     </div>

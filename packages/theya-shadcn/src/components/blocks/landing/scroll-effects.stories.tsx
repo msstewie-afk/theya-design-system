@@ -55,7 +55,7 @@ export const Deck: Story = {
       <Spacer label="Scroll down" />
       <CardDeck aria-label="Product tour" header={<SectionHead eyebrow="Tour" title="Five things your bookmarks never did" />}>
         {DECK.map((f, i) => (
-          <LandingCard key={f.id} surface="tonal" hue={HUES[i]} className="grid items-center gap-8 p-8 shadow-elevation-lg lg:grid-cols-2 lg:p-16">
+          <LandingCard key={f.id} surface="tonal" hue={HUES[i]} className="grid items-center gap-8 p-8 shadow-elevation-md lg:grid-cols-2 lg:p-16">
             <div className="flex flex-col gap-4">
               <p className="m-0 font-body text-body-s font-medium tabular-nums">{String(i + 1).padStart(2, '0')} / 05</p>
               <h3 className="m-0 font-heading text-heading-2xl">{f.title}</h3>
@@ -166,7 +166,7 @@ export const MaskReveal: Story = {
     <div className="bg-[var(--color-bg-surface-bg-surface)]">
       <Spacer label="Scroll down" />
       <ScrollMaskReveal aria-labelledby="reveal-title" media={<img src="/asset-examples/login-carousel-01.jpg" alt="" />}>
-        <div className="flex max-w-[34rem] flex-col items-start gap-6 rounded-[var(--size-border-radius-border-radius-4xl)] bg-[var(--color-bg-surface-bg-surface)] p-8 shadow-elevation-lg">
+        <div className="flex max-w-[34rem] flex-col items-start gap-6 rounded-[var(--size-border-radius-border-radius-4xl)] bg-[var(--color-bg-surface-bg-surface)] p-8 shadow-elevation-md">
           <h2 id="reveal-title" className="m-0 text-balance font-heading text-heading-2xl text-[var(--color-text-text)]">
             Room for everything you read
           </h2>

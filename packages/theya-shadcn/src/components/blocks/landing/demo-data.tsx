@@ -66,10 +66,12 @@ export function BookmarksPreview({ className, floating = true, folder = 'reading
       {/* One inset for the whole card: the search field, the folder list and the link list all
           start 8px in, and their contents (icons, letter tiles) 16px in. Nested radius: the
           field's 6px plus the 8px band padding ≈ 16px (4xl), so the corners stay concentric. */}
-      <div className="overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-lg">
+      <div className="overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-md">
         <div className="flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] p-2">
-          {/* End inset 5px + 1px border = the 6px above and below the 20px key, so the key sits evenly. */}
-          <div className="flex h-8 flex-1 items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] ps-1.75 pe-1.25 text-body-s text-[var(--color-text-text-subtler)]">
+          {/* 36px field: 1px border + 7px around the 20px key on three sides, so the key sits evenly, and
+              its end edge lands 16px from the card's — in line with the tag chips in the rows below
+              (8px list padding + 8px row padding). The search icon lines up with the row icons the same way. */}
+          <div className="flex h-9 flex-1 items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] ps-1.75 pe-1.75 text-body-s text-[var(--color-text-text-subtler)]">
             <Search className="size-4 shrink-0" />
             <span className="flex-1 truncate">Search 250 links</span>
             <Kbd>⌘K</Kbd>
@@ -112,7 +114,7 @@ export function BookmarksPreview({ className, floating = true, folder = 'reading
         </div>
       </div>
       {floating && (
-        <div className="absolute -bottom-6 end-4 flex items-center gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] py-2 ps-3 pe-2 shadow-elevation-lg sm:-end-6">
+        <div className="absolute -bottom-6 end-4 flex items-center gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] py-2 ps-3 pe-2 shadow-elevation-md sm:-end-6">
           <WarningTriangle className="size-4 shrink-0 text-[var(--color-icon-icon-warning)]" />
           <span className="text-body-s text-[var(--color-text-text)]">3 duplicates found</span>
           {/* Part of the picture: a span styled as a button, never a real control
@@ -359,7 +361,7 @@ export const DEMO_LANDING_FOOTER: FooterColumn[] = [
 export function DemoMiniLink({ index = 0 }: { index?: number }) {
   const l = LINKS[index % LINKS.length];
   return (
-    <div className="flex w-56 items-center gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3 shadow-elevation-lg">
+    <div className="flex w-56 items-center gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3 shadow-elevation-md">
       <span className={cn('flex size-10 shrink-0 items-center justify-center rounded-[var(--size-border-radius-border-radius-lg)] text-body-m font-semibold', HUE[l.hue])}>{l.letter}</span>
       <span className="flex min-w-0 flex-col">
         <span className="truncate font-body text-body-s font-semibold text-[var(--color-text-text)]">{l.title}</span>

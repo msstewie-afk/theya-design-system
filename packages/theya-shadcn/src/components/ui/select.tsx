@@ -154,7 +154,7 @@ function SelectContent({
           'relative z-popover w-fit min-w-[var(--radix-select-trigger-width)] max-w-[var(--radix-select-content-available-width)] overflow-hidden',
           'rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
           'border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)]',
-          'text-[var(--color-text-text)] shadow-elevation-lg',
+          'text-[var(--color-text-text)] shadow-elevation-md',
           // Opening is the shared Bloom (data-bloom, motion.css); closing stays a quick fade.
           'data-[state=closed]:animate-out motion-reduce:animate-none!',
           'data-[state=closed]:fade-out-0',

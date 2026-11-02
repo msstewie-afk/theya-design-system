@@ -174,7 +174,7 @@ export function UploadPanel({
       aria-label={ariaLabel ?? t.uploadPanel.label}
       onKeyDown={onKeyDown}
       className={cn(
-        'flex flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] shadow-elevation-lg',
+        'flex flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] shadow-elevation-md',
         floating && 'fixed z-50 max-sm:inset-x-2 max-sm:bottom-[max(0.5rem,env(safe-area-inset-bottom))] sm:bottom-4 sm:end-4 sm:w-[24rem]',
         className,
       )}

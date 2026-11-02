@@ -352,7 +352,7 @@ export function Kanban<T extends KanbanItem>({
         </div>
         <DragOverlay dropAnimation={dropAnimation()}>
           {activeItem ? (
-            <div className="cursor-grabbing rounded-[var(--size-border-radius-border-radius-lg)] shadow-elevation-lg motion-safe:rotate-2">{renderItem(activeItem, { overlay: true })}</div>
+            <div className="cursor-grabbing rounded-[var(--size-border-radius-border-radius-lg)] shadow-elevation-md motion-safe:rotate-2">{renderItem(activeItem, { overlay: true })}</div>
           ) : null}
         </DragOverlay>
       </DndContext>
@@ -376,7 +376,7 @@ export function KanbanCard({ title, description, eyebrow, footer, className, ...
   return (
     <div
       className={cn(
-        'flex flex-col gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3 shadow-elevation-xs',
+        'flex flex-col gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3 shadow-elevation-sm',
         className,
       )}
       {...props}

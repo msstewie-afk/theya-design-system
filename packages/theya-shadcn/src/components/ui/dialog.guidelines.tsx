@@ -4,7 +4,7 @@ import { Button } from './button';
 /** Static stand-in for an open dialog, for the do/don't examples. */
 function DialogMock({ title, children, actions }: { title: string; children?: React.ReactNode; actions: React.ReactNode }) {
   return (
-    <div className="flex w-72 flex-col gap-4 rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-5 shadow-elevation-xl">
+    <div className="flex w-72 flex-col gap-4 rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-5 shadow-elevation-md">
       <p className="m-0 font-body text-heading-xs font-semibold text-[var(--color-text-text)]">{title}</p>
       {children && <div className="font-body text-body-m text-[var(--color-text-text-subtle)]">{children}</div>}
       <div className="flex justify-end gap-2">{actions}</div>

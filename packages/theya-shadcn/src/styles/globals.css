@@ -281,6 +281,15 @@
   --shadow-elevation-lg: var(--elevation-lg);
   --shadow-elevation-xl: var(--elevation-xl);
   --shadow-elevation-edge-up: var(--elevation-edge-up);
+  /* 2026-11-02 (Мария): the scale is layered "contact + ambient" (a tight shadow at the edge, then soft
+     wide layers, each lighter as they spread). Components use only sm (cards, raised items) and md
+     (anything floating: menus, popovers, dialogs, motion cards); xs / lg / xl stay as options. The
+     smooth-* set (layers doubling 1→32px at one low alpha) is an alternative look, not used yet. */
+  --shadow-elevation-smooth-xs: var(--elevation-smooth-xs);
+  --shadow-elevation-smooth-sm: var(--elevation-smooth-sm);
+  --shadow-elevation-smooth-md: var(--elevation-smooth-md);
+  --shadow-elevation-smooth-lg: var(--elevation-smooth-lg);
+  --shadow-elevation-smooth-xl: var(--elevation-smooth-xl);
 }
 
 /* ==========================================================

@@ -72,7 +72,7 @@ export function CompareBar({ items, max = 4, onRemove, onClear, onCompare, class
       ref={rootRef}
       aria-label="Comparison"
       className={cn(
-        'sticky bottom-4 z-10 flex flex-col gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3 shadow-elevation-lg @3xl:flex-row @3xl:items-center',
+        'sticky bottom-4 z-10 flex flex-col gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3 shadow-elevation-md @3xl:flex-row @3xl:items-center',
         className,
       )}
     >

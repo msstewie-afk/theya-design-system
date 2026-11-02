@@ -112,7 +112,7 @@ function useTrackedRect(el: HTMLElement | null, padding: number) {
 const CARD = cn(
   'z-popover flex w-80 max-w-[calc(100vw-2rem)] flex-col overflow-hidden outline-none',
   'rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border)]',
-  'bg-[var(--color-bg-surface-bg-surface-overlay)] text-[var(--color-text-text)] shadow-elevation-lg',
+  'bg-[var(--color-bg-surface-bg-surface-overlay)] text-[var(--color-text-text)] shadow-elevation-md',
 );
 
 export function ProductTour({

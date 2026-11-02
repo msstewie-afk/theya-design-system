@@ -109,7 +109,7 @@ export function SurfaceEffect({ effect, maxTilt = 8, reveal, revealSize = '8rem'
         effect === 'shine' &&
           "isolate overflow-hidden before:pointer-events-none before:absolute before:inset-y-0 before:-start-[120%] before:z-10 before:w-3/5 before:-skew-x-[20deg] before:bg-[linear-gradient(90deg,transparent,color-mix(in_oklab,white_35%,transparent),transparent)] before:content-[''] hover:before:start-[120%] hover:before:transition-[inset-inline-start] hover:before:duration-[calc(var(--motion-duration-slower)*2)] hover:before:ease-press motion-reduce:before:hidden",
         effect === 'lift' &&
-          'transition-[translate,box-shadow] duration-slower ease-spring hover:-translate-y-1.5 hover:shadow-elevation-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0',
+          'transition-[translate,box-shadow] duration-slower ease-spring hover:-translate-y-1.5 hover:shadow-elevation-md motion-reduce:transition-none motion-reduce:hover:translate-y-0',
         effect === 'reveal' && 'group/reveal isolate overflow-hidden',
         className,
       )}
