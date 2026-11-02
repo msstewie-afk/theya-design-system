@@ -15,17 +15,17 @@
           - columnheader "Owner"
           - columnheader "Plan"
       - rowgroup:
-        - row "helios.aether.photo Thea Marlow Business":
-          - cell "helios.aether.photo"
+        - row "l4.aether.photo Thea Marlow Business":
+          - cell "l4.aether.photo"
           - cell "Thea Marlow"
           - cell "Business"
-        - row "selene-weddings.aether.photo Selin Arda Pro":
-          - cell "selene-weddings.aether.photo"
-          - cell "Selin Arda"
-          - cell "Pro"
-        - row "eos-portraits.aether.photo Dawn Ellery Free":
-          - cell "eos-portraits.aether.photo"
+        - row "eos.aether.photo Dawn Ellery Pro":
+          - cell "eos.aether.photo"
           - cell "Dawn Ellery"
+          - cell "Pro"
+        - row "lab.aether.photo Phoebe Lark Free":
+          - cell "lab.aether.photo"
+          - cell "Phoebe Lark"
           - cell "Free"
 - region "default":
   - heading "default" [level=2]
@@ -41,17 +41,17 @@
           - columnheader "Owner"
           - columnheader "Plan"
       - rowgroup:
-        - row "helios.aether.photo Thea Marlow Business":
-          - cell "helios.aether.photo"
+        - row "l4.aether.photo Thea Marlow Business":
+          - cell "l4.aether.photo"
           - cell "Thea Marlow"
           - cell "Business"
-        - row "selene-weddings.aether.photo Selin Arda Pro":
-          - cell "selene-weddings.aether.photo"
-          - cell "Selin Arda"
-          - cell "Pro"
-        - row "eos-portraits.aether.photo Dawn Ellery Free":
-          - cell "eos-portraits.aether.photo"
+        - row "eos.aether.photo Dawn Ellery Pro":
+          - cell "eos.aether.photo"
           - cell "Dawn Ellery"
+          - cell "Pro"
+        - row "lab.aether.photo Phoebe Lark Free":
+          - cell "lab.aether.photo"
+          - cell "Phoebe Lark"
           - cell "Free"
 - region "comfortable":
   - heading "comfortable" [level=2]
@@ -67,17 +67,17 @@
           - columnheader "Owner"
           - columnheader "Plan"
       - rowgroup:
-        - row "helios.aether.photo Thea Marlow Business":
-          - cell "helios.aether.photo"
+        - row "l4.aether.photo Thea Marlow Business":
+          - cell "l4.aether.photo"
           - cell "Thea Marlow"
           - cell "Business"
-        - row "selene-weddings.aether.photo Selin Arda Pro":
-          - cell "selene-weddings.aether.photo"
-          - cell "Selin Arda"
-          - cell "Pro"
-        - row "eos-portraits.aether.photo Dawn Ellery Free":
-          - cell "eos-portraits.aether.photo"
+        - row "eos.aether.photo Dawn Ellery Pro":
+          - cell "eos.aether.photo"
           - cell "Dawn Ellery"
+          - cell "Pro"
+        - row "lab.aether.photo Phoebe Lark Free":
+          - cell "lab.aether.photo"
+          - cell "Phoebe Lark"
           - cell "Free"
 
 # Controlled Region (actions-densitytoggle--controlled-region)
@@ -97,17 +97,17 @@
         - columnheader "Owner"
         - columnheader "Plan"
     - rowgroup:
-      - row "helios.aether.photo Thea Marlow Business":
-        - cell "helios.aether.photo"
+      - row "l4.aether.photo Thea Marlow Business":
+        - cell "l4.aether.photo"
         - cell "Thea Marlow"
         - cell "Business"
-      - row "selene-weddings.aether.photo Selin Arda Pro":
-        - cell "selene-weddings.aether.photo"
-        - cell "Selin Arda"
-        - cell "Pro"
-      - row "eos-portraits.aether.photo Dawn Ellery Free":
-        - cell "eos-portraits.aether.photo"
+      - row "eos.aether.photo Dawn Ellery Pro":
+        - cell "eos.aether.photo"
         - cell "Dawn Ellery"
+        - cell "Pro"
+      - row "lab.aether.photo Phoebe Lark Free":
+        - cell "lab.aether.photo"
+        - cell "Phoebe Lark"
         - cell "Free"
 
 # Playground (actions-densitytoggle--playground)

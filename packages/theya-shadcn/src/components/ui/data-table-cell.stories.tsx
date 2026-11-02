@@ -96,7 +96,7 @@ const LICENSE_BADGES = [
   { label: 'Editorial', tone: 'neutral' as const },
 ];
 
-const TAGS = ['portrait', 'wedding', 'print', 'web', 'client pick'];
+const TAGS = ['portrait', 'wedding', 'print', 'web', 'raw', 'client pick'];
 
 /** The editable kinds are controlled — the edited value lives in the story's state. */
 function InputCell({ label, initial = '', lines, ...rest }: { label: string; initial?: string; lines?: 1 | 2; placeholder?: string; disabled?: boolean; invalid?: boolean; errorMessage?: string; mono?: boolean }) {
@@ -194,7 +194,7 @@ export const Kinds: Story = {
       <KindRow label='kind="number"' oneLine={<NumberCell label="Photos in Golden hour" initial={248} />} twoLines={<NumberCell label="Photos in Blue hour" initial={186} lines={2} />} />
       <KindRow label='kind="combobox"' oneLine={<ComboboxCell label="Studio for Golden hour" initial="Helios Studio" />} twoLines={<ComboboxCell label="Studio for Blue hour" initial="Selene Weddings" lines={2} />} />
       <KindRow label='kind="autocomplete"' oneLine={<AutocompleteCell label="Photographer for Golden hour" initial="thea@aether.photo" />} twoLines={<AutocompleteCell label="Photographer for Blue hour" initial="" lines={2} />} />
-      <KindRow label='kind="tags"' oneLine={<TagsCell label="Tags for Golden hour" initial={['portrait', 'client pick']} />} twoLines={<TagsCell label="Tags for Blue hour" initial={['wedding']} lines={2} />} />
+      <KindRow label='kind="tags"' oneLine={<TagsCell label="Tags for Golden hour" initial={['raw', 'web']} />} twoLines={<TagsCell label="Tags for Blue hour" initial={['wedding']} lines={2} />} />
       <KindRow
         label='kind="date-range"'
         oneLine={<DateRangeCell label="Proofing period for Golden hour" initial={{ from: new Date(2026, 8, 1), to: new Date(2026, 8, 30) }} />}

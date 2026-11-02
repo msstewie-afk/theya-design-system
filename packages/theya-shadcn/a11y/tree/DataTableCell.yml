@@ -132,10 +132,10 @@
 - combobox "Photographer for Golden hour": thea@aether.photo
 - button "Clear Photographer for Golden hour"
 - combobox "Photographer for Blue hour"
-- text: kind="tags" portrait
-- button "Remove portrait"
-- text: client pick
-- button "Remove client pick"
+- text: kind="tags" raw
+- button "Remove raw"
+- text: web
+- button "Remove web"
 - combobox "Tags for Golden hour"
 - button "Open options"
 - text: wedding
