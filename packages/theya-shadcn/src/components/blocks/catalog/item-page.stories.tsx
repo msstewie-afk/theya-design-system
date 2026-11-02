@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { ItemPage } from './item-page';
-import { DEMO_DESCRIPTION, DEMO_HIGHLIGHTS, DEMO_IMAGES, DEMO_ITEM, DEMO_ITEMS, DEMO_REVIEW_SUMMARY, DEMO_REVIEWS, DEMO_SPECS } from './demo-data';
+import { DEMO_DESCRIPTION, DEMO_HIGHLIGHTS, DEMO_IMAGES, DEMO_ITEM, DEMO_REVIEW_SUMMARY, DEMO_REVIEWS, DEMO_SPECS } from './demo-data';
 import { itemPageGuidelines } from './item-page.guidelines';
 
 const meta: Meta<typeof ItemPage> = {
@@ -53,5 +53,6 @@ export const Default: Story = {
 
 /** A free item: "Install", no trial line. */
 export const Free: Story = {
-  args: { item: DEMO_ITEMS.find((i) => i.id === 'aether-basics')!, trialDays: undefined, images: DEMO_IMAGES.slice(0, 1) },
+  // The same item made free, so the page copy (description, specs) still matches it.
+  args: { item: { ...DEMO_ITEM, price: 0 }, trialDays: undefined, images: DEMO_IMAGES.slice(0, 1) },
 };

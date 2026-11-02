@@ -39,9 +39,9 @@ export default meta;
 type Story = StoryObj<typeof DensityToggle>;
 
 const ROWS = [
-  { portal: 'helios.aether.photo', owner: 'Thea Marlow', plan: 'Business' },
-  { portal: 'selene-weddings.aether.photo', owner: 'Selin Arda', plan: 'Pro' },
-  { portal: 'eos-portraits.aether.photo', owner: 'Dawn Ellery', plan: 'Free' },
+  { portal: 'l4.aether.photo', owner: 'Thea Marlow', plan: 'Business' },
+  { portal: 'eos.aether.photo', owner: 'Dawn Ellery', plan: 'Pro' },
+  { portal: 'lab.aether.photo', owner: 'Phoebe Lark', plan: 'Free' },
 ];
 
 function Sample({ label = 'Client portals' }: { label?: string }) {
