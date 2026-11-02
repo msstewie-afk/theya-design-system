@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { resetFocus } from '../../../test/keyboard';
 import { expect, userEvent, within } from '@storybook/test';
 import { Book, Copy, Folder, Import, Lock, Search, Group, Sparks } from 'iconoir-react';
 import { Avatar, AvatarFallback } from '../../ui/avatar';
@@ -56,6 +57,8 @@ export const Features: Story = {
     const link = canvas.getByRole('link', { name: 'Full-text search' });
     await expect(link).toHaveAttribute('href', '#search');
     await expect(canvas.getAllByRole('link')).toHaveLength(3);
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -78,6 +81,8 @@ export const TonalExpanding: Story = {
     await userEvent.tab();
     await expect(canvas.getByRole('link', { name: 'Reading list' })).toHaveFocus();
     await expect(canvas.getByText(/Long reads sort themselves in/)).toBeVisible();
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -151,6 +156,8 @@ export const CustomerStories: Story = {
     const canvas = within(canvasElement);
     // The link is named by the company, with the action for screen readers.
     await expect(canvas.getByRole('link', { name: 'Fieldnote: Read the story' })).toHaveAttribute('href', '#fieldnote');
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -271,6 +278,8 @@ export const LiveBento: Story = {
     await expect(canvas.getByRole('img', { name: /Links saved per week over 26 weeks/ })).toBeInTheDocument();
     await expect(canvas.getByRole('progressbar', { name: 'Links sorted automatically' })).toHaveAttribute('aria-valuenow', '75');
     await expect(canvas.getAllByRole('heading', { level: 3 })).toHaveLength(4);
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 

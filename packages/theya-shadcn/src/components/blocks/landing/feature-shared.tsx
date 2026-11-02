@@ -2,9 +2,11 @@ import type { ReactNode } from 'react';
 import { cn } from '../../../lib/utils';
 
 // The sunken sheet a feature visual sits on. Radius follows the padding:
-// the visual's 16px corners + 16 / 24px padding ≈ 32px (5xl).
+// the visual's 16px corners + 16 / 24px padding ≈ 32px (5xl). The visual
+// fills the sheet, so the padding is the same on all four sides (no min
+// height with a centred visual: that left wide bands above and below).
 export const mediaPanel =
-  'flex min-h-[20rem] items-center justify-center rounded-[var(--size-border-radius-border-radius-5xl)] bg-[var(--color-bg-surface-bg-surface-sunken)] p-4 sm:p-6';
+  'flex flex-col rounded-[var(--size-border-radius-border-radius-5xl)] bg-[var(--color-bg-surface-bg-surface-sunken)] p-4 sm:p-6 [&>*]:w-full [&>*]:max-w-none';
 
 export function SectionHead({
   eyebrow,

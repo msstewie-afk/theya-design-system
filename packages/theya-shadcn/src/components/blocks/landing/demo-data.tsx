@@ -63,11 +63,13 @@ export function BookmarksPreview({ className, floating = true, folder = 'reading
       // A picture of the product: no text cursor, no selection, so nothing in it looks half-working.
       className={cn('relative cursor-default select-none', className)}
     >
-      {/* Nested radius: the search field's 6px plus the 12px band padding ≈ 16px (4xl), so the corners stay concentric. */}
+      {/* One inset for the whole card: the search field, the folder list and the link list all
+          start 8px in, and their contents (icons, letter tiles) 16px in. Nested radius: the
+          field's 6px plus the 8px band padding ≈ 16px (4xl), so the corners stay concentric. */}
       <div className="overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-lg">
-        <div className="flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] px-4 py-3">
+        <div className="flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] p-2">
           {/* End inset 5px + 1px border = the 6px above and below the 20px key, so the key sits evenly. */}
-          <div className="flex h-8 flex-1 items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] ps-3 pe-1.25 text-body-s text-[var(--color-text-text-subtler)]">
+          <div className="flex h-8 flex-1 items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] ps-1.75 pe-1.25 text-body-s text-[var(--color-text-text-subtler)]">
             <Search className="size-4 shrink-0" />
             <span className="flex-1 truncate">Search 250 links</span>
             <Kbd>⌘K</Kbd>

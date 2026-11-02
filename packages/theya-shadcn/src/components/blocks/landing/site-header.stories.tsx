@@ -1,13 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { resetFocus } from '../../../test/keyboard';
 import { expect, userEvent, within } from '@storybook/test';
 import { ArrowRight } from 'iconoir-react';
 import { Button } from '../../ui/button';
 import { MegaMenu } from '../navigation/mega-menu';
-import { BookmarksPreview, DEMO_LANDING_MENU, DemoLogos, DemoProductLogo } from './demo-data';
+import { BookmarksPreview, DEMO_FEATURES, DEMO_LANDING_MENU, DemoFeatureVisual, DemoLogos, DemoProductLogo } from './demo-data';
 import { Hero, HeroAccent } from './hero';
 import { LogoStrip } from './logo-strip';
 import { SectionPanel } from './section-panel';
 import { SiteHeader } from './site-header';
+import { FeatureShowcase } from './feature-showcase';
 import { siteHeaderGuidelines } from './site-header.guidelines';
 
 const meta: Meta<typeof SiteHeader> = {
@@ -59,6 +61,8 @@ export const Default: Story = {
     // While focused it sits over the logo; the next Tab moves on and it slides away.
     await userEvent.tab();
     await expect(skip).not.toHaveFocus();
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -97,7 +101,8 @@ export const OnTheLandingPage: Story = {
             <DemoLogos />
           </LogoStrip>
         </SectionPanel>
-        <div className="h-[60rem]" aria-hidden />
+        {/* Real content below the band, so there is something to scroll past and the header turns solid over it. */}
+        <FeatureShowcase eyebrow="Features" title="Everything you saved, in order" items={DEMO_FEATURES.map((f) => ({ id: f.id, title: f.title, description: f.description, media: <DemoFeatureVisual id={f.id} /> }))} />
       </main>
     </div>
   ),

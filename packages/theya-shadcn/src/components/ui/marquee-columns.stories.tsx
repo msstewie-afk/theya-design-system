@@ -90,9 +90,9 @@ export const ScrollDriven: Story = {
   },
   render: (args) => (
     <div className="flex flex-col gap-10">
-      <p className="m-0 grid h-[60vh] place-items-center font-body text-body-m text-[var(--color-text-text-subtle)]">Scroll down</p>
+      <p className="m-0 grid h-[35vh] place-items-center rounded-[var(--size-border-radius-border-radius-4xl)] border border-dashed border-[var(--color-border-border-subtle)] font-body text-body-m text-[var(--color-text-text-subtle)]">Scroll down: the columns move with the page</p>
       <MarqueeColumns {...args} aria-label="Things people ask" className="mx-auto h-[32rem] max-w-3xl" />
-      <div className="h-[60vh]" />
+      <p className="m-0 grid h-[35vh] place-items-center rounded-[var(--size-border-radius-border-radius-4xl)] border border-dashed border-[var(--color-border-border-subtle)] font-body text-body-m text-[var(--color-text-text-subtle)]">End of the example</p>
     </div>
   ),
   play: async ({ canvasElement }) => {

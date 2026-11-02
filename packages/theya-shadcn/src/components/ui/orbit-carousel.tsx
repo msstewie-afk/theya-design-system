@@ -98,6 +98,14 @@ export function OrbitCarousel({
   const dragging = pull !== 0;
 
   const stage = useRef<HTMLDivElement>(null);
+  const [cardH, setCardH] = useState(0);
+  useEffect(() => {
+    const el = stage.current?.querySelector<HTMLElement>('[data-slide="0"]');
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(() => el.offsetHeight && setCardH(el.offsetHeight));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [shape, n]);
   // The announcement is built from one state — number and heading together —
   // so the live region changes in a single render and never reads a new
   // number with the old heading in between.
@@ -183,7 +191,22 @@ export function OrbitCarousel({
   if (!n) return null;
 
   const motion = !dragging && !reduced;
-  const stageHeight = height ?? { drum: center || lean ? '26rem' : '20rem', wheel: '28rem', wall: '26rem', fan: '30rem', rolodex: '30rem', stack: '24rem', cascade: '28rem' }[shape];
+  // The stage is as tall as the shape needs for the cards it holds, so there are no wide empty
+  // bands above or below them: measured from the first card, with room for what the shape adds.
+  const drumRadius = Math.round((width / 2 + 12) / Math.tan(Math.PI / Math.max(n, 3))) + (center ? 72 : 0);
+  const extra: Record<OrbitCarouselShape, (h: number) => number> = {
+    // The near edges of the side cards come closer in perspective, so they need headroom.
+    // Round a word the ring leans toward the viewer: its near and far sides sit above and below
+    // the word, ±radius·sin(lean) from the middle, so that span plus a card and a half.
+    drum: (h) => (center ? h * 1.5 + 2 * drumRadius * Math.sin((Math.min(lean, 40) * Math.PI) / 180) + 64 : h * (1.25 + Math.min(lean, 40) / 60) + 48),
+    wheel: (h) => h * 2.4,
+    wall: (h) => h * 1.2 + 32,
+    fan: (h) => h * 1.08 + 72,
+    rolodex: (h) => h * 2.1,
+    stack: (h) => h + 2 * 3 * 22 + 24,
+    cascade: (h) => h + 2 * 3 * 44 + 24,
+  };
+  const stageHeight = height ?? (cardH ? `${Math.round(extra[shape](cardH))}px` : '20rem');
   const slide = (i: number) => {
     const front = i === index;
     return {
@@ -235,7 +258,15 @@ export function OrbitCarousel({
         {shape === 'rolodex' && <Rolodex {...shapeProps} />}
         {(shape === 'stack' || shape === 'cascade') && <Pile {...shapeProps} cascade={shape === 'cascade'} />}
       </div>
-      <div className="flex items-center gap-6">
+      {/* Where you are, then the buttons under it: dots for every shape (the announcement says it in words). */}
+      <div className="flex flex-col items-center gap-3">
+        {n <= 12 && (
+          <ol aria-hidden className="m-0 flex list-none gap-2 p-0">
+            {items.map((_, i) => (
+              <li key={i} className={cn('h-2 rounded-full motion-safe:transition-[width,background-color] motion-safe:duration-moderate', i === index ? 'w-6 bg-[var(--color-icon-icon-primary)]' : 'w-2 bg-[var(--color-border-border-strong)]')} />
+            ))}
+          </ol>
+        )}
         <div className="flex items-center gap-2">
           <Button appearance="outlined" tone="secondary" size="md" iconOnly aria-label={t.carousel.previous} leftIcon={<NavArrowLeft className={cn(vertical ? 'rotate-90' : 'rtl:-scale-x-100')} />} onClick={() => go(-1)} />
           {!!autoplay && !reduced && (
@@ -252,14 +283,6 @@ export function OrbitCarousel({
           )}
           <Button appearance="outlined" tone="secondary" size="md" iconOnly aria-label={t.carousel.next} leftIcon={<NavArrowRight className={cn(vertical ? 'rotate-90' : 'rtl:-scale-x-100')} />} onClick={() => go(1)} />
         </div>
-        {/* Wall and fan stop at the ends, so where you are matters: dots (the announcement says it in words). */}
-        {!wraps && (
-          <ol aria-hidden className="m-0 flex list-none gap-2 p-0">
-            {items.map((_, i) => (
-              <li key={i} className={cn('h-2 rounded-full motion-safe:transition-[width,background-color] motion-safe:duration-moderate', i === index ? 'w-6 bg-[var(--color-icon-icon-primary)]' : 'w-2 bg-[var(--color-border-border-strong)]')} />
-            ))}
-          </ol>
-        )}
       </div>
       <p id={`${uid}-hint`} className="sr-only">
         {vertical ? t.carousel.keysHintVertical : t.carousel.keysHint}
@@ -288,7 +311,8 @@ function Drum({ items, pos, width, lean, motion, slide, center }: ShapeProps & {
   const n = items.length;
   const step = 360 / n;
   // Distance from the axis so neighbouring cards just touch, plus a gap.
-  const radius = Math.round((width / 2 + 12) / Math.tan(Math.PI / n));
+  // With a word in the middle, the drum widens so the cards clear it.
+  const radius = Math.round((width / 2 + 12) / Math.tan(Math.PI / n)) + (center ? 72 : 0);
   const transition = motion ? 'transition-[transform,filter,opacity] duration-slower ease-glide motion-reduce:transition-none' : '';
   return (
     <div className="absolute inset-0 [transform-style:preserve-3d]">
@@ -305,7 +329,7 @@ function Drum({ items, pos, width, lean, motion, slide, center }: ShapeProps & {
             <div
               key={i}
               {...slide(i)}
-              className={cn('absolute inset-x-0 top-1/2 [&>*]:h-full', !center && '[backface-visibility:hidden]', transition)}
+              className={cn('absolute inset-x-0 top-1/2', !center && '[backface-visibility:hidden]', transition)}
               style={{
                 transform: `translateY(-50%) rotateY(${i * step}deg) translateZ(${radius}px)`,
                 filter: `brightness(${0.55 + 0.45 * Math.max(0, facing)})`,
@@ -376,7 +400,7 @@ function Wall({ items, pos, index, width, lean, motion, slide }: ShapeProps) {
             <div
               key={i}
               {...slide(i)}
-              className={cn('absolute -translate-x-1/2 -translate-y-1/2 [&>*]:h-full', transition)}
+              className={cn('absolute -translate-x-1/2 -translate-y-1/2', transition)}
               style={{
                 width,
                 transform: `rotateY(${-i * step}deg) translateZ(${-radius}px)`,
@@ -467,7 +491,7 @@ function Rolodex({ items, pos, width, motion, slide }: ShapeProps) {
             key={i}
             ref={i === 0 ? first : undefined}
             {...slide(i)}
-            className={cn('absolute left-1/2 top-1/2 [backface-visibility:hidden] [&>*]:h-full', transition, out && 'pointer-events-none')}
+            className={cn('absolute left-1/2 top-1/2 [backface-visibility:hidden]', transition, out && 'pointer-events-none')}
             style={{
               width,
               // Turn round an axis `radius` behind the card: the next one (k = 1) comes up from below.
@@ -505,7 +529,7 @@ function Pile({ items, pos, width, motion, slide, cascade }: ShapeProps & { casc
           <div
             key={i}
             {...slide(i)}
-            className={cn('absolute left-1/2 top-1/2 [&>*]:h-full', transition, !visible && 'pointer-events-none')}
+            className={cn('absolute left-1/2 top-1/2', transition, !visible && 'pointer-events-none')}
             style={{
               width,
               transform: `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${1 - Math.min(ak, 3) * (cascade ? 0.1 : 0.08)})${tilt}`,

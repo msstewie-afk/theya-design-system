@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { resetFocus } from '../../../test/keyboard';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { DEMO_FEATURES, DEMO_FOLDERS, DemoFeatureVisual, DemoMiniLink } from './demo-data';
 import { SectionHead } from './feature-shared';
@@ -20,21 +21,28 @@ type Story = StoryObj<typeof FolderReveal>;
 const HUES: LandingCardHue[] = ['primary', 'secondary', 'success', 'warning', 'info', 'neutral', 'primary', 'success'];
 const TEMPLATES = ['Reading list', 'Research', 'Recipes', 'Trips', 'Design inspiration', 'Courses', 'Gift ideas', 'Job search'];
 
-const TemplateCard = ({ i, compact = false }: { i: number; compact?: boolean }) =>
-  compact ? (
-    <LandingCard surface="tonal" hue={HUES[i]} className="h-36 justify-between gap-2 p-4">
-      <p className="m-0 font-body text-body-xs font-medium tabular-nums">{String(i + 1).padStart(2, '0')}</p>
+const PHOTOS = ['login-carousel-01', 'login-carousel-02', 'login-carousel-03', 'nova-web'];
+const POS = ['20% 50%', '60% 40%', '50% 50%', '30% 60%', '85% 30%', '75% 70%', '40% 20%', '10% 80%'];
+
+// A template card on a photo: dark theme inside, so its text reads on any picture.
+const TemplateCard = ({ i, compact = false }: { i: number; compact?: boolean }) => (
+  <article
+    data-theme="dark"
+    className={`relative isolate flex flex-col justify-between overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] text-[var(--color-text-text)] shadow-elevation-lg ${compact ? 'h-36 gap-2 p-4' : 'h-72 gap-4 p-6'}`}
+  >
+    <img src={`/asset-examples/${PHOTOS[i % PHOTOS.length]}.jpg`} alt="" className="absolute inset-0 -z-10 size-full object-cover" style={{ objectPosition: POS[i] }} />
+    <span aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_88%,transparent)] via-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_30%,transparent)] to-transparent" />
+    <p className={`m-0 font-body font-medium tabular-nums ${compact ? 'text-body-xs' : 'text-body-s'}`}>{compact ? String(i + 1).padStart(2, '0') : `Template ${String(i + 1).padStart(2, '0')}`}</p>
+    {compact ? (
       <h3 className="m-0 font-heading text-body-m font-semibold">{TEMPLATES[i]}</h3>
-    </LandingCard>
-  ) : (
-    <LandingCard surface="tonal" hue={HUES[i]} className="h-72 justify-between gap-4 p-6">
-      <p className="m-0 font-body text-body-s font-medium tabular-nums">Template {String(i + 1).padStart(2, '0')}</p>
+    ) : (
       <div className="flex flex-col gap-2">
         <h3 className="m-0 font-heading text-heading-xs font-semibold">{TEMPLATES[i]}</h3>
-        <p className="m-0 font-body text-body-s">Folders, tags and rules, ready to fill.</p>
+        <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtle)]">Folders, tags and rules, ready to fill.</p>
       </div>
-    </LandingCard>
-  );
+    )}
+  </article>
+);
 
 /** Eight template cards standing in a ring (OrbitCarousel, `drum`, leaning toward you). Drag it, use the arrows or the Arrow keys; it settles with a card facing you. */
 export const Ring: Story = {
@@ -57,6 +65,8 @@ export const Ring: Story = {
     // The carousel carries a hint about the arrow keys; the position names the slide.
     await expect(ring).toHaveAccessibleDescription(/arrow keys/);
     await waitFor(() => expect(within(ring).getByText(`2 of ${TEMPLATES.length}: ${TEMPLATES[1]}`)).toBeInTheDocument());
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -102,6 +112,8 @@ export const Wall: Story = {
     await userEvent.click(within(wall).getByRole('button', { name: /previous/i }));
     await userEvent.click(within(wall).getByRole('button', { name: /previous/i }));
     await expect(within(wall).getByRole('heading', { level: 3, name: TEMPLATES[0] })).toBeInTheDocument();
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -128,6 +140,8 @@ export const Fan: Story = {
     await expect(within(fan).getAllByRole('heading', { level: 3 })).toHaveLength(1);
     await userEvent.click(within(fan).getByRole('button', { name: /previous/i }));
     await expect(within(fan).getByRole('heading', { level: 3, name: DEMO_FEATURES[1].title })).toBeInTheDocument();
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -145,6 +159,8 @@ export const Folders: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('link', { name: /Reading list/ })).toHaveAttribute('href', '#reading');
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -182,6 +198,8 @@ export const Flip: Story = {
     // Unpin it again, so the story is left as it opens (a pinned card ignores hover).
     await userEvent.click(button);
     await expect(button).toHaveAttribute('aria-pressed', 'false');
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { resetFocus } from '../../../test/keyboard';
 import { expect, userEvent, within } from '@storybook/test';
 import { DEMO_FEATURES, DemoFeatureVisual } from './demo-data';
 import { FeatureShowcase } from './feature-showcase';
@@ -36,6 +37,8 @@ export const Accordion: Story = {
     await expect(canvas.getByRole('button', { name: DEMO_FEATURES[2].title })).toHaveAttribute('aria-expanded', 'true');
     await expect(canvas.getByRole('button', { name: DEMO_FEATURES[0].title })).toHaveAttribute('aria-expanded', 'false');
     await expect(canvas.getAllByRole('img', { name: /Searching “attention”/ }).length).toBeGreaterThan(0);
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -54,5 +57,7 @@ export const Chips: Story = {
     await expect(canvas.getByRole('tab', { name: 'Folders' })).toHaveAttribute('aria-selected', 'true');
     await userEvent.click(canvas.getByRole('tab', { name: 'Duplicates' }));
     await expect(canvas.getByRole('img', { name: /Three duplicates found/ })).toBeVisible();
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };

@@ -5,7 +5,7 @@ import { SectionHead } from './feature-shared';
 export function CardMotionSection({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section data-scale="display" className="section-display overflow-hidden">
-      <div className="container-display flex flex-col items-center gap-12">
+      <div className="container-display flex flex-col items-center gap-8">
         {title && <SectionHead align="center" title={title} />}
         {children}
       </div>

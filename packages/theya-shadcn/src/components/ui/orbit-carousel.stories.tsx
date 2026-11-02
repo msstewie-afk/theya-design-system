@@ -1,22 +1,27 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { resetFocus } from '../../test/keyboard';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { OrbitCarousel } from './orbit-carousel';
 import { orbitCarouselGuidelines } from './orbit-carousel.guidelines';
 
+const PHOTOS = ['login-carousel-01', 'login-carousel-02', 'login-carousel-03', 'nova-web', 'login-carousel-02', 'login-carousel-01'];
 const CASES = [
-  { title: 'Discover', tint: 'var(--color-bg-neutral-bg-neutral-strong)', ink: 'var(--color-text-text-on-dark)' },
-  { title: 'Direction', tint: 'var(--color-bg-danger-bg-danger)', ink: 'var(--color-text-text-on-dark)' },
-  { title: 'Design', tint: 'var(--color-bg-surface-bg-surface)', ink: 'var(--color-text-text)' },
-  { title: 'Delivery', tint: 'var(--color-bg-primary-bg-primary)', ink: 'var(--color-text-text-on-primary)' },
-  { title: 'Metrics', tint: 'var(--color-bg-warning-bg-warning-subtle)', ink: 'var(--color-text-text)' },
-  { title: 'Launch', tint: 'var(--color-bg-success-bg-success-subtle)', ink: 'var(--color-text-text)' },
+  { title: 'Discover', pos: '20% 50%' },
+  { title: 'Direction', pos: '60% 40%' },
+  { title: 'Design', pos: '50% 50%' },
+  { title: 'Delivery', pos: '30% 60%' },
+  { title: 'Metrics', pos: '85% 30%' },
+  { title: 'Launch', pos: '75% 70%' },
 ];
 
+// A photo card: the picture, a dark gradient and the title on it (dark theme inside, so the text reads on any photo).
 const Slide = ({ c, i }: { c: (typeof CASES)[number]; i: number }) => (
   <div
-    className="flex aspect-[4/3] flex-col justify-between rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] p-5 shadow-elevation-md"
-    style={{ background: c.tint, color: c.ink }}
+    data-theme="dark"
+    className="relative isolate flex aspect-[4/3] flex-col justify-between overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] p-5 text-[var(--color-text-text)] shadow-elevation-md"
   >
+    <img src={`/asset-examples/${PHOTOS[i]}.jpg`} alt="" className="absolute inset-0 -z-10 size-full object-cover" style={{ objectPosition: c.pos }} />
+    <span aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_85%,transparent)] to-transparent" />
     <span className="font-mono text-body-xs">0{i + 1} / 0{CASES.length}</span>
     <h3 className="m-0 font-body text-heading-s font-semibold">{c.title}</h3>
   </div>
@@ -77,6 +82,8 @@ export const Drum: Story = {
     canvas.getByRole('group', { name: 'Case study' }).focus();
     await userEvent.keyboard('{ArrowLeft}{ArrowLeft}');
     await waitFor(() => expect(canvas.getByRole('heading', { name: 'Launch' })).toBeInTheDocument());
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -99,6 +106,8 @@ export const Autoplay: Story = {
       await userEvent.click(canvas.getByRole('button', { name: 'Pause' }));
       await expect(canvas.getByRole('button', { name: 'Play' })).not.toHaveAttribute('aria-pressed');
     }
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -111,7 +120,7 @@ export const AroundAWord: Story = {
       {...args}
       aria-label="Case study"
       className="mx-auto max-w-3xl"
-      center={<p className="m-0 whitespace-nowrap font-display-serif text-heading-3xl italic text-[var(--color-text-text)]">our work</p>}
+      center={<p className="m-0 whitespace-nowrap font-display-serif text-heading-2xl italic text-[var(--color-text-text)]">our work</p>}
     >
       {CASES.map((c, i) => (
         <Slide key={c.title} c={c} i={i} />
@@ -133,6 +142,8 @@ export const Wall: Story = {
     await expect(canvas.getByRole('heading', { name: 'Discover' })).toBeInTheDocument();
     await userEvent.click(canvas.getByRole('button', { name: 'Next slide' }));
     await waitFor(() => expect(canvas.getByText('2 of 6: Direction')).toBeInTheDocument());
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -146,6 +157,8 @@ export const Fan: Story = {
     await expect(canvas.getByRole('heading', { name: 'Delivery' })).toBeInTheDocument();
     await userEvent.click(canvas.getByRole('button', { name: 'Previous slide' }));
     await expect(canvas.getByRole('heading', { name: 'Design' })).toBeInTheDocument();
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -163,6 +176,8 @@ export const Rolodex: Story = {
     await userEvent.keyboard('{ArrowUp}{ArrowUp}');
     // It wraps: up from the first card is the last.
     await waitFor(() => expect(canvas.getByRole('heading', { name: 'Launch' })).toBeInTheDocument());
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -174,6 +189,8 @@ export const Stack: Story = {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Next slide' }));
     await waitFor(() => expect(canvas.getByRole('heading', { name: 'Direction' })).toBeInTheDocument());
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 

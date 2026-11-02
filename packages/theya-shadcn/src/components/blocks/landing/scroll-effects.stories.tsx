@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { ArrowDown } from 'iconoir-react';
 import { expect, within } from '@storybook/test';
 import { Copy, Group, Import, Lock, Search, Sparks } from 'iconoir-react';
 import { BookmarksPreview, DEMO_FEATURES, DemoFeatureVisual, DemoMiniLink } from './demo-data';
@@ -18,10 +19,22 @@ const meta: Meta<typeof CardDeck> = {
 export default meta;
 type Story = StoryObj<typeof CardDeck>;
 
-/** Room to scroll before and after an effect, so it can be seen playing in the canvas. */
+/**
+ * Room to scroll before and after an effect, so it can be seen playing in the canvas. A quiet
+ * marked band (not a blank screen): above the effect it says to scroll, below it marks the end.
+ */
 const Spacer = ({ label }: { label: string }) => (
-  <div aria-hidden className="flex h-[70vh] items-center justify-center font-body text-body-m text-[var(--color-text-text-subtle)]">
-    {label}
+  <div aria-hidden className="flex h-[45vh] items-center justify-center px-[var(--display-gutter)]">
+    <div className="flex size-full max-w-[var(--display-container)] flex-col items-center justify-center gap-2 rounded-[var(--size-border-radius-border-radius-5xl)] border border-dashed border-[var(--color-border-border-subtle)] font-body text-body-m text-[var(--color-text-text-subtle)]">
+      {label ? (
+        <>
+          <ArrowDown className="size-5" />
+          {label}
+        </>
+      ) : (
+        'End of the example'
+      )}
+    </div>
   </div>
 );
 

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { resetFocus } from '../../test/keyboard';
 import { expect, userEvent, within } from '@storybook/test';
 import { ExpandingPanels } from './expanding-panels';
 import { expandingPanelsGuidelines } from './expanding-panels.guidelines';
@@ -49,5 +50,7 @@ export const Default: Story = {
     await expect(first).toHaveAttribute('aria-expanded', 'false');
     await expect(canvas.getByRole('region', { name: 'Research' })).toHaveTextContent(/thesis/);
     await expect(canvas.queryByRole('link', { name: 'Open the folder' })).toBeNull();
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };

@@ -2,6 +2,7 @@
 
 import { useState, type ComponentProps, type ReactNode } from 'react';
 import { cn } from '../../../lib/utils';
+import { inertProps } from '../../../lib/inert';
 import { useTheyaI18n } from '../../../lib/i18n';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../ui/accordion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs';
@@ -60,9 +61,20 @@ export function FeatureShowcase({ variant = 'accordion', eyebrow, title, descrip
               ))}
             </Accordion>
           </div>
-          {/* Wide screens: the open item's visual, beside the list. */}
-          <div className={cn(mediaPanel, 'hidden lg:flex lg:min-h-[32rem]')} data-slot="feature-showcase-media">
-            {current?.media}
+          {/* Wide screens: the open item's visual, beside the list. All visuals share one
+              grid cell, so the sheet is as tall as the tallest and never jumps when the item
+              changes; the open one fills it (even padding on all sides), the rest are hidden. */}
+          <div className={cn(mediaPanel, 'hidden lg:grid lg:[&>*]:h-full')} data-slot="feature-showcase-media">
+            {items.map((item) => (
+              <div
+                key={item.id}
+                aria-hidden={item.id !== current?.id || undefined}
+                {...inertProps(item.id !== current?.id)}
+                className={cn('flex min-h-0 [grid-area:1/1] [&>*]:w-full', item.id !== current?.id && 'invisible')}
+              >
+                {item.media}
+              </div>
+            ))}
           </div>
         </div>
       ) : (
@@ -83,7 +95,7 @@ export function FeatureShowcase({ variant = 'accordion', eyebrow, title, descrip
                     <h3 className="m-0 text-balance font-heading text-heading-xl text-[var(--color-text-text)]">{item.title}</h3>
                     <p className="m-0 font-body text-body-l text-[var(--color-text-text-subtle)]">{item.description}</p>
                   </div>
-                  <div className="flex min-h-[20rem] items-center justify-center">{item.media}</div>
+                  <div className="flex [&>*]:w-full">{item.media}</div>
                 </div>
               </TabsContent>
             ))}

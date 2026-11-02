@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { resetFocus } from '../../../test/keyboard';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { ArrowRight } from 'iconoir-react';
 import { Avatar, AvatarFallback } from '../../ui/avatar';
@@ -55,6 +56,8 @@ export const Testimonial: Story = {
     const figure = canvas.getByRole('figure');
     await expect(within(figure).getByText(/hunting for sources/)).toBeInTheDocument();
     await expect(canvas.getAllByRole('term')).toHaveLength(2);
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -69,6 +72,8 @@ export const FaqAccordion: Story = {
     await userEvent.click(q);
     await expect(q).toHaveAttribute('aria-expanded', 'true');
     await expect(within(section).getByText(/Free for one person/)).toBeVisible();
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -97,6 +102,8 @@ export const FaqChat: Story = {
     await userEvent.click(tabs[2]);
     await expect(tabs[2]).toHaveAttribute('aria-selected', 'true');
     await waitFor(() => expect(within(section).getByRole('tabpanel')).toHaveTextContent(/Only you/), { timeout: 2000 });
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
@@ -125,6 +132,8 @@ export const Cta: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('region', { name: /one search away/ })).toBeInTheDocument();
     await expect(canvas.getByRole('button', { name: 'Start free' })).toBeInTheDocument();
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 
