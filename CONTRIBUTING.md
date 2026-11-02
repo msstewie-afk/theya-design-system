@@ -108,6 +108,7 @@ node scripts/agents.mjs remove kbd-tests # when the branch is landed
 - **`node_modules` is shared**: a copy links to the main checkout’s packages instead of installing them again; its own `packages/tokens` is what `@theya/tokens` resolves to. After `pnpm install` in the main checkout, run `node scripts/agents.mjs relink <name>`.
 - **Generated files** (`spec/`, `api/`, `llms*.txt`, the a11y matrix) are rebuilt by `land` after the rebase, so they never need a hand-merged conflict.
 - **A conflict in sources** stops `land`: resolve it in the copy (`git status`, `git rebase --continue`) and run `land` again.
+- **Push to main in batches.** CI on main cancels a run in progress when a new push arrives, and a full run takes about 45 minutes. Push a finished piece of work at once, not every commit; before pushing, check that no run on main is in progress (`gh run list --branch main --limit 1`). Run types, `pnpm api:check` and the stories you touched (light, dark, 360px) first — that includes another agent's branch you merge.
 
 ## Pull requests
 
