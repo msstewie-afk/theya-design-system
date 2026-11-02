@@ -115,7 +115,13 @@ function scan(nontext) {
     const inactive = (el) => !!el.closest(':disabled, [aria-disabled="true"], fieldset:disabled, [data-disabled], [inert]');
     const colorOf = (c, el) => { const p = parse(c); if (!p || p.a === 0) return null; return over({ ...p, a: p.a * opacityOf(el) }, backgroundOf(el.parentElement) ?? base); };
     const fillOf = (el) => { const p = parse(getComputedStyle(el).backgroundColor); if (!p || p.a === 0) return null; return over({ ...p, a: p.a * opacityOf(el) }, backgroundOf(el.parentElement) ?? base); };
-    const borderOf = (el) => { const cs = getComputedStyle(el); return parseFloat(cs.borderTopWidth) >= 1 && cs.borderTopStyle !== 'none' ? colorOf(cs.borderTopColor, el) : null; };
+    // A border, or an inset ring drawn with box-shadow (Tailwind inset-ring: "rgb(...) 0px 0px 0px 1px inset").
+    const borderOf = (el) => {
+      const cs = getComputedStyle(el);
+      if (parseFloat(cs.borderTopWidth) >= 1 && cs.borderTopStyle !== 'none') return colorOf(cs.borderTopColor, el);
+      const ring = cs.boxShadow.match(/(rgba?\([^)]*\)) 0px 0px 0px (\d+(?:\.\d+)?)px inset/);
+      return ring && parseFloat(ring[2]) >= 1 ? colorOf(ring[1], el) : null;
+    };
     const report = (el, what, a, b) => {
       const r = ratio(a, b);
       if (r + 0.005 < 3) out.push({ text: what, ratio: Math.round(r * 100) / 100, need: 3, fg: hex(a), bg: hex(b), hidden: false, path: [el.getAttribute('role') ?? el.tagName.toLowerCase(), el.getAttribute('data-slot') ?? el.closest('[data-slot]')?.getAttribute('data-slot') ?? ''].filter(Boolean).join(' in ') });
