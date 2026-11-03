@@ -6,14 +6,14 @@ const Tile = ({ children }: { children: React.ReactNode }) => (
 
 export const expandingPanelsGuidelines: ComponentGuidelines = {
   status: 'beta',
-  whenToUse: ['A landing section that shows three to five things with a strong picture each: collections, use cases, places, products.'],
+  whenToUse: ['A landing section that shows three to five things side by side: collections, use cases, plans. Prefer tones over photos: pictures make the row heavy and noisy.'],
   whenNotToUse: [
     { text: 'Text people need to read side by side or compare', instead: 'Card grid' },
     { text: 'Questions and answers, settings, long content', instead: 'Accordion' },
     { text: 'More than about five panels — the strips get too narrow to read', instead: 'OrbitCarousel or a card rail' },
   ],
   anatomy: [
-    { part: 'Panel', description: 'a dark picture panel; open, it takes about five times a strip’s width.' },
+    { part: 'Panel', description: <>a bright system fill (<C>tone</C>: primary, success, info, danger) with its own text color — no gradient, no darkening; or, sparingly, a picture under a dark gradient. Open, it takes about five times a strip’s width.</> },
     { part: 'Title', description: <>a button in a heading (<C>titleAs</C>); runs up the strip when closed, sits above the text when open.</> },
     { part: 'Content', description: 'a line or two and at most one link, shown only in the open panel.' },
   ],

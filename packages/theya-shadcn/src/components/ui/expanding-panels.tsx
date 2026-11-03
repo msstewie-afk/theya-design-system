@@ -20,11 +20,26 @@ import { inertProps } from '../../lib/inert';
  *   a gradient sits between the picture and the text.
  * - prefers-reduced-motion: the panels switch without sliding.
  */
+export type ExpandingPanelsTone = 'primary' | 'success' | 'info' | 'danger';
+
+const TONE: Record<ExpandingPanelsTone, string> = {
+  primary: 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)]',
+  success: 'bg-[var(--color-bg-success-bg-success)] text-[var(--color-text-text-on-dark)]',
+  info: 'bg-[var(--color-bg-info-bg-info)] text-[var(--color-text-text-on-dark)]',
+  danger: 'bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-text-text-on-dark)]',
+};
+
 export interface ExpandingPanelsItem {
   /** Names the panel: the button and the open panel's heading. */
   title: string;
-  /** A picture behind the panel (an <img>, alt="" when decorative). */
+  /** A picture behind the panel (an <img>, alt="" when decorative). Use sparingly: a bright `tone` reads cleaner. */
   media?: ReactNode;
+  /**
+   * A bright system fill instead of a picture, as on a filled Button: the panel takes the fill and
+   * its text color, with no gradient or darkening (the text reads on the fill as it is). Warning is
+   * left out: it needs dark text and reads as an alert.
+   */
+  tone?: ExpandingPanelsTone;
   /** What the open panel says: a line or two and, at most, one link. */
   content?: ReactNode;
 }
@@ -66,10 +81,13 @@ export function ExpandingPanels({ items, defaultIndex = 0, onChange, height = '2
             key={i}
             data-slot="expanding-panels-item"
             data-state={isOpen ? 'open' : 'closed'}
-            data-theme="dark"
+            // A picture (or no fill) gets the dark theme, so its text reads over the gradient; a tone brings its own colors.
+            data-theme={item.tone ? undefined : 'dark'}
+            data-tone={item.tone}
             onPointerEnter={(e) => e.pointerType === 'mouse' && choose(i)}
             className={cn(
-              'relative isolate flex min-w-0 flex-col justify-end overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] bg-[var(--color-bg-surface-bg-surface-sunken)] text-[var(--color-text-text)]',
+              'relative isolate flex min-w-0 flex-col justify-end overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)]',
+              item.tone ? TONE[item.tone] : 'bg-[var(--color-bg-surface-bg-surface-sunken)] text-[var(--color-text-text)]',
               // Wide: the open panel grows, the others stay narrow strips. Narrow: the open one is taller.
               'md:basis-0 md:[flex-grow:var(--ep-grow)]',
               isOpen ? 'h-[22rem] md:h-auto' : 'h-16 md:h-auto',
@@ -89,8 +107,8 @@ export function ExpandingPanels({ items, defaultIndex = 0, onChange, height = '2
                 {item.media}
               </div>
             )}
-            {/* Between the picture and the text, so white text always reads. */}
-            <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_92%,transparent)] via-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_40%,transparent)] to-transparent" />
+            {/* Between the picture and the text, so white text always reads. Not on a tone: the fill needs none. */}
+            {!item.tone && <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_92%,transparent)] via-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_40%,transparent)] to-transparent" />}
 
             <Title className="m-0">
               <button
@@ -130,7 +148,9 @@ export function ExpandingPanels({ items, defaultIndex = 0, onChange, height = '2
               {...inertProps(!isOpen)}
               className={cn(
                 // Above the button's stretched target, so a link inside stays clickable.
-                'relative z-[1] px-5 pb-5 font-body text-body-m text-[var(--color-text-text-subtle)] md:max-w-[36rem] md:px-8 md:pb-8',
+                'relative z-[1] px-5 pb-5 font-body text-body-m md:max-w-[36rem] md:px-8 md:pb-8',
+                // On a tone the text keeps the fill's own color at full strength: faded white fails contrast on the fill.
+                item.tone ? '[&_a]:text-inherit [&_a]:underline' : 'text-[var(--color-text-text-subtle)]',
                 isOpen ? 'opacity-100 motion-safe:transition-opacity motion-safe:duration-moderate' : 'hidden md:block md:pointer-events-none md:absolute md:opacity-0',
               )}
             >

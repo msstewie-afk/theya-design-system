@@ -1166,7 +1166,7 @@
       "file": "ui/expanding-panels",
       "category": "Motion",
       "status": "beta",
-      "summary": "A landing section that shows three to five things with a strong picture each: collections, use cases, places, products.",
+      "summary": "A landing section that shows three to five things side by side: collections, use cases, plans. Prefer tones over photos: pictures make the row heavy and noisy.",
       "instead": [
         {
           "when": "Text people need to read side by side or compare",

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ArrowDown } from 'iconoir-react';
 import { expect, within } from '@storybook/test';
 import { Copy, Group, Import, Lock, Search, Sparks } from 'iconoir-react';
-import { BookmarksPreview, DEMO_FEATURES, DemoFeatureVisual, DemoMiniLink } from './demo-data';
+import { BookmarksPreview, DEMO_FEATURES, DemoFeatureVisual, DemoMiniLink, DemoMesh } from './demo-data';
 import { SectionHead } from './feature-shared';
 import { FeatureCard, LandingCard, QuoteCard, StatCard, type LandingCardHue } from './landing-cards';
 import { Button } from '../../ui/button';
@@ -165,7 +165,7 @@ export const MaskReveal: Story = {
   render: () => (
     <div className="bg-[var(--color-bg-surface-bg-surface)]">
       <Spacer label="Scroll down" />
-      <ScrollMaskReveal aria-labelledby="reveal-title" media={<img src="/asset-examples/login-carousel-01.jpg" alt="" />}>
+      <ScrollMaskReveal aria-labelledby="reveal-title" media={<DemoMesh seed={2} />}>
         <div className="flex max-w-[34rem] flex-col items-start gap-6 rounded-[var(--size-border-radius-border-radius-4xl)] bg-[var(--color-bg-surface-bg-surface)] p-8 shadow-elevation-md">
           <h2 id="reveal-title" className="m-0 text-balance font-heading text-heading-2xl text-[var(--color-text-text)]">
             Room for everything you read
@@ -228,7 +228,7 @@ export const Masonry: Story = {
     const items = [
       ...PHOTOS.map((p, i) => (
         <LandingCard key={p} surface="sunken" className="overflow-hidden">
-          <img src={`/asset-examples/${p}.jpg`} alt="" className={`${RATIOS[i]} w-full object-cover`} />
+          <DemoMesh seed={i} className={`${RATIOS[i]} !h-auto w-full`} />
           <p className="m-0 p-4 font-body text-body-s font-semibold">{['Blue hour', 'Studio portrait', 'Stairs study', 'Home office', 'Tall blocks', 'Desk setup'][i]}</p>
         </LandingCard>
       )),

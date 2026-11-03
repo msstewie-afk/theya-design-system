@@ -2,9 +2,11 @@
 // import from "@theya/shadcn/ui/expanding-panels"
 
 import { type ReactNode } from 'react';
+export type ExpandingPanelsTone = 'primary' | 'success' | 'info' | 'danger';
 export interface ExpandingPanelsItem {
     title: string;
     media?: ReactNode;
+    tone?: ExpandingPanelsTone;
     content?: ReactNode;
 }
 export interface ExpandingPanelsProps extends Omit<React.ComponentProps<'div'>, 'children' | 'onChange'> {

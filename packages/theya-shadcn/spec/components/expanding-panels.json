@@ -6,7 +6,7 @@
   "status": "beta",
   "category": "Motion",
   "whenToUse": [
-    "A landing section that shows three to five things with a strong picture each: collections, use cases, places, products."
+    "A landing section that shows three to five things side by side: collections, use cases, plans. Prefer tones over photos: pictures make the row heavy and noisy."
   ],
   "whenNotToUse": [
     {
@@ -25,7 +25,7 @@
   "anatomy": [
     {
       "part": "Panel",
-      "description": "a dark picture panel; open, it takes about five times a strip’s width."
+      "description": "a bright system fill (`tone`: primary, success, info, danger) with its own text color — no gradient, no darkening; or, sparingly, a picture under a dark gradient. Open, it takes about five times a strip’s width."
     },
     {
       "part": "Title",

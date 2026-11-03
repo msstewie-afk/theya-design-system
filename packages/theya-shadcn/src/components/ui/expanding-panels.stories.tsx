@@ -6,10 +6,10 @@ import { expandingPanelsGuidelines } from './expanding-panels.guidelines';
 import { Link } from './link';
 
 const ITEMS = [
-  { title: 'Reading list', media: <img src="/asset-examples/login-carousel-01.jpg" alt="" />, content: <>Long reads you saved for the weekend, newest first. <Link href="#reading">Open the folder</Link></> },
-  { title: 'Design inspiration', media: <img src="/asset-examples/login-carousel-02.jpg" alt="" />, content: 'Sites, posters and type specimens, with a copy of each page kept in case it disappears.' },
-  { title: 'Research', media: <img src="/asset-examples/login-carousel-03.jpg" alt="" />, content: 'Papers and sources for the thesis, searchable by any word inside them.' },
-  { title: 'Recipes', media: <img src="/asset-examples/nova-web.jpg" alt="" />, content: 'Dinner ideas from twelve sites, without the life stories above the ingredients.' },
+  { title: 'Reading list', tone: 'primary' as const, content: <>Long reads you saved for the weekend, newest first. <Link href="#reading">Open the folder</Link></> },
+  { title: 'Design inspiration', tone: 'info' as const, content: 'Sites, posters and type specimens, with a copy of each page kept in case it disappears.' },
+  { title: 'Research', tone: 'success' as const, content: 'Papers and sources for the thesis, searchable by any word inside them.' },
+  { title: 'Recipes', tone: 'danger' as const, content: 'Dinner ideas from twelve sites, without the life stories above the ingredients.' },
 ];
 
 /** ExpandingPanels — a row of tall panels, one open; hover or focus a strip to open it (landing pages). */
@@ -18,12 +18,12 @@ const meta = {
   component: ExpandingPanels,
   tags: ['autodocs'],
   parameters: {
-    docs: { description: { component: 'A row of tall picture panels, one open: the open one takes most of the width and shows its text, the others are narrow strips with the title running up the side. An accordion underneath.' } },
+    docs: { description: { component: 'A row of tall panels on bright system fills (or pictures, sparingly), one open: the open one takes most of the width and shows its text, the others are narrow strips with the title running up the side. An accordion underneath.' } },
     layout: 'padded',
     guidelines: expandingPanelsGuidelines,
   },
   argTypes: {
-    items: { control: false, description: 'Panels: title, media (a picture), content (a line or two and at most one link).' },
+    items: { control: false, description: 'Panels: title, tone (a bright system fill) or media (a picture), content (a line or two and at most one link).' },
     defaultIndex: { control: 'number', description: 'The panel open at first.' },
     height: { control: 'text', description: 'Row height on wide screens.' },
     titleAs: { control: 'inline-radio', options: ['h2', 'h3', 'h4'], description: 'Heading level of the titles.' },

@@ -370,3 +370,42 @@ export function DemoMiniLink({ index = 0 }: { index?: number }) {
     </div>
   );
 }
+
+// ---------------------------------------------------------------------------
+// Demo surfaces for cards in examples (Maria, 3.11): no photos on cards, least of all in
+// motion. Either a bright system fill, as on a filled Button, with its own text color and no
+// shadow, darkening or gradient under the text — or a light mesh gradient as a background.
+
+/** Bright fills, as on filled Buttons. Warning is left out: it needs dark text and reads as an alert. */
+export const DEMO_FILLS = [
+  { bg: 'bg-[var(--color-bg-primary-bg-primary)]', ink: 'text-[var(--color-text-text-on-primary)]' },
+  { bg: 'bg-[var(--color-bg-success-bg-success)]', ink: 'text-[var(--color-text-text-on-dark)]' },
+  { bg: 'bg-[var(--color-bg-info-bg-info)]', ink: 'text-[var(--color-text-text-on-dark)]' },
+  { bg: 'bg-[var(--color-bg-danger-bg-danger)]', ink: 'text-[var(--color-text-text-on-dark)]' },
+] as const;
+
+const MESH = [
+  ['primary', 'info', 'success'],
+  ['success', 'warning', 'primary'],
+  ['info', 'primary', 'warning'],
+  ['warning', 'success', 'info'],
+] as const;
+
+/** A light mesh gradient of the subtle system tints, as a picture's stand-in (decorative). */
+export function DemoMesh({ seed = 0, className }: { seed?: number; className?: string }) {
+  const [a, b, c] = MESH[seed % MESH.length];
+  const tint = (t: string) => `var(--color-bg-${t}-bg-${t}-subtle)`;
+  return (
+    <div
+      aria-hidden
+      className={cn('size-full bg-[var(--color-bg-surface-bg-surface)]', className)}
+      style={{
+        backgroundImage: [
+          `radial-gradient(60% 70% at ${15 + (seed * 23) % 60}% 20%, ${tint(a)}, transparent 70%)`,
+          `radial-gradient(55% 65% at 85% ${60 + (seed * 17) % 30}%, ${tint(b)}, transparent 70%)`,
+          `radial-gradient(70% 60% at 30% 95%, ${tint(c)}, transparent 70%)`,
+        ].join(', '),
+      }}
+    />
+  );
+}

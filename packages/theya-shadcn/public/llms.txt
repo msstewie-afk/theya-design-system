@@ -130,7 +130,7 @@ Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable r
 - [CardStack](./?path=/docs/motion-cardstack--docs) (beta): A landing or empty-state showcase that cycles a few cards: testimonials, highlights, recent invoices.
 - [CompletionBurst](./?path=/docs/motion-completionburst--docs) (beta): A moment worth marking at the end of a wait: a plan generated, an account set up, an import finished, onboarding complete.
 - [CountUp](./?path=/docs/motion-countup--docs) (beta): A headline figure on a landing page: “12,400 galleries”, “99.98% portal availability”, “3× faster”.
-- [ExpandingPanels](./?path=/docs/motion-expandingpanels--docs) (beta): A landing section that shows three to five things with a strong picture each: collections, use cases, places, products.
+- [ExpandingPanels](./?path=/docs/motion-expandingpanels--docs) (beta): A landing section that shows three to five things side by side: collections, use cases, plans. Prefer tones over photos: pictures make the row heavy and noisy.
 - [Marquee](./?path=/docs/motion-marquee--docs) (beta): A strip of customer logos, short quotes or partner names on a landing page — “trusted by”.
 - [MarqueeColumns](./?path=/docs/motion-marqueecolumns--docs) (beta): A decorative wall of cards behind or beside a hero: testimonials, templates, integrations.
 - [OrbitCarousel](./?path=/docs/motion-orbitcarousel--docs) (beta): A showcase on a landing page: case studies, product shots, a few campaign cards.
