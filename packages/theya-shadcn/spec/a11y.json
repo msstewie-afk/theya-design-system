@@ -11679,6 +11679,13 @@
           "date": "2026-10-29",
           "result": "pass",
           "notes": "Flow \"Table work\" (patterns-listview--with-bulk-and-row-actions): selection count, sort state and the row action toast are spoken."
+        },
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-11-03",
+          "result": "pass",
+          "notes": "After the Aether texts (pass 7), by hand (Мария): Issue license → \"License issued\" spoken. The automated run published it but logged only the button: the run's capture, not the toast."
         }
       ],
       "deviations": [
@@ -16067,6 +16074,13 @@
           "date": "2026-10-29",
           "result": "pass",
           "notes": "Checkbox toggled with Space: \"… of 4 selected for comparison\" is spoken. The automated run loses this announcement (spoken over the control's own state change after scripted input); checked by hand instead."
+        },
+        {
+          "at": "VoiceOver",
+          "browser": "Safari 26.6",
+          "date": "2026-11-03",
+          "result": "pass",
+          "notes": "By hand (Мария), after the count was moved to 700 ms after the toggle (9dd78d6): ticking a Compare checkbox → \"… of 4 selected for comparison\" spoken. Before the fix Safari dropped it while reading the checkbox."
         }
       ],
       "deviations": [],
