@@ -1,6 +1,6 @@
 # Figma variable sync
 
-Keeps the Figma variables in file `nDNke2R7fqqFFCrRy1ilBy` (Theya Design System) in sync with
+Keeps the Figma variables in file `LPj5ZGhCmC2OEwXJPF7isw` (THEIA) in sync with
 `src/primitive`, `src/semantic` and `src/code`. The code is the source of truth.
 
 ## Workflow

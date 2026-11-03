@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Code reference for every Theya component in Figma (Theya Design System, nDNke2R7fqqFFCrRy1ilBy).
+ * Code reference for every Theya component in Figma (THEIA, LPj5ZGhCmC2OEwXJPF7isw).
  *
  * Figma Code Connect needs an Organization or Enterprise plan; the file lives
  * on a Pro team. This is the Pro-compatible substitute: each component set's
