@@ -113,7 +113,7 @@ export const Tones: Story = {
 // 16px phone offsets and its size read as they will on a device.
 const Frame = ({ children, className }: { children: React.ReactNode; className?: string }) => (
   <div
-    className={`relative h-[640px] w-[360px] max-w-full overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-surface-bg-surface)] [transform:translateZ(0)] ${className ?? ''}`}
+    className={`relative h-[640px] w-[min(360px,calc(100vw-2rem))] overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-surface-bg-surface)] [transform:translateZ(0)] ${className ?? ''}`}
   >
     {children}
   </div>
