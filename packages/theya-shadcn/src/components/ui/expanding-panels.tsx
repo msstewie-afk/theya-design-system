@@ -3,6 +3,7 @@
 import { useId, useState, type ReactNode } from 'react';
 import { cn } from '../../lib/utils';
 import { inertProps } from '../../lib/inert';
+import { FILL_HUE_BG, FILL_HUE_INK, type FillHue } from '../../lib/fill-hues';
 
 /**
  * Motion (landing pages): a row of tall panels, one open. The open panel
@@ -20,14 +21,7 @@ import { inertProps } from '../../lib/inert';
  *   a gradient sits between the picture and the text.
  * - prefers-reduced-motion: the panels switch without sliding.
  */
-export type ExpandingPanelsTone = 'primary' | 'success' | 'info' | 'danger';
-
-const TONE: Record<ExpandingPanelsTone, string> = {
-  primary: 'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)]',
-  success: 'bg-[var(--color-bg-success-bg-success)] text-[var(--color-text-text-on-dark)]',
-  info: 'bg-[var(--color-bg-info-bg-info)] text-[var(--color-text-text-on-dark)]',
-  danger: 'bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-text-text-on-dark)]',
-};
+export type ExpandingPanelsTone = FillHue;
 
 export interface ExpandingPanelsItem {
   /** Names the panel: the button and the open panel's heading. */
@@ -35,9 +29,9 @@ export interface ExpandingPanelsItem {
   /** A picture behind the panel (an <img>, alt="" when decorative). Use sparingly: a bright `tone` reads cleaner. */
   media?: ReactNode;
   /**
-   * A bright system fill instead of a picture, as on a filled Button: the panel takes the fill and
-   * its text color, with no gradient or darkening (the text reads on the fill as it is). Warning is
-   * left out: it needs dark text and reads as an alert.
+   * A bright fill instead of a picture: a primitive hue with white text, no gradient or darkening
+   * (the text reads on the fill as it is). Give neighbouring panels hues in FILL_HUES order
+   * (lib/fill-hues) so they never blend.
    */
   tone?: ExpandingPanelsTone;
   /** What the open panel says: a line or two and, at most, one link. */
@@ -87,7 +81,7 @@ export function ExpandingPanels({ items, defaultIndex = 0, onChange, height = '2
             onPointerEnter={(e) => e.pointerType === 'mouse' && choose(i)}
             className={cn(
               'relative isolate flex min-w-0 flex-col justify-end overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)]',
-              item.tone ? TONE[item.tone] : 'bg-[var(--color-bg-surface-bg-surface-sunken)] text-[var(--color-text-text)]',
+              item.tone ? `${FILL_HUE_BG[item.tone]} ${FILL_HUE_INK}` : 'bg-[var(--color-bg-surface-bg-surface-sunken)] text-[var(--color-text-text)]',
               // Wide: the open panel grows, the others stay narrow strips. Narrow: the open one is taller.
               'md:basis-0 md:[flex-grow:var(--ep-grow)]',
               isOpen ? 'h-[22rem] md:h-auto' : 'h-16 md:h-auto',

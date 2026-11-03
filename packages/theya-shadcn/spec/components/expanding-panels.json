@@ -25,7 +25,7 @@
   "anatomy": [
     {
       "part": "Panel",
-      "description": "a bright system fill (`tone`: primary, success, info, danger) with its own text color — no gradient, no darkening; or, sparingly, a picture under a dark gradient. Open, it takes about five times a strip’s width."
+      "description": "a bright hue (`tone`: blue, orange, green, magenta, cyan, red, teal, purple — use them in this order so neighbours never blend) with white text — no gradient, no darkening; or, sparingly, a picture under a dark gradient. Open, it takes about five times a strip’s width."
     },
     {
       "part": "Title",

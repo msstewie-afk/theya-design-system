@@ -3,20 +3,14 @@ import { resetFocus } from '../../test/keyboard';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { OrbitCarousel } from './orbit-carousel';
 import { orbitCarouselGuidelines } from './orbit-carousel.guidelines';
+import { fillHueAt } from '../../lib/fill-hues';
 
 const CASES = ['Discover', 'Direction', 'Design', 'Delivery', 'Metrics', 'Launch'].map((title) => ({ title }));
 
-// Bright system fills, as on filled Buttons (warning left out: it needs dark text). No photos,
-// shadows or gradients on demo cards in motion.
-const FILLS = [
-  'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)]',
-  'bg-[var(--color-bg-success-bg-success)] text-[var(--color-text-text-on-dark)]',
-  'bg-[var(--color-bg-info-bg-info)] text-[var(--color-text-text-on-dark)]',
-  'bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-text-text-on-dark)]',
-];
+// Bright primitive hues with white text (lib/fill-hues): no photos, shadows or gradients on demo cards in motion.
 
 const Slide = ({ c, i }: { c: (typeof CASES)[number]; i: number }) => (
-  <div className={`flex aspect-[4/3] flex-col justify-between rounded-[var(--size-border-radius-border-radius-2xl)] p-5 ${FILLS[i % FILLS.length]}`}>
+  <div className={`flex aspect-[4/3] flex-col justify-between rounded-[var(--size-border-radius-border-radius-2xl)] p-5 ${fillHueAt(i)}`}>
     <span className="font-mono text-body-xs">0{i + 1} / 0{CASES.length}</span>
     <h3 className="m-0 font-body text-heading-s font-semibold">{c.title}</h3>
   </div>
