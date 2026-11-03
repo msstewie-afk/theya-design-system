@@ -82,6 +82,19 @@ const meta: Meta<typeof Button> = {
     // (a render function, like WithIcons/InteractiveLoading below).
     leftIcon: { control: false, description: 'Icon before the label.', table: { category: 'Content' } },
     rightIcon: { control: false, description: 'Icon after the label.', table: { category: 'Content' } },
+    // badge also takes { value, dot, tone }; Controls would offer an object
+    // editor that starts as {} and crashed the story. Text covers "5" / "9+";
+    // the dot and tone forms are shown in the With Badge story.
+    badge: {
+      control: 'text',
+      description: 'Count or short text pinned to the top-right corner ("5", "9+"). Also takes `{ value, dot, tone }` in code.',
+      table: { category: 'Content' },
+    },
+    badgeLabel: {
+      control: 'text',
+      description: 'What the badge means, read after the button name ("5 unread"). The badge itself is aria-hidden.',
+      table: { category: 'Content' },
+    },
   },
 };
 

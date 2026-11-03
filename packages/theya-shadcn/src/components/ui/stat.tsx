@@ -68,7 +68,9 @@ export function Stat({ className, variant = 'card', label, value, icon, tone, to
       aria-label={label}
       className={cn(
         variant === 'card' && 'rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 shadow-elevation-sm',
-        'text-[var(--color-text-text)]',
+        // Column, with the value pushed to the bottom: in a row of stats the
+        // labels may wrap to different line counts, the values still line up.
+        'flex flex-col text-[var(--color-text-text)]',
         className,
       )}
       {...props}
@@ -82,7 +84,7 @@ export function Stat({ className, variant = 'card', label, value, icon, tone, to
         )}
       </div>
 
-      <div className="mt-1 flex items-center gap-2">
+      <div className="mt-auto flex items-center gap-2 pt-1">
         {tone && (
           <>
             {toneVisual}

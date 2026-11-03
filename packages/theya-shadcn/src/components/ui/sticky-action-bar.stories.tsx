@@ -155,9 +155,9 @@ export const MobilePrimary: Story = {
   render: () => (
     <ScrollArea className={`${FRAME} max-w-[360px]`} aria-label="Plan details">
       <div className="flex flex-col gap-3 p-5 font-body text-body-m text-[var(--color-text-text)]">
-        <h2 className="font-heading text-heading-xs">Business plan</h2>
+        <h2 className="font-heading text-heading-s">Business plan</h2>
         {Array.from({ length: 10 }, (_, i) => (
-          <p key={i} className="text-[var(--color-text-text-subtle)]">
+          <p key={i} className="font-medium text-[var(--color-text-text-subtle)]">
             Feature {i + 1}: unlimited galleries, client portals and priority support included.
           </p>
         ))}

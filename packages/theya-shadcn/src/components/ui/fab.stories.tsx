@@ -109,9 +109,11 @@ export const Tones: Story = {
   ),
 };
 
+// A phone screen (360 × 640, the smallest width Theya supports), so the FAB's
+// 16px phone offsets and its size read as they will on a device.
 const Frame = ({ children, className }: { children: React.ReactNode; className?: string }) => (
   <div
-    className={`relative h-[360px] w-full max-w-[420px] overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-surface-bg-surface)] [transform:translateZ(0)] ${className ?? ''}`}
+    className={`relative h-[640px] w-[360px] max-w-full overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-surface-bg-surface)] [transform:translateZ(0)] ${className ?? ''}`}
   >
     {children}
   </div>
@@ -119,7 +121,7 @@ const Frame = ({ children, className }: { children: React.ReactNode; className?:
 
 /** The three pinned positions. 16px from the edges on phones, 24px from the sm breakpoint up. */
 export const Positions: Story = {
-  parameters: { docs: { story: { inline: true, height: '400px' } }, controls: { exclude: ['position'] } },
+  parameters: { docs: { story: { inline: true, height: '680px' } }, controls: { exclude: ['position'] } },
   render: (args) => (
     <Frame>
       <Fab {...args} position="bottom-start" label={undefined} aria-label="Help" icon={<ChatBubbleEmpty />} tone="neutral" appearance="tonal" />
@@ -131,7 +133,7 @@ export const Positions: Story = {
 
 /** `--fab-offset-bottom` on an ancestor lifts the FAB above a bottom navigation bar. */
 export const AboveBottomBar: Story = {
-  parameters: { docs: { story: { inline: true, height: '400px' } }, controls: { exclude: ['position'] } },
+  parameters: { docs: { story: { inline: true, height: '680px' } }, controls: { exclude: ['position'] } },
   render: (args) => (
     <Frame className="[--fab-offset-bottom:56px]">
       <Fab {...args} position="bottom-end" />
@@ -146,7 +148,7 @@ export const AboveBottomBar: Story = {
 
 /** Scroll the list down: the FAB folds to a circle; scroll up and it unfolds. The label stays in the accessible name throughout. */
 export const CollapseOnScroll: Story = {
-  parameters: { docs: { story: { inline: true, height: '400px' } }, controls: { exclude: ['position', 'collapseOnScroll', 'scrollContainer'] } },
+  parameters: { docs: { story: { inline: true, height: '680px' } }, controls: { exclude: ['position', 'collapseOnScroll', 'scrollContainer'] } },
   render: function Render(args) {
     const scroller = useRef<HTMLDivElement>(null);
     return (

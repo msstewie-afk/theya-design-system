@@ -760,7 +760,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       }
     }
 
-    const hasBadge = badge !== undefined && badge !== null && badge !== false;
+    // A plain object that is neither a ButtonBadge nor an element (e.g. {}) has
+    // nothing to show and would crash React as a child — treat it as no badge.
+    const emptyObject = typeof badge === 'object' && badge !== null && !isValidElement(badge) && !Array.isArray(badge) && !isButtonBadge(badge);
+    const hasBadge = badge !== undefined && badge !== null && badge !== false && badge !== '' && !emptyObject;
     const badgeProps: ButtonBadge = isButtonBadge(badge) ? badge : { value: badge as ReactNode };
     if (process.env.NODE_ENV !== 'production' && hasBadge && !badgeLabel) {
       console.warn(
