@@ -246,9 +246,18 @@ function FoldersVisual() {
       {DEMO_FOLDERS.map((f, i) => (
         <div key={f.id} className={row}>
           <Folder aria-hidden className="size-4 shrink-0 text-[var(--color-icon-icon-subtle)]" />
-          <span className="flex-1 truncate font-body text-body-m text-[var(--color-text-text)]">{f.name}</span>
-          <Badge tone={i === 0 ? 'primary' : 'neutral'}>{['auto: longreads', 'tokens', 'summer', 'hiking'][i]}</Badge>
-          <span className="w-8 text-end font-body text-body-s tabular-nums text-[var(--color-text-text-subtle)]">{f.count}</span>
+          <span className="min-w-0 flex-1 truncate font-body text-body-m text-[var(--color-text-text)]">{f.name}</span>
+          <Badge tone={i === 0 ? 'primary' : 'neutral'}>
+            {/* The rule's detail only where there is room: on a phone the folder name comes first. */}
+            {i === 0 ? (
+              <>
+                auto<span className="max-sm:hidden">: longreads</span>
+              </>
+            ) : (
+              ['tokens', 'summer', 'hiking'][i - 1]
+            )}
+          </Badge>
+          <span className="w-8 shrink-0 text-end font-body text-body-s tabular-nums text-[var(--color-text-text-subtle)]">{f.count}</span>
         </div>
       ))}
     </div>

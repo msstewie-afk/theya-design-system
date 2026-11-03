@@ -45,7 +45,7 @@ export function FeatureShowcase({ variant = 'accordion', eyebrow, title, descrip
   return (
     <section data-slot="feature-showcase" data-variant={variant} data-scale="display" className={cn('section-display', className)} {...props}>
       {variant === 'accordion' ? (
-        <div className="container-display grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+        <div className="container-display grid grid-cols-[minmax(0,1fr)] gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div className="flex flex-col gap-8">
             <SectionHead eyebrow={eyebrow} title={title} description={description} />
             {/* One item is always open (collapsible={false}): the visual always has something to show. */}

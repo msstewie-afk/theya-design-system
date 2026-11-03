@@ -151,7 +151,7 @@ export function StickySteps({ eyebrow, title, description, steps, className, ...
 
   return (
     <section data-slot="sticky-steps" data-scale="display" className={cn('section-display', className)} {...props}>
-      <div className="container-display grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+      <div className="container-display grid grid-cols-[minmax(0,1fr)] gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
         <div className="flex flex-col gap-8 lg:sticky lg:top-24 lg:self-start">
           <SectionHead eyebrow={eyebrow} title={title} description={description} />
           <nav aria-label={t.landing.steps} className="max-lg:hidden">
