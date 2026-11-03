@@ -36,6 +36,7 @@ pnpm --filter @theya/shadcn a11y:voiceover
 ```
 
 - `VO_BROWSER=chromium pnpm --filter @theya/shadcn a11y:voiceover` — движок Chrome вместо WebKit.
+- `VO_DEBUG=1 pnpm --filter @theya/shadcn a11y:voiceover -g toaster-success` — дополнительно пишет каждый опрос последней фразы VoiceOver, изменилась она или нет, со временем, в `results/debug-<run>.log`: видно, VoiceOver фразу вообще не отдал или опрос её пропустил.
 - `pnpm --filter @theya/shadcn a11y:voiceover -g kanban` — один сценарий.
 
 Результаты: `a11y/voiceover/results/<браузер>-<прогон>.json` (в git не попадают), один файл на прогон. В каждой записи две ленты в мс от действия: `heard` (что сказал VoiceOver) и `published` (что страница положила в живые области и куда уходил фокус), плюс `diagnosis` для каждого не услышанного текста:

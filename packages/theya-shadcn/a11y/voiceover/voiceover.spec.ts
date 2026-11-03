@@ -1,5 +1,5 @@
 import { spawn, execFileSync, type ChildProcess } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { expect, test as base, type Page } from '@playwright/test';
 import { voiceOver } from '@guidepup/guidepup';
@@ -71,6 +71,11 @@ function bringBrowserToFront(browserName: string) {
  */
 /** VO_POLL_MS: how often to ask VoiceOver for its last phrase (default 50). */
 const POLL_SECONDS = Math.max(20, Number(process.env.VO_POLL_MS ?? 50)) / 1000;
+/**
+ * VO_DEBUG=1: log every poll, changed or not, with its time (results/debug-<run>.log),
+ * to tell "VoiceOver never reported the phrase" from "the poll missed it".
+ */
+const DEBUG = process.env.VO_DEBUG === '1';
 const POLLER = [
   'set lastPhrase to ""',
   'repeat',
@@ -79,6 +84,7 @@ const POLLER = [
   'tell application "VoiceOver" to set p to content of last phrase',
   'end try',
   'if p is missing value then set p to ""',
+  ...(DEBUG ? ['log "§DBG§" & p'] : []),
   'if p is not "" and p is not lastPhrase then',
   'set lastPhrase to p',
   'log "§VO§" & p',
@@ -86,11 +92,15 @@ const POLLER = [
   `delay ${POLL_SECONDS}`,
   'end repeat',
 ];
-function startPoller(onPhrase: (text: string) => void, onError: (text: string) => void): ChildProcess {
+function startPoller(onPhrase: (text: string) => void, onError: (text: string) => void, onDebug?: (raw: string) => void): ChildProcess {
   const child = spawn('osascript', POLLER.flatMap((line) => ['-e', line]));
   let buffer = '';
   child.stderr.setEncoding('utf8');
   child.stderr.on('data', (chunk: string) => {
+    if (DEBUG) {
+      for (const d of chunk.split('§DBG§').slice(1)) onDebug?.(d.split('§VO§')[0].replace(/\s+/g, ' ').trim());
+      chunk = chunk.replace(/§DBG§[^§]*/g, '');
+    }
     buffer += chunk;
     const parts = buffer.split('§VO§');
     buffer = parts.pop() ?? '';
@@ -181,9 +191,12 @@ const test = base.extend<object, { vo: { page: Page; spoken: Spoken[]; pollerErr
       await page.bringToFront();
       const spoken: Spoken[] = [];
       const pollerErrors: string[] = [];
+      const debugFile = join(__dirname, 'results', `debug-${RUN}.log`);
+      if (DEBUG) mkdirSync(join(__dirname, 'results'), { recursive: true });
       const poller = startPoller(
         (text) => spoken.push({ at: Date.now(), text }),
         (text) => { if (!pollerErrors.includes(text)) pollerErrors.push(text); },
+        (raw) => appendFileSync(debugFile, `${new Date().toISOString().slice(11, 23)} ${raw || '(empty)'}\n`),
       );
       await page.waitForTimeout(1000);
       await waitForQuiet(page, spoken, { maxMs: 15_000 });
@@ -231,6 +244,7 @@ for (const s of SCENARIOS) {
     await watchPage(page);
 
     const start = Date.now();
+    if (DEBUG) appendFileSync(join(__dirname, 'results', `debug-${RUN}.log`), `${new Date().toISOString().slice(11, 23)} ===== ${s.id}: action starts\n`);
     pace.mark = spoken.length;
     await s.act(page);
     await page.waitForTimeout(s.listen ?? 2500);

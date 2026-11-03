@@ -36,6 +36,7 @@ pnpm --filter @theya/shadcn a11y:voiceover
 ```
 
 - `VO_BROWSER=chromium pnpm --filter @theya/shadcn a11y:voiceover` — Chrome's engine instead of WebKit.
+- `VO_DEBUG=1 pnpm --filter @theya/shadcn a11y:voiceover -g toaster-success` — also writes every poll of VoiceOver's last phrase, changed or not, with its time, to `results/debug-<run>.log`: tells "VoiceOver never reported the phrase" from "the poll missed it".
 - `pnpm --filter @theya/shadcn a11y:voiceover -g kanban` — one scenario.
 
 Results: `a11y/voiceover/results/<browser>-<run>.json` (not committed), one file per run. Each entry has two timelines in ms from the action: `heard` (what VoiceOver said) and `published` (what the page put into live regions, and focus moves), plus a `diagnosis` for each missing text:
