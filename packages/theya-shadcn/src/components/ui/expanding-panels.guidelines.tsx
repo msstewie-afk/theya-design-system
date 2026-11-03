@@ -13,7 +13,7 @@ export const expandingPanelsGuidelines: ComponentGuidelines = {
     { text: 'More than about five panels — the strips get too narrow to read', instead: 'OrbitCarousel or a card rail' },
   ],
   anatomy: [
-    { part: 'Panel', description: <>a soft tonal fill (<C>tone</C>: primary, warning, info, secondary, success, neutral — in this order, so neighbours never blend) with full-strength text — no gradient, no darkening; or, sparingly, a picture under a dark gradient. Open, it takes about five times a strip’s width.</> },
+    { part: 'Panel', description: <>a soft tonal fill (<C>tone</C>: primary, success, secondary, info, neutral — in this order; warning is not for panels, so neighbours never blend) with full-strength text — no gradient, no darkening; or, sparingly, a picture under a dark gradient. Open, it takes about five times a strip’s width.</> },
     { part: 'Title', description: <>a button in a heading (<C>titleAs</C>); runs up the strip when closed, sits above the text when open.</> },
     { part: 'Content', description: 'a line or two and at most one link, shown only in the open panel.' },
   ],

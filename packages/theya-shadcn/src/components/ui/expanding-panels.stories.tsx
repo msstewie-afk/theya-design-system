@@ -7,9 +7,9 @@ import { Link } from './link';
 
 const ITEMS = [
   { title: 'Reading list', tone: 'primary' as const, content: <>Long reads you saved for the weekend, newest first. <Link href="#reading">Open the folder</Link></> },
-  { title: 'Design inspiration', tone: 'warning' as const, content: 'Sites, posters and type specimens, with a copy of each page kept in case it disappears.' },
-  { title: 'Research', tone: 'info' as const, content: 'Papers and sources for the thesis, searchable by any word inside them.' },
-  { title: 'Recipes', tone: 'secondary' as const, content: 'Dinner ideas from twelve sites, without the life stories above the ingredients.' },
+  { title: 'Design inspiration', tone: 'success' as const, content: 'Sites, posters and type specimens, with a copy of each page kept in case it disappears.' },
+  { title: 'Research', tone: 'secondary' as const, content: 'Papers and sources for the thesis, searchable by any word inside them.' },
+  { title: 'Recipes', tone: 'info' as const, content: 'Dinner ideas from twelve sites, without the life stories above the ingredients.' },
 ];
 
 /** ExpandingPanels — a row of tall panels, one open; hover or focus a strip to open it (landing pages). */

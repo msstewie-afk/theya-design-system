@@ -8,4 +8,5 @@ export declare const TONAL_ACCENT: Record<TonalHue, string>;
 export declare const TONAL_BORDER: Record<TonalHue, string>;
 export declare const ON_TONAL = "[--color-text-text-subtle:var(--color-text-text)] text-[var(--color-text-text)]";
 export declare const tonalFill: (hue: TonalHue) => string;
-export declare const tonalFillAt: (i: number) => string;
+export declare const tonalHueAt: (i: number, total?: number) => TonalHue;
+export declare const tonalFillAt: (i: number, total?: number) => string;

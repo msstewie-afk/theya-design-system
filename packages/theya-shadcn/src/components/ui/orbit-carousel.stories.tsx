@@ -11,7 +11,7 @@ const CASES = ['Discover', 'Direction', 'Design', 'Delivery', 'Metrics', 'Launch
 // shadows or gradients on demo cards in motion.
 
 const Slide = ({ c, i }: { c: (typeof CASES)[number]; i: number }) => (
-  <div className={`flex aspect-[4/3] flex-col justify-between rounded-[var(--size-border-radius-border-radius-2xl)] p-5 ${tonalFillAt(i)}`}>
+  <div className={`flex aspect-[4/3] flex-col justify-between rounded-[var(--size-border-radius-border-radius-2xl)] p-5 ${tonalFillAt(i, CASES.length)}`}>
     <span className="font-mono text-body-xs">0{i + 1} / 0{CASES.length}</span>
     <h3 className="m-0 font-body text-heading-s font-semibold">{c.title}</h3>
   </div>

@@ -4218,7 +4218,7 @@ Docs: ./?path=/docs/motion-expandingpanels--docs
 
 **Anatomy**
 
-- Panel: a soft tonal fill (`tone`: primary, warning, info, secondary, success — in this order, so neighbours never blend) with full-strength text — no gradient, no darkening; or, sparingly, a picture under a dark gradient. Open, it takes about five times a strip’s width.
+- Panel: a soft tonal fill (`tone`: primary, success, secondary, info, neutral — in this order; warning is not for panels, so neighbours never blend) with full-strength text — no gradient, no darkening; or, sparingly, a picture under a dark gradient. Open, it takes about five times a strip’s width.
 - Title: a button in a heading (`titleAs`); runs up the strip when closed, sits above the text when open.
 - Content: a line or two and at most one link, shown only in the open panel.
 

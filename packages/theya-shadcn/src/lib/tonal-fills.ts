@@ -10,11 +10,11 @@
 export type TonalHue = 'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'neutral';
 
 /**
- * The order for a row or ring of cards, so neighbours never blend: the two blue-ish tints (primary,
- * info) and the two grey-lilac ones (secondary, neutral) never touch, and each hue comes once. Six long, so a ring of six or
- * more wraps without the last card matching the first.
+ * The order for a row or ring of cards (Maria, 3.11): blue, green, lilac, cyan, grey-lilac. The two
+ * blue-ish tints (primary, info) and the two lilac ones (secondary, neutral) never touch. Warning
+ * (yellow) is left out: it is heavy next to the others and turns brown in the dark theme.
  */
-export const TONAL_ORDER: readonly TonalHue[] = ['primary', 'warning', 'info', 'secondary', 'success', 'neutral'];
+export const TONAL_ORDER: readonly TonalHue[] = ['primary', 'success', 'secondary', 'info', 'neutral'];
 
 // Literal class strings (Tailwind only sees classes written out in full).
 export const TONAL_BG: Record<TonalHue, string> = {
@@ -59,5 +59,18 @@ export const ON_TONAL = '[--color-text-text-subtle:var(--color-text-text)] text-
 /** All classes for a tonal fill, with its border in tone. */
 export const tonalFill = (hue: TonalHue) => `${TONAL_BG[hue]} ${TONAL_BORDER[hue]} ${TONAL_ACCENT[hue]} ${ON_TONAL}`;
 
-/** The tonal fill for the i-th card in a row or ring. */
-export const tonalFillAt = (i: number) => tonalFill(TONAL_ORDER[i % TONAL_ORDER.length]);
+/**
+ * The tonal hue for the i-th of `total` cards. Pass `total` for a ring: when the count would wrap
+ * the last card onto the first card's hue, the last one takes the next hue that differs from both
+ * of its neighbours.
+ */
+export const tonalHueAt = (i: number, total?: number): TonalHue => {
+  const n = TONAL_ORDER.length;
+  const hue = TONAL_ORDER[i % n];
+  if (total === undefined || total < 3 || i !== total - 1 || hue !== TONAL_ORDER[0]) return hue;
+  const prev = TONAL_ORDER[(i - 1) % n];
+  return TONAL_ORDER.find((h) => h !== TONAL_ORDER[0] && h !== prev && h !== TONAL_ORDER[1]) ?? hue;
+};
+
+/** The tonal fill for the i-th of `total` cards in a row or ring. */
+export const tonalFillAt = (i: number, total?: number) => tonalFill(tonalHueAt(i, total));

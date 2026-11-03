@@ -25,7 +25,7 @@
   "anatomy": [
     {
       "part": "Panel",
-      "description": "a soft tonal fill (`tone`: primary, warning, info, secondary, success — in this order, so neighbours never blend) with full-strength text — no gradient, no darkening; or, sparingly, a picture under a dark gradient. Open, it takes about five times a strip’s width."
+      "description": "a soft tonal fill (`tone`: primary, success, secondary, info, neutral — in this order; warning is not for panels, so neighbours never blend) with full-strength text — no gradient, no darkening; or, sparingly, a picture under a dark gradient. Open, it takes about five times a strip’s width."
     },
     {
       "part": "Title",

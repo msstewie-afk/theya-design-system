@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { resetFocus } from '../../../test/keyboard';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { DEMO_FEATURES, DEMO_FOLDERS, DemoFeatureVisual, DemoMiniLink, DemoMesh } from './demo-data';
+import { DEMO_FEATURES, DEMO_FOLDERS, DemoFeatureVisual, DemoMiniLink } from './demo-data';
 import { SectionHead } from './feature-shared';
 import { CardMotionSection } from './card-motion.story-helpers';
 import { FlipCard, FolderReveal, ParallaxLayer, ParallaxLayers } from './card-motion';
 import { OrbitCarousel } from '../../ui/orbit-carousel';
 import { cardMotionGuidelines } from './card-motion.guidelines';
+import { tonalFillAt } from '../../../lib/tonal-fills';
 import { LandingCard, StatCard, type LandingCardHue } from './landing-cards';
 
 const meta: Meta<typeof FolderReveal> = {
@@ -21,18 +22,19 @@ type Story = StoryObj<typeof FolderReveal>;
 const HUES: LandingCardHue[] = ['primary', 'secondary', 'success', 'warning', 'info', 'neutral', 'primary', 'success'];
 const TEMPLATES = ['Reading list', 'Research', 'Recipes', 'Trips', 'Design inspiration', 'Courses', 'Gift ideas', 'Job search'];
 
-// A template card: a light mesh on top, the text on a plain plate below (Maria, 3.11). No photos,
-// shadows, darkening or gradients under the text.
+// A template card on a soft tonal fill, as on the Flip example (lib/tonal-fills): full-strength
+// text, a border in tone, no photo, shadow, darkening or gradient.
 const TemplateCard = ({ i, compact = false }: { i: number; compact?: boolean }) => (
-  <article
-    className={`flex flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] ${compact ? 'h-36' : 'h-72'}`}
-  >
-    <DemoMesh seed={i} className="min-h-0 flex-1" />
-    <div className={`flex flex-col ${compact ? 'gap-0.5 px-4 py-3' : 'gap-1 px-6 py-5'}`}>
-      <p className={`m-0 font-body font-medium tabular-nums text-[var(--color-text-text-subtle)] ${compact ? 'text-body-xs' : 'text-body-s'}`}>{compact ? String(i + 1).padStart(2, '0') : `Template ${String(i + 1).padStart(2, '0')}`}</p>
-      <h3 className={`m-0 font-heading font-semibold text-[var(--color-text-text)] ${compact ? 'text-body-m' : 'text-heading-xs'}`}>{TEMPLATES[i]}</h3>
-      {!compact && <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtle)]">Folders, tags and rules, ready to fill.</p>}
-    </div>
+  <article className={`flex flex-col justify-between rounded-[var(--size-border-radius-border-radius-4xl)] ${tonalFillAt(i, TEMPLATES.length)} ${compact ? 'h-36 gap-2 p-4' : 'h-72 gap-4 p-6'}`}>
+    <p className={`m-0 font-body font-medium tabular-nums ${compact ? 'text-body-xs' : 'text-body-s'}`}>{compact ? String(i + 1).padStart(2, '0') : `Template ${String(i + 1).padStart(2, '0')}`}</p>
+    {compact ? (
+      <h3 className="m-0 font-heading text-body-m font-semibold">{TEMPLATES[i]}</h3>
+    ) : (
+      <div className="flex flex-col gap-2">
+        <h3 className="m-0 font-heading text-heading-xs font-semibold">{TEMPLATES[i]}</h3>
+        <p className="m-0 font-body text-body-s">Folders, tags and rules, ready to fill.</p>
+      </div>
+    )}
   </article>
 );
 
