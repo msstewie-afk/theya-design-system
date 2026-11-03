@@ -58,6 +58,17 @@ export const Default: Story = {
 /** `rows={5}` shows two neighbours on each side of the chosen value, for more context on the scale. */
 export const FiveRows: Story = { name: 'Five rows', args: { rows: 5 } };
 
+// The sentence next to the wheel, per option: "Every 1 hour" / "Every Daily" read wrong.
+const EVERY: Record<string, string> = {
+  '15 minutes': 'Every 15 minutes',
+  '30 minutes': 'Every 30 minutes',
+  '1 hour': 'Every hour',
+  '2 hours': 'Every 2 hours',
+  '6 hours': 'Every 6 hours',
+  '12 hours': 'Every 12 hours',
+  Daily: 'Once a day',
+};
+
 /** Controlled, with the value shown next to it. */
 export const Controlled: Story = {
   render: (args) => {
@@ -65,7 +76,7 @@ export const Controlled: Story = {
     return (
       <div className="flex items-center gap-4">
         <WheelPicker {...args} value={value} onValueChange={setValue} />
-        <span className="font-body text-body-m text-[var(--color-text-text)]">Every {value}</span>
+        <span className="font-body text-body-m text-[var(--color-text-text)]">{EVERY[value] ?? value}</span>
       </div>
     );
   },

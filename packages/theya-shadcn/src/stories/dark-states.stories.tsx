@@ -50,6 +50,8 @@ function background(appearance: Appearance, tone: Tone, state: State, model: 'cu
   // tint, so the tone stays visible; without it both use the neutral layers.
   const tinted = keepTone && (appearance === 'outlined' || appearance === 'ghost');
   if (state === 'rest') return { backgroundColor: t.rest };
+  // Filled keeps darkening in dark (white text on a lighter fill fails 4.5:1).
+  if (appearance === 'filled') return { backgroundColor: state === 'hover' ? t.hover : t.pressed };
   if (state === 'hover') return tinted ? { backgroundColor: t.hover } : { backgroundColor: t.rest, backgroundImage: white };
   return tinted ? { backgroundColor: t.hover, backgroundImage: black } : { backgroundColor: t.rest, backgroundImage: black };
 }
@@ -70,7 +72,7 @@ function Model({ model, lighten, darken, keepTone }: { model: 'current' | 'propo
   return (
     <section className="flex flex-col gap-4">
       <h2 className="m-0 font-heading text-heading-xs text-[var(--color-text-text)]">
-        {model === 'current' ? 'Current' : `Proposal: hover +${lighten}% white, pressed +${darken}% black${keepTone ? ', outlined / ghost keep the tone' : ''}`}
+        {model === 'current' ? 'Before: the hover / pressed tokens' : `Chosen: hover +${lighten}% white, pressed +${darken}% black${keepTone ? ', outlined / ghost keep the tone' : ''}`}
       </h2>
       {APPEARANCES.map((appearance) => (
         <div key={appearance} className="flex flex-col gap-2">
@@ -107,7 +109,11 @@ const meta: Meta<Args> = {
 export default meta;
 type Story = StoryObj<Args>;
 
-/** Dark theme only, whatever the toolbar says: the current classes next to one state-layer rule for every appearance. */
+/**
+ * Dark theme only, whatever the toolbar says. Left: the hover / pressed tokens Button
+ * used before. Right: the state layer Maria chose (8% / 16%, outlined and ghost keep
+ * the tone), which Button now applies in dark — hover a real button to compare.
+ */
 export const Compare: Story = {
   render: ({ lighten, darken, keepTone }) => (
     <div data-theme="dark" className="min-h-screen bg-[var(--color-bg-surface-bg-surface)] p-6 md:p-10">

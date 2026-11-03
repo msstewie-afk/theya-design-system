@@ -36,6 +36,32 @@ import { BadgeIndicator, type BadgeIndicatorTone } from './badge-indicator';
  * Requires: npm i class-variance-authority @radix-ui/react-slot
  */
 
+// Dark theme state layer (Maria, 2026-11-03; review page Design System/Dark
+// states). Light darkens on hover and press for every appearance; in dark,
+// tonal / outlined / ghost used to lighten on both, so a press never looked
+// pressed. Now, in dark: hover is lighter than rest (+8% white), press is
+// darker than rest (+16% black). Filled is the exception: a solid fill keeps
+// darkening, as in light (white text on a lighter fill fails 4.5:1). Tonal
+// layers it over its own rest color (--btn-rest); outlined and ghost keep their tinted hover fill
+// and darken it on press (--btn-hover), so the tone stays visible.
+// bg-transparent: the color goes into the image layers instead, so tonal's
+// translucent fill still sits on whatever surface is underneath (FAB keeps
+// its opaque surface with bg-surface!). Not inside data-surface=primary,
+// which has its own on-primary states.
+// Written out in full: Tailwind only generates classes it finds as literals.
+const DARK_STATES = {
+  fill: [
+    '[[data-theme=dark]_&]:not-in-[[data-surface=primary]]:hover:not-disabled:not-aria-disabled:bg-transparent',
+    '[[data-theme=dark]_&]:not-in-[[data-surface=primary]]:hover:not-disabled:not-aria-disabled:[background-image:linear-gradient(rgb(255_255_255/8%),rgb(255_255_255/8%)),linear-gradient(var(--btn-rest),var(--btn-rest))]',
+    '[[data-theme=dark]_&]:not-in-[[data-surface=primary]]:active:not-disabled:not-aria-disabled:bg-transparent',
+    '[[data-theme=dark]_&]:not-in-[[data-surface=primary]]:active:not-disabled:not-aria-disabled:[background-image:linear-gradient(rgb(0_0_0/16%),rgb(0_0_0/16%)),linear-gradient(var(--btn-rest),var(--btn-rest))]',
+  ],
+  line: [
+    '[[data-theme=dark]_&]:not-in-[[data-surface=primary]]:active:not-disabled:not-aria-disabled:bg-transparent',
+    '[[data-theme=dark]_&]:not-in-[[data-surface=primary]]:active:not-disabled:not-aria-disabled:[background-image:linear-gradient(rgb(0_0_0/16%),rgb(0_0_0/16%)),linear-gradient(var(--btn-hover),var(--btn-hover))]',
+  ],
+};
+
 export const buttonVariants = cva(
   // base — structure shared by every button
   [
@@ -104,6 +130,8 @@ export const buttonVariants = cva(
       // than the white label — same icon-vs-text rule as on light surfaces
       // (3.9:1 at rest, above the 3:1 non-text minimum).
       appearance: {
+        // Filled keeps darkening on hover and press in dark too (Maria, 2026-11-03):
+        // lightening a solid fill under white text drops secondary / info below 4.5:1.
         filled: [
           '[[data-surface=primary]_&]:bg-[var(--color-bg-primary-on-primary)]! [[data-surface=primary]_&]:text-[var(--color-text-text-on-primary-fill)]!',
           '[[data-surface=primary]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--white-a900)]!',
@@ -112,6 +140,7 @@ export const buttonVariants = cva(
           '[[data-surface=primary]_&]:focus-visible:focus-ring-on-primary!',
         ],
         tonal: [
+          ...DARK_STATES.fill,
           '[[data-surface=primary]_&]:bg-[var(--white-a800)]! [[data-surface=primary]_&]:text-[var(--color-text-text-on-primary-fill)]!',
           '[[data-surface=primary]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--white-a900)]!',
           '[[data-surface=primary]_&]:active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary)]!',
@@ -119,6 +148,7 @@ export const buttonVariants = cva(
           '[[data-surface=primary]_&]:focus-visible:focus-ring-on-primary!',
         ],
         outlined: [
+          ...DARK_STATES.line,
           'bg-transparent border border-solid text-[var(--color-text-text-subtle)]',
           // Figma quirk carried over as-is: pressed radius bumps up a step from
           // the resting state (was 6->8px; base moved to xl/8px on 2026-09-27,
@@ -131,6 +161,7 @@ export const buttonVariants = cva(
           '[[data-surface=primary]_&]:focus-visible:focus-ring-on-primary!',
         ],
         ghost: [
+          ...DARK_STATES.line,
           'bg-transparent border-none text-[var(--color-text-text-subtle)]',
           '[[data-surface=primary]_&]:text-[var(--color-text-text-on-primary)]!',
           '[[data-surface=primary]_&]:hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-on-primary-hover)]!',
@@ -223,6 +254,8 @@ export const buttonVariants = cva(
         appearance: 'filled',
         tone: 'primary',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-primary-bg-primary)] [--btn-hover:var(--color-bg-primary-bg-primary-hover)]',
           'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-pressed)]',
@@ -232,6 +265,8 @@ export const buttonVariants = cva(
         appearance: 'filled',
         tone: 'info',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-info-bg-info)] [--btn-hover:var(--color-bg-info-bg-info-hover)]',
           'bg-[var(--color-bg-info-bg-info)] text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-pressed)]',
@@ -248,6 +283,8 @@ export const buttonVariants = cva(
         appearance: 'filled',
         tone: 'success',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-success-bg-success)] [--btn-hover:var(--color-bg-success-bg-success-hover)]',
           'bg-[var(--color-bg-success-bg-success)] text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-pressed)]',
@@ -274,6 +311,8 @@ export const buttonVariants = cva(
         appearance: 'filled',
         tone: 'warning',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-warning-bg-warning)] [--btn-hover:var(--color-bg-warning-bg-warning-hover)]',
           'bg-[var(--color-bg-warning-bg-warning)] text-[var(--color-text-text-warning)]',
           '[[data-theme=dark]_&]:text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-hover)]',
@@ -284,6 +323,8 @@ export const buttonVariants = cva(
         appearance: 'filled',
         tone: 'danger',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-danger-bg-danger)] [--btn-hover:var(--color-bg-danger-bg-danger-hover)]',
           'bg-[var(--color-bg-danger-bg-danger)] text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-pressed)]',
@@ -299,6 +340,8 @@ export const buttonVariants = cva(
         appearance: 'filled',
         tone: 'neutral',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-neutral-bg-neutral-strong)] [--btn-hover:var(--color-bg-neutral-bg-neutral-strong-hover)]',
           'bg-[var(--color-bg-neutral-bg-neutral-strong)] text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-strong-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-strong-pressed)]',
@@ -311,6 +354,8 @@ export const buttonVariants = cva(
         appearance: 'filled',
         tone: 'secondary',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-secondary-bg-secondary-strong)] [--btn-hover:var(--color-bg-secondary-bg-secondary-strong-hover)]',
           'bg-[var(--color-bg-secondary-bg-secondary-strong)] text-[var(--color-text-text-on-dark)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-strong-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-strong-pressed)]',
@@ -326,6 +371,8 @@ export const buttonVariants = cva(
         appearance: 'tonal',
         tone: 'primary',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-primary-bg-primary-subtle)] [--btn-hover:var(--color-bg-primary-bg-primary-subtle-hover)]',
           // Dark: text-link-on-tonal (#bddcff) fell to 3.86/3.31:1 on the
           // hover/pressed tints over bg-surface; white clears 4.68:1+ in
           // every state on both surface and surface-overlay (2026-09-27).
@@ -338,6 +385,8 @@ export const buttonVariants = cva(
         appearance: 'tonal',
         tone: 'info',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-info-bg-info-subtle)] [--btn-hover:var(--color-bg-info-bg-info-subtle-hover)]',
           'bg-[var(--color-bg-info-bg-info-subtle)] text-[var(--color-text-text-info-on-tonal)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-subtle-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-subtle-pressed)]',
@@ -356,6 +405,8 @@ export const buttonVariants = cva(
         appearance: 'tonal',
         tone: 'success',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-success-bg-success-subtle)] [--btn-hover:var(--color-bg-success-bg-success-subtle-hover)]',
           'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-text-text-success-on-tonal)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtle-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtle-pressed)]',
@@ -365,6 +416,8 @@ export const buttonVariants = cva(
         appearance: 'tonal',
         tone: 'warning',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-warning-bg-warning-subtle)] [--btn-hover:var(--color-bg-warning-bg-warning-subtle-hover)]',
           'bg-[var(--color-bg-warning-bg-warning-subtle)] text-[var(--color-text-text-warning-on-tonal)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtle-pressed)]',
@@ -374,6 +427,8 @@ export const buttonVariants = cva(
         appearance: 'tonal',
         tone: 'danger',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-danger-bg-danger-subtle)] [--btn-hover:var(--color-bg-danger-bg-danger-subtle-hover)]',
           'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-text-text-danger-on-tonal)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtle-pressed)]',
@@ -385,6 +440,8 @@ export const buttonVariants = cva(
         appearance: 'tonal',
         tone: 'secondary',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-secondary-bg-secondary-subtle)] [--btn-hover:var(--color-bg-secondary-bg-secondary-subtle-hover)]',
           'bg-[var(--color-bg-secondary-bg-secondary-subtle)] text-[var(--color-text-text)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtle-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtle-pressed)]',
@@ -395,6 +452,8 @@ export const buttonVariants = cva(
         appearance: 'tonal',
         tone: 'neutral',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-rest:var(--color-bg-neutral-bg-neutral-subtle)] [--btn-hover:var(--color-bg-neutral-bg-neutral-subtle-hover)]',
           'bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-text-text)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-hover)]',
           'active:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle-pressed)]',
@@ -406,6 +465,8 @@ export const buttonVariants = cva(
         appearance: 'outlined',
         tone: 'primary',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-primary-bg-primary-subtler-hover)]',
           'border-[var(--color-border-border-primary)]',
           '[&_svg]:text-[var(--color-icon-icon-primary)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-primary-bg-primary-subtler-hover)]',
@@ -417,6 +478,8 @@ export const buttonVariants = cva(
         appearance: 'outlined',
         tone: 'info',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-info-bg-info-subtler-hover)]',
           'border-[var(--color-border-border-info)]',
           '[&_svg]:text-[var(--color-icon-icon-info)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-info-bg-info-subtler-hover)]',
@@ -428,6 +491,8 @@ export const buttonVariants = cva(
         appearance: 'outlined',
         tone: 'success',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-success-bg-success-subtler-hover)]',
           'border-[var(--color-border-border-success)]',
           '[&_svg]:text-[var(--color-icon-icon-success)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-success-bg-success-subtler-hover)]',
@@ -439,6 +504,8 @@ export const buttonVariants = cva(
         appearance: 'outlined',
         tone: 'warning',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-warning-bg-warning-subtler-hover)]',
           'border-[var(--color-border-border-warning)]',
           '[&_svg]:text-[var(--color-icon-icon-warning)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtler-hover)]',
@@ -450,6 +517,8 @@ export const buttonVariants = cva(
         appearance: 'outlined',
         tone: 'danger',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-danger-bg-danger-subtler-hover)]',
           'border-[var(--color-border-border-danger)]',
           '[&_svg]:text-[var(--color-icon-icon-danger)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtler-hover)]',
@@ -472,6 +541,8 @@ export const buttonVariants = cva(
         appearance: 'outlined',
         tone: 'secondary',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-secondary-bg-secondary-subtler-hover)]',
           // border-secondary = slate-400 in both themes: 4.69:1 on white,
           // 3.01:1 on dark bg-surface (1.4.11 needs 3:1).
           'border-[var(--color-border-border-secondary)]',
@@ -487,6 +558,8 @@ export const buttonVariants = cva(
         appearance: 'ghost',
         tone: 'primary',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-primary-bg-primary-subtler-hover)]',
           // Dark: text-link (#63acff) dropped to 4.41/3.75:1 on hover/pressed
           // tints over bg-surface; text-link-on-tonal (#bddcff) holds 6.28:1+.
           'text-[var(--color-text-text-link)] [[data-theme=dark]_&]:text-[var(--color-text-text-link-on-tonal)] [&_svg]:text-[var(--color-icon-icon-primary)]',
@@ -499,6 +572,8 @@ export const buttonVariants = cva(
         appearance: 'ghost',
         tone: 'info',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-info-bg-info-subtler-hover)]',
           // icon-info is cyan-500 since 2026-10-02 (a step lighter than the
           // cyan-600 label): 3.27:1 on the pressed bg (cyan-050), above 3:1.
           'text-[var(--color-text-text-info)] [&_svg]:text-[var(--color-icon-icon-info)]',
@@ -511,6 +586,8 @@ export const buttonVariants = cva(
         appearance: 'ghost',
         tone: 'success',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-success-bg-success-subtler-hover)]',
           // text-success-on-tonal (green-700 / green-010): plain text-success
           // was 4.39:1 (light) / 4.17:1 (dark) on the pressed fill.
           'text-[var(--color-text-text-success-on-tonal)] [&_svg]:text-[var(--color-icon-icon-success)]',
@@ -523,6 +600,8 @@ export const buttonVariants = cva(
         appearance: 'ghost',
         tone: 'warning',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-warning-bg-warning-subtler-hover)]',
           'text-[var(--color-text-text-warning)] [&_svg]:text-[var(--color-icon-icon-warning)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-warning-bg-warning-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-warning-bg-warning-subtler-hover)]',
@@ -533,6 +612,8 @@ export const buttonVariants = cva(
         appearance: 'ghost',
         tone: 'danger',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-danger-bg-danger-subtler-hover)]',
           'text-[var(--color-text-text-danger)] [&_svg]:text-[var(--color-icon-icon-danger)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-danger-bg-danger-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-danger-bg-danger-subtler-hover)]',
@@ -544,6 +625,8 @@ export const buttonVariants = cva(
         appearance: 'ghost',
         tone: 'secondary',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-secondary-bg-secondary-subtler-hover)]',
           '[&_svg]:text-[var(--color-icon-icon)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-secondary-bg-secondary-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-secondary-bg-secondary-subtler-hover)]',
@@ -571,6 +654,8 @@ export const buttonVariants = cva(
         appearance: 'outlined',
         tone: 'neutral',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-neutral-bg-neutral-subtler-hover)]',
           // border-neutral: graphite-500 light; gray-300 dark (graphite-500
           // is 2.43:1 on dark bg-surface, 1.4.11 needs 3:1; gray-300 4.87:1). Hover/press moved from the "-subtle" tier to
           // "-subtler" like every other Outlined/Ghost tone: in dark, the
@@ -586,6 +671,8 @@ export const buttonVariants = cva(
         appearance: 'ghost',
         tone: 'neutral',
         class: [
+          // Dark state layer reads these (see DARK_STATES).
+          '[--btn-hover:var(--color-bg-neutral-bg-neutral-subtler-hover)]',
           '[&_svg]:text-[var(--color-icon-icon-subtle)]',
           'hover:not-disabled:not-aria-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',
           'focus-visible:bg-[var(--color-bg-neutral-bg-neutral-subtler-hover)]',
