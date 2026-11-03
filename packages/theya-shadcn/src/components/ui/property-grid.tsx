@@ -125,7 +125,24 @@ function PropertyRow({
 
   return (
     <>
-      <div className="flex min-w-0 items-center pe-3 py-3" style={{ maxWidth: maxLabelWidth }}>
+      {/*
+        The label's first line sits level with the value's text, and a long label wraps
+        downward (Maria, 2026-11-03), instead of the whole label centering on the control.
+        Fields (text, select, number, textarea) are one control height tall with the text
+        centered, so the label starts half the difference lower; a read-only value or a
+        switch is one line, so it starts at the top. Custom controls are unknown: centered.
+      */}
+      <div
+        className={cn(
+          'flex min-w-0 pe-3 py-3',
+          item.type === 'custom'
+            ? 'items-center'
+            : item.readOnly || item.type === 'switch'
+              ? 'items-start'
+              : 'items-start pt-[calc(var(--spacing)*3+(var(--size-size-control-size-control-2xl)-var(--typography-body-m-line-height))/2)]',
+        )}
+        style={{ maxWidth: maxLabelWidth }}
+      >
         <label htmlFor={fieldId} className="font-body text-body-m text-[var(--color-text-text-subtler)] font-medium break-words">
           {item.label}
         </label>
@@ -137,7 +154,8 @@ function PropertyRow({
         control's own `md`/240px) floating at the column's left edge
         with dead space before the separator's actual end.
       */}
-      <div className="flex min-w-0 flex-col items-end justify-center py-3">
+      {/* Top, so a long wrapped label grows the row downward and the field stays level with its first line. */}
+      <div className={cn('flex min-w-0 flex-col items-end py-3', item.type === 'custom' ? 'justify-center' : 'justify-start')}>
         <PropertyControl fieldId={fieldId} item={item} value={value} onChange={onChange} invalid={invalid} describedBy={describedBy} />
         {invalid && (
           <span id={errorId} className="mt-1 flex items-start gap-1">

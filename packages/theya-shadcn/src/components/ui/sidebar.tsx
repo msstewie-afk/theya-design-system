@@ -311,7 +311,8 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, actio
       {!collapsed && badge != null && (
         <span
           className={cn(
-            'ms-auto rounded-full px-1 py-px font-body text-body-xs font-semibold transition-opacity duration-standard',
+            // min-width = height: one digit or symbol is a circle, longer counts grow into a pill.
+            'ms-auto inline-flex min-w-[calc(1lh+2px)] items-center justify-center rounded-full px-1 py-px font-body text-body-xs font-semibold tabular-nums transition-opacity duration-standard',
             BADGE_TONE_CLASS[badgeTone],
             // On the active row the pill's translucent tint stacked on the
             // row's own primary tint and sank to 2.92:1 in dark (axe

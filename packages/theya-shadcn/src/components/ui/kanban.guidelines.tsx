@@ -56,6 +56,7 @@ export const kanbanGuidelines: ComponentGuidelines = {
   ],
   doDont: [
     {
+      stacked: true,
       do: { example: <Board columns={FLOW} items={TASKS} />, caption: 'Stages of real work, with a limit where it piles up.' },
       dont: { example: <Board columns={TOGGLE} items={FEATURES} />, caption: 'Two columns for on / off — dragging to toggle is slower than a switch.' },
     },

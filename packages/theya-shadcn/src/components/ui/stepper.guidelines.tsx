@@ -17,6 +17,7 @@ export const stepperGuidelines: ComponentGuidelines = {
   ],
   doDont: [
     {
+      stacked: true,
       do: {
         example: (
           <Stepper

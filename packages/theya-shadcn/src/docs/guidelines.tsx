@@ -17,6 +17,8 @@ export type ComponentStatus = 'stable' | 'beta' | 'deprecated';
 export interface DoDontPair {
   do: { example: ReactNode; caption: ReactNode };
   dont: { example: ReactNode; caption: ReactNode };
+  /** Wide examples (a query builder row, a nine-step stepper): Do above Don't, full width, instead of side by side. */
+  stacked?: boolean;
 }
 
 export interface ComponentGuidelines {
@@ -129,14 +131,15 @@ export function GuidelinesIntro({ guidelines: g }: { guidelines: ComponentGuidel
   );
 }
 
-function DoDontCard({ kind, example, caption }: { kind: 'do' | 'dont'; example: ReactNode; caption: ReactNode }) {
+function DoDontCard({ kind, example, caption, stacked }: { kind: 'do' | 'dont'; example: ReactNode; caption: ReactNode; stacked?: boolean }) {
   const isDo = kind === 'do';
   return (
     // Two-column pairs: the figure spans both rows of the pair's grid as a
     // subgrid, so example and caption rows line up across Do and Don't — the
     // green and red lines sit at the same height whatever the caption length.
-    <figure className="m-0 flex flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border)] md:row-span-2 md:grid md:grid-rows-subgrid md:gap-0">
-      <div className="flex min-h-32 flex-1 items-center justify-center bg-[var(--color-bg-surface-bg-surface-base)] p-6">{example}</div>
+    // min-w-0: a grid item otherwise grows to its widest example and spills out of the column.
+    <figure className={cn('m-0 flex min-w-0 flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border)]', !stacked && 'md:row-span-2 md:grid md:grid-rows-subgrid md:gap-0')}>
+      <div className="flex min-h-32 min-w-0 flex-1 items-center justify-center bg-[var(--color-bg-surface-bg-surface-base)] p-6 [&>*]:max-w-full">{example}</div>
       <figcaption
         className={cn(
           'flex flex-col gap-1 border-t-4 border-solid p-4',
@@ -176,9 +179,9 @@ export function GuidelinesDetails({ guidelines: g, a11yStatus }: { guidelines: C
         <section className="flex flex-col gap-4">
           <H>Do and don’t</H>
           {g.doDont.map((p, i) => (
-            <div key={i} className="grid gap-4 md:grid-cols-2 md:grid-rows-[1fr_auto] md:gap-y-0">
-              <DoDontCard kind="do" {...p.do} />
-              <DoDontCard kind="dont" {...p.dont} />
+            <div key={i} className={cn('grid gap-4', !p.stacked && 'md:grid-cols-2 md:grid-rows-[1fr_auto] md:gap-y-0')}>
+              <DoDontCard kind="do" stacked={p.stacked} {...p.do} />
+              <DoDontCard kind="dont" stacked={p.stacked} {...p.dont} />
             </div>
           ))}
         </section>

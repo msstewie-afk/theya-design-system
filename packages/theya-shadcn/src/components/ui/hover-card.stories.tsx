@@ -53,9 +53,12 @@ export const Default: Story = {
       </HoverCardTrigger>
       <HoverCardContent>
         <p className="font-mono text-body-m font-medium text-[var(--color-text-text)]">selene-weddings.aether.photo</p>
-        <p className="mt-2 flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-subtler)]">
-          <StatusDot tone="success" />
-          Online · Selene Weddings · Print license active
+        {/* The dot sits on the first line ("Online"), not on the middle of a wrapped line. */}
+        <p className="mt-2 flex items-start gap-1 font-body text-body-s text-[var(--color-text-text-subtler)]">
+          <span className="flex h-[1lh] shrink-0 items-center">
+            <StatusDot tone="success" />
+          </span>
+          <span>Online · Selene Weddings · Print license active</span>
         </p>
         <p className="mt-1 font-body text-body-s text-[var(--color-text-text-subtler)]">1,284 views today</p>
       </HoverCardContent>

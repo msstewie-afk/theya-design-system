@@ -24,6 +24,7 @@ export const queryBuilderGuidelines: ComponentGuidelines = {
   ],
   doDont: [
     {
+      stacked: true,
       do: {
         example: (
           <div className="w-[34rem] max-w-full">

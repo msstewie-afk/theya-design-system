@@ -54,6 +54,7 @@ export const dataTableToolbarGuidelines: ComponentGuidelines = {
   ],
   doDont: [
     {
+      stacked: true,
       do: { example: <Demo />, caption: 'Actions appear with the selection, say how many rows, and Delete asks first.' },
       dont: {
         example: (

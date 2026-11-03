@@ -24,7 +24,8 @@ export const messagePopupGuidelines: ComponentGuidelines = {
               <Button appearance="filled" tone="primary" size="lg" iconOnly leftIcon={<ChatBubble />} aria-label="Open assistant" />
             </MessagePopupTrigger>
             <MessagePopupContent title="Assistant" description="Ask about your galleries and billing.">
-              <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">Hi! How can I help?</p>
+              {/* The body is bare (it holds a Chat transcript and a PromptArea); plain content brings its own padding. */}
+              <p className="m-0 p-4 font-body text-body-m text-[var(--color-text-text-subtle)]">Hi! How can I help?</p>
             </MessagePopupContent>
           </MessagePopup>
         ),
@@ -37,7 +38,7 @@ export const messagePopupGuidelines: ComponentGuidelines = {
               <Button appearance="filled" tone="primary" size="lg" iconOnly leftIcon={<ChatBubble />} aria-label="Open support form" />
             </MessagePopupTrigger>
             <MessagePopupContent title="New support ticket">
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 p-4">
                 <TextField label="Subject" widthSize="full" />
                 <TextField label="Gallery" widthSize="full" />
                 <TextField label="Contact email" widthSize="full" />
