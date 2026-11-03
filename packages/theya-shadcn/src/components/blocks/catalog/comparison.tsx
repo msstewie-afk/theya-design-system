@@ -61,7 +61,9 @@ export function CompareBar({ items, max = 4, onRemove, onClear, onCompare, class
   // tray mounts with it, and a region that mounts filled isn't read (4.1.3).
   const lastCount = useRef(items.length);
   useEffect(() => {
-    if (items.length && items.length !== lastCount.current) announce(`${items.length} of ${max} selected for comparison`);
+    // 700 ms, as in DataTableToolbar: the count follows a checkbox toggle, and VoiceOver in Safari
+    // drops a polite message that arrives while it is still reading "ticked, <name>, checkbox".
+    if (items.length && items.length !== lastCount.current) announce(`${items.length} of ${max} selected for comparison`, 'polite', { delay: 700 });
     lastCount.current = items.length;
   }, [items.length, max]);
   const ready = items.length >= 2;
