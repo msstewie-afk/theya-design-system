@@ -1,3 +1,4 @@
+import { resetFocus } from '../../../test/keyboard';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Copy, Import, Lock, Search, Sparks, Group } from 'iconoir-react';
@@ -79,6 +80,11 @@ export const Rail: Story = {
     await expect(prev).toHaveAttribute('aria-disabled', 'true');
     await userEvent.click(next);
     await waitFor(() => expect(prev).not.toHaveAttribute('aria-disabled', 'true'));
+    // Back to the first slide, so the story opens at rest.
+    await userEvent.click(prev);
+    await waitFor(() => expect(prev).toHaveAttribute('aria-disabled', 'true'));
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 

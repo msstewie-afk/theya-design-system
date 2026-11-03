@@ -1,3 +1,4 @@
+import { resetFocus } from '../../../test/keyboard';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { ArrowRight } from 'iconoir-react';
@@ -45,7 +46,12 @@ export const Marquee: Story = {
     const pause = canvas.queryByRole('button', { name: 'Pause animation' });
     if (!pause) return; // hidden under prefers-reduced-motion: nothing moves
     await userEvent.click(pause);
-    await expect(canvas.getByRole('button', { name: 'Play animation' })).toBeInTheDocument();
+    const play = canvas.getByRole('button', { name: 'Play animation' });
+    // Set it moving again: the story opens as a reader would see it.
+    await userEvent.click(play);
+    await expect(canvas.getByRole('button', { name: 'Pause animation' })).toBeInTheDocument();
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 

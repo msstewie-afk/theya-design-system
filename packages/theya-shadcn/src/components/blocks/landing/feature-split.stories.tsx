@@ -1,3 +1,4 @@
+import { resetFocus } from '../../../test/keyboard';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { ArrowRight } from 'iconoir-react';
@@ -91,5 +92,7 @@ export const LiveDemo: Story = {
     await userEvent.clear(search);
     await userEvent.click(canvas.getByRole('radio', { name: 'Recipes' }));
     await expect(canvas.getByText('4 links')).toBeInTheDocument();
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };

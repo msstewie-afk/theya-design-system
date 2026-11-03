@@ -1,6 +1,7 @@
+import { resetFocus } from '../../../test/keyboard';
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { ArrowRight } from 'iconoir-react';
 import { Button } from '../../ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs';
@@ -107,8 +108,13 @@ export const SplitWithChips: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const first = canvas.getAllByRole('tab')[0];
     await userEvent.click(canvas.getByRole('tab', { name: 'Recipes' }));
-    await expect(canvas.getByRole('img', { name: /Recipes folder/ })).toBeVisible();
+    await waitFor(() => expect(canvas.getByRole('img', { name: /Recipes folder/ })).toBeVisible());
+    // Back to the first chip, so the story opens as a reader would see it.
+    await userEvent.click(first);
+    // Leave no focus ring behind: the story opens at rest, as a reader would see it.
+    resetFocus();
   },
 };
 

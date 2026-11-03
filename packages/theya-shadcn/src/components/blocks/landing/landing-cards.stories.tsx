@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { resetFocus } from '../../../test/keyboard';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Book, Copy, Folder, Import, Lock, Search, Group, Sparks } from 'iconoir-react';
 import { Avatar, AvatarFallback } from '../../ui/avatar';
 import { CountUp } from '../../ui/count-up';
@@ -80,7 +80,8 @@ export const TonalExpanding: Story = {
     // Keyboard focus opens the folded description too.
     await userEvent.tab();
     await expect(canvas.getByRole('link', { name: 'Reading list' })).toHaveFocus();
-    await expect(canvas.getByText(/Long reads sort themselves in/)).toBeVisible();
+    // Wait out the fold-out (it fades in when motion is on).
+    await waitFor(() => expect(canvas.getByText(/Long reads sort themselves in/)).toBeVisible());
     // Leave no focus ring behind: the story opens at rest, as a reader would see it.
     resetFocus();
   },
