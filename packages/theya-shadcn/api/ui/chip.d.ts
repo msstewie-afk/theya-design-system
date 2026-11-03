@@ -12,6 +12,7 @@ export interface ChipProps extends Omit<React.ComponentProps<'span'>, 'onClick' 
     appearance?: ChipAppearance;
     bordered?: boolean;
     size?: ChipSize;
+    pill?: boolean;
     icon?: ReactNode;
     interactive?: boolean;
     toggleable?: boolean;
@@ -23,7 +24,7 @@ export interface ChipProps extends Omit<React.ComponentProps<'span'>, 'onClick' 
     onClick?: React.MouseEventHandler<HTMLElement>;
     onKeyDown?: React.KeyboardEventHandler<HTMLElement>;
 }
-export declare function Chip({ className, tone, appearance, bordered, size, icon, interactive, toggleable, pressed, defaultPressed, onPressedChange, asChild, disabled, onClick, onKeyDown, children, ...props }: ChipProps): import("react").JSX.Element;
+export declare function Chip({ className, tone, appearance, bordered, size, pill, icon, interactive, toggleable, pressed, defaultPressed, onPressedChange, asChild, disabled, onClick, onKeyDown, children, ...props }: ChipProps): import("react").JSX.Element;
 export declare const ChipRemove: import("react").ForwardRefExoticComponent<Omit<import("react").DetailedHTMLProps<import("react").ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref"> & import("react").RefAttributes<HTMLButtonElement>>;
 
 // Defaults
@@ -31,6 +32,7 @@ export declare const ChipRemove: import("react").ForwardRefExoticComponent<Omit<
 // Chip.asChild = false
 // Chip.bordered = false
 // Chip.interactive = true
+// Chip.pill = false
 // Chip.size = md
 // Chip.toggleable = true
 // Chip.tone = neutral

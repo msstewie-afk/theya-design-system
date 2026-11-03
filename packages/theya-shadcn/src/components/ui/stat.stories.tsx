@@ -110,6 +110,13 @@ export const Tones: Story = {
 /** A composite `value`: a ReactNode (here a mono identifier) instead of a bare string/number, for a fact that reads as more than one metric. */
 export const CompositeValue: Story = {
   name: 'Composite value',
+  // Wide enough for the domain on one line; a narrower card wraps it, with the dot on the first line.
+  parameters: { fullWidth: true },
+  render: (args) => (
+    <div className="w-[320px] max-w-full">
+      <Stat {...args} />
+    </div>
+  ),
   args: {
     label: 'Client portal',
     // font-mono only — no font-size override: the outer stat-value span

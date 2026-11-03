@@ -170,7 +170,9 @@ export function AnnouncementBar({
           aria-label={dismissLabel}
           onClick={dismiss}
           className={cn(
-            'absolute top-1/2 end-2 flex size-8 -translate-y-1/2 items-center justify-center rounded-[var(--size-border-radius-border-radius-lg)] text-current outline-none',
+            // Top-right corner, not centered: on a wrapped message (phones) it stays by the
+            // first line. On a one-line bar it is still centered (offset from the bar's min height, so it follows density).
+            'absolute top-[calc((var(--size-size-control-size-control-2xl)-2rem)/2)] end-2 flex size-8 items-center justify-center rounded-[var(--size-border-radius-border-radius-lg)] text-current outline-none',
             'transition-colors duration-150 ease-enter motion-reduce:transition-none',
             filled ? FILLED_DISMISS_CLASS : cn(TONAL_DISMISS_CLASS[tone], 'focus-visible:focus-ring'),
           )}

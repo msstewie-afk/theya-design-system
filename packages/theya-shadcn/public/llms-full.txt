@@ -2035,6 +2035,7 @@ Docs: ./?path=/docs/labels-chip--docs
 - `onClick?`: `MouseEventHandler<HTMLElement>`
 - `onKeyDown?`: `KeyboardEventHandler<HTMLElement>`
 - `onPressedChange?`: `((pressed: boolean) => void)`
+- `pill?`: `boolean`, default `false` — Fully rounded ends (a pill) instead of the size's corner radius, with a little more room at the sides so the text clears the curve.
 - `pressed?`: `boolean`
 - `size?`: `"md" | "lg" | "sm"`, default `md`
 - `toggleable?`: `boolean`, default `true` — Interactive chips toggle (aria-pressed) by default. Pass false for a chip that performs an action instead, e.g. opens an editor — it is then a plain button with no pressed state.

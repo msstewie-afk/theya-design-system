@@ -42,6 +42,10 @@ const meta = {
       control: 'boolean',
       description: 'Adds a tone-colored border on top of `appearance`. Off by default — every tone is borderless at rest.',
     },
+    pill: {
+      control: 'boolean',
+      description: 'Fully rounded ends instead of the size\'s corner radius, with a little more room at the sides.',
+    },
     size: {
       control: 'inline-radio',
       options: ['sm', 'md', 'lg'],
@@ -261,6 +265,32 @@ export const Sizes: Story = {
       </Chip>
       <Chip {...args} size="lg">
         Large
+      </Chip>
+    </div>
+  ),
+};
+
+/** `pill`: fully rounded ends, in every size, also with an icon and a remove button. */
+export const Pill: Story = {
+  args: { interactive: false, pill: true },
+  parameters: { controls: { exclude: ['size', 'interactive', 'pill'] } },
+  render: (args) => (
+    <div className="flex flex-wrap items-center gap-1">
+      <Chip {...args} size="sm">
+        Small
+      </Chip>
+      <Chip {...args} size="md">
+        Medium
+      </Chip>
+      <Chip {...args} size="lg">
+        Large
+      </Chip>
+      <Chip {...args} size="md" icon={<Check />}>
+        Approved
+      </Chip>
+      <Chip {...args} size="md" tone="primary" aria-label="Wedding">
+        Wedding
+        <ChipRemove aria-label="Remove Wedding" />
       </Chip>
     </div>
   ),

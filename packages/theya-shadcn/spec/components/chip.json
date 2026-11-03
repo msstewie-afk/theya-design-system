@@ -135,6 +135,13 @@
           "required": false
         },
         {
+          "name": "pill",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Fully rounded ends (a pill) instead of the size's corner radius, with a little more room at the sides so the text clears the curve."
+        },
+        {
           "name": "pressed",
           "type": "boolean",
           "required": false
@@ -226,6 +233,10 @@
       {
         "name": "Sizes",
         "id": "labels-chip--sizes"
+      },
+      {
+        "name": "Pill",
+        "id": "labels-chip--pill"
       },
       {
         "name": "WithIcon",

@@ -124,6 +124,8 @@ export interface ChipProps extends Omit<React.ComponentProps<'span'>, 'onClick' 
   /** Adds a tone-colored border on top of `appearance`. Off by default — every tone (including neutral) is borderless at rest. */
   bordered?: boolean;
   size?: ChipSize;
+  /** Fully rounded ends (a pill) instead of the size's corner radius, with a little more room at the sides so the text clears the curve. */
+  pill?: boolean;
   /** Leading icon, before the label. Unstyled — sized automatically to the chip's size variant. Replaced by a checkmark when a `appearance="filled"` chip is selected (see `pressed`/`defaultPressed`). */
   icon?: ReactNode;
   interactive?: boolean;
@@ -144,6 +146,7 @@ export function Chip({
   appearance = 'tonal',
   bordered = false,
   size = 'md',
+  pill = false,
   icon,
   interactive = true,
   toggleable = true,
@@ -217,6 +220,7 @@ export function Chip({
           : size === 'lg'
             ? 'h-8 rounded-[var(--size-border-radius-border-radius-lg)] pe-2 text-body-s'
             : 'h-[26px] rounded-[var(--size-border-radius-border-radius-md)] pe-2',
+        pill && 'rounded-full ps-2.5 pe-2.5',
         look === 'filled' ? SOLID_TONE_CLASS[tone] : TONE_CLASS[tone],
         bordered && BORDER_TONE_CLASS[tone],
         isPressable &&
@@ -246,7 +250,8 @@ export function Chip({
             if (!disabled) activate();
           }}
           onKeyDown={onKeyDown}
-          className="absolute inset-0 outline-none focus-visible:focus-ring"
+          // rounded-[inherit]: the focus ring follows the chip's corners (and a pill's ends).
+          className="absolute inset-0 rounded-[inherit] outline-none focus-visible:focus-ring"
         />
       )}
       {displayIcon != null && decorativeIcon(displayIcon)}

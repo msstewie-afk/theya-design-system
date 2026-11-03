@@ -116,7 +116,10 @@ export const buttonVariants = cva(
     // reduced motion (WCAG 2.3.3) — color/border/shadow transitions stay
     // either way since they're not the kind of motion that triggers
     // vestibular issues.
-    'motion-safe:active:not-disabled:not-aria-disabled:scale-[0.96]',
+    // Not on a trigger whose popup is open (aria-expanded): Radix opens menus on
+    // pointerdown, the popup anchors to the scaled-down button and then shifts as
+    // it springs back (Maria, 2026-11-03).
+    'motion-safe:active:not-disabled:not-aria-disabled:not-aria-expanded:scale-[0.96]',
   ],
   {
     variants: {

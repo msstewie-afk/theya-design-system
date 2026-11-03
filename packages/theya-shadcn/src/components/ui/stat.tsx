@@ -84,10 +84,12 @@ export function Stat({ className, variant = 'card', label, value, icon, tone, to
         )}
       </div>
 
-      <div className="mt-auto flex items-center gap-2 pt-1">
+      {/* text-heading-m on the row so 1lh is the value's line: the dot / icon sits on the first
+          line of a value that wraps, not in the middle of the block. */}
+      <div className="mt-auto flex items-start gap-2 pt-1 font-body text-heading-m">
         {tone && (
           <>
-            {toneVisual}
+            <span className="flex h-[1lh] shrink-0 items-center">{toneVisual}</span>
             <span className="sr-only">{status}: </span>
           </>
         )}
