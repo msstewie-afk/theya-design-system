@@ -384,7 +384,7 @@ export function DepthTunnel({ items, children, length = 2.5, className, ...props
       <section data-slot="depth-tunnel" data-scale="display" className={cn('section-display', className)} {...props}>
         <div className="container-display flex flex-col items-center gap-12">
           <div className="flex max-w-[48rem] flex-col items-center text-center">{children}</div>
-          <div aria-hidden className="flex flex-wrap justify-center gap-4 opacity-80">
+          <div aria-hidden className="flex flex-wrap justify-center gap-4">
             {items.slice(0, 8)}
           </div>
         </div>

@@ -219,7 +219,7 @@ export function UploadPanel({
           value={pct}
           aria-label={title}
           aria-valuetext={meta ?? undefined}
-          className={cn('h-1 rounded-none', allPaused && '[&>*]:bg-[var(--color-bg-neutral-bg-neutral-strong)]')}
+          className={cn('h-1 rounded-none', allPaused && '[&>*]:bg-[var(--color-icon-icon-subtle)]')}
         />
       )}
       <ul
@@ -251,7 +251,7 @@ export function UploadPanel({
                     value={f.progress}
                     aria-label={f.name}
                     aria-valuetext={fileMeta}
-                    className={cn('mt-2 h-1', f.upload === 'paused' && '[&>*]:bg-[var(--color-bg-neutral-bg-neutral-strong)]')}
+                    className={cn('mt-2 h-1', f.upload === 'paused' && '[&>*]:bg-[var(--color-icon-icon-subtle)]')}
                   />
                 ) : (
                   <span aria-hidden className="mt-2 block h-1" />

@@ -153,7 +153,8 @@ export function SiteFooter({
                 </span>
                 <Select value={language} onValueChange={onLanguageChange} heightSize="sm">
                   {/* Trigger: flag + two letters, as wide as that needs. The list shows full names. */}
-                  <SelectTrigger aria-labelledby={`${uid}-lang`} className="w-auto gap-2">
+                  {/* Strong border: the footer is tinted, and the default field border drops under 3:1 on it. */}
+                  <SelectTrigger aria-labelledby={`${uid}-lang`} className="w-auto gap-2 border-[var(--color-border-border-strong)]">
                     <SelectValue>
                       {current && (
                         <span className="inline-flex items-center gap-1">

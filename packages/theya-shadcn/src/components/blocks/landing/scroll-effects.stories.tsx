@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ArrowDown } from 'iconoir-react';
 import { expect, within } from '@storybook/test';
 import { Copy, Group, Import, Lock, Search, Sparks } from 'iconoir-react';
-import { BookmarksPreview, DEMO_FEATURES, DemoFeatureVisual, DemoMiniLink, DemoMesh } from './demo-data';
+import { BookmarksPreview, DEMO_FEATURES, DemoFeatureVisual, DemoMiniLink } from './demo-data';
 import { SectionHead } from './feature-shared';
 import { FeatureCard, LandingCard, QuoteCard, StatCard, type LandingCardHue } from './landing-cards';
 import { Button } from '../../ui/button';
@@ -165,7 +165,7 @@ export const MaskReveal: Story = {
   render: () => (
     <div className="bg-[var(--color-bg-surface-bg-surface)]">
       <Spacer label="Scroll down" />
-      <ScrollMaskReveal aria-labelledby="reveal-title" media={<DemoMesh seed={2} />}>
+      <ScrollMaskReveal aria-labelledby="reveal-title" media={<img src="/asset-examples/gradients/iridescent.webp" alt="" />}>
         <div className="flex max-w-[34rem] flex-col items-start gap-6 rounded-[var(--size-border-radius-border-radius-4xl)] bg-[var(--color-bg-surface-bg-surface)] p-8 shadow-elevation-md">
           <h2 id="reveal-title" className="m-0 text-balance font-heading text-heading-2xl text-[var(--color-text-text)]">
             Room for everything you read
@@ -219,17 +219,18 @@ export const Sideways: Story = {
   },
 };
 
-const PHOTOS = ['login-carousel-01', 'nova-web', 'login-carousel-02', 'product-router', 'login-carousel-03', 'product-ssd'];
+// Soft gradients (Maria's, 3.11), cropped to each tile's proportions. No photos on cards in motion.
+const GRADIENTS = ['sunrise', 'lagoon', 'peach', 'dusk', 'ember', 'morning'];
 const RATIOS = ['aspect-[3/4]', 'aspect-square', 'aspect-[4/5]', 'aspect-[3/2]', 'aspect-[2/3]', 'aspect-[5/4]'];
 
 /** A Pinterest-like wall (MarqueeColumns, `drive="scroll"`): columns of saved things drift past each other as you scroll (odd up, even down). Tab into it and it stops and opens. */
 export const Masonry: Story = {
   render: () => {
     const items = [
-      ...PHOTOS.map((p, i) => (
+      ...GRADIENTS.map((p, i) => (
         <LandingCard key={p} surface="sunken" className="overflow-hidden">
-          <DemoMesh seed={i} className={`${RATIOS[i]} !h-auto w-full`} />
-          <p className="m-0 p-4 font-body text-body-s font-semibold">{['Blue hour', 'Studio portrait', 'Stairs study', 'Home office', 'Tall blocks', 'Desk setup'][i]}</p>
+          <img src={`/asset-examples/gradients/${p}.webp`} alt="" className={`${RATIOS[i]} block w-full object-cover`} />
+          <p className="m-0 p-4 font-body text-body-s font-semibold">{['Sunrise', 'Lagoon', 'Peach', 'Dusk', 'Ember', 'Morning'][i]}</p>
         </LandingCard>
       )),
       <QuoteCard key="q1" serif surface="tonal" hue="secondary" quote="My whole moodboard, finally in one place." name="Lea Brandt" title="Illustrator" />,
@@ -266,7 +267,7 @@ export const Masonry: Story = {
     await expect(wall).toHaveAttribute('data-drive', 'scroll');
     // Every card is there once (no looping copy in the scroll-driven wall).
     await expect(within(wall).getAllByText('Search by a word inside the page. Magic.')).toHaveLength(1);
-    await expect(within(wall).getByText('Blue hour')).toBeVisible();
+    await expect(within(wall).getByText('Sunrise')).toBeVisible();
     await expect(canvas.getByText('My whole moodboard, finally in one place.')).toBeVisible();
   },
 };

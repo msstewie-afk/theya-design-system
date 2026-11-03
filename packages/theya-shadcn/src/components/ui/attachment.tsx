@@ -158,7 +158,7 @@ export function Attachment({
       aria-label={name}
       aria-valuetext={uploadMeta ?? undefined}
       data-slot="attachment-progress"
-      className={cn('mt-2 h-1', upload === 'paused' && '[&>*]:bg-[var(--color-bg-neutral-bg-neutral-strong)]')}
+      className={cn('mt-2 h-1', upload === 'paused' && '[&>*]:bg-[var(--color-icon-icon-subtle)]')}
     />
   ) : upload !== undefined ? (
     // The bar's room is kept once it goes (done, failed), so the row doesn't shrink under the pointer.

@@ -373,32 +373,5 @@ export function DemoMiniLink({ index = 0 }: { index?: number }) {
 
 // ---------------------------------------------------------------------------
 // Demo surfaces for cards in examples (Maria, 3.11): no photos on cards, least of all in
-// motion. Either a soft tonal fill (lib/tonal-fills) with full-strength text and no
-// shadow, darkening or gradient under the text — or a light mesh gradient as a background.
-
-
-const MESH = [
-  ['primary', 'info', 'success'],
-  ['success', 'warning', 'primary'],
-  ['info', 'primary', 'warning'],
-  ['warning', 'success', 'info'],
-] as const;
-
-/** A light mesh gradient of the subtle system tints, as a picture's stand-in (decorative). */
-export function DemoMesh({ seed = 0, className }: { seed?: number; className?: string }) {
-  const [a, b, c] = MESH[seed % MESH.length];
-  const tint = (t: string) => `var(--color-bg-${t}-bg-${t}-subtle)`;
-  return (
-    <div
-      aria-hidden
-      className={cn('size-full bg-[var(--color-bg-surface-bg-surface)]', className)}
-      style={{
-        backgroundImage: [
-          `radial-gradient(60% 70% at ${15 + (seed * 23) % 60}% 20%, ${tint(a)}, transparent 70%)`,
-          `radial-gradient(55% 65% at 85% ${60 + (seed * 17) % 30}%, ${tint(b)}, transparent 70%)`,
-          `radial-gradient(70% 60% at 30% 95%, ${tint(c)}, transparent 70%)`,
-        ].join(', '),
-      }}
-    />
-  );
-}
+// motion. Cards take a soft tonal fill (lib/tonal-fills); a picture slot takes one of the
+// gradients in /asset-examples/gradients.
