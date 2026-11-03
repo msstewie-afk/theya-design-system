@@ -265,8 +265,8 @@
         "review"
       ],
       "counts": {
-        "deviation": 47,
-        "verified": 80,
+        "deviation": 48,
+        "verified": 79,
         "n/a": 34,
         "untested": 1
       },
@@ -2362,7 +2362,12 @@
       "reducedMotion": "none",
       "forcedColors": "global",
       "screenReader": [],
-      "deviations": [],
+      "deviations": [
+        {
+          "criterion": "1.4.11",
+          "note": "Range middle days are a bg-neutral-subtle band, 1.15:1 light / 1.35:1 dark, and the blue selected / endpoint days are 2.71:1 on the dark surface (2.40:1 on an overlay). The primary lines above and below the band and the light edge around dark-theme selected days (2026-10-26) were removed by Мария, 2026-11-03, as too noisy. The range is carried by its two blue endpoints with white numbers (5.2:1) and by aria-selected on every day in it."
+        }
+      ],
       "traits": [
         "composite",
         "interactive"
@@ -2385,7 +2390,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "verified",
+        "1.4.11": "deviation",
         "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",

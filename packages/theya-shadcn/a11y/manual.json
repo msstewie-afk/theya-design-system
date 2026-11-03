@@ -365,8 +365,7 @@
       "4.1.3": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "Fixed 2026-10-27 after the VoiceOver pass: label changes (\"Save\" -> \"Saving...\" -> \"Saved\") go through announce() from an effect that skips the first render; the in-button aria-live span was silent in VoiceOver + Safari. Loading sets aria-busy and keeps focus."}
     },
     "Calendar": {
-      "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The nav sits absolutely over the caption row (calendar.tsx:47). react-day-picker renders it before the month grid, so the read order (prev/next, caption, grid) matches the visual order."},
-      "1.4.11": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review + contrast measurement)", "note": "Dark: selected days and range endpoints get a 1px border-primary edge (5.95:1 on surface, 5.28:1 on overlay), as Checkbox does; the bg-primary fill itself is 2.71 / 2.40:1. Mid-range cells carry inset top/bottom border-primary lines (4.51:1 light, 4.40:1 dark on the neutral fill) that join the endpoints (calendar.tsx range_middle, day button)."}
+      "1.3.2": {"result": "pass", "date": "2026-10-26", "by": "Claude (code review)", "note": "The nav sits absolutely over the caption row (calendar.tsx:47). react-day-picker renders it before the month grid, so the read order (prev/next, caption, grid) matches the visual order."}
     },
     "CancellationFlow": {
       "1.4.1": {"result": "pass", "date": "2026-10-24", "by": "Claude (code review)", "note": "Step state is text (\"Step n of 3\" + heading), the destructive action is the labelled \"Cancel plan\" button, and the warning Alert has text and an icon; nothing relies on hue."},
@@ -1859,6 +1858,7 @@
     }
   },
   "deviations": {
+    "Calendar": [{"criterion": "1.4.11", "note": "Range middle days are a bg-neutral-subtle band, 1.15:1 light / 1.35:1 dark, and the blue selected / endpoint days are 2.71:1 on the dark surface (2.40:1 on an overlay). The primary lines above and below the band and the light edge around dark-theme selected days (2026-10-26) were removed by Мария, 2026-11-03, as too noisy. The range is carried by its two blue endpoints with white numbers (5.2:1) and by aria-selected on every day in it."}],
     "Switch": [{"criterion": "1.4.11", "note": "Warning tone, light theme: the white thumb on the amber track is 1.89:1. The on state is also shown by the dark check in the thumb (17:1; checkIcon is on by default), so the state stays visible; with checkIcon={false} a checked warning switch in light shows its state only by thumb position against 1.89:1. Kept by Мария, 2026-11-02, after trying a dark thumb and a brown track."}],
     "Autocomplete": [
       { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." }

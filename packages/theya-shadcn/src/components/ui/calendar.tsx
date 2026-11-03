@@ -61,22 +61,23 @@ export function Calendar({
           defaultClassNames.caption_label,
         ),
         month_grid: cn('w-full border-collapse', defaultClassNames.month_grid),
-        weekdays: cn('flex', defaultClassNames.weekdays),
+        // Weeks sit flush (a range reads as one band); the gap stays only under the weekday row.
+        weekdays: cn('mb-2 flex', defaultClassNames.weekdays),
         weekday: cn('flex-1 text-body-xs font-normal text-[var(--color-text-text-subtler)]', defaultClassNames.weekday),
-        week: cn('mt-2 flex w-full', defaultClassNames.week),
+        week: cn('flex w-full', defaultClassNames.week),
         week_number_header: cn('w-8', defaultClassNames.week_number_header),
         week_number: cn('text-body-xs text-[var(--color-text-text-subtler)]', defaultClassNames.week_number),
         day: cn(
           'group/day relative aspect-square h-full w-full select-none p-0 text-center',
+          // A range band wrapping onto the next week is rounded at the row's edges, not cut off.
+          'first:rounded-s-[var(--size-border-radius-border-radius-md)] last:rounded-e-[var(--size-border-radius-border-radius-md)]',
           defaultClassNames.day,
         ),
         range_start: cn('rounded-s-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]', defaultClassNames.range_start),
-        // Mid-range days: the neutral fill is 1.15:1 light / 1.35:1 dark, so a primary line above and
-        // below (on the cell, so it runs unbroken) joins the two endpoints into one band (WCAG 1.4.11).
-        range_middle: cn(
-          'rounded-none bg-[var(--color-bg-neutral-bg-neutral-subtle)] shadow-[inset_0_1px_0_var(--color-border-border-primary),inset_0_-1px_0_var(--color-border-border-primary)]',
-          defaultClassNames.range_middle,
-        ),
+        // Mid-range days: a plain neutral band between the two blue endpoints (Maria, 2026-11-03: the
+        // primary lines above and below were too noisy). The band is under 3:1 by itself; the endpoints
+        // carry the range — recorded as a WCAG 1.4.11 deviation in a11y/manual.json.
+        range_middle: cn('rounded-none bg-[var(--color-bg-neutral-bg-neutral-subtle)]', defaultClassNames.range_middle),
         range_end: cn('rounded-e-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]', defaultClassNames.range_end),
         today: cn(
           'rounded-[var(--size-border-radius-border-radius-md)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] data-[selected=true]:rounded-none',
@@ -127,8 +128,6 @@ function CalendarDayButton({ className, day, modifiers, ...props }: React.Compon
       data-range-middle={modifiers.range_middle}
       className={cn(
         'flex aspect-square size-auto w-full min-w-8 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)]',
-        // Transparent until a dark-theme selected fill needs its edge (WCAG 1.4.11 below); keeps every day the same size.
-        'border border-solid border-transparent',
         'text-body-s font-normal text-[var(--color-text-text)] cursor-pointer',
         'transition-colors duration-standard ease-enter motion-reduce:transition-none',
         'hover:not-disabled:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
@@ -137,11 +136,6 @@ function CalendarDayButton({ className, day, modifiers, ...props }: React.Compon
         'data-[selected-single=true]:bg-[var(--color-bg-primary-bg-primary)] data-[selected-single=true]:text-[var(--color-text-text-on-primary)]',
         'data-[selected-single=true]:hover:bg-[var(--color-bg-primary-bg-primary-hover)]',
         'data-[range-middle=true]:rounded-none',
-        // Dark: the blue fill is 2.71:1 on the surface (2.40:1 on an overlay), so the light primary
-        // edge outlines selected days and range endpoints, as Checkbox does (WCAG 1.4.11).
-        '[[data-theme=dark]_&]:data-[selected-single=true]:border-[var(--color-border-border-primary)]',
-        '[[data-theme=dark]_&]:data-[range-start=true]:border-[var(--color-border-border-primary)]',
-        '[[data-theme=dark]_&]:data-[range-end=true]:border-[var(--color-border-border-primary)]',
         'data-[range-start=true]:rounded-s-[var(--size-border-radius-border-radius-md)] data-[range-start=true]:rounded-e-none',
         'data-[range-start=true]:bg-[var(--color-bg-primary-bg-primary)] data-[range-start=true]:text-[var(--color-text-text-on-primary)]',
         'data-[range-start=true]:hover:bg-[var(--color-bg-primary-bg-primary-subtle)] data-[range-start=true]:hover:text-[var(--color-text-text-link-on-tonal)]',
