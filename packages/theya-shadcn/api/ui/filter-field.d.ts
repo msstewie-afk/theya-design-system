@@ -63,6 +63,7 @@ export interface FilterFieldProps {
     attributeLabel?: string;
     emptyMessage?: string;
     searchLabel?: string;
+    searchChips?: boolean;
     applyLabel?: string;
     disabled?: boolean;
     align?: 'start' | 'center' | 'end';
@@ -73,7 +74,7 @@ export interface FilterFieldProps {
     'aria-labelledby'?: string;
     'aria-describedby'?: string;
 }
-export declare function FilterField({ attributes, value, defaultValue, onValueChange, query, defaultQuery, onQueryChange, placeholder, addLabel, attributeLabel, emptyMessage, searchLabel, applyLabel, disabled, align, id, className, inputClassName, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby, }: FilterFieldProps): import("react").JSX.Element;
+export declare function FilterField({ attributes, value, defaultValue, onValueChange, query, defaultQuery, onQueryChange, placeholder, addLabel, attributeLabel, emptyMessage, searchLabel, searchChips, applyLabel, disabled, align, id, className, inputClassName, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-describedby': ariaDescribedby, }: FilterFieldProps): import("react").JSX.Element;
 
 // Defaults
 // FilterField.addLabel = Add filter (localized: filterField.add)
@@ -82,4 +83,5 @@ export declare function FilterField({ attributes, value, defaultValue, onValueCh
 // FilterField.attributeLabel = Filter by… (localized: filterField.attribute)
 // FilterField.emptyMessage = No attributes. (localized: filterField.noAttributes)
 // FilterField.placeholder = Filter or search… (localized: filterField.placeholder)
+// FilterField.searchChips = true
 // FilterField.searchLabel = Search for (localized: filterField.searchFor)

@@ -4719,6 +4719,7 @@ Docs: ./?path=/docs/search-filter-filterfield--docs
 - `onValueChange?`: `((value: AppliedFilter[]) => void)`
 - `placeholder?`: `string`, default `Filter or search… (localized: filterField.placeholder)`
 - `query?`: `string`
+- `searchChips?`: `boolean`, default `true` — What Enter on the "Search for" row does. `true` (default): the text becomes a search chip and
 - `searchLabel?`: `string`, default `Search for (localized: filterField.searchFor)` — Lead-in for the free-text search row in the dropdown ("Search for" "query"). Defaults to the locale's `filterField.searchFor`.
 - `value?`: `AppliedFilter[]`
 

@@ -139,6 +139,12 @@ export interface FilterFieldProps {
   emptyMessage?: string;
   /** Lead-in for the free-text search row in the dropdown ("Search for" "query"). Defaults to the locale's `filterField.searchFor`. */
   searchLabel?: string;
+  /**
+   * What Enter on the "Search for" row does. `true` (default): the text becomes a search chip and
+   * the field clears. `false`: the text stays in the field and the dropdown closes, for a parent
+   * that filters on `query` as it is typed (ListView) and has nowhere to keep a search chip.
+   */
+  searchChips?: boolean;
   applyLabel?: string;
   disabled?: boolean;
   align?: 'start' | 'center' | 'end';
@@ -163,6 +169,7 @@ export function FilterField({
   attributeLabel,
   emptyMessage,
   searchLabel,
+  searchChips = true,
   applyLabel,
   disabled,
   align = 'start',
@@ -316,6 +323,12 @@ export function FilterField({
   const commitSearch = () => {
     const next = normalizedQuery;
     if (!next) return;
+    if (!searchChips) {
+      // The parent already filters on the query: keep it and just close the dropdown.
+      closePopover();
+      inputRef.current?.focus();
+      return;
+    }
     setChipsSelected(false);
     setFilters([...filters, { key: FILTER_FIELD_SEARCH_KEY, value: next }]);
     setQuery('');

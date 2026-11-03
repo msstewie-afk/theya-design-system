@@ -161,6 +161,13 @@
           "required": false
         },
         {
+          "name": "searchChips",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "What Enter on the \"Search for\" row does. `true` (default): the text becomes a search chip and\nthe field clears. `false`: the text stays in the field and the dropdown closes, for a parent\nthat filters on `query` as it is typed (ListView) and has nowhere to keep a search chip."
+        },
+        {
           "name": "searchLabel",
           "type": "string",
           "required": false,

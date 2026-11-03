@@ -77,6 +77,10 @@ export const Default: Story = {
     await userEvent.type(input, 'elio');
     await waitFor(() => expect(visibleNames(canvasElement)).toEqual(['Elio Sanz']));
     await expect(count(canvasElement)).toHaveTextContent('1 user');
+    // Enter on "Search for …" keeps the search (it used to clear it and show every row).
+    await userEvent.keyboard('{Enter}');
+    await expect(input).toHaveValue('elio');
+    await expect(visibleNames(canvasElement)).toEqual(['Elio Sanz']);
     await userEvent.clear(input);
     await waitFor(() => expect(visibleNames(canvasElement)).toEqual(ALL));
     await userEvent.keyboard('{Escape}');

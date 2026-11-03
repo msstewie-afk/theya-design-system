@@ -196,6 +196,9 @@ function ListToolbar<Row>({ table, primaryKey, searchPlaceholder, facets, bulkAc
             onValueChange={applyFilters}
             query={query}
             onQueryChange={(next) => searchCol?.setFilterValue(next)}
+            // The search already filters as it is typed; a search chip had nowhere to go, so Enter
+            // on "Search for …" used to clear the search and show every row again.
+            searchChips={false}
             placeholder={searchPlaceholder}
             aria-label={searchPlaceholder}
           />
