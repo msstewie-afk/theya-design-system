@@ -31,8 +31,9 @@
     container-display      centred column, max 1200 px, side gutter 16 → 40 px
     container-display-narrow / -wide   720 / 1440 px
 
-  The values live here, not in @theya/tokens yet: Figma will carry them as
-  variable modes per breakpoint (360 / 768 / 1440) once the scale is settled.
+  The values live here, not in @theya/tokens yet. Figma carries them in the
+  "8. Breakpoint" collection, modes 360 / 768 / 1440 (each value = the clamp()
+  below at that width, rounded the same way). Change both together.
 */
 
 :root {

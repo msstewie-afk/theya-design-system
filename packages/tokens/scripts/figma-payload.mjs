@@ -90,6 +90,25 @@ for (const [k, v] of Object.entries(flatten(read('src/semantic/size.json')))) {
   sizeSem[name] = isRef(v) ? '@' + refPath(v).slice(1).join('/') : Number(v);
 }
 
+// ---- Density (collection "7. Density", modes Default/Compact/Comfortable) ----
+// src/density/*.json override a few size tokens per mode. In Figma they live
+// in their own collection, and the semantic control sizes in "4." alias them,
+// so a frame switches density the way it switches the theme.
+const DENSITY_MODES = { Default: 'default', Compact: 'compact', Comfortable: 'comfortable' };
+const densityRaw = Object.fromEntries(Object.entries(DENSITY_MODES).map(([m, f]) => [m, flatten(read(`src/density/${f}.json`).size)]));
+const sizeVal = (v) => (isRef(v) ? '@' + refPath(v).slice(1).join('/') : Number(String(v).replace(/px$/, '')));
+const densityVars = {};
+for (const name of new Set(Object.values(densityRaw).flatMap(Object.keys))) {
+  densityVars[name] = Object.fromEntries(
+    Object.keys(DENSITY_MODES).map((m) => {
+      const v = densityRaw[m][name] ?? densityRaw.Default[name];
+      // Default has no override: it is the semantic size from src/semantic/size.json.
+      return [m, v === undefined ? sizeSem[name] : sizeVal(v)];
+    }),
+  );
+  if (sizeSem[name] !== undefined) sizeSem[name] = '@density:' + name;
+}
+
 // ---- Typography ----
 const typoPrim = {};
 for (const [k, v] of Object.entries(flatten(read('src/primitive/typography.json')))) {
@@ -115,6 +134,7 @@ const payload = {
     '4.': { kind: 'FLOAT', modes: ['*'], aliasTo: '3.', vars: sizeSem },
     '5.': { kind: 'MIXED', modes: ['*'], vars: typoPrim },
     '6.': { kind: 'MIXED', modes: ['*'], vars: typoSem },
+    '7.': { kind: 'FLOAT', modes: Object.keys(DENSITY_MODES), aliasTo: '3.', vars: densityVars },
   },
   // Variables that exist only in Figma on purpose (Maria, 2026-10-05): negative
   // spacing for overlaps (avatar stacks, 1-2px nudges). Code writes those with

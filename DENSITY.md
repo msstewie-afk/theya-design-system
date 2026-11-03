@@ -73,4 +73,4 @@ Collisions at the edges are intentional: in compact the sm and md steps are both
   - a mode references a token that does not exist;
   - the control scale in a mode goes down (a larger step is smaller than the previous one).
 - It also works on nested blocks: components read the variables directly, without an alias on `:root`.
-- In Figma, this maps to the "Density" variable collection with three modes — the same token names.
+- In Figma, this maps to the "7. Density" variable collection with three modes (Default / Compact / Comfortable) and the same token names. The control sizes in "4. Size Semantic" alias it, so setting the Density mode on a frame resizes every component inside. `npm run figma:check` in `packages/tokens` compares it too.

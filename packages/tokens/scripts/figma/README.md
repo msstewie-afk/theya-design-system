@@ -16,8 +16,14 @@ run it in the Figma plugin console. The script returns a JSON report.
 
 ## Files
 
-- `../figma-payload.mjs` flattens the token JSON into collections `1.`–`6.` with
-  modes, aliases (`@path`, `@size:`, `@typo:`) and normalized hex colors.
+- `../figma-payload.mjs` flattens the token JSON into collections `1.`–`7.` with
+  modes, aliases (`@path`, `@size:`, `@typo:`, `@density:`) and normalized hex colors.
+  `7. Density` comes from `src/density/*.json` (modes Default / Compact / Comfortable);
+  the control sizes it overrides are aliased from `4.` (`@density:`), so a frame's
+  Density mode resizes components the way its color mode switches the theme.
+- `8. Breakpoint` (modes 360 / 768 / 1440) is not checked: its values are the
+  `clamp()` results of `packages/theya-shadcn/src/styles/display-scale.css`, which
+  is not a token file yet. Change both together.
 - `../figma-run.mjs` concatenates payload + `lib.js` + action into one script.
 - `lib.js` holds the shared helpers: slug matching (Figma groups use spaces, code uses
   dashes), alias resolution, value comparison and WEB codeSyntax names.

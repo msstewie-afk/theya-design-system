@@ -23,6 +23,7 @@ async function loadState() {
 const aliasTarget = (key, ref) => {
   if (ref.startsWith('@size:')) return ['3.', ref.slice(6)];
   if (ref.startsWith('@typo:')) return ['5.', ref.slice(6)];
+  if (ref.startsWith('@density:')) return ['7.', ref.slice(9)];
   return [PAYLOAD.collections[key].aliasTo, ref.slice(1)];
 };
 const modeIds = (col, modes) => modes.map((m) => [m, m === '*' ? col.modes[0].modeId : (col.modes.find((x) => x.name === m) || {}).modeId]);
@@ -35,7 +36,7 @@ function describe(val, byId) {
   return val;
 }
 function equal(have, wantV) {
-  if (typeof wantV === 'string' && wantV.startsWith('@')) return typeof have === 'string' && have === '@' + slug(wantV.replace(/^@(size:|typo:)?/, ''));
+  if (typeof wantV === 'string' && wantV.startsWith('@')) return typeof have === 'string' && have === '@' + slug(wantV.replace(/^@(size:|typo:|density:)?/, ''));
   if (typeof wantV === 'string' && wantV.startsWith('#')) return typeof have === 'string' && have.startsWith('#') && sameHex(have, wantV);
   if (typeof wantV === 'number') return typeof have === 'number' && Math.abs(have - wantV) < 0.001;
   return String(have) === String(wantV);
@@ -48,6 +49,6 @@ function cssName(key, name) {
     if (name.startsWith('bg/primary/primary-on-primary')) return '--color-bg-' + name.split('/')[2];
     return '--color-' + dash;
   }
-  if (key === '3.' || key === '4.') return '--size-' + dash;
+  if (key === '3.' || key === '4.' || key === '7.') return '--size-' + dash;
   return '--typography-' + dash;
 }
