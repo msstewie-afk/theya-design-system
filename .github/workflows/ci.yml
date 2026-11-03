@@ -8,7 +8,7 @@
 # react-19   — after checks, alongside storybook: the same code with React 19
 #              forced across the workspace (the package supports 18 and 19,
 #              dev and the main jobs stay on 18): types, then play + axe.
-# brands     — after checks, one job per product theme (iris, lime): play +
+# brands     — after checks, one job per product theme (iris, lime, ember): play +
 #              axe in its light and dark variants. No visual baselines: the
 #              storybook job's are for Theya's own look.
 # a11y       — after checks: scripts/a11y-tree.mjs (accessibility tree:
@@ -305,7 +305,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        brand: [iris, lime]
+        brand: [iris, lime, ember]
     name: brand (${{ matrix.brand }})
     env:
       THEYA_BRAND: ${{ matrix.brand }}

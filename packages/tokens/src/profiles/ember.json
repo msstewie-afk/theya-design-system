@@ -1,0 +1,36 @@
+{
+  "description": "Ember: warm orange primary on a warm off-white page, white cards, dark warm text; EB Garamond headings; soft radii (cards 18px); dark warning re-hued to amber, as light warning is, so it doesn't read as the primary",
+  "primary": "#c2410c",
+  "neutral": {
+    "hue": 60,
+    "chroma": 0.15
+  },
+  "headingFont": "EB Garamond",
+  "radius": {
+    "scale": 1.8,
+    "field": "xl"
+  },
+  "light": {
+    "tokens": {
+      "bg-surface-bg-surface-base": "#f5f4f1",
+      "bg-surface-bg-surface": "#ffffff",
+      "bg-primary-bg-primary-subtle": "#fbe9df",
+      "text-text": "#1f1d1a",
+      "text-text-link-on-tonal": "#7c2d12",
+      "text-text-subtle-on-primary": "rgb(255 255 255 / 0.94)"
+    }
+  },
+  "dark": {
+    "status": {
+      "warning": {
+        "hue": 84
+      }
+    },
+    "tokens": {
+      "bg-surface-bg-surface-base": "#151311",
+      "bg-surface-bg-surface": "#1e1b18",
+      "text-text": "#f5f4f1",
+      "text-text-subtle-on-primary": "rgb(255 255 255 / 0.94)"
+    }
+  }
+}

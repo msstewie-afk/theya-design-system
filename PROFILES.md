@@ -16,12 +16,13 @@ Profiles live in `packages/tokens/src/profiles/<name>.json` and come in two kind
 | Kind | What it changes | Ready-made |
 |---|---|---|
 | simple | only the hue of the primary color | — (format below, for quick experiments) |
-| full theme | primary color, text on it, neutral and secondary colors, surfaces, text and links — separately for the light and dark theme; typeface and radii | `iris`, `lime` |
+| full theme | primary color, text on it, neutral and secondary colors, surfaces, text and links — separately for the light and dark theme; typeface and radii | `iris`, `lime`, `ember` |
 
 | Theme | Colors | Typeface | Radii |
 |---|---|---|---|
 | `iris` | violet primary `#743de4`, indigo links, cool near-gray neutrals, blue-black dark theme | Onest | sharp: fields 2px, everything else in the same proportion (buttons 3, cards 3, dialogs 4) |
 | `lime` | lime primary `#9fe870` with dark green text, greenish neutrals, near-black green dark theme | Manrope | ×1.5, pill buttons, fields 12px |
+| `ember` | warm orange primary `#c2410c`, warm off-white page with white cards, warm near-black dark theme; in dark, warning is re-hued to amber so it doesn't read as the primary | Geologica, EB Garamond headings | ×1.8: cards 18px, fields 14px |
 
 ## Simple profile
 
@@ -55,6 +56,8 @@ Profiles live in `packages/tokens/src/profiles/<name>.json` and come in two kind
 | `neutral` | recolors the neutral scales (slate, gray, graphite and their transparent versions): `hue` is the hue, `chroma` is the chroma multiplier (Theya's neutrals are lavender; 0.1–0.2 makes them almost gray). Secondary buttons, borders, text and dark surfaces depend on them |
 | `light.tokens`, `dark.tokens` | exact values for individual semantic tokens (name without `--color-`). They are applied last, so they win over everything generated. This is how you set surfaces, text color and links — the things that are specific to the product |
 | `accept` | deliberate exceptions to the checks (see below) — the build prints them but does not fail |
+| `headingFont` | a second typeface for headings only; body, buttons and UI text keep `font` (or Geologica). It must be listed in `HEADING_STACKS` in `scripts/build-profiles.mjs` with its fallbacks, and loaded in `fonts.css`; available: `EB Garamond`. Heading weights go back to nominal, as with `font` |
+| `light.status`, `dark.status` | re-hue one status family in one theme: `{ "warning": { "hue": 84 } }` changes every warning token (fills, text, icons, borders, tonal and transparent backgrounds) to that hue and keeps each token's lightness. For a primary that falls between two statuses (orange, between danger and the dark warning), where no hue passes the 20° check. The build then checks the re-hued status's own text, icon and border contrast |
 | `font` | the theme typeface instead of Geologica (for headings and body text). The typeface must be loaded in `packages/tokens/fonts/fonts.css` — Manrope and Onest are already there; the browser downloads it only when the theme is active. Font weights go back to nominal (400/500/600/700): in Theya they are shifted by −125 because Geologica looks bolder |
 | `radius.scale` | multiplier for the sm…5xl radius scale, rounded to whole px (`max` stays a pill) |
 | `radius.anchor` | instead of `scale`: one step gets the given value, and the rest scale by the same factor. `{ "lg": 2 }` — fields 2px, the whole scale ×⅓ (this is how `iris` does it) |
@@ -74,7 +77,7 @@ The build fails if, in any theme:
 - **contrast** dropped below the threshold where Theya was above it:
   - 4.5:1 — text (regular, subtle, subtler, links) on surfaces, and text on the primary fill;
   - 3:1 — icons, the primary border, and the fill itself against the page background;
-- the **hue** of the primary color is closer than 20° to a status color (success, warning, danger, info). Otherwise the primary button reads as a status: for example, an orange profile (60°) collides with the dark warning (47°);
+- the **hue** of the primary color is closer than 20° to a status color (success, warning, danger, info), in either theme, as the theme finally sets the status (after `status`). Otherwise the primary button reads as a status: for example, an orange profile (38°) collides with the dark warning (47°). Theya's statuses sit at about 10–13° (danger), 47° (dark warning) and 84° (light warning), so no orange passes as is: re-hue the dark warning with `dark.status`, as `ember` does;
 - `tokens` lists a token that does not exist.
 
 You can allow an exception with `accept`. `lime` has two, both inherent to the color itself:
@@ -119,6 +122,6 @@ CI runs step 2 for `iris` and `lime` in both themes on every pull request and on
 ## Limitations
 
 - `data-brand` goes on `<html>`: shadcn variables (`--primary` and others) are computed at the root, so a profile on a nested element will not recolor them.
-- A profile does not change chart colors (`--color-bg-chart-*`) or status colors.
+- A profile does not change chart colors (`--color-bg-chart-*`). Status colors change only through `status`, one family at a time, by hue.
 - A theme does not set density — that is a separate layer (`data-density`, see DENSITY.md), and you can combine it with any theme.
 - The typeface and radii, like the shadcn variables, work when `data-brand` is on `<html>`.

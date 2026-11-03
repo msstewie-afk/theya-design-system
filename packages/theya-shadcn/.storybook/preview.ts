@@ -181,6 +181,7 @@ export const globalTypes = {
         { value: 'theya', title: 'Theya' },
         { value: 'iris', title: 'Iris' },
         { value: 'lime', title: 'Lime' },
+        { value: 'ember', title: 'Ember' },
       ],
     },
   },
