@@ -136,7 +136,8 @@ export function FacetedList({ items, noun = { one: 'product', many: 'products' }
   // the page from assistive tech (WCAG 4.1.3); announce() speaks from inside it.
   const lastResults = useRef(results.length);
   useEffect(() => {
-    if (results.length !== lastResults.current) announce(`${results.length} ${results.length === 1 ? noun.one : noun.many}`);
+    // 700 ms: the count follows a facet checkbox toggle (see Comparison / DataTableToolbar).
+    if (results.length !== lastResults.current) announce(`${results.length} ${results.length === 1 ? noun.one : noun.many}`, 'polite', { delay: 700 });
     lastResults.current = results.length;
   }, [results.length, noun]);
 
