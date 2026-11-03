@@ -7,7 +7,6 @@ import { Kbd } from '../../ui/kbd';
 import { Progress } from '../../ui/progress';
 import type { MegaItem } from '../navigation/mega-menu';
 import type { FooterColumn } from '../navigation/site-footer';
-import { FILL_HUE_BG, FILL_HUE_INK, FILL_HUES } from '../../../lib/fill-hues';
 
 // Demo content for the landing blocks: a bookmarks manager (Мария's first
 // product, pr-01), so the landing stories and the product tell one story.
@@ -374,11 +373,9 @@ export function DemoMiniLink({ index = 0 }: { index?: number }) {
 
 // ---------------------------------------------------------------------------
 // Demo surfaces for cards in examples (Maria, 3.11): no photos on cards, least of all in
-// motion. Either a bright primitive hue with white text (lib/fill-hues) and no
+// motion. Either a soft tonal fill (lib/tonal-fills) with full-strength text and no
 // shadow, darkening or gradient under the text — or a light mesh gradient as a background.
 
-/** Bright fills: primitive hues at step 500, ordered so neighbours never blend (see lib/fill-hues). */
-export const DEMO_FILLS = FILL_HUES.map((h) => ({ bg: FILL_HUE_BG[h], ink: FILL_HUE_INK }));
 
 const MESH = [
   ['primary', 'info', 'success'],

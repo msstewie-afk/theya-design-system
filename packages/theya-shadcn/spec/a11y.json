@@ -17808,7 +17808,6 @@
       "screenReader": [],
       "deviations": [],
       "traits": [
-        "colorMeaning",
         "drag",
         "gestures",
         "interactive",

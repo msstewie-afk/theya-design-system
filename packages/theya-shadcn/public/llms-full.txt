@@ -4208,7 +4208,7 @@ Docs: ./?path=/docs/motion-expandingpanels--docs
 
 **When to use**
 
-- A landing section that shows three to five things side by side: collections, use cases, plans. Prefer tones over photos: pictures make the row heavy and noisy.
+- A landing section that shows three to five things side by side: collections, use cases, plans. Prefer tonal fills over photos: pictures make the row heavy and noisy.
 
 **When not to use**
 
@@ -4218,7 +4218,7 @@ Docs: ./?path=/docs/motion-expandingpanels--docs
 
 **Anatomy**
 
-- Panel: a bright hue (`tone`: blue, orange, green, magenta, cyan, red, teal, purple — use them in this order so neighbours never blend) with white text — no gradient, no darkening; or, sparingly, a picture under a dark gradient. Open, it takes about five times a strip’s width.
+- Panel: a soft tonal fill (`tone`: primary, warning, info, secondary, success — in this order, so neighbours never blend) with full-strength text — no gradient, no darkening; or, sparingly, a picture under a dark gradient. Open, it takes about five times a strip’s width.
 - Title: a button in a heading (`titleAs`); runs up the strip when closed, sits above the text when open.
 - Content: a line or two and at most one link, shown only in the open panel.
 

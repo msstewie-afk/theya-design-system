@@ -2,8 +2,8 @@
 // import from "@theya/shadcn/ui/expanding-panels"
 
 import { type ReactNode } from 'react';
-import { type FillHue } from '../../lib/fill-hues';
-export type ExpandingPanelsTone = FillHue;
+import { type TonalHue } from '../../lib/tonal-fills';
+export type ExpandingPanelsTone = TonalHue;
 export interface ExpandingPanelsItem {
     title: string;
     media?: ReactNode;

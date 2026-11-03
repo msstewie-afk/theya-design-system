@@ -3,7 +3,7 @@
 import { useId, useState, type ReactNode } from 'react';
 import { cn } from '../../lib/utils';
 import { inertProps } from '../../lib/inert';
-import { FILL_HUE_BG, FILL_HUE_INK, type FillHue } from '../../lib/fill-hues';
+import { tonalFill, type TonalHue } from '../../lib/tonal-fills';
 
 /**
  * Motion (landing pages): a row of tall panels, one open. The open panel
@@ -21,7 +21,7 @@ import { FILL_HUE_BG, FILL_HUE_INK, type FillHue } from '../../lib/fill-hues';
  *   a gradient sits between the picture and the text.
  * - prefers-reduced-motion: the panels switch without sliding.
  */
-export type ExpandingPanelsTone = FillHue;
+export type ExpandingPanelsTone = TonalHue;
 
 export interface ExpandingPanelsItem {
   /** Names the panel: the button and the open panel's heading. */
@@ -29,9 +29,9 @@ export interface ExpandingPanelsItem {
   /** A picture behind the panel (an <img>, alt="" when decorative). Use sparingly: a bright `tone` reads cleaner. */
   media?: ReactNode;
   /**
-   * A bright fill instead of a picture: a primitive hue with white text, no gradient or darkening
-   * (the text reads on the fill as it is). Give neighbouring panels hues in FILL_HUES order
-   * (lib/fill-hues) so they never blend.
+   * A soft tonal fill instead of a picture (the tint of a semantic color, as on tonal LandingCards),
+   * with full-strength text and no gradient or darkening. Give neighbouring panels hues in
+   * TONAL_ORDER (lib/tonal-fills) so they never blend.
    */
   tone?: ExpandingPanelsTone;
   /** What the open panel says: a line or two and, at most, one link. */
@@ -81,7 +81,7 @@ export function ExpandingPanels({ items, defaultIndex = 0, onChange, height = '2
             onPointerEnter={(e) => e.pointerType === 'mouse' && choose(i)}
             className={cn(
               'relative isolate flex min-w-0 flex-col justify-end overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)]',
-              item.tone ? `${FILL_HUE_BG[item.tone]} ${FILL_HUE_INK}` : 'bg-[var(--color-bg-surface-bg-surface-sunken)] text-[var(--color-text-text)]',
+              item.tone ? tonalFill(item.tone) : 'bg-[var(--color-bg-surface-bg-surface-sunken)] text-[var(--color-text-text)]',
               // Wide: the open panel grows, the others stay narrow strips. Narrow: the open one is taller.
               'md:basis-0 md:[flex-grow:var(--ep-grow)]',
               isOpen ? 'h-[22rem] md:h-auto' : 'h-16 md:h-auto',
@@ -143,8 +143,8 @@ export function ExpandingPanels({ items, defaultIndex = 0, onChange, height = '2
               className={cn(
                 // Above the button's stretched target, so a link inside stays clickable.
                 'relative z-[1] px-5 pb-5 font-body text-body-m md:max-w-[36rem] md:px-8 md:pb-8',
-                // On a tone the text keeps the fill's own color at full strength: faded white fails contrast on the fill.
-                item.tone ? '[&_a]:text-inherit [&_a]:underline' : 'text-[var(--color-text-text-subtle)]',
+                // On a tone the text keeps the full ink (subtle ink drops under 4.5:1 on some tints); links take the hue's on-tonal color.
+                item.tone ? '' : 'text-[var(--color-text-text-subtle)]',
                 isOpen ? 'opacity-100 motion-safe:transition-opacity motion-safe:duration-moderate' : 'hidden md:block md:pointer-events-none md:absolute md:opacity-0',
               )}
             >

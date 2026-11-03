@@ -3,6 +3,7 @@
 import { useRef, type ComponentProps, type PointerEvent, type ReactNode } from 'react';
 import { ArrowRight, ArrowUpRight } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
+import { TONAL_ACCENT, TONAL_BG, type TonalHue } from '../../../lib/tonal-fills';
 import { useTheyaI18n } from '../../../lib/i18n';
 import { SurfaceEffect } from '../../ui/surface-effect';
 
@@ -16,7 +17,7 @@ import { SurfaceEffect } from '../../ui/surface-effect';
 
 export type LandingCardSurface = 'outlined' | 'sunken' | 'tonal' | 'inverse' | 'primary';
 /** Tonal fills, theme-aware (light and dark): the pastel product cards. */
-export type LandingCardHue = 'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'neutral';
+export type LandingCardHue = TonalHue;
 /**
  * `lift` rises with a larger shadow; `spotlight` a glow follows the pointer;
  * `beam` a light runs round the border while hovered or focused (GitHub);
@@ -25,31 +26,9 @@ export type LandingCardHue = 'primary' | 'secondary' | 'success' | 'warning' | '
  */
 export type LandingCardHover = 'none' | 'lift' | 'spotlight' | 'beam' | 'shine' | 'tilt';
 
-// The tonal fills are translucent in the dark theme, so a tint alone lets
-// whatever is behind show through: cards stacked or flying over each other
-// turned to mush. The tint is laid over an opaque surface instead.
-// Literal class strings (Tailwind only sees classes written out in full).
-const HUE: Record<LandingCardHue, string> = {
-  primary: '[background:linear-gradient(var(--color-bg-primary-bg-primary-subtle),var(--color-bg-primary-bg-primary-subtle)),var(--color-bg-surface-bg-surface)]',
-  secondary: '[background:linear-gradient(var(--color-bg-secondary-bg-secondary-subtle),var(--color-bg-secondary-bg-secondary-subtle)),var(--color-bg-surface-bg-surface)]',
-  success: '[background:linear-gradient(var(--color-bg-success-bg-success-subtle),var(--color-bg-success-bg-success-subtle)),var(--color-bg-surface-bg-surface)]',
-  warning: '[background:linear-gradient(var(--color-bg-warning-bg-warning-subtle),var(--color-bg-warning-bg-warning-subtle)),var(--color-bg-surface-bg-surface)]',
-  info: '[background:linear-gradient(var(--color-bg-info-bg-info-subtle),var(--color-bg-info-bg-info-subtle)),var(--color-bg-surface-bg-surface)]',
-  neutral: '[background:linear-gradient(var(--color-bg-neutral-bg-neutral-subtle),var(--color-bg-neutral-bg-neutral-subtle)),var(--color-bg-surface-bg-surface)]',
-};
-
-// On a tinted fill the icons and links take the card's own hue (a blue icon
-// on a green card reads as a mistake). The on-tonal text tokens are AA on
-// their fills, so they serve links and icons alike.
-const HUE_ACCENT: Record<LandingCardHue, string> = {
-  primary: '[--color-icon-icon-primary:var(--color-text-text-link-on-tonal)] [--color-text-text-link:var(--color-text-text-link-on-tonal)]',
-  // No on-tonal secondary ink: the lavender mixed toward the theme's text color (dark in light, light in dark).
-  secondary: '[--color-icon-icon-primary:color-mix(in_oklab,var(--color-bg-secondary-bg-secondary-strong)_45%,var(--color-text-text))] [--color-text-text-link:color-mix(in_oklab,var(--color-bg-secondary-bg-secondary-strong)_45%,var(--color-text-text))]',
-  success: '[--color-icon-icon-primary:var(--color-text-text-success-on-tonal)] [--color-text-text-link:var(--color-text-text-success-on-tonal)]',
-  warning: '[--color-icon-icon-primary:var(--color-text-text-warning-on-tonal)] [--color-text-text-link:var(--color-text-text-warning-on-tonal)]',
-  info: '[--color-icon-icon-primary:var(--color-text-text-info-on-tonal)] [--color-text-text-link:var(--color-text-text-info-on-tonal)]',
-  neutral: '[--color-icon-icon-primary:var(--color-text-text)] [--color-text-text-link:var(--color-text-text)]',
-};
+// Tonal fills and their accents live in lib/tonal-fills (shared with demo cards and ExpandingPanels).
+const HUE = TONAL_BG;
+const HUE_ACCENT = TONAL_ACCENT;
 
 // On a tinted fill the subtle ink drops under 4.5:1 on some hues, so body
 // text uses the full ink and links the on-tonal link color.
