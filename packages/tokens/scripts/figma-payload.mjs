@@ -11,6 +11,7 @@
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spaced } from './lib/density-spacing.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (p) => JSON.parse(readFileSync(join(ROOT, p), 'utf8'));
@@ -107,6 +108,22 @@ for (const name of new Set(Object.values(densityRaw).flatMap(Object.keys))) {
     }),
   );
   if (sizeSem[name] !== undefined) sizeSem[name] = '@density:' + name;
+}
+// Spacing (padding / gap / margin) follows the shared rule in lib/density-spacing.mjs,
+// as in density.css: up to 8px unchanged, the rest ±40%, rounded to 2px. A result
+// that is a primitive becomes an alias to it; the rest (10, 14, 18…) stays a number.
+const delta = (m) => Number(densityRaw[m]['density/density-space-delta'] ?? 0);
+for (const [name, ref] of Object.entries(sizeSem)) {
+  if (!/^(padding|gap|margin)\//.test(name) || typeof ref !== 'string' || !ref.startsWith('@size')) continue;
+  const px = sizePrim[ref.slice(1)];
+  if (px === undefined || Object.values(DENSITY_MODES).every((_, i) => spaced(px, delta(Object.keys(DENSITY_MODES)[i])) === px)) continue;
+  densityVars[name] = Object.fromEntries(
+    Object.keys(DENSITY_MODES).map((m) => {
+      const next = spaced(px, delta(m));
+      return [m, next === px ? ref : sizePrim[`size${next}`] !== undefined ? `@size${next}` : next];
+    }),
+  );
+  sizeSem[name] = '@density:' + name;
 }
 
 // ---- Typography ----
