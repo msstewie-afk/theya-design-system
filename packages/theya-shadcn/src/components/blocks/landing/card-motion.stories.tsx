@@ -143,7 +143,8 @@ export const Fan: Story = {
 export const Folders: Story = {
   render: () => (
     <CardMotionSection title="Your folders, at a glance">
-      <div className="flex flex-wrap justify-center gap-x-10 gap-y-16 pt-24">
+      {/* pt-8: room for the cards that rise out of a folder on hover (about 24px). */}
+      <div className="flex flex-wrap justify-center gap-x-10 gap-y-16 pt-8">
         {DEMO_FOLDERS.slice(0, 3).map((f, k) => (
           <FolderReveal key={f.id} href={`#${f.id}`} label={f.name} meta={`${f.count} links`} items={[0, 1, 2].map((j) => <DemoMiniLink key={j} index={k * 4 + j} />)} />
         ))}

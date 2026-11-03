@@ -55,7 +55,7 @@ export const Deck: Story = {
       <Spacer label="Scroll down" />
       <CardDeck aria-label="Product tour" header={<SectionHead eyebrow="Tour" title="Five things your bookmarks never did" />}>
         {DECK.map((f, i) => (
-          <LandingCard key={f.id} surface="tonal" hue={HUES[i]} className="grid items-center gap-8 p-8 shadow-elevation-md lg:grid-cols-2 lg:p-16">
+          <LandingCard key={f.id} surface="tonal" hue={HUES[i]} className="grid items-center gap-8 p-8 lg:grid-cols-2 lg:p-16">
             <div className="flex flex-col gap-4">
               <p className="m-0 font-body text-body-s font-medium tabular-nums">{String(i + 1).padStart(2, '0')} / 05</p>
               <h3 className="m-0 font-heading text-heading-2xl">{f.title}</h3>
@@ -235,11 +235,11 @@ export const Masonry: Story = {
       )),
       <QuoteCard key="q1" serif surface="tonal" hue="secondary" quote="My whole moodboard, finally in one place." name="Lea Brandt" title="Illustrator" />,
       <StatCard key="s1" surface="primary" value="12M" label="things saved this year" />,
-      <div key="m1" className="flex flex-col gap-3">
-        {[0, 1, 2].map((i) => (
-          <DemoMiniLink key={i} index={i + 4} />
-        ))}
-      </div>,
+      // A slice of the product, as on the Sideways cards: a whole card, not three loose rows.
+      <LandingCard key="m1" surface="tonal" hue="info" className="gap-4 p-5">
+        <h3 className="m-0 font-heading text-heading-xs font-semibold">Bring everything over</h3>
+        <DemoFeatureVisual id="import" />
+      </LandingCard>,
       <QuoteCard key="q2" surface="outlined" quote="I save a recipe on the phone and it is on the laptop by dinner." name="Tom Ide" title="Home cook" />,
       <StatCard key="s2" surface="tonal" hue="success" value="4.8" label="average rating" />,
       <QuoteCard key="q3" serif surface="tonal" hue="warning" quote="Search by a word inside the page. Magic." name="Ana Costa" title="Researcher" />,

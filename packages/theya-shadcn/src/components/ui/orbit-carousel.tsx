@@ -106,6 +106,37 @@ export function OrbitCarousel({
     ro.observe(el);
     return () => ro.disconnect();
   }, [shape, n]);
+  // A drum leans toward the viewer, so its cards sit lower than the stage's middle and the
+  // height worked out from the card leaves a band above them. Once it has drawn, measure the
+  // cards that show, fit the stage to them (24px above and below) and lift the ring to match.
+  const [fit, setFit] = useState<{ h: number; lift: number } | null>(null);
+  useEffect(() => {
+    setFit(null);
+    if (shape !== 'drum' || height || !cardH) return;
+    let raf = requestAnimationFrame(() => {
+      raf = requestAnimationFrame(() => {
+        const st = stage.current;
+        if (!st) return;
+        const s = st.getBoundingClientRect();
+        let top = Infinity;
+        let bottom = -Infinity;
+        st.querySelectorAll<HTMLElement>('[data-slide]').forEach((el) => {
+          if (parseFloat(getComputedStyle(el).opacity) < 0.05) return;
+          const r = (el.firstElementChild ?? el).getBoundingClientRect();
+          if (!r.height) return;
+          top = Math.min(top, r.top);
+          bottom = Math.max(bottom, r.bottom);
+        });
+        const pad = 24;
+        // Cards that already spill past the stage: keep the worked-out height.
+        if (!Number.isFinite(top) || top - s.top < pad || bottom > s.bottom) return;
+        const h = Math.round(bottom - top + 2 * pad);
+        // The ring is centred, so a shorter stage already moves it up by half the difference.
+        setFit({ h, lift: Math.round(top - s.top + (h - s.height) / 2 - pad) });
+      });
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [shape, height, cardH, width, n, lean, center]);
   // The announcement is built from one state — number and heading together —
   // so the live region changes in a single render and never reads a new
   // number with the old heading in between.
@@ -206,7 +237,7 @@ export function OrbitCarousel({
     stack: (h) => h + 2 * 3 * 22 + 24,
     cascade: (h) => h + 2 * 3 * 44 + 24,
   };
-  const stageHeight = height ?? (cardH ? `${Math.round(extra[shape](cardH))}px` : '20rem');
+  const stageHeight = height ?? (fit ? `${fit.h}px` : cardH ? `${Math.round(extra[shape](cardH))}px` : '20rem');
   const slide = (i: number) => {
     const front = i === index;
     return {
@@ -251,7 +282,7 @@ export function OrbitCarousel({
         style={{ height: stageHeight, perspective: shape === 'drum' ? (center ? '1400px' : '1100px') : shape === 'wall' ? '900px' : shape === 'rolodex' || shape === 'cascade' ? '1200px' : undefined } as CSSProperties}
         {...dragHandlers}
       >
-        {shape === 'drum' && <Drum {...shapeProps} center={center} />}
+        {shape === 'drum' && <Drum {...shapeProps} center={center} lift={fit?.lift ?? 0} />}
         {shape === 'wheel' && <Wheel {...shapeProps} />}
         {shape === 'wall' && <Wall {...shapeProps} />}
         {shape === 'fan' && <Fan {...shapeProps} seen={seen} dealing={dealing} onPick={(i) => setTurn(i)} />}
@@ -307,7 +338,7 @@ interface ShapeProps {
   slide: (i: number) => Record<string, unknown>;
 }
 
-function Drum({ items, pos, width, lean, motion, slide, center }: ShapeProps & { center?: ReactNode }) {
+function Drum({ items, pos, width, lean, motion, slide, center, lift = 0 }: ShapeProps & { center?: ReactNode; lift?: number }) {
   const n = items.length;
   const step = 360 / n;
   // Distance from the axis so neighbouring cards just touch, plus a gap.
@@ -316,11 +347,15 @@ function Drum({ items, pos, width, lean, motion, slide, center }: ShapeProps & {
   const transition = motion ? 'transition-[transform,opacity] duration-slower ease-glide motion-reduce:transition-none' : '';
   return (
     <div className="absolute inset-0 [transform-style:preserve-3d]">
-      {center && <div className="absolute inset-0 flex items-center justify-center [transform:translateZ(0)]">{center}</div>}
+      {center && (
+        <div className="absolute inset-0 flex items-center justify-center" style={{ transform: `translateY(${-lift}px) translateZ(0)` }}>
+          {center}
+        </div>
+      )}
       <div
         className={cn('absolute left-1/2 top-1/2 [transform-style:preserve-3d]', transition)}
         // With something in the middle the axis stays at the stage's depth, so the cards pass in front of it and behind it.
-        style={{ width, transform: `translate(-50%, -50%) translateZ(${center ? 0 : -radius}px) rotateX(${-lean}deg) rotateY(${-pos * step}deg)` }}
+        style={{ width, top: `calc(50% - ${lift}px)`, transform: `translate(-50%, -50%) translateZ(${center ? 0 : -radius}px) rotateX(${-lean}deg) rotateY(${-pos * step}deg)` }}
       >
         {items.map((item, i) => {
           // How squarely the card faces the viewer: 1 in front, -1 at the back.

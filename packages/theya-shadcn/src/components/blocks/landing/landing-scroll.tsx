@@ -52,7 +52,8 @@ export function StickyStack({ top = 96, offset = 24, className, children, ...pro
       {items.map((child, i) => (
         <li
           key={i}
-          className="sticky [&>*]:shadow-elevation-md"
+          // No shadow: the cards are tonal and part each other by colour (Maria, 3.11: no shadows in motion).
+          className="sticky"
           // Each card sticks one step lower than the previous one.
           style={{ top: `${top + i * offset}px` } as CSSProperties}
         >

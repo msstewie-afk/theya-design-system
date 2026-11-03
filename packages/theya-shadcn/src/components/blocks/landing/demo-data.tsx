@@ -214,8 +214,9 @@ export const DEMO_LANDING_MENU: MegaItem[] = [
 
 const card =
   // 10px: well inside the 16px card that usually holds it (24px padding), so the corners nest.
-  'w-full max-w-[32rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 shadow-elevation-md';
-const row = 'flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] py-3 last:border-b-0';
+  'w-full max-w-[32rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 shadow-elevation-sm';
+// first:pt-0 / last:pb-0: the card's own 16px padding is the only space at its top and bottom edges.
+const row = 'flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] py-3 first:pt-0 last:border-b-0 last:pb-0';
 
 function ImportVisual() {
   const browsers = [
@@ -250,9 +251,10 @@ function FoldersVisual() {
           <Badge tone={i === 0 ? 'primary' : 'neutral'}>
             {/* The rule's detail only where there is room: on a phone the folder name comes first. */}
             {i === 0 ? (
-              <>
+              // One span: the badge spaces its children apart, which would read "auto : longreads".
+              <span>
                 auto<span className="max-sm:hidden">: longreads</span>
-              </>
+              </span>
             ) : (
               ['tokens', 'summer', 'hiking'][i - 1]
             )}
@@ -276,7 +278,7 @@ function SearchVisual() {
         { t: 'A year without notifications', d: 'journal.example', q: '…my attention came back slowly…' },
         { t: 'How we read on screens', d: 'research.example', q: '…attention drops after the first…' },
       ].map((r) => (
-        <div key={r.t} className="flex flex-col gap-0.5 border-b border-solid border-[var(--color-border-border-subtler)] py-3 last:border-b-0">
+        <div key={r.t} className="flex flex-col gap-0.5 border-b border-solid border-[var(--color-border-border-subtler)] py-3 last:border-b-0 last:pb-0">
           <span className="font-body text-body-m font-semibold text-[var(--color-text-text)]">{r.t}</span>
           <span className="font-body text-body-s text-[var(--color-text-text-subtle)]">
             {r.q.split('attention').map((part, i, all) => (
