@@ -52,12 +52,15 @@ import { BadgeIndicator, type BadgeIndicatorTone } from './badge-indicator';
 const DARK_STATES = {
   fill: [
     '[[data-theme=dark]_&]:not-in-[[data-surface=primary]]:hover:not-disabled:not-aria-disabled:bg-transparent',
+    // raw-ok: state-layer opacity picked on Design System/Dark states (8% / 16%); no color token at these steps
     '[[data-theme=dark]_&]:not-in-[[data-surface=primary]]:hover:not-disabled:not-aria-disabled:[background-image:linear-gradient(rgb(255_255_255/8%),rgb(255_255_255/8%)),linear-gradient(var(--btn-rest),var(--btn-rest))]',
     '[[data-theme=dark]_&]:not-in-[[data-surface=primary]]:active:not-disabled:not-aria-disabled:bg-transparent',
+    // raw-ok: state-layer opacity picked on Design System/Dark states (8% / 16%); no color token at these steps
     '[[data-theme=dark]_&]:not-in-[[data-surface=primary]]:active:not-disabled:not-aria-disabled:[background-image:linear-gradient(rgb(0_0_0/16%),rgb(0_0_0/16%)),linear-gradient(var(--btn-rest),var(--btn-rest))]',
   ],
   line: [
     '[[data-theme=dark]_&]:not-in-[[data-surface=primary]]:active:not-disabled:not-aria-disabled:bg-transparent',
+    // raw-ok: state-layer opacity picked on Design System/Dark states (8% / 16%); no color token at these steps
     '[[data-theme=dark]_&]:not-in-[[data-surface=primary]]:active:not-disabled:not-aria-disabled:[background-image:linear-gradient(rgb(0_0_0/16%),rgb(0_0_0/16%)),linear-gradient(var(--btn-hover),var(--btn-hover))]',
   ],
 };
