@@ -207,12 +207,14 @@ function Dropzone({
         <span
           className={cn(
             'grid size-14 place-items-center rounded-full transition-colors duration-standard ease-enter motion-reduce:transition-none',
+            // Error / success: the zone itself is tinted, so the circle is the plain surface
+            // (as while loading); a tint on the same tint vanished in light.
             error
-              ? 'bg-[var(--color-bg-danger-bg-danger-subtle)] text-[var(--color-icon-icon-danger)]'
+              ? 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-icon-icon-danger)]'
               : loading
                 ? 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-icon-icon-primary)]'
                 : successFile
-                  ? 'bg-[var(--color-bg-success-bg-success-subtle)] text-[var(--color-icon-icon-success)]'
+                  ? 'bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-icon-icon-success)]'
                   : 'bg-[var(--color-bg-neutral-bg-neutral-subtler)] text-[var(--color-icon-icon-subtle)] group-hover:text-[var(--color-icon-icon-primary)]',
           )}
         >
