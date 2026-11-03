@@ -11,7 +11,23 @@ How to use Theya in a React app. The smallest working example is [`apps/sandbox`
 - A bundler that understands package `exports`: Vite, Next.js, or anything modern. Components carry `'use client'`, so they work in the Next.js App Router as client components.
 - Node 22 and pnpm for the repository itself.
 
-The packages are not on npm yet. An app outside the repository installs the packed tarball (`pnpm --dir packages/theya-shadcn pack`; see [`apps/pilot`](apps/pilot)). An app inside this repository (`apps/*`) depends on them through the workspace:
+The packages are not on npm yet.
+
+**An app outside the repository** installs a packed tarball. Don't point it at the package folder (`link:` or `file:` to `packages/theya-shadcn`): the app then compiles Theya's sources as they are on disk, breaks while the working copy is mid-change or its tokens aren't built, and has no version to pin. From the Theya repository:
+
+```bash
+node scripts/pack-theya.mjs --out <app>/vendor
+```
+
+The script builds the tokens, packs the package (`dist/`: JS, types and one stylesheet with the tokens and fonts inlined) and writes `theya-shadcn-<version>-<commit>.tgz` into the folder. In the app's `package.json`:
+
+```json
+{ "dependencies": { "@theya/shadcn": "file:vendor/theya-shadcn-0.1.0-abc1234.tgz" } }
+```
+
+then `pnpm install` (or `npm install`). Commit the tarball with the app. That file name is the pin: a newer Theya arrives only when you pack again and change the line. The script refuses a working copy with uncommitted changes in the packages, so the commit in the name describes what is inside (`--allow-dirty` for a throwaway build). [`apps/pilot`](apps/pilot) consumes Theya the same way.
+
+**An app inside this repository** (`apps/*`) depends on the packages through the workspace:
 
 ```json
 { "dependencies": { "@theya/shadcn": "workspace:*" } }
