@@ -346,7 +346,7 @@ export function NotificationsInbox({
               >
                 {group.label}
               </p>
-              <ul role="list" aria-label={`${group.label} notifications`} className="flex flex-col divide-y divide-[var(--color-border-border-subtler)]">
+              <ul role="list" aria-label={`${group.label} notifications`} className="flex flex-col">
                 {group.items.map((n) => (
                   <NotificationRow key={n.id} notification={n} onOpen={open} onToggleRead={(read) => toggleRead(n, read)} onDismiss={dismiss} />
                 ))}
@@ -378,7 +378,12 @@ function NotificationRow({
   const unread = !n.read;
 
   return (
-    <li data-notification-id={n.id}>
+    // Row divider inset to the row's own padding (ListItem md: 12px), not
+    // edge to edge (Мария, 2026-11-04).
+    <li
+      data-notification-id={n.id}
+      className="relative not-first:before:pointer-events-none not-first:before:absolute not-first:before:inset-x-3 not-first:before:top-0 not-first:before:z-1 not-first:before:h-px not-first:before:bg-[var(--color-border-border-subtler)] not-first:before:content-['']"
+    >
       <ListItem
         className="rounded-none"
         interactive={n.href == null}
