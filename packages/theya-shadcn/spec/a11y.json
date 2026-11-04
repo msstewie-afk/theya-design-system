@@ -12802,7 +12802,7 @@
         "playTests": 2
       },
       "reducedMotion": "none",
-      "forcedColors": "component",
+      "forcedColors": "global",
       "screenReader": [],
       "deviations": [
         {

@@ -187,10 +187,14 @@ export function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
       data-slot="table-head"
       role={stack ? 'columnheader' : undefined}
       className={cn(
-        // Opaque surface with the header tint painted on top: a sticky header
-        // or frozen first cell covers what scrolls under it, and in dark the
-        // tint alone is translucent.
-        'h-auto break-words border-b border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-surface-bg-surface)] [background-image:linear-gradient(var(--color-bg-neutral-bg-neutral-subtle),var(--color-bg-neutral-bg-neutral-subtle))] forced-colors:[background-image:none]',
+        // Opaque header fill: a sticky header or frozen first cell covers what
+        // scrolls under it. Light neutral-subtle is already opaque. Dark
+        // neutral-subtle is a 10% white tint, so it is composited over the
+        // surface here (10.2% = the 26/255 alpha the browser paints). A plain
+        // background-color, not a gradient layer, so axe can measure the
+        // header text contrast instead of reporting it as "needs review".
+        // raw-ok: rgb(from …) reads a token's channels, not a raw color
+        'h-auto break-words border-b border-solid border-[var(--color-border-border-subtler)] bg-[var(--color-bg-neutral-bg-neutral-subtle)] [[data-theme=dark]_&]:bg-[color-mix(in_srgb,rgb(from_var(--color-bg-neutral-bg-neutral-subtle)_r_g_b_/_1)_10.2%,var(--color-bg-surface-bg-surface))]',
         'px-4 py-2.5 text-start align-middle font-heading text-heading-2xs uppercase tracking-[0.07em] text-[var(--color-text-text-subtler)]',
         'first:rounded-ss-[calc(var(--size-border-radius-border-radius-2xl)-1px)] last:rounded-se-[calc(var(--size-border-radius-border-radius-2xl)-1px)]',
         className,

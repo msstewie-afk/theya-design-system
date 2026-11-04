@@ -124,10 +124,15 @@
   }
 
   /* Body cells need their own fill to cover what scrolls under them; it
-     follows the row's hover / selected fill. */
+     follows the row's hover / selected fill. The tint layer is only added
+     while the row has one: a layer at rest (even a transparent one) makes
+     axe report the cell text as "needs review" instead of measuring it. */
   [data-slot='table'][data-sticky-first] > tbody > tr > td:first-child {
     background-color: var(--color-bg-surface-bg-surface);
-    background-image: linear-gradient(var(--table-row-fill, transparent), var(--table-row-fill, transparent));
+  }
+
+  [data-slot='table'][data-sticky-first] > tbody > tr:is(:hover, [data-state='selected']) > td:first-child {
+    background-image: linear-gradient(var(--table-row-fill), var(--table-row-fill));
   }
 
   /* That fill covers the row's own line (TableRow draws it on the row),
