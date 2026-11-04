@@ -36,11 +36,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const IMAGES: LightboxImage[] = [
-  { src: '/asset-examples/login-carousel-01.jpg', alt: 'Abstract city of tall blue blocks', caption: 'Golden hour · Helios Studio, 248 photos.' },
-  { src: '/asset-examples/login-carousel-02.jpg', alt: 'Abstract stack of blocks with stairs', caption: 'Blue hour · Selene Weddings, shared with Rhea Okafor.' },
-  { src: '/asset-examples/login-carousel-03.jpg', alt: 'Abstract archway made of blocks', caption: 'First light · Eos Portraits, ready for print.' },
-  { src: '/asset-examples/nova-web.jpg', alt: 'Abstract floating cubes', caption: 'Wide-shining · the cover of a client portfolio.' },
-  { src: '/asset-examples/product-rack-server.jpg', alt: 'Abstract cluster of glass blocks' },
+  { src: '/asset-examples/mesh/blue-portrait.webp', alt: 'Pastel blue gradient', caption: 'Golden hour · Helios Studio, 248 photos.' },
+  { src: '/asset-examples/mesh/green-portrait.webp', alt: 'Pastel green gradient', caption: 'Blue hour · Selene Weddings, shared with Rhea Okafor.' },
+  { src: '/asset-examples/mesh/lilac-portrait.webp', alt: 'Pastel lilac gradient', caption: 'First light · Eos Portraits, ready for print.' },
+  { src: '/asset-examples/mesh/blue.webp', alt: 'Pastel blue gradient', caption: 'Wide-shining · the cover of a client portfolio.' },
+  { src: '/asset-examples/mesh/cyan-square.webp', alt: 'Pastel cyan gradient' },
 ];
 
 /** A gallery grid: click any image to open the viewer at it. Try ←/→, click to zoom and drag, Esc to close. */
@@ -80,7 +80,7 @@ export const Gallery: Story = {
     // Opens at the clicked image; the position is announced and the thumbnail marked.
     await userEvent.click(opener);
     const dialog = await body.findByRole('dialog', { name: 'Aether gallery preview' });
-    await expect(live()).toHaveTextContent('Image 2 of 5: Abstract stack of blocks with stairs');
+    await expect(live()).toHaveTextContent('Image 2 of 5: Pastel green gradient');
     await expect(within(dialog).getByRole('button', { name: /^Show image 2:/ })).toHaveAttribute('aria-current', 'true');
 
     // Arrow keys page, wrapping at both ends.
@@ -100,7 +100,7 @@ export const Gallery: Story = {
 
     // A thumbnail jumps straight to its image.
     await userEvent.click(within(dialog).getByRole('button', { name: /^Show image 4:/ }));
-    await expect(live()).toHaveTextContent('Image 4 of 5: Abstract floating cubes');
+    await expect(live()).toHaveTextContent('Image 4 of 5: Pastel blue gradient');
 
     // Esc closes and focus returns to the image that opened the viewer.
     await userEvent.keyboard('{Escape}');

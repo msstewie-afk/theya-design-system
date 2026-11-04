@@ -141,7 +141,7 @@ export const Profile: Story = {
     const [active, setActive] = useState(true);
     return (
       <Card className="w-full sm:w-[300px]" action={{ type: 'filter', active, onChange: setActive, ariaLabel: 'Dawn Ellery' }}>
-        <CardMedia src="/asset-examples/nova-web.jpg" alt="" height={140} />
+        <CardMedia src="/asset-examples/mesh/blue.webp" alt="" height={140} />
         <CardAvatar type="image" src="/asset-examples/panda-avatar.png" alt="Dawn Ellery" />
         <CardHeader divider={false}>
           <div className="min-w-0">
@@ -193,7 +193,7 @@ export const MediaWithTags: Story = {
   name: 'Media with tags',
   render: () => (
     <Card className="w-full sm:w-[300px]">
-      <CardMedia src="/asset-examples/nova-web.jpg" alt="" height={140} />
+      <CardMedia src="/asset-examples/mesh/blue.webp" alt="" height={140} />
       <CardHeader divider={false}>
         <div className="min-w-0">
           <CardTitle>Aether Galleries</CardTitle>

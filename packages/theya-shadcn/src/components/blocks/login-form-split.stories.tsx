@@ -4,9 +4,9 @@ import { LoginFormSplit } from './login-form-split';
 import { loginFormSplitGuidelines } from './login-form-split.guidelines';
 
 const SLIDES = [
-  { src: '/asset-examples/login-carousel-01.jpg', alt: 'Abstract city of tall blue blocks' },
-  { src: '/asset-examples/login-carousel-02.jpg', alt: 'Abstract stack of blocks with stairs' },
-  { src: '/asset-examples/login-carousel-03.jpg', alt: 'Abstract archway made of blocks' },
+  { src: '/asset-examples/mesh/blue-portrait.webp', alt: 'Pastel blue gradient' },
+  { src: '/asset-examples/mesh/green-portrait.webp', alt: 'Pastel green gradient' },
+  { src: '/asset-examples/mesh/lilac-portrait.webp', alt: 'Pastel lilac gradient' },
 ];
 
 const TAGLINE = 'Galleries your clients will keep';

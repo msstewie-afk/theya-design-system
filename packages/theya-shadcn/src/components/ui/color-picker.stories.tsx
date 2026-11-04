@@ -27,7 +27,7 @@ const PALETTE = [
 ];
 
 // One of Theya's own example images (public/asset-examples): pink and blue, so the photo palette has range.
-const PHOTO = '/asset-examples/product-router.jpg';
+const PHOTO = '/asset-examples/mesh/lilac-square.webp';
 
 const meta = {
   title: 'Selection/ColorPicker',

@@ -64,6 +64,66 @@ export const Default: Story = {
   ),
 };
 
+/**
+ * Favourite star: a toggle button (aria-pressed) whose outline star fills
+ * with the rating yellow when pressed, with Rating's pick effect (a spin and
+ * bounce, then a ring of sparks). Turning it off just empties the star.
+ * Reduced motion: the star fills with no effect.
+ */
+function FavouriteToggle({ label }: { label: string }) {
+  const [on, setOn] = useState(false);
+  const [burst, setBurst] = useState(0);
+  const starRef = React.useRef<HTMLSpanElement>(null);
+  const toggle = () => {
+    const next = !on;
+    setOn(next);
+    if (!next || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const root = getComputedStyle(document.documentElement);
+    starRef.current?.animate(
+      [
+        { transform: 'scale(.55) rotate(-25deg)', opacity: 0.5 },
+        { transform: 'scale(1.25) rotate(6deg)', opacity: 1, offset: 0.6 },
+        { transform: 'none', opacity: 1 },
+      ],
+      // element.animate takes plain values: read the theme's spring and duration tokens.
+      { duration: parseFloat(root.getPropertyValue('--motion-duration-slower')) || 450, easing: root.getPropertyValue('--motion-easing-spring').trim() || 'ease-out' },
+    );
+    setBurst(Date.now());
+  };
+  return (
+    <span className="relative inline-flex">
+      <Button
+        appearance="ghost"
+        tone="neutral"
+        size="sm"
+        iconOnly
+        aria-label={label}
+        aria-pressed={on}
+        onClick={toggle}
+        leftIcon={
+          <span ref={starRef} className="inline-flex">
+            <RatingStar fill={on ? 1 : 0} size="sm" />
+          </span>
+        }
+      />
+      {on && burst > 0 && (
+        <span key={burst} aria-hidden="true" className="pointer-events-none absolute start-1/2 top-1/2 size-0">
+          {Array.from({ length: 8 }, (_, i) => {
+            const a = (Math.PI * 2 * i) / 8;
+            return (
+              <i
+                key={i}
+                className="absolute -ms-[3px] -mt-[3px] size-1.5 rounded-full bg-[var(--color-icon-icon-rating)] opacity-0 animate-[theya-spark_700ms_ease-out_220ms_both] motion-reduce:hidden"
+                style={{ '--spark-x': `${Math.cos(a) * 20}px`, '--spark-y': `${Math.sin(a) * 20}px` } as React.CSSProperties}
+              />
+            );
+          })}
+        </span>
+      )}
+    </span>
+  );
+}
+
 type PlaygroundArgs = React.ComponentProps<typeof Card> & {
   title: string;
   description: string;
@@ -104,7 +164,7 @@ export const Playground: StoryObj<PlaygroundArgs> = {
         </div>
         {showAction && (
           <CardAction>
-            <Button appearance="ghost" tone="neutral" size="sm" iconOnly leftIcon={<Star />} aria-label="Favourite" />
+            <FavouriteToggle label={`Favourite ${title}`} />
           </CardAction>
         )}
       </CardHeader>
@@ -662,7 +722,7 @@ export const Disabled: Story = {
 export const WithMedia: Story = {
   render: () => (
     <Card className="w-full sm:w-[280px]">
-      <CardMedia src="/asset-examples/nova-web.jpg" alt="" />
+      <CardMedia src="/asset-examples/mesh/blue.webp" alt="" />
       <CardHeader>
         <CardTitle>Lumen Retouch</CardTitle>
         <CardDescription>AI retouching for portraits and products.</CardDescription>
@@ -679,7 +739,7 @@ export const WithMedia: Story = {
 export const WithAvatar: Story = {
   render: () => (
     <Card className="w-full sm:w-[280px]">
-      <CardMedia src="/asset-examples/nova-web.jpg" alt="" height={96} />
+      <CardMedia src="/asset-examples/mesh/blue.webp" alt="" height={96} />
       {/* Direct child of Card, not nested inside CardHeader — see the doc
        * comment on CardAvatar for why nesting it fights the overlap. */}
       <CardAvatar size="md" type="image" src="/asset-examples/panda-avatar.png" alt="Dawn Ellery" />
@@ -852,7 +912,7 @@ export const SelectableWithMedia: Story = {
       <div className="flex flex-wrap items-start gap-4">
         {[
           { id: 'galleries', title: 'Aether Galleries', sub: 'Client galleries', price: '$19/mo' },
-          { id: 'prints', title: 'Aether Prints', sub: 'Print lab orders', price: '$4/mo' },
+          { id: 'prints', title: 'Aether Prints', sub: 'Print lab orders', price: '$4/mo', media: '/asset-examples/mesh/green.webp' },
         ].map((p) => (
           <Card
             key={p.id}
@@ -862,7 +922,7 @@ export const SelectableWithMedia: Story = {
             onSelectedChange={toggle(p.id)}
             selectLabel={`Select ${p.title}`}
           >
-            <CardMedia src="/asset-examples/nova-web.jpg" alt="" />
+            <CardMedia src={'media' in p ? p.media : '/asset-examples/mesh/blue.webp'} alt="" />
             <CardHeader divider={false}>
               <div>
                 <CardTitle>{p.title}</CardTitle>

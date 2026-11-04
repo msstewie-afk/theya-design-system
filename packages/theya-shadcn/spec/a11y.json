@@ -1158,7 +1158,7 @@
       "name": "AnimatedIcon",
       "title": "Motion/AnimatedIcon",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"

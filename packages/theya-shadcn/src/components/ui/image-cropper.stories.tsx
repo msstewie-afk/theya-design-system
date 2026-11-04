@@ -13,8 +13,8 @@ import { imageCropperGuidelines } from './image-cropper.guidelines';
  * into a Blob for upload.
  */
 
-const PHOTO = '/asset-examples/login-carousel-02.jpg';
-const WIDE = '/asset-examples/nova-web.jpg';
+const PHOTO = '/asset-examples/mesh/green-portrait.webp';
+const WIDE = '/asset-examples/mesh/blue.webp';
 
 const meta = {
   title: 'Files/ImageCropper',

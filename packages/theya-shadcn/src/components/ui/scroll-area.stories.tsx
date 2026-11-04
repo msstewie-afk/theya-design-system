@@ -49,10 +49,10 @@ export const Default: Story = {
   render: (args) => (
     <ScrollArea {...args} className={`h-72 w-full max-w-sm ${BOX}`}>
       <div className="p-4">
-        <p className="pb-2 font-body text-body-m font-medium text-[var(--color-text-text)]">Shoot locations</p>
+        <p className="pb-3 font-body text-body-m font-medium text-[var(--color-text-text)]">Shoot locations</p>
         {LOCATIONS.map((place) => (
           <div key={place}>
-            <div className="py-1.5 font-body text-body-m text-[var(--color-text-text-subtler)]">{place}</div>
+            <div className="py-2.5 font-body text-body-m text-[var(--color-text-text-subtler)]">{place}</div>
             <Separator />
           </div>
         ))}
@@ -68,7 +68,7 @@ export const Horizontal: Story = {
   parameters: { controls: { exclude: ['type', 'scrollHideDelay'] } },
   render: (args) => (
     <ScrollArea {...args} className={`w-full max-w-full whitespace-nowrap ${BOX}`}>
-      <div className="flex w-max gap-2 p-4">
+      <div className="flex w-max gap-3 p-4">
         {TAGS.map((tag) => (
           <Chip key={tag} interactive={false} className="font-mono">
             {tag}
@@ -88,9 +88,9 @@ export const AlwaysVisible: Story = {
   render: (args) => (
     <ScrollArea {...args} className={`h-64 w-full max-w-sm ${BOX}`}>
       <div className="p-4">
-        <p className="pb-2 font-body text-body-m font-medium text-[var(--color-text-text)]">Recent uploads</p>
+        <p className="pb-3 font-body text-body-m font-medium text-[var(--color-text-text)]">Recent uploads</p>
         {Array.from({ length: 18 }, (_, i) => (
-          <div key={i} className="flex items-center justify-between gap-3 py-1.5 font-body text-body-m">
+          <div key={i} className="flex items-center justify-between gap-3 py-2.5 font-body text-body-m">
             <span className="text-[var(--color-text-text-subtler)]">Batch {18 - i}</span>
             <span className="text-[var(--color-text-text-subtler)]">{i + 1}h ago</span>
           </div>
@@ -106,7 +106,7 @@ export const LongContent: Story = {
   parameters: { controls: { exclude: ['type', 'scrollHideDelay'] } },
   render: (args) => (
     <ScrollArea {...args} className={`max-h-72 w-full max-w-md ${BOX}`}>
-      <div className="space-y-3 p-4 font-body text-body-s text-[var(--color-text-text-subtler)]">
+      <div className="space-y-4 p-4 font-body text-body-s text-[var(--color-text-text-subtler)]">
         <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Export log</p>
         {Array.from({ length: 12 }, (_, i) => (
           <p key={i}>Step {i + 1} — resized 240 photos, applied the Golden hour preset and uploaded them to the Selene Weddings gallery. Previews generated, color profile embedded, print license valid for 90 days. No missing files compared with the previous export.</p>

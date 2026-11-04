@@ -74,7 +74,7 @@ export function CompareBar({ items, max = 4, onRemove, onClear, onCompare, class
       ref={rootRef}
       aria-label="Comparison"
       className={cn(
-        'sticky bottom-4 z-10 flex flex-col gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3 shadow-elevation-md @3xl:flex-row @3xl:items-center',
+        'sticky bottom-4 z-10 flex flex-col gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3 shadow-elevation-md',
         className,
       )}
     >
@@ -108,8 +108,10 @@ export function CompareBar({ items, max = 4, onRemove, onClear, onCompare, class
           );
         })}
       </ul>
+      {/* Two rows at every width: the picks get the full width (in one row
+          with the actions, four picks squeezed to a letter per line). */}
       <div className="flex flex-wrap items-center justify-end gap-3">
-        <p id={hintId} className="font-body text-body-s text-[var(--color-text-text-subtle)]">
+        <p id={hintId} className="me-auto font-body text-body-s text-[var(--color-text-text-subtle)]">
           {hint}
         </p>
         <Button appearance="ghost" tone="secondary" size="md" onClick={onClear}>

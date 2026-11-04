@@ -140,7 +140,7 @@ export function PlanComparison({ plans, features, defaultPeriod = 'yearly', curr
               <span className="sr-only">Feature</span>
             </th>
             {plans.map((p) => (
-              <th key={p.id} scope="col" className="sticky top-0 z-[1] bg-[var(--color-bg-surface-bg-surface-base)] px-0 pb-4 text-start align-top font-normal">
+              <th key={p.id} scope="col" className="sticky top-0 z-[1] h-px bg-[var(--color-bg-surface-bg-surface-base)] px-0 pb-4 text-start align-top font-normal">
                 <div
                   className={cn(
                     'flex h-full flex-col gap-8 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid p-4',

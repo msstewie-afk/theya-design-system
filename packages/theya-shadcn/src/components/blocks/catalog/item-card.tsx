@@ -97,7 +97,7 @@ export function ItemCard({ item, layout = 'grid', href = '#', compare, image, im
     <Card action={{ type: 'link', href, ariaLabel: `${item.name} by ${item.vendor}` }} className={cn('flex h-full flex-col', className)}>
       {/* Full-bleed on top; the radius is the card's minus its 1px border. */}
       {layout === 'grid' && picture(cn('w-full rounded-t-[calc(var(--size-border-radius-border-radius-2xl)-1px)]', ASPECT[imageAspect]))}
-      <CardContent className={cn('flex flex-1 gap-3', layout === 'grid' ? 'flex-col' : 'flex-col sm:flex-row sm:items-center')}>
+      <CardContent className={cn('flex flex-1 gap-3', layout === 'grid' ? 'flex-col' : 'flex-col sm:flex-row sm:items-start')}>
         <div className={cn('flex min-w-0 items-start gap-3', layout === 'list' && 'sm:flex-1')}>
           {image ? layout === 'list' && picture(cn('size-24 rounded-[var(--size-border-radius-border-radius-xl)]', imageFit === 'contain' && '[&_img]:p-2')) : <ItemIcon icon={item.icon} />}
           <div className="min-w-0">
@@ -132,8 +132,10 @@ export function ItemCard({ item, layout = 'grid', href = '#', compare, image, im
           </>
         )}
         {layout === 'list' && (
+          // Top-aligned with the card: the price sits on the title's line
+          // (a box one title line high centers it there), not mid-card.
           <div className="flex shrink-0 items-center justify-between gap-4 sm:flex-col sm:items-end">
-            {price}
+            <div className="flex items-center sm:h-[var(--typography-body-l-line-height)]">{price}</div>
             {compareBox}
           </div>
         )}

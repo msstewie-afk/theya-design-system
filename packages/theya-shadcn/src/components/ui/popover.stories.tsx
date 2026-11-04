@@ -145,12 +145,12 @@ export const InlineForm: Story = {
           <Separator />
           <div className="flex justify-end gap-2">
             <PopoverClose asChild>
-              <Button appearance="outlined" tone="secondary">
+              <Button size="md" appearance="outlined" tone="secondary">
                 Cancel
               </Button>
             </PopoverClose>
             <PopoverClose asChild>
-              <Button appearance="filled" tone="primary">
+              <Button size="md" appearance="filled" tone="primary">
                 Save limits
               </Button>
             </PopoverClose>
@@ -170,14 +170,14 @@ export const IconTrigger: Story = {
       </PopoverTrigger>
       <PopoverContent align="end" className="w-56">
         <div className="flex flex-col gap-1">
-          <Button appearance="ghost" tone="secondary" className="justify-start">
+          <Button size="md" appearance="ghost" tone="secondary" className="justify-start">
             View details
           </Button>
-          <Button appearance="ghost" tone="secondary" className="justify-start">
+          <Button size="md" appearance="ghost" tone="secondary" className="justify-start">
             Edit license
           </Button>
           <PopoverClose asChild>
-            <Button appearance="ghost" tone="danger" className="justify-start">
+            <Button size="md" appearance="ghost" tone="danger" className="justify-start">
               Unpublish gallery
             </Button>
           </PopoverClose>
@@ -202,7 +202,7 @@ export const Controlled: Story = {
           <PopoverContent className="w-72">
             <p className="font-body text-body-m text-[var(--color-text-text-subtler)]">This panel&apos;s open state is owned by the parent component.</p>
             <PopoverClose asChild>
-              <Button appearance="outlined" tone="secondary" className="mt-3 w-full">
+              <Button size="md" appearance="outlined" tone="secondary" className="mt-3 w-full">
                 Done
               </Button>
             </PopoverClose>

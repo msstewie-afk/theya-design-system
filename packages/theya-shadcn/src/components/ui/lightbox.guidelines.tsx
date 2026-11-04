@@ -3,9 +3,9 @@ import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { Lightbox } from './lightbox';
 
 const IMAGES = [
-  { src: '/asset-examples/login-carousel-01.jpg', alt: 'Abstract city of tall blue blocks', caption: 'Golden hour' },
-  { src: '/asset-examples/login-carousel-02.jpg', alt: 'Abstract stack of blocks with stairs', caption: 'Blue hour' },
-  { src: '/asset-examples/login-carousel-03.jpg', alt: 'Abstract archway made of blocks', caption: 'First light' },
+  { src: '/asset-examples/mesh/blue-portrait.webp', alt: 'Pastel blue gradient', caption: 'Golden hour' },
+  { src: '/asset-examples/mesh/green-portrait.webp', alt: 'Pastel green gradient', caption: 'Blue hour' },
+  { src: '/asset-examples/mesh/lilac-portrait.webp', alt: 'Pastel lilac gradient', caption: 'First light' },
 ];
 
 const THUMB = 'overflow-hidden rounded-[var(--size-border-radius-border-radius-md)] focus-visible:outline-none focus-visible:focus-ring';

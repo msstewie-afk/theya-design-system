@@ -1,7 +1,7 @@
 import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { AspectRatio } from './aspect-ratio';
 
-const IMG = '/asset-examples/login-carousel-02.jpg';
+const IMG = '/asset-examples/mesh/green-portrait.webp';
 
 export const aspectRatioGuidelines: ComponentGuidelines = {
   status: 'stable',
