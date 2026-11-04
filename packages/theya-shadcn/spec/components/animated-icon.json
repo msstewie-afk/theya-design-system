@@ -443,10 +443,6 @@
         "id": "motion-animatedicon--gallery"
       },
       {
-        "name": "Morphing",
-        "id": "motion-animatedicon--morphing"
-      },
-      {
         "name": "States",
         "id": "motion-animatedicon--states"
       },
