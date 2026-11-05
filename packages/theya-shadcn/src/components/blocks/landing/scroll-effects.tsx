@@ -476,7 +476,7 @@ export function ScrollMaskReveal({ media, children, length = 1.2, className, ...
       <section data-slot="scroll-mask-reveal" data-scale="display" className={cn('section-display', className)} {...props}>
         <div className="container-display">
           <div className="relative isolate flex min-h-[36rem] items-end overflow-hidden rounded-[var(--size-border-radius-border-radius-5xl)]">
-            <div className="absolute inset-0 -z-10 [&>*]:size-full [&>*]:object-cover">{media}</div>
+            <div className="absolute inset-0 -z-10 bg-[var(--color-bg-surface-bg-surface-sunken)] [&>*]:size-full [&>*]:object-cover">{media}</div>
             {children && <div className="relative w-full p-8 lg:p-16">{children}</div>}
           </div>
         </div>
@@ -488,7 +488,8 @@ export function ScrollMaskReveal({ media, children, length = 1.2, className, ...
     <section ref={root} data-slot="scroll-mask-reveal" data-scale="display" className={cn('relative', className)} style={{ height: `${100 + length * 100}vh` }} {...props}>
       <div className="sticky top-0 h-svh overflow-hidden">
         <div ref={frame} className="absolute inset-0 overflow-hidden will-change-[clip-path]" style={{ clipPath: 'inset(15% 35% 15% 35% round 999px)' }}>
-          <div ref={pic} className="absolute inset-0 will-change-transform [&>*]:size-full [&>*]:object-cover">
+          {/* A surface under the picture: a blended picture (soft-light in the dark theme) needs something to blend with. */}
+          <div ref={pic} className="absolute inset-0 bg-[var(--color-bg-surface-bg-surface-sunken)] will-change-transform [&>*]:size-full [&>*]:object-cover">
             {media}
           </div>
         </div>
