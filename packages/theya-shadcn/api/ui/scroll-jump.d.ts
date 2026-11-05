@@ -5,8 +5,10 @@ import { type RefObject } from 'react';
 export interface ScrollJumpProps extends Omit<React.ComponentProps<'div'>, 'children'> {
     target?: RefObject<HTMLElement | null>;
     position?: 'bottom-end' | 'bottom-start' | 'none';
+    shape?: 'rounded' | 'round';
+    size?: 'sm' | 'md' | 'lg' | 'xl';
     label?: string;
     topLabel?: string;
     bottomLabel?: string;
 }
-export declare function ScrollJump({ target, position, label, topLabel, bottomLabel, className, ...props }: ScrollJumpProps): import("react").JSX.Element | null;
+export declare function ScrollJump({ target, position, shape, size, label, topLabel, bottomLabel, className, ...props }: ScrollJumpProps): import("react").JSX.Element | null;
