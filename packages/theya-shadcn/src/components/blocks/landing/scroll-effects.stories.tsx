@@ -219,8 +219,8 @@ export const Sideways: Story = {
   },
 };
 
-// Soft gradients (Maria's, 3.11), cropped to each tile's proportions. No photos on cards in motion.
-const GRADIENTS = ['sunrise', 'lagoon', 'peach', 'dusk', 'ember', 'morning'];
+// Cool mesh only (Maria, 5.11): blue, cyan and lilac, so the wall reads as one palette. No photos on cards in motion.
+const GRADIENTS = ['blue-portrait', 'cyan-square', 'lilac-portrait', 'blue', 'cyan-portrait', 'lilac'];
 const RATIOS = ['aspect-[3/4]', 'aspect-square', 'aspect-[4/5]', 'aspect-[3/2]', 'aspect-[2/3]', 'aspect-[5/4]'];
 
 /** A Pinterest-like wall (MarqueeColumns, `drive="scroll"`): columns of saved things drift past each other as you scroll (odd up, even down). Tab into it and it stops and opens. */
@@ -229,8 +229,8 @@ export const Masonry: Story = {
     const items = [
       ...GRADIENTS.map((p, i) => (
         <LandingCard key={p} surface="sunken" className="overflow-hidden">
-          <img src={`/asset-examples/gradients/${p}.webp`} alt="" className={`${RATIOS[i]} block w-full object-cover`} />
-          <p className="m-0 p-4 font-body text-body-s font-semibold">{['Sunrise', 'Lagoon', 'Peach', 'Dusk', 'Ember', 'Morning'][i]}</p>
+          <img src={`/asset-examples/mesh/${p}.webp`} alt="" className={`${RATIOS[i]} block w-full object-cover`} />
+          <p className="m-0 p-4 font-body text-body-s font-semibold">{['Blue hour', 'Lagoon', 'Lavender', 'Clear sky', 'Glacier', 'Dusk'][i]}</p>
         </LandingCard>
       )),
       <QuoteCard key="q1" serif surface="tonal" hue="secondary" quote="My whole moodboard, finally in one place." name="Lea Brandt" title="Illustrator" />,
@@ -241,8 +241,8 @@ export const Masonry: Story = {
         <DemoFeatureVisual id="import" />
       </LandingCard>,
       <QuoteCard key="q2" surface="outlined" quote="I save a recipe on the phone and it is on the laptop by dinner." name="Tom Ide" title="Home cook" />,
-      <StatCard key="s2" surface="tonal" hue="success" value="4.8" label="average rating" />,
-      <QuoteCard key="q3" serif surface="tonal" hue="warning" quote="Search by a word inside the page. Magic." name="Ana Costa" title="Researcher" />,
+      <StatCard key="s2" surface="tonal" hue="info" value="4.8" label="average rating" />,
+      <QuoteCard key="q3" serif surface="tonal" hue="secondary" quote="Search by a word inside the page. Magic." name="Ana Costa" title="Researcher" />,
     ];
     // Interleave photos and the rest so each column gets a mix.
     const mixed = items.slice(0, 6).flatMap((p, i) => [p, items[6 + i]]).filter(Boolean);
@@ -267,7 +267,7 @@ export const Masonry: Story = {
     await expect(wall).toHaveAttribute('data-drive', 'scroll');
     // Every card is there once (no looping copy in the scroll-driven wall).
     await expect(within(wall).getAllByText('Search by a word inside the page. Magic.')).toHaveLength(1);
-    await expect(within(wall).getByText('Sunrise')).toBeVisible();
+    await expect(within(wall).getByText('Blue hour')).toBeVisible();
     await expect(canvas.getByText('My whole moodboard, finally in one place.')).toBeVisible();
   },
 };
