@@ -1,21 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import type { Meta, StoryObj } from '@storybook/react';
-import { MorphIcon } from 'morphicons/react';
-import { svgToIcon } from 'morphicons/adapters';
 import * as Iconoir from 'iconoir-react';
+import { MorphIcon, type MorphIconSpring } from './morph-icon';
 
 /*
- * Icon morphing prototype (Maria, 2026-11-04), on morphicons 2.0.0 (MIT,
- * devDependency of Storybook only for now). One icon flows into another with
- * spring physics; shapes that match under rotation turn instead of stretching.
- * Iconoir icons are fed in as SVG markup (svgToIcon fits them to the 24 grid).
- *
- * reducedMotion="user": with prefers-reduced-motion the icon swaps instantly
- * (the library's own default is to animate regardless).
- *
- * Not a Theya component yet: if the look is right, the next step is deciding
- * whether morphicons becomes a dependency of AnimatedIcon.
+ * MorphIcon (Maria chose morphing on 2026-11-05): one icon flows into
+ * another with spring physics. Click a tile to morph and back.
  */
 
 const NAMES = [
@@ -26,29 +16,20 @@ const NAMES = [
 ] as const;
 type Name = (typeof NAMES)[number];
 
-const cache = new Map<Name, ReturnType<typeof svgToIcon>>();
-/** Iconoir icon → morphicons input (memoized; markup rendered once per icon). */
-function icon(name: Name) {
-  let v = cache.get(name);
-  if (!v) {
-    const C = Iconoir[name] as React.ComponentType<React.SVGProps<SVGSVGElement>>;
-    v = svgToIcon(renderToStaticMarkup(<C />));
-    cache.set(name, v);
-  }
-  return v;
-}
+/** Iconoir component by name. */
+const icon = (name: Name) => Iconoir[name] as React.ComponentType<React.SVGProps<SVGSVGElement>>;
 
-type Spring = 'smooth' | 'snappy' | 'bouncy';
+type Spring = MorphIconSpring;
 type Args = { spring: Spring; from: Name; to: Name };
 
 const meta: Meta<Args> = {
-  title: 'Motion/MorphIcon (prototype)',
+  title: 'Motion/MorphIcon',
   parameters: {
     layout: 'padded',
     docs: {
       description: {
         component:
-          'Prototype: one icon morphs into another (spring physics, morphicons). Click a tile to morph and back. Reduced motion swaps instantly.',
+          'One icon morphs into another when `icon` changes: spring physics (morphicons), Iconoir icons or a path `d`. Click a tile to morph and back. Reduced motion swaps instantly. For the ready-made set (hover motions, Copy → Check…) see AnimatedIcon.',
       },
     },
   },
@@ -88,7 +69,7 @@ function Tile({ a, b, spring }: { a: Name; b: Name; spring: Spring }) {
       onClick={() => setOn((v) => !v)}
       className="flex cursor-pointer flex-col items-center gap-2 rounded-[var(--size-border-radius-border-radius-xl)] border-0 bg-transparent p-2 text-[var(--color-icon-icon)] outline-none focus-visible:focus-ring"
     >
-      <MorphIcon icon={icon(on ? b : a)} spring={spring} reducedMotion="user" size={32} strokeWidth={1.5} />
+      <MorphIcon icon={icon(on ? b : a)} spring={spring} className="size-8" />
       <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">
         {a} ↔ {b}
       </span>
@@ -133,7 +114,7 @@ export const Chain: Story = {
     }, [reduce]);
     return (
       <div className="flex flex-col items-center gap-3 p-10 text-[var(--color-icon-icon)]">
-        <MorphIcon icon={icon(CHAIN[i])} spring={spring} reducedMotion="user" size={64} strokeWidth={1.5} />
+        <MorphIcon icon={icon(CHAIN[i])} spring={spring} className="size-16" />
         <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">{CHAIN[i]}</span>
       </div>
     );

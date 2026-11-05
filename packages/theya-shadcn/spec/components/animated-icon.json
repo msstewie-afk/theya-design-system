@@ -58,7 +58,7 @@
       "props": [
         {
           "name": "name",
-          "type": "\"Check\" | \"Copy\" | \"Bell\" | \"Settings\" | \"Refresh\" | \"Trash\" | \"Eye\" | \"ArrowRight\" | \"Download\" | \"Upload\" | \"Plus\" | \"Heart\" | \"Menu\"",
+          "type": "\"Check\" | \"Copy\" | \"Bell\" | \"Settings\" | \"Refresh\" | \"Trash\" | \"Eye\" | \"ArrowRight\" | \"Download\" | \"Upload\" | \"Plus\" | \"Heart\" | \"Menu\" | \"Star\"",
           "values": [
             "Check",
             "Copy",
@@ -72,17 +72,18 @@
             "Upload",
             "Plus",
             "Heart",
-            "Menu"
+            "Menu",
+            "Star"
           ],
           "required": true,
-          "description": "Which icon: Check, Copy, Bell, Settings, Refresh, Trash, Eye, ArrowRight, Download, Upload, Plus, Heart, Menu."
+          "description": "Which icon: Check, Copy, Bell, Settings, Refresh, Trash, Eye, ArrowRight, Download, Upload, Plus, Heart, Menu, Star."
         },
         {
           "name": "active",
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
         },
         {
           "name": "trigger",
@@ -107,7 +108,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
         },
         {
           "name": "trigger",
@@ -132,7 +133,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
         },
         {
           "name": "trigger",
@@ -157,7 +158,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
         },
         {
           "name": "trigger",
@@ -182,7 +183,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
         },
         {
           "name": "trigger",
@@ -207,7 +208,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
         },
         {
           "name": "trigger",
@@ -232,7 +233,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
         },
         {
           "name": "trigger",
@@ -257,7 +258,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
         },
         {
           "name": "trigger",
@@ -282,7 +283,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
         },
         {
           "name": "trigger",
@@ -307,7 +308,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
         },
         {
           "name": "trigger",
@@ -332,32 +333,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
-        },
-        {
-          "name": "trigger",
-          "type": "AnimatedIconTrigger",
-          "values": [
-            "loop",
-            "active",
-            "hover"
-          ],
-          "required": false,
-          "default": "hover",
-          "description": "When the motion plays. Default `hover`."
-        }
-      ]
-    },
-    {
-      "name": "PlusAnimated",
-      "description": "Active: turns into × (add → close).",
-      "props": [
-        {
-          "name": "active",
-          "type": "boolean",
-          "required": false,
-          "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
         },
         {
           "name": "trigger",
@@ -382,7 +358,32 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
+        },
+        {
+          "name": "trigger",
+          "type": "AnimatedIconTrigger",
+          "values": [
+            "loop",
+            "active",
+            "hover"
+          ],
+          "required": false,
+          "default": "hover",
+          "description": "When the motion plays. Default `hover`."
+        }
+      ]
+    },
+    {
+      "name": "PlusAnimated",
+      "description": "Hover: a quarter turn. Active: morphs into × (add → close).",
+      "props": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
         },
         {
           "name": "trigger",
@@ -400,14 +401,39 @@
     },
     {
       "name": "MenuAnimated",
-      "description": "Active: the three lines fold into ×.",
+      "description": "Active: the three lines morph into ×.",
       "props": [
         {
           "name": "active",
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart)."
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
+        },
+        {
+          "name": "trigger",
+          "type": "AnimatedIconTrigger",
+          "values": [
+            "loop",
+            "active",
+            "hover"
+          ],
+          "required": false,
+          "default": "hover",
+          "description": "When the motion plays. Default `hover`."
+        }
+      ]
+    },
+    {
+      "name": "StarAnimated",
+      "description": "Hover: twinkles. Active: filled with the rating yellow.",
+      "props": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star)."
         },
         {
           "name": "trigger",

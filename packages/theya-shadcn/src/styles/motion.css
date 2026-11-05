@@ -450,13 +450,13 @@
   animation: theya-icon-lift var(--transition-duration-slow) var(--ease-spring);
 }
 
-/* plus — active → × */
-.theya-anim-icon[data-motion='plus'] [data-part='turn'] {
-  transform-origin: 12px 12px;
+/* plus — hover: a quarter turn; active → × is a path morph (animated-icon.tsx) */
+.theya-anim-icon[data-motion='plus'] {
   transition: transform var(--transition-duration-moderate) var(--ease-spring);
 }
-.theya-anim-icon[data-motion='plus'][data-active] [data-part='turn'] {
-  transform: rotate(45deg);
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='plus']:not([data-active]),
+.theya-anim-icon[data-trigger='hover'][data-motion='plus']:not([data-active]):hover {
+  transform: rotate(90deg);
 }
 
 /* heart — beat on hover; active → filled */
@@ -475,18 +475,31 @@
   animation: theya-icon-beat var(--transition-duration-slow) var(--ease-spring);
 }
 
-/* menu — active → × */
-.theya-anim-icon[data-motion='menu'] [data-part] {
-  transition: transform var(--transition-duration-moderate) var(--ease-spring), opacity var(--transition-duration-fast) ease-out;
+/* menu — active → × is a path morph (animated-icon.tsx) */
+
+/* star — twinkle on hover; active → filled with the rating yellow */
+.theya-anim-icon[data-motion='star'] [data-part='star'] {
+  transform-origin: 12px 12px;
+  fill: transparent;
+  transition: fill var(--transition-duration-fast) ease-out, stroke var(--transition-duration-fast) ease-out;
 }
-.theya-anim-icon[data-motion='menu'] [data-part='top'] { transform-origin: 12px 5px; }
-.theya-anim-icon[data-motion='menu'] [data-part='mid'] { transform-origin: 12px 12px; }
-.theya-anim-icon[data-motion='menu'] [data-part='bottom'] { transform-origin: 12px 19px; }
-.theya-anim-icon[data-motion='menu'][data-active] [data-part='top'] { transform: translateY(7px) rotate(45deg) scaleX(0.8); }
-.theya-anim-icon[data-motion='menu'][data-active] [data-part='mid'] { opacity: 0; transform: scaleX(0); }
-.theya-anim-icon[data-motion='menu'][data-active] [data-part='bottom'] { transform: translateY(-7px) rotate(-45deg) scaleX(0.8); }
+.theya-anim-icon[data-motion='star'][data-active] [data-part='star'] {
+  fill: var(--color-icon-icon-rating);
+  stroke: var(--color-icon-icon-rating);
+  animation: theya-icon-twinkle var(--transition-duration-slow) var(--ease-spring);
+}
+:where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='star'] [data-part='star'],
+.theya-anim-icon[data-trigger='hover'][data-motion='star']:hover [data-part='star'],
+.theya-anim-icon[data-trigger='loop'][data-motion='star'] [data-part='star'] {
+  animation: theya-icon-twinkle var(--transition-duration-slow) var(--ease-spring);
+}
 
 @keyframes theya-icon-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes theya-icon-twinkle {
+  0%, 100% { transform: none; }
+  40% { transform: scale(1.2) rotate(-12deg); }
+  70% { transform: scale(0.95) rotate(4deg); }
+}
 @keyframes theya-icon-ring {
   0%, 100% { transform: rotate(0); }
   15% { transform: rotate(14deg); }
@@ -529,6 +542,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .theya-anim-icon,
   .theya-anim-icon [data-part] {
     animation: none !important;
     transition: none !important;

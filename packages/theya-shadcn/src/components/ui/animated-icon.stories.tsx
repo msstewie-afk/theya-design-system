@@ -8,6 +8,7 @@ import {
   EyeAnimated,
   HeartAnimated,
   MenuAnimated,
+  StarAnimated,
   PlusAnimated,
   RefreshAnimated,
 } from './animated-icon';
@@ -31,26 +32,51 @@ const meta = {
   argTypes: {
     name: { control: 'select', options: Object.keys(ANIMATED_ICONS), description: 'Which icon (or import the named component, e.g. CopyAnimated).' },
     trigger: { control: 'inline-radio', options: ['hover', 'active', 'loop'], description: 'When the motion plays.' },
-    active: { control: 'boolean', description: 'Second state (Copy, Plus, Menu, Eye, Heart).' },
+    active: { control: 'boolean', description: 'Second state (Copy, Plus, Menu, Eye, Heart, Star).' },
   },
   args: { name: 'Copy', trigger: 'hover', active: false },
 } satisfies Meta<typeof AnimatedIcon>;
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Hover an icon: it plays. Plain icons, no button chrome, so the motion is what you look at. */
+/** Two-state icons: a click shows the second state (Plus and Menu morph into ×). */
+const TWO_STATE = new Set(['Copy', 'Plus', 'Menu', 'Eye', 'Heart', 'Star']);
+
+/** Hover an icon: it plays. Icons with a second state switch on click. Plain icons, no button chrome. */
 export const Gallery: Story = {
-  render: ({ name: _name, ...args }) => (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(6rem,1fr))] gap-x-4 gap-y-8">
-      {Object.entries(ANIMATED_ICONS).map(([name, Icon]) => (
-        // data-icon-trigger: hovering the whole tile (icon + label) plays the icon.
-        <div key={name} data-icon-trigger="" className="flex flex-col items-center gap-2 text-[var(--color-icon-icon)]">
-          <Icon {...args} className="size-8" />
-          <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">{name}</span>
-        </div>
-      ))}
-    </div>
-  ),
+  render: function Render({ name: _name, active: _active, ...args }) {
+    const [on, setOn] = useState<Record<string, boolean>>({});
+    return (
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(6rem,1fr))] gap-x-4 gap-y-8">
+        {Object.entries(ANIMATED_ICONS).map(([name, Icon]) => {
+          const toggles = TWO_STATE.has(name);
+          const body = (
+            <>
+              <Icon {...args} active={!!on[name]} className="size-8" />
+              <span className="font-body text-body-s text-[var(--color-text-text-subtler)]">{name}</span>
+            </>
+          );
+          const tile = 'flex flex-col items-center gap-2 text-[var(--color-icon-icon)]';
+          return toggles ? (
+            <button
+              key={name}
+              type="button"
+              aria-pressed={!!on[name]}
+              onClick={() => setOn((s) => ({ ...s, [name]: !s[name] }))}
+              className={`${tile} cursor-pointer rounded-[var(--size-border-radius-border-radius-xl)] border-0 bg-transparent p-0 outline-none focus-visible:focus-ring`}
+            >
+              {body}
+            </button>
+          ) : (
+            // data-icon-trigger: hovering the whole tile (icon + label) plays the icon.
+            <div key={name} data-icon-trigger="" className={tile}>
+              {body}
+            </div>
+          );
+        })}
+      </div>
+    );
+  },
 };
 
 /** `trigger="active"`: the second state follows a prop; the change happens even with reduced motion. */
@@ -61,6 +87,7 @@ export const States: Story = {
     const [hidden, setHidden] = useState(false);
     const [added, setAdded] = useState(false);
     const [liked, setLiked] = useState(false);
+    const [starred, setStarred] = useState(false);
     return (
       <div className="flex flex-wrap items-center gap-2">
         <Button appearance="outlined" tone="neutral" leftIcon={<CopyAnimated trigger="active" active={copied} />} onClick={() => setCopied((v) => !v)}>
@@ -72,6 +99,7 @@ export const States: Story = {
           {added ? 'Close' : 'Add'}
         </Button>
         <Button appearance="ghost" tone="danger" iconOnly aria-label="Like" aria-pressed={liked} leftIcon={<HeartAnimated trigger="active" active={liked} />} onClick={() => setLiked((v) => !v)} />
+        <Button appearance="ghost" tone="neutral" iconOnly aria-label="Favourite" aria-pressed={starred} leftIcon={<StarAnimated trigger="active" active={starred} />} onClick={() => setStarred((v) => !v)} />
       </div>
     );
   },

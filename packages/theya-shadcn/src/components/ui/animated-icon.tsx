@@ -1,20 +1,24 @@
 'use client';
 
-import { forwardRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import { canonicalD, createMorph, type Morph } from 'morphicons/dom';
 import { cn } from '../../lib/utils';
 
 /**
  * Animated icons — iconoir 7.12.1 geometry (the same paths as `iconoir-react`,
  * so they sit next to static icons without a style break), animated in CSS
- * only (keyframes in styles/motion.css, durations and easings from the motion
- * tokens). No animation library.
+ * (keyframes in styles/motion.css, durations and easings from the motion
+ * tokens). Plus and Menu switch state by morphing into × (morphicons, spring
+ * physics): one path flows into the other instead of parts moving. For any
+ * other pair of icons use MorphIcon.
  *
  * trigger:
  * - `hover` (default) — plays when the icon or an interactive ancestor
  *   (button, link, [role=button], label, [data-icon-trigger]) is hovered or
  *   keyboard-focused. Purely decorative motion.
  * - `active` — shows the icon's second state while `active` is true
- *   (Copy → Check, Plus → ×, Menu → ×, Eye → closed, Heart → filled).
+ *   (Copy → Check, Plus → ×, Menu → ×, Eye → closed, Heart → filled,
+ *   Star → filled).
  *   The state change itself always happens; only the transition is motion.
  * - `loop` — repeats while mounted (Refresh as a spinner). Use only for
  *   short-lived busy states.
@@ -29,7 +33,7 @@ export type AnimatedIconTrigger = 'hover' | 'active' | 'loop';
 export interface AnimatedIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'ref'> {
   /** When the motion plays. Default `hover`. */
   trigger?: AnimatedIconTrigger;
-  /** Second state for icons that have one (Copy, Plus, Menu, Eye, Heart). */
+  /** Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star). */
   active?: boolean;
 }
 
@@ -173,9 +177,6 @@ export const UploadAnimated = make(
   </>,
 );
 
-/** Active: turns into × (add → close). */
-export const PlusAnimated = make('plus', 'PlusAnimated', <path data-part="turn" d="M6 12H12M18 12H12M12 12V6M12 12V18" />);
-
 /** Hover: a heartbeat. Active: filled. */
 export const HeartAnimated = make(
   'heart',
@@ -186,15 +187,60 @@ export const HeartAnimated = make(
   />,
 );
 
-/** Active: the three lines fold into ×. */
-export const MenuAnimated = make(
-  'menu',
-  'MenuAnimated',
-  <>
-    <path data-part="top" d="M3 5H21" />
-    <path data-part="mid" d="M3 12H21" />
-    <path data-part="bottom" d="M3 19H21" />
-  </>,
+// iconoir 7.12.1 paths (Plus, Menu, Xmark).
+const PLUS_D = 'M6 12H12M18 12H12M12 12V6M12 12V18';
+const MENU_D = 'M3 5H21M3 12H21M3 19H21';
+const XMARK_D = 'M6.75827 17.2426L12.0009 12M17.2435 6.75736L12.0009 12M12.0009 12L6.75827 6.75736M12.0009 12L17.2435 17.2426';
+
+/**
+ * Two-state icon that morphs between two paths with spring physics
+ * (morphicons). Same svg, props and data attributes as the CSS icons, so
+ * hover rules in motion.css still apply to the whole icon. Reduced motion:
+ * the shape switches instantly.
+ */
+function makeMorph(motion: string, displayName: string, off: string, on: string) {
+  const C = forwardRef<SVGSVGElement, AnimatedIconProps>(function AnimatedIcon({ active = false, ...props }, ref) {
+    const svgRef = useRef<SVGSVGElement>(null);
+    const pathRef = useRef<SVGPathElement>(null);
+    const morph = useRef<Morph | null>(null);
+    useImperativeHandle(ref, () => svgRef.current as SVGSVGElement);
+    useEffect(() => {
+      if (!pathRef.current) return;
+      morph.current = createMorph(pathRef.current, active ? on : off, { reducedMotion: 'user', strokeWidth: 1.5 });
+      return () => morph.current?.destroy();
+      // Created once; later state changes go through morphTo below.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    const first = useRef(true);
+    useEffect(() => {
+      if (first.current) return void (first.current = false);
+      morph.current?.morphTo(active ? on : off, 'bouncy');
+    }, [active]);
+    return (
+      <Base ref={svgRef} motion={motion} active={active} {...props}>
+        {/* Server render and first paint: the resting path, before any script runs. */}
+        <path ref={pathRef} d={canonicalD(active ? on : off)} />
+      </Base>
+    );
+  });
+  C.displayName = displayName;
+  return C;
+}
+
+/** Hover: a quarter turn. Active: morphs into × (add → close). */
+export const PlusAnimated = makeMorph('plus', 'PlusAnimated', PLUS_D, XMARK_D);
+
+/** Active: the three lines morph into ×. */
+export const MenuAnimated = makeMorph('menu', 'MenuAnimated', MENU_D, XMARK_D);
+
+/** Hover: twinkles. Active: filled with the rating yellow. */
+export const StarAnimated = make(
+  'star',
+  'StarAnimated',
+  <path
+    data-part="star"
+    d="M8.58737 8.23597L11.1849 3.00376C11.5183 2.33208 12.4817 2.33208 12.8151 3.00376L15.4126 8.23597L21.2215 9.08017C21.9668 9.18848 22.2638 10.0994 21.7243 10.6219L17.5217 14.6918L18.5135 20.4414C18.6409 21.1798 17.8614 21.7428 17.1945 21.3941L12 18.678L6.80547 21.3941C6.1386 21.7428 5.35909 21.1798 5.48645 20.4414L6.47825 14.6918L2.27575 10.6219C1.73617 10.0994 2.03322 9.18848 2.77852 9.08017L8.58737 8.23597Z"
+  />,
 );
 
 /** Every animated icon, for docs and pickers. */
@@ -212,12 +258,13 @@ export const ANIMATED_ICONS = {
   Plus: PlusAnimated,
   Heart: HeartAnimated,
   Menu: MenuAnimated,
+  Star: StarAnimated,
 } as const;
 
 export type AnimatedIconName = keyof typeof ANIMATED_ICONS;
 
 export interface AnimatedIconByNameProps extends AnimatedIconProps {
-  /** Which icon: Check, Copy, Bell, Settings, Refresh, Trash, Eye, ArrowRight, Download, Upload, Plus, Heart, Menu. */
+  /** Which icon: Check, Copy, Bell, Settings, Refresh, Trash, Eye, ArrowRight, Download, Upload, Plus, Heart, Menu, Star. */
   name: AnimatedIconName;
 }
 

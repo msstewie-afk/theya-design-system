@@ -303,73 +303,78 @@ Docs: ./?path=/docs/motion-animatedicon--docs
 
 **AnimatedIcon props**
 
-- `name`: `"Check" | "Copy" | "Bell" | "Settings" | "Refresh" | "Trash" | "Eye" | "ArrowRight" | "Download" | "Upload" | "Plus" | "Heart" | "Menu"` — Which icon: Check, Copy, Bell, Settings, Refresh, Trash, Eye, ArrowRight, Download, Upload, Plus, Heart, Menu.
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
+- `name`: `"Check" | "Copy" | "Bell" | "Settings" | "Refresh" | "Trash" | "Eye" | "ArrowRight" | "Download" | "Upload" | "Plus" | "Heart" | "Menu" | "Star"` — Which icon: Check, Copy, Bell, Settings, Refresh, Trash, Eye, ArrowRight, Download, Upload, Plus, Heart, Menu, Star.
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
 - `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
 
 **CheckAnimated props**
 
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
 - `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
 
 **CopyAnimated props**
 
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
 - `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
 
 **BellAnimated props**
 
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
 - `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
 
 **SettingsAnimated props**
 
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
 - `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
 
 **RefreshAnimated props**
 
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
 - `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
 
 **TrashAnimated props**
 
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
 - `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
 
 **EyeAnimated props**
 
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
 - `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
 
 **ArrowRightAnimated props**
 
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
 - `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
 
 **DownloadAnimated props**
 
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
 - `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
 
 **UploadAnimated props**
 
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
-- `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
-
-**PlusAnimated props**
-
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
 - `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
 
 **HeartAnimated props**
 
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
+- `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
+
+**PlusAnimated props**
+
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
 - `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
 
 **MenuAnimated props**
 
-- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart).
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
+- `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
+
+**StarAnimated props**
+
+- `active?`: `boolean`, default `false` — Second state for icons that have one (Copy, Plus, Menu, Eye, Heart, Star).
 - `trigger?`: `"loop" | "active" | "hover"`, default `hover` — When the motion plays. Default `hover`.
 
 Also accepts the props of: SVGAttributes, ButtonHTMLAttributes, HTMLAttributes.

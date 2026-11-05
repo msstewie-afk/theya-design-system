@@ -16,9 +16,10 @@ export declare const EyeAnimated: import("react").ForwardRefExoticComponent<Anim
 export declare const ArrowRightAnimated: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
 export declare const DownloadAnimated: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
 export declare const UploadAnimated: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
-export declare const PlusAnimated: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
 export declare const HeartAnimated: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
+export declare const PlusAnimated: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
 export declare const MenuAnimated: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
+export declare const StarAnimated: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
 export declare const ANIMATED_ICONS: {
     readonly Check: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
     readonly Copy: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
@@ -33,6 +34,7 @@ export declare const ANIMATED_ICONS: {
     readonly Plus: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
     readonly Heart: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
     readonly Menu: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
+    readonly Star: import("react").ForwardRefExoticComponent<AnimatedIconProps & import("react").RefAttributes<SVGSVGElement>>;
 };
 export type AnimatedIconName = keyof typeof ANIMATED_ICONS;
 export interface AnimatedIconByNameProps extends AnimatedIconProps {
@@ -65,6 +67,8 @@ export declare const AnimatedIcon: import("react").ForwardRefExoticComponent<Ani
 // RefreshAnimated.trigger = hover
 // SettingsAnimated.active = false
 // SettingsAnimated.trigger = hover
+// StarAnimated.active = false
+// StarAnimated.trigger = hover
 // TrashAnimated.active = false
 // TrashAnimated.trigger = hover
 // UploadAnimated.active = false
