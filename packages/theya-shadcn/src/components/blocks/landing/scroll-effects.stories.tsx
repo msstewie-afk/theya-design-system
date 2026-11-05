@@ -166,7 +166,7 @@ export const MaskReveal: Story = {
     <div className="bg-[var(--color-bg-surface-bg-surface)]">
       <Spacer label="Scroll down" />
       <ScrollMaskReveal aria-labelledby="reveal-title" media={<img src="/asset-examples/gradients/iridescent.webp" alt="" />}>
-        <div className="flex max-w-[34rem] flex-col items-start gap-6 rounded-[var(--size-border-radius-border-radius-4xl)] bg-[var(--color-bg-surface-bg-surface)] p-8 shadow-elevation-md">
+        <div className="flex max-w-[34rem] flex-col items-start gap-6 rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-8">
           <h2 id="reveal-title" className="m-0 text-balance font-heading text-heading-2xl text-[var(--color-text-text)]">
             Room for everything you read
           </h2>

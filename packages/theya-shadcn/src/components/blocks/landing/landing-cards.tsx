@@ -3,7 +3,7 @@
 import { useRef, type ComponentProps, type PointerEvent, type ReactNode } from 'react';
 import { ArrowRight, ArrowUpRight } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
-import { TONAL_ACCENT, TONAL_BG, type TonalHue } from '../../../lib/tonal-fills';
+import { TONAL_ACCENT, TONAL_BG, TONAL_BORDER, type TonalHue } from '../../../lib/tonal-fills';
 import { useTheyaI18n } from '../../../lib/i18n';
 import { SurfaceEffect } from '../../ui/surface-effect';
 
@@ -55,12 +55,12 @@ const RADIUS = 'rounded-[var(--size-border-radius-border-radius-4xl)]';
 // white streak or a 22% glow all but disappears. Landing cards push them so
 // they read in both themes.
 const HOVER_FX: Partial<Record<LandingCardHover, string>> = {
-  // A 2px ring for the light to run round; a shadow while it runs.
-  beam: 'p-0.5 transition-shadow duration-standard hover:shadow-elevation-md focus-within:shadow-elevation-md',
+  // A 2px ring for the light to run round. The light edge is the whole effect: no shadow (Maria, 5.11).
+  beam: 'p-0.5',
   // A primary-tinted streak instead of white: visible on a white card too.
   shine: 'before:w-2/5 before:bg-[linear-gradient(90deg,transparent,color-mix(in_oklab,var(--color-icon-icon-primary)_24%,transparent),transparent)]',
-  // A shorter perspective makes the same turn read as depth, plus a shadow.
-  tilt: '[transform:perspective(600px)_rotateX(var(--tilt-x,0deg))_rotateY(var(--tilt-y,0deg))] transition-[transform,box-shadow] hover:shadow-elevation-md',
+  // A shorter perspective makes the same turn read as depth. No shadow: cards part by border and colour.
+  tilt: '[transform:perspective(600px)_rotateX(var(--tilt-x,0deg))_rotateY(var(--tilt-y,0deg))] transition-transform',
 };
 
 export interface LandingCardProps extends ComponentProps<'article'> {
@@ -92,7 +92,8 @@ export function LandingCard({ surface = 'outlined', hue = 'primary', hover = 'no
       className={cn(
         'relative isolate flex h-full min-w-0 flex-col overflow-hidden text-[var(--color-text-text)]',
         RADIUS,
-        surface === 'tonal' ? [HUE[hue], ON_TONAL, HUE_ACCENT[hue]] : SURFACE[surface],
+        // Tonal cards part from their neighbours by a translucent border in their own hue, not a shadow.
+        surface === 'tonal' ? [HUE[hue], TONAL_BORDER[hue], ON_TONAL, HUE_ACCENT[hue]] : SURFACE[surface],
         // The stretched title link draws the focus ring round the whole card.
         'has-[[data-card-link]:focus-visible]:focus-ring',
         // Spotlight, tilt and lift also turn an outlined card's border primary while hovered.
@@ -186,7 +187,7 @@ export function FeatureCard({ icon, title, description, href, linkLabel: label, 
       {icon && (
         <span
           aria-hidden
-          className="flex size-12 items-center justify-center rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-icon-icon-primary)] shadow-elevation-sm [&_svg]:size-6"
+          className="flex size-12 items-center justify-center rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-icon-icon-primary)] [&_svg]:size-6"
         >
           {icon}
         </span>

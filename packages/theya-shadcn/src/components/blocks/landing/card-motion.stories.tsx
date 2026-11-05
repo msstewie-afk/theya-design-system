@@ -211,7 +211,7 @@ export const Parallax: Story = {
           { i: 0, depth: 1, pos: 'start-[10%] top-[52%]' },
         ].map((c) => (
           <ParallaxLayer key={c.i} depth={c.depth} className={`absolute ${c.pos}`}>
-            <div className="rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[color-mix(in_srgb,white_40%,transparent)] bg-[color-mix(in_srgb,var(--color-bg-surface-bg-surface)_60%,transparent)] p-2 shadow-elevation-md backdrop-blur-xl">
+            <div className="rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[color-mix(in_srgb,white_40%,transparent)] bg-[color-mix(in_srgb,var(--color-bg-surface-bg-surface)_60%,transparent)] p-2 backdrop-blur-xl">
               <DemoMiniLink index={c.i} />
             </div>
           </ParallaxLayer>

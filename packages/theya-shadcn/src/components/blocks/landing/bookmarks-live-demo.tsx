@@ -42,7 +42,7 @@ export function BookmarksLiveDemo({ className }: { className?: string }) {
     <section
       aria-labelledby={`${uid}-title`}
       className={cn(
-        'w-full max-w-[40rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-md',
+        'w-full max-w-[40rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]',
         className,
       )}
     >
