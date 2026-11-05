@@ -99,7 +99,9 @@ export const Square: Story = {
 export const Tones: Story = {
   parameters: { controls: { exclude: ['tone', 'appearance'] } },
   render: (args) => (
-    <div className="grid grid-cols-3 gap-4">
+    // Wraps instead of a fixed 3-column grid: at 360px three columns squeezed
+    // the extended FAB and cut its label ("Cor…").
+    <div className="flex flex-wrap gap-4">
       {(['filled', 'tonal'] as const).map((appearance) =>
         (['primary', 'secondary', 'neutral'] as const).map((tone) => (
           <Fab key={`${appearance}-${tone}`} {...args} appearance={appearance} tone={tone} icon={<EditPencil />} label="Compose" />

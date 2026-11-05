@@ -238,7 +238,9 @@ export const MultipleBadges: Story = {
   parameters: { mobile: { skipOverflow: true } },
   args: { value: '' },
   render: () => (
-    <div className="flex max-w-full flex-col gap-4">
+    // The widths are the point of the demo, so on a phone the wide rows scroll
+    // instead of pushing the page sideways.
+    <div tabIndex={0} role="region" aria-label="Cell widths" className="flex max-w-full flex-col gap-4 overflow-x-auto rounded-[var(--size-border-radius-border-radius-md)] outline-none focus-visible:focus-ring">
       {[420, 260, 220, 170, 90].map((width) => (
         <div key={width} className="flex items-center gap-3">
           <span className="w-16 shrink-0 font-mono text-body-s text-[var(--color-text-text-subtler)]">{width}px</span>
