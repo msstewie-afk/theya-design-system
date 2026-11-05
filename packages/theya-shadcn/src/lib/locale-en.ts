@@ -372,6 +372,7 @@ export const en = {
     moreOn: (day: string) => ` on ${day}`,
     noEvents: 'No events',
   },
+  scrollJump: { label: 'Page scroll', top: 'Scroll to top', bottom: 'Scroll to bottom' },
   secretField: {
     label: 'Value',
     copied: 'Copied',

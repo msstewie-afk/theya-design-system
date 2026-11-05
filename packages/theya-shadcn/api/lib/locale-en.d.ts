@@ -488,6 +488,11 @@ export declare const en: {
         moreOn: (day: string) => string;
         noEvents: string;
     };
+    scrollJump: {
+        label: string;
+        top: string;
+        bottom: string;
+    };
     secretField: {
         label: string;
         copied: string;
@@ -1140,6 +1145,11 @@ export declare const enLocale: {
             more: (n: number) => string;
             moreOn: (day: string) => string;
             noEvents: string;
+        };
+        scrollJump: {
+            label: string;
+            top: string;
+            bottom: string;
         };
         secretField: {
             label: string;

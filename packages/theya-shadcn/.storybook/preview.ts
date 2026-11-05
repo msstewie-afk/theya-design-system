@@ -6,6 +6,7 @@ import { create, themes } from '@storybook/theming';
 import { DocsContainer, type DocsContainerProps } from '@storybook/addon-docs/blocks';
 import { Toaster } from '../src/components/ui/sonner';
 import { DocsPage } from './docs-page';
+import { ScrollJump } from '../src/components/ui/scroll-jump';
 import { configure } from '@storybook/test';
 import { TheyaLocaleProvider, pseudoLocalize, en, type TheyaLocaleBundle } from '../src/lib/i18n';
 import { ruLocale } from '../src/lib/locale-ru';
@@ -111,7 +112,8 @@ function ThemedDocsContainer({ children, context }: DocsContainerProps) {
     };
   }, []);
 
-  return createElement(DocsContainer, { context, theme: docsThemes[theme] }, children);
+  // Long docs pages get the jump-to-top / bottom pair (Maria, 2026-11-05).
+  return createElement(DocsContainer, { context, theme: docsThemes[theme] }, children, createElement(ScrollJump));
 }
 
 // Toolbar control for the global Toaster's surface. Sonner only delivers a

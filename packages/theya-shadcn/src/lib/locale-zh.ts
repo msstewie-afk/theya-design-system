@@ -329,6 +329,7 @@ export const zh: TheyaMessages = {
     moreOn: (day) => `（${day}）`,
     noEvents: '没有日程',
   },
+  scrollJump: { label: '页面滚动', top: '回到顶部', bottom: '滚动到底部' },
   secretField: {
     label: '值',
     copied: '已复制',

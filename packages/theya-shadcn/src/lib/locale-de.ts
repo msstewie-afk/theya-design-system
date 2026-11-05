@@ -374,6 +374,7 @@ export const de: TheyaMessages = {
     moreOn: (day) => ` am ${day}`,
     noEvents: 'Keine Termine',
   },
+  scrollJump: { label: 'Seite scrollen', top: 'Nach oben', bottom: 'Nach unten' },
   secretField: {
     label: 'Wert',
     copied: 'Kopiert',

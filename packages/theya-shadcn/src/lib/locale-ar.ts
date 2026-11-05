@@ -343,6 +343,7 @@ export const ar: TheyaMessages = {
     moreOn: (day) => ` في ${day}`,
     noEvents: 'لا توجد أحداث',
   },
+  scrollJump: { label: 'تمرير الصفحة', top: 'إلى الأعلى', bottom: 'إلى الأسفل' },
   secretField: {
     label: 'القيمة',
     copied: 'تم النسخ',

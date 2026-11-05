@@ -389,6 +389,7 @@ export const ru: TheyaMessages = {
     moreOn: (day) => ` — ${day}`,
     noEvents: 'Нет событий',
   },
+  scrollJump: { label: 'Прокрутка страницы', top: 'Наверх', bottom: 'Вниз' },
   secretField: {
     label: 'Значение',
     copied: 'Скопировано',
