@@ -6,6 +6,7 @@ import { type LoginFormProps } from './login-form';
 export interface LoginFormSplitSlide {
     src: string;
     alt?: string;
+    tint?: string;
 }
 export interface LoginFormSplitProps extends LoginFormProps {
     slides: LoginFormSplitSlide[];

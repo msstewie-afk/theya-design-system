@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { ArrowRight, Pause, Play } from 'iconoir-react';
 import { Button } from '../ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselIndicators, type CarouselApi } from '../ui/carousel';
@@ -13,6 +13,13 @@ import { cn } from '../../lib/utils';
 export interface LoginFormSplitSlide {
   src: string;
   alt?: string;
+  /**
+   * Color of the short shade behind the text on this slide (tagline and dots
+   * at the bottom, logo and back link at the top). Pick a deep step in the
+   * slide's own hue, e.g. `var(--color-magenta-magenta-800)`, so the shade
+   * reads as part of the picture instead of a grey film. Default: slate 900.
+   */
+  tint?: string;
 }
 
 export interface LoginFormSplitProps extends LoginFormProps {
@@ -97,13 +104,23 @@ export function LoginFormSplit({
         <Carousel setApi={setApi} opts={{ loop: true }} aria-label={typeof tagline === 'string' ? tagline : 'Product highlights'} className="h-full rounded-none outline-none">
           <CarouselContent className="ms-0 h-full">
             {slides.map((slide, i) => (
-              <CarouselItem key={slide.src} className="h-full ps-0" aria-label={`Slide ${i + 1} of ${slides.length}`}>
+              <CarouselItem
+                key={slide.src}
+                className="relative h-full ps-0"
+                aria-label={`Slide ${i + 1} of ${slides.length}`}
+                style={{ '--slide-tint': slide.tint ?? 'var(--color-slate-slate-900)' } as CSSProperties}
+              >
                 <img src={slide.src} alt={slide.alt ?? ''} className="h-full w-full object-cover" />
+                {/* Short shades in the slide's own hue, only as tall as the text
+                    over them: the rest of the picture stays clean. They move with
+                    the slide, so each slide brings its own tint. */}
+                <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-[linear-gradient(to_top,color-mix(in_srgb,var(--slide-tint)_72%,transparent),color-mix(in_srgb,var(--slide-tint)_40%,transparent)_45%,transparent)]" />
+                {(logo || backHref) && (
+                  <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--slide-tint)_64%,transparent),transparent)]" />
+                )}
               </CarouselItem>
             ))}
           </CarouselContent>
-
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/10" />
 
           {(logo || backHref) && (
             <div className="absolute inset-x-0 top-0 flex items-center justify-between gap-3 p-6">
