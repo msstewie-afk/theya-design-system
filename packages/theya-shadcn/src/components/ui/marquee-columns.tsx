@@ -46,7 +46,7 @@ export function MarqueeColumns({ columns, drive = 'time', duration = 40, gap = '
   const { t } = useTheyaI18n();
   const [paused, setPaused] = useState(false);
   const inertRef = useCallback((el: HTMLDivElement | null) => el?.setAttribute('inert', ''), []);
-  const copy = 'flex flex-col gap-[var(--mc-gap)] pb-[var(--mc-gap)]';
+  const copy = 'flex flex-col gap-[var(--mc-gap)] pb-[var(--mc-gap)] [&>*]:h-auto! [&>*]:shrink-0';
 
   // Scroll-driven wall.
   const scroll = drive === 'scroll';
@@ -110,7 +110,9 @@ export function MarqueeColumns({ columns, drive = 'time', duration = 40, gap = '
               ref={(el) => {
                 cols.current[c] = el;
               }}
-              className={cn('flex min-w-0 flex-1 flex-col gap-[var(--mc-gap)]', drifting && !focused && 'will-change-transform')}
+              // Each card as tall as its content: shrink-0 so the frame-high column doesn't squash it (cut
+              // pictures, lost padding), h-auto! so a card made for grids (h-full) doesn't stretch to the column.
+              className={cn('flex min-w-0 flex-1 flex-col gap-[var(--mc-gap)] [&>*]:h-auto! [&>*]:shrink-0', drifting && !focused && 'will-change-transform')}
             >
               {items}
             </div>
