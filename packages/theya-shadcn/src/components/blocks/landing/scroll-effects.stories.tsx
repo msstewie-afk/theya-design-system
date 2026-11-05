@@ -165,7 +165,10 @@ export const MaskReveal: Story = {
   render: () => (
     <div className="bg-[var(--color-bg-surface-bg-surface)]">
       <Spacer label="Scroll down" />
-      <ScrollMaskReveal aria-labelledby="reveal-title" media={<img src="/asset-examples/gradients/iridescent.webp" alt="" className="[[data-theme=dark]_&]:mix-blend-soft-light [[data-theme=dark]_&]:saturate-[1.9]" />}>
+      <ScrollMaskReveal aria-labelledby="reveal-title" media={
+          // Two pictures, one per theme: the dark one is pre-blended (see ThemedImage).
+          <ThemedImage src="/asset-examples/gradients/iridescent" />
+        }>
         <div className="flex max-w-[34rem] flex-col items-start gap-6 rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-8">
           <h2 id="reveal-title" className="m-0 text-balance font-heading text-heading-2xl text-[var(--color-text-text)]">
             Room for everything you read
@@ -220,6 +223,18 @@ export const Sideways: Story = {
 };
 
 // Cool mesh only (Maria, 5.11): blue, cyan and lilac, so the wall reads as one palette. No photos on cards in motion.
+//
+// In the dark theme each picture is swapped for a pre-blended copy (name-dark.webp): the light
+// one soft-lit onto the dark sunken surface and a touch more saturated, so it glows rather than
+// greys out. Baked into the file, not a CSS blend mode: Safari and Chrome render
+// mix-blend-mode with a filter differently (Safari drew flat navy tiles), and a blended edge
+// left a light rim on the rounded corners.
+const ThemedImage = ({ src, className = '' }: { src: string; className?: string }) => (
+  <>
+    <img src={`${src}.webp`} alt="" className={`block [[data-theme=dark]_&]:hidden ${className}`} />
+    <img src={`${src}-dark.webp`} alt="" className={`hidden [[data-theme=dark]_&]:block ${className}`} />
+  </>
+);
 const GRADIENTS = ['blue-portrait', 'cyan-square', 'lilac-portrait', 'blue', 'cyan-portrait', 'lilac'];
 const RATIOS = ['aspect-[3/4]', 'aspect-square', 'aspect-[4/5]', 'aspect-[3/2]', 'aspect-[2/3]', 'aspect-[5/4]'];
 
@@ -229,8 +244,7 @@ export const Masonry: Story = {
     const items = [
       ...GRADIENTS.map((p, i) => (
         <LandingCard key={p} surface="sunken" className="overflow-hidden">
-          {/* Dark theme (Maria, 5.11): the mesh glows into the dark card through soft-light, a touch more saturated. Not opacity (greys out) and not brightness (reads as grime). */}
-          <img src={`/asset-examples/mesh/${p}.webp`} alt="" className={`${RATIOS[i]} block w-full object-cover [[data-theme=dark]_&]:mix-blend-soft-light [[data-theme=dark]_&]:saturate-[1.9]`} />
+          <ThemedImage src={`/asset-examples/mesh/${p}`} className={`${RATIOS[i]} w-full object-cover`} />
           <p className="m-0 p-4 font-body text-body-s font-semibold">{['Blue hour', 'Lagoon', 'Lavender', 'Clear sky', 'Glacier', 'Dusk'][i]}</p>
         </LandingCard>
       )),
