@@ -27,6 +27,10 @@ export interface ScrollJumpProps extends Omit<React.ComponentProps<'div'>, 'chil
   target?: RefObject<HTMLElement | null>;
   /** Corner it sits in. `none` leaves positioning to you (e.g. inside a container). */
   position?: 'bottom-end' | 'bottom-start' | 'none';
+  /** `rounded` (default): the corner radius of a button of that size. `round`: circles. */
+  shape?: 'rounded' | 'round';
+  /** Button size: sm 28px, md 32px (default), lg 36px, xl 40px. */
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   label?: string;
   topLabel?: string;
   bottomLabel?: string;
@@ -41,9 +45,11 @@ const POSITION: Record<NonNullable<ScrollJumpProps['position']>, string> = {
 // Opaque surface with a border, so the buttons read over any content
 // (Theya separates floating surfaces with a border, not a shadow).
 const SURFACE =
-  'border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] not-aria-disabled:hover:bg-[var(--color-bg-neutral-bg-neutral-subtler)]';
+  'border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] not-aria-disabled:hover:bg-[var(--color-bg-neutral-bg-neutral-subtler)]' +
+  // Disabled stays opaque (content scrolls under it); only the arrow dims.
+  ' aria-disabled:opacity-100 aria-disabled:text-[var(--color-text-text-disabled)]';
 
-export function ScrollJump({ target, position = 'bottom-end', label, topLabel, bottomLabel, className, ...props }: ScrollJumpProps) {
+export function ScrollJump({ target, position = 'bottom-end', shape = 'rounded', size = 'md', label, topLabel, bottomLabel, className, ...props }: ScrollJumpProps) {
   const { t } = useTheyaI18n();
   const ref = useRef<HTMLDivElement>(null);
   const [state, setState] = useState({ scrollable: false, atTop: true, atBottom: false });
@@ -84,6 +90,9 @@ export function ScrollJump({ target, position = 'bottom-end', label, topLabel, b
 
   if (!state.scrollable) return null;
 
+  // --theme-radius-button overrides both the per-size and the pressed radius.
+  const buttonClass = cn(SURFACE, shape === 'round' && '[--theme-radius-button:9999px]');
+
   return (
     <div
       ref={ref}
@@ -96,24 +105,24 @@ export function ScrollJump({ target, position = 'bottom-end', label, topLabel, b
       <Button
         appearance="outlined"
         tone="neutral"
-        size="md"
+        size={size}
         iconOnly
         aria-label={topLabel ?? t.scrollJump.top}
         softDisabled={state.atTop}
         onClick={() => jump('top')}
         leftIcon={<NavArrowUp />}
-        className={SURFACE}
+        className={buttonClass}
       />
       <Button
         appearance="outlined"
         tone="neutral"
-        size="md"
+        size={size}
         iconOnly
         aria-label={bottomLabel ?? t.scrollJump.bottom}
         softDisabled={state.atBottom}
         onClick={() => jump('bottom')}
         leftIcon={<NavArrowDown />}
-        className={SURFACE}
+        className={buttonClass}
       />
     </div>
   );

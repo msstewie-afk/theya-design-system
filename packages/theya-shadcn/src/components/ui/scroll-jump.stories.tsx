@@ -17,6 +17,8 @@ const meta: Meta<typeof ScrollJump> = {
   },
   argTypes: {
     position: { control: 'inline-radio', options: ['bottom-end', 'bottom-start', 'none'] },
+    shape: { control: 'inline-radio', options: ['rounded', 'round'] },
+    size: { control: 'inline-radio', options: ['sm', 'md', 'lg', 'xl'] },
   },
 };
 export default meta;
@@ -57,6 +59,26 @@ export const InContainer: Story = {
     await expect(up).not.toHaveAttribute('aria-disabled');
     // Focus stays on the pressed button after the jump.
     await expect(down).toHaveFocus();
+  },
+};
+
+/** Shapes and sizes side by side: rounded (the button radius of each size) and round. */
+export const ShapesAndSizes: Story = {
+  args: { position: 'none' },
+  render: function Render(args) {
+    const box = useRef<HTMLDivElement>(null);
+    return (
+      <div className="relative m-6 h-[22rem] max-w-[60rem] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
+        <div ref={box} className="h-full overflow-y-auto p-6 pe-[26rem]">
+          <Paragraphs />
+        </div>
+        <div className="absolute end-4 bottom-4 flex items-end gap-4">
+          {(['rounded', 'round'] as const).flatMap((shape) =>
+            (['sm', 'md', 'lg', 'xl'] as const).map((size) => <ScrollJump key={shape + size} {...args} target={box} shape={shape} size={size} label={`Page scroll, ${shape} ${size}`} />),
+          )}
+        </div>
+      </div>
+    );
   },
 };
 
