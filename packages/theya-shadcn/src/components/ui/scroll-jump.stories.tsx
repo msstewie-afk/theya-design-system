@@ -41,7 +41,7 @@ export const InContainer: Story = {
     const box = useRef<HTMLDivElement>(null);
     return (
       <div className="relative m-6 h-[28rem] max-w-[48rem] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
-        <div ref={box} className="h-full overflow-y-auto p-6">
+        <div ref={box} tabIndex={0} role="region" aria-label="Article" className="h-full overflow-y-auto p-6 outline-none focus-visible:focus-ring">
           <Paragraphs />
         </div>
         <ScrollJump {...args} target={box} className="absolute end-4 bottom-4" />
@@ -69,10 +69,10 @@ export const ShapesAndSizes: Story = {
     const box = useRef<HTMLDivElement>(null);
     return (
       <div className="relative m-6 h-[22rem] max-w-[60rem] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
-        <div ref={box} className="h-full overflow-y-auto p-6 pe-[26rem]">
+        <div ref={box} tabIndex={0} role="region" aria-label="Article" className="h-full overflow-y-auto p-6 pb-40 outline-none focus-visible:focus-ring sm:pe-[26rem] sm:pb-6">
           <Paragraphs />
         </div>
-        <div className="absolute end-4 bottom-4 flex items-end gap-4">
+        <div className="absolute end-4 bottom-4 flex max-w-[calc(100%-2rem)] flex-wrap items-end justify-end gap-3 sm:gap-4">
           {(['rounded', 'round'] as const).flatMap((shape) =>
             (['sm', 'md', 'lg', 'xl'] as const).map((size) => <ScrollJump key={shape + size} {...args} target={box} shape={shape} size={size} label={`Page scroll, ${shape} ${size}`} />),
           )}
@@ -89,7 +89,7 @@ export const NothingToScroll: Story = {
     const box = useRef<HTMLDivElement>(null);
     return (
       <div className="relative m-6 h-[20rem] max-w-[48rem] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
-        <div ref={box} className="h-full overflow-y-auto p-6">
+        <div ref={box} tabIndex={0} role="region" aria-label="Article" className="h-full overflow-y-auto p-6 outline-none focus-visible:focus-ring">
           <Paragraphs n={2} />
         </div>
         <ScrollJump {...args} target={box} className="absolute end-4 bottom-4" />
