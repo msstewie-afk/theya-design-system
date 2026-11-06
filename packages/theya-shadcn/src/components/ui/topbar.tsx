@@ -292,7 +292,7 @@ export function TopbarSpacer() {
 }
 
 /**
- * Round 34px icon action (notifications, help, …). Pass `badge` to
+ * 32px icon action (size-control-lg) (notifications, help, …). Pass `badge` to
  * show the unread dot — folded into the accessible name as ", unread"
  * since the dot signals state by color alone.
  */
@@ -307,7 +307,8 @@ export function TopbarAction({ className, badge, 'aria-label': ariaLabel, ...pro
       type="button"
       aria-label={badge && ariaLabel ? t.topbar.unread(ariaLabel) : ariaLabel}
       className={cn(
-        'relative grid size-[2.125rem] place-content-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)]',
+        // 32px (size-control-lg), the same height as the topbar Avatar (sm); scales with density (Maria, 6.11).
+        'relative grid size-[var(--size-size-control-size-control-lg)] place-content-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)]',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
         'focus-visible:outline-none focus-visible:focus-ring',
         '[&>svg]:size-[1.125rem]',

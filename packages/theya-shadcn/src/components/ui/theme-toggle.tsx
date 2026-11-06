@@ -30,7 +30,8 @@ export const ThemeToggle = forwardRef<HTMLButtonElement, React.ComponentPropsWit
       aria-label={isDark ? t.themeToggle.toLight : t.themeToggle.toDark}
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       className={cn(
-        'relative grid place-content-center size-[34px]',
+        // 32px (size-control-lg), like TopbarAction and the topbar Avatar; scales with density (Maria, 6.11).
+        'relative grid place-content-center size-[var(--size-size-control-size-control-lg)]',
         'rounded-[var(--size-border-radius-border-radius-md)]',
         'text-[var(--color-icon-icon-subtle)] cursor-pointer',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
