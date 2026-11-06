@@ -21,7 +21,7 @@ const meta: Meta<typeof Stepper> = {
   argTypes: {
     steps: { control: false, description: 'Ordered list of { label, description } steps.' },
     current: { control: { type: 'number', min: 0 }, description: '0-based index of the in-progress step.' },
-    orientation: { control: 'inline-radio', options: ['horizontal', 'vertical'], description: 'Layout direction of the step list.' },
+    orientation: { control: 'inline-radio', options: ['auto', 'horizontal', 'vertical'], description: 'Layout direction. auto: horizontal, vertical on phones with more than two steps or when the steps do not fit.' },
     labelAlign: {
       control: 'inline-radio',
       options: ['start', 'center'],

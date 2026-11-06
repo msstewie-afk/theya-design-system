@@ -55,7 +55,8 @@ export interface OnboardingWizardProps {
   completeLabel?: string;
   backLabel?: string;
   nextLabel?: string;
-  orientation?: 'horizontal' | 'vertical';
+  /** Stepper layout. `auto` (default): vertical on phones with more than two steps or when the steps don't fit. */
+  orientation?: 'horizontal' | 'vertical' | 'auto';
   /** Spinner on the final button while your create call runs (set it from onComplete). */
   completing?: boolean;
   className?: string;
@@ -80,7 +81,7 @@ export function OnboardingWizard({
   completeLabel = 'Create portal',
   backLabel = 'Back',
   nextLabel = 'Next',
-  orientation = 'horizontal',
+  orientation = 'auto',
   completing = false,
   className,
 }: OnboardingWizardProps) {

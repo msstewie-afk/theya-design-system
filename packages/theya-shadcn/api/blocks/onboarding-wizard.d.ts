@@ -24,7 +24,7 @@ export interface OnboardingWizardProps {
     completeLabel?: string;
     backLabel?: string;
     nextLabel?: string;
-    orientation?: 'horizontal' | 'vertical';
+    orientation?: 'horizontal' | 'vertical' | 'auto';
     completing?: boolean;
     className?: string;
 }

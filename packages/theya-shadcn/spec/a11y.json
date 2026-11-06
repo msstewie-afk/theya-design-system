@@ -19592,7 +19592,7 @@
       "name": "SearchResults",
       "title": "Patterns: Search/SearchResults",
       "axe": {
-        "stories": 4,
+        "stories": 5,
         "themes": [
           "light",
           "dark"
@@ -19773,7 +19773,7 @@
       "name": "WorkspaceLayout",
       "title": "Patterns/WorkspaceLayout",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"

@@ -9,7 +9,7 @@ export interface StepperStep {
 export interface StepperProps extends Omit<React.ComponentProps<'ol'>, 'children'> {
     steps: StepperStep[];
     current: number;
-    orientation?: 'horizontal' | 'vertical';
+    orientation?: 'horizontal' | 'vertical' | 'auto';
     labelAlign?: 'start' | 'center';
     onStepClick?: (index: number) => void;
 }
@@ -17,4 +17,4 @@ export declare function Stepper({ className, steps, current, orientation, labelA
 
 // Defaults
 // Stepper.labelAlign = start
-// Stepper.orientation = horizontal
+// Stepper.orientation = auto

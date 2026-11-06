@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { WarningTriangle, ArrowRight, CheckCircle, MediaImageList, Pause, Refresh, Copyright, Eye } from 'iconoir-react';
 import { cn } from '../../lib/utils';
 import { Badge } from '../ui/badge';
+import { Alert, AlertDescription } from '../ui/alert';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Separator } from '../ui/separator';
@@ -215,12 +216,15 @@ export function DashboardOverview({
       </header>
 
       <div className="flex flex-col gap-4">
-        <div className="flex min-w-0 flex-wrap items-center justify-between gap-2">
+        {/* items-start + a 1lh box in the title's type: the count sits on the
+            title's line, not centered on title + description. */}
+        <div className="flex min-w-0 flex-wrap items-start justify-between gap-2">
           <div className="min-w-0">
             <h2 className="font-body text-body-l font-semibold leading-tight text-[var(--color-text-text)]">Needs attention</h2>
             <CardDescription>{attentionCount > 0 ? 'The items most in need of action right now' : 'Everything is healthy right now'}</CardDescription>
           </div>
           {attentionCount > 0 && (
+            <span className="flex h-[1lh] items-center font-body text-body-l leading-tight">
             <Badge tone="warning">
               <StatusDot tone="warning" />
               <span className="tabular-nums">{attentionCount}</span>
@@ -231,6 +235,7 @@ export function DashboardOverview({
                 </>
               )}
             </Badge>
+            </span>
           )}
         </div>
 
@@ -250,8 +255,12 @@ export function DashboardOverview({
                     <span className="sr-only">{item.severity}: </span>
                     <span className="truncate font-mono text-body-m font-code-medium">{item.id}</span>
                   </div>
-                  <p className={cn('flex items-center gap-1 font-body text-body-s', item.tone === 'danger' ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-warning)]')}>
-                    <WarningTriangle className="size-3.5 shrink-0" aria-hidden="true" />
+                  {/* Indented to the id's text (dot 7px + gap 8px), not to the dot;
+                      the icon sits on the first line when the reason wraps. */}
+                  <p className={cn('flex items-start gap-1 ps-[calc(0.4375rem+0.5rem)] font-body text-body-s', item.tone === 'danger' ? 'text-[var(--color-text-text-danger)]' : 'text-[var(--color-text-text-warning)]')}>
+                    <span className="flex h-[1lh] shrink-0 items-center">
+                      <WarningTriangle className="size-3.5" aria-hidden="true" />
+                    </span>
                     <span className="min-w-0 break-words">
                       <span className="font-medium">{item.severity}</span>
                       {' · '}
@@ -277,10 +286,11 @@ export function DashboardOverview({
             ))}
           </ul>
         ) : (
-          <div className="flex items-center gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] px-5 py-4">
-            <CheckCircle className="size-5 shrink-0 text-[var(--color-icon-icon-success)]" aria-hidden="true" />
-            <p className="font-body text-body-s">Nothing needs your attention.</p>
-          </div>
+          // A status message, so it is an Alert (Maria, 2026-11-06), not a card row.
+          <Alert tone="success">
+            <CheckCircle aria-hidden="true" />
+            <AlertDescription>Nothing needs your attention.</AlertDescription>
+          </Alert>
         )}
 
         {attentionCount > 0 && (onViewAll || viewAllHref) && (

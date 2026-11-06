@@ -78,7 +78,8 @@ export function CompareBar({ items, max = 4, onRemove, onClear, onCompare, class
         className,
       )}
     >
-      <ul className="grid min-w-0 flex-1 grid-cols-2 gap-2 @3xl:grid-cols-4">
+      {/* One pick per row on phones: two columns broke names mid-word ("essential/s"). */}
+      <ul className="grid min-w-0 flex-1 grid-cols-1 gap-2 @sm:grid-cols-2 @3xl:grid-cols-4">
         {Array.from({ length: max }, (_, i) => {
           const item = items[i];
           if (!item)

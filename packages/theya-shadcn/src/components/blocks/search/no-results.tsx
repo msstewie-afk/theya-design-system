@@ -45,7 +45,9 @@ export function SearchNoResults({ query, scope, elsewhere = [], didYouMean, popu
         <span aria-hidden="true" className={cn(hideTitle && 'hidden', 'grid size-10 shrink-0 place-items-center rounded-full bg-[var(--color-bg-neutral-bg-neutral-subtle)] text-[var(--color-icon-icon-subtle)] [&_svg]:size-5')}>
           <Search />
         </span>
-        <div className="flex min-w-0 flex-col gap-1">
+        {/* Title line centred on the 40px icon (with or without a description
+            under it): the text column starts half the leftover height down. */}
+        <div className="mt-[calc((2.5rem-var(--typography-body-l-line-height))/2)] flex min-w-0 flex-col gap-1">
           {!hideTitle && <p className="font-body text-body-l font-semibold text-[var(--color-text-text)]">{where ? `No ${where} match “${query}”` : `Nothing matches “${query}”`}</p>}
           {didYouMean && (
             <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">
@@ -95,9 +97,10 @@ export function SearchNoResults({ query, scope, elsewhere = [], didYouMean, popu
           <ul className="flex flex-col gap-1">
             {popular.map((p) => (
               <li key={p.id}>
-                <a href={p.href} className="-mx-3 flex items-center gap-3 rounded-[var(--size-border-radius-border-radius-md)] px-3 py-2 outline-none hover:bg-[var(--color-bg-neutral-bg-neutral-subtler)] focus-visible:focus-ring">
+                <a href={p.href} className="-mx-3 flex items-start gap-3 rounded-[var(--size-border-radius-border-radius-md)] px-3 py-2 outline-none hover:bg-[var(--color-bg-neutral-bg-neutral-subtler)] focus-visible:focus-ring">
                   <TypeIcon type={p.type} />
-                  <span className="min-w-0">
+                  {/* The icon sits on the title's line, not mid-way down a wrapped title + context. */}
+                  <span className="mt-[calc((2rem-var(--typography-body-m-line-height))/2)] min-w-0">
                     <span className="block font-body text-body-m font-medium text-[var(--color-text-text)]">{p.title}</span>
                     {p.context && <span className="block font-body text-body-s text-[var(--color-text-text-subtler)]">{p.context}</span>}
                   </span>

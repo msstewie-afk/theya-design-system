@@ -228,7 +228,8 @@ export function ResultList({ items, query, className }: { items: SearchItem[]; q
       {items.map((item) => (
         <li key={item.id} className="relative -mx-3 flex items-start gap-3 rounded-[var(--size-border-radius-border-radius-lg)] px-3 py-3 has-[a:hover]:bg-[var(--color-bg-neutral-bg-neutral-subtler)] has-[a:focus-visible]:focus-ring">
           <TypeIcon type={item.type} />
-          <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+          {/* Title line centred on the 32px type icon. */}
+          <div className="mt-[calc((2rem-var(--typography-body-m-line-height))/2)] flex min-w-0 flex-1 flex-col gap-0.5">
             {/* The title link stretches over the whole row; the ring is drawn on the row. */}
             <a href={item.href} className="font-body text-body-m font-medium text-[var(--color-text-text)] outline-none after:absolute after:inset-0 after:content-['']">
               <Highlight text={item.title} query={query} />

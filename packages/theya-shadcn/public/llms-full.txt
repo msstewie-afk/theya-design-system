@@ -9061,7 +9061,7 @@ Docs: ./?path=/docs/navigation-stepper--docs
 - `steps`: `StepperStep[]`
 - `labelAlign?`: `"center" | "start"`, default `start` — Horizontal only: "start" matches the indicator's left edge; "center" pins under it (short labels only).
 - `onStepClick?`: `((index: number) => void)` — Makes completed steps clickable (their label becomes a button), so
-- `orientation?`: `"horizontal" | "vertical"`, default `horizontal`
+- `orientation?`: `"horizontal" | "vertical" | "auto"`, default `auto` — `auto` (default): horizontal, but vertical when the steps don't fit the
 
 Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes, OlHTMLAttributes.
 

@@ -286,6 +286,8 @@ export function TagInput({
             className={cn(
               'min-w-[6rem] flex-1 bg-transparent px-1 py-0.5 font-body outline-none',
               'text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-placeholder)] disabled:cursor-not-allowed',
+              // Error state: same text colors as TextField / NumberField / Combobox.
+              'aria-[invalid=true]:text-[var(--color-text-text-danger)] aria-[invalid=true]:placeholder:text-[var(--color-text-text-danger)]',
               heightSize === 'sm' ? 'text-body-s' : 'text-body-m',
             )}
           />

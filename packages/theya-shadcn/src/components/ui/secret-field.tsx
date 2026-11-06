@@ -42,14 +42,17 @@ function SecretField({
   return (
     <div
       className={cn(
-        'flex items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
+        // Grows when a long key wraps (phones); the buttons stay on the first line
+        // (Maria, 2026-11-06), not centered on two. One line still reads as a 40px field:
+        // the code's padding fills the rest of the control height around one line.
+        'flex min-h-[var(--size-size-control-size-control-2xl)] items-start gap-2 py-1 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
         'border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         // 12px start inset like every 40px field; the end keeps the buttons where they were.
-        'h-[var(--size-size-control-size-control-2xl)] ps-[var(--size-padding-padding-md)] pe-[var(--size-margin-margin-s)]',
+        'ps-[var(--size-padding-padding-md)] pe-[var(--size-margin-margin-s)]',
         className,
       )}
     >
-      <code className="min-w-0 flex-1 break-all font-mono text-body-s text-[var(--color-text-text)]">
+      <code className="min-w-0 flex-1 break-all py-[calc((var(--size-size-control-size-control-2xl)-0.5rem-1lh)/2)] font-mono text-body-s text-[var(--color-text-text)]">
         {revealed ? (
           value
         ) : (
@@ -62,6 +65,7 @@ function SecretField({
           </>
         )}
       </code>
+      <span className="flex h-[calc(var(--size-size-control-size-control-2xl)-0.5rem)] shrink-0 items-center gap-2">
       {revealable && (
         <Button
           appearance="ghost"
@@ -99,6 +103,7 @@ function SecretField({
           });
         }}
       />
+      </span>
     </div>
   );
 }

@@ -18,6 +18,12 @@ type Story = StoryObj<typeof SearchResults>;
 /** Grouped by type with counts; "View all" narrows to one type; the query stays in the field. */
 export const Default: Story = {
   args: { defaultQuery: 'selene', groupSize: 2 },
+};
+
+/** Interaction test for Default, kept out of Default so it opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('heading', { level: 1 })).toHaveTextContent('results for “selene”');

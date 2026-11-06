@@ -93,13 +93,15 @@
         },
         {
           "name": "orientation",
-          "type": "\"horizontal\" | \"vertical\"",
+          "type": "\"horizontal\" | \"vertical\" | \"auto\"",
           "values": [
             "horizontal",
-            "vertical"
+            "vertical",
+            "auto"
           ],
           "required": false,
-          "default": "horizontal"
+          "default": "auto",
+          "description": "`auto` (default): horizontal, but vertical when the steps don't fit the\nwidth, or when the stepper is narrower than 640px (a phone) and has more\nthan two steps (Maria, 2026-11-06). `horizontal` / `vertical` force one."
         }
       ]
     }

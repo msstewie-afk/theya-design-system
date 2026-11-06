@@ -29,7 +29,7 @@ const meta: Meta<typeof OnboardingWizard> = {
     completeLabel: { control: 'text', description: 'Label for the final step\'s action button.', table: { category: 'Content' } },
     backLabel: { control: 'text', description: 'Label for the back button.', table: { category: 'Content' } },
     nextLabel: { control: 'text', description: 'Label for the next button.', table: { category: 'Content' } },
-    orientation: { control: 'inline-radio', options: ['horizontal', 'vertical'], description: 'Stepper layout direction.', table: { category: 'Appearance' } },
+    orientation: { control: 'inline-radio', options: ['auto', 'horizontal', 'vertical'], description: 'Stepper layout direction. auto: vertical on phones with more than two steps or when the steps do not fit.', table: { category: 'Appearance' } },
   },
 };
 

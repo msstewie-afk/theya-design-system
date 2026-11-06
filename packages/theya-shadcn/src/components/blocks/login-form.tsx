@@ -4,7 +4,7 @@ import { useId, useState } from 'react';
 import type { ComponentProps, FormEventHandler, ReactNode } from 'react';
 import { Github, WarningCircle } from 'iconoir-react';
 import { Button } from '../ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
+import { Card, CardContent } from '../ui/card';
 import { Checkbox } from '../ui/checkbox';
 import { TextField } from '../ui/text-field';
 import { Password } from '../ui/password';
@@ -167,10 +167,9 @@ export function LoginForm({ className, onSubmit, appName = 'Aether', forgotHref 
       {card ? (
         <Card>
           <form onSubmit={handleSubmit} noValidate>
-            <CardHeader className="sr-only">
-              <CardTitle>Sign in</CardTitle>
-              <CardDescription>Use your email and password.</CardDescription>
-            </CardHeader>
+            {/* No visually hidden CardHeader: the page heading above already names
+                the form, and the hidden header still took ~40px above the fields
+                (Maria, 2026-11-06: "huge top padding"). */}
             <CardContent className="flex flex-col gap-4">{fields}</CardContent>
           </form>
         </Card>

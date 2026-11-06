@@ -266,6 +266,14 @@ export const decorators = [
 ];
 
 const preview: Preview = {
+  // A play function ends wherever its last step left focus (a button it
+  // clicked, a field it typed into), so the story opened with a focus ring on
+  // some control (Maria, 2026-11-06: "strange default focus"). The assertions
+  // have run by now; drop the focus so the story looks as a visitor first sees it.
+  experimental_afterEach: () => {
+    const el = document.activeElement;
+    if (el instanceof HTMLElement && el !== document.body) el.blur();
+  },
   parameters: {
     // axe: aria-hidden-focus skips what an open Radix modal hides on purpose.
     // While a Dialog / AlertDialog / Drawer / menu is open, Radix's hideOthers

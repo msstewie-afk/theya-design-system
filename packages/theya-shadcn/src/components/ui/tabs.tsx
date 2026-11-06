@@ -2,7 +2,7 @@
 
 import { forwardRef, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
-import { Xmark } from 'iconoir-react';
+import { NavArrowLeft, NavArrowRight, Xmark } from 'iconoir-react';
 import { cn } from '../../lib/utils';
 
 /**
@@ -10,6 +10,12 @@ import { cn } from '../../lib/utils';
  * by two signals — the underline's border-color swap and a text-color
  * swap — no background fill by default, so a busy tablist (icons, badges,
  * a close button) doesn't compete with its own active-state fill.
+ *
+ * When the tabs don't fit, the list scrolls sideways and a chevron appears
+ * on the side that has more (Maria, 2026-11-06). The chevrons are for
+ * pointer and touch users and are hidden from assistive tech and the Tab
+ * order: arrow keys already move between tabs, and Radix scrolls the
+ * focused tab into view.
  */
 export const Tabs = TabsPrimitive.Root;
 
@@ -28,6 +34,33 @@ export function TabsList({ className, children, variant = 'underline', onPointer
   const [hovered, setHovered] = useState<HTMLElement | null>(null);
   const chips = variant === 'chips';
   const measureRef = useRef<() => void>(() => {});
+  // Which ends have hidden tabs: start / end in reading direction.
+  const [more, setMore] = useState({ start: false, end: false });
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const update = () => {
+      // scrollLeft is negative in RTL; the distance from the start edge is its absolute value.
+      const from = Math.abs(list.scrollLeft), max = list.scrollWidth - list.clientWidth;
+      const next = { start: from > 1, end: from < max - 1 };
+      setMore((prev) => (prev.start === next.start && prev.end === next.end ? prev : next));
+    };
+    update();
+    list.addEventListener('scroll', update, { passive: true });
+    const ro = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(update);
+    ro?.observe(list);
+    return () => {
+      list.removeEventListener('scroll', update);
+      ro?.disconnect();
+    };
+  }, []);
+  const scrollBy = (dir: 1 | -1) => {
+    const list = listRef.current;
+    if (!list) return;
+    const rtl = getComputedStyle(list).direction === 'rtl';
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    list.scrollBy({ left: dir * (rtl ? -1 : 1) * list.clientWidth * 0.75, behavior: reduce ? 'auto' : 'smooth' });
+  };
 
   // One marker that glides to the active tab and takes its width (Kinetics' Tab Pill
   // Glide, MIT): an underline, or for chips a pill. Measured after layout and again when
@@ -61,6 +94,7 @@ export function TabsList({ className, children, variant = 'underline', onPointer
   useLayoutEffect(() => measureRef.current(), [hovered]);
 
   return (
+    <div data-slot="tabs-list-frame" className={cn('relative flex min-w-0 max-w-full', chips && 'w-fit')}>
     <TabsPrimitive.List
       ref={listRef}
       data-glide={bar ? '' : undefined}
@@ -101,6 +135,30 @@ export function TabsList({ className, children, variant = 'underline', onPointer
       )}
       {children}
     </TabsPrimitive.List>
+      {(['start', 'end'] as const).map((side) =>
+        more[side] ? (
+          <button
+            key={side}
+            type="button"
+            tabIndex={-1}
+            aria-hidden="true"
+            data-slot="tabs-scroll"
+            onClick={() => scrollBy(side === 'start' ? -1 : 1)}
+            className={cn(
+              'absolute inset-y-0 z-1 flex w-8 cursor-pointer items-center justify-center border-0 p-0 text-[var(--color-icon-icon-subtle)] outline-none',
+              'hover:text-[var(--color-icon-icon)] [&_svg]:size-4 rtl:[&_svg]:-scale-x-100',
+              // Fades the tabs out under the chevron, in the surface color behind the list.
+              side === 'start'
+                ? 'start-0 bg-[linear-gradient(to_right,var(--tabs-fade,var(--color-bg-surface-bg-surface))_60%,transparent)] rtl:bg-[linear-gradient(to_left,var(--tabs-fade,var(--color-bg-surface-bg-surface))_60%,transparent)]'
+                : 'end-0 bg-[linear-gradient(to_left,var(--tabs-fade,var(--color-bg-surface-bg-surface))_60%,transparent)] rtl:bg-[linear-gradient(to_right,var(--tabs-fade,var(--color-bg-surface-bg-surface))_60%,transparent)]',
+              chips && 'rounded-full',
+            )}
+          >
+            {side === 'start' ? <NavArrowLeft /> : <NavArrowRight />}
+          </button>
+        ) : null,
+      )}
+    </div>
   );
 }
 

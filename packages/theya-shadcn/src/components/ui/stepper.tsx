@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, type ReactNode } from 'react';
+import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { Check } from 'iconoir-react';
 import { cn } from '../../lib/utils';
 import { useTheyaI18n } from '../../lib/i18n';
@@ -30,7 +30,12 @@ export interface StepperProps extends Omit<React.ComponentProps<'ol'>, 'children
   steps: StepperStep[];
   /** 0-based index of the in-progress step. */
   current: number;
-  orientation?: 'horizontal' | 'vertical';
+  /**
+   * `auto` (default): horizontal, but vertical when the steps don't fit the
+   * width, or when the stepper is narrower than 640px (a phone) and has more
+   * than two steps (Maria, 2026-11-06). `horizontal` / `vertical` force one.
+   */
+  orientation?: 'horizontal' | 'vertical' | 'auto';
   /** Horizontal only: "start" matches the indicator's left edge; "center" pins under it (short labels only). */
   labelAlign?: 'start' | 'center';
   /**
@@ -45,7 +50,7 @@ export function Stepper({
   className,
   steps,
   current,
-  orientation = 'horizontal',
+  orientation = 'auto',
   labelAlign = 'start',
   onStepClick,
   'aria-label': ariaLabel,
@@ -53,8 +58,36 @@ export function Stepper({
 }: StepperProps) {
   const { t } = useTheyaI18n();
   if (ariaLabel === undefined) ariaLabel = t.stepper.label;
-  const isVertical = orientation === 'vertical';
   const total = steps.length;
+  const listRef = useRef<HTMLOListElement>(null);
+  const [autoVertical, setAutoVertical] = useState(false);
+  // Width the horizontal layout needed when it last overflowed, so a wider
+  // container can switch back without flip-flopping.
+  const neededWidth = useRef(0);
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (orientation !== 'auto' || !list) return;
+    const check = () => {
+      const width = list.clientWidth;
+      if (!width) return;
+      setAutoVertical((vertical) => {
+        if (width < 640 && total > 2) return true;
+        if (!vertical) {
+          if (list.scrollWidth > width + 1) {
+            neededWidth.current = list.scrollWidth;
+            return true;
+          }
+          return false;
+        }
+        return width < neededWidth.current;
+      });
+    };
+    check();
+    const ro = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(check);
+    ro?.observe(list);
+    return () => ro?.disconnect();
+  }, [orientation, total]);
+  const isVertical = orientation === 'vertical' || (orientation === 'auto' && autoVertical);
   const safeCurrent = Number.isFinite(current) ? Math.min(Math.max(Math.trunc(current), -1), total) : -1;
   // Motion (Kinetics' Step Progress, MIT): a segment fills when the step before it
   // completes, then the new current step pops — once the step has actually changed,
@@ -65,8 +98,10 @@ export function Stepper({
 
   return (
     <ol
+      ref={listRef}
       role="list"
       aria-label={ariaLabel}
+      data-orientation={isVertical ? 'vertical' : 'horizontal'}
       className={cn('flex w-full min-w-0', isVertical ? 'flex-col' : 'flex-row items-start', className)}
       {...props}
     >

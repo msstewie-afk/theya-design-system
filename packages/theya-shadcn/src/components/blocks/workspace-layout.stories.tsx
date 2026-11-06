@@ -37,8 +37,27 @@ const meta: Meta<typeof WorkspaceLayout> = {
 export default meta;
 type Story = StoryObj<typeof WorkspaceLayout>;
 
-/** Skip link, nav selection, collapse/expand, and the topbar actions. */
+/** The workspace shell as it first opens: sidebar on desktop, a menu button and drawer on phones. */
 export const Default: Story = {
+
+  args: { onSearch: fn(), onOpenNotifications: fn(), onOpenHelp: fn(), unreadNotifications: true },
+  render: (args) => (
+    <WorkspaceLayout onSearch={args.onSearch} onOpenNotifications={args.onOpenNotifications} onOpenHelp={args.onOpenHelp} unreadNotifications={args.unreadNotifications}>
+      <div className="px-4 py-6 md:px-6">
+        <h2 className="font-body text-heading-s font-semibold text-[var(--color-text-text)]">Dashboard</h2>
+        <p className="mt-2 font-body text-body-s text-[var(--color-text-text-subtler)]">Page content goes here.</p>
+      </div>
+    </WorkspaceLayout>
+  ),
+};
+
+/**
+ * Interaction test, kept out of Default so Default opens untouched (Maria,
+ * 2026-11-06: on a phone the test left the drawer and nav state behind):
+ * skip link, nav selection, collapse/expand, and the topbar actions.
+ */
+export const TestKeyboardAndNav: Story = {
+  name: 'Test: keyboard and nav',
 
   args: { onSearch: fn(), onOpenNotifications: fn(), onOpenHelp: fn(), unreadNotifications: true },
   render: (args) => (
