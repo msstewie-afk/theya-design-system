@@ -109,6 +109,27 @@ function ProductNav({ defaultValue }: { defaultValue?: string }) {
 /** Two sections that open a panel of links, plus a plain Pricing link; Enter opens a panel and Escape closes it, returning focus to its trigger. */
 export const Default: Story = {
   render: () => <ProductNav />,
+};
+
+/** The Products panel open by default — no click needed to see the mega-menu grid. */
+export const Open: Story = {
+  render: () => <ProductNav defaultValue="products" />,
+  // Open from the start, and the flyout floats (position: fixed): reserve
+  // room so it doesn't cover the next block on the Docs page.
+  decorators: [(Story) => <div className="min-h-[14rem]"><Story /></div>],
+  parameters: {
+    // Opened by `defaultValue`, not from the keyboard: Radix sends Tab from a
+    // trigger into its panel only when the panel was opened with Enter /
+    // Space / ↓ (as in Default), so here Tab passes over the open panel.
+    a11y: { auto: { skip: ['2.1.1'], reason: 'Panel opened programmatically; the keyboard path is Enter on the trigger (Default story).' } },
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const nav = canvas.getByRole('navigation', { name: 'Product menu' });
@@ -123,19 +144,5 @@ export const Default: Story = {
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(products).toHaveAttribute('aria-expanded', 'false'));
     await expect(products).toHaveFocus();
-  },
-};
-
-/** The Products panel open by default — no click needed to see the mega-menu grid. */
-export const Open: Story = {
-  render: () => <ProductNav defaultValue="products" />,
-  // Open from the start, and the flyout floats (position: fixed): reserve
-  // room so it doesn't cover the next block on the Docs page.
-  decorators: [(Story) => <div className="min-h-[14rem]"><Story /></div>],
-  parameters: {
-    // Opened by `defaultValue`, not from the keyboard: Radix sends Tab from a
-    // trigger into its panel only when the panel was opened with Enter /
-    // Space / ↓ (as in Default), so here Tab passes over the open panel.
-    a11y: { auto: { skip: ['2.1.1'], reason: 'Panel opened programmatically; the keyboard path is Enter on the trigger (Default story).' } },
   },
 };

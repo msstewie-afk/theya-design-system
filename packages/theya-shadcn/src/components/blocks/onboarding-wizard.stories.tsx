@@ -49,6 +49,60 @@ export const Default: Story = {
       <OnboardingWizard onComplete={args.onComplete} />
     </div>
   ),
+};
+
+/** `orientation="vertical"` lists the Stepper's steps top to bottom instead of across. */
+export const Vertical: Story = {
+  render: () => (
+    <div className="flex max-w-3xl p-6">
+      <OnboardingWizard orientation="vertical" onComplete={fn()} />
+    </div>
+  ),
+};
+
+/** A step whose state lives inside it (an uncontrolled field). */
+function NotesStep() {
+  return (
+    <div className="flex flex-col gap-2">
+      <Label htmlFor="wizard-notes">Notes</Label>
+      <TextField id="wizard-notes" defaultValue="" widthSize="full" />
+    </div>
+  );
+}
+
+/**
+ * Consumer-supplied steps keep their own state across Back/Next: inactive
+ * steps are hidden, not unmounted, so nothing resets.
+ */
+export const CustomSteps: Story = {
+  render: () => (
+    <div className="p-6">
+      <OnboardingWizard
+        title="Request access"
+        completeLabel="Send request"
+        steps={[
+          { id: 'notes', label: 'Notes', content: <NotesStep /> },
+          { id: 'confirm', label: 'Confirm', content: <p className="font-body text-body-m">Ready to send.</p> },
+        ]}
+      />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByRole('textbox', { name: 'Notes' }), 'Need archive access');
+    await userEvent.click(canvas.getByRole('button', { name: 'Next' }));
+    await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 2 of 2: Confirm'));
+    await userEvent.click(canvas.getByRole('button', { name: 'Back' }));
+    await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 2: Notes'));
+    await expect(canvas.getByRole('textbox', { name: 'Notes' })).toHaveValue('Need archive access');
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const next = canvas.getByRole('button', { name: 'Next' });
@@ -101,52 +155,5 @@ export const Default: Story = {
 
     await userEvent.click(canvas.getByRole('button', { name: 'Create portal' }));
     await expect(args.onComplete).toHaveBeenCalledTimes(1);
-  },
-};
-
-/** `orientation="vertical"` lists the Stepper's steps top to bottom instead of across. */
-export const Vertical: Story = {
-  render: () => (
-    <div className="flex max-w-3xl p-6">
-      <OnboardingWizard orientation="vertical" onComplete={fn()} />
-    </div>
-  ),
-};
-
-/** A step whose state lives inside it (an uncontrolled field). */
-function NotesStep() {
-  return (
-    <div className="flex flex-col gap-2">
-      <Label htmlFor="wizard-notes">Notes</Label>
-      <TextField id="wizard-notes" defaultValue="" widthSize="full" />
-    </div>
-  );
-}
-
-/**
- * Consumer-supplied steps keep their own state across Back/Next: inactive
- * steps are hidden, not unmounted, so nothing resets.
- */
-export const CustomSteps: Story = {
-  render: () => (
-    <div className="p-6">
-      <OnboardingWizard
-        title="Request access"
-        completeLabel="Send request"
-        steps={[
-          { id: 'notes', label: 'Notes', content: <NotesStep /> },
-          { id: 'confirm', label: 'Confirm', content: <p className="font-body text-body-m">Ready to send.</p> },
-        ]}
-      />
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.type(canvas.getByRole('textbox', { name: 'Notes' }), 'Need archive access');
-    await userEvent.click(canvas.getByRole('button', { name: 'Next' }));
-    await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 2 of 2: Confirm'));
-    await userEvent.click(canvas.getByRole('button', { name: 'Back' }));
-    await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 2: Notes'));
-    await expect(canvas.getByRole('textbox', { name: 'Notes' })).toHaveValue('Need archive access');
   },
 };

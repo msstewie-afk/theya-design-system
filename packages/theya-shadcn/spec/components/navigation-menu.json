@@ -109,6 +109,10 @@
       {
         "name": "Open",
         "id": "navigation-navigationmenu--open"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "navigation-navigationmenu--test-interactions"
       }
     ]
   }

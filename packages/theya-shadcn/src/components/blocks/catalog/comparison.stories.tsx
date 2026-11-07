@@ -23,30 +23,7 @@ export default meta;
 type Story = StoryObj<typeof CompareFlow>;
 
 /** Tick "Compare" on cards, the tray collects them, "Compare (n)" opens the table. */
-export const Default: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('checkbox', { name: 'Compare Golden hour presets' }));
-    const bar = canvas.getByRole('region', { name: 'Comparison' });
-    const go = within(bar).getByRole('button', { name: 'Compare (1)' });
-    await expect(go).toHaveAccessibleDescription('Pick at least 2 to compare.');
-    await userEvent.click(go);
-    await expect(canvas.queryByRole('heading', { name: /Comparing/ })).not.toBeInTheDocument();
-
-    await userEvent.click(canvas.getByRole('checkbox', { name: 'Compare Skin tone essentials' }));
-    await userEvent.click(within(bar).getByRole('button', { name: 'Compare (2)' }));
-    await waitFor(() => expect(canvas.getByRole('heading', { name: 'Comparing 2 products' })).toHaveFocus());
-
-    // Both are Presets: the row goes away with "Only differences".
-    await expect(canvas.getByRole('rowheader', { name: 'Category' })).toBeVisible();
-    await userEvent.click(canvas.getByRole('switch', { name: 'Only differences' }));
-    await expect(canvas.queryByRole('rowheader', { name: 'Category' })).not.toBeInTheDocument();
-
-    await userEvent.click(canvas.getByRole('button', { name: 'Back to results' }));
-    await waitFor(() => expect(canvas.getByRole('button', { name: 'Compare (2)' })).toHaveFocus());
-    await expect(canvas.getByRole('checkbox', { name: 'Compare Skin tone essentials' })).toBeChecked();
-  },
-};
+export const Default: Story = {};
 
 /** At the limit, the other cards can't be added and the tray says why. */
 export const Full: Story = {
@@ -132,4 +109,33 @@ export const TableRemoveFocus: Story = {
 /** The table on its own: attribute column pinned, columns scroll sideways when narrow. */
 export const Table: StoryObj<typeof ComparisonTable> = {
   render: () => <ComparisonTable items={DEMO_ITEMS.filter((i) => ['client-proofing', 'extra-storage', 'watermark-studio'].includes(i.id))} />,
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Compare Golden hour presets' }));
+    const bar = canvas.getByRole('region', { name: 'Comparison' });
+    const go = within(bar).getByRole('button', { name: 'Compare (1)' });
+    await expect(go).toHaveAccessibleDescription('Pick at least 2 to compare.');
+    await userEvent.click(go);
+    await expect(canvas.queryByRole('heading', { name: /Comparing/ })).not.toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Compare Skin tone essentials' }));
+    await userEvent.click(within(bar).getByRole('button', { name: 'Compare (2)' }));
+    await waitFor(() => expect(canvas.getByRole('heading', { name: 'Comparing 2 products' })).toHaveFocus());
+
+    // Both are Presets: the row goes away with "Only differences".
+    await expect(canvas.getByRole('rowheader', { name: 'Category' })).toBeVisible();
+    await userEvent.click(canvas.getByRole('switch', { name: 'Only differences' }));
+    await expect(canvas.queryByRole('rowheader', { name: 'Category' })).not.toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Back to results' }));
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Compare (2)' })).toHaveFocus());
+    await expect(canvas.getByRole('checkbox', { name: 'Compare Skin tone essentials' })).toBeChecked();
+  },
 };

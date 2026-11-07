@@ -110,6 +110,10 @@
       {
         "name": "VerificationFlow",
         "id": "text-input-inputotp--verification-flow"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "text-input-inputotp--test-interactions"
       }
     ]
   }

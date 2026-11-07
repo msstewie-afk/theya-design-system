@@ -186,6 +186,10 @@
       {
         "name": "OpenMenu",
         "id": "navigation-menubar--open-menu"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "navigation-menubar--test-interactions"
       }
     ]
   }

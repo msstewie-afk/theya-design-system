@@ -85,6 +85,10 @@
       {
         "name": "Default",
         "id": "navigation-urltabs--default"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "navigation-urltabs--test-interactions"
       }
     ]
   }

@@ -123,41 +123,6 @@ function DemoLayout({ inverse }: { inverse?: boolean }) {
 export const Default: Story = {
 
   render: () => <DemoLayout />,
-  play: async ({ canvasElement }) => {
-    // Phone (below md): the rail becomes a drawer, opened from the topbar's menu button.
-    const phone = window.matchMedia('(max-width: 767.98px)').matches;
-    if (phone) {
-      const c = within(canvasElement);
-      const menu = c.getByRole('button', { name: 'Open menu' });
-      await userEvent.click(menu);
-      const drawer = await within(document.body).findByRole('dialog');
-      const dashboard = within(drawer).getByRole('button', { name: 'Dashboard' });
-      await userEvent.click(dashboard);
-      await expect(dashboard).toHaveAttribute('aria-current', 'page');
-      await userEvent.keyboard('{Escape}');
-      // vaul keeps the drawer mounted through its exit animation (~500ms).
-      await waitFor(() => expect(within(document.body).queryByRole('dialog')).toBeNull(), { timeout: 2500 });
-      await waitFor(() => expect(menu).toHaveFocus(), { timeout: 2500 });
-      return;
-    }
-
-    const canvas = within(canvasElement);
-    const nav = within(canvas.getByRole('navigation', { name: 'Main' }));
-    // onClick-only items are real, focusable buttons with aria-current.
-    const galleries = nav.getByRole('button', { name: /Galleries/ });
-    await expect(galleries).toHaveAttribute('aria-current', 'page');
-    const dashboard = nav.getByRole('button', { name: 'Dashboard' });
-    dashboard.focus();
-    await userEvent.keyboard('{Enter}');
-    await expect(dashboard).toHaveAttribute('aria-current', 'page');
-    await expect(galleries).not.toHaveAttribute('aria-current');
-
-    // Collapse <-> expand swaps buttons; focus follows instead of dropping.
-    await userEvent.click(canvas.getByRole('button', { name: 'Collapse sidebar' }));
-    await waitFor(() => expect(canvas.getByRole('button', { name: 'Expand sidebar' })).toHaveFocus());
-    await userEvent.keyboard('{Enter}');
-    await waitFor(() => expect(canvas.getByRole('button', { name: 'Collapse sidebar' })).toHaveFocus());
-  },
 };
 
 /** `inverse` puts the rail on the dark token set regardless of the page's own theme (`data-theme="dark"` scoped to the rail). */
@@ -226,4 +191,46 @@ function AccountLayout() {
 export const WithAccount: Story = {
   name: 'With account',
   render: () => <AccountLayout />,
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    // Phone (below md): the rail becomes a drawer, opened from the topbar's menu button.
+    const phone = window.matchMedia('(max-width: 767.98px)').matches;
+    if (phone) {
+      const c = within(canvasElement);
+      const menu = c.getByRole('button', { name: 'Open menu' });
+      await userEvent.click(menu);
+      const drawer = await within(document.body).findByRole('dialog');
+      const dashboard = within(drawer).getByRole('button', { name: 'Dashboard' });
+      await userEvent.click(dashboard);
+      await expect(dashboard).toHaveAttribute('aria-current', 'page');
+      await userEvent.keyboard('{Escape}');
+      // vaul keeps the drawer mounted through its exit animation (~500ms).
+      await waitFor(() => expect(within(document.body).queryByRole('dialog')).toBeNull(), { timeout: 2500 });
+      await waitFor(() => expect(menu).toHaveFocus(), { timeout: 2500 });
+      return;
+    }
+
+    const canvas = within(canvasElement);
+    const nav = within(canvas.getByRole('navigation', { name: 'Main' }));
+    // onClick-only items are real, focusable buttons with aria-current.
+    const galleries = nav.getByRole('button', { name: /Galleries/ });
+    await expect(galleries).toHaveAttribute('aria-current', 'page');
+    const dashboard = nav.getByRole('button', { name: 'Dashboard' });
+    dashboard.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(dashboard).toHaveAttribute('aria-current', 'page');
+    await expect(galleries).not.toHaveAttribute('aria-current');
+
+    // Collapse <-> expand swaps buttons; focus follows instead of dropping.
+    await userEvent.click(canvas.getByRole('button', { name: 'Collapse sidebar' }));
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Expand sidebar' })).toHaveFocus());
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Collapse sidebar' })).toHaveFocus());
+  },
 };

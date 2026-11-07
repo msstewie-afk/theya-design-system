@@ -184,6 +184,10 @@
       {
         "name": "WithLabel",
         "id": "selection-rating--with-label"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "selection-rating--test-interactions"
       }
     ]
   }

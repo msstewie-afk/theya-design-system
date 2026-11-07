@@ -40,18 +40,6 @@ export const Default: Story = {
       <OptionCard value="commercial" title="Commercial" description="Ads, packaging and resale. Required for client brands." icon={<Shop />} />
     </OptionCardGroup>
   ),
-  play: async ({ canvasElement }) => {
-    const group = within(within(canvasElement).getByRole('radiogroup', { name: 'License type' }));
-    // Named by the title, described by the description (not run together).
-    const personal = group.getByRole('radio', { name: 'Personal' });
-    await expect(personal).toHaveAccessibleDescription('Prints and sharing at home. No resale.');
-    await userEvent.click(personal);
-    await expect(personal).toHaveAttribute('aria-checked', 'true');
-    // Arrow keys move the selection.
-    // Radix RadioGroup checks on arrow only while the key is held.
-    await userEvent.keyboard('{ArrowRight>}{/ArrowRight}');
-    await expect(group.getByRole('radio', { name: 'Commercial' })).toHaveAttribute('aria-checked', 'true');
-  },
 };
 
 /** Name the group with a heading via aria-labelledby instead of aria-label. */
@@ -125,4 +113,23 @@ export const Disabled: Story = {
       <OptionCard value="commercial" title="Commercial" description="Available on the Business plan." icon={<Shop />} disabled />
     </OptionCardGroup>
   ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const group = within(within(canvasElement).getByRole('radiogroup', { name: 'License type' }));
+    // Named by the title, described by the description (not run together).
+    const personal = group.getByRole('radio', { name: 'Personal' });
+    await expect(personal).toHaveAccessibleDescription('Prints and sharing at home. No resale.');
+    await userEvent.click(personal);
+    await expect(personal).toHaveAttribute('aria-checked', 'true');
+    // Arrow keys move the selection.
+    // Radix RadioGroup checks on arrow only while the key is held.
+    await userEvent.keyboard('{ArrowRight>}{/ArrowRight}');
+    await expect(group.getByRole('radio', { name: 'Commercial' })).toHaveAttribute('aria-checked', 'true');
+  },
 };

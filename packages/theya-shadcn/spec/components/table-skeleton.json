@@ -75,6 +75,10 @@
       {
         "name": "Default",
         "id": "status-feedback-tableskeleton--default"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "status-feedback-tableskeleton--test-interactions"
       }
     ]
   }

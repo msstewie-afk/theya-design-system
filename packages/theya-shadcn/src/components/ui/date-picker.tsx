@@ -2,6 +2,7 @@
 
 import { useState, useId, useRef } from 'react';
 import { Calendar as CalendarIcon, NavArrowDown, Xmark } from 'iconoir-react';
+import { fieldLabelText } from '../../lib/field-label';
 import { cn } from '../../lib/utils';
 import { TruncatedText } from './truncated-text';
 import { Calendar } from './calendar';
@@ -106,6 +107,13 @@ export function DatePicker({
   const { t, locale } = useTheyaI18n();
   if (placeholder === undefined) placeholder = t.datePicker.placeholder;
   const [open, setOpen] = useState(false);
+  // Sheet title on phones: the field's name ("Date"), read when it opens;
+  // the placeholder ("Any date") is a hint about the empty value, not a name.
+  const [labelText, setLabelText] = useState<string>();
+  const onOpenChange = (next: boolean) => {
+    if (next) setLabelText(fieldLabelText(triggerRef.current));
+    setOpen(next);
+  };
   const triggerRef = useRef<HTMLButtonElement>(null);
   // The trigger's accessible name comes from aria-label or a <label for>,
   // both of which REPLACE the button's own text — so the chosen date (or
@@ -129,7 +137,7 @@ export function DatePicker({
 
   return (
     <div className={cn('relative', className)}>
-      <Popover sheet open={open} onOpenChange={setOpen}>
+      <Popover sheet open={open} onOpenChange={onOpenChange}>
         <PopoverTrigger asChild>
           <button
             ref={triggerRef}
@@ -162,7 +170,7 @@ export function DatePicker({
             </TruncatedText>
           </button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start" sheetTitle={ariaLabel ?? placeholder} sheetClassName="items-center pt-0">
+        <PopoverContent className="w-auto p-0" align="start" sheetTitle={ariaLabel ?? labelText ?? placeholder} sheetClassName="items-center pt-0">
           <Calendar
             mode="single"
             selected={selected}

@@ -52,21 +52,7 @@ export default meta;
 type Story = StoryObj<typeof Rating>;
 
 /** An editable rating starting at three stars; click a star or use the arrow keys to change it. */
-export const Default: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const group = canvas.getByRole('radiogroup', { name: 'Rate this host' });
-    const radio = (n: number) => within(group).getByRole('radio', { name: `${n} of 5` });
-    await expect(radio(3)).toBeChecked();
-    // Click sets the value.
-    await userEvent.click(radio(5));
-    await expect(radio(5)).toBeChecked();
-    // Arrows move and select, one star at a time.
-    radio(5).focus();
-    await pressArrow('ArrowLeft', () => radio(4));
-    await expect(radio(4)).toBeChecked();
-  },
-};
+export const Default: Story = {};
 
 /** Display only: fractional values are drawn as partial stars and announced exactly. */
 export const ReadOnly: Story = {
@@ -132,5 +118,25 @@ export const WithLabel: Story = {
   play: async ({ canvasElement }) => {
     const group = within(canvasElement).getByRole('radiogroup', { name: 'Rate this host' });
     await expect(group).toBeInTheDocument();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole('radiogroup', { name: 'Rate this host' });
+    const radio = (n: number) => within(group).getByRole('radio', { name: `${n} of 5` });
+    await expect(radio(3)).toBeChecked();
+    // Click sets the value.
+    await userEvent.click(radio(5));
+    await expect(radio(5)).toBeChecked();
+    // Arrows move and select, one star at a time.
+    radio(5).focus();
+    await pressArrow('ArrowLeft', () => radio(4));
+    await expect(radio(4)).toBeChecked();
   },
 };

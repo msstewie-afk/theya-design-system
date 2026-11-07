@@ -38,21 +38,7 @@ type Story = StoryObj<typeof meta>;
 
 /** Three rows, the chosen value in the middle: scroll, drag, or use the arrow keys, Home and End. */
 export const Default: Story = {
-  // Keyboard: ↑ ↓ step, Home / End jump; the chosen option is aria-selected.
-  play: async ({ canvasElement }) => {
-    const list = within(canvasElement).getByRole('listbox', { name: 'Archive interval' });
-    const option = (name: string) => within(list).getByRole('option', { name });
-    list.focus();
-    // The fade (mask-image) sits on an inner layer: on the focusable element
-    // it would also clip the focus ring away (WCAG 2.4.7).
-    await expect(getComputedStyle(list).maskImage).toBe('none');
-    await userEvent.keyboard('{ArrowDown}');
-    await waitFor(() => expect(option('2 hours')).toHaveAttribute('aria-selected', 'true'));
-    await userEvent.keyboard('{End}');
-    await waitFor(() => expect(option('Daily')).toHaveAttribute('aria-selected', 'true'));
-    await userEvent.keyboard('{Home}');
-    await waitFor(() => expect(option('15 minutes')).toHaveAttribute('aria-selected', 'true'));
-  },
+  // Keyboard: ↑ ↓ step, Home / End jump; the chosen option is aria-selected.,
 };
 
 /** `rows={5}` shows two neighbours on each side of the chosen value, for more context on the scale. */
@@ -90,5 +76,26 @@ export const WithLabel: Story = {
     const list = canvas.getByRole('listbox', { name: 'Archive interval' });
     await userEvent.click(canvas.getByText('Archive interval'));
     await expect(list).toHaveFocus();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const list = within(canvasElement).getByRole('listbox', { name: 'Archive interval' });
+    const option = (name: string) => within(list).getByRole('option', { name });
+    list.focus();
+    // The fade (mask-image) sits on an inner layer: on the focusable element
+    // it would also clip the focus ring away (WCAG 2.4.7).
+    await expect(getComputedStyle(list).maskImage).toBe('none');
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(option('2 hours')).toHaveAttribute('aria-selected', 'true'));
+    await userEvent.keyboard('{End}');
+    await waitFor(() => expect(option('Daily')).toHaveAttribute('aria-selected', 'true'));
+    await userEvent.keyboard('{Home}');
+    await waitFor(() => expect(option('15 minutes')).toHaveAttribute('aria-selected', 'true'));
   },
 };

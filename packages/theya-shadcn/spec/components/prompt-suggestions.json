@@ -68,6 +68,10 @@
       {
         "name": "Default",
         "id": "ai-chat-promptsuggestions--default"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "ai-chat-promptsuggestions--test-interactions"
       }
     ]
   }

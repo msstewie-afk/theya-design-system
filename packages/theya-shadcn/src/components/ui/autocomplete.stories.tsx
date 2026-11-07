@@ -59,25 +59,7 @@ export const Default: Story = {
     </div>
   ),
   // Keyboard-only selection (WCAG 2.1.1): arrows move a highlight that is
-  // exposed via aria-activedescendant, Enter picks it.
-  play: async ({ canvasElement }) => {
-    const input = within(canvasElement).getByRole('combobox', { name: 'Search sections' });
-
-    await userEvent.click(input);
-    await userEvent.type(input, 'p');
-    const listbox = await within(document.body).findByRole('listbox');
-    const options = within(listbox).getAllByRole('option');
-    await expect(options).toHaveLength(3); // prefix match: Prints, Presets, Portals
-    await expect(options[1]).toHaveTextContent('Presets');
-    await expect(input).not.toHaveAttribute('aria-activedescendant');
-
-    await userEvent.keyboard('{ArrowDown}{ArrowDown}');
-    await expect(input).toHaveAttribute('aria-activedescendant', options[1].id);
-
-    await userEvent.keyboard('{Enter}');
-    await expect(input).toHaveValue('Presets');
-    await expect(input).toHaveAttribute('aria-expanded', 'false');
-  },
+  // exposed via aria-activedescendant, Enter picks it.,
 };
 
 /** `heightSize="md"` (default) and `heightSize="sm"`; the suggestion text follows the field's size. */
@@ -187,5 +169,30 @@ export const ErrorState: Story = {
     const input = within(canvasElement).getByRole('combobox', { name: 'Section' });
     await expect(input).toHaveAttribute('aria-invalid', 'true');
     await expect(input).toHaveAccessibleDescription('Pick a section from the list.');
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole('combobox', { name: 'Search sections' });
+
+    await userEvent.click(input);
+    await userEvent.type(input, 'p');
+    const listbox = await within(document.body).findByRole('listbox');
+    const options = within(listbox).getAllByRole('option');
+    await expect(options).toHaveLength(3); // prefix match: Prints, Presets, Portals
+    await expect(options[1]).toHaveTextContent('Presets');
+    await expect(input).not.toHaveAttribute('aria-activedescendant');
+
+    await userEvent.keyboard('{ArrowDown}{ArrowDown}');
+    await expect(input).toHaveAttribute('aria-activedescendant', options[1].id);
+
+    await userEvent.keyboard('{Enter}');
+    await expect(input).toHaveValue('Presets');
+    await expect(input).toHaveAttribute('aria-expanded', 'false');
   },
 };

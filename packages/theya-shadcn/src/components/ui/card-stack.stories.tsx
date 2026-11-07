@@ -56,6 +56,34 @@ export const Default: Story = {
       </CardStack>
     </div>
   ),
+};
+
+/** `layout="fan"`: the cards behind spread to the side; the front one still drops away and returns to the back. */
+export const Fan: Story = {
+  args: { layout: 'fan' },
+  render: (args) => (
+    <div className="w-[20rem] max-w-full px-4 pb-10 pt-4">
+      <CardStack {...args} aria-label="Highlights">
+        {QUOTES.map((q) => (
+          <Card key={q.who} className="min-h-56">
+            <CardHeader>
+              <div>
+                <CardTitle>“{q.text}”</CardTitle>
+                <CardDescription>{q.who}</CardDescription>
+              </div>
+            </CardHeader>
+          </Card>
+        ))}
+      </CardStack>
+    </div>
+  ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // CardTitle is a div; count only text outside the aria-hidden back cards.
@@ -83,25 +111,4 @@ export const Default: Story = {
       await expect(canvas.getByRole('button', { name: 'Play' })).not.toHaveAttribute('aria-pressed');
     }
   },
-};
-
-/** `layout="fan"`: the cards behind spread to the side; the front one still drops away and returns to the back. */
-export const Fan: Story = {
-  args: { layout: 'fan' },
-  render: (args) => (
-    <div className="w-[20rem] max-w-full px-4 pb-10 pt-4">
-      <CardStack {...args} aria-label="Highlights">
-        {QUOTES.map((q) => (
-          <Card key={q.who} className="min-h-56">
-            <CardHeader>
-              <div>
-                <CardTitle>“{q.text}”</CardTitle>
-                <CardDescription>{q.who}</CardDescription>
-              </div>
-            </CardHeader>
-          </Card>
-        ))}
-      </CardStack>
-    </div>
-  ),
 };

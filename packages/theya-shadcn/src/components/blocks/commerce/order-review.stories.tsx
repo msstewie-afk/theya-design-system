@@ -44,13 +44,6 @@ export const Default: Story = {
       <OrderReview {...args} />
     </div>
   ),
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Edit payment' }));
-    await expect(args.sections[2].onEdit).toHaveBeenCalledTimes(1);
-    await userEvent.click(canvas.getByRole('button', { name: 'Pay $448.80' }));
-    await expect(args.onPlaceOrder).toHaveBeenCalledTimes(1);
-  },
 };
 
 /** `placing` puts the pay button into its loading state while the order goes through, so it can't be pressed twice. */
@@ -61,4 +54,18 @@ export const Placing: Story = {
       <OrderReview {...args} />
     </div>
   ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Edit payment' }));
+    await expect(args.sections[2].onEdit).toHaveBeenCalledTimes(1);
+    await userEvent.click(canvas.getByRole('button', { name: 'Pay $448.80' }));
+    await expect(args.onPlaceOrder).toHaveBeenCalledTimes(1);
+  },
 };

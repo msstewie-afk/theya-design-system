@@ -140,6 +140,10 @@
       {
         "name": "FilterBar",
         "id": "search-filter-filter--filter-bar"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "search-filter-filter--test-interactions"
       }
     ]
   }

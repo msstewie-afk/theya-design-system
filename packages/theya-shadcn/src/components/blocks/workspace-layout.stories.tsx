@@ -58,6 +58,7 @@ export const Default: Story = {
  */
 export const TestKeyboardAndNav: Story = {
   name: 'Test: keyboard and nav',
+  tags: ['!autodocs'],
 
   args: { onSearch: fn(), onOpenNotifications: fn(), onOpenHelp: fn(), unreadNotifications: true },
   render: (args) => (

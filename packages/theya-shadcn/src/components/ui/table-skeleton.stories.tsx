@@ -44,7 +44,14 @@ export const Default: Story = {
     </Table>
   ),
   // Placeholders add no tab stops: the table's own scroll container is the
-  // only one (Table keeps it focusable), and the next Tab leaves the table.
+  // only one (Table keeps it focusable), and the next Tab leaves the table.,
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     resetFocus();
     await userEvent.tab();

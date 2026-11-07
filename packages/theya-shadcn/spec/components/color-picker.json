@@ -335,6 +335,10 @@
       {
         "name": "InvalidHex",
         "id": "selection-colorpicker--invalid-hex"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "selection-colorpicker--test-interactions"
       }
     ]
   }

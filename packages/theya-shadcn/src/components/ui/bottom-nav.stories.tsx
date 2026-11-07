@@ -84,26 +84,6 @@ function Demo({ items = ITEMS, dir }: { items?: typeof ITEMS; dir?: 'rtl' }) {
  */
 export const Default: Story = {
   render: () => <Demo />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const nav = canvas.getByRole('navigation', { name: 'Main' });
-    await expect(nav).toBeInTheDocument();
-    const home = canvas.getByRole('button', { name: 'Home' });
-    await expect(home).toHaveAttribute('aria-current', 'page');
-    const inbox = canvas.getByRole('button', { name: /^Inbox\s*, 3 new$/ });
-    await expect(inbox).not.toHaveAttribute('aria-current');
-
-    // Keyboard: Tab reaches the items in order, Enter activates.
-    resetFocus();
-    await tabTo(home);
-    await userEvent.tab();
-    await expect(canvas.getByRole('button', { name: 'Search' })).toHaveFocus();
-    await userEvent.tab();
-    await expect(inbox).toHaveFocus();
-    await userEvent.keyboard('{Enter}');
-    await expect(inbox).toHaveAttribute('aria-current', 'page');
-    await expect(home).not.toHaveAttribute('aria-current');
-  },
 };
 
 /**
@@ -157,4 +137,31 @@ export const FiveItems: Story = {
 /** Right-to-left: the order of the items mirrors; the badge stays on the right of the icon. */
 export const RightToLeft: Story = {
   render: () => <Demo dir="rtl" />,
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const nav = canvas.getByRole('navigation', { name: 'Main' });
+    await expect(nav).toBeInTheDocument();
+    const home = canvas.getByRole('button', { name: 'Home' });
+    await expect(home).toHaveAttribute('aria-current', 'page');
+    const inbox = canvas.getByRole('button', { name: /^Inbox\s*, 3 new$/ });
+    await expect(inbox).not.toHaveAttribute('aria-current');
+
+    // Keyboard: Tab reaches the items in order, Enter activates.
+    resetFocus();
+    await tabTo(home);
+    await userEvent.tab();
+    await expect(canvas.getByRole('button', { name: 'Search' })).toHaveFocus();
+    await userEvent.tab();
+    await expect(inbox).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await expect(inbox).toHaveAttribute('aria-current', 'page');
+    await expect(home).not.toHaveAttribute('aria-current');
+  },
 };

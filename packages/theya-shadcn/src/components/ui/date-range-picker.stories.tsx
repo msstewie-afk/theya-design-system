@@ -76,26 +76,7 @@ async function closeWithEscape(trigger: HTMLElement) {
 }
 
 /** The empty trigger. Open the calendar and click a start then an end day — the trigger then shows "from – to". */
-export const Default: Story = {
-  play: async ({ canvasElement }) => {
-    const trigger = within(canvasElement).getByRole('button', { name: 'Pick a date range' });
-    // aria-label replaces the button text, so the value rides on the description.
-    await expect(trigger).toHaveAccessibleDescription('Pick a date range');
-
-    await openCalendar(trigger);
-    await userEvent.keyboard('{Enter}');
-    // Start picked: one date, popover stays open for the end.
-    await waitFor(() => expect(trigger).not.toHaveAccessibleDescription('Pick a date range'));
-    await expect(trigger.textContent).not.toContain('–');
-    await expect(body().getAllByRole('grid').length).toBeGreaterThan(0);
-
-    await userEvent.keyboard('{ArrowRight}{ArrowRight}{Enter}');
-    await waitFor(() => expect(trigger.textContent).toContain('–'));
-
-    await closeWithEscape(trigger);
-    await expect(trigger.textContent).toContain('–');
-  },
-};
+export const Default: Story = {};
 
 function ReportRange(args: React.ComponentProps<typeof DateRangePicker>) {
   const [range, setRange] = useState<DateRange | undefined>(undefined);
@@ -189,5 +170,30 @@ export const ErrorState: Story = {
     const trigger = within(canvasElement).getByRole('button', { name: /Report period/ });
     await expect(trigger).toHaveAttribute('aria-invalid', 'true');
     await expect(trigger).toHaveAccessibleDescription(/Pick a start and an end date\./);
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Pick a date range' });
+    // aria-label replaces the button text, so the value rides on the description.
+    await expect(trigger).toHaveAccessibleDescription('Pick a date range');
+
+    await openCalendar(trigger);
+    await userEvent.keyboard('{Enter}');
+    // Start picked: one date, popover stays open for the end.
+    await waitFor(() => expect(trigger).not.toHaveAccessibleDescription('Pick a date range'));
+    await expect(trigger.textContent).not.toContain('–');
+    await expect(body().getAllByRole('grid').length).toBeGreaterThan(0);
+
+    await userEvent.keyboard('{ArrowRight}{ArrowRight}{Enter}');
+    await waitFor(() => expect(trigger.textContent).toContain('–'));
+
+    await closeWithEscape(trigger);
+    await expect(trigger.textContent).toContain('–');
   },
 };

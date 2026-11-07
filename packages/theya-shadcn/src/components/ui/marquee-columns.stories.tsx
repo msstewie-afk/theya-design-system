@@ -54,21 +54,6 @@ type Story = StoryObj<typeof meta>;
 /** Three columns; hover to pause. */
 export const Default: Story = {
   render: (args) => <MarqueeColumns {...args} aria-label="Things people ask" className="mx-auto h-[26rem] max-w-3xl" />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    // Each card is met once: the moving copy is hidden.
-    const exposed = canvas.getAllByText('Book a table for two on Friday.').filter((el) => !el.closest('[aria-hidden="true"]'));
-    await expect(exposed).toHaveLength(1);
-    // Under prefers-reduced-motion nothing moves, so there is no Pause.
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      await expect(canvas.queryByRole('button', { name: 'Pause' })).toBeNull();
-    } else {
-      resetFocus();
-      await tabTo(canvas.getByRole('button', { name: 'Pause' }));
-      await userEvent.keyboard(' ');
-      await expect(canvas.getByRole('button', { name: 'Play' })).not.toHaveAttribute('aria-pressed');
-    }
-  },
 };
 
 const TALL = ['h-32', 'h-48', 'h-40', 'h-56', 'h-36', 'h-44'];
@@ -102,5 +87,27 @@ export const ScrollDriven: Story = {
     await expect(canvas.queryByRole('button', { name: 'Pause' })).toBeNull();
     await expect(within(wall).getAllByText('Book a table for two on Friday.')).toHaveLength(2);
     await expect(wall.querySelector('[aria-hidden="true"]')).toBeNull();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Each card is met once: the moving copy is hidden.
+    const exposed = canvas.getAllByText('Book a table for two on Friday.').filter((el) => !el.closest('[aria-hidden="true"]'));
+    await expect(exposed).toHaveLength(1);
+    // Under prefers-reduced-motion nothing moves, so there is no Pause.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      await expect(canvas.queryByRole('button', { name: 'Pause' })).toBeNull();
+    } else {
+      resetFocus();
+      await tabTo(canvas.getByRole('button', { name: 'Pause' }));
+      await userEvent.keyboard(' ');
+      await expect(canvas.getByRole('button', { name: 'Play' })).not.toHaveAttribute('aria-pressed');
+    }
   },
 };

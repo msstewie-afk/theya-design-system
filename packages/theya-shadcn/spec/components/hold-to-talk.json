@@ -90,6 +90,10 @@
       {
         "name": "InPromptArea",
         "id": "ai-chat-holdtotalk--in-prompt-area"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "ai-chat-holdtotalk--test-interactions"
       }
     ]
   }

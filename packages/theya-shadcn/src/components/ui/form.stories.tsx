@@ -179,14 +179,17 @@ function SwitchForm() {
           control={form.control}
           name="autoRenew"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-center justify-between gap-4">
+            <FormItem className="flex flex-row items-start justify-between gap-4">
               <div className="grid gap-1">
                 <FormLabel>Auto-renew license</FormLabel>
                 <FormDescription>Renew 30 days before the license expires.</FormDescription>
               </div>
-              <FormControl>
-                <Switch aria-label="Auto-renew license" checked={field.value} onCheckedChange={field.onChange} />
-              </FormControl>
+              {/* On the label's line, not centred on label + description. */}
+              <div className="flex h-[var(--typography-body-m-line-height)] shrink-0 items-center">
+                <FormControl>
+                  <Switch aria-label="Auto-renew license" checked={field.value} onCheckedChange={field.onChange} />
+                </FormControl>
+              </div>
             </FormItem>
           )}
         />

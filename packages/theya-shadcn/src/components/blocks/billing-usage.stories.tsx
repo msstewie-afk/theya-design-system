@@ -42,16 +42,6 @@ export const Default: Story = {
       <BillingUsage onUpgrade={args.onUpgrade} />
     </div>
   ),
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: /Upgrade/ }));
-    await expect(args.onUpgrade).toHaveBeenCalledTimes(1);
-    for (const bar of canvas.getAllByRole('progressbar')) await expect(bar).toHaveAccessibleName(/ of .*percent/);
-    // Invoice status is text next to the dot, never the dot alone.
-    const rows = within(canvas.getByRole('table')).getAllByRole('row').slice(1);
-    await expect(rows.length).toBeGreaterThan(0);
-    for (const row of rows) await expect(within(row).getAllByRole('cell')[3].textContent?.trim()).not.toBe('');
-  },
 };
 
 /** No handler: no dead Upgrade button. */
@@ -63,5 +53,22 @@ export const NoUpgrade: Story = {
   ),
   play: async ({ canvasElement }) => {
     await expect(within(canvasElement).queryByRole('button', { name: /Upgrade/ })).toBeNull();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: /Upgrade/ }));
+    await expect(args.onUpgrade).toHaveBeenCalledTimes(1);
+    for (const bar of canvas.getAllByRole('progressbar')) await expect(bar).toHaveAccessibleName(/ of .*percent/);
+    // Invoice status is text next to the dot, never the dot alone.
+    const rows = within(canvas.getByRole('table')).getAllByRole('row').slice(1);
+    await expect(rows.length).toBeGreaterThan(0);
+    for (const row of rows) await expect(within(row).getAllByRole('cell')[3].textContent?.trim()).not.toBe('');
   },
 };

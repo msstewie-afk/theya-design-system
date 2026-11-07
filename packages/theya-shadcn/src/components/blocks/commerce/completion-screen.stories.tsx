@@ -30,18 +30,7 @@ export default meta;
 type Story = StoryObj<typeof CompletionScreen>;
 
 /** Done, the receipt details, where the email went, and the next step. */
-export const Default: Story = {
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-    const title = canvas.getByRole('heading', { name: "You're all set" });
-    await expect(title).toBeVisible();
-    // focusOnMount is off by default: an initial page doesn't steal focus.
-    await expect(title).not.toHaveFocus();
-    await expect(canvas.getByText('thea@aether.photo')).toBeVisible();
-    await userEvent.click(canvas.getByRole('button', { name: 'send it again' }));
-    await expect(args.onResendEmail).toHaveBeenCalledTimes(1);
-  },
-};
+export const Default: Story = {};
 
 /**
  * `focusOnMount`: for flows that swap this screen in place of the step just
@@ -64,5 +53,22 @@ export const FocusOnMount: Story = {
     await userEvent.click(resend);
     await expect(args.onResendEmail).toHaveBeenCalledTimes(1);
     await expect(resend).toHaveFocus();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const title = canvas.getByRole('heading', { name: "You're all set" });
+    await expect(title).toBeVisible();
+    // focusOnMount is off by default: an initial page doesn't steal focus.
+    await expect(title).not.toHaveFocus();
+    await expect(canvas.getByText('thea@aether.photo')).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'send it again' }));
+    await expect(args.onResendEmail).toHaveBeenCalledTimes(1);
   },
 };

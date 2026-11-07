@@ -49,29 +49,6 @@ const STATUS_OPTIONS = [
 /** A facet with nothing selected: the trigger shows only its label, and each option in the popover carries a count. */
 export const Default: Story = {
   render: () => <Filter label="Status" options={STATUS_OPTIONS} />,
-  play: async ({ canvasElement }) => {
-    const trigger = within(canvasElement).getByRole('button', { name: 'Status' });
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-
-    await userEvent.click(trigger);
-    const group = await body().findByRole('group', { name: 'Status' });
-    await userEvent.click(within(group).getByRole('checkbox', { name: /Active/ }));
-    await userEvent.click(within(group).getByRole('checkbox', { name: /Pending/ }));
-    await expect(within(group).getByRole('checkbox', { name: /Active/ })).toBeChecked();
-
-    // The count is read after the facet name, not before it. Checked on the
-    // attribute: on a phone the sheet is modal, so the trigger behind it is
-    // aria-hidden and has no computed name until the sheet closes.
-    await expect(trigger).toHaveAttribute('aria-label', 'Status, 2 selected');
-
-    // Clearing keeps focus inside the popover.
-    await userEvent.click(body().getByRole('button', { name: 'Clear 2 selected' }));
-    await expect(trigger).not.toHaveAttribute('aria-label');
-    await expect(body().queryByRole('button', { name: /Clear/ })).toBeNull();
-    await waitFor(() => expect(within(group).getByRole('checkbox', { name: /Active/ })).toHaveFocus());
-
-    await closePopover(trigger);
-  },
 };
 
 /** `defaultValue` pre-selects options; the trigger shows a count badge and reads as “Status, 1 selected”. */
@@ -149,5 +126,35 @@ export const FilterBar: Story = {
     await closePopover(type);
     await expect(type).toHaveAccessibleName('Type, 1 selected');
     await expect(status).toHaveAccessibleName('Status');
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Status' });
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+    await userEvent.click(trigger);
+    const group = await body().findByRole('group', { name: 'Status' });
+    await userEvent.click(within(group).getByRole('checkbox', { name: /Active/ }));
+    await userEvent.click(within(group).getByRole('checkbox', { name: /Pending/ }));
+    await expect(within(group).getByRole('checkbox', { name: /Active/ })).toBeChecked();
+
+    // The count is read after the facet name, not before it. Checked on the
+    // attribute: on a phone the sheet is modal, so the trigger behind it is
+    // aria-hidden and has no computed name until the sheet closes.
+    await expect(trigger).toHaveAttribute('aria-label', 'Status, 2 selected');
+
+    // Clearing keeps focus inside the popover.
+    await userEvent.click(body().getByRole('button', { name: 'Clear 2 selected' }));
+    await expect(trigger).not.toHaveAttribute('aria-label');
+    await expect(body().queryByRole('button', { name: /Clear/ })).toBeNull();
+    await waitFor(() => expect(within(group).getByRole('checkbox', { name: /Active/ })).toHaveFocus());
+
+    await closePopover(trigger);
   },
 };

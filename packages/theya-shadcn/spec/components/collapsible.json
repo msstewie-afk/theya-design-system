@@ -85,6 +85,10 @@
       {
         "name": "Disabled",
         "id": "layout-collapsible--disabled"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "layout-collapsible--test-interactions"
       }
     ]
   }

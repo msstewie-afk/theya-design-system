@@ -51,17 +51,7 @@ export const Default: Story = {
       </InputGroup>
     </div>
   ),
-  // Keyboard: the field is the only tab stop; the ".aether.photo" addon is text, not a control.
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole('textbox', { name: 'Portal address' });
-    resetFocus();
-    await tabTo(input);
-    await userEvent.keyboard('{Control>}a{/Control}eos-portraits');
-    await expect(input).toHaveValue('eos-portraits');
-    await userEvent.tab();
-    await expect(canvasElement.contains(document.activeElement) && document.activeElement !== input).toBe(false);
-  },
+  // Keyboard: the field is the only tab stop; the ".aether.photo" addon is text, not a control.,
 };
 
 /** A "$" prefix plus a "per print" suffix bracket the editable price. */
@@ -126,4 +116,21 @@ export const Disabled: Story = {
       </InputGroup>
     </div>
   ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('textbox', { name: 'Portal address' });
+    resetFocus();
+    await tabTo(input);
+    await userEvent.keyboard('{Control>}a{/Control}eos-portraits');
+    await expect(input).toHaveValue('eos-portraits');
+    await userEvent.tab();
+    await expect(canvasElement.contains(document.activeElement) && document.activeElement !== input).toBe(false);
+  },
 };

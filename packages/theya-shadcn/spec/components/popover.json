@@ -134,6 +134,10 @@
       {
         "name": "Open",
         "id": "overlays-popover--open"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "overlays-popover--test-interactions"
       }
     ]
   }

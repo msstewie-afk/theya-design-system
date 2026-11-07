@@ -110,6 +110,10 @@
       {
         "name": "Testimonials",
         "id": "motion-marquee--testimonials"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "motion-marquee--test-interactions"
       }
     ]
   }

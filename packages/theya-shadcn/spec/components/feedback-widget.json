@@ -154,6 +154,10 @@
       {
         "name": "UnderAnAnswer",
         "id": "status-feedback-feedbackwidget--under-an-answer"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "status-feedback-feedbackwidget--test-interactions"
       }
     ]
   }

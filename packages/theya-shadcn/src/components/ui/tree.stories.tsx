@@ -101,37 +101,7 @@ type Story = StoryObj<typeof Tree>;
 /** A folder of photos. Click a chevron to expand, click a row to select; or focus a row and use Up/Down, Left/Right, Home/End, Enter/Space, and type-ahead. */
 export const Default: Story = {
   // WAI-ARIA tree keyboard model: one Tab stop, Up/Down, Home/End,
-  // Left collapses / Right expands then steps in, type-ahead, Enter selects.
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const item = (name: string) => canvas.getByRole('treeitem', { name });
-    const focused = (name: string) => waitFor(() => expect(item(name)).toHaveFocus());
-    await expect(canvas.getByRole('tree', { name: 'Photo library' })).toBeInTheDocument();
-
-    await userEvent.tab();
-    await focused('Clients');
-    await userEvent.keyboard('{ArrowDown}');
-    await focused('Rhea & Theo');
-    await userEvent.keyboard('{End}');
-    await focused('Model releases.pdf');
-    await userEvent.keyboard('{Home}');
-    await focused('Clients');
-
-    await userEvent.keyboard('{ArrowLeft}');
-    await expect(item('Clients')).toHaveAttribute('aria-expanded', 'false');
-    await expect(canvas.queryByRole('treeitem', { name: 'Rhea & Theo' })).toBeNull();
-    await userEvent.keyboard('{ArrowRight}');
-    await expect(item('Clients')).toHaveAttribute('aria-expanded', 'true');
-    await userEvent.keyboard('{ArrowRight}');
-    await focused('Rhea & Theo');
-    await expect(item('Rhea & Theo')).toHaveAttribute('aria-level', '2');
-
-    // Type-ahead: "m" matches only "Model releases.pdf" among the visible rows.
-    await userEvent.keyboard('m');
-    await focused('Model releases.pdf');
-    await userEvent.keyboard('{Enter}');
-    await expect(item('Model releases.pdf')).toHaveAttribute('aria-selected', 'true');
-  },
+  // Left collapses / Right expands then steps in, type-ahead, Enter selects.,
 };
 
 /** Collapsed at first load — no `defaultExpandedIds`, so only the top level shows. Right (or a click) expands a parent in place. */
@@ -271,4 +241,41 @@ export const Controlled: Story = {
 export const Empty: Story = {
   parameters: { controls: { exclude: ['items', 'defaultExpandedIds'] } },
   args: { items: [], defaultExpandedIds: undefined },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const item = (name: string) => canvas.getByRole('treeitem', { name });
+    const focused = (name: string) => waitFor(() => expect(item(name)).toHaveFocus());
+    await expect(canvas.getByRole('tree', { name: 'Photo library' })).toBeInTheDocument();
+
+    await userEvent.tab();
+    await focused('Clients');
+    await userEvent.keyboard('{ArrowDown}');
+    await focused('Rhea & Theo');
+    await userEvent.keyboard('{End}');
+    await focused('Model releases.pdf');
+    await userEvent.keyboard('{Home}');
+    await focused('Clients');
+
+    await userEvent.keyboard('{ArrowLeft}');
+    await expect(item('Clients')).toHaveAttribute('aria-expanded', 'false');
+    await expect(canvas.queryByRole('treeitem', { name: 'Rhea & Theo' })).toBeNull();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(item('Clients')).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.keyboard('{ArrowRight}');
+    await focused('Rhea & Theo');
+    await expect(item('Rhea & Theo')).toHaveAttribute('aria-level', '2');
+
+    // Type-ahead: "m" matches only "Model releases.pdf" among the visible rows.
+    await userEvent.keyboard('m');
+    await focused('Model releases.pdf');
+    await userEvent.keyboard('{Enter}');
+    await expect(item('Model releases.pdf')).toHaveAttribute('aria-selected', 'true');
+  },
 };

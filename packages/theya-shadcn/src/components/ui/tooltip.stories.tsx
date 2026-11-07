@@ -62,19 +62,6 @@ export const Default: Story = {
       <TooltipContent {...args} />
     </Tooltip>
   ),
-  play: async ({ canvasElement }) => {
-    // The tooltip is supplementary; the icon button's name is its aria-label.
-    const trigger = within(canvasElement).getByRole('button', { name: 'Copy API key' });
-    await userEvent.hover(trigger);
-    await within(document.body).findByRole('tooltip');
-    await expect(trigger).toHaveAccessibleName('Copy API key');
-    await userEvent.unhover(trigger);
-    // Radix keeps the tooltip open while the pointer could still be heading
-    // for it (grace area) and re-checks on the next pointermove — a real
-    // mouse always sends one; the test has to move it away explicitly.
-    await userEvent.pointer({ target: document.body, coords: { clientX: 0, clientY: 0 } });
-    await waitFor(() => expect(within(document.body).queryByRole('tooltip')).toBeNull());
-  },
 };
 
 /** All four sides. Radix is collision-aware, so a side flips automatically
@@ -227,5 +214,25 @@ export const ResultIntents: Story = {
         </div>
       </div>
     );
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    // The tooltip is supplementary; the icon button's name is its aria-label.
+    const trigger = within(canvasElement).getByRole('button', { name: 'Copy API key' });
+    await userEvent.hover(trigger);
+    await within(document.body).findByRole('tooltip');
+    await expect(trigger).toHaveAccessibleName('Copy API key');
+    await userEvent.unhover(trigger);
+    // Radix keeps the tooltip open while the pointer could still be heading
+    // for it (grace area) and re-checks on the next pointermove — a real
+    // mouse always sends one; the test has to move it away explicitly.
+    await userEvent.pointer({ target: document.body, coords: { clientX: 0, clientY: 0 } });
+    await waitFor(() => expect(within(document.body).queryByRole('tooltip')).toBeNull());
   },
 };

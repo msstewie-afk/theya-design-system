@@ -97,26 +97,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** Product variant picker: the legend spells out the selected color; Rust is out of stock. */
-export const Default: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const group = canvas.getByRole('radiogroup', { name: 'Color: Navy' });
-    const navy = within(group).getByRole('radio', { name: 'Navy' });
-    await expect(navy).toBeChecked();
-    // Arrow keys move the selection (radio group) and the legend names the new color.
-    navy.focus();
-    // Radix checks a radio on focus only while the arrow key is down — hold it (as with Radio).
-    await userEvent.keyboard('{ArrowRight>}');
-    await userEvent.keyboard('{/ArrowRight}');
-    await expect(within(group).getByRole('radio', { name: 'Sage' })).toBeChecked();
-    await expect(group).toHaveAccessibleName('Color: Sage');
-    // An out-of-stock variant is announced as such and can still be chosen.
-    const rust = within(group).getByRole('radio', { name: 'Rust, out of stock' });
-    await userEvent.click(rust);
-    await expect(rust).toBeChecked();
-    await expect(group).toHaveAccessibleName('Color: Rust');
-  },
-};
+export const Default: Story = {};
 
 /** Sizes: sm for product cards, md for filters, lg for the product page. */
 export const Sizes: Story = {
@@ -179,5 +160,30 @@ export const Disabled: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     for (const radio of canvas.getAllByRole('radio')) await expect(radio).toBeDisabled();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole('radiogroup', { name: 'Color: Navy' });
+    const navy = within(group).getByRole('radio', { name: 'Navy' });
+    await expect(navy).toBeChecked();
+    // Arrow keys move the selection (radio group) and the legend names the new color.
+    navy.focus();
+    // Radix checks a radio on focus only while the arrow key is down — hold it (as with Radio).
+    await userEvent.keyboard('{ArrowRight>}');
+    await userEvent.keyboard('{/ArrowRight}');
+    await expect(within(group).getByRole('radio', { name: 'Sage' })).toBeChecked();
+    await expect(group).toHaveAccessibleName('Color: Sage');
+    // An out-of-stock variant is announced as such and can still be chosen.
+    const rust = within(group).getByRole('radio', { name: 'Rust, out of stock' });
+    await userEvent.click(rust);
+    await expect(rust).toBeChecked();
+    await expect(group).toHaveAccessibleName('Color: Rust');
   },
 };

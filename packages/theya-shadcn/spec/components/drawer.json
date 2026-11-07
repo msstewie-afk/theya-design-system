@@ -159,6 +159,10 @@
       {
         "name": "SideRight",
         "id": "overlays-drawer--side-right"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "overlays-drawer--test-interactions"
       }
     ]
   }

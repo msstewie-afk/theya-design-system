@@ -88,27 +88,7 @@ export const Default: Story = {
     </DropdownMenu>
   ),
   // Keyboard only: Enter opens with the first item focused, arrows/End move,
-  // Escape closes and returns focus to the trigger.
-  play: async ({ canvasElement }) => {
-    const trigger = within(canvasElement).getByRole('button', { name: 'Open actions for Golden hour' });
-    await expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
-
-    await userEvent.tab();
-    await expect(trigger).toHaveFocus();
-    await userEvent.keyboard('{Enter}');
-    await page().findByRole('menu');
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    await focusedItem(/^Open gallery/);
-
-    await userEvent.keyboard('{ArrowDown}');
-    await focusedItem(/^Copy portal link/);
-    await userEvent.keyboard('{End}');
-    await focusedItem('Delete gallery');
-
-    await userEvent.keyboard('{Escape}');
-    await menuClosed();
-    await expect(trigger).toHaveFocus();
-  },
+  // Escape closes and returns focus to the trigger.,
 };
 
 /**
@@ -380,5 +360,32 @@ export const WithDisabledItem: Story = {
 
     await userEvent.keyboard('{Escape}');
     await menuClosed();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Open actions for Golden hour' });
+    await expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+
+    await userEvent.tab();
+    await expect(trigger).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await page().findByRole('menu');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await focusedItem(/^Open gallery/);
+
+    await userEvent.keyboard('{ArrowDown}');
+    await focusedItem(/^Copy portal link/);
+    await userEvent.keyboard('{End}');
+    await focusedItem('Delete gallery');
+
+    await userEvent.keyboard('{Escape}');
+    await menuClosed();
+    await expect(trigger).toHaveFocus();
   },
 };

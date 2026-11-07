@@ -254,6 +254,10 @@
       {
         "name": "WithRecentPrompts",
         "id": "ai-chat-promptarea--with-recent-prompts"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "ai-chat-promptarea--test-interactions"
       }
     ]
   }

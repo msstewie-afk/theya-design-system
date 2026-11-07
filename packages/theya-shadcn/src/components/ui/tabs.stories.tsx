@@ -52,35 +52,7 @@ export const Default: Story = {
       </TabsContent>
     </Tabs>
   ),
-  // Roving focus: one Tab stop, arrows/Home/End move and activate (automatic mode), wraps.
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const [overview, picks, security] = ['Overview', 'Client picks', 'Security'].map((name) =>
-      canvas.getByRole('tab', { name }),
-    );
-
-    await userEvent.tab();
-    await expect(overview).toHaveFocus();
-    await expect(overview).toHaveAttribute('aria-selected', 'true');
-
-    await userEvent.keyboard('{ArrowRight}');
-    await expect(picks).toHaveFocus();
-    await expect(picks).toHaveAttribute('aria-selected', 'true');
-    await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Client picks content.');
-
-    await userEvent.keyboard('{End}');
-    await expect(security).toHaveFocus();
-    await userEvent.keyboard('{ArrowRight}');
-    await expect(overview).toHaveFocus();
-    await userEvent.keyboard('{ArrowLeft}');
-    await expect(security).toHaveFocus();
-    await userEvent.keyboard('{Home}');
-    await expect(overview).toHaveFocus();
-
-    // Tab leaves the tablist and lands on the panel, not the next tab.
-    await userEvent.tab();
-    await expect(canvas.getByRole('tabpanel')).toHaveFocus();
-  },
+  // Roving focus: one Tab stop, arrows/Home/End move and activate (automatic mode), wraps.,
 };
 
 /** A `disabled` tab stays visible but is skipped by the arrow keys and can't be opened. */
@@ -277,4 +249,39 @@ export const Chips: Story = {
       <TabsContent value="security" className="pt-4 font-body text-body-m text-[var(--color-text-text-subtle)]">Licenses and access rules.</TabsContent>
     </Tabs>
   ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const [overview, picks, security] = ['Overview', 'Client picks', 'Security'].map((name) =>
+      canvas.getByRole('tab', { name }),
+    );
+
+    await userEvent.tab();
+    await expect(overview).toHaveFocus();
+    await expect(overview).toHaveAttribute('aria-selected', 'true');
+
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(picks).toHaveFocus();
+    await expect(picks).toHaveAttribute('aria-selected', 'true');
+    await expect(canvas.getByRole('tabpanel')).toHaveTextContent('Client picks content.');
+
+    await userEvent.keyboard('{End}');
+    await expect(security).toHaveFocus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(overview).toHaveFocus();
+    await userEvent.keyboard('{ArrowLeft}');
+    await expect(security).toHaveFocus();
+    await userEvent.keyboard('{Home}');
+    await expect(overview).toHaveFocus();
+
+    // Tab leaves the tablist and lands on the panel, not the next tab.
+    await userEvent.tab();
+    await expect(canvas.getByRole('tabpanel')).toHaveFocus();
+  },
 };

@@ -72,19 +72,6 @@ export const Default: Story = {
       <ColorPicker {...args} />
     </Card>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('tab', { name: 'Palette' }));
-    const palette = canvas.getByRole('radiogroup', { name: 'Palette colors' });
-    // Picking a swatch sets the color (RGB fields follow) and marks it selected.
-    await userEvent.click(within(palette).getByRole('radio', { name: '#2F62D1' }));
-    await expect(within(palette).getByRole('radio', { name: '#2F62D1' })).toBeChecked();
-    await expect(canvas.getByRole('textbox', { name: 'Red' })).toHaveValue('47');
-    // "No color" empties the fields.
-    await userEvent.click(within(palette).getByRole('radio', { name: 'No color' }));
-    await expect(within(palette).getByRole('radio', { name: 'No color' })).toBeChecked();
-    await expect(canvas.getByRole('textbox', { name: 'Red' })).toHaveValue('');
-  },
 };
 
 /** Custom only — the single-view panel without tabs. */
@@ -260,5 +247,25 @@ export const InvalidHex: Story = {
     await userEvent.type(hex, 'zzz{Enter}');
     await expect(hex).toHaveValue('#3B6FD6');
     await waitFor(() => expect(hex).toHaveAccessibleDescription(/3 or 6 characters/));
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('tab', { name: 'Palette' }));
+    const palette = canvas.getByRole('radiogroup', { name: 'Palette colors' });
+    // Picking a swatch sets the color (RGB fields follow) and marks it selected.
+    await userEvent.click(within(palette).getByRole('radio', { name: '#2F62D1' }));
+    await expect(within(palette).getByRole('radio', { name: '#2F62D1' })).toBeChecked();
+    await expect(canvas.getByRole('textbox', { name: 'Red' })).toHaveValue('47');
+    // "No color" empties the fields.
+    await userEvent.click(within(palette).getByRole('radio', { name: 'No color' }));
+    await expect(within(palette).getByRole('radio', { name: 'No color' })).toBeChecked();
+    await expect(canvas.getByRole('textbox', { name: 'Red' })).toHaveValue('');
   },
 };

@@ -93,19 +93,7 @@ export const Default: Story = {
     );
   },
   // Keyboard: the message list is a tab stop (it scrolls on its own), the
-  // field comes next, and Enter sends.
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const log = canvas.getByRole('log');
-    resetFocus();
-    // A tab stop, so the arrow keys can scroll it (synthetic key events don't
-    // scroll, so the scrolling itself isn't asserted here).
-    await tabTo(log);
-    await tabTo(canvas.getByRole('textbox'));
-    await userEvent.keyboard('Can I add a second photographer?{Enter}');
-    await expect(await within(log).findByText('Can I add a second photographer?')).toBeVisible();
-    await expect(canvas.getByRole('textbox')).toHaveValue('');
-  },
+  // field comes next, and Enter sends.,
 };
 
 /** ChatTyping: the other side is writing. Remove it when their message arrives. */
@@ -151,5 +139,24 @@ export const TypingThenReply: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Simulate a reply' }));
     await expect(await canvas.findByRole('status', { name: 'Typing…' })).toBeInTheDocument();
     await expect(await canvas.findByText(/renews it 30 days/, {}, { timeout: 4000 })).toBeVisible();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const log = canvas.getByRole('log');
+    resetFocus();
+    // A tab stop, so the arrow keys can scroll it (synthetic key events don't
+    // scroll, so the scrolling itself isn't asserted here).
+    await tabTo(log);
+    await tabTo(canvas.getByRole('textbox'));
+    await userEvent.keyboard('Can I add a second photographer?{Enter}');
+    await expect(await within(log).findByText('Can I add a second photographer?')).toBeVisible();
+    await expect(canvas.getByRole('textbox')).toHaveValue('');
   },
 };

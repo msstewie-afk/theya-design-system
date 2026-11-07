@@ -152,6 +152,10 @@
       {
         "name": "RightToLeft",
         "id": "navigation-bottomnav--right-to-left"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "navigation-bottomnav--test-interactions"
       }
     ]
   }

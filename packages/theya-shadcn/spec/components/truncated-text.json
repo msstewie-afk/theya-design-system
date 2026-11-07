@@ -104,6 +104,10 @@
       {
         "name": "TwoLines",
         "id": "labels-truncatedtext--two-lines"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "labels-truncatedtext--test-interactions"
       }
     ]
   }

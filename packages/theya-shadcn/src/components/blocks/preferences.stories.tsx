@@ -50,6 +50,61 @@ export const Default: Story = {
       <Preferences {...args} onSaveProfile={(e) => onSave(formValues(e))} onChangePassword={(e) => onPassword(formValues(e))} />
     </div>
   ),
+};
+
+/** `notifications={[]}` leaves out the Notifications section and its link in the section nav. */
+export const NoNotifications: Story = {
+  name: 'No notifications section',
+  render: () => (
+    <div className="p-6">
+      <Preferences notifications={[]} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.queryByRole('heading', { name: 'Notifications' })).toBeNull();
+    await expect(canvas.queryByRole('link', { name: 'Notifications', hidden: true })).toBeNull();
+    await expect(canvas.getByRole('heading', { name: 'Danger zone' })).toBeInTheDocument();
+  },
+};
+
+/**
+ * Two screens on one page: with `idPrefix` on the second, no id repeats and
+ * every section link lands in its own screen. Section ids stay readable
+ * (`#security`) for deep links.
+ */
+export const TwoOnOnePage: Story = {
+  name: 'Two on one page',
+  render: () => (
+    <div className="flex flex-col gap-16 p-6">
+      <Preferences />
+      <Preferences idPrefix="team-" navLabel="Team settings sections" account={{ fullName: 'Helios Studio team', email: 'team@aether.photo' }} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const ids = [...canvasElement.querySelectorAll('[id]')].map((el) => el.id);
+    const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
+    await expect(dupes).toEqual([]);
+    await expect(canvasElement.querySelector('#security')).not.toBeNull();
+    await expect(canvasElement.querySelector('#team-security')).not.toBeNull();
+    // Each screen's nav points into its own sections.
+    const navs = canvasElement.querySelectorAll('nav[aria-label$="ettings sections"]');
+    await expect(navs).toHaveLength(2);
+    navs.forEach((nav, i) => {
+      for (const a of nav.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')) {
+        const target = document.getElementById(a.getAttribute('href')!.slice(1));
+        expect(target).not.toBeNull();
+        expect(target!.id.startsWith('team-')).toBe(i === 1);
+      }
+    });
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     onSave.mockClear();
@@ -143,53 +198,5 @@ export const Default: Story = {
     await userEvent.click(confirm);
     await expect(args.onDeleteAccount).toHaveBeenCalledTimes(1);
     await waitFor(() => expect(body().queryByRole('alertdialog')).toBeNull());
-  },
-};
-
-/** `notifications={[]}` leaves out the Notifications section and its link in the section nav. */
-export const NoNotifications: Story = {
-  name: 'No notifications section',
-  render: () => (
-    <div className="p-6">
-      <Preferences notifications={[]} />
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.queryByRole('heading', { name: 'Notifications' })).toBeNull();
-    await expect(canvas.queryByRole('link', { name: 'Notifications', hidden: true })).toBeNull();
-    await expect(canvas.getByRole('heading', { name: 'Danger zone' })).toBeInTheDocument();
-  },
-};
-
-/**
- * Two screens on one page: with `idPrefix` on the second, no id repeats and
- * every section link lands in its own screen. Section ids stay readable
- * (`#security`) for deep links.
- */
-export const TwoOnOnePage: Story = {
-  name: 'Two on one page',
-  render: () => (
-    <div className="flex flex-col gap-16 p-6">
-      <Preferences />
-      <Preferences idPrefix="team-" navLabel="Team settings sections" account={{ fullName: 'Helios Studio team', email: 'team@aether.photo' }} />
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const ids = [...canvasElement.querySelectorAll('[id]')].map((el) => el.id);
-    const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
-    await expect(dupes).toEqual([]);
-    await expect(canvasElement.querySelector('#security')).not.toBeNull();
-    await expect(canvasElement.querySelector('#team-security')).not.toBeNull();
-    // Each screen's nav points into its own sections.
-    const navs = canvasElement.querySelectorAll('nav[aria-label$="ettings sections"]');
-    await expect(navs).toHaveLength(2);
-    navs.forEach((nav, i) => {
-      for (const a of nav.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')) {
-        const target = document.getElementById(a.getAttribute('href')!.slice(1));
-        expect(target).not.toBeNull();
-        expect(target!.id.startsWith('team-')).toBe(i === 1);
-      }
-    });
   },
 };

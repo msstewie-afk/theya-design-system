@@ -179,15 +179,18 @@ export function BillingUsage({
         <>
           <Separator />
           <div className="flex flex-col gap-4">
-            <div className="flex min-w-0 flex-wrap items-center justify-between gap-2">
+            <div className="flex min-w-0 flex-wrap items-start justify-between gap-2">
               <div className="min-w-0">
                 <h3 className="font-body text-body-l font-semibold leading-tight text-[var(--color-text-text)]">Usage this period</h3>
                 <CardDescription>Metered against your plan quota</CardDescription>
               </div>
+              {/* Status sits on the title line (h-[1lh] of the h3 type), not centred on title + description. */}
+              <span className="flex h-[1lh] items-center font-body text-body-l leading-tight">
               <Badge tone="neutral">
                 <GraphUp aria-hidden="true" />
                 <span className="tabular-nums">{quotas.length}</span> metered
               </Badge>
+              </span>
             </div>
             <div className="flex flex-col gap-5">
               {quotas.map((q) => {
@@ -233,12 +236,14 @@ export function BillingUsage({
         <>
           <Separator />
           <div className="flex flex-col gap-4">
-            <div className="flex min-w-0 items-center justify-between gap-2">
+            <div className="flex min-w-0 items-start justify-between gap-2">
               <div className="min-w-0">
                 <h3 className="font-body text-body-l font-semibold leading-tight text-[var(--color-text-text)]">Recent invoices</h3>
                 <CardDescription>Your latest billing statements</CardDescription>
               </div>
-              <CreditCard className="size-4 shrink-0 text-[var(--color-icon-icon-subtle)]" aria-hidden="true" />
+              <span className="flex h-[1lh] shrink-0 items-center font-body text-body-l leading-tight">
+                <CreditCard className="size-4 shrink-0 text-[var(--color-icon-icon-subtle)]" aria-hidden="true" />
+              </span>
             </div>
             <Table>
               <TableHeader>

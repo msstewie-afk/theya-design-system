@@ -44,18 +44,6 @@ export const Default: Story = {
       ))}
     </Marquee>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    // Each name is met once by assistive tech (the duplicate copy is hidden).
-    await expect(canvas.getAllByText('Northwind', { ignore: '[aria-hidden="true"] *' })).toHaveLength(1);
-    const button = canvas.queryByRole('button', { name: 'Pause animation' });
-    if (!button) return; // hidden under prefers-reduced-motion: nothing moves
-    resetFocus();
-    await tabTo(button);
-    await userEvent.keyboard('{Enter}');
-    await expect(canvas.getByRole('button', { name: 'Play animation' })).toBeInTheDocument();
-    await expect(canvasElement.querySelector('[data-slot="marquee"]')).toHaveAttribute('data-paused');
-  },
 };
 
 /** Two strips in opposite directions, testimonial chips. */
@@ -73,4 +61,23 @@ export const Testimonials: Story = {
       ))}
     </div>
   ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // Each name is met once by assistive tech (the duplicate copy is hidden).
+    await expect(canvas.getAllByText('Northwind', { ignore: '[aria-hidden="true"] *' })).toHaveLength(1);
+    const button = canvas.queryByRole('button', { name: 'Pause animation' });
+    if (!button) return; // hidden under prefers-reduced-motion: nothing moves
+    resetFocus();
+    await tabTo(button);
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByRole('button', { name: 'Play animation' })).toBeInTheDocument();
+    await expect(canvasElement.querySelector('[data-slot="marquee"]')).toHaveAttribute('data-paused');
+  },
 };

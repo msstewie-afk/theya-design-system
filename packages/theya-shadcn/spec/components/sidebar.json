@@ -184,6 +184,10 @@
       {
         "name": "WithAccount",
         "id": "navigation-sidebar--with-account"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "navigation-sidebar--test-interactions"
       }
     ]
   }

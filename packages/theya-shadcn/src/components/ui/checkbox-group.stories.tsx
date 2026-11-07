@@ -69,17 +69,6 @@ export const Default: Story = {
       <CheckboxGroupItem name="push" label="Push notifications" />
     </CheckboxGroup>
   ),
-  play: async ({ canvasElement }) => {
-    const group = within(within(canvasElement).getByRole('group', { name: 'Notify me by' }));
-    await expect(group.getByRole('checkbox', { name: 'Email' })).toBeChecked();
-    await userEvent.click(group.getByRole('checkbox', { name: 'SMS' }));
-    await expect(group.getByRole('checkbox', { name: 'SMS' })).toBeChecked();
-    await expect(group.getByRole('checkbox', { name: 'Email' })).toBeChecked();
-    // Space toggles the focused item.
-    group.getByRole('checkbox', { name: 'Email' }).focus();
-    await userEvent.keyboard(' ');
-    await expect(group.getByRole('checkbox', { name: 'Email' })).not.toBeChecked();
-  },
 };
 
 function ControlledDemo() {
@@ -140,5 +129,23 @@ export const ErrorState: Story = {
     const group = within(canvasElement).getByRole('group', { name: 'Notify me by' });
     await expect(group).toHaveAccessibleDescription('Choose at least one way to be notified.');
     for (const box of within(group).getAllByRole('checkbox')) await expect(box).toHaveAttribute('aria-invalid', 'true');
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const group = within(within(canvasElement).getByRole('group', { name: 'Notify me by' }));
+    await expect(group.getByRole('checkbox', { name: 'Email' })).toBeChecked();
+    await userEvent.click(group.getByRole('checkbox', { name: 'SMS' }));
+    await expect(group.getByRole('checkbox', { name: 'SMS' })).toBeChecked();
+    await expect(group.getByRole('checkbox', { name: 'Email' })).toBeChecked();
+    // Space toggles the focused item.
+    group.getByRole('checkbox', { name: 'Email' }).focus();
+    await userEvent.keyboard(' ');
+    await expect(group.getByRole('checkbox', { name: 'Email' })).not.toBeChecked();
   },
 };

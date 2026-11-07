@@ -61,15 +61,22 @@ export function SearchNoResults({ query, scope, elsewhere = [], didYouMean, popu
           {scope && others.length > 0 && (
             <p className="font-body text-body-m text-[var(--color-text-text-subtle)]">
               {'But there are matches in '}
-              {others.map((o, i) => (
-                <span key={o.type}>
-                  {i > 0 && (i === others.length - 1 ? ' and ' : ', ')}
-                  <button type="button" className={linkButton} onClick={() => onScopeChange?.(o.type)}>
-                    {`${TYPE_META[o.type].many.toLowerCase()} (${o.count})`}
-                  </button>
-                </span>
-              ))}
-              .
+              {others.map((o, i) => {
+                const last = i === others.length - 1;
+                // The punctuation is glued to its button (nowrap) so a comma or the
+                // final period never wraps to the start of the next line.
+                return (
+                  <span key={o.type}>
+                    {i > 0 && (last ? ' and ' : ' ')}
+                    <span className="whitespace-nowrap">
+                      <button type="button" className={linkButton} onClick={() => onScopeChange?.(o.type)}>
+                        {`${TYPE_META[o.type].many.toLowerCase()} (${o.count})`}
+                      </button>
+                      {last ? '.' : others.length > 2 && i < others.length - 2 ? ',' : ''}
+                    </span>
+                  </span>
+                );
+              })}
             </p>
           )}
         </div>

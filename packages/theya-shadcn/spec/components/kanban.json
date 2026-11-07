@@ -182,6 +182,10 @@
       {
         "name": "Compact",
         "id": "data-kanban--compact"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "data-kanban--test-interactions"
       }
     ]
   }

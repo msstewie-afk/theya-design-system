@@ -24,6 +24,7 @@ export const Default: Story = {
 export const TestInteractions: Story = {
   ...Default,
   name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('heading', { level: 1 })).toHaveTextContent('results for “selene”');

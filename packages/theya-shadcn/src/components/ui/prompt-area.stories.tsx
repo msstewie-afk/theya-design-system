@@ -99,24 +99,6 @@ export const Default: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = field(canvasElement);
-    const send = canvas.getByRole('button', { name: 'Send' });
-    await expect(send).toBeDisabled();
-
-    // Whitespace alone can't be sent.
-    await userEvent.type(input, '   ');
-    await expect(send).toBeDisabled();
-    await userEvent.clear(input);
-
-    // Shift+Enter is a newline, Enter sends the trimmed text and clears.
-    await userEvent.type(input, 'Hello{Shift>}{Enter}{/Shift}world');
-    await expect(input).toHaveValue('Hello\nworld');
-    await userEvent.keyboard('{Enter}');
-    await expect(canvas.getByText(/sent: Hello/)).toBeInTheDocument();
-    await expect(input).toHaveValue('');
-  },
 };
 
 /** A counter appears once the field is close to `maxLength`, turning danger at/over the limit. */
@@ -561,5 +543,30 @@ export const WithRecentPrompts: Story = {
         />
       </div>
     );
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = field(canvasElement);
+    const send = canvas.getByRole('button', { name: 'Send' });
+    await expect(send).toBeDisabled();
+
+    // Whitespace alone can't be sent.
+    await userEvent.type(input, '   ');
+    await expect(send).toBeDisabled();
+    await userEvent.clear(input);
+
+    // Shift+Enter is a newline, Enter sends the trimmed text and clears.
+    await userEvent.type(input, 'Hello{Shift>}{Enter}{/Shift}world');
+    await expect(input).toHaveValue('Hello\nworld');
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByText(/sent: Hello/)).toBeInTheDocument();
+    await expect(input).toHaveValue('');
   },
 };

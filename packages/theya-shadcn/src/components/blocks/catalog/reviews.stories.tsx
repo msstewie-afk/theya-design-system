@@ -19,23 +19,7 @@ export default meta;
 type Story = StoryObj<typeof Reviews>;
 
 /** The distribution bars are filters — negative reviews are one click away. */
-export const Default: Story = {
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-    const oneStar = canvas.getByRole('button', { name: /^1\s+star\b/ });
-    await userEvent.click(oneStar);
-    await expect(oneStar).toHaveAttribute('aria-pressed', 'true');
-    await expect(canvas.getByText('The selection limit stopped my client')).toBeVisible();
-    await expect(canvas.queryByText('Cut a week out of every wedding')).not.toBeInTheDocument();
-
-    await userEvent.click(canvas.getByRole('button', { name: 'Show all' }));
-    await userEvent.click(canvas.getByRole('button', { name: 'Show 4 more reviews' }));
-    await expect(canvas.getAllByRole('listitem')).toHaveLength(8);
-
-    await userEvent.click(canvas.getByRole('button', { name: 'Write a review' }));
-    await expect(args.onWriteReview).toHaveBeenCalledTimes(1);
-  },
-};
+export const Default: Story = {};
 
 /**
  * "Show all" goes away once pressed; focus moves to the review list instead
@@ -74,5 +58,27 @@ export const ShowMoreFocus: Story = {
     await expect(canvas.queryByRole('button', { name: /^Show \d+ more reviews$/ })).not.toBeInTheDocument();
     // Most relevant order: the fifth review is Tom W.'s.
     await waitFor(() => expect(canvas.getByText('Picks are all or nothing').closest('li')).toHaveFocus());
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const oneStar = canvas.getByRole('button', { name: /^1\s+star\b/ });
+    await userEvent.click(oneStar);
+    await expect(oneStar).toHaveAttribute('aria-pressed', 'true');
+    await expect(canvas.getByText('The selection limit stopped my client')).toBeVisible();
+    await expect(canvas.queryByText('Cut a week out of every wedding')).not.toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Show all' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Show 4 more reviews' }));
+    await expect(canvas.getAllByRole('listitem')).toHaveLength(8);
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Write a review' }));
+    await expect(args.onWriteReview).toHaveBeenCalledTimes(1);
   },
 };

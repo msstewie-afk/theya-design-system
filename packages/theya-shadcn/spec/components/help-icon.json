@@ -130,6 +130,10 @@
       {
         "name": "LongHint",
         "id": "labels-helpicon--long-hint"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "labels-helpicon--test-interactions"
       }
     ]
   }

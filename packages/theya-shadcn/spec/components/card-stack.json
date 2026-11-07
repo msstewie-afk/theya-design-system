@@ -102,6 +102,10 @@
       {
         "name": "Fan",
         "id": "motion-cardstack--fan"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "motion-cardstack--test-interactions"
       }
     ]
   }

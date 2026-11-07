@@ -39,13 +39,6 @@ export const Default: Story = {
       <TruncatedText {...args} />
     </div>
   ),
-  play: async ({ canvasElement }) => {
-    const text = within(canvasElement).getByText(/selene-weddings/);
-    await waitFor(() => expect(text).toHaveAttribute('data-truncated'));
-    await userEvent.tab();
-    await expect(text).toHaveFocus();
-    await waitFor(() => expect(document.querySelector('[data-slot=truncated-text][data-state$=open]')).not.toBeNull());
-  },
 };
 
 /** Text that fits: no tooltip, no tab stop. */
@@ -94,5 +87,19 @@ export const TwoLines: Story = {
   play: async ({ canvasElement }) => {
     const text = within(canvasElement).getByText(/Redirect old gallery links/);
     await waitFor(() => expect(text).toHaveAttribute('data-truncated'));
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const text = within(canvasElement).getByText(/selene-weddings/);
+    await waitFor(() => expect(text).toHaveAttribute('data-truncated'));
+    await userEvent.tab();
+    await expect(text).toHaveFocus();
+    await waitFor(() => expect(document.querySelector('[data-slot=truncated-text][data-state$=open]')).not.toBeNull());
   },
 };

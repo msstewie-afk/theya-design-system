@@ -368,6 +368,10 @@
       {
         "name": "Open",
         "id": "overlays-alertdialog--open"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "overlays-alertdialog--test-interactions"
       }
     ]
   }

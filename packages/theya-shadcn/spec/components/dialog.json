@@ -215,6 +215,10 @@
       {
         "name": "FullscreenOpen",
         "id": "overlays-dialog--fullscreen-open"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "overlays-dialog--test-interactions"
       }
     ]
   }

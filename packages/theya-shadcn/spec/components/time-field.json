@@ -194,6 +194,10 @@
       {
         "name": "Disabled",
         "id": "date-time-timefield--disabled"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "date-time-timefield--test-interactions"
       }
     ]
   }
