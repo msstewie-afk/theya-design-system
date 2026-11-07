@@ -10,6 +10,17 @@ import { ScrollJump } from '../src/components/ui/scroll-jump';
 import { configure } from '@storybook/test';
 import { TheyaLocaleProvider, pseudoLocalize, en, type TheyaLocaleBundle } from '../src/lib/i18n';
 import { ruLocale } from '../src/lib/locale-ru';
+
+// --sb-vw: the page width without the scrollbar. 100vw includes a classic
+// (always-on) scrollbar, so in Safari with "show scrollbars: always" a
+// `calc(100vw - 2rem)` story ran 15px past its gutter (Maria, 7.11).
+// Stories size against var(--sb-vw, 100vw).
+if (typeof document !== 'undefined') {
+  const root = document.documentElement;
+  const setVw = () => root.style.setProperty('--sb-vw', `${root.clientWidth}px`);
+  setVw();
+  new ResizeObserver(setVw).observe(root);
+}
 import { deLocale } from '../src/lib/locale-de';
 import { arLocale } from '../src/lib/locale-ar';
 import { zhLocale } from '../src/lib/locale-zh';

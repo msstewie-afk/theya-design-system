@@ -472,9 +472,17 @@
      list, which drops the page below the scroll threshold, which was
      shifting "Mark all read" and everything after it. Universal to any
      scrollable page here, not specific to that one component.
-     scrollbar-gutter is supported in every current evergreen browser. */
+     scrollbar-gutter is supported in every current evergreen browser.
+     From 640px only: phones have overlay scrollbars (nothing to reserve),
+     and in a 360px frame on a desktop with always-on scrollbars (Safari)
+     the reserved strip painted white down every phone story and ate 13px of
+     the width (Maria, 2026-11-07). */
+  @media (width >= 40rem) {
+    html {
+      scrollbar-gutter: stable;
+    }
+  }
   html {
-    scrollbar-gutter: stable;
     /* Every native scrollbar (tables, code, toolbars, the page) looks like
        ScrollArea's overlay: thin, no track, translucent thumb. A bare
        horizontal scrollbar under a table showed a white track in the dark
@@ -511,8 +519,12 @@
      wrapper inside it — or opening any Select shifts the page by that
      padding. Storybook's padded layout is moved off <body> for this
      reason (.storybook/preview.css). */
-  body[data-scroll-locked] {
-    margin-right: 0 !important;
+  /* Only where the gutter is reserved (640px and up); below it Radix's own
+     compensation is the right one. */
+  @media (width >= 40rem) {
+    body[data-scroll-locked] {
+      margin-right: 0 !important;
+    }
   }
 
   body {

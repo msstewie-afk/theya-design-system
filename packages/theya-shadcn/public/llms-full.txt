@@ -3008,7 +3008,7 @@ Docs: ./?path=/docs/data-datatable--docs
 - `embeddedBottomRounded?`: `boolean`, default `false`
 - `emptyMessage?`: `ReactNode`, default `No results. (localized: common.noResults)`
 - `emptyState?`: `((table: Table<TData>) => ReactNode)` — Rich empty state, rendered with the live table instance so it can branch on filter activity. Takes precedence over `emptyMessage`.
-- `enableSelection?`: `boolean`, default `false` — Prepend a select-all/select-row checkbox column. Auto-drops below md.
+- `enableSelection?`: `boolean`, default `false` — Prepend a select-all/select-row checkbox column. On a phone each stacked item gets its checkbox before the title.
 - `estimateRowHeight?`: `number`, default `48`
 - `fillViewport?`: `boolean`, default `false` — Stretch the scroll body to the remaining viewport height. Overridden by explicit `maxHeight`.
 - `getRowHref?`: `((row: TData) => string)`

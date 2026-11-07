@@ -144,7 +144,7 @@
           "type": "boolean",
           "required": false,
           "default": "false",
-          "description": "Prepend a select-all/select-row checkbox column. Auto-drops below md."
+          "description": "Prepend a select-all/select-row checkbox column. On a phone each stacked item gets its checkbox before the title."
         },
         {
           "name": "estimateRowHeight",

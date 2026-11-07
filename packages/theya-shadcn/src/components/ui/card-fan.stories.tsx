@@ -45,7 +45,7 @@ export const Default: Story = {
     a11y: { config: { rules: [{ id: 'target-size', enabled: false }] } },
   },
   render: (args) => (
-    <div className="flex w-[min(36rem,calc(100vw-2rem))] justify-center px-4 py-10">
+    <div className="flex w-[min(36rem,calc(var(--sb-vw,100vw)-2rem))] justify-center px-4 py-10">
       <CardFan {...args}>
         {TEAM.map((p) => (
           <Card key={p.name} href="#" aria-label={p.name} className="w-44">

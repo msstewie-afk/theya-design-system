@@ -43,7 +43,7 @@ function Phone({ children, dir }: { children: ReactNode; dir?: 'rtl' }) {
   return (
     <div
       dir={dir}
-      className="relative h-[480px] w-[360px] max-w-[calc(100vw-2rem)] overflow-hidden rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-sunken)] [transform:translateZ(0)]"
+      className="relative h-[480px] w-[360px] max-w-[calc(var(--sb-vw,100vw)-2rem)] overflow-hidden rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-sunken)] [transform:translateZ(0)]"
     >
       <div className="p-4 font-body text-body-m text-[var(--color-text-text-subtler)]">Screen content</div>
       {children}

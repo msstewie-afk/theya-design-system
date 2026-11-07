@@ -178,24 +178,21 @@ export const Selected: Story = {
 
   render: () => <ToolbarDemo initialSelection={{ 'Golden hour': true, 'First light': true }} />,
   play: async ({ canvasElement }) => {
-    // Phone (below md): selection is off, so a preselection is dropped — no bulk bar.
-    const phone = window.matchMedia('(max-width: 767.98px)').matches;
-    if (phone) {
-      await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'default'));
-      await expect(within(canvasElement).queryByRole('toolbar', { name: 'Bulk actions' })).toBeNull();
-      await expect(within(canvasElement).queryAllByRole('checkbox')).toHaveLength(0);
-      return;
-    }
 
     const canvas = within(canvasElement);
     await expect(bar(canvasElement)).toHaveTextContent('2 selected');
     await expect(selectAll(canvasElement)).toHaveAttribute('aria-checked', 'mixed');
     // Bulk actions are one toolbar (one tab stop, arrows between).
     const actions = canvas.getByRole('toolbar', { name: 'Bulk actions' });
-    await expect(within(actions).getByRole('button', { name: 'Archive' })).toBeInTheDocument();
-
     onArchive.mockClear();
-    await userEvent.click(within(actions).getByRole('button', { name: 'Archive' }));
+    // Inline on a wide bar; on a phone it may have moved into the overflow menu.
+    const inline = within(actions).queryByRole('button', { name: 'Archive' });
+    if (inline) {
+      await userEvent.click(inline);
+    } else {
+      await userEvent.click(within(actions).getByRole('button', { name: 'More bulk actions' }));
+      await userEvent.click(await within(document.body).findByRole('menuitem', { name: 'Archive' }));
+    }
     await expect(onArchive).toHaveBeenCalledWith(['Golden hour', 'First light']);
     // The action clears the selection; focus lands on select-all, not <body>.
     await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'default'));
@@ -213,14 +210,6 @@ export const Overflow: Story = {
 
   render: () => <ToolbarDemo maxVisible={2} initialSelection={{ 'Golden hour': true, 'First light': true, 'Wide-shining': true }} />,
   play: async ({ canvasElement }) => {
-    // Phone (below md): selection is off, so a preselection is dropped — no bulk bar.
-    const phone = window.matchMedia('(max-width: 767.98px)').matches;
-    if (phone) {
-      await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'default'));
-      await expect(within(canvasElement).queryByRole('toolbar', { name: 'Bulk actions' })).toBeNull();
-      await expect(within(canvasElement).queryAllByRole('checkbox')).toHaveLength(0);
-      return;
-    }
 
     const canvas = within(canvasElement);
     const page = within(document.body);
@@ -259,14 +248,6 @@ export const NarrowOverflow: Story = {
     </div>
   ),
   play: async ({ canvasElement }) => {
-    // Phone (below md): selection is off, so a preselection is dropped — no bulk bar.
-    const phone = window.matchMedia('(max-width: 767.98px)').matches;
-    if (phone) {
-      await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'default'));
-      await expect(within(canvasElement).queryByRole('toolbar', { name: 'Bulk actions' })).toBeNull();
-      await expect(within(canvasElement).queryAllByRole('checkbox')).toHaveLength(0);
-      return;
-    }
 
     const canvas = within(canvasElement);
     await expect(bar(canvasElement)).toHaveAttribute('data-state', 'selected');
@@ -281,13 +262,13 @@ export const TestInteractions: Story = {
   name: 'Test: interactions',
   tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
-    // Phone (below md): no row selection — the table stacks into items, the bar keeps
-    // its default state, and the filter still narrows the list.
-    const phone = window.matchMedia('(max-width: 767.98px)').matches;
+    // Phone (below 640px): the table stacks into items; select-all stays in the bar
+    // and the filter still narrows the list.
+    const phone = window.matchMedia('(max-width: 639.98px)').matches;
     if (phone) {
       const c = within(canvasElement);
       await expect(bar(canvasElement)).toHaveAttribute('data-state', 'default');
-      await expect(c.queryByRole('checkbox', { name: 'Select all' })).toBeNull();
+      await expect(c.getByRole('checkbox', { name: 'Select all' })).toBeInTheDocument();
       await userEvent.type(c.getByRole('textbox', { name: 'Filter galleries' }), 'Golden');
       await waitFor(() => expect(c.getAllByRole('listitem')).toHaveLength(1));
       await expect(c.getByRole('listitem')).toHaveTextContent('Golden hour');

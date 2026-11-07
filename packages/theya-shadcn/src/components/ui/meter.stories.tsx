@@ -121,7 +121,7 @@ const grams = { style: 'unit', unit: 'gram', maximumFractionDigits: 1 } as const
 export const WithThresholds: Story = {
   parameters: { controls: { exclude: ['value', 'min', 'max', 'format', 'label', 'tone', 'thresholds'] } },
   render: () => (
-    <div className="flex w-[340px] max-w-[calc(100vw-2rem)] flex-col gap-6">
+    <div className="flex w-[340px] max-w-[calc(var(--sb-vw,100vw)-2rem)] flex-col gap-6">
       <Meter
         value={1.1}
         max={3}
@@ -157,7 +157,7 @@ export const WithThresholds: Story = {
 export const MinimumAndSteps: Story = {
   parameters: { controls: { exclude: ['value', 'min', 'max', 'format', 'label', 'tone', 'thresholds'] } },
   render: () => (
-    <div className="flex w-[340px] max-w-[calc(100vw-2rem)] flex-col gap-6">
+    <div className="flex w-[340px] max-w-[calc(var(--sb-vw,100vw)-2rem)] flex-col gap-6">
       <Meter
         value={42}
         max={80}
