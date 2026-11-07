@@ -35,7 +35,7 @@ const meta: Meta<typeof DataTable> = {
     getRowId: { control: false, description: 'Stable identity for a row, used as its selection key. Supply whenever selection is enabled and data can change under the user.', table: { category: 'Behavior' } },
     loading: { control: 'boolean', description: 'Shows the skeleton state instead of rows.', table: { category: 'State' } },
     skeletonRows: { control: { type: 'number' }, description: 'Number of skeleton rows shown while loading.', table: { category: 'State' } },
-    enableSelection: { control: 'boolean', description: 'Prepend a select-all/select-row checkbox column. Auto-drops below md.', table: { category: 'Behavior' } },
+    enableSelection: { control: 'boolean', description: 'Prepend a select-all/select-row checkbox column. On a phone each stacked item gets its checkbox before the title.', table: { category: 'Behavior' } },
     pinSelection: { control: 'boolean', description: 'Pins the selection checkbox column left at every width.', table: { category: 'Appearance' } },
     selectAll: { control: 'inline-radio', options: ['header', 'toolbar', 'none'], description: 'Where the select-all control lives. Default header.', table: { category: 'Behavior' } },
     selectAllTooltip: { control: false, description: 'Tooltip on the select-all control.', table: { category: 'Content' } },
@@ -297,18 +297,6 @@ export const WithSelectionAndRowMenu: Story = {
   // all and clear work; the row menu opens from its trigger. Ends with the
   // menu closed and nothing selected.
   play: async ({ canvasElement }) => {
-    // Phone (below md): no selection column; each item keeps its row menu.
-    const phone = window.matchMedia('(max-width: 767.98px)').matches;
-    if (phone) {
-      const c = within(canvasElement);
-      await expect(c.queryAllByRole('checkbox')).toHaveLength(0);
-      await expect(c.queryByRole('toolbar', { name: 'Bulk actions' })).toBeNull();
-      await userEvent.click(c.getAllByRole('button', { name: /^(Row actions|Actions for .+)$/ })[0]);
-      await expect(await within(document.body).findByRole('menuitem', { name: 'View details' })).toBeInTheDocument();
-      await userEvent.keyboard('{Escape}');
-      await waitFor(() => expect(within(document.body).queryByRole('menu')).toBeNull());
-      return;
-    }
 
     const canvas = within(canvasElement);
     const body = within(document.body);

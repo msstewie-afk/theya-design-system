@@ -386,7 +386,7 @@ export interface DataTableProps<TData> {
   getRowId?: (row: TData) => string;
   loading?: boolean;
   skeletonRows?: number;
-  /** Prepend a select-all/select-row checkbox column. Auto-drops below md. */
+  /** Prepend a select-all/select-row checkbox column. On a phone each stacked item gets its checkbox before the title. */
   enableSelection?: boolean;
   pinSelection?: boolean;
   /** Where the select-all control lives: "header" (default), "toolbar" (pair with DataTableToolbar), or "none". */
@@ -737,11 +737,10 @@ export function DataTable<TData>({
   const belowMd = useMediaQuery('(max-width: 767.98px)');
   const belowLg = useMediaQuery('(max-width: 1023.98px)');
 
-  const selectionActive = enableSelection && !belowMd;
-
-  useEffect(() => {
-    if (!selectionActive) setRowSelection({});
-  }, [selectionActive, setRowSelection]);
+  // Selection works on every width (Maria, 2026-11-07): on a phone each
+  // stacked item gets its checkbox before the title, select-all sits above
+  // the list or in the toolbar, as on a wide screen.
+  const selectionActive = enableSelection;
 
   // Paged on a phone: the primary column (else the first data column)
   // stays, the other data columns show `columnsPerPage` at a time.
