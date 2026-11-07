@@ -81,7 +81,8 @@ export function FeatureShowcase({ variant = 'accordion', eyebrow, title, descrip
         <div className="container-display flex flex-col items-center gap-8 lg:gap-12">
           <SectionHead eyebrow={eyebrow} title={title} description={description} align="center" />
           <Tabs value={value} onValueChange={setValue} className="flex w-full flex-col items-center gap-8">
-            <TabsList variant="chips" aria-label={typeof title === 'string' ? title : t.landing.features} className="max-w-full flex-wrap justify-center">
+            {/* One line that scrolls with a chevron on a narrow screen (Tabs chips); wrapping left the active pill behind. */}
+            <TabsList variant="chips" aria-label={typeof title === 'string' ? title : t.landing.features}>
               {items.map((item) => (
                 <TabsTrigger key={item.id} value={item.id}>
                   {item.title}
