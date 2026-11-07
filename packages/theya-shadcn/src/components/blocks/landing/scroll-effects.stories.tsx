@@ -167,7 +167,7 @@ export const MaskReveal: Story = {
       <Spacer label="Scroll down" />
       <ScrollMaskReveal aria-labelledby="reveal-title" media={
           // Two pictures, one per theme: the dark one is pre-blended (see ThemedImage).
-          <ThemedImage src="/asset-examples/gradients/iridescent" />
+          <ThemedImage src="/asset-examples/waves/wide" />
         }>
         <div className="flex max-w-[34rem] flex-col items-start gap-6 rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-8">
           <h2 id="reveal-title" className="m-0 text-balance font-heading text-heading-2xl text-[var(--color-text-text)]">
@@ -222,11 +222,11 @@ export const Sideways: Story = {
   },
 };
 
-// Cool mesh only (Maria, 5.11): blue, cyan and lilac, so the wall reads as one palette. No photos on cards in motion.
+// Blue waves (Maria, 7.11), one palette across the wall and the mask reveal. No photos on cards in motion.
 //
-// In the dark theme each picture is swapped for a pre-blended copy (name-dark.webp): the light
-// one soft-lit onto the dark sunken surface and a touch more saturated, so it glows rather than
-// greys out. Baked into the file, not a CSS blend mode: Safari and Chrome render
+// In the dark theme each picture is swapped for a pre-dimmed copy (name-dark.webp): the light one
+// mixed 72/28 with the dark sunken surface, so it sits back without losing the white wisps (a
+// soft-light blend turned these waves into flat navy). Baked into the file, not a CSS blend mode: Safari and Chrome render
 // mix-blend-mode with a filter differently (Safari drew flat navy tiles), and a blended edge
 // left a light rim on the rounded corners.
 const ThemedImage = ({ src, className = '' }: { src: string; className?: string }) => (
@@ -235,7 +235,7 @@ const ThemedImage = ({ src, className = '' }: { src: string; className?: string 
     <img src={`${src}-dark.webp`} alt="" className={`hidden [[data-theme=dark]_&]:block ${className}`} />
   </>
 );
-const GRADIENTS = ['blue-portrait', 'cyan-square', 'lilac-portrait', 'blue', 'cyan-portrait', 'lilac'];
+const GRADIENTS = ['airy-portrait', 'deep-square', 'bright-portrait', 'swell', 'drift-portrait', 'calm'];
 const RATIOS = ['aspect-[3/4]', 'aspect-square', 'aspect-[4/5]', 'aspect-[3/2]', 'aspect-[2/3]', 'aspect-[5/4]'];
 
 /** A Pinterest-like wall (MarqueeColumns, `drive="scroll"`): columns of saved things drift past each other as you scroll (odd up, even down). Tab into it and it stops and opens. */
@@ -244,8 +244,8 @@ export const Masonry: Story = {
     const items = [
       ...GRADIENTS.map((p, i) => (
         <LandingCard key={p} surface="sunken" className="overflow-hidden">
-          <ThemedImage src={`/asset-examples/mesh/${p}`} className={`${RATIOS[i]} w-full object-cover`} />
-          <p className="m-0 p-4 font-body text-body-s font-semibold">{['Blue hour', 'Lagoon', 'Lavender', 'Clear sky', 'Glacier', 'Dusk'][i]}</p>
+          <ThemedImage src={`/asset-examples/waves/${p}`} className={`${RATIOS[i]} w-full object-cover`} />
+          <p className="m-0 p-4 font-body text-body-s font-semibold">{['Blue hour', 'Lagoon', 'Clear sky', 'Undertow', 'Glacier', 'Tide'][i]}</p>
         </LandingCard>
       )),
       <QuoteCard key="q1" serif surface="tonal" hue="secondary" quote="My whole moodboard, finally in one place." name="Lea Brandt" title="Illustrator" />,
