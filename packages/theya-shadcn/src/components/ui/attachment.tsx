@@ -332,7 +332,7 @@ export function Attachment({
         onClick={isClickOnly ? undefined : onClick}
         {...rest}
         className={cn(
-          'relative inline-flex self-start max-w-[min(100%,20rem)] items-center gap-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid py-2 ps-3',
+          'relative inline-flex self-start max-w-[min(100%,20rem)] items-start gap-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid py-2 ps-3',
           onRemove ? 'pe-1' : 'pe-5',
           borderToneClass,
           surfaceBgClass,
@@ -341,7 +341,8 @@ export function Attachment({
         )}
       >
         {clickOverlay}
-        <span aria-hidden="true" className={cn('flex shrink-0 items-center justify-center size-4 [&>svg]:size-full', iconColorClass)}>
+        {/* The kind icon sits on the name's line (one body-m line tall), not centered on name + meta. */}
+        <span aria-hidden="true" className={cn('flex h-[1lh] w-4 shrink-0 items-center justify-center font-body text-body-m [&>svg]:size-4', iconColorClass)}>
           {kindIcon(type, previewUrl)}
         </span>
         <span className="min-w-0 flex flex-col items-start">
@@ -370,7 +371,7 @@ export function Attachment({
         </span>
         {liveEl}
         {(actions || removeButton) && (
-          <span className="relative z-10 flex shrink-0 items-center gap-1">
+          <span className="relative z-10 flex shrink-0 items-center gap-1 self-center">
             {actions}
             {removeButton}
           </span>

@@ -408,7 +408,7 @@ function ListFacetGroup({ facet, items, filters, toggle }: { facet: ListFacet; i
           type="button"
           onClick={() => setExpanded((e) => !e)}
           aria-expanded={expanded}
-          className="self-start rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link)] underline-offset-4 outline-none hover:underline focus-visible:focus-ring"
+          className="self-start rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link)] outline-none hover:text-[var(--color-text-text-link-hover)] focus-visible:focus-ring"
         >
           {expanded ? 'Show less' : `Show ${hidden} more`}
         </button>

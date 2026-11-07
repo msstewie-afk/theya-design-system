@@ -156,7 +156,7 @@ export const CustomAction: Story = {
 /** Thumbnail-forward tile, one with a real preview, one with a trailing custom action. */
 export const Card: Story = {
   render: () => (
-    <div className="grid max-w-2xl grid-cols-3 gap-3">
+    <div className="grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-3">
       <RemovableAttachment variant="card" name="quarterly-report.pdf" type="application/pdf" size={248000} onRemove={() => {}} />
       <RemovableAttachment
         variant="card"
@@ -192,8 +192,9 @@ export const LocalizedLabels: Story = {
       'application/pdf': 'PDF-Dokument',
       'image/png': 'PNG-Bild',
     };
+    // Phones: one tile per row, so the longer German names and labels stay readable.
     return (
-      <div className="grid max-w-2xl grid-cols-3 gap-3">
+      <div className="grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3">
         <RemovableAttachment
           variant="card"
           name="quartalsbericht.pdf"
@@ -247,7 +248,7 @@ export const ErrorStates: Story = {
       <div className="flex flex-col gap-2">
         <RemovableAttachment variant="row" name="wedding-raws.zip" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
       </div>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         <RemovableAttachment variant="card" name="wedding-raws.zip" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" onRemove={() => {}} />
       </div>
     </div>
@@ -264,7 +265,7 @@ export const MetaText: Story = {
         <RemovableAttachment name="main.ts" size={4100} metaText="Modified 2 days ago" onRemove={() => {}} />
       </div>
       <RemovableAttachment variant="row" name="quarterly-report.pdf" type="application/pdf" size={248000} metaText="Modified 2 days ago" />
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         <RemovableAttachment variant="card" name="cover.png" type="image/png" size={184000} previewUrl="/asset-examples/nova-web.jpg" metaText="Uploaded today" />
       </div>
     </div>
@@ -353,7 +354,7 @@ export const Selected: Story = {
     ];
     const [picked, setPicked] = useState('cover.png');
     return (
-      <div className="grid max-w-2xl grid-cols-3 gap-3">
+      <div className="grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-3">
         {files.map((f) => (
           <RemovableAttachment
             key={f.name}

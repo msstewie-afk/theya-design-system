@@ -241,7 +241,7 @@ export function SearchBox({
                 onRecentChange?.([]);
                 inputRef.current?.focus();
               }}
-              className="cursor-pointer rounded-[var(--size-border-radius-border-radius-sm)] px-1 font-body text-body-s font-medium text-[var(--color-text-text-link)] underline-offset-4 outline-none hover:underline focus-visible:focus-ring"
+              className="cursor-pointer rounded-[var(--size-border-radius-border-radius-sm)] px-1 font-body text-body-s font-medium text-[var(--color-text-text-link)] outline-none hover:text-[var(--color-text-text-link-hover)] focus-visible:focus-ring"
             >
               Clear recent searches
             </button>

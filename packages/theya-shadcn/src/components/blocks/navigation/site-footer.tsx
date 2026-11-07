@@ -55,6 +55,10 @@ const flag = (country: string) => String.fromCodePoint(...[...country.toUpperCas
 const linkClass =
   'rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-m text-[var(--color-text-text-subtle)] underline-offset-4 outline-none hover:text-[var(--color-text-text)] hover:underline focus-visible:focus-ring';
 
+// Small text (body-s): never underlined, not even on hover; one weight step heavier, hover is the color (Link's small-text rule).
+const smallLinkClass =
+  'rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-subtle)] outline-none hover:text-[var(--color-text-text)] focus-visible:focus-ring';
+
 /**
  * The page's last stop and the place people scroll to on purpose: for
  * contact details, status, legal pages, a sitemap of the things the top
@@ -140,7 +144,7 @@ export function SiteFooter({
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <p className="font-body text-body-s text-[var(--color-text-text-subtle)]">{`© ${year} ${appName}`}</p>
             {legal.map((l) => (
-              <a key={l.href} href={l.href} className={cn(linkClass, 'text-body-s')}>
+              <a key={l.href} href={l.href} className={smallLinkClass}>
                 {l.label}
               </a>
             ))}

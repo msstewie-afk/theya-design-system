@@ -121,7 +121,7 @@ export const Variants: Story = {
 export const CardGrid: Story = {
   name: 'Card Grid',
   render: () => (
-    <div className="grid grid-cols-3 gap-3 w-full max-w-[600px]">
+    <div className="grid grid-cols-2 gap-3 w-full max-w-[600px] sm:grid-cols-3">
       <File name="cover.png" size={801000} type="image/png" meta="Modified today" />
       <File name="report.pdf" size={242000} type="application/pdf" meta="Modified 2 days ago" />
       <File name="notes.md" size={4100} meta="Modified 1 week ago" />
@@ -178,7 +178,7 @@ export const WithError: Story = {
         <File variant="row" name="wedding-raws.zip" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" />
         <File variant="row" name="notes.pages" type="application/octet-stream" error="File type is not supported" />
       </div>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         <File name="wedding-raws.zip" type="application/zip" size={5300000000} error="Exceeds the 2 GB upload limit" />
         <File name="cover.png" type="image/png" size={820000} error="Upload failed" />
         <File name="data.csv" type="text/csv" size={9200} meta="Modified today" />
@@ -232,7 +232,7 @@ export const AsLink: Story = {
 export const Slot: Story = {
   render: () => (
     <div className="flex max-w-2xl flex-col gap-6">
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         <File empty inputProps={{ name: 'attachment' }} />
         <File empty pickLabel="Add image" pickHint="PNG or JPG, up to 25 MB" inputProps={{ name: 'cover', accept: 'image/png,image/jpeg' }} />
       </div>

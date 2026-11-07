@@ -59,7 +59,7 @@ export function OrderReview({ sections, lines, totals, currency = 'USD', taxLabe
                 <button
                   type="button"
                   onClick={section.onEdit}
-                  className="shrink-0 cursor-pointer rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link)] underline-offset-4 outline-none hover:underline focus-visible:focus-ring"
+                  className="shrink-0 cursor-pointer rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link)] outline-none hover:text-[var(--color-text-text-link-hover)] focus-visible:focus-ring"
                 >
                   Edit<span className="sr-only"> {section.title.toLowerCase()}</span>
                 </button>

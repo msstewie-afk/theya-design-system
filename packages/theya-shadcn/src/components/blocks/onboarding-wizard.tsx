@@ -307,7 +307,7 @@ function EditLink({ label, onClick }: { label: string; onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="shrink-0 cursor-pointer rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link)] underline-offset-4 outline-none hover:underline focus-visible:focus-ring"
+      className="shrink-0 cursor-pointer rounded-[var(--size-border-radius-border-radius-sm)] font-body text-body-s font-medium text-[var(--color-text-text-link)] outline-none hover:text-[var(--color-text-text-link-hover)] focus-visible:focus-ring"
     >
       Edit<span className="sr-only"> {label}</span>
     </button>

@@ -798,7 +798,7 @@ function MonthGrid({
                 <button
                   type="button"
                   onClick={() => onMore(d)}
-                  className="cursor-pointer self-start rounded-[var(--size-border-radius-border-radius-sm)] px-1 text-body-xs font-medium text-[var(--color-text-text-link)] outline-none hover:underline focus-visible:focus-ring"
+                  className="cursor-pointer self-start rounded-[var(--size-border-radius-border-radius-sm)] px-1 text-body-xs font-medium text-[var(--color-text-text-link)] outline-none hover:text-[var(--color-text-text-link-hover)] focus-visible:focus-ring"
                 >
                   {t.scheduler.more(more)}
                   <span className="sr-only">{t.scheduler.moreOn(fmt.dayLong.format(d))}</span>

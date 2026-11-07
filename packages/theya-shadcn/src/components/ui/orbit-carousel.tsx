@@ -204,7 +204,8 @@ export function OrbitCarousel({
         s.moved = true;
         e.currentTarget.setPointerCapture(e.pointerId);
       }
-      let c = -d / perCard;
+      // The wheel's next cards wait above, so a downward drag brings them in (the rim follows the finger).
+      let c = (shape === 'wheel' ? d : -d) / perCard;
       // The ends of a wall or a fan give a little, then stop.
       if (!wraps) c = Math.max(-turn - 0.3, Math.min(n - 1 - turn + 0.3, c));
       setPullBoth(c);
@@ -402,7 +403,8 @@ function Wheel({ items, pos, width, motion, slide }: ShapeProps) {
               width,
               insetInlineStart: `calc(50% - ${width / 2}px)`,
               transformOrigin: `${-radius + width / 2}px 50%`,
-              transform: `translateY(-50%) rotate(${k * step}deg)`,
+              // Next cards wait above the front one: Next (↓, ArrowDown) rolls the rim down, as the arrow shows.
+              transform: `translateY(-50%) rotate(${-k * step}deg)`,
               opacity: visible ? 1 - Math.abs(k) * 0.18 : 0,
               zIndex: 10 - Math.round(Math.abs(k)),
             }}
