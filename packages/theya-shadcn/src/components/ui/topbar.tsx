@@ -16,12 +16,15 @@ import { useTheyaI18n } from '../../lib/i18n';
  * icon rail when orientation="vertical".
  *
  *   <Topbar>
- *     <TopbarMenu />
  *     <Breadcrumb>…</Breadcrumb>
  *     <TopbarSearch value={q} onValueChange={setQ}>…results…</TopbarSearch>
  *     <TopbarSpacer />
  *     <ThemeToggle /> …
+ *     <TopbarMenu />
  *   </Topbar>
+ *
+ * TopbarMenu goes last: on phones the menu lives in the top end corner (Maria, 7.11), and last
+ * in the markup keeps the Tab order the same as on screen.
  */
 export type TopbarOrientation = 'horizontal' | 'vertical';
 
@@ -54,7 +57,7 @@ export function Topbar({ className, orientation = 'horizontal', children, ...pro
   );
 }
 
-/** Hamburger that opens the rail on mobile (hidden ≥ md). */
+/** Hamburger that opens the rail on mobile (hidden ≥ md). Place it last in the Topbar: the top end corner. */
 // forwardRef: a wrapper over a native control must pass refs through (focus
 // by ref, Radix asChild triggers); a plain function drops them under React 18.
 export const TopbarMenu = forwardRef<HTMLButtonElement, React.ComponentPropsWithoutRef<'button'>>(function TopbarMenu({ className, ...props }, ref) {

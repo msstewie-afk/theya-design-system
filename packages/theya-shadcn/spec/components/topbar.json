@@ -26,7 +26,7 @@
   "anatomy": [
     {
       "part": "Menu button",
-      "description": "`TopbarMenu` opens the Sidebar on small screens.",
+      "description": "`TopbarMenu` opens the Sidebar on small screens. It goes last, in the top end corner (Theya's place for the menu on phones), and the Sidebar slides in from that side.",
       "optional": true
     },
     {
@@ -135,7 +135,7 @@
     },
     {
       "name": "TopbarMenu",
-      "description": "Hamburger that opens the rail on mobile (hidden ≥ md).",
+      "description": "Hamburger that opens the rail on mobile (hidden ≥ md). Place it last in the Topbar: the top end corner.",
       "props": []
     }
   ],

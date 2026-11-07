@@ -189,7 +189,6 @@ export function WorkspaceLayout({
         </Sidebar>
         <div className="flex min-w-0 flex-col">
           <Topbar>
-            <TopbarMenu />
             {showBreadcrumbs && breadcrumbs.length > 1 && (
               <Breadcrumb className="min-w-0">
                 <BreadcrumbList>
@@ -227,6 +226,8 @@ export function WorkspaceLayout({
               </TopbarAction>
             )}
             <ThemeToggle />
+            {/* Last: the menu lives in the top end corner on phones. */}
+            <TopbarMenu />
           </Topbar>
 
           <main id="main-content" tabIndex={-1} className="min-w-0 flex-1 outline-none">

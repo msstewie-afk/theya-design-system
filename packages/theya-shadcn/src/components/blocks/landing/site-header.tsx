@@ -8,8 +8,18 @@ import { useTheyaI18n } from '../../../lib/i18n';
 export interface SiteHeaderProps extends ComponentProps<'header'> {
   /** The product mark, as a link to the home page. */
   logo: ReactNode;
-  /** The site navigation, usually a MegaMenu (bar on wide screens, drawer below md). */
+  /**
+   * The site navigation, usually a MegaMenu. With `mobileNav` it is the wide-screen bar only
+   * (`<MegaMenu layout="bar">`); without it, it also carries the phone drawer button.
+   */
   nav?: ReactNode;
+  /**
+   * The phone menu below md, usually the same MegaMenu as a drawer button
+   * (`<MegaMenu layout="drawer" drawerTrigger="icon">`). It sits at the very end of the row,
+   * after the actions: the top end corner is Theya's place for the menu on phones (Maria,
+   * 7.11). It comes last in the markup too, so the Tab order matches what is on screen.
+   */
+  mobileNav?: ReactNode;
   /**
    * Buttons at the end: "Log in" and the main call to action. Hide the
    * secondary one on phones (`max-sm:hidden`) so the bar keeps one action.
@@ -31,7 +41,7 @@ export interface SiteHeaderProps extends ComponentProps<'header'> {
  * On phones the navigation collapses to the MegaMenu's drawer button, moved
  * to the end of the bar.
  */
-export function SiteHeader({ logo, nav, actions, sticky = true, skipToId, className, ...props }: SiteHeaderProps) {
+export function SiteHeader({ logo, nav, mobileNav, actions, sticky = true, skipToId, className, ...props }: SiteHeaderProps) {
   const { t } = useTheyaI18n();
   const sentinel = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -81,11 +91,15 @@ export function SiteHeader({ logo, nav, actions, sticky = true, skipToId, classN
           <div data-slot="site-header-logo" className="flex shrink-0 items-center">
             {logo}
           </div>
-          {/* Wide: the bar sits after the logo. Phone: only the drawer button is left; it
-              moves to the end side but stays before the actions, so the visual order
-              matches the Tab order (WCAG 2.4.3, 1.3.2). */}
-          {nav && <div className="flex min-w-0 flex-1 items-center max-md:ms-auto max-md:flex-none">{nav}</div>}
-          {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}
+          {/* Wide: the bar sits after the logo. Phone, with mobileNav: the bar is hidden and the
+              menu button comes last, in the end corner, after the actions, in the markup as on
+              screen (WCAG 2.4.3, 1.3.2). Without mobileNav the nav's own drawer button stays
+              before the actions, for the same reason. */}
+          {nav && (
+            <div className={cn('flex min-w-0 flex-1 items-center', mobileNav ? 'max-md:hidden' : 'max-md:ms-auto max-md:flex-none')}>{nav}</div>
+          )}
+          {actions && <div className={cn('flex shrink-0 items-center gap-2', mobileNav && 'max-md:ms-auto')}>{actions}</div>}
+          {mobileNav && <div className="flex shrink-0 items-center md:hidden">{mobileNav}</div>}
         </div>
       </header>
     </>

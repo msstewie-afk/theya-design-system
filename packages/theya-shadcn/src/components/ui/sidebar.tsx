@@ -108,8 +108,12 @@ export function Sidebar({ inverse, className, children, ...props }: SidebarProps
         {children}
       </aside>
 
-      <Drawer direction="start" open={mobileOpen} onOpenChange={setMobileOpen}>
-        <DrawerContent aria-describedby={undefined} className="data-[vaul-drawer-direction=left]:w-[15.5rem] data-[vaul-drawer-direction=left]:max-w-[88vw] md:hidden">
+      {/* From the end side: TopbarMenu, which opens it, sits in the top end corner. */}
+      <Drawer direction="end" open={mobileOpen} onOpenChange={setMobileOpen}>
+        <DrawerContent
+          aria-describedby={undefined}
+          className="data-[vaul-drawer-direction=left]:w-[15.5rem] data-[vaul-drawer-direction=left]:max-w-[88vw] data-[vaul-drawer-direction=right]:w-[15.5rem] data-[vaul-drawer-direction=right]:max-w-[88vw] md:hidden"
+        >
           <DrawerTitle className="sr-only">{t.sidebar.navigation}</DrawerTitle>
           <div data-theme={inverse ? 'dark' : undefined} className="flex h-full flex-col bg-[var(--color-bg-surface-bg-surface)]">
             <SidebarContext.Provider value={{ ...ctx, collapsed: false }}>{children}</SidebarContext.Provider>

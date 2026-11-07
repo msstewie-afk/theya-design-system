@@ -166,8 +166,8 @@ export function MegaMenu({ items, currentId, layout = 'auto', drawerTrigger = 'l
         </NavigationMenuList>
       </NavigationMenu>
 
-      {/* Narrow */}
-      <Drawer direction="start">
+      {/* Narrow. The drawer slides in from the end side: the menu button lives in the top end corner. */}
+      <Drawer direction="end">
         <DrawerTrigger asChild>
           {drawerTrigger === 'icon' ? (
             <Button appearance="ghost" tone="secondary" size="lg" iconOnly aria-label="Menu" leftIcon={<Menu />} className={cn(layout === 'auto' && 'md:hidden', layout === 'bar' && 'hidden')} />

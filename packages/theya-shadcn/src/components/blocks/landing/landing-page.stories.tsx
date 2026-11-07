@@ -51,7 +51,8 @@ export const Bookmarks: Story = {
       <SiteHeader
         skipToId="main"
         logo={<DemoProductLogo />}
-        nav={<MegaMenu items={DEMO_LANDING_MENU} drawerTrigger="icon" />}
+        nav={<MegaMenu items={DEMO_LANDING_MENU} layout="bar" />}
+        mobileNav={<MegaMenu items={DEMO_LANDING_MENU} layout="drawer" drawerTrigger="icon" />}
         actions={
           <>
             <Button appearance="ghost" tone="neutral" className="max-sm:hidden">

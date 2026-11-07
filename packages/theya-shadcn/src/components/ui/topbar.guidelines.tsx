@@ -18,7 +18,7 @@ export const topbarGuidelines: ComponentGuidelines = {
     { text: 'Page-level actions (Save, Create)', instead: 'PageHeader' },
   ],
   anatomy: [
-    { part: 'Menu button', optional: true, description: <><C>TopbarMenu</C> opens the Sidebar on small screens.</> },
+    { part: 'Menu button', optional: true, description: <><C>TopbarMenu</C> opens the Sidebar on small screens. It goes last, in the top end corner (Theya's place for the menu on phones), and the Sidebar slides in from that side.</> },
     { part: 'Context', description: 'Breadcrumb, or a page title.' },
     { part: 'Search', optional: true, description: <><C>TopbarSearch</C>.</> },
     { part: 'Spacer and actions', description: <><C>TopbarSpacer</C>, then 2–4 <C>TopbarAction</C>s (icon buttons with names).</> },

@@ -13,8 +13,9 @@ export const siteHeaderGuidelines: ComponentGuidelines = {
   anatomy: [
     { part: 'Skip link', description: '“Skip to content”, first in the Tab order, visible only on focus.', optional: true },
     { part: 'Logo', description: 'the product mark as a link to the home page.' },
-    { part: 'Navigation', description: 'a MegaMenu with drawerTrigger="icon"; on phones only its Menu button is left, at the end of the bar.', optional: true },
+    { part: 'Navigation', description: 'a MegaMenu layout="bar" on wide screens (hidden on phones).', optional: true },
     { part: 'Actions', description: '“Log in” (hidden on phones) and one primary button.', optional: true },
+    { part: 'Phone menu', description: 'mobileNav: the same MegaMenu as layout="drawer" drawerTrigger="icon". The very last item, in the top end corner — Theya\'s place for the menu on phones; its drawer slides in from that side.', optional: true },
   ],
   doDont: [],
   a11y: [

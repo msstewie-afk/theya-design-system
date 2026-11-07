@@ -87,7 +87,6 @@ function DefaultDemo() {
   return (
     <SidebarProvider>
       <Topbar>
-        <TopbarMenu />
         <TopbarSearch value={query} onValueChange={setQuery} open={open} onOpenChange={setOpen}>
           <SearchResults query={query} onSelect={() => setOpen(false)} />
         </TopbarSearch>
@@ -108,6 +107,8 @@ function DefaultDemo() {
             <AvatarFallback>AM</AvatarFallback>
           </Avatar>
         </button>
+        {/* Last: the menu lives in the top end corner on phones. */}
+        <TopbarMenu />
       </Topbar>
     </SidebarProvider>
   );
@@ -244,12 +245,13 @@ export const Mobile: Story = {
     <SidebarProvider>
       <div className="w-full max-w-[360px]">
         <Topbar>
-          <TopbarMenu />
           <TopbarSearch />
           <TopbarSpacer />
           <TopbarAction aria-label="Notifications" badge>
             <Bell />
           </TopbarAction>
+          {/* Last: the menu lives in the top end corner on phones. */}
+          <TopbarMenu />
         </Topbar>
       </div>
     </SidebarProvider>

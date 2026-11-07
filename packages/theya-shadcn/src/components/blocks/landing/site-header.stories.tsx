@@ -26,10 +26,12 @@ const meta: Meta<typeof SiteHeader> = {
     // "Maximum call stack size exceeded", and the Docs page froze the browser retrying.
     docs: { source: { type: 'code' } },
   },
-  argTypes: { logo: { control: false }, nav: { control: false }, actions: { control: false } },
+  argTypes: { logo: { control: false }, nav: { control: false }, mobileNav: { control: false }, actions: { control: false } },
   args: {
     logo: <DemoProductLogo />,
-    nav: <MegaMenu items={DEMO_LANDING_MENU} drawerTrigger="icon" />,
+    nav: <MegaMenu items={DEMO_LANDING_MENU} layout="bar" />,
+    // Phones: the menu button in the top end corner, after the actions.
+    mobileNav: <MegaMenu items={DEMO_LANDING_MENU} layout="drawer" drawerTrigger="icon" />,
     actions: (
       <>
         <Button appearance="ghost" tone="neutral" className="max-sm:hidden">

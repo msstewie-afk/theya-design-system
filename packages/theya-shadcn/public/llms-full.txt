@@ -10645,7 +10645,7 @@ Docs: ./?path=/docs/navigation-topbar--docs
 
 **Anatomy**
 
-- Menu button (optional): `TopbarMenu` opens the Sidebar on small screens.
+- Menu button (optional): `TopbarMenu` opens the Sidebar on small screens. It goes last, in the top end corner (Theya's place for the menu on phones), and the Sidebar slides in from that side.
 - Context: Breadcrumb, or a page title.
 - Search (optional): `TopbarSearch`.
 - Spacer and actions: `TopbarSpacer`, then 2–4 `TopbarAction`s (icon buttons with names).
