@@ -60,7 +60,7 @@ type Story = StoryObj<typeof meta>;
 function Demo() {
   const [kept, setKept] = useState<string[]>([]);
   return (
-    <div className="flex w-[min(22rem,calc(100vw-2rem))] flex-col items-center gap-4">
+    <div className="flex w-[min(22rem,calc(var(--sb-vw,100vw)-2rem))] flex-col items-center gap-4">
       <SwipeDeck
         aria-label="Templates"
         items={TEMPLATES}

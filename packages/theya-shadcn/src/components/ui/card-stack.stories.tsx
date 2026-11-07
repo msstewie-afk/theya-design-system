@@ -41,7 +41,7 @@ type Story = StoryObj<typeof meta>;
 /** Cycles every 4 s; hover or focus pauses it. */
 export const Default: Story = {
   render: (args) => (
-    <div className="w-[min(22rem,calc(100vw-2rem))] pt-8">
+    <div className="w-[min(22rem,calc(var(--sb-vw,100vw)-2rem))] pt-8">
       <CardStack {...args} aria-label="What customers say">
         {QUOTES.map((q) => (
           <Card key={q.who} className="min-h-40">
