@@ -3,6 +3,7 @@
 import { useState, useId, useRef } from 'react';
 import { Calendar as CalendarIcon, NavArrowDown, Xmark } from 'iconoir-react';
 import type { DateRange } from 'react-day-picker';
+import { fieldLabelText } from '../../lib/field-label';
 import { cn } from '../../lib/utils';
 import { TruncatedText } from './truncated-text';
 import { Calendar } from './calendar';
@@ -62,6 +63,13 @@ export function DateRangePicker({
   if (placeholder === undefined) placeholder = t.dateRangePicker.placeholder;
   const isPhone = useMediaQuery('(max-width: 639.98px)');
   const [open, setOpen] = useState(false);
+  // Sheet title on phones: the field's name ("Date"), read when it opens;
+  // the placeholder ("Any date") is a hint about the empty value, not a name.
+  const [labelText, setLabelText] = useState<string>();
+  const onOpenChange = (next: boolean) => {
+    if (next) setLabelText(fieldLabelText(triggerRef.current));
+    setOpen(next);
+  };
   const triggerRef = useRef<HTMLButtonElement>(null);
   const valueId = useId();
   const [internal, setInternal] = useState<DateRange | undefined>(defaultValue);
@@ -88,7 +96,7 @@ export function DateRangePicker({
 
   return (
     <div className={cn('relative', className)}>
-      <Popover sheet open={open} onOpenChange={setOpen}>
+      <Popover sheet open={open} onOpenChange={onOpenChange}>
         <PopoverTrigger asChild>
           <button
             ref={triggerRef}
@@ -117,7 +125,7 @@ export function DateRangePicker({
         <PopoverContent
           className="max-h-[var(--radix-popover-content-available-height)] w-auto overflow-y-auto p-0"
           align="start"
-          sheetTitle={ariaLabel ?? placeholder}
+          sheetTitle={ariaLabel ?? labelText ?? placeholder}
           sheetClassName="items-center pt-0"
         >
           <Calendar
