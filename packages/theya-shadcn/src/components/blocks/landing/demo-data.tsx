@@ -385,4 +385,4 @@ export function DemoMiniLink({ index = 0 }: { index?: number }) {
 // ---------------------------------------------------------------------------
 // Demo surfaces for cards in examples (Maria, 3.11): no photos on cards, least of all in
 // motion. Cards take a soft tonal fill (lib/tonal-fills); a picture slot takes one of the
-// blue waves in /asset-examples/waves (Maria, 7.11), with a pre-dimmed name-dark.webp for the dark theme.
+// blue silk pictures in /asset-examples/silk (Maria, 7.11); the dark theme swaps in their -dark copies.

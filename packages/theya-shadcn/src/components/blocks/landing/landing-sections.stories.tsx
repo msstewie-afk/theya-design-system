@@ -42,13 +42,7 @@ export const Testimonial: Story = {
               <AvatarFallback>LB</AvatarFallback>
             </Avatar>
           }
-          media={
-            // One picture per theme: the dark copy is pre-dimmed (see scroll-effects ThemedImage).
-            <>
-              <img src="/asset-examples/waves/calm.webp" alt="" className="[[data-theme=dark]_&]:hidden" />
-              <img src="/asset-examples/waves/calm-dark.webp" alt="" className="hidden [[data-theme=dark]_&]:block" />
-            </>
-          }
+          media={<img src="/asset-examples/silk/2.webp" alt="" />}
           results={[
             { value: '90%', label: 'less time finding a source' },
             { value: '3,400', label: 'links moved over in a day' },

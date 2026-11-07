@@ -163,7 +163,7 @@ export const Card: Story = {
         name="cover.png"
         type="image/png"
         size={184000}
-        previewUrl="/asset-examples/waves/deep-square.webp"
+        previewUrl="/asset-examples/silk/3-square.webp"
         onRemove={() => {}}
       />
       <RemovableAttachment
@@ -209,7 +209,7 @@ export const LocalizedLabels: Story = {
           name="titelbild.png"
           type="image/png"
           size={184000}
-          previewUrl="/asset-examples/waves/deep-square.webp"
+          previewUrl="/asset-examples/silk/3-square.webp"
           mimeLabels={de}
           onRemove={() => {}}
           removeLabel="titelbild.png entfernen"
@@ -266,7 +266,7 @@ export const MetaText: Story = {
       </div>
       <RemovableAttachment variant="row" name="quarterly-report.pdf" type="application/pdf" size={248000} metaText="Modified 2 days ago" />
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <RemovableAttachment variant="card" name="cover.png" type="image/png" size={184000} previewUrl="/asset-examples/waves/deep-square.webp" metaText="Uploaded today" />
+        <RemovableAttachment variant="card" name="cover.png" type="image/png" size={184000} previewUrl="/asset-examples/silk/3-square.webp" metaText="Uploaded today" />
       </div>
     </div>
   ),
