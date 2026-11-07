@@ -110,10 +110,11 @@ function DemoLayout({ inverse }: { inverse?: boolean }) {
             <SidebarItem icon={<Lifebelt />}>Support</SidebarItem>
           </SidebarFooter>
         </Sidebar>
-        <div className="flex-1 p-6 font-body text-body-s text-[var(--color-text-text-subtler)]">
-          {/* On a phone the rail is a drawer; this is the opener a real page's Topbar provides. */}
-          <TopbarMenu />
-          Main content area.
+        <div className="flex flex-1 flex-col items-start gap-4 p-6 font-body text-body-s text-[var(--color-text-text-subtler)]">
+          {/* On a phone the rail is a drawer from the end; this is the opener a real
+              page's Topbar provides, in the top end corner. */}
+          <TopbarMenu className="self-end" />
+          <p className="m-0">Main content area.</p>
         </div>
       </div>
     </SidebarProvider>
@@ -177,10 +178,11 @@ function AccountLayout() {
             </DropdownMenu>
           </SidebarFooter>
         </Sidebar>
-        <div className="flex-1 p-6 font-body text-body-s text-[var(--color-text-text-subtler)]">
-          {/* On a phone the rail is a drawer; this is the opener a real page's Topbar provides. */}
-          <TopbarMenu />
-          Main content area.
+        <div className="flex flex-1 flex-col items-start gap-4 p-6 font-body text-body-s text-[var(--color-text-text-subtler)]">
+          {/* On a phone the rail is a drawer from the end; this is the opener a real
+              page's Topbar provides, in the top end corner. */}
+          <TopbarMenu className="self-end" />
+          <p className="m-0">Main content area.</p>
         </div>
       </div>
     </SidebarProvider>

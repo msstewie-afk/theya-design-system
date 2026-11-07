@@ -531,7 +531,7 @@ export const WithRecentPrompts: Story = {
               <DropdownMenuTrigger asChild>
                 <Button appearance="ghost" size="sm" iconOnly aria-label="Recent prompts" leftIcon={<Clock />} />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" size="sm">
+              <DropdownMenuContent align="start" size="sm" className="max-w-[min(24rem,calc(100vw-2rem))]">
                 {recent.map((prompt) => (
                   <DropdownMenuItem key={prompt} onSelect={() => setValue(prompt)}>
                     {prompt}

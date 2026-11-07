@@ -2,7 +2,9 @@
 
 import { forwardRef, createContext, useContext } from 'react';
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
+import { Xmark } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { useTheyaI18n } from '../../lib/i18n';
 import { Button, type ButtonProps } from './button';
 
 /**
@@ -12,9 +14,10 @@ import { Button, type ButtonProps } from './button';
  * high-stakes delete needing a typed-to-confirm gate, use ConfirmDialog
  * instead.
  *
- * Known gap: with no AlertDialogBody between them, a header divider and a
- * footer divider sit back to back and read as a double line. Turn one of
- * them off in that layout; nothing here merges them automatically.
+ * A close button (×) sits in the top corner, as in Dialog (Maria,
+ * 2026-11-07: every window has one); it cancels, like Esc. Focus still
+ * opens on the footer's Cancel. With no AlertDialogBody between them, a
+ * header divider and a footer divider sit back to back; only one is drawn.
  */
 interface AlertDialogLayoutProps {
   titleSize?: 'md' | 'lg';
@@ -63,14 +66,33 @@ export const AlertDialogOverlay = forwardRef<React.ElementRef<typeof AlertDialog
   );
 });
 
-export function AlertDialogContent({ className, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Content>) {
+export function AlertDialogContent({
+  className,
+  children,
+  showCloseButton = true,
+  onOpenAutoFocus,
+  ...props
+}: React.ComponentProps<typeof AlertDialogPrimitive.Content> & { showCloseButton?: boolean }) {
   const layout = useContext(AlertDialogLayoutContext);
+  const { t } = useTheyaI18n();
   return (
     <AlertDialogPortal>
       <AlertDialogOverlay />
       <AlertDialogPrimitive.Content
+        data-close={showCloseButton ? '' : undefined}
+        onOpenAutoFocus={(e) => {
+          onOpenAutoFocus?.(e);
+          if (e.defaultPrevented) return;
+          // The × is a Cancel too and mounts last, so Radix would focus it;
+          // keep the first focus on the footer's Cancel, as before.
+          const cancel = (e.currentTarget as HTMLElement | null)?.querySelector<HTMLElement>('[data-alert-cancel]');
+          if (cancel) {
+            e.preventDefault();
+            cancel.focus();
+          }
+        }}
         className={cn(
-          'fixed left-1/2 top-1/2 z-modal grid w-[calc(100%-2rem)] max-w-md max-h-[calc(100svh-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-y-auto',
+          'group/alert fixed left-1/2 top-1/2 z-modal grid w-[calc(100%-2rem)] max-w-md max-h-[calc(100svh-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-y-auto overflow-x-hidden',
           'rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border)]',
           'bg-[var(--color-bg-surface-bg-surface)] p-0 text-[var(--color-text-text)] shadow-elevation-md',
           layout.contentGap === 'md' && 'gap-4',
@@ -83,7 +105,21 @@ export function AlertDialogContent({ className, ...props }: React.ComponentProps
           className,
         )}
         {...props}
-      />
+      >
+        {children}
+        {showCloseButton && (
+          <AlertDialogPrimitive.Cancel
+            className={cn(
+              'absolute end-4 top-4 flex items-center justify-center size-7 rounded-[var(--size-border-radius-border-radius-md)] border-0 bg-transparent cursor-pointer',
+              'text-[var(--color-icon-icon-subtle)] hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
+              'focus-visible:outline-none focus-visible:focus-ring',
+            )}
+          >
+            <Xmark width={16} height={16} aria-hidden="true" />
+            <span className="sr-only">{t.common.close}</span>
+          </AlertDialogPrimitive.Cancel>
+        )}
+      </AlertDialogPrimitive.Content>
     </AlertDialogPortal>
   );
 }
@@ -98,8 +134,13 @@ export function AlertDialogHeader({ className, showDivider, gap = 'md', ...props
   const resolved = showDivider ?? layout.showHeaderDivider;
   return (
     <div
+      data-alert-header=""
+      data-divider={resolved ? '' : undefined}
       className={cn(
-        'relative flex flex-col px-6 pt-6 pb-4 text-start',
+        // pe-14 leaves room for the close button; without a divider the
+        // header sits closer to what follows (buttons right under the text).
+        'relative flex flex-col px-6 pt-6 text-start group-data-[close]/alert:pe-14',
+        resolved ? 'pb-4' : 'pb-1',
         gap === 'md' && 'gap-1',
         gap === 'sm' && 'gap-0.5',
         gap === 'none' && 'gap-0',
@@ -122,7 +163,10 @@ export function AlertDialogFooter({ className, showDivider, gap = 'md', ...props
   return (
     <div
       className={cn(
-        'relative flex flex-col-reverse px-6 pt-5 pb-6 sm:flex-row sm:justify-end',
+        'relative flex flex-col-reverse px-6 pb-6 sm:flex-row sm:justify-end',
+        // Right after a header that has its own divider: one line, not two.
+        '[[data-alert-header][data-divider]+&]:before:hidden',
+        resolved ? 'pt-5' : 'pt-3',
         gap === 'md' && 'gap-2',
         gap === 'sm' && 'gap-1',
         gap === 'none' && 'gap-0',
@@ -179,5 +223,5 @@ export function AlertDialogAction({ appearance = 'filled', tone = 'danger', ...p
 
 /** The dismissing action. Renders an outlined Button and closes the dialog. */
 export function AlertDialogCancel({ appearance = 'outlined', tone = 'secondary', ...props }: ButtonProps) {
-  return <AlertDialogPrimitive.Cancel asChild><Button appearance={appearance} tone={tone} {...props} /></AlertDialogPrimitive.Cancel>;
+  return <AlertDialogPrimitive.Cancel asChild><Button data-alert-cancel="" appearance={appearance} tone={tone} {...props} /></AlertDialogPrimitive.Cancel>;
 }

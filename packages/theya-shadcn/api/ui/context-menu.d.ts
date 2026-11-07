@@ -7,7 +7,7 @@ export declare const ContextMenuTrigger: import("react").ForwardRefExoticCompone
 export declare const ContextMenuGroup: import("react").ForwardRefExoticComponent<ContextMenuPrimitive.ContextMenuGroupProps & import("react").RefAttributes<HTMLDivElement>>;
 export declare const ContextMenuRadioGroup: import("react").ForwardRefExoticComponent<ContextMenuPrimitive.ContextMenuRadioGroupProps & import("react").RefAttributes<HTMLDivElement>>;
 export declare const ContextMenuSub: import("react").FC<ContextMenuPrimitive.ContextMenuSubProps>;
-export declare function ContextMenuContent({ className, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Content>): import("react").JSX.Element;
+export declare function ContextMenuContent({ className, collisionPadding, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Content>): import("react").JSX.Element;
 export interface ContextMenuItemProps extends React.ComponentProps<typeof ContextMenuPrimitive.Item> {
     inset?: boolean;
     tone?: 'neutral' | 'danger';
@@ -24,7 +24,7 @@ export declare function ContextMenuTrailing({ className, ...props }: React.Compo
 export declare function ContextMenuSubTrigger({ className, inset, children, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.SubTrigger> & {
     inset?: boolean;
 }): import("react").JSX.Element;
-export declare function ContextMenuSubContent({ className, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.SubContent>): import("react").JSX.Element;
+export declare function ContextMenuSubContent({ className, collisionPadding, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.SubContent>): import("react").JSX.Element;
 
 // Defaults
 // ContextMenuItem.tone = neutral

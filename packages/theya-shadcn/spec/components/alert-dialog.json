@@ -94,7 +94,14 @@
     },
     {
       "name": "AlertDialogContent",
-      "props": []
+      "props": [
+        {
+          "name": "showCloseButton",
+          "type": "boolean",
+          "required": false,
+          "default": "true"
+        }
+      ]
     },
     {
       "name": "AlertDialogHeader",

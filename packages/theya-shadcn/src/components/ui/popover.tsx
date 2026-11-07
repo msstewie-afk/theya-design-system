@@ -52,7 +52,12 @@ function Popover({ sheet = false, ...props }: PopoverProps) {
   }
   return (
     <PopoverLabelContext.Provider value={{ triggerId, hasTrigger }}>
-      <PopoverPrimitive.Root {...props} />
+      {/* Reset: a floating popover nested inside a sheet (PromptArea's
+          command menu inside MessagePopup on a phone) must not inherit the
+          parent's sheet mode, or it renders a second, always-open sheet. */}
+      <SheetContext.Provider value={false}>
+        <PopoverPrimitive.Root {...props} />
+      </SheetContext.Provider>
     </PopoverLabelContext.Provider>
   );
 }
@@ -95,9 +100,12 @@ export interface PopoverContentProps extends React.ComponentProps<typeof Popover
 
 function PopoverContent({
   className,
-  align = 'center',
+  // Edge-aligned with the trigger; a centred panel wider than its button
+  // reads as floating loose, worst on a phone.
+  align = 'start',
   sideOffset = 6,
-  collisionPadding = 8,
+  // The phone page gutter: a panel shifted by a collision keeps 16px to the edge.
+  collisionPadding = 16,
   sheetTitle,
   sheetClassName,
   ...props
@@ -141,7 +149,7 @@ function PopoverContent({
         aria-labelledby={labelledBy}
         className={cn(
           // A wider popover (w-[320px] and up) stays inside a phone screen.
-          'z-popover w-72 max-w-[calc(100vw-1rem)] outline-none',
+          'z-popover w-72 max-w-[calc(100vw-2rem)] outline-none',
           'rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
           'border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)]',
           'p-[var(--size-margin-margin-lg)] shadow-elevation-md text-[var(--color-text-text)]',

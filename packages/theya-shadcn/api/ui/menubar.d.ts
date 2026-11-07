@@ -12,7 +12,7 @@ export declare const MenubarRadioGroup: import("react").ForwardRefExoticComponen
 export declare const MenubarPortal: import("react").FC<MenubarPrimitive.MenubarPortalProps>;
 export declare const MenubarSub: import("react").FC<MenubarPrimitive.MenubarSubProps>;
 export declare function MenubarTrigger({ className, ...props }: React.ComponentProps<typeof MenubarPrimitive.Trigger>): import("react").JSX.Element;
-export declare function MenubarContent({ className, align, alignOffset, sideOffset, ...props }: React.ComponentProps<typeof MenubarPrimitive.Content>): import("react").JSX.Element;
+export declare function MenubarContent({ className, align, alignOffset, sideOffset, collisionPadding, ...props }: React.ComponentProps<typeof MenubarPrimitive.Content>): import("react").JSX.Element;
 export interface MenubarItemProps extends React.ComponentProps<typeof MenubarPrimitive.Item> {
     inset?: boolean;
     tone?: 'neutral' | 'danger';
@@ -28,7 +28,7 @@ export declare function MenubarShortcut({ className, ...props }: React.Component
 export declare function MenubarSubTrigger({ className, inset, children, ...props }: React.ComponentProps<typeof MenubarPrimitive.SubTrigger> & {
     inset?: boolean;
 }): import("react").JSX.Element;
-export declare function MenubarSubContent({ className, ...props }: React.ComponentProps<typeof MenubarPrimitive.SubContent>): import("react").JSX.Element;
+export declare function MenubarSubContent({ className, collisionPadding, ...props }: React.ComponentProps<typeof MenubarPrimitive.SubContent>): import("react").JSX.Element;
 
 // Defaults
 // Menubar.bordered = true

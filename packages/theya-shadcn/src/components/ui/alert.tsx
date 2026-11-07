@@ -102,7 +102,11 @@ export function Alert({
       ref={iconsRef}
       role={live === 'assertive' ? 'alert' : live === 'polite' ? 'status' : undefined}
       className={cn(
-        'relative flex gap-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid px-4 py-3',
+        // Grid, not a flex row: title, description and actions stack in one
+        // column (a row put a bare title and description side by side, Prose
+        // story); a leading icon gets its own column and spans the rows.
+        'relative grid grid-cols-[minmax(0,1fr)] gap-x-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid px-4 py-3',
+        'has-[>svg]:grid-cols-[auto_minmax(0,1fr)] [&>svg]:row-span-4 has-[>svg]:[&>:not(svg)]:col-start-2',
         'font-body text-body-s [&>svg]:size-[1.125rem] [&>svg]:mt-px [&>svg]:shrink-0',
         TONE_CLASS[tone],
         shadow && 'shadow-elevation-sm',

@@ -24,10 +24,10 @@ const meta: Meta<typeof ScrollJump> = {
 export default meta;
 type Story = StoryObj<typeof ScrollJump>;
 
-const Paragraphs = ({ n = 24 }: { n?: number }) => (
-  <div className="flex flex-col gap-4">
+const Paragraphs = ({ n = 24, small = false }: { n?: number; small?: boolean }) => (
+  <div className={small ? 'flex flex-col gap-2' : 'flex flex-col gap-4'}>
     {Array.from({ length: n }, (_, i) => (
-      <p key={i} className="m-0 max-w-[40rem] font-body text-body-m text-[var(--color-text-text-subtle)]">
+      <p key={i} className={`m-0 max-w-[40rem] font-body text-[var(--color-text-text-subtle)] ${small ? 'text-body-xs' : 'text-body-m'}`}>
         {i + 1}. Galleries, contracts and invoices for every shoot, kept together so clients find them in one place and you find them in a second.
       </p>
     ))}
@@ -62,24 +62,40 @@ export const InContainer: Story = {
   },
 };
 
-/** Shapes and sizes side by side: rounded (the button radius of each size) and round. */
+/** One small scroll box with its own pair of buttons, labelled with shape and size. */
+function Sample({ args, shape, size }: { args: React.ComponentProps<typeof ScrollJump>; shape: 'rounded' | 'round'; size: 'sm' | 'md' | 'lg' | 'xl' }) {
+  const box = useRef<HTMLDivElement>(null);
+  return (
+    <figure className="m-0 flex flex-col gap-2">
+      <div className="relative h-48 rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)]">
+        <div
+          ref={box}
+          tabIndex={0}
+          role="region"
+          aria-label={`Sample, ${shape} ${size}`}
+          className="h-full overflow-y-auto p-3 pe-14 outline-none focus-visible:focus-ring"
+        >
+          <Paragraphs n={6} small />
+        </div>
+        <ScrollJump {...args} target={box} shape={shape} size={size} label={`Page scroll, ${shape} ${size}`} className="absolute end-3 bottom-3" />
+      </div>
+      <figcaption className="font-body text-body-s text-[var(--color-text-text-subtle)]">
+        {shape} · {size}
+      </figcaption>
+    </figure>
+  );
+}
+
+/** Shapes and sizes: rounded (the button radius of each size) and round, sm to xl. Each sample scrolls on its own. */
 export const ShapesAndSizes: Story = {
   args: { position: 'none' },
-  render: function Render(args) {
-    const box = useRef<HTMLDivElement>(null);
-    return (
-      <div className="relative m-6 h-[22rem] max-w-[60rem] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
-        <div ref={box} tabIndex={0} role="region" aria-label="Article" className="h-full overflow-y-auto p-6 pb-40 outline-none focus-visible:focus-ring sm:pe-[26rem] sm:pb-6">
-          <Paragraphs />
-        </div>
-        <div className="absolute end-4 bottom-4 flex max-w-[calc(100%-2rem)] flex-wrap items-end justify-end gap-3 sm:gap-4">
-          {(['rounded', 'round'] as const).flatMap((shape) =>
-            (['sm', 'md', 'lg', 'xl'] as const).map((size) => <ScrollJump key={shape + size} {...args} target={box} shape={shape} size={size} label={`Page scroll, ${shape} ${size}`} />),
-          )}
-        </div>
-      </div>
-    );
-  },
+  render: (args) => (
+    <div className="m-6 grid max-w-[60rem] grid-cols-2 gap-4 sm:grid-cols-4">
+      {(['rounded', 'round'] as const).flatMap((shape) =>
+        (['sm', 'md', 'lg', 'xl'] as const).map((size) => <Sample key={shape + size} args={args} shape={shape} size={size} />),
+      )}
+    </div>
+  ),
 };
 
 /** Short content: nothing to scroll, nothing rendered. */

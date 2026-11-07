@@ -81,7 +81,9 @@ const currentFill = 'bg-[var(--color-bg-neutral-bg-neutral-subtle)] font-medium'
 export function MegaMenu({ items, currentId, layout = 'auto', drawerTrigger = 'label', className }: MegaMenuProps) {
   const uid = useId();
   return (
-    <div className={cn('flex items-center', className)}>
+    // Drawer mode: the wrapper goes to the end of the bar, so the menu button
+    // sits apart from the logo or title (Maria, 2026-11-07).
+    <div className={cn('flex items-center', layout === 'drawer' && 'ms-auto', layout === 'auto' && 'max-md:ms-auto', className)}>
       {/* Wide */}
       <NavigationMenu aria-label="Main" className={cn(layout === 'auto' && 'hidden md:flex', layout === 'drawer' && 'hidden')} delayDuration={150}>
         <NavigationMenuList>

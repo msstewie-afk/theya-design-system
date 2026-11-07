@@ -20,7 +20,7 @@ export function Pagination({ className, ...props }: React.ComponentProps<'nav'>)
 }
 
 export function PaginationContent({ className, ...props }: React.ComponentProps<'ul'>) {
-  return <ul className={cn('flex flex-row flex-wrap items-center justify-center gap-1', className)} {...props} />;
+  return <ul className={cn('flex flex-row flex-wrap items-center justify-center gap-0.5 sm:gap-1', className)} {...props} />;
 }
 
 export function PaginationItem(props: React.ComponentProps<'li'>) {
@@ -65,7 +65,8 @@ export function PaginationLink({
         'rounded-[var(--size-border-radius-border-radius-md)]',
         'font-body text-body-s tabular-nums',
         'transition-colors duration-standard ease-enter motion-reduce:transition-none',
-        wide ? 'h-8 px-2' : 'size-8',
+        // min-w-8: on a phone Previous / Next are icon-only and stay a 32px target.
+        wide ? 'h-8 min-w-8 px-2' : 'size-8',
         disabled && 'pointer-events-none opacity-50',
         isActive
           ? 'bg-[var(--color-bg-secondary-bg-secondary-subtle)] font-medium text-[var(--color-text-text)]'

@@ -672,7 +672,10 @@ export function DataTableToolbar<TData>({
             group, whatever gets passed) is flush against the bar's right
             edge (pr-4) no matter what width or internal wrapper the
             passed-in content itself renders with. */}
-        <div className="ms-auto flex min-w-0 max-w-full shrink items-center gap-2">{children}</div>
+        {/* flex-1 + justify-end: a full-width field (phone, no select-all) fills
+            the bar instead of shrinking to an island in the middle; a capped one
+            (sm:max-w-xs) still sits at the end on a wide screen. */}
+        <div className="ms-auto flex min-w-0 max-w-full flex-1 items-center justify-end gap-2">{children}</div>
       </div>
     );
 

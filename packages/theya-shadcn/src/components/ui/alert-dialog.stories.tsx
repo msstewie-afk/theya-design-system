@@ -121,8 +121,7 @@ export const Open: Story = {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Keep token</AlertDialogCancel>
-          <AlertDialogAction>
-            <Trash />
+          <AlertDialogAction leftIcon={<Trash />}>
             Delete token
           </AlertDialogAction>
         </AlertDialogFooter>

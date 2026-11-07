@@ -7,7 +7,7 @@ declare const DropdownMenu: import("react").FC<DropdownMenuPrimitive.DropdownMen
 declare const DropdownMenuTrigger: import("react").ForwardRefExoticComponent<DropdownMenuPrimitive.DropdownMenuTriggerProps & import("react").RefAttributes<HTMLButtonElement>>;
 declare const DropdownMenuGroup: import("react").ForwardRefExoticComponent<DropdownMenuPrimitive.DropdownMenuGroupProps & import("react").RefAttributes<HTMLDivElement>>;
 declare const DropdownMenuRadioGroup: import("react").ForwardRefExoticComponent<DropdownMenuPrimitive.DropdownMenuRadioGroupProps & import("react").RefAttributes<HTMLDivElement>>;
-declare function DropdownMenuContent({ className, sideOffset, size, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Content> & {
+declare function DropdownMenuContent({ className, align, sideOffset, collisionPadding, size, onKeyDown, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Content> & {
     size?: DropdownMenuSize;
 }): import("react").JSX.Element;
 declare function DropdownMenuItem({ className, inset, tone, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
@@ -21,11 +21,11 @@ declare function DropdownMenuLabel({ className, inset, ...props }: React.Compone
 }): import("react").JSX.Element;
 declare function DropdownMenuSeparator({ className, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Separator>): import("react").JSX.Element;
 declare function DropdownMenuShortcut({ className, ...props }: React.ComponentProps<'span'>): import("react").JSX.Element;
-declare function DropdownMenuSub(props: React.ComponentProps<typeof DropdownMenuPrimitive.Sub>): import("react").JSX.Element;
+declare function DropdownMenuSub({ children, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Sub>): import("react").JSX.Element;
 declare function DropdownMenuSubTrigger({ className, inset, children, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.SubTrigger> & {
     inset?: boolean;
 }): import("react").JSX.Element;
-declare function DropdownMenuSubContent({ className, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent>): import("react").JSX.Element;
+declare function DropdownMenuSubContent({ className, collisionPadding, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent>): import("react").JSX.Element | null;
 declare function DropdownMenuTrailing({ className, ...props }: React.ComponentProps<'span'>): import("react").JSX.Element;
 export { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuCheckboxItem, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuTrailing, };
 

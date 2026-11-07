@@ -152,7 +152,7 @@ export function SavedItems({ items: initial, primaryAction, onRemove, currency =
       </div>
 
       {/* Bulk bar: always visible, so selecting has an obvious purpose. */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] px-3 py-2">
+      <div className="@container flex flex-wrap items-center gap-x-4 gap-y-2 rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] px-3 py-2">
         <div className="flex items-center gap-2">
           <Checkbox
             id={`${uid}-all`}
@@ -163,7 +163,9 @@ export function SavedItems({ items: initial, primaryAction, onRemove, currency =
             {selected.length ? `${selected.length} selected` : 'Select all'}
           </label>
         </div>
-        <div className="ms-auto flex flex-wrap gap-2">
+        {/* One row: buttons at the end. Narrow (they wrap under the checkbox):
+            start-aligned under it, not hanging off the right edge. */}
+        <div className="flex flex-wrap gap-2 @md:ms-auto">
           {primaryAction && (
             <Button
               appearance="filled"

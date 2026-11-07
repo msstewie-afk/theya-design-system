@@ -17,6 +17,11 @@ import { cn } from '../../lib/utils';
  *   give it a second cue: either turn `underline` on (the hover then thickens
  *   it, as in Prose) or set the link one weight step above the surrounding
  *   text (`font-semibold` over regular body text) via `className`.
+ * - Small text (below body-m: `size` xs / sm, or inside body-s / body-xs
+ *   text): never underlined, not even on hover — the tight leading puts the
+ *   line on the next row's ascenders and it all runs together. The link is
+ *   one weight step heavier instead (medium over regular); hover is the
+ *   color change (Maria, 2026-11-07).
  * - `inverse`: the -on-dark link colors and the white focus ring, for a
  *   dark or primary surface (same name as StatusDot / Sidebar `inverse`).
  * - `asChild`: renders onto a router link (Next.js <Link>, React Router).
@@ -48,6 +53,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link
   ref,
 ) {
   const Comp = asChild ? Slot : 'a';
+  const small = size === 'xs' || size === 'sm';
   return (
     <Comp
       ref={ref}
@@ -57,7 +63,14 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link
         inverse
           ? 'text-[var(--color-text-text-link-on-dark)] hover:text-[var(--color-text-text-link-on-dark-hover)] focus-visible:focus-ring-on-primary'
           : 'text-[var(--color-text-text-link)] hover:text-[var(--color-text-text-link-hover)] focus-visible:focus-ring',
-        underline ? 'underline hover:decoration-2' : 'no-underline hover:underline',
+        small
+          ? 'font-medium no-underline hover:no-underline'
+          : [
+              underline ? 'underline hover:decoration-2' : 'no-underline hover:underline',
+              // Inherited small text (no size set): the same small-text rule.
+              !size && 'in-[.text-body-s]:font-medium in-[.text-body-s]:no-underline in-[.text-body-s]:hover:no-underline',
+              !size && 'in-[.text-body-xs]:font-medium in-[.text-body-xs]:no-underline in-[.text-body-xs]:hover:no-underline',
+            ],
         size && SIZE_CLASS[size],
         className,
       )}

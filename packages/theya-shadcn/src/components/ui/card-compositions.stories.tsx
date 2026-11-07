@@ -119,11 +119,14 @@ export const WithRating: Story = {
           <LogoTile letter="D" />
           <div className="min-w-0">
             <CardTitle>Daily delivery digest</CardTitle>
-            <div className="mt-1 flex items-center gap-2 font-body text-body-xs text-[var(--color-text-text-subtler)]">
-              <Rating readOnly value={5} size="sm" aria-label="Rating" />
-              <span className="tabular-nums">5.0 (294)</span>
-              <DotSeparator />
-              <span className="flex items-center gap-1 tabular-nums [&_svg]:size-3.5">
+            {/* Wraps as whole groups (stars + score, installs) on a narrow card. */}
+            <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 font-body text-body-xs text-[var(--color-text-text-subtler)]">
+              <span className="flex items-center gap-2 whitespace-nowrap">
+                <Rating readOnly value={5} size="sm" aria-label="Rating" />
+                <span className="tabular-nums">5.0 (294)</span>
+              </span>
+              {/* No dot separator: the groups wrap on a narrow card and a dot would dangle at the line end. */}
+              <span className="flex items-center gap-1 whitespace-nowrap tabular-nums [&_svg]:size-3.5">
                 <Download aria-hidden="true" />623<span className="sr-only"> installs</span>
               </span>
             </div>

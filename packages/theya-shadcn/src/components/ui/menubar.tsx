@@ -59,6 +59,7 @@ export function MenubarContent({
   align = 'start',
   alignOffset = -4,
   sideOffset = 6,
+  collisionPadding = 16,
   ...props
 }: React.ComponentProps<typeof MenubarPrimitive.Content>) {
   return (
@@ -68,6 +69,7 @@ export function MenubarContent({
         align={align}
         alignOffset={alignOffset}
         sideOffset={sideOffset}
+        collisionPadding={collisionPadding}
         className={cn(
           'z-popover min-w-[12rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
           'border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-1 shadow-elevation-md',
@@ -191,10 +193,11 @@ export function MenubarSubTrigger({ className, inset, children, ...props }: Reac
   );
 }
 
-export function MenubarSubContent({ className, ...props }: React.ComponentProps<typeof MenubarPrimitive.SubContent>) {
+export function MenubarSubContent({ className, collisionPadding = 16, ...props }: React.ComponentProps<typeof MenubarPrimitive.SubContent>) {
   return (
     <MenubarPrimitive.Portal>
       <MenubarPrimitive.SubContent
+        collisionPadding={collisionPadding}
         data-bloom=""
         className={cn(
           'z-popover min-w-[10rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',

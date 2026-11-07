@@ -1,3 +1,4 @@
+import { NavArrowLeft, NavArrowRight } from 'iconoir-react';
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
@@ -149,7 +150,11 @@ function ClientPagingDemo() {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious asChild>
-              <button type="button" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1} />
+              {/* asChild: the child's content replaces the default arrow + label, so give it both. */}
+              <button type="button" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>
+                <NavArrowLeft width={16} height={16} aria-hidden="true" className="rtl:-scale-x-100" />
+                <span className="max-sm:sr-only">Previous</span>
+              </button>
             </PaginationPrevious>
           </PaginationItem>
           {Array.from({ length: total }, (_, i) => i + 1).map((p) => (
@@ -163,7 +168,10 @@ function ClientPagingDemo() {
           ))}
           <PaginationItem>
             <PaginationNext asChild>
-              <button type="button" onClick={() => setPage((p) => Math.min(total, p + 1))} disabled={page === total} />
+              <button type="button" onClick={() => setPage((p) => Math.min(total, p + 1))} disabled={page === total}>
+                <span className="max-sm:sr-only">Next</span>
+                <NavArrowRight width={16} height={16} aria-hidden="true" className="rtl:-scale-x-100" />
+              </button>
             </PaginationNext>
           </PaginationItem>
         </PaginationContent>

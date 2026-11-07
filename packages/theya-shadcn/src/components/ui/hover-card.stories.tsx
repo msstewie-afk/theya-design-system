@@ -27,7 +27,9 @@ const meta: Meta<typeof HoverCard> = {
           "A quick preview of what a link points to — a user, a gallery, a client portal — on hover or focus. People can always get the same by clicking.",
       },
     },
-    guidelines: hoverCardGuidelines, layout: 'centered',
+    guidelines: hoverCardGuidelines,
+    // Padded: the trigger sits at the start, the card lines up with it on a phone.
+    layout: 'padded',
   },
   argTypes: {
     openDelay: { control: { type: 'number', min: 0, step: 100 }, description: 'Delay in ms before the card opens on hover.' },
@@ -66,23 +68,26 @@ export const Default: Story = {
   ),
 };
 
-/** `align` and `sideOffset` position the card against the trigger. Here the
- * card is left-aligned and pushed further off the trigger. Radix stays
- * collision-aware, so it flips to fit the viewport on a phone. */
+/** `align` and `sideOffset` position the card against the trigger. The
+ * default is `start` (the trigger's leading edge); here a trigger at the
+ * end of a row gets `align="end"`, and the card sits further off it. On a
+ * phone it keeps 16px to the screen edge. */
 export const Aligned: Story = {
   render: (args) => (
+    <div className="flex justify-end">
     <HoverCard {...args}>
       <HoverCardTrigger asChild>
         <button type="button" className="font-body text-body-m text-[var(--color-text-text)] underline underline-offset-4">
           Owner
         </button>
       </HoverCardTrigger>
-      <HoverCardContent align="start" sideOffset={12}>
+      <HoverCardContent align="end" sideOffset={12}>
         <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">Thea Marlow</p>
         <p className="mt-1 font-mono text-body-s text-[var(--color-text-text-subtler)]">thea@aether.photo</p>
         <p className="mt-2 font-body text-body-s text-[var(--color-text-text-subtler)]">Owner since March 2024 · 6 studios</p>
       </HoverCardContent>
     </HoverCard>
+    </div>
   ),
 };
 

@@ -125,7 +125,9 @@ export function OrderHistory({ orders, pageSize = 5, onReorder, currency = 'USD'
             </SelectContent>
           </Select>
         </div>
-        <p aria-live="polite" className="ms-auto font-body text-body-s text-[var(--color-text-text-subtler)]">
+        {/* Wide: at the end of the filter row. Once the row wraps (phone) the
+            count belongs to the table: its own line, at the end, right above it. */}
+        <p aria-live="polite" className="ms-auto font-body text-body-s text-[var(--color-text-text-subtler)] @max-2xl:basis-full @max-2xl:text-end">
           {`${filtered.length} ${filtered.length === 1 ? 'order' : 'orders'}`}
         </p>
       </div>

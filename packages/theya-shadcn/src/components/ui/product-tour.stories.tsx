@@ -16,16 +16,17 @@ import { productTourGuidelines } from './product-tour.guidelines';
 function MockApp({ onStart }: { onStart?: () => void }) {
   return (
     <div className="flex flex-col gap-4">
-      <Card className="flex items-center gap-3 p-3">
+      {/* Phone: the search drops to its own full-width row under the title and actions. */}
+      <Card className="flex flex-wrap items-center gap-3 p-3">
         <span className="text-heading-2xs font-medium">Galleries</span>
         <div
           data-tour="search"
-          className="ms-4 flex h-9 min-w-0 flex-1 items-center gap-2 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] px-3 text-body-m text-[var(--color-text-text-subtle)]"
+          className="order-last flex h-9 min-w-0 basis-full items-center gap-2 sm:order-none sm:ms-4 sm:basis-auto sm:flex-1 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] px-3 text-body-m text-[var(--color-text-text-subtle)]"
         >
           <Search width={16} height={16} aria-hidden className="shrink-0" />
           <span className="truncate">Search galleries, clients and the archive</span>
         </div>
-        <Button data-tour="notifications" appearance="ghost" tone="neutral" size="md" iconOnly leftIcon={<Bell />} aria-label="Notifications" />
+        <Button data-tour="notifications" className="ms-auto sm:ms-0" appearance="ghost" tone="neutral" size="md" iconOnly leftIcon={<Bell />} aria-label="Notifications" />
         <Button data-tour="new-gallery" size="md" leftIcon={<Plus />}>
           New gallery
         </Button>

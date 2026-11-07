@@ -178,6 +178,10 @@ Docs: ./?path=/docs/overlays-alertdialog--docs
 - `showHeaderDivider?`: `boolean`, default `false`
 - `titleSize?`: `"md" | "lg"`, default `md`
 
+**AlertDialogContent props**
+
+- `showCloseButton?`: `boolean`, default `true`
+
 **AlertDialogHeader props**
 
 - `gap?`: `"none" | "md" | "sm"`, default `md`

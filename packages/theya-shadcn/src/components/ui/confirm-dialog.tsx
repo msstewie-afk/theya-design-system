@@ -166,12 +166,15 @@ export function ConfirmDialog({
           {description && <AlertDialogDescription>{description}</AlertDialogDescription>}
         </AlertDialogHeader>
 
+        {/* The body draws no divider: the footer's line above the buttons is the one. */}
         {hasBody && (
-          <AlertDialogBody id={bodyId} showDivider className="flex-none pt-0 pb-5">
+          <AlertDialogBody id={bodyId} className="flex-none pt-0 pb-5">
             {children}
             {confirmValue && (
               <div className="flex flex-col gap-2">
-                <Label htmlFor={inputId}>
+                {/* block, not the Label's flex row: the sentence wraps as text
+                    instead of splitting into columns, and a long value breaks. */}
+                <Label htmlFor={inputId} className="block [overflow-wrap:anywhere]">
                   {t.confirmDialog.typeToConfirm(<span className={cn('text-[var(--color-text-text)]', confirmValueMono && 'font-mono')}>{confirmValue}</span>)}
                 </Label>
                 <TextField

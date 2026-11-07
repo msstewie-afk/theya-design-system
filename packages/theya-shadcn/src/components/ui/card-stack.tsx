@@ -84,7 +84,9 @@ export function CardStack({ interval = 4000, depth = 2, hideControls = false, la
         className="relative grid w-full [grid-template-areas:'stack']"
         // Fan: reserve room at the inline end for the spread and the turn of the
         // cards behind, so the stack stays inside its own box (no overflow on phones).
-        style={layout === 'fan' ? { paddingInlineEnd: depth * 22 + 24 } : undefined}
+        // Room for the spread: each card moves 22px and its rotation (7° a step,
+        // around the bottom corner) swings the top a further ~12px out.
+        style={layout === 'fan' ? { paddingInlineEnd: depth * 34 + 24 } : undefined}
       >
         {cards
           .map((card, i) => {

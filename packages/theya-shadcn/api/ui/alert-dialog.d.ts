@@ -13,7 +13,9 @@ export declare function AlertDialog({ titleSize, showHeaderDivider, showFooterDi
 export declare const AlertDialogTrigger: import("react").ForwardRefExoticComponent<AlertDialogPrimitive.AlertDialogTriggerProps & import("react").RefAttributes<HTMLButtonElement>>;
 export declare const AlertDialogPortal: import("react").FC<AlertDialogPrimitive.AlertDialogPortalProps>;
 export declare const AlertDialogOverlay: import("react").ForwardRefExoticComponent<Omit<AlertDialogPrimitive.AlertDialogOverlayProps & import("react").RefAttributes<HTMLDivElement>, "ref"> & import("react").RefAttributes<HTMLDivElement>>;
-export declare function AlertDialogContent({ className, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Content>): import("react").JSX.Element;
+export declare function AlertDialogContent({ className, children, showCloseButton, onOpenAutoFocus, ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Content> & {
+    showCloseButton?: boolean;
+}): import("react").JSX.Element;
 export interface AlertDialogHeaderProps extends React.ComponentProps<'div'> {
     showDivider?: boolean;
     gap?: 'md' | 'sm' | 'none';
@@ -44,5 +46,6 @@ export declare function AlertDialogCancel({ appearance, tone, ...props }: Button
 // AlertDialogAction.tone = danger
 // AlertDialogCancel.appearance = outlined
 // AlertDialogCancel.tone = secondary
+// AlertDialogContent.showCloseButton = true
 // AlertDialogFooter.gap = md
 // AlertDialogHeader.gap = md

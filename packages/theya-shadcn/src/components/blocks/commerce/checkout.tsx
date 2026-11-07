@@ -97,11 +97,14 @@ export function Checkout({ email = 'thea@aether.photo', taxRate = 0.2, taxLabel 
     <div className={cn('flex min-h-full w-full flex-col bg-[var(--color-bg-surface-bg-surface-base)]', className)}>
       {/* Enclosed: brand + reassurance + one way out, no app navigation. */}
       <header className="flex items-center justify-between gap-4 border-b border-solid border-[var(--color-border-border-subtle)] px-6 py-4">
-        <span className="font-body text-body-l font-semibold text-[var(--color-text-text)]">Aether</span>
-        <span className="flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-subtle)]">
-          <Lock className="size-4 text-[var(--color-icon-icon-success)]" aria-hidden="true" />
-          Secure checkout
-        </span>
+        {/* Reassurance under the brand, not squeezed between it and the way out. */}
+        <div className="flex min-w-0 flex-col">
+          <span className="font-body text-body-l font-semibold text-[var(--color-text-text)]">Aether</span>
+          <span className="flex items-center gap-1 font-body text-body-s text-[var(--color-text-text-subtle)]">
+            <Lock className="size-4 shrink-0 text-[var(--color-icon-icon-success)]" aria-hidden="true" />
+            Secure checkout
+          </span>
+        </div>
         {onExit && !done ? (
           <Button appearance="ghost" tone="secondary" size="sm" leftIcon={<ArrowLeft className="rtl:-scale-x-100" />} onClick={onExit}>
             Back to cart

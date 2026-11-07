@@ -933,7 +933,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           )}
           {/* The label; its changes are announced by the effect above. */}
           {!iconOnly && (
-            <span ref={labelRef}>
+            // inline-flex: an icon passed inside children (<Trash /> Delete)
+            // stays on the label's line; svg is display:block in preflight.
+            <span ref={labelRef} className="inline-flex items-center gap-[inherit]">
               {children}
               {/* Same text node run as the label (no whitespace between the
                   spans), so the name reads "Drafts, 3 drafts" — a separate

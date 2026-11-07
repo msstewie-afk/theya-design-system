@@ -229,6 +229,10 @@
         "id": "text-input-textfield--left-label"
       },
       {
+        "name": "CodeFontSize",
+        "id": "text-input-textfield--code-font-size"
+      },
+      {
         "name": "ReadOnly",
         "id": "text-input-textfield--read-only"
       },

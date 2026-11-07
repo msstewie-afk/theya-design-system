@@ -32,6 +32,14 @@
       display: block;
     }
 
+    /* The table is a block here, so a caption would shrink to its longest
+       word (one word per line); give it the full width, aligned to the cells. */
+    [data-slot='table'][data-mobile='stack'] > caption {
+      display: block;
+      text-align: start;
+      padding-inline: var(--table-stack-pad-x);
+    }
+
     /* Header row: kept for screen readers, hidden on screen. */
     [data-slot='table'][data-mobile='stack'] > thead {
       position: absolute;

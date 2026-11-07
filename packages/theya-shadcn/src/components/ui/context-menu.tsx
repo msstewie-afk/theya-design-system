@@ -33,10 +33,11 @@ export const ContextMenuGroup = ContextMenuPrimitive.Group;
 export const ContextMenuRadioGroup = ContextMenuPrimitive.RadioGroup;
 export const ContextMenuSub = ContextMenuPrimitive.Sub;
 
-export function ContextMenuContent({ className, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Content>) {
+export function ContextMenuContent({ className, collisionPadding = 16, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Content>) {
   return (
     <ContextMenuPrimitive.Portal>
       <ContextMenuPrimitive.Content
+        collisionPadding={collisionPadding}
         data-bloom=""
         className={cn(
           'z-popover min-w-[12rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
@@ -160,10 +161,11 @@ export function ContextMenuSubTrigger({ className, inset, children, ...props }: 
   );
 }
 
-export function ContextMenuSubContent({ className, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.SubContent>) {
+export function ContextMenuSubContent({ className, collisionPadding = 16, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.SubContent>) {
   return (
     <ContextMenuPrimitive.Portal>
       <ContextMenuPrimitive.SubContent
+        collisionPadding={collisionPadding}
         data-bloom=""
         className={cn(
           'z-popover min-w-[10rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',

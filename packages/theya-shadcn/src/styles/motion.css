@@ -320,9 +320,11 @@
   transform-box: view-box;
 }
 
-/* draw — Check */
+/* draw — Check. Dash 1.2 on a path of length 1: at the start of the draw the
+   dash's round cap sits past the path's start, so nothing shows until the
+   stroke grows (a 1:1 dash left a dot, the "tail"), as Checkbox draws it. */
 .theya-anim-icon[data-motion='draw'] [data-part='draw'] {
-  stroke-dasharray: 1;
+  stroke-dasharray: 1.2;
   stroke-dashoffset: 0;
 }
 :where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='draw'] [data-part='draw'],
@@ -450,9 +452,10 @@
   animation: theya-icon-lift var(--transition-duration-slow) var(--ease-spring);
 }
 
-/* plus — hover: a quarter turn; active → × is a path morph (animated-icon.tsx) */
+/* plus — hover: a quarter turn; active → × is a path morph (animated-icon.tsx).
+   Glide, not spring: the spring's overshoot read as a twitch on a symmetric cross. */
 .theya-anim-icon[data-motion='plus'] {
-  transition: transform var(--transition-duration-moderate) var(--ease-spring);
+  transition: transform var(--transition-duration-moderate) var(--ease-glide);
 }
 :where(button, a, [role='button'], label, [data-icon-trigger]):is(:hover, :focus-visible) .theya-anim-icon[data-trigger='hover'][data-motion='plus']:not([data-active]),
 .theya-anim-icon[data-trigger='hover'][data-motion='plus']:not([data-active]):hover {
@@ -464,6 +467,10 @@
   transform-origin: 12px 12px;
   fill: transparent;
   transition: fill var(--transition-duration-fast) ease-out;
+}
+.theya-anim-icon[data-motion='heart'][data-active] {
+  /* Favourited: the danger red of the palette, not the text color (white in dark). */
+  color: var(--color-icon-icon-danger);
 }
 .theya-anim-icon[data-motion='heart'][data-active] [data-part='heart'] {
   fill: currentColor;
@@ -494,7 +501,7 @@
   animation: theya-icon-twinkle var(--transition-duration-slow) var(--ease-spring);
 }
 
-@keyframes theya-icon-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes theya-icon-draw { from { stroke-dashoffset: 1.2; } to { stroke-dashoffset: 0; } }
 @keyframes theya-icon-twinkle {
   0%, 100% { transform: none; }
   40% { transform: scale(1.2) rotate(-12deg); }

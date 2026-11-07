@@ -4,4 +4,4 @@
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 export declare const HoverCard: import("react").FC<HoverCardPrimitive.HoverCardProps>;
 export declare const HoverCardTrigger: import("react").ForwardRefExoticComponent<HoverCardPrimitive.HoverCardTriggerProps & import("react").RefAttributes<HTMLAnchorElement>>;
-export declare function HoverCardContent({ className, align, sideOffset, ...props }: React.ComponentProps<typeof HoverCardPrimitive.Content>): import("react").JSX.Element;
+export declare function HoverCardContent({ className, align, sideOffset, collisionPadding, ...props }: React.ComponentProps<typeof HoverCardPrimitive.Content>): import("react").JSX.Element;

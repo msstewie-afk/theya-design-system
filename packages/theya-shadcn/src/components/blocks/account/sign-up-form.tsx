@@ -12,6 +12,7 @@ import { Password } from '../../ui/password';
 import { Separator } from '../../ui/separator';
 import { TextField } from '../../ui/text-field';
 import { emailProblem } from '../../../lib/email';
+import { cn } from '../../../lib/utils';
 import { AuthFrame, AuthHeader, authLink, MIN_PASSWORD, passwordProblem } from './auth-shared';
 import { Link } from '../../ui/link';
 
@@ -125,11 +126,11 @@ export function SignUpForm({ appName = 'Theya', onSubmit, onSso, signInHref = '#
             </Button>
             <p className="font-body text-body-s text-[var(--color-text-text-subtle)]">
               {'By creating an account you agree to the '}
-              <Link href={termsHref} className={authLink}>
+              <Link href={termsHref} className={cn(authLink, 'font-medium')}>
                 Terms of Service
               </Link>
               {' and '}
-              <Link href={privacyHref} className={authLink}>
+              <Link href={privacyHref} className={cn(authLink, 'font-medium')}>
                 Privacy Policy
               </Link>
               .

@@ -156,9 +156,12 @@ export const PaymentMethod = forwardRef<PaymentMethodHandle, PaymentMethodProps>
             blended with a tinted block dropped their text under 4.5:1 in dark. */}
         <fieldset className="m-0 flex min-w-0 flex-col gap-4 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5">
           <legend className="sr-only">Card details</legend>
-          <p className="flex items-center gap-2 font-body text-body-s text-[var(--color-text-text-subtle)]">
-            <Lock className="size-4 shrink-0 text-[var(--color-icon-icon-success)]" aria-hidden="true" />
-            Encrypted and sent straight to the payment provider. We never store the full number.
+          {/* The lock sits on the first line (h-[1lh] box), not centred on the wrapped text. */}
+          <p className="flex items-start gap-2 font-body text-body-s text-[var(--color-text-text-subtle)]">
+            <span className="flex h-[1lh] shrink-0 items-center">
+              <Lock className="size-4 text-[var(--color-icon-icon-success)]" aria-hidden="true" />
+            </span>
+            <span>Encrypted and sent straight to the payment provider. We never store the full number.</span>
           </p>
           <div className="flex flex-col gap-2">
             <Label htmlFor={ids.name} required>

@@ -13,12 +13,14 @@ import { cn } from '../../lib/utils';
 export const HoverCard = HoverCardPrimitive.Root;
 export const HoverCardTrigger = HoverCardPrimitive.Trigger;
 
-export function HoverCardContent({ className, align = 'center', sideOffset = 8, ...props }: React.ComponentProps<typeof HoverCardPrimitive.Content>) {
+export function HoverCardContent({ className, align = 'start', sideOffset = 8, collisionPadding = 16, ...props }: React.ComponentProps<typeof HoverCardPrimitive.Content>) {
   return (
     <HoverCardPrimitive.Portal>
       <HoverCardPrimitive.Content
         align={align}
         sideOffset={sideOffset}
+        // Trigger-edge aligned, 16px from the screen edge (phone page gutter).
+        collisionPadding={collisionPadding}
         className={cn(
           'z-popover w-80 max-w-[calc(100vw-2rem)] origin-[var(--radix-hover-card-content-transform-origin)] rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border)]',
           'bg-[var(--color-bg-surface-bg-surface-overlay)] p-4 shadow-elevation-md outline-none',

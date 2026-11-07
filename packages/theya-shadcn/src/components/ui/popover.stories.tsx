@@ -33,7 +33,10 @@ const meta: Meta<typeof Popover> = {
           "A small panel tied to a control: a quick setting, a filter, a picker, extra details. People can close it without losing anything.",
       },
     },
-    guidelines: popoverGuidelines, layout: 'centered',
+    guidelines: popoverGuidelines,
+    // Padded, not centred: the trigger sits at the start like in a real UI, so a
+    // start-aligned panel lines up with it on a phone too.
+    layout: 'padded',
   },
   argTypes: {
     modal: { control: 'boolean', description: 'Trap focus and block outside interaction while open.' },
@@ -155,7 +158,7 @@ export const IconTrigger: Story = {
       <PopoverTrigger asChild>
         <Button appearance="outlined" tone="secondary" iconOnly aria-label="More options" leftIcon={<KebabIconHorizontal />} className="[&_svg]:text-[var(--color-icon-icon)]" />
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-56">
+      <PopoverContent align="start" className="w-56">
         <div className="flex flex-col gap-1">
           <Button size="md" appearance="ghost" tone="secondary" className="justify-start">
             View details

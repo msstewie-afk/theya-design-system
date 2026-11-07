@@ -45,7 +45,9 @@ export function Topbar({ className, orientation = 'horizontal', children, ...pro
         data-orientation={orientation}
         className={cn(
           'sticky z-sticky flex items-center border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]/90 backdrop-blur-md',
-          orientation === 'horizontal' && 'top-0 h-14 gap-4 border-b px-6 max-md:px-4',
+          // Phone: 8px gaps, and only the search field may shrink; the actions
+          // and the avatar keep their size (a crowded row squeezed them to 18px).
+          orientation === 'horizontal' && 'top-0 h-14 gap-4 border-b px-6 max-md:px-4 max-sm:gap-2 [&>*:not([data-slot=topbar-search])]:shrink-0',
           orientation === 'vertical' && 'start-0 top-0 h-svh w-14 flex-col gap-2 py-3',
           className,
         )}
@@ -186,7 +188,9 @@ export function TopbarSearch({
   return (
     <Popover open={actualOpen} onOpenChange={setOpen}>
       <PopoverAnchor asChild>
-        <div className="relative w-[17.5rem] max-w-[32vw] max-md:w-28">
+        {/* Phone: the field takes the free room (min 4rem) and pushes the actions
+            to the end; the TopbarSpacer after it steps aside (see TopbarSpacer). */}
+        <div data-slot="topbar-search" className="@container relative w-[17.5rem] max-w-[32vw] max-md:w-28 max-sm:w-auto max-sm:min-w-16 max-sm:max-w-none max-sm:flex-1">
           <Search
             className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-[var(--color-icon-icon-subtle)]"
             aria-hidden="true"
@@ -217,7 +221,9 @@ export function TopbarSearch({
             // reader uses it); aria-label in props still wins.
             aria-label={placeholder}
             aria-keyshortcuts="Meta+K Control+K"
-            className={cn(textFieldVariants({ heightSize: 'md' }), 'peer ps-9 pe-12 max-md:pe-3', className)}
+            // Squeezed under 7rem (a full topbar on a phone): no placeholder, so it
+            // reads as a search box with its icon instead of a cut-off "Se".
+            className={cn(textFieldVariants({ heightSize: 'md' }), 'peer ps-9 pe-12 max-md:pe-3 @max-[7rem]:placeholder:text-transparent', className)}
             {...props}
             onKeyDown={(event) => {
               props.onKeyDown?.(event);
@@ -267,7 +273,8 @@ export function TopbarSearch({
         aria-label={(props as { 'aria-label'?: string })['aria-label'] ?? placeholder ?? t.topbar.search}
         align="start"
         sideOffset={6}
-        className="w-[var(--radix-popover-trigger-width)] max-h-[var(--radix-popover-content-available-height)] overflow-y-auto p-0"
+        // At least 20rem even when the field is narrow (a phone), never past the screen.
+        className="w-[max(var(--radix-popover-trigger-width),20rem)] max-w-[calc(100vw-2rem)] max-h-[var(--radix-popover-content-available-height)] overflow-y-auto p-0"
         onOpenAutoFocus={(event) => event.preventDefault()}
         // Same open-then-instantly-closed flicker Autocomplete/Combobox had
         // (Мария reported it here too, 2026-09-26): this Popover opens via
@@ -291,7 +298,9 @@ export function TopbarSearch({
 }
 
 export function TopbarSpacer() {
-  return <div className="flex-1" />;
+  // On a phone the search field itself fills the row; a spacer after it would
+  // halve the field.
+  return <div className="flex-1 max-sm:[[data-slot=topbar-search]~&]:hidden" />;
 }
 
 /**
@@ -311,7 +320,8 @@ export function TopbarAction({ className, badge, 'aria-label': ariaLabel, ...pro
       aria-label={badge && ariaLabel ? t.topbar.unread(ariaLabel) : ariaLabel}
       className={cn(
         // 32px (size-control-lg), the same height as the topbar Avatar (sm); scales with density (Maria, 6.11).
-        'relative grid size-[var(--size-size-control-size-control-lg)] place-content-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)]',
+        // shrink-0: on a phone a crowded row squeezed it to 18px and the badge slid left.
+        'relative grid size-[var(--size-size-control-size-control-lg)] shrink-0 place-content-center rounded-[var(--size-border-radius-border-radius-md)] text-[var(--color-icon-icon-subtle)]',
         'hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)] hover:text-[var(--color-icon-icon)]',
         'focus-visible:outline-none focus-visible:focus-ring',
         '[&>svg]:size-[1.125rem]',

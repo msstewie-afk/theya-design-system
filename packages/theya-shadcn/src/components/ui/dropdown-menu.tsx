@@ -1,9 +1,10 @@
 'use client';
 
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useEffect, useId, useMemo, useRef, useState } from 'react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import { NavArrowRight, Check, Circle } from 'iconoir-react';
+import { NavArrowLeft, NavArrowRight, Check, Circle } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { useMediaQuery } from './use-media-query';
 
 /**
  * Built on @radix-ui/react-dropdown-menu (Theya is Radix-based
@@ -24,6 +25,17 @@ const SIZE_TO_TEXT_CLASS: Record<DropdownMenuSize, string> = {
   lg: 'text-body-l',
 };
 
+/*
+ * Phones (below 640px): a submenu drills down instead of flying out. It
+ * replaces the menu's items in place, with a back row ("‹ Copy") on top, so
+ * long labels (German) wrap inside the screen instead of running off its
+ * edge. ArrowLeft (ArrowRight in RTL) or the back row returns. `stack`
+ * holds the open submenus, deepest last; only the deepest one shows.
+ */
+type Drill = { phone: boolean; stack: string[]; push: (id: string) => void; pop: () => void };
+const DrillContext = createContext<Drill>({ phone: false, stack: [], push: () => {}, pop: () => {} });
+const SubContext = createContext<string | null>(null);
+
 const DropdownMenu = DropdownMenuPrimitive.Root;
 const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 const DropdownMenuGroup = DropdownMenuPrimitive.Group;
@@ -31,17 +43,41 @@ const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
 
 function DropdownMenuContent({
   className,
+  align = 'start',
   sideOffset = 6,
+  collisionPadding = 16,
   size = 'md',
+  onKeyDown,
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Content> & { size?: DropdownMenuSize }) {
+  const phone = useMediaQuery('(max-width: 639.98px)');
+  const [stack, setStack] = useState<string[]>([]);
+  const drill = useMemo<Drill>(
+    () => ({ phone, stack, push: (id) => setStack((s) => [...s, id]), pop: () => setStack((s) => s.slice(0, -1)) }),
+    [phone, stack],
+  );
   return (
     <DropdownMenuSizeContext.Provider value={size}>
+     <DrillContext.Provider value={drill}>
       <DropdownMenuPrimitive.Portal>
         <DropdownMenuPrimitive.Content
           data-bloom=""
+          data-drill={stack.length ? 'on' : undefined}
+          align={align}
           sideOffset={sideOffset}
+          // Keeps the page gutter on phones instead of touching the screen edge.
+          collisionPadding={collisionPadding}
+          onKeyDown={(e) => {
+            onKeyDown?.(e);
+            const back = getComputedStyle(e.currentTarget).direction === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
+            if (stack.length && e.key === back) {
+              e.preventDefault();
+              drill.pop();
+            }
+          }}
           className={cn(
+            // Drilled into a submenu: hide every row outside the deepest open one.
+            '[&[data-drill=on]_:is([role^=menuitem],[role=separator],[data-slot=dropdown-menu-label]):not([data-drill-active]_*)]:hidden',
             'z-popover min-w-[12rem] max-w-[calc(100vw-2rem)] overflow-x-hidden overflow-y-auto scrollbar-thin',
             'rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
             'border-[var(--color-border-border)] bg-[var(--color-bg-surface-bg-surface-overlay)]',
@@ -56,6 +92,7 @@ function DropdownMenuContent({
           {...props}
         />
       </DropdownMenuPrimitive.Portal>
+     </DrillContext.Provider>
     </DropdownMenuSizeContext.Provider>
   );
 }
@@ -158,6 +195,7 @@ function DropdownMenuLabel({
 }: React.ComponentProps<'div'> & { inset?: boolean }) {
   return (
     <div
+      data-slot="dropdown-menu-label"
       className={cn(
         // Top and bottom padding both match the side padding, regardless of
         // position (first group header or a later one after a separator) -
@@ -193,8 +231,17 @@ function DropdownMenuShortcut({ className, ...props }: React.ComponentProps<'spa
   );
 }
 
-function DropdownMenuSub(props: React.ComponentProps<typeof DropdownMenuPrimitive.Sub>) {
-  return <DropdownMenuPrimitive.Sub {...props} />;
+function DropdownMenuSub({ children, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Sub>) {
+  const drill = useContext(DrillContext);
+  const id = useId();
+  if (!drill.phone) return <DropdownMenuPrimitive.Sub {...props}>{children}</DropdownMenuPrimitive.Sub>;
+  return (
+    <SubContext.Provider value={id}>
+      <div role="none" data-drill-id={id} data-drill-active={drill.stack[drill.stack.length - 1] === id ? '' : undefined} className="contents">
+        {children}
+      </div>
+    </SubContext.Provider>
+  );
 }
 
 function DropdownMenuSubTrigger({
@@ -204,6 +251,64 @@ function DropdownMenuSubTrigger({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.SubTrigger> & { inset?: boolean }) {
   const size = useContext(DropdownMenuSizeContext);
+  const drill = useContext(DrillContext);
+  const id = useContext(SubContext);
+  const ref = useRef<HTMLDivElement>(null);
+  const open = id != null && drill.stack.includes(id);
+  const wasOpen = useRef(false);
+  // Back from a drilled submenu: focus returns to the row that opened it.
+  useEffect(() => {
+    const back = wasOpen.current && !open;
+    wasOpen.current = open;
+    if (!back) return;
+    const raf = requestAnimationFrame(() => ref.current?.focus());
+    return () => cancelAnimationFrame(raf);
+  }, [open]);
+  if (drill.phone && id != null) {
+    const rowClass = cn(
+      'flex cursor-default select-none items-center gap-2 rounded-[var(--size-border-radius-border-radius-md)]',
+      'px-3 py-[var(--size-density-density-item-py)] outline-none', SIZE_TO_TEXT_CLASS[size],
+      'data-[highlighted]:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
+      inset && !open && 'ps-8',
+      className,
+    );
+    return open ? (
+      // The back row: "‹ Copy", a little heavier, a divider under it.
+      <>
+        <DropdownMenuPrimitive.Item
+          className={cn(rowClass, 'font-medium')}
+          onSelect={(e) => {
+            e.preventDefault();
+            drill.pop();
+          }}
+        >
+          <NavArrowLeft width={14} height={14} aria-hidden="true" className="text-[var(--color-icon-icon-subtle)] rtl:-scale-x-100" />
+          {children}
+        </DropdownMenuPrimitive.Item>
+        <DropdownMenuPrimitive.Separator className="-mx-1 my-1 h-px bg-[var(--color-border-border-subtler)]" />
+      </>
+    ) : (
+      <DropdownMenuPrimitive.Item
+        ref={ref}
+        aria-haspopup="menu"
+        className={rowClass}
+        onSelect={(e) => {
+          e.preventDefault();
+          drill.push(id);
+        }}
+        onKeyDown={(e) => {
+          const fwd = getComputedStyle(e.currentTarget).direction === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
+          if (e.key === fwd) {
+            e.preventDefault();
+            drill.push(id);
+          }
+        }}
+      >
+        {children}
+        <NavArrowRight width={14} height={14} aria-hidden="true" className="ms-auto text-[var(--color-icon-icon-subtle)] rtl:-scale-x-100" />
+      </DropdownMenuPrimitive.Item>
+    );
+  }
   return (
     <DropdownMenuPrimitive.SubTrigger
       className={cn(
@@ -224,11 +329,36 @@ function DropdownMenuSubTrigger({
 
 function DropdownMenuSubContent({
   className,
+  collisionPadding = 16,
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent>) {
+  const drill = useContext(DrillContext);
+  const id = useContext(SubContext);
+  const open = id != null && drill.stack[drill.stack.length - 1] === id;
+  const body = useRef<HTMLDivElement>(null);
+  // Drilled in: focus the first row of the submenu (after the back row).
+  useEffect(() => {
+    if (!open) return;
+    // Next frame: Radix moves focus back to the content after the select.
+    const raf = requestAnimationFrame(() => {
+      const items = body.current?.closest('[data-drill-id]')?.querySelectorAll<HTMLElement>('[role^=menuitem]');
+      items?.[1]?.focus();
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [open]);
+  if (drill.phone && id != null) {
+    // Only the open submenu renders its rows, inside the main menu.
+    if (!drill.stack.includes(id)) return null;
+    return (
+      <div ref={body} role="group" className="contents">
+        {props.children}
+      </div>
+    );
+  }
   return (
     <DropdownMenuPrimitive.Portal>
       <DropdownMenuPrimitive.SubContent
+        collisionPadding={collisionPadding}
         data-bloom=""
         className={cn(
           'z-popover min-w-[10rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid',
