@@ -181,6 +181,10 @@
       {
         "name": "WithVisibleAlternative",
         "id": "menus-contextmenu--with-visible-alternative"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "menus-contextmenu--test-interactions"
       }
     ]
   }

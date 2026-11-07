@@ -17,34 +17,7 @@ export default meta;
 type Story = StoryObj<typeof SearchBox>;
 
 /** Recent searches on focus; completions and direct matches while typing; Enter searches what's typed. */
-export const Default: Story = {
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole('combobox', { name: 'Search' });
-    await userEvent.click(input);
-    await expect(input).toHaveAttribute('aria-expanded', 'true');
-    await expect(canvas.getByRole('option', { name: 'archive retention' })).toBeVisible();
-
-    await userEvent.type(input, 'arch');
-    await expect(canvas.getByRole('group', { name: 'Suggestions' })).toBeVisible();
-    await expect(canvas.getByRole('group', { name: 'Go to' })).toBeVisible();
-    await userEvent.keyboard('{ArrowDown}');
-    const first = canvas.getAllByRole('option')[0];
-    await expect(input).toHaveAttribute('aria-activedescendant', first.id);
-    await userEvent.keyboard('{Enter}');
-    await expect(args.onSearch).toHaveBeenCalledWith('archive retention');
-    await expect(input).toHaveAttribute('aria-expanded', 'false');
-
-    await userEvent.clear(input);
-    await userEvent.type(input, 'DAWN_0412.jpg');
-    await userEvent.click(canvas.getByRole('option', { name: /^DAWN_0412\.jpg/ }));
-    await expect(args.onNavigate).toHaveBeenCalledWith(expect.objectContaining({ id: 'ph1' }));
-
-    await userEvent.clear(input);
-    await userEvent.type(input, 'lens rental{Enter}');
-    await expect(args.onSearch).toHaveBeenLastCalledWith('lens rental');
-  },
-};
+export const Default: Story = {};
 
 /** Escape closes the list first, then clears the field; "/" focuses it from anywhere. */
 export const Keyboard: Story = {
@@ -72,5 +45,38 @@ export const ClearRecent: Story = {
     await userEvent.click(canvas.getByRole('combobox', { name: 'Search' }));
     await userEvent.click(canvas.getByRole('button', { name: 'Clear recent searches' }));
     await expect(canvas.queryByRole('option')).not.toBeInTheDocument();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('combobox', { name: 'Search' });
+    await userEvent.click(input);
+    await expect(input).toHaveAttribute('aria-expanded', 'true');
+    await expect(canvas.getByRole('option', { name: 'archive retention' })).toBeVisible();
+
+    await userEvent.type(input, 'arch');
+    await expect(canvas.getByRole('group', { name: 'Suggestions' })).toBeVisible();
+    await expect(canvas.getByRole('group', { name: 'Go to' })).toBeVisible();
+    await userEvent.keyboard('{ArrowDown}');
+    const first = canvas.getAllByRole('option')[0];
+    await expect(input).toHaveAttribute('aria-activedescendant', first.id);
+    await userEvent.keyboard('{Enter}');
+    await expect(args.onSearch).toHaveBeenCalledWith('archive retention');
+    await expect(input).toHaveAttribute('aria-expanded', 'false');
+
+    await userEvent.clear(input);
+    await userEvent.type(input, 'DAWN_0412.jpg');
+    await userEvent.click(canvas.getByRole('option', { name: /^DAWN_0412\.jpg/ }));
+    await expect(args.onNavigate).toHaveBeenCalledWith(expect.objectContaining({ id: 'ph1' }));
+
+    await userEvent.clear(input);
+    await userEvent.type(input, 'lens rental{Enter}');
+    await expect(args.onSearch).toHaveBeenLastCalledWith('lens rental');
   },
 };

@@ -124,6 +124,10 @@
       {
         "name": "Playground",
         "id": "status-feedback-undotoast--playground"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "status-feedback-undotoast--test-interactions"
       }
     ]
   }

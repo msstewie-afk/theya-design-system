@@ -167,41 +167,6 @@ const bar = (root: HTMLElement) => root.querySelector('[data-slot="data-table-to
 export const Default: Story = {
 
   render: () => <ToolbarDemo />,
-  play: async ({ canvasElement }) => {
-    // Phone (below md): no row selection — the table stacks into items, the bar keeps
-    // its default state, and the filter still narrows the list.
-    const phone = window.matchMedia('(max-width: 767.98px)').matches;
-    if (phone) {
-      const c = within(canvasElement);
-      await expect(bar(canvasElement)).toHaveAttribute('data-state', 'default');
-      await expect(c.queryByRole('checkbox', { name: 'Select all' })).toBeNull();
-      await userEvent.type(c.getByRole('textbox', { name: 'Filter galleries' }), 'Golden');
-      await waitFor(() => expect(c.getAllByRole('listitem')).toHaveLength(1));
-      await expect(c.getByRole('listitem')).toHaveTextContent('Golden hour');
-      return;
-    }
-
-    const canvas = within(canvasElement);
-    await expect(bar(canvasElement)).toHaveAttribute('data-state', 'default');
-
-    // Keyboard select-all flips the bar; focus follows to the new checkbox.
-    selectAll(canvasElement).focus();
-    await userEvent.keyboard(' ');
-    await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'selected'));
-    await expect(bar(canvasElement)).toHaveTextContent('5 selected');
-    await waitFor(() => expect(selectAll(canvasElement)).toHaveFocus());
-
-    // Clear flips it back, focus stays in the toolbar.
-    await userEvent.click(canvas.getByRole('button', { name: 'Clear selection' }));
-    await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'default'));
-    await waitFor(() => expect(selectAll(canvasElement)).toHaveFocus());
-
-    // Select all respects the filter.
-    await userEvent.type(canvas.getByRole('textbox', { name: 'Filter galleries' }), 'Golden');
-    await userEvent.click(selectAll(canvasElement));
-    await waitFor(() => expect(bar(canvasElement)).toHaveTextContent('1 selected'));
-    await userEvent.click(canvas.getByRole('button', { name: 'Clear selection' }));
-  },
 };
 
 /**
@@ -307,5 +272,47 @@ export const NarrowOverflow: Story = {
     await expect(bar(canvasElement)).toHaveAttribute('data-state', 'selected');
     await waitFor(() => expect(canvas.getByRole('button', { name: 'More bulk actions' })).toBeInTheDocument());
     await expect(canvas.queryByRole('button', { name: 'Delete' })).toBeNull();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    // Phone (below md): no row selection — the table stacks into items, the bar keeps
+    // its default state, and the filter still narrows the list.
+    const phone = window.matchMedia('(max-width: 767.98px)').matches;
+    if (phone) {
+      const c = within(canvasElement);
+      await expect(bar(canvasElement)).toHaveAttribute('data-state', 'default');
+      await expect(c.queryByRole('checkbox', { name: 'Select all' })).toBeNull();
+      await userEvent.type(c.getByRole('textbox', { name: 'Filter galleries' }), 'Golden');
+      await waitFor(() => expect(c.getAllByRole('listitem')).toHaveLength(1));
+      await expect(c.getByRole('listitem')).toHaveTextContent('Golden hour');
+      return;
+    }
+
+    const canvas = within(canvasElement);
+    await expect(bar(canvasElement)).toHaveAttribute('data-state', 'default');
+
+    // Keyboard select-all flips the bar; focus follows to the new checkbox.
+    selectAll(canvasElement).focus();
+    await userEvent.keyboard(' ');
+    await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'selected'));
+    await expect(bar(canvasElement)).toHaveTextContent('5 selected');
+    await waitFor(() => expect(selectAll(canvasElement)).toHaveFocus());
+
+    // Clear flips it back, focus stays in the toolbar.
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear selection' }));
+    await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'default'));
+    await waitFor(() => expect(selectAll(canvasElement)).toHaveFocus());
+
+    // Select all respects the filter.
+    await userEvent.type(canvas.getByRole('textbox', { name: 'Filter galleries' }), 'Golden');
+    await userEvent.click(selectAll(canvasElement));
+    await waitFor(() => expect(bar(canvasElement)).toHaveTextContent('1 selected'));
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear selection' }));
   },
 };

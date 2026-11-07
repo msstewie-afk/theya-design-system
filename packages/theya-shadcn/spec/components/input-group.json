@@ -118,6 +118,10 @@
       {
         "name": "Disabled",
         "id": "text-input-inputgroup--disabled"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "text-input-inputgroup--test-interactions"
       }
     ]
   }

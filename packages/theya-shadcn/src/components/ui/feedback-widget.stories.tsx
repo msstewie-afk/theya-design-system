@@ -54,6 +54,44 @@ export const Default: Story = {
       </div>
     );
   },
+};
+
+/** At the end of a help article, under a divider. */
+export const EndOfArticle: Story = {
+  render: (args) => (
+    <div className="flex max-w-[70ch] flex-col gap-6">
+      <Prose>
+        <h2>Moving a gallery to another studio</h2>
+        <p>A move copies the gallery, its originals and print licenses, then switches the client portal over once every file checks out.</p>
+      </Prose>
+      <div className="border-t border-solid border-[var(--color-border-border-subtler)] pt-5">
+        <FeedbackWidget {...args} />
+      </div>
+    </div>
+  ),
+};
+
+/** Compact, under an assistant answer; asks what worked after a Yes too. */
+export const UnderAnAnswer: Story = {
+  args: { size: 'sm', question: 'Did this answer help?', askOnPositive: true },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const yes = canvas.getByRole('button', { name: 'Yes' });
+    await userEvent.click(yes);
+    // askOnPositive: Yes asks what worked, too.
+    await expect(canvas.getByRole('group', { name: /What worked/ })).toBeInTheDocument();
+    // Skip closes the follow-up without a submit and keeps focus on the answer.
+    await userEvent.click(canvas.getByRole('button', { name: 'Skip' }));
+    await expect(canvas.getByText('Thanks for your feedback.')).toBeVisible();
+    await waitFor(() => expect(yes).toHaveFocus());
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const log = () => canvasElement.querySelector('pre')!.textContent ?? '';
@@ -88,36 +126,5 @@ export const Default: Story = {
     await userEvent.click(yes);
     await expect(log()).toMatch(/onVote: yes$/);
     await expect(canvas.queryByRole('group', { name: /What worked/ })).not.toBeInTheDocument();
-  },
-};
-
-/** At the end of a help article, under a divider. */
-export const EndOfArticle: Story = {
-  render: (args) => (
-    <div className="flex max-w-[70ch] flex-col gap-6">
-      <Prose>
-        <h2>Moving a gallery to another studio</h2>
-        <p>A move copies the gallery, its originals and print licenses, then switches the client portal over once every file checks out.</p>
-      </Prose>
-      <div className="border-t border-solid border-[var(--color-border-border-subtler)] pt-5">
-        <FeedbackWidget {...args} />
-      </div>
-    </div>
-  ),
-};
-
-/** Compact, under an assistant answer; asks what worked after a Yes too. */
-export const UnderAnAnswer: Story = {
-  args: { size: 'sm', question: 'Did this answer help?', askOnPositive: true },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const yes = canvas.getByRole('button', { name: 'Yes' });
-    await userEvent.click(yes);
-    // askOnPositive: Yes asks what worked, too.
-    await expect(canvas.getByRole('group', { name: /What worked/ })).toBeInTheDocument();
-    // Skip closes the follow-up without a submit and keeps focus on the answer.
-    await userEvent.click(canvas.getByRole('button', { name: 'Skip' }));
-    await expect(canvas.getByText('Thanks for your feedback.')).toBeVisible();
-    await waitFor(() => expect(yes).toHaveFocus());
   },
 };

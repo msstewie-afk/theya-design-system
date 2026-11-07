@@ -44,39 +44,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** Click the text (or Tab to it and press Enter), edit, then Enter to save or Escape to cancel. */
-export const Default: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const display = () => canvas.getByRole('button', { name: /^Edit Gallery name:/ });
-
-    // Click → field with the text selected; Enter saves and focus returns to the value.
-    await userEvent.click(display());
-    const field = canvas.getByRole('textbox', { name: 'Gallery name' });
-    await expect(field).toHaveFocus();
-    await expect((field as HTMLInputElement).selectionEnd! - (field as HTMLInputElement).selectionStart!).toBe('Golden hour'.length);
-    await userEvent.keyboard('Blue hour{Enter}');
-    await expect(display()).toHaveAccessibleName('Edit Gallery name: Blue hour');
-    await expect(display()).toHaveFocus();
-
-    // Escape cancels and keeps the saved value.
-    await userEvent.keyboard('{Enter}');
-    await userEvent.keyboard('Something else{Escape}');
-    await expect(display()).toHaveAccessibleName('Edit Gallery name: Blue hour');
-    await expect(display()).toHaveFocus();
-
-    // Leaving the field saves (saveOnBlur); surrounding spaces are trimmed.
-    await userEvent.click(display());
-    await userEvent.keyboard('  First light  ');
-    await userEvent.click(canvasElement);
-    await expect(display()).toHaveAccessibleName('Edit Gallery name: First light');
-
-    // Moving focus to the component's own Cancel doesn't count as leaving.
-    await userEvent.click(display());
-    await userEvent.keyboard('Draft');
-    await userEvent.click(canvas.getByRole('button', { name: 'Cancel' }));
-    await expect(display()).toHaveAccessibleName('Edit Gallery name: First light');
-  },
-};
+export const Default: Story = {};
 
 /** An empty value shows the placeholder in a muted color, inviting a first entry. */
 export const Empty: Story = {
@@ -209,5 +177,43 @@ export const InSettings: Story = {
         ))}
       </dl>
     );
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const display = () => canvas.getByRole('button', { name: /^Edit Gallery name:/ });
+
+    // Click → field with the text selected; Enter saves and focus returns to the value.
+    await userEvent.click(display());
+    const field = canvas.getByRole('textbox', { name: 'Gallery name' });
+    await expect(field).toHaveFocus();
+    await expect((field as HTMLInputElement).selectionEnd! - (field as HTMLInputElement).selectionStart!).toBe('Golden hour'.length);
+    await userEvent.keyboard('Blue hour{Enter}');
+    await expect(display()).toHaveAccessibleName('Edit Gallery name: Blue hour');
+    await expect(display()).toHaveFocus();
+
+    // Escape cancels and keeps the saved value.
+    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard('Something else{Escape}');
+    await expect(display()).toHaveAccessibleName('Edit Gallery name: Blue hour');
+    await expect(display()).toHaveFocus();
+
+    // Leaving the field saves (saveOnBlur); surrounding spaces are trimmed.
+    await userEvent.click(display());
+    await userEvent.keyboard('  First light  ');
+    await userEvent.click(canvasElement);
+    await expect(display()).toHaveAccessibleName('Edit Gallery name: First light');
+
+    // Moving focus to the component's own Cancel doesn't count as leaving.
+    await userEvent.click(display());
+    await userEvent.keyboard('Draft');
+    await userEvent.click(canvas.getByRole('button', { name: 'Cancel' }));
+    await expect(display()).toHaveAccessibleName('Edit Gallery name: First light');
   },
 };

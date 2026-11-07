@@ -204,6 +204,10 @@
       {
         "name": "InSettings",
         "id": "text-input-inlineedit--in-settings"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "text-input-inlineedit--test-interactions"
       }
     ]
   }

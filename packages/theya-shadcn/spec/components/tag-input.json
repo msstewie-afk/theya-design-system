@@ -219,6 +219,10 @@
       {
         "name": "WithLabel",
         "id": "text-input-taginput--with-label"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "text-input-taginput--test-interactions"
       }
     ]
   }

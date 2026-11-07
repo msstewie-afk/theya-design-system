@@ -85,31 +85,7 @@ export const Default: Story = {
   ),
   // Modal contract: named/described dialog, focus moves inside and stays
   // trapped under Tab, the X and Escape both close and return focus to the
-  // trigger. Ends closed (an open modal aria-hides #storybook-root).
-  play: async ({ canvasElement }) => {
-    const body = within(document.body);
-    const trigger = within(canvasElement).getByRole('button', { name: 'Create gallery' });
-
-    await userEvent.click(trigger);
-    const dialog = await body.findByRole('dialog', { name: 'Create gallery' });
-    await expect(dialog).toHaveAccessibleDescription('Add a gallery for a client shoot. You can move it to another studio later.');
-    await waitFor(() => expect(dialog.contains(document.activeElement)).toBe(true));
-
-    for (let i = 0; i < 6; i++) {
-      await userEvent.tab();
-      await expect(dialog.contains(document.activeElement)).toBe(true);
-    }
-
-    await userEvent.click(within(dialog).getByRole('button', { name: 'Close' }));
-    await waitFor(() => expect(body.queryByRole('dialog')).toBeNull());
-    await waitFor(() => expect(trigger).toHaveFocus());
-
-    await userEvent.keyboard('{Enter}');
-    await body.findByRole('dialog', { name: 'Create gallery' });
-    await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(body.queryByRole('dialog')).toBeNull());
-    await waitFor(() => expect(trigger).toHaveFocus());
-  },
+  // trigger. Ends closed (an open modal aria-hides #storybook-root).,
 };
 
 /**
@@ -333,4 +309,35 @@ export const FullscreenOpen: Story = {
       <MoveWizard />
     </Dialog>
   ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const body = within(document.body);
+    const trigger = within(canvasElement).getByRole('button', { name: 'Create gallery' });
+
+    await userEvent.click(trigger);
+    const dialog = await body.findByRole('dialog', { name: 'Create gallery' });
+    await expect(dialog).toHaveAccessibleDescription('Add a gallery for a client shoot. You can move it to another studio later.');
+    await waitFor(() => expect(dialog.contains(document.activeElement)).toBe(true));
+
+    for (let i = 0; i < 6; i++) {
+      await userEvent.tab();
+      await expect(dialog.contains(document.activeElement)).toBe(true);
+    }
+
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Close' }));
+    await waitFor(() => expect(body.queryByRole('dialog')).toBeNull());
+    await waitFor(() => expect(trigger).toHaveFocus());
+
+    await userEvent.keyboard('{Enter}');
+    await body.findByRole('dialog', { name: 'Create gallery' });
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('dialog')).toBeNull());
+    await waitFor(() => expect(trigger).toHaveFocus());
+  },
 };

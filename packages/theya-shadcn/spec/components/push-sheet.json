@@ -130,6 +130,10 @@
       {
         "name": "MobileOverlay",
         "id": "overlays-pushsheet--mobile-overlay"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "overlays-pushsheet--test-interactions"
       }
     ]
   }

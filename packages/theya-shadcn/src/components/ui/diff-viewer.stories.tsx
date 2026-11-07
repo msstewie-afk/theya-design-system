@@ -127,29 +127,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** Unified view: removals above additions, unchanged runs collapsed around the changes. */
-export const Default: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const region = canvas.getByRole('region', { name: 'Changes in presets/web-2048.yml' });
-    // Stats are spoken in words, not only "+N −M".
-    await expect(canvasElement).toHaveTextContent(/\(\d+ lines added, \d+ removed\)/);
-    // Changed lines carry a spoken prefix; word-level changes are <ins>/<del>.
-    await expect(region).toHaveTextContent('Added:');
-    await expect(region).toHaveTextContent('Removed:');
-    await expect(region.querySelector('ins')).not.toBeNull();
-    // A collapsed run expands in place and its button goes away.
-    const gaps = within(region).getAllByRole('button', { name: /^Show \d+ unchanged lines?$/ });
-    const lines = () => region.querySelectorAll('.flex').length;
-    const before = lines();
-    const hidden = Number(gaps[0].textContent!.match(/\d+/)![0]);
-    // From the keyboard: Tab to the collapsed run, Enter expands it.
-    resetFocus();
-    await tabTo(gaps[0]);
-    await userEvent.keyboard('{Enter}');
-    await expect(within(region).queryAllByRole('button', { name: /^Show \d+ unchanged/ })).toHaveLength(gaps.length - 1);
-    await expect(lines()).toBe(before - 1 + hidden);
-  },
-};
+export const Default: Story = {};
 
 /** Split view: old on the left, new on the right. Long lines wrap by default. */
 export const Split: Story = {
@@ -241,5 +219,33 @@ export const NoChanges: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('No changes')).toBeInTheDocument();
     await expect(canvasElement).not.toHaveTextContent(/lines added/);
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const region = canvas.getByRole('region', { name: 'Changes in presets/web-2048.yml' });
+    // Stats are spoken in words, not only "+N −M".
+    await expect(canvasElement).toHaveTextContent(/\(\d+ lines added, \d+ removed\)/);
+    // Changed lines carry a spoken prefix; word-level changes are <ins>/<del>.
+    await expect(region).toHaveTextContent('Added:');
+    await expect(region).toHaveTextContent('Removed:');
+    await expect(region.querySelector('ins')).not.toBeNull();
+    // A collapsed run expands in place and its button goes away.
+    const gaps = within(region).getAllByRole('button', { name: /^Show \d+ unchanged lines?$/ });
+    const lines = () => region.querySelectorAll('.flex').length;
+    const before = lines();
+    const hidden = Number(gaps[0].textContent!.match(/\d+/)![0]);
+    // From the keyboard: Tab to the collapsed run, Enter expands it.
+    resetFocus();
+    await tabTo(gaps[0]);
+    await userEvent.keyboard('{Enter}');
+    await expect(within(region).queryAllByRole('button', { name: /^Show \d+ unchanged/ })).toHaveLength(gaps.length - 1);
+    await expect(lines()).toBe(before - 1 + hidden);
   },
 };

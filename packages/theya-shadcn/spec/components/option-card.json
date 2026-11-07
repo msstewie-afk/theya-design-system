@@ -122,6 +122,10 @@
       {
         "name": "Disabled",
         "id": "selection-optioncard--disabled"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "selection-optioncard--test-interactions"
       }
     ]
   }

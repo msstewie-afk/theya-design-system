@@ -64,28 +64,7 @@ export const Default: Story = {
     />
   ),
   // Opens as a modal alertdialog with focus inside; Escape cancels and
-  // returns focus to the trigger; the action confirms and closes.
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
-    const trigger = canvas.getByRole('button', { name: 'Delete gallery' });
-
-    await userEvent.click(trigger);
-    const dialog = await body.findByRole('alertdialog', { name: 'Delete this gallery?' });
-    await expect(dialog).toHaveAccessibleDescription('This action cannot be undone.');
-    await waitFor(() => expect(dialog.contains(document.activeElement)).toBe(true));
-
-    await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(body.queryByRole('alertdialog')).toBeNull());
-    await waitFor(() => expect(trigger).toHaveFocus());
-    await expect(args.onConfirm).not.toHaveBeenCalled();
-
-    await userEvent.click(trigger);
-    await userEvent.click(await body.findByRole('button', { name: 'Delete' }));
-    await expect(args.onConfirm).toHaveBeenCalledTimes(1);
-    await waitFor(() => expect(body.queryByRole('alertdialog')).toBeNull());
-  },
-
+  // returns focus to the trigger; the action confirms and closes.,
 };
 
 /** `confirmValue` keeps the delete action disabled until the exact name is typed — for deletes that can't be undone. */
@@ -218,5 +197,32 @@ export const Open: Story = {
         </ConfirmDialog>
       </div>
     );
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+    const trigger = canvas.getByRole('button', { name: 'Delete gallery' });
+
+    await userEvent.click(trigger);
+    const dialog = await body.findByRole('alertdialog', { name: 'Delete this gallery?' });
+    await expect(dialog).toHaveAccessibleDescription('This action cannot be undone.');
+    await waitFor(() => expect(dialog.contains(document.activeElement)).toBe(true));
+
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('alertdialog')).toBeNull());
+    await waitFor(() => expect(trigger).toHaveFocus());
+    await expect(args.onConfirm).not.toHaveBeenCalled();
+
+    await userEvent.click(trigger);
+    await userEvent.click(await body.findByRole('button', { name: 'Delete' }));
+    await expect(args.onConfirm).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(body.queryByRole('alertdialog')).toBeNull());
   },
 };

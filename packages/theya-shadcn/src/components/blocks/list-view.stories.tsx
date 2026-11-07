@@ -68,32 +68,6 @@ export const Default: Story = {
       <ListView />
     </div>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(visibleNames(canvasElement)).toEqual(ALL);
-    await expect(count(canvasElement)).toHaveTextContent('5 users');
-
-    const input = canvas.getByRole('combobox', { name: 'Search users…' });
-    await userEvent.type(input, 'elio');
-    await waitFor(() => expect(visibleNames(canvasElement)).toEqual(['Elio Sanz']));
-    await expect(count(canvasElement)).toHaveTextContent('1 user');
-    // Enter on "Search for …" keeps the search (it used to clear it and show every row).
-    await userEvent.keyboard('{Enter}');
-    await expect(input).toHaveValue('elio');
-    await expect(visibleNames(canvasElement)).toEqual(['Elio Sanz']);
-    await userEvent.clear(input);
-    await waitFor(() => expect(visibleNames(canvasElement)).toEqual(ALL));
-    await userEvent.keyboard('{Escape}');
-
-    // Facet: Status = Suspended.
-    await userEvent.click(input);
-    await userEvent.click(await body().findByRole('option', { name: 'Status' }));
-    // Searchable facet: its values replace the attribute list in the same popup.
-    await userEvent.click(await body().findByRole('option', { name: /Suspended/ }));
-    await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(visibleNames(canvasElement)).toEqual(['Phoebe Lark']));
-    await expect(canvas.getByRole('button', { name: 'Status: Suspended' })).toBeInTheDocument();
-  },
 };
 
 const onEmail = fn();
@@ -192,4 +166,37 @@ export const Loading: Story = {
       <ListView loading />
     </div>
   ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(visibleNames(canvasElement)).toEqual(ALL);
+    await expect(count(canvasElement)).toHaveTextContent('5 users');
+
+    const input = canvas.getByRole('combobox', { name: 'Search users…' });
+    await userEvent.type(input, 'elio');
+    await waitFor(() => expect(visibleNames(canvasElement)).toEqual(['Elio Sanz']));
+    await expect(count(canvasElement)).toHaveTextContent('1 user');
+    // Enter on "Search for …" keeps the search (it used to clear it and show every row).
+    await userEvent.keyboard('{Enter}');
+    await expect(input).toHaveValue('elio');
+    await expect(visibleNames(canvasElement)).toEqual(['Elio Sanz']);
+    await userEvent.clear(input);
+    await waitFor(() => expect(visibleNames(canvasElement)).toEqual(ALL));
+    await userEvent.keyboard('{Escape}');
+
+    // Facet: Status = Suspended.
+    await userEvent.click(input);
+    await userEvent.click(await body().findByRole('option', { name: 'Status' }));
+    // Searchable facet: its values replace the attribute list in the same popup.
+    await userEvent.click(await body().findByRole('option', { name: /Suspended/ }));
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(visibleNames(canvasElement)).toEqual(['Phoebe Lark']));
+    await expect(canvas.getByRole('button', { name: 'Status: Suspended' })).toBeInTheDocument();
+  },
 };

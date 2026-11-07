@@ -104,19 +104,6 @@ export const Default: Story = {
       </PopoverContent>
     </Popover>
   ),
-  play: async ({ canvasElement }) => {
-    const trigger = within(canvasElement).getByRole('button', { name: 'Filters' });
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-    await userEvent.click(trigger);
-    // The panel is named by its trigger, not an anonymous "dialog".
-    const panel = await page().findByRole('dialog', { name: 'Filters' });
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    // Focus moves into the panel; Escape closes and returns it.
-    await waitFor(() => expect(panel.contains(document.activeElement)).toBe(true));
-    await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(page().queryByRole('dialog')).toBeNull());
-    await expect(trigger).toHaveFocus();
-  },
 };
 
 /** An inline edit form. A PopoverClose cancel + a save button anchor the footer. */
@@ -241,4 +228,24 @@ export const Open: Story = {
       </PopoverContent>
     </Popover>
   ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Filters' });
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.click(trigger);
+    // The panel is named by its trigger, not an anonymous "dialog".
+    const panel = await page().findByRole('dialog', { name: 'Filters' });
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    // Focus moves into the panel; Escape closes and returns it.
+    await waitFor(() => expect(panel.contains(document.activeElement)).toBe(true));
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(page().queryByRole('dialog')).toBeNull());
+    await expect(trigger).toHaveFocus();
+  },
 };

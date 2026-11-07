@@ -1059,7 +1059,7 @@
       "name": "AlertDialog",
       "title": "Overlays/AlertDialog",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -1576,7 +1576,7 @@
       "name": "Autocomplete",
       "title": "Selection/Autocomplete",
       "axe": {
-        "stories": 8,
+        "stories": 9,
         "themes": [
           "light",
           "dark"
@@ -2074,7 +2074,7 @@
       "name": "BottomNav",
       "title": "Navigation/BottomNav",
       "axe": {
-        "stories": 4,
+        "stories": 5,
         "themes": [
           "light",
           "dark"
@@ -2526,7 +2526,7 @@
       "name": "CardFan",
       "title": "Motion/CardFan",
       "axe": {
-        "stories": 1,
+        "stories": 2,
         "themes": [
           "light",
           "dark"
@@ -2614,7 +2614,7 @@
       "name": "CardStack",
       "title": "Motion/CardStack",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -2697,7 +2697,7 @@
       "name": "Carousel",
       "title": "Layout/Carousel",
       "axe": {
-        "stories": 7,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -2880,7 +2880,7 @@
       "name": "Chat",
       "title": "AI & Chat/Chat",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -3060,7 +3060,7 @@
       "name": "CheckboxGroup",
       "title": "Selection/CheckboxGroup",
       "axe": {
-        "stories": 4,
+        "stories": 5,
         "themes": [
           "light",
           "dark"
@@ -3403,7 +3403,7 @@
       "name": "Collapsible",
       "title": "Layout/Collapsible",
       "axe": {
-        "stories": 4,
+        "stories": 5,
         "themes": [
           "light",
           "dark"
@@ -3483,7 +3483,7 @@
       "name": "ColorPicker",
       "title": "Selection/ColorPicker",
       "axe": {
-        "stories": 9,
+        "stories": 10,
         "themes": [
           "light",
           "dark"
@@ -3870,7 +3870,7 @@
       "name": "ConfirmDialog",
       "title": "Overlays/ConfirmDialog",
       "axe": {
-        "stories": 5,
+        "stories": 6,
         "themes": [
           "light",
           "dark"
@@ -3970,7 +3970,7 @@
       "name": "ContextMenu",
       "title": "Menus/ContextMenu",
       "axe": {
-        "stories": 6,
+        "stories": 7,
         "themes": [
           "light",
           "dark"
@@ -4531,7 +4531,7 @@
       "name": "DataTableToolbar",
       "title": "Data/DataTableToolbar",
       "axe": {
-        "stories": 4,
+        "stories": 5,
         "themes": [
           "light",
           "dark"
@@ -4732,7 +4732,7 @@
       "name": "DateRangePicker",
       "title": "Date & Time/DateRangePicker",
       "axe": {
-        "stories": 7,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -5067,7 +5067,7 @@
       "name": "Dialog",
       "title": "Overlays/Dialog",
       "axe": {
-        "stories": 5,
+        "stories": 6,
         "themes": [
           "light",
           "dark"
@@ -5170,7 +5170,7 @@
       "name": "DiffViewer",
       "title": "Code/DiffViewer",
       "axe": {
-        "stories": 10,
+        "stories": 11,
         "themes": [
           "light",
           "dark"
@@ -5413,7 +5413,7 @@
       "name": "Drawer",
       "title": "Overlays/Drawer",
       "axe": {
-        "stories": 5,
+        "stories": 6,
         "themes": [
           "light",
           "dark"
@@ -5503,7 +5503,7 @@
       "name": "DropdownMenu",
       "title": "Menus/DropdownMenu",
       "axe": {
-        "stories": 8,
+        "stories": 9,
         "themes": [
           "light",
           "dark"
@@ -5766,7 +5766,7 @@
       "name": "ExpandingPanels",
       "title": "Motion/ExpandingPanels",
       "axe": {
-        "stories": 1,
+        "stories": 2,
         "themes": [
           "light",
           "dark"
@@ -5933,7 +5933,7 @@
       "name": "FeedbackWidget",
       "title": "Status & Feedback/FeedbackWidget",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -6291,7 +6291,7 @@
       "name": "Filter",
       "title": "Search & Filter/Filter",
       "axe": {
-        "stories": 4,
+        "stories": 5,
         "themes": [
           "light",
           "dark"
@@ -6376,7 +6376,7 @@
       "name": "FilterField",
       "title": "Search & Filter/FilterField",
       "axe": {
-        "stories": 5,
+        "stories": 6,
         "themes": [
           "light",
           "dark"
@@ -6570,7 +6570,7 @@
       "name": "HelpIcon",
       "title": "Labels/HelpIcon",
       "axe": {
-        "stories": 6,
+        "stories": 7,
         "themes": [
           "light",
           "dark"
@@ -6657,7 +6657,7 @@
       "name": "HoldToTalk",
       "title": "AI & Chat/HoldToTalk",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -6749,7 +6749,7 @@
       "name": "HoverCard",
       "title": "Overlays/HoverCard",
       "axe": {
-        "stories": 4,
+        "stories": 5,
         "themes": [
           "light",
           "dark"
@@ -6914,7 +6914,7 @@
       "name": "InlineEdit",
       "title": "Text Input/InlineEdit",
       "axe": {
-        "stories": 10,
+        "stories": 11,
         "themes": [
           "light",
           "dark"
@@ -6999,7 +6999,7 @@
       "name": "InputGroup",
       "title": "Text Input/InputGroup",
       "axe": {
-        "stories": 5,
+        "stories": 6,
         "themes": [
           "light",
           "dark"
@@ -7082,7 +7082,7 @@
       "name": "InputOTP",
       "title": "Text Input/InputOTP",
       "axe": {
-        "stories": 5,
+        "stories": 6,
         "themes": [
           "light",
           "dark"
@@ -7166,7 +7166,7 @@
       "name": "Kanban",
       "title": "Data/Kanban",
       "axe": {
-        "stories": 4,
+        "stories": 5,
         "themes": [
           "light",
           "dark"
@@ -7927,7 +7927,7 @@
       "name": "Marquee",
       "title": "Motion/Marquee",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -8010,7 +8010,7 @@
       "name": "MarqueeColumns",
       "title": "Motion/MarqueeColumns",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -8175,7 +8175,7 @@
       "name": "Menubar",
       "title": "Navigation/Menubar",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -8603,7 +8603,7 @@
       "name": "NavigationMenu",
       "title": "Navigation/NavigationMenu",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -8791,7 +8791,7 @@
       "name": "OptionCard",
       "title": "Selection/OptionCard",
       "axe": {
-        "stories": 5,
+        "stories": 6,
         "themes": [
           "light",
           "dark"
@@ -9401,7 +9401,7 @@
       "name": "Popover",
       "title": "Overlays/Popover",
       "axe": {
-        "stories": 6,
+        "stories": 7,
         "themes": [
           "light",
           "dark"
@@ -9564,7 +9564,7 @@
       "name": "ProductTour",
       "title": "Overlays/ProductTour",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -9812,7 +9812,7 @@
       "name": "PromptArea",
       "title": "AI & Chat/PromptArea",
       "axe": {
-        "stories": 14,
+        "stories": 15,
         "themes": [
           "light",
           "dark"
@@ -9911,7 +9911,7 @@
       "name": "PromptSuggestions",
       "title": "AI & Chat/PromptSuggestions",
       "axe": {
-        "stories": 1,
+        "stories": 2,
         "themes": [
           "light",
           "dark"
@@ -10161,7 +10161,7 @@
       "name": "PushSheet",
       "title": "Overlays/PushSheet",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -10584,7 +10584,7 @@
       "name": "Rating",
       "title": "Selection/Rating",
       "axe": {
-        "stories": 7,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -10670,7 +10670,7 @@
       "name": "Resizable",
       "title": "Layout/Resizable",
       "axe": {
-        "stories": 5,
+        "stories": 6,
         "themes": [
           "light",
           "dark"
@@ -11398,7 +11398,7 @@
       "name": "Sidebar",
       "title": "Navigation/Sidebar",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -12511,7 +12511,7 @@
       "name": "SwatchPicker",
       "title": "Selection/SwatchPicker",
       "axe": {
-        "stories": 7,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -12597,7 +12597,7 @@
       "name": "SwipeDeck",
       "title": "Motion/SwipeDeck",
       "axe": {
-        "stories": 1,
+        "stories": 2,
         "themes": [
           "light",
           "dark"
@@ -12877,7 +12877,7 @@
       "name": "TableSkeleton",
       "title": "Status & Feedback/TableSkeleton",
       "axe": {
-        "stories": 1,
+        "stories": 2,
         "themes": [
           "light",
           "dark"
@@ -12957,7 +12957,7 @@
       "name": "Tabs",
       "title": "Navigation/Tabs",
       "axe": {
-        "stories": 7,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -13052,7 +13052,7 @@
       "name": "TagInput",
       "title": "Text Input/TagInput",
       "axe": {
-        "stories": 8,
+        "stories": 9,
         "themes": [
           "light",
           "dark"
@@ -13590,7 +13590,7 @@
       "name": "TickerList",
       "title": "Motion/TickerList",
       "axe": {
-        "stories": 1,
+        "stories": 2,
         "themes": [
           "light",
           "dark"
@@ -13675,7 +13675,7 @@
       "name": "TimeField",
       "title": "Date & Time/TimeField",
       "axe": {
-        "stories": 7,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -13770,7 +13770,7 @@
       "name": "TimeRangePicker",
       "title": "Date & Time/TimeRangePicker",
       "axe": {
-        "stories": 6,
+        "stories": 7,
         "themes": [
           "light",
           "dark"
@@ -14276,7 +14276,7 @@
       "name": "Tooltip",
       "title": "Overlays/Tooltip",
       "axe": {
-        "stories": 7,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -14450,7 +14450,7 @@
       "name": "Tree",
       "title": "Data/Tree",
       "axe": {
-        "stories": 7,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -14537,7 +14537,7 @@
       "name": "TruncatedText",
       "title": "Labels/TruncatedText",
       "axe": {
-        "stories": 4,
+        "stories": 5,
         "themes": [
           "light",
           "dark"
@@ -14624,7 +14624,7 @@
       "name": "UndoToast",
       "title": "Status & Feedback/UndoToast",
       "axe": {
-        "stories": 6,
+        "stories": 7,
         "themes": [
           "light",
           "dark"
@@ -14808,7 +14808,7 @@
       "name": "UrlTabs",
       "title": "Navigation/UrlTabs",
       "axe": {
-        "stories": 1,
+        "stories": 2,
         "themes": [
           "light",
           "dark"
@@ -14968,7 +14968,7 @@
       "name": "WheelPicker",
       "title": "Selection/WheelPicker",
       "axe": {
-        "stories": 4,
+        "stories": 5,
         "themes": [
           "light",
           "dark"
@@ -15055,7 +15055,7 @@
       "name": "AccessTokens",
       "title": "Patterns/AccessTokens",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -15150,7 +15150,7 @@
       "name": "AccountMenu",
       "title": "Patterns: Account/AccountMenu",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -15319,7 +15319,7 @@
       "name": "OrderHistory",
       "title": "Patterns: Account/OrderHistory",
       "axe": {
-        "stories": 1,
+        "stories": 2,
         "themes": [
           "light",
           "dark"
@@ -15512,7 +15512,7 @@
       "name": "SavedItems",
       "title": "Patterns: Account/SavedItems",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -15608,7 +15608,7 @@
       "name": "SignUpForm",
       "title": "Patterns: Account/SignUpForm",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -15787,7 +15787,7 @@
       "name": "AuditLog",
       "title": "Patterns/AuditLog",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -15883,7 +15883,7 @@
       "name": "BillingUsage",
       "title": "Patterns/BillingUsage",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -16052,7 +16052,7 @@
       "name": "Comparison",
       "title": "Patterns: Catalog/Comparison",
       "axe": {
-        "stories": 6,
+        "stories": 7,
         "themes": [
           "light",
           "dark"
@@ -16162,7 +16162,7 @@
       "name": "FacetedList",
       "title": "Patterns: Catalog/FacetedList",
       "axe": {
-        "stories": 7,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -16351,7 +16351,7 @@
       "name": "ItemPage",
       "title": "Patterns: Catalog/ItemPage",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -16447,7 +16447,7 @@
       "name": "Reviews",
       "title": "Patterns: Catalog/Reviews",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -16542,7 +16542,7 @@
       "name": "SpecSheet",
       "title": "Patterns: Catalog/SpecSheet",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -16711,7 +16711,7 @@
       "name": "Cart",
       "title": "Patterns: Commerce/Cart",
       "axe": {
-        "stories": 4,
+        "stories": 5,
         "themes": [
           "light",
           "dark"
@@ -16805,7 +16805,7 @@
       "name": "Checkout",
       "title": "Patterns: Commerce/Checkout",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -16892,7 +16892,7 @@
       "name": "CompletionScreen",
       "title": "Patterns: Commerce/CompletionScreen",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -16974,7 +16974,7 @@
       "name": "OrderReview",
       "title": "Patterns: Commerce/OrderReview",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -17056,7 +17056,7 @@
       "name": "PaymentMethod",
       "title": "Patterns: Commerce/PaymentMethod",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -17142,7 +17142,7 @@
       "name": "PlanComparison",
       "title": "Patterns: Commerce/PlanComparison",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -17310,7 +17310,7 @@
       "name": "DashboardOverview",
       "title": "Patterns/DashboardOverview",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -17396,7 +17396,7 @@
       "name": "Details",
       "title": "Patterns/Details",
       "axe": {
-        "stories": 1,
+        "stories": 2,
         "themes": [
           "light",
           "dark"
@@ -18472,7 +18472,7 @@
       "name": "ListView",
       "title": "Patterns/ListView",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -18672,7 +18672,7 @@
       "name": "LoginForm",
       "title": "Patterns/LoginForm",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -18767,7 +18767,7 @@
       "name": "MegaMenu",
       "title": "Patterns: Navigation/MegaMenu",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -19027,7 +19027,7 @@
       "name": "NotificationsInbox",
       "title": "Patterns/NotificationsInbox",
       "axe": {
-        "stories": 4,
+        "stories": 5,
         "themes": [
           "light",
           "dark"
@@ -19124,7 +19124,7 @@
       "name": "OnboardingWizard",
       "title": "Patterns/OnboardingWizard",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -19218,7 +19218,7 @@
       "name": "Preferences",
       "title": "Patterns/Preferences",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -19497,7 +19497,7 @@
       "name": "SearchBox",
       "title": "Patterns: Search/SearchBox",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -19677,7 +19677,7 @@
       "name": "TeamMembers",
       "title": "Patterns/TeamMembers",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"

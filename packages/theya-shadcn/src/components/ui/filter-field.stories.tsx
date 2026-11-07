@@ -92,48 +92,6 @@ function Demo() {
 /** With one filter applied: open the field to pick an attribute and its value, or type to add a keyword search chip. */
 export const Default: Story = {
   render: () => <Demo />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole('combobox', { name: 'Filter galleries' });
-    await expect(input).toHaveAttribute('aria-expanded', 'false');
-
-    // An applied chip opens its editor — it is a button, not a toggle.
-    const chip = canvas.getByRole('button', { name: 'Status: Published' });
-    await expect(chip).not.toHaveAttribute('aria-pressed');
-
-    // Step one: the input drives the attribute list via activedescendant.
-    await userEvent.click(input);
-    await expect(input).toHaveAttribute('aria-expanded', 'true');
-    await expect(body().getByRole('listbox', { name: 'Filter by…' })).toBeInTheDocument();
-    // Empty query: the disabled "Search for" row is skipped.
-    await expect(activeRowText(input)).toBe('Name');
-    await userEvent.keyboard('{ArrowUp}');
-    await expect(activeRowText(input)).toBe('Name');
-    await userEvent.keyboard('{ArrowDown}');
-    await expect(activeRowText(input)).toBe('Status');
-
-    // Step two for a multi-select: picking keeps the editor open.
-    await userEvent.keyboard('{Enter}');
-    await userEvent.click(await body().findByRole('option', { name: /Expired/ }));
-    await expect(canvas.getByRole('button', { name: 'Status: Expired' })).toBeInTheDocument();
-    await userEvent.keyboard('{Escape}');
-    await waitClosed();
-
-    // Typed text becomes a search chip from the highlighted "Search for" row.
-    await userEvent.click(input);
-    await userEvent.type(input, 'wedding');
-    await expect(activeRowText(input)).toContain('Search for "wedding"');
-    await userEvent.keyboard('{Enter}');
-    await expect(canvas.getByRole('button', { name: 'Remove search "wedding"' })).toBeInTheDocument();
-    await expect(input).toHaveValue('');
-
-    // Backspace in the empty input removes the last chip.
-    await userEvent.keyboard('{Backspace}');
-    await expect(canvas.queryByRole('button', { name: 'Remove search "wedding"' })).toBeNull();
-    await expect(canvas.getByText('2 filters applied')).toBeInTheDocument();
-    await userEvent.keyboard('{Escape}');
-    await waitClosed();
-  },
 };
 
 /** No filters yet: each attribute type has its own value editor — a list, text with operators, a number range, a date. */
@@ -354,4 +312,53 @@ function LiveListDemo() {
 /** Driving a real list: applied filters wire straight into a client-side match over a sample audit log, so the effect of each chip — and of combining several — is visible immediately. */
 export const LiveList: Story = {
   render: () => <LiveListDemo />,
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('combobox', { name: 'Filter galleries' });
+    await expect(input).toHaveAttribute('aria-expanded', 'false');
+
+    // An applied chip opens its editor — it is a button, not a toggle.
+    const chip = canvas.getByRole('button', { name: 'Status: Published' });
+    await expect(chip).not.toHaveAttribute('aria-pressed');
+
+    // Step one: the input drives the attribute list via activedescendant.
+    await userEvent.click(input);
+    await expect(input).toHaveAttribute('aria-expanded', 'true');
+    await expect(body().getByRole('listbox', { name: 'Filter by…' })).toBeInTheDocument();
+    // Empty query: the disabled "Search for" row is skipped.
+    await expect(activeRowText(input)).toBe('Name');
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(activeRowText(input)).toBe('Name');
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(activeRowText(input)).toBe('Status');
+
+    // Step two for a multi-select: picking keeps the editor open.
+    await userEvent.keyboard('{Enter}');
+    await userEvent.click(await body().findByRole('option', { name: /Expired/ }));
+    await expect(canvas.getByRole('button', { name: 'Status: Expired' })).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    await waitClosed();
+
+    // Typed text becomes a search chip from the highlighted "Search for" row.
+    await userEvent.click(input);
+    await userEvent.type(input, 'wedding');
+    await expect(activeRowText(input)).toContain('Search for "wedding"');
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByRole('button', { name: 'Remove search "wedding"' })).toBeInTheDocument();
+    await expect(input).toHaveValue('');
+
+    // Backspace in the empty input removes the last chip.
+    await userEvent.keyboard('{Backspace}');
+    await expect(canvas.queryByRole('button', { name: 'Remove search "wedding"' })).toBeNull();
+    await expect(canvas.getByText('2 filters applied')).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    await waitClosed();
+  },
 };

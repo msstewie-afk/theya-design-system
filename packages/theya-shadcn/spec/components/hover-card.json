@@ -94,6 +94,10 @@
       {
         "name": "Open",
         "id": "overlays-hovercard--open"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "overlays-hovercard--test-interactions"
       }
     ]
   }

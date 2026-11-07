@@ -37,6 +37,13 @@ type Story = StoryObj<typeof meta>;
 /** Four folders; hover a strip (or Tab to it) and it opens. */
 export const Default: Story = {
   render: (args) => <ExpandingPanels {...args} className="mx-auto max-w-6xl" />,
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const first = canvas.getByRole('button', { name: 'Reading list' });

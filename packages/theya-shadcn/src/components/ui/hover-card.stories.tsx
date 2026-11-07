@@ -64,21 +64,6 @@ export const Default: Story = {
       </HoverCardContent>
     </HoverCard>
   ),
-  play: async ({ canvasElement }) => {
-    const link = within(canvasElement).getByRole('link', { name: 'selene-weddings.aether.photo' });
-    // Opens on hover (after the delay) and on keyboard focus too.
-    await userEvent.hover(link);
-    await expect(await within(document.body).findByText('1,284 views today')).toBeVisible();
-    await userEvent.unhover(link);
-    await waitFor(() => expect(within(document.body).queryByText('1,284 views today')).toBeNull(), { timeout: 3000 });
-    resetFocus();
-    await tabTo(link);
-    await expect(await within(document.body).findByText('1,284 views today')).toBeVisible();
-    // Tabbing on closes it: the card holds no tab stops of its own.
-    await userEvent.tab();
-    await expect(link).not.toHaveFocus();
-    await waitFor(() => expect(within(document.body).queryByText('1,284 views today')).toBeNull(), { timeout: 3000 });
-  },
 };
 
 /** `align` and `sideOffset` position the card against the trigger. Here the
@@ -160,4 +145,26 @@ export const Open: Story = {
       </HoverCardContent>
     </HoverCard>
   ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const link = within(canvasElement).getByRole('link', { name: 'selene-weddings.aether.photo' });
+    // Opens on hover (after the delay) and on keyboard focus too.
+    await userEvent.hover(link);
+    await expect(await within(document.body).findByText('1,284 views today')).toBeVisible();
+    await userEvent.unhover(link);
+    await waitFor(() => expect(within(document.body).queryByText('1,284 views today')).toBeNull(), { timeout: 3000 });
+    resetFocus();
+    await tabTo(link);
+    await expect(await within(document.body).findByText('1,284 views today')).toBeVisible();
+    // Tabbing on closes it: the card holds no tab stops of its own.
+    await userEvent.tab();
+    await expect(link).not.toHaveFocus();
+    await waitFor(() => expect(within(document.body).queryByText('1,284 views today')).toBeNull(), { timeout: 3000 });
+  },
 };

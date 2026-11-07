@@ -181,6 +181,10 @@
       {
         "name": "Open",
         "id": "overlays-confirmdialog--open"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "overlays-confirmdialog--test-interactions"
       }
     ]
   }

@@ -87,6 +87,10 @@
       {
         "name": "Default",
         "id": "motion-tickerlist--default"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "motion-tickerlist--test-interactions"
       }
     ]
   }

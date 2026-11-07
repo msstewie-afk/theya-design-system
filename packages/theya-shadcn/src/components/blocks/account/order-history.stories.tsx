@@ -16,7 +16,13 @@ export default meta;
 type Story = StoryObj<typeof OrderHistory>;
 
 /** What was bought, total and status per row; details, invoice and "Buy again" in place; search by number or item. */
-export const Default: Story = {
+export const Default: Story = {};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const details = canvas.getByRole('button', { name: 'Details for order TH-23990' });

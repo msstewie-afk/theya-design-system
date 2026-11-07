@@ -129,6 +129,10 @@
       {
         "name": "Empty",
         "id": "data-tree--empty"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "data-tree--test-interactions"
       }
     ]
   }

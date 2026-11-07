@@ -36,6 +36,18 @@ export const Default: Story = {
       />
     );
   },
+};
+
+/** One workspace, no theme switch, avatar only — the smallest version. */
+export const Compact: Story = {
+  args: { compact: true },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('button', { name: 'Account: Thea Marlow, Helios Studio, 1 item needs attention' });
@@ -54,9 +66,4 @@ export const Default: Story = {
     await userEvent.click(items[items.length - 1]);
     await expect(args.onSignOut).toHaveBeenCalledTimes(1);
   },
-};
-
-/** One workspace, no theme switch, avatar only — the smallest version. */
-export const Compact: Story = {
-  args: { compact: true },
 };

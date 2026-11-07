@@ -52,23 +52,6 @@ function Demo() {
 /** Controlled via `open`/`onOpenChange` — the parent owns the toggle and can drive it from anywhere (this is also the shape a real "show advanced settings" trigger uses). */
 export const Default: Story = {
   render: () => <Demo />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', { name: 'Advanced settings' });
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-    await expect(canvas.queryByText('Advanced settings content goes here.')).toBeNull();
-
-    await userEvent.click(trigger);
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    // The trigger points at the region it controls.
-    const content = canvas.getByText('Advanced settings content goes here.');
-    await expect(content.closest(`#${CSS.escape(trigger.getAttribute('aria-controls') ?? '')}`)).not.toBeNull();
-
-    // Keyboard toggles it closed again.
-    trigger.focus();
-    await userEvent.keyboard('{Enter}');
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-  },
 };
 
 /** Reveal optional fields under a form. The trigger sits inline below the always-visible field so the region reads as part of the form, not a separate panel. */
@@ -148,6 +131,30 @@ export const Disabled: Story = {
   play: async ({ canvasElement }) => {
     const trigger = within(canvasElement).getByRole('button', { name: 'Advanced settings' });
     await expect(trigger).toBeDisabled();
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('button', { name: 'Advanced settings' });
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(canvas.queryByText('Advanced settings content goes here.')).toBeNull();
+
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    // The trigger points at the region it controls.
+    const content = canvas.getByText('Advanced settings content goes here.');
+    await expect(content.closest(`#${CSS.escape(trigger.getAttribute('aria-controls') ?? '')}`)).not.toBeNull();
+
+    // Keyboard toggles it closed again.
+    trigger.focus();
+    await userEvent.keyboard('{Enter}');
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
   },
 };

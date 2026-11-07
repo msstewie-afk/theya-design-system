@@ -70,6 +70,31 @@ export const Default: Story = {
       <TeamMembers {...args} />
     </div>
   ),
+};
+
+/** No invites: the empty state gives way to the list on the first invite. */
+export const NoPendingInvites: Story = {
+  name: 'No pending invites',
+  render: () => (
+    <div className="p-6">
+      <TeamMembers invites={[]} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('heading', { name: 'No pending invites' })).toBeInTheDocument();
+    await userEvent.type(canvas.getByLabelText('Email address'), 'selin@aether.photo{Enter}');
+    await waitFor(() => expect(inviteEmails(canvasElement)).toEqual(['selin@aether.photo']));
+    await expect(canvas.queryByRole('heading', { name: 'No pending invites' })).toBeNull();
+    await clearToasts();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const emailInput = canvas.getByLabelText('Email address');
@@ -142,24 +167,6 @@ export const Default: Story = {
     const revoked = (await toastByTitle('Invite revoked')).closest('[data-sonner-toast]') as HTMLElement;
     await userEvent.click(within(revoked).getByRole('button', { name: 'Undo' }));
     await waitFor(() => expect(inviteEmails(canvasElement)).toEqual(['selin@aether.photo', 'dawn@aether.photo', 'mina@aether.photo']));
-    await clearToasts();
-  },
-};
-
-/** No invites: the empty state gives way to the list on the first invite. */
-export const NoPendingInvites: Story = {
-  name: 'No pending invites',
-  render: () => (
-    <div className="p-6">
-      <TeamMembers invites={[]} />
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByRole('heading', { name: 'No pending invites' })).toBeInTheDocument();
-    await userEvent.type(canvas.getByLabelText('Email address'), 'selin@aether.photo{Enter}');
-    await waitFor(() => expect(inviteEmails(canvasElement)).toEqual(['selin@aether.photo']));
-    await expect(canvas.queryByRole('heading', { name: 'No pending invites' })).toBeNull();
     await clearToasts();
   },
 };

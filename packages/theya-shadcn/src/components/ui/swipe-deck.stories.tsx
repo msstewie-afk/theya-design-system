@@ -89,6 +89,13 @@ function Demo() {
 export const Default: Story = {
   args: { items: TEMPLATES, getKey: (t: Template) => t.id, renderCard: (t: Template) => <TemplateCard item={t} /> } as never,
   render: () => <Demo />,
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Keep' }));

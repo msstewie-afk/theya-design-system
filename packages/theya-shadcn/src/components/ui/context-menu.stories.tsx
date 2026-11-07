@@ -101,23 +101,6 @@ export const Default: Story = {
       </ContextMenuContent>
     </ContextMenu>
   ),
-  play: async ({ canvasElement }) => {
-    const page = within(document.body);
-    const target = within(canvasElement).getByText('Right-click DAWN_0412.jpg');
-    await userEvent.pointer({ keys: '[MouseRight]', target });
-    const menu = await page.findByRole('menu');
-    // Keyboard inside the menu: arrows move, ArrowRight opens the sub-menu.
-    await waitFor(() => expect(menu.contains(document.activeElement)).toBe(true));
-    await userEvent.keyboard('{ArrowDown}');
-    await expect(page.getByRole('menuitem', { name: /Open photo/ })).toHaveFocus();
-    page.getByRole('menuitem', { name: 'Copy' }).focus();
-    await userEvent.keyboard('{ArrowRight}');
-    await expect(await page.findByRole('menuitem', { name: 'Copy URL' })).toBeInTheDocument();
-    await waitFor(() => expect(page.getByRole('menuitem', { name: 'Copy URL' })).toHaveFocus());
-    // Escape closes everything.
-    await userEvent.keyboard('{Escape}{Escape}');
-    await waitFor(() => expect(page.queryByRole('menu')).toBeNull());
-  },
 };
 
 /** `tone="danger"` turns the row (text + highlight fill) destructive for irreversible actions. */
@@ -299,6 +282,30 @@ export const WithVisibleAlternative: Story = {
     const context = await page.findByRole('menu');
     await expect(within(context).getAllByRole('menuitem').map((el) => el.textContent?.trim())).toEqual(names);
     await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(page.queryByRole('menu')).toBeNull());
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const page = within(document.body);
+    const target = within(canvasElement).getByText('Right-click DAWN_0412.jpg');
+    await userEvent.pointer({ keys: '[MouseRight]', target });
+    const menu = await page.findByRole('menu');
+    // Keyboard inside the menu: arrows move, ArrowRight opens the sub-menu.
+    await waitFor(() => expect(menu.contains(document.activeElement)).toBe(true));
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(page.getByRole('menuitem', { name: /Open photo/ })).toHaveFocus();
+    page.getByRole('menuitem', { name: 'Copy' }).focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(await page.findByRole('menuitem', { name: 'Copy URL' })).toBeInTheDocument();
+    await waitFor(() => expect(page.getByRole('menuitem', { name: 'Copy URL' })).toHaveFocus());
+    // Escape closes everything.
+    await userEvent.keyboard('{Escape}{Escape}');
     await waitFor(() => expect(page.queryByRole('menu')).toBeNull());
   },
 };

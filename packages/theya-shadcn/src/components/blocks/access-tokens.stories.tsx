@@ -69,6 +69,32 @@ export const Default: Story = {
       <AccessTokens {...args} />
     </div>
   ),
+};
+
+/** No keys: the empty state gives way to the table once the first key exists. */
+export const Empty: Story = {
+  render: () => (
+    <div className="px-4 py-6 md:px-6">
+      <AccessTokens keys={[]} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('heading', { name: 'No API keys yet' })).toBeInTheDocument();
+    await expect(canvas.queryByRole('table')).toBeNull();
+    await createKey(canvasElement, 'First key');
+    await expect(canvas.queryByRole('heading', { name: 'No API keys yet' })).toBeNull();
+    await expect(keyNames(canvasElement)).toEqual(['First key']);
+    await expect(canvas.getByText('active key', { exact: false })).toHaveTextContent('1 active key');
+    await clearToasts();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     await expect(keyNames(canvasElement)).toEqual(['Portfolio website', 'Print lab sync', 'Legacy script']);
@@ -112,25 +138,6 @@ export const Default: Story = {
     const revoked = (await toastByTitle('Key revoked')).closest('[data-sonner-toast]') as HTMLElement;
     await userEvent.click(within(revoked).getByRole('button', { name: 'Undo' }));
     await waitFor(() => expect(keyNames(canvasElement)).toEqual(['Studio L4 uploads', 'Portfolio website', 'Print lab sync', 'Legacy script']));
-    await clearToasts();
-  },
-};
-
-/** No keys: the empty state gives way to the table once the first key exists. */
-export const Empty: Story = {
-  render: () => (
-    <div className="px-4 py-6 md:px-6">
-      <AccessTokens keys={[]} />
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByRole('heading', { name: 'No API keys yet' })).toBeInTheDocument();
-    await expect(canvas.queryByRole('table')).toBeNull();
-    await createKey(canvasElement, 'First key');
-    await expect(canvas.queryByRole('heading', { name: 'No API keys yet' })).toBeNull();
-    await expect(keyNames(canvasElement)).toEqual(['First key']);
-    await expect(canvas.getByText('active key', { exact: false })).toHaveTextContent('1 active key');
     await clearToasts();
   },
 };

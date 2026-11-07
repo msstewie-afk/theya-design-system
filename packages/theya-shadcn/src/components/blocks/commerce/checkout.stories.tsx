@@ -14,7 +14,26 @@ export default meta;
 type Story = StoryObj<typeof Checkout>;
 
 /** Options → Payment → Review → done. The summary follows every choice; completed steps link back. */
-export const Default: Story = {
+export const Default: Story = {};
+
+/** Review order with the card fields empty: each field is marked invalid and described by its own error (WCAG 3.3.1). */
+export const MissingCardDetails: Story = {
+  name: 'Missing card details',
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Continue to payment' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Review order' }));
+    const card = canvas.getByRole('textbox', { name: /^Card number/ });
+    await waitFor(() => expect(card).toHaveAttribute('aria-invalid', 'true'));
+    await expect(card.getAttribute('aria-describedby')).toBeTruthy();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const total = () => within(canvasElement).getByText('Total').closest('div')!;
@@ -46,18 +65,5 @@ export const Default: Story = {
     await waitFor(() => expect(done).toHaveFocus());
     await expect(done).toHaveAccessibleDescription('Your Pro plan is active and selene-weddings.aether.photo is live.');
     await expect(args.onComplete).toHaveBeenCalledTimes(1);
-  },
-};
-
-/** Review order with the card fields empty: each field is marked invalid and described by its own error (WCAG 3.3.1). */
-export const MissingCardDetails: Story = {
-  name: 'Missing card details',
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Continue to payment' }));
-    await userEvent.click(canvas.getByRole('button', { name: 'Review order' }));
-    const card = canvas.getByRole('textbox', { name: /^Card number/ });
-    await waitFor(() => expect(card).toHaveAttribute('aria-invalid', 'true'));
-    await expect(card.getAttribute('aria-describedby')).toBeTruthy();
   },
 };

@@ -121,6 +121,40 @@ export const Default: Story = {
       </>
     );
   },
+};
+
+/** Open on a targeted step — spotlight + card. */
+export const OnStep: Story = {
+  name: 'On a step',
+  render: (args) => {
+    const [open, setOpen] = useState(true);
+    return (
+      <>
+        <MockApp onStart={() => setOpen(true)} />
+        <ProductTour {...args} open={open} onOpenChange={setOpen} defaultStep={2} />
+      </>
+    );
+  },
+};
+
+/** Two-step "what's new" without a welcome, no Skip button. */
+export const Short: Story = {
+  render: (args) => {
+    const [open, setOpen] = useState(false);
+    return (
+      <>
+        <MockApp onStart={() => setOpen(true)} />
+        <ProductTour {...args} steps={STEPS.slice(1, 3)} hideSkip open={open} onOpenChange={setOpen} />
+      </>
+    );
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(document.body);
@@ -164,32 +198,5 @@ export const Default: Story = {
     await waitFor(() => expect(dialog()).toHaveAccessibleName('Your galleries'));
     await userEvent.click(within(dialog()).getByRole('button', { name: 'Done' }));
     await expect(canvas.getByText('Completed')).toBeInTheDocument();
-  },
-};
-
-/** Open on a targeted step — spotlight + card. */
-export const OnStep: Story = {
-  name: 'On a step',
-  render: (args) => {
-    const [open, setOpen] = useState(true);
-    return (
-      <>
-        <MockApp onStart={() => setOpen(true)} />
-        <ProductTour {...args} open={open} onOpenChange={setOpen} defaultStep={2} />
-      </>
-    );
-  },
-};
-
-/** Two-step "what's new" without a welcome, no Skip button. */
-export const Short: Story = {
-  render: (args) => {
-    const [open, setOpen] = useState(false);
-    return (
-      <>
-        <MockApp onStart={() => setOpen(true)} />
-        <ProductTour {...args} steps={STEPS.slice(1, 3)} hideSkip open={open} onOpenChange={setOpen} />
-      </>
-    );
   },
 };

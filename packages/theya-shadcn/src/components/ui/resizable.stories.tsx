@@ -73,20 +73,6 @@ export const Default: Story = {
       </ResizablePanel>
     </ResizablePanelGroup>
   ),
-  play: async ({ canvasElement }) => {
-    const handle = within(canvasElement).getByRole('separator', { name: 'Resize galleries list' });
-    // defaultSize="30%" means 30% (a bare number would be 30px).
-    await waitFor(() => expect(near(panelShares(canvasElement)[0], 0.3)).toBe(true));
-
-    handle.focus();
-    await userEvent.keyboard('{ArrowRight}');
-    await waitFor(() => expect(panelShares(canvasElement)[0]).toBeGreaterThan(0.31));
-
-    // Home stops at minSize="20%".
-    await userEvent.keyboard('{Home}');
-    await waitFor(() => expect(near(panelShares(canvasElement)[0], 0.2)).toBe(true));
-    await expect(handle).toHaveAttribute('aria-valuenow', handle.getAttribute('aria-valuemin'));
-  },
 };
 
 /** A row of two panes (the default). The handle carries a centered grip. */
@@ -223,5 +209,26 @@ export const Disabled: Story = {
     handle.focus();
     await userEvent.keyboard('{ArrowRight}{ArrowRight}{End}');
     await expect(near(panelShares(canvasElement)[0], 0.35)).toBe(true);
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const handle = within(canvasElement).getByRole('separator', { name: 'Resize galleries list' });
+    // defaultSize="30%" means 30% (a bare number would be 30px).
+    await waitFor(() => expect(near(panelShares(canvasElement)[0], 0.3)).toBe(true));
+
+    handle.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(panelShares(canvasElement)[0]).toBeGreaterThan(0.31));
+
+    // Home stops at minSize="20%".
+    await userEvent.keyboard('{Home}');
+    await waitFor(() => expect(near(panelShares(canvasElement)[0], 0.2)).toBe(true));
+    await expect(handle).toHaveAttribute('aria-valuenow', handle.getAttribute('aria-valuemin'));
   },
 };

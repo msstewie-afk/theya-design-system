@@ -43,18 +43,6 @@ type Story = StoryObj<typeof DashboardOverview>;
 export const Default: Story = {
   args: { onViewAll: fn(), onAttentionAction: fn() },
   render: (args) => <DashboardOverview onViewAll={args.onViewAll} onAttentionAction={args.onAttentionAction} />,
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByRole('heading', { level: 1, name: 'Dashboard' })).toBeInTheDocument();
-    await userEvent.click(canvas.getByRole('button', { name: 'Investigate: othrys.aether.photo' }));
-    await expect(args.onAttentionAction).toHaveBeenCalledWith(expect.objectContaining({ id: 'othrys.aether.photo' }));
-    await userEvent.click(canvas.getByRole('button', { name: 'Resume portal: selene-weddings.aether.photo' }));
-    await expect(args.onAttentionAction).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'selene-weddings.aether.photo' }));
-    await userEvent.click(canvas.getByRole('button', { name: 'View all' }));
-    await expect(args.onViewAll).toHaveBeenCalledTimes(1);
-    // Every quota bar carries its numbers in its name.
-    for (const bar of canvas.getAllByRole('progressbar')) await expect(bar).toHaveAccessibleName(/ of .*percent/);
-  },
 };
 
 /** Nothing to act on: the all-clear message, no "View all". */
@@ -73,5 +61,24 @@ export const ReadOnly: Story = {
   render: () => <DashboardOverview />,
   play: async ({ canvasElement }) => {
     await expect(within(canvasElement).queryByRole('button', { name: /^Investigate/ })).toBeNull();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('heading', { level: 1, name: 'Dashboard' })).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Investigate: othrys.aether.photo' }));
+    await expect(args.onAttentionAction).toHaveBeenCalledWith(expect.objectContaining({ id: 'othrys.aether.photo' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Resume portal: selene-weddings.aether.photo' }));
+    await expect(args.onAttentionAction).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'selene-weddings.aether.photo' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'View all' }));
+    await expect(args.onViewAll).toHaveBeenCalledTimes(1);
+    // Every quota bar carries its numbers in its name.
+    for (const bar of canvas.getAllByRole('progressbar')) await expect(bar).toHaveAccessibleName(/ of .*percent/);
   },
 };

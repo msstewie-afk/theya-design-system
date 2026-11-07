@@ -31,8 +31,46 @@ export default meta;
 type Story = StoryObj<typeof MegaMenu>;
 
 /** Grouped sub-areas, one featured item, and the section's own "All …" page in every panel. */
-export const Default: Story = {
+export const Default: Story = {};
 
+/** Narrow screens: the same tree in a drawer, one section open at a time. */
+export const Narrow: Story = {
+  args: { layout: 'drawer' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Menu' }));
+    const drawer = await screen.findByRole('dialog', { name: 'Menu' });
+    // The current section starts open, with its "All …" link first.
+    await expect(within(drawer).getByRole('link', { name: /All products/ })).toBeVisible();
+    // Column titles are h4 headings (under the h2 title and h3 section headers) that name their lists.
+    await expect(within(drawer).getByRole('heading', { level: 4, name: 'Galleries' })).toBeVisible();
+    await expect(within(drawer).getByRole('list', { name: 'Galleries' })).toBeVisible();
+    await userEvent.click(within(drawer).getByRole('button', { name: 'Solutions' }));
+    await expect(within(drawer).getByRole('link', { name: 'Wedding photographers' })).toBeVisible();
+  },
+};
+
+/** Drawer with a plain top-level link as the current page: marked with aria-current and the same tinted fill as in the bar. */
+export const NarrowCurrentLink: Story = {
+  args: { layout: 'drawer', currentId: 'pricing' },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Menu' }));
+    const drawer = await screen.findByRole('dialog', { name: 'Menu' });
+    const current = within(drawer).getByRole('link', { name: 'Pricing' });
+    await expect(current).toHaveAttribute('aria-current', 'page');
+    await expect(current).toHaveClass('bg-[var(--color-bg-neutral-bg-neutral-subtle)]');
+    const other = within(drawer).getByRole('link', { name: 'Contact sales' });
+    await expect(other).not.toHaveAttribute('aria-current');
+    await expect(getComputedStyle(current).backgroundColor).not.toBe(getComputedStyle(other).backgroundColor);
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     // Phone (below md): one "Menu" button opens a drawer; sections are accordions,
     // the current one already open.
@@ -70,38 +108,5 @@ export const Default: Story = {
     await userEvent.keyboard('{Escape}');
     // The panel closes with a short animation; give it time under a loaded test run.
     await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'), { timeout: 2500 });
-  },
-};
-
-/** Narrow screens: the same tree in a drawer, one section open at a time. */
-export const Narrow: Story = {
-  args: { layout: 'drawer' },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Menu' }));
-    const drawer = await screen.findByRole('dialog', { name: 'Menu' });
-    // The current section starts open, with its "All …" link first.
-    await expect(within(drawer).getByRole('link', { name: /All products/ })).toBeVisible();
-    // Column titles are h4 headings (under the h2 title and h3 section headers) that name their lists.
-    await expect(within(drawer).getByRole('heading', { level: 4, name: 'Galleries' })).toBeVisible();
-    await expect(within(drawer).getByRole('list', { name: 'Galleries' })).toBeVisible();
-    await userEvent.click(within(drawer).getByRole('button', { name: 'Solutions' }));
-    await expect(within(drawer).getByRole('link', { name: 'Wedding photographers' })).toBeVisible();
-  },
-};
-
-/** Drawer with a plain top-level link as the current page: marked with aria-current and the same tinted fill as in the bar. */
-export const NarrowCurrentLink: Story = {
-  args: { layout: 'drawer', currentId: 'pricing' },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Menu' }));
-    const drawer = await screen.findByRole('dialog', { name: 'Menu' });
-    const current = within(drawer).getByRole('link', { name: 'Pricing' });
-    await expect(current).toHaveAttribute('aria-current', 'page');
-    await expect(current).toHaveClass('bg-[var(--color-bg-neutral-bg-neutral-subtle)]');
-    const other = within(drawer).getByRole('link', { name: 'Contact sales' });
-    await expect(other).not.toHaveAttribute('aria-current');
-    await expect(getComputedStyle(current).backgroundColor).not.toBe(getComputedStyle(other).backgroundColor);
   },
 };

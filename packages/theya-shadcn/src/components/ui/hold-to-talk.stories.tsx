@@ -43,7 +43,25 @@ export const Default: Story = {
       </div>
     );
   },
-  // Keyboard: hold Space to talk, release to send; Escape while holding cancels.
+  // Keyboard: hold Space to talk, release to send; Escape while holding cancels.,
+};
+
+/** In PromptArea's trailing slot. */
+export const InPromptArea: Story = {
+  name: 'In PromptArea',
+  parameters: { layout: 'padded' },
+  render: () => (
+    <div className="mx-auto w-full max-w-xl">
+      <PromptArea aria-label="Message" placeholder="Ask anything…" trailing={<HoldToTalk />} />
+    </div>
+  ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button', { name: 'Hold to talk' });
@@ -69,15 +87,4 @@ export const Default: Story = {
     await expect(canvas.getByText('Cancelled')).toBeVisible();
     await userEvent.keyboard('{/ }'); // let user-event's own key state go, too
   },
-};
-
-/** In PromptArea's trailing slot. */
-export const InPromptArea: Story = {
-  name: 'In PromptArea',
-  parameters: { layout: 'padded' },
-  render: () => (
-    <div className="mx-auto w-full max-w-xl">
-      <PromptArea aria-label="Message" placeholder="Ask anything…" trailing={<HoldToTalk />} />
-    </div>
-  ),
 };

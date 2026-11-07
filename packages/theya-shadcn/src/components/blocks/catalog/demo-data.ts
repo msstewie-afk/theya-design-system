@@ -67,7 +67,7 @@ export const DEMO_ITEM = byId('client-proofing');
 /** Gallery pictures; the alt text describes the bundled placeholder images. */
 export const DEMO_IMAGES = [
   { src: '/asset-examples/mesh/blue.webp', alt: 'Pastel blue gradient' },
-  { src: '/asset-examples/mesh/blue-portrait.webp', alt: 'Pastel blue gradient' },
+  { src: '/asset-examples/mesh/cyan-portrait.webp', alt: 'Pastel cyan gradient' },
   { src: '/asset-examples/mesh/green-portrait.webp', alt: 'Pastel green gradient' },
   { src: '/asset-examples/mesh/lilac-portrait.webp', alt: 'Pastel lilac gradient' },
 ];

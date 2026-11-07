@@ -42,7 +42,14 @@ export const Default: Story = {
     ],
     onSelect: fn(),
   },
-  // Keyboard: every card is a tab stop, in order; Enter picks one.
+  // Keyboard: every card is a tab stop, in order; Enter picks one.,
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     resetFocus();

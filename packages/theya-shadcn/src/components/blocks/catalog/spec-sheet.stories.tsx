@@ -19,7 +19,18 @@ export default meta;
 type Story = StoryObj<typeof SpecSheet>;
 
 /** Grouped, units always shown, folded after 8 rows. */
-export const Default: Story = {
+export const Default: Story = {};
+
+/** `initialCount={0}` shows every specification at once, with no "Show all" button. */
+export const AllVisible: Story = {
+  args: { initialCount: 0 },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.queryByText('Last updated')).not.toBeInTheDocument();
@@ -28,9 +39,4 @@ export const Default: Story = {
     await expect(more).toHaveAttribute('aria-expanded', 'true');
     await expect(canvas.getByText('Last updated')).toBeVisible();
   },
-};
-
-/** `initialCount={0}` shows every specification at once, with no "Show all" button. */
-export const AllVisible: Story = {
-  args: { initialCount: 0 },
 };

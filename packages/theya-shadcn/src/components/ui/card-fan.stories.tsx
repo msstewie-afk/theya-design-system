@@ -59,6 +59,13 @@ export const Default: Story = {
       </CardFan>
     </div>
   ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const fan = canvasElement.querySelector('[data-slot=card-fan]')!;

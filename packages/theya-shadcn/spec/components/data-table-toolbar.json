@@ -180,6 +180,10 @@
       {
         "name": "NarrowOverflow",
         "id": "data-datatabletoolbar--narrow-overflow"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "data-datatabletoolbar--test-interactions"
       }
     ]
   }

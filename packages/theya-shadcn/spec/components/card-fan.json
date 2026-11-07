@@ -80,6 +80,10 @@
       {
         "name": "Default",
         "id": "motion-cardfan--default"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "motion-cardfan--test-interactions"
       }
     ]
   }

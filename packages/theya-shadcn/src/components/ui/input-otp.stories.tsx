@@ -75,31 +75,6 @@ export const Default: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
-    const input = within(canvasElement).getByRole('textbox', { name: 'One-time code' });
-    await expect(input).toHaveAccessibleDescription('Enter the 6-digit code from your authenticator app.');
-
-    await userEvent.click(input);
-    await userEvent.keyboard('12');
-    // Digits-only pattern: letters are rejected, not skipped into a slot.
-    await userEvent.keyboard('ab');
-    await userEvent.keyboard('3456');
-    await expect(input).toHaveValue('123456');
-    await expect(slotTexts(canvasElement)).toEqual(['1', '2', '3', '4', '5', '6']);
-
-    // Full — a 7th digit is dropped.
-    await userEvent.keyboard('7');
-    await expect(input).toHaveValue('123456');
-
-    await userEvent.keyboard('{Backspace}');
-    await expect(input).toHaveValue('12345');
-    await expect(slotTexts(canvasElement)[5]).toBe('');
-
-    // The visual slots mirror the input; only the input is exposed.
-    for (const slot of canvasElement.querySelectorAll('[data-slot="input-otp-slot"]')) {
-      await expect(slot).toHaveAttribute('aria-hidden', 'true');
-    }
-  },
 };
 
 /** Two InputOTPGroups joined by an InputOTPSeparator for a longer recovery code. Splitting keeps the field readable; this code allows letters too. */
@@ -246,5 +221,37 @@ export const VerificationFlow: Story = {
     await userEvent.paste('654321');
     await expect(input).toHaveValue('654321');
     await expect(verify).toBeEnabled();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByRole('textbox', { name: 'One-time code' });
+    await expect(input).toHaveAccessibleDescription('Enter the 6-digit code from your authenticator app.');
+
+    await userEvent.click(input);
+    await userEvent.keyboard('12');
+    // Digits-only pattern: letters are rejected, not skipped into a slot.
+    await userEvent.keyboard('ab');
+    await userEvent.keyboard('3456');
+    await expect(input).toHaveValue('123456');
+    await expect(slotTexts(canvasElement)).toEqual(['1', '2', '3', '4', '5', '6']);
+
+    // Full — a 7th digit is dropped.
+    await userEvent.keyboard('7');
+    await expect(input).toHaveValue('123456');
+
+    await userEvent.keyboard('{Backspace}');
+    await expect(input).toHaveValue('12345');
+    await expect(slotTexts(canvasElement)[5]).toBe('');
+
+    // The visual slots mirror the input; only the input is exposed.
+    for (const slot of canvasElement.querySelectorAll('[data-slot="input-otp-slot"]')) {
+      await expect(slot).toHaveAttribute('aria-hidden', 'true');
+    }
   },
 };

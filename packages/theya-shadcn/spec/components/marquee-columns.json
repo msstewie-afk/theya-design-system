@@ -114,6 +114,10 @@
       {
         "name": "ScrollDriven",
         "id": "motion-marqueecolumns--scroll-driven"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "motion-marqueecolumns--test-interactions"
       }
     ]
   }

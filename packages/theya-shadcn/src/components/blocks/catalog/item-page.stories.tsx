@@ -34,10 +34,22 @@ export default meta;
 type Story = StoryObj<typeof ItemPage>;
 
 /** One scrolling page: gallery and buy box, then overview, specifications and reviews. */
-export const Default: Story = {
+export const Default: Story = {};
+
+/** A free item: "Install", no trial line. */
+export const Free: Story = {
+  // The same item made free, so the page copy (description, specs) still matches it.
+  args: { item: { ...DEMO_ITEM, price: 0 }, trialDays: undefined, images: DEMO_IMAGES.slice(0, 1) },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    const thumb = canvas.getByRole('button', { name: 'Screenshot 2: Abstract city of tall blue blocks' });
+    const thumb = canvas.getByRole('button', { name: 'Screenshot 2: Pastel cyan gradient' });
     await userEvent.click(thumb);
     await expect(thumb).toHaveAttribute('aria-current', 'true');
 
@@ -49,10 +61,4 @@ export const Default: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Start free trial' }));
     await expect(args.onInstall).toHaveBeenCalledTimes(1);
   },
-};
-
-/** A free item: "Install", no trial line. */
-export const Free: Story = {
-  // The same item made free, so the page copy (description, specs) still matches it.
-  args: { item: { ...DEMO_ITEM, price: 0 }, trialDays: undefined, images: DEMO_IMAGES.slice(0, 1) },
 };

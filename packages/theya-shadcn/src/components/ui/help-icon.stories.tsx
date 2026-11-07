@@ -61,15 +61,7 @@ type Story = StoryObj<typeof meta>;
 
 /** The glyph on its own. Hover or focus it to read the hint. */
 export const Default: Story = {
-  // Keyboard: the glyph is a Tab stop; focus shows the hint, Escape hides it.
-  play: async ({ canvasElement }) => {
-    const trigger = within(canvasElement).getByRole('button');
-    await userEvent.tab();
-    await expect(trigger).toHaveFocus();
-    await expect(await within(document.body).findByRole('tooltip')).toHaveTextContent('Renewal runs 30 days before expiry.');
-    await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(within(document.body).queryByRole('tooltip')).toBeNull());
-  },
+  // Keyboard: the glyph is a Tab stop; focus shows the hint, Escape hides it.,
 };
 
 /** The usual home: beside a field label. Label is a flex row, so the glyph
@@ -179,4 +171,19 @@ export const LongHint: Story = {
       <HelpIcon {...args} />
     </div>
   ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button');
+    await userEvent.tab();
+    await expect(trigger).toHaveFocus();
+    await expect(await within(document.body).findByRole('tooltip')).toHaveTextContent('Renewal runs 30 days before expiry.');
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(within(document.body).queryByRole('tooltip')).toBeNull());
+  },
 };

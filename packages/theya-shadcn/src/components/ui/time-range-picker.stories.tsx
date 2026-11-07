@@ -65,26 +65,6 @@ function ControlledDemo(args: React.ComponentProps<typeof TimeRangePicker>) {
 /** An empty range. */
 export const Default: Story = {
   render: (args) => <ControlledDemo {...args} />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const start = canvas.getByRole('combobox', { name: 'Start time' });
-    const end = canvas.getByRole('combobox', { name: 'End time' });
-
-    await pickTime(start, '9:00 AM');
-    await expect(canvas.getByText('09:00 to —')).toBeInTheDocument();
-
-    // The end list starts at the chosen start.
-    await userEvent.click(end);
-    await body().findByRole('listbox');
-    await expect(optionNames()[0]).toBe('9:00 AM');
-    await userEvent.click(body().getByRole('option', { name: '5:00 PM' }));
-    await expect(canvas.getByText('09:00 to 17:00')).toBeInTheDocument();
-
-    // Moving the start past the end drops the end instead of inverting.
-    await pickTime(start, '6:00 PM');
-    await expect(canvas.getByText('18:00 to —')).toBeInTheDocument();
-    await expect(end).toHaveValue('');
-  },
 };
 
 /** A pre-filled business-hours range. */
@@ -169,5 +149,32 @@ export const ErrorState: Story = {
       await expect(field).toHaveAttribute('aria-invalid', 'true');
       await expect(field).toHaveAccessibleDescription('Pick a start and an end time.');
     }
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const start = canvas.getByRole('combobox', { name: 'Start time' });
+    const end = canvas.getByRole('combobox', { name: 'End time' });
+
+    await pickTime(start, '9:00 AM');
+    await expect(canvas.getByText('09:00 to —')).toBeInTheDocument();
+
+    // The end list starts at the chosen start.
+    await userEvent.click(end);
+    await body().findByRole('listbox');
+    await expect(optionNames()[0]).toBe('9:00 AM');
+    await userEvent.click(body().getByRole('option', { name: '5:00 PM' }));
+    await expect(canvas.getByText('09:00 to 17:00')).toBeInTheDocument();
+
+    // Moving the start past the end drops the end instead of inverting.
+    await pickTime(start, '6:00 PM');
+    await expect(canvas.getByText('18:00 to —')).toBeInTheDocument();
+    await expect(end).toHaveValue('');
   },
 };

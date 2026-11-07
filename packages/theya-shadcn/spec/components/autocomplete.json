@@ -228,6 +228,10 @@
       {
         "name": "ErrorState",
         "id": "selection-autocomplete--error-state"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "selection-autocomplete--test-interactions"
       }
     ]
   }

@@ -69,32 +69,6 @@ export const Default: Story = {
       <CarouselNext />
     </Carousel>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const region = canvas.getByRole('region', { name: 'Featured templates' });
-    await expect(region).toHaveAttribute('aria-roledescription', 'carousel');
-    const prev = canvas.getByRole('button', { name: 'Previous slide' });
-    const next = canvas.getByRole('button', { name: 'Next slide' });
-
-    // Only the current slide is exposed; the rest are hidden and inert.
-    await waitFor(() => expect(visibleSlides(canvasElement)).toEqual(['1 of 4']));
-    await expect(prev).toBeDisabled();
-
-    await userEvent.click(next);
-    await waitFor(() => expect(visibleSlides(canvasElement)).toEqual(['2 of 4']));
-    await userEvent.click(next);
-    await userEvent.click(next);
-    await waitFor(() => expect(visibleSlides(canvasElement)).toEqual(['4 of 4']));
-    // Next disables on the last slide; focus moves to the region instead
-    // of dropping to <body>.
-    await waitFor(() => expect(next).toBeDisabled());
-    await waitFor(() => expect(region).toHaveFocus());
-
-    // Arrow keys page while the region has focus.
-    await userEvent.keyboard('{ArrowLeft}');
-    await waitFor(() => expect(visibleSlides(canvasElement)).toEqual(['3 of 4']));
-    await expect(next).toBeEnabled();
-  },
 };
 
 /** Multi-item track: each slide takes a fractional `basis-*` so two show at once
@@ -318,5 +292,38 @@ export const Peek: Story = {
     // The centre slide is full size; the next one is one slide away.
     await waitFor(() => expect(items[1].style.getPropertyValue('--peek')).toBe('1'));
     await expect(items[0].style.getPropertyValue('--peek')).toBe('0');
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const region = canvas.getByRole('region', { name: 'Featured templates' });
+    await expect(region).toHaveAttribute('aria-roledescription', 'carousel');
+    const prev = canvas.getByRole('button', { name: 'Previous slide' });
+    const next = canvas.getByRole('button', { name: 'Next slide' });
+
+    // Only the current slide is exposed; the rest are hidden and inert.
+    await waitFor(() => expect(visibleSlides(canvasElement)).toEqual(['1 of 4']));
+    await expect(prev).toBeDisabled();
+
+    await userEvent.click(next);
+    await waitFor(() => expect(visibleSlides(canvasElement)).toEqual(['2 of 4']));
+    await userEvent.click(next);
+    await userEvent.click(next);
+    await waitFor(() => expect(visibleSlides(canvasElement)).toEqual(['4 of 4']));
+    // Next disables on the last slide; focus moves to the region instead
+    // of dropping to <body>.
+    await waitFor(() => expect(next).toBeDisabled());
+    await waitFor(() => expect(region).toHaveFocus());
+
+    // Arrow keys page while the region has focus.
+    await userEvent.keyboard('{ArrowLeft}');
+    await waitFor(() => expect(visibleSlides(canvasElement)).toEqual(['3 of 4']));
+    await expect(next).toBeEnabled();
   },
 };

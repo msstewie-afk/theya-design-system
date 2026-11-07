@@ -24,46 +24,6 @@ export const Default: Story = {
       <Cart {...args} />
     </div>
   ),
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-    // 288 + 14 + 2 × 36 = 374, +20% = 448.80
-    await expect(total(canvasElement)).toHaveTextContent('$448.80');
-    await userEvent.click(canvas.getByRole('button', { name: 'More Fine-art print' }));
-    await waitFor(() => expect(total(canvasElement)).toHaveTextContent('$492'));
-
-    await userEvent.click(canvas.getByRole('button', { name: 'Save for later: Proof book' }));
-    await expect(canvas.getByRole('button', { name: 'Move to cart: Proof book' })).toBeVisible();
-
-    await userEvent.click(canvas.getByRole('button', { name: 'Have a promo code?' }));
-    const code = canvas.getByRole('textbox', { name: 'Promo code' });
-    await waitFor(() => expect(code).toHaveFocus());
-    await userEvent.type(code, 'NOPE{Enter}');
-    await expect(code).toHaveAccessibleDescription(/isn't a valid code/);
-    await userEvent.clear(code);
-    // The status region is mounted (and empty) before the code is applied,
-    // so the message is a change a screen reader announces.
-    const status = promoStatus(canvasElement);
-    await expect(status).toHaveAttribute('role', 'status');
-    await expect(status).toHaveTextContent(/^$/);
-    await userEvent.type(code, 'welcome10{Enter}');
-    await expect(canvas.getByText('WELCOME10')).toBeVisible();
-    await waitFor(() => expect(status).toHaveTextContent('Code WELCOME10 applied'));
-    // The field and Apply button are gone: focus moves to the control in their place.
-    const removeCode = canvas.getByRole('button', { name: 'Remove code' });
-    await waitFor(() => expect(removeCode).toHaveFocus());
-    // Enter still held from the field: its auto-repeat lands on "Remove code"
-    // and must not press it.
-    const held = new KeyboardEvent('keydown', { key: 'Enter', repeat: true, bubbles: true, cancelable: true });
-    removeCode.dispatchEvent(held);
-    await expect(held.defaultPrevented).toBe(true);
-    await expect(canvas.getByText('WELCOME10')).toBeVisible();
-    await userEvent.click(removeCode);
-    await waitFor(() => expect(status).toHaveTextContent('Code WELCOME10 removed'));
-    await waitFor(() => expect(canvas.getByRole('button', { name: 'Have a promo code?' })).toHaveFocus());
-
-    await userEvent.click(canvas.getByRole('button', { name: 'Continue to checkout' }));
-    await expect(args.onCheckout).toHaveBeenCalledTimes(1);
-  },
 };
 
 /**
@@ -116,4 +76,51 @@ export const QuantityZeroKeepsFocus: Story = {
 /** No lines and nothing saved for later: an empty state with a Browse plans button. */
 export const Empty: Story = {
   args: { lines: [], saved: [] },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    // 288 + 14 + 2 × 36 = 374, +20% = 448.80
+    await expect(total(canvasElement)).toHaveTextContent('$448.80');
+    await userEvent.click(canvas.getByRole('button', { name: 'More Fine-art print' }));
+    await waitFor(() => expect(total(canvasElement)).toHaveTextContent('$492'));
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Save for later: Proof book' }));
+    await expect(canvas.getByRole('button', { name: 'Move to cart: Proof book' })).toBeVisible();
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Have a promo code?' }));
+    const code = canvas.getByRole('textbox', { name: 'Promo code' });
+    await waitFor(() => expect(code).toHaveFocus());
+    await userEvent.type(code, 'NOPE{Enter}');
+    await expect(code).toHaveAccessibleDescription(/isn't a valid code/);
+    await userEvent.clear(code);
+    // The status region is mounted (and empty) before the code is applied,
+    // so the message is a change a screen reader announces.
+    const status = promoStatus(canvasElement);
+    await expect(status).toHaveAttribute('role', 'status');
+    await expect(status).toHaveTextContent(/^$/);
+    await userEvent.type(code, 'welcome10{Enter}');
+    await expect(canvas.getByText('WELCOME10')).toBeVisible();
+    await waitFor(() => expect(status).toHaveTextContent('Code WELCOME10 applied'));
+    // The field and Apply button are gone: focus moves to the control in their place.
+    const removeCode = canvas.getByRole('button', { name: 'Remove code' });
+    await waitFor(() => expect(removeCode).toHaveFocus());
+    // Enter still held from the field: its auto-repeat lands on "Remove code"
+    // and must not press it.
+    const held = new KeyboardEvent('keydown', { key: 'Enter', repeat: true, bubbles: true, cancelable: true });
+    removeCode.dispatchEvent(held);
+    await expect(held.defaultPrevented).toBe(true);
+    await expect(canvas.getByText('WELCOME10')).toBeVisible();
+    await userEvent.click(removeCode);
+    await waitFor(() => expect(status).toHaveTextContent('Code WELCOME10 removed'));
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Have a promo code?' })).toHaveFocus());
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Continue to checkout' }));
+    await expect(args.onCheckout).toHaveBeenCalledTimes(1);
+  },
 };

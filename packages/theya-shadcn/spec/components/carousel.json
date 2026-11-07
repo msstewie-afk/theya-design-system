@@ -306,6 +306,10 @@
       {
         "name": "Peek",
         "id": "layout-carousel--peek"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "layout-carousel--test-interactions"
       }
     ]
   }

@@ -97,6 +97,10 @@
       {
         "name": "Disabled",
         "id": "layout-resizable--disabled"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "layout-resizable--test-interactions"
       }
     ]
   }

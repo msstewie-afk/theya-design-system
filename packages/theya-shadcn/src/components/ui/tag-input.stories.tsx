@@ -48,43 +48,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** Type a tag and press Enter or comma. Backspace in the empty input removes the last one. */
-export const Default: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole('textbox', { name: 'Tags' });
-    const removeButtons = () => canvas.queryAllByRole('button', { name: /^Remove / });
-    await expect(removeButtons()).toHaveLength(2);
-
-    // Enter and comma commit; surrounding spaces are trimmed.
-    await userEvent.type(input, '  portrait {Enter}');
-    await userEvent.type(input, 'film,');
-    await expect(canvas.getByRole('button', { name: 'Remove portrait' })).toBeInTheDocument();
-    await expect(canvas.getByRole('button', { name: 'Remove film' })).toBeInTheDocument();
-    await expect(input).toHaveValue('');
-    await waitFor(() => expect(canvasElement.querySelector('[aria-live="polite"]')).toHaveTextContent('Added film'));
-
-    // Duplicates (case-insensitive) are ignored.
-    await userEvent.type(input, 'Wedding{Enter}');
-    await expect(removeButtons()).toHaveLength(4);
-
-    // Backspace in the empty input removes the last tag.
-    await userEvent.keyboard('{Backspace}');
-    await expect(canvas.queryByRole('button', { name: 'Remove film' })).not.toBeInTheDocument();
-    await expect(input).toHaveFocus();
-
-    // The chip's remove button removes that tag and returns focus to the input.
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove outdoor' }));
-    await expect(removeButtons().map((b) => b.getAttribute('aria-label'))).toEqual(['Remove wedding', 'Remove portrait']);
-    await expect(input).toHaveFocus();
-
-    // Enter with nothing typed is left alone (a form can submit); leaving the field commits a draft.
-    await userEvent.keyboard('{Enter}');
-    await expect(removeButtons()).toHaveLength(2);
-    await userEvent.type(input, 'blue');
-    await userEvent.tab();
-    await expect(canvas.getByRole('button', { name: 'Remove blue' })).toBeInTheDocument();
-  },
-};
+export const Default: Story = {};
 
 const EMAIL_LIST = 'thea@aether.photo, ian@aether.photo; not-an-email, Mina@Aether.photo';
 
@@ -198,5 +162,47 @@ export const WithLabel: Story = {
     const input = within(canvasElement).getByRole('textbox', { name: 'Photo keywords' });
     await expect(input).toHaveAccessibleDescription('Press Enter or comma to add a keyword.');
     await expect(input).toHaveAttribute('aria-required', 'true');
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('textbox', { name: 'Tags' });
+    const removeButtons = () => canvas.queryAllByRole('button', { name: /^Remove / });
+    await expect(removeButtons()).toHaveLength(2);
+
+    // Enter and comma commit; surrounding spaces are trimmed.
+    await userEvent.type(input, '  portrait {Enter}');
+    await userEvent.type(input, 'film,');
+    await expect(canvas.getByRole('button', { name: 'Remove portrait' })).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Remove film' })).toBeInTheDocument();
+    await expect(input).toHaveValue('');
+    await waitFor(() => expect(canvasElement.querySelector('[aria-live="polite"]')).toHaveTextContent('Added film'));
+
+    // Duplicates (case-insensitive) are ignored.
+    await userEvent.type(input, 'Wedding{Enter}');
+    await expect(removeButtons()).toHaveLength(4);
+
+    // Backspace in the empty input removes the last tag.
+    await userEvent.keyboard('{Backspace}');
+    await expect(canvas.queryByRole('button', { name: 'Remove film' })).not.toBeInTheDocument();
+    await expect(input).toHaveFocus();
+
+    // The chip's remove button removes that tag and returns focus to the input.
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove outdoor' }));
+    await expect(removeButtons().map((b) => b.getAttribute('aria-label'))).toEqual(['Remove wedding', 'Remove portrait']);
+    await expect(input).toHaveFocus();
+
+    // Enter with nothing typed is left alone (a form can submit); leaving the field commits a draft.
+    await userEvent.keyboard('{Enter}');
+    await expect(removeButtons()).toHaveLength(2);
+    await userEvent.type(input, 'blue');
+    await userEvent.tab();
+    await expect(canvas.getByRole('button', { name: 'Remove blue' })).toBeInTheDocument();
   },
 };

@@ -129,6 +129,10 @@
       {
         "name": "Short",
         "id": "overlays-producttour--short"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "overlays-producttour--test-interactions"
       }
     ]
   }

@@ -168,6 +168,10 @@
       {
         "name": "ErrorState",
         "id": "date-time-daterangepicker--error-state"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "date-time-daterangepicker--test-interactions"
       }
     ]
   }

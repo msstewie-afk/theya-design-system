@@ -22,6 +22,33 @@ export const Default: Story = {
       <PlanComparison {...args} />
     </div>
   ),
+};
+
+/** For someone already on a plan: its button says so and is disabled. */
+export const WithCurrentPlan: Story = {
+  args: { currentPlanId: 'starter' },
+  render: (args) => (
+    <div className="mx-auto max-w-5xl">
+      <PlanComparison {...args} />
+    </div>
+  ),
+};
+
+/** Phone width: one tab per plan instead of columns. */
+export const Mobile: Story = {
+  parameters: { viewport: { defaultViewport: 'android360' } },
+  render: (args) => (
+    <div className="max-w-sm">
+      <PlanComparison {...args} />
+    </div>
+  ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement, args }) => {
     // Phone (below md): one plan at a time, chosen with tabs; the billing switch and
     // the plan's own button work the same.
@@ -51,24 +78,4 @@ export const Default: Story = {
     await userEvent.click(within(table).getByRole('button', { name: /^Choose Pro/ }));
     await expect(args.onSelect).toHaveBeenCalledWith('pro', 'monthly');
   },
-};
-
-/** For someone already on a plan: its button says so and is disabled. */
-export const WithCurrentPlan: Story = {
-  args: { currentPlanId: 'starter' },
-  render: (args) => (
-    <div className="mx-auto max-w-5xl">
-      <PlanComparison {...args} />
-    </div>
-  ),
-};
-
-/** Phone width: one tab per plan instead of columns. */
-export const Mobile: Story = {
-  parameters: { viewport: { defaultViewport: 'android360' } },
-  render: (args) => (
-    <div className="max-w-sm">
-      <PlanComparison {...args} />
-    </div>
-  ),
 };

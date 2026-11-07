@@ -68,43 +68,6 @@ export const Default: Story = {
       Delete gallery
     </Button>
   ),
-  play: async ({ canvasElement }) => {
-    const trigger = within(canvasElement).getByRole('button', { name: 'Delete gallery' });
-    undoSpy.mockClear();
-    commitSpy.mockClear();
-
-    // Undo rolls back and never commits.
-    await userEvent.click(trigger);
-    const first = (await toastByTitle('Gallery deleted')).closest('[data-sonner-toast]') as HTMLElement;
-    // No close "X": dismissing would quietly commit a destructive action.
-    await expect(first.querySelector('[data-close-button]')).toBeNull();
-    await userEvent.click(within(first).getByRole('button', { name: 'Undo' }));
-    await expect(undoSpy).toHaveBeenCalledTimes(1);
-    await expect(await toastByTitle('Gallery restored')).toBeInTheDocument();
-    await clearToasts();
-    await expect(commitSpy).not.toHaveBeenCalled();
-
-    // Keyboard route inside the grace window: Alt+T jumps to the toasts.
-    await userEvent.click(trigger);
-    await toastByTitle('Gallery deleted');
-    await userEvent.keyboard('{Alt>}t{/Alt}');
-    await waitFor(() => expect(document.activeElement?.closest('[data-sonner-toaster]')).not.toBeNull());
-    const undo = body().getByRole('button', { name: 'Undo' });
-    for (let i = 0; i < 5 && document.activeElement !== undo; i++) await userEvent.tab();
-    await expect(undo).toHaveFocus();
-    await userEvent.keyboard('{Enter}');
-    await expect(undoSpy).toHaveBeenCalledTimes(2);
-    await clearToasts();
-
-    // Letting it go (dismissed) commits exactly once.
-    await userEvent.click(trigger);
-    await toastByTitle('Gallery deleted');
-    toast.dismiss();
-    await waitFor(() => expect(commitSpy).toHaveBeenCalledTimes(1));
-    await clearToasts();
-    await expect(commitSpy).toHaveBeenCalledTimes(1);
-    await expect(undoSpy).toHaveBeenCalledTimes(2);
-  },
 };
 
 /**
@@ -253,4 +216,48 @@ export const Playground: Story = {
       </Button>
     </div>
   ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Delete gallery' });
+    undoSpy.mockClear();
+    commitSpy.mockClear();
+
+    // Undo rolls back and never commits.
+    await userEvent.click(trigger);
+    const first = (await toastByTitle('Gallery deleted')).closest('[data-sonner-toast]') as HTMLElement;
+    // No close "X": dismissing would quietly commit a destructive action.
+    await expect(first.querySelector('[data-close-button]')).toBeNull();
+    await userEvent.click(within(first).getByRole('button', { name: 'Undo' }));
+    await expect(undoSpy).toHaveBeenCalledTimes(1);
+    await expect(await toastByTitle('Gallery restored')).toBeInTheDocument();
+    await clearToasts();
+    await expect(commitSpy).not.toHaveBeenCalled();
+
+    // Keyboard route inside the grace window: Alt+T jumps to the toasts.
+    await userEvent.click(trigger);
+    await toastByTitle('Gallery deleted');
+    await userEvent.keyboard('{Alt>}t{/Alt}');
+    await waitFor(() => expect(document.activeElement?.closest('[data-sonner-toaster]')).not.toBeNull());
+    const undo = body().getByRole('button', { name: 'Undo' });
+    for (let i = 0; i < 5 && document.activeElement !== undo; i++) await userEvent.tab();
+    await expect(undo).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await expect(undoSpy).toHaveBeenCalledTimes(2);
+    await clearToasts();
+
+    // Letting it go (dismissed) commits exactly once.
+    await userEvent.click(trigger);
+    await toastByTitle('Gallery deleted');
+    toast.dismiss();
+    await waitFor(() => expect(commitSpy).toHaveBeenCalledTimes(1));
+    await clearToasts();
+    await expect(commitSpy).toHaveBeenCalledTimes(1);
+    await expect(undoSpy).toHaveBeenCalledTimes(2);
+  },
 };

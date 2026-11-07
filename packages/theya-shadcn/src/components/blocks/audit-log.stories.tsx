@@ -48,6 +48,43 @@ export const Default: Story = {
       <AuditLog />
     </div>
   ),
+};
+
+/** `loading` shows skeleton rows in place of the events, and the status line reads "Loading events…". */
+export const Loading: Story = {
+  render: () => (
+    <div className="p-6">
+      <AuditLog loading />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelector('tbody')).toHaveAttribute('aria-busy', 'true');
+    await expect(status(canvasElement)).toHaveTextContent('Loading events…');
+  },
+};
+
+/** Zero events: the "nothing yet" state, not the "no matches" one, and no clear button. */
+export const Empty: Story = {
+  render: () => (
+    <div className="p-6">
+      <AuditLog events={[]} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('heading', { name: 'No activity yet' })).toBeInTheDocument();
+    await expect(canvas.queryByRole('button', { name: 'Clear filters' })).toBeNull();
+    // No categories present -> no category facet.
+    await expect(canvas.queryByRole('combobox', { name: 'Category' })).toBeNull();
+    await expect(status(canvasElement)).toHaveTextContent('0 events');
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const search = canvas.getByRole('searchbox', { name: 'Search events by actor, action or target' });
@@ -95,35 +132,5 @@ export const Default: Story = {
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(actions(canvasElement)).toEqual(['Signed in', 'Exported gallery', 'Changed member role', 'Updated payment method', 'Revoked API key']));
     await expect(status(canvasElement)).toHaveTextContent('5 events match your filters');
-  },
-};
-
-/** `loading` shows skeleton rows in place of the events, and the status line reads "Loading events…". */
-export const Loading: Story = {
-  render: () => (
-    <div className="p-6">
-      <AuditLog loading />
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    await expect(canvasElement.querySelector('tbody')).toHaveAttribute('aria-busy', 'true');
-    await expect(status(canvasElement)).toHaveTextContent('Loading events…');
-  },
-};
-
-/** Zero events: the "nothing yet" state, not the "no matches" one, and no clear button. */
-export const Empty: Story = {
-  render: () => (
-    <div className="p-6">
-      <AuditLog events={[]} />
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByRole('heading', { name: 'No activity yet' })).toBeInTheDocument();
-    await expect(canvas.queryByRole('button', { name: 'Clear filters' })).toBeNull();
-    // No categories present -> no category facet.
-    await expect(canvas.queryByRole('combobox', { name: 'Category' })).toBeNull();
-    await expect(status(canvasElement)).toHaveTextContent('0 events');
   },
 };

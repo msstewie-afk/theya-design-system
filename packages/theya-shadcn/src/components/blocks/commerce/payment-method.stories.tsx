@@ -31,6 +31,33 @@ function WithContinue() {
 /** Card first and selected; the number formats itself, shows the brand, and a mistyped digit is caught on leaving the field. */
 export const Default: Story = {
   render: () => <WithContinue />,
+};
+
+/** American Express: 4-6-5 grouping and a 4-digit security code. */
+export const Amex: Story = {
+  render: () => <WithContinue />,
+  play: async ({ canvasElement }) => {
+    const number = within(canvasElement).getByRole('textbox', { name: /^Card number/ });
+    await userEvent.type(number, '378282246310005');
+    await expect(number).toHaveValue('3782 822463 10005');
+  },
+};
+
+/** `defaultMethod="paypal"` opens on the PayPal tab, which needs no card details — people approve the payment in a new window. */
+export const PayPal: Story = {
+  args: { defaultMethod: 'paypal', now: NOW },
+  render: (args) => (
+    <div className="max-w-lg">
+      <PaymentMethod {...args} />
+    </div>
+  ),
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const number = canvas.getByRole('textbox', { name: /^Card number/ });
@@ -54,24 +81,4 @@ export const Default: Story = {
     await userEvent.tab();
     await waitFor(() => expect(expiry).toHaveAccessibleDescription('This card has expired. Use another card.'));
   },
-};
-
-/** American Express: 4-6-5 grouping and a 4-digit security code. */
-export const Amex: Story = {
-  render: () => <WithContinue />,
-  play: async ({ canvasElement }) => {
-    const number = within(canvasElement).getByRole('textbox', { name: /^Card number/ });
-    await userEvent.type(number, '378282246310005');
-    await expect(number).toHaveValue('3782 822463 10005');
-  },
-};
-
-/** `defaultMethod="paypal"` opens on the PayPal tab, which needs no card details — people approve the payment in a new window. */
-export const PayPal: Story = {
-  args: { defaultMethod: 'paypal', now: NOW },
-  render: (args) => (
-    <div className="max-w-lg">
-      <PaymentMethod {...args} />
-    </div>
-  ),
 };

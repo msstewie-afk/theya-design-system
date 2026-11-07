@@ -109,6 +109,10 @@
       {
         "name": "Default",
         "id": "motion-expandingpanels--default"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "motion-expandingpanels--test-interactions"
       }
     ]
   }

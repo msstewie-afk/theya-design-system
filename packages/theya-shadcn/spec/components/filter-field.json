@@ -211,6 +211,10 @@
       {
         "name": "LiveList",
         "id": "search-filter-filterfield--live-list"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "search-filter-filterfield--test-interactions"
       }
     ]
   }

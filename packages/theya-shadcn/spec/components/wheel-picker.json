@@ -121,6 +121,10 @@
       {
         "name": "WithLabel",
         "id": "selection-wheelpicker--with-label"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "selection-wheelpicker--test-interactions"
       }
     ]
   }

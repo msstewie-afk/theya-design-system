@@ -236,6 +236,10 @@
       {
         "name": "NoChanges",
         "id": "code-diffviewer--no-changes"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "code-diffviewer--test-interactions"
       }
     ]
   }

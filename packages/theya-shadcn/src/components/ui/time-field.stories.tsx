@@ -54,30 +54,6 @@ function ControlledDemo() {
 /** Default: 30-minute steps, 12-hour labels. Open it and type to filter. */
 export const Default: Story = {
   render: () => <ControlledDemo />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole('combobox', { name: 'Time' });
-
-    // Pick from the generated 30-minute grid.
-    await userEvent.click(input);
-    await userEvent.click(await page().findByRole('option', { name: '9:00 AM' }));
-    await expect(canvas.getByText('value: "09:00"')).toBeInTheDocument();
-    await expect(input).toHaveValue('9:00 AM');
-
-    // A time off the grid commits via free typing and is shown in the
-    // same 12-hour format once the list closes.
-    await userEvent.clear(input);
-    await userEvent.type(input, '9:47 pm{Enter}');
-    await expect(canvas.getByText('value: "21:47"')).toBeInTheDocument();
-    await waitFor(() => expect(input).toHaveValue('9:47 PM'));
-
-    // Unparseable text doesn't touch the value.
-    await userEvent.clear(input);
-    await expect(canvas.getByText('value: ""')).toBeInTheDocument();
-    await userEvent.type(input, '25:00{Enter}');
-    await expect(canvas.getByText('value: ""')).toBeInTheDocument();
-    await waitFor(() => expect(input).toHaveValue(''));
-  },
 };
 
 /** Pre-selected value (09:30). */
@@ -206,5 +182,36 @@ export const Disabled: Story = {
     await expect(input).toHaveValue('9:00 AM');
     await userEvent.click(input);
     await expect(page().queryByRole('listbox')).not.toBeInTheDocument();
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('combobox', { name: 'Time' });
+
+    // Pick from the generated 30-minute grid.
+    await userEvent.click(input);
+    await userEvent.click(await page().findByRole('option', { name: '9:00 AM' }));
+    await expect(canvas.getByText('value: "09:00"')).toBeInTheDocument();
+    await expect(input).toHaveValue('9:00 AM');
+
+    // A time off the grid commits via free typing and is shown in the
+    // same 12-hour format once the list closes.
+    await userEvent.clear(input);
+    await userEvent.type(input, '9:47 pm{Enter}');
+    await expect(canvas.getByText('value: "21:47"')).toBeInTheDocument();
+    await waitFor(() => expect(input).toHaveValue('9:47 PM'));
+
+    // Unparseable text doesn't touch the value.
+    await userEvent.clear(input);
+    await expect(canvas.getByText('value: ""')).toBeInTheDocument();
+    await userEvent.type(input, '25:00{Enter}');
+    await expect(canvas.getByText('value: ""')).toBeInTheDocument();
+    await waitFor(() => expect(input).toHaveValue(''));
   },
 };

@@ -25,31 +25,7 @@ async function clearToasts() {
 }
 
 /** Changes since saving are on the item; bulk actions skip what can't be bought; removing is undoable. */
-export const Default: Story = {
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Price dropped from $89')).toBeVisible();
-    await expect(canvas.getByText('No longer available')).toBeVisible();
-
-    await userEvent.click(canvas.getByRole('checkbox', { name: 'Select all' }));
-    // The unavailable item is selected but not sent to the cart.
-    await userEvent.click(canvas.getByRole('button', { name: 'Add to cart (3)' }));
-    await expect(args.primaryAction!.onAction).toHaveBeenCalledWith(expect.not.arrayContaining(['s3']));
-
-    // A row's Remove goes with its row: focus moves to the Remove button
-    // of the row that takes its place (WCAG 2.4.3)...
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove Extra storage add-on' }));
-    await expect(canvas.queryByRole('link', { name: 'Extra storage add-on' })).not.toBeInTheDocument();
-    await expect(canvas.getByRole('heading', { name: 'Saved (3)' })).toBeVisible();
-    await waitFor(() => expect(document.activeElement).toBe(canvas.getByRole('button', { name: 'Remove Lens rental: 85 mm f/1.4' })));
-
-    // ...or of the row above, when the last row goes.
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove Film scanning (2025)' }));
-    await expect(canvas.getByRole('heading', { name: 'Saved (2)' })).toBeVisible();
-    await waitFor(() => expect(document.activeElement).toBe(canvas.getByRole('button', { name: 'Remove Lens rental: 85 mm f/1.4' })));
-    await clearToasts();
-  },
-};
+export const Default: Story = {};
 
 /** Removing the only item (or every item at once) leaves the empty state, which takes focus; undo puts focus back on the restored row. */
 export const LastItem: Story = {
@@ -75,4 +51,34 @@ export const LastItem: Story = {
 /** Nothing saved: an empty state explains what saving is for and links to the catalog. */
 export const Empty: Story = {
   args: { items: [] },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Price dropped from $89')).toBeVisible();
+    await expect(canvas.getByText('No longer available')).toBeVisible();
+
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Select all' }));
+    // The unavailable item is selected but not sent to the cart.
+    await userEvent.click(canvas.getByRole('button', { name: 'Add to cart (3)' }));
+    await expect(args.primaryAction!.onAction).toHaveBeenCalledWith(expect.not.arrayContaining(['s3']));
+
+    // A row's Remove goes with its row: focus moves to the Remove button
+    // of the row that takes its place (WCAG 2.4.3)...
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Extra storage add-on' }));
+    await expect(canvas.queryByRole('link', { name: 'Extra storage add-on' })).not.toBeInTheDocument();
+    await expect(canvas.getByRole('heading', { name: 'Saved (3)' })).toBeVisible();
+    await waitFor(() => expect(document.activeElement).toBe(canvas.getByRole('button', { name: 'Remove Lens rental: 85 mm f/1.4' })));
+
+    // ...or of the row above, when the last row goes.
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Film scanning (2025)' }));
+    await expect(canvas.getByRole('heading', { name: 'Saved (2)' })).toBeVisible();
+    await waitFor(() => expect(document.activeElement).toBe(canvas.getByRole('button', { name: 'Remove Lens rental: 85 mm f/1.4' })));
+    await clearToasts();
+  },
 };

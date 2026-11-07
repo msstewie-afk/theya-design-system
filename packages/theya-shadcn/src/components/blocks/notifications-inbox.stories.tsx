@@ -95,6 +95,66 @@ async function menuAction(canvasElement: HTMLElement, title: string, item: strin
  */
 export const Default: Story = {
   args: { onNotificationRead: fn(), onNotificationUnread: fn(), onDismiss: fn(), onMarkAllRead: fn() },
+};
+
+/** All read: the "Mark all as read" action is disabled; Unread filter is empty. */
+const ALL_READ: InboxNotification[] = [
+  { id: 'r1', title: 'Invoice paid', description: 'July invoice of $79.00 was paid.', time: '3h ago', group: 'Today', tone: 'info', read: true },
+  { id: 'r2', title: 'Teammate joined', description: 'Elio Sanz accepted your invitation.', time: '2d ago', group: 'Earlier', tone: 'neutral', read: true },
+];
+
+/** Everything already read: the "Mark all read" action is hidden and the Unread view is empty. */
+export const AllRead: Story = {
+  args: { notifications: ALL_READ },
+};
+
+/** Empty: the "all caught up" state. */
+export const Empty: Story = {
+  args: { notifications: [] },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('heading', { name: "You're all caught up" })).toBeInTheDocument();
+    await expect(canvas.queryByRole('button', { name: 'Mark all read' })).toBeNull();
+  },
+};
+
+/**
+ * Security-alerts-only panel: every notification shares one tone, so the
+ * Status facet is hidden entirely, and the second facet is relabeled
+ * "Event type" with a page-appropriate, non-overlapping option set instead
+ * of the default studio list.
+ */
+const EVENT_TYPE_OPTIONS: FilterOption[] = [
+  { value: 'brute-force', label: 'Brute-force attempt' },
+  { value: 'secret-leak', label: 'Secret exposed' },
+  { value: 'new-device', label: 'New device sign-in' },
+  { value: 'license-expiry', label: 'License expiring' },
+];
+
+const SECURITY_ALERTS: InboxNotification[] = [
+  { id: 's1', title: 'Brute-force attempt blocked', description: '14 failed logins from 198.51.100.7 in 2 minutes.', time: '5m ago', group: 'Today', tone: 'danger', read: false, object: 'brute-force' },
+  { id: 's2', title: 'API key exposed in a commit', description: 'Found in portfolio-site@4f2a91c and revoked automatically.', time: '1h ago', group: 'Today', tone: 'danger', read: false, object: 'secret-leak' },
+  { id: 's3', title: 'Sign-in from a new device', description: 'Firefox on Linux, from 203.0.113.9. Not you? Revoke the session.', time: 'Yesterday', group: 'Earlier', tone: 'danger', read: true, object: 'new-device' },
+];
+
+/** For a feed where every item has the same tone: `showStatusFilter={false}` hides the Status filter, and `objectFilterLabel` with `objectOptions` turns the second filter into "Event type", here preselected. */
+export const StatusHiddenCustomObjectFacet: Story = {
+  name: 'Status hidden, custom object facet',
+  args: {
+    title: 'Security alerts',
+    notifications: SECURITY_ALERTS,
+    showStatusFilter: false,
+    objectFilterLabel: 'Event type',
+    objectOptions: EVENT_TYPE_OPTIONS,
+    defaultObjectFilter: ['brute-force'],
+  },
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     await expect(titles(canvasElement)).toEqual(['n-1', 'n-2', 'n-3', 'n-4', 'n-5', 'n-6']);
@@ -153,58 +213,5 @@ export const Default: Story = {
       expect(inbox?.contains(document.activeElement)).toBe(true);
     });
     await clearToasts();
-  },
-};
-
-/** All read: the "Mark all as read" action is disabled; Unread filter is empty. */
-const ALL_READ: InboxNotification[] = [
-  { id: 'r1', title: 'Invoice paid', description: 'July invoice of $79.00 was paid.', time: '3h ago', group: 'Today', tone: 'info', read: true },
-  { id: 'r2', title: 'Teammate joined', description: 'Elio Sanz accepted your invitation.', time: '2d ago', group: 'Earlier', tone: 'neutral', read: true },
-];
-
-/** Everything already read: the "Mark all read" action is hidden and the Unread view is empty. */
-export const AllRead: Story = {
-  args: { notifications: ALL_READ },
-};
-
-/** Empty: the "all caught up" state. */
-export const Empty: Story = {
-  args: { notifications: [] },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByRole('heading', { name: "You're all caught up" })).toBeInTheDocument();
-    await expect(canvas.queryByRole('button', { name: 'Mark all read' })).toBeNull();
-  },
-};
-
-/**
- * Security-alerts-only panel: every notification shares one tone, so the
- * Status facet is hidden entirely, and the second facet is relabeled
- * "Event type" with a page-appropriate, non-overlapping option set instead
- * of the default studio list.
- */
-const EVENT_TYPE_OPTIONS: FilterOption[] = [
-  { value: 'brute-force', label: 'Brute-force attempt' },
-  { value: 'secret-leak', label: 'Secret exposed' },
-  { value: 'new-device', label: 'New device sign-in' },
-  { value: 'license-expiry', label: 'License expiring' },
-];
-
-const SECURITY_ALERTS: InboxNotification[] = [
-  { id: 's1', title: 'Brute-force attempt blocked', description: '14 failed logins from 198.51.100.7 in 2 minutes.', time: '5m ago', group: 'Today', tone: 'danger', read: false, object: 'brute-force' },
-  { id: 's2', title: 'API key exposed in a commit', description: 'Found in portfolio-site@4f2a91c and revoked automatically.', time: '1h ago', group: 'Today', tone: 'danger', read: false, object: 'secret-leak' },
-  { id: 's3', title: 'Sign-in from a new device', description: 'Firefox on Linux, from 203.0.113.9. Not you? Revoke the session.', time: 'Yesterday', group: 'Earlier', tone: 'danger', read: true, object: 'new-device' },
-];
-
-/** For a feed where every item has the same tone: `showStatusFilter={false}` hides the Status filter, and `objectFilterLabel` with `objectOptions` turns the second filter into "Event type", here preselected. */
-export const StatusHiddenCustomObjectFacet: Story = {
-  name: 'Status hidden, custom object facet',
-  args: {
-    title: 'Security alerts',
-    notifications: SECURITY_ALERTS,
-    showStatusFilter: false,
-    objectFilterLabel: 'Event type',
-    objectOptions: EVENT_TYPE_OPTIONS,
-    defaultObjectFilter: ['brute-force'],
   },
 };

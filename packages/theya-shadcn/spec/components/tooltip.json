@@ -126,6 +126,10 @@
       {
         "name": "ResultIntents",
         "id": "overlays-tooltip--result-intents"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "overlays-tooltip--test-interactions"
       }
     ]
   }

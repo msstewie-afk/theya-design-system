@@ -99,6 +99,24 @@ function EditorMenubar({ bordered, defaultValue }: { bordered?: boolean; default
 /** File, Edit and View menus with shortcuts, a submenu, and checkbox and radio items. The bar is one Tab stop; the arrow keys move between menus and Escape closes one. */
 export const Default: Story = {
   render: () => <EditorMenubar />,
+};
+
+/** `bordered={false}` drops the border + shadow, so the bar blends into a surrounding app toolbar instead of reading as a floating card. */
+export const Unbordered: Story = {
+  render: () => <EditorMenubar bordered={false} />,
+};
+
+/** The View menu open by default — a checkbox item and a radio group, no click needed to see them. */
+export const OpenMenu: Story = {
+  name: 'Open menu',
+  render: () => <EditorMenubar defaultValue="view" />,
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     const page = within(document.body);
     const bar = within(canvasElement).getByRole('menubar', { name: 'Editor menu' });
@@ -119,15 +137,4 @@ export const Default: Story = {
     await waitFor(() => expect(page.queryByRole('menu')).toBeNull());
     await expect(within(bar).getByRole('menuitem', { name: 'View' })).toHaveFocus();
   },
-};
-
-/** `bordered={false}` drops the border + shadow, so the bar blends into a surrounding app toolbar instead of reading as a floating card. */
-export const Unbordered: Story = {
-  render: () => <EditorMenubar bordered={false} />,
-};
-
-/** The View menu open by default — a checkbox item and a radio group, no click needed to see them. */
-export const OpenMenu: Story = {
-  name: 'Open menu',
-  render: () => <EditorMenubar defaultValue="view" />,
 };

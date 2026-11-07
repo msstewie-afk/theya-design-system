@@ -72,22 +72,6 @@ function RenameGalleryDrawer() {
 /** Trigger opens a bottom sheet; Esc, the scrim, the X, or a swipe-down close it. */
 export const Default: Story = {
   render: () => <RenameGalleryDrawer />,
-  play: async ({ canvasElement }) => {
-    const page = within(document.body);
-    const trigger = within(canvasElement).getByRole('button', { name: 'Rename gallery' });
-    await userEvent.click(trigger);
-    const drawer = await page.findByRole('dialog', { name: 'Rename gallery' });
-    await waitFor(() => expect(drawer.contains(document.activeElement)).toBe(true));
-    // The built-in close button closes it and hands focus back.
-    await userEvent.click(within(drawer).getByRole('button', { name: 'Close' }));
-    await waitFor(() => expect(page.queryByRole('dialog')).toBeNull());
-    await waitFor(() => expect(trigger).toHaveFocus());
-    // Escape too.
-    await userEvent.click(trigger);
-    await page.findByRole('dialog', { name: 'Rename gallery' });
-    await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(page.queryByRole('dialog')).toBeNull());
-  },
 };
 
 /** width="fixed" caps the sheet at a centered max width on larger screens instead of spanning edge-to-edge. */
@@ -241,4 +225,27 @@ export const SideLeft: Story = {
 export const SideRight: Story = {
   name: 'Side (right)',
   render: () => <AddGalleryDrawer direction="right" />,
+};
+
+/** Interaction test for Default, kept out of Default so Default opens untouched. */
+export const TestInteractions: Story = {
+  ...Default,
+  name: 'Test: interactions',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const page = within(document.body);
+    const trigger = within(canvasElement).getByRole('button', { name: 'Rename gallery' });
+    await userEvent.click(trigger);
+    const drawer = await page.findByRole('dialog', { name: 'Rename gallery' });
+    await waitFor(() => expect(drawer.contains(document.activeElement)).toBe(true));
+    // The built-in close button closes it and hands focus back.
+    await userEvent.click(within(drawer).getByRole('button', { name: 'Close' }));
+    await waitFor(() => expect(page.queryByRole('dialog')).toBeNull());
+    await waitFor(() => expect(trigger).toHaveFocus());
+    // Escape too.
+    await userEvent.click(trigger);
+    await page.findByRole('dialog', { name: 'Rename gallery' });
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(page.queryByRole('dialog')).toBeNull());
+  },
 };

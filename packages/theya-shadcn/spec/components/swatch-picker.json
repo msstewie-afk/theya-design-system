@@ -187,6 +187,10 @@
       {
         "name": "Disabled",
         "id": "selection-swatchpicker--disabled"
+      },
+      {
+        "name": "TestInteractions",
+        "id": "selection-swatchpicker--test-interactions"
       }
     ]
   }
