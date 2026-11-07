@@ -30,6 +30,8 @@ const meta: Meta = {
     layout: 'fullscreen',
     // Same known false positive as MegaMenu: Radix's hidden focus proxy.
     a11y: { config: { rules: [{ id: 'aria-hidden-focus', enabled: false }] } },
+    // Show the story as written: a generated snippet of the whole page overflows Safari's call stack (see SiteHeader).
+    docs: { source: { type: 'code' } },
   },
 };
 export default meta;

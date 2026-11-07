@@ -21,6 +21,10 @@ const meta: Meta<typeof SiteHeader> = {
     layout: 'fullscreen',
     // Same known false positive as MegaMenu: Radix's hidden focus proxy.
     a11y: { config: { rules: [{ id: 'aria-hidden-focus', enabled: false }] } },
+    // Show the story as written. The generated snippet walks every prop of the element tree,
+    // and the whole MegaMenu (nested sections, icons, elements) overflowed Safari's call stack:
+    // "Maximum call stack size exceeded", and the Docs page froze the browser retrying.
+    docs: { source: { type: 'code' } },
   },
   argTypes: { logo: { control: false }, nav: { control: false }, actions: { control: false } },
   args: {
