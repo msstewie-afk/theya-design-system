@@ -66,10 +66,10 @@ export const DEMO_ITEM = byId('client-proofing');
 
 /** Gallery pictures; the alt text describes the bundled placeholder images. */
 export const DEMO_IMAGES = [
-  { src: '/asset-examples/mesh/blue.webp', alt: 'Pastel blue gradient' },
-  { src: '/asset-examples/mesh/cyan-portrait.webp', alt: 'Pastel cyan gradient' },
-  { src: '/asset-examples/mesh/green-portrait.webp', alt: 'Pastel green gradient' },
-  { src: '/asset-examples/mesh/lilac-portrait.webp', alt: 'Pastel lilac gradient' },
+  { src: '/asset-examples/silk/1.webp', alt: 'Pale blue silk' },
+  { src: '/asset-examples/silk/4-portrait.webp', alt: 'Soft blue silk glow' },
+  { src: '/asset-examples/silk/2-portrait.webp', alt: 'Blue silk drift' },
+  { src: '/asset-examples/silk/3-portrait.webp', alt: 'Deep blue silk waves' },
 ];
 
 export const DEMO_HIGHLIGHTS = ['Clients pick favorites and send them back in one step', 'Notes on a single frame or the whole gallery', 'Watermarked previews until you approve the picks', 'Works with every gallery you already have'];
@@ -146,11 +146,11 @@ export const DEMO_PICKS: CuratedPick[] = [
 
 /** Studio gear with product shots on white — for ItemCard's `image` with `imageFit="contain"`. */
 export const DEMO_HARDWARE: (CatalogItem & { image: string })[] = [
-  { id: 'on-site-archive', name: 'On-site archive', vendor: 'Arbor', category: 'Studio gear', usageNoun: 'renters', icon: 'cloud', summary: 'A rack unit that keeps a local copy of the Mnemosyne archive in your studio.', rating: 4.8, reviewCount: 312, installs: 2100, price: 89, compatibility: ['Mac', 'Windows'], added: '2026-08-01', image: '/asset-examples/mesh/cyan-square.webp' },
-  { id: 'portable-ssd', name: 'Portable SSD rental', vendor: 'Fjord', category: 'Studio gear', usageNoun: 'renters', icon: 'backup', summary: '2 TB of fast storage for offloading cards on location.', rating: 4.6, reviewCount: 148, installs: 5400, price: 15, compatibility: ['USB-C', 'Thunderbolt'], added: '2026-06-12', image: '/asset-examples/mesh/green-square.webp' },
-  { id: 'tethering-hub', name: 'Tethering hub rental', vendor: 'Kestrel', category: 'Studio gear', usageNoun: 'renters', icon: 'cloud', summary: 'Wireless tethering from camera to laptop on set, set up for you.', rating: 4.4, reviewCount: 87, installs: 940, price: 29, compatibility: ['Sony', 'Canon', 'Nikon'], added: '2026-04-18', image: '/asset-examples/mesh/lilac-square.webp' },
-  { id: 'security-key', name: 'Hardware security key', vendor: 'Aether', category: 'Studio gear', usageNoun: 'renters', icon: 'shield', summary: 'Phishing-proof sign-in for your account. Shipped to your door.', rating: 4.9, reviewCount: 523, installs: 8800, price: 3, compatibility: ['USB-C', 'NFC'], added: '2026-09-10', image: '/asset-examples/mesh/grey-lilac-square.webp' },
+  { id: 'on-site-archive', name: 'On-site archive', vendor: 'Arbor', category: 'Studio gear', usageNoun: 'renters', icon: 'cloud', summary: 'A rack unit that keeps a local copy of the Mnemosyne archive in your studio.', rating: 4.8, reviewCount: 312, installs: 2100, price: 89, compatibility: ['Mac', 'Windows'], added: '2026-08-01', image: '/asset-examples/silk/4-square.webp' },
+  { id: 'portable-ssd', name: 'Portable SSD rental', vendor: 'Fjord', category: 'Studio gear', usageNoun: 'renters', icon: 'backup', summary: '2 TB of fast storage for offloading cards on location.', rating: 4.6, reviewCount: 148, installs: 5400, price: 15, compatibility: ['USB-C', 'Thunderbolt'], added: '2026-06-12', image: '/asset-examples/silk/2-square.webp' },
+  { id: 'tethering-hub', name: 'Tethering hub rental', vendor: 'Kestrel', category: 'Studio gear', usageNoun: 'renters', icon: 'cloud', summary: 'Wireless tethering from camera to laptop on set, set up for you.', rating: 4.4, reviewCount: 87, installs: 940, price: 29, compatibility: ['Sony', 'Canon', 'Nikon'], added: '2026-04-18', image: '/asset-examples/silk/3-square.webp' },
+  { id: 'security-key', name: 'Hardware security key', vendor: 'Aether', category: 'Studio gear', usageNoun: 'renters', icon: 'shield', summary: 'Phishing-proof sign-in for your account. Shipped to your door.', rating: 4.9, reviewCount: 523, installs: 8800, price: 3, compatibility: ['USB-C', 'NFC'], added: '2026-09-10', image: '/asset-examples/silk/5-square.webp' },
 ];
 
 /** Cover pictures for products — `imageFit="cover"`. */
-export const DEMO_SCREENSHOTS = ['/asset-examples/mesh/blue.webp', '/asset-examples/mesh/blue-portrait.webp', '/asset-examples/mesh/green-portrait.webp', '/asset-examples/mesh/lilac-portrait.webp'];
+export const DEMO_SCREENSHOTS = ['/asset-examples/silk/1.webp', '/asset-examples/silk/1-portrait.webp', '/asset-examples/silk/2-portrait.webp', '/asset-examples/silk/3-portrait.webp'];

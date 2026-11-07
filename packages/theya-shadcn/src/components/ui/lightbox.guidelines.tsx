@@ -3,9 +3,9 @@ import { C, type ComponentGuidelines } from '../../docs/guidelines';
 import { Lightbox } from './lightbox';
 
 const IMAGES = [
-  { src: '/asset-examples/mesh/blue-portrait.webp', alt: 'Pastel blue gradient', caption: 'Golden hour' },
-  { src: '/asset-examples/mesh/green-portrait.webp', alt: 'Pastel green gradient', caption: 'Blue hour' },
-  { src: '/asset-examples/mesh/lilac-portrait.webp', alt: 'Pastel lilac gradient', caption: 'First light' },
+  { src: '/asset-examples/silk/1-portrait.webp', alt: 'Pale blue silk', caption: 'Golden hour' },
+  { src: '/asset-examples/silk/2-portrait.webp', alt: 'Blue silk drift', caption: 'Blue hour' },
+  { src: '/asset-examples/silk/3-portrait.webp', alt: 'Deep blue silk waves', caption: 'First light' },
 ];
 
 const THUMB = 'overflow-hidden rounded-[var(--size-border-radius-border-radius-md)] focus-visible:outline-none focus-visible:focus-ring';

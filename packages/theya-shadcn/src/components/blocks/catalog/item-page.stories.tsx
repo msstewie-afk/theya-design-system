@@ -49,7 +49,7 @@ export const TestInteractions: Story = {
   tags: ['!autodocs'],
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    const thumb = canvas.getByRole('button', { name: 'Screenshot 2: Pastel cyan gradient' });
+    const thumb = canvas.getByRole('button', { name: 'Screenshot 2: Soft blue silk glow' });
     await userEvent.click(thumb);
     await expect(thumb).toHaveAttribute('aria-current', 'true');
 

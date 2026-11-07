@@ -75,3 +75,31 @@ body.sb-main-padded #storybook-root {
     overflow-x: auto;
   }
 }
+
+/* Demo pictures (public/asset-examples/silk) in the dark theme: each one is
+   swapped for its pre-darkened copy (-dark.webp: gamma 2.2, x0.85 — Maria's pick of
+   three — the light silk turned deep blue with the highlights kept), so a light picture
+   doesn't glare on a dark page (Maria, 2026-11-07). The swap is by file name,
+   so demo data keeps a single src. `content: url()` on <img> works in WebKit
+   and Chromium; elsewhere the light picture shows. */
+[data-theme="dark"] img[src$="/silk/1.webp"] { content: url("/asset-examples/silk/1-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/1-square.webp"] { content: url("/asset-examples/silk/1-square-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/1-portrait.webp"] { content: url("/asset-examples/silk/1-portrait-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/2.webp"] { content: url("/asset-examples/silk/2-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/2-square.webp"] { content: url("/asset-examples/silk/2-square-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/2-portrait.webp"] { content: url("/asset-examples/silk/2-portrait-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/3.webp"] { content: url("/asset-examples/silk/3-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/3-square.webp"] { content: url("/asset-examples/silk/3-square-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/3-portrait.webp"] { content: url("/asset-examples/silk/3-portrait-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/4.webp"] { content: url("/asset-examples/silk/4-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/4-square.webp"] { content: url("/asset-examples/silk/4-square-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/4-portrait.webp"] { content: url("/asset-examples/silk/4-portrait-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/5.webp"] { content: url("/asset-examples/silk/5-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/5-square.webp"] { content: url("/asset-examples/silk/5-square-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/5-portrait.webp"] { content: url("/asset-examples/silk/5-portrait-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/6.webp"] { content: url("/asset-examples/silk/6-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/6-square.webp"] { content: url("/asset-examples/silk/6-square-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/6-portrait.webp"] { content: url("/asset-examples/silk/6-portrait-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/4-vertical.webp"] { content: url("/asset-examples/silk/4-vertical-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/5-vertical.webp"] { content: url("/asset-examples/silk/5-vertical-dark.webp"); }
+[data-theme="dark"] img[src$="/silk/6-vertical.webp"] { content: url("/asset-examples/silk/6-vertical-dark.webp"); }

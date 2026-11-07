@@ -52,7 +52,7 @@ const STEPS: TourStep[] = [
   {
     title: 'Welcome to the new Galleries page',
     content: 'A quick look at what changed — it takes under a minute.',
-    media: <img src="/asset-examples/mesh/blue-portrait.webp" alt="" className="h-36 object-cover" />,
+    media: <img src="/asset-examples/silk/1-portrait.webp" alt="" className="h-36 object-cover" />,
   },
   { target: '[data-tour="search"]', title: 'Search everything', content: 'Find galleries, clients and archived albums from one field.' },
   { target: '[data-tour="new-gallery"]', title: 'Create a gallery', content: 'Start from a template or an empty gallery.', side: 'bottom', align: 'end' },

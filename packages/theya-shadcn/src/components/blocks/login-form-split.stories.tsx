@@ -4,9 +4,9 @@ import { LoginFormSplit } from './login-form-split';
 import { loginFormSplitGuidelines } from './login-form-split.guidelines';
 
 const SLIDES = [
-  { src: '/asset-examples/mesh/vivid-1.webp', alt: 'Pink, green and violet gradient', tint: 'var(--color-magenta-magenta-800)' },
-  { src: '/asset-examples/mesh/vivid-2.webp', alt: 'Blue and cyan gradient', tint: 'var(--color-blue-blue-900)' },
-  { src: '/asset-examples/mesh/vivid-3.webp', alt: 'Indigo, magenta and amber gradient', tint: 'var(--color-purple-purple-800)' },
+  { src: '/asset-examples/silk/4-vertical.webp', alt: 'Soft blue silk glow', tint: 'var(--color-blue-blue-900)' },
+  { src: '/asset-examples/silk/5-vertical.webp', alt: 'Blue silk ribbons', tint: 'var(--color-blue-blue-900)' },
+  { src: '/asset-examples/silk/6-vertical.webp', alt: 'Blue silk folds', tint: 'var(--color-blue-blue-900)' },
 ];
 
 const TAGLINE = 'Galleries your clients will keep';

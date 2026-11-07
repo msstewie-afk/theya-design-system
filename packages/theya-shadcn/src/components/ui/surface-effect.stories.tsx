@@ -63,15 +63,15 @@ export const Reveal: Story = {
     <SurfaceEffect
       effect="reveal"
       className="aspect-[4/3] max-w-xl rounded-[var(--size-border-radius-border-radius-4xl)]"
-      reveal={<img src="/asset-examples/mesh/green-portrait.webp" alt="" />}
+      reveal={<img src="/asset-examples/silk/2-portrait.webp" alt="" />}
     >
-      <img src="/asset-examples/mesh/green-portrait.webp" alt="Pastel green gradient" className="size-full object-cover grayscale" />
+      <img src="/asset-examples/silk/2-portrait.webp" alt="Blue silk drift" className="size-full object-cover grayscale" />
     </SurfaceEffect>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // The picture keeps its name; the revealed copy is decoration.
-    await expect(canvas.getByRole('img', { name: 'Pastel green gradient' })).toBeInTheDocument();
+    await expect(canvas.getByRole('img', { name: 'Blue silk drift' })).toBeInTheDocument();
     await expect(canvasElement.querySelector('[data-slot=surface-effect-reveal]')).toHaveAttribute('aria-hidden', 'true');
   },
 };

@@ -722,7 +722,7 @@ export const Disabled: Story = {
 export const WithMedia: Story = {
   render: () => (
     <Card className="w-full sm:w-[280px]">
-      <CardMedia src="/asset-examples/mesh/blue.webp" alt="" />
+      <CardMedia src="/asset-examples/silk/1.webp" alt="" />
       <CardHeader>
         <CardTitle>Lumen Retouch</CardTitle>
         <CardDescription>AI retouching for portraits and products.</CardDescription>
@@ -739,7 +739,7 @@ export const WithMedia: Story = {
 export const WithAvatar: Story = {
   render: () => (
     <Card className="w-full sm:w-[280px]">
-      <CardMedia src="/asset-examples/mesh/blue.webp" alt="" height={96} />
+      <CardMedia src="/asset-examples/silk/1.webp" alt="" height={96} />
       {/* Direct child of Card, not nested inside CardHeader — see the doc
        * comment on CardAvatar for why nesting it fights the overlap. */}
       <CardAvatar size="md" type="image" src="/asset-examples/panda-avatar.png" alt="Dawn Ellery" />
@@ -912,7 +912,7 @@ export const SelectableWithMedia: Story = {
       <div className="flex flex-wrap items-start gap-4">
         {[
           { id: 'galleries', title: 'Aether Galleries', sub: 'Client galleries', price: '$19/mo' },
-          { id: 'prints', title: 'Aether Prints', sub: 'Print lab orders', price: '$4/mo', media: '/asset-examples/mesh/green.webp' },
+          { id: 'prints', title: 'Aether Prints', sub: 'Print lab orders', price: '$4/mo', media: '/asset-examples/silk/2.webp' },
         ].map((p) => (
           <Card
             key={p.id}
@@ -922,7 +922,7 @@ export const SelectableWithMedia: Story = {
             onSelectedChange={toggle(p.id)}
             selectLabel={`Select ${p.title}`}
           >
-            <CardMedia src={'media' in p ? p.media : '/asset-examples/mesh/blue.webp'} alt="" />
+            <CardMedia src={'media' in p ? p.media : '/asset-examples/silk/1.webp'} alt="" />
             <CardHeader divider={false}>
               <div>
                 <CardTitle>{p.title}</CardTitle>
