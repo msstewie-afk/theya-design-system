@@ -415,5 +415,12 @@
         "aria-label": "Star"
       }
     }
+  },
+  "ColorPicker": {
+    "story": "selection-colorpicker--default",
+    "args": {
+      "alpha": false,
+      "defaultFormat": "hex"
+    }
   }
 }
