@@ -142,15 +142,77 @@ for (const [k, v] of Object.entries(flatten(read('src/semantic/typography.json')
   typoSem[name] = p[0] === 'size' ? '@size:' + p.slice(1).join('/') : '@typo:' + p.slice(1).join('/');
 }
 
+// ---- Brand themes (src/profiles/*.json, built by scripts/build-profiles.mjs) ----
+// Each profile becomes Figma modes next to Theya's own, so a frame switches
+// brand the way it switches light/dark: "2." gets "<brand>" and "<brand> dark"
+// beside default/dark; "4." (radii), "5." (font families, weights) and "6."
+// (heading/body fonts and weights) get one mode per brand beside "Theya".
+// Values are the built results (build/css/profiles.json), so Figma shows what
+// the browser renders; a variable a profile leaves alone keeps Theya's value.
+// CSS variables with no Figma variable (--theme-radius-*) are listed in
+// `unmatched` and reported by figma:payload.
+const BRAND_FILE = join(ROOT, 'build/css/profiles.json');
+const brands = JSON.parse(readFileSync(BRAND_FILE, 'utf8')).profiles;
+const BRAND_NAMES = brands.map((b) => b.name);
+// Same naming as scripts/figma/lib.js cssName(): Figma variable path -> CSS variable.
+const cssOf = (key, name) => {
+  const dash = name.replace(/\//g, '-');
+  if (key === '2.') {
+    if (name.startsWith('bg/chart/') || name.startsWith('bg/primary/primary-on-primary')) return '--color-bg-' + name.split('/')[2];
+    return '--color-' + dash;
+  }
+  if (key === '4.') return '--size-' + dash;
+  return '--typography-' + dash;
+};
+const firstFamily = (stack) => String(stack).split(',')[0].trim().replace(/^['"]|['"]$/g, '');
+const px = (v) => Number(String(v).replace(/px$/, ''));
+const sizeRef = (v) => { const n = px(v); return sizePrim[`size${n}`] !== undefined ? `@size${n}` : n; };
+const typoValue = (css, v) => (/-font$|font-family-/.test(css) ? firstFamily(v) : Number(v));
+const unmatched = {};
+const brandModes = (key, vars, base, perBrand) => {
+  const byCss = new Map(Object.keys(vars).map((n) => [cssOf(key, n), n]));
+  for (const b of brands) {
+    for (const [mode, values, convert] of perBrand(b)) {
+      for (const [css, v] of Object.entries(values)) {
+        const name = byCss.get(css);
+        if (!name) { (unmatched[b.name] ||= new Set()).add(css); continue; }
+        if (typeof vars[name] !== 'object' || vars[name] === null) vars[name] = Object.fromEntries(base.map((m) => [m, vars[name]]));
+        vars[name][mode] = convert(css, v);
+      }
+    }
+  }
+  // A brand mode a profile leaves alone is not written: scripts/figma/lib.js want()
+  // falls back to Theya's value (keeps the payload under use_figma's size limit).
+  return [...base, ...brands.flatMap((b) => perBrand(b).map(([m]) => m))];
+};
+// "2.": colors per brand and theme; a brand mode starts from Theya's value in the same theme.
+const colorModes = (() => {
+  const byCss = new Map(Object.keys(colorSem).map((n) => [cssOf('2.', n), n]));
+  for (const b of brands) for (const [theme, mode] of [['light', b.name], ['dark', b.name + ' dark']]) {
+    for (const [css, v] of Object.entries(b[theme] ?? {})) {
+      const n = byCss.get(css);
+      if (!n) { (unmatched[b.name] ||= new Set()).add(css); continue; }
+      const ref = colorRef(v);
+      if (ref !== colorSem[n][theme === 'light' ? 'default' : 'dark']) colorSem[n][mode] = ref;
+    }
+  }
+  return ['default', 'dark', ...BRAND_NAMES.flatMap((b) => [b, b + ' dark'])];
+})();
+const shared = (b, pick) => Object.fromEntries(Object.entries(b.shared ?? {}).filter(([k]) => pick(k)));
+const sizeModes = brandModes('4.', sizeSem, ['Theya'], (b) => [[b.name, shared(b, (k) => k.startsWith('--size-')), (_, v) => sizeRef(v)]]);
+const typoPrimModes = brandModes('5.', typoPrim, ['Theya'], (b) => [[b.name, shared(b, (k) => /^--typography-(font-family|weight)-/.test(k)), typoValue]]);
+const typoSemModes = brandModes('6.', typoSem, ['Theya'], (b) => [[b.name, shared(b, (k) => k.startsWith('--typography-') && !/^--typography-(font-family|weight)-/.test(k)), typoValue]]);
+for (const b of brands) for (const k of Object.keys(b.shared ?? {})) if (!/^--(size|typography)-/.test(k)) (unmatched[b.name] ||= new Set()).add(k);
+
 const payload = {
   generatedFrom: 'packages/tokens/src',
   collections: {
     '1.': { kind: 'COLOR', modes: ['*'], vars: Object.fromEntries(Object.entries(colorPrim).map(([k, v]) => [k, normHex(v)])) },
-    '2.': { kind: 'COLOR', modes: ['default', 'dark'], aliasTo: '1.', vars: colorSem },
+    '2.': { kind: 'COLOR', modes: colorModes, aliasTo: '1.', vars: colorSem },
     '3.': { kind: 'FLOAT', modes: ['*'], vars: sizePrim },
-    '4.': { kind: 'FLOAT', modes: ['*'], aliasTo: '3.', vars: sizeSem },
-    '5.': { kind: 'MIXED', modes: ['*'], vars: typoPrim },
-    '6.': { kind: 'MIXED', modes: ['*'], vars: typoSem },
+    '4.': { kind: 'FLOAT', modes: sizeModes, aliasTo: '3.', vars: sizeSem },
+    '5.': { kind: 'MIXED', modes: typoPrimModes, vars: typoPrim },
+    '6.': { kind: 'MIXED', modes: typoSemModes, vars: typoSem },
     '7.': { kind: 'FLOAT', modes: Object.keys(DENSITY_MODES), aliasTo: '3.', vars: densityVars },
   },
   // Variables that exist only in Figma on purpose (Maria, 2026-10-05): negative
@@ -166,3 +228,4 @@ mkdirSync(dirname(out), { recursive: true });
 writeFileSync(out, JSON.stringify(payload));
 const counts = Object.fromEntries(Object.entries(payload.collections).map(([k, c]) => [k, Object.keys(c.vars).length]));
 console.log('build/figma/payload.json', counts);
+for (const [b, set] of Object.entries(unmatched)) console.log(`brand ${b}: no Figma variable for`, [...set].join(' '));

@@ -11,7 +11,8 @@ async function loadState() {
   const vars = await figma.variables.getLocalVariablesAsync();
   const byId = new Map(vars.map((v) => [v.id, v]));
   const C = {};
-  for (const key of Object.keys(PAYLOAD.collections)) {
+  // Collections an alias may point into are loaded even when the payload was cut to a few (figma-run --only).
+  for (const key of new Set([...Object.keys(PAYLOAD.collections), ...(PAYLOAD.alsoLoad ?? [])])) {
     const col = cols.find((c) => c.name.startsWith(key));
     if (!col) throw new Error('No Figma collection starting with ' + key);
     const live = vars.filter((v) => v.variableCollectionId === col.id && !v.name.startsWith('_legacy'));
@@ -27,7 +28,14 @@ const aliasTarget = (key, ref) => {
   return [PAYLOAD.collections[key].aliasTo, ref.slice(1)];
 };
 const modeIds = (col, modes) => modes.map((m) => [m, m === '*' ? col.modes[0].modeId : (col.modes.find((x) => x.name === m) || {}).modeId]);
-const want = (spec, m) => (typeof spec === 'object' && spec !== null && !Array.isArray(spec) ? spec[m] : spec);
+// A brand mode missing from a value object means "as Theya": "<brand> dark" falls
+// back to dark, any other mode to default (colors) or Theya (sizes, type).
+const want = (spec, m) => {
+  if (typeof spec !== 'object' || spec === null || Array.isArray(spec)) return spec;
+  if (m in spec) return spec[m];
+  if (m.endsWith(' dark') && 'dark' in spec) return spec.dark;
+  return 'default' in spec ? spec.default : spec.Theya;
+};
 
 // Describe a Figma value the same way the payload does, for comparison.
 function describe(val, byId) {

@@ -6,7 +6,15 @@ const log = {};
 const groupSpelling = (key) => { const m = new Map(); for (const v of C[key].live) { const parts = v.name.split('/'); for (let i = 1; i < parts.length; i++) m.set(slug(parts.slice(0, i).join('/')), parts.slice(0, i).join('/')); } return m; };
 for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
   const { col, bySlug } = C[key]; const groups = groupSpelling(key);
-  const l = { created: [], updated: 0, extra: [], figmaOnly: [] };
+  const l = { created: [], updated: 0, extra: [], figmaOnly: [], modes: [] };
+  // Missing modes (a new brand): a collection's single unnamed mode takes the
+  // first name ("Mode 1" -> "Theya"), the rest are added. A new mode starts as
+  // a copy of the first; the loop below writes its values.
+  spec.modes.forEach((m, i) => {
+    if (m === '*' || col.modes.some((x) => x.name === m)) return;
+    if (i === 0 && col.modes.length === 1) { col.renameMode(col.modes[0].modeId, m); l.modes.push(`renamed -> ${m}`); }
+    else { col.addMode(m); l.modes.push(`added ${m}`); }
+  });
   const allowed = new Set((PAYLOAD.figmaOnly?.[key] ?? []).map(slug));
   for (const [name, val] of Object.entries(spec.vars)) {
     let v = bySlug.get(slug(name));
