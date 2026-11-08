@@ -3,12 +3,16 @@
 # checks     — every run: types, generated spec and public API report are
 #              up to date, the publishable dist/ build imports in Node
 #              (scripts/check-package.mjs), the sandbox app builds.
-# storybook  — after checks: static Storybook, then the test-runner on it:
-#              play + axe in light and dark, visual regression in both.
-# react-18   — after checks, alongside storybook: the same code with React 18
-#              forced across the workspace (the package supports 18 and 19;
-#              dev and the main jobs run on 19 since 2026-11-08): types, then
-#              play + axe.
+# storybook  — after checks, on four machines (--shard 1/4…4/4, each a
+#              quarter of the story files): static Storybook, then the
+#              test-runner on it: play + axe in light and dark, visual
+#              regression in both.
+# visual-baselines — after storybook (main only): writes the four shards'
+#              snapshots to the visual-baselines branch in one commit.
+# react-18   — after checks, alongside storybook, on two machines: the same
+#              code with React 18 forced across the workspace (the package
+#              supports 18 and 19; dev and the main jobs run on 19 since
+#              2026-11-08): types, then play + axe (--shard 1/2, 2/2).
 # brands     — after checks, one job per product theme (iris, lime, ember): play +
 #              axe in its light and dark variants. No visual baselines: the
 #              storybook job's are for Theya's own look.
@@ -34,7 +38,8 @@
 # - Pull requests compare against that branch and fail on a change.
 # - main (push, weekly run, manual run) records instead of comparing: what
 #   is on main is the accepted look. Changed, new and removed snapshots are
-#   committed to visual-baselines (one commit per run: GitHub shows each
+#   committed to visual-baselines by the visual-baselines job, after all four
+#   storybook shards (one commit per run: GitHub shows each
 #   PNG before / after), listed in the run summary and uploaded as
 #   "visual-changes", so a change is visible and reviewable but never turns
 #   main red and never needs a manual re-run.
@@ -94,14 +99,23 @@ jobs:
       - name: Sandbox app builds against the package
         run: pnpm --filter @theya/sandbox build
 
+  # Four machines, each one quarter of the story files (the test-runner's
+  # --shard: jest splits by file, so all stories of a component stay on one
+  # machine). Every shard builds Storybook itself: the build is ~2 minutes,
+  # less than passing it between jobs. Each shard compares or records only its
+  # own snapshots and uploads what changed; visual-baselines then writes them
+  # to the baselines branch in one commit, as before.
   storybook:
     needs: checks
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
-    # Pushes the visual-baselines branch (main only; pull requests from forks
-    # get a read-only token and never reach that step).
-    permissions:
-      contents: write
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    name: storybook (${{ matrix.shard }}/4)
+    env:
+      SHARD: ${{ matrix.shard }}/4
     defaults:
       run:
         working-directory: packages/theya-shadcn
@@ -135,18 +149,17 @@ jobs:
           for i in $(seq 1 30); do curl -sf http://localhost:6008/index.json >/dev/null && exit 0; sleep 1; done
           echo "Storybook did not start" && exit 1
 
-      - name: Play + axe, light
-        run: pnpm test-storybook
+      - name: Play + axe, light (shard ${{ env.SHARD }})
+        run: pnpm test-storybook --shard=$SHARD
 
-      - name: Play + axe, dark
+      - name: Play + axe, dark (shard ${{ env.SHARD }})
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
-        run: pnpm test-storybook:dark
+        run: pnpm test-storybook:dark --shard=$SHARD
 
       # ---- Visual regression -------------------------------------------
       # Baselines live in git, in the visual-baselines branch (light/, dark/,
-      # one PNG per story id). Only this job on main writes it, so every
-      # accepted change is a commit there: GitHub shows each PNG before /
-      # after, and history keeps every look. No branch yet = first run.
+      # one PNG per story id). Each shard reads the whole branch and touches
+      # only its own stories' snapshots.
       - name: Fetch visual baselines
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         id: baselines
@@ -155,13 +168,11 @@ jobs:
           dir="$RUNNER_TEMP/baselines"; rm -rf "$dir"
           if git ls-remote --exit-code --heads origin visual-baselines >/dev/null; then
             git fetch --quiet --depth 1 origin visual-baselines
-            git worktree add --quiet -B visual-baselines "$dir" FETCH_HEAD
+            git worktree add --quiet --detach "$dir" FETCH_HEAD
             echo "sha=$(git -C "$dir" rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
             echo "Baselines: visual-baselines @ $(git -C "$dir" rev-parse --short HEAD)"
           else
-            git worktree add --quiet --detach "$dir"
-            git -C "$dir" checkout --quiet --orphan visual-baselines
-            git -C "$dir" rm -rfq --ignore-unmatch .
+            mkdir -p "$dir"
             echo "No visual-baselines branch yet: this run records all of them"
           fi
           rm -rf packages/theya-shadcn/__visual__ && mkdir -p packages/theya-shadcn/__visual__
@@ -171,7 +182,7 @@ jobs:
 
       # main records (see the header); a pull request compares. Also records
       # when there are no baselines yet (first run). The baselines as they
-      # were are kept aside to list what changed.
+      # were are kept aside to find what this shard changed.
       - name: Decide visual mode
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         id: mode
@@ -188,47 +199,111 @@ jobs:
 
       # CI=false: a story added since the last baseline gets its first
       # snapshot recorded (as locally) instead of failing as "missing".
-      - name: Visual, light
+      - name: Visual, light (shard ${{ env.SHARD }})
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         env:
           CI: 'false'
-        run: pnpm test-visual ${{ steps.mode.outputs.flags }}
+        run: pnpm test-visual --shard=$SHARD ${{ steps.mode.outputs.flags }}
 
-      - name: Visual, dark
+      - name: Visual, dark (shard ${{ env.SHARD }})
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         env:
           CI: 'false'
-        run: pnpm test-visual:dark ${{ steps.mode.outputs.flags }}
+        run: pnpm test-visual:dark --shard=$SHARD ${{ steps.mode.outputs.flags }}
 
-      # Recording mode: drop the baselines of stories that no longer exist,
-      # list the snapshots that differ from the previous baselines (new and
-      # removed included) and keep before / after copies.
-      - name: List visual changes
+      # Recording mode: the snapshots this shard wrote that differ from the
+      # baselines (new ones included). Removed stories are found once, in
+      # visual-baselines, from the full story list.
+      - name: Collect this shard's visual changes
         if: ${{ !cancelled() && steps.mode.outputs.flags == '-u' }}
-        id: changes
         run: |
-          node -e "for (const e of Object.values(require('./storybook-static/index.json').entries)) if (e.type === 'story') console.log(e.id)" > "$RUNNER_TEMP/story-ids"
-          out="$RUNNER_TEMP/visual-changes"; rm -rf "$out"; n=0; list=""
-          while IFS= read -r f; do
-            if ! grep -qxF "$(basename "$f" .png)" "$RUNNER_TEMP/story-ids"; then rm "$f"; fi
-          done < <(find __visual__ -name '*.png' -not -path '*/__diff__/*')
+          out="$RUNNER_TEMP/visual-shard"; rm -rf "$out"; mkdir -p "$out"
           while IFS= read -r f; do
             rel="${f#__visual__/}"; old="$RUNNER_TEMP/visual-before/$rel"
             if [ ! -f "$old" ] || ! cmp -s "$f" "$old"; then
-              n=$((n+1)); list="$list"$'\n'"- \`$rel\`$( [ -f "$old" ] || echo ' (new)')"
-              mkdir -p "$out/after/$(dirname "$rel")"; cp "$f" "$out/after/$rel"
-              if [ -f "$old" ]; then mkdir -p "$out/before/$(dirname "$rel")"; cp "$old" "$out/before/$rel"; fi
+              mkdir -p "$out/$(dirname "$rel")"; cp "$f" "$out/$rel"
             fi
           done < <(find __visual__ -name '*.png' -not -path '*/__diff__/*' | sort)
+          echo "Changed or new snapshots in this shard: $(find "$out" -name '*.png' | wc -l)"
+          if [ "${{ matrix.shard }}" = "1" ]; then
+            node -e "for (const e of Object.values(require('./storybook-static/index.json').entries)) if (e.type === 'story') console.log(e.id)" > "$out/story-ids"
+          fi
+
+      - name: Upload this shard's visual changes
+        if: ${{ !cancelled() && steps.mode.outputs.flags == '-u' }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: visual-shard-${{ matrix.shard }}
+          path: ${{ runner.temp }}/visual-shard/
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 3
+
+      - name: Upload visual diffs
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: visual-diffs-${{ matrix.shard }}
+          path: packages/theya-shadcn/__visual__/*/__diff__/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  # Gathers the four shards' snapshots into visual-baselines: one commit per
+  # run, named after the main commit that changed the look (its diff is the
+  # review). Only a fully green storybook run is recorded, and pull requests
+  # never write. Also lists the changes in the run summary and uploads them
+  # as "visual-changes" (before / after PNGs).
+  visual-baselines:
+    needs: storybook
+    if: ${{ !cancelled() && github.event_name != 'pull_request' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    # Pushes the visual-baselines branch.
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+      - name: Download the shards' changes
+        uses: actions/download-artifact@v7
+        with:
+          pattern: visual-shard-*
+          path: ${{ runner.temp }}/shards
+          merge-multiple: true
+
+      - name: Merge into the baselines
+        id: changes
+        run: |
+          dir="$RUNNER_TEMP/baselines"; rm -rf "$dir"
+          if git ls-remote --exit-code --heads origin visual-baselines >/dev/null; then
+            git fetch --quiet --depth 1 origin visual-baselines
+            git worktree add --quiet -B visual-baselines "$dir" FETCH_HEAD
+          else
+            git worktree add --quiet --detach "$dir"
+            git -C "$dir" checkout --quiet --orphan visual-baselines
+            git -C "$dir" rm -rfq --ignore-unmatch .
+          fi
+          src="$RUNNER_TEMP/shards"; out="$RUNNER_TEMP/visual-changes"; rm -rf "$out"; n=0; list=""
+          if [ ! -f "$src/story-ids" ]; then
+            echo "No story list from shard 1: nothing to record"; echo "count=" >> "$GITHUB_OUTPUT"; exit 0
+          fi
           while IFS= read -r f; do
-            rel="${f#$RUNNER_TEMP/visual-before/}"
-            if [ ! -f "__visual__/$rel" ]; then n=$((n+1)); list="$list"$'\n'"- \`$rel\` (removed)"; fi
-          done < <(find "$RUNNER_TEMP/visual-before" -name '*.png' -not -path '*/__diff__/*' | sort)
+            rel="${f#$src/}"; old="$dir/$rel"
+            n=$((n+1)); list="$list"$'\n'"- \`$rel\`$( [ -f "$old" ] || echo ' (new)')"
+            mkdir -p "$out/after/$(dirname "$rel")"; cp "$f" "$out/after/$rel"
+            if [ -f "$old" ]; then mkdir -p "$out/before/$(dirname "$rel")"; cp "$old" "$out/before/$rel"; fi
+            mkdir -p "$dir/$(dirname "$rel")"; cp "$f" "$dir/$rel"
+          done < <(find "$src" -name '*.png' | sort)
+          # Snapshots of stories that no longer exist.
+          while IFS= read -r f; do
+            if ! grep -qxF "$(basename "$f" .png)" "$src/story-ids"; then
+              rel="${f#$dir/}"; n=$((n+1)); list="$list"$'\n'"- \`$rel\` (removed)"; rm "$f"
+            fi
+          done < <(find "$dir/light" "$dir/dark" -name '*.png' 2>/dev/null | sort)
           echo "count=$n" >> "$GITHUB_OUTPUT"
           printf '%s\n' "$list" > "$RUNNER_TEMP/visual-list"
 
       - name: Upload visual changes
-        if: ${{ !cancelled() && steps.changes.outputs.count != '0' && steps.changes.outputs.count != '' }}
+        if: ${{ steps.changes.outputs.count != '0' && steps.changes.outputs.count != '' }}
         uses: actions/upload-artifact@v6
         with:
           name: visual-changes
@@ -236,36 +311,18 @@ jobs:
           if-no-files-found: ignore
           retention-days: 30
 
-      - name: Upload visual diffs
-        if: failure()
-        uses: actions/upload-artifact@v6
-        with:
-          name: visual-diffs
-          path: packages/theya-shadcn/__visual__/*/__diff__/
-          if-no-files-found: ignore
-          retention-days: 14
-
-      # Only a green run becomes the next baseline, and pull requests never
-      # write. One commit per run in visual-baselines, named after the main
-      # commit that changed the look; its diff is the review.
       - name: Commit visual baselines
-        if: success() && github.event_name != 'pull_request' && steps.changes.outputs.count != '0'
-        working-directory: .
+        id: commit
+        if: ${{ needs.storybook.result == 'success' && steps.changes.outputs.count != '0' && steps.changes.outputs.count != '' }}
         run: |
           dir="$RUNNER_TEMP/baselines"
-          for t in light dark; do
-            rm -rf "$dir/$t"
-            if [ -d "packages/theya-shadcn/__visual__/$t" ]; then
-              cp -r "packages/theya-shadcn/__visual__/$t" "$dir/$t"; rm -rf "$dir/$t/__diff__"
-            fi
-          done
           cat > "$dir/README.md" <<'MD'
           # Visual baselines
 
           CI's screenshots of every Storybook story (light/, dark/), one PNG per
-          story id. Written only by the storybook job of the CI workflow on main:
-          each commit here is the look a main commit changed. Don't edit by hand.
-          To undo a change, fix the code on main; the next run records it again.
+          story id. Written only by the visual-baselines job of the CI workflow on
+          main: each commit here is the look a main commit changed. Don't edit by
+          hand. To undo a change, fix the code on main; the next run records it again.
           MD
           cd "$dir"
           git add -A
@@ -280,10 +337,9 @@ jobs:
           else
             echo "::warning::visual-baselines moved during this run; not recorded"
           fi
-        id: commit
 
       - name: Visual summary
-        if: ${{ !cancelled() && steps.changes.outputs.count != '' }}
+        if: ${{ steps.changes.outputs.count != '' }}
         run: |
           {
             echo "### Visual changes: ${{ steps.changes.outputs.count }}"
@@ -291,7 +347,7 @@ jobs:
               if [ -n "${{ steps.commit.outputs.url }}" ]; then
                 echo "Recorded as the new baselines: ${{ steps.commit.outputs.url }} (before / after per PNG). Also as the artifact **visual-changes**."
               else
-                echo "Not recorded (the run failed). Before / after PNGs: artifact **visual-changes**."
+                echo "Not recorded (a storybook shard failed). Before / after PNGs: artifact **visual-changes**."
               fi
               cat "$RUNNER_TEMP/visual-list"
             else
@@ -442,7 +498,13 @@ jobs:
   react-18:
     needs: checks
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 35
+    # Two machines, half the story files each (light only, so two are enough).
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    name: react-18 (${{ matrix.shard }}/2)
     defaults:
       run:
         working-directory: packages/theya-shadcn
@@ -495,5 +557,5 @@ jobs:
 
       # Light only: play tests and axe don't depend on the theme for React
       # behaviour; the storybook job covers dark and visual regression.
-      - name: Play + axe on React 18
-        run: pnpm test-storybook
+      - name: Play + axe on React 18 (shard ${{ matrix.shard }}/2)
+        run: pnpm test-storybook --shard=${{ matrix.shard }}/2
