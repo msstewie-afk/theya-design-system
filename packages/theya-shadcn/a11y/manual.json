@@ -1,6 +1,12 @@
 {
   "$comment": "Hand-kept part of the accessibility matrix (scripts/build-a11y.mjs merges it with what it reads from the code). screenReader: one entry per real assistive-technology pass, e.g. { \"Button\": [{ \"at\": \"VoiceOver\", \"browser\": \"Safari 19\", \"date\": \"2026-10-05\", \"result\": \"pass\", \"notes\": \"\" }] }. deviations: accepted deviations specific to one component. focusRingOnly: components where the soft focus ring is the only visible focus change (WCAG 1.4.11 accepted deviation, see the WCAG audit, 2026-09-27). traits: per-component corrections to the traits build-a11y.mjs reads from the code ({ add, remove, note }). reviews: one recorded manual review per criterion (result: pass | fail | n/a — n/a confirms the code trait was a false positive for that criterion), e.g. { \"Button\": { \"2.5.3\": { \"result\": \"pass\", \"date\": \"2026-10-08\", \"by\": \"Maria\", \"note\": \"\" } } }.",
   "screenReader": {
+    "PropertyGrid": [
+      { "at": "VoiceOver", "browser": "Safari", "date": "2026-11-08", "result": "pass", "notes": "form-structure-propertygrid--editing, narrow, by hand (Мария), after 2da2ad7: each label is read before its control; the switch row keeps label then switch." }
+    ],
+    "MessagePopup": [
+      { "at": "VoiceOver", "browser": "Safari", "date": "2026-11-08", "result": "pass", "notes": "overlays-messagepopup--open, phone width, by hand (Мария): one sheet titled \"Assistant\", then the message and the composer; no second, empty sheet." }
+    ],
     "Attachment": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-11-01", "result": "pass", "notes": "files-attachment--upload-flow by hand (Мария): \"Uploading 2024-my-portfolio.pdf\" and \"2024-my-portfolio.pdf uploaded\" spoken. The automated run heard the start and published the end but VoiceOver dropped it while reading the relabelled story button; the hand check confirmed it." }
     ],
@@ -22,11 +28,13 @@
     ],
     "AlertDialog": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-27", "result": "pass", "notes": "Opened from its trigger; focus on Cancel, title, description and actions read with VO + arrows." },
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Dangerous action\" (overlays-confirmdialog--typed-confirm): typed confirm, then focus returns to the trigger." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Dangerous action\" (overlays-confirmdialog--typed-confirm): typed confirm, then focus returns to the trigger." },
+      { "at": "VoiceOver", "browser": "Safari", "date": "2026-11-08", "result": "pass", "notes": "overlays-alertdialog--default, by hand (Мария), after 2da2ad7: on open the dialog and the focused Cancel are read; the × (\"Close\") closes like Esc. The 11/07 build (× as a second Cancel, custom focus) read neither — fixed." }
     ],
     "ConfirmDialog": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-27", "result": "pass", "notes": "Opened from its trigger; focus on Cancel, title, consequences, confirm field and actions read with VO + arrows." },
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Dangerous action\" (overlays-confirmdialog--typed-confirm): typed confirm, then focus returns to the trigger." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Dangerous action\" (overlays-confirmdialog--typed-confirm): typed confirm, then focus returns to the trigger." },
+      { "at": "VoiceOver", "browser": "Safari", "date": "2026-11-08", "result": "pass", "notes": "overlays-confirmdialog--typed-confirm, by hand (Мария), after 2da2ad7: the confirm field is named by one sentence, \"Type selene-weddings.aether.photo to confirm\"; the story no longer plays its scenario for people." }
     ],
     "CopyButton": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-27", "result": "fail", "notes": "\"Copied\" is spoken, but the revert to \"Copy\" was announced too and cut it off; the VoiceOver cursor frame stayed at the old width. Fixed the same day: no announcement on the return to the resting label, and the button keeps the width of the longer label." },
@@ -146,7 +154,8 @@
     "DataTableToolbar": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "fail", "notes": "Row checkbox with Space: only \"ticked/unticked\" is spoken, \"1 selected\" is dropped. Fixed the same day: announced 700 ms later. Re-check pending." },
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Re-check after the fix: \"ticked\", then \"1 selected\"." },
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Table work\" (patterns-listview--with-bulk-and-row-actions): selection count, sort state and the row action toast are spoken." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Table work\" (patterns-listview--with-bulk-and-row-actions): selection count, sort state and the row action toast are spoken." },
+      { "at": "VoiceOver", "browser": "Safari", "date": "2026-11-08", "result": "pass", "notes": "data-datatabletoolbar--selected, phone width, by hand (Мария): each stacked item's checkbox is named by its row; ticking one announces the selected count once, focus stays." }
     ],
     "Scheduler": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "fail", "notes": "Next week: the new range (\"Oct 12 – 18, 2026\", aria-live on the heading) is not spoken. Fixed the same day: announced through the shared announcer. Re-check pending." },
@@ -181,13 +190,15 @@
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Table work\" (patterns-listview--with-bulk-and-row-actions): selection count, sort state and the row action toast are spoken." }
     ],
     "Tabs": [
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Tabs\" (navigation-tabs--default): \"tab, 1 of 3, selected\", arrows switch tabs, Tab moves into the panel." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Flow \"Tabs\" (navigation-tabs--default): \"tab, 1 of 3, selected\", arrows switch tabs, Tab moves into the panel." },
+      { "at": "VoiceOver", "browser": "Safari", "date": "2026-11-08", "result": "pass", "notes": "patterns-search-searchresults--default at 360, by hand (Мария): the tabs are read; the overflow chevrons (aria-hidden) are not." }
     ],
     "FilterField": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-29", "result": "pass", "notes": "Typing a query with no matching attribute: \"No attributes\" is spoken once typing pauses (status set by CommandEmpty). The automated run missed it because its click opened the attribute list and the text never reached the field." }
     ],
     "Alert": [
-      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-30", "result": "pass", "notes": "Live, on action: \"Backup started…\" (live=\"polite\") and \"Backup failed…\" (live=\"assertive\") are spoken when the banner mounts." }
+      { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-30", "result": "pass", "notes": "Live, on action: \"Backup started…\" (live=\"polite\") and \"Backup failed…\" (live=\"assertive\") are spoken when the banner mounts." },
+      { "at": "VoiceOver", "browser": "Safari", "date": "2026-11-08", "result": "pass", "notes": "layout-prose--with-components, by hand (Мария): the alert's title is read before its description (Alert is a grid since 11/07)." }
     ],
     "Chat": [
       { "at": "VoiceOver", "browser": "Safari 26.6", "date": "2026-10-30", "result": "pass", "notes": "Typing, then reply: \"Typing…\" is spoken when ChatTyping mounts, then the reply in the log." }
@@ -1870,7 +1881,8 @@
       { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." }
     ],
     "DropdownMenu": [
-      { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." }
+      { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." },
+      { "at": "VoiceOver", "browser": "Safari", "date": "2026-11-08", "result": "pass", "notes": "menus-dropdownmenu--with-sub-menu, phone width, by hand (Мария): the submenu drills down in place; activating \"Copy\" moves focus to its first item and it is spoken; ArrowLeft returns to \"Copy\"." }
     ],
     "FilterField": [
       { "criterion": "1.4.11", "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined." }

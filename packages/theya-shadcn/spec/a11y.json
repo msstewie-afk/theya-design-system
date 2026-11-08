@@ -972,6 +972,13 @@
           "date": "2026-10-30",
           "result": "pass",
           "notes": "Live, on action: \"Backup started…\" (live=\"polite\") and \"Backup failed…\" (live=\"assertive\") are spoken when the banner mounts."
+        },
+        {
+          "at": "VoiceOver",
+          "browser": "Safari",
+          "date": "2026-11-08",
+          "result": "pass",
+          "notes": "layout-prose--with-components, by hand (Мария): the alert's title is read before its description (Alert is a grid since 11/07)."
         }
       ],
       "deviations": [],
@@ -1070,6 +1077,13 @@
           "date": "2026-10-29",
           "result": "pass",
           "notes": "Flow \"Dangerous action\" (overlays-confirmdialog--typed-confirm): typed confirm, then focus returns to the trigger."
+        },
+        {
+          "at": "VoiceOver",
+          "browser": "Safari",
+          "date": "2026-11-08",
+          "result": "pass",
+          "notes": "overlays-alertdialog--default, by hand (Мария), after 2da2ad7: on open the dialog and the focused Cancel are read; the × (\"Close\") closes like Esc. The 11/07 build (× as a second Cancel, custom focus) read neither — fixed."
         }
       ],
       "deviations": [],
@@ -3881,6 +3895,13 @@
           "date": "2026-10-29",
           "result": "pass",
           "notes": "Flow \"Dangerous action\" (overlays-confirmdialog--typed-confirm): typed confirm, then focus returns to the trigger."
+        },
+        {
+          "at": "VoiceOver",
+          "browser": "Safari",
+          "date": "2026-11-08",
+          "result": "pass",
+          "notes": "overlays-confirmdialog--typed-confirm, by hand (Мария), after 2da2ad7: the confirm field is named by one sentence, \"Type selene-weddings.aether.photo to confirm\"; the story no longer plays its scenario for people."
         }
       ],
       "deviations": [],
@@ -4549,6 +4570,13 @@
           "date": "2026-10-29",
           "result": "pass",
           "notes": "Flow \"Table work\" (patterns-listview--with-bulk-and-row-actions): selection count, sort state and the row action toast are spoken."
+        },
+        {
+          "at": "VoiceOver",
+          "browser": "Safari",
+          "date": "2026-11-08",
+          "result": "pass",
+          "notes": "data-datatabletoolbar--selected, phone width, by hand (Мария): each stacked item's checkbox is named by its row; ticking one announces the selected count once, focus stays."
         }
       ],
       "deviations": [
@@ -5505,6 +5533,13 @@
         {
           "criterion": "1.4.11",
           "note": "The highlighted (keyboard-active) option is a bg-neutral-subtle fill, 1.15:1 light / 1.35:1 dark on the overlay (needs 3:1). Accepted by Maria, 2026-10-26, under the library focus deviation: the option is also exposed through aria-activedescendant / roving focus and the fill matches the rest of the system; a 2px start bar was considered and declined."
+        },
+        {
+          "at": "VoiceOver",
+          "browser": "Safari",
+          "date": "2026-11-08",
+          "result": "pass",
+          "notes": "menus-dropdownmenu--with-sub-menu, phone width, by hand (Мария): the submenu drills down in place; activating \"Copy\" moves focus to its first item and it is spoken; ArrowLeft returns to \"Copy\"."
         }
       ],
       "traits": [
@@ -8339,7 +8374,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari",
+          "date": "2026-11-08",
+          "result": "pass",
+          "notes": "overlays-messagepopup--open, phone width, by hand (Мария): one sheet titled \"Assistant\", then the message and the composer; no second, empty sheet."
+        }
+      ],
       "deviations": [
         {
           "criterion": "1.4.11",
@@ -9993,7 +10036,15 @@
       },
       "reducedMotion": "none",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari",
+          "date": "2026-11-08",
+          "result": "pass",
+          "notes": "form-structure-propertygrid--editing, narrow, by hand (Мария), after 2da2ad7: each label is read before its control; the switch row keeps label then switch."
+        }
+      ],
       "deviations": [],
       "traits": [
         "choice",
@@ -12961,6 +13012,13 @@
           "date": "2026-10-29",
           "result": "pass",
           "notes": "Flow \"Tabs\" (navigation-tabs--default): \"tab, 1 of 3, selected\", arrows switch tabs, Tab moves into the panel."
+        },
+        {
+          "at": "VoiceOver",
+          "browser": "Safari",
+          "date": "2026-11-08",
+          "result": "pass",
+          "notes": "patterns-search-searchresults--default at 360, by hand (Мария): the tabs are read; the overflow chevrons (aria-hidden) are not."
         }
       ],
       "deviations": [
