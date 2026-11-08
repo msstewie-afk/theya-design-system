@@ -662,6 +662,22 @@
   --tw-ring-offset-shadow: var(--shadow-card-hover);
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
+/* Code text one pixel smaller than the text around it (Maria, 2026-11-08,
+   from the TextField review sample). Fira Code's x-height is 0.527 of its
+   size against Geologica's lower one, so at the same size code read larger.
+   font-size-adjust 0.49 = 0.527 × 14/15: at body-m (15px) the code renders
+   as 14px, and it scales the same way at every other text size, whatever
+   text-* class sets the size. --font-code-adjust is the one place to tune it. */
+:root {
+  --font-code-adjust: 0.49;
+}
+@layer base {
+  .font-mono,
+  .font-code {
+    font-size-adjust: var(--font-code-adjust);
+  }
+}
+
 /* Medium weight for Fira Code labels (CodeBlock / CodeEditor / DiffViewer
    filename, Terminal user@host, mono DataTable primary cell). Theya's
    font-medium is 375, below Fira Code's lightest loaded face (400), so the

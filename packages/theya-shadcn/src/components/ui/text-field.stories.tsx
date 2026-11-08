@@ -221,27 +221,6 @@ export const LeftLabel: Story = {
   },
 };
 
-/**
- * Review sample (Maria, 2026-11-07): is the code font too big next to body
- * text? The same size (body-m) in regular and code, and code 1px smaller.
- * Code fonts have a taller x-height, so at the same size they read larger.
- */
-export const CodeFontSize: Story = {
-  name: 'Code font size (review)',
-  render: () => (
-    <div className="flex max-w-md flex-col gap-4">
-      <TextField label="Regular, body-m" defaultValue="selene-weddings" widthSize="full" />
-      <TextField label="Code, body-m (now)" defaultValue="selene-weddings.aether.photo" className="font-mono" widthSize="full" />
-      {/* raw-ok: a review sample of one size step down, not a token yet. */}
-      <TextField label="Code, 1px smaller" defaultValue="selene-weddings.aether.photo" className="font-mono text-[calc(var(--typography-body-m-size)-1px)]" widthSize="full" />
-      <p className="m-0 font-body text-body-m text-[var(--color-text-text)]">
-        Body text with <code className="font-mono">inline code</code> and{' '}
-        <code className="font-mono text-[calc(var(--typography-body-m-size)-1px)]">inline code −1px</code>.
-      </p>
-    </div>
-  ),
-};
-
 /** `readOnly` shows a value people can select and copy but not change. */
 export const ReadOnly: Story = {
   name: 'Read-only',
