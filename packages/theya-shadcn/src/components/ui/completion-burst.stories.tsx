@@ -5,6 +5,7 @@ import { StatsUpSquare } from 'iconoir-react';
 import { Button } from './button';
 import { CompletionBurst } from './completion-burst';
 import { completionBurstGuidelines } from './completion-burst.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof CompletionBurst> = {
   title: 'Motion/CompletionBurst',
@@ -56,10 +57,10 @@ export const Flow: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Start' }));
     await expect(canvas.getByRole('status')).toHaveTextContent('Preparing your plan');
     await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent('Your plan is ready'), { timeout: 4000 });
-  },
+  }),
 };

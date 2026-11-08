@@ -6,6 +6,7 @@ import { DateRangePicker } from './date-range-picker';
 import { Label } from './label';
 import { FieldError } from './field';
 import { dateRangePickerGuidelines } from './date-range-picker.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -120,7 +121,7 @@ export const WithValue: Story = {
 export const WithClear: Story = {
   name: 'With clear button',
   args: { 'aria-label': 'Report period', defaultValue: { from: new Date(2026, 5, 2), to: new Date(2026, 5, 9) }, showClear: true },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('button', { name: 'Report period' });
     await userEvent.click(canvas.getByRole('button', { name: 'Clear date range' }));
@@ -128,7 +129,7 @@ export const WithClear: Story = {
     await expect(canvas.queryByRole('button', { name: 'Clear date range' })).toBeNull();
     // The clear button unmounted; focus stays in the field.
     await expect(trigger).toHaveFocus();
-  },
+  }),
 };
 
 /** A single month, restricted to the past — useful for a log/report filter. */

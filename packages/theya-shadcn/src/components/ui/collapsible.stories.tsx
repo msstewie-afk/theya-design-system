@@ -6,6 +6,7 @@ import { Collapsible, CollapsibleTrigger, CollapsibleContent } from './collapsib
 import { Button } from './button';
 import { TextField } from './text-field';
 import { collapsibleGuidelines } from './collapsible.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof Collapsible> = {
   title: 'Layout/Collapsible',
@@ -79,14 +80,14 @@ function ShowAdvancedSettingsDemo() {
 export const ShowAdvancedSettings: Story = {
   name: 'Show advanced settings',
   render: () => <ShowAdvancedSettingsDemo />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Show advanced settings' }));
     // Revealed fields are real, reachable form fields.
     const host = await canvas.findByRole('textbox', { name: 'Client portal address' });
     await userEvent.tab();
     await expect(host).toHaveFocus();
-  },
+  }),
 };
 
 /** `defaultOpen` — starts open uncontrolled, no `open`/`onOpenChange` needed. Collapsible is non-modal (no focus trap, doesn't hide siblings), so it's safe to render open here. */

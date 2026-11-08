@@ -12,6 +12,7 @@ async function pressArrow(key: 'ArrowDown' | 'ArrowUp', target: () => HTMLElemen
 }
 import { RadioGroup, Radio } from './radio';
 import { radioGuidelines } from './radio.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -46,7 +47,7 @@ export const Playground: Story = {
     </RadioGroup>
   ),
   // One Tab stop on the checked radio; arrows move AND select, wrapping.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const [a, b, c] = ['Option A', 'Option B', 'Option C'].map((name) => canvas.getByRole('radio', { name }));
 
@@ -64,7 +65,7 @@ export const Playground: Story = {
 
     await userEvent.click(canvas.getByText('Option C'));
     await expect(c).toBeChecked();
-  },
+  }),
 };
 
 /** `description` adds a line under each label to explain how the options differ; it's read out as the radio's description. */

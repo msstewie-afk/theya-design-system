@@ -5,6 +5,7 @@ import { FeedbackWidget, type FeedbackDetails, type FeedbackVote } from './feedb
 import { Prose } from './prose';
 import { feedbackWidgetGuidelines } from './feedback-widget.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * FeedbackWidget — "Was this helpful?" with Yes/No. A "No" opens an
@@ -74,7 +75,7 @@ export const EndOfArticle: Story = {
 /** Compact, under an assistant answer; asks what worked after a Yes too. */
 export const UnderAnAnswer: Story = {
   args: { size: 'sm', question: 'Did this answer help?', askOnPositive: true },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const yes = canvas.getByRole('button', { name: 'Yes' });
     await userEvent.click(yes);
@@ -84,7 +85,7 @@ export const UnderAnAnswer: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Skip' }));
     await expect(canvas.getByText('Thanks for your feedback.')).toBeVisible();
     await waitFor(() => expect(yes).toHaveFocus());
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

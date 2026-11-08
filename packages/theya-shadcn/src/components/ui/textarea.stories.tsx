@@ -3,6 +3,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { TextArea } from './textarea';
 import { textareaGuidelines } from './textarea.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -58,7 +59,7 @@ type Story = StoryObj<typeof TextArea>;
 export const Playground: Story = {
   args: { label: 'Bio', placeholder: 'Tell us about yourself' },
   // Keyboard: Tab in, Enter makes a new line (it doesn't submit), Tab leaves.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const field = within(canvasElement).getByRole('textbox', { name: 'Bio' });
     resetFocus();
     await tabTo(field);
@@ -66,7 +67,7 @@ export const Playground: Story = {
     await expect(field).toHaveValue('Line one\nLine two');
     await userEvent.tab();
     await expect(field).not.toHaveFocus();
-  },
+  }),
 };
 
 /** No visible label: give the field an `aria-label` so it still has a name, and use this only where the context already says what to type. */

@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { InlineEdit } from './inline-edit';
 import { inlineEditGuidelines } from './inline-edit.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * InlineEdit — change one value in place. Reads as text until clicked or
@@ -56,7 +57,7 @@ export const Validation: Story = {
   args: {
     validate: (v: string) => (!v ? 'Enter a gallery name.' : v.length > 32 ? 'Use 32 characters or fewer.' : undefined),
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: /^Edit Gallery name:/ }));
     const field = canvas.getByRole('textbox', { name: 'Gallery name' });
@@ -71,13 +72,13 @@ export const Validation: Story = {
     await expect(canvas.queryByText('Enter a gallery name.')).not.toBeInTheDocument();
     await userEvent.keyboard('{Enter}');
     await expect(canvas.getByRole('button', { name: 'Edit Gallery name: Wide-shining' })).toBeInTheDocument();
-  },
+  }),
 };
 
 /** `onSave` returning a promise shows a spinner on Save; the field is locked until it settles. */
 export const AsyncSave: Story = {
   args: { onSave: () => new Promise<void>((resolve) => setTimeout(resolve, 900)) },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: /^Edit Gallery name:/ }));
     await userEvent.keyboard('Pending name{Enter}');
@@ -88,7 +89,7 @@ export const AsyncSave: Story = {
     await expect(canvas.getByRole('button', { name: 'Cancel' })).toBeDisabled();
     const display = await canvas.findByRole('button', { name: 'Edit Gallery name: Pending name' }, { timeout: 3000 });
     await waitFor(() => expect(display).toHaveFocus());
-  },
+  }),
 };
 
 /** A rejected save keeps the field open with the error, so nothing typed is lost. */
@@ -96,7 +97,7 @@ export const SaveFails: Story = {
   args: {
     onSave: () => new Promise<void>((_, reject) => setTimeout(() => reject(new Error('Gallery names must be unique — Moonrise already exists.')), 700)),
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: /^Edit Gallery name:/ }));
     await userEvent.keyboard('Moonrise{Enter}');
@@ -106,7 +107,7 @@ export const SaveFails: Story = {
     await expect(field).toHaveValue('Moonrise');
     await expect(field).toBeEnabled();
     await waitFor(() => expect(field).toHaveFocus());
-  },
+  }),
 };
 
 /** sm and md, matching TextField's own heights. */

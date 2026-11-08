@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { CheckboxGroup, CheckboxGroupItem } from './checkbox-group';
 import { checkboxGroupGuidelines } from './checkbox-group.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof CheckboxGroup> = {
   title: 'Selection/CheckboxGroup',
@@ -90,14 +91,14 @@ function ControlledDemo() {
 /** `value` and `onValueChange` keep the checked names in your state — printed under the group as they change. */
 export const Controlled: Story = {
   render: () => <ControlledDemo />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('value: [email, push]')).toBeInTheDocument();
     await userEvent.click(canvas.getByRole('checkbox', { name: 'Email' }));
     await expect(canvas.getByText('value: [push]')).toBeInTheDocument();
     await userEvent.click(canvas.getByRole('checkbox', { name: 'SMS' }));
     await expect(canvas.getByText('value: [push, sms]')).toBeInTheDocument();
-  },
+  }),
 };
 
 /** `disabled` on the group turns off every item at once, and their checked state stays visible. */

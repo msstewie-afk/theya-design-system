@@ -3,6 +3,7 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 import { MaskedInput } from './masked-input';
 import { maskedInputGuidelines } from './masked-input.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -73,7 +74,7 @@ export const Typing: Story = {
     className: 'w-[220px]',
     onUnmaskedChange: fn(),
   },
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const input = within(canvasElement).getByRole('textbox', { name: 'Phone number' });
     await expect(input).toHaveValue('');
 
@@ -106,7 +107,7 @@ export const Typing: Story = {
     await userEvent.clear(input);
     await expect(input).toHaveValue('');
     await expect(args.onUnmaskedChange).toHaveBeenLastCalledWith('');
-  },
+  }),
 };
 
 /** Different `mask` patterns on the same component: a card number, an expiry date and an IPv4 address. */
@@ -127,7 +128,7 @@ export const Formats: Story = {
       </div>
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('textbox', { name: 'Card number' })).toHaveValue('4242 4242 4242 4242');
     await expect(canvas.getByRole('textbox', { name: 'IPv4 address' })).toHaveValue('192.168.000.001');
@@ -137,7 +138,7 @@ export const Formats: Story = {
     await userEvent.clear(expiry);
     await userEvent.type(expiry, '1229');
     await expect(expiry).toHaveValue('12/29');
-  },
+  }),
 };
 
 /** `error` marks an incomplete value invalid with the danger styling, the same as TextField. */

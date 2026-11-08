@@ -4,6 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { emailProblem } from '../../lib/email';
 import { TagInput } from './tag-input';
 import { tagInputGuidelines } from './tag-input.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * TagInput — several free-form values as chips: tags, emails, keywords.
@@ -71,7 +72,7 @@ export const Emails: Story = {
       <code className="font-mono text-body-xs text-[var(--color-text-text-subtler)]">Try pasting: {EMAIL_LIST}</code>
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('textbox', { name: 'Recipients' });
     await userEvent.click(input);
@@ -88,13 +89,13 @@ export const Emails: Story = {
     // Removing it clears the error.
     await userEvent.click(canvas.getByRole('button', { name: 'Remove not-an-email' }));
     await expect(input).not.toHaveAttribute('aria-invalid');
-  },
+  }),
 };
 
 /** `max` caps the count; the input disappears at the limit and the counter shows how many are left. */
 export const Max: Story = {
   args: { 'aria-label': 'Keywords', defaultValue: ['golden hour', 'coast'], max: 3, description: 'Keywords for this photo' },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('textbox', { name: 'Keywords' });
     await expect(canvas.getByText(/2 of 3/)).toBeInTheDocument();
@@ -108,7 +109,7 @@ export const Max: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Remove sunset' }));
     // Focus lands in the re-mounted input, not on <body> (the clicked button is gone).
     await waitFor(() => expect(canvas.getByRole('textbox', { name: 'Keywords' })).toHaveFocus());
-  },
+  }),
 };
 
 /** Space as an extra delimiter — for one-word tags. */

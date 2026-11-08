@@ -3,6 +3,7 @@ import { expect, screen, userEvent, waitFor, within } from '@storybook/test';
 import { MegaMenu } from './mega-menu';
 import { DEMO_MENU } from './demo-data';
 import { megaMenuGuidelines } from './mega-menu.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof MegaMenu> = {
   title: 'Patterns: Navigation/MegaMenu',
@@ -36,7 +37,7 @@ export const Default: Story = {};
 /** Narrow screens: the same tree in a drawer, one section open at a time. */
 export const Narrow: Story = {
   args: { layout: 'drawer' },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Menu' }));
     const drawer = await screen.findByRole('dialog', { name: 'Menu' });
@@ -47,13 +48,13 @@ export const Narrow: Story = {
     await expect(within(drawer).getByRole('list', { name: 'Galleries' })).toBeVisible();
     await userEvent.click(within(drawer).getByRole('button', { name: 'Solutions' }));
     await expect(within(drawer).getByRole('link', { name: 'Wedding photographers' })).toBeVisible();
-  },
+  }),
 };
 
 /** Drawer with a plain top-level link as the current page: marked with aria-current and the same tinted fill as in the bar. */
 export const NarrowCurrentLink: Story = {
   args: { layout: 'drawer', currentId: 'pricing' },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Menu' }));
     const drawer = await screen.findByRole('dialog', { name: 'Menu' });
@@ -63,7 +64,7 @@ export const NarrowCurrentLink: Story = {
     const other = within(drawer).getByRole('link', { name: 'Contact sales' });
     await expect(other).not.toHaveAttribute('aria-current');
     await expect(getComputedStyle(current).backgroundColor).not.toBe(getComputedStyle(other).backgroundColor);
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

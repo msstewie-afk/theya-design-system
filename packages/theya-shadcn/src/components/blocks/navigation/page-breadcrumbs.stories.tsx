@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, screen, userEvent, within } from '@storybook/test';
 import { PageBreadcrumbs } from './page-breadcrumbs';
 import { pageBreadcrumbsGuidelines } from './page-breadcrumbs.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof PageBreadcrumbs> = {
   title: 'Patterns: Navigation/PageBreadcrumbs',
@@ -64,7 +65,7 @@ export const Deep: Story = {
     ],
     current: 'Download settings',
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     // Phone (below md): only a back link to the parent level, however deep the path.
     const phone = window.matchMedia('(max-width: 767.98px)').matches;
     if (phone) {
@@ -80,5 +81,5 @@ export const Deep: Story = {
     await expect(within(menu).getByRole('menuitem', { name: 'Studios' })).toHaveAttribute('href', '#studios');
     await userEvent.keyboard('{Escape}');
     await expect(canvas.getByRole('link', { name: 'Client portal' })).toBeVisible();
-  },
+  }),
 };

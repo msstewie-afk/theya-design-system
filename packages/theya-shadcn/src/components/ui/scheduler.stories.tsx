@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Scheduler, type SchedulerEvent } from './scheduler';
 import { schedulerGuidelines } from './scheduler.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * Scheduler — week / day time grid with drag-to-move and resize, month grid
@@ -99,7 +100,7 @@ export const Week: Story = {
   // Explicit: without it a phone viewport starts on the day view.
   args: { defaultView: 'week' },
   render: (args) => <Editable {...args} />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const title = () => canvas.getByRole('heading', { level: 2 });
     const log = () => canvas.getByText(/^(Opened|Moved|Created)/);
@@ -160,7 +161,7 @@ export const Week: Story = {
     await userEvent.pointer({ keys: '[MouseLeft]', target: tuesday, coords: { clientX: col.left + 10, clientY: col.top + 48 * 17 + 5 } });
     await waitFor(() => expect(log()).toHaveTextContent(/^Created/));
     await expect(canvas.getByRole('button', { name: /^New event, Tuesday, October 6, 2026, 5:00/ })).toBeInTheDocument();
-  },
+  }),
 };
 
 /** Day view, with overlapping events side by side and the "now" line. */
@@ -173,7 +174,7 @@ export const Day: Story = {
 export const Month: Story = {
   args: { defaultView: 'month' },
   render: (args) => <Editable {...args} />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('heading', { level: 2 })).toHaveTextContent('October 2026');
     // Oct 20 has four events; three show, the rest is behind "+1 more", which opens the day.
@@ -184,7 +185,7 @@ export const Month: Story = {
     await expect(canvas.getByRole('heading', { level: 2 })).toHaveTextContent('Tuesday, October 20, 2026');
     await expect(canvas.getByRole('radio', { name: 'Day' })).toBeChecked();
     await expect(canvas.getByRole('button', { name: /^Docs sprint/ })).toBeInTheDocument();
-  },
+  }),
 };
 
 /** Read-only: no onEventChange / onSlotClick. */

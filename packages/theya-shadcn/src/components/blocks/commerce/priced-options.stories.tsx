@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { PricedOptions } from './priced-options';
 import { pricedOptionsGuidelines } from './priced-options.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof PricedOptions> = {
   title: 'Patterns: Commerce/PricedOptions',
@@ -34,14 +35,14 @@ export const Archive: Story = {
       <PricedOptions {...args} />
     </div>
   ),
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('radio', { name: 'Standard' })).toBeChecked();
     const extended = canvas.getByRole('radio', { name: 'Extended' });
     await expect(extended).toHaveAccessibleDescription('Kept 1 year +$4 / mo');
     await userEvent.click(extended);
     await expect(args.onValueChange).toHaveBeenCalledWith('extended');
-  },
+  }),
 };
 
 /** Three across: a shoot location with a price per location. */

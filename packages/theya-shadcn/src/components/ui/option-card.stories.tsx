@@ -4,6 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Building, Home, MediaImage, MediaImageList, Shop } from 'iconoir-react';
 import { OptionCardGroup, OptionCard } from './option-card';
 import { optionCardGuidelines } from './option-card.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof OptionCardGroup> = {
   title: 'Selection/OptionCard',
@@ -70,7 +71,7 @@ export const StudioPicker: Story = {
       <OptionCard value="l4" title="Studio L4" description="Satellite studio. Not available on this plan." icon={<Building />} disabled />
     </OptionCardGroup>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const group = within(within(canvasElement).getByRole('radiogroup', { name: 'Shoot studio' }));
     await expect(group.getByRole('radio', { name: 'Studio L4' })).toBeDisabled();
     // Arrow navigation skips the disabled option and wraps.
@@ -78,7 +79,7 @@ export const StudioPicker: Story = {
     // Radix RadioGroup checks on arrow only while the key is held.
     await userEvent.keyboard('{ArrowRight>}{/ArrowRight}');
     await expect(group.getByRole('radio', { name: 'Helios Studio' })).toHaveAttribute('aria-checked', 'true');
-  },
+  }),
 };
 
 /** Controlled — the parent owns `value` and updates it from `onValueChange`, mirroring the selection in a readout below. */
@@ -98,11 +99,11 @@ export const Controlled: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('radio', { name: 'Personal' }));
     await expect(canvas.getByText('personal')).toBeInTheDocument();
-  },
+  }),
 };
 
 /** A `disabled` card stays visible but can't be selected — for an option that doesn't apply right now. */

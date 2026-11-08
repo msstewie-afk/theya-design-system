@@ -6,6 +6,7 @@ import { MediaImage } from 'iconoir-react';
 import { DataTableCell } from './data-table-cell';
 import { Table, TableBody, TableRow, TableCell } from './table';
 import { dataTableCellGuidelines } from './data-table-cell.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -294,7 +295,7 @@ export const Editable: Story = {
       </TableBody>
     </Table>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const page = within(document.body);
 
@@ -328,7 +329,7 @@ export const Editable: Story = {
     // date-range: the range rides on the description (aria-label replaces the text).
     await expect(canvas.getByRole('button', { name: 'Proofing period for Golden hour' })).toHaveAccessibleDescription('Sep 1, 2026 – Sep 30, 2026');
     await expect(canvas.getByRole('button', { name: 'Proofing period for First light' })).toBeDisabled();
-  },
+  }),
 };
 
 /**
@@ -348,7 +349,7 @@ export const ReadOnly: Story = {
       </TableBody>
     </Table>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const license = within(canvasElement).getByRole('combobox', { name: 'License for Golden hour' });
     await expect(license).toHaveAttribute('aria-readonly', 'true');
     await expect(license).not.toHaveAttribute('tabindex', '-1');
@@ -359,7 +360,7 @@ export const ReadOnly: Story = {
     await new Promise((r) => setTimeout(r, 150));
     await expect(within(document.body).queryByRole('listbox')).toBeNull();
     await expect(license).toHaveTextContent('Web');
-  },
+  }),
 };
 
 /**

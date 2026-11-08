@@ -4,6 +4,7 @@ import { OnboardingWizard } from './onboarding-wizard';
 import { TextField } from '../ui/text-field';
 import { Label } from '../ui/label';
 import { onboardingWizardGuidelines } from './onboarding-wizard.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof OnboardingWizard> = {
   title: 'Patterns/OnboardingWizard',
@@ -87,7 +88,7 @@ export const CustomSteps: Story = {
       />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.type(canvas.getByRole('textbox', { name: 'Notes' }), 'Need archive access');
     await userEvent.click(canvas.getByRole('button', { name: 'Next' }));
@@ -95,7 +96,7 @@ export const CustomSteps: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Back' }));
     await waitFor(() => expect(stepHeading(canvasElement)).toHaveTextContent('Step 1 of 2: Notes'));
     await expect(canvas.getByRole('textbox', { name: 'Notes' })).toHaveValue('Need archive access');
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

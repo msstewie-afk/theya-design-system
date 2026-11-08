@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { PhoneField } from './phone-field';
 import { phoneFieldGuidelines } from './phone-field.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * PhoneField — country-code picker + number formatted as you type in that
@@ -73,7 +74,7 @@ export const ValueOutput: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(document.body);
     const input = canvas.getByLabelText('Phone number');
@@ -124,7 +125,7 @@ export const ValueOutput: Story = {
     await expect(out('country')).toHaveTextContent('DE');
     await expect(out('value')).toHaveTextContent(/^\+49/);
     await waitFor(() => expect(input).toHaveFocus());
-  },
+  }),
 };
 
 /** An external error, e.g. from the server, uses the same danger treatment. */

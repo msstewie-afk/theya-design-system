@@ -3,6 +3,7 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Download, Globe, OpenNewWindow } from 'iconoir-react';
 import { CompletionScreen } from './completion-screen';
 import { completionScreenGuidelines } from './completion-screen.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof CompletionScreen> = {
   title: 'Patterns: Commerce/CompletionScreen',
@@ -42,7 +43,7 @@ export const Default: Story = {};
 export const FocusOnMount: Story = {
   args: { focusOnMount: true },
   parameters: { docs: { disable: true } },
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const title = canvas.getByRole('heading', { name: "You're all set" });
     await waitFor(() => expect(title).toHaveFocus());
@@ -53,7 +54,7 @@ export const FocusOnMount: Story = {
     await userEvent.click(resend);
     await expect(args.onResendEmail).toHaveBeenCalledTimes(1);
     await expect(resend).toHaveFocus();
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

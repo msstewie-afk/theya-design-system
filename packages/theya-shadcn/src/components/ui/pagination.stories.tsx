@@ -4,6 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationEllipsis } from './pagination';
 import { paginationGuidelines } from './pagination.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -90,7 +91,7 @@ export const ShortRange: Story = {
       </PaginationContent>
     </Pagination>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const nav = within(within(canvasElement).getByRole('navigation', { name: 'Pagination' }));
     // disabled Previous: announced, but not navigable or focusable.
     const prev = nav.getByRole('link', { name: 'Go to previous page' });
@@ -98,7 +99,7 @@ export const ShortRange: Story = {
     await expect(prev).not.toHaveAttribute('href');
     await userEvent.tab();
     await expect(nav.getByRole('link', { name: '1' })).toHaveFocus();
-  },
+  }),
 };
 
 /** A long range with ellipses on both sides of the current page — the common "1 … 6 7 8 … 24" windowed pattern. */

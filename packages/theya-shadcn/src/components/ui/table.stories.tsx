@@ -5,6 +5,7 @@ import { DataTableCell } from './data-table-cell';
 import type { BadgeTone } from './badge';
 import { tableGuidelines } from './table.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * Table — semantic HTML table primitives (Table, TableHeader, TableBody,
@@ -373,7 +374,7 @@ export const PagedColumns: Story = {
       </TableBody>
     </Table>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // The dots exist on a phone only; on a wide screen every column shows.
     if (window.innerWidth >= 640) {
@@ -386,7 +387,7 @@ export const PagedColumns: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Show columns 4–5 of 5' }));
     await expect(business).toBeVisible();
     await expect(canvas.getByText('Free', { selector: 'th' })).not.toBeVisible();
-  },
+  }),
 };
 
 /**

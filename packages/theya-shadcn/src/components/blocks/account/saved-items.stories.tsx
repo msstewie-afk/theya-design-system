@@ -4,6 +4,7 @@ import { SavedItems } from './saved-items';
 import { toast } from '../../ui/sonner';
 import { DEMO_SAVED } from './demo-data';
 import { savedItemsGuidelines } from './saved-items.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof SavedItems> = {
   title: 'Patterns: Account/SavedItems',
@@ -30,7 +31,7 @@ export const Default: Story = {};
 /** Removing the only item (or every item at once) leaves the empty state, which takes focus; undo puts focus back on the restored row. */
 export const LastItem: Story = {
   args: { items: DEMO_SAVED.slice(0, 1) },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Remove Lens rental: 85 mm f/1.4' }));
     await expect(canvas.getByText('Nothing saved yet')).toBeVisible();
@@ -45,7 +46,7 @@ export const LastItem: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Remove (1)' }));
     await waitFor(() => expect(document.activeElement).toBe(canvasElement.querySelector('[data-slot="empty-state"]')));
     await clearToasts();
-  },
+  }),
 };
 
 /** Nothing saved: an empty state explains what saving is for and links to the catalog. */

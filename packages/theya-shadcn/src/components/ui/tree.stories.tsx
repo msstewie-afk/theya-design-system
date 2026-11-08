@@ -4,6 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Archive, Building, Globe } from 'iconoir-react';
 import { Tree, type TreeNode } from './tree';
 import { treeGuidelines } from './tree.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * Tree — an accessible hierarchical tree view (WAI-ARIA Tree View
@@ -140,7 +141,7 @@ export const DisabledNode: Story = {
     ],
   },
   // Disabled rows are announced as disabled and skipped by the arrow keys.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const item = (name: string) => canvas.getByRole('treeitem', { name });
     await expect(item('Blue hour')).toHaveAttribute('aria-disabled', 'true');
@@ -153,7 +154,7 @@ export const DisabledNode: Story = {
     await expect(item('Golden hour')).toHaveFocus();
     await userEvent.keyboard('{End}');
     await expect(item('Golden hour')).toHaveFocus();
-  },
+  }),
 };
 
 /** Custom per-node icons via the `icon` slot override the default folder/file glyphs. Icons are decorative (`aria-hidden`); the label carries the name. */

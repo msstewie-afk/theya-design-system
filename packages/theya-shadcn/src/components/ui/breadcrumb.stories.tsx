@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, screen, userEvent, within } from '@storybook/test';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis } from './breadcrumb';
 import { breadcrumbGuidelines } from './breadcrumb.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -82,12 +83,12 @@ export const DeepTrail: Story = {
 /** Folded middle: the ellipsis opens a menu with the hidden levels, so they stay reachable. */
 export const WithEllipsis: Story = {
   name: 'With ellipsis',
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Show 3 more levels' }));
     const menu = await screen.findByRole('menu');
     await expect(within(menu).getByRole('menuitem', { name: 'Helios Studio' })).toHaveAttribute('href', '#helios');
     await userEvent.keyboard('{Escape}');
-  },
+  }),
   render: () => (
     <Breadcrumb>
       <BreadcrumbList>

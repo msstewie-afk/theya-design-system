@@ -4,6 +4,7 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Dropzone, type StagedFile } from './dropzone';
 import { dropzoneGuidelines } from './dropzone.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof Dropzone> = {
   title: 'Files/Dropzone',
@@ -85,7 +86,7 @@ function StagedDemo() {
 /** A working zone with two staged files, one of them rejected: browse or drop files to add rows, and remove them with their controls. */
 export const Playground: Story = {
   render: () => <StagedDemo />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = zone(canvasElement);
     await expect(trigger).toHaveAccessibleName('Upload photos Choose files');
@@ -110,7 +111,7 @@ export const Playground: Story = {
     await tabTo(canvas.getByRole('button', { name: 'Remove L4_moonrise.raw' }));
     await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Remove DAWN_0412.jpg' })).toHaveFocus());
-  },
+  }),
 };
 
 /** The resting state: a drag-or-browse prompt, with a `hint` listing the accepted types and size. */
@@ -261,9 +262,9 @@ function UploadDemo() {
 export const UploadFlow: Story = {
   name: 'Upload flow',
   render: () => <UploadDemo />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.upload(canvasElement.querySelector<HTMLInputElement>('input[type=file]')!, new File(['x'], 'DAWN_0412.jpg'));
     await expect(await canvas.findByText('DAWN_0412.jpg', {}, { timeout: 4000 })).toBeInTheDocument();
-  },
+  }),
 };

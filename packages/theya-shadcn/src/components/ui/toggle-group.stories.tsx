@@ -3,6 +3,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { AlignLeft, AlignCenter, AlignRight, Bold, Italic, Underline } from 'iconoir-react';
 import { ToggleGroup, ToggleGroupItem } from './toggle-group';
 import { toggleGroupGuidelines } from './toggle-group.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof ToggleGroup> = {
   title: 'Actions/ToggleGroup',
@@ -46,7 +47,7 @@ export const Outline: Story = {
       </ToggleGroupItem>
     </ToggleGroup>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const group = within(within(canvasElement).getByRole('radiogroup', { name: 'Text alignment' }));
     // type="single": Radix renders a radiogroup of radios, one checked at a time.
     const left = group.getByRole('radio', { name: 'Align left' });
@@ -59,7 +60,7 @@ export const Outline: Story = {
     await expect(center).toHaveFocus();
     await userEvent.keyboard('{ArrowRight}');
     await expect(group.getByRole('radio', { name: 'Align right' })).toHaveFocus();
-  },
+  }),
 };
 
 /** `appearance="tonal"` with `type="multiple"`: each style toggles on and off on its own. */
@@ -77,7 +78,7 @@ export const Tonal: Story = {
       </ToggleGroupItem>
     </ToggleGroup>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const group = within(within(canvasElement).getByRole('toolbar', { name: 'Text style' }));
     // type="multiple": Radix renders a toolbar of independent pressed buttons.
     const bold = group.getByRole('button', { name: 'Bold' });
@@ -89,7 +90,7 @@ export const Tonal: Story = {
     await userEvent.click(bold);
     await expect(bold).toHaveAttribute('aria-pressed', 'false');
     await expect(italic).toHaveAttribute('aria-pressed', 'true');
-  },
+  }),
 };
 
 /** `appearance="ghost"`, the default: items stay borderless until hovered or pressed, for toolbars where the group shouldn't draw attention. */

@@ -5,6 +5,7 @@ import { Star, Check, ArrowRight, Xmark, Trash, Plus, Bell } from 'iconoir-react
 import { Button } from './button';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
 import { buttonGuidelines } from './button.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof Button> = {
   title: 'Actions/Button',
@@ -348,7 +349,7 @@ export const SoftDisabledWithReason: Story = {
   ),
   // Guards the softDisabled contract: reachable by Tab, reason exposed as
   // a tooltip, click/Enter/Space swallowed.
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button', { name: 'Publish' });
 
@@ -365,7 +366,7 @@ export const SoftDisabledWithReason: Story = {
     await userEvent.keyboard('{Enter}');
     await userEvent.keyboard(' ');
     await expect(args.onClick).not.toHaveBeenCalled();
-  },
+  }),
 };
 
 /** `loading` shows a spinner where the left icon goes and disables the button — here across appearances and as an icon-only button. */

@@ -4,6 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Button } from './button';
 import { RangeField, type RangeValue } from './range-field';
 import { rangeFieldGuidelines } from './range-field.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * RangeField — a two-thumb slider plus "From"/"To" number fields that stay
@@ -72,7 +73,7 @@ export const PriceFilter: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const group = canvas.getByRole('group', { name: 'Price per month' });
     const minThumb = canvas.getByRole('slider', { name: 'Price per month minimum' });
@@ -106,13 +107,13 @@ export const PriceFilter: Story = {
     await userEvent.type(to, '1{Enter}');
     await expect(to).toHaveValue('3');
     await expect(maxThumb).toHaveAttribute('aria-valuenow', '3');
-  },
+  }),
 };
 
 /** `minDistance` keeps a gap between the bounds — here at least 50 GB. */
 export const MinDistance: Story = {
   args: { minDistance: 50, defaultValue: [100, 200] },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const minThumb = canvas.getByRole('slider', { name: 'Storage, GB minimum' });
     const from = canvas.getByLabelText('From');
@@ -132,7 +133,7 @@ export const MinDistance: Story = {
     await userEvent.clear(from);
     await userEvent.type(from, '190{Enter}');
     await expect(from).toHaveValue('150');
-  },
+  }),
 };
 
 /** Controlled with a reset — "Any" in the summary means the full range, i.e. no filter. */
@@ -149,14 +150,14 @@ export const Controlled: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('20 – 80')).toBeInTheDocument();
     await userEvent.click(canvas.getByRole('button', { name: 'Reset' }));
     await expect(canvas.getByText('Any')).toBeInTheDocument();
     await expect(canvas.getByLabelText('From')).toHaveValue('0');
     await expect(canvas.getByRole('slider', { name: 'Response time, ms maximum' })).toHaveAttribute('aria-valuenow', '100');
-  },
+  }),
 };
 
 /** Compact for filter sidebars. */

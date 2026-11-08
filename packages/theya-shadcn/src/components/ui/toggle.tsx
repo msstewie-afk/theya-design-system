@@ -15,7 +15,9 @@ import { isIconOnlyContent } from '../../lib/icon-only';
 const toggleVariants = cva(
   [
     'inline-flex items-center justify-center gap-2 whitespace-nowrap',
-    'rounded-[var(--size-border-radius-border-radius-md)]',
+    // A brand's field radius (--theme-radius-field) applies here too: toggles pick a
+    // value like a field and sit next to fields (Maria, 2026-11-08, T4).
+    'rounded-[var(--theme-radius-field,var(--size-border-radius-border-radius-md))]',
     'font-normal text-[var(--color-text-text-subtle)]',
     'transition-[background-color,border-color,color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
     'outline-none cursor-pointer',

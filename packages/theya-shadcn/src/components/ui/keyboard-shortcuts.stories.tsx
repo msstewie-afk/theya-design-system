@@ -5,6 +5,7 @@ import { KeyCommand } from 'iconoir-react';
 import { KeyboardShortcuts, type ShortcutGroup } from './keyboard-shortcuts';
 import { Button } from './button';
 import { keyboardShortcutsGuidelines } from './keyboard-shortcuts.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * KeyboardShortcuts — a help dialog listing an app's shortcuts, composed from
@@ -81,13 +82,13 @@ export const Default: Story = {
 export const HotkeyToOpen: Story = {
   args: { groups, hotkey: '?' },
   // Keyboard: "?" opens the list from anywhere, Escape closes it.
-  play: async () => {
+  play: testOnly(async () => {
     await userEvent.keyboard('?');
     const dialog = await within(document.body).findByRole('dialog');
     await expect(dialog).toBeVisible();
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(within(document.body).queryByRole('dialog')).toBeNull());
-  },
+  }),
   render: (args) => (
     <div className="flex flex-col items-center gap-3 font-body text-body-s text-[var(--color-text-text-subtler)]">
       <p>
@@ -139,7 +140,7 @@ export const ScopedHotkey: Story = {
  */
 export const ChordHotkey: Story = {
   args: { groups, hotkey: 'Mod+/' },
-  play: async () => {
+  play: testOnly(async () => {
     const body = within(document.body);
     // The bare key doesn't open it.
     await userEvent.keyboard('/');
@@ -149,7 +150,7 @@ export const ChordHotkey: Story = {
     await expect(await body.findByRole('dialog')).toBeVisible();
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(body.queryByRole('dialog')).toBeNull());
-  },
+  }),
   render: (args) => (
     <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">
       Press ⌘/ (Ctrl+/ on Windows and Linux) to open the shortcuts.

@@ -41,7 +41,7 @@ export type ToggleGroupProps = React.ComponentProps<typeof ToggleGroupPrimitive.
 
 function ToggleGroup({ className, appearance = 'ghost', size, children, ...props }: ToggleGroupProps) {
   return (
-    <ToggleGroupPrimitive.Root className={cn('flex w-fit items-center rounded-[var(--size-border-radius-border-radius-md)]', className)} data-appearance={appearance} {...props}>
+    <ToggleGroupPrimitive.Root className={cn('flex w-fit items-center rounded-[var(--theme-radius-field,var(--size-border-radius-border-radius-md))]', className)} data-appearance={appearance} {...props}>
       <ToggleGroupContext.Provider value={{ appearance, size }}>{children}</ToggleGroupContext.Provider>
     </ToggleGroupPrimitive.Root>
   );
@@ -74,8 +74,8 @@ function ToggleGroupItem({ className, children, appearance, size, iconOnly, ...p
       data-icon-only={square ? '' : undefined}
       className={cn(
         toggleVariants({ appearance: resolvedAppearance, size: resolvedSize, iconOnly: square }),
-        'shrink-0 rounded-none first:rounded-s-[var(--size-border-radius-border-radius-md)]',
-        'last:rounded-e-[var(--size-border-radius-border-radius-md)]',
+        'shrink-0 rounded-none first:rounded-s-[var(--theme-radius-field,var(--size-border-radius-border-radius-md))]',
+        'last:rounded-e-[var(--theme-radius-field,var(--size-border-radius-border-radius-md))]',
         // outlined only: cancel toggleVariants' own real border and draw
         // the seam as an inset shadow instead — see the file-level note.
         'data-[appearance=outlined]:border-0',

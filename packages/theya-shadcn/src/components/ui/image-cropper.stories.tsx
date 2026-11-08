@@ -5,6 +5,7 @@ import { ImageCropper, getCroppedImage, type CropState } from './image-cropper';
 import { Button } from './button';
 import { Card } from './card';
 import { imageCropperGuidelines } from './image-cropper.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * ImageCropper — a fixed crop frame (by `aspect`, optionally round) with the
@@ -107,7 +108,7 @@ export const ExportFlow: Story = {
       </Card>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const info = () => canvasElement.querySelector('.font-code')?.textContent ?? '';
     await waitFor(() => expect(info()).toMatch(/· 100% · 0°$/), { timeout: 3000 });
@@ -126,5 +127,5 @@ export const ExportFlow: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Save photo' }));
     const img = (await canvas.findByRole('img', { name: 'Cropped profile photo' }, { timeout: 3000 })) as HTMLImageElement;
     await waitFor(() => expect(img.naturalWidth).toBe(256));
-  },
+  }),
 };

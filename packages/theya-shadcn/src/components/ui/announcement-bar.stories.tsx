@@ -5,6 +5,7 @@ import { AnnouncementBar } from './announcement-bar';
 import { Button } from './button';
 import { announcementBarGuidelines } from './announcement-bar.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * AnnouncementBar — a full-width strip above the header for something that
@@ -136,7 +137,7 @@ export const RememberedDismissal: Story = {
       </Button>
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const KEY = 'theya:announcement:storybook-demo-v1';
     const bar = () => canvas.queryByRole('region', { name: 'Announcement' });
@@ -154,5 +155,5 @@ export const RememberedDismissal: Story = {
     } finally {
       window.localStorage.removeItem(KEY);
     }
-  },
+  }),
 };

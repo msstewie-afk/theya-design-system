@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Rating } from './rating';
 import { ratingGuidelines } from './rating.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Radix RadioGroup checks the newly focused radio only while the arrow key
 // is still held (same helper as Radio's stories).
@@ -84,12 +85,12 @@ export const Sizes: Story = {
 /** `clearable`: clicking the selected star again removes the rating. */
 export const Clearable: Story = {
   args: { clearable: true, defaultValue: 2, 'aria-label': 'Clearable rating' },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const group = within(canvasElement).getByRole('radiogroup', { name: 'Clearable rating' });
     const second = within(group).getByRole('radio', { name: '2 of 5' });
     await userEvent.click(second);
     await waitFor(() => expect(within(group).queryAllByRole('radio', { checked: true })).toHaveLength(0));
-  },
+  }),
 };
 
 /** `disabled` keeps the current value visible but stops it from being changed. */

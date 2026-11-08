@@ -3,6 +3,7 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { SecretField } from './secret-field';
 import { secretFieldGuidelines } from './secret-field.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -51,7 +52,7 @@ export const Playground: Story = {
       <SecretField {...args} />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Masked: the value isn't in the DOM, the visible tail is announced.
     await expect(canvasElement).not.toHaveTextContent(KEY);
@@ -76,7 +77,7 @@ export const Playground: Story = {
       await waitFor(() => expect(writeText).toHaveBeenCalledWith(KEY));
       await waitFor(() => expect(canvas.getByText('Copied to clipboard')).toBeInTheDocument());
     });
-  },
+  }),
 };
 
 /** `defaultRevealed`: the full value shows on load, for a secret people have just created and need to save. */
@@ -104,7 +105,7 @@ export const NotRevealable: Story = {
       <SecretField {...args} />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.queryByRole('button', { name: 'Show API key' })).not.toBeInTheDocument();
     // A blocked clipboard can't reveal a non-revealable value.
@@ -118,7 +119,7 @@ export const NotRevealable: Story = {
         await expect(canvasElement).not.toHaveTextContent(KEY);
       },
     );
-  },
+  }),
 };
 
 /** Each state side by side: masked, revealed, and copy-only. */
@@ -139,7 +140,7 @@ export const States: Story = {
       </div>
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Copy buttons are told apart by their field's label.
     await expect(canvas.getAllByRole('button', { name: 'Copy API key' })).toHaveLength(2);
@@ -157,5 +158,5 @@ export const States: Story = {
         await waitFor(() => expect(masked).toHaveAttribute('aria-pressed', 'true'));
       },
     );
-  },
+  }),
 };

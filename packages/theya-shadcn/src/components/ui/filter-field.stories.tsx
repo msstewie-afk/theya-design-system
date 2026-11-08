@@ -5,6 +5,7 @@ import { FilterField, FILTER_FIELD_SEARCH_KEY, parseFilterDate, parseFilterNumbe
 import { StatusDot, type StatusTone } from './status-dot';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table';
 import { filterFieldGuidelines } from './filter-field.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -101,7 +102,7 @@ export const Empty: Story = {
       <FilterField attributes={ATTRIBUTES} aria-label="Filter galleries" />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('combobox', { name: 'Filter galleries' });
     await expect(canvas.getByText('No filters applied')).toBeInTheDocument();
@@ -149,7 +150,7 @@ export const Empty: Story = {
     await expect(canvas.getByText('No filters applied')).toBeInTheDocument();
     await userEvent.keyboard('{Escape}');
     await waitClosed();
-  },
+  }),
 };
 
 /** `disabled` turns off the input, the add button and every applied chip, while the chips stay readable. */

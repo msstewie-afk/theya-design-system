@@ -6,6 +6,7 @@ import { Button } from './button';
 import { terminalGuidelines } from './terminal.guidelines';
 import { expect, userEvent, within } from '@storybook/test';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * Terminal — a read-only console scrollback viewer. Renders a mono
@@ -258,9 +259,9 @@ function ReconnectDemo() {
 /** The header's connection line is a status region: "Connecting…" and "Connected" are announced as they change (WCAG 4.1.3). */
 export const Reconnect: Story = {
   render: () => <ReconnectDemo />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Reconnect' }));
     await expect(await canvas.findByText(/Connected/, {}, { timeout: 4000 })).toBeInTheDocument();
-  },
+  }),
 };

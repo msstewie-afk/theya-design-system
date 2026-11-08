@@ -21,6 +21,7 @@ import {
 import type { CommandItemProps } from './command';
 import { Button } from './button';
 import { commandGuidelines } from './command.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Docs-only args type: Command's own props plus the CommandItem props
 // we want documented in this single table — they live on a different
@@ -89,7 +90,7 @@ export const Inline: Story = {
   ),
   // Keyboard model: the first option starts highlighted and is exposed via
   // aria-activedescendant; arrows move it; typing filters; Escape clears.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('combobox', { name: 'Command menu' });
     const highlighted = () => canvas.getByRole('option', { selected: true });
@@ -113,7 +114,7 @@ export const Inline: Story = {
     await userEvent.keyboard('{Escape}');
     await expect(input).toHaveValue('');
     await expect(canvas.getAllByRole('option')).toHaveLength(4);
-  },
+  }),
 };
 
 /** `icon`/`toneIcon` (leading glyph) and `description` (second line) — for results that need more than a bare label, like search hits or entities. */
@@ -227,7 +228,7 @@ export const DisabledItem: Story = {
     </div>
   ),
   // The disabled row never takes the highlight, so Enter can't land on it.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     onSelectAction.mockClear();
     const canvas = within(canvasElement);
     const input = canvas.getByRole('combobox', { name: 'Command menu' });
@@ -246,7 +247,7 @@ export const DisabledItem: Story = {
     await expect(canvas.queryByRole('option', { selected: true })).toBeNull();
     await userEvent.keyboard('{Enter}');
     await expect(onSelectAction).toHaveBeenCalledTimes(1);
-  },
+  }),
 };
 
 /** The empty state — a query pre-seeded to match nothing, so CommandEmpty shows without interaction. */

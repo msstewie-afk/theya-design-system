@@ -5,6 +5,7 @@ import { Slider } from './slider';
 import { propertyGridGuidelines } from './property-grid.guidelines';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof PropertyGrid> = {
   title: 'Form Structure/PropertyGrid',
@@ -83,7 +84,7 @@ function EditingDemo() {
 export const Editing: Story = {
   render: () => <EditingDemo />,
   // Keyboard: Tab goes row by row, and each control works without a mouse.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     resetFocus();
     await tabTo(canvas.getByRole('textbox', { name: 'Display name' }));
@@ -102,7 +103,7 @@ export const Editing: Story = {
     await tabTo(watermark);
     await userEvent.keyboard(' ');
     await expect(watermark).toBeChecked();
-  },
+  }),
 };
 
 /** A row's `error` shows under its control, which is marked invalid and described by it. Clear it once the value is valid. */
@@ -123,7 +124,7 @@ export const WithError: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const name = canvas.getByRole('textbox', { name: 'Display name' });
     await expect(name).toHaveAttribute('aria-invalid', 'true');
@@ -134,7 +135,7 @@ export const WithError: Story = {
     await userEvent.type(name, 'Golden hour');
     await waitFor(() => expect(name).not.toHaveAttribute('aria-invalid', 'true'));
     await expect(canvas.queryByText('Enter a display name.')).not.toBeInTheDocument();
-  },
+  }),
 };
 
 /** Every row `readOnly`: the grid shows values as plain text, for a details view with nothing to change. */

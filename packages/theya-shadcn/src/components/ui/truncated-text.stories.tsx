@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { TruncatedText } from './truncated-text';
 import { truncatedTextGuidelines } from './truncated-text.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * TruncatedText — one line that ends in an ellipsis when it doesn't fit and
@@ -64,7 +65,7 @@ export const InsideALink: Story = {
       <TruncatedText {...args} />
     </a>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const link = within(canvasElement).getByRole('link');
     const text = within(canvasElement).getByText(/selene-weddings/);
     await waitFor(() => expect(text).toHaveAttribute('data-truncated'));
@@ -72,7 +73,7 @@ export const InsideALink: Story = {
     await userEvent.tab();
     await expect(link).toHaveFocus();
     await waitFor(() => expect(text.getAttribute('data-state') ?? '').toMatch(/open/));
-  },
+  }),
 };
 
 /** Two lines before the ellipsis, for a description under a title (Kanban cards). */

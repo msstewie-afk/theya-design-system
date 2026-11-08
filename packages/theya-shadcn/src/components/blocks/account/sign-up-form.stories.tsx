@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { SignUpForm } from './sign-up-form';
 import { signUpFormGuidelines } from './sign-up-form.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof SignUpForm> = {
   title: 'Patterns: Account/SignUpForm',
@@ -38,7 +39,7 @@ export const EmailTaken: Story = {
 /** Submitted with a short password: focus moves to it, and its description says what to change (WCAG 3.3.1). */
 export const ShortPassword: Story = {
   name: 'Short password',
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const password = canvas.getByLabelText('Password');
     await userEvent.type(canvas.getByRole('textbox', { name: 'Work email' }), 'elio@aether.photo');
@@ -48,7 +49,7 @@ export const ShortPassword: Story = {
     await expect(password).toHaveAttribute('aria-invalid', 'true');
     await expect(password).toHaveAccessibleDescription(/Use at least 8 characters/);
     await expect(args.onSubmit).not.toHaveBeenCalled();
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

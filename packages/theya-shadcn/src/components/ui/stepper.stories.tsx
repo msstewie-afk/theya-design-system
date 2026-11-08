@@ -4,6 +4,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { Stepper } from './stepper';
 import { stepperGuidelines } from './stepper.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof Stepper> = {
   title: 'Navigation/Stepper',
@@ -183,7 +184,7 @@ export const GoBackToAStep: Story = {
     );
   },
   // Keyboard: each completed step is a tab stop; Enter goes back to it.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const list = within(canvasElement).getByRole('list', { name: 'Progress' });
     const buttons = within(list).getAllByRole('button');
     await expect(buttons).toHaveLength(2);
@@ -192,7 +193,7 @@ export const GoBackToAStep: Story = {
     await userEvent.keyboard('{Enter}');
     await expectStatuses(list, ['current step', 'upcoming', 'upcoming']);
     await expect(within(list).queryAllByRole('button')).toHaveLength(0);
-  },
+  }),
 };
 
 /** Both orientations side by side at the same progress, showing how the same data drives a compact header or a roomy rail. */

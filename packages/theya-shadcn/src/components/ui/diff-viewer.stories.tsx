@@ -5,6 +5,7 @@ import { DiffViewer, type DiffView } from './diff-viewer';
 import { Button } from './button';
 import { diffViewerGuidelines } from './diff-viewer.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * DiffViewer — read-only comparison of two texts in the CodeBlock frame.
@@ -138,7 +139,7 @@ export const Split: Story = {
 export const WithViewToggle: Story = {
   name: 'With view toggle',
   args: { viewToggle: true },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const unified = canvas.getByRole('radio', { name: 'Unified' });
     const split = canvas.getByRole('radio', { name: 'Split' });
@@ -152,7 +153,7 @@ export const WithViewToggle: Story = {
     await expect(split).toBeChecked();
     // Split rows have two halves separated by a border.
     await expect(canvasElement.querySelector('[data-diff-body] .border-s')).not.toBeNull();
-  },
+  }),
 };
 
 /** Controlled view, e.g. remembered per user. */

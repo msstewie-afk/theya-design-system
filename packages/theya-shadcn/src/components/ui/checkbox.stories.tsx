@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { Checkbox } from './checkbox';
 import { checkboxGuidelines } from './checkbox.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -53,7 +54,7 @@ type Story = StoryObj<typeof Checkbox>;
 export const Playground: Story = {
   args: { label: 'Accept terms and conditions', onCheckedChange: fn() },
   // Label click and Space both toggle; the label is the accessible name.
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const box = canvas.getByRole('checkbox', { name: 'Accept terms and conditions' });
     await expect(box).toHaveAttribute('aria-checked', 'false');
@@ -66,7 +67,7 @@ export const Playground: Story = {
     await userEvent.keyboard(' ');
     await expect(box).toHaveAttribute('aria-checked', 'false');
     await expect(args.onCheckedChange).toHaveBeenLastCalledWith(false);
-  },
+  }),
 };
 
 /** No visible label: give the box an `aria-label` so screen readers still announce what it controls. */
@@ -104,7 +105,7 @@ export const States: Story = {
 /** `disabled` in each state: the box is muted, skipped by Tab, and clicks don't change it. */
 export const Disabled: Story = {
   // Disabled: out of the tab order, clicks don't change state.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const unchecked = canvas.getByRole('checkbox', { name: 'Disabled unchecked' });
     await expect(unchecked).toBeDisabled();
@@ -114,7 +115,7 @@ export const Disabled: Story = {
 
     await userEvent.tab();
     await expect(unchecked).not.toHaveFocus();
-  },
+  }),
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <Checkbox label="Disabled unchecked" disabled />
@@ -195,7 +196,7 @@ export const ControlledIndeterminate: Story = {
   },
   render: () => <ControlledIndeterminateDemo />,
   // Parent reflects children (mixed / all / none) and drives them.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const parent = canvas.getByRole('checkbox', { name: 'Select all' });
     const children = ['Apples', 'Bananas', 'Cherries'].map((name) =>
@@ -215,5 +216,5 @@ export const ControlledIndeterminate: Story = {
     await userEvent.click(parent);
     for (const child of children) await expect(child).toHaveAttribute('aria-checked', 'false');
     await expect(parent).toHaveAttribute('aria-checked', 'false');
-  },
+  }),
 };

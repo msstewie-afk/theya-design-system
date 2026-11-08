@@ -5,6 +5,7 @@ import { Autocomplete } from './autocomplete';
 import { FieldError } from './field';
 import { Label } from './label';
 import { autocompleteGuidelines } from './autocomplete.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -93,7 +94,7 @@ export const FreeText: Story = {
   name: 'Free text',
   render: () => <ControlledDemo />,
   // Enter without a highlight keeps the typed text; no match keeps it too.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const input = within(canvasElement).getByRole('combobox', { name: 'Search sections' });
 
     await userEvent.click(input);
@@ -107,7 +108,7 @@ export const FreeText: Story = {
     await userEvent.keyboard('{Escape}');
     await expect(input).toHaveValue('zzz');
     await expect(input).toHaveAttribute('aria-expanded', 'false');
-  },
+  }),
 };
 
 /** `loading` shows a spinner and a loading message in the dropdown while suggestions are being fetched. */

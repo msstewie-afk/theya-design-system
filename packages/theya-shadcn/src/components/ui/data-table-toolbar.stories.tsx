@@ -10,6 +10,7 @@ import { TextField } from './text-field';
 import type { StatusTone } from './status-dot';
 import { toast } from './sonner';
 import { dataTableToolbarGuidelines } from './data-table-toolbar.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 interface Gallery {
   name: string;
@@ -177,7 +178,7 @@ export const Default: Story = {
 export const Selected: Story = {
 
   render: () => <ToolbarDemo initialSelection={{ 'Golden hour': true, 'First light': true }} />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
 
     const canvas = within(canvasElement);
     await expect(bar(canvasElement)).toHaveTextContent('2 selected');
@@ -197,7 +198,7 @@ export const Selected: Story = {
     // The action clears the selection; focus lands on select-all, not <body>.
     await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'default'));
     await waitFor(() => expect(selectAll(canvasElement)).toHaveFocus());
-  },
+  }),
 };
 
 /**
@@ -209,7 +210,7 @@ export const Selected: Story = {
 export const Overflow: Story = {
 
   render: () => <ToolbarDemo maxVisible={2} initialSelection={{ 'Golden hour': true, 'First light': true, 'Wide-shining': true }} />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
 
     const canvas = within(canvasElement);
     const page = within(document.body);
@@ -232,7 +233,7 @@ export const Overflow: Story = {
     await waitFor(() => expect(bar(canvasElement)).toHaveAttribute('data-state', 'default'));
     toast.dismiss();
     await waitFor(() => expect(document.querySelectorAll('[data-sonner-toast]')).toHaveLength(0), { timeout: 3000 });
-  },
+  }),
 };
 
 /**

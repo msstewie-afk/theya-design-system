@@ -11,6 +11,7 @@ import { Label } from './label';
 import { Checkbox } from './checkbox';
 import { Separator } from './separator';
 import { popoverGuidelines } from './popover.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * Popover — a floating panel anchored to a trigger, on @radix-ui/react-popover.
@@ -204,7 +205,7 @@ export const Controlled: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Open panel' }));
     await expect(canvas.getByText('true')).toBeInTheDocument();
@@ -213,7 +214,7 @@ export const Controlled: Story = {
     await waitFor(() => expect(page().queryByRole('dialog')).toBeNull());
     await expect(canvas.getByText('false')).toBeInTheDocument();
     await expect(canvas.getByRole('button', { name: 'Open panel' })).toHaveFocus();
-  },
+  }),
 };
 
 /** Render-open on mount via defaultOpen so the panel layout is visible without interaction. */

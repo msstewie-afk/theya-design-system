@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Checkout } from './checkout';
 import { checkoutGuidelines } from './checkout.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof Checkout> = {
   title: 'Patterns: Commerce/Checkout',
@@ -19,14 +20,14 @@ export const Default: Story = {};
 /** Review order with the card fields empty: each field is marked invalid and described by its own error (WCAG 3.3.1). */
 export const MissingCardDetails: Story = {
   name: 'Missing card details',
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Continue to payment' }));
     await userEvent.click(canvas.getByRole('button', { name: 'Review order' }));
     const card = canvas.getByRole('textbox', { name: /^Card number/ });
     await waitFor(() => expect(card).toHaveAttribute('aria-invalid', 'true'));
     await expect(card.getAttribute('aria-describedby')).toBeTruthy();
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

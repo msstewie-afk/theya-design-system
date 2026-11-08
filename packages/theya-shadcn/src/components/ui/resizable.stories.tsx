@@ -3,6 +3,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from './resizable';
 import { ScrollArea } from './scroll-area';
 import { resizableGuidelines } from './resizable.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof ResizablePanelGroup> = {
   title: 'Layout/Resizable',
@@ -129,14 +130,14 @@ export const Vertical: Story = {
       </ResizablePanel>
     </ResizablePanelGroup>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const handle = within(canvasElement).getByRole('separator', { name: 'Resize logs' });
     await waitFor(() => expect(near(panelShares(canvasElement, 'y')[1], 0.3)).toBe(true));
     // Pushing the divider to the end collapses the log pane to collapsedSize="6%".
     handle.focus();
     await userEvent.keyboard('{End}');
     await waitFor(() => expect(near(panelShares(canvasElement, 'y')[1], 0.06)).toBe(true));
-  },
+  }),
 };
 
 /** A three-pane layout — navigation, content, inspector — with a hairline handle
@@ -203,13 +204,13 @@ export const Disabled: Story = {
       </ResizablePanel>
     </ResizablePanelGroup>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const handle = within(canvasElement).getByRole('separator', { name: 'Resize sidebar' });
     await waitFor(() => expect(near(panelShares(canvasElement)[0], 0.35)).toBe(true));
     handle.focus();
     await userEvent.keyboard('{ArrowRight}{ArrowRight}{End}');
     await expect(near(panelShares(canvasElement)[0], 0.35)).toBe(true);
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */
