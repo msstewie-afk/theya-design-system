@@ -3,6 +3,7 @@
 import * as TogglePrimitive from '@radix-ui/react-toggle';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
+import { decorativeChildren } from '../../lib/decorative-icon';
 import { isIconOnlyContent } from '../../lib/icon-only';
 
 /**
@@ -87,7 +88,7 @@ function Toggle({ className, appearance, size, iconOnly, children, ...props }: T
       className={cn(toggleVariants({ appearance, size, iconOnly: square }), className)}
       {...props}
     >
-      {children}
+      {decorativeChildren(children, props.asChild)}
     </TogglePrimitive.Root>
   );
 }

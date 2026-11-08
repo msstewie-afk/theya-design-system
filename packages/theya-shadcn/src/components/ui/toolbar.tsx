@@ -4,6 +4,7 @@ import { forwardRef } from 'react';
 import * as ToolbarPrimitive from '@radix-ui/react-toolbar';
 import type { VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
+import { decorativeChildren } from '../../lib/decorative-icon';
 import { buttonVariants } from './button';
 import { Link } from './link';
 
@@ -43,7 +44,7 @@ export type ToolbarButtonProps = Omit<React.ComponentProps<typeof ToolbarPrimiti
 // components cannot be given refs"), which meant arrow-key keyboard
 // navigation inside any Toolbar was at risk of not actually working.
 export const ToolbarButton = forwardRef<HTMLButtonElement, ToolbarButtonProps>(function ToolbarButton(
-  { className, appearance = 'ghost', tone = 'neutral', size = 'lg', iconOnly, ...props },
+  { className, appearance = 'ghost', tone = 'neutral', size = 'lg', iconOnly, children, ...props },
   ref,
 ) {
   if (process.env.NODE_ENV !== 'production' && iconOnly) {
@@ -61,7 +62,9 @@ export const ToolbarButton = forwardRef<HTMLButtonElement, ToolbarButtonProps>(f
       ref={ref}
       className={cn(buttonVariants({ appearance, tone, size, iconOnly }), 'rounded-[var(--size-border-radius-border-radius-md)]', className)}
       {...props}
-    />
+    >
+      {decorativeChildren(children, props.asChild)}
+    </ToolbarPrimitive.Button>
   );
 });
 

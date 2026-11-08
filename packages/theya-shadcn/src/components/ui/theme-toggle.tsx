@@ -42,7 +42,7 @@ export const ThemeToggle = forwardRef<HTMLButtonElement, React.ComponentPropsWit
       )}
       {...props}
     >
-      {isDark ? <SunLight /> : <HalfMoon />}
+      {isDark ? <SunLight aria-hidden="true" /> : <HalfMoon aria-hidden="true" />}
     </button>
   );
 });

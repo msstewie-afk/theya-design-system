@@ -1,11 +1,12 @@
 'use client';
 
-import { forwardRef, cloneElement, isValidElement, useEffect, useRef } from 'react';
+import { forwardRef, isValidElement, useEffect, useRef } from 'react';
 import type { ButtonHTMLAttributes, MouseEvent, ReactElement, ReactNode } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { Check } from 'iconoir-react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
+import { decorativeIcon } from '../../lib/decorative-icon';
 import { Spinner } from './spinner';
 import { announce } from '../../lib/announce';
 
@@ -694,20 +695,6 @@ export const buttonVariants = cva(
     },
   },
 );
-
-/**
- * Marks a consumer-provided icon as decorative for assistive tech
- * (aria-hidden="true"), unless the consumer already set their own
- * aria-hidden/aria-label on it — the button's own accessible name (its
- * text, or the aria-label callers must supply for iconOnly) already
- * covers it, so the icon shouldn't be separately announced.
- */
-function decorativeIcon(node: ReactNode): ReactNode {
-  if (!isValidElement(node)) return node;
-  const props = node.props as Record<string, unknown>;
-  if ('aria-hidden' in props || 'aria-label' in props) return node;
-  return cloneElement(node as ReactElement<Record<string, unknown>>, { 'aria-hidden': 'true' });
-}
 
 export interface ButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'>,

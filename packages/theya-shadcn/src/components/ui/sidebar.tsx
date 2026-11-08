@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { NavArrowLeft } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
 import { cn } from '../../lib/utils';
+import { decorativeIcon } from '../../lib/decorative-icon';
 import { useMediaQuery } from './use-media-query';
 import { Drawer, DrawerContent, DrawerTitle } from './drawer';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } from './dropdown-menu';
@@ -310,7 +311,7 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, actio
       )}
       {...props}
     >
-      {icon}
+      {decorativeIcon(icon)}
       <span className={cn('flex-1', collapsed && 'sr-only')}>{children}</span>
       {!collapsed && badge != null && (
         <span
@@ -362,7 +363,7 @@ export function SidebarItem({ icon, badge, badgeTone = 'neutral', actions, actio
               'focus-visible:opacity-100 focus-visible:focus-ring',
             )}
           >
-            <KebabIconHorizontal />
+            <KebabIconHorizontal aria-hidden="true" />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" size="sm">

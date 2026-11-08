@@ -10,7 +10,7 @@ declare const DropdownMenuRadioGroup: import("react").ForwardRefExoticComponent<
 declare function DropdownMenuContent({ className, align, sideOffset, collisionPadding, size, onKeyDown, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Content> & {
     size?: DropdownMenuSize;
 }): import("react").JSX.Element;
-declare function DropdownMenuItem({ className, inset, tone, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
+declare function DropdownMenuItem({ className, inset, tone, children, ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
     inset?: boolean;
     tone?: 'neutral' | 'danger';
 }): import("react").JSX.Element;

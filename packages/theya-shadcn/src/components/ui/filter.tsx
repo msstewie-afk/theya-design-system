@@ -128,7 +128,7 @@ export function Filter({
             </span>
           )}
           <span className="text-start">{label}</span>
-          <NavArrowDown />
+          <NavArrowDown aria-hidden="true" />
         </button>
       </PopoverTrigger>
       <PopoverContent align={align} className="w-60 p-0" sheetTitle={label} sheetClassName="gap-0 px-2 pt-0">

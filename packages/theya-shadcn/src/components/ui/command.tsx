@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import type { ReactNode } from 'react';
 import { Search } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { decorativeChildren } from '../../lib/decorative-icon';
 import { Spinner } from './spinner';
 import { ScrollArea } from './scroll-area';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './dialog';
@@ -376,7 +377,7 @@ export function CommandItem({ className, value, keywords, onSelect, disabled, ic
       {...props}
     >
       {(icon || toneIcon) && (
-        <span className="flex shrink-0 items-center justify-center">
+        <span aria-hidden="true" className="flex shrink-0 items-center justify-center">
           {toneIcon ? <ToneIcon tone={toneIcon.tone} icon={toneIcon.icon} shape={toneIcon.shape} size="sm" /> : icon}
         </span>
       )}
@@ -387,7 +388,7 @@ export function CommandItem({ className, value, keywords, onSelect, disabled, ic
           {description && <span className="min-w-0 truncate text-body-xs font-normal text-[var(--color-text-text-subtler)]">{description}</span>}
         </span>
       ) : (
-        children
+        decorativeChildren(children)
       )}
     </div>
   );

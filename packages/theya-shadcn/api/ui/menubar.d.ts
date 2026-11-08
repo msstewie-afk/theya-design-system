@@ -17,7 +17,7 @@ export interface MenubarItemProps extends React.ComponentProps<typeof MenubarPri
     inset?: boolean;
     tone?: 'neutral' | 'danger';
 }
-export declare function MenubarItem({ className, inset, tone, ...props }: MenubarItemProps): import("react").JSX.Element;
+export declare function MenubarItem({ className, inset, tone, children, ...props }: MenubarItemProps): import("react").JSX.Element;
 export declare function MenubarCheckboxItem({ className, children, checked, ...props }: React.ComponentProps<typeof MenubarPrimitive.CheckboxItem>): import("react").JSX.Element;
 export declare function MenubarRadioItem({ className, children, ...props }: React.ComponentProps<typeof MenubarPrimitive.RadioItem>): import("react").JSX.Element;
 export declare function MenubarLabel({ className, inset, ...props }: React.ComponentProps<typeof MenubarPrimitive.Label> & {

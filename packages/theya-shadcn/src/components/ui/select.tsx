@@ -120,7 +120,7 @@ function SelectTrigger({ className, widthSize = 'md', error, children, ...props 
       {/* Radix wraps the mirrored ItemText content in its own unstyled <span> (pointer-events:none) — a flex item with default min-width:auto, so it refuses to shrink below its content's width and blocks every min-w-0/truncate set deeper inside it. [&>span] reaches that specific wrapper to force it to actually shrink. */}
       <span className="flex min-w-0 flex-1 items-center overflow-hidden text-start [&>span]:flex [&>span]:min-w-0 [&>span]:flex-1 [&>span]:overflow-hidden">{children}</span>
       <SelectPrimitive.Icon asChild>
-        <NavArrowDown />
+        <NavArrowDown aria-hidden="true" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -230,13 +230,13 @@ function SelectItem({ className, children, icon, iconSize = 'sm', tone, badge, d
     >
       <span className="absolute end-2.5 flex size-3.5 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
-          <Check width={14} height={14} className="text-[var(--color-icon-icon-primary)]" />
+          <Check width={14} height={14} aria-hidden="true" className="text-[var(--color-icon-icon-primary)]" />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText asChild>
         <span className={cn('flex min-w-0 flex-1 gap-2 overflow-hidden', description ? 'items-start' : 'items-center')}>
           {(icon || tone) && (
-            <span className={cn('flex shrink-0 items-center justify-center text-[var(--color-icon-icon-subtle)]', description && 'mt-[2px]')}>
+            <span aria-hidden="true" className={cn('flex shrink-0 items-center justify-center text-[var(--color-icon-icon-subtle)]', description && 'mt-[2px]')}>
               {tone ? (
                 <StatusDot tone={tone} />
               ) : isValidElement<{ className?: string }>(icon) ? (
@@ -285,7 +285,7 @@ function SelectScrollUpButton({ className, ...props }: React.ComponentProps<type
       )}
       {...props}
     >
-      <NavArrowUp width={16} height={16} />
+      <NavArrowUp width={16} height={16} aria-hidden="true" />
     </SelectPrimitive.ScrollUpButton>
   );
 }
@@ -302,7 +302,7 @@ function SelectScrollDownButton({
       )}
       {...props}
     >
-      <NavArrowDown width={16} height={16} />
+      <NavArrowDown width={16} height={16} aria-hidden="true" />
     </SelectPrimitive.ScrollDownButton>
   );
 }

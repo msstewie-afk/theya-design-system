@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { HelpCircle } from 'iconoir-react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
+import { decorativeIcon } from '../../lib/decorative-icon';
 import { Tooltip, TooltipTrigger, TooltipContent } from './tooltip';
 import { useTheyaI18n } from '../../lib/i18n';
 
@@ -70,7 +71,7 @@ export function HelpIcon({
           className={cn(helpIconVariants({ size }), className)}
           {...props}
         >
-          {icon}
+          {decorativeIcon(icon)}
         </button>
       </TooltipTrigger>
       <TooltipContent side={side} align={align} sideOffset={sideOffset} className={contentClassName}>

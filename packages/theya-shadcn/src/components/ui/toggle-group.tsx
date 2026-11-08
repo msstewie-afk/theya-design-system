@@ -4,6 +4,7 @@ import { createContext, useContext } from 'react';
 import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
 import type { VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
+import { decorativeChildren } from '../../lib/decorative-icon';
 import { isIconOnlyContent } from '../../lib/icon-only';
 import { toggleVariants } from './toggle';
 
@@ -92,7 +93,7 @@ function ToggleGroupItem({ className, children, appearance, size, iconOnly, ...p
       )}
       {...props}
     >
-      {children}
+      {decorativeChildren(children, props.asChild)}
     </ToggleGroupPrimitive.Item>
   );
 }

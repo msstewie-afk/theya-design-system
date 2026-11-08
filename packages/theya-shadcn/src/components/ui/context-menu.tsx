@@ -3,6 +3,7 @@
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
 import { Check, NavArrowRight, Circle } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { decorativeChildren } from '../../lib/decorative-icon';
 import { Kbd } from './kbd';
 
 /**
@@ -60,7 +61,7 @@ export interface ContextMenuItemProps extends React.ComponentProps<typeof Contex
   tone?: 'neutral' | 'danger';
 }
 
-export function ContextMenuItem({ className, inset, tone = 'neutral', ...props }: ContextMenuItemProps) {
+export function ContextMenuItem({ className, inset, tone = 'neutral', children, ...props }: ContextMenuItemProps) {
   return (
     <ContextMenuPrimitive.Item
       className={cn(
@@ -75,7 +76,9 @@ export function ContextMenuItem({ className, inset, tone = 'neutral', ...props }
         className,
       )}
       {...props}
-    />
+    >
+      {decorativeChildren(children, props.asChild)}
+    </ContextMenuPrimitive.Item>
   );
 }
 
@@ -95,10 +98,10 @@ export function ContextMenuCheckboxItem({ className, children, checked, ...props
     >
       <span className="absolute start-2.5 flex size-3.5 items-center justify-center">
         <ContextMenuPrimitive.ItemIndicator>
-          <Check width={14} height={14} className="text-[var(--color-icon-icon-primary)]" />
+          <Check width={14} height={14} aria-hidden="true" className="text-[var(--color-icon-icon-primary)]" />
         </ContextMenuPrimitive.ItemIndicator>
       </span>
-      {children}
+      {decorativeChildren(children, props.asChild)}
     </ContextMenuPrimitive.CheckboxItem>
   );
 }
@@ -118,10 +121,10 @@ export function ContextMenuRadioItem({ className, children, ...props }: React.Co
     >
       <span className="absolute start-2.5 flex size-3.5 items-center justify-center">
         <ContextMenuPrimitive.ItemIndicator>
-          <Circle width={8} height={8} className="fill-[var(--color-icon-icon-primary)] text-[var(--color-icon-icon-primary)]" />
+          <Circle width={8} height={8} aria-hidden="true" className="fill-[var(--color-icon-icon-primary)] text-[var(--color-icon-icon-primary)]" />
         </ContextMenuPrimitive.ItemIndicator>
       </span>
-      {children}
+      {decorativeChildren(children, props.asChild)}
     </ContextMenuPrimitive.RadioItem>
   );
 }
@@ -155,8 +158,8 @@ export function ContextMenuSubTrigger({ className, inset, children, ...props }: 
       )}
       {...props}
     >
-      {children}
-      <NavArrowRight width={14} height={14} className="ms-auto text-[var(--color-icon-icon-subtle)] rtl:-scale-x-100" />
+      {decorativeChildren(children, props.asChild)}
+      <NavArrowRight width={14} height={14} aria-hidden="true" className="ms-auto text-[var(--color-icon-icon-subtle)] rtl:-scale-x-100" />
     </ContextMenuPrimitive.SubTrigger>
   );
 }

@@ -51,7 +51,10 @@ export function AccordionTrigger({ className, children, ...props }: React.Compon
         {...props}
       >
         {children}
-        <NavArrowDown className="pointer-events-none mt-0.5 size-4 shrink-0 text-[var(--color-icon-icon-subtle)] transition-transform duration-moderate ease-enter motion-reduce:transition-none" />
+        {/* aria-hidden: unhidden, the chevron made the trigger a group (text +
+            image) in Safari; VoiceOver stepped into it, VO + Space didn't press
+            the button and "expanded" wasn't spoken (Maria, 2026-11-08). */}
+        <NavArrowDown aria-hidden="true" className="pointer-events-none mt-0.5 size-4 shrink-0 text-[var(--color-icon-icon-subtle)] transition-transform duration-moderate ease-enter motion-reduce:transition-none" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );

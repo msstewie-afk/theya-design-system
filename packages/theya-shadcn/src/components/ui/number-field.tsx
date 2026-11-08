@@ -239,7 +239,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
           isInvalid ? 'border-[var(--color-border-border-danger)]' : 'border-[var(--color-border-border-subtler)]',
         )}
       >
-        <Minus />
+        <Minus aria-hidden="true" />
       </button>
       <input
         ref={setInputRef}
@@ -301,7 +301,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
           isInvalid ? 'border-[var(--color-border-border-danger)]' : 'border-[var(--color-border-border-subtler)]',
         )}
       >
-        <Plus />
+        <Plus aria-hidden="true" />
       </button>
     </div>
   );

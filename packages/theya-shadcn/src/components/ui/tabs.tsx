@@ -4,6 +4,7 @@ import { forwardRef, useLayoutEffect, useRef, useState, type ReactNode } from 'r
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { NavArrowLeft, NavArrowRight, Xmark } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { decorativeChildren, decorativeIcon } from '../../lib/decorative-icon';
 
 /**
  * Underline-style tabs on @radix-ui/react-tabs. The active tab is marked
@@ -264,8 +265,8 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
           className,
         )}
       >
-        {icon}
-        {children}
+        {decorativeIcon(icon)}
+        {decorativeChildren(children, props.asChild)}
         {onClose && (
           <span
             aria-hidden="true"

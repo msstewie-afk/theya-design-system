@@ -455,7 +455,7 @@ export function FilterField({
                 'disabled:pointer-events-none',
               )}
             >
-              <FilterList width={16} height={16} />
+              <FilterList width={16} height={16} aria-hidden="true" />
             </button>
           </PopoverTrigger>
 
@@ -654,7 +654,7 @@ export function FilterField({
                   'focus-visible:outline-none focus-visible:focus-ring',
                 )}
               >
-                <ArrowLeft width={16} height={16} className="rtl:-scale-x-100" />
+                <ArrowLeft width={16} height={16} aria-hidden="true" className="rtl:-scale-x-100" />
               </button>
               <span className="min-w-0 truncate font-body text-body-s font-medium text-[var(--color-text-text)]">{active.label}</span>
             </div>

@@ -153,7 +153,7 @@ export function DatePicker({
               showClearControl ? 'pe-16' : 'pe-9',
             )}
           >
-            <CalendarIcon />
+            <CalendarIcon aria-hidden="true" />
             <TruncatedText
               id={valueId}
               className={cn(

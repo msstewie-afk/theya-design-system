@@ -4,6 +4,7 @@ import { forwardRef, createContext, useContext, useId, useRef, useState } from '
 import type { ReactNode } from 'react';
 import { Menu, Search } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { decorativeChildren } from '../../lib/decorative-icon';
 import { useScrollPadding } from '../../lib/scroll-padding';
 import { useSidebar } from './sidebar';
 import { Kbd } from './kbd';
@@ -79,7 +80,7 @@ export const TopbarMenu = forwardRef<HTMLButtonElement, React.ComponentPropsWith
       )}
       {...props}
     >
-      <Menu className="size-5" />
+      <Menu aria-hidden="true" className="size-5" />
     </button>
   );
 });
@@ -180,7 +181,7 @@ export function TopbarSearch({
         )}
         {...(props as React.ComponentProps<'button'>)}
       >
-        <Search className="size-4 shrink-0" />
+        <Search aria-hidden="true" className="size-4 shrink-0" />
       </button>
     );
   }
@@ -329,7 +330,7 @@ export function TopbarAction({ className, badge, 'aria-label': ariaLabel, ...pro
       )}
       {...props}
     >
-      {props.children}
+      {decorativeChildren(props.children)}
       {badge && <span aria-hidden="true" className="absolute end-2 top-[0.4375rem] size-[0.4375rem] rounded-full border-[1.5px] border-[var(--color-bg-surface-bg-surface)] bg-[var(--color-bg-danger-bg-danger)]" />}
     </button>
   );

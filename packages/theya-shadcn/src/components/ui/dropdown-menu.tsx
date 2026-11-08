@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useId, useMemo, useRef, useState 
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { NavArrowLeft, NavArrowRight, Check, Circle } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { decorativeChildren } from '../../lib/decorative-icon';
 import { useMediaQuery } from './use-media-query';
 
 /**
@@ -101,6 +102,7 @@ function DropdownMenuItem({
   className,
   inset,
   tone = 'neutral',
+  children,
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
   inset?: boolean;
@@ -126,7 +128,9 @@ function DropdownMenuItem({
         className,
       )}
       {...props}
-    />
+    >
+      {decorativeChildren(children, props.asChild)}
+    </DropdownMenuPrimitive.Item>
   );
 }
 
@@ -152,10 +156,10 @@ function DropdownMenuCheckboxItem({
     >
       <span className="absolute start-2.5 flex size-3.5 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
-          <Check width={14} height={14} className="text-[var(--color-icon-icon-primary)]" />
+          <Check width={14} height={14} aria-hidden="true" className="text-[var(--color-icon-icon-primary)]" />
         </DropdownMenuPrimitive.ItemIndicator>
       </span>
-      {children}
+      {decorativeChildren(children, props.asChild)}
     </DropdownMenuPrimitive.CheckboxItem>
   );
 }
@@ -180,10 +184,10 @@ function DropdownMenuRadioItem({
     >
       <span className="absolute start-2.5 flex size-3.5 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
-          <Circle width={8} height={8} className="fill-[var(--color-icon-icon-primary)] text-[var(--color-icon-icon-primary)]" />
+          <Circle width={8} height={8} aria-hidden="true" className="fill-[var(--color-icon-icon-primary)] text-[var(--color-icon-icon-primary)]" />
         </DropdownMenuPrimitive.ItemIndicator>
       </span>
-      {children}
+      {decorativeChildren(children, props.asChild)}
     </DropdownMenuPrimitive.RadioItem>
   );
 }
@@ -283,7 +287,7 @@ function DropdownMenuSubTrigger({
           }}
         >
           <NavArrowLeft width={14} height={14} aria-hidden="true" className="text-[var(--color-icon-icon-subtle)] rtl:-scale-x-100" />
-          {children}
+          {decorativeChildren(children, props.asChild)}
         </DropdownMenuPrimitive.Item>
         <DropdownMenuPrimitive.Separator className="-mx-1 my-1 h-px bg-[var(--color-border-border-subtler)]" />
       </>
@@ -304,7 +308,7 @@ function DropdownMenuSubTrigger({
           }
         }}
       >
-        {children}
+        {decorativeChildren(children, props.asChild)}
         <NavArrowRight width={14} height={14} aria-hidden="true" className="ms-auto text-[var(--color-icon-icon-subtle)] rtl:-scale-x-100" />
       </DropdownMenuPrimitive.Item>
     );
@@ -321,8 +325,8 @@ function DropdownMenuSubTrigger({
       )}
       {...props}
     >
-      {children}
-      <NavArrowRight width={14} height={14} className="ms-auto text-[var(--color-icon-icon-subtle)] rtl:-scale-x-100" />
+      {decorativeChildren(children, props.asChild)}
+      <NavArrowRight width={14} height={14} aria-hidden="true" className="ms-auto text-[var(--color-icon-icon-subtle)] rtl:-scale-x-100" />
     </DropdownMenuPrimitive.SubTrigger>
   );
 }

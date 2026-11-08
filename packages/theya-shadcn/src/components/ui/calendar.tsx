@@ -90,9 +90,9 @@ export function Calendar({
       }}
       components={{
         Chevron: ({ className: chevronClassName, orientation, ...chevronProps }) => {
-          if (orientation === 'left') return <NavArrowLeft className={cn(cn('size-4', chevronClassName), 'rtl:-scale-x-100')} {...chevronProps} />;
-          if (orientation === 'right') return <NavArrowRight className={cn(cn('size-4', chevronClassName), 'rtl:-scale-x-100')} {...chevronProps} />;
-          return <NavArrowDown className={cn('size-4', chevronClassName)} {...chevronProps} />;
+          if (orientation === 'left') return <NavArrowLeft className={cn(cn('size-4', chevronClassName), 'rtl:-scale-x-100')} aria-hidden="true" {...chevronProps} />;
+          if (orientation === 'right') return <NavArrowRight className={cn(cn('size-4', chevronClassName), 'rtl:-scale-x-100')} aria-hidden="true" {...chevronProps} />;
+          return <NavArrowDown className={cn('size-4', chevronClassName)} aria-hidden="true" {...chevronProps} />;
         },
         DayButton: CalendarDayButton,
         WeekNumber: ({ children, ...weekProps }) => (

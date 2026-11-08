@@ -3,6 +3,7 @@
 import * as MenubarPrimitive from '@radix-ui/react-menubar';
 import { Check, NavArrowRight, Circle } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { decorativeChildren } from '../../lib/decorative-icon';
 
 /**
  * A persistent application menu bar (File / Edit / View…) on
@@ -91,7 +92,7 @@ export interface MenubarItemProps extends React.ComponentProps<typeof MenubarPri
   tone?: 'neutral' | 'danger';
 }
 
-export function MenubarItem({ className, inset, tone = 'neutral', ...props }: MenubarItemProps) {
+export function MenubarItem({ className, inset, tone = 'neutral', children, ...props }: MenubarItemProps) {
   return (
     <MenubarPrimitive.Item
       className={cn(
@@ -106,7 +107,9 @@ export function MenubarItem({ className, inset, tone = 'neutral', ...props }: Me
         className,
       )}
       {...props}
-    />
+    >
+      {decorativeChildren(children, props.asChild)}
+    </MenubarPrimitive.Item>
   );
 }
 
@@ -126,10 +129,10 @@ export function MenubarCheckboxItem({ className, children, checked, ...props }: 
     >
       <span className="absolute start-2.5 flex size-3.5 items-center justify-center">
         <MenubarPrimitive.ItemIndicator>
-          <Check width={14} height={14} className="text-[var(--color-icon-icon-primary)]" />
+          <Check width={14} height={14} aria-hidden="true" className="text-[var(--color-icon-icon-primary)]" />
         </MenubarPrimitive.ItemIndicator>
       </span>
-      {children}
+      {decorativeChildren(children, props.asChild)}
     </MenubarPrimitive.CheckboxItem>
   );
 }
@@ -149,10 +152,10 @@ export function MenubarRadioItem({ className, children, ...props }: React.Compon
     >
       <span className="absolute start-2.5 flex size-3.5 items-center justify-center">
         <MenubarPrimitive.ItemIndicator>
-          <Circle width={8} height={8} className="fill-[var(--color-icon-icon-primary)] text-[var(--color-icon-icon-primary)]" />
+          <Circle width={8} height={8} aria-hidden="true" className="fill-[var(--color-icon-icon-primary)] text-[var(--color-icon-icon-primary)]" />
         </MenubarPrimitive.ItemIndicator>
       </span>
-      {children}
+      {decorativeChildren(children, props.asChild)}
     </MenubarPrimitive.RadioItem>
   );
 }
@@ -187,8 +190,8 @@ export function MenubarSubTrigger({ className, inset, children, ...props }: Reac
       )}
       {...props}
     >
-      {children}
-      <NavArrowRight width={14} height={14} className="ms-auto text-[var(--color-icon-icon-subtle)] rtl:-scale-x-100" />
+      {decorativeChildren(children, props.asChild)}
+      <NavArrowRight width={14} height={14} aria-hidden="true" className="ms-auto text-[var(--color-icon-icon-subtle)] rtl:-scale-x-100" />
     </MenubarPrimitive.SubTrigger>
   );
 }

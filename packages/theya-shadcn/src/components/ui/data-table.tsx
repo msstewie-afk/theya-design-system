@@ -291,9 +291,9 @@ function DataTableColumnHeader<TData, TValue>({ column, title, className }: { co
     >
       <span className="min-w-0 break-words">{title}</span>
       {sorted === 'asc' ? (
-        <ArrowDown className="size-4 shrink-0 text-[var(--color-icon-icon)]" />
+        <ArrowDown aria-hidden="true" className="size-4 shrink-0 text-[var(--color-icon-icon)]" />
       ) : sorted === 'desc' ? (
-        <ArrowUp className="size-4 shrink-0 text-[var(--color-icon-icon)]" />
+        <ArrowUp aria-hidden="true" className="size-4 shrink-0 text-[var(--color-icon-icon)]" />
       ) : (
         // A subtler ICON TOKEN, not opacity on the full-strength one — the
         // same fix already applied to the row area's sort icon. Opacity
@@ -301,7 +301,7 @@ function DataTableColumnHeader<TData, TValue>({ column, title, className }: { co
         // own gray fill (bg-neutral-subtle) a 40%-transparent icon reads
         // as barely-there; a dedicated subtle-but-opaque token stays
         // legible regardless of background.
-        <ArrowSeparateVertical className="size-4 shrink-0 text-[var(--color-icon-icon-subtle)] group-hover:text-[var(--color-icon-icon)]" />
+        <ArrowSeparateVertical aria-hidden="true" className="size-4 shrink-0 text-[var(--color-icon-icon-subtle)] group-hover:text-[var(--color-icon-icon)]" />
       )}
     </button>
   );
@@ -1328,7 +1328,7 @@ export function DataTable<TData>({
               <PaginationItem>
                 <PaginationPrevious asChild>
                   <button type="button" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-                    <NavArrowLeft className="rtl:-scale-x-100" />
+                    <NavArrowLeft aria-hidden="true" className="rtl:-scale-x-100" />
                     <span className="max-sm:sr-only">{t.dataTable.previous}</span>
                   </button>
                 </PaginationPrevious>
@@ -1350,7 +1350,7 @@ export function DataTable<TData>({
                 <PaginationNext asChild>
                   <button type="button" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
                     <span className="max-sm:sr-only">{t.dataTable.next}</span>
-                    <NavArrowRight className="rtl:-scale-x-100" />
+                    <NavArrowRight aria-hidden="true" className="rtl:-scale-x-100" />
                   </button>
                 </PaginationNext>
               </PaginationItem>

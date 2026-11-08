@@ -12,7 +12,7 @@ export interface ContextMenuItemProps extends React.ComponentProps<typeof Contex
     inset?: boolean;
     tone?: 'neutral' | 'danger';
 }
-export declare function ContextMenuItem({ className, inset, tone, ...props }: ContextMenuItemProps): import("react").JSX.Element;
+export declare function ContextMenuItem({ className, inset, tone, children, ...props }: ContextMenuItemProps): import("react").JSX.Element;
 export declare function ContextMenuCheckboxItem({ className, children, checked, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.CheckboxItem>): import("react").JSX.Element;
 export declare function ContextMenuRadioItem({ className, children, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.RadioItem>): import("react").JSX.Element;
 export declare function ContextMenuLabel({ className, inset, ...props }: React.ComponentProps<typeof ContextMenuPrimitive.Label> & {

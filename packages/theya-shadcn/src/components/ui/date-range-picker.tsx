@@ -110,7 +110,7 @@ export function DateRangePicker({
             data-error={isError || undefined}
             className={cn(dateFieldTriggerClassName, showClearControl ? 'pe-16' : 'pe-9')}
           >
-            <CalendarIcon />
+            <CalendarIcon aria-hidden="true" />
             <TruncatedText
               id={valueId}
               className={cn(
