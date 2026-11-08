@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { resetFocus } from '../../../test/keyboard';
+import { testOnly } from '../../../lib/test-only';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { ArrowRight } from 'iconoir-react';
 import { Avatar, AvatarFallback } from '../../ui/avatar';
@@ -65,7 +66,8 @@ export const Testimonial: Story = {
 export const FaqAccordion: Story = {
   name: 'FAQ, accordion',
   render: () => <FaqSection title="Questions, answered" description="Anything else: write to us from the app, a person answers." items={FAQ} />,
-  play: async ({ canvasElement }) => {
+  // Clicks a question: automated runs only, so the story opens at rest.
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const section = canvas.getByRole('region', { name: 'Questions, answered' });
     const q = within(section).getByRole('button', { name: 'Is there a free plan?' });
@@ -74,7 +76,7 @@ export const FaqAccordion: Story = {
     await expect(within(section).getByText(/Free for one person/)).toBeVisible();
     // Leave no focus ring behind: the story opens at rest, as a reader would see it.
     resetFocus();
-  },
+  }),
 };
 
 /** The FAQ as a chat (wide screens): pick a question and it is asked and answered as messages (Wispr). Below 1024px it is the accordion. */
@@ -93,7 +95,8 @@ export const FaqChat: Story = {
       }
     />
   ),
-  play: async ({ canvasElement }) => {
+  // Clicks a question: automated runs only, so the story opens at rest.
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const section = canvas.getByRole('region', { name: 'Questions, answered' });
     if (section.dataset.variant !== 'chat') return; // narrow viewport: the accordion, tested above
@@ -104,7 +107,7 @@ export const FaqChat: Story = {
     await waitFor(() => expect(within(section).getByRole('tabpanel')).toHaveTextContent(/Only you/), { timeout: 2000 });
     // Leave no focus ring behind: the story opens at rest, as a reader would see it.
     resetFocus();
-  },
+  }),
 };
 
 /** The last section: one big line and the main action (Wispr, Linear). */
