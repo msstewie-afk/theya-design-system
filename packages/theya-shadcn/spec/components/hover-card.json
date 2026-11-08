@@ -72,8 +72,8 @@
     "PopperContentProps",
     "ButtonHTMLAttributes",
     "SVGAttributes",
-    "AnchorHTMLAttributes",
-    "ImgHTMLAttributes"
+    "ImgHTMLAttributes",
+    "AnchorHTMLAttributes"
   ],
   "storybook": {
     "title": "Overlays/HoverCard",

@@ -1137,7 +1137,7 @@ Docs: ./?path=/docs/navigation-bottomnav--docs
 - `asChild?`: `boolean`, default `false` — Render your router's link instead of an `<a>`: pass it as the only child
 - `badge?`: `number | boolean` — A count on the icon (over 99 shows "99+"), or `true` for a dot.
 
-Also accepts the props of: HTMLAttributes, ButtonHTMLAttributes, SVGAttributes, AnchorHTMLAttributes, ImgHTMLAttributes.
+Also accepts the props of: HTMLAttributes, ButtonHTMLAttributes, SVGAttributes, ImgHTMLAttributes, AnchorHTMLAttributes.
 
 **Do / Don’t**
 
@@ -3144,7 +3144,7 @@ Docs: ./?path=/docs/data-datatablecell--docs
 - `secondaryMono?`: `boolean` — Render the second line in monospace (right for an identifier, wrong for a sentence).
 - `size?`: `"md" | "sm"` — Applies to every badge in the group, including the collapsed "N more" pill.
 - `step?`: `number`
-- `tone?`: `"neutral" | "info" | "success" | "warning" | "danger" | "muted" | "primary" | "brand"`
+- `tone?`: `"neutral" | "info" | "success" | "warning" | "danger" | "primary" | "muted" | "brand"`
 - `type?`: `"number" | "text" | "tel" | "url" | "email"`
 - `width?`: `number`
 
@@ -4969,7 +4969,7 @@ Docs: ./?path=/docs/overlays-hovercard--docs
 - Trigger: a real link or button whose own action works without the card.
 - Content: a small read-only card, shown after a delay on hover or focus.
 
-Also accepts the props of: HoverCardProps, HoverCardContentProps, HoverCardContentImplProps, HTMLAttributes, PopperContentProps, ButtonHTMLAttributes, SVGAttributes, AnchorHTMLAttributes, ImgHTMLAttributes.
+Also accepts the props of: HoverCardProps, HoverCardContentProps, HoverCardContentImplProps, HTMLAttributes, PopperContentProps, ButtonHTMLAttributes, SVGAttributes, ImgHTMLAttributes, AnchorHTMLAttributes.
 
 **Do / Don’t**
 
@@ -5457,7 +5457,7 @@ Docs: ./?path=/docs/overlays-keyboardshortcuts--docs
 - `showCloseButton?`: `boolean`
 - `size?`: `"md" | "full" | null`
 - `title?`: `ReactNode`, default `Keyboard shortcuts (localized: keyboardShortcuts.title)`
-- `trigger?`: `ReactElement<any, string | JSXElementConstructor<any>>`
+- `trigger?`: `ReactElement<unknown, string | JSXElementConstructor<any>>`
 
 Also accepts the props of: HTMLAttributes, DialogContentProps, DismissableLayerProps, DialogContentImplProps.
 
@@ -5963,7 +5963,7 @@ Docs: ./?path=/docs/text-input-maskedinput--docs
 - `label?`: `ReactNode`
 - `labelPosition?`: `"top" | "left"` — 'top' (default) stacks label above the field. 'left' puts a fixed 216px label column beside it, matching Figma's horizontal Formfield layout.
 - `modify?`: `MaskedInputModify` — Conditionally tweak mask/replacement/showMask before masking.
-- `onChange?`: `((e: ChangeEvent<HTMLInputElement>) => void)`
+- `onChange?`: `((e: ChangeEvent<HTMLInputElement, Element>) => void)`
 - `onUnmaskedChange?`: `((raw: string) => void)` — Called with the raw value (mask literals stripped) on every change.
 - `optional?`: `boolean` — Shows "(optional)" after the label. Ignored when `required`.
 - `replacement?`: `string | Record<string, RegExp>` — Placeholder-char to allowed-pattern map. Default { _: /\d/ }. Pass a string like "#" as shorthand for { "#": /./ }.
@@ -6161,7 +6161,7 @@ Docs: ./?path=/docs/overlays-messagepopup--docs
 - `showClose?`: `boolean`, default `true`
 - `title?`: `ReactNode`
 
-Also accepts the props of: PopoverProps, ButtonHTMLAttributes, HTMLAttributes, PopoverContentProps, PopperContentProps, DismissableLayerProps, PopoverContentImplProps.
+Also accepts the props of: PopoverProps, ButtonHTMLAttributes, HTMLAttributes, PopoverContentProps, DismissableLayerProps, PopoverContentImplProps, PopperContentProps.
 
 **Do / Don’t**
 
@@ -6359,7 +6359,7 @@ Docs: ./?path=/docs/navigation-navigationmenu--docs
 
 - `viewportClassName?`: `string`
 
-Also accepts the props of: NavigationMenuProps, HTMLAttributes, ButtonHTMLAttributes, NavigationMenuContentProps, DismissableLayerProps, NavigationMenuLinkProps, SVGAttributes, AnchorHTMLAttributes, ImgHTMLAttributes.
+Also accepts the props of: NavigationMenuProps, HTMLAttributes, ButtonHTMLAttributes, NavigationMenuContentProps, DismissableLayerProps, NavigationMenuLinkProps, SVGAttributes, ImgHTMLAttributes, AnchorHTMLAttributes.
 
 **Do / Don’t**
 
@@ -6956,7 +6956,7 @@ Docs: ./?path=/docs/overlays-popover--docs
 - `sheetClassName?`: `string` — Sheet mode: classes for the scrolling body that holds the content (default padding px-6 pt-2 pb-5).
 - `sheetTitle?`: `ReactNode` — Sheet mode: visible title at the top of the sheet. Falls back to `aria-label` (screen readers only).
 
-Also accepts the props of: PopoverProps, ButtonHTMLAttributes, HTMLAttributes, PopperAnchorProps, PopoverContentProps, PopperContentProps, DismissableLayerProps, PopoverContentImplProps.
+Also accepts the props of: PopoverProps, ButtonHTMLAttributes, HTMLAttributes, PopperAnchorProps, PopoverContentProps, DismissableLayerProps, PopoverContentImplProps, PopperContentProps.
 
 **Do / Don’t**
 
@@ -9065,7 +9065,7 @@ Docs: ./?path=/docs/navigation-stepper--docs
 - `steps`: `StepperStep[]`
 - `labelAlign?`: `"center" | "start"`, default `start` — Horizontal only: "start" matches the indicator's left edge; "center" pins under it (short labels only).
 - `onStepClick?`: `((index: number) => void)` — Makes completed steps clickable (their label becomes a button), so
-- `orientation?`: `"horizontal" | "vertical" | "auto"`, default `auto` — `auto` (default): horizontal, but vertical when the steps don't fit the
+- `orientation?`: `"auto" | "horizontal" | "vertical"`, default `auto` — `auto` (default): horizontal, but vertical when the steps don't fit the
 
 Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes, OlHTMLAttributes.
 
@@ -9781,7 +9781,7 @@ Docs: ./?path=/docs/code-terminal--docs
 **TerminalLine props**
 
 - `inverse?`: `boolean`, default `false` — Match the parent Terminal's `inverse` when composing lines
-- `level?`: `"info" | "success" | "warning" | "muted" | "error" | "cmd" | "ok" | "warn" | "err" | "dim"`
+- `level?`: `"info" | "success" | "warning" | "error" | "muted" | "cmd" | "ok" | "warn" | "err" | "dim"`
 
 Also accepts the props of: HTMLAttributes.
 
@@ -10535,7 +10535,7 @@ Docs: ./?path=/docs/layout-toolbar--docs
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`, default `lg`
 - `tone?`: `"neutral" | "info" | "success" | "warning" | "danger" | "primary" | "secondary" | null`, default `neutral`
 
-Also accepts the props of: HTMLAttributes, ToolbarProps, ToggleGroupImplSingleProps, ToggleGroupImplMultipleProps, ToggleGroupImplProps, SeparatorProps, ButtonHTMLAttributes, SVGAttributes, AnchorHTMLAttributes, ImgHTMLAttributes.
+Also accepts the props of: HTMLAttributes, ToolbarProps, ToggleGroupImplSingleProps, ToggleGroupImplMultipleProps, ToggleGroupImplProps, SeparatorProps, ButtonHTMLAttributes, SVGAttributes, ImgHTMLAttributes, AnchorHTMLAttributes.
 
 **Do / Don’t**
 

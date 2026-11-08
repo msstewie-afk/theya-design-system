@@ -101,9 +101,9 @@
     "ButtonHTMLAttributes",
     "HTMLAttributes",
     "PopoverContentProps",
-    "PopperContentProps",
     "DismissableLayerProps",
-    "PopoverContentImplProps"
+    "PopoverContentImplProps",
+    "PopperContentProps"
   ],
   "storybook": {
     "title": "Overlays/MessagePopup",

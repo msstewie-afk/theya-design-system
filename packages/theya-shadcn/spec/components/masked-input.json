@@ -104,7 +104,7 @@
         },
         {
           "name": "onChange",
-          "type": "((e: ChangeEvent<HTMLInputElement>) => void)",
+          "type": "((e: ChangeEvent<HTMLInputElement, Element>) => void)",
           "required": false
         },
         {

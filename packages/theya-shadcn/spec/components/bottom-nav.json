@@ -130,8 +130,8 @@
     "HTMLAttributes",
     "ButtonHTMLAttributes",
     "SVGAttributes",
-    "AnchorHTMLAttributes",
-    "ImgHTMLAttributes"
+    "ImgHTMLAttributes",
+    "AnchorHTMLAttributes"
   ],
   "storybook": {
     "title": "Navigation/BottomNav",

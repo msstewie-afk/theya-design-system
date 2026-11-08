@@ -90,11 +90,6 @@
           "description": "Sheet mode: visible title at the top of the sheet. Falls back to `aria-label` (screen readers only)."
         }
       ]
-    },
-    {
-      "name": "Context",
-      "description": "Context lets components pass information deep down without explicitly\npassing props.\n\nCreated from {@link createContext}",
-      "props": []
     }
   ],
   "inherits": [
@@ -103,9 +98,9 @@
     "HTMLAttributes",
     "PopperAnchorProps",
     "PopoverContentProps",
-    "PopperContentProps",
     "DismissableLayerProps",
-    "PopoverContentImplProps"
+    "PopoverContentImplProps",
+    "PopperContentProps"
   ],
   "storybook": {
     "title": "Overlays/Popover",

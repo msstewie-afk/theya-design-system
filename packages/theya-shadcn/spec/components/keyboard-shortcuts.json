@@ -115,7 +115,7 @@
         },
         {
           "name": "trigger",
-          "type": "ReactElement<any, string | JSXElementConstructor<any>>",
+          "type": "ReactElement<unknown, string | JSXElementConstructor<any>>",
           "required": false
         }
       ]

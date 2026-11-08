@@ -5,9 +5,10 @@
 #              (scripts/check-package.mjs), the sandbox app builds.
 # storybook  — after checks: static Storybook, then the test-runner on it:
 #              play + axe in light and dark, visual regression in both.
-# react-19   — after checks, alongside storybook: the same code with React 19
-#              forced across the workspace (the package supports 18 and 19,
-#              dev and the main jobs stay on 18): types, then play + axe.
+# react-18   — after checks, alongside storybook: the same code with React 18
+#              forced across the workspace (the package supports 18 and 19;
+#              dev and the main jobs run on 19 since 2026-11-08): types, then
+#              play + axe.
 # brands     — after checks, one job per product theme (iris, lime, ember): play +
 #              axe in its light and dark variants. No visual baselines: the
 #              storybook job's are for Theya's own look.
@@ -438,7 +439,7 @@ jobs:
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         run: node scripts/a11y-auto.mjs --url http://localhost:6008 --workers 2 --ci
 
-  react-19:
+  react-18:
     needs: checks
     runs-on: ubuntu-24.04
     timeout-minutes: 45
@@ -454,24 +455,24 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
-      # Overrides reach every package, so no dependency can pull React 18
-      # into the Storybook bundle.
-      - name: Force React 19
+      # Overrides reach every package, so no dependency can pull React 19
+      # into the Storybook bundle. 18.3 is the oldest the peer range allows.
+      - name: Force React 18
         working-directory: .
         run: |
           cat >> pnpm-workspace.yaml <<'YAML'
           overrides:
-            react: ^19.0.0
-            react-dom: ^19.0.0
-            '@types/react': ^19.0.0
-            '@types/react-dom': ^19.0.0
+            react: ~18.3.0
+            react-dom: ~18.3.0
+            '@types/react': ~18.3.0
+            '@types/react-dom': ~18.3.0
           YAML
           pnpm install --no-frozen-lockfile
-      - name: Only React 19 is installed
+      - name: Only React 18 is installed
         working-directory: .
         run: |
           node -p "'react ' + require('./packages/theya-shadcn/node_modules/react/package.json').version"
-          if ls node_modules/.pnpm | grep -E '^react(-dom)?@18\.'; then echo "React 18 still installed"; exit 1; fi
+          if ls node_modules/.pnpm | grep -E '^react(-dom)?@19\.'; then echo "React 19 still installed"; exit 1; fi
       - run: pnpm build:tokens
         working-directory: .
 
@@ -494,5 +495,5 @@ jobs:
 
       # Light only: play tests and axe don't depend on the theme for React
       # behaviour; the storybook job covers dark and visual regression.
-      - name: Play + axe on React 19
+      - name: Play + axe on React 18
         run: pnpm test-storybook

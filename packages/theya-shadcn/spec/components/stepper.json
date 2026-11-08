@@ -93,11 +93,11 @@
         },
         {
           "name": "orientation",
-          "type": "\"horizontal\" | \"vertical\" | \"auto\"",
+          "type": "\"auto\" | \"horizontal\" | \"vertical\"",
           "values": [
+            "auto",
             "horizontal",
-            "vertical",
-            "auto"
+            "vertical"
           ],
           "required": false,
           "default": "auto",

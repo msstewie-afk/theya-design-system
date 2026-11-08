@@ -95,8 +95,8 @@
     "DismissableLayerProps",
     "NavigationMenuLinkProps",
     "SVGAttributes",
-    "AnchorHTMLAttributes",
-    "ImgHTMLAttributes"
+    "ImgHTMLAttributes",
+    "AnchorHTMLAttributes"
   ],
   "storybook": {
     "title": "Navigation/NavigationMenu",

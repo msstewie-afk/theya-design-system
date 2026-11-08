@@ -329,15 +329,15 @@
         },
         {
           "name": "tone",
-          "type": "\"neutral\" | \"info\" | \"success\" | \"warning\" | \"danger\" | \"muted\" | \"primary\" | \"brand\"",
+          "type": "\"neutral\" | \"info\" | \"success\" | \"warning\" | \"danger\" | \"primary\" | \"muted\" | \"brand\"",
           "values": [
             "neutral",
             "info",
             "success",
             "warning",
             "danger",
-            "muted",
             "primary",
+            "muted",
             "brand"
           ],
           "required": false

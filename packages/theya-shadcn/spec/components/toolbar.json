@@ -121,8 +121,8 @@
     "SeparatorProps",
     "ButtonHTMLAttributes",
     "SVGAttributes",
-    "AnchorHTMLAttributes",
-    "ImgHTMLAttributes"
+    "ImgHTMLAttributes",
+    "AnchorHTMLAttributes"
   ],
   "storybook": {
     "title": "Layout/Toolbar",
