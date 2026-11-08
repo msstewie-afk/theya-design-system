@@ -79,16 +79,22 @@ export function PropertyGrid({
   };
 
   return (
+    // Narrow (the grid itself under 24rem: a phone, a slim side panel): the
+    // label goes above its control, one column (Maria, 2026-11-08); a switch
+    // keeps label and switch on one line. Measured on the grid, not the
+    // viewport, so a narrow panel on a desktop stacks too.
+    <div id={id} className={cn('@container', className)}>
     <div
-      id={id}
-      className={cn('grid', className)}
-      // The value column keeps at least 8rem (NumberField's default width): with minmax(0, 1fr) a long
-      // label (up to maxLabelWidth) took the row in a narrow panel and the
-      // controls collapsed to a few px (or overflowed, for NumberField).
-      // Now the label column gives way and its text wraps — but never
-      // narrower than its longest word (min-content), so words don't spill
-      // under the control.
-      style={{ gridTemplateColumns: 'minmax(min-content, max-content) minmax(min(8rem, 100%), 1fr)' }}
+      className={cn(
+        'grid grid-cols-1',
+        // The value column keeps at least 8rem (NumberField's default width): with minmax(0, 1fr) a long
+        // label (up to maxLabelWidth) took the row in a narrow panel and the
+        // controls collapsed to a few px (or overflowed, for NumberField).
+        // Now the label column gives way and its text wraps — but never
+        // narrower than its longest word (min-content), so words don't spill
+        // under the control.
+        '@sm:grid-cols-[minmax(min-content,max-content)_minmax(min(8rem,100%),1fr)]',
+      )}
     >
       {items.map((item, index) => (
         <PropertyRow
@@ -100,6 +106,7 @@ export function PropertyGrid({
           maxLabelWidth={maxLabelWidth}
         />
       ))}
+    </div>
     </div>
   );
 }
@@ -123,8 +130,17 @@ function PropertyRow({
   const invalid = Boolean(item.error) && !item.readOnly;
   const describedBy = [invalid && errorId, item.description && descriptionId].filter(Boolean).join(' ') || undefined;
 
+  const stacked = item.type !== 'switch';
   return (
     <>
+      {/* Wide: the two cells sit in the grid's columns (contents). Narrow: one block,
+          label over control — or label and switch side by side. */}
+      <div
+        className={cn(
+          'flex min-w-0 @sm:contents',
+          stacked ? 'flex-col' : 'items-center justify-between gap-3',
+        )}
+      >
       {/*
         The label's first line sits level with the value's text, and a long label wraps
         downward (Maria, 2026-11-03), instead of the whole label centering on the control.
@@ -134,14 +150,17 @@ function PropertyRow({
       */}
       <div
         className={cn(
-          'flex min-w-0 pe-3 py-3',
+          'flex min-w-0 py-3 @sm:pe-3',
+          stacked && '@max-sm:pb-1.5',
           item.type === 'custom'
-            ? 'items-center'
+            ? '@sm:items-center'
             : item.readOnly || item.type === 'switch'
               ? 'items-start'
-              : 'items-start pt-[calc(var(--spacing)*3+(var(--size-size-control-size-control-2xl)-var(--typography-body-m-line-height))/2)]',
+              : 'items-start @sm:pt-[calc(var(--spacing)*3+(var(--size-size-control-size-control-2xl)-var(--typography-body-m-line-height))/2)]',
+          // The label-width cap only applies beside the control.
+          '@sm:max-w-[var(--pg-label-max)]',
         )}
-        style={{ maxWidth: maxLabelWidth }}
+        style={{ ['--pg-label-max' as string]: maxLabelWidth }}
       >
         <label htmlFor={fieldId} className="font-body text-body-m text-[var(--color-text-text-subtler)] font-medium break-words">
           {item.label}
@@ -155,7 +174,14 @@ function PropertyRow({
         with dead space before the separator's actual end.
       */}
       {/* Top, so a long wrapped label grows the row downward and the field stays level with its first line. */}
-      <div className={cn('flex min-w-0 flex-col items-end py-3', item.type === 'custom' ? 'justify-center' : 'justify-start')}>
+      <div
+        className={cn(
+          'flex min-w-0 flex-col py-3 @sm:items-end',
+          // Under its label: start-aligned, no gap above.
+          stacked ? 'items-start @max-sm:pt-0' : 'items-end',
+          item.type === 'custom' ? 'justify-center' : 'justify-start',
+        )}
+      >
         <PropertyControl fieldId={fieldId} item={item} value={value} onChange={onChange} invalid={invalid} describedBy={describedBy} />
         {invalid && (
           <span id={errorId} className="mt-1 flex items-start gap-1">
@@ -169,8 +195,9 @@ function PropertyRow({
           </span>
         )}
       </div>
+      </div>
       {!isLast && (
-        <div className="col-span-2">
+        <div className="@sm:col-span-2">
           <Separator />
         </div>
       )}
