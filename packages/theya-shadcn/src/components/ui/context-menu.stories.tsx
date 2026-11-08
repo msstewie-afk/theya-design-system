@@ -23,6 +23,7 @@ import {
   ContextMenuSubContent,
 } from './context-menu';
 import { contextMenuGuidelines } from './context-menu.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -261,7 +262,7 @@ export const WithVisibleAlternative: Story = {
       </ContextMenuContent>
     </ContextMenu>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const page = within(document.body);
     const canvas = within(canvasElement);
     const names = GALLERY_ACTIONS.map((a) => a.label);
@@ -283,7 +284,7 @@ export const WithVisibleAlternative: Story = {
     await expect(within(context).getAllByRole('menuitem').map((el) => el.textContent?.trim())).toEqual(names);
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(page.queryByRole('menu')).toBeNull());
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

@@ -7,6 +7,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from './inpu
 import { Label } from './label';
 import { Button } from './button';
 import { inputOtpGuidelines } from './input-otp.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // argTypes documents value/onChange/containerClassName too, so they belong
 // in Args (TS2353 otherwise).
@@ -104,13 +105,13 @@ export const SplitWithSeparator: Story = {
       </p>
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const input = within(canvasElement).getByRole('textbox', { name: 'Recovery code' });
     await userEvent.click(input);
     await userEvent.keyboard('ab12CD34');
     await expect(input).toHaveValue('ab12CD34');
     await expect(slotTexts(canvasElement)).toEqual(['a', 'b', '1', '2', 'C', 'D', '3', '4']);
-  },
+  }),
 };
 
 /** Invalid state: aria-invalid on InputOTP reaches the single real input, so the slots mirror the danger border+background via the container's group. Always pair with a visible, described error — the red styling alone is color-only. */
@@ -163,12 +164,12 @@ export const Disabled: Story = {
       </p>
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const input = within(canvasElement).getByRole('textbox', { name: 'One-time code' });
     await expect(input).toBeDisabled();
     await userEvent.type(input, '99');
     await expect(input).toHaveValue('0124');
-  },
+  }),
 };
 
 /** A complete verification flow: the Verify action stays disabled until all 6 slots are filled. */
@@ -200,7 +201,7 @@ export const VerificationFlow: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('textbox', { name: 'One-time code' });
     const verify = canvas.getByRole('button', { name: 'Verify code' });
@@ -221,7 +222,7 @@ export const VerificationFlow: Story = {
     await userEvent.paste('654321');
     await expect(input).toHaveValue('654321');
     await expect(verify).toBeEnabled();
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

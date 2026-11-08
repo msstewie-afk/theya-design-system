@@ -5,6 +5,7 @@ import { Copy, InfoCircle, Refresh } from 'iconoir-react';
 import { Tooltip, TooltipTrigger, TooltipContent } from './tooltip';
 import { Button } from './button';
 import { tooltipGuidelines } from './tooltip.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * Tooltip — short hint on hover/focus, built on @radix-ui/react-tooltip and
@@ -111,7 +112,7 @@ export const OnTextButton: Story = {
       <TooltipContent {...args} />
     </Tooltip>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const trigger = within(canvasElement).getByRole('button', { name: 'Re-export previews' });
     // Keyboard focus shows it too (not hover-only), and it describes the trigger.
     trigger.focus();
@@ -122,7 +123,7 @@ export const OnTextButton: Story = {
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(within(document.body).queryByRole('tooltip')).toBeNull());
     await expect(trigger).toHaveFocus();
-  },
+  }),
 };
 
 /** Hints scale to short identifiers too. */

@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { QueryBuilder, type QueryField, type QueryValue } from './query-builder';
 import { queryBuilderGuidelines } from './query-builder.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -124,7 +125,7 @@ export const Controlled: Story = {
   // Add a row (focus lands on its field), edit its value, switch all/any,
   // remove rows (focus moves to the next remove button, then to Add).
   // The JSON readout shows what the parent receives.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(document.body);
     const json = () => JSON.parse(canvasElement.querySelector('pre')!.textContent!);
@@ -150,5 +151,5 @@ export const Controlled: Story = {
     await expect(json().conditions).toHaveLength(0);
     await expect(canvas.getByText(/No conditions yet/)).toBeInTheDocument();
     await waitFor(() => expect(add).toHaveFocus());
-  },
+  }),
 };

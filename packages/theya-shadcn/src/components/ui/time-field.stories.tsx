@@ -5,6 +5,7 @@ import { TimeField } from './time-field';
 import { Label } from './label';
 import { FieldError } from './field';
 import { timeFieldGuidelines } from './time-field.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -63,7 +64,7 @@ export const Preselected: Story = {
       <TimeField defaultValue="09:30" aria-label="Time" />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const input = within(canvasElement).getByRole('combobox', { name: 'Time' });
     await expect(input).toHaveValue('9:30 AM');
 
@@ -72,7 +73,7 @@ export const Preselected: Story = {
     await userEvent.click(await page().findByRole('option', { name: '10:00 AM' }));
     await expect(input).toHaveValue('10:00 AM');
     await waitFor(() => expect(page().queryByRole('listbox')).not.toBeInTheDocument());
-  },
+  }),
 };
 
 /** `hourCycle={24}`: the options and the field read as 24-hour times, such as 14:30. */
@@ -83,7 +84,7 @@ export const HourCycle24: Story = {
       <TimeField hourCycle={24} defaultValue="14:30" aria-label="Time" />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const input = within(canvasElement).getByRole('combobox', { name: 'Time' });
     await expect(input).toHaveValue('14:30');
     await userEvent.click(input);
@@ -91,7 +92,7 @@ export const HourCycle24: Story = {
     await expect(optionNames().slice(0, 3)).toEqual(['00:00', '00:30', '01:00']);
     await userEvent.keyboard('{Escape}');
     await expect(input).toHaveValue('14:30');
-  },
+  }),
 };
 
 /** 15-minute steps with a wired Label. */
@@ -103,7 +104,7 @@ export const WithLabel: Story = {
       <TimeField id="mtg" step={15} aria-label={undefined} />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     // The visible <Label htmlFor> names the combobox.
     const input = within(canvasElement).getByRole('combobox', { name: 'Meeting time' });
     await userEvent.click(input);
@@ -111,7 +112,7 @@ export const WithLabel: Story = {
     await expect(optionNames().slice(0, 3)).toEqual(['12:00 AM', '12:15 AM', '12:30 AM']);
     await expect(optionNames()).toHaveLength(96);
     await userEvent.keyboard('{Escape}');
-  },
+  }),
 };
 
 /** `step={15}` offers a time every 15 minutes instead of the default 30. */
@@ -144,7 +145,7 @@ export const MinMax: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const input = within(canvasElement).getByRole('combobox', { name: 'Business hours' });
     await userEvent.click(input);
     await page().findByRole('listbox');
@@ -166,7 +167,7 @@ export const MinMax: Story = {
     await waitFor(() => expect(input).toHaveValue('4:45 PM'));
     await expect(input).not.toHaveAttribute('aria-invalid', 'true');
     await expect(within(canvasElement).queryByRole('alert')).not.toBeInTheDocument();
-  },
+  }),
 };
 
 /** `disabled`: the time stays readable, but the field can't be focused or opened. */
@@ -176,13 +177,13 @@ export const Disabled: Story = {
       <TimeField disabled defaultValue="09:00" aria-label="Time" />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const input = within(canvasElement).getByRole('combobox', { name: 'Time' });
     await expect(input).toBeDisabled();
     await expect(input).toHaveValue('9:00 AM');
     await userEvent.click(input);
     await expect(page().queryByRole('listbox')).not.toBeInTheDocument();
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

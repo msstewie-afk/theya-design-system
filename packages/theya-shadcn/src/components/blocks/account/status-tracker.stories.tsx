@@ -5,6 +5,7 @@ import { Button } from '../../ui/button';
 import { StatusTracker } from './status-tracker';
 import { DEMO_EVENTS, DEMO_STEPS } from './demo-data';
 import { statusTrackerGuidelines } from './status-tracker.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof StatusTracker> = {
   title: 'Patterns: Account/StatusTracker',
@@ -47,12 +48,12 @@ export const Failed: Story = {
     state: 'failed',
     failure: { title: 'The old service refused the album export', description: 'Photos are copied and kept. Check that album export is turned on in your account on the old service, then retry — we’ll continue from the albums.' },
   },
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Retry from “Copying albums”' }));
     await expect(args.onRetry).toHaveBeenCalledTimes(1);
     await expect(canvas.getByRole('link', { name: 'Contact support (quote TH-24817)' })).toHaveAttribute('href', '#support');
-  },
+  }),
 };
 
 /** `state="done"`: every step is ticked off, and `doneActions` offer where to go next. */

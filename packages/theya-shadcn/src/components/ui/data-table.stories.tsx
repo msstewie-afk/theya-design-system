@@ -8,6 +8,7 @@ import { DataTableToolbar } from './data-table-toolbar';
 import { DataTableCell } from './data-table-cell';
 import type { StatusTone } from './status-dot';
 import { dataTableGuidelines } from './data-table.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -177,7 +178,7 @@ const columnsTwoLine: ColumnDef<Gallery, unknown>[] = [
 export const Basic: Story = {
   render: () => <DataTable columns={columns} data={DATA} ariaLabel="Galleries" />,
 
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     // Phone (below 640px): rows stack into list items with label/value pairs; there is
     // no header row, so nothing to sort from.
     const phone = window.matchMedia('(max-width: 639.98px)').matches;
@@ -207,7 +208,7 @@ export const Basic: Story = {
     await userEvent.keyboard('{Enter}');
     await expect(header).toHaveAttribute('aria-sort', 'descending');
     await expect(firstName()).toContain('Moonrise over Othrys');
-  },
+  }),
 };
 
 /**
@@ -225,7 +226,7 @@ export const ClickableRows: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const phone = window.matchMedia('(max-width: 639.98px)').matches;
     const row = canvas.getByRole(phone ? 'listitem' : 'row', { name: 'View details for First light' });
@@ -237,7 +238,7 @@ export const ClickableRows: Story = {
     await expect(next).toHaveFocus();
     await userEvent.keyboard('{Enter}');
     await expect(canvas.getByText('Opened Moonrise over Othrys')).toBeInTheDocument();
-  },
+  }),
 };
 
 /**
@@ -296,7 +297,7 @@ export const WithSelectionAndRowMenu: Story = {
   // Selecting a row swaps in the bulk-action bar with a live count; select
   // all and clear work; the row menu opens from its trigger. Ends with the
   // menu closed and nothing selected.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
 
     const canvas = within(canvasElement);
     const body = within(document.body);
@@ -321,7 +322,7 @@ export const WithSelectionAndRowMenu: Story = {
     await expect(await body.findByRole('menuitem', { name: 'View details' })).toBeInTheDocument();
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(body.queryByRole('menu')).toBeNull());
-  },
+  }),
 };
 
 /**
@@ -333,7 +334,7 @@ export const WithSelectionAndRowMenu: Story = {
 export const PagedColumns: Story = {
   name: 'Paged columns on a phone',
   render: () => <DataTable columns={columns} data={DATA} ariaLabel="Galleries" mobileLayout="paged" />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     if (window.innerWidth >= 640) {
       await expect(canvas.queryByRole('group', { name: 'Table columns' })).toBeNull();
@@ -343,7 +344,7 @@ export const PagedColumns: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Show column 4 of 4' }));
     await expect(canvas.getByRole('columnheader', { name: /Photos/ })).toBeInTheDocument();
     await expect(canvas.getByRole('columnheader', { name: /Gallery/ })).toBeInTheDocument();
-  },
+  }),
 };
 
 /** `loading` shows `skeletonRows` placeholder rows under the real headers while the data loads. */

@@ -5,6 +5,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext
 import { Badge } from './badge';
 import { StatusDot } from './status-dot';
 import { carouselGuidelines } from './carousel.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof Carousel> = {
   title: 'Layout/Carousel',
@@ -114,7 +115,7 @@ export const Vertical: Story = {
       <CarouselNext />
     </Carousel>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const region = within(canvasElement).getByRole('region', { name: 'Recent albums' });
     await waitFor(() => expect(visibleSlides(canvasElement)).toEqual(['Golden hour', 'Blue hour']));
     region.focus();
@@ -123,7 +124,7 @@ export const Vertical: Story = {
     await expect(visibleSlides(canvasElement)).toEqual(['Golden hour', 'Blue hour']);
     await userEvent.keyboard('{ArrowDown}');
     await waitFor(() => expect(visibleSlides(canvasElement)).toContain('First light'));
-  },
+  }),
 };
 
 /** Looping track via `opts={{ loop: true }}`: the arrows never disable at the
@@ -145,7 +146,7 @@ export const Looping: Story = {
       <CarouselNext />
     </Carousel>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const prev = canvas.getByRole('button', { name: 'Previous slide' });
     await waitFor(() => expect(visibleSlides(canvasElement)).toEqual(['1 of 3']));
@@ -155,7 +156,7 @@ export const Looping: Story = {
     await userEvent.click(prev);
     await waitFor(() => expect(visibleSlides(canvasElement)).toEqual(['3 of 3']));
     await expect(canvas.getByRole('button', { name: 'Next slide' })).toBeEnabled();
-  },
+  }),
 };
 
 /** Grab the embla api with `setApi` to build a live slide counter. The readout is
@@ -208,12 +209,12 @@ function CounterCarousel() {
 export const WithCounter: Story = {
   parameters: { controls: { exclude: ['orientation', 'aria-label'] } },
   render: () => <CounterCarousel />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await waitFor(() => expect(canvas.getByText('Slide 1 of 3')).toBeInTheDocument());
     await userEvent.click(canvas.getByRole('button', { name: 'Next slide' }));
     await waitFor(() => expect(canvas.getByText('Slide 2 of 3')).toBeInTheDocument());
-  },
+  }),
 };
 
 /** CarouselIndicators: a slide picker that stays in sync with arrows, keys and drag. Each dot is a button; the current one carries aria-current. */
@@ -235,7 +236,7 @@ export const WithIndicators: Story = {
       <CarouselIndicators className="mt-3 justify-center" />
     </Carousel>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Indicators render once Embla has measured the slides (async).
     const dots = within(await canvas.findByRole('group', { name: 'Slides' }));
@@ -257,7 +258,7 @@ export const WithIndicators: Story = {
     // The arrows keep the dots in sync.
     await userEvent.click(canvas.getByRole('button', { name: 'Previous slide' }));
     await waitFor(() => expect(dots.getByRole('button', { name: 'Go to slide 2' })).toHaveAttribute('aria-current', 'true'));
-  },
+  }),
 };
 
 const PEEK = [

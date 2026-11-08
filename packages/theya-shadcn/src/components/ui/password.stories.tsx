@@ -5,6 +5,7 @@ import { Password } from './password';
 import { PasswordStrengthMeter } from './password-strength-meter';
 import { passwordGuidelines } from './password.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -54,7 +55,7 @@ type Story = StoryObj<typeof Password>;
 /** The interactive example driven by the Controls below; the eye button shows or hides what was typed without clearing it. */
 export const Playground: Story = {
   args: { label: 'Password', placeholder: 'Enter password' },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByLabelText('Password');
     const toggle = canvas.getByRole('button', { name: 'Show password' });
@@ -74,7 +75,7 @@ export const Playground: Story = {
     await userEvent.keyboard(' ');
     await expect(input).toHaveAttribute('type', 'password');
     await expect(input).toHaveValue('hunter2');
-  },
+  }),
 };
 
 /** `description` adds helper text under the field — state the rules before people start typing. */
@@ -156,7 +157,7 @@ export const StrengthMeter: Story = {
     },
   },
   render: () => <StrengthMeterDemo />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const meter = canvas.getByRole('progressbar', { name: 'Password strength' });
     await expect(meter).toHaveAttribute('aria-valuenow', '0');
@@ -178,5 +179,5 @@ export const StrengthMeter: Story = {
     await userEvent.type(input, '12!');
     await expect(meter).toHaveAttribute('aria-valuenow', '100');
     await expect(meter).toHaveAttribute('aria-valuetext', 'Strong');
-  },
+  }),
 };

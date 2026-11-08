@@ -8,6 +8,7 @@ import { Label } from './label';
 import { Field, FieldError } from './field';
 import { Archive, Bell, Camera, Globe, Lock, MediaImage, MediaImageList, Printer, StatsUpSquare } from 'iconoir-react';
 import { selectGuidelines } from './select.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 function RocketIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -171,7 +172,7 @@ export const WithGroups: Story = {
     </Select>
   ),
   // Keyboard only: open with Enter, type-ahead, pick, focus returns; Escape cancels.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const trigger = within(canvasElement).getByRole('combobox', { name: 'Fruit' });
     const body = within(document.body);
 
@@ -194,7 +195,7 @@ export const WithGroups: Story = {
     await userEvent.keyboard('{ArrowDown}{Escape}');
     await waitFor(() => expect(body.queryByRole('listbox')).toBeNull());
     await expect(trigger).toHaveTextContent('Carrot');
-  },
+  }),
 };
 
 /** heightSize on the Select root drives both the trigger's own height/text size AND the dropdown item text size together. */

@@ -4,6 +4,7 @@ import { toast } from './sonner';
 import { Button } from './button';
 import { toasterGuidelines } from './sonner.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * Toaster (sonner) — mounted once globally in `.storybook/preview.ts`
@@ -72,14 +73,14 @@ export const Success: Story = {
       Issue license
     </Button>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Issue license' }));
     await expect(await page().findByText('License issued')).toBeInTheDocument();
     await expect(page().getByText('GOLDEN_0907.tif · web use, 12 months')).toBeInTheDocument();
     // Toasts land in a polite live region.
     await expect(page().getByText('License issued').closest('[aria-live]')).toHaveAttribute('aria-live', 'polite');
     await clearToasts();
-  },
+  }),
 };
 
 /** Error toast with a retry action. Persists until dismissed (see toast.error's own JSDoc). */
@@ -99,7 +100,7 @@ export const ErrorWithRetry: Story = {
       Reissue (will fail)
     </Button>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     // Keyboard: Enter on the trigger, then Tab reaches the toast's Retry.
     resetFocus();
     await tabTo(within(canvasElement).getByRole('button', { name: 'Reissue (will fail)' }));
@@ -112,7 +113,7 @@ export const ErrorWithRetry: Story = {
     await userEvent.keyboard('{Enter}');
     await expect(await page().findByText('Retrying…')).toBeInTheDocument();
     await clearToasts();
-  },
+  }),
 };
 
 /** Optimistic action with an Undo button — see undoToast for the packaged version of this pattern. */
@@ -133,7 +134,7 @@ export const Undo: Story = {
   ),
   // A toast with a button stays until dismissed (WCAG 2.2.1): Sonner's
   // default 4 s is too short to reach Undo by keyboard.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Delete gallery' }));
     const body = within(document.body);
     await body.findByText('Gallery deleted');
@@ -141,7 +142,7 @@ export const Undo: Story = {
     await expect(body.getByRole('button', { name: 'Undo' })).toBeVisible();
     await userEvent.click(body.getByRole('button', { name: /close/i }));
     await waitFor(() => expect(body.queryByText('Gallery deleted')).toBeNull());
-  },
+  }),
 };
 
 /**
@@ -155,7 +156,7 @@ export const FocusPausesTimer: Story = {
       Archive gallery
     </Button>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const trigger = within(canvasElement).getByRole('button', { name: 'Archive gallery' });
     await userEvent.click(trigger);
     const body = within(document.body);
@@ -169,7 +170,7 @@ export const FocusPausesTimer: Story = {
     // Focus leaves: the timer runs again and the toast closes on its own.
     trigger.focus();
     await waitFor(() => expect(body.queryByText('Archive finished')).toBeNull(), { timeout: 6000 });
-  },
+  }),
 };
 
 /** Promise toast: loading → success / error. */
@@ -220,14 +221,14 @@ export const Progress: Story = {
       Export photos (progress)
     </Button>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Export photos (progress)' }));
     // The bar is named after the toast, not an anonymous progressbar.
     const bar = await page().findByRole('progressbar', { name: 'Exporting photos…' });
     await expect(bar).toBeInTheDocument();
     await expect(await page().findByText('Export complete', {}, { timeout: 6000 })).toBeInTheDocument();
     await clearToasts();
-  },
+  }),
 };
 
 /**

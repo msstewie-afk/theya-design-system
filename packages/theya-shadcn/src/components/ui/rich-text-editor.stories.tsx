@@ -4,6 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { RichTextEditor, RICH_TEXT_TOOLS_BASIC } from './rich-text-editor';
 import { CodeBlock } from './code-block';
 import { richTextEditorGuidelines } from './rich-text-editor.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * RichTextEditor — formatted text input on Tiptap. Value is HTML; content uses
@@ -96,7 +97,7 @@ export const Basic: Story = {
 export const WithLimit: Story = {
   name: 'With limit',
   args: { maxLength: 280, label: 'Status update', defaultValue: '<p>Exports are back to normal after the 14:10 incident.</p>', tools: ['bold', 'italic', 'link'] },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Tiptap creates the editor after the first render, so wait for it.
     const editor = await canvas.findByRole('textbox', { name: 'Status update' });
@@ -105,7 +106,7 @@ export const WithLimit: Story = {
     await caretToEnd(editor);
     await user.keyboard(' Thanks!');
     await waitFor(() => expect(canvas.getByText(/^60\/280/)).toBeInTheDocument());
-  },
+  }),
 };
 
 /** Error state with a message. */
@@ -143,7 +144,7 @@ export const Controlled: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(document.body);
     // Tiptap creates the editor after the first render, so wait for it.
@@ -190,5 +191,5 @@ export const Controlled: Story = {
     await selectAll();
     await user.keyboard('{Backspace}');
     await waitFor(() => expect(html()).toBe('(empty)'));
-  },
+  }),
 };

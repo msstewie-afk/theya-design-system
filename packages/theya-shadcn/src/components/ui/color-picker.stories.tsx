@@ -4,6 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { ColorField, ColorPicker } from './color-picker';
 import { Card } from './card';
 import { colorPickerGuidelines } from './color-picker.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * ColorPicker — saturation/brightness area, hue and alpha sliders, HEX/RGB/HSL
@@ -78,7 +79,7 @@ export const Default: Story = {
 export const CustomOnly: Story = {
   name: 'Custom only',
   render: Default.render,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const hex = canvas.getByRole('textbox', { name: 'Hex' });
     const hue = canvas.getByRole('slider', { name: 'Hue' });
@@ -103,7 +104,7 @@ export const CustomOnly: Story = {
     area.focus();
     await userEvent.keyboard('{ArrowDown}');
     await expect(area).toHaveAttribute('aria-valuetext', 'Saturation 100%, brightness 99%');
-  },
+  }),
 };
 
 /** With opacity: slider over a checkerboard and a % field; the value becomes #rrggbbaa. */
@@ -111,7 +112,7 @@ export const WithAlpha: Story = {
   name: 'With opacity',
   args: { alpha: true, defaultValue: '#3b6fd6b3', defaultFormat: 'rgb' },
   render: Default.render,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const opacityField = canvas.getByRole('textbox', { name: 'Opacity, percent' });
     const opacity = canvas.getByRole('slider', { name: 'Opacity' });
@@ -124,7 +125,7 @@ export const WithAlpha: Story = {
     await userEvent.clear(opacityField);
     await userEvent.type(opacityField, '180{Enter}');
     await expect(opacityField).toHaveValue('100%');
-  },
+  }),
 };
 
 /** From photo: colors picked from an image (one of Theya's examples); "Change photo" uploads another. */
@@ -160,7 +161,7 @@ export const Controlled: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const dd = (term: string) => canvas.getByText(term, { selector: 'dt' }).nextElementSibling as HTMLElement;
     const hue = canvas.getByRole('slider', { name: 'Hue' });
@@ -169,7 +170,7 @@ export const Controlled: Story = {
     await userEvent.keyboard('{ArrowRight>3/}');
     await waitFor(() => expect(dd('Committed').textContent).toBe(dd('Live').textContent));
     await expect(dd('Live')).not.toHaveTextContent('#e8833a');
-  },
+  }),
 };
 
 /** ColorField: type a hex or open the picker from the swatch. */
@@ -184,7 +185,7 @@ export const Field: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(document.body);
     const input = canvas.getByLabelText('Primary color');
@@ -212,7 +213,7 @@ export const Field: Story = {
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(body.queryByRole('dialog', { name: 'Primary color' })).not.toBeInTheDocument());
     await expect(trigger).toHaveFocus();
-  },
+  }),
 };
 
 /** HEX only — the simplest input row. */
@@ -220,7 +221,7 @@ export const HexOnly: Story = {
   name: 'Hex only',
   args: { formats: ['hex'] },
   render: Default.render,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const hex = canvas.getByRole('textbox', { name: 'Hex' });
     const before = (hex as HTMLInputElement).value;
@@ -234,20 +235,20 @@ export const HexOnly: Story = {
     await userEvent.clear(hex);
     await userEvent.type(hex, '2f62d1{Enter}');
     await expect(canvas.queryByRole('alert')).not.toBeInTheDocument();
-  },
+  }),
 };
 
 /** A hex it can't read is put back, and a message under the fields says what was expected until a valid value is entered (WCAG 3.3.1). */
 export const InvalidHex: Story = {
   name: 'Invalid hex',
   args: { views: ['custom'], defaultValue: '#3b6fd6' },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const hex = within(canvasElement).getByRole('textbox', { name: 'Hex' });
     await userEvent.clear(hex);
     await userEvent.type(hex, 'zzz{Enter}');
     await expect(hex).toHaveValue('#3B6FD6');
     await waitFor(() => expect(hex).toHaveAccessibleDescription(/3 or 6 characters/));
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { Slider } from './slider';
 import { sliderGuidelines } from './slider.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof Slider> = {
   title: 'Selection/Slider',
@@ -63,7 +64,7 @@ export const SingleValue: Story = {
   parameters: { controls: { disable: true } },
   render: () => <ConcurrencyDemo />,
   // Arrows step, Home/End jump to the bounds, the readout follows.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const thumb = canvas.getByRole('slider', { name: 'Worker concurrency' });
     await expect(thumb).toHaveAttribute('aria-valuemin', '1');
@@ -78,7 +79,7 @@ export const SingleValue: Story = {
     await expect(thumb).toHaveAttribute('aria-valuenow', '32');
     await userEvent.keyboard('{Home}');
     await expect(thumb).toHaveAttribute('aria-valuenow', '1');
-  },
+  }),
 };
 
 function BudgetRangeDemo() {
@@ -101,7 +102,7 @@ export const Range: Story = {
   parameters: { controls: { disable: true } },
   render: () => <BudgetRangeDemo />,
   // Each thumb has its own name; the minimum can't pass the maximum.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const min = canvas.getByRole('slider', { name: 'Monthly budget minimum' });
     const max = canvas.getByRole('slider', { name: 'Monthly budget maximum' });
@@ -114,7 +115,7 @@ export const Range: Story = {
 
     await userEvent.keyboard('{End}');
     await expect(Number(min.getAttribute('aria-valuenow'))).toBeLessThanOrEqual(Number(max.getAttribute('aria-valuenow')));
-  },
+  }),
 };
 
 /** `invalid` — track fill + thumb turn destructive and the focus ring recolors, matching the TextField/Select error treatment. Pair it with a message — never color alone. */

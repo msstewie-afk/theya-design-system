@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Filter } from './filter';
 import { filterGuidelines } from './filter.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof Filter> = {
   title: 'Search & Filter/Filter',
@@ -55,7 +56,7 @@ export const Default: Story = {
 export const WithSelection: Story = {
   name: 'With selection',
   render: () => <Filter label="Status" options={STATUS_OPTIONS} defaultValue={['active']} />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const trigger = within(canvasElement).getByRole('button', { name: 'Status, 1 selected' });
     // Keyboard: Space toggles the focused checkbox.
     trigger.focus();
@@ -69,7 +70,7 @@ export const WithSelection: Story = {
     await closePopover(trigger);
     // Closed: the full computed name, on every viewport.
     await expect(trigger).toHaveAccessibleName('Status, 2 selected');
-  },
+  }),
 };
 
 /** `searchable` adds a search box above the options, for facets with many values such as owners. */
@@ -86,7 +87,7 @@ export const Searchable: Story = {
       ]}
     />
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const trigger = within(canvasElement).getByRole('button', { name: 'Owner' });
     await userEvent.click(trigger);
     const search = await body().findByRole('textbox', { name: 'Search Owner' });
@@ -103,7 +104,7 @@ export const Searchable: Story = {
     await userEvent.clear(search);
     await expect(within(group).getAllByRole('checkbox')).toHaveLength(4);
     await closePopover(trigger);
-  },
+  }),
 };
 
 /** Several filters in a row, one per facet, each keeping its own selection. */
@@ -115,7 +116,7 @@ export const FilterBar: Story = {
       <Filter label="Type" options={[{ value: 'shared', label: 'Shared' }, { value: 'vps', label: 'VPS' }, { value: 'dedicated', label: 'Dedicated' }]} />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const status = canvas.getByRole('button', { name: 'Status' });
     const type = canvas.getByRole('button', { name: 'Type' });
@@ -126,7 +127,7 @@ export const FilterBar: Story = {
     await closePopover(type);
     await expect(type).toHaveAccessibleName('Type, 1 selected');
     await expect(status).toHaveAccessibleName('Status');
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

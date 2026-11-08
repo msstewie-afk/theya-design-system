@@ -3,6 +3,7 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { SearchBox } from './search-box';
 import { DEMO_INDEX, DEMO_RECENT } from './demo-data';
 import { searchBoxGuidelines } from './search-box.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof SearchBox> = {
   title: 'Patterns: Search/SearchBox',
@@ -21,7 +22,7 @@ export const Default: Story = {};
 
 /** Escape closes the list first, then clears the field; "/" focuses it from anywhere. */
 export const Keyboard: Story = {
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('combobox', { name: 'Search' });
     // The "/" listener is attached in an effect; press again until it's there.
@@ -35,17 +36,17 @@ export const Keyboard: Story = {
     await expect(input).toHaveValue('print');
     await userEvent.keyboard('{Escape}');
     await expect(input).toHaveValue('');
-  },
+  }),
 };
 
 /** "Clear recent searches" empties the list. */
 export const ClearRecent: Story = {
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('combobox', { name: 'Search' }));
     await userEvent.click(canvas.getByRole('button', { name: 'Clear recent searches' }));
     await expect(canvas.queryByRole('option')).not.toBeInTheDocument();
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

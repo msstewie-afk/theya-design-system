@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { WheelPicker } from './wheel-picker';
 import { wheelPickerGuidelines } from './wheel-picker.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * WheelPicker — a wheel for a short ordered list. Scroll over it, drag it, or use
@@ -71,12 +72,12 @@ export const Controlled: Story = {
 /** With a visible label; a click on it focuses the wheel, like a label on a field. */
 export const WithLabel: Story = {
   args: { label: 'Archive interval', 'aria-label': undefined },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const list = canvas.getByRole('listbox', { name: 'Archive interval' });
     await userEvent.click(canvas.getByText('Archive interval'));
     await expect(list).toHaveFocus();
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

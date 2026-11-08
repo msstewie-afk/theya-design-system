@@ -3,6 +3,7 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { toast } from '../ui/sonner';
 import { TeamMembers } from './team-members';
 import { teamMembersGuidelines } from './team-members.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof TeamMembers> = {
   title: 'Patterns/TeamMembers',
@@ -80,14 +81,14 @@ export const NoPendingInvites: Story = {
       <TeamMembers invites={[]} />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('heading', { name: 'No pending invites' })).toBeInTheDocument();
     await userEvent.type(canvas.getByLabelText('Email address'), 'selin@aether.photo{Enter}');
     await waitFor(() => expect(inviteEmails(canvasElement)).toEqual(['selin@aether.photo']));
     await expect(canvas.queryByRole('heading', { name: 'No pending invites' })).toBeNull();
     await clearToasts();
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

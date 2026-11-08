@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { ScrollJump } from './scroll-jump';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof ScrollJump> = {
   title: 'Navigation/ScrollJump',
@@ -48,7 +49,7 @@ export const InContainer: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const up = await canvas.findByRole('button', { name: 'Scroll to top' });
     const down = canvas.getByRole('button', { name: 'Scroll to bottom' });
@@ -59,7 +60,7 @@ export const InContainer: Story = {
     await expect(up).not.toHaveAttribute('aria-disabled');
     // Focus stays on the pressed button after the jump.
     await expect(down).toHaveFocus();
-  },
+  }),
 };
 
 /** One small scroll box with its own pair of buttons, labelled with shape and size. */

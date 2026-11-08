@@ -3,6 +3,7 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { CopyButton } from './copy-button';
 import { copyButtonGuidelines } from './copy-button.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -56,7 +57,7 @@ const live = (root: HTMLElement) => regions(root).filter((el) => !el.closest('bu
 /** The interactive example driven by the Controls below: click to copy `value`, and the tick and "Copied" show until `resetDelay` passes. */
 export const Playground: Story = {
   args: { value: 'npm install @theya/shadcn', resetDelay: 400, onCopied: fn(), onCopyError: fn() },
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole('button', { name: 'Copy' });
     const writeText = fn(async (_text: string) => {});
@@ -90,13 +91,13 @@ export const Playground: Story = {
         await expect(button).toHaveAccessibleName('Copy');
       },
     );
-  },
+  }),
 };
 
 /** `label={null}` with an `aria-label`: just the icon, with the copy announced to screen readers — for tight spots like a table cell. */
 export const IconOnly: Story = {
   args: { value: 'sk-abc123...', label: null, 'aria-label': 'Copy API key' },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const button = within(canvasElement).getByRole('button', { name: 'Copy API key' });
     await withClipboard(
       async () => {},
@@ -112,7 +113,7 @@ export const IconOnly: Story = {
         await expect(live(canvasElement).textContent).toMatch(/^Copied to clipboard/);
       },
     );
-  },
+  }),
 };
 
 /** Every `size`, from `sm` to `2xl`, matching Button. */

@@ -8,6 +8,7 @@ type IconName = keyof typeof iconMap;
 import { TextField } from './text-field';
 import { textFieldGuidelines } from './text-field.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -68,7 +69,7 @@ export const Playground: Story = {
   args: { label: 'Email', type: 'email', autoComplete: 'email', placeholder: 'you@example.com' },
   // Uncontrolled: the clear button appears once there's text, clears it,
   // disappears, and leaves focus in the field.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('textbox', { name: 'Email' });
     await expect(canvas.queryByRole('button', { name: 'Clear Email' })).toBeNull();
@@ -82,7 +83,7 @@ export const Playground: Story = {
     await expect(input).toHaveValue('');
     await expect(input).toHaveFocus();
     await expect(canvas.queryByRole('button', { name: 'Clear Email' })).toBeNull();
-  },
+  }),
 };
 
 /** Without a `label`, give the field an `aria-label` so it still has a name — only where the context labels it, like a search bar. */
@@ -121,7 +122,7 @@ export const Clearable: Story = {
     );
   },
   // Controlled: clearing goes through onChange, typing brings the button back.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('textbox', { name: 'Search' });
     await expect(input).toHaveValue('Clear me');
@@ -132,7 +133,7 @@ export const Clearable: Story = {
 
     await userEvent.type(input, 'abc');
     await expect(canvas.getByRole('button', { name: 'Clear Search' })).toBeInTheDocument();
-  },
+  }),
 };
 
 /** `leftIcon` puts a decorative icon at the start of the field; pick a different one in the Controls. */

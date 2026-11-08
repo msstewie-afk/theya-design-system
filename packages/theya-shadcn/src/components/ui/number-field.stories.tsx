@@ -3,6 +3,7 @@ import { expect, fn, userEvent, within } from '@storybook/test';
 import { NumberField } from './number-field';
 import { FieldError } from './field';
 import { numberFieldGuidelines } from './number-field.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -58,7 +59,7 @@ export const WithMinMax: Story = {
   render: (args) => <NumberField {...args} />,
   // Arrow keys step (Shift = 10x), values clamp to min/max, the stepper
   // buttons disable at the bounds, and the spinbutton reports its range.
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('spinbutton', { name: 'Quantity (0-10)' });
     const increase = canvas.getByRole('button', { name: 'Increase Quantity (0-10)' });
@@ -83,7 +84,7 @@ export const WithMinMax: Story = {
     await userEvent.click(increase);
     await expect(input).toHaveAttribute('aria-valuenow', '2');
     await expect(decrease).toBeEnabled();
-  },
+  }),
 };
 
 /**
@@ -95,7 +96,7 @@ export const TypingCommitsOnBlur: Story = {
   name: 'Typing commits on blur/Enter',
   args: { defaultValue: 10, min: 5, max: 50, 'aria-label': 'Replicas (5-50)', onValueChange: fn() },
   render: (args) => <NumberField {...args} />,
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const input = within(canvasElement).getByRole('spinbutton', { name: 'Replicas (5-50)' });
 
     // "12" with min=5: no snapping while typing, one report on blur.
@@ -132,7 +133,7 @@ export const TypingCommitsOnBlur: Story = {
     await userEvent.keyboard('{ArrowUp}');
     await expect(input).toHaveValue('8');
     await expect(args.onValueChange).toHaveBeenLastCalledWith(8);
-  },
+  }),
 };
 
 /** `aria-invalid`: the field turns danger-colored — pair it with an error message that says what to change. */
@@ -175,12 +176,12 @@ export const Widths: Story = {
 /** With a visible label and the allowed range shown under it (WCAG 3.3.2). */
 export const WithLabel: Story = {
   args: { label: 'Replicas', description: 'Between 1 and 10.', required: true, min: 1, max: 10, defaultValue: 3, widthSize: 'md' },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('spinbutton', { name: 'Replicas' });
     await expect(input).toHaveAccessibleDescription('Between 1 and 10.');
     // The steppers say which field they change.
     await userEvent.click(canvas.getByRole('button', { name: 'Increase Replicas' }));
     await expect(input).toHaveValue('4');
-  },
+  }),
 };

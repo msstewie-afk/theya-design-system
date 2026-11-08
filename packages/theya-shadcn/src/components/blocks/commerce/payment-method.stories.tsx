@@ -4,6 +4,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Button } from '../../ui/button';
 import { PaymentMethod, type PaymentMethodHandle } from './payment-method';
 import { paymentMethodGuidelines } from './payment-method.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof PaymentMethod> = {
   title: 'Patterns: Commerce/PaymentMethod',
@@ -36,11 +37,11 @@ export const Default: Story = {
 /** American Express: 4-6-5 grouping and a 4-digit security code. */
 export const Amex: Story = {
   render: () => <WithContinue />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const number = within(canvasElement).getByRole('textbox', { name: /^Card number/ });
     await userEvent.type(number, '378282246310005');
     await expect(number).toHaveValue('3782 822463 10005');
-  },
+  }),
 };
 
 /** `defaultMethod="paypal"` opens on the PayPal tab, which needs no card details — people approve the payment in a new window. */

@@ -6,6 +6,7 @@ import { Button } from './button';
 import { alertGuidelines } from './alert.guidelines';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * Alert — an inline feedback banner. Put an iconoir icon as the first child
@@ -212,7 +213,7 @@ export const Dismissible: Story = {
   },
   // Keyboard: the dismiss X is in the tab order, Enter removes the alert, and
   // the control that brings it back is reachable next.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     resetFocus();
     await tabTo(canvas.getByRole('button', { name: 'Dismiss alert' }));
@@ -221,7 +222,7 @@ export const Dismissible: Story = {
     await tabTo(canvas.getByRole('button', { name: 'Show alert again' }));
     await userEvent.keyboard(' ');
     await expect(await canvas.findByText('Archive moved to Mnemosyne')).toBeVisible();
-  },
+  }),
 };
 
 const ACTION_CASES = [
@@ -400,12 +401,12 @@ function LiveAlertDemo() {
 export const LiveOnAction: Story = {
   name: 'Live, on action',
   render: () => <LiveAlertDemo />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Archive gallery' }));
     await expect(await canvas.findByRole('status')).toHaveTextContent('Archiving started');
     await userEvent.click(canvas.getByRole('button', { name: 'Archive gallery (fails)' }));
     await expect(await canvas.findByRole('alert')).toHaveTextContent('Archiving failed');
     await userEvent.click(canvas.getByRole('button', { name: 'Reset' }));
-  },
+  }),
 };

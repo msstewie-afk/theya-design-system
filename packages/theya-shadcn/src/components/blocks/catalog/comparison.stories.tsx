@@ -3,6 +3,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { CompareFlow, ComparisonTable } from './comparison';
 import { DEMO_ITEMS } from './demo-data';
 import { comparisonGuidelines } from './comparison.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof CompareFlow> = {
   title: 'Patterns: Catalog/Comparison',
@@ -28,13 +29,13 @@ export const Default: Story = {};
 /** At the limit, the other cards can't be added and the tray says why. */
 export const Full: Story = {
   args: { initialSelection: ['golden-hour-presets', 'blue-hour-presets', 'skin-tone-essentials', 'aether-basics'] },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('checkbox', { name: 'Compare Client proofing' })).toBeDisabled();
     await expect(canvas.getByText("That's the maximum of 4. Remove one to add another.")).toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'Remove Aether basics from comparison' }));
     await expect(canvas.getByRole('checkbox', { name: 'Compare Client proofing' })).toBeEnabled();
-  },
+  }),
 };
 
 /**

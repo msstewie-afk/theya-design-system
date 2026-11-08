@@ -8,6 +8,7 @@ import { chatGuidelines } from './chat.guidelines';
 import { Button } from './button';
 import { expect, userEvent, within } from '@storybook/test';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * Chat — the layout for a conversation: a scrolling `ChatMessages`
@@ -134,12 +135,12 @@ function TypingReplyDemo() {
 export const TypingThenReply: Story = {
   name: 'Typing, then reply',
   render: () => <TypingReplyDemo />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Simulate a reply' }));
     await expect(await canvas.findByRole('status', { name: 'Typing…' })).toBeInTheDocument();
     await expect(await canvas.findByText(/renews it 30 days/, {}, { timeout: 4000 })).toBeVisible();
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

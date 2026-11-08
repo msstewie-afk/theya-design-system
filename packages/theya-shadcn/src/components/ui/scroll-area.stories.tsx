@@ -4,6 +4,7 @@ import { ScrollArea, ScrollBar } from './scroll-area';
 import { Separator } from './separator';
 import { Chip } from './chip';
 import { scrollAreaGuidelines } from './scroll-area.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof ScrollArea> = {
   title: 'Layout/ScrollArea',
@@ -114,7 +115,7 @@ export const LongContent: Story = {
       </div>
     </ScrollArea>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const root = canvasElement.querySelector<HTMLElement>('[data-slot="scroll-area"], [dir]') ?? canvasElement.firstElementChild as HTMLElement;
     const viewport = canvasElement.querySelector<HTMLElement>('[data-radix-scroll-area-viewport]')!;
     // max-h on the root reaches the viewport: the content scrolls inside a 288px box
@@ -128,5 +129,5 @@ export const LongContent: Story = {
     viewport.scrollTop = 200;
     await expect(viewport.scrollTop).toBeGreaterThan(0);
     await expect(within(viewport).getByText('Export log')).toBeInTheDocument();
-  },
+  }),
 };

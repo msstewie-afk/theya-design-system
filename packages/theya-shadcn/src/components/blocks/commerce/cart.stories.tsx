@@ -3,6 +3,7 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { Cart } from './cart';
 import { DEMO_CART, DEMO_SAVED } from './demo-data';
 import { cartGuidelines } from './cart.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof Cart> = {
   title: 'Patterns: Commerce/Cart',
@@ -33,7 +34,7 @@ export const Default: Story = {
  */
 export const RemoveKeepsFocus: Story = {
   args: { saved: [] },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // First row removed → the next row's Remove.
     await userEvent.click(canvas.getByRole('button', { name: 'Remove Pro plan' }));
@@ -58,19 +59,19 @@ export const RemoveKeepsFocus: Story = {
     // Last line removed, nothing saved → the empty state.
     await userEvent.click(canvas.getByRole('button', { name: 'Remove Proof book' }));
     await waitFor(() => expect(canvas.getByText('Your cart is empty').closest('[data-slot="empty-state"]')).toHaveFocus());
-  },
+  }),
 };
 
 /** Quantity stepped down to 0 removes the line; focus moves to the next row's matching control. */
 export const QuantityZeroKeepsFocus: Story = {
   args: { lines: [DEMO_CART[2], { ...DEMO_CART[2], id: 'fine-art-print-b', name: 'Large fine-art print', quantity: 1 }], saved: [] },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Fewer Fine-art print' }));
     await userEvent.click(canvas.getByRole('button', { name: 'Fewer Fine-art print' }));
     await waitFor(() => expect(canvas.queryByText('Fine-art print')).toBeNull());
     await waitFor(() => expect(canvas.getByRole('spinbutton', { name: 'Qty' })).toHaveFocus());
-  },
+  }),
 };
 
 /** No lines and nothing saved for later: an empty state with a Browse plans button. */

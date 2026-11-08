@@ -4,6 +4,7 @@ import { Trash, Send, Archive } from 'iconoir-react';
 import { SplitButton } from './split-button';
 import { DropdownMenuItem } from './dropdown-menu';
 import { splitButtonGuidelines } from './split-button.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -60,7 +61,7 @@ export const Playground: Story = {
       Send
     </SplitButton>
   ),
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Send' }));
     await expect(args.onMainClick).toHaveBeenCalledTimes(1);
@@ -86,7 +87,7 @@ export const Playground: Story = {
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(body().queryByRole('menu')).toBeNull());
     await expect(caret).toHaveFocus();
-  },
+  }),
 };
 
 /** Menu text follows the button size. */
@@ -101,7 +102,7 @@ export const Sizes: Story = {
       </SplitButton>
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     for (const [label, textClass] of [
       ['More small actions', 'text-body-s'],
@@ -114,7 +115,7 @@ export const Sizes: Story = {
       await userEvent.keyboard('{Escape}');
       await waitFor(() => expect(body().queryByRole('menu')).toBeNull());
     }
-  },
+  }),
 };
 
 /** `disabled` turns off both halves — the main action and the menu caret. */

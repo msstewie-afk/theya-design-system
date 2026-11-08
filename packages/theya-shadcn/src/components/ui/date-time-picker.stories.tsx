@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { DateTimePicker } from './date-time-picker';
 import { dateTimePickerGuidelines } from './date-time-picker.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -132,7 +133,7 @@ export const WithLabel: Story = {
       <DateTimePicker {...args} label="Schedule delivery" description="Runs in your workspace's time zone." hourCycle={24} />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('button', { name: 'Schedule delivery' })).toBeInTheDocument();
     // The visible label names both halves.
@@ -143,7 +144,7 @@ export const WithLabel: Story = {
     await body().findByRole('listbox');
     await expect(optionNames().slice(0, 2)).toEqual(['00:00', '00:30']);
     await userEvent.keyboard('{Escape}');
-  },
+  }),
 };
 
 /** `hourCycle={24}`: the time list uses 24-hour labels (00:00, 00:30…) with no AM/PM. */

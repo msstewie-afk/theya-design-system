@@ -3,6 +3,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { ThemeToggle } from './theme-toggle';
 import { themeToggleGuidelines } from './theme-toggle.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -32,7 +33,7 @@ type Story = StoryObj<typeof ThemeToggle>;
 export const Playground: Story = {
   // The name says what a press will do, and flips with the theme.
   // Pressed twice (Enter, then Space) so the page ends in the theme it started in.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const button = within(canvasElement).getByRole('button', { name: /^Switch to (dark|light) theme$/ });
     const before = button.getAttribute('aria-label');
     const after = before === 'Switch to dark theme' ? 'Switch to light theme' : 'Switch to dark theme';
@@ -42,5 +43,5 @@ export const Playground: Story = {
     await waitFor(() => expect(button).toHaveAccessibleName(after));
     await userEvent.keyboard(' ');
     await waitFor(() => expect(button).toHaveAccessibleName(before!));
-  },
+  }),
 };

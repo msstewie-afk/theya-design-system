@@ -4,6 +4,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { ItemCard } from './item-card';
 import { DEMO_HARDWARE, DEMO_ITEMS, DEMO_SCREENSHOTS } from './demo-data';
 import { itemCardGuidelines } from './item-card.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof ItemCard> = {
   title: 'Patterns: Catalog/ItemCard',
@@ -64,12 +65,12 @@ export const WithCompare: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const box = canvas.getByRole('checkbox', { name: 'Compare Golden hour presets' });
     await userEvent.click(box);
     await expect(box).toBeChecked();
-  },
+  }),
 };
 
 /** Square product pictures that fill the frame (`cover`), lined up in a row. For cut-out product shots on white use `imageFit="contain"`. */

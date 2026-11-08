@@ -5,6 +5,7 @@ import { ChatBubbleEmpty, EditPencil, Page, Plus, ShareAndroid, Upload } from 'i
 import { Fab, FabSpeedDial } from './fab';
 import { fabGuidelines } from './fab.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * Fab — floating action button for the single primary action of a screen.
@@ -204,7 +205,7 @@ export const SpeedDial: Story = {
   ),
   // Keyboard: Enter opens, Tab walks the actions, Escape closes and returns
   // focus to the trigger; closed actions are not tab stops.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('button', { name: 'Open actions' });
     await expect(canvasElement.querySelector('[aria-label="Upload files"]')).toHaveAttribute('tabindex', '-1');
@@ -219,5 +220,5 @@ export const SpeedDial: Story = {
     await userEvent.keyboard('{Escape}');
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
     await waitFor(() => expect(trigger).toHaveFocus());
-  },
+  }),
 };

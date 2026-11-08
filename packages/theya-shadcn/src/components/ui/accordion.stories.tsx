@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './accordion';
 import { accordionGuidelines } from './accordion.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof Accordion> = {
   title: 'Layout/Accordion',
@@ -72,7 +73,7 @@ export const Single: Story = {
       </AccordionItem>
     </Accordion>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const one = canvas.getByRole('button', { name: 'What is a client portal?' });
     const two = canvas.getByRole('button', { name: 'How long are galleries kept?' });
@@ -99,7 +100,7 @@ export const Single: Story = {
     await expect(canvas.getByRole('button', { name: 'Can clients print the photos?' })).toHaveFocus();
     await userEvent.keyboard('{Home}');
     await expect(one).toHaveFocus();
-  },
+  }),
 };
 
 /** `type="multiple"`: any number of sections can stay open at once. */
@@ -116,7 +117,7 @@ export const Multiple: Story = {
       </AccordionItem>
     </Accordion>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const one = canvas.getByRole('button', { name: 'Section one' });
     const two = canvas.getByRole('button', { name: 'Section two' });
@@ -125,7 +126,7 @@ export const Multiple: Story = {
     // Multiple: both stay open.
     await expect(one).toHaveAttribute('aria-expanded', 'true');
     await expect(two).toHaveAttribute('aria-expanded', 'true');
-  },
+  }),
 };
 
 /** No `defaultValue` — every section starts collapsed; `collapsible` still lets the opened item close back to none. */
@@ -166,7 +167,7 @@ export const DisabledItem: Story = {
       </AccordionItem>
     </Accordion>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const first = canvas.getByRole('button', { name: 'Active plan' });
     await expect(first).toHaveAttribute('aria-expanded', 'true');
@@ -175,5 +176,5 @@ export const DisabledItem: Story = {
     first.focus();
     await userEvent.keyboard('{ArrowDown}');
     await expect(canvas.getByRole('button', { name: 'Billing history' })).toHaveFocus();
-  },
+  }),
 };

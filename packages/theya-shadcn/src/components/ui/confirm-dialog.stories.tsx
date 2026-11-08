@@ -6,6 +6,7 @@ import { Alert, AlertDescription } from './alert';
 import { ConfirmDialog } from './confirm-dialog';
 import { Button } from './button';
 import { confirmDialogGuidelines } from './confirm-dialog.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof ConfirmDialog> = {
   title: 'Overlays/ConfirmDialog',
@@ -89,7 +90,7 @@ export const TypedConfirm: Story = {
   ),
   // The action stays disabled until the exact value is typed; the field
   // resets when the dialog closes.
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const body = within(document.body);
 
@@ -115,7 +116,7 @@ export const TypedConfirm: Story = {
     // post-play axe scan would read as aria-hidden-focus on the trigger.
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(body.queryByRole('alertdialog')).toBeNull());
-  },
+  }),
 
 };
 

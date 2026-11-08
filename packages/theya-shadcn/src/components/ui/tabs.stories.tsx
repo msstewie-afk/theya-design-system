@@ -6,6 +6,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 import { Badge } from './badge';
 import { StatusDot } from './status-dot';
 import { tabsGuidelines } from './tabs.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof Tabs> = {
   title: 'Navigation/Tabs',
@@ -71,7 +72,7 @@ export const Disabled: Story = {
     </Tabs>
   ),
   // Disabled tab: announced as disabled, skipped by arrow keys, never activated.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const overview = canvas.getByRole('tab', { name: 'Overview' });
     const picks = canvas.getByRole('tab', { name: 'Client picks' });
@@ -86,7 +87,7 @@ export const Disabled: Story = {
     await userEvent.keyboard('{ArrowRight}');
     await expect(overview).toHaveFocus();
     await expect(picks).toHaveAttribute('aria-selected', 'false');
-  },
+  }),
 };
 
 /** A leading icon per trigger. */
@@ -185,7 +186,7 @@ export const Closable: Story = {
   render: () => <ClosableDemo />,
   // APG deletable tabs: pointer "×" closes; Delete on the focused tab closes
   // it and moves focus to the neighbouring tab (not <body>).
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const draft1 = canvas.getByRole('tab', { name: 'Draft 1' });
     await expect(draft1).toHaveAttribute('aria-keyshortcuts', 'Delete Backspace');
@@ -200,7 +201,7 @@ export const Closable: Story = {
     await expect(canvas.queryByRole('tab', { name: 'Draft 2' })).toBeNull();
     await waitFor(() => expect(canvas.getByRole('tab', { name: 'Draft 3' })).toHaveFocus());
     await expect(canvas.getAllByRole('tab')).toHaveLength(1);
-  },
+  }),
 };
 
 /** Icon-only triggers still need an accessible name — each carries an `aria-label`. */

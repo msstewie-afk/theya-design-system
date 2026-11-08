@@ -4,6 +4,7 @@ import { Trash, Mail } from 'iconoir-react';
 import { toast } from '../ui/sonner';
 import { ListView } from './list-view';
 import { listViewGuidelines } from './list-view.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -114,7 +115,7 @@ export const WithBulkAndRowActions: Story = {
       />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     // Phone (below md): no bulk selection; each person keeps the row menu.
     const phone = window.matchMedia('(max-width: 767.98px)').matches;
     if (phone) {
@@ -156,7 +157,7 @@ export const WithBulkAndRowActions: Story = {
     const bulk = canvas.getByRole('toolbar', { name: 'Bulk actions' });
     await userEvent.click(within(bulk).getByRole('button', { name: 'Email' }));
     await expect(onEmail).toHaveBeenCalledWith(['Ian Hyde', 'Selin Arda']);
-  },
+  }),
 };
 
 /** `loading`: skeleton rows stand in for the data, and the result count stays hidden until the rows arrive. */

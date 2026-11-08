@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, within } from '@storybook/test';
 import { Switch } from './switch';
 import { switchGuidelines } from './switch.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -35,7 +36,7 @@ type Story = StoryObj<typeof Switch>;
 export const Playground: Story = {
   args: { label: 'Enable notifications', onCheckedChange: fn() },
   // Label click and Space both toggle; state is exposed as aria-checked.
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const toggle = canvas.getByRole('switch', { name: 'Enable notifications' });
     await expect(toggle).toHaveAttribute('aria-checked', 'false');
@@ -47,7 +48,7 @@ export const Playground: Story = {
     toggle.focus();
     await userEvent.keyboard(' ');
     await expect(toggle).toHaveAttribute('aria-checked', 'false');
-  },
+  }),
 };
 
 /** No visible label: pass an `aria-label` so the switch still has a name for screen readers. */

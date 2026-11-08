@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { ResourceForm } from './resource-form';
 import { resourceFormGuidelines } from './resource-form.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof ResourceForm> = {
   title: 'Patterns/ResourceForm',
@@ -72,7 +73,7 @@ export const CreateGallery: Story = {
       />
     </div>
   ),
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const submit = canvas.getByRole('button', { name: 'Create gallery' });
     const name = canvas.getByRole('textbox', { name: /^Name/ });
@@ -110,7 +111,7 @@ export const CreateGallery: Story = {
 
     await userEvent.click(canvas.getByRole('button', { name: 'Cancel' }));
     await expect(args.onCancel).toHaveBeenCalledTimes(1);
-  },
+  }),
 };
 
 /** An optional email may stay empty, but a filled one must be valid. */
@@ -151,7 +152,7 @@ export const Sectioned: Story = {
       />
     </div>
   ),
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     await userEvent.type(canvas.getByRole('textbox', { name: /^Email/ }), 'elio@aether.photo');
     await userEvent.type(canvas.getByLabelText(/^Password/), 'hunter2-hunter2');
@@ -170,5 +171,5 @@ export const Sectioned: Story = {
     await waitFor(() =>
       expect(args.onSubmit).toHaveBeenCalledWith({ email: 'elio@aether.photo', password: 'hunter2-hunter2', recoveryEmail: '', role: 'viewer' }),
     );
-  },
+  }),
 };

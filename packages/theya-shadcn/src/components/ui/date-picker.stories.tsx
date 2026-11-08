@@ -5,6 +5,7 @@ import { DatePicker } from './date-picker';
 import { Label } from './label';
 import { FieldError } from './field';
 import { datePickerGuidelines } from './date-picker.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -83,7 +84,7 @@ export const WithValue: Story = {
   // The chosen date is announced (as the description, since aria-label
   // replaces the button text); keyboard picking in the calendar updates it
   // and returns focus to the trigger. Ends closed.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const trigger = within(canvasElement).getByRole('button', { name: 'Start date' });
     await expect(trigger).toHaveAccessibleDescription('Jun 16, 2026');
 
@@ -95,7 +96,7 @@ export const WithValue: Story = {
     await waitFor(() => expect(within(document.body).queryByRole('grid')).toBeNull());
     await expect(trigger).toHaveAccessibleDescription('Jun 17, 2026');
     await waitFor(() => expect(trigger).toHaveFocus());
-  },
+  }),
 };
 
 /** The clear button appears once a date is selected. */
@@ -104,14 +105,14 @@ export const WithClear: Story = {
   args: { 'aria-label': 'Start date', defaultValue: new Date(2026, 5, 16), showClear: true },
   // Clearing resets to the placeholder, removes the clear button and puts
   // focus back on the trigger instead of dropping it on <body>.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('button', { name: 'Start date' });
     await userEvent.click(canvas.getByRole('button', { name: 'Clear date' }));
     await expect(trigger).toHaveAccessibleDescription('Pick a date');
     await expect(canvas.queryByRole('button', { name: 'Clear date' })).toBeNull();
     await expect(trigger).toHaveFocus();
-  },
+  }),
 };
 
 /** Disabled blocks interaction and dims the trigger. */

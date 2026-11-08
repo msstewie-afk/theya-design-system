@@ -22,6 +22,7 @@ import {
   DropdownMenuSubContent,
 } from './dropdown-menu';
 import { dropdownMenuGuidelines } from './dropdown-menu.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -206,7 +207,7 @@ export const CheckboxAndRadio: Story = {
     );
   },
   // Checkbox and radio rows expose their state and keep it across reopen.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const trigger = within(canvasElement).getByRole('button', { name: 'View' });
 
     await userEvent.click(trigger);
@@ -224,7 +225,7 @@ export const CheckboxAndRadio: Story = {
     await expect(page().getByRole('menuitemradio', { name: 'Name' })).toHaveAttribute('aria-checked', 'false');
     await userEvent.keyboard('{Escape}');
     await menuClosed();
-  },
+  }),
 };
 
 /** A nested sub-menu groups secondary actions (copy variants) behind a SubTrigger with a trailing chevron. */
@@ -251,7 +252,7 @@ export const WithSubMenu: Story = {
     </DropdownMenu>
   ),
   // ArrowRight opens the sub-menu on its first item, ArrowLeft returns.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const trigger = within(canvasElement).getByRole('button', { name: 'Add' });
     trigger.focus();
     await userEvent.keyboard('{Enter}');
@@ -270,7 +271,7 @@ export const WithSubMenu: Story = {
 
     await userEvent.keyboard('{Escape}');
     await menuClosed();
-  },
+  }),
 };
 
 /**
@@ -349,7 +350,7 @@ export const WithDisabledItem: Story = {
     </DropdownMenu>
   ),
   // Disabled rows are announced as disabled and skipped by the arrow keys.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     within(canvasElement).getByRole('button', { name: 'Manage Blue hour' }).focus();
     await userEvent.keyboard('{Enter}');
     await focusedItem('Open gallery');
@@ -360,7 +361,7 @@ export const WithDisabledItem: Story = {
 
     await userEvent.keyboard('{Escape}');
     await menuClosed();
-  },
+  }),
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

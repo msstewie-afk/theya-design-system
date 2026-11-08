@@ -10,6 +10,7 @@ import { StickyActionBar } from './sticky-action-bar';
 import { TextField } from './text-field';
 import { stickyActionBarGuidelines } from './sticky-action-bar.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * StickyActionBar — actions pinned to the bottom while content scrolls:
@@ -76,7 +77,7 @@ export const UnsavedChanges: Story = {
       </ScrollArea>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Nothing to save: no bar.
     await expect(canvas.queryByRole('region', { name: 'Actions' })).not.toBeInTheDocument();
@@ -92,7 +93,7 @@ export const UnsavedChanges: Story = {
     await expect(canvas.queryByRole('region', { name: 'Actions' })).not.toBeInTheDocument();
     await expect(name).toHaveValue('Golden hour');
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Clear Watermark' })).toHaveFocus());
-  },
+  }),
 };
 
 /** Select rows: a floating bar shows the count and bulk actions; the close button clears the selection. */
@@ -132,7 +133,7 @@ export const BulkSelection: Story = {
       </ScrollArea>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const bar = () => canvas.queryByRole('region', { name: 'Bulk actions' });
     await expect(within(bar()!).getByText('2 selected')).toBeInTheDocument();
@@ -146,7 +147,7 @@ export const BulkSelection: Story = {
     await expect(bar()).not.toBeInTheDocument();
     await expect(canvas.queryAllByRole('checkbox', { checked: true })).toHaveLength(0);
     await waitFor(() => expect(photo7).toHaveFocus());
-  },
+  }),
 };
 
 /** A phone screen's single primary action: full width, with the total next to it. */

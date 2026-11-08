@@ -15,6 +15,7 @@ import {
 } from 'recharts';
 import { ChartRangeSelection, type ChartSelectionRange } from './chart-range-selection';
 import { chartRangeSelectionGuidelines } from './chart-range-selection.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const DATA = [
   { label: 'Aug 1', views: 380, downloads: 80 },
@@ -208,7 +209,7 @@ const liveRegion = (group: HTMLElement) => group.querySelector('[aria-live]') as
 /** Drag from one x-axis value to another. The readout shows the controlled value. */
 export const Area: Story = {
   render: () => <InteractiveExample />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const group = within(canvasElement).getByRole('group', { name: 'Select a date range' });
     await expect(group).toHaveAttribute('tabindex', '0');
     await expect(group).toHaveAccessibleDescription(/Shift plus arrow keys/);
@@ -234,13 +235,13 @@ export const Area: Story = {
     await userEvent.keyboard('{Escape}');
     await expect(liveRegion(group)).toHaveTextContent('Selection cleared');
     await expect(readout(canvasElement)).toHaveTextContent(/Drag across the chart/);
-  },
+  }),
 };
 
 /** The wrapper works with a multi-series line chart without changing its data model. */
 export const Line: Story = {
   render: () => <InteractiveExample kind="line" />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     // Pointer drag across the plot: from ~20% to ~70% of its width.
     // Recharts draws after ResponsiveContainer has measured its box.
     const grid = await waitFor(() => {
@@ -276,7 +277,7 @@ export const Line: Story = {
     await tick();
     fireEvent.mouseUp(surface, at(0.5));
     await waitFor(() => expect(readout(canvasElement)).toHaveTextContent(/Drag across the chart/));
-  },
+  }),
 };
 
 /** The same selection behavior can wrap a categorical bar chart. */
@@ -287,12 +288,12 @@ export const Bar: Story = {
 /** Disabled keeps the highlight but takes the selector out of the tab order and ignores keys and drags. */
 export const Disabled: Story = {
   render: () => <InteractiveExample kind="bar" disabled initialRange={{ from: 'Aug 3', to: 'Aug 6' }} />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const group = within(canvasElement).getByRole('group', { name: 'Select a date range' });
     await expect(group).toHaveAttribute('aria-disabled', 'true');
     await expect(group).not.toHaveAttribute('tabindex');
     group.focus();
     await userEvent.keyboard('{Escape}{Shift>}{ArrowRight}{/Shift}');
     await expect(readout(canvasElement)).toHaveTextContent('Selected: Aug 3 – Aug 6');
-  },
+  }),
 };

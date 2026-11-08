@@ -4,6 +4,7 @@ import { expect, userEvent, within } from '@storybook/test';
 import { PasswordStrengthMeter } from './password-strength-meter';
 import { Password } from './password';
 import { passwordStrengthMeterGuidelines } from './password-strength-meter.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -120,9 +121,9 @@ function WithFieldDemo() {
 export const WithPasswordField: Story = {
   name: 'With a password field',
   render: () => <WithFieldDemo />,
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.type(canvas.getByLabelText('New password'), 'Moonrise-2026');
     await expect(canvasElement.querySelector('[aria-live="polite"]')).toHaveTextContent(/Strong/);
-  },
+  }),
 };

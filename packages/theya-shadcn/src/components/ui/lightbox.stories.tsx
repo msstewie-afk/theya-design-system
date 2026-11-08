@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Lightbox, type LightboxImage } from './lightbox';
 import { lightboxGuidelines } from './lightbox.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * Lightbox — full-screen image viewer on Radix Dialog: previous/next
@@ -71,7 +72,7 @@ export const Gallery: Story = {
       </>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(document.body);
     const opener = canvas.getByRole('button', { name: /^Open image 2:/ });
@@ -106,7 +107,7 @@ export const Gallery: Story = {
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
     await waitFor(() => expect(opener).toHaveFocus());
-  },
+  }),
 };
 
 /** A single image: no counter, arrows or thumbnails — just zoom and close. */
@@ -123,7 +124,7 @@ export const SingleImage: Story = {
       </>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(document.body);
     await userEvent.click(canvas.getByRole('button', { name: 'Open portfolio cover' }));
@@ -135,5 +136,5 @@ export const SingleImage: Story = {
     await expect(dialog.querySelector('[aria-live="polite"]')).toHaveTextContent('Image 1 of 1');
     await userEvent.click(within(dialog).getByRole('button', { name: 'Close' }));
     await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
-  },
+  }),
 };

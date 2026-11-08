@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Combobox, type ComboboxProps } from './combobox';
 import { comboboxGuidelines } from './combobox.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -88,7 +89,7 @@ function SingleDemo() {
 export const Single: Story = {
   render: () => <SingleDemo />,
   // Type to filter, Enter commits, Escape restores the committed label.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(document.body);
     const input = canvas.getByRole('combobox', { name: 'Framework' });
@@ -112,7 +113,7 @@ export const Single: Story = {
     await userEvent.type(input, 'zzz');
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(input).toHaveValue('Remix'));
-  },
+  }),
 };
 
 function KeyboardDemo() {
@@ -219,7 +220,7 @@ function MultipleDemo() {
 export const Multiple: Story = {
   render: () => <MultipleDemo />,
   // Enter adds a chip, Backspace on an empty query removes the last one.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByRole('combobox', { name: 'Frameworks' });
     await expect(canvas.getByRole('button', { name: 'Remove Next.js' })).toBeInTheDocument();
@@ -233,7 +234,7 @@ export const Multiple: Story = {
     await userEvent.keyboard('{Backspace}');
     await waitFor(() => expect(canvas.queryByRole('button', { name: 'Remove Astro' })).toBeNull());
     await expect(canvas.getByRole('button', { name: 'Remove Next.js' })).toBeInTheDocument();
-  },
+  }),
 };
 
 function MultipleAllowCreateDemo() {

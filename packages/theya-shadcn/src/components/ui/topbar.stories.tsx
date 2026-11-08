@@ -11,6 +11,7 @@ import { Plus } from 'iconoir-react';
 import { topbarGuidelines } from './topbar.guidelines';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof Topbar> = {
   title: 'Navigation/Topbar',
@@ -139,7 +140,7 @@ export const SearchTrigger: Story = {
   // Keyboard: ArrowDown goes from the field into the results and between
   // them, ArrowUp from the first one back to the field; Enter picks a result
   // and returns focus to the field.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const field = within(canvasElement).getByRole('textbox', { name: 'Search galleries…' });
     resetFocus();
     await tabTo(field);
@@ -155,7 +156,7 @@ export const SearchTrigger: Story = {
     await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(within(document.body).queryByRole('option')).toBeNull());
     await waitFor(() => expect(field).toHaveFocus());
-  },
+  }),
 };
 
 /** Icon actions at the trailing edge — each needs its own aria-label; badge folds ", unread" into the accessible name. */

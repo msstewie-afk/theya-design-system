@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { expect, userEvent, within } from '@storybook/test';
 import { SwatchPicker, type SwatchOption } from './swatch-picker';
 import { swatchPickerGuidelines } from './swatch-picker.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * SwatchPicker — choose a color, material or pattern by its look. Single
@@ -121,7 +122,7 @@ export const Multiple: Story = {
     const [value, setValue] = useState<string[]>(['navy', 'sage']);
     return <SwatchPicker type="multiple" options={PRODUCT_COLORS} legend="Color" value={value} onValueChange={setValue} />;
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const navy = canvas.getByRole('button', { name: 'Navy' });
     const sand = canvas.getByRole('button', { name: 'Sand' });
@@ -133,7 +134,7 @@ export const Multiple: Story = {
     await expect(navy).toHaveAttribute('aria-pressed', 'false');
     await expect(sand).toHaveAttribute('aria-pressed', 'true');
     await expect(canvas.getByText(/^Sage, Sand$/)).toBeInTheDocument();
-  },
+  }),
 };
 
 /** Label/tag color picker without a legend — needs an aria-label. */

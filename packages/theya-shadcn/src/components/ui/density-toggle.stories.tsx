@@ -8,6 +8,7 @@ import { DensityToggle } from './density-toggle';
 import type { Density } from './use-density';
 import { densityToggleGuidelines } from './density-toggle.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -77,7 +78,7 @@ function Sample({ label = 'Client portals' }: { label?: string }) {
 export const Playground: Story = {
   // Page-wide: each press moves <html data-density>, "Default" removes it.
   // Ends on Default so the page is left as it was.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const html = document.documentElement;
     await userEvent.click(canvas.getByRole('radio', { name: 'Compact' }));
@@ -100,7 +101,7 @@ export const Playground: Story = {
     await waitFor(() => expect(html.getAttribute('data-density')).toBe('comfortable'));
     await userEvent.keyboard('{ArrowLeft} ');
     await waitFor(() => expect(html.hasAttribute('data-density')).toBe(false));
-  },
+  }),
 };
 
 /** The same form and table in all three modes, side by side. Each column is a `data-density` region. */
@@ -132,7 +133,7 @@ export const ControlledRegion: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const region = canvasElement.querySelector('[data-density]')!;
     await expect(region).toHaveAttribute('data-density', 'compact');
@@ -140,5 +141,5 @@ export const ControlledRegion: Story = {
     await waitFor(() => expect(region).toHaveAttribute('data-density', 'comfortable'));
     // Controlled: <html> is left alone.
     await expect(document.documentElement.getAttribute('data-density')).not.toBe('comfortable');
-  },
+  }),
 };

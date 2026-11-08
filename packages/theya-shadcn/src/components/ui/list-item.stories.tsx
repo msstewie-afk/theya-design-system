@@ -12,6 +12,7 @@ import { Button } from './button';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from './dropdown-menu';
 import { listItemGuidelines } from './list-item.guidelines';
 import { resetFocus, tabTo } from '../../test/keyboard';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * ListItem — a single row in a vertical list: leading visual, title +
@@ -90,7 +91,7 @@ export const LinkRows: Story = {
       ))}
     </ul>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const links = within(canvasElement).getAllByRole('link');
     await expect(links[0]).toHaveAttribute('href', '#helios.aether.photo');
     // Keyboard: each row is one tab stop, in order.
@@ -98,7 +99,7 @@ export const LinkRows: Story = {
     await tabTo(links[0]);
     await userEvent.tab();
     await expect(links[1]).toHaveFocus();
-  },
+  }),
 };
 
 /** Selectable button rows (no href); the middle row is selected. */
@@ -116,7 +117,7 @@ export const Selectable: Story = {
       </ul>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Every row in a selectable list reads as a toggle, not just the selected one.
     await expect(canvas.getByRole('button', { name: 'Galleries' })).toHaveAttribute('aria-pressed', 'true');
@@ -127,7 +128,7 @@ export const Selectable: Story = {
     await userEvent.keyboard('{Enter}');
     await expect(canvas.getByRole('button', { name: 'Archive' })).toHaveAttribute('aria-pressed', 'true');
     await expect(canvas.getByRole('button', { name: 'Galleries' })).toHaveAttribute('aria-pressed', 'false');
-  },
+  }),
 };
 
 /** The three sizes; `md` keeps a 44px touch target. */

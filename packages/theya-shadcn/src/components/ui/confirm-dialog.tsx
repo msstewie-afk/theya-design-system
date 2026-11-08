@@ -172,10 +172,13 @@ export function ConfirmDialog({
             {children}
             {confirmValue && (
               <div className="flex flex-col gap-2">
-                {/* block, not the Label's flex row: the sentence wraps as text
-                    instead of splitting into columns, and a long value breaks. */}
-                <Label htmlFor={inputId} className="block [overflow-wrap:anywhere]">
-                  {t.confirmDialog.typeToConfirm(<span className={cn('text-[var(--color-text-text)]', confirmValueMono && 'font-mono')}>{confirmValue}</span>)}
+                {/* One span inside the Label's flex row: the sentence wraps as text
+                    instead of splitting into columns, and a long value breaks. The
+                    label itself stays as it was (VoiceOver read it; 2026-11-08). */}
+                <Label htmlFor={inputId}>
+                  <span className="min-w-0 [overflow-wrap:anywhere]">
+                    {t.confirmDialog.typeToConfirm(<span className={cn('text-[var(--color-text-text)]', confirmValueMono && 'font-mono')}>{confirmValue}</span>)}
+                  </span>
                 </Label>
                 <TextField
                   id={inputId}

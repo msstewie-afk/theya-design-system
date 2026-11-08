@@ -3,6 +3,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Bold, Italic, Underline } from 'iconoir-react';
 import { Toggle } from './toggle';
 import { toggleGuidelines } from './toggle.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof Toggle> = {
   title: 'Actions/Toggle',
@@ -39,7 +40,7 @@ export const Playground: Story = {
       {children}
     </Toggle>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const toggle = within(canvasElement).getByRole('button', { name: 'Bold' });
     await expect(toggle).toHaveAttribute('aria-pressed', 'false');
     await userEvent.click(toggle);
@@ -49,7 +50,7 @@ export const Playground: Story = {
     await userEvent.keyboard(' ');
     await expect(toggle).toHaveAttribute('aria-pressed', 'false');
     await expect(toggle).toHaveAccessibleName('Bold');
-  },
+  }),
 };
 
 /** Icon only: the toggle becomes a square, and `aria-label` gives it its accessible name. */

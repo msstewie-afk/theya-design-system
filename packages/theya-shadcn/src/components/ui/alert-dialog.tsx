@@ -15,8 +15,8 @@ import { Button, type ButtonProps } from './button';
  * instead.
  *
  * A close button (×) sits in the top corner, as in Dialog (Maria,
- * 2026-11-07: every window has one); it cancels, like Esc. Focus still
- * opens on the footer's Cancel. With no AlertDialogBody between them, a
+ * 2026-11-07: every window has one); it closes like Esc. Focus opens on
+ * the footer's Cancel (Radix's own handling). With no AlertDialogBody between them, a
  * header divider and a footer divider sit back to back; only one is drawn.
  */
 interface AlertDialogLayoutProps {
@@ -70,7 +70,6 @@ export function AlertDialogContent({
   className,
   children,
   showCloseButton = true,
-  onOpenAutoFocus,
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Content> & { showCloseButton?: boolean }) {
   const layout = useContext(AlertDialogLayoutContext);
@@ -80,17 +79,6 @@ export function AlertDialogContent({
       <AlertDialogOverlay />
       <AlertDialogPrimitive.Content
         data-close={showCloseButton ? '' : undefined}
-        onOpenAutoFocus={(e) => {
-          onOpenAutoFocus?.(e);
-          if (e.defaultPrevented) return;
-          // The × is a Cancel too and mounts last, so Radix would focus it;
-          // keep the first focus on the footer's Cancel, as before.
-          const cancel = (e.currentTarget as HTMLElement | null)?.querySelector<HTMLElement>('[data-alert-cancel]');
-          if (cancel) {
-            e.preventDefault();
-            cancel.focus();
-          }
-        }}
         className={cn(
           'group/alert fixed left-1/2 top-1/2 z-modal grid w-[calc(100%-2rem)] max-w-md max-h-[calc(100svh-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-y-auto overflow-x-hidden',
           'rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border)]',
@@ -108,7 +96,14 @@ export function AlertDialogContent({
       >
         {children}
         {showCloseButton && (
-          <AlertDialogPrimitive.Cancel
+          // A plain button that closes like Esc, not a second AlertDialog.Cancel:
+          // Radix focuses "the" Cancel on open (it keeps one ref), and a second
+          // one stole that, so a custom focus step was needed — with it,
+          // VoiceOver in Safari read neither the dialog nor the focused button
+          // (Maria, 2026-11-08). Radix's own focus handling is untouched now.
+          <button
+            type="button"
+            onClick={(e) => e.currentTarget.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))}
             className={cn(
               'absolute end-4 top-4 flex items-center justify-center size-7 rounded-[var(--size-border-radius-border-radius-md)] border-0 bg-transparent cursor-pointer',
               'text-[var(--color-icon-icon-subtle)] hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
@@ -117,7 +112,7 @@ export function AlertDialogContent({
           >
             <Xmark width={16} height={16} aria-hidden="true" />
             <span className="sr-only">{t.common.close}</span>
-          </AlertDialogPrimitive.Cancel>
+          </button>
         )}
       </AlertDialogPrimitive.Content>
     </AlertDialogPortal>
@@ -223,5 +218,5 @@ export function AlertDialogAction({ appearance = 'filled', tone = 'danger', ...p
 
 /** The dismissing action. Renders an outlined Button and closes the dialog. */
 export function AlertDialogCancel({ appearance = 'outlined', tone = 'secondary', ...props }: ButtonProps) {
-  return <AlertDialogPrimitive.Cancel asChild><Button data-alert-cancel="" appearance={appearance} tone={tone} {...props} /></AlertDialogPrimitive.Cancel>;
+  return <AlertDialogPrimitive.Cancel asChild><Button appearance={appearance} tone={tone} {...props} /></AlertDialogPrimitive.Cancel>;
 }

@@ -5,6 +5,7 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import type { DateRange } from 'react-day-picker';
 import { Calendar } from './calendar';
 import { calendarGuidelines } from './calendar.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -61,7 +62,7 @@ function SingleDemo(args: CalendarArgs) {
 export const Single: Story = {
   render: (args) => <SingleDemo {...args} />,
   // Keyboard: arrows move between days, Enter picks the focused one.
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const grid = within(canvasElement).getByRole('grid');
     const start = grid.querySelector<HTMLButtonElement>('[aria-selected="true"] button')!;
     start.focus();
@@ -71,7 +72,7 @@ export const Single: Story = {
     await expect(next.tagName).toBe('BUTTON');
     await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(next.closest('[aria-selected]')).toHaveAttribute('aria-selected', 'true'));
-  },
+  }),
 };
 
 function RangeDemo(args: CalendarArgs) {

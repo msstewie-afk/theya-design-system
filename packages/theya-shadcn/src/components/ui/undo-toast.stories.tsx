@@ -5,6 +5,7 @@ import { toast } from './sonner';
 import { undoToast } from './undo-toast';
 import { Button } from './button';
 import { undoToastGuidelines } from './undo-toast.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * undoToast — the optimistic-destructive pattern over sonner. Apply the
@@ -119,14 +120,14 @@ export const CustomLabelAndIcon: Story = {
       Remove client
     </Button>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Remove client' }));
     const item = (await toastByTitle('Client removed')).closest('[data-sonner-toast]') as HTMLElement;
     await expect(within(item).getByText('Rhea Okafor · Golden hour')).toBeInTheDocument();
     await userEvent.click(within(item).getByRole('button', { name: 'Restore' }));
     await expect(await toastByTitle('Client restored')).toBeInTheDocument();
     await clearToasts();
-  },
+  }),
 };
 
 /**

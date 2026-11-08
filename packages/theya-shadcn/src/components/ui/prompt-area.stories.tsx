@@ -11,6 +11,7 @@ import { Toggle } from './toggle';
 import { PromptSuggestions } from './prompt-suggestions';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './dropdown-menu';
 import { promptAreaGuidelines } from './prompt-area.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -110,7 +111,7 @@ export const WithCharacterLimit: Story = {
       <PromptArea {...args} defaultValue="This message is getting long enough to approach the character limit set on this field" />
     </div>
   ),
-  play: async ({ canvasElement, args }) => {
+  play: testOnly(async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     const input = field(canvasElement);
     // Near the limit a counter appears and describes the field.
@@ -124,7 +125,7 @@ export const WithCharacterLimit: Story = {
     await expect(canvas.getByRole('button', { name: 'Send' })).toBeDisabled();
     await userEvent.keyboard('{Enter}');
     await expect(args.onSubmit).not.toHaveBeenCalled();
-  },
+  }),
 };
 
 /** Busy: a response is streaming, so the send button becomes a real Stop control (not just a disabled spinner) — click it to cancel. */
@@ -137,7 +138,7 @@ export const Busy: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Busy: a real, enabled Stop control; Enter doesn't send.
     const stop = canvas.getByRole('button', { name: 'Stop generating' });
@@ -145,7 +146,7 @@ export const Busy: Story = {
     await userEvent.click(stop);
     await expect(canvas.getByRole('button', { name: 'Send' })).toBeInTheDocument();
     await expect(canvas.getByRole('status')).toHaveTextContent('Response finished.');
-  },
+  }),
 };
 
 /** `disabled`: the text stays readable, but the field and the send button are inactive. */
@@ -185,7 +186,7 @@ export const EditLastMessage: Story = {
       </div>
     );
   },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const input = field(canvasElement);
     input.focus();
     await userEvent.keyboard('{ArrowUp}');
@@ -195,7 +196,7 @@ export const EditLastMessage: Story = {
     await userEvent.keyboard('{Enter}');
     await expect(input).toHaveValue('');
     await expect(within(canvasElement).getByText('Create a client gallery for the Selene Weddings shoot now')).toBeInTheDocument();
-  },
+  }),
 };
 
 type StagedFile = { name: string; size: number; error?: string };
@@ -411,7 +412,7 @@ export const WithMentions: Story = {
       />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const input = field(canvasElement);
     await expect(input).toHaveAttribute('aria-autocomplete', 'list');
     await userEvent.type(input, 'Ask @ma');
@@ -433,7 +434,7 @@ export const WithMentions: Story = {
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(within(document.body).queryByRole('listbox')).toBeNull());
     await expect(input).toHaveValue('Ask @marcus @');
-  },
+  }),
 };
 
 /** Type "/" then a query to open a filtered command menu — same mechanics as mentions, a separate list. */
@@ -451,7 +452,7 @@ export const WithSlashCommands: Story = {
       />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const input = field(canvasElement);
     await userEvent.type(input, '/tr');
     await within(document.body).findByRole('listbox', { name: 'Commands' });
@@ -460,7 +461,7 @@ export const WithSlashCommands: Story = {
     // A "/" inside a word (e.g. a URL) doesn't open the menu.
     await userEvent.type(input, 'see a/b');
     await expect(within(document.body).queryByRole('listbox')).toBeNull();
-  },
+  }),
 };
 
 /** Context pills (a referenced file, a selected page) render through the same `attachments` slot as real file chips — it's a generic strip, not upload-specific. */

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { Link } from './link';
 import { linkGuidelines } from './link.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 /**
  * Link — inline navigation text. Inherits the surrounding type by default;
@@ -66,7 +67,7 @@ export const InText: Story = {
       at any time.
     </p>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const link = canvas.getByRole('link', { name: 'download past invoices' });
     await expect(link).toHaveAttribute('href', '#');
@@ -75,7 +76,7 @@ export const InText: Story = {
     await expect(getComputedStyle(link).textDecorationLine).toContain('underline');
     await userEvent.tab();
     await expect(link).toHaveFocus();
-  },
+  }),
 };
 
 /** On a dark surface: the -on-dark colors and the white focus ring. */

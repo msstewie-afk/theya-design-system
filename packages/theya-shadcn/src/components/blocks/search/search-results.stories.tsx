@@ -3,6 +3,7 @@ import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 import { SearchResults } from './search-results';
 import { DEMO_INDEX, DEMO_POPULAR } from './demo-data';
 import { searchResultsGuidelines } from './search-results.guidelines';
+import { testOnly } from '../../../lib/test-only';
 
 const meta: Meta<typeof SearchResults> = {
   title: 'Patterns: Search/SearchResults',
@@ -49,27 +50,27 @@ export const TestInteractions: Story = {
 /** One type: a flat list with "Show more"; when the last page is shown, focus moves to the first result it revealed. */
 export const OneType: Story = {
   args: { defaultQuery: 'selene', defaultScope: 'gallery', pageSize: 2 },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('tab', { name: 'Galleries 3' })).toHaveAttribute('aria-selected', 'true');
     await expect(canvas.getByText('Showing 2 of 3')).toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'Show 1 more' }));
     await expect(canvas.queryByRole('button', { name: 'Show 1 more' })).toBeNull();
     await waitFor(() => expect(document.activeElement).toBe(canvas.getByRole('link', { name: /Wide-shining/ })));
-  },
+  }),
 };
 
 /** An obvious typo is corrected, with a notice and a way to search the original. */
 export const Corrected: Story = {
   args: { defaultQuery: 'archve' },
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('heading', { level: 1 })).toHaveTextContent('for “archive”');
     await userEvent.click(canvas.getByRole('button', { name: 'Search only for “archve”' }));
     await expect(canvas.getByRole('heading', { level: 1 })).toHaveTextContent('No results for “archve”');
     await userEvent.click(canvas.getByRole('button', { name: 'archive' }));
     await expect(canvas.getByRole('heading', { level: 1 })).toHaveTextContent('for “archive”');
-  },
+  }),
 };
 
 /** Nothing matches and nothing is close: tips and popular pages instead of a blank page. */

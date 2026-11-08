@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { LoginFormSplit } from './login-form-split';
 import { loginFormSplitGuidelines } from './login-form-split.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 const SLIDES = [
   { src: '/asset-examples/silk/4-vertical.webp', alt: 'Soft blue silk glow', tint: 'var(--color-blue-blue-900)' },
@@ -93,7 +94,7 @@ export const AutoplayPause: Story = {
       <LoginFormSplit slides={SLIDES} tagline={TAGLINE} autoplayInterval={700} onSubmit={(e) => e.preventDefault()} />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Below md the image panel isn't shown at all.
     if (!window.matchMedia('(min-width: 768px)').matches) return;
@@ -129,5 +130,5 @@ export const AutoplayPause: Story = {
     await waitFor(() => expect(toggle).toHaveAccessibleName('Pause'));
     await leave(toggle);
     await waitFor(() => expect(current()).not.toBe(held), { timeout: 3000 });
-  },
+  }),
 };

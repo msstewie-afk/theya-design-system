@@ -5,6 +5,7 @@ import { TimeRangePicker, type TimeRange } from './time-range-picker';
 import { Label } from './label';
 import { FieldError } from './field';
 import { timeRangePickerGuidelines } from './time-range-picker.guidelines';
+import { testOnly } from '../../lib/test-only';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
 // summary):
@@ -110,7 +111,7 @@ export const TwentyFourHour: Story = {
       <TimeRangePicker {...args} aria-labelledby="maintenance-window" hourCycle={24} step={60} defaultValue={{ start: '01:00', end: '04:00' }} />
     </div>
   ),
-  play: async ({ canvasElement }) => {
+  play: testOnly(async ({ canvasElement }) => {
     // The visible label names the pair.
     const group = within(canvasElement).getByRole('group', { name: 'Maintenance window' });
     const end = within(group).getByRole('combobox', { name: 'End time' });
@@ -118,7 +119,7 @@ export const TwentyFourHour: Story = {
     await body().findByRole('listbox');
     await expect(optionNames().slice(0, 3)).toEqual(['01:00', '02:00', '03:00']);
     await userEvent.keyboard('{Escape}');
-  },
+  }),
 };
 
 /** `disabled` locks both fields while the chosen range stays readable. */
