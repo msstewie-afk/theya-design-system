@@ -79,3 +79,33 @@
     - paragraph: Readers at more than 2,000 teams keep their links here
     - text: Northwind Fieldnote Quartz Lumen Kestrel Orbitly Greenhouse Loop & Co Bloom
     - button "Pause animation"
+  - paragraph: Features
+  - heading "Everything you saved, in order" [level=2]
+  - heading "Bring everything over" [level=3]:
+    - button "Bring everything over" [disabled] [expanded]:
+      - text: Bring everything over
+      - img
+  - region "Bring everything over":
+    - paragraph: Import from Chrome, Firefox, Safari and Edge at once, or from a bookmarks file. Folders come with it.
+  - heading "Folders that sort themselves" [level=3]:
+    - button "Folders that sort themselves":
+      - text: Folders that sort themselves
+      - img
+  - heading "Search the words, not just the titles" [level=3]:
+    - button "Search the words, not just the titles":
+      - text: Search the words, not just the titles
+      - img
+  - heading "One copy of everything" [level=3]:
+    - button "One copy of everything":
+      - text: One copy of everything
+      - img
+  - 'img "Import in progress: Chrome done, Firefox 168 of 230 links, Safari waiting."':
+    - paragraph: Importing bookmarks
+    - paragraph: 580 of 738 links
+    - text: Chrome
+    - progressbar "Chrome import"
+    - text: Firefox
+    - progressbar "Firefox import"
+    - text: 168/230 Safari
+    - progressbar "Safari import"
+    - text: 0/96

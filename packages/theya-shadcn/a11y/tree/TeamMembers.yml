@@ -9,11 +9,11 @@
   - /placeholder: teammate@aether.photo
 - text: Role
 - radiogroup "Role":
-  - radio "Admin"
+  - radio "Admin" [checked]
   - text: Admin
   - radio "Member"
   - text: Member
-  - radio "Billing" [checked]
+  - radio "Billing"
   - text: Billing
 - button "Send invite"
 - heading "Members" [level=3]
@@ -42,7 +42,7 @@
       - cell "ES Elio Sanz elio@aether.photo"
       - cell "1d ago"
       - cell:
-        - combobox "Role for Elio Sanz": Admin
+        - combobox "Role for Elio Sanz": Member
       - cell "Remove Elio Sanz":
         - button "Remove Elio Sanz"
     - row "PL Phoebe Lark phoebe@aether.photo 5d ago Remove Phoebe Lark":
@@ -56,15 +56,11 @@
 - text: Invitations that haven't been accepted yet.
 - list:
   - listitem:
-    - text: selin@aether.photo Billing Invited Just now
-    - button "Resend invite to selin@aether.photo": Resend
-    - button "Revoke invite for selin@aether.photo": Revoke
-  - listitem:
     - text: dawn@aether.photo Member Invited 2d ago
     - button "Resend invite to dawn@aether.photo": Resend
     - button "Revoke invite for dawn@aether.photo": Revoke
   - listitem:
-    - text: mina@aether.photo Admin Invited Just now
+    - text: mina@aether.photo Admin Invited 5h ago
     - button "Resend invite to mina@aether.photo": Resend
     - button "Revoke invite for mina@aether.photo": Revoke
 
@@ -127,3 +123,71 @@
     - text: selin@aether.photo Admin Invited Just now
     - button "Resend invite to selin@aether.photo": Resend
     - button "Revoke invite for selin@aether.photo": Revoke
+
+# Test: interactions (patterns-teammembers--test-interactions)
+- heading "Team members" [level=2]
+- paragraph: Invite teammates and manage their access to this account.
+- heading "Invite a teammate" [level=3]
+- text: They will get an email invitation to join this account. Email address
+- textbox "Email address":
+  - /placeholder: teammate@aether.photo
+- text: Role
+- radiogroup "Role":
+  - radio "Admin"
+  - text: Admin
+  - radio "Member"
+  - text: Member
+  - radio "Billing" [checked]
+  - text: Billing
+- button "Send invite"
+- heading "Members" [level=3]
+- text: 4 people have access to this account.
+- table:
+  - rowgroup:
+    - row "Name Last active Role Remove":
+      - columnheader "Name"
+      - columnheader "Last active"
+      - columnheader "Role"
+      - columnheader "Remove"
+  - rowgroup:
+    - row "TM Thea Marlow You thea@aether.photo 4m ago Owner":
+      - cell "TM Thea Marlow You thea@aether.photo"
+      - cell "4m ago"
+      - cell "Owner"
+      - cell
+    - row "IH Ian Hyde ian@aether.photo 2h ago Remove Ian Hyde":
+      - cell "IH Ian Hyde ian@aether.photo"
+      - cell "2h ago"
+      - cell:
+        - combobox "Role for Ian Hyde": Admin
+      - cell "Remove Ian Hyde":
+        - button "Remove Ian Hyde"
+    - row "ES Elio Sanz elio@aether.photo 1d ago Remove Elio Sanz":
+      - cell "ES Elio Sanz elio@aether.photo"
+      - cell "1d ago"
+      - cell:
+        - combobox "Role for Elio Sanz": Admin
+      - cell "Remove Elio Sanz":
+        - button "Remove Elio Sanz"
+    - row "PL Phoebe Lark phoebe@aether.photo 5d ago Remove Phoebe Lark":
+      - cell "PL Phoebe Lark phoebe@aether.photo"
+      - cell "5d ago"
+      - cell:
+        - combobox "Role for Phoebe Lark": Billing
+      - cell "Remove Phoebe Lark":
+        - button "Remove Phoebe Lark"
+- heading "Pending invites" [level=3]
+- text: Invitations that haven't been accepted yet.
+- list:
+  - listitem:
+    - text: selin@aether.photo Billing Invited Just now
+    - button "Resend invite to selin@aether.photo": Resend
+    - button "Revoke invite for selin@aether.photo": Revoke
+  - listitem:
+    - text: dawn@aether.photo Member Invited 2d ago
+    - button "Resend invite to dawn@aether.photo": Resend
+    - button "Revoke invite for dawn@aether.photo": Revoke
+  - listitem:
+    - text: mina@aether.photo Admin Invited Just now
+    - button "Resend invite to mina@aether.photo": Resend
+    - button "Revoke invite for mina@aether.photo": Revoke

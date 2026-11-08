@@ -26,5 +26,8 @@
 - button "Bottom"
 - button "Left"
 
+# Test: interactions (overlays-tooltip--test-interactions)
+- button "Copy API key"
+
 # With Identifier (overlays-tooltip--with-identifier)
 - button "File details"

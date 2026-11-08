@@ -67,3 +67,13 @@
       - button "Teammate joined"
       - text: Teammate joined Elio Sanz accepted your invitation. 3d ago
       - button "Actions for Teammate joined"
+
+# Test: interactions (overlays-pushsheet--test-interactions)
+- banner:
+  - text: Dashboard
+  - button "Notifications panel" [expanded]
+- main: Page content stays in view and fully interactive - there's no backdrop and nothing here is blocked while the panel is open. Toggle the bell icon (or press Esc while the panel is open) to push it in and out from the right.
+- dialog "Panel title":
+  - heading "Panel title" [level=2]
+  - button "Close"
+  - paragraph: "Any content goes here. The panel stays mounted while closed (no state loss) but is `inert`, so it's unreachable to focus and assistive tech until it reopens."

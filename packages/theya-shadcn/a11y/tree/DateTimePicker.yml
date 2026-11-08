@@ -3,14 +3,14 @@
 # Date First (date-time-datetimepicker--date-first)
 - button "Appointment":
   - img
-  - text: Nov 2, 2026
+  - text: Nov 9, 2026
 - combobox "Appointment time": 9:00 AM
 - button "Open options"
 
 # Default (date-time-datetimepicker--default)
 - button "Appointment":
   - img
-  - text: Nov 2, 2026
+  - text: Nov 9, 2026
 - combobox "Appointment time": 9:00 AM
 - button "Open options"
 

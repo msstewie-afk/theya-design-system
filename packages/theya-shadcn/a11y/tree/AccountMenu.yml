@@ -4,4 +4,7 @@
 - 'button "Account: Thea Marlow"': TM
 
 # Default (patterns-account-accountmenu--default)
+- 'button "Account: Thea Marlow, Helios Studio, 1 item needs attention"': TM Thea Marlow Helios Studio
+
+# Test: interactions (patterns-account-accountmenu--test-interactions)
 - 'button "Account: Thea Marlow, Selene Weddings, 1 item needs attention"': TM Thea Marlow Selene Weddings

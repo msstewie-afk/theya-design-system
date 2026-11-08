@@ -22,6 +22,14 @@
 - paragraph: Preview
 - paragraph: GOLDEN_0907.tif
 
+# Test: interactions (layout-resizable--test-interactions)
+- paragraph: Galleries
+- paragraph: Golden hour
+- paragraph: Blue hour
+- separator "Resize galleries list"
+- paragraph: Overview
+- paragraph: Helios Studio · 1,284 photos
+
 # Three Pane (layout-resizable--three-pane)
 - text: Navigation
 - separator "Resize navigation"

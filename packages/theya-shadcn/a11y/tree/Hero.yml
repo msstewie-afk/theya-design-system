@@ -61,14 +61,14 @@
   - emphasis: too many tabs
 - paragraph: Import from any browser, sort into folders, and find any page again in a keystroke — even the ones you forgot you saved.
 - tablist "Show a folder":
-  - tab "Reading list"
+  - tab "Reading list" [selected]
   - tab "Design systems"
-  - tab "Recipes" [selected]
+  - tab "Recipes"
   - tab "Trips"
 - button "Get started free"
 - paragraph: Chrome, Firefox, Safari and Edge · Free for up to 1,000 links
-- tabpanel "Recipes":
-  - 'img "The Bookmarks app showing the Recipes folder: saved links with tags, and a notice that three duplicates were found."':
+- tabpanel "Reading list":
+  - 'img "The Bookmarks app showing the Reading list folder: saved links with tags, and a notice that three duplicates were found."':
     - img
     - text: Search 250 links ⌘K
     - list:
@@ -85,10 +85,10 @@
         - img
         - text: Trips 21
     - list:
-      - listitem: K Slow-roasted tomatoes kitchen.example summer
-      - listitem: K Banitsa, step by step kitchen.example baking
-      - listitem: P Cold cucumber soup pantry.example summer
-      - listitem: P Weeknight lentils pantry.example quick
+      - listitem: E The case for slow software essays.example longread
+      - listitem: R How we read on screens research.example study
+      - listitem: J A year without notifications journal.example habits
+      - listitem: L Notes on attention letters.example longread
     - img
     - text: 3 duplicates found Review
 

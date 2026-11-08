@@ -31,6 +31,7 @@
 # Search (navigation-topbar--search-trigger)
 - banner:
   - textbox "Search galleries…": gal
+  - text: ⌘K
 
 # Vertical (navigation-topbar--vertical)
 - banner "Application toolbar":

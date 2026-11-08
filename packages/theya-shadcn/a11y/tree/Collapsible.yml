@@ -21,3 +21,6 @@
 - text: Download limit
 - textbox "Download limit":
   - /placeholder: 50 per client
+
+# Test: interactions (layout-collapsible--test-interactions)
+- button "Advanced settings"

@@ -8,8 +8,8 @@
 
 # Default (selection-optioncard--default)
 - radiogroup "License type":
-  - radio "Personal": Personal Prints and sharing at home. No resale.
-  - radio "Commercial" [checked]: Commercial Ads, packaging and resale. Required for client brands.
+  - radio "Personal" [checked]: Personal Prints and sharing at home. No resale.
+  - radio "Commercial": Commercial Ads, packaging and resale. Required for client brands.
 
 # Disabled (selection-optioncard--disabled)
 - radiogroup "License type":
@@ -21,6 +21,11 @@
   - radio "Helios Studio" [checked]: Helios Studio Commercial and product. Two cyclorama walls.
   - radio "Eos Portraits": Eos Portraits Morning portraits. North-facing daylight.
   - radio "Studio L4" [disabled]: Studio L4 Satellite studio. Not available on this plan.
+
+# Test: interactions (selection-optioncard--test-interactions)
+- radiogroup "License type":
+  - radio "Personal": Personal Prints and sharing at home. No resale.
+  - radio "Commercial" [checked]: Commercial Ads, packaging and resale. Required for client brands.
 
 # With group label (selection-optioncard--with-group-label)
 - group "License coverage":

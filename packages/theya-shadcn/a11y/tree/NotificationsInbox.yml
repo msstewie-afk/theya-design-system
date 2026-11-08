@@ -27,6 +27,7 @@
 
 # Default (patterns-notificationsinbox--default)
 - paragraph: Notifications
+- button "Mark all read"
 - button "Status":
   - text: Status
   - img
@@ -35,17 +36,17 @@
   - img
 - radiogroup "Filter notifications":
   - radio "All" [checked]
-  - radio "Unread"
+  - radio "Unread 3"
 - paragraph: 6 notifications
 - paragraph: Today
 - list "Today notifications":
   - listitem:
-    - button "Export finished"
-    - text: "Export finished Golden hour: 240 photos exported for print. 8m ago"
+    - button "Export finished Unread"
+    - text: "Export finished Unread Golden hour: 240 photos exported for print. 8m ago"
     - button "Actions for Export finished"
   - listitem:
-    - button "New sign-in from a new device"
-    - text: New sign-in from a new device Chrome on macOS · 203.0.113.24. If this wasn't you, review your sessions. 1h ago
+    - button "New sign-in from a new device Unread"
+    - text: New sign-in from a new device Unread Chrome on macOS · 203.0.113.24. If this wasn't you, review your sessions. 1h ago
     - button "Actions for New sign-in from a new device"
   - listitem:
     - button "Invoice paid"
@@ -54,8 +55,8 @@
 - paragraph: Earlier
 - list "Earlier notifications":
   - listitem:
-    - button "License renews soon"
-    - text: License renews soon The web license for Moonrise over Othrys renews in 7 days. Yesterday
+    - button "License renews soon Unread"
+    - text: License renews soon Unread The web license for Moonrise over Othrys renews in 7 days. Yesterday
     - button "Actions for License renews soon"
   - listitem:
     - button "Archive copy failed"
@@ -97,3 +98,44 @@
     - button "Brute-force attempt blocked Unread"
     - text: Brute-force attempt blocked Unread 14 failed logins from 198.51.100.7 in 2 minutes. 5m ago
     - button "Actions for Brute-force attempt blocked"
+
+# Test: interactions (patterns-notificationsinbox--test-interactions)
+- paragraph: Notifications
+- button "Status":
+  - text: Status
+  - img
+- button "Object":
+  - text: Object
+  - img
+- radiogroup "Filter notifications":
+  - radio "All" [checked]
+  - radio "Unread"
+- paragraph: 6 notifications
+- paragraph: Today
+- list "Today notifications":
+  - listitem:
+    - button "Export finished"
+    - text: "Export finished Golden hour: 240 photos exported for print. 8m ago"
+    - button "Actions for Export finished"
+  - listitem:
+    - button "New sign-in from a new device"
+    - text: New sign-in from a new device Chrome on macOS · 203.0.113.24. If this wasn't you, review your sessions. 1h ago
+    - button "Actions for New sign-in from a new device"
+  - listitem:
+    - button "Invoice paid"
+    - text: Invoice paid Your July invoice of $79.00 was paid. 3h ago
+    - button "Actions for Invoice paid"
+- paragraph: Earlier
+- list "Earlier notifications":
+  - listitem:
+    - button "License renews soon"
+    - text: License renews soon The web license for Moonrise over Othrys renews in 7 days. Yesterday
+    - button "Actions for License renews soon"
+  - listitem:
+    - button "Archive copy failed"
+    - text: Archive copy failed The nightly copy of Blue hour to Mnemosyne did not complete. 2d ago
+    - button "Actions for Archive copy failed"
+  - listitem:
+    - button "Teammate joined"
+    - text: Teammate joined Elio Sanz accepted your invitation. 3d ago
+    - button "Actions for Teammate joined"

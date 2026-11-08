@@ -4,7 +4,7 @@
 - 'button "Edit Gallery name: Pending name"'
 
 # Default (text-input-inlineedit--default)
-- 'button "Edit Gallery name: First light"'
+- 'button "Edit Gallery name: Golden hour"'
 
 # Empty (text-input-inlineedit--empty)
 - 'button "Edit Description: Add a short description"'
@@ -31,14 +31,17 @@
 - text: Golden hour Golden hour
 
 # Save Fails (text-input-inlineedit--save-fails)
-- textbox "Gallery name" [invalid]: Moonrise
+- textbox "Gallery name" [disabled] [invalid]: Moonrise
 - text: Gallery names must be unique — Moonrise already exists.
-- button "Save Gallery name"
-- button "Cancel"
+- button "Save Gallery name" [disabled]
+- button "Cancel" [disabled]
 
 # Sizes (text-input-inlineedit--sizes)
 - 'button "Edit Gallery name: Golden hour"'
 - 'button "Edit Gallery name: Golden hour"'
+
+# Test: interactions (text-input-inlineedit--test-interactions)
+- 'button "Edit Gallery name: First light"'
 
 # Validation (text-input-inlineedit--validation)
 - 'button "Edit Gallery name: Wide-shining"'

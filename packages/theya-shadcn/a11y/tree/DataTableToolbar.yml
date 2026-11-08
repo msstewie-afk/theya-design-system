@@ -28,8 +28,30 @@
       - cell "Golden hour"
       - cell "Published"
       - cell "Helios Studio"
-- status: 1 selected
-- tooltip "Select All"
+    - row "Select row Blue hour Published Selene Weddings":
+      - cell "Select row":
+        - checkbox "Select row"
+      - cell "Blue hour"
+      - cell "Published"
+      - cell "Selene Weddings"
+    - row "Select row First light Expired Eos Portraits":
+      - cell "Select row":
+        - checkbox "Select row"
+      - cell "First light"
+      - cell "Expired"
+      - cell "Eos Portraits"
+    - row "Select row Moonrise over Othrys Draft Othrys Lodge":
+      - cell "Select row":
+        - checkbox "Select row"
+      - cell "Moonrise over Othrys"
+      - cell "Draft"
+      - cell "Othrys Lodge"
+    - row "Select row Wide-shining Published Studio L4":
+      - cell "Select row":
+        - checkbox "Select row"
+      - cell "Wide-shining"
+      - cell "Published"
+      - cell "Studio L4"
 
 # Narrow Overflow (data-datatabletoolbar--narrow-overflow)
 - checkbox "Select all" [checked=mixed]
@@ -137,7 +159,6 @@
       - cell "Wide-shining"
       - cell "Published"
       - cell "Studio L4"
-- tooltip "Select All"
 
 # Selected (data-datatabletoolbar--selected)
 - checkbox "Select all"
@@ -191,4 +212,33 @@
       - cell "Wide-shining"
       - cell "Published"
       - cell "Studio L4"
-- tooltip "Select All"
+
+# Test: interactions (data-datatabletoolbar--test-interactions)
+- checkbox "Select all"
+- text: Select all
+- textbox "Filter galleries":
+  - /placeholder: Filter galleries…
+- table "Galleries":
+  - rowgroup:
+    - row "Select Gallery Status Studio":
+      - columnheader "Select"
+      - columnheader "Gallery":
+        - button "Gallery":
+          - text: Gallery
+          - img
+      - columnheader "Status":
+        - button "Status":
+          - text: Status
+          - img
+      - columnheader "Studio":
+        - button "Studio":
+          - text: Studio
+          - img
+  - rowgroup:
+    - row "Select row Golden hour Published Helios Studio":
+      - cell "Select row":
+        - checkbox "Select row"
+      - cell "Golden hour"
+      - cell "Published"
+      - cell "Helios Studio"
+- status: 1 selected

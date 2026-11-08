@@ -18,7 +18,7 @@
 - heading "Profile" [level=2]
 - paragraph: Your name and contact email. The email is used for sign-in and account notices.
 - text: Full name
-- textbox "Full name": Thea M.
+- textbox "Full name": Thea Marlow
 - button "Clear input"
 - text: Email
 - textbox "Email": thea@aether.photo
@@ -27,17 +27,18 @@
 - heading "Security" [level=2]
 - paragraph: Change your password and manage two-factor authentication.
 - text: Current password
-- textbox "Current password": old-pass-1
+- textbox "Current password"
 - button "Show password"
 - text: New password
-- textbox "New password": new-pass-22
+- textbox "New password"
 - button "Show password"
 - text: Use at least 8 characters.
 - button "Update password"
 - paragraph: Two-factor authentication
-- paragraph: On. Your recovery code was shown once when you turned it on.
-- paragraph: Lost your recovery code? Generate a new one — the old code stops working.
-- button "Generate new code"
+- paragraph: Open your authenticator app and enter the 6-digit code to confirm setup. We never store the code itself.
+- text: Enter the 6-digit code
+- textbox "Enter the 6-digit code"
+- button "Verify code" [disabled]
 - heading "Notifications" [level=2]
 - paragraph: Choose which account events email you. Changes apply immediately.
 - text: Export failures
@@ -50,14 +51,14 @@
 - switch "License expiry" [checked]
 - text: Weekly summary
 - paragraph: A Monday digest of gallery views, downloads and storage use.
-- status: Saved
-- switch "Weekly summary" [checked]
+- status
+- switch "Weekly summary"
 - heading "Danger zone" [level=2]
 - paragraph: Deleting your account removes every gallery, client portal and archive copy. This cannot be undone after the recovery window.
 - text: Delete account Permanently delete thea@aether.photo and all of its data.
 - button "Delete account"
-- button "Scroll to top"
-- button "Scroll to bottom" [disabled]
+- button "Scroll to top" [disabled]
+- button "Scroll to bottom"
 
 # No notifications section (patterns-preferences--no-notifications)
 - navigation "Settings sections":
@@ -101,6 +102,65 @@
 - button "Delete account"
 - button "Scroll to top" [disabled]
 - button "Scroll to bottom"
+
+# Test: interactions (patterns-preferences--test-interactions)
+- navigation "Settings sections":
+  - list:
+    - listitem:
+      - link "Profile":
+        - /url: "#profile"
+    - listitem:
+      - link "Security":
+        - /url: "#security"
+    - listitem:
+      - link "Notifications":
+        - /url: "#notifications"
+    - listitem:
+      - link "Danger zone":
+        - /url: "#danger"
+- heading "Profile" [level=2]
+- paragraph: Your name and contact email. The email is used for sign-in and account notices.
+- text: Full name
+- textbox "Full name": Thea M.
+- button "Clear input"
+- text: Email
+- textbox "Email": thea@aether.photo
+- button "Clear input"
+- button "Save changes"
+- heading "Security" [level=2]
+- paragraph: Change your password and manage two-factor authentication.
+- text: Current password
+- textbox "Current password": old-pass-1
+- button "Show password"
+- text: New password
+- textbox "New password": new-pass-22
+- button "Show password"
+- text: Use at least 8 characters.
+- button "Update password"
+- paragraph: Two-factor authentication
+- paragraph: On. Your recovery code was shown once when you turned it on.
+- paragraph: Lost your recovery code? Generate a new one — the old code stops working.
+- button "Generate new code"
+- heading "Notifications" [level=2]
+- paragraph: Choose which account events email you. Changes apply immediately.
+- text: Export failures
+- paragraph: Email me when an export fails or is cancelled.
+- status
+- switch "Export failures" [checked]
+- text: License expiry
+- paragraph: Warn me 14 days before a print or web license expires.
+- status
+- switch "License expiry" [checked]
+- text: Weekly summary
+- paragraph: A Monday digest of gallery views, downloads and storage use.
+- status
+- switch "Weekly summary" [checked]
+- heading "Danger zone" [level=2]
+- paragraph: Deleting your account removes every gallery, client portal and archive copy. This cannot be undone after the recovery window.
+- text: Delete account Permanently delete thea@aether.photo and all of its data.
+- button "Delete account"
+- button "Scroll to top"
+- button "Scroll to bottom" [disabled]
 
 # Two on one page (patterns-preferences--two-on-one-page)
 - navigation "Settings sections":

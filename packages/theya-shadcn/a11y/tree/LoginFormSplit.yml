@@ -3,7 +3,9 @@
 # Autoplay with Pause / Play (patterns-loginformsplit--autoplay-pause)
 - region "Galleries your clients will keep":
   - group "Slide 1 of 3":
-    - img "Abstract city of tall blue blocks"
+    - img "Soft blue silk glow"
+  - group "Slide 2 of 3":
+    - img "Blue silk ribbons"
   - paragraph: Galleries your clients will keep
   - group "Slides":
     - button "Go to slide 1"
@@ -34,7 +36,7 @@
 # Default (patterns-loginformsplit--default)
 - region "Galleries your clients will keep":
   - group "Slide 1 of 3":
-    - img "Abstract city of tall blue blocks"
+    - img "Soft blue silk glow"
   - paragraph: Galleries your clients will keep
   - group "Slides":
     - button "Go to slide 1"
@@ -65,7 +67,7 @@
 # Single image (no carousel chrome) (patterns-loginformsplit--single-image-no-autoplay)
 - region "Galleries your clients will keep":
   - group "Slide 1 of 1":
-    - img "Abstract city of tall blue blocks"
+    - img "Soft blue silk glow"
   - paragraph: Galleries your clients will keep
 - heading "Sign in to Aether" [level=1]
 - paragraph: Welcome back. Enter your details to continue.
@@ -91,7 +93,7 @@
 # With logo and back link (patterns-loginformsplit--with-logo-and-back-link)
 - region "Galleries your clients will keep":
   - group "Slide 1 of 3":
-    - img "Abstract city of tall blue blocks"
+    - img "Soft blue silk glow"
   - text: Aether
   - link "Back to website":
     - /url: "#"

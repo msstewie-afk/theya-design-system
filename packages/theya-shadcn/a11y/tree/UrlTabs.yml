@@ -6,3 +6,10 @@
   - tab "Client picks"
   - tab "Security"
 - tabpanel "Overview": Overview content — switching tabs updates the URL's ?tab= param.
+
+# Test: interactions (navigation-urltabs--test-interactions)
+- tablist:
+  - tab "Overview" [selected]
+  - tab "Client picks"
+  - tab "Security"
+- tabpanel "Overview": Overview content — switching tabs updates the URL's ?tab= param.

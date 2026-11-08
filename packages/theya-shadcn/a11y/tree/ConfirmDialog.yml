@@ -15,6 +15,10 @@
     - /placeholder: Golden hour
   - button "Cancel"
   - button "Delete gallery" [disabled]
+  - button "Close"
+
+# Test: interactions (overlays-confirmdialog--test-interactions)
+- button "Delete gallery"
 
 # Typed confirm (overlays-confirmdialog--typed-confirm)
 - button "Delete portal"

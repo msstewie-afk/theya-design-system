@@ -4,7 +4,7 @@
 - text: Portal address
 - textbox "Portal address":
   - /placeholder: selene-weddings
-  - text: eos-portraits
+  - text: selene-weddings
 
 # Disabled (text-input-inputgroup--disabled)
 - text: API key
@@ -24,3 +24,9 @@
 - textbox "Print price":
   - /placeholder: "0.00"
   - text: "45.00"
+
+# Test: interactions (text-input-inputgroup--test-interactions)
+- text: Portal address
+- textbox "Portal address":
+  - /placeholder: selene-weddings
+  - text: eos-portraits

@@ -25,7 +25,9 @@
   - deletion: "82"
   - text: "2 Added: quality:"
   - insertion: "90"
-  - text: "3 3 name: web-2048 4 4 5 Added: max_file_size: 4MB 6 Added: progressive: true 7 Added: 5 8 format: jpg 6 9 long_edge: 2048 7 10 8 11 color: 9 12 profile: sRGB 10 13 embed_profile: true 11 14 12 15 metadata: 13 16 keep_copyright: true 14 17 keep_location: false 15 18 keep_camera: true 19 Added: keep_keywords: true 16 20 17 21 watermark: 18 22 image: selene-mark.png 19 23 opacity: 0.4 20 24 21 25 naming: \"{album}_{sequence}\" 22 Removed: notify_client:"
+  - text: "3 3 name: web-2048 4 4 5 Added: max_file_size: 4MB 6 Added: progressive: true 7 Added: 5 8 format: jpg 6 9 long_edge: 2048 7 10"
+  - button "Show 5 unchanged lines"
+  - text: "13 16 keep_copyright: true 14 17 keep_location: false 15 18 keep_camera: true 19 Added: keep_keywords: true 16 20 17 21 watermark: 18 22 image: selene-mark.png 19 23 opacity: 0.4 20 24 21 25 naming: \"{album}_{sequence}\" 22 Removed: notify_client:"
   - deletion: "false"
   - text: "26 Added: notify_client:"
   - insertion: "true"
@@ -116,6 +118,19 @@
   - text: "26 Added: notify_client:"
   - insertion: "true"
   - text: "23 folder: exports/web 27 folder: exports/web"
+
+# Test: interactions (code-diffviewer--test-interactions)
+- text: presets/web-2048.yml yaml +6 −2 (6 lines added, 2 removed)
+- region "Changes in presets/web-2048.yml":
+  - text: "1 1 preset: 2 Removed: quality:"
+  - deletion: "82"
+  - text: "2 Added: quality:"
+  - insertion: "90"
+  - text: "3 3 name: web-2048 4 4 5 Added: max_file_size: 4MB 6 Added: progressive: true 7 Added: 5 8 format: jpg 6 9 long_edge: 2048 7 10 8 11 color: 9 12 profile: sRGB 10 13 embed_profile: true 11 14 12 15 metadata: 13 16 keep_copyright: true 14 17 keep_location: false 15 18 keep_camera: true 19 Added: keep_keywords: true 16 20 17 21 watermark: 18 22 image: selene-mark.png 19 23 opacity: 0.4 20 24 21 25 naming: \"{album}_{sequence}\" 22 Removed: notify_client:"
+  - deletion: "false"
+  - text: "26 Added: notify_client:"
+  - insertion: "true"
+  - text: "23 27 folder: exports/web"
 
 # With actions (code-diffviewer--with-actions)
 - text: presets/web-2048.yml yaml +6 −2 (6 lines added, 2 removed)

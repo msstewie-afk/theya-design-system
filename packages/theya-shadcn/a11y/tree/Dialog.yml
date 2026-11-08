@@ -51,3 +51,6 @@
   - button "Cancel"
   - button "Save"
   - button "Close"
+
+# Test: interactions (overlays-dialog--test-interactions)
+- button "Create gallery"

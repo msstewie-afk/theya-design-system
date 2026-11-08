@@ -13,3 +13,17 @@
 - link "Marco Rossi":
   - /url: "#"
 - text: MR Marco Rossi Sales
+
+# Test: interactions (motion-cardfan--test-interactions)
+- link "Ana Petrova":
+  - /url: "#"
+- text: AP Ana Petrova Design
+- link "Ivo Marinov":
+  - /url: "#"
+- text: IM Ivo Marinov Engineering
+- link "Lena Novak":
+  - /url: "#"
+- text: LN Lena Novak Support
+- link "Marco Rossi":
+  - /url: "#"
+- text: MR Marco Rossi Sales

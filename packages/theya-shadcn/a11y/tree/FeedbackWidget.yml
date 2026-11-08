@@ -3,10 +3,10 @@
 # Default (status-feedback-feedbackwidget--default)
 - region "Was this page helpful?":
   - paragraph: Was this page helpful?
-  - button "Yes" [pressed]
+  - button "Yes"
   - button "No"
-  - paragraph: Thanks for your feedback.
-- text: "onVote: no onSubmit: {\"vote\":\"no\",\"reasons\":[\"Inaccurate\"],\"comment\":\"Missing a CLI example\"} onVote: yes"
+  - paragraph
+- text: No events yet
 
 # End Of Article (status-feedback-feedbackwidget--end-of-article)
 - heading "Moving a gallery to another studio" [level=2]
@@ -16,6 +16,14 @@
   - button "Yes"
   - button "No"
   - paragraph
+
+# Test: interactions (status-feedback-feedbackwidget--test-interactions)
+- region "Was this page helpful?":
+  - paragraph: Was this page helpful?
+  - button "Yes" [pressed]
+  - button "No"
+  - paragraph: Thanks for your feedback.
+- text: "onVote: no onSubmit: {\"vote\":\"no\",\"reasons\":[\"Inaccurate\"],\"comment\":\"Missing a CLI example\"} onVote: yes"
 
 # Under An Answer (status-feedback-feedbackwidget--under-an-answer)
 - region "Did this answer help?":

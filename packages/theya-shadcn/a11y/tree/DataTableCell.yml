@@ -165,7 +165,7 @@
 - text: kind one line two lines kind="text" kind="mono" kind="primary" kind="status" kind="badge" kind="usage" kind="sparkline" kind="input" kind="select" kind="slider" kind="selector" kind="custom"
 
 # Multiple Badges (data-datatablecell--multiple-badges)
-- text: 420px Expiring soon Print Auto-renew Editorial 260px Expiring soon Print 2 more 220px Expiring soon 3 more 170px 4 items 90px 4 items
+- region "Cell widths": 420px Expiring soon Print Auto-renew Editorial 260px Expiring soon Print 2 more 220px Expiring soon 3 more 170px 4 items 90px 4 items
 
 # Read-only (data-datatablecell--read-only)
 - table:

@@ -2,6 +2,14 @@
 
 # Default (motion-swipedeck--default)
 - group "Templates":
+  - text: Portfolio A one-page gallery of your best work, with a contact form. Personal
+  - button "Skip"
+  - button "Keep"
+  - status
+- paragraph: "Kept: —"
+
+# Test: interactions (motion-swipedeck--test-interactions)
+- group "Templates":
   - text: Wedding album A chapter for each part of the day, with client favorites. Weddings
   - button "Skip"
   - button "Keep"

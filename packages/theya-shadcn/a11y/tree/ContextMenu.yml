@@ -9,6 +9,9 @@
 # Destructive (menus-contextmenu--destructive)
 - text: Right-click for destructive actions
 
+# Test: interactions (menus-contextmenu--test-interactions)
+- text: Right-click DAWN_0412.jpg
+
 # With Disabled Item (menus-contextmenu--with-disabled-item)
 - text: Right-click Blue hour
 

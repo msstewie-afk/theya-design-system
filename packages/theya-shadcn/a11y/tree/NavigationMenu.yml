@@ -34,3 +34,14 @@
     - listitem:
       - link "Pricing":
         - /url: "#"
+
+# Test: interactions (navigation-navigationmenu--test-interactions)
+- navigation "Product menu":
+  - list:
+    - listitem:
+      - button "Products"
+    - listitem:
+      - button "Resources"
+    - listitem:
+      - link "Pricing":
+        - /url: "#"

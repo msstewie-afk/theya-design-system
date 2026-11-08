@@ -6,9 +6,6 @@
 # Default (overlays-hovercard--default)
 - link "selene-weddings.aether.photo":
   - /url: "#"
-- paragraph: selene-weddings.aether.photo
-- paragraph: Online · Selene Weddings · Print license active
-- paragraph: 1,284 views today
 
 # Open (overlays-hovercard--open)
 - link "helios.aether.photo":
@@ -18,4 +15,8 @@
 
 # Portal Preview (overlays-hovercard--portal-preview)
 - link "eos-portraits.aether.photo":
+  - /url: "#"
+
+# Test: interactions (overlays-hovercard--test-interactions)
+- link "selene-weddings.aether.photo":
   - /url: "#"

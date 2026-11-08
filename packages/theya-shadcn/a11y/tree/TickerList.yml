@@ -6,4 +6,12 @@
   - listitem: Rhea Okafor downloaded 24 photos
   - listitem: Theo Amari ordered 2 prints
   - listitem: Layla Haddad favorited 8 photos
+- button "Pause"
+
+# Test: interactions (motion-tickerlist--test-interactions)
+- text: Client activity
+- list "Recent client activity":
+  - listitem: Rhea Okafor downloaded 24 photos
+  - listitem: Theo Amari ordered 2 prints
+  - listitem: Layla Haddad favorited 8 photos
 - button "Play"

@@ -10,5 +10,8 @@
 - link "selene-weddings.aether.photo/galleries/moonrise-over-othrys":
   - /url: "#gallery"
 
+# Test: interactions (labels-truncatedtext--test-interactions)
+- text: selene-weddings.aether.photo/galleries/moonrise-over-othrys
+
 # Two lines (labels-truncatedtext--two-lines)
 - text: Redirect old gallery links to the new client portal, then email clients the new address with a short note from the studio

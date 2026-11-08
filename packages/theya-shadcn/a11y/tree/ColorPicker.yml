@@ -20,6 +20,68 @@
 
 # Default (selection-colorpicker--default)
 - tablist:
+  - tab "Palette"
+  - tab "From photo"
+  - tab "Custom" [selected]
+- tabpanel "Custom":
+  - slider "Saturation and brightness"
+  - button "Pick a color from the screen"
+  - slider "Hue"
+  - slider "Opacity"
+  - combobox "Color format": RGB
+  - text: R
+  - textbox "Red": "59"
+  - text: G
+  - textbox "Green": "111"
+  - text: B
+  - textbox "Blue": "214"
+  - textbox "Opacity, percent": 100%
+
+# Field (selection-colorpicker--field)
+- text: Primary color
+- button "Choose color for Primary color"
+- textbox "Primary color": "#E8833A"
+- paragraph: Used for buttons and links.
+- text: Overlay
+- button "Choose color for Overlay"
+- textbox "Overlay": "#1D243380"
+- text: Small
+- button "Choose color for Small"
+- textbox "Small": "#3F9C5F"
+
+# From photo (selection-colorpicker--from-photo)
+- tablist:
+  - tab "From photo" [selected]
+  - tab "Custom"
+- tabpanel "From photo":
+  - button "Change photo"
+  - combobox "Color format": HEX
+  - textbox "Hex": "#3B6FD6"
+  - radiogroup "Colors from the photo":
+    - radio "#0577C8"
+    - radio "#00559A"
+    - radio "#27A7E8"
+    - radio "#48C7F7"
+    - radio "#77D6F8"
+    - radio "#00297B"
+    - radio "#A6EAFA"
+    - radio "#D9F8FC"
+
+# Hex only (selection-colorpicker--hex-only)
+- slider "Saturation and brightness"
+- button "Pick a color from the screen"
+- slider "Hue"
+- textbox "Hex": "#2F62D1"
+
+# Invalid hex (selection-colorpicker--invalid-hex)
+- slider "Saturation and brightness"
+- button "Pick a color from the screen"
+- slider "Hue"
+- combobox "Color format": HEX
+- textbox "Hex": "#3B6FD6"
+
+# Test: interactions (selection-colorpicker--test-interactions)
+- tablist:
   - tab "Palette" [selected]
   - tab "From photo"
   - tab "Custom"
@@ -110,50 +172,6 @@
     - radio "#BDEEF5"
     - radio "#000000"
     - radio "#FFFFFF"
-
-# Field (selection-colorpicker--field)
-- text: Primary color
-- button "Choose color for Primary color"
-- textbox "Primary color": "#E8833A"
-- paragraph: Used for buttons and links.
-- text: Overlay
-- button "Choose color for Overlay"
-- textbox "Overlay": "#1D243380"
-- text: Small
-- button "Choose color for Small"
-- textbox "Small": "#3F9C5F"
-
-# From photo (selection-colorpicker--from-photo)
-- tablist:
-  - tab "From photo" [selected]
-  - tab "Custom"
-- tabpanel "From photo":
-  - button "Change photo"
-  - combobox "Color format": HEX
-  - textbox "Hex": "#3B6FD6"
-  - radiogroup "Colors from the photo":
-    - radio "#1C66B9"
-    - radio "#FCC7E6"
-    - radio "#FB77BA"
-    - radio "#447ADA"
-    - radio "#A858B8"
-    - radio "#6858BA"
-    - radio "#163A88"
-    - radio "#B7A7FA"
-
-# Hex only (selection-colorpicker--hex-only)
-- slider "Saturation and brightness"
-- button "Pick a color from the screen"
-- slider "Hue"
-- textbox "Hex": "#2F62D1"
-
-# Invalid hex (selection-colorpicker--invalid-hex)
-- slider "Saturation and brightness"
-- button "Pick a color from the screen"
-- slider "Hue"
-- combobox "Color format": HEX
-- textbox "Hex": "#3B6FD6"
-- alert: "Enter a hex color: 3 or 6 characters, 0–9 and A–F."
 
 # With opacity (selection-colorpicker--with-alpha)
 - slider "Saturation and brightness"

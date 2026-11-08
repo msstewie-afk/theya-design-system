@@ -50,3 +50,7 @@
 - button "Adds your logo to every preview; full-size downloads stay clean.":
   - img
 - switch "Watermark previews Adds your logo to every preview; full-size downloads stay clean." [checked]
+
+# Test: interactions (labels-helpicon--test-interactions)
+- button "Renewal runs 30 days before expiry.":
+  - img

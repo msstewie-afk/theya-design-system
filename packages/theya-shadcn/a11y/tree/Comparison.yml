@@ -89,7 +89,7 @@
     - paragraph: Phoebe Light Lab
     - paragraph: One 30-page layflat album a month, printed and bound.
     - paragraph: Works with Pro plan, Business plan
-    - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k installs
+    - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k subscribers
     - text: $29 / mo
     - checkbox "Compare Layflat album"
 
@@ -104,7 +104,7 @@
     - paragraph: Works with Lightroom, Capture One
     - paragraph: Rated 4.7 out of 5 from 812 reviews. 48k installs
     - text: Free
-    - checkbox "Compare Golden hour presets" [checked]
+    - checkbox "Compare Golden hour presets"
   - listitem:
     - link "Blue hour presets by Selene Weddings":
       - /url: "#blue-hour-presets"
@@ -124,7 +124,7 @@
     - paragraph: Works with Lightroom, Photoshop
     - paragraph: Rated 4.8 out of 5 from 1204 reviews. 64k installs
     - text: Free
-    - checkbox "Compare Skin tone essentials" [checked]
+    - checkbox "Compare Skin tone essentials"
   - listitem:
     - link "Aether basics by Aether":
       - /url: "#aether-basics"
@@ -182,21 +182,9 @@
     - paragraph: Phoebe Light Lab
     - paragraph: One 30-page layflat album a month, printed and bound.
     - paragraph: Works with Pro plan, Business plan
-    - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k installs
+    - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k subscribers
     - text: $29 / mo
     - checkbox "Compare Layflat album"
-- region "Comparison":
-  - list:
-    - listitem:
-      - text: Golden hour presets
-      - button "Remove Golden hour presets from comparison"
-    - listitem:
-      - text: Skin tone essentials
-      - button "Remove Skin tone essentials from comparison"
-  - paragraph: You can add up to 4.
-  - button "Clear"
-  - button "Compare (2)"
-- status: 2 of 4 selected for comparison
 
 # Full (patterns-catalog-comparison--full)
 - list:
@@ -287,7 +275,7 @@
     - paragraph: Phoebe Light Lab
     - paragraph: One 30-page layflat album a month, printed and bound.
     - paragraph: Works with Pro plan, Business plan
-    - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k installs
+    - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k subscribers
     - text: $29 / mo
     - checkbox "Compare Layflat album"
 - region "Comparison":
@@ -458,7 +446,7 @@
     - paragraph: Phoebe Light Lab
     - paragraph: One 30-page layflat album a month, printed and bound.
     - paragraph: Works with Pro plan, Business plan
-    - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k installs
+    - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k subscribers
     - text: $29 / mo
     - checkbox "Compare Layflat album"
 - region "Comparison":
@@ -469,6 +457,111 @@
   - paragraph: Pick at least 2 to compare.
   - button "Clear"
   - button "Compare (1)" [disabled]
+
+# Test: interactions (patterns-catalog-comparison--test-interactions)
+- list:
+  - listitem:
+    - link "Golden hour presets by Helios Studio":
+      - /url: "#golden-hour-presets"
+    - paragraph: Golden hour presets
+    - paragraph: Helios Studio
+    - paragraph: Twelve warm looks for late-afternoon light.
+    - paragraph: Works with Lightroom, Capture One
+    - paragraph: Rated 4.7 out of 5 from 812 reviews. 48k installs
+    - text: Free
+    - checkbox "Compare Golden hour presets" [checked]
+  - listitem:
+    - link "Blue hour presets by Selene Weddings":
+      - /url: "#blue-hour-presets"
+    - paragraph: Blue hour presets
+    - paragraph: Selene Weddings
+    - paragraph: Cool, low-contrast looks for dusk and night shoots.
+    - paragraph: Works with Lightroom, Capture One, Photoshop
+    - paragraph: Rated 4.4 out of 5 from 356 reviews. 22k installs
+    - text: $6 / mo
+    - checkbox "Compare Blue hour presets"
+  - listitem:
+    - link "Skin tone essentials by Eos Portraits":
+      - /url: "#skin-tone-essentials"
+    - paragraph: Skin tone essentials
+    - paragraph: Eos Portraits
+    - paragraph: Even, natural skin tones in window and mixed light.
+    - paragraph: Works with Lightroom, Photoshop
+    - paragraph: Rated 4.8 out of 5 from 1204 reviews. 64k installs
+    - text: Free
+    - checkbox "Compare Skin tone essentials" [checked]
+  - listitem:
+    - link "Aether basics by Aether":
+      - /url: "#aether-basics"
+    - paragraph: Aether basics
+    - paragraph: Aether
+    - paragraph: Clean color and contrast for any shoot, applied on import.
+    - paragraph: Works with Lightroom, Capture One
+    - paragraph: Rated 4.9 out of 5 from 2210 reviews. 91k installs
+    - text: Free
+    - checkbox "Compare Aether basics"
+  - listitem:
+    - link "Client proofing by Aether":
+      - /url: "#client-proofing"
+    - paragraph: Client proofing
+    - paragraph: Aether
+    - paragraph: Clients pick favorites and leave notes on any gallery.
+    - paragraph: Works with Pro plan, Business plan
+    - paragraph: Rated 4.6 out of 5 from 640 reviews. 30k installs
+    - text: $8 / mo
+    - checkbox "Compare Client proofing"
+  - listitem:
+    - link "Extra storage by Aether":
+      - /url: "#extra-storage"
+    - paragraph: Extra storage
+    - paragraph: Aether
+    - paragraph: Another 1 TB in the Mnemosyne archive for raw files.
+    - paragraph: Works with Pro plan, Business plan
+    - paragraph: Rated 4.3 out of 5 from 211 reviews. 9.8k installs
+    - text: $12 / mo
+    - checkbox "Compare Extra storage"
+  - listitem:
+    - link "Watermark studio by Quartz":
+      - /url: "#watermark-studio"
+    - paragraph: Watermark studio
+    - paragraph: Quartz
+    - paragraph: Your own watermark on previews and client downloads.
+    - paragraph: Works with Pro plan
+    - paragraph: Rated 4.1 out of 5 from 98 reviews. 4.2k installs
+    - text: $5 / mo
+    - checkbox "Compare Watermark studio"
+  - listitem:
+    - link "License manager by Fjord":
+      - /url: "#license-manager"
+    - paragraph: License manager
+    - paragraph: Fjord
+    - paragraph: A print or web license attached to every client download.
+    - paragraph: Works with Pro plan, Business plan
+    - paragraph: Rated 3.9 out of 5 from 57 reviews. 2.3k installs
+    - text: $4 / mo
+    - checkbox "Compare License manager"
+  - listitem:
+    - link "Layflat album by Phoebe Light Lab":
+      - /url: "#layflat-album"
+    - paragraph: Layflat album
+    - paragraph: Phoebe Light Lab
+    - paragraph: One 30-page layflat album a month, printed and bound.
+    - paragraph: Works with Pro plan, Business plan
+    - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k subscribers
+    - text: $29 / mo
+    - checkbox "Compare Layflat album"
+- region "Comparison":
+  - list:
+    - listitem:
+      - text: Golden hour presets
+      - button "Remove Golden hour presets from comparison"
+    - listitem:
+      - text: Skin tone essentials
+      - button "Remove Skin tone essentials from comparison"
+  - paragraph: You can add up to 4.
+  - button "Clear"
+  - button "Compare (2)"
+- status: 2 of 4 selected for comparison
 
 # Test: tray remove keeps focus (patterns-catalog-comparison--tray-remove-focus)
 - list:
@@ -559,7 +652,7 @@
     - paragraph: Phoebe Light Lab
     - paragraph: One 30-page layflat album a month, printed and bound.
     - paragraph: Works with Pro plan, Business plan
-    - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k installs
+    - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k subscribers
     - text: $29 / mo
     - checkbox "Compare Layflat album"
 - status: 1 of 4 selected for comparison

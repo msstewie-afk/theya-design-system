@@ -70,30 +70,66 @@
 
 # Default (patterns-search-searchresults--default)
 - search "Site":
-  - searchbox "Search": proof
+  - searchbox "Search": selene
   - button "Clear Search"
   - button "Search"
-- heading "No results for “proof”" [level=1]
-- paragraph: "Try:"
-- list:
-  - listitem: Checking the spelling
-  - listitem: Fewer or more general words — “wedding” instead of “June wedding at the lodge”
-  - listitem: A name, album title or email address exactly as it appears
-- region "Popular pages":
-  - heading "Popular pages" [level=2]
-  - list:
-    - listitem:
-      - link "Archive retention Settings › Archive":
-        - /url: "#s1"
-    - listitem:
-      - link "Default usage rights Settings › Rights":
-        - /url: "#s3"
-    - listitem:
-      - link "Restore a gallery from the archive Help › Archive":
-        - /url: "#a1"
-    - listitem:
-      - link "Use your own portal address Help › Client portals":
-        - /url: "#a4"
+- heading "6 results for “selene”" [level=1]
+- tablist "Show results for":
+  - tab "All 6" [selected]
+  - tab "Galleries 3"
+  - tab "Clients 1"
+  - tab "Licenses 1"
+  - tab "Help articles 1"
+- tabpanel "All 6":
+  - region "Galleries":
+    - heading "Galleries" [level=2]
+    - button "View all 3 galleries"
+    - list:
+      - listitem:
+        - link "Moonrise over Othrys , gallery":
+          - /url: "#g1"
+        - paragraph:
+          - mark: Selene
+          - text: Weddings · 214 photos
+        - text: Shared
+      - listitem:
+        - link "Blue hour , gallery":
+          - /url: "#g2"
+        - paragraph:
+          - mark: Selene
+          - text: Weddings · 96 photos
+        - text: Draft
+  - region "Clients":
+    - heading "Clients" [level=2]
+    - list:
+      - listitem:
+        - link "Rhea Okafor , client":
+          - /url: "#c1"
+        - paragraph:
+          - mark: Selene
+          - text: Weddings · rhea.okafor@example.com
+  - region "Licenses":
+    - heading "Licenses" [level=2]
+    - list:
+      - listitem:
+        - link "Web rights for Moonrise over Othrys , license":
+          - /url: "#l3"
+        - paragraph:
+          - text: Rhea Okafor ·
+          - mark: Selene
+          - text: Weddings
+        - text: Expired
+  - region "Help articles":
+    - heading "Help articles" [level=2]
+    - list:
+      - listitem:
+        - link "Use your own portal address , help article":
+          - /url: "#a4"
+        - paragraph: Help › Client portals
+        - paragraph:
+          - text: Show your portal at an address you own instead of
+          - mark: selene
+          - text: "-weddings.aether.photo."
 
 # No Results (patterns-search-searchresults--no-results)
 - search "Site":
@@ -157,3 +193,30 @@
         - mark: Selene
         - text: Weddings · 340 photos
       - text: Archived
+
+# Test: interactions (patterns-search-searchresults--test-interactions)
+- search "Site":
+  - searchbox "Search": proof
+  - button "Clear Search"
+  - button "Search"
+- heading "No results for “proof”" [level=1]
+- paragraph: "Try:"
+- list:
+  - listitem: Checking the spelling
+  - listitem: Fewer or more general words — “wedding” instead of “June wedding at the lodge”
+  - listitem: A name, album title or email address exactly as it appears
+- region "Popular pages":
+  - heading "Popular pages" [level=2]
+  - list:
+    - listitem:
+      - link "Archive retention Settings › Archive":
+        - /url: "#s1"
+    - listitem:
+      - link "Default usage rights Settings › Rights":
+        - /url: "#s3"
+    - listitem:
+      - link "Restore a gallery from the archive Help › Archive":
+        - /url: "#a1"
+    - listitem:
+      - link "Use your own portal address Help › Client portals":
+        - /url: "#a4"

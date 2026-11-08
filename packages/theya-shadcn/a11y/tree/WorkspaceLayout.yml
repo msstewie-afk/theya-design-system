@@ -140,3 +140,54 @@
     - img
 - main:
   - paragraph: Content.
+
+# Test: keyboard and nav (patterns-workspacelayout--test-keyboard-and-nav)
+- link "Skip to main content":
+  - /url: "#main-content"
+- complementary:
+  - text: Aether
+  - button "Collapse sidebar" [expanded]
+  - navigation "Main":
+    - text: Manage
+    - link "Dashboard":
+      - /url: "#"
+      - img
+      - text: Dashboard
+    - link "Galleries 12 galleries":
+      - /url: "#"
+      - img
+      - text: Galleries 12 galleries
+    - link "Archive":
+      - /url: "#"
+      - img
+      - text: Archive
+    - link "Licenses":
+      - /url: "#"
+      - img
+      - text: Licenses
+    - text: Account
+    - link "Billing":
+      - /url: "#"
+      - img
+      - text: Billing
+    - link "Team":
+      - /url: "#"
+      - img
+      - text: Team
+    - link "Settings":
+      - /url: "#"
+      - img
+      - text: Settings
+  - text: TM Thea Marlow Helios Studio
+- banner:
+  - textbox "Search..."
+  - text: ⌘K
+  - button "Notifications, unread":
+    - img
+  - button "Help":
+    - img
+  - button "Switch to dark theme":
+    - img
+- main:
+  - heading "Dashboard" [level=2]
+  - paragraph: Page content goes here.

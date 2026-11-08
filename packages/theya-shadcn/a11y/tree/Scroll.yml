@@ -5,14 +5,30 @@
   - paragraph: Customers
   - heading "Teams that found their links again" [level=2]
   - paragraph: Six stories, from research labs to agencies.
-  - button "Previous slide"
+  - button "Previous slide" [disabled]
   - button "Next slide"
+  - group "1 of 6":
+    - article:
+      - img "Searching “attention” finds three pages, with the word highlighted inside each.":
+        - text: attention Notes on attention …what we give our
+        - mark: attention
+        - text: to becomes… A year without notifications …my
+        - mark: attention
+        - text: came back slowly… How we read on screens …
+        - mark: attention
+        - text: drops after the first…
+      - paragraph: Research
+      - 'heading "Fieldnote: Read the story" [level=3]':
+        - 'link "Fieldnote: Read the story"':
+          - /url: "#fieldnote"
+          - text: Fieldnote
+      - paragraph: 40% less time finding sources
   - group "2 of 6":
     - article:
       - img "Four folders with tags; Reading list sorts long reads in automatically.": "Reading list auto: longreads 128 Design systems tokens 64 Recipes summer 37 Trips hiking 21"
       - paragraph: Publishing
-      - 'heading "Greenhouse: read the story" [level=3]':
-        - 'link "Greenhouse: read the story"':
+      - 'heading "Greenhouse: Read the story" [level=3]':
+        - 'link "Greenhouse: Read the story"':
           - /url: "#greenhouse"
           - text: Greenhouse
       - paragraph: 3× more articles linked per issue
@@ -20,29 +36,11 @@
     - article:
       - 'img "Three duplicates found: two to keep and one to merge."': 3 duplicates found Notes on attention Reading list keep Notes on attention Design systems merge Cold cucumber soup Recipes keep
       - paragraph: Design
-      - 'heading "Northwind: read the story" [level=3]':
-        - 'link "Northwind: read the story"':
+      - 'heading "Northwind: Read the story" [level=3]':
+        - 'link "Northwind: Read the story"':
           - /url: "#northwind"
           - text: Northwind
       - paragraph: 18k duplicates merged in a week
-  - group "4 of 6":
-    - article:
-      - 'img "Import in progress: Chrome done, Firefox 168 of 230 links, Safari waiting."':
-        - paragraph: Importing bookmarks
-        - paragraph: 580 of 738 links
-        - text: Chrome
-        - progressbar "Chrome import"
-        - text: Firefox
-        - progressbar "Firefox import"
-        - text: 168/230 Safari
-        - progressbar "Safari import"
-        - text: 0/96
-      - paragraph: Education
-      - 'heading "Lumen: read the story" [level=3]':
-        - 'link "Lumen: read the story"':
-          - /url: "#lumen"
-          - text: Lumen
-      - paragraph: 1,200 students on one reading list
 
 # Reveal (patterns-landing-scroll--reveal)
 - region "Built for big collections":
@@ -120,16 +118,16 @@
   - list:
     - listitem:
       - link "01 Bring everything over":
-        - /url: "#:r0:-import"
+        - /url: "#_r_0_-import"
     - listitem:
       - link "02 Folders that sort themselves":
-        - /url: "#:r0:-folders"
+        - /url: "#_r_0_-folders"
     - listitem:
       - link "03 Search the words, not just the titles":
-        - /url: "#:r0:-search"
+        - /url: "#_r_0_-search"
     - listitem:
       - link "04 One copy of everything":
-        - /url: "#:r0:-duplicates"
+        - /url: "#_r_0_-duplicates"
 - list:
   - listitem:
     - 'img "Import in progress: Chrome done, Firefox 168 of 230 links, Safari waiting."':

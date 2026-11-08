@@ -21,8 +21,8 @@
 - radiogroup "Rate this host":
   - radio "1 of 5"
   - radio "2 of 5"
-  - radio "3 of 5"
-  - radio "4 of 5" [checked]
+  - radio "3 of 5" [checked]
+  - radio "4 of 5"
   - radio "5 of 5"
 
 # Disabled (selection-rating--disabled)
@@ -46,6 +46,14 @@
   - radio "4 of 5" [checked]
   - radio "5 of 5"
 - radiogroup "Medium rating":
+  - radio "1 of 5"
+  - radio "2 of 5"
+  - radio "3 of 5"
+  - radio "4 of 5" [checked]
+  - radio "5 of 5"
+
+# Test: interactions (selection-rating--test-interactions)
+- radiogroup "Rate this host":
   - radio "1 of 5"
   - radio "2 of 5"
   - radio "3 of 5"
