@@ -238,6 +238,10 @@
       "red-800": {
         "value": "#640728"
       },
+      "red-850": {
+        "value": "#52041f",
+        "comment": "Between 800 and 900, so the ramp keeps getting darker step by step. Restored 2026-11-08: primitives are never removed from a ramp, used or not (Maria)."
+      },
       "red-900": {
         "value": "#400216"
       }
@@ -275,6 +279,10 @@
       },
       "orange-800": {
         "value": "#5D2F13"
+      },
+      "orange-850": {
+        "value": "#4d250c",
+        "comment": "Between 800 and 900, so the ramp keeps getting darker step by step. Restored 2026-11-08: primitives are never removed from a ramp, used or not (Maria)."
       },
       "orange-900": {
         "value": "#3e1c06"
@@ -630,6 +638,45 @@
       },
       "magenta-900": {
         "value": "#40022f"
+      }
+    },
+    "azure": {
+      "azure-005": {
+        "value": "#ecf7ff",
+        "comment": "Restored 2026-11-08 with its 26.10 values: a ramp stays in the palette whether or not any token uses it now (Maria). Unused by Theya's semantic tokens."
+      },
+      "azure-010": {
+        "value": "#dcf1ff"
+      },
+      "azure-050": {
+        "value": "#b4e1ff"
+      },
+      "azure-100": {
+        "value": "#7acaff"
+      },
+      "azure-200": {
+        "value": "#46b5ff"
+      },
+      "azure-300": {
+        "value": "#069cff"
+      },
+      "azure-400": {
+        "value": "#3292f1"
+      },
+      "azure-500": {
+        "value": "#0278ca"
+      },
+      "azure-600": {
+        "value": "#0068ae"
+      },
+      "azure-700": {
+        "value": "#004877"
+      },
+      "azure-800": {
+        "value": "#003354"
+      },
+      "azure-900": {
+        "value": "#001f33"
       }
     },
     "slate-a": {
