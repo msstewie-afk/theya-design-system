@@ -222,11 +222,22 @@ for (const [key, vars, pick] of [
     brandVars[n][b.name] = brandValue(css, v);
   }
 }
-// Radius roles: Theya's fallback is the radius the components use without a profile.
-const ROLE_FALLBACK = { field: 'border-radius/border-radius-lg', button: 'border-radius/border-radius-xl' };
-for (const [role, fallback] of Object.entries(ROLE_FALLBACK)) {
-  const n = 'theme-radius/' + role;
-  for (const b of brands) { const v = b.shared?.['--theme-radius-' + role]; if (v === undefined) continue; (brandVars[n] ||= { theya: '@sem:' + fallback })[b.name] = brandValue('--theme-radius-' + role, v); }
+// Radius roles. A profile sets one radius for every field / every button
+// (--theme-radius-field / -button); without it each size keeps Theya's own
+// (fields: sm md, others lg; buttons: sm/md lg, lg+ xl, lg+ pressed 2xl —
+// text-field-variants.ts, button.tsx). Figma components bind one variable per
+// such Theya step, so each one's "theya" mode is that step and a brand mode
+// is the profile's single value.
+const ROLE_STEPS = [
+  ['theme-radius/field', 'field', 'border-radius/border-radius-lg'],
+  ['theme-radius/field-sm', 'field', 'border-radius/border-radius-md'],
+  ['theme-radius/button', 'button', 'border-radius/border-radius-xl'],
+  ['theme-radius/button-sm', 'button', 'border-radius/border-radius-lg'],
+  ['theme-radius/button-pressed', 'button', 'border-radius/border-radius-2xl'],
+];
+for (const [n, role, fallback] of ROLE_STEPS) {
+  brandVars[n] = { theya: '@sem:' + fallback };
+  for (const b of brands) { const v = b.shared?.['--theme-radius-' + role]; if (v !== undefined) brandVars[n][b.name] = brandValue('--theme-radius-' + role, v); }
 }
 for (const b of brands) for (const k of Object.keys(b.shared ?? {})) if (!/^--(size|typography|theme-radius)-/.test(k)) miss(b.name, k);
 
