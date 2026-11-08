@@ -473,6 +473,10 @@
         "id": "motion-animatedicon--states"
       },
       {
+        "name": "TestStates",
+        "id": "motion-animatedicon--test-states"
+      },
+      {
         "name": "Busy",
         "id": "motion-animatedicon--busy"
       }
