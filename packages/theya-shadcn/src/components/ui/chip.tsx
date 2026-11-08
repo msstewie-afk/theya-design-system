@@ -251,7 +251,9 @@ export function Chip({
           }}
           onKeyDown={onKeyDown}
           // rounded-[inherit]: the focus ring follows the chip's corners (and a pill's ends).
-          className="absolute inset-0 rounded-[inherit] outline-none focus-visible:focus-ring"
+          // -inset-px: cover the chip's 1px border too, so the target is the
+          // chip's full 24px height (WCAG 2.5.8) next to a 24px ChipRemove.
+          className="absolute -inset-px rounded-[inherit] outline-none focus-visible:focus-ring"
         />
       )}
       {displayIcon != null && decorativeIcon(displayIcon)}
@@ -285,8 +287,16 @@ export const ChipRemove = forwardRef<HTMLButtonElement, React.ComponentPropsWith
       // The ✕ takes the chip's own ink (white on a filled chip, the tone's
       // on-tonal text otherwise), like the label and the leading icon. The
       // Button's default primary tone painted the icon blue on every chip.
-      className={cn('relative z-10 -me-2 shrink-0 text-current [&_svg]:text-current', className)}
-      leftIcon={children ?? <Xmark width={14} height={14} />}
+      // 24px square target around a 14px icon, pulled 5px into the gap and
+      // the end padding on each side, so the chip lays out as label, 4px gap,
+      // 14px icon, padding — the same box as Figma's removable chip. (Was the
+      // Button's 28px sm square with a 12px icon: 6px wider than the design.)
+      className={cn(
+        'relative z-10 h-[var(--size-size-control-size-control-sm)] shrink-0 text-current [&_svg]:size-3.5 [&_svg]:text-current',
+        '-ms-[calc((var(--size-size-control-size-control-sm)-0.875rem)/2)] -me-[calc((var(--size-size-control-size-control-sm)-0.875rem)/2)]',
+        className,
+      )}
+      leftIcon={children ?? <Xmark className="size-3.5" />}
       {...props}
     />
   );
