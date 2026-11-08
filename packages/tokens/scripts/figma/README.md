@@ -67,6 +67,8 @@ value is missing or differs.
 - Matching is by slug: lowercase, commas/whitespace → `-`, other punctuation dropped.
 - Variables under `_legacy/` are ignored and stay hidden from pickers.
 - Figma-only variables kept on purpose: `icon/icon-warning-bright`, `size1`, `size2`,
-  `padding/padding--3xs`, `padding/padding--2xs`, `gap/gap--2xs`.
+  `padding/padding--3xs`, `padding/padding--2xs`, `gap/gap--2xs`; palette steps code
+  does not have — `red/red-850`, `orange/orange-850`, the `azure` ramp. Palettes are
+  never trimmed: an unused step may serve another system.
 - Primitives are hidden (`scopes = []`); semantic tokens are scoped by role
   (text → text fill, border → stroke, bg → frame/shape fill, focus → effect color).

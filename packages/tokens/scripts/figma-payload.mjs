@@ -250,6 +250,9 @@ const payload = {
   // utilities (-space-x-1), not tokens. check / sync list them as figmaOnly,
   // not as extra. Collection key -> Figma variable names.
   figmaOnly: {
+    // Palettes stay whole in Figma even where code has no such step (Maria,
+    // 2026-11-08): red/orange 850 and the azure ramp may serve another system.
+    '1.': ['red/red-850', 'orange/orange-850', ...['005', '010', '050', '100', '200', '300', '400', '500', '600', '700', '800', '900'].map((s) => `azure/azure-${s}`)],
     '4.': ['padding/padding--3xs', 'padding/padding--2xs', 'gap/gap--2xs'],
   },
 };
