@@ -214,7 +214,15 @@
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
   },
   "Radio": {
-    "selector": "[role=radio]"
+    "story": "selection-radio--states",
+    "values": {
+      "checked=true": {
+        "$selector": "[role=radio][data-state=checked]"
+      },
+      "checked=false": {
+        "$selector": "[role=radio][data-state=unchecked]:not([disabled])"
+      }
+    }
   },
   "RatingStar": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
@@ -343,6 +351,69 @@
   "Rating": {
     "args": {
       "readOnly": true
+    }
+  },
+  "Button/primary": {
+    "values": {
+      "iconOnly=true": {
+        "iconOnly": true,
+        "leftIconName": "star",
+        "aria-label": "Star"
+      }
+    }
+  },
+  "Button/secondary": {
+    "values": {
+      "iconOnly=true": {
+        "iconOnly": true,
+        "leftIconName": "star",
+        "aria-label": "Star"
+      }
+    }
+  },
+  "Button/neutral": {
+    "values": {
+      "iconOnly=true": {
+        "iconOnly": true,
+        "leftIconName": "star",
+        "aria-label": "Star"
+      }
+    }
+  },
+  "Button/success": {
+    "values": {
+      "iconOnly=true": {
+        "iconOnly": true,
+        "leftIconName": "star",
+        "aria-label": "Star"
+      }
+    }
+  },
+  "Button/warning": {
+    "values": {
+      "iconOnly=true": {
+        "iconOnly": true,
+        "leftIconName": "star",
+        "aria-label": "Star"
+      }
+    }
+  },
+  "Button/danger": {
+    "values": {
+      "iconOnly=true": {
+        "iconOnly": true,
+        "leftIconName": "star",
+        "aria-label": "Star"
+      }
+    }
+  },
+  "Button/info": {
+    "values": {
+      "iconOnly=true": {
+        "iconOnly": true,
+        "leftIconName": "star",
+        "aria-label": "Star"
+      }
     }
   }
 }

@@ -17,7 +17,7 @@
  *   { "<Figma set name>": {
  *       "component": "<code export, when the names differ>",
  *       "story": "<story id>", "args": {…}, "selector": "<css>",
- *       "values": { "<figma prop>=<value>": { <code args> } },
+ *       "values": { "<figma prop>=<value>": { <code args>, "$selector"?: "<css>" } },
  *       "text": false,          // keep the story's own sample text
  *       "skip": "<reason>" } }
  *
@@ -219,16 +219,23 @@ function resolve(set) {
   const dropped = new Set();
   const variants = set.variants.map((v) => {
     const args = { ...(o.args ?? {}) };
+    let selector;
     if (fixedTone && props.has('tone')) args.tone = fixedTone;
     for (const [k, val] of Object.entries(v.props)) {
       // overrides.values: a Figma prop value that maps to other code props,
       // e.g. { "content=dot": { "dot": true } }.
       const mapped = o.values?.[`${k}=${val}`];
-      if (mapped) Object.assign(args, mapped);
+      if (mapped) {
+        // "$selector" in a value entry picks the capture target for that
+        // variant only (Radio checked=true → the checked radio of a group).
+        const { $selector, ...rest } = mapped;
+        if ($selector) selector = $selector;
+        Object.assign(args, rest);
+      }
       else if (props.has(k)) args[k] = toArg(props.get(k), val);
       else dropped.add(k);
     }
-    return { ...v, args };
+    return { ...v, args, selector };
   });
   return { story, selector: o.selector, width: o.width, bleed: o.bleed === true, useText: o.text !== false, variants, dropped: [...dropped] };
 }
@@ -443,9 +450,9 @@ for (const { set, r } of plan) {
         if (!el) return false;
         el.setAttribute('data-fv-target', '');
         return true;
-      }, r.selector ?? null);
+      }, v.selector ?? r.selector ?? null);
       const el = found && (await page.$('[data-fv-target]'));
-      if (!el) throw new Error(`nothing matches ${r.selector ?? '#storybook-root > *'}`);
+      if (!el) throw new Error(`nothing matches ${v.selector ?? r.selector ?? '#storybook-root > *'}`);
       // Clip to the element's exact box instead of el.screenshot(): a
       // centered story sits on half pixels (x = 584.5), which the element
       // screenshot rounds outwards into a 1px-larger image. At 2× a half
