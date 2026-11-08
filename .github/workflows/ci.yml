@@ -454,8 +454,15 @@ jobs:
   a11y:
     needs: checks
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
-    name: accessibility checks
+    timeout-minutes: 30
+    # Four machines, every 4th component each (--shard): the browser checks
+    # took ~39 min on one runner and set the length of the whole run.
+    # Nothing is skipped; each shard runs both scripts on its components.
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    name: accessibility checks (${{ matrix.shard }}/4)
     defaults:
       run:
         working-directory: packages/theya-shadcn
@@ -489,11 +496,11 @@ jobs:
           echo "Storybook did not start" && exit 1
 
       - name: Accessibility tree (names, images, headers, error association)
-        run: node scripts/a11y-tree.mjs --url http://localhost:6008 --workers 2 --ci
+        run: node scripts/a11y-tree.mjs --url http://localhost:6008 --workers 2 --ci --shard ${{ matrix.shard }}/4
 
       - name: Browser checks (label in name, focus visible, text spacing, 200% text, Tab)
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
-        run: node scripts/a11y-auto.mjs --url http://localhost:6008 --workers 2 --ci
+        run: node scripts/a11y-auto.mjs --url http://localhost:6008 --workers 2 --ci --shard ${{ matrix.shard }}/4
 
   react-18:
     needs: checks

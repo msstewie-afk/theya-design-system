@@ -36,6 +36,7 @@
  *
  *   node scripts/a11y-tree.mjs --url http://localhost:6008 [--only <title-substring>] [--workers 4]
  *   node scripts/a11y-tree.mjs --url … --ci   (CI: writes nothing, fails on any finding or a story that didn't load)
+ *   node scripts/a11y-tree.mjs --url … --ci --shard 2/4   (CI: every 4th component, starting with the 2nd)
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -59,7 +60,19 @@ const TREE_DIR = path.join(ROOT, 'a11y/tree');
 const { chromium } = require(require.resolve('playwright', { paths: [path.dirname(require.resolve('@storybook/test-runner'))] }));
 
 const index = await (await fetch(`${URL_BASE}/index.json`)).json();
-const stories = Object.values(index.entries).filter((e) => e.type === 'story' && (!ONLY || e.title.includes(ONLY)));
+// --shard i/n (CI only): this machine checks every n-th component, so CI can
+// split the run across parallel jobs. Whole components go to one shard, so
+// per-component rules see all of their stories. Locally a partial run would
+// overwrite the full report, so it is refused without --ci.
+const SHARD = arg('shard', '');
+if (SHARD && !CI) throw new Error('--shard only works with --ci (a partial run would overwrite the report)');
+const [SHARD_I, SHARD_N] = SHARD ? SHARD.split('/').map(Number) : [1, 1];
+const shardTitles = new Set(
+  [...new Set(Object.values(index.entries).filter((e) => e.type === 'story').map((e) => e.title))]
+    .sort()
+    .filter((_, k) => k % SHARD_N === SHARD_I - 1),
+);
+const stories = Object.values(index.entries).filter((e) => e.type === 'story' && shardTitles.has(e.title) && (!ONLY || e.title.includes(ONLY)));
 
 /** Component name per Storybook title, from spec/index.json (and patterns). */
 const spec = JSON.parse(fs.readFileSync(path.join(ROOT, 'spec/index.json'), 'utf8'));
