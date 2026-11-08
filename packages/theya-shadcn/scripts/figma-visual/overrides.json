@@ -92,7 +92,16 @@
     }
   },
   "Combobox": {
-    "selector": "@field"
+    "selector": "@field",
+    "story": "selection-combobox--playground",
+    "values": {
+      "filled=true": {
+        "filled": true
+      },
+      "filled=false": {
+        "filled": false
+      }
+    }
   },
   "ComboboxContent": {
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
@@ -447,7 +456,17 @@
       },
       "pressed=false": {
         "pressed": false
+      },
+      "iconOnly=true": {
+        "iconOnly": true,
+        "children": ""
       }
     }
+  },
+  "ToggleGroup": {
+    "story": "actions-togglegroup--text"
+  },
+  "AvatarGroup": {
+    "story": "labels-avatargroup--overflow"
   }
 }

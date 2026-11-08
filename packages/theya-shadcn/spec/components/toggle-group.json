@@ -113,6 +113,10 @@
       {
         "name": "Ghost",
         "id": "actions-togglegroup--ghost"
+      },
+      {
+        "name": "Text",
+        "id": "actions-togglegroup--text"
       }
     ]
   }

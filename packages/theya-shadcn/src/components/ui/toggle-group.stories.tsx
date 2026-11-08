@@ -108,3 +108,15 @@ export const Ghost: Story = {
     </ToggleGroup>
   ),
 };
+
+/** Text items, one at a time: a view switch. Appearance and size come from the Controls. */
+export const Text: Story = {
+  args: { appearance: 'outlined', size: 'md' },
+  render: ({ appearance, size }) => (
+    <ToggleGroup appearance={appearance} size={size} type="single" defaultValue="day" aria-label="Calendar view">
+      <ToggleGroupItem value="day">Day</ToggleGroupItem>
+      <ToggleGroupItem value="week">Week</ToggleGroupItem>
+      <ToggleGroupItem value="month">Month</ToggleGroupItem>
+    </ToggleGroup>
+  ),
+};

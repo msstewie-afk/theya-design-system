@@ -3556,7 +3556,7 @@
       "name": "Combobox",
       "title": "Selection/Combobox",
       "axe": {
-        "stories": 10,
+        "stories": 11,
         "themes": [
           "light",
           "dark"
@@ -14006,7 +14006,7 @@
       "name": "ToggleGroup",
       "title": "Actions/ToggleGroup",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"

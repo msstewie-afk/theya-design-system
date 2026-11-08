@@ -285,6 +285,10 @@
       {
         "name": "Disabled",
         "id": "selection-combobox--disabled"
+      },
+      {
+        "name": "Playground",
+        "id": "selection-combobox--playground"
       }
     ]
   }

@@ -47,6 +47,11 @@ function ToggleGroup({ className, appearance = 'ghost', size, children, ...props
   );
 }
 
+// border-0 (below) takes the outlined item's 1px border out of its box; this
+// gives it back as padding, so a grouped outlined item keeps a standalone
+// Toggle's width and label inset (toggleVariants' px-2 / px-3 / px-4 + 1px).
+const OUTLINED_ITEM_PX = { sm: 'px-[calc(0.5rem+1px)]', md: 'px-[calc(0.75rem+1px)]', lg: 'px-[calc(1rem+1px)]' } as const;
+
 export interface ToggleGroupItemProps
   extends React.ComponentProps<typeof ToggleGroupPrimitive.Item>,
     Omit<VariantProps<typeof toggleVariants>, 'iconOnly'> {
@@ -74,6 +79,7 @@ function ToggleGroupItem({ className, children, appearance, size, iconOnly, ...p
         // outlined only: cancel toggleVariants' own real border and draw
         // the seam as an inset shadow instead — see the file-level note.
         'data-[appearance=outlined]:border-0',
+        resolvedAppearance === 'outlined' && !square && OUTLINED_ITEM_PX[resolvedSize ?? 'md'],
         'data-[appearance=outlined]:not-first:-ms-px',
         // One frame per item, recolored by state rather than stacked:
         // the grey border token at rest, the primary border token when

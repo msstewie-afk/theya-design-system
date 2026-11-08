@@ -30,10 +30,13 @@ type Story = StoryObj<typeof Toggle>;
 
 /** The interactive example, driven by the Controls below — click it or press Space to press and release it. */
 export const Playground: Story = {
-  args: { 'aria-label': 'Bold' },
-  render: (args) => (
+  args: { 'aria-label': 'Bold', children: 'Bold' },
+  // The label is an arg so the Figma visual diff can put the Figma sample
+  // text in; an empty label leaves the icon alone.
+  render: ({ children, ...args }) => (
     <Toggle {...args}>
-      <Bold /> Bold
+      <Bold />
+      {children}
     </Toggle>
   ),
   play: async ({ canvasElement }) => {

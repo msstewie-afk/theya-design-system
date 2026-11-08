@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { Combobox } from './combobox';
+import { Combobox, type ComboboxProps } from './combobox';
 import { comboboxGuidelines } from './combobox.guidelines';
 
 // Notes moved from the Docs description (the page now shows a reader-facing
@@ -296,4 +296,30 @@ export const Disabled: Story = {
       <Combobox options={FRAMEWORKS} disabled placeholder="Select framework…" aria-label="Framework" />
     </div>
   ),
+};
+
+const TEAMS = [
+  { value: 'design', label: 'Design' },
+  { value: 'frontend', label: 'Frontend' },
+  { value: 'backend', label: 'Backend' },
+  { value: 'research', label: 'Research' },
+];
+
+type PlaygroundArgs = Pick<ComboboxProps, 'heightSize' | 'multiple' | 'disabled' | 'placeholder' | 'aria-label'> & {
+  /** Story-only: start with a value picked (one, or two chips in multiple mode). */
+  filled?: boolean;
+};
+
+/** Driven by the Controls: height, single or multiple, and empty or filled (a clear button shows once there is a value). */
+export const Playground: StoryObj<PlaygroundArgs> = {
+  args: { heightSize: 'md', multiple: false, filled: false, placeholder: 'Search…', 'aria-label': 'Team' },
+  argTypes: { filled: { control: 'boolean', description: 'Story-only: start with a value picked.' } },
+  // `key` remounts the field when `filled` or `multiple` changes, so the new
+  // defaultValue takes effect.
+  render: ({ filled, multiple, ...args }) =>
+    multiple ? (
+      <Combobox key={`m-${filled}`} {...args} options={TEAMS} multiple defaultValue={filled ? ['design', 'frontend'] : []} showClear />
+    ) : (
+      <Combobox key={`s-${filled}`} {...args} options={TEAMS} defaultValue={filled ? 'design' : undefined} showClear />
+    ),
 };
