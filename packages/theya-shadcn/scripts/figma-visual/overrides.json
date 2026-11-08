@@ -339,5 +339,10 @@
   },
   "UndoToast": {
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+  },
+  "Rating": {
+    "args": {
+      "readOnly": true
+    }
   }
 }

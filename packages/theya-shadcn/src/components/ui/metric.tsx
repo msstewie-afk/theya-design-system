@@ -46,10 +46,13 @@ export function Metric({ className, icon, value, label, description, actions, ..
               ("shared galleries") needs its OWN leading space in the string
               (label=" shared galleries") — that's the caller's job, not this
               component's; a label passed without it (e.g. "galleries" instead
-              of " galleries") renders glued to the value ("8galleries"). */}
+              of " galleries") renders glued to the value ("8galleries").
+              whitespace-pre-wrap keeps that leading space: a flex item drops
+              leading white space otherwise, and " shared galleries" rendered
+              as "8shared galleries". */}
           <span className="flex min-w-0 items-baseline gap-0">
             <span data-slot="metric-value" className="shrink-0 font-body text-heading-xs font-semibold leading-none tabular-nums text-[var(--color-text-text)]">{value}</span>
-            <span data-slot="metric-label" className="min-w-0 break-words font-body text-body-m text-[var(--color-text-text-subtler)]">{label}</span>
+            <span data-slot="metric-label" className="min-w-0 whitespace-pre-wrap break-words font-body text-body-m text-[var(--color-text-text-subtler)]">{label}</span>
           </span>
         </div>
         {description && <TruncatedText data-slot="metric-description" className="font-body text-body-xs text-[var(--color-text-text-subtler)]">{description}</TruncatedText>}
