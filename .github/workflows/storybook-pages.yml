@@ -1,0 +1,73 @@
+# Publishes the static Storybook to GitHub Pages:
+#   https://msstewie-afk.github.io/theya-design-system/
+#
+# Runs after CI has passed on main, so only a green commit is published
+# (CI itself builds and tests Storybook; this workflow only builds and
+# deploys). Can also be started by hand from the Actions tab.
+#
+# One-time setup in the repository: Settings → Pages → Source:
+# "GitHub Actions". Until then the deploy step fails with a 404.
+#
+# Storybook's static build uses relative paths, so it works under the
+# /theya-design-system/ subpath without a base setting (checked: fonts,
+# stories and docs load with no failed requests).
+name: Storybook on Pages
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time; a newer one waits rather than cancelling the one
+# that is publishing.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: 22
+  PNPM_VERSION: 11.8.0
+
+jobs:
+  build:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # The commit CI passed on, not whatever main points to now.
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: pnpm/action-setup@v5
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build Storybook
+        working-directory: packages/theya-shadcn
+        run: pnpm build-storybook --quiet
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: packages/theya-shadcn/storybook-static
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

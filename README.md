@@ -9,6 +9,8 @@ A React design system built on [shadcn/ui](https://ui.shadcn.com) — Radix prim
 - **Five languages** for the components' built-in strings, including right-to-left Arabic
 - **Machine-readable docs** for coding agents: JSON spec, `llms.txt` and an MCP server
 
+**Storybook:** [msstewie-afk.github.io/theya-design-system](https://msstewie-afk.github.io/theya-design-system/), every component with its guidelines, updated after each green build of `main`.
+
 Designed and built by Maria Matsko as a personal project.
 
 ## What's in the repo

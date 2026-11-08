@@ -163,7 +163,7 @@ The app type-checks Theya's sources too. Add `@types/node` and `"types": ["node"
 
 | | |
 |---|---|
-| Storybook (`cd packages/theya-shadcn && pnpm storybook`) | every component, its guidelines, props and accessibility status |
+| Storybook ([online](https://msstewie-afk.github.io/theya-design-system/), or locally: `cd packages/theya-shadcn && pnpm storybook`) | every component, its guidelines, props and accessibility status |
 | [WRITING.md](WRITING.md) | how to write labels, errors and empty states |
 | [PROFILES.md](PROFILES.md) | product themes, and how to make one |
 | [DENSITY.md](DENSITY.md), [LOCALIZATION.md](LOCALIZATION.md) | density modes; languages |

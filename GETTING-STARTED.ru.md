@@ -163,7 +163,7 @@ import { ruLocale } from '@theya/shadcn/lib/locale-ru';
 
 | | |
 |---|---|
-| Storybook (`cd packages/theya-shadcn && pnpm storybook`) | все компоненты, их правила, пропсы и статус доступности |
+| Storybook ([онлайн](https://msstewie-afk.github.io/theya-design-system/) или локально: `cd packages/theya-shadcn && pnpm storybook`) | все компоненты, их правила, пропсы и статус доступности |
 | [WRITING.ru.md](WRITING.ru.md) | как писать подписи, ошибки и пустые состояния |
 | [PROFILES.ru.md](PROFILES.ru.md) | продуктовые темы и как сделать свою |
 | [DENSITY.ru.md](DENSITY.ru.md), [LOCALIZATION.ru.md](LOCALIZATION.ru.md) | режимы плотности; языки |
