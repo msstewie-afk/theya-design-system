@@ -230,7 +230,7 @@ for (const [key, vars, pick] of [
 // is the profile's single value.
 const ROLE_STEPS = [
   ['theme-radius/field', 'field', 'border-radius/border-radius-lg'],
-  ['theme-radius/field-sm', 'field', 'border-radius/border-radius-md'],
+  ['theme-radius/field-sm', 'field', 'border-radius/border-radius-md'], // small fields, TextArea, Toggle / ToggleGroup
   ['theme-radius/button', 'button', 'border-radius/border-radius-xl'],
   ['theme-radius/button-sm', 'button', 'border-radius/border-radius-lg'],
   ['theme-radius/button-pressed', 'button', 'border-radius/border-radius-2xl'],
