@@ -23,8 +23,8 @@ import { useMediaQuery } from './use-media-query';
  * - `fan` — the cards fanned on an arc below the stage, the middle one
  *   upright and in focus; deals itself out the first time it scrolls in.
  * - `rolodex` — the cards turn round a horizontal axis behind them, like a
- *   card file: the next one comes up from below, tilted back, and the
- *   previous one leaves over the top. ↑ / ↓.
+ *   card file: the next one comes down from the top, tilted back, and the
+ *   previous one leaves under the bottom. ↑ / ↓ (↓ turns it down, as the arrow shows).
  * - `stack` — a compact pile: the cards behind step away to the top start
  *   and the bottom end, smaller and dimmer (Compact Stack).
  * - `cascade` — a tilted staircase: the cards step down to the end in
@@ -187,7 +187,10 @@ export function OrbitCarousel({
     drag.current = null;
     if (!s?.moved) return;
     swallowClick.current = true;
-    setTurn((v) => clampTurn(v + Math.round(pullRef.current)));
+    // Read the pull now: the updater can run after setPullBoth(0) has already zeroed the ref,
+    // and the drag would then spring back instead of landing on the next card.
+    const step = Math.round(pullRef.current);
+    setTurn((v) => clampTurn(v + step));
     setPullBoth(0);
   };
   const dragHandlers = {
@@ -204,8 +207,9 @@ export function OrbitCarousel({
         s.moved = true;
         e.currentTarget.setPointerCapture(e.pointerId);
       }
-      // The wheel's next cards wait above, so a downward drag brings them in (the rim follows the finger).
-      let c = (shape === 'wheel' ? d : -d) / perCard;
+      // Vertical shapes (wheel, rolodex) keep their next cards above, so a downward drag brings them in
+      // (the cards follow the finger).
+      let c = (vertical ? d : -d) / perCard;
       // The ends of a wall or a fan give a little, then stop.
       if (!wraps) c = Math.max(-turn - 0.3, Math.min(n - 1 - turn + 0.3, c));
       setPullBoth(c);
@@ -531,7 +535,8 @@ function Rolodex({ items, pos, width, motion, slide }: ShapeProps) {
               width,
               // Turn round an axis `radius` behind the card: the next one (k = 1) comes up from below.
               transformOrigin: `50% 50% ${-radius}px`,
-              transform: `translate(-50%, -50%) rotateX(${-k * step}deg)`,
+              // Next cards wait above the front one: Next (↓, ArrowDown) turns the rolodex down, as the arrow shows.
+              transform: `translate(-50%, -50%) rotateX(${k * step}deg)`,
               opacity: out ? 0 : 1 - Math.min(Math.abs(k), 2) * 0.25,
               zIndex: 10 - Math.round(Math.abs(k)),
             }}

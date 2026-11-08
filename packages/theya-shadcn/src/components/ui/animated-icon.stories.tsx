@@ -103,6 +103,13 @@ export const States: Story = {
       </div>
     );
   },
+};
+
+/** Interaction test for States, kept out of States so it opens untouched. */
+export const TestStates: Story = {
+  ...States,
+  name: 'Test: states',
+  tags: ['!autodocs'],
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Copy' }));
