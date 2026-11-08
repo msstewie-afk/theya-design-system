@@ -79,6 +79,8 @@ let failed = 0; const expect = (cond, msg) => { console.log((cond ? 'ok   ' : 'F
   expect(density.modes.length === 3, '"7. Density" untouched (3 modes)');
   const extra = [s9, s2].flatMap((l) => Object.values(l).flatMap((x) => x.extra ?? []));
   expect(extra.length === 0, 'nothing reported as extra (sync never deletes)');
+  const names2 = figma._vars.filter((v) => v.variableCollectionId === figma._cols.find((c) => c.name.startsWith('2.')).id).map((v) => v.name);
+  expect(names2.filter((n) => n.startsWith('bg/chart/')).length === 7 && !names2.some((n) => /^bg\/chart-\d/.test(n)), '"2." has exactly seven bg/chart/… and no bg/chart-0N');
   const a9 = await run(figma, pick('check', '-9-')); const a2 = await run(figma, pick('check', 'check-2'));
   expect(a9.ok && a2.ok, 'check after sync: ok in both parts');
   // Density and brand do not meet: no "9." variable aliases "7.", no density variable is in "9.".

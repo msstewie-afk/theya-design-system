@@ -70,7 +70,10 @@ function colorRef(v) {
 const light = flatten(read('src/semantic/color.default.json'));
 const dark = flatten(read('src/semantic/color.dark.json'));
 const colorSem = {};
-for (const k of Object.keys(light)) colorSem[k.replace(/^color\//, '')] = { default: colorRef(light[k]), dark: colorRef(dark[k]) };
+// Charts sit one group deeper in Figma ("bg/chart/chart-01"), wherever the code keeps them
+// (semantic since 91fb7b9, code tokens before): one spelling, or sync makes duplicates.
+const figmaName = (k) => k.replace(/^color\//, '').replace(/^bg\/chart-/, 'bg/chart/chart-');
+for (const k of Object.keys(light)) colorSem[figmaName(k)] = { default: colorRef(light[k]), dark: colorRef(dark[k]) };
 // Theme-independent code tokens (on-primary set, charts). In Figma they live
 // in the semantic collection with the same value in both modes; chart and
 // primary-on-primary tokens sit one group deeper to keep bg/ tidy.
