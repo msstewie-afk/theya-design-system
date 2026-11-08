@@ -250,6 +250,19 @@ const payload = {
   // utilities (-space-x-1), not tokens. check / sync list them as figmaOnly,
   // not as extra. Collection key -> Figma variable names.
   figmaOnly: {
+    // Figma-only semantic colors, kept (Maria, 2026-11-08: tokens are not
+    // removed). On 2026-11-08 each was bound only to its own swatch on the
+    // Color system page — no component, style or other variable used it.
+    '2.': [
+      // Bright warning icon (yellow-300 / dark orange-200); see scripts/figma/README.md.
+      'icon/icon-warning-bright',
+      // Dimming layer behind overlays (gray-a900 / dark slate-a700); code uses bg-scrim.
+      'bg/surface/bg-surface-backdrop',
+      // Subtle dark layer above a surface (gray-a800 / dark slate-a800); no code counterpart.
+      'bg/surface/surface-overhead-dark-subtle',
+      // Pressed state of bg-surface-overlay-dark (slate-900 / dark slate-700); code has only -hover.
+      'bg/surface/bg-surface-overlay-dark-pressed',
+    ],
     '4.': ['padding/padding--3xs', 'padding/padding--2xs', 'gap/gap--2xs'],
   },
 };
