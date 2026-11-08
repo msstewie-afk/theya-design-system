@@ -31,7 +31,7 @@ function InputGroup({ className, onMouseDown, ...props }: React.ComponentProps<'
         // `group` so InputGroupAddon can react to the input's own
         // aria-invalid state via group-has-* below.
         'group flex h-[var(--size-size-control-size-control-2xl)] w-full min-w-0 items-stretch overflow-hidden',
-        'rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
+        'rounded-[var(--theme-radius-field,var(--size-border-radius-border-radius-lg))] border border-solid',
         'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',
         'text-body-m text-[var(--color-text-text)]',
         'transition-[border-color,background-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',

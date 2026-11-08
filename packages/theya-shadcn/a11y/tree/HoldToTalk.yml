@@ -3,7 +3,7 @@
 # Default (ai-chat-holdtotalk--default)
 - button "Hold to talk"
 - status
-- text: Cancelled
+- text: —
 
 # In PromptArea (ai-chat-holdtotalk--in-prompt-area)
 - status
@@ -12,3 +12,8 @@
 - button "Hold to talk"
 - status
 - button "Send" [disabled]
+
+# Test: interactions (ai-chat-holdtotalk--test-interactions)
+- button "Hold to talk"
+- status
+- text: Cancelled

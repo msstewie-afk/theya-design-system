@@ -42,6 +42,45 @@
     - text: Card details
     - paragraph: Encrypted and sent straight to the payment provider. We never store the full number.
     - text: Name on card
+    - textbox "Name on card"
+    - text: Exactly as printed on the card. Card number
+    - textbox "Card number":
+      - /placeholder: 1234 1234 1234 1234
+    - text: Expiry date
+    - textbox "Expiry date":
+      - /placeholder: MM / YY
+    - text: Month and year, MM / YY Security code
+    - button "Where to find the security code":
+      - img
+    - textbox "Security code":
+      - /placeholder: "123"
+- button "Continue"
+
+# Pay Pal (patterns-commerce-paymentmethod--pay-pal)
+- tablist "Payment method":
+  - tab "Card":
+    - img
+    - text: Card
+  - tab "PayPal" [selected]:
+    - img
+    - text: PayPal
+- tabpanel "PayPal":
+  - paragraph: You'll sign in to PayPal in a new window and approve the payment there.
+  - paragraph: Then you come back here to review the order. Nothing is charged until you confirm it.
+
+# Test: interactions (patterns-commerce-paymentmethod--test-interactions)
+- tablist "Payment method":
+  - tab "Card" [selected]:
+    - img
+    - text: Card
+  - tab "PayPal":
+    - img
+    - text: PayPal
+- tabpanel "Card":
+  - group "Card details":
+    - text: Card details
+    - paragraph: Encrypted and sent straight to the payment provider. We never store the full number.
+    - text: Name on card
     - textbox "Name on card" [invalid]
     - text: Enter the name as it appears on the card. Card number · Visa
     - textbox "Card number · Visa":
@@ -59,16 +98,3 @@
       - /placeholder: "123"
     - text: Enter the security code.
 - button "Continue"
-- tooltip "The last 3 digits printed on the back of the card, next to the signature."
-
-# Pay Pal (patterns-commerce-paymentmethod--pay-pal)
-- tablist "Payment method":
-  - tab "Card":
-    - img
-    - text: Card
-  - tab "PayPal" [selected]:
-    - img
-    - text: PayPal
-- tabpanel "PayPal":
-  - paragraph: You'll sign in to PayPal in a new window and approve the payment there.
-  - paragraph: Then you come back here to review the order. Nothing is charged until you confirm it.

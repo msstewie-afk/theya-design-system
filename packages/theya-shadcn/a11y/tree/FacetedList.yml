@@ -165,7 +165,7 @@
       - paragraph: Phoebe Light Lab
       - paragraph: One 30-page layflat album a month, printed and bound.
       - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k installs
+      - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k subscribers
       - text: $29 / mo
   - paragraph: Showing 9 of 24
   - button "Show 9 more"
@@ -336,92 +336,10 @@
       - paragraph: Phoebe Light Lab
       - paragraph: One 30-page layflat album a month, printed and bound.
       - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k installs
+      - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k subscribers
       - text: $29 / mo
-    - listitem:
-      - link "Wedding album by Folio":
-        - /url: "#wedding-album"
-      - paragraph: Wedding album
-      - paragraph: Folio
-      - paragraph: Two linen-covered albums a month for wedding clients.
-      - paragraph: Works with Business plan
-      - paragraph: Rated 4.2 out of 5 from 188 reviews. 7.6k installs
-      - text: $49 / mo
-    - listitem:
-      - link "Proof book by Folio":
-        - /url: "#proof-book"
-      - paragraph: Proof book
-      - paragraph: Folio
-      - paragraph: A softcover contact book of a whole shoot, for review.
-      - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.0 out of 5 from 143 reviews. 6.1k installs
-      - text: $12 / mo
-    - listitem:
-      - link "Fine-art print club by Phoebe Light Lab":
-        - /url: "#fine-art-print-club"
-      - paragraph: Fine-art print club
-      - paragraph: Phoebe Light Lab
-      - paragraph: Two giclée prints a month on cotton rag paper.
-      - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.7 out of 5 from 1530 reviews. 70k installs
-      - text: $35 / mo
-    - listitem:
-      - link "Metal prints by Lumen":
-        - /url: "#metal-prints"
-      - paragraph: Metal prints
-      - paragraph: Lumen
-      - paragraph: One 12 × 16 in print on aluminum a month.
-      - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.6 out of 5 from 702 reviews. 39k installs
-      - text: $24 / mo
-    - listitem:
-      - link "Canvas prints by Fjord":
-        - /url: "#canvas-prints"
-      - paragraph: Canvas prints
-      - paragraph: Fjord
-      - paragraph: One stretched 16 × 20 in canvas a month, ready to hang.
-      - paragraph: Works with Pro plan
-      - paragraph: Rated 4.4 out of 5 from 455 reviews. 26k installs
-      - text: $28 / mo
-    - listitem:
-      - link "Print proofs by Phoebe Light Lab":
-        - /url: "#print-proofs"
-      - paragraph: Print proofs
-      - paragraph: Phoebe Light Lab
-      - paragraph: Five small test prints a month to check color first.
-      - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.3 out of 5 from 260 reviews. 13k installs
-      - text: Free
-    - listitem:
-      - link "Studio L4 hours by Studio L4":
-        - /url: "#studio-l4-hours"
-      - paragraph: Studio L4 hours
-      - paragraph: Studio L4
-      - paragraph: Eight hours a month in Studio L4, lights and backdrops included.
-      - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.5 out of 5 from 377 reviews. 19k installs
-      - text: $120 / mo
-    - listitem:
-      - link "Location days by Othrys Lodge":
-        - /url: "#location-days"
-      - paragraph: Location days
-      - paragraph: Othrys Lodge
-      - paragraph: One day a month at Othrys Lodge, rooms and grounds included.
-      - paragraph: Works with Business plan
-      - paragraph: Rated 4.1 out of 5 from 164 reviews. 8.8k installs
-      - text: $90 / mo
-    - listitem:
-      - link "Portrait prime rental by Glassworks":
-        - /url: "#portrait-prime-rental"
-      - paragraph: Portrait prime rental
-      - paragraph: Glassworks
-      - paragraph: An 85mm f/1.4 prime, swapped for another lens any month.
-      - paragraph: Works with Sony E, Canon RF
-      - paragraph: Rated 4.8 out of 5 from 990 reviews. 42k installs
-      - text: $45 / mo
-  - paragraph: Showing 18 of 24
-  - button "Show 6 more"
-- status: Show 6 more
+  - paragraph: Showing 9 of 24
+  - button "Show 9 more"
 
 # Test: empty state clear focus (patterns-catalog-facetedlist--empty-state-clear-focus)
 - region "Products":
@@ -588,7 +506,7 @@
       - paragraph: Phoebe Light Lab
       - paragraph: One 30-page layflat album a month, printed and bound.
       - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k installs
+      - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k subscribers
       - text: $29 / mo
   - paragraph: Showing 9 of 24
   - button "Show 9 more"
@@ -863,7 +781,7 @@
       - paragraph: Phoebe Light Lab
       - paragraph: One 30-page layflat album a month, printed and bound.
       - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k installs
+      - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k subscribers
       - text: $29 / mo
     - listitem:
       - link "Wedding album by Folio":
@@ -872,7 +790,7 @@
       - paragraph: Folio
       - paragraph: Two linen-covered albums a month for wedding clients.
       - paragraph: Works with Business plan
-      - paragraph: Rated 4.2 out of 5 from 188 reviews. 7.6k installs
+      - paragraph: Rated 4.2 out of 5 from 188 reviews. 7.6k subscribers
       - text: $49 / mo
     - listitem:
       - link "Proof book by Folio":
@@ -881,7 +799,7 @@
       - paragraph: Folio
       - paragraph: A softcover contact book of a whole shoot, for review.
       - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.0 out of 5 from 143 reviews. 6.1k installs
+      - paragraph: Rated 4.0 out of 5 from 143 reviews. 6.1k subscribers
       - text: $12 / mo
     - listitem:
       - link "Fine-art print club by Phoebe Light Lab":
@@ -890,7 +808,7 @@
       - paragraph: Phoebe Light Lab
       - paragraph: Two giclée prints a month on cotton rag paper.
       - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.7 out of 5 from 1530 reviews. 70k installs
+      - paragraph: Rated 4.7 out of 5 from 1530 reviews. 70k subscribers
       - text: $35 / mo
     - listitem:
       - link "Metal prints by Lumen":
@@ -899,7 +817,7 @@
       - paragraph: Lumen
       - paragraph: One 12 × 16 in print on aluminum a month.
       - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.6 out of 5 from 702 reviews. 39k installs
+      - paragraph: Rated 4.6 out of 5 from 702 reviews. 39k subscribers
       - text: $24 / mo
     - listitem:
       - link "Canvas prints by Fjord":
@@ -908,7 +826,7 @@
       - paragraph: Fjord
       - paragraph: One stretched 16 × 20 in canvas a month, ready to hang.
       - paragraph: Works with Pro plan
-      - paragraph: Rated 4.4 out of 5 from 455 reviews. 26k installs
+      - paragraph: Rated 4.4 out of 5 from 455 reviews. 26k subscribers
       - text: $28 / mo
     - listitem:
       - link "Print proofs by Phoebe Light Lab":
@@ -917,7 +835,7 @@
       - paragraph: Phoebe Light Lab
       - paragraph: Five small test prints a month to check color first.
       - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.3 out of 5 from 260 reviews. 13k installs
+      - paragraph: Rated 4.3 out of 5 from 260 reviews. 13k subscribers
       - text: Free
     - listitem:
       - link "Studio L4 hours by Studio L4":
@@ -926,7 +844,7 @@
       - paragraph: Studio L4
       - paragraph: Eight hours a month in Studio L4, lights and backdrops included.
       - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.5 out of 5 from 377 reviews. 19k installs
+      - paragraph: Rated 4.5 out of 5 from 377 reviews. 19k members
       - text: $120 / mo
     - listitem:
       - link "Location days by Othrys Lodge":
@@ -935,7 +853,7 @@
       - paragraph: Othrys Lodge
       - paragraph: One day a month at Othrys Lodge, rooms and grounds included.
       - paragraph: Works with Business plan
-      - paragraph: Rated 4.1 out of 5 from 164 reviews. 8.8k installs
+      - paragraph: Rated 4.1 out of 5 from 164 reviews. 8.8k members
       - text: $90 / mo
     - listitem:
       - link "Portrait prime rental by Glassworks":
@@ -944,7 +862,7 @@
       - paragraph: Glassworks
       - paragraph: An 85mm f/1.4 prime, swapped for another lens any month.
       - paragraph: Works with Sony E, Canon RF
-      - paragraph: Rated 4.8 out of 5 from 990 reviews. 42k installs
+      - paragraph: Rated 4.8 out of 5 from 990 reviews. 42k renters
       - text: $45 / mo
     - listitem:
       - link "Wide zoom rental by Glassworks":
@@ -953,7 +871,7 @@
       - paragraph: Glassworks
       - paragraph: A 16–35mm f/2.8 zoom for interiors and landscapes.
       - paragraph: Works with Sony E, Canon RF, Nikon Z
-      - paragraph: Rated 4.4 out of 5 from 310 reviews. 15k installs
+      - paragraph: Rated 4.4 out of 5 from 310 reviews. 15k renters
       - text: $55 / mo
     - listitem:
       - link "Telephoto rental by Orbit":
@@ -962,7 +880,7 @@
       - paragraph: Orbit
       - paragraph: A 70–200mm f/2.8 zoom for ceremonies and events.
       - paragraph: Works with Sony E, Nikon Z
-      - paragraph: Rated 4.0 out of 5 from 120 reviews. 5.6k installs
+      - paragraph: Rated 4.0 out of 5 from 120 reviews. 5.6k renters
       - text: $79 / mo
     - listitem:
       - link "Macro lens rental by Orbit":
@@ -971,7 +889,7 @@
       - paragraph: Orbit
       - paragraph: A 100mm f/2.8 macro for rings, details and products.
       - paragraph: Works with Canon RF
-      - paragraph: Rated 3.8 out of 5 from 66 reviews. 2.9k installs
+      - paragraph: Rated 3.8 out of 5 from 66 reviews. 2.9k renters
       - text: $39 / mo
     - listitem:
       - link "Tilt-shift rental by Tern":
@@ -980,7 +898,7 @@
       - paragraph: Tern
       - paragraph: A 24mm tilt-shift for architecture without converging lines.
       - paragraph: Works with Sony E, Canon RF
-      - paragraph: Rated 4.6 out of 5 from 540 reviews. 23k installs
+      - paragraph: Rated 4.6 out of 5 from 540 reviews. 23k renters
       - text: $65 / mo
     - listitem:
       - link "Film emulation pack by Phoebe Light Lab":
@@ -1002,6 +920,258 @@
       - text: Free
   - paragraph: Showing 24 of 24
 - status: Show 6 more
+
+# Test: interactions (patterns-catalog-facetedlist--test-interactions)
+- region "Products":
+  - heading "Products" [level=2]
+  - region "Filters":
+    - group "Category":
+      - text: Category
+      - checkbox "Presets"
+      - text: Presets 6 results
+      - checkbox "Lens rentals"
+      - text: Lens rentals 5 results
+      - checkbox "Fine-art prints"
+      - text: Fine-art prints 4 results
+      - checkbox "Plan add-ons"
+      - text: Plan add-ons 4 results
+      - checkbox "Photo books"
+      - text: Photo books 3 results
+      - button "Show 1 more"
+    - group "Vendor":
+      - text: Vendor
+      - textbox "Search vendor":
+        - /placeholder: Search 15 vendors
+      - checkbox "Phoebe Light Lab"
+      - text: Phoebe Light Lab 4 results
+      - checkbox "Aether"
+      - text: Aether 3 results
+      - checkbox "Fjord"
+      - text: Fjord 2 results
+      - checkbox "Folio"
+      - text: Folio 2 results
+      - checkbox "Glassworks"
+      - text: Glassworks 2 results
+      - button "Show 10 more"
+    - group "Works with":
+      - text: Works with
+      - checkbox "Business plan"
+      - text: Business plan 11 results
+      - checkbox "Pro plan"
+      - text: Pro plan 11 results
+      - checkbox "Lightroom"
+      - text: Lightroom 6 results
+      - checkbox "Canon RF"
+      - text: Canon RF 4 results
+      - checkbox "Capture One"
+      - text: Capture One 4 results
+      - button "Show 3 more"
+    - group "Price":
+      - text: Price
+      - checkbox "Free"
+      - text: Free 5 results
+      - checkbox "Paid"
+      - text: Paid 19 results
+      - group "Price per month":
+        - text: Price per month Any
+        - slider "Price per month minimum"
+        - slider "Price per month maximum"
+        - text: From
+        - button "Decrease" [disabled]:
+          - img
+        - spinbutton "From": "0"
+        - button "Increase":
+          - img
+        - text: To
+        - button "Decrease":
+          - img
+        - spinbutton "To": "120"
+        - button "Increase" [disabled]:
+          - img
+    - group "Rating":
+      - text: Rating
+      - radiogroup "Rating":
+        - radio "Any rating" [checked]
+        - text: Any rating
+        - radio "4.5 ★ & up"
+        - text: 4.5 ★ & up
+        - radio "4 ★ & up"
+        - text: 4 ★ & up
+        - radio "3 ★ & up"
+        - text: 3 ★ & up
+  - paragraph: 24 products
+  - combobox "Sort by": Most relevant
+  - radiogroup "Layout":
+    - radio "Grid" [checked]:
+      - img
+    - radio "List":
+      - img
+  - list:
+    - listitem:
+      - link "Golden hour presets by Helios Studio":
+        - /url: "#golden-hour-presets"
+      - paragraph: Golden hour presets
+      - paragraph: Helios Studio
+      - paragraph: Twelve warm looks for late-afternoon light.
+      - paragraph: Works with Lightroom, Capture One
+      - paragraph: Rated 4.7 out of 5 from 812 reviews. 48k installs
+      - text: Free
+    - listitem:
+      - link "Blue hour presets by Selene Weddings":
+        - /url: "#blue-hour-presets"
+      - paragraph: Blue hour presets
+      - paragraph: Selene Weddings
+      - paragraph: Cool, low-contrast looks for dusk and night shoots.
+      - paragraph: Works with Lightroom, Capture One, Photoshop
+      - paragraph: Rated 4.4 out of 5 from 356 reviews. 22k installs
+      - text: $6 / mo
+    - listitem:
+      - link "Skin tone essentials by Eos Portraits":
+        - /url: "#skin-tone-essentials"
+      - paragraph: Skin tone essentials
+      - paragraph: Eos Portraits
+      - paragraph: Even, natural skin tones in window and mixed light.
+      - paragraph: Works with Lightroom, Photoshop
+      - paragraph: Rated 4.8 out of 5 from 1204 reviews. 64k installs
+      - text: Free
+    - listitem:
+      - link "Aether basics by Aether":
+        - /url: "#aether-basics"
+      - paragraph: Aether basics
+      - paragraph: Aether
+      - paragraph: Clean color and contrast for any shoot, applied on import.
+      - paragraph: Works with Lightroom, Capture One
+      - paragraph: Rated 4.9 out of 5 from 2210 reviews. 91k installs
+      - text: Free
+    - listitem:
+      - link "Client proofing by Aether":
+        - /url: "#client-proofing"
+      - paragraph: Client proofing
+      - paragraph: Aether
+      - paragraph: Clients pick favorites and leave notes on any gallery.
+      - paragraph: Works with Pro plan, Business plan
+      - paragraph: Rated 4.6 out of 5 from 640 reviews. 30k installs
+      - text: $8 / mo
+    - listitem:
+      - link "Extra storage by Aether":
+        - /url: "#extra-storage"
+      - paragraph: Extra storage
+      - paragraph: Aether
+      - paragraph: Another 1 TB in the Mnemosyne archive for raw files.
+      - paragraph: Works with Pro plan, Business plan
+      - paragraph: Rated 4.3 out of 5 from 211 reviews. 9.8k installs
+      - text: $12 / mo
+    - listitem:
+      - link "Watermark studio by Quartz":
+        - /url: "#watermark-studio"
+      - paragraph: Watermark studio
+      - paragraph: Quartz
+      - paragraph: Your own watermark on previews and client downloads.
+      - paragraph: Works with Pro plan
+      - paragraph: Rated 4.1 out of 5 from 98 reviews. 4.2k installs
+      - text: $5 / mo
+    - listitem:
+      - link "License manager by Fjord":
+        - /url: "#license-manager"
+      - paragraph: License manager
+      - paragraph: Fjord
+      - paragraph: A print or web license attached to every client download.
+      - paragraph: Works with Pro plan, Business plan
+      - paragraph: Rated 3.9 out of 5 from 57 reviews. 2.3k installs
+      - text: $4 / mo
+    - listitem:
+      - link "Layflat album by Phoebe Light Lab":
+        - /url: "#layflat-album"
+      - paragraph: Layflat album
+      - paragraph: Phoebe Light Lab
+      - paragraph: One 30-page layflat album a month, printed and bound.
+      - paragraph: Works with Pro plan, Business plan
+      - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k subscribers
+      - text: $29 / mo
+    - listitem:
+      - link "Wedding album by Folio":
+        - /url: "#wedding-album"
+      - paragraph: Wedding album
+      - paragraph: Folio
+      - paragraph: Two linen-covered albums a month for wedding clients.
+      - paragraph: Works with Business plan
+      - paragraph: Rated 4.2 out of 5 from 188 reviews. 7.6k subscribers
+      - text: $49 / mo
+    - listitem:
+      - link "Proof book by Folio":
+        - /url: "#proof-book"
+      - paragraph: Proof book
+      - paragraph: Folio
+      - paragraph: A softcover contact book of a whole shoot, for review.
+      - paragraph: Works with Pro plan, Business plan
+      - paragraph: Rated 4.0 out of 5 from 143 reviews. 6.1k subscribers
+      - text: $12 / mo
+    - listitem:
+      - link "Fine-art print club by Phoebe Light Lab":
+        - /url: "#fine-art-print-club"
+      - paragraph: Fine-art print club
+      - paragraph: Phoebe Light Lab
+      - paragraph: Two giclée prints a month on cotton rag paper.
+      - paragraph: Works with Pro plan, Business plan
+      - paragraph: Rated 4.7 out of 5 from 1530 reviews. 70k subscribers
+      - text: $35 / mo
+    - listitem:
+      - link "Metal prints by Lumen":
+        - /url: "#metal-prints"
+      - paragraph: Metal prints
+      - paragraph: Lumen
+      - paragraph: One 12 × 16 in print on aluminum a month.
+      - paragraph: Works with Pro plan, Business plan
+      - paragraph: Rated 4.6 out of 5 from 702 reviews. 39k subscribers
+      - text: $24 / mo
+    - listitem:
+      - link "Canvas prints by Fjord":
+        - /url: "#canvas-prints"
+      - paragraph: Canvas prints
+      - paragraph: Fjord
+      - paragraph: One stretched 16 × 20 in canvas a month, ready to hang.
+      - paragraph: Works with Pro plan
+      - paragraph: Rated 4.4 out of 5 from 455 reviews. 26k subscribers
+      - text: $28 / mo
+    - listitem:
+      - link "Print proofs by Phoebe Light Lab":
+        - /url: "#print-proofs"
+      - paragraph: Print proofs
+      - paragraph: Phoebe Light Lab
+      - paragraph: Five small test prints a month to check color first.
+      - paragraph: Works with Pro plan, Business plan
+      - paragraph: Rated 4.3 out of 5 from 260 reviews. 13k subscribers
+      - text: Free
+    - listitem:
+      - link "Studio L4 hours by Studio L4":
+        - /url: "#studio-l4-hours"
+      - paragraph: Studio L4 hours
+      - paragraph: Studio L4
+      - paragraph: Eight hours a month in Studio L4, lights and backdrops included.
+      - paragraph: Works with Pro plan, Business plan
+      - paragraph: Rated 4.5 out of 5 from 377 reviews. 19k members
+      - text: $120 / mo
+    - listitem:
+      - link "Location days by Othrys Lodge":
+        - /url: "#location-days"
+      - paragraph: Location days
+      - paragraph: Othrys Lodge
+      - paragraph: One day a month at Othrys Lodge, rooms and grounds included.
+      - paragraph: Works with Business plan
+      - paragraph: Rated 4.1 out of 5 from 164 reviews. 8.8k members
+      - text: $90 / mo
+    - listitem:
+      - link "Portrait prime rental by Glassworks":
+        - /url: "#portrait-prime-rental"
+      - paragraph: Portrait prime rental
+      - paragraph: Glassworks
+      - paragraph: An 85mm f/1.4 prime, swapped for another lens any month.
+      - paragraph: Works with Sony E, Canon RF
+      - paragraph: Rated 4.8 out of 5 from 990 reviews. 42k renters
+      - text: $45 / mo
+  - paragraph: Showing 18 of 24
+  - button "Show 6 more"
+- status: 24 products
 
 # Test: untick keeps focus (patterns-catalog-facetedlist--untick-keeps-focus)
 - region "Products":
@@ -1168,7 +1338,7 @@
       - paragraph: Phoebe Light Lab
       - paragraph: One 30-page layflat album a month, printed and bound.
       - paragraph: Works with Pro plan, Business plan
-      - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k installs
+      - paragraph: Rated 4.5 out of 5 from 930 reviews. 52k subscribers
       - text: $29 / mo
   - paragraph: Showing 9 of 24
   - button "Show 9 more"

@@ -86,3 +86,21 @@
     - link "Contact sales":
       - /url: "#contact"
   - button "Close"
+
+# Test: interactions (patterns-navigation-megamenu--test-interactions)
+- banner:
+  - text: Aether
+  - navigation "Main":
+    - list:
+      - listitem:
+        - button "Products (current section)"
+      - listitem:
+        - button "Solutions"
+      - listitem:
+        - button "Resources"
+      - listitem:
+        - link "Pricing":
+          - /url: "#pricing"
+      - listitem:
+        - link "Contact sales":
+          - /url: "#contact"

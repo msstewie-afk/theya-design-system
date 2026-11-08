@@ -198,7 +198,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(functi
         // into 0, so in a flex row the field used to squeeze until the input
         // disappeared. Now it never goes below buttons + the input's minimum.
         'inline-flex min-w-min items-stretch overflow-hidden',
-        heightSize === 'sm' ? 'h-[var(--size-size-control-size-control-lg)] rounded-[var(--size-border-radius-border-radius-md)]' : 'h-[var(--size-size-control-size-control-2xl)] rounded-[var(--size-border-radius-border-radius-lg)]',
+        heightSize === 'sm' ? 'h-[var(--size-size-control-size-control-lg)] rounded-[var(--theme-radius-field,var(--size-border-radius-border-radius-md))]' : 'h-[var(--size-size-control-size-control-2xl)] rounded-[var(--theme-radius-field,var(--size-border-radius-border-radius-lg))]',
         labelled ? 'w-full' : WIDTH_CLASSES[widthSize],
         'border border-solid',
         'border-[var(--color-border-border)] bg-[var(--color-bg-input-bg-input)] shadow-field',

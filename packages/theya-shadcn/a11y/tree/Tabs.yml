@@ -35,6 +35,13 @@
     - img
 - tabpanel "Overview": Selene Weddings · 48 photos.
 
+# Test: interactions (navigation-tabs--test-interactions)
+- tablist:
+  - tab "Overview" [selected]
+  - tab "Client picks"
+  - tab "Security"
+- tabpanel "Overview": Overview content.
+
 # With badge (navigation-tabs--with-badge)
 - tablist:
   - tab "Logs 128" [selected]

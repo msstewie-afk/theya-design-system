@@ -36,7 +36,7 @@
     - group:
       - treeitem "L4_moonrise.raw" [level=2]
       - treeitem "BLUE_0215.jpg" [level=2]
-  - treeitem "Model releases.pdf" [level=1] [selected]
+  - treeitem "Model releases.pdf" [level=1]
 
 # Disabled Node (data-tree--disabled-node)
 - tree "Studios":
@@ -63,3 +63,17 @@
       - treeitem "L4_moonrise.raw" [level=2] [selected]
       - treeitem "BLUE_0215.jpg" [level=2]
   - treeitem "Model releases.pdf" [level=1]
+
+# Test: interactions (data-tree--test-interactions)
+- tree "Photo library":
+  - treeitem "Clients" [expanded] [level=1]:
+    - text: Clients
+    - group:
+      - treeitem "Rhea & Theo" [level=2]
+      - treeitem "Layla Haddad" [level=2]
+  - treeitem "Portfolio" [expanded] [level=1]:
+    - text: Portfolio
+    - group:
+      - treeitem "L4_moonrise.raw" [level=2]
+      - treeitem "BLUE_0215.jpg" [level=2]
+  - treeitem "Model releases.pdf" [level=1] [selected]

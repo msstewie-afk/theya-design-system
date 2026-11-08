@@ -67,6 +67,35 @@
     - button "About Preview size":
       - img
   - definition: 2,048 px
+- button "Show all 13 specifications"
+
+# Test: interactions (patterns-catalog-specsheet--test-interactions)
+- region "Proofing":
+  - heading "Proofing" [level=3]
+  - term: Galleries in proofing
+  - definition: Unlimited
+  - term: Clients per gallery
+  - definition: Up to 20
+  - term:
+    - text: Default selection limit
+    - button "About Default selection limit":
+      - img
+  - definition: 50 photos
+  - term: Download formats
+  - definition: JPEG, TIFF
+  - term: Link expiry
+  - definition: Up to 90 days
+- region "Requirements":
+  - heading "Requirements" [level=3]
+  - term: Plan
+  - definition: Pro or Business
+  - term: Largest photo
+  - definition: 200 MB
+  - term:
+    - text: Preview size
+    - button "About Preview size":
+      - img
+  - definition: 2,048 px
   - term: Client browsers
   - definition: Current Chrome, Safari, Firefox, Edge
 - region "Support":

@@ -60,7 +60,7 @@
     - paragraph: 12M
     - paragraph: things saved this year
   - article:
-    - paragraph: Home office
+    - paragraph: Undertow
   - article:
     - paragraph: "4.8"
     - paragraph: average rating
@@ -69,18 +69,29 @@
       - blockquote: My whole moodboard, finally in one place.
       - text: Lea Brandt Illustrator
   - article:
-    - paragraph: Stairs study
+    - paragraph: Clear sky
   - article:
     - figure "Tom Ide Home cook":
       - blockquote: I save a recipe on the phone and it is on the laptop by dinner.
       - text: Tom Ide Home cook
   - article:
-    - paragraph: Desk setup
+    - paragraph: Tide
   - article:
-    - paragraph: Studio portrait
-  - text: S Spacing in design systems designnotes.dev C Colour contrast, explained a11y-basics.org S Naming tokens that last designnotes.dev
+    - paragraph: Lagoon
   - article:
-    - paragraph: Tall blocks
+    - heading "Bring everything over" [level=3]
+    - 'img "Import in progress: Chrome done, Firefox 168 of 230 links, Safari waiting."':
+      - paragraph: Importing bookmarks
+      - paragraph: 580 of 738 links
+      - text: Chrome
+      - progressbar "Chrome import"
+      - text: Firefox
+      - progressbar "Firefox import"
+      - text: 168/230 Safari
+      - progressbar "Safari import"
+      - text: 0/96
+  - article:
+    - paragraph: Glacier
   - article:
     - figure "Ana Costa Researcher":
       - blockquote: Search by a word inside the page. Magic.

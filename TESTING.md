@@ -75,6 +75,7 @@ To check by eye — in Chrome DevTools: Rendering → Emulate CSS media feature 
 The `.github/workflows/ci.yml` workflow runs on every push to `main` and on every pull request. If you push again while a run is in progress, the old run is cancelled.
 
 1. **checks** (a few minutes):
+   - no primitive removed: every step listed in `packages/tokens/primitives.lock.json` is still in `src/primitive` (ramps keep all their steps, used or not; new steps: `node scripts/check-primitives.mjs --update`);
    - types;
    - `pnpm api:check`: the API spec, the API report and the accessibility matrix are up to date; client modules have `'use client'`; components use logical sides only (RTL); every `var(--…)` points at something declared; motion and color come from tokens, not raw ms / cubic-bezier / rgba;
    - a build of the `apps/sandbox` sandbox against the package.

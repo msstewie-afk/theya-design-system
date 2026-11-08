@@ -14,6 +14,9 @@
 - button "Remove client"
 - button "Move to trash"
 
+# Test: interactions (status-feedback-undotoast--test-interactions)
+- button "Delete gallery"
+
 # Title only (status-feedback-undotoast--title-only)
 - button "Delete archive copy"
 

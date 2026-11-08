@@ -2,6 +2,10 @@
 
 # Default (motion-marquee--default)
 - text: Northwind Kestrel Quartz Lumen Babel Meridian Harbor Fieldnote
+- button "Pause animation"
+
+# Test: interactions (motion-marquee--test-interactions)
+- text: Northwind Kestrel Quartz Lumen Babel Meridian Harbor Fieldnote
 - button "Play animation"
 
 # Testimonials (motion-marquee--testimonials)

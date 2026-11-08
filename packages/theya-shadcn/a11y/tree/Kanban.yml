@@ -31,6 +31,51 @@
   - region "Backlog":
     - heading "Backlog" [level=3]
     - text: "3"
+    - button "AE-142 Medium Move the Selene portal to its new address Redirect old gallery links, then email clients the new portal link. 2 comments IH"
+    - 'button "AE-151 Low Archive: keep originals 30 days instead of 7 MO"'
+    - button "AE-157 Medium Proofing copy of Golden hour Duplicate the gallery with watermarked previews only. Oct 10"
+  - region "In progress":
+    - heading "In progress" [level=3]
+    - text: 4/3 — over the limit of 3
+    - button "AE-133 High Retouch Moonrise over Othrys Match white balance across the 48 selects first. Oct 6 5 comments DE"
+    - button "AE-139 High Renew the commercial license for Helios Oct 4 IH"
+    - button "AE-146 Limit downloads on the Isthmian Five gallery 1 comments ES"
+    - button "AE-148 Low Print proofs for Eos Portraits PL"
+  - region "Review":
+    - heading "Review" [level=3]
+    - text: 1/2
+    - button "AE-128 Nightly copy of RAW files to Mnemosyne 3 comments MO"
+  - region "Done":
+    - heading "Done" [level=3]
+    - text: "2"
+    - button "AE-120 Watermark on all client previews ES"
+    - button "AE-124 Portal welcome page in the studio style TM"
+  - status
+
+# Empty columns (data-kanban--empty-columns)
+- region "Sprint board":
+  - region "Backlog":
+    - heading "Backlog" [level=3]
+    - text: "3"
+    - button "AE-142 Medium Move the Selene portal to its new address Redirect old gallery links, then email clients the new portal link. 2 comments IH"
+    - 'button "AE-151 Low Archive: keep originals 30 days instead of 7 MO"'
+    - button "AE-157 Medium Proofing copy of Golden hour Duplicate the gallery with watermarked previews only. Oct 10"
+  - region "In progress":
+    - heading "In progress" [level=3]
+    - text: 0/3 Drop a card here
+  - region "Review":
+    - heading "Review" [level=3]
+    - text: 0/2 Drop a card here
+  - region "Done":
+    - heading "Done" [level=3]
+    - text: 0 Drop a card here
+  - status
+
+# Test: interactions (data-kanban--test-interactions)
+- region "Sprint board":
+  - region "Backlog":
+    - heading "Backlog" [level=3]
+    - text: "3"
     - 'button "AE-151 Low Archive: keep originals 30 days instead of 7 MO"'
     - button "AE-142 Medium Move the Selene portal to its new address Redirect old gallery links, then email clients the new portal link. 2 comments IH"
     - button "AE-157 Medium Proofing copy of Golden hour Duplicate the gallery with watermarked previews only. Oct 10"
@@ -52,25 +97,6 @@
     - button "AE-124 Portal welcome page in the studio style TM"
   - status: Dropped AE-142 Move the Selene portal to its new address in Backlog, position 1 of 3.
 - paragraph: "Last move: t1 → Backlog, position 2"
-
-# Empty columns (data-kanban--empty-columns)
-- region "Sprint board":
-  - region "Backlog":
-    - heading "Backlog" [level=3]
-    - text: "3"
-    - button "AE-142 Medium Move the Selene portal to its new address Redirect old gallery links, then email clients the new portal link. 2 comments IH"
-    - 'button "AE-151 Low Archive: keep originals 30 days instead of 7 MO"'
-    - button "AE-157 Medium Proofing copy of Golden hour Duplicate the gallery with watermarked previews only. Oct 10"
-  - region "In progress":
-    - heading "In progress" [level=3]
-    - text: 0/3 Drop a card here
-  - region "Review":
-    - heading "Review" [level=3]
-    - text: 0/2 Drop a card here
-  - region "Done":
-    - heading "Done" [level=3]
-    - text: 0 Drop a card here
-  - status
 
 # With actions (data-kanban--with-actions)
 - region "Sprint board":

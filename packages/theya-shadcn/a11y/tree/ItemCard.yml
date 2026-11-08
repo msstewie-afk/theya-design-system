@@ -135,7 +135,7 @@
     - paragraph: Arbor
     - paragraph: A rack unit that keeps a local copy of the Mnemosyne archive in your studio.
     - paragraph: Works with Mac, Windows
-    - paragraph: Rated 4.8 out of 5 from 312 reviews. 2.1k installs
+    - paragraph: Rated 4.8 out of 5 from 312 reviews. 2.1k renters
     - text: $89 / mo
   - listitem:
     - link "Portable SSD rental by Fjord":
@@ -144,7 +144,7 @@
     - paragraph: Fjord
     - paragraph: 2 TB of fast storage for offloading cards on location.
     - paragraph: Works with USB-C, Thunderbolt
-    - paragraph: Rated 4.6 out of 5 from 148 reviews. 5.4k installs
+    - paragraph: Rated 4.6 out of 5 from 148 reviews. 5.4k renters
     - text: $15 / mo
   - listitem:
     - link "Tethering hub rental by Kestrel":
@@ -153,7 +153,7 @@
     - paragraph: Kestrel
     - paragraph: Wireless tethering from camera to laptop on set, set up for you.
     - paragraph: Works with Sony, Canon, Nikon
-    - paragraph: Rated 4.4 out of 5 from 87 reviews. 940 installs
+    - paragraph: Rated 4.4 out of 5 from 87 reviews. 940 renters
     - text: $29 / mo
   - listitem:
     - link "Hardware security key by Aether":
@@ -162,7 +162,7 @@
     - paragraph: Aether
     - paragraph: Phishing-proof sign-in for your account. Shipped to your door.
     - paragraph: Works with USB-C, NFC
-    - paragraph: Rated 4.9 out of 5 from 523 reviews. 8.8k installs
+    - paragraph: Rated 4.9 out of 5 from 523 reviews. 8.8k renters
     - text: $3 / mo
 
 # Product Images (patterns-catalog-itemcard--product-images)
@@ -174,7 +174,7 @@
     - paragraph: Arbor
     - paragraph: A rack unit that keeps a local copy of the Mnemosyne archive in your studio.
     - paragraph: Works with Mac, Windows
-    - paragraph: Rated 4.8 out of 5 from 312 reviews. 2.1k installs
+    - paragraph: Rated 4.8 out of 5 from 312 reviews. 2.1k renters
     - text: $89 / mo
   - listitem:
     - link "Portable SSD rental by Fjord":
@@ -183,7 +183,7 @@
     - paragraph: Fjord
     - paragraph: 2 TB of fast storage for offloading cards on location.
     - paragraph: Works with USB-C, Thunderbolt
-    - paragraph: Rated 4.6 out of 5 from 148 reviews. 5.4k installs
+    - paragraph: Rated 4.6 out of 5 from 148 reviews. 5.4k renters
     - text: $15 / mo
   - listitem:
     - link "Tethering hub rental by Kestrel":
@@ -192,7 +192,7 @@
     - paragraph: Kestrel
     - paragraph: Wireless tethering from camera to laptop on set, set up for you.
     - paragraph: Works with Sony, Canon, Nikon
-    - paragraph: Rated 4.4 out of 5 from 87 reviews. 940 installs
+    - paragraph: Rated 4.4 out of 5 from 87 reviews. 940 renters
     - text: $29 / mo
   - listitem:
     - link "Hardware security key by Aether":
@@ -201,7 +201,7 @@
     - paragraph: Aether
     - paragraph: Phishing-proof sign-in for your account. Shipped to your door.
     - paragraph: Works with USB-C, NFC
-    - paragraph: Rated 4.9 out of 5 from 523 reviews. 8.8k installs
+    - paragraph: Rated 4.9 out of 5 from 523 reviews. 8.8k renters
     - text: $3 / mo
 
 # With Compare (patterns-catalog-itemcard--with-compare)

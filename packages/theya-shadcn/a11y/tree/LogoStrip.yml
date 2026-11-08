@@ -39,7 +39,7 @@
 - region "Readers at more than 2,000 teams keep their links here":
   - paragraph: Readers at more than 2,000 teams keep their links here
   - text: Northwind Fieldnote Quartz Lumen Kestrel Orbitly Greenhouse Loop & Co Bloom
-  - button "Play animation"
+  - button "Pause animation"
 
 # Static (patterns-landing-logostrip--static)
 - region "Trusted by teams at":

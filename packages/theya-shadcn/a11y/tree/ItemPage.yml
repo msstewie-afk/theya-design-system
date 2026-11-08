@@ -13,18 +13,18 @@
       - listitem:
         - link "Client proofing" [disabled]
   - group "Client proofing screenshots":
-    - img "Abstract city of tall blue blocks"
+    - img "Pale blue silk"
     - button "Previous screenshot"
     - button "Next screenshot"
-    - paragraph: "Screenshot 2 of 4: Abstract city of tall blue blocks"
-    - 'button "Screenshot 1: Abstract floating cubes"'
-    - 'button "Screenshot 2: Abstract city of tall blue blocks"'
-    - 'button "Screenshot 3: Abstract stack of blocks with stairs"'
-    - 'button "Screenshot 4: Abstract archway made of blocks"'
+    - paragraph: "Screenshot 1 of 4: Pale blue silk"
+    - 'button "Screenshot 1: Pale blue silk"'
+    - 'button "Screenshot 2: Soft blue silk glow"'
+    - 'button "Screenshot 3: Blue silk drift"'
+    - 'button "Screenshot 4: Deep blue silk waves"'
   - heading "Client proofing" [level=1]
   - paragraph: by Aether
   - link "4.6 · 640 reviews":
-    - /url: "#:r0:-reviews"
+    - /url: "#_r_0_-reviews"
   - paragraph: $8 / mo
   - paragraph: Free for 14 days, then billed monthly. Cancel anytime.
   - button "Start free trial"
@@ -38,21 +38,17 @@
   - paragraph: 30k installsPlan add-ons
   - navigation "On this page":
     - link "Overview":
-      - /url: "#:r0:-overview"
+      - /url: "#_r_0_-overview"
     - link "Specifications":
-      - /url: "#:r0:-specs"
+      - /url: "#_r_0_-specs"
     - link "Reviews (640)":
-      - /url: "#:r0:-reviews"
+      - /url: "#_r_0_-reviews"
   - region "Overview":
     - heading "Overview" [level=2]
     - text: Client proofing turns any gallery into a shortlist. Clients mark the photos they want, leave notes on single frames and send their picks back in one step, so nobody has to email lists of file names.
     - heading "Notes on every frame" [level=3]
     - text: Clients can comment on one photo or on the whole gallery. The notes show beside each frame while you edit, and you mark them done as you retouch.
-    - heading "Downloads and licenses" [level=3]
-    - text: Approved picks download as JPEG or TIFF, each with a web or print license attached. Previews stay watermarked until you approve the selection.
-    - heading "Privacy" [level=3]
-    - text: Proofing galleries are private by default. Each client opens theirs from a link sent to their email, and you choose when the link expires.
-    - button "Show less" [expanded]
+    - button "Read the full description"
   - region "Specifications":
     - heading "Specifications" [level=2]
     - region "Proofing":
@@ -118,7 +114,7 @@
     - button "Show 4 more reviews"
 
 # Free (patterns-catalog-itempage--free)
-- article "Aether basics":
+- article "Client proofing":
   - navigation "Breadcrumb":
     - list:
       - listitem:
@@ -128,37 +124,154 @@
         - link "Plan add-ons":
           - /url: "#plan-add-ons"
       - listitem:
-        - link "Aether basics" [disabled]
-  - group "Aether basics screenshots":
-    - img "Abstract floating cubes"
-    - paragraph: "Screenshot 1 of 1: Abstract floating cubes"
-  - heading "Aether basics" [level=1]
+        - link "Client proofing" [disabled]
+  - group "Client proofing screenshots":
+    - img "Pale blue silk"
+    - paragraph: "Screenshot 1 of 1: Pale blue silk"
+  - heading "Client proofing" [level=1]
   - paragraph: by Aether
-  - link "4.9 · 2,210 reviews":
-    - /url: "#:r0:-reviews"
+  - link "4.6 · 640 reviews":
+    - /url: "#_r_0_-reviews"
   - paragraph: Free
   - button "Install"
   - paragraph: Works with
-  - paragraph: Lightroom, Capture One
+  - paragraph: Pro plan, Business plan
   - list:
     - listitem: Clients pick favorites and send them back in one step
     - listitem: Notes on a single frame or the whole gallery
     - listitem: Watermarked previews until you approve the picks
     - listitem: Works with every gallery you already have
-  - paragraph: 91k installsPresets
+  - paragraph: 30k installsPlan add-ons
   - navigation "On this page":
     - link "Overview":
-      - /url: "#:r0:-overview"
+      - /url: "#_r_0_-overview"
     - link "Specifications":
-      - /url: "#:r0:-specs"
-    - link "Reviews (2,210)":
-      - /url: "#:r0:-reviews"
+      - /url: "#_r_0_-specs"
+    - link "Reviews (640)":
+      - /url: "#_r_0_-reviews"
   - region "Overview":
     - heading "Overview" [level=2]
     - text: Client proofing turns any gallery into a shortlist. Clients mark the photos they want, leave notes on single frames and send their picks back in one step, so nobody has to email lists of file names.
     - heading "Notes on every frame" [level=3]
     - text: Clients can comment on one photo or on the whole gallery. The notes show beside each frame while you edit, and you mark them done as you retouch.
     - button "Read the full description"
+  - region "Specifications":
+    - heading "Specifications" [level=2]
+    - region "Proofing":
+      - heading "Proofing" [level=3]
+      - term: Galleries in proofing
+      - definition: Unlimited
+      - term: Clients per gallery
+      - definition: Up to 20
+      - term:
+        - text: Default selection limit
+        - button "About Default selection limit":
+          - img
+      - definition: 50 photos
+      - term: Download formats
+      - definition: JPEG, TIFF
+      - term: Link expiry
+      - definition: Up to 90 days
+    - region "Requirements":
+      - heading "Requirements" [level=3]
+      - term: Plan
+      - definition: Pro or Business
+      - term: Largest photo
+      - definition: 200 MB
+      - term:
+        - text: Preview size
+        - button "About Preview size":
+          - img
+      - definition: 2,048 px
+    - button "Show all 13 specifications"
+  - region "Reviews":
+    - heading "Reviews" [level=2]
+    - button "Write a review"
+    - paragraph: "4.6"
+    - paragraph: 640 reviews
+    - group "Filter by rating":
+      - button "5 stars 452 reviews"
+      - button "4 stars 118 reviews"
+      - button "3 stars 38 reviews"
+      - button "2 stars 17 reviews"
+      - button "1 star 15 reviews"
+    - paragraph: 8 reviews
+    - text: Sort by
+    - combobox "Sort by": Most relevant
+    - list:
+      - listitem:
+        - text: 5 out of 5 stars Cut a week out of every wedding
+        - paragraph: Dana K.Sep 20, 2026
+        - paragraph: Couples used to email me lists of file names. Now they mark the frames they want and I get one clean shortlist. Exactly what proofing should be.
+      - listitem:
+        - text: 5 out of 5 stars
+        - paragraph: Lina S.Aug 28, 2026
+        - paragraph: Forty galleries in proofing at once and nothing gets lost. Clients find their way without instructions.
+      - listitem:
+        - text: 4 out of 5 stars Solid, setup could be clearer
+        - paragraph: Marco P.Sep 2, 2026
+        - paragraph: Works well on our Business plan. It took me a while to find where to set the selection limit — the first screen only shows the gallery picker.
+        - paragraph: Aether Developer Sep 4, 2026
+        - paragraph: Thanks, Marco — the next version puts the limit on the first screen.
+      - listitem:
+        - text: 1 out of 5 stars The selection limit stopped my client
+        - paragraph: Sam O.Jun 3, 2026
+        - paragraph: The default limit is 50 photos and my client hit it halfway through the gallery. Check the limit before you send the link.
+    - button "Show 4 more reviews"
+
+# Test: interactions (patterns-catalog-itempage--test-interactions)
+- article "Client proofing":
+  - navigation "Breadcrumb":
+    - list:
+      - listitem:
+        - link "Shop":
+          - /url: "#shop"
+      - listitem:
+        - link "Plan add-ons":
+          - /url: "#plan-add-ons"
+      - listitem:
+        - link "Client proofing" [disabled]
+  - group "Client proofing screenshots":
+    - img "Soft blue silk glow"
+    - button "Previous screenshot"
+    - button "Next screenshot"
+    - paragraph: "Screenshot 2 of 4: Soft blue silk glow"
+    - 'button "Screenshot 1: Pale blue silk"'
+    - 'button "Screenshot 2: Soft blue silk glow"'
+    - 'button "Screenshot 3: Blue silk drift"'
+    - 'button "Screenshot 4: Deep blue silk waves"'
+  - heading "Client proofing" [level=1]
+  - paragraph: by Aether
+  - link "4.6 · 640 reviews":
+    - /url: "#_r_0_-reviews"
+  - paragraph: $8 / mo
+  - paragraph: Free for 14 days, then billed monthly. Cancel anytime.
+  - button "Start free trial"
+  - paragraph: Works with
+  - paragraph: Pro plan, Business plan
+  - list:
+    - listitem: Clients pick favorites and send them back in one step
+    - listitem: Notes on a single frame or the whole gallery
+    - listitem: Watermarked previews until you approve the picks
+    - listitem: Works with every gallery you already have
+  - paragraph: 30k installsPlan add-ons
+  - navigation "On this page":
+    - link "Overview":
+      - /url: "#_r_0_-overview"
+    - link "Specifications":
+      - /url: "#_r_0_-specs"
+    - link "Reviews (640)":
+      - /url: "#_r_0_-reviews"
+  - region "Overview":
+    - heading "Overview" [level=2]
+    - text: Client proofing turns any gallery into a shortlist. Clients mark the photos they want, leave notes on single frames and send their picks back in one step, so nobody has to email lists of file names.
+    - heading "Notes on every frame" [level=3]
+    - text: Clients can comment on one photo or on the whole gallery. The notes show beside each frame while you edit, and you mark them done as you retouch.
+    - heading "Downloads and licenses" [level=3]
+    - text: Approved picks download as JPEG or TIFF, each with a web or print license attached. Previews stay watermarked until you approve the selection.
+    - heading "Privacy" [level=3]
+    - text: Proofing galleries are private by default. Each client opens theirs from a link sent to their email, and you choose when the link expires.
+    - button "Show less" [expanded]
   - region "Specifications":
     - heading "Specifications" [level=2]
     - region "Proofing":

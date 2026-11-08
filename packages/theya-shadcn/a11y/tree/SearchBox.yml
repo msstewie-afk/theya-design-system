@@ -7,11 +7,16 @@
 
 # Default (patterns-search-searchbox--default)
 - search:
-  - combobox "Search": lens rental
-  - button "Clear Search"
+  - combobox "Search"
   - status
 
 # Keyboard (patterns-search-searchbox--keyboard)
 - search:
   - combobox "Search"
+  - status
+
+# Test: interactions (patterns-search-searchbox--test-interactions)
+- search:
+  - combobox "Search": lens rental
+  - button "Clear Search"
   - status

@@ -2,8 +2,8 @@
 
 # Default (layout-carousel--default)
 - region "Featured templates":
-  - group "3 of 4": Story
-  - button "Previous slide"
+  - group "1 of 4": Classic
+  - button "Previous slide" [disabled]
   - button "Next slide"
 
 # Looping (layout-carousel--looping)
@@ -34,6 +34,12 @@
     - button "Go to slide 2"
     - button "Go to slide 3"
     - button "Go to slide 4"
+
+# Test: interactions (layout-carousel--test-interactions)
+- region "Featured templates":
+  - group "3 of 4": Story
+  - button "Previous slide"
+  - button "Next slide"
 
 # Vertical (layout-carousel--vertical)
 - region "Recent albums":

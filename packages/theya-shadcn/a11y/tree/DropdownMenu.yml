@@ -23,6 +23,9 @@
     - img
     - text: Delete gallery
 
+# Test: interactions (menus-dropdownmenu--test-interactions)
+- button "Open actions for Golden hour"
+
 # With Disabled Item (menus-dropdownmenu--with-disabled-item)
 - button "Manage Blue hour"
 

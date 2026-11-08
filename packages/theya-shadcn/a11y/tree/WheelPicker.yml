@@ -13,9 +13,9 @@
 
 # Default (selection-wheelpicker--default)
 - listbox "Archive interval":
-  - option "15 minutes" [selected]
+  - option "15 minutes"
   - option "30 minutes"
-  - option "1 hour"
+  - option "1 hour" [selected]
   - option "2 hours"
   - option "6 hours"
   - option "12 hours"
@@ -26,6 +26,16 @@
   - option "15 minutes"
   - option "30 minutes"
   - option "1 hour" [selected]
+  - option "2 hours"
+  - option "6 hours"
+  - option "12 hours"
+  - option "Daily"
+
+# Test: interactions (selection-wheelpicker--test-interactions)
+- listbox "Archive interval":
+  - option "15 minutes" [selected]
+  - option "30 minutes"
+  - option "1 hour"
   - option "2 hours"
   - option "6 hours"
   - option "12 hours"

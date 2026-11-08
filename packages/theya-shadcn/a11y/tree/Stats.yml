@@ -6,17 +6,17 @@
 - list:
   - listitem: Scrolling through browser bookmarks 94 s
   - listitem: Searching your history 41 s
-  - listitem: Search in Theya 6 s
+  - listitem: Search in Bookmarks 6 s
 
 # Before and after (patterns-landing-stats--before-and-after)
 - region "What changes in a week":
   - heading "What changes in a week" [level=2]
   - table "What changes in a week":
     - rowgroup:
-      - row "Task Before With Theya":
+      - row "Task Before With Bookmarks":
         - columnheader "Task"
         - columnheader "Before"
-        - columnheader "With Theya"
+        - columnheader "With Bookmarks"
     - rowgroup:
       - row "Finding a link you saved 2 min, if at all 6 s":
         - rowheader "Finding a link you saved"

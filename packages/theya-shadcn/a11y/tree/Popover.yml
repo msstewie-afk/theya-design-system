@@ -21,3 +21,6 @@
 
 # Playground (overlays-popover--playground)
 - button "Open popover"
+
+# Test: interactions (overlays-popover--test-interactions)
+- button "Filters"

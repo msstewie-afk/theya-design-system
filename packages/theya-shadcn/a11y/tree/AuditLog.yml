@@ -11,8 +11,7 @@
 - text: Date
 - button "Date":
   - img
-  - text: Jul 13, 2026 – Jul 14, 2026
-- button "Clear filters"
+  - text: Any date
 - table "Audit log":
   - rowgroup:
     - row "When Event Actor Source IP":
@@ -46,7 +45,22 @@
       - cell "Revoked API key Security legacy-script"
       - cell "Thea Marlow"
       - cell "203.0.113.24"
-- paragraph: 5 events match your filters
+    - row "Jul 12, 2026, 22:15 Archived album Data Blue hour Mina Ostrova 198.51.100.20":
+      - cell "Jul 12, 2026, 22:15"
+      - cell "Archived album Data Blue hour"
+      - cell "Mina Ostrova"
+      - cell "198.51.100.20"
+    - row "Jul 12, 2026, 16:47 Invited teammate Members dawn@aether.photo Ian Hyde 203.0.113.24":
+      - cell "Jul 12, 2026, 16:47"
+      - cell "Invited teammate Members dawn@aether.photo"
+      - cell "Ian Hyde"
+      - cell "203.0.113.24"
+    - row "Jul 11, 2026, 08:03 Updated account settings Settings Thea Marlow 203.0.113.9":
+      - cell "Jul 11, 2026, 08:03"
+      - cell "Updated account settings Settings"
+      - cell "Thea Marlow"
+      - cell "203.0.113.9"
+- paragraph: 8 events
 
 # Empty (patterns-auditlog--empty)
 - heading "Audit log" [level=2]
@@ -92,3 +106,51 @@
       - columnheader "Source IP"
   - rowgroup
 - paragraph: Loading events…
+
+# Test: interactions (patterns-auditlog--test-interactions)
+- heading "Audit log" [level=2]
+- paragraph: Every action taken on this account. Filter by category or date, or search by actor, action or target.
+- text: Search events by actor, action or target
+- searchbox "Search events by actor, action or target"
+- text: Category
+- combobox "Category"
+- button "Open options"
+- text: Date
+- button "Date":
+  - img
+  - text: Jul 13, 2026 – Jul 14, 2026
+- button "Clear filters"
+- table "Audit log":
+  - rowgroup:
+    - row "When Event Actor Source IP":
+      - columnheader "When"
+      - columnheader "Event"
+      - columnheader "Actor"
+      - columnheader "Source IP"
+  - rowgroup:
+    - row "Jul 14, 2026, 14:32 Signed in Authentication Thea Marlow 203.0.113.9":
+      - cell "Jul 14, 2026, 14:32"
+      - cell "Signed in Authentication"
+      - cell "Thea Marlow"
+      - cell "203.0.113.9"
+    - row "Jul 14, 2026, 13:58 Exported gallery Exports Golden hour Automation 198.51.100.7":
+      - cell "Jul 14, 2026, 13:58"
+      - cell "Exported gallery Exports Golden hour"
+      - cell "Automation"
+      - cell "198.51.100.7"
+    - row "Jul 14, 2026, 11:10 Changed member role Members elio@aether.photo Ian Hyde 203.0.113.24":
+      - cell "Jul 14, 2026, 11:10"
+      - cell "Changed member role Members elio@aether.photo"
+      - cell "Ian Hyde"
+      - cell "203.0.113.24"
+    - row "Jul 13, 2026, 18:04 Updated payment method Billing Thea Marlow 203.0.113.24":
+      - cell "Jul 13, 2026, 18:04"
+      - cell "Updated payment method Billing"
+      - cell "Thea Marlow"
+      - cell "203.0.113.24"
+    - row "Jul 13, 2026, 09:41 Revoked API key Security legacy-script Thea Marlow 203.0.113.24":
+      - cell "Jul 13, 2026, 09:41"
+      - cell "Revoked API key Security legacy-script"
+      - cell "Thea Marlow"
+      - cell "203.0.113.24"
+- paragraph: 5 events match your filters

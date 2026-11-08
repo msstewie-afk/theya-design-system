@@ -3,10 +3,38 @@
 // sets WEB code syntax. Never deletes — Figma-only variables are reported.
 const { C, byId } = await loadState();
 const log = {};
+// Before any write: can this file hold the most modes a collection needs? Figma's
+// limit depends on the plan, and an addMode refused halfway would leave a
+// collection half rewritten. A throwaway collection probes it and is removed.
+{
+  const need = Math.max(...Object.values(PAYLOAD.collections).map((c) => c.modes.filter((m) => m !== '*').length));
+  const extra = Object.entries(PAYLOAD.collections).some(([k, c]) => !C[k].col || c.modes.some((m) => m !== '*' && !C[k].col.modes.some((x) => x.name === m)));
+  if (extra && need > 1) {
+    const probe = figma.variables.createVariableCollection('__mode-limit-probe');
+    try { for (let i = 1; i < need; i++) probe.addMode('m' + i); }
+    catch (e) { probe.remove(); throw new Error(`This file allows fewer than ${need} modes per collection (${e.message}); nothing was changed.`); }
+    probe.remove();
+  }
+}
+// Collections the payload creates ("9. Brand"), first mode named after the payload's first.
+for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
+  if (C[key].col || !spec.create) continue;
+  const col = figma.variables.createVariableCollection(spec.create);
+  col.renameMode(col.modes[0].modeId, spec.modes[0]);
+  C[key].col = col; (log.createdCollections ||= []).push(spec.create);
+}
 const groupSpelling = (key) => { const m = new Map(); for (const v of C[key].live) { const parts = v.name.split('/'); for (let i = 1; i < parts.length; i++) m.set(slug(parts.slice(0, i).join('/')), parts.slice(0, i).join('/')); } return m; };
 for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
   const { col, bySlug } = C[key]; const groups = groupSpelling(key);
-  const l = { created: [], updated: 0, extra: [], figmaOnly: [] };
+  const l = { created: [], updated: 0, extra: [], figmaOnly: [], modes: [] };
+  // Missing modes (a new brand): a collection's single unnamed mode takes the
+  // first name ("Mode 1" -> "Theya"), the rest are added. A new mode starts as
+  // a copy of the first; the loop below writes its values.
+  spec.modes.forEach((m, i) => {
+    if (m === '*' || col.modes.some((x) => x.name === m)) return;
+    if (i === 0 && col.modes.length === 1) { col.renameMode(col.modes[0].modeId, m); l.modes.push(`renamed -> ${m}`); }
+    else { col.addMode(m); l.modes.push(`added ${m}`); }
+  });
   const allowed = new Set((PAYLOAD.figmaOnly?.[key] ?? []).map(slug));
   for (const [name, val] of Object.entries(spec.vars)) {
     let v = bySlug.get(slug(name));

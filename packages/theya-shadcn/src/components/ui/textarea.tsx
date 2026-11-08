@@ -28,7 +28,7 @@ import { FieldErrorIcon } from './field-error-icon';
  */
 const textareaVariants = cva(
   [
-    'box-border w-full min-h-[80px] rounded-[var(--size-border-radius-border-radius-md)]',
+    'box-border w-full min-h-[80px] rounded-[var(--theme-radius-field,var(--size-border-radius-border-radius-md))]',
     'bg-[var(--color-bg-input-bg-input)] shadow-field border border-solid',
     'border-[var(--color-border-border)]',
     'text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-placeholder)]',

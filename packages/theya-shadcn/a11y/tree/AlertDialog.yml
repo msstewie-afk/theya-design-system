@@ -11,6 +11,8 @@
   - heading "Delete this API token?" [level=2]
   - paragraph: Any integration using this token stops working immediately. This cannot be undone.
   - button "Keep token"
-  - button "Delete token":
-    - img
-    - text: Delete token
+  - button "Delete token"
+  - button "Close"
+
+# Test: interactions (overlays-alertdialog--test-interactions)
+- button "Delete gallery"

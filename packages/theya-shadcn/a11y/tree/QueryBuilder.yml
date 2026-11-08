@@ -23,7 +23,7 @@
       - button "Clear Name value"
       - button "Remove Name condition"
   - button "Add condition"
-- text: "{ \"match\": \"any\", \"conditions\": [ { \"id\": \"c1\", \"field\": \"name\", \"operator\": \"contains\", \"value\": \"gold\" }, { \"id\": \":r0:-1\", \"field\": \"name\", \"operator\": \"contains\", \"value\": \"wedding\" } ] }"
+- text: "{ \"match\": \"any\", \"conditions\": [ { \"id\": \"c1\", \"field\": \"name\", \"operator\": \"contains\", \"value\": \"gold\" }, { \"id\": \"_r_0_-1\", \"field\": \"name\", \"operator\": \"contains\", \"value\": \"wedding\" } ] }"
 
 # Default (search-filter-querybuilder--default)
 - group "Filter conditions":

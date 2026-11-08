@@ -63,8 +63,8 @@
       - mark: attention
       - text: drops after the first…
     - paragraph: Research
-    - 'heading "Fieldnote: read the story" [level=3]':
-      - 'link "Fieldnote: read the story"':
+    - 'heading "Fieldnote: Read the story" [level=3]':
+      - 'link "Fieldnote: Read the story"':
         - /url: "#fieldnote"
         - text: Fieldnote
     - paragraph: 40% less time finding sources
@@ -74,8 +74,8 @@
   - article:
     - img "Four folders with tags; Reading list sorts long reads in automatically.": "Reading list auto: longreads 128 Design systems tokens 64 Recipes summer 37 Trips hiking 21"
     - paragraph: Publishing
-    - 'heading "Greenhouse: read the story" [level=3]':
-      - 'link "Greenhouse: read the story"':
+    - 'heading "Greenhouse: Read the story" [level=3]':
+      - 'link "Greenhouse: Read the story"':
         - /url: "#greenhouse"
         - text: Greenhouse
     - paragraph: 3× more articles linked per issue
@@ -85,8 +85,8 @@
   - article:
     - 'img "Three duplicates found: two to keep and one to merge."': 3 duplicates found Notes on attention Reading list keep Notes on attention Design systems merge Cold cucumber soup Recipes keep
     - paragraph: Design
-    - 'heading "Northwind: read the story" [level=3]':
-      - 'link "Northwind: read the story"':
+    - 'heading "Northwind: Read the story" [level=3]':
+      - 'link "Northwind: Read the story"':
         - /url: "#northwind"
         - text: Northwind
     - paragraph: 18k duplicates merged in a week

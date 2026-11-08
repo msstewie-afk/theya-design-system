@@ -34,24 +34,7 @@
       - text: 1 out of 5 stars The selection limit stopped my client
       - paragraph: Sam O.Jun 3, 2026
       - paragraph: The default limit is 50 photos and my client hit it halfway through the gallery. Check the limit before you send the link.
-    - listitem:
-      - text: 2 out of 5 stars Picks are all or nothing
-      - paragraph: Tom W.Aug 15, 2026
-      - paragraph: A client can send their picks but can’t save a draft and come back later. For albums with 300 photos that matters.
-      - paragraph: Aether Developer Aug 16, 2026
-      - paragraph: Saved drafts are in beta now — write to support and we’ll turn them on.
-    - listitem:
-      - text: 5 out of 5 stars
-      - paragraph: Priya R.Jul 30, 2026
-      - paragraph: Set it up once two years ago and it just works. The email when a client sends their picks is useful.
-    - listitem:
-      - text: 3 out of 5 stars Fine, a bit pricey for a small studio
-      - paragraph: Jonas B.Jul 12, 2026
-      - paragraph: Great for wedding studios; for a few portrait clients a month the price is hard to justify.
-    - listitem:
-      - text: 4 out of 5 stars
-      - paragraph: Elif A.Jun 21, 2026
-      - paragraph: Reliable. Would love a dark mode for the client view.
+  - button "Show 4 more reviews"
 
 # Test: show all focus (patterns-catalog-reviews--show-all-focus)
 - region "Reviews":
@@ -90,6 +73,59 @@
   - button "Show 4 more reviews"
 
 # Test: show more focus (patterns-catalog-reviews--show-more-focus)
+- region "Reviews":
+  - heading "Reviews" [level=2]
+  - button "Write a review"
+  - paragraph: "3.6"
+  - paragraph: 8 reviews
+  - group "Filter by rating":
+    - button "5 stars 3 reviews"
+    - button "4 stars 2 reviews"
+    - button "3 stars 1 review"
+    - button "2 stars 1 review"
+    - button "1 star 1 review"
+  - paragraph: 8 reviews
+  - text: Sort by
+  - combobox "Sort by": Most relevant
+  - list:
+    - listitem:
+      - text: 5 out of 5 stars Cut a week out of every wedding
+      - paragraph: Dana K.Sep 20, 2026
+      - paragraph: Couples used to email me lists of file names. Now they mark the frames they want and I get one clean shortlist. Exactly what proofing should be.
+    - listitem:
+      - text: 5 out of 5 stars
+      - paragraph: Lina S.Aug 28, 2026
+      - paragraph: Forty galleries in proofing at once and nothing gets lost. Clients find their way without instructions.
+    - listitem:
+      - text: 4 out of 5 stars Solid, setup could be clearer
+      - paragraph: Marco P.Sep 2, 2026
+      - paragraph: Works well on our Business plan. It took me a while to find where to set the selection limit — the first screen only shows the gallery picker.
+      - paragraph: Aether Developer Sep 4, 2026
+      - paragraph: Thanks, Marco — the next version puts the limit on the first screen.
+    - listitem:
+      - text: 1 out of 5 stars The selection limit stopped my client
+      - paragraph: Sam O.Jun 3, 2026
+      - paragraph: The default limit is 50 photos and my client hit it halfway through the gallery. Check the limit before you send the link.
+    - listitem:
+      - text: 2 out of 5 stars Picks are all or nothing
+      - paragraph: Tom W.Aug 15, 2026
+      - paragraph: A client can send their picks but can’t save a draft and come back later. For albums with 300 photos that matters.
+      - paragraph: Aether Developer Aug 16, 2026
+      - paragraph: Saved drafts are in beta now — write to support and we’ll turn them on.
+    - listitem:
+      - text: 5 out of 5 stars
+      - paragraph: Priya R.Jul 30, 2026
+      - paragraph: Set it up once two years ago and it just works. The email when a client sends their picks is useful.
+    - listitem:
+      - text: 3 out of 5 stars Fine, a bit pricey for a small studio
+      - paragraph: Jonas B.Jul 12, 2026
+      - paragraph: Great for wedding studios; for a few portrait clients a month the price is hard to justify.
+    - listitem:
+      - text: 4 out of 5 stars
+      - paragraph: Elif A.Jun 21, 2026
+      - paragraph: Reliable. Would love a dark mode for the client view.
+
+# Test: interactions (patterns-catalog-reviews--test-interactions)
 - region "Reviews":
   - heading "Reviews" [level=2]
   - button "Write a review"

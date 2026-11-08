@@ -231,6 +231,8 @@ const PAIRS = [
 ];
 
 /** Heading typefaces a theme can name in `headingFont`, with their fallbacks. */
+// Weight range of each heading face as loaded in fonts/fonts.css.
+const HEADING_WEIGHTS = { 'EB Garamond': [400, 800] };
 const HEADING_STACKS = {
   'EB Garamond': "'EB Garamond', ui-serif, Georgia, 'Times New Roman', serif",
 };
@@ -407,7 +409,14 @@ for (const profile of profiles) {
       const NOMINAL = { 175: 300, 275: 400, 375: 500, 475: 600, 575: 700, 675: 800, 775: 900 };
       for (const [token, value] of builtLight) {
         if (/^--typography-heading-[a-z0-9-]+-font$/.test(token)) shared.set(token, stack);
-        else if (/^--typography-heading-[a-z0-9-]+-weight$/.test(token) && NOMINAL[value]) shared.set(token, String(NOMINAL[value]));
+        else if (/^--typography-heading-[a-z0-9-]+-weight$/.test(token)) {
+          // Nominal weight, kept inside the face's loaded range (EB Garamond: 400–800):
+          // the browser would snap an out-of-range weight to the nearest anyway
+          // (3xl's extralight 100 → 400); writing it keeps Figma and code in step.
+          const [min, max] = HEADING_WEIGHTS[profile.headingFont] ?? [100, 900];
+          const w = NOMINAL[value] ?? Number(value);
+          if (Number.isFinite(w)) shared.set(token, String(Math.min(max, Math.max(min, w))));
+        }
       }
     }
   }

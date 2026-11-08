@@ -121,9 +121,46 @@
         - listitem: Night trains in Europe rails.example rail
         - listitem: Plovdiv in a weekend city.example city
         - listitem: Packing light, really trails.example gear
+  - region "In numbers":
+    - term: links saved this year
+    - definition: 12M
+    - term: teams keep their links here
+    - definition: 2,000+
+    - term: average rating in the stores
+    - definition: "4.8"
+    - term: to find any saved page
+    - definition: 6 s
+  - region "Customer story":
+    - article:
+      - figure "LB Lea Brandt Head of research, Northwind":
+        - blockquote: I used to lose an afternoon a week hunting for sources. Now I type a word I remember from the page and it is there.
+        - text: LB Lea Brandt Head of research, Northwind
+      - term: less time finding a source
+      - definition: 90%
+      - term: links moved over in a day
+      - definition: 3,400
+  - region "Questions, answered":
+    - heading "Questions, answered" [level=2]
+    - heading "Can I bring my bookmarks from Chrome?" [level=3]:
+      - button "Can I bring my bookmarks from Chrome?":
+        - text: Can I bring my bookmarks from Chrome?
+        - img
+    - heading "What happens to a page that disappears?" [level=3]:
+      - button "What happens to a page that disappears?":
+        - text: What happens to a page that disappears?
+        - img
+    - heading "Who can see my library?" [level=3]:
+      - button "Who can see my library?":
+        - text: Who can see my library?
+        - img
+    - heading "Is there a free plan?" [level=3]:
+      - button "Is there a free plan?":
+        - text: Is there a free plan?
+        - img
   - region "Your reading list, finally in one place":
     - heading "Your reading list, finally in one place" [level=2]
     - button "Get started free"
+    - paragraph: Free for one person. Mac, Windows, iPhone and Android.
 - contentinfo:
   - link "Bookmarks":
     - /url: "#top"

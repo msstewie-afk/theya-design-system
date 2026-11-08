@@ -8,3 +8,12 @@
       - columnheader "Status"
       - columnheader "Photos"
   - rowgroup
+
+# Test: interactions (status-feedback-tableskeleton--test-interactions)
+- table:
+  - rowgroup:
+    - row "Gallery Status Photos":
+      - columnheader "Gallery"
+      - columnheader "Status"
+      - columnheader "Photos"
+  - rowgroup

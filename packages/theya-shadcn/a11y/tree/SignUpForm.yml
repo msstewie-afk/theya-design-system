@@ -6,10 +6,9 @@
 - link "Sign in":
   - /url: "#sign-in"
 - text: Work email
-- textbox "Work email": elio@aether.photo
-- button "Clear input"
+- textbox "Work email"
 - text: Password
-- textbox "Password": abcdefgh
+- textbox "Password"
 - button "Show password"
 - text: At least 8 characters.
 - checkbox "Send me product news, about once a month"
@@ -71,6 +70,32 @@
 - textbox "Password" [invalid]: abc
 - button "Show password"
 - text: Use at least 8 characters — 5 more.
+- checkbox "Send me product news, about once a month"
+- text: Send me product news, about once a month
+- button "Create account"
+- paragraph:
+  - text: By creating an account you agree to the
+  - link "Terms of Service":
+    - /url: "#terms"
+  - text: and
+  - link "Privacy Policy":
+    - /url: "#privacy"
+  - text: .
+- text: or
+- button "Sign up with GitHub"
+
+# Test: interactions (patterns-account-signupform--test-interactions)
+- heading "Create your Theya account" [level=1]
+- text: Already have one?
+- link "Sign in":
+  - /url: "#sign-in"
+- text: Work email
+- textbox "Work email": elio@aether.photo
+- button "Clear input"
+- text: Password
+- textbox "Password": abcdefgh
+- button "Show password"
+- text: At least 8 characters.
 - checkbox "Send me product news, about once a month"
 - text: Send me product news, about once a month
 - button "Create account"

@@ -54,3 +54,16 @@
       - button "Inbox , 3 new"
     - listitem:
       - button "Profile"
+
+# Test: interactions (navigation-bottomnav--test-interactions)
+- text: Screen content
+- navigation "Main":
+  - list:
+    - listitem:
+      - button "Home"
+    - listitem:
+      - button "Search"
+    - listitem:
+      - button "Inbox , 3 new"
+    - listitem:
+      - button "Profile"

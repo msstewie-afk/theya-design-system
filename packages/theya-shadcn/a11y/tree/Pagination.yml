@@ -4,7 +4,7 @@
 - navigation "Pagination":
   - list:
     - listitem:
-      - button "Go to previous page"
+      - button "Go to previous page": Previous
     - listitem:
       - button "1"
     - listitem:
@@ -16,7 +16,7 @@
     - listitem:
       - button "5"
     - listitem:
-      - button "Go to next page"
+      - button "Go to next page": Next
 - paragraph: Page 2 of 5
 
 # Default (navigation-pagination--default)

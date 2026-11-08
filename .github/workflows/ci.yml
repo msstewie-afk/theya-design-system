@@ -84,6 +84,12 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build:tokens
 
+      # Primitives are never removed (Maria, 2026-11-08): fails when a step listed
+      # in packages/tokens/primitives.lock.json is gone from src/primitive.
+      - name: No primitive removed
+        working-directory: packages/tokens
+        run: node scripts/check-primitives.mjs
+
       - name: Types
         working-directory: packages/theya-shadcn
         run: pnpm exec tsc --noEmit -p .

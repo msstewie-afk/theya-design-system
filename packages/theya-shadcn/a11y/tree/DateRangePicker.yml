@@ -3,7 +3,7 @@
 # Default (date-time-daterangepicker--default)
 - button "Pick a date range":
   - img
-  - text: Nov 1, 2026 – Nov 3, 2026
+  - text: Pick a date range
 
 # Disabled (date-time-daterangepicker--disabled)
 - button "Report period" [disabled]:
@@ -21,6 +21,11 @@
 - button "Log date range":
   - img
   - text: Pick a date range
+
+# Test: interactions (date-time-daterangepicker--test-interactions)
+- button "Pick a date range":
+  - img
+  - text: Nov 8, 2026 – Nov 10, 2026
 
 # With clear button (date-time-daterangepicker--with-clear)
 - button "Report period":

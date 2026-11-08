@@ -19,6 +19,47 @@
       - paragraph: TH-23990 · 12 Sep 2026
       - paragraph: $588.00
       - text: Completed
+      - button "Details for order TH-23990"
+    - listitem:
+      - paragraph: Fine-art print, 40 × 60 cm + 1 more
+      - paragraph: TH-23412 · 20 Aug 2026
+      - paragraph: $104.00
+      - text: Completed
+      - button "Details for order TH-23412"
+    - listitem:
+      - paragraph: Client proofing add-on
+      - paragraph: TH-23001 · 30 Jul 2026
+      - paragraph: $10.00
+      - text: Payment failed
+      - button "Details for order TH-23001"
+    - listitem:
+      - paragraph: "Lens rental: 85 mm f/1.4 + 2 more"
+      - paragraph: TH-22768 · 2 Jul 2026
+      - paragraph: $93.00
+      - text: Refunded
+      - button "Details for order TH-22768"
+  - paragraph: Showing 5 of 7
+  - button "Show 2 more"
+
+# Test: interactions (patterns-account-orderhistory--test-interactions)
+- region "Orders":
+  - heading "Orders" [level=2]
+  - searchbox "Search orders"
+  - text: Status
+  - combobox "Status": All statuses
+  - paragraph: 7 orders
+  - list:
+    - listitem:
+      - paragraph: Archive import + 1 more
+      - paragraph: TH-24817 · 1 Oct 2026
+      - paragraph: $15.00
+      - text: In progress
+      - button "Details for order TH-24817"
+    - listitem:
+      - paragraph: Business plan
+      - paragraph: TH-23990 · 12 Sep 2026
+      - paragraph: $588.00
+      - text: Completed
       - button "Details for order TH-23990" [expanded]
       - term: Business plan Yearly, 12 Sep 2026 – 11 Sep 2027
       - definition: $588.00

@@ -99,7 +99,7 @@
 
 # Playground (layout-card--playground)
 - text: Card title Short supporting description
-- button "Favourite"
+- button "Favourite Card title"
 - text: Card content goes here.
 - button "Action"
 

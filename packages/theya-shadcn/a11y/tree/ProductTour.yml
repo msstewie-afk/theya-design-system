@@ -6,7 +6,6 @@
 - button "New gallery"
 - text: Golden hour Updated 2 days ago Blue hour Updated 2 days ago First light Updated 2 days ago
 - button "Start tour"
-- paragraph: Completed
 
 # On a step (overlays-producttour--on-step)
 - text: Galleries Search galleries, clients and the archive
@@ -29,3 +28,11 @@
 - button "New gallery"
 - text: Golden hour Updated 2 days ago Blue hour Updated 2 days ago First light Updated 2 days ago
 - button "Start tour"
+
+# Test: interactions (overlays-producttour--test-interactions)
+- text: Galleries Search galleries, clients and the archive
+- button "Notifications"
+- button "New gallery"
+- text: Golden hour Updated 2 days ago Blue hour Updated 2 days ago First light Updated 2 days ago
+- button "Start tour"
+- paragraph: Completed

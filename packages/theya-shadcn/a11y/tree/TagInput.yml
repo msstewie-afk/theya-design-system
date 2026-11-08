@@ -5,10 +5,7 @@
 - button "Remove wedding"
 - text: outdoor
 - button "Remove outdoor"
-- text: portrait
-- button "Remove portrait"
 - textbox "Tags"
-- text: Removed film
 
 # Emails (text-input-taginput--emails)
 - text: thea@aether.photo
@@ -51,6 +48,16 @@
 - text: tokens
 - button "Remove tokens"
 - textbox "Tags"
+
+# Test: interactions (text-input-taginput--test-interactions)
+- text: wedding
+- button "Remove wedding"
+- text: outdoor
+- button "Remove outdoor"
+- text: portrait
+- button "Remove portrait"
+- textbox "Tags"
+- text: Removed film
 
 # With Error (text-input-taginput--with-error)
 - textbox "Recipients" [invalid]:

@@ -70,7 +70,10 @@ function colorRef(v) {
 const light = flatten(read('src/semantic/color.default.json'));
 const dark = flatten(read('src/semantic/color.dark.json'));
 const colorSem = {};
-for (const k of Object.keys(light)) colorSem[k.replace(/^color\//, '')] = { default: colorRef(light[k]), dark: colorRef(dark[k]) };
+// Charts sit one group deeper in Figma ("bg/chart/chart-01"), wherever the code keeps them
+// (semantic since 91fb7b9, code tokens before): one spelling, or sync makes duplicates.
+const figmaName = (k) => k.replace(/^color\//, '').replace(/^bg\/chart-/, 'bg/chart/chart-');
+for (const k of Object.keys(light)) colorSem[figmaName(k)] = { default: colorRef(light[k]), dark: colorRef(dark[k]) };
 // Theme-independent code tokens (on-primary set, charts). In Figma they live
 // in the semantic collection with the same value in both modes; chart and
 // primary-on-primary tokens sit one group deeper to keep bg/ tidy.
@@ -142,11 +145,111 @@ for (const [k, v] of Object.entries(flatten(read('src/semantic/typography.json')
   typoSem[name] = p[0] === 'size' ? '@size:' + p.slice(1).join('/') : '@typo:' + p.slice(1).join('/');
 }
 
+// ---- Brand themes (src/profiles/*.json, built by scripts/build-profiles.mjs) ----
+// Values are the built results (build/css/profiles.json), so Figma shows what
+// the browser renders.
+// - Colors: modes of "2." — "<brand>" and "<brand> dark" beside default/dark.
+//   A mode a profile leaves alone is not written: scripts/figma/lib.js want()
+//   falls back to Theya's value in the same theme ("<brand> dark" -> dark).
+// - Radii, font families and weights: collection "9. Brand" (modes theya /
+//   <brand>…), the way "7. Density" holds the control sizes. The few variables
+//   of "4.", "5." and "6." a profile overrides become aliases to the
+//   same-named variable in "9."; those collections get no modes. The "theya"
+//   mode holds what the variable held before (its alias or literal).
+// - Radius roles with no variable of their own (--theme-radius-field /
+//   -button) live in "9." too, with Theya's fallback from the components.
+const BRAND_FILE = join(ROOT, 'build/css/profiles.json');
+const brands = JSON.parse(readFileSync(BRAND_FILE, 'utf8')).profiles;
+const BRAND_NAMES = brands.map((b) => b.name);
+// Same naming as scripts/figma/lib.js cssName(): Figma variable path -> CSS variable.
+const cssOf = (key, name) => {
+  const dash = name.replace(/\//g, '-');
+  if (key === '2.') {
+    if (name.startsWith('bg/chart/') || name.startsWith('bg/primary/primary-on-primary')) return '--color-bg-' + name.split('/')[2];
+    return '--color-' + dash;
+  }
+  if (key === '4.') return '--size-' + dash;
+  return '--typography-' + dash;
+};
+const unmatched = {};
+const miss = (b, css) => (unmatched[b] ||= new Set()).add(css);
+
+// "2.": colors per brand and theme.
+const colorModes = (() => {
+  const byCss = new Map(Object.keys(colorSem).map((n) => [cssOf('2.', n), n]));
+  for (const b of brands) for (const [theme, mode] of [['light', b.name], ['dark', b.name + ' dark']]) {
+    for (const [css, v] of Object.entries(b[theme] ?? {})) {
+      const n = byCss.get(css);
+      if (!n) { miss(b.name, css); continue; }
+      const ref = colorRef(v);
+      if (ref !== colorSem[n][theme === 'light' ? 'default' : 'dark']) colorSem[n][mode] = ref;
+    }
+  }
+  return ['default', 'dark', ...BRAND_NAMES.flatMap((b) => [b, b + ' dark'])];
+})();
+
+// "9. Brand".
+const BRAND_MODES = ['theya', ...BRAND_NAMES];
+const brandVars = {};
+const firstFamily = (stack) => String(stack).split(',')[0].trim().replace(/^['"]|['"]$/g, '');
+const sizeByCss = new Map(Object.keys(sizeSem).map((n) => [cssOf('4.', n), n]));
+// A brand value as the "9." payload writes it: an alias where code names one, else a literal.
+const brandValue = (css, v) => {
+  const ref = String(v).match(/^var\((--size-[a-z0-9-]+)\)$/);
+  if (ref) { const n = sizeByCss.get(ref[1]); if (!n) throw new Error(`${css}: ${v} has no variable in "4."`); return '@sem:' + n; }
+  if (css.startsWith('--size-')) { const n = Number(String(v).replace(/px$/, '')); return sizePrim[`size${n}`] !== undefined ? `@size:size${n}` : n; }
+  return /-font$|font-family-/.test(css) ? firstFamily(v) : Number(v);
+};
+// The value a moved variable had, as "9." spells it (aliases keep their target collection).
+const asBrandAlias = (key, v) => {
+  if (typeof v !== 'string' || !v.startsWith('@')) return v;
+  if (v.startsWith('@density:')) throw new Error('A brand variable is also a density variable: ' + v + ' — decide which collection drives it first');
+  if (v.startsWith('@typo:') || v.startsWith('@size:')) return v;
+  if (key === '4.') return '@size:' + v.slice(1);
+  throw new Error(`Unexpected alias ${v} in ${key}`);
+};
+for (const [key, vars, pick] of [
+  ['4.', sizeSem, (k) => k.startsWith('--size-')],
+  ['5.', typoPrim, (k) => /^--typography-(font-family|weight)-/.test(k)],
+  ['6.', typoSem, (k) => k.startsWith('--typography-') && !/^--typography-(font-family|weight)-/.test(k)],
+]) {
+  const byCss = new Map(Object.keys(vars).map((n) => [cssOf(key, n), n]));
+  for (const b of brands) for (const [css, v] of Object.entries(b.shared ?? {})) {
+    if (!pick(css)) continue;
+    const n = byCss.get(css);
+    if (!n) { miss(b.name, css); continue; }
+    if (!brandVars[n]) { brandVars[n] = { theya: asBrandAlias(key, vars[n]) }; vars[n] = '@brand:' + n; }
+    brandVars[n][b.name] = brandValue(css, v);
+  }
+}
+// Radius roles. A profile sets one radius for every field / every button
+// (--theme-radius-field / -button); without it each size keeps Theya's own
+// (fields: sm md, others lg; buttons: sm/md lg, lg+ xl, lg+ pressed 2xl —
+// text-field-variants.ts, button.tsx). Figma components bind one variable per
+// such Theya step, so each one's "theya" mode is that step and a brand mode
+// is the profile's single value.
+const ROLE_STEPS = [
+  ['theme-radius/field', 'field', 'border-radius/border-radius-lg'],
+  ['theme-radius/field-sm', 'field', 'border-radius/border-radius-md'],
+  ['theme-radius/button', 'button', 'border-radius/border-radius-xl'],
+  ['theme-radius/button-sm', 'button', 'border-radius/border-radius-lg'],
+  ['theme-radius/button-pressed', 'button', 'border-radius/border-radius-2xl'],
+];
+for (const [n, role, fallback] of ROLE_STEPS) {
+  brandVars[n] = { theya: '@sem:' + fallback };
+  for (const b of brands) { const v = b.shared?.['--theme-radius-' + role]; if (v !== undefined) brandVars[n][b.name] = brandValue('--theme-radius-' + role, v); }
+}
+for (const b of brands) for (const k of Object.keys(b.shared ?? {})) if (!/^--(size|typography|theme-radius)-/.test(k)) miss(b.name, k);
+
 const payload = {
   generatedFrom: 'packages/tokens/src',
+  // Order matters for sync: "9." first, so the "@brand:" aliases written into
+  // "4.", "5." and "6." find their targets.
   collections: {
+    // Created by sync when missing ("9. Brand"); new variables get scopes [] (hidden), like "7.".
+    '9.': { kind: 'MIXED', modes: BRAND_MODES, create: '9. Brand', vars: brandVars },
     '1.': { kind: 'COLOR', modes: ['*'], vars: Object.fromEntries(Object.entries(colorPrim).map(([k, v]) => [k, normHex(v)])) },
-    '2.': { kind: 'COLOR', modes: ['default', 'dark'], aliasTo: '1.', vars: colorSem },
+    '2.': { kind: 'COLOR', modes: colorModes, aliasTo: '1.', vars: colorSem },
     '3.': { kind: 'FLOAT', modes: ['*'], vars: sizePrim },
     '4.': { kind: 'FLOAT', modes: ['*'], aliasTo: '3.', vars: sizeSem },
     '5.': { kind: 'MIXED', modes: ['*'], vars: typoPrim },
@@ -158,6 +261,19 @@ const payload = {
   // utilities (-space-x-1), not tokens. check / sync list them as figmaOnly,
   // not as extra. Collection key -> Figma variable names.
   figmaOnly: {
+    // Figma-only semantic colors, kept (Maria, 2026-11-08: tokens are not
+    // removed). On 2026-11-08 each was bound only to its own swatch on the
+    // Color system page — no component, style or other variable used it.
+    '2.': [
+      // Bright warning icon (yellow-300 / dark orange-200); see scripts/figma/README.md.
+      'icon/icon-warning-bright',
+      // Dimming layer behind overlays (gray-a900 / dark slate-a700); code uses bg-scrim.
+      'bg/surface/bg-surface-backdrop',
+      // Subtle dark layer above a surface (gray-a800 / dark slate-a800); no code counterpart.
+      'bg/surface/surface-overhead-dark-subtle',
+      // Pressed state of bg-surface-overlay-dark (slate-900 / dark slate-700); code has only -hover.
+      'bg/surface/bg-surface-overlay-dark-pressed',
+    ],
     '4.': ['padding/padding--3xs', 'padding/padding--2xs', 'gap/gap--2xs'],
   },
 };
@@ -166,3 +282,4 @@ mkdirSync(dirname(out), { recursive: true });
 writeFileSync(out, JSON.stringify(payload));
 const counts = Object.fromEntries(Object.entries(payload.collections).map(([k, c]) => [k, Object.keys(c.vars).length]));
 console.log('build/figma/payload.json', counts);
+for (const [b, set] of Object.entries(unmatched)) console.log(`brand ${b}: no Figma variable for`, [...set].join(' '));

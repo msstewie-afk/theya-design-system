@@ -4,24 +4,29 @@
 - button "Refreshing…" [disabled]
 
 # Gallery (motion-animatedicon--gallery)
-- button "Check"
+- text: Check
 - button "Copy"
-- button "Bell"
-- button "Settings"
-- button "Refresh"
-- button "Trash"
+- text: Bell Settings Refresh Trash
 - button "Eye"
-- button "ArrowRight"
-- button "Download"
-- button "Upload"
+- text: ArrowRight Download Upload
 - button "Plus"
 - button "Heart"
 - button "Menu"
+- button "Star"
 
 # States (motion-animatedicon--states)
+- button "Copy"
+- button "Menu"
+- button "Hide password"
+- button "Add"
+- button "Like"
+- button "Favourite"
+
+# Test: states (motion-animatedicon--test-states)
 - button "Copied"
 - button "Menu" [expanded]
 - button "Hide password"
 - button "Add"
 - button "Like"
+- button "Favourite"
 - status: Copied

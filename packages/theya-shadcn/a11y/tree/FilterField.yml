@@ -6,11 +6,8 @@
 - 'button "Status: Published"'
 - text: "Status: Published"
 - 'button "Remove filter Status: Published"'
-- 'button "Status: Expired"'
-- text: "Status: Expired"
-- 'button "Remove filter Status: Expired"'
 - combobox "Filter galleries"
-- status: 2 filters applied
+- status: 1 filter applied
 
 # Disabled (search-filter-filterfield--disabled)
 - button "Add filter" [disabled]:
@@ -123,3 +120,15 @@
 - 'button "Remove filter Status: Published"'
 - combobox "Filter galleries"
 - status: 1 filter applied
+
+# Test: interactions (search-filter-filterfield--test-interactions)
+- button "Add filter":
+  - img
+- 'button "Status: Published"'
+- text: "Status: Published"
+- 'button "Remove filter Status: Published"'
+- 'button "Status: Expired"'
+- text: "Status: Expired"
+- 'button "Remove filter Status: Expired"'
+- combobox "Filter galleries"
+- status: 2 filters applied

@@ -4,3 +4,8 @@
 - button "Summarize this document"
 - button "Draft a follow-up email"
 - button "Explain this error"
+
+# Test: interactions (ai-chat-promptsuggestions--test-interactions)
+- button "Summarize this document"
+- button "Draft a follow-up email"
+- button "Explain this error"

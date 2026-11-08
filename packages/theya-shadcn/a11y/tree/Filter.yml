@@ -18,6 +18,11 @@
   - text: Owner
   - img
 
+# Test: interactions (search-filter-filter--test-interactions)
+- button "Status":
+  - text: Status
+  - img
+
 # With selection (search-filter-filter--with-selection)
 - button "Status, 2 selected":
   - text: Status

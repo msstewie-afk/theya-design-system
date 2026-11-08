@@ -24,6 +24,12 @@
       - text: List view
     - menuitemradio "Grid view"
 
+# Test: interactions (navigation-menubar--test-interactions)
+- menubar "Editor menu":
+  - menuitem "File"
+  - menuitem "Edit"
+  - menuitem "View"
+
 # Unbordered (navigation-menubar--unbordered)
 - menubar "Editor menu":
   - menuitem "File"

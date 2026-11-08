@@ -13,6 +13,25 @@
 - group "Storage": Storage 4.2 GB
 - paragraph: of 384 GB
 - tablist:
+  - tab "Overview" [selected]
+  - tab "Photos"
+  - tab "Settings"
+- tabpanel "Overview":
+  - paragraph: Overview content goes here.
+
+# Test: interactions (patterns-details--test-interactions)
+- banner:
+  - heading "Golden hour" [level=1]
+  - text: Published
+  - paragraph: Helios Studio Shot Mar 2026 helios.aether.photo
+  - button "Share"
+  - button "Export"
+- group "Photos": Photos 248
+- group "Views": Views 12.8k
+- group "Downloads": Downloads 342
+- group "Storage": Storage 4.2 GB
+- paragraph: of 384 GB
+- tablist:
   - tab "Overview"
   - tab "Photos" [selected]
   - tab "Settings"

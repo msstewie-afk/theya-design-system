@@ -44,6 +44,10 @@
 - button "info" [pressed]
 - text: info
 
+# Pill (labels-chip--pill)
+- text: Small Medium Large Approved Wedding
+- button "Remove Wedding"
+
 # Playground (labels-chip--playground)
 - button "Chip"
 - text: Chip

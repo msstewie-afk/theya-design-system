@@ -22,3 +22,6 @@
 
 # Side (right) (overlays-drawer--side-right)
 - button "Add gallery"
+
+# Test: interactions (overlays-drawer--test-interactions)
+- button "Rename gallery"

@@ -2,11 +2,11 @@
 
 # Default (date-time-timerangepicker--default)
 - group:
-  - combobox "Start time": 6:00 PM
+  - combobox "Start time"
   - button "Open options"
   - combobox "End time"
   - button "Open options"
-- paragraph: 18:00 to —
+- paragraph: — to —
 
 # Disabled (date-time-timerangepicker--disabled)
 - group:
@@ -36,6 +36,14 @@
   - button "Open options"
   - combobox "End time": 6:00 PM
   - button "Open options"
+
+# Test: interactions (date-time-timerangepicker--test-interactions)
+- group:
+  - combobox "Start time": 6:00 PM
+  - button "Open options"
+  - combobox "End time"
+  - button "Open options"
+- paragraph: 18:00 to —
 
 # 24-hour, with label (date-time-timerangepicker--twenty-four-hour)
 - text: Maintenance window

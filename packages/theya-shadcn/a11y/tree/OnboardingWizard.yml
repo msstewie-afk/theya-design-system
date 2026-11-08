@@ -18,6 +18,23 @@
 
 # Default (patterns-onboardingwizard--default)
 - group "Create a client portal":
+  - paragraph: "Step 1 of 3: Portal"
+  - heading "Create a client portal" [level=2]
+  - list "Create a client portal progress":
+    - listitem: "step 1 of 3, current step: Portal Name your portal"
+    - listitem: "step 2 of 3, upcoming: Plan Pick a tier"
+    - listitem: "step 3 of 3, upcoming: Review Confirm and create"
+  - 'group "Step 1 of 3: Portal"':
+    - 'heading "Step 1 of 3: Portal" [level=3]'
+    - text: Portal address
+    - textbox "Portal address":
+      - /placeholder: selene-weddings.aether.photo
+    - paragraph: The address clients will use to see their photos. You can add more portals later.
+  - button "Back" [disabled]
+  - button "Next"
+
+# Test: interactions (patterns-onboardingwizard--test-interactions)
+- group "Create a client portal":
   - paragraph: "Step 3 of 3: Review"
   - heading "Create a client portal" [level=2]
   - list "Create a client portal progress":

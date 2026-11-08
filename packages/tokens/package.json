@@ -12,9 +12,12 @@
     "figma:payload": "node scripts/figma-payload.mjs",
     "figma:check": "node scripts/figma-payload.mjs && node scripts/figma-run.mjs check",
     "figma:sync": "node scripts/figma-payload.mjs && node scripts/figma-run.mjs sync",
+    "figma:parts": "node scripts/figma-payload.mjs && for a in check sync; do node scripts/figma-run.mjs $a --only=2. && node scripts/figma-run.mjs $a --only=9.,1.,3.,4.,5.,6.,7.; done",
+    "figma:test": "npm run figma:parts && node scripts/figma/test/mock-run.mjs",
     "build:profiles": "node scripts/build-profiles.mjs",
     "build:density": "node scripts/build-density.mjs",
-    "build:dtcg": "node scripts/build-dtcg.mjs && node scripts/check-dtcg.mjs"
+    "build:dtcg": "node scripts/build-dtcg.mjs && node scripts/check-dtcg.mjs",
+    "check:primitives": "node scripts/check-primitives.mjs"
   },
   "devDependencies": {
     "style-dictionary": "^4.4.0"

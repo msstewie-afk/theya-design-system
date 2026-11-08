@@ -12,8 +12,6 @@
 - textbox "Message":
   - /placeholder: Send a message…
 - button "Send" [disabled]
-- list:
-  - listitem: "sent: Hello world"
 
 # Disabled (ai-chat-promptarea--disabled)
 - status
@@ -28,6 +26,14 @@
   - /placeholder: Send a message…
 - button "Send" [disabled]
 - paragraph: "Last sent: Create a client gallery for the Selene Weddings shoot now — press Up in the empty field above to edit it again."
+
+# Test: interactions (ai-chat-promptarea--test-interactions)
+- status
+- textbox "Message":
+  - /placeholder: Send a message…
+- button "Send" [disabled]
+- list:
+  - listitem: "sent: Hello world"
 
 # With attachments (ai-chat-promptarea--with-attachments)
 - status

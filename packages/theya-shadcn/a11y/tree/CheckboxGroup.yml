@@ -14,9 +14,9 @@
 # Default (selection-checkboxgroup--default)
 - group "Notify me by":
   - text: Notify me by
-  - checkbox "Email"
+  - checkbox "Email" [checked]
   - text: Email
-  - checkbox "SMS" [checked]
+  - checkbox "SMS"
   - text: SMS
   - checkbox "Push notifications"
   - text: Push notifications
@@ -41,3 +41,13 @@
   - checkbox "Push notifications" [invalid]
   - text: Push notifications
   - alert: Choose at least one way to be notified.
+
+# Test: interactions (selection-checkboxgroup--test-interactions)
+- group "Notify me by":
+  - text: Notify me by
+  - checkbox "Email"
+  - text: Email
+  - checkbox "SMS" [checked]
+  - text: SMS
+  - checkbox "Push notifications"
+  - text: Push notifications

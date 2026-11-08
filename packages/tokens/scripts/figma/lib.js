@@ -11,10 +11,12 @@ async function loadState() {
   const vars = await figma.variables.getLocalVariablesAsync();
   const byId = new Map(vars.map((v) => [v.id, v]));
   const C = {};
-  for (const key of Object.keys(PAYLOAD.collections)) {
+  // Collections an alias may point into are loaded even when the payload was cut to a few (figma-run --only).
+  for (const key of new Set([...Object.keys(PAYLOAD.collections), ...(PAYLOAD.alsoLoad ?? [])])) {
     const col = cols.find((c) => c.name.startsWith(key));
-    if (!col) throw new Error('No Figma collection starting with ' + key);
-    const live = vars.filter((v) => v.variableCollectionId === col.id && !v.name.startsWith('_legacy'));
+    // A collection the payload may create ("9. Brand") can be missing; any other is an error.
+    if (!col && !PAYLOAD.collections[key]?.create && !(PAYLOAD.creatable ?? []).includes(key)) throw new Error('No Figma collection starting with ' + key);
+    const live = col ? vars.filter((v) => v.variableCollectionId === col.id && !v.name.startsWith('_legacy')) : [];
     C[key] = { col, bySlug: new Map(live.map((v) => [slug(v.name), v])), live };
   }
   return { C, byId };
@@ -24,10 +26,19 @@ const aliasTarget = (key, ref) => {
   if (ref.startsWith('@size:')) return ['3.', ref.slice(6)];
   if (ref.startsWith('@typo:')) return ['5.', ref.slice(6)];
   if (ref.startsWith('@density:')) return ['7.', ref.slice(9)];
+  if (ref.startsWith('@brand:')) return ['9.', ref.slice(7)];
+  if (ref.startsWith('@sem:')) return ['4.', ref.slice(5)];
   return [PAYLOAD.collections[key].aliasTo, ref.slice(1)];
 };
 const modeIds = (col, modes) => modes.map((m) => [m, m === '*' ? col.modes[0].modeId : (col.modes.find((x) => x.name === m) || {}).modeId]);
-const want = (spec, m) => (typeof spec === 'object' && spec !== null && !Array.isArray(spec) ? spec[m] : spec);
+// A brand mode missing from a value object means "as Theya": "<brand> dark" falls
+// back to dark, any other mode to default (colors) or theya ("9. Brand").
+const want = (spec, m) => {
+  if (typeof spec !== 'object' || spec === null || Array.isArray(spec)) return spec;
+  if (m in spec) return spec[m];
+  if (m.endsWith(' dark') && 'dark' in spec) return spec.dark;
+  return 'default' in spec ? spec.default : spec.theya;
+};
 
 // Describe a Figma value the same way the payload does, for comparison.
 function describe(val, byId) {
@@ -36,7 +47,7 @@ function describe(val, byId) {
   return val;
 }
 function equal(have, wantV) {
-  if (typeof wantV === 'string' && wantV.startsWith('@')) return typeof have === 'string' && have === '@' + slug(wantV.replace(/^@(size:|typo:|density:)?/, ''));
+  if (typeof wantV === 'string' && wantV.startsWith('@')) return typeof have === 'string' && have === '@' + slug(wantV.replace(/^@(size:|typo:|density:|brand:|sem:)?/, ''));
   if (typeof wantV === 'string' && wantV.startsWith('#')) return typeof have === 'string' && have.startsWith('#') && sameHex(have, wantV);
   if (typeof wantV === 'number') return typeof have === 'number' && Math.abs(have - wantV) < 0.001;
   return String(have) === String(wantV);
@@ -50,5 +61,7 @@ function cssName(key, name) {
     return '--color-' + dash;
   }
   if (key === '3.' || key === '4.' || key === '7.') return '--size-' + dash;
+  // Radius role steps (field-sm, button-pressed…) all stand for the one CSS role variable.
+  if (key === '9.') return name.startsWith('theme-radius/') ? '--theme-radius-' + name.split('/')[1].split('-')[0] : name.startsWith('border-radius/') ? '--size-' + dash : '--typography-' + dash;
   return '--typography-' + dash;
 }
