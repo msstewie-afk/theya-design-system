@@ -143,14 +143,18 @@ for (const [k, v] of Object.entries(flatten(read('src/semantic/typography.json')
 }
 
 // ---- Brand themes (src/profiles/*.json, built by scripts/build-profiles.mjs) ----
-// Each profile becomes Figma modes next to Theya's own, so a frame switches
-// brand the way it switches light/dark: "2." gets "<brand>" and "<brand> dark"
-// beside default/dark; "4." (radii), "5." (font families, weights) and "6."
-// (heading/body fonts and weights) get one mode per brand beside "Theya".
 // Values are the built results (build/css/profiles.json), so Figma shows what
-// the browser renders; a variable a profile leaves alone keeps Theya's value.
-// CSS variables with no Figma variable (--theme-radius-*) are listed in
-// `unmatched` and reported by figma:payload.
+// the browser renders.
+// - Colors: modes of "2." — "<brand>" and "<brand> dark" beside default/dark.
+//   A mode a profile leaves alone is not written: scripts/figma/lib.js want()
+//   falls back to Theya's value in the same theme ("<brand> dark" -> dark).
+// - Radii, font families and weights: collection "9. Brand" (modes theya /
+//   <brand>…), the way "7. Density" holds the control sizes. The few variables
+//   of "4.", "5." and "6." a profile overrides become aliases to the
+//   same-named variable in "9."; those collections get no modes. The "theya"
+//   mode holds what the variable held before (its alias or literal).
+// - Radius roles with no variable of their own (--theme-radius-field /
+//   -button) live in "9." too, with Theya's fallback from the components.
 const BRAND_FILE = join(ROOT, 'build/css/profiles.json');
 const brands = JSON.parse(readFileSync(BRAND_FILE, 'utf8')).profiles;
 const BRAND_NAMES = brands.map((b) => b.name);
@@ -164,55 +168,78 @@ const cssOf = (key, name) => {
   if (key === '4.') return '--size-' + dash;
   return '--typography-' + dash;
 };
-const firstFamily = (stack) => String(stack).split(',')[0].trim().replace(/^['"]|['"]$/g, '');
-const px = (v) => Number(String(v).replace(/px$/, ''));
-const sizeRef = (v) => { const n = px(v); return sizePrim[`size${n}`] !== undefined ? `@size${n}` : n; };
-const typoValue = (css, v) => (/-font$|font-family-/.test(css) ? firstFamily(v) : Number(v));
 const unmatched = {};
-const brandModes = (key, vars, base, perBrand) => {
-  const byCss = new Map(Object.keys(vars).map((n) => [cssOf(key, n), n]));
-  for (const b of brands) {
-    for (const [mode, values, convert] of perBrand(b)) {
-      for (const [css, v] of Object.entries(values)) {
-        const name = byCss.get(css);
-        if (!name) { (unmatched[b.name] ||= new Set()).add(css); continue; }
-        if (typeof vars[name] !== 'object' || vars[name] === null) vars[name] = Object.fromEntries(base.map((m) => [m, vars[name]]));
-        vars[name][mode] = convert(css, v);
-      }
-    }
-  }
-  // A brand mode a profile leaves alone is not written: scripts/figma/lib.js want()
-  // falls back to Theya's value (keeps the payload under use_figma's size limit).
-  return [...base, ...brands.flatMap((b) => perBrand(b).map(([m]) => m))];
-};
-// "2.": colors per brand and theme; a brand mode starts from Theya's value in the same theme.
+const miss = (b, css) => (unmatched[b] ||= new Set()).add(css);
+
+// "2.": colors per brand and theme.
 const colorModes = (() => {
   const byCss = new Map(Object.keys(colorSem).map((n) => [cssOf('2.', n), n]));
   for (const b of brands) for (const [theme, mode] of [['light', b.name], ['dark', b.name + ' dark']]) {
     for (const [css, v] of Object.entries(b[theme] ?? {})) {
       const n = byCss.get(css);
-      if (!n) { (unmatched[b.name] ||= new Set()).add(css); continue; }
+      if (!n) { miss(b.name, css); continue; }
       const ref = colorRef(v);
       if (ref !== colorSem[n][theme === 'light' ? 'default' : 'dark']) colorSem[n][mode] = ref;
     }
   }
   return ['default', 'dark', ...BRAND_NAMES.flatMap((b) => [b, b + ' dark'])];
 })();
-const shared = (b, pick) => Object.fromEntries(Object.entries(b.shared ?? {}).filter(([k]) => pick(k)));
-const sizeModes = brandModes('4.', sizeSem, ['Theya'], (b) => [[b.name, shared(b, (k) => k.startsWith('--size-')), (_, v) => sizeRef(v)]]);
-const typoPrimModes = brandModes('5.', typoPrim, ['Theya'], (b) => [[b.name, shared(b, (k) => /^--typography-(font-family|weight)-/.test(k)), typoValue]]);
-const typoSemModes = brandModes('6.', typoSem, ['Theya'], (b) => [[b.name, shared(b, (k) => k.startsWith('--typography-') && !/^--typography-(font-family|weight)-/.test(k)), typoValue]]);
-for (const b of brands) for (const k of Object.keys(b.shared ?? {})) if (!/^--(size|typography)-/.test(k)) (unmatched[b.name] ||= new Set()).add(k);
+
+// "9. Brand".
+const BRAND_MODES = ['theya', ...BRAND_NAMES];
+const brandVars = {};
+const firstFamily = (stack) => String(stack).split(',')[0].trim().replace(/^['"]|['"]$/g, '');
+const sizeByCss = new Map(Object.keys(sizeSem).map((n) => [cssOf('4.', n), n]));
+// A brand value as the "9." payload writes it: an alias where code names one, else a literal.
+const brandValue = (css, v) => {
+  const ref = String(v).match(/^var\((--size-[a-z0-9-]+)\)$/);
+  if (ref) { const n = sizeByCss.get(ref[1]); if (!n) throw new Error(`${css}: ${v} has no variable in "4."`); return '@sem:' + n; }
+  if (css.startsWith('--size-')) { const n = Number(String(v).replace(/px$/, '')); return sizePrim[`size${n}`] !== undefined ? `@size:size${n}` : n; }
+  return /-font$|font-family-/.test(css) ? firstFamily(v) : Number(v);
+};
+// The value a moved variable had, as "9." spells it (aliases keep their target collection).
+const asBrandAlias = (key, v) => {
+  if (typeof v !== 'string' || !v.startsWith('@')) return v;
+  if (v.startsWith('@density:')) throw new Error('A brand variable is also a density variable: ' + v + ' — decide which collection drives it first');
+  if (v.startsWith('@typo:') || v.startsWith('@size:')) return v;
+  if (key === '4.') return '@size:' + v.slice(1);
+  throw new Error(`Unexpected alias ${v} in ${key}`);
+};
+for (const [key, vars, pick] of [
+  ['4.', sizeSem, (k) => k.startsWith('--size-')],
+  ['5.', typoPrim, (k) => /^--typography-(font-family|weight)-/.test(k)],
+  ['6.', typoSem, (k) => k.startsWith('--typography-') && !/^--typography-(font-family|weight)-/.test(k)],
+]) {
+  const byCss = new Map(Object.keys(vars).map((n) => [cssOf(key, n), n]));
+  for (const b of brands) for (const [css, v] of Object.entries(b.shared ?? {})) {
+    if (!pick(css)) continue;
+    const n = byCss.get(css);
+    if (!n) { miss(b.name, css); continue; }
+    if (!brandVars[n]) { brandVars[n] = { theya: asBrandAlias(key, vars[n]) }; vars[n] = '@brand:' + n; }
+    brandVars[n][b.name] = brandValue(css, v);
+  }
+}
+// Radius roles: Theya's fallback is the radius the components use without a profile.
+const ROLE_FALLBACK = { field: 'border-radius/border-radius-lg', button: 'border-radius/border-radius-xl' };
+for (const [role, fallback] of Object.entries(ROLE_FALLBACK)) {
+  const n = 'theme-radius/' + role;
+  for (const b of brands) { const v = b.shared?.['--theme-radius-' + role]; if (v === undefined) continue; (brandVars[n] ||= { theya: '@sem:' + fallback })[b.name] = brandValue('--theme-radius-' + role, v); }
+}
+for (const b of brands) for (const k of Object.keys(b.shared ?? {})) if (!/^--(size|typography|theme-radius)-/.test(k)) miss(b.name, k);
 
 const payload = {
   generatedFrom: 'packages/tokens/src',
+  // Order matters for sync: "9." first, so the "@brand:" aliases written into
+  // "4.", "5." and "6." find their targets.
   collections: {
+    // Created by sync when missing ("9. Brand"); new variables get scopes [] (hidden), like "7.".
+    '9.': { kind: 'MIXED', modes: BRAND_MODES, create: '9. Brand', vars: brandVars },
     '1.': { kind: 'COLOR', modes: ['*'], vars: Object.fromEntries(Object.entries(colorPrim).map(([k, v]) => [k, normHex(v)])) },
     '2.': { kind: 'COLOR', modes: colorModes, aliasTo: '1.', vars: colorSem },
     '3.': { kind: 'FLOAT', modes: ['*'], vars: sizePrim },
-    '4.': { kind: 'FLOAT', modes: sizeModes, aliasTo: '3.', vars: sizeSem },
-    '5.': { kind: 'MIXED', modes: typoPrimModes, vars: typoPrim },
-    '6.': { kind: 'MIXED', modes: typoSemModes, vars: typoSem },
+    '4.': { kind: 'FLOAT', modes: ['*'], aliasTo: '3.', vars: sizeSem },
+    '5.': { kind: 'MIXED', modes: ['*'], vars: typoPrim },
+    '6.': { kind: 'MIXED', modes: ['*'], vars: typoSem },
     '7.': { kind: 'FLOAT', modes: Object.keys(DENSITY_MODES), aliasTo: '3.', vars: densityVars },
   },
   // Variables that exist only in Figma on purpose (Maria, 2026-10-05): negative

@@ -2,8 +2,12 @@
 // returns what differs. Nothing in the file is changed.
 const { C, byId } = await loadState();
 const report = {};
+// ok is true only when every collection, mode and value matches: a missing
+// brand mode or collection is a mismatch, not something to skip quietly.
+let ok = true;
 for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
   const { col, bySlug } = C[key];
+  if (!col) { report[spec.create] = { missingCollection: true, missing: Object.keys(spec.vars).length }; ok = false; continue; }
   const r = { missing: [], diff: [], extra: [], figmaOnly: [] };
   // A mode the payload has and Figma lacks (a new brand): reported once, its values skipped.
   const missingModes = spec.modes.filter((m) => m !== '*' && !col.modes.some((x) => x.name === m));
@@ -19,6 +23,7 @@ for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
   }
   const codeSlugs = new Set(Object.keys(spec.vars).map(slug));
   for (const [s, v] of bySlug) if (!codeSlugs.has(s)) (allowed.has(s) ? r.figmaOnly : r.extra).push(v.name);
+  if (missingModes.length || r.missing.length || r.diff.length) ok = false;
   report[col.name] = { missingModes, missing: r.missing.length, diff: r.diff.length, extra: r.extra.length, figmaOnly: r.figmaOnly, details: { missing: r.missing.slice(0, 40), diff: r.diff.slice(0, 40), extra: r.extra.slice(0, 40) } };
 }
-return report;
+return { ok, ...report };

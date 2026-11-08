@@ -14,6 +14,34 @@ Each command writes `build/figma/payload.json` and then `build/figma/{check,sync
 Paste the generated JS into the Figma MCP `use_figma` tool (skill `figma-use`), or
 run it in the Figma plugin console. The script returns a JSON report.
 
+## Brand themes
+
+Brands (`src/profiles/*.json`) reach Figma as modes, from the built values in
+`build/css/profiles.json`:
+
+- colors: modes of `2.` — `<brand>` and `<brand> dark` beside `default` / `dark`.
+  A mode a profile leaves alone is not in the payload; `want()` in `lib.js` falls
+  back to Theya's value in the same theme.
+- radii, font families, weights and the radius roles (`theme-radius/field`,
+  `theme-radius/button`): collection `9. Brand`, modes `theya` / `<brand>…`. The
+  variables of `4.`, `5.`, `6.` a profile overrides alias the same-named variable
+  in `9.` (`@brand:`); those collections get no modes. Density (`7.`) and brand
+  never drive the same variable: `figma-payload.mjs` stops if one would.
+
+`use_figma` takes at most 50 000 characters, more than the whole payload, so the
+scripts run in two parts:
+
+```bash
+npm run figma:parts   # build/figma/{check,sync}-2.js and -9-1-3-4-5-6-7.js
+npm run figma:test    # the same, then a dry run against a mock variables API
+```
+
+Run `-9-…` before `-2.` on a first sync (either order works after that). `sync`
+creates `9. Brand` and missing modes; before any write it probes the file's mode
+limit with a throwaway collection and stops, unchanged, if the plan allows fewer
+modes than `2.` needs. `check` returns `ok: false` while a collection, mode or
+value is missing or differs.
+
 ## Files
 
 - `../figma-payload.mjs` flattens the token JSON into collections `1.`–`7.` with

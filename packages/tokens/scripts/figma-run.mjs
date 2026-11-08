@@ -14,6 +14,7 @@ if (!['check', 'sync'].includes(action)) { console.error('usage: figma-run.mjs c
 // the rest are still loaded as alias targets, but not checked or written.
 const only = (process.argv.find((a) => a.startsWith('--only=')) || '').slice(7).split(',').filter(Boolean);
 const full = JSON.parse(readFileSync(join(ROOT, 'build/figma/payload.json'), 'utf8'));
+full.creatable = Object.keys(full.collections).filter((k) => full.collections[k].create);
 if (only.length) {
   full.alsoLoad = Object.keys(full.collections).filter((k) => !only.includes(k));
   full.collections = Object.fromEntries(Object.entries(full.collections).filter(([k]) => only.includes(k)));
