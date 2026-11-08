@@ -183,3 +183,5 @@ Collapsible	32676:181
 Prose	32676:255
 Resizable	32676:287
 ScrollArea	32676:341
+BottomNavItem	32805:75
+BottomNav	32806:18
