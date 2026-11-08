@@ -11,7 +11,7 @@ Packages are versioned with semver using [Changesets](https://github.com/changes
 
 `@theya/sandbox` (the sandbox) is not versioned.
 
-The packages are not published to npm yet: apps in `apps/*` consume them from source via `workspace:*`. Versions exist to show what changed and when, and to make publishing possible later without reworking the process.
+Apps in `apps/*` consume the packages from source via `workspace:*`. Apps outside the monorepo install `@theya/shadcn` from GitHub Packages (below). Versions show what changed and when.
 
 ## What counts as major, minor, patch
 
@@ -90,6 +90,36 @@ Changesets collects all entries, bumps the versions in `package.json`, appends t
 git add -A && git commit -m "release: version packages" && pnpm tag-release && git push --follow-tags
 ```
 
-## If publishing is needed
+## Publishing to GitHub Packages
 
-For projects outside the monorepo, the packages need a build into `dist` (right now they ship source). The decision is postponed until the first such project.
+`@theya/shadcn` is published privately to GitHub Packages as **`@msstewie-afk/theya-shadcn`** (GitHub takes npm packages only under the repository owner's scope). In the monorepo the name stays `@theya/shadcn` and the package stays `"private"`, so nothing can reach the public npm registry. `@theya/tokens` is not published: its CSS and fonts are inlined into the package's `dist/styles`.
+
+**Publishing** happens in `.github/workflows/release.yml`:
+
+- on the release tag `@theya/shadcn@<version>`, which `pnpm tag-release && git push --follow-tags` pushes after `pnpm version-packages` (above);
+- or by hand: Actions → Release → Run workflow (publishes the version that is on main).
+
+The workflow rewrites the manifest (`scripts/github-package.mjs`: name, registry, repository), builds `dist/` with its check, and publishes with the workflow's own token. A version that is already in the registry is skipped. To see the manifest without publishing:
+
+```
+node packages/theya-shadcn/scripts/github-package.mjs --print
+```
+
+**Installing in an app** (outside the monorepo). Create a personal access token (classic) with the `read:packages` scope, put it in the environment as `GITHUB_PACKAGES_TOKEN`, and add `.npmrc` next to the app's `package.json`:
+
+```
+@msstewie-afk:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}
+```
+
+Install under the old name with an alias, so imports stay `@theya/shadcn/...`:
+
+```
+pnpm add @theya/shadcn@npm:@msstewie-afk/theya-shadcn
+```
+
+The app also needs `react`, `react-dom` (18.3 or 19) and `tailwindcss` 4: they are peer dependencies. Until the first release, or for an unreleased commit, `scripts/pack-theya.mjs` still packs a tarball (see `apps/pilot`).
+
+## React versions
+
+The package supports React 18.3 and 19 (`peerDependencies`). Development, Storybook and the main CI jobs run on React 19; the `react-18` CI job forces 18.3 across the workspace and runs types and play + axe. Dropping 18 (`forwardRef` → `ref`) is a breaking release and waits for a reason: React warnings, a feature only 19 has, or React 20.

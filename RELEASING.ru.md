@@ -11,7 +11,7 @@
 
 `@theya/sandbox` (песочница) не версионируется.
 
-Пакеты пока не публикуются в npm: приложения в `apps/*` берут их из исходников через `workspace:*`. Версия нужна, чтобы было видно, что и когда изменилось, и чтобы потом можно было опубликовать без перестройки процесса.
+Приложения в `apps/*` берут пакеты из исходников через `workspace:*`. Приложения вне монорепо ставят `@theya/shadcn` из GitHub Packages (ниже). Версия показывает, что и когда изменилось.
 
 ## Что считать major, minor, patch
 
@@ -90,6 +90,36 @@ Changesets соберёт все записи, поднимет версии в 
 git add -A && git commit -m "release: version packages" && pnpm tag-release && git push --follow-tags
 ```
 
-## Если понадобится публикация
+## Публикация в GitHub Packages
 
-Для проектов вне монорепо пакетам нужна сборка в `dist` (сейчас они отдают исходники). Решение отложено до первого такого проекта.
+`@theya/shadcn` публикуется приватно в GitHub Packages под именем **`@msstewie-afk/theya-shadcn`** (GitHub принимает npm-пакеты только в scope владельца репозитория). В монорепо имя остаётся `@theya/shadcn`, а пакет — `"private"`, поэтому в публичный npm ничего попасть не может. `@theya/tokens` не публикуется: его CSS и шрифты вшиты в `dist/styles` пакета.
+
+**Публикацию** делает `.github/workflows/release.yml`:
+
+- по тегу релиза `@theya/shadcn@<версия>`, который пушит `pnpm tag-release && git push --follow-tags` после `pnpm version-packages` (выше);
+- или вручную: Actions → Release → Run workflow (публикует версию, которая сейчас в main).
+
+Workflow переписывает манифест (`scripts/github-package.mjs`: имя, registry, repository), собирает `dist/` со своей проверкой и публикует токеном самого workflow. Версия, которая уже есть в registry, пропускается. Посмотреть манифест без публикации:
+
+```
+node packages/theya-shadcn/scripts/github-package.mjs --print
+```
+
+**Установка в приложение** (вне монорепо). Создайте personal access token (classic) с правом `read:packages`, положите его в окружение как `GITHUB_PACKAGES_TOKEN` и добавьте `.npmrc` рядом с `package.json` приложения:
+
+```
+@msstewie-afk:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}
+```
+
+Ставьте под старым именем через алиас, тогда импорты остаются `@theya/shadcn/...`:
+
+```
+pnpm add @theya/shadcn@npm:@msstewie-afk/theya-shadcn
+```
+
+Приложению также нужны `react`, `react-dom` (18.3 или 19) и `tailwindcss` 4: это peer-зависимости. До первого релиза или для невыпущенного коммита по-прежнему есть архив из `scripts/pack-theya.mjs` (см. `apps/pilot`).
+
+## Версии React
+
+Пакет поддерживает React 18.3 и 19 (`peerDependencies`). Разработка, Storybook и основные jobs CI работают на React 19; job `react-18` в CI ставит 18.3 на весь воркспейс и прогоняет типы и play + axe. Отказ от 18 (`forwardRef` → `ref`) — ломающий релиз, он ждёт повода: предупреждений React, фичи только из 19 или React 20.

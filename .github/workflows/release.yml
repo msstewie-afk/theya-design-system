@@ -1,0 +1,82 @@
+# Publishes @theya/shadcn to GitHub Packages as @msstewie-afk/theya-shadcn.
+#
+# Starts on a release tag (`pnpm tag-release && git push --follow-tags` after
+# `pnpm version-packages`, see RELEASING.md), or by hand from the Actions tab
+# (publishes the version on main). A version that is already in the registry
+# is skipped, so re-running is safe.
+#
+# The package is private on GitHub Packages (the default for a first publish):
+# an app installs it with a personal access token (classic) that has
+# read:packages. Nothing here can reach the public npm registry: the registry
+# is fixed in the published manifest and the monorepo package stays "private".
+name: Release
+
+on:
+  push:
+    tags: ['@theya/shadcn@*']
+  workflow_dispatch:
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: 22
+  PNPM_VERSION: 11.8.0
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: write
+    defaults:
+      run:
+        working-directory: packages/theya-shadcn
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v5
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+          registry-url: https://npm.pkg.github.com
+          scope: '@msstewie-afk'
+      - run: pnpm install --frozen-lockfile
+        working-directory: .
+      - run: pnpm build:tokens
+        working-directory: .
+
+      - name: Manifest for GitHub Packages
+        id: manifest
+        run: |
+          node scripts/github-package.mjs
+          echo "name=$(node -p "require('./package.json').name")" >> "$GITHUB_OUTPUT"
+          echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Skip if this version is already published
+        id: exists
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if npm view "${{ steps.manifest.outputs.name }}@${{ steps.manifest.outputs.version }}" version >/dev/null 2>&1; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "${{ steps.manifest.outputs.name }}@${{ steps.manifest.outputs.version }} is already published" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # prepack builds dist/ (JS, .d.ts, one stylesheet with the tokens inlined);
+      # the package's own check runs on what is about to be published.
+      - name: Check the build
+        if: steps.exists.outputs.skip != 'true'
+        run: node scripts/check-package.mjs
+
+      - name: Publish
+        if: steps.exists.outputs.skip != 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pnpm publish --no-git-checks
+          echo "Published **${{ steps.manifest.outputs.name }}@${{ steps.manifest.outputs.version }}** to GitHub Packages" >> "$GITHUB_STEP_SUMMARY"
