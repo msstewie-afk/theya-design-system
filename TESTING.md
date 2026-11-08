@@ -78,10 +78,12 @@ The `.github/workflows/ci.yml` workflow runs on every push to `main` and on ever
    - types;
    - `pnpm api:check`: the API spec, the API report and the accessibility matrix are up to date; client modules have `'use client'`; components use logical sides only (RTL); every `var(--…)` points at something declared; motion and color come from tokens, not raw ms / cubic-bezier / rgba;
    - a build of the `apps/sandbox` sandbox against the package.
-2. **storybook** (runs after checks): a static Storybook, and on it
+2. **storybook (1/4 … 4/4)** (runs after checks, on four machines; `test-storybook --shard` gives each a quarter of the story files, so all stories of a component stay on one machine): a static Storybook, and on it
    - play tests and axe in the light and dark theme;
    - visual regression in both themes.
-3. **react-19** (after checks, in parallel with storybook): the same code, but React 19 is forced across the whole repository (the package supports 18 and 19; development and the other checks run on 18). It checks that no React 18 is left, then runs types, play tests and axe in the light theme. Visual regression is not needed here — the look does not depend on the React version.
+
+   Then **visual-baselines** (on `main` only) gathers the four machines' snapshots into one commit in the `visual-baselines` branch (below).
+3. **react-18 (1/2, 2/2)** (after checks, in parallel with storybook, on two machines): the same code, but React 18.3 is forced across the whole repository (the package supports 18 and 19; development and the other checks run on 19). It checks that no React 19 is left, then runs types, play tests and axe in the light theme. Visual regression is not needed here — the look does not depend on the React version.
 4. **brands** (after checks, in parallel): one job per product theme, `iris` and `lime`. Play tests and axe in its light and dark variants, without visual regression.
 5. **phone (360)** (after checks, in parallel): play tests and axe at 360px wide in both themes, and no sideways scrolling.
 6. **accessibility checks** (after checks, in parallel): `a11y-tree` and `a11y-auto` on every story in CI mode — nothing is written, any finding fails the job and is listed in the run summary.
