@@ -116,13 +116,15 @@ export const WithBulkAndRowActions: Story = {
     </div>
   ),
   play: testOnly(async ({ canvasElement }) => {
-    // Phone (below md): no bulk selection; each person keeps the row menu.
+    // Phone (below md): the rows stack, each with its checkbox before the
+    // title and select-all above the list (DataTable selects on phones since
+    // 545a0a9); each person keeps the row menu.
     const phone = window.matchMedia('(max-width: 767.98px)').matches;
     if (phone) {
       const c = within(canvasElement);
       for (const spy of [onEmail, onBulkRemove, onView, onRemove, onUndoRemove]) spy.mockClear();
       await expect(count(canvasElement)).toHaveTextContent('5 users');
-      await expect(c.queryAllByRole('checkbox')).toHaveLength(0);
+      await expect(c.queryAllByRole('checkbox')).toHaveLength(6);
       await userEvent.click(c.getByRole('button', { name: 'Actions for Elio Sanz' }));
       await userEvent.click(await body().findByRole('menuitem', { name: 'View profile' }));
       await expect(onView).toHaveBeenCalledWith('Elio Sanz');
