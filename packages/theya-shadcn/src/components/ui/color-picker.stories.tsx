@@ -68,9 +68,11 @@ type Story = StoryObj<typeof meta>;
 /** Three sources as tabs: a preset palette (with "No color"), colors from a photo, and the custom picker. */
 export const Default: Story = {
   args: { views: ['palette', 'photo', 'custom'], defaultView: 'custom', swatches: PALETTE, clearable: true, photo: PHOTO, alpha: true, defaultFormat: 'rgb' },
+  // `key`: format and alpha are read once on mount, so a change from the
+  // Controls remounts the picker instead of being ignored.
   render: (args) => (
     <Card className="w-fit max-w-full p-4">
-      <ColorPicker {...args} />
+      <ColorPicker key={`${args.defaultFormat}-${args.alpha}`} {...args} />
     </Card>
   ),
 };

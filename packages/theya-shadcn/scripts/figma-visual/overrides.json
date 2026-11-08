@@ -435,7 +435,9 @@
     "args": {
       "alpha": false,
       "defaultFormat": "hex"
-    }
+    },
+    "selector": "#storybook-root .w-fit > *",
+    "width": false
   },
   "Price": {
     "args": {
@@ -468,5 +470,10 @@
   },
   "AvatarGroup": {
     "story": "labels-avatargroup--overflow"
+  },
+  "ColorField": {
+    "story": "selection-colorpicker--field",
+    "selector": "#storybook-root .w-64 > :first-child",
+    "text": false
   }
 }
