@@ -160,7 +160,12 @@
     "skip": "a part drawn inside its parent's story; compared through the parent"
   },
   "FAB": {
-    "component": "Fab"
+    "component": "Fab",
+    "values": {
+      "extended=false": {
+        "label": ""
+      }
+    }
   },
   "FilterField": {
     "selector": "@field"
@@ -421,6 +426,28 @@
     "args": {
       "alpha": false,
       "defaultFormat": "hex"
+    }
+  },
+  "Price": {
+    "args": {
+      "amount": 19.9,
+      "compareAt": 29,
+      "showDiscount": true,
+      "currency": "USD",
+      "locale": "en-US",
+      "period": "month"
+    },
+    "text": false,
+    "width": false
+  },
+  "Toggle": {
+    "values": {
+      "pressed=true": {
+        "pressed": true
+      },
+      "pressed=false": {
+        "pressed": false
+      }
     }
   }
 }
