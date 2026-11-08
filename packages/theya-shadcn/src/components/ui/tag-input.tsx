@@ -216,7 +216,7 @@ export function TagInput({
           }
         }}
         className={cn(
-          'relative flex w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
+          'relative flex w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--theme-radius-field,var(--size-border-radius-border-radius-lg))] border border-solid',
           // With chips, the side gap equals the vertical one — a 24px chip centred in the
           // control height leaves (height − 24 − 2px border) / 2 above and below — so a chip
           // sits the same distance from every edge (3px sm, 7px md). Empty: TextField's inset.

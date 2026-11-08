@@ -45,7 +45,7 @@ function SecretField({
         // Grows when a long key wraps (phones); the buttons stay on the first line
         // (Maria, 2026-11-06), not centered on two. One line still reads as a 40px field:
         // the code's padding fills the rest of the control height around one line.
-        'flex min-h-[var(--size-size-control-size-control-2xl)] items-start gap-2 py-1 rounded-[var(--size-border-radius-border-radius-lg)] border border-solid',
+        'flex min-h-[var(--size-size-control-size-control-2xl)] items-start gap-2 py-1 rounded-[var(--theme-radius-field,var(--size-border-radius-border-radius-lg))] border border-solid',
         'border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtle)]',
         // 12px start inset like every 40px field; the end keeps the buttons where they were.
         'ps-[var(--size-padding-padding-md)] pe-[var(--size-margin-margin-s)]',
