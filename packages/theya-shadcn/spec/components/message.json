@@ -116,6 +116,10 @@
       {
         "name": "Tone",
         "id": "ai-chat-message--tone"
+      },
+      {
+        "name": "Playground",
+        "id": "ai-chat-message--playground"
       }
     ]
   }
