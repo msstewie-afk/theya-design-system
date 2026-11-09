@@ -125,6 +125,12 @@
           "required": false
         },
         {
+          "name": "opticalIcon",
+          "type": "boolean",
+          "required": false,
+          "description": "Optical alignment for leftIcon / rightIcon: each is pulled toward the\nbutton's edge by the empty space around its drawing, so the padding\nlooks the same on both sides. For chevrons and arrows (NavArrowRight has\n9px of air on each side of a 24px box). Measured per icon after render;\nno effect on iconOnly buttons, which stay centred."
+        },
+        {
           "name": "resetDelay",
           "type": "number",
           "required": false,

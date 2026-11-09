@@ -2244,7 +2244,7 @@
       "name": "Button",
       "title": "Actions/Button",
       "axe": {
-        "stories": 19,
+        "stories": 20,
         "themes": [
           "light",
           "dark"
@@ -2253,7 +2253,7 @@
       },
       "keyboard": {
         "tested": 2,
-        "playTests": 4
+        "playTests": 5
       },
       "reducedMotion": "respected",
       "forcedColors": "global",

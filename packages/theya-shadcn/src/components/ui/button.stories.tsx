@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
-import { Star, Check, ArrowRight, Xmark, Trash, Plus, Bell } from 'iconoir-react';
+import { Star, Check, ArrowRight, ArrowLeft, NavArrowLeft, NavArrowRight, Xmark, Trash, Plus, Bell } from 'iconoir-react';
 import { Button } from './button';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
 import { buttonGuidelines } from './button.guidelines';
@@ -273,6 +273,61 @@ export const WithBadge: Story = {
 };
 
 /** `fullWidth` stretches the button to the width of its container — handy in narrow forms, dialogs and mobile layouts. */
+/**
+ * `opticalIcon`: a chevron or arrow is pulled toward the edge by the empty
+ * space around its drawing, so the padding reads the same on both sides.
+ * Left column without it, right column with it.
+ */
+export const OpticalIcon: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 280px))', gap: 12 }}>
+      {[false, true].map((optical) => (
+        <div key={String(optical)} style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'flex-start' }}>
+          <Button size="2xl" fullWidth opticalIcon={optical} rightIcon={<NavArrowRight />} data-testid={optical ? 'next' : undefined}>
+            Next step
+          </Button>
+          <Button size="2xl" fullWidth appearance="outlined" tone="neutral" opticalIcon={optical} leftIcon={<NavArrowLeft />} data-testid={optical ? 'back' : undefined}>
+            Back
+          </Button>
+          <Button opticalIcon={optical} rightIcon={<ArrowRight />} data-testid={optical ? 'arrow' : undefined}>
+            Continue
+          </Button>
+          <Button size="md" appearance="ghost" opticalIcon={optical} leftIcon={<ArrowLeft />}>
+            All recipes
+          </Button>
+          <Button iconOnly opticalIcon={optical} leftIcon={<NavArrowRight />} aria-label="Next" data-testid={optical ? 'icon-only' : undefined} />
+        </div>
+      ))}
+    </div>
+  ),
+  // Measures only (no input): the visible gap from the edge to the label
+  // equals the gap from the drawn icon to the other edge, within 1px.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const ink = (button: HTMLElement) => {
+      const svg = button.querySelector('svg')!;
+      const path = svg.querySelector('path')!;
+      const r = path.getBoundingClientRect();
+      const half = ((parseFloat(getComputedStyle(path).strokeWidth) || 0) / 2) * (svg.getBoundingClientRect().width / svg.viewBox.baseVal.width);
+      return { left: r.left - half, right: r.right + half };
+    };
+    const label = (button: HTMLElement) => button.querySelector('[data-slot=button] > span > span')!.getBoundingClientRect();
+    for (const id of ['next', 'arrow']) {
+      const button = canvas.getByTestId(id);
+      const b = button.getBoundingClientRect();
+      const before = label(button).left - b.left;
+      const after = b.right - ink(button).right;
+      await expect(Math.abs(before - after)).toBeLessThanOrEqual(1);
+    }
+    const back = canvas.getByTestId('back');
+    const b = back.getBoundingClientRect();
+    await expect(Math.abs(ink(back).left - b.left - (b.right - label(back).right))).toBeLessThanOrEqual(1);
+    // Icon-only stays centred: no margin set.
+    const icon = canvas.getByTestId('icon-only').querySelector('svg')!;
+    await expect(icon.style.marginInlineStart).toBe('');
+  },
+};
+
 export const FullWidth: Story = {
   render: () => (
     <div style={{ width: 320 }}>

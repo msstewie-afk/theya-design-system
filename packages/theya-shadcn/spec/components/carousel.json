@@ -145,6 +145,12 @@
           "description": "Shows a spinner in place of leftIcon and blocks the button while the action runs. It\nworks like `softDisabled` (aria-disabled, clicks ignored) rather than native `disabled`,\nso a focused button keeps focus during the wait. Not supported with asChild."
         },
         {
+          "name": "opticalIcon",
+          "type": "boolean",
+          "required": false,
+          "description": "Optical alignment for leftIcon / rightIcon: each is pulled toward the\nbutton's edge by the empty space around its drawing, so the padding\nlooks the same on both sides. For chevrons and arrows (NavArrowRight has\n9px of air on each side of a 24px box). Measured per icon after render;\nno effect on iconOnly buttons, which stay centred."
+        },
+        {
           "name": "rightIcon",
           "type": "ReactNode",
           "required": false,
@@ -239,6 +245,12 @@
           "type": "boolean",
           "required": false,
           "description": "Shows a spinner in place of leftIcon and blocks the button while the action runs. It\nworks like `softDisabled` (aria-disabled, clicks ignored) rather than native `disabled`,\nso a focused button keeps focus during the wait. Not supported with asChild."
+        },
+        {
+          "name": "opticalIcon",
+          "type": "boolean",
+          "required": false,
+          "description": "Optical alignment for leftIcon / rightIcon: each is pulled toward the\nbutton's edge by the empty space around its drawing, so the padding\nlooks the same on both sides. For chevrons and arrows (NavArrowRight has\n9px of air on each side of a 24px box). Measured per icon after render;\nno effect on iconOnly buttons, which stay centred."
         },
         {
           "name": "rightIcon",

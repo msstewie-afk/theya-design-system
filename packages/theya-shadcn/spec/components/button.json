@@ -44,7 +44,7 @@
     },
     {
       "part": "Right icon",
-      "description": "via `rightIcon` — for direction (→) or a menu (⌄).",
+      "description": "via `rightIcon` — for direction (→) or a menu (⌄). With a chevron or arrow add `opticalIcon`: the icon moves toward the edge by the air around its drawing, so both sides of the button look equally padded.",
       "optional": true
     },
     {
@@ -149,6 +149,13 @@
           "description": "Shows a spinner in place of leftIcon and blocks the button while the action runs. It\nworks like `softDisabled` (aria-disabled, clicks ignored) rather than native `disabled`,\nso a focused button keeps focus during the wait. Not supported with asChild."
         },
         {
+          "name": "opticalIcon",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Optical alignment for leftIcon / rightIcon: each is pulled toward the\nbutton's edge by the empty space around its drawing, so the padding\nlooks the same on both sides. For chevrons and arrows (NavArrowRight has\n9px of air on each side of a 24px box). Measured per icon after render;\nno effect on iconOnly buttons, which stay centred."
+        },
+        {
           "name": "rightIcon",
           "type": "ReactNode",
           "required": false,
@@ -226,6 +233,10 @@
       {
         "name": "WithBadge",
         "id": "actions-button--with-badge"
+      },
+      {
+        "name": "OpticalIcon",
+        "id": "actions-button--optical-icon"
       },
       {
         "name": "FullWidth",

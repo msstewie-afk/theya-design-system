@@ -210,6 +210,7 @@ Docs: ./?path=/docs/overlays-alertdialog--docs
 - `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too).
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
 - `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
+- `opticalIcon?`: `boolean` — Optical alignment for leftIcon / rightIcon: each is pulled toward the
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`
 - `softDisabled?`: `boolean` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
@@ -226,6 +227,7 @@ Docs: ./?path=/docs/overlays-alertdialog--docs
 - `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too).
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
 - `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
+- `opticalIcon?`: `boolean` — Optical alignment for leftIcon / rightIcon: each is pulled toward the
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`
 - `softDisabled?`: `boolean` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
@@ -1277,7 +1279,7 @@ Docs: ./?path=/docs/actions-button--docs
 - Container: appearance (`filled`, `tonal`, `outlined`, `ghost`) × tone × size.
 - Label: a verb, sentence case: “Save changes”, “Delete gallery”.
 - Left icon (optional): via `leftIcon`; replaced by the Spinner while `loading`, and by a tick that draws itself while `success`.
-- Right icon (optional): via `rightIcon` — for direction (→) or a menu (⌄).
+- Right icon (optional): via `rightIcon` — for direction (→) or a menu (⌄). With a chevron or arrow add `opticalIcon`: the icon moves toward the edge by the air around its drawing, so both sides of the button look equally padded.
 - Badge (optional): via `badge` — a count (`{5}`, `"9+"`) or `{ dot: true }` pinned to the top-right corner; danger by default.
 
 **Button props**
@@ -1290,6 +1292,7 @@ Docs: ./?path=/docs/actions-button--docs
 - `iconOnly?`: `boolean`, default `false` — Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too).
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
 - `loading?`: `boolean`, default `false` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
+- `opticalIcon?`: `boolean`, default `false` — Optical alignment for leftIcon / rightIcon: each is pulled toward the
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`, default `xl`
 - `softDisabled?`: `boolean`, default `false` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
@@ -1685,6 +1688,7 @@ Docs: ./?path=/docs/layout-carousel--docs
 - `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too).
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
 - `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
+- `opticalIcon?`: `boolean` — Optical alignment for leftIcon / rightIcon: each is pulled toward the
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`
 - `softDisabled?`: `boolean` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
@@ -1705,6 +1709,7 @@ Docs: ./?path=/docs/layout-carousel--docs
 - `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too).
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
 - `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
+- `opticalIcon?`: `boolean` — Optical alignment for leftIcon / rightIcon: each is pulled toward the
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`
 - `softDisabled?`: `boolean` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
@@ -2813,6 +2818,7 @@ Docs: ./?path=/docs/actions-copybutton--docs
 - `label?`: `ReactNode`, default `Copy (localized: copyButton.copy)` — Visible label beside the icon. Pass null for icon-only (then set aria-label). Default "Copy".
 - `onCopied?`: `((value: string) => void)`
 - `onCopyError?`: `((error: unknown) => void)`
+- `opticalIcon?`: `boolean` — Optical alignment for leftIcon / rightIcon: each is pulled toward the
 - `resetDelay?`: `number`, default `1500` — ms before the button reverts from the copied state. Default 1500.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`, default `md`
 - `softDisabled?`: `boolean` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
@@ -3159,6 +3165,7 @@ Docs: ./?path=/docs/data-datatablecell--docs
 - `iconOnly?`: `boolean` — Renders as a square icon-only button (no label). Provide the icon via leftIcon (an icon passed as children works too).
 - `leftIcon?`: `ReactNode` — Icon rendered before the label (or the sole icon when iconOnly is set).
 - `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
+- `opticalIcon?`: `boolean` — Optical alignment for leftIcon / rightIcon: each is pulled toward the
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`
 - `softDisabled?`: `boolean` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays
@@ -8864,6 +8871,7 @@ Docs: ./?path=/docs/actions-splitbutton--docs
 - `loading?`: `boolean` — Shows a spinner in place of leftIcon and blocks the button while the action runs. It
 - `menuLabel?`: `string`, default `More actions (localized: splitButton.menu)` — Accessible name of the caret that opens the menu. Default "More actions" — make it specific when several split buttons share a screen, e.g. "More send options".
 - `onMainClick?`: `(() => void)` — Called when the primary action is clicked.
+- `opticalIcon?`: `boolean` — Optical alignment for leftIcon / rightIcon: each is pulled toward the
 - `rightIcon?`: `ReactNode` — Icon rendered after the label.
 - `size?`: `"md" | "lg" | "sm" | "xl" | "2xl" | null`, default `lg`
 - `softDisabled?`: `boolean` — Soft-disable: looks disabled and ignores clicks/Enter/Space, but stays

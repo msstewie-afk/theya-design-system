@@ -15,6 +15,7 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
     iconOnly?: boolean;
     leftIcon?: ReactNode;
     rightIcon?: ReactNode;
+    opticalIcon?: boolean;
     asChild?: boolean;
     loading?: boolean;
     success?: boolean;
@@ -36,6 +37,7 @@ export declare const Button: import("react").ForwardRefExoticComponent<ButtonPro
 // Button.fullWidth = false
 // Button.iconOnly = false
 // Button.loading = false
+// Button.opticalIcon = false
 // Button.size = xl
 // Button.softDisabled = false
 // Button.success = false

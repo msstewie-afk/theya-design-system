@@ -7,6 +7,7 @@ import { Check } from 'iconoir-react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib/utils';
 import { decorativeIcon } from '../../lib/decorative-icon';
+import { useOpticalIcons } from '../../lib/optical-icon';
 import { Spinner } from './spinner';
 import { announce } from '../../lib/announce';
 
@@ -705,6 +706,14 @@ export interface ButtonProps
   leftIcon?: ReactNode;
   /** Icon rendered after the label. */
   rightIcon?: ReactNode;
+  /**
+   * Optical alignment for leftIcon / rightIcon: each is pulled toward the
+   * button's edge by the empty space around its drawing, so the padding
+   * looks the same on both sides. For chevrons and arrows (NavArrowRight has
+   * 9px of air on each side of a 24px box). Measured per icon after render;
+   * no effect on iconOnly buttons, which stay centred.
+   */
+  opticalIcon?: boolean;
   /** Render onto the child element instead of a `<button>` (shadcn/Radix Slot convention). */
   asChild?: boolean;
   /**
@@ -764,6 +773,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       iconOnly = false,
       leftIcon,
       rightIcon,
+      opticalIcon = false,
       asChild = false,
       loading = false,
       success = false,
@@ -794,6 +804,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       if (lastLabel.current !== null && text && text !== lastLabel.current && text !== restLabel.current) announce(text);
       lastLabel.current = text;
     });
+    const contentRef = useRef<HTMLSpanElement>(null);
+    useOpticalIcons(
+      contentRef,
+      { enabled: opticalIcon && !iconOnly && !asChild, start: Boolean(leftIcon) || success, end: Boolean(rightIcon) },
+      [size, success, leftIcon, rightIcon],
+    );
     // Loading blocks the button the soft way: native `disabled` would drop
     // focus to the page while the action runs (WCAG 2.4.3).
     const blocked = softDisabled || loading;
@@ -903,6 +919,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             visibility:hidden would drop the label from the accessibility
             tree and leave the busy button with no accessible name. */}
         <span
+          ref={contentRef}
           className={cn(
             'inline-flex items-center justify-center gap-[inherit]',
             loading && 'opacity-0',

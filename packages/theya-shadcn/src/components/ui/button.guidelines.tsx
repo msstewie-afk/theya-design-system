@@ -19,7 +19,7 @@ export const buttonGuidelines: ComponentGuidelines = {
     { part: 'Container', description: <>appearance (<C>filled</C>, <C>tonal</C>, <C>outlined</C>, <C>ghost</C>) × tone × size.</> },
     { part: 'Label', description: 'a verb, sentence case: “Save changes”, “Delete gallery”.' },
     { part: 'Left icon', optional: true, description: <>via <C>leftIcon</C>; replaced by the Spinner while <C>loading</C>, and by a tick that draws itself while <C>success</C>.</> },
-    { part: 'Right icon', optional: true, description: <>via <C>rightIcon</C> — for direction (→) or a menu (⌄).</> },
+    { part: 'Right icon', optional: true, description: <>via <C>rightIcon</C> — for direction (→) or a menu (⌄). With a chevron or arrow add <C>opticalIcon</C>: the icon moves toward the edge by the air around its drawing, so both sides of the button look equally padded.</> },
     { part: 'Badge', optional: true, description: <>via <C>badge</C> — a count (<C>{'{5}'}</C>, <C>"9+"</C>) or <C>{'{ dot: true }'}</C> pinned to the top-right corner; danger by default.</> },
   ],
   doDont: [
