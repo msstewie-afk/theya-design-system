@@ -1,5 +1,12 @@
 # @theya/shadcn
 
+## 0.3.1
+
+### Patch Changes
+
+- d30dd9d: Dialog and Drawer headers keep the title clear of the close button: with the × shown, DialogContent gives its header 56 px of end padding (like AlertDialog), and DrawerHeader has 56 px on the right. A left or right Drawer starts its header 24 px from the top (it has no drag handle); top and bottom drawers keep 12 under the handle. Stories no longer add `pt-7 pb-0` to side drawers.
+- 8777515: Ember's heading face is Playfair Display (was EB Garamond), self-hosted in `@theya/tokens/fonts` (variable 400–900, normal + italic; Latin, Cyrillic, Vietnamese). `.font-heading` sets lining figures, so a serif heading face's old-style figures don't bob along the line ("10 weeks", "115 kcal"); Geologica's figures are lining already. EB Garamond stays the landing display serif.
+
 ## 0.3.0
 
 ### Minor Changes

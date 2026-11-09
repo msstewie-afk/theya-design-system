@@ -1,6 +1,6 @@
 {
   "name": "@theya/shadcn",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "description": "Theya design system, rebuilt on shadcn/ui (Radix + Tailwind v4)",
   "license": "UNLICENSED",
