@@ -1,5 +1,12 @@
 # @theya/shadcn
 
+## 0.3.5
+
+### Patch Changes
+
+- 07c7866: Ember: `text-display-s` letter-spacing is +0.4px (was Theya's −1px), so Playfair Display at 40px extrabold no longer touches its letters ("Ricotta", "Soufflé"). New profile option `typography` sets a theme's own typography token values after the fonts. Ember's heading-* steps keep 0px: checked at 24–32px, nothing touches.
+- 32a35ce: ListItem: new `align` prop (`start` | `center`, default `start`). `align="center"` puts the text on the middle of a tall leading visual (a 48px thumbnail, a large avatar), level with the trailing chevron; `start` keeps a small icon level with the title line. Replaces app-side `[&_[data-slot=list-item-content]]:self-center`.
+
 ## 0.3.4
 
 ### Patch Changes
