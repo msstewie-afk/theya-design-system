@@ -19,6 +19,7 @@
  *      "font"?: "Manrope",              // replaces Theya's typeface (must be in fonts/fonts.css)
  *      "headingFont"?: "Playfair Display",   // headings, display and eyebrow (a stack in HEADING_STACKS)
  *      "shadow"?: { "hue"?: 60, "chroma"?: 1 },  // re-hue the light shadow tint (hue default: neutral.hue)
+ *      "typography"?: { "display-display-s-letter-spacing": "0.4px" },  // typography tokens, after the fonts
  *      "radius"?: { "scale": 1.5, "button": "max", "field": "3xl" }
  *    }
  *    `font`: every typography token that names Geologica switches to this
@@ -442,6 +443,16 @@ for (const profile of profiles) {
         }
       }
     }
+  }
+  // `typography`: a theme's own values for typography tokens, keyed by the
+  // name after --typography- ("display-display-s-letter-spacing": "0.4px").
+  // Applied after `font` / `headingFont`, so it wins. For a face that needs
+  // other spacing than Geologica: Playfair Display at 40px extrabold touched
+  // its letters at Theya's -1px (T8).
+  for (const [key, value] of Object.entries(profile.typography ?? {})) {
+    const token = `--typography-${key}`;
+    if (!builtLight.has(token)) problems.push(`${profile.name}: unknown typography token ${key}`);
+    shared.set(token, String(value));
   }
   if (profile.radius) {
     const { button, field, anchor } = profile.radius;
