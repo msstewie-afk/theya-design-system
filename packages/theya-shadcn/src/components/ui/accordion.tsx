@@ -60,9 +60,16 @@ export function AccordionTrigger({ className, children, ...props }: React.Compon
   );
 }
 
-export function AccordionContent({ className, children, ...props }: React.ComponentProps<typeof AccordionPrimitive.Content>) {
+export function AccordionContent({ className, children, role, ...props }: React.ComponentProps<typeof AccordionPrimitive.Content>) {
+  // No role="region" by default (Radix adds one, labelled by the trigger).
+  // In Safari, VoiceOver stopped on the region and spoke its label - the
+  // question again - and VO + Right never reached the answer (Maria,
+  // 2026-11-09). APG makes the region optional and advises against it with
+  // many panels. Pass role="region" to get it back (labelled by the trigger).
+  const regionProps = role ? { role } : { role: undefined, 'aria-labelledby': undefined };
   return (
     <AccordionPrimitive.Content
+      {...regionProps}
       className={cn(
         'overflow-hidden font-body text-body-m text-[var(--color-text-text-subtler)]',
         'data-[state=closed]:animate-none data-[state=open]:animate-none',

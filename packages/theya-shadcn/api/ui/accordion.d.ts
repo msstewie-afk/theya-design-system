@@ -13,4 +13,4 @@ export type AccordionProps = AccordionSingleProps | AccordionMultipleProps;
 export declare function Accordion(props: AccordionProps): import("react").JSX.Element;
 export declare function AccordionItem({ className, ...props }: React.ComponentProps<typeof AccordionPrimitive.Item>): import("react").JSX.Element;
 export declare function AccordionTrigger({ className, children, ...props }: React.ComponentProps<typeof AccordionPrimitive.Trigger>): import("react").JSX.Element;
-export declare function AccordionContent({ className, children, ...props }: React.ComponentProps<typeof AccordionPrimitive.Content>): import("react").JSX.Element;
+export declare function AccordionContent({ className, children, role, ...props }: React.ComponentProps<typeof AccordionPrimitive.Content>): import("react").JSX.Element;

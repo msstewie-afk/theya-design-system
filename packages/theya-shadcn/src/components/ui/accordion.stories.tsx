@@ -81,7 +81,10 @@ export const Single: Story = {
 
     await userEvent.click(one);
     await expect(one).toHaveAttribute('aria-expanded', 'true');
-    await expect(canvas.getByRole('region', { name: 'What is a client portal?' })).toBeVisible();
+    // No region by default: the answer follows the trigger directly.
+    const panel = document.getElementById(one.getAttribute('aria-controls')!);
+    await expect(panel).toBeVisible();
+    await expect(panel).not.toHaveAttribute('role');
 
     // Single: opening another closes the first.
     await userEvent.click(two);
