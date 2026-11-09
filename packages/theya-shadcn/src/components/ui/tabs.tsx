@@ -164,23 +164,24 @@ export function TabsList({ className, children, variant = 'underline', onPointer
 }
 
 /**
- * Radix's TabsPrimitive.Trigger hardcodes `type="button"` and the raw
- * `disabled` boolean attribute onto whatever it renders, assuming a real
- * `<button>`. We render onto a `<div role="tab">` instead (a tab can't validly
- * nest another interactive control — see `onClose` below), so those two
- * attributes land on the div as invalid HTML — and on a disabled trigger,
- * gave axe's nested-interactive rule a div that reads as both a native
- * button-like element (type+disabled) AND an explicit role="tab" widget at
- * once (audit finding, 2026-09-27). This shim intercepts Radix's merged
- * props and drops both, expressing disabled the ARIA-correct way
- * (aria-disabled) instead — `data-disabled` (used for our own styling) and
- * everything else Radix sets pass through untouched.
+ * The tab is a real `<button type="button">` (T7, 2026-11-09). It used to be a
+ * `<div role="tab">`, and Chrome matches :focus-visible on a focusable div
+ * after a pointer click, so the focus ring walked from tab to tab as you
+ * clicked or tapped. Browsers don't match :focus-visible on a button focused
+ * by the pointer, so the ring is keyboard-only again, with no modality
+ * tracking of our own. The pointer "×" (`onClose`) is an aria-hidden,
+ * non-focusable span, which a button may contain.
+ *
+ * Disabled is both native (not focusable, not clickable) and aria-disabled:
+ * the tablist's own code (gliding pill, Delete-to-close) skips tabs by
+ * `[aria-disabled="true"]`.
  */
-const TabsTriggerDiv = forwardRef<HTMLDivElement, React.ComponentProps<'div'> & { type?: string; disabled?: boolean }>(
-  function TabsTriggerDiv({ type: _type, disabled, ...props }, ref) {
-    return <div ref={ref} aria-disabled={disabled || undefined} {...props} />;
-  },
-);
+const TabsTriggerButton = forwardRef<HTMLButtonElement, React.ComponentProps<'button'>>(function TabsTriggerButton(
+  { type: _type, disabled, ...props },
+  ref,
+) {
+  return <button ref={ref} type="button" disabled={disabled} aria-disabled={disabled || undefined} {...props} />;
+});
 
 export interface TabsTriggerProps extends React.ComponentProps<typeof TabsPrimitive.Trigger> {
   /** Icon shown before the label. */
@@ -226,7 +227,7 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
       onKeyDown={handleKeyDown}
       {...props}
     >
-      <TabsTriggerDiv
+      <TabsTriggerButton
         className={cn(
           '-mb-px inline-flex shrink-0 items-center gap-2 cursor-pointer',
           'rounded-t-[var(--size-border-radius-border-radius-md)] border-b-2 border-solid border-transparent',
@@ -287,7 +288,7 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
             <Xmark width={12} height={12} aria-hidden="true" />
           </span>
         )}
-      </TabsTriggerDiv>
+      </TabsTriggerButton>
     </TabsPrimitive.Trigger>
   );
 }

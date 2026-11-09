@@ -78,9 +78,12 @@ export const Disabled: Story = {
     const picks = canvas.getByRole('tab', { name: 'Client picks' });
 
     await expect(picks).toHaveAttribute('aria-disabled', 'true');
-    // Radix's button-only attributes must not leak onto the div (nested-interactive fix).
-    await expect(picks).not.toHaveAttribute('type');
-    await expect(picks).not.toHaveAttribute('disabled');
+    // A real button (T7): browsers keep :focus-visible off a button focused by a
+    // click or tap, so the focus ring shows for the keyboard only. A div role="tab"
+    // matched :focus-visible after a pointer click in Chrome.
+    await expect(picks.tagName).toBe('BUTTON');
+    await expect(picks).toHaveAttribute('type', 'button');
+    await expect(picks).toBeDisabled();
 
     await userEvent.tab();
     await expect(overview).toHaveFocus();
