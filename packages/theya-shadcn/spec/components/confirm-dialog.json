@@ -183,6 +183,10 @@
         "id": "overlays-confirmdialog--open"
       },
       {
+        "name": "Playground",
+        "id": "overlays-confirmdialog--playground"
+      },
+      {
         "name": "TestInteractions",
         "id": "overlays-confirmdialog--test-interactions"
       }

@@ -3,7 +3,14 @@
     "skip": "a part drawn inside its parent's story; compared through the parent"
   },
   "AlertDialog": {
-    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+    "story": "overlays-confirmdialog--playground",
+    "args": {
+      "confirmValue": "",
+      "confirmLabel": "Delete"
+    },
+    "selector": "[role=alertdialog]",
+    "text": false,
+    "width": false
   },
   "AnnouncementBar": {
     "args": {
@@ -107,7 +114,16 @@
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
   },
   "ConfirmDialog": {
-    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+    "story": "overlays-confirmdialog--playground",
+    "selector": "[role=alertdialog]",
+    "text": false,
+    "width": false,
+    "values": {
+      "typeToConfirm=false": {
+        "confirmValue": ""
+      },
+      "typeToConfirm=true": {}
+    }
   },
   "ContextMenu": {
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
@@ -192,7 +208,61 @@
     "skip": "a part drawn inside its parent's story; compared through the parent"
   },
   "KeyboardShortcuts": {
-    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+    "story": "overlays-keyboardshortcuts--open",
+    "selector": "[role=dialog]",
+    "text": false,
+    "width": false,
+    "args": {
+      "description": "",
+      "groups": [
+        {
+          "heading": "Navigation",
+          "shortcuts": [
+            {
+              "keys": [
+                "G",
+                "then",
+                "D"
+              ],
+              "description": "Go to dashboard"
+            },
+            {
+              "keys": [
+                "⌘",
+                "K"
+              ],
+              "description": "Search"
+            },
+            {
+              "keys": [
+                "⌘",
+                ","
+              ],
+              "description": "Open settings"
+            }
+          ]
+        },
+        {
+          "heading": "Editing",
+          "shortcuts": [
+            {
+              "keys": [
+                "⌘",
+                "S"
+              ],
+              "description": "Save"
+            },
+            {
+              "keys": [
+                "⌘",
+                "Z"
+              ],
+              "description": "Undo"
+            }
+          ]
+        }
+      ]
+    }
   },
   "Lightbox": {
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
@@ -204,7 +274,13 @@
     "selector": "@field"
   },
   "MessagePopup": {
-    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+    "story": "overlays-messagepopup--open",
+    "selector": "[role=dialog]",
+    "text": false,
+    "width": false,
+    "viewport": {
+      "height": 1400
+    }
   },
   "NumberField": {
     "selector": "@field"
@@ -216,7 +292,11 @@
     "selector": "@field"
   },
   "PopoverContent": {
-    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+    "component": "Popover",
+    "story": "overlays-popover--open",
+    "selector": "[role=dialog]",
+    "text": false,
+    "width": false
   },
   "ProductTour": {
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"

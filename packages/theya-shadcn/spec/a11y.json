@@ -3876,7 +3876,7 @@
       "name": "ConfirmDialog",
       "title": "Overlays/ConfirmDialog",
       "axe": {
-        "stories": 6,
+        "stories": 7,
         "themes": [
           "light",
           "dark"

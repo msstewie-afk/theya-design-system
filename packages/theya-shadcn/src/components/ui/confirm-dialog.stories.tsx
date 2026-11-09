@@ -201,6 +201,30 @@ export const Open: Story = {
   },
 };
 
+/** Open at rest with every prop in Controls: the Figma visual diff renders its variants from here (clear `confirmValue` for the plain one). */
+export const Playground: Story = {
+  parameters: { docs: { disable: true } },
+  args: {
+    title: 'Delete this gallery?',
+    description: 'This removes Golden hour, its photos and client picks. It cannot be undone.',
+    confirmValue: 'Golden hour',
+    confirmValueMono: false,
+    confirmLabel: 'Delete gallery',
+    onConfirm: fn(),
+  },
+  render: function PlaygroundStory(args) {
+    const [open, setOpen] = useState(true);
+    return (
+      <div className="flex flex-col items-center gap-3">
+        <Button appearance="filled" tone="danger" onClick={() => setOpen(true)}>
+          Reopen
+        </Button>
+        <ConfirmDialog {...args} open={open} onOpenChange={setOpen} />
+      </div>
+    );
+  },
+};
+
 /** Interaction test for Default, kept out of Default so Default opens untouched. */
 export const TestInteractions: Story = {
   ...Default,

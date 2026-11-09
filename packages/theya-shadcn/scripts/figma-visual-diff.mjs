@@ -20,6 +20,8 @@
  *       "steps": [ … ],         // interactions before every capture (below)
  *       "values": { "<figma prop>=<value>": { <code args>, "$selector"?: "<css>", "$story"?: "<story id>", "$steps"?: [ … ] } },
  *       "text": false,          // keep the story's own sample text
+ *       "width": false,         // don't give the story the Figma frame's width
+ *       "viewport": { "height": 1400 },  // page size for this set (default 1200×900)
  *       "skip": "<reason>" } }
  *
  * How a pair is made
@@ -280,7 +282,7 @@ function resolve(set) {
     }
     return { ...v, args, selector, story: vstory, steps };
   });
-  return { story, selector: o.selector, width: o.width, bleed: o.bleed === true, useText: o.text !== false, variants, dropped: [...dropped] };
+  return { story, selector: o.selector, width: o.width, viewport: o.viewport, bleed: o.bleed === true, useText: o.text !== false, variants, dropped: [...dropped] };
 }
 
 // --- Figma images ----------------------------------------------------------------
@@ -399,6 +401,10 @@ for (const { set, r } of plan) {
     results.push({ set: set.name, skip: r.skip });
     continue;
   }
+  // overrides "viewport": { width, height } for this set only — an overlay
+  // anchored to a centered trigger (MessagePopup, 512 px tall) overflows the
+  // default 1200×900 page.
+  await page.setViewportSize({ width: 1200, height: 900, ...(r.viewport ?? {}) });
   const globals = THEME === 'dark' ? '&globals=theme:dark' : '';
   // Load the story and let its play function finish (a play that opens and
   // closes a popover leaves the trigger focused and tinted otherwise). While
@@ -475,9 +481,12 @@ for (const { set, r } of plan) {
         const root = document.querySelector('#storybook-root');
         // content-box: the root's own padding (Storybook's `padded` layout)
         // must not eat into the width the component gets.
-        if (root) {
+        // width: false leaves the root alone: switching it to content-box
+        // grows it by its padding, the trigger moves, and an open popper
+        // (MessagePopup) stays where the trigger was.
+        if (root && w) {
           root.style.boxSizing = 'content-box';
-          root.style.width = w ? `${w}px` : '';
+          root.style.width = `${w}px`;
         }
       }, r.width === false ? 0 : figmaWidth);
       // Play functions leave focus and hover behind (a focused swatch, a
@@ -557,7 +566,11 @@ for (const { set, r } of plan) {
         return { x: x0 + window.scrollX, y: y0 + window.scrollY, width: x1 - x0, height: y1 - y0 };
       }, r.bleed);
       if (!box.width || !box.height) throw new Error('the element has no size');
-      const codeBuf = await page.screenshot({ clip: box, animations: 'disabled', fullPage: true });
+      // fullPage only when the box runs past the viewport: a full-page shot
+      // is as tall as the document, and an overlay fixed to the bottom of a
+      // short page (MessagePopup) would be cut off at the document's end.
+      const vp = page.viewportSize();
+      const codeBuf = await page.screenshot({ clip: box, animations: 'disabled', fullPage: box.y + box.height > vp.height || box.x + box.width > vp.width });
       fs.writeFileSync(path.join(dir, 'code.png'), codeBuf);
       Object.assign(row, compare(figmaBuf, codeBuf, path.join(dir, 'diff.png')));
     } catch (e) {
