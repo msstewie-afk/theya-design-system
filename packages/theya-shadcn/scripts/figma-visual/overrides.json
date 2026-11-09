@@ -299,7 +299,15 @@
     "width": false
   },
   "ProductTour": {
-    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+    "story": "overlays-producttour--on-step",
+    "selector": "[role=dialog]",
+    "text": false,
+    "width": false,
+    "values": {
+      "step=first": {},
+      "step=middle": {},
+      "step=last": {}
+    }
   },
   "PromptSuggestion": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
@@ -439,7 +447,22 @@
     "skip": "a part drawn inside its parent's story; compared through the parent"
   },
   "Tooltip": {
-    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+    "component": "TooltipContent",
+    "story": "overlays-tooltip--open",
+    "selector": "[data-radix-popper-content-wrapper] > *",
+    "bleed": true,
+    "width": false,
+    "values": {
+      "arrow=top": {
+        "side": "top"
+      },
+      "arrow=bottom": {
+        "side": "bottom"
+      },
+      "arrow=none": {
+        "showArrow": false
+      }
+    }
   },
   "Topbar": {
     "selector": "header"
