@@ -554,5 +554,43 @@
     "args": {
       "grid": "always"
     }
+  },
+  "Sparkline": {
+    "args": {
+      "width": 120
+    }
+  },
+  "TabsList": {
+    "selector": "[role=tablist]"
+  },
+  "ProgressSegments": {
+    "component": "Progress",
+    "args": {
+      "segments": 5
+    },
+    "values": {
+      "filled=0": {
+        "value": 0
+      },
+      "filled=1": {
+        "value": 20
+      },
+      "filled=2": {
+        "value": 40
+      },
+      "filled=3": {
+        "value": 60
+      },
+      "filled=4": {
+        "value": 80
+      },
+      "filled=5": {
+        "value": 100
+      }
+    }
+  },
+  "Status": {
+    "component": "StatusDot",
+    "story": "status-feedback-statusdot--default"
   }
 }
