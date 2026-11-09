@@ -112,6 +112,12 @@ node packages/theya-shadcn/scripts/github-package.mjs --print
 //npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}
 ```
 
+pnpm 11 does not send the token from the project's `.npmrc` (npm does): the install fails with `ERR_PNPM_FETCH_401 … No authorization header was set`. Put the token in your user config once (`~/.npmrc`, outside the project); the project's `.npmrc` keeps the registry line:
+
+```
+npm config set "//npm.pkg.github.com/:_authToken" "$GITHUB_PACKAGES_TOKEN"
+```
+
 Install under the old name with an alias, so imports stay `@theya/shadcn/...`:
 
 ```
