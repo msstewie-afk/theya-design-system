@@ -214,6 +214,10 @@
         "id": "menus-dropdownmenu--with-disabled-item"
       },
       {
+        "name": "FigmaReference",
+        "id": "menus-dropdownmenu--figma-reference"
+      },
+      {
         "name": "TestInteractions",
         "id": "menus-dropdownmenu--test-interactions"
       }

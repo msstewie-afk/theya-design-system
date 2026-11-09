@@ -132,6 +132,10 @@
         "id": "overlays-pushsheet--mobile-overlay"
       },
       {
+        "name": "FigmaReference",
+        "id": "overlays-pushsheet--figma-reference"
+      },
+      {
         "name": "TestInteractions",
         "id": "overlays-pushsheet--test-interactions"
       }

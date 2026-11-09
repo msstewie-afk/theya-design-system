@@ -48,6 +48,9 @@
  *   "<css>" or { "click": "<css>" }        click the first match (anywhere,
  *                                          portals included)
  *   { "click": { "role": "button", "name": "No" } }   by accessible role and name
+ *   { "click": "<css>", "button": "right" }  a right-click (ContextMenu)
+ *   { "hover": <css or role/name> }       point at it (a highlighted menu item);
+ *                                          the pointer then stays there
  *   { "fill": "<css>", "value": "text" }  type into a field
  *   { "press": "Escape" }                 a key on the focused element
  *   { "wait": 300 }                       ms (default: 150 after every step)
@@ -379,7 +382,8 @@ async function runSteps(steps) {
   for (const step of steps) {
     const s = typeof step === 'string' ? { click: step } : step;
     const target = (t) => (typeof t === 'string' ? page.locator(t).first() : page.getByRole(t.role, { name: t.name, exact: true }).first());
-    if (s.click) await target(s.click).click({ timeout: 5000 });
+    if (s.click) await target(s.click).click({ timeout: 5000, button: s.button ?? 'left' });
+    else if (s.hover) await target(s.hover).hover({ timeout: 5000 });
     else if (s.fill) await target(s.fill).fill(String(s.value ?? ''), { timeout: 5000 });
     else if (s.press) await page.keyboard.press(s.press);
     else if (!s.wait) throw new Error(`unknown step ${JSON.stringify(step)}`);
@@ -497,9 +501,12 @@ for (const { set, r } of plan) {
         dirty = true;
         await runSteps(v.steps);
         // At rest, like the Figma variant: no hover, no focus ring on what
-        // was pressed or on what the step moved focus to.
-        await page.mouse.move(0, 0);
-        await page.evaluate(() => document.activeElement instanceof HTMLElement && document.activeElement.blur());
+        // was pressed or on what the step moved focus to — unless a step
+        // asked for a hover (the Figma variant shows a highlighted item).
+        if (!v.steps.some((st) => st && st.hover)) {
+          await page.mouse.move(0, 0);
+          await page.evaluate(() => document.activeElement instanceof HTMLElement && document.activeElement.blur());
+        }
       }
       await page.evaluate(() => document.fonts.ready);
       await page.waitForTimeout(150);

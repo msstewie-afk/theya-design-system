@@ -2,10 +2,11 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Bell, Xmark } from 'iconoir-react';
-import { PushSheet, PushSheetHeader, PushSheetTitle, PushSheetBody, PushSheetClose } from './push-sheet';
+import { PushSheet, PushSheetHeader, PushSheetTitle, PushSheetDescription, PushSheetBody, PushSheetFooter, PushSheetClose } from './push-sheet';
 import { Button } from './button';
 import { NotificationsInbox } from '../blocks/notifications-inbox';
 import { pushSheetGuidelines } from './push-sheet.guidelines';
+import { cn } from '../../lib/utils';
 
 /**
  * PushSheet - a non-modal side panel that pushes page content aside instead of
@@ -43,10 +44,10 @@ const meta: Meta<typeof PushSheet> = {
 export default meta;
 type Story = StoryObj<typeof PushSheet>;
 
-function DemoShell({ children }: { children: (open: boolean, setOpen: (v: boolean) => void) => React.ReactNode }) {
+function DemoShell({ children, className }: { children: (open: boolean, setOpen: (v: boolean) => void) => React.ReactNode; className?: string }) {
   const [open, setOpen] = useState(true);
   return (
-    <div className="flex h-[480px] overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)]">
+    <div className={cn('flex h-[480px] overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border-subtle)]', className)}>
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex h-14 shrink-0 items-center justify-between border-b border-solid border-[var(--color-border-border)] px-4">
           <span className="font-body text-body-l font-medium text-[var(--color-text-text)]">Dashboard</span>
@@ -81,7 +82,7 @@ export const Default: Story = {
           <PushSheetHeader>
             <PushSheetTitle>Panel title</PushSheetTitle>
             <PushSheetClose asChild>
-              <Button appearance="ghost" iconOnly size="sm" aria-label="Close" leftIcon={<Xmark />} />
+              <Button appearance="ghost" tone="neutral" iconOnly size="sm" aria-label="Close" leftIcon={<Xmark />} />
             </PushSheetClose>
           </PushSheetHeader>
           <PushSheetBody>
@@ -142,7 +143,7 @@ export const MobileOverlay: Story = {
           <PushSheetHeader>
             <PushSheetTitle>Panel title</PushSheetTitle>
             <PushSheetClose asChild>
-              <Button appearance="ghost" iconOnly size="sm" aria-label="Close" leftIcon={<Xmark />} />
+              <Button appearance="ghost" tone="neutral" iconOnly size="sm" aria-label="Close" leftIcon={<Xmark />} />
             </PushSheetClose>
           </PushSheetHeader>
           <PushSheetBody>
@@ -150,6 +151,40 @@ export const MobileOverlay: Story = {
               Below `md` this panel overlays the page - with a backdrop and scroll-lock - instead of squeezing the dashboard content aside.
             </p>
           </PushSheetBody>
+        </PushSheet>
+      )}
+    </DemoShell>
+  ),
+};
+
+/** The Figma component's own sample, open at rest: what the Figma visual diff compares against (scripts/figma-visual). */
+export const FigmaReference: Story = {
+  name: 'Figma reference',
+  tags: ['!autodocs'],
+  render: (args) => (
+    <DemoShell className="h-[560px]">
+      {(open, setOpen) => (
+        <PushSheet open={open} onOpenChange={setOpen} side={args.side}>
+          <PushSheetHeader>
+            <div className="flex min-w-0 flex-col gap-0.5">
+              <PushSheetTitle>Gallery details</PushSheetTitle>
+              <PushSheetDescription>Golden hour</PushSheetDescription>
+            </div>
+            <PushSheetClose asChild>
+              <Button appearance="ghost" tone="neutral" iconOnly size="sm" aria-label="Close" leftIcon={<Xmark />} />
+            </PushSheetClose>
+          </PushSheetHeader>
+          <PushSheetBody>
+            <p className="font-body text-body-s text-[var(--color-text-text-subtler)]">Body slot</p>
+          </PushSheetBody>
+          <PushSheetFooter>
+            <PushSheetClose asChild>
+              <Button appearance="outlined" tone="secondary" size="lg">
+                Close
+              </Button>
+            </PushSheetClose>
+            <Button size="lg">Save</Button>
+          </PushSheetFooter>
         </PushSheet>
       )}
     </DemoShell>

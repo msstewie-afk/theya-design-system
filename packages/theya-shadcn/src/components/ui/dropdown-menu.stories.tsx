@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { Plus, Trash, Xmark } from 'iconoir-react';
+import { Plus, Star, Trash, Xmark } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
 import { Button } from './button';
 import {
@@ -362,6 +362,57 @@ export const WithDisabledItem: Story = {
     await userEvent.keyboard('{Escape}');
     await menuClosed();
   }),
+};
+
+/** The Figma component's own sample, open at rest: what the Figma visual diff compares against (scripts/figma-visual). */
+export const FigmaReference: Story = {
+  name: 'Figma reference',
+  tags: ['!autodocs'],
+  parameters: {
+    a11y: { auto: { skip: ['2.4.7'], reason: 'Menu opened programmatically; the focused container is never reached from the keyboard path.' } },
+  },
+  render: function FigmaReferenceStory() {
+    const [toolbar, setToolbar] = React.useState(true);
+    const [statusBar, setStatusBar] = React.useState(false);
+    return (
+      <DropdownMenu defaultOpen>
+        <DropdownMenuTrigger asChild>
+          <Button appearance="outlined" tone="secondary">
+            Menu
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" className="w-60">
+          <DropdownMenuLabel>Group</DropdownMenuLabel>
+          <DropdownMenuItem>
+            <Star /> Profile <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Star /> Settings <DropdownMenuShortcut>⌘,</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Star /> Keyboard shortcuts <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuCheckboxItem checked={toolbar} onCheckedChange={setToolbar}>
+            Show toolbar
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem checked={statusBar} onCheckedChange={setStatusBar}>
+            Show status bar
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>More options</DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>
+              <DropdownMenuItem>Duplicate</DropdownMenuItem>
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+          <DropdownMenuItem tone="danger">
+            <Star /> Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  },
 };
 
 /** Interaction test for Default, kept out of Default so Default opens untouched. */

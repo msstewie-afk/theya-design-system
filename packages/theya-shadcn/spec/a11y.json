@@ -3983,7 +3983,7 @@
       "name": "ContextMenu",
       "title": "Menus/ContextMenu",
       "axe": {
-        "stories": 7,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -5087,7 +5087,7 @@
       "name": "Dialog",
       "title": "Overlays/Dialog",
       "axe": {
-        "stories": 6,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -5523,7 +5523,7 @@
       "name": "DropdownMenu",
       "title": "Menus/DropdownMenu",
       "axe": {
-        "stories": 9,
+        "stories": 10,
         "themes": [
           "light",
           "dark"
@@ -10204,7 +10204,7 @@
       "name": "PushSheet",
       "title": "Overlays/PushSheet",
       "axe": {
-        "stories": 4,
+        "stories": 5,
         "themes": [
           "light",
           "dark"

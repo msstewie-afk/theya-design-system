@@ -217,6 +217,14 @@
         "id": "overlays-dialog--fullscreen-open"
       },
       {
+        "name": "FigmaReference",
+        "id": "overlays-dialog--figma-reference"
+      },
+      {
+        "name": "FigmaReferenceFull",
+        "id": "overlays-dialog--figma-reference-full"
+      },
+      {
         "name": "TestInteractions",
         "id": "overlays-dialog--test-interactions"
       }

@@ -311,6 +311,49 @@ export const FullscreenOpen: Story = {
   ),
 };
 
+/** The Figma component's own sample, open at rest: what the Figma visual diff compares against (scripts/figma-visual). */
+function FigmaReferenceDialog({ size, open }: { size: 'md' | 'full'; open: boolean }) {
+  return (
+    <Dialog defaultOpen={open}>
+      <DialogTrigger asChild>
+        <Button appearance="outlined" tone="secondary">
+          Reopen
+        </Button>
+      </DialogTrigger>
+      <DialogContent size={size}>
+        <DialogHeader>
+          <DialogTitle>Dialog title</DialogTitle>
+          <DialogDescription>Short description of what this dialog is for.</DialogDescription>
+        </DialogHeader>
+        <DialogBody>
+          <div className="h-[120px] rounded-[var(--size-border-radius-border-radius-lg)] border border-dashed border-[var(--color-border-border)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]" />
+        </DialogBody>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button appearance="tonal" tone="neutral" size="md">
+              Cancel
+            </Button>
+          </DialogClose>
+          <Button size="md">Confirm</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+export const FigmaReference: Story = {
+  name: 'Figma reference',
+  tags: ['!autodocs'],
+  render: (_args, context) => <FigmaReferenceDialog size="md" open={context.viewMode !== 'docs'} />,
+};
+
+/** The full-screen Figma sample, open at rest (scripts/figma-visual). */
+export const FigmaReferenceFull: Story = {
+  name: 'Figma reference (full)',
+  tags: ['!autodocs'],
+  render: (_args, context) => <FigmaReferenceDialog size="full" open={context.viewMode !== 'docs'} />,
+};
+
 /** Interaction test for Default, kept out of Default so Default opens untouched. */
 export const TestInteractions: Story = {
   ...Default,

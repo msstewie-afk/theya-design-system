@@ -126,7 +126,22 @@
     }
   },
   "ContextMenu": {
-    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+    "story": "menus-contextmenu--figma-reference",
+    "selector": "[role=menu]",
+    "text": false,
+    "width": false,
+    "steps": [
+      {
+        "click": "text=Right-click here",
+        "button": "right"
+      },
+      {
+        "hover": {
+          "role": "menuitem",
+          "name": "Open"
+        }
+      }
+    ]
   },
   "DataTableColumnHeader": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
@@ -149,7 +164,20 @@
     }
   },
   "Dialog": {
-    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+    "story": "overlays-dialog--figma-reference",
+    "selector": "[role=dialog]",
+    "text": false,
+    "width": false,
+    "values": {
+      "size=full": {
+        "$story": "overlays-dialog--figma-reference-full"
+      },
+      "size=md": {}
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    }
   },
   "DialogClose": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
@@ -164,7 +192,10 @@
     "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
   },
   "DropdownMenu": {
-    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+    "story": "menus-dropdownmenu--figma-reference",
+    "selector": "[role=menu]",
+    "text": false,
+    "width": false
   },
   "DropdownMenuCheckboxItem": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
@@ -313,7 +344,18 @@
     "skip": "a part drawn inside its parent's story; compared through the parent"
   },
   "PushSheet": {
-    "skip": "opens in a portal (overlay) — the story's resting render is its trigger"
+    "story": "overlays-pushsheet--figma-reference",
+    "selector": "[role=dialog]",
+    "text": false,
+    "width": false,
+    "values": {
+      "side=left": {
+        "side": "left"
+      },
+      "side=right": {
+        "side": "right"
+      }
+    }
   },
   "Radio": {
     "story": "selection-radio--states",

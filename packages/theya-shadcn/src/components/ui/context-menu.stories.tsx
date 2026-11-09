@@ -287,6 +287,35 @@ export const WithVisibleAlternative: Story = {
   }),
 };
 
+/** The Figma component's own sample, opened with a right-click on the target: what the Figma visual diff compares against (scripts/figma-visual). */
+export const FigmaReference: Story = {
+  name: 'Figma reference',
+  tags: ['!autodocs'],
+  render: () => (
+    <ContextMenu>
+      <ContextMenuTrigger className="flex h-[140px] w-60 select-none items-center justify-center rounded-[var(--size-border-radius-border-radius-lg)] border border-dashed border-[var(--color-border-border)] font-body text-body-s text-[var(--color-text-text-subtler)]">
+        Right-click here
+      </ContextMenuTrigger>
+      <ContextMenuContent className="w-56">
+        <ContextMenuItem>Open</ContextMenuItem>
+        <ContextMenuItem>
+          Rename
+          <ContextMenuShortcut>F2</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuItem>
+          Duplicate
+          <ContextMenuShortcut>⌘D</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem tone="danger">
+          Delete
+          <ContextMenuShortcut>⌫</ContextMenuShortcut>
+        </ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenu>
+  ),
+};
+
 /** Interaction test for Default, kept out of Default so Default opens untouched. */
 export const TestInteractions: Story = {
   ...Default,

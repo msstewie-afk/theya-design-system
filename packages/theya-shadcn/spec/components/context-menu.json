@@ -183,6 +183,10 @@
         "id": "menus-contextmenu--with-visible-alternative"
       },
       {
+        "name": "FigmaReference",
+        "id": "menus-contextmenu--figma-reference"
+      },
+      {
         "name": "TestInteractions",
         "id": "menus-contextmenu--test-interactions"
       }
