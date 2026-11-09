@@ -48,9 +48,16 @@ export interface ListItemProps extends Omit<React.ComponentProps<'div'>, 'title'
   interactive?: boolean;
   selected?: boolean;
   disabled?: boolean;
+  /**
+   * Vertical alignment of the leading visual and the text. `start` (default)
+   * keeps a small icon level with the title line. `center` puts the text on
+   * the middle of a tall leading visual (a 48px thumbnail, a large avatar),
+   * where the trailing chevron already sits.
+   */
+  align?: 'start' | 'center';
 }
 
-export function ListItem({ className, size = 'md', leading, title, description, trailing, href, interactive = false, selected, disabled = false, onClick, onKeyDown, children, ...props }: ListItemProps) {
+export function ListItem({ className, size = 'md', leading, title, description, trailing, href, interactive = false, selected, disabled = false, align = 'start', onClick, onKeyDown, children, ...props }: ListItemProps) {
   // A bare icon in `leading` is decorative: the title names the row.
   const leadingRef = useDecorativeSvgs<HTMLSpanElement>();
   // Same for a bare chevron in `trailing`; buttons there keep their names.
@@ -70,7 +77,9 @@ export function ListItem({ className, size = 'md', leading, title, description, 
   // its content centered in that line. A small icon sits level with the
   // title whether a description or extra children follow; a larger visual
   // (avatar) just grows downward from the top.
-  const rowAlign = 'items-start';
+  // align="center" (T5, 2026-11-09): for a tall leading visual (a 48px dish
+  // thumbnail) the text sits on its middle, level with the trailing chevron.
+  const rowAlign = align === 'center' ? 'items-center' : 'items-start';
 
   const body = (
     <>
@@ -104,6 +113,7 @@ export function ListItem({ className, size = 'md', leading, title, description, 
     <div
       data-slot="list-item"
       data-selected={selected || undefined}
+      data-align={align}
       className={cn(
         'relative flex w-full min-w-0 items-center gap-3 rounded-[var(--size-border-radius-border-radius-md)]',
         'font-body text-body-m text-[var(--color-text-text)] transition-colors duration-standard ease-enter motion-reduce:transition-none',

@@ -209,6 +209,42 @@ function NotificationActions({ label, read, onToggleRead, onDismiss }: { label: 
  * `children`) and the kebab menu — every nested control stops propagation so
  * it never also fires the row's own click.
  */
+/** A placeholder dish photo: a 48px rounded tile. */
+const Thumb = ({ hue }: { hue: number }) => (
+  <span aria-hidden="true" className="block size-12 rounded-[var(--size-border-radius-border-radius-lg)]" style={{ background: `oklch(0.82 0.08 ${hue})` }} />
+);
+
+/**
+ * `align="center"` for a tall leading visual: a one-line title sits on the
+ * middle of a 48px thumbnail, level with the trailing chevron. The default
+ * (`start`) keeps the text at the top, which suits a 16px icon.
+ */
+export const CenteredOnThumbnail: Story = {
+  name: 'Centered on a thumbnail',
+  render: () => (
+    <div className="flex w-full max-w-sm flex-col gap-6">
+      {(['start', 'center'] as const).map((align) => (
+        <div key={align} className="flex flex-col">
+          <p className="m-0 mb-1 font-mono text-body-s text-[var(--color-text-text-subtle)]">align=&quot;{align}&quot;</p>
+          <ListItem align={align} href="#" leading={<Thumb hue={60} />} title="Airy Ricotta Soufflé Bake" trailing={<NavArrowRight />} data-testid={`row-${align}`} />
+          <ListItem align={align} href="#" leading={<Thumb hue={140} />} title="Steamed carrots" description="Side · 15 min" trailing={<NavArrowRight />} />
+        </div>
+      ))}
+    </div>
+  ),
+  // Measures only: with align="center" the title's middle is the thumbnail's middle.
+  play: async ({ canvasElement }) => {
+    const row = within(canvasElement).getByTestId('row-center');
+    const mid = (el: Element) => {
+      const r = el.getBoundingClientRect();
+      return r.top + r.height / 2;
+    };
+    const thumb = row.querySelector('[data-slot=list-item-leading] > span')!;
+    const title = row.querySelector('[data-slot=list-item-title]')!;
+    await expect(Math.abs(mid(thumb) - mid(title))).toBeLessThanOrEqual(1);
+  },
+};
+
 export const Notification: Story = {
   render: function NotificationExample() {
     const [read, setRead] = useState<Record<string, boolean>>({ sync: false, license: false, export: true });

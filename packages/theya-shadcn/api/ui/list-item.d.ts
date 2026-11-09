@@ -15,10 +15,12 @@ export interface ListItemProps extends Omit<React.ComponentProps<'div'>, 'title'
     interactive?: boolean;
     selected?: boolean;
     disabled?: boolean;
+    align?: 'start' | 'center';
 }
-export declare function ListItem({ className, size, leading, title, description, trailing, href, interactive, selected, disabled, onClick, onKeyDown, children, ...props }: ListItemProps): import("react").JSX.Element;
+export declare function ListItem({ className, size, leading, title, description, trailing, href, interactive, selected, disabled, align, onClick, onKeyDown, children, ...props }: ListItemProps): import("react").JSX.Element;
 
 // Defaults
+// ListItem.align = start
 // ListItem.disabled = false
 // ListItem.interactive = false
 // ListItem.size = md

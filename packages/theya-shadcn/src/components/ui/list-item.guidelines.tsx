@@ -14,7 +14,7 @@ export const listItemGuidelines: ComponentGuidelines = {
     { text: 'Picking one of a few options', instead: 'OptionCard or RadioGroup' },
   ],
   anatomy: [
-    { part: 'Leading', description: 'icon, avatar or thumbnail.', optional: true },
+    { part: 'Leading', description: 'icon, avatar or thumbnail. With a tall one (a 48px thumbnail), set align="center" so the text sits on its middle.', optional: true },
     { part: 'Title', description: 'the item.' },
     { part: 'Description', description: 'one line of detail.', optional: true },
     { part: 'Trailing', description: 'value, badge, switch or chevron — outside the clickable area.', optional: true },

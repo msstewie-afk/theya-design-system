@@ -5781,13 +5781,14 @@ Docs: ./?path=/docs/data-listitem--docs
 
 **Anatomy**
 
-- Leading (optional): icon, avatar or thumbnail.
+- Leading (optional): icon, avatar or thumbnail. With a tall one (a 48px thumbnail), set align="center" so the text sits on its middle.
 - Title: the item.
 - Description (optional): one line of detail.
 - Trailing (optional): value, badge, switch or chevron — outside the clickable area.
 
 **ListItem props**
 
+- `align?`: `"center" | "start"`, default `start` — Vertical alignment of the leading visual and the text. `start` (default)
 - `description?`: `ReactNode`
 - `disabled?`: `boolean`, default `false`
 - `href?`: `string` — Renders the row's text region as a link.

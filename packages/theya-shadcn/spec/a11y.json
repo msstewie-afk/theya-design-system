@@ -7866,7 +7866,7 @@
       "name": "ListItem",
       "title": "Data/ListItem",
       "axe": {
-        "stories": 6,
+        "stories": 7,
         "themes": [
           "light",
           "dark"
@@ -7875,7 +7875,7 @@
       },
       "keyboard": {
         "tested": 2,
-        "playTests": 3
+        "playTests": 4
       },
       "reducedMotion": "none",
       "forcedColors": "global",

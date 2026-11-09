@@ -26,7 +26,7 @@
   "anatomy": [
     {
       "part": "Leading",
-      "description": "icon, avatar or thumbnail.",
+      "description": "icon, avatar or thumbnail. With a tall one (a 48px thumbnail), set align=\"center\" so the text sits on its middle.",
       "optional": true
     },
     {
@@ -65,6 +65,17 @@
     {
       "name": "ListItem",
       "props": [
+        {
+          "name": "align",
+          "type": "\"center\" | \"start\"",
+          "values": [
+            "center",
+            "start"
+          ],
+          "required": false,
+          "default": "start",
+          "description": "Vertical alignment of the leading visual and the text. `start` (default)\nkeeps a small icon level with the title line. `center` puts the text on\nthe middle of a tall leading visual (a 48px thumbnail, a large avatar),\nwhere the trailing chevron already sits."
+        },
         {
           "name": "description",
           "type": "ReactNode",
@@ -157,6 +168,10 @@
       {
         "name": "Sizes",
         "id": "data-listitem--sizes"
+      },
+      {
+        "name": "CenteredOnThumbnail",
+        "id": "data-listitem--centered-on-thumbnail"
       },
       {
         "name": "Notification",
