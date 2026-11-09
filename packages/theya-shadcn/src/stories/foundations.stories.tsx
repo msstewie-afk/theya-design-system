@@ -536,6 +536,20 @@ export const Typography: Story = {
         </div>
       </DocsSection>
       <DocsSection
+        title="Editorial styles"
+        description={
+          <>
+            For recipe, article and landing titles. <Code>text-display-s</Code> is one step above heading-xl (use it with <Code>font-heading</Code>, like the headings). <Code>text-eyebrow-m</Code> and <Code>text-eyebrow-s</Code> are whole label styles: heading face, uppercase and wide tracking included.
+          </>
+        }
+      >
+        <div className="flex flex-col">
+          <ScaleRow name="text-display-s" sampleClass="font-heading text-display-s" sample="Roasted tomato soup" values={typeValues('--typography-display-display-s')} />
+          <ScaleRow name="text-eyebrow-m" sampleClass="text-eyebrow-m" sample="Ingredients" values={typeValues('--typography-eyebrow-eyebrow-m')} />
+          <ScaleRow name="text-eyebrow-s" sampleClass="text-eyebrow-s" sample="Recipe · 25 min" values={typeValues('--typography-eyebrow-eyebrow-s')} />
+        </div>
+      </DocsSection>
+      <DocsSection
         title="Font weights"
         description={
           <>

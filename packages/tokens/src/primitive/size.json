@@ -191,6 +191,10 @@
     "size64": {
       "value": 64,
       "type": "dimension"
+    },
+    "size-minus1": {
+      "value": -1,
+      "type": "dimension"
     }
   }
 }

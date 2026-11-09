@@ -184,6 +184,13 @@
   --text-heading-3xs--letter-spacing: var(--typography-heading-heading-3xs-letter-spacing);
   --text-heading-3xs--font-weight: var(--typography-heading-heading-3xs-weight);
 
+  /* Display: an editorial title step above heading-xl (T6, 2026-11-09, for
+     recipe and article titles). Use with font-heading, like the headings. */
+  --text-display-s: var(--typography-display-display-s-size);
+  --text-display-s--line-height: var(--typography-display-display-s-line-height);
+  --text-display-s--letter-spacing: var(--typography-display-display-s-letter-spacing);
+  --text-display-s--font-weight: var(--typography-display-display-s-weight);
+
   --text-body-xl: var(--typography-body-xl-size);
   --text-body-xl--line-height: var(--typography-body-xl-line-height);
   --text-body-xl--letter-spacing: var(--typography-body-xl-letter-spacing);
@@ -740,4 +747,30 @@
     ) {
     font-size: max(16px, 1em);
   }
+}
+
+/* Eyebrow: small caps-style labels over a title or a section (T6,
+   2026-11-09). A full text style, not just a size: uppercase and the
+   heading face are part of it, so it can't be an @theme --text-* entry.
+   Weight, tracking and leading read Tailwind's --tw-* first, like the
+   @theme text styles do, so font-*, tracking-* and leading-* on the same
+   element still win. Lining figures, as .font-heading sets them (Playfair
+   defaults to old-style). In twMerge's font-size group (src/lib/utils.ts). */
+@utility text-eyebrow-m {
+  font-family: var(--typography-eyebrow-eyebrow-m-font);
+  font-size: var(--typography-eyebrow-eyebrow-m-size);
+  line-height: var(--tw-leading, var(--typography-eyebrow-eyebrow-m-line-height));
+  letter-spacing: var(--tw-tracking, var(--typography-eyebrow-eyebrow-m-letter-spacing));
+  font-weight: var(--tw-font-weight, var(--typography-eyebrow-eyebrow-m-weight));
+  text-transform: uppercase;
+  font-variant-numeric: lining-nums;
+}
+@utility text-eyebrow-s {
+  font-family: var(--typography-eyebrow-eyebrow-s-font);
+  font-size: var(--typography-eyebrow-eyebrow-s-size);
+  line-height: var(--tw-leading, var(--typography-eyebrow-eyebrow-s-line-height));
+  letter-spacing: var(--tw-tracking, var(--typography-eyebrow-eyebrow-s-letter-spacing));
+  font-weight: var(--tw-font-weight, var(--typography-eyebrow-eyebrow-s-weight));
+  text-transform: uppercase;
+  font-variant-numeric: lining-nums;
 }

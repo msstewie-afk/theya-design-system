@@ -1,11 +1,14 @@
 {
-  "description": "Ember: warm orange primary on a warm off-white page, white cards, dark warm text; Playfair Display headings (lining figures); soft radii (cards 18px); dark warning re-hued to amber, as light warning is, so it doesn't read as the primary",
+  "description": "Ember: warm orange primary on a warm off-white page, white cards, dark warm text; Playfair Display headings (lining figures); soft radii (cards 18px); warm shadows (the tint re-hued to the neutral hue); dark warning re-hued to amber, as light warning is, so it doesn't read as the primary",
   "primary": "#c2410c",
   "neutral": {
     "hue": 60,
     "chroma": 0.15
   },
   "headingFont": "Playfair Display",
+  "shadow": {
+    "chroma": 0.6
+  },
   "radius": {
     "scale": 1.8,
     "field": "xl"

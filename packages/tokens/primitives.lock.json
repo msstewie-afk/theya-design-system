@@ -242,6 +242,7 @@
     "color:color.yellow.yellow-700",
     "color:color.yellow.yellow-800",
     "color:color.yellow.yellow-900",
+    "size:size.size-minus1",
     "size:size.size0",
     "size:size.size0-5",
     "size:size.size1",

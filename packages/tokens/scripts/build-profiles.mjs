@@ -17,7 +17,8 @@
  *      "dark"?:  { … same … },
  *      "accept"?: ["light: bg-primary-bg-primary on bg-surface-bg-surface-base", "primary hue vs success"],
  *      "font"?: "Manrope",              // replaces Theya's typeface (must be in fonts/fonts.css)
- *      "headingFont"?: "Playfair Display",   // headings only (a stack in HEADING_STACKS)
+ *      "headingFont"?: "Playfair Display",   // headings, display and eyebrow (a stack in HEADING_STACKS)
+ *      "shadow"?: { "hue"?: 60, "chroma"?: 1 },  // re-hue the light shadow tint (hue default: neutral.hue)
  *      "radius"?: { "scale": 1.5, "button": "max", "field": "3xl" }
  *    }
  *    `font`: every typography token that names Geologica switches to this
@@ -316,6 +317,26 @@ for (const profile of profiles) {
         }
       }
     }
+    // `shadow`: light shadows are tinted toward Theya's indigo slate
+    // (rgba(61, 72, 143, a)); a warm theme re-hues that tint (default: the
+    // neutral hue), keeping its lightness and every alpha, so the shadows are
+    // as strong, just not blue. `chroma` multiplies the tint's chroma. Dark
+    // shadows are black and stay so; the dark block writes them back because
+    // the light override sits on [data-brand] and would reach dark too.
+    if (profile.shadow) {
+      const TINT = /rgba\(61, 72, 143, /g;
+      const tinted = [...builtLight].filter(([, v]) => String(v).includes('rgba(61, 72, 143, '));
+      if (!tinted.length) problems.push(`${profile.name}: shadow set, but no tinted shadow token found`);
+      if (mode === 'light') {
+        const { hue = profile.neutral?.hue, chroma = 1 } = profile.shadow;
+        if (!Number.isFinite(hue)) problems.push(`${profile.name}: shadow needs a hue (or neutral.hue)`);
+        const [L, C] = hexToOklch('#3d488f');
+        const [r, g, b] = hexToRgb(oklchToHex([L, C * chroma, hue])).map((v) => Math.round(v * 255));
+        for (const [token, value] of tinted) out.set(token, value.replace(TINT, `rgba(${r}, ${g}, ${b}, `));
+      } else {
+        for (const [token] of tinted) out.set(token, builtDark.get(token));
+      }
+    }
     for (const [key, value] of Object.entries(profile[mode]?.tokens ?? {})) {
       const token = `--color-${key}`;
       if (!built.has(token)) problems.push(`${profile.name} (${mode}): unknown token ${key}`);
@@ -409,8 +430,9 @@ for (const profile of profiles) {
       shared.set('--typography-font-family-heading', stack);
       const NOMINAL = { 175: 300, 275: 400, 375: 500, 475: 600, 575: 700, 675: 800, 775: 900 };
       for (const [token, value] of builtLight) {
-        if (/^--typography-heading-[a-z0-9-]+-font$/.test(token)) shared.set(token, stack);
-        else if (/^--typography-heading-[a-z0-9-]+-weight$/.test(token)) {
+        // display and eyebrow styles are set in the heading face too
+        if (/^--typography-(heading|display|eyebrow)-[a-z0-9-]+-font$/.test(token)) shared.set(token, stack);
+        else if (/^--typography-(heading|display|eyebrow)-[a-z0-9-]+-weight$/.test(token)) {
           // Nominal weight, kept inside the face's loaded range (EB Garamond: 400–800):
           // the browser would snap an out-of-range weight to the nearest anyway
           // (3xl's extralight 100 → 400); writing it keeps Figma and code in step.
