@@ -49,7 +49,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /** Type a tag and press Enter or comma. Backspace in the empty input removes the last one. */
-export const Default: Story = {};
+export const Default: Story = {
+  // `key`: defaultValue is read once on mount, so a change from the Controls
+  // remounts the field instead of being ignored.
+  render: (args) => <TagInput key={JSON.stringify(args.defaultValue)} {...args} />,
+};
 
 const EMAIL_LIST = 'thea@aether.photo, ian@aether.photo; not-an-email, Mina@Aether.photo';
 

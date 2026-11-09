@@ -309,7 +309,18 @@
     "skip": "a part drawn inside its parent's story; compared through the parent"
   },
   "TagInput": {
-    "selector": "@field"
+    "selector": "@field",
+    "values": {
+      "filled=false": {
+        "defaultValue": []
+      },
+      "filled=true": {
+        "defaultValue": [
+          "design",
+          "tokens"
+        ]
+      }
+    }
   },
   "TerminalLine": {
     "skip": "a part drawn inside its parent's story; compared through the parent"
@@ -475,5 +486,73 @@
     "story": "selection-colorpicker--field",
     "selector": "#storybook-root .w-64 > :first-child",
     "text": false
+  },
+  "Message": {
+    "story": "ai-chat-message--playground",
+    "text": false,
+    "values": {
+      "variant=sent": {
+        "variant": "sent",
+        "author": "You",
+        "timestamp": "09:41",
+        "children": "Can you summarise last week’s failed payments?"
+      },
+      "variant=received": {
+        "variant": "received",
+        "author": "Theya Assistant",
+        "timestamp": "09:41",
+        "children": "Sure — 14 payments failed last week, 9 of them on expired cards. Want me to draft a reminder email?"
+      }
+    }
+  },
+  "BarChart": {
+    "values": {
+      "orientation=horizontal": {
+        "$story": "charts-barchart--horizontal"
+      }
+    }
+  },
+  "Separator": {
+    "selector": "[data-slot=separator]",
+    "values": {
+      "orientation=vertical": {
+        "orientation": "vertical",
+        "$story": "layout-separator--vertical"
+      }
+    }
+  },
+  "DotSeparator": {
+    "selector": "[data-slot=dot-separator]"
+  },
+  "QrCode": {
+    "args": {
+      "value": "https://theya.dev"
+    },
+    "text": false
+  },
+  "CodeEditor": {
+    "values": {
+      "inverse=true": {
+        "$story": "code-codeeditor--inverse"
+      }
+    }
+  },
+  "RangeField": {
+    "values": {
+      "histogram=true": {
+        "$story": "selection-rangefield--price-filter"
+      }
+    }
+  },
+  "ChartRangeSelection": {
+    "selector": "#storybook-root .flex.flex-col.gap-3 > :nth-child(2)"
+  },
+  "FeedbackWidget": {
+    "selector": "[data-slot=feedback-widget]"
+  },
+  "ImageCropper": {
+    "args": {
+      "grid": "always"
+    }
   }
 }

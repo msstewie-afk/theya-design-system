@@ -17,7 +17,7 @@
  *   { "<Figma set name>": {
  *       "component": "<code export, when the names differ>",
  *       "story": "<story id>", "args": {…}, "selector": "<css>",
- *       "values": { "<figma prop>=<value>": { <code args>, "$selector"?: "<css>" } },
+ *       "values": { "<figma prop>=<value>": { <code args>, "$selector"?: "<css>", "$story"?: "<story id>" } },
  *       "text": false,          // keep the story's own sample text
  *       "skip": "<reason>" } }
  *
@@ -220,6 +220,7 @@ function resolve(set) {
   const variants = set.variants.map((v) => {
     const args = { ...(o.args ?? {}) };
     let selector;
+    let vstory;
     if (fixedTone && props.has('tone')) args.tone = fixedTone;
     for (const [k, val] of Object.entries(v.props)) {
       // overrides.values: a Figma prop value that maps to other code props,
@@ -228,14 +229,17 @@ function resolve(set) {
       if (mapped) {
         // "$selector" in a value entry picks the capture target for that
         // variant only (Radio checked=true → the checked radio of a group).
-        const { $selector, ...rest } = mapped;
+        // "$story" renders that variant from another story of the same
+        // component (BarChart orientation=horizontal → the Horizontal story).
+        const { $selector, $story, ...rest } = mapped;
         if ($selector) selector = $selector;
+        if ($story) vstory = $story;
         Object.assign(args, rest);
       }
       else if (props.has(k)) args[k] = toArg(props.get(k), val);
       else dropped.add(k);
     }
-    return { ...v, args, selector };
+    return { ...v, args, selector, story: vstory };
   });
   return { story, selector: o.selector, width: o.width, bleed: o.bleed === true, useText: o.text !== false, variants, dropped: [...dropped] };
 }
@@ -326,6 +330,9 @@ figmaUrls = toRender.length ? await figmaImages(toRender) : {};
 
 const browser = await chromium.launch();
 const context = await browser.newContext({ viewport: { width: 1200, height: 900 }, deviceScaleFactor: SCALE, reducedMotion: 'reduce' });
+// Stories open the way a person sees them: plays wrapped in testOnly()
+// (src/lib/test-only.ts) check navigator.webdriver and stay out of the way.
+await context.addInitScript(() => Object.defineProperty(Navigator.prototype, 'webdriver', { get: () => false }));
 const page = await context.newPage();
 const results = [];
 const slug = (s) => s.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase();
@@ -340,31 +347,41 @@ for (const { set, r } of plan) {
   // closes a popover leaves the trigger focused and tinted otherwise). While
   // another agent edits story files Storybook's index can fail for a few
   // seconds (error display, empty root): retry the load a few times.
-  let rendered = false;
-  for (let attempt = 1; attempt <= 4 && !rendered; attempt++) {
-    await page.goto(`${URL_BASE}/iframe.html?id=${r.story}&viewMode=story${globals}`, { waitUntil: 'load' });
-    try {
-      await page.waitForSelector('#storybook-root > *', { timeout: 15000 });
-      await page
-        .waitForFunction(() => ['finished', 'completed', 'played', 'errored', 'aborted'].includes(window.__STORYBOOK_PREVIEW__?.currentRender?.phase), null, { timeout: 15000 })
-        .catch(() => {});
-      rendered = !(await page.evaluate(() => document.body.classList.contains('sb-show-errordisplay')));
-    } catch {
-      rendered = false;
+  const loadStory = async (storyId) => {
+    let rendered = false;
+    for (let attempt = 1; attempt <= 4 && !rendered; attempt++) {
+      await page.goto(`${URL_BASE}/iframe.html?id=${storyId}&viewMode=story${globals}`, { waitUntil: 'load' });
+      try {
+        await page.waitForSelector('#storybook-root > *', { timeout: 15000 });
+        await page
+          .waitForFunction(() => ['finished', 'completed', 'played', 'errored', 'aborted'].includes(window.__STORYBOOK_PREVIEW__?.currentRender?.phase), null, { timeout: 15000 })
+          .catch(() => {});
+        rendered = !(await page.evaluate(() => document.body.classList.contains('sb-show-errordisplay')));
+      } catch {
+        rendered = false;
+      }
+      if (!rendered) await page.waitForTimeout(3000 * attempt);
     }
-    if (!rendered) await page.waitForTimeout(3000 * attempt);
-  }
-  if (!rendered) {
-    results.push({ set: set.name, skip: `story ${r.story} did not render` });
-    continue;
-  }
-  // Colour and size transitions (0.15–0.22s) would be caught mid-way after
-  // an args update; reduced motion alone doesn't turn all of them off.
-  await page.addStyleTag({ content: '*,*::before,*::after{transition:none!important;animation:none!important;caret-color:transparent!important}' });
+    // Colour and size transitions (0.15–0.22s) would be caught mid-way after
+    // an args update; reduced motion alone doesn't turn all of them off.
+    if (rendered) await page.addStyleTag({ content: '*,*::before,*::after{transition:none!important;animation:none!important;caret-color:transparent!important}' });
+    return rendered;
+  };
+  // Variants may come from different stories ("$story"); load each once,
+  // in variant order.
+  let loaded = null;
   for (const v of r.variants) {
+    const storyId = v.story ?? r.story;
+    if (loaded !== storyId) {
+      loaded = (await loadStory(storyId)) ? storyId : null;
+      if (!loaded) {
+        results.push({ set: set.name, variant: v.props, skip: `story ${storyId} did not render` });
+        continue;
+      }
+    }
     const dir = path.join(OUT, slug(set.name), slug(Object.values(v.props).join('-') || 'default'));
     fs.mkdirSync(dir, { recursive: true });
-    const row = { set: set.name, variant: v.props, node: v.id, story: r.story, args: v.args, dropped: r.dropped, dir: path.relative(OUT, dir) };
+    const row = { set: set.name, variant: v.props, node: v.id, story: storyId, args: v.args, dropped: r.dropped, dir: path.relative(OUT, dir) };
     try {
       // Reset to the story's own args first (the previous variant's must not
       // leak into this one), then apply this variant's — one render each.
@@ -387,7 +404,7 @@ for (const { set, r } of plan) {
           await emitAndWait('resetStoryArgs', { storyId });
           if (Object.keys(args).length) await emitAndWait('updateStoryArgs', { storyId, updatedArgs: args });
         },
-        { storyId: r.story, args: v.args, text: r.useText === false ? null : v.text },
+        { storyId, args: v.args, text: r.useText === false ? null : v.text },
       );
       const figmaBuf = await figmaPng(v.id);
       fs.writeFileSync(path.join(dir, 'figma.png'), figmaBuf);

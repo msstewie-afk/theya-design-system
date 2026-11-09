@@ -102,3 +102,25 @@ export const Tone: Story = {
     </div>
   ),
 };
+
+const userAvatar = (
+  <Avatar className="size-8">
+    <AvatarFallback className="bg-[var(--color-bg-primary-bg-primary-subtle)] text-[var(--color-text-text-link-on-tonal)] text-body-xs">MS</AvatarFallback>
+  </Avatar>
+);
+
+/** Driven by the Controls: direction, appearance (sent only), author, time and text. The avatar follows the direction. */
+export const Playground: Story = {
+  args: {
+    variant: 'received',
+    appearance: 'filled',
+    author: 'Assistant',
+    timestamp: '9:32 AM',
+    children: 'I can help you set up a new client portal. Which studio should it belong to?',
+  },
+  render: (args) => (
+    <div className="max-w-xl">
+      <Message {...args} avatar={args.variant === 'sent' ? userAvatar : botAvatar} />
+    </div>
+  ),
+};
