@@ -1,5 +1,23 @@
 # @theya/shadcn
 
+## 0.3.0
+
+### Minor Changes
+
+- 1d0287e: PropertyGrid: when the grid itself is under 24rem (a phone, a slim side panel) each label sits above its control in one column; a switch keeps its label beside it.
+
+### Patch Changes
+
+- b4a2555: AccordionContent no longer has `role="region"` by default. In Safari, VoiceOver stopped on the region and spoke its label (the question again), so VO + Right never reached the answer. Pass `role="region"` to get it back, labelled by its trigger.
+- f1c3341: ChipRemove is a 24px target around a 14px icon, as its docs say (it was the Button's 28px square with a 12px icon). A removable chip is 6px narrower and matches Figma: label, 4px gap, icon, padding. An interactive chip's own target now covers its border too, so it keeps the full 24px height next to the remove button.
+- a4c69bd: Icons inside controls are hidden from screen readers (`aria-hidden`), so Safari no longer exposes a button with an icon as a group of text and image that VoiceOver steps into (VO + Space then didn't press it or speak its state). Covers the Accordion chevron, icons passed as children to Toggle, ToggleGroupItem, ToolbarButton, TabsTrigger (and its `icon`), DropdownMenu / ContextMenu / Menubar items, CommandItem and TopbarAction, the `icon` of HelpIcon and SidebarItem, and the built-in icons of Select, Filter, FilterField, NumberField, DatePicker, DateRangePicker, Calendar, DataTable sort headers and pagination, ThemeToggle and the Topbar search and menu buttons. An icon that sets its own `aria-label` or `aria-hidden` is left as it is; with `asChild` the child is the control and is never hidden.
+- bcff6b3: Every field follows a profile's field radius (`--theme-radius-field`): NumberField, DatePicker / DateRangePicker, Autocomplete, TagInput, Combobox, InputOTP, TextArea, InputGroup (PhoneField), SecretField and FilterField did not, so in Ember or Lime they kept Theya's 6px next to 14px TextFields. Theya itself is unchanged.
+- d503bcb: Metric: a label that starts with a space (" shared galleries") keeps it, so the value and the label no longer run together ("8shared galleries"). A flex item dropped the leading space.
+- 965929f: SiteFooter: social icons are aria-hidden; the link's name comes from its aria-label ("<app> on GitHub").
+- 2da2ad7: AlertDialog: the close button closes like Esc instead of being a second Cancel, so Radix focuses the footer's Cancel on open by itself again (VoiceOver in Safari read neither the dialog nor the focused button). ConfirmDialog: the type-to-confirm label keeps its original element and wraps through one inner span. Storybook: a play that clicks or types runs only in automated runs (`testOnly`), so stories open untouched for people.
+- 4612370: Toggle and ToggleGroup follow a profile's field radius (`--theme-radius-field`), so in Ember a units switch under a NumberField has the same 14px corners. Theya itself is unchanged (md).
+- f25c558: ToggleGroup: outlined items keep a standalone Toggle's width and label inset. The item's border is drawn as an inset shadow, and the 1px it took out of the box now comes back as padding.
+
 ## 0.2.0
 
 ### Minor Changes

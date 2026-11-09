@@ -1,5 +1,16 @@
 # @theya/tokens
 
+## 0.3.0
+
+### Minor Changes
+
+- d5788c2: Primitives: the azure ramp is back (its 26.10 values) and red and orange get an 850 step again, between 800 and 900 so the ramps keep getting darker in order (red-850 #52041f, orange-850 #4d250c). Primitives stay in the palette whether or not a token uses them now.
+
+### Patch Changes
+
+- 4a4b822: CI check: no primitive step can disappear from the palette without editing primitives.lock.json on purpose (`node scripts/check-primitives.mjs`, `--update` to add new steps).
+- 70cc203: Profiles with `headingFont`: heading weights stay inside the face's loaded range (EB Garamond 400–800). Ember's 3xl heading now says 400 instead of inheriting Geologica's 100, which the browser already rendered as 400.
+
 ## 0.2.0
 
 ### Minor Changes
