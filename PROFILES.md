@@ -22,7 +22,7 @@ Profiles live in `packages/tokens/src/profiles/<name>.json` and come in two kind
 |---|---|---|---|
 | `iris` | violet primary `#743de4`, indigo links, cool near-gray neutrals, blue-black dark theme | Onest | sharp: fields 2px, everything else in the same proportion (buttons 3, cards 3, dialogs 4) |
 | `lime` | lime primary `#9fe870` with dark green text, greenish neutrals, near-black green dark theme | Manrope | ×1.5, pill buttons, fields 12px |
-| `ember` | warm orange primary `#c2410c`, warm off-white page with white cards, warm near-black dark theme; in dark, warning is re-hued to amber so it doesn't read as the primary | Geologica, EB Garamond headings | ×1.8: cards 18px, fields 14px |
+| `ember` | warm orange primary `#c2410c`, warm off-white page with white cards, warm near-black dark theme; in dark, warning is re-hued to amber so it doesn't read as the primary | Geologica, Playfair Display headings (lining figures) | ×1.8: cards 18px, fields 14px |
 
 ## Simple profile
 
@@ -56,7 +56,7 @@ Profiles live in `packages/tokens/src/profiles/<name>.json` and come in two kind
 | `neutral` | recolors the neutral scales (slate, gray, graphite and their transparent versions): `hue` is the hue, `chroma` is the chroma multiplier (Theya's neutrals are lavender; 0.1–0.2 makes them almost gray). Secondary buttons, borders, text and dark surfaces depend on them |
 | `light.tokens`, `dark.tokens` | exact values for individual semantic tokens (name without `--color-`). They are applied last, so they win over everything generated. This is how you set surfaces, text color and links — the things that are specific to the product |
 | `accept` | deliberate exceptions to the checks (see below) — the build prints them but does not fail |
-| `headingFont` | a second typeface for headings only; body, buttons and UI text keep `font` (or Geologica). It must be listed in `HEADING_STACKS` in `scripts/build-profiles.mjs` with its fallbacks, and loaded in `fonts.css`; available: `EB Garamond`. Heading weights go back to nominal, as with `font` |
+| `headingFont` | a second typeface for headings only; body, buttons and UI text keep `font` (or Geologica). It must be listed in `HEADING_STACKS` in `scripts/build-profiles.mjs` with its fallbacks, and loaded in `fonts.css`; available: `EB Garamond`, `Playfair Display`. Heading weights go back to nominal, as with `font` |
 | `light.status`, `dark.status` | re-hue one status family in one theme: `{ "warning": { "hue": 84 } }` changes every warning token (fills, text, icons, borders, tonal and transparent backgrounds) to that hue and keeps each token's lightness. For a primary that falls between two statuses (orange, between danger and the dark warning), where no hue passes the 20° check. The build then checks the re-hued status's own text, icon and border contrast |
 | `font` | the theme typeface instead of Geologica (for headings and body text). The typeface must be loaded in `packages/tokens/fonts/fonts.css` — Manrope and Onest are already there; the browser downloads it only when the theme is active. Font weights go back to nominal (400/500/600/700): in Theya they are shifted by −125 because Geologica looks bolder |
 | `radius.scale` | multiplier for the sm…5xl radius scale, rounded to whole px (`max` stays a pill) |

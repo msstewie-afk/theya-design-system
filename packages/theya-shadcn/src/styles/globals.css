@@ -678,6 +678,16 @@
   }
 }
 
+/* Headings set lining figures: a serif heading face (Ember's Playfair
+   Display) defaults to old-style ones, and "10 weeks" / "115 kcal" bob along
+   the line. Geologica's figures are lining already, so this is a no-op there.
+   A numeric utility on the same element (tabular-nums) still wins. */
+@layer base {
+  .font-heading {
+    font-variant-numeric: lining-nums;
+  }
+}
+
 /* Medium weight for Fira Code labels (CodeBlock / CodeEditor / DiffViewer
    filename, Terminal user@host, mono DataTable primary cell). Theya's
    font-medium is 375, below Fira Code's lightest loaded face (400), so the

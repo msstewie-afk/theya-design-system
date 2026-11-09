@@ -17,7 +17,7 @@
  *      "dark"?:  { … same … },
  *      "accept"?: ["light: bg-primary-bg-primary on bg-surface-bg-surface-base", "primary hue vs success"],
  *      "font"?: "Manrope",              // replaces Theya's typeface (must be in fonts/fonts.css)
- *      "headingFont"?: "EB Garamond",   // headings only (a stack in HEADING_STACKS)
+ *      "headingFont"?: "Playfair Display",   // headings only (a stack in HEADING_STACKS)
  *      "radius"?: { "scale": 1.5, "button": "max", "field": "3xl" }
  *    }
  *    `font`: every typography token that names Geologica switches to this
@@ -232,9 +232,10 @@ const PAIRS = [
 
 /** Heading typefaces a theme can name in `headingFont`, with their fallbacks. */
 // Weight range of each heading face as loaded in fonts/fonts.css.
-const HEADING_WEIGHTS = { 'EB Garamond': [400, 800] };
+const HEADING_WEIGHTS = { 'EB Garamond': [400, 800], 'Playfair Display': [400, 900] };
 const HEADING_STACKS = {
   'EB Garamond': "'EB Garamond', ui-serif, Georgia, 'Times New Roman', serif",
+  'Playfair Display': "'Playfair Display', ui-serif, Georgia, 'Times New Roman', serif",
 };
 
 const exported = [];
