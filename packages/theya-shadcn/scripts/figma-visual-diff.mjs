@@ -17,7 +17,8 @@
  *   { "<Figma set name>": {
  *       "component": "<code export, when the names differ>",
  *       "story": "<story id>", "args": {…}, "selector": "<css>",
- *       "values": { "<figma prop>=<value>": { <code args>, "$selector"?: "<css>", "$story"?: "<story id>" } },
+ *       "steps": [ … ],         // interactions before every capture (below)
+ *       "values": { "<figma prop>=<value>": { <code args>, "$selector"?: "<css>", "$story"?: "<story id>", "$steps"?: [ … ] } },
  *       "text": false,          // keep the story's own sample text
  *       "skip": "<reason>" } }
  *
@@ -39,11 +40,25 @@
  *   differs between the Figma sample and the story shows up too: read the
  *   report side by side, the percentage is a sorting aid, not a verdict.
  *
+ * Steps: what a person does to reach a variant that a story only shows after
+ * an interaction (FeedbackWidget step=details: press "No"; an open dialog: press
+ * its trigger). Run in order after the args are applied, before the capture:
+ *   "<css>" or { "click": "<css>" }        click the first match (anywhere,
+ *                                          portals included)
+ *   { "click": { "role": "button", "name": "No" } }   by accessible role and name
+ *   { "fill": "<css>", "value": "text" }  type into a field
+ *   { "press": "Escape" }                 a key on the focused element
+ *   { "wait": 300 }                       ms (default: 150 after every step)
+ * A variant with steps renders from a freshly loaded story, and so does the
+ * one after it, so opened state never leaks between variants. The capture
+ * target (`selector`) may sit in a portal: `[role=dialog]`.
+ *
  * Output: build/figma-visual/ (git-ignored) — index.html, results.json and
  * per variant figma.png / code.png / diff.png.
  *
  * Usage (Storybook running on :6008):
  *   FIGMA_TOKEN=<personal access token> node scripts/figma-visual-diff.mjs [--only Select,TextField] [--file <figma file key>] [--url http://localhost:6008] [--theme dark]
+ *   node scripts/figma-visual-diff.mjs --figma-dir <dir> [--only …]   (no token: Figma side from files, see FIGMA_DIR)
  * The token needs read access to the file (Figma → Settings → Security →
  * Personal access tokens, scope "File content: read"). It is only sent to
  * api.figma.com.
@@ -67,7 +82,14 @@ const THEME = arg('theme', 'light');
 const SCALE = 2;
 const OUT = path.join(ROOT, 'build/figma-visual');
 const TOKEN = process.env.FIGMA_TOKEN;
-if (!TOKEN) {
+// --figma-dir: the Figma side comes from files instead of the REST API, for
+// a machine without a token. <dir>/variants.json is what
+// scripts/figma-visual/variants.figma.js returns (run it in the Figma MCP
+// use_figma tool with the set ids), <dir>/<node id, ":" → "-">.png are the
+// variants rendered at 2× (the Figma MCP get_screenshot with contentsOnly
+// and maxDimension = 2 × the node's longer side).
+const FIGMA_DIR = arg('figma-dir', '');
+if (!TOKEN && !FIGMA_DIR) {
   console.error('FIGMA_TOKEN is not set. Create a personal access token in Figma (Settings → Security) and run:\n  FIGMA_TOKEN=… node scripts/figma-visual-diff.mjs');
   process.exit(1);
 }
@@ -122,10 +144,43 @@ async function figmaGet(url, attempt = 1) {
   return json;
 }
 
+/** A set node (REST document or variants.json entry) → its resting variants,
+ * capped at MAX_VARIANTS so that every prop value still shows up once. */
+function pickVariants(doc) {
+  let variants =
+    doc.type === 'COMPONENT_SET'
+      ? (doc.children ?? []).filter((c) => c.type === 'COMPONENT').map((c) => ({ id: c.id, props: parseProps(c.name) }))
+      : [{ id: doc.id, props: {} }];
+  variants = variants.filter((v) => ['state', 'open', 'busy'].every((k) => !(k in v.props) || REST.has(v.props[k])));
+  if (variants.length > MAX_VARIANTS) {
+    const seen = new Set();
+    const keep = [];
+    for (const v of variants) {
+      const keys = Object.entries(v.props).map(([k, x]) => `${k}=${x}`);
+      if (keys.some((k) => !seen.has(k))) {
+        keep.push(v);
+        keys.forEach((k) => seen.add(k));
+      }
+      if (keep.length >= MAX_VARIANTS) break;
+    }
+    variants = keep;
+  }
+  return variants;
+}
+
 /** Each set's variants from the REST API, filtered to resting states and capped
  * at MAX_VARIANTS so that every prop value still shows up at least once. */
 async function loadVariants(list) {
   const out = [];
+  if (FIGMA_DIR) {
+    const dump = JSON.parse(fs.readFileSync(path.join(FIGMA_DIR, 'variants.json'), 'utf8'));
+    for (const s of list) {
+      const doc = dump[s.id];
+      if (!doc) out.push({ ...s, variants: [], missing: true });
+      else out.push({ ...s, variants: pickVariants(doc).map((v) => ({ ...v, text: doc.children?.find((c) => c.id === v.id)?.text ?? doc.text ?? null })) });
+    }
+    return out;
+  }
   for (let i = 0; i < list.length; i += 50) {
     const batch = list.slice(i, i + 50);
     const json = await figmaGet(`https://api.figma.com/v1/files/${FILE_KEY}/nodes?ids=${encodeURIComponent(batch.map((s) => s.id).join(','))}&depth=1`);
@@ -135,25 +190,7 @@ async function loadVariants(list) {
         out.push({ ...s, variants: [], missing: true });
         continue;
       }
-      let variants =
-        doc.type === 'COMPONENT_SET'
-          ? (doc.children ?? []).filter((c) => c.type === 'COMPONENT').map((c) => ({ id: c.id, props: parseProps(c.name) }))
-          : [{ id: doc.id, props: {} }];
-      variants = variants.filter((v) => ['state', 'open', 'busy'].every((k) => !(k in v.props) || REST.has(v.props[k])));
-      if (variants.length > MAX_VARIANTS) {
-        const seen = new Set();
-        const keep = [];
-        for (const v of variants) {
-          const keys = Object.entries(v.props).map(([k, x]) => `${k}=${x}`);
-          if (keys.some((k) => !seen.has(k))) {
-            keep.push(v);
-            keys.forEach((k) => seen.add(k));
-          }
-          if (keep.length >= MAX_VARIANTS) break;
-        }
-        variants = keep;
-      }
-      out.push({ ...s, variants });
+      out.push({ ...s, variants: pickVariants(doc) });
     }
   }
   // The first visible text of each variant ("Badge", "Save", "5"), so the
@@ -221,6 +258,7 @@ function resolve(set) {
     const args = { ...(o.args ?? {}) };
     let selector;
     let vstory;
+    const steps = [...(o.steps ?? [])];
     if (fixedTone && props.has('tone')) args.tone = fixedTone;
     for (const [k, val] of Object.entries(v.props)) {
       // overrides.values: a Figma prop value that maps to other code props,
@@ -231,15 +269,16 @@ function resolve(set) {
         // variant only (Radio checked=true → the checked radio of a group).
         // "$story" renders that variant from another story of the same
         // component (BarChart orientation=horizontal → the Horizontal story).
-        const { $selector, $story, ...rest } = mapped;
+        const { $selector, $story, $steps, ...rest } = mapped;
         if ($selector) selector = $selector;
         if ($story) vstory = $story;
+        if ($steps) steps.push(...$steps);
         Object.assign(args, rest);
       }
       else if (props.has(k)) args[k] = toArg(props.get(k), val);
       else dropped.add(k);
     }
-    return { ...v, args, selector, story: vstory };
+    return { ...v, args, selector, story: vstory, steps };
   });
   return { story, selector: o.selector, width: o.width, bleed: o.bleed === true, useText: o.text !== false, variants, dropped: [...dropped] };
 }
@@ -254,6 +293,11 @@ const REFRESH = process.argv.includes('--refresh-figma');
 const cachePath = (id) => path.join(CACHE, `${id.replace(/[^0-9a-z]+/gi, '-')}.png`);
 let figmaUrls = {};
 async function figmaPng(id) {
+  if (FIGMA_DIR) {
+    const f = path.join(FIGMA_DIR, `${id.replace(/[^0-9a-z]+/gi, '-')}.png`);
+    if (!fs.existsSync(f)) throw new Error(`no Figma render ${path.basename(f)} in --figma-dir`);
+    return fs.readFileSync(f);
+  }
   const p = cachePath(id);
   if (fs.existsSync(p)) return fs.readFileSync(p);
   const url = figmaUrls[id];
@@ -326,7 +370,20 @@ const allIds = plan.flatMap((p) => (p.r.skip ? [] : p.r.variants.map((v) => v.id
 if (REFRESH) fs.rmSync(CACHE, { recursive: true, force: true });
 const toRender = allIds.filter((id) => !fs.existsSync(cachePath(id)));
 console.log(`${plan.length} Figma sets, ${allIds.length} variants (${toRender.length} not cached, rendering them in Figma)…`);
-figmaUrls = toRender.length ? await figmaImages(toRender) : {};
+figmaUrls = toRender.length && !FIGMA_DIR ? await figmaImages(toRender) : {};
+
+/** overrides "steps" / "$steps": see the header. */
+async function runSteps(steps) {
+  for (const step of steps) {
+    const s = typeof step === 'string' ? { click: step } : step;
+    const target = (t) => (typeof t === 'string' ? page.locator(t).first() : page.getByRole(t.role, { name: t.name, exact: true }).first());
+    if (s.click) await target(s.click).click({ timeout: 5000 });
+    else if (s.fill) await target(s.fill).fill(String(s.value ?? ''), { timeout: 5000 });
+    else if (s.press) await page.keyboard.press(s.press);
+    else if (!s.wait) throw new Error(`unknown step ${JSON.stringify(step)}`);
+    await page.waitForTimeout(s.wait ?? 150);
+  }
+}
 
 const browser = await chromium.launch();
 const context = await browser.newContext({ viewport: { width: 1200, height: 900 }, deviceScaleFactor: SCALE, reducedMotion: 'reduce' });
@@ -370,9 +427,11 @@ for (const { set, r } of plan) {
   // Variants may come from different stories ("$story"); load each once,
   // in variant order.
   let loaded = null;
+  let dirty = false; // the previous variant ran steps: its state is still on the page
   for (const v of r.variants) {
     const storyId = v.story ?? r.story;
-    if (loaded !== storyId) {
+    if (loaded !== storyId || dirty || v.steps.length) {
+      dirty = false;
       loaded = (await loadStory(storyId)) ? storyId : null;
       if (!loaded) {
         results.push({ set: set.name, variant: v.props, skip: `story ${storyId} did not render` });
@@ -425,6 +484,14 @@ for (const { set, r } of plan) {
       // hovered trigger); the Figma variants are at rest.
       await page.mouse.move(0, 0);
       await page.evaluate(() => document.activeElement instanceof HTMLElement && document.activeElement.blur());
+      if (v.steps.length) {
+        dirty = true;
+        await runSteps(v.steps);
+        // At rest, like the Figma variant: no hover, no focus ring on what
+        // was pressed or on what the step moved focus to.
+        await page.mouse.move(0, 0);
+        await page.evaluate(() => document.activeElement instanceof HTMLElement && document.activeElement.blur());
+      }
       await page.evaluate(() => document.fonts.ready);
       await page.waitForTimeout(150);
       // The capture target: `selector`, else the story's first element —

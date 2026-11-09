@@ -548,7 +548,48 @@
     "selector": "#storybook-root .flex.flex-col.gap-3 > :nth-child(2)"
   },
   "FeedbackWidget": {
-    "selector": "[data-slot=feedback-widget]"
+    "selector": "[data-slot=feedback-widget]",
+    "values": {
+      "step=details": {
+        "$steps": [
+          {
+            "click": {
+              "role": "button",
+              "name": "No"
+            }
+          },
+          {
+            "click": {
+              "role": "button",
+              "name": "Hard to follow"
+            }
+          }
+        ]
+      },
+      "step=done": {
+        "$steps": [
+          {
+            "click": {
+              "role": "button",
+              "name": "No"
+            }
+          },
+          {
+            "click": {
+              "role": "button",
+              "name": "Skip"
+            }
+          }
+        ]
+      }
+    },
+    "args": {
+      "reasons": [
+        "Hard to follow",
+        "Out of date",
+        "Missing info"
+      ]
+    }
   },
   "ImageCropper": {
     "args": {
