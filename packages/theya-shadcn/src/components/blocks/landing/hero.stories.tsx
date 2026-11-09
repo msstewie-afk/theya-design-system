@@ -150,7 +150,7 @@ export const Inset: Story = {
       >
         <span className="rounded-full bg-[var(--color-bg-primary-bg-primary)] px-2 py-0.5 text-body-xs font-semibold text-[var(--color-text-text-on-primary)]">New</span>
         Shared folders for teams
-        <ArrowRight className="size-4" />
+        <ArrowRight aria-hidden="true" className="size-4 rtl:-scale-x-100" />
       </a>
     ),
     title: (

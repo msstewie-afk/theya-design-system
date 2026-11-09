@@ -43,10 +43,11 @@ export interface SiteFooterProps {
 }
 
 const SOCIAL: Record<NonNullable<SiteFooterProps['social']>[number]['network'], { label: string; icon: ReactNode }> = {
-  github: { label: 'GitHub', icon: <Github /> },
-  x: { label: 'X', icon: <XIcon /> },
-  linkedin: { label: 'LinkedIn', icon: <Linkedin /> },
-  youtube: { label: 'YouTube', icon: <Youtube /> },
+  // Decorative: the link carries the network's name (aria-label).
+  github: { label: 'GitHub', icon: <Github aria-hidden="true" /> },
+  x: { label: 'X', icon: <XIcon aria-hidden="true" /> },
+  linkedin: { label: 'LinkedIn', icon: <Linkedin aria-hidden="true" /> },
+  youtube: { label: 'YouTube', icon: <Youtube aria-hidden="true" /> },
 };
 
 /** Emoji flag from a country code (same approach as PhoneField). */
