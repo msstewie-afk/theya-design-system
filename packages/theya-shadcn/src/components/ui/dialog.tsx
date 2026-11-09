@@ -104,6 +104,9 @@ export function DialogContent({ className, children, showCloseButton = true, siz
           gap === 'md' && 'gap-4',
           gap === 'sm' && 'gap-2',
           gap === 'none' && 'gap-0',
+          // Room for the × (end-4, 28 px): a long title or description wraps
+          // before it instead of running under it, like AlertDialog's pe-14.
+          showCloseButton && '[&>[data-slot=dialog-header]]:pe-14',
           className,
         )}
         {...props}

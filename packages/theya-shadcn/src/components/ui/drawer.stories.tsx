@@ -164,7 +164,7 @@ function AddGalleryDrawer({ direction }: { direction: 'left' | 'right' }) {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerHeader className="pt-7 pb-0">
+        <DrawerHeader>
           <DrawerTitle>Add gallery</DrawerTitle>
           <DrawerDescription>Create a gallery and choose who manages its exports.</DrawerDescription>
         </DrawerHeader>

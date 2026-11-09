@@ -159,7 +159,16 @@ export function DrawerHeader({ className, onPointerDown, ...props }: React.Compo
         e.stopPropagation();
         onPointerDown?.(e);
       }}
-      className={cn('flex flex-col gap-1 px-6 pb-4 pt-3 text-left select-text', className)} {...props} />
+      className={cn(
+        // pt-3 sits under the drag handle of a top / bottom drawer; a side
+        // drawer has no handle and starts its header 24 px down. pr-14 keeps
+        // the title clear of the × (right-4, 28 px).
+        'flex flex-col gap-1 pl-6 pr-14 pb-4 pt-3 text-left select-text',
+        'group-data-[vaul-drawer-direction=left]/drawer-content:pt-6 group-data-[vaul-drawer-direction=right]/drawer-content:pt-6',
+        className,
+      )}
+      {...props}
+    />
   );
 }
 
