@@ -13,7 +13,12 @@
  *   an accessible name.
  * - 1.1.1 Non-text Content: no exposed image without a name, unless it sits
  *   inside a control or link that has its own name (the icon of a named
- *   button: VoiceOver reads the button's name).
+ *   button: VoiceOver reads the button's name). And that icon must still be
+ *   hidden in the DOM (aria-hidden on the svg or a wrapper inside the
+ *   control): Chromium drops it from the tree, but Safari exposes it as an
+ *   image, the control becomes a group VoiceOver steps into, and VO + Space
+ *   stops pressing it (the FAQ accordion, 2026-11-08). An svg with its own
+ *   aria-label or <title> is meaningful and is left alone.
  * - 1.3.1 Info and Relationships: every table has column or row headers,
  *   every radio is inside a radio group, every form field has a name (its
  *   label is associated).
@@ -154,6 +159,29 @@ function invalidFields() {
   return out;
 }
 
+/** Runs in the page: svgs inside controls and links not hidden from AT. */
+function unhiddenIcons() {
+  const sel = 'button, a[href], summary, [role=button], [role=link], [role=tab], [role=menuitem], [role=menuitemcheckbox], [role=menuitemradio], [role=option], [role=checkbox], [role=radio], [role=switch]';
+  const hiddenWithin = (n, stop) => {
+    for (; n && n !== stop.parentElement; n = n.parentElement) {
+      if (n.getAttribute('aria-hidden') === 'true' || ['presentation', 'none'].includes(n.getAttribute('role') ?? '')) return true;
+    }
+    return false;
+  };
+  const out = [];
+  for (const c of document.querySelectorAll(sel)) {
+    if (c.closest('[aria-hidden="true"], [inert]')) continue;
+    for (const svg of c.querySelectorAll('svg')) {
+      if (svg.parentElement?.closest('svg')) continue; // nested svg: judged by the outer one
+      if (hiddenWithin(svg, c) || svg.getAttribute('aria-label') || svg.getAttribute('aria-labelledby') || svg.querySelector(':scope > title')) continue;
+      const name = (c.getAttribute('aria-label') || c.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 40);
+      out.push(`icon not aria-hidden inside ${c.getAttribute('role') || c.tagName.toLowerCase()} "${name}"`);
+      break;
+    }
+  }
+  return [...new Set(out)];
+}
+
 async function checkStory(page, story) {
   await page.goto(`${URL_BASE}/iframe.html?id=${story.id}&viewMode=story`, { waitUntil: 'load' });
   await page.waitForSelector('#storybook-root > *', { timeout: 10000 }).catch(() => {});
@@ -167,6 +195,7 @@ async function checkStory(page, story) {
     .join('\n');
   const found = checkTree(parse(snapshot));
   const invalid = await page.evaluate(invalidFields);
+  found['1.1.1'].push(...(await page.evaluate(unhiddenIcons)));
   return { snapshot, found: { ...found, '3.3.1': invalid.missing }, errorsShown: invalid.associated };
 }
 
