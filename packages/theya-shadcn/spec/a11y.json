@@ -880,7 +880,15 @@
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
-      "screenReader": [],
+      "screenReader": [
+        {
+          "at": "VoiceOver",
+          "browser": "Safari",
+          "date": "2026-11-09",
+          "result": "pass",
+          "notes": "patterns-landing-sections--faq-accordion, by hand (Мария), after b4a2555: VO + Space on a question opens it and speaks \"expanded\"; VO + Right reads the answer. Before: the content was a region labelled by the question, VO stopped on it and repeated the question (fixed by dropping the default role=\"region\"); the unhidden chevron also made the trigger a group (a4c69bd)."
+        }
+      ],
       "deviations": [
         {
           "criterion": "1.4.11",
