@@ -67,7 +67,7 @@ Profiles live in `packages/tokens/src/profiles/<name>.json` and come in two kind
 
 ## Page surface
 
-`data-surface="page"` on a page wrapper (not on `<html>`) paints it `bg-surface-page` and moves the fills that lie directly on it a step off the page: `bg-surface-sunken` (Tabs chips track) goes to `bg-surface-sunken-on-page`, `bg-neutral-subtle` (Progress track, Skeleton) to `bg-neutral-subtle-on-page`. Inside a Card (`data-surface="card"`, which Card sets; set it on any white container of your own) the fills are the theme's own again. `bg-surface-page` follows the theme's `bg-surface-base` unless the theme sets it: Ember tints it warm (light `#f7f4f1`, dark `#191512`, with `bg-surface-sunken-on-page` `#100d0b` in dark).
+`data-surface="page"` on a page wrapper (not on `<html>`) paints it `bg-surface-page` and moves the fills that lie directly on it a step off the page: `bg-surface-sunken` (Tabs chips track) goes to `bg-surface-sunken-on-page`, `bg-neutral-subtle` (Progress track, Skeleton) to `bg-neutral-subtle-on-page`. Inside a Card (`data-surface="card"`, which Card sets; set it on any white container of your own) the fills are the theme's own again. `bg-surface-page` follows the theme's `bg-surface-base` unless the theme sets it: Ember tints it warm (light `#f8f4f0` with fills on it `#e3deda`, dark `#191512`, with `bg-surface-sunken-on-page` `#100d0b` in dark).
 
 ## How colors are built (OKLCH)
 

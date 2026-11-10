@@ -67,7 +67,7 @@
 
 ## Поверхность страницы
 
-`data-surface="page"` на обёртке страницы (не на `<html>`) красит её в `bg-surface-page` и сдвигает на ступень заливки, лежащие прямо на ней: `bg-surface-sunken` (трек чипов Tabs) → `bg-surface-sunken-on-page`, `bg-neutral-subtle` (трек Progress, Skeleton) → `bg-neutral-subtle-on-page`. Внутри Card (`data-surface="card"` ставит сам Card; на свой белый контейнер поставьте его вручную) заливки снова свои, темы. `bg-surface-page` равен `bg-surface-base` темы, если тема не задала его сама: Ember делает его тёплым (light `#f7f4f1`, dark `#191512`, а `bg-surface-sunken-on-page` в dark `#100d0b`).
+`data-surface="page"` на обёртке страницы (не на `<html>`) красит её в `bg-surface-page` и сдвигает на ступень заливки, лежащие прямо на ней: `bg-surface-sunken` (трек чипов Tabs) → `bg-surface-sunken-on-page`, `bg-neutral-subtle` (трек Progress, Skeleton) → `bg-neutral-subtle-on-page`. Внутри Card (`data-surface="card"` ставит сам Card; на свой белый контейнер поставьте его вручную) заливки снова свои, темы. `bg-surface-page` равен `bg-surface-base` темы, если тема не задала его сама: Ember делает его тёплым (light `#f8f4f0`, заливки на нём `#e3deda`; dark `#191512`, а `bg-surface-sunken-on-page` в dark `#100d0b`).
 
 ## Как строятся цвета (OKLCH)
 
