@@ -1,5 +1,11 @@
 # @theya/shadcn
 
+## 0.3.7
+
+### Patch Changes
+
+- de0cc00: StickyActionBar: side padding and divider inset follow the bar's own width (16px, 24px from 30rem) instead of the window, so a bar in a phone frame or narrow panel keeps 16px. New `--sticky-action-bar-padding-inline` CSS variable sets both to match the page.
+
 ## 0.3.6
 
 ### Patch Changes
