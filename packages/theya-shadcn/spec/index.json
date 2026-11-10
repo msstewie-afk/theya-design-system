@@ -1883,7 +1883,7 @@
           "use": "RadioGroup"
         },
         {
-          "when": "Several options at once",
+          "when": "Several short options at once",
           "use": "CheckboxGroup"
         },
         {

@@ -66,6 +66,12 @@
           "default": "0"
         },
         {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Disables every card in the group."
+        },
+        {
           "name": "formatLabel",
           "type": "((value: number, max: number) => string)",
           "required": false,

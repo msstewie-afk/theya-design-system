@@ -3,12 +3,28 @@
 
 import type { ReactNode } from 'react';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
-declare function OptionCardGroup({ className, ...props }: React.ComponentProps<typeof RadioGroupPrimitive.Root>): import("react").JSX.Element;
+export type OptionCardGroupSingleProps = React.ComponentProps<typeof RadioGroupPrimitive.Root> & {
+    type?: 'single';
+};
+export interface OptionCardGroupMultipleProps extends Omit<React.ComponentProps<'div'>, 'defaultValue' | 'onChange' | 'dir'> {
+    type: 'multiple';
+    value?: string[];
+    defaultValue?: string[];
+    onValueChange?: (value: string[]) => void;
+    disabled?: boolean;
+}
+export type OptionCardGroupProps = OptionCardGroupSingleProps | OptionCardGroupMultipleProps;
+declare function OptionCardGroup(props: OptionCardGroupProps): import("react").JSX.Element;
 export interface OptionCardProps extends Omit<React.ComponentProps<typeof RadioGroupPrimitive.Item>, 'title' | 'children'> {
     title: string;
     description?: string;
     icon?: ReactNode;
     aside?: ReactNode;
+    exclusive?: boolean;
+    excludes?: string[];
 }
-declare function OptionCard({ className, value, title, description, icon, aside, ...props }: OptionCardProps): import("react").JSX.Element;
+declare function OptionCard({ className, value, title, description, icon, aside, exclusive, excludes, disabled, onClick, onKeyDown, ...props }: OptionCardProps): import("react").JSX.Element;
 export { OptionCardGroup, OptionCard };
+
+// Defaults
+// OptionCard.exclusive = false

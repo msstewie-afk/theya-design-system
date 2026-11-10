@@ -4,14 +4,14 @@ import { Radio, RadioGroup } from './radio';
 
 export const optionCardGuidelines: ComponentGuidelines = {
   status: 'stable',
-  whenToUse: ['A one-of choice where each option needs a title, a line of explanation and often a price: plans, verification methods, delivery.', '2–5 options that are the main decision on the screen.'],
+  whenToUse: ['A one-of choice where each option needs a title, a line of explanation and often a price: plans, verification methods, delivery.', '2–5 options that are the main decision on the screen.', <>Several at once, each needing a sentence (conditions to take into account): <C>type="multiple"</C>, with an <C>exclusive</C> “None of these”.</>],
   whenNotToUse: [
     { text: 'Short options a label explains', instead: 'RadioGroup' },
-    { text: 'Several options at once', instead: 'CheckboxGroup' },
+    { text: 'Several short options at once', instead: 'CheckboxGroup' },
     { text: 'Cards that navigate somewhere', instead: 'Card with a link' },
   ],
   anatomy: [
-    { part: 'Group', description: <><C>OptionCardGroup</C> — a radio group laid out as a grid (2 columns from sm).</> },
+    { part: 'Group', description: <><C>OptionCardGroup</C> — a radio group laid out as a grid (2 columns from sm); with <C>type="multiple"</C> a group of checkboxes.</> },
     { part: 'Icon', optional: true, description: 'helps tell options apart at a glance.' },
     { part: 'Title and description', description: 'the title is the accessible name, the description is read after it.' },
     { part: 'Aside', optional: true, description: 'right-aligned detail, usually the price.' },
@@ -40,7 +40,8 @@ export const optionCardGuidelines: ComponentGuidelines = {
   ],
   a11y: [
     'Works like a radio group: one tab stop, arrows move and select.',
+    <>With <C>type="multiple"</C> each card is a checkbox: Tab moves between cards, Space toggles, and the screen reader says “checked” / “not checked”.</>,
     <>Name the group with <C>aria-label</C> or a visible heading via <C>aria-labelledby</C>.</>,
-    'Don’t put buttons or links inside a card — the whole card is one radio.',
+    'Don’t put buttons or links inside a card — the whole card is one radio (or checkbox).',
   ],
 };

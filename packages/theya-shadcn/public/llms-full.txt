@@ -6482,16 +6482,17 @@ Docs: ./?path=/docs/selection-optioncard--docs
 
 - A one-of choice where each option needs a title, a line of explanation and often a price: plans, verification methods, delivery.
 - 2–5 options that are the main decision on the screen.
+- Several at once, each needing a sentence (conditions to take into account): `type="multiple"`, with an `exclusive` “None of these”.
 
 **When not to use**
 
 - Short options a label explains → use RadioGroup
-- Several options at once → use CheckboxGroup
+- Several short options at once → use CheckboxGroup
 - Cards that navigate somewhere → use Card with a link
 
 **Anatomy**
 
-- Group: `OptionCardGroup` — a radio group laid out as a grid (2 columns from sm).
+- Group: `OptionCardGroup` — a radio group laid out as a grid (2 columns from sm); with `type="multiple"` a group of checkboxes.
 - Icon (optional): helps tell options apart at a glance.
 - Title and description: the title is the accessible name, the description is read after it.
 - Aside (optional): right-aligned detail, usually the price.
@@ -6501,7 +6502,18 @@ Docs: ./?path=/docs/selection-optioncard--docs
 - `title`: `string`
 - `aside?`: `ReactNode` — Right-aligned detail before the radio dot — typically the option's
 - `description?`: `string`
+- `excludes?`: `string[]` — In a `type="multiple"` group: values that go off when this card comes on, and the other way round ("more-protein" vs "less-protein").
+- `exclusive?`: `boolean`, default `false` — In a `type="multiple"` group: on, it clears every other card; any other card coming on clears it ("None of these").
 - `icon?`: `ReactNode`
+- `value?`: `string | string[] | null` — Controlled selected values.
+
+**OptionCardGroup props**
+
+- `defaultValue?`: `string | string[]` — Initially selected values (uncontrolled).
+- `disabled?`: `boolean` — Disables every card in the group.
+- `onValueChange?`: `((value: string) => void) | ((value: string[]) => void)` — Fires with the new selected values, exclusive rules already applied.
+- `type?`: `"single" | "multiple"`
+- `value?`: `string | string[] | null` — Controlled selected values.
 
 Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes, RadioGroupProps, RadioProps$1.
 
@@ -6529,8 +6541,9 @@ Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes, RadioGroupProps
 **Accessibility**
 
 - Works like a radio group: one tab stop, arrows move and select.
+- With `type="multiple"` each card is a checkbox: Tab moves between cards, Space toggles, and the screen reader says “checked” / “not checked”.
 - Name the group with `aria-label` or a visible heading via `aria-labelledby`.
-- Don’t put buttons or links inside a card — the whole card is one radio.
+- Don’t put buttons or links inside a card — the whole card is one radio (or checkbox).
 
 ## OrbitCarousel
 
@@ -7728,6 +7741,14 @@ Docs: ./?path=/docs/selection-radio--docs
 
 - `description?`: `ReactNode`
 - `label?`: `ReactNode`
+- `value?`: `string | string[] | null` — Controlled selected values.
+
+**RadioGroup props**
+
+- `defaultValue?`: `string | string[]` — Initially selected values (uncontrolled).
+- `disabled?`: `boolean` — Disables every card in the group.
+- `onValueChange?`: `((value: string) => void) | ((value: string[]) => void)` — Fires with the new selected values, exclusive rules already applied.
+- `value?`: `string | string[] | null` — Controlled selected values.
 
 Also accepts the props of: ButtonHTMLAttributes, HTMLAttributes, RadioGroupProps, RadioProps$1.
 
@@ -7854,6 +7875,7 @@ Docs: ./?path=/docs/selection-rating--docs
 
 - `clearable?`: `boolean`, default `false` — A click on the currently selected star resets the rating to 0.
 - `defaultValue?`: `number`, default `0`
+- `disabled?`: `boolean` — Disables every card in the group.
 - `formatLabel?`: `((value: number, max: number) => string)`, default `localized: rating.value` — Accessible text for a value ("3 of 5"). Localize here.
 - `label?`: `ReactNode` — Visible label above the stars, naming the group (WCAG 3.3.2). Input mode only; without it, use aria-label.
 - `max?`: `number`, default `5` — Number of stars. Default 5.

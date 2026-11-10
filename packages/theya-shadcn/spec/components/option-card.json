@@ -7,7 +7,8 @@
   "category": "Selection",
   "whenToUse": [
     "A one-of choice where each option needs a title, a line of explanation and often a price: plans, verification methods, delivery.",
-    "2–5 options that are the main decision on the screen."
+    "2–5 options that are the main decision on the screen.",
+    "Several at once, each needing a sentence (conditions to take into account): `type=\"multiple\"`, with an `exclusive` “None of these”."
   ],
   "whenNotToUse": [
     {
@@ -15,7 +16,7 @@
       "instead": "RadioGroup"
     },
     {
-      "text": "Several options at once",
+      "text": "Several short options at once",
       "instead": "CheckboxGroup"
     },
     {
@@ -26,7 +27,7 @@
   "anatomy": [
     {
       "part": "Group",
-      "description": "`OptionCardGroup` — a radio group laid out as a grid (2 columns from sm)."
+      "description": "`OptionCardGroup` — a radio group laid out as a grid (2 columns from sm); with `type=\"multiple\"` a group of checkboxes."
     },
     {
       "part": "Icon",
@@ -57,8 +58,9 @@
   ],
   "a11y": [
     "Works like a radio group: one tab stop, arrows move and select.",
+    "With `type=\"multiple\"` each card is a checkbox: Tab moves between cards, Space toggles, and the screen reader says “checked” / “not checked”.",
     "Name the group with `aria-label` or a visible heading via `aria-labelledby`.",
-    "Don’t put buttons or links inside a card — the whole card is one radio."
+    "Don’t put buttons or links inside a card — the whole card is one radio (or checkbox)."
   ],
   "components": [
     {
@@ -81,16 +83,68 @@
           "required": false
         },
         {
+          "name": "excludes",
+          "type": "string[]",
+          "required": false,
+          "description": "In a `type=\"multiple\"` group: values that go off when this card comes on, and the other way round (\"more-protein\" vs \"less-protein\")."
+        },
+        {
+          "name": "exclusive",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "In a `type=\"multiple\"` group: on, it clears every other card; any other card coming on clears it (\"None of these\")."
+        },
+        {
           "name": "icon",
           "type": "ReactNode",
           "required": false
+        },
+        {
+          "name": "value",
+          "type": "string | string[] | null",
+          "required": false,
+          "description": "Controlled selected values."
         }
       ]
     },
     {
       "name": "OptionCardGroup",
-      "description": "Selectable bordered card on",
-      "props": []
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string | string[]",
+          "required": false,
+          "description": "Initially selected values (uncontrolled)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Disables every card in the group."
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string) => void) | ((value: string[]) => void)",
+          "required": false,
+          "description": "Fires with the new selected values, exclusive rules already applied."
+        },
+        {
+          "name": "type",
+          "type": "\"single\" | \"multiple\"",
+          "values": [
+            "single",
+            "multiple"
+          ],
+          "required": false
+        },
+        {
+          "name": "value",
+          "type": "string | string[] | null",
+          "required": false,
+          "description": "Controlled selected values."
+        }
+      ]
     }
   ],
   "inherits": [
@@ -122,6 +176,14 @@
       {
         "name": "Disabled",
         "id": "selection-optioncard--disabled"
+      },
+      {
+        "name": "MultipleChoice",
+        "id": "selection-optioncard--multiple-choice"
+      },
+      {
+        "name": "TestMultiple",
+        "id": "selection-optioncard--test-multiple"
       },
       {
         "name": "TestInteractions",

@@ -72,13 +72,44 @@
           "name": "label",
           "type": "ReactNode",
           "required": false
+        },
+        {
+          "name": "value",
+          "type": "string | string[] | null",
+          "required": false,
+          "description": "Controlled selected values."
         }
       ]
     },
     {
       "name": "RadioGroup",
       "description": "Vertical list by default with a 12px gap between options (same rhythm as\nCheckboxGroup md); `orientation=\"horizontal\"` lays them out in a row.\nPass `className` to override (e.g. `gap-0` for rows with their own padding).",
-      "props": []
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string | string[]",
+          "required": false,
+          "description": "Initially selected values (uncontrolled)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Disables every card in the group."
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string) => void) | ((value: string[]) => void)",
+          "required": false,
+          "description": "Fires with the new selected values, exclusive rules already applied."
+        },
+        {
+          "name": "value",
+          "type": "string | string[] | null",
+          "required": false,
+          "description": "Controlled selected values."
+        }
+      ]
     }
   ],
   "inherits": [

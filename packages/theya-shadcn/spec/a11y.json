@@ -686,8 +686,9 @@
         "review"
       ],
       "counts": {
-        "n/a": 120,
-        "verified": 42
+        "n/a": 119,
+        "verified": 42,
+        "untested": 1
       },
       "patternCounts": {
         "verified": 29,
@@ -762,8 +763,9 @@
         "review"
       ],
       "counts": {
-        "n/a": 120,
-        "verified": 42
+        "n/a": 119,
+        "verified": 42,
+        "partial": 1
       },
       "patternCounts": {
         "verified": 27,
@@ -8826,7 +8828,7 @@
       "name": "OptionCard",
       "title": "Selection/OptionCard",
       "axe": {
-        "stories": 6,
+        "stories": 8,
         "themes": [
           "light",
           "dark"
@@ -8834,8 +8836,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 2,
-        "playTests": 3
+        "tested": 3,
+        "playTests": 4
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -8847,6 +8849,7 @@
         }
       ],
       "traits": [
+        "choice",
         "composite",
         "interactive"
       ],
@@ -8894,12 +8897,12 @@
         "3.1.1": "product",
         "3.1.2": "product",
         "3.2.1": "verified",
-        "3.2.2": "n/a",
+        "3.2.2": "untested",
         "3.2.3": "product",
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "n/a",
-        "3.3.2": "n/a",
+        "3.3.2": "partial",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
