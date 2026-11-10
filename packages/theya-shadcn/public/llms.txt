@@ -1,6 +1,6 @@
 # Theya
 
-> Theya is a React design system built on shadcn/ui (Radix + Tailwind v4). Package `@theya/shadcn` v0.3.9, 162 components, each with use-guidelines (when to use, when not and what instead, anatomy, do/don’t, accessibility) and typed props.
+> Theya is a React design system built on shadcn/ui (Radix + Tailwind v4). Package `@theya/shadcn` v0.3.10, 162 components, each with use-guidelines (when to use, when not and what instead, anatomy, do/don’t, accessibility) and typed props.
 
 Rules for building UI with Theya:
 

@@ -1,5 +1,11 @@
 # @theya/shadcn
 
+## 0.3.10
+
+### Patch Changes
+
+- 26a1b1d: Ember: the page surface is a step warmer, chosen in PlateCovery (light `bg-surface-page` #f8f4f0, fills on it #e3deda instead of the grey #e4e2e1).
+
 ## 0.3.9
 
 ### Patch Changes
