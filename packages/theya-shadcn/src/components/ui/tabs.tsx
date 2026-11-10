@@ -4,6 +4,7 @@ import { forwardRef, useLayoutEffect, useRef, useState, type ReactNode } from 'r
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { NavArrowLeft, NavArrowRight, Xmark } from 'iconoir-react';
 import { cn } from '../../lib/utils';
+import { useInputModality } from '../../lib/input-modality';
 import { decorativeChildren, decorativeIcon } from '../../lib/decorative-icon';
 
 /**
@@ -114,7 +115,7 @@ export function TabsList({ className, children, variant = 'underline', onPointer
         'relative flex overflow-x-auto overflow-y-hidden',
         '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
         chips
-          ? 'w-fit max-w-full rounded-full bg-[var(--color-bg-surface-bg-surface-sunken)] shadow-track p-1'
+          ? 'w-fit max-w-full rounded-full bg-[var(--tabs-track-bg,var(--color-bg-surface-bg-surface-sunken))] shadow-track p-1'
           : 'gap-0.5 border-b border-solid border-[var(--color-border-border-subtler)]',
         className,
       )}
@@ -148,10 +149,15 @@ export function TabsList({ className, children, variant = 'underline', onPointer
             className={cn(
               'absolute inset-y-0 z-1 flex w-8 cursor-pointer items-center justify-center border-0 p-0 text-[var(--color-icon-icon-subtle)] outline-none',
               'hover:text-[var(--color-icon-icon)] [&_svg]:size-4 rtl:[&_svg]:-scale-x-100',
-              // Fades the tabs out under the chevron, in the surface color behind the list.
+              // Fades the tabs out under the chevron, in the colour behind them: the
+              // chips track (--tabs-track-bg, the same variable the track paints with,
+              // T13) or, for underline tabs, the surface. --tabs-fade overrides both.
+              chips
+                ? '[--tabs-fade-color:var(--tabs-fade,var(--tabs-track-bg,var(--color-bg-surface-bg-surface-sunken)))]'
+                : '[--tabs-fade-color:var(--tabs-fade,var(--color-bg-surface-bg-surface))]',
               side === 'start'
-                ? 'start-0 bg-[linear-gradient(to_right,var(--tabs-fade,var(--color-bg-surface-bg-surface))_60%,transparent)] rtl:bg-[linear-gradient(to_left,var(--tabs-fade,var(--color-bg-surface-bg-surface))_60%,transparent)]'
-                : 'end-0 bg-[linear-gradient(to_left,var(--tabs-fade,var(--color-bg-surface-bg-surface))_60%,transparent)] rtl:bg-[linear-gradient(to_right,var(--tabs-fade,var(--color-bg-surface-bg-surface))_60%,transparent)]',
+                ? 'start-0 bg-[linear-gradient(to_right,var(--tabs-fade-color)_60%,transparent)] rtl:bg-[linear-gradient(to_left,var(--tabs-fade-color)_60%,transparent)]'
+                : 'end-0 bg-[linear-gradient(to_left,var(--tabs-fade-color)_60%,transparent)] rtl:bg-[linear-gradient(to_right,var(--tabs-fade-color)_60%,transparent)]',
               chips && 'rounded-full',
             )}
           >
@@ -168,9 +174,11 @@ export function TabsList({ className, children, variant = 'underline', onPointer
  * `<div role="tab">`, and Chrome matches :focus-visible on a focusable div
  * after a pointer click, so the focus ring walked from tab to tab as you
  * clicked or tapped. Browsers don't match :focus-visible on a button focused
- * by the pointer, so the ring is keyboard-only again, with no modality
- * tracking of our own. The pointer "×" (`onClose`) is an aria-hidden,
- * non-focusable span, which a button may contain.
+ * by the pointer, which fixed Safari. Chrome still showed the ring: Radix
+ * focuses the tab from onMouseDown, and Chrome counts that script focus as
+ * :focus-visible on any element. So the ring is also gated on input modality
+ * (lib/input-modality, 2026-11-10). The pointer "×" (`onClose`) is an
+ * aria-hidden, non-focusable span, which a button may contain.
  *
  * Disabled is both native (not focusable, not clickable) and aria-disabled:
  * the tablist's own code (gliding pill, Delete-to-close) skips tabs by
@@ -205,6 +213,7 @@ export interface TabsTriggerProps extends React.ComponentProps<typeof TabsPrimit
 }
 
 export function TabsTrigger({ className, icon, onClose, closeLabel, children, onKeyDown, ...props }: TabsTriggerProps) {
+  useInputModality();
   const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     onKeyDown?.(event);
     if (!onClose || event.defaultPrevented) return;
@@ -253,7 +262,11 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
           // Inset ring on underline tabs: the list scrolls (overflow-x: auto), so an
           // outer ring was clipped to a stray sliver at the tab's edge. Chips keep the
           // outer ring, which the list's 4px padding leaves room for.
-          'focus-visible:outline-none focus-visible:focus-ring-inset [[data-variant=chips]>&]:focus-visible:focus-ring',
+          // Ring only after keyboard input: Radix focuses the tab from onMouseDown, and
+          // Chrome counts that script focus as :focus-visible (T7, see lib/input-modality).
+          'focus-visible:outline-none',
+          '[:root:not([data-theya-input=pointer])_&]:focus-visible:focus-ring-inset',
+          '[:root:not([data-theya-input=pointer])_[data-variant=chips]>&]:focus-visible:focus-ring',
           // Disabled: no opacity-based dimming on the whole element — the
           // parent's opacity would multiply straight through the text
           // color, and axe flagged the resulting blend as under AA's

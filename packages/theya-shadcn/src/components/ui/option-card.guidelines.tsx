@@ -11,9 +11,10 @@ export const optionCardGuidelines: ComponentGuidelines = {
     { text: 'Cards that navigate somewhere', instead: 'Card with a link' },
   ],
   anatomy: [
-    { part: 'Group', description: <><C>OptionCardGroup</C> — a radio group laid out as a grid (2 columns from sm); with <C>type="multiple"</C> a group of checkboxes.</> },
-    { part: 'Icon', optional: true, description: 'helps tell options apart at a glance.' },
+    { part: 'Group', description: <><C>OptionCardGroup</C> — a radio group laid out as a grid, 2 columns once each card gets 16rem of the group's own width (not the window); with <C>type="multiple"</C> a group of checkboxes.</> },
+    { part: 'Icon', optional: true, description: <>helps tell options apart at a glance. Centred on the title's first line; <C>data-slot="option-card-icon"</C>.</> },
     { part: 'Title and description', description: 'the title is the accessible name, the description is read after it.' },
+    { part: 'Indicator', description: <>radio dot, or a checkbox in <C>type="multiple"</C>; centred on the title's first line; <C>data-slot="option-card-indicator"</C>.</> },
     { part: 'Aside', optional: true, description: 'right-aligned detail, usually the price.' },
   ],
   doDont: [

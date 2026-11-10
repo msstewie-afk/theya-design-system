@@ -6492,9 +6492,10 @@ Docs: ./?path=/docs/selection-optioncard--docs
 
 **Anatomy**
 
-- Group: `OptionCardGroup` — a radio group laid out as a grid (2 columns from sm); with `type="multiple"` a group of checkboxes.
-- Icon (optional): helps tell options apart at a glance.
+- Group: `OptionCardGroup` — a radio group laid out as a grid, 2 columns once each card gets 16rem of the group's own width (not the window); with `type="multiple"` a group of checkboxes.
+- Icon (optional): helps tell options apart at a glance. Centred on the title's first line; `data-slot="option-card-icon"`.
 - Title and description: the title is the accessible name, the description is read after it.
+- Indicator: radio dot, or a checkbox in `type="multiple"`; centred on the title's first line; `data-slot="option-card-indicator"`.
 - Aside (optional): right-aligned detail, usually the price.
 
 **OptionCard props**
@@ -9632,7 +9633,8 @@ Docs: ./?path=/docs/navigation-tabs--docs
 
 **Anatomy**
 
-- List: underline (default) or `variant="chips"` — segmented, for a compact switch of views in a card or toolbar; scrolls when it doesn’t fit. The marker glides to the active tab.
+- List: underline (default) or `variant="chips"` — segmented, for a compact switch of views in a card or toolbar; scrolls when it doesn’t fit, and the scroll button fades from the track’s colour: set `--tabs-track-bg` on `Tabs` or an ancestor to recolour both. The marker glides to the active tab.
+- Focus ring: keyboard only: after a click or tap the focused tab shows no ring (Theya tracks the input modality on <html>, data-theya-input).
 - Trigger: label, optional `icon`, badge; `onClose` for closable tabs.
 - Panel: `TabsContent` for each value.
 

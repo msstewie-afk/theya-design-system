@@ -126,7 +126,7 @@ function HealthConditions({ onChange }: { onChange?: (value: string[]) => void }
       <p id="conditions-label" className="m-0 font-body text-body-m font-medium text-[var(--color-text-text)]">
         Anything we should take into account?
       </p>
-      <OptionCardGroup type="multiple" aria-labelledby="conditions-label" className="sm:grid-cols-1" onValueChange={onChange}>
+      <OptionCardGroup type="multiple" aria-labelledby="conditions-label" onValueChange={onChange}>
         <OptionCard value="diabetes" title="Diabetes or prediabetes" description="We'll show carbs per serving." icon={<Droplet />} />
         <OptionCard value="ckd" title="Kidney disease (CKD)" description="We'll flag potassium and phosphorus." icon={<Flask />} />
         <OptionCard value="lactose" title="Lactose intolerance" description="We'll offer lactose-free swaps." icon={<GlassHalf />} />
@@ -222,4 +222,46 @@ export const TestInteractions: Story = {
     await userEvent.keyboard('{ArrowRight>}{/ArrowRight}');
     await expect(group.getByRole('radio', { name: 'Commercial' })).toHaveAttribute('aria-checked', 'true');
   },
+};
+
+/**
+ * Layout test: the icon and the indicator centre on the title's first line
+ * (one- and two-line titles), and a group in a 390px column stays one column
+ * whatever the window width.
+ */
+export const TestAlignment: Story = {
+  name: 'Test: alignment',
+  tags: ['!autodocs'],
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="w-[390px] max-w-full px-4">
+      <OptionCardGroup type="multiple" aria-label="Conditions">
+        <OptionCard value="protein" title="More protein" description="Doctor's advice." icon={<Fish />} />
+        <OptionCard value="long" title="A long title that wraps onto a second line in a phone column" description="Two-line title." icon={<Egg />} />
+      </OptionCardGroup>
+      <OptionCardGroup defaultValue="a" aria-label="Plan" className="mt-4">
+        <OptionCard value="a" title="Personal" description="Radio indicator." icon={<Home />} />
+        <OptionCard value="b" title="Commercial" description="Radio indicator." icon={<Shop />} />
+      </OptionCardGroup>
+    </div>
+  ),
+  play: testOnly(async ({ canvasElement }) => {
+    const mid = (el: Element) => {
+      const r = el.getBoundingClientRect();
+      return r.top + r.height / 2;
+    };
+    const cards = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-slot=option-card]'));
+    await expect(cards).toHaveLength(4);
+    for (const card of cards) {
+      const title = card.querySelector<HTMLElement>('[id$=-title]')!;
+      const lineMid = title.getBoundingClientRect().top + parseFloat(getComputedStyle(title).lineHeight) / 2;
+      const icon = card.querySelector('[data-slot=option-card-icon] svg')!;
+      const box = card.querySelector('[data-slot=option-card-indicator] > span')!;
+      await expect(Math.abs(mid(icon) - lineMid)).toBeLessThanOrEqual(0.5);
+      await expect(Math.abs(mid(box) - lineMid)).toBeLessThanOrEqual(0.5);
+    }
+    // One column in a 358px group: every card starts at the same x.
+    const xs = new Set(cards.map((c) => Math.round(c.getBoundingClientRect().left)));
+    await expect(xs.size).toBe(1);
+  }),
 };

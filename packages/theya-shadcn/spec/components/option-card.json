@@ -27,16 +27,20 @@
   "anatomy": [
     {
       "part": "Group",
-      "description": "`OptionCardGroup` — a radio group laid out as a grid (2 columns from sm); with `type=\"multiple\"` a group of checkboxes."
+      "description": "`OptionCardGroup` — a radio group laid out as a grid, 2 columns once each card gets 16rem of the group's own width (not the window); with `type=\"multiple\"` a group of checkboxes."
     },
     {
       "part": "Icon",
-      "description": "helps tell options apart at a glance.",
+      "description": "helps tell options apart at a glance. Centred on the title's first line; `data-slot=\"option-card-icon\"`.",
       "optional": true
     },
     {
       "part": "Title and description",
       "description": "the title is the accessible name, the description is read after it."
+    },
+    {
+      "part": "Indicator",
+      "description": "radio dot, or a checkbox in `type=\"multiple\"`; centred on the title's first line; `data-slot=\"option-card-indicator\"`."
     },
     {
       "part": "Aside",
@@ -188,6 +192,10 @@
       {
         "name": "TestInteractions",
         "id": "selection-optioncard--test-interactions"
+      },
+      {
+        "name": "TestAlignment",
+        "id": "selection-optioncard--test-alignment"
       }
     ]
   }

@@ -21,7 +21,10 @@ import { cn } from '../../lib/utils';
  * rest, turning any other on clears it) or list values it `excludes`
  * ("More protein" vs "Less protein"; either side may list the other).
  */
-const GROUP_CLASS = 'grid gap-3 sm:grid-cols-2';
+// Two columns once each card gets at least 16rem, by the group's own width
+// (not the window): a group in a 390px phone frame on a wide screen stays one
+// column (T12, 2026-11-10). max(…, half) caps it at two columns.
+const GROUP_CLASS = 'grid gap-3 grid-cols-[repeat(auto-fit,minmax(min(100%,max(16rem,calc((100%_-_0.75rem)/2))),1fr))]';
 
 interface MultipleContextValue {
   value: string[];
@@ -122,8 +125,14 @@ const CARD_CLASS = [
   'disabled:cursor-not-allowed disabled:opacity-50',
 ];
 
+// The icon and the indicator sit in a box one title line tall, set in the
+// title's type, so they centre on the title's first line whatever its line
+// height (T12: a fixed mt-0.5 left them 1.5-3.5px low under leading-tight).
+const TITLE_TYPE = 'font-body text-body-m font-medium leading-tight';
+const LINE_BOX = cn(TITLE_TYPE, 'flex h-[1lh] shrink-0 items-center');
+
 const INDICATOR_CLASS = [
-  'mt-0.5 flex aspect-square size-4 shrink-0 items-center justify-center',
+  'flex aspect-square size-4 shrink-0 items-center justify-center',
   'border-[1.5px] border-solid border-[var(--color-border-border)]',
   'bg-[var(--color-bg-input-bg-input)] shadow-track',
   'transition-[background-color,border-color] duration-standard ease-enter motion-reduce:transition-none',
@@ -151,15 +160,16 @@ function OptionCard({ className, value, title, description, icon, aside, exclusi
   const content = (
     <>
       {icon && (
-        <span
-          aria-hidden="true"
-          className={cn(
-            'mt-0.5 flex size-5 shrink-0 items-center justify-center',
-            'text-[var(--color-icon-icon-subtle)] group-data-[state=checked]:text-[var(--color-icon-icon-primary)]',
-            '[&_svg]:size-4',
-          )}
-        >
-          {icon}
+        <span aria-hidden="true" data-slot="option-card-icon" className={LINE_BOX}>
+          <span
+            className={cn(
+              'flex size-5 items-center justify-center',
+              'text-[var(--color-icon-icon-subtle)] group-data-[state=checked]:text-[var(--color-icon-icon-primary)]',
+              '[&_svg]:size-4',
+            )}
+          >
+            {icon}
+          </span>
         </span>
       )}
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -167,7 +177,7 @@ function OptionCard({ className, value, title, description, icon, aside, exclusi
             title ("Frankfurt") pushes the price onto the next line instead
             of running into it. */}
         <span className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
-          <span id={titleId} className="min-w-0 break-words font-body text-body-m font-medium leading-tight text-[var(--color-text-text)]">
+          <span id={titleId} className={cn('min-w-0 break-words text-[var(--color-text-text)]', TITLE_TYPE)}>
             {title}
           </span>
           {aside && (
@@ -214,8 +224,10 @@ function OptionCard({ className, value, title, description, icon, aside, exclusi
         {content}
         {/* Checkbox corners, capped at 4px: Ember's radius-md is 7px, which on
             a 16px box reads as a circle, i.e. as a radio. */}
-        <span aria-hidden="true" className={cn(INDICATOR_CLASS, 'rounded-[min(var(--size-border-radius-border-radius-md),4px)]')}>
-          <Check strokeWidth={2.5} className="size-3 text-[var(--color-text-text-on-primary)] opacity-0 group-data-[state=checked]:opacity-100" />
+        <span aria-hidden="true" data-slot="option-card-indicator" className={LINE_BOX}>
+          <span className={cn(INDICATOR_CLASS, 'rounded-[min(var(--size-border-radius-border-radius-md),4px)]')}>
+            <Check strokeWidth={2.5} className="size-3 text-[var(--color-text-text-on-primary)] opacity-0 group-data-[state=checked]:opacity-100" />
+          </span>
         </span>
       </button>
     );
@@ -234,10 +246,12 @@ function OptionCard({ className, value, title, description, icon, aside, exclusi
       {...props}
     >
       {content}
-      <span aria-hidden="true" className={cn(INDICATOR_CLASS, 'rounded-full')}>
-        <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
-          <span className="size-1.5 rounded-full bg-[var(--color-icon-icon-on-dark)]" />
-        </RadioGroupPrimitive.Indicator>
+      <span aria-hidden="true" data-slot="option-card-indicator" className={LINE_BOX}>
+        <span className={cn(INDICATOR_CLASS, 'rounded-full')}>
+          <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
+            <span className="size-1.5 rounded-full bg-[var(--color-icon-icon-on-dark)]" />
+          </RadioGroupPrimitive.Indicator>
+        </span>
       </span>
     </RadioGroupPrimitive.Item>
   );

@@ -289,3 +289,79 @@ export const TestInteractions: Story = {
     await expect(canvas.getByRole('tabpanel')).toHaveFocus();
   },
 };
+
+/**
+ * Interaction test for the focus ring: a click or tap on a tab leaves it
+ * focused (Radix focuses it on mouse down) but draws no ring; a key shows it.
+ * The real-pointer check in Chrome is in scripts (CDP mouse events); here the
+ * modality attribute and the computed shadow are asserted.
+ */
+export const TestPointerFocus: Story = {
+  ...Chips,
+  name: 'Test: pointer focus',
+  tags: ['!autodocs'],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const picks = canvas.getByRole('tab', { name: 'Client picks' });
+    const ring = (el: HTMLElement) => getComputedStyle(el).boxShadow.includes('0px 0px 0px 4px');
+    await userEvent.click(picks);
+    await expect(picks).toHaveFocus();
+    await expect(picks).toHaveAttribute('aria-selected', 'true');
+    await expect(document.documentElement).toHaveAttribute('data-theya-input', 'pointer');
+    await expect(ring(picks)).toBe(false);
+    // Arrow key: keyboard modality, the next tab gets the ring.
+    await userEvent.keyboard('{ArrowRight}');
+    const security = canvas.getByRole('tab', { name: 'Security' });
+    await expect(security).toHaveFocus();
+    await expect(document.documentElement).toHaveAttribute('data-theya-input', 'keyboard');
+    await waitFor(() => expect(ring(security)).toBe(true));
+  },
+};
+
+const CATEGORIES = ['Breakfast', 'Soups', 'Mains', 'Sides', 'Snacks', 'Desserts', 'Drinks'];
+
+/**
+ * More chips than fit: the scroll button fades from the track's own colour.
+ * Set `--tabs-track-bg` on `Tabs` (or any ancestor, e.g. a tinted page) and
+ * both the track and the fade use it.
+ */
+export const ChipsOverflow: Story = {
+  name: 'Chips overflow',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="flex w-full max-w-[320px] flex-col gap-4">
+      {[
+        { label: 'Recipe categories', className: undefined },
+        { label: 'Recipe categories, tinted track', className: '[--tabs-track-bg:var(--color-bg-primary-bg-primary-subtle)]' },
+      ].map(({ label, className }) => (
+        <Tabs key={label} defaultValue="Breakfast" className={className}>
+          <TabsList variant="chips" aria-label={label}>
+            {CATEGORIES.map((c) => (
+              <TabsTrigger key={c} value={c}>
+                {c}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          {CATEGORIES.map((c) => (
+            <TabsContent key={c} value={c} className="pt-3 font-body text-body-s text-[var(--color-text-text-subtle)]">
+              {c} recipes.
+            </TabsContent>
+          ))}
+        </Tabs>
+      ))}
+    </div>
+  ),
+  play: testOnly(async ({ canvasElement }) => {
+    const lists = Array.from(canvasElement.querySelectorAll<HTMLElement>('[role=tablist]'));
+    for (const list of lists) {
+      const frame = list.parentElement!;
+      await waitFor(() => expect(frame.querySelector('[data-slot=tabs-scroll]')).not.toBeNull());
+      const fade = getComputedStyle(frame.querySelector('[data-slot=tabs-scroll]')!).backgroundImage;
+      const track = getComputedStyle(list).backgroundColor;
+      // The gradient starts with the track's colour.
+      await expect(fade.replace(/\s/g, '')).toContain(track.replace(/\s/g, ''));
+    }
+    // The two tracks differ, so the check isn't trivially true.
+    await expect(getComputedStyle(lists[0]).backgroundColor).not.toBe(getComputedStyle(lists[1]).backgroundColor);
+  }),
+};

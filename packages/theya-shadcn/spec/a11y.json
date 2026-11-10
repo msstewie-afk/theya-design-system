@@ -8828,7 +8828,7 @@
       "name": "OptionCard",
       "title": "Selection/OptionCard",
       "axe": {
-        "stories": 8,
+        "stories": 9,
         "themes": [
           "light",
           "dark"
@@ -8837,7 +8837,7 @@
       },
       "keyboard": {
         "tested": 3,
-        "playTests": 4
+        "playTests": 5
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -13003,7 +13003,7 @@
       "name": "Tabs",
       "title": "Navigation/Tabs",
       "axe": {
-        "stories": 8,
+        "stories": 10,
         "themes": [
           "light",
           "dark"
@@ -13011,8 +13011,8 @@
         "exclusions": []
       },
       "keyboard": {
-        "tested": 3,
-        "playTests": 3
+        "tested": 4,
+        "playTests": 5
       },
       "reducedMotion": "respected",
       "forcedColors": "component",
