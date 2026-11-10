@@ -353,6 +353,9 @@ for (const profile of profiles) {
     // recompute the middle from the final values so the three stay in
     // order, unless the theme sets border-subtle itself.
     const own = profile[mode]?.tokens ?? {};
+    // bg-surface-page is the theme's page colour unless the theme tints it
+    // (T14): follow the theme's own surface-base, not the re-hued default.
+    if (!('bg-surface-bg-surface-page' in own)) out.set('--color-bg-surface-bg-surface-page', final.get('--color-bg-surface-bg-surface-base'));
     if (!('border-border-subtle' in own) && ('border-border' in own || 'border-border-subtler' in own)) {
       const [hi, lo] = [resolve(final.get('--color-border-border')), resolve(final.get('--color-border-border-subtler'))];
       if (isHex(hi) && isHex(lo)) {

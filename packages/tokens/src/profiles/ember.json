@@ -23,7 +23,8 @@
       "bg-primary-bg-primary-subtle": "#fbe9df",
       "text-text": "#1f1d1a",
       "text-text-link-on-tonal": "#7c2d12",
-      "text-text-subtle-on-primary": "rgb(255 255 255 / 0.94)"
+      "text-text-subtle-on-primary": "rgb(255 255 255 / 0.94)",
+      "bg-surface-bg-surface-page": "#f7f4f1"
     }
   },
   "dark": {
@@ -36,7 +37,9 @@
       "bg-surface-bg-surface-base": "#151311",
       "bg-surface-bg-surface": "#1e1b18",
       "text-text": "#f5f4f1",
-      "text-text-subtle-on-primary": "rgb(255 255 255 / 0.94)"
+      "text-text-subtle-on-primary": "rgb(255 255 255 / 0.94)",
+      "bg-surface-bg-surface-page": "#191512",
+      "bg-surface-bg-surface-sunken-on-page": "#100d0b"
     }
   }
 }

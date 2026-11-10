@@ -14,6 +14,10 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { Switch } from './switch';
 import { RatingStar } from './rating';
 import { cardGuidelines } from './card.guidelines';
+import { Progress } from './progress';
+import { Skeleton } from './skeleton';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
+import { testOnly } from '../../lib/test-only';
 
 const meta: Meta<typeof Card> = {
   title: 'Layout/Card',
@@ -972,4 +976,63 @@ export const Effects: Story = {
     spot.dispatchEvent(new PointerEvent('pointermove', { bubbles: true, pointerType: 'touch', clientX: 10, clientY: 10 }));
     await expect(spot.style.getPropertyValue('--card-px')).toBe('');
   },
+};
+
+function PageFills({ label }: { label: string }) {
+  return (
+    <div className="flex flex-col gap-3">
+      <Tabs defaultValue="soups">
+        <TabsList variant="chips" aria-label={`${label}: categories`}>
+          <TabsTrigger value="soups">Soups</TabsTrigger>
+          <TabsTrigger value="mains">Mains</TabsTrigger>
+          <TabsTrigger value="sides">Sides</TabsTrigger>
+        </TabsList>
+        {['soups', 'mains', 'sides'].map((v) => (
+          <TabsContent key={v} value={v} className="sr-only">
+            {v}
+          </TabsContent>
+        ))}
+      </Tabs>
+      <Progress segments={4} value={50} aria-label={`${label}: progress`} />
+      <Skeleton className="h-16 w-full" data-testid={`${label}-placeholder`} />
+    </div>
+  );
+}
+
+/**
+ * A page of white cards: `data-surface="page"` on the page wrapper paints it
+ * `bg-surface-page` (Ember: a warm tint) and moves the fills lying on it
+ * (tab track, Progress track, Skeleton) a step off the page. Inside a Card
+ * they keep their own colour. For a white container of your own, set
+ * `data-surface="card"` on it.
+ */
+export const OnPageSurface: Story = {
+  name: 'On a page surface',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div data-surface="page" data-testid="page" className="flex max-w-[390px] flex-col gap-4 p-4">
+      <PageFills label="On the page" />
+      <Card>
+        <CardContent className="pt-[var(--size-padding-padding-lg)]">
+          <PageFills label="In a card" />
+        </CardContent>
+      </Card>
+    </div>
+  ),
+  play: testOnly(async ({ canvasElement }) => {
+    const bg = (el: Element) => getComputedStyle(el).backgroundColor;
+    const page = canvasElement.querySelector('[data-testid=page]')!;
+    const [pageTrack, cardTrack] = Array.from(page.querySelectorAll('[role=tablist]'));
+    const [pagePh, cardPh] = ['On the page', 'In a card'].map((l) => page.querySelector(`[data-testid="${l}-placeholder"]`)!);
+    // On the page: fills differ from the page.
+    await expect(bg(pageTrack)).not.toBe(bg(page));
+    await expect(bg(pagePh)).not.toBe(bg(page));
+    // In the card: the theme's own fills.
+    // ...and exactly the colour the track has off the page.
+    const probe = document.createElement('div');
+    probe.className = 'bg-[var(--color-bg-surface-bg-surface-sunken)]';
+    document.body.append(probe);
+    await expect(bg(cardTrack)).toBe(bg(probe));
+    probe.remove();
+  }),
 };

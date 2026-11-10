@@ -434,6 +434,10 @@
       {
         "name": "Effects",
         "id": "layout-card--effects"
+      },
+      {
+        "name": "OnPageSurface",
+        "id": "layout-card--on-page-surface"
       }
     ]
   }

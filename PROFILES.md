@@ -65,6 +65,10 @@ Profiles live in `packages/tokens/src/profiles/<name>.json` and come in two kind
 | `radius.anchor` | instead of `scale`: one step gets the given value, and the rest scale by the same factor. `{ "lg": 2 }` — fields 2px, the whole scale ×⅓ (this is how `iris` does it) |
 | `radius.button`, `radius.field` | one radius for all Button sizes and for TextField + Select: a scale step (`xl`, `max`) or px |
 
+## Page surface
+
+`data-surface="page"` on a page wrapper (not on `<html>`) paints it `bg-surface-page` and moves the fills that lie directly on it a step off the page: `bg-surface-sunken` (Tabs chips track) goes to `bg-surface-sunken-on-page`, `bg-neutral-subtle` (Progress track, Skeleton) to `bg-neutral-subtle-on-page`. Inside a Card (`data-surface="card"`, which Card sets; set it on any white container of your own) the fills are the theme's own again. `bg-surface-page` follows the theme's `bg-surface-base` unless the theme sets it: Ember tints it warm (light `#f7f4f1`, dark `#191512`, with `bg-surface-sunken-on-page` `#100d0b` in dark).
+
 ## How colors are built (OKLCH)
 
 Each scale (primary and neutrals) is converted to OKLCH. The lightness **L** of each step stays the same as in Theya; only the hue **H** and chroma **C** change. Colors outside sRGB are brought back into it by reducing chroma. As a result, each step stays in its place on the scale and contrast barely changes — unlike HSL, where the "same" lightness looks very different for yellow and blue.

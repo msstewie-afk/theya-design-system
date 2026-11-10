@@ -2442,7 +2442,7 @@
       "name": "Card",
       "title": "Layout/Card",
       "axe": {
-        "stories": 23,
+        "stories": 24,
         "themes": [
           "light",
           "dark"
@@ -2451,7 +2451,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 2
+        "playTests": 3
       },
       "reducedMotion": "respected",
       "forcedColors": "global",

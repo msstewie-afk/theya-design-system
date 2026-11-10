@@ -254,6 +254,8 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
           // Chips variant: a pill-shaped tab above the list's gliding pill (drawn before the tabs).
           '[[data-variant=chips]>&]:relative [[data-variant=chips]>&]:mb-0 [[data-variant=chips]>&]:rounded-full [[data-variant=chips]>&]:border-b-0 [[data-variant=chips]>&]:px-3 [[data-variant=chips]>&]:py-1.5',
           '[[data-variant=chips]>&]:data-[state=inactive]:hover:bg-transparent [[data-variant=chips]>&]:data-[state=active]:text-[var(--color-text-text)]',
+          // On a track lying on a data-surface="page", muted chips take the darker text (T14, contrast).
+          '[[data-variant=chips]>&]:data-[state=inactive]:not-hover:text-[var(--theya-text-on-sunken,var(--color-text-text-subtler))]',
           // The pill is 1.15:1 light / 1.27:1 dark on its track, so the active chip is also semibold,
           // like the current nav item (WCAG 1.4.1 / 1.4.11).
           '[[data-variant=chips]>&]:data-[state=active]:font-semibold',

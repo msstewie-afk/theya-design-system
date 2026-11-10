@@ -606,6 +606,33 @@
   --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring-warning);
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
 }
+/* Page surface (T14, 2026-11-10). data-surface="page" on a page wrapper
+   (not <html>) paints it bg-surface-page (Ember: a warm tint) and moves the
+   fills that lie directly on it, bg-surface-sunken and bg-neutral-subtle
+   (tab track; Progress track, Skeleton), to bg-surface-sunken-on-page and
+   bg-neutral-subtle-on-page, a step off the page (in dark the translucent
+   neutral-subtle already stands off, so it stays). Inside a card (data-surface="card", which Card sets, or
+   "primary") they go back to the theme's own values, kept below as
+   --theya-*-own where the theme is set. Unlayered, like the token files, so
+   it wins on an element that also carries data-brand / data-theme. */
+:where(:root, [data-theme], [data-brand]):not([data-surface='page'], [data-surface='page'] *) {
+  --theya-surface-sunken-own: var(--color-bg-surface-bg-surface-sunken);
+  --theya-neutral-subtle-own: var(--color-bg-neutral-bg-neutral-subtle);
+}
+[data-surface='page'] {
+  background-color: var(--color-bg-surface-bg-surface-page);
+  --color-bg-surface-bg-surface-sunken: var(--color-bg-surface-bg-surface-sunken-on-page);
+  --color-bg-neutral-bg-neutral-subtle: var(--color-bg-neutral-bg-neutral-subtle-on-page);
+  /* Muted text on those fills goes a step darker: text-subtler on Ember's
+     sunken-on-page is 4.44:1 (Tabs chips); text-subtle passes. */
+  --theya-text-on-sunken: var(--color-text-text-subtle);
+}
+[data-surface='page'] :is([data-surface='card'], [data-surface='primary']) {
+  --color-bg-surface-bg-surface-sunken: var(--theya-surface-sunken-own);
+  --color-bg-neutral-bg-neutral-subtle: var(--theya-neutral-subtle-own);
+  --theya-text-on-sunken: initial;
+}
+
 /* White ring for controls on the primary fill (data-surface=primary). */
 @utility focus-ring-on-primary {
   --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring-on-primary);

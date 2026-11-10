@@ -244,7 +244,8 @@ export function Card({
       data-size={size || undefined}
       data-tone={tone !== 'neutral' ? tone : undefined}
       data-appearance={isFilled ? 'filled' : undefined}
-      data-surface={isFilled ? 'primary' : undefined}
+      // 'card' brings back the theme's fills inside a data-surface="page" (T14).
+      data-surface={isFilled ? 'primary' : 'card'}
       data-interactive={isInteractive || undefined}
       data-legacy-interactive={interactive || undefined}
       data-action={resolvedAction?.type}
