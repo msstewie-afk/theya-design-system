@@ -155,7 +155,7 @@ export const MobilePrimary: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <ScrollArea className={`${FRAME} max-w-[360px]`} aria-label="Plan details">
-      <div className="flex flex-col gap-3 p-5 font-body text-body-m text-[var(--color-text-text)]">
+      <div className="flex flex-col gap-3 px-4 py-5 font-body text-body-m text-[var(--color-text-text)]">
         <h2 className="font-heading text-heading-s">Business plan</h2>
         {Array.from({ length: 10 }, (_, i) => (
           <p key={i} className="font-medium text-[var(--color-text-text-subtle)]">
@@ -170,4 +170,60 @@ export const MobilePrimary: Story = {
       </StickyActionBar>
     </ScrollArea>
   ),
+};
+
+/**
+ * The bar's side padding follows its own width, not the window: in a 390px
+ * column on a wide screen (a phone preview, a side panel) it keeps a phone's
+ * 16px, so the button lines up with the content above. Set
+ * `--sticky-action-bar-padding-inline` to match a page with other padding.
+ */
+export const NarrowContainer: Story = {
+  name: 'Narrow container',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="flex flex-wrap items-start gap-6">
+      <ScrollArea className={`${FRAME} max-w-[390px]`} aria-label="Phone preview">
+        <div data-testid="content" className="flex flex-col gap-3 px-4 py-5 font-body text-body-m text-[var(--color-text-text)]">
+          <h2 className="font-heading text-heading-s">Padding 16</h2>
+          {Array.from({ length: 8 }, (_, i) => (
+            <p key={i} className="font-medium text-[var(--color-text-text-subtle)]">
+              Step {i + 1}: the content and the bar share the same 16px edge.
+            </p>
+          ))}
+        </div>
+        <StickyActionBar aria-label="Phone actions">
+          <Button appearance="filled" tone="primary" size="xl">
+            Next step
+          </Button>
+        </StickyActionBar>
+      </ScrollArea>
+      <ScrollArea className={`${FRAME} max-w-[390px] [--sticky-action-bar-padding-inline:1.25rem]`} aria-label="Custom padding">
+        <div className="flex flex-col gap-3 px-5 py-5 font-body text-body-m text-[var(--color-text-text)]">
+          <h2 className="font-heading text-heading-s">Padding 20, via the variable</h2>
+          {Array.from({ length: 8 }, (_, i) => (
+            <p key={i} className="font-medium text-[var(--color-text-text-subtle)]">
+              Step {i + 1}: the page sets 20px, the bar follows.
+            </p>
+          ))}
+        </div>
+        <StickyActionBar aria-label="Custom actions">
+          <Button appearance="filled" tone="primary" size="xl">
+            Next step
+          </Button>
+        </StickyActionBar>
+      </ScrollArea>
+    </div>
+  ),
+  play: testOnly(async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const pad = (name: string) => {
+      const row = canvas.getByRole('region', { name }).firstElementChild as HTMLElement;
+      const cs = getComputedStyle(row);
+      const before = getComputedStyle(row, '::before');
+      return [cs.paddingLeft, cs.paddingRight, before.left, before.right];
+    };
+    await expect(pad('Phone actions')).toEqual(['16px', '16px', '16px', '16px']);
+    await expect(pad('Custom actions')).toEqual(['20px', '20px', '20px', '20px']);
+  }),
 };

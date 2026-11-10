@@ -12303,7 +12303,7 @@
       "name": "StickyActionBar",
       "title": "Actions/StickyActionBar",
       "axe": {
-        "stories": 3,
+        "stories": 4,
         "themes": [
           "light",
           "dark"
@@ -12312,7 +12312,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 2
+        "playTests": 3
       },
       "reducedMotion": "respected",
       "forcedColors": "global",

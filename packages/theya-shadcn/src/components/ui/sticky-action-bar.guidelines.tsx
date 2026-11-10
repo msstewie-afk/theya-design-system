@@ -20,7 +20,7 @@ export const stickyActionBarGuidelines: ComponentGuidelines = {
     { text: 'A message without actions', instead: 'Alert or Toaster' },
   ],
   anatomy: [
-    { part: 'Bar', description: <><C>bar</C> (full-width strip) or <C>floating</C> (centered card); <C>sticky</C> or <C>fixed</C>.</> },
+    { part: 'Bar', description: <><C>bar</C> (full-width strip) or <C>floating</C> (centered card); <C>sticky</C> or <C>fixed</C>. Side padding follows the bar's width (16px, 24px from 30rem), not the window; <C>--sticky-action-bar-padding-inline</C> matches it to the page.</> },
     { part: 'Message', optional: true, description: '“3 selected”, “Unsaved changes” — announced when it changes.' },
     { part: 'Actions', description: 'primary last; md buttons.' },
     { part: 'Close', optional: true, description: <><C>onClose</C> — “Clear selection”.</> },

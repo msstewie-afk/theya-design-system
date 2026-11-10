@@ -25,7 +25,11 @@ import { useTheyaI18n } from '../../lib/i18n';
  *   viewport: message and actions share one row whenever they fit; only
  *   below 28rem does the message move above and the actions share the
  *   full width. The iOS home-indicator inset is respected.
- * - The bar's top divider is inset to the content padding, like every
+ * - Side padding follows the bar's width too: 16px, 24px from 30rem, so a
+ *   bar in a phone frame or narrow panel on a wide screen keeps 16px. Set
+ *   `--sticky-action-bar-padding-inline` on the bar (or an ancestor) to
+ *   match a page with other padding.
+ * - The bar's top divider is inset to the same padding, like every
  *   Theya separator — it lines up with the text, not the container edge.
  * - `onClose` adds a close button (e.g. "Clear selection").
  */
@@ -113,11 +117,10 @@ export function StickyActionBar({
         'animate-in fade-in-0 slide-in-from-bottom-4 duration-200 ease-enter motion-reduce:animate-none',
         floating
           ? 'pointer-events-none flex justify-center px-4 pb-[calc(1rem_+_env(safe-area-inset-bottom))]'
-          : [
-              'bg-[var(--color-bg-surface-bg-surface)] pb-[env(safe-area-inset-bottom)]',
-              // Divider inset to the content padding (px-4 / px-6 below).
-              "before:absolute before:inset-x-4 before:top-0 before:h-px before:bg-[var(--color-border-border-subtler)] before:content-[''] sm:before:inset-x-6",
-            ],
+          : // The bar is its own size container: side padding follows its width,
+            // not the window, so a bar in a 390px phone frame or side panel on a
+            // wide screen keeps the 16px of a phone (T11, 2026-11-10).
+            '@container/sticky-bar w-full bg-[var(--color-bg-surface-bg-surface)] pb-[env(safe-area-inset-bottom)]',
         className,
       )}
       {...props}
@@ -127,7 +130,16 @@ export function StickyActionBar({
           '@container/bar flex flex-wrap items-center gap-x-4 gap-y-3',
           floating
             ? 'pointer-events-auto w-full max-w-[40rem] rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] py-2 pe-2 ps-4 shadow-elevation-md'
-            : 'px-4 py-3 sm:px-6',
+            : [
+                // 16px, 24px once the bar is 30rem wide (wider than any phone; by
+                // the bar's width). --sticky-action-bar-padding-inline overrides
+                // both, to match a page with other padding.
+                'relative py-3',
+                'px-[var(--sticky-action-bar-padding-inline,1rem)] @min-[30rem]/sticky-bar:px-[var(--sticky-action-bar-padding-inline,1.5rem)]',
+                // Divider inset to the same padding, like every Theya separator.
+                "before:absolute before:top-0 before:h-px before:bg-[var(--color-border-border-subtler)] before:content-['']",
+                'before:inset-x-[var(--sticky-action-bar-padding-inline,1rem)] @min-[30rem]/sticky-bar:before:inset-x-[var(--sticky-action-bar-padding-inline,1.5rem)]',
+              ],
         )}
       >
         {message !== undefined && (

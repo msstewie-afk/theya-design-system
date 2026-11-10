@@ -26,7 +26,7 @@
   "anatomy": [
     {
       "part": "Bar",
-      "description": "`bar` (full-width strip) or `floating` (centered card); `sticky` or `fixed`."
+      "description": "`bar` (full-width strip) or `floating` (centered card); `sticky` or `fixed`. Side padding follows the bar's width (16px, 24px from 30rem), not the window; `--sticky-action-bar-padding-inline` matches it to the page."
     },
     {
       "part": "Message",
@@ -135,6 +135,10 @@
       {
         "name": "MobilePrimary",
         "id": "actions-stickyactionbar--mobile-primary"
+      },
+      {
+        "name": "NarrowContainer",
+        "id": "actions-stickyactionbar--narrow-container"
       }
     ]
   }

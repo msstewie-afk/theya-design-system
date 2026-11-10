@@ -9150,7 +9150,7 @@ Docs: ./?path=/docs/actions-stickyactionbar--docs
 
 **Anatomy**
 
-- Bar: `bar` (full-width strip) or `floating` (centered card); `sticky` or `fixed`.
+- Bar: `bar` (full-width strip) or `floating` (centered card); `sticky` or `fixed`. Side padding follows the bar's width (16px, 24px from 30rem), not the window; `--sticky-action-bar-padding-inline` matches it to the page.
 - Message (optional): “3 selected”, “Unsaved changes” — announced when it changes.
 - Actions: primary last; md buttons.
 - Close (optional): `onClose` — “Clear selection”.
