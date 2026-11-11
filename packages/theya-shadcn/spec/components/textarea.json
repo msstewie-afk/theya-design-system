@@ -103,6 +103,17 @@
           "description": "Shows a small red asterisk after the label."
         },
         {
+          "name": "resize",
+          "type": "\"none\" | \"vertical\"",
+          "values": [
+            "none",
+            "vertical"
+          ],
+          "required": false,
+          "default": "vertical",
+          "description": "Drag handle: 'vertical' (default) resizes the height only; 'none' hides it. Never wider than the container either way."
+        },
+        {
           "name": "widthSize",
           "type": "\"md\" | \"lg\" | \"sm\" | \"xl\" | \"full\" | null",
           "required": false,
@@ -156,6 +167,10 @@
       {
         "name": "States",
         "id": "text-input-textarea--states"
+      },
+      {
+        "name": "TestResize",
+        "id": "text-input-textarea--test-resize"
       }
     ]
   }

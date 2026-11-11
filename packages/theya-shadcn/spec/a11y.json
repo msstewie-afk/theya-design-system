@@ -5435,7 +5435,7 @@
       "name": "Drawer",
       "title": "Overlays/Drawer",
       "axe": {
-        "stories": 6,
+        "stories": 7,
         "themes": [
           "light",
           "dark"
@@ -5444,7 +5444,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 1
+        "playTests": 2
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -13473,7 +13473,7 @@
       "name": "TextArea",
       "title": "Text Input/TextArea",
       "axe": {
-        "stories": 9,
+        "stories": 10,
         "themes": [
           "light",
           "dark"
@@ -13482,7 +13482,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 4
+        "playTests": 5
       },
       "reducedMotion": "none",
       "forcedColors": "global",

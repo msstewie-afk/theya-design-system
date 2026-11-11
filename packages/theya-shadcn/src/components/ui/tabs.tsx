@@ -64,6 +64,40 @@ export function TabsList({ className, children, variant = 'underline', onPointer
     list.scrollBy({ left: dir * (rtl ? -1 : 1) * list.clientWidth * 0.75, behavior: reduce ? 'auto' : 'smooth' });
   };
 
+  // Keep the active tab in view (T15, 2026-11-11): centred where the list allows,
+  // on mount (instantly) and whenever the active tab changes, by click or from
+  // outside (smoothly, unless reduced motion). scrollTo on the list itself, not
+  // scrollIntoView, so the page never moves vertically.
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    let shown: Element | null = null;
+    let first = true;
+    const reveal = () => {
+      const tab = list.querySelector<HTMLElement>(':scope > [role="tab"][data-state="active"]');
+      if (!tab || tab === shown) return;
+      const max = list.scrollWidth - list.clientWidth;
+      // Nothing to scroll yet (fonts, layout): try again on the next resize.
+      if (max <= 0) return;
+      shown = tab;
+      const x = Math.min(max, Math.max(0, tab.offsetLeft + tab.offsetWidth / 2 - list.clientWidth / 2));
+      // scrollLeft runs from -max to 0 in RTL; offsetLeft is physical.
+      const rtl = getComputedStyle(list).direction === 'rtl';
+      const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      list.scrollTo({ left: rtl ? x - max : x, behavior: first || reduce ? 'auto' : 'smooth' });
+      first = false;
+    };
+    reveal();
+    const mutations = new MutationObserver(reveal);
+    mutations.observe(list, { subtree: true, attributes: true, attributeFilter: ['data-state'], childList: true });
+    const resize = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(() => (shown ? undefined : reveal()));
+    resize?.observe(list);
+    return () => {
+      mutations.disconnect();
+      resize?.disconnect();
+    };
+  }, []);
+
   // One marker that glides to the active tab and takes its width (Kinetics' Tab Pill
   // Glide, MIT): an underline, or for chips a pill. Measured after layout and again when
   // a tab becomes active or any tab changes size. Until it is measured (server render,
@@ -147,21 +181,31 @@ export function TabsList({ className, children, variant = 'underline', onPointer
             data-slot="tabs-scroll"
             onClick={() => scrollBy(side === 'start' ? -1 : 1)}
             className={cn(
-              'absolute inset-y-0 z-1 flex w-8 cursor-pointer items-center justify-center border-0 p-0 text-[var(--color-icon-icon-subtle)] outline-none',
-              'hover:text-[var(--color-icon-icon)] [&_svg]:size-4 rtl:[&_svg]:-scale-x-100',
+              'absolute inset-y-0 z-1 flex cursor-pointer items-center border-0 p-0 outline-none rtl:[&_svg]:-scale-x-100',
+              chips
+                ? // Chips (T15): a wider fade, solid for the 24px at the edge, and a
+                  // 20px chevron at 8px from the track's rounded end, in the icon
+                  // colour, so the "more" cue reads at a glance.
+                  cn('w-12 text-[var(--color-icon-icon)] [&_svg]:size-5', side === 'start' ? 'justify-start ps-2' : 'justify-end pe-2')
+                : 'w-8 justify-center text-[var(--color-icon-icon-subtle)] hover:text-[var(--color-icon-icon)] [&_svg]:size-4',
               // Fades the tabs out under the chevron, in the colour behind them: the
               // chips track (--tabs-track-bg, the same variable the track paints with,
               // T13) or, for underline tabs, the surface. --tabs-fade overrides both.
               chips
                 ? '[--tabs-fade-color:var(--tabs-fade,var(--tabs-track-bg,var(--color-bg-surface-bg-surface-sunken)))]'
                 : '[--tabs-fade-color:var(--tabs-fade,var(--color-bg-surface-bg-surface))]',
-              side === 'start'
-                ? 'start-0 bg-[linear-gradient(to_right,var(--tabs-fade-color)_60%,transparent)] rtl:bg-[linear-gradient(to_left,var(--tabs-fade-color)_60%,transparent)]'
-                : 'end-0 bg-[linear-gradient(to_left,var(--tabs-fade-color)_60%,transparent)] rtl:bg-[linear-gradient(to_right,var(--tabs-fade-color)_60%,transparent)]',
+              side === 'start' ? 'start-0' : 'end-0',
+              chips
+                ? side === 'start'
+                  ? 'bg-[linear-gradient(to_right,var(--tabs-fade-color)_24px,transparent)] rtl:bg-[linear-gradient(to_left,var(--tabs-fade-color)_24px,transparent)]'
+                  : 'bg-[linear-gradient(to_left,var(--tabs-fade-color)_24px,transparent)] rtl:bg-[linear-gradient(to_right,var(--tabs-fade-color)_24px,transparent)]'
+                : side === 'start'
+                  ? 'bg-[linear-gradient(to_right,var(--tabs-fade-color)_60%,transparent)] rtl:bg-[linear-gradient(to_left,var(--tabs-fade-color)_60%,transparent)]'
+                  : 'bg-[linear-gradient(to_left,var(--tabs-fade-color)_60%,transparent)] rtl:bg-[linear-gradient(to_right,var(--tabs-fade-color)_60%,transparent)]',
               chips && 'rounded-full',
             )}
           >
-            {side === 'start' ? <NavArrowLeft /> : <NavArrowRight />}
+            {side === 'start' ? <NavArrowLeft strokeWidth={chips ? 2 : undefined} /> : <NavArrowRight strokeWidth={chips ? 2 : undefined} />}
           </button>
         ) : null,
       )}

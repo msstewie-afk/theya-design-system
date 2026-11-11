@@ -25,6 +25,8 @@
  *    `font`: every typography token that names Geologica switches to this
  *    family, and the weight tokens go back to nominal values (Theya's are
  *    shifted −125 because Geologica reads heavy: regular 275 → 400 …).
+ *    `radius.steps` ({ "sm": 3, …, "5xl": 24 }) sets steps to px values
+ *    outright, after any scale (T16: Ember picked by eye, not a factor).
  *    `radius.scale` multiplies the radius ramp (sm…5xl, rounded to whole px;
  *    max stays a pill); `button` / `field` set one radius for every Button /
  *    TextField + Select trigger — a ramp step name ("xl", "max") or a px
@@ -481,6 +483,10 @@ for (const profile of profiles) {
         shared.set(token, `${Math.round(parseFloat(value) * scale)}px`);
       }
     }
+    for (const [step, px] of Object.entries(profile.radius.steps ?? {})) {
+      if (!builtLight.has(RADIUS + step) || step === 'max') problems.push(`${profile.name}: unknown radius step "${step}"`);
+      else shared.set(RADIUS + step, `${px}px`);
+    }
     if (button) shared.set('--theme-radius-button', stepRef(button));
     if (field) shared.set('--theme-radius-field', stepRef(field));
   }
@@ -492,7 +498,7 @@ for (const profile of profiles) {
   const summary = full
     ? `primary ${profile.primary}${profile.neutral ? `, neutrals ${profile.neutral.hue}° ×${profile.neutral.chroma ?? 1}` : ''}`
     : `hue ${profile.hue}°, chroma ×${profile.chroma ?? 1}`;
-  const radiusNote = profile.radius && (profile.radius.anchor ? `radius ${Object.entries(profile.radius.anchor).map(([k, v]) => `${k} = ${v}px`).join('')}` : `radius ×${profile.radius.scale ?? 1}`);
+  const radiusNote = profile.radius && (profile.radius.steps ? `radius ${Object.entries(profile.radius.steps).map(([k, v]) => `${k} ${v}`).join(' / ')}px` : profile.radius.anchor ? `radius ${Object.entries(profile.radius.anchor).map(([k, v]) => `${k} = ${v}px`).join('')}` : `radius ×${profile.radius.scale ?? 1}`);
   const extras = [profile.font && `font ${profile.font}`, profile.headingFont && `headings ${profile.headingFont}`, radiusNote && `${radiusNote}${profile.radius.button ? `, buttons ${profile.radius.button}` : ''}`].filter(Boolean).join(', ');
   exported.push({
     name: profile.name,

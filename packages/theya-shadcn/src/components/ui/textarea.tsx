@@ -35,7 +35,9 @@ const textareaVariants = cva(
     // 12px on both sides, the same inset as every 32/40px field (Мария, 2026-10-23).
     'px-[var(--size-padding-padding-md)] py-[var(--size-margin-margin-s)]',
     'transition-[background-color,border-color,box-shadow] duration-standard ease-enter motion-reduce:transition-none',
-    'outline-none resize',
+    // Never wider than its container (T18: dragged wider, it ran past a
+    // drawer's padding); the resize prop below allows height only by default.
+    'outline-none max-w-full',
     'disabled:cursor-not-allowed disabled:resize-none disabled:bg-[var(--color-bg-input-bg-input-disabled)]',
     'disabled:border-[var(--color-border-border)] disabled:text-[var(--color-text-text-disabled)] disabled:italic',
     'read-only:cursor-default read-only:italic read-only:resize-none',
@@ -78,6 +80,10 @@ const textareaVariants = cva(
         md: 'text-body-m',
         sm: 'text-body-s',
       },
+      resize: {
+        vertical: 'resize-y',
+        none: 'resize-none',
+      },
     },
     compoundVariants: [
       {
@@ -94,7 +100,7 @@ const textareaVariants = cva(
         ],
       },
     ],
-    defaultVariants: { error: false, widthSize: 'full', heightSize: 'md' },
+    defaultVariants: { error: false, widthSize: 'full', heightSize: 'md', resize: 'vertical' },
   },
 );
 
@@ -114,6 +120,8 @@ export interface TextAreaProps
    * styling with no message, or a string/node for styling + message.
    */
   error?: boolean | ReactNode;
+  /** Drag handle: 'vertical' (default) resizes the height only; 'none' hides it. Never wider than the container either way. */
+  resize?: 'vertical' | 'none';
   /** 'top' (default) stacks label above the field. 'left' puts a fixed 216px label column beside it, matching TextField's horizontal Formfield layout. */
   labelPosition?: 'top' | 'left';
 }
@@ -123,6 +131,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
     error,
     widthSize = 'full',
     heightSize = 'md',
+    resize = 'vertical',
     label,
     required,
     optional,
@@ -157,7 +166,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
       // Merged with the consumer's, not overwritten by it via `rest`.
       aria-describedby={[messageId, ariaDescribedby].filter(Boolean).join(' ') || undefined}
       aria-invalid={hasError || undefined}
-      className={cn(textareaVariants({ error: hasError, widthSize, heightSize }), className)}
+      className={cn(textareaVariants({ error: hasError, widthSize, heightSize, resize }), className)}
       {...rest}
     />
   );

@@ -302,7 +302,8 @@ const CATEGORIES: { title: string; rules: ReactNode[] }[] = [
     title: 'Radius',
     rules: [
       <>Radius grows with the size of the container: <Code>lg</Code> 6px for fields and small controls, <Code>xl</Code> 8px for buttons and menus anchored to a trigger, <Code>2xl</Code> 10px for cards and panels, <Code>3xl</Code> 12px for dialogs and drawers, <Code>max</Code> for pills.</>,
-      <>Nested corners: the inner radius is smaller than the outer one, never equal or larger.</>,
+      <>Nested corners: an element inside a container is at least one step less round than the container, never equal or larger: field (<Code>lg</Code>) &lt; button (<Code>xl</Code>) &lt; card (<Code>2xl</Code>). Drawers, dialogs and large media are containers too, so what sits in them (footer buttons, a card, an inset image) follows the same order. An element flush with the container's edge (a cover image, a header band) takes the container's radius on those corners, clipped by it.</>,
+      <>A theme may tighten the scale but keeps the order. Ember (T16): field 6px, button 8px, card, drawer, dialog and large media all 12px.</>,
       <>Write the token form, <Code>rounded-[var(--size-border-radius-border-radius-xl)]</Code>. The short Tailwind names are shifted against the token names and easy to misread.</>,
     ],
   },

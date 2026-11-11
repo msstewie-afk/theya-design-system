@@ -7,6 +7,7 @@ declare const textareaVariants: (props?: ({
     error?: boolean | null | undefined;
     widthSize?: "sm" | "md" | "lg" | "xl" | "full" | null | undefined;
     heightSize?: "sm" | "md" | null | undefined;
+    resize?: "none" | "vertical" | null | undefined;
 } & import("class-variance-authority/types").ClassProp) | undefined) => string;
 export interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>, Omit<VariantProps<typeof textareaVariants>, 'error'> {
     label?: ReactNode;
@@ -14,6 +15,7 @@ export interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
     optional?: boolean;
     description?: ReactNode;
     error?: boolean | ReactNode;
+    resize?: 'vertical' | 'none';
     labelPosition?: 'top' | 'left';
 }
 export declare const TextArea: import("react").ForwardRefExoticComponent<TextAreaProps & import("react").RefAttributes<HTMLTextAreaElement>>;
@@ -21,4 +23,5 @@ export declare const TextArea: import("react").ForwardRefExoticComponent<TextAre
 // Defaults
 // TextArea.heightSize = md
 // TextArea.labelPosition = top
+// TextArea.resize = vertical
 // TextArea.widthSize = full

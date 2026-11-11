@@ -10022,6 +10022,7 @@ Docs: ./?path=/docs/text-input-textarea--docs
 - `labelPosition?`: `"top" | "left"`, default `top` — 'top' (default) stacks label above the field. 'left' puts a fixed 216px label column beside it, matching TextField's horizontal Formfield layout.
 - `optional?`: `boolean` — Shows "(optional)" after the label. Ignored when `required`.
 - `required?`: `boolean` — Shows a small red asterisk after the label.
+- `resize?`: `"none" | "vertical"`, default `vertical` — Drag handle: 'vertical' (default) resizes the height only; 'none' hides it. Never wider than the container either way.
 - `widthSize?`: `"md" | "lg" | "sm" | "xl" | "full" | null`, default `full`
 
 Also accepts the props of: InputHTMLAttributes, TextareaHTMLAttributes, ButtonHTMLAttributes, HTMLAttributes.

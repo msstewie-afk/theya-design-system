@@ -13,8 +13,7 @@
     "display-display-s-letter-spacing": "0.4px"
   },
   "radius": {
-    "scale": 1.8,
-    "field": "xl"
+    "steps": { "sm": 3, "md": 5, "lg": 6, "xl": 8, "2xl": 12, "3xl": 12, "4xl": 12, "5xl": 24 }
   },
   "light": {
     "tokens": {

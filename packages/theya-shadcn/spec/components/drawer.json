@@ -163,6 +163,10 @@
       {
         "name": "TestInteractions",
         "id": "overlays-drawer--test-interactions"
+      },
+      {
+        "name": "TestLayout",
+        "id": "overlays-drawer--test-layout"
       }
     ]
   }

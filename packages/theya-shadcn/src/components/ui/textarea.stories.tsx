@@ -25,6 +25,7 @@ const meta: Meta<typeof TextArea> = {
     },
   },
   argTypes: {
+    resize: { control: 'inline-radio', options: ['vertical', 'none'], description: "Drag handle: height only (default) or none. Never wider than the container.", table: { category: 'Appearance' } },
     label: { control: 'text', description: 'Field label, rendered above the textarea.', table: { category: 'Content' } },
     description: { control: 'text', description: 'Helper text below the field.', table: { category: 'Content' } },
     placeholder: { control: 'text', description: 'Placeholder text shown when the field is empty.', table: { category: 'Content' } },
@@ -158,4 +159,22 @@ export const States: Story = {
       <TextArea label="Read-only" readOnly defaultValue="Can't edit this" />
     </div>
   ),
+};
+
+/** Interaction test: the field resizes by height only and never grows past its container. */
+export const TestResize: Story = {
+  name: 'Test: resize',
+  tags: ['!autodocs'],
+  render: () => (
+    <div className="w-[300px]">
+      <TextArea label="Notes" />
+      <TextArea label="Fixed" resize="none" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const [notes, fixed] = Array.from(canvasElement.querySelectorAll('textarea'));
+    await expect(getComputedStyle(notes).resize).toBe('vertical');
+    await expect(getComputedStyle(notes).maxWidth).toBe('100%');
+    await expect(getComputedStyle(fixed).resize).toBe('none');
+  },
 };

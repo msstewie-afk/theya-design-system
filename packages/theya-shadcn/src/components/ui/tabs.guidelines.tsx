@@ -13,7 +13,7 @@ export const tabsGuidelines: ComponentGuidelines = {
     { text: 'Navigating between pages', instead: 'links, Sidebar or NavigationMenu' },
   ],
   anatomy: [
-    { part: 'List', description: <>underline (default) or <C>variant="chips"</C> — segmented, for a compact switch of views in a card or toolbar; scrolls when it doesn’t fit, and the scroll button fades from the track’s colour: set <C>--tabs-track-bg</C> on <C>Tabs</C> or an ancestor to recolour both. The marker glides to the active tab.</> },
+    { part: 'List', description: <>underline (default) or <C>variant="chips"</C> — segmented, for a compact switch of views in a card or toolbar; scrolls when it doesn’t fit, and the scroll button fades from the track’s colour: set <C>--tabs-track-bg</C> (an opaque colour, so the fade can hide the chips under it) on <C>Tabs</C> or an ancestor to recolour both. The active chip scrolls into view on mount and whenever the value changes. The marker glides to the active tab.</> },
     { part: 'Focus ring', description: 'keyboard only: after a click or tap the focused tab shows no ring (Theya tracks the input modality on <html>, data-theya-input).' },
     { part: 'Trigger', description: <>label, optional <C>icon</C>, badge; <C>onClose</C> for closable tabs.</> },
     { part: 'Panel', description: <><C>TabsContent</C> for each value.</> },

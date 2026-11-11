@@ -13,7 +13,7 @@ export declare const DrawerOverlay: import("react").ForwardRefExoticComponent<Om
 export interface DrawerContentProps extends React.ComponentProps<typeof DrawerPrimitive.Content> {
     width?: 'full' | 'fixed';
 }
-export declare function DrawerContent({ className, children, width, ...props }: DrawerContentProps): import("react").JSX.Element;
+export declare function DrawerContent({ className, children, width, onOpenAutoFocus, ...props }: DrawerContentProps): import("react").JSX.Element;
 export declare function DrawerHeader({ className, onPointerDown, ...props }: React.ComponentProps<'div'>): import("react").JSX.Element;
 export declare function DrawerBody({ className, onPointerDown, ...props }: React.ComponentProps<'div'>): import("react").JSX.Element;
 export declare function DrawerFooter({ className, onPointerDown, ...props }: React.ComponentProps<'div'>): import("react").JSX.Element;

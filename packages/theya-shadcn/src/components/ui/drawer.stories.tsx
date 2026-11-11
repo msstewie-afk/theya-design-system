@@ -249,3 +249,35 @@ export const TestInteractions: Story = {
     await waitFor(() => expect(page.queryByRole('dialog')).toBeNull());
   },
 };
+
+/**
+ * Layout test (T17): 16px from the description to the first field, parts found
+ * by data-slot, the description runs the full width (only the title makes room
+ * for the ×), and the first field gets focus on open without scrolling the page.
+ */
+export const TestLayout: Story = {
+  ...Open,
+  name: 'Test: layout',
+  tags: ['!autodocs'],
+  play: async () => {
+    const content = await waitFor(() => {
+      const el = document.querySelector<HTMLElement>('[data-slot=drawer-content]');
+      expect(el).not.toBeNull();
+      return el!;
+    });
+    for (const slot of ['drawer-header', 'drawer-body', 'drawer-footer', 'drawer-title', 'drawer-description']) {
+      await expect(content.querySelector(`[data-slot=${slot}]`)).not.toBeNull();
+    }
+    const description = content.querySelector('[data-slot=drawer-description]')!.getBoundingClientRect();
+    const header = content.querySelector('[data-slot=drawer-header]')!.getBoundingClientRect();
+    const field = content.querySelector('[data-slot=drawer-body] input')!;
+    await waitFor(() => expect(Math.round(field.getBoundingClientRect().top - description.bottom)).toBeGreaterThanOrEqual(16));
+    // Label above the field: the body's first element is the label row, 16px under the description.
+    const first = content.querySelector('[data-slot=drawer-body]')!.firstElementChild!.getBoundingClientRect();
+    await expect(Math.round(first.top - description.bottom)).toBe(16);
+    // Description: the header's full inner width (24px each side).
+    await expect(Math.round(header.right - description.right)).toBe(24);
+    await waitFor(() => expect(document.activeElement).toBe(field));
+    await expect(window.scrollY).toBe(0);
+  },
+};

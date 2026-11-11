@@ -91,12 +91,27 @@ export interface DrawerContentProps extends React.ComponentProps<typeof DrawerPr
   width?: 'full' | 'fixed';
 }
 
-export function DrawerContent({ className, children, width = 'full', ...props }: DrawerContentProps) {
+// What Radix would focus on open: the first tabbable element inside.
+const TABBABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([type=hidden]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
+
+export function DrawerContent({ className, children, width = 'full', onOpenAutoFocus, ...props }: DrawerContentProps) {
   const { t } = useTheyaI18n();
   return (
     <DrawerPortal>
       <DrawerOverlay />
       <DrawerPrimitive.Content
+        data-slot="drawer-content"
+        // Radix focuses the first field as the drawer opens, while it is still
+        // below the screen and sliding in, and the browser scrolls the page to
+        // reach it: the page jumps (T17). Same target, focused without scrolling.
+        onOpenAutoFocus={(event) => {
+          onOpenAutoFocus?.(event);
+          if (event.defaultPrevented) return;
+          event.preventDefault();
+          const content = event.currentTarget as HTMLElement;
+          const first = Array.from(content.querySelectorAll<HTMLElement>(TABBABLE)).find((el) => el.getClientRects().length > 0);
+          (first ?? content).focus({ preventScroll: true });
+        }}
         className={cn(
           'fixed z-drawer flex flex-col bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] shadow-elevation-md outline-none',
           'group/drawer-content',
@@ -150,6 +165,7 @@ export function DrawerContent({ className, children, width = 'full', ...props }:
 export function DrawerHeader({ className, onPointerDown, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
+      data-slot="drawer-header"
       data-vaul-no-drag
       onPointerDown={(e) => {
         // vaul calls setPointerCapture on every pointerdown that bubbles to the
@@ -161,9 +177,10 @@ export function DrawerHeader({ className, onPointerDown, ...props }: React.Compo
       }}
       className={cn(
         // pt-3 sits under the drag handle of a top / bottom drawer; a side
-        // drawer has no handle and starts its header 24 px down. pr-14 keeps
-        // the title clear of the × (right-4, 28 px).
-        'flex flex-col gap-1 pl-6 pr-14 pb-4 pt-3 text-left select-text',
+        // drawer has no handle and starts its header 24 px down. Only the title
+        // makes room for the × (right-4, 28 px: DrawerTitle pr-8 on top of this
+        // pr-6); the description runs the full width (T17).
+        'flex flex-col gap-1 px-6 pb-4 pt-3 text-left select-text',
         'group-data-[vaul-drawer-direction=left]/drawer-content:pt-6 group-data-[vaul-drawer-direction=right]/drawer-content:pt-6',
         className,
       )}
@@ -175,18 +192,22 @@ export function DrawerHeader({ className, onPointerDown, ...props }: React.Compo
 export function DrawerBody({ className, onPointerDown, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
+      data-slot="drawer-body"
       data-vaul-no-drag
       onPointerDown={(e) => {
         e.stopPropagation();
         onPointerDown?.(e);
       }}
-      className={cn('flex flex-1 flex-col gap-4 overflow-y-auto overscroll-contain px-6 pt-2 pb-5 select-text', className)} {...props} />
+      // Right under a header, no top padding: the header's 16px is the gap to
+      // the first field (T17). Without a header it keeps 8px under the handle.
+      className={cn('flex flex-1 flex-col gap-4 overflow-y-auto overscroll-contain px-6 pt-2 pb-5 select-text [[data-slot=drawer-header]+&]:pt-0', className)} {...props} />
   );
 }
 
 export function DrawerFooter({ className, onPointerDown, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
+      data-slot="drawer-footer"
       data-vaul-no-drag
       onPointerDown={(e) => {
         e.stopPropagation();
@@ -201,9 +222,9 @@ export function DrawerFooter({ className, onPointerDown, ...props }: React.Compo
 }
 
 export function DrawerTitle({ className, ...props }: React.ComponentProps<typeof DrawerPrimitive.Title>) {
-  return <DrawerPrimitive.Title className={cn('font-body text-heading-s font-medium text-[var(--color-text-text)]', className)} {...props} />;
+  return <DrawerPrimitive.Title data-slot="drawer-title" className={cn('pr-8 font-body text-heading-s font-medium text-[var(--color-text-text)]', className)} {...props} />;
 }
 
 export function DrawerDescription({ className, ...props }: React.ComponentProps<typeof DrawerPrimitive.Description>) {
-  return <DrawerPrimitive.Description className={cn('font-body text-body-s text-[var(--color-text-text-subtler)]', className)} {...props} />;
+  return <DrawerPrimitive.Description data-slot="drawer-description" className={cn('font-body text-body-s text-[var(--color-text-text-subtler)]', className)} {...props} />;
 }

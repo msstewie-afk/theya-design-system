@@ -331,10 +331,11 @@ export const ChipsOverflow: Story = {
   render: () => (
     <div className="flex w-full max-w-[320px] flex-col gap-4">
       {[
-        { label: 'Recipe categories', className: undefined },
-        { label: 'Recipe categories, tinted track', className: '[--tabs-track-bg:var(--color-bg-primary-bg-primary-subtle)]' },
-      ].map(({ label, className }) => (
-        <Tabs key={label} defaultValue="Breakfast" className={className}>
+        { label: 'Recipe categories', className: undefined, value: 'Breakfast' },
+        { label: 'Recipe categories, tinted track', className: '[--tabs-track-bg:var(--color-bg-primary-bg-primary-subtle)]', value: 'Breakfast' },
+        { label: 'Recipe categories, last one selected', className: undefined, value: 'Drinks' },
+      ].map(({ label, className, value }) => (
+        <Tabs key={label} defaultValue={value} className={className}>
           <TabsList variant="chips" aria-label={label}>
             {CATEGORIES.map((c) => (
               <TabsTrigger key={c} value={c}>
@@ -363,5 +364,21 @@ export const ChipsOverflow: Story = {
     }
     // The two tracks differ, so the check isn't trivially true.
     await expect(getComputedStyle(lists[0]).backgroundColor).not.toBe(getComputedStyle(lists[1]).backgroundColor);
+    // T15: a 20px chevron, drawn in the icon colour, 8px from the track's end.
+    const button = lists[0].parentElement!.querySelector<HTMLElement>('[data-slot=tabs-scroll]')!;
+    const chevron = button.querySelector('svg')!.getBoundingClientRect();
+    await expect(Math.round(chevron.width)).toBe(20);
+    await expect(Math.round(button.getBoundingClientRect().right - chevron.right)).toBe(8);
+    // T15: opened on the last chip, the list scrolls it into view.
+    const last = lists[2];
+    const drinks = within(last).getByRole('tab', { name: 'Drinks' });
+    await waitFor(() => {
+      const active = drinks.getBoundingClientRect();
+      const box = last.getBoundingClientRect();
+      expect(active.right).toBeLessThanOrEqual(box.right + 0.5);
+      expect(active.left).toBeGreaterThanOrEqual(box.left - 0.5);
+    });
+    // ...and the page didn't scroll for it.
+    await expect(window.scrollY).toBe(0);
   }),
 };
