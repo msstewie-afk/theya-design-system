@@ -251,7 +251,7 @@ export const TestInteractions: Story = {
 };
 
 /**
- * Layout test (T17): 16px from the description to the first field, parts found
+ * Layout test (T17): 12px from the description to the first field, parts found
  * by data-slot, the description runs the full width (only the title makes room
  * for the ×), and the first field gets focus on open without scrolling the page.
  */
@@ -271,10 +271,13 @@ export const TestLayout: Story = {
     const description = content.querySelector('[data-slot=drawer-description]')!.getBoundingClientRect();
     const header = content.querySelector('[data-slot=drawer-header]')!.getBoundingClientRect();
     const field = content.querySelector('[data-slot=drawer-body] input')!;
-    await waitFor(() => expect(Math.round(field.getBoundingClientRect().top - description.bottom)).toBeGreaterThanOrEqual(16));
-    // Label above the field: the body's first element is the label row, 16px under the description.
-    const first = content.querySelector('[data-slot=drawer-body]')!.firstElementChild!.getBoundingClientRect();
-    await expect(Math.round(first.top - description.bottom)).toBe(16);
+    await waitFor(() => expect(Math.round(field.getBoundingClientRect().top - description.bottom)).toBeGreaterThanOrEqual(12));
+    // The body's first element (the label row) sits 12px under the description...
+    const body = content.querySelector<HTMLElement>('[data-slot=drawer-body]')!;
+    const first = body.firstElementChild!.getBoundingClientRect();
+    await expect(Math.round(first.top - description.bottom)).toBe(12);
+    // ...and the body keeps 8px above it, room for the first field's focus ring.
+    await expect(getComputedStyle(body).paddingTop).toBe('8px');
     // Description: the header's full inner width (24px each side).
     await expect(Math.round(header.right - description.right)).toBe(24);
     await waitFor(() => expect(document.activeElement).toBe(field));

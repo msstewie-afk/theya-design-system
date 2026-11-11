@@ -181,6 +181,11 @@ export function DrawerHeader({ className, onPointerDown, ...props }: React.Compo
         // makes room for the × (right-4, 28 px: DrawerTitle pr-8 on top of this
         // pr-6); the description runs the full width (T17).
         'flex flex-col gap-1 px-6 pb-4 pt-3 text-left select-text',
+        // Followed by a body: 4px here + the body's 8px = 12px from the
+        // description to the first field (T17, PlateCovery). The gap is taken
+        // off the header, not the body: the body scrolls and would clip the
+        // first field's focus ring without its top padding.
+        '[&:has(+[data-slot=drawer-body])]:pb-1',
         'group-data-[vaul-drawer-direction=left]/drawer-content:pt-6 group-data-[vaul-drawer-direction=right]/drawer-content:pt-6',
         className,
       )}
@@ -198,9 +203,9 @@ export function DrawerBody({ className, onPointerDown, ...props }: React.Compone
         e.stopPropagation();
         onPointerDown?.(e);
       }}
-      // Right under a header, no top padding: the header's 16px is the gap to
-      // the first field (T17). Without a header it keeps 8px under the handle.
-      className={cn('flex flex-1 flex-col gap-4 overflow-y-auto overscroll-contain px-6 pt-2 pb-5 select-text [[data-slot=drawer-header]+&]:pt-0', className)} {...props} />
+      // pt-2 stays: the body scrolls, and the first field's focus ring needs
+      // the room (the header gives up its padding instead, T17).
+      className={cn('flex flex-1 flex-col gap-4 overflow-y-auto overscroll-contain px-6 pt-2 pb-5 select-text', className)} {...props} />
   );
 }
 
