@@ -105,6 +105,7 @@
     },
     {
       "name": "ContextMenuTrailing",
+      "description": "Non-interactive content pinned to an item's right edge (a count, a status). Not a button: an item's content is presentational, so a control inside it is lost to screen readers and the keyboard; give the action its own item.",
       "props": []
     },
     {

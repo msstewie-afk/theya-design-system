@@ -20,3 +20,6 @@
 # Test: interactions (overlays-hovercard--test-interactions)
 - link "selene-weddings.aether.photo":
   - /url: "#"
+- paragraph: selene-weddings.aether.photo
+- paragraph: Online · Selene Weddings · Print license active
+- paragraph: 1,284 views today

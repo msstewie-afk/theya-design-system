@@ -94,7 +94,13 @@
 - 'progressbar "Storage: 72%, 7.2 GB of 10 GB"'
 - text: 72% 7.2 GB of 10 GB
 - 'progressbar "Storage: 72%, 7.2 GB of 10 GB"'
-- text: kind="sparkline" 1.2k 1.2k kind="input"
+- text: kind="sparkline" 1.2k
+- img "Downloads trending up over the last 14 days":
+  - img
+- text: 1.2k
+- img "Downloads trending up over the last 14 days":
+  - img
+- text: kind="input"
 - textbox "Title for Golden hour": Golden hour at the lake
 - button "Clear Title for Golden hour"
 - textbox "Title for Blue hour": Blue hour, Selene and Rhea

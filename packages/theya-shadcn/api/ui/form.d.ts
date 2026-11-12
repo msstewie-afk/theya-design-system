@@ -13,6 +13,8 @@ declare function useFormField(): {
     isValidating: boolean;
     error?: import("react-hook-form").FieldError | undefined;
     id: string;
+    hasDescription: boolean | undefined;
+    setHasDescription: ((v: boolean) => void) | undefined;
     name: string;
     formItemId: string;
     formDescriptionId: string;

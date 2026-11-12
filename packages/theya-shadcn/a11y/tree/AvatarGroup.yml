@@ -4,14 +4,23 @@
 - group "Project collaborators": AL GH AT MH
 
 # Overflow (labels-avatargroup--overflow)
-- group "Project collaborators": AL GH AT MH +2
+- group "Project collaborators":
+  - text: AL GH AT MH
+  - img "2 more": "+2"
 
 # Sizes (labels-avatargroup--sizes)
-- group "Team, small": AL GH AT MH +2
-- group "Team, medium": AL GH AT MH +2
-- group "Team, large": AL GH AT MH +2
+- group "Team, small":
+  - text: AL GH AT MH
+  - img "2 more": "+2"
+- group "Team, medium":
+  - text: AL GH AT MH
+  - img "2 more": "+2"
+- group "Team, large":
+  - text: AL GH AT MH
+  - img "2 more": "+2"
 
 # With images (labels-avatargroup--with-images)
 - group "Reviewers":
   - img "Panda bot"
-  - text: GH AT +2
+  - text: GH AT
+  - img "2 more": "+2"

@@ -59,11 +59,7 @@
 - button "New gallery"
 
 # Speed Dial (actions-fab--speed-dial)
-- button "Close actions" [expanded]
-- group:
-  - button "Upload files"
-  - button "New page"
-  - button "Share"
+- button "Open actions"
 
 # Square (actions-fab--square)
 - button "New gallery (sm)"

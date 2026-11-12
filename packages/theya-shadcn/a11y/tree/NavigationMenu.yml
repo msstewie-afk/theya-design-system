@@ -16,19 +16,20 @@
   - list:
     - listitem:
       - button "Products" [expanded]
-      - list:
-        - listitem:
-          - link "Galleries Client galleries with picks and downloads.":
-            - /url: "#"
-        - listitem:
-          - link "Client portals Your own address for every client.":
-            - /url: "#"
-        - listitem:
-          - link "Licenses Print and web rights, renewed automatically.":
-            - /url: "#"
-        - listitem:
-          - link "Prints Lab orders, delivered to the client.":
-            - /url: "#"
+      - group "Products":
+        - list:
+          - listitem:
+            - link "Galleries Client galleries with picks and downloads.":
+              - /url: "#"
+          - listitem:
+            - link "Client portals Your own address for every client.":
+              - /url: "#"
+          - listitem:
+            - link "Licenses Print and web rights, renewed automatically.":
+              - /url: "#"
+          - listitem:
+            - link "Prints Lab orders, delivered to the client.":
+              - /url: "#"
     - listitem:
       - button "Resources"
     - listitem:

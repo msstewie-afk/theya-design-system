@@ -7,7 +7,7 @@ export interface PopoverProps extends React.ComponentProps<typeof PopoverPrimiti
     sheet?: boolean;
 }
 declare function Popover({ sheet, ...props }: PopoverProps): import("react").JSX.Element;
-declare function PopoverTrigger({ id, ...props }: React.ComponentProps<typeof PopoverPrimitive.Trigger>): import("react").JSX.Element;
+declare function PopoverTrigger({ id, ref, ...props }: React.ComponentProps<typeof PopoverPrimitive.Trigger>): import("react").JSX.Element;
 declare const PopoverAnchor: import("react").ForwardRefExoticComponent<Omit<PopoverPrimitive.PopoverAnchorProps & import("react").RefAttributes<HTMLDivElement>, "ref"> & import("react").RefAttributes<HTMLDivElement>>;
 declare const PopoverClose: import("react").ForwardRefExoticComponent<Omit<PopoverPrimitive.PopoverCloseProps & import("react").RefAttributes<HTMLButtonElement>, "ref"> & import("react").RefAttributes<HTMLButtonElement>>;
 export interface PopoverContentProps extends React.ComponentProps<typeof PopoverPrimitive.Content> {

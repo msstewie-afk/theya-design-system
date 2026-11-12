@@ -101,7 +101,7 @@
   - text: Type delete to confirm
   - textbox "Type delete to confirm":
     - /placeholder: delete
-    - text: lete
+    - text: elete
   - button "Clear input"
   - button "Cancel"
   - button "Delete galleries" [disabled]
@@ -176,4 +176,4 @@
       - cell "Golden hour"
       - cell "Published"
       - cell "Helios Studio"
-- status: 5 selected
+- status: 1 selected
