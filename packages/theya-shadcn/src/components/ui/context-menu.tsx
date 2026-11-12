@@ -141,6 +141,7 @@ export function ContextMenuShortcut({ className, ...props }: React.ComponentProp
   return <Kbd className={cn('ms-auto', className)} {...props} />;
 }
 
+/** Non-interactive content pinned to an item's right edge (a count, a status). Not a button: an item's content is presentational, so a control inside it is lost to screen readers and the keyboard; give the action its own item. */
 export function ContextMenuTrailing({ className, ...props }: React.ComponentProps<'span'>) {
   return <span className={cn('ms-auto flex shrink-0 items-center gap-2', className)} {...props} />;
 }

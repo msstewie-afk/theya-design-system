@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { Plus, Star, Trash, Xmark } from 'iconoir-react';
+import { Plus, Star, Trash } from 'iconoir-react';
 import { KebabIconHorizontal } from './kebab-icon';
 import { Button } from './button';
 import {
@@ -275,15 +275,12 @@ export const WithSubMenu: Story = {
 };
 
 /**
- * `DropdownMenuTrailing` pins arbitrary content - a count, a live control - to an item's
- * right edge. A `Button` in the trailing slot needs its own `onPointerDown`/`onClick`
- * stopPropagation, since it renders inside the same row that carries the item's `onSelect`.
+ * `DropdownMenuTrailing` pins non-interactive content - a count, a status - to an item's
+ * right edge. An action goes in its own item ("Remove watermark"), never as a button inside
+ * one: a menu item's content is presentational, so the button is lost to screen readers and
+ * to the keyboard.
  */
 export const WithTrailing: Story = {
-  // A button inside a menu item is lost to screen readers and to the
-  // keyboard (the item's children are presentational, the button is
-  // tabIndex -1). Kept until the pattern is decided (2026-11-12).
-  parameters: { a11y: { states: { skip: ['nested-control'], reason: 'Trailing action button inside a menu item: pattern under review, 2026-11-12.' } } },
   render: function WithTrailingStory() {
     const [hasWatermark, setHasWatermark] = React.useState(true);
     return (
@@ -306,27 +303,14 @@ export const WithTrailing: Story = {
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           {hasWatermark ? (
-            <DropdownMenuItem>
-              <span className="flex-1 truncate">Watermark</span>
-              <DropdownMenuTrailing>
-                <Button
-                  appearance="ghost"
-                  tone="danger"
-                  size="sm"
-                  iconOnly
-                  leftIcon={<Xmark />}
-                  aria-label="Remove watermark"
-                  tabIndex={-1}
-                  onPointerDown={(event) => event.stopPropagation()}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    setHasWatermark(false);
-                  }}
-                />
-              </DropdownMenuTrailing>
+            // A remove action is its own item, not a button inside one: a
+            // button in a menu item is lost to screen readers and to the
+            // keyboard (the item's content is presentational).
+            <DropdownMenuItem tone="danger" onSelect={() => setHasWatermark(false)}>
+              Remove watermark
             </DropdownMenuItem>
           ) : (
-            <DropdownMenuItem onClick={() => setHasWatermark(true)}>Add watermark</DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => setHasWatermark(true)}>Add watermark</DropdownMenuItem>
           )}
         </DropdownMenuContent>
       </DropdownMenu>

@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { Trash, Xmark } from 'iconoir-react';
+import { Trash } from 'iconoir-react';
 import { Button } from './button';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from './dropdown-menu';
 import { KebabIconHorizontal } from './kebab-icon';
@@ -155,7 +155,7 @@ export const CheckboxAndRadio: Story = {
   },
 };
 
-/** `ContextMenuTrailing` pins arbitrary content - a count, a shortcut, an inline control - to an item's right edge. */
+/** `ContextMenuTrailing` pins non-interactive content - a count, a status - to an item's right edge. An action goes in its own item ("Remove watermark"), never as a button inside one. */
 export const WithTrailing: Story = {
   render: function WithTrailingStory() {
     const [hasWatermark, setHasWatermark] = useState(true);
@@ -175,29 +175,14 @@ export const WithTrailing: Story = {
           </ContextMenuItem>
           <ContextMenuSeparator />
           {hasWatermark ? (
-            <ContextMenuItem>
-              <span className="flex-1 truncate">Watermark</span>
-              <ContextMenuTrailing>
-                <Button
-                  appearance="ghost"
-                  tone="danger"
-                  size="sm"
-                  iconOnly
-                  aria-label="Remove watermark"
-                  tabIndex={-1}
-                  onPointerDown={(event) => event.stopPropagation()}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    setHasWatermark(false);
-                  }}
-                  leftIcon={<Xmark />}
-                />
-              </ContextMenuTrailing>
+            // A remove action is its own item, not a button inside one: a
+            // button in a menu item is lost to screen readers and to the
+            // keyboard (the item's content is presentational).
+            <ContextMenuItem tone="danger" onSelect={() => setHasWatermark(false)}>
+              Remove watermark
             </ContextMenuItem>
           ) : (
-            <ContextMenuItem onClick={() => setHasWatermark(true)}>
-              Add watermark
-            </ContextMenuItem>
+            <ContextMenuItem onSelect={() => setHasWatermark(true)}>Add watermark</ContextMenuItem>
           )}
         </ContextMenuContent>
       </ContextMenu>

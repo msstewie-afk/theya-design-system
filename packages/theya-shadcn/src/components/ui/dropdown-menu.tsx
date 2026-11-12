@@ -380,7 +380,7 @@ function DropdownMenuSubContent({
   );
 }
 
-/** Content pinned to a menu item's right edge (a count, a small button). Give it its own click handling with stopPropagation, or it also fires the item's onSelect. */
+/** Non-interactive content pinned to a menu item's right edge (a count, a status). Not a button: a menu item's content is presentational, so a control inside it is lost to screen readers and the keyboard; give the action its own item. */
 function DropdownMenuTrailing({ className, ...props }: React.ComponentProps<'span'>) {
   return <span className={cn('ms-auto flex shrink-0 items-center gap-2', className)} {...props} />;
 }
