@@ -142,8 +142,18 @@ function LinkTool({ editor, disabled }: { editor: Editor; disabled?: boolean }) 
   const inputId = useId();
   const active = useEditorState({ editor, selector: ({ editor: e }) => e.isActive('link') });
 
-  const openWithCurrent = (next: boolean) => {
-    if (next) setHref((editor.getAttributes('link').href as string | undefined) ?? '');
+  // Where focus goes on close (APG): Escape cancels back to whatever opened
+  // the popover — the toolbar button, or the text for ⌘K; applying a link
+  // goes on in the text. (2026-11-12: Escape used to drop focus in the text
+  // even when the button opened it.)
+  const fromEditor = useRef(false);
+  const escaped = useRef(false);
+  const openWithCurrent = (next: boolean, viaShortcut = false) => {
+    if (next) {
+      setHref((editor.getAttributes('link').href as string | undefined) ?? '');
+      fromEditor.current = viaShortcut;
+      escaped.current = false;
+    }
     setOpen(next);
   };
 
@@ -153,7 +163,7 @@ function LinkTool({ editor, disabled }: { editor: Editor; disabled?: boolean }) 
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        openWithCurrent(true);
+        openWithCurrent(true, true);
       }
     };
     dom.addEventListener('keydown', onKey);
@@ -170,7 +180,7 @@ function LinkTool({ editor, disabled }: { editor: Editor; disabled?: boolean }) 
   };
 
   return (
-    <Popover open={open} onOpenChange={openWithCurrent}>
+    <Popover open={open} onOpenChange={(next) => openWithCurrent(next)}>
       <PopoverTrigger asChild>
         <ToolbarButton
           size="sm"
@@ -186,7 +196,18 @@ function LinkTool({ editor, disabled }: { editor: Editor; disabled?: boolean }) 
           <LinkIcon />
         </ToolbarButton>
       </PopoverTrigger>
-      <PopoverContent align="start" className="w-80" aria-label={t.richTextEditor.link} onCloseAutoFocus={(e) => (e.preventDefault(), editor.commands.focus())}>
+      <PopoverContent
+        align="start"
+        className="w-80"
+        aria-label={t.richTextEditor.link}
+        onEscapeKeyDown={() => (escaped.current = true)}
+        onCloseAutoFocus={(e) => {
+          // Escape from the toolbar button: Radix puts focus back on it.
+          if (escaped.current && !fromEditor.current) return;
+          e.preventDefault();
+          editor.commands.focus();
+        }}
+      >
         <form
           className="flex flex-col gap-3"
           onSubmit={(e) => {
@@ -257,15 +278,27 @@ function TextStyleTool({ editor, disabled }: { editor: Editor; disabled?: boolea
     if (v === 'p') chain.setParagraph().run();
     else chain.setHeading({ level: v === 'h2' ? 2 : 3 }).run();
   };
+  // Escape goes back to the button (APG menu button); choosing a style goes
+  // on in the text.
+  const escaped = useRef(false);
   return (
-    <DropdownMenu>
+    <DropdownMenu onOpenChange={(next) => next && (escaped.current = false)}>
       <DropdownMenuTrigger asChild>
         <ToolbarButton size="sm" disabled={disabled} aria-label={t.richTextEditor.textStyle(styleLabel(current))} className="w-28 justify-between gap-1">
           {styleLabel(current)}
           <NavArrowDown aria-hidden />
         </ToolbarButton>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" size="sm" onCloseAutoFocus={(e) => (e.preventDefault(), editor.commands.focus())}>
+      <DropdownMenuContent
+        align="start"
+        size="sm"
+        onEscapeKeyDown={() => (escaped.current = true)}
+        onCloseAutoFocus={(e) => {
+          if (escaped.current) return;
+          e.preventDefault();
+          editor.commands.focus();
+        }}
+      >
         <DropdownMenuRadioGroup value={current} onValueChange={set}>
           {TEXT_STYLES.map((s) => (
             <DropdownMenuRadioItem key={s.value} value={s.value}>

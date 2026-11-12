@@ -208,7 +208,6 @@ function keyState(key) {
     // Which item has focus, by position (items can't be told apart by markup).
     focusItem: item && active?.getAttribute('role') === item && active.closest(`[role=${role}]`) === el ? [...el.querySelectorAll(`[role=${item}]`)].indexOf(active) : -1,
     editable: Boolean(el?.matches('input, textarea, [contenteditable=true]')),
-    focusInToolbarEditor: Boolean(el?.closest('[role=toolbar]') && active?.matches('[contenteditable=true], [role=textbox], textarea')),
     popups: popups.length,
     options: popups.reduce((n, p) => n + p.querySelectorAll('[role=option]').length, 0),
     rtl: el ? getComputedStyle(el).direction === 'rtl' : false,
@@ -285,11 +284,9 @@ async function keyModel(page, w) {
       const a = document.activeElement;
       if (a && !a.closest('[role=dialog], [role=menu], [role=listbox], [role=alertdialog]')) a.setAttribute('data-theya-driver', '');
     });
-    s = await press('Escape', (x) => x.expanded !== 'true' && (x.focusOnEl || x.focusInToolbarEditor || x.focusOnDriver));
+    s = await press('Escape', (x) => x.expanded !== 'true' && (x.focusOnEl || x.focusOnDriver));
     if (s.expanded === 'true') out.push(`${w.desc}: Escape doesn't close its popup`);
-    // A toolbar button of a text editor may hand focus back to the text
-    // (RichTextEditor's link and text-style pickers): the user goes on typing.
-    else if (!s.focusOnEl && !s.focusInToolbarEditor && !s.focusOnDriver) out.push(`${w.desc}: focus is not back on the trigger after Escape`);
+    else if (!s.focusOnEl && !s.focusOnDriver) out.push(`${w.desc}: focus is not back on the trigger after Escape`);
   } else if (w.kind === 'tablist' || w.kind === 'radiogroup') {
     // Along the group's orientation: Radix ignores the other axis once
     // orientation is set. A radiogroup without one takes ArrowDown.

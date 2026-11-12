@@ -187,6 +187,14 @@ export const Controlled: Story = {
     // Focus goes back to the editor after the popover.
     await waitFor(() => expect(editor).toHaveFocus());
 
+    // Escape cancels back to the toolbar button that opened it (APG).
+    const linkButton = canvas.getByRole('button', { name: 'Link' });
+    await userEvent.click(linkButton);
+    await body.findByRole('dialog', { name: 'Link' });
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('dialog', { name: 'Link' })).not.toBeInTheDocument());
+    await waitFor(() => expect(linkButton).toHaveFocus());
+
     // Clearing everything reports an empty string, not "<p></p>".
     await selectAll();
     await user.keyboard('{Backspace}');
