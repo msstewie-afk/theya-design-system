@@ -215,16 +215,26 @@ function ariaStates() {
   const out = [];
   const rendered = (el) => {
     if (!el || !el.isConnected || el.closest('[hidden], [inert], [aria-hidden="true"]')) return false;
-    if (!el.getClientRects().length) return false;
     const cs = getComputedStyle(el);
+    if (!el.getClientRects().length && cs.display !== 'contents') return false;
     return cs.visibility !== 'hidden' && cs.display !== 'none' && Number(cs.opacity) > 0;
   };
   // Shown = rendered and bigger than a visually hidden box (an sr-only popup
   // isn't "shown" to a sighted user either).
+  // A display:contents wrapper has no box: judged by its children.
   const shown = (el) => {
     if (!rendered(el)) return false;
+    if (getComputedStyle(el).display === 'contents') return [...el.children].some(shown);
     const r = el.getBoundingClientRect();
     return r.width > 1 && r.height > 1;
+  };
+  // Hidden, for an expanded widget's popup: not rendered, or no box at all.
+  // An empty list (0px tall while it loads, Command) is open, just empty.
+  const hidden = (el) => {
+    if (!rendered(el)) return true;
+    if (getComputedStyle(el).display === 'contents') return [...el.children].every(hidden);
+    const r = el.getBoundingClientRect();
+    return r.width <= 1 && r.height <= 1;
   };
   const text = (el) => (el?.textContent ?? '').trim().replace(/\s+/g, ' ');
   const nameOf = (el) => {
@@ -254,7 +264,7 @@ function ariaStates() {
       const missing = targets.filter(([, t]) => !t).map(([id]) => `#${id}`);
       if (missing.length) out.push(`${label(el)}: aria-controls points to ${missing.join(', ')}, which doesn't exist`);
       const present = targets.filter(([, t]) => t);
-      if (present.length && !present.some(([, t]) => shown(t))) out.push(`${label(el)} is aria-expanded="true" but its popup ${present.map(([id]) => `#${id}`).join(', ')} is hidden`);
+      if (present.length && present.every(([, t]) => hidden(t))) out.push(`${label(el)} is aria-expanded="true" but its popup ${present.map(([id]) => `#${id}`).join(', ')} is hidden`);
       // aria-haspopup names the popup's role (true = menu); a wrapper may hold it.
       const has = el.getAttribute('aria-haspopup') ?? (combobox ? 'listbox' : '');
       const want = has === 'true' ? 'menu' : has;
