@@ -209,6 +209,8 @@ export function FilterField({
   useEffect(() => setRangeEmpty(false), [numberDraft]);
   const inputRef = useRef<HTMLInputElement>(null);
   const fieldRef = useRef<HTMLDivElement>(null);
+  // A pointer down outside the field: that close leaves focus where it went.
+  const interactedOutsideRef = useRef(false);
   const listboxId = useId();
   const [activeOption, setActiveOption] = useState(0);
   const optionListboxId = useId();
@@ -412,6 +414,7 @@ export function FilterField({
       open={open}
       onOpenChange={(next) => {
         if (next) {
+          interactedOutsideRef.current = false;
           setOpen(true);
           setChipsSelected(false);
           return;
@@ -580,6 +583,16 @@ export function FilterField({
         }}
         onPointerDownOutside={(event) => {
           if (fieldRef.current?.contains(event.target as Node)) event.preventDefault();
+          else interactedOutsideRef.current = true;
+        }}
+        // A keyboard close (Escape, a filter applied) puts focus back in the
+        // field's input, where typing goes on. Radix's default sent it to the
+        // "Add filter" button even when the list was opened by typing
+        // (a11y-auto keyboard model, 2026-11-12).
+        onCloseAutoFocus={(event) => {
+          if (interactedOutsideRef.current) return;
+          event.preventDefault();
+          inputRef.current?.focus();
         }}
         // A fixed 320px for the list and every editor (the calendar sizes itself):
         // with w-fit the popover jumped between steps and grew as you typed (the

@@ -197,14 +197,23 @@ function keyState(key) {
     expanded: el?.getAttribute('aria-expanded') ?? null,
     activedescendant: el?.getAttribute('aria-activedescendant') ?? '',
     focusOnEl: active === el,
+    focusOnDriver: Boolean(active?.hasAttribute('data-theya-driver') && active !== el),
     focusInEl: Boolean(el && el.contains(active)),
-    focusInPopup: popups.some((p) => p.contains(active) && p !== el && !p.contains(el)),
+    // Focus in the popup, or on a field that drives it (aria-controls into
+    // it: FilterField's "Add filter" opens a list its input navigates).
+    focusInPopup: popups.some(
+      (p) => (p.contains(active) && p !== el && !p.contains(el)) || (active !== el && (active?.getAttribute('aria-controls') ?? '').split(/\s+/).some((id) => id && p.contains(document.getElementById(id)))),
+    ),
     focusOnOption: Boolean(active?.closest('[role=option], [role=menuitem], [role=menuitemcheckbox], [role=menuitemradio], [role=gridcell], [role=treeitem]')),
-    focusItem: item && active?.getAttribute('role') === item && active.closest(`[role=${role}]`) === el ? active.id || active.outerHTML.slice(0, 80) : '',
+    // Which item has focus, by position (items can't be told apart by markup).
+    focusItem: item && active?.getAttribute('role') === item && active.closest(`[role=${role}]`) === el ? [...el.querySelectorAll(`[role=${item}]`)].indexOf(active) : -1,
+    editable: Boolean(el?.matches('input, textarea, [contenteditable=true]')),
+    focusInToolbarEditor: Boolean(el?.closest('[role=toolbar]') && active?.matches('[contenteditable=true], [role=textbox], textarea')),
     popups: popups.length,
     options: popups.reduce((n, p) => n + p.querySelectorAll('[role=option]').length, 0),
     rtl: el ? getComputedStyle(el).direction === 'rtl' : false,
     vertical: el?.getAttribute('aria-orientation') === 'vertical',
+    horizontal: el?.getAttribute('aria-orientation') === 'horizontal' || el?.getAttribute('data-orientation') === 'horizontal',
   };
 }
 
@@ -228,45 +237,68 @@ function keyFocus(key) {
 /** Runs one widget's keyboard model on the current (fresh) page; returns findings. */
 async function keyModel(page, w) {
   const state = () => page.evaluate(keyState, w.key);
-  const press = async (k, ms = 250) => {
+  // Press, then wait until `done(state)` holds (up to 1.5s: a drawer's
+  // close can outlast reduced motion) and return the last state.
+  const press = async (k, done = () => false) => {
     await page.keyboard.press(k);
-    await page.waitForTimeout(ms);
+    let s;
+    for (const until = Date.now() + 1500; ; ) {
+      await page.waitForTimeout(100);
+      s = await state();
+      if (done(s) || Date.now() > until) return s;
+    }
   };
   await page.evaluate(keyFocus, w.key);
   await page.waitForTimeout(100);
   const before = await state();
   const out = [];
   if (w.kind === 'combobox') {
-    await press('ArrowDown');
-    let s = await state();
-    if (s.expanded !== 'true') return [`${w.desc}: ArrowDown doesn't open it (aria-expanded stays "${s.expanded}")`];
+    let s = await press('ArrowDown', (x) => x.expanded === 'true');
+    if (s.expanded !== 'true') {
+      // An editable combobox may have no popup until you type (suggestions
+      // for a query): try a letter. A select-only one must open on ArrowDown.
+      if (!before.editable) return [`${w.desc}: ArrowDown doesn't open it (aria-expanded stays "${s.expanded}")`];
+      await page.keyboard.type('a');
+      for (const until = Date.now() + 1000; s.expanded !== 'true' && Date.now() < until; ) {
+        await page.waitForTimeout(100);
+        s = await state();
+      }
+      if (s.expanded !== 'true') return [];
+    }
     if (s.options && !s.activedescendant && !s.focusOnOption) {
-      await press('ArrowDown');
-      s = await state();
+      s = await press('ArrowDown', (x) => x.activedescendant || x.focusOnOption);
       if (!s.activedescendant && !s.focusOnOption) out.push(`${w.desc}: ArrowDown doesn't move to an option (no aria-activedescendant, focus stays)`);
     }
-    await press('Escape', 350);
-    s = await state();
+    s = await press('Escape', (x) => x.expanded !== 'true' && x.popups <= before.popups && x.focusOnEl);
     if (s.expanded === 'true' || s.popups > before.popups) out.push(`${w.desc}: Escape doesn't close the popup`);
     else if (!s.focusOnEl) out.push(`${w.desc}: focus is not on the combobox after Escape`);
   } else if (w.kind === 'trigger') {
-    await press('Enter', 350);
-    let s = await state();
+    // A popup already open elsewhere on the page (a menubar story with one
+    // menu open) changes what Enter does: not tested.
+    if (before.popups) return [];
+    let s = await press('Enter', (x) => x.expanded === 'true' && (x.focusInPopup || x.activedescendant));
     if (s.expanded !== 'true') return [`${w.desc}: Enter doesn't open its popup (aria-expanded stays "${s.expanded}")`];
     const popupRole = await page.evaluate((key) => document.querySelector(`[data-theya-key="${key}"]`).getAttribute('aria-haspopup'), w.key);
     if (['menu', 'true', 'dialog'].includes(popupRole) && !s.focusInPopup && !s.activedescendant) out.push(`${w.desc}: focus doesn't move into the ${popupRole === 'dialog' ? 'dialog' : 'menu'} it opens`);
-    await press('Escape', 400);
-    s = await state();
+    // Focus that went to a field driving the popup (outside it) may stay there.
+    await page.evaluate(() => {
+      const a = document.activeElement;
+      if (a && !a.closest('[role=dialog], [role=menu], [role=listbox], [role=alertdialog]')) a.setAttribute('data-theya-driver', '');
+    });
+    s = await press('Escape', (x) => x.expanded !== 'true' && (x.focusOnEl || x.focusInToolbarEditor || x.focusOnDriver));
     if (s.expanded === 'true') out.push(`${w.desc}: Escape doesn't close its popup`);
-    else if (!s.focusOnEl) out.push(`${w.desc}: focus is not back on the trigger after Escape`);
+    // A toolbar button of a text editor may hand focus back to the text
+    // (RichTextEditor's link and text-style pickers): the user goes on typing.
+    else if (!s.focusOnEl && !s.focusInToolbarEditor && !s.focusOnDriver) out.push(`${w.desc}: focus is not back on the trigger after Escape`);
   } else if (w.kind === 'tablist' || w.kind === 'radiogroup') {
-    const key = w.kind === 'tablist' && before.vertical ? 'ArrowDown' : w.kind === 'radiogroup' ? 'ArrowDown' : before.rtl ? 'ArrowLeft' : 'ArrowRight';
-    await press(key, 200);
-    const s = await state();
-    if (!s.focusItem || s.focusItem === before.focusItem) out.push(`${w.desc}: ${key} doesn't move focus to another ${w.kind === 'tablist' ? 'tab' : 'radio'}`);
+    // Along the group's orientation: Radix ignores the other axis once
+    // orientation is set. A radiogroup without one takes ArrowDown.
+    const along = w.kind === 'tablist' ? !before.vertical : before.horizontal;
+    const key = along ? (before.rtl ? 'ArrowLeft' : 'ArrowRight') : 'ArrowDown';
+    const s = await press(key, (x) => x.focusItem > -1 && x.focusItem !== before.focusItem);
+    if (s.focusItem < 0 || s.focusItem === before.focusItem) out.push(`${w.desc}: ${key} doesn't move focus to another ${w.kind === 'tablist' ? 'tab' : 'radio'}`);
   } else if (w.kind === 'dialog') {
-    await press('Escape', 400);
-    const s = await state();
+    const s = await press('Escape', (x) => !x.exists || !x.shown);
     if (s.exists && s.shown) out.push(`${w.desc}: Escape doesn't close it`);
   }
   return out;

@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useRef, useCallback, useMemo, useEffect, cloneElement, isValidElement, Fragment } from 'react';
-import type { ReactNode, ReactElement, ElementType, CSSProperties, KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent } from 'react';
+import type { ReactNode, ReactElement, ElementType, CSSProperties, MouseEvent as ReactMouseEvent } from 'react';
 import {
   type Column,
   type ColumnDef,
@@ -147,8 +147,8 @@ function SelectAllTooltip({ children, content }: { children: ReactElement; conte
  * --size-density-density-row/-row-2 (44/56px by default, 36/48 under
  * data-density="compact", 52/64 under "comfortable"; see DensityToggle
  * and packages/tokens/src/density). Row menus restore focus to their
- * trigger only after a keyboard close (Radix's onCloseAutoFocus plus a
- * ref that tracks Escape).
+ * trigger unless a pointer closed them (Radix's onCloseAutoFocus plus a
+ * ref set by a pointer down inside or outside the menu).
  */
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -537,15 +537,18 @@ function RowDropdownMenu<TData>({ menu, row, rowLabel }: { menu: DataTableRowMen
   }, [coordination]);
   // Focus restore depends on how the menu closed: a pointer close must not
   // send focus back to the trigger, or revealOnHover's focus-within keeps
-  // it visible forever; a keyboard close (Escape while the menu holds
-  // focus) does restore it, so a keyboard user doesn't lose their place.
-  const closedByKeyboardRef = useRef(false);
+  // it visible forever; a keyboard close (Escape, or Enter on an item) does
+  // restore it, so a keyboard user doesn't lose their place. Tracked by
+  // pointer, not by Escape: the menu holds focus in a portal, so an Escape
+  // handler on the trigger never ran and focus fell to <body> (a11y-auto
+  // keyboard model, 2026-11-12).
+  const closedByPointerRef = useRef(false);
   return (
     <DataTableCell kind="menu" revealOnHover>
       <DropdownMenu
         open={open}
         onOpenChange={(next) => {
-          if (next) closedByKeyboardRef.current = false;
+          if (next) closedByPointerRef.current = false;
           setOpen(next);
         }}
       >
@@ -553,15 +556,14 @@ function RowDropdownMenu<TData>({ menu, row, rowLabel }: { menu: DataTableRowMen
           <DataTableCellMenuTrigger
             // Names the row it acts on (WCAG 2.4.6), not "Row actions" on every row.
             label={resolveRowMenuLabel(menu, row, rowLabel ? t.dataTable.rowActionsFor(rowLabel) : t.dataTable.rowActions)}
-            onKeyDown={(event) => {
-              if (event.key === 'Escape') closedByKeyboardRef.current = true;
-            }}
           />
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
+          onPointerDown={() => (closedByPointerRef.current = true)}
+          onPointerDownOutside={() => (closedByPointerRef.current = true)}
           onCloseAutoFocus={(event) => {
-            if (!closedByKeyboardRef.current) event.preventDefault();
+            if (closedByPointerRef.current) event.preventDefault();
           }}
         >
           {renderDropdownMenuItems(items, row)}
@@ -575,7 +577,8 @@ function RowContextMenu<TData>({ menu, row, children }: { menu: DataTableRowMenu
   const [open, setOpen] = useState(false);
   const items = resolveRowMenuItems(menu, row);
   const closeDropdown = useRef<(() => void) | undefined>(undefined);
-  const closedByKeyboardRef = useRef(false);
+  // As in RowDropdownMenu: restore focus to the row unless a pointer closed it.
+  const closedByPointerRef = useRef(false);
   const coordination = useMemo(() => ({ register: (close: () => void) => (closeDropdown.current = close) }), []);
   return (
     <RowMenuCoordination.Provider value={coordination}>
@@ -584,7 +587,7 @@ function RowContextMenu<TData>({ menu, row, children }: { menu: DataTableRowMenu
         onOpenChange={(next) => {
           if (next) {
             closeDropdown.current?.();
-            closedByKeyboardRef.current = false;
+            closedByPointerRef.current = false;
           }
           setOpen(next);
         }}
@@ -593,9 +596,6 @@ function RowContextMenu<TData>({ menu, row, children }: { menu: DataTableRowMenu
           {isValidElement(children)
             ? cloneElement(children as ReactElement<Record<string, unknown>>, {
                 'data-context-menu-open': open ? '' : undefined,
-                onKeyDownCapture: (event: ReactKeyboardEvent) => {
-                  if (event.key === 'Escape') closedByKeyboardRef.current = true;
-                },
                 // A right-click inside the field being edited belongs to the
                 // field (copy/paste/undo live there) — only while it holds
                 // focus; otherwise it's a right-click on the row.
@@ -608,8 +608,10 @@ function RowContextMenu<TData>({ menu, row, children }: { menu: DataTableRowMenu
             : children}
         </ContextMenuTrigger>
         <ContextMenuContent
+          onPointerDown={() => (closedByPointerRef.current = true)}
+          onPointerDownOutside={() => (closedByPointerRef.current = true)}
           onCloseAutoFocus={(event) => {
-            if (!closedByKeyboardRef.current) event.preventDefault();
+            if (closedByPointerRef.current) event.preventDefault();
           }}
         >
           {renderContextMenuItems(items, row)}

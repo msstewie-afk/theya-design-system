@@ -322,6 +322,8 @@ export const WithSelectionAndRowMenu: Story = {
     await expect(await body.findByRole('menuitem', { name: 'View details' })).toBeInTheDocument();
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(body.queryByRole('menu')).toBeNull());
+    // A keyboard close puts focus back on the trigger (it fell to <body>).
+    await waitFor(() => expect(menuTriggers[0]).toHaveFocus());
   }),
 };
 

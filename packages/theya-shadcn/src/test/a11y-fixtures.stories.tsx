@@ -224,7 +224,7 @@ function FxFilters() {
 export const ExpandedFalseShown: Story = {
   name: 'Defect: aria-expanded="false" on a shown popup',
   render: () => <FxFilters />,
-  parameters: { a11y: { expect: { tree: ['4.1.2: button "Filters" is aria-expanded="false" but its popup #fx-filters is shown'], auto: ['2.1.1: keys: button "Filters": Enter', '2.1.1: keys: dialog "Filters": Escape'] } } },
+  parameters: { a11y: { expect: { tree: ['4.1.2: button "Filters" is aria-expanded="false" but its popup #fx-filters is shown'], auto: ['2.1.1: keys: dialog "Filters": Escape'] } } },
 };
 
 /** Tabs that are all tab stops and ignore the arrow keys. */

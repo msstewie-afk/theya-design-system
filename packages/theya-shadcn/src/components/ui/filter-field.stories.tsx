@@ -141,6 +141,9 @@ export const Empty: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Remove filter Name: Contains gold' }));
     await expect(input).toHaveFocus();
     await userEvent.keyboard('{Escape}');
+    // Escape closes the list and leaves focus in the input, not on "Add filter".
+    await waitClosed();
+    await expect(input).toHaveFocus();
 
     // Ctrl/Cmd+A selects every chip; Backspace clears them all.
     input.focus();
