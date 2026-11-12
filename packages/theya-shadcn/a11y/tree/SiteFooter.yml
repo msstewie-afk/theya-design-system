@@ -84,15 +84,12 @@
     - listitem:
       - link "Aether on GitHub":
         - /url: "#github"
-        - img
     - listitem:
       - link "Aether on X":
         - /url: "#x"
-        - img
     - listitem:
       - link "Aether on LinkedIn":
         - /url: "#linkedin"
-        - img
 
 # Minimal (patterns-navigation-sitefooter--minimal)
 - contentinfo:

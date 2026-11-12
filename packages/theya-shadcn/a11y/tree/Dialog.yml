@@ -3,6 +3,22 @@
 # Default (overlays-dialog--default)
 - button "Create gallery"
 
+# Figma reference (overlays-dialog--figma-reference)
+- dialog "Dialog title":
+  - heading "Dialog title" [level=2]
+  - paragraph: Short description of what this dialog is for.
+  - button "Cancel"
+  - button "Confirm"
+  - button "Close"
+
+# Figma reference (full) (overlays-dialog--figma-reference-full)
+- dialog "Dialog title":
+  - heading "Dialog title" [level=2]
+  - paragraph: Short description of what this dialog is for.
+  - button "Cancel"
+  - button "Confirm"
+  - button "Close"
+
 # Fullscreen wizard (overlays-dialog--fullscreen)
 - button "Move gallery"
 
@@ -31,23 +47,17 @@
   - heading "Preview link" [level=2]
   - paragraph: Sends the client a preview of the gallery, then automatically turns the link off if it isn't opened within this time.
   - text: Hours
-  - button "Decrease" [disabled]:
-    - img
+  - button "Decrease" [disabled]
   - spinbutton "Hours": "0"
-  - button "Increase":
-    - img
+  - button "Increase"
   - text: Minutes
-  - button "Decrease":
-    - img
+  - button "Decrease"
   - spinbutton "Minutes": "5"
-  - button "Increase":
-    - img
+  - button "Increase"
   - text: Seconds
-  - button "Decrease" [disabled]:
-    - img
+  - button "Decrease" [disabled]
   - spinbutton "Seconds": "0"
-  - button "Increase":
-    - img
+  - button "Increase"
   - button "Cancel"
   - button "Save"
   - button "Close"

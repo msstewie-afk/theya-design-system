@@ -108,10 +108,8 @@
 - status
 - textbox "Message":
   - /placeholder: Send a message…
-- button "Web search":
-  - img
-- button "Extended thinking":
-  - img
+- button "Web search"
+- button "Extended thinking"
 - button "Send" [disabled]
 
 # With voice input (ai-chat-promptarea--with-voice-input)

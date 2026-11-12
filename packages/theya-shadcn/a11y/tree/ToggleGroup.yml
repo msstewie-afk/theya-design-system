@@ -2,27 +2,24 @@
 
 # Ghost (actions-togglegroup--ghost)
 - toolbar "Text style":
-  - button "Bold":
-    - img
-  - button "Italic":
-    - img
-  - button "Underline":
-    - img
+  - button "Bold"
+  - button "Italic"
+  - button "Underline"
 
 # Outline (actions-togglegroup--outline)
 - radiogroup "Text alignment":
-  - radio "Align left":
-    - img
-  - radio "Align center" [checked]:
-    - img
-  - radio "Align right":
-    - img
+  - radio "Align left"
+  - radio "Align center" [checked]
+  - radio "Align right"
+
+# Text (actions-togglegroup--text)
+- radiogroup "Calendar view":
+  - radio "Day" [checked]
+  - radio "Week"
+  - radio "Month"
 
 # Tonal (actions-togglegroup--tonal)
 - toolbar "Text style":
-  - button "Bold":
-    - img
-  - button "Italic" [pressed]:
-    - img
-  - button "Underline":
-    - img
+  - button "Bold"
+  - button "Italic" [pressed]
+  - button "Underline"

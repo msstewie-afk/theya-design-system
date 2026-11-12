@@ -9,9 +9,7 @@
 - combobox "Category"
 - button "Open options"
 - text: Date
-- button "Date":
-  - img
-  - text: Any date
+- button "Date": Any date
 - table "Audit log":
   - rowgroup:
     - row "When Event Actor Source IP":
@@ -68,9 +66,7 @@
 - text: Search events by actor, action or target
 - searchbox "Search events by actor, action or target"
 - text: Date
-- button "Date":
-  - img
-  - text: Any date
+- button "Date": Any date
 - table "Audit log":
   - rowgroup:
     - row "When Event Actor Source IP":
@@ -94,9 +90,7 @@
 - combobox "Category"
 - button "Open options"
 - text: Date
-- button "Date":
-  - img
-  - text: Any date
+- button "Date": Any date
 - table "Audit log":
   - rowgroup:
     - row "When Event Actor Source IP":
@@ -116,9 +110,7 @@
 - combobox "Category"
 - button "Open options"
 - text: Date
-- button "Date":
-  - img
-  - text: Jul 13, 2026 – Jul 14, 2026
+- button "Date": Jul 13, 2026 – Jul 14, 2026
 - button "Clear filters"
 - table "Audit log":
   - rowgroup:

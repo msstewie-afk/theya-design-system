@@ -9,6 +9,19 @@
 # Destructive (menus-dropdownmenu--destructive)
 - button "Manage gallery"
 
+# Figma reference (menus-dropdownmenu--figma-reference)
+- menu "Menu":
+  - text: Group
+  - menuitem "Profile ⇧⌘P"
+  - menuitem "Settings ⌘,"
+  - menuitem "Keyboard shortcuts ⌘K"
+  - separator
+  - menuitemcheckbox "Show toolbar" [checked]
+  - menuitemcheckbox "Show status bar"
+  - separator
+  - menuitem "More options"
+  - menuitem "Delete"
+
 # Groups With Labels (menus-dropdownmenu--groups-with-labels)
 - button "Grouped actions"
 
@@ -19,9 +32,7 @@
   - menuitem "Open gallery"
   - menuitem "Edit license"
   - separator
-  - menuitem "Delete gallery":
-    - img
-    - text: Delete gallery
+  - menuitem "Delete gallery"
 
 # Test: interactions (menus-dropdownmenu--test-interactions)
 - button "Open actions for Golden hour"
@@ -34,9 +45,7 @@
   - menuitem "Create gallery"
   - menuitem "Import from folder"
   - separator
-  - menuitem "Copy":
-    - text: Copy
-    - img
+  - menuitem "Copy"
 
 # With Trailing (menus-dropdownmenu--with-trailing)
 - button "Manage Helios Studio"

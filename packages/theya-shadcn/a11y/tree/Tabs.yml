@@ -7,6 +7,35 @@
   - tab "Security"
 - tabpanel "Overview": Views and downloads for the last 30 days.
 
+# Chips overflow (navigation-tabs--chips-overflow)
+- tablist "Recipe categories":
+  - tab "Breakfast" [selected]
+  - tab "Soups"
+  - tab "Mains"
+  - tab "Sides"
+  - tab "Snacks"
+  - tab "Desserts"
+  - tab "Drinks"
+- tabpanel "Breakfast": Breakfast recipes.
+- tablist "Recipe categories, tinted track":
+  - tab "Breakfast" [selected]
+  - tab "Soups"
+  - tab "Mains"
+  - tab "Sides"
+  - tab "Snacks"
+  - tab "Desserts"
+  - tab "Drinks"
+- tabpanel "Breakfast": Breakfast recipes.
+- tablist "Recipe categories, last one selected":
+  - tab "Breakfast"
+  - tab "Soups"
+  - tab "Mains"
+  - tab "Sides"
+  - tab "Snacks"
+  - tab "Desserts"
+  - tab "Drinks" [selected]
+- tabpanel "Drinks": Drinks recipes.
+
 # Closable (navigation-tabs--closable)
 - tablist:
   - tab "Draft 3" [selected]
@@ -27,12 +56,9 @@
 
 # Icon only (navigation-tabs--icon-only)
 - tablist "Gallery sections":
-  - tab "Overview" [selected]:
-    - img
-  - tab "Licenses":
-    - img
-  - tab "Access":
-    - img
+  - tab "Overview" [selected]
+  - tab "Licenses"
+  - tab "Access"
 - tabpanel "Overview": Selene Weddings · 48 photos.
 
 # Test: interactions (navigation-tabs--test-interactions)
@@ -42,6 +68,13 @@
   - tab "Security"
 - tabpanel "Overview": Overview content.
 
+# Test: pointer focus (navigation-tabs--test-pointer-focus)
+- tablist "Gallery sections":
+  - tab "Overview"
+  - tab "Client picks"
+  - tab "Security" [selected]
+- tabpanel "Security": Licenses and access rules.
+
 # With badge (navigation-tabs--with-badge)
 - tablist:
   - tab "Logs 128" [selected]
@@ -50,13 +83,7 @@
 
 # With icons (navigation-tabs--with-icons)
 - tablist:
-  - tab "Overview" [selected]:
-    - img
-    - text: Overview
-  - tab "Licenses":
-    - img
-    - text: Licenses
-  - tab "Access":
-    - img
-    - text: Access
+  - tab "Overview" [selected]
+  - tab "Licenses"
+  - tab "Access"
 - tabpanel "Overview": Selene Weddings · 48 photos.

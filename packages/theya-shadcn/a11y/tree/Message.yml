@@ -6,6 +6,9 @@
 # Exchange (ai-chat-message--exchange)
 - text: AI Assistant 9:32 AM I can help you set up a new client portal. Which studio should it belong to? 9:33 AM Selene Weddings, it’s for the Okafor wedding. AI Got it. I will create it under Selene Weddings now.
 
+# Playground (ai-chat-message--playground)
+- text: AI Assistant 9:32 AM I can help you set up a new client portal. Which studio should it belong to?
+
 # Tone (ai-chat-message--tone)
 - text: 9:33 AM Filled (default) — solid primary. 9:33 AM Tonal — lighter primary-subtle.
 

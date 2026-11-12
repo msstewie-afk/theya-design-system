@@ -17,11 +17,9 @@
   - radio "Eos Portraits"
   - text: Eos Portraits
 - text: Storage (GB)
-- button "Decrease":
-  - img
+- button "Decrease"
 - spinbutton "Storage (GB)": "10"
-- button "Increase":
-  - img
+- button "Increase"
 - text: Description (optional)
 - textbox "Description (optional)":
   - /placeholder: What is this gallery for?

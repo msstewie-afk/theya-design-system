@@ -20,26 +20,16 @@
   - heading "Questions, answered" [level=2]
   - paragraph: "Anything else: write to us from the app, a person answers."
   - heading "Can I bring my bookmarks from Chrome?" [level=3]:
-    - button "Can I bring my bookmarks from Chrome?":
-      - text: Can I bring my bookmarks from Chrome?
-      - img
+    - button "Can I bring my bookmarks from Chrome?"
   - heading "What happens to a page that disappears?" [level=3]:
-    - button "What happens to a page that disappears?":
-      - text: What happens to a page that disappears?
-      - img
+    - button "What happens to a page that disappears?"
   - heading "Who can see my library?" [level=3]:
-    - button "Who can see my library?":
-      - text: Who can see my library?
-      - img
+    - button "Who can see my library?"
   - heading "Is there a free plan?" [level=3]:
-    - button "Is there a free plan?" [expanded]:
-      - text: Is there a free plan?
-      - img
-  - region "Is there a free plan?": Free for one person, with unlimited links. Teams pay per member and get shared folders and rules.
+    - button "Is there a free plan?" [expanded]
+  - text: Free for one person, with unlimited links. Teams pay per member and get shared folders and rules.
   - heading "Does it work offline?" [level=3]:
-    - button "Does it work offline?":
-      - text: Does it work offline?
-      - img
+    - button "Does it work offline?"
 
 # FAQ, chat (patterns-landing-sections--faq-chat)
 - region "Questions, answered":

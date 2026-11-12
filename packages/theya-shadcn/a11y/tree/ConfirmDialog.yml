@@ -17,6 +17,17 @@
   - button "Delete gallery" [disabled]
   - button "Close"
 
+# Playground (overlays-confirmdialog--playground)
+- alertdialog "Delete this gallery?":
+  - heading "Delete this gallery?" [level=2]
+  - paragraph: This removes Golden hour, its photos and client picks. It cannot be undone.
+  - text: Type Golden hour to confirm
+  - textbox "Type Golden hour to confirm":
+    - /placeholder: Golden hour
+  - button "Cancel"
+  - button "Delete gallery" [disabled]
+  - button "Close"
+
 # Test: interactions (overlays-confirmdialog--test-interactions)
 - button "Delete gallery"
 

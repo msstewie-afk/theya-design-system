@@ -73,6 +73,18 @@
 - button "Save"
 - button "Toggle loading"
 
+# Optical Icon (actions-button--optical-icon)
+- button "Next step"
+- button "Back"
+- button "Continue"
+- button "All recipes"
+- button "Next"
+- button "Next step"
+- button "Back"
+- button "Continue"
+- button "All recipes"
+- button "Next"
+
 # Playground (actions-button--playground)
 - button "Button"
 

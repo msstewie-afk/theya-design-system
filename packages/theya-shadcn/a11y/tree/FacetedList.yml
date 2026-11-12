@@ -56,17 +56,13 @@
         - slider "Price per month minimum"
         - slider "Price per month maximum"
         - text: From
-        - button "Decrease" [disabled]:
-          - img
+        - button "Decrease" [disabled]
         - spinbutton "From": "0"
-        - button "Increase":
-          - img
+        - button "Increase"
         - text: To
-        - button "Decrease":
-          - img
+        - button "Decrease"
         - spinbutton "To": "120"
-        - button "Increase" [disabled]:
-          - img
+        - button "Increase" [disabled]
     - group "Rating":
       - text: Rating
       - radiogroup "Rating":
@@ -81,10 +77,8 @@
   - paragraph: 24 products
   - combobox "Sort by": Most relevant
   - radiogroup "Layout":
-    - radio "Grid" [checked]:
-      - img
-    - radio "List":
-      - img
+    - radio "Grid" [checked]
+    - radio "List"
   - list:
     - listitem:
       - link "Golden hour presets by Helios Studio":
@@ -227,17 +221,13 @@
         - slider "Price per month minimum"
         - slider "Price per month maximum"
         - text: From
-        - button "Decrease" [disabled]:
-          - img
+        - button "Decrease" [disabled]
         - spinbutton "From": "0"
-        - button "Increase":
-          - img
+        - button "Increase"
         - text: To
-        - button "Decrease":
-          - img
+        - button "Decrease"
         - spinbutton "To": "120"
-        - button "Increase" [disabled]:
-          - img
+        - button "Increase" [disabled]
     - group "Rating":
       - text: Rating
       - radiogroup "Rating":
@@ -252,10 +242,8 @@
   - paragraph: 24 products
   - combobox "Sort by": Most relevant
   - radiogroup "Layout":
-    - radio "Grid" [checked]:
-      - img
-    - radio "List":
-      - img
+    - radio "Grid" [checked]
+    - radio "List"
   - list:
     - listitem:
       - link "Golden hour presets by Helios Studio":
@@ -397,17 +385,13 @@
         - slider "Price per month minimum"
         - slider "Price per month maximum"
         - text: From
-        - button "Decrease" [disabled]:
-          - img
+        - button "Decrease" [disabled]
         - spinbutton "From": "0"
-        - button "Increase":
-          - img
+        - button "Increase"
         - text: To
-        - button "Decrease":
-          - img
+        - button "Decrease"
         - spinbutton "To": "120"
-        - button "Increase" [disabled]:
-          - img
+        - button "Increase" [disabled]
     - group "Rating":
       - text: Rating
       - radiogroup "Rating":
@@ -422,10 +406,8 @@
   - paragraph: 24 products
   - combobox "Sort by": Most relevant
   - radiogroup "Layout":
-    - radio "Grid" [checked]:
-      - img
-    - radio "List":
-      - img
+    - radio "Grid" [checked]
+    - radio "List"
   - list:
     - listitem:
       - link "Golden hour presets by Helios Studio":
@@ -519,10 +501,8 @@
   - button "Filters (1)"
   - combobox "Sort by": Most relevant
   - radiogroup "Layout":
-    - radio "Grid" [checked]:
-      - img
-    - radio "List":
-      - img
+    - radio "Grid" [checked]
+    - radio "List"
   - group "Applied filters":
     - 'button "Remove filter: Plan add-ons"': Plan add-ons
     - button "Clear all"
@@ -583,17 +563,13 @@
         - slider "Price per month minimum"
         - slider "Price per month maximum"
         - text: From
-        - button "Decrease" [disabled]:
-          - img
+        - button "Decrease" [disabled]
         - spinbutton "From": "0"
-        - button "Increase":
-          - img
+        - button "Increase"
         - text: To
-        - button "Decrease":
-          - img
+        - button "Decrease"
         - spinbutton "To": "1"
-        - button "Increase" [disabled]:
-          - img
+        - button "Increase" [disabled]
     - group "Rating":
       - text: Rating
       - radiogroup "Rating":
@@ -608,10 +584,8 @@
   - paragraph: 0 products
   - combobox "Sort by": Most relevant
   - radiogroup "Layout":
-    - radio "Grid" [checked]:
-      - img
-    - radio "List":
-      - img
+    - radio "Grid" [checked]
+    - radio "List"
   - paragraph: No products match
   - paragraph: Remove a filter or two to see more.
   - button "Clear all filters"
@@ -672,17 +646,13 @@
         - slider "Price per month minimum"
         - slider "Price per month maximum"
         - text: From
-        - button "Decrease" [disabled]:
-          - img
+        - button "Decrease" [disabled]
         - spinbutton "From": "0"
-        - button "Increase":
-          - img
+        - button "Increase"
         - text: To
-        - button "Decrease":
-          - img
+        - button "Decrease"
         - spinbutton "To": "120"
-        - button "Increase" [disabled]:
-          - img
+        - button "Increase" [disabled]
     - group "Rating":
       - text: Rating
       - radiogroup "Rating":
@@ -697,10 +667,8 @@
   - paragraph: 24 products
   - combobox "Sort by": Most relevant
   - radiogroup "Layout":
-    - radio "Grid" [checked]:
-      - img
-    - radio "List":
-      - img
+    - radio "Grid" [checked]
+    - radio "List"
   - list:
     - listitem:
       - link "Golden hour presets by Helios Studio":
@@ -977,17 +945,13 @@
         - slider "Price per month minimum"
         - slider "Price per month maximum"
         - text: From
-        - button "Decrease" [disabled]:
-          - img
+        - button "Decrease" [disabled]
         - spinbutton "From": "0"
-        - button "Increase":
-          - img
+        - button "Increase"
         - text: To
-        - button "Decrease":
-          - img
+        - button "Decrease"
         - spinbutton "To": "120"
-        - button "Increase" [disabled]:
-          - img
+        - button "Increase" [disabled]
     - group "Rating":
       - text: Rating
       - radiogroup "Rating":
@@ -1002,10 +966,8 @@
   - paragraph: 24 products
   - combobox "Sort by": Most relevant
   - radiogroup "Layout":
-    - radio "Grid" [checked]:
-      - img
-    - radio "List":
-      - img
+    - radio "Grid" [checked]
+    - radio "List"
   - list:
     - listitem:
       - link "Golden hour presets by Helios Studio":
@@ -1229,17 +1191,13 @@
         - slider "Price per month minimum"
         - slider "Price per month maximum"
         - text: From
-        - button "Decrease" [disabled]:
-          - img
+        - button "Decrease" [disabled]
         - spinbutton "From": "0"
-        - button "Increase":
-          - img
+        - button "Increase"
         - text: To
-        - button "Decrease":
-          - img
+        - button "Decrease"
         - spinbutton "To": "120"
-        - button "Increase" [disabled]:
-          - img
+        - button "Increase" [disabled]
     - group "Rating":
       - text: Rating
       - radiogroup "Rating":
@@ -1254,10 +1212,8 @@
   - paragraph: 24 products
   - combobox "Sort by": Most relevant
   - radiogroup "Layout":
-    - radio "Grid" [checked]:
-      - img
-    - radio "List":
-      - img
+    - radio "Grid" [checked]
+    - radio "List"
   - list:
     - listitem:
       - link "Golden hour presets by Helios Studio":

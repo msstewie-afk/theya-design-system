@@ -460,7 +460,9 @@ jobs:
   a11y:
     needs: checks
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    # 45: the keyboard model (2026-11-12) reloads a story per widget it tests;
+    # a shard took ~14 min before it.
+    timeout-minutes: 45
     # Four machines, every 4th component each (--shard): the browser checks
     # took ~39 min on one runner and set the length of the whole run.
     # Nothing is skipped; each shard runs both scripts on its components.

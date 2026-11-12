@@ -2,31 +2,24 @@
 
 # Actions (navigation-topbar--actions)
 - banner:
-  - button "Switch to dark theme":
-    - img
-  - button "Help":
-    - img
-  - button "Notifications, unread":
-    - img
+  - button "Switch to dark theme"
+  - button "Help"
+  - button "Notifications, unread"
 
 # Default (navigation-topbar--default)
 - banner:
   - textbox "Search…"
   - text: ⌘K
-  - button "Notifications, unread":
-    - img
-  - button "Help":
-    - img
-  - button "Switch to dark theme":
-    - img
+  - button "Notifications, unread"
+  - button "Help"
+  - button "Switch to dark theme"
   - button "Open account menu": AM
 
 # Mobile (navigation-topbar--mobile)
 - banner:
   - textbox "Search…"
   - text: ⌘K
-  - button "Notifications, unread":
-    - img
+  - button "Notifications, unread"
 
 # Search (navigation-topbar--search-trigger)
 - banner:
@@ -36,14 +29,10 @@
 # Vertical (navigation-topbar--vertical)
 - banner "Application toolbar":
   - button "Open account menu": AM
-  - button "Search delivery log…":
-    - img
-  - button "Notifications, unread":
-    - img
-  - button "Help":
-    - img
-  - button "Switch to dark theme":
-    - img
+  - button "Search delivery log…"
+  - button "Notifications, unread"
+  - button "Help"
+  - button "Switch to dark theme"
 - main:
   - heading "Delivery log" [level=1]
 

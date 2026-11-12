@@ -5,21 +5,13 @@
   - rowgroup:
     - row "Gallery Status Studio Photos":
       - columnheader "Gallery":
-        - button "Gallery":
-          - text: Gallery
-          - img
+        - button "Gallery"
       - columnheader "Status":
-        - button "Status":
-          - text: Status
-          - img
+        - button "Status"
       - columnheader "Studio":
-        - button "Studio":
-          - text: Studio
-          - img
+        - button "Studio"
       - columnheader "Photos":
-        - button "Photos":
-          - text: Photos
-          - img
+        - button "Photos"
   - rowgroup:
     - row "Moonrise over Othrys Paused Othrys Lodge 74":
       - cell "Moonrise over Othrys"
@@ -47,21 +39,13 @@
   - rowgroup:
     - row "Gallery Status Studio Photos":
       - columnheader "Gallery":
-        - button "Gallery":
-          - text: Gallery
-          - img
+        - button "Gallery"
       - columnheader "Status":
-        - button "Status":
-          - text: Status
-          - img
+        - button "Status"
       - columnheader "Studio":
-        - button "Studio":
-          - text: Studio
-          - img
+        - button "Studio"
       - columnheader "Photos":
-        - button "Photos":
-          - text: Photos
-          - img
+        - button "Photos"
   - rowgroup:
     - row "View details for Golden hour":
       - cell "Golden hour"
@@ -90,21 +74,13 @@
   - rowgroup:
     - row "Gallery Status Studio Photos":
       - columnheader "Gallery":
-        - button "Gallery":
-          - text: Gallery
-          - img
+        - button "Gallery"
       - columnheader "Status":
-        - button "Status":
-          - text: Status
-          - img
+        - button "Status"
       - columnheader "Studio":
-        - button "Studio":
-          - text: Studio
-          - img
+        - button "Studio"
       - columnheader "Photos":
-        - button "Photos":
-          - text: Photos
-          - img
+        - button "Photos"
   - rowgroup:
     - row "No galleries yet.":
       - cell "No galleries yet."
@@ -114,21 +90,13 @@
   - rowgroup:
     - row "Gallery Status Studio Photos":
       - columnheader "Gallery":
-        - button "Gallery":
-          - text: Gallery
-          - img
+        - button "Gallery"
       - columnheader "Status":
-        - button "Status":
-          - text: Status
-          - img
+        - button "Status"
       - columnheader "Studio":
-        - button "Studio":
-          - text: Studio
-          - img
+        - button "Studio"
       - columnheader "Photos":
-        - button "Photos":
-          - text: Photos
-          - img
+        - button "Photos"
   - rowgroup
 
 # Paged columns on a phone (data-datatable--paged-columns)
@@ -136,21 +104,13 @@
   - rowgroup:
     - row "Gallery Status Studio Photos":
       - columnheader "Gallery":
-        - button "Gallery":
-          - text: Gallery
-          - img
+        - button "Gallery"
       - columnheader "Status":
-        - button "Status":
-          - text: Status
-          - img
+        - button "Status"
       - columnheader "Studio":
-        - button "Studio":
-          - text: Studio
-          - img
+        - button "Studio"
       - columnheader "Photos":
-        - button "Photos":
-          - text: Photos
-          - img
+        - button "Photos"
   - rowgroup:
     - row "Golden hour Active Helios Studio 248":
       - cell "Golden hour"
@@ -178,21 +138,13 @@
   - rowgroup:
     - row "Gallery Status Studio Photos":
       - columnheader "Gallery":
-        - button "Gallery":
-          - text: Gallery
-          - img
+        - button "Gallery"
       - columnheader "Status":
-        - button "Status":
-          - text: Status
-          - img
+        - button "Status"
       - columnheader "Studio":
-        - button "Studio":
-          - text: Studio
-          - img
+        - button "Studio"
       - columnheader "Photos":
-        - button "Photos":
-          - text: Photos
-          - img
+        - button "Photos"
   - rowgroup:
     - row "Golden hour thea@aether.photo Active Helios Studio 248":
       - cell "Golden hour thea@aether.photo"
@@ -223,21 +175,13 @@
     - row "Select Gallery Status Studio Photos Actions":
       - columnheader "Select"
       - columnheader "Gallery":
-        - button "Gallery":
-          - text: Gallery
-          - img
+        - button "Gallery"
       - columnheader "Status":
-        - button "Status":
-          - text: Status
-          - img
+        - button "Status"
       - columnheader "Studio":
-        - button "Studio":
-          - text: Studio
-          - img
+        - button "Studio"
       - columnheader "Photos":
-        - button "Photos":
-          - text: Photos
-          - img
+        - button "Photos"
       - columnheader "Actions"
   - rowgroup:
     - row "Select Golden hour Golden hour Active Helios Studio 248 Actions for Golden hour":

@@ -23,42 +23,35 @@
   - heading "Menu" [level=2]
   - navigation "Main":
     - heading "Products (current section)" [level=3]:
-      - button "Products (current section)":
-        - text: Products (current section)
-        - img
+      - button "Products (current section)"
     - heading "Solutions" [level=3]:
-      - button "Solutions" [expanded]:
-        - text: Solutions
-        - img
-    - region "Solutions":
-      - link "All solutions":
-        - /url: "#solutions"
-      - heading "By need" [level=4]
-      - list "By need":
-        - listitem:
-          - link "Wedding photographers":
-            - /url: "#weddings"
-        - listitem:
-          - link "Portrait studios":
-            - /url: "#portraits"
-        - listitem:
-          - link "Agencies":
-            - /url: "#agencies"
-      - heading "Works with" [level=4]
-      - list "Works with":
-        - listitem:
-          - link "Lightroom":
-            - /url: "#lightroom"
-        - listitem:
-          - link "Capture One":
-            - /url: "#capture-one"
-        - listitem:
-          - link "Photoshop":
-            - /url: "#photoshop"
+      - button "Solutions" [expanded]
+    - link "All solutions":
+      - /url: "#solutions"
+    - heading "By need" [level=4]
+    - list "By need":
+      - listitem:
+        - link "Wedding photographers":
+          - /url: "#weddings"
+      - listitem:
+        - link "Portrait studios":
+          - /url: "#portraits"
+      - listitem:
+        - link "Agencies":
+          - /url: "#agencies"
+    - heading "Works with" [level=4]
+    - list "Works with":
+      - listitem:
+        - link "Lightroom":
+          - /url: "#lightroom"
+      - listitem:
+        - link "Capture One":
+          - /url: "#capture-one"
+      - listitem:
+        - link "Photoshop":
+          - /url: "#photoshop"
     - heading "Resources" [level=3]:
-      - button "Resources":
-        - text: Resources
-        - img
+      - button "Resources"
     - link "Pricing":
       - /url: "#pricing"
     - link "Contact sales":
@@ -70,17 +63,11 @@
   - heading "Menu" [level=2]
   - navigation "Main":
     - heading "Products" [level=3]:
-      - button "Products":
-        - text: Products
-        - img
+      - button "Products"
     - heading "Solutions" [level=3]:
-      - button "Solutions":
-        - text: Solutions
-        - img
+      - button "Solutions"
     - heading "Resources" [level=3]:
-      - button "Resources":
-        - text: Resources
-        - img
+      - button "Resources"
     - link "Pricing":
       - /url: "#pricing"
     - link "Contact sales":

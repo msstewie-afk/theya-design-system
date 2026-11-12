@@ -12,16 +12,12 @@
   - menuitem "Edit"
   - menuitem "View" [expanded]
 - menu "View":
-  - menuitemcheckbox "Show sidebar" [checked]:
-    - img
-    - text: Show sidebar
+  - menuitemcheckbox "Show sidebar" [checked]
   - menuitemcheckbox "Show status bar"
   - separator
   - text: Layout
   - group:
-    - menuitemradio "List view" [checked]:
-      - img
-      - text: List view
+    - menuitemradio "List view" [checked]
     - menuitemradio "Grid view"
 
 # Test: interactions (navigation-menubar--test-interactions)

@@ -34,6 +34,10 @@
 - combobox "Frameworks"
 - button "Open options"
 
+# Playground (selection-combobox--playground)
+- combobox "Team"
+- button "Open options"
+
 # Read-only (selection-combobox--read-only)
 - text: Next.js Astro
 - combobox "Frameworks"

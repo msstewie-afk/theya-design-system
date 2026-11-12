@@ -21,11 +21,9 @@
       - paragraph: Cotton rag12 × 16 in
       - paragraph: $36 each$72
       - text: Qty
-      - button "Fewer Fine-art print":
-        - img
+      - button "Fewer Fine-art print"
       - spinbutton "Qty": "2"
-      - button "More Fine-art print":
-        - img
+      - button "More Fine-art print"
       - 'button "Save for later: Fine-art print"': Save for later
       - button "Remove Fine-art print": Remove
 - region "Saved for later":
@@ -63,11 +61,9 @@
       - paragraph: Cotton rag12 × 16 in
       - paragraph: $36
       - text: Qty
-      - button "Fewer Large fine-art print":
-        - img
+      - button "Fewer Large fine-art print"
       - spinbutton "Qty": "1"
-      - button "More Large fine-art print":
-        - img
+      - button "More Large fine-art print"
       - 'button "Save for later: Large fine-art print"': Save for later
       - button "Remove Large fine-art print": Remove
 - region "Order summary":
@@ -103,11 +99,9 @@
       - paragraph: Cotton rag12 × 16 in
       - paragraph: $36 each$72
       - text: Qty
-      - button "Fewer Fine-art print":
-        - img
+      - button "Fewer Fine-art print"
       - spinbutton "Qty": "2"
-      - button "More Fine-art print":
-        - img
+      - button "More Fine-art print"
       - 'button "Save for later: Fine-art print"': Save for later
       - button "Remove Fine-art print": Remove
 - region "Order summary":
@@ -143,11 +137,9 @@
       - paragraph: Cotton rag12 × 16 in
       - paragraph: $36 each$108
       - text: Qty
-      - button "Fewer Fine-art print":
-        - img
+      - button "Fewer Fine-art print"
       - spinbutton "Qty": "3"
-      - button "More Fine-art print":
-        - img
+      - button "More Fine-art print"
       - 'button "Save for later: Fine-art print"': Save for later
       - button "Remove Fine-art print": Remove
 - region "Saved for later":

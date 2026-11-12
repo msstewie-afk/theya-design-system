@@ -2,45 +2,29 @@
 
 # Bulk actions (layout-toolbar--bulk-actions)
 - toolbar "Bulk actions":
-  - button "Duplicate":
-    - img
-    - text: Duplicate
-  - button "Export":
-    - img
-    - text: Export
+  - button "Duplicate"
+  - button "Export"
   - separator
-  - button "Delete":
-    - img
-    - text: Delete
+  - button "Delete"
 
 # Formatting bar (layout-toolbar--formatting-bar)
 - toolbar "Text formatting":
   - toolbar:
-    - button "Bold":
-      - img
-    - button "Italic":
-      - img
-    - button "Underline":
-      - img
+    - button "Bold"
+    - button "Italic"
+    - button "Underline"
   - separator
   - link "Learn more":
     - /url: "#"
 
 # Vertical (layout-toolbar--vertical)
 - toolbar "Alignment":
-  - button "Align left":
-    - img
-  - button "Align center":
-    - img
-  - button "Align right":
-    - img
+  - button "Align left"
+  - button "Align center"
+  - button "Align right"
 
 # With tone (layout-toolbar--with-intent)
 - toolbar "Gallery actions":
-  - button "Export":
-    - img
-    - text: Export
+  - button "Export"
   - separator
-  - button "Delete":
-    - img
-    - text: Delete
+  - button "Delete"

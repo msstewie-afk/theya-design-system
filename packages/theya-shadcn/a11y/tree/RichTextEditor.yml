@@ -3,17 +3,12 @@
 # Basic (text-input-richtexteditor--basic)
 - text: Reply
 - toolbar "Formatting":
-  - button "Bold":
-    - img
-  - button "Italic":
-    - img
-  - button "Link":
-    - img
+  - button "Bold"
+  - button "Italic"
+  - button "Link"
   - separator
-  - button "Bulleted list":
-    - img
-  - button "Numbered list":
-    - img
+  - button "Bulleted list"
+  - button "Numbered list"
 - textbox "Reply":
   - paragraph: Write a reply…
 
@@ -22,32 +17,20 @@
 - toolbar "Formatting":
   - 'button "Text style: Paragraph"': Paragraph
   - separator
-  - button "Bold":
-    - img
-  - button "Italic":
-    - img
-  - button "Underline":
-    - img
-  - button "Strikethrough":
-    - img
-  - button "Inline code":
-    - img
-  - button "Link":
-    - img
+  - button "Bold"
+  - button "Italic"
+  - button "Underline"
+  - button "Strikethrough"
+  - button "Inline code"
+  - button "Link"
   - separator
-  - button "Bulleted list":
-    - img
-  - button "Numbered list":
-    - img
-  - button "Quote":
-    - img
-  - button "Code block":
-    - img
+  - button "Bulleted list"
+  - button "Numbered list"
+  - button "Quote"
+  - button "Code block"
   - separator
-  - button "Undo":
-    - img
-  - button "Redo" [disabled]:
-    - img
+  - button "Undo"
+  - button "Redo" [disabled]
 - textbox "Template":
   - paragraph: Write the announcement…
 - text: html
@@ -60,32 +43,20 @@
 - toolbar "Formatting":
   - 'button "Text style: Heading 2"': Heading 2
   - separator
-  - button "Bold":
-    - img
-  - button "Italic":
-    - img
-  - button "Underline":
-    - img
-  - button "Strikethrough":
-    - img
-  - button "Inline code":
-    - img
-  - button "Link":
-    - img
+  - button "Bold"
+  - button "Italic"
+  - button "Underline"
+  - button "Strikethrough"
+  - button "Inline code"
+  - button "Link"
   - separator
-  - button "Bulleted list":
-    - img
-  - button "Numbered list":
-    - img
-  - button "Quote":
-    - img
-  - button "Code block":
-    - img
+  - button "Bulleted list"
+  - button "Numbered list"
+  - button "Quote"
+  - button "Code block"
   - separator
-  - button "Undo" [disabled]:
-    - img
-  - button "Redo" [disabled]:
-    - img
+  - button "Undo" [disabled]
+  - button "Redo" [disabled]
 - textbox "Announcement":
   - heading "Scheduled maintenance" [level=2]
   - paragraph:
@@ -110,32 +81,20 @@
 - toolbar "Formatting":
   - 'button "Text style: Heading 2" [disabled]': Heading 2
   - separator
-  - button "Bold" [disabled]:
-    - img
-  - button "Italic" [disabled]:
-    - img
-  - button "Underline" [disabled]:
-    - img
-  - button "Strikethrough" [disabled]:
-    - img
-  - button "Inline code" [disabled]:
-    - img
-  - button "Link" [disabled]:
-    - img
+  - button "Bold" [disabled]
+  - button "Italic" [disabled]
+  - button "Underline" [disabled]
+  - button "Strikethrough" [disabled]
+  - button "Inline code" [disabled]
+  - button "Link" [disabled]
   - separator
-  - button "Bulleted list" [disabled]:
-    - img
-  - button "Numbered list" [disabled]:
-    - img
-  - button "Quote" [disabled]:
-    - img
-  - button "Code block" [disabled]:
-    - img
+  - button "Bulleted list" [disabled]
+  - button "Numbered list" [disabled]
+  - button "Quote" [disabled]
+  - button "Code block" [disabled]
   - separator
-  - button "Undo" [disabled]:
-    - img
-  - button "Redo" [disabled]:
-    - img
+  - button "Undo" [disabled]
+  - button "Redo" [disabled]
 - textbox "Announcement" [disabled]:
   - heading "Scheduled maintenance" [level=2]
   - paragraph:
@@ -160,32 +119,20 @@
 - toolbar "Formatting":
   - 'button "Text style: Paragraph"': Paragraph
   - separator
-  - button "Bold":
-    - img
-  - button "Italic":
-    - img
-  - button "Underline":
-    - img
-  - button "Strikethrough":
-    - img
-  - button "Inline code":
-    - img
-  - button "Link":
-    - img
+  - button "Bold"
+  - button "Italic"
+  - button "Underline"
+  - button "Strikethrough"
+  - button "Inline code"
+  - button "Link"
   - separator
-  - button "Bulleted list":
-    - img
-  - button "Numbered list":
-    - img
-  - button "Quote":
-    - img
-  - button "Code block":
-    - img
+  - button "Bulleted list"
+  - button "Numbered list"
+  - button "Quote"
+  - button "Code block"
   - separator
-  - button "Undo" [disabled]:
-    - img
-  - button "Redo" [disabled]:
-    - img
+  - button "Undo" [disabled]
+  - button "Redo" [disabled]
 - textbox "Description":
   - paragraph: Describe the product…
 - paragraph: Shown on the public product page.
@@ -195,32 +142,20 @@
 - toolbar "Formatting":
   - 'button "Text style: Paragraph"': Paragraph
   - separator
-  - button "Bold":
-    - img
-  - button "Italic":
-    - img
-  - button "Underline":
-    - img
-  - button "Strikethrough":
-    - img
-  - button "Inline code":
-    - img
-  - button "Link":
-    - img
+  - button "Bold"
+  - button "Italic"
+  - button "Underline"
+  - button "Strikethrough"
+  - button "Inline code"
+  - button "Link"
   - separator
-  - button "Bulleted list":
-    - img
-  - button "Numbered list":
-    - img
-  - button "Quote":
-    - img
-  - button "Code block":
-    - img
+  - button "Bulleted list"
+  - button "Numbered list"
+  - button "Quote"
+  - button "Code block"
   - separator
-  - button "Undo" [disabled]:
-    - img
-  - button "Redo" [disabled]:
-    - img
+  - button "Undo" [disabled]
+  - button "Redo" [disabled]
 - textbox "Release notes" [invalid]:
   - paragraph: Write the announcement…
 - paragraph: Release notes are required.
@@ -230,32 +165,20 @@
 - toolbar "Formatting":
   - 'button "Text style: Heading 2"': Heading 2
   - separator
-  - button "Bold":
-    - img
-  - button "Italic":
-    - img
-  - button "Underline":
-    - img
-  - button "Strikethrough":
-    - img
-  - button "Inline code":
-    - img
-  - button "Link":
-    - img
+  - button "Bold"
+  - button "Italic"
+  - button "Underline"
+  - button "Strikethrough"
+  - button "Inline code"
+  - button "Link"
   - separator
-  - button "Bulleted list":
-    - img
-  - button "Numbered list":
-    - img
-  - button "Quote":
-    - img
-  - button "Code block":
-    - img
+  - button "Bulleted list"
+  - button "Numbered list"
+  - button "Quote"
+  - button "Code block"
   - separator
-  - button "Undo" [disabled]:
-    - img
-  - button "Redo" [disabled]:
-    - img
+  - button "Undo" [disabled]
+  - button "Redo" [disabled]
 - textbox "Announcement":
   - heading "Scheduled maintenance" [level=2]
   - paragraph:
@@ -295,12 +218,9 @@
 # With limit (text-input-richtexteditor--with-limit)
 - text: Status update
 - toolbar "Formatting":
-  - button "Bold":
-    - img
-  - button "Italic":
-    - img
-  - button "Link":
-    - img
+  - button "Bold"
+  - button "Italic"
+  - button "Link"
 - textbox "Status update":
   - paragraph: Exports are back to normal after the 14:10 incident. Thanks!
 - paragraph: 60/280 characters

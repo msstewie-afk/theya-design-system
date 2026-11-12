@@ -3,12 +3,10 @@
 # Custom Icon (labels-helpicon--custom-icon)
 - paragraph:
   - text: Includes 10,000 downloads a month
-  - button "About this quota":
-    - img
+  - button "About this quota"
 
 # Default (labels-helpicon--default)
-- button "Renewal runs 30 days before expiry.":
-  - img
+- button "Renewal runs 30 days before expiry."
 
 # In Table Header (labels-helpicon--in-table-header)
 - table:
@@ -17,12 +15,10 @@
       - columnheader "Gallery"
       - columnheader "Studio The studio that owns the gallery. Changing it moves its files.":
         - text: Studio
-        - button "The studio that owns the gallery. Changing it moves its files.":
-          - img
+        - button "The studio that owns the gallery. Changing it moves its files."
       - columnheader "Downloads Full-size downloads in the current billing period.":
         - text: Downloads
-        - button "Full-size downloads in the current billing period.":
-          - img
+        - button "Full-size downloads in the current billing period."
   - rowgroup:
     - row "Golden hour Helios Studio 1,284":
       - cell "Golden hour"
@@ -35,22 +31,18 @@
 
 # Long Hint (labels-helpicon--long-hint)
 - text: Archive retention
-- button "Archive copies are kept for 14 days on the Pro plan and 30 days on Business; the retention change applies to copies made from the next run onward.":
-  - img
+- button "Archive copies are kept for 14 days on the Pro plan and 30 days on Business; the retention change applies to copies made from the next run onward."
 
 # On Field Label (labels-helpicon--on-field-label)
 - text: Portal address
-- button "Clients open their galleries at this address.":
-  - img
+- button "Clients open their galleries at this address."
 - textbox "Portal address Clients open their galleries at this address.":
   - /placeholder: selene-weddings.aether.photo
 
 # On Switch Row (labels-helpicon--on-switch-row)
 - text: Watermark previews
-- button "Adds your logo to every preview; full-size downloads stay clean.":
-  - img
+- button "Adds your logo to every preview; full-size downloads stay clean."
 - switch "Watermark previews Adds your logo to every preview; full-size downloads stay clean." [checked]
 
 # Test: interactions (labels-helpicon--test-interactions)
-- button "Renewal runs 30 days before expiry.":
-  - img
+- button "Renewal runs 30 days before expiry."

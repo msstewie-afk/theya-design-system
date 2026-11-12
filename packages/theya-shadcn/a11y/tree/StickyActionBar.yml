@@ -65,6 +65,32 @@
     - button "Continue"
 - status: €29 per month€29/mo
 
+# Narrow container (actions-stickyactionbar--narrow-container)
+- region "Phone preview":
+  - heading "Padding 16" [level=2]
+  - paragraph: "Step 1: the content and the bar share the same 16px edge."
+  - paragraph: "Step 2: the content and the bar share the same 16px edge."
+  - paragraph: "Step 3: the content and the bar share the same 16px edge."
+  - paragraph: "Step 4: the content and the bar share the same 16px edge."
+  - paragraph: "Step 5: the content and the bar share the same 16px edge."
+  - paragraph: "Step 6: the content and the bar share the same 16px edge."
+  - paragraph: "Step 7: the content and the bar share the same 16px edge."
+  - paragraph: "Step 8: the content and the bar share the same 16px edge."
+  - region "Phone actions":
+    - button "Next step"
+- region "Custom padding":
+  - heading "Padding 20, via the variable" [level=2]
+  - paragraph: "Step 1: the page sets 20px, the bar follows."
+  - paragraph: "Step 2: the page sets 20px, the bar follows."
+  - paragraph: "Step 3: the page sets 20px, the bar follows."
+  - paragraph: "Step 4: the page sets 20px, the bar follows."
+  - paragraph: "Step 5: the page sets 20px, the bar follows."
+  - paragraph: "Step 6: the page sets 20px, the bar follows."
+  - paragraph: "Step 7: the page sets 20px, the bar follows."
+  - paragraph: "Step 8: the page sets 20px, the bar follows."
+  - region "Custom actions":
+    - button "Next step"
+
 # Unsaved Changes (actions-stickyactionbar--unsaved-changes)
 - region "Gallery settings":
   - heading "Gallery settings" [level=2]

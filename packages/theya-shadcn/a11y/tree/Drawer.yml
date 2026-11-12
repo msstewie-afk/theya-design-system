@@ -25,3 +25,14 @@
 
 # Test: interactions (overlays-drawer--test-interactions)
 - button "Rename gallery"
+
+# Test: layout (overlays-drawer--test-layout)
+- dialog "Rename gallery":
+  - heading "Rename gallery" [level=2]
+  - paragraph: Clients see the new name in their portal.
+  - text: Gallery name
+  - textbox "Gallery name": Golden hour
+  - button "Clear input"
+  - button "Cancel"
+  - button "Save changes"
+  - button "Close"

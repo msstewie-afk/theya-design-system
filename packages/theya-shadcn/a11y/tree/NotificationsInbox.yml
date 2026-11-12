@@ -2,12 +2,8 @@
 
 # All Read (patterns-notificationsinbox--all-read)
 - paragraph: Notifications
-- button "Status":
-  - text: Status
-  - img
-- button "Object":
-  - text: Object
-  - img
+- button "Status"
+- button "Object"
 - radiogroup "Filter notifications":
   - radio "All" [checked]
   - radio "Unread"
@@ -28,12 +24,8 @@
 # Default (patterns-notificationsinbox--default)
 - paragraph: Notifications
 - button "Mark all read"
-- button "Status":
-  - text: Status
-  - img
-- button "Object":
-  - text: Object
-  - img
+- button "Status"
+- button "Object"
 - radiogroup "Filter notifications":
   - radio "All" [checked]
   - radio "Unread 3"
@@ -69,12 +61,8 @@
 
 # Empty (patterns-notificationsinbox--empty)
 - paragraph: Notifications
-- button "Status":
-  - text: Status
-  - img
-- button "Object":
-  - text: Object
-  - img
+- button "Status"
+- button "Object"
 - radiogroup "Filter notifications":
   - radio "All" [checked]
   - radio "Unread"
@@ -85,9 +73,7 @@
 # Status hidden, custom object facet (patterns-notificationsinbox--status-hidden-custom-object-facet)
 - paragraph: Security alerts
 - button "Mark all read"
-- button "Event type, 1 selected":
-  - text: Event type
-  - img
+- button "Event type, 1 selected": Event type
 - radiogroup "Filter notifications":
   - radio "All" [checked]
   - radio "Unread 2"
@@ -101,12 +87,8 @@
 
 # Test: interactions (patterns-notificationsinbox--test-interactions)
 - paragraph: Notifications
-- button "Status":
-  - text: Status
-  - img
-- button "Object":
-  - text: Object
-  - img
+- button "Status"
+- button "Object"
 - radiogroup "Filter notifications":
   - radio "All" [checked]
   - radio "Unread"

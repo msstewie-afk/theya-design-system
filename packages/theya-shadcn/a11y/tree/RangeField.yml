@@ -6,17 +6,13 @@
   - slider "Response time, ms minimum"
   - slider "Response time, ms maximum"
   - text: From
-  - button "Decrease" [disabled]:
-    - img
+  - button "Decrease" [disabled]
   - spinbutton "From": "0"
-  - button "Increase":
-    - img
+  - button "Increase"
   - text: To
-  - button "Decrease":
-    - img
+  - button "Decrease"
   - spinbutton "To": "100"
-  - button "Increase" [disabled]:
-    - img
+  - button "Increase" [disabled]
 - button "Reset"
 
 # Default (selection-rangefield--default)
@@ -25,17 +21,13 @@
   - slider "Storage, GB minimum"
   - slider "Storage, GB maximum"
   - text: From
-  - button "Decrease" [disabled]:
-    - img
+  - button "Decrease" [disabled]
   - spinbutton "From": "0"
-  - button "Increase":
-    - img
+  - button "Increase"
   - text: To
-  - button "Decrease":
-    - img
+  - button "Decrease"
   - spinbutton "To": "500"
-  - button "Increase" [disabled]:
-    - img
+  - button "Increase" [disabled]
 
 # Disabled (selection-rangefield--disabled)
 - group "Storage, GB":
@@ -43,17 +35,13 @@
   - slider "Storage, GB minimum" [disabled]
   - slider "Storage, GB maximum" [disabled]
   - text: From
-  - button "Decrease" [disabled]:
-    - img
+  - button "Decrease" [disabled]
   - spinbutton "From" [disabled]: "50"
-  - button "Increase" [disabled]:
-    - img
+  - button "Increase" [disabled]
   - text: To
-  - button "Decrease" [disabled]:
-    - img
+  - button "Decrease" [disabled]
   - spinbutton "To" [disabled]: "300"
-  - button "Increase" [disabled]:
-    - img
+  - button "Increase" [disabled]
 
 # Min Distance (selection-rangefield--min-distance)
 - group "Storage, GB":
@@ -61,17 +49,13 @@
   - slider "Storage, GB minimum"
   - slider "Storage, GB maximum"
   - text: From
-  - button "Decrease":
-    - img
+  - button "Decrease"
   - spinbutton "From": "150"
-  - button "Increase" [disabled]:
-    - img
+  - button "Increase" [disabled]
   - text: To
-  - button "Decrease" [disabled]:
-    - img
+  - button "Decrease" [disabled]
   - spinbutton "To": "200"
-  - button "Increase":
-    - img
+  - button "Increase"
 
 # Price Filter (selection-rangefield--price-filter)
 - group "Price per month":
@@ -79,17 +63,13 @@
   - slider "Price per month minimum"
   - slider "Price per month maximum"
   - text: From
-  - button "Decrease":
-    - img
+  - button "Decrease"
   - spinbutton "From": "3"
-  - button "Increase" [disabled]:
-    - img
+  - button "Increase" [disabled]
   - text: To
-  - button "Decrease" [disabled]:
-    - img
+  - button "Decrease" [disabled]
   - spinbutton "To": "3"
-  - button "Increase":
-    - img
+  - button "Increase"
 - text: "Filter applied 5 times · last: €3–€3"
 
 # Small (selection-rangefield--small)
@@ -98,14 +78,10 @@
   - slider "Price per month minimum"
   - slider "Price per month maximum"
   - text: From
-  - button "Decrease" [disabled]:
-    - img
+  - button "Decrease" [disabled]
   - spinbutton "From": "0"
-  - button "Increase":
-    - img
+  - button "Increase"
   - text: To
-  - button "Decrease":
-    - img
+  - button "Decrease"
   - spinbutton "To": "200"
-  - button "Increase" [disabled]:
-    - img
+  - button "Increase" [disabled]

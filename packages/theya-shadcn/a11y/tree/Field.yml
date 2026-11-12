@@ -21,11 +21,9 @@
 - combobox "Print size": 11 × 14 in
 - paragraph: Paper size for every print in this order.
 - text: Copies
-- button "Decrease":
-  - img
+- button "Decrease"
 - spinbutton "Copies": "2"
-- button "Increase":
-  - img
+- button "Increase"
 - paragraph: Prints of each selected photo.
 - text: Watermark client previews
 - switch "Watermark client previews"

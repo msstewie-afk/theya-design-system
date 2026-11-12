@@ -10,17 +10,11 @@
     - row "Select Gallery Status Studio":
       - columnheader "Select"
       - columnheader "Gallery":
-        - button "Gallery":
-          - text: Gallery
-          - img
+        - button "Gallery"
       - columnheader "Status":
-        - button "Status":
-          - text: Status
-          - img
+        - button "Status"
       - columnheader "Studio":
-        - button "Studio":
-          - text: Studio
-          - img
+        - button "Studio"
   - rowgroup:
     - row "Select row Golden hour Published Helios Studio":
       - cell "Select row":
@@ -64,17 +58,11 @@
     - row "Select Gallery Status Studio":
       - columnheader "Select"
       - columnheader "Gallery":
-        - button "Gallery":
-          - text: Gallery
-          - img
+        - button "Gallery"
       - columnheader "Status":
-        - button "Status":
-          - text: Status
-          - img
+        - button "Status"
       - columnheader "Studio":
-        - button "Studio":
-          - text: Studio
-          - img
+        - button "Studio"
   - rowgroup:
     - row "Select row Golden hour Published Helios Studio":
       - cell "Select row":
@@ -108,57 +96,16 @@
       - cell "Studio L4"
 
 # Overflow (data-datatabletoolbar--overflow)
-- checkbox "Select all"
-- text: Select all
-- textbox "Filter galleries":
-  - /placeholder: Filter galleries…
-- table "Galleries":
-  - rowgroup:
-    - row "Select Gallery Status Studio":
-      - columnheader "Select"
-      - columnheader "Gallery":
-        - button "Gallery":
-          - text: Gallery
-          - img
-      - columnheader "Status":
-        - button "Status":
-          - text: Status
-          - img
-      - columnheader "Studio":
-        - button "Studio":
-          - text: Studio
-          - img
-  - rowgroup:
-    - row "Select row Golden hour Published Helios Studio":
-      - cell "Select row":
-        - checkbox "Select row"
-      - cell "Golden hour"
-      - cell "Published"
-      - cell "Helios Studio"
-    - row "Select row Blue hour Published Selene Weddings":
-      - cell "Select row":
-        - checkbox "Select row"
-      - cell "Blue hour"
-      - cell "Published"
-      - cell "Selene Weddings"
-    - row "Select row First light Expired Eos Portraits":
-      - cell "Select row":
-        - checkbox "Select row"
-      - cell "First light"
-      - cell "Expired"
-      - cell "Eos Portraits"
-    - row "Select row Moonrise over Othrys Draft Othrys Lodge":
-      - cell "Select row":
-        - checkbox "Select row"
-      - cell "Moonrise over Othrys"
-      - cell "Draft"
-      - cell "Othrys Lodge"
-    - row "Select row Wide-shining Published Studio L4":
-      - cell "Select row":
-        - checkbox "Select row"
-      - cell "Wide-shining"
-      - cell "Published"
-      - cell "Studio L4"
+- alertdialog "Delete 3 galleries?":
+  - heading "Delete 3 galleries?" [level=2]
+  - text: Type delete to confirm
+  - textbox "Type delete to confirm":
+    - /placeholder: delete
+    - text: lete
+  - button "Clear input"
+  - button "Cancel"
+  - button "Delete galleries" [disabled]
+  - button "Close"
 
 # Selected (data-datatabletoolbar--selected)
 - checkbox "Select all"
@@ -170,17 +117,11 @@
     - row "Select Gallery Status Studio":
       - columnheader "Select"
       - columnheader "Gallery":
-        - button "Gallery":
-          - text: Gallery
-          - img
+        - button "Gallery"
       - columnheader "Status":
-        - button "Status":
-          - text: Status
-          - img
+        - button "Status"
       - columnheader "Studio":
-        - button "Studio":
-          - text: Studio
-          - img
+        - button "Studio"
   - rowgroup:
     - row "Select row Golden hour Published Helios Studio":
       - cell "Select row":
@@ -223,17 +164,11 @@
     - row "Select Gallery Status Studio":
       - columnheader "Select"
       - columnheader "Gallery":
-        - button "Gallery":
-          - text: Gallery
-          - img
+        - button "Gallery"
       - columnheader "Status":
-        - button "Status":
-          - text: Status
-          - img
+        - button "Status"
       - columnheader "Studio":
-        - button "Studio":
-          - text: Studio
-          - img
+        - button "Studio"
   - rowgroup:
     - row "Select row Golden hour Published Helios Studio":
       - cell "Select row":
@@ -241,4 +176,4 @@
       - cell "Golden hour"
       - cell "Published"
       - cell "Helios Studio"
-- status: 1 selected
+- status: 5 selected

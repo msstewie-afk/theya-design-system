@@ -6,31 +6,17 @@
   - button "Collapse sidebar" [expanded]
   - navigation "Main":
     - text: Manage
-    - button "Dashboard":
-      - img
-      - text: Dashboard
-    - button "Galleries 128":
-      - img
-      - text: Galleries 128
-    - button "Licenses 3":
-      - img
-      - text: Licenses 3
-    - button "Credentials !":
-      - img
-      - text: Credentials !
+    - button "Dashboard"
+    - button "Galleries 128"
+    - button "Licenses 3"
+    - button "Credentials !"
     - button "More actions for Credentials"
     - text: Clients
     - button "Add client"
-    - button "Rhea Okafor":
-      - img
-      - text: Rhea Okafor
+    - button "Rhea Okafor"
     - button "More actions for Rhea Okafor"
-  - button "Settings":
-    - img
-    - text: Settings
-  - button "Support":
-    - img
-    - text: Support
+  - button "Settings"
+  - button "Support"
 - paragraph: Main content area.
 
 # Inverse (navigation-sidebar--inverse)
@@ -39,31 +25,17 @@
   - button "Collapse sidebar" [expanded]
   - navigation "Main":
     - text: Manage
-    - button "Dashboard":
-      - img
-      - text: Dashboard
-    - button "Galleries 128":
-      - img
-      - text: Galleries 128
-    - button "Licenses 3":
-      - img
-      - text: Licenses 3
-    - button "Credentials !":
-      - img
-      - text: Credentials !
+    - button "Dashboard"
+    - button "Galleries 128"
+    - button "Licenses 3"
+    - button "Credentials !"
     - button "More actions for Credentials"
     - text: Clients
     - button "Add client"
-    - button "Rhea Okafor":
-      - img
-      - text: Rhea Okafor
+    - button "Rhea Okafor"
     - button "More actions for Rhea Okafor"
-  - button "Settings":
-    - img
-    - text: Settings
-  - button "Support":
-    - img
-    - text: Support
+  - button "Settings"
+  - button "Support"
 - paragraph: Main content area.
 
 # Test: interactions (navigation-sidebar--test-interactions)
@@ -72,31 +44,17 @@
   - button "Collapse sidebar" [expanded]
   - navigation "Main":
     - text: Manage
-    - button "Dashboard":
-      - img
-      - text: Dashboard
-    - button "Galleries 128":
-      - img
-      - text: Galleries 128
-    - button "Licenses 3":
-      - img
-      - text: Licenses 3
-    - button "Credentials !":
-      - img
-      - text: Credentials !
+    - button "Dashboard"
+    - button "Galleries 128"
+    - button "Licenses 3"
+    - button "Credentials !"
     - button "More actions for Credentials"
     - text: Clients
     - button "Add client"
-    - button "Rhea Okafor":
-      - img
-      - text: Rhea Okafor
+    - button "Rhea Okafor"
     - button "More actions for Rhea Okafor"
-  - button "Settings":
-    - img
-    - text: Settings
-  - button "Support":
-    - img
-    - text: Support
+  - button "Settings"
+  - button "Support"
 - paragraph: Main content area.
 
 # With account (navigation-sidebar--with-account)
@@ -105,17 +63,9 @@
   - button "Collapse sidebar" [expanded]
   - navigation "Main":
     - text: Manage
-    - button "Dashboard":
-      - img
-      - text: Dashboard
-    - button "Galleries 128":
-      - img
-      - text: Galleries 128
-  - button "Settings":
-    - img
-    - text: Settings
-  - button "Support":
-    - img
-    - text: Support
+    - button "Dashboard"
+    - button "Galleries 128"
+  - button "Settings"
+  - button "Support"
   - button "MS Maria Smith Design system specialist"
 - paragraph: Main content area.

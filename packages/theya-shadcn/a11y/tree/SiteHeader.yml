@@ -82,23 +82,14 @@
   - paragraph: Features
   - heading "Everything you saved, in order" [level=2]
   - heading "Bring everything over" [level=3]:
-    - button "Bring everything over" [disabled] [expanded]:
-      - text: Bring everything over
-      - img
-  - region "Bring everything over":
-    - paragraph: Import from Chrome, Firefox, Safari and Edge at once, or from a bookmarks file. Folders come with it.
+    - button "Bring everything over" [disabled] [expanded]
+  - paragraph: Import from Chrome, Firefox, Safari and Edge at once, or from a bookmarks file. Folders come with it.
   - heading "Folders that sort themselves" [level=3]:
-    - button "Folders that sort themselves":
-      - text: Folders that sort themselves
-      - img
+    - button "Folders that sort themselves"
   - heading "Search the words, not just the titles" [level=3]:
-    - button "Search the words, not just the titles":
-      - text: Search the words, not just the titles
-      - img
+    - button "Search the words, not just the titles"
   - heading "One copy of everything" [level=3]:
-    - button "One copy of everything":
-      - text: One copy of everything
-      - img
+    - button "One copy of everything"
   - 'img "Import in progress: Chrome done, Firefox 168 of 230 links, Safari waiting."':
     - paragraph: Importing bookmarks
     - paragraph: 580 of 738 links

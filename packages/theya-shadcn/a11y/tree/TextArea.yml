@@ -39,6 +39,12 @@
 - text: This field can't be empty. Read-only
 - textbox "Read-only": Can't edit this
 
+# Test: resize (text-input-textarea--test-resize)
+- text: Notes
+- textbox "Notes"
+- text: Fixed
+- textbox "Fixed"
+
 # Widths (text-input-textarea--widths)
 - text: sm — 60px
 - textbox "sm — 60px":

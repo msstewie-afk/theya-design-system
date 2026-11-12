@@ -83,28 +83,18 @@
     - row "kind=\"date-range\" Proofing period for Golden hour":
       - rowheader "kind=\"date-range\""
       - cell "Proofing period for Golden hour":
-        - button "Proofing period for Golden hour":
-          - img
-          - text: Sep 1, 2026 – Sep 30, 2026
+        - button "Proofing period for Golden hour": Sep 1, 2026 – Sep 30, 2026
     - row "disabled Proofing period for First light":
       - rowheader "disabled"
       - cell "Proofing period for First light":
-        - button "Proofing period for First light" [disabled]:
-          - img
-          - text: Sep 1, 2026 – Sep 30, 2026
+        - button "Proofing period for First light" [disabled]: Sep 1, 2026 – Sep 30, 2026
 
 # Kinds (data-datatablecell--kinds)
 - text: kind one line two lines kind="text" Helios Studio Helios Studio helios.aether.photo text + mono DAWN_0412.jpg DAWN_0412.jpg First light · 24 MB text + muted Updated 2 hours ago Updated 2 hours ago by thea@aether.photo kind="mono" GOLDEN_0907.tif GOLDEN_0907.tif Golden hour mono + muted L4_moonrise.raw L4_moonrise.raw Uploaded 3 days ago kind="primary" Golden hour Golden hour Helios Studio kind="status" Active Active kind="badge" Pro Pro badge + badges Expiring soon Print 2 more Expiring soon Print 2 more kind="usage" 72% 7.2 GB of 10 GB
 - 'progressbar "Storage: 72%, 7.2 GB of 10 GB"'
 - text: 72% 7.2 GB of 10 GB
 - 'progressbar "Storage: 72%, 7.2 GB of 10 GB"'
-- text: kind="sparkline" 1.2k
-- img "Downloads trending up over the last 14 days":
-  - img
-- text: 1.2k
-- img "Downloads trending up over the last 14 days":
-  - img
-- text: kind="input"
+- text: kind="sparkline" 1.2k 1.2k kind="input"
 - textbox "Title for Golden hour": Golden hour at the lake
 - button "Clear Title for Golden hour"
 - textbox "Title for Blue hour": Blue hour, Selene and Rhea
@@ -113,16 +103,12 @@
 - combobox "License for Golden hour": Web
 - combobox "License for Blue hour": Personal
 - text: kind="number"
-- button "Decrease Photos in Golden hour":
-  - img
+- button "Decrease Photos in Golden hour"
 - spinbutton "Photos in Golden hour": "248"
-- button "Increase Photos in Golden hour":
-  - img
-- button "Decrease Photos in Blue hour":
-  - img
+- button "Increase Photos in Golden hour"
+- button "Decrease Photos in Blue hour"
 - spinbutton "Photos in Blue hour": "186"
-- button "Increase Photos in Blue hour":
-  - img
+- button "Increase Photos in Blue hour"
 - text: kind="combobox"
 - combobox "Studio for Golden hour": Helios Studio
 - button "Open options"
@@ -143,12 +129,8 @@
 - combobox "Tags for Blue hour"
 - button "Open options"
 - text: kind="date-range"
-- button "Proofing period for Golden hour":
-  - img
-  - text: Sep 1, 2026 – Sep 30, 2026
-- button "Proofing period for Blue hour":
-  - img
-  - text: Pick a date range
+- button "Proofing period for Golden hour": Sep 1, 2026 – Sep 30, 2026
+- button "Proofing period for Blue hour": Pick a date range
 - text: kind="switch"
 - switch "Downloads for Golden hour" [checked]
 - switch "Downloads for Blue hour"

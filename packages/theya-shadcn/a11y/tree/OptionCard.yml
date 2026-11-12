@@ -16,16 +16,45 @@
   - radio "Personal" [checked]: Personal Prints and sharing at home.
   - radio "Commercial" [disabled]: Commercial Available on the Business plan.
 
+# Multiple choice (selection-optioncard--multiple-choice)
+- paragraph: Anything we should take into account?
+- group "Anything we should take into account?":
+  - checkbox "Diabetes or prediabetes": Diabetes or prediabetes We'll show carbs per serving.
+  - checkbox "Kidney disease (CKD)": Kidney disease (CKD) We'll flag potassium and phosphorus.
+  - checkbox "Lactose intolerance": Lactose intolerance We'll offer lactose-free swaps.
+  - checkbox "More protein": More protein Doctor's advice. We'll show protein per serving.
+  - checkbox "Less protein": Less protein Doctor's advice. We'll keep portions modest.
+  - checkbox "None of these": None of these Recipes without extra notes.
+
 # Studio picker (selection-optioncard--studio-picker)
 - radiogroup "Shoot studio":
   - radio "Helios Studio" [checked]: Helios Studio Commercial and product. Two cyclorama walls.
   - radio "Eos Portraits": Eos Portraits Morning portraits. North-facing daylight.
   - radio "Studio L4" [disabled]: Studio L4 Satellite studio. Not available on this plan.
 
+# Test: alignment (selection-optioncard--test-alignment)
+- group "Conditions":
+  - checkbox "More protein": More protein Doctor's advice.
+  - checkbox "A long title that wraps onto a second line in a phone column": A long title that wraps onto a second line in a phone column Two-line title.
+- radiogroup "Plan":
+  - radio "Personal" [checked]: Personal Radio indicator.
+  - radio "Commercial": Commercial Radio indicator.
+
 # Test: interactions (selection-optioncard--test-interactions)
 - radiogroup "License type":
   - radio "Personal": Personal Prints and sharing at home. No resale.
   - radio "Commercial" [checked]: Commercial Ads, packaging and resale. Required for client brands.
+
+# Test: multiple (selection-optioncard--test-multiple)
+- paragraph: Anything we should take into account?
+- group "Anything we should take into account?":
+  - checkbox "Diabetes or prediabetes": Diabetes or prediabetes We'll show carbs per serving.
+  - checkbox "Kidney disease (CKD)": Kidney disease (CKD) We'll flag potassium and phosphorus.
+  - checkbox "Lactose intolerance": Lactose intolerance We'll offer lactose-free swaps.
+  - checkbox "More protein": More protein Doctor's advice. We'll show protein per serving.
+  - checkbox "Less protein": Less protein Doctor's advice. We'll keep portions modest.
+  - checkbox "None of these": None of these Recipes without extra notes.
+- status
 
 # With group label (selection-optioncard--with-group-label)
 - group "License coverage":

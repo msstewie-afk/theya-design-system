@@ -2,55 +2,33 @@
 
 # All Closed (layout-accordion--all-closed)
 - heading "What is a client portal?" [level=3]:
-  - button "What is a client portal?":
-    - text: What is a client portal?
-    - img
+  - button "What is a client portal?"
 - heading "How long are galleries kept?" [level=3]:
-  - button "How long are galleries kept?":
-    - text: How long are galleries kept?
-    - img
+  - button "How long are galleries kept?"
 - heading "Can clients print the photos?" [level=3]:
-  - button "Can clients print the photos?":
-    - text: Can clients print the photos?
-    - img
+  - button "Can clients print the photos?"
 
 # Disabled Item (layout-accordion--disabled-item)
 - heading "Active plan" [level=3]:
-  - button "Active plan" [expanded]:
-    - text: Active plan
-    - img
-- region "Active plan": You're on the Pro plan — 1,284 photos delivered this month.
+  - button "Active plan" [expanded]
+- text: You're on the Pro plan — 1,284 photos delivered this month.
 - heading "Enterprise add-ons (contact sales)" [level=3]:
-  - button "Enterprise add-ons (contact sales)" [disabled]:
-    - text: Enterprise add-ons (contact sales)
-    - img
+  - button "Enterprise add-ons (contact sales)" [disabled]
 - heading "Billing history" [level=3]:
-  - button "Billing history":
-    - text: Billing history
-    - img
+  - button "Billing history"
 
 # Multiple (layout-accordion--multiple)
 - heading "Section one" [level=3]:
-  - button "Section one" [expanded]:
-    - text: Section one
-    - img
-- region "Section one": Content for section one.
+  - button "Section one" [expanded]
+- text: Content for section one.
 - heading "Section two" [level=3]:
-  - button "Section two" [expanded]:
-    - text: Section two
-    - img
-- region "Section two": Content for section two.
+  - button "Section two" [expanded]
+- text: Content for section two.
 
 # Single (layout-accordion--single)
 - heading "What is a client portal?" [level=3]:
-  - button "What is a client portal?":
-    - text: What is a client portal?
-    - img
+  - button "What is a client portal?"
 - heading "How long are galleries kept?" [level=3]:
-  - button "How long are galleries kept?":
-    - text: How long are galleries kept?
-    - img
+  - button "How long are galleries kept?"
 - heading "Can clients print the photos?" [level=3]:
-  - button "Can clients print the photos?":
-    - text: Can clients print the photos?
-    - img
+  - button "Can clients print the photos?"

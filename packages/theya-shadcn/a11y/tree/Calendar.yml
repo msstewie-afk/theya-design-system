@@ -2,10 +2,8 @@
 
 # Disabled (date-time-calendar--disabled)
 - navigation "Navigation bar":
-  - button "Go to the Previous Month":
-    - img
-  - button "Go to the Next Month":
-    - img
+  - button "Go to the Previous Month"
+  - button "Go to the Next Month"
 - status: November 2026
 - grid "November 2026":
   - rowgroup:
@@ -24,17 +22,17 @@
         - button "Friday, November 6th, 2026" [disabled]: "6"
       - gridcell "Saturday, November 7th, 2026":
         - button "Saturday, November 7th, 2026" [disabled]: "7"
-    - row "Today, Sunday, November 8th, 2026 Monday, November 9th, 2026 Tuesday, November 10th, 2026 Wednesday, November 11th, 2026 Thursday, November 12th, 2026 Friday, November 13th, 2026 Saturday, November 14th, 2026":
-      - gridcell "Today, Sunday, November 8th, 2026":
-        - button "Today, Sunday, November 8th, 2026": "8"
+    - row "Sunday, November 8th, 2026 Monday, November 9th, 2026 Tuesday, November 10th, 2026 Wednesday, November 11th, 2026 Today, Thursday, November 12th, 2026 Friday, November 13th, 2026 Saturday, November 14th, 2026":
+      - gridcell "Sunday, November 8th, 2026":
+        - button "Sunday, November 8th, 2026" [disabled]: "8"
       - gridcell "Monday, November 9th, 2026":
-        - button "Monday, November 9th, 2026": "9"
+        - button "Monday, November 9th, 2026" [disabled]: "9"
       - gridcell "Tuesday, November 10th, 2026":
-        - button "Tuesday, November 10th, 2026": "10"
+        - button "Tuesday, November 10th, 2026" [disabled]: "10"
       - gridcell "Wednesday, November 11th, 2026":
-        - button "Wednesday, November 11th, 2026": "11"
-      - gridcell "Thursday, November 12th, 2026":
-        - button "Thursday, November 12th, 2026": "12"
+        - button "Wednesday, November 11th, 2026" [disabled]: "11"
+      - gridcell "Today, Thursday, November 12th, 2026":
+        - button "Today, Thursday, November 12th, 2026": "12"
       - gridcell "Friday, November 13th, 2026":
         - button "Friday, November 13th, 2026": "13"
       - gridcell "Saturday, November 14th, 2026":
@@ -87,10 +85,8 @@
 
 # Dropdown Caption (date-time-calendar--dropdown-caption)
 - navigation "Navigation bar":
-  - button "Go to the Previous Month":
-    - img
-  - button "Go to the Next Month":
-    - img
+  - button "Go to the Previous Month"
+  - button "Go to the Next Month"
 - combobox "Choose the Month":
   - option "January"
   - option "February"
@@ -224,17 +220,17 @@
         - button "Friday, November 6th, 2026": "6"
       - gridcell "Saturday, November 7th, 2026":
         - button "Saturday, November 7th, 2026": "7"
-    - row "Today, Sunday, November 8th, 2026, selected Monday, November 9th, 2026 Tuesday, November 10th, 2026 Wednesday, November 11th, 2026 Thursday, November 12th, 2026 Friday, November 13th, 2026 Saturday, November 14th, 2026":
-      - gridcell "Today, Sunday, November 8th, 2026, selected" [selected]:
-        - button "Today, Sunday, November 8th, 2026, selected": "8"
+    - row "Sunday, November 8th, 2026 Monday, November 9th, 2026 Tuesday, November 10th, 2026 Wednesday, November 11th, 2026 Today, Thursday, November 12th, 2026, selected Friday, November 13th, 2026 Saturday, November 14th, 2026":
+      - gridcell "Sunday, November 8th, 2026":
+        - button "Sunday, November 8th, 2026": "8"
       - gridcell "Monday, November 9th, 2026":
         - button "Monday, November 9th, 2026": "9"
       - gridcell "Tuesday, November 10th, 2026":
         - button "Tuesday, November 10th, 2026": "10"
       - gridcell "Wednesday, November 11th, 2026":
         - button "Wednesday, November 11th, 2026": "11"
-      - gridcell "Thursday, November 12th, 2026":
-        - button "Thursday, November 12th, 2026": "12"
+      - gridcell "Today, Thursday, November 12th, 2026, selected" [selected]:
+        - button "Today, Thursday, November 12th, 2026, selected": "12"
       - gridcell "Friday, November 13th, 2026":
         - button "Friday, November 13th, 2026": "13"
       - gridcell "Saturday, November 14th, 2026":
@@ -287,10 +283,8 @@
 
 # Multiple Dates (date-time-calendar--multiple-dates)
 - navigation "Navigation bar":
-  - button "Go to the Previous Month":
-    - img
-  - button "Go to the Next Month":
-    - img
+  - button "Go to the Previous Month"
+  - button "Go to the Next Month"
 - status: June 2026
 - grid "June 2026":
   - rowgroup:
@@ -372,10 +366,8 @@
 
 # Range (date-time-calendar--range)
 - navigation "Navigation bar":
-  - button "Go to the Previous Month":
-    - img
-  - button "Go to the Next Month" [disabled]:
-    - img
+  - button "Go to the Previous Month"
+  - button "Go to the Next Month" [disabled]
 - combobox "Choose the Month":
   - option "January"
   - option "February"
@@ -509,30 +501,30 @@
         - button "Friday, November 6th, 2026": "6"
       - gridcell "Saturday, November 7th, 2026":
         - button "Saturday, November 7th, 2026": "7"
-    - row "Today, Sunday, November 8th, 2026, selected Monday, November 9th, 2026, selected Tuesday, November 10th, 2026, selected Wednesday, November 11th, 2026, selected Thursday, November 12th, 2026, selected Friday, November 13th, 2026, selected Saturday, November 14th, 2026, selected":
-      - gridcell "Today, Sunday, November 8th, 2026, selected" [selected]:
-        - button "Today, Sunday, November 8th, 2026, selected": "8"
-      - gridcell "Monday, November 9th, 2026, selected" [selected]:
-        - button "Monday, November 9th, 2026, selected": "9"
-      - gridcell "Tuesday, November 10th, 2026, selected" [selected]:
-        - button "Tuesday, November 10th, 2026, selected": "10"
-      - gridcell "Wednesday, November 11th, 2026, selected" [selected]:
-        - button "Wednesday, November 11th, 2026, selected": "11"
-      - gridcell "Thursday, November 12th, 2026, selected" [selected]:
-        - button "Thursday, November 12th, 2026, selected": "12"
+    - row "Sunday, November 8th, 2026 Monday, November 9th, 2026 Tuesday, November 10th, 2026 Wednesday, November 11th, 2026 Today, Thursday, November 12th, 2026, selected Friday, November 13th, 2026, selected Saturday, November 14th, 2026, selected":
+      - gridcell "Sunday, November 8th, 2026":
+        - button "Sunday, November 8th, 2026": "8"
+      - gridcell "Monday, November 9th, 2026":
+        - button "Monday, November 9th, 2026": "9"
+      - gridcell "Tuesday, November 10th, 2026":
+        - button "Tuesday, November 10th, 2026": "10"
+      - gridcell "Wednesday, November 11th, 2026":
+        - button "Wednesday, November 11th, 2026": "11"
+      - gridcell "Today, Thursday, November 12th, 2026, selected" [selected]:
+        - button "Today, Thursday, November 12th, 2026, selected": "12"
       - gridcell "Friday, November 13th, 2026, selected" [selected]:
         - button "Friday, November 13th, 2026, selected": "13"
       - gridcell "Saturday, November 14th, 2026, selected" [selected]:
         - button "Saturday, November 14th, 2026, selected": "14"
-    - row "Sunday, November 15th, 2026 Monday, November 16th, 2026 Tuesday, November 17th, 2026 Wednesday, November 18th, 2026 Thursday, November 19th, 2026 Friday, November 20th, 2026 Saturday, November 21st, 2026":
-      - gridcell "Sunday, November 15th, 2026":
-        - button "Sunday, November 15th, 2026": "15"
-      - gridcell "Monday, November 16th, 2026":
-        - button "Monday, November 16th, 2026": "16"
-      - gridcell "Tuesday, November 17th, 2026":
-        - button "Tuesday, November 17th, 2026": "17"
-      - gridcell "Wednesday, November 18th, 2026":
-        - button "Wednesday, November 18th, 2026": "18"
+    - row "Sunday, November 15th, 2026, selected Monday, November 16th, 2026, selected Tuesday, November 17th, 2026, selected Wednesday, November 18th, 2026, selected Thursday, November 19th, 2026 Friday, November 20th, 2026 Saturday, November 21st, 2026":
+      - gridcell "Sunday, November 15th, 2026, selected" [selected]:
+        - button "Sunday, November 15th, 2026, selected": "15"
+      - gridcell "Monday, November 16th, 2026, selected" [selected]:
+        - button "Monday, November 16th, 2026, selected": "16"
+      - gridcell "Tuesday, November 17th, 2026, selected" [selected]:
+        - button "Tuesday, November 17th, 2026, selected": "17"
+      - gridcell "Wednesday, November 18th, 2026, selected" [selected]:
+        - button "Wednesday, November 18th, 2026, selected": "18"
       - gridcell "Thursday, November 19th, 2026":
         - button "Thursday, November 19th, 2026": "19"
       - gridcell "Friday, November 20th, 2026":
@@ -761,10 +753,8 @@
 
 # Single (date-time-calendar--single)
 - navigation "Navigation bar":
-  - button "Go to the Previous Month":
-    - img
-  - button "Go to the Next Month":
-    - img
+  - button "Go to the Previous Month"
+  - button "Go to the Next Month"
 - status: November 2026
 - grid "November 2026":
   - rowgroup:
@@ -783,19 +773,19 @@
         - button "Friday, November 6th, 2026": "6"
       - gridcell "Saturday, November 7th, 2026":
         - button "Saturday, November 7th, 2026": "7"
-    - row "Today, Sunday, November 8th, 2026 Monday, November 9th, 2026, selected Tuesday, November 10th, 2026 Wednesday, November 11th, 2026 Thursday, November 12th, 2026 Friday, November 13th, 2026 Saturday, November 14th, 2026":
-      - gridcell "Today, Sunday, November 8th, 2026":
-        - button "Today, Sunday, November 8th, 2026": "8"
-      - gridcell "Monday, November 9th, 2026, selected" [selected]:
-        - button "Monday, November 9th, 2026, selected": "9"
+    - row "Sunday, November 8th, 2026 Monday, November 9th, 2026 Tuesday, November 10th, 2026 Wednesday, November 11th, 2026 Today, Thursday, November 12th, 2026 Friday, November 13th, 2026, selected Saturday, November 14th, 2026":
+      - gridcell "Sunday, November 8th, 2026":
+        - button "Sunday, November 8th, 2026": "8"
+      - gridcell "Monday, November 9th, 2026":
+        - button "Monday, November 9th, 2026": "9"
       - gridcell "Tuesday, November 10th, 2026":
         - button "Tuesday, November 10th, 2026": "10"
       - gridcell "Wednesday, November 11th, 2026":
         - button "Wednesday, November 11th, 2026": "11"
-      - gridcell "Thursday, November 12th, 2026":
-        - button "Thursday, November 12th, 2026": "12"
-      - gridcell "Friday, November 13th, 2026":
-        - button "Friday, November 13th, 2026": "13"
+      - gridcell "Today, Thursday, November 12th, 2026":
+        - button "Today, Thursday, November 12th, 2026": "12"
+      - gridcell "Friday, November 13th, 2026, selected" [selected]:
+        - button "Friday, November 13th, 2026, selected": "13"
       - gridcell "Saturday, November 14th, 2026":
         - button "Saturday, November 14th, 2026": "14"
     - row "Sunday, November 15th, 2026 Monday, November 16th, 2026 Tuesday, November 17th, 2026 Wednesday, November 18th, 2026 Thursday, November 19th, 2026 Friday, November 20th, 2026 Saturday, November 21st, 2026":

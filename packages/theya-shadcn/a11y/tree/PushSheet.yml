@@ -10,6 +10,19 @@
   - button "Close"
   - paragraph: "Any content goes here. The panel stays mounted while closed (no state loss) but is `inert`, so it's unreachable to focus and assistive tech until it reopens."
 
+# Figma reference (overlays-pushsheet--figma-reference)
+- banner:
+  - text: Dashboard
+  - button "Notifications panel" [expanded]
+- main: Page content stays in view and fully interactive - there's no backdrop and nothing here is blocked while the panel is open. Toggle the bell icon (or press Esc while the panel is open) to push it in and out from the right.
+- dialog "Gallery details":
+  - heading "Gallery details" [level=2]
+  - paragraph: Golden hour
+  - button "Close"
+  - paragraph: Body slot
+  - button "Close"
+  - button "Save"
+
 # Mobile Overlay (overlays-pushsheet--mobile-overlay)
 - banner:
   - text: Dashboard
@@ -29,12 +42,8 @@
   - paragraph: Notifications
   - button "Mark all read"
   - button "Close"
-  - button "Status":
-    - text: Status
-    - img
-  - button "Object":
-    - text: Object
-    - img
+  - button "Status"
+  - button "Object"
   - radiogroup "Filter notifications":
     - radio "All" [checked]
     - radio "Unread 3"

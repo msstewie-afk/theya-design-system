@@ -5,23 +5,14 @@
 - heading "Everything you saved, in order" [level=2]
 - paragraph: Four things that keep a collection of thousands of links usable.
 - heading "Bring everything over" [level=3]:
-  - button "Bring everything over":
-    - text: Bring everything over
-    - img
+  - button "Bring everything over"
 - heading "Folders that sort themselves" [level=3]:
-  - button "Folders that sort themselves":
-    - text: Folders that sort themselves
-    - img
+  - button "Folders that sort themselves"
 - heading "Search the words, not just the titles" [level=3]:
-  - button "Search the words, not just the titles" [disabled] [expanded]:
-    - text: Search the words, not just the titles
-    - img
-- region "Search the words, not just the titles":
-  - paragraph: Every saved page is indexed, so a phrase you half remember finds it.
+  - button "Search the words, not just the titles" [disabled] [expanded]
+- paragraph: Every saved page is indexed, so a phrase you half remember finds it.
 - heading "One copy of everything" [level=3]:
-  - button "One copy of everything":
-    - text: One copy of everything
-    - img
+  - button "One copy of everything"
 - img "Searching “attention” finds three pages, with the word highlighted inside each.":
   - text: attention Notes on attention …what we give our
   - mark: attention

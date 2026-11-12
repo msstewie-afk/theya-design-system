@@ -60,23 +60,14 @@
   - heading "Everything you saved, in order" [level=2]
   - paragraph: Four things that keep a collection of thousands of links usable.
   - heading "Bring everything over" [level=3]:
-    - button "Bring everything over" [disabled] [expanded]:
-      - text: Bring everything over
-      - img
-  - region "Bring everything over":
-    - paragraph: Import from Chrome, Firefox, Safari and Edge at once, or from a bookmarks file. Folders come with it.
+    - button "Bring everything over" [disabled] [expanded]
+  - paragraph: Import from Chrome, Firefox, Safari and Edge at once, or from a bookmarks file. Folders come with it.
   - heading "Folders that sort themselves" [level=3]:
-    - button "Folders that sort themselves":
-      - text: Folders that sort themselves
-      - img
+    - button "Folders that sort themselves"
   - heading "Search the words, not just the titles" [level=3]:
-    - button "Search the words, not just the titles":
-      - text: Search the words, not just the titles
-      - img
+    - button "Search the words, not just the titles"
   - heading "One copy of everything" [level=3]:
-    - button "One copy of everything":
-      - text: One copy of everything
-      - img
+    - button "One copy of everything"
   - 'img "Import in progress: Chrome done, Firefox 168 of 230 links, Safari waiting."':
     - paragraph: Importing bookmarks
     - paragraph: 580 of 738 links
@@ -142,21 +133,13 @@
   - region "Questions, answered":
     - heading "Questions, answered" [level=2]
     - heading "Can I bring my bookmarks from Chrome?" [level=3]:
-      - button "Can I bring my bookmarks from Chrome?":
-        - text: Can I bring my bookmarks from Chrome?
-        - img
+      - button "Can I bring my bookmarks from Chrome?"
     - heading "What happens to a page that disappears?" [level=3]:
-      - button "What happens to a page that disappears?":
-        - text: What happens to a page that disappears?
-        - img
+      - button "What happens to a page that disappears?"
     - heading "Who can see my library?" [level=3]:
-      - button "Who can see my library?":
-        - text: Who can see my library?
-        - img
+      - button "Who can see my library?"
     - heading "Is there a free plan?" [level=3]:
-      - button "Is there a free plan?":
-        - text: Is there a free plan?
-        - img
+      - button "Is there a free plan?"
   - region "Your reading list, finally in one place":
     - heading "Your reading list, finally in one place" [level=2]
     - button "Get started free"
@@ -225,8 +208,6 @@
     - listitem:
       - link "Bookmarks on GitHub":
         - /url: "#github"
-        - img
     - listitem:
       - link "Bookmarks on X":
         - /url: "#x"
-        - img

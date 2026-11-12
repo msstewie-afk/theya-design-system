@@ -14,11 +14,9 @@
 - text: Studio
 - combobox "Studio": Helios Studio
 - text: Print copies
-- button "Decrease":
-  - img
+- button "Decrease"
 - spinbutton "Print copies": "3"
-- button "Increase":
-  - img
+- button "Increase"
 - text: Watermark previews
 - switch "Watermark previews" [checked]
 - text: Notes
@@ -33,11 +31,9 @@
 - text: Studio
 - combobox "Studio": Selene Weddings
 - text: Print copies
-- button "Decrease":
-  - img
+- button "Decrease"
 - spinbutton "Print copies": "0"
-- button "Increase":
-  - img
+- button "Increase"
 - text: Watermark previews
 - switch "Watermark previews" [checked]
 - text: Notes
@@ -48,11 +44,9 @@
 - text: Display name Golden hour Studio
 - combobox "Studio": Helios Studio
 - text: Print copies
-- button "Decrease":
-  - img
+- button "Decrease"
 - spinbutton "Print copies": "3"
-- button "Increase":
-  - img
+- button "Increase"
 - text: Watermark previews
 - switch "Watermark previews" [checked]
 - text: Notes
@@ -100,11 +94,9 @@
 - text: Studio
 - combobox "Studio": Helios Studio
 - text: Print copies
-- button "Decrease":
-  - img
+- button "Decrease"
 - spinbutton "Print copies" [invalid]: "0"
-- button "Increase":
-  - img
+- button "Increase"
 - text: Order at least 1 copy. From 1 to 20. Watermark previews
 - switch "Watermark previews" [checked]
 - text: Notes

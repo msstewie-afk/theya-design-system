@@ -97,6 +97,20 @@
 - text: The stretched CardLink makes the entire card clickable without a URL.
 - paragraph: Activate the card to open the gallery.
 
+# On a page surface (layout-card--on-page-surface)
+- 'tablist "On the page: categories"':
+  - tab "Soups" [selected]
+  - tab "Mains"
+  - tab "Sides"
+- tabpanel "Soups": soups
+- 'progressbar "On the page: progress"'
+- 'tablist "In a card: categories"':
+  - tab "Soups" [selected]
+  - tab "Mains"
+  - tab "Sides"
+- tabpanel "Soups": soups
+- 'progressbar "In a card: progress"'
+
 # Playground (layout-card--playground)
 - text: Card title Short supporting description
 - button "Favourite Card title"

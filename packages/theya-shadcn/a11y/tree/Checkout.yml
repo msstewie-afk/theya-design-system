@@ -69,12 +69,8 @@
 - 'heading "Step 2 of 3: Payment" [level=1]'
 - paragraph: Signed in as thea@aether.photo
 - tablist "Payment method":
-  - tab "Card" [selected]:
-    - img
-    - text: Card
-  - tab "PayPal":
-    - img
-    - text: PayPal
+  - tab "Card" [selected]
+  - tab "PayPal"
 - tabpanel "Card":
   - group "Card details":
     - text: Card details
@@ -88,8 +84,7 @@
     - textbox "Expiry date" [invalid]:
       - /placeholder: MM / YY
     - text: Enter the expiry date. Security code
-    - button "Where to find the security code":
-      - img
+    - button "Where to find the security code"
     - textbox "Security code" [invalid]:
       - /placeholder: "123"
     - text: Enter the security code.

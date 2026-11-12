@@ -2,12 +2,8 @@
 
 # Amex (patterns-commerce-paymentmethod--amex)
 - tablist "Payment method":
-  - tab "Card" [selected]:
-    - img
-    - text: Card
-  - tab "PayPal":
-    - img
-    - text: PayPal
+  - tab "Card" [selected]
+  - tab "PayPal"
 - tabpanel "Card":
   - group "Card details":
     - text: Card details
@@ -23,20 +19,15 @@
     - textbox "Expiry date":
       - /placeholder: MM / YY
     - text: Month and year, MM / YY Security code
-    - button "Where to find the security code":
-      - img
+    - button "Where to find the security code"
     - textbox "Security code":
       - /placeholder: "1234"
 - button "Continue"
 
 # Default (patterns-commerce-paymentmethod--default)
 - tablist "Payment method":
-  - tab "Card" [selected]:
-    - img
-    - text: Card
-  - tab "PayPal":
-    - img
-    - text: PayPal
+  - tab "Card" [selected]
+  - tab "PayPal"
 - tabpanel "Card":
   - group "Card details":
     - text: Card details
@@ -50,32 +41,23 @@
     - textbox "Expiry date":
       - /placeholder: MM / YY
     - text: Month and year, MM / YY Security code
-    - button "Where to find the security code":
-      - img
+    - button "Where to find the security code"
     - textbox "Security code":
       - /placeholder: "123"
 - button "Continue"
 
 # Pay Pal (patterns-commerce-paymentmethod--pay-pal)
 - tablist "Payment method":
-  - tab "Card":
-    - img
-    - text: Card
-  - tab "PayPal" [selected]:
-    - img
-    - text: PayPal
+  - tab "Card"
+  - tab "PayPal" [selected]
 - tabpanel "PayPal":
   - paragraph: You'll sign in to PayPal in a new window and approve the payment there.
   - paragraph: Then you come back here to review the order. Nothing is charged until you confirm it.
 
 # Test: interactions (patterns-commerce-paymentmethod--test-interactions)
 - tablist "Payment method":
-  - tab "Card" [selected]:
-    - img
-    - text: Card
-  - tab "PayPal":
-    - img
-    - text: PayPal
+  - tab "Card" [selected]
+  - tab "PayPal"
 - tabpanel "Card":
   - group "Card details":
     - text: Card details
@@ -92,8 +74,7 @@
       - /placeholder: MM / YY
       - text: 09 / 25
     - text: This card has expired. Use another card. Security code
-    - button "Where to find the security code":
-      - img
+    - button "Where to find the security code"
     - textbox "Security code" [invalid]:
       - /placeholder: "123"
     - text: Enter the security code.

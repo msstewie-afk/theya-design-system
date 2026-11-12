@@ -18,9 +18,7 @@
 - listbox "Command menu":
   - group "Actions":
     - text: Actions
-    - option "Delete gallery unpublish first" [disabled]:
-      - img
-      - text: Delete gallery unpublish first
+    - option "Delete gallery unpublish first" [disabled]
 - text: ↑↓ Navigate ↵ Select Esc Close
 - status
 
@@ -34,18 +32,9 @@
 - listbox "Command menu":
   - group "Client portals":
     - text: Client portals
-    - option "selene-weddings.aether.photo" [selected]:
-      - img
-      - text: selene-weddings.aether.photo
-      - img
-    - option "helios.aether.photo":
-      - img
-      - text: helios.aether.photo
-      - img
-    - option "eos-portraits.aether.photo":
-      - img
-      - text: eos-portraits.aether.photo
-      - img
+    - option "selene-weddings.aether.photo" [selected]
+    - option "helios.aether.photo"
+    - option "eos-portraits.aether.photo"
 - text: ↑↓ Navigate ↵ Select Esc Close
 - status
 
@@ -54,20 +43,12 @@
 - listbox "Command menu":
   - group "Suggestions":
     - text: Suggestions
-    - option "Dashboard" [selected]:
-      - img
-      - text: Dashboard
-    - option "Galleries":
-      - img
-      - text: Galleries
+    - option "Dashboard" [selected]
+    - option "Galleries"
   - group "Settings":
     - text: Settings
-    - option "General settings ⌘,":
-      - img
-      - text: General settings ⌘,
-    - option "Tools":
-      - img
-      - text: Tools
+    - option "General settings ⌘,"
+    - option "Tools"
 - text: ↑↓ Navigate ↵ Select Esc Close
 - status
 
@@ -84,12 +65,8 @@
   - listbox "Command palette":
     - group "Suggestions":
       - text: Suggestions
-      - option "Dashboard" [selected]:
-        - img
-        - text: Dashboard
-      - option "Galleries":
-        - img
-        - text: Galleries
+      - option "Dashboard" [selected]
+      - option "Galleries"
     - group "Quick actions":
       - text: Quick actions
       - option "Create gallery ⌘N"

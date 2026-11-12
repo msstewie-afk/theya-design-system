@@ -36,8 +36,6 @@
 # Inset (patterns-landing-hero--inset)
 - link "New Shared folders for teams":
   - /url: "#teams"
-  - text: New Shared folders for teams
-  - img
 - heading "Share what your team reads" [level=1]:
   - text: Share what your team
   - emphasis: reads

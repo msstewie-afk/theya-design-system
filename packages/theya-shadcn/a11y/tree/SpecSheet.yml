@@ -9,8 +9,7 @@
   - definition: Up to 20
   - term:
     - text: Default selection limit
-    - button "About Default selection limit":
-      - img
+    - button "About Default selection limit"
   - definition: 50 photos
   - term: Download formats
   - definition: JPEG, TIFF
@@ -24,8 +23,7 @@
   - definition: 200 MB
   - term:
     - text: Preview size
-    - button "About Preview size":
-      - img
+    - button "About Preview size"
   - definition: 2,048 px
   - term: Client browsers
   - definition: Current Chrome, Safari, Firefox, Edge
@@ -49,8 +47,7 @@
   - definition: Up to 20
   - term:
     - text: Default selection limit
-    - button "About Default selection limit":
-      - img
+    - button "About Default selection limit"
   - definition: 50 photos
   - term: Download formats
   - definition: JPEG, TIFF
@@ -64,8 +61,7 @@
   - definition: 200 MB
   - term:
     - text: Preview size
-    - button "About Preview size":
-      - img
+    - button "About Preview size"
   - definition: 2,048 px
 - button "Show all 13 specifications"
 
@@ -78,8 +74,7 @@
   - definition: Up to 20
   - term:
     - text: Default selection limit
-    - button "About Default selection limit":
-      - img
+    - button "About Default selection limit"
   - definition: 50 photos
   - term: Download formats
   - definition: JPEG, TIFF
@@ -93,8 +88,7 @@
   - definition: 200 MB
   - term:
     - text: Preview size
-    - button "About Preview size":
-      - img
+    - button "About Preview size"
   - definition: 2,048 px
   - term: Client browsers
   - definition: Current Chrome, Safari, Firefox, Edge

@@ -52,24 +52,18 @@
     - listitem:
       - combobox "Field": Photos
       - combobox "Photos condition": between
-      - button "Decrease Photos value from":
-        - img
+      - button "Decrease Photos value from"
       - spinbutton "Photos value from": "50"
-      - button "Increase Photos value from":
-        - img
+      - button "Increase Photos value from"
       - text: and
-      - button "Decrease Photos value to":
-        - img
+      - button "Decrease Photos value to"
       - spinbutton "Photos value to": "300"
-      - button "Increase Photos value to":
-        - img
+      - button "Increase Photos value to"
       - button "Remove Photos condition"
     - listitem:
       - combobox "Field": Created
       - combobox "Created condition": after
-      - button "Created value":
-        - img
-        - text: Jan 1, 2026
+      - button "Created value": Jan 1, 2026
       - button "Remove Created condition"
     - listitem:
       - combobox "Field": Watermarked

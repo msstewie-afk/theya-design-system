@@ -29,27 +29,19 @@
 - combobox "Small select": Small (32px)
 
 # With badge (selection-select--with-badge)
-- combobox "Assignee":
-  - img
-  - text: Photographers 12
+- combobox "Assignee": Photographers 12
 
 # With description (selection-select--with-description)
-- combobox "Plan":
-  - img
-  - text: Free One photographer, 3 client galleries
+- combobox "Plan": Free One photographer, 3 client galleries
 
 # With groups (selection-select--with-groups)
 - combobox "Fruit": Carrot
 
 # With icons (selection-select--with-icons)
-- combobox "Section":
-  - img
-  - text: Galleries
+- combobox "Section": Galleries
 
 # With media icons (selection-select--with-media-icons)
-- combobox "Export preset":
-  - img
-  - text: Web JPEG
+- combobox "Export preset": Web JPEG
 
 # With status (selection-select--with-status)
 - combobox "Export": Golden hour — ready
