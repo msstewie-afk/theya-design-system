@@ -501,10 +501,20 @@ jobs:
           for i in $(seq 1 30); do curl -sf http://localhost:6008/index.json >/dev/null && exit 0; sleep 1; done
           echo "Storybook did not start" && exit 1
 
+      # The scripts against stories with known defects (src/test/a11y-fixtures):
+      # a rule that stopped catching its defect, or one that misfires on a
+      # clean fixture, fails here. Once, on the first shard.
+      - name: Calibrate the checks (known defects caught, clean fixtures quiet)
+        if: ${{ matrix.shard == 1 }}
+        run: |
+          node scripts/a11y-tree.mjs --url http://localhost:6008 --fixtures
+          node scripts/a11y-auto.mjs --url http://localhost:6008 --fixtures
+
       - name: Accessibility tree (names, images, headers, error association)
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         run: node scripts/a11y-tree.mjs --url http://localhost:6008 --workers 2 --ci --shard ${{ matrix.shard }}/4
 
-      - name: Browser checks (label in name, focus visible, text spacing, 200% text, Tab)
+      - name: Browser checks (label in name, focus visible, text spacing, 200% text, Tab, keyboard model)
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         run: node scripts/a11y-auto.mjs --url http://localhost:6008 --workers 2 --ci --shard ${{ matrix.shard }}/4
 

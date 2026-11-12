@@ -33,7 +33,9 @@ const VISUAL_DIR = path.join(process.cwd(), '__visual__', [BRAND || null, THEME,
 const config: TestRunnerConfig = {
   // Stories whose play test drives the desktop layout (a column that drops
   // below md, a nav that moves into a drawer) don't run at mobile widths.
-  tags: VIEWPORT ? { skip: ['desktop-play'] } : {},
+  // a11y-fixture: calibration stories with deliberate defects
+  // (src/test/a11y-fixtures.stories.tsx); axe would rightly fail them.
+  tags: { skip: VIEWPORT ? ['desktop-play', 'a11y-fixture'] : ['a11y-fixture'] },
   setup() {
     if (VISUAL) expect.extend({ toMatchImageSnapshot });
   },

@@ -31,6 +31,19 @@
  *   2.4.3 — no positive tabindex and no CSS reordering (flex/grid order,
  *   row-reverse / column-reverse) around tab stops, which make the Tab
  *   order differ from what's on screen.
+ *   A visually hidden control (an sr-only "Dismiss" button, 1px) is not
+ *   "pointer only": nobody can point at it.
+ * - Keyboard model (2.1.1, "keys:", APG; added 2026-11-12 after another
+ *   design system's Combobox showed Tab-only checks miss it). Each widget is
+ *   tested on a fresh load:
+ *   combobox (closed): ArrowDown opens it (aria-expanded="true"), the next
+ *   ArrowDown moves to an option (aria-activedescendant or focus), Escape
+ *   closes it and focus stays on the combobox;
+ *   a button with aria-haspopup (closed): Enter opens it, focus moves into a
+ *   menu or dialog, Escape closes it and focus is back on the button;
+ *   tablist / radiogroup: the arrow key moves focus to another item;
+ *   a dialog open on load: Escape closes it.
+ *   Opt out per story: parameters.a11y.auto = { skip: ['keys'], reason }.
  *
  * Writes a11y/auto.json (per component: stories checked and failures per
  * criterion). scripts/build-a11y.mjs reads it as evidence.
@@ -39,6 +52,10 @@
  *   [--ci --shard 2/4]  (CI: check every 4th component, starting with the 2nd)
  *   (--only re-checks the matching stories and keeps the other components' results)
  *   node scripts/a11y-auto.mjs --url … --ci   (CI: writes nothing, fails on any failure or a story that didn't load)
+ *   node scripts/a11y-auto.mjs --url … --fixtures   (calibration: only the stories tagged a11y-fixture;
+ *     fails unless each reports exactly what its parameters.a11y.expect.auto lists)
+ *   --group title   (another design system's Storybook: group stories by the
+ *     last segment of their title instead of Theya's spec/index.json)
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -55,6 +72,8 @@ const URL_BASE = arg('url', 'http://localhost:6008').replace(/\/$/, '');
 const ONLY = arg('only', '');
 const WORKERS = Number(arg('workers', 4));
 const CI = process.argv.includes('--ci');
+const FIXTURES = process.argv.includes('--fixtures');
+const GROUP_BY_TITLE = arg('group', '') === 'title';
 const OUT = path.join(ROOT, 'a11y/auto.json');
 
 // The Playwright that @storybook/test-runner ships with (same as CI).
@@ -73,21 +92,28 @@ const shardTitles = new Set(
     .sort()
     .filter((_, k) => k % SHARD_N === SHARD_I - 1),
 );
-const stories = Object.values(index.entries).filter((e) => e.type === 'story' && shardTitles.has(e.title) && (!ONLY || e.title.includes(ONLY)));
+const isFixture = (e) => (e.tags ?? []).includes('a11y-fixture');
+const stories = Object.values(index.entries).filter(
+  (e) => e.type === 'story' && shardTitles.has(e.title) && (!ONLY || e.title.includes(ONLY)) && isFixture(e) === FIXTURES,
+);
 
 /** Component name per Storybook title, from spec/index.json. */
-const spec = JSON.parse(fs.readFileSync(path.join(ROOT, 'spec/index.json'), 'utf8'));
 const componentOf = new Map();
-for (const c of spec.components) {
-  const s = JSON.parse(fs.readFileSync(path.join(ROOT, c.spec), 'utf8'));
-  if (s.storybook?.title) componentOf.set(s.storybook.title, c.name);
+if (!GROUP_BY_TITLE) {
+  const spec = JSON.parse(fs.readFileSync(path.join(ROOT, 'spec/index.json'), 'utf8'));
+  for (const c of spec.components) {
+    const s = JSON.parse(fs.readFileSync(path.join(ROOT, c.spec), 'utf8'));
+    if (s.storybook?.title) componentOf.set(s.storybook.title, c.name);
+  }
+  // Patterns too: their story title's last segment is the name build-a11y.mjs uses.
+  for (const f of fs.readdirSync(path.join(ROOT, 'src/components/blocks'), { recursive: true })) {
+    if (!f.endsWith('.stories.tsx')) continue;
+    const title = /\btitle:\s*'([^']+)'/.exec(fs.readFileSync(path.join(ROOT, 'src/components/blocks', f), 'utf8'))?.[1];
+    if (title) componentOf.set(title, title.split('/').pop());
+  }
 }
-// Patterns too: their story title's last segment is the name build-a11y.mjs uses.
-for (const f of fs.readdirSync(path.join(ROOT, 'src/components/blocks'), { recursive: true })) {
-  if (!f.endsWith('.stories.tsx')) continue;
-  const title = /\btitle:\s*'([^']+)'/.exec(fs.readFileSync(path.join(ROOT, 'src/components/blocks', f), 'utf8'))?.[1];
-  if (title) componentOf.set(title, title.split('/').pop());
-}
+// Fixtures are judged one story at a time; another Storybook by its titles.
+const groupOf = (r) => (FIXTURES ? r.name : GROUP_BY_TITLE ? r.title.split('/').pop() : componentOf.get(r.title));
 
 const SPACING_CSS = `
   *, *::before, *::after { line-height: 1.5 !important; letter-spacing: 0.12em !important; word-spacing: 0.16em !important; }
@@ -117,6 +143,135 @@ function clippedText() {
   return out;
 }
 
+/**
+ * In the page: widgets with a keyboard model to test, marked
+ * data-theya-key="<n>" (the same order on every load).
+ */
+function keyWidgets() {
+  const shown = (el) => {
+    const r = el.getBoundingClientRect();
+    const cs = getComputedStyle(el);
+    return r.width > 1 && r.height > 1 && cs.visibility !== 'hidden' && !el.closest('[aria-hidden="true"], [inert], [hidden]');
+  };
+  const enabled = (el) => !el.matches(':disabled, [aria-disabled="true"], [readonly], [aria-readonly="true"]') && !el.closest('fieldset:disabled');
+  const text = (el) => (el?.textContent ?? '').trim().replace(/\s+/g, ' ');
+  const nameOf = (el) => {
+    const by = el.getAttribute('aria-labelledby');
+    if (by) return by.split(/\s+/).map((id) => text(document.getElementById(id))).join(' ').trim();
+    if (el.getAttribute('aria-label')) return el.getAttribute('aria-label').trim();
+    if (el.labels?.length) return [...el.labels].map(text).join(' ');
+    return text(el);
+  };
+  const out = [];
+  const add = (kind, el, role) => {
+    el.setAttribute('data-theya-key', String(out.length));
+    out.push({ kind, key: out.length, desc: `${role} "${nameOf(el).slice(0, 40)}"` });
+  };
+  const pick = (sel, test, n) => [...document.querySelectorAll(sel)].filter((el) => shown(el) && test(el)).slice(0, n);
+  for (const el of pick('[role=combobox]', (el) => enabled(el) && el.getAttribute('aria-expanded') === 'false', 2)) add('combobox', el, 'combobox');
+  for (const el of pick('[aria-haspopup]:not([aria-haspopup=false]):not([role=combobox]):is(button, [role=button])', (el) => enabled(el) && el.getAttribute('aria-expanded') === 'false', 2)) add('trigger', el, el.getAttribute('role') ?? 'button');
+  const items = (g, role) => [...g.querySelectorAll(`[role=${role}]`)].filter((el) => shown(el) && enabled(el) && el.closest(`[role=${g.getAttribute('role')}]`) === g);
+  for (const el of pick('[role=tablist]', (g) => items(g, 'tab').length > 1, 1)) add('tablist', el, 'tablist');
+  for (const el of pick('[role=radiogroup]', (g) => items(g, 'radio').length > 1, 1)) add('radiogroup', el, 'radiogroup');
+  for (const el of pick('[role=dialog], [role=alertdialog]', () => true, 1)) add('dialog', el, el.getAttribute('role'));
+  return out;
+}
+
+/** In the page: the state of widget <key> and of the popups on screen. */
+function keyState(key) {
+  const el = document.querySelector(`[data-theya-key="${key}"]`);
+  const shown = (n) => {
+    if (!n || !n.isConnected) return false;
+    const r = n.getBoundingClientRect();
+    const cs = getComputedStyle(n);
+    return r.width > 1 && r.height > 1 && cs.visibility !== 'hidden' && !n.closest('[aria-hidden="true"], [inert], [hidden]');
+  };
+  const POPUP = '[role=listbox], [role=menu], [role=dialog], [role=alertdialog], [role=grid], [role=tree]';
+  const popups = [...document.querySelectorAll(POPUP)].filter(shown);
+  const active = document.activeElement;
+  const role = el?.getAttribute('role');
+  const item = role === 'tablist' ? 'tab' : role === 'radiogroup' ? 'radio' : '';
+  return {
+    exists: Boolean(el?.isConnected),
+    shown: shown(el),
+    expanded: el?.getAttribute('aria-expanded') ?? null,
+    activedescendant: el?.getAttribute('aria-activedescendant') ?? '',
+    focusOnEl: active === el,
+    focusInEl: Boolean(el && el.contains(active)),
+    focusInPopup: popups.some((p) => p.contains(active) && p !== el && !p.contains(el)),
+    focusOnOption: Boolean(active?.closest('[role=option], [role=menuitem], [role=menuitemcheckbox], [role=menuitemradio], [role=gridcell], [role=treeitem]')),
+    focusItem: item && active?.getAttribute('role') === item && active.closest(`[role=${role}]`) === el ? active.id || active.outerHTML.slice(0, 80) : '',
+    popups: popups.length,
+    options: popups.reduce((n, p) => n + p.querySelectorAll('[role=option]').length, 0),
+    rtl: el ? getComputedStyle(el).direction === 'rtl' : false,
+    vertical: el?.getAttribute('aria-orientation') === 'vertical',
+  };
+}
+
+/** In the page: focus widget <key> (a group: its selected item, or the first if that's the last). */
+function keyFocus(key) {
+  const el = document.querySelector(`[data-theya-key="${key}"]`);
+  const role = el.getAttribute('role');
+  let target = el;
+  if (role === 'tablist' || role === 'radiogroup') {
+    const item = role === 'tablist' ? 'tab' : 'radio';
+    const all = [...el.querySelectorAll(`[role=${item}]`)].filter((n) => n.closest(`[role=${role}]`) === el && !n.matches(':disabled, [aria-disabled="true"]') && n.getBoundingClientRect().width > 1);
+    const on = all.findIndex((n) => n.getAttribute('aria-selected') === 'true' || n.getAttribute('aria-checked') === 'true');
+    target = all[on > -1 && on < all.length - 1 ? on : 0];
+  } else if (role === 'dialog' || role === 'alertdialog') {
+    if (el.contains(document.activeElement)) return;
+    target = el.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])') ?? el;
+  }
+  target.focus({ focusVisible: true });
+}
+
+/** Runs one widget's keyboard model on the current (fresh) page; returns findings. */
+async function keyModel(page, w) {
+  const state = () => page.evaluate(keyState, w.key);
+  const press = async (k, ms = 250) => {
+    await page.keyboard.press(k);
+    await page.waitForTimeout(ms);
+  };
+  await page.evaluate(keyFocus, w.key);
+  await page.waitForTimeout(100);
+  const before = await state();
+  const out = [];
+  if (w.kind === 'combobox') {
+    await press('ArrowDown');
+    let s = await state();
+    if (s.expanded !== 'true') return [`${w.desc}: ArrowDown doesn't open it (aria-expanded stays "${s.expanded}")`];
+    if (s.options && !s.activedescendant && !s.focusOnOption) {
+      await press('ArrowDown');
+      s = await state();
+      if (!s.activedescendant && !s.focusOnOption) out.push(`${w.desc}: ArrowDown doesn't move to an option (no aria-activedescendant, focus stays)`);
+    }
+    await press('Escape', 350);
+    s = await state();
+    if (s.expanded === 'true' || s.popups > before.popups) out.push(`${w.desc}: Escape doesn't close the popup`);
+    else if (!s.focusOnEl) out.push(`${w.desc}: focus is not on the combobox after Escape`);
+  } else if (w.kind === 'trigger') {
+    await press('Enter', 350);
+    let s = await state();
+    if (s.expanded !== 'true') return [`${w.desc}: Enter doesn't open its popup (aria-expanded stays "${s.expanded}")`];
+    const popupRole = await page.evaluate((key) => document.querySelector(`[data-theya-key="${key}"]`).getAttribute('aria-haspopup'), w.key);
+    if (['menu', 'true', 'dialog'].includes(popupRole) && !s.focusInPopup && !s.activedescendant) out.push(`${w.desc}: focus doesn't move into the ${popupRole === 'dialog' ? 'dialog' : 'menu'} it opens`);
+    await press('Escape', 400);
+    s = await state();
+    if (s.expanded === 'true') out.push(`${w.desc}: Escape doesn't close its popup`);
+    else if (!s.focusOnEl) out.push(`${w.desc}: focus is not back on the trigger after Escape`);
+  } else if (w.kind === 'tablist' || w.kind === 'radiogroup') {
+    const key = w.kind === 'tablist' && before.vertical ? 'ArrowDown' : w.kind === 'radiogroup' ? 'ArrowDown' : before.rtl ? 'ArrowLeft' : 'ArrowRight';
+    await press(key, 200);
+    const s = await state();
+    if (!s.focusItem || s.focusItem === before.focusItem) out.push(`${w.desc}: ${key} doesn't move focus to another ${w.kind === 'tablist' ? 'tab' : 'radio'}`);
+  } else if (w.kind === 'dialog') {
+    await press('Escape', 400);
+    const s = await state();
+    if (s.exists && s.shown) out.push(`${w.desc}: Escape doesn't close it`);
+  }
+  return out;
+}
+
 const STYLE_PROPS = ['outlineStyle', 'outlineWidth', 'outlineColor', 'boxShadow', 'borderTopColor', 'borderBottomColor', 'backgroundColor', 'color', 'textDecorationLine'];
 
 async function checkStory(page, story) {
@@ -134,7 +289,7 @@ async function checkStory(page, story) {
       }
       s.focus();
     });
-  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [] };
+  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], keys: [], truncated: [] };
   const load = async () => {
     await page.goto(`${URL_BASE}/iframe.html?id=${story.id}&viewMode=story`, { waitUntil: 'load' });
     await page.waitForSelector('#storybook-root > *', { timeout: 10000 }).catch(() => {});
@@ -251,6 +406,11 @@ async function checkStory(page, story) {
       const cs = getComputedStyle(el);
       return r.width > 0 && r.height > 0 && cs.visibility !== 'hidden' && cs.display !== 'none' && !el.closest('[aria-hidden=true], [inert]');
     };
+    // Visually hidden (sr-only, 1px): nobody can point at it.
+    const pointable = (el) => {
+      const r = el.getBoundingClientRect();
+      return visible(el) && r.width > 1 && r.height > 1;
+    };
     const FOCUSABLE = 'a[href], button, input, select, textarea, iframe, summary, [tabindex], [contenteditable=true], [contenteditable=""]';
     const root = document.getElementById('storybook-root');
     // A container that is a tab stop but holds focusable items (Radix's
@@ -283,7 +443,7 @@ async function checkStory(page, story) {
     // Looks clickable but has no keyboard way in.
     const mouseOnly = [];
     for (const el of root.querySelectorAll('*')) {
-      if (!(el instanceof HTMLElement) || !visible(el) || getComputedStyle(el).cursor !== 'pointer') continue;
+      if (!(el instanceof HTMLElement) || !pointable(el) || getComputedStyle(el).cursor !== 'pointer') continue;
       if (el.matches(FOCUSABLE) || el.closest(`${FOCUSABLE}, label`) || el.querySelector(FOCUSABLE)) continue;
       // A mouse shortcut that repeats a keyboard-reachable control next to it
       // (Stepper's step circle beside the step's label button).
@@ -357,7 +517,21 @@ async function checkStory(page, story) {
     }
   }
 
+  // Keyboard model: each widget on a fresh load (one test leaves popups open).
+  if (!skip.includes('keys')) {
+    await load();
+    const widgets = await page.evaluate(keyWidgets);
+    for (const [i, w] of widgets.entries()) {
+      if (i > 0) {
+        await load();
+        await page.evaluate(keyWidgets);
+      }
+      result.keys.push(...(await keyModel(page, w)));
+    }
+  }
+
   for (const k of skip) result[k] = [];
+  result.expect = FIXTURES ? await page.evaluate(() => window.__STORYBOOK_PREVIEW__?.currentRender?.story?.parameters?.a11y?.expect?.auto) : undefined;
 
   // 1.4.12 and 1.4.4 — fresh load each, spacing / 200% text.
   for (const [crit, css] of [
@@ -415,15 +589,37 @@ await browser.close();
 
 const byComponent = {};
 for (const r of results.sort((a, b) => a.id.localeCompare(b.id))) {
-  const name = componentOf.get(r.title);
+  const name = groupOf(r);
   if (!name) continue;
   const c = (byComponent[name] ??= { stories: 0, errors: 0, '2.5.3': [], '2.4.7': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [] });
+  if (FIXTURES) c.expect = r.expect;
   c.stories += 1;
   if (r.error) {
     c.errors += 1;
     continue;
   }
-  for (const k of ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3', 'truncated']) for (const f of r[k]) c[k].push(`${r.name}: ${f}`);
+  const at = FIXTURES ? '' : `${r.name}: `;
+  for (const k of ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3', 'truncated']) for (const f of r[k]) c[k].push(`${at}${f}`);
+  for (const f of r.keys) c['2.1.1'].push(`${at}keys: ${f}`);
+}
+if (FIXTURES) {
+  // Calibration: every expected finding reported, nothing else.
+  let bad = 0;
+  const KEYS = ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
+  for (const [name, c] of Object.entries(byComponent).sort(([a], [b]) => a.localeCompare(b))) {
+    const got = KEYS.flatMap((k) => c[k].map((f) => `${k}: ${f}`));
+    const problems = c.errors ? ["story didn't load"] : [];
+    if (!c.errors && !Array.isArray(c.expect)) problems.push('no parameters.a11y.expect.auto');
+    else if (!c.errors) {
+      for (const w of c.expect) if (!got.some((g) => g.includes(w))) problems.push(`missed: ${w}`);
+      for (const g of got) if (!c.expect.some((w) => g.includes(w))) problems.push(`unexpected: ${g}`);
+    }
+    if (problems.length) bad++;
+    console.log(`${problems.length ? 'FAIL' : 'ok  '} ${name}${problems.map((p) => `\n       ${p}`).join('')}`);
+  }
+  const n = Object.keys(byComponent).length;
+  console.log(`a11y-auto fixtures: ${n - bad}/${n} as expected`);
+  process.exit(bad || !n ? 1 : 0);
 }
 // --only re-checks some components and keeps the rest of the last full run.
 const previous = ONLY && fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf8')).components : {};
