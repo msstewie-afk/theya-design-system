@@ -63,7 +63,10 @@ export function AvatarGroup({ children, max, size = 'sm', className, ...props }:
         }),
       )}
       {overflow > 0 && (
+        // role="img": "+2" read as its name ("2 more"); a name on the plain
+        // span was dropped (a11y-states, 2026-11-12).
         <Avatar
+          role="img"
           aria-label={t.common.more(overflow)}
           size={size}
           outline="none"

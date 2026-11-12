@@ -28,17 +28,9 @@
  *   least one of its stories shows an error that way, or a field described
  *   by a shown error message (role=alert).
  *
- * - 4.1.2, states and roles (in the DOM, 2026-11-12: calibrated on another
- *   design system's Combobox, where the tree alone missed them):
- *   aria-expanded must match what's shown — "true" with its popup
- *   (aria-controls) hidden or missing, or "false" with it shown, is a
- *   finding (for "false", only popups: a "Show more" button's text is
- *   shown clamped); an expanded combobox must name its popup with aria-controls (a
- *   loading popup too); aria-controls / aria-activedescendant of an expanded
- *   widget must point to elements that exist; aria-haspopup must match the
- *   popup's role; and an element that takes focus and handles keys itself
- *   (a chip reached with the arrow keys) must have a role — a focusable <span> or
- *   <div> without one is announced as plain text.
+ * ARIA states (aria-expanded against what's shown, IDREFs, roles of
+ * focusable elements) are checked by scripts/a11y-states.mjs, in every
+ * state a story can be driven to.
  *
  * 1.3.2 Meaningful Sequence is read by scripts/build-a11y.mjs: the snapshot
  * order is the DOM order; it counts when the component's source has no CSS
@@ -207,114 +199,6 @@ function unhiddenIcons() {
   return [...new Set(out)];
 }
 
-/**
- * Runs in the page: ARIA states that don't match what's on screen, and
- * elements that take focus or keys without a role (4.1.2).
- */
-function ariaStates() {
-  const out = [];
-  const rendered = (el) => {
-    if (!el || !el.isConnected || el.closest('[hidden], [inert], [aria-hidden="true"]')) return false;
-    const cs = getComputedStyle(el);
-    if (!el.getClientRects().length && cs.display !== 'contents') return false;
-    return cs.visibility !== 'hidden' && cs.display !== 'none' && Number(cs.opacity) > 0;
-  };
-  // Shown = rendered and bigger than a visually hidden box (an sr-only popup
-  // isn't "shown" to a sighted user either).
-  // A display:contents wrapper has no box: judged by its children.
-  const shown = (el) => {
-    if (!rendered(el)) return false;
-    if (getComputedStyle(el).display === 'contents') return [...el.children].some(shown);
-    const r = el.getBoundingClientRect();
-    return r.width > 1 && r.height > 1;
-  };
-  // Hidden, for an expanded widget's popup: not rendered, or no box at all.
-  // An empty list (0px tall while it loads, Command) is open, just empty.
-  const hidden = (el) => {
-    if (!rendered(el)) return true;
-    if (getComputedStyle(el).display === 'contents') return [...el.children].every(hidden);
-    const r = el.getBoundingClientRect();
-    return r.width <= 1 && r.height <= 1;
-  };
-  const text = (el) => (el?.textContent ?? '').trim().replace(/\s+/g, ' ');
-  const nameOf = (el) => {
-    const by = el.getAttribute('aria-labelledby');
-    if (by) return by.split(/\s+/).map((id) => text(document.getElementById(id))).join(' ').trim();
-    if (el.getAttribute('aria-label')) return el.getAttribute('aria-label').trim();
-    if (el.labels?.length) return [...el.labels].map(text).join(' ');
-    return text(el);
-  };
-  const NATIVE_ROLE = { BUTTON: 'button', A: 'link', SELECT: 'combobox', TEXTAREA: 'textbox', SUMMARY: 'button' };
-  const roleOf = (el) => el.getAttribute('role') || NATIVE_ROLE[el.tagName] || (el.tagName === 'INPUT' ? 'textbox' : el.tagName.toLowerCase());
-  const label = (el) => `${roleOf(el)} "${nameOf(el).slice(0, 40)}"`;
-  const ids = (el, attr) => (el.getAttribute(attr) ?? '').split(/\s+/).filter(Boolean);
-
-  for (const el of document.querySelectorAll('[aria-expanded]')) {
-    if (!rendered(el)) continue;
-    const expanded = el.getAttribute('aria-expanded');
-    const combobox = roleOf(el) === 'combobox';
-    const controls = ids(el, 'aria-controls');
-    const targets = controls.map((id) => [id, document.getElementById(id)]);
-    if (expanded === 'true') {
-      if (!controls.length) {
-        // A disclosure may leave aria-controls out; a combobox's popup must be named.
-        if (combobox) out.push(`${label(el)} is expanded but has no aria-controls (its popup isn't linked)`);
-        continue;
-      }
-      const missing = targets.filter(([, t]) => !t).map(([id]) => `#${id}`);
-      if (missing.length) out.push(`${label(el)}: aria-controls points to ${missing.join(', ')}, which doesn't exist`);
-      const present = targets.filter(([, t]) => t);
-      if (present.length && present.every(([, t]) => hidden(t))) out.push(`${label(el)} is aria-expanded="true" but its popup ${present.map(([id]) => `#${id}`).join(', ')} is hidden`);
-      // aria-haspopup names the popup's role (true = menu); a wrapper may hold it.
-      const has = el.getAttribute('aria-haspopup') ?? (combobox ? 'listbox' : '');
-      const want = has === 'true' ? 'menu' : has;
-      if (['menu', 'listbox', 'tree', 'grid', 'dialog'].includes(want) && el.hasAttribute('aria-haspopup')) {
-        const popups = present.map(([, t]) => t).filter(shown);
-        const roleIn = (t) => roleOf(t) === want || (want === 'dialog' && roleOf(t) === 'alertdialog') || t.querySelector(`[role=${want}]`);
-        if (popups.length && !popups.some(roleIn)) out.push(`${label(el)} has aria-haspopup="${has}" but its popup is a ${roleOf(popups[0])}`);
-      }
-    } else if (expanded === 'false') {
-      // Popups only: a "Show more" button controls text that is shown clamped,
-      // a sidebar toggle a rail that stays on screen collapsed.
-      const popupTrigger = combobox || (el.hasAttribute('aria-haspopup') && el.getAttribute('aria-haspopup') !== 'false');
-      const POPUP_ROLES = ['listbox', 'menu', 'dialog', 'alertdialog', 'grid', 'tree', 'tooltip'];
-      const open = targets.filter(([, t]) => t && shown(t) && (popupTrigger || POPUP_ROLES.includes(roleOf(t)))).map(([id]) => `#${id}`);
-      if (open.length) out.push(`${label(el)} is aria-expanded="false" but its popup ${open.join(', ')} is shown`);
-    }
-  }
-  for (const el of document.querySelectorAll('[aria-activedescendant]')) {
-    if (!rendered(el)) continue;
-    const id = el.getAttribute('aria-activedescendant');
-    if (id && !document.getElementById(id)) out.push(`${label(el)}: aria-activedescendant points to #${id}, which doesn't exist`);
-  }
-
-  // Takes focus or handles keys, but has no role: a chip, a card, a row made
-  // focusable. React keeps handlers in a props object on the node; any other
-  // library's show as on* attributes.
-  const INTERACTIVE = 'a[href], button, input, select, textarea, summary, iframe, audio, video, [contenteditable=true], [contenteditable=""]';
-  const handlers = (el) => {
-    const key = Object.keys(el).find((k) => k.startsWith('__reactProps$'));
-    const props = key ? el[key] : {};
-    return ['onKeyDown', 'onKeyUp', 'onKeyPress'].some((h) => typeof props[h] === 'function') || el.hasAttribute('onkeydown');
-  };
-  for (const el of document.querySelectorAll('body [tabindex]')) {
-    if (!(el instanceof HTMLElement) || el.matches(INTERACTIVE) || el.hasAttribute('role') || !rendered(el)) continue;
-    if (!['DIV', 'SPAN', 'LI', 'P', 'I', 'B', 'EM', 'STRONG', 'LABEL'].includes(el.tagName)) continue;
-    // (Key handlers on a plain wrapper without tabindex usually catch keys
-    // bubbling up from a real control inside it: not counted.)
-    // A scrollable box is made focusable so keyboard users can scroll it
-    // (axe's scrollable-region-focusable): fine without a role.
-    const cs = getComputedStyle(el);
-    if (/(auto|scroll)/.test(cs.overflowY + cs.overflowX)) continue;
-    // Without its own key handling it's a focus target (a panel focus moves
-    // to, truncated text that shows its tooltip on focus, a toast): announced
-    // by its content, fine. With it, it is a widget — and needs a role.
-    if (!handlers(el)) continue;
-    out.push(`focusable ${el.tagName.toLowerCase()} "${text(el).slice(0, 40)}" has no role`);
-  }
-  return [...new Set(out)];
-}
-
 async function checkStory(page, story) {
   await page.goto(`${URL_BASE}/iframe.html?id=${story.id}&viewMode=story`, { waitUntil: 'load' });
   await page.waitForSelector('#storybook-root > *', { timeout: 10000 }).catch(() => {});
@@ -329,7 +213,6 @@ async function checkStory(page, story) {
   const found = checkTree(parse(snapshot));
   const invalid = await page.evaluate(invalidFields);
   found['1.1.1'].push(...(await page.evaluate(unhiddenIcons)));
-  found['4.1.2'].push(...(await page.evaluate(ariaStates)));
   const expect = FIXTURES ? await page.evaluate(() => window.__STORYBOOK_PREVIEW__?.currentRender?.story?.parameters?.a11y?.expect?.tree) : undefined;
   return { snapshot, found: { ...found, '3.3.1': invalid.missing }, errorsShown: invalid.associated, expect };
 }

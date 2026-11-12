@@ -62,6 +62,12 @@ const auto = fs.existsSync(AUTO_FILE) ? JSON.parse(fs.readFileSync(AUTO_FILE, 'u
 const TREE_FILE = path.join(ROOT, 'a11y/tree.json');
 const TREE_KEYS = ['1.1.1', '1.3.1', '4.1.2', '3.3.1'];
 const tree = fs.existsSync(TREE_FILE) ? JSON.parse(fs.readFileSync(TREE_FILE, 'utf8')) : { components: {} };
+// ARIA states and the APG keyboard model after interaction, from
+// scripts/a11y-states.mjs: a finding fails 4.1.2 (with the tree), 2.1.1 and
+// 2.4.3 (with the keyboard evidence).
+const STATES_FILE = path.join(ROOT, 'a11y/states.json');
+const STATES_KEYS = ['4.1.2', '2.1.1', '2.4.3'];
+const states = fs.existsSync(STATES_FILE) ? JSON.parse(fs.readFileSync(STATES_FILE, 'utf8')) : { components: {} };
 // CSS that shows things in a different order than the DOM (and so the tree)
 // reads them. A component with any needs a passing 1.3.2 review for the tree
 // to count as evidence of a meaningful sequence.
@@ -321,7 +327,7 @@ function buildRow({ name, base, title, traitKey = name, reviews: ownReviews = {}
     // A keyboard play test, or — for components without their own arrow-key
     // model — the Tab pass of a11y-auto with nothing found.
     : kind === 'keyboard'
-      ? s.keyboard > 0 || (!traits.includes('composite') && !!autoRow && autoRow.stories > autoRow.errors && ['2.1.1', '2.1.2', '2.4.3'].every((k) => Array.isArray(autoRow[k]) && !autoRow[k].length))
+      ? statesClean(id) && (s.keyboard > 0 || (!traits.includes('composite') && !!autoRow && autoRow.stories > autoRow.errors && ['2.1.1', '2.1.2', '2.4.3'].every((k) => Array.isArray(autoRow[k]) && !autoRow[k].length)))
     : kind === 'reflow360' ? s.stories > 0
     : kind === 'reducedMotion' ? source.reducedMotion !== 'unguarded'
     // Text cut by a deliberate ellipsis under 200% text or WCAG spacing is
@@ -337,12 +343,21 @@ function buildRow({ name, base, title, traitKey = name, reviews: ownReviews = {}
           ? !stringsOf(sourceFile).some((t) => REORDER.test(t)) || reviews['1.3.2']?.result === 'pass'
           : id === '3.3.1'
             ? treeRow.errorsShown > 0 && !treeRow['3.3.1'].length
-            : TREE_KEYS.includes(id) && !treeRow[id].length)
+            : TREE_KEYS.includes(id) && !treeRow[id].length && statesClean(id))
     : kind === 'review' ? reviews[id]?.result === 'pass'
     : false;
   const autoRow = auto.components[name];
   const treeRow = tree.components[name];
-  const partialRow = { deviations, autoFindings: (id) => [...(autoRow?.[id] ?? []), ...(TREE_KEYS.includes(id) ? (treeRow?.[id] ?? []) : [])], review: (id) => reviews[id] };
+  const statesRow = states.components[name];
+  // No states run for the component (no stories), or nothing found for this criterion.
+  function statesClean(id) {
+    return !STATES_KEYS.includes(id) || !statesRow || (statesRow.stories > statesRow.errors && !statesRow[id]?.length);
+  }
+  const partialRow = {
+    deviations,
+    autoFindings: (id) => [...(autoRow?.[id] ?? []), ...(TREE_KEYS.includes(id) ? (treeRow?.[id] ?? []) : []), ...(STATES_KEYS.includes(id) ? (statesRow?.[id] ?? []) : [])],
+    review: (id) => reviews[id],
+  };
   const wcag = Object.fromEntries(criteria.map((cr) => [cr.id, criterionStatus(cr, partialRow, traits, evidence)]));
   return {
     name,

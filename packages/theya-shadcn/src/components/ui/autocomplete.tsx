@@ -280,16 +280,23 @@ export function Autocomplete({
         }}
         className={cn('w-[var(--radix-popover-trigger-width)] p-1', contentClassName)}
       >
+        {/* As in Combobox: the listbox is always there while open (empty when
+            loading or nothing matches), so the input's aria-controls points
+            at something; the message beside it is a status. Named like the
+            panel: an unnamed listbox was read as just "list box". */}
         {loading ? (
-          <div className={cn("px-3 py-2 flex items-center gap-2 font-body text-[var(--color-text-text-subtler)]", heightSize === 'sm' ? 'text-body-s' : 'text-body-m')}>
+          <div role="status" className={cn("px-3 py-2 flex items-center gap-2 font-body text-[var(--color-text-text-subtler)]", heightSize === 'sm' ? 'text-body-s' : 'text-body-m')}>
             <Spinner className="size-3.5 text-[var(--color-icon-icon-primary)]" />
             {loadingMessage}
           </div>
         ) : filtered.length === 0 ? (
-          <div className={cn("px-3 py-2 font-body text-[var(--color-text-text-subtler)]", heightSize === 'sm' ? 'text-body-s' : 'text-body-m')}>{emptyMessage}</div>
+          <div role="status" className={cn("px-3 py-2 font-body text-[var(--color-text-text-subtler)]", heightSize === 'sm' ? 'text-body-s' : 'text-body-m')}>{emptyMessage}</div>
+        ) : null}
+        {loading || filtered.length === 0 ? (
+          <ul ref={listRef} id={listId} role="listbox" aria-labelledby={ariaLabelledby} aria-label={ariaLabelledby ? undefined : (ariaLabel ?? t.autocomplete.suggestions)} className="m-0 h-0 p-0" />
         ) : (
           <ScrollArea focusable={false} className="max-h-60">
-          <ul ref={listRef} id={listId} role="listbox">
+          <ul ref={listRef} id={listId} role="listbox" aria-labelledby={ariaLabelledby} aria-label={ariaLabelledby ? undefined : (ariaLabel ?? t.autocomplete.suggestions)}>
             {filtered.map((option, index) => (
               <li
                 key={option.value}

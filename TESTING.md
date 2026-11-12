@@ -17,17 +17,18 @@ At phone width: `THEYA_VIEWPORT=360 pnpm test-storybook` (and `:dark`; 375 for a
 
 In a product theme: `THEYA_BRAND=iris pnpm test-storybook` (and `:dark`). Details and how to check your own theme: [PROFILES.md](PROFILES.md#checking-a-theme).
 
-Accessibility checks axe doesn't cover, both against the running Storybook; they write the files the accessibility matrix reads (`a11y/tree.json` with `a11y/tree/*.yml`, `a11y/auto.json`), so run them after changing what a component exposes and commit the result:
+Accessibility checks axe doesn't cover, all against the running Storybook; they write the files the accessibility matrix reads (`a11y/tree.json` with `a11y/tree/*.yml`, `a11y/auto.json`, `a11y/states.json` with `a11y/checklist/*.md`), so run them after changing what a component exposes and commit the result:
 
 ```
-pnpm a11y:tree   # accessibility tree of every story: names (4.1.2), unnamed images (1.1.1), table headers, radio groups and field labels (1.3.1), errors tied to their fields (3.3.1); ARIA states against what's shown: aria-expanded vs its popup, aria-controls / aria-activedescendant targets, aria-haspopup vs the popup's role, a focusable element with key handling but no role (4.1.2)
-pnpm a11y:auto   # label in name (2.5.3), focus visible (2.4.7), text spacing (1.4.12), 200% text (1.4.4), Tab order (2.1.1, 2.1.2, 2.4.3); keyboard model per APG (2.1.1 "keys:"): combobox ArrowDown / Escape, popup buttons Enter / Escape and focus return, arrows in tabs and radio groups, Escape in an open dialog
-pnpm a11y:calibrate   # the scripts against src/test/a11y-fixtures.stories.tsx: each known defect must be caught, the clean fixtures must report nothing
+pnpm a11y:tree   # accessibility tree of every story: names (4.1.2), unnamed images (1.1.1), table headers, radio groups and field labels (1.3.1), errors tied to their fields (3.3.1)
+pnpm a11y:auto   # label in name (2.5.3), focus visible (2.4.7), text spacing (1.4.12), 200% text (1.4.4), Tab order (2.1.1, 2.1.2, 2.4.3)
+pnpm a11y:states   # every popup, combobox, tab list, radio group and open dialog driven through its APG keyboard pattern (2.1.1, 2.4.3), with ARIA states checked after each step — open, after typing a value with no match, after Escape (4.1.2): aria-expanded against what's shown, IDREFs, popup names, aria-haspopup, names and focus on elements without a role, tab stops inside aria-hidden, nested controls. Writes a11y/checklist/<Component>.md for the screen-reader pass
+pnpm a11y:calibrate   # the three scripts against src/test/a11y-fixtures.stories.tsx: each known defect must be caught, the clean fixtures must report nothing
 ```
 
 A change in `a11y/tree/*.yml` in a diff is a change in what a screen reader gets.
 
-When you add a rule, add a fixture with the defect it catches (and, if the rule could misfire, a clean one) and run `pnpm a11y:calibrate`. On another design system's Storybook both scripts run with `--group title` (stories grouped by title instead of Theya's spec).
+When you add a rule, add a fixture with the defect it catches (and, if the rule could misfire, a clean one) and run `pnpm a11y:calibrate`. On another design system's Storybook the scripts run with `--group title` (stories grouped by title instead of Theya's spec).
 
 With a real screen reader (manual, WCAG 4.1.3, and spot checks of the rest): [packages/theya-shadcn/a11y/screen-reader-checklist.md](packages/theya-shadcn/a11y/screen-reader-checklist.md); the automated VoiceOver run is in [packages/theya-shadcn/a11y/voiceover](packages/theya-shadcn/a11y/voiceover/README.md).
 

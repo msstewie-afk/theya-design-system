@@ -451,15 +451,22 @@ export function Combobox(props: ComboboxProps) {
         }}
         className={cn('w-[var(--radix-popover-trigger-width)] p-1', contentClassName)}
       >
+        {/* The listbox is always there while open, empty when loading or
+            when nothing matches: the input's aria-controls must point at
+            something (it pointed at nothing: a11y-states, 2026-11-12). The
+            message beside it is a status, so it is announced. */}
         {loading ? (
-          <div className={cn('flex h-16 items-center justify-center gap-2 font-body text-[var(--color-text-text-subtler)]', heightSize === 'sm' ? 'text-body-s' : 'text-body-m')}>
+          <div role="status" className={cn('flex h-16 items-center justify-center gap-2 font-body text-[var(--color-text-text-subtler)]', heightSize === 'sm' ? 'text-body-s' : 'text-body-m')}>
             <Spinner className="size-3.5 text-[var(--color-icon-icon-primary)]" />
             {loadingMessage}
           </div>
         ) : items.length === 0 ? (
-          <div className={cn('flex h-16 items-center justify-center font-body text-[var(--color-text-text-subtler)]', heightSize === 'sm' ? 'text-body-s' : 'text-body-m')}>
+          <div role="status" className={cn('flex h-16 items-center justify-center font-body text-[var(--color-text-text-subtler)]', heightSize === 'sm' ? 'text-body-s' : 'text-body-m')}>
             {emptyMessage}
           </div>
+        ) : null}
+        {loading || items.length === 0 ? (
+          <ul id={listId} role="listbox" aria-labelledby={ariaLabelledby} aria-label={ariaLabelledby ? undefined : (ariaLabel ?? t.combobox.options)} className="m-0 h-0 p-0" />
         ) : (
           <ScrollArea focusable={false} className="max-h-60">
           <ul id={listId} role="listbox" aria-labelledby={ariaLabelledby} aria-label={ariaLabelledby ? undefined : (ariaLabel ?? t.combobox.options)}>

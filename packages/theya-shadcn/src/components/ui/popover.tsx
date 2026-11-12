@@ -20,7 +20,10 @@ import { useMediaQuery } from './use-media-query';
  * FilterField, PromptArea) have no trigger, so no reference is added
  * there — pass aria-label / aria-labelledby on the content instead.
  */
-const PopoverLabelContext = createContext<{ triggerId: string; hasTrigger: React.MutableRefObject<boolean> } | null>(null);
+// triggerId is the id the trigger actually renders with: a trigger given its
+// own id (DatePicker's, for its label) keeps it, and the content points there
+// (it pointed at the generated id, which didn't exist: a11y-states, 2026-11-12).
+const PopoverLabelContext = createContext<{ triggerId: React.MutableRefObject<string>; hasTrigger: React.MutableRefObject<boolean> } | null>(null);
 
 /** True while a `sheet` Popover renders as a bottom Drawer (phone). */
 const SheetContext = createContext(false);
@@ -36,7 +39,8 @@ export interface PopoverProps extends React.ComponentProps<typeof PopoverPrimiti
 }
 
 function Popover({ sheet = false, ...props }: PopoverProps) {
-  const triggerId = useId();
+  const generatedId = useId();
+  const triggerId = useRef(generatedId);
   const hasTrigger = useRef(false);
   const isPhone = useMediaQuery('(max-width: 639.98px)');
   if (sheet && isPhone) {
@@ -62,12 +66,33 @@ function Popover({ sheet = false, ...props }: PopoverProps) {
   );
 }
 
-function PopoverTrigger({ id, ...props }: React.ComponentProps<typeof PopoverPrimitive.Trigger>) {
+function PopoverTrigger({ id, ref, ...props }: React.ComponentProps<typeof PopoverPrimitive.Trigger>) {
   const ctx = useContext(PopoverLabelContext);
   const sheet = useContext(SheetContext);
-  if (ctx) ctx.hasTrigger.current = true;
-  if (sheet) return <DrawerTrigger id={id ?? ctx?.triggerId} {...props} />;
-  return <PopoverPrimitive.Trigger id={id ?? ctx?.triggerId} {...props} />;
+  const generated = useId();
+  const triggerId = id ?? generated;
+  const node = useRef<HTMLButtonElement | null>(null);
+  if (ctx) {
+    ctx.hasTrigger.current = true;
+    // The rendered node's id once we have it (see setNode); the content
+    // renders in the same pass as this trigger, before the ref updates.
+    ctx.triggerId.current = node.current?.id || triggerId;
+  }
+  // With asChild, a child's own id prop wins over ours — even id={undefined},
+  // which leaves the button with no id at all. Read the id the node really
+  // has (giving it ours if it has none), so the content's aria-labelledby
+  // always points at the trigger.
+  const setNode = (el: HTMLButtonElement | null) => {
+    node.current = el;
+    if (el && ctx) {
+      if (!el.id) el.id = triggerId;
+      ctx.triggerId.current = el.id;
+    }
+    if (typeof ref === 'function') ref(el);
+    else if (ref) (ref as React.MutableRefObject<HTMLButtonElement | null>).current = el;
+  };
+  if (sheet) return <DrawerTrigger id={triggerId} ref={setNode} {...props} />;
+  return <PopoverPrimitive.Trigger id={triggerId} ref={setNode} {...props} />;
 }
 
 // forwardRef: both were Radix forwardRef components before the sheet mode;
@@ -118,7 +143,7 @@ function PopoverContent({
     const { side: _side, alignOffset: _alignOffset, avoidCollisions: _avoid, sticky: _sticky, hideWhenDetached: _hide, arrowPadding: _arrow, updatePositionStrategy: _ups, children, 'aria-label': ariaLabel, ...rest } = props;
     // Same accessible name as the floating panel: an explicit aria-label,
     // else the trigger's name ("Status, 2 selected"), not the sheet title.
-    const sheetLabelledBy = ariaLabel == null && rest['aria-labelledby'] == null && ctx?.hasTrigger.current ? ctx.triggerId : undefined;
+    const sheetLabelledBy = ariaLabel == null && rest['aria-labelledby'] == null && ctx?.hasTrigger.current ? ctx.triggerId.current : undefined;
     return (
       <DrawerContent
         aria-describedby={undefined}
@@ -138,7 +163,7 @@ function PopoverContent({
     );
   }
   const named = props['aria-label'] != null || props['aria-labelledby'] != null;
-  const labelledBy = !named && ctx?.hasTrigger.current ? ctx.triggerId : undefined;
+  const labelledBy = !named && ctx?.hasTrigger.current ? ctx.triggerId.current : undefined;
   return (
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content

@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useId, useRef, type RefObject } from 'react';
+import { createContext, useContext, useEffect, useId, useMemo, useRef, useState, type RefObject } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import {
   Controller,
@@ -57,10 +57,12 @@ function useFormField() {
   }
 
   const fieldState = getFieldState(fieldContext.name, formState);
-  const { id } = itemContext;
+  const { id, hasDescription, setHasDescription } = itemContext;
 
   return {
     id,
+    hasDescription,
+    setHasDescription,
     name: fieldContext.name,
     formItemId: `${id}-form-item`,
     formDescriptionId: `${id}-form-item-description`,
@@ -69,15 +71,20 @@ function useFormField() {
   };
 }
 
-type FormItemContextValue = { id: string };
+// hasDescription: a FormDescription is rendered, so FormControl may point
+// aria-describedby at it (an id that doesn't exist is a broken reference:
+// a11y-states, 2026-11-12).
+type FormItemContextValue = { id: string; hasDescription?: boolean; setHasDescription?: (v: boolean) => void };
 const FormItemContext = createContext<FormItemContextValue>({} as FormItemContextValue);
 
 function FormItem({ className, ...props }: React.ComponentProps<'div'>) {
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
   const { name } = useContext(FormFieldContext);
+  const [hasDescription, setHasDescription] = useState(false);
+  const value = useMemo(() => ({ id, hasDescription, setHasDescription }), [id, hasDescription]);
   return (
-    <FormItemContext.Provider value={{ id }}>
+    <FormItemContext.Provider value={value}>
       <div ref={ref} className={cn('grid gap-1', className)} {...props} />
       {name && <ShakeOnFailedSubmit name={name} target={ref} />}
     </FormItemContext.Provider>
@@ -121,11 +128,12 @@ function FormLabel({ className, ...props }: React.ComponentProps<typeof Label>) 
 // (required now flows straight through via {...props} into Label, which owns the asterisk rendering)
 
 function FormControl(props: React.ComponentProps<typeof Slot>) {
-  const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
+  const { error, formItemId, formDescriptionId, formMessageId, hasDescription } = useFormField();
+  const describedBy = [hasDescription ? formDescriptionId : null, error ? formMessageId : null].filter(Boolean).join(' ') || undefined;
   return (
     <Slot
       id={formItemId}
-      aria-describedby={!error ? formDescriptionId : `${formDescriptionId} ${formMessageId}`}
+      aria-describedby={describedBy}
       aria-invalid={!!error}
       {...props}
     />
@@ -133,7 +141,11 @@ function FormControl(props: React.ComponentProps<typeof Slot>) {
 }
 
 function FormDescription({ className, ...props }: React.ComponentProps<'p'>) {
-  const { formDescriptionId } = useFormField();
+  const { formDescriptionId, setHasDescription } = useFormField();
+  useEffect(() => {
+    setHasDescription?.(true);
+    return () => setHasDescription?.(false);
+  }, [setHasDescription]);
   return (
     <p
       id={formDescriptionId}

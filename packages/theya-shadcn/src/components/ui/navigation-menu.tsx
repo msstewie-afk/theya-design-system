@@ -121,6 +121,10 @@ export function NavigationMenuTrigger({ className, children, ...props }: React.C
 export function NavigationMenuContent({ className, ...props }: React.ComponentProps<typeof NavigationMenuPrimitive.Content>) {
   return (
     <NavigationMenuPrimitive.Content
+      // Radix labels the panel by its trigger ("Products") on a plain div:
+      // a name on a generic, dropped by screen readers. As a group the name
+      // is read on entering the panel (a11y-states, 2026-11-12).
+      role="group"
       className={cn(
         'w-[calc(100vw-2rem)] p-2 sm:w-max sm:min-w-[22rem]',
         'data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in motion-reduce:animate-none!',

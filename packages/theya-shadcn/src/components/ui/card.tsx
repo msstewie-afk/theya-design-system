@@ -302,6 +302,10 @@ export function Card({
         className,
       )}
       {...props}
+      // A clickable card's aria-label names its overlay link or button
+      // (overlayName); on the root <div> it was a name on a generic, which
+      // screen readers drop (a11y-states, 2026-11-12).
+      aria-label={resolvedAction ? undefined : props['aria-label']}
     >
       {resolvedAction?.type === 'link' && (
         <a data-slot="card-link-overlay" href={resolvedAction.href} {...overlayName(resolvedAction.ariaLabel, resolvedAction.href)} className={overlayClassName} />

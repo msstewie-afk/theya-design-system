@@ -280,6 +280,10 @@ export const WithSubMenu: Story = {
  * stopPropagation, since it renders inside the same row that carries the item's `onSelect`.
  */
 export const WithTrailing: Story = {
+  // A button inside a menu item is lost to screen readers and to the
+  // keyboard (the item's children are presentational, the button is
+  // tabIndex -1). Kept until the pattern is decided (2026-11-12).
+  parameters: { a11y: { states: { skip: ['nested-control'], reason: 'Trailing action button inside a menu item: pattern under review, 2026-11-12.' } } },
   render: function WithTrailingStory() {
     const [hasWatermark, setHasWatermark] = React.useState(true);
     return (

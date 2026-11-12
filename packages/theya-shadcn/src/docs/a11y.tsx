@@ -59,12 +59,12 @@ const CRITERION = new Map(CRITERIA.map((c) => [c.id, c]));
 
 const EVIDENCE_LABEL: Record<string, string> = {
   axe: 'axe (CI)',
-  keyboard: 'keyboard play test',
+  keyboard: 'keyboard play test or Tab pass, and a11y-states clean (CI)',
   reflow360: '360px overflow check (local run, not in CI yet)',
-  auto: 'browser check (a11y-auto, local run)',
+  auto: 'browser check (a11y-auto, CI)',
   reducedMotion: 'reduced-motion guard',
   screenReader: 'screen-reader pass',
-  tree: 'accessibility-tree check (a11y-tree, local run)',
+  tree: 'accessibility-tree check (a11y-tree, CI; 4.1.2 also a11y-states)',
   review: 'manual review',
 };
 

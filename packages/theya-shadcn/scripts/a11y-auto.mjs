@@ -33,17 +33,8 @@
  *   order differ from what's on screen.
  *   A visually hidden control (an sr-only "Dismiss" button, 1px) is not
  *   "pointer only": nobody can point at it.
- * - Keyboard model (2.1.1, "keys:", APG; added 2026-11-12 after another
- *   design system's Combobox showed Tab-only checks miss it). Each widget is
- *   tested on a fresh load:
- *   combobox (closed): ArrowDown opens it (aria-expanded="true"), the next
- *   ArrowDown moves to an option (aria-activedescendant or focus), Escape
- *   closes it and focus stays on the combobox;
- *   a button with aria-haspopup (closed): Enter opens it, focus moves into a
- *   menu or dialog, Escape closes it and focus is back on the button;
- *   tablist / radiogroup: the arrow key moves focus to another item;
- *   a dialog open on load: Escape closes it.
- *   Opt out per story: parameters.a11y.auto = { skip: ['keys'], reason }.
+ * - The keyboard model of popups, tabs and radio groups (APG) is
+ *   scripts/a11y-states.mjs.
  *
  * Writes a11y/auto.json (per component: stories checked and failures per
  * criterion). scripts/build-a11y.mjs reads it as evidence.
@@ -143,164 +134,6 @@ function clippedText() {
   return out;
 }
 
-/**
- * In the page: widgets with a keyboard model to test, marked
- * data-theya-key="<n>" (the same order on every load).
- */
-function keyWidgets() {
-  const shown = (el) => {
-    const r = el.getBoundingClientRect();
-    const cs = getComputedStyle(el);
-    return r.width > 1 && r.height > 1 && cs.visibility !== 'hidden' && !el.closest('[aria-hidden="true"], [inert], [hidden]');
-  };
-  const enabled = (el) => !el.matches(':disabled, [aria-disabled="true"], [readonly], [aria-readonly="true"]') && !el.closest('fieldset:disabled');
-  const text = (el) => (el?.textContent ?? '').trim().replace(/\s+/g, ' ');
-  const nameOf = (el) => {
-    const by = el.getAttribute('aria-labelledby');
-    if (by) return by.split(/\s+/).map((id) => text(document.getElementById(id))).join(' ').trim();
-    if (el.getAttribute('aria-label')) return el.getAttribute('aria-label').trim();
-    if (el.labels?.length) return [...el.labels].map(text).join(' ');
-    return text(el);
-  };
-  const out = [];
-  const add = (kind, el, role) => {
-    el.setAttribute('data-theya-key', String(out.length));
-    out.push({ kind, key: out.length, desc: `${role} "${nameOf(el).slice(0, 40)}"` });
-  };
-  const pick = (sel, test, n) => [...document.querySelectorAll(sel)].filter((el) => shown(el) && test(el)).slice(0, n);
-  for (const el of pick('[role=combobox]', (el) => enabled(el) && el.getAttribute('aria-expanded') === 'false', 2)) add('combobox', el, 'combobox');
-  for (const el of pick('[aria-haspopup]:not([aria-haspopup=false]):not([role=combobox]):is(button, [role=button])', (el) => enabled(el) && el.getAttribute('aria-expanded') === 'false', 2)) add('trigger', el, el.getAttribute('role') ?? 'button');
-  const items = (g, role) => [...g.querySelectorAll(`[role=${role}]`)].filter((el) => shown(el) && enabled(el) && el.closest(`[role=${g.getAttribute('role')}]`) === g);
-  for (const el of pick('[role=tablist]', (g) => items(g, 'tab').length > 1, 1)) add('tablist', el, 'tablist');
-  for (const el of pick('[role=radiogroup]', (g) => items(g, 'radio').length > 1, 1)) add('radiogroup', el, 'radiogroup');
-  for (const el of pick('[role=dialog], [role=alertdialog]', () => true, 1)) add('dialog', el, el.getAttribute('role'));
-  return out;
-}
-
-/** In the page: the state of widget <key> and of the popups on screen. */
-function keyState(key) {
-  const el = document.querySelector(`[data-theya-key="${key}"]`);
-  const shown = (n) => {
-    if (!n || !n.isConnected) return false;
-    const r = n.getBoundingClientRect();
-    const cs = getComputedStyle(n);
-    return r.width > 1 && r.height > 1 && cs.visibility !== 'hidden' && !n.closest('[aria-hidden="true"], [inert], [hidden]');
-  };
-  const POPUP = '[role=listbox], [role=menu], [role=dialog], [role=alertdialog], [role=grid], [role=tree]';
-  const popups = [...document.querySelectorAll(POPUP)].filter(shown);
-  const active = document.activeElement;
-  const role = el?.getAttribute('role');
-  const item = role === 'tablist' ? 'tab' : role === 'radiogroup' ? 'radio' : '';
-  return {
-    exists: Boolean(el?.isConnected),
-    shown: shown(el),
-    expanded: el?.getAttribute('aria-expanded') ?? null,
-    activedescendant: el?.getAttribute('aria-activedescendant') ?? '',
-    focusOnEl: active === el,
-    focusOnDriver: Boolean(active?.hasAttribute('data-theya-driver') && active !== el),
-    focusInEl: Boolean(el && el.contains(active)),
-    // Focus in the popup, or on a field that drives it (aria-controls into
-    // it: FilterField's "Add filter" opens a list its input navigates).
-    focusInPopup: popups.some(
-      (p) => (p.contains(active) && p !== el && !p.contains(el)) || (active !== el && (active?.getAttribute('aria-controls') ?? '').split(/\s+/).some((id) => id && p.contains(document.getElementById(id)))),
-    ),
-    focusOnOption: Boolean(active?.closest('[role=option], [role=menuitem], [role=menuitemcheckbox], [role=menuitemradio], [role=gridcell], [role=treeitem]')),
-    // Which item has focus, by position (items can't be told apart by markup).
-    focusItem: item && active?.getAttribute('role') === item && active.closest(`[role=${role}]`) === el ? [...el.querySelectorAll(`[role=${item}]`)].indexOf(active) : -1,
-    editable: Boolean(el?.matches('input, textarea, [contenteditable=true]')),
-    popups: popups.length,
-    options: popups.reduce((n, p) => n + p.querySelectorAll('[role=option]').length, 0),
-    rtl: el ? getComputedStyle(el).direction === 'rtl' : false,
-    vertical: el?.getAttribute('aria-orientation') === 'vertical',
-    horizontal: el?.getAttribute('aria-orientation') === 'horizontal' || el?.getAttribute('data-orientation') === 'horizontal',
-  };
-}
-
-/** In the page: focus widget <key> (a group: its selected item, or the first if that's the last). */
-function keyFocus(key) {
-  const el = document.querySelector(`[data-theya-key="${key}"]`);
-  const role = el.getAttribute('role');
-  let target = el;
-  if (role === 'tablist' || role === 'radiogroup') {
-    const item = role === 'tablist' ? 'tab' : 'radio';
-    const all = [...el.querySelectorAll(`[role=${item}]`)].filter((n) => n.closest(`[role=${role}]`) === el && !n.matches(':disabled, [aria-disabled="true"]') && n.getBoundingClientRect().width > 1);
-    const on = all.findIndex((n) => n.getAttribute('aria-selected') === 'true' || n.getAttribute('aria-checked') === 'true');
-    target = all[on > -1 && on < all.length - 1 ? on : 0];
-  } else if (role === 'dialog' || role === 'alertdialog') {
-    if (el.contains(document.activeElement)) return;
-    target = el.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])') ?? el;
-  }
-  target.focus({ focusVisible: true });
-}
-
-/** Runs one widget's keyboard model on the current (fresh) page; returns findings. */
-async function keyModel(page, w) {
-  const state = () => page.evaluate(keyState, w.key);
-  // Press, then wait until `done(state)` holds (up to 1.5s: a drawer's
-  // close can outlast reduced motion) and return the last state.
-  const press = async (k, done = () => false) => {
-    await page.keyboard.press(k);
-    let s;
-    for (const until = Date.now() + 1500; ; ) {
-      await page.waitForTimeout(100);
-      s = await state();
-      if (done(s) || Date.now() > until) return s;
-    }
-  };
-  await page.evaluate(keyFocus, w.key);
-  await page.waitForTimeout(100);
-  const before = await state();
-  const out = [];
-  if (w.kind === 'combobox') {
-    let s = await press('ArrowDown', (x) => x.expanded === 'true');
-    if (s.expanded !== 'true') {
-      // An editable combobox may have no popup until you type (suggestions
-      // for a query): try a letter. A select-only one must open on ArrowDown.
-      if (!before.editable) return [`${w.desc}: ArrowDown doesn't open it (aria-expanded stays "${s.expanded}")`];
-      await page.keyboard.type('a');
-      for (const until = Date.now() + 1000; s.expanded !== 'true' && Date.now() < until; ) {
-        await page.waitForTimeout(100);
-        s = await state();
-      }
-      if (s.expanded !== 'true') return [];
-    }
-    if (s.options && !s.activedescendant && !s.focusOnOption) {
-      s = await press('ArrowDown', (x) => x.activedescendant || x.focusOnOption);
-      if (!s.activedescendant && !s.focusOnOption) out.push(`${w.desc}: ArrowDown doesn't move to an option (no aria-activedescendant, focus stays)`);
-    }
-    s = await press('Escape', (x) => x.expanded !== 'true' && x.popups <= before.popups && x.focusOnEl);
-    if (s.expanded === 'true' || s.popups > before.popups) out.push(`${w.desc}: Escape doesn't close the popup`);
-    else if (!s.focusOnEl) out.push(`${w.desc}: focus is not on the combobox after Escape`);
-  } else if (w.kind === 'trigger') {
-    // A popup already open elsewhere on the page (a menubar story with one
-    // menu open) changes what Enter does: not tested.
-    if (before.popups) return [];
-    let s = await press('Enter', (x) => x.expanded === 'true' && (x.focusInPopup || x.activedescendant));
-    if (s.expanded !== 'true') return [`${w.desc}: Enter doesn't open its popup (aria-expanded stays "${s.expanded}")`];
-    const popupRole = await page.evaluate((key) => document.querySelector(`[data-theya-key="${key}"]`).getAttribute('aria-haspopup'), w.key);
-    if (['menu', 'true', 'dialog'].includes(popupRole) && !s.focusInPopup && !s.activedescendant) out.push(`${w.desc}: focus doesn't move into the ${popupRole === 'dialog' ? 'dialog' : 'menu'} it opens`);
-    // Focus that went to a field driving the popup (outside it) may stay there.
-    await page.evaluate(() => {
-      const a = document.activeElement;
-      if (a && !a.closest('[role=dialog], [role=menu], [role=listbox], [role=alertdialog]')) a.setAttribute('data-theya-driver', '');
-    });
-    s = await press('Escape', (x) => x.expanded !== 'true' && (x.focusOnEl || x.focusOnDriver));
-    if (s.expanded === 'true') out.push(`${w.desc}: Escape doesn't close its popup`);
-    else if (!s.focusOnEl && !s.focusOnDriver) out.push(`${w.desc}: focus is not back on the trigger after Escape`);
-  } else if (w.kind === 'tablist' || w.kind === 'radiogroup') {
-    // Along the group's orientation: Radix ignores the other axis once
-    // orientation is set. A radiogroup without one takes ArrowDown.
-    const along = w.kind === 'tablist' ? !before.vertical : before.horizontal;
-    const key = along ? (before.rtl ? 'ArrowLeft' : 'ArrowRight') : 'ArrowDown';
-    const s = await press(key, (x) => x.focusItem > -1 && x.focusItem !== before.focusItem);
-    if (s.focusItem < 0 || s.focusItem === before.focusItem) out.push(`${w.desc}: ${key} doesn't move focus to another ${w.kind === 'tablist' ? 'tab' : 'radio'}`);
-  } else if (w.kind === 'dialog') {
-    const s = await press('Escape', (x) => !x.exists || !x.shown);
-    if (s.exists && s.shown) out.push(`${w.desc}: Escape doesn't close it`);
-  }
-  return out;
-}
-
 const STYLE_PROPS = ['outlineStyle', 'outlineWidth', 'outlineColor', 'boxShadow', 'borderTopColor', 'borderBottomColor', 'backgroundColor', 'color', 'textDecorationLine'];
 
 async function checkStory(page, story) {
@@ -318,7 +151,7 @@ async function checkStory(page, story) {
       }
       s.focus();
     });
-  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], keys: [], truncated: [] };
+  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [] };
   const load = async () => {
     await page.goto(`${URL_BASE}/iframe.html?id=${story.id}&viewMode=story`, { waitUntil: 'load' });
     await page.waitForSelector('#storybook-root > *', { timeout: 10000 }).catch(() => {});
@@ -546,19 +379,6 @@ async function checkStory(page, story) {
     }
   }
 
-  // Keyboard model: each widget on a fresh load (one test leaves popups open).
-  if (!skip.includes('keys')) {
-    await load();
-    const widgets = await page.evaluate(keyWidgets);
-    for (const [i, w] of widgets.entries()) {
-      if (i > 0) {
-        await load();
-        await page.evaluate(keyWidgets);
-      }
-      result.keys.push(...(await keyModel(page, w)));
-    }
-  }
-
   for (const k of skip) result[k] = [];
   result.expect = FIXTURES ? await page.evaluate(() => window.__STORYBOOK_PREVIEW__?.currentRender?.story?.parameters?.a11y?.expect?.auto) : undefined;
 
@@ -629,7 +449,6 @@ for (const r of results.sort((a, b) => a.id.localeCompare(b.id))) {
   }
   const at = FIXTURES ? '' : `${r.name}: `;
   for (const k of ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3', 'truncated']) for (const f of r[k]) c[k].push(`${at}${f}`);
-  for (const f of r.keys) c['2.1.1'].push(`${at}keys: ${f}`);
 }
 if (FIXTURES) {
   // Calibration: every expected finding reported, nothing else.

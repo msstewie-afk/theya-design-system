@@ -58,14 +58,22 @@ interface FxComboboxProps {
   staleExpanded?: boolean;
   /** A visually hidden Dismiss button in the popup, as Base UI renders it (not a defect). */
   srDismiss?: boolean;
+  /** Typing filters the list. */
+  filterable?: boolean;
+  /** Defect: with no match the list is removed but aria-expanded stays "true" (aria-controls then points to nothing). */
+  dropListWhenEmpty?: boolean;
 }
 
 /** A plain APG combobox (list autocomplete) with switchable defects. */
-function FxCombobox({ defaultOpen = false, nameListbox = true, closesOnEscape = true, linkPopup = true, loading = false, staleExpanded = false, srDismiss = false }: FxComboboxProps) {
+function FxCombobox({ defaultOpen = false, nameListbox = true, closesOnEscape = true, linkPopup = true, loading = false, staleExpanded = false, srDismiss = false, filterable = false, dropListWhenEmpty = false }: FxComboboxProps) {
   const id = useId();
   const listId = `${id}-list`;
   const [open, setOpen] = useState(defaultOpen);
   const [active, setActive] = useState(-1);
+  const [query, setQuery] = useState('');
+  const items = filterable ? ITEMS.filter((i) => i.toLowerCase().startsWith(query.toLowerCase())) : ITEMS;
+  // A correct combobox closes when nothing matches; the defect keeps it "expanded".
+  const listOpen = open && !(filterable && !items.length);
   const close = () => {
     setOpen(false);
     setActive(-1);
@@ -74,7 +82,7 @@ function FxCombobox({ defaultOpen = false, nameListbox = true, closesOnEscape = 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       if (!open) setOpen(true);
-      else if (!loading) setActive((a) => Math.min(a + 1, ITEMS.length - 1));
+      else if (!loading) setActive((a) => Math.min(a + 1, items.length - 1));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       setActive((a) => Math.max(a - 1, 0));
@@ -93,13 +101,23 @@ function FxCombobox({ defaultOpen = false, nameListbox = true, closesOnEscape = 
         id={`${id}-input`}
         role="combobox"
         aria-autocomplete="list"
-        aria-expanded={staleExpanded || open}
+        aria-expanded={staleExpanded || (dropListWhenEmpty ? open : listOpen)}
         aria-controls={linkPopup ? listId : undefined}
-        aria-activedescendant={open && active >= 0 ? `${listId}-${active}` : undefined}
+        aria-activedescendant={listOpen && active >= 0 ? `${listId}-${active}` : undefined}
         onKeyDown={onKeyDown}
+        value={filterable ? query : undefined}
+        onChange={
+          filterable
+            ? (e) => {
+                setQuery(e.target.value);
+                setOpen(true);
+                setActive(-1);
+              }
+            : undefined
+        }
       />
       {staleExpanded && <ul id={listId} role="listbox" aria-label="Fruit suggestions" hidden />}
-      {open && !staleExpanded && (
+      {listOpen && !staleExpanded && (
         <div>
           {loading ? (
             <div id={listId} role="status">
@@ -107,7 +125,7 @@ function FxCombobox({ defaultOpen = false, nameListbox = true, closesOnEscape = 
             </div>
           ) : (
             <ul id={listId} role="listbox" aria-label={nameListbox ? 'Fruit suggestions' : undefined} style={{ listStyle: 'none', padding: 0 }}>
-              {ITEMS.map((item, i) => (
+              {items.map((item, i) => (
                 <li key={item} id={`${listId}-${i}`} role="option" aria-selected={i === active} onMouseDown={(e) => { e.preventDefault(); close(); }}>
                   {item}
                 </li>
@@ -127,38 +145,38 @@ function FxCombobox({ defaultOpen = false, nameListbox = true, closesOnEscape = 
 
 export const CleanCombobox: Story = {
   name: 'Clean: combobox',
-  render: () => <FxCombobox />,
-  parameters: { a11y: { expect: { tree: [], auto: [] } } },
+  render: () => <FxCombobox filterable />,
+  parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
 };
 
 export const CleanSrDismiss: Story = {
   name: 'Clean: visually hidden Dismiss button (Base UI)',
   render: () => <FxCombobox defaultOpen srDismiss />,
-  parameters: { a11y: { expect: { tree: [], auto: [] } } },
+  parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
 };
 
 export const UnnamedListbox: Story = {
   name: 'Defect: listbox without a name',
   render: () => <FxCombobox defaultOpen nameListbox={false} />,
-  parameters: { a11y: { expect: { tree: ['4.1.2: unnamed listbox'], auto: [] } } },
+  parameters: { a11y: { expect: { tree: ['4.1.2: unnamed listbox'], auto: [], states: ['4.1.2: unnamed-popup: as rendered: shown listbox has no name'] } } },
 };
 
 export const StaleExpanded: Story = {
   name: 'Defect: aria-expanded on a hidden popup',
   render: () => <FxCombobox staleExpanded />,
-  parameters: { a11y: { expect: { tree: ['4.1.2: combobox "Fruit" is aria-expanded="true" but its popup'], auto: [] } } },
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['4.1.2: expanded-but-hidden: as rendered: combobox "Fruit" is aria-expanded="true" but its listbox is hidden'] } } },
 };
 
 export const EscapeIgnored: Story = {
   name: "Defect: Escape doesn't close",
   render: () => <FxCombobox closesOnEscape={false} />,
-  parameters: { a11y: { expect: { tree: [], auto: ['2.1.1: keys: combobox "Fruit": Escape'] } } },
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['2.1.1: keyboard-escape: combobox "Fruit": Escape doesn\'t close the popup'] } } },
 };
 
 export const LoadingUnlinked: Story = {
   name: 'Defect: loading popup without aria-controls',
   render: () => <FxCombobox defaultOpen loading linkPopup={false} />,
-  parameters: { a11y: { expect: { tree: ['4.1.2: combobox "Fruit" is expanded but has no aria-controls'], auto: [] } } },
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['4.1.2: expanded-without-controls: as rendered: combobox "Fruit" is expanded but has no aria-controls'] } } },
 };
 
 /** Chips of a multi-select: focusable from the input with ArrowLeft, removed with Backspace — but no role. */
@@ -202,7 +220,7 @@ function FxChips() {
 export const ChipWithoutRole: Story = {
   name: 'Defect: chip without a role',
   render: () => <FxChips />,
-  parameters: { a11y: { expect: { tree: ['4.1.2: focusable span "Apple" has no role', '4.1.2: focusable span "Banana" has no role'], auto: [] } } },
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['4.1.2: focusable-generic: as rendered: focusable span "Apple" handles keys but has no role (and 1 more like it)'] } } },
 };
 
 /** A filter button whose aria-expanded says closed while its dialog shows. */
@@ -224,7 +242,7 @@ function FxFilters() {
 export const ExpandedFalseShown: Story = {
   name: 'Defect: aria-expanded="false" on a shown popup',
   render: () => <FxFilters />,
-  parameters: { a11y: { expect: { tree: ['4.1.2: button "Filters" is aria-expanded="false" but its popup #fx-filters is shown'], auto: ['2.1.1: keys: dialog "Filters": Escape'] } } },
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['4.1.2: collapsed-but-shown: as rendered: button "Filters" is aria-expanded="false" but its popup is shown', '2.1.1: keyboard-escape: dialog "Filters": Escape doesn\'t close it'] } } },
 };
 
 /** Tabs that are all tab stops and ignore the arrow keys. */
@@ -252,7 +270,7 @@ function FxTabs() {
 export const TabsWithoutArrows: Story = {
   name: "Defect: arrow keys don't move between tabs",
   render: () => <FxTabs />,
-  parameters: { a11y: { expect: { tree: [], auto: ['2.1.1: keys: tablist "Product": ArrowRight'] } } },
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['2.1.1: keyboard-arrows: tablist "Product": ArrowRight doesn\'t move focus to another tab'] } } },
 };
 
 /** A menu button that closes on Escape but drops focus on <body>. */
@@ -291,5 +309,234 @@ function FxMenuButton() {
 export const MenuFocusLost: Story = {
   name: 'Defect: Escape drops focus instead of returning it',
   render: () => <FxMenuButton />,
-  parameters: { a11y: { expect: { tree: [], auto: ['2.1.1: keys: button "Actions": focus is not back on the trigger after Escape'] } } },
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['2.4.3: focus-return: button "Actions": after Escape focus is on the page, not back on the trigger'] } } },
+};
+
+export const NoMatchStale: Story = {
+  name: 'Defect: no match removes the list but stays expanded',
+  render: () => <FxCombobox filterable dropListWhenEmpty />,
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['4.1.2: idref: combobox "Fruit" after typing "zqxjv" (no match): combobox "Fruit": aria-controls='] } } },
+};
+
+export const NameOnGeneric: Story = {
+  name: 'Defect: aria-label on a div without a role',
+  render: () => (
+    <div aria-label="Gallery stats">
+      <p>12 galleries, 340 photos</p>
+    </div>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['4.1.2: name-on-generic: as rendered: div "Gallery stats"'] } } },
+};
+
+export const NestedControl: Story = {
+  name: 'Defect: a button inside a menu item',
+  render: () => (
+    <div role="menu" aria-label="Photo">
+      <div role="menuitem" tabIndex={-1}>
+        Watermark <button type="button">Remove</button>
+      </div>
+    </div>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['4.1.2: nested-control: as rendered: button "Remove" sits inside menuitem'] } } },
+};
+
+export const BrokenLabelledby: Story = {
+  name: 'Defect: aria-labelledby points to nothing',
+  render: () => (
+    <ul role="listbox" aria-labelledby="fx-missing-label" style={{ listStyle: 'none', padding: 0 }}>
+      <li role="option" aria-selected>
+        Basic
+      </li>
+    </ul>
+  ),
+  parameters: {
+    a11y: {
+      expect: {
+        tree: ['4.1.2: unnamed listbox'],
+        auto: [],
+        states: ['4.1.2: idref: as rendered: listbox "Basic": aria-labelledby="fx-missing-label" points to nothing', '4.1.2: unnamed-popup: as rendered: shown listbox has no name'],
+      },
+    },
+  },
+};
+
+/** A menu button that opens its menu but leaves focus on the button. */
+function FxFocusStays() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <button
+        type="button"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-controls="fx-sort"
+        onClick={() => setOpen((o) => !o)}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') setOpen(false);
+        }}
+      >
+        Sort
+      </button>
+      {open && (
+        <div id="fx-sort" role="menu" aria-label="Sort">
+          <div role="menuitem" tabIndex={-1}>
+            Newest
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export const FocusStaysOnTrigger: Story = {
+  name: "Defect: focus doesn't move into the menu",
+  render: () => <FxFocusStays />,
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['2.4.3: focus-into-popup: button "Sort": focus stays on button "Sort", not in the menu it opens'] } } },
+};
+
+/** Opens on pointer down only: Enter does nothing. */
+function FxClickOnly() {
+  const [open, setOpen] = useState(false);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const first = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (open) first.current?.focus();
+  }, [open]);
+  return (
+    <div>
+      <button ref={trigger} type="button" aria-haspopup="dialog" aria-expanded={open} aria-controls="fx-share" onPointerDown={() => setOpen(true)} onMouseDown={(e) => e.preventDefault()}>
+        Share
+      </button>
+      {open && (
+        <div
+          id="fx-share"
+          role="dialog"
+          aria-label="Share"
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              setOpen(false);
+              trigger.current?.focus();
+            }
+          }}
+        >
+          <button ref={first} type="button">
+            Copy link
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export const ClickOnly: Story = {
+  name: 'Defect: opens on click but not on Enter',
+  render: () => <FxClickOnly />,
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['2.1.1: keyboard-open: button "Share": opens on click but not on Enter'] } } },
+};
+
+export const FocusableInHidden: Story = {
+  name: 'Defect: a button inside aria-hidden',
+  render: () => (
+    <div>
+      <p>Visible text</p>
+      <div aria-hidden="true">
+        <button type="button">Hidden action</button>
+      </div>
+    </div>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['4.1.2: focusable-in-hidden: as rendered: button "Hidden action" is focusable inside aria-hidden'] } } },
+};
+
+export const HaspopupMismatch: Story = {
+  name: 'Defect: aria-haspopup="menu" opens a listbox',
+  render: () => (
+    <div>
+      <button type="button" aria-haspopup="menu" aria-expanded aria-controls="fx-view">
+        View
+      </button>
+      <ul id="fx-view" role="listbox" aria-label="View" style={{ listStyle: 'none', padding: 0 }}>
+        <li role="option" aria-selected>
+          Grid
+        </li>
+      </ul>
+    </div>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['4.1.2: haspopup-role: as rendered: button "View" has aria-haspopup="menu" but its popup is a listbox'] } } },
+};
+
+/** Radix-style modal popup: the rest of the page is aria-hidden while focus is in the list. */
+function FxModalPopup() {
+  const option = useRef<HTMLDivElement>(null);
+  useEffect(() => option.current?.focus(), []);
+  return (
+    <div>
+      <div aria-hidden="true">
+        <button type="button">Behind the popup</button>
+      </div>
+      <div role="listbox" aria-label="Plans">
+        <div ref={option} role="option" tabIndex={0} aria-selected>
+          Basic
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export const CleanModalPopup: Story = {
+  name: 'Clean: page aria-hidden behind a popup that holds focus (Radix)',
+  render: () => <FxModalPopup />,
+  parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
+};
+
+export const CleanPopupShapes: Story = {
+  name: 'Clean: empty open list, display:contents popup, menu named by an icon button',
+  render: () => (
+    <div>
+      <label htmlFor="fx-empty">Search</label>
+      <input id="fx-empty" role="combobox" aria-expanded aria-controls="fx-empty-list" readOnly />
+      <ul id="fx-empty-list" role="listbox" aria-label="Results" style={{ margin: 0, padding: 0, height: 0 }} />
+      <button type="button" aria-expanded aria-controls="fx-dial">
+        Close actions
+      </button>
+      <div id="fx-dial" style={{ display: 'contents' }}>
+        <div role="group" aria-label="Actions">
+          <button type="button">Upload</button>
+        </div>
+      </div>
+      <button type="button" id="fx-more" aria-label="More options" aria-haspopup="menu" aria-expanded aria-controls="fx-more-menu">
+        ⋯
+      </button>
+      <div id="fx-more-menu" role="menu" aria-labelledby="fx-more">
+        <div role="menuitem" tabIndex={-1}>
+          Rename
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
+};
+
+export const CleanTreeAndModal: Story = {
+  name: 'Clean: nested tree items, a dialog that hides the page without focus in it',
+  render: () => (
+    <div>
+      <div aria-hidden="true">
+        <button type="button">Behind the dialog</button>
+      </div>
+      <div role="dialog" aria-label="Rename">
+        <ul role="tree" aria-label="Folders" style={{ listStyle: 'none', padding: 0 }}>
+          <li role="treeitem" aria-expanded aria-selected={false} tabIndex={-1}>
+            Clients
+            <ul role="group" style={{ listStyle: 'none' }}>
+              <li role="treeitem" aria-selected={false} tabIndex={-1}>
+                Rhea &amp; Theo
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  ),
+  // The dialog can't be closed here: Escape is the dialog fixtures' business.
+  parameters: { a11y: { states: { skip: ['keyboard'], reason: 'Static dialog.' }, expect: { tree: [], auto: [], states: [] } } },
 };

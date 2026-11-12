@@ -134,7 +134,8 @@ function SelectContent({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   // Radix leaves the listbox unnamed (WCAG 4.1.2). Name it after its
-  // trigger — the trigger's aria-label, or the <label> pointing at it — unless
+  // trigger — the trigger's aria-label, the <label> pointing at it, or its
+  // aria-labelledby — unless
   // the consumer labelled the content. Done on mount from the DOM, since the
   // trigger's name can come from a Label outside the Select.
   const nameAfterTrigger = useCallback((content: HTMLDivElement | null) => {
@@ -142,6 +143,8 @@ function SelectContent({
     const trigger = content.id ? document.querySelector<HTMLButtonElement>(`[aria-controls="${CSS.escape(content.id)}"]`) : null;
     const name = trigger?.getAttribute('aria-label') || [...(trigger?.labels ?? [])].map((l) => l.textContent?.trim()).filter(Boolean).join(' ');
     if (name) content.setAttribute('aria-label', name);
+    // A trigger labelled by id (SiteFooter's language picker) names the list the same way.
+    else if (trigger?.getAttribute('aria-labelledby')) content.setAttribute('aria-labelledby', trigger.getAttribute('aria-labelledby')!);
   }, []);
   return (
     <SelectPrimitive.Portal>

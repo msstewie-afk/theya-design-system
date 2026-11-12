@@ -358,7 +358,7 @@ export const OpenInDialog: Story = {
   name: 'Open in dialog',
   // Always open (no onOpenChange): Escape can't close it here. The
   // keyboard model is checked on "As dialog".
-  parameters: { docs: { disable: true }, a11y: { auto: { skip: ['keys'], reason: 'Static open state; Escape is tested on As dialog.' } } },
+  parameters: { docs: { disable: true }, a11y: { states: { skip: ['keyboard'], reason: 'Static open state; Escape is tested on As dialog.' } } },
   render: () => (
     <CommandDialog open>
       <CommandInput placeholder="Type a command or search…" />

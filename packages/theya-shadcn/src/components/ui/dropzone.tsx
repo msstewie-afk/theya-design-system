@@ -100,7 +100,8 @@ function Dropzone({
     target?.focus();
   }, [files]);
 
-  const describedBy = [hint ? hintId : null, error ? errorId : null].filter(Boolean).join(' ') || undefined;
+  // The hint gives way to the error (only one is rendered): describe by the one shown.
+  const describedBy = (error ? errorId : hint ? hintId : null) ?? undefined;
 
   const openPicker = () => {
     if (!disabled && !loading) inputRef.current?.click();

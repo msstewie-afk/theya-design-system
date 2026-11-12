@@ -195,9 +195,11 @@ export function Chip({
       data-pressed={isSelected ? true : undefined}
       data-toggled={toggled ? '' : undefined}
       data-disabled={isPressable && disabled ? true : undefined}
-      // Non-pressable chips have no overlay button to carry this instead —
-      // a pressable chip's aria-label moves to that button below.
-      aria-label={isPressable ? undefined : ariaLabelProp}
+      // A pressable chip's aria-label moves to the overlay button below. A
+      // static <span> chip is read as its text: ARIA forbids a name on a
+      // generic, and screen readers drop it (a11y-states, 2026-11-12), so
+      // it is passed on only to an asChild element, which has a role.
+      aria-label={isPressable || !asChild ? undefined : ariaLabelProp}
       onClick={isPressable ? undefined : onClick}
       onKeyDown={isPressable ? undefined : onKeyDown}
       className={cn(
