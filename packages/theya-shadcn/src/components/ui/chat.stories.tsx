@@ -100,7 +100,7 @@ export const Default: Story = {
 /** ChatTyping: the other side is writing. Remove it when their message arrives. */
 export const Typing: Story = {
   render: () => (
-    <Chat className="h-64 w-full max-w-md rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)]">
+    <Chat className="h-64 w-full max-w-md rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
       <ChatMessages>
         <Message variant="sent">Is the license renewal automatic?</Message>
         <ChatTyping />
@@ -120,7 +120,7 @@ function TypingReplyDemo() {
       <Button className="self-start" onClick={ask} disabled={state === 'typing'}>
         Simulate a reply
       </Button>
-      <Chat className="h-64 rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)]">
+      <Chat className="h-64 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
         <ChatMessages>
           <Message variant="sent">Is the license renewal automatic?</Message>
           {state === 'replied' && <Message>Yes. Aether renews it 30 days before it expires.</Message>}

@@ -67,7 +67,7 @@ export function TestimonialCase({ quote, name, role, avatar, media, results, ser
           {media}
           {results?.length ? (
             // The results sit on their own surface over the photo, so they read on any image.
-            <dl className="relative m-4 grid grid-cols-2 gap-4 rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5 sm:m-6">
+            <dl className="relative m-4 grid grid-cols-2 gap-4 rounded-[var(--landing-inner-radius,var(--size-border-radius-border-radius-3xl))] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-5 sm:m-6">
               {results.slice(0, 2).map((r, i) => (
                 <div key={i} className="flex min-w-0 flex-col gap-1">
                   <dt className="order-2 font-body text-body-s text-[var(--color-text-text-subtle)]">{r.label}</dt>

@@ -49,7 +49,11 @@ const SURFACE: Record<Exclude<LandingCardSurface, 'tonal'>, string> = {
   ),
 };
 
-const RADIUS = 'rounded-[var(--size-border-radius-border-radius-4xl)]';
+// --landing-inner-radius: what a surface nested in the card (a preview frame,
+// a stat panel, a mini card) uses instead of its own standalone radius, so it
+// stays at least one step less round than the card in every profile (Ember
+// collapses 2xl–4xl to 12px). Nested-corners rule, Foundations › Tokens.
+const RADIUS = 'rounded-[var(--size-border-radius-border-radius-4xl)] [--landing-inner-radius:var(--size-border-radius-border-radius-xl)]';
 
 // The SurfaceEffect presets are tuned for dark panels; on a light page a
 // white streak or a 22% glow all but disappears. Landing cards push them so

@@ -66,7 +66,7 @@ export function BookmarksPreview({ className, floating = true, folder = 'reading
       {/* One inset for the whole card: the search field, the folder list and the link list all
           start 8px in, and their contents (icons, letter tiles) 16px in. Nested radius: the
           field's 6px plus the 8px band padding ≈ 16px (4xl), so the corners stay concentric. */}
-      <div className="overflow-hidden rounded-[var(--size-border-radius-border-radius-4xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]">
+      <div className="overflow-hidden rounded-[var(--landing-inner-radius,var(--size-border-radius-border-radius-4xl))] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]">
         <div className="flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] p-2">
           {/* 36px field: 1px border + 7px around the 20px key on three sides, so the key sits evenly, and
               its end edge lands 16px from the card's — in line with the tag chips in the rows below
@@ -213,8 +213,8 @@ export const DEMO_LANDING_MENU: MegaItem[] = [
 // label, and no real controls inside.
 
 const card =
-  // 10px: well inside the 16px card that usually holds it (24px padding), so the corners nest.
-  'w-full max-w-[32rem] overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4';
+  // Standalone 2xl; inside a LandingCard it takes --landing-inner-radius (xl), a step below the card.
+  'w-full max-w-[32rem] overflow-hidden rounded-[var(--landing-inner-radius,var(--size-border-radius-border-radius-2xl))] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4';
 // first:pt-0 / last:pb-0: the card's own 16px padding is the only space at its top and bottom edges.
 const row = 'flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] py-3 first:pt-0 last:border-b-0 last:pb-0';
 
@@ -372,7 +372,7 @@ export const DEMO_LANDING_FOOTER: FooterColumn[] = [
 export function DemoMiniLink({ index = 0 }: { index?: number }) {
   const l = LINKS[index % LINKS.length];
   return (
-    <div className="flex w-56 items-center gap-3 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3">
+    <div className="flex w-56 items-center gap-3 rounded-[var(--landing-inner-radius,var(--size-border-radius-border-radius-2xl))] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-3">
       <span className={cn('flex size-10 shrink-0 items-center justify-center rounded-[var(--size-border-radius-border-radius-lg)] text-body-m font-semibold', HUE[l.hue])}>{l.letter}</span>
       <span className="flex min-w-0 flex-col">
         <span className="truncate font-body text-body-s font-semibold text-[var(--color-text-text)]">{l.title}</span>

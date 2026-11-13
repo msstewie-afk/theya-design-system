@@ -25,7 +25,7 @@ const TEMPLATES = ['Reading list', 'Research', 'Recipes', 'Trips', 'Design inspi
 // A template card on a soft tonal fill, as on the Flip example (lib/tonal-fills): full-strength
 // text, a border in tone, no photo, shadow, darkening or gradient.
 const TemplateCard = ({ i, compact = false }: { i: number; compact?: boolean }) => (
-  <article className={`flex flex-col justify-between rounded-[var(--size-border-radius-border-radius-4xl)] ${tonalFillAt(i, TEMPLATES.length)} ${compact ? 'h-36 gap-2 p-4' : 'h-72 gap-4 p-6'}`}>
+  <article className={`flex flex-col justify-between rounded-[var(--size-border-radius-border-radius-4xl)] [--landing-inner-radius:var(--size-border-radius-border-radius-xl)] ${tonalFillAt(i, TEMPLATES.length)} ${compact ? 'h-36 gap-2 p-4' : 'h-72 gap-4 p-6'}`}>
     <p className={`m-0 font-body font-medium tabular-nums ${compact ? 'text-body-xs' : 'text-body-s'}`}>{compact ? String(i + 1).padStart(2, '0') : `Template ${String(i + 1).padStart(2, '0')}`}</p>
     {compact ? (
       <h3 className="m-0 font-heading text-body-m font-semibold">{TEMPLATES[i]}</h3>
@@ -211,7 +211,7 @@ export const Parallax: Story = {
           { i: 0, depth: 1, pos: 'start-[10%] top-[52%]' },
         ].map((c) => (
           <ParallaxLayer key={c.i} depth={c.depth} className={`absolute ${c.pos}`}>
-            <div className="rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[color-mix(in_srgb,white_40%,transparent)] bg-[color-mix(in_srgb,var(--color-bg-surface-bg-surface)_60%,transparent)] p-2 backdrop-blur-xl">
+            <div className="rounded-[var(--size-border-radius-border-radius-3xl)] [--landing-inner-radius:var(--size-border-radius-border-radius-xl)] border border-solid border-[color-mix(in_srgb,white_40%,transparent)] bg-[color-mix(in_srgb,var(--color-bg-surface-bg-surface)_60%,transparent)] p-2 backdrop-blur-xl">
               <DemoMiniLink index={c.i} />
             </div>
           </ParallaxLayer>

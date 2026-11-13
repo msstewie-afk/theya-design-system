@@ -49,7 +49,10 @@ export function Message({ className, variant = 'received', appearance = 'filled'
           className={cn(
             // text-body-m (was text-body-s): the bubble text is the actual
             // message content, not secondary meta — default-font rule.
-            'min-w-0 max-w-full rounded-[var(--size-border-radius-border-radius-2xl)] px-4 py-2 font-body text-body-m leading-[var(--size-size20)] [overflow-wrap:anywhere]',
+            // xl, not 2xl: the bubble sits inside a chat panel (2xl), and nested
+            // surfaces are at least a step less round (Foundations › Tokens). An
+            // attachment inside the bubble steps down once more, to lg.
+            'min-w-0 max-w-full rounded-[var(--size-border-radius-border-radius-xl)] px-4 py-2 font-body text-body-m leading-[var(--size-size20)] [overflow-wrap:anywhere] [&_[data-slot=attachment]]:rounded-[var(--size-border-radius-border-radius-lg)]',
             variant === 'sent'
               ? cn(
                   'rounded-se-[var(--size-border-radius-border-radius-md)]',
