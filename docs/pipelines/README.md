@@ -11,4 +11,4 @@ Each pipeline has the same parts: **trigger** (what starts the work), **steps** 
 | [Product request](./product-request.md) | a T-card from a product (PlateCovery) | the change released, installed, the product's workaround removed |
 | [Screen-reader pass](./screen-reader-pass.md) | the screen-reader queue (`pnpm a11y:sr-queue`) | passes recorded in `a11y/manual.json`, fails turned into fixes |
 
-To come, same shape: new component, accessibility defect, token or theme change, Figma sync, release.
+To come, same shape: new component, accessibility defect, token or theme change, Figma sync (its input: [the code ↔ Figma queue](../figma-queue.md)), release.
