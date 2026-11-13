@@ -198,7 +198,8 @@ const brandValue = (css, v) => {
   const ref = String(v).match(/^var\((--size-[a-z0-9-]+)\)$/);
   if (ref) { const n = sizeByCss.get(ref[1]); if (!n) throw new Error(`${css}: ${v} has no variable in "4."`); return '@sem:' + n; }
   if (css.startsWith('--size-')) { const n = Number(String(v).replace(/px$/, '')); return sizePrim[`size${n}`] !== undefined ? `@size:size${n}` : n; }
-  return /-font$|font-family-/.test(css) ? firstFamily(v) : Number(v);
+  // Typography overrides may carry a unit ("0.4px"); Figma variables hold plain numbers.
+  return /-font$|font-family-/.test(css) ? firstFamily(v) : Number(String(v).replace(/px$/, ''));
 };
 // The value a moved variable had, as "9." spells it (aliases keep their target collection).
 const asBrandAlias = (key, v) => {
@@ -243,14 +244,15 @@ for (const b of brands) for (const k of Object.keys(b.shared ?? {})) if (!/^--(s
 
 const payload = {
   generatedFrom: 'packages/tokens/src',
-  // Order matters for sync: "9." first, so the "@brand:" aliases written into
-  // "4.", "5." and "6." find their targets.
+  // Order matters for sync: "3." (size primitives, no aliases) first, then "9.",
+  // whose values alias "3." ("@size:", e.g. size-minus1), so the "@brand:"
+  // aliases written into "4.", "5." and "6." find their targets.
   collections: {
+    '3.': { kind: 'FLOAT', modes: ['*'], vars: sizePrim },
     // Created by sync when missing ("9. Brand"); new variables get scopes [] (hidden), like "7.".
     '9.': { kind: 'MIXED', modes: BRAND_MODES, create: '9. Brand', vars: brandVars },
     '1.': { kind: 'COLOR', modes: ['*'], vars: Object.fromEntries(Object.entries(colorPrim).map(([k, v]) => [k, normHex(v)])) },
     '2.': { kind: 'COLOR', modes: colorModes, aliasTo: '1.', vars: colorSem },
-    '3.': { kind: 'FLOAT', modes: ['*'], vars: sizePrim },
     '4.': { kind: 'FLOAT', modes: ['*'], aliasTo: '3.', vars: sizeSem },
     '5.': { kind: 'MIXED', modes: ['*'], vars: typoPrim },
     '6.': { kind: 'MIXED', modes: ['*'], vars: typoSem },
