@@ -69,7 +69,8 @@ Node 22, pnpm 11. После любого изменения в `packages/tokens
 - Правило, выключенное для сторис, требует причины в комментарии рядом; оно попадает в матрицу.
 - Контраст: 4.5:1 для текста, 3:1 для иконок, бордеров контролов и статусных точек — и в тёмной теме. Мягкий focus ring сознательно ниже 3:1 (принятое отступление, см. Design System / Accessibility): где можно, добавляйте контролу другой видимый признак фокуса — рамку или фон.
 - Цели не меньше 24×24px; движение — за `motion-safe:` / `motion-reduce:`; стили `forced-colors` там, где состояние показано только цветом или фоном.
-- Проверки со скринридером вносятся в `a11y/manual.json` вручную.
+- Проходы скринридером записываются в `a11y/manual.json`; что проходить дальше и как — [docs/pipelines/screen-reader-pass.ru.md](./docs/pipelines/screen-reader-pass.ru.md).
+- Запрос от продукта (T-карточка) идёт по [docs/pipelines/product-request.ru.md](./docs/pipelines/product-request.ru.md); все пайплайны — [docs/pipelines](./docs/pipelines/README.ru.md).
 
 ## Токены
 

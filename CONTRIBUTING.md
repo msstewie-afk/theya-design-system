@@ -69,7 +69,8 @@ Target: WCAG 2.2 AA, in light and dark.
 - A rule switched off for a story needs a reason in a comment next to it; it shows up in the matrix.
 - Contrast: 4.5:1 for text, 3:1 for icons, borders of controls and status dots — in dark too. The soft focus ring is under 3:1 on purpose (an accepted exception, see Design System / Accessibility): give a control another visible focus change, such as its border or background, where you can.
 - Targets at least 24×24px; motion behind `motion-safe:` / `motion-reduce:`; `forced-colors` styles where a state is shown only by color or background.
-- Screen-reader passes go into `a11y/manual.json` by hand.
+- Screen-reader passes go into `a11y/manual.json`; what to pass next and how: [docs/pipelines/screen-reader-pass.md](./docs/pipelines/screen-reader-pass.md).
+- A request from a product (a T-card) follows [docs/pipelines/product-request.md](./docs/pipelines/product-request.md); all pipelines: [docs/pipelines](./docs/pipelines/README.md).
 
 ## Tokens
 

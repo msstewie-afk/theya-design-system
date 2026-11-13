@@ -1,6 +1,6 @@
 # Screen-reader checklist
 
-A manual pass with a real screen reader. It closes two WCAG criteria that code review and axe can't: **1.3.2 Meaningful sequence** (the reading order makes sense) and **4.1.3 Status messages** (messages are spoken without moving focus). In the accessibility matrix both stay "untested" until a pass is recorded for the component.
+A manual pass with a real screen reader. It closes two WCAG criteria that code review and axe can't: **1.3.2 Meaningful sequence** (the reading order makes sense) and **4.1.3 Status messages** (messages are spoken without moving focus). In the matrix 4.1.3 stays "untested" until a pass is recorded for the component; 1.3.2 is also covered by the accessibility tree (`a11y-tree`). Per-component checklists with the expected announcements for every story and state: `a11y/checklist/<Component>.md`; what to pass next: `pnpm a11y:sr-queue` ([docs/pipelines/screen-reader-pass.md](../../../docs/pipelines/screen-reader-pass.md)).
 
 Russian version: [screen-reader-checklist.ru.md](./screen-reader-checklist.ru.md).
 
