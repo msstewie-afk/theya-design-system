@@ -23,6 +23,9 @@ Profiles live in `packages/tokens/src/profiles/<name>.json` and come in two kind
 | `iris` | violet primary `#743de4`, indigo links, cool near-gray neutrals, blue-black dark theme | Onest | sharp: fields 2px, everything else in the same proportion (buttons 3, cards 3, dialogs 4) |
 | `lime` | lime primary `#9fe870` with dark green text, greenish neutrals, near-black green dark theme | Manrope | ×1.5, pill buttons, fields 12px |
 | `ember` | warm orange primary `#c2410c`, warm off-white page with white cards, warm near-black dark theme; in dark, warning is re-hued to amber so it doesn't read as the primary | Geologica, Playfair Display headings (lining figures) | ×1.8: cards 18px, fields 14px |
+| `dusk` | gradient theme (gr-01): mesh canvas after the Quizy reference — gray lilac, vivid coral, plum; flat gray-periwinkle primary `#64668f` | Schibsted Grotesk (Cyrillic falls back to Geologica) | cards 32px on the canvas, pill buttons |
+| `lagoon` | gradient theme: deep teal and sea green with a vivid green spot, a lime bloom on heroes; flat teal primary `#1f6b63` | Schibsted Grotesk | same as `dusk` |
+| `ochre` | gradient theme: gray mauve, vivid orange, deep brown, sand bloom on heroes; flat burnt-orange primary `#9a4a12`; dark warning re-hued to amber | Schibsted Grotesk | same as `dusk` |
 
 ## Simple profile
 
@@ -66,10 +69,22 @@ Profiles live in `packages/tokens/src/profiles/<name>.json` and come in two kind
 | `radius.steps` | steps set to px outright, after any scale: `{ "sm": 3, "md": 5, "lg": 6, "xl": 8, "2xl": 12, "3xl": 12, "4xl": 12, "5xl": 24 }` (how `ember` does it). Keep the order: a nested element is at least a step less round than its container |
 | `componentText` | the type step a component part uses in this theme: `{ "drawer-description": "body-m" }` (how `ember` does it; body-xs … body-xl). Sets `--theme-text-<part>`; parts that read it: `drawer-description` (default body-s) |
 | `radius.button`, `radius.field` | one radius for all Button sizes and for TextField + Select: a scale step (`xl`, `max`) or px |
+| `gradient` | the gradient canvas (gr-01): `{ "base": "#6d5578", "spots": [{ "color": "#cb4338", "at": "26% 50%", "size": "34% 48%" }, …] }` — a base color and soft radial spots, like mesh points (the first spot is on top). The build checks white text 4.5:1 on the base and on every spot, bare and under glass, so darken a point in OKLCH (keep its chroma) until it passes. `"bloom": true` marks a light patch (Dusk's bottom left corner): not checked, drawn only with `data-canvas-blooms` (landing heroes), where only cards lie |
 
 ## Page surface
 
 `data-surface="page"` on a page wrapper (not on `<html>`) paints it `bg-surface-page` and moves the fills that lie directly on it a step off the page: `bg-surface-sunken` (Tabs chips track) goes to `bg-surface-sunken-on-page`, `bg-neutral-subtle` (Progress track, Skeleton) to `bg-neutral-subtle-on-page`. Inside a Card (`data-surface="card"`, which Card sets; set it on any white container of your own) the fills are the theme's own again. `bg-surface-page` follows the theme's `bg-surface-base` unless the theme sets it: Ember tints it warm (light `#f8f4f0` with fills on it `#e3deda`, dark `#191512`, with `bg-surface-sunken-on-page` `#100d0b` in dark).
+
+## Gradient canvas
+
+`data-canvas="gradient"` on a screen, hero or section (or `SectionPanel tone="gradient"`, which also turns on the blooms) paints the theme's `gradient` with a grain overlay. A theme without one gets its flat primary fill.
+
+- **Directly on the canvas** everything is white: text, icons, borders, the focus ring, Progress and Slider tracks. Buttons: filled is a white pill with dark text, tonal and outlined are glass (blur, backdrop brightness 0.85, white 12%), ghost is white text. `.glass` gives any container the same glass.
+- **White cards** (Card, or any container with `data-surface="card"`) bring the theme's own values back: inside a card it is the regular light theme, with the flat primary. On the canvas a card has the largest radius, 90% white over a blur and a shadow tinted with the canvas's darkest color. 90% is the limit: lower, text-subtler over the darkest canvas color falls under 4.5:1.
+- **Text only where it passes**: on the base and the spots, never on a bloom. The canvas is single-mode: it looks the same in the dark theme.
+- **Narrow canvases** (under 640px, app screens) draw the mesh about square and show its left part, so spots don't stretch into vertical streaks.
+
+The canvas lives in `packages/theya-shadcn/src/styles/gradient-canvas.css`; the story is Design System → Gradient canvas (Presets shows all three themes).
 
 ## How colors are built (OKLCH)
 
