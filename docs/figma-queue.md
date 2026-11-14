@@ -19,8 +19,6 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 | 0.3.16 | Text styles (Ember) | Body S line height 18 in Ember (13/18), 16 elsewhere (T19), through the profile's `typography`. | Ember mode of the body-s line-height variable. |
 | 0.3.16 | OptionCard | Title at body M's own 20px line (was 18.75, leading-tight), 4px to the description (was 2), in every theme (T19). | The same in the OptionCard component. |
 | 0.3.14 | Text styles | Display/S, Eyebrow/M, Eyebrow/S: lining figures (`lnum`) are set in code; the Plugin API cannot set OpenType features. | Set by hand in Figma: Type settings → Numbers → Lining. Same check for Headline/*. |
-| 0.3.14 | Review | Nodes added or changed 13.11 were checked by properties only, not by eye: Drawer, StickyActionBar width=phone, TabsList (chips), OptionCard, DropdownMenu / With Trailing, ContextMenu / With Trailing, Ember radius bindings, Elevation styles in each mode (14.11). | A visual pass in Figma. |
-| earlier | Kbd | Border 1px and the size of the ⌘ glyph. | Compare with code at review. |
 | earlier | Reference stories | PushSheet, Dialog (full) and the menu "Figma reference" stories against the Figma examples (pp-01, agent 3). | Run `scripts/figma-visual-diff.mjs` on them. |
 | earlier | Separator and other props | Figma component properties still use the old names (prop vocabulary of 27.09, e.g. Separator `emphasis`). | A rename pass in Figma. |
 
@@ -28,6 +26,8 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 
 | Date | Version | Area | Figma |
 |---|---|---|---|
+| 2026-11-14 | 0.3.14–0.3.15 | Review by eye (Мария): the nodes changed 13–14.11 (Drawer, StickyActionBar, TabsList chips, OptionCard, menus With Trailing, Ember radii, Elevation in every mode, Ember drawer description) — all fine | — |
+| 2026-11-14 | earlier | Kbd: 1px border and ⌘ glyph size checked against code (Мария) — fine | — |
 | 2026-11-13 | 0.3.7–0.3.14 | Tokens: bg-surface-page, bg-surface-sunken-on-page, bg-neutral-subtle-on-page (8 modes); Ember radius steps sm 3, md 5, lg 6, xl 8, 2xl–4xl 12, 5xl 24, theme-radius field and field-sm; size-minus1; display-s and eyebrow-m/s brand variables, Ember display-s letter spacing 0.4 | collections 2, 3, 6, 9 (delta sync from 8bb3c27) |
 | 2026-11-13 | 0.3.14 | Text styles Display/S (40/44, −1), Eyebrow/M (15/20, +2, upper case), Eyebrow/S (13/16, +2, upper case), bound to "6. Semantic Typography" | text styles |
 | 2026-11-13 | 0.3.14 | Drawer: header pr 24 (title-row pr 32 keeps room for × at the title only), pb 4; body pt 8, so 12 from the description to the first field; description full width | 32597:15565 |

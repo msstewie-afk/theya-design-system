@@ -19,8 +19,6 @@ English version: [figma-queue.md](./figma-queue.md).
 | 0.3.16 | Текстовые стили (Ember) | Межстрочный body S в Ember — 18 (13/18), в остальных темах — 16 (T19), через `typography` профиля. | Режим Ember у переменной межстрочного body-s. |
 | 0.3.16 | OptionCard | Заголовок с собственным межстрочным body M, 20 px (было 18,75, leading-tight), 4 px до описания (было 2), во всех темах (T19). | То же в компоненте OptionCard. |
 | 0.3.14 | Текстовые стили | У Display/S, Eyebrow/M, Eyebrow/S в коде включены цифры одной высоты (`lnum`). Plugin API не умеет задавать OpenType-функции. | Включить руками в Figma: Type settings → Numbers → Lining. То же проверить у Headline/*. |
-| 0.3.14 | Ревью | Узлы, добавленные и изменённые 13.11, проверены только по свойствам, не глазами. Это Drawer, StickyActionBar width=phone, TabsList (chips), OptionCard, DropdownMenu / With Trailing, ContextMenu / With Trailing, привязки радиусов Ember и стили Elevation в каждом режиме (14.11). | Посмотреть в Figma. |
-| раньше | Kbd | Рамка 1px и размер знака ⌘. | Сверить с кодом на ревью. |
 | раньше | Референсные истории | PushSheet, Dialog (full) и истории «Figma reference» у меню. Сверить с примерами в Figma (pp-01, агент 3). | Прогнать на них `scripts/figma-visual-diff.mjs`. |
 | раньше | Separator и другие свойства | Свойства компонентов в Figma названы по-старому, до словаря пропсов от 27.09 (например, `emphasis` у Separator). | Переименовать свойства в Figma. |
 
@@ -28,6 +26,8 @@ English version: [figma-queue.md](./figma-queue.md).
 
 | Дата | Версия | Что | Figma |
 |---|---|---|---|
+| 2026-11-14 | 0.3.14–0.3.15 | Ревью глазами (Мария): узлы, изменённые 13–14.11 (Drawer, StickyActionBar, TabsList chips, OptionCard, меню With Trailing, радиусы Ember, Elevation во всех режимах, описание шторки в Ember) — всё в порядке | — |
+| 2026-11-14 | раньше | Kbd: рамка 1px и размер знака ⌘ сверены с кодом (Мария) — в порядке | — |
 | 2026-11-13 | 0.3.7–0.3.14 | Токены:<br>• bg-surface-page, bg-surface-sunken-on-page, bg-neutral-subtle-on-page (8 режимов);<br>• шаги радиусов Ember: sm 3, md 5, lg 6, xl 8, 2xl–4xl 12, 5xl 24;<br>• theme-radius field и field-sm;<br>• size-minus1;<br>• переменные бренда display-s и eyebrow-m/s;<br>• межбуквенный интервал display-s у Ember 0.4. | коллекции 2, 3, 6, 9 (дельта-синхронизация от 8bb3c27) |
 | 2026-11-13 | 0.3.14 | Текстовые стили, привязанные к «6. Semantic Typography»:<br>• Display/S: 40/44, интервал −1;<br>• Eyebrow/M: 15/20, интервал +2, заглавные;<br>• Eyebrow/S: 13/16, интервал +2, заглавные. | текстовые стили |
 | 2026-11-13 | 0.3.14 | Drawer:<br>• шапка: справа 24, снизу 4;<br>• место под × только у заголовка: у title-row справа 32;<br>• тело: сверху 8, итого 12 от описания до первого поля;<br>• описание на всю ширину. | 32597:15565 |
