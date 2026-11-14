@@ -15,6 +15,9 @@ English version: [figma-queue.md](./figma-queue.md).
 
 | С версии | Область | Что | Что нужно |
 |---|---|---|---|
+| 0.3.15 | StickyActionBar | Верхний разделитель идёт во всю ширину в обеих ширинах (был с отступом по боковому полю; Мария, 14.11). Узел 32677:510 ещё рисует его с отступом 16 / 24. | Разделитель во всю ширину во всех вариантах. |
+| 0.3.15 | Вложенные углы | Контрол внутри поля или карточки на шаг менее круглый: кнопка отправки PromptArea md (нажатая lg) и вложения md в поле lg; кнопки «показать» / «копировать» SecretField и «показать пароль» Password — md; Alert и Stat (card) внутри Card — xl; строки Comparison — xl вокруг иконки lg. | Те же радиусы в компонентах и примерах Figma. |
+| 0.3.15 | Drawer (Ember) | Описание в Ember — body M (15/20), в остальных темах — body S (T19), через ключ профиля `componentText`. | Режим Ember у стиля описания или пометка у Drawer. |
 | 0.3.14 | Текстовые стили | У Display/S, Eyebrow/M, Eyebrow/S в коде включены цифры одной высоты (`lnum`). Plugin API не умеет задавать OpenType-функции. | Включить руками в Figma: Type settings → Numbers → Lining. То же проверить у Headline/*. |
 | 0.3.14 | Ревью | Узлы, добавленные и изменённые 13.11, проверены только по свойствам, не глазами. Это Drawer, StickyActionBar width=phone, TabsList (chips), OptionCard, DropdownMenu / With Trailing, ContextMenu / With Trailing, привязки радиусов Ember и стили Elevation в каждом режиме (14.11). | Посмотреть в Figma. |
 | раньше | Kbd | Рамка 1px и размер знака ⌘. | Сверить с кодом на ревью. |

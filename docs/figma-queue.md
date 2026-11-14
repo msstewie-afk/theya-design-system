@@ -15,6 +15,9 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 
 | Since | Area | What | Needs |
 |---|---|---|---|
+| 0.3.15 | StickyActionBar | The top divider runs edge to edge in both widths (was inset to the side padding; Мария, 14.11). Node 32677:510 still draws it inset 16 / 24. | Divider full width in every variant. |
+| 0.3.15 | Nested corners | A control inside a field or card is a step less round than it: PromptArea send button md (pressed lg) and attachments md inside the lg field; SecretField reveal / copy and Password show / hide buttons md; Alert and Stat (card) inside a Card xl; Comparison rows xl around the lg item icon. | Same radii on the Figma components and examples. |
+| 0.3.15 | Drawer (Ember) | The description is body M in Ember (15/20), body S elsewhere (T19), through the profile key `componentText`. | Ember mode of the description text style, or a note on the Drawer. |
 | 0.3.14 | Text styles | Display/S, Eyebrow/M, Eyebrow/S: lining figures (`lnum`) are set in code; the Plugin API cannot set OpenType features. | Set by hand in Figma: Type settings → Numbers → Lining. Same check for Headline/*. |
 | 0.3.14 | Review | Nodes added or changed 13.11 were checked by properties only, not by eye: Drawer, StickyActionBar width=phone, TabsList (chips), OptionCard, DropdownMenu / With Trailing, ContextMenu / With Trailing, Ember radius bindings, Elevation styles in each mode (14.11). | A visual pass in Figma. |
 | earlier | Kbd | Border 1px and the size of the ⌘ glyph. | Compare with code at review. |
