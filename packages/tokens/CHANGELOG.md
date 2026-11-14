@@ -1,5 +1,20 @@
 # @theya/tokens
 
+## 0.3.8
+
+### Patch Changes
+
+- d1ac3c5: T19, the rest:
+
+  - Ember: body S is 13/18 (was 13/16; it read cramped in descriptions), through the profile's `typography`. The default theme keeps 13/16.
+  - OptionCard: title and description as on Switch — the title at body M's own 20px line (was 18.75px, `leading-tight`) and 4px to the description (was 2px), in every theme.
+
+## 0.3.7
+
+### Patch Changes
+
+- 9ab81a3: Profiles can set the type step of a component part (`componentText`), through `--theme-text-<part>`. Ember sets Drawer descriptions to body M (T19: body S under a sheet title read too small); the default theme keeps body S.
+
 ## 0.3.6
 
 ### Patch Changes

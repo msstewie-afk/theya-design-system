@@ -13,9 +13,11 @@ async function loadState() {
   const C = {};
   // Collections an alias may point into are loaded even when the payload was cut to a few (figma-run --only).
   for (const key of new Set([...Object.keys(PAYLOAD.collections), ...(PAYLOAD.alsoLoad ?? [])])) {
-    const col = cols.find((c) => c.name.startsWith(key));
-    // A collection the payload may create ("9. Brand") can be missing; any other is an error.
-    if (!col && !PAYLOAD.collections[key]?.create && !(PAYLOAD.creatable ?? []).includes(key)) throw new Error('No Figma collection starting with ' + key);
+    // By name ("Brand"); a file not yet renamed still has "<key> <name>" ("9. Brand").
+    const named = PAYLOAD.collectionNames?.[key];
+    const col = cols.find((c) => c.name === named) ?? cols.find((c) => c.name.startsWith(key + ' '));
+    // A collection the payload may create (Brand) can be missing; any other is an error.
+    if (!col && !PAYLOAD.collections[key]?.create && !(PAYLOAD.creatable ?? []).includes(key)) throw new Error(`No Figma collection "${named ?? key}"`);
     const live = col ? vars.filter((v) => v.variableCollectionId === col.id && !v.name.startsWith('_legacy')) : [];
     C[key] = { col, bySlug: new Map(live.map((v) => [slug(v.name), v])), live };
   }
@@ -65,6 +67,8 @@ function cssName(key, name) {
   }
   if (key === '3.' || key === '4.' || key === '7.') return '--size-' + dash;
   // Radius role steps (field-sm, button-pressed…) all stand for the one CSS role variable.
+  // Component text steps: theme-text/<part>/size|line-height -> --theme-text-<part>[--line-height].
+  if (key === '9.' && name.startsWith('theme-text/')) { const [, part, prop] = name.split('/'); return '--theme-text-' + part + (prop === 'line-height' ? '--line-height' : ''); }
   if (key === '9.') return name.startsWith('theme-radius/') ? '--theme-radius-' + name.split('/')[1].split('-')[0] : name.startsWith('border-radius/') ? '--size-' + dash : '--typography-' + dash;
   return '--typography-' + dash;
 }

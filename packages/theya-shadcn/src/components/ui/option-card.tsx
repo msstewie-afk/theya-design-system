@@ -128,7 +128,10 @@ const CARD_CLASS = [
 // The icon and the indicator sit in a box one title line tall, set in the
 // title's type, so they centre on the title's first line whatever its line
 // height (T12: a fixed mt-0.5 left them 1.5-3.5px low under leading-tight).
-const TITLE_TYPE = 'font-body text-body-m font-medium leading-tight';
+// Title and description as on Switch and every title + description pair:
+// body-m at its own 20px line, 4px to the description (T19, 2026-11-14; it
+// was leading-tight, 18.75px, and 2px).
+const TITLE_TYPE = 'font-body text-body-m font-medium';
 const LINE_BOX = cn(TITLE_TYPE, 'flex h-[1lh] shrink-0 items-center');
 
 const INDICATOR_CLASS = [
@@ -172,7 +175,7 @@ function OptionCard({ className, value, title, description, icon, aside, exclusi
           </span>
         </span>
       )}
-      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+      <span className="flex min-w-0 flex-1 flex-col gap-[var(--size-margin-margin-2xs)]">
         {/* Title and aside share a wrapping row: in a narrow card a long
             title ("Frankfurt") pushes the price onto the next line instead
             of running into it. */}

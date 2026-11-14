@@ -1,5 +1,31 @@
 # @theya/shadcn
 
+## 0.3.16
+
+### Patch Changes
+
+- d1ac3c5: T19, the rest:
+
+  - Ember: body S is 13/18 (was 13/16; it read cramped in descriptions), through the profile's `typography`. The default theme keeps 13/16.
+  - OptionCard: title and description as on Switch — the title at body M's own 20px line (was 18.75px, `leading-tight`) and 4px to the description (was 2px), in every theme.
+
+## 0.3.15
+
+### Patch Changes
+
+- 9ab81a3: Profiles can set the type step of a component part (`componentText`), through `--theme-text-<part>`. Ember sets Drawer descriptions to body M (T19: body S under a sheet title read too small); the default theme keeps body S.
+- 6de68b9: Nested corners (a control inside a container is at least a step less round than it):
+
+  - PromptArea: the send button and attachments inside the field are `md` (pressed `lg`); they were as round as the field, attachments rounder.
+  - SecretField reveal and copy buttons, Password's show/hide button: `md` inside the `lg` field.
+  - Alert and Stat (`variant="card"`) inside a Card: `xl`, not the card's `2xl`.
+  - SurfaceEffect `beam`: the inner panel's corners are the card's minus the 1px ring (they were equal).
+  - Comparison rows: `xl`, so the item icon (`lg`) sits inside them a step less round.
+
+  StickyActionBar (`variant="bar"`): the top divider runs edge to edge instead of being inset to the side padding — the bar is a full-width strip with its own background.
+
+- 282db79: Nested corners: a surface inside a container is at least one step less round, in every profile (Ember collapses 2xl–4xl to 12px). Message bubble and the typing bubble are `xl` (were `2xl`), an attachment inside a bubble is `lg`. Landing cards hand nested surfaces (preview frames, mini cards, the testimonial stats panel) `--landing-inner-radius` (`xl`).
+
 ## 0.3.14
 
 ### Patch Changes

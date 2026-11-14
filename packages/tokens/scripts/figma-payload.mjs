@@ -242,7 +242,19 @@ for (const [n, role, fallback] of ROLE_STEPS) {
   brandVars[n] = { theya: '@sem:' + fallback };
   for (const b of brands) { const v = b.shared?.['--theme-radius-' + role]; if (v !== undefined) brandVars[n][b.name] = brandValue('--theme-radius-' + role, v); }
 }
-for (const b of brands) for (const k of Object.keys(b.shared ?? {})) if (!/^--(size|typography|theme-radius)-/.test(k)) miss(b.name, k);
+// Component text steps (profile key componentText -> --theme-text-<part>, e.g.
+// Ember's drawer description in body M). Text styles have no modes, so each part
+// gets a size and a line-height variable in "9." (theya: the part's own step,
+// <brand>: the profile's), aliasing the same size primitive "6." body/<step>
+// does; the component's text node binds them. Parts and their Theya step:
+const TEXT_PARTS = { 'drawer-description': 's' };
+const bodyStep = (v) => { const m = String(v).match(/^var\(--text-body-([a-z]+)(--line-height)?\)$/); if (!m) throw new Error('componentText: ' + v); return m[1]; };
+for (const [part, own] of Object.entries(TEXT_PARTS)) for (const [prop, suffix] of [['size', ''], ['line-height', '--line-height']]) {
+  const n = `theme-text/${part}/${prop}`;
+  brandVars[n] = { theya: typoSem[`body/${own}/${prop}`] };
+  for (const b of brands) { const v = b.shared?.[`--theme-text-${part}${suffix}`]; if (v !== undefined) brandVars[n][b.name] = typoSem[`body/${bodyStep(v)}/${prop}`]; }
+}
+for (const b of brands) for (const k of Object.keys(b.shared ?? {})) if (!/^--(size|typography|theme-radius)-/.test(k) && !(k.replace(/^--theme-text-|--line-height$/g, '') in TEXT_PARTS)) miss(b.name, k);
 
 // ---- Shadows: effect styles "Elevation/*" with one colour variable per layer ----
 // Figma effect styles have no modes, but an effect's colour can be bound to a
@@ -292,15 +304,25 @@ for (const step of SHADOW_STEPS) {
   });
 }
 
+// Figma collection names. Payload keys ("1." … "9.") are short ids used by the
+// scripts and figma-run --only; the names in the file carry no number since
+// 2026-11-14 (Maria). A collection still named "<key> …" is found too.
+const COLLECTION_NAMES = {
+  '1.': 'Color Primitive Variables', '2.': 'Color Semantic Variables', '3.': 'Size Primitive Variables',
+  '4.': 'Size Semantic Variables', '5.': 'Primitive Typography', '6.': 'Semantic Typography Variables',
+  '7.': 'Density', '9.': 'Brand',
+};
+
 const payload = {
   generatedFrom: 'packages/tokens/src',
+  collectionNames: COLLECTION_NAMES,
   // Order matters for sync: "3." (size primitives, no aliases) first, then "9.",
   // whose values alias "3." ("@size:", e.g. size-minus1), so the "@brand:"
   // aliases written into "4.", "5." and "6." find their targets.
   collections: {
     '3.': { kind: 'FLOAT', modes: ['*'], vars: sizePrim },
     // Created by sync when missing ("9. Brand"); new variables get scopes [] (hidden), like "7.".
-    '9.': { kind: 'MIXED', modes: BRAND_MODES, create: '9. Brand', vars: brandVars },
+    '9.': { kind: 'MIXED', modes: BRAND_MODES, create: COLLECTION_NAMES['9.'], vars: brandVars },
     '1.': { kind: 'COLOR', modes: ['*'], vars: Object.fromEntries(Object.entries(colorPrim).map(([k, v]) => [k, normHex(v)])) },
     '2.': { kind: 'COLOR', modes: colorModes, aliasTo: '1.', vars: colorSem },
     '4.': { kind: 'FLOAT', modes: ['*'], aliasTo: '3.', vars: sizeSem },
@@ -329,7 +351,7 @@ const payload = {
     '4.': ['padding/padding--3xs', 'padding/padding--2xs', 'gap/gap--2xs'],
   },
   // Scopes for a new variable with no sibling to copy them from (collection key -> name prefix -> scopes).
-  newScopes: { '2.': { 'elevation/': ['EFFECT_COLOR'] } },
+  newScopes: { '2.': { 'elevation/': ['EFFECT_COLOR'] }, '9.': { 'theme-text/': ['FONT_SIZE', 'LINE_HEIGHT'] } },
   // Effect styles rebuilt by sync from the shadow layers above (written with "2.").
   effects,
 };
