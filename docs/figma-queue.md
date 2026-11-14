@@ -15,6 +15,8 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 
 | Since | Area | What | Needs |
 |---|---|---|---|
+| 0.3.16 | Text styles (Ember) | Body S line height 18 in Ember (13/18), 16 elsewhere (T19), through the profile's `typography`. | Ember mode of the body-s line-height variable. |
+| 0.3.16 | OptionCard | Title at body M's own 20px line (was 18.75, leading-tight), 4px to the description (was 2), in every theme (T19). | The same in the OptionCard component. |
 | 0.3.14 | Text styles | Display/S, Eyebrow/M, Eyebrow/S: lining figures (`lnum`) are set in code; the Plugin API cannot set OpenType features. | Set by hand in Figma: Type settings → Numbers → Lining. Same check for Headline/*. |
 | 0.3.14 | Review | Nodes added or changed 13.11 were checked by properties only, not by eye: Drawer, StickyActionBar width=phone, TabsList (chips), OptionCard, DropdownMenu / With Trailing, ContextMenu / With Trailing, Ember radius bindings, Elevation styles in each mode (14.11). | A visual pass in Figma. |
 | earlier | Kbd | Border 1px and the size of the ⌘ glyph. | Compare with code at review. |

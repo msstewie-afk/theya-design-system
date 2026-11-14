@@ -15,6 +15,8 @@ English version: [figma-queue.md](./figma-queue.md).
 
 | С версии | Область | Что | Что нужно |
 |---|---|---|---|
+| 0.3.16 | Текстовые стили (Ember) | Межстрочный body S в Ember — 18 (13/18), в остальных темах — 16 (T19), через `typography` профиля. | Режим Ember у переменной межстрочного body-s. |
+| 0.3.16 | OptionCard | Заголовок с собственным межстрочным body M, 20 px (было 18,75, leading-tight), 4 px до описания (было 2), во всех темах (T19). | То же в компоненте OptionCard. |
 | 0.3.14 | Текстовые стили | У Display/S, Eyebrow/M, Eyebrow/S в коде включены цифры одной высоты (`lnum`). Plugin API не умеет задавать OpenType-функции. | Включить руками в Figma: Type settings → Numbers → Lining. То же проверить у Headline/*. |
 | 0.3.14 | Ревью | Узлы, добавленные и изменённые 13.11, проверены только по свойствам, не глазами. Это Drawer, StickyActionBar width=phone, TabsList (chips), OptionCard, DropdownMenu / With Trailing, ContextMenu / With Trailing, привязки радиусов Ember и стили Elevation в каждом режиме (14.11). | Посмотреть в Figma. |
 | раньше | Kbd | Рамка 1px и размер знака ⌘. | Сверить с кодом на ревью. |

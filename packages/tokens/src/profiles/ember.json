@@ -10,7 +10,8 @@
     "chroma": 0.6
   },
   "typography": {
-    "display-display-s-letter-spacing": "0.4px"
+    "display-display-s-letter-spacing": "0.4px",
+    "body-s-line-height": "18px"
   },
   "radius": {
     "steps": { "sm": 3, "md": 5, "lg": 6, "xl": 8, "2xl": 12, "3xl": 12, "4xl": 12, "5xl": 24 }
