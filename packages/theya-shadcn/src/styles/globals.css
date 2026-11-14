@@ -64,6 +64,10 @@
 /* Keyframes for the Motion presets (Marquee, TextEffect, surfaces). */
 @import './motion.css';
 
+/* Gradient canvas (gr-01): data-canvas="gradient", glass, buttons on it.
+   Unlayered, see the file header. */
+@import './gradient-canvas.css';
+
 /* Tailwind v4 only scans the project that runs it for class names. When an
    app in apps/* imports this file, the DS sources live in another package,
    so point Tailwind at them explicitly — relative to this file, so it works

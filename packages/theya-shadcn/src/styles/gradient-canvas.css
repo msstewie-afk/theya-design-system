@@ -1,0 +1,137 @@
+/*
+ * Gradient canvas (gr-01, 2026-11-14).
+ *
+ * `data-canvas="gradient"` on a page, hero or app screen paints the theme's
+ * gradient (profile field `gradient` → --gradient-canvas, see PROFILES.md;
+ * a theme without one falls back to its flat primary fill) with a grain
+ * overlay. What lies directly on it is white: text, icons, borders, the
+ * focus ring, and buttons (filled = white pill with ink text, tonal and
+ * outlined = glass, ghost = white text). White cards (Card, or any
+ * container with data-surface="card") bring back the theme's own values,
+ * so everything inside a card is the regular light theme.
+ *
+ * Contrast: build-profiles.mjs checks white text 4.5:1 on the base and
+ * every spot color, bare and under glass (backdrop brightness 0.85 + white
+ * 12%, the values below — keep them in sync with GLASS_DIM / GLASS_ALPHA).
+ *
+ * Unlayered, like the token files: it beats Button's layered utilities
+ * without !important.
+ */
+
+/* The theme's own values, captured where the theme is set, so a card on
+   the canvas can restore them. */
+:where(:root, [data-theme], [data-brand]):not([data-canvas='gradient'] *) {
+  --theya-own-text: var(--color-text-text);
+  --theya-own-text-subtle: var(--color-text-text-subtle);
+  --theya-own-text-subtler: var(--color-text-text-subtler);
+  --theya-own-icon: var(--color-icon-icon);
+  --theya-own-icon-subtle: var(--color-icon-icon-subtle);
+  --theya-own-border-subtle: var(--color-border-border-subtle);
+  --theya-own-border-subtler: var(--color-border-border-subtler);
+  --theya-own-focus-ring: var(--color-focus-focus-ring);
+  --theya-own-neutral-subtle: var(--color-bg-neutral-bg-neutral-subtle);
+  --theya-own-icon-primary: var(--color-icon-icon-primary);
+}
+
+[data-canvas='gradient'] {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--gradient-canvas-base, var(--color-bg-primary-bg-primary));
+  background-image: var(--gradient-canvas, none);
+  color: #ffffff;
+
+  --glass-bg: rgb(255 255 255 / 0.12);
+  --glass-bg-hover: rgb(255 255 255 / 0.18);
+  --glass-bg-pressed: rgb(255 255 255 / 0.08);
+  --glass-border: rgb(255 255 255 / 0.3);
+  --glass-filter: blur(24px) brightness(0.85);
+  /* Card shadow tinted with the canvas's darkest color: a gray shadow on a
+     colored ground reads as dirt. */
+  --gradient-card-shadow: 0 24px 48px -16px color-mix(in oklab, var(--gradient-canvas-shadow, #000) 55%, transparent),
+    0 4px 12px -4px color-mix(in oklab, var(--gradient-canvas-shadow, #000) 30%, transparent);
+
+  --color-text-text: #ffffff;
+  --color-text-text-subtle: rgb(255 255 255 / 0.86);
+  --color-text-text-subtler: rgb(255 255 255 / 0.86);
+  --color-icon-icon: #ffffff;
+  --color-icon-icon-subtle: rgb(255 255 255 / 0.86);
+  --color-border-border-subtle: rgb(255 255 255 / 0.3);
+  --color-border-border-subtler: rgb(255 255 255 / 0.18);
+  --color-focus-focus-ring: rgb(255 255 255 / 0.85);
+  /* Tracks (Progress, Slider) and their fill: white on white. */
+  --color-bg-neutral-bg-neutral-subtle: rgb(255 255 255 / 0.22);
+  --color-icon-icon-primary: #ffffff;
+}
+
+/* Grain: breaks up banding and makes the gradient read as material. */
+[data-canvas='gradient']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: var(--gradient-grain, 0.14);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.2 -0.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+[data-canvas='gradient'] [data-surface='card'] {
+  color: var(--theya-own-text);
+  --color-text-text: var(--theya-own-text);
+  --color-text-text-subtle: var(--theya-own-text-subtle);
+  --color-text-text-subtler: var(--theya-own-text-subtler);
+  --color-icon-icon: var(--theya-own-icon);
+  --color-icon-icon-subtle: var(--theya-own-icon-subtle);
+  --color-border-border-subtle: var(--theya-own-border-subtle);
+  --color-border-border-subtler: var(--theya-own-border-subtler);
+  --color-focus-focus-ring: var(--theya-own-focus-ring);
+  --color-bg-neutral-bg-neutral-subtle: var(--theya-own-neutral-subtle);
+  --color-icon-icon-primary: var(--theya-own-icon-primary);
+}
+
+/* White cards on the canvas: no gray border, a tinted soft shadow. */
+[data-canvas='gradient'] [data-slot='card'][data-surface='card'] {
+  border-color: transparent;
+  box-shadow: var(--gradient-card-shadow);
+}
+
+/* Glass: a translucent white panel over the canvas (rows, chips, nav). */
+.glass {
+  background-color: var(--glass-bg, rgb(255 255 255 / 0.12));
+  border: 1px solid var(--glass-border, rgb(255 255 255 / 0.3));
+  -webkit-backdrop-filter: var(--glass-filter, blur(24px) brightness(0.85));
+  backdrop-filter: var(--glass-filter, blur(24px) brightness(0.85));
+}
+
+/* Buttons lying on the canvas (not inside a card on it). */
+[data-canvas='gradient'] [data-slot='button']:not([data-canvas='gradient'] [data-surface='card'] *) {
+  &[data-appearance='filled'] {
+    background-color: #ffffff;
+    color: var(--theya-own-text);
+    border-color: transparent;
+    &:hover:not(:disabled, [aria-disabled='true']) { background-color: rgb(255 255 255 / 0.9); }
+    &:active:not(:disabled, [aria-disabled='true']) { background-color: rgb(255 255 255 / 0.8); }
+    & svg { color: currentColor; }
+  }
+  &:is([data-appearance='tonal'], [data-appearance='outlined']) {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: #ffffff;
+    -webkit-backdrop-filter: var(--glass-filter);
+    backdrop-filter: var(--glass-filter);
+    &:hover:not(:disabled, [aria-disabled='true']) { background-color: var(--glass-bg-hover); }
+    &:active:not(:disabled, [aria-disabled='true']) { background-color: var(--glass-bg-pressed); }
+    & svg { color: currentColor; }
+  }
+  &[data-appearance='ghost'] {
+    color: #ffffff;
+    &:hover:not(:disabled, [aria-disabled='true']) { background-color: var(--glass-bg); }
+    &:active:not(:disabled, [aria-disabled='true']) { background-color: var(--glass-bg-pressed); }
+    & svg { color: currentColor; }
+  }
+}
+
+@media (forced-colors: active) {
+  [data-canvas='gradient']::before { display: none; }
+}

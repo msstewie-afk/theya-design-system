@@ -21,8 +21,14 @@
  *      "shadow"?: { "hue"?: 60, "chroma"?: 1 },  // re-hue the light shadow tint (hue default: neutral.hue)
  *      "typography"?: { "display-display-s-letter-spacing": "0.4px" },  // typography tokens, after the fonts
  *      "radius"?: { "scale": 1.5, "button": "max", "field": "3xl" },
- *      "componentText"?: { "drawer-description": "body-m" }
+ *      "componentText"?: { "drawer-description": "body-m" },
+ *      "gradient"?: { "base": "#625d8c", "spots": [{ "color": "#a94f44", "at": "15% 60%", "size": "60% 70%" }] }
  *    }
+ *    `gradient`: the theme's gradient canvas (gr-01) — a base color with
+ *    soft radial spots, painted by `data-canvas="gradient"`. White text and
+ *    glass sit on it, so the build checks white text 4.5:1 on the base and on
+ *    every spot color (the lightest of them is the worst point of the mesh:
+ *    spots only blend between these colors), bare and under glass.
  *    `componentText`: the type step a component part uses in this theme
  *    (body-xs … body-xl), as --theme-text-<part>; parts that read it:
  *    drawer-description (Drawer, sheet descriptions; default body-s).
@@ -505,6 +511,35 @@ for (const profile of profiles) {
     else {
       shared.set(`--theme-text-${part}`, `var(--text-${step})`);
       shared.set(`--theme-text-${part}--line-height`, `var(--text-${step}--line-height)`);
+    }
+  }
+
+  // Gradient canvas (gr-01): `data-canvas="gradient"` paints
+  // --gradient-canvas; white text and glass lie on it in both modes.
+  if (profile.gradient) {
+    const { base, spots = [] } = profile.gradient;
+    const colors = [base, ...spots.map((s) => s.color)];
+    if (!colors.every(isHex)) problems.push(`${profile.name}: gradient colors must be #rrggbb`);
+    else {
+      // Glass (see globals.css): backdrop brightness GLASS_DIM, then white at GLASS_ALPHA.
+      const GLASS_DIM = 0.85, GLASS_ALPHA = 0.12;
+      const glassOver = (hex) => '#' + hexToRgb(hex).map((c) => Math.round((c * GLASS_DIM * (1 - GLASS_ALPHA) + GLASS_ALPHA) * 255).toString(16).padStart(2, '0')).join('');
+      for (const c of colors) {
+        for (const [where, bg] of [['', c], [' under glass', glassOver(c)]]) {
+          const r = contrast('#ffffff', bg);
+          if (r < 4.5) {
+            const id = `gradient: white on ${c}${where}`;
+            const msg = `${profile.name}: ${id} ${r.toFixed(2)}:1 (< 4.5)`;
+            (profile.accept ?? []).includes(id) ? accepted.push(msg) : problems.push(msg);
+          }
+        }
+      }
+      const layers = spots.map(({ color, at = '50% 50%', size = '60% 60%' }) => `radial-gradient(${size} at ${at} in oklab, ${color}, ${color}00)`);
+      shared.set('--gradient-canvas-base', base);
+      shared.set('--gradient-canvas', [...layers, `linear-gradient(${base}, ${base})`].join(', '));
+      // Shadow under white cards on the canvas: the darkest canvas color, not gray.
+      const darkest = colors.reduce((a, b) => (luminance(a) <= luminance(b) ? a : b));
+      shared.set('--gradient-canvas-shadow', darkest);
     }
   }
 

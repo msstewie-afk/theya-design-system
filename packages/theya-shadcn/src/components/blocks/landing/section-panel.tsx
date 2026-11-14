@@ -1,12 +1,14 @@
 import type { ComponentProps } from 'react';
 import { cn } from '../../../lib/utils';
 
-export type SectionPanelTone = 'default' | 'subtle' | 'inverse' | 'primary';
+export type SectionPanelTone = 'default' | 'subtle' | 'inverse' | 'primary' | 'gradient';
 
 export interface SectionPanelProps extends ComponentProps<'section'> {
   /**
    * `default` the page surface, `subtle` the sunken neutral, `inverse` a dark
-   * band in both themes (logo strips, a quote), `primary` the brand fill.
+   * band in both themes (logo strips, a quote), `primary` the brand fill,
+   * `gradient` the theme's gradient canvas (data-canvas="gradient": white
+   * text, glass buttons, white cards; see styles/gradient-canvas.css).
    */
   tone?: SectionPanelTone;
   /**
@@ -41,6 +43,8 @@ const TONE: Record<SectionPanelTone, string> = {
     '[--color-border-border-subtle:var(--color-border-border-on-primary)]',
     '[--color-border-border-subtler:var(--color-border-border-subtler-on-primary)]',
   ),
+  // Painted and remapped by styles/gradient-canvas.css.
+  gradient: '',
 };
 
 /**
@@ -55,6 +59,7 @@ export function SectionPanel({ tone = 'default', overlap = false, padding = 'sec
       data-scale="display"
       data-theme={tone === 'inverse' ? 'dark' : undefined}
       data-surface={tone === 'primary' ? 'primary' : undefined}
+      data-canvas={tone === 'gradient' ? 'gradient' : undefined}
       className={cn(
         'relative rounded-t-[var(--size-border-radius-border-radius-5xl)]',
         padding === 'section' && 'section-display',

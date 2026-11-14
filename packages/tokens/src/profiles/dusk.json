@@ -1,0 +1,50 @@
+{
+  "description": "Dusk (gr-01): gradient canvas from gray lilac through coral to plum, white and glass surfaces on it, flat violet primary inside white cards; soft lilac neutrals, round radii, plum-tinted shadows",
+  "primary": "#5b45b8",
+  "neutral": {
+    "hue": 300,
+    "chroma": 0.35
+  },
+  "shadow": {
+    "hue": 320,
+    "chroma": 0.8
+  },
+  "radius": {
+    "steps": {
+      "sm": 4,
+      "md": 6,
+      "lg": 8,
+      "xl": 12,
+      "2xl": 16,
+      "3xl": 20,
+      "4xl": 24,
+      "5xl": 32
+    },
+    "button": "max"
+  },
+  "gradient": {
+    "base": "#6e6187",
+    "spots": [
+      {
+        "color": "#666aab",
+        "at": "0% 0%",
+        "size": "90% 70%"
+      },
+      {
+        "color": "#b94834",
+        "at": "20% 62%",
+        "size": "70% 65%"
+      },
+      {
+        "color": "#372544",
+        "at": "95% 35%",
+        "size": "65% 75%"
+      },
+      {
+        "color": "#94436d",
+        "at": "65% 105%",
+        "size": "80% 55%"
+      }
+    ]
+  }
+}
