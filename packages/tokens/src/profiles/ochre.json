@@ -86,5 +86,25 @@
         "hue": 84
       }
     }
+  },
+  "typography": {
+    "display-display-s-weight": "500",
+    "display-display-s-size": "44px",
+    "display-display-s-line-height": "48px",
+    "display-display-s-letter-spacing": "-1.2px",
+    "heading-heading-2xl-weight": "500",
+    "heading-heading-xl-weight": "600",
+    "heading-heading-l-weight": "600",
+    "heading-heading-m-weight": "600",
+    "heading-heading-s-weight": "500",
+    "heading-heading-xs-weight": "600"
+  },
+  "light": {
+    "tokens": {
+      "bg-primary-bg-primary-subtle": "#e9d7cb",
+      "bg-primary-bg-primary-subtle-hover": "#e3ccbd",
+      "bg-primary-bg-primary-subtle-pressed": "#ddc1ae",
+      "text-text-link-on-tonal": "#6e3814"
+    }
   }
 }

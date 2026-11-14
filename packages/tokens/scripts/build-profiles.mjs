@@ -504,6 +504,9 @@ for (const profile of profiles) {
       else shared.set(RADIUS + step, `${px}px`);
     }
     if (button) shared.set('--theme-radius-button', stepRef(button));
+    // Pill buttons need more side padding than rounded ones (the round ends
+    // eat the label's room): Button adds this fraction of its height.
+    if (button === 'max') shared.set('--theme-button-pill-pad', '0.125');
     if (field) shared.set('--theme-radius-field', stepRef(field));
   }
 

@@ -15,8 +15,10 @@ import { SectionPanel } from "../components/blocks/landing/section-panel";
 /**
  * gr-01 prototype: the gradient canvas (data-canvas="gradient") with white
  * text, glass and white cards on it. The theme's gradient comes from its
- * profile: pick Dusk, Lagoon or Ochre in the Brand toolbar (Presets shows
- * all three); any other theme falls back to its flat primary fill.
+ * profile: pick Dusk, Lagoon or Ochre in the Brand toolbar; any other theme
+ * falls back to its flat primary fill. Presets compares the three canvases
+ * side by side: colors only, since a theme's typeface and type scale apply
+ * from <html data-brand> (Tailwind's text-* scale resolves at the root).
  */
 const meta: Meta = {
   title: "Design System/Gradient canvas",
@@ -107,7 +109,7 @@ function Week({ suffix = '' }: { suffix?: string }) {
         <p className="text-body-m text-[var(--color-text-text-subtle)]">
           Average this week
         </p>
-        <p className="text-[64px] leading-none font-[var(--typography-weight-light,300)] tabular-nums">
+        <p className="text-[64px] leading-none font-[var(--typography-weight-light,300)]">
           6.4
         </p>
       </div>

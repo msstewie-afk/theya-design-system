@@ -79,5 +79,25 @@
         "bloom": true
       }
     ]
+  },
+  "typography": {
+    "display-display-s-weight": "500",
+    "display-display-s-size": "44px",
+    "display-display-s-line-height": "48px",
+    "display-display-s-letter-spacing": "-1.2px",
+    "heading-heading-2xl-weight": "500",
+    "heading-heading-xl-weight": "600",
+    "heading-heading-l-weight": "600",
+    "heading-heading-m-weight": "600",
+    "heading-heading-s-weight": "500",
+    "heading-heading-xs-weight": "600"
+  },
+  "light": {
+    "tokens": {
+      "bg-primary-bg-primary-subtle": "#cededd",
+      "bg-primary-bg-primary-subtle-hover": "#c0d6d3",
+      "bg-primary-bg-primary-subtle-pressed": "#b3cdca",
+      "text-text-link-on-tonal": "#1a4c47"
+    }
   }
 }
