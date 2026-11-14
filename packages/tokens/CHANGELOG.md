@@ -1,5 +1,11 @@
 # @theya/tokens
 
+## 0.3.7
+
+### Patch Changes
+
+- 9ab81a3: Profiles can set the type step of a component part (`componentText`), through `--theme-text-<part>`. Ember sets Drawer descriptions to body M (T19: body S under a sheet title read too small); the default theme keeps body S.
+
 ## 0.3.6
 
 ### Patch Changes
