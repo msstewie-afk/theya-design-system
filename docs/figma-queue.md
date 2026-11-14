@@ -37,6 +37,7 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 | 2026-11-13 | 0.3.14 | TextArea: vertical-only resize written in the description | 32602:15695 |
 | 2026-11-13 | 0.3.14 | DropdownMenu / With Trailing and ContextMenu / With Trailing: non-interactive trailing "5/5", separate "Remove watermark" item, tone=danger | 32889:198, 32889:229 |
 | 2026-11-14 | 0.3.15 | StickyActionBar width=phone: text on top, buttons below at equal width (was one row, the text squeezed into a narrow column); with close, × sits at the end of the text row. Width 360 | 32677:510 |
+| 2026-11-14 | — | Brand variables moved into the colour collection, now named Theme, as `brand/<name>` (76 variables; Theya's values in default and dark, a brand's in <brand> and <brand> dark): one mode switch changes colours, fonts, radii and text steps. 10 576 node bindings, 69 aliases and the text styles repointed, then the Brand collection removed; token check ok (Мария) | Theme |
 | 2026-11-14 | — | Variable collections renamed without numbers ("2. Color Semantic Variables" -> "Color Semantic Variables", "9. Brand" -> "Brand", all nine); the token scripts find them by name (Мария) | collections |
 | 2026-11-14 | — | Drawer page: legacy frames DRAWER SIMPLE and DRAWER SLOT removed (a title text each, nothing else) | — |
 | 2026-11-14 | 0.3.15 | StickyActionBar: the top divider runs edge to edge in all four variants (x 0, full width, stretches with the bar) | 32677:510 |

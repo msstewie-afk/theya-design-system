@@ -21,10 +21,22 @@ if (only.length) {
   // Effect styles bind "2." variables: they go with the part that writes "2.".
   if (!only.includes('2.')) delete full.effects;
 }
+// --vars=brand/ keeps only the variables under that group; --vars=!brand/ keeps
+// the rest. "2." (Theme) is over the limit as one script, so it runs in two
+// parts. Variables outside the part are not reported as extra (lib.js inPart).
+const vars = (process.argv.find((a) => a.startsWith('--vars=')) || '').slice(7);
+if (vars) {
+  const exclude = vars.startsWith('!'); const prefix = vars.replace(/^!/, '');
+  full.part = { prefix, exclude };
+  for (const c of Object.values(full.collections)) c.vars = Object.fromEntries(Object.entries(c.vars).filter(([n]) => n.startsWith(prefix) !== exclude));
+  // The shadow layers are not brand variables: effect styles go with the other part.
+  if (!exclude) delete full.effects;
+}
 const payload = JSON.stringify(full);
 const lib = readFileSync(join(ROOT, 'scripts/figma/lib.js'), 'utf8');
 const body = readFileSync(join(ROOT, `scripts/figma/${action}.js`), 'utf8');
-const out = join(ROOT, `build/figma/${action}${only.length ? '-' + only.join('-').replace(/\./g, '') : ''}.js`);
+const partName = vars ? '-' + (vars.startsWith('!') ? 'not-' : '') + vars.replace(/^!/, '').replace(/\W+/g, '') : '';
+const out = join(ROOT, `build/figma/${action}${only.length ? '-' + only.join('-').replace(/\./g, '') : ''}${partName}.js`);
 const code = `const PAYLOAD = ${payload};\n${lib}\n${body}`;
 writeFileSync(out, code);
 console.log(out, code.length + ' chars');
