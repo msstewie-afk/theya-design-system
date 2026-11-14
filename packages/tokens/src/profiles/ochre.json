@@ -1,5 +1,5 @@
 {
-  "description": "Ochre (gr-01): earthy gradient canvas — amber brown, olive gray and mauve, white and glass on it, flat burnt-orange primary inside white cards; warm neutrals, round radii, brown-tinted shadows",
+  "description": "Ochre (gr-01): earthy mesh gradient — gray mauve top, a vivid orange spot left of center (darkened in OKLCH to hold white text 4.5:1), deep brown right, amber and olive gray at the bottom; light sand blooms in the bottom left corner on landing heroes only; flat burnt-orange primary inside white cards; warm neutrals, round radii, brown-tinted shadows",
   "primary": "#9a4a12",
   "font": "Schibsted Grotesk",
   "neutral": {
@@ -24,27 +24,59 @@
     "button": "max"
   },
   "gradient": {
-    "base": "#5f4a3e",
+    "base": "#5e4637",
     "spots": [
       {
-        "color": "#706176",
+        "color": "#bb5500",
+        "at": "26% 52%",
+        "size": "34% 48%"
+      },
+      {
+        "color": "#33241c",
+        "at": "80% 46%",
+        "size": "42% 55%"
+      },
+      {
+        "color": "#786d76",
+        "at": "55% 0%",
+        "size": "85% 45%"
+      },
+      {
+        "color": "#7a6a6e",
         "at": "0% 0%",
-        "size": "90% 70%"
+        "size": "45% 55%"
       },
       {
-        "color": "#80532a",
-        "at": "22% 70%",
-        "size": "70% 65%"
+        "color": "#9a6535",
+        "at": "18% 80%",
+        "size": "30% 35%"
       },
       {
-        "color": "#6c6652",
-        "at": "95% 30%",
-        "size": "65% 75%"
+        "color": "#8a5a3a",
+        "at": "50% 64%",
+        "size": "32% 42%"
       },
       {
-        "color": "#6e4a33",
-        "at": "65% 105%",
-        "size": "80% 55%"
+        "color": "#816d5d",
+        "at": "88% 100%",
+        "size": "45% 42%"
+      },
+      {
+        "color": "#93603a",
+        "at": "45% 100%",
+        "size": "38% 38%"
+      },
+      {
+        "color": "#d9c4a6",
+        "at": "0% 100%",
+        "size": "30% 48%",
+        "bloom": true
+      },
+      {
+        "color": "#e6b98a",
+        "at": "12% 100%",
+        "size": "16% 22%",
+        "bloom": true
       }
     ]
   },
