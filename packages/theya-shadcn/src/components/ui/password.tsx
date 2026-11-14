@@ -57,7 +57,8 @@ export const Password = forwardRef<HTMLInputElement, PasswordProps>(function Pas
           aria-label={t.password.show}
           aria-pressed={visible}
           className={cn(
-            'pointer-events-auto flex size-6 items-center justify-center rounded-[var(--size-border-radius-border-radius-lg)]',
+            // md: a step less round than the field it sits in (lg) (nested corners, 2026-11-14).
+            'pointer-events-auto flex size-6 items-center justify-center rounded-[var(--size-border-radius-border-radius-md)]',
             // Ghost/danger colors below, matching Button's own
             // appearance="ghost" tone="danger" combo — this toggle stayed
             // neutral gray before even while the field around it was

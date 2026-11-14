@@ -71,6 +71,8 @@ function SecretField({
           appearance="ghost"
           size="sm"
           iconOnly
+          // A step less round than the field (lg): md, pressed lg (nested corners, 2026-11-14).
+          className={'[--btn-radius:var(--size-border-radius-border-radius-md)] [--btn-radius-pressed:var(--size-border-radius-border-radius-lg)]'}
           // A toggle keeps one stable name and reports state via aria-pressed.
           // Swapping the name as well announced "Hide API key, pressed" —
           // two conflicting signals. Label isn't lowercased: it breaks
@@ -87,6 +89,7 @@ function SecretField({
         // Named after the label so several fields on one page stay distinct.
         aria-label={t.secretField.copy(String(label))}
         appearance="ghost"
+        className={'[--btn-radius:var(--size-border-radius-border-radius-md)] [--btn-radius-pressed:var(--size-border-radius-border-radius-lg)]'}
         onCopied={() => toast.success(copyToastTitle, { description: t.secretField.copiedHint })}
         onCopyError={() => {
           // Clipboard blocked, denied, or unavailable. Reveal the value (when

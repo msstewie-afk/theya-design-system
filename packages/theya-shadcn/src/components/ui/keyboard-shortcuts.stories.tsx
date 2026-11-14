@@ -115,13 +115,13 @@ export const ScopedHotkey: Story = {
     const mainRef = useRef<HTMLDivElement>(null);
     return (
       <div className="flex w-full max-w-[420px] flex-col gap-4 font-body text-body-s">
-        <div className="rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-subtle)] p-4">
+        <div className="rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] p-4">
           <p className="mb-2 font-medium text-[var(--color-text-text)]">Sidebar (out of scope)</p>
           <Button appearance="outlined" tone="secondary" size="md">
             Sidebar button
           </Button>
         </div>
-        <div ref={mainRef} className="rounded-[var(--size-border-radius-border-radius-md)] border border-solid border-[var(--color-border-border-primary)] p-4">
+        <div ref={mainRef} className="rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-primary)] p-4">
           <p className="mb-2 font-medium text-[var(--color-text-text)]">Main area (in scope)</p>
           <Button appearance="filled" tone="secondary" size="md">
             Main area button

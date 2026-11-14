@@ -60,7 +60,7 @@ type Story = StoryObj<CommandStoryArgs>;
 /** An inline list with grouped items and a shortcut: typing filters, the arrow keys move the highlight, and Escape clears the query. */
 export const Inline: Story = {
   render: () => (
-    <div className="w-full max-w-[380px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
+    <div className="w-full max-w-[380px] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
       <Command label="Command menu">
         <CommandInput placeholder="Type a command or search…" />
         <CommandList>
@@ -121,7 +121,7 @@ export const Inline: Story = {
 export const WithDescriptions: Story = {
   name: 'With icons and descriptions',
   render: () => (
-    <div className="w-full max-w-[420px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
+    <div className="w-full max-w-[420px] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
       <Command label="Command menu">
         <CommandInput placeholder="Search galleries, pages and actions…" />
         <CommandList>
@@ -148,7 +148,7 @@ export const WithDescriptions: Story = {
 export const WithBreadcrumb: Story = {
   name: 'With breadcrumb',
   render: () => (
-    <div className="w-full max-w-[420px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
+    <div className="w-full max-w-[420px] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
       <Command label="Command menu">
         <CommandInput placeholder="Search settings…" value="watermark" readOnly />
         <CommandList>
@@ -175,7 +175,7 @@ export const WithBreadcrumb: Story = {
 export const EntityResults: Story = {
   name: 'Entity results',
   render: () => (
-    <div className="w-full max-w-[380px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
+    <div className="w-full max-w-[380px] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
       <Command label="Command menu">
         <CommandInput placeholder="Search client portals…" />
         <CommandList>
@@ -205,7 +205,7 @@ export const EntityResults: Story = {
 export const DisabledItem: Story = {
   name: 'Disabled item',
   render: () => (
-    <div className="w-full max-w-[380px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
+    <div className="w-full max-w-[380px] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
       <Command label="Command menu">
         <CommandInput placeholder="Run a command…" />
         <CommandList>
@@ -253,7 +253,7 @@ export const DisabledItem: Story = {
 /** The empty state — a query pre-seeded to match nothing, so CommandEmpty shows without interaction. */
 export const Empty: Story = {
   render: () => (
-    <div className="w-full max-w-[380px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
+    <div className="w-full max-w-[380px] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
       <Command label="Command menu">
         <CommandInput placeholder="Search…" value="no-such-command" readOnly />
         <CommandList>
@@ -276,7 +276,7 @@ export const Empty: Story = {
 /** Pass `<Command loading>` while fetching and place a `<CommandLoading>` as a sibling of `<CommandList>` (a listbox may not own a status region). It shows a spinner + "Loading…" and suppresses CommandEmpty. This story stays loading so the row is visible. */
 export const Loading: Story = {
   render: () => (
-    <div className="w-full max-w-[380px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
+    <div className="w-full max-w-[380px] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
       <Command label="Command menu" loading>
         <CommandInput placeholder="Search galleries…" />
         <CommandLoading />
@@ -295,7 +295,7 @@ function AsyncFetchDemo() {
     return () => window.clearTimeout(t);
   }, []);
   return (
-    <div className="w-full max-w-[380px] rounded-[var(--size-border-radius-border-radius-lg)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
+    <div className="w-full max-w-[380px] overflow-hidden rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border)] shadow-elevation-sm">
       <Command label="Command menu" loading={loading}>
         <CommandInput placeholder="Search galleries…" />
         <CommandLoading />

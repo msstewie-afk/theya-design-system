@@ -106,6 +106,9 @@ export function Alert({
         // column (a row put a bare title and description side by side, Prose
         // story); a leading icon gets its own column and spans the rows.
         'relative grid grid-cols-[minmax(0,1fr)] gap-x-2 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid px-4 py-3',
+        // Inside a Card: a step less round than the card (xl), not as round
+        // as it (nested corners, 2026-11-14).
+        '[[data-slot=card]_&]:rounded-[var(--size-border-radius-border-radius-xl)]',
         'has-[>svg]:grid-cols-[auto_minmax(0,1fr)] [&>svg]:row-span-4 has-[>svg]:[&>:not(svg)]:col-start-2',
         'font-body text-body-s [&>svg]:size-[1.125rem] [&>svg]:mt-px [&>svg]:shrink-0',
         TONE_CLASS[tone],
@@ -118,7 +121,7 @@ export function Alert({
       {stripeClass && (
         <span
           aria-hidden
-          className={cn('absolute inset-y-0 start-0 w-1 rounded-s-[var(--size-border-radius-border-radius-2xl)]', stripeClass)}
+          className={cn('absolute inset-y-0 start-0 w-1 rounded-s-[var(--size-border-radius-border-radius-2xl)] [[data-slot=card]_&]:rounded-s-[var(--size-border-radius-border-radius-xl)]', stripeClass)}
         />
       )}
       {children}

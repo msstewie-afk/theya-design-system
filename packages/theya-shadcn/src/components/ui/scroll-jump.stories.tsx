@@ -68,7 +68,7 @@ function Sample({ args, shape, size }: { args: React.ComponentProps<typeof Scrol
   const box = useRef<HTMLDivElement>(null);
   return (
     <figure className="m-0 flex flex-col gap-2">
-      <div className="relative h-48 rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)]">
+      <div className="relative h-48 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)]">
         <div
           ref={box}
           tabIndex={0}

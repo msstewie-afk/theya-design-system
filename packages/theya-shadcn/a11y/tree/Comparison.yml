@@ -561,7 +561,7 @@
   - paragraph: You can add up to 4.
   - button "Clear"
   - button "Compare (2)"
-- status: 2 of 4 selected for comparison
+- status: 1 of 4 selected for comparison
 
 # Test: tray remove keeps focus (patterns-catalog-comparison--tray-remove-focus)
 - list:

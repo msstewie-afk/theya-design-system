@@ -46,7 +46,7 @@ function DemoLayout({ inverse }: { inverse?: boolean }) {
   const [active, setActive] = useState('galleries');
   return (
     <SidebarProvider>
-      <div className="flex h-[560px] border border-solid border-[var(--color-border-border-subtle)] rounded-[var(--size-border-radius-border-radius-lg)] overflow-hidden" style={{ width: '100%', maxWidth: 760 }}>
+      <div className="flex h-[560px] border border-solid border-[var(--color-border-border-subtle)] rounded-[var(--size-border-radius-border-radius-2xl)] overflow-hidden" style={{ width: '100%', maxWidth: 760 }}>
         <Sidebar inverse={inverse} className="!h-full">
           <SidebarHeader>
             <SidebarBrand>Aether</SidebarBrand>

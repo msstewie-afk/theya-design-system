@@ -333,7 +333,11 @@ function PromptArea({
               {liveMessage}
             </div>
 
-            {attachments != null && <div className="flex flex-wrap gap-2 p-2 pb-0">{attachments}</div>}
+            {/* Attachments sit inside the field (lg): a step less round, md, not
+                the card radius they have on their own (nested corners, 2026-11-14). */}
+            {attachments != null && (
+              <div className="flex flex-wrap gap-2 p-2 pb-0 [&_[data-slot=attachment]]:rounded-[var(--size-border-radius-border-radius-md)]">{attachments}</div>
+            )}
 
             <textarea
               ref={textareaRef}
@@ -385,7 +389,9 @@ function PromptArea({
                 tone="primary"
                 size="sm"
                 iconOnly
-                className="ms-auto"
+                // A step less round than the field around it (lg): md, pressed
+                // lg — never as round as the field (nested corners, 2026-11-14).
+                className={cn('ms-auto', '[--btn-radius:var(--size-border-radius-border-radius-md)] [--btn-radius-pressed:var(--size-border-radius-border-radius-lg)]')}
                 onClick={busy ? onStop : submit}
                 disabled={busy ? false : !canSubmit}
                 aria-label={busy ? stopLabel : submitLabel}

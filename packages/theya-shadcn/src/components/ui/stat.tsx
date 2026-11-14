@@ -67,7 +67,8 @@ export function Stat({ className, variant = 'card', label, value, icon, tone, to
       role="group"
       aria-label={label}
       className={cn(
-        variant === 'card' && 'rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 shadow-elevation-sm',
+        // Inside a Card: xl, a step less round than the card (nested corners, 2026-11-14).
+        variant === 'card' && '[[data-slot=card]_&]:rounded-[var(--size-border-radius-border-radius-xl)] rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4 shadow-elevation-sm',
         // Column, with the value pushed to the bottom: in a row of stats the
         // labels may wrap to different line counts, the values still line up.
         'flex flex-col text-[var(--color-text-text)]',

@@ -223,7 +223,8 @@ export const NarrowContainer: Story = {
       const before = getComputedStyle(row, '::before');
       return [cs.paddingLeft, cs.paddingRight, before.left, before.right];
     };
-    await expect(pad('Phone actions')).toEqual(['16px', '16px', '16px', '16px']);
-    await expect(pad('Custom actions')).toEqual(['20px', '20px', '20px', '20px']);
+    // Padding follows the bar's width; the divider runs edge to edge.
+    await expect(pad('Phone actions')).toEqual(['16px', '16px', '0px', '0px']);
+    await expect(pad('Custom actions')).toEqual(['20px', '20px', '0px', '0px']);
   }),
 };

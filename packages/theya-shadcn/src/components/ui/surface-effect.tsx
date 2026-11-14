@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, type ReactNode } from 'react';
 import { cn } from '../../lib/utils';
 
 /**
@@ -25,6 +25,9 @@ import { cn } from '../../lib/utils';
  * Pass the card's own radius through `className` (rounded-*) so the
  * effect is clipped to it.
  */
+// useLayoutEffect warns on the server; the effect only reads the DOM.
+const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
+
 export type SurfaceEffectKind = 'spotlight' | 'beam' | 'tilt' | 'shine' | 'lift' | 'reveal';
 
 export interface SurfaceEffectProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -39,6 +42,26 @@ export interface SurfaceEffectProps extends React.HTMLAttributes<HTMLDivElement>
 
 export function SurfaceEffect({ effect, maxTilt = 8, reveal, revealSize = '8rem', className, children, onPointerMove, onPointerLeave, ...props }: SurfaceEffectProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
+  // Beam: the inner panel sits 1px inside the card (the ring), so its corners
+  // are the card's minus 1px — concentric, not as round as the card
+  // (rounded-[inherit] made them equal: nested corners, 2026-11-14). Read from
+  // the card's own computed radius, again when the theme or brand changes it.
+  useIsoLayoutEffect(() => {
+    if (effect !== 'beam') return;
+    const sync = () => {
+      const card = ref.current;
+      const inner = panel.current;
+      if (!card || !inner) return;
+      const cs = getComputedStyle(card);
+      const corner = (v: string) => `max(0px, calc(${v.split(' ')[0]} - 1px))`;
+      inner.style.borderRadius = [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius].map(corner).join(' ');
+    };
+    sync();
+    const watch = new MutationObserver(sync);
+    watch.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme', 'data-brand', 'data-density', 'style'] });
+    return () => watch.disconnect();
+  }, [effect]);
 
   const track = (event: React.PointerEvent<HTMLDivElement>) => {
     onPointerMove?.(event);
@@ -90,7 +113,9 @@ export function SurfaceEffect({ effect, maxTilt = 8, reveal, revealSize = '8rem'
         )}
         {...props}
       >
-        <div className="relative h-full rounded-[inherit] bg-[var(--color-bg-surface-bg-surface)]">{children}</div>
+        <div ref={panel} className="relative h-full rounded-[inherit] bg-[var(--color-bg-surface-bg-surface)]">
+          {children}
+        </div>
       </div>
     );
   }

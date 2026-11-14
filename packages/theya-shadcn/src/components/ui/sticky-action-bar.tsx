@@ -29,8 +29,9 @@ import { useTheyaI18n } from '../../lib/i18n';
  *   bar in a phone frame or narrow panel on a wide screen keeps 16px. Set
  *   `--sticky-action-bar-padding-inline` on the bar (or an ancestor) to
  *   match a page with other padding.
- * - The bar's top divider is inset to the same padding, like every
- *   Theya separator — it lines up with the text, not the container edge.
+ * - The bar's top divider runs edge to edge (Мария, 2026-11-14): the bar
+ *   is a full-width strip with its own background, and an inset line left
+ *   its ends looking like breaks. Other separators stay inset.
  * - `onClose` adds a close button (e.g. "Clear selection").
  */
 export type StickyActionBarVariant = 'bar' | 'floating';
@@ -136,9 +137,9 @@ export function StickyActionBar({
                 // both, to match a page with other padding.
                 'relative py-3',
                 'px-[var(--sticky-action-bar-padding-inline,1rem)] @min-[30rem]/sticky-bar:px-[var(--sticky-action-bar-padding-inline,1.5rem)]',
-                // Divider inset to the same padding, like every Theya separator.
-                "before:absolute before:top-0 before:h-px before:bg-[var(--color-border-border-subtler)] before:content-['']",
-                'before:inset-x-[var(--sticky-action-bar-padding-inline,1rem)] @min-[30rem]/sticky-bar:before:inset-x-[var(--sticky-action-bar-padding-inline,1.5rem)]',
+                // Divider edge to edge: the bar is a full-width strip with its
+                // own background (an inset line left its ends looking like breaks).
+                "before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-[var(--color-border-border-subtler)] before:content-['']",
               ],
         )}
       >

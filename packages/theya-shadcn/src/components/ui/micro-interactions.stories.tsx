@@ -170,7 +170,7 @@ function Cell({ label, accent, done, children }: { label: string; accent?: boole
   return (
     <div className="flex min-w-0 flex-col gap-2">
       <span className={cn('text-body-xs font-medium uppercase tracking-wide', accent ? 'text-[var(--color-text-text-link)]' : done ? 'text-[var(--color-text-text-success)]' : 'text-[var(--color-text-text-subtler)]')}>{label}</span>
-      <div className="flex min-h-20 flex-wrap items-center gap-4 rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4">
+      <div className="flex min-h-20 flex-wrap items-center gap-4 rounded-[var(--size-border-radius-border-radius-2xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-4">
         {children}
       </div>
     </div>
