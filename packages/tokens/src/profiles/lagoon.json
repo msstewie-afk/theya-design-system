@@ -1,0 +1,68 @@
+{
+  "description": "Lagoon (gr-01): gradient canvas in deep teal, sage and sea green on a pale sage edge, white and glass on it, flat teal primary inside white cards; greenish neutrals, round radii, teal-tinted shadows",
+  "primary": "#1f6b63",
+  "neutral": {
+    "hue": 180,
+    "chroma": 0.3
+  },
+  "shadow": {
+    "hue": 190,
+    "chroma": 0.8
+  },
+  "radius": {
+    "steps": {
+      "sm": 4,
+      "md": 6,
+      "lg": 8,
+      "xl": 12,
+      "2xl": 16,
+      "3xl": 20,
+      "4xl": 24,
+      "5xl": 32
+    },
+    "button": "max"
+  },
+  "gradient": {
+    "base": "#2d5d5e",
+    "spots": [
+      {
+        "color": "#3a7680",
+        "at": "0% 0%",
+        "size": "90% 70%"
+      },
+      {
+        "color": "#3f7457",
+        "at": "22% 62%",
+        "size": "70% 65%"
+      },
+      {
+        "color": "#1f3a40",
+        "at": "95% 35%",
+        "size": "65% 75%"
+      },
+      {
+        "color": "#2f6b68",
+        "at": "65% 105%",
+        "size": "80% 55%"
+      },
+      {
+        "color": "#b9d6c4",
+        "at": "0% 85%",
+        "size": "30% 45%",
+        "edge": true
+      },
+      {
+        "color": "#bcd5da",
+        "at": "100% 70%",
+        "size": "28% 50%",
+        "edge": true
+      }
+    ],
+    "edge": "#d9e0da",
+    "frame": {
+      "at": "50% 0%",
+      "size": "60% 112%",
+      "solid": 58
+    }
+  }
+}

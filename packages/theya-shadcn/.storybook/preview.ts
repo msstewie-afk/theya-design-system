@@ -185,7 +185,7 @@ export const globalTypes = {
   // recolors the primary ramp via <html data-brand>, see PROFILES.md.
   brand: {
     name: 'Brand',
-    description: 'Theme: Theya, Iris, Lime, Ember or Dusk',
+    description: 'Theme: Theya, Iris, Lime, Ember; gradient themes Dusk, Lagoon, Ochre',
     defaultValue: 'theya',
     toolbar: {
       icon: 'paintbrush',
@@ -196,6 +196,8 @@ export const globalTypes = {
         { value: 'lime', title: 'Lime' },
         { value: 'ember', title: 'Ember' },
         { value: 'dusk', title: 'Dusk (gradient)' },
+        { value: 'lagoon', title: 'Lagoon (gradient)' },
+        { value: 'ochre', title: 'Ochre (gradient)' },
       ],
     },
   },

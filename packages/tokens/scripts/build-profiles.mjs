@@ -22,13 +22,19 @@
  *      "typography"?: { "display-display-s-letter-spacing": "0.4px" },  // typography tokens, after the fonts
  *      "radius"?: { "scale": 1.5, "button": "max", "field": "3xl" },
  *      "componentText"?: { "drawer-description": "body-m" },
- *      "gradient"?: { "base": "#625d8c", "spots": [{ "color": "#a94f44", "at": "15% 60%", "size": "60% 70%" }] }
+ *      "gradient"?: { "base": "#625d8c", "spots": [{ "color": "#a94f44", "at": "15% 60%", "size": "60% 70%" }],
+ *                     "edge"?: "#dcd9e2", "frame"?: { "at": "50% 0%", "size": "62% 115%", "solid": 55 } }
  *    }
  *    `gradient`: the theme's gradient canvas (gr-01) — a base color with
  *    soft radial spots, painted by `data-canvas="gradient"`. White text and
  *    glass sit on it, so the build checks white text 4.5:1 on the base and on
  *    every spot color (the lightest of them is the worst point of the mesh:
  *    spots only blend between these colors), bare and under glass.
+ *    `edge` + `frame`: the framed variant (`data-canvas-frame`, landing
+ *    heroes): the base is solid inside an ellipse (`solid`% of it) and fades
+ *    to the light `edge` color outside it, where only cards lie. Spots with
+ *    `"edge": true` are light blooms on that edge: drawn only in the framed
+ *    variant and not checked for white text — keep them off the solid zone.
  *    `componentText`: the type step a component part uses in this theme
  *    (body-xs … body-xl), as --theme-text-<part>; parts that read it:
  *    drawer-description (Drawer, sheet descriptions; default body-s).
@@ -517,8 +523,10 @@ for (const profile of profiles) {
   // Gradient canvas (gr-01): `data-canvas="gradient"` paints
   // --gradient-canvas; white text and glass lie on it in both modes.
   if (profile.gradient) {
-    const { base, spots = [] } = profile.gradient;
-    const colors = [base, ...spots.map((s) => s.color)];
+    const { base, spots = [], edge, frame } = profile.gradient;
+    const inner = spots.filter((s) => !s.edge);
+    const colors = [base, ...inner.map((s) => s.color)];
+    if (spots.some((s) => s.edge) && !edge) problems.push(`${profile.name}: gradient edge spots need an "edge" color`);
     if (!colors.every(isHex)) problems.push(`${profile.name}: gradient colors must be #rrggbb`);
     else {
       // Glass (see globals.css): backdrop brightness GLASS_DIM, then white at GLASS_ALPHA.
@@ -534,9 +542,23 @@ for (const profile of profiles) {
           }
         }
       }
-      const layers = spots.map(({ color, at = '50% 50%', size = '60% 60%' }) => `radial-gradient(${size} at ${at} in oklab, ${color}, ${color}00)`);
+      const layer = ({ color, at = '50% 50%', size = '60% 60%' }) => `radial-gradient(${size} at ${at} in oklab, ${color}, ${color}00)`;
       shared.set('--gradient-canvas-base', base);
-      shared.set('--gradient-canvas', [...layers, `linear-gradient(${base}, ${base})`].join(', '));
+      shared.set('--gradient-canvas', [...inner.map(layer), `linear-gradient(${base}, ${base})`].join(', '));
+      if (edge) {
+        if (!isHex(edge)) problems.push(`${profile.name}: gradient edge must be #rrggbb`);
+        const { at = '50% 0%', size = '62% 115%', solid = 55 } = frame ?? {};
+        shared.set('--gradient-canvas-edge', edge);
+        // Top to bottom: edge blooms; the edge color, clear inside the
+        // ellipse and opaque outside it (so it also covers the inner spots
+        // there); the inner spots; the base.
+        shared.set('--gradient-canvas-framed', [
+          ...spots.filter((s) => s.edge).map(layer),
+          `radial-gradient(${size} at ${at} in oklab, ${edge}00 ${solid}%, ${edge})`,
+          ...inner.map(layer),
+          `linear-gradient(${base}, ${base})`,
+        ].join(', '));
+      }
       // Shadow under white cards on the canvas: the darkest canvas color, not gray.
       const darkest = colors.reduce((a, b) => (luminance(a) <= luminance(b) ? a : b));
       shared.set('--gradient-canvas-shadow', darkest);

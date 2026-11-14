@@ -4,7 +4,8 @@
  * `data-canvas="gradient"` on a page, hero or app screen paints the theme's
  * gradient (profile field `gradient` → --gradient-canvas, see PROFILES.md;
  * a theme without one falls back to its flat primary fill) with a grain
- * overlay. What lies directly on it is white: text, icons, borders, the
+ * overlay. `data-canvas-frame` adds light edges (see below). What lies
+ * directly on it is white: text, icons, borders, the
  * focus ring, and buttons (filled = white pill with ink text, tonal and
  * outlined = glass, ghost = white text). White cards (Card, or any
  * container with data-surface="card") bring back the theme's own values,
@@ -61,6 +62,14 @@
   /* Tracks (Progress, Slider) and their fill: white on white. */
   --color-bg-neutral-bg-neutral-subtle: rgb(255 255 255 / 0.22);
   --color-icon-icon-primary: #ffffff;
+}
+
+/* Framed (landing heroes): the dark base is solid inside a central
+   ellipse, where text lies, and fades to the theme's light edge color at
+   the sides, where only cards go (profile `gradient.edge` / `frame`). */
+[data-canvas='gradient'][data-canvas-frame] {
+  background-color: var(--gradient-canvas-edge, var(--gradient-canvas-base, var(--color-bg-primary-bg-primary)));
+  background-image: var(--gradient-canvas-framed, var(--gradient-canvas, none));
 }
 
 /* Grain: breaks up banding and makes the gradient read as material. */

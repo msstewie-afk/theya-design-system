@@ -1,0 +1,75 @@
+{
+  "description": "Ochre (gr-01): earthy gradient canvas — amber brown, olive gray and mauve on a warm cream edge, white and glass on it, flat burnt-orange primary inside white cards; warm neutrals, round radii, brown-tinted shadows",
+  "primary": "#9a4a12",
+  "neutral": {
+    "hue": 60,
+    "chroma": 0.25
+  },
+  "shadow": {
+    "hue": 50,
+    "chroma": 0.7
+  },
+  "radius": {
+    "steps": {
+      "sm": 4,
+      "md": 6,
+      "lg": 8,
+      "xl": 12,
+      "2xl": 16,
+      "3xl": 20,
+      "4xl": 24,
+      "5xl": 32
+    },
+    "button": "max"
+  },
+  "gradient": {
+    "base": "#5f4a3e",
+    "spots": [
+      {
+        "color": "#706176",
+        "at": "0% 0%",
+        "size": "90% 70%"
+      },
+      {
+        "color": "#80532a",
+        "at": "22% 70%",
+        "size": "70% 65%"
+      },
+      {
+        "color": "#6c6652",
+        "at": "95% 30%",
+        "size": "65% 75%"
+      },
+      {
+        "color": "#6e4a33",
+        "at": "65% 105%",
+        "size": "80% 55%"
+      },
+      {
+        "color": "#efc893",
+        "at": "0% 85%",
+        "size": "30% 45%",
+        "edge": true
+      },
+      {
+        "color": "#d5c6cf",
+        "at": "100% 70%",
+        "size": "28% 50%",
+        "edge": true
+      }
+    ],
+    "edge": "#ece5d8",
+    "frame": {
+      "at": "50% 0%",
+      "size": "60% 112%",
+      "solid": 58
+    }
+  },
+  "dark": {
+    "status": {
+      "warning": {
+        "hue": 84
+      }
+    }
+  }
+}

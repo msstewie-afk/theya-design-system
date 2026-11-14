@@ -60,6 +60,8 @@ export function SectionPanel({ tone = 'default', overlap = false, padding = 'sec
       data-theme={tone === 'inverse' ? 'dark' : undefined}
       data-surface={tone === 'primary' ? 'primary' : undefined}
       data-canvas={tone === 'gradient' ? 'gradient' : undefined}
+      // Framed: text stays in the dark center, the sides fade to the light edge.
+      data-canvas-frame={tone === 'gradient' ? '' : undefined}
       className={cn(
         'relative rounded-t-[var(--size-border-radius-border-radius-5xl)]',
         padding === 'section' && 'section-display',
