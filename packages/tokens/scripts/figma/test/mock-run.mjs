@@ -10,7 +10,10 @@ import { fileURLToPath } from 'node:url';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '../../..');
 const FIG = join(ROOT, 'build/figma');
 const P = JSON.parse(readFileSync(join(FIG, 'payload.json'), 'utf8'));
-const NAMES = { '1.': '1. Color Primitive Variables', '2.': '2. Color Semantic Variables', '3.': '3. Size Primitive Variables', '4.': '4. Size Semantic Variables', '5.': '5. Primitive Typography', '6.': '6. Semantic Typography Variables', '7.': '7. Density' };
+// The file as it is since 2026-11-14: names without numbers, except one still numbered
+// ("7. Density"), which the scripts must find as well.
+const NAMES = { ...P.collectionNames, '7.': '7. Density' };
+delete NAMES['9.'];
 
 function makeFigma(modeLimit) {
   let n = 0; const id = (p) => `${p}:${++n}`;
@@ -71,20 +74,20 @@ let failed = 0; const expect = (cond, msg) => { console.log((cond ? 'ok   ' : 'F
 { // 1. enough modes: sync both parts, then both checks are ok
   const figma = await seeded(10);
   const before = await run(figma, pick('check', '-9-'));
-  expect(before.ok === false && before['9. Brand']?.missingCollection, 'check before sync: not ok, "9. Brand" missing');
+  expect(before.ok === false && before['Brand']?.missingCollection, 'check before sync: not ok, "9. Brand" missing');
   const b2 = await run(figma, pick('check', '-2.js') || pick('check', 'check-2'));
-  expect(b2.ok === false && b2['2. Color Semantic Variables'].missingModes.length === 6, 'check before sync: 6 brand modes missing in "2."');
+  expect(b2.ok === false && b2['Color Semantic Variables'].missingModes.length === 6, 'check before sync: 6 brand modes missing in "2."');
   const s9 = await run(figma, pick('sync', '-9-'));
   const s2 = await run(figma, pick('sync', 'sync-2'));
-  expect(s9.createdCollections?.[0] === '9. Brand', 'sync creates "9. Brand"');
-  expect(JSON.stringify(s2['2. Color Semantic Variables'].modes) === JSON.stringify(['added ember', 'added ember dark', 'added iris', 'added iris dark', 'added lime', 'added lime dark']), 'sync adds the 6 brand modes to "2."');
-  const brand = figma._cols.find((c) => c.name === '9. Brand');
+  expect(s9.createdCollections?.[0] === 'Brand', 'sync creates "Brand" (no number)');
+  expect(JSON.stringify(s2['Color Semantic Variables'].modes) === JSON.stringify(['added ember', 'added ember dark', 'added iris', 'added iris dark', 'added lime', 'added lime dark']), 'sync adds the 6 brand modes to "2."');
+  const brand = figma._cols.find((c) => c.name === 'Brand');
   expect(brand.modes.map((m) => m.name).join() === 'theya,ember,iris,lime', '"9. Brand" modes theya, ember, iris, lime');
   const density = figma._cols.find((c) => c.name === '7. Density');
   expect(density.modes.length === 3, '"7. Density" untouched (3 modes)');
   const extra = [s9, s2].flatMap((l) => Object.values(l).flatMap((x) => x.extra ?? []));
   expect(extra.length === 0, 'nothing reported as extra (sync never deletes)');
-  const names2 = figma._vars.filter((v) => v.variableCollectionId === figma._cols.find((c) => c.name.startsWith('2.')).id).map((v) => v.name);
+  const names2 = figma._vars.filter((v) => v.variableCollectionId === figma._cols.find((c) => c.name === 'Color Semantic Variables').id).map((v) => v.name);
   expect(names2.filter((n) => n.startsWith('bg/chart/')).length === 7 && !names2.some((n) => /^bg\/chart-\d/.test(n)), '"2." has exactly seven bg/chart/… and no bg/chart-0N');
   const a9 = await run(figma, pick('check', '-9-')); const a2 = await run(figma, pick('check', 'check-2'));
   expect(a9.ok && a2.ok, 'check after sync: ok in both parts');

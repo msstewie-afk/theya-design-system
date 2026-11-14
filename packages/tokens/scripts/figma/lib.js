@@ -13,9 +13,11 @@ async function loadState() {
   const C = {};
   // Collections an alias may point into are loaded even when the payload was cut to a few (figma-run --only).
   for (const key of new Set([...Object.keys(PAYLOAD.collections), ...(PAYLOAD.alsoLoad ?? [])])) {
-    const col = cols.find((c) => c.name.startsWith(key));
-    // A collection the payload may create ("9. Brand") can be missing; any other is an error.
-    if (!col && !PAYLOAD.collections[key]?.create && !(PAYLOAD.creatable ?? []).includes(key)) throw new Error('No Figma collection starting with ' + key);
+    // By name ("Brand"); a file not yet renamed still has "<key> <name>" ("9. Brand").
+    const named = PAYLOAD.collectionNames?.[key];
+    const col = cols.find((c) => c.name === named) ?? cols.find((c) => c.name.startsWith(key + ' '));
+    // A collection the payload may create (Brand) can be missing; any other is an error.
+    if (!col && !PAYLOAD.collections[key]?.create && !(PAYLOAD.creatable ?? []).includes(key)) throw new Error(`No Figma collection "${named ?? key}"`);
     const live = col ? vars.filter((v) => v.variableCollectionId === col.id && !v.name.startsWith('_legacy')) : [];
     C[key] = { col, bySlug: new Map(live.map((v) => [slug(v.name), v])), live };
   }

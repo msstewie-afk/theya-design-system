@@ -304,15 +304,25 @@ for (const step of SHADOW_STEPS) {
   });
 }
 
+// Figma collection names. Payload keys ("1." … "9.") are short ids used by the
+// scripts and figma-run --only; the names in the file carry no number since
+// 2026-11-14 (Maria). A collection still named "<key> …" is found too.
+const COLLECTION_NAMES = {
+  '1.': 'Color Primitive Variables', '2.': 'Color Semantic Variables', '3.': 'Size Primitive Variables',
+  '4.': 'Size Semantic Variables', '5.': 'Primitive Typography', '6.': 'Semantic Typography Variables',
+  '7.': 'Density', '9.': 'Brand',
+};
+
 const payload = {
   generatedFrom: 'packages/tokens/src',
+  collectionNames: COLLECTION_NAMES,
   // Order matters for sync: "3." (size primitives, no aliases) first, then "9.",
   // whose values alias "3." ("@size:", e.g. size-minus1), so the "@brand:"
   // aliases written into "4.", "5." and "6." find their targets.
   collections: {
     '3.': { kind: 'FLOAT', modes: ['*'], vars: sizePrim },
     // Created by sync when missing ("9. Brand"); new variables get scopes [] (hidden), like "7.".
-    '9.': { kind: 'MIXED', modes: BRAND_MODES, create: '9. Brand', vars: brandVars },
+    '9.': { kind: 'MIXED', modes: BRAND_MODES, create: COLLECTION_NAMES['9.'], vars: brandVars },
     '1.': { kind: 'COLOR', modes: ['*'], vars: Object.fromEntries(Object.entries(colorPrim).map(([k, v]) => [k, normHex(v)])) },
     '2.': { kind: 'COLOR', modes: colorModes, aliasTo: '1.', vars: colorSem },
     '4.': { kind: 'FLOAT', modes: ['*'], aliasTo: '3.', vars: sizeSem },
