@@ -15,6 +15,9 @@
   "radius": {
     "steps": { "sm": 3, "md": 5, "lg": 6, "xl": 8, "2xl": 12, "3xl": 12, "4xl": 12, "5xl": 24 }
   },
+  "componentText": {
+    "drawer-description": "body-m"
+  },
   "light": {
     "tokens": {
       "bg-surface-bg-surface-base": "#f5f4f1",

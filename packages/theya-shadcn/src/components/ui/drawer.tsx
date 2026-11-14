@@ -231,5 +231,16 @@ export function DrawerTitle({ className, ...props }: React.ComponentProps<typeof
 }
 
 export function DrawerDescription({ className, ...props }: React.ComponentProps<typeof DrawerPrimitive.Description>) {
-  return <DrawerPrimitive.Description data-slot="drawer-description" className={cn('font-body text-body-s text-[var(--color-text-text-subtler)]', className)} {...props} />;
+  // body-s; a theme can set its own step through --theme-text-drawer-description
+  // (Ember: body-m, T19 — S under a sheet title read too small).
+  return (
+    <DrawerPrimitive.Description
+      data-slot="drawer-description"
+      className={cn(
+        'font-body text-body-s text-[length:var(--theme-text-drawer-description,var(--text-body-s))] leading-[var(--theme-text-drawer-description--line-height,var(--text-body-s--line-height))] text-[var(--color-text-text-subtler)]',
+        className,
+      )}
+      {...props}
+    />
+  );
 }

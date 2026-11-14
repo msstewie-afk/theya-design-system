@@ -20,8 +20,12 @@
  *      "headingFont"?: "Playfair Display",   // headings, display and eyebrow (a stack in HEADING_STACKS)
  *      "shadow"?: { "hue"?: 60, "chroma"?: 1 },  // re-hue the light shadow tint (hue default: neutral.hue)
  *      "typography"?: { "display-display-s-letter-spacing": "0.4px" },  // typography tokens, after the fonts
- *      "radius"?: { "scale": 1.5, "button": "max", "field": "3xl" }
+ *      "radius"?: { "scale": 1.5, "button": "max", "field": "3xl" },
+ *      "componentText"?: { "drawer-description": "body-m" }
  *    }
+ *    `componentText`: the type step a component part uses in this theme
+ *    (body-xs … body-xl), as --theme-text-<part>; parts that read it:
+ *    drawer-description (Drawer, sheet descriptions; default body-s).
  *    `font`: every typography token that names Geologica switches to this
  *    family, and the weight tokens go back to nominal values (Theya's are
  *    shifted −125 because Geologica reads heavy: regular 275 → 400 …).
@@ -489,6 +493,19 @@ for (const profile of profiles) {
     }
     if (button) shared.set('--theme-radius-button', stepRef(button));
     if (field) shared.set('--theme-radius-field', stepRef(field));
+  }
+
+  // Component text sizes: { "drawer-description": "body-m" } sets the type
+  // step a component part uses in this theme, through
+  // --theme-text-<part> and --theme-text-<part>--line-height (the component
+  // falls back to its own step).
+  const TEXT_STEPS = new Set(['body-xs', 'body-s', 'body-m', 'body-l', 'body-xl']);
+  for (const [part, step] of Object.entries(profile.componentText ?? {})) {
+    if (!TEXT_STEPS.has(step)) problems.push(`${profile.name}: componentText "${part}": unknown type step "${step}"`);
+    else {
+      shared.set(`--theme-text-${part}`, `var(--text-${step})`);
+      shared.set(`--theme-text-${part}--line-height`, `var(--text-${step}--line-height)`);
+    }
   }
 
   const light = modeBlock('light');

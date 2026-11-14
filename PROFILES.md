@@ -64,6 +64,7 @@ Profiles live in `packages/tokens/src/profiles/<name>.json` and come in two kind
 | `radius.scale` | multiplier for the sm…5xl radius scale, rounded to whole px (`max` stays a pill) |
 | `radius.anchor` | instead of `scale`: one step gets the given value, and the rest scale by the same factor. `{ "lg": 2 }` — fields 2px, the whole scale ×⅓ (this is how `iris` does it) |
 | `radius.steps` | steps set to px outright, after any scale: `{ "sm": 3, "md": 5, "lg": 6, "xl": 8, "2xl": 12, "3xl": 12, "4xl": 12, "5xl": 24 }` (how `ember` does it). Keep the order: a nested element is at least a step less round than its container |
+| `componentText` | the type step a component part uses in this theme: `{ "drawer-description": "body-m" }` (how `ember` does it; body-xs … body-xl). Sets `--theme-text-<part>`; parts that read it: `drawer-description` (default body-s) |
 | `radius.button`, `radius.field` | one radius for all Button sizes and for TextField + Select: a scale step (`xl`, `max`) or px |
 
 ## Page surface
