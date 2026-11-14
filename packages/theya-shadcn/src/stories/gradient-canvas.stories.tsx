@@ -37,7 +37,7 @@ function Phone({
     <section
       aria-label={label}
       data-canvas="gradient"
-      className="flex h-[760px] w-[360px] shrink-0 flex-col overflow-hidden rounded-[40px] px-5 pt-6 pb-5"
+      className="flex h-[760px] w-full max-w-[360px] shrink-0 flex-col overflow-hidden rounded-[40px] px-5 pt-6 pb-5"
     >
       {children}
     </section>
@@ -176,7 +176,7 @@ function Entry() {
 
 export const MobileScreens: Story = {
   render: () => (
-    <div className="flex flex-wrap gap-8 bg-[var(--color-bg-surface-bg-surface-base)] p-8">
+    <div className="flex flex-wrap gap-8 bg-[var(--color-bg-surface-bg-surface-base)] p-4 sm:p-8">
       <Onboarding />
       <Week />
       <Entry />
@@ -192,7 +192,7 @@ function Hero({ suffix = '' }: { suffix?: string }) {
     >
       {/* Kept to the dark center: the framed canvas fades to a light edge at the sides. */}
       <nav
-        aria-label="Main"
+        aria-label={`Main${suffix}`}
         className="mx-auto flex max-w-[760px] items-center justify-between gap-4"
       >
         <span className="text-heading-s">Fieldnotes</span>
@@ -265,15 +265,15 @@ export const LandingHero: Story = {
 /** The three gradient themes side by side: the same components, three profiles. */
 export const Presets: Story = {
   render: () => (
-    <div className="flex flex-col gap-10 bg-[var(--color-bg-surface-bg-surface-base)] p-6">
+    <div className="flex flex-col gap-10 bg-[var(--color-bg-surface-bg-surface-base)] p-4 sm:p-6">
       {(["dusk", "lagoon", "ochre"] as const).map((brand) => (
         <div key={brand} data-brand={brand} className="flex flex-col gap-4">
           <h2 className="text-heading-m capitalize text-[var(--color-text-text)]">
             {brand}
           </h2>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap gap-6">
             <Week suffix={`, ${brand}`} />
-            <div className="min-w-0 flex-1">
+            <div className="min-w-0 flex-1 basis-[480px]">
               <Hero suffix={`, ${brand}`} />
             </div>
           </div>
