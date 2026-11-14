@@ -1,6 +1,7 @@
 {
   "description": "Dusk (gr-01): mesh gradient after the Quizy reference (gray lilac top, vivid coral left of center, deep plum right, mauve and rose at the bottom), each point darkened in OKLCH to hold white text 4.5:1; light gray-lilac blooms in the bottom left corner on landing heroes only; flat gray-periwinkle primary (the reference's top right corner) inside white cards; soft lilac neutrals, round radii, plum-tinted shadows",
   "primary": "#64668f",
+  "font": "Schibsted Grotesk",
   "neutral": {
     "hue": 300,
     "chroma": 0.35

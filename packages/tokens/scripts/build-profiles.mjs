@@ -419,7 +419,9 @@ for (const profile of profiles) {
   const shared = new Map();
   if (profile.font) {
     for (const [token, value] of builtValues('build/css/variables.css', { raw: true })) {
-      if (/^geologica,/i.test(value)) shared.set(token, value.replace(/^geologica/i, `'${profile.font}'`));
+      // Geologica stays next in the stack: a face without Cyrillic (Schibsted
+      // Grotesk) falls back to it, not to the system font.
+      if (/^geologica,/i.test(value)) shared.set(token, value.replace(/^geologica/i, `'${profile.font}', Geologica`));
     }
     // Theya's extralight and thin are both 100, so tokens built from
     // {typography.weight.extralight} are found by their source alias.

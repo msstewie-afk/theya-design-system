@@ -1,6 +1,7 @@
 {
   "description": "Lagoon (gr-01): mesh gradient in deep teal and sea green with a vivid grass-green spot left of center (darkened in OKLCH to hold white text 4.5:1) and a bright lime bloom in the bottom right corner on landing heroes only; flat teal primary inside white cards; greenish neutrals, round radii, teal-tinted shadows",
   "primary": "#1f6b63",
+  "font": "Schibsted Grotesk",
   "neutral": {
     "hue": 180,
     "chroma": 0.3
