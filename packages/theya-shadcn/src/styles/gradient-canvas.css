@@ -120,9 +120,16 @@
   --color-icon-icon-primary: var(--theya-own-icon-primary);
 }
 
-/* White cards on the canvas: no gray border, a tinted soft shadow. */
+/* White cards on the canvas: no gray border, a tinted soft shadow, the
+   largest radius, and 90% white over a blur, so the canvas glows through a
+   little. Worst case for text: text-subtler on 90% white over the darkest
+   canvas color (Dusk #3b2b50) is 4.8:1. */
 [data-canvas='gradient'] [data-slot='card'][data-surface='card'] {
   border-color: transparent;
+  border-radius: var(--size-border-radius-border-radius-5xl);
+  background-color: color-mix(in srgb, var(--color-bg-surface-bg-surface) 90%, transparent);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
   box-shadow: var(--gradient-card-shadow);
 }
 

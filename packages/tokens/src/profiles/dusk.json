@@ -1,6 +1,6 @@
 {
-  "description": "Dusk (gr-01): mesh gradient after the Quizy reference (gray lilac top, vivid coral left of center, deep plum right, mauve and rose at the bottom), each point darkened in OKLCH to hold white text 4.5:1; light gray-lilac blooms in the bottom left corner on landing heroes only; flat violet primary inside white cards; soft lilac neutrals, round radii, plum-tinted shadows",
-  "primary": "#5b45b8",
+  "description": "Dusk (gr-01): mesh gradient after the Quizy reference (gray lilac top, vivid coral left of center, deep plum right, mauve and rose at the bottom), each point darkened in OKLCH to hold white text 4.5:1; light gray-lilac blooms in the bottom left corner on landing heroes only; flat gray-periwinkle primary (the reference's top right corner) inside white cards; soft lilac neutrals, round radii, plum-tinted shadows",
+  "primary": "#64668f",
   "neutral": {
     "hue": 300,
     "chroma": 0.35
@@ -66,21 +66,15 @@
         "size": "38% 38%"
       },
       {
-        "color": "#cdc5dc",
+        "color": "#a99fba",
         "at": "0% 100%",
-        "size": "42% 62%",
+        "size": "30% 48%",
         "bloom": true
       },
       {
-        "color": "#dcb3b4",
-        "at": "22% 100%",
-        "size": "26% 34%",
-        "bloom": true
-      },
-      {
-        "color": "#c4abbb",
-        "at": "0% 62%",
-        "size": "18% 30%",
+        "color": "#b7a4b0",
+        "at": "12% 100%",
+        "size": "16% 22%",
         "bloom": true
       }
     ]
