@@ -15,9 +15,6 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 
 | Since | Area | What | Needs |
 |---|---|---|---|
-| 0.3.15 | StickyActionBar | The top divider runs edge to edge in both widths (was inset to the side padding; Мария, 14.11). Node 32677:510 still draws it inset 16 / 24. | Divider full width in every variant. |
-| 0.3.15 | Nested corners | A control inside a field or card is a step less round than it: PromptArea send button md (pressed lg) and attachments md inside the lg field; SecretField reveal / copy and Password show / hide buttons md; Alert and Stat (card) inside a Card xl; Comparison rows xl around the lg item icon. | Same radii on the Figma components and examples. |
-| 0.3.15 | Drawer (Ember) | The description is body M in Ember (15/20), body S elsewhere (T19), through the profile key `componentText`. | Ember mode of the description text style, or a note on the Drawer. |
 | 0.3.14 | Text styles | Display/S, Eyebrow/M, Eyebrow/S: lining figures (`lnum`) are set in code; the Plugin API cannot set OpenType features. | Set by hand in Figma: Type settings → Numbers → Lining. Same check for Headline/*. |
 | 0.3.14 | Review | Nodes added or changed 13.11 were checked by properties only, not by eye: Drawer, StickyActionBar width=phone, TabsList (chips), OptionCard, DropdownMenu / With Trailing, ContextMenu / With Trailing, Ember radius bindings, Elevation styles in each mode (14.11). | A visual pass in Figma. |
 | earlier | Kbd | Border 1px and the size of the ⌘ glyph. | Compare with code at review. |
@@ -36,6 +33,9 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 | 2026-11-13 | 0.3.14 | OptionCard: icon and indicator centred on the first title line (box one line high); the two-column rule (≥16rem) written in the description | 32656:121 |
 | 2026-11-13 | 0.3.14 | TextArea: vertical-only resize written in the description | 32602:15695 |
 | 2026-11-13 | 0.3.14 | DropdownMenu / With Trailing and ContextMenu / With Trailing: non-interactive trailing "5/5", separate "Remove watermark" item, tone=danger | 32889:198, 32889:229 |
+| 2026-11-14 | 0.3.15 | StickyActionBar: the top divider runs edge to edge in all four variants (x 0, full width, stretches with the bar) | 32677:510 |
+| 2026-11-14 | 0.3.15 | Nested corners: SecretField reveal and copy buttons md; PromptArea send button and attachments md (on its page and in Chat). The pressed step (lg) is not drawn: Button has no pressed variant in Figma. Password, Comparison, LoginForm (Alert in Card) and Stat card in a Card are not drawn in Figma | 32657:234, 32677:339, 32677:340 |
+| 2026-11-14 | 0.3.15 | Drawer (Ember): "9. Brand" theme-text/drawer-description/size and /line-height (theya 13/16, ember 15/20, aliases of size primitives), bound to the description in all four variants; the Body/S style stays. From the profile key `componentText` through `figma-payload` | 32597:15565, "9." |
 | 2026-11-14 | 0.3.15 (282db79) | Message and Chat: message bubble corners 2xl → xl (the md tail corner stays); nested surfaces a step less round than the container. No typing bubble or attachment-in-bubble is drawn | Message 32677:54, Chat 32677:340 |
 | 2026-11-14 | 0.3.14 | Shadows: one colour variable per layer, `elevation/<step>/layer-<n>` in "2." (22, scope effect colour), values per mode; Elevation/xs…xl and edge-up rebuilt to the code geometry (they held an older scale) with each layer bound. Warm in Ember, black with the white ring in dark; a layer one theme lacks is transparent there. Synced by `figma-run sync` from now on | effect styles, "2." |
 | 2026-11-13 | 0.3.14 | Combobox / Autocomplete Loading and No results: no visual change, nothing to sync | — |

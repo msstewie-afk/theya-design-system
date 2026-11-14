@@ -65,6 +65,8 @@ function cssName(key, name) {
   }
   if (key === '3.' || key === '4.' || key === '7.') return '--size-' + dash;
   // Radius role steps (field-sm, button-pressed…) all stand for the one CSS role variable.
+  // Component text steps: theme-text/<part>/size|line-height -> --theme-text-<part>[--line-height].
+  if (key === '9.' && name.startsWith('theme-text/')) { const [, part, prop] = name.split('/'); return '--theme-text-' + part + (prop === 'line-height' ? '--line-height' : ''); }
   if (key === '9.') return name.startsWith('theme-radius/') ? '--theme-radius-' + name.split('/')[1].split('-')[0] : name.startsWith('border-radius/') ? '--size-' + dash : '--typography-' + dash;
   return '--typography-' + dash;
 }

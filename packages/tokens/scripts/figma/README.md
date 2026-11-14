@@ -27,6 +27,10 @@ Brands (`src/profiles/*.json`) reach Figma as modes, from the built values in
   variables of `4.`, `5.`, `6.` a profile overrides alias the same-named variable
   in `9.` (`@brand:`); those collections get no modes. Density (`7.`) and brand
   never drive the same variable: `figma-payload.mjs` stops if one would.
+- component text steps (`componentText` in a profile, e.g. Ember's drawer
+  description in body M): `9. Brand` `theme-text/<part>/size` and `/line-height`,
+  `theya` the part's own step; the component's text node binds them, so the
+  text style stays and the size follows the brand mode.
 
 ## Shadows
 
