@@ -50,7 +50,8 @@ for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
       }
       v = figma.variables.createVariable(figmaName, col, type);
       const sib = C[key].live.find((x) => slug(x.name).startsWith(slug(parts.slice(0, -1).join('/')) + '/'));
-      v.scopes = sib ? sib.scopes : [];
+      const scoped = Object.entries(PAYLOAD.newScopes?.[key] ?? {}).find(([p]) => name.startsWith(p));
+      v.scopes = sib ? sib.scopes : scoped ? scoped[1] : [];
       bySlug.set(slug(name), v); l.created.push(figmaName);
     }
     for (const [m, id] of modeIds(col, spec.modes)) {
@@ -66,5 +67,23 @@ for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
   const codeSlugs = new Set(Object.keys(spec.vars).map(slug));
   for (const [s, v] of bySlug) if (!codeSlugs.has(s)) (allowed.has(s) ? l.figmaOnly : l.extra).push(v.name);
   log[col.name] = l;
+}
+// Effect styles: rebuilt from the payload's layers when they differ, each layer's
+// colour bound to its "2." variable (the colour itself is the default mode's,
+// shown where no mode applies). A missing style is reported, not created.
+if (PAYLOAD.effects) {
+  const styles = await figma.getLocalEffectStylesAsync();
+  const le = (log.effects = { updated: [], missing: [] });
+  const vars2 = PAYLOAD.collections['2.'].vars;
+  for (const [name, layers] of Object.entries(PAYLOAD.effects)) {
+    const st = styles.find((s) => s.name === name);
+    if (!st) { le.missing.push(name); continue; }
+    if (!effectDiff(st, layers, C).length) continue;
+    st.effects = layers.map((l) => figma.variables.setBoundVariableForEffect({
+      type: 'DROP_SHADOW', color: parseHex(want(vars2[l.color], 'default')), offset: { x: l.x, y: l.y },
+      radius: l.blur, spread: l.spread, visible: true, blendMode: 'NORMAL', showShadowBehindNode: false,
+    }, 'color', C['2.'].bySlug.get(slug(l.color))));
+    le.updated.push(name);
+  }
 }
 return log;

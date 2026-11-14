@@ -26,4 +26,15 @@ for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
   if (missingModes.length || r.missing.length || r.diff.length) ok = false;
   report[col.name] = { missingModes, missing: r.missing.length, diff: r.diff.length, extra: r.extra.length, figmaOnly: r.figmaOnly, details: { missing: r.missing.slice(0, 40), diff: r.diff.slice(0, 40), extra: r.extra.slice(0, 40) } };
 }
+// Effect styles bound to the shadow layer variables (only in the part with "2.").
+if (PAYLOAD.effects) {
+  const styles = await figma.getLocalEffectStylesAsync();
+  const fx = {};
+  for (const [name, layers] of Object.entries(PAYLOAD.effects)) {
+    const st = styles.find((s) => s.name === name);
+    const d = st ? effectDiff(st, layers, C) : ['missing'];
+    if (d.length) { fx[name] = d.slice(0, 10); ok = false; }
+  }
+  report.effects = fx;
+}
 return { ok, ...report };

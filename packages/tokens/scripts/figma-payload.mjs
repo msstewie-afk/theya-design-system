@@ -180,6 +180,8 @@ const colorModes = (() => {
   for (const b of brands) for (const [theme, mode] of [['light', b.name], ['dark', b.name + ' dark']]) {
     for (const [css, v] of Object.entries(b[theme] ?? {})) {
       const n = byCss.get(css);
+      // Shadows are written by the shadow block below, layer by layer.
+      if (/^--(elevation|shadow)-/.test(css)) continue;
       if (!n) { miss(b.name, css); continue; }
       const ref = colorRef(v);
       if (ref !== colorSem[n][theme === 'light' ? 'default' : 'dark']) colorSem[n][mode] = ref;
@@ -242,6 +244,54 @@ for (const [n, role, fallback] of ROLE_STEPS) {
 }
 for (const b of brands) for (const k of Object.keys(b.shared ?? {})) if (!/^--(size|typography|theme-radius)-/.test(k)) miss(b.name, k);
 
+// ---- Shadows: effect styles "Elevation/*" with one colour variable per layer ----
+// Figma effect styles have no modes, but an effect's colour can be bound to a
+// variable, and "2." has a mode per theme and brand. So each shadow layer gets
+// a colour variable "elevation/<step>/layer-<n>" in "2." (Maria, 2026-11-14):
+// Ember's warm tint, dark's black and the dark white ring follow the mode.
+// A layer's geometry (offset, blur, spread) cannot change per mode, so a step's
+// layers are the union of its light and dark layers; a layer one theme lacks
+// is transparent in that theme (dark md adds a 1px ring that light md lacks).
+const SHADOW_STEPS = ['xs', 'sm', 'md', 'lg', 'xl', 'edge-up'];
+const cssVars = (file) => {
+  const m = new Map();
+  for (const [, k, v] of readFileSync(join(ROOT, file), 'utf8').matchAll(/(--[a-z0-9-]+):\s*([^;]+);/g)) if (!m.has(k)) m.set(k, v.trim());
+  return m;
+};
+const shadowCss = { default: cssVars('build/css/variables.css'), dark: cssVars('build/css/variables-dark.css') };
+// "0 1px 2px 0 rgba(…)" -> { key: "0 1 2 0", x, y, blur, spread, color }; commas inside rgba() don't split layers.
+const shadowLayers = (value) => String(value).split(/,(?![^(]*\))/).map((s) => {
+  const color = s.match(/rgba?\([^)]*\)/)[0];
+  const [x, y, blur, spread = 0] = s.replace(color, '').trim().split(/\s+/).map((n) => Number(n.replace(/px$/, '')));
+  return { key: `${x} ${y} ${blur} ${spread}`, x, y, blur, spread, color: normHex(color) };
+});
+const TRANSPARENT = '#00000000';
+const effects = {};
+for (const step of SHADOW_STEPS) {
+  const css = '--elevation-' + step;
+  const byMode = { default: shadowLayers(shadowCss.default.get(css)), dark: shadowLayers(shadowCss.dark.get(css)) };
+  for (const b of brands) {
+    if (b.light?.[css]) byMode[b.name] = shadowLayers(b.light[css]);
+    if (b.dark?.[css]) byMode[b.name + ' dark'] = shadowLayers(b.dark[css]);
+  }
+  const union = new Map();
+  for (const layers of Object.values(byMode)) for (const l of layers) if (!union.has(l.key)) union.set(l.key, l);
+  // Rings (no blur) first, then by blur: the order the code writes them.
+  const ordered = [...union.values()].sort((a, b) => a.blur - b.blur || b.spread - a.spread || a.y - b.y);
+  effects['Elevation/' + step] = ordered.map((l, i) => {
+    const name = `elevation/${step}/layer-${i + 1}`;
+    const at = (mode) => byMode[mode].find((x) => x.key === l.key)?.color ?? TRANSPARENT;
+    const value = { default: at('default'), dark: at('dark') };
+    for (const mode of Object.keys(byMode)) {
+      if (mode === 'default' || mode === 'dark') continue;
+      const c = at(mode);
+      if (c !== value[mode.endsWith(' dark') ? 'dark' : 'default']) value[mode] = c;
+    }
+    colorSem[name] = value;
+    return { x: l.x, y: l.y, blur: l.blur, spread: l.spread, color: name };
+  });
+}
+
 const payload = {
   generatedFrom: 'packages/tokens/src',
   // Order matters for sync: "3." (size primitives, no aliases) first, then "9.",
@@ -278,6 +328,10 @@ const payload = {
     ],
     '4.': ['padding/padding--3xs', 'padding/padding--2xs', 'gap/gap--2xs'],
   },
+  // Scopes for a new variable with no sibling to copy them from (collection key -> name prefix -> scopes).
+  newScopes: { '2.': { 'elevation/': ['EFFECT_COLOR'] } },
+  // Effect styles rebuilt by sync from the shadow layers above (written with "2.").
+  effects,
 };
 const out = join(ROOT, 'build/figma/payload.json');
 mkdirSync(dirname(out), { recursive: true });

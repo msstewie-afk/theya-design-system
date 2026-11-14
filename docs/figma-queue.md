@@ -15,10 +15,8 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 
 | Since | Area | What | Needs |
 |---|---|---|---|
-| 0.3.7–0.3.14 | Shadows, Ember | Warm Ember shadows exist only in code. Effect styles Elevation/xs…xl and edge-up are not bound to variables, so they cannot change per mode. | A decision: a shadow-tint colour variable in "2. Color Semantic" (one value per mode) bound to every effect colour, or a separate set of Ember effect styles. |
-| 0.3.14 | Tabs chips | The track's inner shadow (`shadow-track`) is not drawn in TabsList (chips). | Add an inner shadow effect once the shadow decision above is made. |
 | 0.3.14 | Text styles | Display/S, Eyebrow/M, Eyebrow/S: lining figures (`lnum`) are set in code; the Plugin API cannot set OpenType features. | Set by hand in Figma: Type settings → Numbers → Lining. Same check for Headline/*. |
-| 0.3.14 | Review | Nodes added or changed 13.11 were checked by properties only, not by eye: Drawer, StickyActionBar width=phone, TabsList (chips), OptionCard, DropdownMenu / With Trailing, ContextMenu / With Trailing, Ember radius bindings. | A visual pass in Figma. |
+| 0.3.14 | Review | Nodes added or changed 13.11 were checked by properties only, not by eye: Drawer, StickyActionBar width=phone, TabsList (chips), OptionCard, DropdownMenu / With Trailing, ContextMenu / With Trailing, Ember radius bindings, Elevation styles in each mode (14.11). | A visual pass in Figma. |
 | earlier | Kbd | Border 1px and the size of the ⌘ glyph. | Compare with code at review. |
 | earlier | Reference stories | PushSheet, Dialog (full) and the menu "Figma reference" stories against the Figma examples (pp-01, agent 3). | Run `scripts/figma-visual-diff.mjs` on them. |
 | earlier | Separator and other props | Figma component properties still use the old names (prop vocabulary of 27.09, e.g. Separator `emphasis`). | A rename pass in Figma. |
@@ -35,6 +33,7 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 | 2026-11-13 | 0.3.14 | OptionCard: icon and indicator centred on the first title line (box one line high); the two-column rule (≥16rem) written in the description | 32656:121 |
 | 2026-11-13 | 0.3.14 | TextArea: vertical-only resize written in the description | 32602:15695 |
 | 2026-11-13 | 0.3.14 | DropdownMenu / With Trailing and ContextMenu / With Trailing: non-interactive trailing "5/5", separate "Remove watermark" item, tone=danger | 32889:198, 32889:229 |
+| 2026-11-14 | 0.3.14 | Shadows: one colour variable per layer, `elevation/<step>/layer-<n>` in "2." (22, scope effect colour), values per mode; Elevation/xs…xl and edge-up rebuilt to the code geometry (they held an older scale) with each layer bound. Warm in Ember, black with the white ring in dark; a layer one theme lacks is transparent there. Synced by `figma-run sync` from now on | effect styles, "2." |
 | 2026-11-13 | 0.3.14 | Combobox / Autocomplete Loading and No results: no visual change, nothing to sync | — |
 
 ## Accepted differences

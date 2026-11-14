@@ -18,6 +18,8 @@ full.creatable = Object.keys(full.collections).filter((k) => full.collections[k]
 if (only.length) {
   full.alsoLoad = Object.keys(full.collections).filter((k) => !only.includes(k));
   full.collections = Object.fromEntries(Object.entries(full.collections).filter(([k]) => only.includes(k)));
+  // Effect styles bind "2." variables: they go with the part that writes "2.".
+  if (!only.includes('2.')) delete full.effects;
 }
 const payload = JSON.stringify(full);
 const lib = readFileSync(join(ROOT, 'scripts/figma/lib.js'), 'utf8');

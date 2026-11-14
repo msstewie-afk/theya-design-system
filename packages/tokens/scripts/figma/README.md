@@ -28,6 +28,18 @@ Brands (`src/profiles/*.json`) reach Figma as modes, from the built values in
   in `9.` (`@brand:`); those collections get no modes. Density (`7.`) and brand
   never drive the same variable: `figma-payload.mjs` stops if one would.
 
+## Shadows
+
+Effect styles have no modes, so each layer of `--elevation-xs … xl, edge-up`
+gets a colour variable `elevation/<step>/layer-<n>` in `2.` (scope effect
+colour), and the effect style `Elevation/<step>` binds each layer's colour to it.
+The tint follows the mode: indigo slate in Theya, warm in Ember (the profile's
+`shadow` re-hue), black and the white ring in dark. A layer's geometry (offset,
+blur, spread) cannot change per mode, so a step has the union of its light and
+dark layers, and a layer one theme lacks is transparent there (`md`: dark adds a
+1px ring). `sync` rebuilds a style whose layers or bindings differ; `check`
+lists them under `effects`. Both do this only in the part that holds `2.`.
+
 `use_figma` takes at most 50 000 characters, more than the whole payload, so the
 scripts run in two parts:
 

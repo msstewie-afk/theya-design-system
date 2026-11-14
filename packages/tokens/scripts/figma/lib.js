@@ -58,10 +58,29 @@ function cssName(key, name) {
   if (key === '2.') {
     if (name.startsWith('bg/chart/')) return '--color-bg-' + name.split('/')[2];
     if (name.startsWith('bg/primary/primary-on-primary')) return '--color-bg-' + name.split('/')[2];
+    // A shadow layer's colour stands for the whole shadow token (one CSS value per step).
+    const layer = name.match(/^elevation\/([a-z0-9-]+)\/layer-\d+$/);
+    if (layer) return '--elevation-' + layer[1];
     return '--color-' + dash;
   }
   if (key === '3.' || key === '4.' || key === '7.') return '--size-' + dash;
   // Radius role steps (field-sm, button-pressed…) all stand for the one CSS role variable.
   if (key === '9.') return name.startsWith('theme-radius/') ? '--theme-radius-' + name.split('/')[1].split('-')[0] : name.startsWith('border-radius/') ? '--size-' + dash : '--typography-' + dash;
   return '--typography-' + dash;
+}
+
+// Effect styles (PAYLOAD.effects, "Elevation/*"): what differs between a style's
+// layers and the payload's — count, geometry, or a colour not bound to its
+// "2." variable. Returns a list of differences, empty when the style matches.
+function effectDiff(style, layers, C) {
+  const have = style.effects;
+  if (have.length !== layers.length) return [`${have.length} layers, code ${layers.length}`];
+  const out = [];
+  layers.forEach((l, i) => {
+    const e = have[i]; const v = C['2.'].bySlug.get(slug(l.color));
+    if (e.type !== 'DROP_SHADOW' || e.offset.x !== l.x || e.offset.y !== l.y || e.radius !== l.blur || (e.spread ?? 0) !== l.spread)
+      out.push(`layer ${i + 1}: ${e.offset.x} ${e.offset.y} ${e.radius} ${e.spread ?? 0}, code ${l.x} ${l.y} ${l.blur} ${l.spread}`);
+    if (!v || e.boundVariables?.color?.id !== v.id) out.push(`layer ${i + 1}: colour not bound to ${l.color}`);
+  });
+  return out;
 }

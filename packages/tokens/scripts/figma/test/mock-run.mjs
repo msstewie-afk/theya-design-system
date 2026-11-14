@@ -31,10 +31,13 @@ function makeFigma(modeLimit) {
       vars.push(v); return v;
     },
     createVariableAlias(t) { return { type: 'VARIABLE_ALIAS', id: t.id }; },
+    setBoundVariableForEffect(e, field, v) { return { ...e, boundVariables: { [field]: { type: 'VARIABLE_ALIAS', id: v.id } } }; },
     async getLocalVariableCollectionsAsync() { return cols; },
     async getLocalVariablesAsync() { return vars; },
   };
-  return { variables: api, _cols: cols, _vars: vars };
+  // Effect styles as the file had them: an older scale, unbound colours.
+  const styles = Object.keys(P.effects).map((name) => ({ name, effects: [{ type: 'DROP_SHADOW', color: { r: 0.05, g: 0.05, b: 0.1, a: 0.1 }, offset: { x: 0, y: 2 }, radius: 4, spread: -2, visible: true }] }));
+  return { variables: api, getLocalEffectStylesAsync: async () => styles, _cols: cols, _vars: vars, _styles: styles };
 }
 const run = async (figma, file) => {
   const code = readFileSync(join(FIG, file), 'utf8');
@@ -45,6 +48,7 @@ async function seeded(limit) {
   const figma = makeFigma(limit);
   const seedPayload = JSON.parse(JSON.stringify(P));
   delete seedPayload.collections['9.'];
+  delete seedPayload.effects; // the styles start unbound, as in the file before 2026-11-14
   for (const [k, c] of Object.entries(seedPayload.collections)) {
     const col = figma.variables.createVariableCollection(NAMES[k]);
     if (k === '2.') { col.renameMode(col.modes[0].modeId, 'default'); col.addMode('dark'); c.modes = ['default', 'dark']; }
@@ -59,6 +63,7 @@ async function seeded(limit) {
   await new Function('figma', `return (async () => {\n${code}\n})();`)(figma);
   return figma;
 }
+const byIdOf = (figma, id) => figma._vars.find((v) => v.id === id);
 const files = readdirSync(FIG);
 const pick = (a, k) => files.find((f) => f.startsWith(a) && f.includes(k));
 let failed = 0; const expect = (cond, msg) => { console.log((cond ? 'ok   ' : 'FAIL ') + msg); if (!cond) failed++; };
@@ -83,6 +88,13 @@ let failed = 0; const expect = (cond, msg) => { console.log((cond ? 'ok   ' : 'F
   expect(names2.filter((n) => n.startsWith('bg/chart/')).length === 7 && !names2.some((n) => /^bg\/chart-\d/.test(n)), '"2." has exactly seven bg/chart/… and no bg/chart-0N');
   const a9 = await run(figma, pick('check', '-9-')); const a2 = await run(figma, pick('check', 'check-2'));
   expect(a9.ok && a2.ok, 'check after sync: ok in both parts');
+  expect(Object.keys(b2.effects ?? {}).length === Object.keys(P.effects).length, 'check before sync: every Elevation style differs');
+  expect(s2.effects?.updated.length === Object.keys(P.effects).length && !s9.effects, 'sync rebuilds the Elevation styles, only in the part with "2."');
+  const md = figma._styles.find((s) => s.name === 'Elevation/md');
+  const mdVars = md.effects.map((e) => byIdOf(figma, e.boundVariables?.color?.id)?.name);
+  expect(md.effects.length === P.effects['Elevation/md'].length && mdVars.every((n, i) => n === `elevation/md/layer-${i + 1}`), 'Elevation/md: each layer bound to elevation/md/layer-N');
+  const l2 = figma._vars.find((v) => v.name === 'elevation/md/layer-2');
+  expect(l2 && l2.scopes.join() === 'EFFECT_COLOR', 'new shadow variables are scoped to effect colour');
   // Density and brand do not meet: no "9." variable aliases "7.", no density variable is in "9.".
   const byId = new Map(figma._vars.map((v) => [v.id, v]));
   const brandIds = new Set(figma._vars.filter((v) => v.variableCollectionId === brand.id).map((v) => v.id));
