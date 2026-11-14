@@ -15,12 +15,10 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 
 | Since | Area | What | Needs |
 |---|---|---|---|
+| 0.3.16 | Prop vocabulary (code) | Code differs from the vocabulary, Figma follows code: FAB `shape="round"` (vocabulary: `circle`), Sparkline `tone="brand"`/`"muted"` (`primary`/`neutral`), Countdown `appearance="inline"`/`"blocks"`/`"ring"` (a structure, so `variant`), Toast `type` with `error` (`tone`, `danger`; the type comes from Sonner's API). Avatar `type` (image/text/icon) and DiffLine `type` are content kinds and match code. | Agent 3: decide in code; Figma renames after. |
 | 0.3.15 | StickyActionBar (code) | Below 28rem the close × wraps to a third row of its own: the message is `basis-full` and the actions `w-full`, so nothing is left beside it. Figma puts × at the end of the text row. | Agent 3: decide in code (e.g. × beside the message on narrow bars), then Figma follows. |
-| 0.3.16 | Text styles (Ember) | Body S line height 18 in Ember (13/18), 16 elsewhere (T19), through the profile's `typography`. | Ember mode of the body-s line-height variable. |
-| 0.3.16 | OptionCard | Title at body M's own 20px line (was 18.75, leading-tight), 4px to the description (was 2), in every theme (T19). | The same in the OptionCard component. |
 | 0.3.14 | Text styles | Display/S, Eyebrow/M, Eyebrow/S: lining figures (`lnum`) are set in code; the Plugin API cannot set OpenType features. | Set by hand in Figma: Type settings → Numbers → Lining. Same check for Headline/*. |
 | earlier | Reference stories | PushSheet, Dialog (full) and the menu "Figma reference" stories against the Figma examples (pp-01, agent 3). | Run `scripts/figma-visual-diff.mjs` on them. |
-| earlier | Separator and other props | Figma component properties still use the old names (prop vocabulary of 27.09, e.g. Separator `emphasis`). | A rename pass in Figma. |
 
 ## Done
 
@@ -36,6 +34,12 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 | 2026-11-13 | 0.3.14 | OptionCard: icon and indicator centred on the first title line (box one line high); the two-column rule (≥16rem) written in the description | 32656:121 |
 | 2026-11-13 | 0.3.14 | TextArea: vertical-only resize written in the description | 32602:15695 |
 | 2026-11-13 | 0.3.14 | DropdownMenu / With Trailing and ContextMenu / With Trailing: non-interactive trailing "5/5", separate "Remove watermark" item, tone=danger | 32889:198, 32889:229 |
+| 2026-11-14 | 0.3.16 | Ember Body S 13/18: Theme `brand/body/s/line-height` (16, Ember 18); Semantic Typography Body/S/Line Height and the drawer description's Theya line height alias it | Theme |
+| 2026-11-14 | 0.3.16 | OptionCard: title line height bound to Body/M/Line Height (20), 4px to the description (margin-2xs); icon and indicator boxes 20 high | 32656:121 |
+| 2026-11-14 | — | External libraries: 8 remote instances detached, 130 remote variable bindings moved to local ones (border-radius-16x -> size16), 8 unbound with the value kept, 23 remote style uses detached; nothing in THEIA comes from another library | file |
+| 2026-11-14 | — | Text styles: the Design System/* group replaced by Theya styles on 651 text layers (upper case kept as an override on 50) and deleted; `code` kept as the one service style Docs/Code (no mono style in Theya) (Мария) | text styles |
+| 2026-11-14 | — | Color Icons: 86 unused icons removed; kept ColorIcon24 / certificates (Select) and ColorIcon24 / rocket (Мария) | Icons |
+| 2026-11-14 | — | Prop vocabulary: AnnouncementBar `tone=filled` split into `appearance` (filled/tonal), as in code; TreeItem variant `type` renamed `state` | 32667:52, 32673:292 |
 | 2026-11-14 | 0.3.15 | StickyActionBar width=phone: text on top, buttons below at equal width (was one row, the text squeezed into a narrow column); with close, × sits at the end of the text row. Width 360 | 32677:510 |
 | 2026-11-14 | — | Brand variables moved into the colour collection, now named Theme, as `brand/<name>` (76 variables; Theya's values in default and dark, a brand's in <brand> and <brand> dark): one mode switch changes colours, fonts, radii and text steps. 10 576 node bindings, 69 aliases and the text styles repointed, then the Brand collection removed; token check ok (Мария) | Theme |
 | 2026-11-14 | — | Variable collections renamed without numbers ("2. Color Semantic Variables" -> "Color Semantic Variables", "9. Brand" -> "Brand", all nine); the token scripts find them by name (Мария) | collections |
