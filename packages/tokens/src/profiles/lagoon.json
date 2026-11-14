@@ -1,5 +1,5 @@
 {
-  "description": "Lagoon (gr-01): gradient canvas in deep teal, sage and sea green, white and glass on it, flat teal primary inside white cards; greenish neutrals, round radii, teal-tinted shadows",
+  "description": "Lagoon (gr-01): mesh gradient in deep teal and sea green with a vivid grass-green spot left of center (darkened in OKLCH to hold white text 4.5:1) and a bright lime bloom in the bottom right corner on landing heroes only; flat teal primary inside white cards; greenish neutrals, round radii, teal-tinted shadows",
   "primary": "#1f6b63",
   "neutral": {
     "hue": 180,
@@ -23,27 +23,59 @@
     "button": "max"
   },
   "gradient": {
-    "base": "#2d5d5e",
+    "base": "#2a5559",
     "spots": [
       {
-        "color": "#3a7680",
+        "color": "#438004",
+        "at": "26% 50%",
+        "size": "34% 48%"
+      },
+      {
+        "color": "#183338",
+        "at": "80% 46%",
+        "size": "42% 55%"
+      },
+      {
+        "color": "#3a6f7a",
+        "at": "55% 0%",
+        "size": "85% 45%"
+      },
+      {
+        "color": "#3f6f6a",
         "at": "0% 0%",
-        "size": "90% 70%"
+        "size": "45% 55%"
       },
       {
-        "color": "#3f7457",
-        "at": "22% 62%",
-        "size": "70% 65%"
+        "color": "#3d7a4a",
+        "at": "18% 80%",
+        "size": "30% 35%"
       },
       {
-        "color": "#1f3a40",
-        "at": "95% 35%",
-        "size": "65% 75%"
+        "color": "#2f6b5c",
+        "at": "50% 64%",
+        "size": "32% 42%"
       },
       {
-        "color": "#2f6b68",
-        "at": "65% 105%",
-        "size": "80% 55%"
+        "color": "#2e6266",
+        "at": "88% 100%",
+        "size": "45% 42%"
+      },
+      {
+        "color": "#36705a",
+        "at": "45% 100%",
+        "size": "38% 38%"
+      },
+      {
+        "color": "#b9ec5c",
+        "at": "100% 100%",
+        "size": "30% 48%",
+        "bloom": true
+      },
+      {
+        "color": "#9fd8a0",
+        "at": "86% 100%",
+        "size": "16% 22%",
+        "bloom": true
       }
     ]
   }

@@ -15,12 +15,12 @@ import { SectionPanel } from "../components/blocks/landing/section-panel";
 /**
  * gr-01 prototype: the gradient canvas (data-canvas="gradient") with white
  * text, glass and white cards on it. The theme's gradient comes from its
- * profile (Dusk); any other theme falls back to its flat primary fill.
+ * profile: pick Dusk, Lagoon or Ochre in the Brand toolbar (Presets shows
+ * all three); any other theme falls back to its flat primary fill.
  */
 const meta: Meta = {
   title: "Design System/Gradient canvas",
   parameters: { layout: "fullscreen" },
-  globals: { brand: "dusk" },
 };
 export default meta;
 type Story = StoryObj;
