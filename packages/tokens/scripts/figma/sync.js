@@ -16,7 +16,7 @@ const log = {};
     probe.remove();
   }
 }
-// Collections the payload creates ("9. Brand"), first mode named after the payload's first.
+// Collections the payload creates (spec.create), first mode named after the payload's first.
 for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
   if (C[key].col || !spec.create) continue;
   const col = figma.variables.createVariableCollection(spec.create);
@@ -45,6 +45,7 @@ for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
       let type = spec.kind;
       if (type === 'MIXED') {
         if (typeof sample === 'number') type = 'FLOAT';
+        else if (typeof sample === 'string' && sample.startsWith('#')) type = 'COLOR';
         else if (typeof sample === 'string' && sample.startsWith('@')) { const [tk, tp] = aliasTarget(key, sample); type = C[tk].bySlug.get(slug(tp)).resolvedType; }
         else type = 'STRING';
       }
@@ -65,7 +66,7 @@ for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
     v.setVariableCodeSyntax('WEB', `var(${cssName(key, name)})`);
   }
   const codeSlugs = new Set(Object.keys(spec.vars).map(slug));
-  for (const [s, v] of bySlug) if (!codeSlugs.has(s)) (allowed.has(s) ? l.figmaOnly : l.extra).push(v.name);
+  for (const [s, v] of bySlug) if (!codeSlugs.has(s) && inPart(v.name)) (allowed.has(s) ? l.figmaOnly : l.extra).push(v.name);
   log[col.name] = l;
 }
 // Effect styles: rebuilt from the payload's layers when they differ, each layer's

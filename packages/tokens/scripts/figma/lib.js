@@ -28,7 +28,8 @@ const aliasTarget = (key, ref) => {
   if (ref.startsWith('@size:')) return ['3.', ref.slice(6)];
   if (ref.startsWith('@typo:')) return ['5.', ref.slice(6)];
   if (ref.startsWith('@density:')) return ['7.', ref.slice(9)];
-  if (ref.startsWith('@brand:')) return ['9.', ref.slice(7)];
+  // Brand variables sit in "2." under brand/ (one mode switch for colours and brand).
+  if (ref.startsWith('@brand:')) return ['2.', 'brand/' + ref.slice(7)];
   if (ref.startsWith('@sem:')) return ['4.', ref.slice(5)];
   return [PAYLOAD.collections[key].aliasTo, ref.slice(1)];
 };
@@ -49,7 +50,8 @@ function describe(val, byId) {
   return val;
 }
 function equal(have, wantV) {
-  if (typeof wantV === 'string' && wantV.startsWith('@')) return typeof have === 'string' && have === '@' + slug(wantV.replace(/^@(size:|typo:|density:|brand:|sem:)?/, ''));
+  // "@brand:x" names brand/x in "2." (aliasTarget); the other prefixes only name the collection.
+  if (typeof wantV === 'string' && wantV.startsWith('@')) return typeof have === 'string' && have === '@' + slug(wantV.startsWith('@brand:') ? 'brand/' + wantV.slice(7) : wantV.replace(/^@(size:|typo:|density:|sem:)?/, ''));
   if (typeof wantV === 'string' && wantV.startsWith('#')) return typeof have === 'string' && have.startsWith('#') && sameHex(have, wantV);
   if (typeof wantV === 'number') return typeof have === 'number' && Math.abs(have - wantV) < 0.001;
   return String(have) === String(wantV);
@@ -57,6 +59,8 @@ function equal(have, wantV) {
 function cssName(key, name) {
   const dash = name.replace(/\//g, '-');
   if (key === '1.') { const m = name.match(/^(white|black)-a\/(.+)$/); return m ? '--' + m[2] : '--color-' + dash; }
+  // Brand variables in "2.": brand/<name> stands for the CSS variable <name> had in "9. Brand".
+  if (key === '2.' && name.startsWith('brand/') && PAYLOAD.brandMoved?.includes(name.slice(6))) return cssName('9.', name.slice(6));
   if (key === '2.') {
     if (name.startsWith('bg/chart/')) return '--color-bg-' + name.split('/')[2];
     if (name.startsWith('bg/primary/primary-on-primary')) return '--color-bg-' + name.split('/')[2];
@@ -88,3 +92,6 @@ function effectDiff(style, layers, C) {
   });
   return out;
 }
+
+// figma-run --vars: whether a live variable belongs to this part of its collection.
+const inPart = (name) => !PAYLOAD.part || slug(name).startsWith(slug(PAYLOAD.part.prefix) + '/') !== PAYLOAD.part.exclude;

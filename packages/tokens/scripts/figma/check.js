@@ -22,7 +22,7 @@ for (const [key, spec] of Object.entries(PAYLOAD.collections)) {
     }
   }
   const codeSlugs = new Set(Object.keys(spec.vars).map(slug));
-  for (const [s, v] of bySlug) if (!codeSlugs.has(s)) (allowed.has(s) ? r.figmaOnly : r.extra).push(v.name);
+  for (const [s, v] of bySlug) if (!codeSlugs.has(s) && inPart(v.name)) (allowed.has(s) ? r.figmaOnly : r.extra).push(v.name);
   if (missingModes.length || r.missing.length || r.diff.length) ok = false;
   report[col.name] = { missingModes, missing: r.missing.length, diff: r.diff.length, extra: r.extra.length, figmaOnly: r.figmaOnly, details: { missing: r.missing.slice(0, 40), diff: r.diff.slice(0, 40), extra: r.extra.slice(0, 40) } };
 }
