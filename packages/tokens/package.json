@@ -1,6 +1,6 @@
 {
   "name": "@theya/tokens",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Design tokens for the Theya landing-page design system",
   "license": "UNLICENSED",
   "main": "build/js/tokens.js",
