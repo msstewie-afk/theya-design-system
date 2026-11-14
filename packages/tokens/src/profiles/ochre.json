@@ -1,5 +1,5 @@
 {
-  "description": "Ochre (gr-01): earthy gradient canvas — amber brown, olive gray and mauve on a warm cream edge, white and glass on it, flat burnt-orange primary inside white cards; warm neutrals, round radii, brown-tinted shadows",
+  "description": "Ochre (gr-01): earthy gradient canvas — amber brown, olive gray and mauve, white and glass on it, flat burnt-orange primary inside white cards; warm neutrals, round radii, brown-tinted shadows",
   "primary": "#9a4a12",
   "neutral": {
     "hue": 60,
@@ -44,26 +44,8 @@
         "color": "#6e4a33",
         "at": "65% 105%",
         "size": "80% 55%"
-      },
-      {
-        "color": "#efc893",
-        "at": "0% 85%",
-        "size": "30% 45%",
-        "edge": true
-      },
-      {
-        "color": "#d5c6cf",
-        "at": "100% 70%",
-        "size": "28% 50%",
-        "edge": true
       }
-    ],
-    "edge": "#ece5d8",
-    "frame": {
-      "at": "50% 0%",
-      "size": "60% 112%",
-      "solid": 58
-    }
+    ]
   },
   "dark": {
     "status": {

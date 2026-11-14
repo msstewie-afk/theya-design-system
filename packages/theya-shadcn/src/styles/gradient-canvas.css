@@ -4,7 +4,8 @@
  * `data-canvas="gradient"` on a page, hero or app screen paints the theme's
  * gradient (profile field `gradient` → --gradient-canvas, see PROFILES.md;
  * a theme without one falls back to its flat primary fill) with a grain
- * overlay. `data-canvas-frame` adds light edges (see below). What lies
+ * overlay. `data-canvas-blooms` adds the theme's light patches (see
+ * below). What lies
  * directly on it is white: text, icons, borders, the
  * focus ring, and buttons (filled = white pill with ink text, tonal and
  * outlined = glass, ghost = white text). White cards (Card, or any
@@ -37,8 +38,10 @@
 [data-canvas='gradient'] {
   position: relative;
   isolation: isolate;
+  /* The gradient is painted by ::after, a descendant, so it can follow the
+     canvas's own width through a container query (see below). */
+  container-type: inline-size;
   background-color: var(--gradient-canvas-base, var(--color-bg-primary-bg-primary));
-  background-image: var(--gradient-canvas, none);
   color: #ffffff;
 
   --glass-bg: rgb(255 255 255 / 0.12);
@@ -64,12 +67,30 @@
   --color-icon-icon-primary: #ffffff;
 }
 
-/* Framed (landing heroes): the dark base is solid inside a central
-   ellipse, where text lies, and fades to the theme's light edge color at
-   the sides, where only cards go (profile `gradient.edge` / `frame`). */
-[data-canvas='gradient'][data-canvas-frame] {
-  background-color: var(--gradient-canvas-edge, var(--gradient-canvas-base, var(--color-bg-primary-bg-primary)));
-  background-image: var(--gradient-canvas-framed, var(--gradient-canvas, none));
+/* Blooms (landing heroes): light patches the theme places where only
+   cards lie, such as Dusk's gray-lilac bottom left corner (profile
+   `gradient.spots[].bloom`). Not on app screens, where buttons sit there. */
+[data-canvas='gradient']::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: var(--gradient-canvas, none);
+}
+[data-canvas='gradient'][data-canvas-blooms]::after {
+  background-image: var(--gradient-canvas-blooms, var(--gradient-canvas, none));
+}
+/* The mesh is drawn for a landscape box (spot sizes are % of each side). On
+   a narrow, tall canvas (an app screen) the spots would stretch into
+   vertical streaks: draw it about square instead and show its left part,
+   with the coral, as the reference does on phones. */
+@container (max-width: 640px) {
+  [data-canvas='gradient']::after {
+    background-size: 220% 100%;
+    background-position: 30% 0;
+  }
 }
 
 /* Grain: breaks up banding and makes the gradient read as material. */

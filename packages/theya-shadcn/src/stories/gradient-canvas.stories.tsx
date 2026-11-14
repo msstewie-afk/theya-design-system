@@ -190,10 +190,9 @@ function Hero({ suffix = '' }: { suffix?: string }) {
       tone="gradient"
       className="rounded-[var(--size-border-radius-border-radius-5xl)] px-6"
     >
-      {/* Kept to the dark center: the framed canvas fades to a light edge at the sides. */}
-      <nav
+            <nav
         aria-label={`Main${suffix}`}
-        className="mx-auto flex max-w-[760px] items-center justify-between gap-4"
+        className="mx-auto flex max-w-[1080px] items-center justify-between gap-4"
       >
         <span className="text-heading-s">Fieldnotes</span>
         <ul className="glass hidden gap-1 rounded-full p-1 md:flex">

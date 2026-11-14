@@ -1,5 +1,5 @@
 {
-  "description": "Dusk (gr-01): gradient canvas from gray lilac through coral to plum, white and glass surfaces on it, flat violet primary inside white cards; soft lilac neutrals, round radii, plum-tinted shadows",
+  "description": "Dusk (gr-01): mesh gradient after the Quizy reference (gray lilac top, vivid coral left of center, deep plum right, mauve and rose at the bottom), each point darkened in OKLCH to hold white text 4.5:1; light gray-lilac blooms in the bottom left corner on landing heroes only; flat violet primary inside white cards; soft lilac neutrals, round radii, plum-tinted shadows",
   "primary": "#5b45b8",
   "neutral": {
     "hue": 300,
@@ -23,46 +23,66 @@
     "button": "max"
   },
   "gradient": {
-    "base": "#6e6187",
+    "base": "#6d5578",
     "spots": [
       {
-        "color": "#666aab",
+        "color": "#cb4338",
+        "at": "26% 50%",
+        "size": "34% 48%"
+      },
+      {
+        "color": "#3b2b50",
+        "at": "80% 46%",
+        "size": "42% 55%"
+      },
+      {
+        "color": "#6b6c94",
+        "at": "55% 0%",
+        "size": "85% 45%"
+      },
+      {
+        "color": "#746b8c",
         "at": "0% 0%",
-        "size": "90% 70%"
+        "size": "45% 55%"
       },
       {
-        "color": "#b94834",
-        "at": "20% 62%",
-        "size": "70% 65%"
+        "color": "#a45d5c",
+        "at": "18% 80%",
+        "size": "30% 35%"
       },
       {
-        "color": "#372544",
-        "at": "95% 35%",
-        "size": "65% 75%"
+        "color": "#a35a66",
+        "at": "50% 64%",
+        "size": "32% 42%"
       },
       {
-        "color": "#94436d",
-        "at": "65% 105%",
-        "size": "80% 55%"
+        "color": "#876475",
+        "at": "88% 100%",
+        "size": "45% 42%"
       },
       {
-        "color": "#e6a395",
-        "at": "0% 85%",
-        "size": "30% 45%",
-        "edge": true
+        "color": "#9d6066",
+        "at": "45% 100%",
+        "size": "38% 38%"
       },
       {
-        "color": "#b7b5dc",
-        "at": "100% 70%",
-        "size": "28% 50%",
-        "edge": true
+        "color": "#cdc5dc",
+        "at": "0% 100%",
+        "size": "42% 62%",
+        "bloom": true
+      },
+      {
+        "color": "#dcb3b4",
+        "at": "22% 100%",
+        "size": "26% 34%",
+        "bloom": true
+      },
+      {
+        "color": "#c4abbb",
+        "at": "0% 62%",
+        "size": "18% 30%",
+        "bloom": true
       }
-    ],
-    "edge": "#dcd9e2",
-    "frame": {
-      "at": "50% 0%",
-      "size": "60% 112%",
-      "solid": 58
-    }
+    ]
   }
 }
