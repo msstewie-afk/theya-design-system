@@ -1,7 +1,5 @@
 # Pipeline: Figma sync
 
-> **Draft** (agent 2, 2026-11-14). Agent 3 brings it to the format of the other pipelines.
-
 Code is the source of truth; the THEIA Figma file (`LPj5ZGhCmC2OEwXJPF7isw`) follows it. A code change that touches something Figma draws is not finished until Figma shows it too, or the difference is written down as accepted.
 
 Russian version: [figma-sync.ru.md](./figma-sync.ru.md).
