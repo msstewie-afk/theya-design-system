@@ -189,3 +189,122 @@ export const Bookmarks: Story = {
     await expect(canvas.getByRole('contentinfo')).toBeInTheDocument();
   },
 };
+
+/**
+ * The same page for a gradient theme (gr-02): pick Dusk, Lagoon or Ochre in
+ * the Brand toolbar. The gradient is used in large panels (the hero, the
+ * numbers, the call to action) inset on the light page, as in the
+ * references; everything with body copy stays on white. On the canvas,
+ * text is white and buttons are the white pill and glass; the product
+ * picture is marked data-surface="card", so it keeps the regular theme.
+ */
+export const Gradient: Story = {
+  render: () => (
+    <div className="bg-[var(--color-bg-surface-bg-surface-base)]">
+      <SiteHeader
+        skipToId="main-gradient"
+        logo={<DemoProductLogo />}
+        nav={<MegaMenu items={DEMO_LANDING_MENU} layout="bar" />}
+        mobileNav={<MegaMenu items={DEMO_LANDING_MENU} layout="drawer" drawerTrigger="icon" />}
+        actions={
+          <>
+            <Button appearance="ghost" tone="neutral" className="max-sm:hidden">
+              Log in
+            </Button>
+            <Button>Get started</Button>
+          </>
+        }
+      />
+      <main id="main-gradient" tabIndex={-1} className="flex flex-col gap-3 px-3 pb-3 outline-none">
+        <SectionPanel tone="gradient" padding="none" className="rounded-[var(--size-border-radius-border-radius-5xl)]">
+          <Hero
+            className="pt-12 lg:pt-16"
+            title="Save what you read, find it again"
+            description="Import from any browser, sort into folders, and find any page again in a keystroke."
+            actions={
+              <>
+                <Button size="2xl" rightIcon={<ArrowRight />}>
+                  Get started free
+                </Button>
+                <Button size="2xl" appearance="outlined">
+                  See how it works
+                </Button>
+              </>
+            }
+            note="Chrome, Firefox, Safari and Edge · Free for up to 1,000 links"
+            media={
+              <div data-surface="card" className="mx-auto max-w-[60rem] [--landing-inner-radius:var(--size-border-radius-border-radius-5xl)]">
+                <BookmarksPreview />
+              </div>
+            }
+          />
+        </SectionPanel>
+        <div className="rounded-[var(--size-border-radius-border-radius-5xl)] bg-[var(--color-bg-surface-bg-surface)]">
+          <FeatureShowcase
+            variant="accordion"
+            eyebrow="Features"
+            title="Everything you saved, in order"
+            description="Four things that keep a collection of thousands of links usable."
+            items={DEMO_FEATURES.map((f) => ({ id: f.id, title: f.title, description: f.description, media: <DemoFeatureVisual id={f.id} /> }))}
+          />
+        </div>
+        <SectionPanel tone="gradient" aria-label="In numbers" className="rounded-[var(--size-border-radius-border-radius-5xl)]">
+          <div className="container-display">
+            <StatsRow
+              items={[
+                { value: <CountUp to={12} suffix="M" />, label: 'links saved this year' },
+                { value: <CountUp to={2000} suffix="+" />, label: 'teams keep their links here' },
+                { value: '4.8', label: 'average rating in the stores' },
+                { value: '6 s', label: 'to find any saved page' },
+              ]}
+            />
+          </div>
+        </SectionPanel>
+        <div className="rounded-[var(--size-border-radius-border-radius-5xl)] bg-[var(--color-bg-surface-bg-surface)]">
+          <FaqSection
+            title="Questions, answered"
+            items={[
+              { question: 'Can I bring my bookmarks from Chrome?', answer: 'Yes. Import from Chrome, Safari, Firefox, Pocket or a CSV; folders become folders and tags stay tags.' },
+              { question: 'What happens to a page that disappears?', answer: 'Bookmarks keeps a readable copy of every page you save, so a dead link still opens.' },
+              { question: 'Who can see my library?', answer: 'Only you. Shared folders are visible to the people you invite.' },
+              { question: 'Is there a free plan?', answer: 'Free for one person, with unlimited links. Teams pay per member.' },
+            ]}
+          />
+        </div>
+        <SectionPanel tone="gradient" padding="none" className="rounded-[var(--size-border-radius-border-radius-5xl)]">
+          <CtaBand
+            title="Your reading list, finally in one place"
+            actions={
+              <Button size="2xl" rightIcon={<ArrowRight />}>
+                Get started free
+              </Button>
+            }
+            note="Free for one person. Mac, Windows, iPhone and Android."
+          />
+        </SectionPanel>
+      </main>
+      <SiteFooter
+        appName="Bookmarks"
+        logo={<DemoProductLogo />}
+        tagline="A calm home for everything you meant to read."
+        columns={DEMO_LANDING_FOOTER}
+        social={[
+          { network: 'github', href: '#github' },
+          { network: 'x', href: '#x' },
+        ]}
+        legal={[
+          { label: 'Terms', href: '#terms' },
+          { label: 'Privacy', href: '#privacy' },
+        ]}
+        year={2026}
+        className="border-t-0 bg-transparent"
+        contentClassName="container-display"
+      />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+    await expect(canvas.getByRole('main')).toBeInTheDocument();
+  },
+};
