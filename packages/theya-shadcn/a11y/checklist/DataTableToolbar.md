@@ -15,9 +15,6 @@ Record the pass in a11y/manual.json (screenReader: screen reader, browser, date,
 
 Story: `data-datatabletoolbar--default`
 
-> Script findings in this story (fix first, or confirm with the screen reader):
-> - input-change: checkbox "Select all": toggling it moves focus to checkbox "Select all"
-
 #### As rendered
 
 - **Select all**, checkbox
@@ -58,9 +55,6 @@ Story: `data-datatabletoolbar--narrow-overflow`
 
 Story: `data-datatabletoolbar--overflow`
 
-> Script findings in this story (fix first, or confirm with the screen reader):
-> - input-change: checkbox "Select all": toggling it moves focus to checkbox "Select all"
-
 #### As rendered
 
 - **Select all**, checkbox
@@ -75,9 +69,6 @@ Story: `data-datatabletoolbar--overflow`
 ### Selected
 
 Story: `data-datatabletoolbar--selected`
-
-> Script findings in this story (fix first, or confirm with the screen reader):
-> - input-change: checkbox "Select all": toggling it moves focus to checkbox "Select all"
 
 #### As rendered
 
@@ -94,9 +85,6 @@ Story: `data-datatabletoolbar--selected`
 
 Story: `data-datatabletoolbar--test-interactions`
 
-> Script findings in this story (fix first, or confirm with the screen reader):
-> - input-change: checkbox "Select all": toggling it moves focus to checkbox "Select all"
-
 #### As rendered
 
 - **Select all**, checkbox
@@ -107,4 +95,4 @@ Story: `data-datatabletoolbar--test-interactions`
 - **Status**, button
 - **Studio**, button
 - **Select row**, checkbox
-- **1 selected**, status (polite announcement)
+- **5 selected**, status (polite announcement)

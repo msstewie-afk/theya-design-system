@@ -146,9 +146,6 @@ Story: `patterns-listview--test-interactions`
 
 Story: `patterns-listview--with-bulk-and-row-actions`
 
-> Script findings in this story (fix first, or confirm with the screen reader):
-> - input-change: checkbox "Select all": toggling it moves focus to checkbox "Select all"
-
 #### As rendered
 
 - **Select all**, checkbox

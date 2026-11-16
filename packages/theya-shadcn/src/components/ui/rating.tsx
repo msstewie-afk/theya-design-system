@@ -53,13 +53,13 @@ export function RatingStar({ fill, size }: { fill: number; size: RatingSize }) {
       {pct > 0 && (
         <svg
           viewBox="0 0 24 24"
-          className="absolute inset-0 size-full"
+          // Forced colors would repaint the fill like the empty star: keep it, in Highlight.
+          className="absolute inset-0 size-full forced-colors:forced-color-adjust-none"
           style={pct < 100 ? { clipPath: `inset(0 ${100 - pct}% 0 0)` } : undefined}
         >
           <path
             d={STAR_PATH}
-            fill="var(--color-icon-icon-rating)"
-            stroke="var(--color-border-border-rating)"
+            className="fill-[var(--color-icon-icon-rating)] stroke-[var(--color-border-border-rating)] forced-colors:fill-[Highlight] forced-colors:stroke-[Highlight]"
             strokeWidth={1.5}
             strokeLinejoin="round"
           />

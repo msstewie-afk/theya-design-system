@@ -117,10 +117,22 @@ function collect() {
     el.setAttribute('data-theya-fc', String(n));
     return n++;
   };
+  const FIELD = 'input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=button]):not([type=submit]), textarea, [role=textbox], [role=combobox], [role=spinbutton]';
+  const edged = (n) => {
+    const cs = getComputedStyle(n);
+    return (cs.borderTopStyle !== 'none' && parseFloat(cs.borderTopWidth) > 0) || (cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) > 0);
+  };
   for (const el of document.querySelectorAll(CONTROL)) {
     if (!inScope(el) || !usable(el)) continue;
+    // Faded on purpose by a mask around it (a wheel picker's far options): not an edge problem.
+    let masked = false;
+    for (let n = el.parentElement; n && !masked; n = n.parentElement) masked = getComputedStyle(n).maskImage !== 'none';
+    if (masked) continue;
     if (out.controls.length >= 60) break;
-    out.controls.push({ key: tag(el), desc: desc(el) });
+    // A borderless field inside a bordered box (TagInput, FilterField): the box is its edge.
+    let target = el;
+    if (el.matches(FIELD) && !edged(el)) for (let n = el.parentElement, i = 0; n && i < 3; n = n.parentElement, i++) if (edged(n)) { target = n; break; }
+    out.controls.push({ key: tag(target), desc: desc(el) });
   }
   for (const el of document.querySelectorAll('#storybook-root *')) {
     if (out.icons.length >= 30) break;
@@ -188,7 +200,8 @@ async function checkStory(page, story) {
       const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
       // Too small, off screen or covered: there is nothing of it to see either way.
       const onScreen = r.top >= 0 && r.left >= 0 && r.bottom <= innerHeight && r.right <= innerWidth && !!hit && (hit === el || el.contains(hit) || hit.contains(el));
-      if (r.width < 3 || r.height < 3 || !onScreen) return { key: el.outerHTML.slice(0, 120), small: true };
+      // An iframe passes focus into its own document: what shows is the page inside it.
+      if (r.width < 3 || r.height < 3 || !onScreen || el.tagName === 'IFRAME') return { key: el.outerHTML.slice(0, 120), small: true };
       window.__theyaFc = el;
       const desc = `${el.getAttribute('role') || el.tagName.toLowerCase()} "${(el.getAttribute('aria-label') || el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 30)}"`;
       return { key: el.outerHTML.slice(0, 120), desc, clip: { x: Math.max(0, r.left - 6), y: Math.max(0, r.top - 6), width: r.width + 12, height: r.height + 12 } };

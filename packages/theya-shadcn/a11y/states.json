@@ -594,9 +594,7 @@
       "2.1.1": [],
       "2.4.3": [],
       "1.4.13": [],
-      "3.2.2": [
-        "With selection and row menu: input-change: checkbox \"Select all\": toggling it moves focus to checkbox \"Select all\""
-      ]
+      "3.2.2": []
     },
     "DataTableCell": {
       "stories": 6,
@@ -618,12 +616,7 @@
       "2.1.1": [],
       "2.4.3": [],
       "1.4.13": [],
-      "3.2.2": [
-        "Default: input-change: checkbox \"Select all\": toggling it moves focus to checkbox \"Select all\"",
-        "Selected: input-change: checkbox \"Select all\": toggling it moves focus to checkbox \"Select all\"",
-        "Overflow: input-change: checkbox \"Select all\": toggling it moves focus to checkbox \"Select all\"",
-        "Test: interactions: input-change: checkbox \"Select all\": toggling it moves focus to checkbox \"Select all\""
-      ]
+      "3.2.2": []
     },
     "DatePicker": {
       "stories": 7,
@@ -751,10 +744,7 @@
       "errors": 0,
       "hovered": 0,
       "inputs": 0,
-      "4.1.2": [
-        "Open: focusable-in-hidden: as rendered: button \"Actions\" is focusable inside aria-hidden",
-        "Figma reference: focusable-in-hidden: as rendered: button \"Menu\" is focusable inside aria-hidden"
-      ],
+      "4.1.2": [],
       "2.1.1": [],
       "2.4.3": [],
       "1.4.13": [],
@@ -1143,9 +1133,7 @@
       "2.1.1": [],
       "2.4.3": [],
       "1.4.13": [],
-      "3.2.2": [
-        "With bulk and row actions: input-change: checkbox \"Select all\": toggling it moves focus to checkbox \"Select all\""
-      ]
+      "3.2.2": []
     },
     "LoginForm": {
       "stories": 4,

@@ -20,6 +20,27 @@
     outline-offset: 2px !important;
   }
 
+  /* Focus on a scroll container or panel sits inside it: an outline outside
+     would be cut by the overflow of the box around it (ScrollArea's root,
+     a resizable group, a code block, a log, a sticky bar's region, a toast
+     in its list). Found by
+     scripts/a11y-forced.mjs, 2026-11-16. */
+  [data-slot='scroll-area-viewport']:focus-visible,
+  [data-slot='resizable-panel']:focus-visible,
+  pre:focus-visible,
+  [role='log']:focus-visible,
+  [role='region']:focus-visible,
+  [data-sonner-toast]:focus-visible {
+    outline-offset: -2px !important;
+  }
+
+  /* Calendar's month and year selects are invisible native selects over
+     their label: the label's box shows their focus. */
+  .rdp-dropdown_root:has(.rdp-dropdown:focus-visible) {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+
   /* Edges for controls that are only a fill. An outline instead of a
      border, so nothing moves; the focus outline above replaces it. */
   button,

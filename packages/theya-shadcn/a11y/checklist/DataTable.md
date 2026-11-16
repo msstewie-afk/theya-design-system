@@ -111,9 +111,6 @@ Story: `data-datatable--two-line-rows`
 
 Story: `data-datatable--with-selection-and-row-menu`
 
-> Script findings in this story (fix first, or confirm with the screen reader):
-> - input-change: checkbox "Select all": toggling it moves focus to checkbox "Select all"
-
 #### As rendered
 
 - **Select all**, checkbox

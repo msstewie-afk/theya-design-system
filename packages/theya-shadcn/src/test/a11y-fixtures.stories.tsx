@@ -738,7 +738,7 @@ export const AdvisoryParagraphHeading: Story = {
 const MASK_ICON = `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 8h12M8 2v12" stroke="black" stroke-width="3"/></svg>')}")`;
 
 export const CleanForcedColors: Story = {
-  name: 'Clean: native controls, bordered field, currentColor icon (forced colors)',
+  name: 'Clean: native controls, bordered fields, currentColor icon (forced colors)',
   render: () => (
     <div>
       <label>
@@ -749,6 +749,11 @@ export const CleanForcedColors: Story = {
       </label>
       <label htmlFor="fx-fc-note">Note</label>
       <input id="fx-fc-note" />
+      <label htmlFor="fx-fc-tags">Tags</label>
+      {/* A borderless field inside a bordered box: the box is its edge. */}
+      <div style={{ border: '1px solid', padding: 4 }}>
+        <input id="fx-fc-tags" style={{ border: 0, outline: 'none' }} />
+      </div>
       <button type="button" aria-label="Add">
         <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
           <path d="M2 8h12M8 2v12" stroke="currentColor" strokeWidth="2" />
