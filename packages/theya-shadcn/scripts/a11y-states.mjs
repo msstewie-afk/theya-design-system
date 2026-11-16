@@ -52,13 +52,22 @@
  *   field (focus-return);
  * - tablist / radiogroup: the arrow key along its orientation moves focus
  *   to another item (keyboard-arrows);
- * - a dialog open on load: Escape closes it (keyboard-escape).
+ * - a dialog open on load: Escape closes it (keyboard-escape);
+ * - content shown on hover or focus (1.4.13; a tooltip, a hover card: a
+ *   focusable element with data-state="closed" and no aria-expanded or
+ *   aria-haspopup, one per story): on focus, Escape closes it and focus
+ *   stays (hover-dismiss); on hover, the pointer can move onto it without it
+ *   closing (hover-hoverable), it stays while the pointer is on it
+ *   (hover-persistent), and Escape closes it without moving the pointer
+ *   (hover-dismiss). The content is the aria-describedby target (or its
+ *   Radix popper) or the popper that appeared.
  * State is polled for up to 1.5s after each key (a drawer's close outlasts
  * reduced motion), not read after a fixed pause.
  *
- * Criteria: keyboard-* → 2.1.1, focus-* → 2.4.3, the rest → 4.1.2. The
- * conformance matrix (build-a11y.mjs) reads a11y/states.json: a finding
- * fails the cell.
+ * Criteria: keyboard-* → 2.1.1, focus-* → 2.4.3, hover-* → 1.4.13, the rest
+ * → 4.1.2. The conformance matrix (build-a11y.mjs) reads a11y/states.json: a
+ * finding fails the cell; `hovered` (stories whose hover content was driven)
+ * with no 1.4.13 finding is evidence for 1.4.13.
  *
  * Also writes a11y/checklist/<Component>.md: for every story, what a screen
  * reader should announce as rendered and after each opening step, read from
@@ -96,8 +105,8 @@ const GROUP_BY_TITLE = arg('group', '') === 'title';
 const OUT = path.join(ROOT, 'a11y/states.json');
 const CHECKLIST_DIR = path.join(ROOT, 'a11y/checklist');
 const NO_MATCH = 'zqxjv';
-const KEYS = ['4.1.2', '2.1.1', '2.4.3'];
-const criterionOf = (rule) => (rule.startsWith('keyboard-') ? '2.1.1' : rule.startsWith('focus-') ? '2.4.3' : '4.1.2');
+const KEYS = ['4.1.2', '2.1.1', '2.4.3', '1.4.13'];
+const criterionOf = (rule) => (rule.startsWith('keyboard-') ? '2.1.1' : rule.startsWith('focus-') ? '2.4.3' : rule.startsWith('hover-') ? '1.4.13' : '4.1.2');
 
 // The Playwright that @storybook/test-runner ships with (same as CI).
 const { chromium } = require(require.resolve('playwright', { paths: [path.dirname(require.resolve('@storybook/test-runner'))] }));
@@ -286,7 +295,32 @@ function install() {
       pick('[role=tablist]', (g) => items(g, 'tab').length > 1, 1).forEach((el) => add('tablist', el));
       pick('[role=radiogroup]', (g) => items(g, 'radio').length > 1, 1).forEach((el) => add('radiogroup', el));
       pick('[role=dialog], [role=alertdialog]', () => true, 1).forEach((el) => add('dialog', el));
+      // Content on hover or focus: Radix Tooltip / HoverCard triggers carry
+      // data-state and no aria-expanded (a popover or menu trigger has it).
+      pick('[data-state=closed]:not([aria-expanded]):not([aria-haspopup])', (el) => el.matches(FOCUSABLE) && el.tabIndex >= 0 && enabled(el) && !inOpenPopup(el), 1).forEach((el) => add('hover', el));
       return out;
+    },
+
+    /** Hover / focus content of trigger <key>: is it open, where is it. */
+    hoverBox(key) {
+      const el = document.querySelector(`[data-theya-key="${key}"]`);
+      const state = el?.getAttribute('data-state') ?? 'closed';
+      let box = null;
+      for (const id of el ? ids(el, 'aria-describedby') : []) {
+        const t = document.getElementById(id);
+        // Radix Tooltip describes the trigger with a visually hidden copy inside its popper.
+        const c = t?.closest('[data-radix-popper-content-wrapper]')?.firstElementChild ?? t;
+        if (c && shown(c)) box = c;
+      }
+      if (!box) box = [...document.querySelectorAll('[data-radix-popper-content-wrapper]')].map((w) => w.firstElementChild).filter((c) => c && shown(c)).at(-1) ?? null;
+      const r = box?.getBoundingClientRect();
+      const active = document.activeElement;
+      return {
+        open: state !== 'closed' && !!box,
+        box: r ? { x: r.left + r.width / 2, y: r.top + r.height / 2 } : null,
+        focusOnEl: active === el,
+        active: !active || active === document.body ? 'the page' : desc(active),
+      };
     },
 
     /** State of widget <key> and of the popups on screen. */
@@ -364,7 +398,7 @@ const snap = async (page) =>
     .join('\n');
 
 /** One widget's keyboard pattern on the current (fresh) page. */
-async function drive(page, w, record, steps, finding) {
+async function drive(page, w, record, steps, finding, meta) {
   const state = () => page.evaluate((k) => window.__theyaStates.state(k), w.key);
   // Press, then poll until `done(state)` holds (up to 1.5s) and return the last state.
   const press = async (key, done = () => false, ms = 1500) => {
@@ -450,6 +484,57 @@ async function drive(page, w, record, steps, finding) {
   } else if (w.kind === 'dialog') {
     const s = await press('Escape', (x) => !x.exists || !x.shown);
     if (s.exists && s.shown) finding('keyboard-escape', `${w.desc}: Escape doesn't close it`);
+  } else if (w.kind === 'hover') {
+    const box = () => page.evaluate((k) => window.__theyaStates.hoverBox(k), w.key);
+    const wait = async (done, ms = 1500) => {
+      let b;
+      for (const until = Date.now() + ms; ; ) {
+        await page.waitForTimeout(100);
+        b = await box();
+        if (done(b) || Date.now() > until) return b;
+      }
+    };
+    let opened = false;
+    // On focus (the trigger already has it): Escape closes, focus stays.
+    let b = await wait((x) => x.open);
+    if (b.open) {
+      opened = true;
+      await record(`${w.desc} content on focus`);
+      steps.push({ step: `Focus ${w.desc}`, tree: await snap(page) });
+      await page.keyboard.press('Escape');
+      b = await wait((x) => !x.open);
+      if (b.open) finding('hover-dismiss', `${w.desc}: Escape doesn't close the content it shows on focus`);
+      else if (!b.focusOnEl) finding('hover-dismiss', `${w.desc}: Escape closes its content but moves focus to ${b.active}`);
+    }
+    await page.evaluate(() => document.activeElement?.blur());
+    await page.mouse.move(1, 1);
+    await wait((x) => !x.open, 800);
+    // On hover: the pointer can move onto it, it stays, Escape closes it.
+    const target = await page.locator(`[data-theya-key="${w.key}"]`).boundingBox();
+    if (!target) {
+      if (opened) meta.hovered++;
+      return;
+    }
+    await page.mouse.move(target.x + target.width / 2, target.y + target.height / 2, { steps: 4 });
+    b = await wait((x) => x.open);
+    if (b.open && b.box) {
+      opened = true;
+      await page.mouse.move(b.box.x, b.box.y, { steps: 8 });
+      await page.waitForTimeout(400);
+      b = await box();
+      if (!b.open) finding('hover-hoverable', `${w.desc}: its content closes when the pointer moves onto it`);
+      else {
+        await page.waitForTimeout(1500);
+        b = await box();
+        if (!b.open) finding('hover-persistent', `${w.desc}: its content closes by itself while the pointer is on it`);
+        else {
+          await page.keyboard.press('Escape');
+          b = await wait((x) => !x.open);
+          if (b.open) finding('hover-dismiss', `${w.desc}: Escape doesn't close the content it shows on hover`);
+        }
+      }
+    }
+    if (opened) meta.hovered++;
   }
 }
 
@@ -460,6 +545,7 @@ async function checkStory(page, story) {
     for (const f of await page.evaluate(() => window.__theyaStates.check())) raw.push({ ...f, where });
   };
   const finding = (rule, msg) => raw.push({ rule, msg, where: 'keyboard' });
+  const meta = { hovered: 0 };
   await load(page, story);
   const params = await page.evaluate(() => window.__STORYBOOK_PREVIEW__?.currentRender?.story?.parameters?.a11y ?? {});
   const skip = params.states?.skip ?? [];
@@ -472,7 +558,7 @@ async function checkStory(page, story) {
         await load(page, story);
         await page.evaluate(() => window.__theyaStates.widgets());
       }
-      await drive(page, w, record, steps, finding);
+      await drive(page, w, record, steps, finding, meta);
     }
   }
   // One line per defect: the same rule on the same kind of element, in any
@@ -486,7 +572,7 @@ async function checkStory(page, story) {
     groups.set(key, g);
   }
   const findings = [...groups.values()].map((g) => ({ rule: g.rule, msg: `${g.rule}: ${g.where === 'keyboard' ? '' : `${g.where}: `}${g.msg}${g.n.size > 1 ? ` (and ${g.n.size - 1} more like it)` : ''}` }));
-  return { findings, steps, expect: params.expect?.states };
+  return { findings, steps, hovered: meta.hovered > 0, expect: params.expect?.states };
 }
 
 /* ---------- screen-reader checklist ---------- */
@@ -566,13 +652,14 @@ await Promise.all(
     for (let story = queue.shift(); story; story = queue.shift()) {
       const name = groupOf(story);
       if (!name) continue;
-      const row = results.get(name) ?? { stories: 0, errors: 0, '4.1.2': [], '2.1.1': [], '2.4.3': [] };
+      const row = results.get(name) ?? { stories: 0, errors: 0, hovered: 0, '4.1.2': [], '2.1.1': [], '2.4.3': [], '1.4.13': [] };
       results.set(name, row);
       row.stories++;
       for (let attempt = 0; attempt < 2; attempt++) {
         try {
           const r = await checkStory(page, story);
           for (const f of r.findings) row[criterionOf(f.rule)].push(FIXTURES ? f.msg : `${story.name}: ${f.msg}`);
+          if (r.hovered) row.hovered++;
           if (FIXTURES) row.expect = r.expect;
           const list = perStory.get(name) ?? [];
           list.push({ id: story.id, name: story.name, steps: r.steps, findings: r.findings });

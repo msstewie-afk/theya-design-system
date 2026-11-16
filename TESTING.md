@@ -21,8 +21,8 @@ Accessibility checks axe doesn't cover, all against the running Storybook; they 
 
 ```
 pnpm a11y:tree   # accessibility tree of every story: names (4.1.2), unnamed images (1.1.1), table headers, radio groups and field labels (1.3.1), errors tied to their fields (3.3.1)
-pnpm a11y:auto   # label in name (2.5.3), focus visible (2.4.7), text spacing (1.4.12), 200% text (1.4.4), Tab order (2.1.1, 2.1.2, 2.4.3)
-pnpm a11y:states   # every popup, combobox, tab list, radio group and open dialog driven through its APG keyboard pattern (2.1.1, 2.4.3), with ARIA states checked after each step — open, after typing a value with no match, after Escape (4.1.2): aria-expanded against what's shown, IDREFs, popup names, aria-haspopup, names and focus on elements without a role, tab stops inside aria-hidden, nested controls. Writes a11y/checklist/<Component>.md for the screen-reader pass
+pnpm a11y:auto   # label in name (2.5.3), focus visible (2.4.7), focus not hidden under a sticky or fixed box (2.4.11), text spacing (1.4.12), 200% text (1.4.4), Tab order (2.1.1, 2.1.2, 2.4.3)
+pnpm a11y:states   # every popup, combobox, tab list, radio group and open dialog driven through its APG keyboard pattern (2.1.1, 2.4.3), with ARIA states checked after each step — open, after typing a value with no match, after Escape (4.1.2); tooltips and hover cards on focus and on hover — Escape closes them, the pointer can move onto them, they don't close by themselves (1.4.13); aria-expanded against what's shown, IDREFs, popup names, aria-haspopup, names and focus on elements without a role, tab stops inside aria-hidden, nested controls. Writes a11y/checklist/<Component>.md for the screen-reader pass
 pnpm a11y:calibrate   # the three scripts against src/test/a11y-fixtures.stories.tsx: each known defect must be caught, the clean fixtures must report nothing
 ```
 

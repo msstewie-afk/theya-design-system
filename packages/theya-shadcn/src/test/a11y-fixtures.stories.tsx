@@ -1,11 +1,16 @@
 import { useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../components/ui/tooltip';
 
 /**
  * Calibration fixtures for scripts/a11y-tree.mjs and scripts/a11y-auto.mjs:
  * small widgets with one known defect each, plus clean controls. The scripts'
  * `--fixtures` mode runs only these and fails unless every defect is caught
  * and the clean ones report nothing (pnpm a11y:calibrate, and in CI).
+ *
+ * 1.4.13 (content on hover or focus) and 2.4.11 (focus not obscured) fixtures
+ * follow the corporate design system's coverage review (2026-11-16): both
+ * were left to manual review before.
  *
  * Defects are modelled on real ones found in another design system's
  * Combobox (2026-11-12): an unnamed listbox, a chip with no role,
@@ -539,4 +544,118 @@ export const CleanTreeAndModal: Story = {
   ),
   // The dialog can't be closed here: Escape is the dialog fixtures' business.
   parameters: { a11y: { states: { skip: ['keyboard'], reason: 'Static dialog.' }, expect: { tree: [], auto: [], states: [] } } },
+};
+
+/* ---------- 1.4.13 Content on Hover or Focus ---------- */
+
+interface FxHintProps {
+  /** Defect when false: Escape doesn't close the hint. */
+  escape?: boolean;
+  /** Defect when > 0: the hint closes by itself after this many ms. */
+  timeout?: number;
+}
+
+/** A hand-made hint: shows on hover or focus, the pointer can move onto it (one wrapper). */
+function FxHint({ escape = true, timeout = 0 }: FxHintProps) {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: globalThis.KeyboardEvent) => e.key === 'Escape' && escape && setOpen(false);
+    document.addEventListener('keydown', onKey);
+    const t = timeout ? window.setTimeout(() => setOpen(false), timeout) : 0;
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      window.clearTimeout(t);
+    };
+  }, [open, escape, timeout]);
+  return (
+    <span style={{ position: 'relative', display: 'inline-block' }} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+      <button type="button" data-state={open ? 'open' : 'closed'} aria-describedby={open ? id : undefined} onFocus={() => setOpen(true)} onBlur={() => setOpen(false)}>
+        Shipping
+      </button>
+      {open && (
+        <span id={id} role="tooltip" style={{ position: 'absolute', top: '100%', left: 0, width: 200, padding: 8, background: 'Canvas', border: '1px solid' }}>
+          Free over 50 euros
+        </span>
+      )}
+    </span>
+  );
+}
+
+export const CleanTooltip: Story = {
+  name: 'Clean: Radix tooltip (Escape, hoverable, persistent)',
+  render: () => (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button type="button">Shipping</button>
+      </TooltipTrigger>
+      <TooltipContent>Free over 50 euros</TooltipContent>
+    </Tooltip>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
+};
+
+export const HintNotHoverable: Story = {
+  name: 'Defect: tooltip that closes when the pointer moves onto it',
+  render: () => (
+    <Tooltip disableHoverableContent>
+      <TooltipTrigger asChild>
+        <button type="button">Shipping</button>
+      </TooltipTrigger>
+      <TooltipContent>Free over 50 euros</TooltipContent>
+    </Tooltip>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['1.4.13: hover-hoverable: button "Shipping": its content closes when the pointer moves onto it'] } } },
+};
+
+export const HintNoEscape: Story = {
+  name: "Defect: hint that Escape doesn't close",
+  render: () => <FxHint escape={false} />,
+  parameters: {
+    a11y: {
+      expect: {
+        tree: [],
+        auto: [],
+        states: ['1.4.13: hover-dismiss: button "Shipping": Escape doesn\'t close the content it shows on focus', '1.4.13: hover-dismiss: button "Shipping": Escape doesn\'t close the content it shows on hover'],
+      },
+    },
+  },
+};
+
+export const HintTimesOut: Story = {
+  name: 'Defect: hint that closes by itself',
+  render: () => <FxHint timeout={900} />,
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['1.4.13: hover-persistent: button "Shipping": its content closes by itself while the pointer is on it'] } } },
+};
+
+/* ---------- 2.4.11 Focus Not Obscured ---------- */
+
+function FxStickyBar({ padded }: { padded?: boolean }) {
+  return (
+    <div style={{ height: 220, overflow: 'auto', border: '1px solid', scrollPaddingBottom: padded ? 72 : undefined }}>
+      <div style={{ display: 'grid', gap: 8, padding: 8 }}>
+        {['Rice', 'Oats', 'Carrots', 'Pumpkin', 'Chicken', 'Salmon', 'Yoghurt', 'Banana', 'Bread', 'Eggs'].map((f) => (
+          <button type="button" key={f}>
+            Add {f}
+          </button>
+        ))}
+      </div>
+      <div style={{ position: 'sticky', bottom: 0, height: 64, background: 'Canvas', borderTop: '1px solid' }}>
+        <p style={{ margin: 8 }}>3 items in your plan</p>
+      </div>
+    </div>
+  );
+}
+
+export const StickyBarHidesFocus: Story = {
+  name: 'Defect: sticky bar hides the focused button',
+  render: () => <FxStickyBar />,
+  parameters: { a11y: { expect: { tree: [], auto: ['2.4.11: button "Add Salmon": hidden under a sticky div', '2.4.11: button "Add Yoghurt": hidden under a sticky div', '2.4.11: button "Add Eggs": hidden under a sticky div'], states: [] } } },
+};
+
+export const CleanStickyBar: Story = {
+  name: 'Clean: sticky bar with scroll-padding',
+  render: () => <FxStickyBar padded />,
+  parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
 };

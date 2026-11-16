@@ -16,6 +16,11 @@
  *   ring on its wrapper with :focus-within — or something next to it:
  *   InputOTP's one real input is invisible and the active slot shows the
  *   focus).
+ * - 2.4.11 Focus Not Obscured (Minimum): in the same Tab pass, the element
+ *   with focus must not be entirely hidden by something sticky or fixed (a
+ *   sticky action bar, a header, a banner, a toast). Five points of its box
+ *   are hit-tested; it fails only when every point lands on the same kind of
+ *   cover: a sticky or fixed box that doesn't contain it.
  * - 1.4.12 Text Spacing: with the criterion's spacing applied (line-height
  *   1.5, paragraph spacing 2em, letter 0.12em, word 0.16em), no text may be
  *   cut off by a box that clips (overflow hidden/clip) — deliberate
@@ -151,7 +156,7 @@ async function checkStory(page, story) {
       }
       s.focus();
     });
-  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [] };
+  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [] };
   const load = async () => {
     await page.goto(`${URL_BASE}/iframe.html?id=${story.id}&viewMode=story`, { waitUntil: 'load' });
     await page.waitForSelector('#storybook-root > *', { timeout: 10000 }).catch(() => {});
@@ -214,8 +219,33 @@ async function checkStory(page, story) {
       if (around) nodes.push(...[...around.querySelectorAll('*')].slice(0, 60));
       return nodes.map((n) => [pick(getComputedStyle(n)), pick(getComputedStyle(n, '::before')), pick(getComputedStyle(n, '::after'))].join('#')).join('@');
     }, STYLE_PROPS);
+  // 2.4.11: the focused element is entirely under a sticky or fixed box.
+  const hidden = () =>
+    page.evaluate(() => {
+      const el = window.__theyaFocus;
+      const r = el.getBoundingClientRect();
+      // Visually hidden (sr-only) controls have nothing to hide.
+      if (r.width < 3 || r.height < 3) return null;
+      const points = [[0.5, 0.5], [0.15, 0.2], [0.85, 0.2], [0.15, 0.8], [0.85, 0.8]]
+        .map(([x, y]) => [r.left + r.width * x, r.top + r.height * y])
+        .filter(([x, y]) => x >= 0 && y >= 0 && x < innerWidth && y < innerHeight);
+      if (!points.length) return null;
+      let cover = null;
+      for (const [x, y] of points) {
+        const hit = document.elementFromPoint(x, y);
+        // Any point that shows the element (or its label around it) is enough.
+        if (!hit || hit === el || el.contains(hit) || hit.contains(el)) return null;
+        let c = hit;
+        while (c && !['fixed', 'sticky'].includes(getComputedStyle(c).position)) c = c.parentElement;
+        if (!c || c.contains(el)) return null;
+        cover = c;
+      }
+      const what = (n) => `${n.tagName.toLowerCase()}${n.getAttribute('data-slot') ? `[data-slot=${n.getAttribute('data-slot')}]` : ''}${n.getAttribute('role') ? `[role=${n.getAttribute('role')}]` : ''}`;
+      return `hidden under a ${getComputedStyle(cover).position} ${what(cover)}`;
+    });
   const focusPass = async () => {
     const missing = [];
+    const obscured = [];
     const seen = new Set();
     for (let i = 0; i < 40; i++) {
       await page.keyboard.press('Tab');
@@ -228,6 +258,12 @@ async function checkStory(page, story) {
       if (!info || seen.has(info.key)) break;
       seen.add(info.key);
       await page.waitForTimeout(60);
+      // Read twice, 250ms apart: a scroll still settling can cover it for a moment.
+      if (await hidden()) {
+        await page.waitForTimeout(250);
+        const still = await hidden();
+        if (still) obscured.push(`${info.desc}: ${still}`);
+      }
       const focused = await look();
       await page.evaluate(() => window.__theyaFocus.blur());
       await page.waitForTimeout(60);
@@ -241,17 +277,18 @@ async function checkStory(page, story) {
         if ((await look()) === blurred) missing.push(info.desc);
       }
     }
-    return missing;
+    return { missing, obscured };
   };
   // A story whose play test just closed an overlay can still be settling on a
   // slow machine (Drawer's close on a CI runner): a miss counts only if a
   // second pass, after a pause and from the top again, misses it too.
   const first = await focusPass();
-  if (first.length) {
+  if (first.missing.length || first.obscured.length) {
     await page.waitForTimeout(1500);
     await fromTop();
     const second = await focusPass();
-    result['2.4.7'] = first.filter((d) => second.includes(d));
+    result['2.4.7'] = first.missing.filter((d) => second.missing.includes(d));
+    result['2.4.11'] = [...new Set(first.obscured.filter((d) => second.obscured.includes(d)))];
   }
 
   // 2.1.1 / 2.1.2 / 2.4.3 — fresh load, Tab through everything.
@@ -440,7 +477,7 @@ const byComponent = {};
 for (const r of results.sort((a, b) => a.id.localeCompare(b.id))) {
   const name = groupOf(r);
   if (!name) continue;
-  const c = (byComponent[name] ??= { stories: 0, errors: 0, '2.5.3': [], '2.4.7': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [] });
+  const c = (byComponent[name] ??= { stories: 0, errors: 0, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [] });
   if (FIXTURES) c.expect = r.expect;
   c.stories += 1;
   if (r.error) {
@@ -448,12 +485,12 @@ for (const r of results.sort((a, b) => a.id.localeCompare(b.id))) {
     continue;
   }
   const at = FIXTURES ? '' : `${r.name}: `;
-  for (const k of ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3', 'truncated']) for (const f of r[k]) c[k].push(`${at}${f}`);
+  for (const k of ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3', 'truncated']) for (const f of r[k]) c[k].push(`${at}${f}`);
 }
 if (FIXTURES) {
   // Calibration: every expected finding reported, nothing else.
   let bad = 0;
-  const KEYS = ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
+  const KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
   for (const [name, c] of Object.entries(byComponent).sort(([a], [b]) => a.localeCompare(b))) {
     const got = KEYS.flatMap((k) => c[k].map((f) => `${k}: ${f}`));
     const problems = c.errors ? ["story didn't load"] : [];
@@ -480,10 +517,10 @@ if (!CI) {
 }
 const fails = (k) => Object.values(byComponent).filter((c) => c[k].length).length;
 console.log(`a11y-auto: ${results.length} stories, ${Object.keys(byComponent).length} components${CI ? '' : ' → a11y/auto.json'}`);
-for (const k of ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3']) console.log(`  ${k}: ${fails(k)} component(s) with failures`);
+for (const k of ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3']) console.log(`  ${k}: ${fails(k)} component(s) with failures`);
 console.log(`  errors: ${results.filter((r) => r.error).length} stories`);
 if (CI) {
-  const KEYS = ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
+  const KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
   const lines = Object.entries(byComponent).flatMap(([name, c]) => KEYS.flatMap((k) => c[k].map((f) => `- ${k} **${name}** — ${f}`)));
   const errors = results.filter((r) => r.error);
   if (process.env.GITHUB_STEP_SUMMARY) {

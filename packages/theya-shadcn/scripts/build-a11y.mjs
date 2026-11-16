@@ -54,7 +54,7 @@ const manual = JSON.parse(fs.readFileSync(path.join(ROOT, 'a11y/manual.json'), '
 const { criteria } = JSON.parse(fs.readFileSync(path.join(ROOT, 'a11y/criteria.json'), 'utf8'));
 // Browser checks from scripts/a11y-auto.mjs (label in name, focus visible, text spacing, resize text).
 const AUTO_FILE = path.join(ROOT, 'a11y/auto.json');
-const AUTO_KEYS = ['2.5.3', '2.4.7', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
+const AUTO_KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
 const auto = fs.existsSync(AUTO_FILE) ? JSON.parse(fs.readFileSync(AUTO_FILE, 'utf8')) : { components: {} };
 // Accessibility-tree checks from scripts/a11y-tree.mjs (names, images, headers,
 // error association) — "tree" evidence, an alternative to a screen-reader pass
@@ -64,9 +64,11 @@ const TREE_KEYS = ['1.1.1', '1.3.1', '4.1.2', '3.3.1'];
 const tree = fs.existsSync(TREE_FILE) ? JSON.parse(fs.readFileSync(TREE_FILE, 'utf8')) : { components: {} };
 // ARIA states and the APG keyboard model after interaction, from
 // scripts/a11y-states.mjs: a finding fails 4.1.2 (with the tree), 2.1.1 and
-// 2.4.3 (with the keyboard evidence).
+// 2.4.3 (with the keyboard evidence) and 1.4.13. "hover" evidence: the script
+// opened the component's hover/focus content in at least one story and found
+// nothing (dismissable, hoverable, persistent).
 const STATES_FILE = path.join(ROOT, 'a11y/states.json');
-const STATES_KEYS = ['4.1.2', '2.1.1', '2.4.3'];
+const STATES_KEYS = ['4.1.2', '2.1.1', '2.4.3', '1.4.13'];
 const states = fs.existsSync(STATES_FILE) ? JSON.parse(fs.readFileSync(STATES_FILE, 'utf8')) : { components: {} };
 // CSS that shows things in a different order than the DOM (and so the tree)
 // reads them. A component with any needs a passing 1.3.2 review for the tree
@@ -329,6 +331,7 @@ function buildRow({ name, base, title, traitKey = name, reviews: ownReviews = {}
     : kind === 'keyboard'
       ? statesClean(id) && (s.keyboard > 0 || (!traits.includes('composite') && !!autoRow && autoRow.stories > autoRow.errors && ['2.1.1', '2.1.2', '2.4.3'].every((k) => Array.isArray(autoRow[k]) && !autoRow[k].length)))
     : kind === 'reflow360' ? s.stories > 0
+    : kind === 'hover' ? !!statesRow && statesRow.hovered > 0 && statesClean('1.4.13')
     : kind === 'reducedMotion' ? source.reducedMotion !== 'unguarded'
     // Text cut by a deliberate ellipsis under 200% text or WCAG spacing is
     // lost content too, unless a review says the full text is reachable

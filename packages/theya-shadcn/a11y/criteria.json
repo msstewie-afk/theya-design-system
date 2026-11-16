@@ -20,7 +20,7 @@
     { "id": "1.4.10", "level": "AA", "name": "Reflow", "scope": "component", "appliesTo": ["any"], "evidence": ["reflow360"] },
     { "id": "1.4.11", "level": "AA", "name": "Non-text Contrast", "scope": "component", "appliesTo": ["interactive", "graphics"], "evidence": ["review"] },
     { "id": "1.4.12", "level": "AA", "name": "Text Spacing", "scope": "component", "appliesTo": ["any"], "evidence": ["axe", "auto"] },
-    { "id": "1.4.13", "level": "AA", "name": "Content on Hover or Focus", "scope": "component", "appliesTo": ["hoverContent"], "evidence": ["keyboard", "review"] },
+    { "id": "1.4.13", "level": "AA", "name": "Content on Hover or Focus", "scope": "component", "appliesTo": ["hoverContent"], "evidence": ["keyboard", "hover|review"] },
     { "id": "2.1.1", "level": "A", "name": "Keyboard", "scope": "component", "appliesTo": ["interactive"], "evidence": ["axe", "keyboard"] },
     { "id": "2.1.2", "level": "A", "name": "No Keyboard Trap", "scope": "component", "appliesTo": ["interactive"], "evidence": ["keyboard"] },
     { "id": "2.1.4", "level": "A", "name": "Character Key Shortcuts", "scope": "component", "appliesTo": ["shortcuts"], "evidence": ["review"] },
