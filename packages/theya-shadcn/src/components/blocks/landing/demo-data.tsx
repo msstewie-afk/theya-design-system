@@ -66,7 +66,8 @@ export function BookmarksPreview({ className, floating = true, folder = 'reading
       {/* One inset for the whole card: the search field, the folder list and the link list all
           start 8px in, and their contents (icons, letter tiles) 16px in. Nested radius: the
           field's 6px plus the 8px band padding ≈ 16px (4xl), so the corners stay concentric. */}
-      <div className="overflow-hidden rounded-[var(--landing-inner-radius,var(--size-border-radius-border-radius-4xl))] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]">
+      {/* Concentric with the search field: its radius (lg) plus the toolbar's 8px padding. */}
+      <div className="overflow-hidden rounded-[var(--landing-inner-radius,calc(var(--size-border-radius-border-radius-lg)+0.5rem))] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)]">
         <div className="flex items-center gap-3 border-b border-solid border-[var(--color-border-border-subtler)] p-2">
           {/* 36px field: 1px border + 7px around the 20px key on three sides, so the key sits evenly, and
               its end edge lands 16px from the card's — in line with the tag chips in the rows below

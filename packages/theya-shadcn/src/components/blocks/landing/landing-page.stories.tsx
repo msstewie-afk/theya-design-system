@@ -233,7 +233,7 @@ export const Gradient: Story = {
             }
             note="Chrome, Firefox, Safari and Edge · Free for up to 1,000 links"
             media={
-              <div data-surface="card" className="mx-auto max-w-[60rem] [--landing-inner-radius:var(--size-border-radius-border-radius-5xl)]">
+              <div data-surface="card" className="mx-auto max-w-[60rem]">
                 <BookmarksPreview />
               </div>
             }
