@@ -48,6 +48,13 @@
   /* The brand's display face (profile `displayFont`, ld-02); by default the
      theme's own heading face. */
   --font-display: var(--typography-display-display-s-font);
+  /* Display pairs from the Awwwards 2026 atlas (ld-02), self-hosted in
+     @theya/tokens/fonts: a Didone, a script, a wide/narrow grotesque with a
+     width axis, a tight grotesque. For first screens and display lines only. */
+  --font-display-didone: 'Bodoni Moda', 'Didot', ui-serif, serif;
+  --font-display-script: 'Pinyon Script', 'Snell Roundhand', cursive;
+  --font-display-wide: 'Archivo', 'Arial Narrow', Geologica, sans-serif;
+  --font-display-tight: 'Inter Tight', Geologica, sans-serif;
 }
 
 /* Tailwind utilities: text-display-xl, text-display-2xl. display-2xl
@@ -91,6 +98,25 @@
   font-family: var(--font-display-serif);
   font-weight: 400;
   letter-spacing: -0.02em;
+}
+
+/* Atlas pairs (ld-02). Each sets the family only; size, weight, width
+   (font-stretch, for the wide face) and case come from the line. */
+@utility font-display-didone {
+  font-family: var(--font-display-didone);
+  font-optical-sizing: auto;
+}
+@utility font-display-script {
+  font-family: var(--font-display-script);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+@utility font-display-wide {
+  font-family: var(--font-display-wide);
+}
+@utility font-display-tight {
+  font-family: var(--font-display-tight);
 }
 
 @utility section-display {
