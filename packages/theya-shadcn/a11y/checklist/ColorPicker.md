@@ -324,6 +324,99 @@ Story: `selection-colorpicker--test-interactions`
 - **RGB**, option, selected
 - **HSL**, option
 
+#### Focus radio "No color"
+
+- **(no name)**, tab — **no name: check**
+- **Palette**, tab, selected
+- **From photo**, tab
+- **Custom**, tab
+- **Color format**, combo box, collapsed
+- "R", plain text (no role)
+- **Red**, edit text
+- "G", plain text (no role)
+- **Green**, edit text
+- "B", plain text (no role)
+- **Blue**, edit text
+- **Opacity, percent**, edit text
+- **(no name)**, radio button — **no name: check**
+- **No color**, radio button, checked
+- **#111214**, radio button
+- **#23262B**, radio button
+- **#363A41**, radio button
+- **#4B5059**, radio button
+- **#6B717C**, radio button
+- **#9AA0AA**, radio button
+- **#E3E5E8**, radio button
+- **#0F1B33**, radio button
+- **#14305C**, radio button
+- **#1F3F8F**, radio button
+- **#2F62D1**, radio button
+- **#5D86E8**, radio button
+- **#9BB5F2**, radio button
+- **#E3EAFB**, radio button
+- **#1C1838**, radio button
+- **#2D1F5C**, radio button
+- **#4A2A9E**, radio button
+- **#7C3AED**, radio button
+- **#7357E6**, radio button
+- **#A48CF0**, radio button
+- **#C9BBF7**, radio button
+- **#ECE8FC**, radio button
+- **#3B1328**, radio button
+- **#5C1C3A**, radio button
+- **#8F2550**, radio button
+- **#C2457E**, radio button
+- **#E84D97**, radio button
+- **#EA86B6**, radio button
+- **#F4BCD6**, radio button
+- **#FBE4EF**, radio button
+- **#8E2A2A**, radio button
+- **#C74242**, radio button
+- **#EF4444**, radio button
+- **#E87272**, radio button
+- **#F2B0B0**, radio button
+- **#FCE4E4**, radio button
+- **#3D1D0B**, radio button
+- **#6B2F12**, radio button
+- **#9A3F15**, radio button
+- **#F2701A**, radio button
+- **#D96B35**, radio button
+- **#F3A46E**, radio button
+- **#F8CBA8**, radio button
+- **#FDEEE3**, radio button
+- **#3D2F0B**, radio button
+- **#5C4712**, radio button
+- **#8A6A1C**, radio button
+- **#E7B211**, radio button
+- **#CCAB52**, radio button
+- **#EAD37E**, radio button
+- **#F4E4B0**, radio button
+- **#FDF6E3**, radio button
+- **#12291F**, radio button
+- **#1F4A36**, radio button
+- **#2E7A55**, radio button
+- **#4CB07F**, radio button
+- **#22C55E**, radio button
+- **#7ED6A6**, radio button
+- **#BFECD2**, radio button
+- **#E8F8EF**, radio button
+- **#0F3A33**, radio button
+- **#145A52**, radio button
+- **#1F7A6F**, radio button
+- **#2BB8A8**, radio button
+- **#6DD9CC**, radio button
+- **#B3EEE7**, radio button
+- **#E6F9F7**, radio button
+- **#0F2E3D**, radio button
+- **#164E63**, radio button
+- **#1E7B8C**, radio button
+- **#2196A8**, radio button
+- **#2FB8D1**, radio button
+- **#7ADBE8**, radio button
+- **#BDEEF5**, radio button
+- **#000000**, radio button
+- **#FFFFFF**, radio button
+
 ### With opacity
 
 Story: `selection-colorpicker--with-alpha`

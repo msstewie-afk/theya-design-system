@@ -20,6 +20,13 @@ Story: `labels-helpicon--custom-icon`
 - "Includes 10,000 downloads a month", plain text (no role)
 - **About this quota**, button
 
+#### Focus button "About this quota"
+
+- "Includes 10,000 downloads a month", plain text (no role)
+- **About this quota**, button
+- "Counted per calendar month across", plain text (no role)
+- "galleries.", plain text (no role)
+
 ### Default
 
 Story: `labels-helpicon--default`
@@ -28,11 +35,23 @@ Story: `labels-helpicon--default`
 
 - **Renewal runs 30 days before expiry.**, button
 
+#### Focus button "Renewal runs 30 days before expiry."
+
+- **Renewal runs 30 days before expiry.**, button
+
 ### In Table Header
 
 Story: `labels-helpicon--in-table-header`
 
 #### As rendered
+
+- **(no name)**, tab — **no name: check**
+- "Studio", plain text (no role)
+- **The studio that owns the gallery. Changing it moves its files.**, button
+- "Downloads", plain text (no role)
+- **Full-size downloads in the current billing period.**, button
+
+#### Focus button "The studio that owns the gallery. Changi"
 
 - **(no name)**, tab — **no name: check**
 - "Studio", plain text (no role)
@@ -49,11 +68,22 @@ Story: `labels-helpicon--long-hint`
 - "Archive retention", plain text (no role)
 - **Archive copies are kept for 14 days on the Pro plan and 30 days on Business; the retention change applies to copies made from the next run onward.**, button
 
+#### Focus button "Archive copies are kept for 14 days on t"
+
+- "Archive retention", plain text (no role)
+- **Archive copies are kept for 14 days on the Pro plan and 30 days on Business; the retention change applies to copies made from the next run onward.**, button
+
 ### On Field Label
 
 Story: `labels-helpicon--on-field-label`
 
 #### As rendered
+
+- "Portal address", plain text (no role)
+- **Clients open their galleries at this address.**, button
+- **Portal address Clients open their galleries at this address.**, edit text
+
+#### Focus button "Clients open their galleries at this add"
 
 - "Portal address", plain text (no role)
 - **Clients open their galleries at this address.**, button
@@ -69,10 +99,20 @@ Story: `labels-helpicon--on-switch-row`
 - **Adds your logo to every preview; full-size downloads stay clean.**, button
 - **Watermark previews Adds your logo to every preview; full-size downloads stay clean.**, switch, checked
 
+#### Focus button "Adds your logo to every preview; full-si"
+
+- "Watermark previews", plain text (no role)
+- **Adds your logo to every preview; full-size downloads stay clean.**, button
+- **Watermark previews Adds your logo to every preview; full-size downloads stay clean.**, switch, checked
+
 ### Test: interactions
 
 Story: `labels-helpicon--test-interactions`
 
 #### As rendered
+
+- **Renewal runs 30 days before expiry.**, button
+
+#### Focus button "Renewal runs 30 days before expiry."
 
 - **Renewal runs 30 days before expiry.**, button

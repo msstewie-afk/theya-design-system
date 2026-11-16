@@ -35,11 +35,49 @@ Story: `patterns-commerce-paymentmethod--amex`
 - **Security code**, edit text
 - **Continue**, button
 
+#### Focus button "Where to find the security code"
+
+- **(no name)**, tab — **no name: check**
+- **Card**, tab, selected
+- **PayPal**, tab
+- **Card details**, group
+- "Card details", plain text (no role)
+- "Name on card", plain text (no role)
+- **Name on card**, edit text
+- "Exactly as printed on the card. Card number · American Express", plain text (no role)
+- **Card number · American Express**, edit text
+- "3782 822463 10005", plain text (no role)
+- **Clear input**, button
+- "Expiry date", plain text (no role)
+- **Expiry date**, edit text
+- "Month and year, MM / YY Security code", plain text (no role)
+- **Where to find the security code**, button
+- **Security code**, edit text
+- **Continue**, button
+
 ### Default
 
 Story: `patterns-commerce-paymentmethod--default`
 
 #### As rendered
+
+- **(no name)**, tab — **no name: check**
+- **Card**, tab, selected
+- **PayPal**, tab
+- **Card details**, group
+- "Card details", plain text (no role)
+- "Name on card", plain text (no role)
+- **Name on card**, edit text
+- "Exactly as printed on the card. Card number", plain text (no role)
+- **Card number**, edit text
+- "Expiry date", plain text (no role)
+- **Expiry date**, edit text
+- "Month and year, MM / YY Security code", plain text (no role)
+- **Where to find the security code**, button
+- **Security code**, edit text
+- **Continue**, button
+
+#### Focus button "Where to find the security code"
 
 - **(no name)**, tab — **no name: check**
 - **Card**, tab, selected
@@ -72,6 +110,28 @@ Story: `patterns-commerce-paymentmethod--pay-pal`
 Story: `patterns-commerce-paymentmethod--test-interactions`
 
 #### As rendered
+
+- **(no name)**, tab — **no name: check**
+- **Card**, tab, selected
+- **PayPal**, tab
+- **Card details**, group
+- "Card details", plain text (no role)
+- "Name on card", plain text (no role)
+- **Name on card**, edit text, invalid
+- "Enter the name as it appears on the card. Card number · Visa", plain text (no role)
+- **Card number · Visa**, edit text
+- "4242 4242 4242 4242", plain text (no role)
+- **Clear input**, button
+- "Expiry date", plain text (no role)
+- **Expiry date**, edit text, invalid
+- "09 / 25", plain text (no role)
+- "This card has expired. Use another card. Security code", plain text (no role)
+- **Where to find the security code**, button
+- **Security code**, edit text, invalid
+- "Enter the security code.", plain text (no role)
+- **Continue**, button
+
+#### Focus button "Where to find the security code"
 
 - **(no name)**, tab — **no name: check**
 - **Card**, tab, selected

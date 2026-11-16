@@ -85,3 +85,11 @@ Story: `layout-prose--with-components`
 - **Copy code**, button
 - **Revoke key**, button
 - **Cancel**, button
+
+#### Focus button "Copy code"
+
+- "Revoking is immediate Every integration using the old key stops working the moment you revoke it.", plain text (no role)
+- ".env", plain text (no role)
+- **Copy code**, button
+- **Revoke key**, button
+- **Cancel**, button

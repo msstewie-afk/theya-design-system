@@ -83,6 +83,19 @@ Story: `data-listitem--notification`
 - **Mark as read**, menu item
 - **Dismiss**, menu item
 
+#### Focus span "The nightly sync of Golden hour to Mnemo"
+
+- **Archive sync failed Unread**, button
+- "Archive sync failed Unread The nightly sync of Golden hour to Mnemosyne did not complete.", plain text (no role)
+- **Retry sync**, button
+- **Actions for Archive sync failed**, button
+- **Export ready**, button
+- "Export ready Moonrise over Othrys: 248 photos are ready for Selin Arda to deliver.", plain text (no role)
+- **Actions for Export ready**, button
+- "License expires soon Unread The print license for GOLDEN_0907.tif expires in 7 days.", plain text (no role)
+- **Renew license**, button
+- **Actions for License expires soon**, button
+
 ### Selectable
 
 Story: `data-listitem--selectable`

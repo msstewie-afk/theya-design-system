@@ -19,6 +19,10 @@ Story: `overlays-tooltip--default`
 
 - **Copy API key**, button
 
+#### Focus button "Copy API key"
+
+- **Copy API key**, button
+
 ### Long Content
 
 Story: `overlays-tooltip--long-content`
@@ -32,6 +36,10 @@ Story: `overlays-tooltip--long-content`
 Story: `overlays-tooltip--on-text-button`
 
 #### As rendered
+
+- **Re-export previews**, button
+
+#### Focus button "Re-export previews"
 
 - **Re-export previews**, button
 
@@ -53,11 +61,24 @@ Story: `overlays-tooltip--result-intents`
 - "Success", plain text (no role)
 - "Failure", plain text (no role)
 
+#### Focus button "Copy API key"
+
+- **Copy API key**, button
+- "Success", plain text (no role)
+- "Failure", plain text (no role)
+
 ### Sides
 
 Story: `overlays-tooltip--sides`
 
 #### As rendered
+
+- **Top**, button
+- **Right**, button
+- **Bottom**, button
+- **Left**, button
+
+#### Focus button "Top"
 
 - **Top**, button
 - **Right**, button
@@ -72,10 +93,18 @@ Story: `overlays-tooltip--test-interactions`
 
 - **Copy API key**, button
 
+#### Focus button "Copy API key"
+
+- **Copy API key**, button
+
 ### With Identifier
 
 Story: `overlays-tooltip--with-identifier`
 
 #### As rendered
+
+- **File details**, button
+
+#### Focus button "File details"
 
 - **File details**, button

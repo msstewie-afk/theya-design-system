@@ -22,6 +22,13 @@ Story: `patterns-catalog-specsheet--all-visible`
 - "Preview size", plain text (no role)
 - **About Preview size**, button
 
+#### Focus button "About Default selection limit"
+
+- "Default selection limit", plain text (no role)
+- **About Default selection limit**, button
+- "Preview size", plain text (no role)
+- **About Preview size**, button
+
 ### Default
 
 Story: `patterns-catalog-specsheet--default`
@@ -34,11 +41,27 @@ Story: `patterns-catalog-specsheet--default`
 - **About Preview size**, button
 - **Show all 13 specifications**, button
 
+#### Focus button "About Default selection limit"
+
+- "Default selection limit", plain text (no role)
+- **About Default selection limit**, button
+- "Preview size", plain text (no role)
+- **About Preview size**, button
+- **Show all 13 specifications**, button
+
 ### Test: interactions
 
 Story: `patterns-catalog-specsheet--test-interactions`
 
 #### As rendered
+
+- "Default selection limit", plain text (no role)
+- **About Default selection limit**, button
+- "Preview size", plain text (no role)
+- **About Preview size**, button
+- **Show fewer**, button, expanded
+
+#### Focus button "About Default selection limit"
 
 - "Default selection limit", plain text (no role)
 - **About Default selection limit**, button

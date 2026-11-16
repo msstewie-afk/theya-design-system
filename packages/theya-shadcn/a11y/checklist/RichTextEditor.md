@@ -97,6 +97,27 @@ Story: `text-input-richtexteditor--controlled`
 - **URL**, edit text
 - **Add link**, button
 
+#### Focus button "Copy code"
+
+- "Template", plain text (no role)
+- **Formatting**, toolbar
+- **Bold**, button
+- **Italic**, button
+- **Underline**, button
+- **Strikethrough**, button
+- **Inline code**, button
+- **Link**, button
+- **Bulleted list**, button
+- **Numbered list**, button
+- **Quote**, button
+- **Code block**, button
+- **Undo**, button
+- **Redo**, button, disabled
+- **Template**, edit text
+- "html", plain text (no role)
+- **Copy code**, button
+- **Update**, status (polite announcement)
+
 ### Default
 
 Story: `text-input-richtexteditor--default`

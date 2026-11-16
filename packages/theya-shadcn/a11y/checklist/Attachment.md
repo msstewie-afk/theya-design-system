@@ -64,6 +64,12 @@ Story: `files-attachment--error-states`
 - **Remove wedding-raws.zip**, button
 - "notes.pages File type is not supported wedding-raws.zip Exceeds the 2 GB upload limit", plain text (no role)
 
+#### Focus span "Exceeds the 2 GB upload limit"
+
+- "wedding-raws.zip Exceeds the 2 GB upload limit", plain text (no role)
+- **Remove wedding-raws.zip**, button
+- "notes.pages File type is not supported wedding-raws.zip Exceeds the 2 GB upload limit", plain text (no role)
+
 ### Interactive states
 
 Story: `files-attachment--interactive-states`
@@ -116,11 +122,25 @@ Story: `files-attachment--localized-labels`
 - "export.csv Überschreitet das Upload-Limit von 2 GB", plain text (no role)
 - **export.csv entfernen**, button
 
+#### Focus span "Überschreitet das Upload-Limit von 2 GB"
+
+- "quartalsbericht.pdf 242 KB", plain text (no role)
+- **quartalsbericht.pdf entfernen**, button
+- "titelbild.png 180 KB", plain text (no role)
+- **titelbild.png entfernen**, button
+- "export.csv Überschreitet das Upload-Limit von 2 GB", plain text (no role)
+- **export.csv entfernen**, button
+
 ### Long names
 
 Story: `files-attachment--long-names`
 
 #### As rendered
+
+- "selene-weddings-moonrise-over-othrys-2026-08-04-full-raw-set-with-sidecars.zip 4.9 GB", plain text (no role)
+- **Remove selene-weddings-moonrise-over-othrys-2026-08-04-full-raw-set-with-sidecars.zip**, button
+
+#### Focus span "selene-weddings-moonrise-over-othrys-202"
 
 - "selene-weddings-moonrise-over-othrys-2026-08-04-full-raw-set-with-sidecars.zip 4.9 GB", plain text (no role)
 - **Remove selene-weddings-moonrise-over-othrys-2026-08-04-full-raw-set-with-sidecars.zip**, button

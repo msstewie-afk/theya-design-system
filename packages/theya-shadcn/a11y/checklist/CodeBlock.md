@@ -20,6 +20,11 @@ Story: `code-codeblock--long-lines`
 - "export.sh bash", plain text (no role)
 - **Copy code**, button
 
+#### Focus button "Copy code"
+
+- "export.sh bash", plain text (no role)
+- **Copy code**, button
+
 ### No copy
 
 Story: `code-codeblock--no-copy`
@@ -36,11 +41,20 @@ Story: `code-codeblock--plain`
 
 - **Copy code**, button
 
+#### Focus button "Copy code"
+
+- **Copy code**, button
+
 ### With header
 
 Story: `code-codeblock--with-header`
 
 #### As rendered
+
+- "tailwind.config.ts ts", plain text (no role)
+- **Copy code**, button
+
+#### Focus button "Copy code"
 
 - "tailwind.config.ts ts", plain text (no role)
 - **Copy code**, button

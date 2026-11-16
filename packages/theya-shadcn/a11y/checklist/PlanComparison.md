@@ -39,6 +39,30 @@ Story: `patterns-commerce-plancomparison--default`
 - "Print and web licenses", plain text (no role)
 - **About Print and web licenses**, button
 
+#### Focus button "About Archive retention"
+
+- **(no name)**, tab — **no name: check**
+- **(no name)**, radio button — **no name: check**
+- **Monthly**, radio button
+- **Yearly Save up to 20%**, radio button, checked
+- "Starter", plain text (no role)
+- "$8 / month $96 billed yearly", plain text (no role)
+- **Choose Starter, $8 per month, billed yearly**, button
+- "Pro Recommended", plain text (no role)
+- "$24 / month $288 billed yearly", plain text (no role)
+- **Choose Pro, $24 per month, billed yearly**, button
+- "Business", plain text (no role)
+- "$60 / month $720 billed yearly", plain text (no role)
+- **Choose Business, $60 per month, billed yearly**, button
+- **Only differences**, switch
+- "Only differences", plain text (no role)
+- "Archive retention", plain text (no role)
+- **About Archive retention**, button
+- "Client proofing", plain text (no role)
+- **About Client proofing**, button
+- "Print and web licenses", plain text (no role)
+- **About Print and web licenses**, button
+
 ### Mobile
 
 Story: `patterns-commerce-plancomparison--mobile`
@@ -83,11 +107,58 @@ Story: `patterns-commerce-plancomparison--test-interactions`
 - "Print and web licenses", plain text (no role)
 - **About Print and web licenses**, button
 
+#### Focus button "About Archive retention"
+
+- **(no name)**, tab — **no name: check**
+- **(no name)**, radio button — **no name: check**
+- **Monthly**, radio button, checked
+- **Yearly Save up to 20%**, radio button
+- "Starter", plain text (no role)
+- "$10 / month Billed monthly, cancel anytime", plain text (no role)
+- **Choose Starter, $10 per month, billed monthly**, button
+- "Pro Recommended", plain text (no role)
+- "$30 / month Billed monthly, cancel anytime", plain text (no role)
+- **Choose Pro, $30 per month, billed monthly**, button
+- "Business", plain text (no role)
+- "$75 / month Billed monthly, cancel anytime", plain text (no role)
+- **Choose Business, $75 per month, billed monthly**, button
+- **Only differences**, switch, checked
+- "Only differences", plain text (no role)
+- "Archive retention", plain text (no role)
+- **About Archive retention**, button
+- "Client proofing", plain text (no role)
+- **About Client proofing**, button
+- "Print and web licenses", plain text (no role)
+- **About Print and web licenses**, button
+
 ### With Current Plan
 
 Story: `patterns-commerce-plancomparison--with-current-plan`
 
 #### As rendered
+
+- **(no name)**, tab — **no name: check**
+- **(no name)**, radio button — **no name: check**
+- **Monthly**, radio button
+- **Yearly Save up to 20%**, radio button, checked
+- "Starter", plain text (no role)
+- "$8 / month $96 billed yearly", plain text (no role)
+- "Pro Recommended", plain text (no role)
+- "$24 / month $288 billed yearly", plain text (no role)
+- **Choose Pro, $24 per month, billed yearly**, button
+- "Business", plain text (no role)
+- "$60 / month $720 billed yearly", plain text (no role)
+- **Choose Business, $60 per month, billed yearly**, button
+- **Only differences**, switch
+- "Only differences", plain text (no role)
+- "Archive retention", plain text (no role)
+- **About Archive retention**, button
+- "Client proofing", plain text (no role)
+- **About Client proofing**, button
+- "Print and web licenses", plain text (no role)
+- **About Print and web licenses**, button
+
+#### Focus button "About Archive retention"
 
 - **(no name)**, tab — **no name: check**
 - **(no name)**, radio button — **no name: check**

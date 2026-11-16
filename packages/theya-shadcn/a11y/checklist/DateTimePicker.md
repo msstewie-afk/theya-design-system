@@ -110,13 +110,13 @@ Story: `date-time-datetimepicker--date-first`
 - **Monday, November 9th, 2026**, button
 - **Tuesday, November 10th, 2026**, button
 - **Wednesday, November 11th, 2026**, button
-- **Today, Thursday, November 12th, 2026**, button
-- **(no name)**, grid, selected
-- **Friday, November 13th, 2026, selected**, button
+- **Thursday, November 12th, 2026**, button
+- **Friday, November 13th, 2026**, button
 - **Saturday, November 14th, 2026**, button
 - **Sunday, November 15th, 2026**, button
-- **Monday, November 16th, 2026**, button
-- **Tuesday, November 17th, 2026**, button
+- **Today, Monday, November 16th, 2026**, button
+- **(no name)**, grid, selected
+- **Tuesday, November 17th, 2026, selected**, button
 - **Wednesday, November 18th, 2026**, button
 - **Thursday, November 19th, 2026**, button
 - **Friday, November 20th, 2026**, button
@@ -235,13 +235,13 @@ Story: `date-time-datetimepicker--default`
 - **Monday, November 9th, 2026**, button
 - **Tuesday, November 10th, 2026**, button
 - **Wednesday, November 11th, 2026**, button
-- **Today, Thursday, November 12th, 2026**, button
-- **(no name)**, grid, selected
-- **Friday, November 13th, 2026, selected**, button
+- **Thursday, November 12th, 2026**, button
+- **Friday, November 13th, 2026**, button
 - **Saturday, November 14th, 2026**, button
 - **Sunday, November 15th, 2026**, button
-- **Monday, November 16th, 2026**, button
-- **Tuesday, November 17th, 2026**, button
+- **Today, Monday, November 16th, 2026**, button
+- **(no name)**, grid, selected
+- **Tuesday, November 17th, 2026, selected**, button
 - **Wednesday, November 18th, 2026**, button
 - **Thursday, November 19th, 2026**, button
 - **Friday, November 20th, 2026**, button
@@ -370,11 +370,11 @@ Story: `date-time-datetimepicker--hour-cycle-24`
 - **Monday, November 9th, 2026**, button
 - **Tuesday, November 10th, 2026**, button
 - **Wednesday, November 11th, 2026**, button
-- **Today, Thursday, November 12th, 2026**, button
+- **Thursday, November 12th, 2026**, button
 - **Friday, November 13th, 2026**, button
 - **Saturday, November 14th, 2026**, button
 - **Sunday, November 15th, 2026**, button
-- **Monday, November 16th, 2026**, button
+- **Today, Monday, November 16th, 2026**, button
 - **Tuesday, November 17th, 2026**, button
 - **Wednesday, November 18th, 2026**, button
 - **Thursday, November 19th, 2026**, button
@@ -876,11 +876,11 @@ Story: `date-time-datetimepicker--with-label`
 - **Monday, November 9th, 2026**, button
 - **Tuesday, November 10th, 2026**, button
 - **Wednesday, November 11th, 2026**, button
-- **Today, Thursday, November 12th, 2026**, button
+- **Thursday, November 12th, 2026**, button
 - **Friday, November 13th, 2026**, button
 - **Saturday, November 14th, 2026**, button
 - **Sunday, November 15th, 2026**, button
-- **Monday, November 16th, 2026**, button
+- **Today, Monday, November 16th, 2026**, button
 - **Tuesday, November 17th, 2026**, button
 - **Wednesday, November 18th, 2026**, button
 - **Thursday, November 19th, 2026**, button

@@ -29,6 +29,12 @@ Story: `code-codeeditor--inverse`
 - **Copy code**, button
 - **Config editor (inverse)**, edit text
 
+#### Focus button "Copy code"
+
+- "config.json json", plain text (no role)
+- **Copy code**, button
+- **Config editor (inverse)**, edit text
+
 ### Language coloring
 
 Story: `code-codeeditor--languages`
@@ -58,11 +64,24 @@ Story: `code-codeeditor--read-only`
 - **Copy code**, button
 - **Generated config (read only)**, edit text
 
+#### Focus button "Copy code"
+
+- "block.html html", plain text (no role)
+- **Copy code**, button
+- **Generated config (read only)**, edit text
+
 ### With header
 
 Story: `code-codeeditor--with-header`
 
 #### As rendered
+
+- "config.json json", plain text (no role)
+- **Clear**, button
+- **Copy code**, button
+- **Config editor**, edit text
+
+#### Focus button "Copy code"
 
 - "config.json json", plain text (no role)
 - **Clear**, button

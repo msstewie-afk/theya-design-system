@@ -19,11 +19,19 @@ Story: `overlays-hovercard--aligned`
 
 - **Owner**, button
 
+#### Focus button "Owner"
+
+- **Owner**, button
+
 ### Default
 
 Story: `overlays-hovercard--default`
 
 #### As rendered
+
+- **selene-weddings.aether.photo**, link
+
+#### Focus link "selene-weddings.aether.photo"
 
 - **selene-weddings.aether.photo**, link
 
@@ -43,10 +51,18 @@ Story: `overlays-hovercard--portal-preview`
 
 - **eos-portraits.aether.photo**, link
 
+#### Focus link "eos-portraits.aether.photo"
+
+- **eos-portraits.aether.photo**, link
+
 ### Test: interactions
 
 Story: `overlays-hovercard--test-interactions`
 
 #### As rendered
+
+- **selene-weddings.aether.photo**, link
+
+#### Focus link "selene-weddings.aether.photo"
 
 - **selene-weddings.aether.photo**, link

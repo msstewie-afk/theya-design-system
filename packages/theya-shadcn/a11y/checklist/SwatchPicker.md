@@ -82,6 +82,16 @@ Story: `selection-swatchpicker--multiple`
 - **Off-white**, button
 - **Rust, out of stock**, button
 
+#### Focus button "Sand"
+
+- "Color: Sage, Sand", plain text (no role)
+- **Midnight**, button
+- **Navy**, button
+- **Sage**, button, pressed
+- **Sand**, button, pressed
+- **Off-white**, button
+- **Rust, out of stock**, button
+
 ### Sizes
 
 Story: `selection-swatchpicker--sizes`

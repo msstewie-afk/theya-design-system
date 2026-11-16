@@ -26,6 +26,17 @@ Story: `data-datatabletoolbar--default`
 - **Studio**, button
 - **Select row**, checkbox
 
+#### Focus checkbox "Select all"
+
+- **Select all**, checkbox
+- "Select all", plain text (no role)
+- **Filter galleries**, edit text
+- **(no name)**, tab — **no name: check**
+- **Gallery**, button
+- **Status**, button
+- **Studio**, button
+- **Select row**, checkbox
+
 ### Narrow Overflow
 
 Story: `data-datatabletoolbar--narrow-overflow`
@@ -51,11 +62,36 @@ Story: `data-datatabletoolbar--narrow-overflow`
 - **Archive**, menu item
 - **Delete**, menu item
 
+#### Focus checkbox "Select all"
+
+- **Select all**, checkbox, checked mixed
+- "1 selected", plain text (no role)
+- **Bulk actions**, toolbar
+- **More bulk actions**, button
+- **Clear selection**, button
+- **(no name)**, tab — **no name: check**
+- **Gallery**, button
+- **Status**, button
+- **Studio**, button
+- **Select row**, checkbox, checked
+- **Select row**, checkbox
+
 ### Overflow
 
 Story: `data-datatabletoolbar--overflow`
 
 #### As rendered
+
+- **Select all**, checkbox
+- "Select all", plain text (no role)
+- **Filter galleries**, edit text
+- **(no name)**, tab — **no name: check**
+- **Gallery**, button
+- **Status**, button
+- **Studio**, button
+- **Select row**, checkbox
+
+#### Focus checkbox "Select all"
 
 - **Select all**, checkbox
 - "Select all", plain text (no role)
@@ -81,11 +117,34 @@ Story: `data-datatabletoolbar--selected`
 - **Studio**, button
 - **Select row**, checkbox
 
+#### Focus checkbox "Select all"
+
+- **Select all**, checkbox
+- "Select all", plain text (no role)
+- **Filter galleries**, edit text
+- **(no name)**, tab — **no name: check**
+- **Gallery**, button
+- **Status**, button
+- **Studio**, button
+- **Select row**, checkbox
+
 ### Test: interactions
 
 Story: `data-datatabletoolbar--test-interactions`
 
 #### As rendered
+
+- **Select all**, checkbox
+- "Select all", plain text (no role)
+- **Filter galleries**, edit text
+- **(no name)**, tab — **no name: check**
+- **Gallery**, button
+- **Status**, button
+- **Studio**, button
+- **Select row**, checkbox
+- **1 selected**, status (polite announcement)
+
+#### Focus checkbox "Select all"
 
 - **Select all**, checkbox
 - "Select all", plain text (no role)

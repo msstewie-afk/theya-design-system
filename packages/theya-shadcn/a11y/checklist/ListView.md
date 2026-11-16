@@ -234,3 +234,26 @@ Story: `patterns-listview--with-bulk-and-row-actions`
 - **Actions for Elio Sanz**, menu
 - **View profile**, menu item
 - **Remove**, menu item
+
+#### Focus checkbox "Select all"
+
+- **Select all**, checkbox
+- "Select all", plain text (no role)
+- **Add filter**, button
+- **Search users…**, combo box, collapsed
+- **No filters applied**, status (polite announcement)
+- **(no name)**, tab — **no name: check**
+- **Name**, button
+- **Role**, button
+- **Status**, button
+- **Select Thea Marlow**, checkbox
+- **Actions for Thea Marlow**, button
+- **Select Ian Hyde**, checkbox
+- **Actions for Ian Hyde**, button
+- **Select Elio Sanz**, checkbox
+- **Actions for Elio Sanz**, button
+- **Select Phoebe Lark**, checkbox
+- **Actions for Phoebe Lark**, button
+- **Select Selin Arda**, checkbox
+- **Actions for Selin Arda**, button
+- **2 selected**, status (polite announcement)

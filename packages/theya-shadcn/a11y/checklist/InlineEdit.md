@@ -73,10 +73,10 @@ Story: `text-input-inlineedit--save-fails`
 
 #### As rendered
 
-- **Gallery name**, edit text, disabled, invalid
+- **Gallery name**, edit text, invalid
 - "Gallery names must be unique — Moonrise already exists.", plain text (no role)
-- **Save Gallery name**, button, disabled
-- **Cancel**, button, disabled
+- **Save Gallery name**, button
+- **Cancel**, button
 
 ### Sizes
 

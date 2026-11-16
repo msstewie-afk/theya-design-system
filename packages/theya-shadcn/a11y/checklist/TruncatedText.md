@@ -19,6 +19,10 @@ Story: `labels-truncatedtext--default`
 
 - "selene-weddings.aether.photo/galleries/moonrise-over-othrys", plain text (no role)
 
+#### Focus span "selene-weddings.aether.photo/galleries/m"
+
+- "selene-weddings.aether.photo/galleries/moonrise-over-othrys", plain text (no role)
+
 ### Fits
 
 Story: `labels-truncatedtext--fits`
@@ -43,10 +47,18 @@ Story: `labels-truncatedtext--test-interactions`
 
 - "selene-weddings.aether.photo/galleries/moonrise-over-othrys", plain text (no role)
 
+#### Focus span "selene-weddings.aether.photo/galleries/m"
+
+- "selene-weddings.aether.photo/galleries/moonrise-over-othrys", plain text (no role)
+
 ### Two lines
 
 Story: `labels-truncatedtext--two-lines`
 
 #### As rendered
+
+- "Redirect old gallery links to the new client portal, then email clients the new address with a short note from the studio", plain text (no role)
+
+#### Focus span "Redirect old gallery links to the new cl"
 
 - "Redirect old gallery links to the new client portal, then email clients the new address with a short note from the studio", plain text (no role)

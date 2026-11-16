@@ -87,11 +87,11 @@ Story: `patterns-auditlog--default`
 - **Monday, November 9th, 2026**, button
 - **Tuesday, November 10th, 2026**, button
 - **Wednesday, November 11th, 2026**, button
-- **Today, Thursday, November 12th, 2026**, button
+- **Thursday, November 12th, 2026**, button
 - **Friday, November 13th, 2026**, button
 - **Saturday, November 14th, 2026**, button
 - **Sunday, November 15th, 2026**, button
-- **Monday, November 16th, 2026**, button
+- **Today, Monday, November 16th, 2026**, button
 - **Tuesday, November 17th, 2026**, button
 - **Wednesday, November 18th, 2026**, button
 - **Thursday, November 19th, 2026**, button
@@ -178,11 +178,11 @@ Story: `patterns-auditlog--empty`
 - **Monday, November 9th, 2026**, button
 - **Tuesday, November 10th, 2026**, button
 - **Wednesday, November 11th, 2026**, button
-- **Today, Thursday, November 12th, 2026**, button
+- **Thursday, November 12th, 2026**, button
 - **Friday, November 13th, 2026**, button
 - **Saturday, November 14th, 2026**, button
 - **Sunday, November 15th, 2026**, button
-- **Monday, November 16th, 2026**, button
+- **Today, Monday, November 16th, 2026**, button
 - **Tuesday, November 17th, 2026**, button
 - **Wednesday, November 18th, 2026**, button
 - **Thursday, November 19th, 2026**, button
@@ -309,11 +309,11 @@ Story: `patterns-auditlog--loading`
 - **Monday, November 9th, 2026**, button
 - **Tuesday, November 10th, 2026**, button
 - **Wednesday, November 11th, 2026**, button
-- **Today, Thursday, November 12th, 2026**, button
+- **Thursday, November 12th, 2026**, button
 - **Friday, November 13th, 2026**, button
 - **Saturday, November 14th, 2026**, button
 - **Sunday, November 15th, 2026**, button
-- **Monday, November 16th, 2026**, button
+- **Today, Monday, November 16th, 2026**, button
 - **Tuesday, November 17th, 2026**, button
 - **Wednesday, November 18th, 2026**, button
 - **Thursday, November 19th, 2026**, button

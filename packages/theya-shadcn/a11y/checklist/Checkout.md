@@ -77,6 +77,34 @@ Story: `patterns-commerce-checkout--missing-card-details`
 - "$14", plain text (no role)
 - **Review order**, status (polite announcement)
 
+#### Focus button "Where to find the security code"
+
+- "Aether Secure checkout", plain text (no role)
+- **Back to cart**, button
+- "step 1 of 3, completed:", plain text (no role)
+- **Options (go back to this step)**, button
+- "Billing, studio, archive", plain text (no role)
+- **(no name)**, tab — **no name: check**
+- **Card**, tab, selected
+- **PayPal**, tab
+- **Card details**, group
+- "Card details", plain text (no role)
+- "Name on card", plain text (no role)
+- **Name on card**, edit text, invalid
+- "Enter the name as it appears on the card. Card number", plain text (no role)
+- **Card number**, edit text, invalid
+- "Enter the card number. Expiry date", plain text (no role)
+- **Expiry date**, edit text, invalid
+- "Enter the expiry date. Security code", plain text (no role)
+- **Where to find the security code**, button
+- **Security code**, edit text, invalid
+- "Enter the security code.", plain text (no role)
+- **Back**, button
+- **Review order**, button
+- "$288", plain text (no role)
+- "$14", plain text (no role)
+- **Review order**, status (polite announcement)
+
 ### Test: interactions
 
 Story: `patterns-commerce-checkout--test-interactions`
