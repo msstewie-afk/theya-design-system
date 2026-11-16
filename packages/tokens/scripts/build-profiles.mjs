@@ -22,6 +22,7 @@
  *      "typography"?: { "display-display-s-letter-spacing": "0.4px" },  // typography tokens, after the fonts
  *      "radius"?: { "scale": 1.5, "button": "max", "field": "3xl" },
  *      "componentText"?: { "drawer-description": "body-m" },
+ *      "displayFont"?: { "family": "Archivo", "stretch": 75, "weight": 600 },
  *      "gradient"?: { "base": "#625d8c", "spots": [{ "color": "#a94f44", "at": "15% 60%", "size": "60% 70%" }] }
  *    }
  *    `gradient`: the theme's gradient canvas (gr-01) — a base color with
@@ -521,6 +522,17 @@ for (const profile of profiles) {
       shared.set(`--theme-text-${part}`, `var(--text-${step})`);
       shared.set(`--theme-text-${part}--line-height`, `var(--text-${step}--line-height)`);
     }
+  }
+
+  // Display face (ld-02): a second family for display type only (the
+  // font-display utility), with its width axis and weight.
+  if (profile.displayFont) {
+    const { family, stretch, weight } = profile.displayFont;
+    // After the theme's own face (if any), then Geologica and the system stack.
+    const stack = new Map(builtValues('build/css/variables.css', { raw: true })).get('--typography-display-display-s-font') ?? 'Geologica, sans-serif';
+    shared.set('--font-display', `'${family}', ${profile.font ? `'${profile.font}', ` : ''}${stack}`);
+    if (stretch != null) shared.set('--display-stretch', `${stretch}%`);
+    if (weight != null) shared.set('--display-weight', String(weight));
   }
 
   // Gradient canvas (gr-01): `data-canvas="gradient"` paints

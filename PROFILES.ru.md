@@ -70,6 +70,7 @@
 | `componentText` | ступень шрифта для части компонента в этой теме: `{ "drawer-description": "body-m" }` (так в `ember`; body-xs … body-xl). Задаёт `--theme-text-<part>`; читают: `drawer-description` (по умолчанию body-s) |
 | `radius.button`, `radius.field` | один радиус для всех размеров Button и для TextField + Select: шаг шкалы (`xl`, `max`) или px |
 | `gradient` | градиентный фон (gr-01): `{ "base": "#6d5578", "spots": [{ "color": "#cb4338", "at": "26% 50%", "size": "34% 48%" }, …] }` — базовый цвет и мягкие радиальные пятна, как точки меша (первое пятно сверху). Сборка проверяет белый текст 4.5:1 на базе и на каждом пятне, на голом фоне и под стеклом: точку затемняют в OKLCH (сохраняя насыщенность), пока не пройдёт. `"bloom": true` — светлое пятно (левый нижний угол Dusk): не проверяется и рисуется только с `data-canvas-blooms` (hero лендинга), там лежат только карточки |
+| `displayFont` | отдельное семейство только для display-текста (ld-02): `{ "family": "Archivo", "stretch": 75, "weight": 700 }` → `--font-display`, `--display-stretch`, `--display-weight`, их читает утилита `font-display` (Wordmark, Hero statement). Шрифт должен быть в `fonts/fonts.css`; Archivo (ось ширины 62–125%) там есть. Без поля display-текст набирается шрифтом заголовков |
 
 ## Поверхность страницы
 

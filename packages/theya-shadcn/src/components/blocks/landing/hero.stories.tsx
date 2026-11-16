@@ -6,6 +6,7 @@ import { ArrowRight } from 'iconoir-react';
 import { Button } from '../../ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs';
 import { Hero, HeroAccent } from './hero';
+import { HeroTexture } from './hero-texture';
 import { BookmarksPreview, DEMO_FOLDERS, type DemoFolderId } from './demo-data';
 import { heroGuidelines } from './hero.guidelines';
 
@@ -179,3 +180,77 @@ export const TitleOnly: Story = {
     media: undefined,
   },
 };
+
+/**
+ * A phrase over a full-bleed scene (ld-02): the statement sits at the bottom
+ * in display type over a scrim, one or two actions at the end. Dark in both
+ * themes. Media is an image or a video that fills the section.
+ */
+export const Statement: Story = {
+  args: {
+    layout: 'statement',
+    eyebrow: 'Bookmarks · 2026',
+    title: 'Everything you meant to read',
+    description: 'One calm library for every link, with a readable copy of each page kept for you.',
+    actions: (
+      <Button size="2xl" rightIcon={<ArrowRight />}>
+        Get started free
+      </Button>
+    ),
+    note: undefined,
+    media: <img src="/asset-examples/silk/1-dark.webp" alt="" />,
+  },
+};
+
+/**
+ * The name across the full width, then the page in numbered columns
+ * (ld-02). The wordmark is the h1 and fits its container at any width;
+ * `title` is plain text. With the brand's display face (profile
+ * `displayFont`) it takes that family, width and weight.
+ */
+export const Wordmark: Story = {
+  args: {
+    layout: 'wordmark',
+    eyebrow: undefined,
+    title: 'Bookmarks',
+    description: 'Import from any browser, sort into folders, and find any page again in a keystroke.',
+    links: [
+      { label: 'Library', href: '#library' },
+      { label: 'Search', href: '#search' },
+      { label: 'Teams', href: '#teams' },
+      { label: 'Pricing', href: '#pricing' },
+    ],
+    actions: <Button size="xl">Get started free</Button>,
+    note: undefined,
+  },
+};
+
+/**
+ * The same wordmark in a display face with a width axis: Archivo at 75%
+ * width and weight 700, set here on the wrapper with the variables a brand
+ * profile's `displayFont` writes (--font-display, --display-stretch,
+ * --display-weight).
+ */
+export const WordmarkDisplayFace: Story = {
+  name: 'Wordmark, display face',
+  args: Wordmark.args,
+  decorators: [
+    (Story) => (
+      <div style={{ ['--font-display' as string]: "'Archivo', Geologica, sans-serif", ['--display-stretch' as string]: '75%', ['--display-weight' as string]: '700' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+/** The three textures behind a centered hero: dither, halftone, particles (which stand still under reduced motion). */
+export const Textures: Story = {
+  render: (args) => (
+    <div>
+      {(['dither', 'halftone', 'particles'] as const).map((v) => (
+        <Hero key={v} {...args} titleAs={v === 'dither' ? 'h1' : 'h2'} layout="centered" eyebrow={v} title="Save what you read, find it again" backdrop={<HeroTexture variant={v} />} media={undefined} note={undefined} />
+      ))}
+    </div>
+  ),
+};
+

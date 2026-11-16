@@ -70,6 +70,7 @@ Profiles live in `packages/tokens/src/profiles/<name>.json` and come in two kind
 | `componentText` | the type step a component part uses in this theme: `{ "drawer-description": "body-m" }` (how `ember` does it; body-xs … body-xl). Sets `--theme-text-<part>`; parts that read it: `drawer-description` (default body-s) |
 | `radius.button`, `radius.field` | one radius for all Button sizes and for TextField + Select: a scale step (`xl`, `max`) or px |
 | `gradient` | the gradient canvas (gr-01): `{ "base": "#6d5578", "spots": [{ "color": "#cb4338", "at": "26% 50%", "size": "34% 48%" }, …] }` — a base color and soft radial spots, like mesh points (the first spot is on top). The build checks white text 4.5:1 on the base and on every spot, bare and under glass, so darken a point in OKLCH (keep its chroma) until it passes. `"bloom": true` marks a light patch (Dusk's bottom left corner): not checked, drawn only with `data-canvas-blooms` (landing heroes), where only cards lie |
+| `displayFont` | a second family for display type only (ld-02): `{ "family": "Archivo", "stretch": 75, "weight": 700 }` → `--font-display`, `--display-stretch`, `--display-weight`, read by the `font-display` utility (Wordmark, Hero statement). The family must be in `fonts/fonts.css`; Archivo (width axis 62–125%) is. Without it, display type uses the heading face |
 
 ## Page surface
 

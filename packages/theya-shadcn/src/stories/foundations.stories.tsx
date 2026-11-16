@@ -1151,6 +1151,10 @@ return isPhone ? <Drawer>…</Drawer> : <Dialog>…</Dialog>;`}
 
 
 const DISPLAY_ROWS: SpecRow[] = [
+  { token: 'text-display-2xl', value: '72 → 192 (max 200) / 0.9', use: 'A wordmark or a statement over a scene (ld-02). Medium, −0.04em. Pair with display-caps for caps.', usedBy: 'Wordmark, Hero (statement)' },
+  { token: 'display-caps', value: 'line-height 0.85 · −0.04em', use: 'Uppercase display type set tight, with any display or heading size.', usedBy: 'Wordmark' },
+  { token: 'font-display', value: 'profile displayFont', use: "The brand's display face with its width axis and weight (--font-display, --display-stretch, --display-weight); without one, the heading face.", usedBy: 'Wordmark, Hero (statement)' },
+  { token: 'caption-mono', value: '12/16 · caps · +0.1em', use: 'The small mono voice next to display type: section numbers, labels, data captions.', usedBy: 'Hero (wordmark, statement)' },
   { token: 'text-display-xl', value: '56/60 → 128/128', use: 'A statement on its own: the closing call to action, a manifesto line. Medium, −0.035em. Landing pages only.', usedBy: 'CTA band' },
   { token: 'text-heading-3xl', value: '44/48 → 96/100', use: 'Inside data-scale="display": the centred hero headline. Medium weight, −0.03em. Outside, the fixed product value.', usedBy: 'Hero (centered)' },
   { token: 'text-heading-2xl', value: '36/40 → 64/68', use: 'Inside data-scale="display": a hero beside media, section titles. Medium, −0.025em.', usedBy: 'Hero (split, inset), section titles' },
@@ -1160,7 +1164,7 @@ const DISPLAY_ROWS: SpecRow[] = [
   { token: 'container-display', value: 'max 1200 · gutter 16 → 40', use: 'The centred content column of a section. -narrow (720) for text, -wide (1440) for full-bleed grids.', usedBy: 'Every landing section' },
 ];
 
-const DISPLAY_SAMPLES = ['text-display-xl', 'text-heading-3xl', 'text-heading-2xl', 'text-heading-xl', 'text-body-l'] as const;
+const DISPLAY_SAMPLES = ['text-display-2xl', 'text-display-xl', 'text-heading-3xl', 'text-heading-2xl', 'text-heading-xl', 'text-body-l'] as const;
 
 /** Reads the sizes the scale resolves to at the current window width. */
 function DisplayReadout() {

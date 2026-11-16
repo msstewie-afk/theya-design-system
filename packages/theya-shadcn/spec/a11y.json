@@ -175,7 +175,8 @@
       },
       "patternCounts": {
         "verified": 43,
-        "n/a": 11
+        "n/a": 10,
+        "untested": 1
       }
     },
     {
@@ -266,8 +267,8 @@
       },
       "patternCounts": {
         "verified": 48,
-        "n/a": 5,
-        "untested": 1
+        "n/a": 4,
+        "untested": 2
       }
     },
     {
@@ -321,8 +322,8 @@
         "deviation": 1
       },
       "patternCounts": {
-        "verified": 48,
-        "n/a": 5,
+        "verified": 49,
+        "n/a": 4,
         "partial": 1
       }
     },
@@ -339,8 +340,8 @@
         "n/a": 45
       },
       "patternCounts": {
-        "verified": 48,
-        "n/a": 5,
+        "verified": 49,
+        "n/a": 4,
         "untested": 1
       }
     },
@@ -449,8 +450,8 @@
         "n/a": 45
       },
       "patternCounts": {
-        "verified": 48,
-        "n/a": 5,
+        "verified": 49,
+        "n/a": 4,
         "untested": 1
       }
     },
@@ -468,8 +469,9 @@
         "verified": 6
       },
       "patternCounts": {
-        "n/a": 27,
-        "verified": 27
+        "n/a": 26,
+        "verified": 27,
+        "partial": 1
       }
     },
     {
@@ -517,8 +519,8 @@
         "n/a": 45
       },
       "patternCounts": {
-        "verified": 49,
-        "n/a": 5
+        "verified": 50,
+        "n/a": 4
       }
     },
     {
@@ -581,8 +583,8 @@
         "n/a": 45
       },
       "patternCounts": {
-        "verified": 49,
-        "n/a": 5
+        "verified": 50,
+        "n/a": 4
       }
     },
     {
@@ -629,8 +631,8 @@
         "n/a": 45
       },
       "patternCounts": {
-        "verified": 49,
-        "n/a": 5
+        "verified": 50,
+        "n/a": 4
       }
     },
     {
@@ -672,8 +674,8 @@
         "n/a": 45
       },
       "patternCounts": {
-        "verified": 48,
-        "n/a": 5,
+        "verified": 49,
+        "n/a": 4,
         "untested": 1
       }
     },
@@ -842,8 +844,8 @@
         "n/a": 45
       },
       "patternCounts": {
-        "verified": 49,
-        "n/a": 5
+        "verified": 50,
+        "n/a": 4
       }
     },
     {
@@ -17789,7 +17791,7 @@
       "name": "Hero",
       "title": "Patterns: Landing/Hero",
       "axe": {
-        "stories": 5,
+        "stories": 9,
         "themes": [
           "light",
           "dark"
@@ -17805,7 +17807,9 @@
       "screenReader": [],
       "deviations": [],
       "traits": [
-        "labelled"
+        "interactive",
+        "labelled",
+        "links"
       ],
       "wcag": {
         "1.1.1": "verified",
@@ -17819,38 +17823,38 @@
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
-        "1.4.1": "n/a",
+        "1.4.1": "untested",
         "1.4.2": "product",
         "1.4.3": "verified",
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "n/a",
+        "1.4.11": "untested",
         "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "n/a",
-        "2.1.2": "n/a",
+        "2.1.1": "verified",
+        "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "n/a",
-        "2.4.4": "n/a",
+        "2.4.3": "verified",
+        "2.4.4": "partial",
         "2.4.5": "product",
         "2.4.6": "verified",
-        "2.4.7": "n/a",
+        "2.4.7": "verified",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "n/a",
+        "2.5.3": "verified",
         "2.5.4": "library",
         "2.5.7": "n/a",
-        "2.5.8": "n/a",
+        "2.5.8": "verified",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "n/a",
+        "3.2.1": "verified",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -17861,7 +17865,7 @@
         "3.3.4": "product",
         "3.3.7": "product",
         "3.3.8": "n/a",
-        "4.1.2": "n/a",
+        "4.1.2": "verified",
         "4.1.3": "n/a"
       }
     },

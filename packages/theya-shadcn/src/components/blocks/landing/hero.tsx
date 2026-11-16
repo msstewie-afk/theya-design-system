@@ -1,7 +1,8 @@
 import type { ComponentProps, ReactNode } from 'react';
 import { cn } from '../../../lib/utils';
+import { Wordmark } from './wordmark';
 
-export type HeroLayout = 'centered' | 'split' | 'inset';
+export type HeroLayout = 'centered' | 'split' | 'inset' | 'statement' | 'wordmark';
 
 export interface HeroProps extends Omit<ComponentProps<'section'>, 'title'> {
   /**
@@ -34,6 +35,13 @@ export interface HeroProps extends Omit<ComponentProps<'section'>, 'title'> {
   media?: ReactNode;
   /** Heading level of the title. A page has one h1: the hero's. */
   titleAs?: 'h1' | 'h2';
+  /**
+   * `wordmark` only: section links set in numbered columns under the
+   * wordmark, as the atlas's SANTAL and Aspen do.
+   */
+  links?: { label: ReactNode; href: string }[];
+  /** A layer behind the content (a HeroTexture, an Aurora): centered and split only. */
+  backdrop?: ReactNode;
 }
 
 export interface HeroAccentProps extends ComponentProps<'em'> {
@@ -82,6 +90,8 @@ export function Hero({
   note,
   media,
   titleAs: Title = 'h1',
+  links,
+  backdrop,
   className,
   ...props
 }: HeroProps) {
@@ -126,6 +136,80 @@ export function Hero({
     </div>
   );
 
+  if (layout === 'statement') {
+    // A phrase over a full-bleed scene (ld-02, the atlas's Grail, Son Daven,
+    // Cyera): edge to edge, the statement at the bottom in display type, one
+    // or two actions. A dark scene in both themes, like inset.
+    return (
+      <section
+        data-slot="hero"
+        data-layout="statement"
+        data-scale="display"
+        data-theme="dark"
+        className={cn('relative isolate flex min-h-[min(100svh,64rem)] items-end overflow-hidden bg-[var(--color-bg-surface-bg-surface-sunken)] [color-scheme:dark]', className)}
+        {...props}
+      >
+        {media && (
+          <div data-slot="hero-media" className="absolute inset-0 -z-10 [&>img]:size-full [&>img]:object-cover [&>video]:size-full [&>video]:object-cover">
+            {media}
+          </div>
+        )}
+        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-[var(--color-bg-surface-bg-surface-sunken)] via-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_55%,transparent)] via-35% to-transparent to-70%" />
+        <div className="container-display-wide w-full pb-[var(--display-section-padding)]">
+          {eyebrow && <div className="mb-6 caption-mono text-[var(--color-text-text-subtle)]">{eyebrow}</div>}
+          <Title data-slot="hero-title" className="m-0 max-w-[14ch] text-balance font-display text-display-xl text-[var(--color-text-text)]">
+            {title}
+          </Title>
+          <div className="mt-8 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+            {description && <p className="m-0 max-w-[32rem] font-body text-body-l text-pretty text-[var(--color-text-text-subtle)]">{description}</p>}
+            {actions && <div className="flex shrink-0 gap-3 max-sm:flex-col max-sm:self-stretch">{actions}</div>}
+          </div>
+          {note && <p className="m-0 mt-4 font-body text-body-s text-[var(--color-text-text-subtle)]">{note}</p>}
+        </div>
+      </section>
+    );
+  }
+
+  if (layout === 'wordmark') {
+    // The name across the full width, a hairline, then the page in numbered
+    // columns (ld-02, the atlas's SANTAL, FORMAT, Aspen). The wordmark is the
+    // page title, so `title` must be plain text.
+    return (
+      <section data-slot="hero" data-layout="wordmark" data-scale="display" className={cn('pt-[var(--display-gutter)]', className)} {...props}>
+        <div className="container-display-wide">
+          <Wordmark as={Title} className="text-[var(--color-text-text)]">
+            {String(title)}
+          </Wordmark>
+          <div className="mt-[var(--display-gutter)] grid gap-8 border-t border-solid border-[var(--color-border-border)] pt-6 sm:grid-cols-2 lg:grid-cols-4">
+            {links && (
+              <nav aria-label="Sections" className="lg:col-span-2">
+                <ol className="m-0 grid list-none grid-cols-2 gap-x-8 gap-y-3 p-0">
+                  {links.map((l, i) => (
+                    <li key={l.href} className="flex items-baseline gap-3">
+                      <span aria-hidden className="caption-mono text-[var(--color-text-text-subtle)]">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <a href={l.href} className="font-body text-body-m font-medium text-[var(--color-text-text)] no-underline hover:text-[var(--color-text-text-subtle)]">
+                        {l.label}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+            {description && <p className="m-0 font-body text-body-m text-pretty text-[var(--color-text-text-subtle)]">{description}</p>}
+            {actions && <div className="flex flex-wrap items-start gap-3 lg:justify-end">{actions}</div>}
+          </div>
+        </div>
+        {media && (
+          <div data-slot="hero-media" className="container-display-wide mt-[var(--display-section-padding)]">
+            {media}
+          </div>
+        )}
+      </section>
+    );
+  }
+
   if (inset) {
     return (
       <section data-slot="hero" data-layout="inset" data-scale="display" className={cn('px-[var(--display-gutter)] pt-[var(--display-gutter)]', className)} {...props}>
@@ -149,7 +233,12 @@ export function Hero({
   }
 
   return (
-    <section data-slot="hero" data-layout={layout} data-scale="display" className={cn('section-display', className)} {...props}>
+    <section data-slot="hero" data-layout={layout} data-scale="display" className={cn('section-display', backdrop && 'relative isolate overflow-hidden', className)} {...props}>
+      {backdrop && (
+        <div data-slot="hero-backdrop" aria-hidden className="absolute inset-0 -z-10">
+          {backdrop}
+        </div>
+      )}
       <div
         className={cn(
           'container-display',
