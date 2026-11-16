@@ -15,15 +15,17 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 
 | Since | Area | What | Needs |
 |---|---|---|---|
+| 0.4.0 | Gradient themes (gr-01, gr-02; agent 1) | New profiles Dusk, Lagoon, Ochre with a `gradient` mesh and Schibsted Grotesk; `data-canvas="gradient"` canvas (white text, glass buttons, 90% white cards); SectionPanel `tone="gradient"`. Headings medium/semibold, display S 44px, stronger tonal fills; pill buttons (`radius.button: "max"`: Dusk, Lagoon, Ochre, Lime) side padding 1/8 of the height. | Agent 2: brand modes and variables in "9. Brand", SectionPanel tone, pill button padding. |
+| 0.4.0 | Landing (ld-02; agent 1) | Text styles display-2xl (72 → 192px), display-caps (line height 0.85, −0.04em), caption-mono; `font-display` with a profile `displayFont` (Archivo with a width axis). New Wordmark, HeroTexture (dither, halftone, particles); Hero layouts `statement` and `wordmark`, `backdrop` slot. | Agent 2: text styles and the new Hero layouts; Wordmark and HeroTexture if landing blocks are drawn. |
 | 0.3.16 | Prop vocabulary (code) | Code differs from the vocabulary, Figma follows code: FAB `shape="round"` (vocabulary: `circle`), Sparkline `tone="brand"`/`"muted"` (`primary`/`neutral`), Countdown `appearance="inline"`/`"blocks"`/`"ring"` (a structure, so `variant`), Toast `type` with `error` (`tone`, `danger`; the type comes from Sonner's API). Avatar `type` (image/text/icon) and DiffLine `type` are content kinds and match code. | Agent 3: decide in code; Figma renames after. |
 | 0.3.15 | StickyActionBar (code) | Below 28rem the close × wraps to a third row of its own: the message is `basis-full` and the actions `w-full`, so nothing is left beside it. Figma puts × at the end of the text row. | Agent 3: decide in code (e.g. × beside the message on narrow bars), then Figma follows. |
-| 0.3.14 | Text styles | Display/S, Eyebrow/M, Eyebrow/S: lining figures (`lnum`) are set in code; the Plugin API cannot set OpenType features. | Set by hand in Figma: Type settings → Numbers → Lining. Same check for Headline/*. |
 | earlier | Reference stories | PushSheet, Dialog (full) and the menu "Figma reference" stories against the Figma examples (pp-01, agent 3). | Run `scripts/figma-visual-diff.mjs` on them. |
 
 ## Done
 
 | Date | Version | Area | Figma |
 |---|---|---|---|
+| 2026-11-16 | 0.3.14 | Display/S, Eyebrow/M, Eyebrow/S: lining figures (Proportional uppercase lining) set by hand (Мария) | text styles |
 | 2026-11-14 | 0.3.14–0.3.15 | Review by eye (Мария): the nodes changed 13–14.11 (Drawer, StickyActionBar, TabsList chips, OptionCard, menus With Trailing, Ember radii, Elevation in every mode, Ember drawer description) — all fine | — |
 | 2026-11-14 | earlier | Kbd: 1px border and ⌘ glyph size checked against code (Мария) — fine | — |
 | 2026-11-13 | 0.3.7–0.3.14 | Tokens: bg-surface-page, bg-surface-sunken-on-page, bg-neutral-subtle-on-page (8 modes); Ember radius steps sm 3, md 5, lg 6, xl 8, 2xl–4xl 12, 5xl 24, theme-radius field and field-sm; size-minus1; display-s and eyebrow-m/s brand variables, Ember display-s letter spacing 0.4 | collections 2, 3, 6, 9 (delta sync from 8bb3c27) |

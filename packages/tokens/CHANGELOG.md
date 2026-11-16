@@ -1,5 +1,16 @@
 # @theya/tokens
 
+## 0.4.0
+
+### Minor Changes
+
+- c3bad02: Gradient themes (gr-01): Dusk, Lagoon and Ochre profiles with a `gradient` field (a mesh of radial spots; the build checks white text 4.5:1 on every point, bare and under glass), Schibsted Grotesk as their typeface (profile fonts now keep Geologica next in the stack, for Cyrillic). `data-canvas="gradient"` paints the canvas with grain: white text, glass buttons and `.glass` on it, 90% white cards that bring back the regular theme; `data-canvas-blooms` adds the theme's light patches on heroes. SectionPanel gets `tone="gradient"`.
+- 14034d6: Landing, after the Awwwards 2026 atlas (ld-02): `text-display-2xl` (72 → 192 px), `display-caps` (line-height 0.85, −0.04em), `caption-mono`, and `font-display` with a profile `displayFont` (family, width axis, weight; Archivo with a width axis is self-hosted). New `Wordmark` (fits the full width, optional crop), Hero layouts `statement` and `wordmark` plus a `backdrop` slot, `HeroTexture` (dither, halftone, particles). Recipes story: the restrained app landing, a base for PlateCovery.
+
+### Patch Changes
+
+- d07e909: Gradient themes (gr-02): headings at medium/semibold instead of bold, display S 44px; stronger tonal fills (and darker tonal text) so tonal buttons read on the 90% cards. Pill buttons (a theme with `radius.button: "max"`: Dusk, Lagoon, Ochre, Lime) get more side padding, 1/8 of the control height, through `--theme-button-pill-pad`.
+
 ## 0.3.8
 
 ### Patch Changes
