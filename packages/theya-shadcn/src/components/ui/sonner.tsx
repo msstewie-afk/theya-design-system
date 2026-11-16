@@ -110,7 +110,9 @@ export function Toaster({ closeButton = true, dark = false, position = 'bottom-r
             ' has-[[data-close-button]]:pe-12!' +
             // A toast is a Tab stop (Sonner, alt+T): Theya's focus ring
             // instead of Sonner's faint 2px rgba(0,0,0,.2) one.
-            ' focus-visible:outline-none! focus-visible:focus-ring!',
+            // Forced colors drop the ring (a box-shadow): an inset Highlight
+            // outline instead, inside the toast list's clip (a11y-forced, 2026-11-16).
+            ' focus-visible:outline-none! focus-visible:focus-ring! forced-colors:focus-visible:[outline:2px_solid_Highlight]! forced-colors:focus-visible:[outline-offset:-2px]!',
           content: 'flex-1 min-w-0',
           // Sonner injects its own unlayered stylesheet ([data-sonner-toast]
           // [data-title] etc.), which beats Tailwind's @layer utilities — so
@@ -128,7 +130,7 @@ export function Toaster({ closeButton = true, dark = false, position = 'bottom-r
             'size-7! rounded-[var(--size-border-radius-border-radius-sm)]! border-0! bg-transparent! max-sm:after:absolute max-sm:after:-inset-2 max-sm:after:content-[""] opacity-80! ' +
             (dark ? 'text-[var(--color-icon-icon-subtler-on-dark)]! hover:bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-hover)]!' : 'text-[var(--color-icon-icon-subtle)]! hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]!') +
             ' start-auto! end-[13px]! top-1/2! transition-colors hover:opacity-100! ' +
-            'focus-visible:outline-none! focus-visible:focus-ring! [&_svg]:size-4!',
+            'focus-visible:outline-none! focus-visible:focus-ring! forced-colors:focus-visible:[outline:2px_solid_Highlight]! forced-colors:focus-visible:[outline-offset:-2px]! [&_svg]:size-4!',
           error: dark ? '[&_[data-icon]]:text-[var(--color-icon-icon-danger-on-dark)]' : '[&_[data-icon]]:text-[var(--color-icon-icon-danger)]',
           success: dark ? '[&_[data-icon]]:text-[var(--color-icon-icon-success-on-dark)]' : '[&_[data-icon]]:text-[var(--color-icon-icon-success)]',
           // Fixed 2026-09-26 (DS-wide token pass): '--color-icon-icon-warning-bright' was
@@ -218,7 +220,7 @@ export const toast: ToastApi = Object.assign(((message: Parameters<ToastApi>[0],
           'absolute! end-[13px]! top-3! h-7! rounded-[var(--size-border-radius-border-radius-sm)]! border-0! data-[button]:bg-transparent! px-2! ' +
             'text-body-xs! font-medium! data-[button]:text-[var(--color-text-text)]! opacity-80! shadow-none! transition-colors ' +
             'data-[button]:hover:bg-[var(--color-bg-neutral-bg-neutral-subtle)]! hover:opacity-100! focus-visible:outline-none! ' +
-            'focus-visible:focus-ring! ' +
+            'focus-visible:focus-ring! forced-colors:focus-visible:[outline:2px_solid_Highlight]! forced-colors:focus-visible:[outline-offset:-2px]! ' +
             ON_DARK,
           classNames?.actionButton,
         ),
@@ -259,7 +261,7 @@ export const toast: ToastApi = Object.assign(((message: Parameters<ToastApi>[0],
         closeButton: cn(
           'size-7! rounded-[var(--size-border-radius-border-radius-sm)]! border-0! bg-transparent! max-sm:after:absolute max-sm:after:-inset-2 max-sm:after:content-[""] text-[var(--color-icon-icon-subtle)]! opacity-80! ' +
             'start-auto! end-[13px]! top-1/2! transition-colors hover:bg-[var(--color-bg-primary-bg-primary-subtle-hover)]! hover:opacity-100! ' +
-            'focus-visible:outline-none! focus-visible:focus-ring! [&_svg]:size-4!',
+            'focus-visible:outline-none! focus-visible:focus-ring! forced-colors:focus-visible:[outline:2px_solid_Highlight]! forced-colors:focus-visible:[outline-offset:-2px]! [&_svg]:size-4!',
           classNames?.closeButton,
         ),
       },

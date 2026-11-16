@@ -147,7 +147,10 @@ function collect() {
   for (const role of ['checkbox', 'radio', 'switch']) {
     const all = [...document.querySelectorAll(`[role=${role}], input[type=${role === 'switch' ? 'x-none' : role}]`)].filter((el) => inScope(el) && usable(el));
     const on = all.find(isOn);
-    const off = all.find((el) => isOff(el) && el.getBoundingClientRect().width === on?.getBoundingClientRect().width);
+    // An unchecked one after the checked one: in a rating every star up to the
+    // value is drawn filled, so the state shows on the ones after it.
+    const same = (el) => isOff(el) && el.getBoundingClientRect().width === on?.getBoundingClientRect().width;
+    const off = all.slice(all.indexOf(on) + 1).find(same) ?? all.find(same);
     if (on && off) out.checked.push({ on: tag(on), off: tag(off), desc: desc(on) });
   }
   return out;
@@ -170,17 +173,47 @@ async function checkStory(page, story) {
 
   const shot = (key) => page.locator(`[data-theya-fc="${key}"]`).screenshot({ timeout: 3000, animations: 'disabled' }).catch(() => null);
   const found = await page.evaluate(collect);
+  const flatControls = [];
   for (const c of found.controls) {
     const b = await shot(c.key);
-    if (b && flat(b)) add('invisible-control', `${c.desc} is one flat color in forced colors: no edge, text or mark shows it`);
+    if (b && flat(b)) flatControls.push(c);
+  }
+  // Only what forced colors erased: a control that is flat in normal colors
+  // too (an option turned edge-on in a wheel) is not this check's business.
+  if (flatControls.length) {
+    await page.emulateMedia({ forcedColors: 'none' });
+    await page.waitForTimeout(150);
+    const erased = [];
+    for (const c of flatControls) {
+      const b = await shot(c.key);
+      if (b && !flat(b)) erased.push(c);
+    }
+    await page.emulateMedia({ forcedColors: 'active' });
+    await page.waitForTimeout(150);
+    for (const c of erased) add('invisible-control', `${c.desc} is one flat color in forced colors: no edge, text or mark shows it`);
   }
   for (const i of found.icons) {
     const b = await shot(i.key);
     if (b && flat(b)) add('icon-lost', `mask icon ${i.desc} disappears in forced colors (painted with background-color)`);
   }
+  const sameChecked = [];
   for (const c of found.checked) {
     const [on, off] = [await shot(c.on), await shot(c.off)];
-    if (on && off && on.equals(off)) add('checked-same', `${c.desc}: checked looks the same as unchecked in forced colors`);
+    if (on && off && on.equals(off)) sameChecked.push(c);
+  }
+  // Only what forced colors erased: a pair that looks the same in normal
+  // colors too (a hover preview left by a play test) is not this check's business.
+  if (sameChecked.length) {
+    await page.emulateMedia({ forcedColors: 'none' });
+    await page.waitForTimeout(150);
+    const erased = [];
+    for (const c of sameChecked) {
+      const [on, off] = [await shot(c.on), await shot(c.off)];
+      if (on && off && !on.equals(off)) erased.push(c);
+    }
+    await page.emulateMedia({ forcedColors: 'active' });
+    await page.waitForTimeout(150);
+    for (const c of erased) add('checked-same', `${c.desc}: checked looks the same as unchecked in forced colors`);
   }
 
   // Focus: Tab through, compare the focused element's area focused and blurred.

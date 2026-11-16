@@ -751,7 +751,8 @@ export const CleanForcedColors: Story = {
       <input id="fx-fc-note" />
       <label htmlFor="fx-fc-tags">Tags</label>
       {/* A borderless field inside a bordered box: the box is its edge. */}
-      <div style={{ border: '1px solid', padding: 4 }}>
+      <style>{'.fx-box:focus-within { outline: 2px solid; outline-offset: 2px; }'}</style>
+      <div className="fx-box" style={{ border: '1px solid', padding: 4 }}>
         <input id="fx-fc-tags" style={{ border: 0, outline: 'none' }} />
       </div>
       <button type="button" aria-label="Add">

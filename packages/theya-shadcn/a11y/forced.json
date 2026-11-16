@@ -56,9 +56,7 @@
     "AspectRatio": {
       "stories": 5,
       "errors": 0,
-      "findings": [
-        "Embed: focus-invisible: iframe \"\" looks the same focused and blurred in forced colors"
-      ]
+      "findings": []
     },
     "Attachment": {
       "stories": 20,
@@ -123,9 +121,7 @@
     "Calendar": {
       "stories": 5,
       "errors": 0,
-      "findings": [
-        "Range: focus-invisible: select \"Choose the Year\" looks the same focused and blurred in forced colors"
-      ]
+      "findings": []
     },
     "CancellationFlow": {
       "stories": 4,
@@ -165,9 +161,7 @@
     "Cart": {
       "stories": 5,
       "errors": 0,
-      "findings": [
-        "Quantity Zero Keeps Focus: focus-invisible: li \"Fine-art print removedUndo\" looks the same focused and blurred in forced colors"
-      ]
+      "findings": []
     },
     "CategoryLanding": {
       "stories": 2,
@@ -207,10 +201,7 @@
     "CodeBlock": {
       "stories": 4,
       "errors": 0,
-      "findings": [
-        "Plain: focus-invisible: pre \"pnpm add @radix-ui/react-dialo\" looks the same focused and blurred in forced colors",
-        "No copy: focus-invisible: pre \"GET /v2/galleries/golden-hour/\" looks the same focused and blurred in forced colors"
-      ]
+      "findings": []
     },
     "CodeEditor": {
       "stories": 6,
@@ -230,10 +221,7 @@
     "Combobox": {
       "stories": 11,
       "errors": 0,
-      "findings": [
-        "Read-only: invisible-control: combobox \"Frameworks\" is one flat color in forced colors: no edge, text or mark shows it",
-        "Multiple: invisible-control: combobox \"Frameworks\" is one flat color in forced colors: no edge, text or mark shows it"
-      ]
+      "findings": []
     },
     "Command": {
       "stories": 10,
@@ -378,9 +366,7 @@
     "Fab": {
       "stories": 9,
       "errors": 0,
-      "findings": [
-        "Collapse On Scroll: focus-invisible: region \"Galleries\" looks the same focused and blurred in forced colors"
-      ]
+      "findings": []
     },
     "FacetedList": {
       "stories": 8,
@@ -425,12 +411,7 @@
     "FilterField": {
       "stories": 6,
       "errors": 0,
-      "findings": [
-        "Default: invisible-control: combobox \"Filter galleries\" is one flat color in forced colors: no edge, text or mark shows it",
-        "Mobile: invisible-control: combobox \"Filter galleries\" is one flat color in forced colors: no edge, text or mark shows it",
-        "Disabled: invisible-control: combobox \"Filter galleries\" is one flat color in forced colors: no edge, text or mark shows it",
-        "Test: interactions: invisible-control: combobox \"Filter galleries\" is one flat color in forced colors: no edge, text or mark shows it"
-      ]
+      "findings": []
     },
     "Form": {
       "stories": 3,
@@ -540,9 +521,7 @@
     "ListView": {
       "stories": 4,
       "errors": 0,
-      "findings": [
-        "Test: interactions: invisible-control: combobox \"Search users…\" is one flat color in forced colors: no edge, text or mark shows it"
-      ]
+      "findings": []
     },
     "LoginForm": {
       "stories": 4,
@@ -762,9 +741,7 @@
     "QueryBuilder": {
       "stories": 4,
       "errors": 0,
-      "findings": [
-        "Default: invisible-control: combobox \"Status value\" is one flat color in forced colors: no edge, text or mark shows it"
-      ]
+      "findings": []
     },
     "Radio": {
       "stories": 3,
@@ -779,23 +756,12 @@
     "Rating": {
       "stories": 8,
       "errors": 0,
-      "findings": [
-        "Default: checked-same: radio \"3 of 5\": checked looks the same as unchecked in forced colors",
-        "Sizes: checked-same: radio \"4 of 5\": checked looks the same as unchecked in forced colors",
-        "Test: interactions: checked-same: radio \"4 of 5\": checked looks the same as unchecked in forced colors"
-      ]
+      "findings": []
     },
     "Resizable": {
       "stories": 6,
       "errors": 0,
-      "findings": [
-        "Default: focus-invisible: div \"GalleriesGolden hourBlue hour\" looks the same focused and blurred in forced colors",
-        "Vertical: focus-invisible: div \"ExportExport #482 finished 6 m\" looks the same focused and blurred in forced colors",
-        "Horizontal: focus-invisible: div \"NavigationBrowse the albums of\" looks the same focused and blurred in forced colors",
-        "Three Pane: focus-invisible: div \"Navigation\" looks the same focused and blurred in forced colors",
-        "Disabled: focus-invisible: div \"SidebarLayout is locked.\" looks the same focused and blurred in forced colors",
-        "Test: interactions: focus-invisible: div \"GalleriesGolden hourBlue hour\" looks the same focused and blurred in forced colors"
-      ]
+      "findings": []
     },
     "ResourceForm": {
       "stories": 2,
@@ -840,12 +806,7 @@
     "ScrollArea": {
       "stories": 4,
       "errors": 0,
-      "findings": [
-        "Horizontal: focus-invisible: div \"golden-hourportraitwedding35mm\" looks the same focused and blurred in forced colors",
-        "Long Content: focus-invisible: div \"Export logStep 1 — resized 240\" looks the same focused and blurred in forced colors",
-        "Default: focus-invisible: div \"Shoot locationsOthrys LodgeHel\" looks the same focused and blurred in forced colors",
-        "Always Visible: focus-invisible: div \"Recent uploadsBatch 181h agoBa\" looks the same focused and blurred in forced colors"
-      ]
+      "findings": []
     },
     "SearchBox": {
       "stories": 4,
@@ -860,11 +821,7 @@
     "SecretField": {
       "stories": 4,
       "errors": 0,
-      "findings": [
-        "Playground: focus-invisible: li \"CopiedPaste it somewhere safe \" looks the same focused and blurred in forced colors",
-        "Playground: focus-invisible: button \"Copy API key\" looks the same focused and blurred in forced colors",
-        "Not revealable: focus-invisible: li \"Couldn't copyCopying isn't ava\" looks the same focused and blurred in forced colors"
-      ]
+      "findings": []
     },
     "SectionPanel": {
       "stories": 2,
@@ -964,13 +921,7 @@
     "StickyActionBar": {
       "stories": 4,
       "errors": 0,
-      "findings": [
-        "Mobile Primary: focus-invisible: region \"Plan details\" looks the same focused and blurred in forced colors",
-        "Narrow container: focus-invisible: region \"Phone preview\" looks the same focused and blurred in forced colors",
-        "Narrow container: focus-invisible: region \"Custom padding\" looks the same focused and blurred in forced colors",
-        "Unsaved Changes: focus-invisible: region \"Gallery settings\" looks the same focused and blurred in forced colors",
-        "Bulk Selection: focus-invisible: region \"Photos\" looks the same focused and blurred in forced colors"
-      ]
+      "findings": []
     },
     "SuccessCheck": {
       "stories": 3,
@@ -1015,16 +966,7 @@
     "TagInput": {
       "stories": 9,
       "errors": 0,
-      "findings": [
-        "Default: invisible-control: input[text] \"Tags\" is one flat color in forced colors: no edge, text or mark shows it",
-        "Max: invisible-control: input[text] \"Keywords\" is one flat color in forced colors: no edge, text or mark shows it",
-        "Space Separated: invisible-control: input[text] \"Tags\" is one flat color in forced colors: no edge, text or mark shows it",
-        "Read Only And Disabled: invisible-control: input[text] \"Tags\" is one flat color in forced colors: no edge, text or mark shows it",
-        "Emails: invisible-control: input[text] \"Recipients\" is one flat color in forced colors: no edge, text or mark shows it",
-        "Sizes: invisible-control: input[text] \"Tags\" is one flat color in forced colors: no edge, text or mark shows it",
-        "With Label: invisible-control: input[text] \"Photo keywords*\" is one flat color in forced colors: no edge, text or mark shows it",
-        "Test: interactions: invisible-control: input[text] \"Tags\" is one flat color in forced colors: no edge, text or mark shows it"
-      ]
+      "findings": []
     },
     "TeamMembers": {
       "stories": 3,
@@ -1034,9 +976,7 @@
     "Terminal": {
       "stories": 8,
       "errors": 0,
-      "findings": [
-        "Headless: focus-invisible: log \"Export output\" looks the same focused and blurred in forced colors"
-      ]
+      "findings": []
     },
     "TextArea": {
       "stories": 10,
@@ -1146,11 +1086,7 @@
     "WheelPicker": {
       "stories": 5,
       "errors": 0,
-      "findings": [
-        "Controlled: invisible-control: option \"15 minutes\" is one flat color in forced colors: no edge, text or mark shows it",
-        "Controlled: invisible-control: option \"30 minutes\" is one flat color in forced colors: no edge, text or mark shows it",
-        "Default: invisible-control: option \"15 minutes\" is one flat color in forced colors: no edge, text or mark shows it"
-      ]
+      "findings": []
     },
     "WorkspaceLayout": {
       "stories": 4,
