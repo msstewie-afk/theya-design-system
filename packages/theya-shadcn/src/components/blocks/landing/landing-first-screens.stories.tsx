@@ -200,3 +200,167 @@ export const SwissBento: Story = {
   ),
   play: hasOneH1,
 };
+
+/* ------------------------------------------------------------------------ */
+
+const NOHO_TILES = [
+  { bg: 'bg-[var(--color-bg-primary-bg-primary-subtle)]', img: '/asset-examples/silk/1-square.webp', offset: '' },
+  { bg: 'bg-[var(--color-bg-warning-bg-warning-subtle)]', img: '/asset-examples/silk/4-square.webp', offset: 'sm:translate-y-[50%]' },
+  { bg: 'bg-[var(--color-bg-success-bg-success-subtle)]', img: '/asset-examples/silk/5-square.webp', offset: '' },
+  { bg: 'bg-[var(--color-bg-danger-bg-danger-subtle)]', img: '/asset-examples/silk/6-square.webp', offset: 'sm:translate-y-[50%]' },
+  { bg: 'bg-[var(--color-bg-neutral-bg-neutral-subtle)]', img: '/asset-examples/silk/3-square.webp', offset: '' },
+  { bg: 'bg-[var(--color-bg-primary-bg-primary-subtle)]', img: '/asset-examples/silk/2-square.webp', offset: 'sm:translate-y-[50%]' },
+];
+
+/**
+ * 03 · Split: a phrase and a mosaic (Noho, the restrained reference). Two
+ * columns: on the left a sentence in Inter Tight 600 at line-height 1.0 and
+ * −0.04em with a caption at the foot, sticky while the right column, a
+ * stepped mosaic of square pictures each on its own colored ground, runs
+ * past it.
+ */
+export const SplitMosaic: Story = {
+  name: '03 · Split, phrase and mosaic',
+  render: () => (
+    <div className="grid bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] md:grid-cols-2">
+      <div className="flex flex-col justify-between gap-12 p-[var(--display-gutter)] md:sticky md:top-0 md:h-svh">
+        <div className="flex items-center justify-between">
+          <span className="font-display-tight text-[22px] font-[700] tracking-[-0.04em]">noho</span>
+          <Button size="sm" appearance="outlined" tone="neutral">
+            Get the app
+          </Button>
+        </div>
+        <h1 className="m-0 max-w-[12ch] font-display-tight text-[clamp(40px,4.4vw,64px)] font-[600] leading-[1] tracking-[-0.04em]">
+          Notes that keep the shape of your day
+        </h1>
+        <div className="flex flex-col gap-6">
+          <p className="m-0 max-w-[34ch] font-body text-body-l text-[var(--color-text-text-subtle)]">
+            Write, sketch and file in one place. Noho sorts your pages by the day they belong to.
+          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button size="xl">Download for iPhone</Button>
+            <span className="caption-mono text-[var(--color-text-text-subtle)]">Free · iOS 18+</span>
+          </div>
+        </div>
+      </div>
+      <ul
+        aria-label="Noho, pictures of the app"
+        className="m-0 grid list-none grid-cols-2 gap-3 p-[var(--display-gutter)] pb-[calc(var(--display-gutter)+25%)] md:pt-[20svh]"
+      >
+        {NOHO_TILES.map((t, i) => (
+          <li key={i} className={`${t.bg} ${t.offset} aspect-square p-[12%]`}>
+            <img src={t.img} alt="" className="size-full object-cover" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  ),
+  play: hasOneH1,
+};
+
+/* ------------------------------------------------------------------------ */
+
+/**
+ * 05 · Manifesto across the measure (Signal-A, Lama Lama). Mono navigation
+ * in six columns under a hairline with the local time, then one statement
+ * in caps justified to both edges (text-align-last too), Archivo at 78%
+ * width, its key words switching to 800 at 118% width.
+ */
+export const Manifesto: Story = {
+  name: '05 · Manifesto across the measure',
+  render: () => (
+    <div className="flex min-h-svh flex-col bg-[var(--color-bg-surface-bg-surface)] px-[var(--display-gutter)] text-[var(--color-text-text)]">
+      <nav aria-label="Main" className="border-b border-solid border-[var(--color-text-text)] py-3">
+        <ul className="m-0 grid list-none grid-cols-3 gap-x-5 gap-y-1 p-0 md:grid-cols-6">
+          {['Signal-A', 'Work', 'Studio', 'Process', 'Contact'].map((l, i) => (
+            <li key={l}>
+              <a href={`#${l.toLowerCase()}`} className="caption-mono text-[var(--color-text-text)] no-underline hover:text-[var(--color-text-text-subtle)]">
+                {i === 0 ? '●' : `0${i}`} {l}
+              </a>
+            </li>
+          ))}
+          <li className="caption-mono text-[var(--color-text-text-subtle)] md:text-end">
+            <time dateTime="18:42">Sofia 18:42</time>
+          </li>
+        </ul>
+      </nav>
+      <div className="flex flex-1 items-center py-16">
+        <h1 className="m-0 w-full font-display-wide text-[clamp(26px,5vw,76px)] font-[400] uppercase leading-[0.98] tracking-[-0.01em] [font-stretch:78%] [text-align-last:justify] [text-align:justify] [hyphens:none]">
+          ● Signal-A is an <b className="font-[800] [font-stretch:118%]">independent</b> interface &amp; experience{' '}
+          <b className="font-[800] [font-stretch:118%]">design studio</b> crafting digital products for people who read the small print
+        </h1>
+      </div>
+      <div className="flex flex-col items-center gap-1 pb-[var(--display-gutter)] text-center">
+        <p className="m-0 caption-mono text-[var(--color-text-text-subtle)]">Available from March 2027</p>
+        <a href="#contact" className="caption-mono text-[var(--color-text-text)] no-underline hover:text-[var(--color-text-text-subtle)]">
+          hello@signal-a.studio
+        </a>
+      </div>
+    </div>
+  ),
+  play: hasOneH1,
+};
+
+/* ------------------------------------------------------------------------ */
+
+const FLOEMA_ITEMS = [
+  { x: 22, y: 14, w: 9, img: '1-portrait' },
+  { x: 47, y: 8, w: 7, img: '3-square' },
+  { x: 72, y: 20, w: 8, img: '5-portrait' },
+  { x: 8, y: 42, w: 10, img: '6-square' },
+  { x: 37, y: 48, w: 8, img: '2-square' },
+  { x: 61, y: 42, w: 9, img: '4-portrait' },
+  { x: 85, y: 52, w: 8, img: '6-portrait' },
+  { x: 2, y: 74, w: 9, img: '5-square' },
+  { x: 26, y: 78, w: 7, img: '4-square' },
+  { x: 52, y: 76, w: 9, img: '1-square-dark' },
+];
+
+/**
+ * 07 · Collage field (Floema). Small product pictures scattered over a light
+ * field at different sizes, the navigation a single pill, and a modest
+ * title (≈4.6vw, Inter Tight 400) below the field rather than over it.
+ */
+export const CollageField: Story = {
+  name: '07 · Collage field',
+  render: () => (
+    <div className="bg-[var(--color-bg-surface-bg-surface-sunken)] text-[var(--color-text-text)]">
+      <header className="flex items-center justify-between px-[var(--display-gutter)] py-4">
+        <span className="font-display-tight text-[18px] font-[600] tracking-[-0.02em]">Floema</span>
+        <nav
+          aria-label="Main"
+          className="rounded-full border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] px-2 py-1"
+        >
+          <ul className="m-0 flex list-none gap-1 p-0">
+            {['Shop', 'Rituals', 'About'].map((l) => (
+              <li key={l}>
+                <Button size="sm" appearance="ghost" tone="neutral">
+                  {l}
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
+      <ul aria-label="Floema products" className="relative m-0 h-[78svh] list-none overflow-hidden p-0">
+        {FLOEMA_ITEMS.map((it) => (
+          <li key={it.img} className="absolute" style={{ left: `${it.x}%`, top: `${it.y}%`, width: `max(${it.w}vw, 64px)` }}>
+            <img src={`/asset-examples/silk/${it.img}.webp`} alt="" className="block w-full object-cover" />
+          </li>
+        ))}
+      </ul>
+      <div className="grid gap-6 px-[var(--display-gutter)] pb-[var(--display-gutter)] pt-10 md:grid-cols-[2fr_1fr] md:items-end">
+        <h1 className="m-0 max-w-[16ch] font-display-tight text-[clamp(32px,4.6vw,68px)] font-[400] leading-[1.05] tracking-[-0.04em]">
+          Skin care grown slowly, in small batches
+        </h1>
+        <div className="flex flex-col items-start gap-4">
+          <p className="m-0 font-body text-body-m text-[var(--color-text-text-subtle)]">Nine products, each from one plant. Made to order in Porto.</p>
+          <Button size="xl" appearance="outlined" tone="neutral" rightIcon={<ArrowRight />}>
+            Shop the field
+          </Button>
+        </div>
+      </div>
+    </div>
+  ),
+  play: hasOneH1,
+};
