@@ -68,10 +68,52 @@ Story: `patterns-landing-hero--split-with-chips`
 - "Trips 21", plain text (no role)
 - "3 duplicates found Review", plain text (no role)
 
+### Statement
+
+Story: `patterns-landing-hero--statement`
+
+#### As rendered
+
+- "Bookmarks · 2026", plain text (no role)
+- **Get started free**, button
+
+### Textures
+
+Story: `patterns-landing-hero--textures`
+
+#### As rendered
+
+- **Get started free**, button
+- **See how it works**, button
+
 ### Title only
 
 Story: `patterns-landing-hero--title-only`
 
 #### As rendered
 
+- **Get started free**, button
+
+### Wordmark
+
+Story: `patterns-landing-hero--wordmark`
+
+#### As rendered
+
+- **Library**, link
+- **Search**, link
+- **Teams**, link
+- **Pricing**, link
+- **Get started free**, button
+
+### Wordmark, display face
+
+Story: `patterns-landing-hero--wordmark-display-face`
+
+#### As rendered
+
+- **Library**, link
+- **Search**, link
+- **Teams**, link
+- **Pricing**, link
 - **Get started free**, button

@@ -340,31 +340,85 @@ Story: `patterns-catalog-facetedlist--empty-state-clear-focus`
 
 Story: `patterns-catalog-facetedlist--narrow`
 
+> Script findings in this story (fix first, or confirm with the screen reader):
+> - keyboard-arrows: radiogroup "Rating": ArrowDown doesn't move focus to another radio
+> - keyboard-escape: dialog "Filters": Escape doesn't close it
+
 #### As rendered
 
-- **Filters (1)**, button
-- **Sort by**, combo box, collapsed
+- **Filters**, dialog
+- **Category**, group
+- "Category", plain text (no role)
+- **Presets**, checkbox
+- "Presets 6 results", plain text (no role)
+- **Lens rentals**, checkbox
+- "Lens rentals 5 results", plain text (no role)
+- **Fine-art prints**, checkbox
+- "Fine-art prints 4 results", plain text (no role)
+- **Plan add-ons**, checkbox, checked
+- "Plan add-ons 4 results", plain text (no role)
+- **Photo books**, checkbox
+- "Photo books 3 results", plain text (no role)
+- **Show 1 more**, button
+- **Vendor**, group
+- "Vendor", plain text (no role)
+- **Search vendor**, edit text
+- **Aether**, checkbox
+- "Aether 2 results", plain text (no role)
+- **Fjord**, checkbox
+- "Fjord 1 result", plain text (no role)
+- **Quartz**, checkbox
+- "Quartz 1 result", plain text (no role)
+- **Eos Portraits**, checkbox, disabled
+- "Eos Portraits 0 results", plain text (no role)
+- **Folio**, checkbox, disabled
+- "Folio 0 results", plain text (no role)
+- **Show 10 more**, button
+- **Works with**, group
+- "Works with", plain text (no role)
+- **Pro plan**, checkbox
+- "Pro plan 4 results", plain text (no role)
+- **Business plan**, checkbox
+- "Business plan 3 results", plain text (no role)
+- **Canon RF**, checkbox, disabled
+- "Canon RF 0 results", plain text (no role)
+- **Capture One**, checkbox, disabled
+- "Capture One 0 results", plain text (no role)
+- **Lightroom**, checkbox, disabled
+- "Lightroom 0 results", plain text (no role)
+- **Show 3 more**, button
+- **Price**, group
+- "Price", plain text (no role)
+- **Free**, checkbox, disabled
+- "Free 0 results", plain text (no role)
+- **Paid**, checkbox
+- "Paid 4 results", plain text (no role)
+- **Price per month**, group
+- "Price per month Any", plain text (no role)
+- **Price per month minimum**, slider
+- **Price per month maximum**, slider
+- "From", plain text (no role)
+- **Decrease**, button, disabled
+- **From**, stepper
+- **Increase**, button
+- "To", plain text (no role)
+- **Decrease**, button
+- **To**, stepper
+- **Increase**, button, disabled
+- **Rating**, group
+- "Rating", plain text (no role)
 - **(no name)**, radio button — **no name: check**
-- **Grid**, radio button, checked
-- **List**, radio button
-- **Applied filters**, group
-- **Clear all**, button
-- **Client proofing by Aether**, link
-- "$8 / mo", plain text (no role)
-- **Extra storage by Aether**, link
-- "$12 / mo", plain text (no role)
-- **Watermark studio by Quartz**, link
-- "$5 / mo", plain text (no role)
-- **License manager by Fjord**, link
-- "$4 / mo", plain text (no role)
-
-#### Focus combobox "Sort by", press ArrowDown
-
-- **Sort by**, list box
-- **Most relevant**, option, selected
-- **Highest rated**, option
-- **Most popular**, option
-- **Newest**, option
+- **Any rating**, radio button, checked
+- "Any rating", plain text (no role)
+- **4.5 ★ & up**, radio button
+- "4.5 ★ & up", plain text (no role)
+- **4 ★ & up**, radio button
+- "4 ★ & up", plain text (no role)
+- **3 ★ & up**, radio button
+- "3 ★ & up", plain text (no role)
+- **Show 4 products**, button
+- **Close**, button
+- **Show 4 products**, status (polite announcement)
 
 ### No Results
 

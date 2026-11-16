@@ -72,3 +72,53 @@ Story: `patterns-landing-landing-page--bookmarks`
 - **Privacy**, link
 - **Bookmarks on GitHub**, link
 - **Bookmarks on X**, link
+
+### Gradient
+
+Story: `patterns-landing-landing-page--gradient`
+
+#### As rendered
+
+- **Skip to content**, link
+- **Bookmarks**, link
+- **Product**, button
+- **Pricing**, link
+- **Changelog**, link
+- **Blog**, link
+- **Log in**, button
+- **Get started**, button
+- **Get started free**, button
+- **See how it works**, button
+- "Search 250 links ⌘K", plain text (no role)
+- "Reading list 128", plain text (no role)
+- "Design systems 64", plain text (no role)
+- "Recipes 37", plain text (no role)
+- "Trips 21", plain text (no role)
+- "3 duplicates found Review", plain text (no role)
+- **Bring everything over**, button, disabled, expanded
+- **Folders that sort themselves**, button
+- **Search the words, not just the titles**, button
+- **One copy of everything**, button
+- "Chrome", plain text (no role)
+- "Firefox", plain text (no role)
+- "168/230 Safari", plain text (no role)
+- "0/96", plain text (no role)
+- **Can I bring my bookmarks from Chrome?**, button
+- **What happens to a page that disappears?**, button
+- **Who can see my library?**, button
+- **Is there a free plan?**, button
+- **Import**, link
+- **Search**, link
+- **Teams**, link
+- **Chrome**, link
+- **Firefox**, link
+- **Safari**, link
+- **Edge**, link
+- **Help centre**, link
+- **About**, link
+- **Careers**, link
+- **Contact**, link
+- **Terms**, link
+- **Privacy**, link
+- **Bookmarks on GitHub**, link
+- **Bookmarks on X**, link
