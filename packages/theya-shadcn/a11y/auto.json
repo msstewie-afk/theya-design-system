@@ -13,7 +13,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Accordion": {
       "stories": 4,
@@ -26,7 +27,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "AccountMenu": {
       "stories": 3,
@@ -39,7 +41,12 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Compact: label-content-name-mismatch: #radix-_r_1_ (Text inside the element is not included in the accessible name)",
+        "Default: label-content-name-mismatch: #radix-_r_1_ (Text inside the element is not included in the accessible name)",
+        "Test: interactions: label-content-name-mismatch: #radix-_r_1_ (Text inside the element is not included in the accessible name)"
+      ]
     },
     "AccountOverview": {
       "stories": 2,
@@ -52,7 +59,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Alert": {
       "stories": 7,
@@ -65,7 +73,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "AlertDialog": {
       "stories": 4,
@@ -78,7 +87,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "AnimatedIcon": {
       "stories": 4,
@@ -91,7 +101,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "AnnouncementBar": {
       "stories": 6,
@@ -104,7 +115,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "AreaChart": {
       "stories": 13,
@@ -117,7 +129,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "AspectRatio": {
       "stories": 5,
@@ -130,7 +143,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Attachment": {
       "stories": 20,
@@ -149,7 +163,8 @@
         "Default: 1.4.12: span[data-slot=truncated-text] \"quarterly-report.pdf\"",
         "Kind label: 1.4.4: span[data-slot=truncated-text] \"801 KB, PNG image\"",
         "Localized labels: 1.4.12: span[data-slot=truncated-text] \"quartalsbericht.pdf\""
-      ]
+      ],
+      "advisory": []
     },
     "AuditLog": {
       "stories": 4,
@@ -162,7 +177,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Autocomplete": {
       "stories": 9,
@@ -175,7 +191,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Avatar": {
       "stories": 10,
@@ -188,7 +205,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "AvatarGroup": {
       "stories": 4,
@@ -201,7 +219,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Badge": {
       "stories": 8,
@@ -214,7 +233,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "BadgeIndicator": {
       "stories": 7,
@@ -227,7 +247,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "BarChart": {
       "stories": 3,
@@ -240,7 +261,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "BillingUsage": {
       "stories": 3,
@@ -253,7 +275,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "BottomNav": {
       "stories": 5,
@@ -266,7 +289,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Breadcrumb": {
       "stories": 8,
@@ -279,7 +303,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Button": {
       "stories": 20,
@@ -292,7 +317,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Calendar": {
       "stories": 5,
@@ -305,7 +331,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "CancellationFlow": {
       "stories": 4,
@@ -318,7 +345,11 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "No Pause: label-content-name-mismatch: button[data-state=\"unchecked\"] (Text inside the element is not included in the accessible name)",
+        "No Pause: label-content-name-mismatch: button[value=\"cancel\"] (Text inside the element is not included in the accessible name)"
+      ]
     },
     "Card": {
       "stories": 24,
@@ -331,7 +362,10 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "With Avatar: p-as-heading: .text-body-m"
+      ]
     },
     "Card motion": {
       "stories": 7,
@@ -351,6 +385,11 @@
         "Fan: 1.4.4: span \"Cold cucumber soup\"",
         "Folders: 1.4.12: span \"Banitsa, step by step\"",
         "Folders: 1.4.12: span \"Cold cucumber soup\""
+      ],
+      "advisory": [
+        "Flip: p-as-heading: .h-80.min-w-56.\\[perspective\\:1200px\\]:nth-child(1) > .size-full.\\[transform-style\\:preserve-3d\\].relative > .border-\\[color-mix\\(in_srgb\\,var\\(--color-border-border-primary\\)_35\\%\\,transparent\\)\\].\\[background\\:radial-gradient\\(120\\%_90\\%_at_100\\%_0\\%\\,color-mix\\(in_srgb\\,var\\(--color-bg-primary-bg-primary\\)_22\\%\\,transparent\\)\\,transparent_60\\%\\)\\,var\\(--color-bg-primary-bg-primary-subtle\\)\\].before\\:pointer-events-none > .p-6.lg\\:p-8.h-full > .justify-end.gap-2.h-full > .text-heading-xl.font-semibold.font-heading",
+        "Flip: p-as-heading: .\\[background\\:linear-gradient\\(var\\(--color-bg-secondary-bg-secondary-subtle\\)\\,var\\(--color-bg-secondary-bg-secondary-subtle\\)\\)\\,var\\(--color-bg-surface-bg-surface\\)\\] > .gap-2.flex.flex-col > .tabular-nums.text-heading-2xl.font-semibold",
+        "Flip: p-as-heading: .\\[background\\:linear-gradient\\(var\\(--color-bg-success-bg-success-subtle\\)\\,var\\(--color-bg-success-bg-success-subtle\\)\\)\\,var\\(--color-bg-surface-bg-surface\\)\\] > .gap-2.flex.flex-col > .tabular-nums.text-heading-2xl.font-semibold"
       ]
     },
     "CardFan": {
@@ -364,7 +403,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Cards": {
       "stories": 11,
@@ -388,6 +428,13 @@
         "Media: 1.4.4: span \"Notes on attention\"",
         "Media: 1.4.4: span \"Notes on attention\"",
         "Media: 1.4.4: span \"Cold cucumber soup\""
+      ],
+      "advisory": [
+        "Bento: p-as-heading: .text-heading-2xl.tabular-nums.font-heading",
+        "Stats: p-as-heading: .bg-\\[var\\(--color-bg-primary-bg-primary\\)\\] > .gap-2.flex.flex-col > .font-semibold.font-heading.text-heading-2xl",
+        "Stats: p-as-heading: .bg-\\[var\\(--color-bg-surface-bg-surface-sunken\\)\\]:nth-child(2) > .gap-2.flex.flex-col > .font-semibold.font-heading.text-heading-2xl",
+        "Stats: p-as-heading: .bg-\\[var\\(--color-bg-surface-bg-surface-sunken\\)\\]:nth-child(3) > .gap-2.flex.flex-col > .font-semibold.font-heading.text-heading-2xl",
+        "Stats: p-as-heading: .bg-\\[var\\(--color-bg-surface-bg-surface-sunken\\)\\]:nth-child(4) > .gap-2.flex.flex-col > .font-semibold.font-heading.text-heading-2xl"
       ]
     },
     "CardStack": {
@@ -401,7 +448,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Carousel": {
       "stories": 8,
@@ -414,7 +462,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Cart": {
       "stories": 5,
@@ -427,7 +476,11 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Empty: p-as-heading: .break-words",
+        "Remove Keeps Focus: p-as-heading: .break-words"
+      ]
     },
     "CategoryLanding": {
       "stories": 2,
@@ -440,7 +493,10 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Default: p-as-heading: li:nth-child(3) > .group\\/card.isolate[data-size=\"lg\"] > .gap-4.p-5.group-data-\\[size\\=sm\\]\\/card\\:p-3 > .gap-3.items-center.flex > .min-w-0 > .text-body-l.font-semibold.text-\\[var\\(--color-text-text\\)\\]"
+      ]
     },
     "ChartRangeSelection": {
       "stories": 4,
@@ -453,7 +509,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Chat": {
       "stories": 4,
@@ -466,7 +523,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Checkbox": {
       "stories": 8,
@@ -479,7 +537,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "CheckboxGroup": {
       "stories": 5,
@@ -492,7 +551,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Checkout": {
       "stories": 3,
@@ -505,7 +565,11 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Default: label-content-name-mismatch: button[value=\"monthly\"] (Text inside the element is not included in the accessible name)",
+        "Default: label-content-name-mismatch: button[value=\"yearly\"] (Text inside the element is not included in the accessible name)"
+      ]
     },
     "Chip": {
       "stories": 18,
@@ -518,7 +582,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "CodeBlock": {
       "stories": 4,
@@ -531,7 +596,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "CodeEditor": {
       "stories": 6,
@@ -544,7 +610,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Collapsible": {
       "stories": 5,
@@ -557,7 +624,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "ColorPicker": {
       "stories": 10,
@@ -579,7 +647,8 @@
         "Test: interactions: 1.4.12: span[data-slot=truncated-text] \"RGB\"",
         "With opacity: 1.4.12: span[data-slot=truncated-text] \"RGB\"",
         "With presets: 1.4.12: span[data-slot=truncated-text] \"HEX\""
-      ]
+      ],
+      "advisory": []
     },
     "Combobox": {
       "stories": 11,
@@ -592,7 +661,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Command": {
       "stories": 10,
@@ -605,7 +675,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Comparison": {
       "stories": 7,
@@ -618,7 +689,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "CompletionBurst": {
       "stories": 3,
@@ -631,7 +703,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "CompletionScreen": {
       "stories": 3,
@@ -644,7 +717,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "ConfirmDialog": {
       "stories": 7,
@@ -657,7 +731,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "ContextMenu": {
       "stories": 8,
@@ -670,7 +745,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "CopyButton": {
       "stories": 3,
@@ -683,7 +759,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Countdown": {
       "stories": 10,
@@ -696,7 +773,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "CountUp": {
       "stories": 2,
@@ -709,7 +787,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "DashboardOverview": {
       "stories": 4,
@@ -722,7 +801,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "DataTable": {
       "stories": 7,
@@ -756,7 +836,8 @@
         "With selection and row menu: 1.4.4: span[data-slot=truncated-text] \"Helios Studio\"",
         "With selection and row menu: 1.4.4: span[data-slot=truncated-text] \"Eos Portraits\"",
         "With selection and row menu: 1.4.4: span[data-slot=truncated-text] \"Othrys Lodge\""
-      ]
+      ],
+      "advisory": []
     },
     "DataTableCell": {
       "stories": 6,
@@ -769,7 +850,13 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Editable: label-content-name-mismatch: #_r_i_ (Text inside the element is not included in the accessible name)",
+        "Editable: label-content-name-mismatch: #_r_o_ (Text inside the element is not included in the accessible name)",
+        "Kinds: label-content-name-mismatch: #_r_2l_ (Text inside the element is not included in the accessible name)",
+        "Kinds: label-content-name-mismatch: #_r_2r_ (Text inside the element is not included in the accessible name)"
+      ]
     },
     "DataTableToolbar": {
       "stories": 5,
@@ -802,7 +889,8 @@
         "Selected: 1.4.4: span[data-slot=truncated-text] \"Eos Portraits\"",
         "Selected: 1.4.4: span[data-slot=truncated-text] \"Othrys Lodge\"",
         "Test: interactions: 1.4.4: span[data-slot=truncated-text] \"Helios Studio\""
-      ]
+      ],
+      "advisory": []
     },
     "DatePicker": {
       "stories": 7,
@@ -821,6 +909,12 @@
         "Future dates only: 1.4.4: span[data-slot=truncated-text] \"Pick a start date\"",
         "With Label: 1.4.12: span[data-slot=truncated-text] \"Pick a renewal date\"",
         "With Label: 1.4.4: span[data-slot=truncated-text] \"Pick a renewal date\""
+      ],
+      "advisory": [
+        "Disabled: label-content-name-mismatch: #_r_3_ (Text inside the element is not included in the accessible name)",
+        "Future dates only: label-content-name-mismatch: #_r_3_ (Text inside the element is not included in the accessible name)",
+        "With clear button: label-content-name-mismatch: #_r_3_ (Text inside the element is not included in the accessible name)",
+        "With value: label-content-name-mismatch: #_r_3_ (Text inside the element is not included in the accessible name)"
       ]
     },
     "DateRangePicker": {
@@ -837,6 +931,13 @@
       "truncated": [
         "Test: interactions: 1.4.12: span[data-slot=truncated-text] \"Nov 16, 2026 – Nov 18, 2026\"",
         "Test: interactions: 1.4.4: span[data-slot=truncated-text] \"Nov 16, 2026 – Nov 18, 2026\""
+      ],
+      "advisory": [
+        "Disabled: label-content-name-mismatch: #_r_3_ (Text inside the element is not included in the accessible name)",
+        "Past dates only, single month: label-content-name-mismatch: #_r_3_ (Text inside the element is not included in the accessible name)",
+        "Test: interactions: label-content-name-mismatch: #_r_3_ (Text inside the element is not included in the accessible name)",
+        "With clear button: label-content-name-mismatch: #_r_3_ (Text inside the element is not included in the accessible name)",
+        "With value: label-content-name-mismatch: #_r_3_ (Text inside the element is not included in the accessible name)"
       ]
     },
     "DateTimePicker": {
@@ -850,7 +951,16 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Date First: label-content-name-mismatch: #_r_0_ (Text inside the element is not included in the accessible name)",
+        "Default: label-content-name-mismatch: #_r_0_ (Text inside the element is not included in the accessible name)",
+        "Disabled: label-content-name-mismatch: #_r_0_ (Text inside the element is not included in the accessible name)",
+        "24-hour: label-content-name-mismatch: #_r_0_ (Text inside the element is not included in the accessible name)",
+        "Invalid: label-content-name-mismatch: #_r_0_ (Text inside the element is not included in the accessible name)",
+        "Preselected: label-content-name-mismatch: #_r_0_ (Text inside the element is not included in the accessible name)",
+        "Preselected Midnight: label-content-name-mismatch: #_r_0_ (Text inside the element is not included in the accessible name)"
+      ]
     },
     "DensityToggle": {
       "stories": 3,
@@ -863,7 +973,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "DescriptionList": {
       "stories": 4,
@@ -876,7 +987,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Details": {
       "stories": 2,
@@ -889,7 +1001,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Dialog": {
       "stories": 8,
@@ -902,7 +1015,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "DiffViewer": {
       "stories": 11,
@@ -915,7 +1029,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "DonutChart": {
       "stories": 7,
@@ -928,7 +1043,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "DotSeparator": {
       "stories": 3,
@@ -941,7 +1057,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Drawer": {
       "stories": 7,
@@ -954,7 +1071,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "DropdownMenu": {
       "stories": 10,
@@ -967,7 +1085,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Dropzone": {
       "stories": 8,
@@ -980,7 +1099,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "EmptyState": {
       "stories": 7,
@@ -993,7 +1113,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "ExpandingPanels": {
       "stories": 2,
@@ -1006,7 +1127,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Fab": {
       "stories": 9,
@@ -1019,7 +1141,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "FacetedList": {
       "stories": 8,
@@ -1032,7 +1155,10 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "No Results: p-as-heading: .break-words"
+      ]
     },
     "FeatureShowcase": {
       "stories": 2,
@@ -1045,7 +1171,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "FeatureSplit": {
       "stories": 3,
@@ -1060,7 +1187,8 @@
       "2.4.3": [],
       "truncated": [
         "Live demo: 1.4.12: span \"Design systems\""
-      ]
+      ],
+      "advisory": []
     },
     "FeedbackWidget": {
       "stories": 4,
@@ -1073,7 +1201,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Field": {
       "stories": 5,
@@ -1086,7 +1215,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Fieldset": {
       "stories": 6,
@@ -1099,7 +1229,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "File": {
       "stories": 12,
@@ -1114,7 +1245,8 @@
       "2.4.3": [],
       "truncated": [
         "Read-only: 1.4.12: span[data-slot=truncated-text] \"242 KB, Modified 2 days ago\""
-      ]
+      ],
+      "advisory": []
     },
     "Filter": {
       "stories": 5,
@@ -1127,7 +1259,11 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Filter bar: label-content-name-mismatch: #_r_7_ (Text inside the element is not included in the accessible name)",
+        "With selection: label-content-name-mismatch: #_r_3_ (Text inside the element is not included in the accessible name)"
+      ]
     },
     "FilterField": {
       "stories": 6,
@@ -1140,7 +1276,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Form": {
       "stories": 3,
@@ -1153,7 +1290,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "HelpIcon": {
       "stories": 7,
@@ -1166,10 +1304,11 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Hero": {
-      "stories": 5,
+      "stories": 9,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -1187,7 +1326,8 @@
         "Split with chips: 1.4.4: span \"The case for slow software\"",
         "Split with chips: 1.4.4: span \"How we read on screens\"",
         "Split with chips: 1.4.4: span \"A year without notifications\""
-      ]
+      ],
+      "advisory": []
     },
     "HoldToTalk": {
       "stories": 3,
@@ -1200,7 +1340,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "HoverCard": {
       "stories": 5,
@@ -1213,7 +1354,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "ImageCropper": {
       "stories": 5,
@@ -1226,7 +1368,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "InlineEdit": {
       "stories": 11,
@@ -1239,7 +1382,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "InputGroup": {
       "stories": 6,
@@ -1252,7 +1396,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "InputOTP": {
       "stories": 6,
@@ -1265,7 +1410,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "ItemCard": {
       "stories": 6,
@@ -1278,7 +1424,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "ItemPage": {
       "stories": 3,
@@ -1291,7 +1438,14 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Default: p-as-heading: .text-heading-s.font-semibold.tabular-nums",
+        "Default: p-as-heading: .text-heading-l",
+        "Free: p-as-heading: .text-heading-l",
+        "Test: interactions: p-as-heading: .text-heading-s.font-semibold.tabular-nums",
+        "Test: interactions: p-as-heading: .text-heading-l"
+      ]
     },
     "Kanban": {
       "stories": 5,
@@ -1309,7 +1463,8 @@
         "Empty columns: 1.4.12: span[data-slot=truncated-text] \"Redirect old gallery links, then email c\"",
         "Test: interactions: 1.4.12: span[data-slot=truncated-text] \"Redirect old gallery links, then email c\"",
         "With actions: 1.4.12: span[data-slot=truncated-text] \"Redirect old gallery links, then email c\""
-      ]
+      ],
+      "advisory": []
     },
     "Kbd": {
       "stories": 4,
@@ -1322,7 +1477,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "KebabIcon": {
       "stories": 4,
@@ -1335,7 +1491,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "KeyboardShortcuts": {
       "stories": 6,
@@ -1348,7 +1505,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Label": {
       "stories": 2,
@@ -1361,10 +1519,11 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Landing page": {
-      "stories": 1,
+      "stories": 2,
       "errors": 0,
       "2.5.3": [],
       "2.4.7": [],
@@ -1376,7 +1535,8 @@
       "2.4.3": [],
       "truncated": [
         "Bookmarks: 1.4.12: span \"Design systems\""
-      ]
+      ],
+      "advisory": []
     },
     "Lightbox": {
       "stories": 2,
@@ -1389,7 +1549,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "LineChart": {
       "stories": 5,
@@ -1402,7 +1563,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Link": {
       "stories": 5,
@@ -1415,7 +1577,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "ListItem": {
       "stories": 7,
@@ -1430,7 +1593,8 @@
       "2.4.3": [],
       "truncated": [
         "Interactive with action: 1.4.4: span[data-slot=list-item-description] \"Selene Weddings·248 photos\""
-      ]
+      ],
+      "advisory": []
     },
     "ListView": {
       "stories": 4,
@@ -1443,7 +1607,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "LoginForm": {
       "stories": 4,
@@ -1456,7 +1621,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "LoginFormSplit": {
       "stories": 4,
@@ -1469,7 +1635,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "LogoStrip": {
       "stories": 3,
@@ -1482,7 +1649,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Marquee": {
       "stories": 3,
@@ -1495,7 +1663,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "MarqueeColumns": {
       "stories": 3,
@@ -1508,7 +1677,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "MaskedInput": {
       "stories": 4,
@@ -1521,7 +1691,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "MegaMenu": {
       "stories": 4,
@@ -1534,7 +1705,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Menubar": {
       "stories": 4,
@@ -1547,7 +1719,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Message": {
       "stories": 5,
@@ -1560,7 +1733,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "MessagePopup": {
       "stories": 2,
@@ -1573,7 +1747,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Meter": {
       "stories": 8,
@@ -1586,7 +1761,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Metric": {
       "stories": 3,
@@ -1601,7 +1777,8 @@
       "2.4.3": [],
       "truncated": [
         "Default: 1.4.12: span[data-slot=metric-description] \"Galleries open to clients on their porta\""
-      ]
+      ],
+      "advisory": []
     },
     "NavigationMenu": {
       "stories": 3,
@@ -1614,7 +1791,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "NoResults": {
       "stories": 3,
@@ -1627,7 +1805,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "NotificationsInbox": {
       "stories": 5,
@@ -1643,6 +1822,9 @@
       "truncated": [
         "Default: 1.4.12: span[data-slot=list-item-description] \"Chrome on macOS · 203.0.113.24. If this \"",
         "Test: interactions: 1.4.12: span[data-slot=list-item-description] \"Chrome on macOS · 203.0.113.24. If this \""
+      ],
+      "advisory": [
+        "Status hidden, custom object facet: label-content-name-mismatch: #_r_3_ (Text inside the element is not included in the accessible name)"
       ]
     },
     "NumberField": {
@@ -1656,7 +1838,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "OnboardingWizard": {
       "stories": 4,
@@ -1669,7 +1852,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "OptionCard": {
       "stories": 9,
@@ -1682,7 +1866,38 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Controlled: label-content-name-mismatch: button[value=\"personal\"] (Text inside the element is not included in the accessible name)",
+        "Controlled: label-content-name-mismatch: button[data-state=\"unchecked\"] (Text inside the element is not included in the accessible name)",
+        "Default: label-content-name-mismatch: button[value=\"personal\"] (Text inside the element is not included in the accessible name)",
+        "Default: label-content-name-mismatch: button[data-state=\"unchecked\"] (Text inside the element is not included in the accessible name)",
+        "Disabled: label-content-name-mismatch: button[value=\"personal\"] (Text inside the element is not included in the accessible name)",
+        "Disabled: label-content-name-mismatch: button[data-state=\"unchecked\"] (Text inside the element is not included in the accessible name)",
+        "Multiple choice: label-content-name-mismatch: button[value=\"diabetes\"] (Text inside the element is not included in the accessible name)",
+        "Multiple choice: label-content-name-mismatch: button[value=\"ckd\"] (Text inside the element is not included in the accessible name)",
+        "Multiple choice: label-content-name-mismatch: button[value=\"lactose\"] (Text inside the element is not included in the accessible name)",
+        "Multiple choice: label-content-name-mismatch: button[value=\"more-protein\"] (Text inside the element is not included in the accessible name)",
+        "Multiple choice: label-content-name-mismatch: button[value=\"less-protein\"] (Text inside the element is not included in the accessible name)",
+        "Multiple choice: label-content-name-mismatch: button[value=\"none\"] (Text inside the element is not included in the accessible name)",
+        "Studio picker: label-content-name-mismatch: button[value=\"helios\"] (Text inside the element is not included in the accessible name)",
+        "Studio picker: label-content-name-mismatch: button[value=\"eos\"] (Text inside the element is not included in the accessible name)",
+        "Studio picker: label-content-name-mismatch: button[data-disabled=\"\"] (Text inside the element is not included in the accessible name)",
+        "Test: alignment: label-content-name-mismatch: button[value=\"protein\"] (Text inside the element is not included in the accessible name)",
+        "Test: alignment: label-content-name-mismatch: button[value=\"long\"] (Text inside the element is not included in the accessible name)",
+        "Test: alignment: label-content-name-mismatch: button[value=\"a\"] (Text inside the element is not included in the accessible name)",
+        "Test: alignment: label-content-name-mismatch: button[value=\"b\"] (Text inside the element is not included in the accessible name)",
+        "Test: interactions: label-content-name-mismatch: button[data-state=\"unchecked\"] (Text inside the element is not included in the accessible name)",
+        "Test: interactions: label-content-name-mismatch: button[value=\"commercial\"] (Text inside the element is not included in the accessible name)",
+        "Test: multiple: label-content-name-mismatch: button[value=\"diabetes\"] (Text inside the element is not included in the accessible name)",
+        "Test: multiple: label-content-name-mismatch: button[value=\"ckd\"] (Text inside the element is not included in the accessible name)",
+        "Test: multiple: label-content-name-mismatch: button[value=\"lactose\"] (Text inside the element is not included in the accessible name)",
+        "Test: multiple: label-content-name-mismatch: button[value=\"more-protein\"] (Text inside the element is not included in the accessible name)",
+        "Test: multiple: label-content-name-mismatch: button[value=\"less-protein\"] (Text inside the element is not included in the accessible name)",
+        "Test: multiple: label-content-name-mismatch: button[value=\"none\"] (Text inside the element is not included in the accessible name)",
+        "With group label: label-content-name-mismatch: button[value=\"single\"] (Text inside the element is not included in the accessible name)",
+        "With group label: label-content-name-mismatch: button[data-state=\"unchecked\"] (Text inside the element is not included in the accessible name)"
+      ]
     },
     "OrbitCarousel": {
       "stories": 9,
@@ -1695,7 +1910,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "OrderHistory": {
       "stories": 2,
@@ -1708,7 +1924,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "OrderReview": {
       "stories": 3,
@@ -1721,7 +1938,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "PageBreadcrumbs": {
       "stories": 3,
@@ -1734,7 +1952,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "PageHeader": {
       "stories": 12,
@@ -1747,7 +1966,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Pagination": {
       "stories": 5,
@@ -1760,7 +1980,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Password": {
       "stories": 6,
@@ -1773,7 +1994,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "PasswordReset": {
       "stories": 3,
@@ -1786,7 +2008,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "PasswordStrengthMeter": {
       "stories": 7,
@@ -1799,7 +2022,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "PaymentMethod": {
       "stories": 4,
@@ -1812,7 +2036,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "PhoneField": {
       "stories": 7,
@@ -1825,7 +2050,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "PlanComparison": {
       "stories": 4,
@@ -1838,7 +2064,12 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Default: td-has-header: .-mx-3",
+        "Test: interactions: td-has-header: .-mx-3",
+        "With Current Plan: td-has-header: .-mx-3"
+      ]
     },
     "Popover": {
       "stories": 7,
@@ -1851,7 +2082,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Preferences": {
       "stories": 4,
@@ -1864,7 +2096,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Price": {
       "stories": 7,
@@ -1877,7 +2110,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "PricedOptions": {
       "stories": 3,
@@ -1890,7 +2124,15 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Archive: label-content-name-mismatch: button[value=\"standard\"] (Text inside the element is not included in the accessible name)",
+        "Archive: label-content-name-mismatch: button[value=\"extended\"] (Text inside the element is not included in the accessible name)",
+        "Archive: label-content-name-mismatch: button[value=\"permanent\"] (Text inside the element is not included in the accessible name)",
+        "Location: label-content-name-mismatch: button[value=\"helios\"] (Text inside the element is not included in the accessible name)",
+        "Location: label-content-name-mismatch: button[value=\"venue\"] (Text inside the element is not included in the accessible name)",
+        "Location: label-content-name-mismatch: button[value=\"othrys\"] (Text inside the element is not included in the accessible name)"
+      ]
     },
     "ProductTour": {
       "stories": 4,
@@ -1903,7 +2145,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Progress": {
       "stories": 8,
@@ -1916,7 +2159,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "ProgressRing": {
       "stories": 2,
@@ -1929,7 +2173,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "PromptArea": {
       "stories": 15,
@@ -1942,7 +2187,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "PromptSuggestions": {
       "stories": 2,
@@ -1955,7 +2201,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "PropertyGrid": {
       "stories": 8,
@@ -1968,7 +2215,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Prose": {
       "stories": 6,
@@ -1981,7 +2229,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "PushSheet": {
       "stories": 5,
@@ -1996,7 +2245,8 @@
       "2.4.3": [],
       "truncated": [
         "Notifications: 1.4.12: span[data-slot=list-item-description] \"Golden hour: 240 photos exported for pri\""
-      ]
+      ],
+      "advisory": []
     },
     "QrCode": {
       "stories": 7,
@@ -2009,7 +2259,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "QueryBuilder": {
       "stories": 4,
@@ -2024,6 +2275,9 @@
       "2.4.3": [],
       "truncated": [
         "Ranges and types: 1.4.12: span[data-slot=truncated-text] \"Watermarked\""
+      ],
+      "advisory": [
+        "Ranges and types: label-content-name-mismatch: #_r_d_ (Text inside the element is not included in the accessible name)"
       ]
     },
     "Radio": {
@@ -2037,7 +2291,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "RangeField": {
       "stories": 6,
@@ -2050,7 +2305,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Rating": {
       "stories": 8,
@@ -2063,7 +2319,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Resizable": {
       "stories": 6,
@@ -2076,7 +2333,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "ResourceForm": {
       "stories": 2,
@@ -2089,7 +2347,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Reveal": {
       "stories": 3,
@@ -2102,7 +2361,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Reviews": {
       "stories": 4,
@@ -2115,7 +2375,13 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Default: p-as-heading: .text-heading-l",
+        "Test: show all focus: p-as-heading: .text-heading-l",
+        "Test: show more focus: p-as-heading: .text-heading-l",
+        "Test: interactions: p-as-heading: .text-heading-l"
+      ]
     },
     "RichTextEditor": {
       "stories": 8,
@@ -2128,7 +2394,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "SavedItems": {
       "stories": 4,
@@ -2141,7 +2408,11 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Empty: p-as-heading: .break-words",
+        "Last Item: p-as-heading: .break-words"
+      ]
     },
     "Scheduler": {
       "stories": 5,
@@ -2154,7 +2425,53 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Day: label-content-name-mismatch: .bg-\\[var\\(--color-bg-primary-bg-primary-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Day: label-content-name-mismatch: .bg-\\[var\\(--color-bg-danger-bg-danger-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Day: label-content-name-mismatch: .bg-\\[var\\(--color-bg-neutral-bg-neutral-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Day: label-content-name-mismatch: .bg-\\[var\\(--color-bg-warning-bg-warning-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: button[aria-label=\"Montag, 5. Oktober 2026, today\"] (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: .rounded-\\[var\\(--size-border-radius-border-radius-md\\)\\].hover\\:bg-\\[var\\(--color-bg-neutral-bg-neutral-subtler\\)\\][aria-label=\"Dienstag, 6. Oktober 2026\"] (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: .rounded-\\[var\\(--size-border-radius-border-radius-md\\)\\].hover\\:bg-\\[var\\(--color-bg-neutral-bg-neutral-subtler\\)\\][aria-label=\"Mittwoch, 7. Oktober 2026\"] (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: .rounded-\\[var\\(--size-border-radius-border-radius-md\\)\\].hover\\:bg-\\[var\\(--color-bg-neutral-bg-neutral-subtler\\)\\][aria-label=\"Donnerstag, 8. Oktober 2026\"] (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: .rounded-\\[var\\(--size-border-radius-border-radius-md\\)\\].hover\\:bg-\\[var\\(--color-bg-neutral-bg-neutral-subtler\\)\\][aria-label=\"Freitag, 9. Oktober 2026\"] (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: .rounded-\\[var\\(--size-border-radius-border-radius-md\\)\\].hover\\:bg-\\[var\\(--color-bg-neutral-bg-neutral-subtler\\)\\][aria-label=\"Samstag, 10. Oktober 2026\"] (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: .rounded-\\[var\\(--size-border-radius-border-radius-md\\)\\].hover\\:bg-\\[var\\(--color-bg-neutral-bg-neutral-subtler\\)\\][aria-label=\"Sonntag, 11. Oktober 2026\"] (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: div[aria-label=\"Montag, 5. Oktober 2026\"] > .bg-\\[var\\(--color-bg-primary-bg-primary-subtle\\)\\].border-\\[var\\(--color-border-border-primary\\)\\].touch-none (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: .bg-\\[var\\(--color-bg-danger-bg-danger-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: div[aria-label=\"Montag, 5. Oktober 2026\"] > .bg-\\[var\\(--color-bg-warning-bg-warning-subtle\\)\\].border-\\[var\\(--color-border-border-warning\\)\\].touch-none (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: .relative[aria-label=\"Dienstag, 6. Oktober 2026\"][role=\"group\"] > .bg-\\[var\\(--color-bg-neutral-bg-neutral-subtle\\)\\].border-\\[var\\(--color-border-border-neutral\\)\\].touch-none (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: .relative[aria-label=\"Mittwoch, 7. Oktober 2026\"][role=\"group\"] > .bg-\\[var\\(--color-bg-primary-bg-primary-subtle\\)\\].border-\\[var\\(--color-border-border-primary\\)\\].touch-none (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: .bg-\\[var\\(--color-bg-success-bg-success-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Localized: label-content-name-mismatch: .relative[aria-label=\"Freitag, 9. Oktober 2026\"][role=\"group\"] > .bg-\\[var\\(--color-bg-primary-bg-primary-subtle\\)\\].border-\\[var\\(--color-border-border-primary\\)\\].touch-none (Text inside the element is not included in the accessible name)",
+        "Month: label-content-name-mismatch: .bg-\\[var\\(--color-bg-primary-bg-primary-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Month: label-content-name-mismatch: .bg-\\[var\\(--color-bg-success-bg-success-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Month: label-content-name-mismatch: .bg-\\[var\\(--color-bg-danger-bg-danger-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Month: label-content-name-mismatch: .bg-\\[var\\(--color-bg-info-bg-info-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Read-only: label-content-name-mismatch: div[aria-label=\"Monday, October 5, 2026\"] > .bg-\\[var\\(--color-bg-primary-bg-primary-subtle\\)\\].border-\\[var\\(--color-border-border-primary\\)\\].touch-none (Text inside the element is not included in the accessible name)",
+        "Read-only: label-content-name-mismatch: .bg-\\[var\\(--color-bg-danger-bg-danger-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Read-only: label-content-name-mismatch: div[aria-label=\"Monday, October 5, 2026\"] > .bg-\\[var\\(--color-bg-warning-bg-warning-subtle\\)\\].border-\\[var\\(--color-border-border-warning\\)\\].touch-none (Text inside the element is not included in the accessible name)",
+        "Read-only: label-content-name-mismatch: div[aria-label=\"Tuesday, October 6, 2026\"] > .bg-\\[var\\(--color-bg-neutral-bg-neutral-subtle\\)\\].border-\\[var\\(--color-border-border-neutral\\)\\].touch-none (Text inside the element is not included in the accessible name)",
+        "Read-only: label-content-name-mismatch: div[aria-label=\"Wednesday, October 7, 2026\"] > .bg-\\[var\\(--color-bg-primary-bg-primary-subtle\\)\\].border-\\[var\\(--color-border-border-primary\\)\\].touch-none (Text inside the element is not included in the accessible name)",
+        "Read-only: label-content-name-mismatch: .bg-\\[var\\(--color-bg-success-bg-success-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Read-only: label-content-name-mismatch: div[aria-label=\"Friday, October 9, 2026\"] > .bg-\\[var\\(--color-bg-primary-bg-primary-subtle\\)\\].border-\\[var\\(--color-border-border-primary\\)\\].touch-none (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: button[aria-label=\"Monday, October 5, 2026, today\"] (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: .rounded-\\[var\\(--size-border-radius-border-radius-md\\)\\].hover\\:bg-\\[var\\(--color-bg-neutral-bg-neutral-subtler\\)\\][aria-label=\"Tuesday, October 6, 2026\"] (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: .rounded-\\[var\\(--size-border-radius-border-radius-md\\)\\].hover\\:bg-\\[var\\(--color-bg-neutral-bg-neutral-subtler\\)\\][aria-label=\"Wednesday, October 7, 2026\"] (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: .rounded-\\[var\\(--size-border-radius-border-radius-md\\)\\].hover\\:bg-\\[var\\(--color-bg-neutral-bg-neutral-subtler\\)\\][aria-label=\"Thursday, October 8, 2026\"] (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: .rounded-\\[var\\(--size-border-radius-border-radius-md\\)\\].hover\\:bg-\\[var\\(--color-bg-neutral-bg-neutral-subtler\\)\\][aria-label=\"Friday, October 9, 2026\"] (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: .rounded-\\[var\\(--size-border-radius-border-radius-md\\)\\].hover\\:bg-\\[var\\(--color-bg-neutral-bg-neutral-subtler\\)\\][aria-label=\"Saturday, October 10, 2026\"] (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: .rounded-\\[var\\(--size-border-radius-border-radius-md\\)\\].hover\\:bg-\\[var\\(--color-bg-neutral-bg-neutral-subtler\\)\\][aria-label=\"Sunday, October 11, 2026\"] (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: .bg-\\[var\\(--color-bg-danger-bg-danger-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: div[aria-label=\"Monday, October 5, 2026\"] > .bg-\\[var\\(--color-bg-primary-bg-primary-subtle\\)\\].border-\\[var\\(--color-border-border-primary\\)\\].cursor-grab (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: div[aria-label=\"Monday, October 5, 2026\"] > .bg-\\[var\\(--color-bg-warning-bg-warning-subtle\\)\\].border-\\[var\\(--color-border-border-warning\\)\\].touch-none (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: .relative[aria-label=\"Tuesday, October 6, 2026\"][role=\"group\"] > .bg-\\[var\\(--color-bg-neutral-bg-neutral-subtle\\)\\].border-\\[var\\(--color-border-border-neutral\\)\\].cursor-grab (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: .relative[aria-label=\"Tuesday, October 6, 2026\"][role=\"group\"] > .bg-\\[var\\(--color-bg-primary-bg-primary-subtle\\)\\].border-\\[var\\(--color-border-border-primary\\)\\].cursor-grab (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: .relative[aria-label=\"Wednesday, October 7, 2026\"][role=\"group\"] > .bg-\\[var\\(--color-bg-primary-bg-primary-subtle\\)\\].border-\\[var\\(--color-border-border-primary\\)\\].cursor-grab (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: .bg-\\[var\\(--color-bg-success-bg-success-subtle\\)\\] (Text inside the element is not included in the accessible name)",
+        "Week: label-content-name-mismatch: .relative[aria-label=\"Friday, October 9, 2026\"][role=\"group\"] > .bg-\\[var\\(--color-bg-primary-bg-primary-subtle\\)\\].border-\\[var\\(--color-border-border-primary\\)\\].cursor-grab (Text inside the element is not included in the accessible name)"
+      ]
     },
     "Scroll": {
       "stories": 4,
@@ -2175,7 +2492,8 @@
         "Rail: 1.4.4: span \"Notes on attention\"",
         "Rail: 1.4.4: span \"Notes on attention\"",
         "Rail: 1.4.4: span \"Cold cucumber soup\""
-      ]
+      ],
+      "advisory": []
     },
     "Scroll effects": {
       "stories": 8,
@@ -2200,6 +2518,10 @@
         "Deck: 1.4.4: span \"Notes on attention\"",
         "Deck: 1.4.4: span \"letters.example\"",
         "Tunnel: 1.4.12: span \"Notes on attention\""
+      ],
+      "advisory": [
+        "Masonry: p-as-heading: .bg-\\[var\\(--color-bg-primary-bg-primary\\)\\] > .gap-2.flex-col.flex > .text-heading-2xl.font-heading.tabular-nums",
+        "Masonry: p-as-heading: .\\[background\\:linear-gradient\\(var\\(--color-bg-info-bg-info-subtle\\)\\,var\\(--color-bg-info-bg-info-subtle\\)\\)\\,var\\(--color-bg-surface-bg-surface\\)\\].border-\\[color-mix\\(in_srgb\\,var\\(--color-border-border-info\\)_35\\%\\,transparent\\)\\].\\[--color-icon-icon-primary\\:var\\(--color-text-text-info-on-tonal\\)\\] > .gap-2.flex-col.flex > .text-heading-2xl.font-heading.tabular-nums"
       ]
     },
     "ScrollArea": {
@@ -2213,7 +2535,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "SearchBox": {
       "stories": 4,
@@ -2226,7 +2549,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "SearchResults": {
       "stories": 5,
@@ -2239,7 +2563,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "SecretField": {
       "stories": 4,
@@ -2252,7 +2577,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "SectionPanel": {
       "stories": 2,
@@ -2265,7 +2591,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Sections": {
       "stories": 5,
@@ -2278,7 +2605,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Select": {
       "stories": 12,
@@ -2297,7 +2625,8 @@
         "With media icons: 1.4.4: span[data-slot=truncated-text] \"Web JPEG\"",
         "With status: 1.4.12: span[data-slot=truncated-text] \"Golden hour — ready\"",
         "With status: 1.4.4: span[data-slot=truncated-text] \"Golden hour — ready\""
-      ]
+      ],
+      "advisory": []
     },
     "Separator": {
       "stories": 5,
@@ -2310,7 +2639,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Sidebar": {
       "stories": 4,
@@ -2325,7 +2655,8 @@
       "2.4.3": [],
       "truncated": [
         "With account: 1.4.4: span[data-slot=truncated-text] \"Maria Smith\""
-      ]
+      ],
+      "advisory": []
     },
     "SignUpForm": {
       "stories": 4,
@@ -2338,7 +2669,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "SiteFooter": {
       "stories": 2,
@@ -2351,7 +2683,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "SiteHeader": {
       "stories": 2,
@@ -2364,7 +2697,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Skeleton": {
       "stories": 5,
@@ -2377,7 +2711,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Slider": {
       "stories": 7,
@@ -2390,7 +2725,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Sparkline": {
       "stories": 4,
@@ -2403,7 +2739,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "SpecSheet": {
       "stories": 3,
@@ -2416,7 +2753,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Spinner": {
       "stories": 3,
@@ -2429,7 +2767,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "SplitButton": {
       "stories": 4,
@@ -2442,7 +2781,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Stat": {
       "stories": 11,
@@ -2455,7 +2795,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Stats": {
       "stories": 4,
@@ -2468,7 +2809,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "StatusDot": {
       "stories": 5,
@@ -2483,7 +2825,8 @@
       "2.4.3": [],
       "truncated": [
         "In list row: 1.4.12: span \"selene-weddings.aether.photo\""
-      ]
+      ],
+      "advisory": []
     },
     "StatusTracker": {
       "stories": 4,
@@ -2496,7 +2839,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Stepper": {
       "stories": 9,
@@ -2509,7 +2853,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "StickyActionBar": {
       "stories": 4,
@@ -2522,7 +2867,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "SuccessCheck": {
       "stories": 3,
@@ -2535,7 +2881,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "SurfaceEffect": {
       "stories": 4,
@@ -2548,7 +2895,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "SwatchPicker": {
       "stories": 8,
@@ -2561,7 +2909,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "SwipeDeck": {
       "stories": 2,
@@ -2574,7 +2923,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Switch": {
       "stories": 6,
@@ -2587,7 +2937,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Table": {
       "stories": 9,
@@ -2600,7 +2951,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "TableSkeleton": {
       "stories": 2,
@@ -2613,7 +2965,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Tabs": {
       "stories": 10,
@@ -2626,7 +2979,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "TagInput": {
       "stories": 9,
@@ -2639,7 +2993,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "TeamMembers": {
       "stories": 3,
@@ -2652,7 +3007,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Terminal": {
       "stories": 8,
@@ -2665,7 +3021,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "TextArea": {
       "stories": 10,
@@ -2678,7 +3035,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "TextEffect": {
       "stories": 4,
@@ -2691,7 +3049,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "TextField": {
       "stories": 12,
@@ -2704,7 +3063,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "ThemeToggle": {
       "stories": 1,
@@ -2717,7 +3077,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "TickerList": {
       "stories": 2,
@@ -2730,7 +3091,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "TimeField": {
       "stories": 8,
@@ -2743,7 +3105,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Timeline": {
       "stories": 5,
@@ -2756,7 +3119,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "TimeRangePicker": {
       "stories": 7,
@@ -2769,7 +3133,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Toaster": {
       "stories": 12,
@@ -2782,7 +3147,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Toggle": {
       "stories": 5,
@@ -2795,7 +3161,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "ToggleGroup": {
       "stories": 4,
@@ -2808,7 +3175,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "ToneIcon": {
       "stories": 5,
@@ -2821,7 +3189,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Toolbar": {
       "stories": 4,
@@ -2834,7 +3203,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Tooltip": {
       "stories": 8,
@@ -2847,7 +3217,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "Topbar": {
       "stories": 6,
@@ -2862,6 +3233,10 @@
       "2.4.3": [],
       "truncated": [
         "With buttons: 1.4.12: span[data-slot=truncated-text] \"Last modified\""
+      ],
+      "advisory": [
+        "Default: label-content-name-mismatch: .ml-1 (Text inside the element is not included in the accessible name)",
+        "Vertical: label-content-name-mismatch: .mb-2 (Text inside the element is not included in the accessible name)"
       ]
     },
     "Tree": {
@@ -2875,7 +3250,18 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": [
+        "Controlled: label-content-name-mismatch: li[data-tree-id=\"helios\"] (Text inside the element is not included in the accessible name)",
+        "Custom Icons: label-content-name-mismatch: li[data-tree-id=\"othrys\"] (Text inside the element is not included in the accessible name)",
+        "Default: label-content-name-mismatch: li[data-tree-id=\"clients\"] (Text inside the element is not included in the accessible name)",
+        "Default: label-content-name-mismatch: li[data-tree-id=\"portfolio\"] (Text inside the element is not included in the accessible name)",
+        "Disabled Node: label-content-name-mismatch: li[data-tree-id=\"selene\"] (Text inside the element is not included in the accessible name)",
+        "Selected: label-content-name-mismatch: li[data-tree-id=\"clients\"] (Text inside the element is not included in the accessible name)",
+        "Selected: label-content-name-mismatch: li[data-tree-id=\"portfolio\"] (Text inside the element is not included in the accessible name)",
+        "Test: interactions: label-content-name-mismatch: li[data-tree-id=\"clients\"] (Text inside the element is not included in the accessible name)",
+        "Test: interactions: label-content-name-mismatch: li[data-tree-id=\"portfolio\"] (Text inside the element is not included in the accessible name)"
+      ]
     },
     "TruncatedText": {
       "stories": 5,
@@ -2888,7 +3274,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "UndoToast": {
       "stories": 7,
@@ -2901,7 +3288,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "UploadPanel": {
       "stories": 4,
@@ -2914,7 +3302,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "UrlTabs": {
       "stories": 2,
@@ -2927,7 +3316,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "UsageBar": {
       "stories": 3,
@@ -2940,7 +3330,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "WheelPicker": {
       "stories": 5,
@@ -2953,7 +3344,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     },
     "WorkspaceLayout": {
       "stories": 4,
@@ -2966,7 +3358,8 @@
       "2.1.1": [],
       "2.1.2": [],
       "2.4.3": [],
-      "truncated": []
+      "truncated": [],
+      "advisory": []
     }
   }
 }
