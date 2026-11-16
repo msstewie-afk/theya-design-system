@@ -102,13 +102,18 @@ function collect() {
     if (!el.checkVisibility({ opacityProperty: true, visibilityProperty: true })) return false;
     const r = el.getBoundingClientRect();
     // Visually hidden (sr-only) and native inputs styled away under a label.
-    return r.width >= 6 && r.height >= 6 && r.bottom > 0 && r.right > 0 && r.top < innerHeight && r.left < innerWidth;
+    if (r.width < 6 || r.height < 6 || r.top < 0 || r.left < 0 || r.bottom > innerHeight || r.right > innerWidth) return false;
+    // Covered by something else (a sticky bar: 2.4.11's business, not a lost edge).
+    const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+    return !!hit && (hit === el || el.contains(hit) || hit.contains(el));
   };
   const scope = [...document.querySelectorAll('#storybook-root, [data-radix-popper-content-wrapper], [role=dialog]')];
   const inScope = (el) => scope.some((s) => s.contains(el));
   const out = { controls: [], icons: [], checked: [] };
   let n = 0;
+  // One number per element, kept when a later list tags it again.
   const tag = (el) => {
+    if (el.hasAttribute('data-theya-fc')) return Number(el.getAttribute('data-theya-fc'));
     el.setAttribute('data-theya-fc', String(n));
     return n++;
   };
@@ -180,7 +185,10 @@ async function checkStory(page, story) {
       const el = document.activeElement;
       if (!(el instanceof HTMLElement) || el === document.body || !el.closest('#storybook-root, [data-radix-popper-content-wrapper], [role=dialog]')) return null;
       const r = el.getBoundingClientRect();
-      if (r.width < 3 || r.height < 3) return { key: el.outerHTML.slice(0, 120), small: true };
+      const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+      // Too small, off screen or covered: there is nothing of it to see either way.
+      const onScreen = r.top >= 0 && r.left >= 0 && r.bottom <= innerHeight && r.right <= innerWidth && !!hit && (hit === el || el.contains(hit) || hit.contains(el));
+      if (r.width < 3 || r.height < 3 || !onScreen) return { key: el.outerHTML.slice(0, 120), small: true };
       window.__theyaFc = el;
       const desc = `${el.getAttribute('role') || el.tagName.toLowerCase()} "${(el.getAttribute('aria-label') || el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 30)}"`;
       return { key: el.outerHTML.slice(0, 120), desc, clip: { x: Math.max(0, r.left - 6), y: Math.max(0, r.top - 6), width: r.width + 12, height: r.height + 12 } };
@@ -189,12 +197,16 @@ async function checkStory(page, story) {
     seen.add(info.key);
     if (info.small) continue;
     await page.waitForTimeout(60);
+    // Focus already taken back by a keyboard trap elsewhere: nothing to compare.
+    if (!(await page.evaluate(() => document.activeElement === window.__theyaFc))) continue;
     const focused = await page.screenshot({ clip: info.clip, animations: 'disabled' });
     await page.evaluate(() => window.__theyaFc.blur());
     await page.waitForTimeout(60);
     const blurred = await page.screenshot({ clip: info.clip, animations: 'disabled' });
+    // An element that takes focus back on blur (a keyboard trap, a11y-auto's 2.1.2) can't be compared.
+    const regained = await page.evaluate(() => document.activeElement === window.__theyaFc);
     await page.evaluate(() => window.__theyaFc.focus({ focusVisible: true }));
-    if (focused.equals(blurred)) add('focus-invisible', `${info.desc} looks the same focused and blurred in forced colors`);
+    if (!regained && focused.equals(blurred)) add('focus-invisible', `${info.desc} looks the same focused and blurred in forced colors`);
   }
 
   const dedupe = new Map();

@@ -12,6 +12,9 @@
         "axe",
         "screenReader|tree"
       ],
+      "gates": [
+        "a11y-tree"
+      ],
       "counts": {
         "verified": 162
       },
@@ -92,6 +95,9 @@
       "evidence": [
         "axe",
         "screenReader|tree"
+      ],
+      "gates": [
+        "a11y-tree"
       ],
       "counts": {
         "verified": 162
@@ -215,6 +221,9 @@
       "evidence": [
         "auto"
       ],
+      "gates": [
+        "a11y-auto"
+      ],
       "counts": {
         "verified": 161,
         "untested": 1
@@ -280,6 +289,9 @@
         "axe",
         "auto"
       ],
+      "gates": [
+        "a11y-auto"
+      ],
       "counts": {
         "verified": 159,
         "partial": 3
@@ -297,10 +309,13 @@
         "keyboard",
         "hover|review"
       ],
+      "gates": [
+        "a11y-states"
+      ],
       "counts": {
         "n/a": 128,
-        "verified": 33,
-        "partial": 1
+        "verified": 32,
+        "partial": 2
       },
       "patternCounts": {
         "n/a": 42,
@@ -316,13 +331,19 @@
         "axe",
         "keyboard"
       ],
+      "gates": [
+        "a11y-auto",
+        "a11y-states"
+      ],
       "counts": {
-        "verified": 116,
+        "verified": 115,
         "n/a": 45,
-        "deviation": 1
+        "deviation": 1,
+        "partial": 1
       },
       "patternCounts": {
-        "verified": 49,
+        "verified": 48,
+        "fails": 1,
         "n/a": 4,
         "partial": 1
       }
@@ -334,6 +355,9 @@
       "scope": "component",
       "evidence": [
         "keyboard"
+      ],
+      "gates": [
+        "a11y-auto"
       ],
       "counts": {
         "verified": 117,
@@ -445,9 +469,14 @@
       "evidence": [
         "keyboard"
       ],
+      "gates": [
+        "a11y-auto",
+        "a11y-states"
+      ],
       "counts": {
-        "verified": 117,
-        "n/a": 45
+        "verified": 116,
+        "n/a": 45,
+        "untested": 1
       },
       "patternCounts": {
         "verified": 49,
@@ -514,6 +543,9 @@
       "evidence": [
         "auto"
       ],
+      "gates": [
+        "a11y-auto"
+      ],
       "counts": {
         "verified": 117,
         "n/a": 45
@@ -530,6 +562,9 @@
       "scope": "component",
       "evidence": [
         "review"
+      ],
+      "gates": [
+        "a11y-auto"
       ],
       "counts": {
         "n/a": 106,
@@ -577,6 +612,9 @@
       "scope": "component",
       "evidence": [
         "auto"
+      ],
+      "gates": [
+        "a11y-auto"
       ],
       "counts": {
         "verified": 117,
@@ -685,7 +723,10 @@
       "name": "On Input",
       "scope": "component",
       "evidence": [
-        "review"
+        "input|review"
+      ],
+      "gates": [
+        "a11y-states"
       ],
       "counts": {
         "n/a": 119,
@@ -744,6 +785,9 @@
       "evidence": [
         "review",
         "screenReader|tree"
+      ],
+      "gates": [
+        "a11y-tree"
       ],
       "counts": {
         "n/a": 133,
@@ -838,6 +882,10 @@
       "evidence": [
         "axe",
         "screenReader|tree"
+      ],
+      "gates": [
+        "a11y-tree",
+        "a11y-states"
       ],
       "counts": {
         "verified": 117,
@@ -4634,8 +4682,8 @@
         "1.4.10": "verified",
         "1.4.11": "deviation",
         "1.4.12": "verified",
-        "1.4.13": "verified",
-        "2.1.1": "verified",
+        "1.4.13": "partial",
+        "2.1.1": "partial",
         "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
@@ -4643,7 +4691,7 @@
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "verified",
+        "2.4.3": "untested",
         "2.4.4": "n/a",
         "2.4.5": "product",
         "2.4.6": "verified",
@@ -16279,7 +16327,7 @@
         "1.4.11": "verified",
         "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "verified",
+        "2.1.1": "fails",
         "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "n/a",

@@ -288,6 +288,8 @@ async function checkStory(page, story) {
       if (!info || seen.has(info.key)) break;
       seen.add(info.key);
       await page.waitForTimeout(60);
+      // Focus already taken back by a trap elsewhere (2.1.2 below): nothing to compare.
+      if (!(await page.evaluate(() => document.activeElement === window.__theyaFocus))) continue;
       // Read twice, 250ms apart: a scroll still settling can cover it for a moment.
       if (await hidden()) {
         await page.waitForTimeout(250);
@@ -297,6 +299,8 @@ async function checkStory(page, story) {
       const focused = await look();
       await page.evaluate(() => window.__theyaFocus.blur());
       await page.waitForTimeout(60);
+      // An element that takes focus back on blur (a trap: 2.1.2 below) can't be compared.
+      if (await page.evaluate(() => document.activeElement === window.__theyaFocus)) continue;
       const blurred = await look();
       // Back to visible focus so the next Tab continues from here.
       await page.evaluate(() => window.__theyaFocus.focus({ focusVisible: true }));
@@ -390,13 +394,17 @@ async function checkStory(page, story) {
   result['2.1.1'].push(...plan.mouseOnly.map((d) => `pointer only: ${d}`));
   if (plan.count) {
     await fromTop();
-    const where = () =>
-      page.evaluate(() => {
+    // A short wait first: a trap that takes focus back on blur does it a
+    // tick later (ACT 80af7b: setTimeout(() => this.focus(), 10)).
+    const where = async () => {
+      await page.waitForTimeout(40);
+      return page.evaluate(() => {
         const el = document.activeElement;
         if (!el || el === document.body || el === document.documentElement) return 'out';
         const i = el.getAttribute('data-theya-tab');
         return i ?? (el.closest('#storybook-root') ? 'other' : 'portal');
       });
+    };
     const visited = new Set();
     const trail = [];
     let escaped = false;

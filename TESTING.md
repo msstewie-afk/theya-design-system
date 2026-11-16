@@ -22,11 +22,15 @@ Accessibility checks axe doesn't cover, all against the running Storybook; they 
 ```
 pnpm a11y:tree   # accessibility tree of every story: names (4.1.2), unnamed images (1.1.1), table headers, radio groups and field labels (1.3.1), errors tied to their fields (3.3.1)
 pnpm a11y:auto   # label in name (2.5.3), focus visible (2.4.7), focus not hidden under a sticky or fixed box (2.4.11), text spacing (1.4.12), 200% text (1.4.4), Tab order (2.1.1, 2.1.2, 2.4.3)
-pnpm a11y:states   # every popup, combobox, tab list, radio group and open dialog driven through its APG keyboard pattern (2.1.1, 2.4.3), with ARIA states checked after each step — open, after typing a value with no match, after Escape (4.1.2); tooltips and hover cards on focus and on hover — Escape closes them, the pointer can move onto them, they don't close by themselves (1.4.13); aria-expanded against what's shown, IDREFs, popup names, aria-haspopup, names and focus on elements without a role, tab stops inside aria-hidden, nested controls. Writes a11y/checklist/<Component>.md for the screen-reader pass
-pnpm a11y:calibrate   # the three scripts against src/test/a11y-fixtures.stories.tsx: each known defect must be caught, the clean fixtures must report nothing
+                 # a11y:auto also lists, as advisory warnings that never fail (CI annotations, `advisory` in a11y/auto.json): axe's experimental rules p-as-heading, td-has-header, table-fake-caption, label-content-name-mismatch, css-orientation-lock
+pnpm a11y:states   # every popup, combobox, tab list, radio group and open dialog driven through its APG keyboard pattern (2.1.1, 2.4.3), with ARIA states checked after each step — open, after typing a value with no match, after Escape (4.1.2); typing in a field and toggling a checkbox or switch — nothing navigates, opens or takes focus (3.2.2); tooltips and hover cards on focus and on hover — Escape closes them, the pointer can move onto them, they don't close by themselves (1.4.13); aria-expanded against what's shown, IDREFs, popup names, aria-haspopup, names and focus on elements without a role, tab stops inside aria-hidden, nested controls. Writes a11y/checklist/<Component>.md for the screen-reader pass
+pnpm a11y:forced   # every story with forced-colors: active (Windows High Contrast), from screenshots: controls that become one flat color, focus that doesn't show, CSS mask icons that vanish, checked that looks like unchecked
+pnpm a11y:calibrate   # the four scripts against src/test/a11y-fixtures.stories.tsx and the W3C ACT Rules test cases (src/test/a11y-act.stories.tsx): each known defect must be caught, the clean and passed cases must report nothing
 ```
 
 A change in `a11y/tree/*.yml` in a diff is a change in what a screen reader gets.
+
+Which WCAG 2.2 criterion each tool checks, and which still need a person: [docs/a11y-coverage.md](docs/a11y-coverage.md) (generated with `pnpm api`).
 
 When you add a rule, add a fixture with the defect it catches (and, if the rule could misfire, a clean one) and run `pnpm a11y:calibrate`. On another design system's Storybook the scripts run with `--group title` (stories grouped by title instead of Theya's spec).
 

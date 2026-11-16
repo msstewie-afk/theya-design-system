@@ -32,6 +32,8 @@ export interface A11yRow {
   reducedMotion: 'none' | 'respected' | 'unguarded';
   moving?: string[];
   forcedColors: 'component' | 'global';
+  /** scripts/a11y-forced.mjs: the stories seen with forced-colors: active. */
+  forcedRun?: { stories: number; errors: number; findings: string[] };
   screenReader: ScreenReaderPass[];
   deviations: { criterion: string; note: string }[];
   traits: string[];
@@ -113,9 +115,16 @@ function motionCell(r: A11yRow): Cell {
   return { tone: 'neutral', label: 'No motion', detail: 'Nothing moves in its own styles (color fades and the loading spinner aside).' };
 }
 function forcedCell(r: A11yRow): Cell {
-  return r.forcedColors === 'component'
-    ? { tone: 'success', label: 'Own rules', short: 'Own', detail: 'Component-level forced-colors rules on top of the global ones.' }
-    : { tone: 'success', label: 'Global rules', short: 'Global', detail: 'Covered by the shared high-contrast stylesheet (focus, edges, selected states).' };
+  const css = r.forcedColors === 'component' ? 'Component-level forced-colors rules on top of the global ones.' : 'Covered by the shared high-contrast stylesheet (focus, edges, selected states).';
+  const run = r.forcedRun;
+  if (run?.findings.length) return { tone: 'danger', label: 'Fails on screen', short: 'Fails', detail: <>{css} Seen with forced colors: {run.findings.join('; ')}</> };
+  if (!run || run.stories <= run.errors) return { tone: 'neutral', label: r.forcedColors === 'component' ? 'Own rules' : 'Global rules', short: 'CSS only', detail: `${css} Not checked on screen yet.` };
+  return {
+    tone: 'success',
+    label: r.forcedColors === 'component' ? 'Own rules, checked' : 'Global rules, checked',
+    short: 'Checked',
+    detail: `${css} ${run.stories} ${run.stories > 1 ? 'stories' : 'story'} seen with forced colors: every control has an edge, focus shows, icons and checked states survive.`,
+  };
 }
 function srCell(r: A11yRow): Cell {
   if (!r.screenReader.length) return { tone: 'neutral', label: 'Not tested yet', short: 'Not yet', detail: 'Roles and names are checked by axe; no pass with a real screen reader is recorded.' };

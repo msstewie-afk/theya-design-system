@@ -87,12 +87,13 @@ export const LabelInNameFailed1: Story = {
       ACT rules
     </a>
   ),
-  parameters: expect({ auto: ['2.5.3: "ACT rules" not in name "WCAG"'] }),
+  // axe's experimental label-content-name-mismatch agrees (advisory).
+  parameters: expect({ auto: ['2.5.3: "ACT rules" not in name "WCAG"', 'advisory: label-content-name-mismatch'] }),
 };
 export const LabelInNameFailed2: Story = {
   name: 'ACT 2ee8b8 Failed 2: visible text only partly in the name',
   render: () => <button aria-label="the full">The full label</button>,
-  parameters: expect({ auto: ['2.5.3: "The full label" not in name "the full"'] }),
+  parameters: expect({ auto: ['2.5.3: "The full label" not in name "the full"', 'advisory: label-content-name-mismatch'] }),
 };
 export const LabelInNameFailed3: Story = {
   name: 'ACT 2ee8b8 Failed 3: math symbols written out in the name',
@@ -101,7 +102,7 @@ export const LabelInNameFailed3: Story = {
       Proof of 2&times;2=4
     </a>
   ),
-  parameters: expect({ auto: ['2.5.3: "Proof of 2×2=4" not in name'] }),
+  parameters: expect({ auto: ['2.5.3: "Proof of 2×2=4" not in name', 'advisory: label-content-name-mismatch'] }),
 };
 export const LabelInNameInapplicable2: Story = {
   name: 'ACT 2ee8b8 Inapplicable 2: text field shows its value, not its label',
@@ -296,7 +297,10 @@ function ParentIndicator() {
 export const FocusVisiblePassed3: Story = {
   name: "ACT oj04fd Passed 3: the link's parent shows a border",
   render: () => <ParentIndicator />,
-  parameters: expect({}),
+  // Passes ACT in normal colors. In forced colors a transparent border is
+  // painted like any other, so the indicator is there focused or not: our
+  // forced-colors check rightly reports it.
+  parameters: expect({ forced: ['focus-invisible: a "ACT rules" looks the same focused and blurred in forced colors'] }),
 };
 export const FocusVisibleFailed1: Story = {
   name: 'ACT oj04fd Failed 1: the outline is removed',
@@ -308,5 +312,10 @@ export const FocusVisibleFailed1: Story = {
       <button className="act-no-focus">Dummy button</button>
     </div>
   ),
-  parameters: expect({ auto: ['2.4.7: a "ACT rules"', '2.4.7: button "Dummy button"'] }),
+  parameters: expect({
+    auto: ['2.4.7: a "ACT rules"', '2.4.7: button "Dummy button"'],
+    // In forced colors the button still changes on focus: Theya's forced-colors
+    // edge (an outline) goes away. A change is visible focus; the link has none.
+    forced: ['focus-invisible: a "ACT rules"'],
+  }),
 };

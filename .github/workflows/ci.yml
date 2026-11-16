@@ -461,8 +461,8 @@ jobs:
     needs: checks
     runs-on: ubuntu-24.04
     # 45: a11y-states (2026-11-12) reloads a story per widget it drives; a
-    # shard took ~14 min before it.
-    timeout-minutes: 45
+    # shard took ~14 min before it. 60 with a11y-forced (2026-11-16).
+    timeout-minutes: 60
     # Four machines, every 4th component each (--shard): the browser checks
     # took ~39 min on one runner and set the length of the whole run.
     # Nothing is skipped; each shard runs both scripts on its components.
@@ -512,6 +512,7 @@ jobs:
           node scripts/a11y-tree.mjs --url http://localhost:6008 --fixtures
           node scripts/a11y-auto.mjs --url http://localhost:6008 --fixtures
           node scripts/a11y-states.mjs --url http://localhost:6008 --fixtures
+          node scripts/a11y-forced.mjs --url http://localhost:6008 --fixtures
 
       - name: Accessibility tree (names, images, headers, error association)
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
@@ -524,6 +525,10 @@ jobs:
       - name: ARIA states and keyboard model (popups opened, typed into, closed; APG keys)
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         run: node scripts/a11y-states.mjs --url http://localhost:6008 --workers 2 --ci --shard ${{ matrix.shard }}/4
+
+      - name: Forced colors (controls keep an edge, focus shows, icons and checked states survive)
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        run: node scripts/a11y-forced.mjs --url http://localhost:6008 --workers 2 --ci --shard ${{ matrix.shard }}/4
 
   react-18:
     needs: checks
