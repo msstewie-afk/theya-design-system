@@ -659,3 +659,142 @@ export const CleanStickyBar: Story = {
   render: () => <FxStickyBar padded />,
   parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
 };
+
+/* ---------- 3.2.2 On Input ---------- */
+
+export const CleanInputs: Story = {
+  name: 'Clean: a field and a checkbox that change nothing else',
+  render: () => (
+    <div>
+      <label htmlFor="fx-portion">Portion, g</label>
+      <input id="fx-portion" />
+      <label>
+        <input type="checkbox" /> Low fibre only
+      </label>
+    </div>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
+};
+
+/** Defect: the code field jumps to the next one after two characters. */
+function FxAutoAdvance() {
+  const next = useRef<HTMLInputElement>(null);
+  return (
+    <div>
+      <label htmlFor="fx-code-a">Code, first part</label>
+      <input id="fx-code-a" maxLength={2} onChange={(e) => e.target.value.length === 2 && next.current?.focus()} />
+      <label htmlFor="fx-code-b">Code, second part</label>
+      <input id="fx-code-b" ref={next} />
+    </div>
+  );
+}
+
+export const InputMovesFocus: Story = {
+  name: 'Defect: typing moves focus to another field',
+  render: () => <FxAutoAdvance />,
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['3.2.2: input-change: textbox "Code, first part": typing in it moves focus to textbox "Code, second part"'] } } },
+};
+
+/** Defect: ticking the checkbox opens a dialog. */
+function FxToggleDialog() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <label>
+        <input type="checkbox" onChange={(e) => setOpen(e.target.checked)} /> Share my plan
+      </label>
+      {open && (
+        <div role="dialog" aria-label="Share">
+          <p>Who can see it?</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export const ToggleOpensDialog: Story = {
+  name: 'Defect: toggling a checkbox opens a dialog',
+  render: () => <FxToggleDialog />,
+  // The dialog it opens is the defect here, not the dialog keyboard pattern.
+  parameters: { a11y: { expect: { tree: [], auto: [], states: ['3.2.2: input-change: checkbox "Share my plan": toggling it opens a dialog'] } } },
+};
+
+/* ---------- Advisory: experimental axe rules ---------- */
+
+export const AdvisoryParagraphHeading: Story = {
+  name: 'Advisory: a bold paragraph used as a heading',
+  render: () => (
+    <div>
+      <p style={{ fontWeight: 700, fontSize: 22 }}>Breakfast</p>
+      <p>Soft oats with banana, about 250 g.</p>
+      <p>Plain yoghurt, 150 g.</p>
+    </div>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: ['advisory: p-as-heading'], states: [] } } },
+};
+
+/* ---------- Forced colors (a11y-forced) ---------- */
+
+const MASK_ICON = `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 8h12M8 2v12" stroke="black" stroke-width="3"/></svg>')}")`;
+
+export const CleanForcedColors: Story = {
+  name: 'Clean: native controls, bordered field, currentColor icon (forced colors)',
+  render: () => (
+    <div>
+      <label>
+        <input type="checkbox" defaultChecked /> Soft foods
+      </label>
+      <label>
+        <input type="checkbox" /> Spicy
+      </label>
+      <label htmlFor="fx-fc-note">Note</label>
+      <input id="fx-fc-note" />
+      <button type="button" aria-label="Add">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M2 8h12M8 2v12" stroke="currentColor" strokeWidth="2" />
+        </svg>
+      </button>
+    </div>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: [], states: [], forced: [] } } },
+};
+
+export const FillOnlyControls: Story = {
+  name: 'Defect: controls and an icon drawn only with fills (forced colors)',
+  render: () => (
+    <div>
+      <style>{`
+        .fx-fill-check { width: 20px; height: 20px; border: 0; border-radius: 4px; background: #2743e8; padding: 0; }
+        .fx-fill-check[aria-checked=false] { background: #c9cede; }
+        .fx-fill-check:focus-visible { outline: none !important; box-shadow: 0 0 0 3px #2743e8; }
+        @media (forced-colors: active) { .fx-fill-check { outline: none !important; } }
+        .fx-mask { display: inline-block; width: 16px; height: 16px; background-color: currentColor; mask: ${MASK_ICON} center / contain no-repeat; }
+      `}</style>
+      <span>
+        <button type="button" role="checkbox" aria-checked="true" aria-label="Soft foods" className="fx-fill-check" />
+        <button type="button" role="checkbox" aria-checked="false" aria-label="Spicy" className="fx-fill-check" />
+      </span>
+      <p>
+        <span className="fx-mask" /> Added to your plan
+      </p>
+    </div>
+  ),
+  parameters: {
+    a11y: {
+      // Unnamed fills on purpose: the forced-colors defects are the point here.
+      expect: {
+        tree: [],
+        auto: [],
+        states: [],
+        forced: [
+          'invisible-control: checkbox "Soft foods"',
+          'invisible-control: checkbox "Spicy"',
+          'icon-lost: mask icon span',
+          'checked-same: checkbox "Soft foods"',
+          'focus-invisible: checkbox "Soft foods"',
+          'focus-invisible: checkbox "Spicy"',
+        ],
+      },
+    },
+  },
+};

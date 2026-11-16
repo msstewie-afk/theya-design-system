@@ -38,6 +38,13 @@
  *   order differ from what's on screen.
  *   A visually hidden control (an sr-only "Dismiss" button, 1px) is not
  *   "pointer only": nobody can point at it.
+ * - Advisory (not a WCAG result, never fails a run): the axe-core rules that
+ *   are experimental and so off unless switched on by name — p-as-heading,
+ *   td-has-header, table-fake-caption (1.3.1), label-content-name-mismatch
+ *   (2.5.3, cross-checks our own), css-orientation-lock (1.3.4). They may
+ *   misfire, so their findings are listed for a person to judge (CI
+ *   warnings, `advisory` in a11y/auto.json) and the matrix ignores them.
+ *   The deprecated rules (audio-caption, aria-roledescription) aren't run.
  * - The keyboard model of popups, tabs and radio groups (APG) is
  *   scripts/a11y-states.mjs.
  *
@@ -71,6 +78,9 @@ const CI = process.argv.includes('--ci');
 const FIXTURES = process.argv.includes('--fixtures');
 const GROUP_BY_TITLE = arg('group', '') === 'title';
 const OUT = path.join(ROOT, 'a11y/auto.json');
+// The axe-core test-runner.ts runs (axe-playwright's copy), for the advisory rules.
+const AXE_SOURCE = require.resolve('axe-core/axe.min.js', { paths: [path.dirname(require.resolve('axe-playwright'))] });
+const ADVISORY_RULES = ['p-as-heading', 'td-has-header', 'table-fake-caption', 'label-content-name-mismatch', 'css-orientation-lock'];
 
 // The Playwright that @storybook/test-runner ships with (same as CI).
 const { chromium } = require(require.resolve('playwright', { paths: [path.dirname(require.resolve('@storybook/test-runner'))] }));
@@ -156,7 +166,7 @@ async function checkStory(page, story) {
       }
       s.focus();
     });
-  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [] };
+  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [], advisory: [] };
   const load = async () => {
     await page.goto(`${URL_BASE}/iframe.html?id=${story.id}&viewMode=story`, { waitUntil: 'load' });
     await page.waitForSelector('#storybook-root > *', { timeout: 10000 }).catch(() => {});
@@ -169,6 +179,26 @@ async function checkStory(page, story) {
     await page.waitForTimeout(300);
   };
   await load();
+
+  // Advisory: experimental axe rules, switched on by name. The a11y addon's
+  // own axe may still be running after the play function: retry briefly.
+  await page.addScriptTag({ path: AXE_SOURCE });
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      result.advisory = await page.evaluate(async (rules) => {
+        const r = await window.axe.run('#storybook-root', {
+          runOnly: { type: 'rule', values: rules },
+          rules: Object.fromEntries(rules.map((id) => [id, { enabled: true }])),
+          resultTypes: ['violations'],
+        });
+        return r.violations.flatMap((v) => v.nodes.map((n) => `${v.id}: ${n.target.join(' ')}${n.any[0]?.message ? ` (${n.any[0].message.slice(0, 80)})` : ''}`));
+      }, ADVISORY_RULES);
+      break;
+    } catch (e) {
+      if (!/already running/i.test(String(e)) || attempt === 2) throw e;
+      await page.waitForTimeout(500);
+    }
+  }
 
   // 2.5.3
   result['2.5.3'] = await page.evaluate(() => {
@@ -477,7 +507,7 @@ const byComponent = {};
 for (const r of results.sort((a, b) => a.id.localeCompare(b.id))) {
   const name = groupOf(r);
   if (!name) continue;
-  const c = (byComponent[name] ??= { stories: 0, errors: 0, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [] });
+  const c = (byComponent[name] ??= { stories: 0, errors: 0, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [], advisory: [] });
   if (FIXTURES) c.expect = r.expect;
   c.stories += 1;
   if (r.error) {
@@ -485,12 +515,12 @@ for (const r of results.sort((a, b) => a.id.localeCompare(b.id))) {
     continue;
   }
   const at = FIXTURES ? '' : `${r.name}: `;
-  for (const k of ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3', 'truncated']) for (const f of r[k]) c[k].push(`${at}${f}`);
+  for (const k of ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3', 'truncated', 'advisory']) for (const f of r[k]) c[k].push(`${at}${f}`);
 }
 if (FIXTURES) {
   // Calibration: every expected finding reported, nothing else.
   let bad = 0;
-  const KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
+  const KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3', 'advisory'];
   for (const [name, c] of Object.entries(byComponent).sort(([a], [b]) => a.localeCompare(b))) {
     const got = KEYS.flatMap((k) => c[k].map((f) => `${k}: ${f}`));
     const problems = c.errors ? ["story didn't load"] : [];
@@ -519,6 +549,9 @@ const fails = (k) => Object.values(byComponent).filter((c) => c[k].length).lengt
 console.log(`a11y-auto: ${results.length} stories, ${Object.keys(byComponent).length} components${CI ? '' : ' → a11y/auto.json'}`);
 for (const k of ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3']) console.log(`  ${k}: ${fails(k)} component(s) with failures`);
 console.log(`  errors: ${results.filter((r) => r.error).length} stories`);
+// Advisory findings: listed, never failing.
+const advisory = Object.entries(byComponent).flatMap(([name, c]) => [...new Set(c.advisory)].map((f) => `- advisory **${name}** — ${f}`));
+console.log(`  advisory (experimental axe rules, not failing): ${advisory.length}`);
 if (CI) {
   const KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
   const lines = Object.entries(byComponent).flatMap(([name, c]) => KEYS.flatMap((k) => c[k].map((f) => `- ${k} **${name}** — ${f}`)));
@@ -526,11 +559,12 @@ if (CI) {
   if (process.env.GITHUB_STEP_SUMMARY) {
     fs.appendFileSync(
       process.env.GITHUB_STEP_SUMMARY,
-      `### Browser a11y checks\n\n${results.length} stories, ${lines.length} failure(s), ${errors.length} story load error(s).\n\n${[...lines, ...errors.map((e) => `- error **${e.id}** — ${e.error}`)].join('\n')}\n`,
+      `### Browser a11y checks\n\n${results.length} stories, ${lines.length} failure(s), ${errors.length} story load error(s).\n\n${[...lines, ...errors.map((e) => `- error **${e.id}** — ${e.error}`)].join('\n')}\n${advisory.length ? `\n#### Advisory (experimental axe rules, not failing)\n\n${advisory.join('\n')}\n` : ''}`,
     );
   }
   // As GitHub annotations too: they show on the run page and in the API.
   for (const l of lines) console.log(`::error title=a11y-auto::${l.replace(/[\r\n]+/g, ' ')}`);
+  for (const a of advisory) console.log(`::warning title=a11y-auto advisory::${a.replace(/[\r\n]+/g, ' ')}`);
   for (const e of errors) console.log(`::error title=a11y-auto (story didn't load)::${e.id}: ${e.error.replace(/[\r\n]+/g, ' ')}`);
   if (lines.length || errors.length) process.exitCode = 1;
 }

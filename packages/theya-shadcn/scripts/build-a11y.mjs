@@ -66,9 +66,13 @@ const tree = fs.existsSync(TREE_FILE) ? JSON.parse(fs.readFileSync(TREE_FILE, 'u
 // scripts/a11y-states.mjs: a finding fails 4.1.2 (with the tree), 2.1.1 and
 // 2.4.3 (with the keyboard evidence) and 1.4.13. "hover" evidence: the script
 // opened the component's hover/focus content in at least one story and found
-// nothing (dismissable, hoverable, persistent).
+// nothing (dismissable, hoverable, persistent). "input" evidence: it changed a
+// value (typed in a field, toggled a checkbox or switch) and nothing
+// navigated, opened or took focus (3.2.2).
 const STATES_FILE = path.join(ROOT, 'a11y/states.json');
-const STATES_KEYS = ['4.1.2', '2.1.1', '2.4.3', '1.4.13'];
+const STATES_KEYS = ['4.1.2', '2.1.1', '2.4.3', '1.4.13', '3.2.2'];
+// Choices a11y-states doesn't change (it types in fields and toggles checkboxes and switches).
+const UNDRIVEN_CHOICE = /(?:Radio|Select|RadioGroup)Primitive|<(?:Radio|RadioGroup|Select)\b|role=['"](?:radio|option|menuitemradio)['"]|type=['"]radio['"]/;
 const states = fs.existsSync(STATES_FILE) ? JSON.parse(fs.readFileSync(STATES_FILE, 'utf8')) : { components: {} };
 // CSS that shows things in a different order than the DOM (and so the tree)
 // reads them. A component with any needs a passing 1.3.2 review for the tree
@@ -332,6 +336,9 @@ function buildRow({ name, base, title, traitKey = name, reviews: ownReviews = {}
       ? statesClean(id) && (s.keyboard > 0 || (!traits.includes('composite') && !!autoRow && autoRow.stories > autoRow.errors && ['2.1.1', '2.1.2', '2.4.3'].every((k) => Array.isArray(autoRow[k]) && !autoRow[k].length)))
     : kind === 'reflow360' ? s.stories > 0
     : kind === 'hover' ? !!statesRow && statesRow.hovered > 0 && statesClean('1.4.13')
+    // The script types and toggles; a select, radio or option list it doesn't
+    // change still needs the review.
+    : kind === 'input' ? !!statesRow && statesRow.inputs > 0 && statesClean('3.2.2') && !UNDRIVEN_CHOICE.test(fs.readFileSync(sourceFile, 'utf8'))
     : kind === 'reducedMotion' ? source.reducedMotion !== 'unguarded'
     // Text cut by a deliberate ellipsis under 200% text or WCAG spacing is
     // lost content too, unless a review says the full text is reachable

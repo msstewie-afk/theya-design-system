@@ -63,6 +63,7 @@ const EVIDENCE_LABEL: Record<string, string> = {
   reflow360: '360px overflow check (local run, not in CI yet)',
   auto: 'browser check (a11y-auto, CI)',
   hover: 'hover/focus content driven by a11y-states (CI): dismissable, hoverable, persistent',
+  input: 'a value changed by a11y-states (CI): typing or toggling navigates nowhere, opens nothing, keeps focus',
   reducedMotion: 'reduced-motion guard',
   screenReader: 'screen-reader pass',
   tree: 'accessibility-tree check (a11y-tree, CI; 4.1.2 also a11y-states)',

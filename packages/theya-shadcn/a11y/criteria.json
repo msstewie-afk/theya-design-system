@@ -44,7 +44,7 @@
     { "id": "3.1.1", "level": "A", "name": "Language of Page", "scope": "product", "note": "The app sets <html lang>." },
     { "id": "3.1.2", "level": "AA", "name": "Language of Parts", "scope": "product", "note": "Content language. Theya's built-in strings follow the active locale." },
     { "id": "3.2.1", "level": "A", "name": "On Focus", "scope": "component", "appliesTo": ["interactive"], "evidence": ["keyboard"] },
-    { "id": "3.2.2", "level": "A", "name": "On Input", "scope": "component", "appliesTo": ["textInput", "choice"], "evidence": ["review"] },
+    { "id": "3.2.2", "level": "A", "name": "On Input", "scope": "component", "appliesTo": ["textInput", "choice"], "evidence": ["input|review"] },
     { "id": "3.2.3", "level": "AA", "name": "Consistent Navigation", "scope": "product", "note": "Across pages." },
     { "id": "3.2.4", "level": "AA", "name": "Consistent Identification", "scope": "product", "note": "Across pages. Shared components and locale strings make it the default." },
     { "id": "3.2.6", "level": "A", "name": "Consistent Help", "scope": "product", "note": "Across pages." },

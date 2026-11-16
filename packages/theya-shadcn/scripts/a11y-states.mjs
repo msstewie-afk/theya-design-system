@@ -60,14 +60,18 @@
  *   closing (hover-hoverable), it stays while the pointer is on it
  *   (hover-persistent), and Escape closes it without moving the pointer
  *   (hover-dismiss). The content is the aria-describedby target (or its
- *   Radix popper) or the popper that appeared.
+ *   Radix popper) or the popper that appeared;
+ * - a change of value (3.2.2 On Input; the first text field and the first
+ *   checkbox or switch of a story): typing "12" or pressing Space must not
+ *   navigate, open a dialog or move focus away (input-change).
  * State is polled for up to 1.5s after each key (a drawer's close outlasts
  * reduced motion), not read after a fixed pause.
  *
- * Criteria: keyboard-* → 2.1.1, focus-* → 2.4.3, hover-* → 1.4.13, the rest
- * → 4.1.2. The conformance matrix (build-a11y.mjs) reads a11y/states.json: a
+ * Criteria: keyboard-* → 2.1.1, focus-* → 2.4.3, hover-* → 1.4.13,
+ * input-* → 3.2.2, the rest → 4.1.2. The conformance matrix (build-a11y.mjs) reads a11y/states.json: a
  * finding fails the cell; `hovered` (stories whose hover content was driven)
- * with no 1.4.13 finding is evidence for 1.4.13.
+ * with no 1.4.13 finding is evidence for 1.4.13; `inputs` (stories with a
+ * value changed) with no 3.2.2 finding is evidence for 3.2.2.
  *
  * Also writes a11y/checklist/<Component>.md: for every story, what a screen
  * reader should announce as rendered and after each opening step, read from
@@ -105,8 +109,9 @@ const GROUP_BY_TITLE = arg('group', '') === 'title';
 const OUT = path.join(ROOT, 'a11y/states.json');
 const CHECKLIST_DIR = path.join(ROOT, 'a11y/checklist');
 const NO_MATCH = 'zqxjv';
-const KEYS = ['4.1.2', '2.1.1', '2.4.3', '1.4.13'];
-const criterionOf = (rule) => (rule.startsWith('keyboard-') ? '2.1.1' : rule.startsWith('focus-') ? '2.4.3' : rule.startsWith('hover-') ? '1.4.13' : '4.1.2');
+const KEYS = ['4.1.2', '2.1.1', '2.4.3', '1.4.13', '3.2.2'];
+const PREFIX = { 'keyboard-': '2.1.1', 'focus-': '2.4.3', 'hover-': '1.4.13', 'input-': '3.2.2' };
+const criterionOf = (rule) => Object.entries(PREFIX).find(([p]) => rule.startsWith(p))?.[1] ?? '4.1.2';
 
 // The Playwright that @storybook/test-runner ships with (same as CI).
 const { chromium } = require(require.resolve('playwright', { paths: [path.dirname(require.resolve('@storybook/test-runner'))] }));
@@ -175,7 +180,8 @@ function install() {
     return r.width > 1 || r.height > 1;
   };
   const text = (el) => (el?.textContent ?? '').trim().replace(/\s+/g, ' ');
-  const roleOf = (el) => el.getAttribute('role') || NATIVE_ROLE[el.tagName] || el.tagName.toLowerCase();
+  const INPUT_ROLE = { checkbox: 'checkbox', radio: 'radio', range: 'slider', number: 'spinbutton', search: 'searchbox', button: 'button', submit: 'button', reset: 'button' };
+  const roleOf = (el) => el.getAttribute('role') || (el.tagName === 'INPUT' && INPUT_ROLE[el.type]) || NATIVE_ROLE[el.tagName] || el.tagName.toLowerCase();
   const ids = (el, attr) => (el.getAttribute(attr) ?? '').split(/\s+/).filter(Boolean);
   /** Accessible name, close enough to Chromium's for these rules. */
   const accName = (el) => {
@@ -258,7 +264,8 @@ function install() {
       if (!holding) {
         for (const el of document.querySelectorAll('[aria-hidden="true"]')) {
           if (modal && !el.contains(modal)) continue;
-          for (const f of el.querySelectorAll(FOCUSABLE)) {
+          // The hidden element itself can be the tab stop (ACT 6cfa84 Failed 4: <p tabindex=0 aria-hidden>).
+          for (const f of [...(el.matches(FOCUSABLE) ? [el] : []), ...el.querySelectorAll(FOCUSABLE)]) {
             if (f.tabIndex >= 0 && !f.matches(':disabled') && shown(f)) add('focusable-in-hidden', `${desc(f)} is focusable inside aria-hidden`);
           }
         }
@@ -298,6 +305,9 @@ function install() {
       // Content on hover or focus: Radix Tooltip / HoverCard triggers carry
       // data-state and no aria-expanded (a popover or menu trigger has it).
       pick('[data-state=closed]:not([aria-expanded]):not([aria-haspopup])', (el) => el.matches(FOCUSABLE) && el.tabIndex >= 0 && enabled(el) && !inOpenPopup(el), 1).forEach((el) => add('hover', el));
+      // A change of value (3.2.2): one text field, one checkbox or switch.
+      pick('input:not([type]), input[type=text], input[type=search], input[type=email], input[type=number], input[type=tel], input[type=url], textarea', (el) => enabled(el) && !el.hasAttribute('role') && !el.hasAttribute('aria-autocomplete') && !inOpenPopup(el), 1).forEach((el) => add('input', el));
+      pick('[role=checkbox], [role=switch], input[type=checkbox]', (el) => enabled(el) && !inOpenPopup(el), 1).forEach((el) => add('toggle', el));
       return out;
     },
 
@@ -354,6 +364,8 @@ function install() {
     /** Focus widget <key> (a group: its selected item, or the first if that's the last). */
     focus(key) {
       const el = document.querySelector(`[data-theya-key="${key}"]`);
+      // A widget the fresh load didn't render the same way: nothing to focus.
+      if (!el) return;
       const role = el.getAttribute('role');
       let target = el;
       if (role === 'tablist' || role === 'radiogroup') {
@@ -421,6 +433,7 @@ async function drive(page, w, record, steps, finding, meta) {
   await page.evaluate((k) => window.__theyaStates.focus(k), w.key);
   await page.waitForTimeout(100);
   const before = await state();
+  if (!before.exists) return;
 
   if (w.kind === 'combobox') {
     let s = await press('ArrowDown', (x) => x.expanded === 'true');
@@ -535,6 +548,24 @@ async function drive(page, w, record, steps, finding, meta) {
       }
     }
     if (opened) meta.hovered++;
+  } else if (w.kind === 'input' || w.kind === 'toggle') {
+    const context = () =>
+      page.evaluate(() => ({
+        href: location.href,
+        dialogs: [...document.querySelectorAll('[role=dialog], [role=alertdialog]')].filter((d) => d.checkVisibility()).length,
+      }));
+    const c0 = await context();
+    if (!before.focusOnEl) return;
+    if (w.kind === 'input') await page.keyboard.type('12', { delay: 30 });
+    else await page.keyboard.press('Space');
+    await page.waitForTimeout(600);
+    const s = await state();
+    const c1 = await context();
+    const what = w.kind === 'input' ? 'typing in it' : 'toggling it';
+    if (c1.href !== c0.href) finding('input-change', `${w.desc}: ${what} navigates to another page`);
+    else if (c1.dialogs > c0.dialogs) finding('input-change', `${w.desc}: ${what} opens a dialog`);
+    else if (!s.focusOnEl) finding('input-change', `${w.desc}: ${what} moves focus to ${s.active}`);
+    meta.inputs++;
   }
 }
 
@@ -545,7 +576,7 @@ async function checkStory(page, story) {
     for (const f of await page.evaluate(() => window.__theyaStates.check())) raw.push({ ...f, where });
   };
   const finding = (rule, msg) => raw.push({ rule, msg, where: 'keyboard' });
-  const meta = { hovered: 0 };
+  const meta = { hovered: 0, inputs: 0 };
   await load(page, story);
   const params = await page.evaluate(() => window.__STORYBOOK_PREVIEW__?.currentRender?.story?.parameters?.a11y ?? {});
   const skip = params.states?.skip ?? [];
@@ -572,7 +603,7 @@ async function checkStory(page, story) {
     groups.set(key, g);
   }
   const findings = [...groups.values()].map((g) => ({ rule: g.rule, msg: `${g.rule}: ${g.where === 'keyboard' ? '' : `${g.where}: `}${g.msg}${g.n.size > 1 ? ` (and ${g.n.size - 1} more like it)` : ''}` }));
-  return { findings, steps, hovered: meta.hovered > 0, expect: params.expect?.states };
+  return { findings, steps, hovered: meta.hovered > 0, inputs: meta.inputs > 0, expect: params.expect?.states };
 }
 
 /* ---------- screen-reader checklist ---------- */
@@ -652,7 +683,7 @@ await Promise.all(
     for (let story = queue.shift(); story; story = queue.shift()) {
       const name = groupOf(story);
       if (!name) continue;
-      const row = results.get(name) ?? { stories: 0, errors: 0, hovered: 0, '4.1.2': [], '2.1.1': [], '2.4.3': [], '1.4.13': [] };
+      const row = results.get(name) ?? { stories: 0, errors: 0, hovered: 0, inputs: 0, '4.1.2': [], '2.1.1': [], '2.4.3': [], '1.4.13': [], '3.2.2': [] };
       results.set(name, row);
       row.stories++;
       for (let attempt = 0; attempt < 2; attempt++) {
@@ -660,6 +691,7 @@ await Promise.all(
           const r = await checkStory(page, story);
           for (const f of r.findings) row[criterionOf(f.rule)].push(FIXTURES ? f.msg : `${story.name}: ${f.msg}`);
           if (r.hovered) row.hovered++;
+          if (r.inputs) row.inputs++;
           if (FIXTURES) row.expect = r.expect;
           const list = perStory.get(name) ?? [];
           list.push({ id: story.id, name: story.name, steps: r.steps, findings: r.findings });
