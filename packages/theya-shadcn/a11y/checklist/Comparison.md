@@ -114,7 +114,7 @@ Story: `patterns-catalog-comparison--full`
 - **Remove Skin tone essentials from comparison**, button
 - **Clear**, button
 - **Compare (3)**, button
-- **3 of 4 selected for comparison**, status (polite announcement)
+- **Compare (3)**, status (polite announcement)
 
 ### Table
 

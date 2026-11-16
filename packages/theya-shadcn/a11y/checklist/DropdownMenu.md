@@ -63,6 +63,9 @@ Story: `menus-dropdownmenu--destructive`
 
 Story: `menus-dropdownmenu--figma-reference`
 
+> Script findings in this story (fix first, or confirm with the screen reader):
+> - focusable-in-hidden: as rendered: button "Menu" is focusable inside aria-hidden
+
 #### As rendered
 
 - **Menu**, menu
@@ -95,6 +98,9 @@ Story: `menus-dropdownmenu--groups-with-labels`
 ### Open
 
 Story: `menus-dropdownmenu--open`
+
+> Script findings in this story (fix first, or confirm with the screen reader):
+> - focusable-in-hidden: as rendered: button "Actions" is focusable inside aria-hidden
 
 #### As rendered
 

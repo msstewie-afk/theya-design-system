@@ -264,6 +264,10 @@ function install() {
       if (!holding) {
         for (const el of document.querySelectorAll('[aria-hidden="true"]')) {
           if (modal && !el.contains(modal)) continue;
+          // Hidden by Radix's hideOthers (data-aria-hidden) while a popup is open: on
+          // purpose, and its focus scope keeps Tab inside the popup (as test-runner.ts
+          // tells axe's aria-hidden-focus).
+          if (el.hasAttribute('data-aria-hidden') && popups().length) continue;
           // The hidden element itself can be the tab stop (ACT 6cfa84 Failed 4: <p tabindex=0 aria-hidden>).
           for (const f of [...(el.matches(FOCUSABLE) ? [el] : []), ...el.querySelectorAll(FOCUSABLE)]) {
             if (f.tabIndex >= 0 && !f.matches(':disabled') && shown(f)) add('focusable-in-hidden', `${desc(f)} is focusable inside aria-hidden`);
@@ -564,7 +568,9 @@ async function drive(page, w, record, steps, finding, meta) {
     const what = w.kind === 'input' ? 'typing in it' : 'toggling it';
     if (c1.href !== c0.href) finding('input-change', `${w.desc}: ${what} navigates to another page`);
     else if (c1.dialogs > c0.dialogs) finding('input-change', `${w.desc}: ${what} opens a dialog`);
-    else if (!s.focusOnEl) finding('input-change', `${w.desc}: ${what} moves focus to ${s.active}`);
+    // Focus on a control with the same role and name is the same control
+    // re-rendered (a selection bar replacing the header): not a change of context.
+    else if (!s.focusOnEl && s.active !== w.desc) finding('input-change', `${w.desc}: ${what} moves focus to ${s.active}`);
     meta.inputs++;
   }
 }

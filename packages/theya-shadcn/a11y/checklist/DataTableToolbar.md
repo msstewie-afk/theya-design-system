@@ -15,18 +15,10 @@ Record the pass in a11y/manual.json (screenReader: screen reader, browser, date,
 
 Story: `data-datatabletoolbar--default`
 
+> Script findings in this story (fix first, or confirm with the screen reader):
+> - input-change: checkbox "Select all": toggling it moves focus to checkbox "Select all"
+
 #### As rendered
-
-- **Select all**, checkbox
-- "Select all", plain text (no role)
-- **Filter galleries**, edit text
-- **(no name)**, tab — **no name: check**
-- **Gallery**, button
-- **Status**, button
-- **Studio**, button
-- **Select row**, checkbox
-
-#### Focus checkbox "Select all"
 
 - **Select all**, checkbox
 - "Select all", plain text (no role)
@@ -62,36 +54,14 @@ Story: `data-datatabletoolbar--narrow-overflow`
 - **Archive**, menu item
 - **Delete**, menu item
 
-#### Focus checkbox "Select all"
-
-- **Select all**, checkbox, checked mixed
-- "1 selected", plain text (no role)
-- **Bulk actions**, toolbar
-- **More bulk actions**, button
-- **Clear selection**, button
-- **(no name)**, tab — **no name: check**
-- **Gallery**, button
-- **Status**, button
-- **Studio**, button
-- **Select row**, checkbox, checked
-- **Select row**, checkbox
-
 ### Overflow
 
 Story: `data-datatabletoolbar--overflow`
 
+> Script findings in this story (fix first, or confirm with the screen reader):
+> - input-change: checkbox "Select all": toggling it moves focus to checkbox "Select all"
+
 #### As rendered
-
-- **Select all**, checkbox
-- "Select all", plain text (no role)
-- **Filter galleries**, edit text
-- **(no name)**, tab — **no name: check**
-- **Gallery**, button
-- **Status**, button
-- **Studio**, button
-- **Select row**, checkbox
-
-#### Focus checkbox "Select all"
 
 - **Select all**, checkbox
 - "Select all", plain text (no role)
@@ -106,18 +76,10 @@ Story: `data-datatabletoolbar--overflow`
 
 Story: `data-datatabletoolbar--selected`
 
+> Script findings in this story (fix first, or confirm with the screen reader):
+> - input-change: checkbox "Select all": toggling it moves focus to checkbox "Select all"
+
 #### As rendered
-
-- **Select all**, checkbox
-- "Select all", plain text (no role)
-- **Filter galleries**, edit text
-- **(no name)**, tab — **no name: check**
-- **Gallery**, button
-- **Status**, button
-- **Studio**, button
-- **Select row**, checkbox
-
-#### Focus checkbox "Select all"
 
 - **Select all**, checkbox
 - "Select all", plain text (no role)
@@ -132,19 +94,10 @@ Story: `data-datatabletoolbar--selected`
 
 Story: `data-datatabletoolbar--test-interactions`
 
+> Script findings in this story (fix first, or confirm with the screen reader):
+> - input-change: checkbox "Select all": toggling it moves focus to checkbox "Select all"
+
 #### As rendered
-
-- **Select all**, checkbox
-- "Select all", plain text (no role)
-- **Filter galleries**, edit text
-- **(no name)**, tab — **no name: check**
-- **Gallery**, button
-- **Status**, button
-- **Studio**, button
-- **Select row**, checkbox
-- **1 selected**, status (polite announcement)
-
-#### Focus checkbox "Select all"
 
 - **Select all**, checkbox
 - "Select all", plain text (no role)

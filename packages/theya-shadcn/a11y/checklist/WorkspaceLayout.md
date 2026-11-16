@@ -18,11 +18,14 @@ Story: `patterns-workspacelayout--collapsed`
 #### As rendered
 
 - **Skip to main content**, link
-- **Expand sidebar**, button
+- "Aether", plain text (no role)
+- **Collapse sidebar**, button, expanded
+- "Manage", plain text (no role)
 - **Dashboard**, link
-- **Galleries**, link
+- **Galleries 12 galleries**, link
 - **Archive**, link
 - **Licenses**, link
+- "Account", plain text (no role)
 - **Billing**, link
 - **Team**, link
 - **Settings**, link

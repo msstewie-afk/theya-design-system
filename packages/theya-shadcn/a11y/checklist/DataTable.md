@@ -106,3 +106,29 @@ Story: `data-datatable--two-line-rows`
 - **Status**, button
 - **Studio**, button
 - **Photos**, button
+
+### With selection and row menu
+
+Story: `data-datatable--with-selection-and-row-menu`
+
+> Script findings in this story (fix first, or confirm with the screen reader):
+> - input-change: checkbox "Select all": toggling it moves focus to checkbox "Select all"
+
+#### As rendered
+
+- **Select all**, checkbox
+- "Select all", plain text (no role)
+- **(no name)**, tab — **no name: check**
+- **Gallery**, button
+- **Status**, button
+- **Studio**, button
+- **Photos**, button
+- **Select Golden hour**, checkbox
+- **Actions for Golden hour**, button
+- **Select First light**, checkbox
+- **Actions for First light**, button
+- **Select Moonrise over Othrys**, checkbox
+- **Actions for Moonrise over Othrys**, button
+- **Select Blue hour**, checkbox
+- **Actions for Blue hour**, button
+- **4 selected**, status (polite announcement)

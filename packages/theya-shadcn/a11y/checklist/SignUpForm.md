@@ -69,25 +69,7 @@ Story: `patterns-account-signupform--short-password`
 
 #### As rendered
 
-- "Already have one?", plain text (no role)
-- **Sign in**, link
-- "Work email", plain text (no role)
-- **Work email**, edit text
-- **Clear input**, button
-- "Password", plain text (no role)
-- **Password**, edit text, invalid
-- **Show password**, button
-- "Use at least 8 characters — 5 more.", plain text (no role)
-- **Send me product news, about once a month**, checkbox
-- "Send me product news, about once a month", plain text (no role)
-- **Create account**, button
-- "By creating an account you agree to the", plain text (no role)
-- **Terms of Service**, link
-- "and", plain text (no role)
-- **Privacy Policy**, link
-- ".", plain text (no role)
-- "or", plain text (no role)
-- **Sign up with GitHub**, button
+- (nothing announced)
 
 ### Test: interactions
 
