@@ -4,7 +4,7 @@ Accessibility checks for a design system and the products built on it, from one 
 
 Russian: [README.ru.md](./README.ru.md).
 
-**Status (2026-11-19): step 1 of the plan, the registry.** Theya's scripts (`a11y-tree`, `a11y-auto`, `a11y-states`, `a11y-forced`, the matrix) still live in `packages/theya-shadcn/scripts` and move here in step 3.
+**Status (2026-11-19): steps 1–3 of the plan done** — the registry, the axe calibration, the engine (`a11y-kit tree|auto|states|forced`). The matrix (`build-a11y`) and the screen-reader queue still live in Theya.
 
 ## Principle: nothing on trust
 
@@ -46,5 +46,5 @@ axe-core is resolved from the design system (the copy its test runner uses), so 
 
 1. Registry and list of checks, comparison with other checklists. **Done.**
 2. axe calibration: one known violation per rule, run the way CI runs it (tags, impact threshold, scan root) → caught / below threshold / review only / not caught / not run / page level, into the registry. **Done** (`a11y-kit calibrate-axe`).
-3. The engine: tree, auto, states, forced move here behind a design-system adapter (story → component, source folders, themes); Theya's output must stay identical.
+3. The engine: tree, auto, states, forced move here behind a design-system adapter (config: title → component, where results go). **Done:** `src/engine/`; Theya's `scripts/a11y-*.mjs` are wrappers. Proven identical: the old scripts and the kit on the same Storybook gave byte-identical results for Combobox, Rating, SecretField and Tooltip in all four checks, and the kit passes all 60 calibration stories in each.
 4. Code reader (2.1.4, 2.3.1, 2.5.1, 2.5.2, 2.5.7, 3.3.8), coverage of what a run renders (components, error, loading, disabled, expanded), page mode for products (URLs, page-level checks, findings tied to design-system components by `data-slot`), review sampling (precision per check), the PR review prompt from the registry, and depth the lists lack: 2.2.1 timeouts, 2.2.2 pause, 1.3.5 missing `autocomplete`, 1.4.1 state by color only, 3.3.2 instructions, pixel focus visibility in normal colors, non-text contrast, text contrast axe can't tell.
