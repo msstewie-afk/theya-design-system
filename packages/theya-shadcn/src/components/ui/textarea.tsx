@@ -30,7 +30,7 @@ const textareaVariants = cva(
   [
     'box-border w-full min-h-[80px] rounded-[var(--theme-radius-field,var(--size-border-radius-border-radius-md))]',
     'bg-[var(--color-bg-input-bg-input)] shadow-field border border-solid',
-    'border-[var(--color-border-border-subtler)]',
+    'border-[var(--color-border-border-subtle)]',
     'text-[var(--color-text-text)] placeholder:text-[var(--color-text-text-placeholder)]',
     // 12px on both sides, the same inset as every 32/40px field (Мария, 2026-10-23).
     'px-[var(--size-padding-padding-md)] py-[var(--size-margin-margin-s)]',
