@@ -52,7 +52,7 @@ const switchVariants = cva(
         ],
       },
       {
-        tone: 'warning',
+        tone: 'warning', // amber track
         class: [
           'data-[state=checked]:bg-[var(--color-bg-warning-bg-warning)]',
           'hover:not-disabled:data-[state=checked]:bg-[var(--color-bg-warning-bg-warning-hover)]',
