@@ -34,6 +34,10 @@ on:
       to:
         description: 'Review up to this commit (default: main)'
         required: false
+      calibration:
+        description: 'Calibration run: comment on the commit, open no issues (so precision counts real changes only)'
+        type: boolean
+        default: false
 
 # One review at a time, oldest first: agents push often.
 concurrency:
@@ -148,7 +152,7 @@ jobs:
         run: |
           # The agent's raw findings, for the run log (the posted comment shows what survived the check).
           cat "$RUNNER_TEMP/review/findings.json" || true
-          node ../a11y-kit/bin/a11y-kit.mjs review-post ${{ github.event_name == 'workflow_dispatch' && '--always' || '' }} \
+          node ../a11y-kit/bin/a11y-kit.mjs review-post ${{ github.event_name == 'workflow_dispatch' && '--always' || '' }} ${{ inputs.calibration && '--no-issues' || '' }} \
             --findings "$RUNNER_TEMP/review/findings.json" \
             --sha ${{ needs.review.outputs.to }} \
             --change "${{ needs.review.outputs.from }}..${{ needs.review.outputs.to }}" \
