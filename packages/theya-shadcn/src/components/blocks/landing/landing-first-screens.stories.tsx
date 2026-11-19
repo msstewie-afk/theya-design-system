@@ -13,8 +13,7 @@ import { Wordmark } from './wordmark';
  * viewport; text never waits for motion.
  *
  * Brand names are invented (Nordhall, Maré, Sift, Daybook, Ferro, Verdeal);
- * the real sites each screen follows are named only in its description, as
- * the reference. Webflow references for each: claude/landing-references-webflow.md.
+ * the sites they follow are listed only in the project docs. Webflow references for each: claude/landing-references-webflow.md.
  */
 const meta: Meta = {
   title: 'Patterns: Landing/First screens',
@@ -32,7 +31,7 @@ const hasOneH1: Story['play'] = async ({ canvasElement }) => {
 const NORDHALL_NAV = ['Houses', 'Public', 'Interiors', 'Process', 'Studio', 'Journal', 'Contact'];
 
 /**
- * 01 · Wordmark across the width (SANTAL, FORMAT, Oryzo). An 8-column grid
+ * 01 · Wordmark across the width. An 8-column grid
  * with a 1.1vw gutter: meta in mono along the top, the name in Archivo at
  * 72% width cut at the top edge, a hairline, the menu one item per column
  * with its number, and an empty field with one calm line at the bottom.
@@ -82,7 +81,7 @@ export const Wordmark01: Story = {
 /* ------------------------------------------------------------------------ */
 
 /**
- * 06 · Centered, with a change of face (ERA Residence, Extrafazant). A
+ * 06 · Centered, with a change of face. A
  * Didone in caps set narrow and tight (Bodoni Moda, line-height 0.87,
  * −0.03em), one word in a script laid over the line, a wide grotesque in
  * small caps for the caption, one action, and a band of image at the foot.
@@ -137,7 +136,7 @@ export const CenterTypeSwitch: Story = {
 /* ------------------------------------------------------------------------ */
 
 /**
- * 04 · Swiss bento on hairlines (Aspen Search, Heron AI). Panels without
+ * 04 · Swiss bento on hairlines. Panels without
  * radius or shadow, divided by 1px lines (the grid's gap over a line
  * color): a large statement, a dithered field, one black panel with a
  * number and a mono action, one panel in the brand color.
@@ -217,7 +216,7 @@ const NOHO_TILES = [
 ];
 
 /**
- * 03 · Split: a phrase and a mosaic (Noho, the restrained reference). Two
+ * 03 · Split: a phrase and a mosaic (the restrained reference). Two
  * columns: on the left a sentence in Inter Tight 600 at line-height 1.0 and
  * −0.04em with a caption at the foot, sticky while the right column, a
  * stepped mosaic of square pictures each on its own colored ground, runs
@@ -265,7 +264,7 @@ export const SplitMosaic: Story = {
 /* ------------------------------------------------------------------------ */
 
 /**
- * 05 · Manifesto across the measure (Signal-A, Lama Lama). Mono navigation
+ * 05 · Manifesto across the measure. Mono navigation
  * in six columns under a hairline with the local time, then one statement
  * in caps justified to both edges (text-align-last too), Archivo at 78%
  * width, its key words switching to 800 at 118% width.
@@ -321,7 +320,7 @@ const FLOEMA_ITEMS = [
 ];
 
 /**
- * 07 · Collage field (Floema). Small product pictures scattered over a light
+ * 07 · Collage field. Small product pictures scattered over a light
  * field at different sizes, the navigation a single pill, and a modest
  * title (≈4.6vw, Inter Tight 400) below the field rather than over it.
  */

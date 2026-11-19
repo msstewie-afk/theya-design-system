@@ -9,9 +9,9 @@ export type HeroTextureVariant = 'dither' | 'halftone' | 'particles';
 export interface HeroTextureProps extends ComponentProps<'div'> {
   /**
    * `dither`: an ordered (Bayer) dither of a soft light, in square pixels,
-   * like the atlas's Aspen and Lama Lama. `halftone`: a dot screen that
+   * as in the atlas's Swiss bento. `halftone`: a dot screen that
    * fades out from a corner. `particles`: a slow field of points drifting
-   * upward (DeepBook, Why Zero); it stands still under reduced motion and
+   * upward; it stands still under reduced motion and
    * stops while off screen.
    */
   variant?: HeroTextureVariant;

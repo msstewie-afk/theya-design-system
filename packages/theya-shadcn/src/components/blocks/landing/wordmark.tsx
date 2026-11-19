@@ -9,7 +9,7 @@ export interface WordmarkProps extends ComponentProps<'div'> {
   /** The heading level, when the wordmark is the page's title. Default: a paragraph. */
   as?: 'h1' | 'h2' | 'p';
   /**
-   * Cut the letters at an edge, as the atlas's SANTAL and FORMAT do: `bottom`
+   * Cut the letters at an edge, as presentation sites in the atlas do: `bottom`
    * shows the top ~70% (a footer standing on the page's edge), `top` the
    * bottom ~70% (a hero hanging from the header). The full word stays in the
    * accessibility tree.
@@ -23,7 +23,7 @@ export interface WordmarkProps extends ComponentProps<'div'> {
 
 /**
  * A word set across the full width of its container (ld-02, after the
- * Awwwards 2026 atlas: SANTAL, FORMAT, Oryzo, Aspen). The size is measured,
+ * Awwwards 2026 atlas, first screen 01). The size is measured,
  * not guessed: the word is laid out at 100px, then scaled so its width
  * equals the container's, again whenever the container resizes or a web
  * font loads. Uses the brand's display face (font-display).

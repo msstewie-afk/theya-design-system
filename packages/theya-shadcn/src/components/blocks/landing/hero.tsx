@@ -37,7 +37,7 @@ export interface HeroProps extends Omit<ComponentProps<'section'>, 'title'> {
   titleAs?: 'h1' | 'h2';
   /**
    * `wordmark` only: section links set in numbered columns under the
-   * wordmark, as the atlas's SANTAL and Aspen do.
+   * wordmark, as in the atlas's first screen 01.
    */
   links?: { label: ReactNode; href: string }[];
   /** A layer behind the content (a HeroTexture, an Aurora): centered and split only. */
@@ -137,8 +137,7 @@ export function Hero({
   );
 
   if (layout === 'statement') {
-    // A phrase over a full-bleed scene (ld-02, the atlas's Grail, Son Daven,
-    // Cyera): edge to edge, the statement at the bottom in display type, one
+    // A phrase over a full-bleed scene (ld-02, the atlas's first screen 02): edge to edge, the statement at the bottom in display type, one
     // or two actions. A dark scene in both themes, like inset.
     return (
       <section
@@ -172,7 +171,7 @@ export function Hero({
 
   if (layout === 'wordmark') {
     // The name across the full width, a hairline, then the page in numbered
-    // columns (ld-02, the atlas's SANTAL, FORMAT, Aspen). The wordmark is the
+    // columns (ld-02, the atlas's first screen 01). The wordmark is the
     // page title, so `title` must be plain text.
     return (
       <section data-slot="hero" data-layout="wordmark" data-scale="display" className={cn('pt-[var(--display-gutter)]', className)} {...props}>
