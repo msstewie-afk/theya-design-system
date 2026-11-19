@@ -22,7 +22,7 @@ export interface SeparatorProps extends React.ComponentPropsWithoutRef<typeof Se
 
 /** Hairline divider, horizontal or vertical, on @radix-ui/react-separator. */
 export const Separator = forwardRef<React.ElementRef<typeof SeparatorPrimitive.Root>, SeparatorProps>(function Separator(
-  { className, orientation = 'horizontal', decorative = true, emphasis = 'subtle', ...props },
+  { className, orientation = 'horizontal', decorative = true, emphasis = 'subtle', ...rest },
   ref,
 ) {
   return (
@@ -33,7 +33,7 @@ export const Separator = forwardRef<React.ElementRef<typeof SeparatorPrimitive.R
       orientation={orientation}
       decorative={decorative}
       className={cn('shrink-0', EMPHASIS_CLASS[emphasis], orientation === 'horizontal' ? 'h-px w-full' : 'h-full w-px', className)}
-      {...props}
+      {...rest}
     />
   );
 });
