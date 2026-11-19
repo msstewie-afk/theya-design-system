@@ -11,6 +11,10 @@ import { Wordmark } from './wordmark';
  * ld-02), each its own composition with its own type pair and grid, built
  * from Theya tokens and blocks. Brands are invented. Each screen fills the
  * viewport; text never waits for motion.
+ *
+ * Brand names are invented (Nordhall, Maré, Sift, Daybook, Ferro, Verdeal);
+ * the real sites each screen follows are named only in its description, as
+ * the reference. Webflow references for each: claude/landing-references-webflow.md.
  */
 const meta: Meta = {
   title: 'Patterns: Landing/First screens',
@@ -88,7 +92,7 @@ export const CenterTypeSwitch: Story = {
   render: () => (
     <div className="flex min-h-svh flex-col bg-[var(--color-bg-surface-bg-surface-sunken)] text-[var(--color-text-text)]">
       <header className="grid grid-cols-3 items-center px-[var(--display-gutter)] py-4">
-        <span className="font-display-wide text-[13px] font-[600] uppercase tracking-[0.12em] [font-stretch:125%]">ERA</span>
+        <span className="font-display-wide text-[13px] font-[600] uppercase tracking-[0.12em] [font-stretch:125%]">Maré</span>
         <nav aria-label="Main" className="justify-self-center max-sm:hidden">
           <ul className="m-0 flex list-none gap-6 p-0">
             {['Residences', 'Place', 'Journal'].map((l) => (
@@ -143,7 +147,7 @@ export const SwissBento: Story = {
   render: () => (
     <div className="grid min-h-svh grid-cols-1 gap-px bg-[var(--color-border-border)] text-[var(--color-text-text)] lg:grid-cols-4 lg:grid-rows-[auto_1fr_1fr]">
       <header className="flex items-center justify-between bg-[var(--color-bg-surface-bg-surface)] px-5 py-3 lg:col-span-4">
-        <span className="font-display-tight text-[20px] font-[700] tracking-[-0.03em]">aspen</span>
+        <span className="font-display-tight text-[20px] font-[700] tracking-[-0.03em]">sift</span>
         <nav aria-label="Main">
           <ul className="m-0 flex list-none gap-6 p-0">
             {['Product', 'Research', 'Pricing'].map((l, i) => (
@@ -157,16 +161,16 @@ export const SwissBento: Story = {
         </nav>
       </header>
       <section
-        aria-labelledby="aspen-title"
+        aria-labelledby="sift-title"
         className="flex flex-col justify-between gap-10 bg-[var(--color-bg-surface-bg-surface)] p-5 lg:col-span-2 lg:row-span-2 lg:p-8"
       >
         <p className="m-0 caption-mono text-[var(--color-text-text-subtle)]">Fig. 00 — Search</p>
         <div className="flex flex-col gap-6">
-          <h1 id="aspen-title" className="m-0 max-w-[13ch] font-display-tight text-[clamp(44px,6.2vw,96px)] font-[600] leading-[0.98] tracking-[-0.045em]">
+          <h1 id="sift-title" className="m-0 max-w-[13ch] font-display-tight text-[clamp(44px,6.2vw,96px)] font-[600] leading-[0.98] tracking-[-0.045em]">
             Search that reads the way you think
           </h1>
           <p className="m-0 max-w-[40ch] font-body text-body-l text-[var(--color-text-text-subtle)]">
-            Ask in a sentence. Aspen reads every document your team keeps and answers with the passage, not a list of links.
+            Ask in a sentence. Sift reads every document your team keeps and answers with the passage, not a list of links.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button size="xl">Request access</Button>
@@ -225,7 +229,7 @@ export const SplitMosaic: Story = {
     <div className="grid bg-[var(--color-bg-surface-bg-surface)] text-[var(--color-text-text)] md:grid-cols-2">
       <div className="flex flex-col justify-between gap-12 p-[var(--display-gutter)] md:sticky md:top-0 md:h-svh">
         <div className="flex items-center justify-between">
-          <span className="font-display-tight text-[22px] font-[700] tracking-[-0.04em]">noho</span>
+          <span className="font-display-tight text-[22px] font-[700] tracking-[-0.04em]">daybook</span>
           <Button size="sm" appearance="outlined" tone="neutral">
             Get the app
           </Button>
@@ -235,7 +239,7 @@ export const SplitMosaic: Story = {
         </h1>
         <div className="flex flex-col gap-6">
           <p className="m-0 max-w-[34ch] font-body text-body-l text-[var(--color-text-text-subtle)]">
-            Write, sketch and file in one place. Noho sorts your pages by the day they belong to.
+            Write, sketch and file in one place. Daybook sorts your pages by the day they belong to.
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <Button size="xl">Download for iPhone</Button>
@@ -244,7 +248,7 @@ export const SplitMosaic: Story = {
         </div>
       </div>
       <ul
-        aria-label="Noho, pictures of the app"
+        aria-label="Daybook, pictures of the app"
         className="m-0 grid list-none grid-cols-2 gap-3 p-[var(--display-gutter)] pb-[calc(var(--display-gutter)+25%)] md:pt-[20svh]"
       >
         {NOHO_TILES.map((t, i) => (
@@ -272,7 +276,7 @@ export const Manifesto: Story = {
     <div className="flex min-h-svh flex-col bg-[var(--color-bg-surface-bg-surface)] px-[var(--display-gutter)] text-[var(--color-text-text)]">
       <nav aria-label="Main" className="border-b border-solid border-[var(--color-text-text)] py-3">
         <ul className="m-0 grid list-none grid-cols-3 gap-x-5 gap-y-1 p-0 md:grid-cols-6">
-          {['Signal-A', 'Work', 'Studio', 'Process', 'Contact'].map((l, i) => (
+          {['Ferro', 'Work', 'Studio', 'Process', 'Contact'].map((l, i) => (
             <li key={l}>
               <a href={`#${l.toLowerCase()}`} className="caption-mono text-[var(--color-text-text)] no-underline hover:text-[var(--color-text-text-subtle)]">
                 {i === 0 ? '●' : `0${i}`} {l}
@@ -286,14 +290,14 @@ export const Manifesto: Story = {
       </nav>
       <div className="flex flex-1 items-center py-16">
         <h1 className="m-0 w-full font-display-wide text-[clamp(26px,5vw,76px)] font-[400] uppercase leading-[0.98] tracking-[-0.01em] [font-stretch:78%] [text-align-last:justify] [text-align:justify] [hyphens:none]">
-          ● Signal-A is an <b className="font-[800] [font-stretch:118%]">independent</b> interface &amp; experience{' '}
+          ● Ferro is an <b className="font-[800] [font-stretch:118%]">independent</b> interface &amp; experience{' '}
           <b className="font-[800] [font-stretch:118%]">design studio</b> crafting digital products for people who read the small print
         </h1>
       </div>
       <div className="flex flex-col items-center gap-1 pb-[var(--display-gutter)] text-center">
         <p className="m-0 caption-mono text-[var(--color-text-text-subtle)]">Available from March 2027</p>
         <a href="#contact" className="caption-mono text-[var(--color-text-text)] no-underline hover:text-[var(--color-text-text-subtle)]">
-          hello@signal-a.studio
+          hello@ferro.studio
         </a>
       </div>
     </div>
@@ -326,7 +330,7 @@ export const CollageField: Story = {
   render: () => (
     <div className="bg-[var(--color-bg-surface-bg-surface-sunken)] text-[var(--color-text-text)]">
       <header className="flex items-center justify-between px-[var(--display-gutter)] py-4">
-        <span className="font-display-tight text-[18px] font-[600] tracking-[-0.02em]">Floema</span>
+        <span className="font-display-tight text-[18px] font-[600] tracking-[-0.02em]">Verdeal</span>
         <nav
           aria-label="Main"
           className="rounded-full border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] px-2 py-1"
@@ -342,7 +346,7 @@ export const CollageField: Story = {
           </ul>
         </nav>
       </header>
-      <ul aria-label="Floema products" className="relative m-0 h-[78svh] list-none overflow-hidden p-0">
+      <ul aria-label="Verdeal products" className="relative m-0 h-[78svh] list-none overflow-hidden p-0">
         {FLOEMA_ITEMS.map((it) => (
           <li key={it.img} className="absolute" style={{ left: `${it.x}%`, top: `${it.y}%`, width: `max(${it.w}vw, 64px)` }}>
             <img src={`/asset-examples/silk/${it.img}.webp`} alt="" className="block w-full object-cover" />

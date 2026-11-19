@@ -68,7 +68,7 @@ function TopBar({ title }: { title: string }) {
 function Onboarding() {
   return (
     <Phone label="Onboarding">
-      <p className="text-heading-xs">Fieldnotes</p>
+      <p className="text-heading-xs">Notewell</p>
       <p className="mt-2 max-w-[220px] text-body-m text-[var(--color-text-text-subtle)]">
         Turn your notes into a calm daily practice
       </p>
@@ -196,7 +196,7 @@ function Hero({ suffix = '' }: { suffix?: string }) {
         aria-label={`Main${suffix}`}
         className="mx-auto flex max-w-[1080px] items-center justify-between gap-4"
       >
-        <span className="text-heading-s">Fieldnotes</span>
+        <span className="text-heading-s">Notewell</span>
         <ul className="glass hidden gap-1 rounded-full p-1 md:flex">
           {["Product", "Pricing", "Teams", "Journal"].map((item) => (
             <li key={item}>
