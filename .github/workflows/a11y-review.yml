@@ -63,6 +63,15 @@ jobs:
           fetch-depth: 0
           ref: ${{ inputs.to || github.sha }}
 
+      # A manual run on an older commit reviews that commit's files with today's
+      # kit, registry and accepted deviations (the commit may predate them).
+      - name: Kit from main
+        if: env.HAS_TOKEN == 'true' && inputs.to != ''
+        run: |
+          git fetch -q origin main
+          git checkout origin/main -- packages/a11y-kit packages/theya-shadcn/a11y-kit.config.mjs packages/theya-shadcn/a11y/registry.json packages/theya-shadcn/a11y/manual.json
+          git reset -q
+
       - name: Range
         id: range
         if: env.HAS_TOKEN == 'true'
