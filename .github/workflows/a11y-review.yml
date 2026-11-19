@@ -11,7 +11,8 @@
 # `a11y-kit review-precision` counts them.
 #
 # Auth: the Claude subscription of the repository owner, through the
-# CLAUDE_CODE_OAUTH_TOKEN secret (made with `claude setup-token`). Without the
+# CLAUDE_CODE_OAUTH_TOKEN secret (made with `claude setup-token`), read by
+# Claude Code (`claude -p`) on the runner. Without the
 # secret the workflow does nothing. The agent job can only read the
 # repository; it has no GitHub token with write access and no network tools.
 #
@@ -103,26 +104,47 @@ jobs:
         if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
         run: rm -f .claude/settings.json
 
+      # The contrast command reads the built token CSS (packages/tokens/build is not committed).
+      - uses: pnpm/action-setup@v5
+        if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
+        with:
+          version: 11.8.0
+      - uses: actions/setup-node@v5
+        if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Build tokens
+        if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
+        run: |
+          pnpm install --frozen-lockfile --filter "@theya/tokens..."
+          pnpm build:tokens
+          node packages/a11y-kit/bin/a11y-kit.mjs contrast border background --cwd packages/theya-shadcn
+
+      # Claude Code itself, not claude-code-action: the action does not run on push events.
       - name: Review
         if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
-        uses: anthropics/claude-code-action@v1
-        with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          github_token: ${{ github.token }}
-          prompt: |
-            Review one change to this design system for accessibility.
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          FROM: ${{ steps.range.outputs.from }}
+          TO: ${{ steps.range.outputs.to }}
+        run: |
+          curl -fsSL https://claude.ai/install.sh | bash
+          PROMPT="Review one change to this design system for accessibility.
 
-            Method (follow it exactly): packages/a11y-kit/review/agent.md
-            The change: a11y-review-run/change.diff (commits ${{ steps.range.outputs.from }}..${{ steps.range.outputs.to }})
-            Context: a11y-review-run/context.md
-            Write your findings to: a11y-review-run/findings.json
+          Method (follow it exactly): packages/a11y-kit/review/agent.md
+          The change: a11y-review-run/change.diff (commits $FROM..$TO)
+          Context: a11y-review-run/context.md
+          Write your findings to: a11y-review-run/findings.json
 
-            Write nothing else and change no other file.
+          Write nothing else and change no other file."
           # Opus: a wrong finding costs more than a slow run (review/agent.md).
-          claude_args: >-
-            --model claude-opus-5-5
-            --max-turns 80
-            --allowedTools "Read,Glob,Grep,Write,Bash(git show:*),Bash(git diff:*),Bash(git log:*),Bash(node packages/a11y-kit/bin/a11y-kit.mjs contrast:*)"
+          "$HOME/.local/bin/claude" -p "$PROMPT" \
+            --model claude-opus-5-5 \
+            --max-turns 80 \
+            --allowedTools "Read,Glob,Grep,Write,Bash(git show:*),Bash(git diff:*),Bash(git log:*),Bash(node packages/a11y-kit/bin/a11y-kit.mjs contrast:*)" \
+            --output-format json > a11y-review-run/session.json
+          node -e "const s=require('./a11y-review-run/session.json'); console.log(JSON.stringify({ error: s.is_error, turns: s.num_turns, seconds: Math.round(s.duration_ms / 1000), denied: s.permission_denials?.length ?? 0 }))"
 
       - uses: actions/upload-artifact@v4
         if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
