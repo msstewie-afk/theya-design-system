@@ -99,6 +99,8 @@ git add -A && git commit -m "release: version packages" && pnpm tag-release && g
 - on the release tag `@theya/shadcn@<version>`, which `pnpm tag-release && git push --follow-tags` pushes after `pnpm version-packages` (above);
 - or by hand: Actions → Release → Run workflow (publishes the version that is on main).
 
+After publishing, the `tag` job creates the release tags `@theya/shadcn@<version>` and `@theya/tokens@<version>` that don't exist yet, each on the commit that set that version in the package's `package.json`. So a release started by hand needs no tags made by hand; an existing tag is left alone.
+
 The workflow rewrites the manifest (`scripts/github-package.mjs`: name, registry, repository), builds `dist/` with its check, and publishes with the workflow's own token. A version that is already in the registry is skipped. To see the manifest without publishing:
 
 ```

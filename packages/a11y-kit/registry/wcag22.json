@@ -1,0 +1,335 @@
+{
+  "$comment": "WCAG 2.2 success criteria at levels A and AA (55; 4.1.1 Parsing is obsolete in 2.2). where: ds = judged per component of a design system; library = met by one library-wide rule; product = a property of the pages, content and flows a product owns (a design system can only help).",
+  "criteria": [
+    {
+      "id": "1.1.1",
+      "level": "A",
+      "name": "Non-text Content",
+      "where": "ds"
+    },
+    {
+      "id": "1.2.1",
+      "level": "A",
+      "name": "Audio-only and Video-only (Prerecorded)",
+      "where": "product"
+    },
+    {
+      "id": "1.2.2",
+      "level": "A",
+      "name": "Captions (Prerecorded)",
+      "where": "product"
+    },
+    {
+      "id": "1.2.3",
+      "level": "A",
+      "name": "Audio Description or Media Alternative (Prerecorded)",
+      "where": "product"
+    },
+    {
+      "id": "1.2.4",
+      "level": "AA",
+      "name": "Captions (Live)",
+      "where": "product"
+    },
+    {
+      "id": "1.2.5",
+      "level": "AA",
+      "name": "Audio Description (Prerecorded)",
+      "where": "product"
+    },
+    {
+      "id": "1.3.1",
+      "level": "A",
+      "name": "Info and Relationships",
+      "where": "ds"
+    },
+    {
+      "id": "1.3.2",
+      "level": "A",
+      "name": "Meaningful Sequence",
+      "where": "ds"
+    },
+    {
+      "id": "1.3.3",
+      "level": "A",
+      "name": "Sensory Characteristics",
+      "where": "product"
+    },
+    {
+      "id": "1.3.4",
+      "level": "AA",
+      "name": "Orientation",
+      "where": "library"
+    },
+    {
+      "id": "1.3.5",
+      "level": "AA",
+      "name": "Identify Input Purpose",
+      "where": "ds"
+    },
+    {
+      "id": "1.4.1",
+      "level": "A",
+      "name": "Use of Color",
+      "where": "ds"
+    },
+    {
+      "id": "1.4.2",
+      "level": "A",
+      "name": "Audio Control",
+      "where": "product"
+    },
+    {
+      "id": "1.4.3",
+      "level": "AA",
+      "name": "Contrast (Minimum)",
+      "where": "ds"
+    },
+    {
+      "id": "1.4.4",
+      "level": "AA",
+      "name": "Resize Text",
+      "where": "ds"
+    },
+    {
+      "id": "1.4.5",
+      "level": "AA",
+      "name": "Images of Text",
+      "where": "product"
+    },
+    {
+      "id": "1.4.10",
+      "level": "AA",
+      "name": "Reflow",
+      "where": "ds"
+    },
+    {
+      "id": "1.4.11",
+      "level": "AA",
+      "name": "Non-text Contrast",
+      "where": "ds"
+    },
+    {
+      "id": "1.4.12",
+      "level": "AA",
+      "name": "Text Spacing",
+      "where": "ds"
+    },
+    {
+      "id": "1.4.13",
+      "level": "AA",
+      "name": "Content on Hover or Focus",
+      "where": "ds"
+    },
+    {
+      "id": "2.1.1",
+      "level": "A",
+      "name": "Keyboard",
+      "where": "ds"
+    },
+    {
+      "id": "2.1.2",
+      "level": "A",
+      "name": "No Keyboard Trap",
+      "where": "ds"
+    },
+    {
+      "id": "2.1.4",
+      "level": "A",
+      "name": "Character Key Shortcuts",
+      "where": "ds"
+    },
+    {
+      "id": "2.2.1",
+      "level": "A",
+      "name": "Timing Adjustable",
+      "where": "ds"
+    },
+    {
+      "id": "2.2.2",
+      "level": "A",
+      "name": "Pause, Stop, Hide",
+      "where": "ds"
+    },
+    {
+      "id": "2.3.1",
+      "level": "A",
+      "name": "Three Flashes or Below Threshold",
+      "where": "library"
+    },
+    {
+      "id": "2.4.1",
+      "level": "A",
+      "name": "Bypass Blocks",
+      "where": "product"
+    },
+    {
+      "id": "2.4.2",
+      "level": "A",
+      "name": "Page Titled",
+      "where": "product"
+    },
+    {
+      "id": "2.4.3",
+      "level": "A",
+      "name": "Focus Order",
+      "where": "ds"
+    },
+    {
+      "id": "2.4.4",
+      "level": "A",
+      "name": "Link Purpose (In Context)",
+      "where": "ds"
+    },
+    {
+      "id": "2.4.5",
+      "level": "AA",
+      "name": "Multiple Ways",
+      "where": "product"
+    },
+    {
+      "id": "2.4.6",
+      "level": "AA",
+      "name": "Headings and Labels",
+      "where": "ds"
+    },
+    {
+      "id": "2.4.7",
+      "level": "AA",
+      "name": "Focus Visible",
+      "where": "ds"
+    },
+    {
+      "id": "2.4.11",
+      "level": "AA",
+      "name": "Focus Not Obscured (Minimum)",
+      "where": "ds"
+    },
+    {
+      "id": "2.5.1",
+      "level": "A",
+      "name": "Pointer Gestures",
+      "where": "ds"
+    },
+    {
+      "id": "2.5.2",
+      "level": "A",
+      "name": "Pointer Cancellation",
+      "where": "library"
+    },
+    {
+      "id": "2.5.3",
+      "level": "A",
+      "name": "Label in Name",
+      "where": "ds"
+    },
+    {
+      "id": "2.5.4",
+      "level": "A",
+      "name": "Motion Actuation",
+      "where": "library"
+    },
+    {
+      "id": "2.5.7",
+      "level": "AA",
+      "name": "Dragging Movements",
+      "where": "ds"
+    },
+    {
+      "id": "2.5.8",
+      "level": "AA",
+      "name": "Target Size (Minimum)",
+      "where": "ds"
+    },
+    {
+      "id": "3.1.1",
+      "level": "A",
+      "name": "Language of Page",
+      "where": "product"
+    },
+    {
+      "id": "3.1.2",
+      "level": "AA",
+      "name": "Language of Parts",
+      "where": "product"
+    },
+    {
+      "id": "3.2.1",
+      "level": "A",
+      "name": "On Focus",
+      "where": "ds"
+    },
+    {
+      "id": "3.2.2",
+      "level": "A",
+      "name": "On Input",
+      "where": "ds"
+    },
+    {
+      "id": "3.2.3",
+      "level": "AA",
+      "name": "Consistent Navigation",
+      "where": "product"
+    },
+    {
+      "id": "3.2.4",
+      "level": "AA",
+      "name": "Consistent Identification",
+      "where": "product"
+    },
+    {
+      "id": "3.2.6",
+      "level": "A",
+      "name": "Consistent Help",
+      "where": "product"
+    },
+    {
+      "id": "3.3.1",
+      "level": "A",
+      "name": "Error Identification",
+      "where": "ds"
+    },
+    {
+      "id": "3.3.2",
+      "level": "A",
+      "name": "Labels or Instructions",
+      "where": "ds"
+    },
+    {
+      "id": "3.3.3",
+      "level": "AA",
+      "name": "Error Suggestion",
+      "where": "product"
+    },
+    {
+      "id": "3.3.4",
+      "level": "AA",
+      "name": "Error Prevention (Legal, Financial, Data)",
+      "where": "product"
+    },
+    {
+      "id": "3.3.7",
+      "level": "A",
+      "name": "Redundant Entry",
+      "where": "product"
+    },
+    {
+      "id": "3.3.8",
+      "level": "AA",
+      "name": "Accessible Authentication (Minimum)",
+      "where": "ds"
+    },
+    {
+      "id": "4.1.2",
+      "level": "A",
+      "name": "Name, Role, Value",
+      "where": "ds"
+    },
+    {
+      "id": "4.1.3",
+      "level": "AA",
+      "name": "Status Messages",
+      "where": "ds"
+    }
+  ]
+}

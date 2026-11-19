@@ -1,0 +1,474 @@
+{
+  "$comment": "Checks that aren't axe-core rules (axe rules are read from axe-core's own metadata by src/registry.mjs). id: <tool>.<check>. sc: WCAG 2.2 criteria it gives evidence for (all of them, not just the first). stage: code (source, no browser) | component (a built Storybook) | page (a product's URLs) | manual (a person) | pr (the review agent: an opinion, never fails a build). depth: full = a clean result verifies the criterion for what the stories show; part = it checks one side of the criterion, the rest needs another check or a person; gate = a finding fails the cell, a clean result proves nothing alone. calibration: name prefixes of the calibration stories (src/test/a11y-fixtures.stories.tsx in Theya) and W3C ACT test cases (src/test/a11y-act.stories.tsx) it must catch and must pass. where: ds | product.",
+  "checks": [
+    {
+      "id": "tree.control-name",
+      "tool": "a11y-tree",
+      "stage": "component",
+      "sc": [
+        "4.1.2"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "Every control in the accessibility tree (button, link, field, checkbox, radio, switch, combobox, slider, tab, menu item, option) has a name.",
+      "calibration": [
+        "Defect: listbox without a name"
+      ]
+    },
+    {
+      "id": "tree.image-name",
+      "tool": "a11y-tree",
+      "stage": "component",
+      "sc": [
+        "1.1.1"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "No exposed image without a name, unless it sits inside a named control and is hidden in the DOM too (Safari exposes icons Chromium drops).",
+      "calibration": []
+    },
+    {
+      "id": "tree.table-headers",
+      "tool": "a11y-tree",
+      "stage": "component",
+      "sc": [
+        "1.3.1"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "Every table has column or row headers.",
+      "calibration": []
+    },
+    {
+      "id": "tree.radio-group",
+      "tool": "a11y-tree",
+      "stage": "component",
+      "sc": [
+        "1.3.1"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "Every radio is inside a radio group.",
+      "calibration": []
+    },
+    {
+      "id": "tree.field-label",
+      "tool": "a11y-tree",
+      "stage": "component",
+      "sc": [
+        "1.3.1",
+        "3.3.2"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "Every form field gets its name from an associated label.",
+      "calibration": []
+    },
+    {
+      "id": "tree.error-text",
+      "tool": "a11y-tree",
+      "stage": "component",
+      "sc": [
+        "3.3.1"
+      ],
+      "depth": "full",
+      "where": "ds",
+      "how": "Every field marked aria-invalid points to a non-empty error text (aria-describedby or aria-errormessage on the field or its group).",
+      "calibration": []
+    },
+    {
+      "id": "tree.snapshot",
+      "tool": "a11y-tree",
+      "stage": "component",
+      "sc": [
+        "1.3.2",
+        "4.1.2"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "Records each story's accessibility tree in reading order; a change shows up as a diff in review, and a stale screen-reader pass is detected from it.",
+      "calibration": []
+    },
+    {
+      "id": "auto.label-in-name",
+      "tool": "a11y-auto",
+      "stage": "component",
+      "sc": [
+        "2.5.3"
+      ],
+      "depth": "full",
+      "where": "ds",
+      "how": "A control's visible text is part of its accessible name.",
+      "calibration": [
+        "ACT 2ee8b8"
+      ]
+    },
+    {
+      "id": "auto.focus-visible",
+      "tool": "a11y-auto",
+      "stage": "component",
+      "sc": [
+        "2.4.7"
+      ],
+      "depth": "full",
+      "where": "ds",
+      "how": "Tab through the story: every stop looks different focused and blurred (outline, box-shadow, border, background).",
+      "calibration": [
+        "ACT oj04fd"
+      ]
+    },
+    {
+      "id": "auto.focus-not-obscured",
+      "tool": "a11y-auto",
+      "stage": "component",
+      "sc": [
+        "2.4.11"
+      ],
+      "depth": "gate",
+      "where": "ds",
+      "how": "In the Tab pass, the focused element isn't entirely under a sticky or fixed box (hit-test on five points).",
+      "calibration": [
+        "Defect: sticky bar hides the focused button",
+        "Clean: sticky bar with scroll-padding"
+      ]
+    },
+    {
+      "id": "auto.text-spacing",
+      "tool": "a11y-auto",
+      "stage": "component",
+      "sc": [
+        "1.4.12"
+      ],
+      "depth": "full",
+      "where": "ds",
+      "how": "With WCAG text spacing applied, no text is clipped or overlaps.",
+      "calibration": []
+    },
+    {
+      "id": "auto.resize-text",
+      "tool": "a11y-auto",
+      "stage": "component",
+      "sc": [
+        "1.4.4"
+      ],
+      "depth": "full",
+      "where": "ds",
+      "how": "At 200% text size, no text is clipped or overlaps.",
+      "calibration": []
+    },
+    {
+      "id": "auto.keyboard-reach",
+      "tool": "a11y-auto",
+      "stage": "component",
+      "sc": [
+        "2.1.1"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "Every focusable control in the story is reached by Tab; nothing with a pointer handler is pointer-only.",
+      "calibration": [
+        "Clean: visually hidden Dismiss button (Base UI)"
+      ]
+    },
+    {
+      "id": "auto.no-trap",
+      "tool": "a11y-auto",
+      "stage": "component",
+      "sc": [
+        "2.1.2"
+      ],
+      "depth": "full",
+      "where": "ds",
+      "how": "Tab leaves every element; a cycle must be left by Escape or Shift+Tab.",
+      "calibration": [
+        "ACT 80af7b"
+      ]
+    },
+    {
+      "id": "auto.focus-order",
+      "tool": "a11y-auto",
+      "stage": "component",
+      "sc": [
+        "2.4.3"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "No positive tabindex; Tab order follows the visual order.",
+      "calibration": [
+        "ACT 80af7b Passed 2"
+      ]
+    },
+    {
+      "id": "auto.experimental-axe",
+      "tool": "a11y-auto",
+      "stage": "component",
+      "sc": [
+        "1.3.1",
+        "1.3.4",
+        "2.5.3"
+      ],
+      "depth": "advisory",
+      "where": "ds",
+      "how": "axe's experimental rules (p-as-heading, td-has-header, table-fake-caption, label-content-name-mismatch, css-orientation-lock), switched on by name; listed for a person, never failing.",
+      "calibration": [
+        "Advisory: a bold paragraph used as a heading"
+      ]
+    },
+    {
+      "id": "states.aria-states",
+      "tool": "a11y-states",
+      "stage": "component",
+      "sc": [
+        "4.1.2"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "In every state a story can be driven to: aria-expanded matches what is shown, IDREFs resolve, popups have the role and name aria-haspopup promises, no aria-label on generic elements, no focusable generic with its own key handlers, nothing focusable inside aria-hidden, no nested controls.",
+      "calibration": [
+        "Defect: aria-expanded on a hidden popup",
+        "Defect: loading popup without aria-controls",
+        "Defect: chip without a role",
+        "Defect: aria-label on a div without a role",
+        "Defect: a button inside a menu item",
+        "Defect: aria-labelledby points to nothing",
+        "Defect: a button inside aria-hidden",
+        "Defect: aria-haspopup=",
+        "Clean: combobox",
+        "Clean: page aria-hidden behind a popup that holds focus (Radix)",
+        "Clean: empty open list, display:contents popup, menu named by an icon button",
+        "Clean: nested tree items, a dialog that hides the page without focus in it",
+        "ACT 6cfa84"
+      ]
+    },
+    {
+      "id": "states.keyboard",
+      "tool": "a11y-states",
+      "stage": "component",
+      "sc": [
+        "2.1.1"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "APG keyboard: comboboxes (ArrowDown, option, Escape twice, typing with no match), triggers open on Enter, tablists and radio groups move with arrows along their orientation, a dialog open on load closes on Escape.",
+      "calibration": [
+        "Defect: Escape doesn",
+        "Defect: arrow keys don",
+        "Defect: no match removes the list but stays expanded",
+        "Defect: opens on click but not on Enter"
+      ]
+    },
+    {
+      "id": "states.focus-management",
+      "tool": "a11y-states",
+      "stage": "component",
+      "sc": [
+        "2.4.3"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "Focus moves into an opened popup and returns to its trigger when it closes.",
+      "calibration": [
+        "Defect: Escape drops focus instead of returning it",
+        "Defect: focus doesn"
+      ]
+    },
+    {
+      "id": "states.hover-content",
+      "tool": "a11y-states",
+      "stage": "component",
+      "sc": [
+        "1.4.13"
+      ],
+      "depth": "full",
+      "where": "ds",
+      "how": "Tooltip and hover-card content: Escape closes it (focus stays), the pointer can move onto it, it doesn't close by itself.",
+      "calibration": [
+        "Clean: Radix tooltip",
+        "Defect: tooltip that closes when the pointer moves onto it",
+        "Defect: hint that Escape doesn",
+        "Defect: hint that closes by itself"
+      ]
+    },
+    {
+      "id": "states.on-input",
+      "tool": "a11y-states",
+      "stage": "component",
+      "sc": [
+        "3.2.2"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "Typing in a field and toggling a checkbox or switch doesn't navigate, open a dialog or move focus away (selects and radios: a person).",
+      "calibration": [
+        "Clean: a field and a checkbox that change nothing else",
+        "Defect: typing moves focus to another field",
+        "Defect: toggling a checkbox opens a dialog"
+      ]
+    },
+    {
+      "id": "forced.control-edge",
+      "tool": "a11y-forced",
+      "stage": "component",
+      "sc": [
+        "1.4.11"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "With forced-colors: active, no control becomes one flat color that it isn't in normal colors (no edge, text or mark left).",
+      "calibration": [
+        "Clean: native controls, bordered fields",
+        "Defect: controls and an icon drawn only with fills"
+      ]
+    },
+    {
+      "id": "forced.focus",
+      "tool": "a11y-forced",
+      "stage": "component",
+      "sc": [
+        "2.4.7"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "With forced colors, every Tab stop looks different focused and blurred, from screenshots.",
+      "calibration": [
+        "Defect: controls and an icon drawn only with fills",
+        "ACT oj04fd Failed 1"
+      ]
+    },
+    {
+      "id": "forced.icons",
+      "tool": "a11y-forced",
+      "stage": "component",
+      "sc": [
+        "1.1.1"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "With forced colors, CSS mask icons don't disappear.",
+      "calibration": [
+        "Defect: controls and an icon drawn only with fills"
+      ]
+    },
+    {
+      "id": "forced.checked-state",
+      "tool": "a11y-forced",
+      "stage": "component",
+      "sc": [
+        "1.4.1",
+        "4.1.2"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "With forced colors, a checked checkbox, radio or switch doesn't look like an unchecked one (when it differs in normal colors).",
+      "calibration": [
+        "Defect: controls and an icon drawn only with fills"
+      ]
+    },
+    {
+      "id": "suite.reflow-360",
+      "tool": "test-runner",
+      "stage": "component",
+      "sc": [
+        "1.4.10"
+      ],
+      "depth": "full",
+      "where": "ds",
+      "how": "Every story's play tests run again at a 360px viewport.",
+      "calibration": []
+    },
+    {
+      "id": "code.reduced-motion",
+      "tool": "build-a11y",
+      "stage": "code",
+      "sc": [
+        "2.3.3"
+      ],
+      "depth": "full",
+      "where": "ds",
+      "how": "Animations are behind motion-safe or a reduced-motion check (AAA, recorded for the library).",
+      "calibration": []
+    },
+    {
+      "id": "code.reordering",
+      "tool": "build-a11y",
+      "stage": "code",
+      "sc": [
+        "1.3.2"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "The source has no CSS reordering (order-*, *-reverse, col/row-start); reordering sends the component to review.",
+      "calibration": []
+    },
+    {
+      "id": "manual.screen-reader",
+      "tool": "person",
+      "stage": "manual",
+      "sc": [
+        "4.1.3",
+        "4.1.2",
+        "1.3.1",
+        "1.3.2"
+      ],
+      "depth": "full",
+      "where": "ds",
+      "how": "VoiceOver + Safari, each story's checklist (what should be heard as rendered, after ArrowDown, Enter, typing); the only check for status messages.",
+      "calibration": []
+    },
+    {
+      "id": "manual.review",
+      "tool": "person",
+      "stage": "manual",
+      "sc": [
+        "1.3.3",
+        "1.4.5",
+        "2.4.6",
+        "2.5.7",
+        "3.2.1",
+        "3.3.3",
+        "3.3.7",
+        "3.3.8",
+        "2.1.4",
+        "2.3.1",
+        "2.5.1",
+        "2.5.2",
+        "1.4.13",
+        "2.4.11"
+      ],
+      "depth": "full",
+      "where": "ds",
+      "how": "A person reads the component, its docs and examples against the criterion; the verdict goes to the manual register.",
+      "calibration": []
+    },
+    {
+      "id": "manual.product",
+      "tool": "person",
+      "stage": "manual",
+      "sc": [
+        "1.2.1",
+        "1.2.2",
+        "1.2.3",
+        "1.2.4",
+        "1.2.5",
+        "2.4.1",
+        "2.4.2",
+        "2.4.5",
+        "3.1.1",
+        "3.1.2",
+        "3.2.3",
+        "3.2.4",
+        "3.2.6",
+        "3.3.4",
+        "2.2.1",
+        "2.2.2",
+        "2.5.4",
+        "1.3.4",
+        "1.4.2"
+      ],
+      "depth": "full",
+      "where": "product",
+      "how": "Product level: pages, content, media and flows (titles, language, skip link, captions, consistent navigation and help, error prevention).",
+      "calibration": []
+    }
+  ]
+}

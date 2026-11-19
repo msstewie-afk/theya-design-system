@@ -15,15 +15,17 @@ English version: [figma-queue.md](./figma-queue.md).
 
 | С версии | Область | Что | Что нужно |
 |---|---|---|---|
+| 0.4.0 | Градиентные темы (gr-01, gr-02; агент 1) | Новые профили Dusk, Lagoon, Ochre с сеткой `gradient` и шрифтом Schibsted Grotesk; холст `data-canvas="gradient"` (белый текст, стеклянные кнопки, карточки 90% белого); SectionPanel `tone="gradient"`. Заголовки medium/semibold, display S 44 px, тональные заливки плотнее; у кнопок-пилюль (`radius.button: "max"`: Dusk, Lagoon, Ochre, Lime) боковой отступ 1/8 высоты. | Агент 2: режимы бренда и переменные в «9. Brand», тон SectionPanel, отступ кнопок-пилюль. |
+| 0.4.0 | Лэндинг (ld-02; агент 1) | Текстовые стили display-2xl (72 → 192 px), display-caps (межстрочный 0.85, −0.04em), caption-mono; `font-display` с полем профиля `displayFont` (Archivo с осью ширины). Новые Wordmark, HeroTexture (дизеринг, халфтон, частицы); варианты Hero `statement` и `wordmark`, слот `backdrop`. | Агент 2: текстовые стили и новые варианты Hero; Wordmark и HeroTexture, если блоки лэндинга рисуются. |
 | 0.3.16 | Словарь пропсов (код) | Код расходится со словарём, Figma повторяет код: у FAB `shape="round"` (по словарю `circle`), у Sparkline `tone="brand"`/`"muted"` (`primary`/`neutral`), у Countdown `appearance="inline"`/`"blocks"`/`"ring"` (это структура, значит `variant`), у Toast `type` с `error` (`tone`, `danger`; тип приходит из API Sonner). `type` у Avatar (image/text/icon) и DiffLine — это вид содержимого и совпадает с кодом. | Агенту 3: решить в коде, Figma переименует следом. |
 | 0.3.15 | StickyActionBar (код) | Уже 28rem крестик × уходит на отдельную третью строку: у текста `basis-full`, у кнопок `w-full`, рядом места не остаётся. В Figma × стоит в конце строки текста. | Агенту 3: решить в коде (например, × рядом с текстом на узкой панели), Figma подстроится. |
-| 0.3.14 | Текстовые стили | У Display/S, Eyebrow/M, Eyebrow/S в коде включены цифры одной высоты (`lnum`). Plugin API не умеет задавать OpenType-функции. | Включить руками в Figma: Type settings → Numbers → Lining. То же проверить у Headline/*. |
 | раньше | Референсные истории | PushSheet, Dialog (full) и истории «Figma reference» у меню. Сверить с примерами в Figma (pp-01, агент 3). | Прогнать на них `scripts/figma-visual-diff.mjs`. |
 
 ## Сделано
 
 | Дата | Версия | Что | Figma |
 |---|---|---|---|
+| 2026-11-16 | 0.3.14 | Display/S, Eyebrow/M, Eyebrow/S: цифры одной высоты (Proportional uppercase lining) включены руками (Мария) | текстовые стили |
 | 2026-11-14 | 0.3.14–0.3.15 | Ревью глазами (Мария): узлы, изменённые 13–14.11 (Drawer, StickyActionBar, TabsList chips, OptionCard, меню With Trailing, радиусы Ember, Elevation во всех режимах, описание шторки в Ember) — всё в порядке | — |
 | 2026-11-14 | раньше | Kbd: рамка 1px и размер знака ⌘ сверены с кодом (Мария) — в порядке | — |
 | 2026-11-13 | 0.3.7–0.3.14 | Токены:<br>• bg-surface-page, bg-surface-sunken-on-page, bg-neutral-subtle-on-page (8 режимов);<br>• шаги радиусов Ember: sm 3, md 5, lg 6, xl 8, 2xl–4xl 12, 5xl 24;<br>• theme-radius field и field-sm;<br>• size-minus1;<br>• переменные бренда display-s и eyebrow-m/s;<br>• межбуквенный интервал display-s у Ember 0.4. | коллекции 2, 3, 6, 9 (дельта-синхронизация от 8bb3c27) |

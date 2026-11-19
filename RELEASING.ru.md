@@ -99,6 +99,8 @@ git add -A && git commit -m "release: version packages" && pnpm tag-release && g
 - по тегу релиза `@theya/shadcn@<версия>`, который пушит `pnpm tag-release && git push --follow-tags` после `pnpm version-packages` (выше);
 - или вручную: Actions → Release → Run workflow (публикует версию, которая сейчас в main).
 
+После публикации джоб `tag` создаёт теги релиза `@theya/shadcn@<версия>` и `@theya/tokens@<версия>`, которых ещё нет, — каждый на коммит, где эта версия появилась в `package.json` пакета. Поэтому после ручного запуска теги руками ставить не нужно; существующий тег не трогается.
+
 Workflow переписывает манифест (`scripts/github-package.mjs`: имя, registry, repository), собирает `dist/` со своей проверкой и публикует токеном самого workflow. Версия, которая уже есть в registry, пропускается. Посмотреть манифест без публикации:
 
 ```

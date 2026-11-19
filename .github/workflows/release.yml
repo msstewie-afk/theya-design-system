@@ -80,3 +80,41 @@ jobs:
         run: |
           pnpm publish --no-git-checks
           echo "Published **${{ steps.manifest.outputs.name }}@${{ steps.manifest.outputs.version }}** to GitHub Packages" >> "$GITHUB_STEP_SUMMARY"
+
+  # Release tags (@theya/shadcn@<version>, @theya/tokens@<version>), so nobody
+  # has to create them by hand. Each tag goes on the commit that set that
+  # version in the package's package.json (the "release: version packages"
+  # commit), not on whatever main is now. A tag that already exists is left
+  # alone, so re-running is safe. Tags pushed with the workflow's own token do
+  # not start other workflows, so this does not re-trigger the release.
+  tag:
+    needs: publish
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Tag released versions
+        run: |
+          set -euo pipefail
+          for dir in packages/theya-shadcn packages/tokens; do
+            name=$(node -p "require('./$dir/package.json').name")
+            version=$(node -p "require('./$dir/package.json').version")
+            tag="$name@$version"
+            if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null; then
+              echo "$tag already exists" >> "$GITHUB_STEP_SUMMARY"
+              continue
+            fi
+            # Latest commit whose diff adds or removes this exact version line.
+            sha=$(git log -1 --format=%H -G"\"version\": \"$version\"" -- "$dir/package.json")
+            if [ -z "$sha" ]; then
+              echo "::error::No commit sets $tag in $dir/package.json"
+              exit 1
+            fi
+            git tag "$tag" "$sha"
+            git push origin "refs/tags/$tag"
+            echo "Tagged **$tag** at \`$sha\`" >> "$GITHUB_STEP_SUMMARY"
+          done
