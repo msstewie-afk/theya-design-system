@@ -1,0 +1,142 @@
+# Accessibility review of every change to main that touches components,
+# styles or tokens (a11y-kit's change review: packages/a11y-kit/review/agent.md).
+#
+# The review is an opinion, never a verdict: CI's a11y job decides. The agent
+# reads the change against WCAG 2.2 A/AA, minus what the scripts already prove,
+# and writes findings.json. A separate job, without the agent, checks the
+# findings (schema, level, pre-flight), opens one issue per violation or
+# design decision (label a11y-review; the same finding is not filed twice)
+# and posts one comment on the commit. Close an issue as completed when the
+# finding was right and as not planned when it was wrong;
+# `a11y-kit review-precision` counts them.
+#
+# Auth: the Claude subscription of the repository owner, through the
+# CLAUDE_CODE_OAUTH_TOKEN secret (made with `claude setup-token`). Without the
+# secret the workflow does nothing. The agent job can only read the
+# repository; it has no GitHub token with write access and no network tools.
+#
+# Manual run: Actions → a11y review → Run workflow, with a commit range.
+
+name: a11y review
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/theya-shadcn/src/components/**'
+      - 'packages/theya-shadcn/src/styles/**'
+      - 'packages/tokens/src/**'
+  workflow_dispatch:
+    inputs:
+      from:
+        description: 'Review from this commit (exclusive)'
+        required: true
+      to:
+        description: 'Review up to this commit (default: main)'
+        required: false
+
+# One review at a time, oldest first: agents push often.
+concurrency:
+  group: a11y-review
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    env:
+      HAS_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
+    outputs:
+      files: ${{ steps.diff.outputs.files }}
+      from: ${{ steps.range.outputs.from }}
+      to: ${{ steps.range.outputs.to }}
+    steps:
+      - name: No token, no review
+        if: env.HAS_TOKEN != 'true'
+        run: echo "::notice::CLAUDE_CODE_OAUTH_TOKEN is not set — skipping the accessibility review."
+
+      - uses: actions/checkout@v4
+        if: env.HAS_TOKEN == 'true'
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.to || github.sha }}
+
+      - name: Range
+        id: range
+        if: env.HAS_TOKEN == 'true'
+        env:
+          FROM: ${{ inputs.from || github.event.before }}
+        run: |
+          TO=$(git rev-parse HEAD)
+          # A new branch or a force-push leaves no usable "before": review the last commit.
+          if [ -z "$FROM" ] || ! git cat-file -e "$FROM^{commit}" 2>/dev/null; then FROM=$(git rev-parse HEAD~1); fi
+          echo "from=$FROM" >> "$GITHUB_OUTPUT"
+          echo "to=$TO" >> "$GITHUB_OUTPUT"
+
+      - name: Change and context
+        id: diff
+        if: env.HAS_TOKEN == 'true'
+        working-directory: packages/theya-shadcn
+        run: |
+          # In the workspace, not RUNNER_TEMP, so the agent's file tools can reach it (it is not committed).
+          mkdir -p "$GITHUB_WORKSPACE/a11y-review-run"
+          node ../a11y-kit/bin/a11y-kit.mjs review-diff ${{ steps.range.outputs.from }} ${{ steps.range.outputs.to }} --out "$GITHUB_WORKSPACE/a11y-review-run/change.diff"
+          node ../a11y-kit/bin/a11y-kit.mjs review-context --out "$GITHUB_WORKSPACE/a11y-review-run/context.md"
+
+      # The repository's Claude Code hooks are for the agents working in it, not for this run.
+      - name: Drop repository hooks
+        if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
+        run: rm -f .claude/settings.json
+
+      - name: Review
+        if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ github.token }}
+          prompt: |
+            Review one change to this design system for accessibility.
+
+            Method (follow it exactly): packages/a11y-kit/review/agent.md
+            The change: a11y-review-run/change.diff (commits ${{ steps.range.outputs.from }}..${{ steps.range.outputs.to }})
+            Context: a11y-review-run/context.md
+            Write your findings to: a11y-review-run/findings.json
+
+            Write nothing else and change no other file.
+          claude_args: >-
+            --max-turns 60
+            --allowedTools "Read,Glob,Grep,Write,Bash(git show:*),Bash(git diff:*),Bash(git log:*),Bash(node packages/a11y-kit/bin/a11y-kit.mjs contrast:*)"
+
+      - uses: actions/upload-artifact@v4
+        if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
+        with:
+          name: a11y-review
+          path: a11y-review-run/
+          if-no-files-found: warn
+
+  post:
+    needs: review
+    if: needs.review.outputs.files != '' && needs.review.outputs.files != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write # commit comments
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: a11y-review
+          path: ${{ runner.temp }}/review
+      - name: Check findings, open issues, comment
+        working-directory: packages/theya-shadcn
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node ../a11y-kit/bin/a11y-kit.mjs review-post \
+            --findings "$RUNNER_TEMP/review/findings.json" \
+            --sha ${{ needs.review.outputs.to }} \
+            --change "${{ needs.review.outputs.from }}..${{ needs.review.outputs.to }}" \
+            --run "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

@@ -25,4 +25,28 @@ export default {
   // How .storybook/test-runner.ts runs axe: every enabled rule (no tag filter)
   // plus target-size, any impact fails the story, scanned inside #storybook-root.
   axe: { enable: ['target-size'], root: '#storybook-root' },
+  // The change review (packages/a11y-kit/review/agent.md), run on every push
+  // to main that touches components, styles or tokens (.github/workflows/a11y-review.yml).
+  review: {
+    paths: ['src/components', 'src/styles', '../tokens/src', ':(exclude,glob)**/*.stories.tsx', ':(exclude,glob)**/*.guidelines.tsx'],
+    read: ['../../CONTRIBUTING.md', '../../TESTING.md'],
+    // Accepted deviations from the hand-kept part of the matrix, so the agent doesn't re-report them.
+    notes(root) {
+      const manual = JSON.parse(fs.readFileSync(path.join(root, 'a11y/manual.json'), 'utf8'));
+      const lines = [
+        '- Focus ring: the soft focus ring is under 3:1 on purpose, a library-wide accepted deviation (1.4.11). Report a change only if it takes away the other visible focus change (border or background) where a control had one, or makes the ring itself fainter.',
+        `- Components where the soft ring is the only visible focus change (accepted): ${manual.focusRingOnly.join(', ')}.`,
+        '- Forced colors: src/styles/forced-colors.css gives controls system-colour borders and outlines. A change that adds a box-shadow-only edge or focus indicator needs a forced-colors rule there.',
+      ];
+      for (const [component, list] of Object.entries(manual.deviations ?? {}))
+        for (const d of list) if (d.criterion && d.note) lines.push(`- ${component}, ${d.criterion}: ${d.note}`);
+      return lines.join('\n');
+    },
+    tokens: {
+      files: ['../tokens/build/css/variables.css', '../tokens/build/css/variables-dark.css', 'src/styles/globals.css'],
+      light: [':root', '@theme'],
+      dark: [':root', '@theme', '[data-theme="dark"]'],
+      page: 'background',
+    },
+  },
 };
