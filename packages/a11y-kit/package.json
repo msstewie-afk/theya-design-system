@@ -1,0 +1,19 @@
+{
+  "name": "@msstewie-afk/a11y-kit",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Accessibility checks for a design system and the products built on it: one registry of checks across code, components, pages and people, calibrated on known defects.",
+  "type": "module",
+  "bin": {
+    "a11y-kit": "bin/a11y-kit.mjs"
+  },
+  "files": [
+    "bin",
+    "src",
+    "registry",
+    "calibration"
+  ],
+  "dependencies": {
+    "axe-core": "4.12.1"
+  }
+}
