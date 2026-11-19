@@ -105,9 +105,8 @@ export function ExpandingPanels({ items, defaultIndex = 0, onChange, height = '2
             {!item.tone && <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_92%,transparent)] via-[color-mix(in_srgb,var(--color-bg-surface-bg-surface-sunken)_40%,transparent)] to-transparent" />}
 
             <Title className="m-0">
-              <button
+              <div
                 id={btn}
-                type="button"
                 aria-expanded="true"
                 aria-controls={panel}
                 onClick={() => choose(i)}
@@ -132,7 +131,7 @@ export function ExpandingPanels({ items, defaultIndex = 0, onChange, height = '2
                 >
                   {item.title}
                 </span>
-              </button>
+              </div>
             </Title>
             <div
               id={panel}
