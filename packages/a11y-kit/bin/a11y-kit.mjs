@@ -4,12 +4,20 @@
  *
  *   a11y-kit registry [--check]        the list of checks and the coverage per WCAG 2.2 criterion
  *   a11y-kit compare <checklist.json>  another checklist ([{ "id", "sc"?, "where"? }]) against the registry
+ *   a11y-kit calibrate-axe [rule…]     one known violation per axe rule, run the way CI runs axe → axeCalibrationOut
  *
  * Reads a11y-kit.config.mjs from the current directory (the design system's package):
  *   export default {
  *     calibrationStories: ['src/test/a11y-fixtures.stories.tsx'],  // stories the own checks are calibrated on
  *     registryOut: 'a11y/registry.json',                          // the merged registry, for other tools
  *     listOut: '../../docs/a11y-checks',                         // + .md and .ru.md
+ *     axeCalibrationOut: 'a11y/axe-calibration.json',            // calibrate-axe's results (the default)
+ *     axe: {                                                      // how CI runs axe, for calibrate-axe
+ *       tags: ['wcag2a', 'wcag2aa'],                              // runOnly tags; omit for every enabled rule
+ *       enable: ['target-size'],                                  // rules switched on by name
+ *       failImpacts: ['serious', 'critical'],                     // impacts that fail the build (default: all)
+ *       root: '#storybook-root',                                  // the scan root ('document' for whole pages)
+ *     },
  *   }
  */
 import fs from 'node:fs';
@@ -17,6 +25,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { buildRegistry, compareList } from '../src/registry.mjs';
 import { renderList, renderCompare } from '../src/render.mjs';
+import { calibrateAxe, writeCalibration } from '../src/calibrate-axe.mjs';
 
 const [cmd, ...args] = process.argv.slice(2);
 const CHECK = args.includes('--check');
@@ -25,7 +34,8 @@ const configFile = path.join(cwd, 'a11y-kit.config.mjs');
 const config = fs.existsSync(configFile) ? (await import(pathToFileURL(configFile).href)).default : {};
 const at = (p) => path.resolve(cwd, p);
 
-const reg = buildRegistry({ from: cwd, calibrationStories: (config.calibrationStories ?? []).map(at) });
+const axeCalibration = at(config.axeCalibrationOut ?? 'a11y/axe-calibration.json');
+const reg = buildRegistry({ from: cwd, calibrationStories: (config.calibrationStories ?? []).map(at), axeCalibration });
 
 if (cmd === 'registry') {
   const outputs = [];
@@ -52,7 +62,16 @@ if (cmd === 'registry') {
   const file = args.find((a) => !a.startsWith('--'));
   if (!file) throw new Error('a11y-kit compare <checklist.json>');
   console.log(renderCompare(compareList(reg, JSON.parse(fs.readFileSync(at(file), 'utf8')))));
+} else if (cmd === 'calibrate-axe') {
+  const only = args.filter((a) => !a.startsWith('--'));
+  const result = await calibrateAxe({ from: cwd, axe: config.axe, only });
+  const file = writeCalibration(result, axeCalibration, only.length > 0);
+  const by = {};
+  for (const [id, r] of Object.entries(result.rules)) (by[r.result] ??= []).push(id);
+  console.log(`a11y-kit calibrate-axe: axe-core ${result.axeVersion}, ${Object.keys(result.rules).length} rules → ${path.relative(cwd, file)}`);
+  for (const [k, ids] of Object.entries(by)) console.log(`  ${k}: ${ids.length}${k === 'caught' ? '' : ` — ${ids.join(', ')}`}`);
+  console.log('Run `a11y-kit registry` to put the results in the list of checks.');
 } else {
-  console.log('a11y-kit registry [--check] | a11y-kit compare <checklist.json>');
+  console.log('a11y-kit registry [--check] | a11y-kit compare <checklist.json> | a11y-kit calibrate-axe [rule…]');
   process.exit(cmd ? 1 : 0);
 }

@@ -18,6 +18,7 @@ Run from the design system's package (where `a11y-kit.config.mjs` is):
 node ../a11y-kit/bin/a11y-kit.mjs registry          # write the registry and the list of checks (EN + RU)
 node ../a11y-kit/bin/a11y-kit.mjs registry --check  # fail if they are stale (in Theya: pnpm api:check)
 node ../a11y-kit/bin/a11y-kit.mjs compare list.json # another team's checklist against the registry
+node ../a11y-kit/bin/a11y-kit.mjs calibrate-axe     # one known violation per axe rule, the way CI runs axe (config `axe`)
 ```
 
 `compare` takes `[{ "id": "1.4.3-color-contrast", "sc": ["1.4.3"], "where": "ds" }, …]` (the criterion prefix and `sc` are optional; an axe rule id is matched after the prefix) and reports: rows that are not an axe rule or a registry check (with what the registry has for their criterion), axe rules that only run when switched on by name (experimental, deprecated, off by default), criteria a row leaves out though axe maps the rule to them, WCAG 2.2 A/AA criteria with no row, and registry checks the list has no row for.
@@ -44,6 +45,6 @@ axe-core is resolved from the design system (the copy its test runner uses), so 
 ## Plan
 
 1. Registry and list of checks, comparison with other checklists. **Done.**
-2. axe calibration: one known violation per rule, run the way CI runs it (tags, impact threshold) → caught / review only / not caught, into the registry.
+2. axe calibration: one known violation per rule, run the way CI runs it (tags, impact threshold, scan root) → caught / below threshold / review only / not caught / not run / page level, into the registry. **Done** (`a11y-kit calibrate-axe`).
 3. The engine: tree, auto, states, forced move here behind a design-system adapter (story → component, source folders, themes); Theya's output must stay identical.
 4. Code reader (2.1.4, 2.3.1, 2.5.1, 2.5.2, 2.5.7, 3.3.8), coverage of what a run renders (components, error, loading, disabled, expanded), page mode for products (URLs, page-level checks, findings tied to design-system components by `data-slot`), review sampling (precision per check), the PR review prompt from the registry, and depth the lists lack: 2.2.1 timeouts, 2.2.2 pause, 1.3.5 missing `autocomplete`, 1.4.1 state by color only, 3.3.2 instructions, pixel focus visibility in normal colors, non-text contrast, text contrast axe can't tell.

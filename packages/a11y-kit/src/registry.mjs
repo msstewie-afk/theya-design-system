@@ -11,8 +11,9 @@
  * - axe-core's own rule metadata (the version the design system runs): every
  *   rule tagged with a WCAG 2.x A/AA criterion, with its WCAG tags (all of
  *   them), whether it runs by default, its ACT rule ids.
- * - calibration/axe.json (written by `a11y-kit calibrate-axe`, if run): did
- *   each axe rule catch its known violation the way CI runs it.
+ * - the design system's axe calibration (written by `a11y-kit calibrate-axe`,
+ *   config `axeCalibrationOut`): did each axe rule catch its known violation
+ *   the way that design system's CI runs axe.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -43,13 +44,12 @@ const scOf = (tags) =>
     .filter(Boolean)
     .map((m) => `${m[1]}.${m[2]}.${m[3]}`);
 
-export function buildRegistry({ from, calibrationStories = [] } = {}) {
+export function buildRegistry({ from, calibrationStories = [], axeCalibration } = {}) {
   const wcag = read(path.join(KIT, 'registry/wcag22.json')).criteria;
   const inScope = new Set(wcag.map((c) => c.id));
   const own = read(path.join(KIT, 'registry/checks.json')).checks;
   const { axe } = loadAxe(from);
-  const calFile = path.join(KIT, 'calibration/axe.json');
-  const cal = fs.existsSync(calFile) ? read(calFile) : null;
+  const cal = axeCalibration && fs.existsSync(axeCalibration) ? read(axeCalibration) : null;
 
   const axeChecks = axe._audit.rules
     .map((r) => {
@@ -57,13 +57,15 @@ export function buildRegistry({ from, calibrationStories = [] } = {}) {
       if (!sc.length) return null;
       const runs = r.tags.includes('experimental') ? 'experimental' : r.tags.includes('deprecated') ? 'deprecated' : r.enabled === false ? 'off by default' : 'default';
       const meta = axe.getRules([r.id])[0] ?? axe.getRules().find((x) => x.ruleId === r.id);
+      // A rule that only sees the whole page (calibration says so) belongs to a product's page scan.
+      const pageLevel = r.pageLevel || cal?.rules?.[r.id]?.result === 'page level';
       return {
         id: `axe.${r.id}`,
         tool: `axe-core ${axe.version}`,
-        stage: r.pageLevel ? 'page' : 'component',
+        stage: pageLevel ? 'page' : 'component',
         sc,
         depth: 'part',
-        where: r.pageLevel ? 'product' : 'ds',
+        where: pageLevel ? 'product' : 'ds',
         how: meta?.help ?? r.id,
         runs,
         impact: r.impact ?? null,

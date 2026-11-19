@@ -1,0 +1,97 @@
+/**
+ * axe calibration: does each axe rule catch its known violation when axe runs
+ * the way this design system's CI runs it (the same axe-core, the same tags
+ * or rule switches, the same impacts that fail a build, the same scan root)?
+ *
+ * Per rule, one page from calibration/axe-cases.mjs (and its second case if
+ * the first isn't caught). Result:
+ * - caught: a violation at an impact that fails the build;
+ * - below threshold: a violation, but at an impact the build ignores;
+ * - review only: axe puts it in `incomplete` (needs a person), CI ignores it;
+ * - not caught: axe passes the page or finds the rule inapplicable;
+ * - not run: the rule doesn't run with this configuration (experimental,
+ *   deprecated, off by default, or outside the tags);
+ * - page level: the rule looks at <html>/<head>/the whole page, and the scan
+ *   root is an element (a component scan can't see it; a product's page scan can).
+ *
+ * Writes the design system's calibration file (config axeCalibrationOut); the registry reads it.
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { createRequire } from 'node:module';
+import { CASES } from '../calibration/axe-cases.mjs';
+import { loadAxe } from './registry.mjs';
+
+const ROOT_HTML = (inner) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Calibration</title></head><body><main><h1>Calibration</h1><div id="root">${inner}</div></main></body></html>`;
+
+export async function calibrateAxe({ from, axe: cfg = {}, only = [] }) {
+  const { axe, file } = loadAxe(from);
+  const req = createRequire(path.join(from, 'package.json'));
+  const runner = (() => {
+    for (const p of ['@storybook/test-runner', '@playwright/test', 'playwright']) {
+      try {
+        return path.dirname(req.resolve(p));
+      } catch {}
+    }
+    return from;
+  })();
+  const { chromium } = req(req.resolve('playwright', { paths: [runner] }));
+  const failImpacts = cfg.failImpacts ?? ['minor', 'moderate', 'serious', 'critical'];
+  const scanRoot = cfg.root ?? '#root';
+  const options = {
+    ...(cfg.tags ? { runOnly: { type: 'tag', values: cfg.tags } } : {}),
+    rules: Object.fromEntries((cfg.enable ?? []).map((id) => [id, { enabled: true }])),
+    resultTypes: ['violations', 'incomplete', 'passes', 'inapplicable'],
+  };
+  const rules = Object.keys(CASES).filter((id) => !only.length || only.includes(id));
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+  const out = {};
+  for (const id of rules) {
+    const kase = CASES[id];
+    const tries = kase.doc ? [kase.doc] : [kase.fail, kase.alt].filter(Boolean).map(ROOT_HTML);
+    let result = null;
+    for (const html of tries) {
+      await page.setContent(html, { waitUntil: 'load' });
+      await page.addScriptTag({ path: file });
+      // A document case only reaches the rule when the scan root is the document.
+      const context = kase.doc ? (scanRoot === 'document' ? null : scanRoot) : scanRoot === 'document' ? null : '#root';
+      const r = await page.evaluate(
+        async ({ context, options }) => {
+          if (context && !document.querySelector(context)) return { missingRoot: true };
+          const res = await window.axe.run(context ?? document, options);
+          const pick = (list) => list.map((x) => ({ id: x.id, impact: x.impact }));
+          return { violations: pick(res.violations), incomplete: pick(res.incomplete), passes: pick(res.passes), inapplicable: pick(res.inapplicable) };
+        },
+        { context, options },
+      );
+      if (r.missingRoot) {
+        result = { result: 'page level', note: 'looks at the whole page; the scan root is an element' };
+        break;
+      }
+      const v = r.violations.find((x) => x.id === id);
+      const inc = r.incomplete.find((x) => x.id === id);
+      const ran = v || inc || r.passes.some((x) => x.id === id) || r.inapplicable.some((x) => x.id === id);
+      result = !ran
+        ? { result: 'not run', note: 'not executed with this configuration' }
+        : v && failImpacts.includes(v.impact)
+          ? { result: 'caught', impact: v.impact }
+          : v
+            ? { result: 'below threshold', impact: v.impact }
+            : inc
+              ? { result: 'review only', impact: inc.impact }
+              : { result: 'not caught' };
+      if (result.result === 'caught' || result.result === 'not run') break;
+    }
+    out[id] = result;
+  }
+  await browser.close();
+  return { axeVersion: axe.version, config: { tags: cfg.tags ?? 'all enabled rules', enable: cfg.enable ?? [], failImpacts, root: scanRoot }, rules: out };
+}
+
+export function writeCalibration(result, file, merge) {
+  const prev = merge && fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')).rules : {};
+  const sorted = Object.fromEntries(Object.entries({ ...prev, ...result.rules }).sort(([a], [b]) => a.localeCompare(b)));
+  fs.writeFileSync(file, JSON.stringify({ $comment: 'Generated by a11y-kit calibrate-axe. Do not edit.', ...result, rules: sorted }, null, 2) + '\n');
+  return file;
+}
