@@ -108,7 +108,7 @@ export function ExpandingPanels({ items, defaultIndex = 0, onChange, height = '2
               <button
                 id={btn}
                 type="button"
-                aria-expanded={isOpen}
+                aria-expanded="true"
                 aria-controls={panel}
                 onClick={() => choose(i)}
                 onFocus={() => choose(i)}
