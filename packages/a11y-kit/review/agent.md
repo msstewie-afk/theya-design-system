@@ -33,7 +33,7 @@ Record each answer in `precheck`:
 - **rule**: state whether the criterion sets a threshold or a prohibition. For a threshold, give the threshold and the measured value. For a prohibition, quote the exact thing prohibited.
 - **alternative**: does another path already satisfy the criterion? For example, the state is also shown by an icon or text (1.4.1, 1.4.11), the drag has buttons (2.5.7), or the shortcut is only active on focus (2.1.4). If such a path exists, it is not a finding.
 - **code**: `true` only if you opened the code behind the diff line (the component, its classes, its tokens) and the finding holds there. A finding based on the diff alone is not a violation.
-- **recomputed**: for any contrast claim, the ratio as `N.NN:1`, from `a11y-kit contrast`, in each theme you claim. Never state a ratio from memory or estimation.
+- **recomputed**: for any contrast claim, the ratio from `a11y-kit contrast` as `N.NN:1`, one per theme you claim (`light 2.21:1; dark 2.41:1`). Never state a ratio from memory or estimation.
 
 ## What not to report
 

@@ -131,7 +131,8 @@ export function checkFindings(data, reg) {
     if (g.kind === 'violation') {
       const contrastSc = ['1.4.3', '1.4.11', '2.4.7', '2.4.11'].includes(g.sc) && /contrast|ratio|:1/i.test(`${g.title} ${g.evidence}`);
       if (g.precheck.code !== true) g.downgraded = 'not checked against the code';
-      else if (contrastSc && !/^\d+(\.\d+)?:1$/.test(String(g.precheck.recomputed ?? ''))) g.downgraded = 'contrast not recomputed with `a11y-kit contrast`';
+      // One ratio, or one per theme ("light 2.21:1; dark 2.41:1").
+      else if (contrastSc && !/\d+(\.\d+)?:1/.test(String(g.precheck.recomputed ?? ''))) g.downgraded = 'contrast not recomputed with `a11y-kit contrast`';
       if (g.downgraded) g.kind = 'run';
     }
     kept.push(g);
