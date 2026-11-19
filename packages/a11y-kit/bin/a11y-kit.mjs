@@ -11,7 +11,7 @@
  *                                      WCAG contrast of two colours or tokens, from the design system's CSS (review.tokens)
  *   a11y-kit review-diff <from> <to> --out <file>        the change under review, limited to review.paths
  *   a11y-kit review-context --out <file>                 what the review agent is given besides the diff
- *   a11y-kit review-post --findings <file> --change <label> (--sha <sha> | --pr <n>) [--repo owner/name] [--run <url>] [--dry-run]
+ *   a11y-kit review-post --findings <file> --change <label> (--sha <sha> | --pr <n>) [--repo owner/name] [--run <url>] [--always] [--dry-run]
  *                                      checks the agent's findings, opens issues, posts one comment (needs gh)
  *   a11y-kit review-precision [--repo owner/name]        how often the agent was right, from closed review issues (needs gh)
  *   The agent's method: review/agent.md.
@@ -77,10 +77,10 @@ async function main() {
     const i = args.indexOf(`--${name}`);
     return i > -1 ? args[i + 1] : undefined;
   };
-  const positional = args.filter((a, i) => !a.startsWith('--') && !(i > 0 && args[i - 1].startsWith('--') && !['--check', '--dry-run'].includes(args[i - 1])));
+  const positional = args.filter((a, i) => !a.startsWith('--') && !(i > 0 && args[i - 1].startsWith('--') && !['--check', '--dry-run', '--always'].includes(args[i - 1])));
 
   // The review commands run in CI without installing dependencies: they read the committed registry.
-  if (cmd?.startsWith('review') || cmd === 'contrast') return review(cmd, { config, cwd, at, opt, positional, DRY: args.includes('--dry-run') });
+  if (cmd?.startsWith('review') || cmd === 'contrast') return review(cmd, { config, cwd, at, opt, positional, DRY: args.includes('--dry-run'), ALWAYS: args.includes('--always') });
 
   const reg = buildRegistry({ from: cwd, calibrationStories: (config.calibrationStories ?? []).map(at), axeCalibration });
 
@@ -124,7 +124,7 @@ async function main() {
   }
 }
 
-async function review(cmd, { config, cwd, at, opt, positional, DRY }) {
+async function review(cmd, { config, cwd, at, opt, positional, DRY, ALWAYS }) {
   const rc = config.review ?? {};
   const top = execFileSync('git', ['rev-parse', '--show-toplevel'], { cwd, encoding: 'utf8' }).trim();
   const fromTop = (p) => path.relative(top, at(p)) || '.';
@@ -202,7 +202,7 @@ async function review(cmd, { config, cwd, at, opt, positional, DRY }) {
     }
     const body = renderComment({ change, kept, dropped, issues, summary: data.summary ?? '', run: opt('run') });
     if (DRY) console.log(body);
-    else if (kept.length || dropped.length) {
+    else if (kept.length || dropped.length || ALWAYS) {
       const target = opt('pr') ? `repos/${repo}/issues/${opt('pr')}/comments` : `repos/${repo}/commits/${opt('sha')}/comments`;
       gh(['api', target, '-F', 'body=@-'], body);
     }
