@@ -1,0 +1,124 @@
+# Calibration of the change review: every case in
+# packages/theya-shadcn/a11y/review-cases.json is a known change (a planted
+# defect per reviewable WCAG 2.2 A/AA criterion, plus changes that must
+# report nothing) with the expected answer. Each case is committed onto main
+# in its own job, reviewed exactly the way a push is, and scored; the last
+# job prints the table (and keeps it as an artifact).
+#
+# Nothing is posted and no issue is opened. The agent never sees the expected
+# answers: the cases file is removed before it runs, and the commits carry
+# neutral messages.
+#
+# Runs on the owner's Claude subscription, one Opus review per case: start it
+# by hand (Actions → a11y review calibration → Run workflow), after a change to
+# packages/a11y-kit/review/ or to the cases.
+
+name: a11y review calibration
+
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Case ids, comma-separated (default: all)'
+        required: false
+
+concurrency:
+  group: a11y-review-calibration
+  cancel-in-progress: false
+
+jobs:
+  cases:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      ids: ${{ steps.list.outputs.ids }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: List cases
+        id: list
+        working-directory: packages/theya-shadcn
+        env:
+          ONLY: ${{ inputs.only }}
+        run: |
+          ALL=$(node ../a11y-kit/bin/a11y-kit.mjs review-case --list)
+          if [ -n "$ONLY" ]; then
+            IDS=$(node -e "const all = JSON.parse(process.argv[1]); const want = process.argv[2].split(',').map((s) => s.trim()); const bad = want.filter((w) => !all.includes(w)); if (bad.length) { console.error('unknown case: ' + bad.join(', ')); process.exit(1); } console.log(JSON.stringify(want))" "$ALL" "$ONLY")
+          else IDS=$ALL; fi
+          echo "ids=$IDS" >> "$GITHUB_OUTPUT"
+          echo "$IDS"
+
+  review:
+    needs: cases
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        id: ${{ fromJSON(needs.cases.outputs.ids) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Commit the case
+        id: case
+        working-directory: packages/theya-shadcn
+        run: |
+          node ../a11y-kit/bin/a11y-kit.mjs review-case "${{ matrix.id }}"
+          # Keep the expected answers for scoring, out of the agent's reach.
+          mv a11y/review-cases.json "$RUNNER_TEMP/review-cases.json"
+
+      - name: Review
+        uses: ./.github/actions/a11y-review
+        with:
+          from: ${{ steps.case.outputs.from }}
+          to: ${{ steps.case.outputs.to }}
+          oauth-token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+      - name: Score
+        working-directory: packages/theya-shadcn
+        run: |
+          mv "$RUNNER_TEMP/review-cases.json" a11y/review-cases.json
+          cat "$GITHUB_WORKSPACE/a11y-review-run/findings.json" || true
+          mkdir -p "$RUNNER_TEMP/score"
+          node ../a11y-kit/bin/a11y-kit.mjs review-score "${{ matrix.id }}" \
+            --findings "$GITHUB_WORKSPACE/a11y-review-run/findings.json" \
+            --out "$RUNNER_TEMP/score/${{ matrix.id }}.json"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: score-${{ matrix.id }}
+          path: |
+            ${{ runner.temp }}/score/
+            a11y-review-run/findings.json
+          if-no-files-found: warn
+
+  report:
+    needs: [cases, review]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: score-*
+          path: ${{ runner.temp }}/scores
+      - name: Table
+        working-directory: packages/theya-shadcn
+        run: |
+          mkdir -p "$RUNNER_TEMP/only-scores"
+          find "$RUNNER_TEMP/scores" -path '*score*' -name '*.json' ! -name findings.json -exec cp {} "$RUNNER_TEMP/only-scores/" \;
+          node ../a11y-kit/bin/a11y-kit.mjs review-report "$RUNNER_TEMP/only-scores" --ids '${{ needs.cases.outputs.ids }}' --out "$RUNNER_TEMP/review-calibration.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: review-calibration
+          path: ${{ runner.temp }}/review-calibration.json

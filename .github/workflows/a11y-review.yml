@@ -35,10 +35,6 @@ on:
       to:
         description: 'Review up to this commit (default: main)'
         required: false
-      calibration:
-        description: 'Calibration run: comment on the commit, open no issues (so precision counts real changes only)'
-        type: boolean
-        default: false
 
 # One review at a time, oldest first: agents push often.
 concurrency:
@@ -54,7 +50,7 @@ jobs:
     env:
       HAS_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
     outputs:
-      files: ${{ steps.diff.outputs.files }}
+      files: ${{ steps.review.outputs.files }}
       from: ${{ steps.range.outputs.from }}
       to: ${{ steps.range.outputs.to }}
     steps:
@@ -74,7 +70,7 @@ jobs:
         if: env.HAS_TOKEN == 'true' && inputs.to != ''
         run: |
           git fetch -q origin main
-          git checkout origin/main -- packages/a11y-kit packages/theya-shadcn/a11y-kit.config.mjs packages/theya-shadcn/a11y/registry.json packages/theya-shadcn/a11y/manual.json
+          git checkout origin/main -- .github/actions/a11y-review packages/a11y-kit packages/theya-shadcn/a11y-kit.config.mjs packages/theya-shadcn/a11y/registry.json packages/theya-shadcn/a11y/manual.json
           git reset -q
 
       - name: Range
@@ -89,65 +85,17 @@ jobs:
           echo "from=$FROM" >> "$GITHUB_OUTPUT"
           echo "to=$TO" >> "$GITHUB_OUTPUT"
 
-      - name: Change and context
-        id: diff
-        if: env.HAS_TOKEN == 'true'
-        working-directory: packages/theya-shadcn
-        run: |
-          # In the workspace, not RUNNER_TEMP, so the agent's file tools can reach it (it is not committed).
-          mkdir -p "$GITHUB_WORKSPACE/a11y-review-run"
-          node ../a11y-kit/bin/a11y-kit.mjs review-diff ${{ steps.range.outputs.from }} ${{ steps.range.outputs.to }} --out "$GITHUB_WORKSPACE/a11y-review-run/change.diff"
-          node ../a11y-kit/bin/a11y-kit.mjs review-context --out "$GITHUB_WORKSPACE/a11y-review-run/context.md"
-
-      # The repository's Claude Code hooks are for the agents working in it, not for this run.
-      - name: Drop repository hooks
-        if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
-        run: rm -f .claude/settings.json
-
-      # The contrast command reads the built token CSS (packages/tokens/build is not committed).
-      - uses: pnpm/action-setup@v5
-        if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
-        with:
-          version: 11.8.0
-      - uses: actions/setup-node@v5
-        if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
-        with:
-          node-version: 22
-          cache: pnpm
-      - name: Build tokens
-        if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
-        run: |
-          pnpm install --frozen-lockfile --filter "@theya/tokens..."
-          pnpm build:tokens
-          node packages/a11y-kit/bin/a11y-kit.mjs contrast border background --cwd packages/theya-shadcn
-
-      # Claude Code itself, not claude-code-action: the action does not run on push events.
       - name: Review
-        if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
-        env:
-          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          FROM: ${{ steps.range.outputs.from }}
-          TO: ${{ steps.range.outputs.to }}
-        run: |
-          curl -fsSL https://claude.ai/install.sh | bash
-          PROMPT="Review one change to this design system for accessibility.
-
-          Method (follow it exactly): packages/a11y-kit/review/agent.md
-          The change: a11y-review-run/change.diff (commits $FROM..$TO)
-          Context: a11y-review-run/context.md
-          Write your findings to: a11y-review-run/findings.json
-
-          Write nothing else and change no other file."
-          # Opus: a wrong finding costs more than a slow run (review/agent.md).
-          "$HOME/.local/bin/claude" -p "$PROMPT" \
-            --model claude-opus-5-5 \
-            --max-turns 80 \
-            --allowedTools "Read,Glob,Grep,Write,Bash(git show:*),Bash(git diff:*),Bash(git log:*),Bash(node packages/a11y-kit/bin/a11y-kit.mjs contrast:*)" \
-            --output-format json > a11y-review-run/session.json
-          node -e "const s=require('./a11y-review-run/session.json'); console.log(JSON.stringify({ error: s.is_error, turns: s.num_turns, seconds: Math.round(s.duration_ms / 1000), denied: s.permission_denials?.length ?? 0 }))"
+        id: review
+        if: env.HAS_TOKEN == 'true'
+        uses: ./.github/actions/a11y-review
+        with:
+          from: ${{ steps.range.outputs.from }}
+          to: ${{ steps.range.outputs.to }}
+          oauth-token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 
       - uses: actions/upload-artifact@v4
-        if: env.HAS_TOKEN == 'true' && steps.diff.outputs.files != '0'
+        if: env.HAS_TOKEN == 'true' && steps.review.outputs.files != '0'
         with:
           name: a11y-review
           path: a11y-review-run/
@@ -174,7 +122,7 @@ jobs:
         run: |
           # The agent's raw findings, for the run log (the posted comment shows what survived the check).
           cat "$RUNNER_TEMP/review/findings.json" || true
-          node ../a11y-kit/bin/a11y-kit.mjs review-post ${{ github.event_name == 'workflow_dispatch' && '--always' || '' }} ${{ inputs.calibration && '--no-issues' || '' }} \
+          node ../a11y-kit/bin/a11y-kit.mjs review-post ${{ github.event_name == 'workflow_dispatch' && '--always' || '' }} \
             --findings "$RUNNER_TEMP/review/findings.json" \
             --sha ${{ needs.review.outputs.to }} \
             --change "${{ needs.review.outputs.from }}..${{ needs.review.outputs.to }}" \

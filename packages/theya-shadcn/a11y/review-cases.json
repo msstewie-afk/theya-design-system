@@ -1,0 +1,735 @@
+[
+ {
+  "id": "1.1.1-close-name",
+  "title": "Dialog close button loses its text alternative",
+  "expect": {
+   "sc": [
+    "1.1.1",
+    "4.1.2"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/dialog.tsx",
+    "old": "            <span className=\"sr-only\">{t.common.close}</span>\n",
+    "new": ""
+   }
+  ]
+ },
+ {
+  "id": "1.3.1-breadcrumb-list",
+  "title": "Breadcrumb list becomes a div",
+  "expect": {
+   "sc": [
+    "1.3.1"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/breadcrumb.tsx",
+    "old": "React.ComponentProps<'ol'>) {\n  return (\n    <ol\n",
+    "new": "React.ComponentProps<'ol'>) {\n  return (\n    <div\n"
+   }
+  ]
+ },
+ {
+  "id": "1.3.2-breadcrumb-reversed",
+  "title": "Breadcrumb shown right-to-left over a left-to-right DOM",
+  "expect": {
+   "sc": [
+    "1.3.2",
+    "2.4.3"
+   ],
+   "kinds": [
+    "violation",
+    "decision",
+    "run"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/breadcrumb.tsx",
+    "old": "'flex flex-wrap items-center gap-2 font-body",
+    "new": "'flex flex-row-reverse flex-wrap items-center gap-2 font-body"
+   }
+  ]
+ },
+ {
+  "id": "1.3.4-carousel-portrait",
+  "title": "Carousel hidden in portrait",
+  "expect": {
+   "sc": [
+    "1.3.4"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/carousel.tsx",
+    "old": "'relative rounded-[var(--size-border-radius-border-radius-2xl)] outline-none',",
+    "new": "'relative rounded-[var(--size-border-radius-border-radius-2xl)] outline-none portrait:hidden',"
+   }
+  ]
+ },
+ {
+  "id": "1.3.5-login-email",
+  "title": "Login email field loses autocomplete",
+  "expect": {
+   "sc": [
+    "1.3.5"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/blocks/login-form.tsx",
+    "old": "          inputMode=\"email\"\n          autoComplete=\"email\"\n",
+    "new": "          inputMode=\"email\"\n"
+   }
+  ]
+ },
+ {
+  "id": "1.4.1-link-underline",
+  "title": "Underline prop no longer underlines",
+  "expect": {
+   "sc": [
+    "1.4.1"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/link.tsx",
+    "old": "underline ? 'underline hover:decoration-2' : 'no-underline hover:underline'",
+    "new": "'no-underline hover:underline'"
+   }
+  ]
+ },
+ {
+  "id": "1.4.3-breadcrumb-text",
+  "title": "Breadcrumb text set to the border colour (3.00:1)",
+  "expect": {
+   "sc": [
+    "1.4.3"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/breadcrumb.tsx",
+    "old": "font-body text-body-s text-[var(--color-text-text-subtler)]', className)}\n      {...props}\n    />\n  );\n}\n\nexport function BreadcrumbItem",
+    "new": "font-body text-body-s text-[var(--color-border-border)]', className)}\n      {...props}\n    />\n  );\n}\n\nexport function BreadcrumbItem"
+   }
+  ]
+ },
+ {
+  "id": "1.4.11-textarea-fix-fails",
+  "title": "Textarea border 'fixed' from 1.57:1 to 2.21:1",
+  "expect": {
+   "sc": [
+    "1.4.11"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "setup": [
+   {
+    "file": "src/components/ui/textarea.tsx",
+    "old": "    'border-[var(--color-border-border)]',",
+    "new": "    'border-[var(--color-border-border-subtler)]',"
+   }
+  ],
+  "edits": [
+   {
+    "file": "src/components/ui/textarea.tsx",
+    "old": "    'border-[var(--color-border-border-subtler)]',",
+    "new": "    'border-[var(--color-border-border-subtle)]',"
+   }
+  ]
+ },
+ {
+  "id": "2.1.1-panels-div",
+  "title": "ExpandingPanels trigger becomes a div",
+  "expect": {
+   "sc": [
+    "2.1.1",
+    "4.1.2"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/expanding-panels.tsx",
+    "old": "              <button\n                id={btn}\n                type=\"button\"\n",
+    "new": "              <div\n                id={btn}\n"
+   },
+   {
+    "file": "src/components/ui/expanding-panels.tsx",
+    "old": "                  {item.title}\n                </span>\n              </button>",
+    "new": "                  {item.title}\n                </span>\n              </div>"
+   }
+  ]
+ },
+ {
+  "id": "2.1.4-default-hotkey",
+  "title": "KeyboardShortcuts opens on a bare '?' by default",
+  "expect": {
+   "sc": [
+    "2.1.4"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/keyboard-shortcuts.tsx",
+    "old": "  trigger,\n  hotkey,\n  scopeRef,",
+    "new": "  trigger,\n  hotkey = '?',\n  scopeRef,"
+   }
+  ]
+ },
+ {
+  "id": "2.2.1-action-toast-timeout",
+  "title": "Toasts with an action close after 5 s",
+  "expect": {
+   "sc": [
+    "2.2.1"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/sonner.tsx",
+    "old": "data.duration === undefined ? { duration: Number.POSITIVE_INFINITY, closeButton: true, ...data }",
+    "new": "data.duration === undefined ? { duration: 5000, closeButton: true, ...data }"
+   }
+  ]
+ },
+ {
+  "id": "2.2.2-orbit-no-pause",
+  "title": "Orbit carousel autoplay loses its pause button",
+  "expect": {
+   "sc": [
+    "2.2.2"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/orbit-carousel.tsx",
+    "old": "          {!!autoplay && !reduced && (\n            <Button\n",
+    "new": "          {false && (\n            <Button\n"
+   }
+  ]
+ },
+ {
+  "id": "2.3.1-status-dot-flash",
+  "title": "Status dot flashes 5 times a second",
+  "expect": {
+   "sc": [
+    "2.3.1",
+    "2.2.2"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/status-dot.tsx",
+    "old": "'inline-block size-[0.4375rem] shrink-0 rounded-full'",
+    "new": "'inline-block size-[0.4375rem] shrink-0 rounded-full animate-[pulse_0.2s_linear_infinite]'"
+   }
+  ]
+ },
+ {
+  "id": "2.4.3-positive-tabindex",
+  "title": "Diff viewer gets tabIndex 3",
+  "expect": {
+   "sc": [
+    "2.4.3"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/diff-viewer.tsx",
+    "old": "        aria-label={regionLabel}\n        tabIndex={0}",
+    "new": "        aria-label={regionLabel}\n        tabIndex={3}"
+   }
+  ]
+ },
+ {
+  "id": "2.4.4-card-link-name",
+  "title": "Every feature card link named 'Learn more'",
+  "expect": {
+   "sc": [
+    "2.4.4",
+    "2.5.3",
+    "4.1.2"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/blocks/landing/landing-cards.tsx",
+    "old": "          {icon}\n        </span>\n      )}\n      <CardTitleLink href={href} className=\"text-heading-xs font-semibold\">",
+    "new": "          {icon}\n        </span>\n      )}\n      <CardTitleLink href={href} aria-label=\"Learn more\" className=\"text-heading-xs font-semibold\">"
+   }
+  ]
+ },
+ {
+  "id": "2.4.6-login-label",
+  "title": "Login email label becomes 'Field'",
+  "expect": {
+   "sc": [
+    "2.4.6",
+    "3.3.2"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/blocks/login-form.tsx",
+    "old": "<Label htmlFor={emailId}>Email</Label>",
+    "new": "<Label htmlFor={emailId}>Field</Label>"
+   }
+  ]
+ },
+ {
+  "id": "2.4.11-action-bar-padding",
+  "title": "StickyActionBar stops reserving scroll padding",
+  "expect": {
+   "sc": [
+    "2.4.11"
+   ],
+   "kinds": [
+    "violation",
+    "decision",
+    "run"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/sticky-action-bar.tsx",
+    "old": "  useScrollPadding(lastBar, 'bottom', open);\n",
+    "new": ""
+   }
+  ]
+ },
+ {
+  "id": "2.5.1-orbit-swipe-only",
+  "title": "Orbit carousel drops its previous/next buttons (swipe only)",
+  "expect": {
+   "sc": [
+    "2.5.1",
+    "2.5.7"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/orbit-carousel.tsx",
+    "old": "          <Button appearance=\"outlined\" tone=\"secondary\" size=\"md\" iconOnly aria-label={t.carousel.previous}",
+    "new": "          <Button className=\"hidden\" appearance=\"outlined\" tone=\"secondary\" size=\"md\" iconOnly aria-label={t.carousel.previous}"
+   },
+   {
+    "file": "src/components/ui/orbit-carousel.tsx",
+    "old": "          <Button appearance=\"outlined\" tone=\"secondary\" size=\"md\" iconOnly aria-label={t.carousel.next}",
+    "new": "          <Button className=\"hidden\" appearance=\"outlined\" tone=\"secondary\" size=\"md\" iconOnly aria-label={t.carousel.next}"
+   }
+  ]
+ },
+ {
+  "id": "2.5.2-alert-action-down",
+  "title": "Destructive alert action fires on pointer down",
+  "expect": {
+   "sc": [
+    "2.5.2"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/alert-dialog.tsx",
+    "old": "<AlertDialogPrimitive.Action asChild><Button appearance={appearance} tone={tone} {...props} /></AlertDialogPrimitive.Action>",
+    "new": "<AlertDialogPrimitive.Action asChild><Button appearance={appearance} tone={tone} {...props} onClick={undefined} onPointerDown={props.onClick as never} /></AlertDialogPrimitive.Action>"
+   }
+  ]
+ },
+ {
+  "id": "2.5.4-shake-dismiss",
+  "title": "Shaking the device dismisses every toast",
+  "expect": {
+   "sc": [
+    "2.5.4"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/sonner.tsx",
+    "old": "    document.addEventListener('focusin', onFocusIn);\n    document.addEventListener('focusout', onFocusOut);\n",
+    "new": "    document.addEventListener('focusin', onFocusIn);\n    document.addEventListener('focusout', onFocusOut);\n    // Shake to clear all notifications.\n    const onMotion = (e: DeviceMotionEvent) => {\n      const a = e.accelerationIncludingGravity;\n      if (a && Math.hypot(a.x ?? 0, a.y ?? 0, a.z ?? 0) > 25) sonnerToast.dismiss();\n    };\n    window.addEventListener('devicemotion', onMotion);\n"
+   }
+  ]
+ },
+ {
+  "id": "2.5.7-slider-no-track",
+  "title": "Slider track ignores clicks (drag the thumb only)",
+  "expect": {
+   "sc": [
+    "2.5.7"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/slider.tsx",
+    "old": "      <SliderPrimitive.Track\n        className={cn(",
+    "new": "      <SliderPrimitive.Track\n        onPointerDown={(e) => { if (e.target === e.currentTarget) e.preventDefault(); }}\n        className={cn("
+   }
+  ]
+ },
+ {
+  "id": "2.5.8-tag-remove-small",
+  "title": "Tag remove button shrunk to 12 px",
+  "expect": {
+   "sc": [
+    "2.5.8"
+   ],
+   "kinds": [
+    "violation",
+    "decision",
+    "run"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/tag-input.tsx",
+    "old": "<ChipRemove aria-label={t.common.remove(tag)} onClick={() => removeAt(index)} />",
+    "new": "<ChipRemove aria-label={t.common.remove(tag)} className=\"size-3 min-h-0 min-w-0 p-0\" onClick={() => removeAt(index)} />"
+   }
+  ]
+ },
+ {
+  "id": "3.2.1-breadcrumb-focus-nav",
+  "title": "Breadcrumb link navigates on focus",
+  "expect": {
+   "sc": [
+    "3.2.1"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/breadcrumb.tsx",
+    "old": "        className,\n      )}\n      {...props}",
+    "new": "        className,\n      )}\n      onFocus={(e) => e.currentTarget.click()}\n      {...props}"
+   }
+  ]
+ },
+ {
+  "id": "3.2.2-otp-autosubmit",
+  "title": "InputOTP submits its form when the last digit is typed",
+  "expect": {
+   "sc": [
+    "3.2.2"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/input-otp.tsx",
+    "old": "      pasteTransformer={(text) => text.replace(/[\\s-]/g, '')}\n      {...props}\n",
+    "new": "      pasteTransformer={(text) => text.replace(/[\\s-]/g, '')}\n      // Send the code as soon as it is complete.\n      onComplete={() => (document.activeElement as HTMLInputElement | null)?.form?.requestSubmit()}\n      {...props}\n"
+   }
+  ]
+ },
+ {
+  "id": "3.3.2-login-no-label",
+  "title": "Login email field loses its visible label",
+  "expect": {
+   "sc": [
+    "3.3.2",
+    "2.4.6",
+    "1.3.1",
+    "4.1.2"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/blocks/login-form.tsx",
+    "old": "        <Label htmlFor={emailId}>Email</Label>\n",
+    "new": ""
+   }
+  ]
+ },
+ {
+  "id": "3.3.8-otp-no-paste",
+  "title": "InputOTP blocks paste",
+  "expect": {
+   "sc": [
+    "3.3.8"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/input-otp.tsx",
+    "old": "      pasteTransformer={(text) => text.replace(/[\\s-]/g, '')}\n",
+    "new": "      onPaste={(e) => e.preventDefault()}\n"
+   }
+  ]
+ },
+ {
+  "id": "4.1.2-static-expanded",
+  "title": "ExpandingPanels aria-expanded always true",
+  "expect": {
+   "sc": [
+    "4.1.2"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/expanding-panels.tsx",
+    "old": "aria-expanded={isOpen}",
+    "new": "aria-expanded=\"true\""
+   }
+  ]
+ },
+ {
+  "id": "4.1.3-tag-announcer",
+  "title": "TagInput announcer loses aria-live",
+  "expect": {
+   "sc": [
+    "4.1.3"
+   ],
+   "kinds": [
+    "violation",
+    "decision"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/tag-input.tsx",
+    "old": "      <span aria-live=\"polite\" className=\"sr-only\">",
+    "new": "      <span className=\"sr-only\">"
+   }
+  ]
+ },
+ {
+  "id": "none-separator-rename",
+  "title": "Separator: rename rest props",
+  "expect": {
+   "none": true
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/separator.tsx",
+    "old": "emphasis = 'subtle', ...props },",
+    "new": "emphasis = 'subtle', ...rest },"
+   },
+   {
+    "file": "src/components/ui/separator.tsx",
+    "old": "orientation === 'horizontal' ? 'h-px w-full' : 'h-full w-px', className)}\n      {...props}",
+    "new": "orientation === 'horizontal' ? 'h-px w-full' : 'h-full w-px', className)}\n      {...rest}"
+   }
+  ]
+ },
+ {
+  "id": "none-switch-comment",
+  "title": "Switch: comment next to an accepted deviation",
+  "expect": {
+   "none": true
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/switch.tsx",
+    "old": "tone: 'warning',",
+    "new": "tone: 'warning', // amber track"
+   }
+  ]
+ },
+ {
+  "id": "none-textarea-real-fix",
+  "title": "Textarea border fixed from 2.21:1 to 3.00:1",
+  "expect": {
+   "none": true
+  },
+  "setup": [
+   {
+    "file": "src/components/ui/textarea.tsx",
+    "old": "    'border-[var(--color-border-border)]',",
+    "new": "    'border-[var(--color-border-border-subtle)]',"
+   }
+  ],
+  "edits": [
+   {
+    "file": "src/components/ui/textarea.tsx",
+    "old": "    'border-[var(--color-border-border-subtle)]',",
+    "new": "    'border-[var(--color-border-border)]',"
+   }
+  ]
+ },
+ {
+  "id": "none-card-padding",
+  "title": "Feature card padding 24 -> 28 px",
+  "expect": {
+   "none": true
+  },
+  "edits": [
+   {
+    "file": "src/components/blocks/landing/landing-cards.tsx",
+    "old": "'group/fc gap-4 p-6 lg:p-8'",
+    "new": "'group/fc gap-4 p-7 lg:p-8'"
+   }
+  ]
+ },
+ {
+  "id": "none-tag-description-token",
+  "title": "TagInput description to a token of the same value",
+  "expect": {
+   "none": true
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/tag-input.tsx",
+    "old": "<span id={messageId} className=\"font-body text-body-xs font-normal text-[var(--color-text-text-subtler)]\">",
+    "new": "<span id={messageId} className=\"font-body text-body-xs font-normal text-[var(--color-text-text-placeholder)]\">"
+   }
+  ]
+ },
+ {
+  "id": "none-otp-paste-comment",
+  "title": "InputOTP: reword a comment",
+  "expect": {
+   "none": true
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/input-otp.tsx",
+    "old": "// Codes are often copied as",
+    "new": "// One-time codes are often copied as"
+   }
+  ]
+ },
+ {
+  "id": "decision-focus-ring-fainter",
+  "title": "Focus ring drawn at 50% opacity",
+  "expect": {
+   "sc": [
+    "1.4.11",
+    "2.4.7",
+    "2.4.11"
+   ],
+   "kinds": [
+    "violation",
+    "decision",
+    "run"
+   ]
+  },
+  "edits": [
+   {
+    "file": "src/styles/globals.css",
+    "old": "@utility focus-ring {\n  --tw-shadow: 0 0 0 4px var(--color-focus-focus-ring);",
+    "new": "@utility focus-ring {\n  --tw-shadow: 0 0 0 4px color-mix(in srgb, var(--color-focus-focus-ring) 50%, transparent);"
+   }
+  ]
+ },
+ {
+  "id": "lenient-breadcrumb-focus-shadow",
+  "title": "Breadcrumb focus ring replaced by a 1 px subtle shadow",
+  "expect": {
+   "sc": [
+    "1.4.11",
+    "2.4.7"
+   ],
+   "kinds": [
+    "violation",
+    "decision",
+    "run"
+   ],
+   "allowNone": true
+  },
+  "edits": [
+   {
+    "file": "src/components/ui/breadcrumb.tsx",
+    "old": "hover:text-[var(--color-text-text)] focus-visible:focus-ring',",
+    "new": "hover:text-[var(--color-text-text)] focus-visible:shadow-[0_0_0_1px_var(--color-border-border-subtle)]',"
+   }
+  ]
+ }
+]

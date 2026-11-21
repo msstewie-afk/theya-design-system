@@ -14,6 +14,9 @@
  *   a11y-kit review-post --findings <file> --change <label> (--sha <sha> | --pr <n>) [--repo owner/name] [--run <url>] [--always] [--no-issues] [--dry-run]
  *                                      checks the agent's findings, opens issues, posts one comment (needs gh)
  *   a11y-kit review-precision [--repo owner/name]        how often the agent was right, from closed review issues (needs gh)
+ *   a11y-kit review-case --list | review-case <id>       calibration cases (review.cases): list ids, or commit one onto HEAD
+ *   a11y-kit review-score <id> --findings <file> --out <file>   the agent's answer on a case against the expected one
+ *   a11y-kit review-report <dir> [--ids <json>] [--out f] the scores in <dir> as a table
  *   The agent's method: review/agent.md.
  *
  * Reads a11y-kit.config.mjs from the current directory (the design system's package):
@@ -44,7 +47,7 @@ import { renderList, renderCompare } from '../src/render.mjs';
 import { calibrateAxe, writeCalibration } from '../src/calibrate-axe.mjs';
 import { execFileSync } from 'node:child_process';
 import { readCustomProperties, contrast } from '../src/tokens.mjs';
-import { renderContext, checkFindings, renderComment, issueBody, fingerprint, precision, KINDS } from '../src/review.mjs';
+import { renderContext, checkFindings, renderComment, issueBody, fingerprint, precision, KINDS, applyEdits, scoreCase, renderCalibration } from '../src/review.mjs';
 
 // --cwd <dir>: run as if from the design system's package (the review agent calls the kit from the repository root).
 {
@@ -77,7 +80,7 @@ async function main() {
     const i = args.indexOf(`--${name}`);
     return i > -1 ? args[i + 1] : undefined;
   };
-  const positional = args.filter((a, i) => !a.startsWith('--') && !(i > 0 && args[i - 1].startsWith('--') && !['--check', '--dry-run', '--always', '--no-issues'].includes(args[i - 1])));
+  const positional = args.filter((a, i) => !a.startsWith('--') && !(i > 0 && args[i - 1].startsWith('--') && !['--check', '--dry-run', '--always', '--no-issues', '--list'].includes(args[i - 1])));
 
   // The review commands run in CI without installing dependencies: they read the committed registry.
   if (cmd?.startsWith('review') || cmd === 'contrast') return review(cmd, { config, cwd, at, opt, positional, DRY: args.includes('--dry-run'), ALWAYS: args.includes('--always'), NO_ISSUES: args.includes('--no-issues') });
@@ -208,6 +211,56 @@ async function review(cmd, { config, cwd, at, opt, positional, DRY, ALWAYS, NO_I
     }
     if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, body + '\n');
     console.log(`a11y-kit review: ${kept.length} kept (${Object.keys(KINDS).map((k) => `${kept.filter((f) => f.kind === k).length} ${k}`).join(', ')}), ${dropped.length} dropped${DRY ? ' (dry run)' : ''}`);
+  } else if (cmd === 'review-case') {
+    const cases = JSON.parse(fs.readFileSync(at(rc.cases ?? 'a11y/review-cases.json'), 'utf8'));
+    if (opt('list') !== undefined || process.argv.includes('--list')) {
+      console.log(JSON.stringify(cases.map((c) => c.id)));
+      return;
+    }
+    const c = cases.find((x) => x.id === positional[0]);
+    if (!c) throw new Error(`no case ${positional[0]}`);
+    const read = (f) => fs.readFileSync(at(f), 'utf8');
+    const write = (f, text) => fs.writeFileSync(at(f), text);
+    const git = (...a) => execFileSync('git', a, { cwd, encoding: 'utf8' }).trim();
+    // Neutral messages: the agent reads git log, and a message must not give the answer away.
+    const commit = (edits) => {
+      for (const f of new Set(edits.map((e) => e.file))) git('add', f);
+      git('-c', 'user.name=a11y-kit', '-c', 'user.email=a11y-kit@users.noreply.github.com', 'commit', '-q', '-m', `update ${[...new Set(edits.map((e) => path.basename(e.file)))].join(', ')}`);
+    };
+    if (c.setup?.length) {
+      applyEdits(c.setup, read, write);
+      commit(c.setup);
+    }
+    const from = git('rev-parse', 'HEAD');
+    applyEdits(c.edits, read, write);
+    commit(c.edits);
+    const to = git('rev-parse', 'HEAD');
+    console.log(`case ${c.id}: ${from.slice(0, 7)}..${to.slice(0, 7)}`);
+    if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `from=${from}\nto=${to}\n`);
+  } else if (cmd === 'review-score') {
+    const cases = JSON.parse(fs.readFileSync(at(rc.cases ?? 'a11y/review-cases.json'), 'utf8'));
+    const c = cases.find((x) => x.id === positional[0]);
+    if (!c) throw new Error(`no case ${positional[0]}`);
+    let result;
+    try {
+      const { kept } = checkFindings(JSON.parse(fs.readFileSync(opt('findings'), 'utf8')), registry());
+      result = scoreCase(c, kept);
+    } catch (e) {
+      result = { id: c.id, expect: c.expect.none ? 'nothing' : c.expect.sc.join(' or '), verdict: 'error', error: e.message.slice(0, 80) };
+    }
+    write(opt('out'), JSON.stringify(result, null, 2) + '\n');
+    console.log(JSON.stringify(result));
+  } else if (cmd === 'review-report') {
+    const dir = path.resolve(positional[0] ?? '.');
+    const files = fs.readdirSync(dir, { recursive: true }).filter((f) => String(f).endsWith('.json'));
+    const results = files.map((f) => JSON.parse(fs.readFileSync(path.join(dir, String(f)), 'utf8')));
+    // Cases that never produced a score (the job failed before scoring) count as errors, not as absent.
+    for (const id of opt('ids') ? JSON.parse(opt('ids')) : []) if (!results.some((r) => r.id === id)) results.push({ id, expect: '', verdict: 'error', error: 'no score (job failed)' });
+    results.sort((a, b) => a.id.localeCompare(b.id, 'en', { numeric: true }));
+    const table = renderCalibration(results);
+    console.log(table);
+    if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, table);
+    if (opt('out')) write(opt('out'), JSON.stringify({ $comment: 'Generated by a11y-kit review-report from a calibration run. Do not edit.', results }, null, 2) + '\n');
   } else if (cmd === 'review-precision') {
     const repo = repoOf();
     const all = JSON.parse(gh(['issue', 'list', '-R', repo, '--label', 'a11y-review', '--state', 'all', '--limit', '1000', '--json', 'number,state,stateReason,labels']));

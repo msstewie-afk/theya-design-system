@@ -53,6 +53,7 @@ An agent (Claude) reads each change against WCAG 2.2 A/AA and reports what the s
 - `contrast <fg> <bg>` — the agent may only state a ratio it computed here, from the design system's own CSS.
 - `review-post` — checks the agent's findings.json before anything is filed: AAA criteria, criteria the scripts prove and product-level criteria are dropped. A violation not checked against the code, or a contrast claim without a recomputed ratio, is downgraded to "needs a run". Then it opens one issue per violation or design decision (label `a11y-review`, the same finding never twice) and posts one comment on the commit or PR.
 - `review-precision` — closed as completed = right, closed as not planned = wrong.
+- `review-case`, `review-score`, `review-report` — calibration of the review itself: each case in `review.cases` is a known change (a planted defect per reviewable criterion, or a change that must report nothing) with the expected answer. Theya's 36 cases run with `.github/workflows/a11y-review-calibrate.yml`, by hand; the agent never sees the answers.
 
 In Theya it runs on every push to main that touches components, styles or tokens (`.github/workflows/a11y-review.yml`), on the repository owner's Claude subscription (secret `CLAUDE_CODE_OAUTH_TOKEN`, made with `claude setup-token`). The agent's job can only read the repository; issues and the comment are written by a separate job without the agent.
 

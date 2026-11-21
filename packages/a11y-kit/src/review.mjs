@@ -212,3 +212,42 @@ export function precision(issues) {
   }
   return { total: issues.length, open: issues.length - closed.length, right, wrong, precision: right + wrong ? right / (right + wrong) : null, byKind };
 }
+
+/**
+ * Calibration of the review itself: a case is a known change to the design
+ * system (edits applied on top of main, optionally after `setup` edits that
+ * are committed first and not reviewed) with the expected answer:
+ *   { sc: [...], kinds: [...] }  — a kept finding on one of these criteria, of one of these kinds
+ *   { none: true }               — no violation and no decision (a "run" is allowed)
+ *   allowNone: true              — nothing at all also counts as right (judgement cases)
+ */
+export function applyEdits(edits, read, write) {
+  for (const { file, old, new: next } of edits) {
+    const text = read(file);
+    const n = text.split(old).length - 1;
+    if (n !== 1) throw new Error(`${file}: expected the text once, found it ${n} times — the case no longer fits the code`);
+    write(file, text.replace(old, () => next));
+  }
+}
+
+export function scoreCase(c, kept) {
+  const flagged = kept.filter((f) => f.kind === 'violation' || f.kind === 'decision');
+  const got = kept.map((f) => `${f.sc} ${f.kind}`);
+  if (c.expect.none) return { id: c.id, expect: 'nothing', got, verdict: flagged.length ? 'false positive' : 'right' };
+  const hit = kept.some((f) => c.expect.sc.includes(f.sc) && c.expect.kinds.includes(f.kind));
+  const extra = flagged.filter((f) => !c.expect.sc.includes(f.sc)).map((f) => f.sc);
+  const verdict = hit ? 'right' : c.expect.allowNone && !flagged.length ? 'right' : 'missed';
+  return { id: c.id, expect: `${c.expect.sc.join(' or ')} (${c.expect.kinds.join('/')})`, got, extra, verdict };
+}
+
+export function renderCalibration(results) {
+  const n = (v) => results.filter((r) => r.verdict === v).length;
+  const lines = [
+    `### Review calibration — ${n('right')} of ${results.length} right, ${n('missed')} missed, ${n('false positive')} false positive${n('error') ? `, ${n('error')} error` : ''}`,
+    '',
+    '| Case | Expected | Agent | Verdict |',
+    '|---|---|---|---|',
+    ...results.map((r) => `| ${r.id} | ${r.expect} | ${r.got?.length ? r.got.join(', ') : '—'}${r.extra?.length ? ` (also: ${r.extra.join(', ')})` : ''} | ${r.verdict === 'right' ? '✅' : r.verdict === 'missed' ? '❌ missed' : r.verdict === 'error' ? `⚠️ ${r.error ?? 'error'}` : '❌ false positive'} |`),
+  ];
+  return lines.join('\n') + '\n';
+}

@@ -30,6 +30,7 @@ export default {
   review: {
     paths: ['src/components', 'src/styles', '../tokens/src', ':(exclude,glob)**/*.stories.tsx', ':(exclude,glob)**/*.guidelines.tsx'],
     read: ['../../CONTRIBUTING.md', '../../TESTING.md'],
+    cases: 'a11y/review-cases.json', // calibration of the review (a11y-review-calibrate.yml)
     // Accepted deviations from the hand-kept part of the matrix, so the agent doesn't re-report them.
     notes(root) {
       const manual = JSON.parse(fs.readFileSync(path.join(root, 'a11y/manual.json'), 'utf8'));
