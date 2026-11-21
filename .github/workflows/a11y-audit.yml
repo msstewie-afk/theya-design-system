@@ -156,7 +156,7 @@ jobs:
             fs.writeFileSync(process.env.RUNNER_TEMP + '/queue.json', JSON.stringify(queue));
             fs.writeFileSync(process.env.RUNNER_TEMP + '/audit.json', JSON.stringify({ items }));
           "
-          node ../a11y-kit/bin/a11y-kit.mjs audit-post ${{ inputs.issues && '' || '--no-issues' }} \
+          node ../a11y-kit/bin/a11y-kit.mjs audit-post ${{ !inputs.issues && '--no-issues' || '' }} \
             --queue "$RUNNER_TEMP/queue.json" --answers "$RUNNER_TEMP/audit.json" --out "$RUNNER_TEMP/records.json" \
             --run "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           # In the log too, between markers, for `a11y-kit audit-apply` (artifacts can't always be fetched).
