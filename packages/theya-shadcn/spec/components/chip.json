@@ -243,6 +243,10 @@
         "id": "labels-chip--with-icon"
       },
       {
+        "name": "AsLink",
+        "id": "labels-chip--as-link"
+      },
+      {
         "name": "WithCount",
         "id": "labels-chip--with-count"
       },

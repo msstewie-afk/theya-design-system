@@ -11,6 +11,14 @@ For each step, do it with the keyboard in **VoiceOver + Safari** (and NVDA + Chr
 
 Record the pass in a11y/manual.json (screenReader: screen reader, browser, date, result).
 
+### As link (asChild)
+
+Story: `labels-chip--as-link`
+
+#### As rendered
+
+- **Help centre**, link
+
 ### Bordered
 
 Story: `labels-chip--bordered`

@@ -3362,7 +3362,7 @@
       "name": "Chip",
       "title": "Labels/Chip",
       "axe": {
-        "stories": 18,
+        "stories": 19,
         "themes": [
           "light",
           "dark"
@@ -3371,7 +3371,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 2
+        "playTests": 3
       },
       "reducedMotion": "respected",
       "forcedColors": "global",
@@ -3444,7 +3444,7 @@
         "4.1.3": "n/a"
       },
       "forcedRun": {
-        "stories": 18,
+        "stories": 19,
         "errors": 0,
         "findings": []
       }
