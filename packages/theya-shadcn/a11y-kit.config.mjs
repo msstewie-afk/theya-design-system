@@ -71,16 +71,39 @@ const config = {
           .map(([sc, status]) => ({ component: row.name, sc, status })),
       );
     },
+    // Line by line: manual.json is hand-formatted (one review per line), so only
+    // the lines of the records written change; nothing else is reflowed.
     apply(root, records) {
       const file = path.join(root, 'a11y/manual.json');
-      const manual = JSON.parse(fs.readFileSync(file, 'utf8'));
+      const lines = fs.readFileSync(file, 'utf8').split('\n');
+      const one = (r) => '{' + Object.entries(r).map(([k, v]) => `${JSON.stringify(k)}: ${JSON.stringify(v)}`).join(', ') + '}';
+      const start = lines.findIndex((l) => l === '  "reviews": {');
+      // The end of the reviews block: the first line back at its indent.
+      const end = lines.findIndex((l, i) => i > start && l.startsWith('  }'));
       let n = 0;
-      for (const [component, bySc] of Object.entries(records))
+      for (const [component, bySc] of Object.entries(records)) {
+        let open = lines.findIndex((l, i) => i > start && i < end && l === `    ${JSON.stringify(component)}: {`);
+        if (open < 0) {
+          // A component with no reviews yet: a new block at the end of reviews.
+          const at = lines.findIndex((l, i) => i > start && l.startsWith('  }'));
+          lines[at - 1] = lines[at - 1].endsWith(',') ? lines[at - 1] : lines[at - 1] + ',';
+          lines.splice(at, 0, `    ${JSON.stringify(component)}: {`, '    }');
+          open = at;
+        }
         for (const [sc, record] of Object.entries(bySc)) {
-          (manual.reviews[component] ??= {})[sc] = record;
+          const close = lines.findIndex((l, i) => i > open && l.startsWith('    }'));
+          const at = lines.findIndex((l, i) => i > open && i < close && l.startsWith(`      ${JSON.stringify(sc)}: `));
+          if (at > -1) lines[at] = `      ${JSON.stringify(sc)}: ${one(record)}${lines[at].trimEnd().endsWith(',') ? ',' : ''}`;
+          else {
+            if (close - 1 > open) lines[close - 1] = lines[close - 1].endsWith(',') ? lines[close - 1] : lines[close - 1] + ',';
+            lines.splice(close, 0, `      ${JSON.stringify(sc)}: ${one(record)}`);
+          }
           n++;
         }
-      fs.writeFileSync(file, JSON.stringify(manual, null, 2) + '\n');
+      }
+      const text = lines.join('\n');
+      JSON.parse(text); // still valid JSON, or nothing is written
+      fs.writeFileSync(file, text);
       return n;
     },
   },
