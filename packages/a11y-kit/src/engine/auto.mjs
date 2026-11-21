@@ -507,14 +507,17 @@ async function checkStory(page, story) {
   // must not scroll horizontally. The page is shared across stories, so the
   // viewport is restored right after.
   if (!skip.includes('1.4.10')) {
-    await page.setViewportSize({ width: 320, height: 900 });
+    // Storybook's own padding (layout "padded", on #storybook-root and body)
+    // isn't the component's, but full-bleed blocks bleed into it with negative
+    // margins: keep it, and widen the viewport by it, so the component itself
+    // gets exactly 320px, as it would in a product.
+    const pad = await page.evaluate(() => {
+      const side = (el) => (el ? parseFloat(getComputedStyle(el).paddingLeft) + parseFloat(getComputedStyle(el).paddingRight) : 0);
+      return Math.round(side(document.getElementById('storybook-root')) + side(document.body));
+    });
+    await page.setViewportSize({ width: 320 + pad, height: 900 });
     await load();
     result['1.4.10'] = await page.evaluate(() => {
-      // Storybook's own padding (layout "padded") isn't the component's: at
-      // 320px the component gets the whole 320px, as it would in a product.
-      document.body.style.setProperty('padding', '0', 'important');
-      document.body.style.setProperty('margin', '0', 'important');
-      document.getElementById('storybook-root')?.style.setProperty('padding', '0', 'important');
       const doc = document.documentElement;
       if (doc.scrollWidth <= doc.clientWidth + 1) return [];
       // Which boxes stick out — and are they all legitimately two-dimensional
