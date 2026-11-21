@@ -57,6 +57,10 @@ An agent (Claude) reads each change against WCAG 2.2 A/AA and reports what the s
 
 In Theya it runs on every push to main that touches components, styles or tokens (`.github/workflows/a11y-review.yml`), on the repository owner's Claude subscription (secret `CLAUDE_CODE_OAUTH_TOKEN`, made with `claude setup-token`). The agent's job can only read the repository; issues and the comment are written by a separate job without the agent.
 
+## Audit
+
+A second agent, the auditor ([`review/auditor.md`](./review/auditor.md)), re-checks what the matrix takes on trust and never changes code. `audit-queue` finds the work deterministically: hand-kept reviews older than the last change to their component (with the diff since), and cells marked untested or partial. The agent answers each item (holds / broken for a stale review, pass / fail for an open cell, unsure when a run or a person must decide). `audit-post` drops answers to items it wasn't given, unknown verdicts and claims without evidence, and opens issues (label `a11y-audit`) for broken, fail and unsure. The rest become dated records signed "Claude (audit)" that `audit-apply` writes back (config `audit.apply`). `audit-sample` picks applied records for a person to re-check: the auditor's precision. In Theya: `.github/workflows/a11y-audit.yml`, by hand, in waves of a few batches.
+
 ## Registry
 
 - `registry/wcag22.json` — the 55 WCAG 2.2 A/AA criteria; `where`: `ds` (per component), `library`, `product`.

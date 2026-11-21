@@ -17,7 +17,13 @@
  *   a11y-kit review-case --list | review-case <id>       calibration cases (review.cases): list ids, or commit one onto HEAD
  *   a11y-kit review-score <id> --findings <file> --out <file>   the agent's answer on a case against the expected one
  *   a11y-kit review-report <dir> [--ids <json>] [--out f] the scores in <dir> as a table
- *   The agent's method: review/agent.md.
+ *   a11y-kit audit-queue --out <file> [--only A,B] [--limit n] [--batch n --batch-dir <dir>]
+ *                                      stale reviews and open matrix cells for the auditor (config audit)
+ *   a11y-kit audit-post --queue <file> --answers <file> --out <records.json> [--repo o/n] [--run url] [--no-issues] [--dry-run]
+ *                                      checks the auditor's answers, opens issues for broken/fail/unsure, writes records
+ *   a11y-kit audit-apply <records.json>   writes the records into the hand-kept ones (config audit.apply)
+ *   a11y-kit audit-sample [--n 10] [--seed s]   audit records for a person to re-check (the auditor's precision)
+ *   The agents' methods: review/agent.md (change review), review/auditor.md (audit).
  *
  * Reads a11y-kit.config.mjs from the current directory (the design system's package):
  *   export default {
@@ -47,6 +53,7 @@ import { renderList, renderCompare } from '../src/render.mjs';
 import { calibrateAxe, writeCalibration } from '../src/calibrate-axe.mjs';
 import { execFileSync } from 'node:child_process';
 import { readCustomProperties, contrast } from '../src/tokens.mjs';
+import { auditQueue, batches, checkAudit, auditRecords, sample, auditIssueBody, renderAudit } from '../src/audit.mjs';
 import { renderContext, checkFindings, renderComment, issueBody, fingerprint, precision, KINDS, applyEdits, scoreCase, renderCalibration } from '../src/review.mjs';
 
 // --cwd <dir>: run as if from the design system's package (the review agent calls the kit from the repository root).
@@ -59,7 +66,7 @@ import { renderContext, checkFindings, renderComment, issueBody, fingerprint, pr
 }
 
 // The engine checks run on their own: `a11y-kit tree|auto|states|forced --url … [--only …] [--ci] [--fixtures]`.
-const ENGINE = ['tree', 'auto', 'states', 'forced'];
+const ENGINE = ['tree', 'auto', 'states', 'forced', 'code'];
 if (ENGINE.includes(process.argv[2])) {
   const which = process.argv.splice(2, 1)[0];
   await import(`../src/engine/${which}.mjs`);
@@ -83,6 +90,7 @@ async function main() {
   const positional = args.filter((a, i) => !a.startsWith('--') && !(i > 0 && args[i - 1].startsWith('--') && !['--check', '--dry-run', '--always', '--no-issues', '--list'].includes(args[i - 1])));
 
   // The review commands run in CI without installing dependencies: they read the committed registry.
+  if (cmd?.startsWith('audit')) return audit(cmd, { config, cwd, at, opt, positional, DRY: args.includes('--dry-run'), NO_ISSUES: args.includes('--no-issues') });
   if (cmd?.startsWith('review') || cmd === 'contrast') return review(cmd, { config, cwd, at, opt, positional, DRY: args.includes('--dry-run'), ALWAYS: args.includes('--always'), NO_ISSUES: args.includes('--no-issues') });
 
   const reg = buildRegistry({ from: cwd, calibrationStories: (config.calibrationStories ?? []).map(at), axeCalibration });
@@ -267,5 +275,78 @@ async function review(cmd, { config, cwd, at, opt, positional, DRY, ALWAYS, NO_I
     const p = precision(all.map((i) => ({ state: i.state.toLowerCase(), state_reason: i.stateReason?.toLowerCase(), labels: i.labels })));
     console.log(`a11y-kit review precision: ${p.precision == null ? 'nothing decided yet' : `${(p.precision * 100).toFixed(0)}%`} — ${p.right} right, ${p.wrong} wrong, ${p.open} open (${p.total} issues)`);
     for (const [k, v] of Object.entries(p.byKind)) console.log(`  ${k}: ${v.right} right, ${v.wrong} wrong, ${v.open} open`);
+  } else throw new Error(`unknown command ${cmd}`);
+}
+
+async function audit(cmd, { config, cwd, at, opt, positional, DRY, NO_ISSUES }) {
+  const ac = config.audit;
+  if (!ac) throw new Error('a11y-kit audit: set `audit` in a11y-kit.config.mjs (reviews, files, open, apply)');
+  const git = (...a) => execFileSync('git', a, { cwd, encoding: 'utf8', maxBuffer: 64 << 20 });
+  const today = new Date().toISOString().slice(0, 10);
+  if (cmd === 'audit-queue') {
+    const files = await ac.files(cwd);
+    const MAX_DIFF = 12000;
+    const lastChange = (src, date) => {
+      // Strictly after the review's day: a change made that day is what the review looked at.
+      const log = git('log', '--format=%H %cs', `--after=${date}T23:59:59`, '--', ...src).trim().split('\n').filter(Boolean);
+      if (!log.length) return null;
+      const oldest = log[log.length - 1].split(' ')[0];
+      let diff = git('diff', `${oldest}~1`, 'HEAD', '--', ...src);
+      if (diff.length > MAX_DIFF) diff = diff.slice(0, MAX_DIFF) + `\n… (truncated: ${diff.length} characters; read the files)`;
+      return { date: log[0].split(' ')[1], diff };
+    };
+    const only = opt('only')?.split(',').map((s) => s.trim());
+    const queue = auditQueue({ reviews: await ac.reviews(cwd), files: (c) => files.get(c)?.map((f) => path.relative(cwd, f)), lastChange, open: await ac.open(cwd), only, limit: Number(opt('limit') ?? Infinity) });
+    if (opt('out')) fs.writeFileSync(path.resolve(opt('out')), JSON.stringify(queue, null, 2) + '\n');
+    const stale = queue.filter((i) => i.kind === 'stale').length;
+    console.log(`a11y-kit audit-queue: ${queue.length} items (${stale} stale reviews, ${queue.length - stale} open cells) in ${new Set(queue.map((i) => i.component)).size} components`);
+    if (opt('batch')) {
+      const dir = path.resolve(opt('batch-dir') ?? 'audit-batches');
+      fs.mkdirSync(dir, { recursive: true });
+      const list = batches(queue, Number(opt('batch')));
+      list.forEach((b, i) => fs.writeFileSync(path.join(dir, `batch-${String(i + 1).padStart(3, '0')}.json`), JSON.stringify(b, null, 2) + '\n'));
+      const ids = list.map((_, i) => String(i + 1).padStart(3, '0'));
+      console.log(`  ${list.length} batches → ${path.relative(cwd, dir)}`);
+      if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `batches=${JSON.stringify(ids)}\n`);
+    }
+  } else if (cmd === 'audit-post') {
+    const queue = JSON.parse(fs.readFileSync(path.resolve(opt('queue')), 'utf8'));
+    let answers;
+    try {
+      answers = JSON.parse(fs.readFileSync(path.resolve(opt('answers')), 'utf8'));
+    } catch {
+      answers = { items: [] };
+    }
+    const result = checkAudit(answers, queue);
+    const records = auditRecords(result.kept, today);
+    if (opt('out')) fs.writeFileSync(path.resolve(opt('out')), JSON.stringify(records, null, 2) + '\n');
+    const toPerson = result.kept.filter((a) => ['broken', 'fail', 'unsure'].includes(a.verdict));
+    if (toPerson.length && !DRY && !NO_ISSUES) {
+      const repo = opt('repo') ?? process.env.GITHUB_REPOSITORY;
+      const gh = (a, input) => execFileSync('gh', a, { cwd, encoding: 'utf8', input });
+      gh(['label', 'create', 'a11y-audit', '--color', '0e8a16', '--force', '-R', repo]);
+      const open = JSON.parse(gh(['issue', 'list', '-R', repo, '--label', 'a11y-audit', '--state', 'open', '--limit', '500', '--json', 'body']));
+      const have = new Set(open.map((i) => /<!-- a11y-audit:([0-9a-f]{12}) -->/.exec(i.body ?? '')?.[1]).filter(Boolean));
+      for (const a of toPerson) {
+        const body = auditIssueBody(a, opt('run'));
+        if (have.has(/<!-- a11y-audit:([0-9a-f]{12}) -->/.exec(body)[1])) continue;
+        gh(['issue', 'create', '-R', repo, '--title', `a11y audit: ${a.item.component} ${a.item.sc} — ${a.verdict}`, '--label', 'a11y-audit', '--body-file', '-'], body);
+      }
+    }
+    const text = renderAudit(result);
+    console.log(text);
+    if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, text);
+  } else if (cmd === 'audit-apply') {
+    // records.json, or a downloaded log of the audit's post job (the records sit between markers).
+    let text = fs.readFileSync(path.resolve(positional[0]), 'utf8');
+    const m = /A11Y-AUDIT-RECORDS-BEGIN\s*\n([\s\S]*?)\n[^\n]*A11Y-AUDIT-RECORDS-END/.exec(text);
+    if (m) text = m[1].split('\n').map((l) => l.replace(/^\d{4}-\d\d-\d\dT[\d:.]+Z /, '')).join('\n');
+    const records = JSON.parse(text);
+    const n = await ac.apply(cwd, records);
+    console.log(`a11y-kit audit-apply: ${n} record(s) written`);
+  } else if (cmd === 'audit-sample') {
+    const list = sample(await ac.reviews(cwd), Number(opt('n') ?? 10), opt('seed') ?? today);
+    for (const r of list) console.log(`- ${r.component} ${r.sc}: ${r.result} — ${r.note}`);
+    console.log(`\n${list.length} audit record(s). Check each against the code; tell agent 3 which are wrong.`);
   } else throw new Error(`unknown command ${cmd}`);
 }

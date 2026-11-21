@@ -31,6 +31,16 @@
  *   one-line truncation (text-overflow: ellipsis) is listed separately.
  * - 1.4.4 Resize Text: the same clipping check with the root font size at
  *   200% (text-only zoom; full-page zoom is covered by the 360px reflow run).
+ * - 1.4.10 Reflow: a fresh load at a 320 CSS px viewport (the criterion's
+ *   own width) must not scroll horizontally. Content that legitimately
+ *   needs two dimensions is exempt when the overflow sits inside
+ *   table / [role=grid] / [role=treegrid] / pre / [data-reflow-exempt].
+ * - 3.2.1 On Focus: in the Tab pass, receiving focus alone must not change
+ *   context — the URL must not change and no modal dialog may open or take
+ *   focus. A non-modal popup that leaves focus on the field (search results)
+ *   or one the focused control owns (aria-expanded="true") is new content. Only
+ *   these two, deliberately: focus moving into a roving group or a popup
+ *   opening with aria-expanded is normal behaviour, not a context change.
  * - Keyboard, Tab only (no story-specific keys):
  *   2.1.1 — every visible tab stop is reached by Tab, and nothing that looks
  *   clickable (cursor: pointer) is left without a keyboard way in (not
@@ -72,7 +82,7 @@ import { fileURLToPath } from 'node:url';
 import { context } from './context.mjs';
 
 // The design system it runs in: its package, its Playwright and axe-core, where results go, title → component.
-const { root: ROOT, require, outDir: OUT_DIR, componentTitles } = await context();
+const { root: ROOT, require, outDir: OUT_DIR, componentTitles, config: KIT_CONFIG } = await context();
 const arg = (name, fallback) => {
   const i = process.argv.indexOf(`--${name}`);
   return i > -1 ? process.argv[i + 1] : fallback;
@@ -159,7 +169,7 @@ async function checkStory(page, story) {
       }
       s.focus();
     });
-  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [], advisory: [] };
+  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '1.4.10': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], '3.2.1': [], truncated: [], advisory: [] };
   const load = async () => {
     await page.goto(`${URL_BASE}/iframe.html?id=${story.id}&viewMode=story`, { waitUntil: 'load' });
     await page.waitForSelector('#storybook-root > *', { timeout: 10000 }).catch(() => {});
@@ -401,13 +411,41 @@ async function checkStory(page, story) {
     const visited = new Set();
     const trail = [];
     let escaped = false;
+    // 3.2.1: what counts as the context during this pass. Dialogs a story
+    // renders open on load are part of it; only a NEW one, or a URL change,
+    // caused by Tab alone is a change of context.
+    const context = () =>
+      page.evaluate(() => ({
+        href: location.href,
+        dialogs: [...document.querySelectorAll('[role=dialog], [role=alertdialog]')].filter((d) => d.checkVisibility()).length,
+        // A modal, or a dialog that took focus, is a new context; a non-modal popup
+        // that leaves focus on the field (search results under it) is new content.
+        modal: [...document.querySelectorAll('[role=dialog][aria-modal=true], [role=alertdialog], dialog[open]')].filter((d) => d.checkVisibility()).length,
+        inDialog: !!document.activeElement?.closest('[role=dialog], [role=alertdialog], dialog'),
+        // A popup the focused control owns (a combobox's list, a picker's panel) is a change of content, not of context.
+        owns: (() => {
+          const el = document.activeElement;
+          return el instanceof HTMLElement && (el.getAttribute('aria-expanded') === 'true' || (el.getAttribute('role') === 'combobox' && el.getAttribute('aria-expanded') !== 'false'));
+        })(),
+        active: (() => {
+          const el = document.activeElement;
+          if (!(el instanceof HTMLElement) || el === document.body) return 'the page';
+          return `${el.tagName.toLowerCase()}${el.getAttribute('aria-label') ? ` "${el.getAttribute('aria-label')}"` : ` "${(el.textContent ?? '').trim().slice(0, 30)}"`}`;
+        })(),
+      }));
+    let ctx = await context();
     for (let i = 0; i < Math.min(plan.count * 2 + 6, 90); i++) {
       await page.keyboard.press('Tab');
       const w = await where();
+      const now = await context();
+      if (now.href !== ctx.href) result['3.2.1'].push(`focusing ${now.active} changes the URL (${now.href.slice(now.href.length - 40)})`);
+      else if (!now.owns && (now.modal > ctx.modal || (now.dialogs > ctx.dialogs && now.inDialog && !ctx.inDialog))) result['3.2.1'].push(`focusing ${now.active} opens a dialog`);
+      ctx = now;
       if (w === 'out') { escaped = true; break; }
       trail.push(w);
       if (/^\d+$/.test(w)) visited.add(Number(w));
     }
+    result['3.2.1'] = [...new Set(result['3.2.1'])];
     if (!escaped) {
       // Still inside after more Tabs than there are stops: a cycle. A modal
       // may hold focus as long as Escape lets it go; an editor that takes Tab
@@ -464,6 +502,41 @@ async function checkStory(page, story) {
     result[crit] = after.clipped.filter((d) => !before.clipped.includes(d));
     result.truncated.push(...after.truncated.filter((d) => !before.truncated.includes(d)).map((d) => `${crit}: ${d}`));
   }
+
+  // 1.4.10 — fresh load at the criterion's own 320 CSS px viewport: the page
+  // must not scroll horizontally. The page is shared across stories, so the
+  // viewport is restored right after.
+  if (!skip.includes('1.4.10')) {
+    await page.setViewportSize({ width: 320, height: 900 });
+    await load();
+    result['1.4.10'] = await page.evaluate(() => {
+      // Storybook's own padding (layout "padded") isn't the component's: at
+      // 320px the component gets the whole 320px, as it would in a product.
+      document.body.style.setProperty('padding', '0', 'important');
+      document.body.style.setProperty('margin', '0', 'important');
+      document.getElementById('storybook-root')?.style.setProperty('padding', '0', 'important');
+      const doc = document.documentElement;
+      if (doc.scrollWidth <= doc.clientWidth + 1) return [];
+      // Which boxes stick out — and are they all legitimately two-dimensional
+      // content (a data table, a code block)?
+      const EXEMPT = 'table, [role=table], [role=grid], [role=treegrid], pre, [data-reflow-exempt]';
+      const offenders = [];
+      let allExempt = true;
+      for (const el of document.querySelectorAll('#storybook-root *')) {
+        if (!(el instanceof HTMLElement)) continue;
+        const r = el.getBoundingClientRect();
+        if (r.width <= 1 || r.right <= doc.clientWidth + 1) continue;
+        // Report the outermost offender only.
+        if (el.parentElement?.closest('#storybook-root') && el.parentElement.getBoundingClientRect().right > doc.clientWidth + 1) continue;
+        if (el.closest(EXEMPT)) continue;
+        allExempt = false;
+        offenders.push(`${el.tagName.toLowerCase()}${el.getAttribute('data-slot') ? `[data-slot=${el.getAttribute('data-slot')}]` : ''} ${Math.round(r.width)}px wide`);
+      }
+      if (allExempt) return [];
+      return [`page scrolls horizontally at 320px (content ${doc.scrollWidth}px in ${doc.clientWidth}px): ${offenders.slice(0, 3).join('; ') || 'offender outside #storybook-root'}`];
+    });
+    await page.setViewportSize({ width: 1280, height: 900 });
+  }
   return result;
 }
 
@@ -508,7 +581,7 @@ const byComponent = {};
 for (const r of results.sort((a, b) => a.id.localeCompare(b.id))) {
   const name = groupOf(r);
   if (!name) continue;
-  const c = (byComponent[name] ??= { stories: 0, errors: 0, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], truncated: [], advisory: [] });
+  const c = (byComponent[name] ??= { stories: 0, errors: 0, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '1.4.10': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], '3.2.1': [], truncated: [], advisory: [] });
   if (FIXTURES) c.expect = r.expect;
   c.stories += 1;
   if (r.error) {
@@ -516,12 +589,12 @@ for (const r of results.sort((a, b) => a.id.localeCompare(b.id))) {
     continue;
   }
   const at = FIXTURES ? '' : `${r.name}: `;
-  for (const k of ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3', 'truncated', 'advisory']) for (const f of r[k]) c[k].push(`${at}${f}`);
+  for (const k of ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1', 'truncated', 'advisory']) for (const f of r[k]) c[k].push(`${at}${f}`);
 }
 if (FIXTURES) {
   // Calibration: every expected finding reported, nothing else.
   let bad = 0;
-  const KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3', 'advisory'];
+  const KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1', 'advisory'];
   for (const [name, c] of Object.entries(byComponent).sort(([a], [b]) => a.localeCompare(b))) {
     const got = KEYS.flatMap((k) => c[k].map((f) => `${k}: ${f}`));
     const problems = c.errors ? ["story didn't load"] : [];
@@ -548,14 +621,20 @@ if (!CI) {
 }
 const fails = (k) => Object.values(byComponent).filter((c) => c[k].length).length;
 console.log(`a11y-auto: ${results.length} stories, ${Object.keys(byComponent).length} components${CI ? '' : ' → a11y/auto.json'}`);
-for (const k of ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3']) console.log(`  ${k}: ${fails(k)} component(s) with failures`);
+for (const k of ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1']) console.log(`  ${k}: ${fails(k)} component(s) with failures`);
 console.log(`  errors: ${results.filter((r) => r.error).length} stories`);
 // Advisory findings: listed, never failing.
 const advisory = Object.entries(byComponent).flatMap(([name, c]) => [...new Set(c.advisory)].map((f) => `- advisory **${name}** — ${f}`));
 console.log(`  advisory (experimental axe rules, not failing): ${advisory.length}`);
 if (CI) {
-  const KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '2.1.1', '2.1.2', '2.4.3'];
-  const lines = Object.entries(byComponent).flatMap(([name, c]) => KEYS.flatMap((k) => c[k].map((f) => `- ${k} **${name}** — ${f}`)));
+  const KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1'];
+  // Known, tracked failures (config known: { criterion: { component: reason } }): still
+  // in the results and the matrix, reported as warnings, so a fix someone else owns
+  // doesn't turn every run red. Each entry names who fixes it and where it's tracked.
+  const known = (k, name) => KIT_CONFIG?.known?.[k]?.[name];
+  const lines = Object.entries(byComponent).flatMap(([name, c]) => KEYS.filter((k) => !known(k, name)).flatMap((k) => c[k].map((f) => `- ${k} **${name}** — ${f}`)));
+  const tracked = Object.entries(byComponent).flatMap(([name, c]) => KEYS.filter((k) => known(k, name)).flatMap((k) => c[k].map((f) => `- ${k} **${name}** (known: ${known(k, name)}) — ${f}`)));
+  for (const l of tracked) console.log(`::warning title=a11y-auto (known)::${l.replace(/[\r\n]+/g, ' ')}`);
   const errors = results.filter((r) => r.error);
   if (process.env.GITHUB_STEP_SUMMARY) {
     fs.appendFileSync(

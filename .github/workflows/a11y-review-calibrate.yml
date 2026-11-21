@@ -118,6 +118,8 @@ jobs:
           mkdir -p "$RUNNER_TEMP/only-scores"
           find "$RUNNER_TEMP/scores" -path '*score*' -name '*.json' ! -name findings.json -exec cp {} "$RUNNER_TEMP/only-scores/" \;
           node ../a11y-kit/bin/a11y-kit.mjs review-report "$RUNNER_TEMP/only-scores" --ids '${{ needs.cases.outputs.ids }}' --out "$RUNNER_TEMP/review-calibration.json"
+          # In the log too: artifacts can't always be fetched where the results are read.
+          echo "::group::review-calibration.json"; cat "$RUNNER_TEMP/review-calibration.json"; echo "::endgroup::"
       - uses: actions/upload-artifact@v4
         with:
           name: review-calibration

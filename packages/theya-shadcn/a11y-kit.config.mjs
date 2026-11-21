@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-export default {
+const config = {
   // Storybook title → component, from spec/index.json; patterns (blocks) are named after their title.
   componentTitles(root) {
     const map = new Map();
@@ -25,6 +25,65 @@ export default {
   // How .storybook/test-runner.ts runs axe: every enabled rule (no tag filter)
   // plus target-size, any impact fails the story, scanned inside #storybook-root.
   axe: { enable: ['target-size'], root: '#storybook-root' },
+  // Known, tracked failures: in the results and the matrix, warnings (not errors) in CI.
+  // Each names its owner and where it is tracked; remove the entry with the fix.
+  known: {
+    '1.4.10': {
+      SiteHeader: 'agent 1: header overflows 320px by 9px (backlog 21.11)',
+      'Landing page': 'agent 1: the SiteHeader overflow above (backlog 21.11)',
+      Hero: 'agent 1: "Split with chips" media overflows 320px (backlog 21.11)',
+    },
+  },
+  // The code reader (a11y-kit code): every component's source and the global stylesheets.
+  code: {
+    targets(root) {
+      const index = JSON.parse(fs.readFileSync(path.join(root, 'spec/index.json'), 'utf8'));
+      const targets = index.components.map((c) => ({ name: c.name, file: path.join(root, 'src/components', `${c.file}.tsx`) }));
+      // Patterns too, named like build-a11y.mjs names them (the story title's last segment).
+      const blocks = path.join(root, 'src/components/blocks');
+      for (const f of fs.readdirSync(blocks, { recursive: true }).filter((f) => f.endsWith('.stories.tsx')).sort()) {
+        const base = path.join(blocks, f.slice(0, -'.stories.tsx'.length));
+        if (!fs.existsSync(`${base}.tsx`)) continue;
+        const title = /\btitle:\s*'([^']+)'/.exec(fs.readFileSync(`${base}.stories.tsx`, 'utf8'))?.[1];
+        targets.push({ name: title?.split('/').pop() ?? path.basename(base), file: `${base}.tsx` });
+      }
+      return targets;
+    },
+    styles: ['src/styles'],
+  },
+  // The audit (packages/a11y-kit/review/auditor.md): stale reviews in a11y/manual.json and
+  // the matrix's untested / partial cells; answers go back into a11y/manual.json.
+  audit: {
+    async files(root) {
+      return new Map((await this.targets(root)).map((t) => [t.name, [t.file]]));
+    },
+    targets(root) {
+      return config.code.targets(root);
+    },
+    reviews(root) {
+      return JSON.parse(fs.readFileSync(path.join(root, 'a11y/manual.json'), 'utf8')).reviews ?? {};
+    },
+    open(root) {
+      const spec = JSON.parse(fs.readFileSync(path.join(root, 'spec/a11y.json'), 'utf8'));
+      return [...spec.components, ...spec.patterns].flatMap((row) =>
+        Object.entries(row.wcag ?? {})
+          .filter(([, v]) => v === 'untested' || v === 'partial')
+          .map(([sc, status]) => ({ component: row.name, sc, status })),
+      );
+    },
+    apply(root, records) {
+      const file = path.join(root, 'a11y/manual.json');
+      const manual = JSON.parse(fs.readFileSync(file, 'utf8'));
+      let n = 0;
+      for (const [component, bySc] of Object.entries(records))
+        for (const [sc, record] of Object.entries(bySc)) {
+          (manual.reviews[component] ??= {})[sc] = record;
+          n++;
+        }
+      fs.writeFileSync(file, JSON.stringify(manual, null, 2) + '\n');
+      return n;
+    },
+  },
   // The change review (packages/a11y-kit/review/agent.md), run on every push
   // to main that touches components, styles or tokens (.github/workflows/a11y-review.yml).
   review: {
@@ -51,3 +110,5 @@ export default {
     },
   },
 };
+
+export default config;

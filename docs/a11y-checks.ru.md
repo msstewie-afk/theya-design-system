@@ -1,6 +1,6 @@
 # Проверки доступности
 
-Генерируется `a11y-kit registry` из реестра набора и метаданных правил axe-core 4.12.1. Не править руками. Проверок: 101.
+Генерируется `a11y-kit registry` из реестра набора и метаданных правил axe-core 4.12.1. Не править руками. Проверок: 109.
 
 **Стадия**: code (код, без браузера), component (собранный Storybook), page (страницы продукта), manual (человек), pr (агент-ревьюер: мнение, сборку не роняет). **Глубина**: full — чистый результат подтверждает критерий для того, что отрисовано; part — одну его сторону; gate — находка делает ячейку красной, чистый результат сам ничего не доказывает; advisory — подсказка человеку, никогда не роняет. **Запуск**: для правил axe — запускается ли правило без явного включения по имени. **Калибровка**: на чём проверка доказана (axe: калибровка по правилу; свои проверки: калибровочные сториз, которые она должна поймать и пропустить). «—» — ещё не доказано.
 
@@ -47,6 +47,7 @@
 | `axe.color-contrast` | 1.4.3 | component | part | default | caught | ds | Elements must meet minimum color contrast ratio thresholds |
 | `auto.resize-text` | 1.4.4 | component | full | — | — | ds | At 200% text size, no text is clipped or overlaps. |
 | `axe.meta-viewport` | 1.4.4 | page | part | default | page level: looks at the whole page; the scan root is an element | product | Zooming and scaling must not be disabled |
+| `auto.reflow-320` | 1.4.10 | component | full | — | Defect: fixed-width box scrolls sideways at 320px; Clean: data table scrolls inside its own box | ds | A fresh load at the criterion's own 320 CSS px viewport doesn't scroll horizontally; two-dimensional content (table, grid, pre, data-reflow-exempt) is exempt. |
 | `suite.reflow-360` | 1.4.10 | component | full | — | — | ds | Every story's play tests run again at a 360px viewport. |
 | `forced.control-edge` | 1.4.11 | component | part | — | Clean: native controls, bordered fields; Defect: controls and an icon drawn only with fills | ds | With forced-colors: active, no control becomes one flat color that it isn't in normal colors (no edge, text or mark left). |
 | `auto.text-spacing` | 1.4.12 | component | full | — | — | ds | With WCAG text spacing applied, no text is clipped or overlaps. |
@@ -58,9 +59,11 @@
 | `axe.server-side-image-map` | 2.1.1 | component | part | default | review only | ds | Server-side image maps must not be used |
 | `states.keyboard` | 2.1.1 | component | part | — | Defect: Escape doesn; Defect: arrow keys don; Defect: no match removes the list but stays expanded; Defect: opens on click but not on Enter | ds | APG keyboard: comboboxes (ArrowDown, option, Escape twice, typing with no match), triggers open on Enter, tablists and radio groups move with arrows along their orientation, a dialog open on load closes on Escape. |
 | `auto.no-trap` | 2.1.2 | component | full | — | ACT 80af7b | ds | Tab leaves every element; a cycle must be left by Escape or Shift+Tab. |
+| `code.character-shortcuts` | 2.1.4 | code | part | — | code:2.1.4-fail.tsx; code:2.1.4-pass.tsx | ds | No document- or window-level key handler matching a single printable character without a modifier check (component onKeyDown is the criterion's own exception). |
 | `axe.meta-refresh` | 2.2.1 | page | part | default | page level: looks at the whole page; the scan root is an element | product | Delayed refresh under 20 hours must not be used |
 | `axe.blink` | 2.2.2 | component | part | default | caught | ds | <blink> elements are deprecated and must not be used |
 | `axe.marquee` | 2.2.2 | component | part | default | caught | ds | <marquee> elements are deprecated and must not be used |
+| `code.flashes` | 2.3.1 | code | part | — | code:2.3.1-fail.css; code:2.3.1-pass.css | library | No infinite animation cycling faster than 3 times a second that swings opacity, visibility or background (cannot measure flash area or red flashes). |
 | `code.reduced-motion` | 2.3.3 | code | full | — | — | ds | Animations are behind motion-safe or a reduced-motion check (AAA, recorded for the library). |
 | `axe.bypass` | 2.4.1 | page | part | default | page level: looks at the whole page; the scan root is an element | product | Page must have means to bypass repeated blocks |
 | `axe.document-title` | 2.4.2 | page | part | default | page level: looks at the whole page; the scan root is an element | product | Documents must have <title> element to aid in navigation |
@@ -71,16 +74,21 @@
 | `auto.focus-visible` | 2.4.7 | component | full | — | ACT oj04fd | ds | Tab through the story: every stop looks different focused and blurred (outline, box-shadow, border, background). |
 | `forced.focus` | 2.4.7 | component | part | — | Defect: controls and an icon drawn only with fills; ACT oj04fd Failed 1 | ds | With forced colors, every Tab stop looks different focused and blurred, from screenshots. |
 | `auto.focus-not-obscured` | 2.4.11 | component | gate | — | Defect: sticky bar hides the focused button; Clean: sticky bar with scroll-padding | ds | In the Tab pass, the focused element isn't entirely under a sticky or fixed box (hit-test on five points). |
+| `code.pointer-gestures` | 2.5.1 | code | part | — | code:2.5.1-fail.tsx; code:2.5.1-pass.tsx | ds | Multipoint or path-based gesture handling (touches.length > 1, gesture libraries, touchmove tracking) only in files that also have a click or keyboard path. |
+| `code.pointer-cancellation` | 2.5.2 | code | part | — | code:2.5.2-fail.tsx; code:2.5.2-pass.tsx | library | No action fired on pointerdown, mousedown or touchstart (handlers that only prevent default, focus or set visual state pass). |
 | `auto.label-in-name` | 2.5.3 | component | full | — | ACT 2ee8b8 | ds | A control's visible text is part of its accessible name. |
 | `axe.label-content-name-mismatch` | 2.5.3 | component | part | experimental | not run: not executed with this configuration | ds | Elements must have their visible text as part of their accessible name |
+| `code.dragging` | 2.5.7 | code | part | — | code:2.5.7-fail.tsx; code:2.5.7-pass.tsx | ds | Drag handling (dnd libraries, pointer capture with pointermove, draggable) only in files with a keyboard path or an input alternative. |
 | `axe.target-size` | 2.5.8 | component | part | off by default | caught | ds | All touch targets must be 24px large, or leave sufficient space |
 | `axe.html-has-lang` | 3.1.1 | page | part | default | page level: looks at the whole page; the scan root is an element | product | <html> element must have a lang attribute |
 | `axe.html-lang-valid` | 3.1.1 | page | part | default | page level: looks at the whole page; the scan root is an element | product | <html> element must have a valid value for the lang attribute |
 | `axe.html-xml-lang-mismatch` | 3.1.1 | page | part | default | page level: looks at the whole page; the scan root is an element | product | HTML elements with lang and xml:lang must have the same base language |
 | `axe.valid-lang` | 3.1.2 | component | part | default | caught | ds | lang attribute must have a valid value |
+| `auto.on-focus` | 3.2.1 | component | part | — | Defect: focusing a field changes the URL; Defect: focusing a field opens a modal dialog; Clean: a combobox shows its own popup on focus | ds | In the Tab pass, focus alone doesn't change the URL or open a modal dialog (a non-modal popup that leaves focus on the field, or one the focused control owns, is content, not context). |
 | `states.on-input` | 3.2.2 | component | part | — | Clean: a field and a checkbox that change nothing else; Defect: typing moves focus to another field; Defect: toggling a checkbox opens a dialog | ds | Typing in a field and toggling a checkbox or switch doesn't navigate, open a dialog or move focus away (selects and radios: a person). |
 | `tree.error-text` | 3.3.1 | component | full | — | — | ds | Every field marked aria-invalid points to a non-empty error text (aria-describedby or aria-errormessage on the field or its group). |
 | `axe.form-field-multiple-labels` | 3.3.2 | component | part | default | review only | ds | Form field must not have multiple label elements |
+| `code.authentication` | 3.3.8 | code | part | — | code:3.3.8-fail.tsx; code:3.3.8-pass.tsx | ds | Password inputs carry an autocomplete a password manager can use; no paste blocking in files with a password or login field. |
 | `axe.aria-allowed-attr` | 4.1.2 | component | part | default | caught | ds | Elements must only use supported ARIA attributes |
 | `axe.aria-braille-equivalent` | 4.1.2 | component | part | default | review only | ds | aria-braille attributes must have a non-braille equivalent |
 | `axe.aria-command-name` | 4.1.2 | component | part | default | caught | ds | ARIA commands must have an accessible name |
@@ -130,16 +138,16 @@
 | 1.4.3 Contrast (Minimum) | AA | ds | частично | `axe.color-contrast` | — | — |
 | 1.4.4 Resize Text | AA | ds | автоматически | — | `auto.resize-text`, `axe.meta-viewport` | — |
 | 1.4.5 Images of Text | AA | product | вручную | — | — | manual.review |
-| 1.4.10 Reflow | AA | ds | автоматически | — | `suite.reflow-360` | — |
+| 1.4.10 Reflow | AA | ds | автоматически | `auto.reflow-320` | `suite.reflow-360` | — |
 | 1.4.11 Non-text Contrast | AA | ds | частично | `forced.control-edge` | — | — |
 | 1.4.12 Text Spacing | AA | ds | автоматически | `axe.avoid-inline-spacing` | `auto.text-spacing` | — |
 | 1.4.13 Content on Hover or Focus | AA | ds | автоматически | `states.hover-content` | — | manual.review |
 | 2.1.1 Keyboard | A | ds | частично | `auto.keyboard-reach`, `states.keyboard` | `axe.frame-focusable-content`, `axe.scrollable-region-focusable`, `axe.server-side-image-map` | — |
 | 2.1.2 No Keyboard Trap | A | ds | автоматически | `auto.no-trap` | — | — |
-| 2.1.4 Character Key Shortcuts | A | ds | вручную | — | — | manual.review |
+| 2.1.4 Character Key Shortcuts | A | ds | частично | `code.character-shortcuts` | — | manual.review |
 | 2.2.1 Timing Adjustable | A | ds | частично | — | `axe.meta-refresh` | manual.product |
 | 2.2.2 Pause, Stop, Hide | A | ds | частично | `axe.blink`, `axe.marquee` | — | manual.product |
-| 2.3.1 Three Flashes or Below Threshold | A | library | вручную | — | — | manual.review |
+| 2.3.1 Three Flashes or Below Threshold | A | library | частично | `code.flashes` | — | manual.review |
 | 2.4.1 Bypass Blocks | A | product | частично | — | `axe.bypass` | manual.product |
 | 2.4.2 Page Titled | A | product | частично | — | `axe.document-title` | manual.product |
 | 2.4.3 Focus Order | A | ds | частично | `auto.focus-order`, `states.focus-management` | — | — |
@@ -148,15 +156,15 @@
 | 2.4.6 Headings and Labels | AA | ds | вручную | — | — | manual.review |
 | 2.4.7 Focus Visible | AA | ds | автоматически | `auto.focus-visible`, `forced.focus` | — | — |
 | 2.4.11 Focus Not Obscured (Minimum) | AA | ds | частично | `auto.focus-not-obscured` | — | manual.review |
-| 2.5.1 Pointer Gestures | A | ds | вручную | — | — | manual.review |
-| 2.5.2 Pointer Cancellation | A | library | вручную | — | — | manual.review |
+| 2.5.1 Pointer Gestures | A | ds | частично | `code.pointer-gestures` | — | manual.review |
+| 2.5.2 Pointer Cancellation | A | library | частично | `code.pointer-cancellation` | — | manual.review |
 | 2.5.3 Label in Name | A | ds | автоматически | `auto.label-in-name` | `axe.label-content-name-mismatch` | — |
 | 2.5.4 Motion Actuation | A | library | вручную | — | — | manual.product |
-| 2.5.7 Dragging Movements | AA | ds | вручную | — | — | manual.review |
+| 2.5.7 Dragging Movements | AA | ds | частично | `code.dragging` | — | manual.review |
 | 2.5.8 Target Size (Minimum) | AA | ds | частично | `axe.target-size` | — | — |
 | 3.1.1 Language of Page | A | product | частично | — | `axe.html-has-lang`, `axe.html-lang-valid`, `axe.html-xml-lang-mismatch` | manual.product |
 | 3.1.2 Language of Parts | AA | product | частично | `axe.valid-lang` | — | manual.product |
-| 3.2.1 On Focus | A | ds | вручную | — | — | manual.review |
+| 3.2.1 On Focus | A | ds | частично | `auto.on-focus` | — | manual.review |
 | 3.2.2 On Input | A | ds | частично | `states.on-input` | — | — |
 | 3.2.3 Consistent Navigation | AA | product | вручную | — | — | manual.product |
 | 3.2.4 Consistent Identification | AA | product | вручную | — | — | manual.product |
@@ -166,6 +174,6 @@
 | 3.3.3 Error Suggestion | AA | product | вручную | — | — | manual.review |
 | 3.3.4 Error Prevention (Legal, Financial, Data) | AA | product | вручную | — | — | manual.product |
 | 3.3.7 Redundant Entry | A | product | вручную | — | — | manual.review |
-| 3.3.8 Accessible Authentication (Minimum) | AA | ds | вручную | — | — | manual.review |
+| 3.3.8 Accessible Authentication (Minimum) | AA | ds | частично | `code.authentication` | — | manual.review |
 | 4.1.2 Name, Role, Value | A | ds | частично | `tree.control-name`, `states.aria-states`, `forced.checked-state`, `axe.area-alt`, `axe.aria-allowed-attr`, `axe.aria-command-name`, `axe.aria-conditional-attr`, `axe.aria-deprecated-role`, `axe.aria-hidden-focus`, `axe.aria-input-field-name`, `axe.aria-required-attr`, `axe.aria-roles`, `axe.aria-tab-name`, `axe.aria-toggle-field-name`, `axe.aria-tooltip-name`, `axe.aria-valid-attr-value`, `axe.aria-valid-attr`, `axe.button-name`, `axe.frame-title`, `axe.input-button-name`, `axe.input-image-alt`, `axe.label`, `axe.link-name`, `axe.nested-interactive`, `axe.select-name`, `axe.summary-name` | `tree.snapshot`, `axe.aria-braille-equivalent`, `axe.aria-hidden-body`, `axe.aria-prohibited-attr`, `axe.duplicate-id-aria`, `axe.frame-title-unique` | manual.screen-reader |
 | 4.1.3 Status Messages | AA | ds | вручную | — | — | manual.screen-reader |

@@ -804,3 +804,117 @@ export const FillOnlyControls: Story = {
     },
   },
 };
+
+/* ---------- 1.4.10 Reflow (a11y-auto, 320px viewport) ---------- */
+
+/** Defect: a fixed-width box wider than the 320px viewport forces horizontal scrolling. */
+export const FixedWidthOverflows: Story = {
+  name: 'Defect: fixed-width box scrolls sideways at 320px',
+  render: () => (
+    <div style={{ width: 600, border: '1px solid', padding: 8 }}>
+      This box is 600px wide at every viewport, so at 320px the page scrolls sideways.
+    </div>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: ['1.4.10: page scrolls horizontally at 320px'], states: [] } } },
+};
+
+/** A data table may scroll horizontally: two-dimensional content is the criterion's own exception. */
+export const CleanWideTable: Story = {
+  name: 'Clean: data table scrolls inside its own box',
+  render: () => (
+    <div style={{ overflowX: 'auto' }}>
+      <table style={{ width: 600 }}>
+        <caption>Monthly totals</caption>
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Orders</th>
+            <th>Revenue</th>
+            <th>Refunds</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>January</td>
+            <td>120</td>
+            <td>4 180</td>
+            <td>6</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
+};
+
+/* ---------- 3.2.1 On Focus (a11y-auto, Tab pass) ---------- */
+
+/** Defect: merely focusing the field navigates (here: a hash change stands in for it). */
+export const FocusNavigates: Story = {
+  name: 'Defect: focusing a field changes the URL',
+  render: () => (
+    <div>
+      <input
+        aria-label="Promo code"
+        onFocus={() => {
+          location.hash = '#promo-opened';
+        }}
+      />
+      <button type="button">Apply</button>
+    </div>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: ['3.2.1: focusing input "Promo code" changes the URL'], states: [] } } },
+};
+
+/** Clean: a combobox that shows its own popup on focus changes content, not context. */
+function FxOpensOwnPopup() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <input
+        role="combobox"
+        aria-label="City"
+        aria-expanded={open}
+        aria-controls="fx-city-popup"
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') setOpen(false);
+        }}
+      />
+      {open && (
+        <div id="fx-city-popup" role="dialog" aria-label="Cities">
+          Recent: Sofia, Plovdiv
+        </div>
+      )}
+      <button type="button">Search</button>
+    </div>
+  );
+}
+/** Defect: focusing a field opens a modal dialog and takes focus into it. */
+function FxFocusOpensModal() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <input aria-label="Coupon" onFocus={() => setOpen(true)} />
+      {open && (
+        <div role="dialog" aria-modal="true" aria-label="Sign in first">
+          <button type="button" autoFocus onClick={() => setOpen(false)}>
+            Close
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+export const FocusOpensModal: Story = {
+  name: 'Defect: focusing a field opens a modal dialog',
+  render: () => <FxFocusOpensModal />,
+  parameters: { a11y: { expect: { tree: [], auto: ['3.2.1: focusing button "Close" opens a dialog', '2.1.1: not reached by Tab: input "Coupon"'], states: [] } } },
+};
+
+export const OpensOwnPopup: Story = {
+  name: 'Clean: a combobox shows its own popup on focus',
+  render: () => <FxOpensOwnPopup />,
+  parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
+};

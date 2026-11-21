@@ -82,7 +82,12 @@ export function buildRegistry({ from, calibrationStories = [], axeCalibration } 
   const problems = [];
   for (const c of own) {
     for (const s of c.sc) if (!inScope.has(s) && s !== '2.3.3') problems.push(`${c.id}: ${s} is not a WCAG 2.2 A/AA criterion`);
-    if (storyNames.length) for (const p of c.calibration) if (!storyNames.some((n) => n.startsWith(p))) problems.push(`${c.id}: no calibration story named "${p}…"`);
+    for (const p of c.calibration) {
+      // "code:<file>": a fixture of the code reader, in the kit's calibration/code/.
+      if (p.startsWith('code:')) {
+        if (!fs.existsSync(path.join(KIT, 'calibration/code', p.slice(5)))) problems.push(`${c.id}: no code fixture ${p.slice(5)}`);
+      } else if (storyNames.length && !storyNames.some((n) => n.startsWith(p))) problems.push(`${c.id}: no calibration story named "${p}…"`);
+    }
   }
 
   const checks = [...own, ...axeChecks];

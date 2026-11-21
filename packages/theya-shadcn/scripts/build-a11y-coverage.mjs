@@ -28,6 +28,7 @@ const TOOL = {
   hover: { en: 'a11y-states (hover and focus content)', ru: 'a11y-states (всплывающее по наведению и фокусу)', auto: true },
   input: { en: 'a11y-states (typing, toggling)', ru: 'a11y-states (ввод, переключение)', auto: true },
   reflow360: { en: 'the suite at 360px', ru: 'прогон при 360 px', auto: true },
+  code: { en: 'a11y-code (source scan)', ru: 'a11y-code (скан исходников)', auto: true },
   reducedMotion: { en: 'source read (motion-safe guards)', ru: 'чтение кода (защита motion-safe)', auto: true },
   screenReader: { en: 'screen-reader pass (VoiceOver)', ru: 'проход скринридером (VoiceOver)', auto: false },
   review: { en: 'manual review', ru: 'ручная проверка', auto: false },

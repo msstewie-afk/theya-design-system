@@ -98,6 +98,14 @@ jobs:
         working-directory: packages/theya-shadcn
         run: pnpm api:check
 
+      # a11y-kit's code reader: no browser, so here rather than in the a11y job.
+      # Calibration first (a fail and a pass file per criterion), then every component.
+      - name: Accessibility in the source (2.1.4, 2.3.1, 2.5.1, 2.5.2, 2.5.7, 3.3.8)
+        working-directory: packages/theya-shadcn
+        run: |
+          node scripts/a11y-code.mjs --fixtures
+          node scripts/a11y-code.mjs --ci
+
       - name: Package builds for outside apps (dist imports in Node, 'use client' kept)
         working-directory: packages/theya-shadcn
         run: node scripts/check-package.mjs

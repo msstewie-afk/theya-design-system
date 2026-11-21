@@ -469,6 +469,127 @@
       "where": "product",
       "how": "Product level: pages, content, media and flows (titles, language, skip link, captions, consistent navigation and help, error prevention).",
       "calibration": []
+    },
+    {
+      "id": "auto.reflow-320",
+      "tool": "a11y-auto",
+      "stage": "component",
+      "sc": [
+        "1.4.10"
+      ],
+      "depth": "full",
+      "where": "ds",
+      "how": "A fresh load at the criterion's own 320 CSS px viewport doesn't scroll horizontally; two-dimensional content (table, grid, pre, data-reflow-exempt) is exempt.",
+      "calibration": [
+        "Defect: fixed-width box scrolls sideways at 320px",
+        "Clean: data table scrolls inside its own box"
+      ]
+    },
+    {
+      "id": "auto.on-focus",
+      "tool": "a11y-auto",
+      "stage": "component",
+      "sc": [
+        "3.2.1"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "In the Tab pass, focus alone doesn't change the URL or open a modal dialog (a non-modal popup that leaves focus on the field, or one the focused control owns, is content, not context).",
+      "calibration": [
+        "Defect: focusing a field changes the URL",
+        "Defect: focusing a field opens a modal dialog",
+        "Clean: a combobox shows its own popup on focus"
+      ]
+    },
+    {
+      "id": "code.character-shortcuts",
+      "tool": "a11y-kit code",
+      "stage": "code",
+      "sc": [
+        "2.1.4"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "No document- or window-level key handler matching a single printable character without a modifier check (component onKeyDown is the criterion's own exception).",
+      "calibration": [
+        "code:2.1.4-fail.tsx",
+        "code:2.1.4-pass.tsx"
+      ]
+    },
+    {
+      "id": "code.pointer-gestures",
+      "tool": "a11y-kit code",
+      "stage": "code",
+      "sc": [
+        "2.5.1"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "Multipoint or path-based gesture handling (touches.length > 1, gesture libraries, touchmove tracking) only in files that also have a click or keyboard path.",
+      "calibration": [
+        "code:2.5.1-fail.tsx",
+        "code:2.5.1-pass.tsx"
+      ]
+    },
+    {
+      "id": "code.pointer-cancellation",
+      "tool": "a11y-kit code",
+      "stage": "code",
+      "sc": [
+        "2.5.2"
+      ],
+      "depth": "part",
+      "where": "library",
+      "how": "No action fired on pointerdown, mousedown or touchstart (handlers that only prevent default, focus or set visual state pass).",
+      "calibration": [
+        "code:2.5.2-fail.tsx",
+        "code:2.5.2-pass.tsx"
+      ]
+    },
+    {
+      "id": "code.dragging",
+      "tool": "a11y-kit code",
+      "stage": "code",
+      "sc": [
+        "2.5.7"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "Drag handling (dnd libraries, pointer capture with pointermove, draggable) only in files with a keyboard path or an input alternative.",
+      "calibration": [
+        "code:2.5.7-fail.tsx",
+        "code:2.5.7-pass.tsx"
+      ]
+    },
+    {
+      "id": "code.authentication",
+      "tool": "a11y-kit code",
+      "stage": "code",
+      "sc": [
+        "3.3.8"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "Password inputs carry an autocomplete a password manager can use; no paste blocking in files with a password or login field.",
+      "calibration": [
+        "code:3.3.8-fail.tsx",
+        "code:3.3.8-pass.tsx"
+      ]
+    },
+    {
+      "id": "code.flashes",
+      "tool": "a11y-kit code",
+      "stage": "code",
+      "sc": [
+        "2.3.1"
+      ],
+      "depth": "part",
+      "where": "library",
+      "how": "No infinite animation cycling faster than 3 times a second that swings opacity, visibility or background (cannot measure flash area or red flashes).",
+      "calibration": [
+        "code:2.3.1-fail.css",
+        "code:2.3.1-pass.css"
+      ]
     }
   ]
 }

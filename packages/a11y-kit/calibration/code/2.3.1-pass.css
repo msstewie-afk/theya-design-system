@@ -1,0 +1,17 @@
+/* Spinner: continuous rotation, nothing flashes. */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.spinner {
+  animation: spin 1s linear infinite;
+}
+/* A slow pulse (under 3 cycles a second) is also fine. */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}

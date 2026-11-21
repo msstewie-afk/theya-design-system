@@ -1,0 +1,169 @@
+# Accessibility audit (a11y-kit, packages/a11y-kit/review/auditor.md): an
+# agent re-checks hand-kept reviews in a11y/manual.json that are older than
+# the code they describe, and the matrix's untested / partial cells. It never
+# changes code. Its answers are checked (audit-post); "broken", "fail" and
+# "unsure" open issues (label a11y-audit) for a person; the rest become dated
+# records, kept as the artifact "audit-records", which agent 3 applies with
+# `a11y-kit audit-apply` and pushes with the rebuilt matrix.
+#
+# Runs on the owner's Claude subscription, one Opus run per batch of ~25
+# items, in waves: each run takes the first `batches` batches of the current
+# queue; once applied they are no longer stale, so the next run moves on.
+
+name: a11y audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      batches:
+        description: 'How many batches of ~25 items to run'
+        required: false
+        default: '4'
+      only:
+        description: 'Components, comma-separated (default: all)'
+        required: false
+      issues:
+        description: 'Open issues for broken / fail / unsure'
+        type: boolean
+        default: true
+
+concurrency:
+  group: a11y-audit
+  cancel-in-progress: false
+
+jobs:
+  queue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      batches: ${{ steps.queue.outputs.batches }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Queue
+        id: queue
+        working-directory: packages/theya-shadcn
+        env:
+          ONLY: ${{ inputs.only }}
+          TAKE: ${{ inputs.batches }}
+        run: |
+          node ../a11y-kit/bin/a11y-kit.mjs audit-queue --out "$RUNNER_TEMP/queue.json" --batch 25 --batch-dir "$RUNNER_TEMP/batches" ${ONLY:+--only "$ONLY"}
+          ALL=$(ls "$RUNNER_TEMP/batches" | sed 's/batch-//; s/.json//' | head -n "${TAKE:-4}")
+          echo "batches=$(printf '%s\n' $ALL | node -e "console.log(JSON.stringify(require('fs').readFileSync(0,'utf8').split('\n').filter(Boolean)))")" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audit-queue
+          path: ${{ runner.temp }}/batches/
+
+  audit:
+    needs: queue
+    if: needs.queue.outputs.batches != '[]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        batch: ${{ fromJSON(needs.queue.outputs.batches) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        with:
+          name: audit-queue
+          path: ${{ runner.temp }}/batches
+      - name: Context
+        working-directory: packages/theya-shadcn
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/a11y-audit-run"
+          cp "$RUNNER_TEMP/batches/batch-${{ matrix.batch }}.json" "$GITHUB_WORKSPACE/a11y-audit-run/queue.json"
+          node ../a11y-kit/bin/a11y-kit.mjs review-context --out "$GITHUB_WORKSPACE/a11y-audit-run/context.md"
+      - name: Drop repository hooks
+        run: rm -f .claude/settings.json
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 11.8.0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Build tokens
+        run: |
+          pnpm install --frozen-lockfile --filter "@theya/tokens..."
+          pnpm build:tokens
+      - name: Audit
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          curl -fsSL https://claude.ai/install.sh | bash
+          PROMPT="Audit part of this design system's accessibility records.
+
+          Method (follow it exactly): packages/a11y-kit/review/auditor.md
+          The queue: a11y-audit-run/queue.json
+          Context: a11y-audit-run/context.md
+          Write your answers to: a11y-audit-run/audit.json
+
+          Write nothing else and change no other file."
+          "$HOME/.local/bin/claude" -p "$PROMPT" \
+            --model claude-opus-5-5 \
+            --max-turns 200 \
+            --allowedTools "Read,Glob,Grep,Write,Bash(git show:*),Bash(git diff:*),Bash(git log:*),Bash(node packages/a11y-kit/bin/a11y-kit.mjs contrast:*)" \
+            --output-format json > a11y-audit-run/session.json || true
+          node -e "const s=require('./a11y-audit-run/session.json'); console.log(JSON.stringify({ error: s.is_error, turns: s.num_turns, seconds: Math.round(s.duration_ms / 1000) }))" || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit-${{ matrix.batch }}
+          path: |
+            a11y-audit-run/queue.json
+            a11y-audit-run/audit.json
+          if-no-files-found: warn
+
+  post:
+    needs: audit
+    if: always() && needs.audit.result != 'skipped'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: audit-[0-9]*
+          path: ${{ runner.temp }}/answers
+      - name: Check answers, open issues, records
+        working-directory: packages/theya-shadcn
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node -e "
+            const fs = require('fs'), path = require('path');
+            const dir = process.env.RUNNER_TEMP + '/answers';
+            const queue = [], items = [];
+            for (const d of fs.readdirSync(dir)) {
+              const q = path.join(dir, d, 'queue.json'), a = path.join(dir, d, 'audit.json');
+              if (fs.existsSync(q)) queue.push(...JSON.parse(fs.readFileSync(q, 'utf8')));
+              if (fs.existsSync(a)) try { items.push(...JSON.parse(fs.readFileSync(a, 'utf8')).items); } catch {}
+            }
+            fs.writeFileSync(process.env.RUNNER_TEMP + '/queue.json', JSON.stringify(queue));
+            fs.writeFileSync(process.env.RUNNER_TEMP + '/audit.json', JSON.stringify({ items }));
+          "
+          node ../a11y-kit/bin/a11y-kit.mjs audit-post ${{ inputs.issues && '' || '--no-issues' }} \
+            --queue "$RUNNER_TEMP/queue.json" --answers "$RUNNER_TEMP/audit.json" --out "$RUNNER_TEMP/records.json" \
+            --run "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          # In the log too, between markers, for `a11y-kit audit-apply` (artifacts can't always be fetched).
+          echo "A11Y-AUDIT-RECORDS-BEGIN"; cat "$RUNNER_TEMP/records.json"; echo "A11Y-AUDIT-RECORDS-END"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audit-records
+          path: |
+            ${{ runner.temp }}/records.json
+            ${{ runner.temp }}/audit.json
