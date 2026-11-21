@@ -6561,6 +6561,7 @@ Docs: ./?path=/docs/motion-orbitcarousel--docs
 
 - Content people browse or compare in the product → use Carousel
 - More than ~10 cards, or cards with forms and long text → use Card grid
+- One picture that changes in place (a dish per stage, a screen per step) → use Carousel with one slide in view, or a crossfade
 
 **Anatomy**
 
@@ -9081,6 +9082,7 @@ Docs: ./?path=/docs/navigation-stepper--docs
 **When not to use**
 
 - Sections people visit in any order → use Tabs
+- Stages, plans or modes to switch between (a landing's "Gentle · Expanding · Back to normal") → use Tabs variant="chips" or ToggleGroup
 - Progress of a background task → use Progress
 - A location in a hierarchy → use Breadcrumb
 

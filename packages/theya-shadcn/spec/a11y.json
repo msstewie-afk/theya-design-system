@@ -18904,7 +18904,7 @@
       "name": "Hero",
       "title": "Patterns: Landing/Hero",
       "axe": {
-        "stories": 9,
+        "stories": 10,
         "themes": [
           "light",
           "dark"
@@ -18913,7 +18913,7 @@
       },
       "keyboard": {
         "tested": 0,
-        "playTests": 2
+        "playTests": 3
       },
       "reducedMotion": "none",
       "forcedColors": "global",
@@ -19767,7 +19767,7 @@
       "name": "SiteHeader",
       "title": "Patterns: Landing/SiteHeader",
       "axe": {
-        "stories": 2,
+        "stories": 3,
         "themes": [
           "light",
           "dark"
@@ -19783,7 +19783,7 @@
       },
       "keyboard": {
         "tested": 1,
-        "playTests": 1
+        "playTests": 2
       },
       "reducedMotion": "respected",
       "forcedColors": "global",

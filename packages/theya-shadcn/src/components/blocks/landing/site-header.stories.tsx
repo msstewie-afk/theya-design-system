@@ -113,3 +113,20 @@ export const OnTheLandingPage: Story = {
     </div>
   ),
 };
+
+/** No navigation (a one-screen landing): the action takes the end corner, not the place right after the logo. */
+export const WithoutNav: Story = {
+  args: { nav: undefined, mobileNav: undefined, actions: <Button>Get the app</Button> },
+  render: (args) => (
+    <div className="min-h-[12rem]">
+      <SiteHeader {...args} />
+      <main id="main" tabIndex={-1} className="container-display py-16 outline-none" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const button = within(canvasElement).getByRole('button', { name: 'Get the app' });
+    const bar = within(canvasElement).getByRole('banner').getBoundingClientRect();
+    // The action ends within 80px of the bar's end edge (container padding), far from the logo.
+    await expect(bar.right - button.getBoundingClientRect().right).toBeLessThan(80);
+  },
+};

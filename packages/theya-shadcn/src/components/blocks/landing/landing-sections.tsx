@@ -7,7 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import { ChatTyping } from '../../ui/chat';
 import { Message } from '../../ui/message';
 import { useMediaQuery } from '../../ui/use-media-query';
-import { SectionHead } from './feature-shared';
+import { SectionHead, titleFontClass, type TitleFont } from './feature-shared';
 import { LandingCard, type LandingCardProps } from './landing-cards';
 
 /*
@@ -201,15 +201,15 @@ export interface CtaBandProps extends Omit<ComponentProps<'section'>, 'title'> {
   actions: ReactNode;
   /** A quiet line under the actions ("Free for one person. Mac, Windows, iPhone, Android."). */
   note?: ReactNode;
-  /** The title in the display serif. */
-  titleFont?: 'sans' | 'serif';
+  /** `theme` (default): the theme's heading font; `display-serif`: EB Garamond. See Hero. */
+  titleFont?: TitleFont;
 }
 
 /**
  * The last section (Wispr, Linear): one large sentence and the main action,
  * centred. Put it in a SectionPanel for a colored band.
  */
-export function CtaBand({ title, description, actions, note, titleFont = 'sans', className, ...props }: CtaBandProps) {
+export function CtaBand({ title, description, actions, note, titleFont = 'theme', className, ...props }: CtaBandProps) {
   const uid = useId();
   return (
     <section data-slot="cta-band" data-scale="display" aria-labelledby={`${uid}-title`} className={cn('section-display', className)} {...props}>
@@ -218,7 +218,7 @@ export function CtaBand({ title, description, actions, note, titleFont = 'sans',
           id={`${uid}-title`}
           className={cn(
             'm-0 max-w-[16ch] text-balance text-heading-3xl text-[var(--color-text-text)]',
-            titleFont === 'serif' ? 'font-display-serif leading-[0.92]' : 'font-heading',
+            titleFontClass(titleFont),
           )}
         >
           {title}

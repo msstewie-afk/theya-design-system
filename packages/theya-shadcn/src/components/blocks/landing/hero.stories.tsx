@@ -127,7 +127,7 @@ export const SerifTitle: Story = {
   name: 'Serif title',
   args: {
     layout: 'centered',
-    titleFont: 'serif',
+    titleFont: 'display-serif',
     title: (
       <>
         Fewer tabs,
@@ -254,3 +254,45 @@ export const Textures: Story = {
   ),
 };
 
+/**
+ * A product name as the title (titleSize="display": the display scale in the
+ * theme's display face), one large subtitle that says what it does, and short
+ * points. The first-screen setup for an app launch.
+ */
+export const NameSubtitlePoints: Story = {
+  parameters: { globals: { brand: 'ember' } },
+  args: {
+    layout: 'split',
+    eyebrow: 'Bookmarks for reading',
+    title: 'Bookmarks',
+    titleSize: 'display',
+    description: undefined,
+    subtitle: 'Everything you meant to read, saved in one place and found by a word.',
+    points: [
+      <>
+        <strong>Save from anywhere.</strong> The share sheet, the browser, a forwarded email.
+      </>,
+      <>
+        <strong>Find by a word you remember.</strong> Full-text search of every saved page.
+      </>,
+      <>
+        <strong>Read later, everywhere.</strong> Your list on the phone, the laptop and offline.
+      </>,
+    ],
+    actions: (
+      <>
+        <Button size="xl">Start for free</Button>
+        <Button size="xl" appearance="outlined" tone="secondary">
+          See pricing
+        </Button>
+      </>
+    ),
+    note: 'Free for one person. Mac, Windows, iPhone, Android.',
+    media: <BookmarksPreview />,
+  },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getByRole('heading', { level: 1, name: 'Bookmarks' })).toBeInTheDocument();
+    await expect(within(canvasElement.querySelector('[data-slot=hero-points]') as HTMLElement).getAllByRole('listitem')).toHaveLength(3);
+  },
+};

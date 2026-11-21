@@ -1,6 +1,7 @@
 import type { ComponentProps, ReactNode } from 'react';
 import { cn } from '../../../lib/utils';
 import { Wordmark } from './wordmark';
+import { titleFontClass, type TitleFont } from './feature-shared';
 
 export type HeroLayout = 'centered' | 'split' | 'inset' | 'statement' | 'wordmark';
 
@@ -19,9 +20,31 @@ export interface HeroProps extends Omit<ComponentProps<'section'>, 'title'> {
   eyebrow?: ReactNode;
   /** The headline. HeroAccent marks a word or a whole line in another weight or face. */
   title: ReactNode;
-  /** `sans` (Geologica) or `serif` (the display serif, EB Garamond) for the whole title. */
-  titleFont?: 'sans' | 'serif';
+  /**
+   * `theme` (default): the theme's heading font — Playfair Display in ember,
+   * Geologica in the base theme. `display-serif`: Theya's EB Garamond,
+   * whatever the theme. (`sans` / `serif` are the old names.)
+   */
+  titleFont?: TitleFont;
+  /**
+   * `heading` (default): heading-3xl centred, heading-2xl beside media.
+   * `display`: the display scale (56 → 128 px) in the theme's display face
+   * and weight, for a first screen whose title is the product's name or one
+   * short claim. Centered and split only.
+   */
+  titleSize?: 'heading' | 'display';
+  /**
+   * One large line under the title, in the body face at full color: what the
+   * product does, when the title is a name. Leave description for the quiet
+   * supporting sentence, or drop it.
+   */
+  subtitle?: ReactNode;
   description?: ReactNode;
+  /**
+   * Two to four short benefits under the subtitle, as a list. Start each with
+   * its point in <strong>: "<strong>Three stages, one menu.</strong> The dishes change…".
+   */
+  points?: ReactNode[];
   /**
    * Between the description and the actions: chips that switch what the
    * media shows (by role, by use case) — Tabs variant="chips" or a ToggleGroup.
@@ -83,8 +106,11 @@ export function Hero({
   layout = 'centered',
   eyebrow,
   title,
-  titleFont = 'sans',
+  titleFont = 'theme',
+  titleSize = 'heading',
+  subtitle,
   description,
+  points,
   filters,
   actions,
   note,
@@ -116,16 +142,42 @@ export function Hero({
         data-slot="hero-title"
         className={cn(
           'm-0 text-balance text-[var(--color-text-text)]',
-          centered ? 'text-heading-3xl' : 'text-heading-2xl',
-          // EB Garamond's small x-height makes the sans line-height (~1.04) look
-          // loose; 0.92 sets its lines as close as the sans title sets its own.
-          titleFont === 'serif' ? 'font-display-serif leading-[0.92]' : 'font-heading',
+          titleSize === 'display'
+            ? // The display scale with the theme's display face and weight (a
+              // profile's displayFont), or Theya's display serif.
+              cn('text-display-xl', titleFont === 'display-serif' || titleFont === 'serif' ? 'font-display-serif' : 'font-display')
+            : cn(
+                centered ? 'text-heading-3xl' : 'text-heading-2xl',
+                // EB Garamond's small x-height makes the sans line-height (~1.04) look
+                // loose; titleFontClass sets it at 0.92.
+                titleFontClass(titleFont),
+              ),
         )}
       >
         {title}
       </Title>
+      {subtitle && (
+        <p data-slot="hero-subtitle" className="m-0 mt-4 max-w-[40rem] text-pretty font-body text-heading-m font-medium text-[var(--color-text-text)] sm:text-heading-l">
+          {subtitle}
+        </p>
+      )}
       {description && (
-        <p className={cn('m-0 max-w-[36rem] font-body text-body-l text-pretty text-[var(--color-text-text-subtle)]', centered ? 'mt-8' : 'mt-6')}>{description}</p>
+        <p className={cn('m-0 max-w-[36rem] font-body text-body-l text-pretty text-[var(--color-text-text-subtle)]', subtitle ? 'mt-4' : centered ? 'mt-8' : 'mt-6')}>{description}</p>
+      )}
+      {points && points.length > 0 && (
+        <ul
+          role="list"
+          data-slot="hero-points"
+          className={cn('m-0 flex max-w-[36rem] list-none flex-col gap-2 p-0 text-start', subtitle || description ? 'mt-5' : 'mt-6', centered && 'mx-auto')}
+        >
+          {points.map((point, i) => (
+            <li key={i} className="flex gap-3 font-body text-body-m text-[var(--color-text-text)] sm:text-body-l [&_strong]:font-semibold">
+              {/* The dot sits on the first line's x-height. */}
+              <span aria-hidden className="mt-[0.6em] size-1.5 shrink-0 rounded-full bg-current" />
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
       )}
       {filters && <div className={cn('mt-8 flex flex-wrap gap-2', centered && 'justify-center')}>{filters}</div>}
       {/* On a phone the actions stack at full width instead of wrapping into two uneven rows. */}

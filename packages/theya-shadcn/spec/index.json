@@ -1907,6 +1907,10 @@
         {
           "when": "More than ~10 cards, or cards with forms and long text",
           "use": "Card grid"
+        },
+        {
+          "when": "One picture that changes in place (a dish per stage, a screen per step)",
+          "use": "Carousel with one slide in view, or a crossfade"
         }
       ],
       "spec": "spec/components/orbit-carousel.json"
@@ -2654,6 +2658,10 @@
         {
           "when": "Sections people visit in any order",
           "use": "Tabs"
+        },
+        {
+          "when": "Stages, plans or modes to switch between (a landing's \"Gentle · Expanding · Back to normal\")",
+          "use": "Tabs variant=\"chips\" or ToggleGroup"
         },
         {
           "when": "Progress of a background task",

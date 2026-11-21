@@ -6,6 +6,7 @@ export const stepperGuidelines: ComponentGuidelines = {
   whenToUse: ['A process done in order over several screens: onboarding, checkout, a setup wizard.', '3–5 steps with short labels.'],
   whenNotToUse: [
     { text: 'Sections people visit in any order', instead: 'Tabs' },
+    { text: 'Stages, plans or modes to switch between (a landing\'s "Gentle · Expanding · Back to normal")', instead: 'Tabs variant="chips" or ToggleGroup' },
     { text: 'Progress of a background task', instead: 'Progress' },
     { text: 'A location in a hierarchy', instead: 'Breadcrumb' },
   ],

@@ -145,7 +145,7 @@ export const CtaInABand: Story = {
   name: 'CTA in a band',
   render: () => (
     <SectionPanel tone="primary">
-      <CtaBand titleFont="serif" title="You have a library now. Use it." actions={<Button size="lg" tone="neutral">Start free</Button>} note="No card needed." className="py-0" />
+      <CtaBand titleFont="display-serif" title="You have a library now. Use it." actions={<Button size="lg" tone="neutral">Start free</Button>} note="No card needed." className="py-0" />
     </SectionPanel>
   ),
 };

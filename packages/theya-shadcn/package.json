@@ -10,7 +10,11 @@
   "files": [
     "dist",
     "CHANGELOG.md",
-    "THIRD-PARTY-NOTICES.md"
+    "THIRD-PARTY-NOTICES.md",
+    "LANDING.md",
+    "LANDING.ru.md",
+    "public/llms.txt",
+    "public/llms-full.txt"
   ],
   "exports": {
     "./ui/*": "./src/components/ui/*.tsx",

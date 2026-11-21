@@ -9,6 +9,7 @@ Rules for building UI with Theya:
 - Colors, spacing, radii and type come from Theya tokens (CSS variables such as `var(--color-text-text)`); don’t hard-code hex values or Tailwind palette colors.
 - Status tones are `neutral | primary | success | warning | danger | info`; never carry meaning by color alone.
 - Icon-only controls need an `aria-label`; a tooltip doesn’t replace it.
+- Landing pages: read `LANDING.md` (shipped in the package) first. Start from a ready composition (Patterns: Landing/Recipes, First screens, Landing page), not from single components; the first screen is display type (`Hero titleSize="display"`); `Stepper` is not a switcher (use `Tabs variant="chips"`).
 
 Full text of every component: [llms-full.txt](llms-full.txt). Machine-readable records live in the package: `packages/theya-shadcn/spec/index.json` and `spec/components/<name>.json`. Links below open each component’s Docs page in this Storybook.
 

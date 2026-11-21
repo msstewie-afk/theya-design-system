@@ -98,7 +98,8 @@ export function SiteHeader({ logo, nav, mobileNav, actions, sticky = true, skipT
           {nav && (
             <div className={cn('flex min-w-0 flex-1 items-center', mobileNav ? 'max-md:hidden' : 'max-md:ms-auto max-md:flex-none')}>{nav}</div>
           )}
-          {actions && <div className={cn('flex shrink-0 items-center gap-2', mobileNav && 'max-md:ms-auto')}>{actions}</div>}
+          {/* Without nav the actions take the end corner (they sat right after the logo: PlateCovery, 21.11). */}
+          {actions && <div className={cn('flex shrink-0 items-center gap-2', !nav ? 'ms-auto' : mobileNav && 'max-md:ms-auto')}>{actions}</div>}
           {mobileNav && <div className="flex shrink-0 items-center md:hidden">{mobileNav}</div>}
         </div>
       </header>

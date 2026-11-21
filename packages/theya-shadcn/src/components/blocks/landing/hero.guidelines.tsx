@@ -9,6 +9,8 @@ export const heroGuidelines: ComponentGuidelines = {
     '`statement`: a phrase at the bottom of a full-bleed photo or video, edge to edge, for a brand or a place (presentation sites).',
     '`wordmark`: the name across the full width, a hairline and the page in numbered columns. `title` is plain text; it is the h1.',
     '`backdrop` (centered, split): a HeroTexture (dither, halftone, particles) or an Aurora behind the copy; keep it faint.',
+    'A first screen whose title is the product name or one short claim: `titleSize="display"` (56 → 128 px in the theme\'s display face), then `subtitle` for what it does and two to four `points`. A landing\'s first screen is display type, not a section heading.',
+    '`titleFont="theme"` (the default) is the theme\'s own heading face, serif or not (Playfair Display in ember); `display-serif` is EB Garamond whatever the theme.',
   ],
   whenNotToUse: [
     { text: 'The top of a screen inside the product', instead: 'PageHeader' },
@@ -17,7 +19,9 @@ export const heroGuidelines: ComponentGuidelines = {
   anatomy: [
     { part: 'Eyebrow', description: 'the product or category, one short line.', optional: true },
     { part: 'Title', description: 'the headline, h1. HeroAccent marks one or two words. No full stop after the last sentence; one between two sentences is fine.' },
-    { part: 'Description', description: 'one or two sentences, body-l.', optional: true },
+    { part: 'Subtitle', description: 'one large line in the body face at full colour: what the product does, when the title is a name.', optional: true },
+    { part: 'Description', description: 'one or two sentences, body-l, quiet.', optional: true },
+    { part: 'Points', description: 'two to four short benefits as a list, each opening with its point in bold.', optional: true },
     { part: 'Actions', description: 'one primary button, at most one secondary — or an email field with a button.', optional: true },
     { part: 'Note', description: 'a quiet line under the actions: platforms, trial terms.', optional: true },
     { part: 'Media', description: 'the product built from Theya components, or a photo in `inset`.', optional: true },

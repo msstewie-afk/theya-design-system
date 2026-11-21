@@ -15,6 +15,10 @@
       "instead": "Tabs"
     },
     {
+      "text": "Stages, plans or modes to switch between (a landing's \"Gentle · Expanding · Back to normal\")",
+      "instead": "Tabs variant=\"chips\" or ToggleGroup"
+    },
+    {
       "text": "Progress of a background task",
       "instead": "Progress"
     },

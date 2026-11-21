@@ -39,6 +39,10 @@ Storybook serves both files:
 - `http://localhost:6008/llms.txt`
 - `http://localhost:6008/llms-full.txt`
 
+## Landing pages
+
+`packages/theya-shadcn/LANDING.md` (also shipped in the published package): which block to pick for which task, the first-screen defaults, and the "not X for Y" rules. Read it before building a landing page.
+
 ## 3. MCP server (`packages/theya-shadcn/mcp/server.mjs`)
 
 The server has no dependencies: it runs on plain `node`, nothing needs to be installed. Tools:

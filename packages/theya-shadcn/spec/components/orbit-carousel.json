@@ -16,6 +16,10 @@
     {
       "text": "More than ~10 cards, or cards with forms and long text",
       "instead": "Card grid"
+    },
+    {
+      "text": "One picture that changes in place (a dish per stage, a screen per step)",
+      "instead": "Carousel with one slide in view, or a crossfade"
     }
   ],
   "anatomy": [
