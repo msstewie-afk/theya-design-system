@@ -28,7 +28,7 @@ function SavedCard() {
     <Card className="flex flex-col gap-3 p-5">
       <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtle)]">Saved this week</p>
       <div className="flex items-end justify-between gap-4">
-        <CountUp to={128} className="font-heading text-heading-2xl" />
+        <CountUp to={128} className="font-heading text-heading-2xl normal-nums" />
         <Sparkline data={[4, 9, 7, 14, 12, 19, 24]} area ariaLabel="Links saved per day, rising from 4 to 24" width={120} />
       </div>
     </Card>

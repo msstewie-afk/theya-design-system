@@ -150,8 +150,10 @@ export function PricingSection({
                         <p className="m-0 font-heading text-heading-xl">{plan.priceLabel}</p>
                       ) : (
                         <p className="m-0 flex items-baseline gap-2">
-                          {/* key: a new CountUp per period, so it runs from the old price to the new one. */}
-                          <CountUp key={period} from={was} to={price} duration={500} format={money} className="font-heading text-heading-2xl" />
+                          {/* key: a new CountUp per period, so it runs from the old price to the new one.
+                              normal-nums: some display faces (Schibsted Grotesk) draw tabular digits as
+                              slab-footed, mono-looking figures; at this size the width jitter is not seen. */}
+                          <CountUp key={period} from={was} to={price} duration={500} format={money} className="font-heading text-heading-2xl normal-nums" />
                           <span className="font-body text-body-m text-[var(--color-text-text-subtle)]">/ month</span>
                         </p>
                       )}
@@ -167,7 +169,9 @@ export function PricingSection({
                     </div>
 
                     <Button
-                      appearance={plan.recommended ? 'filled' : 'tonal'}
+                      // Outlined, not tonal, for the others: a tonal fill all but vanishes
+                      // on the frosted cards of the gradient canvas (Maria, 21.11).
+                      appearance={plan.recommended ? 'filled' : 'outlined'}
                       tone={plan.recommended ? 'primary' : 'secondary'}
                       size="lg"
                       fullWidth
