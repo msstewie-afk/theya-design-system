@@ -4496,8 +4496,8 @@
       "fg": "color-text-text-subtler",
       "bg": "background",
       "need": 4.5,
-      "ratio": 5.8,
-      "fgValue": "#686373",
+      "ratio": 6.26,
+      "fgValue": "#635e6d",
       "bgValue": "#ffffff",
       "pass": true
     },
@@ -4508,8 +4508,8 @@
       "fg": "color-text-text-subtler",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 4.5,
-      "ratio": 5.8,
-      "fgValue": "#686373",
+      "ratio": 6.26,
+      "fgValue": "#635e6d",
       "bgValue": "#ffffff",
       "pass": true
     },
@@ -4520,8 +4520,8 @@
       "fg": "color-text-text-subtler",
       "bg": "color-bg-surface-bg-surface-sunken",
       "need": 4.5,
-      "ratio": 5.02,
-      "fgValue": "#686373",
+      "ratio": 5.42,
+      "fgValue": "#635e6d",
       "bgValue": "#efeef2",
       "pass": true
     },
@@ -4772,10 +4772,10 @@
       "fg": "color-text-text-subtler",
       "bg": "color-bg-primary-bg-primary-subtle",
       "need": 4.5,
-      "ratio": 4.3,
-      "fgValue": "#686373",
+      "ratio": 4.64,
+      "fgValue": "#635e6d",
       "bgValue": "#dddde6",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "dusk",
@@ -5600,8 +5600,8 @@
       "fg": "color-text-text-subtler",
       "bg": "background",
       "need": 4.5,
-      "ratio": 5.64,
-      "fgValue": "#596b67",
+      "ratio": 6.42,
+      "fgValue": "#52625f",
       "bgValue": "#ffffff",
       "pass": true
     },
@@ -5612,8 +5612,8 @@
       "fg": "color-text-text-subtler",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 4.5,
-      "ratio": 5.64,
-      "fgValue": "#596b67",
+      "ratio": 6.42,
+      "fgValue": "#52625f",
       "bgValue": "#ffffff",
       "pass": true
     },
@@ -5624,8 +5624,8 @@
       "fg": "color-text-text-subtler",
       "bg": "color-bg-surface-bg-surface-sunken",
       "need": 4.5,
-      "ratio": 4.91,
-      "fgValue": "#596b67",
+      "ratio": 5.59,
+      "fgValue": "#52625f",
       "bgValue": "#ecf0ef",
       "pass": true
     },
@@ -5876,10 +5876,10 @@
       "fg": "color-text-text-subtler",
       "bg": "color-bg-primary-bg-primary-subtle",
       "need": 4.5,
-      "ratio": 4.06,
-      "fgValue": "#596b67",
+      "ratio": 4.62,
+      "fgValue": "#52625f",
       "bgValue": "#cededd",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "lagoon",
@@ -6152,8 +6152,8 @@
       "fg": "color-text-text-subtler",
       "bg": "background",
       "need": 4.5,
-      "ratio": 7.23,
-      "fgValue": "#aebfbb",
+      "ratio": 7.56,
+      "fgValue": "#b3c3bf",
       "bgValue": "#242f2c",
       "pass": true
     },
@@ -6164,8 +6164,8 @@
       "fg": "color-text-text-subtler",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 4.5,
-      "ratio": 7.23,
-      "fgValue": "#aebfbb",
+      "ratio": 7.56,
+      "fgValue": "#b3c3bf",
       "bgValue": "#242f2c",
       "pass": true
     },
@@ -6176,8 +6176,8 @@
       "fg": "color-text-text-subtler",
       "bg": "color-bg-surface-bg-surface-sunken",
       "need": 4.5,
-      "ratio": 9.31,
-      "fgValue": "#aebfbb",
+      "ratio": 9.74,
+      "fgValue": "#b3c3bf",
       "bgValue": "#121918",
       "pass": true
     },
@@ -6428,10 +6428,10 @@
       "fg": "color-text-text-subtler",
       "bg": "color-bg-primary-bg-primary-subtle",
       "need": 4.5,
-      "ratio": 4.46,
-      "fgValue": "#aebfbb",
+      "ratio": 4.66,
+      "fgValue": "#b3c3bf",
       "bgValue": "#37524d",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "lagoon",
@@ -6704,8 +6704,8 @@
       "fg": "color-text-text-subtler",
       "bg": "background",
       "need": 4.5,
-      "ratio": 5.75,
-      "fgValue": "#6f645c",
+      "ratio": 6.51,
+      "fgValue": "#665c55",
       "bgValue": "#ffffff",
       "pass": true
     },
@@ -6716,8 +6716,8 @@
       "fg": "color-text-text-subtler",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 4.5,
-      "ratio": 5.75,
-      "fgValue": "#6f645c",
+      "ratio": 6.51,
+      "fgValue": "#665c55",
       "bgValue": "#ffffff",
       "pass": true
     },
@@ -6728,8 +6728,8 @@
       "fg": "color-text-text-subtler",
       "bg": "color-bg-surface-bg-surface-sunken",
       "need": 4.5,
-      "ratio": 4.98,
-      "fgValue": "#6f645c",
+      "ratio": 5.64,
+      "fgValue": "#665c55",
       "bgValue": "#f1eeed",
       "pass": true
     },
@@ -6980,10 +6980,10 @@
       "fg": "color-text-text-subtler",
       "bg": "color-bg-primary-bg-primary-subtle",
       "need": 4.5,
-      "ratio": 4.12,
-      "fgValue": "#6f645c",
+      "ratio": 4.66,
+      "fgValue": "#665c55",
       "bgValue": "#e9d7cb",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "ochre",

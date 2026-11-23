@@ -143,8 +143,6 @@ const config = {
         [
           // Field, checkbox and radio borders: 3.00:1 in Theya, 2.69–2.98:1 in every product theme's light variant.
           ...['background', 'color-bg-surface-bg-surface-base'].map((bg) => [`color-border-border on ${bg}`, { iris: ['light'], lime: ['light'], ember: ['light'], dusk: ['light'], lagoon: ['light'], ochre: ['light'] }]),
-          // Gradient themes (agent 1): secondary text on a selected fill (option cards, tab tracks) 4.06–4.46:1.
-          ['color-text-text-subtler on color-bg-primary-bg-primary-subtle', { dusk: ['light'], lagoon: ['light', 'dark'], ochre: ['light'] }],
           // Lime light: the checked fill #9fe870 is 1.47:1 on white (the dark check mark carries the state).
           ...['background', 'color-bg-surface-bg-surface-base'].map((bg) => [`color-bg-primary-bg-primary on ${bg}`, { lime: ['light'] }]),
         ],

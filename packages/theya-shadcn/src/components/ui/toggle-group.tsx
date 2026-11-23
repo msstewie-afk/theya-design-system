@@ -71,6 +71,7 @@ function ToggleGroupItem({ className, children, appearance, size, iconOnly, ...p
 
   return (
     <ToggleGroupPrimitive.Item
+      data-slot="toggle-group-item"
       data-appearance={resolvedAppearance}
       data-icon-only={square ? '' : undefined}
       className={cn(

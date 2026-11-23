@@ -14,9 +14,12 @@
  *
  * Dark ink (profile `gradient.ink`, ember): a bright canvas where all of
  * the above is that dark color instead, glass is white 20% without
- * dimming, and the filled button is an ink pill with white text. The
- * profile sets the --gradient-ink* / --gradient-glass* / --gradient-pill*
- * variables; the white set below is their default.
+ * dimming, and the filled button is an ink pill with white text.
+ * Every gradient theme writes its whole --gradient-ink* / --gradient-glass*
+ * / --gradient-pill* set (build-profiles.mjs). The defaults below are for
+ * a theme without a gradient: the flat primary with the theme's own
+ * on-primary ink, and glass reduced to an outline (any fill over the flat
+ * primary pulled white text under 4.5:1, a11y scan 23.11).
  *
  * Contrast: build-profiles.mjs checks white text (or the ink) 4.5:1 on the base and
  * every spot color, bare and under glass (backdrop brightness 0.85 + white
@@ -48,29 +51,33 @@
      canvas's own width through a container query (see below). */
   container-type: inline-size;
   background-color: var(--gradient-canvas-base, var(--color-bg-primary-bg-primary));
-  color: var(--gradient-ink, #ffffff);
+  color: var(--gradient-ink, var(--color-text-text-on-primary));
 
-  --glass-bg: var(--gradient-glass-bg, rgb(255 255 255 / 0.12));
-  --glass-bg-hover: var(--gradient-glass-bg-hover, rgb(255 255 255 / 0.18));
-  --glass-bg-pressed: var(--gradient-glass-bg-pressed, rgb(255 255 255 / 0.08));
-  --glass-border: var(--gradient-glass-border, rgb(255 255 255 / 0.3));
-  --glass-filter: var(--gradient-glass-filter, blur(24px) brightness(0.85));
+  --glass-bg: var(--gradient-glass-bg, transparent);
+  --glass-bg-hover: var(--gradient-glass-bg-hover, color-mix(in srgb, var(--color-text-text-on-primary) 12%, transparent));
+  --glass-bg-pressed: var(--gradient-glass-bg-pressed, color-mix(in srgb, var(--color-text-text-on-primary) 8%, transparent));
+  --glass-border: var(--gradient-glass-border, color-mix(in srgb, var(--color-text-text-on-primary) 45%, transparent));
+  --glass-filter: var(--gradient-glass-filter, none);
   /* Card shadow tinted with the canvas's darkest color: a gray shadow on a
      colored ground reads as dirt. */
   --gradient-card-shadow: 0 24px 48px -16px color-mix(in oklab, var(--gradient-canvas-shadow, #000) 55%, transparent),
     0 4px 12px -4px color-mix(in oklab, var(--gradient-canvas-shadow, #000) 30%, transparent);
 
-  --color-text-text: var(--gradient-ink, #ffffff);
-  --color-text-text-subtle: var(--gradient-ink-subtle, rgb(255 255 255 / 0.86));
-  --color-text-text-subtler: var(--gradient-ink-subtle, rgb(255 255 255 / 0.86));
-  --color-icon-icon: var(--gradient-ink, #ffffff);
-  --color-icon-icon-subtle: var(--gradient-ink-subtle, rgb(255 255 255 / 0.86));
-  --color-border-border-subtle: var(--gradient-ink-line, rgb(255 255 255 / 0.3));
-  --color-border-border-subtler: var(--gradient-ink-line-subtler, rgb(255 255 255 / 0.18));
-  --color-focus-focus-ring: var(--gradient-ink-focus, rgb(255 255 255 / 0.85));
+  --color-text-text: var(--gradient-ink, var(--color-text-text-on-primary));
+  /* Secondary text is the full ink: the build checks the ink at 4.5:1 on
+     the canvas's lightest point, and anything paler failed there (white
+     86% on the flat primary fallback 4.25:1, a11y scan 23.11). Hierarchy
+     on the canvas comes from size and weight. */
+  --color-text-text-subtle: var(--gradient-ink, var(--color-text-text-on-primary));
+  --color-text-text-subtler: var(--gradient-ink, var(--color-text-text-on-primary));
+  --color-icon-icon: var(--gradient-ink, var(--color-text-text-on-primary));
+  --color-icon-icon-subtle: var(--gradient-ink, var(--color-text-text-on-primary));
+  --color-border-border-subtle: var(--gradient-ink-line, color-mix(in srgb, var(--color-text-text-on-primary) 30%, transparent));
+  --color-border-border-subtler: var(--gradient-ink-line-subtler, color-mix(in srgb, var(--color-text-text-on-primary) 18%, transparent));
+  --color-focus-focus-ring: var(--gradient-ink-focus, color-mix(in srgb, var(--color-text-text-on-primary) 85%, transparent));
   /* Tracks (Progress, Slider) and their fill: ink on ink. */
-  --color-bg-neutral-bg-neutral-subtle: var(--gradient-ink-track, rgb(255 255 255 / 0.22));
-  --color-icon-icon-primary: var(--gradient-ink, #ffffff);
+  --color-bg-neutral-bg-neutral-subtle: var(--gradient-ink-track, color-mix(in srgb, var(--color-text-text-on-primary) 22%, transparent));
+  --color-icon-icon-primary: var(--gradient-ink, var(--color-text-text-on-primary));
 }
 
 /* Blooms (landing heroes): light patches the theme places where only
@@ -150,19 +157,19 @@
 /* Buttons lying on the canvas (not inside a card on it). */
 [data-canvas='gradient'] [data-slot='button']:not([data-canvas='gradient'] [data-surface='card'] *) {
   &[data-appearance='filled'] {
-    background-color: var(--gradient-pill-bg, #ffffff);
+    background-color: var(--gradient-pill-bg, var(--color-text-text-on-primary));
     /* The canvas's darkest color, not the theme's text: in the dark theme
        that is light, and it would vanish on the white pill. */
-    color: var(--gradient-pill-text, var(--gradient-canvas-shadow, #1c1b1f));
+    color: var(--gradient-pill-text, var(--color-bg-primary-bg-primary));
     border-color: transparent;
-    &:hover:not(:disabled, [aria-disabled='true']) { background-color: var(--gradient-pill-bg-hover, rgb(255 255 255 / 0.9)); }
-    &:active:not(:disabled, [aria-disabled='true']) { background-color: var(--gradient-pill-bg-pressed, rgb(255 255 255 / 0.8)); }
+    &:hover:not(:disabled, [aria-disabled='true']) { background-color: var(--gradient-pill-bg-hover, color-mix(in srgb, var(--color-text-text-on-primary) 90%, transparent)); }
+    &:active:not(:disabled, [aria-disabled='true']) { background-color: var(--gradient-pill-bg-pressed, color-mix(in srgb, var(--color-text-text-on-primary) 80%, transparent)); }
     & svg { color: currentColor; }
   }
   &:is([data-appearance='tonal'], [data-appearance='outlined']) {
     background-color: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    color: var(--gradient-ink, #ffffff);
+    color: var(--gradient-ink, var(--color-text-text-on-primary));
     -webkit-backdrop-filter: var(--glass-filter);
     backdrop-filter: var(--glass-filter);
     &:hover:not(:disabled, [aria-disabled='true']) { background-color: var(--glass-bg-hover); }
@@ -170,7 +177,7 @@
     & svg { color: currentColor; }
   }
   &[data-appearance='ghost'] {
-    color: var(--gradient-ink, #ffffff);
+    color: var(--gradient-ink, var(--color-text-text-on-primary));
     &:hover:not(:disabled, [aria-disabled='true']) { background-color: var(--glass-bg); }
     &:active:not(:disabled, [aria-disabled='true']) { background-color: var(--glass-bg-pressed); }
     & svg { color: currentColor; }
@@ -186,4 +193,21 @@
 [data-canvas='gradient'][data-canvas-image]::after {
   background-size: cover;
   background-position: center;
+}
+
+/* Toggle groups lying on the canvas (the pricing period switch): the
+   theme's tonal "on" fill would sit under the canvas ink. Off = glass with
+   the ink; on = the same pill as a filled button. */
+[data-canvas='gradient'] [data-slot='toggle-group-item']:not([data-canvas='gradient'] [data-surface='card'] *) {
+  color: var(--gradient-ink, var(--color-text-text-on-primary));
+  background-color: var(--glass-bg);
+  --tw-shadow: inset 0 0 0 1px var(--glass-border);
+  box-shadow: inset 0 0 0 1px var(--glass-border);
+  &:hover:not(:disabled) { background-color: var(--glass-bg-hover); }
+  &[data-state='on'] {
+    background-color: var(--gradient-pill-bg, var(--color-text-text-on-primary));
+    color: var(--gradient-pill-text, var(--color-bg-primary-bg-primary));
+    box-shadow: none;
+  }
+  & svg { color: currentColor; }
 }

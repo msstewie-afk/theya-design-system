@@ -15,6 +15,7 @@ English version: [figma-queue.md](./figma-queue.md).
 
 | С версии | Область | Что | Что нужно |
 |---|---|---|---|
+| 0.5.x | Текст Dusk, Lagoon, Ochre (агент 1) | `text-subtler` светлая: dusk #635e6d, lagoon #52625f, ochre #665c55; `text-subtler-on-tonal` светлая — те же; lagoon тёмная `text-subtler` #b3c3bf (контраст на primary-subtle). | Коллекция Theme: эти значения. |
 | 0.5.x | Токены движения (агент 1) | `motion.duration.journey` 1600ms, `motion.duration.ambient` 16s, `motion.easing.travel` cubic-bezier(0.4, 0, 0.2, 1); AmbientBlobs — только движение. | Рисовать нечего (движение в Figma не рисуется, см. принятые различия); добавить значения в описание движения, если Figma их перечисляет. |
 | 0.5.x | StoreButtons (агент 1) | Новый блок лендинга: ссылки App Store / Google Play, чёрные с серой линией #a6a6a6, две строки (10px medium + body-l semibold), 48 / 40px, скругление xl. | По желанию: компонент StoreButtons; в релиз идут официальные значки. |
 | 0.5.x | Холст Ember, SectionPanel (агент 1) | Ember: `gradient` с тёмными чернилами (основа #f56300, пятна, блики; чернила #2a1306) и `displayFont` Playfair Display 900; новые переменные холста `--gradient-ink*`, `--gradient-glass*`, `--gradient-pill*`. SectionPanel `shape="bleed"` и `image`. | Коллекция Theme: градиент и дисплейный вес ember (только лендинги); вариант SectionPanel bleed. |

@@ -572,28 +572,32 @@ for (const profile of profiles) {
       // Shadow under white cards on the canvas: the darkest canvas color, not gray.
       const darkest = colors.reduce((a, b) => (luminance(a) <= luminance(b) ? a : b));
       shared.set('--gradient-canvas-shadow', darkest);
-      // Dark ink: gradient-canvas.css reads these, its defaults are the white set.
-      if (ink) {
-        const a = (alpha) => `color-mix(in srgb, ${ink} ${alpha}%, transparent)`;
-        shared.set('--gradient-ink', ink);
-        shared.set('--gradient-ink-subtle', a(86));
-        shared.set('--gradient-ink-line', a(30));
-        shared.set('--gradient-ink-line-subtler', a(18));
-        shared.set('--gradient-ink-focus', a(85));
-        shared.set('--gradient-ink-track', a(14));
-        shared.set('--gradient-glass-bg', 'rgb(255 255 255 / 0.2)');
-        shared.set('--gradient-glass-bg-hover', 'rgb(255 255 255 / 0.3)');
-        shared.set('--gradient-glass-bg-pressed', 'rgb(255 255 255 / 0.14)');
-        shared.set('--gradient-glass-border', 'rgb(255 255 255 / 0.45)');
-        shared.set('--gradient-glass-filter', 'blur(24px)');
-        shared.set('--gradient-pill-bg', ink);
-        shared.set('--gradient-pill-bg-hover', a(88));
-        shared.set('--gradient-pill-bg-pressed', a(78));
-        shared.set('--gradient-pill-text', '#ffffff');
-        // Under cards on a bright ground the darkest spot is still light:
-        // tint the shadow with the ink instead.
-        shared.set('--gradient-canvas-shadow', ink);
-      }
+      // The canvas's ink set (gradient-canvas.css reads it). Every gradient
+      // theme writes the whole set, so a theme nested in another one (the
+      // Presets story) never inherits the outer theme's ink. The CSS
+      // defaults are the fallback for themes without a gradient: the flat
+      // primary with the theme's on-primary ink.
+      const inkHex = ink ?? '#ffffff';
+      const a = (alpha) => `color-mix(in srgb, ${inkHex} ${alpha}%, transparent)`;
+      shared.set('--gradient-ink', inkHex);
+      shared.set('--gradient-ink-line', a(30));
+      shared.set('--gradient-ink-line-subtler', a(18));
+      shared.set('--gradient-ink-focus', a(85));
+      shared.set('--gradient-ink-track', ink ? a(14) : a(22));
+      shared.set('--gradient-glass-bg', `rgb(255 255 255 / ${GLASS_ALPHA})`);
+      shared.set('--gradient-glass-bg-hover', `rgb(255 255 255 / ${ink ? 0.3 : 0.18})`);
+      shared.set('--gradient-glass-bg-pressed', `rgb(255 255 255 / ${ink ? 0.14 : 0.08})`);
+      shared.set('--gradient-glass-border', `rgb(255 255 255 / ${ink ? 0.45 : 0.3})`);
+      shared.set('--gradient-glass-filter', GLASS_DIM === 1 ? 'blur(24px)' : `blur(24px) brightness(${GLASS_DIM})`);
+      // Filled button: a white pill with the canvas's darkest color as text,
+      // or (dark ink) an ink pill with white text.
+      shared.set('--gradient-pill-bg', ink ? inkHex : '#ffffff');
+      shared.set('--gradient-pill-bg-hover', ink ? a(88) : 'rgb(255 255 255 / 0.9)');
+      shared.set('--gradient-pill-bg-pressed', ink ? a(78) : 'rgb(255 255 255 / 0.8)');
+      shared.set('--gradient-pill-text', ink ? '#ffffff' : darkest);
+      // Under cards on a bright ground the darkest spot is still light:
+      // tint the shadow with the ink instead.
+      if (ink) shared.set('--gradient-canvas-shadow', ink);
     }
   }
 

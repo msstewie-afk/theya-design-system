@@ -97,7 +97,9 @@
       "bg-primary-bg-primary-subtle": "#dddde6",
       "bg-primary-bg-primary-subtle-hover": "#d4d4e0",
       "bg-primary-bg-primary-subtle-pressed": "#cacbd9",
-      "text-text-link-on-tonal": "#45466a"
+      "text-text-link-on-tonal": "#45466a",
+      "text-text-subtler": "#635e6d",
+      "text-text-subtler-on-tonal": "#635e6d"
     }
   }
 }

@@ -15,6 +15,7 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 
 | Since | Area | What | Needs |
 |---|---|---|---|
+| 0.5.x | Dusk, Lagoon, Ochre text (agent 1) | `text-subtler` light: dusk #635e6d, lagoon #52625f, ochre #665c55; `text-subtler-on-tonal` light the same; lagoon dark `text-subtler` #b3c3bf (contrast on primary-subtle). | Theme collection: the four values. |
 | 0.5.x | Motion tokens (agent 1) | `motion.duration.journey` 1600ms, `motion.duration.ambient` 16s, `motion.easing.travel` cubic-bezier(0.4, 0, 0.2, 1); AmbientBlobs is motion only. | Nothing to draw (motion is not in Figma, see Accepted differences); add the values to the motion docs if Figma lists them. |
 | 0.5.x | StoreButtons (agent 1) | New landing block: App Store / Google Play links, black with a #a6a6a6 hairline, two lines (10px medium + body-l semibold), 48 / 40px, radius xl. | Optional: a StoreButtons component; the official badges are what ships. |
 | 0.5.x | Ember canvas, SectionPanel (agent 1) | Ember: `gradient` with dark ink (base #f56300, spots, blooms; ink #2a1306) and `displayFont` Playfair Display 900; new canvas variables `--gradient-ink*`, `--gradient-glass*`, `--gradient-pill*`. SectionPanel `shape="bleed"` and `image`. | Theme collection: ember gradient and display weight (landing pages only); SectionPanel bleed variant. |

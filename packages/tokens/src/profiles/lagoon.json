@@ -97,7 +97,14 @@
       "bg-primary-bg-primary-subtle": "#cededd",
       "bg-primary-bg-primary-subtle-hover": "#c0d6d3",
       "bg-primary-bg-primary-subtle-pressed": "#b3cdca",
-      "text-text-link-on-tonal": "#1a4c47"
+      "text-text-link-on-tonal": "#1a4c47",
+      "text-text-subtler": "#52625f",
+      "text-text-subtler-on-tonal": "#52625f"
+    }
+  },
+  "dark": {
+    "tokens": {
+      "text-text-subtler": "#b3c3bf"
     }
   }
 }
