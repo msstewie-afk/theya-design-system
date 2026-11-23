@@ -143,6 +143,8 @@ const config = {
         [
           // Field, checkbox and radio borders: 3.00:1 in Theya, 2.69–2.98:1 in every product theme's light variant.
           ...['background', 'color-bg-surface-bg-surface-base'].map((bg) => [`color-border-border on ${bg}`, { iris: ['light'], lime: ['light'], ember: ['light'], dusk: ['light'], lagoon: ['light'], ochre: ['light'] }]),
+          // Gradient themes (agent 1): secondary text on a selected fill (option cards, tab tracks) 4.06–4.46:1.
+          ['color-text-text-subtler on color-bg-primary-bg-primary-subtle', { dusk: ['light'], lagoon: ['light', 'dark'], ochre: ['light'] }],
           // Lime light: the checked fill #9fe870 is 1.47:1 on white (the dark check mark carries the state).
           ...['background', 'color-bg-surface-bg-surface-base'].map((bg) => [`color-bg-primary-bg-primary on ${bg}`, { lime: ['light'] }]),
         ],
@@ -158,6 +160,8 @@ const config = {
           need: 4.5,
         })),
         { what: 'text on a primary fill (1.4.3)', fg: 'color-text-text-on-primary', bg: 'color-bg-primary-bg-primary', need: 4.5 },
+        // Selected option cards, tab tracks and menu anchors sit on primary-subtle.
+        ...['color-text-text-subtle', 'color-text-text-subtler'].map((fg) => ({ what: 'secondary text on a selected fill (1.4.3)', fg, bg: 'color-bg-primary-bg-primary-subtle', need: 4.5 })),
         { what: 'field and control border (1.4.11)', fg: 'color-border-border', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
         { what: 'strong border (1.4.11)', fg: 'color-border-border-strong', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
         { what: 'invalid field border (1.4.11)', fg: 'color-border-border-danger', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
