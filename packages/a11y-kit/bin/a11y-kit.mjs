@@ -47,6 +47,7 @@
  *   }
  */
 import fs from 'node:fs';
+import crypto from 'node:crypto';
 import path from 'node:path';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 import { buildRegistry, compareList } from '../src/registry.mjs';
@@ -339,7 +340,11 @@ async function audit(cmd, { config, cwd, at, opt, positional, DRY, NO_ISSUES }) 
       return { date: log[0].split(' ')[1], diff };
     };
     const only = opt('only')?.split(',').map((s) => s.trim());
-    const queue = auditQueue({ reviews: await ac.reviews(cwd), files: (c) => files.get(c)?.map((f) => path.relative(cwd, f)), lastChange, open: await ac.open(cwd), only, limit: Number(opt('limit') ?? Infinity) });
+    // --skip <file>: fingerprints of items already waiting on a person (open a11y-audit issues),
+    // so an "unsure" is asked once, not again in every wave.
+    const skip = new Set(opt('skip') && fs.existsSync(path.resolve(opt('skip'))) ? fs.readFileSync(path.resolve(opt('skip')), 'utf8').split(/\s+/).filter(Boolean) : []);
+    const fp = (id) => crypto.createHash('sha1').update(id).digest('hex').slice(0, 12);
+    const queue = auditQueue({ reviews: await ac.reviews(cwd), files: (c) => files.get(c)?.map((f) => path.relative(cwd, f)), lastChange, open: await ac.open(cwd), only, limit: Infinity }).filter((i) => !skip.has(fp(i.id))).slice(0, Number(opt('limit') ?? Infinity));
     if (opt('out')) fs.writeFileSync(path.resolve(opt('out')), JSON.stringify(queue, null, 2) + '\n');
     const stale = queue.filter((i) => i.kind === 'stale').length;
     console.log(`a11y-kit audit-queue: ${queue.length} items (${stale} stale reviews, ${queue.length - stale} open cells) in ${new Set(queue.map((i) => i.component)).size} components`);
