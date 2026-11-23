@@ -22,7 +22,7 @@
  *   a11y-kit audit-post --queue <file> --answers <file> --out <records.json> [--repo o/n] [--run url] [--no-issues] [--dry-run]
  *                                      checks the auditor's answers, opens issues for broken/fail/unsure, writes records
  *   a11y-kit audit-apply <records.json>   writes the records into the hand-kept ones (config audit.apply)
- *   a11y-kit audit-sample [--n 10] [--seed s]   audit records for a person to re-check (the auditor's precision)
+ *   a11y-kit audit-sample [--n 10] [--seed s] [--by <name> [--wrong "C sc, …"]]   a sample of audit records to re-check; --by records the verdict (precision)
  *   The agents' methods: review/agent.md (change review), review/auditor.md (audit).
  *
  * Reads a11y-kit.config.mjs from the current directory (the design system's package):
@@ -346,7 +346,23 @@ async function audit(cmd, { config, cwd, at, opt, positional, DRY, NO_ISSUES }) 
     console.log(`a11y-kit audit-apply: ${n} record(s) written`);
   } else if (cmd === 'audit-sample') {
     const list = sample(await ac.reviews(cwd), Number(opt('n') ?? 10), opt('seed') ?? today);
-    for (const r of list) console.log(`- ${r.component} ${r.sc}: ${r.result} — ${r.note}`);
-    console.log(`\n${list.length} audit record(s). Check each against the code; tell agent 3 which are wrong.`);
+    const checksFile = at(ac.checksFile ?? 'a11y/audit-checks.json');
+    if (opt('by')) {
+      // A person's verdict on this sample: --by <name> [--wrong "Component sc, …"].
+      const wrong = (opt('wrong') ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+      const log = fs.existsSync(checksFile) ? JSON.parse(fs.readFileSync(checksFile, 'utf8')) : { $comment: 'Samples of audit records a person re-checked (a11y-kit audit-sample --by). The auditor\'s precision.', samples: [] };
+      log.samples.push({ date: today, seed: opt('seed') ?? today, by: opt('by'), checked: list.map((r) => `${r.component} ${r.sc}`), wrong });
+      fs.writeFileSync(checksFile, JSON.stringify(log, null, 2) + '\n');
+    }
+    if (fs.existsSync(checksFile)) {
+      const all = JSON.parse(fs.readFileSync(checksFile, 'utf8')).samples;
+      const n = all.reduce((s, x) => s + x.checked.length, 0);
+      const bad = all.reduce((s, x) => s + x.wrong.length, 0);
+      if (opt('by')) console.log(`recorded. Auditor precision: ${n - bad} of ${n} re-checked records right (${Math.round((100 * (n - bad)) / n)}%), ${all.length} sample(s).`);
+    }
+    if (!opt('by')) {
+      for (const r of list) console.log(`- ${r.component} ${r.sc}: ${r.result} — ${r.note}`);
+      console.log(`\n${list.length} audit record(s). Check each against the code, then: a11y-kit audit-sample --n ${list.length} --seed ${opt('seed') ?? today} --by <name> [--wrong "Component sc, …"]`);
+    }
   } else throw new Error(`unknown command ${cmd}`);
 }
