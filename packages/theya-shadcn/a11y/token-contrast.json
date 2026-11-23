@@ -1472,10 +1472,10 @@
       "fg": "color-border-border",
       "bg": "background",
       "need": 3,
-      "ratio": 2.97,
-      "fgValue": "#92969e",
+      "ratio": 3,
+      "fgValue": "#91959d",
       "bgValue": "#ffffff",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "iris",
@@ -1484,10 +1484,10 @@
       "fg": "color-border-border",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 3,
-      "ratio": 2.97,
-      "fgValue": "#92969e",
+      "ratio": 3,
+      "fgValue": "#91959d",
       "bgValue": "#ffffff",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "iris",
@@ -2576,10 +2576,10 @@
       "fg": "color-border-border",
       "bg": "background",
       "need": 3,
-      "ratio": 2.95,
-      "fgValue": "#949793",
+      "ratio": 3.03,
+      "fgValue": "#929591",
       "bgValue": "#ffffff",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "lime",
@@ -2588,10 +2588,10 @@
       "fg": "color-border-border",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 3,
-      "ratio": 2.95,
-      "fgValue": "#949793",
+      "ratio": 3.03,
+      "fgValue": "#929591",
       "bgValue": "#ffffff",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "lime",
@@ -3680,10 +3680,10 @@
       "fg": "color-border-border",
       "bg": "background",
       "need": 3,
-      "ratio": 2.69,
-      "fgValue": "#9b9590",
+      "ratio": 3.02,
+      "fgValue": "#928c87",
       "bgValue": "#f5f4f1",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "ember",
@@ -3692,10 +3692,10 @@
       "fg": "color-border-border",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 3,
-      "ratio": 2.69,
-      "fgValue": "#9b9590",
+      "ratio": 3.02,
+      "fgValue": "#928c87",
       "bgValue": "#f5f4f1",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "ember",
@@ -4784,10 +4784,10 @@
       "fg": "color-border-border",
       "bg": "background",
       "need": 3,
-      "ratio": 2.98,
-      "fgValue": "#9893a4",
+      "ratio": 3.02,
+      "fgValue": "#9792a3",
       "bgValue": "#ffffff",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "dusk",
@@ -4796,10 +4796,10 @@
       "fg": "color-border-border",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 3,
-      "ratio": 2.98,
-      "fgValue": "#9893a4",
+      "ratio": 3.02,
+      "fgValue": "#9792a3",
       "bgValue": "#ffffff",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "dusk",
@@ -5888,10 +5888,10 @@
       "fg": "color-border-border",
       "bg": "background",
       "need": 3,
-      "ratio": 2.92,
-      "fgValue": "#899b97",
+      "ratio": 3.03,
+      "fgValue": "#869894",
       "bgValue": "#ffffff",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "lagoon",
@@ -5900,10 +5900,10 @@
       "fg": "color-border-border",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 3,
-      "ratio": 2.92,
-      "fgValue": "#899b97",
+      "ratio": 3.03,
+      "fgValue": "#869894",
       "bgValue": "#ffffff",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "lagoon",
@@ -6992,10 +6992,10 @@
       "fg": "color-border-border",
       "bg": "background",
       "need": 3,
-      "ratio": 2.96,
-      "fgValue": "#9f948b",
+      "ratio": 3,
+      "fgValue": "#9e938a",
       "bgValue": "#ffffff",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "ochre",
@@ -7004,10 +7004,10 @@
       "fg": "color-border-border",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 3,
-      "ratio": 2.96,
-      "fgValue": "#9f948b",
+      "ratio": 3,
+      "fgValue": "#9e938a",
       "bgValue": "#ffffff",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "ochre",

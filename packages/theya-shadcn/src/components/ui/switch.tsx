@@ -47,8 +47,11 @@ const switchVariants = cva(
           'hover:not-disabled:data-[state=checked]:bg-[var(--color-bg-primary-bg-primary-hover)]',
           'disabled:data-[state=checked]:bg-[var(--color-bg-primary-bg-primary-subtle)] disabled:data-[state=checked]:border-transparent',
           'focus-visible:data-[state=checked]:focus-ring',
-          // Dark: blue on the surface is 2.71:1; a 1px light-primary edge (5.95:1) outlines the track.
-          '[[data-theme=dark]_&]:not-disabled:data-[state=checked]:inset-ring [[data-theme=dark]_&]:not-disabled:data-[state=checked]:inset-ring-[var(--color-border-border-primary)]',
+          // A 1px primary edge outlines the checked track (WCAG 1.4.11). Dark: blue on
+          // the surface is 2.71:1, the light-primary edge 5.95:1. Light: the edge
+          // matches the fill in most themes; in Lime the fill #9fe870 is 1.47:1 on
+          // white and the edge (forest green) is what shows.
+          'not-disabled:data-[state=checked]:inset-ring not-disabled:data-[state=checked]:inset-ring-[var(--color-border-border-primary)]',
         ],
       },
       {
@@ -131,6 +134,10 @@ export const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, Switch
             'group-enabled/switch:group-active/switch:w-[20px]',
             'data-[state=checked]:group-enabled/switch:group-active/switch:translate-x-[13px] rtl:data-[state=checked]:group-enabled/switch:group-active/switch:-translate-x-[13px]',
             'transition-[translate,width] duration-moderate ease-spring motion-reduce:transition-none',
+            // Primary tone: the white thumb on a pale primary fill (Lime #9fe870: 1.47:1)
+            // gets an edge in the on-primary colour: white, invisible on the white thumb,
+            // in most themes; forest green in Lime, in both themes.
+            tone === 'primary' && 'data-[state=checked]:inset-ring data-[state=checked]:inset-ring-[var(--color-text-text-on-primary)]',
           )}
         >
           {checkIcon && (

@@ -34,6 +34,18 @@ const config = {
       Hero: 'agent 1: "Split with chips" media overflows 320px (backlog 21.11)',
     },
   },
+  // scripts/contrast-scan.mjs --ci: tracked findings of the rendered-contrast scan, warnings in CI;
+  // anything else fails. title: a story title, or a prefix ending in "/"; optional kind (text |
+  // nontext), brands, themes (light | dark), fg / bg (hex as the scan prints it), part (the measured
+  // part, e.g. "fill against its track"). Each names its owner; remove an entry with its fix.
+  contrast: {
+    known: [
+      { title: 'Patterns: Landing/', why: 'agent 1: landing contrast (text over media and motion layers), backlog 21.11' },
+      { title: 'Design System/Gradient canvas', why: 'agent 1: text on the gradient canvas behind landing cards, backlog 21.11' },
+      { title: 'Status & Feedback/Meter', kind: 'nontext', themes: ['light'], fg: '#efb300', why: 'accepted deviation (Мария, 2026-10-26): light keeps the yellow warning fill, 1.64:1 against the track' },
+      { title: 'Text Input/PasswordStrengthMeter', kind: 'nontext', themes: ['light'], fg: '#efb300', why: 'accepted deviation (Мария, 2026-10-26): the Meter decision, yellow "good" fill in light' },
+    ],
+  },
   // The code reader (a11y-kit code): every component's source and the global stylesheets.
   code: {
     targets(root) {
@@ -137,14 +149,10 @@ const config = {
         light: ['[data-brand="{brand}"]'],
         dark: ['[data-brand="{brand}"]', '[data-theme="dark"] [data-brand="{brand}"]'],
       },
-      // Known token-pair failures: { 'fg on bg': { brand: [themes] } }, warnings in CI, each one
-      // a design decision for Мария (2026-11-23). Remove an entry with its fix.
+      // Known token-pair failures: { 'fg on bg': { brand: [themes] } }, warnings in CI.
+      // Each names its owner; remove an entry with its fix.
       known: Object.fromEntries(
         [
-          // Field, checkbox and radio borders: 3.00:1 in Theya, 2.69–2.98:1 in every product theme's light variant.
-          ...['background', 'color-bg-surface-bg-surface-base'].map((bg) => [`color-border-border on ${bg}`, { iris: ['light'], lime: ['light'], ember: ['light'], dusk: ['light'], lagoon: ['light'], ochre: ['light'] }]),
-          // Lime light: the checked fill #9fe870 is 1.47:1 on white (the dark check mark carries the state).
-          ...['background', 'color-bg-surface-bg-surface-base'].map((bg) => [`color-bg-primary-bg-primary on ${bg}`, { lime: ['light'] }]),
         ],
       ),
       // a11y-kit tokens: the colour pairs every component inherits, in every theme and brand.
@@ -163,10 +171,9 @@ const config = {
         { what: 'field and control border (1.4.11)', fg: 'color-border-border', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
         { what: 'strong border (1.4.11)', fg: 'color-border-border-strong', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
         { what: 'invalid field border (1.4.11)', fg: 'color-border-border-danger', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
-        // Checkbox / Radio / Switch: the fill carries the checked state in light; in dark the
-        // checked box also gets the primary edge (checkbox.tsx), which is then what must show.
-        { what: 'checked control fill (1.4.11)', theme: 'light', fg: 'color-bg-primary-bg-primary', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
-        { what: 'checked control edge (1.4.11)', theme: 'dark', fg: 'color-border-border-primary', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
+        // Checkbox / Radio / Switch: the checked box and track carry a primary edge in every
+        // theme (2026-11-23); it matches the fill where the fill is strong, and shows where it is pale.
+        { what: 'checked control edge (1.4.11)', fg: 'color-border-border-primary', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
         ...['color-icon-icon', 'color-icon-icon-subtle', 'color-icon-icon-primary', 'color-icon-icon-danger'].map((fg) => ({ what: 'icon (1.4.11)', fg, bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 })),
       ],
     },

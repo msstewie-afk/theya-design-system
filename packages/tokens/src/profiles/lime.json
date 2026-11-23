@@ -14,6 +14,7 @@
   },
   "light": {
     "tokens": {
+      "border-border": "#929591",
       "bg-surface-bg-surface-base": "#ffffff",
       "bg-surface-bg-surface": "#ffffff",
       "bg-neutral-bg-neutral-subtle": "#ecefec",
