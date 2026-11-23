@@ -23,7 +23,7 @@
  *   a11y-kit audit-post --queue <file> --answers <file> --out <records.json> [--repo o/n] [--run url] [--no-issues] [--dry-run]
  *                                      checks the auditor's answers, opens issues for broken/fail/unsure, writes records
  *   a11y-kit audit-apply <records.json>   writes the records into the hand-kept ones (config audit.apply)
- *   a11y-kit audit-sample [--n 10] [--seed s] [--by <name> [--wrong "C sc, …"]]   a sample of audit records to re-check; --by records the verdict (precision)
+ *   a11y-kit audit-sample [--n 10] [--seed s] [--pick "C sc, …"] [--by <name> [--wrong "C sc, …"]]   a sample of audit records to re-check; --by records the verdict (precision)
  *   The agents' methods: review/agent.md (change review), review/auditor.md (audit).
  *
  * Reads a11y-kit.config.mjs from the current directory (the design system's package):
@@ -395,7 +395,15 @@ async function audit(cmd, { config, cwd, at, opt, positional, DRY, NO_ISSUES }) 
     const n = await ac.apply(cwd, records);
     console.log(`a11y-kit audit-apply: ${n} record(s) written`);
   } else if (cmd === 'audit-sample') {
-    const list = sample(await ac.reviews(cwd), Number(opt('n') ?? 10), opt('seed') ?? today);
+    // --pick "Component sc, …": of the seeded sample, keep only these — the records a person can
+    // check by eye, keyboard or screen reader (the rest need the code). Precision counts only these.
+    const pick = (opt('pick') ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+    let list = sample(await ac.reviews(cwd), Number(opt('n') ?? 10), opt('seed') ?? today);
+    if (pick.length) {
+      list = list.filter((r) => pick.includes(`${r.component} ${r.sc}`));
+      const miss = pick.filter((p) => !list.some((r) => `${r.component} ${r.sc}` === p));
+      if (miss.length) throw new Error(`a11y-kit audit-sample: --pick ${miss.join(', ')} not in this sample`);
+    }
     const checksFile = at(ac.checksFile ?? 'a11y/audit-checks.json');
     if (opt('by')) {
       // A person's verdict on this sample: --by <name> [--wrong "Component sc, …"].
@@ -412,7 +420,7 @@ async function audit(cmd, { config, cwd, at, opt, positional, DRY, NO_ISSUES }) 
     }
     if (!opt('by')) {
       for (const r of list) console.log(`- ${r.component} ${r.sc}: ${r.result} — ${r.note}`);
-      console.log(`\n${list.length} audit record(s). Check each against the code, then: a11y-kit audit-sample --n ${list.length} --seed ${opt('seed') ?? today} --by <name> [--wrong "Component sc, …"]`);
+      console.log(`\n${list.length} audit record(s). Check each against the code, then: a11y-kit audit-sample --n ${opt('n') ?? 10} --seed ${opt('seed') ?? today}${pick.length ? ` --pick "${pick.join(', ')}"` : ''} --by <name> [--wrong "Component sc, …"]`);
     }
   } else throw new Error(`unknown command ${cmd}`);
 }
