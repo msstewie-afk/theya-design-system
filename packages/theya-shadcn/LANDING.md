@@ -4,7 +4,7 @@
 
 These are rules for agents and for people. Theya has the blocks; this page says which ones to pick. In a test on 21.11.2026, an agent laid out a PlateCovery hero component by component ("stages → Stepper", "plates on an arc → wheel carousel") and the result was flat and small. Starting from a ready composition fixed most of it, with the same blocks.
 
-Stories live under `Patterns: Landing/*` in the Storybook. Each block's own rules (when to use, when not, anatomy, a11y) are in `spec/components/<name>.json` and in `public/llms-full.txt`.
+Stories live under `Patterns: Landing/*` in the Storybook. The rules of each UI component (when to use, when not, anatomy, a11y) are in `spec/components/<name>.json` and in `public/llms-full.txt`. Landing blocks keep theirs in `src/components/blocks/landing/<name>.guidelines.tsx` in the Theya repo, shown on each block's Docs page in the Storybook.
 
 ## 1. Start from a composition, not from components
 
