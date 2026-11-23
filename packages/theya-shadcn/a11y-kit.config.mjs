@@ -44,7 +44,6 @@ const config = {
       { title: 'Design System/Gradient canvas', why: 'agent 1: text on the gradient canvas behind landing cards, backlog 21.11' },
       { title: 'Status & Feedback/Meter', kind: 'nontext', themes: ['light'], fg: '#efb300', why: 'accepted deviation (Мария, 2026-10-26): light keeps the yellow warning fill, 1.64:1 against the track' },
       { kind: 'text', brands: ['ochre'], themes: ['dark'], fg: '#f78dad', bg: '#712c35', why: 'agent 1: danger text on the danger tint, 4.45:1 (the token pair in review.tokens.known) — File, Attachment, Dropzone, BadgeIndicator' },
-      { title: 'Motion/Micro-interactions', kind: 'text', brands: ['iris'], themes: ['dark'], fg: '#90959e', why: 'Мария to decide: WheelPicker neighbours (text-subtle at 80% opacity) 4.47:1 in Iris dark' },
       { title: 'Text Input/PasswordStrengthMeter', kind: 'nontext', themes: ['light'], fg: '#efb300', why: 'accepted deviation (Мария, 2026-10-26): the Meter decision, yellow "good" fill in light' },
     ],
   },
