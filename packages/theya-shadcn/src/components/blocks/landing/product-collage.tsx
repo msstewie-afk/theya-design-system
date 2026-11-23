@@ -64,7 +64,13 @@ export function ProductCollage({ image, ratio = '4 / 3', className, style, child
         )}
         style={{ '--collage-ratio': ratio } as CSSProperties}
       >
-        {image && <img src={image.src} alt={image.alt} className="absolute inset-0 -z-10 size-full object-cover" />}
+        {/* Narrow: the photo is its own block on top and the stacked cards only
+            overlap its lower edge, so the stack never hides the person in it. */}
+        {image && (
+          <div className="relative -z-10 -mx-5 -mt-5 -mb-12 @lg:absolute @lg:inset-0 @lg:m-0">
+            <img src={image.src} alt={image.alt} className="aspect-[4/3] w-full object-cover @lg:aspect-auto @lg:size-full" />
+          </div>
+        )}
         {Children.toArray(children).map((child, i) => (
           <IndexContext.Provider key={i} value={i}>
             {child}

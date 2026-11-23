@@ -107,14 +107,14 @@ export const OnPhoto: Story = {
   render: (args) => (
     <div className="mx-auto max-w-5xl">
       <ProductCollage {...args} image={{ src: '/asset-examples/photos/hero-woman-laptop.webp', alt: '' }}>
-        {/* Placed off the faces: the shelves top left, the wall top right, the desk bottom left. */}
+        {/* Placed off the faces: the list on the shelves top left; the number and the switch grouped on the desk below. */}
         <CollageItem x={4} y={4} width={38} depth={0.3}>
           <ReadingCard />
         </CollageItem>
-        <CollageItem x={60} y={5} width={34} depth={0.8}>
+        <CollageItem x={43} y={71} width={30} depth={0.8}>
           <SavedCard />
         </CollageItem>
-        <CollageItem x={5} y={76} width={34} depth={1} hideNarrow>
+        <CollageItem x={8} y={79} width={33} depth={1} hideNarrow>
           <DigestCard />
         </CollageItem>
       </ProductCollage>
