@@ -241,6 +241,9 @@ async function checkStory(page, story) {
     // Focus already taken back by a keyboard trap elsewhere: nothing to compare.
     if (!(await page.evaluate(() => document.activeElement === window.__theyaFc))) continue;
     const focused = await page.screenshot({ clip: info.clip, animations: 'disabled' });
+    // The story moved focus away while the shot was taken (an async save that fails puts focus
+    // back in its field, InlineEdit "Save Fails"): the "focused" shot isn't focused, skip it.
+    if (!(await page.evaluate(() => document.activeElement === window.__theyaFc))) continue;
     await page.evaluate(() => window.__theyaFc.blur());
     await page.waitForTimeout(60);
     const blurred = await page.screenshot({ clip: info.clip, animations: 'disabled' });
