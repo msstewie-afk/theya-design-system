@@ -7,6 +7,18 @@
   - tab "Security"
 - tabpanel "Overview": Views and downloads for the last 30 days.
 
+# Chips fill (navigation-tabs--chips-fill)
+- tablist "Report period, phone card":
+  - tab "Weekly" [selected]
+  - tab "Quarterly"
+  - tab "Last 12 months"
+- tabpanel "Weekly": Weekly totals.
+- tablist "Report period, wide card":
+  - tab "Weekly" [selected]
+  - tab "Quarterly"
+  - tab "Last 12 months"
+- tabpanel "Weekly": Weekly totals.
+
 # Chips overflow (navigation-tabs--chips-overflow)
 - tablist "Recipe categories":
   - tab "Breakfast" [selected]

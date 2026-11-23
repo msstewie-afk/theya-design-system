@@ -31,7 +31,7 @@
   "anatomy": [
     {
       "part": "List",
-      "description": "underline (default) or `variant=\"chips\"` — segmented, for a compact switch of views in a card or toolbar; scrolls when it doesn’t fit, and the scroll button fades from the track’s colour: set `--tabs-track-bg` (an opaque colour, so the fade can hide the chips under it) on `Tabs` or an ancestor to recolour both. The active chip scrolls into view on mount and whenever the value changes. The marker glides to the active tab."
+      "description": "underline (default) or `variant=\"chips\"` — segmented, for a compact switch of views in a card or toolbar; scrolls when it doesn’t fit, and the scroll button fades from the track’s colour: set `--tabs-track-bg` (an opaque colour, so the fade can hide the chips under it) on `Tabs` or an ancestor to recolour both. The active chip scrolls into view on mount and whenever the value changes. The marker glides to the active tab. `fill` stretches the track over its container and shares it equally between the chips (sides drop to 8px when tight): on a phone, up to three chips of about ten characters fit a card without scrolling — keep other controls, such as a pause button, on their own row."
     },
     {
       "part": "Focus ring",
@@ -72,6 +72,13 @@
     {
       "name": "TabsList",
       "props": [
+        {
+          "name": "fill",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Chips only: the track takes the full width of its container and the tabs share it\nequally, each centred. When the row is tight a tab's side padding drops to 8px\nbefore the list starts to scroll, so three short labels fit a 360px phone card."
+        },
         {
           "name": "variant",
           "type": "\"underline\" | \"chips\"",
@@ -152,6 +159,10 @@
       {
         "name": "Chips",
         "id": "navigation-tabs--chips"
+      },
+      {
+        "name": "ChipsFill",
+        "id": "navigation-tabs--chips-fill"
       },
       {
         "name": "TestInteractions",

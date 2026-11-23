@@ -28,13 +28,20 @@ export interface TabsListProps extends React.ComponentProps<typeof TabsPrimitive
    * springs to the tab under the mouse (Kinetics' Snap Rail, MIT).
    */
   variant?: 'underline' | 'chips';
+  /**
+   * Chips only: the track takes the full width of its container and the tabs share it
+   * equally, each centred. When the row is tight a tab's side padding drops to 8px
+   * before the list starts to scroll, so three short labels fit a 360px phone card.
+   */
+  fill?: boolean;
 }
 
-export function TabsList({ className, children, variant = 'underline', onPointerOver, onPointerLeave, ...props }: TabsListProps) {
+export function TabsList({ className, children, variant = 'underline', fill = false, onPointerOver, onPointerLeave, ...props }: TabsListProps) {
   const listRef = useRef<HTMLDivElement>(null);
   const [bar, setBar] = useState<{ left: number; width: number } | null>(null);
   const [hovered, setHovered] = useState<HTMLElement | null>(null);
   const chips = variant === 'chips';
+  const filled = chips && fill;
   const measureRef = useRef<() => void>(() => {});
   // Which ends have hidden tabs: start / end in reading direction.
   const [more, setMore] = useState({ start: false, end: false });
@@ -130,11 +137,12 @@ export function TabsList({ className, children, variant = 'underline', onPointer
   useLayoutEffect(() => measureRef.current(), [hovered]);
 
   return (
-    <div data-slot="tabs-list-frame" className={cn('relative flex min-w-0 max-w-full', chips && 'w-fit')}>
+    <div data-slot="tabs-list-frame" className={cn('relative flex min-w-0 max-w-full', chips && (filled ? 'w-full' : 'w-fit'))}>
     <TabsPrimitive.List
       ref={listRef}
       data-glide={bar ? '' : undefined}
       data-variant={variant}
+      data-fill={filled ? '' : undefined}
       onPointerOver={(event) => {
         onPointerOver?.(event);
         if (!chips || event.pointerType !== 'mouse') return;
@@ -149,7 +157,7 @@ export function TabsList({ className, children, variant = 'underline', onPointer
         'relative flex overflow-x-auto overflow-y-hidden',
         '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
         chips
-          ? 'w-fit max-w-full rounded-full bg-[var(--tabs-track-bg,var(--color-bg-surface-bg-surface-sunken))] shadow-track p-1'
+          ? cn(filled ? 'w-full' : 'w-fit', 'max-w-full rounded-full bg-[var(--tabs-track-bg,var(--color-bg-surface-bg-surface-sunken))] shadow-track p-1')
           : 'gap-0.5 border-b border-solid border-[var(--color-border-border-subtler)]',
         className,
       )}
@@ -297,6 +305,9 @@ export function TabsTrigger({ className, icon, onClose, closeLabel, children, on
           '[[data-glide]>&]:data-[state=active]:border-transparent',
           // Chips variant: a pill-shaped tab above the list's gliding pill (drawn before the tabs).
           '[[data-variant=chips]>&]:relative [[data-variant=chips]>&]:mb-0 [[data-variant=chips]>&]:rounded-full [[data-variant=chips]>&]:border-b-0 [[data-variant=chips]>&]:px-3 [[data-variant=chips]>&]:py-1.5',
+          // fill: equal shares of the track, centred, never wrapping; 8px sides instead of 12
+          // (more specific than the chips padding above, so it wins whatever the CSS order).
+          '[[data-variant=chips][data-fill]>&]:flex-[1_0_0%] [[data-variant=chips][data-fill]>&]:justify-center [[data-variant=chips][data-fill]>&]:whitespace-nowrap [[data-variant=chips][data-fill]>&]:px-2',
           '[[data-variant=chips]>&]:data-[state=inactive]:hover:bg-transparent [[data-variant=chips]>&]:data-[state=active]:text-[var(--color-text-text)]',
           // On a track lying on a data-surface="page", muted chips take the darker text (T14, contrast).
           '[[data-variant=chips]>&]:data-[state=inactive]:not-hover:text-[var(--theya-text-on-sunken,var(--color-text-text-subtler))]',

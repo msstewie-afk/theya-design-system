@@ -9635,13 +9635,14 @@ Docs: ./?path=/docs/navigation-tabs--docs
 
 **Anatomy**
 
-- List: underline (default) or `variant="chips"` — segmented, for a compact switch of views in a card or toolbar; scrolls when it doesn’t fit, and the scroll button fades from the track’s colour: set `--tabs-track-bg` (an opaque colour, so the fade can hide the chips under it) on `Tabs` or an ancestor to recolour both. The active chip scrolls into view on mount and whenever the value changes. The marker glides to the active tab.
+- List: underline (default) or `variant="chips"` — segmented, for a compact switch of views in a card or toolbar; scrolls when it doesn’t fit, and the scroll button fades from the track’s colour: set `--tabs-track-bg` (an opaque colour, so the fade can hide the chips under it) on `Tabs` or an ancestor to recolour both. The active chip scrolls into view on mount and whenever the value changes. The marker glides to the active tab. `fill` stretches the track over its container and shares it equally between the chips (sides drop to 8px when tight): on a phone, up to three chips of about ten characters fit a card without scrolling — keep other controls, such as a pause button, on their own row.
 - Focus ring: keyboard only: after a click or tap the focused tab shows no ring (Theya tracks the input modality on <html>, data-theya-input).
 - Trigger: label, optional `icon`, badge; `onClose` for closable tabs.
 - Panel: `TabsContent` for each value.
 
 **TabsList props**
 
+- `fill?`: `boolean`, default `false` — Chips only: the track takes the full width of its container and the tabs share it
 - `variant?`: `"underline" | "chips"`, default `underline` — `underline` (default): tabs over a hairline, the active one underlined.
 
 **TabsTrigger props**
