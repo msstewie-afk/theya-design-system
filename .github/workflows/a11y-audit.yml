@@ -37,6 +37,7 @@ jobs:
     timeout-minutes: 5
     permissions:
       contents: read
+      issues: read
     outputs:
       batches: ${{ steps.queue.outputs.batches }}
     steps:
@@ -49,8 +50,11 @@ jobs:
         env:
           ONLY: ${{ inputs.only }}
           TAKE: ${{ inputs.batches }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          node ../a11y-kit/bin/a11y-kit.mjs audit-queue --out "$RUNNER_TEMP/queue.json" --batch 25 --batch-dir "$RUNNER_TEMP/batches" ${ONLY:+--only "$ONLY"}
+          # Items already waiting on a person (open a11y-audit issues) are not asked again.
+          gh api "repos/${{ github.repository }}/issues?labels=a11y-audit&state=open&per_page=100" --paginate --jq '.[].body' | grep -o 'a11y-audit:[0-9a-f]\{12\}' | cut -d: -f2 > "$RUNNER_TEMP/skip.txt" || true
+          node ../a11y-kit/bin/a11y-kit.mjs audit-queue --out "$RUNNER_TEMP/queue.json" --batch 25 --batch-dir "$RUNNER_TEMP/batches" --skip "$RUNNER_TEMP/skip.txt" ${ONLY:+--only "$ONLY"}
           ALL=$(ls "$RUNNER_TEMP/batches" | sed 's/batch-//; s/.json//' | head -n "${TAKE:-4}")
           echo "batches=$(printf '%s\n' $ALL | node -e "console.log(JSON.stringify(require('fs').readFileSync(0,'utf8').split('\n').filter(Boolean)))")" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v4
