@@ -340,6 +340,30 @@
     {
       "brand": "theya",
       "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 9.19,
+      "fgValue": "#393a5d",
+      "bgValue": "#dfeeff",
+      "pass": true
+    },
+    {
+      "brand": "theya",
+      "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 4.95,
+      "fgValue": "#5f6190",
+      "bgValue": "#dfeeff",
+      "pass": true
+    },
+    {
+      "brand": "theya",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -863,6 +887,30 @@
       "ratio": 5.2,
       "fgValue": "#ffffff",
       "bgValue": "#0068de",
+      "pass": true
+    },
+    {
+      "brand": "theya",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 6.45,
+      "fgValue": "#d8daf4",
+      "bgValue": "#2d497c",
+      "pass": true
+    },
+    {
+      "brand": "theya",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 4.55,
+      "fgValue": "#b4b6e4",
+      "bgValue": "#2d497c",
       "pass": true
     },
     {
@@ -1396,6 +1444,30 @@
     {
       "brand": "iris",
       "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 9.02,
+      "fgValue": "#3b3e44",
+      "bgValue": "#ece9ff",
+      "pass": true
+    },
+    {
+      "brand": "iris",
+      "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 4.85,
+      "fgValue": "#62666e",
+      "bgValue": "#ece9ff",
+      "pass": true
+    },
+    {
+      "brand": "iris",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -1919,6 +1991,30 @@
       "ratio": 5.95,
       "fgValue": "#ffffff",
       "bgValue": "#743de4",
+      "pass": true
+    },
+    {
+      "brand": "iris",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 5.4,
+      "fgValue": "#a9aeb8",
+      "bgValue": "#36305e",
+      "pass": true
+    },
+    {
+      "brand": "iris",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 6.24,
+      "fgValue": "#b7bbc2",
+      "bgValue": "#36305e",
       "pass": true
     },
     {
@@ -2452,6 +2548,30 @@
     {
       "brand": "lime",
       "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 7.99,
+      "fgValue": "#454745",
+      "bgValue": "#e6f0e0",
+      "pass": true
+    },
+    {
+      "brand": "lime",
+      "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 4.89,
+      "fgValue": "#646763",
+      "bgValue": "#e6f0e0",
+      "pass": true
+    },
+    {
+      "brand": "lime",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -2975,6 +3095,30 @@
       "ratio": 9.45,
       "fgValue": "#163300",
       "bgValue": "#9fe870",
+      "pass": true
+    },
+    {
+      "brand": "lime",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 8.39,
+      "fgValue": "#c6c8c5",
+      "bgValue": "#292c29",
+      "pass": true
+    },
+    {
+      "brand": "lime",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 6.38,
+      "fgValue": "#acafac",
+      "bgValue": "#292c29",
       "pass": true
     },
     {
@@ -3508,6 +3652,30 @@
     {
       "brand": "ember",
       "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 9.1,
+      "fgValue": "#423d39",
+      "bgValue": "#fbe9df",
+      "pass": true
+    },
+    {
+      "brand": "ember",
+      "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 4.88,
+      "fgValue": "#6b6560",
+      "bgValue": "#fbe9df",
+      "pass": true
+    },
+    {
+      "brand": "ember",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -4031,6 +4199,30 @@
       "ratio": 5.18,
       "fgValue": "#ffffff",
       "bgValue": "#c2410c",
+      "pass": true
+    },
+    {
+      "brand": "ember",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 8.61,
+      "fgValue": "#dfdbd9",
+      "bgValue": "#532e21",
+      "pass": true
+    },
+    {
+      "brand": "ember",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 6.12,
+      "fgValue": "#c0b9b5",
+      "bgValue": "#532e21",
       "pass": true
     },
     {
@@ -4564,6 +4756,30 @@
     {
       "brand": "dusk",
       "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 7.95,
+      "fgValue": "#403c48",
+      "bgValue": "#dddde6",
+      "pass": true
+    },
+    {
+      "brand": "dusk",
+      "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 4.3,
+      "fgValue": "#686373",
+      "bgValue": "#dddde6",
+      "pass": false
+    },
+    {
+      "brand": "dusk",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -5087,6 +5303,30 @@
       "ratio": 5.47,
       "fgValue": "#ffffff",
       "bgValue": "#64668f",
+      "pass": true
+    },
+    {
+      "brand": "dusk",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 6.4,
+      "fgValue": "#dddbe4",
+      "bgValue": "#4a495c",
+      "pass": true
+    },
+    {
+      "brand": "dusk",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 4.53,
+      "fgValue": "#bdb8c8",
+      "bgValue": "#4a495c",
       "pass": true
     },
     {
@@ -5620,6 +5860,30 @@
     {
       "brand": "lagoon",
       "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 7.67,
+      "fgValue": "#34413e",
+      "bgValue": "#cededd",
+      "pass": true
+    },
+    {
+      "brand": "lagoon",
+      "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 4.06,
+      "fgValue": "#596b67",
+      "bgValue": "#cededd",
+      "pass": false
+    },
+    {
+      "brand": "lagoon",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -6144,6 +6408,30 @@
       "fgValue": "#ffffff",
       "bgValue": "#1f6b63",
       "pass": true
+    },
+    {
+      "brand": "lagoon",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 6.27,
+      "fgValue": "#d5dfdc",
+      "bgValue": "#37524d",
+      "pass": true
+    },
+    {
+      "brand": "lagoon",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 4.46,
+      "fgValue": "#aebfbb",
+      "bgValue": "#37524d",
+      "pass": false
     },
     {
       "brand": "lagoon",
@@ -6676,6 +6964,30 @@
     {
       "brand": "ochre",
       "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 7.73,
+      "fgValue": "#443c36",
+      "bgValue": "#e9d7cb",
+      "pass": true
+    },
+    {
+      "brand": "ochre",
+      "theme": "light",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 4.12,
+      "fgValue": "#6f645c",
+      "bgValue": "#e9d7cb",
+      "pass": false
+    },
+    {
+      "brand": "ochre",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -7199,6 +7511,30 @@
       "ratio": 6.25,
       "fgValue": "#ffffff",
       "bgValue": "#9a4a12",
+      "pass": true
+    },
+    {
+      "brand": "ochre",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtle",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 6.46,
+      "fgValue": "#e1dbd7",
+      "bgValue": "#604434",
+      "pass": true
+    },
+    {
+      "brand": "ochre",
+      "theme": "dark",
+      "what": "secondary text on a selected fill (1.4.3)",
+      "fg": "color-text-text-subtler",
+      "bg": "color-bg-primary-bg-primary-subtle",
+      "need": 4.5,
+      "ratio": 4.55,
+      "fgValue": "#c3b8b0",
+      "bgValue": "#604434",
       "pass": true
     },
     {
