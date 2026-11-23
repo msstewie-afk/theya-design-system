@@ -9,9 +9,6 @@
  * - left-1/2 / right-1/2 (and 50% forms): centering is symmetric;
  * - drawer.tsx: vaul positions and animates by physical side; Drawer maps
  *   direction="start" | "end" to it using the reading direction.
- * - arc-stage.tsx: the arc's corner (mirror) and its rotation are both physical,
- *   so logical start/end would flip one without the other. Temporary: agent 1
- *   decides whether mirror follows the reading direction (2026-11-23).
  *
  *   node scripts/check-rtl.mjs        list physical utilities (exit 1)
  *   node scripts/check-rtl.mjs --fix  rewrite them to the logical form
@@ -28,7 +25,7 @@ const ts = require('typescript');
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const FIX = process.argv.includes('--fix');
-const ALLOW_FILES = new Set(['drawer.tsx', 'arc-stage.tsx']);
+const ALLOW_FILES = new Set(['drawer.tsx']);
 const PHYS = /^(-?)(?:(rounded-(?:tl|tr|bl|br|l|r)|border-(?:l|r)|text-left|text-right|float-left)(?=-|$|\[)|(scroll-m[lr]|scroll-p[lr]|ml|mr|pl|pr|left|right)(?=-[0-9a-z[]|-px\b))(.*)$/;
 const MAP = { ml: 'ms', mr: 'me', pl: 'ps', pr: 'pe', left: 'start', right: 'end', 'rounded-tl': 'rounded-ss', 'rounded-tr': 'rounded-se', 'rounded-bl': 'rounded-es', 'rounded-br': 'rounded-ee', 'rounded-l': 'rounded-s', 'rounded-r': 'rounded-e', 'border-l': 'border-s', 'border-r': 'border-e', 'text-left': 'text-start', 'text-right': 'text-end', 'float-left': 'float-start', 'scroll-ml': 'scroll-ms', 'scroll-mr': 'scroll-me', 'scroll-pl': 'scroll-ps', 'scroll-pr': 'scroll-pe' };
 
