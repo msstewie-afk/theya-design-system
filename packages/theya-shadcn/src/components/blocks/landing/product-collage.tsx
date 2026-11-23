@@ -51,6 +51,15 @@ export function ProductCollage({ image, ratio = '4 / 3', className, style, child
         data-canvas-blooms={image ? undefined : ''}
         className={cn(
           'group/collage relative isolate flex flex-col gap-4 overflow-hidden rounded-[var(--size-border-radius-border-radius-5xl)] p-5',
+          // On a photo the cards are the same frosted sheets as on the gradient
+          // canvas (Maria, 23.11): no border, the largest radius, 90% surface
+          // over a blur, a soft shadow (neutral: a photo has no single ground colour).
+          image &&
+            cn(
+              '[&_[data-slot=card]]:border-transparent [&_[data-slot=card]]:rounded-[var(--size-border-radius-border-radius-5xl)]',
+              '[&_[data-slot=card]]:bg-[color-mix(in_srgb,var(--color-bg-surface-bg-surface)_90%,transparent)] [&_[data-slot=card]]:backdrop-blur-xl',
+              '[&_[data-slot=card]]:shadow-elevation-xl',
+            ),
           '@lg:block @lg:aspect-[var(--collage-ratio)] @lg:p-0',
         )}
         style={{ '--collage-ratio': ratio } as CSSProperties}

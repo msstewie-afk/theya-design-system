@@ -102,12 +102,21 @@ export const OnGradient: Story = {
   ),
 };
 
-/** A photo as the ground (alt "" when it is mood only). Photos for the SaaS templates come later. */
+/** A photo as the ground (alt "" when it is mood only): the cards turn frosted, as on the gradient. */
 export const OnPhoto: Story = {
   render: (args) => (
     <div className="mx-auto max-w-5xl">
-      <ProductCollage {...args} image={{ src: '/asset-examples/silk/1.webp', alt: '' }}>
-        {items}
+      <ProductCollage {...args} image={{ src: '/asset-examples/photos/hero-woman-laptop.webp', alt: '' }}>
+        {/* Placed off the faces: the shelves top left, the wall top right, the desk bottom left. */}
+        <CollageItem x={4} y={4} width={38} depth={0.3}>
+          <ReadingCard />
+        </CollageItem>
+        <CollageItem x={60} y={5} width={34} depth={0.8}>
+          <SavedCard />
+        </CollageItem>
+        <CollageItem x={5} y={76} width={34} depth={1} hideNarrow>
+          <DigestCard />
+        </CollageItem>
       </ProductCollage>
     </div>
   ),
