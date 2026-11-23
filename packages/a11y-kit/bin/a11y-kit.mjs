@@ -7,8 +7,9 @@
  *   a11y-kit calibrate-axe [rule…]     one known violation per axe rule, run the way CI runs axe → axeCalibrationOut
  *   a11y-kit tree|auto|states|forced --url <storybook> [--only <title>] [--ci] [--shard i/n] [--fixtures] [--group title]
  *                                      the engine checks against a built Storybook (see each file in src/engine)
- *   a11y-kit contrast <fg> <bg> [--base <surface>] [--theme light|dark|all]
+ *   a11y-kit contrast <fg> <bg> [--base <surface>] [--theme light|dark|all] [--brand <b,…>|all]
  *                                      WCAG contrast of two colours or tokens, from the design system's CSS (review.tokens)
+ *   a11y-kit tokens [--ci]                               every configured token pair (review.tokens.pairs) in every theme and brand → tokensOut
  *   a11y-kit review-diff <from> <to> --out <file>        the change under review, limited to review.paths
  *   a11y-kit review-context --out <file>                 what the review agent is given besides the diff
  *   a11y-kit review-post --findings <file> --change <label> (--sha <sha> | --pr <n>) [--repo owner/name] [--run <url>] [--always] [--no-issues] [--dry-run]
@@ -22,7 +23,7 @@
  *   a11y-kit audit-post --queue <file> --answers <file> --out <records.json> [--repo o/n] [--run url] [--no-issues] [--dry-run]
  *                                      checks the auditor's answers, opens issues for broken/fail/unsure, writes records
  *   a11y-kit audit-apply <records.json>   writes the records into the hand-kept ones (config audit.apply)
- *   a11y-kit audit-sample [--n 10] [--seed s]   audit records for a person to re-check (the auditor's precision)
+ *   a11y-kit audit-sample [--n 10] [--seed s] [--by <name> [--wrong "C sc, …"]]   a sample of audit records to re-check; --by records the verdict (precision)
  *   The agents' methods: review/agent.md (change review), review/auditor.md (audit).
  *
  * Reads a11y-kit.config.mjs from the current directory (the design system's package):
@@ -91,7 +92,7 @@ async function main() {
 
   // The review commands run in CI without installing dependencies: they read the committed registry.
   if (cmd?.startsWith('audit')) return audit(cmd, { config, cwd, at, opt, positional, DRY: args.includes('--dry-run'), NO_ISSUES: args.includes('--no-issues') });
-  if (cmd?.startsWith('review') || cmd === 'contrast') return review(cmd, { config, cwd, at, opt, positional, DRY: args.includes('--dry-run'), ALWAYS: args.includes('--always'), NO_ISSUES: args.includes('--no-issues') });
+  if (cmd?.startsWith('review') || cmd === 'contrast' || cmd === 'tokens') return review(cmd, { config, cwd, at, opt, positional, DRY: args.includes('--dry-run'), ALWAYS: args.includes('--always'), NO_ISSUES: args.includes('--no-issues') });
 
   const reg = buildRegistry({ from: cwd, calibrationStories: (config.calibrationStories ?? []).map(at), axeCalibration });
 
@@ -157,17 +158,59 @@ async function review(cmd, { config, cwd, at, opt, positional, DRY, ALWAYS, NO_I
 
   if (cmd === 'contrast') {
     const [fg, bg] = positional;
-    if (!fg || !bg || !rc.tokens) throw new Error('a11y-kit contrast <fg> <bg> [--base <surface>] [--theme light|dark|all] (needs review.tokens in a11y-kit.config.mjs)');
+    if (!fg || !bg || !rc.tokens) throw new Error('a11y-kit contrast <fg> <bg> [--base <surface>] [--theme light|dark|all] [--brand <b>|all] (needs review.tokens in a11y-kit.config.mjs)');
     const themes = (opt('theme') ?? 'all') === 'all' ? ['light', 'dark'] : [opt('theme')];
-    for (const theme of themes) {
-      const vars = readCustomProperties(rc.tokens.files.map(at), rc.tokens[theme]);
-      try {
-        const r = contrast({ fg, bg, base: opt('base') ?? rc.tokens.page, vars });
-        console.log(`${theme}: ${r.ratio.toFixed(2)}:1 — ${fg} = ${r.fg.value} (shown ${r.fg.shown}) on ${bg} = ${r.bg.value} (shown ${r.bg.shown}, over ${r.base})`);
-      } catch (e) {
-        console.log(`${theme}: unresolved — ${e.message}. Measure it rendered instead.`);
-        process.exitCode = 2;
+    // Brands (product profiles): review.tokens.brands { list, light, dark } with {brand} in the selectors.
+    const tb = rc.tokens.brands;
+    const want = opt('brand');
+    const brands = !want ? [null] : want === 'all' ? [null, ...(tb?.list ?? [])] : want.split(',');
+    if (want && !tb) throw new Error('--brand needs review.tokens.brands in a11y-kit.config.mjs');
+    for (const b of brands) {
+      if (b && !tb.list.includes(b)) throw new Error(`unknown brand ${b} (${tb.list.join(', ')})`);
+      for (const theme of themes) {
+        const selectors = [...rc.tokens[theme], ...(b ? tb[theme].map((s) => s.replaceAll('{brand}', b)) : [])];
+        const vars = readCustomProperties(rc.tokens.files.map(at), selectors);
+        const label = `${b ?? rc.tokens.name ?? 'default'} ${theme}`;
+        try {
+          const r = contrast({ fg, bg, base: opt('base') ?? rc.tokens.page, vars });
+          console.log(`${label}: ${r.ratio.toFixed(2)}:1 — ${fg} = ${r.fg.value} (shown ${r.fg.shown}) on ${bg} = ${r.bg.value} (shown ${r.bg.shown}, over ${r.base})`);
+        } catch (e) {
+          console.log(`${label}: unresolved — ${e.message}. Measure it rendered instead.`);
+          process.exitCode = 2;
+        }
       }
+    }
+  } else if (cmd === 'tokens') {
+    // Token pairs × themes × brands, deterministic: the contrast every component inherits.
+    const tk = rc.tokens;
+    if (!tk?.pairs?.length) throw new Error('a11y-kit tokens: set review.tokens.pairs in a11y-kit.config.mjs');
+    const CI = process.argv.includes('--ci');
+    const variants = [null, ...(tk.brands?.list ?? [])].flatMap((b) => ['light', 'dark'].map((theme) => ({ b, theme })));
+    const rows = [];
+    for (const { b, theme } of variants) {
+      const vars = readCustomProperties(tk.files.map(at), [...tk[theme], ...(b ? tk.brands[theme].map((s) => s.replaceAll('{brand}', b)) : [])]);
+      for (const pair of tk.pairs.filter((x) => !x.theme || x.theme === theme))
+        for (const bg of [].concat(pair.bg)) {
+          const brand = b ?? tk.name ?? 'default';
+          try {
+            const r = contrast({ fg: pair.fg, bg, base: pair.base ?? tk.page, vars });
+            rows.push({ brand, theme, what: pair.what, fg: pair.fg, bg, need: pair.need, ratio: Math.round(r.ratio * 100) / 100, fgValue: r.fg.shown, bgValue: r.bg.shown, pass: r.ratio >= pair.need });
+          } catch (e) {
+            rows.push({ brand, theme, what: pair.what, fg: pair.fg, bg, need: pair.need, error: e.message, pass: false });
+          }
+        }
+    }
+    const known = (r) => tk.known?.[`${r.fg} on ${r.bg}`]?.[r.brand]?.includes(r.theme);
+    const fails = rows.filter((r) => !r.pass);
+    const open = fails.filter((r) => !known(r));
+    for (const r of fails) console.log(`${known(r) ? 'known ' : 'FAIL  '} ${r.brand} ${r.theme}: ${r.what} — ${r.fg} on ${r.bg} ${r.error ?? `${r.ratio.toFixed(2)}:1 < ${r.need}:1 (${r.fgValue} on ${r.bgValue})`}`);
+    console.log(`a11y-kit tokens: ${rows.length} pairs in ${variants.length} theme variants — ${rows.length - fails.length} pass, ${fails.length - open.length} known, ${open.length} failing`);
+    if (CI) {
+      for (const r of open) console.log(`::error title=a11y-kit tokens::${r.brand} ${r.theme}: ${r.what} ${r.fg} on ${r.bg} ${r.ratio?.toFixed(2) ?? r.error}:1 < ${r.need}:1`);
+      if (open.length) process.exitCode = 1;
+    } else if (tk.out) {
+      fs.writeFileSync(at(tk.out), JSON.stringify({ $comment: 'Generated by a11y-kit tokens. Do not edit.', rows }, null, 2) + '\n');
+      console.log(`→ ${tk.out}`);
     }
   } else if (cmd === 'review-diff') {
     const [from, to] = positional;
@@ -179,7 +222,7 @@ async function review(cmd, { config, cwd, at, opt, positional, DRY, ALWAYS, NO_I
     if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `files=${files}\n`);
   } else if (cmd === 'review-context') {
     const bin = path.relative(top, fileURLToPath(import.meta.url));
-    const tokens = rc.tokens && { files: rc.tokens.files.map(fromTop), page: rc.tokens.page, command: `node ${bin} contrast <fg> <bg> [--base <surface>] [--theme light|dark|all] --cwd ${fromTop('.')}` };
+    const tokens = rc.tokens && { files: rc.tokens.files.map(fromTop), page: rc.tokens.page, command: `node ${bin} contrast <fg> <bg> [--base <surface>] [--theme light|dark|all]${rc.tokens.brands ? ' [--brand all]' : ''} --cwd ${fromTop('.')}`, brands: rc.tokens.brands?.list };
     write(opt('out'), renderContext({ reg: registry(), notes: rc.notes?.(cwd) ?? '', read: (rc.read ?? []).map(fromTop), tokens }));
     console.log(`review context → ${opt('out')}`);
   } else if (cmd === 'review-post') {
@@ -346,7 +389,23 @@ async function audit(cmd, { config, cwd, at, opt, positional, DRY, NO_ISSUES }) 
     console.log(`a11y-kit audit-apply: ${n} record(s) written`);
   } else if (cmd === 'audit-sample') {
     const list = sample(await ac.reviews(cwd), Number(opt('n') ?? 10), opt('seed') ?? today);
-    for (const r of list) console.log(`- ${r.component} ${r.sc}: ${r.result} — ${r.note}`);
-    console.log(`\n${list.length} audit record(s). Check each against the code; tell agent 3 which are wrong.`);
+    const checksFile = at(ac.checksFile ?? 'a11y/audit-checks.json');
+    if (opt('by')) {
+      // A person's verdict on this sample: --by <name> [--wrong "Component sc, …"].
+      const wrong = (opt('wrong') ?? '').split(',').map((s) => s.trim()).filter(Boolean);
+      const log = fs.existsSync(checksFile) ? JSON.parse(fs.readFileSync(checksFile, 'utf8')) : { $comment: 'Samples of audit records a person re-checked (a11y-kit audit-sample --by). The auditor\'s precision.', samples: [] };
+      log.samples.push({ date: today, seed: opt('seed') ?? today, by: opt('by'), checked: list.map((r) => `${r.component} ${r.sc}`), wrong });
+      fs.writeFileSync(checksFile, JSON.stringify(log, null, 2) + '\n');
+    }
+    if (fs.existsSync(checksFile)) {
+      const all = JSON.parse(fs.readFileSync(checksFile, 'utf8')).samples;
+      const n = all.reduce((s, x) => s + x.checked.length, 0);
+      const bad = all.reduce((s, x) => s + x.wrong.length, 0);
+      if (opt('by')) console.log(`recorded. Auditor precision: ${n - bad} of ${n} re-checked records right (${Math.round((100 * (n - bad)) / n)}%), ${all.length} sample(s).`);
+    }
+    if (!opt('by')) {
+      for (const r of list) console.log(`- ${r.component} ${r.sc}: ${r.result} — ${r.note}`);
+      console.log(`\n${list.length} audit record(s). Check each against the code, then: a11y-kit audit-sample --n ${list.length} --seed ${opt('seed') ?? today} --by <name> [--wrong "Component sc, …"]`);
+    }
   } else throw new Error(`unknown command ${cmd}`);
 }

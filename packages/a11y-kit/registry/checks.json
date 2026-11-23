@@ -590,6 +590,19 @@
         "code:2.3.1-fail.css",
         "code:2.3.1-pass.css"
       ]
+    },
+    {
+      "id": "tokens.pairs",
+      "tool": "a11y-kit tokens",
+      "stage": "code",
+      "sc": [
+        "1.4.3",
+        "1.4.11"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "Every configured token pair (text on surfaces, field and control borders, checked fills, icons) in every theme and product theme, from the design system's CSS: what each component inherits, before any story renders.",
+      "calibration": []
     }
   ]
 }

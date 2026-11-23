@@ -106,6 +106,12 @@ jobs:
           node scripts/a11y-code.mjs --fixtures
           node scripts/a11y-code.mjs --ci
 
+      # The colour pairs every component inherits, in every theme and product theme
+      # (a11y-kit tokens; config review.tokens.pairs). Known pairs warn.
+      - name: Token contrast in every theme (1.4.3, 1.4.11)
+        working-directory: packages/theya-shadcn
+        run: node ../a11y-kit/bin/a11y-kit.mjs tokens --ci
+
       - name: Package builds for outside apps (dist imports in Node, 'use client' kept)
         working-directory: packages/theya-shadcn
         run: node scripts/check-package.mjs
@@ -376,8 +382,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        brand: [iris, lime, ember]
+        brand: [iris, lime, ember, dusk, lagoon, ochre]
     name: brand (${{ matrix.brand }})
+    # The gradient themes (dusk, lagoon, ochre) joined on 2026-11-23: report only until
+    # their first findings are triaged, then this goes.
+    continue-on-error: ${{ contains(fromJSON('["dusk", "lagoon", "ochre"]'), matrix.brand) }}
     env:
       THEYA_BRAND: ${{ matrix.brand }}
     defaults:
@@ -530,6 +539,13 @@ jobs:
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         run: node scripts/a11y-auto.mjs --url http://localhost:6008 --workers 2 --ci --shard ${{ matrix.shard }}/4
 
+      # The same in the dark theme (focus visible and text spacing depend on colour).
+      # Report only since 2026-11-23, until its first findings are triaged.
+      - name: Browser checks, dark theme
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        continue-on-error: true
+        run: node scripts/a11y-auto.mjs --url http://localhost:6008 --workers 2 --ci --shard ${{ matrix.shard }}/4 --theme dark
+
       - name: ARIA states and keyboard model (popups opened, typed into, closed; APG keys)
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         run: node scripts/a11y-states.mjs --url http://localhost:6008 --workers 2 --ci --shard ${{ matrix.shard }}/4
@@ -537,6 +553,54 @@ jobs:
       - name: Forced colors (controls keep an edge, focus shows, icons and checked states survive)
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
         run: node scripts/a11y-forced.mjs --url http://localhost:6008 --workers 2 --ci --shard ${{ matrix.shard }}/4
+
+  # Text (1.4.3) and non-text (1.4.11) contrast as rendered, every story, light and dark,
+  # one machine per theme (scripts/contrast-scan.mjs). Report only since 2026-11-23,
+  # until the first findings are triaged; the findings go to the run summary.
+  contrast:
+    needs: checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        brand: [theya, iris, lime, ember, dusk, lagoon, ochre]
+    name: contrast (${{ matrix.brand }})
+    defaults:
+      run:
+        working-directory: packages/theya-shadcn
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v5
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+        working-directory: .
+      - run: pnpm build:tokens
+        working-directory: .
+      - name: Install Chromium
+        run: |
+          PW_DIR=$(node -e "const r=require.resolve('@storybook/test-runner');console.log(require('path').dirname(require.resolve('playwright/package.json',{paths:[r]})))")
+          node "$PW_DIR/cli.js" install --with-deps chromium
+      - name: Build Storybook
+        run: pnpm build-storybook --quiet
+      - name: Serve Storybook on :6008
+        id: serve
+        run: |
+          python3 -m http.server 6008 --directory storybook-static >/dev/null 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:6008/index.json >/dev/null && exit 0; sleep 1; done
+          echo "Storybook did not start" && exit 1
+      - name: Text contrast, ${{ matrix.brand }} light and dark
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        run: node scripts/contrast-scan.mjs --url http://localhost:6008 --workers 4 --brands ${{ matrix.brand }} | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Non-text contrast, ${{ matrix.brand }} light and dark
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        run: node scripts/contrast-scan.mjs --url http://localhost:6008 --workers 4 --nontext --brands ${{ matrix.brand }} | tee -a "$GITHUB_STEP_SUMMARY"
 
   react-18:
     needs: checks

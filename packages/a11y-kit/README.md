@@ -19,7 +19,8 @@ node ../a11y-kit/bin/a11y-kit.mjs registry          # write the registry and the
 node ../a11y-kit/bin/a11y-kit.mjs registry --check  # fail if they are stale (in Theya: pnpm api:check)
 node ../a11y-kit/bin/a11y-kit.mjs compare list.json # another team's checklist against the registry
 node ../a11y-kit/bin/a11y-kit.mjs calibrate-axe     # one known violation per axe rule, the way CI runs axe (config `axe`)
-node ../a11y-kit/bin/a11y-kit.mjs contrast border background  # WCAG contrast of two tokens or colours, both themes (config `review.tokens`)
+node ../a11y-kit/bin/a11y-kit.mjs contrast border background  # WCAG contrast of two tokens or colours, both themes (config `review.tokens`; --brand all for product themes)
+node ../a11y-kit/bin/a11y-kit.mjs tokens [--ci]     # every token pair in review.tokens.pairs, in every theme and product theme (known pairs warn)
 node ../a11y-kit/bin/a11y-kit.mjs review-precision  # how often the change review was right, from its closed issues (needs gh)
 ```
 

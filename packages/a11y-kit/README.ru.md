@@ -19,7 +19,8 @@ node ../a11y-kit/bin/a11y-kit.mjs registry          # реестр и списо
 node ../a11y-kit/bin/a11y-kit.mjs registry --check  # ошибка, если устарели (в Theya: pnpm api:check)
 node ../a11y-kit/bin/a11y-kit.mjs compare list.json # чек-лист другой команды против реестра
 node ../a11y-kit/bin/a11y-kit.mjs calibrate-axe     # одно известное нарушение на правило axe, как axe запускается в CI (конфиг `axe`)
-node ../a11y-kit/bin/a11y-kit.mjs contrast border background  # контраст двух токенов или цветов по WCAG, обе темы (конфиг `review.tokens`)
+node ../a11y-kit/bin/a11y-kit.mjs contrast border background  # контраст двух токенов или цветов по WCAG, обе темы (конфиг `review.tokens`; --brand all — фирменные темы)
+node ../a11y-kit/bin/a11y-kit.mjs tokens [--ci]     # все пары токенов из review.tokens.pairs во всех темах и фирменных темах (известные — предупреждение)
 node ../a11y-kit/bin/a11y-kit.mjs review-precision  # как часто ревью изменений было право, по закрытым задачам (нужен gh)
 ```
 

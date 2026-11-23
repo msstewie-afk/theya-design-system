@@ -75,7 +75,7 @@ export function renderContext({ reg, notes = '', read = [], tokens }) {
       tokens.command,
       '```',
       '',
-      `Arguments are colours or token names (with or without \`--\`) from this design system's CSS (${tokens.files.join(', ')}); translucent colours are composited over --base (default: ${tokens.page}). Thresholds: text 4.5:1 (3:1 at 24px, or 18.66px bold, and up), non-text 3:1.`,
+      `Arguments are colours or token names (with or without \`--\`) from this design system's CSS (${tokens.files.join(', ')}); translucent colours are composited over --base (default: ${tokens.page}). Thresholds: text 4.5:1 (3:1 at 24px, or 18.66px bold, and up), non-text 3:1.${tokens.brands?.length ? ` The design system has product themes (${tokens.brands.join(', ')}) that recolour tokens: a claim about a colour the brands change needs \`--brand all\`, and holds only for the themes you computed. Gradient backgrounds have no single colour: say so and ask for a run instead of computing over the page colour.` : ''}`,
       '',
     );
   if (notes) out.push('## This design system: accepted deviations and rules', '', notes.trim(), '');

@@ -126,10 +126,47 @@ const config = {
       return lines.join('\n');
     },
     tokens: {
-      files: ['../tokens/build/css/variables.css', '../tokens/build/css/variables-dark.css', 'src/styles/globals.css'],
+      files: ['../tokens/build/css/variables.css', '../tokens/build/css/variables-dark.css', '../tokens/build/css/profiles.css', 'src/styles/globals.css'],
+      name: 'theya',
       light: [':root', '@theme'],
       dark: [':root', '@theme', '[data-theme="dark"]'],
       page: 'background',
+      // Product themes (packages/tokens/src/profiles → profiles.css, <html data-brand>).
+      brands: {
+        list: ['iris', 'lime', 'ember', 'dusk', 'lagoon', 'ochre'],
+        light: ['[data-brand="{brand}"]'],
+        dark: ['[data-brand="{brand}"]', '[data-theme="dark"] [data-brand="{brand}"]'],
+      },
+      // Known token-pair failures: { 'fg on bg': { brand: [themes] } }, warnings in CI, each one
+      // a design decision for Мария (2026-11-23). Remove an entry with its fix.
+      known: Object.fromEntries(
+        [
+          // Field, checkbox and radio borders: 3.00:1 in Theya, 2.69–2.98:1 in every product theme's light variant.
+          ...['background', 'color-bg-surface-bg-surface-base'].map((bg) => [`color-border-border on ${bg}`, { iris: ['light'], lime: ['light'], ember: ['light'], dusk: ['light'], lagoon: ['light'], ochre: ['light'] }]),
+          // Lime light: the checked fill #9fe870 is 1.47:1 on white (the dark check mark carries the state).
+          ...['background', 'color-bg-surface-bg-surface-base'].map((bg) => [`color-bg-primary-bg-primary on ${bg}`, { lime: ['light'] }]),
+        ],
+      ),
+      // a11y-kit tokens: the colour pairs every component inherits, in every theme and brand.
+      // The focus ring (an accepted deviation) and the rating yellow (decorative next to text) aren't here.
+      out: 'a11y/token-contrast.json',
+      pairs: [
+        ...['color-text-text', 'color-text-text-subtle', 'color-text-text-subtler', 'color-text-text-placeholder', 'color-text-text-link', 'color-text-text-danger', 'color-text-text-success', 'color-text-text-warning', 'color-text-text-info'].map((fg) => ({
+          what: 'text (1.4.3)',
+          fg,
+          bg: ['background', 'color-bg-surface-bg-surface-base', 'color-bg-surface-bg-surface-sunken'],
+          need: 4.5,
+        })),
+        { what: 'text on a primary fill (1.4.3)', fg: 'color-text-text-on-primary', bg: 'color-bg-primary-bg-primary', need: 4.5 },
+        { what: 'field and control border (1.4.11)', fg: 'color-border-border', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
+        { what: 'strong border (1.4.11)', fg: 'color-border-border-strong', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
+        { what: 'invalid field border (1.4.11)', fg: 'color-border-border-danger', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
+        // Checkbox / Radio / Switch: the fill carries the checked state in light; in dark the
+        // checked box also gets the primary edge (checkbox.tsx), which is then what must show.
+        { what: 'checked control fill (1.4.11)', theme: 'light', fg: 'color-bg-primary-bg-primary', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
+        { what: 'checked control edge (1.4.11)', theme: 'dark', fg: 'color-border-border-primary', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
+        ...['color-icon-icon', 'color-icon-icon-subtle', 'color-icon-icon-primary', 'color-icon-icon-danger'].map((fg) => ({ what: 'icon (1.4.11)', fg, bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 })),
+      ],
     },
   },
 };

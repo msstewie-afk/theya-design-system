@@ -89,11 +89,18 @@ const arg = (name, fallback) => {
 };
 const URL_BASE = arg('url', 'http://localhost:6008').replace(/\/$/, '');
 const ONLY = arg('only', '');
+// --theme dark / --brand <b>: the same checks with the design system's theme globals
+// (Storybook URL globals, e.g. globals=theme:dark;brand:iris). Results go to
+// auto-<brand>-<theme>.json, so the default run's auto.json stays the record.
+const THEME = arg('theme', '');
+const BRAND = arg('brand', '');
+const GLOBALS = [THEME && `theme:${THEME}`, BRAND && `brand:${BRAND}`].filter(Boolean).join(';');
+const VARIANT = [BRAND, THEME].filter(Boolean).join('-');
 const WORKERS = Number(arg('workers', 4));
 const CI = process.argv.includes('--ci');
 const FIXTURES = process.argv.includes('--fixtures');
 const GROUP_BY_TITLE = arg('group', '') === 'title';
-const OUT = path.join(OUT_DIR, 'auto.json');
+const OUT = path.join(OUT_DIR, VARIANT ? `auto-${VARIANT}.json` : 'auto.json');
 // The axe-core test-runner.ts runs (axe-playwright's copy), for the advisory rules.
 const AXE_SOURCE = require.resolve('axe-core/axe.min.js', { paths: [path.dirname(require.resolve('axe-playwright'))] });
 const ADVISORY_RULES = ['p-as-heading', 'td-has-header', 'table-fake-caption', 'label-content-name-mismatch', 'css-orientation-lock'];
@@ -171,7 +178,7 @@ async function checkStory(page, story) {
     });
   const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '1.4.10': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], '3.2.1': [], truncated: [], advisory: [] };
   const load = async () => {
-    await page.goto(`${URL_BASE}/iframe.html?id=${story.id}&viewMode=story`, { waitUntil: 'load' });
+    await page.goto(`${URL_BASE}/iframe.html?id=${story.id}&viewMode=story${GLOBALS ? `&globals=${GLOBALS}` : ''}`, { waitUntil: 'load' });
     await page.waitForSelector('#storybook-root > *', { timeout: 10000 }).catch(() => {});
     // The preview runs the story's play function on load; check the state it
     // leaves, not one it is still changing (a dialog opening mid-Tab).
