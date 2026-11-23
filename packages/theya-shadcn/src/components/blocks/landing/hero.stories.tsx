@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs';
 import { DeviceFrame } from './device-frame';
 import { Hero, HeroAccent } from './hero';
 import { SectionPanel } from './section-panel';
+import { StoreButtons } from './store-buttons';
 import { HeroTexture } from './hero-texture';
 import { BookmarksPreview, DEMO_FOLDERS, type DemoFolderId } from './demo-data';
 import { heroGuidelines } from './hero.guidelines';
@@ -326,14 +327,7 @@ export const OnBrightGradient: Story = {
             <strong>Grams and steps.</strong> Every recipe weighed and timed.
           </>,
         ]}
-        actions={
-          <>
-            <Button size="xl">Get the app</Button>
-            <Button size="xl" appearance="tonal">
-              See the recipes
-            </Button>
-          </>
-        }
+        actions={<StoreButtons appStore="#app-store" googlePlay="#google-play" />}
         note="Talk to your care team before changing what you eat."
         media={
           <DeviceFrame className="mx-auto w-[280px]">

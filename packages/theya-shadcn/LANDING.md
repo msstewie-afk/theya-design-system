@@ -45,6 +45,7 @@ Open these first, pick the closest one, then change its content. Don't lay out a
 | A coloured or gradient band | `SectionPanel tone="primary"` or `tone="gradient"` (dusk, lagoon, ochre) |
 | The product as real UI cards over a ground | `ProductCollage` + `CollageItem` |
 | An app screen or a web app in a frame | `DeviceFrame type="phone" \| "browser"` |
+| Download a mobile app | `StoreButtons` (one store per device; official badges through `badges` before launch) |
 | Switch stages, plans, modes | `Tabs variant="chips"` or `ToggleGroup` |
 | One picture that changes in place | `Carousel` with one slide in view |
 | A showcase of five to eight image cards | `OrbitCarousel` |

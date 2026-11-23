@@ -8,3 +8,4 @@ Landing grounds, after the PlateCovery hero test:
 - Ember: a persimmon gradient canvas with dark ink, and display type in Playfair Display 900 (`displayFont`). Landing only: product screens use neither.
 - SectionPanel: `shape="bleed"` (square, edge to edge) and `image` (a photo in place of the ground, or of the gradient mesh).
 - DeviceFrame: a page screen keeps the theme's own surface and ink when the phone lies on a gradient canvas.
+- StoreButtons: App Store / Google Play links, black two-line buttons; one store per device (iPhone and iPad → App Store, Android → Google Play, a computer → both); `badges` swaps in the official artwork.
