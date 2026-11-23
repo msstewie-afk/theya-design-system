@@ -59,7 +59,8 @@ Open these first, pick the closest one, then change its content. Don't lay out a
 
 ## 5. Grounds, colour, shadows
 
-- Gradient grounds come from the theme profile (`gradient` in `packages/tokens/src/profiles/*.json`). Today that is dusk, lagoon and ochre; ember has none yet. On a theme without one, `tone="gradient"` falls back to a flat primary.
+- Gradient grounds come from the theme profile (`gradient` in `packages/tokens/src/profiles/*.json`): dusk, lagoon and ochre are dark with white ink; ember is bright persimmon with dark ink (`gradient.ink`). On a theme without one, `tone="gradient"` falls back to a flat primary.
+- A first screen whose ground fills the window: `SectionPanel tone="gradient" shape="bleed" padding="none"` around the `Hero` (story `Patterns: Landing/Hero → On Bright Gradient`). `image` puts a photo in place of the mesh.
 - On a coloured ground the buttons switch themselves: on `data-surface="primary"`, and in the gradient canvas the filled button turns into a white pill.
 - On a coloured ground, use coloured shadows (the ground's darkest colour), never grey.
 

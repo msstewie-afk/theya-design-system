@@ -67,6 +67,9 @@ export function DeviceFrame({ type = 'phone', url, screen = 'page', className, c
       <div className="relative rounded-[13cqw] bg-[#121214] p-[3cqw] shadow-elevation-lg ring-1 ring-black/10">
         <div
           data-canvas={screen === 'canvas' ? 'gradient' : undefined}
+          // A page screen is the theme's own surface, also when the phone lies
+          // on a gradient canvas: data-surface="card" brings the theme's ink back.
+          data-surface={screen === 'page' ? 'card' : undefined}
           className={cn(
             'relative aspect-[9/19.5] w-full overflow-hidden rounded-[10cqw] [&>img]:block [&>img]:size-full [&>img]:object-cover',
             screen === 'page' && 'bg-[var(--color-bg-surface-bg-surface-base)] text-[var(--color-text-text)]',

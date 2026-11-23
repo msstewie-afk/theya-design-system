@@ -18904,7 +18904,7 @@
       "name": "Hero",
       "title": "Patterns: Landing/Hero",
       "axe": {
-        "stories": 10,
+        "stories": 11,
         "themes": [
           "light",
           "dark"
@@ -18913,7 +18913,7 @@
       },
       "keyboard": {
         "tested": 0,
-        "playTests": 3
+        "playTests": 4
       },
       "reducedMotion": "none",
       "forcedColors": "global",

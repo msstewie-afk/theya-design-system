@@ -31,6 +31,11 @@
  *    checks white text 4.5:1 on the base and on every spot color (spots
  *    only blend between these colors, so the lightest one is the worst
  *    point), bare and under glass.
+ *    `"ink": "#2a1306"` makes a bright canvas with dark ink (PlateCovery's
+ *    persimmon ground, 21.11): text, icons and borders on the canvas take
+ *    that color, glass is white 20% without dimming, and the filled button
+ *    is an ink pill with white text. The build then checks the ink, not
+ *    white, at 4.5:1. Without `ink` the canvas is dark with white ink.
  *    Spots with `"bloom": true` are light patches (Dusk's light gray bottom
  *    left corner): not checked, and drawn only with `data-canvas-blooms`
  *    (landing heroes), where nothing but cards lies on that corner.
@@ -538,19 +543,21 @@ for (const profile of profiles) {
   // Gradient canvas (gr-01): `data-canvas="gradient"` paints
   // --gradient-canvas; white text and glass lie on it in both modes.
   if (profile.gradient) {
-    const { base, spots = [] } = profile.gradient;
+    const { base, spots = [], ink } = profile.gradient;
     const inner = spots.filter((s) => !s.bloom);
     const colors = [base, ...inner.map((s) => s.color)];
-    if (!colors.every(isHex) || !spots.every((s) => isHex(s.color))) problems.push(`${profile.name}: gradient colors must be #rrggbb`);
+    if (!colors.every(isHex) || !spots.every((s) => isHex(s.color)) || (ink != null && !isHex(ink))) problems.push(`${profile.name}: gradient colors must be #rrggbb`);
     else {
-      // Glass (see globals.css): backdrop brightness GLASS_DIM, then white at GLASS_ALPHA.
-      const GLASS_DIM = 0.85, GLASS_ALPHA = 0.12;
+      // Glass (see gradient-canvas.css): backdrop brightness GLASS_DIM, then
+      // white at GLASS_ALPHA. Dark ink: no dimming, white 20%.
+      const GLASS_DIM = ink ? 1 : 0.85, GLASS_ALPHA = ink ? 0.2 : 0.12;
+      const inkColor = ink ?? '#ffffff';
       const glassOver = (hex) => '#' + hexToRgb(hex).map((c) => Math.round((c * GLASS_DIM * (1 - GLASS_ALPHA) + GLASS_ALPHA) * 255).toString(16).padStart(2, '0')).join('');
       for (const c of colors) {
         for (const [where, bg] of [['', c], [' under glass', glassOver(c)]]) {
-          const r = contrast('#ffffff', bg);
+          const r = contrast(inkColor, bg);
           if (r < 4.5) {
-            const id = `gradient: white on ${c}${where}`;
+            const id = `gradient: ${ink ? `ink ${ink}` : 'white'} on ${c}${where}`;
             const msg = `${profile.name}: ${id} ${r.toFixed(2)}:1 (< 4.5)`;
             (profile.accept ?? []).includes(id) ? accepted.push(msg) : problems.push(msg);
           }
@@ -565,6 +572,28 @@ for (const profile of profiles) {
       // Shadow under white cards on the canvas: the darkest canvas color, not gray.
       const darkest = colors.reduce((a, b) => (luminance(a) <= luminance(b) ? a : b));
       shared.set('--gradient-canvas-shadow', darkest);
+      // Dark ink: gradient-canvas.css reads these, its defaults are the white set.
+      if (ink) {
+        const a = (alpha) => `color-mix(in srgb, ${ink} ${alpha}%, transparent)`;
+        shared.set('--gradient-ink', ink);
+        shared.set('--gradient-ink-subtle', a(86));
+        shared.set('--gradient-ink-line', a(30));
+        shared.set('--gradient-ink-line-subtler', a(18));
+        shared.set('--gradient-ink-focus', a(85));
+        shared.set('--gradient-ink-track', a(14));
+        shared.set('--gradient-glass-bg', 'rgb(255 255 255 / 0.2)');
+        shared.set('--gradient-glass-bg-hover', 'rgb(255 255 255 / 0.3)');
+        shared.set('--gradient-glass-bg-pressed', 'rgb(255 255 255 / 0.14)');
+        shared.set('--gradient-glass-border', 'rgb(255 255 255 / 0.45)');
+        shared.set('--gradient-glass-filter', 'blur(24px)');
+        shared.set('--gradient-pill-bg', ink);
+        shared.set('--gradient-pill-bg-hover', a(88));
+        shared.set('--gradient-pill-bg-pressed', a(78));
+        shared.set('--gradient-pill-text', '#ffffff');
+        // Under cards on a bright ground the darkest spot is still light:
+        // tint the shadow with the ink instead.
+        shared.set('--gradient-canvas-shadow', ink);
+      }
     }
   }
 

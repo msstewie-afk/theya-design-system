@@ -5,7 +5,9 @@ import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { ArrowRight } from 'iconoir-react';
 import { Button } from '../../ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs';
+import { DeviceFrame } from './device-frame';
 import { Hero, HeroAccent } from './hero';
+import { SectionPanel } from './section-panel';
 import { HeroTexture } from './hero-texture';
 import { BookmarksPreview, DEMO_FOLDERS, type DemoFolderId } from './demo-data';
 import { heroGuidelines } from './hero.guidelines';
@@ -294,5 +296,67 @@ export const NameSubtitlePoints: Story = {
     const c = within(canvasElement);
     await expect(c.getByRole('heading', { level: 1, name: 'Bookmarks' })).toBeInTheDocument();
     await expect(within(canvasElement.querySelector('[data-slot=hero-points]') as HTMLElement).getAllByRole('listitem')).toHaveLength(3);
+  },
+};
+
+/**
+ * A first screen on a bright gradient, edge to edge: SectionPanel
+ * tone="gradient" shape="bleed" on Ember, whose canvas has dark ink (profile
+ * `gradient.ink`). The title is display type in Ember's display face
+ * (Playfair Display 900). The phone screen keeps the theme's own surface.
+ */
+export const OnBrightGradient: Story = {
+  parameters: { layout: 'fullscreen', globals: { brand: 'ember' } },
+  render: () => (
+    <SectionPanel tone="gradient" shape="bleed" padding="none">
+      <Hero
+        layout="split"
+        eyebrow="Recipes for recovery"
+        title="Mealwise"
+        titleSize="display"
+        subtitle="What to eat after surgery, in one app, planned for every stage."
+        points={[
+          <>
+            <strong>Three stages.</strong> The menu grows with you, week by week.
+          </>,
+          <>
+            <strong>Clinical guidance.</strong> Portions and textures follow published diets.
+          </>,
+          <>
+            <strong>Grams and steps.</strong> Every recipe weighed and timed.
+          </>,
+        ]}
+        actions={
+          <>
+            <Button size="xl">Get the app</Button>
+            <Button size="xl" appearance="tonal">
+              See the recipes
+            </Button>
+          </>
+        }
+        note="Talk to your care team before changing what you eat."
+        media={
+          <DeviceFrame className="mx-auto w-[280px]">
+            <div className="flex h-full flex-col gap-3 px-4 pb-4 pt-12">
+              <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtle)]">Stage 2 · Expanding</p>
+              <p className="m-0 font-heading text-heading-m">Today</p>
+              {['Oat porridge with banana', 'Soft white fish, mashed potato', 'Rice pudding'].map((dish, i) => (
+                <div key={dish} className="rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-surface-bg-surface)] p-3 shadow-elevation-xs">
+                  <p className="m-0 font-body text-body-xs text-[var(--color-text-text-subtle)]">{['Breakfast', 'Lunch', 'Dessert'][i]}</p>
+                  <p className="m-0 font-body text-body-s font-semibold">{dish}</p>
+                </div>
+              ))}
+            </div>
+          </DeviceFrame>
+        }
+      />
+    </SectionPanel>
+  ),
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getByRole('heading', { level: 1, name: 'Mealwise' })).toBeInTheDocument();
+    // The title takes the canvas's ink (dark on Ember, white on the dark gradient themes).
+    const canvas = canvasElement.querySelector('[data-canvas=gradient]') as HTMLElement;
+    await expect(getComputedStyle(c.getByRole('heading', { level: 1 })).color).toBe(getComputedStyle(canvas).color);
   },
 };

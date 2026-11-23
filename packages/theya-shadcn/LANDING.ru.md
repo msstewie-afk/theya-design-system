@@ -59,7 +59,8 @@
 
 ## 5. Фоны, цвет, тени
 
-- Градиентный фон задаёт профиль темы (поле `gradient` в `packages/tokens/src/profiles/*.json`). Сейчас он есть у dusk, lagoon и ochre, у ember пока нет. На теме без градиента `tone="gradient"` даёт плоский primary.
+- Градиентный фон задаёт профиль темы (поле `gradient` в `packages/tokens/src/profiles/*.json`): у dusk, lagoon и ochre он тёмный с белым текстом, у ember — яркий «хурма» с тёмным текстом (`gradient.ink`). На теме без градиента `tone="gradient"` даёт плоский primary.
+- Первый экран с фоном до краёв окна: `SectionPanel tone="gradient" shape="bleed" padding="none"` вокруг `Hero` (история `Patterns: Landing/Hero → On Bright Gradient`). `image` ставит фото вместо сетки градиента.
 - На цветном фоне кнопки переключаются сами: при `data-surface="primary"`, а на градиенте залитая кнопка становится белой капсулой.
 - Тени на цветном фоне — цветные (самый тёмный цвет фона), не серые.
 

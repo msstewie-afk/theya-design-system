@@ -1,5 +1,5 @@
 {
-  "description": "Ember: warm orange primary on a warm off-white page, white cards, dark warm text; Playfair Display headings (lining figures; display-s tracked +0.4px, Theya's -1px made its letters touch); soft radii (cards 18px); warm shadows (the tint re-hued to the neutral hue); dark warning re-hued to amber, as light warning is, so it doesn't read as the primary",
+  "description": "Ember: warm orange primary on a warm off-white page, white cards, dark warm text; Playfair Display headings (lining figures; display-s tracked +0.4px, Theya's -1px made its letters touch); soft radii (cards 18px); warm shadows (the tint re-hued to the neutral hue); dark warning re-hued to amber, as light warning is, so it doesn't read as the primary; landing only: display type in Playfair Display 900, and a bright persimmon gradient canvas with dark ink (PlateCovery hero, 21.11)",
   "primary": "#c2410c",
   "neutral": {
     "hue": 60,
@@ -14,7 +14,16 @@
     "body-s-line-height": "18px"
   },
   "radius": {
-    "steps": { "sm": 3, "md": 5, "lg": 6, "xl": 8, "2xl": 12, "3xl": 12, "4xl": 12, "5xl": 24 }
+    "steps": {
+      "sm": 3,
+      "md": 5,
+      "lg": 6,
+      "xl": 8,
+      "2xl": 12,
+      "3xl": 12,
+      "4xl": 12,
+      "5xl": 24
+    }
   },
   "componentText": {
     "drawer-description": "body-m"
@@ -46,5 +55,42 @@
       "bg-surface-bg-surface-page": "#191512",
       "bg-surface-bg-surface-sunken-on-page": "#100d0b"
     }
+  },
+  "displayFont": {
+    "family": "Playfair Display",
+    "weight": 900
+  },
+  "gradient": {
+    "ink": "#2a1306",
+    "base": "#f56300",
+    "spots": [
+      {
+        "color": "#ff7a45",
+        "at": "88% 8%",
+        "size": "55% 60%"
+      },
+      {
+        "color": "#f0561f",
+        "at": "8% 92%",
+        "size": "50% 55%"
+      },
+      {
+        "color": "#ff8a3d",
+        "at": "45% 45%",
+        "size": "40% 45%"
+      },
+      {
+        "color": "#ffc49a",
+        "at": "0% 0%",
+        "size": "38% 50%",
+        "bloom": true
+      },
+      {
+        "color": "#ffb48a",
+        "at": "100% 100%",
+        "size": "40% 50%",
+        "bloom": true
+      }
+    ]
   }
 }

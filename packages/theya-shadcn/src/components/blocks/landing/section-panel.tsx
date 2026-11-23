@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react';
+import type { ComponentProps, CSSProperties } from 'react';
 import { cn } from '../../../lib/utils';
 
 export type SectionPanelTone = 'default' | 'subtle' | 'inverse' | 'primary' | 'gradient';
@@ -22,6 +22,19 @@ export interface SectionPanelProps extends ComponentProps<'section'> {
    * `none` — when the content brings its own, e.g. a LogoStrip as a dark band.
    */
   padding?: 'section' | 'none';
+  /**
+   * `sheet` (default): rounded top corners, a sheet laid on the page.
+   * `bleed`: square, edge to edge — a first screen whose ground fills the
+   * window (place it outside any padded container).
+   */
+  shape?: 'sheet' | 'bleed';
+  /**
+   * A photo or texture as the ground, decorative (no alt): it covers the
+   * panel. With tone="gradient" it replaces the theme's mesh, and the
+   * canvas keeps its ink and buttons, so check the text against the photo.
+   * Other tones paint it over their fill.
+   */
+  image?: string;
 }
 
 const TONE: Record<SectionPanelTone, string> = {
@@ -52,7 +65,14 @@ const TONE: Record<SectionPanelTone, string> = {
  * Stack several and set `overlap` to lay each one over the previous section.
  * Content inside is in the display scale (data-scale="display").
  */
-export function SectionPanel({ tone = 'default', overlap = false, padding = 'section', className, children, ...props }: SectionPanelProps) {
+export function SectionPanel({ tone = 'default', overlap = false, padding = 'section', shape = 'sheet', image, className, style, children, ...props }: SectionPanelProps) {
+  const url = image ? `url(${JSON.stringify(image)})` : undefined;
+  const ground: CSSProperties | undefined = !url
+    ? undefined
+    : tone === 'gradient'
+      ? // The canvas paints --gradient-canvas in ::after; a photo takes its place.
+        ({ '--gradient-canvas': url, '--gradient-canvas-blooms': url } as CSSProperties)
+      : { backgroundImage: url, backgroundSize: 'cover', backgroundPosition: 'center' };
   return (
     <section
       data-slot="section-panel"
@@ -62,13 +82,17 @@ export function SectionPanel({ tone = 'default', overlap = false, padding = 'sec
       data-canvas={tone === 'gradient' ? 'gradient' : undefined}
       // Light blooms where only cards lie (Dusk: the bottom left corner).
       data-canvas-blooms={tone === 'gradient' ? '' : undefined}
+      data-canvas-image={tone === 'gradient' && image ? '' : undefined}
+      data-shape={shape}
       className={cn(
-        'relative rounded-t-[var(--size-border-radius-border-radius-5xl)]',
+        'relative',
+        shape === 'sheet' && 'rounded-t-[var(--size-border-radius-border-radius-5xl)]',
         padding === 'section' && 'section-display',
-        overlap && '-mt-[var(--size-border-radius-border-radius-5xl)]',
+        overlap && shape === 'sheet' && '-mt-[var(--size-border-radius-border-radius-5xl)]',
         TONE[tone],
         className,
       )}
+      style={{ ...ground, ...style }}
       {...props}
     >
       {children}

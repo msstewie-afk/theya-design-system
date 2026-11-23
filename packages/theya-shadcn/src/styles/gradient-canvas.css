@@ -12,7 +12,13 @@
  * container with data-surface="card") bring back the theme's own values,
  * so everything inside a card is the regular light theme.
  *
- * Contrast: build-profiles.mjs checks white text 4.5:1 on the base and
+ * Dark ink (profile `gradient.ink`, ember): a bright canvas where all of
+ * the above is that dark color instead, glass is white 20% without
+ * dimming, and the filled button is an ink pill with white text. The
+ * profile sets the --gradient-ink* / --gradient-glass* / --gradient-pill*
+ * variables; the white set below is their default.
+ *
+ * Contrast: build-profiles.mjs checks white text (or the ink) 4.5:1 on the base and
  * every spot color, bare and under glass (backdrop brightness 0.85 + white
  * 12%, the values below — keep them in sync with GLASS_DIM / GLASS_ALPHA).
  *
@@ -42,29 +48,29 @@
      canvas's own width through a container query (see below). */
   container-type: inline-size;
   background-color: var(--gradient-canvas-base, var(--color-bg-primary-bg-primary));
-  color: #ffffff;
+  color: var(--gradient-ink, #ffffff);
 
-  --glass-bg: rgb(255 255 255 / 0.12);
-  --glass-bg-hover: rgb(255 255 255 / 0.18);
-  --glass-bg-pressed: rgb(255 255 255 / 0.08);
-  --glass-border: rgb(255 255 255 / 0.3);
-  --glass-filter: blur(24px) brightness(0.85);
+  --glass-bg: var(--gradient-glass-bg, rgb(255 255 255 / 0.12));
+  --glass-bg-hover: var(--gradient-glass-bg-hover, rgb(255 255 255 / 0.18));
+  --glass-bg-pressed: var(--gradient-glass-bg-pressed, rgb(255 255 255 / 0.08));
+  --glass-border: var(--gradient-glass-border, rgb(255 255 255 / 0.3));
+  --glass-filter: var(--gradient-glass-filter, blur(24px) brightness(0.85));
   /* Card shadow tinted with the canvas's darkest color: a gray shadow on a
      colored ground reads as dirt. */
   --gradient-card-shadow: 0 24px 48px -16px color-mix(in oklab, var(--gradient-canvas-shadow, #000) 55%, transparent),
     0 4px 12px -4px color-mix(in oklab, var(--gradient-canvas-shadow, #000) 30%, transparent);
 
-  --color-text-text: #ffffff;
-  --color-text-text-subtle: rgb(255 255 255 / 0.86);
-  --color-text-text-subtler: rgb(255 255 255 / 0.86);
-  --color-icon-icon: #ffffff;
-  --color-icon-icon-subtle: rgb(255 255 255 / 0.86);
-  --color-border-border-subtle: rgb(255 255 255 / 0.3);
-  --color-border-border-subtler: rgb(255 255 255 / 0.18);
-  --color-focus-focus-ring: rgb(255 255 255 / 0.85);
-  /* Tracks (Progress, Slider) and their fill: white on white. */
-  --color-bg-neutral-bg-neutral-subtle: rgb(255 255 255 / 0.22);
-  --color-icon-icon-primary: #ffffff;
+  --color-text-text: var(--gradient-ink, #ffffff);
+  --color-text-text-subtle: var(--gradient-ink-subtle, rgb(255 255 255 / 0.86));
+  --color-text-text-subtler: var(--gradient-ink-subtle, rgb(255 255 255 / 0.86));
+  --color-icon-icon: var(--gradient-ink, #ffffff);
+  --color-icon-icon-subtle: var(--gradient-ink-subtle, rgb(255 255 255 / 0.86));
+  --color-border-border-subtle: var(--gradient-ink-line, rgb(255 255 255 / 0.3));
+  --color-border-border-subtler: var(--gradient-ink-line-subtler, rgb(255 255 255 / 0.18));
+  --color-focus-focus-ring: var(--gradient-ink-focus, rgb(255 255 255 / 0.85));
+  /* Tracks (Progress, Slider) and their fill: ink on ink. */
+  --color-bg-neutral-bg-neutral-subtle: var(--gradient-ink-track, rgb(255 255 255 / 0.22));
+  --color-icon-icon-primary: var(--gradient-ink, #ffffff);
 }
 
 /* Blooms (landing heroes): light patches the theme places where only
@@ -144,19 +150,19 @@
 /* Buttons lying on the canvas (not inside a card on it). */
 [data-canvas='gradient'] [data-slot='button']:not([data-canvas='gradient'] [data-surface='card'] *) {
   &[data-appearance='filled'] {
-    background-color: #ffffff;
+    background-color: var(--gradient-pill-bg, #ffffff);
     /* The canvas's darkest color, not the theme's text: in the dark theme
        that is light, and it would vanish on the white pill. */
-    color: var(--gradient-canvas-shadow, #1c1b1f);
+    color: var(--gradient-pill-text, var(--gradient-canvas-shadow, #1c1b1f));
     border-color: transparent;
-    &:hover:not(:disabled, [aria-disabled='true']) { background-color: rgb(255 255 255 / 0.9); }
-    &:active:not(:disabled, [aria-disabled='true']) { background-color: rgb(255 255 255 / 0.8); }
+    &:hover:not(:disabled, [aria-disabled='true']) { background-color: var(--gradient-pill-bg-hover, rgb(255 255 255 / 0.9)); }
+    &:active:not(:disabled, [aria-disabled='true']) { background-color: var(--gradient-pill-bg-pressed, rgb(255 255 255 / 0.8)); }
     & svg { color: currentColor; }
   }
   &:is([data-appearance='tonal'], [data-appearance='outlined']) {
     background-color: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    color: #ffffff;
+    color: var(--gradient-ink, #ffffff);
     -webkit-backdrop-filter: var(--glass-filter);
     backdrop-filter: var(--glass-filter);
     &:hover:not(:disabled, [aria-disabled='true']) { background-color: var(--glass-bg-hover); }
@@ -164,7 +170,7 @@
     & svg { color: currentColor; }
   }
   &[data-appearance='ghost'] {
-    color: #ffffff;
+    color: var(--gradient-ink, #ffffff);
     &:hover:not(:disabled, [aria-disabled='true']) { background-color: var(--glass-bg); }
     &:active:not(:disabled, [aria-disabled='true']) { background-color: var(--glass-bg-pressed); }
     & svg { color: currentColor; }
@@ -173,4 +179,11 @@
 
 @media (forced-colors: active) {
   [data-canvas='gradient']::before { display: none; }
+}
+
+/* A photo ground (SectionPanel image): it covers the canvas, whatever the
+   container width (the mesh's narrow-screen crop doesn't apply). */
+[data-canvas='gradient'][data-canvas-image]::after {
+  background-size: cover;
+  background-position: center;
 }
