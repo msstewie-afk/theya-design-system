@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, within } from '@storybook/test';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { SiteFooter } from './site-footer';
 import { DEMO_FOOTER_COLUMNS } from './demo-data';
 import { siteFooterGuidelines } from './site-footer.guidelines';
@@ -68,4 +68,36 @@ export const Default: Story = {
 /** Only the link columns and legal links — no tagline, contact details, status, social icons or language picker — for smaller sites. */
 export const Minimal: Story = {
   args: { contact: [], status: undefined, social: [], tagline: undefined },
+};
+
+/** The sign-up before anyone types: title and line at the start, the field and button at the end. */
+export const NewsletterForm: Story = {
+  args: {
+    newsletter: {
+      title: 'One useful email a month',
+      description: 'New features, a reading list from the team, nothing else.',
+      note: 'No spam. Unsubscribe in one click.',
+    },
+  },
+};
+
+/** A newsletter sign-up across the top. Type an address and submit: the thank-you replaces the form (and is read out). "fail@" shows the error state. */
+export const WithNewsletter: Story = {
+  args: {
+    newsletter: {
+      title: 'One useful email a month',
+      description: 'New features, a reading list from the team, nothing else.',
+      note: 'No spam. Unsubscribe in one click.',
+      onSubscribe: async (email: string) => {
+        await new Promise((r) => setTimeout(r, 400));
+        if (email.startsWith('fail@')) throw new Error('This address bounced before. Check it and try again.');
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByRole('textbox', { name: 'Email' }), 'ada@example.com');
+    await userEvent.click(canvas.getByRole('button', { name: 'Subscribe' }));
+    await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent('Thanks — check your inbox to confirm.'));
+  },
 };

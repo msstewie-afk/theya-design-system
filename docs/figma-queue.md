@@ -15,6 +15,7 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 
 | Since | Area | What | Needs |
 |---|---|---|---|
+| 0.5.x | IntegrationsSection, BlogTeaser, SiteFooter newsletter (agent 1) | New landing blocks: integration cards (tonal 48px mark tile, name heading-xs, line body-s, radius 3xl) with chip filter, and a hub (product mark 26% in the middle, tiles on a 41% ring); blog cards (3 : 2 cover radius 3xl, mono category, heading-xs title, 2-line excerpt, date · read time). SiteFooter: newsletter row above the columns (title heading-s, Email field md + Subscribe xl, note body-s), stacks under the @md container. | Agent 2: SiteFooter newsletter variant; the blocks only if landing blocks are drawn. |
 | 0.5.x | Dusk, Lagoon, Ochre text (agent 1) | `text-subtler` light: dusk #635e6d, lagoon #52625f, ochre #665c55; `text-subtler-on-tonal` light the same; lagoon dark `text-subtler` #b3c3bf (contrast on primary-subtle). | Theme collection: the four values. |
 | 0.5.x | Motion tokens (agent 1) | `motion.duration.journey` 1600ms, `motion.duration.ambient` 16s, `motion.easing.travel` cubic-bezier(0.4, 0, 0.2, 1); AmbientBlobs is motion only. | Nothing to draw (motion is not in Figma, see Accepted differences); add the values to the motion docs if Figma lists them. |
 | 0.5.x | StoreButtons (agent 1) | New landing block: App Store / Google Play links, black with a #a6a6a6 hairline, two lines (10px medium + body-l semibold), 48 / 40px, radius xl. | Optional: a StoreButtons component; the official badges are what ships. |

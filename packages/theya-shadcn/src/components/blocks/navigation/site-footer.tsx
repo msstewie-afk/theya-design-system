@@ -1,15 +1,96 @@
 'use client';
 
-import { useId } from 'react';
-import type { ReactNode } from 'react';
+import { useId, useState } from 'react';
+import type { FormEvent, ReactNode } from 'react';
 import { Github, Linkedin, X as XIcon, Youtube } from 'iconoir-react';
 import { cn } from '../../../lib/utils';
+import { Button } from '../../ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
+import { TextField } from '../../ui/text-field';
 import { StatusDot } from '../../ui/status-dot';
 
 export interface FooterColumn {
   title: string;
   links: { label: string; href: string }[];
+}
+
+export interface FooterNewsletter {
+  /** "Get one useful email a month". */
+  title: ReactNode;
+  /** What they'll get and how often. */
+  description?: ReactNode;
+  /** The button. Default "Subscribe". */
+  action?: string;
+  /** Under the field: privacy, how to leave ("No spam. Unsubscribe in one click."). */
+  note?: ReactNode;
+  /** Shown in place of the form once subscribed. Default "Thanks — check your inbox to confirm." */
+  success?: ReactNode;
+  /**
+   * Called with the address. Resolve when it's saved; throw (or reject) with
+   * a message people can act on, and it shows under the field.
+   */
+  onSubscribe?: (email: string) => void | Promise<void>;
+}
+
+function NewsletterForm({ title, description, action = 'Subscribe', note, success = 'Thanks — check your inbox to confirm.', onSubscribe }: FooterNewsletter) {
+  const uid = useId();
+  const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
+  const [error, setError] = useState<string>();
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const email = String(new FormData(e.currentTarget).get('email') ?? '').trim();
+    // The browser's own check (type="email", required) runs first; this is for a blank paste.
+    if (!email) return setError('Enter your email address.');
+    setError(undefined);
+    setState('sending');
+    try {
+      await onSubscribe?.(email);
+      setState('done');
+    } catch (err) {
+      setState('idle');
+      setError(err instanceof Error && err.message ? err.message : "That didn't go through. Try again in a moment.");
+    }
+  };
+  return (
+    <section aria-labelledby={`${uid}-title`} className="grid gap-6 border-0 border-b border-solid border-[var(--color-border-border-subtle)] pb-10 @3xl:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] @3xl:items-end">
+      <div className="flex flex-col gap-2">
+        <h2 id={`${uid}-title`} className="m-0 font-heading text-heading-s text-[var(--color-text-text)]">
+          {title}
+        </h2>
+        {description && <p className="m-0 max-w-[36rem] font-body text-body-m text-[var(--color-text-text-subtle)]">{description}</p>}
+      </div>
+      <div className="min-w-0">
+        {/* Always in the page, so the thank-you is read out when it fills in. */}
+        <p role="status" className={cn('m-0 font-body text-body-m font-medium text-[var(--color-text-text)]', state !== 'done' && 'sr-only')}>
+          {state === 'done' ? success : ''}
+        </p>
+        {state !== 'done' && (
+          <form onSubmit={submit} className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 @md:flex-row @md:items-end">
+              <div className="min-w-0 flex-1">
+                <TextField
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  label="Email"
+                  placeholder="you@company.com"
+                  widthSize="full"
+                  error={error}
+                  disabled={state === 'sending'}
+                />
+              </div>
+              {/* xl = 40px, the field's height. */}
+              <Button type="submit" size="xl" loading={state === 'sending'} className="shrink-0 @max-md:w-full">
+                {action}
+              </Button>
+            </div>
+            {note && <p className="m-0 font-body text-body-s text-[var(--color-text-text-subtle)]">{note}</p>}
+          </form>
+        )}
+      </div>
+    </section>
+  );
 }
 
 export interface SiteFooterProps {
@@ -32,6 +113,8 @@ export interface SiteFooterProps {
   onLanguageChange?: (value: string) => void;
   social?: { network: 'github' | 'x' | 'linkedin' | 'youtube'; href: string }[];
   legal?: { label: string; href: string }[];
+  /** A newsletter sign-up across the top of the footer. */
+  newsletter?: FooterNewsletter;
   year?: number;
   className?: string;
   /**
@@ -79,6 +162,7 @@ export function SiteFooter({
   onLanguageChange,
   social = [],
   legal = [],
+  newsletter,
   year = new Date().getFullYear(),
   className,
   contentClassName,
@@ -88,6 +172,7 @@ export function SiteFooter({
   return (
     <footer className={cn('@container w-full border-t border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-neutral-bg-neutral-subtler)]', className)}>
       <div className={cn('flex flex-col gap-10 py-12', contentClassName ?? 'mx-auto max-w-7xl px-6')}>
+        {newsletter && <NewsletterForm {...newsletter} />}
         <div className="grid gap-10 @4xl:grid-cols-[18rem_minmax(0,1fr)]">
           <div className="flex flex-col gap-5">
             {logo ?? (

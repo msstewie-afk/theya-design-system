@@ -40,6 +40,9 @@ Open these first, pick the closest one, then change its content. Don't lay out a
 | Before / after | `BeforeAfter` |
 | A manifesto line that reads as you scroll | `ScrollHighlight` |
 | Plans and prices | `PricingSection` (in the product: `PlanComparison`) |
+| The services it connects to | `IntegrationsSection` (grid with filter, or hub) |
+| Latest posts | `BlogTeaser` |
+| Newsletter sign-up | `SiteFooter newsletter` |
 | Questions | `FaqSection` |
 | The closing call to action | `CtaBand`, in a `SectionPanel` for a coloured band |
 | A coloured or gradient band | `SectionPanel tone="primary"` or `tone="gradient"` (dusk, lagoon, ochre) |

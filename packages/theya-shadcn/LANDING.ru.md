@@ -40,6 +40,9 @@
 | До и после | `BeforeAfter` |
 | Строка-манифест, которая проявляется при прокрутке | `ScrollHighlight` |
 | Тарифы и цены | `PricingSection` (внутри продукта — `PlanComparison`) |
+| С какими сервисами работает | `IntegrationsSection` (сетка с фильтром или хаб) |
+| Свежие статьи | `BlogTeaser` |
+| Подписка на рассылку | `SiteFooter newsletter` |
 | Вопросы | `FaqSection` |
 | Финальный призыв | `CtaBand`, для цветной полосы — внутри `SectionPanel` |
 | Цветная или градиентная полоса | `SectionPanel tone="primary"` или `tone="gradient"` (dusk, lagoon, ochre) |
