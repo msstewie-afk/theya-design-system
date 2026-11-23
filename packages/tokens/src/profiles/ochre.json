@@ -85,6 +85,9 @@
       "warning": {
         "hue": 84
       }
+    },
+    "tokens": {
+      "text-text-danger": "#f9a3bd"
     }
   },
   "typography": {

@@ -52,7 +52,13 @@ function NewsletterForm({ title, description, action = 'Subscribe', note, succes
     }
   };
   return (
-    <section aria-labelledby={`${uid}-title`} className="grid gap-6 border-0 border-b border-solid border-[var(--color-border-border-subtle)] pb-10 @3xl:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] @3xl:items-end">
+    // A surface panel, not the footer's tinted ground: the field's border is
+    // measured against what it sits on, and on the tinted footer it fell
+    // under 3:1 (contrast scan 1.4.11, 23.11). On the surface it holds.
+    <section
+      aria-labelledby={`${uid}-title`}
+      className="grid gap-6 rounded-[var(--size-border-radius-border-radius-3xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] p-6 @3xl:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] @3xl:items-end @3xl:p-8"
+    >
       <div className="flex flex-col gap-2">
         <h2 id={`${uid}-title`} className="m-0 font-heading text-heading-s text-[var(--color-text-text)]">
           {title}

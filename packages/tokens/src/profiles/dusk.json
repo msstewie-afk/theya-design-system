@@ -102,5 +102,10 @@
       "text-text-subtler": "#635e6d",
       "text-text-subtler-on-tonal": "#635e6d"
     }
+  },
+  "dark": {
+    "tokens": {
+      "text-text-danger": "#f9a3bd"
+    }
   }
 }

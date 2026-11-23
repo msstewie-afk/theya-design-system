@@ -105,7 +105,8 @@
   },
   "dark": {
     "tokens": {
-      "text-text-subtler": "#b3c3bf"
+      "text-text-subtler": "#b3c3bf",
+      "text-text-danger": "#f9a3bd"
     }
   }
 }
