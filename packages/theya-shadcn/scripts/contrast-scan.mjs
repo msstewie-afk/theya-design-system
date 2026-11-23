@@ -17,7 +17,7 @@
  * an image, video, canvas or gradient, sr-only text, placeholders. Pages are
  * measured once their animations have finished.
  *
- *   node scripts/contrast-scan.mjs --url http://localhost:6008 [--only <title-substring>] [--workers 6] [--themes light,dark] [--out report.json]
+ *   node scripts/contrast-scan.mjs --url http://localhost:6008 [--only <title-substring>] [--workers 6] [--themes light,dark] [--brands theya,iris,…] [--out report.json]
  *
  * --nontext: WCAG 1.4.11 instead — the parts of controls and indicators that
  * carry their state, each against what is next to it (3:1):
@@ -43,6 +43,8 @@ const URL_BASE = arg('url', 'http://localhost:6008');
 const ONLY = arg('only', '');
 const WORKERS = Number(arg('workers', '4'));
 const THEMES = arg('themes', 'light,dark').split(',');
+// --brands theya,iris,…: the same scan in each product theme (data-brand). "theya" is the default look.
+const BRANDS = arg('brands', 'theya').split(',');
 const OUT = arg('out', '');
 const NONTEXT = process.argv.includes('--nontext');
 
@@ -242,16 +244,16 @@ function scan(nontext) {
 
 const browser = await chromium.launch();
 const results = [];
-const queue = THEMES.flatMap((theme) => stories.map((s) => ({ s, theme })));
+const queue = BRANDS.flatMap((brand) => THEMES.flatMap((t) => stories.map((s) => ({ s, brand, theme: brand === 'theya' ? t : `${brand}/${t}`, globals: `theme:${t}${brand === 'theya' ? '' : `;brand:${brand}`}` }))));
 await Promise.all(
   Array.from({ length: WORKERS }, async () => {
     let page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
     for (let job = queue.shift(); job; job = queue.shift()) {
-      const { s, theme } = job;
+      const { s, theme, globals } = job;
       // A crashed page stays dead: open a fresh one and give the story one more try.
       if (page.isClosed()) page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
       try {
-        await page.goto(`${URL_BASE}/iframe.html?id=${s.id}&viewMode=story&globals=theme:${theme}`, { waitUntil: 'load', timeout: 20000 });
+        await page.goto(`${URL_BASE}/iframe.html?id=${s.id}&viewMode=story&globals=${globals}`, { waitUntil: 'load', timeout: 20000 });
         await page.waitForSelector('#storybook-root > *', { timeout: 8000 }).catch(() => {});
         // Let play functions and entrance animations settle: wait for every
         // finite animation to finish (infinite ones, like a shimmer, are skipped).
@@ -300,9 +302,9 @@ for (const r of issues) {
 }
 const lines = [...groups.values()].sort((a, b) => a.ratio - b.ratio);
 for (const g of lines) {
-  console.log(`${g.ratio.toFixed(2)} < ${g.need}  ${g.theme.padEnd(5)}  ${g.title}  ${g.fg} on ${g.bg}${g.hidden ? '  (aria-hidden)' : ''}  "${[...g.samples].slice(0, 3).join('", "')}"  [${g.path}]`);
+  console.log(`${g.ratio.toFixed(2)} < ${g.need}  ${g.theme.padEnd(12)}  ${g.title}  ${g.fg} on ${g.bg}${g.hidden ? '  (aria-hidden)' : ''}  "${[...g.samples].slice(0, 3).join('", "')}"  [${g.path}]`);
 }
 const errors = results.filter((r) => r.error).length;
-console.log(`\ncontrast-scan${NONTEXT ? ' (non-text, 1.4.11)' : ''}: ${stories.length} stories × ${THEMES.length} themes, ${lines.length} finding(s), ${errors} load error(s)`);
+console.log(`\ncontrast-scan${NONTEXT ? ' (non-text, 1.4.11)' : ''}: ${stories.length} stories × ${THEMES.length} themes × ${BRANDS.length} brand(s), ${lines.length} finding(s), ${errors} load error(s)`);
 if (OUT) fs.writeFileSync(OUT, JSON.stringify({ findings: lines.map((g) => ({ ...g, samples: [...g.samples] })), errors: results.filter((r) => r.error) }, null, 2) + '\n');
 process.exitCode = lines.length ? 1 : 0;

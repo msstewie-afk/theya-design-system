@@ -1,6 +1,6 @@
 # Проверки доступности
 
-Генерируется `a11y-kit registry` из реестра набора и метаданных правил axe-core 4.12.1. Не править руками. Проверок: 109.
+Генерируется `a11y-kit registry` из реестра набора и метаданных правил axe-core 4.12.1. Не править руками. Проверок: 110.
 
 **Стадия**: code (код, без браузера), component (собранный Storybook), page (страницы продукта), manual (человек), pr (агент-ревьюер: мнение, сборку не роняет). **Глубина**: full — чистый результат подтверждает критерий для того, что отрисовано; part — одну его сторону; gate — находка делает ячейку красной, чистый результат сам ничего не доказывает; advisory — подсказка человеку, никогда не роняет. **Запуск**: для правил axe — запускается ли правило без явного включения по имени. **Калибровка**: на чём проверка доказана (axe: калибровка по правилу; свои проверки: калибровочные сториз, которые она должна поймать и пропустить). «—» — ещё не доказано.
 
@@ -45,6 +45,7 @@
 | `forced.checked-state` | 1.4.1, 4.1.2 | component | part | — | Defect: controls and an icon drawn only with fills | ds | With forced colors, a checked checkbox, radio or switch doesn't look like an unchecked one (when it differs in normal colors). |
 | `axe.no-autoplay-audio` | 1.4.2 | component | part | default | review only | ds | <video> or <audio> elements must not play automatically |
 | `axe.color-contrast` | 1.4.3 | component | part | default | caught | ds | Elements must meet minimum color contrast ratio thresholds |
+| `tokens.pairs` | 1.4.3, 1.4.11 | code | part | — | — | ds | Every configured token pair (text on surfaces, field and control borders, checked fills, icons) in every theme and product theme, from the design system's CSS: what each component inherits, before any story renders. |
 | `auto.resize-text` | 1.4.4 | component | full | — | — | ds | At 200% text size, no text is clipped or overlaps. |
 | `axe.meta-viewport` | 1.4.4 | page | part | default | page level: looks at the whole page; the scan root is an element | product | Zooming and scaling must not be disabled |
 | `auto.reflow-320` | 1.4.10 | component | full | — | Defect: fixed-width box scrolls sideways at 320px; Clean: data table scrolls inside its own box | ds | A fresh load at the criterion's own 320 CSS px viewport doesn't scroll horizontally; two-dimensional content (table, grid, pre, data-reflow-exempt) is exempt. |
@@ -135,11 +136,11 @@
 | 1.3.5 Identify Input Purpose | AA | ds | частично | `axe.autocomplete-valid` | — | — |
 | 1.4.1 Use of Color | A | ds | частично | `forced.checked-state`, `axe.link-in-text-block` | — | — |
 | 1.4.2 Audio Control | A | product | частично | — | `axe.no-autoplay-audio` | manual.product |
-| 1.4.3 Contrast (Minimum) | AA | ds | частично | `axe.color-contrast` | — | — |
+| 1.4.3 Contrast (Minimum) | AA | ds | частично | `axe.color-contrast` | `tokens.pairs` | — |
 | 1.4.4 Resize Text | AA | ds | автоматически | — | `auto.resize-text`, `axe.meta-viewport` | — |
 | 1.4.5 Images of Text | AA | product | вручную | — | — | manual.review |
 | 1.4.10 Reflow | AA | ds | автоматически | `auto.reflow-320` | `suite.reflow-360` | — |
-| 1.4.11 Non-text Contrast | AA | ds | частично | `forced.control-edge` | — | — |
+| 1.4.11 Non-text Contrast | AA | ds | частично | `forced.control-edge` | `tokens.pairs` | — |
 | 1.4.12 Text Spacing | AA | ds | автоматически | `axe.avoid-inline-spacing` | `auto.text-spacing` | — |
 | 1.4.13 Content on Hover or Focus | AA | ds | автоматически | `states.hover-content` | — | manual.review |
 | 2.1.1 Keyboard | A | ds | частично | `auto.keyboard-reach`, `states.keyboard` | `axe.frame-focusable-content`, `axe.scrollable-region-focusable`, `axe.server-side-image-map` | — |

@@ -16,10 +16,22 @@
  */
 import fs from 'node:fs';
 
-/** Custom properties declared directly in rules whose selector is in `selectors`. */
+/**
+ * Custom properties declared directly in rules whose selector is in
+ * `selectors`. The cascade is approximated: a more specific selector wins
+ * (`[data-theme="dark"] [data-brand="x"]` over `[data-brand="x"]` over
+ * `:root` over `@theme`), then the later declaration.
+ */
 export function readCustomProperties(files, selectors) {
   const keep = new Set(selectors.map(norm));
-  const vars = new Map();
+  const best = new Map();
+  let order = 0;
+  const vars = {
+    set(name, value, spec) {
+      const prev = best.get(name);
+      if (!prev || spec >= prev.spec) best.set(name, { value, spec, order: order++ });
+    },
+  };
   for (const file of files) {
     const css = fs.readFileSync(file, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
     const stack = [];
@@ -38,8 +50,11 @@ export function readCustomProperties(files, selectors) {
       } else buf += ch;
     }
   }
-  return vars;
+  return new Map([...best].map(([k, v]) => [k, v.value]));
 }
+
+// Attributes, classes and pseudo-classes, as CSS counts them (enough for token files).
+const specificity = (selector) => (selector.startsWith('@') ? 0 : (selector.match(/\[|\.|:(?!:)/g) ?? []).length);
 
 const norm = (s) => s.replace(/\s+/g, ' ').replace(/'/g, '"');
 
@@ -48,7 +63,8 @@ function declare(text, stack, keep, vars) {
   if (!m || !stack.length) return;
   // Selector lists ("a, b") count when any member is kept.
   const inner = stack[stack.length - 1].split(',').map((s) => s.trim());
-  if (inner.some((s) => keep.has(s))) vars.set(m[1], m[2].replace(/\s*!important$/, ''));
+  const hit = inner.filter((s) => keep.has(s));
+  if (hit.length) vars.set(m[1], m[2].replace(/\s*!important$/, ''), Math.max(...hit.map(specificity)));
 }
 
 /** A value with every var() replaced (fallbacks honoured), or throws on a cycle / missing var. */

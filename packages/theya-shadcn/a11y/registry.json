@@ -593,6 +593,19 @@
       ]
     },
     {
+      "id": "tokens.pairs",
+      "tool": "a11y-kit tokens",
+      "stage": "code",
+      "sc": [
+        "1.4.3",
+        "1.4.11"
+      ],
+      "depth": "part",
+      "where": "ds",
+      "how": "Every configured token pair (text on surfaces, field and control borders, checked fills, icons) in every theme and product theme, from the design system's CSS: what each component inherits, before any story renders.",
+      "calibration": []
+    },
+    {
       "id": "axe.area-alt",
       "tool": "axe-core 4.12.1",
       "stage": "component",
@@ -2201,13 +2214,16 @@
       "name": "Contrast (Minimum)",
       "where": "ds",
       "checks": [
+        "tokens.pairs",
         "axe.color-contrast"
       ],
       "automation": "partly",
       "calibrated": [
         "axe.color-contrast"
       ],
-      "uncalibrated": []
+      "uncalibrated": [
+        "tokens.pairs"
+      ]
     },
     {
       "id": "1.4.4",
@@ -2260,13 +2276,16 @@
       "name": "Non-text Contrast",
       "where": "ds",
       "checks": [
-        "forced.control-edge"
+        "forced.control-edge",
+        "tokens.pairs"
       ],
       "automation": "partly",
       "calibrated": [
         "forced.control-edge"
       ],
-      "uncalibrated": []
+      "uncalibrated": [
+        "tokens.pairs"
+      ]
     },
     {
       "id": "1.4.12",
