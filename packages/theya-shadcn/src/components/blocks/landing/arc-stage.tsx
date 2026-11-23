@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { ComponentProps, CSSProperties, ReactNode } from 'react';
 import { cn } from '../../../lib/utils';
 import { useReducedMotion } from '../../ui/use-in-view';
@@ -113,10 +113,18 @@ export function ArcStage({
     previous.current = offsets;
   });
 
-  const mirror = corner === 'bottom-start' ? -1 : 1;
+  // The corner is logical (end = right in LTR, left in RTL); the arc's
+  // geometry is physical, so read the direction and mirror it.
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [rtl, setRtl] = useState(false);
+  useLayoutEffect(() => {
+    if (stageRef.current) setRtl(getComputedStyle(stageRef.current).direction === 'rtl');
+  }, []);
+  const mirror = (corner === 'bottom-end') !== rtl ? 1 : -1;
 
   return (
     <div
+      ref={stageRef}
       role="group"
       aria-roledescription="carousel"
       aria-label={label}
@@ -138,7 +146,7 @@ export function ArcStage({
             // The arm: from the corner, turned to the item's angle.
             className={cn(
               'absolute bottom-0 size-0',
-              mirror === 1 ? 'right-0' : 'left-0',
+              corner === 'bottom-end' ? 'end-0' : 'start-0',
               !jumps[i] && 'transition-[transform,opacity] duration-journey ease-travel',
               'motion-reduce:transition-opacity motion-reduce:duration-slower',
             )}
