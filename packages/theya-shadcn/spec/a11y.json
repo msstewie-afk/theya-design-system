@@ -183,9 +183,9 @@
         "untested": 1
       },
       "patternCounts": {
-        "verified": 43,
+        "verified": 44,
         "n/a": 13,
-        "untested": 6
+        "untested": 5
       }
     },
     {
@@ -18595,7 +18595,7 @@
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
-        "1.4.1": "untested",
+        "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
         "1.4.4": "untested",
