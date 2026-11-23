@@ -6,7 +6,7 @@
     "icon-lost",
     "checked-same"
   ],
-  "date": "2026-11-16",
+  "date": "2026-11-23",
   "components": {
     "AccessTokens": {
       "stories": 3,
@@ -194,7 +194,7 @@
       "findings": []
     },
     "Chip": {
-      "stories": 18,
+      "stories": 19,
       "errors": 0,
       "findings": []
     },
@@ -959,7 +959,7 @@
       "findings": []
     },
     "Tabs": {
-      "stories": 10,
+      "stories": 11,
       "errors": 0,
       "findings": []
     },

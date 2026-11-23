@@ -2,7 +2,7 @@
 
 import { forwardRef, useId, useState, cloneElement, isValidElement } from 'react';
 import type { ReactElement, ReactNode } from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot, Slottable } from '@radix-ui/react-slot';
 import { Xmark, Check } from 'iconoir-react';
 import { cn } from '../../lib/utils';
 import { Button } from './button';
@@ -259,7 +259,11 @@ export function Chip({
         />
       )}
       {displayIcon != null && decorativeIcon(displayIcon)}
-      {children}
+      {/* asChild: Slot takes a single element, so the child goes through
+          Slottable — it becomes the chip, and the icon is rendered inside
+          it before its own content (it used to crash: Slot got the icon and
+          the child as two children). */}
+      {asChild ? <Slottable>{children}</Slottable> : children}
     </Comp>
   );
 }

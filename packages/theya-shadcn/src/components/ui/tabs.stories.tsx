@@ -255,6 +255,64 @@ export const Chips: Story = {
   ),
 };
 
+const PERIODS = ['Weekly', 'Quarterly', 'Last 12 months'];
+
+/**
+ * `fill`: the track spans its container and the chips share it equally. In a phone card
+ * (296px inside a 360px screen) three short labels fit without scrolling: a tab's sides
+ * drop to 8px when the row is tight. On a phone keep chips to three, about ten characters
+ * each, and put other controls (a pause button) on their own row, not beside the track.
+ */
+export const ChipsFill: Story = {
+  name: 'Chips fill',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="flex w-full flex-col gap-6">
+      {[
+        { label: 'Report period, phone card', width: 'max-w-[296px]' },
+        { label: 'Report period, wide card', width: 'max-w-[480px]' },
+      ].map(({ label, width }) => (
+        <Tabs key={label} defaultValue="Weekly" className={`w-full ${width}`}>
+          <TabsList variant="chips" fill aria-label={label}>
+            {PERIODS.map((p) => (
+              <TabsTrigger key={p} value={p}>
+                {p}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          {PERIODS.map((p) => (
+            <TabsContent key={p} value={p} className="pt-3 font-body text-body-s text-[var(--color-text-text-subtle)]">
+              {p} totals.
+            </TabsContent>
+          ))}
+        </Tabs>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const lists = Array.from(canvasElement.querySelectorAll<HTMLElement>('[role=tablist]'));
+    for (const list of lists) {
+      const box = list.getBoundingClientRect();
+      // The track spans its container.
+      await expect(Math.round(box.width)).toBe(Math.round(list.parentElement!.parentElement!.getBoundingClientRect().width));
+      // Nothing scrolls: no scroll button, every tab fully inside the track.
+      await expect(list.parentElement!.querySelector('[data-slot=tabs-scroll]')).toBeNull();
+      for (const tab of within(list).getAllByRole('tab')) {
+        const r = tab.getBoundingClientRect();
+        await expect(r.left).toBeGreaterThanOrEqual(box.left - 0.5);
+        await expect(r.right).toBeLessThanOrEqual(box.right + 0.5);
+        // One line.
+        await expect(Math.round(r.height)).toBeLessThanOrEqual(40);
+      }
+    }
+    // With room to spare (the wide card on a wide screen) the tabs share the track equally.
+    if (lists[1].getBoundingClientRect().width >= 400) {
+      const widths = within(lists[1]).getAllByRole('tab').map((t) => Math.round(t.getBoundingClientRect().width));
+      await expect(Math.max(...widths) - Math.min(...widths)).toBeLessThanOrEqual(1);
+    }
+  },
+};
+
 /** Interaction test for Default, kept out of Default so Default opens untouched. */
 export const TestInteractions: Story = {
   ...Default,

@@ -23,6 +23,18 @@ Story: `navigation-tabs--chips`
 - **Security**, tab
 - **Views and downloads for the last 30 days.**, tab
 
+### Chips fill
+
+Story: `navigation-tabs--chips-fill`
+
+#### As rendered
+
+- **(no name)**, tab — **no name: check**
+- **Weekly**, tab, selected
+- **Quarterly**, tab
+- **Last 12 months**, tab
+- **Weekly totals.**, tab
+
 ### Chips overflow
 
 Story: `navigation-tabs--chips-overflow`

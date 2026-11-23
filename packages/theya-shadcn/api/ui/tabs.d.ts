@@ -6,8 +6,9 @@ import * as TabsPrimitive from '@radix-ui/react-tabs';
 export declare const Tabs: import("react").ForwardRefExoticComponent<TabsPrimitive.TabsProps & import("react").RefAttributes<HTMLDivElement>>;
 export interface TabsListProps extends React.ComponentProps<typeof TabsPrimitive.List> {
     variant?: 'underline' | 'chips';
+    fill?: boolean;
 }
-export declare function TabsList({ className, children, variant, onPointerOver, onPointerLeave, ...props }: TabsListProps): import("react").JSX.Element;
+export declare function TabsList({ className, children, variant, fill, onPointerOver, onPointerLeave, ...props }: TabsListProps): import("react").JSX.Element;
 export interface TabsTriggerProps extends React.ComponentProps<typeof TabsPrimitive.Trigger> {
     icon?: ReactNode;
     onClose?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void;
@@ -17,4 +18,5 @@ export declare function TabsTrigger({ className, icon, onClose, closeLabel, chil
 export declare function TabsContent({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Content>): import("react").JSX.Element;
 
 // Defaults
+// TabsList.fill = false
 // TabsList.variant = underline

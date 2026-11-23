@@ -308,6 +308,30 @@ export const WithIcon: Story = {
   },
 };
 
+/**
+ * `asChild`: the chip renders as the element you pass — here a link — with
+ * the chip's look merged onto it and the icon placed inside it, before its text.
+ * An asChild chip has no toggle overlay: the child is the control.
+ */
+export const AsLink: Story = {
+  name: 'As link (asChild)',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <Chip asChild tone="primary" icon={<HelpCircle />}>
+      <a href="#help">Help centre</a>
+    </Chip>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const link = canvas.getByRole('link', { name: 'Help centre' });
+    // One element: the link is the chip (no wrapping span), and the icon sits inside it.
+    await expect(link).toHaveAttribute('href', '#help');
+    await expect(link.className).toContain('inline-flex');
+    await expect(link.querySelector('svg[aria-hidden="true"]')).not.toBeNull();
+    await expect(canvas.queryByRole('button')).toBeNull();
+  },
+};
+
 /** A count-led label: the numeral carries `tabular-nums` (not `font-mono`, which this system reserves for machine identifiers). */
 export const WithCount: Story = {
   name: 'With count',

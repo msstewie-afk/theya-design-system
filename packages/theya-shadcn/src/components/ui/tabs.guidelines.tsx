@@ -13,7 +13,7 @@ export const tabsGuidelines: ComponentGuidelines = {
     { text: 'Navigating between pages', instead: 'links, Sidebar or NavigationMenu' },
   ],
   anatomy: [
-    { part: 'List', description: <>underline (default) or <C>variant="chips"</C> — segmented, for a compact switch of views in a card or toolbar; scrolls when it doesn’t fit, and the scroll button fades from the track’s colour: set <C>--tabs-track-bg</C> (an opaque colour, so the fade can hide the chips under it) on <C>Tabs</C> or an ancestor to recolour both. The active chip scrolls into view on mount and whenever the value changes. The marker glides to the active tab.</> },
+    { part: 'List', description: <>underline (default) or <C>variant="chips"</C> — segmented, for a compact switch of views in a card or toolbar; scrolls when it doesn’t fit, and the scroll button fades from the track’s colour: set <C>--tabs-track-bg</C> (an opaque colour, so the fade can hide the chips under it) on <C>Tabs</C> or an ancestor to recolour both. The active chip scrolls into view on mount and whenever the value changes. The marker glides to the active tab. <C>fill</C> stretches the track over its container and shares it equally between the chips (sides drop to 8px when tight): on a phone, up to three chips of about ten characters fit a card without scrolling — keep other controls, such as a pause button, on their own row.</> },
     { part: 'Focus ring', description: 'keyboard only: after a click or tap the focused tab shows no ring (Theya tracks the input modality on <html>, data-theya-input).' },
     { part: 'Trigger', description: <>label, optional <C>icon</C>, badge; <C>onClose</C> for closable tabs.</> },
     { part: 'Panel', description: <><C>TabsContent</C> for each value.</> },
