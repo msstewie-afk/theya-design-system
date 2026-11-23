@@ -364,6 +364,18 @@
     {
       "brand": "theya",
       "theme": "light",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 7.66,
+      "fgValue": "#8a0b32",
+      "bgValue": "#ffdce8",
+      "pass": true
+    },
+    {
+      "brand": "theya",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -436,8 +448,8 @@
     {
       "brand": "theya",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "background",
       "need": 3,
       "ratio": 5.2,
@@ -448,8 +460,8 @@
     {
       "brand": "theya",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 3,
       "ratio": 5.2,
@@ -911,6 +923,18 @@
       "ratio": 4.55,
       "fgValue": "#b4b6e4",
       "bgValue": "#2d497c",
+      "pass": true
+    },
+    {
+      "brand": "theya",
+      "theme": "dark",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 4.55,
+      "fgValue": "#f78dad",
+      "bgValue": "#6b2b47",
       "pass": true
     },
     {
@@ -1468,6 +1492,18 @@
     {
       "brand": "iris",
       "theme": "light",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 7.66,
+      "fgValue": "#8a0b32",
+      "bgValue": "#ffdce8",
+      "pass": true
+    },
+    {
+      "brand": "iris",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -1540,24 +1576,24 @@
     {
       "brand": "iris",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "background",
       "need": 3,
-      "ratio": 5.95,
-      "fgValue": "#743de4",
+      "ratio": 5.67,
+      "fgValue": "#7741e8",
       "bgValue": "#ffffff",
       "pass": true
     },
     {
       "brand": "iris",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 3,
-      "ratio": 5.95,
-      "fgValue": "#743de4",
+      "ratio": 5.67,
+      "fgValue": "#7741e8",
       "bgValue": "#ffffff",
       "pass": true
     },
@@ -2015,6 +2051,18 @@
       "ratio": 6.24,
       "fgValue": "#b7bbc2",
       "bgValue": "#36305e",
+      "pass": true
+    },
+    {
+      "brand": "iris",
+      "theme": "dark",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 5.69,
+      "fgValue": "#f78dad",
+      "bgValue": "#5a1c2e",
       "pass": true
     },
     {
@@ -2572,6 +2620,18 @@
     {
       "brand": "lime",
       "theme": "light",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 7.66,
+      "fgValue": "#8a0b32",
+      "bgValue": "#ffdce8",
+      "pass": true
+    },
+    {
+      "brand": "lime",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -2644,26 +2704,26 @@
     {
       "brand": "lime",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "background",
       "need": 3,
-      "ratio": 1.47,
-      "fgValue": "#9fe870",
+      "ratio": 13.93,
+      "fgValue": "#163300",
       "bgValue": "#ffffff",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "lime",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 3,
-      "ratio": 1.47,
-      "fgValue": "#9fe870",
+      "ratio": 13.93,
+      "fgValue": "#163300",
       "bgValue": "#ffffff",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "lime",
@@ -3119,6 +3179,18 @@
       "ratio": 6.38,
       "fgValue": "#acafac",
       "bgValue": "#292c29",
+      "pass": true
+    },
+    {
+      "brand": "lime",
+      "theme": "dark",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 5.51,
+      "fgValue": "#f78dad",
+      "bgValue": "#5e1f29",
       "pass": true
     },
     {
@@ -3676,6 +3748,18 @@
     {
       "brand": "ember",
       "theme": "light",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 7.66,
+      "fgValue": "#8a0b32",
+      "bgValue": "#ffdce8",
+      "pass": true
+    },
+    {
+      "brand": "ember",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -3748,24 +3832,24 @@
     {
       "brand": "ember",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "background",
       "need": 3,
-      "ratio": 4.71,
-      "fgValue": "#c2410c",
+      "ratio": 4.98,
+      "fgValue": "#bd3d03",
       "bgValue": "#f5f4f1",
       "pass": true
     },
     {
       "brand": "ember",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 3,
-      "ratio": 4.71,
-      "fgValue": "#c2410c",
+      "ratio": 4.98,
+      "fgValue": "#bd3d03",
       "bgValue": "#f5f4f1",
       "pass": true
     },
@@ -4223,6 +4307,18 @@
       "ratio": 6.12,
       "fgValue": "#c0b9b5",
       "bgValue": "#532e21",
+      "pass": true
+    },
+    {
+      "brand": "ember",
+      "theme": "dark",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 5.49,
+      "fgValue": "#f78dad",
+      "bgValue": "#601d28",
       "pass": true
     },
     {
@@ -4780,6 +4876,18 @@
     {
       "brand": "dusk",
       "theme": "light",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 7.66,
+      "fgValue": "#8a0b32",
+      "bgValue": "#ffdce8",
+      "pass": true
+    },
+    {
+      "brand": "dusk",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -4852,24 +4960,24 @@
     {
       "brand": "dusk",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "background",
       "need": 3,
-      "ratio": 5.47,
-      "fgValue": "#64668f",
+      "ratio": 5.15,
+      "fgValue": "#686a94",
       "bgValue": "#ffffff",
       "pass": true
     },
     {
       "brand": "dusk",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 3,
-      "ratio": 5.47,
-      "fgValue": "#64668f",
+      "ratio": 5.15,
+      "fgValue": "#686a94",
       "bgValue": "#ffffff",
       "pass": true
     },
@@ -5328,6 +5436,18 @@
       "fgValue": "#bdb8c8",
       "bgValue": "#4a495c",
       "pass": true
+    },
+    {
+      "brand": "dusk",
+      "theme": "dark",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 4.49,
+      "fgValue": "#f78dad",
+      "bgValue": "#6e2b3d",
+      "pass": false
     },
     {
       "brand": "dusk",
@@ -5884,6 +6004,18 @@
     {
       "brand": "lagoon",
       "theme": "light",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 7.66,
+      "fgValue": "#8a0b32",
+      "bgValue": "#ffdce8",
+      "pass": true
+    },
+    {
+      "brand": "lagoon",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -5956,24 +6088,24 @@
     {
       "brand": "lagoon",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "background",
       "need": 3,
-      "ratio": 6.28,
-      "fgValue": "#1f6b63",
+      "ratio": 4.85,
+      "fgValue": "#347d74",
       "bgValue": "#ffffff",
       "pass": true
     },
     {
       "brand": "lagoon",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 3,
-      "ratio": 6.28,
-      "fgValue": "#1f6b63",
+      "ratio": 4.85,
+      "fgValue": "#347d74",
       "bgValue": "#ffffff",
       "pass": true
     },
@@ -6431,6 +6563,18 @@
       "ratio": 4.66,
       "fgValue": "#b3c3bf",
       "bgValue": "#37524d",
+      "pass": true
+    },
+    {
+      "brand": "lagoon",
+      "theme": "dark",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 4.57,
+      "fgValue": "#f78dad",
+      "bgValue": "#692e38",
       "pass": true
     },
     {
@@ -6988,6 +7132,18 @@
     {
       "brand": "ochre",
       "theme": "light",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 7.66,
+      "fgValue": "#8a0b32",
+      "bgValue": "#ffdce8",
+      "pass": true
+    },
+    {
+      "brand": "ochre",
+      "theme": "light",
       "what": "field and control border (1.4.11)",
       "fg": "color-border-border",
       "bg": "background",
@@ -7060,24 +7216,24 @@
     {
       "brand": "ochre",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "background",
       "need": 3,
-      "ratio": 6.25,
-      "fgValue": "#9a4a12",
+      "ratio": 5.33,
+      "fgValue": "#a65521",
       "bgValue": "#ffffff",
       "pass": true
     },
     {
       "brand": "ochre",
       "theme": "light",
-      "what": "checked control fill (1.4.11)",
-      "fg": "color-bg-primary-bg-primary",
+      "what": "checked control edge (1.4.11)",
+      "fg": "color-border-border-primary",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 3,
-      "ratio": 6.25,
-      "fgValue": "#9a4a12",
+      "ratio": 5.33,
+      "fgValue": "#a65521",
       "bgValue": "#ffffff",
       "pass": true
     },
@@ -7536,6 +7692,18 @@
       "fgValue": "#c3b8b0",
       "bgValue": "#604434",
       "pass": true
+    },
+    {
+      "brand": "ochre",
+      "theme": "dark",
+      "what": "danger text on its tinted fill (1.4.3)",
+      "fg": "color-text-text-danger",
+      "bg": "color-bg-danger-bg-danger-subtle",
+      "need": 4.5,
+      "ratio": 4.45,
+      "fgValue": "#f78dad",
+      "bgValue": "#712c35",
+      "pass": false
     },
     {
       "brand": "ochre",
