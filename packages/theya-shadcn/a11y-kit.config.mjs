@@ -35,7 +35,7 @@ const config = {
     },
   },
   // scripts/contrast-scan.mjs --ci: tracked findings of the rendered-contrast scan, warnings in CI;
-  // anything else fails. title: a story title, or a prefix ending in "/"; optional kind (text |
+  // anything else fails. title: a story title, or a prefix ending in "/" (none: any story); optional kind (text |
   // nontext), brands, themes (light | dark), fg / bg (hex as the scan prints it), part (the measured
   // part, e.g. "fill against its track"). Each names its owner; remove an entry with its fix.
   contrast: {
@@ -43,6 +43,8 @@ const config = {
       { title: 'Patterns: Landing/', why: 'agent 1: landing contrast (text over media and motion layers), backlog 21.11' },
       { title: 'Design System/Gradient canvas', why: 'agent 1: text on the gradient canvas behind landing cards, backlog 21.11' },
       { title: 'Status & Feedback/Meter', kind: 'nontext', themes: ['light'], fg: '#efb300', why: 'accepted deviation (Мария, 2026-10-26): light keeps the yellow warning fill, 1.64:1 against the track' },
+      { kind: 'text', brands: ['ochre'], themes: ['dark'], fg: '#f78dad', bg: '#712c35', why: 'agent 1: danger text on the danger tint, 4.45:1 (the token pair in review.tokens.known) — File, Attachment, Dropzone, BadgeIndicator' },
+      { title: 'Motion/Micro-interactions', kind: 'text', brands: ['iris'], themes: ['dark'], fg: '#90959e', why: 'Мария to decide: WheelPicker neighbours (text-subtle at 80% opacity) 4.47:1 in Iris dark' },
       { title: 'Text Input/PasswordStrengthMeter', kind: 'nontext', themes: ['light'], fg: '#efb300', why: 'accepted deviation (Мария, 2026-10-26): the Meter decision, yellow "good" fill in light' },
     ],
   },
@@ -153,6 +155,8 @@ const config = {
       // Each names its owner; remove an entry with its fix.
       known: Object.fromEntries(
         [
+          // Gradient themes (agent 1): danger text on the danger tint in dark, 4.45 (ochre) and 4.50 (dusk, just under).
+          ['color-text-text-danger on color-bg-danger-bg-danger-subtle', { dusk: ['dark'], ochre: ['dark'] }],
         ],
       ),
       // a11y-kit tokens: the colour pairs every component inherits, in every theme and brand.
@@ -168,6 +172,9 @@ const config = {
         { what: 'text on a primary fill (1.4.3)', fg: 'color-text-text-on-primary', bg: 'color-bg-primary-bg-primary', need: 4.5 },
         // Selected option cards, tab tracks and menu anchors sit on primary-subtle.
         ...['color-text-text-subtle', 'color-text-text-subtler'].map((fg) => ({ what: 'secondary text on a selected fill (1.4.3)', fg, bg: 'color-bg-primary-bg-primary-subtle', need: 4.5 })),
+        // Danger text on its tinted fill: a highlighted destructive menu item, a file error, a count badge.
+        // (Success / warning / info text isn't set on its own tint anywhere, so those pairs aren't here.)
+        { what: 'danger text on its tinted fill (1.4.3)', fg: 'color-text-text-danger', bg: 'color-bg-danger-bg-danger-subtle', need: 4.5 },
         { what: 'field and control border (1.4.11)', fg: 'color-border-border', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
         { what: 'strong border (1.4.11)', fg: 'color-border-border-strong', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
         { what: 'invalid field border (1.4.11)', fg: 'color-border-border-danger', bg: ['background', 'color-bg-surface-bg-surface-base'], need: 3 },
