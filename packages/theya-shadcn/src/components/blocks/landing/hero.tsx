@@ -179,7 +179,10 @@ export function Hero({
           ))}
         </ul>
       )}
-      {filters && <div className={cn('mt-8 flex flex-wrap gap-2', centered && 'justify-center')}>{filters}</div>}
+      {/* max-w-full: the column is items-start, so the row would size to its
+          chips' full width and push a 320px page sideways; capped, the chip
+          list scrolls inside it (WCAG 1.4.10). */}
+      {filters && <div className={cn('mt-8 flex max-w-full flex-wrap gap-2', centered && 'justify-center')}>{filters}</div>}
       {/* On a phone the actions stack at full width instead of wrapping into two uneven rows. */}
       {actions && (
         <div className={cn('flex gap-3 max-sm:flex-col max-sm:self-stretch sm:flex-wrap', filters ? 'mt-6' : 'mt-8', centered && 'sm:justify-center')}>{actions}</div>
@@ -293,7 +296,10 @@ export function Hero({
       <div
         className={cn(
           'container-display',
-          centered ? 'flex flex-col items-center gap-16 lg:gap-20' : 'grid items-center gap-12 lg:grid-cols-2 lg:gap-16',
+          // Split: grid-cols-1 (minmax(0, 1fr)) — an implicit auto track grows to
+          // its widest min-content (a row of filter chips) and pushed the page
+          // past 320px.
+          centered ? 'flex flex-col items-center gap-16 lg:gap-20' : 'grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16',
         )}
       >
         {/* Centred titles get ~960px: two lines at 96px, as in the references;
