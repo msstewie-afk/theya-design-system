@@ -56,11 +56,11 @@ const CI = process.argv.includes('--ci');
 // Known, tracked findings (see --ci above).
 const KNOWN = ((await import(path.resolve('a11y-kit.config.mjs'))).default.contrast?.known ?? []).filter((k) => (k.kind ?? 'both') === 'both' || k.kind === (NONTEXT ? 'nontext' : 'text'));
 /** The known entry a finding group falls under: its title (exact, or a prefix ending in "/"),
- *  brand, mode and, when given, its colours and the part measured. */
+ *  brand, mode and, when given, its colours and the part measured. No title: any story. */
 const knownFor = (g) =>
   KNOWN.find(
     (k) =>
-      (k.title.endsWith('/') ? g.title.startsWith(k.title) : g.title === k.title) &&
+      (!k.title || (k.title.endsWith('/') ? g.title.startsWith(k.title) : g.title === k.title)) &&
       (!k.brands || k.brands.includes(g.brand)) &&
       (!k.themes || k.themes.includes(g.mode)) &&
       (!k.fg || k.fg === g.fg) &&
@@ -336,11 +336,11 @@ if (CI) {
   }
   for (const g of fresh) console.log(line(g));
   if (known.size) console.log(`\nKnown (warnings, tracked):`);
-  for (const [k, gs] of known) console.log(`- ${k.title}${k.brands ? ` [${k.brands.join(', ')}]` : ''}${k.themes ? ` ${k.themes.join('/')}` : ''}: ${gs.length} finding(s), ${gs[0].ratio.toFixed(2)}–${gs.at(-1).ratio.toFixed(2)}:1 — ${k.why}`);
+  for (const [k, gs] of known) console.log(`- ${k.title ?? `${k.fg} on ${k.bg}`}${k.brands ? ` [${k.brands.join(', ')}]` : ''}${k.themes ? ` ${k.themes.join('/')}` : ''}: ${gs.length} finding(s), ${gs[0].ratio.toFixed(2)}–${gs.at(-1).ratio.toFixed(2)}:1 — ${k.why}`);
   // Entries this run covered (its brands and modes, every story) that matched nothing: fixed, so remove them.
   const covered = (k) => !ONLY && (!k.brands || k.brands.some((b) => BRANDS.includes(b))) && (!k.themes || k.themes.some((t) => THEMES.includes(t)));
   const stale = KNOWN.filter((k) => covered(k) && !known.has(k));
-  for (const k of stale) console.log(`::warning::contrast known entry matched nothing, remove it: ${k.title}${k.brands ? ` [${k.brands.join(', ')}]` : ''} — ${k.why}`);
+  for (const k of stale) console.log(`::warning::contrast known entry matched nothing, remove it: ${k.title ?? `${k.fg} on ${k.bg}`}${k.brands ? ` [${k.brands.join(', ')}]` : ''} — ${k.why}`);
   console.log(`\n${summary}, ${fresh.length} new finding(s), ${[...known.values()].flat().length} known, ${errors} load error(s)`);
   process.exitCode = fresh.length || errors ? 1 : 0;
 } else {

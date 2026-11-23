@@ -561,8 +561,6 @@ jobs:
     needs: checks
     runs-on: ubuntu-24.04
     timeout-minutes: 60
-    # Until one full run shows the known list covers every finding left after the 1.4.11 fixes.
-    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
