@@ -27,6 +27,10 @@
  * - checkbox / radio (unchecked): the border against the surface;
  * - text fields, textareas, select / combobox triggers: the border against the surface.
  * The focus ring is not measured: its contrast is a library-wide accepted deviation.
+ *
+ * --ci: findings listed in a11y-kit.config.mjs `contrast.known` (tracked, each with an owner)
+ * print as warnings; any other finding fails the run. A known entry the run covered but
+ * didn't need is reported, so it is removed with its fix.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -48,6 +52,21 @@ const THEMES = arg('themes', 'light,dark').split(',');
 const BRANDS = arg('brands', 'theya').split(',');
 const OUT = arg('out', '');
 const NONTEXT = process.argv.includes('--nontext');
+const CI = process.argv.includes('--ci');
+// Known, tracked findings (see --ci above).
+const KNOWN = ((await import(path.resolve('a11y-kit.config.mjs'))).default.contrast?.known ?? []).filter((k) => (k.kind ?? 'both') === 'both' || k.kind === (NONTEXT ? 'nontext' : 'text'));
+/** The known entry a finding group falls under: its title (exact, or a prefix ending in "/"),
+ *  brand, mode and, when given, its colours and the part measured. */
+const knownFor = (g) =>
+  KNOWN.find(
+    (k) =>
+      (k.title.endsWith('/') ? g.title.startsWith(k.title) : g.title === k.title) &&
+      (!k.brands || k.brands.includes(g.brand)) &&
+      (!k.themes || k.themes.includes(g.mode)) &&
+      (!k.fg || k.fg === g.fg) &&
+      (!k.bg || k.bg === g.bg) &&
+      (!k.part || [...g.samples].some((t) => t.includes(k.part))),
+  );
 
 const index = await (await fetch(`${URL_BASE}/index.json`)).json();
 const stories = Object.values(index.entries).filter((e) => e.type === 'story' && (!ONLY || e.title.includes(ONLY)));
@@ -248,12 +267,12 @@ function scan(nontext) {
 
 const browser = await chromium.launch();
 const results = [];
-const queue = BRANDS.flatMap((brand) => THEMES.flatMap((t) => stories.map((s) => ({ s, brand, theme: brand === 'theya' ? t : `${brand}/${t}`, globals: `theme:${t}${brand === 'theya' ? '' : `;brand:${brand}`}` }))));
+const queue = BRANDS.flatMap((brand) => THEMES.flatMap((t) => stories.map((s) => ({ s, brand, mode: t, theme: brand === 'theya' ? t : `${brand}/${t}`, globals: `theme:${t}${brand === 'theya' ? '' : `;brand:${brand}`}` }))));
 await Promise.all(
   Array.from({ length: WORKERS }, async () => {
     let page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
     for (let job = queue.shift(); job; job = queue.shift()) {
-      const { s, theme, globals } = job;
+      const { s, theme, brand, mode, globals } = job;
       // A crashed page stays dead: open a fresh one and give the story one more try.
       if (page.isClosed()) page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
       try {
@@ -278,7 +297,7 @@ await Promise.all(
         // A toast still sliding in after its mount (Sonner sets data-mounted first).
         await page.waitForTimeout(400);
         const found = await page.evaluate(scan, NONTEXT);
-        for (const f of found) results.push({ story: s.id, title: s.title, theme, ...f });
+        for (const f of found) results.push({ story: s.id, title: s.title, theme, brand, mode, ...f });
       } catch (e) {
         if (/crashed|closed/i.test(String(e)) && !job.retried) {
           await page.close().catch(() => {});
@@ -305,10 +324,28 @@ for (const r of issues) {
   groups.set(key, g);
 }
 const lines = [...groups.values()].sort((a, b) => a.ratio - b.ratio);
-for (const g of lines) {
-  console.log(`${g.ratio.toFixed(2)} < ${g.need}  ${g.theme.padEnd(12)}  ${g.title}  ${g.fg} on ${g.bg}${g.hidden ? '  (aria-hidden)' : ''}  "${[...g.samples].slice(0, 3).join('", "')}"  [${g.path}]`);
-}
+const line = (g) => `${g.ratio.toFixed(2)} < ${g.need}  ${g.theme.padEnd(12)}  ${g.title}  ${g.fg} on ${g.bg}${g.hidden ? '  (aria-hidden)' : ''}  "${[...g.samples].slice(0, 3).join('", "')}"  [${g.path}]`;
 const errors = results.filter((r) => r.error).length;
-console.log(`\ncontrast-scan${NONTEXT ? ' (non-text, 1.4.11)' : ''}: ${stories.length} stories × ${THEMES.length} themes × ${BRANDS.length} brand(s), ${lines.length} finding(s), ${errors} load error(s)`);
-if (OUT) fs.writeFileSync(OUT, JSON.stringify({ findings: lines.map((g) => ({ ...g, samples: [...g.samples] })), errors: results.filter((r) => r.error) }, null, 2) + '\n');
-process.exitCode = lines.length ? 1 : 0;
+const summary = `contrast-scan${NONTEXT ? ' (non-text, 1.4.11)' : ''}: ${stories.length} stories × ${THEMES.length} themes × ${BRANDS.length} brand(s)`;
+if (CI) {
+  const fresh = [], known = new Map();
+  for (const g of lines) {
+    const k = knownFor(g);
+    if (k) known.set(k, [...(known.get(k) ?? []), g]);
+    else fresh.push(g);
+  }
+  for (const g of fresh) console.log(line(g));
+  if (known.size) console.log(`\nKnown (warnings, tracked):`);
+  for (const [k, gs] of known) console.log(`- ${k.title}${k.brands ? ` [${k.brands.join(', ')}]` : ''}${k.themes ? ` ${k.themes.join('/')}` : ''}: ${gs.length} finding(s), ${gs[0].ratio.toFixed(2)}–${gs.at(-1).ratio.toFixed(2)}:1 — ${k.why}`);
+  // Entries this run covered (its brands and modes, every story) that matched nothing: fixed, so remove them.
+  const covered = (k) => !ONLY && (!k.brands || k.brands.some((b) => BRANDS.includes(b))) && (!k.themes || k.themes.some((t) => THEMES.includes(t)));
+  const stale = KNOWN.filter((k) => covered(k) && !known.has(k));
+  for (const k of stale) console.log(`::warning::contrast known entry matched nothing, remove it: ${k.title}${k.brands ? ` [${k.brands.join(', ')}]` : ''} — ${k.why}`);
+  console.log(`\n${summary}, ${fresh.length} new finding(s), ${[...known.values()].flat().length} known, ${errors} load error(s)`);
+  process.exitCode = fresh.length || errors ? 1 : 0;
+} else {
+  for (const g of lines) console.log(line(g));
+  console.log(`\n${summary}, ${lines.length} finding(s), ${errors} load error(s)`);
+  process.exitCode = lines.length ? 1 : 0;
+}
+if (OUT) fs.writeFileSync(OUT, JSON.stringify({ findings: lines.map((g) => ({ ...g, samples: [...g.samples], known: !!knownFor(g) })), errors: results.filter((r) => r.error) }, null, 2) + '\n');

@@ -554,13 +554,14 @@ jobs:
         run: node scripts/a11y-forced.mjs --url http://localhost:6008 --workers 2 --ci --shard ${{ matrix.shard }}/4
 
   # Text (1.4.3) and non-text (1.4.11) contrast as rendered, every story, light and dark,
-  # one machine per theme (scripts/contrast-scan.mjs). Report only: the findings (run
-  # summary) are triaged in claude/a11y-review-agent-2026-11-19.md; the scan gets a
-  # known list like a11y-kit tokens before it can gate.
+  # one machine per theme (scripts/contrast-scan.mjs --ci). Gates: a finding not on the
+  # known list (a11y-kit.config.mjs contrast.known, each entry with its owner) fails;
+  # known ones print as warnings, and an entry that matched nothing is flagged for removal.
   contrast:
     needs: checks
     runs-on: ubuntu-24.04
     timeout-minutes: 60
+    # Until one full run shows the known list covers every finding left after the 1.4.11 fixes.
     continue-on-error: true
     strategy:
       fail-fast: false
@@ -597,10 +598,14 @@ jobs:
           echo "Storybook did not start" && exit 1
       - name: Text contrast, ${{ matrix.brand }} light and dark
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
-        run: node scripts/contrast-scan.mjs --url http://localhost:6008 --workers 4 --brands ${{ matrix.brand }} | tee -a "$GITHUB_STEP_SUMMARY"
+        # bash: pipefail, so the scan's exit code survives the tee.
+        shell: bash
+        run: node scripts/contrast-scan.mjs --url http://localhost:6008 --workers 4 --ci --brands ${{ matrix.brand }} | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Non-text contrast, ${{ matrix.brand }} light and dark
         if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
-        run: node scripts/contrast-scan.mjs --url http://localhost:6008 --workers 4 --nontext --brands ${{ matrix.brand }} | tee -a "$GITHUB_STEP_SUMMARY"
+        # bash: pipefail, so the scan's exit code survives the tee.
+        shell: bash
+        run: node scripts/contrast-scan.mjs --url http://localhost:6008 --workers 4 --ci --nontext --brands ${{ matrix.brand }} | tee -a "$GITHUB_STEP_SUMMARY"
 
   react-18:
     needs: checks

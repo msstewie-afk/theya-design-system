@@ -34,6 +34,18 @@ const config = {
       Hero: 'agent 1: "Split with chips" media overflows 320px (backlog 21.11)',
     },
   },
+  // scripts/contrast-scan.mjs --ci: tracked findings of the rendered-contrast scan, warnings in CI;
+  // anything else fails. title: a story title, or a prefix ending in "/"; optional kind (text |
+  // nontext), brands, themes (light | dark), fg / bg (hex as the scan prints it), part (the measured
+  // part, e.g. "fill against its track"). Each names its owner; remove an entry with its fix.
+  contrast: {
+    known: [
+      { title: 'Patterns: Landing/', why: 'agent 1: landing contrast (text over media and motion layers), backlog 21.11' },
+      { title: 'Design System/Gradient canvas', why: 'agent 1: text on the gradient canvas behind landing cards, backlog 21.11' },
+      { title: 'Status & Feedback/Meter', kind: 'nontext', themes: ['light'], fg: '#efb300', why: 'accepted deviation (Мария, 2026-10-26): light keeps the yellow warning fill, 1.64:1 against the track' },
+      { title: 'Text Input/PasswordStrengthMeter', kind: 'nontext', themes: ['light'], fg: '#efb300', why: 'accepted deviation (Мария, 2026-10-26): the Meter decision, yellow "good" fill in light' },
+    ],
+  },
   // The code reader (a11y-kit code): every component's source and the global stylesheets.
   code: {
     targets(root) {
