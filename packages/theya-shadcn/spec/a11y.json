@@ -20,7 +20,7 @@
       },
       "patternCounts": {
         "verified": 54,
-        "partial": 5
+        "partial": 6
       }
     },
     {
@@ -33,7 +33,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -46,7 +46,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -59,7 +59,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -72,7 +72,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -85,7 +85,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -105,7 +105,7 @@
       },
       "patternCounts": {
         "verified": 54,
-        "partial": 5
+        "partial": 6
       }
     },
     {
@@ -122,7 +122,7 @@
       },
       "patternCounts": {
         "verified": 53,
-        "untested": 6
+        "untested": 7
       }
     },
     {
@@ -135,7 +135,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -148,7 +148,7 @@
         "library": 162
       },
       "patternCounts": {
-        "library": 59
+        "library": 60
       }
     },
     {
@@ -164,7 +164,7 @@
         "verified": 13
       },
       "patternCounts": {
-        "n/a": 51,
+        "n/a": 52,
         "verified": 8
       }
     },
@@ -183,7 +183,7 @@
       },
       "patternCounts": {
         "verified": 43,
-        "n/a": 12,
+        "n/a": 13,
         "untested": 4
       }
     },
@@ -197,7 +197,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -212,7 +212,7 @@
         "verified": 162
       },
       "patternCounts": {
-        "verified": 59
+        "verified": 60
       }
     },
     {
@@ -232,7 +232,7 @@
       },
       "patternCounts": {
         "verified": 56,
-        "untested": 3
+        "untested": 4
       }
     },
     {
@@ -245,7 +245,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -264,7 +264,7 @@
       },
       "patternCounts": {
         "verified": 55,
-        "untested": 2,
+        "untested": 3,
         "fails": 2
       }
     },
@@ -285,7 +285,7 @@
       },
       "patternCounts": {
         "verified": 48,
-        "n/a": 7,
+        "n/a": 8,
         "untested": 4
       }
     },
@@ -307,7 +307,7 @@
       },
       "patternCounts": {
         "verified": 56,
-        "partial": 3
+        "partial": 4
       }
     },
     {
@@ -328,7 +328,7 @@
         "partial": 1
       },
       "patternCounts": {
-        "n/a": 47,
+        "n/a": 48,
         "verified": 12
       }
     },
@@ -352,7 +352,7 @@
       },
       "patternCounts": {
         "verified": 50,
-        "n/a": 7,
+        "n/a": 8,
         "partial": 2
       }
     },
@@ -373,7 +373,7 @@
       },
       "patternCounts": {
         "verified": 50,
-        "n/a": 7,
+        "n/a": 8,
         "untested": 2
       }
     },
@@ -393,7 +393,7 @@
         "verified": 1
       },
       "patternCounts": {
-        "n/a": 58,
+        "n/a": 59,
         "verified": 1
       }
     },
@@ -412,7 +412,7 @@
       "patternCounts": {
         "n/a": 54,
         "verified": 4,
-        "untested": 1
+        "untested": 2
       }
     },
     {
@@ -431,7 +431,7 @@
       },
       "patternCounts": {
         "n/a": 57,
-        "partial": 1,
+        "partial": 2,
         "verified": 1
       }
     },
@@ -445,7 +445,7 @@
         "library": 162
       },
       "patternCounts": {
-        "library": 59
+        "library": 60
       }
     },
     {
@@ -458,7 +458,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -471,7 +471,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -492,7 +492,7 @@
       },
       "patternCounts": {
         "verified": 50,
-        "n/a": 7,
+        "n/a": 8,
         "untested": 2
       }
     },
@@ -510,7 +510,7 @@
         "verified": 6
       },
       "patternCounts": {
-        "n/a": 29,
+        "n/a": 30,
         "verified": 27,
         "partial": 3
       }
@@ -525,7 +525,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -543,7 +543,7 @@
       },
       "patternCounts": {
         "verified": 47,
-        "n/a": 10,
+        "n/a": 11,
         "untested": 2
       }
     },
@@ -564,7 +564,7 @@
       },
       "patternCounts": {
         "verified": 51,
-        "n/a": 7,
+        "n/a": 8,
         "untested": 1
       }
     },
@@ -585,7 +585,7 @@
       },
       "patternCounts": {
         "verified": 22,
-        "n/a": 37
+        "n/a": 38
       }
     },
     {
@@ -604,7 +604,7 @@
         "verified": 6
       },
       "patternCounts": {
-        "n/a": 58,
+        "n/a": 59,
         "verified": 1
       }
     },
@@ -618,7 +618,7 @@
         "library": 162
       },
       "patternCounts": {
-        "library": 59
+        "library": 60
       }
     },
     {
@@ -638,7 +638,7 @@
       },
       "patternCounts": {
         "verified": 51,
-        "n/a": 7,
+        "n/a": 8,
         "untested": 1
       }
     },
@@ -652,7 +652,7 @@
         "library": 162
       },
       "patternCounts": {
-        "library": 59
+        "library": 60
       }
     },
     {
@@ -672,7 +672,7 @@
         "verified": 11
       },
       "patternCounts": {
-        "n/a": 58,
+        "n/a": 59,
         "verified": 1
       }
     },
@@ -690,7 +690,7 @@
       },
       "patternCounts": {
         "verified": 52,
-        "n/a": 7
+        "n/a": 8
       }
     },
     {
@@ -703,7 +703,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -716,7 +716,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -737,7 +737,7 @@
       },
       "patternCounts": {
         "verified": 50,
-        "n/a": 7,
+        "n/a": 8,
         "partial": 1,
         "untested": 1
       }
@@ -760,7 +760,7 @@
       },
       "patternCounts": {
         "verified": 29,
-        "n/a": 29,
+        "n/a": 30,
         "untested": 1
       }
     },
@@ -774,7 +774,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -787,7 +787,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -800,7 +800,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -821,7 +821,7 @@
         "partial": 1
       },
       "patternCounts": {
-        "n/a": 47,
+        "n/a": 48,
         "verified": 11,
         "untested": 1
       }
@@ -842,7 +842,7 @@
       },
       "patternCounts": {
         "verified": 27,
-        "n/a": 31,
+        "n/a": 32,
         "partial": 1
       }
     },
@@ -856,7 +856,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -869,7 +869,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -882,7 +882,7 @@
         "product": 162
       },
       "patternCounts": {
-        "product": 59
+        "product": 60
       }
     },
     {
@@ -901,7 +901,7 @@
         "verified": 2
       },
       "patternCounts": {
-        "n/a": 54,
+        "n/a": 55,
         "verified": 5
       }
     },
@@ -924,7 +924,7 @@
       },
       "patternCounts": {
         "verified": 50,
-        "n/a": 7,
+        "n/a": 8,
         "partial": 2
       }
     },
@@ -943,7 +943,7 @@
       },
       "patternCounts": {
         "verified": 17,
-        "n/a": 42
+        "n/a": 43
       }
     }
   ],
@@ -18606,6 +18606,87 @@
         "2.1.2": "n/a",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
+        "2.2.2": "partial",
+        "2.3.1": "library",
+        "2.4.1": "product",
+        "2.4.2": "product",
+        "2.4.3": "n/a",
+        "2.4.4": "n/a",
+        "2.4.5": "product",
+        "2.4.6": "n/a",
+        "2.4.7": "n/a",
+        "2.4.11": "n/a",
+        "2.5.1": "n/a",
+        "2.5.2": "library",
+        "2.5.3": "n/a",
+        "2.5.4": "library",
+        "2.5.7": "n/a",
+        "2.5.8": "n/a",
+        "3.1.1": "product",
+        "3.1.2": "product",
+        "3.2.1": "n/a",
+        "3.2.2": "n/a",
+        "3.2.3": "product",
+        "3.2.4": "product",
+        "3.2.6": "product",
+        "3.3.1": "n/a",
+        "3.3.2": "n/a",
+        "3.3.3": "product",
+        "3.3.4": "product",
+        "3.3.7": "product",
+        "3.3.8": "n/a",
+        "4.1.2": "n/a",
+        "4.1.3": "n/a"
+      }
+    },
+    {
+      "name": "ArcStage",
+      "title": "Patterns: Landing/ArcStage",
+      "axe": {
+        "stories": 2,
+        "themes": [
+          "light",
+          "dark"
+        ],
+        "exclusions": []
+      },
+      "keyboard": {
+        "tested": 0,
+        "playTests": 1
+      },
+      "reducedMotion": "respected",
+      "forcedColors": "global",
+      "screenReader": [],
+      "deviations": [],
+      "traits": [
+        "autoMoving",
+        "timed"
+      ],
+      "wcag": {
+        "1.1.1": "partial",
+        "1.2.1": "product",
+        "1.2.2": "product",
+        "1.2.3": "product",
+        "1.2.4": "product",
+        "1.2.5": "product",
+        "1.3.1": "partial",
+        "1.3.2": "untested",
+        "1.3.3": "product",
+        "1.3.4": "library",
+        "1.3.5": "n/a",
+        "1.4.1": "n/a",
+        "1.4.2": "product",
+        "1.4.3": "verified",
+        "1.4.4": "untested",
+        "1.4.5": "product",
+        "1.4.10": "untested",
+        "1.4.11": "n/a",
+        "1.4.12": "partial",
+        "1.4.13": "n/a",
+        "2.1.1": "n/a",
+        "2.1.2": "n/a",
+        "2.1.4": "n/a",
+        "2.2.1": "untested",
         "2.2.2": "partial",
         "2.3.1": "library",
         "2.4.1": "product",

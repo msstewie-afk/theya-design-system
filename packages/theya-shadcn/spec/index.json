@@ -1910,7 +1910,7 @@
         },
         {
           "when": "One picture that changes in place (a dish per stage, a screen per step)",
-          "use": "Carousel with one slide in view, or a crossfade"
+          "use": "ArcStage (landing hero), or Carousel with one slide in view"
         }
       ],
       "spec": "spec/components/orbit-carousel.json"

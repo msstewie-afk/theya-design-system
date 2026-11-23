@@ -46,14 +46,14 @@ Open these first, pick the closest one, then change its content. Don't lay out a
 | The product as real UI cards over a ground | `ProductCollage` + `CollageItem` |
 | An app screen or a web app in a frame | `DeviceFrame type="phone" \| "browser"` |
 | Download a mobile app | `StoreButtons` (one store per device; official badges through `badges` before launch) |
-| Switch stages, plans, modes | `Tabs variant="chips"` or `ToggleGroup` |
-| One picture that changes in place | `Carousel` with one slide in view |
+| Switch stages, plans, modes | `Tabs variant="chips"` when each choice has its own panel (even one line), `ToggleGroup` when only a picture changes |
+| One picture that changes in place | `ArcStage` (a calm move along an arc, for a hero), or `Carousel` with one slide in view |
 | A showcase of five to eight image cards | `OrbitCarousel` |
 
 ## 4. Not X for Y
 
 - **`Stepper` is not a switcher.** It shows progress through a process (a form, a wizard). For stages to switch between, use `Tabs variant="chips"`.
-- **`OrbitCarousel` is not for one changing picture.** Its shapes need five or more cards. For one dish per stage, use `Carousel` with one slide in view.
+- **`OrbitCarousel` is not for one changing picture.** Its shapes need five or more cards. For one dish per stage, use `ArcStage`.
 - **`Aurora` is not a brand ground.** It mixes primary, info and success, and on an orange theme that turns brown. For a coloured ground, use `SectionPanel tone="primary"` or `"gradient"`.
 - **A screenshot is not the product visual** when Theya can draw it. Compose the visual from Theya components (`BookmarksPreview` and `ProductCollage` show how), so it follows the theme and the dark mode.
 - **No `description` as a dumping ground.** A subtitle, a sentence and a list are three different slots.

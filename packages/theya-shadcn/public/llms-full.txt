@@ -6561,7 +6561,7 @@ Docs: ./?path=/docs/motion-orbitcarousel--docs
 
 - Content people browse or compare in the product → use Carousel
 - More than ~10 cards, or cards with forms and long text → use Card grid
-- One picture that changes in place (a dish per stage, a screen per step) → use Carousel with one slide in view, or a crossfade
+- One picture that changes in place (a dish per stage, a screen per step) → use ArcStage (landing hero), or Carousel with one slide in view
 
 **Anatomy**
 

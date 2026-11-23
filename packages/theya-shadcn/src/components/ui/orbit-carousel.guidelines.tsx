@@ -10,7 +10,7 @@ export const orbitCarouselGuidelines: ComponentGuidelines = {
   whenNotToUse: [
     { text: 'Content people browse or compare in the product', instead: 'Carousel' },
     { text: 'More than ~10 cards, or cards with forms and long text', instead: 'Card grid' },
-    { text: 'One picture that changes in place (a dish per stage, a screen per step)', instead: 'Carousel with one slide in view, or a crossfade' },
+    { text: 'One picture that changes in place (a dish per stage, a screen per step)', instead: 'ArcStage (landing hero), or Carousel with one slide in view' },
   ],
   anatomy: [
     { part: 'Drum', description: <><C>shape="drum"</C>: cards round a cylinder that turns on its vertical axis.</> },
