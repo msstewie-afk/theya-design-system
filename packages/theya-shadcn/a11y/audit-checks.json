@@ -7,10 +7,10 @@
       "by": "Мария",
       "checked": [
         "AnnouncementBar 2.4.11",
+        "ColorPicker 2.4.6",
         "BillingUsage 3.2.2",
-        "AvatarGroup 1.4.11",
-        "BillingUsage 1.3.2",
-        "AreaChart 1.4.11"
+        "Combobox 3.3.2",
+        "Cards 1.4.11"
       ],
       "wrong": []
     }
