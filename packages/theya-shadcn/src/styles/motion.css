@@ -555,3 +555,22 @@
     transition: none !important;
   }
 }
+
+/* AmbientBlobs: a soft shape that slowly changes its outline and breathes
+   (+4%), one loop per --transition-duration-ambient. Each blob runs it with
+   its own delay and direction, so they never move in step. */
+@keyframes theya-blob {
+  0%,
+  100% {
+    border-radius: 58% 42% 55% 45% / 48% 58% 42% 52%;
+    transform: scale(1) rotate(0deg);
+  }
+  33% {
+    border-radius: 44% 56% 40% 60% / 60% 42% 58% 40%;
+    transform: scale(1.04) rotate(8deg);
+  }
+  66% {
+    border-radius: 52% 48% 62% 38% / 42% 52% 48% 58%;
+    transform: scale(0.98) rotate(-6deg);
+  }
+}

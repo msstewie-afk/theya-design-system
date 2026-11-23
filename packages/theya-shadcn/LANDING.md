@@ -67,7 +67,7 @@ Open these first, pick the closest one, then change its content. Don't lay out a
 
 ## 6. Motion
 
-- Theya's durations stop at 450 ms. Slow ambient motion (a ground that breathes, an object travelling along a path) may run longer. Write the exception down with its reason, and use a calm curve: `glide` is too sharp for a long path.
+- UI durations stop at 450 ms. Landings have two more: `--transition-duration-journey` (1600 ms, an object travelling a long path, with `--ease-travel`; `glide` is too sharp for that) and `--transition-duration-ambient` (16 s, one loop of a ground that breathes: `AmbientBlobs`). Never use them for UI feedback.
 - Anything that moves by itself for more than 5 s needs a visible pause (WCAG 2.2.2) and stops while the tab is hidden.
 - With reduced motion, things appear in place. Nothing waits for an animation to become readable.
 

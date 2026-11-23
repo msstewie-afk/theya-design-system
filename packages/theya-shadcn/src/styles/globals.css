@@ -243,6 +243,9 @@
   --transition-duration-moderate: var(--motion-duration-moderate); /* 200ms */
   --transition-duration-slow: var(--motion-duration-slow); /* 300ms */
   --transition-duration-slower: var(--motion-duration-slower); /* 450ms: landing reveals (Motion presets) */
+  /* Landing only, never for UI feedback (PlateCovery hero, 23.11): */
+  --transition-duration-journey: var(--motion-duration-journey); /* 1600ms: an object travelling a long path (a plate along an arc) */
+  --transition-duration-ambient: var(--motion-duration-ambient); /* 16s: one loop of a ground that breathes (AmbientBlobs) */
   /* Easing: names for the four curves already used across components (2026-09-27).
      Tailwind v4 turns --ease-* into short utilities: ease-enter, ease-exit, ... */
   --ease-enter: var(--motion-easing-enter); /* same as Tailwind ease-out: enter, hover (default) */
@@ -250,6 +253,7 @@
   --ease-spring: var(--motion-easing-spring); /* overshoot: checkbox, radio, switch selection */
   --ease-press: var(--motion-easing-press); /* button press */
   --ease-glide: var(--motion-easing-glide); /* long expo-out settle: landing reveals, marquee pause */
+  --ease-travel: var(--motion-easing-travel); /* even start and stop: long paths, where glide's fast start reads as a jolt */
 
   /* ---------- Layering (z-index) ----------
      Real gap (unlike duration/easing above): existing usage is raw,
