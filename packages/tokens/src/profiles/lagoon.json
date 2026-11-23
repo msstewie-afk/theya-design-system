@@ -94,6 +94,7 @@
   },
   "light": {
     "tokens": {
+      "border-border": "#869894",
       "bg-primary-bg-primary-subtle": "#cededd",
       "bg-primary-bg-primary-subtle-hover": "#c0d6d3",
       "bg-primary-bg-primary-subtle-pressed": "#b3cdca",

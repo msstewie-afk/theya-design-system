@@ -22,7 +22,8 @@
  * --nontext: WCAG 1.4.11 instead — the parts of controls and indicators that
  * carry their state, each against what is next to it (3:1):
  * - progressbar / meter / slider: the filled part against its track;
- * - switch: the track against the surface (unless it has a 3:1 border), the thumb against the track;
+ * - switch: the track against the surface (unless it has a 3:1 border), the thumb against the track
+ *   (unless a glyph in it or its own edge stands out 3:1);
  * - checkbox / radio (unchecked): the border against the surface;
  * - text fields, textareas, select / combobox triggers: the border against the surface.
  * The focus ring is not measured: its contrast is a library-wide accepted deviation.
@@ -152,7 +153,10 @@ function scan(nontext) {
       // A glyph in the thumb (Switch's check) that stands out from the thumb carries the state by itself.
       const glyph = thumb && [...thumb.querySelectorAll('svg')].find((g) => visible(g) && Number(getComputedStyle(g).opacity) > 0.5);
       const marked = glyph && ratio(colorOf(getComputedStyle(glyph).color, glyph) ?? fillOf(thumb), fillOf(thumb)) >= 3;
-      if (thumb && !marked) report(el, 'thumb against the track', fillOf(thumb), trackColor);
+      // So does an edge on the thumb (border or inset ring) that stands out from the track.
+      const edge = thumb && borderOf(thumb);
+      const outlined = edge && ratio(edge, trackColor) >= 3;
+      if (thumb && !marked && !outlined) report(el, 'thumb against the track', fillOf(thumb), trackColor);
     }
     for (const el of root.querySelectorAll('[role=checkbox], [role=radio], input[type=checkbox], input[type=radio]')) {
       if (!visible(el) || inactive(el) || el.getAttribute('aria-checked') === 'true' || el.getAttribute('data-state') === 'checked' || el.checked) continue;

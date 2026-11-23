@@ -152,7 +152,9 @@ export function SavedItems({ items: initial, primaryAction, onRemove, currency =
       </div>
 
       {/* Bulk bar: always visible, so selecting has an obvious purpose. */}
-      <div className="@container flex flex-wrap items-center gap-x-4 gap-y-2 rounded-[var(--size-border-radius-border-radius-xl)] bg-[var(--color-bg-neutral-bg-neutral-subtler)] px-3 py-2">
+      {/* The select-all bar sits on the surface with a subtle outline, like the list below:
+          on the neutral-subtler tint the Checkbox edge was 2.86:1 (light) / 2.22:1 (dark). */}
+      <div className="@container flex flex-wrap items-center gap-x-4 gap-y-2 rounded-[var(--size-border-radius-border-radius-xl)] border border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] px-3 py-2">
         <div className="flex items-center gap-2">
           <Checkbox
             id={`${uid}-all`}
