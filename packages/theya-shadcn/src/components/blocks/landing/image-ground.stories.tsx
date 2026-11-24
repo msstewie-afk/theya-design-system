@@ -85,3 +85,22 @@ export const Flips: Story = {
     </div>
   ),
 };
+
+/** `fill="edge"`: the object at the ground's full height on the end side; its outer column of pixels is drawn out to the start, so the studio field continues behind the text. */
+export const ObjectOnEdgeField: Story = {
+  args: { src: `${BG}/glass-rings-object.webp`, size: 'contain', fill: 'edge', position: 'right -15cqw center' },
+  render: (args) => (
+    <SectionPanel shape="bleed" image={args.src} imageGround={args}>
+      <div className="container-display flex flex-col gap-6">
+        <h2 className="m-0 max-w-[12ch] text-heading-3xl">
+          {/* Keep "in" with its phrase: no preposition left hanging at a line end. */}
+          Plan the week <span className="whitespace-nowrap">in one place</span>
+        </h2>
+        <p className="m-0 max-w-[32ch] text-body-l">One list for the tasks, one for the notes, and the week on a single screen.</p>
+        <Button size="xl" className="self-start">
+          Start free
+        </Button>
+      </div>
+    </SectionPanel>
+  ),
+};

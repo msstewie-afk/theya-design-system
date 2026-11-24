@@ -44,3 +44,4 @@ silver-mist.webp	light	left two thirds	silver, cool blue-gray	soft blur; the neu
 gray-mist-mid.webp	mid	top left	gray, slate	soft blur, desaturated (ChatGPT)
 gray-mist-dark.webp	mid-dark	top left (dark text), right (white text)	graphite gray	soft blur, darker (ChatGPT)
 cool-blue-mist.webp	light-mid	left half	muted sky blue	soft blur (ChatGPT)
+glass-rings-object.webp	light	none (object to its left edge)	red, violet, blue on white	glass-rings cropped to the object, for ImageGround fill="edge"

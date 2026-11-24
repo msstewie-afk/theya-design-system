@@ -21,6 +21,11 @@ export const imageGroundGuidelines: ComponentGuidelines = {
         '`size` cover (crops) or contain (the whole object on the fill), `position` (CSS background-position), `opacity` 0–100, `flip` x / y / both.',
     },
     {
+      part: 'Field',
+      description:
+        'with `size="contain"` and `fill="edge"`: the picture at the ground\'s height (`objectSize` %), its outer column of pixels drawn out to the free side, the edge facing it faded. For an object shot on a plain field; push it past the edge with `position` (e.g. `right -15cqw center`) to clear the text. Pictures from the same site only.',
+    },
+    {
       part: 'Tint',
       description:
         'a layer of a theme color over the picture: primary, deep, surface or scrim, `tintOpacity` 0–90 in steps of 10, the scale of the alpha primitives (default 40).',
