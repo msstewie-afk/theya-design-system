@@ -1664,6 +1664,28 @@
       "spec": "spec/components/list-item.json"
     },
     {
+      "name": "MapView",
+      "file": "ui/map-view",
+      "category": "Data",
+      "status": "beta",
+      "summary": "Where places are: stores, pickup points, studios, clinics — and which one is nearest.",
+      "instead": [
+        {
+          "when": "One address on a contact page",
+          "use": "a link to a maps app next to the address"
+        },
+        {
+          "when": "Numbers by region (sales per country)",
+          "use": "a Chart or a Table"
+        },
+        {
+          "when": "A decorative picture of a map in a hero",
+          "use": "an illustration — it doesn’t need tiles or WebGL"
+        }
+      ],
+      "spec": "spec/components/map-view.json"
+    },
+    {
       "name": "Marquee",
       "file": "ui/marquee",
       "category": "Motion",

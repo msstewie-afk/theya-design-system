@@ -64,6 +64,9 @@
 /* Keyframes for the Motion presets (Marquee, TextEffect, surfaces). */
 @import './motion.css';
 
+/* MapView: MapLibre's stylesheet plus token overrides, see the file header. */
+@import './map.css';
+
 /* Gradient canvas (gr-01): data-canvas="gradient", glass, buttons on it.
    Unlayered, see the file header. */
 @import './gradient-canvas.css';
