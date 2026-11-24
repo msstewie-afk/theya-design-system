@@ -1,5 +1,6 @@
 import type { ComponentProps, CSSProperties } from 'react';
 import { cn } from '../../../lib/utils';
+import { ImageGround, type ImageGroundProps } from './image-ground';
 
 export type SectionPanelTone = 'default' | 'subtle' | 'inverse' | 'primary' | 'gradient';
 
@@ -35,6 +36,19 @@ export interface SectionPanelProps extends ComponentProps<'section'> {
    * Other tones paint it over their fill.
    */
   image?: string;
+  /**
+   * How the image sits on the panel (see ImageGround): a tint in the
+   * theme's colors (`deep` darkens tone in tone for white text, `surface`
+   * lightens for dark text), `opacity` to let the panel's fill show through,
+   * `flip` to mirror it. Only with `image`.
+   */
+  imageGround?: Omit<ImageGroundProps, 'src' | 'className'>;
+  /**
+   * The text and controls on the panel: `page` (default) follows the site's
+   * theme; `dark` renders them as in the dark theme (light text) — for a dark
+   * picture or tint. tone="inverse" implies it.
+   */
+  contentTheme?: 'page' | 'dark';
 }
 
 const TONE: Record<SectionPanelTone, string> = {
@@ -65,36 +79,35 @@ const TONE: Record<SectionPanelTone, string> = {
  * Stack several and set `overlap` to lay each one over the previous section.
  * Content inside is in the display scale (data-scale="display").
  */
-export function SectionPanel({ tone = 'default', overlap = false, padding = 'section', shape = 'sheet', image, className, style, children, ...props }: SectionPanelProps) {
-  const url = image ? `url(${JSON.stringify(image)})` : undefined;
-  const ground: CSSProperties | undefined = !url
-    ? undefined
-    : tone === 'gradient'
-      ? // The canvas paints --gradient-canvas in ::after; a photo takes its place.
-        ({ '--gradient-canvas': url, '--gradient-canvas-blooms': url } as CSSProperties)
-      : { backgroundImage: url, backgroundSize: 'cover', backgroundPosition: 'center' };
+export function SectionPanel({ tone = 'default', overlap = false, padding = 'section', shape = 'sheet', image, imageGround, contentTheme = 'page', className, style, children, ...props }: SectionPanelProps) {
+  // The picture is its own layer (ImageGround) under the content; on the
+  // gradient canvas it takes the mesh's place, and the grain stays on top.
+  const ground: CSSProperties | undefined =
+    image && tone === 'gradient' ? ({ '--gradient-canvas': 'none', '--gradient-canvas-blooms': 'none' } as CSSProperties) : undefined;
   return (
     <section
       data-slot="section-panel"
       data-scale="display"
-      data-theme={tone === 'inverse' ? 'dark' : undefined}
+      data-theme={tone === 'inverse' || contentTheme === 'dark' ? 'dark' : undefined}
       data-surface={tone === 'primary' ? 'primary' : undefined}
       data-canvas={tone === 'gradient' ? 'gradient' : undefined}
       // Light blooms where only cards lie (Dusk: the bottom left corner).
       data-canvas-blooms={tone === 'gradient' ? '' : undefined}
-      data-canvas-image={tone === 'gradient' && image ? '' : undefined}
       data-shape={shape}
       className={cn(
         'relative',
+        image && 'isolate',
         shape === 'sheet' && 'rounded-t-[var(--size-border-radius-border-radius-5xl)]',
         padding === 'section' && 'section-display',
         overlap && shape === 'sheet' && '-mt-[var(--size-border-radius-border-radius-5xl)]',
         TONE[tone],
+        contentTheme === 'dark' && tone !== 'inverse' && 'text-[var(--color-text-text)] [color-scheme:dark]',
         className,
       )}
       style={{ ...ground, ...style }}
       {...props}
     >
+      {image && <ImageGround src={image} {...imageGround} className="-z-10" />}
       {children}
     </section>
   );

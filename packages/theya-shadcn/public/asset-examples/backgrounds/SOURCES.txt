@@ -37,3 +37,11 @@ teal-fiber-dark.webp	dark	centre, top right	black, teal, amber glow	thin fibres
 violet-glass-planes.webp	mid-dark	little — busy	violet, blue, peach	glass planes over the whole frame
 steel-blue-lines.webp	dark	top centre	navy, steel blue	thin light lines, calm
 violet-indigo-blur.webp	mid-bright	right half (white text), top left (dark text)	lilac, violet, indigo (iris)	soft blur
+gray-mist-blur.webp	light	anywhere	neutral gray, a trace of blue	soft blur; the neutral demo ground (ImageGround stories)
+gray-glass-blocks.webp	light	left half	neutral gray, white	glass blocks on the right; wide 7:3; neutral demo
+graphite-lines.webp	dark	top centre	graphite, white lines	thin light lines; neutral dark demo
+silver-mist.webp	light	left two thirds	silver, cool blue-gray	soft blur; the neutral demo ground of the ImageGround playground (ChatGPT)
+gray-mist-mid.webp	mid	top left	gray, slate	soft blur, desaturated (ChatGPT)
+gray-mist-dark.webp	mid-dark	top left (dark text), right (white text)	graphite gray	soft blur, darker (ChatGPT)
+cool-blue-mist.webp	light-mid	left half	muted sky blue	soft blur (ChatGPT)
+glass-rings-object.webp	light	none (object to its left edge)	red, violet, blue on white	glass-rings cropped to the object, for ImageGround fill="edge"

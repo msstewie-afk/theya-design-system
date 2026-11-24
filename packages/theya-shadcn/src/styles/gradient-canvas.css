@@ -188,12 +188,9 @@
   [data-canvas='gradient']::before { display: none; }
 }
 
-/* A photo ground (SectionPanel image): it covers the canvas, whatever the
-   container width (the mesh's narrow-screen crop doesn't apply). */
-[data-canvas='gradient'][data-canvas-image]::after {
-  background-size: cover;
-  background-position: center;
-}
+/* A photo ground (SectionPanel image) is its own layer, ImageGround, under
+   the grain; SectionPanel sets --gradient-canvas to none so the mesh is not
+   drawn beneath it. */
 
 /* Toggle groups lying on the canvas (the pricing period switch): the
    theme's tonal "on" fill would sit under the canvas ink. Off = glass with
