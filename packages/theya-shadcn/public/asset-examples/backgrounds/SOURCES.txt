@@ -15,3 +15,24 @@ orange-paper-waves.webp	dark	none	orange, red, violet	full-frame folds: decorati
 teal-orange-fiber-wave.webp	dark	top fifth	teal, pink, orange	fibre texture
 magenta-dunes.webp	dark	bottom third	indigo, magenta, pink	wide 3:1 band
 network-wave.webp	dark	top fifth, bottom fifth	navy, cyan, magenta	nodes-and-lines "data" look
+blue-sky-blur.webp	mid	right half (white text), left (dark text)	sky blue, azure	soft blur
+aqua-mist-blur.webp	light	anywhere	aqua, cyan, pale blue (lagoon)	soft blur
+lime-mist-blur.webp	light	left half	lime, pale yellow (lime)	soft blur
+olive-blur.webp	mid	top left	olive, moss, mustard	soft blur; check contrast for both inks
+red-orange-blur.webp	bright	left third	red, orange, pink (ember)	soft blur; bright ink like ember
+sunshine-blur.webp	light	left half	yellow, amber, peach (ochre)	soft blur
+tangerine-blur.webp	bright	top left	tangerine, peach, coral (ember)	soft blur
+coral-magenta-blur.webp	bright	top left	coral, pink, magenta	soft blur
+glass-blocks-right.webp	light	left half	pale blue, cobalt (iris)	glass blocks on the right; wide 7:3
+glass-rings.webp	light	none — centred object	red, violet, blue	product-shot style object; wide 7:3
+glass-streams.webp	light	left third	sky blue, magenta	glass streams and cubes from the right; wide 7:3
+glass-bars-curve.webp	light	top left	sky blue, violet, pink	glass bars sweeping in from the right; wide 7:3
+white-silk.webp	light	top right only	white, silver, pearl	full-width silk
+pastel-wave-sheet.webp	light	top third	white, cyan, pink, orange	one glass sheet curving up to the right
+blue-red-grain.webp	light centre	top centre	blue, white, red	film grain; heavier file
+glass-cubes-amber.webp	light	right half	cream, amber, peach	glass cubes on the left with light rays
+cream-silk-ribbons.webp	light	top centre-right	cream, champagne	soft ribbons
+sand-silk-wave.webp	mid	top right	sand, taupe, cream	soft ribbons; muted
+teal-fiber-dark.webp	dark	centre, top right	black, teal, amber glow	thin fibres
+violet-glass-planes.webp	mid-dark	little — busy	violet, blue, peach	glass planes over the whole frame
+steel-blue-lines.webp	dark	top centre	navy, steel blue	thin light lines, calm
