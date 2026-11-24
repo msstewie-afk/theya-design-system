@@ -25,7 +25,7 @@ type Story = StoryObj<typeof ImageGround>;
 
 function Copy() {
   return (
-    <div className="container-display flex min-h-[24rem] flex-col justify-center gap-6">
+    <div className="container-display flex flex-col gap-6">
       <h2 className="m-0 max-w-[16ch] text-heading-3xl">Plan the week in one place</h2>
       <p className="m-0 max-w-[48ch] text-body-l">One list for the tasks, one for the notes, and the week laid out on a single screen.</p>
       <Button size="xl" className="self-start">
@@ -38,7 +38,7 @@ function Copy() {
 /** Playground: every control on one picture, on the default panel. */
 export const Playground: Story = {
   render: (args) => (
-    <SectionPanel shape="bleed" padding="none" image={args.src} imageGround={args}>
+    <SectionPanel shape="bleed" image={args.src} imageGround={args}>
       <Copy />
     </SectionPanel>
   ),
@@ -48,7 +48,7 @@ export const Playground: Story = {
 export const DeepTintForWhiteText: Story = {
   args: { src: `${BG}/graphite-lines.webp`, tint: 'deep', tintOpacity: 50 },
   render: (args) => (
-    <SectionPanel tone="inverse" shape="bleed" padding="none" image={args.src} imageGround={args}>
+    <SectionPanel tone="inverse" shape="bleed" image={args.src} imageGround={args}>
       <Copy />
     </SectionPanel>
   ),
@@ -60,9 +60,9 @@ export const DeepTintForWhiteText: Story = {
 
 /** A light veil: the picture at 35% over the page surface, for the regular text color. */
 export const VeilForDarkText: Story = {
-  args: { src: `${BG}/gray-glass-blocks.webp`, opacity: 45 },
+  args: { src: `${BG}/glass-blocks-right.webp`, opacity: 45 },
   render: (args) => (
-    <SectionPanel shape="bleed" padding="none" image={args.src} imageGround={args}>
+    <SectionPanel shape="bleed" image={args.src} imageGround={args}>
       <Copy />
     </SectionPanel>
   ),
@@ -70,7 +70,7 @@ export const VeilForDarkText: Story = {
 
 /** One file, four compositions: none, x, y, both. */
 export const Flips: Story = {
-  args: { src: `${BG}/gray-glass-blocks.webp`, opacity: 100 },
+  args: { src: `${BG}/glass-blocks-right.webp`, opacity: 100 },
   render: (args) => (
     <div className="grid gap-4 p-4 md:grid-cols-2">
       {(['none', 'x', 'y', 'both'] as const).map((flip) => (
