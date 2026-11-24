@@ -774,6 +774,256 @@
       "yellow-a900": {
         "value": "rgba(239, 179, 0, 0.9)"
       }
+    },
+    "violet": {
+      "violet-005": {
+        "value": "#f5f4fe"
+      },
+      "violet-010": {
+        "value": "#e4e1fe"
+      },
+      "violet-050": {
+        "value": "#d0c9ff"
+      },
+      "violet-100": {
+        "value": "#b3a6ff"
+      },
+      "violet-200": {
+        "value": "#997fff"
+      },
+      "violet-300": {
+        "value": "#8558fe"
+      },
+      "violet-400": {
+        "value": "#793afa"
+      },
+      "violet-500": {
+        "value": "#6925e0"
+      },
+      "violet-600": {
+        "value": "#571dbc"
+      },
+      "violet-700": {
+        "value": "#421792"
+      },
+      "violet-800": {
+        "value": "#2f116a"
+      },
+      "violet-900": {
+        "value": "#1f0e47"
+      }
+    },
+    "olive": {
+      "olive-005": {
+        "value": "#f3f8e2"
+      },
+      "olive-010": {
+        "value": "#e4eec1"
+      },
+      "olive-050": {
+        "value": "#d6e3a6"
+      },
+      "olive-100": {
+        "value": "#c1d17d"
+      },
+      "olive-200": {
+        "value": "#a7b952"
+      },
+      "olive-300": {
+        "value": "#91a32e"
+      },
+      "olive-400": {
+        "value": "#7d8d20"
+      },
+      "olive-500": {
+        "value": "#697710"
+      },
+      "olive-600": {
+        "value": "#566203"
+      },
+      "olive-700": {
+        "value": "#444e05"
+      },
+      "olive-800": {
+        "value": "#303705"
+      },
+      "olive-900": {
+        "value": "#1d2204"
+      }
+    },
+    "violet-a": {
+      "violet-a100": {
+        "value": "rgba(133, 88, 254, 0.1)"
+      },
+      "violet-a200": {
+        "value": "rgba(133, 88, 254, 0.2)"
+      },
+      "violet-a300": {
+        "value": "rgba(133, 88, 254, 0.3)"
+      },
+      "violet-a400": {
+        "value": "rgba(133, 88, 254, 0.4)"
+      },
+      "violet-a500": {
+        "value": "rgba(133, 88, 254, 0.5)"
+      },
+      "violet-a600": {
+        "value": "rgba(133, 88, 254, 0.6)"
+      },
+      "violet-a700": {
+        "value": "rgba(133, 88, 254, 0.7)"
+      },
+      "violet-a800": {
+        "value": "rgba(133, 88, 254, 0.8)"
+      },
+      "violet-a900": {
+        "value": "rgba(133, 88, 254, 0.9)"
+      }
+    },
+    "olive-a": {
+      "olive-a100": {
+        "value": "rgba(145, 163, 46, 0.1)"
+      },
+      "olive-a200": {
+        "value": "rgba(145, 163, 46, 0.2)"
+      },
+      "olive-a300": {
+        "value": "rgba(145, 163, 46, 0.3)"
+      },
+      "olive-a400": {
+        "value": "rgba(145, 163, 46, 0.4)"
+      },
+      "olive-a500": {
+        "value": "rgba(145, 163, 46, 0.5)"
+      },
+      "olive-a600": {
+        "value": "rgba(145, 163, 46, 0.6)"
+      },
+      "olive-a700": {
+        "value": "rgba(145, 163, 46, 0.7)"
+      },
+      "olive-a800": {
+        "value": "rgba(145, 163, 46, 0.8)"
+      },
+      "olive-a900": {
+        "value": "rgba(145, 163, 46, 0.9)"
+      }
+    },
+    "purple-a": {
+      "purple-a100": {
+        "value": "rgba(200, 89, 239, 0.1)"
+      },
+      "purple-a200": {
+        "value": "rgba(200, 89, 239, 0.2)"
+      },
+      "purple-a300": {
+        "value": "rgba(200, 89, 239, 0.3)"
+      },
+      "purple-a400": {
+        "value": "rgba(200, 89, 239, 0.4)"
+      },
+      "purple-a500": {
+        "value": "rgba(200, 89, 239, 0.5)"
+      },
+      "purple-a600": {
+        "value": "rgba(200, 89, 239, 0.6)"
+      },
+      "purple-a700": {
+        "value": "rgba(200, 89, 239, 0.7)"
+      },
+      "purple-a800": {
+        "value": "rgba(200, 89, 239, 0.8)"
+      },
+      "purple-a900": {
+        "value": "rgba(200, 89, 239, 0.9)"
+      }
+    },
+    "magenta-a": {
+      "magenta-a100": {
+        "value": "rgba(230, 81, 188, 0.1)"
+      },
+      "magenta-a200": {
+        "value": "rgba(230, 81, 188, 0.2)"
+      },
+      "magenta-a300": {
+        "value": "rgba(230, 81, 188, 0.3)"
+      },
+      "magenta-a400": {
+        "value": "rgba(230, 81, 188, 0.4)"
+      },
+      "magenta-a500": {
+        "value": "rgba(230, 81, 188, 0.5)"
+      },
+      "magenta-a600": {
+        "value": "rgba(230, 81, 188, 0.6)"
+      },
+      "magenta-a700": {
+        "value": "rgba(230, 81, 188, 0.7)"
+      },
+      "magenta-a800": {
+        "value": "rgba(230, 81, 188, 0.8)"
+      },
+      "magenta-a900": {
+        "value": "rgba(230, 81, 188, 0.9)"
+      }
+    },
+    "teal-a": {
+      "teal-a100": {
+        "value": "rgba(2, 168, 163, 0.1)"
+      },
+      "teal-a200": {
+        "value": "rgba(2, 168, 163, 0.2)"
+      },
+      "teal-a300": {
+        "value": "rgba(2, 168, 163, 0.3)"
+      },
+      "teal-a400": {
+        "value": "rgba(2, 168, 163, 0.4)"
+      },
+      "teal-a500": {
+        "value": "rgba(2, 168, 163, 0.5)"
+      },
+      "teal-a600": {
+        "value": "rgba(2, 168, 163, 0.6)"
+      },
+      "teal-a700": {
+        "value": "rgba(2, 168, 163, 0.7)"
+      },
+      "teal-a800": {
+        "value": "rgba(2, 168, 163, 0.8)"
+      },
+      "teal-a900": {
+        "value": "rgba(2, 168, 163, 0.9)"
+      }
+    },
+    "azure-a": {
+      "azure-a100": {
+        "value": "rgba(6, 156, 255, 0.1)"
+      },
+      "azure-a200": {
+        "value": "rgba(6, 156, 255, 0.2)"
+      },
+      "azure-a300": {
+        "value": "rgba(6, 156, 255, 0.3)"
+      },
+      "azure-a400": {
+        "value": "rgba(6, 156, 255, 0.4)"
+      },
+      "azure-a500": {
+        "value": "rgba(6, 156, 255, 0.5)"
+      },
+      "azure-a600": {
+        "value": "rgba(6, 156, 255, 0.6)"
+      },
+      "azure-a700": {
+        "value": "rgba(6, 156, 255, 0.7)"
+      },
+      "azure-a800": {
+        "value": "rgba(6, 156, 255, 0.8)"
+      },
+      "azure-a900": {
+        "value": "rgba(6, 156, 255, 0.9)"
+      }
     }
   }
 }

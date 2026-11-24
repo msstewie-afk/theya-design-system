@@ -149,12 +149,12 @@ const HEADING_CLASS = {
 /**
  * Labels each swatch with the primitive-scale step it resolves to (e.g.
  * "Blue 500") rather than a raw hex value, wherever the value is an exact
- * match — reverse-lookup against the 11 primitive ramps (same hex data as
+ * match — reverse-lookup against the primitive ramps (same hex data as
  * RAMP_FAMILIES's swatches). Falls back to the raw value for anything
  * that isn't an exact primitive hex (e.g. the rgba() alpha overlays used
  * by several dark-theme values, which aren't a single scale step).
  */
-const PRIMITIVE_FAMILIES = ['cyan', 'blue', 'gray', 'green', 'magenta', 'orange', 'purple', 'red', 'slate', 'teal', 'yellow'] as const;
+const PRIMITIVE_FAMILIES = ['cyan', 'blue', 'gray', 'green', 'magenta', 'orange', 'purple', 'red', 'slate', 'teal', 'yellow', 'azure', 'violet', 'olive'] as const;
 // Built primitive ramps (--color-<family>-<family>-<step>), lower-cased hex.
 const PRIMITIVE_HEX: Record<string, string[]> = Object.fromEntries(
   PRIMITIVE_FAMILIES.map((f) => [f, RAMP_STEPS.map((step) => tokenValue(`--color-${f}-${f}-${step}`).toLowerCase())]),
@@ -402,8 +402,8 @@ function RampSwatch({ prefix, step }: { prefix: string; step: string }) {
 }
 
 /**
- * All 11 primitive color families that exist in @theya/tokens (confirmed
- * via variables.css, 2026-09-26). Primitives are theme-invariant — same
+ * The primitive color families in @theya/tokens (11 confirmed via
+ * variables.css 2026-09-26; azure, violet and olive added 2026-11-24). Primitives are theme-invariant — same
  * hex in variables.css and variables-dark.css — so a single ramp per
  * family, not a light/dark pair, is correct here (unlike the semantic
  * TokenTable above).
@@ -420,6 +420,10 @@ const RAMP_FAMILIES = [
   { prefix: 'slate', label: 'Slate' },
   { prefix: 'teal', label: 'Teal' },
   { prefix: 'yellow', label: 'Yellow' },
+  { prefix: 'azure', label: 'Azure' },
+  // Added 24.11.2026 (Мария): a blue-violet between blue and purple, and an olive between green and yellow.
+  { prefix: 'violet', label: 'Violet' },
+  { prefix: 'olive', label: 'Olive' },
 ] as const;
 
 function RampFamily({ prefix, label }: { prefix: string; label: string }) {
@@ -448,7 +452,7 @@ export const Colors: Story = {
       </DocsSection>
       <DocsSection
         title="Primitive ramps"
-        description="Twelve colour families, each a 12-step scale from 005 to 900. Primitives are the same in both themes; only the semantic tokens above change."
+        description="Fourteen colour families, each a 12-step scale (some with half steps) from 005 to 900. Primitives are the same in both themes; only the semantic tokens above change. Ten families also have an alpha ramp (-a100…a900, step 300 at 10–90%) for tints over images."
       >
         <div className="flex flex-col gap-6">
           {RAMP_FAMILIES.map((f) => (
