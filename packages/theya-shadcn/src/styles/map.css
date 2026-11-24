@@ -1,0 +1,44 @@
+/*
+  MapView (map-view.tsx). MapLibre's own stylesheet positions the canvas,
+  the markers and the attribution; the rules after it retint the parts
+  MapLibre draws itself (attribution, canvas focus) with Theya tokens.
+  Scoped to .theya-map, the element MapView renders the map into.
+*/
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+.theya-map {
+  font-family: var(--typography-body-xs-font);
+}
+
+/* The canvas takes focus for keyboard pan / zoom: a 2px primary outline
+   drawn inside, since the map frame clips anything outside it. */
+.theya-map .maplibregl-canvas:focus-visible {
+  outline: 2px solid var(--color-border-border-primary);
+  outline-offset: -2px;
+}
+
+.theya-map .maplibregl-ctrl-attrib,
+.theya-map .maplibregl-ctrl-attrib.maplibregl-compact {
+  background-color: var(--color-bg-surface-bg-surface);
+  color: var(--color-text-text-subtle);
+  font-size: var(--typography-body-xs-size);
+  line-height: var(--typography-body-xs-line-height);
+}
+.theya-map .maplibregl-ctrl-attrib a {
+  color: inherit;
+  text-decoration: underline;
+}
+/* The info button paints a black glyph on its own background: keep the
+   surface on the control and turn the glyph light in dark. */
+.theya-map .maplibregl-ctrl-attrib-button,
+.theya-map .maplibregl-ctrl-attrib.maplibregl-compact-show .maplibregl-ctrl-attrib-button {
+  background-color: transparent;
+}
+[data-theme='dark'] .theya-map .maplibregl-ctrl-attrib-button {
+  filter: invert(1);
+}
+.theya-map .maplibregl-ctrl-attrib-button:focus-visible {
+  box-shadow: none;
+  outline: 2px solid var(--color-border-border-primary);
+  outline-offset: 0;
+}
