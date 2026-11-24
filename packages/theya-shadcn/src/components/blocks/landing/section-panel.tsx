@@ -43,6 +43,12 @@ export interface SectionPanelProps extends ComponentProps<'section'> {
    * `flip` to mirror it. Only with `image`.
    */
   imageGround?: Omit<ImageGroundProps, 'src' | 'className'>;
+  /**
+   * The text and controls on the panel: `page` (default) follows the site's
+   * theme; `dark` renders them as in the dark theme (light text) — for a dark
+   * picture or tint. tone="inverse" implies it.
+   */
+  contentTheme?: 'page' | 'dark';
 }
 
 const TONE: Record<SectionPanelTone, string> = {
@@ -73,7 +79,7 @@ const TONE: Record<SectionPanelTone, string> = {
  * Stack several and set `overlap` to lay each one over the previous section.
  * Content inside is in the display scale (data-scale="display").
  */
-export function SectionPanel({ tone = 'default', overlap = false, padding = 'section', shape = 'sheet', image, imageGround, className, style, children, ...props }: SectionPanelProps) {
+export function SectionPanel({ tone = 'default', overlap = false, padding = 'section', shape = 'sheet', image, imageGround, contentTheme = 'page', className, style, children, ...props }: SectionPanelProps) {
   // The picture is its own layer (ImageGround) under the content; on the
   // gradient canvas it takes the mesh's place, and the grain stays on top.
   const ground: CSSProperties | undefined =
@@ -82,7 +88,7 @@ export function SectionPanel({ tone = 'default', overlap = false, padding = 'sec
     <section
       data-slot="section-panel"
       data-scale="display"
-      data-theme={tone === 'inverse' ? 'dark' : undefined}
+      data-theme={tone === 'inverse' || contentTheme === 'dark' ? 'dark' : undefined}
       data-surface={tone === 'primary' ? 'primary' : undefined}
       data-canvas={tone === 'gradient' ? 'gradient' : undefined}
       // Light blooms where only cards lie (Dusk: the bottom left corner).
@@ -95,6 +101,7 @@ export function SectionPanel({ tone = 'default', overlap = false, padding = 'sec
         padding === 'section' && 'section-display',
         overlap && shape === 'sheet' && '-mt-[var(--size-border-radius-border-radius-5xl)]',
         TONE[tone],
+        contentTheme === 'dark' && tone !== 'inverse' && 'text-[var(--color-text-text)] [color-scheme:dark]',
         className,
       )}
       style={{ ...ground, ...style }}

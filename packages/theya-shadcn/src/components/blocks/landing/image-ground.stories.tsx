@@ -12,11 +12,12 @@ const meta: Meta<typeof ImageGround> = {
   component: ImageGround,
   tags: ['autodocs'],
   parameters: { guidelines: imageGroundGuidelines, layout: 'fullscreen' },
-  args: { src: `${BG}/gray-mist-blur.webp`, tint: 'none', tintOpacity: 40, opacity: 100, flip: 'none', mirrorInRtl: false },
+  args: { src: `${BG}/silver-mist.webp`, tint: 'none', tintOpacity: 40, opacity: 100, flip: 'none', mirrorInRtl: false },
   argTypes: {
     tint: { control: 'inline-radio', options: ['none', 'primary', 'deep', 'surface', 'scrim'] },
     flip: { control: 'inline-radio', options: ['none', 'x', 'y', 'both'] },
-    tintOpacity: { control: { type: 'range', min: 0, max: 90, step: 5 } },
+    tintOpacity: { control: { type: 'range', min: 0, max: 90, step: 10 } },
+    size: { control: 'inline-radio', options: ['cover', 'contain'] },
     opacity: { control: { type: 'range', min: 0, max: 100, step: 5 } },
   },
 };
@@ -44,11 +45,11 @@ export const Playground: Story = {
   ),
 };
 
-/** `deep`: the primary mixed with black over the picture, tone in tone — the ground for white text (inverse panel). */
+/** `deep`: the primary mixed with black over the picture, tone in tone — the ground for white text (`contentTheme="dark"`). */
 export const DeepTintForWhiteText: Story = {
   args: { src: `${BG}/graphite-lines.webp`, tint: 'deep', tintOpacity: 50 },
   render: (args) => (
-    <SectionPanel tone="inverse" shape="bleed" image={args.src} imageGround={args}>
+    <SectionPanel contentTheme="dark" shape="bleed" image={args.src} imageGround={args}>
       <Copy />
     </SectionPanel>
   ),
@@ -82,5 +83,15 @@ export const Flips: Story = {
         </div>
       ))}
     </div>
+  ),
+};
+
+/** `size="contain"`: the whole object on the panel's own fill, nothing cropped. */
+export const ObjectContained: Story = {
+  args: { src: '/asset-examples/photos/lines-grey.webp', size: 'contain', position: 'right center' },
+  render: (args) => (
+    <SectionPanel shape="bleed" image={args.src} imageGround={args}>
+      <Copy />
+    </SectionPanel>
   ),
 };

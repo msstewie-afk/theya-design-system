@@ -5,7 +5,7 @@ export const imageGroundGuidelines: ComponentGuidelines = {
   status: 'beta',
   whenToUse: [
     'A picture as the ground of a section: SectionPanel `image` + `imageGround`, or Hero `backdrop={<ImageGround … />}`.',
-    'The text on the picture does not pass contrast: tint it in the theme — `deep` (primary with black, tone in tone) under white text, `surface` under the regular text — before reaching for another picture.',
+    'The text on the picture does not pass contrast: tint it in the theme — `deep` (primary with black, tone in tone) with SectionPanel `contentTheme="dark"` for white text, `surface` under the regular text — before reaching for another picture.',
     "`opacity` below 100 lets the panel's fill show through: a light veil on the default tone, a darker one on inverse.",
     '`flip` mirrors the picture: one abstract background gives four compositions. Set `mirrorInRtl` when the calm side of the picture should follow the text side.',
   ],
@@ -15,8 +15,16 @@ export const imageGroundGuidelines: ComponentGuidelines = {
     { text: 'The theme gradient', instead: 'SectionPanel tone="gradient" without image' },
   ],
   anatomy: [
-    { part: 'Picture', description: 'background-size cover, `position` (CSS background-position), `opacity` 0–100, `flip` x / y / both.' },
-    { part: 'Tint', description: 'a layer of a theme color over the picture: primary, deep, surface or scrim, `tintOpacity` 0–90 (default 40).' },
+    {
+      part: 'Picture',
+      description:
+        '`size` cover (crops) or contain (the whole object on the fill), `position` (CSS background-position), `opacity` 0–100, `flip` x / y / both.',
+    },
+    {
+      part: 'Tint',
+      description:
+        'a layer of a theme color over the picture: primary, deep, surface or scrim, `tintOpacity` 0–90 in steps of 10, the scale of the alpha primitives (default 40).',
+    },
   ],
   doDont: [],
   a11y: [

@@ -40,3 +40,7 @@ violet-indigo-blur.webp	mid-bright	right half (white text), top left (dark text)
 gray-mist-blur.webp	light	anywhere	neutral gray, a trace of blue	soft blur; the neutral demo ground (ImageGround stories)
 gray-glass-blocks.webp	light	left half	neutral gray, white	glass blocks on the right; wide 7:3; neutral demo
 graphite-lines.webp	dark	top centre	graphite, white lines	thin light lines; neutral dark demo
+silver-mist.webp	light	left two thirds	silver, cool blue-gray	soft blur; the neutral demo ground of the ImageGround playground (ChatGPT)
+gray-mist-mid.webp	mid	top left	gray, slate	soft blur, desaturated (ChatGPT)
+gray-mist-dark.webp	mid-dark	top left (dark text), right (white text)	graphite gray	soft blur, darker (ChatGPT)
+cool-blue-mist.webp	light-mid	left half	muted sky blue	soft blur (ChatGPT)
