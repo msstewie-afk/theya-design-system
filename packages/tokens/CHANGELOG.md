@@ -1,5 +1,30 @@
 # @theya/tokens
 
+## 0.5.0
+
+### Minor Changes
+
+- ed6e123: Landing grounds, after the PlateCovery hero test:
+  - Profiles: `gradient.ink` makes a bright gradient canvas with dark ink (text, icons, borders, glass at white 20%, an ink pill for the filled button); the build checks the ink at 4.5:1 instead of white.
+  - Ember: a persimmon gradient canvas with dark ink, and display type in Playfair Display 900 (`displayFont`). Landing only: product screens use neither.
+  - SectionPanel: `shape="bleed"` (square, edge to edge) and `image` (a photo in place of the ground, or of the gradient mesh).
+  - DeviceFrame: a page screen keeps the theme's own surface and ink when the phone lies on a gradient canvas.
+  - StoreButtons: App Store / Google Play links, black two-line buttons; one store per device (iPhone and iPad → App Store, Android → Google Play, a computer → both); `badges` swaps in the official artwork.
+- 8d8c0e0: Landing motion, after the PlateCovery hero test:
+  - Tokens: `motion.duration.journey` (1600ms, an object travelling a long path), `motion.duration.ambient` (16s, one loop of a breathing ground) and `motion.easing.travel` (even start and stop). Landing only, never for UI feedback. CSS: `--transition-duration-journey`, `--transition-duration-ambient`, `--ease-travel`.
+  - AmbientBlobs: soft shapes behind a landing ground that slowly change outline and breathe, out of step; `paused` for the page's pause control (WCAG 2.2.2); still with reduced motion.
+  - ArcStage: one picture at a time on an invisible quarter arc around a corner — the next comes in past the top and turns as it travels (journey duration, travel curve), the last leaves past the side; controlled `index` or `autoplay` with `paused`, stops on a hidden tab and with reduced motion (then a cross-fade in place); sizes from the stage's width.
+- 2c6bbd2: New color primitives: `violet` (a blue-violet between blue and purple) and `olive` (between green and yellow), 12 steps each; alpha ramps `-a100…a900` for violet, olive, purple, magenta, teal and azure. Nothing removed or changed.
+
+### Patch Changes
+
+- bfe8dce: Accessibility (WCAG 1.4.11) in every theme: field, checkbox and radio borders reach 3:1 in the light variant of every product theme (Iris, Lime, Ember, Dusk, Lagoon, Ochre); checked Checkbox and Switch carry the primary edge in every theme (Lime's pale fill was 1.47:1), and the checked Switch thumb an on-primary edge; Checkbox styles its states from aria-checked, so a Tooltip around it no longer makes it look unchecked (DataTableToolbar's indeterminate select-all); SavedItems' select-all bar sits on the surface.
+- 9f7eea2: Contrast (CI scan 23.11): the SiteFooter newsletter sits on a surface panel, so the email field's border holds 3:1 (on the tinted footer it was 2.2–2.9); Dusk, Lagoon and Ochre dark `text-danger` a step lighter (#f9a3bd) — error text on a danger-tinted row was 4.45–4.57:1.
+- 0b43f4e: Gradient themes, contrast (a11y scan 23.11):
+  - Dusk, Lagoon, Ochre: `text-subtler` and `text-subtler-on-tonal` a step darker in light (and Lagoon's lighter in dark) — secondary text on a selected fill (OptionCard, Tabs, MegaMenu) now passes 4.5:1 (was 4.06–4.46).
+  - Gradient canvas: secondary text and icons on the canvas take the full ink (white 86% failed on the lightest points); every gradient theme writes its whole ink, glass and pill set, so a theme nested in another one keeps its own; a theme without a gradient falls back to its flat primary with its on-primary ink and outline-only glass.
+  - ToggleGroup on the canvas (the pricing period switch): glass when off, the filled-button pill when on.
+
 ## 0.4.0
 
 ### Minor Changes

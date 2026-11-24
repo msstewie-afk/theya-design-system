@@ -1,5 +1,43 @@
 # @theya/shadcn
 
+## 0.5.0
+
+### Minor Changes
+
+- ed6e123: Landing grounds, after the PlateCovery hero test:
+  - Profiles: `gradient.ink` makes a bright gradient canvas with dark ink (text, icons, borders, glass at white 20%, an ink pill for the filled button); the build checks the ink at 4.5:1 instead of white.
+  - Ember: a persimmon gradient canvas with dark ink, and display type in Playfair Display 900 (`displayFont`). Landing only: product screens use neither.
+  - SectionPanel: `shape="bleed"` (square, edge to edge) and `image` (a photo in place of the ground, or of the gradient mesh).
+  - DeviceFrame: a page screen keeps the theme's own surface and ink when the phone lies on a gradient canvas.
+  - StoreButtons: App Store / Google Play links, black two-line buttons; one store per device (iPhone and iPad → App Store, Android → Google Play, a computer → both); `badges` swaps in the official artwork.
+- e964781: Landing pages, after the PlateCovery hero test:
+  - Hero: `titleSize="display"` (56 → 128 px in the theme's display face), `subtitle` (one large line) and `points` (two to four short benefits as a list).
+  - Hero and CtaBand `titleFont`: new values `theme` (the default, the theme's heading face) and `display-serif` (EB Garamond). Deprecated: `sans`, replace with `theme`; `serif`, replace with `display-serif`. The old values keep working and warn once in development.
+  - SiteHeader without `nav`: the actions take the end corner.
+  - `LANDING.md` / `LANDING.ru.md`, shipped in the package with `public/llms*.txt`: which block for which task, first-screen defaults, "not X for Y" rules. Stepper and OrbitCarousel guidelines name what to use instead on landings.
+- 8d8c0e0: Landing motion, after the PlateCovery hero test:
+  - Tokens: `motion.duration.journey` (1600ms, an object travelling a long path), `motion.duration.ambient` (16s, one loop of a breathing ground) and `motion.easing.travel` (even start and stop). Landing only, never for UI feedback. CSS: `--transition-duration-journey`, `--transition-duration-ambient`, `--ease-travel`.
+  - AmbientBlobs: soft shapes behind a landing ground that slowly change outline and breathe, out of step; `paused` for the page's pause control (WCAG 2.2.2); still with reduced motion.
+  - ArcStage: one picture at a time on an invisible quarter arc around a corner — the next comes in past the top and turns as it travels (journey duration, travel curve), the last leaves past the side; controlled `index` or `autoplay` with `paused`, stops on a hidden tab and with reduced motion (then a cross-fade in place); sizes from the stage's width.
+- 704de08: Landing SaaS bricks, part 2:
+  - IntegrationsSection: the services a product connects to — a card grid filtered by category (Tabs chips with panels), or a hub (the product's mark with the services on a ring).
+  - BlogTeaser: the latest posts — cover, category, title (the one link), excerpt, date and reading time; three across, a swipe row on phones.
+  - SiteFooter `newsletter`: a sign-up across the top of the footer with sending, error and thank-you states (the thank-you is read out).
+- d5a363d: Landing SaaS bricks: PricingSection (plans with a monthly / yearly switch, counted prices, frosted cards on the gradient canvas), DeviceFrame (phone and browser frames) and ProductCollage (Theya cards floating over a photo or the theme's gradient, staggered float-in and scroll drift).
+- b4e6580: TabsList `fill` (chips): the track takes the full width of its container and the chips share it equally, each centred and on one line; a chip's sides drop to 8px when the row is tight, so three short labels fit a 360px phone card without scrolling. Guidelines: on a phone, up to three chips of about ten characters; other controls go on their own row. New story "Chips fill".
+
+### Patch Changes
+
+- bfe8dce: Accessibility (WCAG 1.4.11) in every theme: field, checkbox and radio borders reach 3:1 in the light variant of every product theme (Iris, Lime, Ember, Dusk, Lagoon, Ochre); checked Checkbox and Switch carry the primary edge in every theme (Lime's pale fill was 1.47:1), and the checked Switch thumb an on-primary edge; Checkbox styles its states from aria-checked, so a Tooltip around it no longer makes it look unchecked (DataTableToolbar's indeterminate select-all); SavedItems' select-all bar sits on the surface.
+- be2ed71: Chip `asChild` no longer crashes: the child element becomes the chip and the leading icon is rendered inside it, before its own content (Slot used to receive the icon and the child as two children). New story "As link (asChild)".
+- d4f5cf8: ProductCollage on a photo: the cards turn frosted, as on the gradient canvas (no border, 5xl radius, 90% surface over a blur, a soft shadow).
+- 9f7eea2: Contrast (CI scan 23.11): the SiteFooter newsletter sits on a surface panel, so the email field's border holds 3:1 (on the tinted footer it was 2.2–2.9); Dusk, Lagoon and Ochre dark `text-danger` a step lighter (#f9a3bd) — error text on a danger-tinted row was 4.45–4.57:1.
+- 0b43f4e: Gradient themes, contrast (a11y scan 23.11):
+  - Dusk, Lagoon, Ochre: `text-subtler` and `text-subtler-on-tonal` a step darker in light (and Lagoon's lighter in dark) — secondary text on a selected fill (OptionCard, Tabs, MegaMenu) now passes 4.5:1 (was 4.06–4.46).
+  - Gradient canvas: secondary text and icons on the canvas take the full ink (white 86% failed on the lightest points); every gradient theme writes its whole ink, glass and pill set, so a theme nested in another one keeps its own; a theme without a gradient falls back to its flat primary with its on-primary ink and outline-only glass.
+  - ToggleGroup on the canvas (the pricing period switch): glass when off, the filled-button pill when on.
+- ed00690: WheelPicker: rows next to the selected one keep the secondary text colour without an extra 80% fade, so they read 4.5:1 in every theme (Iris dark was 4.47:1).
+
 ## 0.4.0
 
 ### Minor Changes

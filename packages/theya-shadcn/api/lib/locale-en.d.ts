@@ -603,6 +603,22 @@ export declare const en: {
     usageBar: {
         label: (summary: string) => string;
     };
+    mapView: {
+        origin: string;
+        unavailable: string;
+        label: string;
+        canvasLabel: string;
+        attribution: string;
+        listLabel: string;
+        zoomIn: string;
+        zoomOut: string;
+        findNearMe: string;
+        locating: string;
+        locateFailed: string;
+        sorted: (name: string, distance: string) => string;
+        away: (distance: string) => string;
+        cluster: (n: number) => string;
+    };
     meter: {
         of: (value: string, max: string) => string;
         above: (threshold: string) => string;
@@ -1260,6 +1276,22 @@ export declare const enLocale: {
         };
         usageBar: {
             label: (summary: string) => string;
+        };
+        mapView: {
+            origin: string;
+            unavailable: string;
+            label: string;
+            canvasLabel: string;
+            attribution: string;
+            listLabel: string;
+            zoomIn: string;
+            zoomOut: string;
+            findNearMe: string;
+            locating: string;
+            locateFailed: string;
+            sorted: (name: string, distance: string) => string;
+            away: (distance: string) => string;
+            cluster: (n: number) => string;
         };
         meter: {
             of: (value: string, max: string) => string;
