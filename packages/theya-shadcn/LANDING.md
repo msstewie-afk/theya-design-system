@@ -65,6 +65,7 @@ Open these first, pick the closest one, then change its content. Don't lay out a
 
 - Gradient grounds come from the theme profile (`gradient` in `packages/tokens/src/profiles/*.json`): dusk, lagoon and ochre are dark with white ink; ember is bright persimmon with dark ink (`gradient.ink`). On a theme without one, `tone="gradient"` falls back to a flat primary.
 - A first screen whose ground fills the window: `SectionPanel tone="gradient" shape="bleed" padding="none"` around the `Hero` (story `Patterns: Landing/Hero → On Bright Gradient`). `image` puts a photo in place of the mesh.
+- A picture as the ground (`SectionPanel image` + `imageGround`, or Hero `backdrop={<ImageGround … />}`; demo pictures in `public/asset-examples/backgrounds`, with notes on tone and where text fits in `SOURCES.txt`). If the text does not pass on it, adjust the ground before changing the picture: `tint="deep"` (primary with black, tone in tone) under white text, `tint="surface"` or `opacity` below 100 (the panel's fill shows through) under the regular text. Then check the contrast by eye or on a screenshot: the scan skips text over pictures. `flip` (x / y / both) gives one picture four compositions; never mirror photos of people, text or products.
 - On a coloured ground the buttons switch themselves: on `data-surface="primary"`, and in the gradient canvas the filled button turns into a white pill.
 - On a coloured ground, use coloured shadows (the ground's darkest colour), never grey.
 
