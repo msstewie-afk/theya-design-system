@@ -26,6 +26,19 @@
         "Checkbox 3.2.2"
       ],
       "wrong": []
+    },
+    {
+      "date": "2026-11-24",
+      "seed": "wave4",
+      "by": "Мария",
+      "checked": [
+        "Comparison 1.4.13",
+        "Combobox 2.4.11",
+        "ConfirmDialog 2.4.11",
+        "CategoryLanding 1.4.1",
+        "ChartRangeSelection 2.4.6"
+      ],
+      "wrong": []
     }
   ]
 }
