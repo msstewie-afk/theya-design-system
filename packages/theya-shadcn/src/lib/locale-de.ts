@@ -427,6 +427,7 @@ export const de: TheyaMessages = {
   slider: { minimum: (label) => `${label} – Minimum`, maximum: (label) => `${label} – Maximum`, value: (label, n) => `${label} – Wert ${n}` },
   usageBar: { label: (summary) => `Nutzung nach Bereichen: ${summary}` },
   mapView: {
+    origin: 'Sie sind hier',
     unavailable: 'Die Karte kann hier nicht angezeigt werden. Die Orte stehen in der Liste.',
     label: 'Karte',
     canvasLabel: 'Karte. Pfeiltasten verschieben sie, Plus und Minus zoomen.',

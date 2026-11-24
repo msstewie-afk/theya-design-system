@@ -396,6 +396,7 @@ export const ar: TheyaMessages = {
   slider: { minimum: (label) => `الحد الأدنى لـ ${label}`, maximum: (label) => `الحد الأقصى لـ ${label}`, value: (label, n) => `${label}، القيمة ${n}` },
   usageBar: { label: (summary) => `الاستخدام حسب الجزء: ${summary}` },
   mapView: {
+    origin: 'أنت هنا',
     unavailable: 'لا يمكن عرض الخريطة هنا. الأماكن موجودة في القائمة.',
     label: 'خريطة',
     canvasLabel: 'خريطة. تحركها مفاتيح الأسهم، ويغيّر الزائد والناقص التكبير.',

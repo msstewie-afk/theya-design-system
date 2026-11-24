@@ -376,6 +376,7 @@ export const zh: TheyaMessages = {
   slider: { minimum: (label) => `${label}最小值`, maximum: (label) => `${label}最大值`, value: (label, n) => `${label}第 ${n} 个值` },
   usageBar: { label: (summary) => `按部分划分的用量：${summary}` },
   mapView: {
+    origin: '你在这里',
     unavailable: '此处无法显示地图。地点都在列表中。',
     label: '地图',
     canvasLabel: '地图。方向键移动地图，加号和减号缩放。',

@@ -213,6 +213,8 @@ const MARKER_CLASS =
 const DOT_CLASS =
   'block size-3.5 rounded-full bg-[var(--color-bg-primary-bg-primary)] ring-2 ring-[var(--color-bg-surface-bg-surface)] shadow-elevation-sm transition-transform duration-fast motion-reduce:transition-none ' +
   'group-hover/marker:scale-125 group-data-[selected]/marker:size-5 group-data-[selected]/marker:ring-[3px] forced-colors:bg-[Highlight]';
+const ORIGIN_CLASS =
+  'block size-4 rounded-full border-[3px] border-[var(--color-bg-surface-bg-surface)] bg-[var(--color-bg-info-bg-info)] shadow-elevation-sm ring-8 ring-[var(--color-bg-info-bg-info-subtle)] forced-colors:bg-[CanvasText]';
 const CLUSTER_CLASS =
   'flex min-w-9 h-9 cursor-pointer items-center justify-center rounded-full border-0 px-2 font-body text-body-s font-semibold tabular-nums ' +
   'bg-[var(--color-bg-primary-bg-primary)] text-[var(--color-text-text-on-primary)] ring-4 ring-[var(--color-bg-primary-bg-primary-subtle)] shadow-elevation-sm ' +
@@ -416,6 +418,21 @@ export function MapView({
     src?.setData(pointsGeoJSON(points));
   }, [points, ready]);
 
+  // Origin ("you are here"): an info-colored dot with a halo, out of the tab order like the points.
+  const originMarker = useRef<MapLibreMarker | null>(null);
+  useEffect(() => {
+    const map = mapRef.current;
+    const lib = mapLibre.current;
+    originMarker.current?.remove();
+    originMarker.current = null;
+    if (!map || !lib || !origin) return;
+    const el = document.createElement('span');
+    el.setAttribute('aria-hidden', 'true');
+    el.title = t.mapView.origin;
+    el.className = ORIGIN_CLASS;
+    originMarker.current = new lib.Marker({ element: el }).setLngLat([origin.lng, origin.lat]).addTo(map);
+  }, [origin, ready, t]);
+
   // Selection: mark the marker and fly to the point.
   useEffect(() => {
     for (const [key, { el }] of markersRef.current) if (key.startsWith('p')) el.toggleAttribute('data-selected', key === `p${selectedId}`);
@@ -502,7 +519,7 @@ export function MapView({
             role="group"
             aria-label={selected.name}
             data-slot="map-view-card"
-            className="absolute inset-x-3 bottom-3 z-10 flex items-start gap-3 rounded-[var(--size-border-radius-border-radius-xl)] border border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-4 shadow-elevation-md sm:inset-x-auto sm:start-3 sm:w-80"
+            className="absolute inset-x-3 bottom-10 z-10 flex items-start gap-3 rounded-[var(--size-border-radius-border-radius-xl)] border border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-4 shadow-elevation-md sm:inset-x-auto sm:start-3 sm:w-80"
           >
             <div className="min-w-0 flex-1">
               {renderCard ? (

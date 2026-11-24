@@ -604,6 +604,7 @@ export declare const en: {
         label: (summary: string) => string;
     };
     mapView: {
+        origin: string;
         unavailable: string;
         label: string;
         canvasLabel: string;
@@ -1277,6 +1278,7 @@ export declare const enLocale: {
             label: (summary: string) => string;
         };
         mapView: {
+            origin: string;
             unavailable: string;
             label: string;
             canvasLabel: string;

@@ -442,6 +442,7 @@ export const ru: TheyaMessages = {
   slider: { minimum: (label) => `${label}: минимум`, maximum: (label) => `${label}: максимум`, value: (label, n) => `${label}: значение ${n}` },
   usageBar: { label: (summary) => `Использование по частям: ${summary}` },
   mapView: {
+    origin: 'Вы здесь',
     unavailable: 'Карту здесь показать не получается. Все места — в списке.',
     label: 'Карта',
     canvasLabel: 'Карта. Стрелки сдвигают её, плюс и минус меняют масштаб.',

@@ -421,6 +421,7 @@ export const en = {
   slider: { minimum: (label: string) => `${label} minimum`, maximum: (label: string) => `${label} maximum`, value: (label: string, n: number) => `${label} value ${n}` },
   usageBar: { label: (summary: string) => `Usage by segment: ${summary}` },
   mapView: {
+    origin: 'You are here',
     unavailable: 'The map can’t be shown here. The places are in the list.',
     label: 'Map',
     canvasLabel: 'Map. Arrow keys move it, plus and minus zoom.',
