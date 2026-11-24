@@ -12,7 +12,7 @@ import { Wordmark } from './wordmark';
  * from Theya tokens and blocks. Brands are invented. Each screen fills the
  * viewport; text never waits for motion.
  *
- * Brand names are invented (Nordhall, Maré, Sift, Daybook, Ferro, Verdeal);
+ * Brand names are invented (Nordhall, Maré, Sift, Daybook, Ferro, Verdeal, Larkfield);
  * the sites they follow are listed only in the project docs. Webflow references for each: claude/landing-references-webflow.md.
  */
 const meta: Meta = {
@@ -361,6 +361,158 @@ export const CollageField: Story = {
           <Button size="xl" appearance="outlined" tone="neutral" rightIcon={<ArrowRight />}>
             Shop the field
           </Button>
+        </div>
+      </div>
+    </div>
+  ),
+  play: hasOneH1,
+};
+
+/* ------------------------------------------------------------------------ */
+
+const LF2_SPECS = [
+  { number: '01', label: 'Span', value: '1 240 mm', x: 72, y: 44, leader: 'M88 44H102' },
+  { number: '02', label: 'Weight', value: '3.9 kg', x: 56, y: 208, leader: 'M72 208H198L280 184' },
+  { number: '03', label: 'Flight time', value: '52 min', x: 398, y: 92, leader: 'M382 92H362L340 142' },
+  { number: '04', label: 'LiDAR', value: '240 000 pts/s', x: 390, y: 314, leader: 'M374 314H346L328 244' },
+  { number: '05', label: 'Accuracy', value: '±2 cm', x: 56, y: 332, leader: 'M72 332H244L310 244' },
+];
+
+const LF2_NAV = [
+  { label: 'Product', href: '#lf2-product' },
+  { label: 'Field data', href: '#lf2-field-data' },
+  { label: 'Specs', href: '#lf2-specs' },
+  { label: 'Contact', href: 'mailto:hello@larkfield.example' },
+];
+
+/**
+ * 08 · Technical drawing. A 12-column grid pairs a five-column Inter Tight
+ * title with a seven-column orthographic drawing of the product on a 24px
+ * measured grid: sheet labels on top, two dimensions, five numbered
+ * callouts, and from lg up the spec table set as the drawing's title block
+ * under it (rows on phones). Mono carries the navigation, callouts and
+ * values; one dimension and its callout are in the link color. Units stay
+ * lowercase (mm, kg, cm): the mono caption is caps, so values opt out.
+ */
+export const TechnicalDrawing08: Story = {
+  name: '08 · Technical drawing',
+  render: () => (
+    <div className="flex min-h-svh flex-col bg-[var(--color-bg-surface-bg-surface)] px-5 text-[var(--color-text-text)] lg:px-8">
+      <header className="mx-auto flex w-full max-w-[1440px] items-center justify-between border-b border-solid border-[var(--color-border-border-subtle)] py-4 lg:grid lg:grid-cols-12 lg:gap-6">
+        <span className="font-display-tight text-[24px] font-[700] leading-none tracking-[-0.04em] lg:col-span-5">larkfield</span>
+        <nav aria-label="Main" className="lg:col-span-7 lg:justify-self-end">
+          <ul className="m-0 flex list-none gap-6 p-0">
+            {LF2_NAV.map(({ label, href }, i) => (
+              <li key={label} className="max-sm:[&:not(:last-child)]:hidden">
+                <a href={href} className="caption-mono text-[var(--color-text-text)] no-underline hover:text-[var(--color-text-text-subtle)]">
+                  {String(i + 1).padStart(2, '0')} {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
+      <div className="mx-auto grid w-full max-w-[1440px] flex-1 content-center gap-6 py-6 lg:grid-cols-12 lg:items-center lg:py-8">
+        <section id="lf2-product" aria-labelledby="lf2-title" className="flex min-w-0 flex-col items-start gap-6 lg:col-span-5">
+          <p className="m-0 caption-mono text-[var(--color-text-text-subtle)]">Fig. 00 — LF-2 survey drone</p>
+          <h1 id="lf2-title" className="m-0 max-w-[13ch] font-display-tight text-[clamp(44px,6vw,96px)] font-[600] leading-[0.98] tracking-[-0.04em]">
+            Map the ground in detail
+          </h1>
+          <p className="m-0 max-w-[40ch] font-body text-body-l text-[var(--color-text-text-subtle)]">
+            The Larkfield LF-2 is a LiDAR survey drone that captures terrain and structures as 3D point clouds for field mapping.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Button asChild size="xl">
+              <a href="#lf2-specs">View specs</a>
+            </Button>
+            <Button asChild size="xl" appearance="outlined" tone="neutral">
+              <a href="mailto:hello@larkfield.example">Contact sales</a>
+            </Button>
+          </div>
+        </section>
+        <div className="grid min-w-0 lg:col-span-7">
+          <figure
+            id="lf2-field-data"
+            className="m-0 border border-solid border-[var(--color-border-border-subtle)] [background-image:linear-gradient(to_right,var(--color-border-border-subtler)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border-border-subtler)_1px,transparent_1px)] bg-[length:24px_24px]"
+          >
+            <div className="flex justify-between gap-4 px-3 py-2 caption-mono text-[var(--color-text-text-subtle)]">
+              <span>Top view · 1:10</span>
+              <span>Sheet 1 / 1</span>
+            </div>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 640 368"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.25"
+              strokeLinejoin="round"
+              className="mx-auto block h-auto w-full max-w-[640px] [&_circle]:[vector-effect:non-scaling-stroke] [&_path]:[vector-effect:non-scaling-stroke] [&_rect]:[vector-effect:non-scaling-stroke]"
+            >
+              <path d="M320 80V288M88 200H536" strokeDasharray="6 6" opacity=".45" />
+
+              {/* Arms, fuselage, battery bay and LiDAR housing */}
+              <path d="M281 170L156 114L144 130L280 192M359 170L484 114L496 130L360 192M280 210L144 272L156 288L282 232M360 210L496 272L484 288L358 232" />
+              <path d="M304 120H336L360 148V224L344 264H296L280 224V148Z" />
+              <path d="M304 120L292 150V224L304 264M336 120L348 150V224L336 264" opacity=".55" />
+              <rect x="300" y="142" width="40" height="56" rx="4" />
+              <path d="M308 154H332M308 162H332M308 170H332" opacity=".55" />
+              <circle cx="320" cy="228" r="18" />
+              <circle cx="320" cy="228" r="10" />
+
+              {/* Rotor sweep, blades and hubs */}
+              {[[150, 122], [490, 122], [150, 280], [490, 280]].map(([x, y], i) => (
+                <g key={i} transform={`translate(${x} ${y})`}>
+                  <circle r="48" strokeDasharray="3 4" opacity=".65" />
+                  <g transform={`rotate(${i === 0 || i === 3 ? -26 : 26})`}>
+                    <path d="M-7 -2C-19 -11 -34 -13 -40 -7C-39 0 -24 5 -7 3M7 2C19 11 34 13 40 7C39 0 24 -5 7 -3" />
+                  </g>
+                  <circle r="7" />
+                  <circle r="2" />
+                </g>
+              ))}
+
+              {/* Overall span and longitudinal motor spacing */}
+              <g className="text-[var(--color-text-text-link)]">
+                <path d="M102 36V122M538 36V122M102 44H248M392 44H538M114 39L102 44L114 49M526 39L538 44L526 49" />
+                <text x="320" y="44" className="caption-mono normal-case text-[16px] max-sm:text-[23px]" fill="currentColor" stroke="none" textAnchor="middle" dominantBaseline="central">
+                  {LF2_SPECS[0].value}
+                </text>
+              </g>
+              <path d="M542 122H584M542 280H584M576 122V280M571 134L576 122L581 134M571 268L576 280L581 268" />
+              <text x="600" y="201" transform="rotate(-90 600 201)" className="caption-mono normal-case text-[16px] max-sm:text-[23px]" fill="currentColor" stroke="none" textAnchor="middle" dominantBaseline="central">
+                450 mm
+              </text>
+
+              {LF2_SPECS.map(({ number, x, y, leader }) => (
+                <g key={number} className={number === '01' ? 'text-[var(--color-text-text-link)]' : undefined}>
+                  <path d={leader} />
+                  <circle cx={x} cy={y} r="16" />
+                  <text x={x} y={y} className="caption-mono text-[16px] max-sm:text-[23px]" fill="currentColor" stroke="none" textAnchor="middle" dominantBaseline="central">
+                    {number}
+                  </text>
+                </g>
+              ))}
+            </svg>
+            <figcaption className="border-t border-solid border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] px-3 py-2 font-body text-body-s text-[var(--color-text-text-subtle)]">
+              Fig. 01 — Top view · 450 mm motor spacing
+            </figcaption>
+          </figure>
+          <dl id="lf2-specs" aria-label="LF-2 specifications" className="m-0 grid grid-cols-1 lg:grid-cols-5 lg:border-x lg:border-b lg:border-solid lg:border-[var(--color-border-border-subtle)]">
+            {LF2_SPECS.map(({ number, label, value }, i) => (
+              <div
+                key={number}
+                className={`grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-4 border-b border-solid border-[var(--color-border-border-subtle)] px-3 py-2 lg:flex lg:flex-col lg:gap-2 lg:border-b-0 lg:py-3 ${
+                  i > 0 ? 'lg:border-s' : ''
+                }`}
+              >
+                <dt className="caption-mono text-[var(--color-text-text-subtle)]">
+                  <span className={`me-2 ${i === 0 ? 'text-[var(--color-text-text-link)]' : ''}`}>{number}</span>
+                  {label}
+                </dt>
+                <dd className="m-0 text-end font-mono text-body-s font-medium tabular-nums lg:text-start">{value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </div>
