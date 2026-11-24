@@ -1,0 +1,17 @@
+Abstract backgrounds generated with ChatGPT for Theya (24.11.2026). Demo content for Storybook and reference-build tests; not shipped in the npm package.
+Columns: file, tone, where text fits, palette (nearest Theya theme), notes.
+
+peach-pink-glow.webp	light	left half, centre	peach, pink, orange (ember)	soft blur, no hard edges
+lilac-pink-curve.webp	light	top left	lilac, pink, violet (iris)	one wide curve; 3:2
+glass-cubes.webp	light	small, top centre only	sky blue, lilac, pink	busy glass objects: use behind a panel or cropped
+blue-glass-arcs.webp	light	top third	sky blue, lavender	glass arcs rise from the bottom
+violet-orange-lines.webp	dark	top half	violet, magenta, orange	thin light lines low on the right
+violet-silk-waves.webp	dark	little — busy	violet, blue, gold	full-frame ribbons: behind cards, not text
+blue-waves.webp	dark	top fifth	navy, blue, cyan	wave across the middle
+blue-ribbon.webp	dark	top third	navy, blue, violet	single ribbon across the middle
+magenta-blur.webp	dark	centre bottom	indigo, magenta, orange	soft blur, no hard edges
+violet-particle-wave.webp	dark	top third, bottom fifth	black, violet, magenta	sparkle particles along the wave
+orange-paper-waves.webp	dark	none	orange, red, violet	full-frame folds: decorative strip only
+teal-orange-fiber-wave.webp	dark	top fifth	teal, pink, orange	fibre texture
+magenta-dunes.webp	dark	bottom third	indigo, magenta, pink	wide 3:1 band
+network-wave.webp	dark	top fifth, bottom fifth	navy, cyan, magenta	nodes-and-lines "data" look
