@@ -384,10 +384,8 @@ jobs:
       matrix:
         brand: [iris, lime, ember, dusk, lagoon, ochre]
     name: brand (${{ matrix.brand }})
-    # The gradient themes (dusk, lagoon, ochre) joined on 2026-11-23, report only: axe finds
-    # secondary text on selected fills at 4.06–4.46:1 (a11y-kit tokens knows the pair).
-    # This goes when agent 1 fixes the themes' text-subtler / primary-subtle.
-    continue-on-error: ${{ contains(fromJSON('["dusk", "lagoon", "ochre"]'), matrix.brand) }}
+    # Every theme gates, the gradient ones (dusk, lagoon, ochre) too since agent 1's
+    # danger-tint fix (9f7eea28, 2026-11-24).
     env:
       THEYA_BRAND: ${{ matrix.brand }}
     defaults:
