@@ -19345,7 +19345,7 @@
       "name": "ImageGround",
       "title": "Patterns: Landing/ImageGround",
       "axe": {
-        "stories": 5,
+        "stories": 4,
         "themes": [
           "light",
           "dark"

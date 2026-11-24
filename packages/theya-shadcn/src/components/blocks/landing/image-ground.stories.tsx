@@ -85,13 +85,3 @@ export const Flips: Story = {
     </div>
   ),
 };
-
-/** `size="contain"`: the whole object on the panel's own fill, nothing cropped. */
-export const ObjectContained: Story = {
-  args: { src: '/asset-examples/photos/lines-grey.webp', size: 'contain', position: 'right center' },
-  render: (args) => (
-    <SectionPanel shape="bleed" image={args.src} imageGround={args}>
-      <Copy />
-    </SectionPanel>
-  ),
-};
