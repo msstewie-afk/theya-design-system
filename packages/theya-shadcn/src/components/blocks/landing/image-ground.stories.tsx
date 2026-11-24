@@ -12,7 +12,7 @@ const meta: Meta<typeof ImageGround> = {
   component: ImageGround,
   tags: ['autodocs'],
   parameters: { guidelines: imageGroundGuidelines, layout: 'fullscreen' },
-  args: { src: `${BG}/violet-indigo-blur.webp`, tint: 'none', tintOpacity: 40, opacity: 100, flip: 'none', mirrorInRtl: false },
+  args: { src: `${BG}/gray-mist-blur.webp`, tint: 'none', tintOpacity: 40, opacity: 100, flip: 'none', mirrorInRtl: false },
   argTypes: {
     tint: { control: 'inline-radio', options: ['none', 'primary', 'deep', 'surface', 'scrim'] },
     flip: { control: 'inline-radio', options: ['none', 'x', 'y', 'both'] },
@@ -46,7 +46,7 @@ export const Playground: Story = {
 
 /** `deep`: the primary mixed with black over the picture, tone in tone — the ground for white text (inverse panel). */
 export const DeepTintForWhiteText: Story = {
-  args: { src: `${BG}/violet-indigo-blur.webp`, tint: 'deep', tintOpacity: 60 },
+  args: { src: `${BG}/graphite-lines.webp`, tint: 'deep', tintOpacity: 50 },
   render: (args) => (
     <SectionPanel tone="inverse" shape="bleed" padding="none" image={args.src} imageGround={args}>
       <Copy />
@@ -60,7 +60,7 @@ export const DeepTintForWhiteText: Story = {
 
 /** A light veil: the picture at 35% over the page surface, for the regular text color. */
 export const VeilForDarkText: Story = {
-  args: { src: `${BG}/tangerine-blur.webp`, opacity: 35 },
+  args: { src: `${BG}/gray-glass-blocks.webp`, opacity: 45 },
   render: (args) => (
     <SectionPanel shape="bleed" padding="none" image={args.src} imageGround={args}>
       <Copy />
@@ -70,7 +70,7 @@ export const VeilForDarkText: Story = {
 
 /** One file, four compositions: none, x, y, both. */
 export const Flips: Story = {
-  args: { src: `${BG}/glass-blocks-right.webp`, opacity: 100 },
+  args: { src: `${BG}/gray-glass-blocks.webp`, opacity: 100 },
   render: (args) => (
     <div className="grid gap-4 p-4 md:grid-cols-2">
       {(['none', 'x', 'y', 'both'] as const).map((flip) => (
