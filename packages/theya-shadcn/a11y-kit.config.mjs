@@ -43,7 +43,6 @@ const config = {
       { title: 'Patterns: Landing/', why: 'agent 1: landing contrast (text over media and motion layers), backlog 21.11' },
       { title: 'Design System/Gradient canvas', why: 'agent 1: text on the gradient canvas behind landing cards, backlog 21.11' },
       { title: 'Status & Feedback/Meter', kind: 'nontext', themes: ['light'], fg: '#efb300', why: 'accepted deviation (Мария, 2026-10-26): light keeps the yellow warning fill, 1.64:1 against the track' },
-      { kind: 'text', brands: ['ochre'], themes: ['dark'], fg: '#f78dad', bg: '#712c35', why: 'agent 1: danger text on the danger tint, 4.45:1 (the token pair in review.tokens.known) — File, Attachment, Dropzone, BadgeIndicator' },
       { title: 'Text Input/PasswordStrengthMeter', kind: 'nontext', themes: ['light'], fg: '#efb300', why: 'accepted deviation (Мария, 2026-10-26): the Meter decision, yellow "good" fill in light' },
     ],
   },
@@ -154,8 +153,7 @@ const config = {
       // Each names its owner; remove an entry with its fix.
       known: Object.fromEntries(
         [
-          // Gradient themes (agent 1): danger text on the danger tint in dark, 4.45 (ochre) and 4.50 (dusk, just under).
-          ['color-text-text-danger on color-bg-danger-bg-danger-subtle', { dusk: ['dark'], ochre: ['dark'] }],
+          // None open. Danger text on the danger tint (dusk, ochre dark) fixed by agent 1 in 9f7eea28.
         ],
       ),
       // a11y-kit tokens: the colour pairs every component inherits, in every theme and brand.

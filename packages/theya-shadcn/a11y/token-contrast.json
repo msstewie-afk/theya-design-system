@@ -5264,8 +5264,8 @@
       "fg": "color-text-text-danger",
       "bg": "background",
       "need": 4.5,
-      "ratio": 6.28,
-      "fgValue": "#f78dad",
+      "ratio": 7.37,
+      "fgValue": "#f9a3bd",
       "bgValue": "#2d2a34",
       "pass": true
     },
@@ -5276,8 +5276,8 @@
       "fg": "color-text-text-danger",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 4.5,
-      "ratio": 6.28,
-      "fgValue": "#f78dad",
+      "ratio": 7.37,
+      "fgValue": "#f9a3bd",
       "bgValue": "#2d2a34",
       "pass": true
     },
@@ -5288,8 +5288,8 @@
       "fg": "color-text-text-danger",
       "bg": "color-bg-surface-bg-surface-sunken",
       "need": 4.5,
-      "ratio": 8,
-      "fgValue": "#f78dad",
+      "ratio": 9.39,
+      "fgValue": "#f9a3bd",
       "bgValue": "#18161d",
       "pass": true
     },
@@ -5444,10 +5444,10 @@
       "fg": "color-text-text-danger",
       "bg": "color-bg-danger-bg-danger-subtle",
       "need": 4.5,
-      "ratio": 4.49,
-      "fgValue": "#f78dad",
+      "ratio": 5.28,
+      "fgValue": "#f9a3bd",
       "bgValue": "#6e2b3d",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "dusk",
@@ -6392,8 +6392,8 @@
       "fg": "color-text-text-danger",
       "bg": "background",
       "need": 4.5,
-      "ratio": 6.17,
-      "fgValue": "#f78dad",
+      "ratio": 7.25,
+      "fgValue": "#f9a3bd",
       "bgValue": "#242f2c",
       "pass": true
     },
@@ -6404,8 +6404,8 @@
       "fg": "color-text-text-danger",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 4.5,
-      "ratio": 6.17,
-      "fgValue": "#f78dad",
+      "ratio": 7.25,
+      "fgValue": "#f9a3bd",
       "bgValue": "#242f2c",
       "pass": true
     },
@@ -6416,8 +6416,8 @@
       "fg": "color-text-text-danger",
       "bg": "color-bg-surface-bg-surface-sunken",
       "need": 4.5,
-      "ratio": 7.95,
-      "fgValue": "#f78dad",
+      "ratio": 9.34,
+      "fgValue": "#f9a3bd",
       "bgValue": "#121918",
       "pass": true
     },
@@ -6572,8 +6572,8 @@
       "fg": "color-text-text-danger",
       "bg": "color-bg-danger-bg-danger-subtle",
       "need": 4.5,
-      "ratio": 4.57,
-      "fgValue": "#f78dad",
+      "ratio": 5.37,
+      "fgValue": "#f9a3bd",
       "bgValue": "#692e38",
       "pass": true
     },
@@ -7520,8 +7520,8 @@
       "fg": "color-text-text-danger",
       "bg": "background",
       "need": 4.5,
-      "ratio": 6.23,
-      "fgValue": "#f78dad",
+      "ratio": 7.31,
+      "fgValue": "#f9a3bd",
       "bgValue": "#312b26",
       "pass": true
     },
@@ -7532,8 +7532,8 @@
       "fg": "color-text-text-danger",
       "bg": "color-bg-surface-bg-surface-base",
       "need": 4.5,
-      "ratio": 6.23,
-      "fgValue": "#f78dad",
+      "ratio": 7.31,
+      "fgValue": "#f9a3bd",
       "bgValue": "#312b26",
       "pass": true
     },
@@ -7544,8 +7544,8 @@
       "fg": "color-text-text-danger",
       "bg": "color-bg-surface-bg-surface-sunken",
       "need": 4.5,
-      "ratio": 7.95,
-      "fgValue": "#f78dad",
+      "ratio": 9.33,
+      "fgValue": "#f9a3bd",
       "bgValue": "#1b1713",
       "pass": true
     },
@@ -7700,10 +7700,10 @@
       "fg": "color-text-text-danger",
       "bg": "color-bg-danger-bg-danger-subtle",
       "need": 4.5,
-      "ratio": 4.45,
-      "fgValue": "#f78dad",
+      "ratio": 5.23,
+      "fgValue": "#f9a3bd",
       "bgValue": "#712c35",
-      "pass": false
+      "pass": true
     },
     {
       "brand": "ochre",
