@@ -231,12 +231,13 @@
         "a11y-auto"
       ],
       "counts": {
-        "verified": 161,
-        "untested": 2
+        "verified": 162,
+        "untested": 1
       },
       "patternCounts": {
         "verified": 56,
-        "untested": 6
+        "untested": 5,
+        "n/a": 1
       }
     },
     {
@@ -307,12 +308,13 @@
         "a11y-auto"
       ],
       "counts": {
-        "verified": 159,
-        "partial": 4
+        "verified": 160,
+        "partial": 3
       },
       "patternCounts": {
         "verified": 56,
-        "partial": 6
+        "partial": 5,
+        "n/a": 1
       }
     },
     {
@@ -5107,11 +5109,11 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "verified",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
@@ -19037,11 +19039,11 @@
         "1.4.1": "n/a",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "n/a",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "n/a",
-        "1.4.12": "partial",
+        "1.4.12": "n/a",
         "1.4.13": "n/a",
         "2.1.1": "n/a",
         "2.1.2": "n/a",

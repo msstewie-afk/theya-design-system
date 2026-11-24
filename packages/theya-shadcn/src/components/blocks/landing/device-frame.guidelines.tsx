@@ -22,5 +22,6 @@ export const deviceFrameGuidelines: ComponentGuidelines = {
   a11y: [
     'The frame is decoration: the dots, the address and the island are hidden from screen readers.',
     'A screenshot needs alt text that says what the screen shows; live components keep their own roles.',
+    'The phone screen clips what grows at 200% text: inside goes a screenshot with alt, or content that keeps its text (wraps or uses TruncatedText), never plain `truncate` (1.4.4, 1.4.12; Мария, 2026-11-24).',
   ],
 };

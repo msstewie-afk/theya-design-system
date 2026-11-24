@@ -20,11 +20,11 @@
 | 1.4.1 Use of Color | A | ручная проверка | — | вручную | 99 (44) | 0 | 2 (5) | 0 | 62 (13) |
 | 1.4.2 Audio Control | A | продукт (его страницы, контент и медиа) | — | — | — | — | — | — | — |
 | 1.4.3 Contrast (Minimum) | AA | axe-core (test-runner, светлая и тёмная) | — | автоматически | 163 (62) | 0 | 0 | 0 | 0 |
-| 1.4.4 Resize Text | AA | a11y-auto | a11y-auto | автоматически | 161 (56) | 0 | 2 (6) | 0 | 0 |
+| 1.4.4 Resize Text | AA | a11y-auto | a11y-auto | автоматически | 162 (56) | 0 | 1 (5) | 0 | 0 (1) |
 | 1.4.5 Images of Text | AA | продукт (его страницы, контент и медиа) | — | — | — | — | — | — | — |
 | 1.4.10 Reflow | AA | a11y-auto | a11y-auto | автоматически | 162 (55) | 0 | 1 (5) | 0 (2) | 0 |
 | 1.4.11 Non-text Contrast | AA | ручная проверка | — | вручную | 79 (48) | 0 | 2 (6) | 1 | 33 (8) |
-| 1.4.12 Text Spacing | AA | axe-core (test-runner, светлая и тёмная) + a11y-auto | a11y-auto | автоматически | 159 (56) | 4 (6) | 0 | 0 | 0 |
+| 1.4.12 Text Spacing | AA | axe-core (test-runner, светлая и тёмная) + a11y-auto | a11y-auto | автоматически | 160 (56) | 3 (5) | 0 | 0 | 0 (1) |
 | 1.4.13 Content on Hover or Focus | AA | play-тесты с клавиатурой, Tab-проход a11y-auto, a11y-states + a11y-states (всплывающее по наведению и фокусу) или ручная проверка | a11y-states | автоматически | 33 (12) | 2 | 0 | 0 | 128 (50) |
 | 2.1.1 Keyboard | A | axe-core (test-runner, светлая и тёмная) + play-тесты с клавиатурой, Tab-проход a11y-auto, a11y-states | a11y-auto, a11y-states | автоматически | 117 (50) | 0 (4) | 0 | 0 | 45 (8) |
 | 2.1.2 No Keyboard Trap | A | play-тесты с клавиатурой, Tab-проход a11y-auto, a11y-states | a11y-auto | автоматически | 118 (50) | 0 | 0 (4) | 0 | 45 (8) |
