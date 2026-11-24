@@ -490,90 +490,102 @@ export function MapView({
   const showList = list !== 'none';
   const cardDistance = selected ? distanceText(selected.id) : null;
 
+  // The list goes first in the DOM when it is drawn first (list="start"), not by CSS order:
+  // tab and reading order follow the DOM (2.4.3), so they match what is seen.
+  const mapEl = (
+  <section
+    aria-label={label}
+    className="relative isolate h-80 min-w-0 overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-sunken)] md:h-[var(--map-height)]"
+    style={{ '--map-height': `${height}px` } as React.CSSProperties}
+  >
+    {/* MapLibre's stylesheet (unlayered) sets position: relative on the map element, which beats an
+        `absolute` utility: the wrapper takes the frame, the map fills it. */}
+    <div data-slot="map-view-canvas" className="absolute inset-0">
+      <div ref={containerRef} className="theya-map size-full" />
+    </div>
+    {failed && <p className="absolute inset-0 flex items-center justify-center p-6 text-center font-body text-body-s text-[var(--color-text-text-subtle)]">{t.mapView.unavailable}</p>}
+    <div className="absolute end-3 top-3 z-10 flex flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] border border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-sm">
+      <Button appearance="ghost" tone="neutral" size="sm" iconOnly aria-label={t.mapView.zoomIn} leftIcon={<Plus />} onClick={() => zoomBy(1)} disabled={!ready || (zoomLevel ?? 0) >= maxZoom} className="rounded-none" />
+      <span aria-hidden className="h-px bg-[var(--color-border-border-subtler)]" />
+      <Button appearance="ghost" tone="neutral" size="sm" iconOnly aria-label={t.mapView.zoomOut} leftIcon={<Minus />} onClick={() => zoomBy(-1)} disabled={!ready || (zoomLevel ?? 0) <= minZoom} className="rounded-none" />
+    </div>
+    {selected && (
+      <div
+        role="group"
+        aria-label={selected.name}
+        data-slot="map-view-card"
+        className="absolute inset-x-3 bottom-10 z-10 flex items-start gap-3 rounded-[var(--size-border-radius-border-radius-xl)] border border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-4 shadow-elevation-md sm:inset-x-auto sm:start-3 sm:w-80"
+      >
+        <div className="min-w-0 flex-1">
+          {renderCard ? (
+            renderCard(selected, cardDistance)
+          ) : (
+            <div className="flex flex-col gap-1">
+              <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">{selected.name}</p>
+              {selected.address && <p className="font-body text-body-s text-[var(--color-text-text-subtle)]">{selected.address}</p>}
+              {cardDistance && <p className="font-body text-body-s text-[var(--color-text-text-subtle)]">{t.mapView.away(cardDistance)}</p>}
+            </div>
+          )}
+        </div>
+        <Button appearance="ghost" tone="neutral" size="sm" iconOnly aria-label={t.common.close} leftIcon={<Xmark />} onClick={() => select(null)} className="-me-2 -mt-2 shrink-0" />
+      </div>
+    )}
+  </section>
+  );
+  const listEl = showList && (
+    <div data-slot="map-view-list" className="flex min-w-0 flex-col gap-3 md:h-[var(--map-height)]" style={{ '--map-height': `${height}px` } as React.CSSProperties}>
+      {(listTitle || locate) && (
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          {listTitle ? (
+            <h3 id={listId} className="font-body text-body-m font-semibold text-[var(--color-text-text)]">
+              {listTitle}
+            </h3>
+          ) : (
+            <span />
+          )}
+          {locate && (
+            <Button appearance="tonal" tone="primary" size="sm" leftIcon={<Position />} onClick={findNearMe} loading={locating}>
+              {t.mapView.findNearMe}
+            </Button>
+          )}
+        </div>
+      )}
+      <p role="status" className="sr-only">
+        {status}
+      </p>
+      {status && status !== t.mapView.locating && (
+        <p aria-hidden className="font-body text-body-s text-[var(--color-text-text-subtle)]">
+          {status}
+        </p>
+      )}
+      <ul aria-labelledby={listTitle ? listId : undefined} aria-label={listTitle ? undefined : t.mapView.listLabel} className="-mx-1 flex min-h-0 flex-1 flex-col gap-0.5 overflow-y-auto px-1 py-1">
+        {sorted.map((p) => {
+          const d = distanceText(p.id);
+          return (
+            <li key={p.id}>
+              <ListItem interactive selected={p.id === selectedId} title={p.name} description={p.address} trailing={d ? <span className="font-body text-body-s tabular-nums text-[var(--color-text-text-subtle)]">{d}</span> : undefined} onClick={() => select(p.id === selectedId ? null : p.id)} />
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+
   return (
     <div
       data-slot="map-view"
       className={cn('grid gap-4', showList && 'md:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)]', showList && list === 'start' && 'md:grid-cols-[minmax(16rem,20rem)_minmax(0,1fr)]', className)}
     >
-      <section
-        aria-label={label}
-        className={cn(
-          'relative isolate h-80 min-w-0 overflow-hidden rounded-[var(--size-border-radius-border-radius-2xl)] border border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-sunken)] md:h-[var(--map-height)]',
-          showList && list === 'start' && 'md:order-2',
-        )}
-        style={{ '--map-height': `${height}px` } as React.CSSProperties}
-      >
-        {/* MapLibre's stylesheet (unlayered) sets position: relative on the map element, which beats an
-            `absolute` utility: the wrapper takes the frame, the map fills it. */}
-        <div data-slot="map-view-canvas" className="absolute inset-0">
-          <div ref={containerRef} className="theya-map size-full" />
-        </div>
-        {failed && <p className="absolute inset-0 flex items-center justify-center p-6 text-center font-body text-body-s text-[var(--color-text-text-subtle)]">{t.mapView.unavailable}</p>}
-        <div className="absolute end-3 top-3 z-10 flex flex-col overflow-hidden rounded-[var(--size-border-radius-border-radius-lg)] border border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface)] shadow-elevation-sm">
-          <Button appearance="ghost" tone="neutral" size="sm" iconOnly aria-label={t.mapView.zoomIn} leftIcon={<Plus />} onClick={() => zoomBy(1)} disabled={!ready || (zoomLevel ?? 0) >= maxZoom} className="rounded-none" />
-          <span aria-hidden className="h-px bg-[var(--color-border-border-subtler)]" />
-          <Button appearance="ghost" tone="neutral" size="sm" iconOnly aria-label={t.mapView.zoomOut} leftIcon={<Minus />} onClick={() => zoomBy(-1)} disabled={!ready || (zoomLevel ?? 0) <= minZoom} className="rounded-none" />
-        </div>
-        {selected && (
-          <div
-            role="group"
-            aria-label={selected.name}
-            data-slot="map-view-card"
-            className="absolute inset-x-3 bottom-10 z-10 flex items-start gap-3 rounded-[var(--size-border-radius-border-radius-xl)] border border-[var(--color-border-border-subtle)] bg-[var(--color-bg-surface-bg-surface-overlay)] p-4 shadow-elevation-md sm:inset-x-auto sm:start-3 sm:w-80"
-          >
-            <div className="min-w-0 flex-1">
-              {renderCard ? (
-                renderCard(selected, cardDistance)
-              ) : (
-                <div className="flex flex-col gap-1">
-                  <p className="font-body text-body-m font-medium text-[var(--color-text-text)]">{selected.name}</p>
-                  {selected.address && <p className="font-body text-body-s text-[var(--color-text-text-subtle)]">{selected.address}</p>}
-                  {cardDistance && <p className="font-body text-body-s text-[var(--color-text-text-subtle)]">{t.mapView.away(cardDistance)}</p>}
-                </div>
-              )}
-            </div>
-            <Button appearance="ghost" tone="neutral" size="sm" iconOnly aria-label={t.common.close} leftIcon={<Xmark />} onClick={() => select(null)} className="-me-2 -mt-2 shrink-0" />
-          </div>
-        )}
-      </section>
-
-      {showList && (
-        <div data-slot="map-view-list" className={cn('flex min-w-0 flex-col gap-3 md:h-[var(--map-height)]', list === 'start' && 'md:order-1')} style={{ '--map-height': `${height}px` } as React.CSSProperties}>
-          {(listTitle || locate) && (
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              {listTitle ? (
-                <h3 id={listId} className="font-body text-body-m font-semibold text-[var(--color-text-text)]">
-                  {listTitle}
-                </h3>
-              ) : (
-                <span />
-              )}
-              {locate && (
-                <Button appearance="tonal" tone="primary" size="sm" leftIcon={<Position />} onClick={findNearMe} loading={locating}>
-                  {t.mapView.findNearMe}
-                </Button>
-              )}
-            </div>
-          )}
-          <p role="status" className="sr-only">
-            {status}
-          </p>
-          {status && status !== t.mapView.locating && (
-            <p aria-hidden className="font-body text-body-s text-[var(--color-text-text-subtle)]">
-              {status}
-            </p>
-          )}
-          <ul aria-labelledby={listTitle ? listId : undefined} aria-label={listTitle ? undefined : t.mapView.listLabel} className="-mx-1 flex min-h-0 flex-1 flex-col gap-0.5 overflow-y-auto px-1 py-1">
-            {sorted.map((p) => {
-              const d = distanceText(p.id);
-              return (
-                <li key={p.id}>
-                  <ListItem interactive selected={p.id === selectedId} title={p.name} description={p.address} trailing={d ? <span className="font-body text-body-s tabular-nums text-[var(--color-text-text-subtle)]">{d}</span> : undefined} onClick={() => select(p.id === selectedId ? null : p.id)} />
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+      {list === 'start' ? (
+        <>
+          {listEl}
+          {mapEl}
+        </>
+      ) : (
+        <>
+          {mapEl}
+          {listEl}
+        </>
       )}
     </div>
   );
