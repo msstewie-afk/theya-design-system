@@ -395,10 +395,13 @@ async function audit(cmd, { config, cwd, at, opt, positional, DRY, NO_ISSUES }) 
     const n = await ac.apply(cwd, records);
     console.log(`a11y-kit audit-apply: ${n} record(s) written`);
   } else if (cmd === 'audit-sample') {
-    // --pick "Component sc, …": of the seeded sample, keep only these — the records a person can
+    // --pick "Component sc, …": only these audit records — the records a person can
     // check by eye, keyboard or screen reader (the rest need the code). Precision counts only these.
     const pick = (opt('pick') ?? '').split(',').map((s) => s.trim()).filter(Boolean);
-    let list = sample(await ac.reviews(cwd), Number(opt('n') ?? 10), opt('seed') ?? today);
+    // With --pick the records are named, so they come from all audit records, not the seeded
+    // sample: later waves change the pool, and a sample drawn yesterday must still be recordable.
+    const all = await ac.reviews(cwd);
+    let list = sample(all, pick.length ? Infinity : Number(opt('n') ?? 10), opt('seed') ?? today);
     if (pick.length) {
       list = list.filter((r) => pick.includes(`${r.component} ${r.sc}`));
       const miss = pick.filter((p) => !list.some((r) => `${r.component} ${r.sc}` === p));
