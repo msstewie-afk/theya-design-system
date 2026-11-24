@@ -452,7 +452,7 @@ export const Colors: Story = {
       </DocsSection>
       <DocsSection
         title="Primitive ramps"
-        description="Fourteen colour families, each a 12-step scale (some with half steps) from 005 to 900. Primitives are the same in both themes; only the semantic tokens above change. Ten families also have an alpha ramp (-a100…a900, step 300 at 10–90%) for tints over images."
+        description="Fourteen colour families, each a 12-step scale (some with half steps) from 005 to 900. Primitives are the same in both themes; only the semantic tokens above change. Every family also has an alpha ramp (-a100…a900, step 300 at 10–90%) for tints over images."
       >
         <div className="flex flex-col gap-6">
           {RAMP_FAMILIES.map((f) => (
