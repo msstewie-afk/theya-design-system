@@ -13,9 +13,13 @@
  * Skipped, as WCAG exempts them or they can't be measured from CSS:
  * disabled controls and their labels (:disabled, aria-disabled, a disabled
  * fieldset, a <label> whose control is disabled), inert content (inactive
- * carousel slides), pure decoration (a lone separator character), text over
- * an image, video, canvas or gradient, sr-only text, placeholders. Pages are
- * measured once their animations have finished.
+ * carousel slides), pure decoration (a lone separator character), sr-only
+ * text, placeholders. Pages are measured once their animations have finished.
+ *
+ * Text over an image, video, canvas or gradient is measured from pixels: the
+ * text is hidden, the area under it screenshotted, and the 5th percentile of
+ * the per-pixel contrast (after a 5×5 median, so thin lines drop out) is its
+ * ratio (marked "over pixels" in the report).
  *
  *   node scripts/contrast-scan.mjs --url http://localhost:6008 [--only <title-substring>] [--workers 6] [--themes light,dark] [--brands theya,iris,…] [--out report.json]
  *
@@ -130,6 +134,9 @@ function scan(nontext) {
     return o;
   };
   const out = [];
+  // Kept on the page for measurePixels: the text over pictures and the color math.
+  window.__csMedia = [];
+  window.__csMath = { over, ratio, hex };
   const root = document.getElementById('storybook-root');
   if (!root) return out;
   if (nontext) {
@@ -203,6 +210,12 @@ function scan(nontext) {
     }
     return out;
   }
+  // Pictures and gradients that can sit under text without being its ancestor:
+  // media elements, and layers painted with background-image (ImageGround's picture).
+  function* ancestors(el) { for (let n = el; n && n !== root; n = n.parentElement) yield n; }
+  // The nearest ancestor (or the element) with an opaque background color.
+  const opaqueBox = (el) => { for (const n of ancestors(el)) { const c = parse(getComputedStyle(n).backgroundColor); if (c && c.a === 1) return n; } return null; };
+  const painted = [...root.querySelectorAll('*')].filter((n) => /^(IMG|VIDEO|CANVAS|PICTURE)$/.test(n.tagName) || getComputedStyle(n).backgroundImage !== 'none');
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
   const seen = new Set();
   for (let t = walker.nextNode(); t; t = walker.nextNode()) {
@@ -235,21 +248,35 @@ function scan(nontext) {
     const cs = getComputedStyle(el);
     const o = opacityOf(el);
     if (o < 0.05) continue;
-    const bg = backgroundOf(el);
-    if (!bg) continue;
-    // Text laid over a picture: its real background is pixels, not CSS.
-    const overMedia = [...root.querySelectorAll('img, video, canvas, picture')].some((m) => {
-      const b = m.getBoundingClientRect();
-      return b.width > 0 && b.left < rect.right && b.right > rect.left && b.top < rect.bottom && b.bottom > rect.top && !m.contains(el);
-    });
-    if (overMedia) continue;
     const fg0 = parse(cs.color);
     if (!fg0) continue;
-    const fg = over({ ...fg0, a: fg0.a * o }, bg);
-    const r = ratio(fg, bg);
     const size = parseFloat(cs.fontSize);
     const large = size >= 24 || (size >= 18.66 && Number(cs.fontWeight) >= 700);
     const need = large ? 3 : 4.5;
+    const path = [el.tagName.toLowerCase(), el.getAttribute('data-slot') ?? el.closest('[data-slot]')?.getAttribute('data-slot') ?? ''].filter(Boolean).join(' in ');
+    // Text laid over a picture or a gradient: its real background is pixels, not CSS.
+    // It is measured from a screenshot with the text hidden (see measurePixels below).
+    // Text painted by its own background (background-clip: text, a gradient headline) has no
+    // separate ground to measure: skipped, as before.
+    if ([...ancestors(el)].some((n) => /text/.test(getComputedStyle(n).backgroundClip + getComputedStyle(n).webkitBackgroundClip))) continue;
+    const bg = backgroundOf(el);
+    // A picture only counts when it sits inside the text's nearest opaque box: an opaque button
+    // or card over a map or photo is the text's real ground, the picture under it is not.
+    const box0 = opaqueBox(el);
+    const overMedia = !bg || painted.some((m) => {
+      const b = m.getBoundingClientRect();
+      // It must lie under most of the text: a thin line crossing a label (Scheduler's
+      // now-line) or an icon next to it is not the text's ground.
+      const ix = Math.min(b.right, rect.right) - Math.max(b.left, rect.left), iy = Math.min(b.bottom, rect.bottom) - Math.max(b.top, rect.top);
+      return ix > 0 && iy > 0 && ix * iy >= 0.5 * rect.width * rect.height && !m.contains(el) && (!box0 || box0.contains(m));
+    });
+    if (overMedia) {
+      window.__csMedia.push({ node: t, el, fg: { ...fg0, a: fg0.a * o }, need, text: text.slice(0, 40), hidden: !!el.closest('[aria-hidden="true"]'), path });
+      el.setAttribute('data-cs-media', '');
+      continue;
+    }
+    const fg = over({ ...fg0, a: fg0.a * o }, bg);
+    const r = ratio(fg, bg);
     if (r + 0.005 < need) {
       out.push({
         text: text.slice(0, 40),
@@ -258,11 +285,87 @@ function scan(nontext) {
         fg: hex(fg),
         bg: hex(bg),
         hidden: !!el.closest('[aria-hidden="true"]'),
-        path: [el.tagName.toLowerCase(), el.getAttribute('data-slot') ?? el.closest('[data-slot]')?.getAttribute('data-slot') ?? ''].filter(Boolean).join(' in '),
+        path,
       });
     }
   }
   return out;
+}
+
+/**
+ * Text over a picture, video, canvas or gradient (ImageGround, a hero photo): the scan
+ * can't build its background from CSS, so it is read from pixels. The text is made
+ * transparent, the area under each text node is screenshotted, and every pixel is
+ * compared with the text color composited over it. The 5th percentile is the ratio:
+ * the darkest (or lightest) 5% of the ground the letters sit on, not a lone stray pixel.
+ */
+async function measurePixels(page) {
+  const n = await page.evaluate(() => window.__csMedia?.length ?? 0).catch(() => 0);
+  if (!n) return [];
+  const style = await page.addStyleTag({ content: '[data-cs-media]{color:transparent!important;-webkit-text-fill-color:transparent!important;text-shadow:none!important;text-decoration-color:transparent!important}' });
+  await page.waitForTimeout(50);
+  const found = [];
+  for (let i = 0; i < n; i++) {
+    const clip = await page.evaluate((i) => {
+      const m = window.__csMedia[i];
+      m.el.scrollIntoView({ block: 'center', inline: 'center' });
+      const range = document.createRange();
+      range.selectNodeContents(m.node);
+      // The text's box, cut to every ancestor that clips (a truncated label, a scroller):
+      // pixels outside it belong to whatever is next to the text, not under it.
+      let { left, top, right, bottom } = range.getBoundingClientRect();
+      for (let n = m.el; n && n !== document.body; n = n.parentElement) {
+        const cs = getComputedStyle(n);
+        if (cs.overflowX === 'visible' && cs.overflowY === 'visible') continue;
+        const b = n.getBoundingClientRect();
+        left = Math.max(left, b.left); top = Math.max(top, b.top); right = Math.min(right, b.right); bottom = Math.min(bottom, b.bottom);
+      }
+      // 2px in from each edge: a text box's edge pixels are often a neighbour's (a line, a border).
+      if (right - left > 8) { left += 2; right -= 2; }
+      if (bottom - top > 8) { top += 2; bottom -= 2; }
+      const x = Math.max(0, Math.floor(left)), y = Math.max(0, Math.floor(top));
+      const w = Math.min(innerWidth, Math.ceil(right)) - x, h = Math.min(innerHeight, Math.ceil(bottom)) - y;
+      return w >= 2 && h >= 2 ? { x, y, width: w, height: h } : null;
+    }, i);
+    if (!clip) continue;
+    const png = await page.screenshot({ clip, animations: 'disabled' });
+    const m = await page.evaluate(async ({ i, b64 }) => {
+      const { over, ratio, hex } = window.__csMath;
+      const media = window.__csMedia[i];
+      const img = new Image();
+      img.src = `data:image/png;base64,${b64}`;
+      await img.decode();
+      const c = document.createElement('canvas');
+      c.width = img.width;
+      c.height = img.height;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      const d = ctx.getImageData(0, 0, c.width, c.height).data;
+      const W = c.width, H = c.height;
+      const px = [];
+      for (let p = 0; p < d.length; p += 4) {
+        const bg = { r: d[p], g: d[p + 1], b: d[p + 2], a: 1 };
+        px.push({ r: ratio(over(media.fg, bg), bg), bg });
+      }
+      // A 5×5 median first: a line up to 2px wide crossing the text (a now-line, a border)
+      // drops out, a ground that changes under the letters stays.
+      const all = px.map((_, i) => {
+        const x = i % W, y = (i / W) | 0, win = [];
+        for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) {
+          const xx = x + dx, yy = y + dy;
+          if (xx >= 0 && xx < W && yy >= 0 && yy < H) win.push(px[yy * W + xx]);
+        }
+        win.sort((a, b) => a.r - b.r);
+        return win[win.length >> 1];
+      });
+      all.sort((a, b) => a.r - b.r);
+      const worst = all[Math.floor(all.length * 0.05)];
+      return { ratio: worst.r, fg: hex(over(media.fg, worst.bg)), bg: hex(worst.bg), need: media.need, text: media.text, hidden: media.hidden, path: media.path };
+    }, { i, b64: png.toString('base64') });
+    if (m.ratio + 0.005 < m.need) found.push({ ...m, ratio: Math.floor(m.ratio * 100) / 100, overPixels: true });
+  }
+  await style.evaluate((n) => n.remove()).catch(() => {});
+  return found;
 }
 
 const browser = await chromium.launch();
@@ -297,6 +400,7 @@ await Promise.all(
         // A toast still sliding in after its mount (Sonner sets data-mounted first).
         await page.waitForTimeout(400);
         const found = await page.evaluate(scan, NONTEXT);
+        if (!NONTEXT) found.push(...(await measurePixels(page)));
         for (const f of found) results.push({ story: s.id, title: s.title, theme, brand, mode, ...f });
       } catch (e) {
         if (/crashed|closed/i.test(String(e)) && !job.retried) {
@@ -324,7 +428,7 @@ for (const r of issues) {
   groups.set(key, g);
 }
 const lines = [...groups.values()].sort((a, b) => a.ratio - b.ratio);
-const line = (g) => `${g.ratio.toFixed(2)} < ${g.need}  ${g.theme.padEnd(12)}  ${g.title}  ${g.fg} on ${g.bg}${g.hidden ? '  (aria-hidden)' : ''}  "${[...g.samples].slice(0, 3).join('", "')}"  [${g.path}]`;
+const line = (g) => `${g.ratio.toFixed(2)} < ${g.need}  ${g.theme.padEnd(12)}  ${g.title}  ${g.fg} on ${g.bg}${g.hidden ? '  (aria-hidden)' : ''}${g.overPixels ? '  (over pixels)' : ''}  "${[...g.samples].slice(0, 3).join('", "')}"  [${g.path}]`;
 const errors = results.filter((r) => r.error).length;
 const summary = `contrast-scan${NONTEXT ? ' (non-text, 1.4.11)' : ''}: ${stories.length} stories × ${THEMES.length} themes × ${BRANDS.length} brand(s)`;
 if (CI) {
