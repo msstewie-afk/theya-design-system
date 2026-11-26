@@ -854,6 +854,8 @@ export const FocusNavigates: Story = {
   name: 'Defect: focusing a field changes the URL',
   render: () => (
     <div>
+      {/* Visible text naming the field, so the 3.3.2 pass stays quiet: this fixture is about 3.2.1. */}
+      <span>Promo code</span>
       <input
         aria-label="Promo code"
         onFocus={() => {
@@ -871,6 +873,7 @@ function FxOpensOwnPopup() {
   const [open, setOpen] = useState(false);
   return (
     <div>
+      <span>City</span>
       <input
         role="combobox"
         aria-label="City"
@@ -896,6 +899,7 @@ function FxFocusOpensModal() {
   const [open, setOpen] = useState(false);
   return (
     <div>
+      <span>Coupon</span>
       <input aria-label="Coupon" onFocus={() => setOpen(true)} />
       {open && (
         <div role="dialog" aria-modal="true" aria-label="Sign in first">
@@ -916,5 +920,89 @@ export const FocusOpensModal: Story = {
 export const OpensOwnPopup: Story = {
   name: 'Clean: a combobox shows its own popup on focus',
   render: () => <FxOpensOwnPopup />,
+  parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
+};
+
+/* 1.4.1 Use of Color: links inside a run of text (F73, G183). */
+export const LinkColorOnly: Story = {
+  name: 'Defect: a link in text told apart by colour only',
+  render: () => (
+    <p style={{ color: '#333333' }}>
+      Read the{' '}
+      <a href="#terms" style={{ color: '#2a4d8f', textDecoration: 'none' }}>
+        terms
+      </a>{' '}
+      before you sign.
+    </p>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: ['1.4.1: link "terms"'], states: [] } } },
+};
+export const LinkNoHoverCue: Story = {
+  name: 'Defect: a link at 3:1 against the text, nothing on hover',
+  render: () => (
+    <p style={{ color: '#000000' }}>
+      Read the{' '}
+      <a href="#terms" style={{ color: '#0b6bcb', textDecoration: 'none' }}>
+        terms
+      </a>{' '}
+      before you sign.
+    </p>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: ['1.4.1: link "terms"', 'nothing changes on hover'], states: [] } } },
+};
+export const LinkCues: Story = {
+  name: 'Clean: underlined, bold, and 3:1 with an underline on hover',
+  render: () => (
+    <>
+      <style>{'.fx-hover-link { color: #0b6bcb; text-decoration: none; } .fx-hover-link:hover { text-decoration: underline; }'}</style>
+      <p style={{ color: '#333333' }}>
+        Read the{' '}
+        <a href="#terms" style={{ textDecoration: 'underline' }}>
+          terms
+        </a>{' '}
+        before you sign.
+      </p>
+      <p style={{ color: '#333333' }}>
+        Read the{' '}
+        <a href="#privacy" style={{ color: '#2a4d8f', textDecoration: 'none', fontWeight: 700 }}>
+          privacy notice
+        </a>{' '}
+        too.
+      </p>
+      <p style={{ color: '#000000' }}>
+        Or ask{' '}
+        <a href="#support" className="fx-hover-link">
+          support
+        </a>{' '}
+        for help.
+      </p>
+    </>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
+};
+
+/* 3.3.2 Labels or Instructions: something on screen says what goes in each field. */
+export const PlaceholderOnly: Story = {
+  name: 'Defect: a field labelled only by its placeholder',
+  render: () => <input aria-label="Email" placeholder="you@example.com" />,
+  parameters: { a11y: { expect: { tree: [], auto: ['3.3.2: input placeholder "you@example.com"'], states: [] } } },
+};
+export const AriaLabelOnly: Story = {
+  name: 'Defect: a field named only by aria-label',
+  render: () => <input aria-label="Promo code" />,
+  parameters: { a11y: { expect: { tree: [], auto: ['3.3.2: input "promo code": named only by aria-label'], states: [] } } },
+};
+export const VisibleLabels: Story = {
+  name: 'Clean: a label element, and a search field beside its button',
+  render: () => (
+    <>
+      <label htmlFor="fx-name">Full name</label>
+      <input id="fx-name" />
+      <div role="search">
+        <input aria-label="Search" type="search" />
+        <button type="button">Search</button>
+      </div>
+    </>
+  ),
   parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
 };

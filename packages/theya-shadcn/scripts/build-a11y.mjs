@@ -55,7 +55,9 @@ const manual = JSON.parse(fs.readFileSync(path.join(ROOT, 'a11y/manual.json'), '
 const { criteria } = JSON.parse(fs.readFileSync(path.join(ROOT, 'a11y/criteria.json'), 'utf8'));
 // Browser checks from scripts/a11y-auto.mjs (label in name, focus visible, text spacing, resize text).
 const AUTO_FILE = path.join(ROOT, 'a11y/auto.json');
-const AUTO_KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1'];
+// 1.4.1 (links in text) and 3.3.2 (a visible label) are gates like the code ones:
+// a finding fails the cell, a clean pass doesn't replace their review.
+const AUTO_KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1', '1.4.1', '3.3.2'];
 const auto = fs.existsSync(AUTO_FILE) ? JSON.parse(fs.readFileSync(AUTO_FILE, 'utf8')) : { components: {} };
 // Rendered contrast (scripts/contrast-scan.mjs --record): "contrast" evidence for a
 // criterion when the component's stories were scanned and nothing was found, known

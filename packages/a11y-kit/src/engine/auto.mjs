@@ -159,6 +159,140 @@ function clippedText() {
   return out;
 }
 
+/** In the page: a cue other than colour that sets the link apart from `parentSel`'s text (underline, border, weight, background). */
+function hasNonColorCue(el, parentSel) {
+  const parent = (parentSel && document.querySelector(parentSel)) || el.parentElement;
+  const cs = getComputedStyle(el);
+  const ps = getComputedStyle(parent);
+  const decorated = (s) => /underline|line-through|overline/.test(s.textDecorationLine);
+  if (decorated(cs) && !decorated(ps)) return true;
+  for (const n of [el, ...el.querySelectorAll('*')]) {
+    const s = getComputedStyle(n);
+    if (n !== el && decorated(s)) return true;
+    if (parseFloat(s.borderBottomWidth) >= 1 && s.borderBottomStyle !== 'none' && !/rgba\(.*,\s*0\)|transparent/.test(s.borderBottomColor)) return true;
+  }
+  if (Math.abs(Number(cs.fontWeight) - Number(ps.fontWeight)) >= 200) return true; // 400 → 600 semibold reads as a different weight
+  if (cs.fontStyle !== ps.fontStyle) return true;
+  if (!/rgba\(.*,\s*0\)|transparent/.test(cs.backgroundColor) && cs.backgroundColor !== ps.backgroundColor) return true;
+  // An icon inside the link (an external-link arrow) is a cue too.
+  if (el.querySelector('svg, img')) return true;
+  return false;
+}
+
+/** In the page: links in a run of text that only their colour sets apart (F73), and those at 3:1 that need a hover cue (G183). */
+function linksByColorOnly() {
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = 1;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  const rgb = (c) => {
+    ctx.clearRect(0, 0, 1, 1);
+    ctx.fillStyle = '#000';
+    ctx.fillStyle = c;
+    ctx.fillRect(0, 0, 1, 1);
+    return [...ctx.getImageData(0, 0, 1, 1).data].slice(0, 3);
+  };
+  const lum = (c) => {
+    const [r, g, b] = rgb(c).map((v) => {
+      const s = v / 255;
+      return s <= 0.04045 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const ratio = (a, b) => {
+    const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m);
+    return (x + 0.05) / (y + 0.05);
+  };
+  const out = { fails: [], hoverCheck: [] };
+  let i = 0;
+  for (const el of document.querySelectorAll('#storybook-root a[href]')) {
+    if (el.getAttribute('role') || !el.checkVisibility?.({ opacityProperty: true, visibilityProperty: true })) continue;
+    const text = (el.textContent ?? '').trim();
+    if (!text) continue;
+    // In a run of text: the nearest ancestor that has text of its own outside the link.
+    let parent = el.parentElement;
+    let around = '';
+    for (let d = 0; parent && d < 3; d++, parent = parent.parentElement) {
+      if (parent.closest('nav, [role=navigation], [role=menu], [role=menubar], [role=tablist], [data-slot=breadcrumb], [data-slot=pagination]')) { parent = null; break; }
+      // Visible text only: a <style> or <script> sibling is not a run of text.
+      around = [...parent.childNodes].filter((n) => n.nodeType === 3 || (n !== el && !n.contains?.(el) && !n.matches?.('a, button, [role], style, script, template, noscript') && n.checkVisibility?.() !== false)).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim();
+      if (around.replace(/[^\p{L}\p{N}]/gu, '').length >= 3) break;
+      around = '';
+    }
+    if (!parent || !around) continue;
+    // Only inline links: a link laid out as its own line or block is a different pattern.
+    if (!/inline/.test(getComputedStyle(el).display)) continue;
+    const tag = String(i++);
+    el.setAttribute('data-theya-link', tag);
+    parent.setAttribute('data-theya-link-parent', tag);
+    const parentSel = `[data-theya-link-parent="${tag}"]`;
+    // hasNonColorCue is passed in by name below (functions don't cross evaluate).
+    if (window.__theyaHasCue(el, parentSel)) continue;
+    const r = ratio(getComputedStyle(el).color, getComputedStyle(parent).color);
+    const desc = `link "${text.slice(0, 30)}" in "${around.slice(0, 30)}…"`;
+    if (r < 3) out.fails.push(`${desc}: told apart from the text around it by colour only (${r.toFixed(2)}:1, needs an underline or 3:1 with a hover cue)`);
+    else out.hoverCheck.push({ i: tag, parent: parentSel, desc, ratio: r.toFixed(2) });
+  }
+  return out;
+}
+
+/** In the page: fields with nothing on screen that says what goes in them (3.3.2). */
+function fieldsWithoutVisibleLabel() {
+  const norm = (s) => (s ?? '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+  const shown = (n) => {
+    if (!(n instanceof Element)) return false;
+    const r = n.getBoundingClientRect();
+    const cs = getComputedStyle(n);
+    // sr-only: 1px and clipped.
+    return r.width > 1 && r.height > 1 && cs.visibility !== 'hidden' && !/rect\(0/.test(cs.clip) && n.checkVisibility?.({ opacityProperty: true, visibilityProperty: true }) !== false;
+  };
+  const visibleText = (n) => {
+    if (!n) return '';
+    const walker = document.createTreeWalker(n, NodeFilter.SHOW_TEXT);
+    let t = '';
+    for (let x = walker.nextNode(); x; x = walker.nextNode()) if (x.parentElement && shown(x.parentElement) && !x.parentElement.closest('[aria-hidden=true]')) t += ` ${x.textContent}`;
+    return norm(t);
+  };
+  const FIELDS = 'input:not([type=hidden], [type=submit], [type=button], [type=reset], [type=image]), textarea, select, [role=combobox], [role=textbox], [role=spinbutton], [role=searchbox], [contenteditable=true], [contenteditable=""]';
+  const out = [];
+  for (const el of document.querySelectorAll(`#storybook-root :is(${FIELDS})`)) {
+    if (el.matches(':disabled') || el.closest('[aria-hidden=true], [inert]')) continue;
+    // Invisible real inputs behind a custom control (InputOTP, a styled checkbox) are labelled through what is drawn.
+    const target = shown(el) ? el : (el.closest('label, [data-slot], [role=group]') ?? el.parentElement);
+    if (!shown(target)) continue;
+    // A combobox button showing its value (a select) is labelled by what sits around it, read below.
+    const ownText = el.matches('input, textarea, select, [contenteditable]') ? '' : visibleText(el);
+    const names = [];
+    for (const l of el.labels ?? []) names.push(visibleText(l));
+    names.push(visibleText(el.closest('label')));
+    for (const id of (el.getAttribute('aria-labelledby') ?? '').split(/\s+/).filter(Boolean)) names.push(visibleText(document.getElementById(id)));
+    for (const id of (el.getAttribute('aria-describedby') ?? '').split(/\s+/).filter(Boolean)) names.push(visibleText(document.getElementById(id)));
+    if (names.some((n) => n.replace(/ /g, '').length >= 2 && n !== ownText)) continue;
+    // aria-label or title that also appears on screen nearby (a heading, a column header, a button next to it: G167).
+    const label = norm(el.getAttribute('aria-label') ?? el.getAttribute('title') ?? '');
+    let nearby = '';
+    for (let n = el.parentElement, d = 0; n && d < 4 && n.id !== 'storybook-root'; n = n.parentElement, d++) nearby = visibleText(n);
+    const nearbyWords = new Set(nearby.split(' '));
+    if (label && label.split(' ').filter((w) => w.length > 2).some((w) => nearbyWords.has(w))) continue;
+    // A field inside a fieldset or group whose legend / label is on screen (a date's day/month/year, an OTP's slots).
+    const group = el.closest('fieldset, [role=group], [role=radiogroup]');
+    if (group) {
+      const legend = group.querySelector(':scope > legend');
+      const gl = [visibleText(legend), ...(group.getAttribute('aria-labelledby') ?? '').split(/\s+/).filter(Boolean).map((id) => visibleText(document.getElementById(id)))];
+      if (gl.some((t) => t.replace(/ /g, '').length >= 2)) continue;
+    }
+    const what = `${el.tagName.toLowerCase()}${el.getAttribute('type') ? `[type=${el.getAttribute('type')}]` : ''}${el.getAttribute('role') ? `[role=${el.getAttribute('role')}]` : ''}`;
+    const placeholder = el.getAttribute('placeholder');
+    out.push(
+      placeholder
+        ? `${what} placeholder "${placeholder.slice(0, 30)}": the only label is the placeholder, which disappears on input`
+        : label
+          ? `${what} "${label.slice(0, 30)}": named only by aria-label / title, nothing on screen says what goes in it`
+          : `${what}: no label or instructions on screen`,
+    );
+  }
+  return [...new Set(out)];
+}
+
 const STYLE_PROPS = ['outlineStyle', 'outlineWidth', 'outlineColor', 'boxShadow', 'borderTopColor', 'borderBottomColor', 'backgroundColor', 'color', 'textDecorationLine'];
 
 async function checkStory(page, story) {
@@ -176,7 +310,7 @@ async function checkStory(page, story) {
       }
       s.focus();
     });
-  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '1.4.10': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], '3.2.1': [], truncated: [], advisory: [] };
+  const result = { id: story.id, title: story.title, name: story.name, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '1.4.10': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], '3.2.1': [], '1.4.1': [], '3.3.2': [], truncated: [], advisory: [] };
   const load = async () => {
     await page.goto(`${URL_BASE}/iframe.html?id=${story.id}&viewMode=story${GLOBALS ? `&globals=${GLOBALS}` : ''}`, { waitUntil: 'load' });
     await page.waitForSelector('#storybook-root > *', { timeout: 10000 }).catch(() => {});
@@ -239,6 +373,22 @@ async function checkStory(page, story) {
     }
     return out;
   });
+
+  // 1.4.1 — links inside a run of text.
+  await page.evaluate(`window.__theyaHasCue = ${hasNonColorCue.toString()}`);
+  const links = await page.evaluate(linksByColorOnly);
+  for (const l of links.fails) result['1.4.1'].push(l);
+  for (const l of links.hoverCheck) {
+    // 3:1 against the text around it is enough only with a cue on hover
+    // (G183); focus is the 2.4.7 pass.
+    const el = page.locator(`[data-theya-link="${l.i}"]`);
+    const cue = await el.hover({ timeout: 2000 }).then(() => el.evaluate(hasNonColorCue, l.parent)).catch(() => null);
+    if (cue === false) result['1.4.1'].push(`${l.desc}: told apart from the text around it by colour only (${l.ratio}:1) and nothing changes on hover`);
+  }
+  await page.mouse.move(0, 0);
+
+  // 3.3.2 — every field shows a label or instructions on screen.
+  result['3.3.2'] = await page.evaluate(fieldsWithoutVisibleLabel);
 
   // 2.4.7 — Tab through, up to 40 stops. Transitions off, so a style read
   // is the end state, not the first frame; a short wait after focus and
@@ -591,7 +741,7 @@ const byComponent = {};
 for (const r of results.sort((a, b) => a.id.localeCompare(b.id))) {
   const name = groupOf(r);
   if (!name) continue;
-  const c = (byComponent[name] ??= { stories: 0, errors: 0, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '1.4.10': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], '3.2.1': [], truncated: [], advisory: [] });
+  const c = (byComponent[name] ??= { stories: 0, errors: 0, '2.5.3': [], '2.4.7': [], '2.4.11': [], '1.4.12': [], '1.4.4': [], '1.4.10': [], '2.1.1': [], '2.1.2': [], '2.4.3': [], '3.2.1': [], '1.4.1': [], '3.3.2': [], truncated: [], advisory: [] });
   if (FIXTURES) c.expect = r.expect;
   c.stories += 1;
   if (r.error) {
@@ -599,12 +749,12 @@ for (const r of results.sort((a, b) => a.id.localeCompare(b.id))) {
     continue;
   }
   const at = FIXTURES ? '' : `${r.name}: `;
-  for (const k of ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1', 'truncated', 'advisory']) for (const f of r[k]) c[k].push(`${at}${f}`);
+  for (const k of ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1', '1.4.1', '3.3.2', 'truncated', 'advisory']) for (const f of r[k]) c[k].push(`${at}${f}`);
 }
 if (FIXTURES) {
   // Calibration: every expected finding reported, nothing else.
   let bad = 0;
-  const KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1', 'advisory'];
+  const KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1', '1.4.1', '3.3.2', 'advisory'];
   for (const [name, c] of Object.entries(byComponent).sort(([a], [b]) => a.localeCompare(b))) {
     const got = KEYS.flatMap((k) => c[k].map((f) => `${k}: ${f}`));
     const problems = c.errors ? ["story didn't load"] : [];
@@ -631,13 +781,13 @@ if (!CI) {
 }
 const fails = (k) => Object.values(byComponent).filter((c) => c[k].length).length;
 console.log(`a11y-auto: ${results.length} stories, ${Object.keys(byComponent).length} components${CI ? '' : ' → a11y/auto.json'}`);
-for (const k of ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1']) console.log(`  ${k}: ${fails(k)} component(s) with failures`);
+for (const k of ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1', '1.4.1', '3.3.2']) console.log(`  ${k}: ${fails(k)} component(s) with failures`);
 console.log(`  errors: ${results.filter((r) => r.error).length} stories`);
 // Advisory findings: listed, never failing.
 const advisory = Object.entries(byComponent).flatMap(([name, c]) => [...new Set(c.advisory)].map((f) => `- advisory **${name}** — ${f}`));
 console.log(`  advisory (experimental axe rules, not failing): ${advisory.length}`);
 if (CI) {
-  const KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1'];
+  const KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1', '1.4.1', '3.3.2'];
   // Known, tracked failures (config known: { criterion: { component: reason } }): still
   // in the results and the matrix, reported as warnings, so a fix someone else owns
   // doesn't turn every run red. Each entry names who fixes it and where it's tracked.
