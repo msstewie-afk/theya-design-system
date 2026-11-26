@@ -129,6 +129,22 @@
       },
       "text-subtler-on-tonal": {
         "value": "{color.blue.blue-100}"
+      },
+      "on-accent-pink": {
+        "value": "{color.magenta.magenta-800}",
+        "comment": "Landing only: ink on color.bg.accent-pink, at least 4.5:1."
+      },
+      "on-accent-cream": {
+        "value": "{color.orange.orange-850}",
+        "comment": "Landing only: ink on color.bg.accent-cream, at least 4.5:1."
+      },
+      "on-accent-orange": {
+        "value": "{color.orange.orange-850}",
+        "comment": "Landing only: ink on color.bg.accent-orange, at least 4.5:1."
+      },
+      "on-accent-yellow": {
+        "value": "{color.yellow.yellow-800}",
+        "comment": "Landing only: ink on color.bg.accent-yellow, at least 4.5:1."
       }
     },
     "border": {
@@ -573,6 +589,22 @@
       "chart-07": {
         "value": "{color.purple.purple-350}",
         "comment": "Chart series 7, dark: all seven at the same lightness, 3.6:1 on the page and 3.2:1 on cards."
+      },
+      "accent-pink": {
+        "value": "{color.magenta.magenta-010}",
+        "comment": "Landing only: pastel accent fill for stickers, stamps and cards. Same in light and dark. Text on it: color.text.on-accent-pink."
+      },
+      "accent-cream": {
+        "value": "{color.orange.orange-005}",
+        "comment": "Landing only: pastel accent fill for stickers, stamps and cards. Same in light and dark. Text on it: color.text.on-accent-cream."
+      },
+      "accent-orange": {
+        "value": "{color.orange.orange-050}",
+        "comment": "Landing only: pastel accent fill for stickers, stamps and cards. Same in light and dark. Text on it: color.text.on-accent-orange."
+      },
+      "accent-yellow": {
+        "value": "{color.yellow.yellow-050}",
+        "comment": "Landing only: pastel accent fill for stickers, stamps and cards. Same in light and dark. Text on it: color.text.on-accent-yellow."
       }
     },
     "brand": {

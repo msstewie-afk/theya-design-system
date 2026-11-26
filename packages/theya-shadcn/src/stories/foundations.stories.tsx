@@ -381,7 +381,17 @@ const STATUS_TOKEN_ROWS: TokenRow[] = withValues([
   { name: '--color-bg-danger-bg-danger-status', description: 'Danger counterpart of the -status family. Same value in both themes.' },
 ]);
 
-const ALL_TOKEN_ROWS: TokenRow[] = [...BG_TOKEN_ROWS, ...STATUS_TOKEN_ROWS, ...TEXT_TOKEN_ROWS, ...BORDER_TOKEN_ROWS, ...CHART_TOKEN_ROWS];
+// Landing-only pastel accents (2026-11-26): fill + ink pairs for stickers, stamps
+// and cards on landing pages; the same in light and dark, never used in product UI.
+const ACCENTS = ['pink', 'cream', 'orange', 'yellow'] as const;
+const ACCENT_TOKEN_ROWS: TokenRow[] = withValues(
+  ACCENTS.flatMap((a) => [
+    { name: `--color-bg-accent-${a}`, description: `Landing only: pastel ${a} fill for stickers, stamps and cards. Same in light and dark.` },
+    { name: `--color-text-on-accent-${a}`, description: `Landing only: text and icons on --color-bg-accent-${a}, at least 4.5:1.` },
+  ]),
+);
+
+const ALL_TOKEN_ROWS: TokenRow[] = [...BG_TOKEN_ROWS, ...STATUS_TOKEN_ROWS, ...TEXT_TOKEN_ROWS, ...BORDER_TOKEN_ROWS, ...CHART_TOKEN_ROWS, ...ACCENT_TOKEN_ROWS];
 
 
 function RampSwatch({ prefix, step }: { prefix: string; step: string }) {
@@ -473,6 +483,28 @@ export const Colors: Story = {
             <div key={r.name} className="flex flex-col items-center gap-2">
               <TokenPill value={r.light} />
               <span className="text-center font-mono text-body-xs text-[var(--color-text-text-subtle)]">{r.name.replace('--color-bg-chart-', 'Chart ')}</span>
+            </div>
+          ))}
+        </div>
+      </DocsSection>
+      <DocsSection
+        title="Landing accents"
+        description={
+          <>
+            <Code>--color-bg-accent-*</Code> with <Code>--color-text-on-accent-*</Code>: pastel fills for stickers, stamps and cards on landing pages. The same in
+            light and dark; not for product screens.
+          </>
+        }
+      >
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {ACCENTS.map((a) => (
+            <div
+              key={a}
+              className="flex flex-col gap-1 rounded-[var(--size-border-radius-border-radius-lg)] p-4"
+              style={{ background: `var(--color-bg-accent-${a})`, color: `var(--color-text-on-accent-${a})` }}
+            >
+              <span className="text-heading-s">Aa {a}</span>
+              <span className="font-mono text-body-xs">accent-{a}</span>
             </div>
           ))}
         </div>

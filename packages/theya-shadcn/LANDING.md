@@ -68,6 +68,7 @@ Open these first, pick the closest one, then change its content. Don't lay out a
 - A picture as the ground (`SectionPanel image` + `imageGround`, or Hero `backdrop={<ImageGround … />}`; demo pictures in `public/asset-examples/backgrounds`, with notes on tone and where text fits in `SOURCES.txt`). If the text does not pass on it, adjust the ground before changing the picture: `tint="deep"` (primary with black, tone in tone) with `contentTheme="dark"` for white text, `tint="surface"` or `opacity` below 100 (the panel's fill shows through) under the regular text. Then check the contrast by eye or on a screenshot: the scan skips text over pictures. `flip` (x / y / both) gives one picture four compositions; never mirror photos of people, text or products.
 - On a coloured ground the buttons switch themselves: on `data-surface="primary"`, and in the gradient canvas the filled button turns into a white pill.
 - On a coloured ground, use coloured shadows (the ground's darkest colour), never grey.
+- Pastel accents for stickers, stamps and playful cards: `--color-bg-accent-{pink,cream,orange,yellow}` with text in `--color-text-on-accent-*` (at least 4.5:1, the same in light and dark). Landing only — never in product screens; don't take raw primitives for this.
 
 ## 6. Motion
 

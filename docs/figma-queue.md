@@ -15,6 +15,7 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 
 | Since | Area | What | Needs |
 |---|---|---|---|
+| 0.5.x | Landing accent tokens (agent 1) | `bg/accent-{pink,cream,orange,yellow}` (magenta-010, orange-005, orange-050, yellow-050) and `text/on-accent-*` (magenta-800, orange-850, orange-850, yellow-800); same values in light and dark. | Semantic collection: 8 variables, both modes. |
 | 0.5.0 | ProductCollage, SiteFooter (agent 1; added by agent 4 at release) | ProductCollage on a photo: cards turn frosted as on the gradient canvas (no border, 5xl radius, 90% surface over a blur, soft shadow). SiteFooter newsletter sits on a surface panel so the email field border holds 3:1. | Agent 2: only if these blocks are drawn in Figma; otherwise nothing. |
 | 0.5.x | ImageGround, SectionPanel `imageGround` (agent 1) | A picture ground with a tint layer in theme colors (primary, deep = primary 45% + black, surface, scrim; 0–90%), picture opacity and flip x / y / both. | Only if landing grounds are drawn: a SectionPanel variant with a picture + tint layer. |
 | 0.5.x | Color primitives (agent 1) | New ramps `violet` (blue-violet, 005–900, 500 = #6925e0) and `olive` (005–900, 500 = #697710); new alpha ramps `-a100…a900` (10–90% of step 300) for violet, olive, purple, magenta, teal, azure. Nothing removed. | Primitive collection: 24 + 54 variables (`figma-run.mjs sync --only=1.`). |
