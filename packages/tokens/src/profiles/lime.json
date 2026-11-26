@@ -50,5 +50,6 @@
   "accept": [
     "primary hue vs success",
     "light: bg-primary-bg-primary on bg-surface-bg-surface-base"
-  ]
+  ],
+  "displayHeavyFont": "Fredoka Heavy"
 }

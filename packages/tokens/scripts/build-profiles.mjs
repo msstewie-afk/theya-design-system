@@ -23,6 +23,7 @@
  *      "radius"?: { "scale": 1.5, "button": "max", "field": "3xl" },
  *      "componentText"?: { "drawer-description": "body-m" },
  *      "displayFont"?: { "family": "Archivo", "stretch": 75, "weight": 600 },
+ *      "displayHeavyFont"?: "Bowlby One" | "Rammetto One" | "Paytone One" | "Fredoka Heavy",
  *      "gradient"?: { "base": "#625d8c", "spots": [{ "color": "#a94f44", "at": "15% 60%", "size": "60% 70%" }] }
  *    }
  *    `gradient`: the theme's gradient canvas (gr-01) — a base color with
@@ -538,6 +539,16 @@ for (const profile of profiles) {
     shared.set('--font-display', `'${family}', ${profile.font ? `'${profile.font}', ` : ''}${stack}`);
     if (stretch != null) shared.set('--display-stretch', `${stretch}%`);
     if (weight != null) shared.set('--display-weight', String(weight));
+  }
+
+  // Heavy display face (tok-display-heavy): the theme's Latin face for the
+  // font-display-heavy utility, followed by its matching Rubik Black for
+  // Cyrillic (fonts.css declares one size-adjusted family per Latin face).
+  if (profile.displayHeavyFont) {
+    const HEAVY = { 'Bowlby One': 'Bowlby', 'Rammetto One': 'Rammetto', 'Paytone One': 'Paytone', 'Fredoka Heavy': 'Fredoka' };
+    const pair = HEAVY[profile.displayHeavyFont];
+    if (!pair) problems.push(`${profile.name}: displayHeavyFont must be one of ${Object.keys(HEAVY).join(', ')}`);
+    else shared.set('--font-display-heavy', `'${profile.displayHeavyFont}', 'Theya Heavy Cyrillic ${pair}', Geologica, sans-serif`);
   }
 
   // Gradient canvas (gr-01): `data-canvas="gradient"` paints

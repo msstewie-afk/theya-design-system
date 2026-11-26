@@ -55,6 +55,10 @@
   --font-display-script: 'Pinyon Script', 'Snell Roundhand', cursive;
   --font-display-wide: 'Archivo', 'Arial Narrow', Geologica, sans-serif;
   --font-display-tight: 'Inter Tight', Geologica, sans-serif;
+  /* Heavy rounded display (tok-display-heavy, 2026-11-26): a Latin face per
+     theme (profile `displayHeavyFont`) and one shared Cyrillic face, Rubik
+     Black, sized to the Latin face's cap height. For big landing lines only. */
+  --font-display-heavy: 'Bowlby One', 'Theya Heavy Cyrillic Bowlby', Geologica, sans-serif;
 }
 
 /* Tailwind utilities: text-display-xl, text-display-2xl. display-2xl
@@ -117,6 +121,13 @@
 }
 @utility font-display-tight {
   font-family: var(--font-display-tight);
+}
+/* Each heavy face is a single cut declared at 400, so weight stays normal
+   (no faux bold); line-height and case come from the line. */
+@utility font-display-heavy {
+  font-family: var(--font-display-heavy);
+  font-weight: 400;
+  font-synthesis: none;
 }
 
 @utility section-display {

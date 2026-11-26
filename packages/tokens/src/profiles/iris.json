@@ -7,7 +7,9 @@
   },
   "font": "Onest",
   "radius": {
-    "anchor": { "lg": 2 }
+    "anchor": {
+      "lg": 2
+    }
   },
   "light": {
     "tokens": {
@@ -35,5 +37,6 @@
       "text-text-link": "#9590f5",
       "text-text-link-hover": "#b1adf8"
     }
-  }
+  },
+  "displayHeavyFont": "Rammetto One"
 }

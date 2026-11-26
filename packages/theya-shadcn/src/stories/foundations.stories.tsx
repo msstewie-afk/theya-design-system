@@ -586,6 +586,20 @@ export const Typography: Story = {
         </div>
       </DocsSection>
       <DocsSection
+        title="Heavy display (landing)"
+        description={
+          <>
+            <Code>font-display-heavy</Code>: a heavy rounded face for big landing lines. The Latin face comes from the theme (Bowlby One by default; Paytone One,
+            Rammetto One or Fredoka in the brand themes); Cyrillic is always Rubik Black, sized to the Latin cap height. Switch the brand to compare.
+          </>
+        }
+      >
+        <div className="flex flex-col gap-2 text-[var(--color-text-text)]">
+          <p className="m-0 font-display-heavy text-display-xl uppercase leading-[0.9]">Candles · Свещи</p>
+          <p className="m-0 font-display-heavy text-heading-xl">Burger time — Время бургеров</p>
+        </div>
+      </DocsSection>
+      <DocsSection
         title="Font weights"
         description={
           <>
