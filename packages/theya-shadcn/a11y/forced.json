@@ -6,7 +6,7 @@
     "icon-lost",
     "checked-same"
   ],
-  "date": "2026-11-23",
+  "date": "2026-11-26",
   "components": {
     "AccessTokens": {
       "stories": 3,
@@ -410,6 +410,11 @@
     },
     "FilterField": {
       "stories": 6,
+      "errors": 0,
+      "findings": []
+    },
+    "First screens": {
+      "stories": 7,
       "errors": 0,
       "findings": []
     },
