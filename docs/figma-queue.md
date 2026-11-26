@@ -15,6 +15,7 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 
 | Since | Area | What | Needs |
 |---|---|---|---|
+| 0.5.x | Sticker (agent 1, landing) | Tilted CTA, square corners, pastel accent fill (pink/cream/orange/yellow) with on-accent text; sm 36 / md 44 / lg 56 (heavy display face); straight on hover/focus. | A landing component with tone, size and tilt (−6…+6) properties. |
 | 0.5.x | Heavy display face (agent 1) | `font-display-heavy`: Bowlby One (default, dusk), Paytone One (ember, ochre), Rammetto One (iris), Fredoka 700 (lagoon, lime); Cyrillic Rubik Black at a size matched to each. | Typography: a heavy display text style per mode/brand, if landing lines are drawn in THEIA. |
 | 0.5.x | Landing accent tokens (agent 1) | `bg/accent-{pink,cream,orange,yellow}` (magenta-010, orange-005, orange-050, yellow-050) and `text/on-accent-*` (magenta-800, orange-850, orange-850, yellow-800); same values in light and dark. | Semantic collection: 8 variables, both modes. |
 | 0.5.0 | ProductCollage, SiteFooter (agent 1; added by agent 4 at release) | ProductCollage on a photo: cards turn frosted as on the gradient canvas (no border, 5xl radius, 90% surface over a blur, soft shadow). SiteFooter newsletter sits on a surface panel so the email field border holds 3:1. | Agent 2: only if these blocks are drawn in Figma; otherwise nothing. |

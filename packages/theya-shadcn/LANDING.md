@@ -25,6 +25,7 @@ Open these first, pick the closest one, then change its content. Don't lay out a
 - **One main action**, at most one more. On a phone they stack at full width.
 - **Text on a bright ground is dark.** Measure it: white on a saturated orange is about 2.7 : 1, which fails.
 - **One h1** per page: the hero's.
+- **A sticker never covers words on a phone.** Below 640 px `Sticker` sits under the headline; from 640 px up it may overlap the edge of a letter, never a whole word. One per screen.
 
 ## 3. Which block for which task
 
@@ -49,6 +50,7 @@ Open these first, pick the closest one, then change its content. Don't lay out a
 | The product as real UI cards over a ground | `ProductCollage` + `CollageItem` |
 | An app screen or a web app in a frame | `DeviceFrame type="phone" \| "browser"` |
 | Download a mobile app | `StoreButtons` (one store per device; official badges through `badges` before launch) |
+| One playful call to action over a headline or a picture | `Sticker` (tilted, pastel, square corners; `asChild` for a link) |
 | Switch stages, plans, modes | `Tabs variant="chips"` when each choice has its own panel (even one line), `ToggleGroup` when only a picture changes |
 | One picture that changes in place | `ArcStage` (a calm move along an arc, for a hero), or `Carousel` with one slide in view |
 | A showcase of five to eight image cards | `OrbitCarousel` |
