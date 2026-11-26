@@ -48,7 +48,7 @@ export const NewFeature: Story = {
     icon: <Sparks />,
     children: (
       <>
-        Client portals now show a print shop on every plan. <a href="#">See how it works</a>
+        Client portals now show a print shop on every plan. <a href="#">How it works</a>
       </>
     ),
   },

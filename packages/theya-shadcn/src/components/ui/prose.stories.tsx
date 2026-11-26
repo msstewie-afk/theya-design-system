@@ -133,7 +133,7 @@ export const Sizes: Story = {
         <Prose key={size} size={size}>
           <h2>size=&quot;{size}&quot;</h2>
           <p>
-            Licenses renew automatically 30 days before they expire. If a renewal fails, we retry daily and <a href="#">notify the studio owner</a>.
+            Licenses renew automatically 30 days before they expire. If a renewal fails, we retry daily and <a href="#">notify the owner</a>.
           </p>
           <h3>Renewal checks</h3>
           <ul>

@@ -188,13 +188,11 @@
       ],
       "counts": {
         "n/a": 62,
-        "verified": 98,
-        "fails": 2,
-        "untested": 1
+        "verified": 99,
+        "untested": 2
       },
       "patternCounts": {
-        "verified": 41,
-        "fails": 3,
+        "verified": 44,
         "n/a": 14,
         "untested": 5
       }
@@ -865,14 +863,14 @@
       ],
       "counts": {
         "n/a": 120,
-        "fails": 19,
-        "verified": 23,
+        "fails": 18,
+        "verified": 24,
         "partial": 1
       },
       "patternCounts": {
-        "verified": 22,
+        "verified": 24,
         "n/a": 35,
-        "fails": 5,
+        "fails": 3,
         "partial": 1
       }
     },
@@ -1416,7 +1414,7 @@
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
-        "1.4.1": "fails",
+        "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
         "1.4.4": "verified",
@@ -1465,26 +1463,6 @@
         "stories": 6,
         "errors": 0,
         "findings": []
-      },
-      "autoFindings": {
-        "1.4.1": [
-          "Incident: link \"Follow updates\" in \"Some exports from Selene Weddi…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Long Text On Mobile: link \"Compare plans\" in \"From 1 November, free plans ke…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Maintenance: link \"Status page\" in \"Scheduled maintenance on Sunda…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "New Feature: link \"See how it works\" in \"Client portals now show a prin…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Tones: link \"Details\" in \"filled · primary — Licenses no…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Tones: link \"Details\" in \"filled · neutral — Licenses no…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Tones: link \"Details\" in \"filled · info — Licenses now r…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Tones: link \"Details\" in \"filled · success — Licenses no…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Tones: link \"Details\" in \"filled · warning — Licenses no…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Tones: link \"Details\" in \"filled · danger — Licenses now…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Tones: link \"Details\" in \"tonal · primary — Licenses now…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Tones: link \"Details\" in \"tonal · neutral — Licenses now…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Tones: link \"Details\" in \"tonal · info — Licenses now re…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Tones: link \"Details\" in \"tonal · success — Licenses now…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Tones: link \"Details\" in \"tonal · warning — Licenses now…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Tones: link \"Details\" in \"tonal · danger — Licenses now …\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)"
-        ]
       }
     },
     {
@@ -4161,14 +4139,8 @@
       },
       "autoFindings": {
         "3.3.2": [
-          "Async fetch: input[role=combobox] placeholder \"Search galleries…\": the only label is the placeholder, which disappears on input",
           "Disabled item: input[role=combobox] placeholder \"Run a command…\": the only label is the placeholder, which disappears on input",
-          "Empty: input[role=combobox] placeholder \"Search…\": the only label is the placeholder, which disappears on input",
-          "Entity results: input[role=combobox] placeholder \"Search client portals…\": the only label is the placeholder, which disappears on input",
-          "Inline: input[role=combobox] placeholder \"Type a command or search…\": the only label is the placeholder, which disappears on input",
-          "Loading: input[role=combobox] placeholder \"Search galleries…\": the only label is the placeholder, which disappears on input",
-          "With breadcrumb: input[role=combobox] placeholder \"Search settings…\": the only label is the placeholder, which disappears on input",
-          "With icons and descriptions: input[role=combobox] placeholder \"Search galleries, pages and ac\": the only label is the placeholder, which disappears on input"
+          "Inline: input[role=combobox] placeholder \"Type a command or search…\": the only label is the placeholder, which disappears on input"
         ]
       }
     },
@@ -5099,7 +5071,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "n/a",
-        "3.3.2": "fails",
+        "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -5111,14 +5083,6 @@
         "stories": 5,
         "errors": 0,
         "findings": []
-      },
-      "autoFindings": {
-        "3.3.2": [
-          "Default: input placeholder \"Filter galleries…\": the only label is the placeholder, which disappears on input",
-          "Overflow: input placeholder \"Filter galleries…\": the only label is the placeholder, which disappears on input",
-          "Selected: input placeholder \"Filter galleries…\": the only label is the placeholder, which disappears on input",
-          "Test: interactions: input placeholder \"Filter galleries…\": the only label is the placeholder, which disappears on input"
-        ]
       }
     },
     {
@@ -6358,7 +6322,7 @@
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
-        "1.4.1": "fails",
+        "1.4.1": "untested",
         "1.4.2": "product",
         "1.4.3": "verified",
         "1.4.4": "verified",
@@ -6407,11 +6371,6 @@
         "stories": 2,
         "errors": 0,
         "findings": []
-      },
-      "autoFindings": {
-        "1.4.1": [
-          "Default: link \"Open the folder\" in \"Long reads you saved for the w…\": told apart from the text around it by colour only (2.62:1, needs an underline or 3:1 with a hover cue)"
-        ]
       }
     },
     {
@@ -15723,9 +15682,6 @@
       },
       "autoFindings": {
         "3.3.2": [
-          "Default: input[type=text] placeholder \"Search…\": the only label is the placeholder, which disappears on input",
-          "Mobile: input[type=text] placeholder \"Search…\": the only label is the placeholder, which disappears on input",
-          "Search: input[type=text] placeholder \"Search galleries…\": the only label is the placeholder, which disappears on input",
           "With buttons: button[type=button][role=combobox] \"sort by\": named only by aria-label / title, nothing on screen says what goes in it"
         ]
       }
@@ -16994,7 +16950,7 @@
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "verified",
-        "1.4.1": "fails",
+        "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
         "1.4.4": "verified",
@@ -17043,20 +16999,6 @@
         "stories": 4,
         "errors": 0,
         "findings": []
-      },
-      "autoFindings": {
-        "1.4.1": [
-          "Default: link \"Terms of Service\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
-          "Default: link \"Privacy Policy\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
-          "Email Taken: link \"Sign in\" in \"There’s already an account for…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Email Taken: link \"reset the password\" in \"There’s already an account for…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
-          "Email Taken: link \"Terms of Service\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
-          "Email Taken: link \"Privacy Policy\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
-          "Short password: link \"Terms of Service\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
-          "Short password: link \"Privacy Policy\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
-          "Test: interactions: link \"Terms of Service\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
-          "Test: interactions: link \"Privacy Policy\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)"
-        ]
       }
     },
     {
@@ -17243,7 +17185,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "n/a",
-        "3.3.2": "fails",
+        "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -17255,14 +17197,6 @@
         "stories": 4,
         "errors": 0,
         "findings": []
-      },
-      "autoFindings": {
-        "3.3.2": [
-          "Default: input[type=search] placeholder \"Search events\": the only label is the placeholder, which disappears on input",
-          "Empty: input[type=search] placeholder \"Search events\": the only label is the placeholder, which disappears on input",
-          "Loading: input[type=search] placeholder \"Search events\": the only label is the placeholder, which disappears on input",
-          "Test: interactions: input[type=search] placeholder \"Search events\": the only label is the placeholder, which disappears on input"
-        ]
       }
     },
     {
@@ -20916,7 +20850,7 @@
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "verified",
-        "1.4.1": "fails",
+        "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
         "1.4.4": "verified",
@@ -20965,14 +20899,6 @@
         "stories": 4,
         "errors": 0,
         "findings": []
-      },
-      "autoFindings": {
-        "1.4.1": [
-          "Autoplay with Pause / Play: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)",
-          "Default: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)",
-          "Single image (no carousel chrome): link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)",
-          "With logo and back link: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)"
-        ]
       }
     },
     {
@@ -21024,7 +20950,7 @@
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "verified",
-        "1.4.1": "fails",
+        "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
         "1.4.4": "verified",
@@ -21073,14 +20999,6 @@
         "stories": 4,
         "errors": 0,
         "findings": []
-      },
-      "autoFindings": {
-        "1.4.1": [
-          "Default: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)",
-          "No SSO: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)",
-          "Sign-in error: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)",
-          "Test: interactions: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)"
-        ]
       }
     },
     {
@@ -21946,7 +21864,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "n/a",
-        "3.3.2": "fails",
+        "3.3.2": "verified",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -21958,14 +21876,6 @@
         "stories": 4,
         "errors": 0,
         "findings": []
-      },
-      "autoFindings": {
-        "3.3.2": [
-          "Clear Recent: input[type=text][role=combobox] placeholder \"Search galleries, clients, set\": the only label is the placeholder, which disappears on input",
-          "Default: input[type=text][role=combobox] placeholder \"Search galleries, clients, set\": the only label is the placeholder, which disappears on input",
-          "Keyboard: input[type=text][role=combobox] placeholder \"Search galleries, clients, set\": the only label is the placeholder, which disappears on input",
-          "Test: interactions: input[type=text][role=combobox] placeholder \"Search galleries, clients, set\": the only label is the placeholder, which disappears on input"
-        ]
       }
     },
     {
@@ -22246,14 +22156,6 @@
         "stories": 4,
         "errors": 0,
         "findings": []
-      },
-      "autoFindings": {
-        "3.3.2": [
-          "Collapsed: input[type=text] placeholder \"Search...\": the only label is the placeholder, which disappears on input",
-          "Default: input[type=text] placeholder \"Search...\": the only label is the placeholder, which disappears on input",
-          "Minimal Topbar: input[type=text] placeholder \"Search...\": the only label is the placeholder, which disappears on input",
-          "Test: keyboard and nav: input[type=text] placeholder \"Search...\": the only label is the placeholder, which disappears on input"
-        ]
       }
     }
   ]
