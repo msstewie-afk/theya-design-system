@@ -23,11 +23,11 @@ export const EmailTaken: Story = {
     error: (
       <>
         {'There’s already an account for this email. '}
-        <a href="#sign-in" className="rounded-[var(--size-border-radius-border-radius-sm)] font-medium no-underline underline-offset-4 outline-none hover:underline focus-visible:focus-ring">
+        <a href="#sign-in" className="rounded-[var(--size-border-radius-border-radius-sm)] font-semibold no-underline underline-offset-4 outline-none hover:underline focus-visible:focus-ring">
           Sign in
         </a>
         {' or '}
-        <a href="#reset" className="rounded-[var(--size-border-radius-border-radius-sm)] font-medium no-underline underline-offset-4 outline-none hover:underline focus-visible:focus-ring">
+        <a href="#reset" className="rounded-[var(--size-border-radius-border-radius-sm)] font-semibold no-underline underline-offset-4 outline-none hover:underline focus-visible:focus-ring">
           reset the password
         </a>
         .

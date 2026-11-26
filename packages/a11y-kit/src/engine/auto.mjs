@@ -226,6 +226,10 @@ function linksByColorOnly() {
     if (!parent || !around) continue;
     // Only inline links: a link laid out as its own line or block is a different pattern.
     if (!/inline/.test(getComputedStyle(el).display)) continue;
+    // Theya rule (Мария, 2026-11-26): a link inside a sentence is at most three words, so its
+    // underline never runs under a whole sentence. Reported with 1.4.1, the underline's criterion.
+    const words = text.split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w)).length;
+    if (words > 3) out.fails.push(`link "${text.slice(0, 40)}" in a sentence is ${words} words: keep a link in running text to three words at most (Theya rule)`);
     const tag = String(i++);
     el.setAttribute('data-theya-link', tag);
     parent.setAttribute('data-theya-link-parent', tag);
@@ -285,6 +289,12 @@ function fieldsWithoutVisibleLabel() {
       const gl = [visibleText(legend), ...(group.getAttribute('aria-labelledby') ?? '').split(/\s+/).filter(Boolean).map((id) => visibleText(document.getElementById(id)))];
       if (gl.some((t) => t.replace(/ /g, '').length >= 2)) continue;
     }
+    // A search field with a magnifier icon and a placeholder is an accepted deviation
+    // (Мария, 2026-11-26): the icon and the hint say what goes in it.
+    const placeholder0 = el.getAttribute('placeholder') ?? '';
+    const isSearch = el.matches('[type=search], [role=searchbox]') || /^(search|filter|find)\b/i.test(placeholder0);
+    const wrap = el.parentElement?.closest('[data-slot]') ?? el.parentElement;
+    if (placeholder0 && isSearch && [...(wrap?.querySelectorAll('svg') ?? [])].some((s) => shown(s) && !s.closest('button'))) continue;
     const what = `${el.tagName.toLowerCase()}${el.getAttribute('type') ? `[type=${el.getAttribute('type')}]` : ''}${el.getAttribute('role') ? `[role=${el.getAttribute('role')}]` : ''}`;
     const placeholder = el.getAttribute('placeholder');
     out.push(

@@ -981,6 +981,21 @@ export const LinkCues: Story = {
   parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
 };
 
+/** Defect (Theya rule): a whole sentence as the link, underlined. */
+export const LinkTooLong: Story = {
+  name: 'Defect: a link in a sentence longer than three words',
+  render: () => (
+    <p style={{ color: '#333333' }}>
+      Before you sign,{' '}
+      <a href="#terms" style={{ textDecoration: 'underline' }}>
+        read the full terms of the service
+      </a>
+      .
+    </p>
+  ),
+  parameters: { a11y: { expect: { tree: [], auto: ['1.4.1: link "read the full terms of the service" in a sentence is 7 words'], states: [] } } },
+};
+
 /* 3.3.2 Labels or Instructions: something on screen says what goes in each field. */
 export const PlaceholderOnly: Story = {
   name: 'Defect: a field labelled only by its placeholder',
@@ -993,7 +1008,7 @@ export const AriaLabelOnly: Story = {
   parameters: { a11y: { expect: { tree: [], auto: ['3.3.2: input "promo code": named only by aria-label'], states: [] } } },
 };
 export const VisibleLabels: Story = {
-  name: 'Clean: a label element, and a search field beside its button',
+  name: 'Clean: a label element, a search field beside its button, a search field with a magnifier',
   render: () => (
     <>
       <label htmlFor="fx-name">Full name</label>
@@ -1001,6 +1016,13 @@ export const VisibleLabels: Story = {
       <div role="search">
         <input aria-label="Search" type="search" />
         <button type="button">Search</button>
+      </div>
+      {/* Accepted deviation (Мария, 2026-11-26): a magnifier icon and a placeholder. */}
+      <div data-slot="fx-search">
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16">
+          <circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" />
+        </svg>
+        <input aria-label="Search galleries" placeholder="Search galleries" />
       </div>
     </>
   ),

@@ -17,8 +17,8 @@ import { useTheyaI18n } from '../../lib/i18n';
  *   screen-reader users can find it. For something that appears in
  *   response to an action, use a toast or an Alert with `live`.
  * - Links inside inherit the bar's color; in this small text they are marked
- *   by weight (medium over regular), not an underline (Maria, 2026-11-07:
- *   small-text links never underline).
+ *   by weight (semibold over regular), not an underline (Maria, 2026-11-07:
+ *   small-text links never underline; semibold since 2026-11-26).
  * - `dismissKey` remembers the dismissal in this browser (localStorage),
  *   so a dismissed bar stays gone across pages and reloads. Change the key
  *   when the message changes and it shows again. Without a key, dismissing
@@ -154,7 +154,7 @@ export function AnnouncementBar({
       <div
         className={cn(
           'flex max-w-full items-start gap-2 text-start sm:items-center sm:text-center',
-          '[&_a]:font-medium [&_a]:text-inherit [&_a]:no-underline [&_a:hover]:no-underline [&_a]:rounded-[var(--size-border-radius-border-radius-sm)] [&_a]:outline-none',
+          '[&_a]:font-semibold [&_a]:text-inherit [&_a]:no-underline [&_a:hover]:no-underline [&_a]:rounded-[var(--size-border-radius-border-radius-sm)] [&_a]:outline-none',
           filled ? '[&_a:focus-visible]:focus-ring-on-primary' : '[&_a:focus-visible]:focus-ring',
           // Hover: a quieter shade, since the color is inherited and there is no underline.
           '[&_a:hover]:opacity-80',
