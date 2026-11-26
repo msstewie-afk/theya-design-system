@@ -15,6 +15,7 @@ Russian version: [figma-queue.ru.md](./figma-queue.ru.md).
 
 | Since | Area | What | Needs |
 |---|---|---|---|
+| 0.5.x | Stamp (agent 1, landing) | Circle / squircle, pastel accent fill, dashed inner border, tilt −15…+15, 1–3 lines in the heavy display face, optional text around the edge; sm 80–104 / md 104–144 / lg 128–192 px. | A landing component with shape, tone, size and ring properties. |
 | 0.5.x | Sticker (agent 1, landing) | Tilted CTA, square corners, pastel accent fill (pink/cream/orange/yellow) with on-accent text; sm 36 / md 44 / lg 56 (heavy display face); straight on hover/focus. | A landing component with tone, size and tilt (−6…+6) properties. |
 | 0.5.x | Heavy display face (agent 1) | `font-display-heavy`: Bowlby One (default, dusk), Paytone One (ember, ochre), Rammetto One (iris), Fredoka 700 (lagoon, lime); Cyrillic Rubik Black at a size matched to each. | Typography: a heavy display text style per mode/brand, if landing lines are drawn in THEIA. |
 | 0.5.x | Landing accent tokens (agent 1) | `bg/accent-{pink,cream,orange,yellow}` (magenta-010, orange-005, orange-050, yellow-050) and `text/on-accent-*` (magenta-800, orange-850, orange-850, yellow-800); same values in light and dark. | Semantic collection: 8 variables, both modes. |
