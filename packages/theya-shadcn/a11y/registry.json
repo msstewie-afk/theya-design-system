@@ -593,6 +593,51 @@
       ]
     },
     {
+      "id": "code.timing",
+      "tool": "a11y-kit code",
+      "stage": "code",
+      "sc": [
+        "2.2.1"
+      ],
+      "depth": "gate",
+      "where": "ds",
+      "how": "No setTimeout of a second or more that closes, removes or navigates away from content unless the file can pause, extend or hold it on hover/focus.",
+      "calibration": [
+        "code:2.2.1-fail.tsx",
+        "code:2.2.1-pass.tsx"
+      ]
+    },
+    {
+      "id": "code.moving-content",
+      "tool": "a11y-kit code",
+      "stage": "code",
+      "sc": [
+        "2.2.2"
+      ],
+      "depth": "gate",
+      "where": "ds",
+      "how": "No setInterval that advances content and no autoplay unless the file has a pause or stop control.",
+      "calibration": [
+        "code:2.2.2-fail.tsx",
+        "code:2.2.2-pass.tsx"
+      ]
+    },
+    {
+      "id": "code.input-purpose",
+      "tool": "a11y-kit code",
+      "stage": "code",
+      "sc": [
+        "1.3.5"
+      ],
+      "depth": "gate",
+      "where": "ds",
+      "how": "Fields whose type, name or id names a personal-data purpose carry an autoComplete token; email/tel fields don't turn it off.",
+      "calibration": [
+        "code:1.3.5-fail.tsx",
+        "code:1.3.5-pass.tsx"
+      ]
+    },
+    {
       "id": "tokens.pairs",
       "tool": "a11y-kit tokens",
       "stage": "code",
@@ -2169,10 +2214,12 @@
       "name": "Identify Input Purpose",
       "where": "ds",
       "checks": [
+        "code.input-purpose",
         "axe.autocomplete-valid"
       ],
       "automation": "partly",
       "calibrated": [
+        "code.input-purpose",
         "axe.autocomplete-valid"
       ],
       "uncalibrated": []
@@ -2378,10 +2425,13 @@
       "where": "ds",
       "checks": [
         "manual.product",
+        "code.timing",
         "axe.meta-refresh"
       ],
       "automation": "partly",
-      "calibrated": [],
+      "calibrated": [
+        "code.timing"
+      ],
       "uncalibrated": [
         "axe.meta-refresh"
       ]
@@ -2393,11 +2443,13 @@
       "where": "ds",
       "checks": [
         "manual.product",
+        "code.moving-content",
         "axe.blink",
         "axe.marquee"
       ],
       "automation": "partly",
       "calibrated": [
+        "code.moving-content",
         "axe.blink",
         "axe.marquee"
       ],

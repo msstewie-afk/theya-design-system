@@ -85,7 +85,9 @@ const forced = fs.existsSync(FORCED_FILE) ? JSON.parse(fs.readFileSync(FORCED_FI
 // evidence. Its 2.5.2 / 2.3.1 findings are library-level ($library in the
 // report) and guard the criteria notes without entering component cells.
 const CODE_FILE = path.join(ROOT, 'a11y/code.json');
-const CODE_KEYS = ['2.1.4', '2.5.1', '2.5.7', '3.3.8'];
+// 2.2.1, 2.2.2 and 1.3.5 are gates: a finding fails the cell, a clean scan
+// doesn't replace the review those criteria need.
+const CODE_KEYS = ['2.1.4', '2.5.1', '2.5.7', '3.3.8', '2.2.1', '2.2.2', '1.3.5'];
 const codeScan = fs.existsSync(CODE_FILE) ? JSON.parse(fs.readFileSync(CODE_FILE, 'utf8')) : { components: {} };
 // CSS that shows things in a different order than the DOM (and so the tree)
 // reads them. A component with any needs a passing 1.3.2 review for the tree

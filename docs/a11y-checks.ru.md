@@ -1,6 +1,6 @@
 # Проверки доступности
 
-Генерируется `a11y-kit registry` из реестра набора и метаданных правил axe-core 4.12.1. Не править руками. Проверок: 110.
+Генерируется `a11y-kit registry` из реестра набора и метаданных правил axe-core 4.12.1. Не править руками. Проверок: 113.
 
 **Стадия**: code (код, без браузера), component (собранный Storybook), page (страницы продукта), manual (человек), pr (агент-ревьюер: мнение, сборку не роняет). **Глубина**: full — чистый результат подтверждает критерий для того, что отрисовано; part — одну его сторону; gate — находка делает ячейку красной, чистый результат сам ничего не доказывает; advisory — подсказка человеку, никогда не роняет. **Запуск**: для правил axe — запускается ли правило без явного включения по имени. **Калибровка**: на чём проверка доказана (axe: калибровка по правилу; свои проверки: калибровочные сториз, которые она должна поймать и пропустить). «—» — ещё не доказано.
 
@@ -41,6 +41,7 @@
 | `manual.review` | 1.3.3, 1.4.5, 2.4.6, 2.5.7, 3.2.1, 3.3.3, 3.3.7, 3.3.8, 2.1.4, 2.3.1, 2.5.1, 2.5.2, 1.4.13, 2.4.11 | manual | full | — | — | ds | A person reads the component, its docs and examples against the criterion; the verdict goes to the manual register. |
 | `axe.css-orientation-lock` | 1.3.4 | page | part | experimental | page level: looks at the whole page; the scan root is an element | product | CSS Media queries must not lock display orientation |
 | `axe.autocomplete-valid` | 1.3.5 | component | part | default | caught | ds | autocomplete attribute must be used correctly |
+| `code.input-purpose` | 1.3.5 | code | gate | — | code:1.3.5-fail.tsx; code:1.3.5-pass.tsx | ds | Fields whose type, name or id names a personal-data purpose carry an autoComplete token; email/tel fields don't turn it off. |
 | `axe.link-in-text-block` | 1.4.1 | component | part | default | caught | ds | Links must be distinguishable without relying on color |
 | `forced.checked-state` | 1.4.1, 4.1.2 | component | part | — | Defect: controls and an icon drawn only with fills | ds | With forced colors, a checked checkbox, radio or switch doesn't look like an unchecked one (when it differs in normal colors). |
 | `axe.no-autoplay-audio` | 1.4.2 | component | part | default | review only | ds | <video> or <audio> elements must not play automatically |
@@ -62,8 +63,10 @@
 | `auto.no-trap` | 2.1.2 | component | full | — | ACT 80af7b | ds | Tab leaves every element; a cycle must be left by Escape or Shift+Tab. |
 | `code.character-shortcuts` | 2.1.4 | code | part | — | code:2.1.4-fail.tsx; code:2.1.4-pass.tsx | ds | No document- or window-level key handler matching a single printable character without a modifier check (component onKeyDown is the criterion's own exception). |
 | `axe.meta-refresh` | 2.2.1 | page | part | default | page level: looks at the whole page; the scan root is an element | product | Delayed refresh under 20 hours must not be used |
+| `code.timing` | 2.2.1 | code | gate | — | code:2.2.1-fail.tsx; code:2.2.1-pass.tsx | ds | No setTimeout of a second or more that closes, removes or navigates away from content unless the file can pause, extend or hold it on hover/focus. |
 | `axe.blink` | 2.2.2 | component | part | default | caught | ds | <blink> elements are deprecated and must not be used |
 | `axe.marquee` | 2.2.2 | component | part | default | caught | ds | <marquee> elements are deprecated and must not be used |
+| `code.moving-content` | 2.2.2 | code | gate | — | code:2.2.2-fail.tsx; code:2.2.2-pass.tsx | ds | No setInterval that advances content and no autoplay unless the file has a pause or stop control. |
 | `code.flashes` | 2.3.1 | code | part | — | code:2.3.1-fail.css; code:2.3.1-pass.css | library | No infinite animation cycling faster than 3 times a second that swings opacity, visibility or background (cannot measure flash area or red flashes). |
 | `code.reduced-motion` | 2.3.3 | code | full | — | — | ds | Animations are behind motion-safe or a reduced-motion check (AAA, recorded for the library). |
 | `axe.bypass` | 2.4.1 | page | part | default | page level: looks at the whole page; the scan root is an element | product | Page must have means to bypass repeated blocks |
@@ -133,7 +136,7 @@
 | 1.3.2 Meaningful Sequence | A | ds | частично | — | `tree.snapshot`, `code.reordering` | manual.screen-reader |
 | 1.3.3 Sensory Characteristics | A | product | вручную | — | — | manual.review |
 | 1.3.4 Orientation | AA | library | частично | — | `axe.css-orientation-lock` | manual.product |
-| 1.3.5 Identify Input Purpose | AA | ds | частично | `axe.autocomplete-valid` | — | — |
+| 1.3.5 Identify Input Purpose | AA | ds | частично | `code.input-purpose`, `axe.autocomplete-valid` | — | — |
 | 1.4.1 Use of Color | A | ds | частично | `forced.checked-state`, `axe.link-in-text-block` | — | — |
 | 1.4.2 Audio Control | A | product | частично | — | `axe.no-autoplay-audio` | manual.product |
 | 1.4.3 Contrast (Minimum) | AA | ds | частично | `axe.color-contrast` | `tokens.pairs` | — |
@@ -146,8 +149,8 @@
 | 2.1.1 Keyboard | A | ds | частично | `auto.keyboard-reach`, `states.keyboard` | `axe.frame-focusable-content`, `axe.scrollable-region-focusable`, `axe.server-side-image-map` | — |
 | 2.1.2 No Keyboard Trap | A | ds | автоматически | `auto.no-trap` | — | — |
 | 2.1.4 Character Key Shortcuts | A | ds | частично | `code.character-shortcuts` | — | manual.review |
-| 2.2.1 Timing Adjustable | A | ds | частично | — | `axe.meta-refresh` | manual.product |
-| 2.2.2 Pause, Stop, Hide | A | ds | частично | `axe.blink`, `axe.marquee` | — | manual.product |
+| 2.2.1 Timing Adjustable | A | ds | частично | `code.timing` | `axe.meta-refresh` | manual.product |
+| 2.2.2 Pause, Stop, Hide | A | ds | частично | `code.moving-content`, `axe.blink`, `axe.marquee` | — | manual.product |
 | 2.3.1 Three Flashes or Below Threshold | A | library | частично | `code.flashes` | — | manual.review |
 | 2.4.1 Bypass Blocks | A | product | частично | — | `axe.bypass` | manual.product |
 | 2.4.2 Page Titled | A | product | частично | — | `axe.document-title` | manual.product |

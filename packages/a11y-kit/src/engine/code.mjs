@@ -33,10 +33,24 @@
  *   (CSS or a setInterval under 167 ms toggling them). The weakest check
  *   here — it cannot measure flash area or red-flash thresholds; it catches
  *   the plain "blinker" and guards the library note, nothing more.
+ * - 2.2.1 Timing Adjustable (gate): a setTimeout of a second or more that
+ *   closes, removes or navigates away from content, in a file with no pause,
+ *   extend or hover/focus clearTimeout path. Delays under a second sequence
+ *   transitions and are skipped; sonner toasts pause by themselves.
+ * - 2.2.2 Pause, Stop, Hide (gate): a setInterval that moves content on (next
+ *   slide, index, scroll position), or autoplay (embla autoplay, <video
+ *   autoPlay>, autoPlay={true}), in a file with no pause or stop control.
+ *   Clocks that only refresh a time value are not flagged.
+ * - 1.3.5 Identify Input Purpose (gate): a field whose type (email, tel),
+ *   name or id names a section 7 purpose (email, phone, given/family name,
+ *   username, address, postal code, organization, birthday) with no
+ *   autoComplete, or type email/tel with autoComplete="off". Dynamic
+ *   attributes are not read: wrappers pass the caller's value through.
  *
  * Writes a11y/code.json (per component: files scanned, findings per
  * criterion; library-level findings under $library). build-a11y.mjs reads
- * it as "code" evidence for 2.1.4, 2.5.1, 2.5.7 and 3.3.8.
+ * it as "code" evidence for 2.1.4, 2.5.1, 2.5.7 and 3.3.8, and as gate findings
+ * for 2.2.1, 2.2.2 and 1.3.5 (a finding fails the cell; a review still verifies).
  *
  * A file can opt a criterion out with a reason, in a comment:
  *   // a11y-code-skip: 2.5.7 keyboard path lives in use-slider.ts
@@ -60,9 +74,10 @@ const ONLY = arg('only', '');
 const CI = process.argv.includes('--ci');
 const FIXTURES = process.argv.includes('--fixtures');
 const OUT = path.join(OUT_DIR, 'code.json');
-const KEYS = ['2.1.4', '2.5.1', '2.5.2', '2.5.7', '3.3.8', '2.3.1'];
-/** Findings that fail a component's matrix cell; the other two guard library notes. */
-const COMPONENT_KEYS = ['2.1.4', '2.5.1', '2.5.7', '3.3.8'];
+const KEYS = ['2.1.4', '2.5.1', '2.5.2', '2.5.7', '3.3.8', '2.3.1', '2.2.1', '2.2.2', '1.3.5'];
+/** Findings that fail a component's matrix cell; 2.5.2 and 2.3.1 guard library notes. */
+const COMPONENT_KEYS = ['2.1.4', '2.5.1', '2.5.7', '3.3.8', '2.2.1', '2.2.2', '1.3.5'];
+const emptyRow = () => ({ files: 0, ...Object.fromEntries(KEYS.map((k) => [k, []])) });
 
 /* ---------- matching helpers ---------- */
 
@@ -274,6 +289,109 @@ export const CHECKS = {
   },
 };
 
+/* ---------- depth checks: timing, moving content, input purpose ---------- */
+
+/** A JSX opening tag from `<` to its closing `>`, skipping `>` inside {…}. */
+function jsxTag(source, from) {
+  let depth = 0;
+  for (let i = from; i < Math.min(source.length, from + 3000); i++) {
+    const c = source[i];
+    if (c === '{') depth++;
+    else if (c === '}') depth--;
+    else if (c === '>' && depth === 0) return source.slice(from, i + 1);
+  }
+  return source.slice(from, from + 3000);
+}
+
+/** Literal value of a JSX attribute: name="x", name='x' or name={'x'}; null when absent or dynamic. */
+const attrLiteral = (tag, name) => new RegExp(`\\b${name}\\s*=\\s*(?:["']([^"']*)["']|\\{\\s*["']([^"']*)["']\\s*\\})`).exec(tag)?.slice(1).find((v) => v != null) ?? null;
+const hasAttr = (tag, name) => new RegExp(`\\b${name}\\s*=`).test(tag);
+
+/** Everything between a call's parentheses. */
+function callArgs(source, openParen) {
+  let depth = 0;
+  for (let i = openParen; i < Math.min(source.length, openParen + 3000); i++) {
+    if ('({['.includes(source[i])) depth++;
+    if (')}]'.includes(source[i])) depth--;
+    if (depth === 0) return source.slice(openParen + 1, i);
+  }
+  return source.slice(openParen + 1, openParen + 3000);
+}
+
+/** Content leaves or the session moves on: what a time limit does when it runs out. */
+const EXPIRES = /\bset\w*(?:Open|Visible|Shown|Show)\s*\(\s*false\b|\bonOpenChange\??\.?\s*\(\s*false\b|\b(?:dismiss|close|hide|remove|expire)\w*\s*\(|\bon(?:Close|Dismiss|Expire|Timeout|TimeUp)\w*\??\.?\s*\(|\b(?:signOut|logout|logOut)\s*\(|router\.(?:push|replace)|location\.(?:href|assign|replace)|\.submit\s*\(/;
+/** A way for the user to stop, pause or extend the limit somewhere in the file. */
+const TIME_CONTROL = /\b(?:pause\w*|paused|resume\w*|extend\w*|snooze\w*|keepAlive)\b/i;
+/** Content that moves on by itself: the next slide, item, scroll position or frame. */
+const ADVANCES = /\bset\w*(?:Index|Slide|Active|Current|Offset|Step|Frame|Position|Page|Item)\s*\(|\b(?:scrollNext|scrollTo|scrollBy|next|advance|rotate|goTo)\w*\s*\(|\.scroll(?:Left|Top)\s*[+-]?=/;
+const MOTION_CONTROL = /\b(?:pause\w*|paused|stop(?!(?:Immediate)?Propagation)\w*|isPlaying|playing|setPlaying)\b/i;
+
+/** Input purposes (WCAG 2.2 section 7) a field's type, name or id gives away, with the token it needs. */
+const PURPOSES = [
+  [/^e-?mail$|[-_]e-?mail$|Email$/, 'email'],
+  [/^(?:tel|phone|mobile)$|[-_](?:phone|tel|mobile)$|Phone$/, 'tel'],
+  [/^(?:first-?name|given-?name)$|firstName$|givenName$/i, 'given-name'],
+  [/^(?:last-?name|family-?name|surname)$|lastName$|familyName$/i, 'family-name'],
+  [/^(?:full-?name|your-?name)$|fullName$/i, 'name'],
+  [/^(?:user-?name|login)$|userName$/i, 'username'],
+  [/^(?:street|address(?:-?line)?\d?)$|streetAddress$|addressLine\d?$/i, 'street-address'],
+  [/^(?:city|town|locality)$/i, 'address-level2'],
+  [/^(?:zip|zip-?code|postal-?code|postcode)$|postalCode$|zipCode$/i, 'postal-code'],
+  [/^country$/i, 'country-name'],
+  [/^(?:company|organi[sz]ation)$/i, 'organization'],
+  [/^(?:birthday|birth-?date|dob)$|birthDate$/i, 'bday'],
+];
+const FIELD_TAG = /<(?:input|Input|TextField|InputGroupInput|InlineEdit)\b/g;
+
+Object.assign(CHECKS, {
+  '2.2.1'(src, raw, file) {
+    const out = [];
+    if (/from\s+['"]sonner['"]/.test(src)) return out; // sonner pauses on hover, focus and a hidden page
+    const controlled = TIME_CONTROL.test(src) || (/\bon(?:MouseEnter|PointerEnter|Focus)\b/.test(src) && /\bclearTimeout\b/.test(src));
+    for (const m of src.matchAll(/\bsetTimeout\s*\(/g)) {
+      const args = callArgs(src, m.index + m[0].length - 1);
+      const delay = /,\s*([\w.$]+)\s*$/.exec(args)?.[1];
+      if (delay && /^\d+$/.test(delay) && Number(delay) < 1000) continue; // sequencing a transition, not a limit
+      const callback = delay ? args.slice(0, args.lastIndexOf(',')) : args;
+      if (!EXPIRES.test(callback) || controlled) continue;
+      out.push(`${file}:${lineOf(src, m.index)} setTimeout(${delay ?? '?'}) closes, removes or moves on from content with no way in this file to pause, extend or turn the limit off (2.2.1)`);
+    }
+    return out;
+  },
+
+  '2.2.2'(src, raw, file) {
+    const out = [];
+    const controlled = MOTION_CONTROL.test(src);
+    for (const m of src.matchAll(/\bsetInterval\s*\(/g)) {
+      if (!ADVANCES.test(callArgs(src, m.index + m[0].length - 1)) || controlled) continue;
+      out.push(`${file}:${lineOf(src, m.index)} setInterval moves content on by itself (next slide, item or scroll position) with no pause or stop control in this file (2.2.2)`);
+    }
+    for (const m of src.matchAll(/from\s+['"]embla-carousel-auto(?:play|-scroll)['"]|<video\b[^>]*?\bautoPlay\b|\bautoPlay\s*=\s*(?:\{\s*)?true\b|\bautoplay\s*:\s*true\b/g)) {
+      if (!controlled) out.push(`${file}:${lineOf(src, m.index)} autoplay with no pause or stop control in this file (2.2.2)`);
+    }
+    return out;
+  },
+
+  '1.3.5'(src, raw, file) {
+    const out = [];
+    for (const m of src.matchAll(FIELD_TAG)) {
+      const tag = jsxTag(src, m.index);
+      const type = attrLiteral(tag, 'type');
+      if (type && /^(?:hidden|checkbox|radio|range|file|button|submit|reset|search|password)$/.test(type)) continue; // password: 3.3.8
+      const keys = [type === 'email' || type === 'tel' ? type : null, attrLiteral(tag, 'name'), attrLiteral(tag, 'id')].filter(Boolean);
+      const purpose = keys.map((k) => PURPOSES.find(([re]) => re.test(k))?.[1]).find(Boolean);
+      if (!purpose) continue;
+      const tagName = m[0].slice(1);
+      if (!hasAttr(tag, 'autoComplete') && !hasAttr(tag, 'autocomplete')) {
+        out.push(`${file}:${lineOf(src, m.index)} <${tagName}> collects the user's ${purpose} with no autoComplete; browsers and assistive tech can't tell its purpose (needs autoComplete="${purpose}") (1.3.5)`);
+      } else if ((attrLiteral(tag, 'autoComplete') ?? attrLiteral(tag, 'autocomplete')) === 'off' && (type === 'email' || type === 'tel')) {
+        out.push(`${file}:${lineOf(src, m.index)} <${tagName} type="${type}"> turns autoComplete off; if it asks for the user's own ${type === 'tel' ? 'phone' : 'email'}, it needs autoComplete="${purpose}" (1.3.5)`);
+      }
+    }
+    return out;
+  },
+});
+
 /** Criteria a file opts out of: "a11y-code-skip: 2.5.7 reason" in a comment. */
 export function skipsIn(raw) {
   return [...raw.matchAll(/a11y-code-skip:\s*((?:\d\.\d\.\d+[\s,]*)+)/g)].flatMap((m) => m[1].match(/\d\.\d\.\d+/g) ?? []);
@@ -323,12 +441,12 @@ for (const t of targets) {
   if (ONLY && !t.name.includes(ONLY)) continue;
   const rel = path.relative(ROOT, t.file);
   const found = checkFile(rel, fs.readFileSync(t.file, 'utf8'));
-  const c = (byComponent[t.name] ??= { files: 0, '2.1.4': [], '2.5.1': [], '2.5.2': [], '2.5.7': [], '3.3.8': [], '2.3.1': [] });
+  const c = (byComponent[t.name] ??= emptyRow());
   c.files += 1;
   for (const k of KEYS) c[k].push(...found[k]);
 }
 // Library-level criteria also cover the global stylesheets.
-const lib = (byComponent.$library ??= { files: 0, '2.1.4': [], '2.5.1': [], '2.5.2': [], '2.5.7': [], '3.3.8': [], '2.3.1': [] });
+const lib = (byComponent.$library ??= emptyRow());
 for (const STYLES_DIR of (config.code.styles ?? []).map((d) => path.resolve(ROOT, d)).filter((d) => fs.existsSync(d))) {
   for (const f of fs.readdirSync(STYLES_DIR, { recursive: true }).filter((f) => /\.(css|scss)$/.test(f)).sort()) {
     const file = path.join(STYLES_DIR, f);
