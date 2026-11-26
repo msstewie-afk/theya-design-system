@@ -455,10 +455,13 @@ function PhotoSource({
       />
       <Button
         size="sm"
-        appearance="tonal"
+        appearance="outlined"
+        tone="secondary"
         onClick={() => inputRef.current?.click()}
         // Always visible: shown only on hover it covered part of the photo you pick from (WCAG 1.4.13).
-        className="absolute end-2 top-2"
+        // Dark glass over the photo, so the white label keeps 4.5:1 on any picture
+        // (WCAG 1.4.3; Мария, 2026-11-25, option A — same glass as LoginFormSplit).
+        className="absolute end-2 top-2 border-[var(--color-border-border-on-dark)] bg-[color-mix(in_srgb,var(--color-slate-slate-900)_72%,transparent)] text-[var(--color-text-text-on-dark)] backdrop-blur-sm hover:bg-[color-mix(in_srgb,var(--color-slate-slate-900)_82%,transparent)] focus-visible:focus-ring-on-primary!"
       >
         {t.colorPicker.changePhoto}
       </Button>

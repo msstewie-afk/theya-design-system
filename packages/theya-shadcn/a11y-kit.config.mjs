@@ -44,8 +44,6 @@ const config = {
       { title: 'Design System/Gradient canvas', why: 'agent 1: text on the gradient canvas behind landing cards, backlog 21.11' },
       { title: 'Status & Feedback/Meter', kind: 'nontext', themes: ['light'], fg: '#efb300', why: 'accepted deviation (Мария, 2026-10-26): light keeps the yellow warning fill, 1.64:1 against the track' },
       // Text over pictures, measured from pixels since 2026-11-25 (agent 1's ImageGround request).
-      { title: 'Patterns/LoginFormSplit', kind: 'text', why: 'white text and the glass back link over the carousel photo, 2.5–3.9:1; decision pending (Мария: a scrim under the text or not), board a11y-photo-text' },
-      { title: 'Selection/ColorPicker', kind: 'text', part: 'Change photo', why: '"Change photo" over the bright part of the photo, 2.7–3.5:1 in dark; decision pending with LoginFormSplit, board a11y-photo-text' },
       { title: 'Data/Scheduler', kind: 'text', part: 'AM – ', why: 'agent 3: the now-line dot crosses an event label and the pixel scan reads it as ground; a scanner limit, not a text color' },
       { title: 'Text Input/PasswordStrengthMeter', kind: 'nontext', themes: ['light'], fg: '#efb300', why: 'accepted deviation (Мария, 2026-10-26): the Meter decision, yellow "good" fill in light' },
     ],

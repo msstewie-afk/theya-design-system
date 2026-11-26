@@ -41,9 +41,11 @@ export interface LoginFormSplitProps extends LoginFormProps {
 }
 
 // Glass button over the image: white label, icon and focus ring, same
-// treatment for the back link and the Pause / Play toggle.
+// treatment for the back link and the Pause / Play toggle. The glass is a
+// dark film (not the 10 % white on-dark fill), so the label keeps 4.5:1 on a
+// bright photo too (WCAG 1.4.3; Мария, 2026-11-25, option A).
 const onDarkButton =
-  'border-[var(--color-border-border-on-dark)] bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-hover)] text-[var(--color-text-text-on-dark)] backdrop-blur-sm hover:bg-[var(--color-bg-secondary-bg-secondary-subtler-on-dark-pressed)] [&_svg]:text-[var(--color-icon-icon-on-dark)]! focus-visible:focus-ring-on-primary!';
+  'border-[var(--color-border-border-on-dark)] bg-[color-mix(in_srgb,var(--color-slate-slate-900)_60%,transparent)] text-[var(--color-text-text-on-dark)] backdrop-blur-sm hover:bg-[color-mix(in_srgb,var(--color-slate-slate-900)_72%,transparent)] [&_svg]:text-[var(--color-icon-icon-on-dark)]! focus-visible:focus-ring-on-primary!';
 
 /**
  * The wide, two-column sign-in layout: a full-bleed image/carousel panel
@@ -114,9 +116,10 @@ export function LoginFormSplit({
                 {/* Short shades in the slide's own hue, only as tall as the text
                     over them: the rest of the picture stays clean. They move with
                     the slide, so each slide brings its own tint. */}
-                <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-[linear-gradient(to_top,color-mix(in_srgb,var(--slide-tint)_72%,transparent),color-mix(in_srgb,var(--slide-tint)_40%,transparent)_45%,transparent)]" />
+                {/* Dense where the tagline sits (WCAG 1.4.3 on bright photos), fading out above it. */}
+                <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-60 bg-[linear-gradient(to_top,color-mix(in_srgb,var(--slide-tint)_85%,transparent),color-mix(in_srgb,var(--slide-tint)_75%,transparent)_45%,transparent)]" />
                 {(logo || backHref) && (
-                  <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--slide-tint)_64%,transparent),transparent)]" />
+                  <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--slide-tint)_80%,transparent),color-mix(in_srgb,var(--slide-tint)_62%,transparent)_45%,transparent)]" />
                 )}
               </CarouselItem>
             ))}
