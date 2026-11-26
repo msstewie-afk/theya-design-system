@@ -18,7 +18,7 @@
     { "id": "1.4.4", "level": "AA", "name": "Resize Text", "scope": "component", "appliesTo": ["any"], "evidence": ["auto"] },
     { "id": "1.4.5", "level": "AA", "name": "Images of Text", "scope": "product", "note": "Images are the app's content. Theya renders text as text." },
     { "id": "1.4.10", "level": "AA", "name": "Reflow", "scope": "component", "appliesTo": ["any"], "evidence": ["auto"] },
-    { "id": "1.4.11", "level": "AA", "name": "Non-text Contrast", "scope": "component", "appliesTo": ["interactive", "graphics"], "evidence": ["review"] },
+    { "id": "1.4.11", "level": "AA", "name": "Non-text Contrast", "scope": "component", "appliesTo": ["interactive", "graphics"], "evidence": ["contrast", "review"] },
     { "id": "1.4.12", "level": "AA", "name": "Text Spacing", "scope": "component", "appliesTo": ["any"], "evidence": ["axe", "auto"] },
     { "id": "1.4.13", "level": "AA", "name": "Content on Hover or Focus", "scope": "component", "appliesTo": ["hoverContent"], "evidence": ["keyboard", "hover|review"] },
     { "id": "2.1.1", "level": "A", "name": "Keyboard", "scope": "component", "appliesTo": ["interactive"], "evidence": ["axe", "keyboard"] },

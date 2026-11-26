@@ -57,6 +57,11 @@ const { criteria } = JSON.parse(fs.readFileSync(path.join(ROOT, 'a11y/criteria.j
 const AUTO_FILE = path.join(ROOT, 'a11y/auto.json');
 const AUTO_KEYS = ['2.5.3', '2.4.7', '2.4.11', '1.4.12', '1.4.4', '1.4.10', '2.1.1', '2.1.2', '2.4.3', '3.2.1'];
 const auto = fs.existsSync(AUTO_FILE) ? JSON.parse(fs.readFileSync(AUTO_FILE, 'utf8')) : { components: {} };
+// Rendered contrast (scripts/contrast-scan.mjs --record): "contrast" evidence for a
+// criterion when the component's stories were scanned and nothing was found, known
+// findings included (a tracked failure is not evidence of a pass).
+const CONTRAST_FILE = path.join(ROOT, 'a11y/contrast.json');
+const contrast = fs.existsSync(CONTRAST_FILE) ? JSON.parse(fs.readFileSync(CONTRAST_FILE, 'utf8')) : { components: {} };
 // Accessibility-tree checks from scripts/a11y-tree.mjs (names, images, headers,
 // error association) — "tree" evidence, an alternative to a screen-reader pass
 // for 1.1.1, 1.3.1, 1.3.2, 3.3.1 and 4.1.2 (decided 2026-10-29).
@@ -350,6 +355,7 @@ function buildRow({ name, base, title, traitKey = name, reviews: ownReviews = {}
     : kind === 'keyboard'
       ? statesClean(id) && (s.keyboard > 0 || (!traits.includes('composite') && !!autoRow && autoRow.stories > autoRow.errors && ['2.1.1', '2.1.2', '2.4.3'].every((k) => Array.isArray(autoRow[k]) && !autoRow[k].length)))
     : kind === 'reflow360' ? s.stories > 0
+    : kind === 'contrast' ? Array.isArray(contrast.components[name]?.[id]) && contrast.components[name][`stories:${id}`] > 0 && !contrast.components[name][id].length
     : kind === 'hover' ? !!statesRow && statesRow.hovered > 0 && statesClean('1.4.13')
     // The script types and toggles; a select, radio or option list it doesn't
     // change still needs the review.

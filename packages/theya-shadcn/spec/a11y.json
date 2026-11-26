@@ -280,19 +280,21 @@
       "name": "Non-text Contrast",
       "scope": "component",
       "evidence": [
+        "contrast",
         "review"
       ],
       "counts": {
         "deviation": 48,
-        "verified": 79,
+        "verified": 78,
         "fails": 1,
         "n/a": 33,
-        "untested": 2
+        "partial": 3
       },
       "patternCounts": {
         "verified": 48,
         "n/a": 9,
-        "untested": 6
+        "untested": 1,
+        "partial": 5
       }
     },
     {
@@ -6211,7 +6213,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "untested",
+        "1.4.11": "partial",
         "1.4.12": "verified",
         "1.4.13": "partial",
         "2.1.1": "verified",
@@ -8501,7 +8503,7 @@
         "1.4.4": "untested",
         "1.4.5": "product",
         "1.4.10": "untested",
-        "1.4.11": "untested",
+        "1.4.11": "partial",
         "1.4.12": "partial",
         "1.4.13": "partial",
         "2.1.1": "verified",
@@ -9971,7 +9973,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "verified",
+        "1.4.11": "partial",
         "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "n/a",
@@ -19293,7 +19295,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "fails",
-        "1.4.11": "untested",
+        "1.4.11": "partial",
         "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",
@@ -19463,7 +19465,7 @@
         "1.4.4": "untested",
         "1.4.5": "product",
         "1.4.10": "untested",
-        "1.4.11": "untested",
+        "1.4.11": "partial",
         "1.4.12": "partial",
         "1.4.13": "n/a",
         "2.1.1": "partial",
@@ -19722,7 +19724,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "untested",
+        "1.4.11": "partial",
         "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "partial",
@@ -19985,7 +19987,7 @@
         "1.4.4": "verified",
         "1.4.5": "product",
         "1.4.10": "verified",
-        "1.4.11": "untested",
+        "1.4.11": "partial",
         "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "verified",
@@ -20415,7 +20417,7 @@
         "1.4.4": "untested",
         "1.4.5": "product",
         "1.4.10": "untested",
-        "1.4.11": "untested",
+        "1.4.11": "partial",
         "1.4.12": "partial",
         "1.4.13": "n/a",
         "2.1.1": "partial",
