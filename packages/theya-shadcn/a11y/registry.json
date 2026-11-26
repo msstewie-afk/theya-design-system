@@ -487,6 +487,38 @@
       ]
     },
     {
+      "id": "auto.link-color",
+      "tool": "a11y-auto",
+      "stage": "component",
+      "sc": [
+        "1.4.1"
+      ],
+      "depth": "gate",
+      "where": "ds",
+      "how": "A link inside a run of text is set apart by more than colour: an underline, border, weight, style, background or icon; or 3:1 against the text around it plus a cue on hover (F73, G183).",
+      "calibration": [
+        "Defect: a link in text told apart by colour only",
+        "Defect: a link at 3:1 against the text, nothing on hover",
+        "Clean: underlined, bold, and 3:1 with an underline on hover"
+      ]
+    },
+    {
+      "id": "auto.visible-label",
+      "tool": "a11y-auto",
+      "stage": "component",
+      "sc": [
+        "3.3.2"
+      ],
+      "depth": "gate",
+      "where": "ds",
+      "how": "Every field shows on screen what goes in it: a label, a legend, visible text its aria-label repeats (G167); a placeholder alone or an aria-label alone is a finding.",
+      "calibration": [
+        "Defect: a field labelled only by its placeholder",
+        "Defect: a field named only by aria-label",
+        "Clean: a label element, and a search field beside its button"
+      ]
+    },
+    {
       "id": "auto.on-focus",
       "tool": "a11y-auto",
       "stage": "component",
@@ -2231,11 +2263,13 @@
       "where": "ds",
       "checks": [
         "forced.checked-state",
+        "auto.link-color",
         "axe.link-in-text-block"
       ],
       "automation": "partly",
       "calibrated": [
         "forced.checked-state",
+        "auto.link-color",
         "axe.link-in-text-block"
       ],
       "uncalibrated": []
@@ -2796,10 +2830,13 @@
       "where": "ds",
       "checks": [
         "tree.field-label",
+        "auto.visible-label",
         "axe.form-field-multiple-labels"
       ],
       "automation": "partly",
-      "calibrated": [],
+      "calibrated": [
+        "auto.visible-label"
+      ],
       "uncalibrated": [
         "tree.field-label",
         "axe.form-field-multiple-labels"

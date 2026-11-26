@@ -183,13 +183,18 @@
       "evidence": [
         "review"
       ],
+      "gates": [
+        "a11y-auto"
+      ],
       "counts": {
         "n/a": 62,
-        "verified": 99,
-        "untested": 2
+        "verified": 98,
+        "fails": 2,
+        "untested": 1
       },
       "patternCounts": {
-        "verified": 44,
+        "verified": 41,
+        "fails": 3,
         "n/a": 14,
         "untested": 5
       }
@@ -238,8 +243,8 @@
         "untested": 1
       },
       "patternCounts": {
-        "verified": 56,
-        "untested": 6,
+        "verified": 61,
+        "untested": 1,
         "n/a": 1
       }
     },
@@ -268,13 +273,12 @@
         "a11y-auto"
       ],
       "counts": {
-        "verified": 162,
-        "untested": 1
+        "verified": 163
       },
       "patternCounts": {
-        "verified": 55,
-        "untested": 6,
-        "fails": 2
+        "verified": 61,
+        "untested": 1,
+        "fails": 1
       }
     },
     {
@@ -317,8 +321,8 @@
         "partial": 3
       },
       "patternCounts": {
-        "verified": 56,
-        "partial": 6,
+        "verified": 61,
+        "partial": 1,
         "n/a": 1
       }
     },
@@ -363,9 +367,9 @@
         "deviation": 1
       },
       "patternCounts": {
-        "verified": 50,
+        "verified": 52,
         "n/a": 9,
-        "partial": 4
+        "partial": 2
       }
     },
     {
@@ -384,9 +388,9 @@
         "n/a": 45
       },
       "patternCounts": {
-        "verified": 50,
+        "verified": 52,
         "n/a": 9,
-        "untested": 4
+        "untested": 2
       }
     },
     {
@@ -510,9 +514,9 @@
         "n/a": 45
       },
       "patternCounts": {
-        "verified": 50,
+        "verified": 52,
         "n/a": 9,
-        "untested": 4
+        "untested": 2
       }
     },
     {
@@ -579,14 +583,13 @@
         "a11y-auto"
       ],
       "counts": {
-        "verified": 117,
-        "n/a": 45,
-        "untested": 1
+        "verified": 118,
+        "n/a": 45
       },
       "patternCounts": {
-        "verified": 51,
+        "verified": 53,
         "n/a": 9,
-        "untested": 3
+        "untested": 1
       }
     },
     {
@@ -655,14 +658,13 @@
         "a11y-auto"
       ],
       "counts": {
-        "verified": 117,
-        "n/a": 45,
-        "untested": 1
+        "verified": 118,
+        "n/a": 45
       },
       "patternCounts": {
-        "verified": 51,
+        "verified": 53,
         "n/a": 9,
-        "untested": 3
+        "untested": 1
       }
     },
     {
@@ -755,14 +757,13 @@
         "a11y-auto"
       ],
       "counts": {
-        "verified": 117,
-        "n/a": 45,
-        "partial": 1
+        "verified": 118,
+        "n/a": 45
       },
       "patternCounts": {
-        "verified": 50,
+        "verified": 52,
         "n/a": 9,
-        "untested": 3,
+        "untested": 1,
         "partial": 1
       }
     },
@@ -859,14 +860,19 @@
         "axe",
         "review"
       ],
+      "gates": [
+        "a11y-auto"
+      ],
       "counts": {
         "n/a": 120,
-        "verified": 42,
+        "fails": 19,
+        "verified": 23,
         "partial": 1
       },
       "patternCounts": {
-        "verified": 27,
+        "verified": 22,
         "n/a": 35,
+        "fails": 5,
         "partial": 1
       }
     },
@@ -1410,7 +1416,7 @@
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
-        "1.4.1": "verified",
+        "1.4.1": "fails",
         "1.4.2": "product",
         "1.4.3": "verified",
         "1.4.4": "verified",
@@ -1459,6 +1465,26 @@
         "stories": 6,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "1.4.1": [
+          "Incident: link \"Follow updates\" in \"Some exports from Selene Weddi…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Long Text On Mobile: link \"Compare plans\" in \"From 1 November, free plans ke…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Maintenance: link \"Status page\" in \"Scheduled maintenance on Sunda…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "New Feature: link \"See how it works\" in \"Client portals now show a prin…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Tones: link \"Details\" in \"filled · primary — Licenses no…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Tones: link \"Details\" in \"filled · neutral — Licenses no…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Tones: link \"Details\" in \"filled · info — Licenses now r…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Tones: link \"Details\" in \"filled · success — Licenses no…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Tones: link \"Details\" in \"filled · warning — Licenses no…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Tones: link \"Details\" in \"filled · danger — Licenses now…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Tones: link \"Details\" in \"tonal · primary — Licenses now…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Tones: link \"Details\" in \"tonal · neutral — Licenses now…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Tones: link \"Details\" in \"tonal · info — Licenses now re…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Tones: link \"Details\" in \"tonal · success — Licenses now…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Tones: link \"Details\" in \"tonal · warning — Licenses now…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Tones: link \"Details\" in \"tonal · danger — Licenses now …\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)"
+        ]
       }
     },
     {
@@ -1814,7 +1840,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -1826,6 +1852,18 @@
         "stories": 9,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Default: input[role=combobox] placeholder \"Search sections\": the only label is the placeholder, which disappears on input",
+          "Free text: input[role=combobox] placeholder \"Search sections\": the only label is the placeholder, which disappears on input",
+          "Height sizes (m / s): input[role=combobox] placeholder \"Search sections (m, default)\": the only label is the placeholder, which disappears on input",
+          "Height sizes (m / s): input[role=combobox] placeholder \"Search sections (s)\": the only label is the placeholder, which disappears on input",
+          "Loading: input[role=combobox] placeholder \"Search sections\": the only label is the placeholder, which disappears on input",
+          "Read-only: input[role=combobox] \"search sections\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Test: interactions: input[role=combobox] placeholder \"Search sections\": the only label is the placeholder, which disappears on input",
+          "With trailing note: input[role=combobox] placeholder \"Preset name\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -2638,6 +2676,14 @@
         "stories": 5,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Dropdown Caption: select \"choose the month\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Dropdown Caption: select \"choose the year\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Range: select \"choose the month\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Range: select \"choose the year\": named only by aria-label / title, nothing on screen says what goes in it"
+        ]
       }
     },
     {
@@ -3205,6 +3251,12 @@
         "stories": 4,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Default: textarea placeholder \"Message the assistant…\": the only label is the placeholder, which disappears on input",
+          "Test: interactions: textarea placeholder \"Message the assistant…\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -3662,6 +3714,12 @@
         "stories": 6,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Controlled: div[role=textbox] \"script\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Read-only: div[role=textbox] \"generated config read only\": named only by aria-label / title, nothing on screen says what goes in it"
+        ]
       }
     },
     {
@@ -3829,7 +3887,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "partial",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -3841,6 +3899,31 @@
         "stories": 10,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Controlled: button[type=button][role=combobox] \"color format\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Custom only: button[type=button][role=combobox] \"color format\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Default: button[type=button][role=combobox] \"color format\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Default: input \"red\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Default: input \"green\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Default: input \"blue\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Default: input \"opacity percent\": named only by aria-label / title, nothing on screen says what goes in it",
+          "From photo: button[type=button][role=combobox] \"color format\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Hex only: input \"hex\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Invalid hex: button[type=button][role=combobox] \"color format\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Test: interactions: button[type=button][role=combobox] \"color format\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Test: interactions: input \"red\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Test: interactions: input \"green\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Test: interactions: input \"blue\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Test: interactions: input \"opacity percent\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With opacity: button[type=button][role=combobox] \"color format\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With opacity: input \"red\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With opacity: input \"green\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With opacity: input \"blue\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With opacity: input \"opacity percent\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With presets: button[type=button][role=combobox] \"color format\": named only by aria-label / title, nothing on screen says what goes in it"
+        ]
       }
     },
     {
@@ -3936,7 +4019,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -3948,6 +4031,21 @@
         "stories": 11,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Height sizes (m / s): input[role=combobox] placeholder \"Select framework… (m, default)\": the only label is the placeholder, which disappears on input",
+          "Height sizes (m / s): input[role=combobox] placeholder \"Select framework… (s)\": the only label is the placeholder, which disappears on input",
+          "Test: keyboard navigation: input[role=combobox] placeholder \"Select framework…\": the only label is the placeholder, which disappears on input",
+          "Loading: input[role=combobox] placeholder \"Select framework…\": the only label is the placeholder, which disappears on input",
+          "Multiple: input[role=combobox] \"frameworks\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Multiple — allowCreate + delimiter: input[role=combobox] placeholder \"Select or type new…\": the only label is the placeholder, which disappears on input",
+          "Playground: input[role=combobox] placeholder \"Search…\": the only label is the placeholder, which disappears on input",
+          "Read-only: input[role=combobox] \"frameworks\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Single: input[role=combobox] placeholder \"Select framework…\": the only label is the placeholder, which disappears on input",
+          "Single — allowCreate: input[role=combobox] placeholder \"Select or type…\": the only label is the placeholder, which disappears on input",
+          "With clear button: input[role=combobox] placeholder \"Select framework…\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -4048,7 +4146,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "n/a",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -4060,6 +4158,18 @@
         "stories": 10,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Async fetch: input[role=combobox] placeholder \"Search galleries…\": the only label is the placeholder, which disappears on input",
+          "Disabled item: input[role=combobox] placeholder \"Run a command…\": the only label is the placeholder, which disappears on input",
+          "Empty: input[role=combobox] placeholder \"Search…\": the only label is the placeholder, which disappears on input",
+          "Entity results: input[role=combobox] placeholder \"Search client portals…\": the only label is the placeholder, which disappears on input",
+          "Inline: input[role=combobox] placeholder \"Type a command or search…\": the only label is the placeholder, which disappears on input",
+          "Loading: input[role=combobox] placeholder \"Search galleries…\": the only label is the placeholder, which disappears on input",
+          "With breadcrumb: input[role=combobox] placeholder \"Search settings…\": the only label is the placeholder, which disappears on input",
+          "With icons and descriptions: input[role=combobox] placeholder \"Search galleries, pages and ac\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -4846,7 +4956,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -4858,6 +4968,21 @@
         "stories": 6,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "All kinds: input \"gallery\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Editable: input \"title for golden hour\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Editable: input \"client portal for golden hour\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Kinds: input \"title for golden hour\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Kinds: input \"title for blue hour\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Kinds: input[type=text][role=spinbutton] \"photos in golden hour\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Kinds: input[type=text][role=spinbutton] \"photos in blue hour\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Kinds: input[role=combobox] placeholder \"Select…\": the only label is the placeholder, which disappears on input",
+          "Kinds: input[role=combobox] \"photographer for golden hour\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Kinds: input[role=combobox] \"photographer for blue hour\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Read-only: button[type=button][role=combobox] \"license for golden hour\": named only by aria-label / title, nothing on screen says what goes in it"
+        ]
       }
     },
     {
@@ -4974,7 +5099,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "n/a",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -4986,6 +5111,14 @@
         "stories": 5,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Default: input placeholder \"Filter galleries…\": the only label is the placeholder, which disappears on input",
+          "Overflow: input placeholder \"Filter galleries…\": the only label is the placeholder, which disappears on input",
+          "Selected: input placeholder \"Filter galleries…\": the only label is the placeholder, which disappears on input",
+          "Test: interactions: input placeholder \"Filter galleries…\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -5245,7 +5378,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -5257,6 +5390,15 @@
         "stories": 8,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Date First: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input",
+          "Default: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input",
+          "24-hour: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input",
+          "Preselected: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input",
+          "Preselected Midnight: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -6216,7 +6358,7 @@
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "n/a",
-        "1.4.1": "untested",
+        "1.4.1": "fails",
         "1.4.2": "product",
         "1.4.3": "verified",
         "1.4.4": "verified",
@@ -6265,6 +6407,11 @@
         "stories": 2,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "1.4.1": [
+          "Default: link \"Open the folder\" in \"Long reads you saved for the w…\": told apart from the text around it by colour only (2.62:1, needs an underline or 3:1 with a hover cue)"
+        ]
       }
     },
     {
@@ -6686,7 +6833,7 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "verified",
+        "1.4.4": "untested",
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "deviation",
@@ -6917,7 +7064,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -6929,6 +7076,15 @@
         "stories": 6,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Default: input[type=text][role=combobox] \"filter galleries\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Empty: input[type=text][role=combobox] placeholder \"Filter or search…\": the only label is the placeholder, which disappears on input",
+          "Live List: input[type=text][role=combobox] placeholder \"Filter or search…\": the only label is the placeholder, which disappears on input",
+          "Mobile: input[type=text][role=combobox] \"filter galleries\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Test: interactions: input[type=text][role=combobox] \"filter galleries\": named only by aria-label / title, nothing on screen says what goes in it"
+        ]
       }
     },
     {
@@ -7215,6 +7371,11 @@
         "stories": 3,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "In PromptArea: textarea placeholder \"Ask anything…\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -8421,7 +8582,7 @@
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "deviation",
-        "1.4.12": "verified",
+        "1.4.12": "partial",
         "1.4.13": "verified",
         "2.1.1": "verified",
         "2.1.2": "verified",
@@ -8509,9 +8670,9 @@
         "1.4.1": "untested",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
-        "1.4.10": "untested",
+        "1.4.10": "verified",
         "1.4.11": "partial",
         "1.4.12": "partial",
         "1.4.13": "partial",
@@ -8527,17 +8688,17 @@
         "2.4.4": "partial",
         "2.4.5": "product",
         "2.4.6": "untested",
-        "2.4.7": "untested",
+        "2.4.7": "verified",
         "2.4.11": "untested",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "untested",
+        "2.5.3": "verified",
         "2.5.4": "library",
         "2.5.7": "n/a",
         "2.5.8": "verified",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "partial",
+        "3.2.1": "verified",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -8801,7 +8962,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -8813,6 +8974,11 @@
         "stories": 4,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Typing: input placeholder \"+1 (___) ___-____\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -9460,7 +9626,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -9472,6 +9638,17 @@
         "stories": 7,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Playground: input[type=text][role=spinbutton] \"quantity\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Typing commits on blur/Enter: input[type=text][role=spinbutton] \"replicas 5 50\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Widths: input[type=text][role=spinbutton] \"width sm\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Widths: input[type=text][role=spinbutton] \"width md\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Widths: input[type=text][role=spinbutton] \"width lg\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Widths: input[type=text][role=spinbutton] \"width sm height sm\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With min/max: input[type=text][role=spinbutton] \"quantity 0 10\": named only by aria-label / title, nothing on screen says what goes in it"
+        ]
       }
     },
     {
@@ -10646,7 +10823,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -10658,6 +10835,24 @@
         "stories": 15,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Busy: textarea placeholder \"Send a message…\": the only label is the placeholder, which disappears on input",
+          "Default: textarea placeholder \"Send a message…\": the only label is the placeholder, which disappears on input",
+          "Edit last message (Up arrow): textarea placeholder \"Send a message…\": the only label is the placeholder, which disappears on input",
+          "Test: interactions: textarea placeholder \"Send a message…\": the only label is the placeholder, which disappears on input",
+          "With attachments: textarea placeholder \"Drop a file, paste an image, o\": the only label is the placeholder, which disappears on input",
+          "With context pills: textarea placeholder \"Ask about the attached context\": the only label is the placeholder, which disappears on input",
+          "With Mentions: textarea placeholder \"Type \"@\" to mention someone…\": the only label is the placeholder, which disappears on input",
+          "With model picker: textarea placeholder \"Send a message…\": the only label is the placeholder, which disappears on input",
+          "With model picker: button[type=button][role=combobox] \"model\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With recent prompts: textarea placeholder \"Send a message…\": the only label is the placeholder, which disappears on input",
+          "With slash commands: textarea placeholder \"Type \"/\" for a quick command…\": the only label is the placeholder, which disappears on input",
+          "With suggested prompts: textarea placeholder \"Send a message…\": the only label is the placeholder, which disappears on input",
+          "With tool toggles: textarea placeholder \"Send a message…\": the only label is the placeholder, which disappears on input",
+          "With voice input: textarea placeholder \"Send a message…\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -11187,7 +11382,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "n/a",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -11199,6 +11394,12 @@
         "stories": 4,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Default: button[type=button][role=combobox] \"field\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Ranges and types: button[type=button][role=combobox] \"field\": named only by aria-label / title, nothing on screen says what goes in it"
+        ]
       }
     },
     {
@@ -12143,7 +12344,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -12155,6 +12356,17 @@
         "stories": 12,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Long options: button[type=button][role=combobox] \"export folder\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With badge: button[type=button][role=combobox] \"assignee\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With description: button[type=button][role=combobox] \"plan\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With groups: button[type=button][role=combobox] \"fruit\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With icons: button[type=button][role=combobox] \"section\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With media icons: button[type=button][role=combobox] \"export preset\": named only by aria-label / title, nothing on screen says what goes in it",
+          "With status: button[type=button][role=combobox] \"export\": named only by aria-label / title, nothing on screen says what goes in it"
+        ]
       }
     },
     {
@@ -13017,7 +13229,7 @@
         "1.4.5": "product",
         "1.4.10": "verified",
         "1.4.11": "n/a",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "n/a",
         "2.1.2": "n/a",
@@ -14081,7 +14293,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -14093,6 +14305,14 @@
         "stories": 9,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Default: input \"tags\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Sizes: input \"tags\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Space Separated: input \"tags\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Test: interactions: input \"tags\": named only by aria-label / title, nothing on screen says what goes in it"
+        ]
       }
     },
     {
@@ -14370,7 +14590,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -14382,6 +14602,11 @@
         "stories": 12,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "No label: input placeholder \"Search…\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -14460,7 +14685,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -14472,6 +14697,11 @@
         "stories": 10,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "No label: textarea placeholder \"Tell us about yourself\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -14740,7 +14970,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -14752,6 +14982,16 @@
         "stories": 8,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Custom step (15 min): input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input",
+          "Default: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input",
+          "24-hour: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input",
+          "Min/max range: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input",
+          "Preselected: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input",
+          "Test: interactions: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -14831,7 +15071,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -14843,6 +15083,14 @@
         "stories": 7,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Default: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input",
+          "24-hour: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input",
+          "Preselected: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input",
+          "Test: interactions: input[role=combobox] placeholder \"Select time\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -15460,7 +15708,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "n/a",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -15472,6 +15720,14 @@
         "stories": 6,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Default: input[type=text] placeholder \"Search…\": the only label is the placeholder, which disappears on input",
+          "Mobile: input[type=text] placeholder \"Search…\": the only label is the placeholder, which disappears on input",
+          "Search: input[type=text] placeholder \"Search galleries…\": the only label is the placeholder, which disappears on input",
+          "With buttons: button[type=button][role=combobox] \"sort by\": named only by aria-label / title, nothing on screen says what goes in it"
+        ]
       }
     },
     {
@@ -16738,7 +16994,7 @@
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "verified",
-        "1.4.1": "verified",
+        "1.4.1": "fails",
         "1.4.2": "product",
         "1.4.3": "verified",
         "1.4.4": "verified",
@@ -16787,6 +17043,20 @@
         "stories": 4,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "1.4.1": [
+          "Default: link \"Terms of Service\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
+          "Default: link \"Privacy Policy\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
+          "Email Taken: link \"Sign in\" in \"There’s already an account for…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Email Taken: link \"reset the password\" in \"There’s already an account for…\": told apart from the text around it by colour only (1.00:1, needs an underline or 3:1 with a hover cue)",
+          "Email Taken: link \"Terms of Service\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
+          "Email Taken: link \"Privacy Policy\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
+          "Short password: link \"Terms of Service\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
+          "Short password: link \"Privacy Policy\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
+          "Test: interactions: link \"Terms of Service\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)",
+          "Test: interactions: link \"Privacy Policy\" in \"By creating an account you agr…\": told apart from the text around it by colour only (1.58:1, needs an underline or 3:1 with a hover cue)"
+        ]
       }
     },
     {
@@ -16973,7 +17243,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "n/a",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -16985,6 +17255,14 @@
         "stories": 4,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Default: input[type=search] placeholder \"Search events\": the only label is the placeholder, which disappears on input",
+          "Empty: input[type=search] placeholder \"Search events\": the only label is the placeholder, which disappears on input",
+          "Loading: input[type=search] placeholder \"Search events\": the only label is the placeholder, which disappears on input",
+          "Test: interactions: input[type=search] placeholder \"Search events\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -17370,7 +17648,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "n/a",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -17382,6 +17660,18 @@
         "stories": 8,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Test: chip focus: button[type=button][role=combobox] \"sort by\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Default: button[type=button][role=combobox] \"sort by\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Test: empty state clear focus: button[type=button][role=combobox] \"sort by\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Narrow: button[type=button][role=combobox] \"sort by\": named only by aria-label / title, nothing on screen says what goes in it",
+          "No Results: button[type=button][role=combobox] \"sort by\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Test: show more focus: button[type=button][role=combobox] \"sort by\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Test: interactions: button[type=button][role=combobox] \"sort by\": named only by aria-label / title, nothing on screen says what goes in it",
+          "Test: untick keeps focus: button[type=button][role=combobox] \"sort by\": named only by aria-label / title, nothing on screen says what goes in it"
+        ]
       }
     },
     {
@@ -18709,11 +18999,11 @@
         "1.4.1": "verified",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
-        "1.4.10": "untested",
+        "1.4.10": "verified",
         "1.4.11": "n/a",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "n/a",
         "2.1.2": "n/a",
@@ -18790,11 +19080,11 @@
         "1.4.1": "n/a",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
-        "1.4.10": "untested",
+        "1.4.10": "verified",
         "1.4.11": "n/a",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "n/a",
         "2.1.2": "n/a",
@@ -19303,7 +19593,7 @@
         "1.4.3": "verified",
         "1.4.4": "verified",
         "1.4.5": "product",
-        "1.4.10": "fails",
+        "1.4.10": "verified",
         "1.4.11": "partial",
         "1.4.12": "verified",
         "1.4.13": "n/a",
@@ -19347,11 +19637,6 @@
         "stories": 9,
         "errors": 0,
         "findings": []
-      },
-      "autoFindings": {
-        "1.4.10": [
-          "Split with chips: page scrolls horizontally at 320px (content 329px in 320px): div 313px wide; div[data-slot=hero-media] 313px wide"
-        ]
       }
     },
     {
@@ -19389,11 +19674,11 @@
         "1.4.1": "n/a",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
-        "1.4.10": "untested",
+        "1.4.10": "verified",
         "1.4.11": "n/a",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
         "2.1.1": "n/a",
         "2.1.2": "n/a",
@@ -19471,35 +19756,35 @@
         "1.4.1": "untested",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
-        "1.4.10": "untested",
+        "1.4.10": "verified",
         "1.4.11": "partial",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "partial",
-        "2.1.2": "untested",
+        "2.1.1": "verified",
+        "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "untested",
+        "2.4.3": "verified",
         "2.4.4": "partial",
         "2.4.5": "product",
         "2.4.6": "untested",
-        "2.4.7": "untested",
+        "2.4.7": "verified",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "untested",
+        "2.5.3": "verified",
         "2.5.4": "library",
         "2.5.7": "n/a",
         "2.5.8": "verified",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "untested",
+        "3.2.1": "verified",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -20423,35 +20708,35 @@
         "1.4.1": "untested",
         "1.4.2": "product",
         "1.4.3": "verified",
-        "1.4.4": "untested",
+        "1.4.4": "verified",
         "1.4.5": "product",
-        "1.4.10": "untested",
+        "1.4.10": "verified",
         "1.4.11": "partial",
-        "1.4.12": "partial",
+        "1.4.12": "verified",
         "1.4.13": "n/a",
-        "2.1.1": "partial",
-        "2.1.2": "untested",
+        "2.1.1": "verified",
+        "2.1.2": "verified",
         "2.1.4": "n/a",
         "2.2.1": "n/a",
         "2.2.2": "n/a",
         "2.3.1": "library",
         "2.4.1": "product",
         "2.4.2": "product",
-        "2.4.3": "untested",
+        "2.4.3": "verified",
         "2.4.4": "partial",
         "2.4.5": "product",
         "2.4.6": "n/a",
-        "2.4.7": "untested",
+        "2.4.7": "verified",
         "2.4.11": "n/a",
         "2.5.1": "n/a",
         "2.5.2": "library",
-        "2.5.3": "untested",
+        "2.5.3": "verified",
         "2.5.4": "library",
         "2.5.7": "n/a",
         "2.5.8": "verified",
         "3.1.1": "product",
         "3.1.2": "product",
-        "3.2.1": "untested",
+        "3.2.1": "verified",
         "3.2.2": "n/a",
         "3.2.3": "product",
         "3.2.4": "product",
@@ -20560,7 +20845,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "n/a",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -20572,6 +20857,12 @@
         "stories": 4,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Loading: input[type=text][role=combobox] placeholder \"Search users…\": the only label is the placeholder, which disappears on input",
+          "Test: interactions: input[type=text][role=combobox] \"search users\": named only by aria-label / title, nothing on screen says what goes in it"
+        ]
       }
     },
     {
@@ -20625,7 +20916,7 @@
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "verified",
-        "1.4.1": "verified",
+        "1.4.1": "fails",
         "1.4.2": "product",
         "1.4.3": "verified",
         "1.4.4": "verified",
@@ -20674,6 +20965,14 @@
         "stories": 4,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "1.4.1": [
+          "Autoplay with Pause / Play: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)",
+          "Default: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)",
+          "Single image (no carousel chrome): link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)",
+          "With logo and back link: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)"
+        ]
       }
     },
     {
@@ -20725,7 +21024,7 @@
         "1.3.3": "product",
         "1.3.4": "library",
         "1.3.5": "verified",
-        "1.4.1": "verified",
+        "1.4.1": "fails",
         "1.4.2": "product",
         "1.4.3": "verified",
         "1.4.4": "verified",
@@ -20774,6 +21073,14 @@
         "stories": 4,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "1.4.1": [
+          "Default: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)",
+          "No SSO: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)",
+          "Sign-in error: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)",
+          "Test: interactions: link \"Create one\" in \"Don't have an account?…\": told apart from the text around it by colour only (1.17:1, needs an underline or 3:1 with a hover cue)"
+        ]
       }
     },
     {
@@ -21240,7 +21547,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "verified",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -21252,6 +21559,11 @@
         "stories": 4,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Test: interactions: input[type=text] placeholder \"selene-weddings.aether.photo\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -21634,7 +21946,7 @@
         "3.2.4": "product",
         "3.2.6": "product",
         "3.3.1": "n/a",
-        "3.3.2": "verified",
+        "3.3.2": "fails",
         "3.3.3": "product",
         "3.3.4": "product",
         "3.3.7": "product",
@@ -21646,6 +21958,14 @@
         "stories": 4,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Clear Recent: input[type=text][role=combobox] placeholder \"Search galleries, clients, set\": the only label is the placeholder, which disappears on input",
+          "Default: input[type=text][role=combobox] placeholder \"Search galleries, clients, set\": the only label is the placeholder, which disappears on input",
+          "Keyboard: input[type=text][role=combobox] placeholder \"Search galleries, clients, set\": the only label is the placeholder, which disappears on input",
+          "Test: interactions: input[type=text][role=combobox] placeholder \"Search galleries, clients, set\": the only label is the placeholder, which disappears on input"
+        ]
       }
     },
     {
@@ -21926,6 +22246,14 @@
         "stories": 4,
         "errors": 0,
         "findings": []
+      },
+      "autoFindings": {
+        "3.3.2": [
+          "Collapsed: input[type=text] placeholder \"Search...\": the only label is the placeholder, which disappears on input",
+          "Default: input[type=text] placeholder \"Search...\": the only label is the placeholder, which disappears on input",
+          "Minimal Topbar: input[type=text] placeholder \"Search...\": the only label is the placeholder, which disappears on input",
+          "Test: keyboard and nav: input[type=text] placeholder \"Search...\": the only label is the placeholder, which disappears on input"
+        ]
       }
     }
   ]

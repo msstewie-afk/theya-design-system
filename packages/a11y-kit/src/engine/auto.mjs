@@ -208,15 +208,20 @@ function linksByColorOnly() {
     if (el.getAttribute('role') || !el.checkVisibility?.({ opacityProperty: true, visibilityProperty: true })) continue;
     const text = (el.textContent ?? '').trim();
     if (!text) continue;
-    // In a run of text: the nearest ancestor that has text of its own outside the link.
+    // In a run of text: words on the link's own line, in the same block — text nodes
+    // and inline elements around it (a sentence with a link in it). A link whose
+    // neighbours are separate blocks (a file name over its size, a label over a
+    // value, a card title) is not in a run of text: F73 is about links in prose.
     let parent = el.parentElement;
     let around = '';
-    for (let d = 0; parent && d < 3; d++, parent = parent.parentElement) {
+    const inline = (n) => n.nodeType === 3 || (n.nodeType === 1 && /^inline/.test(getComputedStyle(n).display) && !n.matches('a, button, [role], style, script, template, noscript, svg, img') && n.checkVisibility?.() !== false);
+    for (let d = 0, child = el; parent && d < 3; d++, child = parent, parent = parent.parentElement) {
       if (parent.closest('nav, [role=navigation], [role=menu], [role=menubar], [role=tablist], [data-slot=breadcrumb], [data-slot=pagination]')) { parent = null; break; }
-      // Visible text only: a <style> or <script> sibling is not a run of text.
-      around = [...parent.childNodes].filter((n) => n.nodeType === 3 || (n !== el && !n.contains?.(el) && !n.matches?.('a, button, [role], style, script, template, noscript') && n.checkVisibility?.() !== false)).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim();
+      around = [...parent.childNodes].filter((n) => n !== child && inline(n)).map((n) => n.textContent).join(' ').replace(/\s+/g, ' ').trim();
       if (around.replace(/[^\p{L}\p{N}]/gu, '').length >= 3) break;
       around = '';
+      // Climb only through inline wrappers (a <strong>, a <span> in the sentence).
+      if (!/^inline/.test(getComputedStyle(parent).display)) { parent = null; break; }
     }
     if (!parent || !around) continue;
     // Only inline links: a link laid out as its own line or block is a different pattern.

@@ -1,6 +1,6 @@
 # Проверки доступности
 
-Генерируется `a11y-kit registry` из реестра набора и метаданных правил axe-core 4.12.1. Не править руками. Проверок: 113.
+Генерируется `a11y-kit registry` из реестра набора и метаданных правил axe-core 4.12.1. Не править руками. Проверок: 115.
 
 **Стадия**: code (код, без браузера), component (собранный Storybook), page (страницы продукта), manual (человек), pr (агент-ревьюер: мнение, сборку не роняет). **Глубина**: full — чистый результат подтверждает критерий для того, что отрисовано; part — одну его сторону; gate — находка делает ячейку красной, чистый результат сам ничего не доказывает; advisory — подсказка человеку, никогда не роняет. **Запуск**: для правил axe — запускается ли правило без явного включения по имени. **Калибровка**: на чём проверка доказана (axe: калибровка по правилу; свои проверки: калибровочные сториз, которые она должна поймать и пропустить). «—» — ещё не доказано.
 
@@ -42,6 +42,7 @@
 | `axe.css-orientation-lock` | 1.3.4 | page | part | experimental | page level: looks at the whole page; the scan root is an element | product | CSS Media queries must not lock display orientation |
 | `axe.autocomplete-valid` | 1.3.5 | component | part | default | caught | ds | autocomplete attribute must be used correctly |
 | `code.input-purpose` | 1.3.5 | code | gate | — | code:1.3.5-fail.tsx; code:1.3.5-pass.tsx | ds | Fields whose type, name or id names a personal-data purpose carry an autoComplete token; email/tel fields don't turn it off. |
+| `auto.link-color` | 1.4.1 | component | gate | — | Defect: a link in text told apart by colour only; Defect: a link at 3:1 against the text, nothing on hover; Clean: underlined, bold, and 3:1 with an underline on hover | ds | A link inside a run of text is set apart by more than colour: an underline, border, weight, style, background or icon; or 3:1 against the text around it plus a cue on hover (F73, G183). |
 | `axe.link-in-text-block` | 1.4.1 | component | part | default | caught | ds | Links must be distinguishable without relying on color |
 | `forced.checked-state` | 1.4.1, 4.1.2 | component | part | — | Defect: controls and an icon drawn only with fills | ds | With forced colors, a checked checkbox, radio or switch doesn't look like an unchecked one (when it differs in normal colors). |
 | `axe.no-autoplay-audio` | 1.4.2 | component | part | default | review only | ds | <video> or <audio> elements must not play automatically |
@@ -91,6 +92,7 @@
 | `auto.on-focus` | 3.2.1 | component | part | — | Defect: focusing a field changes the URL; Defect: focusing a field opens a modal dialog; Clean: a combobox shows its own popup on focus | ds | In the Tab pass, focus alone doesn't change the URL or open a modal dialog (a non-modal popup that leaves focus on the field, or one the focused control owns, is content, not context). |
 | `states.on-input` | 3.2.2 | component | part | — | Clean: a field and a checkbox that change nothing else; Defect: typing moves focus to another field; Defect: toggling a checkbox opens a dialog | ds | Typing in a field and toggling a checkbox or switch doesn't navigate, open a dialog or move focus away (selects and radios: a person). |
 | `tree.error-text` | 3.3.1 | component | full | — | — | ds | Every field marked aria-invalid points to a non-empty error text (aria-describedby or aria-errormessage on the field or its group). |
+| `auto.visible-label` | 3.3.2 | component | gate | — | Defect: a field labelled only by its placeholder; Defect: a field named only by aria-label; Clean: a label element, and a search field beside its button | ds | Every field shows on screen what goes in it: a label, a legend, visible text its aria-label repeats (G167); a placeholder alone or an aria-label alone is a finding. |
 | `axe.form-field-multiple-labels` | 3.3.2 | component | part | default | review only | ds | Form field must not have multiple label elements |
 | `code.authentication` | 3.3.8 | code | part | — | code:3.3.8-fail.tsx; code:3.3.8-pass.tsx | ds | Password inputs carry an autocomplete a password manager can use; no paste blocking in files with a password or login field. |
 | `axe.aria-allowed-attr` | 4.1.2 | component | part | default | caught | ds | Elements must only use supported ARIA attributes |
@@ -137,7 +139,7 @@
 | 1.3.3 Sensory Characteristics | A | product | вручную | — | — | manual.review |
 | 1.3.4 Orientation | AA | library | частично | — | `axe.css-orientation-lock` | manual.product |
 | 1.3.5 Identify Input Purpose | AA | ds | частично | `code.input-purpose`, `axe.autocomplete-valid` | — | — |
-| 1.4.1 Use of Color | A | ds | частично | `forced.checked-state`, `axe.link-in-text-block` | — | — |
+| 1.4.1 Use of Color | A | ds | частично | `forced.checked-state`, `auto.link-color`, `axe.link-in-text-block` | — | — |
 | 1.4.2 Audio Control | A | product | частично | — | `axe.no-autoplay-audio` | manual.product |
 | 1.4.3 Contrast (Minimum) | AA | ds | частично | `axe.color-contrast` | `tokens.pairs` | — |
 | 1.4.4 Resize Text | AA | ds | автоматически | — | `auto.resize-text`, `axe.meta-viewport` | — |
@@ -174,7 +176,7 @@
 | 3.2.4 Consistent Identification | AA | product | вручную | — | — | manual.product |
 | 3.2.6 Consistent Help | A | product | вручную | — | — | manual.product |
 | 3.3.1 Error Identification | A | ds | автоматически | — | `tree.error-text` | — |
-| 3.3.2 Labels or Instructions | A | ds | частично | — | `tree.field-label`, `axe.form-field-multiple-labels` | — |
+| 3.3.2 Labels or Instructions | A | ds | частично | `auto.visible-label` | `tree.field-label`, `axe.form-field-multiple-labels` | — |
 | 3.3.3 Error Suggestion | AA | product | вручную | — | — | manual.review |
 | 3.3.4 Error Prevention (Legal, Financial, Data) | AA | product | вручную | — | — | manual.product |
 | 3.3.7 Redundant Entry | A | product | вручную | — | — | manual.review |
