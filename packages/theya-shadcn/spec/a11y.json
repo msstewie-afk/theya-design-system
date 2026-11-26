@@ -162,6 +162,9 @@
       "evidence": [
         "review"
       ],
+      "gates": [
+        "a11y-code"
+      ],
       "counts": {
         "n/a": 150,
         "verified": 13
@@ -414,6 +417,9 @@
       "evidence": [
         "review"
       ],
+      "gates": [
+        "a11y-code"
+      ],
       "counts": {
         "n/a": 155,
         "untested": 1,
@@ -433,6 +439,9 @@
       "evidence": [
         "reducedMotion",
         "review"
+      ],
+      "gates": [
+        "a11y-code"
       ],
       "counts": {
         "n/a": 148,
