@@ -81,29 +81,27 @@ export const WithLabel: Story = {
 };
 
 /**
- * Over the end of the first line: part of one letter, never two. On a phone
- * a smaller stamp sits above the line. Resize to 360 to compare.
+ * At the end of the last line, over the corner of its last letter, never two.
+ * The offset is in em of the headline, so the bite is the same in every theme
+ * font and at every width; a phone takes the small stamp. Resize to 360.
  */
 export const OverHeadline: Story = {
   parameters: { layout: 'padded' },
   render: () => (
-    <div className="mx-auto max-w-3xl pb-10 pt-[clamp(5rem,9vw,7.5rem)]">
-      <div className="relative inline-block">
-        <h2 className="m-0 font-display-heavy text-display-xl uppercase leading-[0.9] text-[var(--color-text-text)]">
-          Burger
-          <br />
-          time
-        </h2>
-        {/* A phone gets the small stamp above the end of the line; from 640 px the medium one over part of the last letter. */}
-        <Stamp
-          size="sm"
-          tone="yellow"
-          tilt={12}
-          className="absolute bottom-full end-0 translate-x-1/2 translate-y-[25%] rtl:-translate-x-1/2 sm:end-auto sm:start-full sm:size-[clamp(6.5rem,11vw,9rem)] sm:text-body-m sm:-translate-x-[32%] sm:translate-y-[30%] rtl:sm:translate-x-[32%]"
-        >
-          New
-        </Stamp>
-      </div>
+    <div className="mx-auto max-w-3xl pb-[clamp(5rem,9vw,7.5rem)] pt-10">
+      <h2 className="m-0 font-display-heavy text-display-xl uppercase leading-[0.9] text-[var(--color-text-text)]">
+        Burger
+        <br />
+        time
+        {/* A zero-width anchor on the baseline, one cap height tall, right after the last letter: em offsets follow the headline. */}
+        <span className="relative inline-block h-[0.7em] w-0 align-baseline">
+          <span className="absolute -start-[0.22em] top-[0.7em] -translate-y-1/2">
+            <Stamp size="sm" tone="yellow" tilt={12} className="sm:size-[clamp(6.5rem,11vw,9rem)] sm:text-body-m">
+              New
+            </Stamp>
+          </span>
+        </span>
+      </h2>
     </div>
   ),
   play: async ({ canvasElement }) => {

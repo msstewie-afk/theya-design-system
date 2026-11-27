@@ -28,16 +28,19 @@ export const stampGuidelines: ComponentGuidelines = {
     {
       do: {
         example: (
-          <div className="pt-12">
-            <div className="relative inline-block">
-              <p className="m-0 font-display-heavy text-heading-xl uppercase leading-[0.9]">Fresh bread</p>
-              <Stamp size="sm" tone="orange" className="absolute bottom-full start-full -translate-x-[30%] translate-y-[30%] rtl:translate-x-[30%]">
-                New
-              </Stamp>
-            </div>
-          </div>
+          <p className="m-0 pb-6 pt-12 font-display-heavy text-heading-xl uppercase leading-[0.9]">
+            Fresh bread
+            {/* A zero-width anchor on the baseline, one cap height tall, right after the last letter. */}
+            <span className="relative inline-block h-[0.7em] w-0 align-baseline">
+              <span className="absolute -start-[0.22em] top-0 -translate-y-1/2">
+                <Stamp size="sm" tone="orange">
+                  New
+                </Stamp>
+              </span>
+            </span>
+          </p>
         ),
-        caption: 'At the end of a line, over part of one letter.',
+        caption: 'At the end of a line, over the corner of one letter. The offset is in em of the headline, so the bite stays the same at any size.',
       },
       dont: {
         example: (

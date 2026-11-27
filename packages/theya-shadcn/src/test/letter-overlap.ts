@@ -19,6 +19,8 @@ export function coveredLetters(text: Element, overlay: Element, grid = 8): Cover
   const ctx = doc.createElement('canvas').getContext('2d')!;
   const walker = doc.createTreeWalker(text, NodeFilter.SHOW_TEXT);
   for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+    // The overlay's own words (a stamp inside the headline) are not headline letters.
+    if (overlay.contains(node)) continue;
     const cs = getComputedStyle(node.parentElement ?? text);
     ctx.font = cs.font;
     const raw = node.textContent ?? '';

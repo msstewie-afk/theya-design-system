@@ -80,21 +80,18 @@ export const OverHeadline: Story = {
   parameters: { layout: 'padded' },
   render: () => (
     <div className="mx-auto max-w-3xl py-10">
-      <div className="relative inline-block">
+      <div className="relative inline-block text-display-xl">
         <h2 className="m-0 font-display-heavy text-display-xl uppercase leading-[0.9] text-[var(--color-text-text)]">
           Burger
           <br />
           time
         </h2>
-        <Sticker
-          asChild
-          size="lg"
-          tone="pink"
-          tilt={-6}
-          className="mt-6 sm:absolute sm:start-full sm:top-[38%] sm:mt-0 sm:-translate-x-[14%] rtl:sm:translate-x-[14%]"
-        >
-          <a href="#order">Order now</a>
-        </Sticker>
+        {/* From 640 px: an anchor in the headline's font size, so the em offset follows the headline. */}
+        <span className="mt-6 flex sm:absolute sm:start-[calc(100%-0.25em)] sm:top-[30%] sm:mt-0">
+          <Sticker asChild size="lg" tone="pink" tilt={-6}>
+            <a href="#order">Order now</a>
+          </Sticker>
+        </span>
       </div>
     </div>
   ),
