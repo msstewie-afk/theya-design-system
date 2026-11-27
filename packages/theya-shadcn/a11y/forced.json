@@ -6,7 +6,7 @@
     "icon-lost",
     "checked-same"
   ],
-  "date": "2026-11-26",
+  "date": "2026-11-27",
   "components": {
     "AccessTokens": {
       "stories": 3,
@@ -898,6 +898,11 @@
       "errors": 0,
       "findings": []
     },
+    "Stamp": {
+      "stories": 6,
+      "errors": 0,
+      "findings": []
+    },
     "Stat": {
       "stories": 11,
       "errors": 0,
@@ -920,6 +925,11 @@
     },
     "Stepper": {
       "stories": 9,
+      "errors": 0,
+      "findings": []
+    },
+    "Sticker": {
+      "stories": 5,
       "errors": 0,
       "findings": []
     },
