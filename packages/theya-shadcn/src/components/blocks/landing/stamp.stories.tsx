@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
+import { coveredLetters } from '../../../test/letter-overlap';
 import { Stamp } from './stamp';
 import { stampGuidelines } from './stamp.guidelines';
 
@@ -79,21 +80,37 @@ export const WithLabel: Story = {
   },
 };
 
-/** Over the corner of a headline: on a phone it touches one letter at most. Resize to 360 to compare. */
+/**
+ * Over the end of the first line: part of one letter, never two. On a phone
+ * a smaller stamp sits above the line. Resize to 360 to compare.
+ */
 export const OverHeadline: Story = {
   parameters: { layout: 'padded' },
   render: () => (
-    <div className="mx-auto max-w-3xl py-10">
-      <div className="relative inline-block pe-[clamp(3.25rem,5.5vw,4.5rem)] pt-[clamp(4.5rem,8vw,6.5rem)]">
+    <div className="mx-auto max-w-3xl pb-10 pt-[clamp(5rem,9vw,7.5rem)]">
+      <div className="relative inline-block">
         <h2 className="m-0 font-display-heavy text-display-xl uppercase leading-[0.9] text-[var(--color-text-text)]">
           Burger
           <br />
           time
         </h2>
-        <Stamp size="md" tone="yellow" tilt={12} ring="Fresh every day · Fresh every day · " className="absolute end-0 top-0">
+        {/* A phone gets the small stamp above the end of the line; from 640 px the medium one over part of the last letter. */}
+        <Stamp
+          size="sm"
+          tone="yellow"
+          tilt={12}
+          className="absolute bottom-full end-0 translate-x-1/2 translate-y-[25%] rtl:-translate-x-1/2 sm:end-auto sm:start-full sm:size-[clamp(6.5rem,11vw,9rem)] sm:text-body-m sm:-translate-x-[32%] sm:translate-y-[30%] rtl:sm:translate-x-[32%]"
+        >
           New
         </Stamp>
       </div>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const heading = within(canvasElement).getByRole('heading');
+    const stamp = canvasElement.querySelector('[data-slot="stamp"]')!;
+    const covered = coveredLetters(heading, stamp);
+    await expect(covered.length).toBeLessThanOrEqual(1);
+    for (const c of covered) await expect(c.share).toBeLessThanOrEqual(0.5);
+  },
 };

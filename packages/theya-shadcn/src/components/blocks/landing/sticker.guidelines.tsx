@@ -41,7 +41,8 @@ export const stickerGuidelines: ComponentGuidelines = {
             </Sticker>
           </div>
         ),
-        caption: 'Over the words of the headline. Overlap only the edge, and only from 640 px up.',
+        caption:
+          'Over two letters or more. From 640 px up a sticker may cover part of one letter, at the start or the end of a line; on a phone it never overlaps.',
       },
     },
   ],

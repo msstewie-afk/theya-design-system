@@ -28,14 +28,16 @@ export const stampGuidelines: ComponentGuidelines = {
     {
       do: {
         example: (
-          <div className="relative pe-10 pt-6">
-            <p className="m-0 font-display-heavy text-heading-xl uppercase leading-[0.9]">Fresh bread</p>
-            <Stamp size="sm" tone="orange" className="absolute -top-2 end-0">
-              New
-            </Stamp>
+          <div className="pt-12">
+            <div className="relative inline-block">
+              <p className="m-0 font-display-heavy text-heading-xl uppercase leading-[0.9]">Fresh bread</p>
+              <Stamp size="sm" tone="orange" className="absolute bottom-full start-full -translate-x-[30%] translate-y-[30%] rtl:translate-x-[30%]">
+                New
+              </Stamp>
+            </div>
           </div>
         ),
-        caption: 'Over the corner, touching at most one letter of a word.',
+        caption: 'At the end of a line, over part of one letter.',
       },
       dont: {
         example: (
@@ -46,7 +48,8 @@ export const stampGuidelines: ComponentGuidelines = {
             </Stamp>
           </div>
         ),
-        caption: 'In the middle of the headline: on a phone it hides whole letters.',
+        caption:
+          'Over two letters or more. The one exception is the designer’s call: a stamp in the middle of a very large headline, set by hand on that page.',
       },
     },
   ],

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
+import { coveredLetters } from '../../../test/letter-overlap';
 import { Sticker } from './sticker';
 import { stickerGuidelines } from './sticker.guidelines';
 
@@ -72,8 +73,8 @@ export const AsLink: Story = {
 };
 
 /**
- * Over the edge of a headline from 640 px up; under it on a phone, so no
- * word is covered. Resize to 360 to compare.
+ * From 640 px up it covers part of the last letter of a line, never two
+ * letters; on a phone it sits under the headline. Resize to 360 to compare.
  */
 export const OverHeadline: Story = {
   parameters: { layout: 'padded' },
@@ -85,10 +86,23 @@ export const OverHeadline: Story = {
           <br />
           time
         </h2>
-        <Sticker asChild size="lg" tone="pink" tilt={-6} className="mt-4 sm:absolute sm:end-0 sm:top-[42%] sm:mt-0 sm:translate-x-1/2 rtl:sm:-translate-x-1/2">
+        <Sticker
+          asChild
+          size="lg"
+          tone="pink"
+          tilt={-6}
+          className="mt-6 sm:absolute sm:start-full sm:top-[38%] sm:mt-0 sm:-translate-x-[14%] rtl:sm:translate-x-[14%]"
+        >
           <a href="#order">Order now</a>
         </Sticker>
       </div>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const heading = within(canvasElement).getByRole('heading');
+    const sticker = within(canvasElement).getByRole('link', { name: 'Order now' });
+    const covered = coveredLetters(heading, sticker);
+    await expect(covered.length).toBeLessThanOrEqual(1);
+    for (const c of covered) await expect(c.share).toBeLessThanOrEqual(0.5);
+  },
 };
