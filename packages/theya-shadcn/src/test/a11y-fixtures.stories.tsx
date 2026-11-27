@@ -923,11 +923,12 @@ export const OpensOwnPopup: Story = {
   parameters: { a11y: { expect: { tree: [], auto: [], states: [] } } },
 };
 
-/* 1.4.1 Use of Color: links inside a run of text (F73, G183). */
+/* 1.4.1 Use of Color: links inside a run of text (F73, G183). The paragraphs pin their colours
+   on a white ground, so the dark theme does not read them as text-contrast failures. */
 export const LinkColorOnly: Story = {
   name: 'Defect: a link in text told apart by colour only',
   render: () => (
-    <p style={{ color: '#333333' }}>
+    <p style={{ color: '#333333', background: '#ffffff' }}>
       Read the{' '}
       <a href="#terms" style={{ color: '#2a4d8f', textDecoration: 'none' }}>
         terms
@@ -940,7 +941,7 @@ export const LinkColorOnly: Story = {
 export const LinkNoHoverCue: Story = {
   name: 'Defect: a link at 3:1 against the text, nothing on hover',
   render: () => (
-    <p style={{ color: '#000000' }}>
+    <p style={{ color: '#000000', background: '#ffffff' }}>
       Read the{' '}
       <a href="#terms" style={{ color: '#0b6bcb', textDecoration: 'none' }}>
         terms
@@ -955,21 +956,21 @@ export const LinkCues: Story = {
   render: () => (
     <>
       <style>{'.fx-hover-link { color: #0b6bcb; text-decoration: none; } .fx-hover-link:hover { text-decoration: underline; }'}</style>
-      <p style={{ color: '#333333' }}>
+      <p style={{ color: '#333333', background: '#ffffff' }}>
         Read the{' '}
         <a href="#terms" style={{ textDecoration: 'underline' }}>
           terms
         </a>{' '}
         before you sign.
       </p>
-      <p style={{ color: '#333333' }}>
+      <p style={{ color: '#333333', background: '#ffffff' }}>
         Read the{' '}
         <a href="#privacy" style={{ color: '#2a4d8f', textDecoration: 'none', fontWeight: 700 }}>
           privacy notice
         </a>{' '}
         too.
       </p>
-      <p style={{ color: '#000000' }}>
+      <p style={{ color: '#000000', background: '#ffffff' }}>
         Or ask{' '}
         <a href="#support" className="fx-hover-link">
           support
@@ -985,7 +986,7 @@ export const LinkCues: Story = {
 export const LinkTooLong: Story = {
   name: 'Defect: a link in a sentence longer than three words',
   render: () => (
-    <p style={{ color: '#333333' }}>
+    <p style={{ color: '#333333', background: '#ffffff' }}>
       Before you sign,{' '}
       <a href="#terms" style={{ textDecoration: 'underline' }}>
         read the full terms of the service
