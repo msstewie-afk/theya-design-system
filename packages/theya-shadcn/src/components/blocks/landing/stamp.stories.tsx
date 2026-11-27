@@ -43,10 +43,11 @@ export const Shapes: Story = {
   ),
 };
 
-/** `sm`, `md`, `lg`: each grows with the window between its two sizes. */
+/** `xs`, `sm`, `md`, `lg`: each grows with the window between its two sizes. Pick it by the headline size. */
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-8">
+      <Stamp size="xs">New</Stamp>
       <Stamp size="sm">New</Stamp>
       <Stamp size="md">New</Stamp>
       <Stamp size="lg" tone="pink">
@@ -81,26 +82,26 @@ export const WithLabel: Story = {
 };
 
 /**
- * At the end of the last line, over the corner of its last letter, never two.
- * The offset is in em of the headline, so the bite is the same in every theme
- * font and at every width; a phone takes the small stamp. Resize to 360.
+ * One placement of many: above the end of the first line, touching the corner
+ * of its last letter. Where the stamp goes is the designer's call; Theya only
+ * checks the rule (part of one letter at most). A phone takes a smaller stamp.
  */
 export const OverHeadline: Story = {
   parameters: { layout: 'padded' },
   render: () => (
-    <div className="mx-auto max-w-3xl pb-[clamp(5rem,9vw,7.5rem)] pt-10">
+    <div className="mx-auto max-w-3xl pb-10 pt-[clamp(5rem,10vw,8rem)]">
       <h2 className="m-0 font-display-heavy text-display-xl uppercase leading-[0.9] text-[var(--color-text-text)]">
         Burger
-        <br />
-        time
-        {/* A zero-width anchor on the baseline, one cap height tall, right after the last letter: em offsets follow the headline. */}
+        {/* A zero-width anchor after the last letter, one cap height tall: em offsets follow the headline. */}
         <span className="relative inline-block h-[0.7em] w-0 align-baseline">
-          <span className="absolute -start-[0.22em] top-[0.7em] -translate-y-1/2">
-            <Stamp size="sm" tone="yellow" tilt={12} className="sm:size-[clamp(6.5rem,11vw,9rem)] sm:text-body-m">
+          <span className="absolute -start-[0.3em] bottom-[calc(100%-0.35em)]">
+            <Stamp size="xs" tone="yellow" tilt={12} className="sm:size-[clamp(6.5rem,11vw,9rem)] sm:text-body-m">
               New
             </Stamp>
           </span>
         </span>
+        <br />
+        time
       </h2>
     </div>
   ),

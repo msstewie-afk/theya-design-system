@@ -12,6 +12,8 @@ export const stampGuidelines: ComponentGuidelines = {
     <>
       Decoration by default. When the stamp is the only place that says it (an award, a guarantee), give it a <C>label</C>.
     </>,
+    'Where it goes is the designer’s call: above or below, at the start or the end of a line, wherever the composition needs it. Theya gives the rule, not a position: part of one letter at most.',
+    'Size follows the headline: xs next to heading sizes, sm or md next to display sizes, lg only on the largest display. A small headline never gets a big stamp.',
   ],
   whenNotToUse: [
     { text: 'Something to click', instead: 'Sticker' },
@@ -28,19 +30,19 @@ export const stampGuidelines: ComponentGuidelines = {
     {
       do: {
         example: (
-          <p className="m-0 pb-6 pt-12 font-display-heavy text-heading-xl uppercase leading-[0.9]">
+          <p className="m-0 pb-4 pt-14 font-display-heavy text-heading-xl uppercase leading-[0.9]">
             Fresh bread
-            {/* A zero-width anchor on the baseline, one cap height tall, right after the last letter. */}
+            {/* Placement is the designer's: here a zero-width anchor after the last letter, offsets in em of the headline. */}
             <span className="relative inline-block h-[0.7em] w-0 align-baseline">
-              <span className="absolute -start-[0.22em] top-0 -translate-y-1/2">
-                <Stamp size="sm" tone="orange">
+              <span className="absolute -start-[0.3em] bottom-[calc(100%-0.35em)]">
+                <Stamp size="xs" tone="orange">
                   New
                 </Stamp>
               </span>
             </span>
           </p>
         ),
-        caption: 'At the end of a line, over the corner of one letter. The offset is in em of the headline, so the bite stays the same at any size.',
+        caption: 'A small stamp for a small headline, above the end of the line, touching the corner of one letter.',
       },
       dont: {
         example: (

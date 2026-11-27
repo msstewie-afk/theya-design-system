@@ -14,8 +14,8 @@ export interface StampProps extends Omit<ComponentProps<'span'>, 'children'> {
   tone?: StampTone;
   /** Tilt in degrees, clamped to −15…+15. Default −8. */
   tilt?: number;
-  /** Fluid sizes: 'sm' 80–104px, 'md' 104–144px (default), 'lg' 128–192px. */
-  size?: 'sm' | 'md' | 'lg';
+  /** Fluid sizes, matched to the headline it sits on: 'xs' 56–72px (heading sizes), 'sm' 80–104px, 'md' 104–144px (default, display sizes), 'lg' 128–192px (the largest display). */
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   /** One to three short lines in the middle ("New", "Since 2014"). */
   children?: ReactNode;
   /** Text set around the edge (circle only), e.g. "Handmade · Small batch · ". */
@@ -35,6 +35,7 @@ const TONE: Record<StampTone, string> = {
 };
 
 const SIZE = {
+  xs: 'size-[clamp(3.5rem,5vw,4.5rem)] text-eyebrow-s',
   sm: 'size-[clamp(5rem,8vw,6.5rem)] text-eyebrow-s',
   md: 'size-[clamp(6.5rem,11vw,9rem)] text-body-m',
   lg: 'size-[clamp(8rem,14vw,12rem)] text-heading-xs',

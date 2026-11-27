@@ -25,7 +25,7 @@ Open these first, pick the closest one, then change its content. Don't lay out a
 - **One main action**, at most one more. On a phone they stack at full width.
 - **Text on a bright ground is dark.** Measure it: white on a saturated orange is about 2.7 : 1, which fails.
 - **One h1** per page: the hero's.
-- **A sticker or a stamp covers part of one letter at most** — usually the first or the last letter of a line. Two letters is never acceptable. Below 640 px `Sticker` sits under the headline, and a stamp takes the small size (`sm`) so it still touches one letter at most. The one exception is the designer’s call: a `Stamp` in the middle of a very large headline, set by hand on that page. A stamp is decoration by default: give it a `label` only when nothing else on the page says it. One sticker per screen.
+- **A sticker or a stamp covers part of one letter at most** — usually the first or the last letter of a line. Two letters is never acceptable. Below 640 px `Sticker` sits under the headline, and a stamp takes a smaller size so it still touches one letter at most. Where it goes (above or below, start or end of a line) and how big (the stamp follows the headline size: `xs` next to heading sizes) is the designer’s call. The one exception to the letter rule is also theirs: a `Stamp` in the middle of a very large headline, set by hand on that page. A stamp is decoration by default: give it a `label` only when nothing else on the page says it. One sticker per screen.
 
 ## 3. Which block for which task
 
